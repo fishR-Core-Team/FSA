@@ -1,0 +1,86 @@
+\name{psdCalc}
+\alias{psdCalc}
+\alias{pssCalc}
+\title{Convenience function for caculating PSD-X values.}
+\source{
+Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  New
+terminology for proportional stock density (PSD) and
+relative stock density (RSD): proportional size structure
+(PSS).  Fisheries 31:86-87.
+
+Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.
+2006.  Proportional size distribution (PSD): A further
+refinement of population size structure index terminology.
+Fisheries 32:348.
+}
+\usage{
+psdCalc(formula, data, species = "List", units = c("mm", "cm", "in"),
+  addLens = NULL, addNames = NULL, conf.level = 0.95,
+  digits = getOption("digits"))
+}
+\arguments{
+  \item{formula}{A formula of the form \code{~length} where
+  \dQuote{length} generically represents a variable in
+  \code{data} that contains length measurements.  Note that
+  this formula can only contain one variable.}
+
+  \item{data}{A data.frame that minimally contains the
+  length measurements given in the variable in the
+  \code{formula}.}
+
+  \item{species}{A string containing the species name for
+  which five-cell length categories exist.  See
+  \code{\link{psdVal}} for details.}
+
+  \item{units}{A string indicating the type of units used
+  for the length measurements. Choices are \code{mm} for
+  millimeters (DEFAULT), \code{cm} for centimeters, and
+  \code{in} for inches.}
+
+  \item{addLens}{A numeric vector that contains minimum
+  length definitions for additional categories.  See
+  \code{\link{psdVal}} for details.}
+
+  \item{addNames}{A string vector that contains names for
+  the additional length categories added with
+  \code{addLens}.  See \code{\link{psdVal}} for details.}
+
+  \item{conf.level}{A number indicating the level of
+  confidence to use for constructing confidence intervals
+  (default is \code{0.95}).}
+
+  \item{digits}{A numeric indicating the number of decimals
+  to round the result to.}
+}
+\value{
+A matrix with columns containing the computed PSD-X value
+and the associated confidence intervals.
+}
+\description{
+Convenience function for caculating PSD-X values for all
+lengths in the Gabelhouse five-cell categories.
+}
+\details{
+This computes the PSD-X values, with associated confidence
+intervals, for each represented length in the Gabelhouse
+five-cell length categories.
+}
+\section{fishR vignette}{
+  \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}
+}
+\examples{
+## Random length data
+# suppose this is yellow perch to the nearest mm
+yepdf <- data.frame(yepmm=c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),
+ rnorm(20,mean=300,sd=40)))
+
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",units="mm",digits=1)
+}
+\seealso{
+\code{\link{psdVal}}, \code{\link{psdPlot}},
+\code{\link{psdDataPrep}}, \code{\link{PSDlit}},
+\code{\link{tictactoe}}, \code{\link{tictactoeAdd}},
+\code{\link{lencat}}, and \code{\link{rcumsum}}.
+}
+\keyword{hplot}
+

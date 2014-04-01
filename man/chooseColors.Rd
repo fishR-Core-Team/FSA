@@ -1,0 +1,46 @@
+\name{chooseColors}
+\alias{chooseColors}
+\title{Create a list of colors from among a variety of color palettes.}
+\usage{
+chooseColors(pal = paletteChoices(), num, ...)
+}
+\arguments{
+  \item{pal}{A character that is the name of a palette.
+  Must be one of \dQuote{rich}, \dQuote{cm},
+  \dQuote{default}, \dQuote{grey}, \dQuote{gray},
+  \dQuote{heat}, \dQuote{jet}, \dQuote{rainbow},
+  \dQuote{topo}, or \dQuote{terrain}.}
+
+  \item{num}{The number of colors to be returned.}
+
+  \item{\dots}{Other arguments to the various palette
+  functions.}
+}
+\value{
+A vector of colors of length \code{num}.
+}
+\description{
+Create a list of colors from among a variety of color
+palettes.
+}
+\details{
+The \code{pal} argument
+}
+\examples{
+n <- 20
+# Color Wheels
+pie(rep(1,n), col=chooseColors("rich",n))
+pie(rep(1,n), col=chooseColors("rainbow",n))
+pie(rep(1,n), col=chooseColors("topo",n))
+pie(rep(1,n), col=chooseColors("gray",n))
+pie(rep(1,n), col=chooseColors("jet",n))
+}
+\seealso{
+\code{\link{rich.colors}} in \pkg{gplots},
+\code{\link{cm.colors}}, \code{\link{heat.colors}},
+\code{\link{topo.colors}}, \code{\link{terrain.colors}},
+\code{\link{rainbow}}, \code{\link{colorRampPalette}}, and
+\code{\link{colors}}.
+}
+\keyword{manip}
+

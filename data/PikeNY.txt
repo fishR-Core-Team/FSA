@@ -1,0 +1,28 @@
+# Summary number of captures, marked fish, and returned marked fish for northern pike
+#   in Buckthorn marsh.  Data obtained from Table C-1 of New York Power Authority.
+#   2004.  Use of buckhorn marsh and grand island tributaries by northern
+#   pike for spawning and as a nursery. Technical report, New York Power 
+#   Authority, January 2004. Niagara Power Project (FERC No. 2216).
+#
+date	n	m	R
+28-Mar	2	0	2				
+29-Mar	3	0	3				
+30-Mar	2	0	2				
+31-Mar	3	0	3				
+1-Apr	20	2	20				
+2-Apr	18	3	18				
+3-Apr	14	4	13				
+4-Apr	9	4	9				
+10-Apr	17	14	17				
+11-Apr	6	5	6				
+12-Apr	7	6	7				
+13-Apr	10	7	9				
+14-Apr	7	7	7				
+15-Apr	5	3	5				
+16-Apr	9	6	9				
+17-Apr	8	7	7				
+18-Apr	6	4	6				
+25-Apr	1	1	1				
+30-Apr	5	5	5				
+1-May	2	2	2				
+2-May	1	1	1				

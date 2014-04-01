@@ -1,0 +1,78 @@
+\name{Subset}
+\alias{Subset}
+\alias{Subset.data.frame}
+\title{Subsets a data frame and drops the unused levels.}
+\usage{
+Subset(x, ...)
+
+\method{Subset}{data.frame}(x, subset, select, drop = FALSE,
+  resetRownames = TRUE, ...)
+}
+\arguments{
+  \item{x}{A data frame.}
+
+  \item{subset}{logical expression indicating elements or
+  rows to keep: missing values are taken as false.}
+
+  \item{select}{expression, indicating columns to select
+  from a data frame.}
+
+  \item{drop}{passed on to \code{[} indexing operator.}
+
+  \item{resetRownames}{a logical indicating if the rownames
+  should be reset after the subsetting (\code{TRUE};
+  default).  Resetting rownames will simpley number the
+  rows from 1 to the number of rows in the result.}
+
+  \item{\dots}{further arguments to be passed to or from
+  other methods.}
+}
+\value{
+A data frame with the subsetted rows and selected
+variables.
+}
+\description{
+Subsets a data frame and drops the unused levels.
+}
+\details{
+This function is used only for data frames.  It is
+equivalent to the combined usage of \code{subset} and
+\code{drop.levels}.  Use \code{subset} for all other
+structures.
+}
+\note{
+Newbie students using R expect that when a factor variable
+is subsetted with \code{subset} that any original levels
+that are no longer used after the subsetting will be
+ignored.  This, however, is not the case and often results
+in tables with empty cells and figures with empty bars.
+One remedy is to use \code{drop.levels} immediately
+following the \code{subset} call.  This generally becomes a
+repetitive sequence for most newbie students; thus,
+\code{Subset} incorporates these two functions into one
+function.
+
+This is the code from \code{subset} with a catch for
+non-data.frames and a specific call to \code{drop.levels}
+just before the data.frame is returned. I also added an
+argument to allow resetting the row names.  Otherwise,
+there is really no new code here.
+}
+\examples{
+## The problem -- note use of unused level in the final table.
+levels(iris$Species)
+iris.set1 <- subset(iris,Species=="setosa" | Species=="versicolor")
+levels(iris.set1$Species)
+table(iris.set1$Species)
+
+## A simpler fix using Subset
+iris.set2 <- Subset(iris,Species=="setosa" | Species=="versicolor")
+levels(iris.set2$Species)
+table(iris.set2$Species)
+}
+\seealso{
+\code{subset}, \code{drop.levels} in \pkg{gdata}, and
+\code{dropUnusedLevels} in \pkg{Hmisc}.
+}
+\keyword{misc}
+

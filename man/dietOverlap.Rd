@@ -1,0 +1,183 @@
+\name{dietOverlap}
+\alias{dietOverlap}
+\alias{print.dietOverlap}
+\alias{summary.dietOverlap}
+\title{Computes indices of diet overlap between two species.}
+\usage{
+dietOverlap(diet1, diet2 = NULL, type = c("Horn", "Levins", "Morisita",
+  "Pianka", "Schoener"), prey = NULL, num1 = NULL, num2 = NULL,
+  N1 = NULL, N2 = NULL)
+
+\method{print}{dietOverlap}(x, ...)
+
+\method{summary}{dietOverlap}(object, verbose = TRUE,
+  digits = getOption("digits"), ...)
+}
+\arguments{
+  \item{diet1}{A numerical vector of \sQuote{amount} (count
+  or biomass) of prey items for the first predator.  Items
+  should be in the same order as amounts in \code{diet2}
+  and categories in \code{prey}.}
+
+  \item{diet2}{A numerical vector of \sQuote{amount} (count
+  or biomass) of prey items for the second predator.  Items
+  should be in the same order as amounts in \code{diet2}
+  and categories in \code{prey}.}
+
+  \item{type}{A single character indicating the type of
+  diet overlap index to compute. See details.}
+
+  \item{prey}{An optional character vector containing the
+  prey/diet category names.  If supplied the \code{prop}
+  matrix in the returned list will use these prey
+  categories as row names.  Items should be in the same
+  order as items in \code{diet1} and \code{diet2}.}
+
+  \item{num1}{A numerical vector of the number of
+  individuals of the first predator that consumed each prey
+  item.  Items should be in same order as amounts in
+  \code{diet1} and categories in \code{prey}.}
+
+  \item{num2}{A numerical vector of the number of
+  individuals of the second predator that consumed each
+  prey item.  Items should be in same order as amounts in
+  \code{diet1} and categories in \code{prey}.}
+
+  \item{N1}{A single numeric value that is the total number
+  of the first predator sampled.}
+
+  \item{N2}{A single numeric value that is the total number
+  of the second predator sampled.}
+
+  \item{object}{A \code{dietOverlap} object.}
+
+  \item{x}{A \code{dietOverlap} object.}
+
+  \item{verbose}{A single logical indicating whether more
+  verbose summary information should be printed.}
+
+  \item{digits}{A single numeric indicating the number of
+  digits to which the results should be printed.}
+
+  \item{\dots}{Additional arguments for the S3 methods.
+  Not implemented for \code{summary}.}
+}
+\value{
+The main function returns a list with the following three
+items: \itemize{ \item type A single string indicating the
+type of diet overlap indice used. \item doi A single
+numeric with the diet overlap index value is returned for
+all \code{type}s except for \sQuote{Levins} where a numeric
+vector of length two is returned with the overlap of the
+first predator on the second as the first value and the
+overlap of the second predator on the first as the second
+value. \item propdiet A matrix containing the proportion of
+the total diet in each of the diet items for each predator.
+}
+}
+\description{
+Computes various diet overlap indices between two species
+from summarized (i.e., not individual) diet data.
+}
+\details{
+NEED MORE DETAILS HERE
+}
+\note{
+Only the Pianka measurements have been tested against
+results from other softwares.
+}
+\examples{
+# Hypothetical data -- prey categories and biomasses in diets
+names <- c("bluegill","perch","minnows","bullheads","insects","zooplankton")
+lmb <- c(55,35,23,7,3,1)
+wae <- c(23,45,2,17,7,2)
+
+# demonstrate different indices (see below for Morisita)
+dietOverlap(lmb,wae,prey=names,type="Horn")
+dietOverlap(lmb,wae,prey=names,type="Levin")
+dietOverlap(lmb,wae,prey=names,type="Pianka")
+dietOverlap(lmb,wae,prey=names,type="Schoener")
+
+# demonstrate summary()
+do1 <- dietOverlap(lmb,wae,names,type="Horn")
+summary(do1)
+summary(do1,digits=3)
+
+# demonstrate using a single matrix rather than two separate vectors
+diet <- cbind(lmb,wae)
+rownames(diet) <- names
+dietOverlap(diet,prey=rownames(diet),type="Horn")
+
+# Continuation of first example with 'extra' info required for Morisita's index
+# Hypothetical numbers of fish with each food item (occurrence)
+num.lmb <- c(17,13,4,7,24,13)
+num.wae <- c(37,12,23,8,9,13)
+# Hypothetical total numbers of each predator
+N.lmb <- 30
+N.wae <- 40
+
+dietOverlap(lmb,wae,prey=names,type="Morisita",num1=num.lmb,num2=num.wae,N1=N.lmb,N2=N.wae)
+
+## An extended example which requires summarization of raw data
+data(TroutDietSL)
+# add percentage per fish, add zeroes for empty stomachs
+TroutDietSL$pvol.mysis <- TroutDietSL$vol.mysis/TroutDietSL$vol.ttl
+TroutDietSL$pvol.oi <- TroutDietSL$vol.oi/TroutDietSL$vol.ttl
+TroutDietSL$pvol.fish <- TroutDietSL$vol.fish/TroutDietSL$vol.ttl
+# add empty variable
+TroutDietSL$empty <- ifelse(TroutDietSL$vol.ttl==0,"YES","NO")
+# create TL from SL for Bull Trout using formula in paper -- TL=4.403+1.118SL
+TroutDietSL$tl[TroutDietSL$species=="BLT"] <- 4.403+1.118*TroutDietSL$sl[TroutDietSL$species=="BLT"]
+# add LCat length categories
+TroutDietSL <- lencat(~tl,data=TroutDietSL,breaks=c(0,350,500,650,950),right=TRUE)
+
+# isolate the non-empty fish (as the authors did)
+TroutDietSL1 <- Subset(TroutDietSL,empty=="NO")
+with(TroutDietSL1,table(species,LCat))
+
+# summarize by computing the mean percent of the three diet items
+mn.mysis <- aggregate(pvol.mysis~species*LCat,data=TroutDietSL1,FUN=mean)
+mn.oi <- aggregate(pvol.oi~species*LCat,data=TroutDietSL1,FUN=mean)
+mn.fish <- aggregate(pvol.fish~species*LCat,data=TroutDietSL1,FUN=mean)
+mndiet <- cbind(mn.mysis,mn.oi[,"pvol.oi"],mn.fish[,"pvol.fish"])
+colnames(mndiet)[3:5] <- c("mysis","oi","fish")
+# reorganize the result
+mndiet <- reshape(mndiet,direction="long",varying=c("mysis","oi","fish"),v.names="mnprop",
+                 idvar=c("species","LCat"),timevar="item",times=c("mysis","oi","fish"))
+mndiet <- reshape(mndiet,direct="wide",v.names="mnprop",idvar=c("item","LCat"),timevar="species")
+
+# Now compute diet overlap between same sized fishes of the two species
+dietOverlap(mndiet[mndiet$LCat=="0",3:4],prey=levels(mndiet$item),type="Schoener")
+dietOverlap(mndiet[mndiet$LCat=="350",3:4],prey=levels(mndiet$item),type="Schoener")
+dietOverlap(mndiet[mndiet$LCat=="500",3:4],prey=levels(mndiet$item),type="Schoener")
+dietOverlap(mndiet[mndiet$LCat=="650",3:4],prey=levels(mndiet$item),type="Schoener")
+}
+\references{
+Horn, H.S. 1966. Measurement of overlap in comparative
+ecological studies. American Naturalist 100:419-424.
+
+Krebs, C.J.  1989.  Ecological Methodology.  Harper
+Collins, New York.
+
+Levins, R. 1968. Evolution in changing environments: Some
+theoretical explorations. Princeton University Press,
+Princeton.
+
+Morisita, M. 1959. Measuring of interspecific association
+and similarity between communities. Memoirs of the Faculty
+of Science of Kyusha University.  Series in Evolutionary
+Biology 3:65-80.
+
+Pianka R.D. 1973.  The structure of lizard communities.
+Annual Review of Ecology and Systematics 4:53-74. Schoener,
+T.W. 1970. Nonsynchronous spatial overlap of lizards in
+patchy habitats. Ecology 51:408-418.
+
+Smith, E.P. and T.M. Zaret.  1982.  Bias in estimating
+niche overlap.  Ecology 63:1248-1253.
+}
+\seealso{
+\code{piankabio} in \pkg{pgirmess}.
+}
+\keyword{manip}
+

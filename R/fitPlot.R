@@ -1,0 +1,517 @@
+#'Fitted model plot for an lm, glm, or nls object.
+#'
+#'A generic function for constructing a fitted model plot for an \code{lm},
+#'\code{glm}, or \code{nls} object.  Supported objects are linear models from simple
+#'linear regression (SLR), indicator variable regression (IVR), one-way ANOVA,
+#'or two-way ANOVA models; general linear models that are logistic regressions
+#'with a binary response; and non-linear regression with a single numerical response
+#'variable, at least one continuous explanatory variable and up to two group-factor
+#'explanatory variables.
+#'
+#'This function does not work with a multiple linear regression, indicator
+#'variable regressions with more than two factors, ANOVAs other than one-way and
+#'two-way, or models with a categorical response variable.  In addition, if the
+#'linear model contains a factor then the model must be fit with the
+#'quantitative explanatory variable first, followed by the factor(s).  This
+#'function only works for non-linear models with two or fewer groups.
+#'
+#'This function is basically a wrapper to a variety of other functions.  For
+#'one-way or two-way ANOVAs the primary functions called are \code{interaction.plot}
+#'and \code{lineplot.CI}.  For simple linear regression the function performs similarly
+#'to \code{abline} except that the line is constrained to the domain.  For indicator
+#'variable regression the function behaves as if several \code{abline} functions had
+#'been called.
+#'
+#'A legend can be added to the plot in three different ways.  First, if
+#'\code{legend = TRUE} then the R console is suspended until the user places
+#'the legend on the graphic by clicking on the graphic at the point where the
+#'upper-left corner of the legend should appear.  Second, the \code{legend=}
+#'argument can be set to one of \code{"bottomright"}, \code{"bottom"},
+#'\code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"},
+#'\code{"topright"}, \code{"right"} and \code{"center"}.  In this case, the
+#'legend will be placed inside the plot frame at the given location.
+#'Finally, the \code{legend=} argument can be set to a vector of length two
+#'which identifies the plot coordinates for the upper-left corner of where the
+#'legend should be placed.  A legend will not be drawn if \code{legend = FALSE}
+#'or \code{legend = NULL}.  A legend also will not be drawn if there are not
+#'multiple groups in the model.
+#'
+#'@aliases fitPlot fitPlot.lm fitPlot.SLR fitPlot.IVR fitPlot.POLY
+#'fitPlot.ONEWAY fitPlot.TWOWAY fitPlot.nls fitPlot.glm fitPlot.logreg
+#'@param object An \code{lm} or \code{nls} object (i.e., returned from fitting
+#'a model with either \code{lm} or \code{nls}).
+#'@param interval In SLR or IVR, a string indicating whether to plot confidence
+#'(\code{="confidence"}) or prediction (\code{="prediction"}) intervals.  For a
+#'SLR object both can be plotted by using \code{="both"}.  In one-way or
+#'two-way ANOVA, a logical indicating whether the confidence intervals should
+#'be plotted or not.
+#'@param conf.level A decimal numeric indicating the level of confidence to use
+#'for confidence and prediction intervals.
+#'@param plot.pts A logical indicating (\code{TRUE} (default)) whether the
+#'points are plotted along with the fitted lines.  Set to \code{FALSE} to plot
+#'just the fitted lines.
+#'@param pch A numeric or vector of numerics indicating what plotting
+#'characther codes should be used.  In SLR this is the single value to be used
+#'for all points.  In IVR a vector is used to identify the characters for the
+#'levels of the second factor.
+#'@param col A vector of color names or numbers or the name of a paletted (see
+#'details) indicating what color of points and lines to use for the levels of
+#'the first factor in an IVR or the second factor in a two-way ANOVA.
+#'@param col.pt A string used to indicate the color of the plotted points.
+#'Used only for SLR and logistic regression objects.
+#'@param col.mdl A string used to indicate the color of the fitted line.  Used
+#'only for SLR and logistic regression objects.
+#'@param lwd A numeric used to indicate the line width of the fitted line.
+#'@param lty A numeric or vector of numerics used to indicate the type of line
+#'used for the fitted line.  In SLR this is a single value to be used for the
+#'fitted line.  In IVR a vector is used to identify the line types for the
+#'levels of the second factor.  See \code{par}.
+#'@param lty.ci a numeric used to indicate the type of line used for the
+#'confidence band lines for SLR objects or interval lines for one-way and
+#'two-way ANOVA.  For IVR, the confidence band types are controlled by
+#'\code{lty}.
+#'@param lty.pi a numeric used to indicate the type of line used for the
+#'prediction band lines for SLR objects.  For IVR, the prediction band types
+#'are controlled by \code{lty}.  See \code{par}.
+#'@param xlab a string for labelling the x-axis.
+#'@param ylab a string for labelling the y-axis.
+#'@param main a string for the main label to the plot.  Defaults to the model
+#'call.
+#'@param legend Controls use and placement of the legend.  See details.
+#'@param type The type of graphic to construct in a one-way and two-way ANOVA.
+#'If \code{"b"} then points are plotted and lines are used to connect points
+#'(DEFAULT).  If \code{"p"} then only points are used and if \code{"l"} then
+#'only lines are drawn.
+#'@param ci.fun A function used to put error bars on the one-way or two-way
+#'ANOVA graphs.  The default is to use the internal \code{ci.fp} function which
+#'will place t-distribution based confidence intervals on the graph.  The user
+#'can provide alternative functions that may plot other types of \sQuote{error
+#'bars}.  See examples in \code{lineplot.CI} function of \pkg{sciplot} package.
+#'@param col.ci A vector of color names or numbers or the name of a palette
+#'(see details) indicating what colors to use for the confidence interval bars
+#'in one-way and two-way ANOVAs.
+#'@param which A character string listing the factor in the two-way ANOVA for
+#'which the means should be calculated and plotted.  This argument is used to
+#'indicate for which factor a main effects plot should be constructed.  If left
+#'missing then an interaction plot is constructed.
+#'@param change.order A logical that is used to change the order of the factors
+#'in the \code{lm} object.  This is used to change which factor is plotted on
+#'the x-axis and which is used to connect the means when constructing an
+#'interaction plot (ignored if \code{which} is used).
+#'@param cex.leg A single numeric values used to represent the character
+#'expansion value for the legend.  Ignored if \code{legend=FALSE}.
+#'@param box.lty.leg A single numeric values used to indicate the type of line
+#'to use for the box around the legend.  The default is to not plot a box.
+#'@param d a data frame containing the variabls used in construction of the
+#'\code{nls} object.
+#'@param jittered a logical indicating whether the points should be jittered
+#'horizontally.
+#'@param legend.lbls A vector of strings that will be the labels for the legend
+#'in an nls fitPlot graphic.
+#'@param trans.pt A numeric indicating how many points would be plotted on top
+#'of each other in a logistic regression before the \sQuote{point} would have
+#'the full \code{pt.col} color.  The reciprocal of this value is the alpha
+#'transparency value.
+#'@param plot.p A logical indicating if the proportion for categorized values
+#'of X are plotted (\code{TRUE}; default).
+#'@param breaks A number indicating how many intervals over which to compute
+#'proportions or a numeric vector identifying the endpoints of the intervals
+#'over which to compute proportions if \code{plot.p=TRUE}.
+#'@param p.col A color to plot the proportions.
+#'@param p.pch A plotting character for plotting the proportions.
+#'@param p.cex A character expansion factor for plotting the proportions.
+#'@param mdl.vals A numer representing the number of values to use for plotting
+#'the logistic regression.  A larger number means a smoother line.
+#'@param xlim A vector of length two to control the x-axis in the logistic
+#'regression plot.  If this is changed from the default then the domain over
+#'which the logistic regression model is plotted will change.
+#'@param \dots Other arguments to be passed to the plot functions.
+#'@return None.  However, a fitted-line plot is produced.
+#'@note This function is meant to allow newbie students the ability to
+#'visualize the most common linear models found in an introductory or
+#'intermediate level undergraduate statistics course without getting
+#'\dQuote{bogged-down} in the gritty details of a wide variety of functions.
+#'This generic function and it's S3 functions allow the student to visualize
+#'the means plot of a one-way anova, the main effects and interaction plots of
+#'a two-way ANOVA, the fit of a simple linear regression, the fits of many
+#'lines in an indicator variable regression, and the fit of a non-linear model
+#'with a simple and mostly common set of arguments -- generally, all that is
+#'required is a fitted linear model of the type mentioned here as the first
+#'argument.  This function thus allows newbie students to interact with and
+#'visualize moderately complex linear models in a fairly easy and efficient
+#'manner.  THIS IS NOT A RESEARCH GRADE FUNCTION and the user should learn how
+#'to use the functions that this function is based on, build plots from \dQuote{scratch},
+#'or use more sophisticated plotting packages (e.g., \pkg{ggplot2} or \pkg{lattice}).
+#'@seealso \code{abline} in \pkg{graphics}; \code{reg.line} in \pkg{car}; 
+#'\code{plotmeans} in \pkg{gplots}; \code{plotMeans} in \pkg{Rcmdr}; \code{interaction.plot}
+#'in \pkg{stats}; \code{lineplot.CI} in \pkg{sciplot}; and \code{\link{residPlot}}.
+#'@keywords hplot models
+#'@examples
+#'## Linear models example
+#'data(Mirex)
+#'Mirex$year <- factor(Mirex$year)
+#'
+#'# Indicator variable regression with two factors
+#'lm1 <- lm(mirex~weight*year*species,data=Mirex)
+#'fitPlot(lm1)
+#'fitPlot(lm1,ylim=c(0,0.65),legend="topleft")
+#'
+#'# Indicator variable regression with one factor (also showing confidence bands)
+#'lm2 <- lm(mirex~weight*year,data=Mirex)
+#'fitPlot(lm2,legend="topleft")
+#'fitPlot(lm2,legend="topleft",interval="c")
+#'
+#'# Indicator variable regression with one factor (assuming parallel lines)
+#'lm3 <- lm(mirex~weight+year,data=Mirex)
+#'fitPlot(lm3,legend="topleft")
+#'fitPlot(lm3,legend="topleft",pch=5)
+#'
+#'# Simple linear regression (showing color change and confidence and prediction bands)
+#'lm4 <- lm(mirex~weight,data=Mirex)
+#'fitPlot(lm4,col.mdl="blue")
+#'fitPlot(lm4,interval="both")
+#'
+#'# One-way ANOVA
+#'lm5 <- lm(mirex~year,data=Mirex)
+#'fitPlot(lm5)
+#'
+#'# Two-way ANOVA (showing both interaction plots and a color change)
+#'lm6 <- lm(mirex~year*species,data=Mirex)
+#'fitPlot(lm6,legend="bottomleft")
+#'fitPlot(lm6,change.order=TRUE)
+#'fitPlot(lm6,change.order=TRUE,col="jet")
+#'
+#'# Two-way ANOVA (showing main effects plots)
+#'fitPlot(lm6,which="species")
+#'fitPlot(lm6,which="year")
+#'
+#'# Polynomial regression
+#'lm7 <- lm(mirex~weight+I(weight^2),data=Mirex)
+#'fitPlot(lm7,interval="both")
+#'
+#'## Non-linear model example
+#'data(Ecoli)
+#'lr.sv <- list(B1=6,B2=7.2,B3=-1.5)
+#'nl1 <- nls(cells~B1/(1+exp(B2+B3*days)),start=lr.sv,data=Ecoli)
+#'fitPlot(nl1,Ecoli,cex.main=0.7,lwd=2)
+#'fitPlot(nl1,Ecoli,xlab="Day",ylab="Cellsx10^6/ml",plot.pts=FALSE)
+#'
+#'
+#'## Logistic regression example
+#'
+#'
+#'@rdname fitPlot
+#'@export fitPlot
+fitPlot <- function (object, ...) {
+  UseMethod("fitPlot") 
+}
+
+#'@rdname fitPlot
+#'@method fitPlot lm
+#'@S3method fitPlot lm
+fitPlot.lm <- function(object, ...) {
+  object <- typeoflm(object)
+  if (object$type=="MLR") stop("Multiple linear regression objects are not supported by fitPlot.",call.=FALSE)
+  fitPlot(object,...)
+}
+
+#'@rdname fitPlot
+#'@method fitPlot SLR
+#'@S3method fitPlot SLR
+fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
+                         col.mdl="red",lwd=3,lty=1,
+                         interval=c("none","confidence","prediction","both"),
+                         conf.level=0.95,lty.ci=2,lty.pi=3,
+                         xlab=object$Enames[1],ylab=object$Rname,main="",
+                         ...) {
+  interval <- match.arg(interval)
+  # extract x and y variables
+  y <- object$mf[,object$Rname]
+  x <- object$mf[,object$Enames[1]]
+  # plot points in white to "disappear" if asked for
+  if (!plot.pts) col.pt="white"
+  plot(y~x,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,main=main,...)
+  # create predictions to draw the line
+  xvals <- seq(min(x),max(x),length.out=200)
+  newdf <- data.frame(xvals)
+  # sets name of variables so that predict() will work
+  names(newdf) <- object$Enames[1]
+  # computes predicted values (and CI for use later)
+  pred <- predict(object$mdl,newdf,interval="confidence")
+  # plot fitted line over range of data
+  lines(xvals,pred[,"fit"],col=col.mdl,lwd=lwd,lty=lty)
+  # puts CI on graph if asked for
+  if (interval %in% c("confidence","both")) {
+    lines(xvals,pred[,"upr"],col=col.mdl,lwd=1,lty=lty.ci)
+    lines(xvals,pred[,"lwr"],col=col.mdl,lwd=1,lty=lty.ci)
+  }
+  # puts PI on graph if asked for
+  if (interval %in% c("prediction","both")) {
+    pred <- predict(object$mdl,newdf,interval="prediction")
+    lines(xvals,pred[,"upr"],col=col.mdl,lwd=1,lty=lty.pi)
+    lines(xvals,pred[,"lwr"],col=col.mdl,lwd=1,lty=lty.pi)
+  }
+}
+
+
+#'@rdname fitPlot
+#'@method fitPlot IVR
+#'@S3method fitPlot IVR
+fitPlot.IVR <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
+                         col="rich",lty=c(1:6,1:6),lwd=3,
+                         interval=c("none","confidence","prediction","both"),conf.level=0.95,
+                         xlab=object$Enames[1],ylab=object$Rname,main="",
+                         legend="topright", ...) {
+  interval <- match.arg(interval)
+  if (object$Enum>3)
+    stop("fitPlot() cannot handle >1 covariate or >2 factors in an IVR.",call.=FALSE)
+  # extract y and x quantitative variables
+  y <- object$mf[,object$Rname]
+  x <- object$mf[,object$Enames[1]]
+  # extract the factor variable(s) from the 2nd and, possibly, 3rd positions
+  f1 <- object$mf[,object$Enames[2]]
+  ifelse(object$EFactNum==2,f2 <- object$mf[,object$Enames[3]],f2 <- as.factor(rep(1,length(y))))
+  # find number of levels of each factor
+  num.f1 <- length(levels(f1))
+  num.f2 <- length(levels(f2))
+  ### Handle colors -- one for each level of f1 factor unless only one color is given
+  if (length(col)<num.f1) {
+    if (length(col)>1) {
+      warning(paste("Fewer colors sent then levels of ",object$Enames[2],".  Changed to use rich colors.",sep=""),call.=FALSE)
+      col <- chooseColors("rich",num.f1)
+    } else {
+      # choose colors from given palette type
+      if (col %in% paletteChoices()) col <- chooseColors(col,num.f1)
+      # If one color given, repeat it so same color used for all levels
+      else col <- rep(col,num.f1)
+    }
+  }
+  ### Handle pchs -- one for each level of f2 factor unless only one pch is given
+  if (length(pch)>1 & num.f2 <= length(pch)) pch <- pch[1:num.f2]
+  else if (length(pch)==1 & num.f2>1) pch <- rep(pch,num.f2)
+  else if (length(pch)<num.f2) {
+    warning(paste("Fewer point types sent then levels of",object$Enames[3],".  Changed to default point types."),call.=FALSE)
+    pch <- c(16,21,15,22,17,24,c(3:14))[1:num.f2]
+  }
+  ### Handle ltys -- one for each level of f2 factor unless only one lty is given
+  if (length(lty)>1 & num.f2 <= length(lty)) lty <- lty[1:num.f2]
+  else if (length(lty)==1 & num.f2>1) lty <- rep(lty,num.f2)
+  else if (length(lty)<num.f2) {
+    warning(paste("Fewer line types sent then levels of",object$Enames[3],".  Changed to default line types."),call.=FALSE)
+    lty <- c(1:6,1:6)[1:num.f2]
+  }
+  ### Plot the points
+  # Creates plot schematic -- no points or lines
+  plot(y~x,col="white",xlab=xlab,ylab=ylab,main=main,...)
+  for (i in 1:num.f1) {
+    for (j in 1:num.f2) {
+      # Plots points w/ different colors & points
+      x.obs <- x[f1==levels(f1)[i] & f2==levels(f2)[j]]
+      y.obs <- y[f1==levels(f1)[i] & f2==levels(f2)[j]] 
+      if (plot.pts) points(x.obs,y.obs,col=col[i],pch=pch[j])
+      # Make the predictions at a bunch of values of x
+      xvals <- seq(min(x.obs),max(x.obs),length.out=200)
+      newdf <- data.frame(xvals,
+                          as.factor(rep(levels(f1)[i],length(xvals))),
+                          as.factor(rep(levels(f2)[j],length(xvals))))
+      names(newdf) <- object$Enames      
+      pred <- predict(object$mdl,newdf,interval="confidence")
+      # Plot just the line if no intervals called for
+      lines(xvals,pred[,"fit"],col=col[i],lwd=lwd,lty=lty[j])
+      # add CI if asked for
+      if (interval %in% c("confidence","both")) {
+        lines(xvals,pred[,"upr"],col=col[i],lwd=1,lty=lty[j])
+        lines(xvals,pred[,"lwr"],col=col[i],lwd=1,lty=lty[j])     
+      }
+      # add PI if asked for
+      if (interval %in% c("prediction","both")) {
+        pred <- predict(object$mdl,newdf,interval="prediction")
+        lines(xvals,pred[,"upr"],col=col[i],lwd=1,lty=lty[j])
+        lines(xvals,pred[,"lwr"],col=col[i],lwd=1,lty=lty[j])
+      }        
+    } # end for j
+  } # end for i
+  # Prepare list of col,pch,lty for legend
+  leg <- legendHelp(legend)
+  if (leg$do.legend) {
+    lcol <- rep(col,each=num.f2)
+    lpch <- rep(pch,times=num.f1)
+    llty <- rep(lty,times=num.f1)
+    ifelse(num.f2>1,levs<-levels(f1:f2),levs<-levels(f1))
+    if (plot.pts) legend(x=leg$x,y=leg$y,legend=levs,col=lcol,pch=lpch,lty=llty)
+    else legend(x=leg$x,y=leg$y,legend=levs,col=lcol,lty=llty)
+  }
+}
+
+
+#'@rdname fitPlot
+#'@method fitPlot POLY
+#'@S3method fitPlot POLY
+fitPlot.POLY <- function(object,...) {
+  fitPlot.SLR(object,...)
+}
+
+
+#'@rdname fitPlot
+#'@method fitPlot ONEWAY
+#'@S3method fitPlot ONEWAY
+fitPlot.ONEWAY <- function (object,
+                             xlab=object$Enames[1],ylab=object$Rname,main="",
+                             type="b",pch=16,lty=1,col="black",
+                             interval=TRUE,conf.level=0.95,ci.fun=ci.fp(conf.level),
+                             col.ci=col,lty.ci=1,
+                             ...) {
+  # extract x and y variables
+  response <- object$mf[,object$Rname]
+  x.factor <- object$mf[,object$Ename[1]]
+  if (interval) lineplot.CI(x.factor,response,main=main,xlab=xlab,ylab=ylab,
+                            type=type,pch=pch,lty=lty,col=col,legend=FALSE,
+                            ci.fun=ci.fun,err.col=col.ci,err.lty=lty.ci,...)
+  else interaction.plot(x.factor,rep(1,length(response)),response,
+                        main=main,xlab=xlab,ylab=ylab,type=type,
+                        pch=pch,lty=lty,col=col,legend=FALSE,...) 
+}
+
+
+#'@rdname fitPlot
+#'@method fitPlot TWOWAY
+#'@S3method fitPlot TWOWAY
+fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
+                            xlab=object$Enames[ord[1]],ylab=object$Rname,main="",
+                            type="b",pch=c(16,21,15,22,17,24,c(3:14)),lty=c(1:6,1:6,1:6),col="default",
+                            interval=TRUE,conf.level=0.95,ci.fun=ci.fp(conf.level),lty.ci=1,
+                            legend="topright",cex.leg=1,box.lty.leg=0,
+                            ...) {
+  # extract y variables
+  response <- object$mf[,object$Rname]
+  # find the factor variables
+  if (missing(which)) {
+    # need both factors, check to see if order was changed from model fit
+    ifelse(change.order,ord <- c(2,1),ord <- c(1,2))
+    x.factor <- object$mf[,object$Enames[ord[1]]]
+    group <- object$mf[,object$Enames[ord[2]]]
+    ngrps <- length(levels(group))
+  } else {
+    # one of the factors was chosen, pick just that variable
+    ord <- match(which,object$Enames)
+    x.factor <- object$mf[,object$Enames[ord[1]]]
+    # must handle "other" factor differently depending on if an interval is constructed
+    if(interval) group <- NULL
+    else group <- rep(1,length(response))
+    ngrps <- 1    
+  }
+  if (col %in% paletteChoices()) col <- chooseColors(col,ngrps)
+  else if(ngrps==1 & length(col)>1) col <- "black"
+  else if(ngrps!=1 & length(col)<ngrps) {
+    warning("A two-way ANOVA result is to be plotted but only one color was supplied.  Default colors were used.",call.=FALSE)
+    col <- chooseColors("default",ngrps)
+  }
+  if (interval) lineplot.CI(x.factor,response,group,main=main,xlab=xlab,ylab=ylab,
+                            type=type,pch=pch[1:ngrps],lty=lty[1:ngrps],col=col[1:ngrps],
+                            legend=FALSE,ci.fun=ci.fun,err.lty=lty.ci,...)
+  else interaction.plot(x.factor,group,response,main=main,xlab=xlab,ylab=ylab,
+                        type=type,pch=pch[1:ngrps],lty=lty[1:ngrps],col=col[1:ngrps],
+                        legend=FALSE,...) 
+  if(ngrps>1) {
+    leg <- legendHelp(legend)
+    legend(leg$x,leg$y,legend=levels(group),pch=pch[1:ngrps],lty=1:ngrps,col=col,cex=cex.leg,box.lty=box.lty.leg)
+  }
+}
+
+
+#'@rdname fitPlot
+#'@method fitPlot nls
+#'@S3method fitPlot nls
+fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col.pt,
+                        lwd=2,lty=1,plot.pts=TRUE,jittered=FALSE,
+                        legend=FALSE,legend.lbls=c("Group 1","Group 2"),
+                        ylab=names(mdl$model)[1],xlab=names(mdl$model)[xpos],main="", ...) {
+  # add the model option to the NLS object so that data can be extracted
+  mdl <- update(object,model=TRUE)
+  # finds number of variables in the model
+  numvars <- length(names(mdl$model))
+  if (missing(d)) { d <- mdl$data }
+    else if (!is.data.frame(d)) d <- as.data.frame(d)  # make sure that the data is a data.frame
+  # find y variable from model
+  y <- mdl$model[[1]]
+  if (numvars==2) {
+    # find position of x-variable and groups
+    xpos <- 2
+    gpos <- NULL
+  } else {
+    for (i in 2:numvars) {
+      if (!all(mdl$model[[i]]==0 | mdl$model[[i]]==1)) xpos <- i
+    }
+    gpos <- seq(1,4)[-c(1,xpos)]
+    g1 <- mdl$model[[gpos[1]]]
+    g2 <- mdl$model[[gpos[2]]]
+    if (length(pch)==1) pch <- rep(pch,2)
+    if (length(col.pt)==1) col.pt <- rep(col.pt,2)
+    if (length(col.mdl)==1) col.mdl <- rep(col.mdl,2)
+    if (length(lwd)==1) lwd <- rep(lwd,2)
+    if (length(lty)==1) lty <- rep(lty,2)
+  }
+  # find x variable from model
+  x <- mdl$model[[xpos]]
+  # create a vector of x values for making predictions -- large number to make smooth
+  fitx <- data.frame(seq(min(x),max(x),length.out=max(100,length(x))))
+  
+  if (numvars==2) {
+    # change name of x to name of x in model so that predict will work
+    names(fitx) <- names(mdl$model)[xpos]
+    # data.frame of x values and predicted y values from model
+    fits <- data.frame(x=fitx,y=predict(mdl,fitx))
+    names(fits) <- c("x","y")
+    # find limit for y-axis
+    ylmt <- range(c(y,fits$y))
+    if (jittered) x <- jitter(x)    
+    if (plot.pts) plot(x,y,pch=pch[1],col=col.pt[1],ylim=ylmt,xlab=xlab,ylab=ylab,main=main,...)
+      else plot(x,y,type="n",ylim=ylmt,xlab=xlab,ylab=ylab,main=main,...)
+    lines(fits$x,fits$y,lwd=lwd[1],lty=lty[1],col=col.mdl[1])
+  } else {
+    explg1 <- data.frame(x=fitx,g1=rep(1,length(fitx)),g2=rep(0,length(fitx)))
+    explg2 <- data.frame(x=fitx,g1=rep(0,length(fitx)),g2=rep(1,length(fitx)))
+    names(explg1) <- names(explg2) <- names(mdl$model)[c(xpos,gpos[1],gpos[2])]
+    fitsg1 <- data.frame(x=fitx,y=predict(mdl,explg1))
+    fitsg2 <- data.frame(x=fitx,y=predict(mdl,explg2))
+    names(fitsg1) <- names(fitsg2) <- c("x","y")
+    # find limit for y-axis
+    ylmt <- range(c(y,fitsg1$y,fitsg2$y))
+    if (jittered) x <- jitter(x)
+    plot(x,y,type="n",ylim=ylmt,xlab=xlab,ylab=ylab,main=main,...)
+    if (plot.pts) {
+      points(x[g1==1],y[g1==1],pch=pch[1],col=col.pt[1])
+      points(x[g2==1],y[g2==1],pch=pch[2],col=col.pt[2])
+    }
+    lines(fitsg1$x,fitsg1$y,lwd=lwd[1],lty=lty[1],col=col.mdl[1])
+    lines(fitsg2$x,fitsg2$y,lwd=lwd[2],lty=lty[2],col=col.mdl[2])
+    leg <- legendHelp(legend)
+    if (leg$do.legend) {
+      if (plot.pts) legend(x=leg$x,y=leg$y,legend=legend.lbls,col=col.pt,pch=pch,lty=lty)
+        else legend(x=leg$x,y=leg$y,legend=legend.lbls,col=col.mdl,lty=lty)
+    }
+  }
+} 
+
+#'@rdname fitPlot
+#'@method fitPlot glm
+#'@S3method fitPlot glm
+fitPlot.glm <- function(object, ...) {
+  if (object$family$family=="binomial" & object$family$link=="logit") fitPlot.logreg(object,...)
+    else stop("Currently only logistic regression GLM models are supported by fitPlot.",call.=FALSE)
+}
+
+#'@rdname fitPlot
+#'@method fitPlot logreg
+#'@S3method fitPlot logreg
+fitPlot.logreg <- function(object,xlab=names(object$model)[2],ylab=names(object$model)[1],main="",
+    plot.pts=TRUE,col.pt="black",trans.pt=NULL,
+    plot.p=TRUE,breaks=25,p.col="blue",p.pch=3,p.cex=1,
+    col.mdl="red",lwd=2,lty=1,mdl.vals=50,xlim=range(x),...) {
+  yc <- object$model[,1]
+  x <- object$model[,2]
+  plotBinResp(x,yc,xlab,ylab,plot.pts,col.pt,trans.pt,plot.p,breaks,p.col,p.pch,p.cex,main=main,xlim=xlim,...)
+  nd <- data.frame(seq(min(xlim),max(xlim),length.out=mdl.vals))
+  names(nd) <- names(object$model)[2]
+  lines(nd[,1],predict(object,nd,type="response"),col=col.mdl,lwd=lwd,lty=lty)
+}

@@ -1,0 +1,88 @@
+\name{srFuns}
+\alias{srFuns}
+\title{Creates a function for a specific stock-recruitment model parameterization.}
+\usage{
+srFuns(type = c("BevertonHolt", "Ricker"), param = 1, msg = FALSE)
+}
+\arguments{
+  \item{type}{A string indicating the type of the
+  stock-recruitment model.}
+
+  \item{param}{A numeric indicating the parameterization of
+  the stock-recruitment model type.}
+
+  \item{msg}{A logical indicating whether a message about
+  the model and parameter definitions should be output.}
+}
+\value{
+A function that can be used to predict recruitment given a
+vector of stock sizes and values for the model parameters.
+The result should be saved to an object that can then be
+used as a function name.  When the resulting function is
+used the parameters are ordered as shown when the
+definitions of the parameters are printed after the
+function is called (assuming that \code{msg=TRUE}).  The
+values for both parameters can be included as a vector of
+length two in the first parameter argument.
+}
+\description{
+Creates a function for a specific stock-recruitment model
+parameterization.
+}
+\note{
+Thanks to Greg Snow for a hint about returning the
+functions.
+}
+\section{fishR vignette}{
+  \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
+}
+\examples{
+## Simple Examples
+( bh1 <- srFuns() )               # Beverton-Holt #1 parameterization
+stock <- sample(1:1000,50)
+stock <- stock[order(stock)]
+plot(bh1(stock,a=0.5,b=0.01)~stock,type="b",pch=19)
+
+( r1 <- srFuns("Ricker") )       # Ricker #1 parameterization
+points(r1(stock,a=0.5,b=0.005)~stock,type="b",pch=19,col="red")
+
+## Examples of fitting stock-recruitment models
+data(CodNorwegian)
+
+# Fitting the Beverton-Holt #1 parameterization with multiplicative errors
+bh1s <- srStarts(recruits~stock,data=CodNorwegian)
+fit1 <- nls(log(recruits)~log(bh1(stock,a,b)),data=CodNorwegian,start=bh1s)
+summary(fit1,correlation=TRUE)
+plot(recruits~stock,data=CodNorwegian,pch=19,xlim=c(0,200))
+curve(bh1(x,a=coef(fit1)[1],b=coef(fit1)[2]),from=0,to=200,col="red",lwd=3,add=TRUE)
+
+# Fitting the Ricker #3 parameterization with multiplicative errors
+r3 <- srFuns("Ricker",param=3)
+r3s <- srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=3)
+fit2 <- nls(log(recruits)~log(r3(stock,a,Rp)),data=CodNorwegian,start=r3s)
+summary(fit2,correlation=TRUE)
+curve(r3(x,a=coef(fit2)[1],Rp=coef(fit2)[2]),from=0,to=200,col="blue",lwd=3,add=TRUE)
+}
+\references{
+Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of
+exploited fish populations, Fisheries Investigations
+(Series 2), volume 19. United Kingdom Ministry of
+Agriculture and Fisheries, 533 pp.
+
+Quinn II, T.J. and R.B. Deriso. 1999. Quantitative Fish
+Dynamics. Oxford University Press.
+
+Ricker, W.E. 1954. Stock and recruitment. Journal of the
+Fisheries Research Board of Canada 11:559-623.
+
+Ricker, W.E. 1975. Computation and interpretation of
+biological statistics of fish populations. Technical Report
+Bulletin 191, Bulletin of the Fisheries Research Board of
+Canada.
+}
+\seealso{
+\code{\link{srStarts}} and \code{\link{srModels}};
+\code{srSim} in \pkg{FSATeach}
+}
+\keyword{manip}
+

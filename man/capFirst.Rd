@@ -1,0 +1,39 @@
+\name{capFirst}
+\alias{capFirst}
+\title{Capitalizes the first letter of first or all words in a string.}
+\usage{
+capFirst(x, words = c("all", "first"))
+}
+\arguments{
+  \item{x}{A single string.}
+
+  \item{words}{A single character indicating whether all
+  (the default) or only the first words should be
+  capitalized.}
+}
+\value{
+A single string with the first letter of the first or all
+words capitalized.
+}
+\description{
+Capitalizes the first letter of first or all words in a
+string.
+}
+\examples{
+## Capitalize first letter of all words (the default)
+capFirst("Derek Ogle")
+capFirst("derek ogle")
+capFirst("derek")
+# apply to all elements in a vector
+vec <- c("Derek Ogle","derek ogle","Derek ogle","derek Ogle","DEREK OGLE")
+apply(matrix(vec),1,capFirst)
+
+## Capitalize first letter of only the first words
+capFirst("Derek Ogle",words="first")
+capFirst("derek ogle",words="first")
+capFirst("derek",words="first")
+# apply to all elements in a vector
+apply(matrix(vec),1,capFirst,words="first")
+}
+\keyword{manip}
+

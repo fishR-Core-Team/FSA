@@ -1,0 +1,32 @@
+\name{srModels}
+\alias{srModels}
+\title{Show the stock-recruitment model formulas implemented in FSA.}
+\usage{
+srModels(...)
+}
+\arguments{
+  \item{\dots}{Additional arguments for \code{plot}.
+  Generally not needed}
+}
+\value{
+A graphic that uses \code{plotmath} to show the model
+formulas in a pretty format.
+}
+\description{
+Show the stock-recruitment model formulas implemented in
+\code{\link{srFuns}}, \code{\link{srStarts}}, and
+\code{srSim} in \pkg{FSATeach}.
+}
+\section{fishR vignette}{
+  \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
+}
+\examples{
+srModels()
+}
+\seealso{
+\code{\link{srFuns}} and \code{\link{srStarts}};
+\code{srSim} in \pkg{FSATeach}
+}
+\keyword{hplot}
+\keyword{manip}
+

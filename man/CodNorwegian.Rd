@@ -1,0 +1,30 @@
+\docType{data}
+\name{CodNorwegian}
+\alias{CodNorwegian}
+\title{Stock and recruitment data for Norwegian cod,1937-1960.}
+\format{A data frame of 24 observations on the following 3 variables:
+\describe{ \item{year}{Year of data.} \item{recruits}{Recruits -- year-class
+strength index.} \item{stock}{Spawning stock index.} }}
+\source{
+From Garrod, D.J. 1967.  Population dynamics of the
+Arcto-Norwegian cod.  Journal of the Fisheries Research
+Board of Canada, 24:145-190.
+}
+\description{
+Norwegian cod (\emph{Gadus morhua}) stock and recruitment
+by year, 1937-1960.
+}
+\section{Topic(s)}{
+  \itemize{ \item Stock-recruit }
+}
+\examples{
+data(CodNorwegian)
+str(CodNorwegian)
+head(CodNorwegian)
+op <- par(mfrow=c(1,2))
+plot(recruits~year,data=CodNorwegian,type="l")
+plot(recruits~stock,data=CodNorwegian)
+par(op)
+}
+\keyword{datasets}
+

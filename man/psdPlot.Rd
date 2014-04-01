@@ -1,0 +1,146 @@
+\name{psdPlot}
+\alias{psdPlot}
+\alias{pssPlot}
+\title{Length-frequency histogram with PSD-X categories highlighted.}
+\source{
+Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  New
+terminology for proportional stock density (PSD) and
+relative stock density (RSD): proportional size structure
+(PSS).  Fisheries 31:86-87.
+
+Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.
+2006.  Proportional size distribution (PSD): A further
+refinement of population size structure index terminology.
+Fisheries 32:348.
+}
+\usage{
+psdPlot(formula, data, species = "List", units = c("mm", "cm", "in"),
+  startcat = 0, w = 1, justPSDQ = FALSE, main = "", xlab = "Length",
+  ylab = "Number", xlim = NULL, ylim = c(0, max(h$counts)),
+  substock.col = "white", stock.col = "gray90", psd.col = "red",
+  psd.lty = 2, psd.lwd = 1, legend.pos = "topright", legend.cex = 0.75,
+  ...)
+}
+\arguments{
+  \item{formula}{A formula of the form \code{~length} where
+  \dQuote{length} generically represents a variable in
+  \code{data} that contains length measurements.  Note that
+  this formula can only contain one variable.}
+
+  \item{data}{A data.frame that minimally contains the
+  length measurements given in the variable in the
+  \code{formula}.}
+
+  \item{species}{A string containing the species name for
+  which five-cell length categories exist.  See
+  \code{\link{psdVal}} for details.}
+
+  \item{units}{A string indicating the type of units used
+  for the length measurements. Choices are \code{mm} for
+  millimeters (DEFAULT), \code{cm} for centimeters, and
+  \code{in} for inches.}
+
+  \item{startcat}{A number indicating the beginning of the
+  first length-class.}
+
+  \item{w}{A number indicating the width of length classes
+  to create.}
+
+  \item{justPSDQ}{A logical indicating whether just stock
+  and quality (for PSD-Q calculations) categories should be
+  used.  If \code{FALSE} (default) then the five-cell
+  categories of Gabelhouse will be used.}
+
+  \item{main}{A string that serves as the main label for
+  the histogram.}
+
+  \item{xlab}{A string that serves as the label for the
+  x-axis.}
+
+  \item{ylab}{A string that serves as the label for the
+  y-axis.}
+
+  \item{xlim}{A numeric vector of length two indicating the
+  minimum and maximum values for the x-axis.}
+
+  \item{ylim}{A numeric vector of length two indicating the
+  minimum and maximum values for the y-axis.}
+
+  \item{substock.col}{A string indicating the color to use
+  for the bars representing under-stock size fish.}
+
+  \item{stock.col}{A string indicating the color to use for
+  the bars representing stock size fish.}
+
+  \item{psd.col}{A string indicating the color to use for
+  the vertical lines at the PSD category values.}
+
+  \item{psd.lty}{A numeric indicating the line type to use
+  for the vertical lines at the PSD category values.}
+
+  \item{psd.lwd}{A numeric indicating the line width to use
+  for the vertical lines at the PSD category values.}
+
+  \item{legend.pos}{A string indicating the position for
+  the legend text.}
+
+  \item{legend.cex}{A numeric value that indicates the
+  character expansion for the legend text.}
+
+  \item{\dots}{Arguments to be passed to the low-level
+  plotting functions.}
+}
+\value{
+None.  However, a graphic is produced.
+}
+\description{
+Constructs a length-frequency histogram with PSD-X
+categories highlighted.
+}
+\details{
+This function creates a length-frequency histogram with the
+stock-size fish highlighted, the Gabelhouse five-cell
+length category values marked by vertical lines, and
+superimposed calculations of PSD-X values.
+
+The length of fish plotted on the x-axis can be controlled
+with \code{xlim}, however, the minimum value in \code{xlim}
+must be less than the length of a stock size fish for that
+species.
+}
+\section{fishR vignette}{
+  \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}
+}
+\examples{
+## Random length data
+# suppose this is yellow perch to the nearest mm
+yepmm <- c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),rnorm(20,mean=300,sd=40))
+# same data to the nearest 0.1 cm
+yepcm <- yepmm/10
+# same data to the nearest 0.1 in
+yepin <- yepmm/25.4
+# put together as data.frame
+yepdf <- data.frame(yepmm,yepcm,yepin)
+
+## Example graphics
+op <- par(mfrow=c(2,2),mar=c(3.5,3.5,1,1),mgp=c(2,0.75,0))
+# mm data using 10-mm increments
+psdPlot(~yepmm,data=yepdf,species="Yellow perch",w=10)
+# cm data using 1-cm increments
+psdPlot(~yepcm,data=yepdf,species="Yellow perch",units="cm",w=1)
+# inch data using 1-in increments
+psdPlot(~yepin,data=yepdf,species="Yellow perch",units="in",w=1)
+# same as first with some color changes
+psdPlot(~yepmm,data=yepdf,species="Yellow perch",w=10,substock.col="gray90",stock.col="gray30")
+
+par(op)
+}
+\seealso{
+\code{\link{psdVal}}, \code{\link{psdCalc}},
+\code{\link{psdDataPrep}}, \code{\link{PSDlit}},
+\code{\link{lencat}}, \code{\link{tictactoe}},
+\code{\link{tictactoeAdd}}, \code{\link{lencat}}, and
+\code{\link{rcumsum}}.
+}
+\keyword{hplot}
+

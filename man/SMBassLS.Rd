@@ -1,0 +1,28 @@
+\docType{data}
+\name{SMBassLS}
+\alias{SMBassLS}
+\title{Catch-effort data for Little Silver Lake smallmouth bass.}
+\format{A data frame with 10 observations on the following 3 variables:
+\describe{ \item{day}{Day of the catch.} \item{catch}{Number of smallmouth
+bass caught.} \item{effort}{Number of traps set per day.} }}
+\source{
+From Omand, D.N. 1951. A study of populations of fish based
+on catch-effort statistics. Journal of Wildlife Management,
+15:88-98.
+}
+\description{
+Catch-effort data for smallmouth bass (\emph{Micropterus
+dolomieu}) in Little Silver Lake, ONT.
+}
+\section{Topic(s)}{
+  \itemize{ \item Depletion methods \item Leslie method
+  \item DeLury method \item Population size \item Abundance
+  \item Catchability }
+}
+\examples{
+data(SMBassLS)
+str(SMBassLS)
+head(SMBassLS)
+}
+\keyword{datasets}
+

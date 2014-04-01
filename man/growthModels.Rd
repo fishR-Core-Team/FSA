@@ -1,0 +1,32 @@
+\name{growthModels}
+\alias{growthModels}
+\alias{vbModels}
+\title{Show the growth model formulas implemented in the FSA package.}
+\usage{
+growthModels(...)
+}
+\arguments{
+  \item{\dots}{Additional arguments for \code{plot}.
+  Generally not needed}
+}
+\value{
+A graphic that uses \code{plotmath} to show the model
+formulas in a pretty format. \code{vbModels()} shows just
+the von Bertalanffy models.
+}
+\description{
+Show the growth model formulas implemented in
+\code{\link{vbFuns}}, \code{\link{vbStarts}}, and
+\code{growthModelSim} in \pkg{FSATeach}.
+}
+\examples{
+growthModels()
+vbModels()
+}
+\seealso{
+\code{\link{vbFuns}}, \code{\link{vbStarts}},
+\code{growthModelSim} in \pkg{FSATeach}
+}
+\keyword{hplot}
+\keyword{manip}
+

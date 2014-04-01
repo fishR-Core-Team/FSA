@@ -1,0 +1,225 @@
+\name{residPlot}
+\alias{residPlot}
+\alias{residPlot.IVR}
+\alias{residPlot.ONEWAY}
+\alias{residPlot.POLY}
+\alias{residPlot.SLR}
+\alias{residPlot.TWOWAY}
+\alias{residPlot.lm}
+\alias{residPlot.nls}
+\alias{residualPlot}
+\title{Construct a residual plot from lm or nls objects.}
+\usage{
+residPlot(object, ...)
+
+\method{residPlot}{lm}(object, ...)
+
+\method{residPlot}{SLR}(object, student = TRUE, outlier.test = TRUE,
+  loess = FALSE, alpha = 0.05, xlab = "Fitted Values",
+  ylab = "Residuals", main = NULL, pch = 16, col = "black",
+  lty.ref = 3, lwd.ref = 1, col.ref = "black", lty.loess = 2,
+  lwd.loess = 2, col.loess = "red", loess.f = 2/3, ...)
+
+\method{residPlot}{POLY}(object, ...)
+
+\method{residPlot}{IVR}(object, student = TRUE, outlier.test = TRUE,
+  loess = FALSE, alpha = 0.05, xlab = "Fitted Values",
+  ylab = "Residuals", main = NULL, pch = c(16, 21, 15, 22, 17, 24,
+  c(3:14)), col = "rich", lty.ref = 3, lwd.ref = 1, col.ref = "black",
+  lty.loess = 2, lwd.loess = 2, col.loess = "red", loess.f = 2/3,
+  legend = "topright", ...)
+
+\method{residPlot}{ONEWAY}(object, student = TRUE, bp = TRUE,
+  outlier.test = TRUE, loess = FALSE, alpha = 0.05,
+  xlab = "Fitted Values", ylab = "Residuals", main = NULL, pch = 16,
+  col = "black", lty.ref = 3, lwd.ref = 1, col.ref = "black",
+  lty.loess = 2, lwd.loess = 2, col.loess = "red", loess.f = 2/3, ...)
+
+\method{residPlot}{TWOWAY}(object, student = TRUE, bp = TRUE,
+  outlier.test = TRUE, loess = FALSE, alpha = 0.05,
+  xlab = "Fitted Values", ylab = "Residuals", main = NULL, pch = 16,
+  col = "black", lty.ref = 3, lwd.ref = 1, col.ref = "black",
+  lty.loess = 2, lwd.loess = 2, col.loess = "red", loess.f = 2/3, ...)
+
+\method{residPlot}{nls}(object, loess = FALSE, xlab = "Fitted Values",
+  ylab = "Residuals", main = "", pch = 16, col = "black", lty.ref = 3,
+  lwd.ref = 1, col.ref = "black", lty.loess = 2, lwd.loess = 2,
+  col.loess = "red", loess.f = 2/3, ...)
+}
+\arguments{
+  \item{object}{an \code{lm} or \code{nls} object (i.e.,
+  returned from fitting a model with either \code{lm} or
+  \code{nls}).}
+
+  \item{student}{logical; if \code{TRUE} (default) then
+  studentized residuals are plotted.}
+
+  \item{outlier.test}{logical; if \code{TRUE} (default)
+  then an \code{outlierTest} will be performed and if the
+  indivdiual with the largest studentized residual is
+  deemed to be a significant outlier it will be noted on
+  the residual plot by its observation number.}
+
+  \item{loess}{logical; if \code{TRUE} then a loess
+  smoother line is fit to and shown on the residual plot.}
+
+  \item{bp}{logical; if \code{TRUE} (default) then the plot
+  for the one-way and two-way ANOVA will be a boxplot.  If
+  \code{FALSE} then the plot will be a plot.}
+
+  \item{alpha}{a numeric indicating the alpha level to use
+  for the outlier test (only used if
+  \code{outlier.test=TRUE}).}
+
+  \item{xlab}{a string for labelling the x-axis.}
+
+  \item{ylab}{a string for labelling the y-axis.}
+
+  \item{main}{a string for the main label to the plot.
+  Defaults to the model call.}
+
+  \item{pch}{a numeric indicating the plotting charachter
+  to be used or a vector of numerics indicating what
+  plotting charachters codes to use for the levels of the
+  second factor.  See \code{par}.}
+
+  \item{col}{a vector of color names indicating what color
+  of points and lines to use for the levels of the first
+  factor.  See \code{par}.}
+
+  \item{lty.ref}{a numeric indicating the line type to use
+  for the reference line at residual=0.  See \code{par}.}
+
+  \item{lwd.ref}{a numeric indicating the line width to use
+  for the reference line at residual=0.  See \code{par}.}
+
+  \item{col.ref}{a numeric or character indicating the line
+  color to use for the reference line at residual=0.  See
+  \code{par}.}
+
+  \item{lty.loess}{a numeric indicating the line type to
+  use for loess fit line.  See \code{par}.}
+
+  \item{lwd.loess}{a numeric indicating the line width to
+  use for loess fit line.  See \code{par}.}
+
+  \item{col.loess}{a numeric or character indicating the
+  line color to use for loess fit line.  See \code{par}.}
+
+  \item{loess.f}{a numeric for the smoother span. This
+  gives the proportion of points in the plot which
+  influence the smooth at each value.  Larger values give
+  more smoothness.}
+
+  \item{legend}{If \code{TRUE}, draw a legend and the user
+  must click in the upper-left corner of where the legend
+  should be placed; if \code{FALSE} do not draw a legend.
+  If a vector of length 2 then draw the upper left corner
+  of the legend at the coordinates given in the vector of
+  length 2.}
+
+  \item{\dots}{Other arguments to the generic \code{plot}
+  function.}
+}
+\value{
+None.  However, a residual plot is produced.
+}
+\description{
+Constructs a residual plot for \code{lm} or \code{nls}
+objects.  Different symbols for different groups can be
+added to the plot if an indicator variable regression is
+used.
+}
+\details{
+If the user chooses to add a legend without identifying
+coordinates for the upper-left corner of the legend (i.e.,
+\code{legend=TRUE}) then the R console is suspended until
+the user places the legend by clicking on the produced
+graphic at the point where the upper-left corner of the
+legend should appear. A legend will only be placed if the
+\code{mdl} is an indicator variable regression, even if
+\code{legend=TRUE}.
+
+If \code{outlier.test=TRUE} then significant outliers are
+detected with \code{outlierTest()} from the \pkg{car}
+package.  See the help for this function for more details.
+
+The \code{residualPlot()} is just a pass-through
+convenience function.
+}
+\note{
+This function is meant to allow newbie students the ability
+to easily construct residual plots for one-way ANOVA,
+two-way ANOVA, simple linear regression, and indicator
+variable regressions.  The plots can generally be
+constructed simply by submitting a saved linear model to
+this function.  This function thus allows newbie students
+to interact with and visualize moderately complex linear
+models in a fairly easy and efficient manner.
+}
+\examples{
+data(Mirex)
+Mirex$year <- factor(Mirex$year)
+
+## Indicator variable regression with two factors
+lm1 <- lm(mirex~weight*year*species,data=Mirex)
+# defaults
+residPlot(lm1)
+# add a loess line to highlight any non-linearities in the residuals
+residPlot(lm1,loess=TRUE)
+# modify colors used
+residPlot(lm1,col="rainbow")
+# use only one point type -- notice that all points are of same type
+residPlot(lm1,pch=16)
+# use only one point and one color (might as well not use legend also)
+residPlot(lm1,pch=16,col="black",legend=FALSE)
+# can accomplish same thing just by removing the legend
+residPlot(lm1,legend=FALSE)
+# modify the reference line
+residPlot(lm1,col.ref="blue",lwd.ref=5)
+
+## Indicator variable regression with same two factors but in different order
+##   (notice use of colors and symbols)
+lm1a <- lm(mirex~weight*species*year,data=Mirex)
+residPlot(lm1a)
+
+## Indicator variable regression with only one factor
+lm2 <- lm(mirex~weight*year,data=Mirex)
+residPlot(lm2)
+
+## Indicator variable regression (assuming same slope)
+lm3 <- lm(mirex~weight+year,data=Mirex)
+residPlot(lm3)
+
+## Simple linear regression
+lm4 <- lm(mirex~weight,data=Mirex)
+residPlot(lm4)
+
+## One-way ANOVA
+lm5 <- lm(mirex~year,data=Mirex)
+# default (uses boxplots)
+residPlot(lm5)
+# use points rather than boxplot
+residPlot(lm5,bp=FALSE)
+
+## Two-Way ANOVA
+lm6 <- lm(mirex~species*year,data=Mirex)
+# default (uses boxplots)
+residPlot(lm6)
+# No boxplots
+residPlot(lm6,bp=FALSE)
+
+
+## Example showing outlier detection
+x <- c(runif(100))
+y <- c(7,runif(99))
+lma <- lm(y~x)
+residPlot(lma)
+}
+\seealso{
+\code{residualPlots} and \code{outlierTest} in \pkg{car};
+\code{\link{fitPlot}}.
+}
+\keyword{hplot}
+\keyword{models}
+

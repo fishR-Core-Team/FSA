@@ -1,0 +1,68 @@
+\name{ksTest}
+\alias{ksTest}
+\alias{ksTest.default}
+\alias{ksTest.formula}
+\title{Kolmogorov-Smirnov Tests.}
+\usage{
+ksTest(x, ...)
+
+\method{ksTest}{default}(x, y, ..., alternative = c("two.sided", "less",
+  "greater"), exact = NULL)
+
+\method{ksTest}{formula}(x, data = NULL, ..., alternative = c("two.sided",
+  "less", "greater"), exact = NULL)
+}
+\arguments{
+  \item{x}{A numeric vector of data values or a formula
+  (see details).}
+
+  \item{y}{Either a numeric vector of data values, or a
+  character string naming a cumulative distribution
+  function or an actual cumulative distribution function.
+  See \code{?ks.test}.}
+
+  \item{\dots}{Parameters of the distribution specified (as
+  a character string) by \code{y}.}
+
+  \item{alternative}{A string indicating the alternative
+  hypothesis.  See \code{?ks.test}.}
+
+  \item{exact}{\code{NULL} or a logical indicating whether
+  an exact p-value should be computed. See \code{?ks.test}.
+  Not available if ties are present, nor for the one-sided
+  two-sample case.}
+
+  \item{data}{Data frame containing the variables in the
+  formula for \code{x}.}
+}
+\value{
+See \code{?ks.test}.
+}
+\description{
+Performs a one- or two-sample Kolmogorov-Smirnov test.
+Includes the option to perform a two-sample test using the
+formula notation.
+}
+\details{
+This function was created to allow the use of a formula in
+the two-sample situation.  The default version is simply a
+pass through to \code{ks.test}. Thus, see \code{?ks.test}
+for more details.
+}
+\examples{
+## see ?ks.test for other examples
+## first two-sample example in ?ks.test
+x <- rnorm(50)
+y <- runif(30)
+ksTest(x,y)
+
+## same as above but using formulas
+df <- data.frame(dat=c(x,y),grp=rep(c("X","Y"),c(50,30)))
+str(df)
+ksTest(dat~grp,data=df)
+}
+\seealso{
+\code{\link{ks.test}}.
+}
+\keyword{htest}
+

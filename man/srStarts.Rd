@@ -1,0 +1,111 @@
+\name{srStarts}
+\alias{srStarts}
+\alias{srStarts.default}
+\alias{srStarts.formula}
+\title{Finds reasonable starting values for the parameters in a specific
+stock-recruitment model parameterization.}
+\usage{
+srStarts(S, ...)
+
+\method{srStarts}{formula}(S, data = NULL, ...)
+
+\method{srStarts}{default}(S, R, type = c("BevertonHolt", "Ricker"),
+  param = 1, plot = FALSE, ...)
+}
+\arguments{
+  \item{S}{Either a vector of observed stock levels or a
+  formula of the form \code{R~S}.}
+
+  \item{R}{A vector of observed recruitment levels.}
+
+  \item{data}{A data frame from which the vectors of
+  observed stock and recruitment levels can be found if a
+  formula is used.}
+
+  \item{type}{A string indicating the type of the
+  stock-recruitment model.}
+
+  \item{param}{A numeric indicating the parameterization of
+  the stock-recruitment model type.}
+
+  \item{plot}{A logical indicating whether a plot of the
+  data with the model fit at the starting values
+  superimposed should be created.}
+
+  \item{\dots}{Further arguments passed to the methods.}
+}
+\value{
+A list containing reasonable starting values.  Note that
+the parameters will be listed in the same order and with
+the same names as listed in \code{\link{srFuns}}.
+}
+\description{
+Finds reasonable starting values for the parameters in a
+specific stock-recruitment model parameterization.
+}
+\details{
+This function attempts to find reasonable starting values
+for a variety of parameterizations of stock-recruitment
+models.  There is no guarantee that these starting values
+are the \sQuote{best} starting values.  One should use them
+with caution and should perform sensitivity analyses to
+determine the impact of different starting values on the
+final model results.
+
+Starting values for the first parameterization of the
+Beverton-Holt model were derived by linearizing the first
+parameterization (inverting both sides and simplifying),
+fitting the linear model to the observed data, and
+extracting parameter values that corresponding to the
+linear model parameters.  Starting values for the other
+parameterizations of the Beverton-Holt model were derived
+from known relationships between the parameters of each
+parameterization and the first parameterization.  If the
+computed starting value for the Rp parameter was larger
+then the largest observed recruitment level then the Rp
+starting value was set to the largest observed recruitment
+value.
+
+Starting values for the Ricker parameterizations followed
+the same general algorithm as described for the
+Beverton-Holt parameterizations.  If the computed starting
+value for atilde was less than zero then the starting value
+was set to 0.00001.
+}
+\section{fishR vignette}{
+  \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
+}
+\examples{
+## Simple Examples
+data(CodNorwegian)
+srStarts(recruits~stock,data=CodNorwegian)
+srStarts(recruits~stock,data=CodNorwegian,type="Ricker")
+
+## Simple Example with a Plot
+srStarts(recruits~stock,data=CodNorwegian,type="Ricker",plot=TRUE)
+
+## See examples in srFuns() for use of srStarts() when fitting stock-recruit models
+}
+\references{
+Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of
+exploited fish populations, Fisheries Investigations
+(Series 2), volume 19. United Kingdom Ministry of
+Agriculture and Fisheries, 533 pp.
+
+Quinn II, T.J. and R.B. Deriso. 1999. Quantitative Fish
+Dynamics. Oxford University Press.
+
+Ricker, W.E. 1954. Stock and recruitment. Journal of the
+Fisheries Research Board of Canada 11:559-623.
+
+Ricker, W.E. 1975. Computation and interpretation of
+biological statistics of fish populations. Technical Report
+Bulletin 191, Bulletin of the Fisheries Research Board of
+Canada.
+}
+\seealso{
+\code{\link{srModels}} and \code{\link{srFuns}};
+\code{srSim} in \pkg{FSATeach}
+}
+\keyword{manip}
+

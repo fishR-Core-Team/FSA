@@ -1,0 +1,59 @@
+\name{popSizesPlot}
+\alias{popSizesPlot}
+\title{Constructs a plot of population size versus time from the projection of
+Leslie matrix.}
+\usage{
+popSizesPlot(object, use.log = FALSE, xlab = "Time",
+  ylab = "Population Size", type = "l", lwd = 2, add = FALSE, ...)
+}
+\arguments{
+  \item{object}{An object saved from
+  \code{pop.projection()} from the \pkg{popbio} package.}
+
+  \item{use.log}{A logical indicating if the population
+  sizes should be logged before plotting.}
+
+  \item{xlab}{A string for labelling the x-axis.}
+
+  \item{ylab}{A string for labelling the y-axis.}
+
+  \item{type}{A type of plot -- use \code{l} for lines,
+  \code{p} for points, and \code{b} for both.}
+
+  \item{lwd}{A numeric indicating the line width to use.}
+
+  \item{add}{A logical indicating whether the data should
+  be added to a currently existing plot.}
+
+  \item{\dots}{Extra arguments to be sent to the default
+  plot routine.}
+}
+\value{
+A plot of either population sizes or log population sizes
+versus time.
+}
+\description{
+Constructs a plot of population size versus time from the
+projection of Leslie matrix using \code{pop.projection()}
+from the \pkg{popbio} package.
+}
+\note{
+This function is meant to work with an object saved from
+\code{pop.projection()} in the \pkg{popbio} package.  It is
+not a general function for plotting population size versus
+time.
+}
+\examples{
+## These examples are not run because they require a dependency on the popbio package.
+\dontrun{
+require(popbio)
+example(pop.projection)
+popSizesPlot(p)
+}
+}
+\seealso{
+\code{pop.projection} and \code{stage.vectors.plot} in
+\pkg{popbio}.
+}
+\keyword{hplot}
+

@@ -1,0 +1,97 @@
+\name{growthRadPlot}
+\alias{growthRadPlot}
+\title{Constructs skeleton plots of radial or proportional radial measurements made
+at annuli on fish calcified structures.}
+\usage{
+growthRadPlot(df, indivs, in.pre = "rad", in.var, radcap = "radcap",
+  agevar = "age", proportions = FALSE, numperpg = 20,
+  xlab = ifelse(proportions, "Radial Measurements",
+  "Proportions of Total Radius"), lwd = 2, col = "black", pch = 124,
+  ymar = 5, ...)
+}
+\arguments{
+  \item{df}{A data frame containing the radial growth
+  measurement data in one-fish-per-line format.}
+
+  \item{indivs}{A string containing the variable name or a
+  vector of strings containing the variable names that
+  identify individual fish in the data frame.}
+
+  \item{in.pre}{A string indicating the prefix for all
+  variable names containing the radial growth measurement
+  data in the input data frame.}
+
+  \item{in.var}{A vector of column numbers or variable
+  names that contain the radial growth measurement data in
+  the input data frame.}
+
+  \item{radcap}{A string containing the variable name that
+  holds the total structure radius at the time of capture.}
+
+  \item{agevar}{A string containing the variable name that
+  holds the assigned ages.}
+
+  \item{proportions}{A logical indicating whether raw
+  radial measurements (\code{=FALSE}, default) or
+  proportional (of the total radius) measurements are
+  plotted.}
+
+  \item{numperpg}{A numeric indicating the number of
+  individuals to plot per page.}
+
+  \item{xlab}{A string for labeling the x-axis.}
+
+  \item{lwd}{A numeric indicating the width of the lines
+  plotted.}
+
+  \item{col}{A string indicating the color to use for the
+  plotted lines.}
+
+  \item{pch}{A numeric indicating the plotting character
+  used to mark the annuli.  The defaul (\code{=124}) is a
+  vertical line.}
+
+  \item{ymar}{A numeric indicating how wide the y-axis
+  margin should be for labelling the individuals.}
+
+  \item{\dots}{Optional arguments sent to the
+  \code{lines()} or \code{points()}.}
+}
+\value{
+None.  However, a plot is produced.
+}
+\description{
+Constructs skeleton plots of radial or proportional radial
+measurements made at annuli on fish calcified structures.
+These plots can be used to identify clearly incorrect
+radial measurements.
+}
+\details{
+This function constructs a plot of horizonal lines for each
+individual with the annular increments marked with vertical
+lines.  This is simply an exploratory graph to allow visual
+comparison of patterns among individuals.
+
+This function requires one-fish-per-line radial measurement
+data.  See \code{\link{gReshape}} and
+\code{\link{gConvert}} if your data is
+one-increment-per-line or increment measurements.  This
+function also assumes that the data frame has the total
+radius-at-capture and the fish's age.  See
+\code{\link{addRadCap}} to add the total radius at capture
+variable (if your data was increments).
+}
+\examples{
+data(SMBassWB)
+head(SMBassWB)     # to see column names & some data
+## the following is not run because it requires interaction by the user
+\dontrun{
+growthRadPlot(SMBassWB,c("yearcap","gear","fish"),in.pre="anu",radcap="radcap",
+ agevar="agecap",ymar=6)
+}
+}
+\seealso{
+\code{\link{gReshape}}, \code{\link{gConvert}}
+}
+\keyword{manip}
+

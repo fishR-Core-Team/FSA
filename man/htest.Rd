@@ -1,0 +1,71 @@
+\name{htest}
+\alias{htest}
+\alias{htest.nlsBoot}
+\title{Constructs a p-value for a bootstrapped hypothesis test using nlsBoot.}
+\usage{
+htest(object, ...)
+
+\method{htest}{nlsBoot}(object, parm = NULL, bo = 0, alt = c("two.sided",
+  "less", "greater"), plot = FALSE, ...)
+}
+\arguments{
+  \item{object}{An nlsBoot object saved from
+  \code{nlsBoot()}.}
+
+  \item{parm}{An integer indicating which parameter to
+  compute the confidence interval for.  Will compute for
+  all parameters if left \code{NULL}.}
+
+  \item{bo}{The null hypothesized parameter value.}
+
+  \item{alt}{A string identifying the "direction" of the
+  alternative hypothesis.  See details.}
+
+  \item{plot}{A logical indicating whether a histogram of
+  the \code{parm} parameters with a vertical lines
+  illustrating the \code{bo}value should be constructed.}
+
+  \item{\dots}{Additional arguments for methods.}
+}
+\value{
+Returns a matrix with two columns.  The first column
+contains the hypothesized value sent to this function and
+the second column is the corresponding p-value.
+}
+\description{
+Constructs a non-parametric bootstrap p-value from
+\code{nlsBoot()} (in the \pkg{nlstools} package) like
+results.
+}
+\details{
+The \dQuote{direction} of the alternative hypothesis is
+identified by a string in the \code{alt=} argument.  The
+strings may be \code{"less"} for a \dQuote{less than}
+alternative, \code{"greater"} for a \dQuote{greater than}
+alternative, or \code{"two.sided"} for a \dQuote{not
+equals} alternative (the DEFAULT).
+
+In the one-tailed alternatives the p-value is the
+proportion of bootstrapped parameter estimates in
+\code{object$coefboot} that are extreme of the null
+hypothesized parameter value in \code{bo}.  In the
+two-tailed alternative the p-value is twice the smallest of
+the proportion of bootstrapped parameter estimates above or
+below the null hypothesized parameter value in \code{bo}.
+}
+\examples{
+## Not run, because nlsBoot takes a great deal of time:
+## Should work if copied and pasted into console
+\dontrun{
+require(nlstools)
+example(nlsBoot)
+htest(boo,"lag",50)
+htest(boo,"lag",50,alt="less")
+}
+}
+\seealso{
+\code{summary.nlsBoot} in \pkg{nlstools} and
+\code{\link{confint.nlsBoot}}.
+}
+\keyword{htest}
+

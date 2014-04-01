@@ -1,0 +1,13 @@
+# Total catch of brook trout in fyke nets in Tobin Harbor, Isle Royale, Lake Superior, in 1996-1998.
+# From Biological Characteristics of Coaster Brook Trout at Isle Royale National Park, Michigan, 1996-98
+#   By: Henry R. Quinlan, U.S. Fish and Wildlife Service, Ashland Fishery Resources Office, Ashland, WI, November, 1999
+#   http://www.fws.gov/midwest/ashland/brook/biochar/biolchar.html
+#
+age	catch
+0	39
+1	93
+2	112
+3	45
+4	58
+5	12
+6	8

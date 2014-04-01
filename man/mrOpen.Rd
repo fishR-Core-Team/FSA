@@ -1,0 +1,184 @@
+\name{mrOpen}
+\alias{confint.mrOpen}
+\alias{mrOpen}
+\alias{summary.mrOpen}
+\title{Estimate initial population size for multiple census mark-recapture data from
+an open population.}
+\usage{
+mrOpen(mb.top, mb.bot = NULL, ci.type = c("Jolly", "Manly"),
+  conf.level = 0.95, phi.type = c("SD", "SE"))
+
+\method{summary}{mrOpen}(object, type = c("all", "observables", "estimates"),
+  ...)
+
+\method{confint}{mrOpen}(object, parm = c("all", "N", "phi", "B"),
+  level = NULL, conf.level = NULL, ...)
+}
+\arguments{
+  \item{mb.top}{A matrix that contains the \dQuote{top} of
+  the Method B table (i.e., a contingency table of capture
+  sample (columns) and last seen sample (rows)) or an
+  object of class \code{CapHist} from the \code{capHistSum}
+  function.  See details.}
+
+  \item{mb.bot}{A data frame that contains the
+  \dQuote{bottom} of the Method B table (i.e., the number
+  of marked fish in the sample (\code{m}), the number of
+  unmarked fish in the sample (\code{u}), the total number
+  of fish in the sample (\code{n}), and the number of
+  marked fish returned to the population following the
+  sample (\code{R})).}
+
+  \item{ci.type}{A text value that indicates whether the
+  large sample method of Jolly (\code{ci.type="Jolly"}) or
+  the \dQuote{arbitrary} method of Manly
+  (\code{ci.type="Manly"}) should be used to construct
+  confidence intervals.}
+
+  \item{conf.level}{a number indicating the level of
+  confidence to use for constructing confidence intervals
+  (default is 0.95).  See details.}
+
+  \item{phi.type}{a text value that indicates whether the
+  standard error for phi should include only sampling
+  variability (\code{phi.type="SE"}) or sampling and
+  individual variability (\code{phi.type="SD"},default).}
+
+  \item{object}{An object saved from the \code{mrOpen} call
+  (i.e., of class \code{mrOpen}).}
+
+  \item{type}{The type of summary to return.  See details.}
+
+  \item{parm}{a specification of which parameters are to be
+  given confidence intervals.  If missing, all parameters
+  are considered.}
+
+  \item{level}{Same as \code{conf.level} but used for
+  compatability with generic \code{confint} function.}
+
+  \item{\dots}{Additional arguments for methods.}
+}
+\value{
+A list with the following items: \itemize{ \item df A data
+frame that contains observable summaries from the data and
+estimates of the number of extant marked fish, population
+size for each possible sample period, survival rate between
+each possible pair of sample periods, and the number of
+additional individuals added to the population between each
+possible pair of sample periods.  In addition to the
+estimates, values of the standard errors and the lower and
+upper confidence interval bounds for each parameter are
+provided (however, see the details above). \item ci.type
+The provided type of confidence intervals that was used.
+\item phi.type The provided type of standard error for phi
+that was used. \item conf.level The provided level of
+confidence that was used. }
+}
+\description{
+This function takes the two parts of a Method B table and
+uses the Jolly-Seber method to estimate the population size
+at each possible sample period and the survival rate and
+number of additional individuals added to the population
+between possible sample periods.  This method assumes that
+the population is open.
+}
+\details{
+If \code{mb.top} contains an object from the
+\code{capHistSum} function then \code{mb.bot} can be left
+missing or will be ignored.  In this case, the function
+will extract the needed data from the \code{methodB.top}
+and \code{methodB.bot} portions of the \code{CapHist} class
+object.
+
+Seber's (1965) modification to the traditional Jolly-Seber
+abundance and mortality estimates are used.
+
+Manly (1984) did not provide details for computing a
+confidence interval for the B parameter.  Thus, confidence
+intervals for this parameter are not included in the output
+when \code{ci.type="Manly"} is used.  Also, Manly's method
+does not compute standard errors; therefore, no standard
+errors are returned when \code{ci.type="Manly"} is used.
+
+If \code{type="observables"} in the \code{summary} function
+then only items that can be observed from the data will be
+returned -- n, m, R, r, and z.  If \code{type="estimates"}
+in the \code{summary} function then only items that are
+estimated from observables will be returned -- M, N, phi,
+B, and their associated standard errors.
+
+The level of confidence is not set in the \code{confint}
+function, in contrast to most \code{confint} functions.
+Rather the confidence level is set in the main
+\code{mrOpen} function.
+}
+\section{fishR vignette}{
+  \url{https://sites.google.com/site/fishrfiles/gnrl/MROpen.pdf}
+}
+\examples{
+## First example -- capture histories summarized with capHistSum()
+data(CutthroatAL)
+ch1 <- capHistSum(CutthroatAL,-1)  # ignore first column of fish ID
+ex1 <- mrOpen(ch1)
+summary(ex1)
+summary(ex1)
+
+## Second example - Jolly's data -- summarized data entered "by hand"
+s1 <- rep(NA,13)
+s2 <- c(10,rep(NA,12))
+s3 <- c(3,34,rep(NA,11))
+s4 <- c(5,18,33,rep(NA,10))
+s5 <- c(2,8,13,30,rep(NA,9))
+s6 <- c(2,4,8,20,43,rep(NA,8))
+s7 <- c(1,6,5,10,34,56,rep(NA,7))
+s8 <- c(0,4,0,3,14,19,46,rep(NA,6))
+s9 <- c(0,2,4,2,11,12,28,51,rep(NA,5))
+s10 <- c(0,0,1,2,3,5,17,22,34,rep(NA,4))
+s11 <- c(1,2,3,1,0,4,8,12,16,30,rep(NA,3))
+s12 <- c(0,1,3,1,1,2,7,4,11,16,26,NA,NA)
+s13 <- c(0,1,0,2,3,3,2,10,9,12,18,35,NA)
+jolly.top <- cbind(s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13)
+
+n <- c(54,146,169,209,220,209,250,176,172,127,123,120,142)
+R <- c(54,143,164,202,214,207,243,175,169,126,120,120,0)
+m <- c(0,10,37,56,53,77,112,86,110,84,77,72,95)
+u <- n-m
+
+jolly.bot <- rbind(m,u,n,R)
+ex2 <- mrOpen(jolly.top,jolly.bot)
+summary(ex2)
+confint(ex2)
+ex3 <- mrOpen(jolly.top,jolly.bot,ci.type="Manly")
+summary(ex3)
+confint(ex3)
+}
+\references{
+Jolly, G.M. 1965. Explicit estimates from capture-recapture
+data with both death and immigration -- stochastic model.
+Biometrika, 52:225-247.
+
+Seber, G.A.F. 1965. A note on the multiple recapture
+census. Biometrika, 52:249-259.
+
+Seber, G.A.F. 1982. The Estimation of Animal Abundance.
+Edward Arnold, second edition.
+
+Leslie, P.H. and D. Chitty. 1951. The estimation of
+population parameters from data obtained by means of the
+capture-recapture method. I. The maximum likelihood
+equations for estimating the death-rate. Biometrika,
+38:269-292.
+
+Manly, B.F.J. Obtaining confidence limits on parameters of
+the Jolly-Seber model for capture-recapture data.
+Biometrics, 40:749-758.
+
+Pollock, K.H., J.D. Nichols, C. Brownie, and J.E. Hines.
+1991. Statistical inference for capture-recapture
+experiments. Wildlife Monographs, 107:1-97.
+}
+\seealso{
+\code{\link{capHistSum}}, \code{\link{mrClosed}}
+}
+\keyword{manip}
+

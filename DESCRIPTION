@@ -1,0 +1,26 @@
+Package: FSA
+Version: 0.4.5
+Title: Functions to support simple fisheries stock assessment methods.
+Description: This package can be used to peform a variety of simple fish stock
+    assessment methods.  Detailed vignettes are available on the fishR website
+    listed below.
+Author: Derek H. Ogle <dogle@northland.edu>
+Maintainer: Derek H. Ogle <dogle@northland.edu>
+Depends:
+    R (>= 3.0.0)
+Imports:
+    car,
+    gdata,
+    gplots,
+    Hmisc,
+    knitr,
+    multcomp,
+    nlme,
+    plotrix,
+    quantreg,
+    sciplot
+Suggests:
+    nlstools,
+    Rcapture
+License: GPL (>= 2)
+URL: http://www.rforge.net/FSA/, http://fishr.wordpress.com/

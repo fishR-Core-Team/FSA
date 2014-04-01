@@ -1,0 +1,345 @@
+\name{fitPlot}
+\alias{fitPlot}
+\alias{fitPlot.IVR}
+\alias{fitPlot.ONEWAY}
+\alias{fitPlot.POLY}
+\alias{fitPlot.SLR}
+\alias{fitPlot.TWOWAY}
+\alias{fitPlot.glm}
+\alias{fitPlot.lm}
+\alias{fitPlot.logreg}
+\alias{fitPlot.nls}
+\title{Fitted model plot for an lm, glm, or nls object.}
+\usage{
+fitPlot(object, ...)
+
+\method{fitPlot}{lm}(object, ...)
+
+\method{fitPlot}{SLR}(object, plot.pts = TRUE, pch = 16, col.pt = "black",
+  col.mdl = "red", lwd = 3, lty = 1, interval = c("none", "confidence",
+  "prediction", "both"), conf.level = 0.95, lty.ci = 2, lty.pi = 3,
+  xlab = object$Enames[1], ylab = object$Rname, main = "", ...)
+
+\method{fitPlot}{IVR}(object, plot.pts = TRUE, pch = c(16, 21, 15, 22, 17,
+  24, c(3:14)), col = "rich", lty = c(1:6, 1:6), lwd = 3,
+  interval = c("none", "confidence", "prediction", "both"),
+  conf.level = 0.95, xlab = object$Enames[1], ylab = object$Rname,
+  main = "", legend = "topright", ...)
+
+\method{fitPlot}{POLY}(object, ...)
+
+\method{fitPlot}{ONEWAY}(object, xlab = object$Enames[1],
+  ylab = object$Rname, main = "", type = "b", pch = 16, lty = 1,
+  col = "black", interval = TRUE, conf.level = 0.95,
+  ci.fun = ci.fp(conf.level), col.ci = col, lty.ci = 1, ...)
+
+\method{fitPlot}{TWOWAY}(object, which, change.order = FALSE,
+  xlab = object$Enames[ord[1]], ylab = object$Rname, main = "",
+  type = "b", pch = c(16, 21, 15, 22, 17, 24, c(3:14)), lty = c(1:6, 1:6,
+  1:6), col = "default", interval = TRUE, conf.level = 0.95,
+  ci.fun = ci.fp(conf.level), lty.ci = 1, legend = "topright",
+  cex.leg = 1, box.lty.leg = 0, ...)
+
+\method{fitPlot}{nls}(object, d, pch = c(19, 1), col.pt = c("black", "red"),
+  col.mdl = col.pt, lwd = 2, lty = 1, plot.pts = TRUE,
+  jittered = FALSE, legend = FALSE, legend.lbls = c("Group 1", "Group 2"),
+  ylab = names(mdl$model)[1], xlab = names(mdl$model)[xpos], main = "",
+  ...)
+
+\method{fitPlot}{glm}(object, ...)
+
+\method{fitPlot}{logreg}(object, xlab = names(object$model)[2],
+  ylab = names(object$model)[1], main = "", plot.pts = TRUE,
+  col.pt = "black", trans.pt = NULL, plot.p = TRUE, breaks = 25,
+  p.col = "blue", p.pch = 3, p.cex = 1, col.mdl = "red", lwd = 2,
+  lty = 1, mdl.vals = 50, xlim = range(x), ...)
+}
+\arguments{
+  \item{object}{An \code{lm} or \code{nls} object (i.e.,
+  returned from fitting a model with either \code{lm} or
+  \code{nls}).}
+
+  \item{interval}{In SLR or IVR, a string indicating
+  whether to plot confidence (\code{="confidence"}) or
+  prediction (\code{="prediction"}) intervals.  For a SLR
+  object both can be plotted by using \code{="both"}.  In
+  one-way or two-way ANOVA, a logical indicating whether
+  the confidence intervals should be plotted or not.}
+
+  \item{conf.level}{A decimal numeric indicating the level
+  of confidence to use for confidence and prediction
+  intervals.}
+
+  \item{plot.pts}{A logical indicating (\code{TRUE}
+  (default)) whether the points are plotted along with the
+  fitted lines.  Set to \code{FALSE} to plot just the
+  fitted lines.}
+
+  \item{pch}{A numeric or vector of numerics indicating
+  what plotting characther codes should be used.  In SLR
+  this is the single value to be used for all points.  In
+  IVR a vector is used to identify the characters for the
+  levels of the second factor.}
+
+  \item{col}{A vector of color names or numbers or the name
+  of a paletted (see details) indicating what color of
+  points and lines to use for the levels of the first
+  factor in an IVR or the second factor in a two-way
+  ANOVA.}
+
+  \item{col.pt}{A string used to indicate the color of the
+  plotted points. Used only for SLR and logistic regression
+  objects.}
+
+  \item{col.mdl}{A string used to indicate the color of the
+  fitted line.  Used only for SLR and logistic regression
+  objects.}
+
+  \item{lwd}{A numeric used to indicate the line width of
+  the fitted line.}
+
+  \item{lty}{A numeric or vector of numerics used to
+  indicate the type of line used for the fitted line.  In
+  SLR this is a single value to be used for the fitted
+  line.  In IVR a vector is used to identify the line types
+  for the levels of the second factor.  See \code{par}.}
+
+  \item{lty.ci}{a numeric used to indicate the type of line
+  used for the confidence band lines for SLR objects or
+  interval lines for one-way and two-way ANOVA.  For IVR,
+  the confidence band types are controlled by \code{lty}.}
+
+  \item{lty.pi}{a numeric used to indicate the type of line
+  used for the prediction band lines for SLR objects.  For
+  IVR, the prediction band types are controlled by
+  \code{lty}.  See \code{par}.}
+
+  \item{xlab}{a string for labelling the x-axis.}
+
+  \item{ylab}{a string for labelling the y-axis.}
+
+  \item{main}{a string for the main label to the plot.
+  Defaults to the model call.}
+
+  \item{legend}{Controls use and placement of the legend.
+  See details.}
+
+  \item{type}{The type of graphic to construct in a one-way
+  and two-way ANOVA. If \code{"b"} then points are plotted
+  and lines are used to connect points (DEFAULT).  If
+  \code{"p"} then only points are used and if \code{"l"}
+  then only lines are drawn.}
+
+  \item{ci.fun}{A function used to put error bars on the
+  one-way or two-way ANOVA graphs.  The default is to use
+  the internal \code{ci.fp} function which will place
+  t-distribution based confidence intervals on the graph.
+  The user can provide alternative functions that may plot
+  other types of \sQuote{error bars}.  See examples in
+  \code{lineplot.CI} function of \pkg{sciplot} package.}
+
+  \item{col.ci}{A vector of color names or numbers or the
+  name of a palette (see details) indicating what colors to
+  use for the confidence interval bars in one-way and
+  two-way ANOVAs.}
+
+  \item{which}{A character string listing the factor in the
+  two-way ANOVA for which the means should be calculated
+  and plotted.  This argument is used to indicate for which
+  factor a main effects plot should be constructed.  If
+  left missing then an interaction plot is constructed.}
+
+  \item{change.order}{A logical that is used to change the
+  order of the factors in the \code{lm} object.  This is
+  used to change which factor is plotted on the x-axis and
+  which is used to connect the means when constructing an
+  interaction plot (ignored if \code{which} is used).}
+
+  \item{cex.leg}{A single numeric values used to represent
+  the character expansion value for the legend.  Ignored if
+  \code{legend=FALSE}.}
+
+  \item{box.lty.leg}{A single numeric values used to
+  indicate the type of line to use for the box around the
+  legend.  The default is to not plot a box.}
+
+  \item{d}{a data frame containing the variabls used in
+  construction of the \code{nls} object.}
+
+  \item{jittered}{a logical indicating whether the points
+  should be jittered horizontally.}
+
+  \item{legend.lbls}{A vector of strings that will be the
+  labels for the legend in an nls fitPlot graphic.}
+
+  \item{trans.pt}{A numeric indicating how many points
+  would be plotted on top of each other in a logistic
+  regression before the \sQuote{point} would have the full
+  \code{pt.col} color.  The reciprocal of this value is the
+  alpha transparency value.}
+
+  \item{plot.p}{A logical indicating if the proportion for
+  categorized values of X are plotted (\code{TRUE};
+  default).}
+
+  \item{breaks}{A number indicating how many intervals over
+  which to compute proportions or a numeric vector
+  identifying the endpoints of the intervals over which to
+  compute proportions if \code{plot.p=TRUE}.}
+
+  \item{p.col}{A color to plot the proportions.}
+
+  \item{p.pch}{A plotting character for plotting the
+  proportions.}
+
+  \item{p.cex}{A character expansion factor for plotting
+  the proportions.}
+
+  \item{mdl.vals}{A numer representing the number of values
+  to use for plotting the logistic regression.  A larger
+  number means a smoother line.}
+
+  \item{xlim}{A vector of length two to control the x-axis
+  in the logistic regression plot.  If this is changed from
+  the default then the domain over which the logistic
+  regression model is plotted will change.}
+
+  \item{\dots}{Other arguments to be passed to the plot
+  functions.}
+}
+\value{
+None.  However, a fitted-line plot is produced.
+}
+\description{
+A generic function for constructing a fitted model plot for
+an \code{lm}, \code{glm}, or \code{nls} object.  Supported
+objects are linear models from simple linear regression
+(SLR), indicator variable regression (IVR), one-way ANOVA,
+or two-way ANOVA models; general linear models that are
+logistic regressions with a binary response; and non-linear
+regression with a single numerical response variable, at
+least one continuous explanatory variable and up to two
+group-factor explanatory variables.
+}
+\details{
+This function does not work with a multiple linear
+regression, indicator variable regressions with more than
+two factors, ANOVAs other than one-way and two-way, or
+models with a categorical response variable.  In addition,
+if the linear model contains a factor then the model must
+be fit with the quantitative explanatory variable first,
+followed by the factor(s).  This function only works for
+non-linear models with two or fewer groups.
+
+This function is basically a wrapper to a variety of other
+functions.  For one-way or two-way ANOVAs the primary
+functions called are \code{interaction.plot} and
+\code{lineplot.CI}.  For simple linear regression the
+function performs similarly to \code{abline} except that
+the line is constrained to the domain.  For indicator
+variable regression the function behaves as if several
+\code{abline} functions had been called.
+
+A legend can be added to the plot in three different ways.
+First, if \code{legend = TRUE} then the R console is
+suspended until the user places the legend on the graphic
+by clicking on the graphic at the point where the
+upper-left corner of the legend should appear.  Second, the
+\code{legend=} argument can be set to one of
+\code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"},
+\code{"left"}, \code{"topleft"}, \code{"top"},
+\code{"topright"}, \code{"right"} and \code{"center"}.  In
+this case, the legend will be placed inside the plot frame
+at the given location. Finally, the \code{legend=} argument
+can be set to a vector of length two which identifies the
+plot coordinates for the upper-left corner of where the
+legend should be placed.  A legend will not be drawn if
+\code{legend = FALSE} or \code{legend = NULL}.  A legend
+also will not be drawn if there are not multiple groups in
+the model.
+}
+\note{
+This function is meant to allow newbie students the ability
+to visualize the most common linear models found in an
+introductory or intermediate level undergraduate statistics
+course without getting \dQuote{bogged-down} in the gritty
+details of a wide variety of functions. This generic
+function and it's S3 functions allow the student to
+visualize the means plot of a one-way anova, the main
+effects and interaction plots of a two-way ANOVA, the fit
+of a simple linear regression, the fits of many lines in an
+indicator variable regression, and the fit of a non-linear
+model with a simple and mostly common set of arguments --
+generally, all that is required is a fitted linear model of
+the type mentioned here as the first argument.  This
+function thus allows newbie students to interact with and
+visualize moderately complex linear models in a fairly easy
+and efficient manner.  THIS IS NOT A RESEARCH GRADE
+FUNCTION and the user should learn how to use the functions
+that this function is based on, build plots from
+\dQuote{scratch}, or use more sophisticated plotting
+packages (e.g., \pkg{ggplot2} or \pkg{lattice}).
+}
+\examples{
+## Linear models example
+data(Mirex)
+Mirex$year <- factor(Mirex$year)
+
+# Indicator variable regression with two factors
+lm1 <- lm(mirex~weight*year*species,data=Mirex)
+fitPlot(lm1)
+fitPlot(lm1,ylim=c(0,0.65),legend="topleft")
+
+# Indicator variable regression with one factor (also showing confidence bands)
+lm2 <- lm(mirex~weight*year,data=Mirex)
+fitPlot(lm2,legend="topleft")
+fitPlot(lm2,legend="topleft",interval="c")
+
+# Indicator variable regression with one factor (assuming parallel lines)
+lm3 <- lm(mirex~weight+year,data=Mirex)
+fitPlot(lm3,legend="topleft")
+fitPlot(lm3,legend="topleft",pch=5)
+
+# Simple linear regression (showing color change and confidence and prediction bands)
+lm4 <- lm(mirex~weight,data=Mirex)
+fitPlot(lm4,col.mdl="blue")
+fitPlot(lm4,interval="both")
+
+# One-way ANOVA
+lm5 <- lm(mirex~year,data=Mirex)
+fitPlot(lm5)
+
+# Two-way ANOVA (showing both interaction plots and a color change)
+lm6 <- lm(mirex~year*species,data=Mirex)
+fitPlot(lm6,legend="bottomleft")
+fitPlot(lm6,change.order=TRUE)
+fitPlot(lm6,change.order=TRUE,col="jet")
+
+# Two-way ANOVA (showing main effects plots)
+fitPlot(lm6,which="species")
+fitPlot(lm6,which="year")
+
+# Polynomial regression
+lm7 <- lm(mirex~weight+I(weight^2),data=Mirex)
+fitPlot(lm7,interval="both")
+
+## Non-linear model example
+data(Ecoli)
+lr.sv <- list(B1=6,B2=7.2,B3=-1.5)
+nl1 <- nls(cells~B1/(1+exp(B2+B3*days)),start=lr.sv,data=Ecoli)
+fitPlot(nl1,Ecoli,cex.main=0.7,lwd=2)
+fitPlot(nl1,Ecoli,xlab="Day",ylab="Cellsx10^6/ml",plot.pts=FALSE)
+
+
+## Logistic regression example
+}
+\seealso{
+\code{abline} in \pkg{graphics}; \code{reg.line} in
+\pkg{car}; \code{plotmeans} in \pkg{gplots};
+\code{plotMeans} in \pkg{Rcmdr}; \code{interaction.plot} in
+\pkg{stats}; \code{lineplot.CI} in \pkg{sciplot}; and
+\code{\link{residPlot}}.
+}
+\keyword{hplot}
+\keyword{models}
+

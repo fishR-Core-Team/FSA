@@ -1,0 +1,93 @@
+\name{gConvert}
+\alias{gConvert}
+\title{Converts between growth measurement data types.}
+\usage{
+gConvert(df, in.pre, in.var, type = c("inc", "rad"), out.pre = type)
+}
+\arguments{
+  \item{df}{A data frame containing the growth measurement
+  data in one-fish-per-line format.}
+
+  \item{in.pre}{A string indicating the prefix for all
+  variable names containing the growth measurement data in
+  the input data frame.  See details.}
+
+  \item{in.var}{A vector of column numbers or variable
+  names that contain the growth measurement data in the
+  input data frame.  See details.}
+
+  \item{type}{A string that identifies the output format
+  data type (i.e., the format to convert to).  If
+  \code{"inc} (the default) the output data frame will be
+  incremental measurements.  If \code{"rad} the output data
+  frame will contain radial measurements.}
+
+  \item{out.pre}{A string indicating the prefix to use for
+  the newly computed measurements in the output data frame.
+  Defaults to the same string as \code{type}.}
+}
+\value{
+Returns a data frame with all columns, except for the
+\code{in.var} columns, from the input data frame retained
+as the left-most columns in the output data frame.  The
+original data in the \code{in.var} columns converted to
+data type \code{type} form the remaining columns in the
+output data frame and are labeled as described in the
+details.
+}
+\description{
+Converts one-fish-per-line format growth data from radial
+to incremental or incremental to radial measurements.
+}
+\details{
+This function does NOT convert the data from
+one-fish-per-line to one-measurement-per-line format (see
+\code{\link{gReshape}}).  Furthermore, this function
+requires the data to be in one-fish-per-line format --
+i.e., each lines contains all information and all of the
+growth measurements for an individual fish.
+
+This function assumes that the input data frame is of the
+opposite data type given in \code{type} (i.e., that a
+conversion is needed).  It does not check to see if this is
+true.
+
+The columns containing the original measurement data can be
+entered in a variety of ways.  First, if all columns begin
+with the same prefix (and no other columns contain that
+prefix) then the prefix string can be entered into
+\code{in.pre=}.  Second, a general sequence of column
+numbers can be entered into \code{in.var=} with the
+\code{#:#} form (if the columns are contiguous) or as a
+concatenated vector form if the columns are not contiguous.
+Third, a concatenated vector of column names can be entered
+into \code{in.var=}.  Note that one of but not both of
+\code{in.var=} or \code{in.pre=} must be declared by the
+user.
+
+The newly computed data will be labeled with a prefix the
+same as \code{type=} (i.e., \code{"rad"} or \code{"inc"})
+unless \code{out.pre=} is set by the user.  For example, if
+the data is convert to radial measurements then the output
+variables will be \dQuote{rad1}, \dQuote{rad2}, etc. unless
+\code{out.pre=} was changed from the default.  This
+function assumes that the measurements start with age-1.
+}
+\examples{
+data(SMBassWB)
+head(SMBassWB)     # to see column names & some data
+SMBi1 <- gConvert(SMBassWB,in.pre="anu",type="inc")
+head(SMBi1)
+SMBi2 <- gConvert(SMBassWB,in.var=c("anu1","anu2","anu3","anu4","anu5","anu6",
+ "anu7","anu8","anu9","anu10","anu11","anu12"),type="inc")
+head(SMBi2)
+SMBi3 <- gConvert(SMBassWB,in.var=8:19,type="inc")
+head(SMBi3)
+SMBr1 <- gConvert(SMBi1,in.pre="inc",type="rad")
+head(SMBr1)
+}
+\seealso{
+\code{\link{gReshape}}
+}
+\keyword{manip}
+

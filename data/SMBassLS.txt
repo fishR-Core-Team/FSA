@@ -1,0 +1,13 @@
+# Little Silver Lake smallmouth bass catches and effort.
+#  from Ricker, 1975
+day catch   effort
+1   131 7
+2   69  7
+3   99  7
+4   78  7
+5   56  7
+6   76  7
+7   49  7
+8   42  7
+9   63  7
+10  47  7

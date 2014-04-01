@@ -1,0 +1,17 @@
+"site" "state" "n" "log.a" "b"
+"Chickasaw Lake" "Oklahoma" 29 -4.517 2.809
+"NA" "Alabama" 5984 -4.8 2.96
+"NA" "Alabama" 490 -5.26 3.16
+"Fort Smith Lake" "Arkansas" 185 -5.099 3.069
+"Clear Lake" "Iowa" 172 -4.999 3.091
+"Canton Lake" "Oklahoma" 104 -5.0625 3.1076
+"Ponds" "Iowa" 34 -5.138 3.113
+"Ponds" "Iowa" 257 -5.199 3.136
+"Alanconnic Lake" "Pennsylvania" 688 -5.287 3.163
+"NA" "Oklahoma" 3174 -5.469 3.248
+"Canals" "Florida" 93 -5.469 3.25
+"Cumberland Lake" "Kentucky" 577 -5.562 3.274
+"Blue Cypress Lake" "Florida" 64 -5.587 3.285
+"Ike Lake" "Iowa" 72 -5.774 3.33
+"Rod and Gun Club Lake" "Oklahoma" 89 -5.391 3.333
+"Elephant Butte Lake" "New Mexico" 50 -5.765 3.378

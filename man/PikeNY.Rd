@@ -1,0 +1,32 @@
+\docType{data}
+\name{PikeNY}
+\alias{PikeNY}
+\title{Summarized multiple mark-recapture data for all northern pike from Buckthorn Marsh.}
+\format{A data frame with 21 observations on the following 4 variables:
+\describe{ \item{date}{Capture date.} \item{n}{Total fish captured in each
+sample.} \item{m}{Marked fish captured in each sample.} \item{R}{Marked fish
+returned to the population.} }}
+\source{
+New York Power Authority.  2004.  Use of buckhorn marsh and
+grand island tributaries by northern pike for spawning and
+as a nursery. Technical report, New York Power Authority,
+January 2004. Niagara Power Project (FERC No. 2216).
+}
+\description{
+Summary results of capture histories (number captured,
+number of recaptured fish, and number of unmarked fish that
+were marked) for all Buckthorn Marsh northern pike
+(\emph{Esox lucius}).
+}
+\section{Topic(s)}{
+  \itemize{ \item Population size \item Abundance \item
+  Mark-recapture \item Schnabel method \item
+  Schumacher-Eschmeyer method }
+}
+\examples{
+data(PikeNY)
+str(PikeNY)
+head(PikeNY)
+}
+\keyword{datasets}
+
