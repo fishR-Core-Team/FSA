@@ -1,15 +1,16 @@
 # FSA 0.4.5 ongoing
+
 * converted to using github as a repository.
 
 
 # FSA 0.4.4 Apr14
------------------
+
 * `ageKeyPrep()`: Added.
 * `agePrecision()`: Modified.  Fixed the bug where the APE and CV were over-estimated in situations where the multiple ages agreed at an age=0 (thanks to Richard McBride for pointing out this error).
 * `wsLit`: Modified.  Added Pursak chub information from Sulun et al. (2014).
 
 # FSA 0.4.3 Mar14
------------------
+
 * ageBias(): Added.  Extracted the age-bias related material from ageComp().  Modified the code to remove unneeded code.  From ageComp(), remove the  what= argument related to differences and added a difference= argument.  Also changed what="bias.diff" to what="diff.bias" to allow for a quicker partial matching (i.e. separate more from what="bias").  Major modifications to how the axis limits are created if none are provided.  Modified where the sample size is shown on the age-bias plot.  Added the min.n.CI= argument.  Added an example using WhitefishLC to be consistent with agePrecision().
 * ageComp(): Modified.  Split into ageBias() and agePrecision().  Added a warning that this function is deprecated and will be removed in the future.
 * ageKey(): Modified.  Fixed a bug that occurred when a data frame that already contained an LCat variable was provided.  
@@ -51,7 +52,7 @@
 * wsLit: Modified.  Changed all species names to have both words capitalized so as to follow the latest AFS guidelines.
 
 # FSA 0.4.2 Dec13
------------------
+
 * Changed to compiling under R 3.0.2.
 * Removed dependency on reshape package (see changes for emp(), gReshape(), and ssValidate() below) and the relax, tcltk, and TeachingDemos packages (see changes for catchCurveSim(), cohortSim(), growthModelSim(), leslieSim(), lwModelSim(), mrClosed1Sim(), simAgeBias(), simAges(), simLenFromAge(), simLenSelect(), and srSim() below).
 
@@ -80,7 +81,7 @@
 * wsValidate(): Modified.  Replaced use of cast() with aggregate().
 
 # FSA 0.4.1 Oct13
------------------
+
 * Changed R dependency to >3.0.0 (because gplots package has that dependency).
 * Added importFrom for cast(), is.formula(), and melt() in reshape package.
 
@@ -104,7 +105,7 @@
 * quad_dens(): Added to FSAinternals (from ks2d()).
 
 # FSA 0.4.0 Jun13
----------------
+
 * Corrected all pointers to fishR vignettes (because of new webpage).
 * Removed importFrom color.scale from plotrix because of changes to discharge()
     and wetPerim().
@@ -191,7 +192,7 @@
 * wsValidate(): Removed use of &#37;nin&#37;.
 
 # FSA 0.3.4 Jan13
----------------
+
 * added special "fishR Vignette" sections with links to several help files.
 
 * binCI(): Modified so that result is a matrix rather than sometimes (when only
@@ -239,7 +240,7 @@
     data.frame (eliminates some warning messages).
 
 # FSA 0.3.3 21Dec12
------------------
+
 * Added ImportFrom for slider() and gslider() from the relax package.  Deleted the
     ImportFrom for slider() from the TeachingDemos package.  These functions were
     the same but it was being deprecated from TeachingDemos.
@@ -304,7 +305,7 @@
     length in the data set.
 
 # FSA 0.3.2 1Dec12
-----------------
+
 * Changed R dependency to >2.14.0.
 * Added a ImportsFrom for knitr (purl() in swvCode() added below).
 * Moved gdata to an ImportsFrom from Suggests.  Needed for nobs() in ci.fp1() which
@@ -338,7 +339,7 @@
     https://groups.google.com/forum/?fromgroups=#!topic/cambridge-r-user-group/c7vf8o3QwDo
 
 # FSA 0.3.1 25Nov12
------------------
+
 * Switched to using the Project mode in RStudio.
 * Switched to using semantic versioning for the version number (which means that
     the hyphen before the last number has been replaced by a period).
@@ -402,7 +403,7 @@
 * ycPlot(): deleted (Weisberg's LGM is now out-dated).
 
 # FSA 0.3-0 8-Nov-12
-------------------
+
 * Moved several functions from NCStats that are used quite often for fisheries
     analyses.  Ultimately, I want to remove the dependency to NCStats.
 * Deleted an importFrom for gtools, created an internal odd() instead.
@@ -433,7 +434,7 @@
 * Subset(): copied from NCStats (i.e., same function still in NCStats).
 
 # FSA 0.2-8 21Jun12
------------------
+
 * Switched to compiling under R version 2.14.1 (64-bit).
 * Changed license specification from "GPL version 2 or newer" to "GPL (>= 2)" to
     avoid warning on check.
@@ -446,7 +447,7 @@
 * simLenSelectM(): changed width to widths in layout() to avoid warning on check.
 
 # FSA 0.2-7 2Mar12
-----------------
+
 * .onLoad(): Modified.  Moved the startup message into packageStartupMessage()
     in hopes of eliminating the warning when checking the package.
 * catchCurveSim(): Modified.  Changed max.age= to 15 (from 10).  Slightly changed
@@ -469,7 +470,7 @@
     -- i.e., "int" rather than "int.E" or "int.mm".
     
 # FSA 0.2-6 1Oct11
-----------------
+
 * Switched to compiling under R version 2.13.1 (32-bit).
 * Removed importFroms that were required for updateFSA().
 * Removed splines package from imports list (not needed).
@@ -492,7 +493,7 @@
 * vbStarts(): Modified.  Added 'Somers2' option to type= argument.
 
 # FSA 0.2-5 19Aug11
------------------
+
 * Modified description file to show my e-mail address.
 * Added cnvrt.coords() as an ImportFrom TeachingDemos.  Needed for simAgeBias()
     and simLenSelectM().
@@ -538,14 +539,14 @@
     which the model is evaluated.  This allows for more realistinc modeling.
 
 # FSA 0.2-4 15Jun11
------------------
+
 * Switched to compiling under R version 2.13.0.
 
 * vbFuns(): Modified.  Modified Wang's formulas to be for length increments.
     Added a length increments version to Faben's method ("Fabens2").
 
 # FSA 0.2-3 18Apr11
-==---------------
+
 * Updated citation file.
 * Added importFrom for tools and utils packages.
 
@@ -575,7 +576,7 @@
 * vbFuns(): Modified.  Added Wang and Wang2 functions.
 
 # FSA 0.2-2 3Mar11
-----------------
+
 * moved to compling under 2.12.1 (32-bit)
 * changed dependency to >2.11.1
 
@@ -605,7 +606,7 @@
     question that motivated these changes.
 
 # FSA 0.2-1 31-Jan-11
--------------------
+
 * catchCurve(): Modified by adding a formula method.  This required moving the
     original code into a default method and changing the age= argument to x=.
 * lenFreqExpand(): Modified by adding the additional= argument (which required
@@ -621,7 +622,7 @@
     identifying this error.  Added a 'Somers' seasonal growth oscillations model.   
 
 # FSA 0.2-0 23-Sep-10
--------------------
+
 * bcFuns(): Added.  Still needs to be thoroughly proofed.
 * FSAsims(): Modified to reflect srSim() change described below.
 * listSpecies(): Moved internal function out of being within RSDval() and WSval()
@@ -638,7 +639,7 @@
 * vbModels(): Added.
 
 # FSA 0.1-6 23-Aug-10
--------------------
+
 * completed changing naming convention to "camel" type -- e.g., stockRecruitModels()
     rather than stock.recruit.models().
     
@@ -681,7 +682,7 @@
 * ycPlot(): renamed from ycplot().
 
 # FSA 0.1-5 20Aug10
------------------
+
 * moved to compiling under 2.11.1.
 * started changing my naming convention to "camel" type -- e.g., stockRecruitModels()
     rather than stock.recruit.models().  In this version, I am only changing the
@@ -720,12 +721,12 @@
 * walfordPlot(): Added.
 
 # FSA 0.1-4 6Jun10
-----------------
+
 * growmodel.sim(): added an option to fit the "original" von Bertalanffy function.
     also added more "mis-spelling" options to the other model names.   
 
 # FSA 0.1-2 17Dec09
------------------
+
 * moved to compiling under 2.10.1.
 
 * FSA-package(): updated.
@@ -760,7 +761,7 @@
     in the ci.type= argument to match that of bin.ci() from NCStats.
 
 # FSA 0.1-1 15Apr09
------------------
+
 * added a namespace
 * removed dependencies and changed to imports ...
     left plotrix and quantreg as dependencies (they d* not have a namespaces).
@@ -781,7 +782,7 @@
 * wlgm.rd: fixed the summarization example (cast() did not work with Summarize().
 
 # FSA 0.0-14 20Dec08
-------------------
+
 * age.comp(): streamlined code (put bias and difference plots in same function, 
     used grconvertY for show.n, used plotCI for range intervals, caught and 
     corrected CI problems when n=1 or SD=0).  N* functionality difference, just 
@@ -791,7 +792,7 @@
     for determining starting values in nls() modeling.
 
 # FSA 0.0-13 6Dec08
------------------
+
 * added a dependency to quantreg (for rq() in emp()).
 * added CITATION file.
 
@@ -837,7 +838,7 @@
     check to see if WSlit was already loaded.
 
 # FSA 0.0-12  15Jul08
--------------------
+
 * .First.lib: Added
 * add.zerocatch(): added this function to add zeroes to catch records where a
     species of fish was not caught.
@@ -859,7 +860,7 @@
     to accept an object of class FROESE.
 
 # FSA 0.0-11  15May08
--------------------
+
 * Moved to RForge.net.
 * changed to R2.7.0.
 * added a dependency to Rcapture (for the example in caphist.convert).
@@ -880,7 +881,7 @@
     somewhat to more closely match the output of emp().
 
 # FSA 0.0-10  1May08
-------------------
+
 * lencat(): Modified by adding an as.fact= argument that allows the user to decide
     if the resulting variable should be returned as a factor variable or not.  The
     default is set to return as a factor variable.  This allows tables of the new
@@ -903,7 +904,7 @@
 * RSDval(): See PSDval description.
 
 # FSA 0.0-9 unknown
------------------
+
 * age.comp(): Corrected SE calculation used to construct the CIs.  Changed the CI
     plotting routine to use plotCI in plotrix package -- this puts lines rather
     than points on the ends of the CIs.  Added a check for computing SDs and CIs
@@ -937,7 +938,7 @@
     the SE to be computed and to allow future functions to more flexibly use the output.
 
 # FSA 0.0-8 unknown
------------------
+
 * changed some \items to \tabular in RD files.  Changed most hard-wired quotes to
     \sQuote or \dQuote in RD files.  Changed some text-based equations to more
     latex-based equations in \eqn or \deqn markups.  This fixed the Latex compilation
@@ -970,7 +971,7 @@
 * wlgm.RD(): Added example code.  Added some details.
 
 # FSA 0.0-7 unknown
------------------
+
 * changed to compiling under R 2.6.1.
 * added FSA.R file that loads the required librarys.
 * now depends on MASS package because of the creation of the boxcox.WLGM() function
@@ -1014,7 +1015,7 @@
     Linear Growth Model analysis.
 
 # FSA 0.0-6 unknown
------------------
+
 * agebias.plot(): deleted and replaced with agecomp and plot.AgeComp functions.
 * agesunflower.plot(): deleted and replaced with agecomp and plot.AgeComp functions.
 * agecomp(): a new function that, along with its extractor functions, combines all
