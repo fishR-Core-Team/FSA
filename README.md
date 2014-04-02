@@ -12,10 +12,7 @@ if (!require('devtools')) install.packages('devtools'); require('devtools')
 devtools::install_github('FSA','droglenc')
 ```
 
-## Motivation
-
-## Resources
-
+Descriptions of recent changes can be found in the [News.md file](https://github.com/droglenc/FSA/blob/master/NEWS.md)
 
 ## Contact
 Contact me with questions by sending a friendly e-mail to <dogle@northland.edu>.
