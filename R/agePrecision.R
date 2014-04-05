@@ -90,16 +90,19 @@
 #'ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)
 #'summary(ap1)
 #'summary(ap1,what="precision")
-#'summary(ap1,what="agreement")
-#'summary(ap1,what="agreement",percent=FALSE)
+#'summary(ap1,what="difference")
+#'summary(ap1,what="difference",percent=FALSE)
+#'summary(ap1,what="absolute",percent=FALSE)
+#'barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
 #'summary(ap1,what="detail")
 #'
 #'## Example with three age assignments
 #'ap2 <- agePrecision(~otolithC+finrayC+scaleC,data=WhitefishLC)
 #'summary(ap2)
 #'summary(ap2,what="precision")
-#'summary(ap2,what="agreement")
-#'summary(ap2,what="agreement",percent=FALSE)
+#'summary(ap2,what="difference")
+#'summary(ap2,what="difference",percent=FALSE)
+#'summary(ap2,what="absolute",percent=FALSE)
 #'summary(ap2,what="detail")
 #'
 #'@rdname agePrec
@@ -138,28 +141,49 @@ agePrecision <- function(formula,data) {
   CV <- mean(CV.j)
   # all ages agree if sd=0
   all.agree <- length(detail.df$sd[detail.df$sd==0])/n*100
-  
-  ## Age agreement summaries
+
+  ## Raw age agreement summaries
   # find all pairs of comparisons
   prs <- t(combn(names(d),2))
   # maximum possible difference is max age - min age ... use this to set the levels
   #   for the agreement table.
+  tmp <- max(d,na.rm=TRUE)-min(d,na.rm=TRUE)
+  poss.lvls <- seq(-tmp,tmp,1)
+  # create a matrix to contain the results of comparing each pair
+  ragree <- matrix(NA,ncol=length(poss.lvls),nrow=nrow(prs))
+  # cycle through each paired comparison putting results in agreement matrix
+  for (i in 1:nrow(prs)) {
+    tmp <- d[,prs[i,1]]-d[,prs[i,2]]
+    ragree[i,] <- table(factor(tmp,levels=poss.lvls))
+  }
+  # relabel rows and columns of agreement table
+  rownames(ragree) <- apply(prs,1,paste,collapse=" - ")
+  colnames(ragree) <- poss.lvls
+  # delete right- and left-most columns that contain all zeroes
+  tmp <- c(which(rcumsum(colSums(ragree))==0),which(cumsum(colSums(ragree))==0))
+  if (length(tmp>0)) ragree <- ragree[,-tmp]
+  
+  ## Absolute age agreement summaries
+  # maximum possible difference is max age - min age ... use this to set the levels
+  #   for the agreement table.
   poss.lvls <- 0:(max(d,na.rm=TRUE)-min(d,na.rm=TRUE))
   # create a matrix to contain the results of comparing each pair
-  agree <- matrix(NA,ncol=length(poss.lvls),nrow=nrow(prs))
+  aagree <- matrix(NA,ncol=length(poss.lvls),nrow=nrow(prs))
   # cycle through each paired comparison putting results in agreement matrix
   for (i in 1:nrow(prs)) {
     tmp <- abs(d[,prs[i,1]]-d[,prs[i,2]])
-    agree[i,] <- table(factor(tmp,levels=poss.lvls))
+    aagree[i,] <- table(factor(tmp,levels=poss.lvls))
   }
   # relabel rows and columns of agreement table
-  rownames(agree) <- apply(prs,1,paste,collapse=" v. ")
-  colnames(agree) <- poss.lvls
+  rownames(aagree) <- apply(prs,1,paste,collapse=" v. ")
+  colnames(aagree) <- poss.lvls
   # delete right-most columns that contain all zeroes
-  tmp <- which(rcumsum(colSums(agree))==0)
-  if (length(tmp>0)) agree <- agree[,-tmp]
-  # Put together an output list
-  d <- list(detail=detail.df,absdiff=as.table(agree),APE=APE,CV=CV,PercAgree=all.agree,n=n,R=R)
+  tmp <- which(rcumsum(colSums(aagree))==0)
+  if (length(tmp>0)) aagree <- aagree[,-tmp]
+  
+  ## Put together an output list
+  d <- list(detail=detail.df,rawdiff=as.table(ragree),absdiff=as.table(aagree),
+            APE=APE,CV=CV,PercAgree=all.agree,n=n,R=R)
   class(d) <- "agePrec"
   d 
 }
@@ -168,7 +192,7 @@ agePrecision <- function(formula,data) {
 #'@rdname agePrec
 #'@method summary agePrec
 #'@S3method summary agePrec
-summary.agePrec <- function(object,what=c("precision","agreement","detail"),
+summary.agePrec <- function(object,what=c("precision","difference","absolute difference","detail","agreement"),
                             percent=TRUE,digits=4,...) {
   what <- match.arg(what)
   if (what=="precision") {
@@ -176,17 +200,22 @@ summary.agePrec <- function(object,what=c("precision","agreement","detail"),
     print(with(object,data.frame(n=n,R=R,CV=CV,APE=APE,PercAgree=PercAgree)),
           row.names=FALSE,digits=digits)
   }
-  if (what=="agreement") {
-    msg <- "of fish by differences in ages between pairs of assignments\n"
-    if (percent) msg <- paste("Percentage",msg)
-      else msg <- paste("Number",msg)
-    cat(msg)
-    tmp <- object$absdiff
+  if (what %in% c("difference","absolute difference","agreement")) {
+    if (what=="agreement") message("Use of what='agreement' is deprecated, instead use what='difference' or what='absolute difference'.")
+    if (what=="difference") {
+      tmp <- object$rawdiff
+      msg <- "of fish by differences in ages between pairs of assignments\n"
+    } else {
+      tmp <- object$absdiff
+      msg <- "of fish by absolute differences in ages between pairs of assignments\n"
+    }
     if (percent) {
+      msg <- paste("Percentage",msg)
       # need to check if it is a 1-D table and handle as a vector
       if (length(dim(tmp))==1) tmp <- tmp/sum(tmp)*100
-        else tmp <- prop.table(tmp,margin=1)*100
-    }
+       else tmp <- prop.table(tmp,margin=1)*100      
+    } else msg <- paste("Frequency",msg)
+    cat(msg)
     print(tmp,digits=digits)
   }
   if (what=="detail") {

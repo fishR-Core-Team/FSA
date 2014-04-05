@@ -7,8 +7,9 @@
 \usage{
 agePrecision(formula, data)
 
-\method{summary}{agePrec}(object, what = c("precision", "agreement",
-  "detail"), percent = TRUE, digits = 4, ...)
+\method{summary}{agePrec}(object, what = c("precision", "difference",
+  "absolute difference", "detail", "agreement"), percent = TRUE, digits = 4,
+  ...)
 }
 \arguments{
   \item{formula}{A formula of the form
@@ -103,16 +104,19 @@ data(WhitefishLC)
 ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)
 summary(ap1)
 summary(ap1,what="precision")
-summary(ap1,what="agreement")
-summary(ap1,what="agreement",percent=FALSE)
+summary(ap1,what="difference")
+summary(ap1,what="difference",percent=FALSE)
+summary(ap1,what="absolute",percent=FALSE)
+barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
 summary(ap1,what="detail")
 
 ## Example with three age assignments
 ap2 <- agePrecision(~otolithC+finrayC+scaleC,data=WhitefishLC)
 summary(ap2)
 summary(ap2,what="precision")
-summary(ap2,what="agreement")
-summary(ap2,what="agreement",percent=FALSE)
+summary(ap2,what="difference")
+summary(ap2,what="difference",percent=FALSE)
+summary(ap2,what="absolute",percent=FALSE)
 summary(ap2,what="detail")
 }
 \references{

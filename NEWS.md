@@ -1,6 +1,8 @@
 # FSA 0.4.5 ongoing 
 
 * converted to using github as a repository.
+* `ageBias()`: Modified.  Added a plot that shows the number of observations at each combined age.  Changed the coding slightly around Bowker's test (added an internal function) and implemented Evans and Hoenig's and McNemar's test.  These changes resulting in adding a "table" choice to `what=` that will print just the age-agreement table.  In addition, `what="Bowkers"`, `what="EvansHoenig"`, and `what="McNemars"` can be used to see the Bowker's, Evans and Hoenig, and McNemars test results, respectfully.  Added a `cont.corr=` argument for use with McNemars test.  Use of `what="symmetry"` is deprecated (a message saying so is returned).
+* `agePrecision()`:  Modified.  Added the ability to show raw (vs. absolute value) differences between structures.  This resulted in the removal of `what="agreement"` (though it is deprecated, with a message, for now) and the addition of `what="difference"` and `what="absolute difference"`.
 
 
 # FSA 0.4.4 Apr14
@@ -11,45 +13,45 @@
 
 # FSA 0.4.3 Mar14
 
-* ageBias(): Added.  Extracted the age-bias related material from ageComp().  Modified the code to remove unneeded code.  From ageComp(), remove the  what= argument related to differences and added a difference= argument.  Also changed what="bias.diff" to what="diff.bias" to allow for a quicker partial matching (i.e. separate more from what="bias").  Major modifications to how the axis limits are created if none are provided.  Modified where the sample size is shown on the age-bias plot.  Added the min.n.CI= argument.  Added an example using WhitefishLC to be consistent with agePrecision().
-* ageComp(): Modified.  Split into ageBias() and agePrecision().  Added a warning that this function is deprecated and will be removed in the future.
-* ageKey(): Modified.  Fixed a bug that occurred when a data frame that already contained an LCat variable was provided.  
-* agePrecision():  Added.  Extracted age precision related material from ageComp().  Modified the code to allow for calculations across more than two structures.  Code was streamlined dramatically from what was in ageComp.  Added an example using WhitefishLC as it allows for demonstrating more than two age assignments.
-* capFirst(): Modified.  Added functionality, controlled by the new words= parameter, to allow all words, rather than just the first word, to be capitalized.
-* capHistConvert():  Modified the help file by commenting out the example that depends on the RCapture package.  This is needed for the RForge site for the time being.
-* fitPlot(): Modified Rd.  Added two polynomial regression examples.
-* fitPlot.IVR(): Modified.  Changed to use new typeoflm, changed interval= argument, removed automatic main title, removed a bunch of unneeded code.
-* fitPlot.logreg():  Modified.  Removed automatic main title.
-* fitPlot.nls(): Modified.  Removed automatic main title.
-* fitPlot.ONEWAY():  Modified.  Changed to use new typeoflm, removed automatic main title, removed one line of unneeded code.
-* fitPlot.SLR(): Modified.  Changed to use new typeoflm, changed interval= argument, removed automatic main title.
-* fitPlot.TWOWAY():  Modified.  Changed to use new typeoflm and removed automatic main title
-* gReshape(): Modified.  Added a drop= argument so that the user can drop some variables before reshaping.  Also, added new.row.names=1:100000 to the reshape() call to work-around issues with duplicate row names (which were particularly problematic if any of the id.vars= had missing values.)
-* growthModels(): Modified.  Corrected spelling of Gallucci for Gallucci and  Quinn model.
-* hist.formula(): Modified.  Add a col= argument that defaults to "gray90".
-* hndlFormula(): Added.  An internal function to handle various assessments related to using formulas.
-* lencat(): Modified.  Added the ability to add names if the vector sent in breaks= is named.
-* confint.mrClosed(): Modified.  Removed extra linespaces in printed output.  Changed default for incl.inputs= to FALSE.
-* summary.mrClosed(): Modified.  Removed extra linespaces in printed output.  Changed default for incl.inputs= to FALSE.
-* predict.nlsBoot():  Modified the help file by commenting out the example that depends on the nlsBoot package.  This is needed for the RForge site for the time being.
-* psdCalc(): Added (was pssCalc()).
-* psdDataPrep(): Added (was pssDataPrep()) and modified.  Deleted the code in this function that added category names as this functionality was added to lencat().  See lencat() above.
-* PSDlit: Added (was PSSlit) and modified.  Changed all species names to have both words capitalized so as to follow the latest AFS guidelines.
-* psdPlot(): Added (was pssPlot()).
-* psdVal(): Added (was pssVal()).
-* rsdCalc(): Deleted.
-* rsdVal(): Deleted.
-* recodeSpecies(): Modified.  Changed capFirst= to doCapFirst= to minimize confusion with capFirst().  Change doCapFirst= to a character that behaves like words= in capFirst(), rather than as a logical.
-* SpotVA1:  Modified.  Removed link to source documents because it caused a problem when making the PDF manual.
-* StripedBass1:  Deleted.  Moved to FSAdata as no longer needed because some examples were changed to use WhitefishLC.
-* Subset():  Modified.  Added a resetRownames= argument.
-* swvCode(): Modified.  Added an out.dir= argument.
-* swvCounts(): Modified.  Added a capitalize= argument.
-* typeoflm(): Modifed.  Changed to use hndlFormula().  Made an internal function.
-* vbFuns(): Modified.  Corrected spelling of Gallucci for Gallucci and Quinn model.
-* vbStarts(): Modified.  Corrected spelling of Gallucci for Gallucci and Quinn model.
-* WhitefishLC: Added (from FSAdata).
-* wsLit: Modified.  Changed all species names to have both words capitalized so as to follow the latest AFS guidelines.
+* `ageBias()`: Added.  Extracted the age-bias related material from `ageComp()`.  Modified the code to remove unneeded code.  From `ageComp()`, remove the  `what=` argument related to differences and added a `difference=` argument.  Also changed `what="bias.diff"` to `what="diff.bias"` to allow for a quicker partial matching (i.e. separate more from `what="bias"`).  Major modifications to how the axis limits are created if none are provided.  Modified where the sample size is shown on the age-bias plot.  Added the `min.n.CI=` argument.  Added an example using `WhitefishLC` to be consistent with `agePrecision()`.
+* `ageComp()`: Modified.  Split into `ageBias()` and `agePrecision()`.  Added a warning that this function is deprecated and will be removed in the future.
+* `ageKey()`: Modified.  Fixed a bug that occurred when a data frame that already contained an LCat variable was provided.  
+* `agePrecision()`:  Added.  Extracted age precision related material from `ageComp()`.  Modified the code to allow for calculations across more than two structures.  Code was streamlined dramatically from what was in `ageComp()`.  Added an example using WhitefishLC as it allows for demonstrating more than two age assignments.
+* `capFirst()`: Modified.  Added functionality, controlled by the new words= parameter, to allow all words, rather than just the first word, to be capitalized.
+* `capHistConvert()`:  Modified the help file by commenting out the example that depends on the RCapture package.  This is needed for the RForge site for the time being.
+* `fitPlot()`: Modified Rd.  Added two polynomial regression examples.
+* `fitPlot.IVR()`: Modified.  Changed to use new `typeoflm()`, changed `interval=` argument, removed automatic main title, removed a bunch of unneeded code.
+* `fitPlot.logreg()`:  Modified.  Removed automatic main title.
+* `fitPlot.nls()`: Modified.  Removed automatic main title.
+* `fitPlot.ONEWAY()`:  Modified.  Changed to use new `typeoflm()`, removed automatic main title, removed one line of unneeded code.
+* `fitPlot.SLR()`: Modified.  Changed to use new `typeoflm()`, changed `interval=` argument, removed automatic main title.
+* `fitPlot.TWOWAY()`:  Modified.  Changed to use new `typeoflm()` and removed automatic main title
+* `gReshape()`: Modified.  Added a `drop=` argument so that the user can drop some variables before reshaping.  Also, added `new.row.names=1:100000` to the `reshape()` call to work-around issues with duplicate row names (which were particularly problematic if any of the `id.vars=` had missing values.)
+* `growthModels()`: Modified.  Corrected spelling of Gallucci for Gallucci and  Quinn model.
+* `hist.formula()`: Modified.  Add a `col=` argument that defaults to "gray90".
+* `hndlFormula()`: Added.  An internal function to handle various assessments related to using formulas.
+* `lencat()`: Modified.  Added the ability to add names if the vector sent in `breaks=` is named.
+* `confint.mrClosed()`: Modified.  Removed extra linespaces in printed output.  Changed default for `incl.inputs=` to FALSE.
+* `summary.mrClosed()`: Modified.  Removed extra linespaces in printed output.  Changed default for `incl.inputs=` to FALSE.
+* `predict.nlsBoot()`:  Modified the help file by commenting out the example that depends on the nlsBoot package.  This is needed for the RForge site for the time being.
+* `psdCalc()`: Added (was `pssCalc()`).
+* `psdDataPrep()`: Added (was `pssDataPrep()`) and modified.  Deleted the code in this function that added category names as this functionality was added to `lencat()`.  See `lencat()` above.
+* `PSDlit`: Added (was `PSSlit`) and modified.  Changed all species names to have both words capitalized so as to follow the latest AFS guidelines.
+* `psdPlot()`: Added (was `pssPlot()`).
+* `psdVal()`: Added (was `pssVal()`).
+* `rsdCalc()`: Deleted.
+* `rsdVal()`: Deleted.
+* `recodeSpecies()`: Modified.  Changed `capFirst=` to `doCapFirst=` to minimize confusion with `capFirst()`.  Change `doCapFirst=` to a character that behaves like `words=` in `capFirst()`, rather than as a logical.
+* `SpotVA1`:  Modified.  Removed link to source documents because it caused a problem when making the PDF manual.
+* `StripedBass1`:  Deleted.  Moved to FSAdata as no longer needed because some examples were changed to use `WhitefishLC`.
+* `Subset()`:  Modified.  Added a `resetRownames=` argument.
+* `swvCode()`: Modified.  Added an `out.dir=` argument.
+* `swvCounts()`: Modified.  Added a `capitalize=` argument.
+* `typeoflm()`: Modifed.  Changed to use `hndlFormula()`.  Made an internal function.
+* `vbFuns()`: Modified.  Corrected spelling of Gallucci for Gallucci and Quinn model.
+* `vbStarts()`: Modified.  Corrected spelling of Gallucci for Gallucci and Quinn model.
+* `WhitefishLC`: Added (from FSAdata).
+* `wsLit`: Modified.  Changed all species names to have both words capitalized so as to follow the latest AFS guidelines.
 
 # FSA 0.4.2 Dec13
 

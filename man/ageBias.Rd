@@ -7,16 +7,18 @@
 ageBias(formula, data, col.lab = tmp$Rname, row.lab = tmp$Enames[1],
   method = p.adjust.methods, sig.level = 0.05, min.n.CI = 5)
 
-\method{plot}{ageBias}(x, what = c("bias", "sunflower"), difference = FALSE,
-  xlab = x$col.lab, ylab = x$row.lab, show.n = TRUE, show.pts = FALSE,
-  pch.pts = 19, col.pts = rgb(0, 0, 0, transparency), transparency = 1/10,
-  pch.mean = 3, col.err = "blue", col.err.sig = "red", lwd.err = 2,
-  show.rng = FALSE, col.rng = "gray", lwd.rng = 2, col.ref = "black",
-  lwd.ref = 1, lty.ref = 2, xlim = NULL, ylim = NULL,
-  yaxt = par("yaxt"), ...)
+\method{plot}{ageBias}(x, what = c("bias", "sunflower", "numbers"),
+  difference = FALSE, xlab = x$col.lab, ylab = x$row.lab, show.n = TRUE,
+  show.pts = FALSE, pch.pts = 19, col.pts = rgb(0, 0, 0, transparency),
+  transparency = 1/10, pch.mean = 3, col.err = "blue",
+  col.err.sig = "red", lwd.err = 2, show.rng = FALSE, col.rng = "gray",
+  lwd.rng = 2, col.ref = "black", lwd.ref = 1, lty.ref = 2,
+  xlim = NULL, ylim = NULL, yaxt = par("yaxt"), ...)
 
-\method{summary}{ageBias}(object, what = c("symmetry", "bias", "diff.bias"),
-  flip.table = FALSE, zero.print = "-", digits = 3, ...)
+\method{summary}{ageBias}(object, what = c("table", "Bowkers", "EvansHoenig",
+  "McNemars", "bias", "diff.bias", "symmetry"), flip.table = FALSE,
+  zero.print = "-", digits = 3, cont.corr = c("none", "Yates", "Edwards"),
+  ...)
 }
 \arguments{
   \item{formula}{A formula of the form \code{col~row},
@@ -73,6 +75,12 @@ ageBias(formula, data, col.lab = tmp$Rname, row.lab = tmp$Enames[1],
   rows are reversed so that the younger ages are at the
   bottom of the table).  This makes the table more directly
   comparable to the age-bias plot.}
+
+  \item{cont.corr}{A continuity correction method to be
+  used with (only) McNemars test. If \code{"none"}
+  (default) then no continuity correction is used, if
+  \code{"Yates"} then 0.5 is used, and if \code{"Edwards"}
+  then 1 is used.}
 
   \item{xlab}{A string that contains a label for the x-axis
   age assignments.}
@@ -213,12 +221,21 @@ petals have more observations at that point.  The
 differences between the two structures can be shown by
 including \code{difference=TRUE}.
 
-The age-agreement table with a Bowker's Test of Symmetry,
-following Hoenig et al. (1995), is constructed with
-\code{what="symmetry"} (the default) in \code{summary}. The
-null hypothesis for this test is that the agreement table
-is symmetric.  The agreement table can be flipped by
-including \code{flip.table=TRUE}.
+The data can also be viewed as a \dQuote{numbers} plot by
+using \code{what="numbers"} in \code{plot}.  A
+\dQuote{numbers} plot shows the number of observations that
+occur at each unique (x,y) coordinate.
+
+The age-agreement table can be seen with
+\code{what="table"} in \code{summary}. The agreement table
+can be flipped by including \code{flip.table=TRUE}.  The
+results from one of two tests of symmetry (along with the
+age-agreement table) are given with either
+\code{what="Bowkers"} for Bowker's test (described in
+Hoenig et al. (1995)) or \code{what="McNemars"} for
+McNemar's test (described in Evans and Hoenig (1998)) in
+\code{summary}.  The null hypothesis for these tests is
+that the agreement table is symmetric.
 
 Individual t-tests to determine if the mean row-variables
 ages at a particular age of the column-variable (e.g., is
@@ -244,13 +261,16 @@ between pairs of age assignments.
 data(WhitefishLC)
 ab1 <- ageBias(otolithC~scaleC,data=WhitefishLC,col.lab="Otolith Age",row.lab="Scale Age")
 summary(ab1)
-summary(ab1,what="symmetry")
+summary(ab1,what="Bowkers")
+summary(ab1,what="EvansHoenig")
+summary(ab1,what="McNemars")
+summary(ab1,what="McNemars",cont.corr="Yates")
 summary(ab1,what="bias")
 summary(ab1,what="diff.bias")
 # show the zeroes (rather than dashes)
-summary(ab1,what="symmetry",zero.print="0")
+summary(ab1,what="table",zero.print="0")
 # flip the table -- ease of comparison to age-bias plot
-summary(ab1,what="symmetry",flip.table=TRUE)
+summary(ab1,what="table",flip.table=TRUE)
 
 ## default plot
 plot(ab1)
@@ -267,17 +287,26 @@ plot(ab1,difference=TRUE)
 ## sunflower plot
 plot(ab1,what="sunflower")
 plot(ab1,what="sunflower",difference=TRUE)
+## "Numbers" plot
+plot(ab1,what="number",col.ref="gray50")
 }
 \references{
 Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.
 Graphical and statistical methods for determining the
 consistency of age determinations. Transactions of the
 American Fisheries Society, 124:131-138.
+\url{http://www.bio.gc.ca/otoliths/publication-eng.php}
+
+Evans, G.T. and J.M. Hoenig.  1998.  Testing and viewing
+symmetry in contingency tables, with apprlication to
+readers of fish ages.  Biometrics 54:620-629.
+\url{http://www.fisheries.vims.edu/hoenig/pdfs/Viewing.pdf}.
 
 Hoenig, J.M., M.J. Morgan, and C.A. Brown. 1995.  Analysing
 differences between two age determination methods by tests
 of symmetry. Canadian Journal of Fisheries And Aquatic
 Systems, 52:364-368.
+\url{http://www.fisheries.vims.edu/hoenig/pdfs/Hoenig_Morgan_Brown_AgeDeterminationSymmetry.pdf}
 
 Muir, A.M., M.P. Ebener, J.X. He, and J.E. Johnson.  2008.
 A comparison of the scale and otolith methods of age
@@ -285,7 +314,8 @@ estimation for lake whitefish in Lake Huron.  North
 American Journal of Fisheries Management, 28:625-635.
 }
 \seealso{
-\code{\link{agePrecision}}
+\code{\link{agePrecision}} and \code{compare2} in
+\pkg{fishmethods}.
 }
 \keyword{htest}
 \keyword{manip}
