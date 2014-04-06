@@ -22,6 +22,6 @@ fishR <- function(where=c("home","general","books","AIFFD","news")) {
     general={browseURL("http://fishr.wordpress.com/vignettes/")},
     books={browseURL("http://fishr.wordpress.com/books/")},
     AIFFD={browseURL("http://fishr.wordpress.com/books/aiffd/")},
-    news={browseURL("http://fishr.wordpress.com/news/")}
+    news={browseURL("https://github.com/droglenc/FSA/blob/master/NEWS.md")}
   ) 
 }

@@ -1,0 +1,93 @@
+\name{srSim}
+\alias{srSim}
+\title{Dynamic plots to explore typical fisheries stock-recruitment models.}
+\usage{
+srSim(S = NULL, R = NULL, data = NULL, type = c("BevertonHolt",
+  "Ricker"), param = 1, max.S = 500, max.R = 1000)
+}
+\arguments{
+  \item{S}{An optional vector containing observed numbers
+  of spawning stock or a formula as described in the
+  details.}
+
+  \item{R}{An optional vector containing observed numbers
+  of recruits.  See details.}
+
+  \item{data}{An optional data frame containing the
+  variables if \code{S} is a formula.  See details.}
+
+  \item{type}{A single string indicating which
+  stock-recruitment model to use.  See details.}
+
+  \item{param}{A single numeric indicating which
+  parameterization of the \code{type} to use.  See
+  details.}
+
+  \item{max.S}{A single numeric indicating the maximum
+  spawning stock to use for scaling the x-axis.  Ignored if
+  \code{S} is not NULL.}
+
+  \item{max.R}{A single numeric indicating the maximum
+  recruitment to use for scaling the y-axis.  Ignored if
+  \code{S} is not NULL.}
+}
+\value{
+None.  However a dynamic graphic connected to slider bar
+controls of the \bold{\sQuote{a}}, \bold{\sQuote{b}}, or
+\bold{\sQuote{Rp}} parameters specific to the chosen
+stock-recruit model.
+}
+\description{
+Plots hypothetical number of recruits versus stock size for
+four parameterizations of the Beverton-Holt and three
+parameterizations of the Ricker stock-recruit models.
+Slider bars are used to alter the parameters of each model.
+}
+\details{
+This function can be used to explore the dynamics of
+stock-recruitment models for various parameter choices.  In
+these instances of model exploration the \code{S=} and
+\code{R=} arguments should be (left) set at \code{NULL}.
+This function can also be used to visually \dQuote{fit} a
+stock-recruit model to a set of observed stock and
+recruitment data in order to determine reasonable starting
+values for the non-linear least-squares fit of the
+stock-recruit model.  In this instance, observed data are
+plotted by including the vectors of observed stock sizes
+and recruits in a model of the form \code{S~R}, in
+conjunction with the \code{data=} argument.
+
+The \code{type=} argument is used to choose either the
+\code{"BevertonHolt"} or \code{"Ricker"} models.  Different
+parameterizations of these two models are chosen with the
+\code{param=} argument.  Four paramaterizations of the
+Beverton-Holt model and three parameterizations of the
+Ricker model are allowed.  See \code{\link{srModels}} for a
+representation of each parameterization.
+}
+\examples{
+if (interactive()) {
+# Defaults - Beverton-Holt, first parameterization
+srSim()
+
+# Beverton-Holt, second parameterization
+srSim(param=2)
+
+# Ricker model first parameterization
+srSim(type="Ricker")
+
+# Ricker model second parameterization
+srSim(type="Ricker", param=2)
+
+# Ricker model first parameterization with Norwegian Cod data from the FSA package
+library(FSA)
+data(CodNorwegian)
+srSim(recruits~stock,data=CodNorwegian,type="Ricker",param=1)
+
+} # end if interactive
+}
+\seealso{
+\code{\link{srModels}}
+}
+\keyword{iplot}
+

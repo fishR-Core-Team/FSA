@@ -19,7 +19,7 @@ with \code{fishR("AIFFD")}.
 
 Additional data sets are in the FSAdata package
 (\url{http://www.rforge.net/FSAdata}) and simulations
-useful for teaching concepts are in the FSATeaching package
+useful for teaching concepts are in the FSATeach package
 (\url{http://www.rforge.net/FSATeach}).
 }
 

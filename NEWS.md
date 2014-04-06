@@ -1,8 +1,19 @@
 # FSA 0.4.5 ongoing 
 
-* converted to using github as a repository.
+* Converted to using github as a repository.
+* Changed NEWS to NEWS.md
+* Added ImportFrom for relax package (see below).
 * `ageBias()`: Modified.  Added a plot that shows the number of observations at each combined age.  Changed the coding slightly around Bowker's test (added an internal function) and implemented Evans and Hoenig's and McNemar's test.  These changes resulting in adding a "table" choice to `what=` that will print just the age-agreement table.  In addition, `what="Bowkers"`, `what="EvansHoenig"`, and `what="McNemars"` can be used to see the Bowker's, Evans and Hoenig, and McNemars test results, respectfully.  Added a `cont.corr=` argument for use with McNemars test.  Use of `what="symmetry"` is deprecated (a message saying so is returned).
 * `agePrecision()`:  Modified.  Added the ability to show raw (vs. absolute value) differences between structures.  This resulted in the removal of `what="agreement"` (though it is deprecated, with a message, for now) and the addition of `what="difference"` and `what="absolute difference"`.
+* `fishR()`: Modified.  Changed to point to the github NEWS.md when `where="news"`.
+* `fsaNews()`: Modified.  Changed to point to the github NEWS.md.
+* `catchCurveSim()`: Added back from FSATeach (required adding ImportFrom for relax package).
+* `cohortSim()`: Added back from FSATeach (required adding ImportFrom for relax package).
+* `growthModelSim()`: Added back from FSATeach (required adding ImportFrom for relax package).
+* `lengthWeightSim()`: Added back (was `lwModelSim()`) from FSATeach (required adding ImportFrom for relax package).
+* `leslieSim()`: Added back from FSATeach (required adding ImportFrom for relax package).
+* `mrClosed1Sim()`: Added back from FSATeach (required adding ImportFrom for relax package).
+* `srSim()`: Added back from FSATeach (required adding ImportFrom for relax package).
 
 
 # FSA 0.4.4 Apr14
@@ -10,6 +21,7 @@
 * `ageKeyPrep()`: Added.
 * `agePrecision()`: Modified.  Fixed the bug where the APE and CV were over-estimated in situations where the multiple ages agreed at an age=0 (thanks to Richard McBride for pointing out this error).
 * `wsLit`: Modified.  Added Pursak chub information from Sulun et al. (2014).
+
 
 # FSA 0.4.3 Mar14
 

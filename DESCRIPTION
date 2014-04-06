@@ -18,9 +18,10 @@ Imports:
     nlme,
     plotrix,
     quantreg,
+    relax,
     sciplot
 Suggests:
     nlstools,
     Rcapture
 License: GPL (>= 2)
-URL: http://www.rforge.net/FSA/, http://fishr.wordpress.com/
+URL: http://fishr.wordpress.com/, https://github.com/droglenc/FSA
