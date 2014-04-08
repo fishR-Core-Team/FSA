@@ -51,8 +51,9 @@ fitPlot(object, ...)
 \method{fitPlot}{logreg}(object, xlab = names(object$model)[2],
   ylab = names(object$model)[1], main = "", plot.pts = TRUE,
   col.pt = "black", trans.pt = NULL, plot.p = TRUE, breaks = 25,
-  p.col = "blue", p.pch = 3, p.cex = 1, col.mdl = "red", lwd = 2,
-  lty = 1, mdl.vals = 50, xlim = range(x), ...)
+  p.col = "blue", p.pch = 3, p.cex = 1, yaxis1.ticks = seq(0, 1, 0.1),
+  yaxis1.lbls = c(0, 0.5, 1), yaxis2.show = TRUE, col.mdl = "red",
+  lwd = 2, lty = 1, mdl.vals = 50, xlim = range(x), ...)
 }
 \arguments{
   \item{object}{An \code{lm} or \code{nls} object (i.e.,
@@ -204,6 +205,19 @@ fitPlot(object, ...)
   the default then the domain over which the logistic
   regression model is plotted will change.}
 
+  \item{yaxis1.ticks}{A numeric vector indicating where
+  tick marks should be placed on the left y-axis (for the
+  proportion of \sQuote{successes}) for the logistic
+  regression plot.}
+
+  \item{yaxis1.lbls}{A numeric vector indicating labels for
+  the tick marks on the left y-axis (for the proportion of
+  \sQuote{successes}) for the logistic regression plot.}
+
+  \item{yaxis2.show}{A logical indicating whether the right
+  y-axis should be created (\code{=TRUE}; default) or not
+  for the logistic regression plot.}
+
   \item{\dots}{Other arguments to be passed to the plot
   functions.}
 }
@@ -332,6 +346,18 @@ fitPlot(nl1,Ecoli,xlab="Day",ylab="Cellsx10^6/ml",plot.pts=FALSE)
 
 
 ## Logistic regression example
+## NASA space shuttle o-ring failures -- from graphics package
+fail <- factor(c(2,2,2,2,1,1,1,1,1,1,2,1,2,1,1,1,1,2,1,1,1,1,1),
+levels = 1:2, labels = c("no","yes"))
+temperature <- c(53,57,58,63,66,67,67,67,68,69,70,70,70,70,72,73,75,75,76,76,78,79,81)
+d <- data.frame(fail,temperature)
+glm1 <- glm(fail~temperature,data=d,family="binomial")
+fitPlot(glm1)
+fitPlot(glm1,breaks=seq(52,82,2))
+fitPlot(glm1,yaxis1.ticks=c(0,1),yaxis1.lbls=c(0,1))
+# changing the size of the y-axis labels
+par(cex.axis=1.5,cex.lab=1.5)
+fitPlot(glm1)
 }
 \seealso{
 \code{abline} in \pkg{graphics}; \code{reg.line} in

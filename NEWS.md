@@ -6,6 +6,7 @@
 * `ageBias()`: Modified.  Added a plot that shows the number of observations at each combined age.  Changed the coding slightly around Bowker's test (added an internal function) and implemented Evans and Hoenig's and McNemar's test.  These changes resulting in adding a "table" choice to `what=` that will print just the age-agreement table.  In addition, `what="Bowkers"`, `what="EvansHoenig"`, and `what="McNemars"` can be used to see the Bowker's, Evans and Hoenig, and McNemars test results, respectfully.  Added a `cont.corr=` argument for use with McNemars test.  Use of `what="symmetry"` is deprecated (a message saying so is returned).
 * `agePrecision()`:  Modified.  Added the ability to show raw (vs. absolute value) differences between structures.  This resulted in the removal of `what="agreement"` (though it is deprecated, with a message, for now) and the addition of `what="difference"` and `what="absolute difference"`.
 * `fishR()`: Modified.  Changed to point to the github NEWS.md when `where="news"`.
+* `fitPlot()`: Modified.  Changed the logistic regression code to handle the changes to `plotBinResp()` (see below).  In addition, a temporary fix was added so that the size of the y-axis labels could be modified with an external call to `par()`.  This was a fix for Glen Sutton but will ultimately need to be handled more elegantly.
 * `fsaNews()`: Modified.  Changed to point to the github NEWS.md.
 * `catchCurveSim()`: Added back from FSATeach (required adding ImportFrom for relax package).
 * `cohortSim()`: Added back from FSATeach (required adding ImportFrom for relax package).
@@ -13,6 +14,7 @@
 * `lengthWeightSim()`: Added back (was `lwModelSim()`) from FSATeach (required adding ImportFrom for relax package).
 * `leslieSim()`: Added back from FSATeach (required adding ImportFrom for relax package).
 * `mrClosed1Sim()`: Added back from FSATeach (required adding ImportFrom for relax package).
+* `plotBinResp()`: Modified.  Added `yaxis1.ticks=` and `yaxis1.lbls=` arguments so that the user can control the tick-mark locations and labels for the left y-axis (the defaults are to show ticks every 0.1 units but only label 0, 0.5, and 1).  Added `yaxis2.show=` argument to allow the user to "turn-off" the right y-axis (defaults to being on) which is labeled with the level labels.
 * `srSim()`: Added back from FSATeach (required adding ImportFrom for relax package).
 
 

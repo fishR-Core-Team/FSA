@@ -75,8 +75,7 @@
 #'are controlled by \code{lty}.  See \code{par}.
 #'@param xlab a string for labelling the x-axis.
 #'@param ylab a string for labelling the y-axis.
-#'@param main a string for the main label to the plot.  Defaults to the model
-#'call.
+#'@param main a string for the main label to the plot.  Defaults to the model call.
 #'@param legend Controls use and placement of the legend.  See details.
 #'@param type The type of graphic to construct in a one-way and two-way ANOVA.
 #'If \code{"b"} then points are plotted and lines are used to connect points
@@ -104,8 +103,7 @@
 #'to use for the box around the legend.  The default is to not plot a box.
 #'@param d a data frame containing the variabls used in construction of the
 #'\code{nls} object.
-#'@param jittered a logical indicating whether the points should be jittered
-#'horizontally.
+#'@param jittered a logical indicating whether the points should be jittered horizontally.
 #'@param legend.lbls A vector of strings that will be the labels for the legend
 #'in an nls fitPlot graphic.
 #'@param trans.pt A numeric indicating how many points would be plotted on top
@@ -125,6 +123,14 @@
 #'@param xlim A vector of length two to control the x-axis in the logistic
 #'regression plot.  If this is changed from the default then the domain over
 #'which the logistic regression model is plotted will change.
+#'@param yaxis1.ticks A numeric vector indicating where tick marks should be placed
+#'on the left y-axis (for the proportion of \sQuote{successes}) for the logistic
+#'regression plot.
+#'@param yaxis1.lbls A numeric vector indicating labels for the tick marks on the
+#'left y-axis (for the proportion of \sQuote{successes}) for the logistic
+#'regression plot.
+#'@param yaxis2.show A logical indicating whether the right y-axis should be
+#'created (\code{=TRUE}; default) or not for the logistic regression plot.
 #'@param \dots Other arguments to be passed to the plot functions.
 #'@return None.  However, a fitted-line plot is produced.
 #'@note This function is meant to allow newbie students the ability to
@@ -198,7 +204,18 @@
 #'
 #'
 #'## Logistic regression example
-#'
+#'## NASA space shuttle o-ring failures -- from graphics package
+#'fail <- factor(c(2,2,2,2,1,1,1,1,1,1,2,1,2,1,1,1,1,2,1,1,1,1,1),
+#'levels = 1:2, labels = c("no","yes"))
+#'temperature <- c(53,57,58,63,66,67,67,67,68,69,70,70,70,70,72,73,75,75,76,76,78,79,81)
+#'d <- data.frame(fail,temperature)
+#'glm1 <- glm(fail~temperature,data=d,family="binomial")
+#'fitPlot(glm1)
+#'fitPlot(glm1,breaks=seq(52,82,2))
+#'fitPlot(glm1,yaxis1.ticks=c(0,1),yaxis1.lbls=c(0,1))
+#'# changing the size of the y-axis labels
+#'par(cex.axis=1.5,cex.lab=1.5)
+#'fitPlot(glm1)
 #'
 #'@rdname fitPlot
 #'@export fitPlot
@@ -507,10 +524,13 @@ fitPlot.glm <- function(object, ...) {
 fitPlot.logreg <- function(object,xlab=names(object$model)[2],ylab=names(object$model)[1],main="",
     plot.pts=TRUE,col.pt="black",trans.pt=NULL,
     plot.p=TRUE,breaks=25,p.col="blue",p.pch=3,p.cex=1,
+    yaxis1.ticks=seq(0,1,0.1),yaxis1.lbls=c(0,0.5,1),yaxis2.show=TRUE,
     col.mdl="red",lwd=2,lty=1,mdl.vals=50,xlim=range(x),...) {
   yc <- object$model[,1]
   x <- object$model[,2]
-  plotBinResp(x,yc,xlab,ylab,plot.pts,col.pt,trans.pt,plot.p,breaks,p.col,p.pch,p.cex,main=main,xlim=xlim,...)
+  plotBinResp(x,yc,xlab,ylab,plot.pts,col.pt,trans.pt,plot.p,breaks,p.col,p.pch,p.cex,
+              yaxis1.ticks=yaxis1.ticks,yaxis1.lbls=yaxis1.lbls,yaxis2.show=yaxis2.show,
+              main=main,xlim=xlim,...)
   nd <- data.frame(seq(min(xlim),max(xlim),length.out=mdl.vals))
   names(nd) <- names(object$model)[2]
   lines(nd[,1],predict(object,nd,type="response"),col=col.mdl,lwd=lwd,lty=lty)

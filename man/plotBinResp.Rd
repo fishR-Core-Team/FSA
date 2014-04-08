@@ -12,7 +12,8 @@ plotBinResp(x, ...)
 \method{plotBinResp}{default}(x, y, xlab = paste(deparse(substitute(x))),
   ylab = paste(deparse(substitute(y))), plot.pts = TRUE, col.pt = "black",
   trans.pt = NULL, plot.p = TRUE, breaks = 25, p.col = "blue",
-  p.pch = 3, p.cex = 1.25, ...)
+  p.pch = 3, p.cex = 1.25, yaxis1.ticks = seq(0, 1, 0.1),
+  yaxis1.lbls = c(0, 0.5, 1), yaxis2.show = TRUE, ...)
 }
 \arguments{
   \item{x}{A quantitative explanatory variable or a formula
@@ -57,6 +58,17 @@ plotBinResp(x, ...)
 
   \item{p.cex}{A character expansion factor for plotting
   the proportions.}
+
+  \item{yaxis1.ticks}{A numeric vector indicating where
+  tick marks should be placed on the left y-axis (for the
+  proportion of \sQuote{successes}).}
+
+  \item{yaxis1.lbls}{A numeric vector indicating labels for
+  the tick marks on the left y-axis (for the proportion of
+  \sQuote{successes}).}
+
+  \item{yaxis2.show}{A logical indicating whether the right
+  y-axis should be created (\code{=TRUE}; default) or not.}
 
   \item{\dots}{Other arguments to be passed to the plot
   functions.}
@@ -106,6 +118,12 @@ plotBinResp(fail~temperature,data=d,plot.p=FALSE)
 
 ## Change points colors, and eliminate transparency
 plotBinResp(fail~temperature,data=d,col.pt="red",trans.pt=1)
+
+## Remove the right y-axis
+plotBinResp(fail~temperature,data=d,yaxis2.show=FALSE)
+
+## Change left y-axis ticks
+plotBinResp(fail~temperature,data=d,yaxis1.ticks=c(0,1),yaxis1.lbls=c(0,1))
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
