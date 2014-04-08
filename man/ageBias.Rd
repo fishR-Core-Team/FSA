@@ -15,8 +15,8 @@ ageBias(formula, data, col.lab = tmp$Rname, row.lab = tmp$Enames[1],
   lwd.rng = 2, col.ref = "black", lwd.ref = 1, lty.ref = 2,
   xlim = NULL, ylim = NULL, yaxt = par("yaxt"), ...)
 
-\method{summary}{ageBias}(object, what = c("table", "Bowkers", "EvansHoenig",
-  "McNemars", "bias", "diff.bias", "symmetry"), flip.table = FALSE,
+\method{summary}{ageBias}(object, what = c("table", "symmetry", "Bowkers",
+  "EvansHoenig", "McNemars", "bias", "diff.bias"), flip.table = FALSE,
   zero.print = "-", digits = 3, cont.corr = c("none", "Yates", "Edwards"),
   ...)
 }
@@ -168,8 +168,11 @@ containing an optional label for the column structure or
 readings.  \item row.lab A character string containing an
 optional label for the row structure or readings. }
 
-The \code{summary} and \code{plot} function do not return
-anything.
+The \code{summary} function will return a data frame
+containing the symmetry test results if
+\code{what="symmetry"}, \code{what="Bowkers"},
+\code{what="McNemars"}, or \code{what="EvansHoenig"}.  The
+\code{plot} function do not return anything.
 }
 \description{
 Computes overall measures of bias and creates plots for
@@ -261,6 +264,7 @@ between pairs of age assignments.
 data(WhitefishLC)
 ab1 <- ageBias(otolithC~scaleC,data=WhitefishLC,col.lab="Otolith Age",row.lab="Scale Age")
 summary(ab1)
+summary(ab1,what="symmetry")
 summary(ab1,what="Bowkers")
 summary(ab1,what="EvansHoenig")
 summary(ab1,what="McNemars")

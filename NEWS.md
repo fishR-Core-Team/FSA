@@ -3,7 +3,7 @@
 * Converted to using github as a repository.
 * Changed NEWS to NEWS.md
 * Added ImportFrom for relax package (see below).
-* `ageBias()`: Modified.  Added a plot that shows the number of observations at each combined age.  Changed the coding slightly around Bowker's test (added an internal function) and implemented Evans and Hoenig's and McNemar's test.  These changes resulting in adding a "table" choice to `what=` that will print just the age-agreement table.  In addition, `what="Bowkers"`, `what="EvansHoenig"`, and `what="McNemars"` can be used to see the Bowker's, Evans and Hoenig, and McNemars test results, respectfully.  Added a `cont.corr=` argument for use with McNemars test.  Use of `what="symmetry"` is deprecated (a message saying so is returned).
+* `ageBias()`: Modified.  Added a plot that shows the number of observations at each combined age.  Changed the coding slightly around Bowker's test (added an internal function) and implemented Evans and Hoenig's and McNemar's test.  These changes resulting in adding a "table" choice to `what=` that will print just the age-agreement table.  When `what="symmetry"` is chosen all three ob Bowker's, McNemar's, and Evans-Hoenig results will be output as a table.  The age-agreement table is no longer printed when `what="symmetry"`.  In addition, `what="Bowkers"`, `what="EvansHoenig"`, and `what="McNemars"` can be used to see the Bowker's, Evans and Hoenig, and McNemars test results, respectfully.  Added a `cont.corr=` argument for use with McNemars test.
 * `agePrecision()`:  Modified.  Added the ability to show raw (vs. absolute value) differences between structures.  This resulted in the removal of `what="agreement"` (though it is deprecated, with a message, for now) and the addition of `what="difference"` and `what="absolute difference"`.
 * `fishR()`: Modified.  Changed to point to the github NEWS.md when `where="news"`.
 * `fitPlot()`: Modified.  Changed the logistic regression code to handle the changes to `plotBinResp()` (see below).  In addition, a temporary fix was added so that the size of the y-axis labels could be modified with an external call to `par()`.  This was a fix for Glen Sutton but will ultimately need to be handled more elegantly.
@@ -360,7 +360,7 @@
 * Switched to using semantic versioning for the version number (which means that
     the hyphen before the last number has been replaced by a period).
 * Switched to using roxygen to construct help files.
-* Set some values =NULL to eliminate "global bindinds" warning when performing
+* Set some values =NULL to eliminate "global bindings" warning when performing
     the RCMD check -- emp(), pos2adj(), psdVal(), simAgeBias(), srStarts(), 
     vbStarts(), and wsValidate().  This did not work for the WSlit and RSDlit
     problems in rsdCalc(), rsdPlot(), rsdVal() and wsVal().

@@ -143,7 +143,9 @@
 #'row structure or readings.
 #'}
 #'
-#'The \code{summary} and \code{plot} function do not return anything.
+#'The \code{summary} function will return a data frame containing the symmetry test
+#'results if \code{what="symmetry"}, \code{what="Bowkers"}, \code{what="McNemars"},
+#'or \code{what="EvansHoenig"}.  The \code{plot} function do not return anything.
 #'
 #'@seealso \code{\link{agePrecision}} and \code{compare2} in \pkg{fishmethods}.
 #'
@@ -170,6 +172,7 @@
 #'data(WhitefishLC)
 #'ab1 <- ageBias(otolithC~scaleC,data=WhitefishLC,col.lab="Otolith Age",row.lab="Scale Age")
 #'summary(ab1)
+#'summary(ab1,what="symmetry")
 #'summary(ab1,what="Bowkers")
 #'summary(ab1,what="EvansHoenig")
 #'summary(ab1,what="McNemars")
@@ -389,11 +392,13 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
 #'@rdname ageBias
 #'@method summary ageBias
 #'@S3method summary ageBias
-summary.ageBias <- function(object,what=c("table","Bowkers","EvansHoenig","McNemars","bias","diff.bias","symmetry"),
+summary.ageBias <- function(object,what=c("table","symmetry","Bowkers","EvansHoenig","McNemars","bias","diff.bias"),
                             flip.table=FALSE,zero.print="-",digits=3,cont.corr=c("none","Yates","Edwards"),
                             ...) {
-  ## Internal function to compute Bowker's Test
-  Bowkers <- function(obj) {
+  ## Internal function to handle the age-agreement table for symmetry tests
+  ##   Removes the main diagonal, finds the upper and lower triangles, and
+  ##   returns them all in a list
+  hndlAgreeTable <- function(obj) {
     # rename agreement table
     at <- obj$agree
     # Remove the values on the diagonal
@@ -402,71 +407,68 @@ summary.ageBias <- function(object,what=c("table","Bowkers","EvansHoenig","McNem
     lo <- up <- at
     lo[upper.tri(lo)] <- NA
     up[lower.tri(up)] <- NA
+    # return all of the parts
+    list(at=at,lo=lo,up=up)
+  }
+  
+  ## Internal function to compute Bowker's Test
+  Bowkers <- function(obj) {
+    AAT <- hndlAgreeTable(obj)
     # Chi-sq parts (Evans and Hoenig's eq 1, Hoenig et al.'s eq 3)
-    rat <- ((lo-t(up))^2)/(lo+t(up))
+    rat <- ((AAT$lo-t(AAT$up))^2)/(AAT$lo+t(AAT$up))
     # Add chi-square parts
     chi.sq <- sum(rat,na.rm=TRUE)
     # Count number of chi-sq parts
     df <- sum(as.numeric(!is.na(rat)))
     # Find the p-value 
     p <- pchisq(chi.sq,df,lower.tail=FALSE)
-    # Return list
-    list(title="Bowker's Test of Symmetry",res=data.frame(df,chi.sq,p))  
+    # Return dataframe
+    data.frame(symTest="Bowkers",df=df,chi.sq=chi.sq,p=p)
   } ## End internal Bowker's Test function
   
   ## Internal function to compute Bowker's Test
   McNemars <- function(obj,cont.cor) {
     # handle continuity correction
     if (cont.cor=="none") {
-      title <- "McNemar's Test of Symmetry"
+      title <- "McNemars"
       cc <- 0
     } else if (cont.cor=="Yates") {
-      title <- "McNemar's Test of Symmetry (Yates Correction)"
+      title <- "McNemars (Yates Correction)"
       cc <- 0.5
     } else if (cont.cor== "Edwards") {
-      title <- "McNemar's Test of Symmetry (Edwards Correction)"
+      title <- "McNemars (Edwards Correction)"
       cc <- 1
     } else stop("Continuity correction is incorrect",call.=FALSE)
-    # rename agreement table
-    at <- obj$agree
-    # Remove the values on the diagonal
-    diag(at) <- NA
-    # Find the values on the lower- and upper- triangles
-    lo <- up <- at
-    lo[upper.tri(lo)] <- NA
-    up[lower.tri(up)] <- NA
+    AAT <- hndlAgreeTable(obj)
     # Chi-sq parts (Evans and Hoenig's eq 2, but include the correction factor)
-    top <- (abs(sum((lo-t(up)),na.rm=TRUE))-cc)^2
-    bot <- sum(lo+t(up),na.rm=TRUE)
+    top <- (abs(sum((AAT$lo-t(AAT$up)),na.rm=TRUE))-cc)^2
+    bot <- sum(AAT$lo+t(AAT$up),na.rm=TRUE)
     chi.sq <- top/bot
     df <- 1
     # Find the p-value 
     p <- pchisq(chi.sq,df,lower.tail=FALSE)
     # Return list
-    list(title=title,res=data.frame(df,chi.sq,p))  
+    data.frame(symTest=title,df=df,chi.sq=chi.sq,p=p)
   } ## End internal McNemar's Test function
   
   ## Internal function to compute Evans Hoenig's Test
   EvansHoenig <- function(obj) {
-    # rename agreement table
-    at <- obj$agree
-    # Remove the values on the diagonal
-    diag(at) <- NA
+    AAT <- hndlAgreeTable(obj)
     # Create matrix of differences in potential ages
-    diffs <- at
-    for (i in 1:nrow(at)) {
-      for (j in 1:ncol(at)) {
-        diffs[i,j] <- as.numeric(rownames(at)[j])-as.numeric(colnames(at)[i])
+    diffs <- AAT$at
+    for (i in 1:nrow(AAT$at)) {
+      for (j in 1:ncol(AAT$at)) {
+        diffs[i,j] <- as.numeric(rownames(AAT$at)[j])-as.numeric(colnames(AAT$at)[i])
       }
     }
     # Find max diff
     max.diff <- max(diffs)
     # Find parts of Evans Hoenig calcualtions -- finds individual off-diagonals
     #   and then computes the ratio that forms the chi-square parts
-    rat <- numeric(nrow(at)-1)
+    rat <- numeric(nrow(AAT$at)-1)
     for (i in 1:max.diff) {
-      above <- at[diffs==i]
-      below <- at[diffs==-i]
+      above <- AAT$at[diffs==i]
+      below <- AAT$at[diffs==-i]
       rat[i] <- (sum(above-below)^2)/sum(above+below)
     }
     # Remove those values that were na (i.e., these were diagonals w/ no obs)
@@ -476,8 +478,8 @@ summary.ageBias <- function(object,what=c("table","Bowkers","EvansHoenig","McNem
     # sum the chi-square parts to get a full chi-square value
     chi.sq <- sum(rat)
     p <- pchisq(chi.sq,df,lower.tail=FALSE)
-    # Return list
-    list(title="Evans-Hoenig's Test of Symmetry",res=data.frame(df,chi.sq,p))  
+    # Return data.frame
+    data.frame(symTest="EvansHoenig",df=df,chi.sq=chi.sq,p=p)
   } ## End internal Evans Hoenig's Test function
   
   ## Main function
@@ -490,8 +492,7 @@ summary.ageBias <- function(object,what=c("table","Bowkers","EvansHoenig","McNem
     cat("Summary of",object$row.lab,"-",object$col.lab,"by",object$col.lab,"\n")
     print(object$bias.diff[-ncol(object$bias.diff)],row.names=FALSE,digits=digits)
   }
-  if (what %in% c("table","Bowkers","EvansHoenig","McNemars","symmetry")) {
-    if (what=="symmetry") message("Use of what='symmetry' is deprecated, use what='Bowkers' instead")
+  if (what=="table") {
     # show the age-agreement table
     if (!flip.table) {
       cat("Raw agreement table (square)\n")
@@ -503,13 +504,13 @@ summary.ageBias <- function(object,what=c("table","Bowkers","EvansHoenig","McNem
       print(tmp,zero.print=zero.print)
     }
   }
-  if (what %in% c("Bowkers","EvansHoenig","McNemars","symmetry")) {
-    if (what=="Bowkers" | what=="symmetry") symres <- Bowkers(object)
-    if (what=="McNemars") symres <- McNemars(object,match.arg(cont.corr))
-    if (what=="EvansHoenig") symres <- EvansHoenig(object)
-    cat("\n",symres$title,"\n")
-    print(symres$res,row.names=FALSE)
-    # invisibly return the table
-    invisible(symres$res)    
+  if (what %in% c("symmetry","Bowkers","EvansHoenig","McNemars")) {
+    symTest <- NULL # to avoide "global bindings" warning in rcmd check
+    tmp <- Bowkers(object)
+    tmp <- rbind(tmp,McNemars(object,match.arg(cont.corr)))
+    tmp <- rbind(tmp,EvansHoenig(object))
+    # if what="symmetry" return all, otherwise only return what is asked for
+    if (what=="symmetry") tmp
+      else Subset(tmp,grepl(what,symTest))
   }
 }
