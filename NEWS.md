@@ -1,4 +1,11 @@
-# FSA 0.4.5 ongoing 
+# FSA 0.4.6 ongoing 
+
+* Changed to compiling under R 3.1.0
+* Imported `stackpoly()` from plotrix for use in `ageKeyPlot()`.
+* `ageKeyPlot()`: Added.
+
+
+# FSA 0.4.5 Apr14 
 
 * Converted to using github as a repository.
 * Changed NEWS to NEWS.md
