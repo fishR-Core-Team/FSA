@@ -26,6 +26,7 @@
 #' \item Precision 
 #' \item Bias 
 #'}
+#'@concept Age Precision Bias Error
 #'@source Data from Herbst, S.J. and J.E. Marsden.  2011.  Comparison of precision
 #' and bias of scale, fin ray, and otolith age estimates for lake whitefish
 #' (\emph{Coregonus clupeaformis}) in Lake Champlain.  Journal of Great Lakes Research.

@@ -22,8 +22,12 @@
 #' \item{wt}{Weight (g) of fish.}
 #' \item{use}{Use of data set -- either \code{develop} or \code{validate}.} 
 #'}
-#'@section Topic(s): \itemize{ \item Relative weight \item Standard weight
-#'\item Length-weight }
+#'@section Topic(s): \itemize{ 
+#'  \item Relative weight
+#'  \item Standard weight
+#'  \item Length-weight 
+#'}
+#'@concept Condition 'Length-Weight' 'Relative Weight' 'Standard Weight'
 #'@seealso \code{\link{WSlit}}, \code{\link{wsVal}}, \code{\link{rlp}},
 #'\code{\link{emp}}, and \code{\link{wsValidate}}.
 #'@source From Ogle, D.H. and I.J. Winfield.  2009.  Ruffe length-weight

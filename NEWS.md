@@ -2,6 +2,7 @@
 
 * Changed to compiling under R 3.1.0
 * Imported `stackpoly()` from plotrix for use in `ageKeyPlot()`.
+* Added concepts (that largely match those in the FSAdata pacakge) o most of the data files.
 * `ageKeyPlot()`: Added.
 
 

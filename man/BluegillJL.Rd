@@ -3,9 +3,10 @@
 \alias{BluegillJL}
 \title{Capture histories (2 samples) of bluegill from Jackson Lake.}
 \format{A data frame with 277 observations on the following 2 variables.
-\describe{ \item{first}{a numeric vector of indicator variables for the first
-sample (1=captured).} \item{second}{a numeric vector of indicator variables
-for the second sample (1=captured).} }}
+\describe{
+\item{first}{a numeric vector of indicator variables for the first sample (1=captured).}
+\item{second}{a numeric vector of indicator variables for the second sample (1=captured).}
+}}
 \source{
 Unsure.
 }
@@ -24,6 +25,10 @@ bluegill.
 data(BluegillJL)
 str(BluegillJL)
 head(BluegillJL)
+}
+\concept{
+Abundance 'Population Size' 'Mark-Recapture' Petersen
+'Capture History'
 }
 \keyword{datasets}
 

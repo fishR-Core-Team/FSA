@@ -3,10 +3,13 @@
 \alias{LMBassWs}
 \title{Length-weight regression results for computing Ws for largemouth bass.}
 \format{A data frame with 16 observations on the following 5 variables:
-\describe{ \item{site}{Location of sample.}
-\item{state}{State where location is located.}
-\item{n}{Sample size in regression.} \item{log.a}{Intercept
-of regression.} \item{b}{Slope of regression.} }}
+\describe{
+ \item{site}{Location of sample.}
+ \item{state}{State where location is located.}
+ \item{n}{Sample size in regression.}
+ \item{log.a}{Intercept of regression.}
+ \item{b}{Slope of regression.}
+}}
 \source{
 From Table 1 in Murphy, B.R., M.L. Brown, and T.A.
 Springer.  1990. Evaluation of the relative weight (Wr)
@@ -39,6 +42,10 @@ head(LMBassWs)
 \seealso{
 \code{\link{WSlit}} and \code{\link{wsVal}} and
 \code{\link{rlp}}.
+}
+\concept{
+Condition 'Relative Weight' 'Standard Weight'
+'Length-Weight'
 }
 \keyword{datasets}
 

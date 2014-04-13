@@ -3,13 +3,14 @@
 \alias{SMBassWB}
 \title{Growth increment data for West Bearskin Lake smallmouth bass.}
 \format{A data frame of 445 observations on the following 20 variables:
-\describe{ \item{species}{Species of the fish (\code{SMB} for each fish in
-this file).} \item{lake}{Lake fish was captured in (\code{WB} for each fish
-in this file).} \item{gear}{Gear used to capture the fish (\code{T}=Trapnet
-and \code{E}=Electrofishing).} \item{yearcap}{Year fish was captured
-(\code{1988}, \code{1989}, or \code{1990}).} \item{fish}{A unique identifier
-for each fish.} \item{agecap}{Assigned age-at-capture for the fish (from
-scales).} \item{lencap}{Total length-at-capture for the fish (mm).}
+\describe{
+\item{species}{Species of the fish (\code{SMB} for each fish in this file).}
+\item{lake}{Lake fish was captured in (\code{WB} for each fish in this file).}
+\item{gear}{Gear used to capture the fish (\code{T}=Trapnet and \code{E}=Electrofishing).}
+\item{yearcap}{Year fish was captured (\code{1988}, \code{1989}, or \code{1990}).}
+\item{fish}{A unique identifier for each fish.}
+\item{agecap}{Assigned age-at-capture for the fish (from scales).}
+\item{lencap}{Total length-at-capture for the fish (mm).}
 \item{anu1}{Magnified scale radius (mm) to the 1st annulus.}
 \item{anu2}{Magnified scale radius (mm) to the 2md annulus.}
 \item{anu3}{Magnified scale radius (mm) to the 3rd annulus.}
@@ -47,6 +48,9 @@ Data are in one-fish-per-line format.
 data(SMBassWB)
 str(SMBassWB)
 head(SMBassWB)
+}
+\concept{
+Growth 'Increment Analysis' Weisberg LGM
 }
 \keyword{datasets}
 

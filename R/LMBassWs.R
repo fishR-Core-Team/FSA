@@ -12,12 +12,19 @@
 #'@name LMBassWs
 #'@docType data
 #'@format A data frame with 16 observations on the following 5 variables:
-#'\describe{ \item{site}{Location of sample.}
-#'\item{state}{State where location is located.}
-#'\item{n}{Sample size in regression.} \item{log.a}{Intercept
-#'of regression.} \item{b}{Slope of regression.} }
-#'@section Topic(s): \itemize{ \item Relative weight \item Standard weight
-#'\item Length-weight }
+#'\describe{ 
+#'  \item{site}{Location of sample.}
+#'  \item{state}{State where location is located.}
+#'  \item{n}{Sample size in regression.}
+#'  \item{log.a}{Intercept of regression.} 
+#'  \item{b}{Slope of regression.} 
+#'}
+#'@section Topic(s): \itemize{ 
+#' \item Relative weight
+#' \item Standard weight
+#' \item Length-weight
+#'}
+#'@concept Condition 'Relative Weight' 'Standard Weight' 'Length-Weight'
 #'@seealso \code{\link{WSlit}} and \code{\link{wsVal}} and \code{\link{rlp}}.
 #'@source From Table 1 in Murphy, B.R., M.L. Brown, and T.A. Springer.  1990.
 #'Evaluation of the relative weight (Wr) index, with new applications to

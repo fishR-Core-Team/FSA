@@ -3,9 +3,13 @@
 \alias{BluegillLM}
 \title{Length and weight of bluegill from Lake Mary, MN.}
 \format{A data frame with 100 observations on the following 5 variables:
-\describe{ \item{sernum}{Unique serial number} \item{sl}{Standard length
-(mm)} \item{fl}{Fork length (mm)} \item{tl}{Total length (mm)}
-\item{wght}{Weight (g)} }}
+\describe{
+\item{sernum}{Unique serial number}
+\item{sl}{Standard length (mm)}
+\item{fl}{Fork length (mm)}
+\item{tl}{Total length (mm)}
+\item{wght}{Weight (g)}
+}}
 \description{
 Length (standard, fork, and total) and weight of bluegill
 (\emph{Lepomis macrochirus}) collected from Lake Mary,
@@ -26,6 +30,9 @@ plot(tl~fl,data=BluegillLM)
 plot(tl~sl,data=BluegillLM)
 plot(fl~sl,data=BluegillLM)
 par(op)
+}
+\concept{
+'Length-Weight'
 }
 \keyword{datasets}
 

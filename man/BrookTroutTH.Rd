@@ -3,8 +3,10 @@
 \alias{BrookTroutTH}
 \title{Catch-at-age for Tobin Harbor, Isle Royale brook trout.}
 \format{A data frame with 7 observations on the following 2 variables.
-\describe{ \item{age}{A numeric vector of assigned ages.} \item{catch}{A
-numeric vector of number of brook trout caught.} }}
+\describe{
+\item{age}{A numeric vector of assigned ages.}
+\item{catch}{A numeric vector of number of brook trout caught.}
+}}
 \source{
 Quinlan, H.R. 1999. Biological Characteristics of Coaster
 Brook Trout at Isle Royale National Park, Michigan,
@@ -18,7 +20,7 @@ trout (\emph{Salvelinus fontinalis}) in Tobin Harbor, Isle
 Royale, Lake Superior.
 }
 \section{Topic(s)}{
-  \itemize{ \item Total mortality \item Catch curve \item
+  \itemize{ \item Mortality \item Catch curve \item
   Chapman-Robson }
 }
 \examples{
@@ -26,6 +28,9 @@ data(BrookTroutTH)
 str(BrookTroutTH)
 head(BrookTroutTH)
 plot(log(catch)~age,data=BrookTroutTH)
+}
+\concept{
+Mortality 'Catch Curve'
 }
 \keyword{datasets}
 

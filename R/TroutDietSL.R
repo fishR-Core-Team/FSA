@@ -21,7 +21,11 @@
 #'\item{num.dipter}{Number of dipterans in the stomach.}
 #'\item{num.pisidium}{Number of \emph{Pisidium} spp. in the stomach.}
 #'}
-#'@section Topic(s): \itemize{ \item Length-Weigth \item Diet Overlap }
+#'@section Topic(s): \itemize{
+#' \item Length-Weigth 
+#' \item Diet Overlap 
+#'}
+#'@concept 'Length-Weight' 'Diet Overlap'
 #'@source From the online supplement (\url{http://dx.doi.org/10.3996/012011-JFWM-004.S1}) to 
 #'Guy, C.S., T.E. McMahon, W.A. Fredenberg, C.J. Smith, D.W. Garfield, and B.S. Cox. 2011.
 #'Diet overlap of top-level predators in recent sympatry: Bull trout and nonnative

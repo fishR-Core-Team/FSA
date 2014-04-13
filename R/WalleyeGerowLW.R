@@ -7,11 +7,17 @@
 #'@name WalleyeGerowLW
 #'@docType data
 #'@format A data frame with 34734 observations on the following 3 variables:
-#'\describe{ \item{popn}{A unique numeric identifier for each separate
-#'regression.} \item{len}{Total length (mm) of fish.}
-#'\item{wt}{Weight (g) of fish.} }
-#'@section Topic(s): \itemize{ \item Relative weight \item Standard weight
-#'\item Length-weight }
+#'\describe{
+#' \item{popn}{A unique numeric identifier for each separate regression.}
+#' \item{len}{Total length (mm) of fish.}
+#' \item{wt}{Weight (g) of fish.} 
+#'}
+#'@section Topic(s): \itemize{
+#' \item Relative weight
+#' \item Standard weight
+#' \item Length-weight
+#'}
+#'@concept Condition 'Relative Weight' 'Standard Weight' 'Length-Weight'
 #'@seealso \code{\link{WSlit}} and \code{\link{wsVal}}, \code{\link{rlp}},
 #'\code{\link{emp}}, and \code{\link{wsValidate}}.
 #'@source From Ken Gerow.  Summarized in Gerow, K.G., R.C. Anderson-Sprecher,

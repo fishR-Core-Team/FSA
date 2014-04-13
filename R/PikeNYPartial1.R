@@ -13,9 +13,15 @@
 #'for the second sample (1=captured).} \item{third}{Indicator variable for the
 #'third sample (1=captured).} \item{fourth}{Indicator variable for the fourth
 #'sample (1=captured).} }
-#'@section Topic(s): \itemize{ \item Population size \item Abundance \item
-#'Mark-recapture \item Schnabel method \item Schumacher-Eschmeyer method \item
-#'Capture history }
+#'@section Topic(s): \itemize{
+#' \item Population size 
+#' \item Abundance 
+#' \item Mark-recapture 
+#' \item Schnabel method 
+#' \item Schumacher-Eschmeyer method 
+#' \item Capture history 
+#'}
+#'@concept Abundance 'Population Size' 'Mark-Recapture' 'Schnabel' 'Capture History'
 #'@source New York Power Authority.  2004.  Use of buckhorn marsh and grand
 #'island tributaries by northern pike for spawning and as a nursery. Technical
 #'report, New York Power Authority, January 2004. Niagara Power Project (FERC

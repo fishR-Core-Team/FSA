@@ -4,9 +4,11 @@
 \title{Raw length-weight data that can be used to compute the Ws for walleye as
 performed in Gerow (2005).}
 \format{A data frame with 34734 observations on the following 3 variables:
-\describe{ \item{popn}{A unique numeric identifier for each separate
-regression.} \item{len}{Total length (mm) of fish.}
-\item{wt}{Weight (g) of fish.} }}
+\describe{
+\item{popn}{A unique numeric identifier for each separate regression.}
+\item{len}{Total length (mm) of fish.}
+\item{wt}{Weight (g) of fish.}
+}}
 \source{
 From Ken Gerow.  Summarized in Gerow, K.G., R.C.
 Anderson-Sprecher, and W.A. Hubert.  2005.  A new method to
@@ -37,6 +39,10 @@ par(op)
 \code{\link{WSlit}} and \code{\link{wsVal}},
 \code{\link{rlp}}, \code{\link{emp}}, and
 \code{\link{wsValidate}}.
+}
+\concept{
+Condition 'Relative Weight' 'Standard Weight'
+'Length-Weight'
 }
 \keyword{datasets}
 

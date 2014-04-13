@@ -3,12 +3,15 @@
 \alias{CutthroatAL}
 \title{Capture histories (3 samples) of cutthroat trout from Auke Lake.}
 \format{A data frame with 517 observations on the following 3 variables.
-\describe{ \item{ID}{Unique identification numbers for each fish.}
+\describe{
+\item{ID}{Unique identification numbers for each fish.}
 \item{first}{Indicator variable for whether the fish was captured in the
-first sample (\code{1}=captured).} \item{second}{Indicator variable for
-whether the fish was captured in the second sample (\code{1}=captured).}
+ first sample (\code{1}=captured).}
+\item{second}{Indicator variable for whether the fish was captured in the
+ second sample (\code{1}=captured).}
 \item{third}{Indicator variable for whether the fish was captured in the
-third sample (\code{1}=captured).} }}
+ third sample (\code{1}=captured).}
+}}
 \source{
 Simulated from Appendix A.5 of Lum, J.L., J.D. Jones, and
 S.G. Taylor. 2001.  Dolly varden and cutthroat trout
@@ -35,6 +38,10 @@ Table A.5.
 data(CutthroatAL)
 str(CutthroatAL)
 head(CutthroatAL)
+}
+\concept{
+Abundance 'Population Size' 'Mark-Recapture' 'Jolly-Seber'
+'Capture History'
 }
 \keyword{datasets}
 

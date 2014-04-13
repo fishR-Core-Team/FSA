@@ -28,6 +28,7 @@
 #'\item Standard weight
 #'\item Condition
 #'}
+#'@concept Condition 'Relative Weight' 'Standard Weight'
 #'@seealso \code{\link{wsVal}}, \code{\link{wrAdd}}, and \code{\link{wrDataPrep}}.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/RelativeWeight.pdf}.
 #'@source Most of the data presented came from Blackwell, B.G., M.L. Brown, and

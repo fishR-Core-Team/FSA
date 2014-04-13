@@ -170,5 +170,9 @@ fitPlot(Froese.v.q,ylab="Standarded Mean Mean Weight")
 \code{\link{rlp}}, \code{\link{emp}}, and
 \code{\link{wsValidate}}.
 }
+\concept{
+Condition 'Length-Weight' 'Relative Weight' 'Standard
+Weight'
+}
 \keyword{datasets}
 

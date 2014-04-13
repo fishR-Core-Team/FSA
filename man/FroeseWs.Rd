@@ -2,8 +2,7 @@
 \alias{FroeseWs}
 \alias{coef.FroeseWs}
 \alias{plot.FroeseWs}
-\title{Computes the standard weight equation using the methods described in Froese
-(2006).}
+\title{Computes the standard weight equation using the methods described in Froese (2006).}
 \usage{
 FroeseWs(log.a, b)
 

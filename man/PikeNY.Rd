@@ -3,9 +3,12 @@
 \alias{PikeNY}
 \title{Summarized multiple mark-recapture data for all northern pike from Buckthorn Marsh.}
 \format{A data frame with 21 observations on the following 4 variables:
-\describe{ \item{date}{Capture date.} \item{n}{Total fish captured in each
-sample.} \item{m}{Marked fish captured in each sample.} \item{R}{Marked fish
-returned to the population.} }}
+\describe{
+\item{date}{Capture date.}
+\item{n}{Total fish captured in each sample.}
+\item{m}{Marked fish captured in each sample.}
+\item{R}{Marked fish returned to the population.}
+}}
 \source{
 New York Power Authority.  2004.  Use of buckhorn marsh and
 grand island tributaries by northern pike for spawning and
@@ -27,6 +30,9 @@ were marked) for all Buckthorn Marsh northern pike
 data(PikeNY)
 str(PikeNY)
 head(PikeNY)
+}
+\concept{
+Abundance 'Population Size' 'Mark-Recapture' 'Schnabel'
 }
 \keyword{datasets}
 

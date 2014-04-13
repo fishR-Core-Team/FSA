@@ -1,9 +1,7 @@
-#'Computes the standard weight equation using the methods described in Froese
-#'(2006).
+#'Computes the standard weight equation using the methods described in Froese (2006).
 #'
 #'Computes the standard weight equation using the geometric mean of a and the
-#'mean of b from weight-length regression equations as described in Froese
-#'(2006).
+#'mean of b from weight-length regression equations as described in Froese (2006).
 #'
 #'The main function computes the mean of the \eqn{log_{10}(a)} and b values for
 #'the standard weight equation as detailed in Froese (2006).  Note that log(a)

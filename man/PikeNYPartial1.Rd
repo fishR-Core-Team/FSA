@@ -31,5 +31,9 @@ data(PikeNYPartial1)
 str(PikeNYPartial1)
 head(PikeNYPartial1)
 }
+\concept{
+Abundance 'Population Size' 'Mark-Recapture' 'Schnabel'
+'Capture History'
+}
 \keyword{datasets}
 

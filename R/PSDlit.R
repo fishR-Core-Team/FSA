@@ -24,6 +24,7 @@
 #'\item Relative stock density
 #'\item Proportional stock density
 #'}
+#'@concept 'Size Structure' PSD
 #'@seealso \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, 
 #' \code{\link{psdDataPrep}}, \code{\link{tictactoe}}, and \code{\link{tictactoeAdd}},.
 #'@source Original summary table from Dr. Michael Hansen, University of

@@ -23,8 +23,7 @@ uniform error to the value at the beginning of the length
 category.
 }
 \section{Topic(s)}{
-  \itemize{ \item Size-at-age growth modeling \item Von
-  Bertalanffy growth model }
+  \itemize{ \item Growth \item von Bertalanffy }
 }
 \examples{
 data(SpotVA1)
@@ -34,6 +33,9 @@ plot(tl~age,data=SpotVA1)
 }
 \seealso{
 \code{SpotVA2} in \pkg{FSAdata}.
+}
+\concept{
+Growth 'von Bertalanffy'
 }
 \keyword{datasets}
 

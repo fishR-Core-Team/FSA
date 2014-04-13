@@ -88,7 +88,7 @@ ageKeyPlot <- function(key,type=c("barplot","area","lines","splines"),
   } ## end internal addLegend function
 
   ## Start Main Function
-  op <- par(mar=c(3.25,3.25,0.7,0.5),mgp=c(1.7,0.5,0),tcl=-0.2)
+  op <- par(mar=c(3.25,3.25,0.7,0.7),mgp=c(1.7,0.5,0),tcl=-0.2)
   type <- match.arg(type)
   # Get ages and lengths summaries
   alsum <- agesANDlens(key)

@@ -40,5 +40,8 @@ head(PSDlit)
 \code{\link{psdPlot}}, \code{\link{psdDataPrep}},
 \code{\link{tictactoe}}, and \code{\link{tictactoeAdd}},.
 }
+\concept{
+'Size Structure' PSD
+}
 \keyword{datasets}
 

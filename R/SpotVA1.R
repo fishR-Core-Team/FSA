@@ -13,9 +13,10 @@
 #' \item{age}{Ages assigned from examination of otoliths.} 
 #'}
 #'@section Topic(s): \itemize{
-#' \item Size-at-age growth modeling
-#' \item Von Bertalanffy growth model
+#' \item Growth
+#' \item von Bertalanffy
 #'}
+#'@concept Growth 'von Bertalanffy'
 #'@seealso \code{SpotVA2} in \pkg{FSAdata}.
 #'@source Extracted from Table 1 in Chapter 8 of the \href{http://ww2.odu.edu/sci/cqfe/}{Virginia Marine Resources Commissions's} Final Report on finfish ageing, 2002.
 #'@keywords datasets

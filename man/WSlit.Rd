@@ -54,5 +54,8 @@ head(WSlit)
 \code{\link{wsVal}}, \code{\link{wrAdd}}, and
 \code{\link{wrDataPrep}}.
 }
+\concept{
+Condition 'Relative Weight' 'Standard Weight'
+}
 \keyword{datasets}
 
