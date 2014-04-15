@@ -2,9 +2,11 @@
 \alias{ageKeyPlot}
 \title{Plots to visualize age-length keys.}
 \usage{
-ageKeyPlot(key, type = c("barplot", "area", "lines", "splines"),
+ageKeyPlot(key, type = c("barplot", "area", "lines", "splines", "bubble"),
   xlab = "Length", ylab = "Proportion", showLegend = FALSE,
-  lbl.cex = 1.25, leg.cex = 1, lwd = 2, span = 0.25)
+  lbl.cex = 1.25, leg.cex = 1, lwd = 2, span = 0.25,
+  bubble.grid = TRUE, bubble.col = "gray90", bubble.buf = 0.45,
+  bubble.ylab = "Age")
 }
 \arguments{
   \item{key}{A numeric matrix containing the age-length
@@ -15,7 +17,8 @@ ageKeyPlot(key, type = c("barplot", "area", "lines", "splines"),
 
   \item{xlab}{A character label for the x-axis.}
 
-  \item{ylab}{A character label for the y-axis.}
+  \item{ylab}{A character label for the y-axis in all plots
+  but when \code{type="bubble"} (see \code{bubble.ylab=)}.}
 
   \item{showLegend}{A logical indicating whether a legend
   should be displayed for when \code{type="barplot"} and
@@ -33,8 +36,27 @@ ageKeyPlot(key, type = c("barplot", "area", "lines", "splines"),
   \item{lwd}{A numeric indicating the line width for when
   \code{type="lines"} or \code{type="splines"}.}
 
-  \item{span}{A numerica indicating the span value to use
-  in \code{loess} when \code{type="splines"}.}
+  \item{span}{A numeric indicating the span value to use in
+  \code{loess} when \code{type="splines"}.}
+
+  \item{bubble.grid}{A logical indicating whether a grid
+  should be placed under the bubbles when
+  \code{type="bubble"}.}
+
+  \item{bubble.col}{A string indicating the color of the
+  bubbles when \code{type="bubble"}.}
+
+  \item{bubble.buf}{A single numeric that indicates the
+  relative width of the bubbles when \code{type="bubble"}.
+  A value of 0.5 would mean that two full-width bubbles
+  would touch either in the x- or y-direction (i.e., this
+  would represent half of the minimum of the physical
+  distance between values one-unit apart on the x- and
+  y-axes).  Set this to a value less than 0.5 so that the
+  bubble do not touch (the default is 0.45).}
+
+  \item{bubble.ylab}{A string for labeling the y-axis when
+  \code{type="bubble"}.}
 }
 \value{
 None, but a plot is constructed.
@@ -65,6 +87,7 @@ ageKeyPlot(WR.key,"barplot",showLegend=TRUE)
 ageKeyPlot(WR.key,"area",showLegend=TRUE)
 ageKeyPlot(WR.key,"splines")
 ageKeyPlot(WR.key,"lines")
+ageKeyPlot(WR.key,"bubble")
 }
 \seealso{
 \code{\link{ageKey}} and \code{\link{ageKeyPrep}}.
