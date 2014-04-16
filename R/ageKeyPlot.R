@@ -118,6 +118,10 @@ ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
   
   ## Start Main Function
   op <- par(mar=c(3.25,3.25,0.7,0.7),mgp=c(1.7,0.5,0),tcl=-0.2)
+  # check key
+  key.row.sum <- apply(key,1,sum)
+  if (any(key.row.sum>0.01 & key.row.sum<0.99)) warning("Key contains a row that does not sum to 0 or 1.",call.=FALSE)
+  # match arguments
   type <- match.arg(type)
   # Get ages and lengths summaries
   alsum <- agesANDlens(key)
