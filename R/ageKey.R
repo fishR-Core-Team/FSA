@@ -69,7 +69,7 @@
 #'## First Example -- Even breaks for length categories
 #'# find smallest length in age sample -- create appropriate length categories
 #'summary(WR.age$len)
-#'WR.age.mod <- lencat(~len,data=WR.age,startcat=35,w=5,drop.levels=TRUE)
+#'WR.age.mod$LCat <- lencat(WR.age$len,startcat=35,w=5,drop.levels=TRUE)
 #'# create age-length key
 #'raw <- table(WR.age.mod$LCat, WR.age.mod$age)
 #'( WR.key <- prop.table(raw, margin=1) )
@@ -83,7 +83,7 @@
 #'## Second Example -- Uneven breaks for length categories
 #'# create breaks as 35-40, 40-45, ..., 95-100, 100-110, 110-130
 #'brks <- c(seq(35,100,5),110,130)
-#'WR.age.mod <- lencat(~len,data=WR.age,breaks=brks,drop.levels=TRUE)
+#'WR.age.mod$LCat <- lencat(WR.age$len,breaks=brks,drop.levels=TRUE)
 #'# create age-length key
 #'raw <- table(WR.age.mod$LCat, WR.age.mod$age)
 #'( WR.key <- prop.table(raw, margin=1) )

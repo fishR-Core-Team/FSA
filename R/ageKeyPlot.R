@@ -43,7 +43,7 @@
 #'# get the age sample from the data frame
 #'WR.age <- Subset(WR79, !is.na(age))
 #'# add length categories
-#'WR.age.mod <- lencat(~len,data=WR.age,startcat=35,w=5,drop.levels=TRUE)
+#'WR.age.mod$LCat <- lencat(WR.age$len,startcat=35,w=5,drop.levels=TRUE)
 #'# create age-length key
 #'raw <- table(WR.age.mod$LCat, WR.age.mod$age)
 #'( WR.key <- prop.table(raw, margin=1) )

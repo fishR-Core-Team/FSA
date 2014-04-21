@@ -110,7 +110,7 @@
 #'# create TL from SL for Bull Trout using formula in paper -- TL=4.403+1.118SL
 #'TroutDietSL$tl[TroutDietSL$species=="BLT"] <- 4.403+1.118*TroutDietSL$sl[TroutDietSL$species=="BLT"]
 #'# add LCat length categories
-#'TroutDietSL <- lencat(~tl,data=TroutDietSL,breaks=c(0,350,500,650,950),right=TRUE)
+#'TroutDietSL$LCat <- lencat(TroutDietSL$tl,breaks=c(0,350,500,650,950),right=TRUE)
 #'
 #'# isolate the non-empty fish (as the authors did)
 #'TroutDietSL1 <- Subset(TroutDietSL,empty=="NO")
