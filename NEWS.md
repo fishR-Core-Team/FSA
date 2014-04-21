@@ -4,7 +4,7 @@
 * Imported `stackpoly()` from plotrix for use in `ageKeyPlot()`.
 * Added concepts (that largely match those in the FSAdata pacakge) to most of the data files.
 * `ageKeyPlot()`: Added.
-* `lencat()`: Modified.  Added generic functions.  `lencat.default()` accepts a vector as its first argument and returns a single vector.  `lencat.formula()` accepts a formula as its first argument and the `data=` argument.  The `lencat.formula()` is the same as the old `lencat()' and `lencat.default()` provides new functionality.  Additionally, the default for `startcat=` is now `NULL` and a value for `startcat=` is found automatically (though a value can still be supplied by the user).  The `use.catnames=` was changed to `use.names=`.  Other changes were made to simplify the code.
+* `lencat()`: Modified.  Added generic functions.  `lencat.default()` accepts a vector as its first argument and returns a single vector.  `lencat.formula()` accepts a formula as its first argument and the `data=` argument.  The `lencat.formula()` is the same as the old `lencat()` and `lencat.default()` provides new functionality.  Additionally, the default for `startcat=` is now `NULL` and a value for `startcat=` is found automatically (though a value can still be supplied by the user).  The `use.catnames=` was changed to `use.names=`.  Other changes were made to simplify the code.
 * `lenFreqExpand()`: Modified.  Removed the `df=` and `cl=` arguments and replaced with `x=`, which is simply a vector of length measurements.  Changed to `startcat=NULL` so that that the starting category value can be determined automatically (or can still be set by the user).
 
 
@@ -80,142 +80,108 @@
 # FSA 0.4.2 Dec13
 
 * Changed to compiling under R 3.0.2.
-* Removed dependency on reshape package (see changes for emp(), gReshape(), and ssValidate() below) and the relax, tcltk, and TeachingDemos packages (see changes for catchCurveSim(), cohortSim(), growthModelSim(), leslieSim(), lwModelSim(), mrClosed1Sim(), simAgeBias(), simAges(), simLenFromAge(), simLenSelect(), and srSim() below).
+* Removed dependency on reshape package (see changes for `emp()`, `gReshape()`, and `ssValidate()` below) and the relax, tcltk, and TeachingDemos packages (see changes for `catchCurveSim()`, `cohortSim()`, `growthModelSim()`, `leslieSim()`, `lwModelSim()`, `mrClosed1Sim()`, `simAgeBias()`, `simAges()`, `simLenFromAge()`, `simLenSelect()`, and `srSim()` below).
 
-* .onAttach():  Modified.  Added notes to use citation().
-* bcFuns(): Modified.  Added "BPH" and "SPH" options to type= argument (same as "LBPH" and "LSPH", respectively).  Changed a catch using cat() to using message().  Added some specificity to the help file (more is needed).
-* catchCurveSim(): Deleted.  Moved to FSATeach package.
-* changesPos(): Added.
-* cohortSim(): Deleted.  Moved to FSATeach package.
-* emp(): Modified.  Replaced use of cast() with aggregate().
-* gReshape(): Modified.  Replaced use of melt() with reshape() from base package.  Fixed bug if name of "increments" was not "inc" (now catches that in.pre= value is used).  Fixed bug that na.rm= was ignored.  Modified so that rownames are not created until after the NAs are moved or not.  Changed the default name in var.name= from "age" to "prvAge" to reduce the highly possible chance that there might be another variable in the data framed named "age."
-* growthModelSim(): Deleted.  Moved to FSATeach package.
-* growthRadPlot():  Modified.  Slightly changed the xlab= argument default.
-* leslieSim(): Deleted.  Moved to FSATeach package.
-* lwModelSim(): Deleted.  Moved to FSATeach package.
-* mrClosed1Sim(): Deleted.  Moved to FSATeach package.
-* simAgeBias(): Deleted.  Moved to FSATeach package.
-* simAges(): Deleted.  Moved to FSATeach package.
-* simLenFromAge(): Deleted.  Moved to FSATeach package.
-* simLenSelect(): Deleted.  Moved to FSATeach package.
-* srSim()(): Deleted.  Moved to FSATeach package.
-* summary.ageComp(): Modified.  Added a zero.print= argument with a default of a single dash for use when printing an age-agreement table.  Added flip.table= argument to allow ease of comparison between the age-agreement table and the age-bias plot.  Changed so that if what="prec.stats" the summary percentages by absolute differences is also printed.  Modified the print of several data frames (for what="bias", "symmetry", and "prec.stats") so that row names (i.e., row numbers) are not printed.
-* sumTable(): Added.  Brought over from NCStats.
-* vbFuns(): Modified.  Changed all non-simple growth model functions with checks for the number of model parameters and definitions sent.  Changed the Francis parameterization model to take only two values of t (i.e., the intermediate value is not used and, thus, is not required); thus, the t2 argument was removed.
-* vbGen(): Modified.  Fixed bug that developed when changest to gReshap() were made.  Added warning suppression related to "calculations" on NAs.
-* vbStarts():  Modified.  Changed tFrancis argument to use only two ages.  Changed the default for meth.EV to "poly".  Removed jittering and added a transparency to the plot.  Removed the box around the legend and moved the legend to the "bottomright."  Fixed a typo in the plot heading.
-* wsValidate(): Modified.  Replaced use of cast() with aggregate().
+* .`onAttach()`:  Modified.  Added notes to use `citation()`.
+* `bcFuns()`: Modified.  Added "BPH" and "SPH" options to `type= argument` (same as "LBPH" and "LSPH", respectively).  Changed a catch using `cat()` to using `message()`.  Added some specificity to the help file (more is needed).
+* `catchCurveSim()`: Deleted.  Moved to FSATeach package.
+* `changesPos()`: Added.
+* `cohortSim()`: Deleted.  Moved to FSATeach package.
+* `emp()`: Modified.  Replaced use of `cast()` with `aggregate()`.
+* `gReshape()`: Modified.  Replaced use of `melt()` with `reshape()` from base package.  Fixed bug if name of "increments" was not "inc" (now catches that `in.pre=` value is used).  Fixed bug that `na.rm=` was ignored.  Modified so that rownames are not created until after the NAs are moved or not.  Changed the default name in `var.name=` from "age" to "prvAge" to reduce the highly possible chance that there might be another variable in the data frame named "age."
+* `growthModelSim()`: Deleted.  Moved to FSATeach package.
+* `growthRadPlot()`:  Modified.  Slightly changed the xlab= argument default.
+* `leslieSim()`: Deleted.  Moved to FSATeach package.
+* `lwModelSim()`: Deleted.  Moved to FSATeach package.
+* `mrClosed1Sim()`: Deleted.  Moved to FSATeach package.
+* `simAgeBias()`: Deleted.  Moved to FSATeach package.
+* `simAges()`: Deleted.  Moved to FSATeach package.
+* `simLenFromAge()`: Deleted.  Moved to FSATeach package.
+* `simLenSelect()`: Deleted.  Moved to FSATeach package.
+* `srSim()`: Deleted.  Moved to FSATeach package.
+* `summary.ageComp()`: Modified.  Added a `zero.print=` argument with a default of a single dash for use when printing an age-agreement table.  Added `flip.table=` argument to allow ease of comparison between the age-agreement table and the age-bias plot.  Changed so that if `what="prec.stats"` the summary percentages by absolute differences is also printed.  Modified the print of several data frames (for `what="bias"`, `"symmetry"`, and `"prec.stats"`) so that row names (i.e., row numbers) are not printed.
+* `sumTable()`: Added.  Brought over from NCStats.
+* `vbFuns()`: Modified.  Changed all non-simple growth model functions with checks for the number of model parameters and definitions sent.  Changed the Francis parameterization model to take only two values of `t=` (i.e., the intermediate value is not used and, thus, is not required); thus, the `t2=` argument was removed.
+* `vbGen()`: Modified.  Fixed bug that developed when changes to `gReshap()` were made.  Added warning suppression related to "calculations" on NAs.
+* `vbStarts()`:  Modified.  Changed tFrancis argument to use only two ages.  Changed the default for `meth.EV=` to "poly".  Removed jittering and added a transparency to the plot.  Removed the box around the legend and moved the legend to the "bottomright."  Fixed a typo in the plot heading.
+* `wsValidate()`: Modified.  Replaced use of `cast()` with `aggregate()`.
 
 # FSA 0.4.1 Oct13
 
 * Changed R dependency to >3.0.0 (because gplots package has that dependency).
-* Added importFrom for cast(), is.formula(), and melt() in reshape package.
+* Added importFrom for `cast()`, `is.formula()`, and `melt()` in reshape package.
 
-* capHistConvert(): Corrected the formatting of the documentation.
-* capHistSum(): Corrected the documentation.  Added a second example.
-* dietOverlap(): Modified.  Changed the "Morista" option to "Morisita" to be
-    consistent with the correct spelling of the name.
-* Garvey1: Added.  Used in examples in ks2d1().
-* Garvey4a: Added.  Used in examples in ks2d1().
-* histStack(): Deleted, moved to plotrix package.  Arguments were changed there.
-* ks2d(): Deleted, changed to ks2d2().
-* ks2d1(): Added.
-* ks2d2(): Added, was ks2d().
-* ks2dp(): Deleted, changed to ks2d2p().
-* ks2d2p(): Added, was ks2dp().
-* mrClosed(): Modified.  Changed all "messages" using cat() to using message()
-    so that they can be suppressed with suppressMessage() or message=FALSE in knitr.
-    See  "One comment on messages" at http://yihui.name/knitr/demo/output/.
-* pkolgomorov1x(): Added to FSAinternals (from ks2d()).
-* plotH(): Deleted, moved to plotrix package.
-* quad_dens(): Added to FSAinternals (from ks2d()).
+* `capHistConvert()`: Corrected the formatting of the documentation.
+* `capHistSum()`: Corrected the documentation.  Added a second example.
+* `dietOverlap()`: Modified.  Changed the "Morista" option to "Morisita" to be consistent with the correct spelling of the name.
+* `Garvey1`: Added.  Used in examples in `ks2d1()`.
+* `Garvey4a`: Added.  Used in examples in `ks2d1()`.
+* `histStack()`: Deleted, moved to plotrix package.  Arguments were changed there.
+* `ks2d()`: Deleted, changed to `ks2d2()`.
+* `ks2d1()`: Added.
+* `ks2d2()`: Added, was `ks2d()`.
+* `ks2dp()`: Deleted, changed to `ks2d2p()`.
+* `ks2d2p()`: Added, was `ks2dp()`.
+* `mrClosed()`: Modified.  Changed all "messages" using `cat()` to using `message()` so that they can be suppressed with `suppressMessage()` or `message=FALSE` in knitr.  See  "One comment on messages" at http://yihui.name/knitr/demo/output/.
+* `pkolgomorov1x()`: Added to FSAinternals (from `ks2d()`).
+* `plotH()`: Deleted, moved to plotrix package.
+* `quad_dens()`: Added to FSAinternals (from `ks2d()`).
 
 # FSA 0.4.0 Jun13
 
 * Corrected all pointers to fishR vignettes (because of new webpage).
-* Removed importFrom color.scale from plotrix because of changes to discharge()
-    and wetPerim().
-* removed importFrom &#37;nin&#37; from Hmisc.  See multiple changes because of this below.
+* Removed importFrom color.scale from plotrix because of changes to `discharge()` and `wetPerim()`.
+* removed importFrom `&#37;nin&#37;` from Hmisc.  See multiple changes because of this below.
 
-* .onAttach(): Added, was .onLoad().
-* .onLoad(): Deleted, now .onAttach().
-* addMargins(): Deleted, moved back to NCStats.
-* addSigLetters(): Deleted, moved back to NCStats.
-* addZeroCatch(): Modified.  Changed the looping structure for finding the sampling
-    event and species combinations that need zeroes.  This should speed things up
-    substantially.  Also, modified to allow n* idvar variables.  Finally, the
-    returned data frame has the variables (columns) in the same order as the
-    original data frame (rather than having the order modified).
-* ageComp(): Modified some of the code to adjust for name changes in Summarize().
-    Modified to use a formula notation.
-* ageKey(): Modified to using a formula notation.  This removed the dl=, cl=,
-    and ca= arguments.  Made minor adjustments to the help pages (in addition to
-    changes related to the argument modifications).
-* bcFuns(): Removed use of &#37;nin&#37;.
-* capFirst(): Modified so that ONLY the first letter is capitalized (previous
-    version would de-capitalize the first letter in the second word but leave
-    the rest of the letters capitalized).
-* capHistSum(): Modified to correct an error that occurred when computing the
-    Method B table when a capture history occurred only once or not at all.
-* chapmanRobson(): Modified by adding the Hoenig et al. (1983) bias correction
-    formula for the estimate of Z as the default option.
-* confint.nlsBoot(): Removed use of &#37;nin&#37;.
-* discharge(): Deleted, moved to NCStats (to reduce overhead here).
-* histStack(): Modified by adding a formula method (histStack.formula()) which
-    required adding a default method (histStack.default()).
-* htest.nlsBoot(): Removed use of &#37;nin&#37;.
-* lencat(): Modified by changing to using a formula notation and a data= argument.
-    This means that the df= and cl= arguments are n* longer used.  In addition, 
-    the warning about fish larger than the larger category has been turned off.
-    The method to handle this was not changed, the warning was just turned off.
-* lencatOLD(): Added as an internal file to temporarily allow me not to change all
-    functions that were affected by the changes to lencat().  The functions that
-    required this are emp() and wsValidate().
-* lenFreqExpand(): Modified to deal with lencat() change.
-* limnoProfilePlot(): Deleted, moved to NCStats (to reduce overhead here).
-* mrClosed(): Removed use of &#37;nin&#37;.
-* plotBinResp(): Modified by moving makeColor() internal function to FSA-internals
-    so that it can also be used by tictactoe().
-* predict.bootCase(): Added.
-* PSSLit: added from RSDLit.  Added from Ogle and Winfield (2009) for ruffe,
-    Bonvechi* et al. (2010) for Suwannee bass, and from Phelps and Willis (2013)
-    for several "carp" species.
-* PSSLitCheck(): Added this internal file.  Modified pssVal(), pssCalc(), and 
-    pssPlot() accordingly.
-* psdVal(): Deprecated, will delete, became pssVal().
-* pssCalc(): Added, was rsdCalc().  Modified to using a formula notation and a
-    data= argument.
-* pssDataPrep(): Added.
-* pssPlot(): Added, was rsdPlot().  Modified to using a formula notation and a
-    data= argument, to handle the default change for incl.zer* in pssVal(), and
-    changed the default pss.lty= settings.
-* pssVal(): Added, was rsdVal().  Changed incl.zero=TRUE to be the default.
-* recodeSpecies(): Added.
-* rsdCalc(): Deleted, became pssCalc().
-* rsdLit(): Deleted, became PSSLit().
-* rsdPlot(): Delted, became pssPlot().
-* rsdVal(): Deprecated, will delete, became pssVal().
-* sigLetters(): Deleted, cld() in multcomp has been modified to deprecate this.
-* simLenSelect(): Modified to deal with lencat() change.
-* Summarize(): Modified by calculating the percentage of zeroes for quantitative
-    data.  Also changed the names in the returned vectors or data frames to 
-    reduce capitalization, spaces, and punctuation.  Removed use of &#37;nin&#37;.
-* tictactoe(): Modified by changing the way the "in balance" regions are depicted.
-    This resulted in the addition of the bal.trans= argument.
-* tictactoeAdd(): Modified by changing PSD labels to PSS.
-* vbStarts(): Removed use of &#37;nin&#37;.
-* wetPerim(): Deleted, moved to NCStats (to reduce overhead here).
-* wrAdd(): Modified.  Major modifications to account for changes to WSlit.
-    Added the capFirst() check for species name.  Changed subNA= to 
-    remove.submin= to make consistent with wrDataPrep().
-* wrDataPrep(): Added.
-* wrVal(): Deleted.
-* WSlit: Modified.  Completely rebuilt so that quadratic equation using EmP could
-    be incorporated into the database.  Also added equations for several new species.
-* WSLitCheck(): Added this internal file.  Modified wsVal(), wrVal(), and 
-    wrAdd() accordingly.
-* wsVal(): Modified.  A major modification to account for the major changes to WSLit.
-* wsValidate(): Removed use of &#37;nin&#37;.
+* `.onAttach()`: Added, was `.onLoad()`.
+* `.onLoad()`: Deleted, now `.onAttach()`.
+* `addMargins()`: Deleted, moved back to NCStats.
+* `addSigLetters()`: Deleted, moved back to NCStats.
+* `addZeroCatch()`: Modified.  Changed the looping structure for finding the sampling event and species combinations that need zeroes.  This should speed things up substantially.  Also, modified to allow no `idvar=` variables.  Finally, the returned data frame has the variables (columns) in the same order as the original data frame (rather than having the order modified).
+* `ageComp()`: Modified some of the code to adjust for name changes in `Summarize()`.    Modified to use a formula notation.
+* `ageKey()`: Modified to using a formula notation.  This removed the `dl=`, `cl=`, and `ca=` arguments.  Made minor adjustments to the help pages (in addition to changes related to the argument modifications).
+* `bcFuns()`: Removed use of `&#37;nin&#37;`.
+* `capFirst()`: Modified so that ONLY the first letter is capitalized (previous version would de-capitalize the first letter in the second word but leave the rest of the letters capitalized).
+* `capHistSum()`: Modified to correct an error that occurred when computing the Method B table when a capture history occurred only once or not at all.
+* `chapmanRobson()`: Modified by adding the Hoenig et al. (1983) bias correction formula for the estimate of Z as the default option.
+* `confint.nlsBoot()`: Removed use of `&#37;nin&#37;`.
+* `discharge()`: Deleted, moved to NCStats (to reduce overhead here).
+* `histStack()`: Modified by adding a formula method (`histStack.formula()`) which required adding a default method (`histStack.default()`).
+* `htest.nlsBoot()`: Removed use of `&#37;nin&#37;`.
+* `lencat()`: Modified by changing to using a formula notation and a `data=` argument.  This means that the `df=` and `cl=` arguments are no longer used.  In addition, the warning about fish larger than the larger category has been turned off.  The method to handle this was not changed, the warning was just turned off.
+* `lencatOLD()`: Added as an internal file to temporarily allow me not to change all functions that were affected by the changes to `lencat()`.  The functions that required this are `emp()` and `wsValidate()`.
+* `lenFreqExpand()`: Modified to deal with `lencat()` change.
+* `limnoProfilePlot()`: Deleted, moved to NCStats (to reduce overhead here).
+* `mrClosed()`: Removed use of `&#37;nin&#37;`.
+* `plotBinResp()`: Modified by moving `makeColor()` internal function to FSA-internals so that it can also be used by `tictactoe()`.
+* `predict.bootCase()`: Added.
+* `PSSLit`: added from RSDLit.  Added from Ogle and Winfield (2009) for ruffe, Bonvechio et al. (2010) for Suwannee bass, and from Phelps and Willis (2013) for several "carp" species.
+* `PSSLitCheck()`: Added this internal file.  Modified `pssVal()`, `pssCalc()`, and `pssPlot()` accordingly.
+* `psdVal()`: Deprecated, will delete, became `pssVal()`.
+* `pssCalc()`: Added, was `rsdCalc()`.  Modified to using a formula notation and a `data=` argument.
+* `pssDataPrep()`: Added.
+* `pssPlot()`: Added, was `rsdPlot()`.  Modified to using a formula notation and a `data=` argument, to handle the default change for `incl.zero=` in `pssVal()`, and changed the default `pss.lty=` settings.
+* `pssVal()`: Added, was `rsdVal()`.  Changed `incl.zero=TRUE` to be the default.
+* `recodeSpecies()`: Added.
+* `rsdCalc()`: Deleted, became `pssCalc()`.
+* `rsdLit()`: Deleted, became `PSSLit()`.
+* `rsdPlot()`: Delted, became `pssPlot()`.
+* `rsdVal()`: Deprecated, will delete, became `pssVal()`.
+* `sigLetters()`: Deleted, `cld()` in multcomp has been modified to deprecate this.
+* `simLenSelect()`: Modified to deal with `lencat()` change.
+* `Summarize()`: Modified by calculating the percentage of zeroes for quantitative data.  Also changed the names in the returned vectors or data frames to reduce capitalization, spaces, and punctuation.  Removed use of `&#37;nin&#37;`.
+* `tictactoe()`: Modified by changing the way the "in balance" regions are depicted.  This resulted in the addition of the `bal.trans=` argument.
+* `tictactoeAdd()`: Modified by changing PSD labels to PSS.
+* `vbStarts()`: Removed use of `&#37;nin&#37;`.
+* `wetPerim()`: Deleted, moved to NCStats (to reduce overhead here).
+* `wrAdd()`: Modified.  Major modifications to account for changes to `WSlit`.  Added the `capFirst()` check for species name.  Changed `subNA=` to `remove.submin=` to make consistent with `wrDataPrep()`.
+* `wrDataPrep()`: Added.
+* `wrVal()`: Deleted.
+* `WSlit`: Modified.  Completely rebuilt so that quadratic equation using EmP could be incorporated into the database.  Also added equations for several new species.
+* `WSLitCheck()`: Added this internal file.  Modified `wsVal()`, `wrVal()`, and `wrAdd()` accordingly.
+* `wsVal()`: Modified.  A major modification to account for the major changes to `WSLit`.
+* `wsValidate()`: Removed use of `&#37;nin&#37;`.
+
 
 # FSA 0.3.4 Jan13
 
