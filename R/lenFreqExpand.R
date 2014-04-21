@@ -36,10 +36,7 @@
 #'with a width of 1 inch (i.e., \code{w=1}) but have the results printed as if
 #'measured to within 0.1 inch (i.e., \code{decimals=1}).
 #'
-#'@param df A data.frame that (minimally) contains a column of length
-#'measurements or a vector of observed lengths.  See details.
-#'@param cl A number or name indicating which column the length measurements
-#'occupy in the data.frame, \code{df}.  Set to \code{NULL} if \code{df} is a vector.
+#'@param x A numeric vector of length measurements.
 #'@param startcat A number indicating the beginning of the first length-class.
 #'@param w A number indicating the width of length classes to create.
 #'@param additional The number of individuals that were not measured in the
@@ -58,59 +55,56 @@
 #'@keywords manip
 #'@examples
 #'## First example
-#'# random lengths measured to nearest 0.1 unit
+#'# random lengths measured to nearest 0.1 unit -- values in a vector
 #'len1 <- round(runif(50,0.1,9.9),1)
-#'
 #'# assignment of integer lengths to 110 non-measured indivs
-#'new.len1a <- lenFreqExpand(len1,startcat=0,w=1,total=160)
-#'new.len1a
-#'
+#'( new.len1a <- lenFreqExpand(len1,w=1,total=160) )
 #'# assignment of lengths to 0.1 to 110 non-measured indivs
-#'new.len1b <- lenFreqExpand(len1,startcat=0,w=1,total=160,decimals=1)
-#'new.len1b
+#'( new.len1b <- lenFreqExpand(len1,w=1,total=160,decimals=1) )
 #'
-#'
-#'## Second example
+#'## Second example -- if values are in a data.frame
 #'# random lengths measured to nearest 0.1 unit
 #'len2 <- data.frame(len=round(runif(50,10,117),1))
-#'
 #'# assignment of lengths to 0.1 for 140 non-measured indivs
-#'new.len2a <- lenFreqExpand(len2,startcat=10,w=10,total=190,decimals=1)
-#'new.len2a
-#'
+#'( new.len2a <- lenFreqExpand(len2$len,w=10,total=190,decimals=1) )
 #'
 #'## Third example
 #'# hypothetically measured lengths
 #'len <- c(6.7,6.9,7.3,7.4,7.5,8.2,8.7,8.9)
-#'
 #'# find lengths for unmeasured fish assuming a total of 30
-#'newlen1 <- lenFreqExpand(len,startcat=6,w=0.5,total=30,decimals=1)
-#'newlen1
-#'# put together with measured lengths and make histogram
-#'alllen <- c(len,newlen1)
-#'hist(alllen,breaks=10,main="")
+#'( newlen1 <- lenFreqExpand(len,w=0.5,total=30,decimals=1) )
+#'# set a starting category
+#'( newlen2 <- lenFreqExpand(len,w=0.5,startcat=6.2,total=30,decimals=1) )
 #'
-lenFreqExpand <- function(df,cl=NULL,startcat,w,additional,total=additional+nrow(df),decimals=decs$wdec,show.summary=TRUE,...) {
-  if (!is.null(cl)) {
-    if (!is.data.frame(df)) stop("\n If a column name is given then df must be a data.frame")
-    df <- df[,cl]
-  }
-  df <- as.data.frame(df)                                                       # turn into a data.frame
-  cl <- names(df)                                                               # get the name of the one variable
-  decs <- checkStartcatW(startcat,w,df)  
-  if (total<nrow(df)) stop("\n Total number to expand to must be greater than number of fish supplied in 'df'.",call.=FALSE)
-  df <- lencat(as.formula(paste("~",cl)),data=df,startcat,w,...)                                             # create length categories
-  num <- total-dim(df)[1]                                                       # number to allocate
-  lenfreq <- prop.table(table(df$LCat))                                         # length frequency of measured fish
-  cats <- as.numeric(rownames(lenfreq))                                         # length frequency categories (lower limit of bin)
-  reps <- floor(num*lenfreq)                                                    # number of expanded individuals per length category
-  nrand.lens <- rep(cats,reps)                                                  # expansion of lengths according to values in reps
-  rand.lens <- sample(cats,num-sum(reps),replace=TRUE,prob=lenfreq)             # randomly allocate rest of indivs based on probabilities in length category
-  new.lens <- c(nrand.lens,rand.lens)                                           # put expanded and randomly allocated indivs into one vector
-  maxval <- w-1/(10^decimals)                                                   # making sure that a length can't cross out of length category
+lenFreqExpand <- function(x,w,additional,startcat=NULL,total=additional+nrow(df),decimals=decs$wdec,show.summary=TRUE,...) {
+  if (!is.vector(x)) stop("'x' must be a vector.",call.=FALSE)
+  if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
+  # Find startcat if it is NULL
+  if (is.null(startcat)) startcat <- floor(min(x,na.rm=TRUE)/w)*w
+  # Find decimals in w and startcat, the decimals in w will be the default to round to
+  decs <- checkStartcatW(startcat,w,x)
+  if (total<length(x)) stop("\n Total number to expand to must be greater than number of fish supplied in 'df'.",call.=FALSE)
+  # number to allocate
+  num <- total-length(x)
+  # find the length frequency of measured fish
+  lcat <- lencat(x,w=w,startcat=startcat,...)
+  lenfreq <- prop.table(table(lcat))
+  # length frequency categories (lower limit of bin)
+  cats <- as.numeric(rownames(lenfreq))
+  # number of expanded individuals per length category
+  reps <- floor(num*lenfreq)
+  # expansion of lengths according to values in reps
+  nrand.lens <- rep(cats,reps)
+  # randomly allocate rest of indivs based on probabilities in length category
+  rand.lens <- sample(cats,num-sum(reps),replace=TRUE,prob=lenfreq)
+  # put expanded and randomly allocated indivs into one vector
+  new.lens <- c(nrand.lens,rand.lens)
+  # make sure that a length can't cross out of length category
+  maxval <- w-1/(10^decimals)
   if (maxval>0) new.lens <- new.lens + runif(length(new.lens),min=0,max=maxval)
   new.lens <- round(new.lens,decimals)
-  if (show.summary) {                                                           # print some summary values of what happened
+  # if asked, print some summary values of what happened
+  if (show.summary) {
     cat("Length Frequency Expansion using:\n")
     cat("Measured length frequency of",dim(df)[1],"individuals:")
     print(lenfreq)
@@ -118,9 +112,9 @@ lenFreqExpand <- function(df,cl=NULL,startcat,w,additional,total=additional+nrow
     print(reps)
     cat("\nRandom allocations of",length(rand.lens),"individuals\n")
     cat("\nWith final length frequency table of:")
-    final.lens <- as.data.frame(new.lens)
-    final.lens <- lencat(as.formula(paste("~",names(final.lens))),data=final.lens,startcat,w,...)
-    print(table(final.lens$LCat))
+    final.lens <- lencat(new.lens,w=w,startcat=startcat,...)
+    print(table(final.lens))
   }
-  sort(new.lens)                                                                # return sorted vector of newly assigned lengths
+  # return sorted vector of newly assigned lengths
+  sort(new.lens)
 }

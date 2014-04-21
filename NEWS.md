@@ -2,8 +2,10 @@
 
 * Changed to compiling under R 3.1.0
 * Imported `stackpoly()` from plotrix for use in `ageKeyPlot()`.
-* Added concepts (that largely match those in the FSAdata pacakge) o most of the data files.
+* Added concepts (that largely match those in the FSAdata pacakge) to most of the data files.
 * `ageKeyPlot()`: Added.
+* `lencat()`: Modified.  Added generic functions.  `lencat.default()` accepts a vector as its first argument and returns a single vector.  `lencat.formula()` accepts a formula as its first argument and the `data=` argument.  The `lencat.formula()` is the same as the old `lencat()' and `lencat.default()` provides new functionality.  Additionally, the default for `startcat=` is now `NULL` and a value for `startcat=` is found automatically (though a value can still be supplied by the user).  The `use.catnames=` was changed to `use.names=`.  Other changes were made to simplify the code.
+* `lenFreqExpand()`: Modified.  Removed the `df=` and `cl=` arguments and replaced with `x=`, which is simply a vector of length measurements.  Changed to `startcat=NULL` so that that the starting category value can be determined automatically (or can still be set by the user).
 
 
 # FSA 0.4.5 Apr14 

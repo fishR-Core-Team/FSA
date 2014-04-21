@@ -2,17 +2,11 @@
 \alias{lenFreqExpand}
 \title{Expands a length frequency based on a subsample.}
 \usage{
-lenFreqExpand(df, cl = NULL, startcat, w, additional, total = additional +
+lenFreqExpand(x, w, additional, startcat = NULL, total = additional +
   nrow(df), decimals = decs$wdec, show.summary = TRUE, ...)
 }
 \arguments{
-  \item{df}{A data.frame that (minimally) contains a column
-  of length measurements or a vector of observed lengths.
-  See details.}
-
-  \item{cl}{A number or name indicating which column the
-  length measurements occupy in the data.frame, \code{df}.
-  Set to \code{NULL} if \code{df} is a vector.}
+  \item{x}{A numeric vector of length measurements.}
 
   \item{startcat}{A number indicating the beginning of the
   first length-class.}
@@ -91,37 +85,26 @@ printed as if measured to within 0.1 inch (i.e.,
 }
 \examples{
 ## First example
-# random lengths measured to nearest 0.1 unit
+# random lengths measured to nearest 0.1 unit -- values in a vector
 len1 <- round(runif(50,0.1,9.9),1)
-
 # assignment of integer lengths to 110 non-measured indivs
-new.len1a <- lenFreqExpand(len1,startcat=0,w=1,total=160)
-new.len1a
-
+( new.len1a <- lenFreqExpand(len1,w=1,total=160) )
 # assignment of lengths to 0.1 to 110 non-measured indivs
-new.len1b <- lenFreqExpand(len1,startcat=0,w=1,total=160,decimals=1)
-new.len1b
+( new.len1b <- lenFreqExpand(len1,w=1,total=160,decimals=1) )
 
-
-## Second example
+## Second example -- if values are in a data.frame
 # random lengths measured to nearest 0.1 unit
 len2 <- data.frame(len=round(runif(50,10,117),1))
-
 # assignment of lengths to 0.1 for 140 non-measured indivs
-new.len2a <- lenFreqExpand(len2,startcat=10,w=10,total=190,decimals=1)
-new.len2a
-
+( new.len2a <- lenFreqExpand(len2$len,w=10,total=190,decimals=1) )
 
 ## Third example
 # hypothetically measured lengths
 len <- c(6.7,6.9,7.3,7.4,7.5,8.2,8.7,8.9)
-
 # find lengths for unmeasured fish assuming a total of 30
-newlen1 <- lenFreqExpand(len,startcat=6,w=0.5,total=30,decimals=1)
-newlen1
-# put together with measured lengths and make histogram
-alllen <- c(len,newlen1)
-hist(alllen,breaks=10,main="")
+( newlen1 <- lenFreqExpand(len,w=0.5,total=30,decimals=1) )
+# set a starting category
+( newlen2 <- lenFreqExpand(len,w=0.5,startcat=6.2,total=30,decimals=1) )
 }
 \seealso{
 \code{\link{lencat}}.
