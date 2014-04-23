@@ -31,14 +31,14 @@
 #'@param R A vector of observed recruitment levels.
 #'@param data A data frame from which the vectors of observed stock and
 #'recruitment levels can be found if a formula is used.
-#'@param type A string indicating the type of the stock-recruitment model.
-#'@param param A numeric indicating the parameterization of the stock-recruitment model type.
-#'@param plot A logical indicating whether a plot of the data with the model
+#'@param type A string that indicates the type of the stock-recruitment model.
+#'@param param A numeric that indicates the parameterization of the stock-recruitment model type.
+#'@param plot A logical that indicates whether a plot of the data with the model
 #'fit at the starting values superimposed should be created.
 #'@param \dots Further arguments passed to the methods.
-#'@return A list containing reasonable starting values.  Note that the parameters will be
+#'@return A list that contains reasonable starting values.  Note that the parameters will be
 #'listed in the same order and with the same names as listed in \code{\link{srFuns}}.
-#'@seealso \code{\link{srModels}} and \code{\link{srFuns}}; \code{srSim} in \pkg{FSATeach}
+#'@seealso \code{\link{srModels}}, \code{\link{srFuns}}, and \code{\link{srSim}}.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
 #'@references Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of
 #'exploited fish populations, Fisheries Investigations (Series 2), volume 19.

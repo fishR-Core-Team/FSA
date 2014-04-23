@@ -14,11 +14,11 @@
 #'function.  See \code{?ks.test}.
 #'@param \dots Parameters of the distribution specified (as a character string)
 #'by \code{y}.
-#'@param alternative A string indicating the alternative hypothesis.  See \code{?ks.test}.
-#'@param exact \code{NULL} or a logical indicating whether an exact p-value
+#'@param alternative A string that indicates the alternative hypothesis.  See \code{?ks.test}.
+#'@param exact \code{NULL} or a logical that indicates whether an exact p-value
 #'should be computed. See \code{?ks.test}.  Not available if ties are present,
 #'nor for the one-sided two-sample case.
-#'@param data Data frame containing the variables in the formula for \code{x}.
+#'@param data A data frame that contains the variables in the formula for \code{x}.
 #'@return See \code{?ks.test}.
 #'@seealso \code{\link{ks.test}}.
 #'@keywords htest

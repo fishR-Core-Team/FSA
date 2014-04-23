@@ -40,45 +40,46 @@ chapmanPlot(age, ...)
 
   \item{ylab}{A string for labeling the y-axis.}
 
-  \item{colLS}{A string indicating the color of the
+  \item{colLS}{A string that indicates the color of the
   least-squares line.}
 
-  \item{colRL}{A string indicating the color of the 1:1
+  \item{colRL}{A string that indicates the color of the 1:1
   reference line.}
 
-  \item{lwdLS}{A numeric indicating the line width of the
-  least-squares line.}
+  \item{lwdLS}{A numeric that indicates the line width of
+  the least-squares line.}
 
-  \item{lwdRL}{A numeric indicating the line width of the
-  1:1 reference line.}
+  \item{lwdRL}{A numeric that indicates the line width of
+  the 1:1 reference line.}
 
-  \item{ltyLS}{A numeric indicating the line type of the
-  least-squares line.}
+  \item{ltyLS}{A numeric that indicates the line type of
+  the least-squares line.}
 
-  \item{ltyRL}{A numeric indicating the line type of the
-  1:1 reference line.}
+  \item{ltyRL}{A numeric that indicates the line type of
+  the 1:1 reference line.}
 
-  \item{pch}{A numeric indicating the plotting character
-  type for the observed data.}
+  \item{pch}{A numeric that indicates the plotting
+  character type for the observed data.}
 
-  \item{col}{A string indicating the color for the observed
-  data.}
+  \item{col}{A string that indicates the color for the
+  observed data.}
 
-  \item{pchLinf}{A numeric indicating the plotting
-  character type indicating the Linf value.}
+  \item{pchLinf}{A numeric that indicates the plotting
+  character type that indicates the Linf value.}
 
-  \item{colLinf}{A string indicating the color of the point
-  indicating the Linf value.}
+  \item{colLinf}{A string that indicates the color of the
+  point that indicates the Linf value.}
 
-  \item{cexLinf}{A numeric indicating the character
-  expansion factor of the point indicating the Linf value.}
+  \item{cexLinf}{A numeric that indicates the character
+  expansion factor of the point that indicates the Linf
+  value.}
 
-  \item{showLS}{A logical indicating whether the
+  \item{showLS}{A logical that indicates whether the
   coefficients from the least-squares fit should be shown
   on the plot.}
 
-  \item{showVB}{A logical indicating whether the estimate
-  of Linf and K should be shown on the plot.}
+  \item{showVB}{A logical that indicates whether the
+  estimate of Linf and K should be shown on the plot.}
 
   \item{\dots}{Other arguments to be passed to the
   \code{plot} function.}

@@ -7,7 +7,7 @@ capFirst(x, words = c("all", "first"))
 \arguments{
   \item{x}{A single string.}
 
-  \item{words}{A single character indicating whether all
+  \item{words}{A single string that indicates whether all
   (the default) or only the first words should be
   capitalized.}
 }

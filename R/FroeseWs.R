@@ -27,39 +27,39 @@
 #'populations that \dQuote{cross over} other populations.
 #'
 #'@aliases FroeseWs plot.FroeseWs coef.FroeseWs
-#'@param log.a A numeric vector containing the \eqn{log_{10}(a)} values for the
+#'@param log.a A numeric vector that contains the \eqn{log_{10}(a)} values for the
 #'population of length-weight regression equations.
-#'@param b A numeric vector containing the b values for the population of
+#'@param b A numeric vector that contains the b values for the population of
 #'length-weight regression equations
 #'@param x An object saved from the \code{FrowseWs()} call (i.e., of class
 #'\code{Froese}).
-#'@param min A number indicating the smallest X-mm length to model.
-#'@param max A number indicating the midpoint value of the largest X-mm length
+#'@param min A number that indicates the smallest X-mm length to model.
+#'@param max A number that indicates the midpoint value of the largest X-mm length
 #'category.
 #'@param object An object saved from \code{FroeseWs()} (i.e., of class
 #'\code{FroeseWs}).
-#'@param what A string indicating the type of plot to produce.  See details.
-#'@param col.pop A string indicating the type of color or palette to use for
+#'@param what A string that indicates the type of plot to produce.  See details.
+#'@param col.pop A string that indicates the type of color or palette to use for
 #'the population of length-weight regression lines.  See details.
-#'@param order.pop A logical indicating whether the populations should be
+#'@param order.pop A logical that indicates whether the populations should be
 #'plotted from the smallest to largest weight in the initial length category.
 #'See details.
-#'@param lwd.pop A numeric indicating the width of the line to use for the
+#'@param lwd.pop A numeric that indicates the width of the line to use for the
 #'population of length-weight regression lines.
-#'@param lty.pop A numeric indicating the type of line to use for the
+#'@param lty.pop A numeric that indicates the type of line to use for the
 #'population of length-weight regression lines.
-#'@param col.Ws A string indicating the type of color to use for the standard
+#'@param col.Ws A string that indicates the type of color to use for the standard
 #'length-weight regression line.
-#'@param lwd.Ws A numeric indicating the width of the line to use for the
+#'@param lwd.Ws A numeric that indicates the width of the line to use for the
 #'standard length-weight regression line.
-#'@param lty.Ws A numeric indicating the type of line to use for the standard
+#'@param lty.Ws A numeric that indicates the type of line to use for the standard
 #'length-weight regression line.
 #'@param \dots Additional arguments for methods.
 #'@return A list is returned with five items.  The first (\code{log.a}) is a
 #'numeric vector of the observed \eqn{log_{10}(a)} values sent in the
 #'\code{log.a} argument.  The second (\code{b}) is a numeric vector of the
 #'observed \eqn{b} values sent in the \code{b} argument.  The third
-#'(\code{gm.a}) is a numeric containing the geometric mean of the \eqn{a}
+#'(\code{gm.a}) is a numeric that contains the geometric mean of the \eqn{a}
 #'parameter.  This is simply the back-transformed mean \eqn{log_{10}(a)} value
 #'-- i.e., \eqn{10^{log_{10}(a)}}.  The fourth (\code{mn.b}) is the arithmetic
 #'mean of the \eqn{b} parameter.  The fifth item (\code{mn.log.a}) is the

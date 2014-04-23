@@ -6,19 +6,20 @@ wsVal(species = "List", units = c("metric", "English"), ref = 75,
   simplify = FALSE)
 }
 \arguments{
-  \item{species}{A string containing the species name for
-  which to find coefficients.}
+  \item{species}{A string that contains the species name
+  for which to find coefficients.}
 
-  \item{units}{A string indicating whether the coefficients
-  for the (\code{"metric"} (DEFAULT; mm and g) or
-  \code{"English"} (in and lbs) units should be returned.}
+  \item{units}{A string that indicates whether the
+  coefficients for the (\code{"metric"} (DEFAULT; mm and g)
+  or \code{"English"} (in and lbs) units should be
+  returned.}
 
-  \item{ref}{A numeric indicating which quantile the
+  \item{ref}{A numeric that indicates which quantile the
   equation should be returned for.  Note that the vast
   majority of equations only exist for the \code{75}th
   percentile (DEFAULT).}
 
-  \item{simplify}{A logical indicating whether the
+  \item{simplify}{A logical that indicates whether the
   \sQuote{units}, \sQuote{ref}, \sQuote{measure},
   \sQuote{method}, \sQuote{comments}, and \sQuote{source}
   fields should be included (\code{=FALSE}) or not

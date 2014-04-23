@@ -7,7 +7,7 @@ changesPos(x, include.first = TRUE)
 \arguments{
   \item{x}{A vector (generally) of sorted values.}
 
-  \item{include.first}{A logical indicating whether the
+  \item{include.first}{A logical that indicates whether the
   returned vector of positions should have a ``1'' at the
   beginning (i.e., by definition the first position is the
   first position that is different than the previous

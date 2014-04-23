@@ -27,7 +27,7 @@
 #'
 #'@param x A numeric vector of observed ages.  See details.
 #'@param y A numeric vector of observed lengths.  See details.
-#'@param wt.max A single numeric indicating the maximum weight for the y-axis scale.
+#'@param wt.max A single numeric that indicates the maximum weight for the y-axis scale.
 #'@return None.  An interactive graphic is produced.
 #'@keywords iplot
 #'@examples

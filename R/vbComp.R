@@ -5,7 +5,7 @@
 #'parameter choices.  Typical use will be for comparing the shape of the model
 #'among parameter estimates for multiple species.
 #'
-#'The data frame, \code{df}, must have a column containing the species name and
+#'The data frame, \code{df}, must have a column that contains the species name and
 #'columns for the Linf, K, and to parameters (with the columns having those
 #'names).  Each row contains values for a seperate model evaluation.  Typical
 #'exercises will select rows from the \code{data(VBGMlit)} data frame.

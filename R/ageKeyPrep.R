@@ -19,7 +19,7 @@
 #' THIS FUNCTION IS EXPERIMENTAL AT THIS POINT
 #' 
 #' @param key A numeric matrix that contains the problematic age-length key.
-#' @param show.msgs A logicical indicating if process messages should be displayed
+#' @param show.msgs A logicical that indicates if process messages should be displayed
 #' (\code{TRUE}; default).
 #' 
 #' @return A matrix that contains the original age-length key matrix sent in \code{key}

@@ -14,13 +14,13 @@
 #'and \code{\link{srFuns}} for a representation of each parameterization.
 #'
 #'@aliases srCobWeb
-#'@param type A single string indicating which stock-recruitment model to use.  
+#'@param type A single string that indicates which stock-recruitment model to use.  
 #'See \code{\link{srModels}}.
-#'@param param A single numeric indicating which parameterization of the \code{type}
+#'@param param A single numeric that indicates which parameterization of the \code{type}
 #'to use.  See \code{\link{srModels}}.
-#'@param N A single numeric indicating the number of iterations to run for the cobwebbing.
-#'@param initS A single numeric indicating the starting value of spawning stock size.
-#'@param N2ignore A single numeric indicating the number of initial iterattions to
+#'@param N A single numeric that indicates the number of iterations to run for the cobwebbing.
+#'@param initS A single numeric that indicates the starting value of spawning stock size.
+#'@param N2ignore A single numeric that indicates the number of initial iterattions to
 #'ignore when plotting the results.  This allows the function to \sQuote{burn-in}
 #'before showing results.
 #'@param \dots Optional parameters that are used in stock-recruitment model indicated
@@ -34,7 +34,7 @@
 #'if it exists.  The \sQuote{stopping} point in the cobwebbing is shown as a red
 #'dot and the \sQuote{starting} point is shown, as long as \code{N2Ignore=0}, a 
 #'green dot.  The bottom panel is the stock size plotted against time.
-#'@seealso \code{\link{srModels}} and \code{\link{srFuns}}; \code{srSim} in \pkg{FSATeach}
+#'@seealso \code{\link{srModels}}, \code{\link{srFuns}}, and \code{\link{srSim}}.
 #'@keywords iplot
 #'@examples
 #'# First parametrization of the Ricker model

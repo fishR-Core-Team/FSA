@@ -29,17 +29,17 @@ mrOpen(mb.top, mb.bot = NULL, ci.type = c("Jolly", "Manly"),
   marked fish returned to the population following the
   sample (\code{R})).}
 
-  \item{ci.type}{A text value that indicates whether the
-  large sample method of Jolly (\code{ci.type="Jolly"}) or
-  the \dQuote{arbitrary} method of Manly
+  \item{ci.type}{A string that indicates whether the large
+  sample method of Jolly (\code{ci.type="Jolly"}) or the
+  \dQuote{arbitrary} method of Manly
   (\code{ci.type="Manly"}) should be used to construct
   confidence intervals.}
 
-  \item{conf.level}{a number indicating the level of
+  \item{conf.level}{A number that indicates the level of
   confidence to use for constructing confidence intervals
   (default is 0.95).  See details.}
 
-  \item{phi.type}{a text value that indicates whether the
+  \item{phi.type}{A string that indicates whether the
   standard error for phi should include only sampling
   variability (\code{phi.type="SE"}) or sampling and
   individual variability (\code{phi.type="SD"},default).}
@@ -49,7 +49,7 @@ mrOpen(mb.top, mb.bot = NULL, ci.type = c("Jolly", "Manly"),
 
   \item{type}{The type of summary to return.  See details.}
 
-  \item{parm}{a specification of which parameters are to be
+  \item{parm}{A specification of which parameters are to be
   given confidence intervals.  If missing, all parameters
   are considered.}
 

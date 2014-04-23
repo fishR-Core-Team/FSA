@@ -4,7 +4,7 @@
 #'Add a total radius-at-capture variable to a data frame that contains 
 #'one-fish-per-line increments data (i.e., \dQuote{wide} format).
 #'
-#'The columns containing the original increment data can be entered in a
+#'The columns that contains the original increment data can be entered in a
 #'variety of ways.  First, if all columns begin with the same prefix (and no
 #'other columns contain that prefix) then the prefix string can be entered into
 #'\code{in.pre}.  Second, a general sequence of column numbers can be entered into
@@ -17,12 +17,12 @@
 #'radius-at-capture if all growth, including plus-growth in the current season,
 #'is recorded in the input data frame.
 #'
-#'@param df A data frame containing the growth increment data in one-fish-per-line
+#'@param df A data frame that contains the growth increment data in one-fish-per-line
 #' (i.e., \dQuote{wide}) format.
 #'@param in.pre A string that represents the common part of the increment
 #'variable names.  Default is \code{"inc"}.  See details.
 #'@param in.var A vector of variables in \code{data} that do not change.  See details.
-#'@param var.name A string indicating the name of the total radius-at-capture
+#'@param var.name A string that indicates the name of the total radius-at-capture
 #'in the new data frame.
 #'@return A data frame of increments in one-fish-per-line  (i.e., \dQuote{wide})
 #'format with the total radius-at-capture appended in a variable named as given

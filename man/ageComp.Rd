@@ -36,7 +36,7 @@ ageComp(formula, data, col.lab = "First", row.lab = "Second",
   \item{row.lab}{A string that contains a label for the row
   age assignments.}
 
-  \item{method}{A string indicating which method to use
+  \item{method}{A string that indicates which method to use
   when adjusting p-values for multiple comparisons.}
 
   \item{sig.level}{A value to be used for determining
@@ -53,11 +53,11 @@ ageComp(formula, data, col.lab = "First", row.lab = "Second",
   \item{what}{A string that indicates what type of summary
   to print or plot to construct.  See details.}
 
-  \item{zero.print}{A string indicating what should be
+  \item{zero.print}{A string that indicates what should be
   printed in place of the zeroes on an age-agreement table.
   The default is to print a single dash.}
 
-  \item{flip.table}{A logical indicating whether the
+  \item{flip.table}{A logical that indicates whether the
   age-agreement table should be \sQuote{flipped} (i.e.,
   rows are reversed so that the younger ages are at the
   bottom of the table).  This makes the table more directly
@@ -146,10 +146,10 @@ The age-agreement table. \item stats The summary statistics
 of percent agreement, AVE, and CV. \item bias A data.frame
 that contains the bias statistics. \item bias.diff A
 data.frame that contains the bias statistics for the
-differences. \item col.lab A character string containing an
+differences. \item col.lab A string that contains an
 optional label for the column structure or readings. \item
-row.lab A character string containing an optional label for
-the row structure or readings. }
+row.lab A string that contains an optional label for the
+row structure or readings. }
 
 The \code{summary} and \code{plot} function do not return
 anything.

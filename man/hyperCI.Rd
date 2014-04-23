@@ -16,7 +16,7 @@ hyperCI(M, n, m, conf.level = 0.95)
   \code{0.95}).}
 }
 \value{
-A 1x2 matrix containing the lower and upper confidence
+A 1x2 matrix that contains the lower and upper confidence
 interval bounds.
 }
 \description{

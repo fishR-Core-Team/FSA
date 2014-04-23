@@ -6,7 +6,7 @@ pos2adj(pos = c("center", "S", "W", "N", "East", "SW", "NW", "NE", "SE", "s",
   "w", "n", "east", "sw", "nw", "ne", "se"), offset = 0.5)
 }
 \arguments{
-  \item{pos}{A character identifying a direction to place
+  \item{pos}{A string that indicates a direction to place
   the label relative to a set of coordinates.}
 
   \item{offset}{A value that controls how far the label

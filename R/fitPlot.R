@@ -40,22 +40,22 @@
 #'fitPlot.ONEWAY fitPlot.TWOWAY fitPlot.nls fitPlot.glm fitPlot.logreg
 #'@param object An \code{lm} or \code{nls} object (i.e., returned from fitting
 #'a model with either \code{lm} or \code{nls}).
-#'@param interval In SLR or IVR, a string indicating whether to plot confidence
+#'@param interval In SLR or IVR, a string that indicates whether to plot confidence
 #'(\code{="confidence"}) or prediction (\code{="prediction"}) intervals.  For a
 #'SLR object both can be plotted by using \code{="both"}.  In one-way or
-#'two-way ANOVA, a logical indicating whether the confidence intervals should
+#'two-way ANOVA, a logical that indicates whether the confidence intervals should
 #'be plotted or not.
-#'@param conf.level A decimal numeric indicating the level of confidence to use
+#'@param conf.level A decimal numeric that indicates the level of confidence to use
 #'for confidence and prediction intervals.
-#'@param plot.pts A logical indicating (\code{TRUE} (default)) whether the
+#'@param plot.pts A logical that indicates (\code{TRUE} (default)) whether the
 #'points are plotted along with the fitted lines.  Set to \code{FALSE} to plot
 #'just the fitted lines.
-#'@param pch A numeric or vector of numerics indicating what plotting
+#'@param pch A numeric or vector of numerics that indicates what plotting
 #'characther codes should be used.  In SLR this is the single value to be used
 #'for all points.  In IVR a vector is used to identify the characters for the
 #'levels of the second factor.
 #'@param col A vector of color names or numbers or the name of a paletted (see
-#'details) indicating what color of points and lines to use for the levels of
+#'details) that indicates what color of points and lines to use for the levels of
 #'the first factor in an IVR or the second factor in a two-way ANOVA.
 #'@param col.pt A string used to indicate the color of the plotted points.
 #'Used only for SLR and logistic regression objects.
@@ -87,7 +87,7 @@
 #'can provide alternative functions that may plot other types of \sQuote{error
 #'bars}.  See examples in \code{lineplot.CI} function of \pkg{sciplot} package.
 #'@param col.ci A vector of color names or numbers or the name of a palette
-#'(see details) indicating what colors to use for the confidence interval bars
+#'(see details) that indicates what colors to use for the confidence interval bars
 #'in one-way and two-way ANOVAs.
 #'@param which A character string listing the factor in the two-way ANOVA for
 #'which the means should be calculated and plotted.  This argument is used to
@@ -101,19 +101,19 @@
 #'expansion value for the legend.  Ignored if \code{legend=FALSE}.
 #'@param box.lty.leg A single numeric values used to indicate the type of line
 #'to use for the box around the legend.  The default is to not plot a box.
-#'@param d a data frame containing the variabls used in construction of the
+#'@param d A data frame that contains the variabls used in construction of the
 #'\code{nls} object.
-#'@param jittered a logical indicating whether the points should be jittered horizontally.
+#'@param jittered A logical that indicates whether the points should be jittered horizontally.
 #'@param legend.lbls A vector of strings that will be the labels for the legend
 #'in an nls fitPlot graphic.
-#'@param trans.pt A numeric indicating how many points would be plotted on top
+#'@param trans.pt A numeric that indicates how many points would be plotted on top
 #'of each other in a logistic regression before the \sQuote{point} would have
 #'the full \code{pt.col} color.  The reciprocal of this value is the alpha
 #'transparency value.
-#'@param plot.p A logical indicating if the proportion for categorized values
+#'@param plot.p A logical that indicates if the proportion for categorized values
 #'of X are plotted (\code{TRUE}; default).
-#'@param breaks A number indicating how many intervals over which to compute
-#'proportions or a numeric vector identifying the endpoints of the intervals
+#'@param breaks A number that indicates how many intervals over which to compute
+#'proportions or a numeric vector that contains the endpoints of the intervals
 #'over which to compute proportions if \code{plot.p=TRUE}.
 #'@param p.col A color to plot the proportions.
 #'@param p.pch A plotting character for plotting the proportions.
@@ -123,13 +123,13 @@
 #'@param xlim A vector of length two to control the x-axis in the logistic
 #'regression plot.  If this is changed from the default then the domain over
 #'which the logistic regression model is plotted will change.
-#'@param yaxis1.ticks A numeric vector indicating where tick marks should be placed
+#'@param yaxis1.ticks A numeric vector that indicates where tick marks should be placed
 #'on the left y-axis (for the proportion of \sQuote{successes}) for the logistic
 #'regression plot.
-#'@param yaxis1.lbls A numeric vector indicating labels for the tick marks on the
+#'@param yaxis1.lbls A numeric vector that indicates labels for the tick marks on the
 #'left y-axis (for the proportion of \sQuote{successes}) for the logistic
 #'regression plot.
-#'@param yaxis2.show A logical indicating whether the right y-axis should be
+#'@param yaxis2.show A logical that indicates whether the right y-axis should be
 #'created (\code{=TRUE}; default) or not for the logistic regression plot.
 #'@param \dots Other arguments to be passed to the plot functions.
 #'@return None.  However, a fitted-line plot is produced.

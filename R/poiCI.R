@@ -7,10 +7,10 @@
 #'Garwood (1936) as noted in van der Gulden and Verbeck (1992).  Thank you to
 #'Jerry Lewis for clarifications to the historical citations of this method.
 #'
-#'@param x a number representing the number of observed successes.
-#'@param conf.level a number indicating the level of confidence to use for
+#'@param x A number representing the number of observed successes.
+#'@param conf.level A number that indicates the level of confidence to use for
 #'constructing confidence intervals (default is \code{0.95}).
-#'@return A 1x2 matrix containing the lower and upper confidence interval bounds.
+#'@return A 1x2 matrix that contains the lower and upper confidence interval bounds.
 #'@seealso \code{pois.exact} in \pkg{epitools}.
 #'@references Garwood, F.  1936.  Fiducial limits for the Poisson distribution.
 #'Biometrika.  28(3/4):437-442.

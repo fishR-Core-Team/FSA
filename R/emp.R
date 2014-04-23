@@ -33,43 +33,43 @@
 #'
 #'@aliases emp coef.emp summary.emp predict.emp anova.emplm plot.emplm
 #'fitPlot.emplm residPlot.emplm fitPlot.emprq
-#'@param df A data frame containing the length-weight data for each population.
-#'@param pops A string or numeric indicating which column in \code{df} contains
-#'the variable identifying the different populations.
-#'@param len A string or numeric indicating which column in \code{df} contains
+#'@param df A data frame that contains the length-weight data for each population.
+#'@param pops A string or numeric that indicates which column in \code{df} contains
+#'the variable that identifies the different populations.
+#'@param len A string or numeric that indicates which column in \code{df} contains
 #'the variable with the length data.
-#'@param wt A string or numeric indicating which column in \code{df} contains
+#'@param wt A string or numeric that indicates which column in \code{df} contains
 #'the variable with the weight data.
-#'@param min A number indicating the midpoint value of the smallest X-mm length category.
-#'@param max A number indicating the midpoint value of the largest X-mm length category.
-#'@param w A number indicating the widths for which to create length categories.
-#'@param n.cutoff A numeric indicating the minimum sample size in a length
+#'@param min A number that indicates the midpoint value of the smallest X-mm length category.
+#'@param max A number that indicates the midpoint value of the largest X-mm length category.
+#'@param w A number that indicates the widths for which to create length categories.
+#'@param n.cutoff A numeric that indicates the minimum sample size in a length
 #'category that should be included in the regression.
-#'@param cutoff.tail A logical indicating if all length categories larger than
+#'@param cutoff.tail A logical that indicates if all length categories larger than
 #'the lowest length category with a sample size below \code{n.cutoff} should be
 #'excluded \code{=TRUE} or just those length categories with sample sizes lower
 #'than \code{n.cutoff}.
 #'@param qtype Type of quantile method to use.  See details.
-#'@param probs A number indicating the probability of the quantile.  Must be
+#'@param probs A number that indicates the probability of the quantile.  Must be
 #'between 0 and 1.
-#'@param method A character indicating whether a linear regression (\code{lm}
+#'@param method A string that indicates whether a linear regression (\code{lm}
 #'or quantile regression (\code{rq}) should be used to construct the standard
 #'weight equation.  See details.
-#'@param quadratic A logical indicating whether a quadratic regression should
+#'@param quadratic A logical that indicates whether a quadratic regression should
 #'be fit (\code{=TRUE} or not.
 #'@param x,object An object saved from the \code{emp} call (i.e., of class \code{emp}).
-#'@param pch A single numeric indicating what plotting characther codes should
+#'@param pch A single numeric that indicates what plotting characther codes should
 #'be used for the points in plot or fitPlot.
-#'@param col.pop A string indicating the type of color or palette to use for
+#'@param col.pop A string that indicates the type of color or palette to use for
 #'the population of length-weight regression lines.  See details.
-#'@param col.Ws A string indicating the type of color to use for the standard
+#'@param col.Ws A string that indicates the type of color to use for the standard
 #'length-weight regression line.
-#'@param lwd.Ws A numeric indicating the width of the line to use for the
+#'@param lwd.Ws A numeric that indicates the width of the line to use for the
 #'standard length-weight regression line.
-#'@param lty.Ws A numeric indicating the type of line to use for the standard
+#'@param lty.Ws A numeric that indicates the type of line to use for the standard
 #'length-weight regression line.
-#'@param jitterX A logical indicating whether the x values in plot should be jittered.
-#'@param jitter.factor A numeric indicating the relative magnitude of the
+#'@param jitterX A logical that indicates whether the x values in plot should be jittered.
+#'@param jitter.factor A numeric that indicates the relative magnitude of the
 #'jittering in x (sent to \code{factor} argument in \code{jitter()}.
 #'@param col.pt A string used to indicate the color of the plotted points.
 #'@param xlab A label for the x-axis of fitPlot.
@@ -88,7 +88,7 @@
 #'length category for each population.
 #'\item \code{regdata} is a dataframe used for the Ws regression (i.e., third
 #'quartiles of mean log10 weight and length category midpoints).
-#'\item \code{quadratic} is a logical indicating whether the quadratic
+#'\item \code{quadratic} is a logical that indicates whether the quadratic
 #'regression was used.
 #'\item \code{Ws} is the Ws regression model results.
 #'}

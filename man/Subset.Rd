@@ -11,18 +11,20 @@ Subset(x, ...)
 \arguments{
   \item{x}{A data frame.}
 
-  \item{subset}{logical expression indicating elements or
-  rows to keep: missing values are taken as false.}
+  \item{subset}{A logical expression that indicates
+  elements or rows to keep: missing values are taken as
+  false.}
 
-  \item{select}{expression, indicating columns to select
-  from a data frame.}
+  \item{select}{An expression, that indicates columns to
+  select from a data frame.}
 
   \item{drop}{passed on to \code{[} indexing operator.}
 
-  \item{resetRownames}{a logical indicating if the rownames
-  should be reset after the subsetting (\code{TRUE};
-  default).  Resetting rownames will simpley number the
-  rows from 1 to the number of rows in the result.}
+  \item{resetRownames}{A logical that indicates if the
+  rownames should be reset after the subsetting
+  (\code{TRUE}; default).  Resetting rownames will simpley
+  number the rows from 1 to the number of rows in the
+  result.}
 
   \item{\dots}{further arguments to be passed to or from
   other methods.}

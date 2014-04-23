@@ -35,11 +35,11 @@
 #'ESPH \tab 22 \tab Exponential Scale Proportional Hypothesis \cr
 #'}
 #'
-#'@param BCM A single numeric between 1 and 22 indicating which back-calculation
+#'@param BCM A single numeric between 1 and 22 that indicates which back-calculation
 #'model to use (based on numbers in Vigliola and Meekan (2009)).
-#'@param type A string indicating which back-calculation model to use (based on
+#'@param type A string that indicates which back-calculation model to use (based on
 #'abbreviations in Vigliola and Meekan (2009)).
-#'@param msg A logical indicating whether a message about the model and
+#'@param msg A logical that indicates whether a message about the model and
 #'parameter definitions should be output.
 #'@return A function that can be used to predict length at previous age (Li)
 #'given length-at-capture (Lc), hard-part radius-at-age i (Ri), and hard-part

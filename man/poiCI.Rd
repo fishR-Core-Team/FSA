@@ -5,15 +5,15 @@
 poiCI(x, conf.level = 0.95)
 }
 \arguments{
-  \item{x}{a number representing the number of observed
+  \item{x}{A number representing the number of observed
   successes.}
 
-  \item{conf.level}{a number indicating the level of
+  \item{conf.level}{A number that indicates the level of
   confidence to use for constructing confidence intervals
   (default is \code{0.95}).}
 }
 \value{
-A 1x2 matrix containing the lower and upper confidence
+A 1x2 matrix that contains the lower and upper confidence
 interval bounds.
 }
 \description{

@@ -6,24 +6,24 @@ srCobWeb(type = c("BevertonHolt", "Ricker"), param = 1, N = 100,
   initS = 50, N2ignore = 0, ...)
 }
 \arguments{
-  \item{type}{A single string indicating which
+  \item{type}{A single string that indicates which
   stock-recruitment model to use. See
   \code{\link{srModels}}.}
 
-  \item{param}{A single numeric indicating which
+  \item{param}{A single numeric that indicates which
   parameterization of the \code{type} to use.  See
   \code{\link{srModels}}.}
 
-  \item{N}{A single numeric indicating the number of
+  \item{N}{A single numeric that indicates the number of
   iterations to run for the cobwebbing.}
 
-  \item{initS}{A single numeric indicating the starting
+  \item{initS}{A single numeric that indicates the starting
   value of spawning stock size.}
 
-  \item{N2ignore}{A single numeric indicating the number of
-  initial iterattions to ignore when plotting the results.
-  This allows the function to \sQuote{burn-in} before
-  showing results.}
+  \item{N2ignore}{A single numeric that indicates the
+  number of initial iterattions to ignore when plotting the
+  results.  This allows the function to \sQuote{burn-in}
+  before showing results.}
 
   \item{\dots}{Optional parameters that are used in
   stock-recruitment model indicated with \code{type} and
@@ -85,8 +85,8 @@ srCobWeb(type="Ricker",param=3,a=13,Rp=300)
 srCobWeb(type="BevertonHolt",param=1,a=20,b=0.01)
 }
 \seealso{
-\code{\link{srModels}} and \code{\link{srFuns}};
-\code{srSim} in \pkg{FSATeach}
+\code{\link{srModels}}, \code{\link{srFuns}}, and
+\code{\link{srSim}}.
 }
 \keyword{iplot}
 

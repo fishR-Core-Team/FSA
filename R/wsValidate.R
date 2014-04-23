@@ -39,53 +39,53 @@
 #'calling \code{rlp()} or \code{emp()} in the main function and an object of
 #'class class \code{empq} or \code{willis} (saved from the \code{wsValidate})
 #'in the generic functions.
-#'@param df A data frame containing the length-weight data for each population.
-#'@param pops A string or numeric indicating which column in \code{df} contains
-#'the variable identifying the different populations.
-#'@param len A string or numeric indicating which column in \code{df} contains
+#'@param df A data frame that contains the length-weight data for each population.
+#'@param pops A string or numeric that indicates which column in \code{df} contains
+#'the variable that identifies the different populations.
+#'@param len A string or numeric that indicates which column in \code{df} contains
 #'the variable with the length data.
-#'@param wt A string or numeric indicating which column in \code{df} contains
+#'@param wt A string or numeric that indicates which column in \code{df} contains
 #'the variable with the weight data.
-#'@param min A number indicating the midpoint value of the smallest X-mm length category.
-#'@param max A number indicating the midpoint value of the largest X-mm length category.
-#'@param w A number indicating the widths for which to create length categories.
-#'@param type A string indicating which type of bias detection method should be used.
-#'@param n.cutoff A numeric indicating the minimum sample size in a length category
+#'@param min A number that indicates the midpoint value of the smallest X-mm length category.
+#'@param max A number that indicates the midpoint value of the largest X-mm length category.
+#'@param w A number that indicates the widths for which to create length categories.
+#'@param type A string that indicates which type of bias detection method should be used.
+#'@param n.cutoff A numeric that indicates the minimum sample size in a length category
 #'that should be included in the EmpQ regression.  Ignored if \code{type="Willis"}.
-#'@param cutoff.tail A logical indicating if all length categories larger than
+#'@param cutoff.tail A logical that indicates if all length categories larger than
 #'the lowest length category with a sample size below \code{n.cutoff} should be
 #'excluded \code{=TRUE} or just those length categories with sample sizes lower
 #'than \code{n.cutoff}.  Ignored if \code{type="Willis"}.
 #'@param qtype Type of quantile method to use.  See details.  Ignored if \code{use.means=TRUE}.
-#'@param probs A number indicating the probability of the quantile.  Must be
+#'@param probs A number that indicates the probability of the quantile.  Must be
 #'between 0 and 1.  Ignored if \code{use.means=TRUE}.
-#'@param use.means A logical indicating whether mean mean weight rather than a
+#'@param use.means A logical that indicates whether mean mean weight rather than a
 #'quantile mean weight should be used in the EmpQ method.
-#'@param quadratic A logical indicating whether a quadratic regression should
+#'@param quadratic A logical that indicates whether a quadratic regression should
 #'be fit in the EmpQ method.  Ignored if \code{type="Willis"}.
-#'@param weighted A logical indicating whether the regression in the EmpQ
+#'@param weighted A logical that indicates whether the regression in the EmpQ
 #'method should be weighted by the number of populations present in each length
 #'category.  Ignored if \code{type="Willis"}.
-#'@param alpha A numeric indicating the rejection criterion to be used in the
+#'@param alpha A numeric that indicates the rejection criterion to be used in the
 #'Willis method.  Ignored if \code{type="EmpQ"}.
 #'@param x An object saved from the \code{wsValidate} call (i.e., of class
 #'\code{empq} or \code{willis}).
-#'@param pch A single numeric indicating what plotting characther codes should
+#'@param pch A single numeric that indicates what plotting characther codes should
 #'be used for the points in plot or fitPlot.
 #'@param col.pt A string used to indicate the color of the plotted points.
 #'@param xlab A label for the x-axis of plot or fitPlot.
 #'@param ylab A label for the y-axis of plot or fitPlot.
-#'@param col.mdl A string indicating the type of color to use for the standard
+#'@param col.mdl A string that indicates the type of color to use for the standard
 #'length-weight regression line.
-#'@param lwd.mdl A numeric indicating the width of the line to use for the
+#'@param lwd.mdl A numeric that indicates the width of the line to use for the
 #'standard length-weight regression line.
-#'@param lty.mdl A numeric indicating the type of line to use for the standard
+#'@param lty.mdl A numeric that indicates the type of line to use for the standard
 #'length-weight regression line.
 #'@param main A label for the main title of fitPlot.
 #'@param \dots Additional arguments for methods.
 #'@return If \code{type="Willis"} then a list is returned with the following three items.
 #'\itemize{
-#'\item \code{res.ind} is a data frame containing the results of the
+#'\item \code{res.ind} is a data frame that contains the results of the
 #'individual regressions.
 #'\item \code{res.tbl}) is the table summarizing the number of positive and
 #'negative significant slopes.
@@ -97,9 +97,9 @@
 #'\item \code{n.by.pop}) is a table of the number of populations represented in
 #'each length category.
 #'\item \code{regdata}) is a dataframe used for the EmpQ regression.
-#'\item \code{quadratic}) is a logical indicating whether the quadratic regression
+#'\item \code{quadratic}) is a logical that indicates whether the quadratic regression
 #'was used.
-#'\item \code{weighted}) is a logical indicating whether a weighted regression
+#'\item \code{weighted}) is a logical that indicates whether a weighted regression
 #'was used.
 #'\item \code{lm.v} is the EmpQ regression model results.
 #'}

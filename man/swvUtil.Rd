@@ -30,74 +30,75 @@ swvFinish(file, rqrdPkgs = NULL, closeGraphics = TRUE, addTOC = TRUE,
 \arguments{
   \item{value}{A single numeric count or p-value.}
 
-  \item{capitalize}{A logical indicating if the returned
-  words should be capitalized or not (the default).}
+  \item{capitalize}{A logical that indicates if the
+  returned words should be capitalized or not (the
+  default).}
 
   \item{digits}{Number of decimal places to round the
   values to.}
 
-  \item{include.p}{A logical indicating whether the result
-  should be a character string with \dQuote{p=} appended to
-  the numerical result.}
+  \item{include.p}{A logical that indicates whether the
+  result should be a character string with \dQuote{p=}
+  appended to the numerical result.}
 
-  \item{latex}{A logical indicating whether the resultant
-  p-value string should be contained within dollar signs to
-  form a latex formula.}
+  \item{latex}{A logical that indicates whether the
+  resultant p-value string should be contained within
+  dollar signs to form a latex formula.}
 
   \item{x}{An object saved from \code{lm} or \code{glht} or
   an object of class \code{htest} (e.g., saved from
   \code{t.test}).}
 
-  \item{type}{A character indicating the type of glht
+  \item{type}{A string that indicates the type of glht
   result to extract.}
 
-  \item{file}{A string containing the root name of the .RNW
-  file.  This will also be the name of the resultant
+  \item{file}{A string that contains the root name of the
+  .RNW file.  This will also be the name of the resultant
   Stangled file with .R appended, the resultant PDF file
   with .PDF appended, the resultant asciidoc file with .txt
   appended, and the defaul HTML file with .html appended.
   If missing then will search for a .Rnw file in the
   current working directory.}
 
-  \item{out.dir}{A string indicating the directory
+  \item{out.dir}{A string that indicates the directory
   structure in which the purled file should be located.
   This should not have a forward slash at the end.}
 
-  \item{moreItems}{A string containing additional words
+  \item{moreItems}{A string that contains additional words
   that when found in the Stangled file will result in the
-  entire line containing those words to be deleted.}
+  entire line with those words to be deleted.}
 
-  \item{blanks}{A string indicating if blank lines should
-  be removed.  If \code{blanks="all"} then all blank lines
-  will be removed.  If \code{blanks="extra"} then only
-  \dQuote{extra} blanks lines will be removed (i.e., one
-  blank line will be left where there was originally more
-  than one blank line).}
+  \item{blanks}{A string that indicates if blank lines
+  should be removed.  If \code{blanks="all"} then all blank
+  lines will be removed.  If \code{blanks="extra"} then
+  only \dQuote{extra} blanks lines will be removed (i.e.,
+  one blank line will be left where there was originally
+  more than one blank line).}
 
-  \item{annotate}{A logical indicating whether decorating
-  comments around code chunks should be used (\code{TRUE})
-  or not (\code{FALSE}; default).}
+  \item{annotate}{A logical that indicates whether
+  decorating comments around code chunks should be used
+  (\code{TRUE}) or not (\code{FALSE}; default).}
 
-  \item{show.alt}{A logical indicating whether the line
+  \item{show.alt}{A logical that indicates whether the line
   stating what the alternative hypothesis is should be
   printed (\code{TRUE}) or not (\code{FALSE}; default).}
 
-  \item{method}{A string indicating whether the file will
-  be treated as knitr or Sweave input.}
+  \item{method}{A string that indicates whether the file
+  will be treated as knitr or Sweave input.}
 
-  \item{rqrdPkgs}{A vector of strings containing packages
+  \item{rqrdPkgs}{A string vector that contains packages
   that are required for the vignette and for which all
   dependencies should be found.}
 
-  \item{closeGraphics}{A logical indicating whether the
+  \item{closeGraphics}{A logical that indicates whether the
   graphics device should be closed or not.}
 
-  \item{addTOC}{A logical indicating whether or not a table
-  of contents entry for the reproducibity section should be
-  added to the LaTeX output.}
+  \item{addTOC}{A logical that indicates whether or not a
+  table of contents entry for the reproducibity section
+  should be added to the LaTeX output.}
 
-  \item{newPage}{A logical indicating whether a new page
-  call should be added to the LaTeX output so that the
+  \item{newPage}{A logical that indicates whether a new
+  page call should be added to the LaTeX output so that the
   reproducibility sections starts on a new page.}
 
   \item{elapsed}{A numeric, usually from \code{proc.time},
@@ -105,7 +106,7 @@ swvFinish(file, rqrdPkgs = NULL, closeGraphics = TRUE, addTOC = TRUE,
   \code{NULL} then this output will not be used.  See the
   note below.}
 
-  \item{listFiles}{A logical indicating whether the
+  \item{listFiles}{A logical that indicates whether the
   Sweave/knitr markup and R code files should be listed in
   the reproducibility information list.}
 
@@ -118,8 +119,8 @@ the count is less than zero or greater than ten and returns
 a character string of the number \sQuote{name}. See the
 examples. \item \code{swvPvalue} returns a character string
 of the supplied p-value rounded to the requested number of
-digits or a character string indicating what the p-value is
-less than the value with a \sQuote{5} in the
+digits or a character string that indicates what the
+p-value is less than the value with a \sQuote{5} in the
 \code{digits}+1 place. See the examples. \item
 \code{swvANOVA} returns the results of \code{anova} but
 without the heading attribute. \item \code{swvGLHT} returns

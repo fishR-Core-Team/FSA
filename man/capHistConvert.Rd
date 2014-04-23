@@ -12,51 +12,55 @@ capHistConvert(df, event = NULL, id = NULL, event.ord = NULL,
   histories (and, perhaps, other information).  See
   details.}
 
-  \item{event}{A string or numeric indicating the column in
-  \code{df} that contains the capture event information.
-  This argument is only used if \code{in.type=="event"}.}
-
-  \item{id}{A string or numeric indicating the column in
-  \code{df} that contains the unique identification for an
-  individual.  This argument is only used if
+  \item{event}{A string or numeric that indicates the
+  column in \code{df} that contains the capture event
+  information.  This argument is only used if
   \code{in.type=="event"}.}
 
-  \item{event.ord}{A string containing the list of ordered
-  levels in the \code{event} variable of \code{df} to be
-  used when converting using \code{in.type=="event"}.}
+  \item{id}{A string or numeric that indicates the column
+  in \code{df} that contains the unique identification for
+  an individual.  This argument is only used if
+  \code{in.type=="event"}.}
 
-  \item{mch}{A string or numeric indicating the column in
-  \code{df} that contains the MARK capture history codes.
-  This argument is only used if \code{in.type=="MARK"}.}
+  \item{event.ord}{A string that contains the list of
+  ordered levels in the \code{event} variable of \code{df}
+  to be used when converting using
+  \code{in.type=="event"}.}
 
-  \item{cols}{A string or numeric indicating the columns in
-  \code{df} that contain the Rcapture or FSA capture
-  history codes (each column is an individual sampling
-  event -- see details).  This argument is only used if
-  \code{in.type=="Rcapture"} or \code{in.type=="FSA"}.}
+  \item{mch}{A string or numeric that indicates the column
+  in \code{df} that contains the MARK capture history
+  codes.  This argument is only used if
+  \code{in.type=="MARK"}.}
 
-  \item{freq}{A string or numeric indicating the columns in
-  \code{df} that contain the frequency of individuals
-  corresponding to a MARK or Rcapture capture history.
-  This argument is only used if \code{in.type=="MARK"} or
-  \code{in.type=="Rcapture"}.}
+  \item{cols}{A string or numeric that indicates the
+  columns in \code{df} that contain the Rcapture or FSA
+  capture history codes (each column is an individual
+  sampling event -- see details).  This argument is only
+  used if \code{in.type=="Rcapture"} or
+  \code{in.type=="FSA"}.}
 
-  \item{in.type}{A string indicating the type of capture
-  history format to convert FROM.}
+  \item{freq}{A string or numeric that indicates the
+  columns in \code{df} that contain the frequency of
+  individuals corresponding to a MARK or Rcapture capture
+  history.  This argument is only used if
+  \code{in.type=="MARK"} or \code{in.type=="Rcapture"}.}
 
-  \item{out.type}{A string indicating the type of capture
-  history format to convert TO.}
+  \item{in.type}{A string that indicates the type of
+  capture history format to convert FROM.}
+
+  \item{out.type}{A string that indicates the type of
+  capture history format to convert TO.}
 
   \item{var.lbls}{A vector of strings used to label the
-  columns containing the returned FSA or Rcapture capture
-  histories.  This argument is only used if
+  columns that contains the returned FSA or Rcapture
+  capture histories.  This argument is only used if
   \code{in.type=="Rcapture"} or \code{in.type=="FSA"}.  If
   \code{var.lbls=NULL} or the length is different then the
   number of events then default labels using
   \code{var.lbls.pre} will be used.}
 
   \item{var.lbls.pre}{A string used as a prefix for the
-  labels of the columns containing the returned FSA or
+  labels of the columns that contains the returned FSA or
   Rcapture capture histories.  This prefix will be appended
   with a number corresponding to the sample event.  This
   argument is only used if \code{in.type=="Rcapture"} or
@@ -102,9 +106,9 @@ for these data would look like:
 Another common format for capture histories is the
 \sQuote{'event'} format. This format consists of a column
 that corresponds to the individual animal (likely a tag
-number) and a column identifying the event in which this
-animal was observed.  For example, the situation from above
-would look like:
+number) and a column that identifies the event in which
+this animal was observed.  For example, the situation from
+above would look like:
 
 \tabular{cc}{ id \tab event \cr 17 \tab 1 \cr 18 \tab 1 \cr
 21 \tab 1 \cr 17 \tab 2 \cr 21 \tab 2 \cr 18 \tab 3 \cr 19
@@ -116,7 +120,7 @@ In the \sQuote{MARK} format the 0s and 1s of the capture
 histories are combined together as a string without any
 spaces and an ending semicolon.  Thus, the \sQuote{MARK}
 format has the capture history strings in one column with
-an additional column containing the frequency of
+an additional column that contains the frequency of
 individuals that exhibited the various capture histories.
 For example, the situation from above would look like:
 

@@ -47,66 +47,72 @@ residPlot(object, ...)
   col.loess = "red", loess.f = 2/3, ...)
 }
 \arguments{
-  \item{object}{an \code{lm} or \code{nls} object (i.e.,
+  \item{object}{An \code{lm} or \code{nls} object (i.e.,
   returned from fitting a model with either \code{lm} or
   \code{nls}).}
 
-  \item{student}{logical; if \code{TRUE} (default) then
-  studentized residuals are plotted.}
+  \item{student}{A logical that indicates if the
+  studentized residuals (\code{TRUE}]; default) are plotted
+  or not.}
 
-  \item{outlier.test}{logical; if \code{TRUE} (default)
-  then an \code{outlierTest} will be performed and if the
-  indivdiual with the largest studentized residual is
-  deemed to be a significant outlier it will be noted on
-  the residual plot by its observation number.}
+  \item{outlier.test}{A logical that indicates if an
+  \code{outlierTest} will \code{TRUE} (default) be
+  performed and if the indivdiual with the largest
+  studentized residual is deemed to be a significant
+  outlier it will be noted on the residual plot by its
+  observation number.}
 
-  \item{loess}{logical; if \code{TRUE} then a loess
-  smoother line is fit to and shown on the residual plot.}
+  \item{loess}{A logical that indicates if a loess smoother
+  line is fit to and shown on the residual plot
+  (\code{TRUE}).}
 
-  \item{bp}{logical; if \code{TRUE} (default) then the plot
-  for the one-way and two-way ANOVA will be a boxplot.  If
-  \code{FALSE} then the plot will be a plot.}
+  \item{bp}{A logical that indicates if the plot for the
+  one-way and two-way ANOVA will be a boxplot (\code{TRUE};
+  default) or not.}
 
-  \item{alpha}{a numeric indicating the alpha level to use
-  for the outlier test (only used if
+  \item{alpha}{A numeric that indicates the alpha level to
+  use for the outlier test (only used if
   \code{outlier.test=TRUE}).}
 
-  \item{xlab}{a string for labelling the x-axis.}
+  \item{xlab}{A string for labelling the x-axis.}
 
-  \item{ylab}{a string for labelling the y-axis.}
+  \item{ylab}{A string for labelling the y-axis.}
 
-  \item{main}{a string for the main label to the plot.
+  \item{main}{A string for the main label to the plot.
   Defaults to the model call.}
 
-  \item{pch}{a numeric indicating the plotting charachter
-  to be used or a vector of numerics indicating what
-  plotting charachters codes to use for the levels of the
-  second factor.  See \code{par}.}
+  \item{pch}{A numeric that indicates the plotting
+  charachter to be used or a vector of numerics that
+  indicates what plotting charachters codes to use for the
+  levels of the second factor.  See \code{par}.}
 
-  \item{col}{a vector of color names indicating what color
-  of points and lines to use for the levels of the first
-  factor.  See \code{par}.}
+  \item{col}{A vector of color names that indicates what
+  color of points and lines to use for the levels of the
+  first factor.  See \code{par}.}
 
-  \item{lty.ref}{a numeric indicating the line type to use
-  for the reference line at residual=0.  See \code{par}.}
-
-  \item{lwd.ref}{a numeric indicating the line width to use
-  for the reference line at residual=0.  See \code{par}.}
-
-  \item{col.ref}{a numeric or character indicating the line
-  color to use for the reference line at residual=0.  See
+  \item{lty.ref}{A numeric that indicates the line type to
+  use for the reference line at residual=0.  See
   \code{par}.}
 
-  \item{lty.loess}{a numeric indicating the line type to
-  use for loess fit line.  See \code{par}.}
+  \item{lwd.ref}{A numeric that indicates the line width to
+  use for the reference line at residual=0.  See
+  \code{par}.}
 
-  \item{lwd.loess}{a numeric indicating the line width to
-  use for loess fit line.  See \code{par}.}
+  \item{col.ref}{A numeric or character that indicates the
+  line color to use for the reference line at residual=0.
+  See \code{par}.}
 
-  \item{col.loess}{a numeric or character indicating the
-  line color to use for loess fit line.  See \code{par}.}
+  \item{lty.loess}{A numeric that indicates the line type
+  to use for loess fit line.  See \code{par}.}
 
-  \item{loess.f}{a numeric for the smoother span. This
+  \item{lwd.loess}{A numeric that indicates the line width
+  to use for loess fit line.  See \code{par}.}
+
+  \item{col.loess}{A numeric or character that indicates
+  the line color to use for loess fit line.  See
+  \code{par}.}
+
+  \item{loess.f}{A numeric for the smoother span. This
   gives the proportion of points in the plot which
   influence the smooth at each value.  Larger values give
   more smoothness.}
@@ -151,11 +157,11 @@ convenience function.
 This function is meant to allow newbie students the ability
 to easily construct residual plots for one-way ANOVA,
 two-way ANOVA, simple linear regression, and indicator
-variable regressions.  The plots can generally be
-constructed simply by submitting a saved linear model to
-this function.  This function thus allows newbie students
-to interact with and visualize moderately complex linear
-models in a fairly easy and efficient manner.
+variable regressions.  The plots can be constructed by
+submitting a saved linear model to this function which
+allows students to interact with and visualize moderately
+complex linear models in a fairly easy and efficient
+manner.
 }
 \examples{
 data(Mirex)

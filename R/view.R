@@ -3,9 +3,9 @@
 #'Shows a random selection of rows from a data frame or matrix.
 #'
 #'@param x A data frame or matrix.
-#'@param which A numeric or string vector containing the column numbers or
+#'@param which A numeric or string vector that contains the column numbers or
 #'names to display.  Defaults to showing all columns.
-#'@param n A single numeric indicating the number of rows to display.
+#'@param n A single numeric that indicates the number of rows to display.
 #'@return No value is returned but a random (but sorted) selection of rows from
 #'the data frame is displayed.
 #'@note If \code{n} is larger than the number of rows in \code{x} then \code{x}

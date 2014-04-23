@@ -3,7 +3,7 @@
 #' Capitalizes the first letter of first or all words in a string.
 #' 
 #'@param x A single string.
-#'@param words A single character indicating whether all (the default) or only
+#'@param words A single string that indicates whether all (the default) or only
 #'the first words should be capitalized.
 #'
 #'@return A single string with the first letter of the first or all words capitalized.

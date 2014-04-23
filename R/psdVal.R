@@ -22,11 +22,11 @@
 #'
 #'@rdname psdVal
 #'@aliases psdVal pssVal
-#'@param species A string containing the species name to find coefficients for.
-#'@param units A string indicating the type of units used for the length measurements.
+#'@param species A string that contains the species name to find coefficients for.
+#'@param units A string that indicates the type of units used for the length measurements.
 #'hoices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and 
 #'\code{in} for inches.
-#'@param incl.zero A logical indicating whether to include a zero in the first
+#'@param incl.zero A logical that indicates whether to include a zero in the first
 #'position of the returned vector (DEFAULT) or not.  See details.
 #'@param addLens A numeric vector that contains minimum length definitions for
 #'additional categories.  See details.

@@ -5,14 +5,15 @@
 srFuns(type = c("BevertonHolt", "Ricker"), param = 1, msg = FALSE)
 }
 \arguments{
-  \item{type}{A string indicating the type of the
+  \item{type}{A string that indicates the type of the
   stock-recruitment model.}
 
-  \item{param}{A numeric indicating the parameterization of
-  the stock-recruitment model type.}
+  \item{param}{A numeric that indicates the
+  parameterization of the stock-recruitment model type.}
 
-  \item{msg}{A logical indicating whether a message about
-  the model and parameter definitions should be output.}
+  \item{msg}{A logical that indicates whether a message
+  about the model and parameter definitions should be
+  output.}
 }
 \value{
 A function that can be used to predict recruitment given a
@@ -81,8 +82,8 @@ Bulletin 191, Bulletin of the Fisheries Research Board of
 Canada.
 }
 \seealso{
-\code{\link{srStarts}} and \code{\link{srModels}};
-\code{srSim} in \pkg{FSATeach}
+\code{\link{srStarts}}, \code{\link{srModels}}, and
+\code{\link{srSim}}
 }
 \keyword{manip}
 

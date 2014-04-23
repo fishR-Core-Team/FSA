@@ -3,7 +3,7 @@
 #'Find positions in a vector that have a different value from the previous position.
 #'
 #'@param x A vector (generally) of sorted values.
-#'@param include.first A logical indicating whether the returned vector of
+#'@param include.first A logical that indicates whether the returned vector of
 #'positions should have a ``1'' at the beginning (i.e., by definition the first
 #'position is the first position that is different than the previous value).
 #'@return A vector of positions in \code{x} where the value differs from the value

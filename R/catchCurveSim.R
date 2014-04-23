@@ -83,11 +83,11 @@
 #'these ranges do not encompass every possible set of values that a user may wish
 #'to view.  Thus, this function is more useful as a learning tool rather than a
 #'research simulation tool.
-#'@param max.age An single numeric integer indicating the oldest age to use in the
+#'@param max.age A single numeric integer that indicates the oldest age to use in the
 #'simulations.
 #'@param v A single vector of length \code{max.age} of the proportional vulnerabilities
 #'to the gear.  See details.
-#'@param Zycl A single logical indicating whether changes in mortality rates are
+#'@param Zycl A single logical that indicates whether changes in mortality rates are
 #'applied to and followed for each year-class or not.  See details.
 #'@param ZdeltaAge A single numeric that indicates the age at which the mortality
 #'rate should change.  See details.
@@ -97,7 +97,7 @@
 #'rate will be steady (\code{=TRUE}; default) or not.  See details.
 #'@param NoSteady A single logical that indicates whether the change in initial
 #'population size will be steady (\code{=TRUE}; default) or not.  See details.
-#'@param recruit.age A single numeric indicating what the age at full recruitment
+#'@param recruit.age A single numeric that indicates what the age at full recruitment
 #'should be.  See detials.
 #'@return None.  A slide controlled dynamic graphic with the following description
 #'is produced.  The catch curve graphic is shown for as many as three lines.  The

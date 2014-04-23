@@ -34,13 +34,13 @@ lencat(x, ...)
   \item{startcat}{A single numeric that indicates the
   beginning of the first length category.}
 
-  \item{right}{A logical indicating if the intervals should
-  be closed on the right (and open on the left) or vice
-  versa.}
+  \item{right}{A logical that indicates if the intervals
+  should be closed on the right (and open on the left) or
+  vice versa.}
 
-  \item{use.names}{A logical indicating whether the names
-  for the values in \code{breaks} should be used for the
-  levels in the new variable.  Will throw a warning and
+  \item{use.names}{A logical that indicates whether the
+  names for the values in \code{breaks} should be used for
+  the levels in the new variable.  Will throw a warning and
   then use default levels if \code{TRUE} but
   \code{names(breaks)} is \code{NULL}.}
 
@@ -53,7 +53,7 @@ lencat(x, ...)
   \code{breaks} (\code{=FALSE}; default) or not.  Ignored
   if \code{as.fact=FALSE}.}
 
-  \item{vname}{A string containing the name for the new
+  \item{vname}{A string that contains the name for the new
   length class variable.}
 
   \item{\dots}{Not implemented.}

@@ -17,18 +17,19 @@ ks2d1(x1, y1, justD = FALSE, KSp = FALSE, divbylen = TRUE)
 
   \item{y1}{Vector of Y values.}
 
-  \item{justD}{Logical indicating whether just the D test
-  statistic (\code{=TRUE}) or more information should be
-  returned (default; see value section below).}
+  \item{justD}{Logical that indicates whether just the D
+  test statistic (\code{=TRUE}) or more information should
+  be returned (default; see value section below).}
 
-  \item{KSp}{Logical indicating whether the approximate
+  \item{KSp}{Logical that indicates whether the approximate
   p-value from the Kolmogorov-Smirnov distribution should
   be returned.  NOT YET IMPLEMENTED.}
 
-  \item{divbylen}{Logical indicating whether the proportion
-  of values in each quadrant is computed by dividing by the
-  sample size (\code{=TRUE}, default) or by the number of
-  points that could be assigned to quadrants.}
+  \item{divbylen}{Logical that indicates whether the
+  proportion of values in each quadrant is computed by
+  dividing by the sample size (\code{=TRUE}, default) or by
+  the number of points that could be assigned to
+  quadrants.}
 
   \item{x}{An object returned from \code{d2ks1}.}
 
@@ -39,11 +40,11 @@ ks2d1(x1, y1, justD = FALSE, KSp = FALSE, divbylen = TRUE)
 
   \item{ylab}{A string to label the y-axis.}
 
-  \item{xlim}{A vector of length two indicating the limits
-  over which to plot the x-axis.}
+  \item{xlim}{A vector of length two that indicates the
+  limits over which to plot the x-axis.}
 
-  \item{ylim}{A vector of length two indicating the limits
-  over which to plot the y-axis.}
+  \item{ylim}{A vector of length two that indicates the
+  limits over which to plot the y-axis.}
 
   \item{\dots}{Additional arguments sent to the plot
   function.}

@@ -7,7 +7,7 @@
 #'which the variable containing the lengths is identified.  If a vector is
 #'given in \code{df} then \code{cl} must be set to \code{NULL}.  If a
 #'data.frame is given in \code{df} then \code{cl} must contain a valid name or
-#'number of the column containing the observed lengths.
+#'number of the column that contains the observed lengths.
 #'
 #'The function will create length categories that begin with the value in
 #'\code{startcat} and continue by values of \code{w} until a category value
@@ -37,15 +37,15 @@
 #'measured to within 0.1 inch (i.e., \code{decimals=1}).
 #'
 #'@param x A numeric vector of length measurements.
-#'@param startcat A number indicating the beginning of the first length-class.
-#'@param w A number indicating the width of length classes to create.
+#'@param startcat A number that indicates the beginning of the first length-class.
+#'@param w A number that indicates the width of length classes to create.
 #'@param additional The number of individuals that were not measured in the
 #'sample (for which measurements should be determined).
 #'@param total The total number of individuals in the sample (including those
 #'that were measured in the subsample).
-#'@param decimals A number indicating the number of decimals used in the output
+#'@param decimals A number that indicates the number of decimals used in the output
 #'vector of estimated lengths.
-#'@param show.summary A logical indicating whether a summary of the process should
+#'@param show.summary A logical that indicates whether a summary of the process should
 #'be shown at the end.
 #'@param \dots Optional arguments to be passed to \code{\link{lencat}}.
 #'@return Returns a vector that consists of measurements for the non-measured

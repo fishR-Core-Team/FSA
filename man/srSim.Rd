@@ -6,28 +6,28 @@ srSim(S = NULL, R = NULL, data = NULL, type = c("BevertonHolt",
   "Ricker"), param = 1, max.S = 500, max.R = 1000)
 }
 \arguments{
-  \item{S}{An optional vector containing observed numbers
-  of spawning stock or a formula as described in the
-  details.}
+  \item{S}{An optional vector that contains observed
+  numbers of spawning stock or a formula as described in
+  the details.}
 
-  \item{R}{An optional vector containing observed numbers
-  of recruits.  See details.}
+  \item{R}{An optional vector that contains observed
+  numbers of recruits.  See details.}
 
-  \item{data}{An optional data frame containing the
+  \item{data}{An optional data frame that contains the
   variables if \code{S} is a formula.  See details.}
 
-  \item{type}{A single string indicating which
+  \item{type}{A single string that indicates which
   stock-recruitment model to use.  See details.}
 
-  \item{param}{A single numeric indicating which
+  \item{param}{A single numeric that indicates which
   parameterization of the \code{type} to use.  See
   details.}
 
-  \item{max.S}{A single numeric indicating the maximum
+  \item{max.S}{A single numeric that indicates the maximum
   spawning stock to use for scaling the x-axis.  Ignored if
   \code{S} is not NULL.}
 
-  \item{max.R}{A single numeric indicating the maximum
+  \item{max.R}{A single numeric that indicates the maximum
   recruitment to use for scaling the y-axis.  Ignored if
   \code{S} is not NULL.}
 }

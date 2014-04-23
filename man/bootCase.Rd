@@ -29,7 +29,7 @@
   \item{x}{A \code{bootCase} object for \code{hist},
   \code{plot} or \code{boxplot}.}
 
-  \item{parm}{A number indicating which column of
+  \item{parm}{A number that indicates which column of
   \code{object} contains the parameter estimates to use in
   the hypothesis test.}
 
@@ -39,13 +39,13 @@
 
   \item{bo}{The null hypothesized parameter value.}
 
-  \item{alt}{A string identifying the \dQuote{direction} of
-  the alternative hypothesis.  See details.}
+  \item{alt}{A string that indicates the \dQuote{direction}
+  of the alternative hypothesis.  See details.}
 
-  \item{same.ylim}{A logicial indicating whether the same
-  limits for the y-axis should be used on each histogram.
-  Defaults to \code{TRUE}.  Ignored if \code{ylmts} is
-  non-null.}
+  \item{same.ylim}{A logicial that indicates whether the
+  same limits for the y-axis should be used on each
+  histogram.  Defaults to \code{TRUE}.  Ignored if
+  \code{ylmts} is non-null.}
 
   \item{ymax}{A single value that sets the maximum y-axis
   limit for each histogram or a vector of length equal to
@@ -54,24 +54,24 @@
 
   \item{col}{A named color for the histogram bars.}
 
-  \item{nr}{A numeric containing the number of rows to use
-  on the graphic.}
-
-  \item{nc}{A numeric containing the number of columns to
+  \item{nr}{A numeric that contains the number of rows to
   use on the graphic.}
 
-  \item{right}{A logical indicating if the histogram bins
-  are right-closed (left open) intervals (\code{=TRUE}) or
-  not (\code{=FALSE}; default).}
+  \item{nc}{A numeric that contains the number of columns
+  to use on the graphic.}
+
+  \item{right}{A logical that indicates if the histogram
+  bins are right-closed (left open) intervals
+  (\code{=TRUE}) or not (\code{=FALSE}; default).}
 
   \item{FUN}{The function to be applied.}
 
-  \item{MARGIN}{A single numeric indicating the margin over
-  which to apply the function. \code{MARGIN=1} will apply
-  to each row and is the default.}
+  \item{MARGIN}{A single numeric that indicates the margin
+  over which to apply the function. \code{MARGIN=1} will
+  apply to each row and is the default.}
 
-  \item{digits}{A single numeric indicating the number of
-  digits for the result.}
+  \item{digits}{A single numeric that indicates the number
+  of digits for the result.}
 
   \item{\dots}{Additional items to send to functions.}
 }

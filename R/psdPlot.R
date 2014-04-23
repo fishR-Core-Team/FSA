@@ -16,34 +16,34 @@
 #'that this formula can only contain one variable.
 #'@param data A data.frame that minimally contains the length measurements given
 #'in the variable in the \code{formula}.
-#'@param species A string containing the species name for which five-cell length
+#'@param species A string that contains the species name for which five-cell length
 #'categories exist.  See \code{\link{psdVal}} for details.
-#'@param units A string indicating the type of units used for the length measurements.
+#'@param units A string that indicates the type of units used for the length measurements.
 #'Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and
 #'\code{in} for inches.
-#'@param startcat A number indicating the beginning of the first length-class.
-#'@param w A number indicating the width of length classes to create.
-#'@param justPSDQ A logical indicating whether just stock and quality (for PSD-Q
+#'@param startcat A number that indicates the beginning of the first length-class.
+#'@param w A number that indicates the width of length classes to create.
+#'@param justPSDQ A logical that indicates whether just stock and quality (for PSD-Q
 #'calculations) categories should be used.  If \code{FALSE} (default) then the
 #'five-cell categories of Gabelhouse will be used.
 #'@param main A string that serves as the main label for the histogram.
 #'@param xlab A string that serves as the label for the x-axis.
 #'@param ylab A string that serves as the label for the y-axis.
-#'@param xlim A numeric vector of length two indicating the minimum and maximum
+#'@param xlim A numeric vector of length two that indicates the minimum and maximum
 #'values for the x-axis.
-#'@param ylim A numeric vector of length two indicating the minimum and maximum
+#'@param ylim A numeric vector of length two that indicates the minimum and maximum
 #'values for the y-axis.
-#'@param substock.col A string indicating the color to use for the bars
+#'@param substock.col A string that indicates the color to use for the bars
 #'representing under-stock size fish.
-#'@param stock.col A string indicating the color to use for the bars
+#'@param stock.col A string that indicates the color to use for the bars
 #'representing stock size fish.
-#'@param psd.col A string indicating the color to use for the vertical lines at
+#'@param psd.col A string that indicates the color to use for the vertical lines at
 #'the PSD category values.
-#'@param psd.lty A numeric indicating the line type to use for the vertical
+#'@param psd.lty A numeric that indicates the line type to use for the vertical
 #'lines at the PSD category values.
-#'@param psd.lwd A numeric indicating the line width to use for the vertical
+#'@param psd.lwd A numeric that indicates the line width to use for the vertical
 #'lines at the PSD category values.
-#'@param legend.pos A string indicating the position for the legend text.
+#'@param legend.pos A string that indicates the position for the legend text.
 #'@param legend.cex A numeric value that indicates the character expansion for
 #'the legend text.
 #'@param \dots Arguments to be passed to the low-level plotting functions.

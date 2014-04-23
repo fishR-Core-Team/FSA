@@ -19,41 +19,41 @@
 #'
 #'@aliases residPlot residPlot.lm residPlot.SLR residPlot.IVR residPlot.POLY
 #'residPlot.ONEWAY residPlot.TWOWAY residPlot.nls residualPlot
-#'@param object an \code{lm} or \code{nls} object (i.e., returned from fitting
+#'@param object An \code{lm} or \code{nls} object (i.e., returned from fitting
 #'a model with either \code{lm} or \code{nls}).
-#'@param student logical; if \code{TRUE} (default) then studentized residuals
-#'are plotted.
-#'@param outlier.test logical; if \code{TRUE} (default) then an
-#'\code{outlierTest} will be performed and if the indivdiual with the largest
+#'@param student A logical that indicates if the studentized residuals (\code{TRUE}];
+#'default) are plotted or not.
+#'@param outlier.test A logical that indicates if an \code{outlierTest} will 
+#'\code{TRUE} (default) be performed and if the indivdiual with the largest
 #'studentized residual is deemed to be a significant outlier it will be noted
 #'on the residual plot by its observation number.
-#'@param loess logical; if \code{TRUE} then a loess smoother line is fit to and
-#'shown on the residual plot.
-#'@param bp logical; if \code{TRUE} (default) then the plot for the one-way and
-#'two-way ANOVA will be a boxplot.  If \code{FALSE} then the plot will be a plot.
-#'@param alpha a numeric indicating the alpha level to use for the outlier test
+#'@param loess A logical that indicates if a loess smoother line is fit to and
+#'shown on the residual plot (\code{TRUE}).
+#'@param bp A logical that indicates if the plot for the one-way and two-way ANOVA
+#'will be a boxplot (\code{TRUE}; default) or not.
+#'@param alpha A numeric that indicates the alpha level to use for the outlier test
 #'(only used if \code{outlier.test=TRUE}).
-#'@param xlab a string for labelling the x-axis.
-#'@param ylab a string for labelling the y-axis.
-#'@param main a string for the main label to the plot.  Defaults to the model call.
-#'@param pch a numeric indicating the plotting charachter to be used or a
-#'vector of numerics indicating what plotting charachters codes to use for the
+#'@param xlab A string for labelling the x-axis.
+#'@param ylab A string for labelling the y-axis.
+#'@param main A string for the main label to the plot.  Defaults to the model call.
+#'@param pch A numeric that indicates the plotting charachter to be used or a
+#'vector of numerics that indicates what plotting charachters codes to use for the
 #'levels of the second factor.  See \code{par}.
-#'@param col a vector of color names indicating what color of points and lines
+#'@param col A vector of color names that indicates what color of points and lines
 #'to use for the levels of the first factor.  See \code{par}.
-#'@param lty.ref a numeric indicating the line type to use for the reference
+#'@param lty.ref A numeric that indicates the line type to use for the reference
 #'line at residual=0.  See \code{par}.
-#'@param lwd.ref a numeric indicating the line width to use for the reference
+#'@param lwd.ref A numeric that indicates the line width to use for the reference
 #'line at residual=0.  See \code{par}.
-#'@param col.ref a numeric or character indicating the line color to use for
+#'@param col.ref A numeric or character that indicates the line color to use for
 #'the reference line at residual=0.  See \code{par}.
-#'@param lty.loess a numeric indicating the line type to use for loess fit
+#'@param lty.loess A numeric that indicates the line type to use for loess fit
 #'line.  See \code{par}.
-#'@param lwd.loess a numeric indicating the line width to use for loess fit
+#'@param lwd.loess A numeric that indicates the line width to use for loess fit
 #'line.  See \code{par}.
-#'@param col.loess a numeric or character indicating the line color to use for
+#'@param col.loess A numeric or character that indicates the line color to use for
 #'loess fit line.  See \code{par}.
-#'@param loess.f a numeric for the smoother span. This gives the proportion of
+#'@param loess.f A numeric for the smoother span. This gives the proportion of
 #'points in the plot which influence the smooth at each value.  Larger values
 #'give more smoothness.
 #'@param legend If \code{TRUE}, draw a legend and the user must click in the
@@ -64,10 +64,10 @@
 #'@return None.  However, a residual plot is produced.
 #'@note This function is meant to allow newbie students the ability to easily
 #'construct residual plots for one-way ANOVA, two-way ANOVA, simple linear
-#'regression, and indicator variable regressions.  The plots can generally be
-#'constructed simply by submitting a saved linear model to this function.  This
-#'function thus allows newbie students to interact with and visualize
-#'moderately complex linear models in a fairly easy and efficient manner.
+#'regression, and indicator variable regressions.  The plots can be constructed
+#'by submitting a saved linear model to this function which allows students to
+#'interact with and visualize moderately complex linear models in a fairly easy
+#'and efficient manner.
 #'@seealso \code{residualPlots} and \code{outlierTest} in \pkg{car}; \code{\link{fitPlot}}.
 #'@keywords hplot models
 #'@examples

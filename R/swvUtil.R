@@ -21,49 +21,49 @@
 #'}
 #'@aliases swvCounts swvPvalue swvANOVA swvGLHT swvREG swvHtest swvCode swvFinish
 #'@param value A single numeric count or p-value.
-#'@param capitalize A logical indicating if the returned words should be capitalized
+#'@param capitalize A logical that indicates if the returned words should be capitalized
 #'or not (the default).
 #'@param digits Number of decimal places to round the values to.
-#'@param include.p A logical indicating whether the result should be a
+#'@param include.p A logical that indicates whether the result should be a
 #'character string with \dQuote{p=} appended to the numerical result.
-#'@param latex A logical indicating whether the resultant p-value string should
+#'@param latex A logical that indicates whether the resultant p-value string should
 #'be contained within dollar signs to form a latex formula.
 #'@param x An object saved from \code{lm} or \code{glht} or an object of class
 #'\code{htest} (e.g., saved from \code{t.test}).
-#'@param type A character indicating the type of glht result to extract.
-#'@param file A string containing the root name of the .RNW file.  This will
+#'@param type A string that indicates the type of glht result to extract.
+#'@param file A string that contains the root name of the .RNW file.  This will
 #'also be the name of the resultant Stangled file with .R appended, the
 #'resultant PDF file with .PDF appended, the resultant asciidoc file with .txt
 #'appended, and the defaul HTML file with .html appended.  If missing then will
 #'search for a .Rnw file in the current working directory.
-#'@param out.dir A string indicating the directory structure in which the purled
+#'@param out.dir A string that indicates the directory structure in which the purled
 #'file should be located.  This should not have a forward slash at the end.
-#'@param moreItems A string containing additional words that when found in the
-#'Stangled file will result in the entire line containing those words to be deleted.
-#'@param blanks A string indicating if blank lines should be removed.  If
+#'@param moreItems A string that contains additional words that when found in the
+#'Stangled file will result in the entire line with those words to be deleted.
+#'@param blanks A string that indicates if blank lines should be removed.  If
 #'\code{blanks="all"} then all blank lines will be removed.  If
 #'\code{blanks="extra"} then only \dQuote{extra} blanks lines will be removed
 #'(i.e., one blank line will be left where there was originally more than one
 #'blank line).
-#'@param annotate A logical indicating whether decorating comments around code
+#'@param annotate A logical that indicates whether decorating comments around code
 #'chunks should be used (\code{TRUE}) or not (\code{FALSE}; default).
-#'@param show.alt A logical indicating whether the line stating what the
+#'@param show.alt A logical that indicates whether the line stating what the
 #'alternative hypothesis is should be printed (\code{TRUE}) or not
 #'(\code{FALSE}; default).
-#'@param method A string indicating whether the file will be treated as knitr
+#'@param method A string that indicates whether the file will be treated as knitr
 #'or Sweave input.
-#'@param rqrdPkgs A vector of strings containing packages that are required for
+#'@param rqrdPkgs A string vector that contains packages that are required for
 #'the vignette and for which all dependencies should be found.
-#'@param closeGraphics A logical indicating whether the graphics device should
+#'@param closeGraphics A logical that indicates whether the graphics device should
 #'be closed or not.
-#'@param addTOC A logical indicating whether or not a table of contents entry
+#'@param addTOC A logical that indicates whether or not a table of contents entry
 #'for the reproducibity section should be added to the LaTeX output.
-#'@param newPage A logical indicating whether a new page call should be added
+#'@param newPage A logical that indicates whether a new page call should be added
 #'to the LaTeX output so that the reproducibility sections starts on a new page.
 #'@param elapsed A numeric, usually from \code{proc.time}, that is the time
 #'required to run the vignette.  If \code{NULL} then this output will not be
 #'used.  See the note below.
-#'@param listFiles A logical indicating whether the Sweave/knitr markup and R
+#'@param listFiles A logical that indicates whether the Sweave/knitr markup and R
 #'code files should be listed in the reproducibility information list.
 #'@param \dots Additional arguments for the original \code{Stangle} or \code{purl}.
 #'@return
@@ -72,7 +72,7 @@
 #'or greater than ten and returns a character string of the number \sQuote{name}.
 #'See the examples.
 #'\item \code{swvPvalue} returns a character string of the supplied p-value rounded
-#'to the requested number of digits or a character string indicating what the
+#'to the requested number of digits or a character string that indicates what the
 #'p-value is less than the value with a \sQuote{5} in the \code{digits}+1 place.
 #'See the examples. 
 #'\item \code{swvANOVA} returns the results of \code{anova} but without the heading

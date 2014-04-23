@@ -9,20 +9,22 @@ ageKeyPlot(key, type = c("barplot", "area", "lines", "splines", "bubble"),
   xlim = NULL, ylim = NULL, ...)
 }
 \arguments{
-  \item{key}{A numeric matrix containing the age-length
+  \item{key}{A numeric matrix that contains the age-length
   key.}
 
-  \item{type}{A character indicating the type of plot to
+  \item{type}{A string that indicates the type of plot to
   construct.  See examples.}
 
-  \item{xlab}{A character label for the x-axis.}
+  \item{xlab}{A string that contains the label for the
+  x-axis.}
 
-  \item{ylab}{A character label for the y-axis in all plots
-  but when \code{type="bubble"} (see \code{bubble.ylab=)}.}
+  \item{ylab}{A string that contains the label for the
+  y-axis in all plots but when \code{type="bubble"} (see
+  \code{bubble.ylab=)}.}
 
-  \item{showLegend}{A logical indicating whether a legend
-  should be displayed for when \code{type="barplot"} and
-  \code{type="area"}.  See examples.}
+  \item{showLegend}{A logical that indicates whether a
+  legend should be displayed for when \code{type="barplot"}
+  and \code{type="area"}.  See examples.}
 
   \item{lbl.cex}{A numeric character expansion value for
   labels inside the bars when \code{type="barplot"} and
@@ -44,8 +46,8 @@ ageKeyPlot(key, type = c("barplot", "area", "lines", "splines", "bubble"),
   \code{type="bubble"} or a character or appropriate vector
   that identifies a color for the grid.  See examples.}
 
-  \item{col}{A string indicating the color of the bubbles
-  when \code{type="bubble"}.}
+  \item{col}{A string that indicates the color of the
+  bubbles when \code{type="bubble"}.}
 
   \item{buf}{A single numeric that indicates the relative
   width of the bubbles when \code{type="bubble"}. A value
@@ -56,13 +58,13 @@ ageKeyPlot(key, type = c("barplot", "area", "lines", "splines", "bubble"),
   this to a value less than 0.5 so that the bubble do not
   touch (the default is 0.45).}
 
-  \item{bubble.ylab}{A string for labeling the y-axis when
-  \code{type="bubble"}.}
+  \item{bubble.ylab}{A string that contains the label for
+  the y-axis when \code{type="bubble"}.}
 
-  \item{add}{A logical indicating whether the data should
-  be adding to an already existing plot.  May be useful for
-  visually comparing age-length keys.  Only implemented
-  when \code{type="bubble"}.}
+  \item{add}{A logical that indicates whether the data
+  should be adding to an already existing plot.  May be
+  useful for visually comparing age-length keys.  Only
+  implemented when \code{type="bubble"}.}
 
   \item{xlim}{A numeric of length 2 that provide the limits
   for the x-axis.}

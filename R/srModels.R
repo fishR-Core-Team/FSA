@@ -6,7 +6,7 @@
 #'@param \dots Additional arguments for \code{plot}.  Generally not needed
 #'@return A graphic that uses \code{plotmath} to show the model formulas in a
 #'pretty format.
-#'@seealso \code{\link{srFuns}} and \code{\link{srStarts}}; \code{srSim} in \pkg{FSATeach}
+#'@seealso \code{\link{srFuns}}, \code{\link{srStarts}}, and \code{\link{srSim}}
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
 #'@export
 #'@keywords manip hplot

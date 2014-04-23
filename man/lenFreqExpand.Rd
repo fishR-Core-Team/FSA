@@ -8,11 +8,11 @@ lenFreqExpand(x, w, additional, startcat = NULL, total = additional +
 \arguments{
   \item{x}{A numeric vector of length measurements.}
 
-  \item{startcat}{A number indicating the beginning of the
-  first length-class.}
+  \item{startcat}{A number that indicates the beginning of
+  the first length-class.}
 
-  \item{w}{A number indicating the width of length classes
-  to create.}
+  \item{w}{A number that indicates the width of length
+  classes to create.}
 
   \item{additional}{The number of individuals that were not
   measured in the sample (for which measurements should be
@@ -22,10 +22,10 @@ lenFreqExpand(x, w, additional, startcat = NULL, total = additional +
   sample (including those that were measured in the
   subsample).}
 
-  \item{decimals}{A number indicating the number of
+  \item{decimals}{A number that indicates the number of
   decimals used in the output vector of estimated lengths.}
 
-  \item{show.summary}{A logical indicating whether a
+  \item{show.summary}{A logical that indicates whether a
   summary of the process should be shown at the end.}
 
   \item{\dots}{Optional arguments to be passed to
@@ -46,7 +46,7 @@ or a data.frame in which the variable containing the
 lengths is identified.  If a vector is given in \code{df}
 then \code{cl} must be set to \code{NULL}.  If a data.frame
 is given in \code{df} then \code{cl} must contain a valid
-name or number of the column containing the observed
+name or number of the column that contains the observed
 lengths.
 
 The function will create length categories that begin with

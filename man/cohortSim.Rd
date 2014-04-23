@@ -5,8 +5,8 @@
 cohortSim(age.max = 15)
 }
 \arguments{
-  \item{age.max}{A single numeric indicating the maximum
-  age to use in the simulations.}
+  \item{age.max}{A single numeric that indicates the
+  maximum age to use in the simulations.}
 }
 \value{
 None.  An interactive graphic connected to slider controls

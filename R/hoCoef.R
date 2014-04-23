@@ -1,31 +1,28 @@
-#'Performs a hypothesis test that a parameter in a linear model is equal to
-#'some specific value.
+#'Performs a hypothesis test that a linear model parameter is equal to a specific value.
 #'
-#'Performs a hypothesis test that a parameter in a linear model is equal to
-#'some specific value.  Useful for testing that a parameter is equal to some
-#'value other than 0.
+#'Performs a hypothesis test that a linear model parameter is equal to a specific value.
+#'seful for testing that a parameter is equal to a value other than 0.
 #'
 #'The \dQuote{direction} of the alternative hypothesis is identified by a
-#'string in the \code{alt} argument.  The strings may be \code{"less"} for a
-#'\dQuote{less than} alternative, \code{"greater"} for a \dQuote{greater than}
-#'alternative, or \code{"two.sided"} for a \dQuote{not equals} alternative (the
-#'DEFAULT).
+#'string in the \code{alt} argument.  
 #'
 #'If the \code{lm} object is from a simple linear regression with an intercept
 #'then \code{term=1} will use the intercept and \code{term=2} will use the
 #'slope in the hypothesis test.
 #'
 #'@param lmobj A \code{lm} object.
-#'@param term A number indicating which term in the model to use in the
+#'@param term A single numeric that indicates which term in the model to use in the
 #'hypothesis test.
 #'@param bo The null hypothesized parameter value.
-#'@param alt A string identifying the "direction" of the alternative
-#'hypothesis.  See details.
-#'@return Returns a matrix containing the term number, hypothesized value,
-#'parameter estimate, standard error of the parameter estimate, t test
-#'statistic, and corresponding p-value.
+#'@param alt A string that identifies the \dQuote{direction} of the alternative
+#'hypothesis.  The strings may be \code{"less"} for a \dQuote{less than} alternative,
+#'\code{"greater"} for a \dQuote{greater than} alternative, or \code{"two.sided"}
+#' (DEFAULT) for a \dQuote{not equals} alternative.
+#'@return A matrix that contains the term number, hypothesized value, parameter 
+#'estimate, standard error of the parameter estimate, t test statistic, and 
+#'corresponding p-value.
 #'@author Derek H. Ogle, \email{dogle@@northland.edu}
-#'@seealso \code{htest.nlsBoot} in \pkg{FSA}.
+#'@seealso \code{\link{htest.nlsBoot}}.
 #'@keywords htest
 #'@examples
 #'data(Mirex)

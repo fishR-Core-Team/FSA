@@ -9,14 +9,14 @@
 #'\code{lm}).  This model should have log(weight) as the response and
 #'log(length) as the explanatory covariate and an explanatory factor variable
 #'that describes the different groups.
-#'@param lens A numeric indicating the lengths at which the weights should be predicted.
-#'@param quant.lens A numeric indicating the quantiles of length to be used for
+#'@param lens A numeric that indicates the lengths at which the weights should be predicted.
+#'@param quant.lens A numeric that indicates the quantiles of length to be used for
 #'predicing weight.  This is ignored if \code{lens} is non-null.
 #'@param xlab A string for labelling the x-axis.
 #'@param ylab A string for labelling the y-axis.
-#'@param interval A string indicating whether to plot confidence
+#'@param interval A string that indicates whether to plot confidence
 #'(\code{="confidence"}), prediction (\code{="prediction"}), or both (\code{="both"}) intervals.
-#'@param center.value A numeric indicating the value of log length used when
+#'@param center.value A numeric that indicates the value of log length used when
 #'centering the log length data.
 #'@param ylim A numeric of length two that indicates the limits of the y-axis
 #'to be used for each plot.  If null then limits will be chosen for each graph individually.
@@ -25,10 +25,10 @@
 #'@param lwd A numeric used to indicate the line width to be used.  Note that
 #'this will be the width of the confidence interval lines and the prediction
 #'interval and mean connection lines will be one less than this value.
-#'@param connect.mean A logical indicating whether the means should be
+#'@param connect.mean A logical that indicates whether the means should be
 #'connected with a line or not.
-#'@param rows A numeric containing the number of rows to use on the graphic.
-#'@param cols A numeric containing the number of columns to use on the graphic.
+#'@param rows A numeric that contains the number of rows to use on the graphic.
+#'@param cols A numeric that contains the number of columns to use on the graphic.
 #'@param \dots Other arguments to pass through to the \code{hist} function.
 #'@return None.  However, a plot is produced.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/LengthWeight.pdf}

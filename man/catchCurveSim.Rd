@@ -7,15 +7,15 @@ catchCurveSim(max.age = 15, v = rep(1, max.age), Zycl = FALSE,
   NoSteady = ZSteady, recruit.age = 3)
 }
 \arguments{
-  \item{max.age}{An single numeric integer indicating the
-  oldest age to use in the simulations.}
+  \item{max.age}{A single numeric integer that indicates
+  the oldest age to use in the simulations.}
 
   \item{v}{A single vector of length \code{max.age} of the
   proportional vulnerabilities to the gear.  See details.}
 
-  \item{Zycl}{A single logical indicating whether changes
-  in mortality rates are applied to and followed for each
-  year-class or not.  See details.}
+  \item{Zycl}{A single logical that indicates whether
+  changes in mortality rates are applied to and followed
+  for each year-class or not.  See details.}
 
   \item{ZdeltaAge}{A single numeric that indicates the age
   at which the mortality rate should change.  See details.}
@@ -32,8 +32,8 @@ catchCurveSim(max.age = 15, v = rep(1, max.age), Zycl = FALSE,
   the change in initial population size will be steady
   (\code{=TRUE}; default) or not.  See details.}
 
-  \item{recruit.age}{A single numeric indicating what the
-  age at full recruitment should be.  See detials.}
+  \item{recruit.age}{A single numeric that indicates what
+  the age at full recruitment should be.  See detials.}
 }
 \value{
 None.  A slide controlled dynamic graphic with the

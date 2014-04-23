@@ -5,8 +5,8 @@
 fishR(where = c("home", "general", "books", "AIFFD", "news"))
 }
 \arguments{
-  \item{where}{A string indicating a particular page on the
-  fishR site to open.}
+  \item{where}{A string that indicates a particular page on
+  the fishR site to open.}
 }
 \value{
 None, but a webpage will be opened in the default browswer.

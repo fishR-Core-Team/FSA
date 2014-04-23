@@ -44,19 +44,19 @@
 #'three variables and they must be in the weight first, length second, species third order.
 #'@param data A data.frame that minimally contains the length and weight measurements
 #'and species names given in the variables in the \code{formula}.
-#'@param units A string indicating whether the coefficients for the (\code{"metric"}
+#'@param units A string that indicates whether the coefficients for the (\code{"metric"}
 #'(DEFAULT; mm and g) or \code{"English"} (in and lbs) units should be returned.
 #'\code{"quadratic"} model should be returned.
-#'@param remove.submin A logical indicating how to handle fish below the minimum
+#'@param remove.submin A logical that indicates how to handle fish below the minimum
 #'length for which the standard weight equation holds.  If \code{FALSE} (the default)
 #'then the standard and relative weights for the \dQuote{small} fish are replaced
 #'with \code{NA}.  If \code{TRUE} then the \dQuote{small} fish are excluded from the
 #'returned data frame.
-#'@param remove.other A logical indicating whether to exclude all individuals for a
+#'@param remove.other A logical that indicates whether to exclude all individuals for a
 #'fish species for which the five-cell length categories do not exist in \code{data(RSDlit)}.
 #'See details.
-#'@param wsname A string containing the name for the new standard weight variable.
-#'@param wrname A string containing the name for the new relative weight variable.
+#'@param wsname A string that contains the name for the new standard weight variable.
+#'@param wrname A string that contains the name for the new relative weight variable.
 #'@return Returns a data frame that consists of the original data frame,
 #'\code{data} but with the new standard and relative weight variables appended and
 #'named as in \code{wsname} and \code{wrname}, respectively.

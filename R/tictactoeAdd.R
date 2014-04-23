@@ -30,8 +30,8 @@
 #'@param pt.cex A numeric representing the relative size of the symbol used for
 #'the predator/prey PSD point.
 #'@param label A string used to label the point.
-#'@param lbl.pos A string indicating where to place the label.
-#'@param lbl.col A string indicating the color to use for the label.  Defaults
+#'@param lbl.pos A string that indicates where to place the label.
+#'@param lbl.col A string that indicates the color to use for the label.  Defaults
 #'to same color as the color of the point.
 #'@param lbl.cex A numberic representing the relative size of the point label.
 #'@return None.  However, a base graphic is modified.

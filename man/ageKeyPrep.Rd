@@ -8,7 +8,7 @@ ageKeyPrep(key, show.msgs = TRUE)
   \item{key}{A numeric matrix that contains the problematic
   age-length key.}
 
-  \item{show.msgs}{A logicical indicating if process
+  \item{show.msgs}{A logicical that indicates if process
   messages should be displayed (\code{TRUE}; default).}
 }
 \value{

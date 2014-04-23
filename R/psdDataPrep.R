@@ -44,16 +44,16 @@
 #'names given in the variables in the \code{formula}.
 #'@param psdname A string that contains the name for the new length category variable 
 #'(defaults to \dQuote{PSDcat}).
-#'@param units A string indicating the type of units used for the length measurements.
+#'@param units A string that indicates the type of units used for the length measurements.
 #'Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and 
 #'\code{in} for inches.
-#'@param remove.substock A logical indicating whether to exclude individual fish
+#'@param remove.substock A logical that indicates whether to exclude individual fish
 #'with length measurements that are less than the \dQuote{stock} size for that species.
 #'See details.
-#'@param remove.other A logical indicating whether to exclude all individuals for a
+#'@param remove.other A logical that indicates whether to exclude all individuals for a
 #'fish species for which the five-cell length categories do not exist in \code{data(PSDlit)}.
 #'See details.
-#'@param use.catnames A logical indicating whether the categories returned in \code{psdname}
+#'@param use.catnames A logical that indicates whether the categories returned in \code{psdname}
 #'are numeric (\code{=FALSE}) or word (\code{=TRUE}; default) representations of the
 #'five-cell categories.  See details.
 #'@return The original data frame in \code{data} but with the new variable \code{psdname}

@@ -45,8 +45,8 @@ chapmanRobson(x, ...)
   \item{ages2use}{A numerical vector of the ages that
   define the descending limb of the catch curve.}
 
-  \item{zmethod}{A string indicating the method to use for
-  estimating Z.  See details.}
+  \item{zmethod}{A string that indicates the method to use
+  for estimating Z.  See details.}
 
   \item{pos.est}{A string to identify where to place the
   estimated mortality rates on the graph.  Can be set to

@@ -22,12 +22,12 @@
 #'package (this implementation uses arguments, specificially \code{conf.level}, that
 #'more closely match other functions).
 #'
-#'@param x A single or vector of numbers representing the number of observed successes.
-#'@param n A single or vector of numbers representing the sample size.
-#'@param conf.level A single number indicating the level of confidence (default is \code{0.95}).
+#'@param x A single or vector of numbers that contains the number of observed successes.
+#'@param n A single or vector of numbers that contains the sample size.
+#'@param conf.level A single number that indicates the level of confidence (default is \code{0.95}).
 #'@param type A string that identifies the type of method to use for the calculations.
 #'See details.
-#'@return A #x2 matrix containing the lower and upper confidence interval bounds as columns.
+#'@return A #x2 matrix that contains the lower and upper confidence interval bounds as columns.
 #'@seealso \code{binconf} in \pkg{Hmisc}, \code{bin.conf.int} in \pkg{epitools}, and
 #'\code{binom.conf.interval} in \pkg{UCS}.
 #'@references Agresti, A. and B.A. Coull.  1998.  Approximate is better than \dQuote{exact}

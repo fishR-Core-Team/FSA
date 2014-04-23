@@ -24,8 +24,8 @@ growthModels()
 vbModels()
 }
 \seealso{
-\code{\link{vbFuns}}, \code{\link{vbStarts}},
-\code{growthModelSim} in \pkg{FSATeach}
+\code{\link{vbFuns}}, \code{\link{vbStarts}}, and
+\code{\link{growthModelSim}}
 }
 \keyword{hplot}
 \keyword{manip}

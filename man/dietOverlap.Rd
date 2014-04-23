@@ -24,10 +24,10 @@ dietOverlap(diet1, diet2 = NULL, type = c("Horn", "Levins", "Morisita",
   should be in the same order as amounts in \code{diet2}
   and categories in \code{prey}.}
 
-  \item{type}{A single character indicating the type of
+  \item{type}{A single string that indicates the type of
   diet overlap index to compute. See details.}
 
-  \item{prey}{An optional character vector containing the
+  \item{prey}{An optional string vector that contains the
   prey/diet category names.  If supplied the \code{prop}
   matrix in the returned list will use these prey
   categories as row names.  Items should be in the same
@@ -53,27 +53,27 @@ dietOverlap(diet1, diet2 = NULL, type = c("Horn", "Levins", "Morisita",
 
   \item{x}{A \code{dietOverlap} object.}
 
-  \item{verbose}{A single logical indicating whether more
-  verbose summary information should be printed.}
+  \item{verbose}{A single logical that indicates whether
+  more verbose summary information should be printed.}
 
-  \item{digits}{A single numeric indicating the number of
-  digits to which the results should be printed.}
+  \item{digits}{A single numeric that indicates the number
+  of digits to which the results should be printed.}
 
   \item{\dots}{Additional arguments for the S3 methods.
   Not implemented for \code{summary}.}
 }
 \value{
 The main function returns a list with the following three
-items: \itemize{ \item type A single string indicating the
-type of diet overlap indice used. \item doi A single
+items: \itemize{ \item type A single string that indicates
+the type of diet overlap indice used. \item doi A single
 numeric with the diet overlap index value is returned for
 all \code{type}s except for \sQuote{Levins} where a numeric
 vector of length two is returned with the overlap of the
 first predator on the second as the first value and the
 overlap of the second predator on the first as the second
-value. \item propdiet A matrix containing the proportion of
-the total diet in each of the diet items for each predator.
-}
+value. \item propdiet A matrix that contains the proportion
+of the total diet in each of the diet items for each
+predator. }
 }
 \description{
 Computes various diet overlap indices between two species

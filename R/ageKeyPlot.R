@@ -5,12 +5,12 @@
 #' 
 #' This is a first draft of this function.  Please send suggestions to the author.
 #' 
-#' @param key A numeric matrix containing the age-length key.
-#' @param type A character indicating the type of plot to construct.  See examples.
-#' @param xlab A character label for the x-axis.
-#' @param ylab A character label for the y-axis in all plots but when \code{type="bubble"}
-#' (see \code{bubble.ylab=)}.
-#' @param showLegend A logical indicating whether a legend should be displayed for
+#' @param key A numeric matrix that contains the age-length key.
+#' @param type A string that indicates the type of plot to construct.  See examples.
+#' @param xlab A string that contains the label for the x-axis.
+#' @param ylab A string that contains the label for the y-axis in all plots but
+#' when \code{type="bubble"} (see \code{bubble.ylab=)}.
+#' @param showLegend A logical that indicates whether a legend should be displayed for
 #' when \code{type="barplot"} and \code{type="area"}.  See examples.
 #' @param lbl.cex A numeric character expansion value for labels inside the bars
 #' when \code{type="barplot"} and \code{showLegend=FALSE} or on the lines when
@@ -24,15 +24,15 @@
 #' @param grid A logical that indicates whether a grid should be placed under
 #' the bubbles when \code{type="bubble"} or a character or appropriate vector
 #' that identifies a color for the grid.  See examples.
-#' @param col A string indicating the color of the bubbles when \code{type="bubble"}.
+#' @param col A string that indicates the color of the bubbles when \code{type="bubble"}.
 #' @param buf A single numeric that indicates the relative width of the bubbles
 #' when \code{type="bubble"}. A value of 0.5 would mean that two full-width bubbles
 #' would touch either in the x- or y-direction (i.e., this would represent half
 #' of the minimum of the physical distance between values one-unit apart on the
 #' x- and y-axes).  Set this to a value less than 0.5 so that the bubble do not
 #' touch (the default is 0.45).
-#' @param bubble.ylab A string for labeling the y-axis when \code{type="bubble"}.
-#' @param add A logical indicating whether the data should be adding to an already
+#' @param bubble.ylab A string that contains the label for the y-axis when \code{type="bubble"}.
+#' @param add A logical that indicates whether the data should be adding to an already
 #' existing plot.  May be useful for visually comparing age-length keys.  Only
 #' implemented when \code{type="bubble"}.
 #' @param xlim A numeric of length 2 that provide the limits for the x-axis.

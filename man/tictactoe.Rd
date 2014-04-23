@@ -24,8 +24,8 @@ tictactoe(predbal = c(30, 70), preybal = c(30, 70), xlab = "Predator PSD",
   \item{bal.col}{A string designating a color to which the
   \dQuote{in balance} regions should be shaded.}
 
-  \item{bal.trans}{A numeric (decimal) indicating the level
-  of transparency for marking the \dQuote{in balance}
+  \item{bal.trans}{A numeric (decimal) that indicates the
+  level of transparency for marking the \dQuote{in balance}
   regions.}
 
   \item{bnd.col}{A string designating a color for the

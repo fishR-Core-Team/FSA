@@ -29,7 +29,7 @@
 #'be found.  Not used if \code{x} is not a formula.
 #'@param ages2use A numerical vector of the ages that define the descending
 #'limb of the catch curve.
-#'@param zmethod  A string indicating the method to use for estimating Z.  See details.
+#'@param zmethod  A string that indicates the method to use for estimating Z.  See details.
 #'@param pos.est A string to identify where to place the estimated mortality
 #'rates on the graph.  Can be set to one of \code{"bottomright"},
 #'\code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"},

@@ -16,28 +16,28 @@
 #'@aliases confint.bootCase htest.bootCase hist.bootCase plot.bootCase predict.bootCase
 #'@param object A \code{bootCase} matrix object for \code{confint} or \code{htest}.
 #'@param x A \code{bootCase} object for \code{hist}, \code{plot} or \code{boxplot}.
-#'@param parm A number indicating which column of \code{object} contains the
+#'@param parm A number that indicates which column of \code{object} contains the
 #'parameter estimates to use in the hypothesis test.
 #'@param conf.level A level of confidence as a proportion.
 #'@param level Same as \code{conf.level}.
 #'@param bo The null hypothesized parameter value.
-#'@param alt A string identifying the \dQuote{direction} of the alternative
+#'@param alt A string that indicates the \dQuote{direction} of the alternative
 #'hypothesis.  See details.
-#'@param same.ylim A logicial indicating whether the same limits for the y-axis
+#'@param same.ylim A logicial that indicates whether the same limits for the y-axis
 #'should be used on each histogram.  Defaults to \code{TRUE}.  Ignored if
 #'\code{ylmts} is non-null.
 #'@param ymax A single value that sets the maximum y-axis limit for each
 #'histogram or a vector of length equal to the number of groups that sets the
 #'maximum y-axis limit for each histogram separately.
 #'@param col A named color for the histogram bars.
-#'@param nr A numeric containing the number of rows to use on the graphic.
-#'@param nc A numeric containing the number of columns to use on the graphic.
-#'@param right A logical indicating if the histogram bins are right-closed
+#'@param nr A numeric that contains the number of rows to use on the graphic.
+#'@param nc A numeric that contains the number of columns to use on the graphic.
+#'@param right A logical that indicates if the histogram bins are right-closed
 #'(left open) intervals (\code{=TRUE}) or not (\code{=FALSE}; default).
 #'@param FUN The function to be applied.
-#'@param MARGIN A single numeric indicating the margin over which to apply the function.
+#'@param MARGIN A single numeric that indicates the margin over which to apply the function.
 #'\code{MARGIN=1} will apply to each row and is the default.
-#'@param digits A single numeric indicating the number of digits for the result.
+#'@param digits A single numeric that indicates the number of digits for the result.
 #'@param \dots Additional items to send to functions.
 #'@return \code{confint} will return a matrix with as many rows as columns
 #'(i.e., parameter estimates) in \code{object} and two columns of the quantiles

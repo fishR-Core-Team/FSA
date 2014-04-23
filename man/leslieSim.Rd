@@ -6,7 +6,7 @@ leslieSim(type = c("deterministic", "random", "resampling", "montecarlo"),
   ricker.mod = FALSE, rsmpls = 100)
 }
 \arguments{
-  \item{type}{A single string indicating the type or
+  \item{type}{A single string that indicates the type or
   version of simulation that should be used.  See the
   details.}
 

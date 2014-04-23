@@ -5,7 +5,7 @@
 ageKey(key, formula, data, type = c("SR", "CR"), len.breaks = NULL)
 }
 \arguments{
-  \item{key}{A numeric matrix containing the age-length
+  \item{key}{A numeric matrix that contains the age-length
   key.}
 
   \item{formula}{A formula of the form \code{age~length}
@@ -23,7 +23,7 @@ ageKey(key, formula, data, type = c("SR", "CR"), len.breaks = NULL)
   will receive the age estimates.  See description for
   \code{formula}.}
 
-  \item{type}{A string indicating whether to use the
+  \item{type}{A string that indicates whether to use the
   semi-random (\code{type="SR"}, default) or
   completely-random (\code{type="CR"}) techniques for
   assigning ages to individual fish.}

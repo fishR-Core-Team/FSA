@@ -41,18 +41,18 @@
 #'of unmarked fish in the sample (\code{u}), the total number of fish in the
 #'sample (\code{n}), and the number of marked fish returned to the population
 #'following the sample (\code{R})).
-#'@param ci.type A text value that indicates whether the large sample method of
+#'@param ci.type A string that indicates whether the large sample method of
 #'Jolly (\code{ci.type="Jolly"}) or the \dQuote{arbitrary} method of Manly
 #'(\code{ci.type="Manly"}) should be used to construct confidence intervals.
-#'@param conf.level a number indicating the level of confidence to use for
+#'@param conf.level A number that indicates the level of confidence to use for
 #'constructing confidence intervals (default is 0.95).  See details.
-#'@param phi.type a text value that indicates whether the standard error for
+#'@param phi.type A string that indicates whether the standard error for
 #'phi should include only sampling variability (\code{phi.type="SE"}) or
 #'sampling and individual variability (\code{phi.type="SD"},default).
 #'@param object An object saved from the \code{mrOpen} call (i.e., of class
 #'\code{mrOpen}).
 #'@param type The type of summary to return.  See details.
-#'@param parm a specification of which parameters are to be given confidence
+#'@param parm A specification of which parameters are to be given confidence
 #'intervals.  If missing, all parameters are considered.
 #'@param level Same as \code{conf.level} but used for compatability with
 #'generic \code{confint} function.

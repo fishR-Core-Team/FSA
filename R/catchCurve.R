@@ -26,7 +26,7 @@
 #'be found.  Not used if \code{x} is not a formula.
 #'@param ages2use A numerical vector of the ages that define the descending
 #'limb of the catch curve.
-#'@param use.weights A logical indicating whether a weighted regression should
+#'@param use.weights A logical that indicates whether a weighted regression should
 #'be used.  See details.
 #'@param pos.est A string to identify where to place the estimated mortality
 #'rates on the plot.  Can be set to one of \code{"bottomright"},
@@ -66,7 +66,7 @@
 #'\item lm An \code{lm} object from the fit to the ages and log catches
 #'or CPUEs on the descending limb (i.e., in age.e and log.catch.e).
 #'}
-#'@seealso \code{\link{chapmanRobson}}, \code{catchCurveSim} in \pkg{FSATeach},
+#'@seealso \code{\link{chapmanRobson}}, \code{\link{catchCurveSim}},
 #'and \code{agesurv} and \code{agesurvcl} in \pkg{fishmethods}.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/CatchCurve.pdf}
 #'@references Maceina, M.J., and P.W. Bettoli.  1998.  Variation in largemouth

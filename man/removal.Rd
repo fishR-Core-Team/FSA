@@ -32,9 +32,8 @@ removal(catch, type = c("Zippin", "CarleStrub", "Seber3", "Seber2",
   SE in the CarleStrub method should be computed according
   to Seber or Zippin.}
 
-  \item{object}{An object saved from the
-  \code{removal.pass} call (i.e., of class
-  \code{removal}).}
+  \item{object}{An object saved from \code{removal()}
+  (i.e., of class \code{removal}).}
 
   \item{parm}{A specification of which parameters are to be
   given confidence intervals, either a vector of numbers or
@@ -48,7 +47,7 @@ removal(catch, type = c("Zippin", "CarleStrub", "Seber3", "Seber2",
   of confidence to use for constructing confidence
   intervals.}
 
-  \item{just.ests}{A single logical indicating whether just
+  \item{just.ests}{A logical that indicates whether just
   the estimates (\code{=TRUE}) or the return list
   (\code{=FALSE}; default; see below) is returned.}
 

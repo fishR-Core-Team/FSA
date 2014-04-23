@@ -33,7 +33,7 @@
 #'\code{formula} (if the formula has both a left- and right-hand-side.  If this
 #'variable is missing in the formula then the new column wil be labeled with \code{age}.
 #'
-#'@param key A numeric matrix containing the age-length key.
+#'@param key A numeric matrix that contains the age-length key.
 #'@param formula A formula of the form \code{age~length} where \dQuote{age}
 #'generically represents a variable in \code{data} that will contain the estimated
 #'age measurements once the key is applied (i.e., currently missing) and \dQuote{length}
@@ -43,7 +43,7 @@
 #'@param data A data.frame that minimally contains the length measurements and
 #'possibly contains a variable that will receive the age estimates.  See description
 #'for \code{formula}.
-#'@param type A string indicating whether to use the semi-random
+#'@param type A string that indicates whether to use the semi-random
 #'(\code{type="SR"}, default) or completely-random (\code{type="CR"})
 #'techniques for assigning ages to individual fish.
 #'@param len.breaks A numeric vector of lower values for the break points of

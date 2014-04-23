@@ -2,7 +2,7 @@
 #'
 #'Opens web pages associated with the fishR site.
 #'
-#'@param where A string indicating a particular page on the fishR site to open.
+#'@param where A string that indicates a particular page on the fishR site to open.
 #'@return None, but a webpage will be opened in the default browswer.
 #'@export
 #'@keywords misc

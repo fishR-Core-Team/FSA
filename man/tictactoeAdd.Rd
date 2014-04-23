@@ -41,12 +41,12 @@ tictactoeAdd(predval, preyval, conf.level = 0.95, ci.type = c("wilson",
 
   \item{label}{A string used to label the point.}
 
-  \item{lbl.pos}{A string indicating where to place the
+  \item{lbl.pos}{A string that indicates where to place the
   label.}
 
-  \item{lbl.col}{A string indicating the color to use for
-  the label.  Defaults to same color as the color of the
-  point.}
+  \item{lbl.col}{A string that indicates the color to use
+  for the label.  Defaults to same color as the color of
+  the point.}
 
   \item{lbl.cex}{A numberic representing the relative size
   of the point label.}

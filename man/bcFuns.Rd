@@ -5,16 +5,17 @@
 bcFuns(BCM = NULL, type = NULL, msg = FALSE)
 }
 \arguments{
-  \item{BCM}{A single numeric between 1 and 22 indicating
-  which back-calculation model to use (based on numbers in
+  \item{BCM}{A single numeric between 1 and 22 that
+  indicates which back-calculation model to use (based on
+  numbers in Vigliola and Meekan (2009)).}
+
+  \item{type}{A string that indicates which
+  back-calculation model to use (based on abbreviations in
   Vigliola and Meekan (2009)).}
 
-  \item{type}{A string indicating which back-calculation
-  model to use (based on abbreviations in Vigliola and
-  Meekan (2009)).}
-
-  \item{msg}{A logical indicating whether a message about
-  the model and parameter definitions should be output.}
+  \item{msg}{A logical that indicates whether a message
+  about the model and parameter definitions should be
+  output.}
 }
 \value{
 A function that can be used to predict length at previous

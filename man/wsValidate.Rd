@@ -42,36 +42,38 @@ wsValidate(object, df, pops, len, wt, min, max, w = 10, type = c("EmpQ",
   \code{willis} (saved from the \code{wsValidate}) in the
   generic functions.}
 
-  \item{df}{A data frame containing the length-weight data
-  for each population.}
+  \item{df}{A data frame that contains the length-weight
+  data for each population.}
 
-  \item{pops}{A string or numeric indicating which column
-  in \code{df} contains the variable identifying the
-  different populations.}
+  \item{pops}{A string or numeric that indicates which
+  column in \code{df} contains the variable that identifies
+  the different populations.}
 
-  \item{len}{A string or numeric indicating which column in
-  \code{df} contains the variable with the length data.}
+  \item{len}{A string or numeric that indicates which
+  column in \code{df} contains the variable with the length
+  data.}
 
-  \item{wt}{A string or numeric indicating which column in
-  \code{df} contains the variable with the weight data.}
+  \item{wt}{A string or numeric that indicates which column
+  in \code{df} contains the variable with the weight data.}
 
-  \item{min}{A number indicating the midpoint value of the
-  smallest X-mm length category.}
+  \item{min}{A number that indicates the midpoint value of
+  the smallest X-mm length category.}
 
-  \item{max}{A number indicating the midpoint value of the
-  largest X-mm length category.}
+  \item{max}{A number that indicates the midpoint value of
+  the largest X-mm length category.}
 
-  \item{w}{A number indicating the widths for which to
+  \item{w}{A number that indicates the widths for which to
   create length categories.}
 
-  \item{type}{A string indicating which type of bias
+  \item{type}{A string that indicates which type of bias
   detection method should be used.}
 
-  \item{n.cutoff}{A numeric indicating the minimum sample
-  size in a length category that should be included in the
-  EmpQ regression.  Ignored if \code{type="Willis"}.}
+  \item{n.cutoff}{A numeric that indicates the minimum
+  sample size in a length category that should be included
+  in the EmpQ regression.  Ignored if
+  \code{type="Willis"}.}
 
-  \item{cutoff.tail}{A logical indicating if all length
+  \item{cutoff.tail}{A logical that indicates if all length
   categories larger than the lowest length category with a
   sample size below \code{n.cutoff} should be excluded
   \code{=TRUE} or just those length categories with sample
@@ -81,31 +83,31 @@ wsValidate(object, df, pops, len, wt, min, max, w = 10, type = c("EmpQ",
   \item{qtype}{Type of quantile method to use.  See
   details.  Ignored if \code{use.means=TRUE}.}
 
-  \item{probs}{A number indicating the probability of the
-  quantile.  Must be between 0 and 1.  Ignored if
+  \item{probs}{A number that indicates the probability of
+  the quantile.  Must be between 0 and 1.  Ignored if
   \code{use.means=TRUE}.}
 
-  \item{use.means}{A logical indicating whether mean mean
-  weight rather than a quantile mean weight should be used
-  in the EmpQ method.}
+  \item{use.means}{A logical that indicates whether mean
+  mean weight rather than a quantile mean weight should be
+  used in the EmpQ method.}
 
-  \item{quadratic}{A logical indicating whether a quadratic
-  regression should be fit in the EmpQ method.  Ignored if
-  \code{type="Willis"}.}
+  \item{quadratic}{A logical that indicates whether a
+  quadratic regression should be fit in the EmpQ method.
+  Ignored if \code{type="Willis"}.}
 
-  \item{weighted}{A logical indicating whether the
+  \item{weighted}{A logical that indicates whether the
   regression in the EmpQ method should be weighted by the
   number of populations present in each length category.
   Ignored if \code{type="Willis"}.}
 
-  \item{alpha}{A numeric indicating the rejection criterion
-  to be used in the Willis method.  Ignored if
+  \item{alpha}{A numeric that indicates the rejection
+  criterion to be used in the Willis method.  Ignored if
   \code{type="EmpQ"}.}
 
   \item{x}{An object saved from the \code{wsValidate} call
   (i.e., of class \code{empq} or \code{willis}).}
 
-  \item{pch}{A single numeric indicating what plotting
+  \item{pch}{A single numeric that indicates what plotting
   characther codes should be used for the points in plot or
   fitPlot.}
 
@@ -116,14 +118,15 @@ wsValidate(object, df, pops, len, wt, min, max, w = 10, type = c("EmpQ",
 
   \item{ylab}{A label for the y-axis of plot or fitPlot.}
 
-  \item{col.mdl}{A string indicating the type of color to
-  use for the standard length-weight regression line.}
-
-  \item{lwd.mdl}{A numeric indicating the width of the line
+  \item{col.mdl}{A string that indicates the type of color
   to use for the standard length-weight regression line.}
 
-  \item{lty.mdl}{A numeric indicating the type of line to
-  use for the standard length-weight regression line.}
+  \item{lwd.mdl}{A numeric that indicates the width of the
+  line to use for the standard length-weight regression
+  line.}
+
+  \item{lty.mdl}{A numeric that indicates the type of line
+  to use for the standard length-weight regression line.}
 
   \item{main}{A label for the main title of fitPlot.}
 
@@ -132,7 +135,7 @@ wsValidate(object, df, pops, len, wt, min, max, w = 10, type = c("EmpQ",
 \value{
 If \code{type="Willis"} then a list is returned with the
 following three items. \itemize{ \item \code{res.ind} is a
-data frame containing the results of the individual
+data frame that contains the results of the individual
 regressions. \item \code{res.tbl}) is the table summarizing
 the number of positive and negative significant slopes.
 \item \code{res.test}) contains the results for the
@@ -143,8 +146,8 @@ following five items: \itemize{ \item \code{n.by.pop}) is a
 table of the number of populations represented in each
 length category. \item \code{regdata}) is a dataframe used
 for the EmpQ regression. \item \code{quadratic}) is a
-logical indicating whether the quadratic regression was
-used. \item \code{weighted}) is a logical indicating
+logical that indicates whether the quadratic regression was
+used. \item \code{weighted}) is a logical that indicates
 whether a weighted regression was used. \item \code{lm.v}
 is the EmpQ regression model results. }
 }

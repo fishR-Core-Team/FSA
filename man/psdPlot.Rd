@@ -31,25 +31,25 @@ psdPlot(formula, data, species = "List", units = c("mm", "cm", "in"),
   length measurements given in the variable in the
   \code{formula}.}
 
-  \item{species}{A string containing the species name for
-  which five-cell length categories exist.  See
+  \item{species}{A string that contains the species name
+  for which five-cell length categories exist.  See
   \code{\link{psdVal}} for details.}
 
-  \item{units}{A string indicating the type of units used
-  for the length measurements. Choices are \code{mm} for
-  millimeters (DEFAULT), \code{cm} for centimeters, and
+  \item{units}{A string that indicates the type of units
+  used for the length measurements. Choices are \code{mm}
+  for millimeters (DEFAULT), \code{cm} for centimeters, and
   \code{in} for inches.}
 
-  \item{startcat}{A number indicating the beginning of the
-  first length-class.}
+  \item{startcat}{A number that indicates the beginning of
+  the first length-class.}
 
-  \item{w}{A number indicating the width of length classes
-  to create.}
+  \item{w}{A number that indicates the width of length
+  classes to create.}
 
-  \item{justPSDQ}{A logical indicating whether just stock
-  and quality (for PSD-Q calculations) categories should be
-  used.  If \code{FALSE} (default) then the five-cell
-  categories of Gabelhouse will be used.}
+  \item{justPSDQ}{A logical that indicates whether just
+  stock and quality (for PSD-Q calculations) categories
+  should be used.  If \code{FALSE} (default) then the
+  five-cell categories of Gabelhouse will be used.}
 
   \item{main}{A string that serves as the main label for
   the histogram.}
@@ -60,29 +60,29 @@ psdPlot(formula, data, species = "List", units = c("mm", "cm", "in"),
   \item{ylab}{A string that serves as the label for the
   y-axis.}
 
-  \item{xlim}{A numeric vector of length two indicating the
-  minimum and maximum values for the x-axis.}
+  \item{xlim}{A numeric vector of length two that indicates
+  the minimum and maximum values for the x-axis.}
 
-  \item{ylim}{A numeric vector of length two indicating the
-  minimum and maximum values for the y-axis.}
+  \item{ylim}{A numeric vector of length two that indicates
+  the minimum and maximum values for the y-axis.}
 
-  \item{substock.col}{A string indicating the color to use
-  for the bars representing under-stock size fish.}
+  \item{substock.col}{A string that indicates the color to
+  use for the bars representing under-stock size fish.}
 
-  \item{stock.col}{A string indicating the color to use for
-  the bars representing stock size fish.}
+  \item{stock.col}{A string that indicates the color to use
+  for the bars representing stock size fish.}
 
-  \item{psd.col}{A string indicating the color to use for
-  the vertical lines at the PSD category values.}
-
-  \item{psd.lty}{A numeric indicating the line type to use
+  \item{psd.col}{A string that indicates the color to use
   for the vertical lines at the PSD category values.}
 
-  \item{psd.lwd}{A numeric indicating the line width to use
-  for the vertical lines at the PSD category values.}
+  \item{psd.lty}{A numeric that indicates the line type to
+  use for the vertical lines at the PSD category values.}
 
-  \item{legend.pos}{A string indicating the position for
-  the legend text.}
+  \item{psd.lwd}{A numeric that indicates the line width to
+  use for the vertical lines at the PSD category values.}
+
+  \item{legend.pos}{A string that indicates the position
+  for the legend text.}
 
   \item{legend.cex}{A numeric value that indicates the
   character expansion for the legend text.}

@@ -58,7 +58,7 @@
 #'See description for \code{formula} and etails.
 #'@param col.lab A string that contains a label for the column age assignments.
 #'@param row.lab A string that contains a label for the row age assignments.
-#'@param method A string indicating which method to use when adjusting p-values
+#'@param method A string that indicates which method to use when adjusting p-values
 #'for multiple comparisons.
 #'@param sig.level A value to be used for determining whether a p-value suggests
 #'a significant result or not.  The confidence level used in \code{plot} is 1-\code{sig.level}.
@@ -66,9 +66,9 @@
 #'@param x An object saved from the \code{ageComp} call (i.e., of class \code{ageComp}).
 #'@param what A string that indicates what type of summary to print or plot to
 #'construct.  See details.
-#'@param zero.print A string indicating what should be printed in place of the
+#'@param zero.print A string that indicates what should be printed in place of the
 #'zeroes on an age-agreement table.  The default is to print a single dash.
-#'@param flip.table A logical indicating whether the age-agreement table should
+#'@param flip.table A logical that indicates whether the age-agreement table should
 #'be \sQuote{flipped} (i.e., rows are reversed so that the younger ages are at
 #'the bottom of the table).  This makes the table more directly comparable to the
 #'age-bias plot.
@@ -119,10 +119,10 @@
 #'\item stats The summary statistics of percent agreement, AVE, and CV.
 #'\item bias A data.frame that contains the bias statistics.
 #'\item bias.diff A data.frame that contains the bias statistics for the differences.
-#'\item col.lab A character string containing an optional label for the
-#'column structure or readings.
-#'\item row.lab A character string containing an optional label for the
-#'row structure or readings.
+#'\item col.lab A string that contains an optional label for the column structure
+#' or readings.
+#'\item row.lab A string that contains an optional label for the row structure
+#' or readings.
 #'}
 #'
 #'The \code{summary} and \code{plot} function do not return anything.

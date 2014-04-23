@@ -36,33 +36,34 @@ emp(df, pops, len, wt, min, max, w = 10, n.cutoff = 3, cutoff.tail = TRUE,
   jitter.factor = 3, ...)
 }
 \arguments{
-  \item{df}{A data frame containing the length-weight data
-  for each population.}
+  \item{df}{A data frame that contains the length-weight
+  data for each population.}
 
-  \item{pops}{A string or numeric indicating which column
-  in \code{df} contains the variable identifying the
-  different populations.}
+  \item{pops}{A string or numeric that indicates which
+  column in \code{df} contains the variable that identifies
+  the different populations.}
 
-  \item{len}{A string or numeric indicating which column in
-  \code{df} contains the variable with the length data.}
+  \item{len}{A string or numeric that indicates which
+  column in \code{df} contains the variable with the length
+  data.}
 
-  \item{wt}{A string or numeric indicating which column in
-  \code{df} contains the variable with the weight data.}
+  \item{wt}{A string or numeric that indicates which column
+  in \code{df} contains the variable with the weight data.}
 
-  \item{min}{A number indicating the midpoint value of the
-  smallest X-mm length category.}
+  \item{min}{A number that indicates the midpoint value of
+  the smallest X-mm length category.}
 
-  \item{max}{A number indicating the midpoint value of the
-  largest X-mm length category.}
+  \item{max}{A number that indicates the midpoint value of
+  the largest X-mm length category.}
 
-  \item{w}{A number indicating the widths for which to
+  \item{w}{A number that indicates the widths for which to
   create length categories.}
 
-  \item{n.cutoff}{A numeric indicating the minimum sample
-  size in a length category that should be included in the
-  regression.}
+  \item{n.cutoff}{A numeric that indicates the minimum
+  sample size in a length category that should be included
+  in the regression.}
 
-  \item{cutoff.tail}{A logical indicating if all length
+  \item{cutoff.tail}{A logical that indicates if all length
   categories larger than the lowest length category with a
   sample size below \code{n.cutoff} should be excluded
   \code{=TRUE} or just those length categories with sample
@@ -71,43 +72,44 @@ emp(df, pops, len, wt, min, max, w = 10, n.cutoff = 3, cutoff.tail = TRUE,
   \item{qtype}{Type of quantile method to use.  See
   details.}
 
-  \item{probs}{A number indicating the probability of the
-  quantile.  Must be between 0 and 1.}
+  \item{probs}{A number that indicates the probability of
+  the quantile.  Must be between 0 and 1.}
 
-  \item{method}{A character indicating whether a linear
+  \item{method}{A string that indicates whether a linear
   regression (\code{lm} or quantile regression (\code{rq})
   should be used to construct the standard weight equation.
   See details.}
 
-  \item{quadratic}{A logical indicating whether a quadratic
-  regression should be fit (\code{=TRUE} or not.}
+  \item{quadratic}{A logical that indicates whether a
+  quadratic regression should be fit (\code{=TRUE} or not.}
 
   \item{x,object}{An object saved from the \code{emp} call
   (i.e., of class \code{emp}).}
 
-  \item{pch}{A single numeric indicating what plotting
+  \item{pch}{A single numeric that indicates what plotting
   characther codes should be used for the points in plot or
   fitPlot.}
 
-  \item{col.pop}{A string indicating the type of color or
-  palette to use for the population of length-weight
+  \item{col.pop}{A string that indicates the type of color
+  or palette to use for the population of length-weight
   regression lines.  See details.}
 
-  \item{col.Ws}{A string indicating the type of color to
-  use for the standard length-weight regression line.}
-
-  \item{lwd.Ws}{A numeric indicating the width of the line
+  \item{col.Ws}{A string that indicates the type of color
   to use for the standard length-weight regression line.}
 
-  \item{lty.Ws}{A numeric indicating the type of line to
-  use for the standard length-weight regression line.}
+  \item{lwd.Ws}{A numeric that indicates the width of the
+  line to use for the standard length-weight regression
+  line.}
 
-  \item{jitterX}{A logical indicating whether the x values
-  in plot should be jittered.}
+  \item{lty.Ws}{A numeric that indicates the type of line
+  to use for the standard length-weight regression line.}
 
-  \item{jitter.factor}{A numeric indicating the relative
-  magnitude of the jittering in x (sent to \code{factor}
-  argument in \code{jitter()}.}
+  \item{jitterX}{A logical that indicates whether the x
+  values in plot should be jittered.}
+
+  \item{jitter.factor}{A numeric that indicates the
+  relative magnitude of the jittering in x (sent to
+  \code{factor} argument in \code{jitter()}.}
 
   \item{col.pt}{A string used to indicate the color of the
   plotted points.}
@@ -132,7 +134,7 @@ is a table of the mean log10 weight for each length
 category for each population. \item \code{regdata} is a
 dataframe used for the Ws regression (i.e., third quartiles
 of mean log10 weight and length category midpoints). \item
-\code{quadratic} is a logical indicating whether the
+\code{quadratic} is a logical that indicates whether the
 quadratic regression was used. \item \code{Ws} is the Ws
 regression model results. }
 }

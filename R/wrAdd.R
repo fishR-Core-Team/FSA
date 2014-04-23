@@ -27,21 +27,21 @@
 #'must be in the weight first, length second order.
 #'@param data A data.frame that minimally contains the length and weight measurements
 #'given in the variables in the \code{formula}.
-#'@param species A string containing the species name for which to make
+#'@param species A string that contains the species name for which to make
 #'computations.  See details.
-#'@param units A string indicating whether the coefficients for the (\code{"metric"}
+#'@param units A string that indicates whether the coefficients for the (\code{"metric"}
 #'(DEFAULT; mm and g) or \code{"English"} (in and lbs) units should be returned.
 #'\code{"quadratic"} model should be returned.
-#'@param ref A numeric indicating which quantile the equation should be returned
+#'@param ref A numeric that indicates which quantile the equation should be returned
 #'for.  Note that the vast majority of equations only exist for the \code{75}th
 #'percentile (DEFAULT).
-#'@param remove.submin A logical indicating how to handle fish below the minimum
+#'@param remove.submin A logical that indicates how to handle fish below the minimum
 #'length for which the standard weight equation holds.  If \code{FALSE} (DEFAULT)
 #'then the standard and relative weights for the \dQuote{small} fish are replaced
 #'with \code{NA}.  If \code{TRUE} then the \dQuote{small} fish are excluded from the
 #'returned data frame.
-#'@param wsname A string containing the name for the new standard weight variable.
-#'@param wrname A string containing the name for the new relative weight variable.
+#'@param wsname A string that contains the name for the new standard weight variable.
+#'@param wrname A string that contains the name for the new relative weight variable.
 #'@return Returns a data frame that consists of the original data frame,
 #'\code{data}, but with the new standard and relative weight variables appended and
 #'named as in \code{wsname} and \code{wrname}, respectively.

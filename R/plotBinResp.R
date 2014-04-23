@@ -15,26 +15,26 @@
 #'@param data The data frame from which the formula should be evaluated.
 #'@param xlab A string for labelling the x-axis.
 #'@param ylab A string for labelling the y-axis.
-#'@param plot.pts A logical indicating (\code{TRUE} (default)) whether the
+#'@param plot.pts A logical that indicates (\code{TRUE} (default)) whether the
 #'points should be plotted (\code{TRUE}; default) or not (\code{FALSE}).
 #'@param col.pt A string used to indicate the color of the plotted points.
 #'Will be transparent unless \code{trans.pt=1}.
-#'@param trans.pt A numeric indicating how many points would be plotted on top
+#'@param trans.pt A numeric that indicates how many points would be plotted on top
 #'of each other before the \sQuote{point} would have the full \code{col.pt}
 #'color.  The reciprocal of this value is the alpha transparency value.
-#'@param plot.p A logical indicating if the proportion for categorized values
+#'@param plot.p A logical that indicates if the proportion for categorized values
 #'of X are plotted (\code{TRUE}; default).
-#'@param breaks A number indicating how many intervals over which to compute
-#'proportions or a numeric vector identifying the endpoints of the intervals
+#'@param breaks A number that indicates how many intervals over which to compute
+#'proportions or a numeric vector that contains the endpoints of the intervals
 #'over which to compute proportions if \code{plot.p=TRUE}.
 #'@param p.col A color to plot the proportions.
 #'@param p.pch A plotting character for plotting the proportions.
 #'@param p.cex A character expansion factor for plotting the proportions.
-#'@param yaxis1.ticks A numeric vector indicating where tick marks should be placed
+#'@param yaxis1.ticks A numeric vector that indicates where tick marks should be placed
 #'on the left y-axis (for the proportion of \sQuote{successes}).
-#'@param yaxis1.lbls A numeric vector indicating labels for the tick marks on the
+#'@param yaxis1.lbls A numeric vector that indicates labels for the tick marks on the
 #'left y-axis (for the proportion of \sQuote{successes}).
-#'@param yaxis2.show A logical indicating whether the right y-axis should be
+#'@param yaxis2.show A logical that indicates whether the right y-axis should be
 #'created (\code{=TRUE}; default) or not.
 #'@param \dots Other arguments to be passed to the plot functions.
 #'@return None.  However, a plot is produced.

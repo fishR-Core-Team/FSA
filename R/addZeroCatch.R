@@ -6,7 +6,7 @@
 #'
 #'The data frame in \code{df} must contain a column that identifies a unique
 #'capture event (given to \code{eventvar}), a column with the name of the
-#'species captured (given to \code{specvar}), and a column containing the number
+#'species captured (given to \code{specvar}), and a column that contains the number
 #'of that species captured (potentially given to \code{zerovar}; see details).
 #'This function finds all event and species combinations where catch information
 #'does not exist and then creates a new data frame that contains a zero for the
@@ -31,14 +31,14 @@
 #'will assume that the rest of variable names in the data frame (not including those
 #'given in \code{eventvar} and \code{specvar}) will be of the other type.
 #'
-#'@param df A data frame containing the capture summary data as described in the details.
-#'@param eventvar A string indicating the variable that identifies unique capture events.
-#'@param specvar A string indicating the variable that identifies the species captured.
-#'@param idvar A string or vector of strings indicating the variable(s) that are
+#'@param df A data frame that contains the capture summary data as described in the details.
+#'@param eventvar A string for the variable that identifies unique capture events.
+#'@param specvar A string for the variable that identifies the species captured.
+#'@param idvar A string or vector of strings for the variable(s) that are
 #'common to a unique capture event and should be repeated for each zero row added
 #'to the data frame (e.g., dates, gear type, etc.).  See details
-#'@param zerovar A string or vector of strings indicating the variable(s) that
-#'should be set equal to zero.  See details.
+#'@param zerovar A string or vector of strings for the variable(s) that should be 
+#'set equal to zero.  See details.
 #'@return Returns a data frame of the same type as \code{df} but with rows of
 #'zero observation data appended and the columns slightly reorganized.
 #'@export

@@ -10,23 +10,23 @@
 #'@param data A data frame in which \code{age} and \code{len} can be found.
 #'@param xlab A string for labeling the x-axis.
 #'@param ylab A string for labeling the y-axis.
-#'@param colLS A string indicating the color of the least-squares line.
-#'@param colRL A string indicating the color of the 1:1 reference line.
-#'@param lwdLS A numeric indicating the line width of the least-squares line.
-#'@param lwdRL A numeric indicating the line width of the 1:1 reference line.
-#'@param ltyLS A numeric indicating the line type of the least-squares line.
-#'@param ltyRL A numeric indicating the line type of the 1:1 reference line.
-#'@param pch A numeric indicating the plotting character type for the observed data.
-#'@param col A string indicating the color for the observed data.
-#'@param pchLinf A numeric indicating the plotting character type indicating
+#'@param colLS A string that indicates the color of the least-squares line.
+#'@param colRL A string that indicates the color of the 1:1 reference line.
+#'@param lwdLS A numeric that indicates the line width of the least-squares line.
+#'@param lwdRL A numeric that indicates the line width of the 1:1 reference line.
+#'@param ltyLS A numeric that indicates the line type of the least-squares line.
+#'@param ltyRL A numeric that indicates the line type of the 1:1 reference line.
+#'@param pch A numeric that indicates the plotting character type for the observed data.
+#'@param col A string that indicates the color for the observed data.
+#'@param pchLinf A numeric that indicates the plotting character type that indicates
 #'the Linf value.
-#'@param colLinf A string indicating the color of the point indicating the Linf
+#'@param colLinf A string that indicates the color of the point that indicates the Linf
 #'value.
-#'@param cexLinf A numeric indicating the character expansion factor of the
-#'point indicating the Linf value.
-#'@param showLS A logical indicating whether the coefficients from the
+#'@param cexLinf A numeric that indicates the character expansion factor of the
+#'point that indicates the Linf value.
+#'@param showLS A logical that indicates whether the coefficients from the
 #'least-squares fit should be shown on the plot.
-#'@param showVB A logical indicating whether the estimate of Linf and K should
+#'@param showVB A logical that indicates whether the estimate of Linf and K should
 #'be shown on the plot.
 #'@param \dots Other arguments to be passed to the \code{plot} function.
 #'@return None.  However, a plot is produced.

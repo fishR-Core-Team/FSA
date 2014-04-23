@@ -16,27 +16,27 @@
 #'\code{\link{addRadCap}} to add the total radius at capture variable (if your
 #'data was increments).
 #'
-#'@param df A data frame containing the radial growth measurement data in
+#'@param df A data frame that contains the radial growth measurement data in
 #'one-fish-per-line format.
-#'@param indivs A string containing the variable name or a vector of strings
-#'containing the variable names that identify individual fish in the data frame.
-#'@param in.pre A string indicating the prefix for all variable names
-#'containing the radial growth measurement data in the input data frame.
+#'@param indivs A string that contains the variable name or a vector of strings
+#'that contains the variable names that identify individual fish in the data frame.
+#'@param in.pre A string that indicates the prefix for all variable names
+#'that contains the radial growth measurement data in the input data frame.
 #'@param in.var A vector of column numbers or variable names that contain the
 #'radial growth measurement data in the input data frame.
-#'@param radcap A string containing the variable name that holds the total
+#'@param radcap A string that contains the variable name that holds the total
 #'structure radius at the time of capture.
-#'@param agevar A string containing the variable name that holds the assigned ages.
-#'@param proportions A logical indicating whether raw radial measurements
+#'@param agevar A string that contains the variable name that holds the assigned ages.
+#'@param proportions A logical that indicates whether raw radial measurements
 #'(\code{=FALSE}, default) or proportional (of the total radius) measurements
 #'are plotted.
-#'@param numperpg A numeric indicating the number of individuals to plot per page.
+#'@param numperpg A numeric that indicates the number of individuals to plot per page.
 #'@param xlab A string for labeling the x-axis.
-#'@param lwd A numeric indicating the width of the lines plotted.
-#'@param col A string indicating the color to use for the plotted lines.
-#'@param pch A numeric indicating the plotting character used to mark the
+#'@param lwd A numeric that indicates the width of the lines plotted.
+#'@param col A string that indicates the color to use for the plotted lines.
+#'@param pch A numeric that indicates the plotting character used to mark the
 #'annuli.  The defaul (\code{=124}) is a vertical line.
-#'@param ymar A numeric indicating how wide the y-axis margin should be for
+#'@param ymar A numeric that indicates how wide the y-axis margin should be for
 #'labelling the individuals.
 #'@param \dots Optional arguments sent to the \code{lines()} or \code{points()}.
 #'@return None.  However, a plot is produced.

@@ -19,12 +19,12 @@
 #'anova.depletion confint.depletion
 #'@param catch A numeric vector of catches of fish at each time.
 #'@param effort A numeric vector of efforts expended at each time.
-#'@param type A single string identifying which depletion method to use (in
-#'\code{depletion} or a string indicating the type of summary or coefficients
+#'@param type A single string that indicates which depletion method to use (in
+#'\code{depletion} or a string that indicates the type of summary or coefficients
 #'to extract.  In the latter case, if \code{type="params"} (the default) then
 #'results for No and q are returned.  If \code{type="lm"} then results for the
 #'underlying linear model are returned.
-#'@param ricker.mod A single logical indicating whether to use the modification
+#'@param ricker.mod A single logical that indicates whether to use the modification
 #'proposed by Ricker (=TRUE) or not (=FALSE, default).
 #'@param object An object saved from the \code{removal} call (i.e., of class \code{depletion}).
 #'@param x An object saved from the \code{depletion} call (i.e., of class \code{depletion}).
@@ -53,7 +53,7 @@
 #'@param \dots Additional arguments for methods.
 #'@return A list with the following items:
 #'\itemize{
-#'\item type A string indicating whether the \code{"Leslie"} or \code{"Delury"} model was used.
+#'\item type A string that indicates whether the \code{"Leslie"} or \code{"Delury"} model was used.
 #'\item catch The original vector of catches.
 #'\item effort The orginal vector of efforts.
 #'\item cpe A computed vector of catch-per-unit-effort for each time.
@@ -61,7 +61,7 @@
 #'\item lm The \code{lm} object from the fit of log(CPE) on K (Leslie method) or E (Delury method).
 #'\item est A 2x2 matrix that contains the estimates and standard errors for No and q.
 #'}
-#'@seealso \code{\link{removal}}, \code{leslieSim} in \pkg{FSATeach}, and
+#'@seealso \code{\link{removal}}, \code{\link{leslieSim}}, and
 #'\code{deplet} in \pkg{fishmethods}.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/Depletion.pdf}
 #'@references Ricker, W.E.  1975. Computation and interpretation of biological

@@ -17,12 +17,12 @@
 #'
 #'@aliases htest htest.nlsBoot
 #'@param object An nlsBoot object saved from \code{nlsBoot()}.
-#'@param parm An integer indicating which parameter to compute the confidence
+#'@param parm An integer that indicates which parameter to compute the confidence
 #'interval for.  Will compute for all parameters if left \code{NULL}.
 #'@param bo The null hypothesized parameter value.
-#'@param alt A string identifying the "direction" of the alternative
+#'@param alt A string that identifies the \dQuote{direction} of the alternative
 #'hypothesis.  See details.
-#'@param plot A logical indicating whether a histogram of the \code{parm}
+#'@param plot A logical that indicates whether a histogram of the \code{parm}
 #'parameters with a vertical lines illustrating the \code{bo}value should be
 #'constructed.
 #'@param \dots Additional arguments for methods.

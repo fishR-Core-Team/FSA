@@ -68,15 +68,15 @@ mrClosed(M, n, m, R, type = c("Petersen", "Chapman", "Ricker", "Bailey",
   will be rounded to one more decimal place then given in
   \code{digits}.}
 
-  \item{incl.SE}{A logical indicating whether the results
-  should include the SE calculation.  See details.}
+  \item{incl.SE}{A logical that indicates whether the
+  results should include the SE calculation.  See details.}
 
-  \item{incl.all}{A logical indicating whether an overall
-  population estimate should be computed when using a
-  single census method that has been separated into
+  \item{incl.all}{A logical that indicates whether an
+  overall population estimate should be computed when using
+  a single census method that has been separated into
   sub-groups.  See details.}
 
-  \item{incl.inputs}{A logical indicating whether a
+  \item{incl.inputs}{A logical that indicates whether a
   reminder of the inputted values and what type of method
   was used should be printed with the summary and
   confidence interval results.}
@@ -112,7 +112,7 @@ mrClosed(M, n, m, R, type = c("Petersen", "Chapman", "Ricker", "Bailey",
   \item{ylab}{A label for the y-axis (\code{"log(Catch)"}
   is the default).}
 
-  \item{loess}{A logical indicating if a loess smoother
+  \item{loess}{A logical that indicates if a loess smoother
   line is fit to and shown on plot.}
 
   \item{lty}{a numeric used to indicate the type of line
@@ -337,9 +337,8 @@ Tennessee Academy of Sciences, 18:228-249.
 \seealso{
 \code{\link{capHistSum}}, \code{\link{poiCI}},
 \code{\link{binCI}}, \code{\link{hyperCI}}
-\code{\link{mrOpen}}; \code{mrClosed1Sim} in
-\pkg{FSATeach}; and \code{mrN.single} and \code{schnabel}
-in \pkg{fishmethods},
+\code{\link{mrOpen}}; \code{\link{mrClosed1Sim}}; and
+\code{mrN.single} and \code{schnabel} in \pkg{fishmethods},
 }
 \keyword{manip}
 

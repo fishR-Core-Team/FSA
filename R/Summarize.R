@@ -27,20 +27,20 @@
 #'
 #'@aliases Summarize Summarize.default Summarize.formula
 #'@param object A vector of numeric or factor data.
-#'@param data An optional data frame containing the variables in the model.
-#'@param digits A numeric indicating the number of decimals to round the
+#'@param data An optional data frame that contains the variables in the model.
+#'@param digits A numeric that indicates the number of decimals to round the
 #'numeric summaries to.
-#'@param addtotal A logical indicating whether totals should be added to tables
+#'@param addtotal A logical that indicates whether totals should be added to tables
 #'(\code{=TRUE}, default) or not.
 #'@param percent A logical that indicates whether frequency tables should
 #'include percentages (\code{=TRUE}, default) or not for a single categorical
-#'variable or a string indicating the type of percents to compute for a two-way
+#'variable or a string that indicates the type of percents to compute for a two-way
 #'table constructed wtih the formula.
-#'@param percdigs A numeric indicating the number of decimals to round the
+#'@param percdigs A numeric that indicates the number of decimals to round the
 #'percentage summaries to.
 #'@param na.rm A logical that indicates whether numeric missing values
 #'(\code{NA}) should be removed (\code{=TRUE}, default) or not.
-#'@param exclude A string containing the code that should be excluded from the
+#'@param exclude A string that contains the code that should be excluded from the
 #'levels of the factor variable.
 #'@param ... Other arguments to the generic \code{summary}, \code{sd}, or
 #'\code{table} functions.

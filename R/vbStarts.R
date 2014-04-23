@@ -47,25 +47,24 @@
 #'@param len A vector of observed lengths.
 #'@param data A data frame from which the vectors of observed ages and lengths
 #'can be found if a formula is used.
-#'@param type A string indicating the parameterization of the von Bertalanffy #'model.
+#'@param type A string that indicates the parameterization of the von Bertalanffy #'model.
 #'@param tFrancis A numerical vector of the three ages to be used in the
 #'Francis paramaterization.  See details.
-#'@param methEV A string indicating how the lengths of the two ages in the
+#'@param methEV A string that indicates how the lengths of the two ages in the
 #'Schnute paramaterization or the three ages in the Francis paramaterization
 #'should be derived.  See details.
-#'@param meth0 A string indicating how the t0 and L0 paramaters should be
+#'@param meth0 A string that indicates how the t0 and L0 paramaters should be
 #'derived.  See details.
-#'@param plot A logical indicating whether a plot of the data with the model
+#'@param plot A logical that indicates whether a plot of the data with the model
 #'fit at the starting values superimposed should be created.
 #'@param \dots Further arguments passed to the methods.
-#'@return A list containing reasonable starting values.  Note that the
+#'@return A list that contains reasonable starting values.  Note that the
 #'parameters will be listed in the same order and with the same names as listed
 #'in \code{\link{vbFuns}}.
 #'@note The \sQuote{original} and \sQuote{vonBertalanffy} and the
 #'\sQuote{typical} and \sQuote{BevertonHolt} versions are synonomous.
-#'@seealso \code{\link{growthModels}}, \code{\link{vbFuns}} \code{growthModelSim}
-#'in \pkg{FSATeach}
-#'#'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffy.pdf},
+#'@seealso \code{\link{growthModels}}, \code{\link{vbFuns}}, and \code{\link{growthModelSim}}
+#'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffy.pdf},
 #'\url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffyExtra.pdf}
 #'@references Francis, R.I.C.C.  1988.  Are growth parameters estimated from
 #'tagging and age-length data comparable?  Canadian Journal of Fisheries and

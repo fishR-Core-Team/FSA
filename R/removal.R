@@ -42,7 +42,7 @@
 #'(default is \code{1}).
 #'@param CS.se A single string that identifies whether the SE in the CarleStrub method
 #'should be computed according to Seber or Zippin.
-#'@param object An object saved from the \code{removal.pass} call (i.e., of class \code{removal}).
+#'@param object An object saved from \code{removal()} (i.e., of class \code{removal}).
 #'@param parm A specification of which parameters are to be given confidence
 #'intervals, either a vector of numbers or a vector of names.  If missing, all
 #'parameters are considered.
@@ -50,7 +50,7 @@
 #'generic \code{confint} function.
 #'@param conf.level A single number representing the level of confidence to use for
 #'constructing confidence intervals.
-#'@param just.ests A single logical indicating whether just the estimates
+#'@param just.ests A logical that indicates whether just the estimates
 #'(\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.
 #'@param \dots Additional arguments for methods.
 #'@return A vector that contains the estimaes and standard errors for No and p

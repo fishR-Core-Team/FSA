@@ -27,12 +27,12 @@ agePrecision(formula, data)
   \item{what}{A string that indicates what type of summary
   to print.  See details.}
 
-  \item{percent}{A logical indicating whether the agreement
-  matrix should contain percentages (\code{TRUE}; default)
-  or raw numbers.  See details.}
+  \item{percent}{A logical that indicates whether the
+  agreement matrix should contain percentages (\code{TRUE};
+  default) or raw numbers.  See details.}
 
-  \item{digits}{A numeric indicating the minimum number of
-  digits to print when using \code{summary}.}
+  \item{digits}{A numeric that indicates the minimum number
+  of digits to print when using \code{summary}.}
 
   \item{\dots}{Additional arguments for methods.}
 }

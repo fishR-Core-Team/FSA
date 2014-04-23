@@ -8,18 +8,18 @@ vbFuns(type = c("typical", "original", "BevertonHolt", "Fabens", "Fabens2",
   msg = FALSE)
 }
 \arguments{
-  \item{type}{A string indicating the parameterization of
-  the von Bertalanffy model.}
+  \item{type}{A string that indicates the parameterization
+  of the von Bertalanffy model.}
 
-  \item{simple}{A logical indicating whether the user
+  \item{simple}{A logical that indicates whether the user
   should be allowed to send all parameter values in the
   first parameter argument (\code{=FALSE}; default) or
   whether all individual parameters must be specified
   (\code{=TRUE}).}
 
-  \item{msg}{A logical indicating whether a message about
-  the model and parameter definitions should be output
-  (\code{=TRUE}) or not (\code{=FALSE}; default).}
+  \item{msg}{A logical that indicates whether a message
+  about the model and parameter definitions should be
+  output (\code{=TRUE}) or not (\code{=FALSE}; default).}
 }
 \value{
 A function that can be used to predict fish length given a
@@ -133,8 +133,7 @@ model with individual asymptotes.  Canadian Journal of
 Fisheries and Aquatic Sciences 55:397-400.
 }
 \seealso{
-\code{\link{vbComp}}, \code{growthModelSim} in
-\pkg{FSATeach}.
+\code{\link{vbComp}} and \code{\link{growthModelSim}}.
 }
 \keyword{manip}
 

@@ -99,8 +99,8 @@ Reviews: Methods and Technologies in Fish Biology and
 Fisheries 11.
 }
 \seealso{
-\code{\link{vbComp}}, \code{growthModelSim} in
-\pkg{FSATeach}, and \code{groupedData} in \pkg{nlme}
+\code{\link{vbComp}}, \code{\link{growthModelSim}}, and
+\code{groupedData} in \pkg{nlme}
 }
 \keyword{manip}
 

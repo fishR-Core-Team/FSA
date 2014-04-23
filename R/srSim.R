@@ -21,17 +21,17 @@
 #'for a representation of each parameterization.
 #'
 #'@aliases srSim
-#'@param S An optional vector containing observed numbers of spawning stock or
+#'@param S An optional vector that contains observed numbers of spawning stock or
 #'a formula as described in the details.
-#'@param R An optional vector containing observed numbers of recruits.  See details.
-#'@param data An optional data frame containing the variables if \code{S} is a
+#'@param R An optional vector that contains observed numbers of recruits.  See details.
+#'@param data An optional data frame that contains the variables if \code{S} is a
 #'formula.  See details.
-#'@param type A single string indicating which stock-recruitment model to use.  See details.
-#'@param param A single numeric indicating which parameterization of the \code{type}
+#'@param type A single string that indicates which stock-recruitment model to use.  See details.
+#'@param param A single numeric that indicates which parameterization of the \code{type}
 #'to use.  See details.
-#'@param max.S A single numeric indicating the maximum spawning stock to use for
+#'@param max.S A single numeric that indicates the maximum spawning stock to use for
 #'scaling the x-axis.  Ignored if \code{S} is not NULL.
-#'@param max.R A single numeric indicating the maximum recruitment to use for scaling
+#'@param max.R A single numeric that indicates the maximum recruitment to use for scaling
 #'the y-axis.  Ignored if \code{S} is not NULL.
 #'@return None.  However a dynamic graphic connected to slider bar controls of the
 #'\bold{\sQuote{a}}, \bold{\sQuote{b}}, or \bold{\sQuote{Rp}} parameters specific

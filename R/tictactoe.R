@@ -14,7 +14,7 @@
 #'@param ylab A string representing a label for the y-axis.
 #'@param bal.col A string designating a color to which the \dQuote{in balance}
 #'regions should be shaded.
-#'@param bal.trans A numeric (decimal) indicating the level of transparency for
+#'@param bal.trans A numeric (decimal) that indicates the level of transparency for
 #'marking the \dQuote{in balance} regions.
 #'@param bnd.col A string designating a color for the boundaries of the
 #'\dQuote{in balance} regions.

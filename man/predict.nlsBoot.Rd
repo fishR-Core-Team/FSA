@@ -12,14 +12,14 @@
 
   \item{FUN}{The function to be applied.}
 
-  \item{MARGIN}{A single numeric indicating the margin over
-  which to apply the function. \code{MARGIN=1} will apply
-  to each row and is the default.}
+  \item{MARGIN}{A single numeric that indicates the margin
+  over which to apply the function. \code{MARGIN=1} will
+  apply to each row and is the default.}
 
   \item{conf.level}{A level of confidence as a proportion.}
 
-  \item{digits}{A single numeric indicating the number of
-  digits for the result.}
+  \item{digits}{A single numeric that indicates the number
+  of digits for the result.}
 
   \item{\dots}{Additional arguments for \code{apply()}.}
 }

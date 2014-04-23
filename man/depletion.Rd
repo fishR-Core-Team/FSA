@@ -29,16 +29,16 @@ depletion(catch, effort, type = c("Leslie", "Delury"), ricker.mod = FALSE)
   \item{effort}{A numeric vector of efforts expended at
   each time.}
 
-  \item{type}{A single string identifying which depletion
-  method to use (in \code{depletion} or a string indicating
-  the type of summary or coefficients to extract.  In the
-  latter case, if \code{type="params"} (the default) then
-  results for No and q are returned.  If \code{type="lm"}
-  then results for the underlying linear model are
-  returned.}
+  \item{type}{A single string that indicates which
+  depletion method to use (in \code{depletion} or a string
+  that indicates the type of summary or coefficients to
+  extract.  In the latter case, if \code{type="params"}
+  (the default) then results for No and q are returned.  If
+  \code{type="lm"} then results for the underlying linear
+  model are returned.}
 
-  \item{ricker.mod}{A single logical indicating whether to
-  use the modification proposed by Ricker (=TRUE) or not
+  \item{ricker.mod}{A single logical that indicates whether
+  to use the modification proposed by Ricker (=TRUE) or not
   (=FALSE, default).}
 
   \item{object}{An object saved from the \code{removal}
@@ -95,7 +95,7 @@ depletion(catch, effort, type = c("Leslie", "Delury"), ricker.mod = FALSE)
 }
 \value{
 A list with the following items: \itemize{ \item type A
-string indicating whether the \code{"Leslie"} or
+string that indicates whether the \code{"Leslie"} or
 \code{"Delury"} model was used. \item catch The original
 vector of catches. \item effort The orginal vector of
 efforts. \item cpe A computed vector of
@@ -161,8 +161,8 @@ Seber, G.A.F. 1982. The Estimation of Animal Abundance.
 Edward Arnold, second edition.
 }
 \seealso{
-\code{\link{removal}}, \code{leslieSim} in \pkg{FSATeach},
-and \code{deplet} in \pkg{fishmethods}.
+\code{\link{removal}}, \code{\link{leslieSim}}, and
+\code{deplet} in \pkg{fishmethods}.
 }
 \keyword{hplot}
 \keyword{manip}

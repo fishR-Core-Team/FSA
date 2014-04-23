@@ -22,20 +22,20 @@ srStarts(S, ...)
   observed stock and recruitment levels can be found if a
   formula is used.}
 
-  \item{type}{A string indicating the type of the
+  \item{type}{A string that indicates the type of the
   stock-recruitment model.}
 
-  \item{param}{A numeric indicating the parameterization of
-  the stock-recruitment model type.}
+  \item{param}{A numeric that indicates the
+  parameterization of the stock-recruitment model type.}
 
-  \item{plot}{A logical indicating whether a plot of the
-  data with the model fit at the starting values
+  \item{plot}{A logical that indicates whether a plot of
+  the data with the model fit at the starting values
   superimposed should be created.}
 
   \item{\dots}{Further arguments passed to the methods.}
 }
 \value{
-A list containing reasonable starting values.  Note that
+A list that contains reasonable starting values.  Note that
 the parameters will be listed in the same order and with
 the same names as listed in \code{\link{srFuns}}.
 }
@@ -104,8 +104,8 @@ Bulletin 191, Bulletin of the Fisheries Research Board of
 Canada.
 }
 \seealso{
-\code{\link{srModels}} and \code{\link{srFuns}};
-\code{srSim} in \pkg{FSATeach}
+\code{\link{srModels}}, \code{\link{srFuns}}, and
+\code{\link{srSim}}.
 }
 \keyword{manip}
 

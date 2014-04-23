@@ -49,9 +49,9 @@
 #'length categories.
 #'@param startcat A single numeric that indicates the beginning of the first
 #'length category.
-#'@param right A logical indicating if the intervals should be closed on the
+#'@param right A logical that indicates if the intervals should be closed on the
 #'right (and open on the left) or vice versa.
-#'@param use.names A logical indicating whether the names for the values in 
+#'@param use.names A logical that indicates whether the names for the values in 
 #'\code{breaks} should be used for the levels in the new variable.  Will throw
 #'a warning and then use default levels if \code{TRUE} but \code{names(breaks)}
 #'is \code{NULL}.
@@ -60,7 +60,7 @@
 #'@param drop.levels A logical that indicates that the new variable should retain
 #'all levels indicated in \code{breaks} (\code{=FALSE}; default) or not.  Ignored
 #'if \code{as.fact=FALSE}.
-#'@param vname A string containing the name for the new length class variable.
+#'@param vname A string that contains the name for the new length class variable.
 #'@param \dots Not implemented.
 #'@return If the formula version of the function is used then a data frame will be
 #'returned with the a new variable, named as in \code{vname} or \code{LCat} if no

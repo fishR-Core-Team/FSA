@@ -4,7 +4,7 @@
 #'to \dQuote{adj} values for labeling a point.
 #'
 #'
-#'@param pos A character identifying a direction to place the label relative to
+#'@param pos A string that indicates a direction to place the label relative to
 #'a set of coordinates.
 #'@param offset A value that controls how far the label will be from the point
 #'(0=label starts on point).

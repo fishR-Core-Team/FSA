@@ -14,7 +14,7 @@
 #'that are named with a common prefix (e.g., \dQuote{anu}, \dQuote{inc}, or
 #'\dQuote{rad}) followed by a number that represents the age of the fish when that
 #'portion of the structure formed.  This prefix must be the same for all columns
-#'containing measurements and \bold{must not be found in any other variable (as
+#'that contains measurements and \bold{must not be found in any other variable (as
 #'a prefix or not)}.  For example, the first annular measurement should be in a
 #'variable named \dQuote{anu1}, the second annular measurement in
 #'\dQuote{anu2}, and so on.  The name of the prefix should be included in the
@@ -28,24 +28,24 @@
 #'included in the \code{id.var=} list, is of POSIX type.  A workaround for this
 #'error is to include the name of that variable in \code{drop=}.
 #'
-#'The name of the variable in the reshaped output data frame containing the
+#'The name of the variable in the reshaped output data frame that contains the
 #'measurements will be called the same as \code{in.pre} by default.  This can
 #'be changed by including a new name as a string in \code{val.name}.
 #'
-#'@param df A data frame containing the growth measurement data in
+#'@param df A data frame that contains the growth measurement data in
 #'one-fish-per-line format with specifs as defined in the details.
 #'@param in.pre A string that represents the common part of the measurement
 #'variable names.  See details.
 #'@param id.var A vector of variables in \code{df} that do not change.  See details.
-#'@param var.name A string indicating the name in the reshaped data frame that
+#'@param var.name A string that indicates the name in the reshaped data frame that
 #'represents the level of the measurement variables in the original data frame.
-#'@param val.name A string indicating the name in the reshaped data frame that
+#'@param val.name A string that indicates the name in the reshaped data frame that
 #'represents the measurements in the orginal data frame.
 #'@param last.plus A string that if non-null indicates that the last
 #'measurement represents \dQuote{plus growth} and not an actual increment.  If
 #'\dQuote{plus growth} is recorded then this string should indicate the name of
 #'the variable in \code{df} that contains the age of the fish at capture.
-#'@param na.rm A logical indicating whether \code{NA} values in the measurement
+#'@param na.rm A logical that indicates whether \code{NA} values in the measurement
 #'variables should be removed after reshaping.
 #'@param drop A vector of variable names to drop before reshaping.
 #'@return Returns a data frame in one-measurement-per-line format.  See details.

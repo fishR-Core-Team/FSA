@@ -4,7 +4,7 @@
 #'time.  The initial size of the cohort and the instantaneous mortality rate
 #'are controlled by slider bars.
 #'
-#'@param age.max A single numeric indicating the maximum age to use in the simulations.
+#'@param age.max A single numeric that indicates the maximum age to use in the simulations.
 #'@return None.  An interactive graphic connected to slider controls is produced.
 #'@keywords iplot
 #'@examples

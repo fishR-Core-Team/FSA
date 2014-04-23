@@ -45,9 +45,9 @@
 #'@param object An object saved from the \code{agePrecision} call (i.e., of
 #'class \code{agePrec}).
 #'@param what A string that indicates what type of summary to print.  See details.
-#'@param percent A logical indicating whether the agreement matrix should contain
+#'@param percent A logical that indicates whether the agreement matrix should contain
 #'percentages (\code{TRUE}; default) or raw numbers.  See details.
-#'@param digits A numeric indicating the minimum number of digits to print when
+#'@param digits A numeric that indicates the minimum number of digits to print when
 #'using \code{summary}.
 #'@param \dots Additional arguments for methods.
 #'@return \code{agePrec} returns a list with the following items:

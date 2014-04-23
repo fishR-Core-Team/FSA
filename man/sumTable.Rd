@@ -13,7 +13,7 @@ sumTable(formula, ...)
   the left-hand-side and one or two factor variables on the
   right-hand-side.}
 
-  \item{data}{An optional data frame containing the
+  \item{data}{An optional data frame that contains the
   variables in the formula.}
 
   \item{FUN}{A scalar function to compute the summary
@@ -21,8 +21,8 @@ sumTable(formula, ...)
   variable for all data subsets identified by the
   combination of the factor(s).  Defaults to \code{mean}.}
 
-  \item{digits}{A single numeric indicating the number of
-  digits to be used for the result.}
+  \item{digits}{A single numeric that indicates the number
+  of digits to be used for the result.}
 
   \item{\dots}{Other arguments to pass through to
   \code{FUN}.}
@@ -42,7 +42,7 @@ The formula must be of the form \code{quantitative~factor}
 or \code{quantitative~factor*factor2} where
 \code{quantitative} is the quantitative variable to
 construct the summaries for and \code{factor} or
-\code{factor2} are factor variables containing the levels
+\code{factor2} are factor variables that contain the levels
 for which separate summaries should be constructed.  If the
 variables on the right-hand-side are not factors then they
 will be coerced to be factors and a warning will be issued.

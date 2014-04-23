@@ -5,12 +5,12 @@
 gConvert(df, in.pre, in.var, type = c("inc", "rad"), out.pre = type)
 }
 \arguments{
-  \item{df}{A data frame containing the growth measurement
-  data in one-fish-per-line format.}
+  \item{df}{A data frame that contain the growth
+  measurement data in one-fish-per-line format.}
 
-  \item{in.pre}{A string indicating the prefix for all
-  variable names containing the growth measurement data in
-  the input data frame.  See details.}
+  \item{in.pre}{A string that indicates the prefix for all
+  variable names that contain the growth measurement data
+  in the input data frame.  See details.}
 
   \item{in.var}{A vector of column numbers or variable
   names that contain the growth measurement data in the
@@ -22,9 +22,9 @@ gConvert(df, in.pre, in.var, type = c("inc", "rad"), out.pre = type)
   incremental measurements.  If \code{"rad} the output data
   frame will contain radial measurements.}
 
-  \item{out.pre}{A string indicating the prefix to use for
-  the newly computed measurements in the output data frame.
-  Defaults to the same string as \code{type}.}
+  \item{out.pre}{A string that indicates the prefix to use
+  for the newly computed measurements in the output data
+  frame.  Defaults to the same string as \code{type}.}
 }
 \value{
 Returns a data frame with all columns, except for the
@@ -52,10 +52,10 @@ opposite data type given in \code{type} (i.e., that a
 conversion is needed).  It does not check to see if this is
 true.
 
-The columns containing the original measurement data can be
-entered in a variety of ways.  First, if all columns begin
-with the same prefix (and no other columns contain that
-prefix) then the prefix string can be entered into
+The columns that contain the original measurement data can
+be entered in a variety of ways.  First, if all columns
+begin with the same prefix (and no other columns contain
+that prefix) then the prefix string can be entered into
 \code{in.pre=}.  Second, a general sequence of column
 numbers can be entered into \code{in.var=} with the
 \code{#:#} form (if the columns are contiguous) or as a

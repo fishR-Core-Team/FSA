@@ -6,20 +6,20 @@ binCI(x, n, conf.level = 0.95, type = c("wilson", "exact", "asymptotic",
   "all"))
 }
 \arguments{
-  \item{x}{A single or vector of numbers representing the
+  \item{x}{A single or vector of numbers that contains the
   number of observed successes.}
 
-  \item{n}{A single or vector of numbers representing the
+  \item{n}{A single or vector of numbers that contains the
   sample size.}
 
-  \item{conf.level}{A single number indicating the level of
-  confidence (default is \code{0.95}).}
+  \item{conf.level}{A single number that indicates the
+  level of confidence (default is \code{0.95}).}
 
   \item{type}{A string that identifies the type of method
   to use for the calculations. See details.}
 }
 \value{
-A #x2 matrix containing the lower and upper confidence
+A #x2 matrix that contains the lower and upper confidence
 interval bounds as columns.
 }
 \description{

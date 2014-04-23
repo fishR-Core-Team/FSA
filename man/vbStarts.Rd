@@ -24,28 +24,28 @@ vbStarts(age, ...)
   observed ages and lengths can be found if a formula is
   used.}
 
-  \item{type}{A string indicating the parameterization of
-  the von Bertalanffy #'model.}
+  \item{type}{A string that indicates the parameterization
+  of the von Bertalanffy #'model.}
 
   \item{tFrancis}{A numerical vector of the three ages to
   be used in the Francis paramaterization.  See details.}
 
-  \item{methEV}{A string indicating how the lengths of the
-  two ages in the Schnute paramaterization or the three
+  \item{methEV}{A string that indicates how the lengths of
+  the two ages in the Schnute paramaterization or the three
   ages in the Francis paramaterization should be derived.
   See details.}
 
-  \item{meth0}{A string indicating how the t0 and L0
+  \item{meth0}{A string that indicates how the t0 and L0
   paramaters should be derived.  See details.}
 
-  \item{plot}{A logical indicating whether a plot of the
-  data with the model fit at the starting values
+  \item{plot}{A logical that indicates whether a plot of
+  the data with the model fit at the starting values
   superimposed should be created.}
 
   \item{\dots}{Further arguments passed to the methods.}
 }
 \value{
-A list containing reasonable starting values.  Note that
+A list that contains reasonable starting values.  Note that
 the parameters will be listed in the same order and with
 the same names as listed in \code{\link{vbFuns}}.
 }
@@ -144,8 +144,8 @@ Somers, I. F. 1988. On a seasonally oscillating growth
 function. Fishbyte 6(1):8-11.
 }
 \seealso{
-\code{\link{growthModels}}, \code{\link{vbFuns}}
-\code{growthModelSim} in \pkg{FSATeach} #'
+\code{\link{growthModels}}, \code{\link{vbFuns}}, and
+\code{\link{growthModelSim}}
 }
 \keyword{manip}
 

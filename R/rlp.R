@@ -40,35 +40,35 @@
 #'
 #'@aliases rlp plot.rlp anova.rlp coef.rlp predict.rlp fitPlot.rlp
 #'residPlot.rlp summary.rlp
-#'@param log.a A numeric vector containing the \eqn{log_{10}(a)} values for the
+#'@param log.a A numeric vector that contains the \eqn{log_{10}(a)} values for the
 #'population of length-weight regression equations.
-#'@param b A numeric vector containing the b values for the population of
+#'@param b A numeric vector that contains the b values for the population of
 #'length-weight regression equations
-#'@param min A number indicating the midpoint value of the smallest X-mm length category.
-#'@param max A number indicating the midpoint value of the largest X-mm length category.
-#'@param w A number indicating the widths for which to create length categories.
+#'@param min A number that indicates the midpoint value of the smallest X-mm length category.
+#'@param max A number that indicates the midpoint value of the largest X-mm length category.
+#'@param w A number that indicates the widths for which to create length categories.
 #'@param qtype Type of quantile method to use.  See details.
-#'@param probs A number indicating the probability of the quantile.  Must be between 0 and 1.
+#'@param probs A number that indicates the probability of the quantile.  Must be between 0 and 1.
 #'@param digits Number of digits to round predicted weights.
 #'@param x An object saved from the \code{rlp} call (i.e., of class \code{rlp}).
 #'@param object An object saved from \code{rlp()} or \code{emp()} (i.e., of
 #'class \code{rlp}) for the \code{anova}, \code{coef}, and \code{summary} functions..
-#'@param what A string indicating the type of plot to produce.  See details.
-#'@param col.pop A string indicating the type of color or palette to use for
+#'@param what A string that indicates the type of plot to produce.  See details.
+#'@param col.pop A string that indicates the type of color or palette to use for
 #'the population of length-weight regression lines.  See details.
-#'@param order.pop A logical indicating whether the populations should be plotted
+#'@param order.pop A logical that indicates whether the populations should be plotted
 #'from the smallest to largest weight in the initial length category.  See details.
-#'@param lwd.pop A numeric indicating the width of the line to use for the
+#'@param lwd.pop A numeric that indicates the width of the line to use for the
 #'population of length-weight regression lines.
-#'@param lty.pop A numeric indicating the type of line to use for the
+#'@param lty.pop A numeric that indicates the type of line to use for the
 #'population of length-weight regression lines.
-#'@param col.Ws A string indicating the type of color to use for the standard
+#'@param col.Ws A string that indicates the type of color to use for the standard
 #'length-weight regression line.
-#'@param lwd.Ws A numeric indicating the width of the line to use for the
+#'@param lwd.Ws A numeric that indicates the width of the line to use for the
 #'standard length-weight regression line.
-#'@param lty.Ws A numeric indicating the type of line to use for the standard
+#'@param lty.Ws A numeric that indicates the type of line to use for the standard
 #'length-weight regression line.
-#'@param pch A single numeric indicating what plotting characther codes should
+#'@param pch A single numeric that indicates what plotting characther codes should
 #'be used for the points in the fitPlot.
 #'@param col.pt A string used to indicate the color of the plotted points.
 #'@param xlab A label for the x-axis of fitPlot.
@@ -84,7 +84,7 @@
 #'\item \code{data.pred} is a matrix of the predicted weight at length for all populations.
 #'\item \code{data.reg} contains a data frame with the \code{prob}th quartile of
 #'predicted weights and the midpoint lengths.
-#'\item \code{Ws} is an \code{lm} object containing the results of the regression
+#'\item \code{Ws} is an \code{lm} object that contains the results of the regression
 #'of \eqn{log_{10}(wq)} on \eqn{log_{10}(midpoint length)}.
 #'}
 #'@seealso \code{\link{emp}}, \code{\link{FroeseWs}}, \code{\link{wsValidate}},

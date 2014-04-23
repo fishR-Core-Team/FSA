@@ -103,12 +103,12 @@
 #'@param digits The number of decimal digits to round the population estimates
 #'to.  If \code{incl.SE=TRUE} then SE will be rounded to one more decimal place
 #'then given in \code{digits}.
-#'@param incl.SE A logical indicating whether the results should include the SE
+#'@param incl.SE A logical that indicates whether the results should include the SE
 #'calculation.  See details.
-#'@param incl.all A logical indicating whether an overall population estimate
+#'@param incl.all A logical that indicates whether an overall population estimate
 #'should be computed when using a single census method that has been separated
 #'into sub-groups.  See details.
-#'@param incl.inputs A logical indicating whether a reminder of the inputted
+#'@param incl.inputs A logical that indicates whether a reminder of the inputted
 #'values and what type of method was used should be printed with the summary
 #'and confidence interval results.
 #'@param parm a specification of which parameters are to be given confidence
@@ -127,7 +127,7 @@
 #'@param col.pt a string used to indicate the color of the plotted points.
 #'@param xlab A label for the x-axis (\code{"Age"} is the default).
 #'@param ylab A label for the y-axis (\code{"log(Catch)"} is the default).
-#'@param loess A logical indicating if a loess smoother line is fit to and
+#'@param loess A logical that indicates if a loess smoother line is fit to and
 #'shown on plot.
 #'@param lty a numeric used to indicate the type of line used for the loess line.
 #'@param lwd a numeric used to indicate the line width of the loess line.
@@ -156,7 +156,7 @@
 #'\item labels Labels for the rows of summary matrix.
 #'}
 #'@seealso \code{\link{capHistSum}}, \code{\link{poiCI}}, \code{\link{binCI}}, \code{\link{hyperCI}}
-#'\code{\link{mrOpen}}; \code{mrClosed1Sim} in \pkg{FSATeach}; and \code{mrN.single} and
+#'\code{\link{mrOpen}}; \code{\link{mrClosed1Sim}}; and \code{mrN.single} and
 #'\code{schnabel} in \pkg{fishmethods},
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/MRClosed.pdf}
 #'@references Krebs, C.J.  1999. Ecological Methodology. Addison-Welsey

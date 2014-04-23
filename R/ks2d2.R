@@ -11,11 +11,11 @@
 #'@param y1 Vector of Y-coordinates for the first set of coordinates.
 #'@param x2 Vector of X-coordinates for the second set of coordinates.
 #'@param y2 Vector of Y-coordinates for the second set of coordinates.
-#'@param justD Logical indicating whether just the D test statistic (\code{=TRUE})
+#'@param justD Logical that indicates whether just the D test statistic (\code{=TRUE})
 #'or more information should be returned (default; see value section below).
-#'@param KSp Logical indicating whether the approximate p-value from the
+#'@param KSp Logical that indicates whether the approximate p-value from the
 #'Kolmogorov-Smirnov distribution should be returned.  NOT YET IMPLEMENTED.
-#'@param divbylen Logical indicating whether the proportion of values in each
+#'@param divbylen Logical that indicates whether the proportion of values in each
 #'quadrant is computed by dividing by the sample size (\code{=TRUE}, default)
 #'or by the number of points that could be assigned to quadrants.
 #'@param x An object returned from \code{d2ks}.
@@ -25,8 +25,8 @@
 #'plotting the two sets of coordinates.
 #'@param xlab A string to label the x-axis.
 #'@param ylab A string to label the y-axis.
-#'@param xlim A vector of length two indicating the limits over which to plot the x-axis.
-#'@param ylim A vector of length two indicating the limits over which to plot the y-axis.
+#'@param xlim A vector of length two that indicates the limits over which to plot the x-axis.
+#'@param ylim A vector of length two that indicates the limits over which to plot the y-axis.
 #'@param \dots Additiona arguments sent to the plot function.
 #'@return The main function returns a single numeric of the D test statistic if
 #'\code{justD=TRUE} or a list with the following items if \code{justD=FALSE}:

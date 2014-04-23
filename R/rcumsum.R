@@ -6,7 +6,7 @@
 #'An \code{NA} in the vector causes all returned values to be \code{NA}.
 #'
 #'@param x a numeric object.
-#'@return A numeric vector containing the reverse cumulative sums.
+#'@return A numeric vector that contains the reverse cumulative sums.
 #'@seealso \code{cumsum}.
 #'@export
 #'@keywords misc

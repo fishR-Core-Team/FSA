@@ -34,22 +34,22 @@ psdDataPrep(formula, data, psdname = "PSDcat", units = c("mm", "cm", "in"),
   new length category variable (defaults to
   \dQuote{PSDcat}).}
 
-  \item{units}{A string indicating the type of units used
-  for the length measurements. Choices are \code{mm} for
-  millimeters (DEFAULT), \code{cm} for centimeters, and
+  \item{units}{A string that indicates the type of units
+  used for the length measurements. Choices are \code{mm}
+  for millimeters (DEFAULT), \code{cm} for centimeters, and
   \code{in} for inches.}
 
-  \item{remove.substock}{A logical indicating whether to
-  exclude individual fish with length measurements that are
-  less than the \dQuote{stock} size for that species. See
-  details.}
+  \item{remove.substock}{A logical that indicates whether
+  to exclude individual fish with length measurements that
+  are less than the \dQuote{stock} size for that species.
+  See details.}
 
-  \item{remove.other}{A logical indicating whether to
+  \item{remove.other}{A logical that indicates whether to
   exclude all individuals for a fish species for which the
   five-cell length categories do not exist in
   \code{data(PSDlit)}. See details.}
 
-  \item{use.catnames}{A logical indicating whether the
+  \item{use.catnames}{A logical that indicates whether the
   categories returned in \code{psdname} are numeric
   (\code{=FALSE}) or word (\code{=TRUE}; default)
   representations of the five-cell categories.  See

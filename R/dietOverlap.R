@@ -14,9 +14,9 @@
 #'@param diet2 A numerical vector of \sQuote{amount} (count or biomass) of prey
 #'items for the second predator.  Items should be in the same order as amounts in
 #'\code{diet2} and categories in \code{prey}.
-#'@param type A single character indicating the type of diet overlap index to compute.
+#'@param type A single string that indicates the type of diet overlap index to compute.
 #'See details.
-#'@param prey An optional character vector containing the prey/diet category names.  If
+#'@param prey An optional string vector that contains the prey/diet category names.  If
 #'supplied the \code{prop} matrix in the returned list will use these prey categories as
 #'row names.  Items should be in the same order as items in \code{diet1} and \code{diet2}.  
 #'@param num1 A numerical vector of the number of individuals of the first predator
@@ -29,20 +29,20 @@
 #'@param N2 A single numeric value that is the total number of the second predator sampled.
 #'@param object A \code{dietOverlap} object.
 #'@param x A \code{dietOverlap} object.
-#'@param verbose A single logical indicating whether more verbose summary information
+#'@param verbose A single logical that indicates whether more verbose summary information
 #'should be printed.
-#'@param digits A single numeric indicating the number of digits to which the results
+#'@param digits A single numeric that indicates the number of digits to which the results
 #'should be printed.
 #'@param \dots Additional arguments for the S3 methods.  Not implemented for \code{summary}.
 #'
 #'@return The main function returns a list with the following three items:
 #'\itemize{
-#'\item type A single string indicating the type of diet overlap indice used.
+#'\item type A single string that indicates the type of diet overlap indice used.
 #'\item doi A single numeric with the diet overlap index value is returned for all
 #'\code{type}s except for \sQuote{Levins} where a numeric vector of length two is
 #'returned with the overlap of the first predator on the second as the first value
 #'and the overlap of the second predator on the first as the second value.
-#'\item propdiet A matrix containing the proportion of the total diet in each of the
+#'\item propdiet A matrix that contains the proportion of the total diet in each of the
 #'diet items for each predator.
 #'}
 #'@seealso \code{piankabio} in \pkg{pgirmess}.

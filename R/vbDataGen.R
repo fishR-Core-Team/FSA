@@ -37,7 +37,7 @@
 #'@note This function will produce warnings about the random number generators
 #'producing \code{NA}s.  This is a byproduct of the vectorization used in the
 #'algorithm but does not cause any problems with the output.
-#'@seealso \code{\link{vbComp}}, \code{growthModelSim} in \pkg{FSATeach}, and
+#'@seealso \code{\link{vbComp}}, \code{\link{growthModelSim}}, and
 #'\code{groupedData} in \pkg{nlme}
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffy.pdf},
 #'\url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffyExtra.pdf}

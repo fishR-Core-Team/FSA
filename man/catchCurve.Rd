@@ -51,7 +51,7 @@ catchCurve(x, ...)
   \item{ages2use}{A numerical vector of the ages that
   define the descending limb of the catch curve.}
 
-  \item{use.weights}{A logical indicating whether a
+  \item{use.weights}{A logical that indicates whether a
   weighted regression should be used.  See details.}
 
   \item{pos.est}{A string to identify where to place the
@@ -166,8 +166,8 @@ on the Tennessee River. North American Journal of Fisheries
 Management 18:998-1003.
 }
 \seealso{
-\code{\link{chapmanRobson}}, \code{catchCurveSim} in
-\pkg{FSATeach}, and \code{agesurv} and \code{agesurvcl} in
+\code{\link{chapmanRobson}}, \code{\link{catchCurveSim}},
+and \code{agesurv} and \code{agesurvcl} in
 \pkg{fishmethods}.
 }
 \keyword{hplot}

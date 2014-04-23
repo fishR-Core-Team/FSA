@@ -11,7 +11,7 @@ lwModelSim(x = NULL, y = NULL, wt.max = 50)
   \item{y}{A numeric vector of observed lengths.  See
   details.}
 
-  \item{wt.max}{A single numeric indicating the maximum
+  \item{wt.max}{A single numeric that indicates the maximum
   weight for the y-axis scale.}
 }
 \value{

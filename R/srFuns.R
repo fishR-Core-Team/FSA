@@ -2,10 +2,10 @@
 #'
 #'Creates a function for a specific stock-recruitment model parameterization.
 #'
-#'@param type A string indicating the type of the stock-recruitment model.
-#'@param param A numeric indicating the parameterization of the
+#'@param type A string that indicates the type of the stock-recruitment model.
+#'@param param A numeric that indicates the parameterization of the
 #'stock-recruitment model type.
-#'@param msg A logical indicating whether a message about the model and
+#'@param msg A logical that indicates whether a message about the model and
 #'parameter definitions should be output.
 #'@return A function that can be used to predict recruitment given a vector of
 #'stock sizes and values for the model parameters.  The result should be saved
@@ -15,7 +15,7 @@
 #'\code{msg=TRUE}).  The values for both parameters can be included as a vector
 #'of length two in the first parameter argument.
 #'@note Thanks to Greg Snow for a hint about returning the functions.
-#'@seealso \code{\link{srStarts}} and \code{\link{srModels}}; \code{srSim} in \pkg{FSATeach}
+#'@seealso \code{\link{srStarts}}, \code{\link{srModels}}, and \code{\link{srSim}}
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
 #'@references Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of
 #'exploited fish populations, Fisheries Investigations (Series 2), volume 19.

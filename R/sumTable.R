@@ -5,7 +5,7 @@
 #'The formula must be of the form \code{quantitative~factor} or
 #'\code{quantitative~factor*factor2} where \code{quantitative} is the
 #'quantitative variable to construct the summaries for and \code{factor} or
-#'\code{factor2} are factor variables containing the levels for which separate
+#'\code{factor2} are factor variables that contain the levels for which separate
 #'summaries should be constructed.  If the variables on the right-hand-side are
 #'not factors then they will be coerced to be factors and a warning will be issued.
 #'
@@ -16,11 +16,11 @@
 #'@aliases sumTable sumTable.formula
 #'@param formula A formula with a quantitative variable on the left-hand-side
 #'and one or two factor variables on the right-hand-side.
-#'@param data An optional data frame containing the variables in the formula.
+#'@param data An optional data frame that contains the variables in the formula.
 #'@param FUN A scalar function to compute the summary statistics which can be
 #'applied to the quantitative variable for all data subsets identified by the
 #'combination of the factor(s).  Defaults to \code{mean}.
-#'@param digits A single numeric indicating the number of digits to be used for the result.
+#'@param digits A single numeric that indicates the number of digits to be used for the result.
 #'@param \dots Other arguments to pass through to \code{FUN}.
 #'@return A one-way array of values if only one factor variable is supplied on
 #'the right-hand-side of the formula.  A two-way matrix of values if two factor

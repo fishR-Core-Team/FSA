@@ -60,30 +60,31 @@ fitPlot(object, ...)
   returned from fitting a model with either \code{lm} or
   \code{nls}).}
 
-  \item{interval}{In SLR or IVR, a string indicating
+  \item{interval}{In SLR or IVR, a string that indicates
   whether to plot confidence (\code{="confidence"}) or
   prediction (\code{="prediction"}) intervals.  For a SLR
   object both can be plotted by using \code{="both"}.  In
-  one-way or two-way ANOVA, a logical indicating whether
-  the confidence intervals should be plotted or not.}
+  one-way or two-way ANOVA, a logical that indicates
+  whether the confidence intervals should be plotted or
+  not.}
 
-  \item{conf.level}{A decimal numeric indicating the level
-  of confidence to use for confidence and prediction
+  \item{conf.level}{A decimal numeric that indicates the
+  level of confidence to use for confidence and prediction
   intervals.}
 
-  \item{plot.pts}{A logical indicating (\code{TRUE}
+  \item{plot.pts}{A logical that indicates (\code{TRUE}
   (default)) whether the points are plotted along with the
   fitted lines.  Set to \code{FALSE} to plot just the
   fitted lines.}
 
-  \item{pch}{A numeric or vector of numerics indicating
+  \item{pch}{A numeric or vector of numerics that indicates
   what plotting characther codes should be used.  In SLR
   this is the single value to be used for all points.  In
   IVR a vector is used to identify the characters for the
   levels of the second factor.}
 
   \item{col}{A vector of color names or numbers or the name
-  of a paletted (see details) indicating what color of
+  of a paletted (see details) that indicates what color of
   points and lines to use for the levels of the first
   factor in an IVR or the second factor in a two-way
   ANOVA.}
@@ -140,9 +141,9 @@ fitPlot(object, ...)
   \code{lineplot.CI} function of \pkg{sciplot} package.}
 
   \item{col.ci}{A vector of color names or numbers or the
-  name of a palette (see details) indicating what colors to
-  use for the confidence interval bars in one-way and
-  two-way ANOVAs.}
+  name of a palette (see details) that indicates what
+  colors to use for the confidence interval bars in one-way
+  and two-way ANOVAs.}
 
   \item{which}{A character string listing the factor in the
   two-way ANOVA for which the means should be calculated
@@ -164,29 +165,29 @@ fitPlot(object, ...)
   indicate the type of line to use for the box around the
   legend.  The default is to not plot a box.}
 
-  \item{d}{a data frame containing the variabls used in
+  \item{d}{A data frame that contains the variabls used in
   construction of the \code{nls} object.}
 
-  \item{jittered}{a logical indicating whether the points
-  should be jittered horizontally.}
+  \item{jittered}{A logical that indicates whether the
+  points should be jittered horizontally.}
 
   \item{legend.lbls}{A vector of strings that will be the
   labels for the legend in an nls fitPlot graphic.}
 
-  \item{trans.pt}{A numeric indicating how many points
+  \item{trans.pt}{A numeric that indicates how many points
   would be plotted on top of each other in a logistic
   regression before the \sQuote{point} would have the full
   \code{pt.col} color.  The reciprocal of this value is the
   alpha transparency value.}
 
-  \item{plot.p}{A logical indicating if the proportion for
-  categorized values of X are plotted (\code{TRUE};
+  \item{plot.p}{A logical that indicates if the proportion
+  for categorized values of X are plotted (\code{TRUE};
   default).}
 
-  \item{breaks}{A number indicating how many intervals over
-  which to compute proportions or a numeric vector
-  identifying the endpoints of the intervals over which to
-  compute proportions if \code{plot.p=TRUE}.}
+  \item{breaks}{A number that indicates how many intervals
+  over which to compute proportions or a numeric vector
+  that contains the endpoints of the intervals over which
+  to compute proportions if \code{plot.p=TRUE}.}
 
   \item{p.col}{A color to plot the proportions.}
 
@@ -205,18 +206,18 @@ fitPlot(object, ...)
   the default then the domain over which the logistic
   regression model is plotted will change.}
 
-  \item{yaxis1.ticks}{A numeric vector indicating where
+  \item{yaxis1.ticks}{A numeric vector that indicates where
   tick marks should be placed on the left y-axis (for the
   proportion of \sQuote{successes}) for the logistic
   regression plot.}
 
-  \item{yaxis1.lbls}{A numeric vector indicating labels for
-  the tick marks on the left y-axis (for the proportion of
-  \sQuote{successes}) for the logistic regression plot.}
+  \item{yaxis1.lbls}{A numeric vector that indicates labels
+  for the tick marks on the left y-axis (for the proportion
+  of \sQuote{successes}) for the logistic regression plot.}
 
-  \item{yaxis2.show}{A logical indicating whether the right
-  y-axis should be created (\code{=TRUE}; default) or not
-  for the logistic regression plot.}
+  \item{yaxis2.show}{A logical that indicates whether the
+  right y-axis should be created (\code{=TRUE}; default) or
+  not for the logistic regression plot.}
 
   \item{\dots}{Other arguments to be passed to the plot
   functions.}

@@ -32,14 +32,14 @@
 #'Note that this formula can only contain one variable.
 #'@param data A data.frame that minimally contains the length measurements given
 #'in the variable in the \code{formula}.
-#'@param oldnames A vector of strings containing names in \code{cspp} that the
+#'@param oldnames A vector of strings that contains names in \code{cspp} that the
 #'the user wants to change to the names found in \code{newnames}.  See details.
 #'@param newnames A vector of strings that will be the new names in the new \code{nspp}
 #'variable for the species names found in \code{oldnames}.  See details.
 #'@param nspp A string that will be the name of the new \dQuote{species} variable
 #'in the returned data frame.  The default is to append a \dQuote{1} to the original
 #'variable name in \code{cspp}.
-#'@param doCapFirst A single character indicating whether the resulting names in 
+#'@param doCapFirst A string that indicates whether the resulting names in 
 #'\code{nspp} should have \code{all} (the default) or only the \code{first} word
 #'of the name capitalized.  Using \code{none} will keep the capitalization of the
 #'species name as in the original data frame.  See details.

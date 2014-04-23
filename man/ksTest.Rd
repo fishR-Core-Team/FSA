@@ -24,16 +24,16 @@ ksTest(x, ...)
   \item{\dots}{Parameters of the distribution specified (as
   a character string) by \code{y}.}
 
-  \item{alternative}{A string indicating the alternative
-  hypothesis.  See \code{?ks.test}.}
+  \item{alternative}{A string that indicates the
+  alternative hypothesis.  See \code{?ks.test}.}
 
-  \item{exact}{\code{NULL} or a logical indicating whether
-  an exact p-value should be computed. See \code{?ks.test}.
-  Not available if ties are present, nor for the one-sided
-  two-sample case.}
+  \item{exact}{\code{NULL} or a logical that indicates
+  whether an exact p-value should be computed. See
+  \code{?ks.test}.  Not available if ties are present, nor
+  for the one-sided two-sample case.}
 
-  \item{data}{Data frame containing the variables in the
-  formula for \code{x}.}
+  \item{data}{A data frame that contains the variables in
+  the formula for \code{x}.}
 }
 \value{
 See \code{?ks.test}.

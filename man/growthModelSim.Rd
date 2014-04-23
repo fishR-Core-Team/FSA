@@ -8,22 +8,22 @@ growthModelSim(type = c("vbTypical", "vbOriginal", "vbGalucciQuinn",
   max.len = 500, max.wt = 500)
 }
 \arguments{
-  \item{type}{A single character string identifying which
-  growth model to use.  See details.}
+  \item{type}{A single character string that indicates
+  which growth model to use.  See details.}
 
-  \item{x}{An optional vector containing observed ages or a
-  formula.  See details.}
+  \item{x}{An optional vector that contains observed ages
+  or a formula.  See details.}
 
-  \item{y}{An optional vector containing observed lengths.
-  See details.}
+  \item{y}{An optional vector that contains observed
+  lengths.  See details.}
 
   \item{data}{A data frame from which the variables in the
   formula should be drawn.}
 
-  \item{max.len}{A single numeric indicating the maximum
-  length to use in the simulations.}
+  \item{max.len}{A single numeric that indicates the
+  maximum length to use in the simulations.}
 
-  \item{max.wt}{A single numeric indicating the maximum
+  \item{max.wt}{A single numeric that indicates the maximum
   weight to use in the simulations (only used of
   \code{type=} \code{"vbTypicalW"} or
   \code{"vbOriginalW"}.}

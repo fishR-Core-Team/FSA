@@ -6,9 +6,9 @@ gReshape(df, in.pre, id.var, var.name = "prvAge", val.name = in.pre,
   last.plus = NULL, na.rm = TRUE, drop = NULL)
 }
 \arguments{
-  \item{df}{A data frame containing the growth measurement
-  data in one-fish-per-line format with specifs as defined
-  in the details.}
+  \item{df}{A data frame that contains the growth
+  measurement data in one-fish-per-line format with specifs
+  as defined in the details.}
 
   \item{in.pre}{A string that represents the common part of
   the measurement variable names.  See details.}
@@ -16,11 +16,11 @@ gReshape(df, in.pre, id.var, var.name = "prvAge", val.name = in.pre,
   \item{id.var}{A vector of variables in \code{df} that do
   not change.  See details.}
 
-  \item{var.name}{A string indicating the name in the
+  \item{var.name}{A string that indicates the name in the
   reshaped data frame that represents the level of the
   measurement variables in the original data frame.}
 
-  \item{val.name}{A string indicating the name in the
+  \item{val.name}{A string that indicates the name in the
   reshaped data frame that represents the measurements in
   the orginal data frame.}
 
@@ -31,7 +31,7 @@ gReshape(df, in.pre, id.var, var.name = "prvAge", val.name = in.pre,
   variable in \code{df} that contains the age of the fish
   at capture.}
 
-  \item{na.rm}{A logical indicating whether \code{NA}
+  \item{na.rm}{A logical that indicates whether \code{NA}
   values in the measurement variables should be removed
   after reshaping.}
 
@@ -62,12 +62,12 @@ named with a common prefix (e.g., \dQuote{anu},
 \dQuote{inc}, or \dQuote{rad}) followed by a number that
 represents the age of the fish when that portion of the
 structure formed.  This prefix must be the same for all
-columns containing measurements and \bold{must not be found
-in any other variable (as a prefix or not)}.  For example,
-the first annular measurement should be in a variable named
-\dQuote{anu1}, the second annular measurement in
-\dQuote{anu2}, and so on.  The name of the prefix should be
-included in the \code{in.pre=} argument.
+columns that contains measurements and \bold{must not be
+found in any other variable (as a prefix or not)}.  For
+example, the first annular measurement should be in a
+variable named \dQuote{anu1}, the second annular
+measurement in \dQuote{anu2}, and so on.  The name of the
+prefix should be included in the \code{in.pre=} argument.
 
 If \code{id.var} is left blank then the vector of variables
 that will not be changed upon the reshaping will consist of
@@ -79,7 +79,7 @@ of POSIX type.  A workaround for this error is to include
 the name of that variable in \code{drop=}.
 
 The name of the variable in the reshaped output data frame
-containing the measurements will be called the same as
+that contains the measurements will be called the same as
 \code{in.pre} by default.  This can be changed by including
 a new name as a string in \code{val.name}.
 }

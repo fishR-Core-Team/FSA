@@ -18,31 +18,31 @@ wrAdd(formula, data, species = "List", units = c("metric", "English"),
   length and weight measurements given in the variables in
   the \code{formula}.}
 
-  \item{species}{A string containing the species name for
-  which to make computations.  See details.}
+  \item{species}{A string that contains the species name
+  for which to make computations.  See details.}
 
-  \item{units}{A string indicating whether the coefficients
-  for the (\code{"metric"} (DEFAULT; mm and g) or
-  \code{"English"} (in and lbs) units should be returned.
-  \code{"quadratic"} model should be returned.}
+  \item{units}{A string that indicates whether the
+  coefficients for the (\code{"metric"} (DEFAULT; mm and g)
+  or \code{"English"} (in and lbs) units should be
+  returned. \code{"quadratic"} model should be returned.}
 
-  \item{ref}{A numeric indicating which quantile the
+  \item{ref}{A numeric that indicates which quantile the
   equation should be returned for.  Note that the vast
   majority of equations only exist for the \code{75}th
   percentile (DEFAULT).}
 
-  \item{remove.submin}{A logical indicating how to handle
-  fish below the minimum length for which the standard
-  weight equation holds.  If \code{FALSE} (DEFAULT) then
-  the standard and relative weights for the \dQuote{small}
-  fish are replaced with \code{NA}.  If \code{TRUE} then
-  the \dQuote{small} fish are excluded from the returned
-  data frame.}
+  \item{remove.submin}{A logical that indicates how to
+  handle fish below the minimum length for which the
+  standard weight equation holds.  If \code{FALSE}
+  (DEFAULT) then the standard and relative weights for the
+  \dQuote{small} fish are replaced with \code{NA}.  If
+  \code{TRUE} then the \dQuote{small} fish are excluded
+  from the returned data frame.}
 
-  \item{wsname}{A string containing the name for the new
+  \item{wsname}{A string that contains the name for the new
   standard weight variable.}
 
-  \item{wrname}{A string containing the name for the new
+  \item{wrname}{A string that contains the name for the new
   relative weight variable.}
 }
 \value{

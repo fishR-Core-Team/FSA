@@ -28,13 +28,13 @@ psdCalc(formula, data, species = "List", units = c("mm", "cm", "in"),
   length measurements given in the variable in the
   \code{formula}.}
 
-  \item{species}{A string containing the species name for
-  which five-cell length categories exist.  See
+  \item{species}{A string that contains the species name
+  for which five-cell length categories exist.  See
   \code{\link{psdVal}} for details.}
 
-  \item{units}{A string indicating the type of units used
-  for the length measurements. Choices are \code{mm} for
-  millimeters (DEFAULT), \code{cm} for centimeters, and
+  \item{units}{A string that indicates the type of units
+  used for the length measurements. Choices are \code{mm}
+  for millimeters (DEFAULT), \code{cm} for centimeters, and
   \code{in} for inches.}
 
   \item{addLens}{A numeric vector that contains minimum
@@ -45,15 +45,15 @@ psdCalc(formula, data, species = "List", units = c("mm", "cm", "in"),
   the additional length categories added with
   \code{addLens}.  See \code{\link{psdVal}} for details.}
 
-  \item{conf.level}{A number indicating the level of
+  \item{conf.level}{A number that indicates the level of
   confidence to use for constructing confidence intervals
   (default is \code{0.95}).}
 
-  \item{digits}{A numeric indicating the number of decimals
-  to round the result to.}
+  \item{digits}{A numeric that indicates the number of
+  decimals to round the result to.}
 }
 \value{
-A matrix with columns containing the computed PSD-X value
+A matrix with columns that contain the computed PSD-X value
 and the associated confidence intervals.
 }
 \description{

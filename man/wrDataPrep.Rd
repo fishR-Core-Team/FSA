@@ -22,28 +22,28 @@ wrDataPrep(formula, data, units = c("metric", "English"),
   length and weight measurements and species names given in
   the variables in the \code{formula}.}
 
-  \item{units}{A string indicating whether the coefficients
-  for the (\code{"metric"} (DEFAULT; mm and g) or
-  \code{"English"} (in and lbs) units should be returned.
-  \code{"quadratic"} model should be returned.}
+  \item{units}{A string that indicates whether the
+  coefficients for the (\code{"metric"} (DEFAULT; mm and g)
+  or \code{"English"} (in and lbs) units should be
+  returned. \code{"quadratic"} model should be returned.}
 
-  \item{remove.submin}{A logical indicating how to handle
-  fish below the minimum length for which the standard
-  weight equation holds.  If \code{FALSE} (the default)
-  then the standard and relative weights for the
+  \item{remove.submin}{A logical that indicates how to
+  handle fish below the minimum length for which the
+  standard weight equation holds.  If \code{FALSE} (the
+  default) then the standard and relative weights for the
   \dQuote{small} fish are replaced with \code{NA}.  If
   \code{TRUE} then the \dQuote{small} fish are excluded
   from the returned data frame.}
 
-  \item{remove.other}{A logical indicating whether to
+  \item{remove.other}{A logical that indicates whether to
   exclude all individuals for a fish species for which the
   five-cell length categories do not exist in
   \code{data(RSDlit)}. See details.}
 
-  \item{wsname}{A string containing the name for the new
+  \item{wsname}{A string that contains the name for the new
   standard weight variable.}
 
-  \item{wrname}{A string containing the name for the new
+  \item{wrname}{A string that contains the name for the new
   relative weight variable.}
 }
 \value{

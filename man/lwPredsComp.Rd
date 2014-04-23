@@ -15,24 +15,24 @@ lwPredsComp(mdl, lens = NULL, quant.lens = c(0, 0.25, 0.5, 0.75, 1),
   explanatory covariate and an explanatory factor variable
   that describes the different groups.}
 
-  \item{lens}{A numeric indicating the lengths at which the
-  weights should be predicted.}
+  \item{lens}{A numeric that indicates the lengths at which
+  the weights should be predicted.}
 
-  \item{quant.lens}{A numeric indicating the quantiles of
-  length to be used for predicing weight.  This is ignored
-  if \code{lens} is non-null.}
+  \item{quant.lens}{A numeric that indicates the quantiles
+  of length to be used for predicing weight.  This is
+  ignored if \code{lens} is non-null.}
 
   \item{xlab}{A string for labelling the x-axis.}
 
   \item{ylab}{A string for labelling the y-axis.}
 
-  \item{interval}{A string indicating whether to plot
+  \item{interval}{A string that indicates whether to plot
   confidence (\code{="confidence"}), prediction
   (\code{="prediction"}), or both (\code{="both"})
   intervals.}
 
-  \item{center.value}{A numeric indicating the value of log
-  length used when centering the log length data.}
+  \item{center.value}{A numeric that indicates the value of
+  log length used when centering the log length data.}
 
   \item{ylim}{A numeric of length two that indicates the
   limits of the y-axis to be used for each plot.  If null
@@ -46,14 +46,14 @@ lwPredsComp(mdl, lens = NULL, quant.lens = c(0, 0.25, 0.5, 0.75, 1),
   confidence interval lines and the prediction interval and
   mean connection lines will be one less than this value.}
 
-  \item{connect.mean}{A logical indicating whether the
+  \item{connect.mean}{A logical that indicates whether the
   means should be connected with a line or not.}
 
-  \item{rows}{A numeric containing the number of rows to
+  \item{rows}{A numeric that contains the number of rows to
   use on the graphic.}
 
-  \item{cols}{A numeric containing the number of columns to
-  use on the graphic.}
+  \item{cols}{A numeric that contains the number of columns
+  to use on the graphic.}
 
   \item{\dots}{Other arguments to pass through to the
   \code{hist} function.}

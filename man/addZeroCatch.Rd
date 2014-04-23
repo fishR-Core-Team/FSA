@@ -5,22 +5,22 @@
 addZeroCatch(df, eventvar, specvar, idvar = NULL, zerovar = NULL)
 }
 \arguments{
-  \item{df}{A data frame containing the capture summary
+  \item{df}{A data frame that contains the capture summary
   data as described in the details.}
 
-  \item{eventvar}{A string indicating the variable that
-  identifies unique capture events.}
+  \item{eventvar}{A string for the variable that identifies
+  unique capture events.}
 
-  \item{specvar}{A string indicating the variable that
-  identifies the species captured.}
+  \item{specvar}{A string for the variable that identifies
+  the species captured.}
 
-  \item{idvar}{A string or vector of strings indicating the
+  \item{idvar}{A string or vector of strings for the
   variable(s) that are common to a unique capture event and
   should be repeated for each zero row added to the data
   frame (e.g., dates, gear type, etc.).  See details}
 
-  \item{zerovar}{A string or vector of strings indicating
-  the variable(s) that should be set equal to zero.  See
+  \item{zerovar}{A string or vector of strings for the
+  variable(s) that should be set equal to zero.  See
   details.}
 }
 \value{
@@ -38,16 +38,16 @@ capture events where a species was not observed).
 The data frame in \code{df} must contain a column that
 identifies a unique capture event (given to
 \code{eventvar}), a column with the name of the species
-captured (given to \code{specvar}), and a column containing
-the number of that species captured (potentially given to
-\code{zerovar}; see details). This function finds all event
-and species combinations where catch information does not
-exist and then creates a new data frame that contains a
-zero for the catch for all of these combinations.  This new
-data frame is then appended to the original data frame to
-construct a data frame that has complete catch observation
-data in it -- i.e., including zeroes for species that were
-not captured in some events.
+captured (given to \code{specvar}), and a column that
+contains the number of that species captured (potentially
+given to \code{zerovar}; see details). This function finds
+all event and species combinations where catch information
+does not exist and then creates a new data frame that
+contains a zero for the catch for all of these
+combinations.  This new data frame is then appended to the
+original data frame to construct a data frame that has
+complete catch observation data in it -- i.e., including
+zeroes for species that were not captured in some events.
 
 The original data frame (\code{df}) may also contain
 columns of data not discussed above.  For example, it may

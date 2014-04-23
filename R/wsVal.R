@@ -17,13 +17,13 @@
 #'exist in the database then a list of species will be printed.
 #'
 #'@aliases wsVal
-#'@param species A string containing the species name for which to find coefficients.
-#'@param units A string indicating whether the coefficients for the (\code{"metric"}
+#'@param species A string that contains the species name for which to find coefficients.
+#'@param units A string that indicates whether the coefficients for the (\code{"metric"}
 #'(DEFAULT; mm and g) or \code{"English"} (in and lbs) units should be returned.
-#'@param ref A numeric indicating which quantile the equation should be returned
+#'@param ref A numeric that indicates which quantile the equation should be returned
 #'for.  Note that the vast majority of equations only exist for the \code{75}th
 #'percentile (DEFAULT).
-#'@param simplify A logical indicating whether the \sQuote{units},
+#'@param simplify A logical that indicates whether the \sQuote{units},
 #'\sQuote{ref}, \sQuote{measure}, \sQuote{method}, \sQuote{comments}, and \sQuote{source}
 #' fields should be included (\code{=FALSE}) or not (\code{=TRUE}; DEFAULT).
 #'@return A data frame that consists of one line from \code{WSlit} related to

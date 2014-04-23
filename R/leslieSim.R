@@ -63,7 +63,7 @@
 #'a wide variety of model values.  However, it is highly likely that these ranges
 #'do not encompass every possible set of values that a user may wish to view.
 #'Thus, this simulation should not be used for research-grade simulations.
-#'@param type A single string indicating the type or version of simulation that
+#'@param type A single string that indicates the type or version of simulation that
 #'should be used.  See the details.
 #'@param ricker.mod A single logical value that indicates whether the modification
 #'proposed by Ricker should be used (\code{=TRUE}) or not (\code{=FALSE}, default).

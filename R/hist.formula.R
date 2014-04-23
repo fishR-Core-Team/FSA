@@ -5,7 +5,7 @@
 #'The formula must be of the form \code{~quantitative}, \code{quantitative~1},
 #'\code{quantitative~factor}, or \code{quantitative~factor*factor2} where
 #'\code{quantitative} is the quantitative variable to construct the histograms
-#'for and \code{factor} or \code{factor2} are factor variables containing the
+#'for and \code{factor} or \code{factor2} are factor variables that contain the
 #'levels for which separate histograms should be constructed.
 #'
 #'If the formula is of the form \code{~quantitative} or \code{quantitative~1} then
@@ -35,10 +35,10 @@
 #'so that right-open (left-closed) is the default.
 #'
 #'@param formula A formula of class(formula).  See details.
-#'@param data An optional data frame containing the variables in the model.
+#'@param data An optional data frame that contains the variables in the model.
 #'@param main A character string to be used as the main title only when a
 #'single histogram is produced.
-#'@param right A logical indicating if the histogram bins are right-closed
+#'@param right A logical that indicates if the histogram bins are right-closed
 #'(left open) intervals (\code{=TRUE}) or not (\code{=FALSE}; default).
 #'@param pre.main A character string to be used as a prefix for the main title.
 #'See details.
@@ -46,19 +46,19 @@
 #'quantitative variable in the formula.
 #'@param ylab A character label for the y-axis.  Defaults to
 #'\dQuote{Frequency}.
-#'@param same.breaks A logical indicating whether the same break positions
+#'@param same.breaks A logical that indicates whether the same break positions
 #'should be used on each histogram.  Defaults to \code{TRUE}.
-#'@param same.ylim A logicial indicating whether the same limits for the y-axis
+#'@param same.ylim A logicial that indicates whether the same limits for the y-axis
 #'should be used on each histogram.  Defaults to \code{TRUE}.  Ignored if
 #'\code{ylmts} is non-null.
 #'@param ymax A single value that sets the maximum y-axis limit for each
 #'histogram or a vector of length equal to the number of groups that sets the
 #'maximum y-axis limit for each histogram separately.
-#'@param col A string indicating the color for the bars on the histogram.  Defaults
+#'@param col A string that indicates the color for the bars on the histogram.  Defaults
 #'to a light shade of gray (i.e., \code{"gray90"}).
-#'@param nrow A numeric containing the number of rows to use on the graphic.
-#'@param ncol A numeric containing the number of columns to use on the graphic.
-#'@param byrow A logical indicating if the histograms should fill rows first
+#'@param nrow A numeric that contains the number of rows to use on the graphic.
+#'@param ncol A numeric that contains the number of columns to use on the graphic.
+#'@param byrow A logical that indicates if the histograms should fill rows first
 #'(\code{=TRUE} or columns first (\code{=FALSE}).
 #'@param \dots Other arguments to pass through to the default \code{hist()}.
 #'@return Nothing is returned; however, a graphic is produced.

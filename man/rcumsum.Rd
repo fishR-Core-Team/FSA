@@ -8,7 +8,7 @@ rcumsum(x)
   \item{x}{a numeric object.}
 }
 \value{
-A numeric vector containing the reverse cumulative sums.
+A numeric vector that contains the reverse cumulative sums.
 }
 \description{
 Computes the reverse cumulative sum (i.e., the number that

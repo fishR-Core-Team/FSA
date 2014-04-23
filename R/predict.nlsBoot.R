@@ -13,10 +13,10 @@
 #'@aliases predict.nlsboot
 #'@param object An nlsBoot object saved from \code{nlsBoot()}.
 #'@param FUN The function to be applied.
-#'@param MARGIN A single numeric indicating the margin over which to apply the function.
+#'@param MARGIN A single numeric that indicates the margin over which to apply the function.
 #'\code{MARGIN=1} will apply to each row and is the default.
 #'@param conf.level A level of confidence as a proportion.
-#'@param digits A single numeric indicating the number of digits for the result.
+#'@param digits A single numeric that indicates the number of digits for the result.
 #'@param \dots Additional arguments for \code{apply()}.
 #'@return A matrix with one row and three columns with the first column holding
 #'the predicted value (i.e., the median prediction) and the last two columns

@@ -13,7 +13,7 @@
 #'given in \code{type} (i.e., that a conversion is needed).  It does not check
 #'to see if this is true.
 #'
-#'The columns containing the original measurement data can be entered in a
+#'The columns that contain the original measurement data can be entered in a
 #'variety of ways.  First, if all columns begin with the same prefix (and no
 #'other columns contain that prefix) then the prefix string can be entered into
 #'\code{in.pre=}.  Second, a general sequence of column numbers can be entered
@@ -30,17 +30,17 @@
 #'\code{out.pre=} was changed from the default.  This function assumes that the
 #'measurements start with age-1.
 #'
-#'@param df A data frame containing the growth measurement data in
+#'@param df A data frame that contain the growth measurement data in
 #'one-fish-per-line format.
-#'@param in.pre A string indicating the prefix for all variable names
-#'containing the growth measurement data in the input data frame.  See details.
+#'@param in.pre A string that indicates the prefix for all variable names
+#'that contain the growth measurement data in the input data frame.  See details.
 #'@param in.var A vector of column numbers or variable names that contain the
 #'growth measurement data in the input data frame.  See details.
 #'@param type A string that identifies the output format data type (i.e., the
 #'format to convert to).  If \code{"inc} (the default) the output data frame
 #'will be incremental measurements.  If \code{"rad} the output data frame will
 #'contain radial measurements.
-#'@param out.pre A string indicating the prefix to use for the newly computed
+#'@param out.pre A string that indicates the prefix to use for the newly computed
 #'measurements in the output data frame.  Defaults to the same string as \code{type}.
 #'@return Returns a data frame with all columns, except for the \code{in.var}
 #'columns, from the input data frame retained as the left-most columns in the

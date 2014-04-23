@@ -51,7 +51,7 @@
 #'Individual t-tests to determine if the mean row-variables ages at a particular
 #'age of the column-variable (e.g., is the mean row-variable age at column-variable
 #'age-3 statistically equal to 3?) are constructed with \code{what="bias"} in 
-#'\code{summary}.  The results provide a column indicating whether the difference
+#'\code{summary}.  The results provide a column that indicates whether the difference
 #'is significant or not as determined by adjusted p-value from the t-test and using
 #'the signficance level provided in \code{sig.level} (defaults to 0.05).  Similar
 #'results for the difference in ages (e.g., is the mean row-variable age minus
@@ -68,7 +68,7 @@
 #'See description for \code{formula} and details.
 #'@param col.lab A string that contains a label for the column age assignments.
 #'@param row.lab A string that contains a label for the row age assignments.
-#'@param method A string indicating which method to use when adjusting p-values
+#'@param method A string that indicates which method to use when adjusting p-values
 #'for multiple comparisons.
 #'@param sig.level A value to be used for determining whether a p-value suggests
 #'a significant result or not.  The confidence level used in \code{plot} is 1-\code{sig.level}.
@@ -78,13 +78,13 @@
 #'@param x An object saved from the \code{ageBias} call (i.e., of class \code{ageBias}).
 #'@param what A string that indicates what type of summary to print or plot to
 #'construct.  See details.
-#'@param difference A logical indicating whether or not the difference between the
+#'@param difference A logical that indicates whether or not the difference between the
 #'two ageing structures should be used or not.  See details.
-#'@param zero.print A string indicating what should be printed in place of the
+#'@param zero.print A string that indicates what should be printed in place of the
 #'zeroes on an age-agreement table.  The default is to print a single dash.
-#'@param digits A numeric indicating the minimum number of digits to print when
+#'@param digits A numeric that indicates the minimum number of digits to print when
 #'showing \code{what="bias"} or \code{what="diff.bias"} in \code{summary}.
-#'@param flip.table A logical indicating whether the age-agreement table should
+#'@param flip.table A logical that indicates whether the age-agreement table should
 #'be \sQuote{flipped} (i.e., rows are reversed so that the younger ages are at
 #'the bottom of the table).  This makes the table more directly comparable to the
 #'age-bias plot.
@@ -137,13 +137,13 @@
 #'  \item agree The age-agreement table.
 #'  \item bias A data.frame that contains the bias statistics.
 #'  \item bias.diff A data.frame that contains the bias statistics for the differences.
-#'  \item col.lab A character string containing an optional label for the
-#'column structure or readings.
-#'  \item row.lab A character string containing an optional label for the
-#'row structure or readings.
+#'  \item col.lab A string that contains an optional label for the column structure
+#'   or readings.
+#'  \item row.lab A string that contains an optional label for the row structure
+#'   or readings.
 #'}
 #'
-#'The \code{summary} function will return a data frame containing the symmetry test
+#'The \code{summary} function will return a data frame that contains the symmetry test
 #'results if \code{what="symmetry"}, \code{what="Bowkers"}, \code{what="McNemars"},
 #'or \code{what="EvansHoenig"}.  The \code{plot} function do not return anything.
 #'

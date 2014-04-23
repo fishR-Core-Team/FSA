@@ -29,7 +29,7 @@
 #'
 #'Another common format for capture histories is the \sQuote{'event'} format.  
 #'This format consists of a column that corresponds to the individual animal
-#'(likely a tag number) and a column identifying the event in which this animal
+#'(likely a tag number) and a column that identifies the event in which this animal
 #'was observed.  For example, the situation from above would look like:
 #'
 #'\tabular{cc}{
@@ -48,7 +48,7 @@
 #'complex capture history information.  In the \sQuote{MARK} format the 0s and 1s
 #'of the capture histories are combined together as a string without any spaces
 #'and an ending semicolon.  Thus, the \sQuote{MARK} format has the capture history
-#'strings in one column with an additional column containing the frequency of
+#'strings in one column with an additional column that contains the frequency of
 #'individuals that exhibited the various capture histories.  For example, the
 #'situation from above would look like:
 #'
@@ -76,37 +76,37 @@
 #'
 #'@param df A data.frame that contains the capture histories (and, perhaps, other
 #'information).  See details.
-#'@param event A string or numeric indicating the column in \code{df} that
+#'@param event A string or numeric that indicates the column in \code{df} that
 #'contains the capture event information.  This argument is only used if
 #'\code{in.type=="event"}.
-#'@param id A string or numeric indicating the column in \code{df} that
+#'@param id A string or numeric that indicates the column in \code{df} that
 #'contains the unique identification for an individual.  This argument is only
 #'used if \code{in.type=="event"}.
-#'@param event.ord A string containing the list of ordered levels in the
+#'@param event.ord A string that contains the list of ordered levels in the
 #'\code{event} variable of \code{df} to be used when converting using
 #'\code{in.type=="event"}.
-#'@param mch A string or numeric indicating the column in \code{df} that
+#'@param mch A string or numeric that indicates the column in \code{df} that
 #'contains the MARK capture history codes.  This argument is only used if
 #'\code{in.type=="MARK"}.
-#'@param cols A string or numeric indicating the columns in \code{df} that
+#'@param cols A string or numeric that indicates the columns in \code{df} that
 #'contain the Rcapture or FSA capture history codes (each column is an
 #'individual sampling event -- see details).  This argument is only used if
 #'\code{in.type=="Rcapture"} or \code{in.type=="FSA"}.
-#'@param freq A string or numeric indicating the columns in \code{df} that
+#'@param freq A string or numeric that indicates the columns in \code{df} that
 #'contain the frequency of individuals corresponding to a MARK or Rcapture
 #'capture history.  This argument is only used if \code{in.type=="MARK"} or
 #'\code{in.type=="Rcapture"}.
-#'@param in.type A string indicating the type of capture history format to
+#'@param in.type A string that indicates the type of capture history format to
 #'convert FROM.
-#'@param out.type A string indicating the type of capture history format to
+#'@param out.type A string that indicates the type of capture history format to
 #'convert TO.
-#'@param var.lbls A vector of strings used to label the columns containing the
+#'@param var.lbls A vector of strings used to label the columns that contains the
 #'returned FSA or Rcapture capture histories.  This argument is only used if
 #'\code{in.type=="Rcapture"} or \code{in.type=="FSA"}.  If \code{var.lbls=NULL}
 #'or the length is different then the number of events then default labels using
 #'\code{var.lbls.pre} will be used.
 #'@param var.lbls.pre A string used as a prefix for the labels of the columns
-#'containing the returned FSA or Rcapture capture histories.  This prefix will
+#'that contains the returned FSA or Rcapture capture histories.  This prefix will
 #'be appended with a number corresponding to the sample event.  This argument
 #'is only used if \code{in.type=="Rcapture"} or \code{in.type=="FSA"} and will
 #'be ignored if a proper vector is given in \code{var.lbls}.

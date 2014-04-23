@@ -8,11 +8,11 @@
 #'
 #'@aliases Subset Subset.data.frame
 #'@param x A data frame.
-#'@param subset logical expression indicating elements or rows to keep: missing
+#'@param subset A logical expression that indicates elements or rows to keep: missing
 #'values are taken as false.
-#'@param select expression, indicating columns to select from a data frame.
+#'@param select An expression, that indicates columns to select from a data frame.
 #'@param drop passed on to \code{[} indexing operator.
-#'@param resetRownames a logical indicating if the rownames should be reset after
+#'@param resetRownames A logical that indicates if the rownames should be reset after
 #'the subsetting (\code{TRUE}; default).  Resetting rownames will simpley number
 #'the rows from 1 to the number of rows in the result.
 #'@param \dots further arguments to be passed to or from other methods.

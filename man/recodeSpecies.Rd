@@ -16,8 +16,8 @@ recodeSpecies(formula, data, oldnames = NULL, newnames = NULL,
   length measurements given in the variable in the
   \code{formula}.}
 
-  \item{oldnames}{A vector of strings containing names in
-  \code{cspp} that the the user wants to change to the
+  \item{oldnames}{A vector of strings that contains names
+  in \code{cspp} that the the user wants to change to the
   names found in \code{newnames}.  See details.}
 
   \item{newnames}{A vector of strings that will be the new
@@ -29,8 +29,8 @@ recodeSpecies(formula, data, oldnames = NULL, newnames = NULL,
   The default is to append a \dQuote{1} to the original
   variable name in \code{cspp}.}
 
-  \item{doCapFirst}{A single character indicating whether
-  the resulting names in \code{nspp} should have \code{all}
+  \item{doCapFirst}{A string that indicates whether the
+  resulting names in \code{nspp} should have \code{all}
   (the default) or only the \code{first} word of the name
   capitalized.  Using \code{none} will keep the
   capitalization of the species name as in the original

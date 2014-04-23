@@ -11,15 +11,15 @@
   \item{formula}{A formula of class(formula).  See
   details.}
 
-  \item{data}{An optional data frame containing the
+  \item{data}{An optional data frame that contains the
   variables in the model.}
 
   \item{main}{A character string to be used as the main
   title only when a single histogram is produced.}
 
-  \item{right}{A logical indicating if the histogram bins
-  are right-closed (left open) intervals (\code{=TRUE}) or
-  not (\code{=FALSE}; default).}
+  \item{right}{A logical that indicates if the histogram
+  bins are right-closed (left open) intervals
+  (\code{=TRUE}) or not (\code{=FALSE}; default).}
 
   \item{pre.main}{A character string to be used as a prefix
   for the main title. See details.}
@@ -30,31 +30,31 @@
   \item{ylab}{A character label for the y-axis.  Defaults
   to \dQuote{Frequency}.}
 
-  \item{same.breaks}{A logical indicating whether the same
-  break positions should be used on each histogram.
+  \item{same.breaks}{A logical that indicates whether the
+  same break positions should be used on each histogram.
   Defaults to \code{TRUE}.}
 
-  \item{same.ylim}{A logicial indicating whether the same
-  limits for the y-axis should be used on each histogram.
-  Defaults to \code{TRUE}.  Ignored if \code{ylmts} is
-  non-null.}
+  \item{same.ylim}{A logicial that indicates whether the
+  same limits for the y-axis should be used on each
+  histogram.  Defaults to \code{TRUE}.  Ignored if
+  \code{ylmts} is non-null.}
 
   \item{ymax}{A single value that sets the maximum y-axis
   limit for each histogram or a vector of length equal to
   the number of groups that sets the maximum y-axis limit
   for each histogram separately.}
 
-  \item{col}{A string indicating the color for the bars on
-  the histogram.  Defaults to a light shade of gray (i.e.,
-  \code{"gray90"}).}
+  \item{col}{A string that indicates the color for the bars
+  on the histogram.  Defaults to a light shade of gray
+  (i.e., \code{"gray90"}).}
 
-  \item{nrow}{A numeric containing the number of rows to
+  \item{nrow}{A numeric that contains the number of rows to
   use on the graphic.}
 
-  \item{ncol}{A numeric containing the number of columns to
-  use on the graphic.}
+  \item{ncol}{A numeric that contains the number of columns
+  to use on the graphic.}
 
-  \item{byrow}{A logical indicating if the histograms
+  \item{byrow}{A logical that indicates if the histograms
   should fill rows first (\code{=TRUE} or columns first
   (\code{=FALSE}).}
 
@@ -74,7 +74,7 @@ The formula must be of the form \code{~quantitative},
 \code{quantitative~factor*factor2} where
 \code{quantitative} is the quantitative variable to
 construct the histograms for and \code{factor} or
-\code{factor2} are factor variables containing the levels
+\code{factor2} are factor variables that contain the levels
 for which separate histograms should be constructed.
 
 If the formula is of the form \code{~quantitative} or

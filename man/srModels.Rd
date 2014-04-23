@@ -24,8 +24,8 @@ Show the stock-recruitment model formulas implemented in
 srModels()
 }
 \seealso{
-\code{\link{srFuns}} and \code{\link{srStarts}};
-\code{srSim} in \pkg{FSATeach}
+\code{\link{srFuns}}, \code{\link{srStarts}}, and
+\code{\link{srSim}}
 }
 \keyword{hplot}
 \keyword{manip}

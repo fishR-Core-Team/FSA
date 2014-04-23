@@ -15,7 +15,7 @@
 #'@param m Number of observed successes in the sample.
 #'@param conf.level Level of confidence to use for constructing confidence
 #'intervals (default is \code{0.95}).
-#'@return A 1x2 matrix containing the lower and upper confidence interval bounds.
+#'@return A 1x2 matrix that contains the lower and upper confidence interval bounds.
 #'@export
 #'@keywords htest
 #'@examples

@@ -10,48 +10,49 @@ growthRadPlot(df, indivs, in.pre = "rad", in.var, radcap = "radcap",
   ymar = 5, ...)
 }
 \arguments{
-  \item{df}{A data frame containing the radial growth
+  \item{df}{A data frame that contains the radial growth
   measurement data in one-fish-per-line format.}
 
-  \item{indivs}{A string containing the variable name or a
-  vector of strings containing the variable names that
+  \item{indivs}{A string that contains the variable name or
+  a vector of strings that contains the variable names that
   identify individual fish in the data frame.}
 
-  \item{in.pre}{A string indicating the prefix for all
-  variable names containing the radial growth measurement
-  data in the input data frame.}
+  \item{in.pre}{A string that indicates the prefix for all
+  variable names that contains the radial growth
+  measurement data in the input data frame.}
 
   \item{in.var}{A vector of column numbers or variable
   names that contain the radial growth measurement data in
   the input data frame.}
 
-  \item{radcap}{A string containing the variable name that
-  holds the total structure radius at the time of capture.}
+  \item{radcap}{A string that contains the variable name
+  that holds the total structure radius at the time of
+  capture.}
 
-  \item{agevar}{A string containing the variable name that
-  holds the assigned ages.}
+  \item{agevar}{A string that contains the variable name
+  that holds the assigned ages.}
 
-  \item{proportions}{A logical indicating whether raw
+  \item{proportions}{A logical that indicates whether raw
   radial measurements (\code{=FALSE}, default) or
   proportional (of the total radius) measurements are
   plotted.}
 
-  \item{numperpg}{A numeric indicating the number of
+  \item{numperpg}{A numeric that indicates the number of
   individuals to plot per page.}
 
   \item{xlab}{A string for labeling the x-axis.}
 
-  \item{lwd}{A numeric indicating the width of the lines
-  plotted.}
+  \item{lwd}{A numeric that indicates the width of the
+  lines plotted.}
 
-  \item{col}{A string indicating the color to use for the
-  plotted lines.}
+  \item{col}{A string that indicates the color to use for
+  the plotted lines.}
 
-  \item{pch}{A numeric indicating the plotting character
-  used to mark the annuli.  The defaul (\code{=124}) is a
-  vertical line.}
+  \item{pch}{A numeric that indicates the plotting
+  character used to mark the annuli.  The defaul
+  (\code{=124}) is a vertical line.}
 
-  \item{ymar}{A numeric indicating how wide the y-axis
+  \item{ymar}{A numeric that indicates how wide the y-axis
   margin should be for labelling the individuals.}
 
   \item{\dots}{Optional arguments sent to the

@@ -7,12 +7,12 @@ view(x, n = 6L, which = NULL)
 \arguments{
   \item{x}{A data frame or matrix.}
 
-  \item{which}{A numeric or string vector containing the
+  \item{which}{A numeric or string vector that contains the
   column numbers or names to display.  Defaults to showing
   all columns.}
 
-  \item{n}{A single numeric indicating the number of rows
-  to display.}
+  \item{n}{A single numeric that indicates the number of
+  rows to display.}
 }
 \value{
 No value is returned but a random (but sorted) selection of
