@@ -25,14 +25,14 @@ lencat(x, ...)
   length measurements given in the variable in the
   \code{formula}.}
 
-  \item{startcat}{A numeric that indicates the beginning of
-  the first length-class.}
-
-  \item{w}{A numeric indicating the width of length classes
-  to create.}
+  \item{w}{A single numeric that indicates the width of
+  length categories to create.}
 
   \item{breaks}{A numeric vector of lower values for the
   break points of the length categories.}
+
+  \item{startcat}{A single numeric that indicates the
+  beginning of the first length category.}
 
   \item{right}{A logical indicating if the intervals should
   be closed on the right (and open on the left) or vice

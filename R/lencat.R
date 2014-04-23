@@ -44,10 +44,11 @@
 #'that contains length measurements.  This formula can only contain one variable.
 #'@param data A data.frame that minimally contains the length measurements given
 #'in the variable in the \code{formula}.
-#'@param startcat A numeric that indicates the beginning of the first length-class.
-#'@param w A numeric indicating the width of length classes to create.
+#'@param w A single numeric that indicates the width of length categories to create.
 #'@param breaks A numeric vector of lower values for the break points of the
 #'length categories.
+#'@param startcat A single numeric that indicates the beginning of the first
+#'length category.
 #'@param right A logical indicating if the intervals should be closed on the
 #'right (and open on the left) or vice versa.
 #'@param use.names A logical indicating whether the names for the values in 

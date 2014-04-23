@@ -17,21 +17,28 @@
 #' \code{type="lines"} or \code{type="splines"}.
 #' @param leg.cex A numeric character expansion value for labels on the legend when
 #' \code{type="barplot"} or \code{type="area"} and \code{showLegend=TRUE}.
-#' @param lwd A numeric indicating the line width for when \code{type="lines"} or
+#' @param lwd A numeric that indicates the line width for when \code{type="lines"} or
 #' \code{type="splines"}.
-#' @param span A numeric indicating the span value to use in \code{loess} when
+#' @param span A numeric that indicates the span value to use in \code{loess} when
 #' \code{type="splines"}.
-#' @param bubble.grid A logical indicating whether a grid should be placed under
-#' the bubbles when \code{type="bubble"}.
-#' @param bubble.col A string indicating the color of the bubbles when \code{type="bubble"}.
-#' @param bubble.buf A single numeric that indicates the relative width of the bubbles
+#' @param grid A logical that indicates whether a grid should be placed under
+#' the bubbles when \code{type="bubble"} or a character or appropriate vector
+#' that identifies a color for the grid.  See examples.
+#' @param col A string indicating the color of the bubbles when \code{type="bubble"}.
+#' @param buf A single numeric that indicates the relative width of the bubbles
 #' when \code{type="bubble"}. A value of 0.5 would mean that two full-width bubbles
 #' would touch either in the x- or y-direction (i.e., this would represent half
 #' of the minimum of the physical distance between values one-unit apart on the
 #' x- and y-axes).  Set this to a value less than 0.5 so that the bubble do not
 #' touch (the default is 0.45).
 #' @param bubble.ylab A string for labeling the y-axis when \code{type="bubble"}.
-#' 
+#' @param add A logical indicating whether the data should be adding to an already
+#' existing plot.  May be useful for visually comparing age-length keys.  Only
+#' implemented when \code{type="bubble"}.
+#' @param xlim A numeric of length 2 that provide the limits for the x-axis.
+#' @param ylim A numeric of length 2 that provide the limits for the y-axis.
+#' @param \dots Additional arguments to pass to \code{plot}, \code{barplot}, or
+#' \code{stackpoly}.
 #' @return None, but a plot is constructed.
 #' @seealso \code{\link{ageKey}} and \code{\link{ageKeyPrep}}.
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeLengthKey.pdf}
@@ -53,12 +60,15 @@
 #'ageKeyPlot(WR.key,"splines")
 #'ageKeyPlot(WR.key,"lines")
 #'ageKeyPlot(WR.key,"bubble")
+#'ageKeyPlot(WR.key,"bubble",grid=FALSE)
+#'ageKeyPlot(WR.key,"bubble",grid="blue")
+#'ageKeyPlot(WR.key,"bubble",grid=rgb(0,0,0,0.2),col=rgb(0,0,0,0.5))
 #'
 ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
                       xlab="Length",ylab="Proportion",showLegend=FALSE,
                       lbl.cex=1.25,leg.cex=1,lwd=2,span=0.25,
-                      bubble.grid=TRUE,bubble.col="gray90",bubble.buf=0.45,
-                      bubble.ylab="Age") {
+                      grid=TRUE,col="gray80",buf=0.45,bubble.ylab="Age",add=FALSE,
+                      xlim=NULL,ylim=NULL,...) {
   ## INTERNAL -- Identify the ages and lengths in the key and the number of each
   agesANDlens <- function(key) {
     ages <- as.numeric(colnames(key))
@@ -115,6 +125,12 @@ ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
     # find minimum diff in X,Y inches per 1 concurrent set of values of user scale * the buffer
     min(diff(tmpX),diff(tmpY))*buf
   } ## end internal bubbleIn function
+  ## INTERNAL -- add bubles to an existing plot
+  addBubbles <- function(key,alsum,buf,col) {
+    tmp <- unmatKey(key,alsum)
+    with(tmp,symbols(len,age,circles=sqrt(tmp$prop),inches=bubbleIn(alsum,buf),
+                     bg=col,fg=rgb(0,0,0,0.5),add=TRUE))
+  } ## end internal addBubbles function
   
   ## Start Main Function
   op <- par(mar=c(3.25,3.25,0.7,0.7),mgp=c(1.7,0.5,0),tcl=-0.2)
@@ -131,7 +147,7 @@ ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
   line.clr <- chooseColors("rich",alsum$num.ages)
   if (type=="barplot") {
     if (showLegend) prepLayoutForLegend()
-    barplot(t(key),space=0,col=area.clr,xlab=xlab,ylab=ylab)
+    barplot(t(key),space=0,col=area.clr,xlab=xlab,ylab=ylab,...)
     if (showLegend) {
       addLegend(alsum,leg.cex)
     } else {
@@ -141,13 +157,15 @@ ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
     if (any(is.na(rowSums(key)))) stop("A stacked area plot cannot be constructed with a 'key' that has lengths with no ages.",call.=FALSE)
     else {
       prepLayoutForLegend()
-      plotrix::stackpoly(key,stack=TRUE,col=area.clr,axis4=FALSE,xlab=xlab,ylab=ylab,xaxt="n",xat=0)
+      plotrix::stackpoly(key,stack=TRUE,col=area.clr,axis4=FALSE,xlab=xlab,ylab=ylab,xaxt="n",xat=0,...)
       axis(1,1:alsum$num.lens,alsum$lens)
       addLegend(alsum,leg.cex)
     }
   } else if (type=="lines") {
     if (any(is.na(rowSums(key)))) warning("A stacked area plot cannot be constructed with a 'key' that has lengths with no ages.",call.=FALSE)
-    plot(NA,xlim=range(alsum$lens),ylim=c(0,1),xlab=xlab,ylab=ylab)
+    if (is.null(xlim)) xlim <- range(alsum$lens)
+    if (is.null(ylim)) ylim <- c(0,1)
+    plot(NA,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...)
     maxvals <- matrix(NA,nrow=alsum$num.ages,ncol=3)
     for(i in 1:alsum$num.ages) {
       lines(alsum$lens,key[,i],col=line.clr[i],lwd=lwd)
@@ -156,7 +174,9 @@ ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
     }
     addLabelsToLines(maxvals,lbl.cex)
   } else if(type=="splines") { # splines
-    plot(NA,xlim=range(alsum$lens),ylim=c(0,1),xlab=xlab,ylab=ylab)
+    if (is.null(xlim)) xlim <- range(alsum$lens)
+    if (is.null(ylim)) ylim <- c(0,1)
+    plot(NA,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...)
     plens <- seq(min(alsum$lens),max(alsum$lens),0.1)
     maxvals <- matrix(NA,nrow=alsum$num.ages,ncol=3)
     lens <- alsum$lens  # needed for making predictions below    
@@ -172,16 +192,23 @@ ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
     }
     addLabelsToLines(maxvals,lbl.cex)
   } else {# Bubble plot
-    alsum <- agesANDlens(key)
-    plot(NA,xlim=range(alsum$lens)+c(-1,1)*bubble.buf,ylim=range(alsum$ages)+c(-1,1)*bubble.buf,
-         xlab=xlab,ylab=bubble.ylab)
-    if (bubble.grid) {
-      abline(h=alsum$ages,col="gray70",lty=2)
-      abline(v=alsum$lens,col="gray70",lty=2)
+    # if grid is a logical and is TRUE then give default color, if FALSE then set to NULL
+    if (is.logical(grid)) {
+      if (grid) grid <- "gray80"
+      else grid <- NULL
+    } 
+    if (!add) {
+      # not adding to an existing bubble plot, so make the base plot
+      alsum <- agesANDlens(key)
+      if (is.null(xlim)) xlim <- range(alsum$lens)+c(-1,1)*buf
+      if (is.null(ylim)) ylim <- range(alsum$ages)+c(-1,1)*buf
+      plot(NA,xlim=xlim,ylim=ylim,xlab=xlab,ylab=bubble.ylab,...)
+      if (!is.null(grid)) {
+        abline(h=alsum$ages,col=grid,lty=2)
+        abline(v=alsum$lens,col=grid,lty=2)
+      }
     }
-    tmp <- unmatKey(key,alsum)
-    with(tmp,symbols(len,age,circles=sqrt(tmp$prop),inches=bubbleIn(alsum,bubble.buf),
-                     bg=bubble.col,add=TRUE))
+    addBubbles(key,alsum,buf,col)
   }
   layout(1)
   par(op)
