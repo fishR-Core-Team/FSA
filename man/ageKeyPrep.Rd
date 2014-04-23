@@ -85,6 +85,9 @@ ageKeyPrep(alk45)
 alk135
 ageKeyPrep(alk135)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{ageKey}}.
 }

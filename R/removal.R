@@ -61,6 +61,7 @@
 #'\item meth A label for the type of method used.
 #'\item est A vector that contains the estimates and standard errors for No and p.
 #'}
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{depletion}}.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl//Depletion.pdf}
 #'@references Carle, F.L. and M.R. Strub. 1978. A new method for estimating

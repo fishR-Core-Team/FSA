@@ -35,6 +35,7 @@
 #'to same color as the color of the point.
 #'@param lbl.cex A numberic representing the relative size of the point label.
 #'@return None.  However, a base graphic is modified.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{tictactoe}}, \code{\link{psdVal}}, \code{\link{binCI}}.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}
 #'@keywords aplot

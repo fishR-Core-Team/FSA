@@ -111,6 +111,9 @@ str(new4)
 # compare to tail(new1) to see slight differences due to conversion
 tail(new4)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{wsVal}}, \code{\link{wrDataPrep}}, and
 \code{\link{WSlit}}.

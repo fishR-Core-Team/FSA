@@ -62,6 +62,7 @@
 #'of the legend at the coordinates given in the vector of length 2.
 #'@param \dots Other arguments to the generic \code{plot} function.
 #'@return None.  However, a residual plot is produced.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@note This function is meant to allow newbie students the ability to easily
 #'construct residual plots for one-way ANOVA, two-way ANOVA, simple linear
 #'regression, and indicator variable regressions.  The plots can be constructed

@@ -61,7 +61,8 @@ plot(res1,xlab="Shad Densitiy",ylab="Sunfish Density")
 plot(res1p)
 }
 \author{
-Package author with significant help from Ben Bolker.
+Derek H. Ogle, \email{dogle@northland.edu}, with
+significant help from Ben Bolker.
 }
 \references{
 Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From

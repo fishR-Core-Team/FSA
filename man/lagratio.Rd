@@ -43,6 +43,9 @@ lagratio(x, differences = 2)
 lagratio(.leap.seconds)
 }
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{diff}
 }

@@ -6,6 +6,7 @@
 #'
 #'@param age.max A single numeric that indicates the maximum age to use in the simulations.
 #'@return None.  An interactive graphic connected to slider controls is produced.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@keywords iplot
 #'@examples
 #'if (interactive()) {

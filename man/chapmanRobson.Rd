@@ -136,6 +136,9 @@ ct  <- c(100,92,83,71,56,35, 1)
 cr3 <- chapmanRobson(age,ct,4:12)
 summary(cr3)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 D.G. Chapman and D.S. Robson. 1960. The analysis of a catch
 curve. Biometrics. 16:354-368.

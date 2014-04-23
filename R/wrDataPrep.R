@@ -60,6 +60,7 @@
 #'@return Returns a data frame that consists of the original data frame,
 #'\code{data} but with the new standard and relative weight variables appended and
 #'named as in \code{wsname} and \code{wrname}, respectively.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{recodeSpecies}}, \code{\link{psdDataPrep}}, \code{\link{wsVal}},
 #' \code{\link{wrAdd}}, and \code{\link{WSlit}}.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/RelativeWeight.pdf}.

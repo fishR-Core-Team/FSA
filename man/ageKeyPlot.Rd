@@ -109,6 +109,9 @@ ageKeyPlot(WR.key,"bubble",grid=FALSE)
 ageKeyPlot(WR.key,"bubble",grid="blue")
 ageKeyPlot(WR.key,"bubble",grid=rgb(0,0,0,0.2),col=rgb(0,0,0,0.5))
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{ageKey}} and \code{\link{ageKeyPrep}}.
 }

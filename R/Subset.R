@@ -17,6 +17,7 @@
 #'the rows from 1 to the number of rows in the result.
 #'@param \dots further arguments to be passed to or from other methods.
 #'@return A data frame with the subsetted rows and selected variables.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@note Newbie students using R expect that when a factor variable is subsetted
 #'with \code{subset} that any original levels that are no longer used after the
 #'subsetting will be ignored.  This, however, is not the case and often results

@@ -58,6 +58,7 @@
 #'five-cell categories.  See details.
 #'@return The original data frame in \code{data} but with the new variable \code{psdname}
 #'which contains the PSD-related length categories.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, 
 #' \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{tictactoeAdd}},
 #' \code{\link{lencat}}, \code{\link{rcumsum}}, \code{\link{recodeSpecies}},

@@ -314,6 +314,9 @@ plot(mr7,loess=TRUE)
 summary(mr7)
 confint(mr7)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Krebs, C.J.  1999. Ecological Methodology. Addison-Welsey
 Educational Publishing, second edition.

@@ -252,5 +252,8 @@ view(smb2)
 
 str(smb2)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \keyword{manip}
 

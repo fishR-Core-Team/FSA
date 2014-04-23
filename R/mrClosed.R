@@ -155,6 +155,7 @@
 #'\item N The estimated initial population size.
 #'\item labels Labels for the rows of summary matrix.
 #'}
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{capHistSum}}, \code{\link{poiCI}}, \code{\link{binCI}}, \code{\link{hyperCI}}
 #'\code{\link{mrOpen}}; \code{\link{mrClosed1Sim}}; and \code{mrN.single} and
 #'\code{schnabel} in \pkg{fishmethods},

@@ -64,6 +64,9 @@ htest(boo,"lag",50)
 htest(boo,"lag",50,alt="less")
 }
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{summary.nlsBoot} in \pkg{nlstools} and
 \code{\link{confint.nlsBoot}}.

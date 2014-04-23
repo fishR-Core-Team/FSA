@@ -146,6 +146,9 @@ d7 <- psdDataPrep(tl~species1,data=d7,units="mm")
 str(d7)
 view(d7)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{recodeSpecies}}, \code{\link{psdDataPrep}},
 \code{\link{wsVal}}, \code{\link{wrAdd}}, and

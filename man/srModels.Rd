@@ -23,6 +23,9 @@ Show the stock-recruitment model formulas implemented in
 \examples{
 srModels()
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{srFuns}}, \code{\link{srStarts}}, and
 \code{\link{srSim}}

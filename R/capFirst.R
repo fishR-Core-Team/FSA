@@ -7,6 +7,7 @@
 #'the first words should be capitalized.
 #'
 #'@return A single string with the first letter of the first or all words capitalized.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@export
 #'@keywords manip
 #'@examples

@@ -38,5 +38,8 @@ This algorithm is extremely experimental at this point.
 \examples{
 hyperCI(50,25,10)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \keyword{htest}
 

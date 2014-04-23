@@ -41,6 +41,7 @@
 #'set equal to zero.  See details.
 #'@return Returns a data frame of the same type as \code{df} but with rows of
 #'zero observation data appended and the columns slightly reorganized.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@export
 #'@keywords manip
 #'@examples

@@ -82,6 +82,9 @@ bcm1(lencap,rad,radcap)
 ( bcm2 <- bcFuns(type="FRALE") )
 bcm2(lencap,rad,radcap,2)  # demonstrated with a=2
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Vigliola, L. and M.G. Meekan.  2009.  The back-calculation
 of fish growth from otoliths.  pp. 174-211.  in B.S. Green

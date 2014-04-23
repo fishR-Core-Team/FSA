@@ -11,6 +11,7 @@
 #'@param conf.level A number that indicates the level of confidence to use for
 #'constructing confidence intervals (default is \code{0.95}).
 #'@return A 1x2 matrix that contains the lower and upper confidence interval bounds.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{pois.exact} in \pkg{epitools}.
 #'@references Garwood, F.  1936.  Fiducial limits for the Poisson distribution.
 #'Biometrika.  28(3/4):437-442.

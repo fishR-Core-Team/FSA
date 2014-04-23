@@ -52,6 +52,9 @@ example(pop.projection)
 popSizesPlot(p)
 }
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{pop.projection} and \code{stage.vectors.plot} in
 \pkg{popbio}.

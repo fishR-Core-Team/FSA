@@ -97,6 +97,9 @@ data(SMBassWB)
 walfordPlot(lencap~agecap,data=SMBassWB)
 chapmanPlot(lencap~agecap,data=SMBassWB)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{vbStarts}}
 }

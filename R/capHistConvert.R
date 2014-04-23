@@ -112,6 +112,7 @@
 #'be ignored if a proper vector is given in \code{var.lbls}.
 #'@return A data frame of the proper type given in \code{out.type} is returned.
 #'See details.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@note This function assumes that all unmarked captured fish are marked and
 #'returned to the population (i.e., no losses at the time of marking are
 #'allowed).  In addition it does not currently allow multiple frequencies as

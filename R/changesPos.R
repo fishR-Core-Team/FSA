@@ -8,6 +8,7 @@
 #'position is the first position that is different than the previous value).
 #'@return A vector of positions in \code{x} where the value differs from the value
 #'in the previous position.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@export
 #'@keywords manip
 #'@examples

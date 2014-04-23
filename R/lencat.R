@@ -68,6 +68,7 @@
 #'version of the function is used then a single vector will be returned.  The
 #'returned values will be numeric unless \code{breaks} is named and \code{use.names=TRUE}
 #'or if  \code{as.fact=TRUE}.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@keywords manip
 #'@examples
 #'# Create random lengths measured to nearest 0.1 unit

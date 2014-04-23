@@ -38,6 +38,7 @@
 #'@param \dots Further arguments passed to the methods.
 #'@return A list that contains reasonable starting values.  Note that the parameters will be
 #'listed in the same order and with the same names as listed in \code{\link{srFuns}}.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{srModels}}, \code{\link{srFuns}}, and \code{\link{srSim}}.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
 #'@references Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of

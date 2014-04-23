@@ -49,9 +49,6 @@ parameterization.
 The \sQuote{original} and \sQuote{vonBertalanffy} and the
 \sQuote{typical} and \sQuote{BevertonHolt} versions are
 synonomous.
-
-Thanks to Gabor Grothendieck for a hint about using
-\code{get()}.
 }
 \section{fishR vignette}{
   \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffy.pdf},
@@ -95,6 +92,10 @@ fit3 <- nls(tl~vb3(age,L1,L2,K,t1=0,t2=4),data=SpotVA1,
  start=vbStarts(tl~age,data=SpotVA1,type="Schnute"))
 summary(fit3,correlation=TRUE)
 curve(vb3(x,L1=coef(fit3),t1=c(0,4)),from=0,to=5,col="green",lwd=2,add=TRUE)
+}
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}, thanks to Gabor
+Grothendieck for a hint about using \code{get()}.
 }
 \references{
 Fabens, A. 1965. Properties and fitting of the von

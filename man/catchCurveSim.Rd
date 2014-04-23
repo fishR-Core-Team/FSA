@@ -180,6 +180,9 @@ catchCurveSim(v=c(0.1,0.3,0.6,1,1,0.8,0.7,0.6,0.5,0.4))
 
 } # end if interactive
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{catchCurve}}
 }

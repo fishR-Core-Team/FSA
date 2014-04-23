@@ -29,6 +29,7 @@
 #'@return Returns a matrix with two columns.  The first column contains the
 #'hypothesized value sent to this function and the second column is the
 #'corresponding p-value.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{summary.nlsBoot} in \pkg{nlstools} and \code{\link{confint.nlsBoot}}.
 #'@keywords htest
 #'@examples

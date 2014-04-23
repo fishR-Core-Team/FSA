@@ -23,6 +23,9 @@ Show the growth model formulas implemented in
 growthModels()
 vbModels()
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{vbFuns}}, \code{\link{vbStarts}}, and
 \code{\link{growthModelSim}}

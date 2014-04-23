@@ -34,6 +34,7 @@
 #'if it exists.  The \sQuote{stopping} point in the cobwebbing is shown as a red
 #'dot and the \sQuote{starting} point is shown, as long as \code{N2Ignore=0}, a 
 #'green dot.  The bottom panel is the stock size plotted against time.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{srModels}}, \code{\link{srFuns}}, and \code{\link{srSim}}.
 #'@keywords iplot
 #'@examples

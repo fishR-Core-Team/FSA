@@ -147,10 +147,9 @@
 #'results if \code{what="symmetry"}, \code{what="Bowkers"}, \code{what="McNemars"},
 #'or \code{what="EvansHoenig"}.  The \code{plot} function do not return anything.
 #'
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{agePrecision}} and \code{compare2} in \pkg{fishmethods}.
-#'
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeComparisons.pdf}
-#'
 #'@references Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  Graphical and
 #'statistical methods for determining the consistency of age determinations.
 #'Transactions of the American Fisheries Society, 124:131-138.  \url{http://www.bio.gc.ca/otoliths/publication-eng.php}

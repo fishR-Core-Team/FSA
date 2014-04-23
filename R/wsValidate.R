@@ -103,6 +103,7 @@
 #'was used.
 #'\item \code{lm.v} is the EmpQ regression model results.
 #'}
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{rlp}}, \code{\link{emp}}, \code{\link{FroeseWs}}, 
 #'\code{quantile} in \pkg{stats}
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/RelativeWeight.pdf}

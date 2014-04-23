@@ -61,6 +61,7 @@
 #'@return A list that contains reasonable starting values.  Note that the
 #'parameters will be listed in the same order and with the same names as listed
 #'in \code{\link{vbFuns}}.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@note The \sQuote{original} and \sQuote{vonBertalanffy} and the
 #'\sQuote{typical} and \sQuote{BevertonHolt} versions are synonomous.
 #'@seealso \code{\link{growthModels}}, \code{\link{vbFuns}}, and \code{\link{growthModelSim}}

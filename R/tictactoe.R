@@ -23,6 +23,7 @@
 #'@param bnd.lty A numeric designating the line type for the boundaries of the
 #'\dQuote{in balance} regions.
 #'@return None.  However, a graphic is produced.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{tictactoeAdd}}, \code{\link{psdVal}}, \code{\link{psdCalc}},\
 #' \code{\link{psdPlot}}, \code{\link{psdDataPrep}}, \code{\link{PSDlit}}.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}

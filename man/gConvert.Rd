@@ -86,6 +86,9 @@ head(SMBi3)
 SMBr1 <- gConvert(SMBi1,in.pre="inc",type="rad")
 head(SMBr1)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{gReshape}}
 }

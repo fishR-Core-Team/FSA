@@ -133,6 +133,7 @@
 #'created (\code{=TRUE}; default) or not for the logistic regression plot.
 #'@param \dots Other arguments to be passed to the plot functions.
 #'@return None.  However, a fitted-line plot is produced.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@note This function is meant to allow newbie students the ability to
 #'visualize the most common linear models found in an introductory or
 #'intermediate level undergraduate statistics course without getting

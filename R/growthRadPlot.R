@@ -40,6 +40,7 @@
 #'labelling the individuals.
 #'@param \dots Optional arguments sent to the \code{lines()} or \code{points()}.
 #'@return None.  However, a plot is produced.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{gReshape}}, \code{\link{gConvert}}
 #'@export
 #'@keywords manip

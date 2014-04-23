@@ -76,6 +76,9 @@ distribution with the \code{binCI} function.
 \examples{
 ## See example for tictactoe() function.
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{tictactoe}}, \code{\link{psdVal}},
 \code{\link{binCI}}.

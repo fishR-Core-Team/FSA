@@ -187,6 +187,9 @@ plot(lmb.rlp)
 fitPlot(lmb.rlp)
 residPlot(lmb.rlp)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Murphy, B.R., M.L. Brown, and T.A. Springer.  1990.
 Evaluation of the relative weight (Wr) index, with new

@@ -12,6 +12,7 @@
 #'adjustment values such that a label will be placed according to the
 #'\dQuote{directional} position.  The results from this function would be set
 #'equal to the \code{adj=} argument in \code{text()}.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{text}.
 #'@export
 #'@keywords manip

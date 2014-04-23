@@ -159,6 +159,9 @@ summary(cc2,type="lm")
 coef(cc2,type="lm")
 confint(cc2,type="lm")
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Maceina, M.J., and P.W. Bettoli.  1998.  Variation in
 largemouth bass recruitment in four mainstream impoundments

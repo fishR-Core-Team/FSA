@@ -90,6 +90,9 @@ plot(vbgrp)
 vbcap <- vbDataGen(10,Linf=30,K=0.2,t0=-0.2,dataType="atCapture")
 head(vbcap)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Vigliola, L. and M.G. Meekan.  2009.  The back-calculation
 of fish growth from otoliths.  Chapter 6 (pp. 174-211) in

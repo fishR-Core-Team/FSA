@@ -59,6 +59,9 @@ nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,start=list(B1=6,B2=7.2,B3=-1.45))
 #nl1.boot <- nlsBoot(nl1,niter=99)  # way too few
 #predict(nl1.boot,fnx,days=3)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{confint.nlsBoot}}, \code{summary.nlsBoot} in
 \pkg{nlstools}

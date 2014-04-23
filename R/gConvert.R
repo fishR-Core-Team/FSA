@@ -47,6 +47,7 @@
 #'output data frame.  The original data in the \code{in.var} columns converted
 #'to data type \code{type} form the remaining columns in the output data frame
 #'and are labeled as described in the details.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{gReshape}}
 #'@export
 #'@keywords manip

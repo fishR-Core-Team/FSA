@@ -34,6 +34,7 @@
 #'data.  See Box 2 in Vigliola and Meekan (2009).
 #'@param dataType The type of data frame that should be returned.  See details.
 #'@return A data frame.  See details.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@note This function will produce warnings about the random number generators
 #'producing \code{NA}s.  This is a byproduct of the vectorization used in the
 #'algorithm but does not cause any problems with the output.

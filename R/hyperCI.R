@@ -16,6 +16,7 @@
 #'@param conf.level Level of confidence to use for constructing confidence
 #'intervals (default is \code{0.95}).
 #'@return A 1x2 matrix that contains the lower and upper confidence interval bounds.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@export
 #'@keywords htest
 #'@examples

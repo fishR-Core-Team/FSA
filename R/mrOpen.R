@@ -71,6 +71,7 @@
 #'used.
 #'\item conf.level The provided level of confidence that was used.
 #'}
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{capHistSum}}, \code{\link{mrClosed}}
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/MROpen.pdf}
 #'@references Jolly, G.M. 1965. Explicit estimates from capture-recapture data

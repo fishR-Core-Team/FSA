@@ -148,6 +148,9 @@ d6 <- psdDataPrep(tl~species1,data=d2,units="mm",use.catnames=FALSE)
 str(d6)
 with(d6,table(species1,PSDcat))
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{psdVal}}, \code{\link{psdCalc}},
 \code{\link{psdPlot}}, \code{\link{PSDlit}},

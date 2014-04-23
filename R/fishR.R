@@ -4,6 +4,7 @@
 #'
 #'@param where A string that indicates a particular page on the fishR site to open.
 #'@return None, but a webpage will be opened in the default browswer.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@export
 #'@keywords misc
 #'@examples

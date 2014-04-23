@@ -122,6 +122,7 @@
 #'population size just prior to the final sample (N1; if \code{incl.final=TRUE}),
 #'and a green vertical line at the mean population estimate.  The vertical blue 
 #'and red lines may not be visible under some scenarios because of overprinting.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{mrClosed}}
 #'@keywords iplot
 #'@examples

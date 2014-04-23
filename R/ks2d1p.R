@@ -25,7 +25,7 @@
 #'with a vertical line.  The \code{print} function prints the results in a nice
 #'format).
 #'@note This function is experimental at best at this point.
-#'@author Package author with significant help from Ben Bolker.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}, with significant help from Ben Bolker.
 #'@seealso \code{\link{ks2d1}}
 #'@references Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From star
 #'charts to stoneflies: detecting relationships in continuous bivariate data.

@@ -35,5 +35,8 @@ capFirst("derek",words="first")
 # apply to all elements in a vector
 apply(matrix(vec),1,capFirst,words="first")
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \keyword{manip}
 

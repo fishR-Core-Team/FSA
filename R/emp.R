@@ -92,6 +92,7 @@
 #'regression was used.
 #'\item \code{Ws} is the Ws regression model results.
 #'}
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{rlp}}, \code{\link{FroeseWs}}, \code{\link{wsValidate}},
 #'\code{quantile} in \pkg{stats}
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/RelativeWeight.pdf}

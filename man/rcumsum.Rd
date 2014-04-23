@@ -22,6 +22,9 @@ An \code{NA} in the vector causes all returned values to be
 cumsum(1:10)
  rcumsum(1:10)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{cumsum}.
 }

@@ -25,6 +25,7 @@
 #'@param \dots Additional arguments to pass to \code{plot}.
 #'@return None.  However a plot of the hypothetical lengths-at-age for each
 #'species shown in the rows of \code{df} is produced.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{VBGMlit}}.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffy.pdf},
 #'\url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffyExtra.pdf} 

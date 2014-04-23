@@ -125,8 +125,9 @@
 #' or readings.
 #'}
 #'
-#'The \code{summary} and \code{plot} function do not return anything.
+#'The \code{summary} and \code{plot} functions do not return anything.
 #'
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeComparisons.pdf}
 #'@references Beamish, R.J. and D.A. Fournier.  1981.  A method for comparing
 #'the precision of a set of age determinations.  Canadian Journal of Fisheries

@@ -8,6 +8,7 @@
 #'@param n A single numeric that indicates the number of rows to display.
 #'@return No value is returned but a random (but sorted) selection of rows from
 #'the data frame is displayed.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@note If \code{n} is larger than the number of rows in \code{x} then \code{x}
 #'is displayed without randomizing the rows.
 #'@keywords manip

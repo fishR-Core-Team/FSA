@@ -112,6 +112,7 @@
 #'catch-at-age data for all current choices of parameters in the slider box.  The
 #'lines are plotted in the order of \dQuote{gray}, \dQuote{red}, \dQuote{blue} so,
 #'if any two are equal then the color first plotted will not be seen.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{catchCurve}}
 #'@keywords iplot
 #'@examples

@@ -61,6 +61,9 @@ head(SMBi1)
 SMBi1a <- addRadCap(SMBi1,in.pre="inc",var.name="radcap2")
 head(SMBi1a)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{gConvert}}, \code{\link{gReshape}}
 }

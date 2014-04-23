@@ -26,7 +26,7 @@
 #' with missing rows either deleted if they were at the beginning or end of the
 #' matrix or replaced with interpolated values (see details) if in the middle
 #' of the matrix.
-#' 
+#'@author Derek H. Ogle, \email{dogle@@northland.edu} 
 #'@seealso \code{\link{ageKey}}.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeLengthKey.pdf}
 #'@export

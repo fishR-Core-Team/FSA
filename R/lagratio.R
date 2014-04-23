@@ -13,6 +13,7 @@
 #'\sQuote{future} values.  See examples.
 #'@param \dots Additional arguments to \code{diff()}.
 #'@return A vector or matrix of lagged ratios.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{diff}
 #'@export
 #'@keywords manip

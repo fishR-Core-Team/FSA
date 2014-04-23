@@ -294,6 +294,9 @@ plot(ab1,what="sunflower",difference=TRUE)
 ## "Numbers" plot
 plot(ab1,what="number",col.ref="gray50")
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.
 Graphical and statistical methods for determining the

@@ -91,6 +91,9 @@ growthRadPlot(SMBassWB,c("yearcap","gear","fish"),in.pre="anu",radcap="radcap",
  agevar="agecap",ymar=6)
 }
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{gReshape}}, \code{\link{gConvert}}
 }

@@ -4,6 +4,7 @@
 #'
 #'@aliases fsaNews FSANews
 #'@return None.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@keywords manip
 #'@export fsaNews FSANews
 #'@examples

@@ -135,6 +135,9 @@ psdPlot(~yepmm,data=yepdf,species="Yellow perch",w=10,substock.col="gray90",stoc
 
 par(op)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{psdVal}}, \code{\link{psdCalc}},
 \code{\link{psdDataPrep}}, \code{\link{PSDlit}},

@@ -59,6 +59,9 @@ example(nlsBoot)
 confint(boo,conf.level=0.90)
 }
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{predict.nlsBoot}}, \code{summary.nlsBoot} in
 \pkg{nlstools}

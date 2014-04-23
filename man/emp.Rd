@@ -213,6 +213,9 @@ wae1$regdata
 wae1rq <- emp(WalleyeGerowLW,"popn","len","wt",min=155,max=955,cutoff.tail=FALSE,method="rq")
 coef(wae1rq)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Gerow, K.G., R.C. Anderson-Sprecher, and W.A. Hubert.
 2005.  A new method to compute standard-weight equations

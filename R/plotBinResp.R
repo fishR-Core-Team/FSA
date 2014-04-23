@@ -38,10 +38,10 @@
 #'created (\code{=TRUE}; default) or not.
 #'@param \dots Other arguments to be passed to the plot functions.
 #'@return None.  However, a plot is produced.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@note This function is meant to allow newbie students the ability to
 #'visualize the data corresponding to a binary logistic regression without
-#'getting \dQuote{bogged-down} in the gritty details of how to produce this
-#'plot.
+#'getting \dQuote{bogged-down} in the gritty details of how to produce this plot.
 #'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{fitPlot}} and \code{\link{cdplot}}.
 #'@keywords hplot models

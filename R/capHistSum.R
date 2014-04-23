@@ -19,6 +19,7 @@
 #'See details.
 #'@return A list is returned with the following two components if only two
 #'samples are provided.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'\itemize{
 #'\item \code{caphist} A vector summarizing the frequency of fish with each capture history.
 #'\item \code{sum} A data frame that contains the number of marked fish from the first 

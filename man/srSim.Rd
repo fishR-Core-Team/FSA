@@ -86,6 +86,9 @@ srSim(recruits~stock,data=CodNorwegian,type="Ricker",param=1)
 
 } # end if interactive
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{srModels}}
 }

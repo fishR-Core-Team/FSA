@@ -194,6 +194,9 @@ swvPvalue(0.000012345)
 swvPvalue(0.000012345,include.p=FALSE)
 swvPvalue(0.000012345,include.p=FALSE,latex=FALSE)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{formatC}, \code{Stangle}, \code{Sweave} in base R;
 \code{knitr} and \code{purl} in \pkg{knitr}; and

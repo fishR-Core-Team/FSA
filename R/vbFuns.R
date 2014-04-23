@@ -23,9 +23,10 @@
 #'first constant argument (i.e., \code{t1}).  If \code{simple=TRUE} then all
 #'parameters and constants must be declared individually.  In addition, if
 #'\code{simple=TRUE} then the resulting function is somewhat easier to read.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}, thanks to Gabor Grothendieck 
+#'for a hint about using \code{get()}.
 #'@note The \sQuote{original} and \sQuote{vonBertalanffy} and the
 #'\sQuote{typical} and \sQuote{BevertonHolt} versions are synonomous.
-#'@note Thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'@seealso \code{\link{vbComp}} and \code{\link{growthModelSim}}.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffy.pdf},
 #'\url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffyExtra.pdf}

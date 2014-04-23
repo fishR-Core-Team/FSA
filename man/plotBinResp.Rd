@@ -128,6 +128,8 @@ plotBinResp(fail~temperature,data=d,yaxis1.ticks=c(0,1),yaxis1.lbls=c(0,1))
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
+
+Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
 \code{\link{fitPlot}} and \code{\link{cdplot}}.

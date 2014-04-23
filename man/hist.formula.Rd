@@ -158,6 +158,9 @@ hist(Sepal.Length~Species*junk,data=iris,xlab="Sepal Length (cm)")
 ## Single histogram without grouping using formula notation
 hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",main="")
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{hist}, \code{multhist} in \pkg{plotrix}.
 }

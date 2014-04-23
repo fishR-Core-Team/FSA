@@ -117,7 +117,8 @@ plot(res1,xlim=c(-3,3),ylim=c(-3,3))
 ( res2 <- ks2d2(d1$x,d1$y,d2$x,d2$y,divbylen=FALSE) )
 }
 \author{
-Package author with significant help from Ben Bolker.
+Derek H. Ogle, \email{dogle@northland.edu}, with
+significant help from Ben Bolker.
 }
 \references{
 Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From

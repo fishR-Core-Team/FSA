@@ -28,6 +28,7 @@
 #'@param type A string that identifies the type of method to use for the calculations.
 #'See details.
 #'@return A #x2 matrix that contains the lower and upper confidence interval bounds as columns.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{binconf} in \pkg{Hmisc}, \code{bin.conf.int} in \pkg{epitools}, and
 #'\code{binom.conf.interval} in \pkg{UCS}.
 #'@references Agresti, A. and B.A. Coull.  1998.  Approximate is better than \dQuote{exact}

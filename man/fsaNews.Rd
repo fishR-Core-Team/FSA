@@ -15,5 +15,8 @@ Read news and changes in the \sQuote{FSA} package.
 fsaNews()
 FSANews()
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \keyword{manip}
 

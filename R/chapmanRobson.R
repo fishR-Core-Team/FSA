@@ -60,6 +60,7 @@
 #'\item T a numeric holding the intermediate calcualtion of T.  See references.
 #'\item est A 2x2 matrix that contains the estimates and standard errors for S and Z.
 #'}
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{catchCurve}}
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/CatchCurve.pdf}
 #'@references D.G. Chapman and D.S. Robson. 1960. The analysis of a catch

@@ -222,6 +222,9 @@ y <- c(7,runif(99))
 lma <- lm(y~x)
 residPlot(lma)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{residualPlots} and \code{outlierTest} in \pkg{car};
 \code{\link{fitPlot}}.

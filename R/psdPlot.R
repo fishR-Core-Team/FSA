@@ -48,6 +48,7 @@
 #'the legend text.
 #'@param \dots Arguments to be passed to the low-level plotting functions.
 #'@return None.  However, a graphic is produced.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdDataPrep}},
 #' \code{\link{PSDlit}}, \code{\link{lencat}}, \code{\link{tictactoe}},
 #' \code{\link{tictactoeAdd}}, \code{\link{lencat}}, and \code{\link{rcumsum}}.

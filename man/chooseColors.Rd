@@ -35,6 +35,9 @@ pie(rep(1,n), col=chooseColors("topo",n))
 pie(rep(1,n), col=chooseColors("gray",n))
 pie(rep(1,n), col=chooseColors("jet",n))
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{rich.colors}} in \pkg{gplots},
 \code{\link{cm.colors}}, \code{\link{heat.colors}},

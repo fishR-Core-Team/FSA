@@ -36,6 +36,7 @@
 #'@return None.  However a dynamic graphic connected to slider bar controls of the
 #'\bold{\sQuote{a}}, \bold{\sQuote{b}}, or \bold{\sQuote{Rp}} parameters specific
 #'to the chosen stock-recruit model.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{srModels}}
 #'@keywords iplot
 #'@examples

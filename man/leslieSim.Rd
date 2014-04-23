@@ -171,6 +171,9 @@ leslieSim(type="resampling")
 
 } # end if interactive
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{removal}}.
 }

@@ -172,6 +172,9 @@ fnl$No.LCI <- fnl$No-1.96*fnl$No.se
 fnl$No.UCI <- fnl$No+1.96*fnl$No.se
 fnl
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Carle, F.L. and M.R. Strub. 1978. A new method for
 estimating population size from removal data.  Biometrics,

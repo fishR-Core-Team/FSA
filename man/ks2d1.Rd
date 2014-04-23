@@ -98,7 +98,8 @@ data(Garvey1)
 plot(res4,xlab="Ameletus Numbers",ylab="Leuctra Numbers",col=rgb(0,0,0,0.1))
 }
 \author{
-Package author with significant help from Ben Bolker.
+Derek H. Ogle, \email{dogle@northland.edu}, with
+significant help from Ben Bolker.
 }
 \references{
 Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From

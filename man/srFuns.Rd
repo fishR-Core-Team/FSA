@@ -30,10 +30,6 @@ length two in the first parameter argument.
 Creates a function for a specific stock-recruitment model
 parameterization.
 }
-\note{
-Thanks to Greg Snow for a hint about returning the
-functions.
-}
 \section{fishR vignette}{
   \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
 }
@@ -63,6 +59,10 @@ r3s <- srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=3)
 fit2 <- nls(log(recruits)~log(r3(stock,a,Rp)),data=CodNorwegian,start=r3s)
 summary(fit2,correlation=TRUE)
 curve(r3(x,a=coef(fit2)[1],Rp=coef(fit2)[2]),from=0,to=200,col="blue",lwd=3,add=TRUE)
+}
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}.  Thanks to Greg
+Snow for a hint about returning the functions.
 }
 \references{
 Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of

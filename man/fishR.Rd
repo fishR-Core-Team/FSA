@@ -23,5 +23,8 @@ fishR("AIFFD")     # Analysis & Interpretation of Freshwater Fisheries Data page
 fishR("news")      # News page
 }
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \keyword{misc}
 

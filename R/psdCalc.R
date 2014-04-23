@@ -26,6 +26,7 @@
 #'@param digits A numeric that indicates the number of decimals to round the result to.
 #'@return A matrix with columns that contain the computed PSD-X value and the
 #'associated confidence intervals.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdDataPrep}},
 #' \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{tictactoeAdd}},
 #' \code{\link{lencat}}, and \code{\link{rcumsum}}.

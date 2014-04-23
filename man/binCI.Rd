@@ -61,6 +61,9 @@ binCI(7,20,type="all")
 ## Demonstrates use with multiple inputs
 binCI(c(7,10),c(20,30))
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Agresti, A. and B.A. Coull.  1998.  Approximate is better
 than \dQuote{exact} for interval estimation of binomial

@@ -152,6 +152,9 @@ dietOverlap(mndiet[mndiet$LCat=="350",3:4],prey=levels(mndiet$item),type="Schoen
 dietOverlap(mndiet[mndiet$LCat=="500",3:4],prey=levels(mndiet$item),type="Schoener")
 dietOverlap(mndiet[mndiet$LCat=="650",3:4],prey=levels(mndiet$item),type="Schoener")
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Horn, H.S. 1966. Measurement of overlap in comparative
 ecological studies. American Naturalist 100:419-424.

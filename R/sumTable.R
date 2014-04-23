@@ -25,6 +25,7 @@
 #'@return A one-way array of values if only one factor variable is supplied on
 #'the right-hand-side of the formula.  A two-way matrix of values if two factor
 #'variables are supplied on the right-hand-side.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@note This function is largely a wrapper to \code{tapply()}.
 #'@seealso \code{tapply}.
 #'@keywords hplot

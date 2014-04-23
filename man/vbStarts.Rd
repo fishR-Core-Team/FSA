@@ -121,6 +121,9 @@ vbStarts(tl~age,data=SpotVA1,type="GallucciQuinn",plot=TRUE)
 
 ## See examples in vbFuns() for use of vbStarts() when fitting Von B models
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Francis, R.I.C.C.  1988.  Are growth parameters estimated
 from tagging and age-length data comparable?  Canadian

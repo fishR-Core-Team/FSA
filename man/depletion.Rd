@@ -151,6 +151,9 @@ d2 <- depletion(SMBassLS$catch,SMBassLS$effort,type="Delury",ricker.mod=TRUE)
 plot(d2)
 confint(d2)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Ricker, W.E.  1975. Computation and interpretation of
 biological statistics of fish populations. Technical Report

@@ -84,6 +84,9 @@ srCobWeb(type="Ricker",param=3,a=13,Rp=300)
 # First parametrization of the Beverton-Holt model
 srCobWeb(type="BevertonHolt",param=1,a=20,b=0.01)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{srModels}}, \code{\link{srFuns}}, and
 \code{\link{srSim}}.

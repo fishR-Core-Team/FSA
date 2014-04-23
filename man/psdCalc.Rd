@@ -76,6 +76,9 @@ yepdf <- data.frame(yepmm=c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),
 
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",units="mm",digits=1)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{psdVal}}, \code{\link{psdPlot}},
 \code{\link{psdDataPrep}}, \code{\link{PSDlit}},

@@ -14,5 +14,8 @@ Provides a vector of possible color palettes.
 Generally serves as an internal function and should be
 called by the user.
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \keyword{misc}
 

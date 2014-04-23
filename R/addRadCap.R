@@ -28,6 +28,7 @@
 #'format with the total radius-at-capture appended in a variable named as given
 #'in \code{var.name} (defaults to \dQuote{radcap}).
 #'@seealso \code{\link{gConvert}}, \code{\link{gReshape}}
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@export
 #'@keywords manip
 #'@examples

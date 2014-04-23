@@ -10,6 +10,7 @@
 #'@param num The number of colors to be returned.
 #'@param \dots Other arguments to the various palette functions.
 #'@return A vector of colors of length \code{num}.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{rich.colors}} in \pkg{gplots}, \code{\link{cm.colors}},
 #'\code{\link{heat.colors}}, \code{\link{topo.colors}},
 #'\code{\link{terrain.colors}}, \code{\link{rainbow}},

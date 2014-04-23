@@ -15,37 +15,7 @@ capHistSum(df, cols = NULL)
 }
 \value{
 A list is returned with the following two components if
-only two samples are provided. \itemize{ \item
-\code{caphist} A vector summarizing the frequency of fish
-with each capture history. \item \code{sum} A data frame
-that contains the number of marked fish from the first
-sample (\code{M}), the the number of captured fish in the
-second sample (\code{n}), and the number of recaptured
-(i.e. previously marked) fish in the second sample
-(\code{m}). }
-
-However, if more than two samples are provided then a list
-with the following four components is provided: \itemize{
-\item \code{caphist} A vector summarizing the frequency of
-fish with each capture history. \item \code{sum} A data
-frame that contains the the number of captured fish in the
-ith sample (\code{n}), the number of recaptured (i.e.
-previously marked) fish in the ith sample (\code{m}), the
-number of marked fish returned to the population following
-the ith sample (\code{R}; this will equal \code{n} as the
-function currently does not handle mortalities); and the
-number of marked fish in the population prior to the ith
-sample (\code{M}). \item \code{methodB.top} A matrix that
-contains the top of the Method B table used for the
-Jolly-Seber method (i.e., a contingency table of capture
-sample (columns) and last seen sample (rows)). \item
-\code{methodB.bot} A data.frame that contains the bottom of
-the Method B table used for the Jolly-Seber method (i.e.,
-the number of marked fish in the sample (\code{m}), the
-number of unmarked fish in the sample (\code{u}), the total
-number of fish in the sample (\code{n}), and the number of
-marked fish returned to the population following the sample
-(\code{R}). }
+only two samples are provided.
 }
 \description{
 Summarizes the capture histories of individual fish.
@@ -81,6 +51,39 @@ capHistSum(PikeNYPartial1,cols=-1)
 
 # An examle with only two sample events (for demonstration only)
 capHistSum(PikeNYPartial1,cols=-c(1,4:5))
+}
+\author{
+Derek H. Ogle, \email{dogle@northland.edu} \itemize{ \item
+\code{caphist} A vector summarizing the frequency of fish
+with each capture history. \item \code{sum} A data frame
+that contains the number of marked fish from the first
+sample (\code{M}), the the number of captured fish in the
+second sample (\code{n}), and the number of recaptured
+(i.e. previously marked) fish in the second sample
+(\code{m}). }
+
+However, if more than two samples are provided then a list
+with the following four components is provided: \itemize{
+\item \code{caphist} A vector summarizing the frequency of
+fish with each capture history. \item \code{sum} A data
+frame that contains the the number of captured fish in the
+ith sample (\code{n}), the number of recaptured (i.e.
+previously marked) fish in the ith sample (\code{m}), the
+number of marked fish returned to the population following
+the ith sample (\code{R}; this will equal \code{n} as the
+function currently does not handle mortalities); and the
+number of marked fish in the population prior to the ith
+sample (\code{M}). \item \code{methodB.top} A matrix that
+contains the top of the Method B table used for the
+Jolly-Seber method (i.e., a contingency table of capture
+sample (columns) and last seen sample (rows)). \item
+\code{methodB.bot} A data.frame that contains the bottom of
+the Method B table used for the Jolly-Seber method (i.e.,
+the number of marked fish in the sample (\code{m}), the
+number of unmarked fish in the sample (\code{u}), the total
+number of fish in the sample (\code{n}), and the number of
+marked fish returned to the population following the sample
+(\code{R}). }
 }
 \seealso{
 \code{\link{mrClosed}}, \code{\link{mrOpen}},

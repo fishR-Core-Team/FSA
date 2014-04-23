@@ -45,6 +45,7 @@
 #'@return None.  However a dynamic graphic connected to slider bar controls in which
 #'the user can change the maximum age over which the growth model is evaluated
 #'and change the parameters specific to the chosen growth model.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{growthModels}}, \code{\link{vbModels}}, and \code{\link{vbStarts}}.
 #'@references Francis, R.I.C.C.  1988.  Are growth parameters estimated from
 #'tagging and age-length data comparable?  Canadian Journal of Fisheries and

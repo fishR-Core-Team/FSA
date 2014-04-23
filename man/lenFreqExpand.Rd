@@ -106,6 +106,9 @@ len <- c(6.7,6.9,7.3,7.4,7.5,8.2,8.7,8.9)
 # set a starting category
 ( newlen2 <- lenFreqExpand(len,w=0.5,startcat=6.2,total=30,decimals=1) )
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{lencat}}.
 }

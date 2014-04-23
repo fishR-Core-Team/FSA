@@ -21,6 +21,7 @@
 #'@return A matrix with one row and three columns with the first column holding
 #'the predicted value (i.e., the median prediction) and the last two columns
 #'holding the approximate confidence interval.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{confint.nlsBoot}}, \code{summary.nlsBoot} in \pkg{nlstools}
 #'@keywords htest
 #'@examples

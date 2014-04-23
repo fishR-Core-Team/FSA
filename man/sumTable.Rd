@@ -72,6 +72,9 @@ sumTable(dat~g1*g2,data=d,FUN=sd,digits=1)  # show digits= argument
 sumTable(dat~g1,data=d,FUN=length)
 sumTable(dat~g1,data=d,FUN=mean)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{tapply}.
 }

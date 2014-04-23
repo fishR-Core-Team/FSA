@@ -62,6 +62,7 @@
 #'(\code{=TRUE} or columns first (\code{=FALSE}).
 #'@param \dots Other arguments to pass through to the default \code{hist()}.
 #'@return Nothing is returned; however, a graphic is produced.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@note Students often need to look at the distribution of a quantitative
 #'variable separated for different levels of a categorical variable.  One
 #'method for examining these distributions is with

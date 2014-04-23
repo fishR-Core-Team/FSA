@@ -17,5 +17,8 @@ Determines if a number is odd.
 d <- 1:8
 odd(d)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \keyword{manip}
 

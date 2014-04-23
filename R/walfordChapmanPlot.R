@@ -30,6 +30,7 @@
 #'be shown on the plot.
 #'@param \dots Other arguments to be passed to the \code{plot} function.
 #'@return None.  However, a plot is produced.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{vbStarts}}
 #'@keywords hplot
 #'@examples

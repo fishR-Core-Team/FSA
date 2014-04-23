@@ -44,7 +44,7 @@
 #'results in a nice format if \code{justD=FALSE} (only D will be printed if
 #'\code{justD=TRUE}).
 #'@note This function is experimental at best at this point.
-#'@author Package author with significant help from Ben Bolker.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}, with significant help from Ben Bolker.
 #'@references Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From star
 #'charts to stoneflies: detecting relationships in continuous bivariate data.
 #'Ecology 79:442 447.

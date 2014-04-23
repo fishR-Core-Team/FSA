@@ -101,6 +101,9 @@ growthModelSim(type="Gompertz2",lencap~agecap,data=SMBassWB,max.len=500)
 
 } # end if interactive
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Francis, R.I.C.C.  1988.  Are growth parameters estimated
 from tagging and age-length data comparable?  Canadian

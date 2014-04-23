@@ -110,6 +110,9 @@ levels(d3$species1)
 d4 <- recodeSpecies(~species,data=d,c("LMB"),c("Largemouth Bass"),nspp="newSpecies")
 str(d4)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{psdDataPrep}} and \code{\link{wrDataPrep}}.
 }

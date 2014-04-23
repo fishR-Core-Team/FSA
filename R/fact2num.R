@@ -5,6 +5,7 @@
 #'@param object A vector with \dQuote{numeric} factor levels to be converted to
 #'numeric values.
 #'@return A numeric vector.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@keywords manip
 #'@export
 #'@examples

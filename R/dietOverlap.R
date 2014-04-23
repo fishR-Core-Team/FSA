@@ -45,6 +45,7 @@
 #'\item propdiet A matrix that contains the proportion of the total diet in each of the
 #'diet items for each predator.
 #'}
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{piankabio} in \pkg{pgirmess}.
 #'@references
 #'Horn, H.S. 1966. Measurement of overlap in comparative ecological studies. American

@@ -360,6 +360,9 @@ fitPlot(glm1,yaxis1.ticks=c(0,1),yaxis1.lbls=c(0,1))
 par(cex.axis=1.5,cex.lab=1.5)
 fitPlot(glm1)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{abline} in \pkg{graphics}; \code{reg.line} in
 \pkg{car}; \code{plotmeans} in \pkg{gplots};

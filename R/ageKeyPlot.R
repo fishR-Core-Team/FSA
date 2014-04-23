@@ -40,6 +40,7 @@
 #' @param \dots Additional arguments to pass to \code{plot}, \code{barplot}, or
 #' \code{stackpoly}.
 #' @return None, but a plot is constructed.
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' @seealso \code{\link{ageKey}} and \code{\link{ageKeyPrep}}.
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeLengthKey.pdf}
 #' @export

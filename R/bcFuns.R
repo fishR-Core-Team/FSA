@@ -47,6 +47,7 @@
 #'previous age (agei) and the age-at-capture (agec), certain parameters related
 #'to the biological intercept (R0p & L0p), or certain parameters estimated from
 #'various regression models (a,b,c,A,B,C).  See source for more information.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/Backcalculation.pdf},
 #'\url{https://sites.google.com/site/fishrfiles/gnrl/BackcalculationExtra.pdf}
 #'@references Vigliola, L. and M.G. Meekan.  2009.  The back-calculation of

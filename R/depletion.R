@@ -61,6 +61,7 @@
 #'\item lm The \code{lm} object from the fit of log(CPE) on K (Leslie method) or E (Delury method).
 #'\item est A 2x2 matrix that contains the estimates and standard errors for No and q.
 #'}
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{removal}}, \code{\link{leslieSim}}, and
 #'\code{deplet} in \pkg{fishmethods}.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/Depletion.pdf}

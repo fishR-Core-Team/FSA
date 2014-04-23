@@ -36,5 +36,8 @@ z1 <- z[order(z)]
 data.frame(pos=1:length(z1),z1)  # for demonstration only
 changesPos(z1)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \keyword{manip}
 

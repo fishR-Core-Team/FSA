@@ -86,6 +86,9 @@ srStarts(recruits~stock,data=CodNorwegian,type="Ricker",plot=TRUE)
 
 ## See examples in srFuns() for use of srStarts() when fitting stock-recruit models
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of
 exploited fish populations, Fisheries Investigations

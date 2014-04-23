@@ -61,12 +61,11 @@
 #'  \item PercAgree The percentage of fish for which all age assignments perfectly agree.
 #'}
 #'
-#'The \code{summary} function do not return anything.
+#'The \code{summary} function does not return anything.
 #'
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeComparisons.pdf}
-#'
 #'@seealso \code{\link{ageBias}}
-#'
 #'@references Beamish, R.J. and D.A. Fournier.  1981.  A method for comparing
 #'the precision of a set of age determinations.  Canadian Journal of Fisheries
 #'and Aquatic Sciences, 38:982-983.

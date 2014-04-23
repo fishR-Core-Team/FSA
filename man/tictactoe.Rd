@@ -72,6 +72,9 @@ tictactoeAdd(c(30,80),c(35,45),pt.col="green",label="2009",lbl.pos="SW",lbl.cex=
 
 par(op)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{tictactoeAdd}}, \code{\link{psdVal}},
 \code{\link{psdCalc}},\ \code{\link{psdPlot}},

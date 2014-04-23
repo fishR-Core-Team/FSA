@@ -39,6 +39,9 @@ text(3.25,2,"NW",adj=pos2adj("NW"))
 text(3.25,2,"SE",adj=pos2adj("SE"))
 text(3.25,2,"SW",adj=pos2adj("SW"))
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{text}.
 }

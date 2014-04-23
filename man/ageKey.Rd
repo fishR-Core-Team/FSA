@@ -126,6 +126,9 @@ WR.len1 <- WR.len[,-3]
 WR.len1.mod <- ageKey(WR.key,~len,data=WR.len1)
 head(WR.len1.mod)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Isermann, D.A. and C.T. Knight.  2005.  A Computer Program
 for Age-Length Keys Incorporating Age Assignment to

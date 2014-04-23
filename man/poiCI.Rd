@@ -31,6 +31,9 @@ of this method.
 \examples{
 poiCI(12)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Garwood, F.  1936.  Fiducial limits for the Poisson
 distribution. Biometrika.  28(3/4):437-442.

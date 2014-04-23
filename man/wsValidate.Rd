@@ -201,6 +201,9 @@ details of \code{quantile}.
 \examples{
 ## See examples in rlp(), emp(), and FroeseWs()
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Gerow, K.G., W.A. Hubert, R.C. Anderson-Sprecher.  2004.
 An alternative approach to detection of length-related

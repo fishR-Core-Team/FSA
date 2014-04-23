@@ -151,7 +151,7 @@ optional label for the column structure or readings. \item
 row.lab A string that contains an optional label for the
 row structure or readings. }
 
-The \code{summary} and \code{plot} function do not return
+The \code{summary} and \code{plot} functions do not return
 anything.
 }
 \description{
@@ -252,6 +252,9 @@ plot(ac1,col.err="red",col.err.sig="red")
 plot(ac1,what="difference")
 ## sunflower plot
 plot(ac1,what="sunflower")
+}
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
 Beamish, R.J. and D.A. Fournier.  1981.  A method for

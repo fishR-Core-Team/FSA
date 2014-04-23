@@ -83,5 +83,8 @@ addZeroCatch(df,"net","species",zerovar="catch")
 # example with no ancillary data specific to the net number
 addZeroCatch(df[,-2],"net","species",zerovar="catch")
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \keyword{manip}
 

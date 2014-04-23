@@ -49,6 +49,7 @@
 #'variables should be removed after reshaping.
 #'@param drop A vector of variable names to drop before reshaping.
 #'@return Returns a data frame in one-measurement-per-line format.  See details.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{gConvert}} and \code{\link{reshape}}
 #'@export
 #'@keywords manip

@@ -51,6 +51,7 @@
 #'@return The original data frame in \code{data} is returned with assigned ages
 #'added to the column supplied in \code{formula} (see details) or in an additional
 #'column labeled as \code{age}.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@references Isermann, D.A. and C.T. Knight.  2005.  A Computer Program for
 #'Age-Length Keys Incorporating Age Assignment to Individual Fish.  North
 #'American Journal of Fisheries Management, 25:1153-1160.

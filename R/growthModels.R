@@ -7,6 +7,7 @@
 #'@param \dots Additional arguments for \code{plot}.  Generally not needed
 #'@return A graphic that uses \code{plotmath} to show the model formulas in a
 #'pretty format. \code{vbModels()} shows just the von Bertalanffy models.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{vbFuns}}, \code{\link{vbStarts}}, and \code{\link{growthModelSim}}
 #'@export growthModels vbModels
 #'@keywords manip hplot

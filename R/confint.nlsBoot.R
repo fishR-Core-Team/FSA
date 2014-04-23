@@ -23,6 +23,7 @@
 #'@return A matrix with as many rows as columns (i.e., parameter estimates) in
 #'the \code{object$coefboot} data frame and two columns of the quantiles that
 #'correspond to the approximate confidence interval.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{predict.nlsBoot}}, \code{summary.nlsBoot} in \pkg{nlstools}
 #'@keywords htest
 #'@examples

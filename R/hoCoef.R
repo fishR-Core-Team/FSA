@@ -22,6 +22,7 @@
 #'estimate, standard error of the parameter estimate, t test statistic, and 
 #'corresponding p-value.
 #'@author Derek H. Ogle, \email{dogle@@northland.edu}
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{htest.nlsBoot}}.
 #'@keywords htest
 #'@examples

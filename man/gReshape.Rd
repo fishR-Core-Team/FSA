@@ -102,6 +102,9 @@ head(SMBi2a)
 SMBi1b <- gReshape(SMBi1,in.pre="inc",drop=c("species","lake"))
 head(SMBi1b)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{gConvert}} and \code{\link{reshape}}
 }

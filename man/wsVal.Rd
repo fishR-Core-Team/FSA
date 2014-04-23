@@ -65,6 +65,9 @@ wsVal("Bluegill",units="English",simplify=TRUE)
 wsVal("Ruffe",units="metric",simplify=TRUE)
 wsVal("Ruffe",units="metric",ref=50,simplify=TRUE)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{wrAdd}} and \code{\link{WSlit}}
 }

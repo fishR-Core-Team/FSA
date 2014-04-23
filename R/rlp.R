@@ -87,6 +87,7 @@
 #'\item \code{Ws} is an \code{lm} object that contains the results of the regression
 #'of \eqn{log_{10}(wq)} on \eqn{log_{10}(midpoint length)}.
 #'}
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{emp}}, \code{\link{FroeseWs}}, \code{\link{wsValidate}},
 #'\code{quantile} in \pkg{stats}
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/RelativeWeight.pdf}

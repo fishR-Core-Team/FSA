@@ -143,6 +143,9 @@ hist(nl1.boot)
 plot(nl1.boot)
 cor(nl1.boot)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 S. Weisberg (2005). \emph{Applied Linear Regression}, third
 edition.  New York: Wiley, Chapters 4 and 11.

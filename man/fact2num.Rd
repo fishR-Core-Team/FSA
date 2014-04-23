@@ -26,5 +26,8 @@ bad <- factor(c("A","B","C"))
 bad2 <- fact2num(bad)
 }
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \keyword{manip}
 

@@ -103,6 +103,7 @@
 #'catchability and initial population size and blue lines at the means of the
 #'respective estimates.
 #'
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{removal}}.
 #'@keywords iplot
 #'@examples

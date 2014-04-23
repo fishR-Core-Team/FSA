@@ -4,6 +4,7 @@
 #' 
 #'@param x A numeric vector.
 #'@return A logical vector of the same length as x.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@keywords manip
 #'@export
 #'@examples

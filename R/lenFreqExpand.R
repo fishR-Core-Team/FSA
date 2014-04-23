@@ -50,6 +50,7 @@
 #'@param \dots Optional arguments to be passed to \code{\link{lencat}}.
 #'@return Returns a vector that consists of measurements for the non-measured
 #'individuals in the entire sample.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{lencat}}.
 #'@export
 #'@keywords manip

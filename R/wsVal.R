@@ -28,6 +28,7 @@
 #' fields should be included (\code{=FALSE}) or not (\code{=TRUE}; DEFAULT).
 #'@return A data frame that consists of one line from \code{WSlit} related to
 #'the standard weight equation for the given species, units, and ref.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{wrAdd}} and \code{\link{WSlit}}
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/RelativeWeight.pdf}
 #'@export wsVal

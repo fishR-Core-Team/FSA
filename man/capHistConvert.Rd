@@ -194,6 +194,9 @@ MARK.
 require(gdata)   # for combine()
 ( ex4a <- combine(ex4m,ex4f,names=c("male","female")) )
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{capHistSum}}, \code{\link{mrClosed}},
 \code{\link{mrOpen}}

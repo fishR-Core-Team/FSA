@@ -45,6 +45,7 @@
 #'species name as in the original data frame.  See details.
 #'@return The original data frame in \code{data} but with the new variable \code{nspp}
 #'which contains the new species names.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{psdDataPrep}} and \code{\link{wrDataPrep}}.
 #'@section fishR vignette: none yet.
 #'@export

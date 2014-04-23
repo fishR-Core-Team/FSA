@@ -7,6 +7,7 @@
 #'
 #'@param x a numeric object.
 #'@return A numeric vector that contains the reverse cumulative sums.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{cumsum}.
 #'@export
 #'@keywords misc

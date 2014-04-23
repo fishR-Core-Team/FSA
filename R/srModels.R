@@ -6,6 +6,7 @@
 #'@param \dots Additional arguments for \code{plot}.  Generally not needed
 #'@return A graphic that uses \code{plotmath} to show the model formulas in a
 #'pretty format.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{srFuns}}, \code{\link{srStarts}}, and \code{\link{srSim}}
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
 #'@export

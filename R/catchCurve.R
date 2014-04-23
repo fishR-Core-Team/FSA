@@ -66,6 +66,7 @@
 #'\item lm An \code{lm} object from the fit to the ages and log catches
 #'or CPUEs on the descending limb (i.e., in age.e and log.catch.e).
 #'}
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{chapmanRobson}}, \code{\link{catchCurveSim}},
 #'and \code{agesurv} and \code{agesurvcl} in \pkg{fishmethods}.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/CatchCurve.pdf}

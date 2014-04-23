@@ -59,6 +59,7 @@
 #'The median is returned as the predicted value and the quantiles are returned
 #'as an approximate 100\code{conf.level}\% confidence interval for that prediction.
 #'
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{bootCase}} in \pkg{car}.
 #'@references S. Weisberg (2005). \emph{Applied Linear Regression}, third
 #'edition.  New York: Wiley, Chapters 4 and 11.

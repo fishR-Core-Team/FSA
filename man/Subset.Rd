@@ -72,6 +72,9 @@ iris.set2 <- Subset(iris,Species=="setosa" | Species=="versicolor")
 levels(iris.set2$Species)
 table(iris.set2$Species)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{subset}, \code{drop.levels} in \pkg{gdata}, and
 \code{dropUnusedLevels} in \pkg{Hmisc}.

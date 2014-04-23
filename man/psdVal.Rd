@@ -90,6 +90,9 @@ psdVal("Bluegill",units="in",addLens=7)
 psdVal("Bluegill",units="in",addLens=7,addNames="MinLen")
 psdVal("Bluegill",units="in",addLens=c(7,9))
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{psdCalc}}, \code{\link{psdPlot}},
 \code{\link{psdDataPrep}}, \code{\link{PSDlit}},

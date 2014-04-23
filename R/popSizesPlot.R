@@ -16,8 +16,8 @@
 #'@param add A logical that indicates whether the data should be added to a
 #'currently existing plot.
 #'@param \dots Extra arguments to be sent to the default plot routine.
-#'@return A plot of either population sizes or log population sizes versus
-#'time.
+#'@return A plot of either population sizes or log population sizes versus time.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@note This function is meant to work with an object saved from
 #'\code{pop.projection()} in the \pkg{popbio} package.  It is not a general
 #'function for plotting population size versus time.

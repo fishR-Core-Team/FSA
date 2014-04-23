@@ -152,6 +152,9 @@ ex3 <- mrOpen(jolly.top,jolly.bot,ci.type="Manly")
 summary(ex3)
 confint(ex3)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \references{
 Jolly, G.M. 1965. Explicit estimates from capture-recapture
 data with both death and immigration -- stochastic model.

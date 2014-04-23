@@ -33,6 +33,7 @@
 #'@param addNames A string vector that contains names for the additional length
 #'categories added with \code{addLens}.  See details.
 #'@return A vector of the five-cell length categories for the given species.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@seealso \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{psdDataPrep}},
 #' \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{tictactoeAdd}},
 #' \code{\link{lencat}}, and \code{\link{rcumsum}}.

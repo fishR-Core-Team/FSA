@@ -31,6 +31,7 @@
 #'@param cols A numeric that contains the number of columns to use on the graphic.
 #'@param \dots Other arguments to pass through to the \code{hist} function.
 #'@return None.  However, a plot is produced.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/LengthWeight.pdf}
 #'@export
 #'@keywords manip

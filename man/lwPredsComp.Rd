@@ -103,5 +103,8 @@ lm2 <- lm(logwt~clogtl*fyear,data=slrh)
 lwPredsComp(lm2,xlab="Year",center.value=mn.logtl)
 lwPredsComp(lm2,xlab="Year",lens=c(60,90,120,150),center.value=mn.logtl)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \keyword{manip}
 

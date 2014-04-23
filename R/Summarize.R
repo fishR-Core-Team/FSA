@@ -46,8 +46,8 @@
 #'\code{table} functions.
 #'@return A named vector or data frame (when a quantitative variable is
 #'separted by one or two factor variables) of summary statistics for numeric
-#'data and a matrix of frequencies and, possibly, percentages for factor
-#'variables.
+#'data and a matrix of frequencies and, possibly, percentages for factor variables.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@note The \code{Summarize} function, when applied to a vector of quantitative
 #'data, produces results of basic statistics similar to that provided by
 #'\code{summary}.  The primary addition in the results of \code{Summarize} is

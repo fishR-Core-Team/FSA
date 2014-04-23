@@ -47,7 +47,7 @@ of fish in \code{data}.  \item R Number of age assessments
 in \code{data}.  \item PercAgree The percentage of fish for
 which all age assignments perfectly agree. }
 
-The \code{summary} function do not return anything.
+The \code{summary} function does not return anything.
 }
 \description{
 Computes overall measures of precision for age assignments
@@ -118,6 +118,9 @@ summary(ap2,what="difference")
 summary(ap2,what="difference",percent=FALSE)
 summary(ap2,what="absolute",percent=FALSE)
 summary(ap2,what="detail")
+}
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
 Beamish, R.J. and D.A. Fournier.  1981.  A method for

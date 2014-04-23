@@ -58,6 +58,9 @@ vbComp(v)
 # same three species but with varying maximum ages
 vbComp(v,ages=c(10,20,25))
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{\link{VBGMlit}}.
 }

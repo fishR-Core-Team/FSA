@@ -92,7 +92,8 @@
 #'\item \code{swvFinish} returns LaTeX code that prints \dQuote{reproducibility information}
 #'at the bottom of the Sweaved/knitted document.
 #'}
-#'  
+#'
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}
 #'@note In \code{swvFinish}, \code{elapsed} can be used to print the time it
 #'took to process the document by sending the elasped time for processing to this
 #'argument.  The simplest way to get an approximate elapsed time is to put 

@@ -170,6 +170,9 @@ Summarize(x~z,data=df,exclude=c("NA","UNKNOWN"))
 ## Summarizing all variables in a data frame
 lapply(as.list(df),Summarize,digits=4)
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \seealso{
 \code{summary}, \code{table}, \code{tapply},
 \code{summaryBy} in \pkg{doBy}, \code{describe} in

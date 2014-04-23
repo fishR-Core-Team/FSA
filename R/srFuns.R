@@ -14,7 +14,8 @@
 #'the parameters are printed after the function is called (assuming that
 #'\code{msg=TRUE}).  The values for both parameters can be included as a vector
 #'of length two in the first parameter argument.
-#'@note Thanks to Greg Snow for a hint about returning the functions.
+#'@author Derek H. Ogle, \email{dogle@@northland.edu}.  Thanks to Greg Snow for 
+#'a hint about returning the functions.
 #'@seealso \code{\link{srStarts}}, \code{\link{srModels}}, and \code{\link{srSim}}
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
 #'@references Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of

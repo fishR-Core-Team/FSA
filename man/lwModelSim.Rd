@@ -67,5 +67,8 @@ lwModelSim(x=r1$fl,y=r1$wt)
 
 } # end if interactive
 }
+\author{
+Derek H. Ogle, \email{dogle@northland.edu}
+}
 \keyword{iplot}
 
