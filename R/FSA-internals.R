@@ -365,43 +365,6 @@ processSessionInfo <- function() {
 }
 
 
-
-##################################################################
-## Internal files used in emp, wsValidate                                     
-##################################################################
-lencatOLD <- function(df,cl,startcat=0,w=1,breaks=NULL,right=FALSE,vname=NULL,as.fact=TRUE,drop.levels=FALSE) {
-  make.vname <- function(vname,df) {
-    if (is.null(vname)) vname <- "LCat"                   # if no name given then default to "LCat"
-    vnames <- c(vname,paste(vname,seq(1:100),sep=""))     # create list of names that includes vname & vname with numbers appended 
-    ind <- which(vnames %in% names(df))                   # find first instance where names match
-    if (length(ind)==0) vname <- vname                    # if no match then go with given vname
-    else vname <- vnames[max(ind)+1]                    # if is match then go with name that is one index later in vnames
-    vname
-  }
-  
-  if (is.null(breaks)) {
-    decs <- checkStartcatW(startcat,w,df[,cl])  
-    breaks <- seq(startcat,max(df[,cl],na.rm=TRUE)+w,w)                           # Creates cut breaks (one more than max so that max is included in a break)
-    breaks <- round(breaks,decs$wdec)
-  } else {
-    if (min(df[,cl],na.rm=TRUE) < breaks[1]) stop(paste("Lowest break (",breaks[1],") is larger than minimum observation (",min(df[,cl]),").\n  Adjust the breaks you used.",sep=""),call.=FALSE)
-    if (max(df[,cl],na.rm=TRUE) >= max(breaks)) {
-      breaks <- c(breaks,1.1*max(df[,cl],na.rm=TRUE))
-      warning(paste("Largest break (",breaks[length(breaks)-1],") was less than or equal to the maximum observation (",max(df[,cl]),").\n  A larger break (",breaks[length(breaks)],") was added.\n",sep=""),call.=FALSE)
-    }
-  }
-  lcat <- breaks[cut(df[,cl],breaks,labels=FALSE,right=right,include.lowest=TRUE)]
-  if (as.fact) {
-    if (!drop.levels) lcat <- factor(lcat,levels=breaks[-length(breaks)])        # Generally don't drop levels but need to drop the "extra" last level in all cases
-    else lcat <- factor(lcat)
-  }
-  nd <- data.frame(df,lcat)                                                      # Puts length class variable in data.frame
-  names(nd)[dim(df)[2]+1] <- make.vname(vname,df)                                # Renames the new variable if so desired
-  nd                                                                             # Returns the new data.frame
-}
-
-
-
 ##################################################################
 ## Internal files used in ks2d1 and ks2d2                                    
 ##################################################################

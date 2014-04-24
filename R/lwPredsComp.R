@@ -37,35 +37,31 @@
 #'@keywords manip
 #'@examples
 #'# load ruffe length-weight data
-#'data(RuffeWs)
-#'# extract just data from the St. Louis River Harbor
-#'slrh <- subset(RuffeWs,grepl("St. Louis",RuffeWs$locShort))
+#'data(ChinookArg)
 #'# add log length and weight data
-#'slrh$logtl <- log(slrh$tl)
-#'slrh$logwt <- log(slrh$wt)
-#'# create a year factor variable
-#'slrh$fyear <- factor(slrh$year)
+#'ChinookArg$logtl <- log(ChinookArg$tl)
+#'ChinookArg$logwt <- log(ChinookArg$w)
 #'# fit model to assess equality of slopes
-#'lm1 <- lm(logwt~logtl*fyear,data=slrh)
+#'lm1 <- lm(logwt~logtl*loc,data=ChinookArg)
 #'anova(lm1)
 #'
 #'# show predicted weights (w/ CI and PI) at the default quantile lengths for each year
-#'lwPredsComp(lm1,xlab="Year")
+#'lwPredsComp(lm1,xlab="Location")
 #'# show predicted weights (w/ CI and PI) at the quartile lengths for each year
-#'lwPredsComp(lm1,xlab="Year",quant.lens=c(0.25,0.5,0.75))
+#'lwPredsComp(lm1,xlab="Location",quant.lens=c(0.25,0.5,0.75))
 #'# show predicted weights (w/ CI and PI) at certain lengths for each year
-#'lwPredsComp(lm1,xlab="Year",lens=c(60,90,120,150))
+#'lwPredsComp(lm1,xlab="Location",lens=c(60,90,120,150))
 #'# show predicted weights (just PI) at certain lengths for each year
-#'lwPredsComp(lm1,xlab="Year",lens=c(60,90,120,150),interval="p")
+#'lwPredsComp(lm1,xlab="Locatoin",lens=c(60,90,120,150),interval="p")
 #'# show predicted weights (just CI) at certain lengths for each year
-#'lwPredsComp(lm1,xlab="Year",lens=c(60,90,120,150),interval="c")
+#'lwPredsComp(lm1,xlab="Location",lens=c(60,90,120,150),interval="c")
 #'
 #'# fit model with centered data
-#'mn.logtl <- mean(slrh$logtl,na.rm=TRUE)
-#'slrh$clogtl <- slrh$logtl-mn.logtl
-#'lm2 <- lm(logwt~clogtl*fyear,data=slrh)
-#'lwPredsComp(lm2,xlab="Year",center.value=mn.logtl)
-#'lwPredsComp(lm2,xlab="Year",lens=c(60,90,120,150),center.value=mn.logtl)
+#'mn.logtl <- mean(ChinookArg$logtl,na.rm=TRUE)
+#'ChinookArg$clogtl <- ChinookArg$logtl-mn.logtl
+#'lm2 <- lm(logwt~clogtl*loc,data=ChinookArg)
+#'lwPredsComp(lm2,xlab="Location",center.value=mn.logtl)
+#'lwPredsComp(lm2,xlab="Location",lens=c(60,90,120,150),center.value=mn.logtl)
 #'
 lwPredsComp <- function(mdl,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),
                          interval=c("both","confidence","prediction"),

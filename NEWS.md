@@ -1,4 +1,22 @@
-# FSA 0.4.6 ongoing 
+# FSA 0.4.7 ongoing
+
+* Removed all of the functions related to constructing and validating standard weight equations.  These are now in the [FSAWs package](https://github.com/droglenc/FSAWs).  This is the start of an effort to streamline the FSA package.
+* Removed importFrom quantreg (only used for standard weight methods).
+
+* `ChinookArg`: Added (from FSAdata).
+* `emp()`: Removed.
+* `FroesWs()`: Removed.
+* `lencatOLD()`: Removed (from FSA-internals).
+* `lwPredsComp()`: Modified.  Changed example to using `ChinookArg` rather than `RuffeWs` because `RuffeWs` was moved to the FSAWs package.
+* `LMBassWs`: Removed.
+* `rlp()`: Removed.
+* `RuffeWs`: Removed.
+* `WalleyeGerowLW`: Removed.
+* `wsValidate()`: Removed.
+* `WalleyeGerowLW`: Removed.
+
+
+# FSA 0.4.6 Apr14
 
 * Changed to compiling under R 3.1.0
 * Imported `stackpoly()` from plotrix for use in `ageKeyPlot()`.
