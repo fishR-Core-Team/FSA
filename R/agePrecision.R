@@ -203,18 +203,6 @@ summary.agePrec <- function(object,what=c("precision","difference","absolute dif
           row.names=FALSE,digits=digits)
     what <- hndlMultWhat(what,"precision")
   }
-  if ("difference" %in% what) {
-    tmp <- object$rawdiff
-    msg <- "of fish by differences in ages between pairs of assignments\n"
-    if (percent) {
-      msg <- paste("Percentage",msg)
-      if (length(dim(tmp))==1) tmp <- tmp/sum(tmp)*100 # need to check if 1-D, then handle as a vector
-      else tmp <- prop.table(tmp,margin=1)*100      
-    } else msg <- paste("Frequency",msg)
-    cat(msg)
-    print(tmp,digits=digits)
-    what <- hndlMultWhat(what,"difference")
-  }
   if ("absolute difference" %in% what) {
     tmp <- object$absdiff
     msg <- "of fish by absolute differences in ages between pairs of assignments\n"
@@ -227,6 +215,18 @@ summary.agePrec <- function(object,what=c("precision","difference","absolute dif
     print(tmp,digits=digits)
     what <- hndlMultWhat(what,"absolute difference")
   }  
+  if ("difference" %in% what) {
+    tmp <- object$rawdiff
+    msg <- "of fish by differences in ages between pairs of assignments\n"
+    if (percent) {
+      msg <- paste("Percentage",msg)
+      if (length(dim(tmp))==1) tmp <- tmp/sum(tmp)*100 # need to check if 1-D, then handle as a vector
+      else tmp <- prop.table(tmp,margin=1)*100      
+    } else msg <- paste("Frequency",msg)
+    cat(msg)
+    print(tmp,digits=digits)
+    what <- hndlMultWhat(what,"difference")
+  }
   if ("detail" %in% what) {
     cat("Intermediate calculations for each individual\n")
     print(object$detail,digits=digits)
