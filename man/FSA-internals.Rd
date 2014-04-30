@@ -11,6 +11,7 @@
 \alias{getMainTitle}
 \alias{getVarFromFormula}
 \alias{hndlFormula}
+\alias{hndlMultWhat}
 \alias{legendHelp}
 \alias{listSpecies}
 \alias{makeColor}
@@ -32,8 +33,10 @@ Internal functions used in FSA
 Take note of the following uses: \itemize{ \item
 \code{typeoflm} is used in \code{\link{fitPlot}} and
 \code{\link{residPlot}}. \item \code{ciLabel} is used in
-\code{\link{binCI}}, \code{\link{bootCase}}, \item
-\code{checkStartcatW} used in \code{\link{lencat}} and
+\code{\link{binCI}} and \code{\link{bootCase}}. \item
+\code{hndlMultWhat} is used in \code{\link{ageBias}} and
+\code{\link{agePrecision}}. \item \code{checkStartcatW}
+used in \code{\link{lencat}} and
 \code{\link{lenFreqExpand}}. \code{\link{catchCurve}},
 \code{\link{chapmanRobson}}, \code{\link{confint.nlsBoot}},
 \code{\link{depletion}}, \code{\link{hyperCI}},

@@ -1,4 +1,10 @@
-# FSA 0.4.7 ongoing
+# FSA 0.4.8 ongoing
+
+* `ageBias()`: Modified.  Added the ability to use multiple `what=` arguments with `c()`.  Changed the order of the printing of results when `what="symmetry"` is used in `summary()`.  The order more closely follows the "level of complexity" of the tests.  Added unit test examples to the help file.
+* `agePrecision()`: Modified.  Added the ability to use multiple `what=` arguments with `c()`.
+* `hndlMultWhat()`: Added.  An internal file to help `ageBias()` and `agePrecision` handle multiple `what=` arguments.
+
+# FSA 0.4.7 Apr14
 
 * Removed all of the functions related to constructing and validating standard weight equations.  These are now in the [FSAWs package](https://github.com/droglenc/FSAWs).  This is the start of an effort to streamline the FSA package.
 * Removed importFrom quantreg (only used for standard weight methods).

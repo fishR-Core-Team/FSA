@@ -271,6 +271,7 @@ summary(ab1,what="McNemars")
 summary(ab1,what="McNemars",cont.corr="Yates")
 summary(ab1,what="bias")
 summary(ab1,what="diff.bias")
+summary(ab1,what=c("symmetry","table"))
 # show the zeroes (rather than dashes)
 summary(ab1,what="table",zero.print="0")
 # flip the table -- ease of comparison to age-bias plot
@@ -293,6 +294,28 @@ plot(ab1,what="sunflower")
 plot(ab1,what="sunflower",difference=TRUE)
 ## "Numbers" plot
 plot(ab1,what="number",col.ref="gray50")
+
+## Unit tests for what="symmetry"
+######## Create Evans & Hoenig (2008) X matrix as a check (table 1)
+X.dat <- data.frame(ageR=c(2,2,2,2,2,2,2,2),
+                   ageC=c(1,1,1,1,3,3,3,3))
+X <- ageBias(ageC~ageR,data=X.dat)
+summary(X,what="table",zero.print=0)
+summary(X,what="symmetry")   # check
+
+######## Create Evans & Hoenig (2008) Y matrix as a check (table 1)
+Y.dat <- data.frame(ageR=c(1,1,1,2,2,2),
+                   ageC=c(2,2,3,3,3,3))
+Y <- ageBias(ageC~ageR,data=Y.dat)
+summary(Y,what="table",zero.print=0)
+summary(Y,what="symmetry")   # check
+
+######## Create Evans & Hoenig (2008) Z matrix (McBride's matrix) as a check
+Z.dat <- data.frame(ageR=c(1,1,1,2,2,2,3),
+                   ageC=c(2,2,2,3,3,3,1))
+Z <- ageBias(ageC~ageR,data=Z.dat)
+summary(Z,what="table",zero.print=0)
+summary(Z,what="symmetry")  #check
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

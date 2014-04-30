@@ -92,9 +92,10 @@
 #'summary(ap1,what="difference")
 #'summary(ap1,what="difference",percent=FALSE)
 #'summary(ap1,what="absolute",percent=FALSE)
+#'
 #'barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
 #'summary(ap1,what="detail")
-#'
+#'summary(ap1,what=c("precision","difference"))
 #'## Example with three age assignments
 #'ap2 <- agePrecision(~otolithC+finrayC+scaleC,data=WhitefishLC)
 #'summary(ap2)
@@ -193,32 +194,42 @@ agePrecision <- function(formula,data) {
 #'@S3method summary agePrec
 summary.agePrec <- function(object,what=c("precision","difference","absolute difference","detail","agreement"),
                             percent=TRUE,digits=4,...) {
-  what <- match.arg(what)
-  if (what=="precision") {
+  what <- match.arg(what,several.ok=TRUE)
+  if (("agreement" %in% what) & length(what)==1)
+    stop("Use of what='agreement' is deprecated; use what='difference' or what='absolute difference'.",call.=FALSE)
+  if ("precision" %in% what) {
     cat("Precision summary statistics\n")
     print(with(object,data.frame(n=n,R=R,CV=CV,APE=APE,PercAgree=PercAgree)),
           row.names=FALSE,digits=digits)
+    what <- hndlMultWhat(what,"precision")
   }
-  if (what %in% c("difference","absolute difference","agreement")) {
-    if (what=="agreement") message("Use of what='agreement' is deprecated, instead use what='difference' or what='absolute difference'.")
-    if (what=="difference") {
-      tmp <- object$rawdiff
-      msg <- "of fish by differences in ages between pairs of assignments\n"
-    } else {
-      tmp <- object$absdiff
-      msg <- "of fish by absolute differences in ages between pairs of assignments\n"
-    }
+  if ("difference" %in% what) {
+    tmp <- object$rawdiff
+    msg <- "of fish by differences in ages between pairs of assignments\n"
     if (percent) {
       msg <- paste("Percentage",msg)
-      # need to check if it is a 1-D table and handle as a vector
-      if (length(dim(tmp))==1) tmp <- tmp/sum(tmp)*100
-       else tmp <- prop.table(tmp,margin=1)*100      
+      if (length(dim(tmp))==1) tmp <- tmp/sum(tmp)*100 # need to check if 1-D, then handle as a vector
+      else tmp <- prop.table(tmp,margin=1)*100      
     } else msg <- paste("Frequency",msg)
     cat(msg)
     print(tmp,digits=digits)
+    what <- hndlMultWhat(what,"difference")
   }
-  if (what=="detail") {
-    cat("Intermediate calculations for each individual.\n")
+  if ("absolute difference" %in% what) {
+    tmp <- object$absdiff
+    msg <- "of fish by absolute differences in ages between pairs of assignments\n"
+    if (percent) {
+      msg <- paste("Percentage",msg)
+      if (length(dim(tmp))==1) tmp <- tmp/sum(tmp)*100 # need to check if 1-D, then handle as a vector
+      else tmp <- prop.table(tmp,margin=1)*100      
+    } else msg <- paste("Frequency",msg)
+    cat(msg)
+    print(tmp,digits=digits)
+    what <- hndlMultWhat(what,"absolute difference")
+  }  
+  if ("detail" %in% what) {
+    cat("Intermediate calculations for each individual\n")
     print(object$detail,digits=digits)
+    what <- hndlMultWhat(what,"detail")
   }
 }

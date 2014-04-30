@@ -178,6 +178,7 @@
 #'summary(ab1,what="McNemars",cont.corr="Yates")
 #'summary(ab1,what="bias")
 #'summary(ab1,what="diff.bias")
+#'summary(ab1,what=c("symmetry","table"))
 #'# show the zeroes (rather than dashes)
 #'summary(ab1,what="table",zero.print="0")
 #'# flip the table -- ease of comparison to age-bias plot
@@ -200,6 +201,28 @@
 #'plot(ab1,what="sunflower",difference=TRUE)
 #'## "Numbers" plot
 #'plot(ab1,what="number",col.ref="gray50")
+#'
+#'## Unit tests for what="symmetry"
+#'######## Create Evans & Hoenig (2008) X matrix as a check (table 1)
+#'X.dat <- data.frame(ageR=c(2,2,2,2,2,2,2,2),
+#'                    ageC=c(1,1,1,1,3,3,3,3))
+#'X <- ageBias(ageC~ageR,data=X.dat)
+#'summary(X,what="table",zero.print=0)
+#'summary(X,what="symmetry")   # check
+#'
+#'######## Create Evans & Hoenig (2008) Y matrix as a check (table 1)
+#'Y.dat <- data.frame(ageR=c(1,1,1,2,2,2),
+#'                    ageC=c(2,2,3,3,3,3))
+#'Y <- ageBias(ageC~ageR,data=Y.dat)
+#'summary(Y,what="table",zero.print=0)
+#'summary(Y,what="symmetry")   # check
+#'
+#'######## Create Evans & Hoenig (2008) Z matrix (McBride's matrix) as a check
+#'Z.dat <- data.frame(ageR=c(1,1,1,2,2,2,3),
+#'                    ageC=c(2,2,2,3,3,3,1))
+#'Z <- ageBias(ageC~ageR,data=Z.dat)
+#'summary(Z,what="table",zero.print=0)
+#'summary(Z,what="symmetry")  #check
 #'
 #'@rdname ageBias
 #'@export
@@ -482,16 +505,18 @@ summary.ageBias <- function(object,what=c("table","symmetry","Bowkers","EvansHoe
   } ## End internal Evans Hoenig's Test function
   
   ## Main function
-  what <- match.arg(what)
-  if (what=="bias") {
+  what <- match.arg(what,several.ok=TRUE)
+  if ("bias" %in% what) {
     cat("Summary of",object$row.lab,"by",object$col.lab,"\n")
     print(object$bias[-ncol(object$bias)],row.names=FALSE,digits=digits)
+    what <- hndlMultWhat(what,"bias")
   }
-  if (what=="diff.bias") {
+  if ("diff.bias" %in% what) {
     cat("Summary of",object$row.lab,"-",object$col.lab,"by",object$col.lab,"\n")
     print(object$bias.diff[-ncol(object$bias.diff)],row.names=FALSE,digits=digits)
+    what <- hndlMultWhat(what,"diff.bias")
   }
-  if (what=="table") {
+  if ("table" %in% what) {
     # show the age-agreement table
     if (!flip.table) {
       cat("Raw agreement table (square)\n")
@@ -502,14 +527,16 @@ summary.ageBias <- function(object,what=c("table","symmetry","Bowkers","EvansHoe
       class(tmp) <- "table"                      # for printing purposes
       print(tmp,zero.print=zero.print)
     }
+    what <- hndlMultWhat(what,"table")
   }
-  if (what %in% c("symmetry","Bowkers","EvansHoenig","McNemars")) {
+  if (any(c("symmetry","Bowkers","EvansHoenig","McNemars") %in% what)) {
     symTest <- NULL # to avoide "global bindings" warning in rcmd check
-    tmp <- Bowkers(object)
-    tmp <- rbind(tmp,McNemars(object,match.arg(cont.corr)))
+    tmp <- McNemars(object,match.arg(cont.corr))
     tmp <- rbind(tmp,EvansHoenig(object))
-    # if what="symmetry" return all, otherwise only return what is asked for
-    if (what=="symmetry") tmp
+    tmp <- rbind(tmp,Bowkers(object))
+    # if what="symmetry" print all results, otherwise only print what is asked for
+    cat("Agreement Table Symmetry Test Results\n")
+    if ("symmetry" %in% what) tmp
       else Subset(tmp,grepl(what,symTest))
   }
 }

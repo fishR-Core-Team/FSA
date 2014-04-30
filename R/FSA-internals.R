@@ -5,7 +5,8 @@
 #'@note Take note of the following uses:
 #'\itemize{
 #'\item \code{typeoflm} is used in \code{\link{fitPlot}} and \code{\link{residPlot}}.
-#'\item \code{ciLabel} is used in \code{\link{binCI}}, \code{\link{bootCase}},
+#'\item \code{ciLabel} is used in \code{\link{binCI}} and \code{\link{bootCase}}.
+#'\item \code{hndlMultWhat} is used in \code{\link{ageBias}} and \code{\link{agePrecision}}.
 #'\item \code{checkStartcatW} used in \code{\link{lencat}} and \code{\link{lenFreqExpand}}.
 #'\code{\link{catchCurve}}, \code{\link{chapmanRobson}}, \code{\link{confint.nlsBoot}},
 #'\code{\link{depletion}}, \code{\link{hyperCI}}, \code{\link{mrClosed}}, \code{\link{poiCI}},
@@ -33,7 +34,7 @@
 #'@aliases .onAttach hndlFormula typeoflm 
 #'ci.fp ci.fp1 
 #'addOutlierTestResults addLoessLine getMainTitle
-#'legendHelp listSpecies getAllDependencies getFilePrefix ciLabel
+#'legendHelp listSpecies getAllDependencies getFilePrefix ciLabel hndlMultWhat
 #'makeFilename makeItemsToRemove printProgressMsg processSessionInfo
 #'checkStartcatW getVarFromFormula makeColor
 #'pkolmogorov1x quad_dens
@@ -171,6 +172,22 @@ typeoflm <- function(mdl) {
 ##################################################################
 ciLabel <- function(conf.level,digits=1) {
   paste(paste(round(100*conf.level,digits),"%",sep=""),c("LCI","UCI"))
+}
+
+
+##################################################################
+## Internal functions used to handle multiple what= arguments
+##   in ageBias and agePRecision
+## If more than one item then print a line return and return
+##   the what vector without item in it.  This allows an easy way
+##   to put space between multiple items without an extra space
+##   after the last one.
+##################################################################
+hndlMultWhat <- function(what,item) {
+  if (length(what)>1) {
+    cat("\n")
+    what[!grepl(item,what)]
+  }
 }
 
 
