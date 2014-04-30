@@ -9,14 +9,14 @@ ageBias(formula, data, col.lab = tmp$Rname, row.lab = tmp$Enames[1],
 
 \method{plot}{ageBias}(x, what = c("bias", "sunflower", "numbers"),
   difference = FALSE, xlab = x$col.lab, ylab = x$row.lab, show.n = TRUE,
-  show.pts = FALSE, pch.pts = 19, col.pts = rgb(0, 0, 0, transparency),
-  transparency = 1/10, pch.mean = 3, col.err = "blue",
+  nYpos = 1.1, show.pts = FALSE, pch.pts = 19, col.pts = rgb(0, 0, 0,
+  transparency), transparency = 1/10, pch.mean = 3, col.err = "blue",
   col.err.sig = "red", lwd.err = 2, show.rng = FALSE, col.rng = "gray",
   lwd.rng = 2, col.ref = "black", lwd.ref = 1, lty.ref = 2,
   xlim = NULL, ylim = NULL, yaxt = par("yaxt"), ...)
 
 \method{summary}{ageBias}(object, what = c("table", "symmetry", "Bowkers",
-  "EvansHoenig", "McNemars", "bias", "diff.bias"), flip.table = FALSE,
+  "EvansHoenig", "McNemars", "bias", "diff.bias", "n"), flip.table = FALSE,
   zero.print = "-", digits = 3, cont.corr = c("none", "Yates", "Edwards"),
   ...)
 }
@@ -91,6 +91,12 @@ ageBias(formula, data, col.lab = tmp$Rname, row.lab = tmp$Enames[1],
   \item{show.n}{A logical that indicates whether the sample
   sizes for each level of the x-axis variable is shown
   (\code{=TRUE}, default) or not (\code{=FALSE}).}
+
+  \item{nYpos}{A numeric that indicates the relative Y
+  position of the sample size values when
+  \code{show.n=TRUE}.  For example, if \code{nYpos=1.1}
+  then the sample size values will be 10 percent above the
+  end of the y-axis.}
 
   \item{show.pts}{A logical that indicates whether to show
   the raw data points or not.  See \code{col.pts} below.}
@@ -232,13 +238,16 @@ occur at each unique (x,y) coordinate.
 The age-agreement table can be seen with
 \code{what="table"} in \code{summary}. The agreement table
 can be flipped by including \code{flip.table=TRUE}.  The
-results from one of two tests of symmetry (along with the
-age-agreement table) are given with either
-\code{what="Bowkers"} for Bowker's test (described in
-Hoenig et al. (1995)) or \code{what="McNemars"} for
+results from one of three tests of symmetry (along with the
+age-agreement table) are given with \code{what="Bowkers"}
+for Bowker's test (described in Hoenig et al. (1995)),
+\code{what="EvansHoenig"} for Evans-Hoenig test (described
+in Evans and Hoenig (1998)), or \code{what="McNemars"} for
 McNemar's test (described in Evans and Hoenig (1998)) in
 \code{summary}.  The null hypothesis for these tests is
-that the agreement table is symmetric.
+that the agreement table is symmetric.  The results from
+all three tests of symmetry can be seen with
+\code{what="symmetry"}.
 
 Individual t-tests to determine if the mean row-variables
 ages at a particular age of the column-variable (e.g., is
@@ -253,6 +262,9 @@ the difference in ages (e.g., is the mean row-variable age
 minus column variable age at column-variable age-3 equal to
 0?) can be constructed by including \code{what="diff.bias"}
 in \code{summary}.
+
+The sample size present in the age-agreement table is found
+with \code{what="n"}.
 
 See \code{\link{agePrecision}} for measures of precision
 between pairs of age assignments.
@@ -271,7 +283,8 @@ summary(ab1,what="McNemars")
 summary(ab1,what="McNemars",cont.corr="Yates")
 summary(ab1,what="bias")
 summary(ab1,what="diff.bias")
-summary(ab1,what=c("symmetry","table"))
+summary(ab1,what="n")
+summary(ab1,what=c("n","symmetry","table"))
 # show the zeroes (rather than dashes)
 summary(ab1,what="table",zero.print="0")
 # flip the table -- ease of comparison to age-bias plot

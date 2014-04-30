@@ -1,8 +1,9 @@
 # FSA 0.4.8 ongoing
 
-* `ageBias()`: Modified.  Added the ability to use multiple `what=` arguments with `c()`.  Changed the order of the printing of results when `what="symmetry"` is used in `summary()`.  The order more closely follows the "level of complexity" of the tests.  Added unit test examples to the help file.
+* `ageBias()`: Modified.  Added the ability to use multiple `what=` arguments with `c()`.  Added `what="n"` to get the sample size on the age-agreement table.  Added `nYpos=` to `plot()` to allow control of the position of the sample size values on the plot.  Changed the order of the printing of results when `what="symmetry"` is used in `summary()`.  The order more closely follows the "level of complexity" of the tests.  Added unit test examples to the help file.
 * `agePrecision()`: Modified.  Added the ability to use multiple `what=` arguments with `c()`.
 * `hndlMultWhat()`: Added.  An internal file to help `ageBias()` and `agePrecision` handle multiple `what=` arguments.
+
 
 # FSA 0.4.7 Apr14
 
@@ -20,7 +21,6 @@
 * `WalleyeGerowLW`: Removed.
 * `wsValidate()`: Removed.
 * `WalleyeGerowLW`: Removed.
-
 
 # FSA 0.4.6 Apr14
 

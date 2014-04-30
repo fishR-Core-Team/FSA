@@ -42,11 +42,13 @@
 #'
 #'The age-agreement table can be seen with  \code{what="table"} in \code{summary}.
 #'The agreement table can be flipped by including \code{flip.table=TRUE}.  The
-#'results from one of two tests of symmetry (along with the age-agreement table)
-#'are given with either \code{what="Bowkers"} for Bowker's test (described in
-#'Hoenig et al. (1995)) or \code{what="McNemars"} for McNemar's test (described in
+#'results from one of three tests of symmetry (along with the age-agreement table)
+#'are given with \code{what="Bowkers"} for Bowker's test (described in Hoenig et al.
+#'(1995)), \code{what="EvansHoenig"} for Evans-Hoenig test (described in Evans and
+#'Hoenig (1998)), or \code{what="McNemars"} for McNemar's test (described in
 #'Evans and Hoenig (1998)) in \code{summary}.  The null hypothesis for these tests
-#'is that the agreement table is symmetric.
+#'is that the agreement table is symmetric.  The results from all three tests of 
+#'symmetry can be seen with \code{what="symmetry"}.
 #'
 #'Individual t-tests to determine if the mean row-variables ages at a particular
 #'age of the column-variable (e.g., is the mean row-variable age at column-variable
@@ -57,6 +59,8 @@
 #'results for the difference in ages (e.g., is the mean row-variable age minus
 #'column variable age at column-variable age-3 equal to 0?) can be constructed by
 #'including \code{what="diff.bias"} in \code{summary}.
+#'
+#'The sample size present in the age-agreement table is found with \code{what="n"}.
 #'
 #'See \code{\link{agePrecision}} for measures of precision between pairs of age assignments.
 #'
@@ -95,6 +99,9 @@
 #'@param ylab A string that contains a label for the y-axis age assignments.
 #'@param show.n A logical that indicates whether the sample sizes for each level
 #'of the x-axis variable is shown (\code{=TRUE}, default) or not (\code{=FALSE}).
+#'@param nYpos A numeric that indicates the relative Y position of the sample size
+#'values when \code{show.n=TRUE}.  For example, if \code{nYpos=1.1} then the sample
+#'size values will be 10 percent above the end of the y-axis.
 #'@param show.pts A logical that indicates whether to show the raw data points or
 #'not.  See \code{col.pts} below.
 #'@param show.rng A logical that indicates whether to show vertical bars that
@@ -178,7 +185,8 @@
 #'summary(ab1,what="McNemars",cont.corr="Yates")
 #'summary(ab1,what="bias")
 #'summary(ab1,what="diff.bias")
-#'summary(ab1,what=c("symmetry","table"))
+#'summary(ab1,what="n")
+#'summary(ab1,what=c("n","symmetry","table"))
 #'# show the zeroes (rather than dashes)
 #'summary(ab1,what="table",zero.print="0")
 #'# flip the table -- ease of comparison to age-bias plot
@@ -305,7 +313,7 @@ ageBias <- function(formula,data,col.lab=tmp$Rname,row.lab=tmp$Enames[1],
 #'@method plot ageBias
 #'@S3method plot ageBias
 plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE,
-                         xlab=x$col.lab,ylab=x$row.lab,show.n=TRUE,
+                         xlab=x$col.lab,ylab=x$row.lab,show.n=TRUE,nYpos=1.1,
                          show.pts=FALSE,pch.pts=19,col.pts=rgb(0,0,0,transparency),transparency=1/10,
                          pch.mean=3,col.err="blue",col.err.sig="red",lwd.err=2,
                          show.rng=FALSE,col.rng="gray",lwd.rng=2,
@@ -328,7 +336,8 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
   }
   
   ## Internal function for producing the age-bias plot
-  biasplot <- function(obj,difference,xlab,ylab,show.n,show.pts,show.rng,col.err,col.err.sig,col.pts,col.rng,xlim,ylim,yaxt,...) {
+  biasplot <- function(obj,difference,xlab,ylab,show.n,nYpos=nYpos,show.pts,show.rng,
+                       col.err,col.err.sig,col.pts,col.rng,xlim,ylim,yaxt,...) {
     # identify whether difference data should be used or not, put in a tmp data frame
     if (!difference) d <- obj$bias
       else d <- obj$bias.diff
@@ -359,7 +368,7 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
     #  for ages that are not significantly different
     plotrix::plotCI(x=d[,1][!d$sig],y=d$mean[!d$sig],li=d$LCI[!d$sig],ui=d$UCI[!d$sig],add=TRUE,slty=1,scol=col.err,pch=pch.mean,lwd=lwd.err,gap=0)
     # show the sample sizes at the top
-    if (show.n) text(d[,1],grconvertY(1.1,"npc"),d$n,cex=0.75,xpd=TRUE)
+    if (show.n) text(d[,1],grconvertY(nYpos,"npc"),d$n,cex=0.75,xpd=TRUE)
   } ## end internal age-bias plot function
 
   ## Internal function for producing the sunflower plot
@@ -406,7 +415,8 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
   ## Main function
   what <- match.arg(what)
   if (what=="bias") biasplot(x,difference,xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
-                             show.n,show.pts,show.rng,col.err,col.err.sig,col.pts,col.rng,xlim,ylim,yaxt,...)
+                             show.n,nYpos=nYpos,show.pts,show.rng,col.err,col.err.sig,
+                             col.pts,col.rng,xlim,ylim,yaxt,...)
   else if (what=="sunflower") asunflowerplot(x,difference,xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),xlim,ylim,lwd.ref,lty.ref,col.ref,...)
   else anumplot(x,xlab,ylab,xlim,ylim,lwd.ref,lty.ref,col.ref,...)
 }
@@ -414,7 +424,7 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
 #'@rdname ageBias
 #'@method summary ageBias
 #'@S3method summary ageBias
-summary.ageBias <- function(object,what=c("table","symmetry","Bowkers","EvansHoenig","McNemars","bias","diff.bias"),
+summary.ageBias <- function(object,what=c("table","symmetry","Bowkers","EvansHoenig","McNemars","bias","diff.bias","n"),
                             flip.table=FALSE,zero.print="-",digits=3,cont.corr=c("none","Yates","Edwards"),
                             ...) {
   ## Internal function to handle the age-agreement table for symmetry tests
@@ -506,6 +516,10 @@ summary.ageBias <- function(object,what=c("table","symmetry","Bowkers","EvansHoe
   
   ## Main function
   what <- match.arg(what,several.ok=TRUE)
+  if ("n" %in% what) {
+    cat("Sample size in the age-agreement table is ",sum(object$agree),".\n",sep="")
+    what <- hndlMultWhat(what,"n")
+  }
   if ("bias" %in% what) {
     cat("Summary of",object$row.lab,"by",object$col.lab,"\n")
     print(object$bias[-ncol(object$bias)],row.names=FALSE,digits=digits)

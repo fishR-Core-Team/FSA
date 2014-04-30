@@ -186,7 +186,7 @@ ciLabel <- function(conf.level,digits=1) {
 hndlMultWhat <- function(what,item) {
   if (length(what)>1) {
     cat("\n")
-    what[!grepl(item,what)]
+    what[-pmatch(item, what)]
   }
 }
 
