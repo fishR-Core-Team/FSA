@@ -1,89 +1,63 @@
-#'Computing precision between or among sets of ages.
+#' Compute measures of precision among sets of ages.
 #'
-#'Computes overall measures of precision for age assignments made on the same
-#'individuals.  The age assignments can consist of age measurements recorded for
-#'two or more readers of the same structure, one reader at two or more times, or
-#'for two or more stuctures (e.g., scales, spines, otoliths).
+#' Computes overall measures of precision for multiple age assignments made on the same individuals.  The age assignments may be from two or more readers of the same structure, one reader at two or more times, or two or more stuctures (e.g., scales, spines, otoliths).
 #'
-#'The main function, \code{agePrecision}, requires a formula of the form
-#'\code{~var1+var2+var3+...} where the \code{varX} generically represent the
-#'variables that contain the age assignments.  Alternatively, the formula may be
-#'of the form \code{var1~var2+var3+...} to allow similarity with \code{\link{ageBias}}.
-#'Note that in this alternative formula that the RHS can have only one variable.
+#' The main function, \code{agePrecision}, requires a formula of the form \code{~var1+var2+var3+...} where the \code{varX} generically represent the variables that contain the multiple age assignments.  Alternatively, the formula may be of the form \code{var1~var2+var3+...} to allow for similar code as used in \code{\link{ageBias}}.  In the alternative formula the right-hand-side can have only one variable.
 #'
-#'If \code{what="precision"} (the default) in \code{summary} then a summary table
-#'will be printed that contains the following items:
-#'\itemize{
-#'  \item n Number of fish in \code{data}.
-#'  \item R Number of age assessments in \code{data}.
-#'  \item CV The mean coefficient of variation.
-#'  \item APE The mean average percent error.
-#'  \item PercAgree The percentage of fish for which all age assignments perfectly agree.
-#'}
+#' If \code{what="precision"} in \code{summary} then a summary table that contains the following items will be printed:
+#' \itemize{
+#'   \item n Number of fish in \code{data}.
+#'   \item R Number of age assessments in \code{data}.
+#'   \item CV The mean coefficient of variation.  See the fishR vignette for calculational details.
+#'   \item APE The mean average percent error.  See the fishR vignette for calculational details.
+#'   \item PercAgree The percentage of fish for which all age assignments perfectly agree.
+#' }
 #'
-#'If \code{what="agreement"} in \code{summary} then a table that describes either
-#'the percentage (if \code{percent=TRUE}, default) or frequency of fish by the
-#'absolute difference in paired age assignments.  Thus, this table will have one
-#'row for each possible pair of age assignments.  The \dQuote{0} column represents
-#'perfect agreement between the two age assignements, the \dQuote{1} column
-#'represents ages that disagreed by one year (in either direction), and so on.
+#' If \code{what="difference"} in \code{summary} then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the difference in paired age assignments.  This table has one row for each possible pair of age assignments.
 #'
-#'If \code{what="detail"} in \code{summary} then a data frame of the original data
-#'plus the intermediate caculations of the average age, standard deviation of age,
-#'APE, and CV for each individual fish will be printed.  These details are generally
-#'only used to check or to understand calculations.
+#' If \code{what="absolute difference"} in \code{summary} then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the absolute value of the difference in paired age assignments.  This table also has one row for each possible pair of age assignments.  The \dQuote{1} column, for example, represents age assignments that disagree by one year (in either direction).
 #'
-#'See \code{\link{ageBias}} for computation of the full age agreement table, along
-#'with tests and plots of age bias.
+#' If \code{what="detail"} in \code{summary} then a data frame of the original \code{data} along with the intermediate caculations of the average age, standard deviation of age, APE, and CV for each individual will be printed.  These details are generally only used to check or to understand calculations.
 #'
-#'@aliases agePrec plot.agePrec summary.agePrec
-#'@param formula A formula of the form \code{~var1+var2+var3+...} where the
-#'\code{varX} generically represent the variables that contain the age assignments.
-#'See details.
-#'@param data A data.frame that minimally contains the age assignments.  See 
-#'\code{formula} above and details.
-#'@param object An object saved from the \code{agePrecision} call (i.e., of
-#'class \code{agePrec}).
-#'@param what A string that indicates what type of summary to print.  See details.
-#'@param percent A logical that indicates whether the agreement matrix should contain
-#'percentages (\code{TRUE}; default) or raw numbers.  See details.
-#'@param digits A numeric that indicates the minimum number of digits to print when
-#'using \code{summary}.
-#'@param \dots Additional arguments for methods.
-#'@return \code{agePrec} returns a list with the following items:
-#'\itemize{
-#'  \item detail A data frame with all given and computed information about each fish.
-#'  \item absdiff A table of number of fish by absolute differences for each pair of ages.
-#'  \item APE The mean average percent error.
-#'  \item CV The mean coefficient of variation.
-#'  \item n Number of fish in \code{data}.
-#'  \item R Number of age assessments in \code{data}.
-#'  \item PercAgree The percentage of fish for which all age assignments perfectly agree.
-#'}
+#' @aliases agePrec plot.agePrec summary.agePrec
+#' @param formula A formula of the form \code{~var1+var2+var3+...} where the \code{varX} generically represent the variables that contain the age assignments.  See details.
+#' @param data A data.frame that minimally contains the age assignments in the variables identified in \code{formula}.
+#' @param object An object saved from the \code{agePrecision} call (i.e., of class \code{agePrec}).
+#' @param what A string that indicates what type of summary to print.  See details.
+#' @param percent A logical that indicates whether the difference tableas (see details) should be represented as percentages (\code{TRUE}; default) or frequency of fish.
+#' @param digits A single numeric that indicates the minimum number of digits to print when using \code{summary}.
+#' @param \dots Additional arguments for methods.
+#' 
+#' @return A list with the following items:
+#' \itemize{
+#'   \item detail A data.frame with all data given in \code{data} and intermediate calculations for each fish.  See details
+#'   \item rawdiff A frequency table of fish by differences for each pair of ages.
+#'   \item absdiff A frequency table of fish by absolute differences for each pair of ages.
+#'   \item APE The mean average percent error.
+#'   \item CV The mean coefficient of variation.
+#'   \item n Number of fish in \code{data}.
+#'   \item R Number of age assessments in \code{data}.
+#' }
 #'
-#'The \code{summary} function does not return anything.
+#' Nothing is returned by \code{summary}, but see details for what is printed.
 #'
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}
-#'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeComparisons.pdf}
-#'@seealso \code{\link{ageBias}}
-#'@references Beamish, R.J. and D.A. Fournier.  1981.  A method for comparing
-#'the precision of a set of age determinations.  Canadian Journal of Fisheries
-#'and Aquatic Sciences, 38:982-983.
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#'Campana, S.E.  1982.  Accuracy, precision and quality control in age
-#'determination, including a review of the use and abuse of age validation
-#'methods. Journal of Fish Biology, 59:197-242.
+#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeComparisons.pdf}
 #'
-#'Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  Graphical and
-#'statistical methods for determining the consistency of age determinations.
-#'Transactions of the American Fisheries Society, 124:131-138.
+#' @seealso See \code{\link{ageBias}} for computation of the full age agreement table, along with tests and plots of age bias.
+#' 
+#' @references Beamish, R.J. and D.A. Fournier.  1981.  A method for comparing the precision of a set of age determinations.  Canadian Journal of Fisheries and Aquatic Sciences, 38:982-983. \url{http://www.pac.dfo-mpo.gc.ca/science/people-gens/beamish/PDF_files/compareagecjfas1981.pdf}
 #'
-#'Chang, W.Y.B. 1982.  A statistical method for evaluating the reproducibility
-#'of age determination.  Canadian Journal of Fisheries and Aquatic Sciences,
-#'39:1208-1210.
+#'Campana, S.E.  1982.  Accuracy, precision and quality control in age determination, including a review of the use and abuse of age validation methods. Journal of Fish Biology, 59:197-242.  \url{http://www.denix.osd.mil/nr/crid/Coral_Reef_Iniative_Database/References_for_Reef_Assessment_files/Campana,\%202001.pdf}
 #'
-#'@keywords htest manip
-#'@examples
+#'Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  Graphical and statistical methods for determining the consistency of age determinations. Transactions of the American Fisheries Society, 124:131-138.  \url{http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf}
+#'
+#'Chang, W.Y.B. 1982.  A statistical method for evaluating the reproducibility of age determination.  Canadian Journal of Fisheries and Aquatic Sciences, 39:1208-1210.  \url{http://www.nrcresearchpress.com/doi/abs/10.1139/f82-158}
+#'
+#' @keywords htest manip
+#' 
+#' @examples
 #'## Example with just two age assignments
 #'data(WhitefishLC)
 #'ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)
@@ -105,8 +79,9 @@
 #'summary(ap2,what="absolute",percent=FALSE)
 #'summary(ap2,what="detail")
 #'
-#'@rdname agePrec
-#'@export
+#' @rdname agePrec
+#' @export
+#' 
 agePrecision <- function(formula,data) {
   # change formula to have only a RHS
   tmp <- as.character(formula)[-1]
@@ -189,9 +164,9 @@ agePrecision <- function(formula,data) {
 }
 
 
-#'@rdname agePrec
-#'@method summary agePrec
-#'@S3method summary agePrec
+#' @rdname agePrec
+#' @method summary agePrec
+#' @S3method summary agePrec
 summary.agePrec <- function(object,what=c("precision","difference","absolute difference","detail","agreement"),
                             percent=TRUE,digits=4,...) {
   what <- match.arg(what,several.ok=TRUE)

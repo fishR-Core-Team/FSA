@@ -1,4 +1,10 @@
-# FSA 0.4.9 ongoing
+# FSA 0.4.10 ongoing
+
+* `ageBias()`: Modified.  Cleaned-up the help file.
+* `agePrecision()`: Modified.  Cleaned-up the help file.
+
+
+# FSA 0.4.9 May14
 
 * Removed nlme dependencies (with removal of `vbDataGen()`).
 * `ageComp()`: Deleted.  Fully deprecated.  Use `ageBias()` and `agePrecision()` instead.
@@ -14,7 +20,6 @@
 * `vbDataGen()`: Deleted.  Moved to FSAsim package.
 * `vbFuns()`: Modified.  Remove link to `vbComp()`.
 * `VBGMlit()`: Deleted.  Moved to FSAsim package.
-
 
 # FSA 0.4.8 May14
 
