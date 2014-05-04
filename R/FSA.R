@@ -16,7 +16,6 @@
 #' @importFrom Hmisc binconf
 #' @importFrom knitr purl
 #' @importFrom multcomp cld
-#' @importFrom nlme groupedData nfGroupedData nmGroupedData getGroupsFormula
 #' @importFrom plotrix plotCI stackpoly thigmophobe
 #' @importFrom relax gslider
 #' @importFrom sciplot lineplot.CI se

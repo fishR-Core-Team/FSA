@@ -15,7 +15,6 @@ Imports:
     Hmisc,
     knitr,
     multcomp,
-    nlme,
     plotrix,
     relax,
     sciplot
