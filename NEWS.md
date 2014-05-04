@@ -1,9 +1,24 @@
-# FSA 0.4.8 ongoing
+# FSA 0.4.9 ongoing
+
+* `ageComp()`: Deleted.  Fully deprecated.  Use `ageBias()` and `agePrecision()` instead.
+* `cohortSim()`: Deleted.  Moved to FSAsim package.
+* `depletion()`: Modified.  Remove link to `leslieSim()`.
+* `lengthWeightSim()`: Deleted.  Moved to FSAsim package.
+* `leslieSim()`: Deleted.  Moved to FSAsim package.
+* `lwModelSim()`: Deleted.  Moved to FSAsim package.
+* `mrClosed()`: Modified.  Remove link to `mrClosed1Sim()`.
+* `mrClosed1Sim()`: Deleted.  Moved to FSAsim package.
+* `srCobWeb()`: Deleted.  Moved to FSAsim package.
+* `vbComp()`: Deleted.  Moved to FSAsim package.
+* `vbDataGen()`: Deleted.  Moved to FSAsim package.
+* `vbFuns()`: Modified.  Remove link to `vbComp()`.
+
+
+# FSA 0.4.8 May14
 
 * `ageBias()`: Modified.  Added the ability to use multiple `what=` arguments with `c()`.  Added `what="n"` to get the sample size on the age-agreement table.  Added `nYpos=` to `plot()` to allow control of the position of the sample size values on the plot.  Changed the order of the printing of results when `what="symmetry"` is used in `summary()`.  The order more closely follows the "level of complexity" of the tests.  Added unit test examples to the help file.
 * `agePrecision()`: Modified.  Added the ability to use multiple `what=` arguments with `c()`.
 * `hndlMultWhat()`: Added.  An internal file to help `ageBias()` and `agePrecision` handle multiple `what=` arguments.
-
 
 # FSA 0.4.7 Apr14
 

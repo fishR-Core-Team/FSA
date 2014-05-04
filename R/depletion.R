@@ -62,8 +62,7 @@
 #'\item est A 2x2 matrix that contains the estimates and standard errors for No and q.
 #'}
 #'@author Derek H. Ogle, \email{dogle@@northland.edu}
-#'@seealso \code{\link{removal}}, \code{\link{leslieSim}}, and
-#'\code{deplet} in \pkg{fishmethods}.
+#'@seealso \code{\link{removal}} and \code{deplet} in \pkg{fishmethods}.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/Depletion.pdf}
 #'@references Ricker, W.E.  1975. Computation and interpretation of biological
 #'statistics of fish populations. Technical Report Bulletin 191, Bulletin of

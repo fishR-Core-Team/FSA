@@ -134,7 +134,7 @@ model with individual asymptotes.  Canadian Journal of
 Fisheries and Aquatic Sciences 55:397-400.
 }
 \seealso{
-\code{\link{vbComp}} and \code{\link{growthModelSim}}.
+\code{\link{growthModelSim}}.
 }
 \keyword{manip}
 

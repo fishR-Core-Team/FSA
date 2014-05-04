@@ -2,14 +2,12 @@
 #'
 #'Creates a function for a specific von Bertalanffy model parameterization.
 #'
-#'@param type A string that indicates the parameterization of the von Bertalanffy
-#'model.
+#'@param type A string that indicates the parameterization of the von Bertalanffy model.
 #'@param simple A logical that indicates whether the user should be allowed to send
 #'all parameter values in the first parameter argument (\code{=FALSE}; default)
 #'or whether all individual parameters must be specified (\code{=TRUE}).
 #'@param msg A logical that indicates whether a message about the model and
-#'parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE};
-#'default).
+#'parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).
 #'@return A function that can be used to predict fish length given a vector of
 #'ages and values for the model parameters and, in some parameterizations,
 #'values for some constants.  The result should be saved to an object that can
@@ -27,7 +25,7 @@
 #'for a hint about using \code{get()}.
 #'@note The \sQuote{original} and \sQuote{vonBertalanffy} and the
 #'\sQuote{typical} and \sQuote{BevertonHolt} versions are synonomous.
-#'@seealso \code{\link{vbComp}} and \code{\link{growthModelSim}}.
+#'@seealso \code{\link{growthModelSim}}.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffy.pdf},
 #'\url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffyExtra.pdf}
 #'@references Fabens, A. 1965. Properties and fitting of the von Bertalanffy

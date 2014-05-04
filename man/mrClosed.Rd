@@ -339,9 +339,9 @@ Tennessee Academy of Sciences, 18:228-249.
 }
 \seealso{
 \code{\link{capHistSum}}, \code{\link{poiCI}},
-\code{\link{binCI}}, \code{\link{hyperCI}}
-\code{\link{mrOpen}}; \code{\link{mrClosed1Sim}}; and
-\code{mrN.single} and \code{schnabel} in \pkg{fishmethods},
+\code{\link{binCI}}, \code{\link{hyperCI}}, and
+\code{\link{mrOpen}}; \code{mrN.single} and \code{schnabel}
+in \pkg{fishmethods}.
 }
 \keyword{manip}
 

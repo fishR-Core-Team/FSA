@@ -164,8 +164,8 @@ Seber, G.A.F. 1982. The Estimation of Animal Abundance.
 Edward Arnold, second edition.
 }
 \seealso{
-\code{\link{removal}}, \code{\link{leslieSim}}, and
-\code{deplet} in \pkg{fishmethods}.
+\code{\link{removal}} and \code{deplet} in
+\pkg{fishmethods}.
 }
 \keyword{hplot}
 \keyword{manip}

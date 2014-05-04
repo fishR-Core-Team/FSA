@@ -156,9 +156,8 @@
 #'\item labels Labels for the rows of summary matrix.
 #'}
 #'@author Derek H. Ogle, \email{dogle@@northland.edu}
-#'@seealso \code{\link{capHistSum}}, \code{\link{poiCI}}, \code{\link{binCI}}, \code{\link{hyperCI}}
-#'\code{\link{mrOpen}}; \code{\link{mrClosed1Sim}}; and \code{mrN.single} and
-#'\code{schnabel} in \pkg{fishmethods},
+#'@seealso \code{\link{capHistSum}}, \code{\link{poiCI}}, \code{\link{binCI}}, \code{\link{hyperCI}},
+#'and \code{\link{mrOpen}}; \code{mrN.single} and \code{schnabel} in \pkg{fishmethods}.
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/MRClosed.pdf}
 #'@references Krebs, C.J.  1999. Ecological Methodology. Addison-Welsey
 #'Educational Publishing, second edition.
