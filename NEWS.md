@@ -2,6 +2,9 @@
 
 * `ageBias()`: Modified.  Cleaned-up the help file.
 * `agePrecision()`: Modified.  Cleaned-up the help file.
+* `ageKey()`: Modified.  Cleaned-up the help file and modified the example.
+* `ageKeyPlot()`: Modified.  Added more description and cleaned-up the help file.
+* `ageKeyPrep()`: Modified.  Added more description and cleaned-up the help file.
 
 
 # FSA 0.4.9 May14

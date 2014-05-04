@@ -1,60 +1,55 @@
 #' Plots to visualize age-length keys.
 #' 
-#' Various plots to visualize the proportion of fish of certain ages within
-#' length categories in an age-length key.
+#' Various plots to visualize the proportion of fish of certain ages within length categories in an age-length key.
 #' 
-#' This is a first draft of this function.  Please send suggestions to the author.
-#' 
+#' A variety of plots can be used to visualize the proportion of fish of certain ages withing length categories of an age-length key.  The types of plots are described below and illustrated in the examples.
+#' \itemize{
+#'   \item A \dQuote{stacked} bar chart where vertical bars over length categories that each sum to 1 but are segmented by the proportion of each age in that length category is constructed with \code{type="barplot"}.  The ages will be labeled in the bar segments unless \code{showLegend=TRUE} is used.
+#'   \item A \dQuote{stacked} are chart similar to the bar chart described above is constructed with \code{type="area"}.
+#'   \item A plot with (different colored) lines that connect the proportions of ages within each length category is constructed with \code{type="lines"}.
+#'   \item A plot with (different colored) lines, as estimated by loess splines, that connect the proportions of ages within each length category is constructed with \code{type="splines"}.
+#'   \item A \dQuote{bubble} plot where circles whose size is proportional to the proportion of fish of each age in each length category is constructed with \code{type="bubble"}.  The color of the bubbles can be controlled with \code{col=} and an underlying grid for ease of seeing the age and length category for each bubble can be controlled with \code{grid=}.  Bubbles from a second age-length key can be overlaid on an already constructed bubble plot by using \code{add=TRUE} in a second call to \code{ageKeyPlot}.
+#' }
+#' Note that all plots are \dQuote{vertically conditional} -- i.e., each represents the proportional ages WITHIN each length category.
 #' @param key A numeric matrix that contains the age-length key.
-#' @param type A string that indicates the type of plot to construct.  See examples.
+#' @param type A string that indicates the type of plot to construct.  See details.
 #' @param xlab A string that contains the label for the x-axis.
-#' @param ylab A string that contains the label for the y-axis in all plots but
-#' when \code{type="bubble"} (see \code{bubble.ylab=)}.
-#' @param showLegend A logical that indicates whether a legend should be displayed for
-#' when \code{type="barplot"} and \code{type="area"}.  See examples.
-#' @param lbl.cex A numeric character expansion value for labels inside the bars
-#' when \code{type="barplot"} and \code{showLegend=FALSE} or on the lines when
-#' \code{type="lines"} or \code{type="splines"}.
-#' @param leg.cex A numeric character expansion value for labels on the legend when
-#' \code{type="barplot"} or \code{type="area"} and \code{showLegend=TRUE}.
-#' @param lwd A numeric that indicates the line width for when \code{type="lines"} or
-#' \code{type="splines"}.
-#' @param span A numeric that indicates the span value to use in \code{loess} when
-#' \code{type="splines"}.
-#' @param grid A logical that indicates whether a grid should be placed under
-#' the bubbles when \code{type="bubble"} or a character or appropriate vector
-#' that identifies a color for the grid.  See examples.
-#' @param col A string that indicates the color of the bubbles when \code{type="bubble"}.
-#' @param buf A single numeric that indicates the relative width of the bubbles
-#' when \code{type="bubble"}. A value of 0.5 would mean that two full-width bubbles
-#' would touch either in the x- or y-direction (i.e., this would represent half
-#' of the minimum of the physical distance between values one-unit apart on the
-#' x- and y-axes).  Set this to a value less than 0.5 so that the bubble do not
-#' touch (the default is 0.45).
+#' @param ylab A string that contains the label for the y-axis in all plots except when \code{type="bubble"} (see \code{bubble.ylab=)}.
 #' @param bubble.ylab A string that contains the label for the y-axis when \code{type="bubble"}.
-#' @param add A logical that indicates whether the data should be adding to an already
-#' existing plot.  May be useful for visually comparing age-length keys.  Only
-#' implemented when \code{type="bubble"}.
 #' @param xlim A numeric of length 2 that provide the limits for the x-axis.
 #' @param ylim A numeric of length 2 that provide the limits for the y-axis.
-#' @param \dots Additional arguments to pass to \code{plot}, \code{barplot}, or
-#' \code{stackpoly}.
+#' @param showLegend A logical that indicates whether a legend should be displayed for when \code{type="barplot"} and \code{type="area"}.  See examples.
+#' @param lbl.cex A numeric character expansion value for labels inside the bars when \code{type="barplot"} and \code{showLegend=FALSE} or on the lines when \code{type="lines"} or \code{type="splines"}.
+#' @param leg.cex A numeric character expansion value for labels on the legend when \code{type="barplot"} or \code{type="area"} and \code{showLegend=TRUE}.
+#' @param lwd A numeric that indicates the line width for when \code{type="lines"} or \code{type="splines"}.
+#' @param span A numeric that indicates the span value to use in \code{loess} when \code{type="splines"}.
+#' @param grid A logical that indicates whether a grid should be placed under the bubbles when \code{type="bubble"} or a character or appropriate vector that identifies a color for the grid.  See examples.
+#' @param col A string that indicates the color of the bubbles when \code{type="bubble"}.
+#' @param buf A single numeric that indicates the relative width of the bubbles when \code{type="bubble"}. A value of 0.5 would mean that two full-width bubbles would touch each other either in the x- or y-direction (i.e., this would represent half of the minimum of the physical distance between values one-unit apart on the x- and y-axes).  Set this to a value less than 0.5 so that the bubbles will not touch (the default is 0.45).
+#' @param add A logical that indicates whether the data should be added to an already existing plot.  May be useful for visually comparing age-length keys.  Only implemented when \code{type="bubble"}.
+#' @param \dots Additional arguments to pass to \code{plot}, \code{barplot}, or \code{stackpoly}.
+#' 
 #' @return None, but a plot is constructed.
+#' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
-#' @seealso \code{\link{ageKey}} and \code{\link{ageKeyPrep}}.
+#' 
+#' @seealso See \code{\link{ageKey}} for using an age-length key to assign ages to individual fish and \code{\link{ageKeyPrep}} to \dQuote{fix} ill-formed age-length keys.
+#' 
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeLengthKey.pdf}
+#' 
 #' @export
+#' 
 #' @keywords plot
+#' 
 #' @examples
-#'## Get data with length measurements and some assigned ages -- same as in ageKey()
+#'## Make an example age-length key -- same as in ageKey()
 #'data(WR79)
-#'# get the age sample from the data frame
-#'WR.age <- Subset(WR79, !is.na(age))
-#'# add length categories
-#'WR.age.mod <- lencat(~len,data=WR.age,startcat=35,w=5,drop.levels=TRUE)
-#'# create age-length key
-#'raw <- table(WR.age.mod$LCat, WR.age.mod$age)
+#'WR.age <- Subset(WR79, !is.na(age))      # isolate the age sample
+#'WR.age$LCat <- lencat(WR.age$len,w=5)    # add length categories (width=5)
+#'raw <- xtabs(~LCat+age,data=WR.age)      # create age-length key
 #'( WR.key <- prop.table(raw, margin=1) )
+#'
+#'## Various visualizations of the age-length key
 #'ageKeyPlot(WR.key,"barplot")
 #'ageKeyPlot(WR.key,"barplot",showLegend=TRUE)
 #'ageKeyPlot(WR.key,"area",showLegend=TRUE)
@@ -78,6 +73,7 @@ ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
     num.lens <- length(lens)
     list(num.ages=num.ages,ages=ages,num.lens=num.lens,lens=lens)
   } ## end internal agesANDlens function
+  
   ## INTERNAL -- Add age labels inside of bars on barplot
   addLabelsToBars <- function(key,alsum,lbl.cex) {
     # Make colors for the age labels inside the bars (dark on light, light on dark)
@@ -97,20 +93,24 @@ ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
       }
     }
   } ## end internal addLabelsToBars function
+  
   ## INTERNAL -- Add age labels to lines in line and spline plots
   addLabelsToLines <- function(maxvals,lbl.cex) {
     text(maxvals[,1],maxvals[,2],maxvals[,3],cex=lbl.cex)
   } ## end internal addLabelsToLines function
+  
   ## INTERNAL -- Setup a figure layout if a legend is added to bar or area plot
   prepLayoutForLegend <- function(){
     layout(matrix(c(2,1),nrow=2),heights=c(1,14))
   } ## end internal prepLayoutForLegend
+  
   ## INTERNAL -- Add a legend to bar or area plot
   addLegend <- function(alsum,cex=leg.cex){
     par(mar=c(0.2,11.0,0.2,8.0))
     barplot(matrix(1,nrow=alsum$num.ages,ncol=1),horiz=TRUE,xaxt="n")
     text(c(1,alsum$num.ages)-0.5,c(0.75,0.75),range(alsum$ages),col=c("white","black"),cex=leg.cex) 
   } ## end internal addLegend function
+  
   ## INTERNAL -- convert the key to a data.frame for the bubble plot
   unmatKey <- function(key,alsum) {
     tmpK <- data.frame(len=rep(alsum$lens,times=alsum$num.ages),
@@ -118,6 +118,7 @@ ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
                        prop=as.vector(key))
     tmpK[tmpK$prop>0,]
   } ## end internal unmatKey function
+  
   ## INTERNAL -- find inches argument (scale of radius for bubbles) for bubble plot
   bubbleIn <- function(alsum,buf) {
     # find "inches" between concurrent values on the X,Y user scales
@@ -126,6 +127,7 @@ ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
     # find minimum diff in X,Y inches per 1 concurrent set of values of user scale * the buffer
     min(diff(tmpX),diff(tmpY))*buf
   } ## end internal bubbleIn function
+  
   ## INTERNAL -- add bubles to an existing plot
   addBubbles <- function(key,alsum,buf,col) {
     tmp <- unmatKey(key,alsum)

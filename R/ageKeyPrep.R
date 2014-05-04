@@ -1,36 +1,35 @@
-#' Prepares problematic age-length key matrics for use.
+#' Prepares problematic age-length key matrices for use.
 #' 
-#' This function can be used to prepare problematic age-length key matrices for
-#' use in \code{ageKey}.  Problems that can be fixed are the deletion of empty
-#' rows at the beginning or at the end of the age-length key matrix and the
-#' \sQuote{interpolation} of values in missing rows in the \sQuote{middle} of the
-#' age-length key.
+#' Used to prepare problematic age-length key matrices for use in \code{\link{ageKey}}.  Problems that can be fixed are the deletion of empty rows at the beginning or at the end of the age-length key matrix and the \sQuote{interpolation} of values in missing rows in the \sQuote{middle} of the age-length key.
 #' 
-#' This function can be used to prepare problematic age-length key matrices for
-#' use in \code{ageKey}.  Problems that can be fixed are the deletion of empty
-#' rows at the beginning or at the end of the age-length key matrix and the
-#' \sQuote{interpolation} of values in missing rows in the \sQuote{middle} of the
-#' age-length key.  In the latter example, a cell in the missing row is computed
-#' by assuming a linear trend between the immediately adjacent rows with data
-#' both above and below the missing row.  This results in simply averaging the
-#' values in the adjacent rows if only one row is missing in the age-length key
-#' matrix.
+#' This function can be used to prepare problematic age-length key matrices for use in \code{\link{ageKey}}.  Problems that can be fixed are the deletion of empty rows at the beginning or at the end of the age-length key matrix and the \sQuote{interpolation} of values in missing rows in the \sQuote{middle} of the age-length key.  In the case of interpolation, a cell in the missing row is computed by assuming a linear trend between the immediately adjacent rows with data both above and below the missing row.  This results in simply averaging the values in the adjacent rows if only one row is missing in the age-length key matrix.
 #' 
-#' THIS FUNCTION IS EXPERIMENTAL AT THIS POINT
+#' Missing values can also be predicted using general linear or additive models as described in the references.
 #' 
 #' @param key A numeric matrix that contains the problematic age-length key.
-#' @param show.msgs A logicical that indicates if process messages should be displayed
-#' (\code{TRUE}; default).
+#' @param show.msgs A logicical that indicates if process messages should be displayed (\code{TRUE}; default).
 #' 
-#' @return A matrix that contains the original age-length key matrix sent in \code{key}
-#' with missing rows either deleted if they were at the beginning or end of the
-#' matrix or replaced with interpolated values (see details) if in the middle
-#' of the matrix.
+#' @return A matrix that contains the original age-length key matrix sent in \code{key} with missing rows either deleted if they were at the beginning or end of the matrix or replaced with interpolated values (see details) if in the middle of the matrix.
+#' 
 #'@author Derek H. Ogle, \email{dogle@@northland.edu} 
-#'@seealso \code{\link{ageKey}}.
+#'
+#'@references 
+#'Berg, C.W. and K. Kristensen.  2012.  Spatial age-length key modelling using continuation ratio logits.  Fisheries Research 129-130:119-126. \url{http://orbit.dtu.dk/fedora/objects/orbit:113964/datastreams/file_10214559/content}
+#'
+#'Gerritsen, H.D., D. McGrath, and C. Lordan.  2006.  A simple method for comparing age-length keys reveals significant regional differences within a single stock of haddock (\emph{Melanogrammus aeglefinus}).  ICSE Journal of Marine Science 63:1096-1100.  \url{http://icesjms.oxfordjournals.org/content/63/6/1096.full}
+#'
+#'Stari, T., K.F. Preedy, E. McKenzie, W.S.C. Gurney, M.R. Heath, P.A. Kunzlik, D.C. Speirs.  2010.  Smooth age length keys: Observations and implications for data collection on North Sea haddock.  Fisheries Research 105:2-12.  \url{http://www.sciencedirect.com/science/article/pii/S0165783610000512}.
+#'
+#'@seealso See \code{\link{ageKey}} for using an age-length key to assign ages to individual fish and \code{\link{ageKeyPlot}} to visualize age-length keys.
+#'
+#'Also see functions in the DATRAS package (avaiable at \url{http://www.rforge.net/DATRAS/index.html}).
+#'
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeLengthKey.pdf}
+#'
 #'@export
+#'
 #'@keywords manip
+#'
 #'@examples
 #'# create a "good" small ALK matrix
 #'alk <- matrix(c(0.4,0.3,0.3,0.0,

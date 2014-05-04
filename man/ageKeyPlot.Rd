@@ -13,14 +13,23 @@ ageKeyPlot(key, type = c("barplot", "area", "lines", "splines", "bubble"),
   key.}
 
   \item{type}{A string that indicates the type of plot to
-  construct.  See examples.}
+  construct.  See details.}
 
   \item{xlab}{A string that contains the label for the
   x-axis.}
 
   \item{ylab}{A string that contains the label for the
-  y-axis in all plots but when \code{type="bubble"} (see
+  y-axis in all plots except when \code{type="bubble"} (see
   \code{bubble.ylab=)}.}
+
+  \item{bubble.ylab}{A string that contains the label for
+  the y-axis when \code{type="bubble"}.}
+
+  \item{xlim}{A numeric of length 2 that provide the limits
+  for the x-axis.}
+
+  \item{ylim}{A numeric of length 2 that provide the limits
+  for the y-axis.}
 
   \item{showLegend}{A logical that indicates whether a
   legend should be displayed for when \code{type="barplot"}
@@ -52,25 +61,16 @@ ageKeyPlot(key, type = c("barplot", "area", "lines", "splines", "bubble"),
   \item{buf}{A single numeric that indicates the relative
   width of the bubbles when \code{type="bubble"}. A value
   of 0.5 would mean that two full-width bubbles would touch
-  either in the x- or y-direction (i.e., this would
-  represent half of the minimum of the physical distance
-  between values one-unit apart on the x- and y-axes).  Set
-  this to a value less than 0.5 so that the bubble do not
-  touch (the default is 0.45).}
-
-  \item{bubble.ylab}{A string that contains the label for
-  the y-axis when \code{type="bubble"}.}
+  each other either in the x- or y-direction (i.e., this
+  would represent half of the minimum of the physical
+  distance between values one-unit apart on the x- and
+  y-axes).  Set this to a value less than 0.5 so that the
+  bubbles will not touch (the default is 0.45).}
 
   \item{add}{A logical that indicates whether the data
-  should be adding to an already existing plot.  May be
+  should be added to an already existing plot.  May be
   useful for visually comparing age-length keys.  Only
   implemented when \code{type="bubble"}.}
-
-  \item{xlim}{A numeric of length 2 that provide the limits
-  for the x-axis.}
-
-  \item{ylim}{A numeric of length 2 that provide the limits
-  for the y-axis.}
 
   \item{\dots}{Additional arguments to pass to \code{plot},
   \code{barplot}, or \code{stackpoly}.}
@@ -83,22 +83,48 @@ Various plots to visualize the proportion of fish of
 certain ages within length categories in an age-length key.
 }
 \details{
-This is a first draft of this function.  Please send
-suggestions to the author.
+A variety of plots can be used to visualize the proportion
+of fish of certain ages withing length categories of an
+age-length key.  The types of plots are described below and
+illustrated in the examples. \itemize{ \item A
+\dQuote{stacked} bar chart where vertical bars over length
+categories that each sum to 1 but are segmented by the
+proportion of each age in that length category is
+constructed with \code{type="barplot"}.  The ages will be
+labeled in the bar segments unless \code{showLegend=TRUE}
+is used.  \item A \dQuote{stacked} are chart similar to the
+bar chart described above is constructed with
+\code{type="area"}.  \item A plot with (different colored)
+lines that connect the proportions of ages within each
+length category is constructed with \code{type="lines"}.
+\item A plot with (different colored) lines, as estimated
+by loess splines, that connect the proportions of ages
+within each length category is constructed with
+\code{type="splines"}.  \item A \dQuote{bubble} plot where
+circles whose size is proportional to the proportion of
+fish of each age in each length category is constructed
+with \code{type="bubble"}.  The color of the bubbles can be
+controlled with \code{col=} and an underlying grid for ease
+of seeing the age and length category for each bubble can
+be controlled with \code{grid=}.  Bubbles from a second
+age-length key can be overlaid on an already constructed
+bubble plot by using \code{add=TRUE} in a second call to
+\code{ageKeyPlot}. } Note that all plots are
+\dQuote{vertically conditional} -- i.e., each represents
+the proportional ages WITHIN each length category.
 }
 \section{fishR vignette}{
   \url{https://sites.google.com/site/fishrfiles/gnrl/AgeLengthKey.pdf}
 }
 \examples{
-## Get data with length measurements and some assigned ages -- same as in ageKey()
+## Make an example age-length key -- same as in ageKey()
 data(WR79)
-# get the age sample from the data frame
-WR.age <- Subset(WR79, !is.na(age))
-# add length categories
-WR.age.mod <- lencat(~len,data=WR.age,startcat=35,w=5,drop.levels=TRUE)
-# create age-length key
-raw <- table(WR.age.mod$LCat, WR.age.mod$age)
+WR.age <- Subset(WR79, !is.na(age))      # isolate the age sample
+WR.age$LCat <- lencat(WR.age$len,w=5)    # add length categories (width=5)
+raw <- xtabs(~LCat+age,data=WR.age)      # create age-length key
 ( WR.key <- prop.table(raw, margin=1) )
+
+## Various visualizations of the age-length key
 ageKeyPlot(WR.key,"barplot")
 ageKeyPlot(WR.key,"barplot",showLegend=TRUE)
 ageKeyPlot(WR.key,"area",showLegend=TRUE)
@@ -113,7 +139,9 @@ ageKeyPlot(WR.key,"bubble",grid=rgb(0,0,0,0.2),col=rgb(0,0,0,0.5))
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-\code{\link{ageKey}} and \code{\link{ageKeyPrep}}.
+See \code{\link{ageKey}} for using an age-length key to
+assign ages to individual fish and \code{\link{ageKeyPrep}}
+to \dQuote{fix} ill-formed age-length keys.
 }
 \keyword{plot}
 
