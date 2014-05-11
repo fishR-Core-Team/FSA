@@ -1,115 +1,67 @@
-#'Specific utilities for use in a Sweave/knitr document.
+#' Specific utilities for use in a Sweave/knitr document.
 #'
-#'Specific utilities for pretty printing various items in a Sweave/knitr document.
+#' Specific utilities for pretty printing various items in a Sweave/knitr document.
 #'
-#'@details
-#'\itemize{
-#'\item \code{swvCounts} is used to convert numeric numbers to \sQuote{word} numbers
-#'in a sentence.
-#'\item \code{swvPvalue} is used to print \sQuote{pretty} p-values. 
-#'\item \code{swvANOVA} is used to print \sQuote{pretty} ANOVA tables (i.e., some
-#'output removed (see below)).
-#'\item \code{swvGLHT} is used to print \sQuote{pretty} multiple comparison tables
-#'(i.e., some output removed (see below)).
-#'\item \code{swvREG} is used to print \sQuote{pretty} summary regression results
-#'(i.e., some output removed (see below)).
-#'\item \code{swvHtest} is used to print \sQuote{pretty} hypothesis test (e.g., from
-#'\code{t.test} or \code{chisq.test}) tables (i.e., some output removed (see below)).
-#'\item \code{swvCode} is used to create a modified (see below) Stangled or purled script.
-#'\item \code{swvFinish} is used to print \sQuote{reproducibility information} for
-#'the document.
-#'}
-#'@aliases swvCounts swvPvalue swvANOVA swvGLHT swvREG swvHtest swvCode swvFinish
-#'@param value A single numeric count or p-value.
-#'@param capitalize A logical that indicates if the returned words should be capitalized
-#'or not (the default).
-#'@param digits Number of decimal places to round the values to.
-#'@param include.p A logical that indicates whether the result should be a
-#'character string with \dQuote{p=} appended to the numerical result.
-#'@param latex A logical that indicates whether the resultant p-value string should
-#'be contained within dollar signs to form a latex formula.
-#'@param x An object saved from \code{lm} or \code{glht} or an object of class
-#'\code{htest} (e.g., saved from \code{t.test}).
-#'@param type A string that indicates the type of glht result to extract.
-#'@param file A string that contains the root name of the .RNW file.  This will
-#'also be the name of the resultant Stangled file with .R appended, the
-#'resultant PDF file with .PDF appended, the resultant asciidoc file with .txt
-#'appended, and the defaul HTML file with .html appended.  If missing then will
-#'search for a .Rnw file in the current working directory.
-#'@param out.dir A string that indicates the directory structure in which the purled
-#'file should be located.  This should not have a forward slash at the end.
-#'@param moreItems A string that contains additional words that when found in the
-#'Stangled file will result in the entire line with those words to be deleted.
-#'@param blanks A string that indicates if blank lines should be removed.  If
-#'\code{blanks="all"} then all blank lines will be removed.  If
-#'\code{blanks="extra"} then only \dQuote{extra} blanks lines will be removed
-#'(i.e., one blank line will be left where there was originally more than one
-#'blank line).
-#'@param annotate A logical that indicates whether decorating comments around code
-#'chunks should be used (\code{TRUE}) or not (\code{FALSE}; default).
-#'@param show.alt A logical that indicates whether the line stating what the
-#'alternative hypothesis is should be printed (\code{TRUE}) or not
-#'(\code{FALSE}; default).
-#'@param method A string that indicates whether the file will be treated as knitr
-#'or Sweave input.
-#'@param rqrdPkgs A string vector that contains packages that are required for
-#'the vignette and for which all dependencies should be found.
-#'@param closeGraphics A logical that indicates whether the graphics device should
-#'be closed or not.
-#'@param addTOC A logical that indicates whether or not a table of contents entry
-#'for the reproducibity section should be added to the LaTeX output.
-#'@param newPage A logical that indicates whether a new page call should be added
-#'to the LaTeX output so that the reproducibility sections starts on a new page.
-#'@param elapsed A numeric, usually from \code{proc.time}, that is the time
-#'required to run the vignette.  If \code{NULL} then this output will not be
-#'used.  See the note below.
-#'@param listFiles A logical that indicates whether the Sweave/knitr markup and R
-#'code files should be listed in the reproducibility information list.
-#'@param \dots Additional arguments for the original \code{Stangle} or \code{purl}.
-#'@return
-#'\itemize{
-#'\item \code{swvCounts} returns a numeric value if the count is less than zero
-#'or greater than ten and returns a character string of the number \sQuote{name}.
-#'See the examples.
-#'\item \code{swvPvalue} returns a character string of the supplied p-value rounded
-#'to the requested number of digits or a character string that indicates what the
-#'p-value is less than the value with a \sQuote{5} in the \code{digits}+1 place.
-#'See the examples. 
-#'\item \code{swvANOVA} returns the results of \code{anova} but without the heading
-#'attribute. 
-#'\item \code{swvGLHT} returns a matrix of just the hypothesis test or confidence
-#'interval results from a \code{glht} object (i.e., all messages that are usually
-#'printed are stripped away). 
-#'\item \code{swvREG} returns the results of \code{summary} but without the call
-#'and the information about the residuals. 
-#'\item \code{swvHtest} returns the same as \code{stats:::print.htest} except that
-#'the name of the test, the data used, and, optionally, the descriptor of the
-#'alternative hypothesis are not printed. 
-#'\item \code{swvCode} is a modification of \code{Stangle} (if using Sweave) or
-#'\code{purl} (if using knitr) that creates a file with the same name as \code{file}
-#'but with lines removed that contain certain words (those found in \code{ItemsToRemove}
-#'and \code{moreItems}). 
-#'\item \code{swvFinish} returns LaTeX code that prints \dQuote{reproducibility information}
-#'at the bottom of the Sweaved/knitted document.
+#' @details
+#' \itemize{
+#' \item \code{swvCounts} is used to convert numeric numbers to \sQuote{word} numbers in a sentence.
+#' \item \code{swvPvalue} is used to print \sQuote{pretty} p-values. 
+#' \item \code{swvANOVA} is used to print \sQuote{pretty} ANOVA tables (i.e., some output removed (see below)).
+#' \item \code{swvGLHT} is used to print \sQuote{pretty} multiple comparison tables (i.e., some output removed (see below)).
+#' \item \code{swvREG} is used to print \sQuote{pretty} summary regression results (i.e., some output removed (see below)).
+#' \item \code{swvHtest} is used to print \sQuote{pretty} hypothesis test (e.g., from \code{t.test} or \code{chisq.test}) tables (i.e., some output removed (see below)).
+#' \item \code{swvCode} is used to create a modified (see below) Stangled or purled script.
+#' \item \code{swvFinish} is used to print \sQuote{reproducibility information} for the document.
 #'}
 #'
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}
-#'@note In \code{swvFinish}, \code{elapsed} can be used to print the time it
-#'took to process the document by sending the elasped time for processing to this
-#'argument.  The simplest way to get an approximate elapsed time is to put 
-#'\code{st <- proc.time()} very early (first line?) in your Sweave/knitr code,\
-#'put \code{et <- proc.time()-st} very late in your Sweave/knitr code (i.e., just
-#'prior to \code{swvFinish}), and then used \code{elapsed=et["user.self"]+et["sys.self"]}
-#'in \code{swvFinish}.
+#' @aliases swvCounts swvPvalue swvANOVA swvGLHT swvREG swvHtest swvCode swvFinish
+#' 
+#' @param value A single numeric count or p-value.
+#' @param capitalize A logical that indicates if the returned words should be capitalized or not (the default).
+#' @param digits Number of decimal places to round the values to.
+#' @param include.p A logical that indicates whether the result should be a character string with \dQuote{p=} appended to the numerical result.
+#' @param latex A logical that indicates whether the resultant p-value string should be contained within dollar signs to form a latex formula.
+#' @param x An object saved from \code{lm} or \code{glht} or an object of class \code{htest} (e.g., saved from \code{t.test}).
+#' @param type A string that indicates the type of glht result to extract.
+#' @param file A string that contains the root name of the .RNW file.  This will also be the name of the resultant Stangled file with .R appended, the resultant PDF file with .PDF appended, the resultant asciidoc file with .txt appended, and the defaul HTML file with .html appended.  If missing then will search for a .Rnw file in the current working directory.
+#' @param out.dir A string that indicates the directory structure in which the purled file should be located.  This should not have a forward slash at the end.
+#' @param moreItems A string that contains additional words that when found in the Stangled file will result in the entire line with those words to be deleted.
+#' @param blanks A string that indicates if blank lines should be removed.  If \code{blanks="all"} then all blank lines will be removed.  If \code{blanks="extra"} then only \dQuote{extra} blanks lines will be removed (i.e., one blank line will be left where there was originally more than one blank line).
+#' @param annotate A logical that indicates whether decorating comments around code chunks should be used (\code{TRUE}) or not (\code{FALSE}; default).
+#' @param show.alt A logical that indicates whether the line stating what the alternative hypothesis is should be printed (\code{TRUE}) or not (\code{FALSE}; default).
+#' @param method A string that indicates whether the file will be treated as knitr or Sweave input.
+#' @param rqrdPkgs A string vector that contains packages that are required for the vignette and for which all dependencies should be found.
+#' @param closeGraphics A logical that indicates whether the graphics device should be closed or not.
+#' @param addTOC A logical that indicates whether or not a table of contents entry for the reproducibity section should be added to the LaTeX output.
+#' @param newPage A logical that indicates whether a new page call should be added to the LaTeX output so that the reproducibility sections starts on a new page.
+#' @param elapsed A numeric, usually from \code{proc.time}, that is the time required to run the vignette.  If \code{NULL} then this output will not be used.  See the note below.
+#' @param listFiles A logical that indicates whether the Sweave/knitr markup and R code files should be listed in the reproducibility information list.
+#' @param \dots Additional arguments for the original \code{Stangle} or \code{purl}.
 #'
-#'@section warning:
-#'I have not checked these commands with Sweave for quite sometime, but do often
-#'with knitr.  Please let me know if you have any problems when using Sweave.
+#' @return
+#' \itemize{
+#' \item \code{swvCounts} returns a numeric value if the count is less than zero or greater than ten and returns a character string of the number \sQuote{name}.  See the examples.
+#'\item \code{swvPvalue} returns a character string of the supplied p-value rounded to the requested number of digits or a character string that indicates what the p-value is less than the value with a \sQuote{5} in the \code{digits}+1 place.  See the examples. 
+#' \item \code{swvANOVA} returns the results of \code{anova} but without the heading attribute. 
+#' \item \code{swvGLHT} returns a matrix of just the hypothesis test or confidence interval results from a \code{glht} object (i.e., all messages that are usually printed are stripped away). 
+#' \item \code{swvREG} returns the results of \code{summary} but without the call and the information about the residuals. 
+#' \item \code{swvHtest} returns the same as \code{stats:::print.htest} except that the name of the test, the data used, and, optionally, the descriptor of the alternative hypothesis are not printed. 
+#' \item \code{swvCode} is a modification of \code{Stangle} (if using Sweave) or \code{purl} (if using knitr) that creates a file with the same name as \code{file} but with lines removed that contain certain words (those found in \code{ItemsToRemove} and \code{moreItems}). 
+#' \item \code{swvFinish} returns LaTeX code that prints \dQuote{reproducibility information} at the bottom of the Sweaved/knitted document.
+#'}
 #'
-#'@seealso \code{formatC}, \code{Stangle}, \code{Sweave} in base R; \code{knitr}
-#'and \code{purl} in \pkg{knitr}; and \code{glht} in \pkg{multcomp}.
-#'@keywords hplot models manip
-#'@examples
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
+#' @note In \code{swvFinish}, \code{elapsed} can be used to print the time it took to process the document by sending the elasped time for processing to this argument.  The simplest way to get an approximate elapsed time is to put  \code{st <- proc.time()} very early (first line?) in your Sweave/knitr code, put \code{et <- proc.time()-st} very late in your Sweave/knitr code (i.e., just prior to \code{swvFinish}), and then used \code{elapsed=et["user.self"]+et["sys.self"]} in \code{swvFinish}.
+#'
+#' @section warning:
+#'I have not checked these commands with Sweave for quite sometime, but do often with knitr.  Please let me know if you have any problems when using Sweave.
+#'
+#' @seealso \code{formatC}, \code{Stangle}, \code{Sweave} in base R; \code{knitr} and \code{purl} in \pkg{knitr}; and \code{glht} in \pkg{multcomp}.
+#'
+#' @keywords hplot models manip
+#'
+#' @examples
 #'swvCounts(7)
 #'swvCounts(17)
 #'swvCounts(0)
@@ -122,19 +74,20 @@
 #'swvPvalue(0.000012345,include.p=FALSE)
 #'swvPvalue(0.000012345,include.p=FALSE,latex=FALSE)
 #'
-#'@rdname swvUtil
-#'@export swvCounts
+#' @rdname swvUtil
+#' @export swvCounts
 swvCounts <- function(value,capitalize=FALSE) {    
   numwords <- c("one","two","three","four","five","six","seven","eight","nine","ten")
   if (value == 0) "zero"
     else if (value <= 10 & value >= 1) {
       value <- numwords[value]
       if (capitalize) capFirst(value)
+        else value
     } else value
 }
 
-#'@rdname swvUtil
-#'@export swvPvalue
+#' @rdname swvUtil
+#' @export swvPvalue
 swvPvalue <- function(value,digits=4,include.p=TRUE,latex=TRUE) {
   if(round(value,digits) == 0) {
     res <- paste("<",formatC(value,format="f",digits=digits),"5",sep="")
@@ -150,16 +103,16 @@ swvPvalue <- function(value,digits=4,include.p=TRUE,latex=TRUE) {
     else res
 }
 
-#'@rdname swvUtil
-#'@export swvANOVA
+#' @rdname swvUtil
+#' @export swvANOVA
 swvANOVA <- function(x) {
   x <- anova(x)
   attr(x,"heading") <- NULL
   x
 }
 
-#'@rdname swvUtil
-#'@export swvGLHT
+#' @rdname swvUtil
+#' @export swvGLHT
 swvGLHT <- function(x,type=c("hypothesis","confidence")) {
   type <- match.arg(type)
   if (type=="hypothesis") {
@@ -171,8 +124,8 @@ swvGLHT <- function(x,type=c("hypothesis","confidence")) {
   res
 }
 
-#'@rdname swvUtil
-#'@export swvREG
+#' @rdname swvUtil
+#' @export swvREG
 swvREG <- function(x,digits=max(3,getOption("digits")-3)) {
   x <- summary(x)
   rdf <- x$df[2L]
@@ -195,8 +148,8 @@ swvREG <- function(x,digits=max(3,getOption("digits")-3)) {
   cat("\n")
 }
                 
-#'@rdname swvUtil
-#'@export swvHtest
+#' @rdname swvUtil
+#' @export swvHtest
 swvHtest <- function(x,digits=4,show.alt=FALSE,...) {
   # the same as stats:::print.htest without the test name and listing the data
   outp <- character()
@@ -230,8 +183,8 @@ swvHtest <- function(x,digits=4,show.alt=FALSE,...) {
   invisible(x)
 }
 
-#'@rdname swvUtil
-#'@export swvCode
+#' @rdname swvUtil
+#' @export swvCode
 swvCode <- function(file,out.dir=NULL,moreItems=NULL,blanks=c("extra","all","none"),
                     annotate=FALSE,method=c("knitr","Sweave"),...) {
   blanks <- match.arg(blanks)
@@ -266,8 +219,8 @@ swvCode <- function(file,out.dir=NULL,moreItems=NULL,blanks=c("extra","all","non
   write(flines,fn3)
 }
 
-#'@rdname swvUtil
-#'@export swvFinish
+#' @rdname swvUtil
+#' @export swvFinish
 swvFinish <- function(file,rqrdPkgs=NULL,closeGraphics=TRUE,
                       addTOC=TRUE,newPage=FALSE,elapsed=NULL,listFiles=FALSE) {
   file <- ifelse(missing(file),file <- getFilePrefix(),file <- getFilePrefix(file))   
