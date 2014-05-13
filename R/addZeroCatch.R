@@ -22,33 +22,52 @@
 #' @keywords manip
 #'
 #' @examples
-#'## Example Data #1
+#'## Example Data #1 (some nets missing some fish, ancillary net data)
 #'df1 <- data.frame(net=c(1,1,1,2,2,3),
 #'                  eff=c(1,1,1,1,1,1),
 #'                  species=c("BKT","LKT","RBT","BKT","LKT","RBT"),
 #'                  catch=c(3,4,5,5,4,3))
 #'df1
+#'xtabs(~net+species,data=df1)                # not all 1s
 #'
-#'# example with ancillary data specific to the net number (e.g., effort)
 #'df1mod1 <- addZeroCatch(df1,"net","species",zerovar="catch")
 #'df1mod1
-#'xtabs(~net,data=df1mod1)  # check, should all be 3
-#'xtabs(~species,data=df1mod1)  # check, should all be 3
+#'xtabs(~net,data=df1mod1)                    # check, should all be 3
+#'xtabs(~net+species,data=df1mod1)            # check, should all be 1
+#'Summarize(catch~species,data=df1)           # observed difference from next
+#'Summarize(catch~species,data=df1mod1)
 #'
-#'# example with no ancillary data specific to the net number
-#'df1mod2 <- addZeroCatch(df1[,-2],"net","species",zerovar="catch")
-#'df1mod2
-#'xtabs(~net,data=df1mod2)  # check, should all be 3
+#'# Same as example 1 but with no ancillary data specific to the net number
+#'df2 <- df1[,-2]
+#'df2
+#'df1mod2 <- addZeroCatch(df2,"net","species",zerovar="catch")
+#'df1mod2#'xtabs(~net+species,data=df1mod2)   # check, should all be 1
 #'
-#'## Example Data #2 (All nets have same species ... no zeroes needed)
-#'df2 <- data.frame(net=c(1,1,1,2,2,2,3,3,3),
+#'## Example Data #3 (All nets have same species ... no zeroes needed)
+#'df3 <- data.frame(net=c(1,1,1,2,2,2,3,3,3),
 #'                  eff=c(1,1,1,1,1,1,1,1,1),
 #'                  species=c("BKT","LKT","RBT","BKT","LKT","RBT","BKT","LKT","RBT"),
 #'                  catch=c(3,4,5,5,4,3,3,2,7))
-#'df2
-#'df2mod1 <- addZeroCatch(df2,"net","species",zerovar="catch")
-#'df2mod1
-#'xtabs(~net,data=df2mod1)  # check, should all be 3
+#'df3
+#'xtabs(~net+species,data=df3)                # should all be 1 for this example
+#'
+#'df3mod1 <- addZeroCatch(df3,"net","species",zerovar="catch")
+#'df3mod1
+#'xtabs(~net+species,data=df3mod1)            # check, should still all be 1
+#'
+#'## Example Data #4 (another variable that needs zeroes)
+#'df4 <- df1
+#'df4$recaps <- c(0,0,0,1,2,1)
+#'df4
+#'xtabs(~net+species,data=df4)                # not all 1s
+#'
+#'df4mod1 <- addZeroCatch(df4,"net","species",zerovar=c("catch","recaps"))
+#'df4mod1                                     # note zeroes in both variables
+#'xtabs(~net+species,data=df4mod1)            # check, should all be 1
+#'Summarize(catch~species,data=df4)           # observed difference from next
+#'Summarize(catch~species,data=df4mod1)
+#'Summarize(recaps~species,data=df4)          # observed difference from next
+#'Summarize(recaps~species,data=df4mod1)
 #'
 addZeroCatch <- function(df,eventvar,specvar,idvar=NULL,zerovar=NULL) {
   df <- as.data.frame(df)
