@@ -1,4 +1,9 @@
-# FSA 0.4.10 ongoing
+# FSA 0.4.11 ongoing
+
+* `addZeroCatch()`:  Modified.  Added a catch for the situation where no zeroes need to be added to the data.frame.  Cleaned-up the help file, modified the examples, and added another example.  Thanks to Ben Neely for bringing this bug (handling where zeroes are not needed) to my attention.
+
+
+# FSA 0.4.10 May14
 
 * Added Roxygen directives to DESCRIPTION.
 * Updated to Roxygen2 4.0.0 which modified several help files.
