@@ -1,60 +1,33 @@
-#'Expands a length frequency based on a subsample.
+#' Expands a length frequency based on a subsample.
 #'
-#'Creates a list of lengths for the individuals not measured based on the
-#'lengths measured in a subsample of individuals.
+#' Creates a vector of lengths for the individuals not measured based on the lengths measured in a subsample of individuals.
 #'
-#'This function can take either a vector of observed lengths or a data.frame in
-#'which the variable containing the lengths is identified.  If a vector is
-#'given in \code{df} then \code{cl} must be set to \code{NULL}.  If a
-#'data.frame is given in \code{df} then \code{cl} must contain a valid name or
-#'number of the column that contains the observed lengths.
+#' Creates a vector of lengths for the individuals not measured based on the lengths measured in a subsample of individuals.  Length categories are created first that begin with the value in \code{startcat} (or the minimum observed value by default) and continue by values of \code{w} until a category value greater than the largest observed length in \code{x}.  Categories of different widths are not allowed.  
 #'
-#'The function will create length categories that begin with the value in
-#'\code{startcat} and continue by values of \code{w} until a category value
-#'greater than the largest observed length in \code{df}.  The code does not
-#'allow categories of different widths.  See \code{\link{lencat}}.
+#' The resulting \dQuote{expanded} lengths are created by allocating individuals to each length class based on the proportion of measured individuals in the subsample in that length class.  Individuals within a length class are then assigned a specific length within that length class based on a uniform distribution.  Because the expanded number of individuals in a length class is rounded down based on the measured number per length class, not all individuals will initially be assigned a length value.  The remaining individuals are assigned to a length class randomly according to weights based on the proportion of individuals in the measured length classes.  Finally, these individuals are randomly assigned a specific length within the respective length class from a uniform distribution, same as above.
 #'
-#'The resulting lengths are created by allocating individuals to each length
-#'class based on the proportion of measured individuals in the subsample in
-#'that length class.  Individuals within a length class are then assigned a
-#'specific length within that length class based on a uniform distribution.
-#'Because the expanded number of individuals in a length class is rounded down
-#'based on the measured number per length class not all individuals will be
-#'assigned a length value initially.  The remaining individuals are assigned to
-#'a length class randomly according to weights based on the proportion of
-#'individuals in the measured length classes.  Finally, these individuals are
-#'assigned a specific length within the respective length class in the same
-#'manner as above.
+#' The resulting length assignments are rounded to the number of decimals shown in \code{decimal}.  If \code{decimals} is not set by the user then it will default to the same number of decimals shown in the \code{w} value.  Care is taken to make sure that the rounded result will not pass out of the given length category (i.e., will not be allowed to round up to the next length category).  Generally speaking, one will want to use more decimals then is shown in \code{w}.  For example, one may want to create length categories with a width of 1 inch (i.e., \code{w=1}) but have the results recorded as if measured to within 0.1 inch (i.e., \code{decimals=1}).
 #'
-#'The resulting length assignments are rounded to the number of decimals shown
-#'in \code{decimal}.  If \code{decimals} is not set by the user then it will
-#'default to the same number of decimals shown in the \code{w} value.  Care is
-#'taken to make sure that the rounded result will not pass out of the given
-#'length category (i.e., will not be allowed to round up to the next length
-#'category).  Generally speaking, one will want to use more decimals then is
-#'shown in \code{w}.  For example, one may want to create length categories
-#'with a width of 1 inch (i.e., \code{w=1}) but have the results printed as if
-#'measured to within 0.1 inch (i.e., \code{decimals=1}).
+#' @param x A numeric vector of length measurements.
+#' @param startcat A number that indicates the beginning of the first length-class.
+#' @param w A number that indicates the width of length classes to create.
+#' @param additional The number of individuals that were not measured in the sample (for which measurements should be determined).
+#' @param total The total number of individuals in the sample (including those that were measured in the subsample).
+#' @param decimals A number that indicates the number of decimals used in the output vector of estimated lengths.
+#' @param show.summary A logical that indicates whether a summary of the process should be shown at the end.
+#' @param \dots Optional arguments to be passed to \code{\link{lencat}}.
 #'
-#'@param x A numeric vector of length measurements.
-#'@param startcat A number that indicates the beginning of the first length-class.
-#'@param w A number that indicates the width of length classes to create.
-#'@param additional The number of individuals that were not measured in the
-#'sample (for which measurements should be determined).
-#'@param total The total number of individuals in the sample (including those
-#'that were measured in the subsample).
-#'@param decimals A number that indicates the number of decimals used in the output
-#'vector of estimated lengths.
-#'@param show.summary A logical that indicates whether a summary of the process should
-#'be shown at the end.
-#'@param \dots Optional arguments to be passed to \code{\link{lencat}}.
-#'@return Returns a vector that consists of measurements for the non-measured
-#'individuals in the entire sample.
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}
-#'@seealso \code{\link{lencat}}.
-#'@export
-#'@keywords manip
-#'@examples
+#' @return Returns a vector that consists of measurements for the non-measured individuals in the entire sample.
+#' 
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' 
+#' @seealso \code{\link{lencat}}.
+#' 
+#' @export
+#' 
+#' @keywords manip
+#' 
+#' @examples
 #'## First example
 #'# random lengths measured to nearest 0.1 unit -- values in a vector
 #'len1 <- round(runif(50,0.1,9.9),1)
@@ -77,14 +50,15 @@
 #'# set a starting category
 #'( newlen2 <- lenFreqExpand(len,w=0.5,startcat=6.2,total=30,decimals=1) )
 #'
-lenFreqExpand <- function(x,w,additional,startcat=NULL,total=additional+nrow(df),decimals=decs$wdec,show.summary=TRUE,...) {
+lenFreqExpand <- function(x,w,additional,startcat=NULL,total=additional+length(x),
+                          decimals=decs$wdec,show.summary=TRUE,...) {
   if (!is.vector(x)) stop("'x' must be a vector.",call.=FALSE)
   if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
   # Find startcat if it is NULL
   if (is.null(startcat)) startcat <- floor(min(x,na.rm=TRUE)/w)*w
   # Find decimals in w and startcat, the decimals in w will be the default to round to
   decs <- checkStartcatW(startcat,w,x)
-  if (total<length(x)) stop("\n Total number to expand to must be greater than number of fish supplied in 'df'.",call.=FALSE)
+  if (total<length(x)) stop("\n Total number to expand to must be greater than number in 'x'.",call.=FALSE)
   # number to allocate
   num <- total-length(x)
   # find the length frequency of measured fish

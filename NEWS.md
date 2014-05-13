@@ -7,6 +7,7 @@
 * `ageKey()`: Modified.  Cleaned-up the help file and modified the example.
 * `ageKeyPlot()`: Modified.  Added more description and cleaned-up the help file.
 * `ageKeyPrep()`: Modified.  Added more description and cleaned-up the help file.
+* `lenFreqExpand()`: Modified.  Corrected `total=` to use `length(x)` rather than `nrow(df)`, which was left over from a previous change.  Cleaned-up the help file.
 * `mrClosed()`: Modified.  Increased the readability of the code (added comments, used `with()` for some long calculations, added spacing).  Added specific citations to equations in the help file.  Changed the degrees-of-freedom in the confidence interval calculation for the Schnabel methods from number of samples minus 2 to number of samples minus 1 (following Krebs).
 * `poiCI()`:  Modified.  Cleaned-up the help file.
 * `psdDataPrep()`: Modified.  Fixed error around `use.catnames=`.

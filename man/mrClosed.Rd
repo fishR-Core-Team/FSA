@@ -30,7 +30,7 @@ mrClosed(M, n, m, R, type = c("Petersen", "Chapman", "Ricker", "Bailey",
 \item{m}{A numeric representing the number of recaptured (marked) fish in the second sample (single-census) or numeric vector of recaptured (marked) fish
 in ith sample (multiple-census).}
 
-\item{R}{A numeric vector representing the number of marked fish returned to the population (multiple-census).}
+\item{R}{A numeric vector representing the number of marked fish returned to the population (multiple-census).  Note that several references use the number of \dQuote{new} marks returned to the population rather than the \dQuote{total} number of marked returned to the population that is used here.}
 
 \item{type}{a string that identifies the type of calculation method to use. See details.}
 
