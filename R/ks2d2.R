@@ -1,8 +1,6 @@
-#'Computes the D test statistic for the two-sample two-dimensional
-#'Kolmogrov-Smirnov test.
+#'Computes the D test statistic for the two-sample two-dimensional Kolmogrov-Smirnov test.
 #'
-#'Computes the D test statistic for the two-sample two-dimensional
-#'Kolmogrov-Smirnov test.
+#'Computes the D test statistic for the two-sample two-dimensional Kolmogrov-Smirnov test.
 #'
 #'NEED DETAIL HERE.
 #'
@@ -117,7 +115,7 @@ ks2d2 <- function(x1,y1,x2,y2,justD=FALSE,KSp=FALSE,divbylen=TRUE) {
 
 #'@rdname ks2d2
 #'@method print ks2d2
-#'@S3method print ks2d2
+#'@export
 print.ks2d2 <- function(x,...) {
   cat("Two Dimensional Kolmogorov-Smirnov Test - THESE RESULTS ARE EXPERIMENTAL AT THIS POINT!!!\n\n")
   cat("Maximum for first coordinate set as origins was",formatC(x[["max1"]],format="f",digits=4),"for observation #",x[["where1"]],"\n")
@@ -128,8 +126,7 @@ print.ks2d2 <- function(x,...) {
 }
 
 #'@rdname ks2d2
-#'@method plot ks2d2
-#'@S3method plot ks2d2
+#'@export
 plot.ks2d2 <- function(x,pchs=c(2,19),cexs=c(1.25,1),xlab=NULL,ylab=NULL,xlim=range(c(x$x1,x$x2)),ylim=range(c(x$y1,x$y2)),...) {
   if (is.null(xlab)) xlab <- deparse(substitute(x$x1))
   if (is.null(ylab)) ylab <- deparse(substitute(x$y1))

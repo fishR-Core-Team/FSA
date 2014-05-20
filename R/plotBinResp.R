@@ -1,15 +1,11 @@
 #'Plots a binary response variable versus a quantitative explanatory variable.
 #'
-#'A function to plot a binary response variable versus a quantitative
-#'explanatory variable.
+#'A function to plot a binary response variable versus a quantitative explanatory variable.
 #'
-#'This function produces a plot that can be used to visualize the density of
-#'points for a binary response variable as a function of a quantitative
-#'explanatory variable.  In addition, the proportion of \dQuote{1}s for the
-#'response variable at various \dQuote{levels} of the explanatory variable are
-#'shown.
+#'This function produces a plot that can be used to visualize the density of points for a binary response variable as a function of a quantitative explanatory variable.  In addition, the proportion of \dQuote{1}s for the response variable at various \dQuote{levels} of the explanatory variable are shown.
 #'
 #'@aliases plotBinResp plotBinResp.default plotBinResp.formula
+#'
 #'@param x A quantitative explanatory variable or a formula of the form \code{factor~quant}.
 #'@param y A binary response variable.
 #'@param data The data frame from which the formula should be evaluated.
@@ -37,14 +33,21 @@
 #'@param yaxis2.show A logical that indicates whether the right y-axis should be
 #'created (\code{=TRUE}; default) or not.
 #'@param \dots Other arguments to be passed to the plot functions.
+#'
 #'@return None.  However, a plot is produced.
+#'
 #'@author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
 #'@note This function is meant to allow newbie students the ability to
 #'visualize the data corresponding to a binary logistic regression without
 #'getting \dQuote{bogged-down} in the gritty details of how to produce this plot.
+#'
 #'@author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
 #'@seealso \code{\link{fitPlot}} and \code{\link{cdplot}}.
+#'
 #'@keywords hplot models
+#'
 #'@examples
 #'
 #'## NASA space shuttle o-ring failures -- from graphics package
@@ -84,18 +87,7 @@ plotBinResp <- function(x,...) {
 }
 
 #'@rdname plotBinResp
-#'@method plotBinResp formula
-#'@S3method plotBinResp formula
-plotBinResp.formula <- function(x,data=NULL,xlab=names(mf)[2],ylab=names(mf)[1],...) {
-  mf <- model.frame(x,data)
-  x <- mf[,2]
-  y <- mf[,1]
-  plotBinResp.default(x,y,xlab=xlab,ylab=ylab,...)
-}
-
-#'@rdname plotBinResp
-#'@method plotBinResp default
-#'@S3method plotBinResp default
+#'@export
 plotBinResp.default <- function(x,y,
     xlab=paste(deparse(substitute(x))),ylab=paste(deparse(substitute(y))),
     plot.pts=TRUE,col.pt="black",trans.pt=NULL,
@@ -128,4 +120,13 @@ plotBinResp.default <- function(x,y,
     }
     points(p.i~xs,pch=p.pch,col=p.col,cex=p.cex)
   }
+}
+
+#'@rdname plotBinResp
+#'@export
+plotBinResp.formula <- function(x,data=NULL,xlab=names(mf)[2],ylab=names(mf)[1],...) {
+  mf <- model.frame(x,data)
+  x <- mf[,2]
+  y <- mf[,1]
+  plotBinResp.default(x,y,xlab=xlab,ylab=ylab,...)
 }

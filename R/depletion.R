@@ -134,35 +134,7 @@ depletion <- function(catch,effort,type=c("Leslie","Delury"),ricker.mod=FALSE) {
 }
 
 #'@rdname depletion
-#'@method plot depletion
-#'@S3method plot depletion
-plot.depletion <- function(x,pos.est="topright",xlab=NULL,ylab=NULL,
-                        pch=19,col.pt="black",col.mdl="red",lwd=2,lty=1,...) {
-  old.par <- par(mar=c(3.5,3.5,1,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
-  if (is.null(xlab)) {
-    if (x$type=="Leslie") { xlab <- "Cumulative Catch" } else { xlab <- "Cumulative Effort" }
-  }
-  if (is.null(ylab)) {
-    if (x$type=="Leslie") { ylab <- "CPE" } else { ylab <- "log(CPE)" }
-  }
-  if (x$type=="Leslie") plot(x$K,x$cpe,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,...)
-    else plot(x$E,log(x$cpe),pch=pch,col=col.pt,xlab=xlab,ylab=ylab,...)
-  abline(x$lm,col=col.mdl,lwd=lwd,lty=lty)
-  if (!is.null(pos.est)) legend(pos.est,legend=paste("No=",round(x$est["No","Estimate"],0),"\nq=",round(x$est["q","Estimate"],3),sep=""),bty="n")
-}
-
-#'@rdname depletion
-#'@method coef depletion
-#'@S3method coef depletion
-coef.depletion <- function(object,type=c("params","lm"),...) {
-  type <- match.arg(type)
-  if(type=="lm") coef(object$lm,...)
-    else t(object$est[,"Estimate"])
-}
-
-#'@rdname depletion
-#'@method summary depletion
-#'@S3method summary depletion
+#'@export
 summary.depletion <- function(object,type=c("params","lm"),...) {
   cat("The",object$type,"method was used.\n")
   type <- match.arg(type)
@@ -171,15 +143,15 @@ summary.depletion <- function(object,type=c("params","lm"),...) {
 }
 
 #'@rdname depletion
-#'@method anova depletion
-#'@S3method anova depletion
-anova.depletion <- function(object,...) {
-  anova(object$lm,...)
+#'@export
+coef.depletion <- function(object,type=c("params","lm"),...) {
+  type <- match.arg(type)
+  if(type=="lm") coef(object$lm,...)
+  else t(object$est[,"Estimate"])
 }
 
 #'@rdname depletion
-#'@method confint depletion
-#'@S3method confint depletion
+#'@export
 confint.depletion <- function(object,parm=c("both","all","q","No","lm"),level=conf.level,conf.level=0.95,...) {
   parm <- match.arg(parm)
   if (parm=="lm") confint(object$lm,level=conf.level)
@@ -193,4 +165,27 @@ confint.depletion <- function(object,parm=c("both","all","q","No","lm"),level=co
     colnames(res) <- ciLabel(conf.level)
     res
   }
+}
+
+#'@rdname depletion
+#'@export
+anova.depletion <- function(object,...) {
+  anova(object$lm,...)
+}
+
+#'@rdname depletion
+#'@export
+plot.depletion <- function(x,pos.est="topright",xlab=NULL,ylab=NULL,
+                           pch=19,col.pt="black",col.mdl="red",lwd=2,lty=1,...) {
+  old.par <- par(mar=c(3.5,3.5,1,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
+  if (is.null(xlab)) {
+    if (x$type=="Leslie") { xlab <- "Cumulative Catch" } else { xlab <- "Cumulative Effort" }
+  }
+  if (is.null(ylab)) {
+    if (x$type=="Leslie") { ylab <- "CPE" } else { ylab <- "log(CPE)" }
+  }
+  if (x$type=="Leslie") plot(x$K,x$cpe,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,...)
+  else plot(x$E,log(x$cpe),pch=pch,col=col.pt,xlab=xlab,ylab=ylab,...)
+  abline(x$lm,col=col.mdl,lwd=lwd,lty=lty)
+  if (!is.null(pos.est)) legend(pos.est,legend=paste("No=",round(x$est["No","Estimate"],0),"\nq=",round(x$est["q","Estimate"],3),sep=""),bty="n")
 }

@@ -1,28 +1,25 @@
 #'Kolmogorov-Smirnov Tests.
 #'
-#'Performs a one- or two-sample Kolmogorov-Smirnov test.  Includes the option
-#'to perform a two-sample test using the formula notation.
+#'Performs a one- or two-sample Kolmogorov-Smirnov test.  Includes the option to perform a two-sample test using the formula notation.
 #'
-#'This function was created to allow the use of a formula in the two-sample
-#'situation.  The default version is simply a pass through to \code{ks.test}.
-#'Thus, see \code{?ks.test} for more details.
+#'This function was created to allow the use of a formula in the two-sample situation.  The default version is simply a pass through to \code{ks.test}.  Thus, see \code{?ks.test} for more details.
 #'
-#'@aliases ksTest ksTest.default ksTest.formula
-#'@param x A numeric vector of data values or a formula (see details).
-#'@param y Either a numeric vector of data values, or a character string naming
-#'a cumulative distribution function or an actual cumulative distribution
-#'function.  See \code{?ks.test}.
-#'@param \dots Parameters of the distribution specified (as a character string)
-#'by \code{y}.
-#'@param alternative A string that indicates the alternative hypothesis.  See \code{?ks.test}.
-#'@param exact \code{NULL} or a logical that indicates whether an exact p-value
-#'should be computed. See \code{?ks.test}.  Not available if ties are present,
-#'nor for the one-sided two-sample case.
-#'@param data A data frame that contains the variables in the formula for \code{x}.
-#'@return See \code{?ks.test}.
-#'@seealso \code{\link{ks.test}}.
-#'@keywords htest
-#'@examples
+#' @aliases ksTest ksTest.default ksTest.formula
+#'
+#' @param x A numeric vector of data values or a formula (see details).
+#' @param y Either a numeric vector of data values, or a character string naming a cumulative distribution function or an actual cumulative distribution function.  See \code{?ks.test}.
+#' @param \dots Parameters of the distribution specified (as a character string) by \code{y}.
+#' @param alternative A string that indicates the alternative hypothesis.  See \code{?ks.test}.
+#' @param exact \code{NULL} or a logical that indicates whether an exact p-value should be computed. See \code{?ks.test}.  Not available if ties are present, nor for the one-sided two-sample case.
+#' @param data A data frame that contains the variables in the formula for \code{x}.
+#'
+#' @return See \code{?ks.test}.
+#'
+#' @seealso \code{\link{ks.test}}.
+#'
+#' @keywords htest
+#'
+#' @examples
 #'## see ?ks.test for other examples
 #'## first two-sample example in ?ks.test
 #'x <- rnorm(50)
@@ -41,16 +38,14 @@ ksTest <- function (x, ...) {
 }
 
 #'@rdname ksTest
-#'@method ksTest default
-#'@S3method ksTest default
+#'@export
 ksTest.default <- function(x,y,...,alternative=c("two.sided","less","greater"),exact=NULL) {
   alternative <- match.arg(alternative)
   ks.test(x,y,...,alternative=alternative,exact=exact)
 }
 
 #'@rdname ksTest
-#'@method ksTest formula
-#'@S3method ksTest formula
+#'@export
 ksTest.formula <- function(x,data=NULL,...,alternative=c("two.sided","less","greater"),exact=NULL) {
   alternative <- match.arg(alternative)
   DF <- model.frame(x,data=data)

@@ -96,19 +96,7 @@ chapmanRobson <- function (x,...) {
 }
 
 #'@rdname chapmanRobson
-#'@method chapmanRobson formula
-#'@S3method chapmanRobson formula
-chapmanRobson.formula <- function(x,data,ages2use=age,zmethod=c("Hoenigetal","original"),...) {
-  zmethod <- match.arg(zmethod)
-  mf <- model.frame(x,data=data)
-  age <- mf[,2]
-  catch <- mf[,1]
-  chapmanRobson.default(age,catch,ages2use=ages2use,zmethod=zmethod,...)
-}
-
-#'@rdname chapmanRobson
-#'@method chapmanRobson default
-#'@S3method chapmanRobson default
+#'@export
 chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Hoenigetal","original"),...) {
   zmethod <- match.arg(zmethod)
   age <- x
@@ -137,8 +125,40 @@ chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Hoenigetal","o
 }
 
 #'@rdname chapmanRobson
-#'@method plot chapmanRobson
-#'@S3method plot chapmanRobson
+#'@export
+chapmanRobson.formula <- function(x,data,ages2use=age,zmethod=c("Hoenigetal","original"),...) {
+  zmethod <- match.arg(zmethod)
+  mf <- model.frame(x,data=data)
+  age <- mf[,2]
+  catch <- mf[,1]
+  chapmanRobson.default(age,catch,ages2use=ages2use,zmethod=zmethod,...)
+}
+
+#'@rdname chapmanRobson
+#'@export
+summary.chapmanRobson <- function(object,...) {
+  cat("Intermediate Statistics\n")
+  cat("n=",object$n,"; T=",object$T,"\n\n",sep="")
+  cat("Estimates with Standard Errors\n")
+  object$est
+}
+
+#'@rdname chapmanRobson
+#'@export
+confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),level=conf.level,conf.level=0.95,...) {
+  parm <- match.arg(parm)
+  z <- c(-1,1)*qnorm((1-(1-conf.level)/2))
+  Sres <- rbind(S=object$est["S","Estimate"]+z*object$est["S","Std. Err."])    # compute S results
+  Zres <- rbind(Z=object$est["Z","Estimate"]+z*object$est["Z","Std. Err."])    # compute Z results
+  if (parm=="all" | parm=="both") res <- rbind(Sres,Zres)                      # Create output matrix
+    else if (parm=="S") res <- Sres
+      else res <- Zres
+  colnames(res) <- ciLabel(conf.level)
+  res
+}
+
+#'@rdname chapmanRobson
+#'@export
 plot.chapmanRobson <- function(x,pos.est="bottomleft",ylab="Catch",xlab="Age",col.pt="black",...) {
   old.par <- par(mar=c(6,3.5,1,1),mgp=c(2,0.5,0)); on.exit(par(old.par))
   yrng <- c(min(0,min(x$catch)),max(x$catch))
@@ -153,29 +173,4 @@ plot.chapmanRobson <- function(x,pos.est="bottomleft",ylab="Catch",xlab="Age",co
     S <- x$est["S","Estimate"]
     legend(pos.est,legend=paste("Z=",round(Z,3),"\nS=",round(S,1),"%",sep=""),bty="n")
   }
-}
-
-#'@rdname chapmanRobson
-#'@method summary chapmanRobson
-#'@S3method summary chapmanRobson
-summary.chapmanRobson <- function(object,...) {
-  cat("Intermediate Statistics\n")
-  cat("n=",object$n,"; T=",object$T,"\n\n",sep="")
-  cat("Estimates with Standard Errors\n")
-  object$est
-}
-
-#'@rdname chapmanRobson
-#'@method confint chapmanRobson
-#'@S3method confint chapmanRobson
-confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),level=conf.level,conf.level=0.95,...) {
-  parm <- match.arg(parm)
-  z <- c(-1,1)*qnorm((1-(1-conf.level)/2))
-  Sres <- rbind(S=object$est["S","Estimate"]+z*object$est["S","Std. Err."])    # compute S results
-  Zres <- rbind(Z=object$est["Z","Estimate"]+z*object$est["Z","Std. Err."])    # compute Z results
-  if (parm=="all" | parm=="both") res <- rbind(Sres,Zres)                      # Create output matrix
-    else if (parm=="S") res <- Sres
-      else res <- Zres
-  colnames(res) <- ciLabel(conf.level)
-  res
 }

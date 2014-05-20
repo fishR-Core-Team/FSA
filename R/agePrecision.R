@@ -165,8 +165,7 @@ agePrecision <- function(formula,data) {
 
 
 #' @rdname agePrec
-#' @method summary agePrec
-#' @S3method summary agePrec
+#' @export
 summary.agePrec <- function(object,what=c("precision","difference","absolute difference","detail","agreement"),
                             percent=TRUE,digits=4,...) {
   what <- match.arg(what,several.ok=TRUE)

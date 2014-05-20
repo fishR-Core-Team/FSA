@@ -69,8 +69,11 @@
 #'by submitting a saved linear model to this function which allows students to
 #'interact with and visualize moderately complex linear models in a fairly easy
 #'and efficient manner.
-#'@seealso \code{residualPlots} and \code{outlierTest} in \pkg{car}; \code{\link{fitPlot}}.
+#'
+#'@seealso See \code{residualPlots} in \pkg{car} for similar functionality and \code{\link{fitPlot}} and \code{outlierTest} in \pkg{car} for related methods.
+#'
 #'@keywords hplot models
+#'
 #'@examples
 #'data(Mirex)
 #'Mirex$year <- factor(Mirex$year)
@@ -137,8 +140,7 @@ residPlot <- function (object, ...) {
 }
 
 #'@rdname residPlot
-#'@method residPlot lm
-#'@S3method residPlot lm
+#'@export
 residPlot.lm <- function(object,...) {   
   object <- typeoflm(object)
   if (object$type=="MLR") stop("Multiple linear regression objects are not supported by residPlot.",call.=FALSE)
@@ -146,8 +148,7 @@ residPlot.lm <- function(object,...) {
 }                         
 
 #'@rdname residPlot
-#'@method residPlot SLR
-#'@S3method residPlot SLR
+#'@export
 residPlot.SLR <- function(object,student=TRUE,outlier.test=TRUE,loess=FALSE,alpha=0.05,
                           xlab="Fitted Values",ylab="Residuals",main=NULL,
                           pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
@@ -163,15 +164,13 @@ residPlot.SLR <- function(object,student=TRUE,outlier.test=TRUE,loess=FALSE,alph
 }
 
 #'@rdname residPlot
-#'@method residPlot POLY
-#'@S3method residPlot POLY
+#'@export
 residPlot.POLY <- function(object,...) {
   residPlot.SLR(object,...)
 }
 
 #'@rdname residPlot
-#'@method residPlot IVR
-#'@S3method residPlot IVR
+#'@export
 residPlot.IVR <- function(object,student=TRUE,outlier.test=TRUE,loess=FALSE,alpha=0.05,
                           xlab="Fitted Values",ylab="Residuals",main=NULL,
                           pch=c(16,21,15,22,17,24,c(3:14)),col="rich",lty.ref=3,lwd.ref=1,col.ref="black",
@@ -227,8 +226,7 @@ residPlot.IVR <- function(object,student=TRUE,outlier.test=TRUE,loess=FALSE,alph
 }
 
 #'@rdname residPlot
-#'@method residPlot ONEWAY
-#'@S3method residPlot ONEWAY
+#'@export
 residPlot.ONEWAY <- function(object,student=TRUE,bp=TRUE,outlier.test=TRUE,loess=FALSE,alpha=0.05,
                           xlab="Fitted Values",ylab="Residuals",main=NULL,
                           pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
@@ -249,8 +247,7 @@ residPlot.ONEWAY <- function(object,student=TRUE,bp=TRUE,outlier.test=TRUE,loess
 }
 
 #'@rdname residPlot
-#'@method residPlot TWOWAY
-#'@S3method residPlot TWOWAY
+#'@export
 residPlot.TWOWAY <- function(object,student=TRUE,bp=TRUE,outlier.test=TRUE,loess=FALSE,alpha=0.05,
                           xlab="Fitted Values",ylab="Residuals",main=NULL,pch=16,col="black",
                           lty.ref=3,lwd.ref=1,col.ref="black",
@@ -273,8 +270,7 @@ residPlot.TWOWAY <- function(object,student=TRUE,bp=TRUE,outlier.test=TRUE,loess
 }
 
 #'@rdname residPlot
-#'@method residPlot nls
-#'@S3method residPlot nls
+#'@export
 residPlot.nls<-function(object,loess=FALSE,xlab="Fitted Values",ylab="Residuals",main="",
                           pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                           lty.loess=2,lwd.loess=2,col.loess="red",loess.f=2/3,...) {

@@ -225,8 +225,7 @@ fitPlot <- function (object, ...) {
 }
 
 #'@rdname fitPlot
-#'@method fitPlot lm
-#'@S3method fitPlot lm
+#'@export
 fitPlot.lm <- function(object, ...) {
   object <- typeoflm(object)
   if (object$type=="MLR") stop("Multiple linear regression objects are not supported by fitPlot.",call.=FALSE)
@@ -234,8 +233,7 @@ fitPlot.lm <- function(object, ...) {
 }
 
 #'@rdname fitPlot
-#'@method fitPlot SLR
-#'@S3method fitPlot SLR
+#'@export
 fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
                          col.mdl="red",lwd=3,lty=1,
                          interval=c("none","confidence","prediction","both"),
@@ -273,8 +271,7 @@ fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
 
 
 #'@rdname fitPlot
-#'@method fitPlot IVR
-#'@S3method fitPlot IVR
+#'@export
 fitPlot.IVR <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
                          col="rich",lty=c(1:6,1:6),lwd=3,
                          interval=c("none","confidence","prediction","both"),conf.level=0.95,
@@ -363,16 +360,14 @@ fitPlot.IVR <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
 
 
 #'@rdname fitPlot
-#'@method fitPlot POLY
-#'@S3method fitPlot POLY
+#'@export
 fitPlot.POLY <- function(object,...) {
   fitPlot.SLR(object,...)
 }
 
 
 #'@rdname fitPlot
-#'@method fitPlot ONEWAY
-#'@S3method fitPlot ONEWAY
+#'@export
 fitPlot.ONEWAY <- function (object,
                              xlab=object$Enames[1],ylab=object$Rname,main="",
                              type="b",pch=16,lty=1,col="black",
@@ -392,8 +387,7 @@ fitPlot.ONEWAY <- function (object,
 
 
 #'@rdname fitPlot
-#'@method fitPlot TWOWAY
-#'@S3method fitPlot TWOWAY
+#'@export
 fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
                             xlab=object$Enames[ord[1]],ylab=object$Rname,main="",
                             type="b",pch=c(16,21,15,22,17,24,c(3:14)),lty=c(1:6,1:6,1:6),col="default",
@@ -438,8 +432,7 @@ fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
 
 
 #'@rdname fitPlot
-#'@method fitPlot nls
-#'@S3method fitPlot nls
+#'@export
 fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col.pt,
                         lwd=2,lty=1,plot.pts=TRUE,jittered=FALSE,
                         legend=FALSE,legend.lbls=c("Group 1","Group 2"),
@@ -512,16 +505,14 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
 } 
 
 #'@rdname fitPlot
-#'@method fitPlot glm
-#'@S3method fitPlot glm
+#'@export
 fitPlot.glm <- function(object, ...) {
   if (object$family$family=="binomial" & object$family$link=="logit") fitPlot.logreg(object,...)
     else stop("Currently only logistic regression GLM models are supported by fitPlot.",call.=FALSE)
 }
 
 #'@rdname fitPlot
-#'@method fitPlot logreg
-#'@S3method fitPlot logreg
+#'@export
 fitPlot.logreg <- function(object,xlab=names(object$model)[2],ylab=names(object$model)[1],main="",
     plot.pts=TRUE,col.pt="black",trans.pt=NULL,
     plot.p=TRUE,breaks=25,p.col="blue",p.pch=3,p.cex=1,

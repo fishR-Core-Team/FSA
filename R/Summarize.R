@@ -26,6 +26,7 @@
 #'levels of \code{x} for each level of \code{y}.
 #'
 #'@aliases Summarize Summarize.default Summarize.formula
+#'
 #'@param object A vector of numeric or factor data.
 #'@param data An optional data frame that contains the variables in the model.
 #'@param digits A numeric that indicates the number of decimals to round the
@@ -44,10 +45,13 @@
 #'levels of the factor variable.
 #'@param ... Other arguments to the generic \code{summary}, \code{sd}, or
 #'\code{table} functions.
+#'
 #'@return A named vector or data frame (when a quantitative variable is
 #'separted by one or two factor variables) of summary statistics for numeric
 #'data and a matrix of frequencies and, possibly, percentages for factor variables.
+#'
 #'@author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
 #'@note The \code{Summarize} function, when applied to a vector of quantitative
 #'data, produces results of basic statistics similar to that provided by
 #'\code{summary}.  The primary addition in the results of \code{Summarize} is
@@ -67,10 +71,13 @@
 #'function allows newbie students to use a common notation (i.e., formula) to
 #'easily compute summary statistics for a quantitative variable separated by
 #'the levels of a factor.
+#'
 #'@seealso \code{summary}, \code{table}, \code{tapply}, \code{summaryBy} in \pkg{doBy},
 #'\code{describe} in \pkg{psych}, \code{describe} in \pkg{prettyR}, and 
 #'\code{basicStats} in \pkg{fBasics}.
+#'
 #'@keywords misc
+#'
 #'@examples
 #'## Create a numeric vector
 #'y <- c(0,0,runif(98))
@@ -135,8 +142,7 @@ Summarize <- function(object, ...) {
 }
 
 #'@rdname Summarize
-#'@method Summarize default
-#'@S3method Summarize default
+#'@export
 Summarize.default <- function(object,digits=getOption("digits"),addtotal=TRUE,percent=TRUE,percdigs=2,na.rm=TRUE,exclude="",...) {
   ## internal function for quantitative data
   srzdQ <- function(object,digits,na.rm,...) {
@@ -199,8 +205,7 @@ Summarize.default <- function(object,digits=getOption("digits"),addtotal=TRUE,pe
 }
 
 #'@rdname Summarize
-#'@method Summarize formula
-#'@S3method Summarize formula
+#'@export
 Summarize.formula <- function(object,data=NULL,digits=getOption("digits"),percent=c("row","column","total","none"),percdigs=2,addtotal=TRUE,na.rm=TRUE,exclude="",...) {
   ## internal function to check that a variable on RHS is a factor
    chckRHSfactors <- function(mf) {

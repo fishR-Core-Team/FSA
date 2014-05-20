@@ -28,12 +28,15 @@
 #' @keywords manip
 #' 
 #' @examples
+#'## Set the random seed for reproducibility
+#'set.seed(15343437)
+#'
 #'## First example
 #'# random lengths measured to nearest 0.1 unit -- values in a vector
 #'len1 <- round(runif(50,0.1,9.9),1)
-#'# assignment of integer lengths to 110 non-measured indivs
+#'# assignment of integer lengths to 110 non-measured individuals
 #'( new.len1a <- lenFreqExpand(len1,w=1,total=160) )
-#'# assignment of lengths to 0.1 to 110 non-measured indivs
+#'# assignment of lengths to 0.1 to 110 non-measured individuals
 #'( new.len1b <- lenFreqExpand(len1,w=1,total=160,decimals=1) )
 #'
 #'## Second example -- if values are in a data.frame
@@ -47,10 +50,11 @@
 #'len <- c(6.7,6.9,7.3,7.4,7.5,8.2,8.7,8.9)
 #'# find lengths for unmeasured fish assuming a total of 30
 #'( newlen1 <- lenFreqExpand(len,w=0.5,total=30,decimals=1) )
-#'# set a starting category
+#'# set a starting length category
 #'( newlen2 <- lenFreqExpand(len,w=0.5,startcat=6.2,total=30,decimals=1) )
 #'
-lenFreqExpand <- function(x,w,additional,startcat=NULL,total=additional+length(x),
+lenFreqExpand <- function(x,w,additional,
+                          startcat=NULL,total=additional+length(x),
                           decimals=decs$wdec,show.summary=TRUE,...) {
   if (!is.vector(x)) stop("'x' must be a vector.",call.=FALSE)
   if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)

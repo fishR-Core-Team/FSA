@@ -14,6 +14,7 @@
 #'for situations with more factors on the right-hand-side.
 #'
 #'@aliases sumTable sumTable.formula
+#'
 #'@param formula A formula with a quantitative variable on the left-hand-side
 #'and one or two factor variables on the right-hand-side.
 #'@param data An optional data frame that contains the variables in the formula.
@@ -22,13 +23,19 @@
 #'combination of the factor(s).  Defaults to \code{mean}.
 #'@param digits A single numeric that indicates the number of digits to be used for the result.
 #'@param \dots Other arguments to pass through to \code{FUN}.
+#'
 #'@return A one-way array of values if only one factor variable is supplied on
 #'the right-hand-side of the formula.  A two-way matrix of values if two factor
 #'variables are supplied on the right-hand-side.
+#'
 #'@author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
 #'@note This function is largely a wrapper to \code{tapply()}.
+#'
 #'@seealso \code{tapply}.
+#'
 #'@keywords hplot
+#'
 #'@examples
 #'## The same examples as in the old aggregate.table in gdata package
 #'g1 <- sample(letters[1:5], 1000, replace=TRUE)
@@ -52,8 +59,7 @@ sumTable <- function (formula, ...) {
 }
 
 #'@rdname sumTable
-#'@method sumTable formula
-#'@S3method sumTable formula
+#'@export
 sumTable.formula <- function(formula,data=NULL,FUN=mean,digits=getOption("digits"),...) {
   DF <- model.frame(formula,data=data)
   if (dim(DF)[2]>3) stop("sumTable.formula only works with one quantitative variable on LHS and one or two factor variables on RHS of formula.",call.=FALSE)

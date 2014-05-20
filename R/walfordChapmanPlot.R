@@ -5,6 +5,7 @@
 #'
 #'@aliases walfordPlot walfordPlot.default walfordPlot.formula chapmanPlot
 #'chapmanPlot.default chapmanPlot.formula
+#'
 #'@param age Either a numeric vector of lengths ages or a formula of the form \code{len~age}.
 #'@param len A numeric vector of observed lengths.  Ignored if \code{age} is a formula.
 #'@param data A data frame in which \code{age} and \code{len} can be found.
@@ -29,10 +30,15 @@
 #'@param showVB A logical that indicates whether the estimate of Linf and K should
 #'be shown on the plot.
 #'@param \dots Other arguments to be passed to the \code{plot} function.
+#'
 #'@return None.  However, a plot is produced.
+#'
 #'@author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
 #'@seealso \code{\link{vbStarts}}
+#'
 #'@keywords hplot
+#'
 #'@examples
 #'data(SMBassWB)
 #'walfordPlot(lencap~agecap,data=SMBassWB)
@@ -45,16 +51,7 @@ walfordPlot <- function(age,...) {
 }
 
 #'@rdname walfordChapmanPlot
-#'@method walfordPlot formula
-#'@S3method walfordPlot formula
-walfordPlot.formula <- function(age,data=NULL,...) {
-  mf <- model.frame(age,data)
-  walfordPlot.default(mf[,2],mf[,1],...)
-}
-
-#'@rdname walfordChapmanPlot
-#'@method walfordPlot default
-#'@S3method walfordPlot default
+#'@export
 walfordPlot.default <- function(age,len,xlab=expression(L[t]),ylab=expression(L[t+1]),colLS="blue",colRL="red",lwdLS=2,lwdRL=2,ltyLS=1,ltyRL=2,pch=19,col="black",pchLinf=9,colLinf="red",cexLinf=1.5,showLS=TRUE,showVB=TRUE,...) {
   meanL <- tapply(len,age,mean,na.rm=TRUE)
   Lt1 <- meanL[-1]
@@ -72,6 +69,12 @@ walfordPlot.default <- function(age,len,xlab=expression(L[t]),ylab=expression(L[
   points(Linf,Linf,pch=pchLinf,cex=cexLinf,col=colLinf)
 }
 
+#'@rdname walfordChapmanPlot
+#'@export
+walfordPlot.formula <- function(age,data=NULL,...) {
+  mf <- model.frame(age,data)
+  walfordPlot.default(mf[,2],mf[,1],...)
+}
 
 #'@rdname walfordChapmanPlot
 #'@export chapmanPlot
@@ -80,16 +83,7 @@ chapmanPlot <- function(age,...) {
 }
 
 #'@rdname walfordChapmanPlot
-#'@method chapmanPlot formula
-#'@S3method chapmanPlot formula
-chapmanPlot.formula <- function(age,data=NULL,...) {
-  mf <- model.frame(age,data)
-  chapmanPlot.default(mf[,2],mf[,1],...)
-}
-
-#'@rdname walfordChapmanPlot
-#'@method chapmanPlot default
-#'@S3method chapmanPlot default
+#'@export
 chapmanPlot.default <- function(age,len,xlab=expression(L[t]),ylab=expression(L[t+1]-L[t]),colLS="blue",ltyLS=1,lwdLS=2,pch=19,col="black",pchLinf=9,colLinf="red",cexLinf=1.5,showLS=TRUE,showVB=TRUE,...) {
   meanL <- tapply(len,age,mean,na.rm=TRUE)
   dLt <- diff(meanL)
@@ -105,4 +99,11 @@ chapmanPlot.default <- function(age,len,xlab=expression(L[t]),ylab=expression(L[
   if (showLS) legend("bottomleft",legend=c(paste("slope =",formatC(b,digits=3,format="f")),paste("intercept =",formatC(a,digits=1,format="f"))),bty="n")
   if (showVB) legend("topright",legend=c(paste("Linf =",formatC(Linf,digits=1,format="f")),paste("K =",formatC(K,digits=3,format="f"))),bty="n")
   points(Linf,0,pch=pchLinf,cex=cexLinf,col=colLinf)
+}
+
+#'@rdname walfordChapmanPlot
+#'@export
+chapmanPlot.formula <- function(age,data=NULL,...) {
+  mf <- model.frame(age,data)
+  chapmanPlot.default(mf[,2],mf[,1],...)
 }

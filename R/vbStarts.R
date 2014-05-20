@@ -1,8 +1,6 @@
-#'Finds reasonable starting values for the parameters in a specific von
-#'Bertalanffy model parameterization.
+#'Finds reasonable starting values for the parameters in a specific von Bertalanffy model parameterization.
 #'
-#'Finds reasonable starting values for the parameters in a specific von
-#'Bertalanffy model parameterization.
+#'Finds reasonable starting values for the parameters in a specific von Bertalanffy model parameterization.
 #'
 #'This function attempts to find reasonable starting values for a variety of
 #'parameterizations of the von Bertalanffy growth model.  There is no guarantee
@@ -42,6 +40,7 @@
 #'Schnute method or if L2<L1 or L3<L2 for the Francis method.
 #'
 #'@aliases vbStarts vbStarts.default vbStarts.formula
+#'
 #'@param age Either a vector of observed ages or a formula of the form
 #'\code{len~age}.
 #'@param len A vector of observed lengths.
@@ -58,33 +57,33 @@
 #'@param plot A logical that indicates whether a plot of the data with the model
 #'fit at the starting values superimposed should be created.
 #'@param \dots Further arguments passed to the methods.
+#'
 #'@return A list that contains reasonable starting values.  Note that the
 #'parameters will be listed in the same order and with the same names as listed
 #'in \code{\link{vbFuns}}.
+#'
 #'@author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
 #'@note The \sQuote{original} and \sQuote{vonBertalanffy} and the
 #'\sQuote{typical} and \sQuote{BevertonHolt} versions are synonomous.
+#'
 #'@seealso \code{\link{growthModels}}, \code{\link{vbFuns}}, and \code{\link{growthModelSim}}
+#'
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffy.pdf},
 #'\url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffyExtra.pdf}
-#'@references Francis, R.I.C.C.  1988.  Are growth parameters estimated from
-#'tagging and age-length data comparable?  Canadian Journal of Fisheries and
-#'Aquatic Sciences, 45:936-942.
 #'
-#'Gallucci, V.F. and T.J. Quinn II. 1979.  Reparameterizing, fitting, and
-#'testing a simple growth model.  Transactions of the American Fisheries
-#'Society, 108:14-25.
+#'@references Francis, R.I.C.C.  1988.  Are growth parameters estimated from tagging and age-length data comparable?  Canadian Journal of Fisheries and Aquatic Sciences, 45:936-942.
 #'
-#'Mooij, W.M., J.M. Van Rooij, and S. Wijnhoven.  1999.  Analysis and
-#'comparison of fish growth from small samples of length-at-age data: Detection
-#'of sequal dimorphism in Eurasian perch as an example.  Transactions of the
-#'American Fisheries Society 128:483-490.
+#'Gallucci, V.F. and T.J. Quinn II. 1979.  Reparameterizing, fitting, and testing a simple growth model.  Transactions of the American Fisheries Society, 108:14-25.
 #'
-#'Schnute, J.  1981.  A versatile growth model with statistically stable
-#'parameters. Canadian Journal of Fisheries & Aquatic Sciences, 38:1128-1140.
+#'Garcia-Berthou, E., G. Carmona-Catot, R. Merciai, and D.H. Ogle.  A technical note on seasonal growth models.  Reviews in Fish Biology and Fisheries 22:635-640.  \url{https://www.researchgate.net/publication/257658359_A_technical_note_on_seasonal_growth_models}
+#'Mooij, W.M., J.M. Van Rooij, and S. Wijnhoven.  1999.  Analysis and comparison of fish growth from small samples of length-at-age data: Detection of sexual dimorphism in Eurasian perch as an example.  Transactions of the American Fisheries Society 128:483-490.
 #'
-#'Somers, I. F. 1988. On a seasonally oscillating growth function. Fishbyte
-#'6(1):8-11.
+#'Schnute, J.  1981.  A versatile growth model with statistically stable parameters. Canadian Journal of Fisheries & Aquatic Sciences, 38:1128-1140.
+#'
+#'Somers, I. F. 1988. On a seasonally oscillating growth function. Fishbyte 6(1):8-11.  \url{http://www.worldfishcenter.org/Naga/na_2914.pdf}
+#'
+#'
 #'@keywords manip
 #'@examples
 #'## Simple Examples
@@ -104,18 +103,7 @@ vbStarts <- function(age, ...) {
 }
 
 #'@rdname vbStarts
-#'@method vbStarts formula
-#'@S3method vbStarts formula
-vbStarts.formula <- function(age,data=NULL,...) {
-  mf <- model.frame(age,data)
-  x <- mf[,2]
-  y <- mf[,1]
-  vbStarts.default(x,y,,...)
-}
-
-#'@rdname vbStarts
-#'@method vbStarts default
-#'@S3method vbStarts default
+#'@export
 vbStarts.default <- function(age,len,type=c("typical","original","BevertonHolt",
                                             "Francis","GallucciQuinn","Mooij",
                                             "Schnute","Somers","Somers2",
@@ -185,4 +173,13 @@ vbStarts.default <- function(age,len,type=c("typical","original","BevertonHolt",
     legend("bottomright",legend=paste(names(sv),formatC(unlist(sv),format="f",digits=2),sep=" = "),bty="n")
   }
   sv   # return starting values list
+}
+
+#'@rdname vbStarts
+#'@export
+vbStarts.formula <- function(age,data=NULL,...) {
+  mf <- model.frame(age,data)
+  x <- mf[,2]
+  y <- mf[,1]
+  vbStarts.default(x,y,,...)
 }

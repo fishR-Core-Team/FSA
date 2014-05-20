@@ -49,8 +49,7 @@ htest <- function(object, ...) {
 }
 
 #'@rdname htest
-#'@method htest nlsBoot
-#'@S3method htest nlsBoot
+#'@export
 htest.nlsBoot <- function(object,parm=NULL,bo=0,alt=c("two.sided","less","greater"),plot=FALSE,...) {
   alt <- match.arg(alt)
   if (class(object$coefboot) != "matrix") {                                     # check if result is a vector -- i.e., only one parameter

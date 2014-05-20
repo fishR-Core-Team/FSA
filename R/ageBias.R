@@ -224,8 +224,7 @@ ageBias <- function(formula,data,col.lab=tmp$Rname,row.lab=tmp$Enames[1],
 
 
 #'@rdname ageBias
-#'@method plot ageBias
-#'@S3method plot ageBias
+#'@export
 plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE,
                          xlab=x$col.lab,ylab=x$row.lab,show.n=TRUE,nYpos=1.1,
                          show.pts=FALSE,pch.pts=19,col.pts=rgb(0,0,0,transparency),transparency=1/10,
@@ -336,8 +335,7 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
 }
 
 #'@rdname ageBias
-#'@method summary ageBias
-#'@S3method summary ageBias
+#'@export
 summary.ageBias <- function(object,what=c("table","symmetry","Bowkers","EvansHoenig","McNemars","bias","diff.bias","n"),
                             flip.table=FALSE,zero.print="-",digits=3,cont.corr=c("none","Yates","Edwards"),
                             ...) {

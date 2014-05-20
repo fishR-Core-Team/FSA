@@ -64,7 +64,7 @@ ks2d1p <- function(object,B=100) {
 
 #'@rdname ks2d1p
 #'@method print ks2d1p
-#'@S3method print ks2d1p
+#'@export
 print.ks2d1p <- function(x,...) {
   cat("One-Sample Two-Dimensional Kolmogorov-Smirnov Test p-value - THESE RESULTS ARE EXPERIMENTAL AT THIS POINT!!!\n")
   cat("  Used 'resample' method. B=",x[["B"]],"times\n")
@@ -72,8 +72,7 @@ print.ks2d1p <- function(x,...) {
 }
 
 #'@rdname ks2d1p
-#'@method plot ks2d1p
-#'@S3method plot ks2d1p
+#'@export
 plot.ks2d1p <- function(x,xlab="D Test Statistic",main="",...) {
   plot(density(x$Ds),xlab=xlab,main=main,xlim=range(c(x$D,x$Ds)))
   abline(v=x$D,col="red",lty=3)

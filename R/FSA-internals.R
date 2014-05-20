@@ -200,7 +200,7 @@ checkStartcatW <- function(startcat,w,d) {
   # is startcat positive? 
   if (startcat < 0) stop("\n Starting category values must be non-negative.",call.=FALSE)
   # is startcat less than minimum observation
-   if (min(d,na.rm=TRUE) < startcat)
+   if (round(min(d,na.rm=TRUE),w) < round(startcat,w))
      stop("\n Starting category is larger than minimum observation.  Adjust the startcat that you used.",call.=FALSE)
   # get decimals for w and startcat
    # Used in next line to find number of decimals to use

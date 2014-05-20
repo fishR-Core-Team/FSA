@@ -23,4 +23,3 @@ Suggests:
     Rcapture
 License: GPL (>= 2)
 URL: http://fishr.wordpress.com/, https://github.com/droglenc/FSA
-Roxygen: list(wrap = FALSE)

@@ -1,8 +1,6 @@
-#'Finds reasonable starting values for the parameters in a specific
-#'stock-recruitment model parameterization.
+#'Finds reasonable starting values for the parameters in a specific stock-recruitment model parameterization.
 #'
-#'Finds reasonable starting values for the parameters in a specific
-#'stock-recruitment model parameterization.
+#'Finds reasonable starting values for the parameters in a specific stock-recruitment model parameterization.
 #'
 #'This function attempts to find reasonable starting values for a variety of
 #'parameterizations of stock-recruitment models.  There is no guarantee that
@@ -27,6 +25,7 @@
 #'was set to 0.00001.
 #'
 #'@aliases srStarts srStarts.default srStarts.formula
+#'
 #'@param S Either a vector of observed stock levels or a formula of the form \code{R~S}.
 #'@param R A vector of observed recruitment levels.
 #'@param data A data frame from which the vectors of observed stock and
@@ -38,24 +37,25 @@
 #'@param \dots Further arguments passed to the methods.
 #'@return A list that contains reasonable starting values.  Note that the parameters will be
 #'listed in the same order and with the same names as listed in \code{\link{srFuns}}.
+#'
 #'@author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
 #'@seealso \code{\link{srModels}}, \code{\link{srFuns}}, and \code{\link{srSim}}.
+#'
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
-#'@references Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of
-#'exploited fish populations, Fisheries Investigations (Series 2), volume 19.
-#'United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
 #'
-#'Quinn II, T.J. and R.B. Deriso. 1999. Quantitative Fish Dynamics. Oxford
-#'University Press.
+#'@references Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19.  United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
 #'
-#'Ricker, W.E. 1954. Stock and recruitment. Journal of the Fisheries Research
-#'Board of Canada 11:559-623.
+#'Quinn II, T.J. and R.B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press.
 #'
-#'Ricker, W.E. 1975. Computation and interpretation of biological statistics of
-#'fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries
-#'Research Board of Canada.
+#'Ricker, W.E. 1954. Stock and recruitment. Journal of the Fisheries Research Board of Canada 11:559-623.
+#'
+#'Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
+#'
 #'@export
+#'
 #'@keywords manip
+#'
 #'@examples
 #'## Simple Examples
 #'data(CodNorwegian)
@@ -74,18 +74,7 @@ srStarts <- function(S,...) {
 }
 
 #'@rdname srStarts
-#'@method srStarts formula
-#'@S3method srStarts formula
-srStarts.formula <- function(S,data=NULL,...) {
-  mf <- model.frame(S,data)
-  x <- mf[,2]
-  y <- mf[,1]
-  srStarts.default(x,y,,...)
-}
-
-#'@rdname srStarts
-#'@method srStarts default
-#'@S3method srStarts default
+#'@export
 srStarts.default <- function(S,R,type=c("BevertonHolt","Ricker"),param=1,plot=FALSE,...) {
   x <- NULL  # attempting to get by bindings warning in RCMD CHECK
   type <- match.arg(type)
@@ -126,4 +115,13 @@ srStarts.default <- function(S,R,type=c("BevertonHolt","Ricker"),param=1,plot=FA
     legend("topleft",legend=paste(names(sv),formatC(unlist(sv),format="f",digits=3),sep=" = "))
   }
   sv                                                                            # return starting values list
+}
+
+#'@rdname srStarts
+#'@export
+srStarts.formula <- function(S,data=NULL,...) {
+  mf <- model.frame(S,data)
+  x <- mf[,2]
+  y <- mf[,1]
+  srStarts.default(x,y,,...)
 }

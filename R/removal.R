@@ -33,6 +33,7 @@
 #'estimable and the confidence intervals can not be constructed.
 #'
 #'@aliases removal summary.removal confint.removal
+#'
 #'@param catch A numerical vector of catches of fish at each pass.
 #'@param type A single string that identifies the type of removal method to use for
 #'the calculations.  See details.
@@ -53,6 +54,7 @@
 #'@param just.ests A logical that indicates whether just the estimates
 #'(\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.
 #'@param \dots Additional arguments for methods.
+#'
 #'@return A vector that contains the estimaes and standard errors for No and p
 #'if \code{just.ests=TRUE} or (default) a list with the following items:
 #'\itemize{
@@ -61,22 +63,23 @@
 #'\item meth A label for the type of method used.
 #'\item est A vector that contains the estimates and standard errors for No and p.
 #'}
+#'
 #'@author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
 #'@seealso \code{\link{depletion}}.
+#'
 #'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl//Depletion.pdf}
-#'@references Carle, F.L. and M.R. Strub. 1978. A new method for estimating
-#'population size from removal data.  Biometrics, 34:621-630.
+#'
+#'@references Carle, F.L. and M.R. Strub. 1978. A new method for estimating population size from removal data.  Biometrics, 34:621-630.
 #'
 #'Seber, G.A.F. 1982. The Estimation of Animal Abundance. Edward Arnold, second edition.
 #'
-#'Robson, D.S., and H.A. Regier.  1968.  Estimation of population number and
-#'mortality rates.  pp. 124-158 in Ricker, W.E. (editor) Methods for Assessment
-#'of Fish Production in Fresh Waters.  IBP Handbook NO. 3 Blackwell Scientific
-#'Publications, Oxford.
+#'Robson, D.S., and H.A. Regier.  1968.  Estimation of population number and mortality rates.  pp. 124-158 in Ricker, W.E. (editor) Methods for Assessment of Fish Production in Fresh Waters.  IBP Handbook NO. 3 Blackwell Scientific Publications, Oxford.
 #'
-#'Cowx, I.G.  1983.  Review of the methods for estimating fish population size
-#'from survey removal data.  Fisheries Management, 14:67-82.
+#'Cowx, I.G.  1983.  Review of the methods for estimating fish population size from survey removal data.  Fisheries Management, 14:67-82.
+#'
 #'@keywords manip
+#'
 #'@examples
 #'## First example -- 3 passes
 #'ct3 <- c(77,50,37)
@@ -288,8 +291,7 @@ removal <- function(catch,type=c("Zippin","CarleStrub","Seber3","Seber2","Robson
 }
 
 #'@rdname removal
-#'@method summary removal
-#'@S3method summary removal
+#'@export
 summary.removal <- function(object,...) {
   cat("The",object$meth,"method was used.\n")
   res <- matrix(object$est,nrow=2,byrow=FALSE)
@@ -299,8 +301,7 @@ summary.removal <- function(object,...) {
 }
 
 #'@rdname removal
-#'@method confint removal
-#'@S3method confint removal
+#'@export
 confint.removal <- function(object,parm=c("both","all","No","p"),level=conf.level,conf.level=0.95,...) {
   parm <- match.arg(parm)
   z <- c(-1,1)*qnorm((1-(1-conf.level)/2))               

@@ -108,8 +108,7 @@
 #'hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",main="")
 #'
 #'@rdname hist.formula
-#'@method hist formula
-#'@S3method hist formula
+#'@export
 hist.formula <- function(formula,data=NULL,main="",right=FALSE,
                          pre.main="",xlab=names(DF)[1],ylab="Frequency",
                          same.breaks=TRUE,same.ylim=TRUE,ymax=NULL,col="gray90",

@@ -1,5 +1,4 @@
-#'Estimate initial population size for multiple census mark-recapture data from
-#'an open population.
+#'Estimate initial population size for multiple census mark-recapture data from an open population.
 #'
 #'This function takes the two parts of a Method B table and uses the
 #'Jolly-Seber method to estimate the population size at each possible sample
@@ -272,8 +271,7 @@ mrOpen <- function(mb.top,mb.bot=NULL,ci.type=c("Jolly","Manly"),conf.level=0.95
 }
 
 #'@rdname mrOpen
-#'@method summary mrOpen
-#'@S3method summary mrOpen
+#'@export
 summary.mrOpen <- function(object,type=c("all","observables","estimates"),...) {
   type <- match.arg(type)
   if (type=="all" | type=="observables") {
@@ -290,8 +288,7 @@ summary.mrOpen <- function(object,type=c("all","observables","estimates"),...) {
 }
 
 #'@rdname mrOpen
-#'@method confint mrOpen
-#'@S3method confint mrOpen
+#'@export
 confint.mrOpen <- function(object,parm=c("all","N","phi","B"),level=NULL,conf.level=NULL,...) {
   if(!is.null(conf.level)) cat("Confidence level was set at",conf.level,"in mrOpen function.  It cannot be changed here.\n")
   parm <- match.arg(parm)
