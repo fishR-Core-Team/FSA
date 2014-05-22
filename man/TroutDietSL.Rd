@@ -18,17 +18,10 @@
 \item{num.pisidium}{Number of \emph{Pisidium} spp. in the stomach.}
 }}
 \source{
-From the online supplement (\url{http://dx.doi.org/10.3996/012011-JFWM-004.S1}) to
-Guy, C.S., T.E. McMahon, W.A. Fredenberg, C.J. Smith, D.W. Garfield, and B.S. Cox. 2011.
-Diet overlap of top-level predators in recent sympatry: Bull trout and nonnative
-lake trout.  Journal of Fish and Wildlife Management 2:183-189.
-(\url{http://dx.doi.org/10.3996/012011-JFWM-004}).
+From the \href{http://dx.doi.org/10.3996/012011-JFWM-004.S1}{online supplement} to Guy, C.S., T.E. McMahon, W.A. Fredenberg, C.J. Smith, D.W. Garfield, and B.S. Cox. 2011. \href{http://dx.doi.org/10.3996/012011-JFWM-004}{Diet overlap of top-level predators in recent sympatry: Bull trout and nonnative lake trout.}  Journal of Fish and Wildlife Management 2:183-189.
 }
 \description{
-Size (standard length, total length, and weight) and didet data (volume of three
-main prey categories) for bull trout (\emph{Salvelinus confluentus}) and lake trout
-(\emph{Salvelinus namaycush}) from Swan Lake, Montana, a lake where lake trout
-just recently had become established.
+Size (standard length, total length, and weight) and diet data (volume of three main prey categories) for Bull Trout (\emph{Salvelinus confluentus}) and Lake Trout (\emph{Salvelinus namaycush}) from Swan Lake, Montana, a lake where Lake Trout just recently had become established.
 }
 \section{Topic(s)}{
  \itemize{

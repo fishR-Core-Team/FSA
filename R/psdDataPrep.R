@@ -19,18 +19,16 @@
 #' @param use.catnames A logical that indicates whether the categories returned in \code{psdname} are numeric (\code{=FALSE}) or word (\code{=TRUE}; default) representations of the five-cell categories.  See details.
 #'
 #' @return The original data frame in \code{data} but with a new variable \code{psdname} appended that contains the PSD-related length categories.
-
+#' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
-
+#' 
 #' @seealso \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{tictactoeAdd}}, \code{\link{lencat}}, \code{\link{rcumsum}}, \code{\link{recodeSpecies}}, and \code{\link{wrDataPrep}}.
 #'
 #' @section fishR vignette: none yet.
-
+#' 
 #' @source Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).  Fisheries 31:86-87.  \url{http://pubstorage.sdstate.edu/wfs/415-F.pdf}
 #'
 #' Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  Proportional size distribution (PSD): A further refinement of population size structure index terminology.  Fisheries 32:348. \url{http://www.montana.edu/mtcfru/Guy/Publication\%20pdf/PSD\%20pub.pdf}
-#'
-#' @export psdDataPrep pssDataPrep
 #'
 #' @keywords manip
 #' 
@@ -71,6 +69,7 @@
 #'str(d6)
 #'with(d6,table(species1,PSDcat))
 #'
+#' @export psdDataPrep pssDataPrep
 psdDataPrep <- pssDataPrep <- function(formula,data,psdname="PSDcat",
                                        units=c("mm","cm","in"),
                                        remove.substock=FALSE,remove.other=FALSE,

@@ -9,76 +9,36 @@ capHistConvert(df, event = NULL, id = NULL, event.ord = NULL,
   var.lbls = NULL, var.lbls.pre = "Event")
 }
 \arguments{
-\item{df}{A data.frame that contains the capture histories (and, perhaps, other
-information).  See details.}
+\item{df}{A data.frame that contains the capture histories (and, perhaps, other information).  See details.}
 
-\item{event}{A string or numeric that indicates the column in \code{df} that
-contains the capture event information.  This argument is only used if
-\code{in.type=="event"}.}
+\item{event}{A string or numeric that indicates the column in \code{df} that contains the capture event information.  This argument is only used if \code{in.type=="event"}.}
 
-\item{id}{A string or numeric that indicates the column in \code{df} that
-contains the unique identification for an individual.  This argument is only
-used if \code{in.type=="event"}.}
+\item{id}{A string or numeric that indicates the column in \code{df} that contains the unique identification for an individual.  This argument is only used if \code{in.type=="event"}.}
 
-\item{event.ord}{A string that contains the list of ordered levels in the
-\code{event} variable of \code{df} to be used when converting using
-\code{in.type=="event"}.}
+\item{event.ord}{A string that contains the list of ordered levels in the \code{event} variable of \code{df} to be used when converting using \code{in.type=="event"}.}
 
-\item{mch}{A string or numeric that indicates the column in \code{df} that
-contains the MARK capture history codes.  This argument is only used if
-\code{in.type=="MARK"}.}
+\item{mch}{A string or numeric that indicates the column in \code{df} that contains the MARK capture history codes.  This argument is only used if \code{in.type=="MARK"}.}
 
-\item{cols}{A string or numeric that indicates the columns in \code{df} that
-contain the Rcapture or FSA capture history codes (each column is an
-individual sampling event -- see details).  This argument is only used if
-\code{in.type=="Rcapture"} or \code{in.type=="FSA"}.}
+\item{cols}{A string or numeric that indicates the columns in \code{df} that contain the Rcapture or FSA capture history codes (each column is an individual sampling event -- see details).  This argument is only used if \code{in.type=="Rcapture"} or \code{in.type=="FSA"}.}
 
-\item{freq}{A string or numeric that indicates the columns in \code{df} that
-contain the frequency of individuals corresponding to a MARK or Rcapture
-capture history.  This argument is only used if \code{in.type=="MARK"} or
-\code{in.type=="Rcapture"}.}
+\item{freq}{A string or numeric that indicates the columns in \code{df} that contain the frequency of individuals corresponding to a MARK or Rcapture capture history.  This argument is only used if \code{in.type=="MARK"} or \code{in.type=="Rcapture"}.}
 
-\item{in.type}{A string that indicates the type of capture history format to
-convert FROM.}
+\item{in.type}{A string that indicates the type of capture history format to convert FROM.}
 
-\item{out.type}{A string that indicates the type of capture history format to
-convert TO.}
+\item{out.type}{A string that indicates the type of capture history format to convert TO.}
 
-\item{var.lbls}{A vector of strings used to label the columns that contains the
-returned FSA or Rcapture capture histories.  This argument is only used if
-\code{in.type=="Rcapture"} or \code{in.type=="FSA"}.  If \code{var.lbls=NULL}
-or the length is different then the number of events then default labels using
-\code{var.lbls.pre} will be used.}
+\item{var.lbls}{A vector of strings used to label the columns that contains the returned FSA or Rcapture capture histories.  This argument is only used if \code{in.type=="Rcapture"} or \code{in.type=="FSA"}.  If \code{var.lbls=NULL} or the length is different then the number of events then default labels using \code{var.lbls.pre} will be used.}
 
-\item{var.lbls.pre}{A string used as a prefix for the labels of the columns
-that contains the returned FSA or Rcapture capture histories.  This prefix will
-be appended with a number corresponding to the sample event.  This argument
-is only used if \code{in.type=="Rcapture"} or \code{in.type=="FSA"} and will
-be ignored if a proper vector is given in \code{var.lbls}.}
+\item{var.lbls.pre}{A string used as a prefix for the labels of the columns that contains the returned FSA or Rcapture capture histories.  This prefix will be appended with a number corresponding to the sample event.  This argument is only used if \code{in.type=="Rcapture"} or \code{in.type=="FSA"} and will be ignored if a proper vector is given in \code{var.lbls}.}
 }
 \value{
-A data frame of the proper type given in \code{out.type} is returned.
-See details.
+A data frame of the proper type given in \code{out.type} is returned.  See details.
 }
 \description{
-This function can be used to convert between four capture history recording
-types -- by event, FSA, MARK, and Rcapture.  The primary usage is to convert
-to the FSA format from these other formats for use in \code{\link{capHistSum}}.
+This function can be used to convert between four capture history recording types -- by event, FSA, MARK, and Rcapture.  The primary usage is to convert to the FSA format from these other formats for use in \code{\link{capHistSum}}.
 }
 \details{
-The \code{\link{capHistSum}} function requires capture histories to
-be recorded in a specific format.  This format, called the \sQuote{FSA}
-format, is in a data frame with (at least) as many columns as sample events
-and as many rows as individually marked or tagged individuals.  Each cell in
-the data frame contains a \sQuote{0} if the animal of that row was NOT seen
-in the event of that column and a \sQuote{1} if the animal of that row WAS
-seen in the event of that column.  For example, suppose that four fish were
-marked and four sampling events occurred.  Further suppose that fish
-\sQuote{17} was captured on the first two events, fish \sQuote{18} was
-captured on the first and third events, fish \sQuote{19} was captured on only
-the third event, fish \sQuote{20} was captured on only the fourth event, and
-fish \sQuote{21} was captured on the first and second events.  The
-\sQuote{FSA} capture history for these data would look like:
+The \code{\link{capHistSum}} function requires capture histories to be recorded in a specific format.  This format, called the \sQuote{FSA} format, is in a data frame with (at least) as many columns as sample events and as many rows as individually marked or tagged individuals.  Each cell in the data frame contains a \sQuote{0} if the animal of that row was NOT seen in the event of that column and a \sQuote{1} if the animal of that row WAS seen in the event of that column.  For example, suppose that four fish were marked and four sampling events occurred.  Further suppose that fish \sQuote{17} was captured on the first two events, fish \sQuote{18} was captured on the first and third events, fish \sQuote{19} was captured on only the third event, fish \sQuote{20} was captured on only the fourth event, and fish \sQuote{21} was captured on the first and second events.  The \sQuote{FSA} capture history for these data would look like:
 
 \tabular{ccccc}{
 id \tab Event1 \tab Event2 \tab Event3 \tab Event4 \cr
@@ -89,10 +49,7 @@ id \tab Event1 \tab Event2 \tab Event3 \tab Event4 \cr
 21 \tab 1 \tab 1 \tab 0 \tab 0 \cr
 }
 
-Another common format for capture histories is the \sQuote{'event'} format.
-This format consists of a column that corresponds to the individual animal
-(likely a tag number) and a column that identifies the event in which this animal
-was observed.  For example, the situation from above would look like:
+Another common format for capture histories is the \sQuote{'event'} format.  This format consists of a column that corresponds to the individual animal (likely a tag number) and a column that identifies the event in which this animal was observed.  For example, the situation from above would look like:
 
 \tabular{cc}{
 id \tab event \cr
@@ -106,13 +63,7 @@ id \tab event \cr
 20 \tab 4 \cr
 }
 
-Program MARK is probably the \dQuote{gold-standard} software for analyzing
-complex capture history information.  In the \sQuote{MARK} format the 0s and 1s
-of the capture histories are combined together as a string without any spaces
-and an ending semicolon.  Thus, the \sQuote{MARK} format has the capture history
-strings in one column with an additional column that contains the frequency of
-individuals that exhibited the various capture histories.  For example, the
-situation from above would look like:
+Program MARK is probably the \dQuote{gold-standard} software for analyzing complex capture history information.  In the \sQuote{MARK} format the 0s and 1s of the capture histories are combined together as a string without any spaces and an ending semicolon.  Thus, the \sQuote{MARK} format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the various capture histories.  For example, the situation from above would look like:
 
 \tabular{cc}{
 caphist \tab Freq \cr
@@ -122,11 +73,7 @@ caphist \tab Freq \cr
 1100; \tab 2 \cr
 }
 
-Rcapture is a an R package that fits some of the same models found in Program
-MARK.  The \sQuote{Rcapture} format has capture histories in separate columns
-as in the \sQuote{FSA} format and the frequency of individuals with the various
-capture histories recorded in a frequency column as in the \sQuote{MARK} format.
-For example, the situation from above would look like:
+Rcapture is a an R package that fits some of the same models found in Program MARK.  The \sQuote{Rcapture} format has capture histories in separate columns as in the \sQuote{FSA} format and the frequency of individuals with the various capture histories recorded in a frequency column as in the \sQuote{MARK} format.  For example, the situation from above would look like:
 
 \tabular{ccccc}{
 Event1 \tab Event2 \tab Event3 \tab Event4 \tab Freq \cr
@@ -137,14 +84,10 @@ Event1 \tab Event2 \tab Event3 \tab Event4 \tab Freq \cr
 }
 }
 \note{
-This function assumes that all unmarked captured fish are marked and
-returned to the population (i.e., no losses at the time of marking are
-allowed).  In addition it does not currently allow multiple frequencies as
-can be used in MARK.
+This function assumes that all unmarked captured fish are marked and returned to the population (i.e., no losses at the time of marking are allowed).  In addition it does not currently allow multiple frequencies as can be used in MARK.
 }
 \section{fishR vignette}{
- \url{https://sites.google.com/site/fishrfiles/gnrl/MRClosed.pdf},
-\url{https://sites.google.com/site/fishrfiles/gnrl/MROpen.pdf}
+ \url{https://sites.google.com/site/fishrfiles/gnrl/MRClosed.pdf}, \url{https://sites.google.com/site/fishrfiles/gnrl/MROpen.pdf}
 }
 \examples{
 ## A small example of 'event' format -- fish ID followed by capture year

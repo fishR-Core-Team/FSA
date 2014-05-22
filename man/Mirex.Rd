@@ -11,15 +11,10 @@
 \item{species}{a factor with levels \code{chinook} and \code{coho}.}
 }}
 \source{
-actual data from Makarewicz, J.C., E.Damaske, T.W. Lewis, and M.
-Merner.  2003.  Trend analysis reveals a recent reduction in mirex
-concentrations in coho (\emph{Oncorhynchus kistuch}) and chinook (\emph{O.
-tshawytscha}) salmon from Lake Ontario.  Environmental Science and
-Technology, 37:1521-1527.
+actual data from Makarewicz, J.C., E.Damaske, T.W. Lewis, and M. Merner.  2003.  Trend analysis reveals a recent reduction in mirex concentrations in coho (\emph{Oncorhynchus kistuch}) and chinook (\emph{O. tshawytscha}) salmon from Lake Ontario.  Environmental Science and Technology, 37:1521-1527.
 }
 \description{
-Mirex concentration, weight, capture year, and species of Lake Ontario coho
-and chinook salmon.
+Mirex concentration, weight, capture year, and species of Lake Ontario Coho and Chinook salmon.
 }
 \details{
 The \code{year} variable should be converted to a factor as shown in the example.

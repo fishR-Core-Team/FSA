@@ -69,7 +69,8 @@
 #'
 #'barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
 #'summary(ap1,what="detail")
-#'summary(ap1,what=c("precision","difference"))
+#'summary
+#'
 #'## Example with three age assignments
 #'ap2 <- agePrecision(~otolithC+finrayC+scaleC,data=WhitefishLC)
 #'summary(ap2)
@@ -79,9 +80,8 @@
 #'summary(ap2,what="absolute",percent=FALSE)
 #'summary(ap2,what="detail")
 #'
-#' @rdname agePrec
+#' @rdname agePrecision
 #' @export
-#' 
 agePrecision <- function(formula,data) {
   # change formula to have only a RHS
   tmp <- as.character(formula)[-1]
@@ -163,8 +163,7 @@ agePrecision <- function(formula,data) {
   d 
 }
 
-
-#' @rdname agePrec
+#' @rdname agePrecision
 #' @export
 summary.agePrec <- function(object,what=c("precision","difference","absolute difference","detail","agreement"),
                             percent=TRUE,digits=4,...) {
@@ -182,7 +181,8 @@ summary.agePrec <- function(object,what=c("precision","difference","absolute dif
     msg <- "of fish by absolute differences in ages between pairs of assignments\n"
     if (percent) {
       msg <- paste("Percentage",msg)
-      if (length(dim(tmp))==1) tmp <- tmp/sum(tmp)*100 # need to check if 1-D, then handle as a vector
+      # need to check if 1-D, then handle as a vector
+      if (length(dim(tmp))==1) tmp <- tmp/sum(tmp)*100 
       else tmp <- prop.table(tmp,margin=1)*100      
     } else msg <- paste("Frequency",msg)
     cat(msg)
@@ -194,7 +194,8 @@ summary.agePrec <- function(object,what=c("precision","difference","absolute dif
     msg <- "of fish by differences in ages between pairs of assignments\n"
     if (percent) {
       msg <- paste("Percentage",msg)
-      if (length(dim(tmp))==1) tmp <- tmp/sum(tmp)*100 # need to check if 1-D, then handle as a vector
+      # need to check if 1-D, then handle as a vector
+      if (length(dim(tmp))==1) tmp <- tmp/sum(tmp)*100
       else tmp <- prop.table(tmp,margin=1)*100      
     } else msg <- paste("Frequency",msg)
     cat(msg)

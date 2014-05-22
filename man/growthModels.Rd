@@ -10,12 +10,10 @@ growthModels(...)
 \item{\dots}{Additional arguments for \code{plot}.  Generally not needed}
 }
 \value{
-A graphic that uses \code{plotmath} to show the model formulas in a
-pretty format. \code{vbModels()} shows just the von Bertalanffy models.
+A graphic that uses \code{plotmath} to show the model formulas in a pretty format. \code{vbModels()} shows just the von Bertalanffy models.
 }
 \description{
-Show the growth model formulas implemented in \code{\link{vbFuns}},
-\code{\link{vbStarts}}, and \code{growthModelSim} in \pkg{FSATeach}.
+Show the growth model formulas implemented in \code{\link{vbFuns}}, \code{\link{vbStarts}}, and \code{growthModelSim} in \pkg{FSATeach}.
 }
 \examples{
 growthModels()

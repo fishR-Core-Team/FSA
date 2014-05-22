@@ -16,6 +16,7 @@ Opens web pages associated with the fishR site.
 }
 \examples{
 \dontrun{
+## Not run because these will open an external browser
 fishR()            # home page
 fishR("general")   # general examples page
 fishR("books")     # books examples page

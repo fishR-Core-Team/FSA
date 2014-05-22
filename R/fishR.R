@@ -2,20 +2,25 @@
 #'
 #'Opens web pages associated with the fishR site.
 #'
-#'@param where A string that indicates a particular page on the fishR site to open.
-#'@return None, but a webpage will be opened in the default browswer.
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}
-#'@export
-#'@keywords misc
-#'@examples
+#' @param where A string that indicates a particular page on the fishR site to open.
+#' 
+#' @return None, but a webpage will be opened in the default browswer.
+#' 
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' 
+#' @keywords misc
+#' 
+#' @examples
 #'\dontrun{
+#'## Not run because these will open an external browser
 #'fishR()            # home page
 #'fishR("general")   # general examples page
 #'fishR("books")     # books examples page
 #'fishR("AIFFD")     # Analysis & Interpretation of Freshwater Fisheries Data page
 #'fishR("news")      # News page
 #'}
-#'
+#' 
+#' @export
 fishR <- function(where=c("home","general","books","AIFFD","news")) {
   where <- match.arg(where)
   switch(where,

@@ -17,8 +17,6 @@
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
-#' @export
-#' 
 #' @keywords manip
 #'
 #' @examples
@@ -69,6 +67,7 @@
 #'Summarize(recaps~species,data=df4)          # observed difference from next
 #'Summarize(recaps~species,data=df4mod1)
 #'
+#' @export
 addZeroCatch <- function(df,eventvar,specvar,idvar=NULL,zerovar=NULL) {
   df <- as.data.frame(df)
   dfnames <- names(df)

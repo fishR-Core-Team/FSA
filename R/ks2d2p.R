@@ -4,20 +4,20 @@
 #'
 #'NEED DETAIL HERE.
 #'
-#'@aliases ks2d2p print.ks2d2p plot.ks2d2p
+#' @aliases ks2d2p print.ks2d2p plot.ks2d2p
 #'
-#'@param object An object returned from \code{ks2d2}.
-#'@param x An object returned from \code{ks2d2p}.
-#'@param B A numeric representing the number of resamples.
-#'@param type The type of \sQuote{resampling} to be conducted.  See details.
-#'@param randtype The type of randomization to use if \code{type="randomize"}; ignored if \code{type="resample"}.
-#'@param coordX A vector of length two giving the minimum and maximum values of the X coordinates when \code{randtype="discrete"}; ignored if \code{type="resample"} or if \code{type="randomize"} and \code{randtype="continuous"}.
-#'@param coordY Same as \code{coordX} but for Y coordinates.
-#'@param xlab A string to label the x-axis.
-#'@param main A string to label the main title on the plot.
-#'@param \dots Additional arguments sent to the plot function.
+#' @param object An object returned from \code{ks2d2}.
+#' @param x An object returned from \code{ks2d2p}.
+#' @param B A numeric representing the number of resamples.
+#' @param type The type of \sQuote{resampling} to be conducted.  See details.
+#' @param randtype The type of randomization to use if \code{type="randomize"}; ignored if \code{type="resample"}.
+#' @param coordX A vector of length two giving the minimum and maximum values of the X coordinates when \code{randtype="discrete"}; ignored if \code{type="resample"} or if \code{type="randomize"} and \code{randtype="continuous"}.
+#' @param coordY Same as \code{coordX} but for Y coordinates.
+#' @param xlab A string to label the x-axis.
+#' @param main A string to label the main title on the plot.
+#' @param \dots Additional arguments sent to the plot function.
 #'
-#'@return The main function returns a list with the following items:
+#' @return The main function returns a list with the following items:
 #'\itemize{
 #'\item D The D test statistic from the \code{ks2d2} object.
 #'\item pval The p-value from the permutation test.  See details.
@@ -28,19 +28,19 @@
 #'}
 #'The \code{plot} function returns a density plot of the D test statistics from each of the B \sQuote{resamples} with the observed D test statistic shown with a vertical line.  The \code{print} function prints the results in a nice format).
 #'
-#'@note This function is experimental at best at this point.
+#' @note This function is experimental at best at this point.
 #'
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}, with significant help from Ben Bolker.
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}, with significant help from Ben Bolker.
 #'
-#'@seealso \code{\link{ks2d2}}
+#' @seealso \code{\link{ks2d2}}
 #'
-#'@references Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From star charts to stoneflies: detecting relationships in continuous bivariate data.  Ecology 79:442 447.
+#' @references Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From star charts to stoneflies: detecting relationships in continuous bivariate data.  Ecology 79:442 447.  \url{http://opensiuc.lib.siu.edu/fiaq_pubs/17/}
 #'
-#'Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.  Numerical Recipes: The Art of Scientific Computing, 3rd Edition.  Cambridge University Press.  1286 pages.
+#'Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.  Numerical Recipes: The Art of Scientific Computing, 3rd Edition.  Cambridge University Press.  1286 pages. \url{http://www.nr.com/}
 #'
-#'@keywords htest
+#' @keywords htest
 #'
-#'@examples
+#' @examples
 #'data(KS2D_NR)
 #'
 #'# separate into the two sets of coordinates
@@ -54,8 +54,8 @@
 #'( res1p <- ks2d2p(res1,B=10) )  # B should be >1000, used 10 here to save time
 #'plot(res1p)
 #'
-#'@rdname ks2d2p
-#'@export
+#' @rdname ks2d2p
+#' @export
 ks2d2p <- function(object,B=100,type=c("resample","randomize"),randtype=c("discrete","continuous"),coordX=NULL,coordY=NULL) {
   resampD <- function(object) {
     # combine all x coords into one vector
@@ -115,9 +115,9 @@ ks2d2p <- function(object,B=100,type=c("resample","randomize"),randtype=c("discr
   res
 }
 
-#'@rdname ks2d2p
-#'@method print ks2d2p
-#'@export
+#' @rdname ks2d2p
+#' @method print ks2d2p
+#' @export
 print.ks2d2p <- function(x,...) {
   cat("Two-Sample Two-Dimensional Kolmogorov-Smirnov Test p-value - THESE RESULTS ARE EXPERIMENTAL AT THIS POINT!!!\n")
   if (x[["type"]]=="resample") txt <- "  Used 'resample' method"
@@ -126,8 +126,8 @@ print.ks2d2p <- function(x,...) {
   cat("D=",formatC(x[["D"]],format="f",digits=4),", p-value =",formatC(x[["pval"]],format="g"),"\n")
 }
 
-#'@rdname ks2d2p
-#'@export
+#' @rdname ks2d2p
+#' @export
 plot.ks2d2p <- function(x,xlab="D Test Statistic",main="",...) {
   plot(density(x$Ds),xlab=xlab,main=main,xlim=range(c(x$D,x$Ds)))
   abline(v=x$D,col="red",lty=3)

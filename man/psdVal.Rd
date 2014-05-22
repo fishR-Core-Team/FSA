@@ -4,13 +4,9 @@
 \alias{pssVal}
 \title{Finds Gabelhouse five-cell length categories (for PSD) for a particular species.}
 \source{
-Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  New terminology for
-proportional stock density (PSD) and relative stock density (RSD): proportional
-size structure (PSS).  Fisheries 31:86-87.
+Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).  Fisheries 31:86-87.  \url{http://pubstorage.sdstate.edu/wfs/415-F.pdf}
 
-Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  Proportional
-size distribution (PSD): A further refinement of population size structure
-index terminology.  Fisheries 32:348.
+Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  Proportional size distribution (PSD): A further refinement of population size structure index terminology.  Fisheries 32:348. \url{http://www.montana.edu/mtcfru/Guy/Publication\%20pdf/PSD\%20pub.pdf}
 }
 \usage{
 psdVal(species = "List", units = c("mm", "cm", "in"), incl.zero = TRUE,
@@ -19,18 +15,13 @@ psdVal(species = "List", units = c("mm", "cm", "in"), incl.zero = TRUE,
 \arguments{
 \item{species}{A string that contains the species name to find coefficients for.}
 
-\item{units}{A string that indicates the type of units used for the length measurements.
-hoices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and
-\code{in} for inches.}
+\item{units}{A string that indicates the type of units used for the length measurements.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
 
-\item{incl.zero}{A logical that indicates whether to include a zero in the first
-position of the returned vector (DEFAULT) or not.  See details.}
+\item{incl.zero}{A logical that indicates whether to include a zero in the first position of the returned vector (DEFAULT) or not.  See details.}
 
-\item{addLens}{A numeric vector that contains minimum length definitions for
-additional categories.  See details.}
+\item{addLens}{A numeric vector that contains minimum length definitions for additional categories.  See details.}
 
-\item{addNames}{A string vector that contains names for the additional length
-categories added with \code{addLens}.  See details.}
+\item{addNames}{A string vector that contains names for the additional length categories added with \code{addLens}.  See details.}
 }
 \value{
 A vector of the five-cell length categories for the given species.
@@ -39,23 +30,11 @@ A vector of the five-cell length categories for the given species.
 Returns a vector with the Gabelhouse five-cell length categories for a particular species.
 }
 \details{
-Finds the Gabelhouse five-cell length categories for the given species names in the
-\code{data(PSDlit)} data frame.  The species names must be spelled exactly like
-they appear in the \code{data(PSDlit)} data frame (type \code{psdVal()} to see
-the list of species and how they are spelled).
+Finds the Gabelhouse five-cell length categories for the given species names in the \code{data(PSDlit)} data frame.  The species names must be spelled exactly like they appear in the \code{data(PSDlit)} data frame (type \code{psdVal()} to see the list of species and how they are spelled).
 
-If \code{incl.zero=TRUE} then a zero will be included in the first postion of
-the returned vector and the five-cell length categories will follow.  This is
-useful when computing PSD values as a sample of fish may have individuals smaller
-than the stock length.
+If \code{incl.zero=TRUE} then a zero will be included in the first postion of the returned vector and the five-cell length categories will follow.  This is useful when computing PSD values as a sample of fish may have individuals smaller than the stock length.
 
-The \code{addLens} argument can be used to add additional lengths to the vector
-of length categories returned.  Names for these lengths can be included in the
-\code{addNames} argument.  If \code{addNames} is non-NULL then it must of the
-same length as \code{addLens}.  If \code{addLens} is non-NULL but \code{addNames}
-is NULL then the default names will be the same as the lengths in \code{addLens}.
-The \code{addLens} argument is useful for calculating PSD values that are different
-from the usual five-cell categories.
+The \code{addLens} argument can be used to add additional lengths to the vector of length categories returned.  Names for these lengths can be included in the \code{addNames} argument.  If \code{addNames} is non-NULL then it must of the same length as \code{addLens}.  If \code{addLens} is non-NULL but \code{addNames} is NULL then the default names will be the same as the lengths in \code{addLens}.  The \code{addLens} argument is useful for calculating PSD values that are different from the usual five-cell categories.
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}
@@ -81,9 +60,7 @@ psdVal("Bluegill",units="in",addLens=c(7,9))
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-\code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{psdDataPrep}},
-\code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{tictactoeAdd}},
-\code{\link{lencat}}, and \code{\link{rcumsum}}.
+\code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{psdDataPrep}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{tictactoeAdd}}, \code{\link{lencat}}, and \code{\link{rcumsum}}.
 }
 \keyword{manip}
 

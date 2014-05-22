@@ -1,11 +1,12 @@
-#'Length and weight of bluegill from Lake Mary, MN.
+#'Length and weight of Bluegill from Lake Mary, MN.
 #'
-#'Length (standard, fork, and total) and weight of bluegill (\emph{Lepomis
-#'macrochirus}) collected from Lake Mary, Minnesota.
+#'Length (standard, fork, and total) and weight of Bluegill (\emph{Lepomis macrochirus}) collected from Lake Mary, Minnesota.
 #'
-#'@name BluegillLM
-#'@docType data
-#'@format A data frame with 100 observations on the following 5 variables:
+#' @name BluegillLM
+#'
+#' @docType data
+#' 
+#' @format A data frame with 100 observations on the following 5 variables:
 #'\describe{
 #' \item{sernum}{Unique serial number}
 #' \item{sl}{Standard length (mm)}
@@ -13,13 +14,18 @@
 #' \item{tl}{Total length (mm)}
 #' \item{wght}{Weight (g)}
 #'}
-#'@section Topic(s): \itemize{
+#' 
+#' @section Topic(s):
+#'\itemize{
 #' \item Length-weight
 #' \item Length conversion
 #'}
-#'@concept 'Length-Weight'
-#'@keywords datasets
-#'@examples
+#' 
+#' @concept 'Length-Weight'
+#' 
+#' @keywords datasets
+#' 
+#' @examples
 #'data(BluegillLM)
 #'str(BluegillLM)
 #'head(BluegillLM)

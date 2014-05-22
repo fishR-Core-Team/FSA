@@ -1,72 +1,36 @@
 #'Add standard and relative weights specific to a species to an entire data frame.
 #'
-#'This function adds standard and relative weight variables specific to a species
-#'to all individuals in an entire data frame.  The concept is to save the user from
-#'having to split each species into a separate data frame and then creating the
-#'required standard and relative weight variables.
+#'This function adds standard and relative weight variables specific to a species to all individuals in an entire data frame.  The concept is to save the user from having to split each species into a separate data frame and then creating the required standard and relative weight variables.
 #'
-#'This function requires that the data frame provided in \code{data} contains one
-#'column of fish species names, one column of length measurements, and one column
-#'of weights.  Any species name in that is not recognized as being a species with
-#'a known standard weight equation (and stored in \code{data(WSlit)}) will be thought
-#'of as an \dQuote{other} type of fish (see below for how these fish can be handled).
-#'Species that are known to have a standard weight equation can be found with \code{\link{wsVal}()}
-#'(i.e., using that function without any arguments).  Note that spelling and capitalization
-#'have to be exactly the same as in \code{data(WSlit)}) (see \code{\link{recodeSpecies}}
-#'for one method for changing species names before using this function).
+#'This function requires that the data frame provided in \code{data} contains one column of fish species names, one column of length measurements, and one column of weights.  Any species name in that is not recognized as being a species with a known standard weight equation (and stored in \code{data(WSlit)}) will be thought of as an \dQuote{other} type of fish (see below for how these fish can be handled).  Species that are known to have a standard weight equation can be found with \code{\link{wsVal}()} (i.e., using that function without any arguments).  Note that spelling and capitalization have to be exactly the same as in \code{data(WSlit)}) (see \code{\link{recodeSpecies}} for one method for changing species names before using this function).
 #'
-#'This function uses the appropriate standard weight equation, from \code{wsVal()},
-#'for the provided species.  Either the linear or quadratic equation has been preferred
-#'for each species so only that equation will be used.  However, some species
-#'have standard weight equations for different percentiles.  The use of the 75th
-#'percentile is by far the most common and, because this function is designed for
-#'use on entire data frames, it will be the only percentile allowed.  Thus, to
-#'use equations for other percentiles, one will have to use \dQuote{manual} methods.
+#'This function uses the appropriate standard weight equation, from \code{wsVal()}, for the provided species.  Either the linear or quadratic equation has been preferred for each species so only that equation will be used.  However, some species have standard weight equations for different percentiles.  The use of the 75th percentile is by far the most common and, because this function is designed for use on entire data frames, it will be the only percentile allowed.  Thus, to use equations for other percentiles, one will have to use \dQuote{manual} methods.
 #'
-#'This function will create two new variables in the returned data frame that contain
-#'the standard and relative weights that correspond to the provided lengths and
-#'weights in \code{data}.
+#'This function will create two new variables in the returned data frame that contain the standard and relative weights that correspond to the provided lengths and weights in \code{data}.
 #'
-#'The default is for all fish below the minimum length suggested for use of the
-#'standard weight equation (can be found with \code{\link{wsVal}} and all \dQuote{other}
-#'fish (see above for the definition of an \dQuote{Other} fish) is to include these
-#'fish in the resulting data frame, but with \code{NA}s in the new standard and relative
-#'weight variables.  The \dQuote{sub-minimum} size fish can be excluded from the
-#'final data frame by using \code{remove.submin=FALSE} and the \dQuote{other} fish
-#'can be excluded by using \code{remove.other=FALSE}.
+#'The default is for all fish below the minimum length suggested for use of the standard weight equation (can be found with \code{\link{wsVal}} and all \dQuote{other} fish (see above for the definition of an \dQuote{Other} fish) is to include these fish in the resulting data frame, but with \code{NA}s in the new standard and relative weight variables.  The \dQuote{sub-minimum} size fish can be excluded from the final data frame by using \code{remove.submin=FALSE} and the \dQuote{other} fish can be excluded by using \code{remove.other=FALSE}.
 #'
-#'@aliases wrDataPrep
-#'@param formula A formula of the form \code{weight~length+species} where \dQuote{weight}
-#'generically represents a variable in \code{data} that contains weight measurements,
-#'\dQuote{length} generically represents a variable in \code{data} that contains
-#'length measurements, and \dQuote{species} generically represents a variable in
-#'\code{data} that contains species names.  Note that this formula can only contain
-#'three variables and they must be in the weight first, length second, species third order.
-#'@param data A data.frame that minimally contains the length and weight measurements
-#'and species names given in the variables in the \code{formula}.
-#'@param units A string that indicates whether the coefficients for the (\code{"metric"}
-#'(DEFAULT; mm and g) or \code{"English"} (in and lbs) units should be returned.
-#'\code{"quadratic"} model should be returned.
-#'@param remove.submin A logical that indicates how to handle fish below the minimum
-#'length for which the standard weight equation holds.  If \code{FALSE} (the default)
-#'then the standard and relative weights for the \dQuote{small} fish are replaced
-#'with \code{NA}.  If \code{TRUE} then the \dQuote{small} fish are excluded from the
-#'returned data frame.
-#'@param remove.other A logical that indicates whether to exclude all individuals for a
-#'fish species for which the five-cell length categories do not exist in \code{data(RSDlit)}.
-#'See details.
-#'@param wsname A string that contains the name for the new standard weight variable.
-#'@param wrname A string that contains the name for the new relative weight variable.
-#'@return Returns a data frame that consists of the original data frame,
-#'\code{data} but with the new standard and relative weight variables appended and
-#'named as in \code{wsname} and \code{wrname}, respectively.
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}
-#'@seealso \code{\link{recodeSpecies}}, \code{\link{psdDataPrep}}, \code{\link{wsVal}},
-#' \code{\link{wrAdd}}, and \code{\link{WSlit}}.
-#'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/RelativeWeight.pdf}.
-#'@export
-#'@keywords manip
-#'@examples
+#' @aliases wrDataPrep
+#'
+#' @param formula A formula of the form \code{weight~length+species} where \dQuote{weight} generically represents a variable in \code{data} that contains weight measurements, \dQuote{length} generically represents a variable in \code{data} that contains length measurements, and \dQuote{species} generically represents a variable in \code{data} that contains species names.  Note that this formula can only contain three variables and they must be in the weight first, length second, species third order.
+#' @param data A data.frame that minimally contains the length and weight measurements and species names given in the variables in the \code{formula}.
+#' @param units A string that indicates whether the coefficients for the (\code{"metric"} (DEFAULT; mm and g) or \code{"English"} (in and lbs) units should be returned.
+#' @param remove.submin A logical that indicates how to handle fish below the minimum length for which the standard weight equation holds.  If \code{FALSE} (the default) then the standard and relative weights for the \dQuote{small} fish are replaced with \code{NA}.  If \code{TRUE} then the \dQuote{small} fish are excluded from the returned data frame.
+#' @param remove.other A logical that indicates whether to exclude all individuals for a fish species for which the five-cell length categories do not exist in \code{data(PSDlit)}.  See details.
+#' @param wsname A string that contains the name for the new standard weight variable.
+#' @param wrname A string that contains the name for the new relative weight variable.
+#'
+#' @return Returns a data frame that consists of the original data frame, \code{data} but with the new standard and relative weight variables appended and named as in \code{wsname} and \code{wrname}, respectively.
+#'
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
+#' @seealso \code{\link{recodeSpecies}}, \code{\link{psdDataPrep}}, \code{\link{wsVal}}, \code{\link{wrAdd}}, and \code{\link{WSlit}}.
+#'
+#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/RelativeWeight.pdf}.
+#'
+#' @keywords manip
+#'
+#' @examples
 #'## Create some random data for three species
 #'set.seed(345234534)  # just to control the randomization
 #'dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),tl=round(rnorm(30,130,50),0))
@@ -106,6 +70,7 @@
 #'str(d7)
 #'view(d7)
 #'
+#' @export
 wrDataPrep <- function(formula,data,units=c("metric","English"),remove.submin=FALSE,
                        remove.other=FALSE,wsname="ws",wrname="wr") {
   units <- match.arg(units)

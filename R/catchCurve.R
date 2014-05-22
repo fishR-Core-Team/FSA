@@ -71,14 +71,14 @@
 #'coef(cc2,type="lm")
 #'confint(cc2,type="lm")
 #'
-#'@rdname catchCurve
-#'@export catchCurve
+#' @rdname catchCurve
+#' @export
 catchCurve <- function (x,...) {
   UseMethod("catchCurve") 
 }
 
-#'@rdname catchCurve
-#'@export
+#' @rdname catchCurve
+#' @export
 catchCurve.default <- function(x,catch,ages2use=age,use.weights=FALSE,...) {
   age <- x
   log.catch <- log(catch)                                      # Log of all catches
@@ -96,8 +96,8 @@ catchCurve.default <- function(x,catch,ages2use=age,use.weights=FALSE,...) {
   cc
 }
 
-#'@rdname catchCurve
-#'@export
+#' @rdname catchCurve
+#' @export
 catchCurve.formula <- function(x,data,ages2use=age,use.weights=FALSE,...) {
   mf <- model.frame(x,data=data)
   age <- mf[,2]
@@ -105,8 +105,8 @@ catchCurve.formula <- function(x,data,ages2use=age,use.weights=FALSE,...) {
   catchCurve.default(age,catch,ages2use=ages2use,use.weights=use.weights,...)
 }
 
-#'@rdname catchCurve
-#'@export
+#' @rdname catchCurve
+#' @export
 summary.catchCurve <- function(object,type=c("params","lm"),...) {
   type <- match.arg(type)
   if (type=="lm") summary(object$lm,...)
@@ -118,8 +118,8 @@ summary.catchCurve <- function(object,type=c("params","lm"),...) {
     }
 }
 
-#'@rdname catchCurve
-#'@export
+#' @rdname catchCurve
+#' @export
 coef.catchCurve <- function(object,type=c("params","lm"),...) {
   type <- match.arg(type)
   if (type=="lm") coef(object$lm,...)
@@ -132,14 +132,14 @@ coef.catchCurve <- function(object,type=c("params","lm"),...) {
     }
 }
 
-#'@rdname catchCurve
-#'@export
+#' @rdname catchCurve
+#' @export
 anova.catchCurve <- function(object,...) {
   anova(object$lm,...)
 }
 
-#'@rdname catchCurve
-#'@export
+#' @rdname catchCurve
+#' @export
 confint.catchCurve <- function(object,parm=c("all","both","Z","A"),level=conf.level,conf.level=0.95,type=c("params","lm"),...) {
   type <- match.arg(type)
   parm <- match.arg(parm)
@@ -156,8 +156,8 @@ confint.catchCurve <- function(object,parm=c("all","both","Z","A"),level=conf.le
   res
 }
 
-#'@rdname catchCurve
-#'@export
+#' @rdname catchCurve
+#' @export
 plot.catchCurve <- function(x,pos.est="bottomleft",ylab="log(Catch)",xlab="Age",
                             col.pt="black",col.mdl="red",lwd=2,lty=1,...) {
   old.par <- par(mar=c(3.5,3.5,1,1), mgp=c(2,0.75,0)); on.exit(par(old.par))

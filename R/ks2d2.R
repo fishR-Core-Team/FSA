@@ -4,30 +4,25 @@
 #'
 #'NEED DETAIL HERE.
 #'
-#'@aliases ks2d2 print.ks2d2 plot.ks2d2
-#'@param x1 Vector of X-coordinates for the first set of coordinates.
-#'@param y1 Vector of Y-coordinates for the first set of coordinates.
-#'@param x2 Vector of X-coordinates for the second set of coordinates.
-#'@param y2 Vector of Y-coordinates for the second set of coordinates.
-#'@param justD Logical that indicates whether just the D test statistic (\code{=TRUE})
-#'or more information should be returned (default; see value section below).
-#'@param KSp Logical that indicates whether the approximate p-value from the
-#'Kolmogorov-Smirnov distribution should be returned.  NOT YET IMPLEMENTED.
-#'@param divbylen Logical that indicates whether the proportion of values in each
-#'quadrant is computed by dividing by the sample size (\code{=TRUE}, default)
-#'or by the number of points that could be assigned to quadrants.
-#'@param x An object returned from \code{d2ks}.
-#'@param pchs A vector of length two plotting characters to be used when
-#'plotting the two sets of coordinates.
-#'@param cexs A vector of length two character expansion values to be used when
-#'plotting the two sets of coordinates.
-#'@param xlab A string to label the x-axis.
-#'@param ylab A string to label the y-axis.
-#'@param xlim A vector of length two that indicates the limits over which to plot the x-axis.
-#'@param ylim A vector of length two that indicates the limits over which to plot the y-axis.
-#'@param \dots Additiona arguments sent to the plot function.
-#'@return The main function returns a single numeric of the D test statistic if
-#'\code{justD=TRUE} or a list with the following items if \code{justD=FALSE}:
+#' @aliases ks2d2 print.ks2d2 plot.ks2d2
+#'
+#' @param x1 Vector of X-coordinates for the first set of coordinates.
+#' @param y1 Vector of Y-coordinates for the first set of coordinates.
+#' @param x2 Vector of X-coordinates for the second set of coordinates.
+#' @param y2 Vector of Y-coordinates for the second set of coordinates.
+#' @param justD Logical that indicates whether just the D test statistic (\code{=TRUE}) or more information should be returned (default; see value section below).
+#' @param KSp Logical that indicates whether the approximate p-value from the Kolmogorov-Smirnov distribution should be returned.  NOT YET IMPLEMENTED.
+#' @param divbylen Logical that indicates whether the proportion of values in each quadrant is computed by dividing by the sample size (\code{=TRUE}, default) or by the number of points that could be assigned to quadrants.
+#' @param x An object returned from \code{d2ks}.
+#' @param pchs A vector of length two plotting characters to be used when plotting the two sets of coordinates.
+#' @param cexs A vector of length two character expansion values to be used when plotting the two sets of coordinates.
+#' @param xlab A string to label the x-axis.
+#' @param ylab A string to label the y-axis.
+#' @param xlim A vector of length two that indicates the limits over which to plot the x-axis.
+#' @param ylim A vector of length two that indicates the limits over which to plot the y-axis.
+#' @param \dots Additiona arguments sent to the plot function.
+#'
+#' @return The main function returns a single numeric of the D test statistic if \code{justD=TRUE} or a list with the following items if \code{justD=FALSE}:
 #'\itemize{
 #'\item D The D test statistic.  See details.
 #'\item pval The approximate p-value from the Kolmogorov-Smirnov distribution
@@ -46,22 +41,21 @@
 #'\item y2 Same vector of Y-coordinates for the second set of coordinates supplied by user.
 #'}
 #'
-#'The \code{plot} function returns side-by-side plots showing the two sets of
-#'coordinates and the point or points that resulted in the maximum D value for
-#'each set of coordinates.  The \code{print} function prints results in a nice
-#'format if \code{justD=FALSE} (only D will be printed if \code{justD=TRUE}).
-#'@note This function is experimental at best at this point.
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}, with significant help from Ben Bolker.
-#'@references Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From star
-#'charts to stoneflies: detecting relationships in continuous bivariate data.
-#'Ecology 79:442 447.
+#'The \code{plot} function returns side-by-side plots showing the two sets of coordinates and the point or points that resulted in the maximum D value for each set of coordinates.  The \code{print} function prints results in a nice format if \code{justD=FALSE} (only D will be printed if \code{justD=TRUE}).
 #'
-#'Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.
-#'Numerical Recipes: The Art of Scientific Computing, 3rd Edition.  Cambridge
-#'University Press.  1286 pages.
-#'@seealso \code{\link{ks2d1}} and \code{\link{ks2d2p}}
-#'@keywords htest
-#'@examples
+#' @note This function is experimental at best at this point.
+#'
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}, with significant help from Ben Bolker.
+#'
+#' @references Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From star charts to stoneflies: detecting relationships in continuous bivariate data.  Ecology 79:442 447.  \url{http://opensiuc.lib.siu.edu/fiaq_pubs/17/}
+#'
+#'Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.  Numerical Recipes: The Art of Scientific Computing, 3rd Edition.  Cambridge University Press.  1286 pages. \url{http://www.nr.com/}
+#'
+#' @seealso \code{\link{ks2d1}} and \code{\link{ks2d2p}}
+#'
+#' @keywords htest
+#'
+#' @examples
 #'data(KS2D_NR)
 #'
 #'# separate into the two sets of coordinates
@@ -75,10 +69,10 @@
 #'# perform same analysis with modified computation of proportions
 #'( res2 <- ks2d2(d1$x,d1$y,d2$x,d2$y,divbylen=FALSE) )
 #'
-#'@rdname ks2d2
-#'@export ks2d2
+#' @rdname ks2d2
+#' @export
 ks2d2 <- function(x1,y1,x2,y2,justD=FALSE,KSp=FALSE,divbylen=TRUE) {
-    ## compute differences
+    ## INTERNAL -- compute differences
     dffrnc <- function(d,x1,y1,x2,y2,divbylen) {
       q1 <- quad_dens(d,x1,y1,divbylen)
       q2 <- quad_dens(d,x2,y2,divbylen)
@@ -113,9 +107,9 @@ ks2d2 <- function(x1,y1,x2,y2,justD=FALSE,KSp=FALSE,divbylen=TRUE) {
   }
 }
 
-#'@rdname ks2d2
-#'@method print ks2d2
-#'@export
+#' @rdname ks2d2
+#' @method print ks2d2
+#' @export
 print.ks2d2 <- function(x,...) {
   cat("Two Dimensional Kolmogorov-Smirnov Test - THESE RESULTS ARE EXPERIMENTAL AT THIS POINT!!!\n\n")
   cat("Maximum for first coordinate set as origins was",formatC(x[["max1"]],format="f",digits=4),"for observation #",x[["where1"]],"\n")
@@ -125,8 +119,8 @@ print.ks2d2 <- function(x,...) {
   cat(paste(txt,"\n"))
 }
 
-#'@rdname ks2d2
-#'@export
+#' @rdname ks2d2
+#' @export
 plot.ks2d2 <- function(x,pchs=c(2,19),cexs=c(1.25,1),xlab=NULL,ylab=NULL,xlim=range(c(x$x1,x$x2)),ylim=range(c(x$y1,x$y2)),...) {
   if (is.null(xlab)) xlab <- deparse(substitute(x$x1))
   if (is.null(ylab)) ylab <- deparse(substitute(x$y1))

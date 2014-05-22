@@ -65,8 +65,8 @@
 #'plot(nl1.boot)
 #'cor(nl1.boot)
 #'
-#'@rdname bootCase
-#'@export
+#' @rdname bootCase
+#' @export
 confint.bootCase <- function(object,parm=NULL,level=conf.level,conf.level=0.95,...) {
   cl <- function(x) quantile(x,c((1-conf.level)/2,1-(1-conf.level)/2))
   if (is.null(dim(object))) {             # if a vector, then only one parameter
@@ -86,8 +86,8 @@ confint.bootCase <- function(object,parm=NULL,level=conf.level,conf.level=0.95,.
   res
 }
 
-#'@rdname bootCase
-#'@export
+#' @rdname bootCase
+#' @export
 htest.bootCase <- function(object,parm=NULL,bo=0,alt=c("two.sided","less","greater"),...) {
   alt <- match.arg(alt)
   if (is.null(parm)) {
@@ -112,8 +112,8 @@ htest.bootCase <- function(object,parm=NULL,bo=0,alt=c("two.sided","less","great
   res
 }
 
-#'@rdname bootCase
-#'@export
+#' @rdname bootCase
+#' @export
 hist.bootCase <- function(x,same.ylim=TRUE,ymax=NULL,col="gray90",nr=round(sqrt(ncol(x))),nc=ceiling(sqrt(ncol(x))),right=FALSE,...){
 	old.par <- par(mfrow=c(nr,nc),mar=c(3.5,3.5,2,1),mgp=c(2,0.75,0))
   if (is.null(ymax)) {
@@ -125,8 +125,8 @@ hist.bootCase <- function(x,same.ylim=TRUE,ymax=NULL,col="gray90",nr=round(sqrt(
 	for(i in 1:ncol(x)){ hist(x[,i],xlab=colnames(x)[i],col=col,main="",right=right,ylim=c(0,ymax[i]),...) }	
 }
 
-#'@rdname bootCase
-#'@export
+#' @rdname bootCase
+#' @export
 plot.bootCase <- function(x,nr=round(sqrt(np)),nc=ceiling(sqrt(np)),...){
 	np <- ncol(x)
 	lay <- lower.tri(matrix(0,(np-1),(np-1)), TRUE)
@@ -139,8 +139,8 @@ plot.bootCase <- function(x,nr=round(sqrt(np)),nc=ceiling(sqrt(np)),...){
 	par(old.par)
 }
 
-#'@rdname bootCase
-#'@export
+#' @rdname bootCase
+#' @export
 predict.bootCase <- function(object,FUN,MARGIN=1,conf.level=0.95,digits=NULL,...) {
   res <- quantile(apply(object,MARGIN=MARGIN,FUN=FUN,...),c(0.5,(1-conf.level)/2,1-(1-conf.level)/2))
   if (!is.null(digits)) res <- round(res,digits)

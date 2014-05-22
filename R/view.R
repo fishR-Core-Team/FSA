@@ -2,17 +2,19 @@
 #'
 #'Shows a random selection of rows from a data frame or matrix.
 #'
-#'@param x A data frame or matrix.
-#'@param which A numeric or string vector that contains the column numbers or
-#'names to display.  Defaults to showing all columns.
-#'@param n A single numeric that indicates the number of rows to display.
-#'@return No value is returned but a random (but sorted) selection of rows from
-#'the data frame is displayed.
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}
-#'@note If \code{n} is larger than the number of rows in \code{x} then \code{x}
-#'is displayed without randomizing the rows.
-#'@keywords manip
-#'@examples
+#' @param x A data frame or matrix.
+#' @param which A numeric or string vector that contains the column numbers or names to display.  Defaults to showing all columns.
+#' @param n A single numeric that indicates the number of rows to display.
+#'
+#' @return No value is returned but a random (but sorted) selection of rows from the data frame is displayed. 
+#'
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
+#' @note If \code{n} is larger than the number of rows in \code{x} then \code{x} is displayed without randomizing the rows.
+#'
+#' @keywords manip
+#'
+#' @examples
 #'data(iris)
 #'view(iris)
 #'view(iris,10)
@@ -25,7 +27,7 @@
 #'view(miris,10)
 #'view(miris,10,which=2:4)
 #'
-#'@export
+#' @export
 view <- function(x,n=6L,which=NULL) {
   if (!(is.matrix(x) | is.data.frame(x))) stop("'x' must be a matrix or data.frame.",call.=FALSE)
   stopifnot(length(n) == 1L)

@@ -1,11 +1,14 @@
 # FSA 0.4.11 ongoing
 
-* Changed `@S3method` and `@method` to `@export` in the following files according to changes in ROxygen2 as [described here](http://stackoverflow.com/questions/7198758/roxygen2-how-to-properly-document-s3-methods/7199577#7199577), among several other places: `ageBias`, `agePrecision`, `bootCase`, `catchCurve`, `chapmanRobson`, `depletion`, `dietOverlap`, `fitPlot`, `hist.formula`, `htest.nlsBoot`, `ks2d1`, `ks2d1p`, `ks2d2`, `ks2d2p`, `ksTest`, `lencat`, `mrClosed`, `mrOpen`, `plotBinResp`, `removal`, `residPlot`, `srStarts`, `Subset`, `Summarize`, `sumTable`, `vbStarts`, and `walfordChapmanPlot`.
+* Changed `@S3method` and `@method` to `@export` in the following files according to changes in ROxygen2 as [described here](http://stackoverflow.com/questions/7198758/roxygen2-how-to-properly-document-s3-methods/7199577#7199577), among several other places: `ageBias`, `agePrecision`, `bootCase`, `catchCurve`, `chapmanRobson`, `confint.nlsboot`, `depletion`, `dietOverlap`, `fitPlot`, `hist.formula`, `htest.nlsBoot`, `ks2d1`, `ks2d1p`, `ks2d2`, `ks2d2p`, `ksTest`, `lencat`, `mrClosed`, `mrOpen`, `plotBinResp`, `predict.nlsBoot`, `removal`, `residPlot`, `srStarts`, `Subset`, `Summarize`, `sumTable`, `vbStarts`, and `walfordChapmanPlot`.
 
-* `addZeroCatch()`:  Modified.  Added a catch for the situation where no zeroes need to be added to the data.frame.  Cleaned-up the help file, modified the examples, and added another example.  Thanks to Ben Neely for bringing this bug (handling where zeroes are not needed) to my attention.
-* `catchCurveSim()`:  Deleted.  Moved to FSAsim package.
-* `checkstartcatw()`:  Modified.  Changed the catch for whether the starting category value was greater than the minimum observed value to correct for a pathological case where they were equal but not with machine rounding.
+* `addZeroCatch()`: Modified.  Added a catch for the situation where no zeroes need to be added to the data.frame.  Cleaned-up the help file, modified the examples, and added another example.  Thanks to Ben Neely for bringing this bug (handling where zeroes are not needed) to my attention.
+* `capHistSum()`: Modified.  Cleaned up the code (no changes in functionality).
+* `catchCurveSim()`: Deleted.  Moved to FSAsim package.
+* `checkstartcatw()`: Modified.  Changed the catch for whether the starting category value was greater than the minimum observed value to correct for a pathological case where they were equal but not with machine rounding.
 * `lenFreqExpand()`: Modified.  Slightly changed the examples in the help file.
+* `lwPredsComp()`: Modified.  Streamlined the code (no changes to functionality).
+* `mrOpen()`: Modified.  Streamlined the code (no changes to functionality).  Removed all explicity partial matching options in `switch()`es as these were already caught with previous `match.arg()`s.
 
 
 # FSA 0.4.10 May14

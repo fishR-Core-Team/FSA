@@ -54,20 +54,15 @@ chapmanPlot(age, ...)
 
 \item{col}{A string that indicates the color for the observed data.}
 
-\item{pchLinf}{A numeric that indicates the plotting character type that indicates
-the Linf value.}
+\item{pchLinf}{A numeric that indicates the plotting character type that indicates the Linf value.}
 
-\item{colLinf}{A string that indicates the color of the point that indicates the Linf
-value.}
+\item{colLinf}{A string that indicates the color of the point that indicates the Linf value.}
 
-\item{cexLinf}{A numeric that indicates the character expansion factor of the
-point that indicates the Linf value.}
+\item{cexLinf}{A numeric that indicates the character expansion factor of the point that indicates the Linf value.}
 
-\item{showLS}{A logical that indicates whether the coefficients from the
-least-squares fit should be shown on the plot.}
+\item{showLS}{A logical that indicates whether the coefficients from the least-squares fit should be shown on the plot.}
 
-\item{showVB}{A logical that indicates whether the estimate of Linf and K should
-be shown on the plot.}
+\item{showVB}{A logical that indicates whether the estimate of Linf and K should be shown on the plot.}
 
 \item{\dots}{Other arguments to be passed to the \code{plot} function.}
 }
@@ -75,8 +70,7 @@ be shown on the plot.}
 None.  However, a plot is produced.
 }
 \description{
-Constructs Ford-Walford and Chapman plots for mean length-at-age data and computes
-estimates of asymptotic mean length (Linf) and the Brody growth coefficient (K).
+Constructs Ford-Walford and Chapman plots for mean length-at-age data and computes estimates of asymptotic mean length (Linf) and the Brody growth coefficient (K).
 }
 \examples{
 data(SMBassWB)

@@ -12,16 +12,13 @@ Subset(x, ...)
 \arguments{
 \item{x}{A data frame.}
 
-\item{subset}{A logical expression that indicates elements or rows to keep: missing
-values are taken as false.}
+\item{subset}{A logical expression that indicates elements or rows to keep: missing values are taken as false.}
 
 \item{select}{An expression, that indicates columns to select from a data frame.}
 
 \item{drop}{passed on to \code{[} indexing operator.}
 
-\item{resetRownames}{A logical that indicates if the rownames should be reset after
-the subsetting (\code{TRUE}; default).  Resetting rownames will simpley number
-the rows from 1 to the number of rows in the result.}
+\item{resetRownames}{A logical that indicates if the rownames should be reset after the subsetting (\code{TRUE}; default).  Resetting rownames will simply number the rows from 1 to the number of rows in the result.}
 
 \item{\dots}{further arguments to be passed to or from other methods.}
 }
@@ -35,18 +32,9 @@ Subsets a data frame and drops the unused levels.
 This function is used only for data frames.  It is equivalent to the combined usage of \code{subset} and \code{drop.levels}.  Use \code{subset} for all other structures.
 }
 \note{
-Newbie students using R expect that when a factor variable is subsetted
-with \code{subset} that any original levels that are no longer used after the
-subsetting will be ignored.  This, however, is not the case and often results
-in tables with empty cells and figures with empty bars.  One remedy is to use
-\code{drop.levels} immediately following the \code{subset} call.  This
-generally becomes a repetitive sequence for most newbie students; thus,
-\code{Subset} incorporates these two functions into one function.
+Newbie students using R expect that when a factor variable is subsetted with \code{subset} that any original levels that are no longer used after the subsetting will be ignored.  This, however, is not the case and often results in tables with empty cells and figures with empty bars.  One remedy is to use \code{drop.levels} immediately following the \code{subset} call.  This generally becomes a repetitive sequence for most newbie students; thus, \code{Subset} incorporates these two functions into one function.
 
-This is the code from \code{subset} with a catch for non-data.frames and
-a specific call to \code{drop.levels} just before the data.frame is returned.
-I also added an argument to allow resetting the row names.  Otherwise, there is
-really no new code here.
+This is the code from \code{subset} with a catch for non-data.frames and a specific call to \code{drop.levels} just before the data.frame is returned.  I also added an argument to allow resetting the row names.  Otherwise, there is really no new code here.
 }
 \examples{
 ## The problem -- note use of unused level in the final table.

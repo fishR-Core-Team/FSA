@@ -1,45 +1,30 @@
 #'Dynamic plots to explore typical fisheries stock-recruitment models.
 #'
-#'Plots hypothetical number of recruits versus stock size for four parameterizations
-#'of the Beverton-Holt and three parameterizations of the Ricker stock-recruit models.
-#'Slider bars are used to alter the parameters of each model.
+#'Plots hypothetical number of recruits versus stock size for four parameterizations of the Beverton-Holt and three parameterizations of the Ricker stock-recruit models.  Slider bars are used to alter the parameters of each model.
 #'
-#'This function can be used to explore the dynamics of stock-recruitment models for
-#'various parameter choices.  In these instances of model exploration the \code{S=}
-#'and \code{R=} arguments should be (left) set at \code{NULL}.  This function can 
-#'also be used to visually \dQuote{fit} a stock-recruit model to a set of observed
-#'stock and recruitment data in order to determine reasonable starting values for
-#'the non-linear least-squares fit of the stock-recruit model.  In this instance,
-#'observed data are plotted by including the vectors of observed stock sizes and 
-#'recruits in a model of the form \code{S~R}, in conjunction with the \code{data=}
-#'argument.
+#'This function can be used to explore the dynamics of stock-recruitment models for various parameter choices.  In these instances of model exploration the \code{S=} and \code{R=} arguments should be (left) set at \code{NULL}.  This function can  also be used to visually \dQuote{fit} a stock-recruit model to a set of observed stock and recruitment data in order to determine reasonable starting values for the non-linear least-squares fit of the stock-recruit model.  In this instance, observed data are plotted by including the vectors of observed stock sizes and recruits in a model of the form \code{S~R}, in conjunction with the \code{data=} argument.
 #'
-#'The \code{type=} argument is used to choose either the \code{"BevertonHolt"}
-#'or \code{"Ricker"} models.  Different parameterizations of these two models
-#'are chosen with the \code{param=} argument.  Four paramaterizations of the Beverton-Holt
-#'model and three parameterizations of the Ricker model are allowed.  See \code{\link{srModels}}
-#'for a representation of each parameterization.
+#'The \code{type=} argument is used to choose either the \code{"BevertonHolt"} or \code{"Ricker"} models.  Different parameterizations of these two models are chosen with the \code{param=} argument.  Four paramaterizations of the Beverton-Holt model and three parameterizations of the Ricker model are allowed.  See \code{\link{srModels}} for a representation of each parameterization.
 #'
-#'@aliases srSim
-#'@param S An optional vector that contains observed numbers of spawning stock or
-#'a formula as described in the details.
-#'@param R An optional vector that contains observed numbers of recruits.  See details.
-#'@param data An optional data frame that contains the variables if \code{S} is a
-#'formula.  See details.
-#'@param type A single string that indicates which stock-recruitment model to use.  See details.
-#'@param param A single numeric that indicates which parameterization of the \code{type}
-#'to use.  See details.
-#'@param max.S A single numeric that indicates the maximum spawning stock to use for
-#'scaling the x-axis.  Ignored if \code{S} is not NULL.
-#'@param max.R A single numeric that indicates the maximum recruitment to use for scaling
-#'the y-axis.  Ignored if \code{S} is not NULL.
-#'@return None.  However a dynamic graphic connected to slider bar controls of the
-#'\bold{\sQuote{a}}, \bold{\sQuote{b}}, or \bold{\sQuote{Rp}} parameters specific
-#'to the chosen stock-recruit model.
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}
-#'@seealso \code{\link{srModels}}
-#'@keywords iplot
-#'@examples
+#' @aliases srSim
+#'
+#' @param S An optional vector that contains observed numbers of spawning stock or a formula as described in the details.
+#' @param R An optional vector that contains observed numbers of recruits.  See details.
+#' @param data An optional data frame that contains the variables if \code{S} is a formula.  See details.
+#' @param type A single string that indicates which stock-recruitment model to use.  See details.
+#' @param param A single numeric that indicates which parameterization of the \code{type} to use.  See details.
+#' @param max.S A single numeric that indicates the maximum spawning stock to use for scaling the x-axis.  Ignored if \code{S} is not NULL.
+#' @param max.R A single numeric that indicates the maximum recruitment to use for scaling the y-axis.  Ignored if \code{S} is not NULL.
+#'
+#' @return None.  However a dynamic graphic connected to slider bar controls of the \bold{\sQuote{a}}, \bold{\sQuote{b}}, or \bold{\sQuote{Rp}} parameters specific to the chosen stock-recruit model.
+#'
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
+#' @seealso \code{\link{srModels}}
+#'
+#' @keywords iplot
+#'
+#' @examples
 #'if (interactive()) {
 #'# Defaults - Beverton-Holt, first parameterization
 #'srSim()
@@ -59,9 +44,9 @@
 #'srSim(recruits~stock,data=CodNorwegian,type="Ricker",param=1)
 #'
 #'} # end if interactive
-#'@rdname srSim
-#'@export srSim
 #'
+#' @rdname srSim
+#' @export
 srSim <- function(S=NULL,R=NULL,data=NULL,type=c("BevertonHolt","Ricker"),param=1,max.S=500,max.R=1000) {
   type <- match.arg(type)
   if (class(S)=="formula") {

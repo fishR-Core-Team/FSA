@@ -4,20 +4,22 @@
 #'
 #'NEED DETAIL HERE.
 #'
-#'@aliases ks2d1 print.ks2d1 plot.ks2d1
-#'@param x1 Vector of X values.
-#'@param y1 Vector of Y values.
-#'@param justD Logical that indicates whether just the D test statistic (\code{=TRUE}) or more information should be returned (default; see value section below).
-#'@param KSp Logical that indicates whether the approximate p-value from the Kolmogorov-Smirnov distribution should be returned.  NOT YET IMPLEMENTED.
-#'@param divbylen Logical that indicates whether the proportion of values in each quadrant is computed by dividing by the sample size (\code{=TRUE}, default) or by the number of points that could be assigned to quadrants.
-#'@param x An object returned from \code{d2ks1}.
-#'@param pch A numeric that indicates the character to be used when plotting the results.
-#'@param xlab A string to label the x-axis.
-#'@param ylab A string to label the y-axis.
-#'@param xlim A vector of length two that indicates the limits over which to plot the x-axis.
-#'@param ylim A vector of length two that indicates the limits over which to plot the y-axis.
-#'@param \dots Additional arguments sent to the plot function.
-#'@return The main function returns a single numeric of the D test statistic if \code{justD=TRUE} or a list with the following items if \code{justD=FALSE}:
+#' @aliases ks2d1 print.ks2d1 plot.ks2d1
+#' 
+#' @param x1 Vector of X values.
+#' @param y1 Vector of Y values.
+#' @param justD Logical that indicates whether just the D test statistic (\code{=TRUE}) or more information should be returned (default; see value section below).
+#' @param KSp Logical that indicates whether the approximate p-value from the Kolmogorov-Smirnov distribution should be returned.  NOT YET IMPLEMENTED.
+#' @param divbylen Logical that indicates whether the proportion of values in each quadrant is computed by dividing by the sample size (\code{=TRUE}, default) or by the number of points that could be assigned to quadrants.
+#' @param x An object returned from \code{d2ks1}.
+#' @param pch A numeric that indicates the character to be used when plotting the results.
+#' @param xlab A string to label the x-axis.
+#' @param ylab A string to label the y-axis.
+#' @param xlim A vector of length two that indicates the limits over which to plot the x-axis.
+#' @param ylim A vector of length two that indicates the limits over which to plot the y-axis.
+#' @param \dots Additional arguments sent to the plot function.
+#' 
+#' @return The main function returns a single numeric of the D test statistic if \code{justD=TRUE} or a list with the following items if \code{justD=FALSE}:
 #'\itemize{
 #'\item D The D test statistic.  See details.
 #'\item pval The approximate p-value from the Kolmogorov-Smirnov distribution.  Returned only if \code{KSp=TRUE}.  NOT YET IMPLEMENTED.
@@ -32,16 +34,19 @@
 #'
 #'The \code{plot} function return a scatterplot of the data with the point or points that resulted in the maximum D value.  The \code{print} function prints results in a nice format if \code{justD=FALSE} (only D will be printed if \code{justD=TRUE}).
 #'
-#'@note This function is experimental at best at this point.
+#' @note This function is experimental at best at this point.
 #'
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}, with significant help from Ben Bolker.
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}, with significant help from Ben Bolker.
 #'
-#'@references Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From star charts to stoneflies: detecting relationships in continuous bivariate data. Ecology 79:442 447.
+#' @references Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From star charts to stoneflies: detecting relationships in continuous bivariate data. Ecology 79:442 447.  \url{http://opensiuc.lib.siu.edu/fiaq_pubs/17/}
 #'
-#'Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.  Numerical Recipes: The Art of Scientific Computing, 3rd Edition.  Cambridge University Press.  1286 pages.
-#'@seealso \code{\link{ks2d1p}}
-#'@keywords htest
-#'@examples
+#'Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.  Numerical Recipes: The Art of Scientific Computing, 3rd Edition.  Cambridge University Press.  1286 pages. \url{http://www.nr.com/}
+#' 
+#' @seealso \code{\link{ks2d1p}}
+#' 
+#' @keywords htest
+#'
+#' @examples
 #'# Example from Figure 4a in Garvey
 #'data(Garvey4a)
 #'
@@ -60,8 +65,8 @@
 #'( res4 <- with(Garvey1,ks2d1(Ameletus,Leuctra)) )
 #'plot(res4,xlab="Ameletus Numbers",ylab="Leuctra Numbers",col=rgb(0,0,0,0.1))
 
-#'@rdname ks2d1
-#'@export ks2d1
+#' @rdname ks2d1
+#' @export ks2d1
 ks2d1 <- function(x1,y1,justD=FALSE,KSp=FALSE,divbylen=TRUE) {
   ## compute differences between observed quadrant proportions and expected as
   ##   if the two distributions were independent.  Return the max absolute diff.
@@ -98,9 +103,9 @@ ks2d1 <- function(x1,y1,justD=FALSE,KSp=FALSE,divbylen=TRUE) {
   }
 }
 
-#'@rdname ks2d1
-#'@method print ks2d1
-#'@export
+#' @rdname ks2d1
+#' @method print ks2d1
+#' @export
 print.ks2d1 <- function(x,...) {
   cat("1-Sample Two-Dimensional Kolmogorov-Smirnov Test -- THESE RESULTS ARE EXPERIMENTAL AT THIS POINT!!!\n\n")
   cat("Maximum occurred for observation #",x[["where1"]],"\n",sep="")
@@ -109,8 +114,8 @@ print.ks2d1 <- function(x,...) {
   cat(paste(txt,"\n"))
 }
 
-#'@rdname ks2d1
-#'@export
+#' @rdname ks2d1
+#' @export
 plot.ks2d1 <- function(x,xlab=NULL,ylab=NULL,xlim=range(x$x1),ylim=range(x$y1),pch=16,...) {
   if (is.null(xlab)) xlab <- deparse(substitute(x$x1))
   if (is.null(ylab)) ylab <- deparse(substitute(x$y1))

@@ -48,25 +48,17 @@ residPlot(object, ...)
   col.loess = "red", loess.f = 2/3, ...)
 }
 \arguments{
-\item{object}{An \code{lm} or \code{nls} object (i.e., returned from fitting
-a model with either \code{lm} or \code{nls}).}
+\item{object}{An \code{lm} or \code{nls} object (i.e., returned from fitting a model with either \code{lm} or \code{nls}).}
 
-\item{student}{A logical that indicates if the studentized residuals (\code{TRUE}];
-default) are plotted or not.}
+\item{student}{A logical that indicates if the studentized residuals (\code{TRUE}]; default) are plotted or not.}
 
-\item{outlier.test}{A logical that indicates if an \code{outlierTest} will
-\code{TRUE} (default) be performed and if the indivdiual with the largest
-studentized residual is deemed to be a significant outlier it will be noted
-on the residual plot by its observation number.}
+\item{outlier.test}{A logical that indicates if an \code{outlierTest} will \code{TRUE} (default) be performed and if the indivdiual with the largest studentized residual is deemed to be a significant outlier it will be noted on the residual plot by its observation number.}
 
-\item{loess}{A logical that indicates if a loess smoother line is fit to and
-shown on the residual plot (\code{TRUE}).}
+\item{loess}{A logical that indicates if a loess smoother line is fit to and shown on the residual plot (\code{TRUE}).}
 
-\item{bp}{A logical that indicates if the plot for the one-way and two-way ANOVA
-will be a boxplot (\code{TRUE}; default) or not.}
+\item{bp}{A logical that indicates if the plot for the one-way and two-way ANOVA will be a boxplot (\code{TRUE}; default) or not.}
 
-\item{alpha}{A numeric that indicates the alpha level to use for the outlier test
-(only used if \code{outlier.test=TRUE}).}
+\item{alpha}{A numeric that indicates the alpha level to use for the outlier test (only used if \code{outlier.test=TRUE}).}
 
 \item{xlab}{A string for labelling the x-axis.}
 
@@ -74,39 +66,25 @@ will be a boxplot (\code{TRUE}; default) or not.}
 
 \item{main}{A string for the main label to the plot.  Defaults to the model call.}
 
-\item{pch}{A numeric that indicates the plotting charachter to be used or a
-vector of numerics that indicates what plotting charachters codes to use for the
-levels of the second factor.  See \code{par}.}
+\item{pch}{A numeric that indicates the plotting charachter to be used or a vector of numerics that indicates what plotting charachters codes to use for the levels of the second factor.  See \code{par}.}
 
-\item{col}{A vector of color names that indicates what color of points and lines
-to use for the levels of the first factor.  See \code{par}.}
+\item{col}{A vector of color names that indicates what color of points and lines to use for the levels of the first factor.  See \code{par}.}
 
-\item{lty.ref}{A numeric that indicates the line type to use for the reference
-line at residual=0.  See \code{par}.}
+\item{lty.ref}{A numeric that indicates the line type to use for the reference line at residual=0.  See \code{par}.}
 
-\item{lwd.ref}{A numeric that indicates the line width to use for the reference
-line at residual=0.  See \code{par}.}
+\item{lwd.ref}{A numeric that indicates the line width to use for the reference line at residual=0.  See \code{par}.}
 
-\item{col.ref}{A numeric or character that indicates the line color to use for
-the reference line at residual=0.  See \code{par}.}
+\item{col.ref}{A numeric or character that indicates the line color to use for the reference line at residual=0.  See \code{par}.}
 
-\item{lty.loess}{A numeric that indicates the line type to use for loess fit
-line.  See \code{par}.}
+\item{lty.loess}{A numeric that indicates the line type to use for loess fit line.  See \code{par}.}
 
-\item{lwd.loess}{A numeric that indicates the line width to use for loess fit
-line.  See \code{par}.}
+\item{lwd.loess}{A numeric that indicates the line width to use for loess fit line.  See \code{par}.}
 
-\item{col.loess}{A numeric or character that indicates the line color to use for
-loess fit line.  See \code{par}.}
+\item{col.loess}{A numeric or character that indicates the line color to use for loess fit line.  See \code{par}.}
 
-\item{loess.f}{A numeric for the smoother span. This gives the proportion of
-points in the plot which influence the smooth at each value.  Larger values
-give more smoothness.}
+\item{loess.f}{A numeric for the smoother span. This gives the proportion of points in the plot which influence the smooth at each value.  Larger values give more smoothness.}
 
-\item{legend}{If \code{TRUE}, draw a legend and the user must click in the
-upper-left corner of where the legend should be placed; if \code{FALSE} do
-not draw a legend.  If a vector of length 2 then draw the upper left corner
-of the legend at the coordinates given in the vector of length 2.}
+\item{legend}{If \code{TRUE}, draw a legend and the user must click in the upper-left corner of where the legend should be placed; if \code{FALSE} do not draw a legend.  If a vector of length 2 then draw the upper left corner of the legend at the coordinates given in the vector of length 2.}
 
 \item{\dots}{Other arguments to the generic \code{plot} function.}
 }
@@ -114,31 +92,15 @@ of the legend at the coordinates given in the vector of length 2.}
 None.  However, a residual plot is produced.
 }
 \description{
-Constructs a residual plot for \code{lm} or \code{nls} objects.  Different
-symbols for different groups can be added to the plot if an indicator
-variable regression is used.
+Constructs a residual plot for \code{lm} or \code{nls} objects.  Different symbols for different groups can be added to the plot if an indicator variable regression is used.
 }
 \details{
-If the user chooses to add a legend without identifying coordinates for the
-upper-left corner of the legend (i.e., \code{legend=TRUE}) then the R console
-is suspended until the user places the legend by clicking on the produced
-graphic at the point where the upper-left corner of the legend should appear.
-A legend will only be placed if the \code{mdl} is an indicator variable
-regression, even if \code{legend=TRUE}.
+If the user chooses to add a legend without identifying coordinates for the upper-left corner of the legend (i.e., \code{legend=TRUE}) then the R console is suspended until the user places the legend by clicking on the produced graphic at the point where the upper-left corner of the legend should appear.  A legend will only be placed if the \code{mdl} is an indicator variable regression, even if \code{legend=TRUE}.
 
-If \code{outlier.test=TRUE} then significant outliers are detected with
-\code{outlierTest()} from the \pkg{car} package.  See the help for this
-function for more details.
-
-The \code{residualPlot()} is just a pass-through convenience function.
+If \code{outlier.test=TRUE} then significant outliers are detected with \code{outlierTest()} from the \pkg{car} package.  See the help for this function for more details.
 }
 \note{
-This function is meant to allow newbie students the ability to easily
-construct residual plots for one-way ANOVA, two-way ANOVA, simple linear
-regression, and indicator variable regressions.  The plots can be constructed
-by submitting a saved linear model to this function which allows students to
-interact with and visualize moderately complex linear models in a fairly easy
-and efficient manner.
+This function is meant to allow newbie students the ability to easily construct residual plots for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions.  The plots can be constructed by submitting a saved linear model to this function which allows students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
 }
 \examples{
 data(Mirex)

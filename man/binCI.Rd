@@ -13,36 +13,27 @@ binCI(x, n, conf.level = 0.95, type = c("wilson", "exact", "asymptotic",
 
 \item{conf.level}{A single number that indicates the level of confidence (default is \code{0.95}).}
 
-\item{type}{A string that identifies the type of method to use for the calculations.
-See details.}
+\item{type}{A string that identifies the type of method to use for the calculations.  See details.}
 }
 \value{
 A #x2 matrix that contains the lower and upper confidence interval bounds as columns.
 }
 \description{
-Uses one of three methods to compute a confidence interval for the
-probability of success (p) in a binomial distribution.
+Uses one of three methods to compute a confidence interval for the probability of success (p) in a binomial distribution.
 }
 \details{
-This function will compute confidence interval for three possible methods
-chosen with the \code{type} argument.
+This function will compute confidence interval for three possible methods chosen with the \code{type} argument.
 
 \tabular{ll}{
-\code{type="wilson"} \tab Wilson's (Journal of the American Statistical Association, 1927)
-confidence interval for a proportion.  This is the score CI, based on inverting
-the asymptotic normal test using the null standard error. \cr
-\code{type="exact"} \tab Computes the Clopper/Pearson exact CI for a binomial
-success probability. \cr
+\code{type="wilson"} \tab Wilson's (Journal of the American Statistical Association, 1927) confidence interval for a proportion.  This is the score CI, based on inverting the asymptotic normal test using the null standard error. \cr
+\code{type="exact"} \tab Computes the Clopper/Pearson exact CI for a binomial success probability. \cr
 \code{type="asymptotic"} \tab This uses the normal distribution approximation. \cr
 }
 
-Note that Agresti and Coull (2000) suggest that the Wilson interval is the
-preferred method and is, thus, the default \code{type}.
+Note that Agresti and Coull (2000) suggest that the Wilson interval is the preferred method and is, thus, the default \code{type}.
 }
 \note{
-This is primarily a wrapper function for \code{binconf} in the \pkg{Hmisc}
-package (this implementation uses arguments, specificially \code{conf.level}, that
-more closely match other functions).
+This is primarily a wrapper function for \code{binconf} in the \pkg{Hmisc} package (this implementation uses arguments, specificially \code{conf.level}, that more closely match other functions).
 }
 \examples{
 binCI(7,20,type="wilson")
@@ -59,12 +50,10 @@ binCI(c(7,10),c(20,30))
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Agresti, A. and B.A. Coull.  1998.  Approximate is better than \dQuote{exact}
-for interval estimation of binomial proportions.  American Statistician, 52:119-126.
+Agresti, A. and B.A. Coull.  1998.  Approximate is better than \dQuote{exact} for interval estimation of binomial proportions.  American Statistician, 52:119-126.
 }
 \seealso{
-\code{binconf} in \pkg{Hmisc}, \code{bin.conf.int} in \pkg{epitools}, and
-\code{binom.conf.interval} in \pkg{UCS}.
+\code{binconf} in \pkg{Hmisc}, \code{bin.conf.int} in \pkg{epitools}, and \code{binom.conf.interval} in \pkg{UCS}.
 }
 \keyword{htest}
 

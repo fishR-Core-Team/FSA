@@ -6,9 +6,7 @@
 chooseColors(pal = paletteChoices(), num, ...)
 }
 \arguments{
-\item{pal}{A character that is the name of a palette.  Must be one of \dQuote{rich},
-\dQuote{cm}, \dQuote{default}, \dQuote{grey}, \dQuote{gray}, \dQuote{heat},
-\dQuote{jet}, \dQuote{rainbow}, \dQuote{topo}, or \dQuote{terrain}.}
+\item{pal}{A character that is the name of a palette.  Must be one of \dQuote{rich}, \dQuote{cm}, \dQuote{default}, \dQuote{grey}, \dQuote{gray}, \dQuote{heat}, \dQuote{jet}, \dQuote{rainbow}, \dQuote{topo}, or \dQuote{terrain}.}
 
 \item{num}{The number of colors to be returned.}
 
@@ -36,10 +34,7 @@ pie(rep(1,n), col=chooseColors("jet",n))
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-\code{\link{rich.colors}} in \pkg{gplots}, \code{\link{cm.colors}},
-\code{\link{heat.colors}}, \code{\link{topo.colors}},
-\code{\link{terrain.colors}}, \code{\link{rainbow}},
-\code{\link{colorRampPalette}}, and \code{\link{colors}}.
+\code{\link{rich.colors}} in \pkg{gplots}, \code{\link{cm.colors}}, \code{\link{heat.colors}}, \code{\link{topo.colors}}, \code{\link{terrain.colors}}, \code{\link{rainbow}}, \code{\link{colorRampPalette}}, and \code{\link{colors}}.
 }
 \keyword{manip}
 

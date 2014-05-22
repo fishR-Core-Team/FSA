@@ -1,55 +1,37 @@
 #'Appends standard weight and relative weight variables to a data frame.
 #'
-#'Computes the appropriate standard weight and relative weight for a species
-#'and appends the values to an existing data frame.
+#'Computes the appropriate standard weight and relative weight for a species and appends the values to an existing data frame.
 #'
-#'This function first computes the standard weight given the observed lengths
-#'and the appropriate standard weight equation, from \code{wsVal()}, for the 
-#'provided species.  Either the linear or quadratic equation has been preferred
-#'for each species so only that equation will be used.  However, some species
-#'have standard weight equations for different percentiles and use of these
-#'equations must be chosen by the user with \code{ref}.
+#'This function first computes the standard weight given the observed lengths and the appropriate standard weight equation, from \code{wsVal()}, for the provided species.  Either the linear or quadratic equation has been preferred for each species so only that equation will be used.  However, some species have standard weight equations for different percentiles and use of these equations must be chosen by the user with \code{ref}.
 #'
-#'Once the standard weight is computed, the relative weights is computed given the
-#'observed weights in and the computed standard weight according to
+#'Once the standard weight is computed, the relative weights is computed given the observed weights in and the computed standard weight according to
 #'
 #'\deqn{\frac{W}{W_{S}}*100}
 #'
 #'The results of both computations are appended as columns to the original data frame.
 #'
-#'If a species name does not exist in the database then no results will be
-#'returned but a list of species will be printed.
+#'If a species name does not exist in the database then no results will be returned but a list of species will be printed.
 #'
-#'@param formula A formula of the form \code{weight~length} where \dQuote{weight}
-#'generically represents a variable in \code{data} that contains weight measurements
-#'and \dQuote{length} generically represents a variable in \code{data} that contains
-#'length measurements.  Note that this formula can only contain two variables and they
-#'must be in the weight first, length second order.
-#'@param data A data.frame that minimally contains the length and weight measurements
-#'given in the variables in the \code{formula}.
-#'@param species A string that contains the species name for which to make
-#'computations.  See details.
-#'@param units A string that indicates whether the coefficients for the (\code{"metric"}
-#'(DEFAULT; mm and g) or \code{"English"} (in and lbs) units should be returned.
-#'\code{"quadratic"} model should be returned.
-#'@param ref A numeric that indicates which quantile the equation should be returned
-#'for.  Note that the vast majority of equations only exist for the \code{75}th
-#'percentile (DEFAULT).
-#'@param remove.submin A logical that indicates how to handle fish below the minimum
-#'length for which the standard weight equation holds.  If \code{FALSE} (DEFAULT)
-#'then the standard and relative weights for the \dQuote{small} fish are replaced
-#'with \code{NA}.  If \code{TRUE} then the \dQuote{small} fish are excluded from the
-#'returned data frame.
-#'@param wsname A string that contains the name for the new standard weight variable.
-#'@param wrname A string that contains the name for the new relative weight variable.
-#'@return Returns a data frame that consists of the original data frame,
-#'\code{data}, but with the new standard and relative weight variables appended and
-#'named as in \code{wsname} and \code{wrname}, respectively.
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}
-#'@seealso \code{\link{wsVal}}, \code{\link{wrDataPrep}}, and \code{\link{WSlit}}.
-#'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/RelativeWeight.pdf}
-#'@keywords manip
-#'@examples
+#' @param formula A formula of the form \code{weight~length} where \dQuote{weight} generically represents a variable in \code{data} that contains weight measurements and \dQuote{length} generically represents a variable in \code{data} that contains length measurements.  Note that this formula can only contain two variables and they must be in the weight first, length second order.
+#' @param data A data.frame that minimally contains the length and weight measurements given in the variables in the \code{formula}.
+#' @param species A string that contains the species name for which to make computations.  See details.
+#' @param units A string that indicates whether the coefficients for the (\code{"metric"} (DEFAULT; mm and g) or \code{"English"} (in and lbs) units should be returned. \code{"quadratic"} model should be returned.
+#' @param ref A numeric that indicates which quantile the equation should be returned for.  Note that the vast majority of equations only exist for the \code{75}th percentile (DEFAULT).
+#' @param remove.submin A logical that indicates how to handle fish below the minimum length for which the standard weight equation holds.  If \code{FALSE} (DEFAULT) then the standard and relative weights for the \dQuote{small} fish are replaced with \code{NA}.  If \code{TRUE} then the \dQuote{small} fish are excluded from the returned data frame.
+#' @param wsname A string that contains the name for the new standard weight variable.
+#' @param wrname A string that contains the name for the new relative weight variable.
+#'
+#' @return Returns a data frame that consists of the original data frame, \code{data}, but with the new standard and relative weight variables appended and named as in \code{wsname} and \code{wrname}, respectively.
+#'
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
+#' @seealso \code{\link{wsVal}}, \code{\link{wrDataPrep}}, and \code{\link{WSlit}}.
+#'
+#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/RelativeWeight.pdf}
+#'
+#' @keywords manip
+#'
+#' @examples
 #'# A data frame of bluegill lengths and weights
 #'data(BluegillLM)
 #'str(BluegillLM)
@@ -78,7 +60,7 @@
 #'# compare to tail(new1) to see slight differences due to conversion
 #'tail(new4) 
 #'
-#'@export
+#' @export
 wrAdd <- function(formula,data,species="List",units=c("metric","English"),
                   ref=75,remove.submin=FALSE,wsname="ws",wrname="wr") {
   units <- match.arg(units)

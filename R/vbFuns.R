@@ -2,65 +2,41 @@
 #'
 #'Creates a function for a specific von Bertalanffy model parameterization.
 #'
-#'@param type A string that indicates the parameterization of the von Bertalanffy model.
-#'@param simple A logical that indicates whether the user should be allowed to send
-#'all parameter values in the first parameter argument (\code{=FALSE}; default)
-#'or whether all individual parameters must be specified (\code{=TRUE}).
-#'@param msg A logical that indicates whether a message about the model and
-#'parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).
-#'@return A function that can be used to predict fish length given a vector of
-#'ages and values for the model parameters and, in some parameterizations,
-#'values for some constants.  The result should be saved to an object that can
-#'then be used as a function name.  When the resulting function is used the
-#'parameters are ordered as shown when the definitions of the parameters are
-#'printed after the function is called (if \code{msg=TRUE}).
+#' @param type A string that indicates the parameterization of the von Bertalanffy model.
+#' @param simple A logical that indicates whether the user should be allowed to send all parameter values in the first parameter argument (\code{=FALSE}; default) or whether all individual parameters must be specified (\code{=TRUE}).
+#' @param msg A logical that indicates whether a message about the model and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).
+#' @return A function that can be used to predict fish length given a vector of ages and values for the model parameters and, in some parameterizations, values for some constants.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).
 #'
-#'If \code{simple=FALSE} was used then the values for all three parameters can
-#'be included as a vector of length three in the first paramater argument.
-#'Similarly, the values for all constants can be included as a vector in the
-#'first constant argument (i.e., \code{t1}).  If \code{simple=TRUE} then all
-#'parameters and constants must be declared individually.  In addition, if
-#'\code{simple=TRUE} then the resulting function is somewhat easier to read.
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}, thanks to Gabor Grothendieck 
-#'for a hint about using \code{get()}.
-#'@note The \sQuote{original} and \sQuote{vonBertalanffy} and the
-#'\sQuote{typical} and \sQuote{BevertonHolt} versions are synonomous.
-#'@seealso \code{\link{growthModelSim}}.
-#'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffy.pdf},
-#'\url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffyExtra.pdf}
-#'@references Fabens, A. 1965. Properties and fitting of the von Bertalanffy
-#'growth curve. Growth 29:265-289.
+#'If \code{simple=FALSE} was used then the values for all three parameters can be included as a vector of length three in the first paramater argument.  Similarly, the values for all constants can be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE} then all parameters and constants must be declared individually.  In addition, if \code{simple=TRUE} then the resulting function is somewhat easier to read.
 #'
-#'Francis, R.I.C.C.  1988.  Are growth parameters estimated from tagging and
-#'age-length data comparable?  Canadian Journal of Fisheries and Aquatic
-#'Sciences, 45:936-942.
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
-#'Gallucci, V.F. and T.J. Quinn II. 1979.  Reparameterizing, fitting, and
-#'testing a simple growth model.  Transactions of the American Fisheries
-#'Society, 108:14-25.
+#' @note The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} versions are synonomous.
 #'
-#'Mooij, W.M., J.M. Van Rooij, and S. Wijnhoven.  1999.  Analysis and
-#'comparison of fish growth from small samples of length-at-age data: Detection
-#'of sexual dimorphism in Eurasian perch as an example.  Transactions of the
-#'American Fisheries Society 128:483-490.
+#' @seealso \code{\link{growthModelSim}}.
 #'
-#'Polacheck, T., J.P. Eveson, and G.M. Laslett.  2004.  Increase in growth
-#'rates of southern bluefin tuna (\emph{Thunnus maccoyii}) over four decades:
-#'1960 to 2000.  Canadian Journal of Fisheries and Aquatic Sciences,
+#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffy.pdf}, \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffyExtra.pdf}
+#'
+#' @references Fabens, A. 1965. Properties and fitting of the von Bertalanffy growth curve. Growth 29:265-289.
+#'
+#'Francis, R.I.C.C.  1988.  Are growth parameters estimated from tagging and age-length data comparable?  Canadian Journal of Fisheries and Aquatic Sciences, 45:936-942.
+#'
+#'Gallucci, V.F. and T.J. Quinn II. 1979.  Reparameterizing, fitting, and testing a simple growth model.  Transactions of the American Fisheries Society, 108:14-25.
+#'
+#'Mooij, W.M., J.M. Van Rooij, and S. Wijnhoven.  1999.  Analysis and comparison of fish growth from small samples of length-at-age data: Detection of sexual dimorphism in Eurasian perch as an example.  Transactions of the American Fisheries Society 128:483-490.
+#'
+#'Polacheck, T., J.P. Eveson, and G.M. Laslett.  2004.  Increase in growth rates of southern bluefin tuna (\emph{Thunnus maccoyii}) over four decades: 1960 to 2000.  Canadian Journal of Fisheries and Aquatic Sciences,
 #'61:307-322.
 #'
-#'Schnute, J.  1981.  A versatile growth model with statistically stable
-#'parameters. Canadian Journal of Fisheries and Aquatic Sciences, 38:1128-1140.
+#'Schnute, J.  1981.  A versatile growth model with statistically stable parameters. Canadian Journal of Fisheries and Aquatic Sciences, 38:1128-1140.
 #'
-#'Somers, I. F. 1988. On a seasonally oscillating growth function. Fishbyte
-#'6(1):8-11.
+#'Somers, I. F. 1988. On a seasonally oscillating growth function. Fishbyte 6(1):8-11.
 #'
-#'Wang, Y.-G.  1998.  An improved Fabens method for estimation of growth
-#'parameters in the von Bertalanffy model with individual asymptotes.  Canadian
-#'Journal of Fisheries and Aquatic Sciences 55:397-400.
-#'@export
-#'@keywords manip
-#'@examples
+#'Wang, Y.-G.  1998.  An improved Fabens method for estimation of growth parameters in the von Bertalanffy model with individual asymptotes.  Canadian Journal of Fisheries and Aquatic Sciences 55:397-400.
+#'
+#' @keywords manip
+#'
+#' @examples
 #'## Simple Examples
 #'( vb1 <- vbFuns() )              # typical parameterization
 #'ages <- 0:20
@@ -99,6 +75,7 @@
 #'summary(fit3,correlation=TRUE)
 #'curve(vb3(x,L1=coef(fit3),t1=c(0,4)),from=0,to=5,col="green",lwd=2,add=TRUE)
 #'
+#' @export
 vbFuns <- function(type=c("typical","original","BevertonHolt","Fabens","Fabens2",
                           "Francis","GallucciQuinn","Laslett","Mooij","Schnute",
                           "Somers","Somers2","vonBertalanffy","Wang","Wang2"),

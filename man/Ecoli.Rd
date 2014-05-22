@@ -9,9 +9,7 @@
 \item{cells}{Number of cells in the population.}
 }}
 \source{
-McKendrick, A.G. and M. Kesava Pai. 1911. The Rate of Multiplication
-of Micro-Organisms: a Mathematical Study. Proceedings of the Royal Society of
-Edinburgh. 31: 649-655.
+McKendrick, A.G. and M. Kesava Pai. 1911. The Rate of Multiplication of Micro-Organisms: a Mathematical Study. Proceedings of the Royal Society of Edinburgh. 31: 649-655.
 }
 \description{
 The number of \emph{Escherichia coli} cells versus time.

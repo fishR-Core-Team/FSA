@@ -77,7 +77,8 @@ summary(ap1,what="absolute",percent=FALSE)
 
 barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
 summary(ap1,what="detail")
-summary(ap1,what=c("precision","difference"))
+summary
+
 ## Example with three age assignments
 ap2 <- agePrecision(~otolithC+finrayC+scaleC,data=WhitefishLC)
 summary(ap2)

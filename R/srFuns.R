@@ -2,38 +2,29 @@
 #'
 #'Creates a function for a specific stock-recruitment model parameterization.
 #'
-#'@param type A string that indicates the type of the stock-recruitment model.
-#'@param param A numeric that indicates the parameterization of the
-#'stock-recruitment model type.
-#'@param msg A logical that indicates whether a message about the model and
-#'parameter definitions should be output.
-#'@return A function that can be used to predict recruitment given a vector of
-#'stock sizes and values for the model parameters.  The result should be saved
-#'to an object that can then be used as a function name.  When the resulting
-#'function is used the parameters are ordered as shown when the definitions of
-#'the parameters are printed after the function is called (assuming that
-#'\code{msg=TRUE}).  The values for both parameters can be included as a vector
-#'of length two in the first parameter argument.
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}.  Thanks to Greg Snow for 
-#'a hint about returning the functions.
-#'@seealso \code{\link{srStarts}}, \code{\link{srModels}}, and \code{\link{srSim}}
-#'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
-#'@references Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of
-#'exploited fish populations, Fisheries Investigations (Series 2), volume 19.
-#'United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
+#' @param type A string that indicates the type of the stock-recruitment model.
+#' @param param A numeric that indicates the parameterization of the stock-recruitment model type.
+#' @param msg A logical that indicates whether a message about the model and parameter definitions should be output.
 #'
-#'Quinn II, T.J. and R.B. Deriso. 1999. Quantitative Fish Dynamics. Oxford
-#'University Press.
+#' @return A function that can be used to predict recruitment given a vector of stock sizes and values for the model parameters.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (assuming that \code{msg=TRUE}).  The values for both parameters can be included as a vector of length two in the first parameter argument.
 #'
-#'Ricker, W.E. 1954. Stock and recruitment. Journal of the Fisheries Research
-#'Board of Canada 11:559-623.
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}.  Thanks to Greg Snow for a hint about returning the functions.
 #'
-#'Ricker, W.E. 1975. Computation and interpretation of biological statistics of
-#'fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries
-#'Research Board of Canada.
-#'@export
-#'@keywords manip
-#'@examples
+#' @seealso \code{\link{srStarts}}, \code{\link{srModels}}, and \code{\link{srSim}}
+#'
+#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
+#'
+#' @references Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19. United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
+#'
+#'Quinn II, T.J. and R.B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press.
+#'
+#'Ricker, W.E. 1954. Stock and recruitment. Journal of the Fisheries Research Board of Canada 11:559-623.
+#'
+#'Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
+#' 
+#' @keywords manip
+#' 
+#' @examples
 #'## Simple Examples
 #'( bh1 <- srFuns() )               # Beverton-Holt #1 parameterization
 #'stock <- sample(1:1000,50)
@@ -60,6 +51,7 @@
 #'summary(fit2,correlation=TRUE)
 #'curve(r3(x,a=coef(fit2)[1],Rp=coef(fit2)[2]),from=0,to=200,col="blue",lwd=3,add=TRUE)
 #'
+#' @export
 srFuns <- function(type=c("BevertonHolt","Ricker"),param=1,msg=FALSE) {
   type <- match.arg(type)
   switch(type,

@@ -20,10 +20,7 @@
 \item{source}{Source of the equation.}
 }}
 \source{
-Most of the data presented came from Blackwell, B.G., M.L. Brown, and
-D.W. Willis.  2000.  Relative weight (Wr) status and current use in fisheries
-assessment and management.  Reviews in Fisheries Science 8:1-44.  Available
-at \url{http://pubstorage.sdstate.edu/wfs/280-F.pdf}.
+Most of the data presented came from Blackwell, B.G., M.L. Brown, and D.W. Willis.  2000.  \href{http://pubstorage.sdstate.edu/wfs/280-F.pdf}{Relative weight (Wr) status and current use in fisheries assessment and management.}  Reviews in Fisheries Science 8:1-44.
 
 Other species have been added by the package author since this review was published.
 }
@@ -31,8 +28,7 @@ Other species have been added by the package author since this review was publis
 Parameters for standard weight equations for a variety of species.
 }
 \details{
-I constructed the English units minimum TL from the published minimum TL in mm by
-rounding to what seemed like common units (inches, half inches, or quarter inches).
+I constructed the English units minimum TL from the published minimum TL in mm by rounding to what seemed like common units (inches, half inches, or quarter inches).
 }
 \section{Topic(s)}{
  \itemize{

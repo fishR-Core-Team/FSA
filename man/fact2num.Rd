@@ -6,8 +6,7 @@
 fact2num(object)
 }
 \arguments{
-\item{object}{A vector with \dQuote{numeric} factor levels to be converted to
-numeric values.}
+\item{object}{A vector with \dQuote{numeric} factor levels to be converted to numeric values.}
 }
 \value{
 A numeric vector.

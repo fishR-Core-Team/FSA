@@ -37,8 +37,6 @@
 #' 
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeLengthKey.pdf}
 #' 
-#' @export
-#' 
 #' @keywords plot
 #' 
 #' @examples
@@ -60,6 +58,7 @@
 #'ageKeyPlot(WR.key,"bubble",grid="blue")
 #'ageKeyPlot(WR.key,"bubble",grid=rgb(0,0,0,0.2),col=rgb(0,0,0,0.5))
 #'
+#' @export
 ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
                       xlab="Length",ylab="Proportion",showLegend=FALSE,
                       lbl.cex=1.25,leg.cex=1,lwd=2,span=0.25,

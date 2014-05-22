@@ -146,8 +146,8 @@
 #'summary(Z,what="table",zero.print=0)
 #'summary(Z,what="symmetry")  #check
 #'
-#'@rdname ageBias
-#'@export
+#' @rdname ageBias
+#' @export
 ageBias <- function(formula,data,col.lab=tmp$Rname,row.lab=tmp$Enames[1],
                     method=p.adjust.methods,sig.level=0.05,min.n.CI=5) {
   ## internal function to create summarized data frame
@@ -223,8 +223,8 @@ ageBias <- function(formula,data,col.lab=tmp$Rname,row.lab=tmp$Enames[1],
 }
 
 
-#'@rdname ageBias
-#'@export
+#' @rdname ageBias
+#' @export
 plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE,
                          xlab=x$col.lab,ylab=x$row.lab,show.n=TRUE,nYpos=1.1,
                          show.pts=FALSE,pch.pts=19,col.pts=rgb(0,0,0,transparency),transparency=1/10,
@@ -334,8 +334,8 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
   else anumplot(x,xlab,ylab,xlim,ylim,lwd.ref,lty.ref,col.ref,...)
 }
 
-#'@rdname ageBias
-#'@export
+#' @rdname ageBias
+#' @export
 summary.ageBias <- function(object,what=c("table","symmetry","Bowkers","EvansHoenig","McNemars","bias","diff.bias","n"),
                             flip.table=FALSE,zero.print="-",digits=3,cont.corr=c("none","Yates","Edwards"),
                             ...) {

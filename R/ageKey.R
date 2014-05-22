@@ -28,8 +28,6 @@
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeLengthKey.pdf}
 #'
-#' @export
-#'
 #' @keywords manip
 #'
 #' @examples
@@ -77,6 +75,7 @@
 #'WR3.comb <- rbind(WR3.age, WR3.len)             # combine orig age & new length sample
 #'Summarize(len~age,data=WR3.comb,digits=2)
 #'
+#' @export
 ageKey <- function(key,formula,data,type=c("SR","CR"),breaks=NULL) {
   #### Semi-random assignment internal function
   ageKey.sr <- function(key,age.cats,data,data.len.cats,ca) {                        

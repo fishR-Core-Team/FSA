@@ -8,8 +8,7 @@ capFirst(x, words = c("all", "first"))
 \arguments{
 \item{x}{A single string.}
 
-\item{words}{A single string that indicates whether all (the default) or only
-the first words should be capitalized.}
+\item{words}{A single string that indicates whether all (the default) or only the first words should be capitalized.}
 }
 \value{
 A single string with the first letter of the first or all words capitalized.

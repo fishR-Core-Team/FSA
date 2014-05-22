@@ -12,8 +12,7 @@
 
 \item{FUN}{The function to be applied.}
 
-\item{MARGIN}{A single numeric that indicates the margin over which to apply the function.
-\code{MARGIN=1} will apply to each row and is the default.}
+\item{MARGIN}{A single numeric that indicates the margin over which to apply the function. \code{MARGIN=1} will apply to each row and is the default.}
 
 \item{conf.level}{A level of confidence as a proportion.}
 
@@ -22,21 +21,13 @@
 \item{\dots}{Additional arguments for \code{apply()}.}
 }
 \value{
-A matrix with one row and three columns with the first column holding
-the predicted value (i.e., the median prediction) and the last two columns
-holding the approximate confidence interval.
+A matrix with one row and three columns with the first column holding the predicted value (i.e., the median prediction) and the last two columns holding the approximate confidence interval.
 }
 \description{
-Constructs a non-parametric bootstrap prediction with confidence interval from
-\code{nlsBoot()} (in the \pkg{nlstools} package) like results.
+Constructs a non-parametric bootstrap prediction with confidence interval from \code{nlsBoot()} (in the \pkg{nlstools} package) like results.
 }
 \details{
-This function applies a user-supplied function to each row of the \code{coefBoot}
-object in a \code{nlsBoot} object and then finds the median and the two
-quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped
-predictions below and above.  The median is returned as the predicted value and
-the quantiles are returned as an approximate 100\code{conf.level}\% confidence
-interval for that prediction.
+This function applies a user-supplied function to each row of the \code{coefBoot} object in a \code{nlsBoot} object and then finds the median and the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped predictions below and above.  The median is returned as the predicted value and the quantiles are returned as an approximate 100\code{conf.level}\% confidence interval for that prediction.
 }
 \examples{
 #require(nlstools)    # for nlsBoot()

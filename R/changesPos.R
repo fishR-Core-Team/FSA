@@ -2,16 +2,16 @@
 #'
 #'Find positions in a vector that have a different value from the previous position.
 #'
-#'@param x A vector (generally) of sorted values.
-#'@param include.first A logical that indicates whether the returned vector of
-#'positions should have a ``1'' at the beginning (i.e., by definition the first
-#'position is the first position that is different than the previous value).
-#'@return A vector of positions in \code{x} where the value differs from the value
-#'in the previous position.
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}
-#'@export
-#'@keywords manip
-#'@examples
+#' @param x A vector (generally) of sorted values.
+#' @param include.first A logical that indicates whether the returned vector of positions should have a ``1'' at the beginning (i.e., by definition the first position is the first position that is different than the previous value).
+#'
+#' @return A vector of positions in \code{x} where the value differs from the value in the previous position.
+#'
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
+#' @keywords manip
+#'
+#' @examples
 #'x <- rep(LETTERS[1:6],times=c(5,4,1,1,2,4))
 #'data.frame(pos=1:length(x),x)  # for demonstration only
 #'changesPos(x)
@@ -25,10 +25,10 @@
 #'z1 <- z[order(z)]
 #'data.frame(pos=1:length(z1),z1)  # for demonstration only
 #'changesPos(z1)
+#'
+#' @export
 changesPos <- function(x,include.first=TRUE) {
   tmp <- which(x[1:(length(x)-1)]!=x[2:length(x)])+1
   if (include.first) tmp <- c(1,tmp)
   tmp
 }
-
-  

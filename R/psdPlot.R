@@ -2,68 +2,48 @@
 #'
 #'Constructs a length-frequency histogram with PSD-X categories highlighted.
 #'
-#'This function creates a length-frequency histogram with the stock-size fish
-#'highlighted, the Gabelhouse five-cell length category values marked by vertical
-#'lines, and superimposed calculations of PSD-X values.
+#'This function creates a length-frequency histogram with the stock-size fish highlighted, the Gabelhouse five-cell length category values marked by vertical lines, and superimposed calculations of PSD-X values.
 #'
-#'The length of fish plotted on the x-axis can be controlled with \code{xlim},
-#'however, the minimum value in \code{xlim} must be less than the length of a
-#'stock size fish for that species.
+#'The length of fish plotted on the x-axis can be controlled with \code{xlim}, however, the minimum value in \code{xlim} must be less than the length of a stock size fish for that species.
 #'
-#'@aliases psdPlot pssPlot
-#'@param formula A formula of the form \code{~length} where \dQuote{length} generically
-#'represents a variable in \code{data} that contains length measurements.  Note
-#'that this formula can only contain one variable.
-#'@param data A data.frame that minimally contains the length measurements given
-#'in the variable in the \code{formula}.
-#'@param species A string that contains the species name for which five-cell length
-#'categories exist.  See \code{\link{psdVal}} for details.
-#'@param units A string that indicates the type of units used for the length measurements.
-#'Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and
-#'\code{in} for inches.
-#'@param startcat A number that indicates the beginning of the first length-class.
-#'@param w A number that indicates the width of length classes to create.
-#'@param justPSDQ A logical that indicates whether just stock and quality (for PSD-Q
-#'calculations) categories should be used.  If \code{FALSE} (default) then the
-#'five-cell categories of Gabelhouse will be used.
-#'@param main A string that serves as the main label for the histogram.
-#'@param xlab A string that serves as the label for the x-axis.
-#'@param ylab A string that serves as the label for the y-axis.
-#'@param xlim A numeric vector of length two that indicates the minimum and maximum
-#'values for the x-axis.
-#'@param ylim A numeric vector of length two that indicates the minimum and maximum
-#'values for the y-axis.
-#'@param substock.col A string that indicates the color to use for the bars
-#'representing under-stock size fish.
-#'@param stock.col A string that indicates the color to use for the bars
-#'representing stock size fish.
-#'@param psd.col A string that indicates the color to use for the vertical lines at
-#'the PSD category values.
-#'@param psd.lty A numeric that indicates the line type to use for the vertical
-#'lines at the PSD category values.
-#'@param psd.lwd A numeric that indicates the line width to use for the vertical
-#'lines at the PSD category values.
-#'@param legend.pos A string that indicates the position for the legend text.
-#'@param legend.cex A numeric value that indicates the character expansion for
-#'the legend text.
-#'@param \dots Arguments to be passed to the low-level plotting functions.
-#'@return None.  However, a graphic is produced.
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}
-#'@seealso \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdDataPrep}},
-#' \code{\link{PSDlit}}, \code{\link{lencat}}, \code{\link{tictactoe}},
-#' \code{\link{tictactoeAdd}}, \code{\link{lencat}}, and \code{\link{rcumsum}}.
-#'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}
-#'@source Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  New terminology for
-#'proportional stock density (PSD) and relative stock density (RSD): proportional
-#'size structure (PSS).  Fisheries 31:86-87.
+#' @aliases psdPlot pssPlot
 #'
-#'Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  Proportional
-#'size distribution (PSD): A further refinement of population size structure
-#'index terminology.  Fisheries 32:348.
+#' @param formula A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains length measurements.  Note that this formula can only contain one variable.
+#' @param data A data.frame that minimally contains the length measurements given in the variable in the \code{formula}.
+#' @param species A string that contains the species name for which five-cell length categories exist.  See \code{\link{psdVal}} for details.
+#' @param units A string that indicates the type of units used for the length measurements.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
+#' @param startcat A number that indicates the beginning of the first length-class.
+#' @param w A number that indicates the width of length classes to create.
+#' @param justPSDQ A logical that indicates whether just stock and quality (for PSD-Q calculations) categories should be used.  If \code{FALSE} (default) then the five-cell categories of Gabelhouse will be used.
+#' @param main A string that serves as the main label for the histogram.
+#' @param xlab A string that serves as the label for the x-axis.
+#' @param ylab A string that serves as the label for the y-axis.
+#' @param xlim A numeric vector of length two that indicates the minimum and maximum values for the x-axis.
+#' @param ylim A numeric vector of length two that indicates the minimum and maximum values for the y-axis.
+#' @param substock.col A string that indicates the color to use for the bars representing under-stock size fish.
+#' @param stock.col A string that indicates the color to use for the bars representing stock size fish.
+#' @param psd.col A string that indicates the color to use for the vertical lines at the PSD category values.
+#' @param psd.lty A numeric that indicates the line type to use for the vertical lines at the PSD category values.
+#' @param psd.lwd A numeric that indicates the line width to use for the vertical lines at the PSD category values.
+#' @param legend.pos A string that indicates the position for the legend text.
+#' @param legend.cex A numeric value that indicates the character expansion for the legend text.
+#' @param \dots Arguments to be passed to the low-level plotting functions.
 #'
-#'@export psdPlot pssPlot
-#'@keywords hplot
-#'@examples
+#' @return None.  However, a graphic is produced.
+#'
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
+#' @seealso \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdDataPrep}}, \code{\link{PSDlit}}, \code{\link{lencat}}, \code{\link{tictactoe}}, \code{\link{tictactoeAdd}}, \code{\link{lencat}}, and \code{\link{rcumsum}}.
+#'
+#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}
+#'
+#' @source Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).  Fisheries 31:86-87.  \url{http://pubstorage.sdstate.edu/wfs/415-F.pdf}
+#'
+#' Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  Proportional size distribution (PSD): A further refinement of population size structure index terminology.  Fisheries 32:348. \url{http://www.montana.edu/mtcfru/Guy/Publication\%20pdf/PSD\%20pub.pdf}
+#'
+#' @keywords hplot
+#'
+#' @examples
 #'## Random length data
 #'# suppose this is yellow perch to the nearest mm
 #'yepmm <- c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),rnorm(20,mean=300,sd=40))
@@ -87,6 +67,7 @@
 #'
 #'par(op)
 #'
+#' @export psdPlot pssPlot
 psdPlot <- pssPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
                                startcat=0,w=1,justPSDQ=FALSE,main="",xlab="Length",
                                ylab="Number",xlim=NULL,ylim=c(0,max(h$counts)),

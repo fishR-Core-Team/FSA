@@ -1,62 +1,35 @@
 #'Computes population estimates for k-, 3-, or 2-pass removal data.
 #'
-#'Computes estimates, with confidence intervals, of the population size and
-#'probability of capture from the number of fish removed in k-, 3-, or 2-passes
-#'in a closed population.
+#'Computes estimates, with confidence intervals, of the population size and probability of capture from the number of fish removed in k-, 3-, or 2-passes in a closed population.
 #'
-#'The main function computes the estimates and associated standard errors for
-#'the initial population size, No, and probability of capture, p, for five
-#'possible methods chosen with the \code{type} argument.  The types of methods
-#'that can be used are listed below:
+#'The main function computes the estimates and associated standard errors for the initial population size, No, and probability of capture, p, for five possible methods chosen with the \code{type} argument.  The types of methods that can be used are listed below:
 #'\itemize{
-#'\item \code{type="Zippin"}: The general k-pass estimator generally attributed to
-#'Zippin.  This function iteratively solves for No in equation 3 of Carle and Strub (1978).
-#'\item \code{type="CarleStrub"}: The general weighted k-pass estimator proposed by
-#'Carle and Strub (1978).  This function iteratively solves for No in equation
-#'7 of Carle and Strub (1978).
+#'\item \code{type="Zippin"}: The general k-pass estimator generally attributed to Zippin.  This function iteratively solves for No in equation 3 of Carle and Strub (1978).
+#'\item \code{type="CarleStrub"}: The general weighted k-pass estimator proposed by Carle and Strub (1978).  This function iteratively solves for No in equation 7 of Carle and Strub (1978).
 #'\item \code{type="Seber3"}: The special case for k=3 estimator shown by Seber(1982).
 #'\item \code{type="Seber2"}: The special case for k=2 estimator shown by Seber(1982).
-#'\item \code{type="RobsonRegier2"}: The special case for k=2 estimator shown by
-#'Robson and Regier (1968).
+#'\item \code{type="RobsonRegier2"}: The special case for k=2 estimator shown by Robson and Regier (1968).
 #'}
 #'
-#'Confidence intervals are computed using standard large-sample normal
-#'distribution theory.  Note that the confidence intervals for the 2- and
-#'3-pass special cases are only approximately correct if the estimated
-#'population size is greater than 200.  If the estimated population size is
-#'between 50 and 200 then a 95\% CI behaves more like a 90\% CI.
+#'Confidence intervals are computed using standard large-sample normal distribution theory.  Note that the confidence intervals for the 2- and 3-pass special cases are only approximately correct if the estimated population size is greater than 200.  If the estimated population size is between 50 and 200 then a 95\% CI behaves more like a 90\% CI.
 #'
-#'Note that, in the Carle Strub method, that if the resultant No estimate is
-#'equal to the sum of the catches (T) then the estimate of No that is returned
-#'will be the sum of the catches.  In this instance and if the \dQuote{Seber}
-#'method of computing the standard error is used then the SE will not be
-#'estimable and the confidence intervals can not be constructed.
+#'Note that, in the Carle Strub method, that if the resultant No estimate is equal to the sum of the catches (T) then the estimate of No that is returned will be the sum of the catches.  In this instance and if the \dQuote{Seber} method of computing the standard error is used then the SE will not be estimable and the confidence intervals can not be constructed.
 #'
-#'@aliases removal summary.removal confint.removal
+#' @aliases removal summary.removal confint.removal
 #'
-#'@param catch A numerical vector of catches of fish at each pass.
-#'@param type A single string that identifies the type of removal method to use for
-#'the calculations.  See details.
-#'@param alpha A single numeric value for the alpha parameter in the CarleStrub method
-#'(default is \code{1}).
-#'@param beta A single numeric value for the beta parameter in the CarleStrub method
-#'(default is \code{1}).
-#'@param CS.se A single string that identifies whether the SE in the CarleStrub method
-#'should be computed according to Seber or Zippin.
-#'@param object An object saved from \code{removal()} (i.e., of class \code{removal}).
-#'@param parm A specification of which parameters are to be given confidence
-#'intervals, either a vector of numbers or a vector of names.  If missing, all
-#'parameters are considered.
-#'@param level Same as \code{conf.level} but used for compatability with
-#'generic \code{confint} function.
-#'@param conf.level A single number representing the level of confidence to use for
-#'constructing confidence intervals.
-#'@param just.ests A logical that indicates whether just the estimates
-#'(\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.
-#'@param \dots Additional arguments for methods.
+#' @param catch A numerical vector of catches of fish at each pass.
+#' @param type A single string that identifies the type of removal method to use for the calculations.  See details.
+#' @param alpha A single numeric value for the alpha parameter in the CarleStrub method (default is \code{1}).
+#' @param beta A single numeric value for the beta parameter in the CarleStrub method (default is \code{1}).
+#' @param CS.se A single string that identifies whether the SE in the CarleStrub method should be computed according to Seber or Zippin.
+#' @param object An object saved from \code{removal()} (i.e., of class \code{removal}).
+#' @param parm A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.
+#' @param level Same as \code{conf.level} but used for compatability with generic \code{confint} function.
+#' @param conf.level A single number representing the level of confidence to use for constructing confidence intervals.
+#' @param just.ests A logical that indicates whether just the estimates (\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.
+#' @param \dots Additional arguments for methods.
 #'
-#'@return A vector that contains the estimaes and standard errors for No and p
-#'if \code{just.ests=TRUE} or (default) a list with the following items:
+#' @return A vector that contains the estimaes and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with the following items:
 #'\itemize{
 #'\item catch the original vector of observed catches.
 #'\item type The type of method used (provided by the user).
@@ -64,13 +37,13 @@
 #'\item est A vector that contains the estimates and standard errors for No and p.
 #'}
 #'
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#'@seealso \code{\link{depletion}}.
+#' @seealso \code{\link{depletion}}.
 #'
-#'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl//Depletion.pdf}
+#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl//Depletion.pdf}
 #'
-#'@references Carle, F.L. and M.R. Strub. 1978. A new method for estimating population size from removal data.  Biometrics, 34:621-630.
+#' @references Carle, F.L. and M.R. Strub. 1978. A new method for estimating population size from removal data.  Biometrics, 34:621-630.
 #'
 #'Seber, G.A.F. 1982. The Estimation of Animal Abundance. Edward Arnold, second edition.
 #'
@@ -78,9 +51,9 @@
 #'
 #'Cowx, I.G.  1983.  Review of the methods for estimating fish population size from survey removal data.  Fisheries Management, 14:67-82.
 #'
-#'@keywords manip
+#' @keywords manip
 #'
-#'@examples
+#' @examples
 #'## First example -- 3 passes
 #'ct3 <- c(77,50,37)
 #'
@@ -146,8 +119,8 @@
 #'fnl$No.UCI <- fnl$No+1.96*fnl$No.se
 #'fnl
 #'
-#'@rdname removal
-#'@export removal
+#' @rdname removal
+#' @export
 removal <- function(catch,type=c("Zippin","CarleStrub","Seber3","Seber2","RobsonRegier2"),alpha=1,beta=1,CS.se=c("Zippin","Alternative"),just.ests=FALSE) {
   #-----------------------------------------------------------------------------
   # The following is an internal function for Zippin variance calculations
@@ -290,8 +263,8 @@ removal <- function(catch,type=c("Zippin","CarleStrub","Seber3","Seber2","Robson
   }
 }
 
-#'@rdname removal
-#'@export
+#' @rdname removal
+#' @export
 summary.removal <- function(object,...) {
   cat("The",object$meth,"method was used.\n")
   res <- matrix(object$est,nrow=2,byrow=FALSE)
@@ -300,14 +273,17 @@ summary.removal <- function(object,...) {
   res
 }
 
-#'@rdname removal
-#'@export
+#' @rdname removal
+#' @export
 confint.removal <- function(object,parm=c("both","all","No","p"),level=conf.level,conf.level=0.95,...) {
   parm <- match.arg(parm)
   z <- c(-1,1)*qnorm((1-(1-conf.level)/2))               
-  Nores <-rbind(No=object$est[1]+z*object$est[3])              # compute No results                  
-  pres <- rbind(p=object$est[2]+z*object$est[4])               # compute p results
-  if (parm=="all" | parm=="both") res <- rbind(Nores,pres)     # Create output matrix
+  # compute No results
+  Nores <-rbind(No=object$est[1]+z*object$est[3])                  
+  # compute p results
+  pres <- rbind(p=object$est[2]+z*object$est[4])
+  # Create output matrix
+  if (parm=="all" | parm=="both") res <- rbind(Nores,pres)
     else if (parm=="No") res <- Nores
       else res <- pres
   colnames(res) <- ciLabel(conf.level)

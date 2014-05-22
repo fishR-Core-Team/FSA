@@ -10,10 +10,7 @@ lagratio(x, lag = 1L, differences = 1L, ...)
 
 \item{lag}{An integer representing the lag \sQuote{distance}.}
 
-\item{differences}{An integer describing the direction of calculation.  A
-\code{1} indicates that \sQuote{future} values are divided by \sQuote{past}
-values.  A \code{2} is the opposite; \sQuote{past} values are divided by
-\sQuote{future} values.  See examples.}
+\item{differences}{An integer describing the direction of calculation.  A \code{1} indicates that \sQuote{future} values are divided by \sQuote{past} values.  A \code{2} is the opposite; \sQuote{past} values are divided by \sQuote{future} values.  See examples.}
 
 \item{\dots}{Additional arguments to \code{diff()}.}
 }
@@ -24,8 +21,7 @@ A vector or matrix of lagged ratios.
 Computes the ratio of lagged observations in a vector.
 }
 \details{
-This function behaves similarly to \code{diff()} except that it returns a
-vector or matrix of ratios rather than differences.
+This function behaves similarly to \code{diff()} except that it returns a vector or matrix of ratios rather than differences.
 }
 \examples{
 ## same examples as in diff()

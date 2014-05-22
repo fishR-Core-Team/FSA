@@ -1,15 +1,14 @@
-#'Growth increment data for West Bearskin Lake smallmouth bass.
+#'Growth increment data for West Bearskin Lake Smallmouth Bass.
 #'
-#'Growth data from smallmouth bass (\emph{Micropterus dolomieu}) captured in
-#'West Bearksin Lake, MN.  Five samples were collected over three years
-#'(1988-1990) with two gears (fall -- trapnets, spring -- electrofishing).
+#'Growth data from Smallmouth Bass (\emph{Micropterus dolomieu}) captured in West Bearksin Lake, MN.  Five samples were collected over three years (1988-1990) with two gears (fall -- trapnets, spring -- electrofishing).
 #'
+#' @name SMBassWB
 #'
-#'@name SMBassWB
-#'@docType data
-#'@format A data frame of 445 observations on the following 20 variables:
+#' @docType data
+#'
+#' @format A data frame of 445 observations on the following 20 variables:
 #'\describe{
-#' \item{species}{Species of the fish (\code{SMB} for each fish in this file).} 
+#'\item{species}{Species of the fish (\code{SMB} for each fish in this file).} 
 #'\item{lake}{Lake fish was captured in (\code{WB} for each fish in this file).} 
 #'\item{gear}{Gear used to capture the fish (\code{T}=Trapnet and \code{E}=Electrofishing).} 
 #'\item{yearcap}{Year fish was captured (\code{1988}, \code{1989}, or \code{1990}).} 
@@ -29,19 +28,21 @@
 #'\item{anu11}{Magnified scale radius (mm) to the 11th annulus.}
 #'\item{anu12}{Magnified scale radius (mm) to the 12th annulus.}
 #'\item{radcap}{Total scale radius at time of capture.} }
-#'@note Data are in one-fish-per-line format.
-#'@section Topic(s): \itemize{
+#'
+#' @note Data are in one-fish-per-line format.
+#'
+#' @section Topic(s): \itemize{
 #' \item Growth increment analysis
 #' \item Weisberg linear growth model 
 #'}
-#'@concept Growth 'Increment Analysis' Weisberg LGM
-#'@source Data from the linear growth modelling software distributed in support
-#'of Weisberg, S.  1993.  Using hard-part increment data to estimate age and
-#'environmental effects. Canadian Journal of Fisheries and Aquatic Sciences,
-#'50:1229-1237.
-#'@keywords datasets
-#'@examples
 #'
+#' @concept Growth 'Increment Analysis' Weisberg LGM
+#'
+#' @source Data from the linear growth modelling software distributed in support of Weisberg, S.  1993.  Using hard-part increment data to estimate age and environmental effects. Canadian Journal of Fisheries and Aquatic Sciences 50:1229-1237.
+#'
+#' @keywords datasets
+#'
+#' @examples
 #'data(SMBassWB)
 #'str(SMBassWB)
 #'head(SMBassWB)

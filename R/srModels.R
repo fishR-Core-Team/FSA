@@ -1,19 +1,23 @@
 #'Show the stock-recruitment model formulas implemented in FSA.
 #'
-#'Show the stock-recruitment model formulas implemented in \code{\link{srFuns}},
-#'\code{\link{srStarts}}, and \code{srSim} in \pkg{FSATeach}.
+#'Show the stock-recruitment model formulas implemented in \code{\link{srFuns}}, \code{\link{srStarts}}, and \code{srSim}.
 #'
-#'@param \dots Additional arguments for \code{plot}.  Generally not needed
-#'@return A graphic that uses \code{plotmath} to show the model formulas in a
-#'pretty format.
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}
-#'@seealso \code{\link{srFuns}}, \code{\link{srStarts}}, and \code{\link{srSim}}
-#'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
-#'@export
-#'@keywords manip hplot
-#'@examples
+#' @param \dots Additional arguments for \code{plot}.  Generally not needed.
+#'
+#' @return A graphic that uses \code{plotmath} to show the model formulas in a pretty format.
+#'
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
+#' @seealso \code{\link{srFuns}}, \code{\link{srStarts}}, and \code{\link{srSim}}
+#'
+#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
+#'
+#' @keywords manip hplot
+#'
+#' @examples
 #'srModels()
 #'
+#' @export
 srModels <- function(...) {
   op <- par(mar=c(0,0,2,0))
   plot(1,type="n",ylim=c(0,6),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA Stock-Recruit Model Parametrizations",...)

@@ -11,16 +11,13 @@
 \item{group}{Which coordinate set (\sQuote{triangles} or \sQuote{squares}).}
 }}
 \source{
-Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.
-Numerical Recipes: The Art of Scientific Computing, 3rd Edition.  Cambridge
-University Press.  1286 pages.
+Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.  Numerical Recipes: The Art of Scientific Computing, 3rd Edition.  Cambridge University Press.  1286 pages. \url{http://www.nr.com/}
 }
 \description{
 Data \sQuote{digitized} from Figure 14.7.1 of Numerical Recipes
 }
 \note{
-The data in Figure 14.7.1 apparently had 65 triangles and 35 squares.
-These data have only 63 triangles and 32 squares.
+The data in Figure 14.7.1 apparently had 65 triangles and 35 squares.  These data have only 63 triangles and 32 squares.
 }
 \examples{
 data(KS2D_NR)

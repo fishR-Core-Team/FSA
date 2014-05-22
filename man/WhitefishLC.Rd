@@ -2,8 +2,7 @@
 \docType{data}
 \name{WhitefishLC}
 \alias{WhitefishLC}
-\title{Assessed ages from two readers on three structures for Lake Whitefish from
-Lake Champlain.}
+\title{Assessed ages from two readers on three structures for Lake Whitefish from Lake Champlain.}
 \format{A data frame with 151 observations on the following 11 variables:
 \describe{
 \item{fishID}{A unique fish identification number.}
@@ -19,16 +18,10 @@ Lake Champlain.}
 \item{otolithC}{Consensus age from otoliths by both reader.}
 }}
 \source{
-Data from Herbst, S.J. and J.E. Marsden.  2011.  Comparison of precision
-and bias of scale, fin ray, and otolith age estimates for lake whitefish
-(\emph{Coregonus clupeaformis}) in Lake Champlain.  Journal of Great Lakes Research.
-37:386-389.  Contributed by Seth Herbst.  \bold{Do not use for other than
-educational purposes without permission from the author.}
-\url{http://www.uvm.edu/rsenr/emarsden/Herbst\%20and\%20Marsden\%20whitefish\%20age\%20structure\%20comparison.pdf}
+Data from Herbst, S.J. and J.E. Marsden.  2011.  \href{http://www.uvm.edu/rsenr/emarsden/Herbst\%20and\%20Marsden\%20whitefish\%20age\%20structure\%20comparison.pdf}{Comparison of precision and bias of scale, fin ray, and otolith age estimates for lake whitefish (\emph{Coregonus clupeaformis}) in Lake Champlain.}  Journal of Great Lakes Research.  37:386-389.  Contributed by Seth Herbst.  \bold{Do not use for other than educational purposes without permission from the author.}
 }
 \description{
-Assessed ages from two readers on three structures for Lake Whitefish
-(\emph{Coregonus clupeaformis}) from Lake Champlain in 2009.
+Assessed ages from two readers on three structures for Lake Whitefish (\emph{Coregonus clupeaformis}) from Lake Champlain in 2009.
 }
 \section{Topic(s)}{
  \itemize{

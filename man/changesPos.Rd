@@ -8,13 +8,10 @@ changesPos(x, include.first = TRUE)
 \arguments{
 \item{x}{A vector (generally) of sorted values.}
 
-\item{include.first}{A logical that indicates whether the returned vector of
-positions should have a ``1'' at the beginning (i.e., by definition the first
-position is the first position that is different than the previous value).}
+\item{include.first}{A logical that indicates whether the returned vector of positions should have a ``1'' at the beginning (i.e., by definition the first position is the first position that is different than the previous value).}
 }
 \value{
-A vector of positions in \code{x} where the value differs from the value
-in the previous position.
+A vector of positions in \code{x} where the value differs from the value in the previous position.
 }
 \description{
 Find positions in a vector that have a different value from the previous position.

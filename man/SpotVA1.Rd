@@ -12,11 +12,10 @@
 Extracted from Table 1 in Chapter 8 of the \href{http://ww2.odu.edu/sci/cqfe/}{Virginia Marine Resources Commissions's} Final Report on finfish ageing, 2002.
 }
 \description{
-Ages (from otoliths) and length of Virginia spot (\emph{Leiostomus xanthurus}).
+Ages (from otoliths) and length of Virginia Spot (\emph{Leiostomus xanthurus}).
 }
 \details{
-Final length measurements were simulated by adding a uniform error to the
-value at the beginning of the length category.
+Final length measurements were simulated by adding a uniform error to the value at the beginning of the length category.
 }
 \section{Topic(s)}{
  \itemize{

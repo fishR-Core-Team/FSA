@@ -5,16 +5,14 @@
 \title{Number of Ameletus and Leuctra per benthic core in pools in Ohio headwater streams.}
 \format{A data frame of 72 observations on the following 2 variables:
 \describe{
-\item{Ameletus}{Number of Ameletus in the benthic core.}
-\item{Leuctra}{Number of Leutra in the benthic core.}
+\item{Ameletus}{Number of \emph{Ameletus} in the benthic core.}
+\item{Leuctra}{Number of \emph{Leuctra} in the benthic core.}
 }}
 \source{
-From Figure 1 in Garvey, J.E., E.A. Marschall, and R.A. Wright. 1998.
-From star charts to stoneflies: detecting relationships in continuous bivariate
-data. Ecology 79:442-447.
+From Figure 1 in Garvey, J.E., E.A. Marschall, and R.A. Wright. 1998. From star charts to stoneflies: detecting relationships in continuous bivariate data. Ecology 79:442-447. \url{http://opensiuc.lib.siu.edu/fiaq_pubs/17/}
 }
 \description{
-Number of Ameletus and Leuctra per benthic core in pools in Ohio headwater streams.
+Number of \emph{Ameletus} and \emph{Leuctra} per benthic core in pools in Ohio headwater streams.
 }
 \examples{
 data(Garvey1)

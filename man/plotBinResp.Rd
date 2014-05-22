@@ -27,22 +27,15 @@ plotBinResp(x, ...)
 
 \item{ylab}{A string for labelling the y-axis.}
 
-\item{plot.pts}{A logical that indicates (\code{TRUE} (default)) whether the
-points should be plotted (\code{TRUE}; default) or not (\code{FALSE}).}
+\item{plot.pts}{A logical that indicates (\code{TRUE} (default)) whether the points should be plotted (\code{TRUE}; default) or not (\code{FALSE}).}
 
-\item{col.pt}{A string used to indicate the color of the plotted points.
-Will be transparent unless \code{trans.pt=1}.}
+\item{col.pt}{A string used to indicate the color of the plotted points.  Will be transparent unless \code{trans.pt=1}.}
 
-\item{trans.pt}{A numeric that indicates how many points would be plotted on top
-of each other before the \sQuote{point} would have the full \code{col.pt}
-color.  The reciprocal of this value is the alpha transparency value.}
+\item{trans.pt}{A numeric that indicates how many points would be plotted on top of each other before the \sQuote{point} would have the full \code{col.pt} color.  The reciprocal of this value is the alpha transparency value.}
 
-\item{plot.p}{A logical that indicates if the proportion for categorized values
-of X are plotted (\code{TRUE}; default).}
+\item{plot.p}{A logical that indicates if the proportion for categorized values of X are plotted (\code{TRUE}; default).}
 
-\item{breaks}{A number that indicates how many intervals over which to compute
-proportions or a numeric vector that contains the endpoints of the intervals
-over which to compute proportions if \code{plot.p=TRUE}.}
+\item{breaks}{A number that indicates how many intervals over which to compute proportions or a numeric vector that contains the endpoints of the intervals over which to compute proportions if \code{plot.p=TRUE}.}
 
 \item{p.col}{A color to plot the proportions.}
 
@@ -50,14 +43,11 @@ over which to compute proportions if \code{plot.p=TRUE}.}
 
 \item{p.cex}{A character expansion factor for plotting the proportions.}
 
-\item{yaxis1.ticks}{A numeric vector that indicates where tick marks should be placed
-on the left y-axis (for the proportion of \sQuote{successes}).}
+\item{yaxis1.ticks}{A numeric vector that indicates where tick marks should be placed on the left y-axis (for the proportion of \sQuote{successes}).}
 
-\item{yaxis1.lbls}{A numeric vector that indicates labels for the tick marks on the
-left y-axis (for the proportion of \sQuote{successes}).}
+\item{yaxis1.lbls}{A numeric vector that indicates labels for the tick marks on the left y-axis (for the proportion of \sQuote{successes}).}
 
-\item{yaxis2.show}{A logical that indicates whether the right y-axis should be
-created (\code{=TRUE}; default) or not.}
+\item{yaxis2.show}{A logical that indicates whether the right y-axis should be created (\code{=TRUE}; default) or not.}
 
 \item{\dots}{Other arguments to be passed to the plot functions.}
 }

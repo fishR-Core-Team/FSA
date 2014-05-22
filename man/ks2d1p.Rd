@@ -3,8 +3,7 @@
 \alias{ks2d1p}
 \alias{plot.ks2d1p}
 \alias{print.ks2d1p}
-\title{A permutation test to compute a p-value for the D test statistic for the
-one-sample two-dimensional Kolmogrov-Smirnov test.}
+\title{A permutation test to compute a p-value for the D test statistic for the one-sample two-dimensional Kolmogrov-Smirnov test.}
 \usage{
 ks2d1p(object, B = 100)
 
@@ -33,14 +32,10 @@ The main function returns a list with the following items:
 \item Ds The D test statistics from each of the B \sQuote{resamples}.
 \item B The \code{B} value supplied by the user.
 }
-The \code{plot} function returns a density plot of the D test statistics from
-each of the B \sQuote{resamples} with the observed D test statistic shown
-with a vertical line.  The \code{print} function prints the results in a nice
-format).
+The \code{plot} function returns a density plot of the D test statistics from each of the B \sQuote{resamples} with the observed D test statistic shown with a vertical line.  The \code{print} function prints the results in a nice format).
 }
 \description{
-A permutation test to compute a p-value for the D test statistic for the
-one-sample two-dimensional Kolmogrov-Smirnov test.
+A permutation test to compute a p-value for the D test statistic for the one-sample two-dimensional Kolmogrov-Smirnov test.
 }
 \details{
 NEED DETAIL HERE.
@@ -63,13 +58,9 @@ plot(res1p)
 Derek H. Ogle, \email{dogle@northland.edu}, with significant help from Ben Bolker.
 }
 \references{
-Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From star
-charts to stoneflies: detecting relationships in continuous bivariate data.
-Ecology 79:442 447.
+Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From star charts to stoneflies: detecting relationships in continuous bivariate data. Ecology 79:442 447.  \url{http://opensiuc.lib.siu.edu/fiaq_pubs/17/}
 
-Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.
-Numerical Recipes: The Art of Scientific Computing, 3rd Edition.  Cambridge
-University Press.  1286 pages.
+Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007. Numerical Recipes: The Art of Scientific Computing, 3rd Edition.  Cambridge University Press.  1286 pages. \url{http://www.nr.com/}
 }
 \seealso{
 \code{\link{ks2d1}}

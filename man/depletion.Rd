@@ -28,27 +28,15 @@ depletion(catch, effort, type = c("Leslie", "Delury"), ricker.mod = FALSE)
 
 \item{effort}{A numeric vector of efforts expended at each time.}
 
-\item{type}{A single string that indicates which depletion method to use (in
-\code{depletion} or a string that indicates the type of summary or coefficients
-to extract.  In the latter case, if \code{type="params"} (the default) then
-results for No and q are returned.  If \code{type="lm"} then results for the
-underlying linear model are returned.}
+\item{type}{A single string that indicates which depletion method to use (in \code{depletion} or a string that indicates the type of summary or coefficients to extract.  In the latter case, if \code{type="params"} (the default) then results for No and q are returned.  If \code{type="lm"} then results for the underlying linear model are returned.}
 
-\item{ricker.mod}{A single logical that indicates whether to use the modification
-proposed by Ricker (=TRUE) or not (=FALSE, default).}
+\item{ricker.mod}{A single logical that indicates whether to use the modification proposed by Ricker (=TRUE) or not (=FALSE, default).}
 
 \item{object}{An object saved from the \code{removal} call (i.e., of class \code{depletion}).}
 
 \item{x}{An object saved from the \code{depletion} call (i.e., of class \code{depletion}).}
 
-\item{pos.est}{A single string to identify where to place the estimated population
-estimate and catchability on the plot.  Can be set to one of \code{"bottomright"},
-\code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"},
-\code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for
-positioning the estimated mortality rates on the plot.  Typically
-\code{"bottomleft"} (DEFAULT) and \code{"topright"} will be
-\dQuote{out-of-the-way} placements.  Set \code{pos.est} to \code{NULL} to
-remove the estimated population size and catchability coefficient from the plot.}
+\item{pos.est}{A single string to identify where to place the estimated population estimate and catchability on the plot.  Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot.  Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements.  Set \code{pos.est} to \code{NULL} to remove the estimated population size and catchability coefficient from the plot.}
 
 \item{ylab}{A label for the y-axis.}
 
@@ -64,15 +52,11 @@ remove the estimated population size and catchability coefficient from the plot.
 
 \item{lty}{A numeric that indicates the type of line used for the fitted line.}
 
-\item{parm}{A specification of which parameters are to be given confidence
-intervals, either a vector of numbers or a vector of names.  If missing, all
-parameters are considered.}
+\item{parm}{A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.}
 
-\item{conf.level}{A single number that represents the level of confidence to use for
-constructing confidence intervals.}
+\item{conf.level}{A single number that represents the level of confidence to use for constructing confidence intervals.}
 
-\item{level}{Same as \code{conf.level} but used for compatability with
-generic \code{confint} function.}
+\item{level}{Same as \code{conf.level} but used for compatability with generic \code{confint} function.}
 
 \item{\dots}{Additional arguments for methods.}
 }
@@ -89,21 +73,14 @@ A list with the following items:
 }
 }
 \description{
-Computes the Leslie or Delury estimates of population size and catchability
-coefficient from paired catch and effort data.  The Ricker modification may
-also be used.
+Computes the Leslie or Delury estimates of population size and catchability coefficient from paired catch and effort data.  The Ricker modification may also be used.
 }
 \details{
-Fits a linear regression model to catch-per-unit-effort on cumulative catch.
-The catchability coefficient (q) is estimated from the negative of the slope and
-the initial population size (No)  is estimated by dividing the intercept by the
-catchability coefficient.
+Fits a linear regression model to catch-per-unit-effort on cumulative catch.  The catchability coefficient (q) is estimated from the negative of the slope and the initial population size (No)  is estimated by dividing the intercept by the catchability coefficient.
 
-Standard errors for the catchability and population size estimates are
-computed using formulas from Seber (1982).
+Standard errors for the catchability and population size estimates are computed using formulas from Seber (1982).
 
-Confidence intervals are computed using standard large-sample normal
-distribution theory with the regression error df.
+Confidence intervals are computed using standard large-sample normal distribution theory with the regression error df.
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/Depletion.pdf}
@@ -135,9 +112,7 @@ confint(d2)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Ricker, W.E.  1975. Computation and interpretation of biological
-statistics of fish populations. Technical Report Bulletin 191, Bulletin of
-the Fisheries Research Board of Canada.
+Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 
 Seber, G.A.F. 1982. The Estimation of Animal Abundance. Edward Arnold, second edition.
 }

@@ -24,11 +24,11 @@
 #'
 #' @return If the formula version of the function is used then a data frame will be returned with the a new variable, named as in \code{vname} or \code{LCat} if no name is given by the user, appended to the original data frame.  If the default version of the function is used then a single vector will be returned.  The returned values will be numeric unless \code{breaks} is named and \code{use.names=TRUE} or if  \code{as.fact=TRUE}.
 #' 
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#'@keywords manip
+#' @keywords manip
 #'
-#'@examples
+#' @examples
 #'
 #'# Create random lengths measured to nearest 0.1 unit
 #'df1 <- data.frame(len=round(runif(50,0.1,9.9),1))
@@ -160,14 +160,14 @@
 #'
 #'str(smb2)
 #'
-#'@rdname lencat
-#'@export lencat
+#' @rdname lencat
+#' @export
 lencat <- function (x,...) {
   UseMethod("lencat") 
 }
 
-#'@rdname lencat
-#'@export
+#' @rdname lencat
+#' @export
 lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,right=FALSE,use.names=FALSE,
                            as.fact=FALSE,drop.levels=FALSE,...) {
   # find range of values in x
@@ -211,8 +211,8 @@ lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,right=FALSE,use.names
   lcat
 }
 
-#'@rdname lencat
-#'@export
+#' @rdname lencat
+#' @export
 lencat.formula <- function(x,data,w=1,breaks=NULL,startcat=NULL,right=FALSE,use.names=FALSE,
                            as.fact=FALSE,drop.levels=FALSE,vname=NULL,...) {
   ## Internal function to create a name for the variable if none was given in vname

@@ -13,8 +13,11 @@ None.
 Read news and changes in the \sQuote{FSA} package.
 }
 \examples{
+## Not run because it will open an external browser.
+\dontrun{
 fsaNews()
 FSANews()
+}
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

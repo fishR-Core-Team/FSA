@@ -1,13 +1,8 @@
 #'Creates a function for a specific back-calculation model.
 #'
-#'Creates a function for a specific back-calculation model based on definitions
-#'in Vigloila and Meekan (2009).
+#'Creates a function for a specific back-calculation model based on definitions in Vigloila and Meekan (2009).
 #'
-#'The following back-calculation models, based on definitions with abbreviations
-#'and model numbers from Vigloila and Meekan (2009), are supported.  Also see the
-#'\href{https://sites.google.com/site/fishrfiles/gnrl/BackcalculationExtra.pdf}{Backcalculation-Extra}
-#'vignette on the \href{http://fishr.wordpress.com}{fishR webpage} for more
-#'information about each model.
+#'The following back-calculation models, based on definitions with abbreviations and model numbers from Vigloila and Meekan (2009), are supported.  Also see the \href{https://sites.google.com/site/fishrfiles/gnrl/BackcalculationExtra.pdf}{Backcalculation-Extra} vignette on the \href{http://fishr.wordpress.com}{fishR webpage} for more information about each model.
 #'
 #'\tabular{ccl}{
 #'\bold{Abbreviation} \tab \bold{Number} \tab \bold{Model} \cr
@@ -35,28 +30,22 @@
 #'ESPH \tab 22 \tab Exponential Scale Proportional Hypothesis \cr
 #'}
 #'
-#'@param BCM A single numeric between 1 and 22 that indicates which back-calculation
-#'model to use (based on numbers in Vigliola and Meekan (2009)).
-#'@param type A string that indicates which back-calculation model to use (based on
-#'abbreviations in Vigliola and Meekan (2009)).
-#'@param msg A logical that indicates whether a message about the model and
-#'parameter definitions should be output.
-#'@return A function that can be used to predict length at previous age (Li)
-#'given length-at-capture (Lc), hard-part radius-at-age i (Ri), and hard-part
-#'radius-at-capture (Rc).  In addition, some functions/models may require the
-#'previous age (agei) and the age-at-capture (agec), certain parameters related
-#'to the biological intercept (R0p & L0p), or certain parameters estimated from
-#'various regression models (a,b,c,A,B,C).  See source for more information.
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}
-#'@section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/Backcalculation.pdf},
+#' @param BCM A single numeric between 1 and 22 that indicates which back-calculation model to use (based on numbers in Vigliola and Meekan (2009)).
+#' @param type A string that indicates which back-calculation model to use (based on abbreviations in Vigliola and Meekan (2009)).
+#' @param msg A logical that indicates whether a message about the model and parameter definitions should be output.
+#'
+#' @return A function that can be used to predict length at previous age (Li) given length-at-capture (Lc), hard-part radius-at-age i (Ri), and hard-part radius-at-capture (Rc).  In addition, some functions/models may require the previous age (agei) and the age-at-capture (agec), certain parameters related to the biological intercept (R0p & L0p), or certain parameters estimated from various regression models (a,b,c,A,B,C).  See source for more information.
+#'
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
+#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/Backcalculation.pdf},
 #'\url{https://sites.google.com/site/fishrfiles/gnrl/BackcalculationExtra.pdf}
-#'@references Vigliola, L. and M.G. Meekan.  2009.  The back-calculation of
-#'fish growth from otoliths.  pp. 174-211.  in B.S. Green et al. (editors).
-#'Tropical Fish Otoliths: Information fro Assessment, Management and Ecology.
-#'Review: Methods and Technologies in Fish Biology and Fisheries 11.  Springer.
-#'@keywords manip
-#'@export
-#'@examples
+#'
+#' @references Vigliola, L. and M.G. Meekan.  2009.  The back-calculation of fish growth from otoliths.  pp. 174-211.  in B.S. Green et al. (editors).  Tropical Fish Otoliths: Information fro Assessment, Management and Ecology.  Review: Methods and Technologies in Fish Biology and Fisheries 11.  Springer.  \url{http://link.springer.com/chapter/10.1007\%2F978-1-4020-5775-5_6#page-1}
+#'
+#' @keywords manip
+#'
+#' @examples
 #'## Simple Examples
 #'( bcm1 <- bcFuns(1) )
 #'bcm1(20,10,40)
@@ -71,6 +60,7 @@
 #'bcm2(lencap,rad,radcap,2)  # demonstrated with a=2
 #'
 #'
+#' @export
 bcFuns <- function(BCM=NULL,type=NULL,msg=FALSE) {
   # Do some checking for the model declarations.  1) Both BCM and type arguments
   #   can not be NULL.  2) At least one of BCM and type arguments must be NULL
@@ -191,7 +181,5 @@ bcFuns <- function(BCM=NULL,type=NULL,msg=FALSE) {
   } else if (BCM==22) {
       if (msg) cat("You have chosen the BCM22 or ESPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,a) { exp(a+(log(Lc)-a)*Ri/Rc) }
-  }
-  
-    
+  } 
 }

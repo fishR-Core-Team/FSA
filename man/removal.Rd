@@ -17,38 +17,28 @@ removal(catch, type = c("Zippin", "CarleStrub", "Seber3", "Seber2",
 \arguments{
 \item{catch}{A numerical vector of catches of fish at each pass.}
 
-\item{type}{A single string that identifies the type of removal method to use for
-the calculations.  See details.}
+\item{type}{A single string that identifies the type of removal method to use for the calculations.  See details.}
 
-\item{alpha}{A single numeric value for the alpha parameter in the CarleStrub method
-(default is \code{1}).}
+\item{alpha}{A single numeric value for the alpha parameter in the CarleStrub method (default is \code{1}).}
 
-\item{beta}{A single numeric value for the beta parameter in the CarleStrub method
-(default is \code{1}).}
+\item{beta}{A single numeric value for the beta parameter in the CarleStrub method (default is \code{1}).}
 
-\item{CS.se}{A single string that identifies whether the SE in the CarleStrub method
-should be computed according to Seber or Zippin.}
+\item{CS.se}{A single string that identifies whether the SE in the CarleStrub method should be computed according to Seber or Zippin.}
 
 \item{object}{An object saved from \code{removal()} (i.e., of class \code{removal}).}
 
-\item{parm}{A specification of which parameters are to be given confidence
-intervals, either a vector of numbers or a vector of names.  If missing, all
-parameters are considered.}
+\item{parm}{A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.}
 
-\item{level}{Same as \code{conf.level} but used for compatability with
-generic \code{confint} function.}
+\item{level}{Same as \code{conf.level} but used for compatability with generic \code{confint} function.}
 
-\item{conf.level}{A single number representing the level of confidence to use for
-constructing confidence intervals.}
+\item{conf.level}{A single number representing the level of confidence to use for constructing confidence intervals.}
 
-\item{just.ests}{A logical that indicates whether just the estimates
-(\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.}
+\item{just.ests}{A logical that indicates whether just the estimates (\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.}
 
 \item{\dots}{Additional arguments for methods.}
 }
 \value{
-A vector that contains the estimaes and standard errors for No and p
-if \code{just.ests=TRUE} or (default) a list with the following items:
+A vector that contains the estimaes and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with the following items:
 \itemize{
 \item catch the original vector of observed catches.
 \item type The type of method used (provided by the user).
@@ -57,38 +47,21 @@ if \code{just.ests=TRUE} or (default) a list with the following items:
 }
 }
 \description{
-Computes estimates, with confidence intervals, of the population size and
-probability of capture from the number of fish removed in k-, 3-, or 2-passes
-in a closed population.
+Computes estimates, with confidence intervals, of the population size and probability of capture from the number of fish removed in k-, 3-, or 2-passes in a closed population.
 }
 \details{
-The main function computes the estimates and associated standard errors for
-the initial population size, No, and probability of capture, p, for five
-possible methods chosen with the \code{type} argument.  The types of methods
-that can be used are listed below:
+The main function computes the estimates and associated standard errors for the initial population size, No, and probability of capture, p, for five possible methods chosen with the \code{type} argument.  The types of methods that can be used are listed below:
 \itemize{
-\item \code{type="Zippin"}: The general k-pass estimator generally attributed to
-Zippin.  This function iteratively solves for No in equation 3 of Carle and Strub (1978).
-\item \code{type="CarleStrub"}: The general weighted k-pass estimator proposed by
-Carle and Strub (1978).  This function iteratively solves for No in equation
-7 of Carle and Strub (1978).
+\item \code{type="Zippin"}: The general k-pass estimator generally attributed to Zippin.  This function iteratively solves for No in equation 3 of Carle and Strub (1978).
+\item \code{type="CarleStrub"}: The general weighted k-pass estimator proposed by Carle and Strub (1978).  This function iteratively solves for No in equation 7 of Carle and Strub (1978).
 \item \code{type="Seber3"}: The special case for k=3 estimator shown by Seber(1982).
 \item \code{type="Seber2"}: The special case for k=2 estimator shown by Seber(1982).
-\item \code{type="RobsonRegier2"}: The special case for k=2 estimator shown by
-Robson and Regier (1968).
+\item \code{type="RobsonRegier2"}: The special case for k=2 estimator shown by Robson and Regier (1968).
 }
 
-Confidence intervals are computed using standard large-sample normal
-distribution theory.  Note that the confidence intervals for the 2- and
-3-pass special cases are only approximately correct if the estimated
-population size is greater than 200.  If the estimated population size is
-between 50 and 200 then a 95\% CI behaves more like a 90\% CI.
+Confidence intervals are computed using standard large-sample normal distribution theory.  Note that the confidence intervals for the 2- and 3-pass special cases are only approximately correct if the estimated population size is greater than 200.  If the estimated population size is between 50 and 200 then a 95\% CI behaves more like a 90\% CI.
 
-Note that, in the Carle Strub method, that if the resultant No estimate is
-equal to the sum of the catches (T) then the estimate of No that is returned
-will be the sum of the catches.  In this instance and if the \dQuote{Seber}
-method of computing the standard error is used then the SE will not be
-estimable and the confidence intervals can not be constructed.
+Note that, in the Carle Strub method, that if the resultant No estimate is equal to the sum of the catches (T) then the estimate of No that is returned will be the sum of the catches.  In this instance and if the \dQuote{Seber} method of computing the standard error is used then the SE will not be estimable and the confidence intervals can not be constructed.
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl//Depletion.pdf}

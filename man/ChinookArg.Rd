@@ -13,7 +13,8 @@
 Lengths and weights of Chinook Salmon from three locations in Argentina.
 }
 \section{Topic(s)}{
- \itemize{
+
+\itemize{
 \item Length-weight
 }
 }

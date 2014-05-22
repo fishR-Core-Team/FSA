@@ -31,21 +31,21 @@
 #'str(df)
 #'ksTest(dat~grp,data=df)
 #'
-#'@rdname ksTest
-#'@export ksTest
+#' @rdname ksTest
+#' @export
 ksTest <- function (x, ...) {
   UseMethod("ksTest") 
 }
 
-#'@rdname ksTest
-#'@export
+#' @rdname ksTest
+#' @export
 ksTest.default <- function(x,y,...,alternative=c("two.sided","less","greater"),exact=NULL) {
   alternative <- match.arg(alternative)
   ks.test(x,y,...,alternative=alternative,exact=exact)
 }
 
-#'@rdname ksTest
-#'@export
+#' @rdname ksTest
+#' @export
 ksTest.formula <- function(x,data=NULL,...,alternative=c("two.sided","less","greater"),exact=NULL) {
   alternative <- match.arg(alternative)
   DF <- model.frame(x,data=data)

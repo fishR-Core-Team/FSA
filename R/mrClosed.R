@@ -83,7 +83,7 @@
 #' 
 #' @references Krebs, C.J.  1989.  Ecological Methodology.  Addison-Welsey Educational Publishing.
 #'
-#'Ricker, W.E.  1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
+#'Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 #'
 #'Seber, G.A.F. 2002. The Estimation of Animal Abundance and Related Parameters. Edward Arnold, second edition.
 #'
@@ -157,8 +157,8 @@
 #'summary(mr7)
 #'confint(mr7)
 #'
-#'@rdname mrClosed
-#'@export mrClosed
+#' @rdname mrClosed
+#' @export
 mrClosed <- function(M,n,m,R,
             type=c("Petersen","Chapman","Ricker","Bailey","Schnabel","SchumacherEschmeyer"),
             labels=NULL,chapman.mod=TRUE) {
@@ -240,9 +240,8 @@ mrClosed <- function(M,n,m,R,
   else mrc2(M,n,m,R,type,chapman.mod)
 }
 
-
-#'@rdname mrClosed
-#'@export
+#' @rdname mrClosed
+#' @export
 summary.mrClosed <- function(object,digits=0,incl.SE=FALSE,incl.all=FALSE,incl.inputs=FALSE,...) {
   # Put descriptive label of input values at top of output if the user asked for it.
   if(incl.inputs) {
@@ -286,8 +285,8 @@ summary.mrClosed <- function(object,digits=0,incl.SE=FALSE,incl.all=FALSE,incl.i
 }
 
 
-#'@rdname mrClosed
-#'@export
+#' @rdname mrClosed
+#' @export
 confint.mrClosed <- function(object,parm=NULL,level=conf.level,conf.level=0.95,digits=0,
                          ci.type=c("suggested","binomial","hypergeom","normal","Poisson"),
                          bin.type=c("wilson","exact","asymptotic"),incl.inputs=FALSE,...) {
@@ -433,8 +432,8 @@ confint.mrClosed <- function(object,parm=NULL,level=conf.level,conf.level=0.95,d
 }
 
 
-#'@rdname mrClosed
-#'@export
+#' @rdname mrClosed
+#' @export
 plot.mrClosed <- function(x,pch=19,col.pt="black",xlab=expression(M[i]),ylab=expression(m[i]%/%n[i]),
                           loess=FALSE,lty=2,lwd=2,col.loess="red",f=2/3,iter=5,...) {
   if (!(x$type %in% c("Schnabel","SchumacherEschmeyer"))) stop("Plot only appropriate for 'Schnabel' or 'SchumacherEschmeyer' methods.",call.=FALSE)

@@ -22,23 +22,17 @@ ks2d2(x1, y1, x2, y2, justD = FALSE, KSp = FALSE, divbylen = TRUE)
 
 \item{y2}{Vector of Y-coordinates for the second set of coordinates.}
 
-\item{justD}{Logical that indicates whether just the D test statistic (\code{=TRUE})
-or more information should be returned (default; see value section below).}
+\item{justD}{Logical that indicates whether just the D test statistic (\code{=TRUE}) or more information should be returned (default; see value section below).}
 
-\item{KSp}{Logical that indicates whether the approximate p-value from the
-Kolmogorov-Smirnov distribution should be returned.  NOT YET IMPLEMENTED.}
+\item{KSp}{Logical that indicates whether the approximate p-value from the Kolmogorov-Smirnov distribution should be returned.  NOT YET IMPLEMENTED.}
 
-\item{divbylen}{Logical that indicates whether the proportion of values in each
-quadrant is computed by dividing by the sample size (\code{=TRUE}, default)
-or by the number of points that could be assigned to quadrants.}
+\item{divbylen}{Logical that indicates whether the proportion of values in each quadrant is computed by dividing by the sample size (\code{=TRUE}, default) or by the number of points that could be assigned to quadrants.}
 
 \item{x}{An object returned from \code{d2ks}.}
 
-\item{pchs}{A vector of length two plotting characters to be used when
-plotting the two sets of coordinates.}
+\item{pchs}{A vector of length two plotting characters to be used when plotting the two sets of coordinates.}
 
-\item{cexs}{A vector of length two character expansion values to be used when
-plotting the two sets of coordinates.}
+\item{cexs}{A vector of length two character expansion values to be used when plotting the two sets of coordinates.}
 
 \item{xlab}{A string to label the x-axis.}
 
@@ -51,8 +45,7 @@ plotting the two sets of coordinates.}
 \item{\dots}{Additiona arguments sent to the plot function.}
 }
 \value{
-The main function returns a single numeric of the D test statistic if
-\code{justD=TRUE} or a list with the following items if \code{justD=FALSE}:
+The main function returns a single numeric of the D test statistic if \code{justD=TRUE} or a list with the following items if \code{justD=FALSE}:
 \itemize{
 \item D The D test statistic.  See details.
 \item pval The approximate p-value from the Kolmogorov-Smirnov distribution
@@ -71,10 +64,7 @@ Returned only if \code{KSp=TRUE}.  NOT YET IMPLEMENTED.
 \item y2 Same vector of Y-coordinates for the second set of coordinates supplied by user.
 }
 
-The \code{plot} function returns side-by-side plots showing the two sets of
-coordinates and the point or points that resulted in the maximum D value for
-each set of coordinates.  The \code{print} function prints results in a nice
-format if \code{justD=FALSE} (only D will be printed if \code{justD=TRUE}).
+The \code{plot} function returns side-by-side plots showing the two sets of coordinates and the point or points that resulted in the maximum D value for each set of coordinates.  The \code{print} function prints results in a nice format if \code{justD=FALSE} (only D will be printed if \code{justD=TRUE}).
 }
 \description{
 Computes the D test statistic for the two-sample two-dimensional Kolmogrov-Smirnov test.
@@ -103,13 +93,9 @@ plot(res1,xlim=c(-3,3),ylim=c(-3,3))
 Derek H. Ogle, \email{dogle@northland.edu}, with significant help from Ben Bolker.
 }
 \references{
-Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From star
-charts to stoneflies: detecting relationships in continuous bivariate data.
-Ecology 79:442 447.
+Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From star charts to stoneflies: detecting relationships in continuous bivariate data.  Ecology 79:442 447.  \url{http://opensiuc.lib.siu.edu/fiaq_pubs/17/}
 
-Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.
-Numerical Recipes: The Art of Scientific Computing, 3rd Edition.  Cambridge
-University Press.  1286 pages.
+Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.  Numerical Recipes: The Art of Scientific Computing, 3rd Edition.  Cambridge University Press.  1286 pages. \url{http://www.nr.com/}
 }
 \seealso{
 \code{\link{ks2d1}} and \code{\link{ks2d2p}}

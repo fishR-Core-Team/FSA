@@ -2,9 +2,11 @@
 #'
 #'Cutoffs for the Gabelhouse five-cell length categories for a variety of species.
 #'
-#'@name PSDlit
-#'@docType data
-#'@format A data frame of 58 observations on the following 11 variables:
+#' @name PSDlit
+#'
+#' @docType data
+#'
+#' @format A data frame of 58 observations on the following 11 variables:
 #'\describe{
 #'\item{species}{Species name.}
 #'\item{stock.in}{Stock length in inches.}
@@ -18,20 +20,23 @@
 #'\item{memorable.cm}{Memorable length in cm.}
 #'\item{trophy.cm}{Trophy length in cm.}
 #'}
-#'@section Topic(s): \itemize{
+#'
+#' @section Topic(s): \itemize{
 #'\item Size structure
 #'\item Proportional size structure
 #'\item Relative stock density
 #'\item Proportional stock density
 #'}
-#'@concept 'Size Structure' PSD
-#'@seealso \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, 
-#' \code{\link{psdDataPrep}}, \code{\link{tictactoe}}, and \code{\link{tictactoeAdd}},.
-#'@source Original summary table from Dr. Michael Hansen, University of
-#'Wisconsin-Stevens Point.  Additional species have been added by the package
-#'author from the literature.
-#'@keywords datasets
-#'@examples
+#'
+#' @concept 'Size Structure' PSD
+#'
+#' @seealso \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{psdDataPrep}}, \code{\link{tictactoe}}, and \code{\link{tictactoeAdd}}.
+#'
+#' @source Original summary table from Dr. Michael Hansen, University of Wisconsin-Stevens Point.  Additional species have been added by the package author from the literature.
+#'
+#' @keywords datasets
+#'
+#' @examples
 #'data(PSDlit)
 #'str(PSDlit)
 #'head(PSDlit)

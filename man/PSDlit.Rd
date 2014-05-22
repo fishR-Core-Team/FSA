@@ -18,9 +18,7 @@
 \item{trophy.cm}{Trophy length in cm.}
 }}
 \source{
-Original summary table from Dr. Michael Hansen, University of
-Wisconsin-Stevens Point.  Additional species have been added by the package
-author from the literature.
+Original summary table from Dr. Michael Hansen, University of Wisconsin-Stevens Point.  Additional species have been added by the package author from the literature.
 }
 \description{
 Cutoffs for the Gabelhouse five-cell length categories for a variety of species.
@@ -39,8 +37,7 @@ str(PSDlit)
 head(PSDlit)
 }
 \seealso{
-\code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}},
-\code{\link{psdDataPrep}}, \code{\link{tictactoe}}, and \code{\link{tictactoeAdd}},.
+\code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{psdDataPrep}}, \code{\link{tictactoe}}, and \code{\link{tictactoeAdd}}.
 }
 \concept{
 'Size Structure' PSD

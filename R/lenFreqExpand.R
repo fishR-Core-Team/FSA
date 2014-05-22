@@ -23,8 +23,6 @@
 #' 
 #' @seealso \code{\link{lencat}}.
 #' 
-#' @export
-#' 
 #' @keywords manip
 #' 
 #' @examples
@@ -53,6 +51,8 @@
 #'# set a starting length category
 #'( newlen2 <- lenFreqExpand(len,w=0.5,startcat=6.2,total=30,decimals=1) )
 #'
+#' @export
+#' 
 lenFreqExpand <- function(x,w,additional,
                           startcat=NULL,total=additional+length(x),
                           decimals=decs$wdec,show.summary=TRUE,...) {

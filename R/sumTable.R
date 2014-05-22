@@ -2,41 +2,29 @@
 #'
 #'Creates a one- or two-way table of summary statistics for a quantitative variable.
 #'
-#'The formula must be of the form \code{quantitative~factor} or
-#'\code{quantitative~factor*factor2} where \code{quantitative} is the
-#'quantitative variable to construct the summaries for and \code{factor} or
-#'\code{factor2} are factor variables that contain the levels for which separate
-#'summaries should be constructed.  If the variables on the right-hand-side are
-#'not factors then they will be coerced to be factors and a warning will be issued.
+#'The formula must be of the form \code{quantitative~factor} or \code{quantitative~factor*factor2} where \code{quantitative} is the quantitative variable to construct the summaries for and \code{factor} or \code{factor2} are factor variables that contain the levels for which separate summaries should be constructed.  If the variables on the right-hand-side are not factors then they will be coerced to be factors and a warning will be issued.
 #'
-#'This function currently only works for one quantitative variable on the left-hand-side
-#'and one or two factor variales on the right-hand-side.  Consider using \code{tapply}
-#'for situations with more factors on the right-hand-side.
+#'This function currently only works for one quantitative variable on the left-hand-side and one or two factor variales on the right-hand-side.  Consider using \code{tapply} for situations with more factors on the right-hand-side.
 #'
-#'@aliases sumTable sumTable.formula
+#' @aliases sumTable sumTable.formula
 #'
-#'@param formula A formula with a quantitative variable on the left-hand-side
-#'and one or two factor variables on the right-hand-side.
-#'@param data An optional data frame that contains the variables in the formula.
-#'@param FUN A scalar function to compute the summary statistics which can be
-#'applied to the quantitative variable for all data subsets identified by the
-#'combination of the factor(s).  Defaults to \code{mean}.
-#'@param digits A single numeric that indicates the number of digits to be used for the result.
-#'@param \dots Other arguments to pass through to \code{FUN}.
+#' @param formula A formula with a quantitative variable on the left-hand-side and one or two factor variables on the right-hand-side.
+#' @param data An optional data frame that contains the variables in the formula.
+#' @param FUN A scalar function to compute the summary statistics which can be applied to the quantitative variable for all data subsets identified by the combination of the factor(s).  Defaults to \code{mean}.
+#' @param digits A single numeric that indicates the number of digits to be used for the result.
+#' @param \dots Other arguments to pass through to \code{FUN}.
 #'
-#'@return A one-way array of values if only one factor variable is supplied on
-#'the right-hand-side of the formula.  A two-way matrix of values if two factor
-#'variables are supplied on the right-hand-side.
+#' @return A one-way array of values if only one factor variable is supplied on the right-hand-side of the formula.  A two-way matrix of values if two factor variables are supplied on the right-hand-side.
 #'
-#'@author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#'@note This function is largely a wrapper to \code{tapply()}.
+#' @note This function is largely a wrapper to \code{tapply()}.
 #'
-#'@seealso \code{tapply}.
+#' @seealso \code{tapply}.
 #'
-#'@keywords hplot
+#' @keywords hplot
 #'
-#'@examples
+#' @examples
 #'## The same examples as in the old aggregate.table in gdata package
 #'g1 <- sample(letters[1:5], 1000, replace=TRUE)
 #'g2 <- sample(LETTERS[1:3], 1000, replace=TRUE )
@@ -52,14 +40,14 @@
 #'sumTable(dat~g1,data=d,FUN=length)
 #'sumTable(dat~g1,data=d,FUN=mean)
 #'
-#'@rdname sumTable
-#'@export sumTable
+#' @rdname sumTable
+#' @export
 sumTable <- function (formula, ...) {
   UseMethod("sumTable") 
 }
 
-#'@rdname sumTable
-#'@export
+#' @rdname sumTable
+#' @export
 sumTable.formula <- function(formula,data=NULL,FUN=mean,digits=getOption("digits"),...) {
   DF <- model.frame(formula,data=data)
   if (dim(DF)[2]>3) stop("sumTable.formula only works with one quantitative variable on LHS and one or two factor variables on RHS of formula.",call.=FALSE)

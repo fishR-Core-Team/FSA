@@ -6,33 +6,20 @@
 bcFuns(BCM = NULL, type = NULL, msg = FALSE)
 }
 \arguments{
-\item{BCM}{A single numeric between 1 and 22 that indicates which back-calculation
-model to use (based on numbers in Vigliola and Meekan (2009)).}
+\item{BCM}{A single numeric between 1 and 22 that indicates which back-calculation model to use (based on numbers in Vigliola and Meekan (2009)).}
 
-\item{type}{A string that indicates which back-calculation model to use (based on
-abbreviations in Vigliola and Meekan (2009)).}
+\item{type}{A string that indicates which back-calculation model to use (based on abbreviations in Vigliola and Meekan (2009)).}
 
-\item{msg}{A logical that indicates whether a message about the model and
-parameter definitions should be output.}
+\item{msg}{A logical that indicates whether a message about the model and parameter definitions should be output.}
 }
 \value{
-A function that can be used to predict length at previous age (Li)
-given length-at-capture (Lc), hard-part radius-at-age i (Ri), and hard-part
-radius-at-capture (Rc).  In addition, some functions/models may require the
-previous age (agei) and the age-at-capture (agec), certain parameters related
-to the biological intercept (R0p & L0p), or certain parameters estimated from
-various regression models (a,b,c,A,B,C).  See source for more information.
+A function that can be used to predict length at previous age (Li) given length-at-capture (Lc), hard-part radius-at-age i (Ri), and hard-part radius-at-capture (Rc).  In addition, some functions/models may require the previous age (agei) and the age-at-capture (agec), certain parameters related to the biological intercept (R0p & L0p), or certain parameters estimated from various regression models (a,b,c,A,B,C).  See source for more information.
 }
 \description{
-Creates a function for a specific back-calculation model based on definitions
-in Vigloila and Meekan (2009).
+Creates a function for a specific back-calculation model based on definitions in Vigloila and Meekan (2009).
 }
 \details{
-The following back-calculation models, based on definitions with abbreviations
-and model numbers from Vigloila and Meekan (2009), are supported.  Also see the
-\href{https://sites.google.com/site/fishrfiles/gnrl/BackcalculationExtra.pdf}{Backcalculation-Extra}
-vignette on the \href{http://fishr.wordpress.com}{fishR webpage} for more
-information about each model.
+The following back-calculation models, based on definitions with abbreviations and model numbers from Vigloila and Meekan (2009), are supported.  Also see the \href{https://sites.google.com/site/fishrfiles/gnrl/BackcalculationExtra.pdf}{Backcalculation-Extra} vignette on the \href{http://fishr.wordpress.com}{fishR webpage} for more information about each model.
 
 \tabular{ccl}{
 \bold{Abbreviation} \tab \bold{Number} \tab \bold{Model} \cr
@@ -82,10 +69,7 @@ bcm2(lencap,rad,radcap,2)  # demonstrated with a=2
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Vigliola, L. and M.G. Meekan.  2009.  The back-calculation of
-fish growth from otoliths.  pp. 174-211.  in B.S. Green et al. (editors).
-Tropical Fish Otoliths: Information fro Assessment, Management and Ecology.
-Review: Methods and Technologies in Fish Biology and Fisheries 11.  Springer.
+Vigliola, L. and M.G. Meekan.  2009.  The back-calculation of fish growth from otoliths.  pp. 174-211.  in B.S. Green et al. (editors).  Tropical Fish Otoliths: Information fro Assessment, Management and Ecology.  Review: Methods and Technologies in Fish Biology and Fisheries 11.  Springer.  \url{http://link.springer.com/chapter/10.1007\%2F978-1-4020-5775-5_6#page-1}
 }
 \keyword{manip}
 

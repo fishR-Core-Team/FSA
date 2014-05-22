@@ -75,7 +75,7 @@
 #'swvPvalue(0.000012345,include.p=FALSE,latex=FALSE)
 #'
 #' @rdname swvUtil
-#' @export swvCounts
+#' @export
 swvCounts <- function(value,capitalize=FALSE) {    
   numwords <- c("one","two","three","four","five","six","seven","eight","nine","ten")
   if (value == 0) "zero"
@@ -87,7 +87,7 @@ swvCounts <- function(value,capitalize=FALSE) {
 }
 
 #' @rdname swvUtil
-#' @export swvPvalue
+#' @export
 swvPvalue <- function(value,digits=4,include.p=TRUE,latex=TRUE) {
   if(round(value,digits) == 0) {
     res <- paste("<",formatC(value,format="f",digits=digits),"5",sep="")
@@ -104,7 +104,7 @@ swvPvalue <- function(value,digits=4,include.p=TRUE,latex=TRUE) {
 }
 
 #' @rdname swvUtil
-#' @export swvANOVA
+#' @export
 swvANOVA <- function(x) {
   x <- anova(x)
   attr(x,"heading") <- NULL
@@ -112,7 +112,7 @@ swvANOVA <- function(x) {
 }
 
 #' @rdname swvUtil
-#' @export swvGLHT
+#' @export
 swvGLHT <- function(x,type=c("hypothesis","confidence")) {
   type <- match.arg(type)
   if (type=="hypothesis") {
@@ -125,7 +125,7 @@ swvGLHT <- function(x,type=c("hypothesis","confidence")) {
 }
 
 #' @rdname swvUtil
-#' @export swvREG
+#' @export
 swvREG <- function(x,digits=max(3,getOption("digits")-3)) {
   x <- summary(x)
   rdf <- x$df[2L]
@@ -149,7 +149,7 @@ swvREG <- function(x,digits=max(3,getOption("digits")-3)) {
 }
                 
 #' @rdname swvUtil
-#' @export swvHtest
+#' @export
 swvHtest <- function(x,digits=4,show.alt=FALSE,...) {
   # the same as stats:::print.htest without the test name and listing the data
   outp <- character()
@@ -184,7 +184,7 @@ swvHtest <- function(x,digits=4,show.alt=FALSE,...) {
 }
 
 #' @rdname swvUtil
-#' @export swvCode
+#' @export
 swvCode <- function(file,out.dir=NULL,moreItems=NULL,blanks=c("extra","all","none"),
                     annotate=FALSE,method=c("knitr","Sweave"),...) {
   blanks <- match.arg(blanks)
@@ -220,7 +220,7 @@ swvCode <- function(file,out.dir=NULL,moreItems=NULL,blanks=c("extra","all","non
 }
 
 #' @rdname swvUtil
-#' @export swvFinish
+#' @export
 swvFinish <- function(file,rqrdPkgs=NULL,closeGraphics=TRUE,
                       addTOC=TRUE,newPage=FALSE,elapsed=NULL,listFiles=FALSE) {
   file <- ifelse(missing(file),file <- getFilePrefix(),file <- getFilePrefix(file))   
