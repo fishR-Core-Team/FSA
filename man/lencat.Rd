@@ -128,38 +128,38 @@ smb1 <- smb2 <- SMBassWB[,-c(8:20)]
 
 # 10 mm length classes - in default LCat variable
 smb1$LCat10 <- lencat(smb1$lencap,w=10)
-view(smb1)
+head(smb1)
 table(smb1$LCat10)
 
 # Same as previous but returned as a factor so that levels with no fish are still seen
 smb1$LCat10A <- lencat(smb1$lencap,w=10,as.fact=TRUE)
-view(smb1)
+head(smb1)
 table(smb1$LCat10A)
 
 # Same as previous but returned as a factor with unused levels dropped
 smb1$LCat10B <- lencat(smb1$lencap,w=10,as.fact=TRUE,drop.levels=TRUE)
-view(smb1)
+head(smb1)
 table(smb1$LCat10B)
 
 # 25 mm length classes - in custom variable name
 smb1$LCat25 <- lencat(smb1$lencap,w=25)
-view(smb1)
+head(smb1)
 table(smb1$LCat25)
 
 # using values from psdVal for Smallmouth Bass
 smb1$PSDCat1 <- lencat(smb1$lencap,breaks=psdVal("Smallmouth Bass"))
-view(smb1)
+head(smb1)
 table(smb1$PSDCat1)
 
 # add category names
 smb1$PSDCat2 <- lencat(smb1$lencap,breaks=psdVal("Smallmouth Bass"),use.names=TRUE)
-view(smb1)
+head(smb1)
 table(smb1$PSDCat2)
 
 # same as above but drop the unused levels
 smb1$PSDCat2A <- lencat(smb1$lencap,breaks=psdVal("Smallmouth Bass"),
                        use.names=TRUE,drop.levels=TRUE)
-view(smb1)
+head(smb1)
 table(smb1$PSDCat2A)
 
 str(smb1)
@@ -167,20 +167,20 @@ str(smb1)
 ## A Sixth example -- similar to the fifth example but using the formula notation
 # 10 mm length classes - in default LCat variable
 smb2 <- lencat(~lencap,data=smb2,w=10)
-view(smb2)
+head(smb2)
 
 # 25 mm length classes - in custom variable name
 smb2 <- lencat(~lencap,data=smb2,w=25,vname="LenCat25")
-view(smb2)
+head(smb2)
 
 # using values from psdVal for Smallmouth Bass
 smb2 <- lencat(~lencap,data=smb2,breaks=psdVal("Smallmouth Bass"),vname="LenPsd")
-view(smb2)
+head(smb2)
 
 # add category names
 smb2 <- lencat(~lencap,data=smb2,breaks=psdVal("Smallmouth Bass"),vname="LenPsd2",
               use.names=TRUE,drop.levels=TRUE)
-view(smb2)
+head(smb2)
 
 str(smb2)
 }

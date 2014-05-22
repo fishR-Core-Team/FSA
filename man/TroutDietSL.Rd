@@ -40,7 +40,7 @@ TroutDietSL$pvol.oi <- TroutDietSL$vol.oi/TroutDietSL$vol.ttl
 TroutDietSL$pvol.fish <- TroutDietSL$vol.fish/TroutDietSL$vol.ttl
 # add empty variable
 TroutDietSL$empty <- ifelse(TroutDietSL$vol.ttl==0,"YES","NO")
-view(TroutDietSL)
+head(TroutDietSL)
 }
 \concept{
 'Length-Weight' 'Diet Overlap'

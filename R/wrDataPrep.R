@@ -50,25 +50,25 @@
 #'d3 <- wrDataPrep(wt~tl+species1,data=d2,units="metric")
 #'str(d3)
 #'head(d3)
-#'view(d3)
+#'head(d3)
 #'
 #'# Example where species without Ws equations are excluded
 #'d4 <- wrDataPrep(wt~tl+species1,data=d2,units="metric",remove.other=TRUE)
 #'str(d4)
 #'head(d4)
-#'view(d4)
+#'head(d4)
 #'
 #'# Example where species without Ws equations and sub-minimum size fish are excluded
 #'d5 <- wrDataPrep(wt~tl+species1,data=d2,units="metric",remove.other=TRUE,remove.submin=TRUE)
 #'str(d5)
 #'head(d5)
-#'view(d5)
+#'head(d5)
 #'
 #'# Example of both wrDataPrep and psdDataPrep
 #'d7 <- wrDataPrep(wt~tl+species1,data=d2,units="metric")
 #'d7 <- psdDataPrep(tl~species1,data=d7,units="mm")
 #'str(d7)
-#'view(d7)
+#'head(d7)
 #'
 #' @export
 wrDataPrep <- function(formula,data,units=c("metric","English"),remove.submin=FALSE,
