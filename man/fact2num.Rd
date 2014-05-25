@@ -20,11 +20,14 @@ str(junk)
 junk2 <- fact2num(junk)
 str(junk2)
 
-## Below not run because it will result in an error -- levels are not 'numeric'
-\dontrun{
+## ONLY RUN IN INTERACTIVE MODE
+if (interactive()) {
+
 bad <- factor(c("A","B","C"))
+# This will result in an error -- levels are not 'numeric'
 bad2 <- fact2num(bad)
-}
+
+}  ## END IF INTERACTIVE MODE
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

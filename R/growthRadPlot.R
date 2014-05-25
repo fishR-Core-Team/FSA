@@ -30,13 +30,15 @@
 #' @keywords manip
 #'
 #' @examples
-#'data(SMBassWB)
-#'head(SMBassWB)     # to see column names & some data
-#'## Not run because it requires interaction by the user
-#'\dontrun{
-#'growthRadPlot(SMBassWB,c("yearcap","gear","fish"),in.pre="anu",radcap="radcap",
-#'  agevar="agecap",ymar=6)
-#'}
+#' ## ONLY RUN IN INTERACTIVE MODE
+#' if (interactive()) {
+#'
+#' data(SMBassWB)
+#' head(SMBassWB)     # to see column names & some data
+#' growthRadPlot(SMBassWB,c("yearcap","gear","fish"),
+#'               in.pre="anu",radcap="radcap",agevar="agecap",ymar=6)
+#'                
+#' } ## END IF INTERACTIVE MODE
 #'
 #' @export
 growthRadPlot <- function(df,indivs,in.pre="rad",in.var,radcap="radcap",agevar="age",

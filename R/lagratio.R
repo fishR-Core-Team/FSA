@@ -1,8 +1,8 @@
-#'Ratio of lagged observations.
+#' Ratio of lagged observations.
 #'
-#'Computes the ratio of lagged observations in a vector.
+#' Computes the ratio of lagged observations in a vector.
 #'
-#'This function behaves similarly to \code{diff()} except that it returns a vector or matrix of ratios rather than differences.
+#' This function behaves similarly to \code{diff()} except that it returns a vector or matrix of ratios rather than differences.
 #'
 #' @param x A numeric vector or matrix.
 #' @param lag An integer representing the lag \sQuote{distance}.
@@ -25,11 +25,13 @@
 #'lagratio(x, lag = 2)
 #'lagratio(x, differences = 2)
 #'
-#'## the following will produce an error because POSIXt objects don't support logs
-#'##   which lagratio uses
-#'\dontrun{
-#'lagratio(.leap.seconds)
-#'}
+#' ## ONLY RUN IN INTERACTIVE MODE
+#' if (interactive()) {
+#'
+#' ## This will result in an error, POSIXt objects don't support logs which lagratio uses
+#' lagratio(.leap.seconds)
+#' 
+#' } ## END IF INTERACTIVE MODE
 #'
 #' @export
 #'

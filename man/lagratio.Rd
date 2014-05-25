@@ -31,11 +31,13 @@ x <- cumsum(cumsum(1:10))
 lagratio(x, lag = 2)
 lagratio(x, differences = 2)
 
-## the following will produce an error because POSIXt objects don't support logs
-##   which lagratio uses
-\dontrun{
+## ONLY RUN IN INTERACTIVE MODE
+if (interactive()) {
+
+## This will result in an error, POSIXt objects don't support logs which lagratio uses
 lagratio(.leap.seconds)
-}
+
+} ## END IF INTERACTIVE MODE
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

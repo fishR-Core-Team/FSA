@@ -22,12 +22,14 @@
 #' @keywords hplot
 #'
 #' @examples
-#'## Not run because they require a dependency on the popbio package.
-#'\dontrun{
-#'require(popbio)
-#'example(pop.projection)
-#'popSizesPlot(p)
-#'}
+#' ## ONLY RUN IN INTERACTIVE MODE
+#' if (interactive()) {
+#'
+#' require(popbio)
+#' example(pop.projection)
+#' popSizesPlot(p)
+#' 
+#' } ## END IF INTERACTIVE MODE
 #'
 #' @export
 popSizesPlot <- function(object,use.log=FALSE,xlab="Time",ylab="Population Size",type="l",lwd=2,add=FALSE,...) {

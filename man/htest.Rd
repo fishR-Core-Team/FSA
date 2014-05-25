@@ -35,14 +35,15 @@ alternative, or \code{"two.sided"} for a \dQuote{not equals} alternative (the DE
 In the one-tailed alternatives the p-value is the proportion of bootstrapped parameter estimates in \code{object$coefboot} that are extreme of the null hypothesized parameter value in \code{bo}.  In the two-tailed alternative the p-value is twice the smallest of the proportion of bootstrapped parameter estimates above or below the null hypothesized parameter value in \code{bo}.
 }
 \examples{
-## Not run, because nlsBoot takes a great deal of time:
-## Should work if copied and pasted into console
-\dontrun{
+## ONLY RUN IN INTERACTIVE MODE
+if (interactive()) {
+
 require(nlstools)
 example(nlsBoot)
 htest(boo,"lag",50)
 htest(boo,"lag",50,alt="less")
-}
+
+} ## END IF INTERACTIVE MODE
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

@@ -15,11 +15,13 @@ None.
 Opens up the \href{https://github.com/droglenc/FSA/blob/master/NEWS.md}{News.md GitHub file} for the \sQuote{FSA} package in an external browser.
 }
 \examples{
-## Not run because it will open an external browser.
-\dontrun{
+## ONLY RUN IN INTERACTIVE MODE
+if (interactive()) {
+
 fsaNews()
 FSANews()
-}
+
+}  ## END IF INTERACTIVE MODE
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

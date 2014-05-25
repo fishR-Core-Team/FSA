@@ -11,14 +11,16 @@
 #' @keywords misc
 #' 
 #' @examples
-#' \dontrun{
-#' ## Not run because these will open an external browser
+#' ## ONLY RUN IN INTERACTIVE MODE
+#' if (interactive()) {
+#' 
 #' fishR()            # home page
 #' fishR("general")   # general vignettes page
 #' fishR("books")     # books vignettes page
 #' fishR("AIFFD")     # Analysis & Interpretation of Freshwater Fisheries Data page
 #' fishR("posts")     # blog posts (some examples) page
-#' }
+#' 
+#' } ## END IF INTERACTIVE MODE
 #' 
 #' @export
 fishR <- function(where=c("home","general","books","AIFFD","posts","news")) {

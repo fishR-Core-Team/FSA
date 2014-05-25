@@ -36,14 +36,15 @@ Constructs a non-parametric bootstrap confidence interval from an object of \cod
 This function finds the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped parameter estimates below and above.  This is an approximate 100\code{conf.level}\% confidence interval.
 }
 \examples{
-## Not run, because nlsBoot takes a great deal of time:
-## Should work if copied and pasted into console
-\dontrun{
+## ONLY RUN IN INTERACTIVE MODE
+if (interactive()) {
+
 require(nlstools)
 example(nlsBoot)
 confint(boo,conf.level=0.90)
 confint(boo,conf.level=0.90,plot=TRUE)
-}
+
+} ## END IF INTERACTIVE MODE
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

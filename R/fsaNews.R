@@ -11,11 +11,13 @@
 #' @keywords manip
 #' 
 #' @examples
-#'## Not run because it will open an external browser.
-#'\dontrun{
-#'fsaNews()
-#'FSANews()
-#'}
+#' ## ONLY RUN IN INTERACTIVE MODE
+#' if (interactive()) {
+#' 
+#' fsaNews()
+#' FSANews()
+#'
+#'}  ## END IF INTERACTIVE MODE
 #' 
 #' @rdname fsaNews
 #' @export

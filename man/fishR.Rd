@@ -15,14 +15,16 @@ None, but a webpage will be opened in the default browswer.
 Opens web pages associated with the \href{http://fishr.wordpress.com"}{fishR website} in a browser.  The user can open the main page or choose a specific page to open.
 }
 \examples{
-\dontrun{
-## Not run because these will open an external browser
+## ONLY RUN IN INTERACTIVE MODE
+if (interactive()) {
+
 fishR()            # home page
 fishR("general")   # general vignettes page
 fishR("books")     # books vignettes page
 fishR("AIFFD")     # Analysis & Interpretation of Freshwater Fisheries Data page
 fishR("posts")     # blog posts (some examples) page
-}
+
+} ## END IF INTERACTIVE MODE
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

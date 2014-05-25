@@ -33,12 +33,14 @@ Constructs a plot of population size versus time from the projection of Leslie m
 This function is meant to work with an object saved from \code{pop.projection()} in the \pkg{popbio} package.  It is not a general function for plotting population size versus time.
 }
 \examples{
-## Not run because they require a dependency on the popbio package.
-\dontrun{
+## ONLY RUN IN INTERACTIVE MODE
+if (interactive()) {
+
 require(popbio)
 example(pop.projection)
 popSizesPlot(p)
-}
+
+} ## END IF INTERACTIVE MODE
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

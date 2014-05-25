@@ -50,13 +50,15 @@ This function constructs a plot of horizonal lines for each individual with the 
 This function requires one-fish-per-line radial measurement data.  See \code{\link{gReshape}} and \code{\link{gConvert}} if your data is one-increment-per-line or increment measurements.  This function also assumes that the data frame has the total radius-at-capture and the fish's age.  See \code{\link{addRadCap}} to add the total radius at capture variable (if your data was increments).
 }
 \examples{
+## ONLY RUN IN INTERACTIVE MODE
+if (interactive()) {
+
 data(SMBassWB)
 head(SMBassWB)     # to see column names & some data
-## Not run because it requires interaction by the user
-\dontrun{
-growthRadPlot(SMBassWB,c("yearcap","gear","fish"),in.pre="anu",radcap="radcap",
- agevar="agecap",ymar=6)
-}
+growthRadPlot(SMBassWB,c("yearcap","gear","fish"),
+              in.pre="anu",radcap="radcap",agevar="agecap",ymar=6)
+
+} ## END IF INTERACTIVE MODE
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

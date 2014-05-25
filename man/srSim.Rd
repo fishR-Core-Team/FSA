@@ -33,6 +33,7 @@ This function can be used to explore the dynamics of stock-recruitment models fo
 The \code{type=} argument is used to choose either the \code{"BevertonHolt"} or \code{"Ricker"} models.  Different parameterizations of these two models are chosen with the \code{param=} argument.  Four paramaterizations of the Beverton-Holt model and three parameterizations of the Ricker model are allowed.  See \code{\link{srModels}} for a representation of each parameterization.
 }
 \examples{
+## ONLY RUN IN INTERACTIVE MODE
 if (interactive()) {
 # Defaults - Beverton-Holt, first parameterization
 srSim()
@@ -47,11 +48,10 @@ srSim(type="Ricker")
 srSim(type="Ricker", param=2)
 
 # Ricker model first parameterization with Norwegian Cod data from the FSA package
-library(FSA)
 data(CodNorwegian)
 srSim(recruits~stock,data=CodNorwegian,type="Ricker",param=1)
 
-} # end if interactive
+}  ## END IF INTERACTIVE MODE
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

@@ -6,8 +6,6 @@
 #'
 #'The \code{type=} argument is used to choose either the \code{"BevertonHolt"} or \code{"Ricker"} models.  Different parameterizations of these two models are chosen with the \code{param=} argument.  Four paramaterizations of the Beverton-Holt model and three parameterizations of the Ricker model are allowed.  See \code{\link{srModels}} for a representation of each parameterization.
 #'
-#' @aliases srSim
-#'
 #' @param S An optional vector that contains observed numbers of spawning stock or a formula as described in the details.
 #' @param R An optional vector that contains observed numbers of recruits.  See details.
 #' @param data An optional data frame that contains the variables if \code{S} is a formula.  See details.
@@ -22,28 +20,30 @@
 #'
 #' @seealso \code{\link{srModels}}
 #'
+#' @aliases srSim
+#'
 #' @keywords iplot
 #'
 #' @examples
-#'if (interactive()) {
-#'# Defaults - Beverton-Holt, first parameterization
-#'srSim()
+#' ## ONLY RUN IN INTERACTIVE MODE
+#' if (interactive()) {
+#' # Defaults - Beverton-Holt, first parameterization
+#' srSim()
 #'
-#'# Beverton-Holt, second parameterization
-#'srSim(param=2)
+#' # Beverton-Holt, second parameterization
+#' srSim(param=2)
 #'
-#'# Ricker model first parameterization
-#'srSim(type="Ricker")
+#' # Ricker model first parameterization
+#' srSim(type="Ricker")
 #'
-#'# Ricker model second parameterization
-#'srSim(type="Ricker", param=2)
+#' # Ricker model second parameterization
+#' srSim(type="Ricker", param=2)
 #'
-#'# Ricker model first parameterization with Norwegian Cod data from the FSA package
-#'library(FSA)
-#'data(CodNorwegian)
-#'srSim(recruits~stock,data=CodNorwegian,type="Ricker",param=1)
+#' # Ricker model first parameterization with Norwegian Cod data from the FSA package
+#' data(CodNorwegian)
+#' srSim(recruits~stock,data=CodNorwegian,type="Ricker",param=1)
 #'
-#'} # end if interactive
+#' }  ## END IF INTERACTIVE MODE
 #'
 #' @rdname srSim
 #' @export

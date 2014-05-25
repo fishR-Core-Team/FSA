@@ -47,6 +47,7 @@ The \code{type} argument is used to choose a type of growth model and must be on
 }
 }
 \examples{
+## ONLY RUN IN INTERACTIVE MODE
 if (interactive()) {
 
 # Explore growth models (no data) -- use the defaults
@@ -62,7 +63,7 @@ data(SMBassWB)
 # interactively "fit" the second paramaterization of the Gompertz model to the data
 growthModelSim(type="Gompertz2",lencap~agecap,data=SMBassWB,max.len=500)
 
-} # end if interactive
+} ## END IF INTERACTIVE MODE
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

@@ -1,12 +1,18 @@
 # FSA 0.4.12 ongoing
 
-* added Suggests for `testthat`, `fishmethods`, `FSAdata` for testing.
+* added Suggests for `testthat`, `fishmethods`, `FSAdata` for testing and `popbio` for an example that was made "interactive" from "dont run"(see below).
 * `ageBias()`: Modified.  Added a testthat file.  Removed unit testings from examples and put in the testing file.
 * `agePrecision()`: Modified.  Added a testthat file.  Removed deprecated `what="agreement"`.
-* `fishR()`: Modified.  Removed `news` and added `posts` to the `where=` argument.  Cleaned up the Rd file.
+* `confint.nlsBoot()`: Modified.  Changed example from "dont run" to "interactive."
+* `fact2num()`: Modified.  Changed example from "dont run" to "interactive."
+* `fishR()`: Modified.  Removed `news` and added `posts` to the `where=` argument.  Cleaned up the Rd file.  Changed example from "dont run" to "interactive."
 * `FSA()`: Modified.  Cleaned up the Rd file.
-* `FSANews()`, `fsaNews()`: Modified.  Cleaned up and fixed the Usage section in the Rd file.
+* `FSANews()`, `fsaNews()`: Modified.  Cleaned up and fixed the Usage section in the Rd file.  Changed example from "dont run" to "interactive."
+* `growthRadPlot()`: Modified.  Changed example from "dont run" to "interactive."
+* `htest.nlsBoot()`: Modified.  Changed example from "dont run" to "interactive."
+* `lagratio()`: Modified.  Changed example from "dont run" to "interactive."
 * `lencat()`: Modified.  Changed Rd file for deletion of `view()`.
+* `popSizesPlot()`: Modified.  Changed example from "dont run" to "interactive."
 * `TroutDietSL`: Modified.  Changed Rd file for deletion of `view()`.
 * `view()`: Deleted.  Moved to NCStats package.
 * `wrDataPrep()`: Modified.  Changed Rd file for deletion of `view()`.

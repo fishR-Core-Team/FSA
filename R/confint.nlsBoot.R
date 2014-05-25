@@ -4,8 +4,6 @@
 #'
 #'This function finds the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped parameter estimates below and above.  This is an approximate 100\code{conf.level}\% confidence interval.
 #'
-#' @aliases confint.nlsboot
-#'
 #' @param object An object saved from \code{nlsBoot()}.
 #' @param parm An integer that indicates which parameter to compute the confidence interval for.  Will compute for all parameters if \code{NULL}.
 #' @param conf.level A level of confidence as a proportion. 
@@ -21,17 +19,20 @@
 #'
 #' @seealso \code{\link{predict.nlsBoot}}, \code{summary.nlsBoot} in \pkg{nlstools}
 #'
+#' @aliases confint.nlsboot
+#'
 #' @keywords htest
 #'
 #' @examples
-#'## Not run, because nlsBoot takes a great deal of time:
-#'## Should work if copied and pasted into console
-#'\dontrun{
-#'require(nlstools)
-#'example(nlsBoot)
-#'confint(boo,conf.level=0.90)
-#'confint(boo,conf.level=0.90,plot=TRUE)
-#'}
+#' ## ONLY RUN IN INTERACTIVE MODE
+#' if (interactive()) {
+#'
+#' require(nlstools)
+#' example(nlsBoot)
+#' confint(boo,conf.level=0.90)
+#' confint(boo,conf.level=0.90,plot=TRUE)
+#'
+#' } ## END IF INTERACTIVE MODE
 #'
 #' @rdname confint.nlsBoot
 #' @export

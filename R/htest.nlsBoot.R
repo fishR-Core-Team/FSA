@@ -1,13 +1,11 @@
-#'Constructs a p-value for a bootstrapped hypothesis test using nlsBoot.
+#' Constructs a p-value for a bootstrapped hypothesis test using nlsBoot.
 #'
-#'Constructs a non-parametric bootstrap p-value from \code{nlsBoot()} (in the \pkg{nlstools} package) like results.
+#' Constructs a non-parametric bootstrap p-value from \code{nlsBoot()} (in the \pkg{nlstools} package) like results.
 #'
-#'The \dQuote{direction} of the alternative hypothesis is identified by a string in the \code{alt=} argument.  The strings may be \code{"less"} for a \dQuote{less than} alternative, \code{"greater"} for a \dQuote{greater than}
+#' The \dQuote{direction} of the alternative hypothesis is identified by a string in the \code{alt=} argument.  The strings may be \code{"less"} for a \dQuote{less than} alternative, \code{"greater"} for a \dQuote{greater than}
 #'alternative, or \code{"two.sided"} for a \dQuote{not equals} alternative (the DEFAULT).
 #'
-#'In the one-tailed alternatives the p-value is the proportion of bootstrapped parameter estimates in \code{object$coefboot} that are extreme of the null hypothesized parameter value in \code{bo}.  In the two-tailed alternative the p-value is twice the smallest of the proportion of bootstrapped parameter estimates above or below the null hypothesized parameter value in \code{bo}.
-#'
-#' @aliases htest htest.nlsBoot
+#' In the one-tailed alternatives the p-value is the proportion of bootstrapped parameter estimates in \code{object$coefboot} that are extreme of the null hypothesized parameter value in \code{bo}.  In the two-tailed alternative the p-value is twice the smallest of the proportion of bootstrapped parameter estimates above or below the null hypothesized parameter value in \code{bo}.
 #'
 #' @param object An nlsBoot object saved from \code{nlsBoot()}.
 #' @param parm An integer that indicates which parameter to compute the confidence interval for.  Will compute for all parameters if left \code{NULL}.
@@ -22,17 +20,20 @@
 #'
 #' @seealso \code{summary.nlsBoot} in \pkg{nlstools} and \code{\link{confint.nlsBoot}}.
 #'
+#' @aliases htest htest.nlsBoot
+#'
 #' @keywords htest
 #'
 #' @examples
-#'## Not run, because nlsBoot takes a great deal of time:
-#'## Should work if copied and pasted into console
-#'\dontrun{
-#'require(nlstools)
-#'example(nlsBoot)
-#'htest(boo,"lag",50)
-#'htest(boo,"lag",50,alt="less")
-#'}
+#' ## ONLY RUN IN INTERACTIVE MODE
+#' if (interactive()) {
+#'
+#' require(nlstools)
+#' example(nlsBoot)
+#' htest(boo,"lag",50)
+#' htest(boo,"lag",50,alt="less")
+#' 
+#' } ## END IF INTERACTIVE MODE
 #'
 #' @rdname htest
 #' @export

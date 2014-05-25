@@ -46,22 +46,23 @@
 #' @keywords iplot
 #'
 #' @examples
-#'if (interactive()) {
+#' ## ONLY RUN IN INTERACTIVE MODE
+#' if (interactive()) {
 #'
-#'# Explore growth models (no data) -- use the defaults
-#'growthModelSim()
+#' # Explore growth models (no data) -- use the defaults
+#' growthModelSim()
 #'
-#'# Schnute parameterization of the von Bertalanffy model
-#'growthModelSim(type="vbSchnute")
+#' # Schnute parameterization of the von Bertalanffy model
+#' growthModelSim(type="vbSchnute")
 #'
-#'## Explore growth models superimposed on length-at-age data
-#'# get Smallmouth Bass data from FSA package
-#'data(SMBassWB)
+#' ## Explore growth models superimposed on length-at-age data
+#' # get Smallmouth Bass data from FSA package
+#' data(SMBassWB)
 #'
-#'# interactively "fit" the second paramaterization of the Gompertz model to the data
-#'growthModelSim(type="Gompertz2",lencap~agecap,data=SMBassWB,max.len=500)
+#' # interactively "fit" the second paramaterization of the Gompertz model to the data
+#' growthModelSim(type="Gompertz2",lencap~agecap,data=SMBassWB,max.len=500)
 #'
-#'} # end if interactive
+#' } ## END IF INTERACTIVE MODE
 #'
 #' @export
 growthModelSim <- function(type=c("vbTypical","vbOriginal","vbGalucciQuinn","vbMooij",
