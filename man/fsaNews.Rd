@@ -2,15 +2,17 @@
 \name{fsaNews}
 \alias{FSANews}
 \alias{fsaNews}
-\title{Read news and changes in the 'FSA' package.}
+\title{Read news and changes for the 'FSA' package.}
 \usage{
 fsaNews()
+
+FSANews()
 }
 \value{
 None.
 }
 \description{
-Read news and changes in the \sQuote{FSA} package.
+Opens up the \href{https://github.com/droglenc/FSA/blob/master/NEWS.md}{News.md GitHub file} for the \sQuote{FSA} package in an external browser.
 }
 \examples{
 ## Not run because it will open an external browser.

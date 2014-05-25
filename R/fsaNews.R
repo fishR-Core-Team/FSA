@@ -1,7 +1,7 @@
-#'Read news and changes in the 'FSA' package.
+#' @title Read news and changes for the 'FSA' package.
 #'
-#'Read news and changes in the \sQuote{FSA} package.
-#'
+#' @description Opens up the \href{https://github.com/droglenc/FSA/blob/master/NEWS.md}{News.md GitHub file} for the \sQuote{FSA} package in an external browser.
+#' 
 #' @aliases fsaNews FSANews
 #' 
 #' @return None.
@@ -17,7 +17,14 @@
 #'FSANews()
 #'}
 #' 
-#' @export fsaNews FSANews
-fsaNews <- FSANews <- function () {
+#' @rdname fsaNews
+#' @export
+fsaNews <- function () {
   browseURL("https://github.com/droglenc/FSA/blob/master/NEWS.md")
+}
+
+#' @rdname fsaNews
+#' @export
+FSANews <- function () {
+  fsaNews()
 }

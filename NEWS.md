@@ -1,5 +1,8 @@
 # FSA 0.4.12 ongoing
 
+* `fishR()`: Modified.  Removed `news` and added `posts` to the `where=` argument.  Cleaned up the Rd file.
+* `FSA()`: Modified.  Cleaned up the Rd file.
+* `FSANews()`, `fsaNews()`: Modified.  Cleaned up and fixed the Usage section in the Rd file.
 * `lencat()`: Modified.  Changed Rd file for deletion of `view()`.
 * `TroutDietSL`: Modified.  Changed Rd file for deletion of `view()`.
 * `view()`: Deleted.  Moved to NCStats package.
