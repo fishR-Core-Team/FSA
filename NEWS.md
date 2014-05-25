@@ -1,5 +1,8 @@
 # FSA 0.4.12 ongoing
 
+* added Suggests for `testthat`, `fishmethods`, `FSAdata` for testing.
+* `ageBias()`: Modified.  Added a testthat file.  Removed unit testings from examples and put in the testing file.
+* `agePrecision()`: Modified.  Added a testthat file.  Removed deprecated `what="agreement"`.
 * `fishR()`: Modified.  Removed `news` and added `posts` to the `where=` argument.  Cleaned up the Rd file.
 * `FSA()`: Modified.  Cleaned up the Rd file.
 * `FSANews()`, `fsaNews()`: Modified.  Cleaned up and fixed the Usage section in the Rd file.

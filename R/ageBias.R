@@ -1,8 +1,8 @@
-#' Compute and view possible biases between paired sets of ages.
+#' @title Compute and view possible biases between paired sets of ages.
 #'
-#' Constructs age-agreement tables, statistical tests to detect bias, and plots to visualize potential bias in paired age assignments.  The age assignments may be from two readers of the same structure, one reader at two times, or two stuctures (e.g., scales, spines, otoliths).
+#' @description Constructs age-agreement tables, statistical tests to detect bias, and plots to visualize potential bias in paired age assignments.  The age assignments may be from two readers of the same structure, one reader at two times, or two stuctures (e.g., scales, spines, otoliths).
 #'
-#' The main function, \code{ageBias}, requires a formula of the form \code{col~row}, where \code{col} and \code{row} generically represent the variables that contain the age assignments that will form the columns and rows, respectively, of the age-agreement table.  If one age assignment is thought to be more accurate than the other, then it should form the columns and, thus, should be on the left-hand-side of the formula.  The variable that forms the columns in the age-agreement table will be the \dQuote{constant} age used in the t-tests and age-bias plots (i.e,. the x-axis).  See further details below.
+#' @details The main function, \code{ageBias}, requires a formula of the form \code{col~row}, where \code{col} and \code{row} generically represent the variables that contain the age assignments that will form the columns and rows, respectively, of the age-agreement table.  If one age assignment is thought to be more accurate than the other, then it should form the columns and, thus, should be on the left-hand-side of the formula.  The variable that forms the columns in the age-agreement table will be the \dQuote{constant} age used in the t-tests and age-bias plots (i.e,. the x-axis).  See further details below.
 #'
 #' The age-agreement table is constructed with  \code{what="table"} in \code{summary}.  The agreement table can be \dQuote{flipped}, i.e., the rows are in descending rather than ascending order, with \code{flip.table=TRUE}.  By default the tables are shown with zeroes replaced by dashes.  This behavior can be changed with \code{zero.print}.
 #'
@@ -20,8 +20,6 @@
 #'
 #' The sample size present in the age-agreement table is found with \code{what="n"}.
 #'
-#' @aliases ageBias plot.ageBias summary.ageBias
-#'
 #' @param formula A formula of the form \code{col~row}, where \code{col} and \code{row} generically represent the variables that contain the ages that will form the columns and rows, respectively, of the age-agreement table.  See details.
 #' @param data A data.frame that minimally contains the paired age assignments given \code{formula}.
 #' @param col.lab A string that contains a label for the column age assignments.
@@ -29,8 +27,7 @@
 #' @param method A string that indicates which method to use when adjusting p-values for multiple comparisons.  See \code{?p.adjust.methods}.
 #' @param sig.level A value used to determine whether a p-value indicates a significant result.  The confidence level used in \code{plot} is 100*(1-\code{sig.level}).
 #' @param min.n.CI A value (default is 5) that indicates the smallest sample size for which a confidence interval should be computed.
-#' @param object An object saved from the \code{ageBias} call (i.e., of class \code{ageBias}).
-#' @param x An object saved from the \code{ageBias} call (i.e., of class \code{ageBias}).
+#' @param x,object An object of class \code{ageBias}, usuall a result from \code{ageBias}.
 #' @param what A string that indicates what type of summary to print or plot to construct.  See details.
 #' @param difference A logical that indicates whether or not the difference between the two age assignments should be used.  See details.
 #' @param zero.print A string that indicates what should be printed in place of the zeroes on an age-agreement table.  The default is to print a single dash.
@@ -78,13 +75,13 @@
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeComparisons.pdf}
 #'
-#' @references Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  Graphical and statistical methods for determining the consistency of age determinations.  Transactions of the American Fisheries Society, 124:131-138. \url{http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf}
+#' @references Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  \href{http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf}{Graphical and statistical methods for determining the consistency of age determinations.} Transactions of the American Fisheries Society 124:131-138.
 #'
-#' Evans, G.T. and J.M. Hoenig.  1998.  Testing and viewing symmetry in contingency tables, with apprlication to readers of fish ages.  Biometrics 54:620-629. \url{http://www.fisheries.vims.edu/hoenig/pdfs/Viewing.pdf}.
+#' Evans, G.T. and J.M. Hoenig.  1998.  \href{http://www.fisheries.vims.edu/hoenig/pdfs/Viewing.pdf}{Testing and viewing symmetry in contingency tables, with application to readers of fish ages.}  Biometrics 54:620-629.
 #'
-#' Hoenig, J.M., M.J. Morgan, and C.A. Brown. 1995.  Analysing differences between two age determination methods by tests of symmetry. Canadian Journal of Fisheries And Aquatic Systems, 52:364-368.  \url{http://www.fisheries.vims.edu/hoenig/pdfs/Hoenig_Morgan_Brown_AgeDeterminationSymmetry.pdf}
+#' Hoenig, J.M., M.J. Morgan, and C.A. Brown. 1995.  \href{http://www.fisheries.vims.edu/hoenig/pdfs/Hoenig_Morgan_Brown_AgeDeterminationSymmetry.pdf}{Analysing differences between two age determination methods by tests of symmetry.}  Canadian Journal of Fisheries And Aquatic Systems 52:364-368.
 #'
-#' Muir, A.M., M.P. Ebener, J.X. He, and J.E. Johnson.  2008.  A comparison of the scale and otolith methods of age estimation for lake whitefish in Lake Huron.  North American Journal of Fisheries Management, 28:625-635. \url{http://www.tandfonline.com/doi/abs/10.1577/M06-160.1}
+#' Muir, A.M., M.P. Ebener, J.X. He, and J.E. Johnson.  2008.  \href{http://www.tandfonline.com/doi/abs/10.1577/M06-160.1}{A comparison of the scale and otolith methods of age estimation for lake whitefish in Lake Huron.}  North American Journal of Fisheries Management 28:625-635.
 #'
 #' @keywords htest manip
 #'
@@ -124,27 +121,7 @@
 #'## "Numbers" plot
 #'plot(ab1,what="number",col.ref="gray50")
 #'
-#'## Unit tests for what="symmetry"
-#'######## Create Evans & Hoenig (2008) X matrix as a check (table 1)
-#'X.dat <- data.frame(ageR=c(2,2,2,2,2,2,2,2),
-#'                    ageC=c(1,1,1,1,3,3,3,3))
-#'X <- ageBias(ageC~ageR,data=X.dat)
-#'summary(X,what="table",zero.print=0)
-#'summary(X,what="symmetry")   # check
-#'
-#'######## Create Evans & Hoenig (2008) Y matrix as a check (table 1)
-#'Y.dat <- data.frame(ageR=c(1,1,1,2,2,2),
-#'                    ageC=c(2,2,3,3,3,3))
-#'Y <- ageBias(ageC~ageR,data=Y.dat)
-#'summary(Y,what="table",zero.print=0)
-#'summary(Y,what="symmetry")   # check
-#'
-#'######## Create Evans & Hoenig (2008) Z matrix (McBride's matrix) as a check
-#'Z.dat <- data.frame(ageR=c(1,1,1,2,2,2,3),
-#'                    ageC=c(2,2,2,3,3,3,1))
-#'Z <- ageBias(ageC~ageR,data=Z.dat)
-#'summary(Z,what="table",zero.print=0)
-#'summary(Z,what="symmetry")  #check
+#' @aliases ageBias plot.ageBias summary.ageBias
 #'
 #' @rdname ageBias
 #' @export
@@ -449,8 +426,10 @@ summary.ageBias <- function(object,what=c("table","symmetry","Bowkers","EvansHoe
       print(object$agree,zero.print=zero.print)
     } else {
       cat("Raw agreement table (square & flipped)\n")
-      tmp <- object$agree[nrow(object$agree):1,] # flip the rows
-      class(tmp) <- "table"                      # for printing purposes
+      # flip the rows
+      tmp <- object$agree[nrow(object$agree):1,]
+      # for printing purposes
+      class(tmp) <- "table"
       print(tmp,zero.print=zero.print)
     }
     what <- hndlMultWhat(what,"table")

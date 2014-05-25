@@ -19,7 +19,10 @@ Imports:
     relax,
     sciplot
 Suggests:
+    FSAdata,
+    fishmethods,
     nlstools,
-    Rcapture
+    Rcapture,
+    testthat
 License: GPL (>= 2)
 URL: http://fishr.wordpress.com/, https://github.com/droglenc/FSA
