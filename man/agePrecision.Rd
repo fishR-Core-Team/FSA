@@ -12,7 +12,7 @@ agePrecision(formula, data)
   "absolute difference", "detail"), percent = TRUE, digits = 4, ...)
 }
 \arguments{
-\item{formula}{A formula of the form \code{~var1+var2+var3+...} or, alternatively, \code{var1~var2+var3+...}, where the \code{varX} generically represent the variables that contain the age assignments.  The alternative formula allows for similar code as used in \code{\link{ageBias}} and can have only one variable on the right-hand side.}
+\item{formula}{A formula of the form \code{~var1+var2+var3+...} or, alternatively, \code{var1~var2+var3+...}, where the \code{varX} generically represent the variables that contain the age assignments.  The alternative formula allows for similar code as used in \code{\link{ageBias}} and can have only one variable on the left-hand side.}
 
 \item{data}{A data.frame that minimally contains the variables in \code{formula}.}
 

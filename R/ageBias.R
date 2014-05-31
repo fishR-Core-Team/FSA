@@ -2,28 +2,28 @@
 #'
 #' @description Constructs age-agreement tables, statistical tests to detect bias, and plots to visualize potential bias in paired age assignments.  The age assignments may be from two readers of the same structure, one reader at two times, or two stuctures (e.g., scales, spines, otoliths).
 #'
-#' @details The main function, \code{ageBias}, requires a formula of the form \code{col~row}, where \code{col} and \code{row} generically represent the variables that contain the age assignments that will form the columns and rows, respectively, of the age-agreement table.  If one age assignment is thought to be more accurate than the other, then it should form the columns and, thus, should be on the left-hand-side of the formula.  The variable that forms the columns in the age-agreement table will be the \dQuote{constant} age used in the t-tests and age-bias plots (i.e,. the x-axis).  See further details below.
+#' @details Generally, one of the two age assessments will be identified as the \dQuote{reference} set.  In some cases this may be the true ages, the ages from the more experience reader, the ages from the first reading, or the ages from the structure gnerally thought to provide the most accurate results.  In other cases, such as comparing two novice readers, the choice may be arbitrary.  The reference ages will form the columns of the age-agreement table and will be the \dQuote{constant} age used in the t-tests and age-bias plots (i.e., the x-axis).  See further details below.
+#' 
+#' The age-agreement table is constructed with  \code{what="table"} in \code{summary}.  The agreement table can be \dQuote{flipped}, i.e., the rows in descending rather than ascending order, with \code{flip.table=TRUE}.  By default, the tables are shown with zeroes replaced by dashes.  This behavior can be changed with \code{zero.print}.
 #'
-#' The age-agreement table is constructed with  \code{what="table"} in \code{summary}.  The agreement table can be \dQuote{flipped}, i.e., the rows are in descending rather than ascending order, with \code{flip.table=TRUE}.  By default the tables are shown with zeroes replaced by dashes.  This behavior can be changed with \code{zero.print}.
+#' Three statistical tests of symmetry for the age-agreement table can be computed with \code{what=} in \code{summary}.  The \dQuote{unpooled} or Bowker's test as described in Hoenig et al. (1995) is constructed with \code{what="Bowkers"}, the \dQuote{semi-pooled} or Evans-Hoenig test as described in Evans and Hoenig (1998) is constructed with \code{what="EvansHoenig"}, and the \dQuote{pooled} or McNemar's test as described in Evans and Hoenig (1998) is constructed with \code{what="McNemars"}.  All three tests are run simultaneously with \code{what="symmetry"}.
 #'
-#' Three statistical tests of the symmetry for the age-agreement table can be computed with \code{what} in \code{summary}.  The \dQuote{unpooled} or Bowker's test as described in Hoenig et al. (1995) is constructed with \code{what="Bowkers"}, the \dQuote{semi-pooled} or Evans-Hoengit test as described in Evans and Hoenig (1998) is constructed with \code{what="EvansHoenig"}, and the \dQuote{pooled} or McNemar's test as described in Evans and Hoenig (1998) is constructed with \code{what="McNemars"}.  All three tests are run simultaneously with \code{what="symmetry"}.
+#' An age-bias plot, as defined by Campana et al. (1995), is constructed with \code{what="bias"} (the default) in \code{plot}.  The reference variable from the \code{ageBias} call is plotted on the x-axis.  Confidence intervals plotted in red are computed for the mean of the non-reference ages at each age of the reference ages.  The level of confidence is controlled by \code{sig.level=} given in the original \code{ageBias} call (i.e., confidence level is 100*(1-\code{sig.level}).  Confidence intervals are only shown if the sample size is greater than the value in \code{min.n.CI=}.  Vertical lines that connect the minimum to the maximum observed value of the y-axis variable at each age of the x-axis variable are plotted in grey if \code{show.range=TRUE}.  The 1:1 (45 degree) agreement line is shown for comparative purposes.  The sample sizes at each age of the x-axis variable are shown if \code{show.n=TRUE} (the default).  The position of the sample sizes is controlled with \code{nYpos=}.
 #'
-#' An age-bias plot, as defined by Campana et al. (1995), is constructed with \code{what="bias"} (the default) in \code{plot}.  The variable that formed the columns in the \code{ageBias} call is plotted on the x-axis.  Confidence intervals plotted in red are computed for the mean of the y-axis variable at each age of the x-axis variable.  The level of confidence is controlled by \code{sig.level} given in the original \code{ageBias} call (i.e., confident level is 100*(1-\code{sig.level}).  Confidence intervals are only shown if the sample size is greater than the value in \code{min.n.CI}.  Vertical lines that connect the minimum to the maximum observed value of the y-axis variable at each age of the x-axis variable are plotted in grey if \code{show.range=TRUE}.  The 1:1 (45 degree) agreement line is shown for comparative purposes.  The sample sizes at each age of the x-axis variable are shown if \code{show.n=TRUE} (the default).  The position of the sample sizes is controlled with \code{nYpos}.
-#'
-#' An age-bias plot, as defined by Muir et al. (2008), is constructed as defined above but by also including \code{difference=TRUE} so that the y-axis is the difference in the paired ages in the rows and columns from the \code{ageBias} call (specifically, columns-rows).
+#' An age-bias plot, as defined by Muir et al. (2008), is constructed as defined above but by also including \code{difference=TRUE} in \R{plot} so that the y-axis is the difference in the paired reference and non-reference ages from the \code{ageBias} call (specifically, non-reference-reference).
 #'
 #' The frequency of observations at each unique (x,y) coordinate are shown is constructed by using \code{what="numbers"} in \code{plot}.
 #'
 #' A \dQuote{sunflower plot} which contains a symbol for each unique (x,y) coordinate with as many \dQuote{petals} as observations at that point is constructed with \code{what="sunflower"} in \code{plot}.  A sunflower plot with differences between the two structures can be constructed by also including \code{difference=TRUE}.
 #'
-#' Individual t-tests to determine if the mean age of the row variable at a particular age of the column variable is equal to the column variable age (e.g., is the mean age of the row variable at age-3 of the column variable statistically equal to 3?) are constructed with \code{what="bias"} in \code{summary}.  The results provide a column that indicates whether the difference is significant or not as determined by adjusted p-value from the t-test and using the signficance level provided in \code{sig.level} (defaults to 0.05).  Similar results for the difference in ages (e.g., is the mean row variable age minus column variable age at column variable age-3 equal to 0?) are constructed with \code{what="diff.bias"} in \code{summary}.
+#' Individual t-tests to determine if the mean age of the non-reference set at a particular age of the reference set is equal to the reference age (e.g., is the mean age of the non-reference at age-3 of the reference set statistically equal to 3?) are constructed with \code{what="bias"} in \code{summary}.  The results provide a column that indicates whether the difference is significant or not as determined by adjusted p-value from the t-test and using the signficance level provided in \code{sig.level} (defaults to 0.05).  Similar results for the difference in ages (e.g., is the mean row variable age minus column variable age at column variable age-3 equal to 0?) are constructed with \code{what="diff.bias"} in \code{summary}.
 #'
 #' The sample size present in the age-agreement table is found with \code{what="n"}.
 #'
-#' @param formula A formula of the form \code{col~row}, where \code{col} and \code{row} generically represent the variables that contain the ages that will form the columns and rows, respectively, of the age-agreement table.  See details.
+#' @param formula A formula of the form \code{refvar~nrefvar}, where \code{refvar} and \code{nrefvar} generically represent the variables that contain the \dQuote{reference} and \dQuote{non-reference} age assignments, respectively.  See details.
 #' @param data A data.frame that minimally contains the paired age assignments given \code{formula}.
-#' @param col.lab A string that contains a label for the column age assignments.
-#' @param row.lab A string that contains a label for the row age assignments.
+#' @param ref.lab,col.lab A string that contains a label for the column age assignment.  Note col.lab= is deprecated.
+#' @param nref.lab,row.lab A string that contains a label for the row age assignments.  Note col.lab= is deprecated.
 #' @param method A string that indicates which method to use when adjusting p-values for multiple comparisons.  See \code{?p.adjust.methods}.
 #' @param sig.level A value used to determine whether a p-value indicates a significant result.  The confidence level used in \code{plot} is 100*(1-\code{sig.level}).
 #' @param min.n.CI A value (default is 5) that indicates the smallest sample size for which a confidence interval should be computed.
@@ -63,11 +63,11 @@
 #'   \item agree The age-agreement table.
 #'   \item bias A data.frame that contains the bias statistics.
 #'   \item bias.diff A data.frame that contains the bias statistics for the differences.
-#'   \item col.lab A string that contains an optional label for the column structure or readings.
-#'   \item row.lab A string that contains an optional label for the row structure or readings.
+#'   \item ref.lab A string that contains an optional label for the column structure or readings.
+#'   \item nref.lab A string that contains an optional label for the row structure or readings.
 #'}
 #'
-#' A data frame that contains the symmetry test results if \code{summary} and \code{what="symmetry"}, \code{what="Bowkers"}, \code{what="McNemars"}, or \code{what="EvansHoenig"}; otherwise, nothing is returned by \code{summary}  Nothing is returned by \code{plot}, but see details for a description of the plot that is produced.
+#' A data frame that contains the symmetry test results if \code{summary} and \code{what="symmetry"}, \code{what="Bowkers"}, \code{what="McNemars"}, or \code{what="EvansHoenig"}; otherwise, nothing is returned by \code{summary}.  Nothing is returned by \code{plot}, but see details for a description of the plot that is produced.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
@@ -83,11 +83,13 @@
 #'
 #' Muir, A.M., M.P. Ebener, J.X. He, and J.E. Johnson.  2008.  \href{http://www.tandfonline.com/doi/abs/10.1577/M06-160.1}{A comparison of the scale and otolith methods of age estimation for lake whitefish in Lake Huron.}  North American Journal of Fisheries Management 28:625-635.
 #'
+#' @aliases ageBias plot.ageBias summary.ageBias
+#'
 #' @keywords htest manip
 #'
 #' @examples
 #'data(WhitefishLC)
-#'ab1 <- ageBias(otolithC~scaleC,data=WhitefishLC,col.lab="Otolith Age",row.lab="Scale Age")
+#'ab1 <- ageBias(otolithC~scaleC,data=WhitefishLC,ref.lab="Otolith Age",nref.lab="Scale Age")
 #'summary(ab1)
 #'summary(ab1,what="symmetry")
 #'summary(ab1,what="Bowkers")
@@ -121,44 +123,11 @@
 #'## "Numbers" plot
 #'plot(ab1,what="number",col.ref="gray50")
 #'
-#' @aliases ageBias plot.ageBias summary.ageBias
-#'
 #' @rdname ageBias
 #' @export
-ageBias <- function(formula,data,col.lab=tmp$Rname,row.lab=tmp$Enames[1],
-                    method=p.adjust.methods,sig.level=0.05,min.n.CI=5) {
-  ## internal function to create summarized data frame
-  abdf <- function(tmp,cname,diff=FALSE,min.n.CI) {
-    # Ages of cdata strux
-    x <- fact2num(tmp[,1])
-    # Is it appropriate to compute a CI
-    canCI <- tmp$n>=min.n.CI & tmp$sd>0
-    # Fill SEs, p-values calcs, and CIs with NA (will leave NA for those where CI was inappropriate)
-    tmp$SE <- tmp$t <- tmp$p.value <- tmp$LCI <- tmp$UCI <- NA
-    # SE of 2nd strux
-    tmp$SE[canCI] <- tmp$sd[canCI]/sqrt(tmp$n[canCI])
-    # t test statistic that mean of 2nd strux equals value of 1st strux
-    if (!diff) tmp$t[canCI] <- (tmp$mean[canCI]-x[canCI])/tmp$SE[canCI]
-    else tmp$t[canCI] <- tmp$mean[canCI]/tmp$SE[canCI]
-    # two-tailed p-value (adjusted for multiple comparisons)
-    tmp$p.value <- pt(abs(tmp$t),df=tmp$n-1,lower.tail=FALSE)*2
-    tmp$adj.p <- round(p.adjust(tmp$p.value,method=p.adjust.methods),5)
-    # Assign significant difference (fill with FALSE then change to TRUE if sig)
-    tmp$sig <- rep(FALSE,nrow(tmp))
-    tmp$sig[tmp$adj.p<sig.level] <- TRUE
-    # CIs
-    tmp$LCI[canCI] <- tmp$mean[canCI]+qt(sig.level/2,tmp$n[canCI]-1)*tmp$SE[canCI]
-    tmp$UCI[canCI] <- tmp$mean[canCI]+qt(sig.level/2,tmp$n[canCI]-1,lower.tail=FALSE)*tmp$SE[canCI]
-    # put together as a dataframe
-    tmpdf <- data.frame(age=x,n=tmp$n,min=tmp$min,max=tmp$max,mean=tmp$mean,SE=tmp$SE,
-                        t=tmp$t,adj.p=tmp$adj.p,sig=tmp$sig,
-                        LCI=tmp$LCI,UCI=tmp$UCI,canCI=canCI)
-    # label first column with col.data name
-    names(tmpdf)[1] <- cname  
-    tmpdf
-  } ## end abdf internal function
-  
-  ## Main Function
+ageBias <- function(formula,data,ref.lab=col.lab,nref.lab=row.lab,
+                    method=p.adjust.methods,sig.level=0.05,min.n.CI=5,
+                    col.lab=tmp$Rname,row.lab=tmp$Enames[1]) {
   tmp <- hndlFormula(formula,data,expNumR=1,expNumE=1)
   if (!tmp$metExpNumR) stop("'ageBias' must have only one LHS variable.",call.=FALSE)
   if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric",call.=FALSE)
@@ -178,9 +147,9 @@ ageBias <- function(formula,data,col.lab=tmp$Rname,row.lab=tmp$Enames[1],
   # turn off warnings for not using factor data (turn back on below)
   options(warn=-1)
   # Summary stats of cdata by ages of rdata
-  bias.df <- abdf(Summarize(as.formula(paste(rname,"~",cname)),data=d),cname,min.n.CI=min.n.CI)
+  bias.df <- iAgeBiasDF(Summarize(as.formula(paste(rname,"~",cname)),data=d),cname,FALSE,min.n.CI,sig.level)
   # Summary stats of diff by cdata
-  bias2.df <- abdf(Summarize(as.formula(paste("diff~",cname)),data=d),cname,diff=TRUE,min.n.CI=min.n.CI)
+  bias2.df <- iAgeBiasDF(Summarize(as.formula(paste("diff~",cname)),data=d),cname,TRUE,min.n.CI,sig.level)
   options(warn=0)
   
   ## Agreement contingency table adjusted to be square  
@@ -190,125 +159,13 @@ ageBias <- function(formula,data,col.lab=tmp$Rname,row.lab=tmp$Enames[1],
   rf <- factor(d[,rname],levels=ages)
   cf <- factor(d[,cname],levels=ages)
   # Agreement contingency table
-  agree.table <- table(rf,cf,dnn=c(row.lab,col.lab))
+  agree.table <- table(rf,cf,dnn=c(nref.lab,ref.lab))
   
   ## Put together an output list
   d <- list(data=d,agree=agree.table,bias=bias.df,bias.diff=bias2.df,
-            col.lab=col.lab,row.lab=row.lab)
+            ref.lab=ref.lab,nref.lab=nref.lab)
   class(d) <- "ageBias"
   d
-}
-
-
-#' @rdname ageBias
-#' @export
-plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE,
-                         xlab=x$col.lab,ylab=x$row.lab,show.n=TRUE,nYpos=1.1,
-                         show.pts=FALSE,pch.pts=19,col.pts=rgb(0,0,0,transparency),transparency=1/10,
-                         pch.mean=3,col.err="blue",col.err.sig="red",lwd.err=2,
-                         show.rng=FALSE,col.rng="gray",lwd.rng=2,
-                         col.ref="black",lwd.ref=1,lty.ref=2,
-                         xlim=NULL,ylim=NULL,yaxt=par("yaxt"),...) {
-
-  ## Internal function for finding appropriate axis limits for the age-bias plot
-  abAxisLmts <- function(d,xlim,ylim,show.n,difference) {
-    if (!is.null(xlim)) xlmt <- xlim
-      else xlmt <- range(d[,1],na.rm=TRUE)
-    if (!is.null(ylim)) ylmt <- ylim
-      else {
-        if (!difference) ylmt <- c(floor(min(c(d$min,d$LCI,xlmt),na.rm=TRUE)),
-                                   ceiling(max(c(d$max,d$UCI,xlmt),na.rm=TRUE)))
-        else ylmt <- c(floor(min(c(d$min,d$LCI),na.rm=TRUE)),
-                       ceiling(max(c(d$max,d$UCI),na.rm=TRUE)))
-      }
-    # return values
-    list(xlim=xlmt,ylim=ylmt)
-  }
-  
-  ## Internal function for producing the age-bias plot
-  biasplot <- function(obj,difference,xlab,ylab,show.n,nYpos=nYpos,show.pts,show.rng,
-                       col.err,col.err.sig,col.pts,col.rng,xlim,ylim,yaxt,...) {
-    # identify whether difference data should be used or not, put in a tmp data frame
-    if (!difference) d <- obj$bias
-      else d <- obj$bias.diff
-    # Control the axis limits (especially if none are given)
-    axlmts <- abAxisLmts(d,xlim,ylim,show.n,difference)  
-    # Plot more tick marks    
-    par(lab=c(length(d[,1]),length(d$mean),7))    
-    # Mean of 2nd vs. 1st age range
-    plot(d$mean~d[,1],xlim=axlmts$xlim,ylim=axlmts$ylim,xlab=xlab,ylab=ylab,
-         pch=pch.mean,yaxt="n",...)
-    # Helps keep y-axis as integers (needed for difference plot)
-    if (yaxt!="n") {axis(2,seq(axlmts$ylim[1],axlmts$ylim[2],1))}
-    # agreement line -- horizontal for difference and 45 degree for bias plot
-    if (difference) abline(h=0,lwd=lwd.ref,lty=lty.ref,col=col.ref)
-      else abline(a=0,b=1,lwd=lwd.ref,lty=lty.ref,col=col.ref)
-    # add individual points if asked for
-    if (show.pts) {
-      if (difference) points(obj$d[,1],obj$d[,3],col=col.pts,pch=pch.pts)
-        else points(obj$d[,1],obj$d[,2],col=col.pts,pch=pch.pts)
-    }
-    # add range of individual points if asked for
-    if (show.rng) {
-      plotrix::plotCI(x=d[,1],y=d$mean,li=d$min,ui=d$max,add=TRUE,slty=1,scol=col.rng,pch=pch.mean,lwd=lwd.rng,gap=0,sfrac=0.005)
-    }
-    # add on CIs for mean
-    #  for ages that are signficantly different
-    plotrix::plotCI(x=d[,1][d$sig],y=d$mean[d$sig],li=d$LCI[d$sig],ui=d$UCI[d$sig],add=TRUE,slty=1,scol=col.err.sig,pch=pch.mean,lwd=lwd.err,gap=0)
-    #  for ages that are not significantly different
-    plotrix::plotCI(x=d[,1][!d$sig],y=d$mean[!d$sig],li=d$LCI[!d$sig],ui=d$UCI[!d$sig],add=TRUE,slty=1,scol=col.err,pch=pch.mean,lwd=lwd.err,gap=0)
-    # show the sample sizes at the top
-    if (show.n) text(d[,1],grconvertY(nYpos,"npc"),d$n,cex=0.75,xpd=TRUE)
-  } ## end internal age-bias plot function
-
-  ## Internal function for producing the sunflower plot
-  asunflowerplot <- function(obj,difference,xlab,ylab,xlim,ylim,lwd.ref,lty.ref,col.ref,...) {
-    x <- obj$d[,1]
-    if (difference) {
-      y <- obj$d[,3]
-      if (is.null(ylim)) ylim <- range(y)
-      if (is.null(xlim)) xlim <- range(x)
-    } else {
-      y <- obj$d[,2]
-      if (is.null(ylim)) ylim <- range(x,y)
-      if (is.null(xlim)) xlim <- range(x,y)
-    }
-    sunflowerplot(x,y,seg.col="blue",size=1/10,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...)
-    # agreement line -- horizontal for difference and 45 degree for bias plot
-    if (difference) abline(h=0,lwd=lwd.ref,lty=lty.ref,col=col.ref)
-      else abline(a=0,b=1,lwd=lwd.ref,lty=lty.ref,col=col.ref)
-  }  ## end internal sunflowerplot function
-  
-  ## Internal function for producing numbers plot
-  anumplot <- function(obj,xlab,ylab,xlim,ylim,lwd.ref,lty.ref,col.ref,...) {
-    # convert age-agreement table into a data frame with all zeroes removed
-    d <- as.data.frame(obj$agree)
-    d[,1] <- fact2num(d[,1])
-    d[,2] <- fact2num(d[,2])
-    d <- d[d[,3]>0,]
-    # isolate the x-, y- coordinates and number of values at each x,y (in lbls)
-    y <- d[,1]
-    x <- d[,2]
-    lbls <-d[,3]
-    # check for axis limits
-    if (is.null(ylim)) ylim <- range(x,y)
-    if (is.null(xlim)) xlim <- range(x,y)
-    # make an empty plot
-    plot(x,y,type="n",xlab=xlab,ylab=ylab,xlim=xlim,ylim=ylim,...)
-    # add the one-to-one line
-    lines(xlim,xlim,lwd=lwd.ref,lty=lty.ref,col=col.ref)
-    # add the numbers at each point
-    text(x,y,labels=lbls)
-  }  ## end internal anumplot function
-  
-
-  ## Main function
-  what <- match.arg(what)
-  if (what=="bias") biasplot(x,difference,xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
-                             show.n,nYpos=nYpos,show.pts,show.rng,col.err,col.err.sig,
-                             col.pts,col.rng,xlim,ylim,yaxt,...)
-  else if (what=="sunflower") asunflowerplot(x,difference,xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),xlim,ylim,lwd.ref,lty.ref,col.ref,...)
-  else anumplot(x,xlab,ylab,xlim,ylim,lwd.ref,lty.ref,col.ref,...)
 }
 
 #' @rdname ageBias
@@ -316,106 +173,18 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
 summary.ageBias <- function(object,what=c("table","symmetry","Bowkers","EvansHoenig","McNemars","bias","diff.bias","n"),
                             flip.table=FALSE,zero.print="-",digits=3,cont.corr=c("none","Yates","Edwards"),
                             ...) {
-  ## Internal function to handle the age-agreement table for symmetry tests
-  ##   Removes the main diagonal, finds the upper and lower triangles, and
-  ##   returns them all in a list
-  hndlAgreeTable <- function(obj) {
-    # rename agreement table
-    at <- obj$agree
-    # Remove the values on the diagonal
-    diag(at) <- NA
-    # Find the values on the lower- and upper- triangles
-    lo <- up <- at
-    lo[upper.tri(lo)] <- NA
-    up[lower.tri(up)] <- NA
-    # return all of the parts
-    list(at=at,lo=lo,up=up)
-  }
-  
-  ## Internal function to compute Bowker's Test
-  Bowkers <- function(obj) {
-    AAT <- hndlAgreeTable(obj)
-    # Chi-sq parts (Evans and Hoenig's eq 1, Hoenig et al.'s eq 3)
-    rat <- ((AAT$lo-t(AAT$up))^2)/(AAT$lo+t(AAT$up))
-    # Add chi-square parts
-    chi.sq <- sum(rat,na.rm=TRUE)
-    # Count number of chi-sq parts
-    df <- sum(as.numeric(!is.na(rat)))
-    # Find the p-value 
-    p <- pchisq(chi.sq,df,lower.tail=FALSE)
-    # Return dataframe
-    data.frame(symTest="Bowkers",df=df,chi.sq=chi.sq,p=p)
-  } ## End internal Bowker's Test function
-  
-  ## Internal function to compute Bowker's Test
-  McNemars <- function(obj,cont.cor) {
-    # handle continuity correction
-    if (cont.cor=="none") {
-      title <- "McNemars"
-      cc <- 0
-    } else if (cont.cor=="Yates") {
-      title <- "McNemars (Yates Correction)"
-      cc <- 0.5
-    } else if (cont.cor== "Edwards") {
-      title <- "McNemars (Edwards Correction)"
-      cc <- 1
-    } else stop("Continuity correction is incorrect",call.=FALSE)
-    AAT <- hndlAgreeTable(obj)
-    # Chi-sq parts (Evans and Hoenig's eq 2, but include the correction factor)
-    top <- (abs(sum((AAT$lo-t(AAT$up)),na.rm=TRUE))-cc)^2
-    bot <- sum(AAT$lo+t(AAT$up),na.rm=TRUE)
-    chi.sq <- top/bot
-    df <- 1
-    # Find the p-value 
-    p <- pchisq(chi.sq,df,lower.tail=FALSE)
-    # Return list
-    data.frame(symTest=title,df=df,chi.sq=chi.sq,p=p)
-  } ## End internal McNemar's Test function
-  
-  ## Internal function to compute Evans Hoenig's Test
-  EvansHoenig <- function(obj) {
-    AAT <- hndlAgreeTable(obj)
-    # Create matrix of differences in potential ages
-    diffs <- AAT$at
-    for (i in 1:nrow(AAT$at)) {
-      for (j in 1:ncol(AAT$at)) {
-        diffs[i,j] <- as.numeric(rownames(AAT$at)[j])-as.numeric(colnames(AAT$at)[i])
-      }
-    }
-    # Find max diff
-    max.diff <- max(diffs)
-    # Find parts of Evans Hoenig calcualtions -- finds individual off-diagonals
-    #   and then computes the ratio that forms the chi-square parts
-    rat <- numeric(nrow(AAT$at)-1)
-    for (i in 1:max.diff) {
-      above <- AAT$at[diffs==i]
-      below <- AAT$at[diffs==-i]
-      rat[i] <- (sum(above-below)^2)/sum(above+below)
-    }
-    # Remove those values that were na (i.e., these were diagonals w/ no obs)
-    rat <- rat[!is.na(rat)]
-    # Find degrees-of-freedom ... number of off-diagonals with observations
-    df <- length(rat)
-    # sum the chi-square parts to get a full chi-square value
-    chi.sq <- sum(rat)
-    p <- pchisq(chi.sq,df,lower.tail=FALSE)
-    # Return data.frame
-    data.frame(symTest="EvansHoenig",df=df,chi.sq=chi.sq,p=p)
-  } ## End internal Evans Hoenig's Test function
-  
-  ## Main function
   what <- match.arg(what,several.ok=TRUE)
   if ("n" %in% what) {
     cat("Sample size in the age-agreement table is ",sum(object$agree),".\n",sep="")
     what <- hndlMultWhat(what,"n")
   }
   if ("bias" %in% what) {
-    cat("Summary of",object$row.lab,"by",object$col.lab,"\n")
+    cat("Summary of",object$nref.lab,"by",object$ref.lab,"\n")
     print(object$bias[-ncol(object$bias)],row.names=FALSE,digits=digits)
     what <- hndlMultWhat(what,"bias")
   }
   if ("diff.bias" %in% what) {
-    cat("Summary of",object$row.lab,"-",object$col.lab,"by",object$col.lab,"\n")
+    cat("Summary of",object$nref.lab,"-",object$ref.lab,"by",object$ref.lab,"\n")
     print(object$bias.diff[-ncol(object$bias.diff)],row.names=FALSE,digits=digits)
     what <- hndlMultWhat(what,"diff.bias")
   }
@@ -436,12 +205,285 @@ summary.ageBias <- function(object,what=c("table","symmetry","Bowkers","EvansHoe
   }
   if (any(c("symmetry","Bowkers","EvansHoenig","McNemars") %in% what)) {
     symTest <- NULL # to avoide "global bindings" warning in rcmd check
-    tmp <- McNemars(object,match.arg(cont.corr))
-    tmp <- rbind(tmp,EvansHoenig(object))
-    tmp <- rbind(tmp,Bowkers(object))
+    tmp <- iMcNemars(object,match.arg(cont.corr))
+    tmp <- rbind(tmp,iEvansHoenig(object))
+    tmp <- rbind(tmp,iBowkers(object))
     # if what="symmetry" print all results, otherwise only print what is asked for
     cat("Agreement Table Symmetry Test Results\n")
     if ("symmetry" %in% what) tmp
-      else Subset(tmp,grepl(what,symTest))
+    else Subset(tmp,grepl(what,symTest))
   }
 }
+
+#' @rdname ageBias
+#' @export
+plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE,
+                         xlab=x$ref.lab,ylab=x$nref.lab,show.n=TRUE,nYpos=1.1,
+                         show.pts=FALSE,pch.pts=19,col.pts=rgb(0,0,0,transparency),transparency=1/10,
+                         pch.mean=3,col.err="blue",col.err.sig="red",lwd.err=2,
+                         show.rng=FALSE,col.rng="gray",lwd.rng=2,
+                         col.ref="black",lwd.ref=1,lty.ref=2,
+                         xlim=NULL,ylim=NULL,yaxt=par("yaxt"),...) {
+  what <- match.arg(what)
+  switch(what,
+         bias={ iAgeBiasPlot(x,difference,
+                             xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
+                             show.n,nYpos,show.pts,pch.pts,col.pts,
+                             pch.mean,col.err,col.err.sig,lwd.err,
+                             show.rng,col.rng,lwd.rng,
+                             col.ref,lwd.ref,lty.ref,
+                             xlim,ylim,yaxt,...) },
+         sunflower={ iAgeBiasSunflowerPlot(x,difference,xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
+                                           xlim,ylim,lwd.ref,lty.ref,col.ref,...) },
+         numbers={ iAgeBiasNumPlot(x,xlab,ylab,xlim,ylim,lwd.ref,lty.ref,col.ref,...) }
+  ) # end switch
+}
+
+################################################################################
+################################################################################
+## Related INTERNAL functions
+################################################################################
+################################################################################
+
+#===============================================================================
+# This internal function is used to created a data frame of summarized data
+#   for the ageBias() function.  
+#
+# tmp -- the results from Summarize of ages in a column variable by a row variable
+# cname -- the name of the column variable
+# diff -- a logical of whether differences are being used or not
+# min.n.CI -- the minimum n for which CIs should be computed
+#
+# returns a data.frame
+#===============================================================================
+iAgeBiasDF <- function(tmp,cname,diff,min.n.CI,sig.level) {
+  # Ages of cdata strux
+  x <- fact2num(tmp[,1])
+  # Is it appropriate to compute a CI
+  canCI <- tmp$n>=min.n.CI & tmp$sd>0
+  # Fill SEs, p-values calcs, and CIs with NA (will leave NA for those where CI was inappropriate)
+  tmp$SE <- tmp$t <- tmp$p.value <- tmp$LCI <- tmp$UCI <- NA
+  # SE of 2nd strux
+  tmp$SE[canCI] <- tmp$sd[canCI]/sqrt(tmp$n[canCI])
+  # t test statistic that mean of 2nd strux equals value of 1st strux
+  if (!diff) tmp$t[canCI] <- (tmp$mean[canCI]-x[canCI])/tmp$SE[canCI]
+  else tmp$t[canCI] <- tmp$mean[canCI]/tmp$SE[canCI]
+  # two-tailed p-value (adjusted for multiple comparisons)
+  tmp$p.value <- pt(abs(tmp$t),df=tmp$n-1,lower.tail=FALSE)*2
+  tmp$adj.p <- round(p.adjust(tmp$p.value,method=p.adjust.methods),5)
+  # Assign significant difference (fill with FALSE then change to TRUE if sig)
+  tmp$sig <- rep(FALSE,nrow(tmp))
+  tmp$sig[tmp$adj.p<sig.level] <- TRUE
+  # CIs
+  tmp$LCI[canCI] <- tmp$mean[canCI]+qt(sig.level/2,tmp$n[canCI]-1)*tmp$SE[canCI]
+  tmp$UCI[canCI] <- tmp$mean[canCI]+qt(sig.level/2,tmp$n[canCI]-1,lower.tail=FALSE)*tmp$SE[canCI]
+  # put together as a dataframe
+  tmpdf <- data.frame(age=x,n=tmp$n,min=tmp$min,max=tmp$max,mean=tmp$mean,SE=tmp$SE,
+                      t=tmp$t,adj.p=tmp$adj.p,sig=tmp$sig,
+                      LCI=tmp$LCI,UCI=tmp$UCI,canCI=canCI)
+  # label first column with col.data name
+  names(tmpdf)[1] <- cname  
+  tmpdf
+} ## end iAgeBiasDF internal function
+
+#===============================================================================
+# This internal function is used to handle the age-agreement table for symmetry
+#    tests.  Specifically, it removes the main diagonal, finds the upper and lower
+#    triangles, and returns them all in a list.  It is called by the iBowkers,
+#    iMcNemars, and iEvansHoenig functions.
+#===============================================================================
+iHandleAgreeTable <- function(obj) {
+  # rename agreement table
+  at <- obj$agree
+  # Remove the values on the diagonal
+  diag(at) <- NA
+  # Find the values on the lower- and upper- triangles
+  lo <- up <- at
+  lo[upper.tri(lo)] <- NA
+  up[lower.tri(up)] <- NA
+  # return all of the parts
+  list(at=at,lo=lo,up=up)
+}
+
+#===============================================================================
+# This internal function is used to compute Bowker's Test of Symmetry.
+#===============================================================================
+iBowkers <- function(obj) {
+  AAT <- iHandleAgreeTable(obj)
+  # Chi-sq parts (Evans and Hoenig's eq 1, Hoenig et al.'s eq 3)
+  rat <- ((AAT$lo-t(AAT$up))^2)/(AAT$lo+t(AAT$up))
+  # Add chi-square parts
+  chi.sq <- sum(rat,na.rm=TRUE)
+  # Count number of chi-sq parts
+  df <- sum(as.numeric(!is.na(rat)))
+  # Find the p-value 
+  p <- pchisq(chi.sq,df,lower.tail=FALSE)
+  # Return dataframe
+  data.frame(symTest="Bowkers",df=df,chi.sq=chi.sq,p=p)
+} ## End internal Bowker's Test function
+
+#===============================================================================
+# This internal function is used to compute McNemar's Test of Symmetry.
+#===============================================================================
+iMcNemars <- function(obj,cont.cor) {
+  # handle continuity correction
+  if (cont.cor=="none") {
+    title <- "McNemars"
+    cc <- 0
+  } else if (cont.cor=="Yates") {
+    title <- "McNemars (Yates Correction)"
+    cc <- 0.5
+  } else if (cont.cor== "Edwards") {
+    title <- "McNemars (Edwards Correction)"
+    cc <- 1
+  } else stop("Continuity correction is incorrect",call.=FALSE)
+  AAT <- iHandleAgreeTable(obj)
+  # Chi-sq parts (Evans and Hoenig's eq 2, but include the correction factor)
+  top <- (abs(sum((AAT$lo-t(AAT$up)),na.rm=TRUE))-cc)^2
+  bot <- sum(AAT$lo+t(AAT$up),na.rm=TRUE)
+  chi.sq <- top/bot
+  df <- 1
+  # Find the p-value 
+  p <- pchisq(chi.sq,df,lower.tail=FALSE)
+  # Return list
+  data.frame(symTest=title,df=df,chi.sq=chi.sq,p=p)
+} ## End internal McNemar's Test function
+
+#===============================================================================
+# This internal function is used to compute Evans and Hoenigs Test of Symmetry.
+#===============================================================================
+iEvansHoenig <- function(obj) {
+  AAT <- iHandleAgreeTable(obj)
+  # Create matrix of differences in potential ages
+  diffs <- AAT$at
+  for (i in 1:nrow(AAT$at)) {
+    for (j in 1:ncol(AAT$at)) {
+      diffs[i,j] <- as.numeric(rownames(AAT$at)[j])-as.numeric(colnames(AAT$at)[i])
+    }
+  }
+  # Find max diff
+  max.diff <- max(diffs)
+  # Find parts of Evans Hoenig calcualtions -- finds individual off-diagonals
+  #   and then computes the ratio that forms the chi-square parts
+  rat <- numeric(nrow(AAT$at)-1)
+  for (i in 1:max.diff) {
+    above <- AAT$at[diffs==i]
+    below <- AAT$at[diffs==-i]
+    rat[i] <- (sum(above-below)^2)/sum(above+below)
+  }
+  # Remove those values that were na (i.e., these were diagonals w/ no obs)
+  rat <- rat[!is.na(rat)]
+  # Find degrees-of-freedom ... number of off-diagonals with observations
+  df <- length(rat)
+  # sum the chi-square parts to get a full chi-square value
+  chi.sq <- sum(rat)
+  p <- pchisq(chi.sq,df,lower.tail=FALSE)
+  # Return data.frame
+  data.frame(symTest="EvansHoenig",df=df,chi.sq=chi.sq,p=p)
+} ## End internal Evans Hoenig's Test function
+
+
+#===============================================================================
+# This internal function is used to find appropriate axis limits for the age-bias
+#   plot.  This is called by 
+#===============================================================================
+abAxisLmts <- function(d,xlim,ylim,show.n,difference) {
+  if (!is.null(xlim)) xlmt <- xlim
+  else xlmt <- range(d[,1],na.rm=TRUE)
+  if (!is.null(ylim)) ylmt <- ylim
+  else {
+    if (!difference) ylmt <- c(floor(min(c(d$min,d$LCI,xlmt),na.rm=TRUE)),
+                               ceiling(max(c(d$max,d$UCI,xlmt),na.rm=TRUE)))
+    else ylmt <- c(floor(min(c(d$min,d$LCI),na.rm=TRUE)),
+                   ceiling(max(c(d$max,d$UCI),na.rm=TRUE)))
+  }
+  # return values
+  list(xlim=xlmt,ylim=ylmt)
+}
+
+#===============================================================================
+# This internal function is used to produce the age-bias plot.  This is called
+#   by ageBias().
+#===============================================================================
+iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,show.pts,pch.pts,col.pts,
+                         pch.mean,col.err,col.err.sig,lwd.err,show.rng,col.rng,lwd.rng,
+                         col.ref,lwd.ref,lty.ref,xlim,ylim,yaxt,...) {
+  # identify whether difference data should be used or not, put in a tmp data frame
+  if (!difference) d <- obj$bias
+  else d <- obj$bias.diff
+  # Control the axis limits (especially if none are given)
+  axlmts <- abAxisLmts(d,xlim,ylim,show.n,difference)  
+  # Plot more tick marks    
+  par(lab=c(length(d[,1]),length(d$mean),7))    
+  # Mean of 2nd vs. 1st age range
+  plot(d$mean~d[,1],xlim=axlmts$xlim,ylim=axlmts$ylim,xlab=xlab,ylab=ylab,
+       pch=pch.mean,yaxt="n",...)
+  # Helps keep y-axis as integers (needed for difference plot)
+  if (yaxt!="n") {axis(2,seq(axlmts$ylim[1],axlmts$ylim[2],1))}
+  # agreement line -- horizontal for difference and 45 degree for bias plot
+  if (difference) abline(h=0,lwd=lwd.ref,lty=lty.ref,col=col.ref)
+  else abline(a=0,b=1,lwd=lwd.ref,lty=lty.ref,col=col.ref)
+  # add individual points if asked for
+  if (show.pts) {
+    if (difference) points(obj$d[,1],obj$d[,3],col=col.pts,pch=pch.pts)
+    else points(obj$d[,1],obj$d[,2],col=col.pts,pch=pch.pts)
+  }
+  # add range of individual points if asked for
+  if (show.rng) {
+    plotrix::plotCI(x=d[,1],y=d$mean,li=d$min,ui=d$max,add=TRUE,slty=1,scol=col.rng,pch=pch.mean,lwd=lwd.rng,gap=0,sfrac=0.005)
+  }
+  # add on CIs for mean
+  #  for ages that are signficantly different
+  plotrix::plotCI(x=d[,1][d$sig],y=d$mean[d$sig],li=d$LCI[d$sig],ui=d$UCI[d$sig],add=TRUE,slty=1,scol=col.err.sig,pch=pch.mean,lwd=lwd.err,gap=0)
+  #  for ages that are not significantly different
+  plotrix::plotCI(x=d[,1][!d$sig],y=d$mean[!d$sig],li=d$LCI[!d$sig],ui=d$UCI[!d$sig],add=TRUE,slty=1,scol=col.err,pch=pch.mean,lwd=lwd.err,gap=0)
+  # show the sample sizes at the top
+  if (show.n) text(d[,1],grconvertY(nYpos,"npc"),d$n,cex=0.75,xpd=TRUE)
+} ## end internal age-bias plot function
+
+#===============================================================================
+# This internal function is used to produce the age-bias sunflower plot.  This
+#   is called by 
+#===============================================================================
+iAgeBiasSunflowerPlot <- function(obj,difference,xlab,ylab,xlim,ylim,lwd.ref,lty.ref,col.ref,...) {
+  x <- obj$d[,1]
+  if (difference) {
+    y <- obj$d[,3]
+    if (is.null(ylim)) ylim <- range(y)
+    if (is.null(xlim)) xlim <- range(x)
+  } else {
+    y <- obj$d[,2]
+    if (is.null(ylim)) ylim <- range(x,y)
+    if (is.null(xlim)) xlim <- range(x,y)
+  }
+  sunflowerplot(x,y,seg.col="blue",size=1/10,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...)
+  # agreement line -- horizontal for difference and 45 degree for bias plot
+  if (difference) abline(h=0,lwd=lwd.ref,lty=lty.ref,col=col.ref)
+  else abline(a=0,b=1,lwd=lwd.ref,lty=lty.ref,col=col.ref)
+}  ## end internal sunflowerplot function
+
+#===============================================================================
+# This internal function is used to produce the age-bias numbers plot.  This
+#   is called by 
+#===============================================================================
+iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,lwd.ref,lty.ref,col.ref,...) {
+  # convert age-agreement table into a data frame with all zeroes removed
+  d <- as.data.frame(obj$agree)
+  d[,1] <- fact2num(d[,1])
+  d[,2] <- fact2num(d[,2])
+  d <- d[d[,3]>0,]
+  # isolate the x-, y- coordinates and number of values at each x,y (in lbls)
+  y <- d[,1]
+  x <- d[,2]
+  lbls <-d[,3]
+  # check for axis limits
+  if (is.null(ylim)) ylim <- range(x,y)
+  if (is.null(xlim)) xlim <- range(x,y)
+  # make an empty plot
+  plot(x,y,type="n",xlab=xlab,ylab=ylab,xlim=xlim,ylim=ylim,...)
+  # add the one-to-one line
+  lines(xlim,xlim,lwd=lwd.ref,lty=lty.ref,col=col.ref)
+  # add the numbers at each point
+  text(x,y,labels=lbls)
+}  ## end internal iAgeBiasNumPlot function
+

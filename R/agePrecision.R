@@ -17,7 +17,7 @@
 #'
 #' If \code{what="detail"} is used in \code{summary} then a data frame of the original \code{data} along with the intermediate caculations of the average age, standard deviation of age, APE, and CV for each individual will be printed.  These details are generally only used to check or to understand calculations.
 #' 
-#' @param formula A formula of the form \code{~var1+var2+var3+...} or, alternatively, \code{var1~var2+var3+...}, where the \code{varX} generically represent the variables that contain the age assignments.  The alternative formula allows for similar code as used in \code{\link{ageBias}} and can have only one variable on the right-hand side.
+#' @param formula A formula of the form \code{~var1+var2+var3+...} or, alternatively, \code{var1~var2+var3+...}, where the \code{varX} generically represent the variables that contain the age assignments.  The alternative formula allows for similar code as used in \code{\link{ageBias}} and can have only one variable on the left-hand side.
 #' @param data A data.frame that minimally contains the variables in \code{formula}.
 #' @param object An object of class \code{agePrec}, usuall a result from \code{agePrecision}.
 #' @param what A single string that indicates what type of summary to print.  See details.
@@ -91,7 +91,7 @@ agePrecision <- function(formula,data) {
   # sample size & number of structures
   n <- nrow(tmp$mf)
   R <- ncol(tmp$mf)
-  # rename dataframe of just ages (for simplicity)
+  # get dataframe of just ages (for simplicity)
   d <- tmp$mf
   
   ## Precision alculations (APE and CV) on each fish

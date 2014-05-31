@@ -125,7 +125,7 @@ hndlFormula <- function(formula,data,expNumR=NULL,
   names(df) <- c(Rname,Enames)
   # Check if the expected number of each type of variable was met
   metExpNumR <- metExpNumE <- metExpNumENums <- metExpNumEFacts <- NULL
-  if (!is.null(expNumR)) ifelse(Enum==expNumR,metExpNumR <- TRUE,metExpNumR <- FALSE)
+  if (!is.null(expNumR)) ifelse(Rnum==expNumR,metExpNumR <- TRUE,metExpNumR <- FALSE)
   if (!is.null(expNumE)) ifelse(Enum==expNumE,metExpNumE <- TRUE,metExpNumE <- FALSE)
   if (!is.null(expNumENums)) ifelse(ENumNum==expNumENums,metExpNumENums <- TRUE,metExpNumENums <- FALSE)
   if (!is.null(expNumEFacts)) ifelse(EFactNum==expNumEFacts,metExpNumEFacts <- TRUE,metExpNumEFacts <- FALSE)

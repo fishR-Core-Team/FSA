@@ -5,30 +5,31 @@
 \alias{summary.ageBias}
 \title{Compute and view possible biases between paired sets of ages.}
 \usage{
-ageBias(formula, data, col.lab = tmp$Rname, row.lab = tmp$Enames[1],
-  method = p.adjust.methods, sig.level = 0.05, min.n.CI = 5)
-
-\method{plot}{ageBias}(x, what = c("bias", "sunflower", "numbers"),
-  difference = FALSE, xlab = x$col.lab, ylab = x$row.lab, show.n = TRUE,
-  nYpos = 1.1, show.pts = FALSE, pch.pts = 19, col.pts = rgb(0, 0, 0,
-  transparency), transparency = 1/10, pch.mean = 3, col.err = "blue",
-  col.err.sig = "red", lwd.err = 2, show.rng = FALSE, col.rng = "gray",
-  lwd.rng = 2, col.ref = "black", lwd.ref = 1, lty.ref = 2,
-  xlim = NULL, ylim = NULL, yaxt = par("yaxt"), ...)
+ageBias(formula, data, ref.lab = col.lab, nref.lab = row.lab,
+  method = p.adjust.methods, sig.level = 0.05, min.n.CI = 5,
+  col.lab = tmp$Rname, row.lab = tmp$Enames[1])
 
 \method{summary}{ageBias}(object, what = c("table", "symmetry", "Bowkers",
   "EvansHoenig", "McNemars", "bias", "diff.bias", "n"), flip.table = FALSE,
   zero.print = "-", digits = 3, cont.corr = c("none", "Yates", "Edwards"),
   ...)
+
+\method{plot}{ageBias}(x, what = c("bias", "sunflower", "numbers"),
+  difference = FALSE, xlab = x$ref.lab, ylab = x$nref.lab,
+  show.n = TRUE, nYpos = 1.1, show.pts = FALSE, pch.pts = 19,
+  col.pts = rgb(0, 0, 0, transparency), transparency = 1/10, pch.mean = 3,
+  col.err = "blue", col.err.sig = "red", lwd.err = 2, show.rng = FALSE,
+  col.rng = "gray", lwd.rng = 2, col.ref = "black", lwd.ref = 1,
+  lty.ref = 2, xlim = NULL, ylim = NULL, yaxt = par("yaxt"), ...)
 }
 \arguments{
-\item{formula}{A formula of the form \code{col~row}, where \code{col} and \code{row} generically represent the variables that contain the ages that will form the columns and rows, respectively, of the age-agreement table.  See details.}
+\item{formula}{A formula of the form \code{refvar~nrefvar}, where \code{refvar} and \code{nrefvar} generically represent the variables that contain the \dQuote{reference} and \dQuote{non-reference} age assignments, respectively.  See details.}
 
 \item{data}{A data.frame that minimally contains the paired age assignments given \code{formula}.}
 
-\item{col.lab}{A string that contains a label for the column age assignments.}
+\item{ref.lab,col.lab}{A string that contains a label for the column age assignment.  Note col.lab= is deprecated.}
 
-\item{row.lab}{A string that contains a label for the row age assignments.}
+\item{nref.lab,row.lab}{A string that contains a label for the row age assignments.  Note col.lab= is deprecated.}
 
 \item{method}{A string that indicates which method to use when adjusting p-values for multiple comparisons.  See \code{?p.adjust.methods}.}
 
@@ -101,31 +102,31 @@ ageBias(formula, data, col.lab = tmp$Rname, row.lab = tmp$Enames[1],
   \item agree The age-agreement table.
   \item bias A data.frame that contains the bias statistics.
   \item bias.diff A data.frame that contains the bias statistics for the differences.
-  \item col.lab A string that contains an optional label for the column structure or readings.
-  \item row.lab A string that contains an optional label for the row structure or readings.
+  \item ref.lab A string that contains an optional label for the column structure or readings.
+  \item nref.lab A string that contains an optional label for the row structure or readings.
 }
 
-A data frame that contains the symmetry test results if \code{summary} and \code{what="symmetry"}, \code{what="Bowkers"}, \code{what="McNemars"}, or \code{what="EvansHoenig"}; otherwise, nothing is returned by \code{summary}  Nothing is returned by \code{plot}, but see details for a description of the plot that is produced.
+A data frame that contains the symmetry test results if \code{summary} and \code{what="symmetry"}, \code{what="Bowkers"}, \code{what="McNemars"}, or \code{what="EvansHoenig"}; otherwise, nothing is returned by \code{summary}.  Nothing is returned by \code{plot}, but see details for a description of the plot that is produced.
 }
 \description{
 Constructs age-agreement tables, statistical tests to detect bias, and plots to visualize potential bias in paired age assignments.  The age assignments may be from two readers of the same structure, one reader at two times, or two stuctures (e.g., scales, spines, otoliths).
 }
 \details{
-The main function, \code{ageBias}, requires a formula of the form \code{col~row}, where \code{col} and \code{row} generically represent the variables that contain the age assignments that will form the columns and rows, respectively, of the age-agreement table.  If one age assignment is thought to be more accurate than the other, then it should form the columns and, thus, should be on the left-hand-side of the formula.  The variable that forms the columns in the age-agreement table will be the \dQuote{constant} age used in the t-tests and age-bias plots (i.e,. the x-axis).  See further details below.
+Generally, one of the two age assessments will be identified as the \dQuote{reference} set.  In some cases this may be the true ages, the ages from the more experience reader, the ages from the first reading, or the ages from the structure gnerally thought to provide the most accurate results.  In other cases, such as comparing two novice readers, the choice may be arbitrary.  The reference ages will form the columns of the age-agreement table and will be the \dQuote{constant} age used in the t-tests and age-bias plots (i.e., the x-axis).  See further details below.
 
-The age-agreement table is constructed with  \code{what="table"} in \code{summary}.  The agreement table can be \dQuote{flipped}, i.e., the rows are in descending rather than ascending order, with \code{flip.table=TRUE}.  By default the tables are shown with zeroes replaced by dashes.  This behavior can be changed with \code{zero.print}.
+The age-agreement table is constructed with  \code{what="table"} in \code{summary}.  The agreement table can be \dQuote{flipped}, i.e., the rows in descending rather than ascending order, with \code{flip.table=TRUE}.  By default, the tables are shown with zeroes replaced by dashes.  This behavior can be changed with \code{zero.print}.
 
-Three statistical tests of the symmetry for the age-agreement table can be computed with \code{what} in \code{summary}.  The \dQuote{unpooled} or Bowker's test as described in Hoenig et al. (1995) is constructed with \code{what="Bowkers"}, the \dQuote{semi-pooled} or Evans-Hoengit test as described in Evans and Hoenig (1998) is constructed with \code{what="EvansHoenig"}, and the \dQuote{pooled} or McNemar's test as described in Evans and Hoenig (1998) is constructed with \code{what="McNemars"}.  All three tests are run simultaneously with \code{what="symmetry"}.
+Three statistical tests of symmetry for the age-agreement table can be computed with \code{what=} in \code{summary}.  The \dQuote{unpooled} or Bowker's test as described in Hoenig et al. (1995) is constructed with \code{what="Bowkers"}, the \dQuote{semi-pooled} or Evans-Hoenig test as described in Evans and Hoenig (1998) is constructed with \code{what="EvansHoenig"}, and the \dQuote{pooled} or McNemar's test as described in Evans and Hoenig (1998) is constructed with \code{what="McNemars"}.  All three tests are run simultaneously with \code{what="symmetry"}.
 
-An age-bias plot, as defined by Campana et al. (1995), is constructed with \code{what="bias"} (the default) in \code{plot}.  The variable that formed the columns in the \code{ageBias} call is plotted on the x-axis.  Confidence intervals plotted in red are computed for the mean of the y-axis variable at each age of the x-axis variable.  The level of confidence is controlled by \code{sig.level} given in the original \code{ageBias} call (i.e., confident level is 100*(1-\code{sig.level}).  Confidence intervals are only shown if the sample size is greater than the value in \code{min.n.CI}.  Vertical lines that connect the minimum to the maximum observed value of the y-axis variable at each age of the x-axis variable are plotted in grey if \code{show.range=TRUE}.  The 1:1 (45 degree) agreement line is shown for comparative purposes.  The sample sizes at each age of the x-axis variable are shown if \code{show.n=TRUE} (the default).  The position of the sample sizes is controlled with \code{nYpos}.
+An age-bias plot, as defined by Campana et al. (1995), is constructed with \code{what="bias"} (the default) in \code{plot}.  The reference variable from the \code{ageBias} call is plotted on the x-axis.  Confidence intervals plotted in red are computed for the mean of the non-reference ages at each age of the reference ages.  The level of confidence is controlled by \code{sig.level=} given in the original \code{ageBias} call (i.e., confidence level is 100*(1-\code{sig.level}).  Confidence intervals are only shown if the sample size is greater than the value in \code{min.n.CI=}.  Vertical lines that connect the minimum to the maximum observed value of the y-axis variable at each age of the x-axis variable are plotted in grey if \code{show.range=TRUE}.  The 1:1 (45 degree) agreement line is shown for comparative purposes.  The sample sizes at each age of the x-axis variable are shown if \code{show.n=TRUE} (the default).  The position of the sample sizes is controlled with \code{nYpos=}.
 
-An age-bias plot, as defined by Muir et al. (2008), is constructed as defined above but by also including \code{difference=TRUE} so that the y-axis is the difference in the paired ages in the rows and columns from the \code{ageBias} call (specifically, columns-rows).
+An age-bias plot, as defined by Muir et al. (2008), is constructed as defined above but by also including \code{difference=TRUE} in \R{plot} so that the y-axis is the difference in the paired reference and non-reference ages from the \code{ageBias} call (specifically, non-reference-reference).
 
 The frequency of observations at each unique (x,y) coordinate are shown is constructed by using \code{what="numbers"} in \code{plot}.
 
 A \dQuote{sunflower plot} which contains a symbol for each unique (x,y) coordinate with as many \dQuote{petals} as observations at that point is constructed with \code{what="sunflower"} in \code{plot}.  A sunflower plot with differences between the two structures can be constructed by also including \code{difference=TRUE}.
 
-Individual t-tests to determine if the mean age of the row variable at a particular age of the column variable is equal to the column variable age (e.g., is the mean age of the row variable at age-3 of the column variable statistically equal to 3?) are constructed with \code{what="bias"} in \code{summary}.  The results provide a column that indicates whether the difference is significant or not as determined by adjusted p-value from the t-test and using the signficance level provided in \code{sig.level} (defaults to 0.05).  Similar results for the difference in ages (e.g., is the mean row variable age minus column variable age at column variable age-3 equal to 0?) are constructed with \code{what="diff.bias"} in \code{summary}.
+Individual t-tests to determine if the mean age of the non-reference set at a particular age of the reference set is equal to the reference age (e.g., is the mean age of the non-reference at age-3 of the reference set statistically equal to 3?) are constructed with \code{what="bias"} in \code{summary}.  The results provide a column that indicates whether the difference is significant or not as determined by adjusted p-value from the t-test and using the signficance level provided in \code{sig.level} (defaults to 0.05).  Similar results for the difference in ages (e.g., is the mean row variable age minus column variable age at column variable age-3 equal to 0?) are constructed with \code{what="diff.bias"} in \code{summary}.
 
 The sample size present in the age-agreement table is found with \code{what="n"}.
 }
@@ -134,7 +135,7 @@ The sample size present in the age-agreement table is found with \code{what="n"}
 }
 \examples{
 data(WhitefishLC)
-ab1 <- ageBias(otolithC~scaleC,data=WhitefishLC,col.lab="Otolith Age",row.lab="Scale Age")
+ab1 <- ageBias(otolithC~scaleC,data=WhitefishLC,ref.lab="Otolith Age",nref.lab="Scale Age")
 summary(ab1)
 summary(ab1,what="symmetry")
 summary(ab1,what="Bowkers")
