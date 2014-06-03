@@ -1,7 +1,9 @@
 # FSA 0.4.13 ongoing
 
 * `ageBias()`: Modified.  Deprecated `col.lab=` and `row.lab=` and replaced with `ref.lab=` and `nref.lab=`.  Moved all functions that were internal to main functions to being internal to the package.  In the process, I changed the names of the internal functions slightly, made explicit the argument passing, and added internal descriptions of the internal files.  Changed several if else strings in the plot method to a `switch()`.
+* `agePrecision()`: Modified.  Changed some messages so they were not as wide.
 * `hndlFormula()`: Modified.  Fixed bug with expected number of response variables value in return list.
+* `SpotVA1`: Modified.  Updated reference.
 
 
 # FSA 0.4.12 May14

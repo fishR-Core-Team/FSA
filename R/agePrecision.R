@@ -175,7 +175,7 @@ summary.agePrec <- function(object,what=c("precision","difference","absolute dif
   }
   if ("absolute difference" %in% what) {
     tmp <- object$absdiff
-    msg <- "of fish by absolute differences in ages between pairs of assignments\n"
+    msg <- "of fish by absolute differences in ages\n between pairs of assignments\n"
     if (percent) {
       msg <- paste("Percentage",msg)
       # need to check if 1-D, then handle as a vector
@@ -188,7 +188,7 @@ summary.agePrec <- function(object,what=c("precision","difference","absolute dif
   }  
   if ("difference" %in% what) {
     tmp <- object$rawdiff
-    msg <- "of fish by differences in ages between pairs of assignments\n"
+    msg <- "of fish by differences in ages\n between pairs of assignments\n"
     if (percent) {
       msg <- paste("Percentage",msg)
       # need to check if 1-D, then handle as a vector

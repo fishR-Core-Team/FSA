@@ -387,7 +387,7 @@ iEvansHoenig <- function(obj) {
 # This internal function is used to find appropriate axis limits for the age-bias
 #   plot.  This is called by 
 #===============================================================================
-abAxisLmts <- function(d,xlim,ylim,show.n,difference) {
+iabAxisLmts <- function(d,xlim,ylim,show.n,difference) {
   if (!is.null(xlim)) xlmt <- xlim
   else xlmt <- range(d[,1],na.rm=TRUE)
   if (!is.null(ylim)) ylmt <- ylim
@@ -412,7 +412,7 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,show.pts,pch.pts,
   if (!difference) d <- obj$bias
   else d <- obj$bias.diff
   # Control the axis limits (especially if none are given)
-  axlmts <- abAxisLmts(d,xlim,ylim,show.n,difference)  
+  axlmts <- iabAxisLmts(d,xlim,ylim,show.n,difference)  
   # Plot more tick marks    
   par(lab=c(length(d[,1]),length(d$mean),7))    
   # Mean of 2nd vs. 1st age range
