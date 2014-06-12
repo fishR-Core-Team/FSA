@@ -13,7 +13,7 @@ growthModels(...)
 A graphic that uses \code{plotmath} to show the model formulas in a pretty format. \code{vbModels()} shows just the von Bertalanffy models.
 }
 \description{
-Show the growth model formulas implemented in \code{\link{vbFuns}}, \code{\link{vbStarts}}, and \code{growthModelSim} in \pkg{FSATeach}.
+Show the growth model formulas implemented in \code{\link{vbFuns}}, \code{\link{vbStarts}}, and \code{growthModelSim}.
 }
 \examples{
 growthModels()
@@ -23,7 +23,7 @@ vbModels()
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-\code{\link{vbFuns}}, \code{\link{vbStarts}}, and \code{\link{growthModelSim}}
+See \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations and \code{\link{vbStarts}} and \code{\link{growthModelSim}} for methods to find starting values.
 }
 \keyword{hplot}
 \keyword{manip}

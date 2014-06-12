@@ -1,23 +1,24 @@
-#'Age and length of spot.
+#' @title Age and length of spot.
 #'
-#'Ages (from otoliths) and length of Virginia Spot (\emph{Leiostomus xanthurus}).
+#' @description Ages (from otoliths) and length of Virginia Spot (\emph{Leiostomus xanthurus}).
 #'
-#'Final length measurements were simulated by adding a uniform error to the value at the beginning of the length category.
+#' @details Final length measurements were simulated by adding a uniform error to the value at the beginning of the length category.
 #'
 #' @name SpotVA1
 #'
 #' @docType data
 #'
 #' @format A data frame of 403 observations on the following 2 variables:
-#'\describe{
-#' \item{tl}{Measured total lengths (in inches).} 
-#' \item{age}{Ages assigned from examination of otoliths.} 
-#'}
+#'  \describe{
+#'    \item{tl}{Measured total lengths (in inches).} 
+#'    \item{age}{Ages assigned from examination of otoliths.} 
+#'  }
 #'
-#' @section Topic(s): \itemize{
-#' \item Growth
-#' \item von Bertalanffy
-#'}
+#' @section Topic(s):
+#'  \itemize{
+#'    \item Growth
+#'    \item von Bertalanffy
+#'  }
 #'
 #' @concept Growth 'von Bertalanffy'
 #'

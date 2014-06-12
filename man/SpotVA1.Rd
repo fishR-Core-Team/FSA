@@ -4,12 +4,12 @@
 \alias{SpotVA1}
 \title{Age and length of spot.}
 \format{A data frame of 403 observations on the following 2 variables:
-\describe{
-\item{tl}{Measured total lengths (in inches).}
-\item{age}{Ages assigned from examination of otoliths.}
-}}
+ \describe{
+   \item{tl}{Measured total lengths (in inches).}
+   \item{age}{Ages assigned from examination of otoliths.}
+ }}
 \source{
-Extracted from Table 1 in Chapter 8 of the \href{http://ww2.odu.edu/sci/cqfe/}{Virginia Marine Resources Commissions's} Final Report on finfish ageing, 2002.
+Extracted from Table 1 in Chapter 8 (Spot) of the VMRC Final Report on Finfish Ageing, 2002 by the \href{http://ww2.odu.edu/sci/cqfe/}{Center for Quantitative Fisheries Ecology} at Old Dominion University.
 }
 \description{
 Ages (from otoliths) and length of Virginia Spot (\emph{Leiostomus xanthurus}).
@@ -18,10 +18,11 @@ Ages (from otoliths) and length of Virginia Spot (\emph{Leiostomus xanthurus}).
 Final length measurements were simulated by adding a uniform error to the value at the beginning of the length category.
 }
 \section{Topic(s)}{
+
  \itemize{
-\item Growth
-\item von Bertalanffy
-}
+   \item Growth
+   \item von Bertalanffy
+ }
 }
 \examples{
 data(SpotVA1)

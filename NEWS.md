@@ -4,6 +4,7 @@
 * `agePrecision()`: Modified.  Changed some messages so they were not as wide.
 * `hndlFormula()`: Modified.  Fixed bug with expected number of response variables value in return list.
 * `SpotVA1`: Modified.  Updated reference.
+* `vbStarts()`: Modified.  Changed `tFrancis=` to `ages2use=`.  Changed the Schnute method to use the ages in `ages2use=` rather than being hard-wired to use the minimum and maximum observed age.  Both the Schnute and Francis methods will use the minimum and maximum observed ages if `ages2use=NULL`.
 
 
 # FSA 0.4.12 May14

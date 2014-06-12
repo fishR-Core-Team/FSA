@@ -3,13 +3,13 @@
 \alias{vbStarts}
 \alias{vbStarts.default}
 \alias{vbStarts.formula}
-\title{Finds reasonable starting values for the parameters in a specific von Bertalanffy model parameterization.}
+\title{Find reasonable starting values for a von Bertalanffy model.}
 \usage{
 vbStarts(age, ...)
 
 \method{vbStarts}{default}(age, len, type = c("typical", "original",
   "BevertonHolt", "Francis", "GallucciQuinn", "Mooij", "Schnute", "Somers",
-  "Somers2", "vonBertalanffy"), tFrancis = NULL, methEV = c("poly",
+  "Somers2", "vonBertalanffy"), ages2use = NULL, methEV = c("poly",
   "means"), meth0 = c("poly", "yngAge"), plot = FALSE, ...)
 
 \method{vbStarts}{formula}(age, data = NULL, ...)
@@ -23,7 +23,7 @@ vbStarts(age, ...)
 
 \item{type}{A string that indicates the parameterization of the von Bertalanffy model.}
 
-\item{tFrancis}{A numerical vector of the three ages to be used in the Francis paramaterization.  See details.}
+\item{ages2use}{A numerical vector of the two ages to be used in the Schnute or Francis paramaterizations.  See details.}
 
 \item{methEV}{A string that indicates how the lengths of the two ages in the Schnute paramaterization or the three ages in the Francis paramaterization should be derived.  See details.}
 
@@ -42,13 +42,11 @@ Finds reasonable starting values for the parameters in a specific von Bertalanff
 \details{
 This function attempts to find reasonable starting values for a variety of parameterizations of the von Bertalanffy growth model.  There is no guarantee that these starting values are the \sQuote{best} starting values.  One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.
 
-The Linf and K paramaters are estimated via the common method of a Ford-Walford plot.  The product of the starting values for Linf and K is used as a starting value for omega in the Gallucci and Quinn and Mooij et al. methods.
+The Linf and K paramaters are estimated via the Ford-Walford plot (see \code{\link{walfordPlot}}.  The product of the starting values for Linf and K is used as a starting value for omega in the Gallucci and Quinn and Mooij et al. methods.
 
-If \code{meth0="yngAge"} then a starting value for t0 is found by algebraically solving the typical paramaterization model for t0 using the first age with more than one data point.  If \code{meth0="poly"} then a starting value for t0 is set equal to the root of the second-degree polynomial model fit to the mean length-at-age data that is closest to zero.
+If \code{meth0="yngAge"} then a starting value for t0 or L0 is found by algebraically solving the typical or original paramaterization model, respectively, for t0 or L0 using the first age with more than one data point.  If \code{meth0="poly"} then a second-degree polynomial model is fit to the mean length-at-age data.  The t0 starting value is set equal to the root of the polynomial that is closest to zero.  The L0 starting value is set equal to the mean length at age-0 predicted from the polynomial.
 
-If \code{meth0="yngAge"} then a starting value for L0 is found by algebraically solving the original paramaterization model for t0 using the first age with more than one data point.  If \code{meth0="poly"} then a starting value for L0 is set equal to the mean length at age-0 predicted from the second-degree polynomial model fit to the mean length-at-age data.
-
-Starting values for the L1 and L2 parameters in the Schnute paramaterization and the L1, L2, and L3 parameters in the Francis parameterization can be found in two ways.  If \code{methEV="poly"} then the mean lengths are predicted from a second-degree polynomial fit to the mean length-at-age data.  If \code{methEV="means"} then the observed sample means at the corresponding ages are used.  In the case where one of the supplied ages is fractional then the value returned will be linear interpolated between the mean lengths of the two closest ages.  Note that the Schnute method always uses the minimum and maximum ages to define L1 and L2, respectively, whereas the ages used for the Francis method must be supplied as a numerical vector of length three in \code{tFrancis}.  An error will occur if \code{methEV="means"} and \code{tFrancis=NULL}.  In addition, a warning will be given if L2<L1 for the Schnute method or if L2<L1 or L3<L2 for the Francis method.
+Starting values for the L1 and L2 parameters in the Schnute paramaterization and the L1, L2, and L3 parameters in the Francis parameterization can be found in two ways.  If \code{methEV="poly"} then the starting values are the predicted length-at-age from a second-degree polynomial fit to the mean length-at-age data.  If \code{methEV="means"} then the observed sample means at the corresponding ages are used.  In the case where one of the supplied ages is fractional then the value returned will be linearly interpolated between the mean lengths of the two closest ages.  The ages to be used for L1 and L2 in the Schnute method and L1 and L3 in the Francis method are supplied as a numeric vector of length 2 in \code{ages2use=}.  If \code{ages2use=NULL} then the minimum and maximum observed ages will be used.  In the Francis method, L2 will correspond to the age half-way between the two ages in \code{ages2use=}.  A warning will be given if L2<L1 for the Schnute method or if L2<L1 or L3<L2 for the Francis method.
 }
 \note{
 The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} versions are synonomous.
@@ -60,7 +58,7 @@ The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \
 ## Simple Examples
 data(SpotVA1)
 vbStarts(tl~age,data=SpotVA1)
-vbStarts(tl~age,data=SpotVA1,type="Francis",tFrancis=c(0,5))
+vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5))
 
 ## Simple Example with a Plot
 vbStarts(tl~age,data=SpotVA1,type="GallucciQuinn",plot=TRUE)
@@ -84,7 +82,7 @@ Schnute, J.  1981.  A versatile growth model with statistically stable parameter
 Somers, I. F. 1988. On a seasonally oscillating growth function. Fishbyte 6(1):8-11.  \url{http://www.worldfishcenter.org/Naga/na_2914.pdf}
 }
 \seealso{
-\code{\link{growthModels}}, \code{\link{vbFuns}}, and \code{\link{growthModelSim}}
+See \code{\link{growthModels}} and \code{\link{vbModels}} for a list of models and parameterizations used in \pkg{FSA}, \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations, \code{\link{walfordPlot}} for a common method to estimate Linf and K, and \code{\link{growthModelSim}} for a graphical method to determine starting values.
 }
 \keyword{manip}
 

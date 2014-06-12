@@ -1,6 +1,6 @@
-#'Show the growth model formulas implemented in the FSA package.
+#' @title Show the growth model formulas implemented in the FSA package.
 #'
-#'Show the growth model formulas implemented in \code{\link{vbFuns}}, \code{\link{vbStarts}}, and \code{growthModelSim} in \pkg{FSATeach}.
+#' @description Show the growth model formulas implemented in \code{\link{vbFuns}}, \code{\link{vbStarts}}, and \code{growthModelSim}.
 #'
 #' @aliases growthModels vbModels
 #'
@@ -10,7 +10,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{\link{vbFuns}}, \code{\link{vbStarts}}, and \code{\link{growthModelSim}}
+#' @seealso See \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations and \code{\link{vbStarts}} and \code{\link{growthModelSim}} for methods to find starting values.
 #'
 #' @keywords manip hplot
 #'

@@ -1,6 +1,6 @@
-#'Constructs Ford-Walford and Chapman plots for mean length-at-age data.
+#' @title Constructs Ford-Walford and Chapman plots for mean length-at-age data.
 #'
-#'Constructs Ford-Walford and Chapman plots for mean length-at-age data and computes estimates of asymptotic mean length (Linf) and the Brody growth coefficient (K).
+#' @description Constructs Ford-Walford and Chapman plots for mean length-at-age data and computes estimates of asymptotic mean length (Linf) and the Brody growth coefficient (K).
 #'
 #' @aliases walfordPlot walfordPlot.default walfordPlot.formula chapmanPlot chapmanPlot.default chapmanPlot.formula
 #'

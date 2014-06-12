@@ -1,6 +1,6 @@
-#'Creates a function for a specific von Bertalanffy parameterization.
+#' @title Creates a function for a specific von Bertalanffy parameterization.
 #'
-#'Creates a function for a specific von Bertalanffy model parameterization.
+#' @description Creates a function for a specific von Bertalanffy model parameterization.
 #'
 #' @param type A string that indicates the parameterization of the von Bertalanffy model.
 #' @param simple A logical that indicates whether the user should be allowed to send all parameter values in the first parameter argument (\code{=FALSE}; default) or whether all individual parameters must be specified (\code{=TRUE}).
@@ -13,7 +13,7 @@
 #'
 #' @note The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} versions are synonomous.
 #'
-#' @seealso \code{\link{growthModelSim}}.
+#' @seealso See \code{\link{vbModels}} and \code{\link{growthModels}} for a list of models and parameterizations used in \pkg{FSA} and \code{\link{vbStarts}} and \code{\link{growthModelSim}} for methods to find starting values.
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffy.pdf}, \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffyExtra.pdf}
 #'
@@ -63,7 +63,7 @@
 #'
 #'# Fitting the Francis paramaterization of the von B function
 #'fit2 <- nls(tl~vb2(age,L1,L2,L3,t1=0,t3=5),data=SpotVA1,
-#'  start=vbStarts(tl~age,data=SpotVA1,type="Francis",tFrancis=c(0,5)))
+#'  start=vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5)))
 #'summary(fit2,correlation=TRUE)
 #'## showing how the coefficients and t values can be sent to the first arguments
 #'curve(vb2(x,L1=coef(fit2),t1=c(0,5)),from=0,to=5,col="blue",lwd=5,add=TRUE)

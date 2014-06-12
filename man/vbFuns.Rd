@@ -56,7 +56,7 @@ curve(vb1(x,Linf=coef(fit1)[1],K=coef(fit1)[2],t0=coef(fit1)[3]),from=0,to=5,
 
 # Fitting the Francis paramaterization of the von B function
 fit2 <- nls(tl~vb2(age,L1,L2,L3,t1=0,t3=5),data=SpotVA1,
- start=vbStarts(tl~age,data=SpotVA1,type="Francis",tFrancis=c(0,5)))
+ start=vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5)))
 summary(fit2,correlation=TRUE)
 ## showing how the coefficients and t values can be sent to the first arguments
 curve(vb2(x,L1=coef(fit2),t1=c(0,5)),from=0,to=5,col="blue",lwd=5,add=TRUE)
@@ -90,7 +90,7 @@ Somers, I. F. 1988. On a seasonally oscillating growth function. Fishbyte 6(1):8
 Wang, Y.-G.  1998.  An improved Fabens method for estimation of growth parameters in the von Bertalanffy model with individual asymptotes.  Canadian Journal of Fisheries and Aquatic Sciences 55:397-400.
 }
 \seealso{
-\code{\link{growthModelSim}}.
+See \code{\link{vbModels}} and \code{\link{growthModels}} for a list of models and parameterizations used in \pkg{FSA} and \code{\link{vbStarts}} and \code{\link{growthModelSim}} for methods to find starting values.
 }
 \keyword{manip}
 
