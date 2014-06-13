@@ -3,9 +3,9 @@
 \alias{vbFuns}
 \title{Creates a function for a specific von Bertalanffy parameterization.}
 \usage{
-vbFuns(type = c("typical", "original", "BevertonHolt", "Fabens", "Fabens2",
-  "Francis", "GallucciQuinn", "Laslett", "Mooij", "Schnute", "Somers",
-  "Somers2", "vonBertalanffy", "Wang", "Wang2"), simple = FALSE,
+vbFuns(type = c("typical", "BevertonHolt", "original", "vonBertalanffy",
+  "GallucciQuinn", "Mooij", "Schnute", "Francis", "Laslett", "Fabens",
+  "Fabens2", "Somers", "Somers2", "Wang", "Wang2"), simple = FALSE,
   msg = FALSE)
 }
 \arguments{
@@ -24,7 +24,7 @@ If \code{simple=FALSE} was used then the values for all three parameters can be 
 Creates a function for a specific von Bertalanffy model parameterization.
 }
 \note{
-The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} versions are synonomous.
+The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} versions are synonymous.
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffy.pdf}, \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffyExtra.pdf}
@@ -63,8 +63,8 @@ curve(vb2(x,L1=coef(fit2),t1=c(0,5)),from=0,to=5,col="blue",lwd=5,add=TRUE)
 
 # Fitting the Schnute parameterization of the von B function
 vb3 <- vbFuns("Schnute")
-fit3 <- nls(tl~vb3(age,L1,L2,K,t1=0,t2=4),data=SpotVA1,
- start=vbStarts(tl~age,data=SpotVA1,type="Schnute"))
+fit3 <- nls(tl~vb3(age,L1,L3,K,t1=0,t3=4),data=SpotVA1,
+ start=vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,4)))
 summary(fit3,correlation=TRUE)
 curve(vb3(x,L1=coef(fit3),t1=c(0,4)),from=0,to=5,col="green",lwd=2,add=TRUE)
 }

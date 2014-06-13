@@ -130,9 +130,9 @@ ageBias <- function(formula,data,ref.lab=col.lab,nref.lab=row.lab,
                     col.lab=tmp$Rname,row.lab=tmp$Enames[1]) {
   tmp <- hndlFormula(formula,data,expNumR=1,expNumE=1)
   if (!tmp$metExpNumR) stop("'ageBias' must have only one LHS variable.",call.=FALSE)
-  if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric",call.=FALSE)
+  if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
   if (!tmp$metExpNumE) stop("'ageBias' must have only one RHS variable.",call.=FALSE)
-  if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable must be numeric",call.=FALSE)
+  if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable must be numeric.",call.=FALSE)
   # sample size
   n <- nrow(tmp$mf)
   # get variable names, separately and together

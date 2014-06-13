@@ -8,29 +8,19 @@
 \alias{walfordPlot.formula}
 \title{Constructs Ford-Walford and Chapman plots for mean length-at-age data.}
 \usage{
-walfordPlot(age, ...)
-
-\method{walfordPlot}{default}(age, len, xlab = expression(L[t]),
+walfordPlot(formula, data = NULL, xlab = expression(L[t]),
   ylab = expression(L[t + 1]), colLS = "blue", colRL = "red", lwdLS = 2,
   lwdRL = 2, ltyLS = 1, ltyRL = 2, pch = 19, col = "black",
   pchLinf = 9, colLinf = "red", cexLinf = 1.5, showLS = TRUE,
   showVB = TRUE, ...)
 
-\method{walfordPlot}{formula}(age, data = NULL, ...)
-
-chapmanPlot(age, ...)
-
-\method{chapmanPlot}{default}(age, len, xlab = expression(L[t]),
+chapmanPlot(formula, data = NULL, xlab = expression(L[t]),
   ylab = expression(L[t + 1] - L[t]), colLS = "blue", ltyLS = 1,
   lwdLS = 2, pch = 19, col = "black", pchLinf = 9, colLinf = "red",
   cexLinf = 1.5, showLS = TRUE, showVB = TRUE, ...)
-
-\method{chapmanPlot}{formula}(age, data = NULL, ...)
 }
 \arguments{
-\item{age}{Either a numeric vector of lengths ages or a formula of the form \code{len~age}.}
-
-\item{len}{A numeric vector of observed lengths.  Ignored if \code{age} is a formula.}
+\item{formula}{A formula of the form \code{len~age}.}
 
 \item{data}{A data frame in which \code{age} and \code{len} can be found.}
 

@@ -4,17 +4,16 @@
 #' 
 #' @details This function attempts to find reasonable starting values for a variety of parameterizations of the von Bertalanffy growth model.  There is no guarantee that these starting values are the \sQuote{best} starting values.  One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.
 #' 
-#' The Linf and K paramaters are estimated via the Ford-Walford plot (see \code{\link{walfordPlot}}.  The product of the starting values for Linf and K is used as a starting value for omega in the Gallucci and Quinn and Mooij et al. methods.
+#' The Linf and K paramaters are estimated via the Ford-Walford plot (see \code{\link{walfordPlot}}.  The product of the starting values for Linf and K is used as a starting value for omega in the GallucciQuinn and Mooij parameterizations.
 #' 
-#' If \code{meth0="yngAge"} then a starting value for t0 or L0 is found by algebraically solving the typical or original paramaterization model, respectively, for t0 or L0 using the first age with more than one data point.  If \code{meth0="poly"} then a second-degree polynomial model is fit to the mean length-at-age data.  The t0 starting value is set equal to the root of the polynomial that is closest to zero.  The L0 starting value is set equal to the mean length at age-0 predicted from the polynomial.
+#' If \code{meth0="yngAge"} then a starting value for t0 or L0 is found by algebraically solving the typical or original paramaterizations, respectively, for t0 or L0 using the first age with more than one data point.  If \code{meth0="poly"} then a second-degree polynomial model is fit to the mean length-at-age data.  The t0 starting value is set equal to the root of the polynomial that is closest to zero.  The L0 starting value is set equal to the mean length at age-0 predicted from the polynomial.
 #' 
-#' Starting values for the L1 and L2 parameters in the Schnute paramaterization and the L1, L2, and L3 parameters in the Francis parameterization can be found in two ways.  If \code{methEV="poly"} then the starting values are the predicted length-at-age from a second-degree polynomial fit to the mean length-at-age data.  If \code{methEV="means"} then the observed sample means at the corresponding ages are used.  In the case where one of the supplied ages is fractional then the value returned will be linearly interpolated between the mean lengths of the two closest ages.  The ages to be used for L1 and L2 in the Schnute method and L1 and L3 in the Francis method are supplied as a numeric vector of length 2 in \code{ages2use=}.  If \code{ages2use=NULL} then the minimum and maximum observed ages will be used.  In the Francis method, L2 will correspond to the age half-way between the two ages in \code{ages2use=}.  A warning will be given if L2<L1 for the Schnute method or if L2<L1 or L3<L2 for the Francis method.
+#' Starting values for the L1 and L3 parameters in the Schnute paramaterization and the L1, L2, and L3 parameters in the Francis parameterization can be found in two ways.  If \code{methEV="poly"} then the starting values are the predicted length-at-age from a second-degree polynomial fit to the mean length-at-age data.  If \code{methEV="means"} then the observed sample means at the corresponding ages are used.  In the case where one of the supplied ages is fractional then the value returned will be linearly interpolated between the mean lengths of the two closest ages.  The ages to be used for L1 and L3 in the Schnute and Francis parameterizations are supplied as a numeric vector of length 2 in \code{ages2use=}.  If \code{ages2use=NULL} then the minimum and maximum observed ages will be used.  In the Francis method, L2 will correspond to the age half-way between the two ages in \code{ages2use=}.  A warning will be given if L2<L1 for the Schnute method or if L2<L1 or L3<L2 for the Francis method.
 #' 
-#' @aliases vbStarts vbStarts.default vbStarts.formula
+#' @aliases vbStarts
 #' 
-#' @param age Either a vector of observed ages or a formula of the form \code{len~age}.
-#' @param len A vector of observed lengths.
-#' @param data A data frame from which the vectors of observed ages and lengths can be found if a formula is used.
+#' @param formula A formula of the form \code{len~age}.
+#' @param data A data frame that contains the variables in \code{formula}.
 #' @param type A string that indicates the parameterization of the von Bertalanffy model.
 #' @param ages2use A numerical vector of the two ages to be used in the Schnute or Francis paramaterizations.  See details.
 #' @param methEV A string that indicates how the lengths of the two ages in the Schnute paramaterization or the three ages in the Francis paramaterization should be derived.  See details.
@@ -26,7 +25,7 @@
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
-#' @note The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} versions are synonomous.
+#' @note The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} parameterizations are synonymous.
 #' 
 #' @seealso See \code{\link{growthModels}} and \code{\link{vbModels}} for a list of models and parameterizations used in \pkg{FSA}, \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations, \code{\link{walfordPlot}} for a common method to estimate Linf and K, and \code{\link{growthModelSim}} for a graphical method to determine starting values.
 #' 
@@ -56,20 +55,23 @@
 #' 
 #' ## See examples in vbFuns() for use of vbStarts() when fitting Von B models
 #' 
-#' @rdname vbStarts
 #' @export
-vbStarts <- function(age, ...) {
-  UseMethod("vbStarts") 
-}
-
-#' @rdname vbStarts
-#' @export
-vbStarts.default <- function(age,len,type=c("typical","original","BevertonHolt",
-                                            "Francis","GallucciQuinn","Mooij",
-                                            "Schnute","Somers","Somers2",
-                                            "vonBertalanffy"),
-                             ages2use=NULL,methEV=c("poly","means"),
-                             meth0=c("poly","yngAge"),plot=FALSE,...) {
+vbStarts <- function(formula,data=NULL,
+                     type=c("typical","BevertonHolt","original","vonBertalanffy",
+                            "GallucciQuinn","Mooij","Schnute","Francis",
+                            "Somers","Somers2"),
+                     ages2use=NULL,methEV=c("poly","means"),meth0=c("poly","yngAge"),
+                     plot=FALSE,...) {
+  # some checks and handle the formula
+  type <- match.arg(type)
+  tmp <- hndlFormula(formula,data,expNumR=1,expNumE=1)
+  if (!tmp$metExpNumR) stop("'vbStarts' must have only one LHS variable.",call.=FALSE)
+  if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
+  if (!tmp$metExpNumE) stop("'vbStarts' must have only one RHS variable.",call.=FALSE)
+  if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable must be numeric.",call.=FALSE)
+  # get the length and age vectors
+  len <- tmp$mf[,tmp$Rname[1]]
+  age <- tmp$mf[,tmp$Enames[1]]
   x <- NULL  # attempting to get by bindings warning in RCMD CHECK
   # mean lengths-at-age
   meanL <- tapply(len,age,mean)
@@ -126,7 +128,7 @@ vbStarts.default <- function(age,len,type=c("typical","original","BevertonHolt",
       ) # end 'methEv' switch
       if (any(diff(vals)<=0)) warning("At least one of the starting values for an older age\n  is smaller than the starting value for a younger age.",call.=FALSE)
       attributes(vals) <- NULL
-      ifelse(type=="Schnute",sv <- list(L1=vals[1],L2=vals[2],K=sK),sv <- list(L1=vals[1],L2=vals[2],L3=vals[3]))
+      ifelse(type=="Schnute",sv <- list(L1=vals[1],L3=vals[2],K=sK),sv <- list(L1=vals[1],L2=vals[2],L3=vals[3]))
     },
     Somers={ sv <- list(Linf=sLinf,K=sK,t0=st0,C=0.9,ts=0.1)   },
     Somers2={ sv <- list(Linf=sLinf,K=sK,t0=st0,C=0.9,WP=0.9)   }
@@ -146,13 +148,4 @@ vbStarts.default <- function(age,len,type=c("typical","original","BevertonHolt",
   }
   # return starting values list
   sv
-}
-
-#' @rdname vbStarts
-#' @export
-vbStarts.formula <- function(age,data=NULL,...) {
-  mf <- model.frame(age,data)
-  x <- mf[,2]
-  y <- mf[,1]
-  vbStarts.default(x,y,,...)
 }

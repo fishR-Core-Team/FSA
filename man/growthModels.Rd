@@ -16,6 +16,7 @@ A graphic that uses \code{plotmath} to show the model formulas in a pretty forma
 Show the growth model formulas implemented in \code{\link{vbFuns}}, \code{\link{vbStarts}}, and \code{growthModelSim}.
 }
 \examples{
+\dontrun{windows(8,5)}
 growthModels()
 vbModels()
 }

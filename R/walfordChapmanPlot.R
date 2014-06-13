@@ -4,8 +4,7 @@
 #'
 #' @aliases walfordPlot walfordPlot.default walfordPlot.formula chapmanPlot chapmanPlot.default chapmanPlot.formula
 #'
-#' @param age Either a numeric vector of lengths ages or a formula of the form \code{len~age}.
-#' @param len A numeric vector of observed lengths.  Ignored if \code{age} is a formula.
+#' @param formula A formula of the form \code{len~age}.
 #' @param data A data frame in which \code{age} and \code{len} can be found.
 #' @param xlab A string for labeling the x-axis.
 #' @param ylab A string for labeling the y-axis.
@@ -39,13 +38,21 @@
 #'
 #' @rdname walfordChapmanPlot
 #' @export
-walfordPlot <- function(age,...) {
-  UseMethod("walfordPlot")  
-}
-
-#' @rdname walfordChapmanPlot
-#' @export
-walfordPlot.default <- function(age,len,xlab=expression(L[t]),ylab=expression(L[t+1]),colLS="blue",colRL="red",lwdLS=2,lwdRL=2,ltyLS=1,ltyRL=2,pch=19,col="black",pchLinf=9,colLinf="red",cexLinf=1.5,showLS=TRUE,showVB=TRUE,...) {
+walfordPlot <- function(formula,data=NULL,
+                        xlab=expression(L[t]),ylab=expression(L[t+1]),
+                        colLS="blue",colRL="red",lwdLS=2,lwdRL=2,ltyLS=1,ltyRL=2,
+                        pch=19,col="black",pchLinf=9,colLinf="red",cexLinf=1.5,
+                        showLS=TRUE,showVB=TRUE,...) {
+  # some checks and handle the formula
+  tmp <- hndlFormula(formula,data,expNumR=1,expNumE=1)
+  if (!tmp$metExpNumR) stop("'walfordPlot' must have only one LHS variable.",call.=FALSE)
+  if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
+  if (!tmp$metExpNumE) stop("'walfordPlot' must have only one RHS variable.",call.=FALSE)
+  if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable must be numeric.",call.=FALSE)
+  # get the length and age vectors
+  len <- tmp$mf[,tmp$Rname[1]]
+  age <- tmp$mf[,tmp$Enames[1]]
+  # mean lengths-at-age
   meanL <- tapply(len,age,mean,na.rm=TRUE)
   Lt1 <- meanL[-1]
   Lt <- meanL[-length(meanL)]
@@ -64,20 +71,21 @@ walfordPlot.default <- function(age,len,xlab=expression(L[t]),ylab=expression(L[
 
 #' @rdname walfordChapmanPlot
 #' @export
-walfordPlot.formula <- function(age,data=NULL,...) {
-  mf <- model.frame(age,data)
-  walfordPlot.default(mf[,2],mf[,1],...)
-}
-
-#' @rdname walfordChapmanPlot
-#' @export chapmanPlot
-chapmanPlot <- function(age,...) {
-  UseMethod("chapmanPlot")  
-}
-
-#' @rdname walfordChapmanPlot
-#' @export
-chapmanPlot.default <- function(age,len,xlab=expression(L[t]),ylab=expression(L[t+1]-L[t]),colLS="blue",ltyLS=1,lwdLS=2,pch=19,col="black",pchLinf=9,colLinf="red",cexLinf=1.5,showLS=TRUE,showVB=TRUE,...) {
+chapmanPlot <- function(formula,data=NULL,
+                        xlab=expression(L[t]),ylab=expression(L[t+1]-L[t]),
+                        colLS="blue",ltyLS=1,lwdLS=2,
+                        pch=19,col="black",pchLinf=9,colLinf="red",cexLinf=1.5,
+                        showLS=TRUE,showVB=TRUE,...) {
+  # some checks and handle the formula
+  tmp <- hndlFormula(formula,data,expNumR=1,expNumE=1)
+  if (!tmp$metExpNumR) stop("'walfordPlot' must have only one LHS variable.",call.=FALSE)
+  if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
+  if (!tmp$metExpNumE) stop("'walfordPlot' must have only one RHS variable.",call.=FALSE)
+  if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable must be numeric.",call.=FALSE)
+  # get the length and age vectors
+  len <- tmp$mf[,tmp$Rname[1]]
+  age <- tmp$mf[,tmp$Enames[1]]
+  # mean lengths-at-age  
   meanL <- tapply(len,age,mean,na.rm=TRUE)
   dLt <- diff(meanL)
   Lt <- meanL[-length(meanL)]
@@ -92,11 +100,4 @@ chapmanPlot.default <- function(age,len,xlab=expression(L[t]),ylab=expression(L[
   if (showLS) legend("bottomleft",legend=c(paste("slope =",formatC(b,digits=3,format="f")),paste("intercept =",formatC(a,digits=1,format="f"))),bty="n")
   if (showVB) legend("topright",legend=c(paste("Linf =",formatC(Linf,digits=1,format="f")),paste("K =",formatC(K,digits=3,format="f"))),bty="n")
   points(Linf,0,pch=pchLinf,cex=cexLinf,col=colLinf)
-}
-
-#' @rdname walfordChapmanPlot
-#' @export
-chapmanPlot.formula <- function(age,data=NULL,...) {
-  mf <- model.frame(age,data)
-  chapmanPlot.default(mf[,2],mf[,1],...)
 }

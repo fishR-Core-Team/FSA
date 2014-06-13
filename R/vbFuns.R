@@ -11,7 +11,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
-#' @note The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} versions are synonomous.
+#' @note The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} versions are synonymous.
 #'
 #' @seealso See \code{\link{vbModels}} and \code{\link{growthModels}} for a list of models and parameterizations used in \pkg{FSA} and \code{\link{vbStarts}} and \code{\link{growthModelSim}} for methods to find starting values.
 #'
@@ -70,15 +70,16 @@
 #'
 #'# Fitting the Schnute parameterization of the von B function
 #'vb3 <- vbFuns("Schnute")
-#'fit3 <- nls(tl~vb3(age,L1,L2,K,t1=0,t2=4),data=SpotVA1,
-#'  start=vbStarts(tl~age,data=SpotVA1,type="Schnute"))
+#'fit3 <- nls(tl~vb3(age,L1,L3,K,t1=0,t3=4),data=SpotVA1,
+#'  start=vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,4)))
 #'summary(fit3,correlation=TRUE)
 #'curve(vb3(x,L1=coef(fit3),t1=c(0,4)),from=0,to=5,col="green",lwd=2,add=TRUE)
 #'
 #' @export
-vbFuns <- function(type=c("typical","original","BevertonHolt","Fabens","Fabens2",
-                          "Francis","GallucciQuinn","Laslett","Mooij","Schnute",
-                          "Somers","Somers2","vonBertalanffy","Wang","Wang2"),
+vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
+                          "GallucciQuinn","Mooij","Schnute","Francis",
+                          "Laslett",
+                          "Fabens","Fabens2","Somers","Somers2","Wang","Wang2"),
                    simple=FALSE,msg=FALSE) {
   typical <- BevertonHolt <- function(t,Linf,K=NULL,t0=NULL) {
         if (length(Linf)==3) {
@@ -132,24 +133,24 @@ vbFuns <- function(type=c("typical","original","BevertonHolt","Fabens","Fabens2"
   SMooij <- function(t,Linf,L0,omega) {
          Linf-(Linf-L0)*exp(-(omega/Linf)*t)
   }
-  Schnute <- function(t,L1,L2=NULL,K=NULL,t1,t2=NULL) {
+  Schnute <- function(t,L1,L3=NULL,K=NULL,t1,t3=NULL) {
          if (length(L1)==3) {
-           L2 <- L1[2]
+           L3 <- L1[2]
            K <- L1[3]
            L1 <- L1[1]
-         } else if (length(L1)!=1 | is.null(L2) | is.null(K)) {
-           stop("One or more model parameters (L1, L2, K) are missing or incorrect.",call.=FALSE)
+         } else if (length(L1)!=1 | is.null(L3) | is.null(K)) {
+           stop("One or more model parameters (L1, L3, K) are missing or incorrect.",call.=FALSE)
          }
          if (length(t1)==2) {
-           t2 <- t1[2]
+           t3 <- t1[2]
            t1 <- t1[1]
-         } else if (length(t1)!=1 | is.null(t2)) {
-           stop("One or more model definitions (t1, t2) are missing or incorrect.",call.=FALSE)
+         } else if (length(t1)!=1 | is.null(t3)) {
+           stop("One or more model definitions (t1, t3) are missing or incorrect.",call.=FALSE)
          }
-         L1+(L2-L1)*((1-exp(-K*(t-t1)))/(1-exp(-K*(t2-t1))))
+         L1+(L3-L1)*((1-exp(-K*(t-t1)))/(1-exp(-K*(t3-t1))))
   }
-  SSchnute <- function(t,L1,L2,K,t1,t2) {
-         L1+(L2-L1)*((1-exp(-K*(t-t1)))/(1-exp(-K*(t2-t1))))
+  SSchnute <- function(t,L1,L3,K,t1,t3) {
+         L1+(L3-L1)*((1-exp(-K*(t-t1)))/(1-exp(-K*(t3-t1))))
   }
   Francis <- function(t,L1,L2=NULL,L3=NULL,t1,t3=NULL) {
          if (length(L1)==3) {
