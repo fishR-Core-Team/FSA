@@ -80,7 +80,7 @@
 #'
 #' @export
 vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
-                          "GallucciQuinn","Mooij","Weisberg",
+                          "GQ","GallucciQuinn","Mooij","Weisberg",
                           "Schnute","Francis","Laslett",
                           "Fabens","Fabens2","Somers","Somers2","Wang","Wang2"),
                    simple=TRUE,msg=FALSE) {
@@ -110,7 +110,7 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
   Soriginal <- SvonBertalanffy <- function(t,Linf,L0,K) {
         Linf-(Linf-L0)*exp(-K*t)
   }
-  GallucciQuinn <- function(t,omega,K=NULL,t0=NULL) {
+  GQ <- GallucciQuinn <- function(t,omega,K=NULL,t0=NULL) {
         if (length(omega)==3) {
           K <- omega[2]
           t0 <- omega[3]
@@ -120,7 +120,7 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
         }
         (omega/K)*(1-exp(-K*(t-t0)))
   }
-  SGallucciQuinn <- function(t,omega,K,t0) {
+  SGQ <- SGallucciQuinn <- function(t,omega,K,t0) {
         (omega/K)*(1-exp(-K*(t-t0)))
   }
   Mooij <- function(t,Linf,L0=NULL,omega=NULL) {
@@ -294,7 +294,7 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
     switch(type,
       typical=,BevertonHolt= {
         cat("You have chosen the 'traditional' or 'Beverton-Holt' von Bertalanffy parameterization.\n\n")
-        cat("  E[L|t] = Linf*(1-exp(-K*(t-to)))\n\n")
+        cat("  E[L|t] = Linf*(1-exp(-K*(t-t0)))\n\n")
         cat("where Linf = asymptotic mean length\n")
         cat("      K = exponential rate of approach to Linf\n")
         cat("      t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
@@ -317,9 +317,9 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
         cat("      t1 = the first (usually a younger) reference age\n")
         cat("      t3 = the third (usually an older) reference age\n\n")
       },
-      GallucciQuinn={
+      GQ=,GallucciQuinn={
         cat("You have chosen the 'Gallucci and Quinn (1979)' von Bertalanffy parameterization.\n\n")
-        cat("  E[L|t] = [omega/K]*(1-exp(-K*(t-to)))\n\n")
+        cat("  E[L|t] = [omega/K]*(1-exp(-K*(t-t0)))\n\n")
         cat("where omega = growth rate near t0\n")
         cat("      K = exponential rate of approach to Linf\n")
         cat("      t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
@@ -330,6 +330,13 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
         cat("where Linf = asymptotic mean length\n")
         cat("      L0 = the mean length at age-0 (i.e., hatching or birth)\n")
         cat("      omega = growth rate near L0\n\n")
+      },
+      Weisberg= {
+        cat("You have chosen the 'Weisberg et al. (2010)' von Bertalanffy parameterization.\n\n")
+        cat("  E[L|t] = Linf*(1-exp(-(log(2)/K0)*(t-t0)))\n\n")
+        cat("where Linf = asymptotic mean length\n")
+        cat("      K0 = age when half of Linf is reached\n")
+        cat("      t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
       },
       Schnute={
         cat("You have chosen the 'Schnute (1981)' von Bertalanffy parameterization.\n\n")

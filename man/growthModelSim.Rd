@@ -4,7 +4,7 @@
 \title{Dynamics plots to explore typical fisheries growth models.}
 \usage{
 growthModelSim(formula = NULL, data = NULL, type = c("vbTypical",
-  "vbOriginal", "vbGallucciQuinn", "vbMooij", "vbWeisberg", "vbSchnute",
+  "vbOriginal", "vbGQ", "vbGallucciQuinn", "vbMooij", "vbWeisberg", "vbSchnute",
   "vbTypicalW", "vbOriginalW", "Gompertz1", "Gompertz2", "Gompertz3",
   "Schnute"), max.len = 500, max.wt = 500)
 }
@@ -28,12 +28,13 @@ Plots hypothetical size-at-age for one of seven possible parameterizations of th
 \details{
 This function can be used to explore the \dQuote{shape} of the growth models for various choices of the parameters.  In this usage the \code{x} and \code{y} arguments should be (left) set at \code{NULL}.  This function can also be used to visually \dQuote{fit} a growth model to a set of observed lengths and ages.  This usage may be used to provide reasonable starting values for the parameters when fitting the growth model to the data with non-linear least-squares.  The observed data are plotted by including a formula of the form \code{length~age} in \code{x} and a data frame from which to draw the variables in the formula in the \code{data} arguments.
 
+The \code{type} argument is used to choose a type of growth model and must be one of the following (the models can be seen with \code{\link{growthModels}} and \code{\link{vbModels}}):
 
 \tabular{ll}{
 \code{"vbTypical"} \tab The "typical" Beverton-Holt parameterized von Bertalanffy model.\cr
 \code{"vbOriginal"} \tab The original parameterization from von Bertalanffy.\cr
 \code{"vbMooij"} \tab The Mooij et al (1999) paramaterization of the von Bertalanffy model.\cr
-\code{"vbGallucciQuinn"} \tab The Gallucci & Quinn (1979) parameterization of the von Bertalanffy model.\cr
+\code{"vbGQ"} \tab The Gallucci & Quinn (1979) parameterization of the von Bertalanffy model.\cr
 \code{"vbWeisberg"} \tab The Weisberg et al. (2010) parameterization of the von Bertalanffy model.\cr
 \code{"vbSchnute"} \tab The Schnute-like paramaterization of the von Bertalanffy model.\cr
 \code{"vbTypicalW"} \tab The "typical" Beverton-Holt parameterized von Bertalanffy model, but for weights rather than lengths (thus, includes one more parameter).\cr

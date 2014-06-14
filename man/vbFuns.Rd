@@ -3,7 +3,7 @@
 \alias{vbFuns}
 \title{Creates a function for a specific von Bertalanffy parameterization.}
 \usage{
-vbFuns(type = c("typical", "BevertonHolt", "original", "vonBertalanffy",
+vbFuns(type = c("typical", "BevertonHolt", "original", "vonBertalanffy", "GQ",
   "GallucciQuinn", "Mooij", "Weisberg", "Schnute", "Francis", "Laslett",
   "Fabens", "Fabens2", "Somers", "Somers2", "Wang", "Wang2"), simple = TRUE,
   msg = FALSE)

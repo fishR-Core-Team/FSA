@@ -1,9 +1,9 @@
 # FSA 0.4.13 ongoing
-* `growthModels()`: Modified.  Added Weisberg parameterization.
-* `growthModelSim()`: Modified.  Added Weisberg parameterization.
-* `vbFuns()`: Modified.  Changed default from `simple=FALSE` to `simple=TRUE`.  Added Weisberg parameterization.
-* `vbModels()`: Modified.  Added Weisberg parameterization.
-* `vbStarts()`: Modified.  Added Weisberg parameterization.
+* `growthModels()`: Modified.  Added Weisberg parameterization.  Changed `vbGallucciQuinn` to `vbGQ`.
+* `growthModelSim()`: Modified.  Added Weisberg parameterization.  Added `vbGQ` abbreviation (synonymous with `vbGallucciQuinn`).
+* `vbFuns()`: Modified.  Changed default from `simple=FALSE` to `simple=TRUE`.  Added Weisberg parameterization.  Added `vbGQ` abbreviation (synonymous with `vbGallucciQuinn`).
+* `vbModels()`: Modified.  Added Weisberg parameterization.  Changed `vbGallucciQuinn` to `vbGQ`.
+* `vbStarts()`: Modified.  Added Weisberg parameterization.  Added `vbGQ` abbreviation (synonymous with `vbGallucciQuinn`).  Added an internal function for checking whther the starting values for K and Linf made sense.
 
 
 # FSA 0.4.14 Jun14

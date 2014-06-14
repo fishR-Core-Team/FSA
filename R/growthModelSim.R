@@ -4,13 +4,13 @@
 #'
 #' @details This function can be used to explore the \dQuote{shape} of the growth models for various choices of the parameters.  In this usage the \code{x} and \code{y} arguments should be (left) set at \code{NULL}.  This function can also be used to visually \dQuote{fit} a growth model to a set of observed lengths and ages.  This usage may be used to provide reasonable starting values for the parameters when fitting the growth model to the data with non-linear least-squares.  The observed data are plotted by including a formula of the form \code{length~age} in \code{x} and a data frame from which to draw the variables in the formula in the \code{data} arguments.
 #'
-# 'The \code{type} argument is used to choose a type of growth model and must be one of the following (the models can be seen with \code{\link{growthModels}} and \code{\link{vbModels}}):
+#' The \code{type} argument is used to choose a type of growth model and must be one of the following (the models can be seen with \code{\link{growthModels}} and \code{\link{vbModels}}):
 #'
 #' \tabular{ll}{
 #' \code{"vbTypical"} \tab The "typical" Beverton-Holt parameterized von Bertalanffy model.\cr
 #' \code{"vbOriginal"} \tab The original parameterization from von Bertalanffy.\cr
 #' \code{"vbMooij"} \tab The Mooij et al (1999) paramaterization of the von Bertalanffy model.\cr
-#' \code{"vbGallucciQuinn"} \tab The Gallucci & Quinn (1979) parameterization of the von Bertalanffy model.\cr
+#' \code{"vbGQ"} \tab The Gallucci & Quinn (1979) parameterization of the von Bertalanffy model.\cr
 #' \code{"vbWeisberg"} \tab The Weisberg et al. (2010) parameterization of the von Bertalanffy model.\cr
 #' \code{"vbSchnute"} \tab The Schnute-like paramaterization of the von Bertalanffy model.\cr 
 #' \code{"vbTypicalW"} \tab The "typical" Beverton-Holt parameterized von Bertalanffy model, but for weights rather than lengths (thus, includes one more parameter).\cr
@@ -73,7 +73,7 @@
 #' 
 ## Main function
 growthModelSim <- function(formula=NULL,data=NULL,
-                           type=c("vbTypical","vbOriginal","vbGallucciQuinn","vbMooij",
+                           type=c("vbTypical","vbOriginal","vbGQ","vbGallucciQuinn","vbMooij",
                                   "vbWeisberg","vbSchnute","vbTypicalW","vbOriginalW",
                                   "Gompertz1","Gompertz2","Gompertz3",
                                   "Schnute"),
@@ -157,7 +157,7 @@ growthModelSim <- function(formula=NULL,data=NULL,
              sl.defaults=c(  max.y,  0.3,     0,    1,     t.max),
              title = "Typical Von Bertalanffy Weight",pos.of.panel="left")
       }, # end vbTypical
-    vbGallucciQuinn= {
+    vbGQ=, vbGallucciQuinn= {
       relax::gslider(refresh,prompt=TRUE,
              sl.names=   c("omega",  "K", "t_0", "Max Age"),
              sl.mins=    c(      0,    0,   -10,         5),
@@ -247,7 +247,7 @@ iPredLength <- function(type,t,p1,p2,p3,p4) {
          # p1=Winf, p2=W0, p3=K,  p4=b
          vbOriginalW= { sd <- (p1-(p1-p2)*exp(-p3*t))^p4 },
          # p1=omega,p2=K,  p3=t0, p4 not used
-         vbGallucciQuinn= { sd <- (p1/p2)*(1-exp(-p2*(t-p3))) },
+         vbGQ=, vbGallucciQuinn= { sd <- (p1/p2)*(1-exp(-p2*(t-p3))) },
          # p1=Linf, p2=K0,  p3=to, p4 not used
          vbWeisberg= {  sd <- p1*(1-exp(-(log(2)/p2)*(t-p3))) },
          # p1=Linf, p2=L0, p3=ome,p4 not used

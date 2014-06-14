@@ -4,7 +4,7 @@
 #' 
 #' @details This function attempts to find reasonable starting values for a variety of parameterizations of the von Bertalanffy growth model.  There is no guarantee that these starting values are the \sQuote{best} starting values.  One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.
 #' 
-#' The Linf and K paramaters are estimated via the Ford-Walford plot (see \code{\link{walfordPlot}}.  The product of the starting values for Linf and K is used as a starting value for omega in the GallucciQuinn and Mooij parameterizations.
+#' The Linf and K paramaters are estimated via the Ford-Walford plot (see \code{\link{walfordPlot}}.  The product of the starting values for Linf and K is used as a starting value for omega in the GallucciQuinn and Mooij parameterizations.  The result of log(2) divided by the starting value for K is used as the starting value for K0 in the Weisberg parameterization.
 #' 
 #' If \code{meth0="yngAge"} then a starting value for t0 or L0 is found by algebraically solving the typical or original paramaterizations, respectively, for t0 or L0 using the first age with more than one data point.  If \code{meth0="poly"} then a second-degree polynomial model is fit to the mean length-at-age data.  The t0 starting value is set equal to the root of the polynomial that is closest to zero.  The L0 starting value is set equal to the mean length at age-0 predicted from the polynomial.
 #' 
@@ -57,10 +57,10 @@
 #' 
 #' ## See examples in vbFuns() for use of vbStarts() when fitting Von B models
 #' 
-#' @export
+#' @export vbStarts
 vbStarts <- function(formula,data=NULL,
                      type=c("typical","BevertonHolt","original","vonBertalanffy",
-                            "GallucciQuinn","Mooij","Weisberg",
+                            "GQ","GallucciQuinn","Mooij","Weisberg",
                             "Schnute","Francis","Somers","Somers2"),
                      ages2use=NULL,methEV=c("poly","means"),meth0=c("poly","yngAge"),
                      plot=FALSE,...) {
@@ -108,15 +108,11 @@ vbStarts <- function(formula,data=NULL,
   # strip attributes (names mostly)
   attributes(sLinf) <- attributes(sK) <- attributes(st0) <- attributes(sL0) <- attributes(meanL) <- NULL
   type <- match.arg(type)
-  if (!(type %in% c("Schnute","Francis"))) {
-    if (sK<0) warning("Negative starting value for K suggests model fitting problems.\nTry setting K=0.3 instead.\n",call.=FALSE)
-    if ((sLinf<0.5*max(len)) | sLinf>1.5*max(len)) 
-      warning("Starting value for Linf is very different from the observed maximum length\nTry setting Linf to maximum length instead.\n",call.=FALSE)
-  }
+  if (!(type %in% c("Schnute","Francis"))) iCheckKLinf(sK,sLinf,type,len)
   switch(type,
     typical=,BevertonHolt={ sv <- list(Linf=sLinf,K=sK,t0=st0) },
     original=,vonBertalanffy={ sv <- list(Linf=sLinf,L0=sL0,K=sK) },
-    GallucciQuinn={ sv <- list(omega=sLinf*sK,K=sK,t0=st0) },
+    GQ=,GallucciQuinn={ sv <- list(omega=sLinf*sK,K=sK,t0=st0) },
     Mooij={ sv <- list(Linf=sLinf,L0=sL0,omega=sLinf*sK) },
     Weisberg={ sv <- list(Linf=sLinf,K0=log(2)/sK,t0=st0) },
     Schnute=,Francis={
@@ -156,4 +152,26 @@ vbStarts <- function(formula,data=NULL,
   }
   # return starting values list
   sv
+}
+
+iCheckKLinf <- function(sK,sLinf,type,len) {
+  if (sK<0) {
+    if (type %in% c("typical","original","BevertonHolt","vonBertalanffy","GQ","GallucciQuinn","Schnute")) {
+      msg <- "The suggested starting value for K is negative, "
+    } else {
+      msg <- "One  suggested starting value is based on a negative K, "
+    }
+    msg <- paste(msg,"which suggests a model fitting problem.\n",sep="")
+    msg <- paste(msg,"See a walfordPlot or chapmanPlot to examine the problem.\n",sep="")
+    msg <- paste(msg,"Consider manually setting K=0.3 in the starting value list.\n",sep="")
+    warning(msg,call.=FALSE)
+  }
+  if ((sLinf<0.5*max(len)) | sLinf>1.5*max(len)) {
+    msg <- "Starting value for Linf is very different from the observed maximum length, "
+    msg <- paste(msg,"which suggests a model fitting problem.\n",sep="")
+    msg <- paste(msg,"See a walfordPlot or chapmanPlot to examine the problem.\n",sep="")
+    msg <- paste(msg,"Consider manually setting Linf to the maximum observed length\n",sep="")
+    msg <- paste(msg,"in the starting value list.\n",sep="")
+    warning(msg,call.=FALSE)    
+  } 
 }
