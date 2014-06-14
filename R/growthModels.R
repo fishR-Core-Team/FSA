@@ -31,9 +31,9 @@ growthModels <- function(...) {
   iGrowthModels("vbFrancis",0,1.75)
   iGrowthModels("vbFrancis2",0.15,0.5)
   abline(v=0.55)
-  iGrowthModels("Gomp1",0.55,9.5)
-  iGrowthModels("Gomp2",0.55,8)
-  iGrowthModels("Gomp3",0.55,6.5)
+  iGrowthModels("Gompertz1",0.55,9.5)
+  iGrowthModels("Gompertz2",0.55,8)
+  iGrowthModels("Gompertz3",0.55,6.5)
   par(op)
 }
 
@@ -61,8 +61,8 @@ iGrowthModels <- function(which,xpos,ypos) {
    vbSchnute=       {text(xpos,ypos,expression(plain("vbSchnute: ")~~~E(L[t])==L[1]+(L[3]-L[1])*~frac(1-e^{-K*(~t~-~t[1])},1-e^{-K*(~t[3]~-~t[1])})),pos=4)},
    vbFrancis=       {text(xpos,ypos,expression(plain("vbFrancis: ")~~~E(L[t])==L[1]+(L[3]-L[1])*~frac(1-r^{2*frac(t-t[1],t[3]-t[1])},1-r^{2})),pos=4)},
    vbFrancis2=      {text(xpos,ypos,expression(plain("where" )~r==frac(L[3]-L[2],L[2]-L[1])),pos=4)},
-   Gomp1=           {text(xpos,ypos,expression(plain("Gomp1: ")~~~E(L[t])==L[0]*~e^{G*bgroup("(",1-e^{-gt},")")}),pos=4)},
-   Gomp2=           {text(xpos,ypos,expression(plain("Gomp2: ")~~~E(L[t])==L[infinity]*~e^{-g*(t-t^symbol("\052"))}),pos=4)},
-   Gomp3=           {text(xpos,ypos,expression(plain("Gomp3: ")~~~E(L[t])==L[infinity]*~e^{-~frac(1,g)*~bgroup("(",e^{-g*~(~t~-~t[0])},")")}),pos=4)}
+   Gompertz1=       {text(xpos,ypos,expression(plain("Gompertz1: ")~~~E(L[t])==L[0]*~e^{G*bgroup("(",1-e^{-gt},")")}),pos=4)},
+   Gompertz2=       {text(xpos,ypos,expression(plain("Gompertz2: ")~~~E(L[t])==L[infinity]*~e^{-g*(t-t^symbol("\052"))}),pos=4)},
+   Gompertz3=       {text(xpos,ypos,expression(plain("Gompertz3: ")~~~E(L[t])==L[infinity]*~e^{-~frac(1,g)*~bgroup("(",e^{-g*~(~t~-~t[0])},")")}),pos=4)}
   ) # end swich
 } ## end iGrowthModels internal function

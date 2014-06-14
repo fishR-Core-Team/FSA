@@ -72,7 +72,8 @@ vbStarts <- function(formula,data=NULL,
   # get the length and age vectors
   len <- tmp$mf[,tmp$Rname[1]]
   age <- tmp$mf[,tmp$Enames[1]]
-  x <- NULL  # attempting to get by bindings warning in RCMD CHECK
+  # attempting to get by bindings warning in RCMD CHECK
+  x <- NULL
   # mean lengths-at-age
   meanL <- tapply(len,age,mean)
   # ages represented
@@ -118,6 +119,10 @@ vbStarts <- function(formula,data=NULL,
     Schnute=,Francis={
       if (is.null(ages2use)) ages2use <- range(ages)
       if (length(ages2use)!=2) stop("'age2use=' must be NULL or have only two ages.",call.=FALSE)
+      if (ages2use[2]<=ages2use[1]) {
+        warning("'ages2use' should be in ascending order; order reversed to continue.",call.=FALSE)
+        ages2use <- rev(ages2use)
+      }
       if (type=="Francis") ages2use <- c(ages2use[1],mean(ages2use),ages2use[2])
       switch(match.arg(methEV),
         poly={ vals <- predict(respoly,data.frame(ages=ages2use)) },

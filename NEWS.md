@@ -1,23 +1,28 @@
 # FSA 0.4.13 ongoing
 
+
+# FSA 0.4.14 Jun14
+
+* added testthat files for error checking of `chapmanPlot()`, `vbFuns()`, `vbStarts()`, and `walfordPlot()`.  Added a testthat file for checking that the von Bertalanffy fitting using `vbFuns()` and `vbStarts()` matches other sources.
 * `ageBias()`: Modified.  Deprecated `col.lab=` and `row.lab=` and replaced with `ref.lab=` and `nref.lab=`.  Moved all functions that were internal to main functions to being internal to the package.  In the process, I changed the names of the internal functions slightly, made explicit the argument passing, and added internal descriptions of the internal files.  Changed several if else strings in the plot method to a `switch()`.
 * `agePrecision()`: Modified.  Changed some messages so they were not as wide.
 * `chapmanPlot()`: Modified.  Removed S3 functions so that `vbStarts()` has to use a formula.  Added some checking related to the formula. 
-* `growthModels()`: Modified.  Created an internal function that eliminates repetitiveness between this and `vbModels()`.
+* `growthModels()`: Modified.  Created an internal function that eliminates repetitiveness between this and `vbModels()`.  Changed the `GompX` types to `GompertzX`.
 * `growthModelSim()`: Modified.  Removed S3 functions so that `growthModelSim()` has to use a formula.  Added some checking related to the formula.  Changed the order of the arguments so that `formula=` and `data=` come before `type=`.  This allows a similar interface with `vbStarts()`.  Included a hack that still allows the user to enter a type as the first argument (and thus not have to type `type=` if any parameterization besides the `vbTypical` is being used).  Corrected spelling of Gallucci for Gallucci and  Quinn model.
 * `hndlFormula()`: Modified.  Fixed bug with expected number of response variables value in return list.
 * `SpotVA1`: Modified.  Updated reference.
 * `vbFuns()`: Modified.  Changed `schnute` parameterization to use L3 instead of L2 and t3 instead of t2. 
 * `vbModels()`: Modified.  Created an internal function that eliminates repetitiveness between this and `growthModels()`.
-* `vbStarts()`: Modified.  Removed S3 functions so that `vbStarts()` has to use a formula.  Added some checking related to the formula.  Changed `tFrancis=` to `ages2use=`.  Changed the Schnute method to use the ages in `ages2use=` rather than being hard-wired to use the minimum and maximum observed age.  Both the Schnute and Francis methods will use the minimum and maximum observed ages if `ages2use=NULL`.  Changed `schnute` parameterization to use L3 instead of L2.
+* `vbStarts()`: Modified.  Removed S3 functions so that `vbStarts()` has to use a formula.  Added some checking related to the formula.  Changed `tFrancis=` to `ages2use=`.  Changed the Schnute method to use the ages in `ages2use=` rather than being hard-wired to use the minimum and maximum observed age.  Both the Schnute and Francis methods will use the minimum and maximum observed ages if `ages2use=NULL`.  Added a catch for if `ages2use=` are in descending order (should be in ascending order).  Changed `Schnute` parameterization to use L3 instead of L2.
 * `walfordPlot()`: Modified.  Removed S3 functions so that `vbStarts()` has to use a formula.  Added some checking related to the formula.  
 
 
 # FSA 0.4.12 May14
 
 * added Suggests for `testthat`, `fishmethods`, `FSAdata` for testing and `popbio` for an example that was made "interactive" from "dont run"(see below).
-* `ageBias()`: Modified.  Added a testthat file.  Removed unit testings from examples and put in the testing file.
-* `agePrecision()`: Modified.  Added a testthat file.  Removed deprecated `what="agreement"`.
+* added testthat files for `ageBias()` and `agePrecision()`.
+* `ageBias()`: Modified.  Removed unit testings from examples and put in the testing file.
+* `agePrecision()`: Modified.  Removed deprecated `what="agreement"`.
 * `confint.nlsBoot()`: Modified.  Changed example from "dont run" to "interactive."
 * `fact2num()`: Modified.  Changed example from "dont run" to "interactive."
 * `fishR()`: Modified.  Removed `news` and added `posts` to the `where=` argument.  Cleaned up the Rd file.  Changed example from "dont run" to "interactive."
