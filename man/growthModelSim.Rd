@@ -4,9 +4,9 @@
 \title{Dynamics plots to explore typical fisheries growth models.}
 \usage{
 growthModelSim(formula = NULL, data = NULL, type = c("vbTypical",
-  "vbOriginal", "vbGallucciQuinn", "vbMooij", "vbSchnute", "vbTypicalW",
-  "vbOriginalW", "Gompertz1", "Gompertz2", "Gompertz3", "Schnute"),
-  max.len = 500, max.wt = 500)
+  "vbOriginal", "vbGallucciQuinn", "vbMooij", "vbWeisberg", "vbSchnute",
+  "vbTypicalW", "vbOriginalW", "Gompertz1", "Gompertz2", "Gompertz3",
+  "Schnute"), max.len = 500, max.wt = 500)
 }
 \arguments{
 \item{formula}{An optional formula of the form \code{len~age}.  See details.}
@@ -34,6 +34,7 @@ This function can be used to explore the \dQuote{shape} of the growth models for
 \code{"vbOriginal"} \tab The original parameterization from von Bertalanffy.\cr
 \code{"vbMooij"} \tab The Mooij et al (1999) paramaterization of the von Bertalanffy model.\cr
 \code{"vbGallucciQuinn"} \tab The Gallucci & Quinn (1979) parameterization of the von Bertalanffy model.\cr
+\code{"vbWeisberg"} \tab The Weisberg et al. (2010) parameterization of the von Bertalanffy model.\cr
 \code{"vbSchnute"} \tab The Schnute-like paramaterization of the von Bertalanffy model.\cr
 \code{"vbTypicalW"} \tab The "typical" Beverton-Holt parameterized von Bertalanffy model, but for weights rather than lengths (thus, includes one more parameter).\cr
 \code{"vbOriginalW"} \tab The original parameterization from von Bertalanffy, but for weights rather than lengths (thus, includes one more parameter).\cr
@@ -78,6 +79,8 @@ Mooij, W.M., J.M. Van Rooij, and S. Wijnhoven.  1999.  Analysis and comparison o
 Schnute, J.  1981.  A versatile growth model with statistically stable parameters. Canadian Journal of Fisheries & Aquatic Sciences, 38:1128-1140.
 
 Schnute, J. and D. Fournier. 1980.  A new approach to length-frequency analysis: Growth structure.  Canadian Journal of Fisheries and Aquatic Sciences, 37:1337-1351.
+
+Weisberg, S., G.R. Spangler, and L. S. Richmond. 2010. Mixed effects models for fish growth. Canadian Journal of Fisheries And Aquatic Sciences 67:269-277.
 }
 \seealso{
 \code{\link{growthModels}}, \code{\link{vbModels}}, and \code{\link{vbStarts}}.

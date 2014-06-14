@@ -10,7 +10,8 @@
 #' \code{"vbTypical"} \tab The "typical" Beverton-Holt parameterized von Bertalanffy model.\cr
 #' \code{"vbOriginal"} \tab The original parameterization from von Bertalanffy.\cr
 #' \code{"vbMooij"} \tab The Mooij et al (1999) paramaterization of the von Bertalanffy model.\cr
-#' \code{"vbGallucciQuinn"} \tab The Gallucci & Quinn (1979) parameterization of the von Bertalanffy model.\cr 
+#' \code{"vbGallucciQuinn"} \tab The Gallucci & Quinn (1979) parameterization of the von Bertalanffy model.\cr
+#' \code{"vbWeisberg"} \tab The Weisberg et al. (2010) parameterization of the von Bertalanffy model.\cr
 #' \code{"vbSchnute"} \tab The Schnute-like paramaterization of the von Bertalanffy model.\cr 
 #' \code{"vbTypicalW"} \tab The "typical" Beverton-Holt parameterized von Bertalanffy model, but for weights rather than lengths (thus, includes one more parameter).\cr
 #' \code{"vbOriginalW"} \tab The original parameterization from von Bertalanffy, but for weights rather than lengths (thus, includes one more parameter).\cr
@@ -34,13 +35,15 @@
 #'
 #' @references Francis, R.I.C.C.  1988.  Are growth parameters estimated from tagging and age-length data comparable?  Canadian Journal of Fisheries and Aquatic Sciences, 45:936-942.
 #'
-#'Gallucci, V.F. and T.J. Quinn II. 1979.  Reparameterizing, fitting, and testing a simple growth model.  Transactions of the American Fisheries Society, 108:14-25.
+#' Gallucci, V.F. and T.J. Quinn II. 1979.  Reparameterizing, fitting, and testing a simple growth model.  Transactions of the American Fisheries Society, 108:14-25.
 #'
-#'Mooij, W.M., J.M. Van Rooij, and S. Wijnhoven.  1999.  Analysis and comparison of fish growth from small samples of length-at-age data: Detection of sequal dimorphism in Eurasian perch as an example.  Transactions of the American Fisheries Society 128:483-490.
+#' Mooij, W.M., J.M. Van Rooij, and S. Wijnhoven.  1999.  Analysis and comparison of fish growth from small samples of length-at-age data: Detection of sequal dimorphism in Eurasian perch as an example.  Transactions of the American Fisheries Society 128:483-490.
 #'
-#'Schnute, J.  1981.  A versatile growth model with statistically stable parameters. Canadian Journal of Fisheries & Aquatic Sciences, 38:1128-1140.
+#' Schnute, J.  1981.  A versatile growth model with statistically stable parameters. Canadian Journal of Fisheries & Aquatic Sciences, 38:1128-1140.
 #'
-#'Schnute, J. and D. Fournier. 1980.  A new approach to length-frequency analysis: Growth structure.  Canadian Journal of Fisheries and Aquatic Sciences, 37:1337-1351.
+#' Schnute, J. and D. Fournier. 1980.  A new approach to length-frequency analysis: Growth structure.  Canadian Journal of Fisheries and Aquatic Sciences, 37:1337-1351.
+#'
+#' Weisberg, S., G.R. Spangler, and L. S. Richmond. 2010. Mixed effects models for fish growth. Canadian Journal of Fisheries And Aquatic Sciences 67:269-277.
 #'
 #' @keywords iplot
 #'
@@ -71,7 +74,7 @@
 ## Main function
 growthModelSim <- function(formula=NULL,data=NULL,
                            type=c("vbTypical","vbOriginal","vbGallucciQuinn","vbMooij",
-                                  "vbSchnute","vbTypicalW","vbOriginalW",
+                                  "vbWeisberg","vbSchnute","vbTypicalW","vbOriginalW",
                                   "Gompertz1","Gompertz2","Gompertz3",
                                   "Schnute"),
                            max.len=500,max.wt=500) {
@@ -172,6 +175,15 @@ growthModelSim <- function(formula=NULL,data=NULL,
              sl.defaults=c(  max.y,    min.y,      75,     t.max),
              title = "Mooij et al. Von Bertalanffy",pos.of.panel="left")
       }, # end vbMooij
+    vbWeisberg= {
+      relax::gslider(refresh,prompt=TRUE,
+                     sl.names=   c("L_inf",            "K0", "t_0", "Max Age"),
+                     sl.mins=    c(  min.y,               1,   -10,         5),
+                     sl.maxs=    c(  max.y,         t.max-1,    10,       100),
+                     sl.deltas=  c(delta.y,             0.1,   0.1,         1),
+                     sl.defaults=c(  max.y,round(t.max/2,0),     0,     t.max),
+                     title = "Weisberg et al. Von Bertalanffy",pos.of.panel="left")    
+    }, # end vbWeisberg
     vbSchnute= {
       relax::gslider(refresh,prompt=TRUE,
              sl.names=   c(            "L_1",            "L_2",  "K",  "b", "Max Age"),
@@ -236,6 +248,8 @@ iPredLength <- function(type,t,p1,p2,p3,p4) {
          vbOriginalW= { sd <- (p1-(p1-p2)*exp(-p3*t))^p4 },
          # p1=omega,p2=K,  p3=t0, p4 not used
          vbGallucciQuinn= { sd <- (p1/p2)*(1-exp(-p2*(t-p3))) },
+         # p1=Linf, p2=K0,  p3=to, p4 not used
+         vbWeisberg= {  sd <- p1*(1-exp(-(log(2)/p2)*(t-p3))) },
          # p1=Linf, p2=L0, p3=ome,p4 not used
          vbMooij= { sd <- p1-(p1-p2)*exp(-(p3/p1)*t) },
          # p1=L1,   p2=L2, p3=K,  p4=b

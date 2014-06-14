@@ -1,4 +1,9 @@
 # FSA 0.4.13 ongoing
+* `growthModels()`: Modified.  Added Weisberg parameterization.
+* `growthModelSim()`: Modified.  Added Weisberg parameterization.
+* `vbFuns()`: Modified.  Changed default from `simple=FALSE` to `simple=TRUE`.  Added Weisberg parameterization.
+* `vbModels()`: Modified.  Added Weisberg parameterization.
+* `vbStarts()`: Modified.  Added Weisberg parameterization.
 
 
 # FSA 0.4.14 Jun14

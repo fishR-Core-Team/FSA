@@ -4,8 +4,8 @@
 \title{Creates a function for a specific von Bertalanffy parameterization.}
 \usage{
 vbFuns(type = c("typical", "BevertonHolt", "original", "vonBertalanffy",
-  "GallucciQuinn", "Mooij", "Schnute", "Francis", "Laslett", "Fabens",
-  "Fabens2", "Somers", "Somers2", "Wang", "Wang2"), simple = FALSE,
+  "GallucciQuinn", "Mooij", "Weisberg", "Schnute", "Francis", "Laslett",
+  "Fabens", "Fabens2", "Somers", "Somers2", "Wang", "Wang2"), simple = TRUE,
   msg = FALSE)
 }
 \arguments{
@@ -36,10 +36,9 @@ ages <- 0:20
 plot(vb1(ages,Linf=20,K=0.3,t0=-0.2)~ages,type="b",pch=19)
 
 ( vb2 <- vbFuns("Francis") )     # Francis parameterization
-predL <- vb2(ages,L1=10,L2=19,L3=20,t1=2,t3=18)
-plot(predL~ages,type="b",pch=19)
+plot(vb2(ages,L1=10,L2=19,L3=20,t1=2,t3=18)~ages,type="b",pch=19)
 
-( vb2s <- vbFuns("Francis",simple=TRUE) )   # compare to vb2
+( vb2c <- vbFuns("Francis",simple=FALSE) )   # compare to vb2
 
 ## Examples of fitting Von B models
 ##   After the last example a plot is constructed with three lines on top of each
@@ -55,14 +54,15 @@ curve(vb1(x,Linf=coef(fit1)[1],K=coef(fit1)[2],t0=coef(fit1)[3]),from=0,to=5,
  col="red",lwd=10,add=TRUE)
 
 # Fitting the Francis paramaterization of the von B function
-fit2 <- nls(tl~vb2(age,L1,L2,L3,t1=0,t3=5),data=SpotVA1,
+fit2 <- nls(tl~vb2c(age,L1,L2,L3,t1=0,t3=5),data=SpotVA1,
  start=vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5)))
 summary(fit2,correlation=TRUE)
 ## showing how the coefficients and t values can be sent to the first arguments
-curve(vb2(x,L1=coef(fit2),t1=c(0,5)),from=0,to=5,col="blue",lwd=5,add=TRUE)
+##    if simple=FALSE in vbFuns() call
+curve(vb2c(x,L1=coef(fit2),t1=c(0,5)),from=0,to=5,col="blue",lwd=5,add=TRUE)
 
 # Fitting the Schnute parameterization of the von B function
-vb3 <- vbFuns("Schnute")
+vb3 <- vbFuns("Schnute",simple=FALSE)
 fit3 <- nls(tl~vb3(age,L1,L3,K,t1=0,t3=4),data=SpotVA1,
  start=vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,4)))
 summary(fit3,correlation=TRUE)
@@ -78,16 +78,19 @@ Francis, R.I.C.C.  1988.  Are growth parameters estimated from tagging and age-l
 
 Gallucci, V.F. and T.J. Quinn II. 1979.  Reparameterizing, fitting, and testing a simple growth model.  Transactions of the American Fisheries Society, 108:14-25.
 
+Garcia-Berthou, E., G. Carmona-Catot, R. Merciai, and D.H. Ogle.  \href{https://www.researchgate.net/publication/257658359_A_technical_note_on_seasonal_growth_models}{A technical note on seasonal growth models.}  Reviews in Fish Biology and Fisheries 22:635-640.
+
 Mooij, W.M., J.M. Van Rooij, and S. Wijnhoven.  1999.  Analysis and comparison of fish growth from small samples of length-at-age data: Detection of sexual dimorphism in Eurasian perch as an example.  Transactions of the American Fisheries Society 128:483-490.
 
-Polacheck, T., J.P. Eveson, and G.M. Laslett.  2004.  Increase in growth rates of southern bluefin tuna (\emph{Thunnus maccoyii}) over four decades: 1960 to 2000.  Canadian Journal of Fisheries and Aquatic Sciences,
-61:307-322.
+Polacheck, T., J.P. Eveson, and G.M. Laslett.  2004.  Increase in growth rates of southern bluefin tuna (\emph{Thunnus maccoyii}) over four decades: 1960 to 2000.  Canadian Journal of Fisheries and Aquatic Sciences, 61:307-322.
 
 Schnute, J.  1981.  A versatile growth model with statistically stable parameters. Canadian Journal of Fisheries and Aquatic Sciences, 38:1128-1140.
 
-Somers, I. F. 1988. On a seasonally oscillating growth function. Fishbyte 6(1):8-11.
+Somers, I. F. 1988. \href{http://www.worldfishcenter.org/Naga/na_2914.pdf}{On a seasonally oscillating growth function.} Fishbyte 6(1):8-11.
 
 Wang, Y.-G.  1998.  An improved Fabens method for estimation of growth parameters in the von Bertalanffy model with individual asymptotes.  Canadian Journal of Fisheries and Aquatic Sciences 55:397-400.
+
+Weisberg, S., G.R. Spangler, and L. S. Richmond. 2010. Mixed effects models for fish growth. Canadian Journal of Fisheries And Aquatic Sciences 67:269-277.
 }
 \seealso{
 See \code{\link{vbModels}} and \code{\link{growthModels}} for a list of models and parameterizations used in \pkg{FSA} and \code{\link{vbStarts}} and \code{\link{growthModelSim}} for methods to find starting values.

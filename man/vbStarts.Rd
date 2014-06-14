@@ -4,9 +4,9 @@
 \title{Find reasonable starting values for a von Bertalanffy model.}
 \usage{
 vbStarts(formula, data = NULL, type = c("typical", "BevertonHolt",
-  "original", "vonBertalanffy", "GallucciQuinn", "Mooij", "Schnute", "Francis",
-  "Somers", "Somers2"), ages2use = NULL, methEV = c("poly", "means"),
-  meth0 = c("poly", "yngAge"), plot = FALSE, ...)
+  "original", "vonBertalanffy", "GallucciQuinn", "Mooij", "Weisberg", "Schnute",
+  "Francis", "Somers", "Somers2"), ages2use = NULL, methEV = c("poly",
+  "means"), meth0 = c("poly", "yngAge"), plot = FALSE, ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{len~age}.}
@@ -65,13 +65,15 @@ Francis, R.I.C.C.  1988.  Are growth parameters estimated from tagging and age-l
 
 Gallucci, V.F. and T.J. Quinn II. 1979.  Reparameterizing, fitting, and testing a simple growth model.  Transactions of the American Fisheries Society, 108:14-25.
 
-Garcia-Berthou, E., G. Carmona-Catot, R. Merciai, and D.H. Ogle.  A technical note on seasonal growth models.  Reviews in Fish Biology and Fisheries 22:635-640.  \url{https://www.researchgate.net/publication/257658359_A_technical_note_on_seasonal_growth_models}
+Garcia-Berthou, E., G. Carmona-Catot, R. Merciai, and D.H. Ogle.  \href{https://www.researchgate.net/publication/257658359_A_technical_note_on_seasonal_growth_models}{A technical note on seasonal growth models.}  Reviews in Fish Biology and Fisheries 22:635-640.
 
 Mooij, W.M., J.M. Van Rooij, and S. Wijnhoven.  1999.  Analysis and comparison of fish growth from small samples of length-at-age data: Detection of sexual dimorphism in Eurasian perch as an example.  Transactions of the American Fisheries Society 128:483-490.
 
 Schnute, J.  1981.  A versatile growth model with statistically stable parameters. Canadian Journal of Fisheries & Aquatic Sciences, 38:1128-1140.
 
-Somers, I. F. 1988. On a seasonally oscillating growth function. Fishbyte 6(1):8-11.  \url{http://www.worldfishcenter.org/Naga/na_2914.pdf}
+Somers, I. F. 1988. \href{http://www.worldfishcenter.org/Naga/na_2914.pdf}{On a seasonally oscillating growth function.} Fishbyte 6(1):8-11.
+
+Weisberg, S., G.R. Spangler, and L. S. Richmond. 2010. Mixed effects models for fish growth. Canadian Journal of Fisheries And Aquatic Sciences 67:269-277.
 }
 \seealso{
 See \code{\link{growthModels}} and \code{\link{vbModels}} for a list of models and parameterizations used in \pkg{FSA}, \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations, \code{\link{walfordPlot}} for a common method to estimate Linf and K, and \code{\link{growthModelSim}} for a graphical method to determine starting values.
