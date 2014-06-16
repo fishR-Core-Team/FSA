@@ -5,9 +5,10 @@
 #' @param type A string that indicates the parameterization of the von Bertalanffy model.
 #' @param simple A logical that indicates whether the user should be allowed to send all parameter values in the first parameter argument (\code{=FALSE}; default) or whether all individual parameters must be specified (\code{=TRUE}).
 #' @param msg A logical that indicates whether a message about the model and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).
+#' 
 #' @return A function that can be used to predict fish length given a vector of ages and values for the model parameters and, in some parameterizations, values for some constants.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).
 #'
-#'If \code{simple=FALSE} was used then the values for all three parameters can be included as a vector of length three in the first paramater argument.  Similarly, the values for all constants can be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE} then all parameters and constants must be declared individually.  In addition, if \code{simple=TRUE} then the resulting function is somewhat easier to read.
+#'If \code{simple=FALSE} then the values for all parameters can be included as a vector in the first parameter argument.  Similarly, the values for all constants can be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE} then all parameters and constants must be declared individually.  If \code{simple=TRUE} then the resulting function is somewhat easier to read.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
@@ -83,211 +84,128 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
                           "GQ","GallucciQuinn","Mooij","Weisberg",
                           "Schnute","Francis","Laslett",
                           "Fabens","Fabens2","Somers","Somers2","Wang","Wang2"),
-                   simple=TRUE,msg=FALSE) {
+                   simple=FALSE,msg=FALSE) {
   typical <- BevertonHolt <- function(t,Linf,K=NULL,t0=NULL) {
-        if (length(Linf)==3) {
-          K <- Linf[2]
-          t0 <- Linf[3]
-          Linf <- Linf[1]
-        } else if (length(Linf)!=1 | is.null(K) | is.null(t0)) {
-          stop("One or more model parameters (Linf, K, t0) are missing or incorrect.",call.=FALSE)
-        }
-        Linf*(1-exp(-K*(t-t0)))
-  }
+  if (length(Linf)==3) { K <- Linf[2]
+                         t0 <- Linf[3]
+                         Linf <- Linf[1] }
+  Linf*(1-exp(-K*(t-t0)))
+}
   Stypical <- sBevertonHolt <- function(t,Linf,K,t0) {
-        Linf*(1-exp(-K*(t-t0)))
-  } 
+    Linf*(1-exp(-K*(t-t0)))
+  }
   original <- vonBertalanffy <- function(t,Linf,L0=NULL,K=NULL) {
-        if (length(Linf)==3) {
-          L0 <- Linf[2]
-          K <- Linf[3]
-          Linf <- Linf[1]
-        } else if (length(Linf)!=1 | is.null(L0) | is.null(K)) {
-          stop("One or more model parameters (Linf, L0, K) are missing or incorrect.",call.=FALSE)
-        }
-        Linf-(Linf-L0)*exp(-K*t)
-  } 
+  if (length(Linf)==3) { L0 <- Linf[2]
+                         K <- Linf[3]
+                         Linf <- Linf[1] }
+  Linf-(Linf-L0)*exp(-K*t)
+}
   Soriginal <- SvonBertalanffy <- function(t,Linf,L0,K) {
-        Linf-(Linf-L0)*exp(-K*t)
+    Linf-(Linf-L0)*exp(-K*t)
   }
   GQ <- GallucciQuinn <- function(t,omega,K=NULL,t0=NULL) {
-        if (length(omega)==3) {
-          K <- omega[2]
-          t0 <- omega[3]
-          omega <- omega[1]
-        } else if (length(K)!=1 | is.null(t0) | is.null(omega)) {
-          stop("One or more model parameters (K, t0, omega) are missing or incorrect.",call.=FALSE)
-        }
-        (omega/K)*(1-exp(-K*(t-t0)))
-  }
+  if (length(omega)==3) { K <- omega[2]
+                          t0 <- omega[3]
+                          omega <- omega[1] }
+  (omega/K)*(1-exp(-K*(t-t0)))
+}
   SGQ <- SGallucciQuinn <- function(t,omega,K,t0) {
-        (omega/K)*(1-exp(-K*(t-t0)))
+    (omega/K)*(1-exp(-K*(t-t0)))
   }
   Mooij <- function(t,Linf,L0=NULL,omega=NULL) {
-         if (length(Linf)==3) {
-           L0 <- Linf[2]
-           omega <- Linf[3]
-           Linf <- Linf[1]
-         } else if (length(Linf)!=1 | is.null(L0) | is.null(omega)) {
-           stop("One or more model parameters (Linf, L0, omega) are missing or incorrect.",call.=FALSE)
-         }
-         Linf-(Linf-L0)*exp(-(omega/Linf)*t)
-  }
+  if (length(Linf)==3) { L0 <- Linf[2]
+                         omega <- Linf[3]
+                         Linf <- Linf[1] }
+  Linf-(Linf-L0)*exp(-(omega/Linf)*t)
+}
   SMooij <- function(t,Linf,L0,omega) {
-         Linf-(Linf-L0)*exp(-(omega/Linf)*t)
+    Linf-(Linf-L0)*exp(-(omega/Linf)*t)
   }
   Weisberg <- function(t,Linf,K0=NULL,t0=NULL) {
-    if (length(Linf)==3) {
-      K0 <- Linf[2]
-      t0 <- Linf[3]
-      Linf <- Linf[1]
-    } else if (length(Linf)!=1 | is.null(K0) | is.null(t0)) {
-      stop("One or more model parameters (Linf, K0, t0) are missing or incorrect.",call.=FALSE)
-    }
-    Linf*(1-exp(-(log(2)/K0)*(t-t0)))
-  }
+  if (length(Linf)==3) { K0 <- Linf[2]
+                         t0 <- Linf[3]
+                         Linf <- Linf[1] }
+  Linf*(1-exp(-(log(2)/(K0-t0))*(t-t0)))
+}
   SWeisberg <- function(t,Linf,K0,t0) {
-    Linf*(1-exp(-(log(2)/K0)*(t-t0)))
+    Linf*(1-exp(-(log(2)/(K0-t0))*(t-t0)))
   } 
   Schnute <- function(t,L1,L3=NULL,K=NULL,t1,t3=NULL) {
-         if (length(L1)==3) {
-           L3 <- L1[2]
-           K <- L1[3]
-           L1 <- L1[1]
-         } else if (length(L1)!=1 | is.null(L3) | is.null(K)) {
-           stop("One or more model parameters (L1, L3, K) are missing or incorrect.",call.=FALSE)
-         }
-         if (length(t1)==2) {
-           t3 <- t1[2]
-           t1 <- t1[1]
-         } else if (length(t1)!=1 | is.null(t3)) {
-           stop("One or more model definitions (t1, t3) are missing or incorrect.",call.=FALSE)
-         }
-         L1+(L3-L1)*((1-exp(-K*(t-t1)))/(1-exp(-K*(t3-t1))))
-  }
+  if (length(L1)==3) { L3 <- L1[2]; K <- L1[3]; L1 <- L1[1] }
+  if (length(t1)==2) { t3 <- t1[2]; t1 <- t1[1] }
+  L1+(L3-L1)*((1-exp(-K*(t-t1)))/(1-exp(-K*(t3-t1))))
+}
   SSchnute <- function(t,L1,L3,K,t1,t3) {
-         L1+(L3-L1)*((1-exp(-K*(t-t1)))/(1-exp(-K*(t3-t1))))
+    L1+(L3-L1)*((1-exp(-K*(t-t1)))/(1-exp(-K*(t3-t1))))
   }
   Francis <- function(t,L1,L2=NULL,L3=NULL,t1,t3=NULL) {
-         if (length(L1)==3) {
-           L2 <- L1[2]
-           L3 <- L1[3]
-           L1 <- L1[1]
-         } else if (length(L1)!=1 | is.null(L2) | is.null(L3)) {
-           stop("One or more model parameters (L1, L2, L3) are missing or incorrect.",call.=FALSE)
-         }
-         if (length(t1)==2) {
-           t3 <- t1[2]
-           t1 <- t1[1]
-         } else if (length(t1)!=1 | is.null(t3)) {
-           stop("One or more model definitions (t1, t3) are missing or incorrect.",call.=FALSE)
-         }
-         r <- (L3-L2)/(L2-L1)
-         L1+(L3-L1)*((1-r^(2*((t-t1)/(t3-t1))))/(1-r^2))
-  }
+  if (length(L1)==3) { L2 <- L1[2]; L3 <- L1[3]; L1 <- L1[1] }
+  if (length(t1)==2) { t3 <- t1[2]; t1 <- t1[1] }
+  r <- (L3-L2)/(L2-L1)
+  L1+(L3-L1)*((1-r^(2*((t-t1)/(t3-t1))))/(1-r^2))
+}
   SFrancis <- function(t,L1,L2,L3,t1,t3) {
-         r <- (L3-L2)/(L2-L1)
-         L1+(L3-L1)*((1-r^(2*((t-t1)/(t3-t1))))/(1-r^2))
+    r <- (L3-L2)/(L2-L1)
+    L1+(L3-L1)*((1-r^(2*((t-t1)/(t3-t1))))/(1-r^2))
   }
   Somers <- function(t,Linf,K,t0,C,ts) {
-         if (length(Linf)==5) {
-           K <- Linf[2]
-           t0 <- Linf[3]
-           C <- Linf[4]
-           ts <- Linf[5]
-           Linf <- Linf[1]
-         } else if (length(Linf)!=1 | is.null(K) | is.null(t0) | is.null(C) | is.null(ts)) {
-           stop("One or more model parameters (Linf, K, t0, C, ts) are missing or incorrect.",call.=FALSE)
-         }
-         St <- (C*K)/(2*pi)*sin(2*pi*(t-ts))
-         Sto <- (C*K)/(2*pi)*sin(2*pi*(t0-ts))
-         Linf*(1-exp(-K*(t-t0)-St+Sto))
-  }
+  if (length(Linf)==5) { K <- Linf[2]; t0 <- Linf[3]
+                         C <- Linf[4]; ts <- Linf[5]
+                         Linf <- Linf[1] }
+  St <- (C*K)/(2*pi)*sin(2*pi*(t-ts))
+  Sto <- (C*K)/(2*pi)*sin(2*pi*(t0-ts))
+  Linf*(1-exp(-K*(t-t0)-St+Sto))
+}
   SSomers <- function(t,Linf,K,t0,C,ts) {
-         Linf*(1-exp(-K*(t-t0)-(C*K)/(2*pi)*sin(2*pi*(t-ts))+(C*K)/(2*pi)*sin(2*pi*(t0-ts))))
+    Linf*(1-exp(-K*(t-t0)-(C*K)/(2*pi)*sin(2*pi*(t-ts))+(C*K)/(2*pi)*sin(2*pi*(t0-ts))))
   }
   Somers2 <- function(t,Linf,K,t0,C,WP) {
-         if (length(Linf)==5) {
-           K <- Linf[2]
-           t0 <- Linf[3]
-           C <- Linf[4]
-           WP <- Linf[5]
-           Linf <- Linf[1]
-         } else if (length(Linf)!=1 | is.null(K) | is.null(t0) | is.null(C) | is.null(WP)) {
-           stop("One or more model parameters (Linf, K, t0, C,WP) are missing or incorrect.",call.=FALSE)
-         }
-         Rt <- (C*K)/(2*pi)*sin(2*pi*(t-WP+0.5))
-         Rto <- (C*K)/(2*pi)*sin(2*pi*(t0-WP+0.5))
-         Linf*(1-exp(-K*(t-t0)-Rt+Rto))
-  }
+  if (length(Linf)==5) { K <- Linf[2]; t0 <- Linf[3]
+                         C <- Linf[4]; WP <- Linf[5]
+                         Linf <- Linf[1] }
+  Rt <- (C*K)/(2*pi)*sin(2*pi*(t-WP+0.5))
+  Rto <- (C*K)/(2*pi)*sin(2*pi*(t0-WP+0.5))
+  Linf*(1-exp(-K*(t-t0)-Rt+Rto))
+}
   SSomers2 <- function(t,Linf,K,t0,C,WP) {
-         Linf*(1-exp(-K*(t-t0)-(C*K)/(2*pi)*sin(2*pi*(t-WP+0.5))+(C*K)/(2*pi)*sin(2*pi*(t0-WP+0.5))))
+    Linf*(1-exp(-K*(t-t0)-(C*K)/(2*pi)*sin(2*pi*(t-WP+0.5))+(C*K)/(2*pi)*sin(2*pi*(t0-WP+0.5))))
   }
   Fabens <- function(Lm,dt,Linf,K) {
-         if (length(Linf)==2) {
-           K <- Linf[2]
-           Linf <- Linf[1]
-         } else if (length(Linf)!=1 | is.null(K)) {
-           stop("One or more model parameters (Linf, K) are missing or incorrect.",call.=FALSE)
-         }
-         Lm+(Linf-Lm)*(1-exp(-K*dt))
-  }
+  if (length(Linf)==2) { K <- Linf[2]; Linf <- Linf[1] }
+  Lm+(Linf-Lm)*(1-exp(-K*dt))
+}
   SFabens <- function(Lm,dt,Linf,K) {
-         Lm+(Linf-Lm)*(1-exp(-K*dt))
+    Lm+(Linf-Lm)*(1-exp(-K*dt))
   }
   Fabens2 <- function(Lm,dt,Linf,K) {
-         if (length(Linf)==2) {
-           K <- Linf[2]
-           Linf <- Linf[1]
-         } else if (length(Linf)!=1 | is.null(K)) {
-           stop("One or more model parameters (Linf, K) are missing or incorrect.",call.=FALSE)
-         }
-         (Linf-Lm)*(1-exp(-K*dt))
-  }
+  if (length(Linf)==2) { K <- Linf[2]; Linf <- Linf[1] }
+  (Linf-Lm)*(1-exp(-K*dt))
+}
   SFabens2 <- function(Lm,dt,Linf,K) {
-         (Linf-Lm)*(1-exp(-K*dt))
+    (Linf-Lm)*(1-exp(-K*dt))
   }
   Wang <- function(Lm,dt,Linf,K,b) {
-         if (length(Linf)==3) {
-           b <- Linf[3]
-           K <- Linf[2]
-           Linf <- Linf[1]
-         } else if (length(Linf)!=1 | is.null(K) | is.null(b)) {
-           stop("One or more model parameters (Linf, K, b) are missing or incorrect.",call.=FALSE)
-         }
-         (Linf+b*(Lm-mean(Lm))-Lm)*(1-exp(-K*dt))
-  }
+  if (length(Linf)==3) { b <- Linf[3]; K <- Linf[2]
+                         Linf <- Linf[1] }
+  (Linf+b*(Lm-mean(Lm))-Lm)*(1-exp(-K*dt))
+}
   SWang <- function(Lm,dt,Linf,K,b) {
-         (Linf+b*(Lm-mean(Lm))-Lm)*(1-exp(-K*dt))
+    (Linf+b*(Lm-mean(Lm))-Lm)*(1-exp(-K*dt))
   }
   Wang2 <- function(Lm,dt,K,a,d) {
-         if (length(K)==3) {
-           d <- K[3]
-           a <- K[2]
-           K <- K[1]
-         } else if (length(K)!=1 | is.null(a) | is.null(d)) {
-           stop("One or more model parameters (K, a, d) are missing or incorrect.",call.=FALSE)
-         }
-         (a+d*Lm)*(1-exp(-K*dt))
-  }
+  if (length(K)==3) { d <- K[3]; a <- K[2]; K <- K[1] }
+  (a+d*Lm)*(1-exp(-K*dt))
+}
   SWang2 <- function(Lm,dt,K,a,d) {
-         (a+d*Lm)*(1-exp(-K*dt))
-  }  
-  Laslett <- function(t,Linf,K1,K2,t0,a,b) {
-         if (length(Linf)==6) { 
-           K1 <- Linf[2]
-           K2 <- Linf[3]
-           t0 <- Linf[4]
-           a <- Linf[5]
-           b <- Linf[6]
-           Linf <- Linf[1]
-         } else if (length(Linf)!=1 | is.null(K1) | is.null(K2) | is.null(t0) | is.null(a) | is.null(b)) {
-           stop("One or more model parameters (Linf, K1, K2, t0, a, b) are missing or incorrect.",call.=FALSE)
-         } 
-         Linf*(1-exp(-K2*(t-t0))*((1+exp(-b*(t-t0-a)))/(1+exp(a*b)))^(-(K2-K1)/b))
+    (a+d*Lm)*(1-exp(-K*dt))
   }
+  Laslett <- function(t,Linf,K1,K2,t0,a,b) {
+  if (length(Linf)==6) { K1 <- Linf[2]; K2 <- Linf[3]
+                         t0 <- Linf[4]; a <- Linf[5]
+                         b <- Linf[6]; Linf <- Linf[1] }
+}
   SLaslett <- function(t,Linf,K1,K2,t0,a,b) {
-         Linf*(1-exp(-K2*(t-t0))*((1+exp(-b*(t-t0-a)))/(1+exp(a*b)))^(-(K2-K1)/b))
+    Linf*(1-exp(-K2*(t-t0))*((1+exp(-b*(t-t0-a)))/(1+exp(a*b)))^(-(K2-K1)/b))
   }
   type <- match.arg(type)
   if (msg) {
@@ -333,7 +251,7 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
       },
       Weisberg= {
         cat("You have chosen the 'Weisberg et al. (2010)' von Bertalanffy parameterization.\n\n")
-        cat("  E[L|t] = Linf*(1-exp(-(log(2)/K0)*(t-t0)))\n\n")
+        cat("  E[L|t] = Linf*(1-exp(-(log(2)/(K0-t0))*(t-t0)))\n\n")
         cat("where Linf = asymptotic mean length\n")
         cat("      K0 = age when half of Linf is reached\n")
         cat("      t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")

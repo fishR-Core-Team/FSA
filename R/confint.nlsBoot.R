@@ -1,17 +1,19 @@
-#'Construct a confidence interval from nlsBoot results.
+#' @title Construct a confidence interval from nlsBoot results.
 #'
-#'Constructs a non-parametric bootstrap confidence interval from an object of \code{nlsBoot()} (in the \pkg{nlstools} package) results.
+#' @description Constructs a non-parametric bootstrap confidence interval from an object of \code{nlsBoot()} (in the \pkg{nlstools} package) results.
 #'
-#'This function finds the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped parameter estimates below and above.  This is an approximate 100\code{conf.level}\% confidence interval.
+#' @details This function finds the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped parameter estimates below and above.  This is an approximate 100\code{conf.level}\% confidence interval.
 #'
 #' @param object An object saved from \code{nlsBoot()}.
 #' @param parm An integer that indicates which parameter to compute the confidence interval for.  Will compute for all parameters if \code{NULL}.
 #' @param conf.level A level of confidence as a proportion. 
 #' @param level Same as \code{conf.level}.  Used for compatability with the main \code{confint}.
 #' @param plot A logical that indicates whether a histogram of the \code{parm} parameters from the bootstrap samples with error bars that illustrate the bootstrapped confidence intervals should be constructed.
+#' @param err.col A single numeric or character that identifies the color for the error bar on the plot.
+#' @param err.lwd A single numeric that identifies the line width for the error bar on the plot.
 #' @param rows A numeric that contains the number of rows to use on the graphic.
 #' @param cols A numeric that contains the number of columns to use on the graphic.
-#' @param \dots Additional arguments for methods.
+#' @param \dots Additional arguments for \code{\link{hist.formula}} if \code{plot=TRUE}.
 #'
 #' @return A matrix with as many rows as columns (i.e., parameter estimates) in the \code{object$coefboot} data frame and two columns of the quantiles that correspond to the approximate confidence interval.
 #'
@@ -36,7 +38,9 @@
 #'
 #' @rdname confint.nlsBoot
 #' @export
-confint.nlsBoot <- function(object,parm=NULL,level=0.95,conf.level=level,plot=FALSE,rows=round(sqrt(ncol(object$coefboot))),cols=ceiling(sqrt(ncol(object$coefboot))),...) {
+confint.nlsBoot <- function(object,parm=NULL,level=0.95,conf.level=level,
+                            plot=FALSE,err.col="red",err.lwd=2,
+                            rows=round(sqrt(ncol(object$coefboot))),cols=ceiling(sqrt(ncol(object$coefboot))),...) {
   # internal function to find CIs
   cl <- function(x) quantile(x,c((1-conf.level)/2,1-(1-conf.level)/2))
   # end internal function
@@ -74,16 +78,15 @@ confint.nlsBoot <- function(object,parm=NULL,level=0.95,conf.level=level,plot=FA
   
   if (plot) {
     if (is.null(parm)) {
-      op <- par(mfrow=c(rows,cols),mar=c(3.5,3.5,1,1),mgp=c(2,0.75,0))
+      op <- par(mfrow=c(rows,cols))
       np <- ncol(object$coefboot)
       for (i in 1:np) {
-        h <- hist(object$coefboot[,i],xlab=colnames(object$coefboot)[i],main="")
-        plotCI(object$bootCI[i,1],y=0.95*max(h$counts),li=res[i,1],ui=res[i,2],err="x",lwd=2,pch=19,col="red",add=TRUE)
+        h <- hist(~object$coefboot[,i],xlab=colnames(object$coefboot)[i],...)
+        plotCI(object$bootCI[i,1],y=0.95*max(h$counts),li=res[i,1],ui=res[i,2],err="x",pch=19,col=err.col,lwd=err.lwd,add=TRUE)
       }
     } else {
-      op <- par(mar=c(3.5,3.5,1,1),mgp=c(2,0.75,0))
-      h <- hist(object$coefboot[,parm],xlab=parm,main="")
-      plotCI(object$bootCI[parm,1],y=0.95*max(h$counts),li=res[1],ui=res[2],err="x",lwd=2,pch=19,col="red",add=TRUE)
+      h <- hist(~object$coefboot[,parm],xlab=parm,main="")
+      plotCI(object$bootCI[parm,1],y=0.95*max(h$counts),li=res[1],ui=res[2],err="x",pch=19,col=err.col,lwd=err.lwd,add=TRUE,...)
     }
   }
   res

@@ -1,7 +1,10 @@
 # FSA 0.4.13 ongoing
+* added suggests for `lmtest` for testing (`test_VonB2b.R`).
+* added tests (in `test_VonB2b.R`) to assure that group comparisons of von Bertalanffy parameters equal those in Kimura (1980) and `vblrt()` in `fishmethods`.
+* `confint.nlsBoot()`: Modified.  Modified the plotting to use `hist.formula()`, removed `par(mar=)` definitions, and added `err.col=` and `lwd.col=` to control the color and line width of the confidence interval line on the plot.  
 * `growthModels()`: Modified.  Added Weisberg parameterization.  Changed `vbGallucciQuinn` to `vbGQ`.
 * `growthModelSim()`: Modified.  Added Weisberg parameterization.  Added `vbGQ` abbreviation (synonymous with `vbGallucciQuinn`).
-* `vbFuns()`: Modified.  Changed default from `simple=FALSE` to `simple=TRUE`.  Added Weisberg parameterization.  Added `vbGQ` abbreviation (synonymous with `vbGallucciQuinn`).
+* `vbFuns()`: Modified.  Added Weisberg parameterization.  Added `vbGQ` abbreviation (synonymous with `vbGallucciQuinn`).  Simplified the functions for when `simple=FALSE` (no error checking now).
 * `vbModels()`: Modified.  Added Weisberg parameterization.  Changed `vbGallucciQuinn` to `vbGQ`.
 * `vbStarts()`: Modified.  Added Weisberg parameterization.  Added `vbGQ` abbreviation (synonymous with `vbGallucciQuinn`).  Added an internal function for checking whther the starting values for K and Linf made sense.
 

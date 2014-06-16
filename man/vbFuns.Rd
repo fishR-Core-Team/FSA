@@ -5,7 +5,7 @@
 \usage{
 vbFuns(type = c("typical", "BevertonHolt", "original", "vonBertalanffy", "GQ",
   "GallucciQuinn", "Mooij", "Weisberg", "Schnute", "Francis", "Laslett",
-  "Fabens", "Fabens2", "Somers", "Somers2", "Wang", "Wang2"), simple = TRUE,
+  "Fabens", "Fabens2", "Somers", "Somers2", "Wang", "Wang2"), simple = FALSE,
   msg = FALSE)
 }
 \arguments{
@@ -18,7 +18,7 @@ vbFuns(type = c("typical", "BevertonHolt", "original", "vonBertalanffy", "GQ",
 \value{
 A function that can be used to predict fish length given a vector of ages and values for the model parameters and, in some parameterizations, values for some constants.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).
 
-If \code{simple=FALSE} was used then the values for all three parameters can be included as a vector of length three in the first paramater argument.  Similarly, the values for all constants can be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE} then all parameters and constants must be declared individually.  In addition, if \code{simple=TRUE} then the resulting function is somewhat easier to read.
+If \code{simple=FALSE} then the values for all parameters can be included as a vector in the first parameter argument.  Similarly, the values for all constants can be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE} then all parameters and constants must be declared individually.  If \code{simple=TRUE} then the resulting function is somewhat easier to read.
 }
 \description{
 Creates a function for a specific von Bertalanffy model parameterization.

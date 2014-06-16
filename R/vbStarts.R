@@ -114,7 +114,7 @@ vbStarts <- function(formula,data=NULL,
     original=,vonBertalanffy={ sv <- list(Linf=sLinf,L0=sL0,K=sK) },
     GQ=,GallucciQuinn={ sv <- list(omega=sLinf*sK,K=sK,t0=st0) },
     Mooij={ sv <- list(Linf=sLinf,L0=sL0,omega=sLinf*sK) },
-    Weisberg={ sv <- list(Linf=sLinf,K0=log(2)/sK,t0=st0) },
+    Weisberg={ sv <- list(Linf=sLinf,K0=log(2)/sK+st0,t0=st0) },
     Schnute=,Francis={
       if (is.null(ages2use)) ages2use <- range(ages)
       if (length(ages2use)!=2) stop("'age2use=' must be NULL or have only two ages.",call.=FALSE)

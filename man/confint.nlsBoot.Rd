@@ -5,7 +5,7 @@
 \title{Construct a confidence interval from nlsBoot results.}
 \usage{
 \method{confint}{nlsBoot}(object, parm = NULL, level = 0.95,
-  conf.level = level, plot = FALSE,
+  conf.level = level, plot = FALSE, err.col = "red", err.lwd = 2,
   rows = round(sqrt(ncol(object$coefboot))),
   cols = ceiling(sqrt(ncol(object$coefboot))), ...)
 }
@@ -20,11 +20,15 @@
 
 \item{plot}{A logical that indicates whether a histogram of the \code{parm} parameters from the bootstrap samples with error bars that illustrate the bootstrapped confidence intervals should be constructed.}
 
+\item{err.col}{A single numeric or character that identifies the color for the error bar on the plot.}
+
+\item{err.lwd}{A single numeric that identifies the line width for the error bar on the plot.}
+
 \item{rows}{A numeric that contains the number of rows to use on the graphic.}
 
 \item{cols}{A numeric that contains the number of columns to use on the graphic.}
 
-\item{\dots}{Additional arguments for methods.}
+\item{\dots}{Additional arguments for \code{\link{hist.formula}} if \code{plot=TRUE}.}
 }
 \value{
 A matrix with as many rows as columns (i.e., parameter estimates) in the \code{object$coefboot} data frame and two columns of the quantiles that correspond to the approximate confidence interval.
