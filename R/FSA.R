@@ -22,6 +22,7 @@
 #' @importFrom gplots rich.colors
 #' @importFrom Hmisc binconf
 #' @importFrom knitr purl
+#' @importFrom lmtest lrtest
 #' @importFrom multcomp cld
 #' @importFrom plotrix plotCI stackpoly thigmophobe
 #' @importFrom relax gslider

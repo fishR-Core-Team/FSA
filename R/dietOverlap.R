@@ -1,8 +1,8 @@
-#'Computes indices of diet overlap between two species.
+#' @title Computes indices of diet overlap between two species.
 #'
-#'Computes various diet overlap indices between two species from summarized (i.e., not individual) diet data.
+#' @description Computes various diet overlap indices between two species from summarized (i.e., not individual) diet data.
 #'
-#'NEED MORE DETAILS HERE
+#' @details NEED MORE DETAILS HERE
 #'
 #' @note Only the Pianka measurements have been tested against results from other softwares.
 #'
@@ -34,19 +34,19 @@
 #' @seealso See \code{piankabio} in \pkg{pgirmess} for similar functionality.
 #'
 #' @references
-#'Horn, H.S. 1966. Measurement of overlap in comparative ecological studies. American Naturalist 100:419-424.
+#' Horn, H.S. 1966. Measurement of overlap in comparative ecological studies. American Naturalist 100:419-424.
 #'
-#'Krebs, C.J.  1989.  Ecological Methodology.  Harper Collins, New York.
+#' Krebs, C.J.  1989.  Ecological Methodology.  Harper Collins, New York.
 #'
-#'Levins, R. 1968. Evolution in changing environments: Some theoretical explorations.  Princeton University Press, Princeton.
+#' Levins, R. 1968. Evolution in changing environments: Some theoretical explorations.  Princeton University Press, Princeton.
 #'
-#'Morisita, M. 1959. Measuring of interspecific association and similarity between communities.  Memoirs of the Faculty of Science of Kyusha University.  Series in Evolutionary Biology 3:65-80.
+#' Morisita, M. 1959. Measuring of interspecific association and similarity between communities.  Memoirs of the Faculty of Science of Kyusha University.  Series in Evolutionary Biology 3:65-80.
 #'
-#'Pianka R.D. 1973.  The structure of lizard communities. Annual Review of Ecology and Systematics 4:53-74.
+#' Pianka R.D. 1973.  The structure of lizard communities. Annual Review of Ecology and Systematics 4:53-74.
 
-#'Schoener, T.W. 1970. Nonsynchronous spatial overlap of lizards in patchy habitats.  Ecology 51:408-418.
+#' Schoener, T.W. 1970. Nonsynchronous spatial overlap of lizards in patchy habitats.  Ecology 51:408-418.
 #'
-#'Smith, E.P. and T.M. Zaret.  1982.  Bias in estimating niche overlap.  Ecology 63:1248-1253.
+#' Smith, E.P. and T.M. Zaret.  1982.  Bias in estimating niche overlap.  Ecology 63:1248-1253.
 #'
 #' @keywords manip
 #'

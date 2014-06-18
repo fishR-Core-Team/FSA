@@ -1,5 +1,5 @@
 Package: FSA
-Version: 0.4.14
+Version: 0.4.15
 Title: Functions to support simple fisheries stock assessment methods.
 Description: This package can be used to peform a variety of simple fish stock
     assessment methods.  Detailed vignettes are available on the fishR website
@@ -14,6 +14,7 @@ Imports:
     gplots,
     Hmisc,
     knitr,
+    lmtest,
     multcomp,
     plotrix,
     relax,
@@ -21,7 +22,6 @@ Imports:
 Suggests:
     FSAdata,
     fishmethods,
-    lmtest,
     nlstools,
     popbio,
     Rcapture,

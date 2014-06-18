@@ -1,15 +1,21 @@
-# FSA 0.4.13 ongoing
-* added suggests for `lmtest` for testing (`test_VonB2b.R`).
+# FSA 0.4.15 ongoing
+
+
+# FSA 0.4.14 Jun14
+
 * added tests (in `test_VonB2b.R`) to assure that group comparisons of von Bertalanffy parameters equal those in Kimura (1980) and `vblrt()` in `fishmethods`.
-* `confint.nlsBoot()`: Modified.  Modified the plotting to use `hist.formula()`, removed `par(mar=)` definitions, and added `err.col=` and `lwd.col=` to control the color and line width of the confidence interval line on the plot.  
+* added importsFrom for `lmtest` for `lrt()`.  Also used in testing (`test_VonB2b.R`).
+* `confint.nlsBoot()`: Modified.  Modified the plotting to use `hist.formula()`, removed `par(mar=)` definitions, and added `err.col=` and `lwd.col=` to control the color and line width of the confidence interval line on the plot.
+* `extraSS()`: Added.
 * `growthModels()`: Modified.  Added Weisberg parameterization.  Changed `vbGallucciQuinn` to `vbGQ`.
 * `growthModelSim()`: Modified.  Added Weisberg parameterization.  Added `vbGQ` abbreviation (synonymous with `vbGallucciQuinn`).
+* `lrt()`: Added.
 * `vbFuns()`: Modified.  Added Weisberg parameterization.  Added `vbGQ` abbreviation (synonymous with `vbGallucciQuinn`).  Simplified the functions for when `simple=FALSE` (no error checking now).
 * `vbModels()`: Modified.  Added Weisberg parameterization.  Changed `vbGallucciQuinn` to `vbGQ`.
 * `vbStarts()`: Modified.  Added Weisberg parameterization.  Added `vbGQ` abbreviation (synonymous with `vbGallucciQuinn`).  Added an internal function for checking whther the starting values for K and Linf made sense.
 
 
-# FSA 0.4.14 Jun14
+# FSA 0.4.13 Jun14
 
 * added testthat files for error checking of `chapmanPlot()`, `vbFuns()`, `vbStarts()`, and `walfordPlot()`.  Added a testthat file for checking that the von Bertalanffy fitting using `vbFuns()` and `vbStarts()` matches other sources.
 * `ageBias()`: Modified.  Deprecated `col.lab=` and `row.lab=` and replaced with `ref.lab=` and `nref.lab=`.  Moved all functions that were internal to main functions to being internal to the package.  In the process, I changed the names of the internal functions slightly, made explicit the argument passing, and added internal descriptions of the internal files.  Changed several if else strings in the plot method to a `switch()`.

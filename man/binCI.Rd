@@ -25,9 +25,9 @@ Uses one of three methods to compute a confidence interval for the probability o
 This function will compute confidence interval for three possible methods chosen with the \code{type} argument.
 
 \tabular{ll}{
-\code{type="wilson"} \tab Wilson's (Journal of the American Statistical Association, 1927) confidence interval for a proportion.  This is the score CI, based on inverting the asymptotic normal test using the null standard error. \cr
-\code{type="exact"} \tab Computes the Clopper/Pearson exact CI for a binomial success probability. \cr
-\code{type="asymptotic"} \tab This uses the normal distribution approximation. \cr
+ \code{type="wilson"} \tab Wilson's (Journal of the American Statistical Association, 1927) confidence interval for a proportion.  This is the score CI, based on inverting the asymptotic normal test using the null standard error. \cr
+ \code{type="exact"} \tab Computes the Clopper/Pearson exact CI for a binomial success probability. \cr
+ \code{type="asymptotic"} \tab This uses the normal distribution approximation. \cr
 }
 
 Note that Agresti and Coull (2000) suggest that the Wilson interval is the preferred method and is, thus, the default \code{type}.
