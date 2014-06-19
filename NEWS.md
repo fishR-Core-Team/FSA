@@ -1,4 +1,6 @@
-# FSA 0.4.15 ongoing
+# FSA 0.4.16 ongoing
+
+# FSA 0.4.15 Jun14
 * lots of roxygen2 Rd cleaning.
 * `addLoessLine()`: Deleted.  Moved functionality to `iAddLoessLine()` and moved code to `residPlot()` file..
 * `addOutlierTestResults()`: Deleted.  Moved functionality to `iAddOutlierTestResults()` and moved code to `residPlot()` file.

@@ -1,6 +1,6 @@
-#' @title Internal functions used in FSA.
+#' @title Internal functions.
 #'
-#' @description Internal functions used in FSA
+#' @description Internal functions that are common to several functions in FSA.
 #'
 #' @details Take note of the following uses:
 #'  \itemize{
