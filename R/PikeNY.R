@@ -1,26 +1,27 @@
-#'Summarized multiple mark-recapture data for all Northern Pike from Buckthorn Marsh.
+#' @title Summarized multiple mark-recapture data for all Northern Pike from Buckthorn Marsh.
 #'
-#'Summary results of capture histories (number captured, number of recaptured fish, and number of unmarked fish that were marked) for all Buckthorn Marsh Northern Pike (\emph{Esox lucius}).
+#' @description Summary results of capture histories (number captured, number of recaptured fish, and number of unmarked fish that were marked) for all Buckthorn Marsh Northern Pike (\emph{Esox lucius}).
 #'
 #' @name PikeNY
 #'
 #' @docType data
 #'
 #' @format A data frame with 21 observations on the following 4 variables:
-#'\describe{
-#' \item{date}{Capture date.} 
-#' \item{n}{Total fish captured in each sample.} 
-#' \item{m}{Marked fish captured in each sample.} 
-#' \item{R}{Marked fish returned to the population.} 
-#'}
+#'  \describe{
+#'    \item{date}{Capture date.} 
+#'    \item{n}{Total fish captured in each sample.} 
+#'    \item{m}{Marked fish captured in each sample.} 
+#'    \item{R}{Marked fish returned to the population.} 
+#'  }
 #'
-#' @section Topic(s): \itemize{
-#' \item Population size
-#' \item Abundance
-#' \item Mark-recapture
-#' \item Schnabel method
-#' \item Schumacher-Eschmeyer method
-#'}
+#' @section Topic(s):
+#'  \itemize{
+#'    \item Population size
+#'    \item Abundance
+#'    \item Mark-recapture
+#'    \item Schnabel method
+#'    \item Schumacher-Eschmeyer method
+#'  }
 #'
 #' @concept Abundance 'Population Size' 'Mark-Recapture' 'Schnabel'
 #'
@@ -29,8 +30,8 @@
 #' @keywords datasets
 #'
 #' @examples
-#'data(PikeNY)
-#'str(PikeNY)
-#'head(PikeNY)
+#' data(PikeNY)
+#' str(PikeNY)
+#' head(PikeNY)
 #'
 NULL

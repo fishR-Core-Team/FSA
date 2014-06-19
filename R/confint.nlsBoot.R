@@ -48,11 +48,11 @@ confint.nlsBoot <- function(object,parm=NULL,level=0.95,conf.level=level,
   # determine if just a vector (one variable) was sent
   if (is.null(dim(object$coefboot))) {
     res <- cl(object$coefboot)
-    names(res) <- ciLabel(conf.level)
+    names(res) <- iCILabel(conf.level)
   } else {
     # if a matrix (>1 variable) was sent then find all CIs
     res <- t(apply(object$coefboot,2,cl))
-    colnames(res) <- ciLabel(conf.level)
+    colnames(res) <- iCILabel(conf.level)
   }
   # perform some checks on parm argument
   if (!is.null(parm)) {

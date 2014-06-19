@@ -1,8 +1,8 @@
-#' Plots to visualize age-length keys.
+#' @title Plots to visualize age-length keys.
 #' 
-#' Various plots to visualize the proportion of fish of certain ages within length categories in an age-length key.
+#' @description Various plots to visualize the proportion of fish of certain ages within length categories in an age-length key.
 #' 
-#' A variety of plots can be used to visualize the proportion of fish of certain ages withing length categories of an age-length key.  The types of plots are described below and illustrated in the examples.
+#' @details A variety of plots can be used to visualize the proportion of fish of certain ages withing length categories of an age-length key.  The types of plots are described below and illustrated in the examples.
 #' \itemize{
 #'   \item A \dQuote{stacked} bar chart where vertical bars over length categories that each sum to 1 but are segmented by the proportion of each age in that length category is constructed with \code{type="barplot"}.  The ages will be labeled in the bar segments unless \code{showLegend=TRUE} is used.
 #'   \item A \dQuote{stacked} are chart similar to the bar chart described above is constructed with \code{type="area"}.
@@ -11,6 +11,7 @@
 #'   \item A \dQuote{bubble} plot where circles whose size is proportional to the proportion of fish of each age in each length category is constructed with \code{type="bubble"}.  The color of the bubbles can be controlled with \code{col=} and an underlying grid for ease of seeing the age and length category for each bubble can be controlled with \code{grid=}.  Bubbles from a second age-length key can be overlaid on an already constructed bubble plot by using \code{add=TRUE} in a second call to \code{ageKeyPlot}.
 #' }
 #' Note that all plots are \dQuote{vertically conditional} -- i.e., each represents the proportional ages WITHIN each length category.
+#' 
 #' @param key A numeric matrix that contains the age-length key.
 #' @param type A string that indicates the type of plot to construct.  See details.
 #' @param xlab A string that contains the label for the x-axis.
@@ -40,23 +41,23 @@
 #' @keywords plot
 #' 
 #' @examples
-#'## Make an example age-length key -- same as in ageKey()
-#'data(WR79)
-#'WR.age <- Subset(WR79, !is.na(age))      # isolate the age sample
-#'WR.age$LCat <- lencat(WR.age$len,w=5)    # add length categories (width=5)
-#'raw <- xtabs(~LCat+age,data=WR.age)      # create age-length key
-#'( WR.key <- prop.table(raw, margin=1) )
+#' ## Make an example age-length key -- same as in ageKey()
+#' data(WR79)
+#' WR.age <- Subset(WR79, !is.na(age))      # isolate the age sample
+#' WR.age$LCat <- lencat(WR.age$len,w=5)    # add length categories (width=5)
+#' raw <- xtabs(~LCat+age,data=WR.age)      # create age-length key
+#' ( WR.key <- prop.table(raw, margin=1) )
 #'
-#'## Various visualizations of the age-length key
-#'ageKeyPlot(WR.key,"barplot")
-#'ageKeyPlot(WR.key,"barplot",showLegend=TRUE)
-#'ageKeyPlot(WR.key,"area",showLegend=TRUE)
-#'ageKeyPlot(WR.key,"splines")
-#'ageKeyPlot(WR.key,"lines")
-#'ageKeyPlot(WR.key,"bubble")
-#'ageKeyPlot(WR.key,"bubble",grid=FALSE)
-#'ageKeyPlot(WR.key,"bubble",grid="blue")
-#'ageKeyPlot(WR.key,"bubble",grid=rgb(0,0,0,0.2),col=rgb(0,0,0,0.5))
+#' ## Various visualizations of the age-length key
+#' ageKeyPlot(WR.key,"barplot")
+#' ageKeyPlot(WR.key,"barplot",showLegend=TRUE)
+#' ageKeyPlot(WR.key,"area",showLegend=TRUE)
+#' ageKeyPlot(WR.key,"splines")
+#' ageKeyPlot(WR.key,"lines")
+#' ageKeyPlot(WR.key,"bubble")
+#' ageKeyPlot(WR.key,"bubble",grid=FALSE)
+#' ageKeyPlot(WR.key,"bubble",grid="blue")
+#' ageKeyPlot(WR.key,"bubble",grid=rgb(0,0,0,0.2),col=rgb(0,0,0,0.5))
 #'
 #' @export
 ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),

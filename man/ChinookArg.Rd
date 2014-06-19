@@ -4,19 +4,19 @@
 \alias{ChinookArg}
 \title{Lengths and weights of Chinook Salmon from three locations in Argentina.}
 \format{A data frame with 112 observations on the following 3 variables:
-\describe{
-\item{tl}{Total length (cm)}
- \item{w}{Weight (kg)}
- \item{loc}{Capture location (Argentina, Petrohue, Puyehue)}
-}}
+ \describe{
+   \item{tl}{Total length (cm)}
+   \item{w}{Weight (kg)}
+   \item{loc}{Capture location (Argentina, Petrohue, Puyehue)}
+ }}
 \description{
 Lengths and weights of Chinook Salmon from three locations in Argentina.
 }
 \section{Topic(s)}{
 
-\itemize{
-\item Length-weight
-}
+ \itemize{
+   \item Length-weight
+ }
 }
 \examples{
 data(ChinookArg)

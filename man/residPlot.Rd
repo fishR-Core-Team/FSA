@@ -154,7 +154,6 @@ residPlot(lm6)
 # No boxplots
 residPlot(lm6,bp=FALSE)
 
-
 ## Example showing outlier detection
 x <- c(runif(100))
 y <- c(7,runif(99))

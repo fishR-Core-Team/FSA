@@ -1,12 +1,12 @@
-#'Finds reasonable starting values for the parameters in a specific stock-recruitment model parameterization.
+#' @title Finds reasonable starting values for the parameters in a specific stock-recruitment model parameterization.
 #'
-#'Finds reasonable starting values for the parameters in a specific stock-recruitment model parameterization.
+#' @description Finds reasonable starting values for the parameters in a specific stock-recruitment model parameterization.
 #'
-#'This function attempts to find reasonable starting values for a variety of parameterizations of stock-recruitment models.  There is no guarantee that these starting values are the \sQuote{best} starting values.  One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.
+#' @details This function attempts to find reasonable starting values for a variety of parameterizations of stock-recruitment models.  There is no guarantee that these starting values are the \sQuote{best} starting values.  One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.
 #'
-#'Starting values for the first parameterization of the Beverton-Holt model were derived by linearizing the first parameterization (inverting both sides and simplifying), fitting the linear model to the observed data, and extracting parameter values that corresponding to the linear model parameters.  Starting values for the other parameterizations of the Beverton-Holt model were derived from known relationships between the parameters of each parameterization and the first parameterization.  If the computed starting value for the Rp parameter was larger then the largest observed recruitment level then the Rp starting value was set to the largest observed recruitment value.
+#' Starting values for the first parameterization of the Beverton-Holt model were derived by linearizing the first parameterization (inverting both sides and simplifying), fitting the linear model to the observed data, and extracting parameter values that corresponding to the linear model parameters.  Starting values for the other parameterizations of the Beverton-Holt model were derived from known relationships between the parameters of each parameterization and the first parameterization.  If the computed starting value for the Rp parameter was larger then the largest observed recruitment level then the Rp starting value was set to the largest observed recruitment value.
 #'
-#'Starting values for the Ricker parameterizations followed the same general algorithm as described for the Beverton-Holt parameterizations.  If the computed starting value for atilde was less than zero then the starting value was set to 0.00001.
+#' Starting values for the Ricker parameterizations followed the same general algorithm as described for the Beverton-Holt parameterizations.  If the computed starting value for atilde was less than zero then the starting value was set to 0.00001.
 #'
 #' @aliases srStarts srStarts.default srStarts.formula
 #'
@@ -26,26 +26,27 @@
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
 #'
-#' @references Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19.  United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
+#' @references 
+#' Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19.  United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
 #'
-#'Quinn II, T.J. and R.B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press.
+#' Quinn II, T.J. and R.B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press.
 #'
-#'Ricker, W.E. 1954. Stock and recruitment. Journal of the Fisheries Research Board of Canada 11:559-623.
+#' Ricker, W.E. 1954. Stock and recruitment. Journal of the Fisheries Research Board of Canada 11:559-623.
 #'
-#'Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
+#' Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 #'
 #' @keywords manip
 #'
 #' @examples
-#'## Simple Examples
-#'data(CodNorwegian)
-#'srStarts(recruits~stock,data=CodNorwegian)
-#'srStarts(recruits~stock,data=CodNorwegian,type="Ricker")
+#' ## Simple Examples
+#' data(CodNorwegian)
+#' srStarts(recruits~stock,data=CodNorwegian)
+#' srStarts(recruits~stock,data=CodNorwegian,type="Ricker")
 #'
-#'## Simple Example with a Plot
-#'srStarts(recruits~stock,data=CodNorwegian,type="Ricker",plot=TRUE)
+#' ## Simple Example with a Plot
+#' srStarts(recruits~stock,data=CodNorwegian,type="Ricker",plot=TRUE)
 #'
-#'## See examples in srFuns() for use of srStarts() when fitting stock-recruit models
+#' ## See examples in srFuns() for use of srStarts() when fitting stock-recruit models
 #'
 #' @rdname srStarts
 #' @export

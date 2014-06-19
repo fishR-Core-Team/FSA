@@ -1,6 +1,6 @@
-#'Creates a function for a specific stock-recruitment model parameterization.
+#' @title Creates a function for a specific stock-recruitment model parameterization.
 #'
-#'Creates a function for a specific stock-recruitment model parameterization.
+#' @description Creates a function for a specific stock-recruitment model parameterization.
 #'
 #' @param type A string that indicates the type of the stock-recruitment model.
 #' @param param A numeric that indicates the parameterization of the stock-recruitment model type.
@@ -14,42 +14,43 @@
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
 #'
-#' @references Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19. United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
+#' @references 
+#' Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19. United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
 #'
-#'Quinn II, T.J. and R.B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press.
+#' Quinn II, T.J. and R.B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press.
 #'
-#'Ricker, W.E. 1954. Stock and recruitment. Journal of the Fisheries Research Board of Canada 11:559-623.
+#' Ricker, W.E. 1954. Stock and recruitment. Journal of the Fisheries Research Board of Canada 11:559-623.
 #'
-#'Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
+#' Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 #' 
 #' @keywords manip
 #' 
 #' @examples
-#'## Simple Examples
-#'( bh1 <- srFuns() )               # Beverton-Holt #1 parameterization
-#'stock <- sample(1:1000,50)
-#'stock <- stock[order(stock)]
-#'plot(bh1(stock,a=0.5,b=0.01)~stock,type="b",pch=19)
+#' ## Simple Examples
+#' ( bh1 <- srFuns() )               # Beverton-Holt #1 parameterization
+#' stock <- sample(1:1000,50)
+#' stock <- stock[order(stock)]
+#' plot(bh1(stock,a=0.5,b=0.01)~stock,type="b",pch=19)
 #'
-#'( r1 <- srFuns("Ricker") )       # Ricker #1 parameterization
-#'points(r1(stock,a=0.5,b=0.005)~stock,type="b",pch=19,col="red")
+#' ( r1 <- srFuns("Ricker") )       # Ricker #1 parameterization
+#' points(r1(stock,a=0.5,b=0.005)~stock,type="b",pch=19,col="red")
 #'
-#'## Examples of fitting stock-recruitment models
-#'data(CodNorwegian)
+#' ## Examples of fitting stock-recruitment models
+#' data(CodNorwegian)
 #'
-#'# Fitting the Beverton-Holt #1 parameterization with multiplicative errors
-#'bh1s <- srStarts(recruits~stock,data=CodNorwegian)
-#'fit1 <- nls(log(recruits)~log(bh1(stock,a,b)),data=CodNorwegian,start=bh1s)
-#'summary(fit1,correlation=TRUE)
-#'plot(recruits~stock,data=CodNorwegian,pch=19,xlim=c(0,200))
-#'curve(bh1(x,a=coef(fit1)[1],b=coef(fit1)[2]),from=0,to=200,col="red",lwd=3,add=TRUE)
+#' # Fitting the Beverton-Holt #1 parameterization with multiplicative errors
+#' bh1s <- srStarts(recruits~stock,data=CodNorwegian)
+#' fit1 <- nls(log(recruits)~log(bh1(stock,a,b)),data=CodNorwegian,start=bh1s)
+#' summary(fit1,correlation=TRUE)
+#' plot(recruits~stock,data=CodNorwegian,pch=19,xlim=c(0,200))
+#' curve(bh1(x,a=coef(fit1)[1],b=coef(fit1)[2]),from=0,to=200,col="red",lwd=3,add=TRUE)
 #'
-#'# Fitting the Ricker #3 parameterization with multiplicative errors
-#'r3 <- srFuns("Ricker",param=3)
-#'r3s <- srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=3)
-#'fit2 <- nls(log(recruits)~log(r3(stock,a,Rp)),data=CodNorwegian,start=r3s)
-#'summary(fit2,correlation=TRUE)
-#'curve(r3(x,a=coef(fit2)[1],Rp=coef(fit2)[2]),from=0,to=200,col="blue",lwd=3,add=TRUE)
+#' # Fitting the Ricker #3 parameterization with multiplicative errors
+#' r3 <- srFuns("Ricker",param=3)
+#' r3s <- srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=3)
+#' fit2 <- nls(log(recruits)~log(r3(stock,a,Rp)),data=CodNorwegian,start=r3s)
+#' summary(fit2,correlation=TRUE)
+#' curve(r3(x,a=coef(fit2)[1],Rp=coef(fit2)[2]),from=0,to=200,col="blue",lwd=3,add=TRUE)
 #'
 #' @export
 srFuns <- function(type=c("BevertonHolt","Ricker"),param=1,msg=FALSE) {

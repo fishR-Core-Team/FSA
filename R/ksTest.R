@@ -1,8 +1,8 @@
-#'Kolmogorov-Smirnov Tests.
+#' @title Kolmogorov-Smirnov Tests.
 #'
-#'Performs a one- or two-sample Kolmogorov-Smirnov test.  Includes the option to perform a two-sample test using the formula notation.
+#' @description Performs a one- or two-sample Kolmogorov-Smirnov test.  Includes the option to perform a two-sample test using the formula notation.
 #'
-#'This function was created to allow the use of a formula in the two-sample situation.  The default version is simply a pass through to \code{ks.test}.  Thus, see \code{?ks.test} for more details.
+#' @details This function was created to allow the use of a formula in the two-sample situation.  The default version is simply a pass through to \code{ks.test}.  Thus, see \code{?ks.test} for more details.
 #'
 #' @aliases ksTest ksTest.default ksTest.formula
 #'
@@ -20,16 +20,16 @@
 #' @keywords htest
 #'
 #' @examples
-#'## see ?ks.test for other examples
-#'## first two-sample example in ?ks.test
-#'x <- rnorm(50)
-#'y <- runif(30)
-#'ksTest(x,y)
+#' ## see ?ks.test for other examples
+#' ## first two-sample example in ?ks.test
+#' x <- rnorm(50)
+#' y <- runif(30)
+#' ksTest(x,y)
 #'
-#'## same as above but using formulas
-#'df <- data.frame(dat=c(x,y),grp=rep(c("X","Y"),c(50,30)))
-#'str(df)
-#'ksTest(dat~grp,data=df)
+#' ## same as above but using formulas
+#' df <- data.frame(dat=c(x,y),grp=rep(c("X","Y"),c(50,30)))
+#' str(df)
+#' ksTest(dat~grp,data=df)
 #'
 #' @rdname ksTest
 #' @export

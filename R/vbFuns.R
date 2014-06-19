@@ -41,43 +41,43 @@
 #' @keywords manip
 #'
 #' @examples
-#'## Simple Examples
-#'( vb1 <- vbFuns() )              # typical parameterization
-#'ages <- 0:20
-#'plot(vb1(ages,Linf=20,K=0.3,t0=-0.2)~ages,type="b",pch=19)
+#' ## Simple Examples
+#' ( vb1 <- vbFuns() )              # typical parameterization
+#' ages <- 0:20
+#' plot(vb1(ages,Linf=20,K=0.3,t0=-0.2)~ages,type="b",pch=19)
 #'
-#'( vb2 <- vbFuns("Francis") )     # Francis parameterization
-#'plot(vb2(ages,L1=10,L2=19,L3=20,t1=2,t3=18)~ages,type="b",pch=19)
+#' ( vb2 <- vbFuns("Francis") )     # Francis parameterization
+#' plot(vb2(ages,L1=10,L2=19,L3=20,t1=2,t3=18)~ages,type="b",pch=19)
 #'
-#'( vb2c <- vbFuns("Francis",simple=FALSE) )   # compare to vb2
+#' ( vb2c <- vbFuns("Francis",simple=FALSE) )   # compare to vb2
 #'
-#'## Examples of fitting Von B models
-#'##   After the last example a plot is constructed with three lines on top of each
-#'##   other illustrating that the parameterizations all produce the same fitted
-#'##   values.  However, observe the correlations in the summary() results.
+#' ## Examples of fitting Von B models
+#' ##   After the last example a plot is constructed with three lines on top of each
+#' ##   other illustrating that the parameterizations all produce the same fitted
+#' ##   values.  However, observe the correlations in the summary() results.
 #'
-#'# Fitting the typical paramaterization of the von B function
-#'data(SpotVA1)
-#'fit1 <- nls(tl~vb1(age,Linf,K,t0),data=SpotVA1,start=vbStarts(tl~age,data=SpotVA1))
-#'summary(fit1,correlation=TRUE)
-#'plot(tl~age,data=SpotVA1,pch=19)
-#'curve(vb1(x,Linf=coef(fit1)[1],K=coef(fit1)[2],t0=coef(fit1)[3]),from=0,to=5,
-#'  col="red",lwd=10,add=TRUE)
+#' # Fitting the typical paramaterization of the von B function
+#' data(SpotVA1)
+#' fit1 <- nls(tl~vb1(age,Linf,K,t0),data=SpotVA1,start=vbStarts(tl~age,data=SpotVA1))
+#' summary(fit1,correlation=TRUE)
+#' plot(tl~age,data=SpotVA1,pch=19)
+#' curve(vb1(x,Linf=coef(fit1)[1],K=coef(fit1)[2],t0=coef(fit1)[3]),from=0,to=5,
+#'       col="red",lwd=10,add=TRUE)
 #'
-#'# Fitting the Francis paramaterization of the von B function
-#'fit2 <- nls(tl~vb2c(age,L1,L2,L3,t1=0,t3=5),data=SpotVA1,
-#'  start=vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5)))
-#'summary(fit2,correlation=TRUE)
-#'## showing how the coefficients and t values can be sent to the first arguments
-#'##    if simple=FALSE in vbFuns() call
-#'curve(vb2c(x,L1=coef(fit2),t1=c(0,5)),from=0,to=5,col="blue",lwd=5,add=TRUE)
+#' # Fitting the Francis paramaterization of the von B function
+#' fit2 <- nls(tl~vb2c(age,L1,L2,L3,t1=0,t3=5),data=SpotVA1,
+#'             start=vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5)))
+#' summary(fit2,correlation=TRUE)
+#' ## showing how the coefficients and t values can be sent to the first arguments
+#' ##    if simple=FALSE in vbFuns() call
+#' curve(vb2c(x,L1=coef(fit2),t1=c(0,5)),from=0,to=5,col="blue",lwd=5,add=TRUE)
 #'
-#'# Fitting the Schnute parameterization of the von B function
-#'vb3 <- vbFuns("Schnute",simple=FALSE)
-#'fit3 <- nls(tl~vb3(age,L1,L3,K,t1=0,t3=4),data=SpotVA1,
-#'  start=vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,4)))
-#'summary(fit3,correlation=TRUE)
-#'curve(vb3(x,L1=coef(fit3),t1=c(0,4)),from=0,to=5,col="green",lwd=2,add=TRUE)
+#' # Fitting the Schnute parameterization of the von B function
+#' vb3 <- vbFuns("Schnute",simple=FALSE)
+#' fit3 <- nls(tl~vb3(age,L1,L3,K,t1=0,t3=4),data=SpotVA1,
+#'             start=vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,4)))
+#' summary(fit3,correlation=TRUE)
+#' curve(vb3(x,L1=coef(fit3),t1=c(0,4)),from=0,to=5,col="green",lwd=2,add=TRUE)
 #'
 #' @export
 vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",

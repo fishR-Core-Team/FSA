@@ -84,19 +84,19 @@ in ith sample (multiple-census).}
 }
 \value{
 A list with the following items
-\itemize{
-\item M The number of marked fish from the first sample that was provided.
-\item n The number of captured fish in the second sample that was provided.
-\item m The number of recaptured (marked) fish in the second sample that was provided.
-\item M1 The adjusted (depending on \code{type}) number of marked fish from the first sample.
-\item n1 The adjusted (depending on \code{type}) number of captured fish in the second sample.
-\item m1 The adjusted (depending on \code{type}) number of recaptured (marked) fish in the second sample.
-\item cf A correction factor for the population estimate that depends on \code{type}.
-\item type The type of method used (provided by the user).
-\item meth A label for the type of method used.
-\item N The estimated initial population size.
-\item labels Labels for the rows of summary matrix.
-}
+ \itemize{
+   \item M The number of marked fish from the first sample that was provided.
+   \item n The number of captured fish in the second sample that was provided.
+   \item m The number of recaptured (marked) fish in the second sample that was provided.
+   \item M1 The adjusted (depending on \code{type}) number of marked fish from the first sample.
+   \item n1 The adjusted (depending on \code{type}) number of captured fish in the second sample.
+   \item m1 The adjusted (depending on \code{type}) number of recaptured (marked) fish in the second sample.
+   \item cf A correction factor for the population estimate that depends on \code{type}.
+   \item type The type of method used (provided by the user).
+   \item meth A label for the type of method used.
+   \item N The estimated initial population size.
+   \item labels Labels for the rows of summary matrix.
+ }
 }
 \description{
 Estimates of the initial population size, along with associated confidence intervals, are constructed from single or multiple census mark-recapture data using a variety of methods.  For single census data, the initial population size is estimated from the number of marked animals from a first sample, number of captured animals in a second sample, and the number of recaptured marked animals in the second sample using either the \sQuote{naive} Petersen method or Chapman, Ricker, or Bailey modifications of the Petersen method.  Single census data can also be separated by group (e.g., size class) to estimate the initial population size by class and for the overall population size.  For multiple census data, the initial population sizes is estimated from the number of captured animals, number of recaptured marked animals, the number of marked animals that are marked and returned to the population, or the number of extant marked animals prior to the sapmle on each of several samples using either the Schnabel (1938) or Schumacher-Eschmeyer (1943) method.
@@ -105,10 +105,10 @@ Estimates of the initial population size, along with associated confidence inter
 The main \code{mrClosed} function computes a variety of values that are intermediate to the final population estimate and its standard error and confidence intervals.  For single census data, the following methods can be declared for use with the \code{type=} argument:
 
 \tabular{ll}{
-\code{type="Petersen"} \tab naive Petersen (from Krebs (1989) eqn 2.1) .\cr
-\code{type="Chapman"} \tab Chapman (1951) modification of the Petersen (from Krebs (1989) eqn 2.2).\cr
-\code{type="Ricker"} \tab Ricker (1975) modification of the Chapman modification (from Ricker (1975) eqn 3.7).\cr
-\code{type="Bailey"} \tab Bailey (1951,1952) modification of the Petersen (Krebs (1989) eqn 2.3).
+ \code{type="Petersen"} \tab naive Petersen (from Krebs (1989) eqn 2.1) .\cr
+ \code{type="Chapman"} \tab Chapman (1951) modification of the Petersen (from Krebs (1989) eqn 2.2).\cr
+ \code{type="Ricker"} \tab Ricker (1975) modification of the Chapman modification (from Ricker (1975) eqn 3.7).\cr
+ \code{type="Bailey"} \tab Bailey (1951,1952) modification of the Petersen (Krebs (1989) eqn 2.3).
 }
 
 If \code{M} contains an object from the \code{capHistSum} function and one of Petersen, Chapman, Ricker, or Bailey methods has been chosen then \code{n} and \code{m} can be left missing or will be ignored.  In this case, the function will extract the needed data from the \code{sum} portion of the \code{CapHist} class object.  If the data were not summarized with \code{\link{capHistSum}} then all of \code{M}, \code{n}, and \code{m} must be supplied by the user.  The popuation estimate for each method is returned from \code{summary}.
@@ -120,8 +120,8 @@ If \code{incl.all=TRUE} in the \code{summary} function and population estimates 
 For multiple census data, the following methods can be declared for use with the \code{type=} argument:
 
 \tabular{ll}{
-\code{type="Schnabel"} \tab Schnabel (1938) method (from Ricker (1975) eqn 3.15).\cr
-\code{type="SchumacherEschmeyer"} \tab Schumacher and Eschmeyer (1943) method (from Ricker (1975) eqn 3.12).
+ \code{type="Schnabel"} \tab Schnabel (1938) method (from Ricker (1975) eqn 3.15).\cr
+ \code{type="SchumacherEschmeyer"} \tab Schumacher and Eschmeyer (1943) method (from Ricker (1975) eqn 3.12).
 }
 
 If \code{M} contains an object from \code{\link{capHistSum}} and the Schnabel or Schumacher-Eschmeyer methods has been chosen then \code{n}, \code{m} and \code{R} can be left missing or will be ignored.  In this case, the function will extract the needed data from the \code{sum} portion of the \code{CapHist} class object.  Otherwise, the user must supply vectors of results in \code{n}, \code{m}, and \code{R} or \code{M}.  The popuation estimate for each method is returned from \code{summary}.

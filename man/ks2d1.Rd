@@ -39,17 +39,17 @@ ks2d1(x1, y1, justD = FALSE, KSp = FALSE, divbylen = TRUE)
 }
 \value{
 The main function returns a single numeric of the D test statistic if \code{justD=TRUE} or a list with the following items if \code{justD=FALSE}:
-\itemize{
-\item D The D test statistic.  See details.
-\item pval The approximate p-value from the Kolmogorov-Smirnov distribution.  Returned only if \code{KSp=TRUE}.  NOT YET IMPLEMENTED.
-\item n1 Sample size.
-\item max1 Maximum D .
-\item where1 Observation(s) where maximum D occurred.
-\item KSp Same logical supplied by user.
-\item divbylen Same logical supplied by user.
-\item x1 Same vector of X data supplied by user.
-\item y1 Same vector of Y data supplied by user.
-}
+ \itemize{
+   \item D The D test statistic.  See details.
+   \item pval The approximate p-value from the Kolmogorov-Smirnov distribution.  Returned only if \code{KSp=TRUE}.  NOT YET IMPLEMENTED.
+   \item n1 Sample size.
+   \item max1 Maximum D .
+   \item where1 Observation(s) where maximum D occurred.
+   \item KSp Same logical supplied by user.
+   \item divbylen Same logical supplied by user.
+   \item x1 Same vector of X data supplied by user.
+   \item y1 Same vector of Y data supplied by user.
+ }
 
 The \code{plot} function return a scatterplot of the data with the point or points that resulted in the maximum D value.  The \code{print} function prints results in a nice format if \code{justD=FALSE} (only D will be printed if \code{justD=TRUE}).
 }
@@ -85,9 +85,9 @@ plot(res4,xlab="Ameletus Numbers",ylab="Leuctra Numbers",col=rgb(0,0,0,0.1))
 Derek H. Ogle, \email{dogle@northland.edu}, with significant help from Ben Bolker.
 }
 \references{
-Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From star charts to stoneflies: detecting relationships in continuous bivariate data. Ecology 79:442 447.  \url{http://opensiuc.lib.siu.edu/fiaq_pubs/17/}
+Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  \href{http://opensiuc.lib.siu.edu/fiaq_pubs/17/}{From star charts to stoneflies: detecting relationships in continuous bivariate data.} Ecology 79:442 447.
 
-Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.  Numerical Recipes: The Art of Scientific Computing, 3rd Edition.  Cambridge University Press.  1286 pages. \url{http://www.nr.com/}
+Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.  \href{http://www.nr.com/}{Numerical Recipes: The Art of Scientific Computing, 3rd Edition.}  Cambridge University Press.  1286 pages.
 }
 \seealso{
 \code{\link{ks2d1p}}

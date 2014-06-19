@@ -1,6 +1,6 @@
-#'Convert a "directional" position to "adj" values for labeling a point.
+#' @title Convert a "directional" position to "adj" values for labeling a point.
 #'
-#'Convert a \dQuote{directional} (e.g., \sQuote{NE}, \sQuote{S}, etc.) position to \dQuote{adj} values for labeling a point.
+#' @description Convert a \dQuote{directional} (e.g., \sQuote{NE}, \sQuote{S}, etc.) position to \dQuote{adj} values for labeling a point.
 #'
 #' @param pos A string that indicates a direction to place the label relative to a set of coordinates.
 #' @param offset A value that controls how far the label will be from the point (0=label starts on point).
@@ -14,19 +14,19 @@
 #' @keywords manip
 #'
 #' @examples
-#'## Make a dummy plot
-#'plot(c(0.75,2,3.25),c(2,2,2),xlim=c(0,4),ylim=c(1,3),pch=16,xlab="x",ylab="y")
+#' ## Make a dummy plot
+#' plot(c(0.75,2,3.25),c(2,2,2),xlim=c(0,4),ylim=c(1,3),pch=16,xlab="x",ylab="y")
 #'
-#'## Add some labels
-#'text(2,2,"center",adj=pos2adj())
-#'text(0.75,2,"north",adj=pos2adj("N"))
-#'text(0.75,2,"south",adj=pos2adj("S"))
-#'text(0.75,2,"east",adj=pos2adj("E"))
-#'text(0.75,2,"west",adj=pos2adj("W"))
-#'text(3.25,2,"NE",adj=pos2adj("NE"))
-#'text(3.25,2,"NW",adj=pos2adj("NW"))
-#'text(3.25,2,"SE",adj=pos2adj("SE"))
-#'text(3.25,2,"SW",adj=pos2adj("SW"))
+#' ## Add some labels
+#' text(2,2,"center",adj=pos2adj())
+#' text(0.75,2,"north",adj=pos2adj("N"))
+#' text(0.75,2,"south",adj=pos2adj("S"))
+#' text(0.75,2,"east",adj=pos2adj("E"))
+#' text(0.75,2,"west",adj=pos2adj("W"))
+#' text(3.25,2,"NE",adj=pos2adj("NE"))
+#' text(3.25,2,"NW",adj=pos2adj("NW"))
+#' text(3.25,2,"SE",adj=pos2adj("SE"))
+#' text(3.25,2,"SW",adj=pos2adj("SW"))
 #'
 #' @export
 pos2adj <- function(pos=c("center","S","W","N","East","SW","NW","NE","SE",

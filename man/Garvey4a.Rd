@@ -4,12 +4,12 @@
 \alias{Garvey4a}
 \title{Desity of shad captured in offshore zones and sunfish seined in inshore areas of four Ohio reservoirs across 22 years.}
 \format{A data frame of 22 observations on the following 2 variables:
-\describe{
-\item{shad}{Number of shad per m^2.}
-\item{sunfish}{Number of sunfish per m^2.}
-}}
+ \describe{
+   \item{shad}{Number of shad per m^2.}
+   \item{sunfish}{Number of sunfish per m^2.}
+ }}
 \source{
-From Figure 1 in Garvey, J.E., E.A. Marschall, and R.A. Wright. 1998. From star charts to stoneflies: detecting relationships in continuous bivariate data. Ecology 79:442-447. \url{http://opensiuc.lib.siu.edu/fiaq_pubs/17/}
+From Figure 1 in Garvey, J.E., E.A. Marschall, and R.A. Wright. 1998. \href{http://opensiuc.lib.siu.edu/fiaq_pubs/17/}{From star charts to stoneflies: detecting relationships in continuous bivariate data.} Ecology 79:442-447.
 }
 \description{
 Desity of shad captured in offshore zones and sunfish seined in inshore areas of four Ohio reservoirs across 22 years.

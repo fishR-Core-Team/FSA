@@ -1,8 +1,8 @@
-#' Ratio of lagged observations.
+#' @title Ratio of lagged observations.
 #'
-#' Computes the ratio of lagged observations in a vector.
+#' @description Computes the ratio of lagged observations in a vector.
 #'
-#' This function behaves similarly to \code{diff()} except that it returns a vector or matrix of ratios rather than differences.
+#' @details This function behaves similarly to \code{diff()} except that it returns a vector or matrix of ratios rather than differences.
 #'
 #' @param x A numeric vector or matrix.
 #' @param lag An integer representing the lag \sQuote{distance}.
@@ -18,12 +18,12 @@
 #' @keywords manip
 #'
 #' @examples
-#'## same examples as in diff()
-#'lagratio(1:10, 2)
-#'lagratio(1:10, 2, 2)
-#'x <- cumsum(cumsum(1:10))
-#'lagratio(x, lag = 2)
-#'lagratio(x, differences = 2)
+#' ## same examples as in diff()
+#' lagratio(1:10, 2)
+#' lagratio(1:10, 2, 2)
+#' x <- cumsum(cumsum(1:10))
+#' lagratio(x, lag = 2)
+#' lagratio(x, differences = 2)
 #'
 #' ## ONLY RUN IN INTERACTIVE MODE
 #' if (interactive()) {

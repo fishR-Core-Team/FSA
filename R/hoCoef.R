@@ -1,10 +1,10 @@
-#'Performs a hypothesis test that a linear model parameter is equal to a specific value.
+#' @title Performs a hypothesis test that a linear model parameter is equal to a specific value.
 #'
-#'Performs a hypothesis test that a linear model parameter is equal to a specific value.  Useful for testing that a parameter is equal to a value other than 0.
+#' @description Performs a hypothesis test that a linear model parameter is equal to a specific value.  Useful for testing that a parameter is equal to a value other than 0.
 #'
-#'The \dQuote{direction} of the alternative hypothesis is identified by a string in the \code{alt} argument.  
+#' @details The \dQuote{direction} of the alternative hypothesis is identified by a string in the \code{alt} argument.  
 #'
-#'If the \code{lm} object is from a simple linear regression with an intercept then \code{term=1} will use the intercept and \code{term=2} will use the slope in the hypothesis test.
+#' If the \code{lm} object is from a simple linear regression with an intercept then \code{term=1} will use the intercept and \code{term=2} will use the slope in the hypothesis test.
 #'
 #' @param lmobj A \code{lm} object.
 #' @param term A single numeric that indicates which term in the model to use in the hypothesis test.
@@ -20,10 +20,10 @@
 #' @keywords htest
 #'
 #' @examples
-#'data(Mirex)
-#'# Simple linear regression test HA:slope!=0.1
-#'lm1 <- lm(mirex~weight, data=Mirex)
-#'hoCoef(lm1,2,0.1)
+#' data(Mirex)
+#' # Simple linear regression test HA:slope!=0.1
+#' lm1 <- lm(mirex~weight, data=Mirex)
+#' hoCoef(lm1,2,0.1)
 #'
 #' @export
 hoCoef <- function(lmobj,term=2,bo=0,alt=c("two.sided","less","greater")) {

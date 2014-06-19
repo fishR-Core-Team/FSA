@@ -1,6 +1,8 @@
-#'Constructs a plot of population size versus time from the projection of Leslie matrix.
+#' @title Constructs a plot of population size versus time from the projection of Leslie matrix.
 #'
-#'Constructs a plot of population size versus time from the projection of Leslie matrix using \code{pop.projection()} from the \pkg{popbio} package.
+#' @description Constructs a plot of population size versus time from the projection of Leslie matrix using \code{pop.projection()} from the \pkg{popbio} package.
+#'
+#' @note This function is meant to work with an object saved from \code{pop.projection()} in the \pkg{popbio} package.  It is not a general function for plotting population size versus time.
 #'
 #' @param object An object saved from \code{pop.projection()} from the \pkg{popbio} package.
 #' @param use.log A logical that indicates if the population sizes should be logged before plotting.
@@ -14,8 +16,6 @@
 #' @return A plot of either population sizes or log population sizes versus time.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
-#'
-#' @note This function is meant to work with an object saved from \code{pop.projection()} in the \pkg{popbio} package.  It is not a general function for plotting population size versus time.
 #'
 #' @seealso \code{pop.projection} and \code{stage.vectors.plot} in \pkg{popbio}.
 #'

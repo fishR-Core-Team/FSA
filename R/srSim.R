@@ -1,10 +1,10 @@
-#'Dynamic plots to explore typical fisheries stock-recruitment models.
+#' @title Dynamic plots to explore typical fisheries stock-recruitment models.
 #'
-#'Plots hypothetical number of recruits versus stock size for four parameterizations of the Beverton-Holt and three parameterizations of the Ricker stock-recruit models.  Slider bars are used to alter the parameters of each model.
+#' @description Plots hypothetical number of recruits versus stock size for four parameterizations of the Beverton-Holt and three parameterizations of the Ricker stock-recruit models.  Slider bars are used to alter the parameters of each model.
 #'
-#'This function can be used to explore the dynamics of stock-recruitment models for various parameter choices.  In these instances of model exploration the \code{S=} and \code{R=} arguments should be (left) set at \code{NULL}.  This function can  also be used to visually \dQuote{fit} a stock-recruit model to a set of observed stock and recruitment data in order to determine reasonable starting values for the non-linear least-squares fit of the stock-recruit model.  In this instance, observed data are plotted by including the vectors of observed stock sizes and recruits in a model of the form \code{S~R}, in conjunction with the \code{data=} argument.
+#' @details This function can be used to explore the dynamics of stock-recruitment models for various parameter choices.  In these instances of model exploration the \code{S=} and \code{R=} arguments should be (left) set at \code{NULL}.  This function can  also be used to visually \dQuote{fit} a stock-recruit model to a set of observed stock and recruitment data in order to determine reasonable starting values for the non-linear least-squares fit of the stock-recruit model.  In this instance, observed data are plotted by including the vectors of observed stock sizes and recruits in a model of the form \code{S~R}, in conjunction with the \code{data=} argument.
 #'
-#'The \code{type=} argument is used to choose either the \code{"BevertonHolt"} or \code{"Ricker"} models.  Different parameterizations of these two models are chosen with the \code{param=} argument.  Four paramaterizations of the Beverton-Holt model and three parameterizations of the Ricker model are allowed.  See \code{\link{srModels}} for a representation of each parameterization.
+#' The \code{type=} argument is used to choose either the \code{"BevertonHolt"} or \code{"Ricker"} models.  Different parameterizations of these two models are chosen with the \code{param=} argument.  Four paramaterizations of the Beverton-Holt model and three parameterizations of the Ricker model are allowed.  See \code{\link{srModels}} for a representation of each parameterization.
 #'
 #' @param S An optional vector that contains observed numbers of spawning stock or a formula as described in the details.
 #' @param R An optional vector that contains observed numbers of recruits.  See details.

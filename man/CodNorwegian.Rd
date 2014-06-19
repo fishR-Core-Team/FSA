@@ -4,11 +4,11 @@
 \alias{CodNorwegian}
 \title{Stock and recruitment data for Norwegian cod,1937-1960.}
 \format{A data frame of 24 observations on the following 3 variables:
-\describe{
-\item{year}{Year of data.}
-\item{recruits}{Recruits -- year-class strength index.}
-\item{stock}{Spawning stock index.}
-}}
+ \describe{
+   \item{year}{Year of data.}
+   \item{recruits}{Recruits -- year-class strength index.}
+   \item{stock}{Spawning stock index.}
+ }}
 \source{
 From Garrod, D.J. 1967.  Population dynamics of the Arcto-Norwegian cod.  Journal of the Fisheries Research Board of Canada, 24:145-190.
 }
@@ -17,9 +17,9 @@ Norwegian cod (\emph{Gadus morhua}) stock and recruitment by year, 1937-1960.
 }
 \section{Topic(s)}{
 
-\itemize{
-\item Stock-recruit
-}
+ \itemize{
+   \item Stock-recruit
+ }
 }
 \examples{
 data(CodNorwegian)

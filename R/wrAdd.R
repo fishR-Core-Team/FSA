@@ -1,16 +1,16 @@
-#'Appends standard weight and relative weight variables to a data frame.
+#' @title Appends standard weight and relative weight variables to a data frame.
 #'
-#'Computes the appropriate standard weight and relative weight for a species and appends the values to an existing data frame.
+#' @description Computes the appropriate standard weight and relative weight for a species and appends the values to an existing data frame.
 #'
-#'This function first computes the standard weight given the observed lengths and the appropriate standard weight equation, from \code{wsVal()}, for the provided species.  Either the linear or quadratic equation has been preferred for each species so only that equation will be used.  However, some species have standard weight equations for different percentiles and use of these equations must be chosen by the user with \code{ref}.
+#' @details This function first computes the standard weight given the observed lengths and the appropriate standard weight equation, from \code{wsVal()}, for the provided species.  Either the linear or quadratic equation has been preferred for each species so only that equation will be used.  However, some species have standard weight equations for different percentiles and use of these equations must be chosen by the user with \code{ref}.
 #'
-#'Once the standard weight is computed, the relative weights is computed given the observed weights in and the computed standard weight according to
+#' Once the standard weight is computed, the relative weights is computed given the observed weights in and the computed standard weight according to
 #'
-#'\deqn{\frac{W}{W_{S}}*100}
+#' \deqn{\frac{W}{W_{S}}*100}
 #'
-#'The results of both computations are appended as columns to the original data frame.
+#' The results of both computations are appended as columns to the original data frame.
 #'
-#'If a species name does not exist in the database then no results will be returned but a list of species will be printed.
+#' If a species name does not exist in the database then no results will be returned but a list of species will be printed.
 #'
 #' @param formula A formula of the form \code{weight~length} where \dQuote{weight} generically represents a variable in \code{data} that contains weight measurements and \dQuote{length} generically represents a variable in \code{data} that contains length measurements.  Note that this formula can only contain two variables and they must be in the weight first, length second order.
 #' @param data A data.frame that minimally contains the length and weight measurements given in the variables in the \code{formula}.
@@ -32,33 +32,33 @@
 #' @keywords manip
 #'
 #' @examples
-#'# A data frame of bluegill lengths and weights
-#'data(BluegillLM)
-#'str(BluegillLM)
+#' # A data frame of bluegill lengths and weights
+#' data(BluegillLM)
+#' str(BluegillLM)
 #'  
-#'# NAs put in place for "small" fish
-#'new1 <- wrAdd(wght~tl,data=BluegillLM,species="Bluegill",units="metric")
-#'str(new1)
-#'tail(new1)
+#' # NAs put in place for "small" fish
+#' new1 <- wrAdd(wght~tl,data=BluegillLM,species="Bluegill",units="metric")
+#' str(new1)
+#' tail(new1)
 #'
-#'# Small fish are removed from the returned data frame
-#'new2 <- wrAdd(wght~tl,data=BluegillLM,species="Bluegill",units="metric",remove.submin=TRUE)
-#'str(new2)
-#'tail(new2)
+#' # Small fish are removed from the returned data frame
+#' new2 <- wrAdd(wght~tl,data=BluegillLM,species="Bluegill",units="metric",remove.submin=TRUE)
+#' str(new2)
+#' tail(new2)
 #'  
-#'# Different variable names
-#'new3 <- wrAdd(wght~tl,data=BluegillLM,species="Bluegill",units="metric",
-#'  wsname="Standard",wrname="Relative")
-#'str(new3)
-#'tail(new3)
+#' # Different variable names
+#' new3 <- wrAdd(wght~tl,data=BluegillLM,species="Bluegill",units="metric",
+#'               wsname="Standard",wrname="Relative")
+#' str(new3)
+#' tail(new3)
 #'
-#'# Add English units (mm, lbs) to original data frame as a demonstration only
-#'BluegillLM$tlE <- BluegillLM$tl/25.4
-#'BluegillLM$wghtE <- BluegillLM$wght/454
-#'new4 <- wrAdd(wghtE~tlE,data=BluegillLM,species="Bluegill",units="English")
-#'str(new4)
-#'# compare to tail(new1) to see slight differences due to conversion
-#'tail(new4) 
+#' # Add English units (mm, lbs) to original data frame as a demonstration only
+#' BluegillLM$tlE <- BluegillLM$tl/25.4
+#' BluegillLM$wghtE <- BluegillLM$wght/454
+#' new4 <- wrAdd(wghtE~tlE,data=BluegillLM,species="Bluegill",units="English")
+#' str(new4)
+#' # compare to tail(new1) to see slight differences due to conversion
+#' tail(new4) 
 #'
 #' @export
 wrAdd <- function(formula,data,species="List",units=c("metric","English"),
@@ -66,7 +66,7 @@ wrAdd <- function(formula,data,species="List",units=c("metric","English"),
   units <- match.arg(units)
   wseqn <- wsVal(species,units=units,ref=ref)
   if (is.null(wseqn)) stop("Species Ws equation does not exist for choices of species, units, and ref.",.call=FALSE)
-  cl <- getVarFromFormula(formula,data,expNumVars=2)
+  cl <- iGetVarFromFormula(formula,data,expNumVars=2)
   cw <- cl[1]
   cl <- cl[2]
   nd <- data

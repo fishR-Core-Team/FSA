@@ -1,14 +1,14 @@
-#'Add standard and relative weights specific to a species to an entire data frame.
+#' @title Add standard and relative weights specific to a species to an entire data frame.
 #'
-#'This function adds standard and relative weight variables specific to a species to all individuals in an entire data frame.  The concept is to save the user from having to split each species into a separate data frame and then creating the required standard and relative weight variables.
+#' @description This function adds standard and relative weight variables specific to a species to all individuals in an entire data frame.  The concept is to save the user from having to split each species into a separate data frame and then creating the required standard and relative weight variables.
 #'
-#'This function requires that the data frame provided in \code{data} contains one column of fish species names, one column of length measurements, and one column of weights.  Any species name in that is not recognized as being a species with a known standard weight equation (and stored in \code{data(WSlit)}) will be thought of as an \dQuote{other} type of fish (see below for how these fish can be handled).  Species that are known to have a standard weight equation can be found with \code{\link{wsVal}()} (i.e., using that function without any arguments).  Note that spelling and capitalization have to be exactly the same as in \code{data(WSlit)}) (see \code{\link{recodeSpecies}} for one method for changing species names before using this function).
+#' @details This function requires that the data frame provided in \code{data} contains one column of fish species names, one column of length measurements, and one column of weights.  Any species name in that is not recognized as being a species with a known standard weight equation (and stored in \code{data(WSlit)}) will be thought of as an \dQuote{other} type of fish (see below for how these fish can be handled).  Species that are known to have a standard weight equation can be found with \code{\link{wsVal}()} (i.e., using that function without any arguments).  Note that spelling and capitalization have to be exactly the same as in \code{data(WSlit)}) (see \code{\link{recodeSpecies}} for one method for changing species names before using this function).
 #'
-#'This function uses the appropriate standard weight equation, from \code{wsVal()}, for the provided species.  Either the linear or quadratic equation has been preferred for each species so only that equation will be used.  However, some species have standard weight equations for different percentiles.  The use of the 75th percentile is by far the most common and, because this function is designed for use on entire data frames, it will be the only percentile allowed.  Thus, to use equations for other percentiles, one will have to use \dQuote{manual} methods.
+#' This function uses the appropriate standard weight equation, from \code{wsVal()}, for the provided species.  Either the linear or quadratic equation has been preferred for each species so only that equation will be used.  However, some species have standard weight equations for different percentiles.  The use of the 75th percentile is by far the most common and, because this function is designed for use on entire data frames, it will be the only percentile allowed.  Thus, to use equations for other percentiles, one will have to use \dQuote{manual} methods.
 #'
-#'This function will create two new variables in the returned data frame that contain the standard and relative weights that correspond to the provided lengths and weights in \code{data}.
+#' This function will create two new variables in the returned data frame that contain the standard and relative weights that correspond to the provided lengths and weights in \code{data}.
 #'
-#'The default is for all fish below the minimum length suggested for use of the standard weight equation (can be found with \code{\link{wsVal}} and all \dQuote{other} fish (see above for the definition of an \dQuote{Other} fish) is to include these fish in the resulting data frame, but with \code{NA}s in the new standard and relative weight variables.  The \dQuote{sub-minimum} size fish can be excluded from the final data frame by using \code{remove.submin=FALSE} and the \dQuote{other} fish can be excluded by using \code{remove.other=FALSE}.
+#' The default is for all fish below the minimum length suggested for use of the standard weight equation (can be found with \code{\link{wsVal}} and all \dQuote{other} fish (see above for the definition of an \dQuote{Other} fish) is to include these fish in the resulting data frame, but with \code{NA}s in the new standard and relative weight variables.  The \dQuote{sub-minimum} size fish can be excluded from the final data frame by using \code{remove.submin=FALSE} and the \dQuote{other} fish can be excluded by using \code{remove.other=FALSE}.
 #'
 #' @aliases wrDataPrep
 #'
@@ -31,50 +31,50 @@
 #' @keywords manip
 #'
 #' @examples
-#'## Create some random data for three species
-#'set.seed(345234534)  # just to control the randomization
-#'dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),tl=round(rnorm(30,130,50),0))
-#'dbg$wt <- round(4.23e-06*dbg$tl^3.316+rnorm(30,0,10),1)
-#'dlb <- data.frame(species=factor(rep(c("LMB"),30)),tl=round(rnorm(30,350,60),0))
-#'dlb$wt <- round(2.96e-06*dlb$tl^3.273+rnorm(30,0,60),1)
-#'dbt <- data.frame(species=factor(rep(c("bluefin tuna"),30)),tl=round(rnorm(30,1900,300),0))
-#'dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
-#'d <- rbind(dbg,dlb,dbt)
-#'str(d)
+#' ## Create some random data for three species
+#' set.seed(345234534)  # just to control the randomization
+#' dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),tl=round(rnorm(30,130,50),0))
+#' dbg$wt <- round(4.23e-06*dbg$tl^3.316+rnorm(30,0,10),1)
+#' dlb <- data.frame(species=factor(rep(c("LMB"),30)),tl=round(rnorm(30,350,60),0))
+#' dlb$wt <- round(2.96e-06*dlb$tl^3.273+rnorm(30,0,60),1)
+#' dbt <- data.frame(species=factor(rep(c("bluefin tuna"),30)),tl=round(rnorm(30,1900,300),0))
+#' dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
+#' d <- rbind(dbg,dlb,dbt)
+#' str(d)
 #'
-#'# Rename variables to match WSlit -- see recodeSpecies()
-#'d2 <- recodeSpecies(~species,data=d,c("LMB"),c("Largemouth Bass"))
-#'levels(d2$species1)
+#' # Rename variables to match WSlit -- see recodeSpecies()
+#' d2 <- recodeSpecies(~species,data=d,c("LMB"),c("Largemouth Bass"))
+#' levels(d2$species1)
 #'
-#'# Example where species without Ws equations and sub-minimum size fish are retained (the defaults)
-#'d3 <- wrDataPrep(wt~tl+species1,data=d2,units="metric")
-#'str(d3)
-#'head(d3)
-#'head(d3)
+#' # Example where species without Ws equations and sub-minimum size fish are retained (the defaults)
+#' d3 <- wrDataPrep(wt~tl+species1,data=d2,units="metric")
+#' str(d3)
+#' head(d3)
+#' head(d3)
 #'
-#'# Example where species without Ws equations are excluded
-#'d4 <- wrDataPrep(wt~tl+species1,data=d2,units="metric",remove.other=TRUE)
-#'str(d4)
-#'head(d4)
-#'head(d4)
+#' # Example where species without Ws equations are excluded
+#' d4 <- wrDataPrep(wt~tl+species1,data=d2,units="metric",remove.other=TRUE)
+#' str(d4)
+#' head(d4)
+#' head(d4)
 #'
-#'# Example where species without Ws equations and sub-minimum size fish are excluded
-#'d5 <- wrDataPrep(wt~tl+species1,data=d2,units="metric",remove.other=TRUE,remove.submin=TRUE)
-#'str(d5)
-#'head(d5)
-#'head(d5)
+#' # Example where species without Ws equations and sub-minimum size fish are excluded
+#' d5 <- wrDataPrep(wt~tl+species1,data=d2,units="metric",remove.other=TRUE,remove.submin=TRUE)
+#' str(d5)
+#' head(d5)
+#' head(d5)
 #'
-#'# Example of both wrDataPrep and psdDataPrep
-#'d7 <- wrDataPrep(wt~tl+species1,data=d2,units="metric")
-#'d7 <- psdDataPrep(tl~species1,data=d7,units="mm")
-#'str(d7)
-#'head(d7)
+#' # Example of both wrDataPrep and psdDataPrep
+#' d7 <- wrDataPrep(wt~tl+species1,data=d2,units="metric")
+#' d7 <- psdDataPrep(tl~species1,data=d7,units="mm")
+#' str(d7)
+#' head(d7)
 #'
 #' @export
 wrDataPrep <- function(formula,data,units=c("metric","English"),remove.submin=FALSE,
                        remove.other=FALSE,wsname="ws",wrname="wr") {
   units <- match.arg(units)
-  cl <- getVarFromFormula(formula,data,expNumVars=3)
+  cl <- iGetVarFromFormula(formula,data,expNumVars=3)
   cspp <- cl[3]
   cw <- cl[1]
   cl <- cl[2]

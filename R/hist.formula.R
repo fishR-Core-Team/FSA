@@ -1,16 +1,18 @@
-#'Creates separate histograms by levels.
+#' @title Creates separate histograms by levels.
 #'
-#'Creates separate histograms of a quantitative variable by levels of a factor variable.
+#' @description Creates separate histograms of a quantitative variable by levels of a factor variable.
 #'
-#'The formula must be of the form \code{~quantitative}, \code{quantitative~1}, \code{quantitative~factor}, or \code{quantitative~factor*factor2} where \code{quantitative} is the quantitative variable to construct the histograms for and \code{factor} or \code{factor2} are factor variables that contain the levels for which separate histograms should be constructed.
+#' @details The formula must be of the form \code{~quantitative}, \code{quantitative~1}, \code{quantitative~factor}, or \code{quantitative~factor*factor2} where \code{quantitative} is the quantitative variable to construct the histograms for and \code{factor} or \code{factor2} are factor variables that contain the levels for which separate histograms should be constructed.
 #'
-#'If the formula is of the form \code{~quantitative} or \code{quantitative~1} then only a single histogram of the quantitative variable will be produced.  This allows \code{hist.formula()} to be used similarly to \code{hist()} but with a \code{data=} argument.
+#' If the formula is of the form \code{~quantitative} or \code{quantitative~1} then only a single histogram of the quantitative variable will be produced.  This allows \code{hist.formula()} to be used similarly to \code{hist()} but with a \code{data=} argument.
 #'
-#'The function produces a single (but see below) graphic that consists of a grid on which the separate histograms are printed.  The rows and columns of this grid are determined to construct a plot that is as square as possible.  However, the rows and columns can be set by the user with the \code{nrow=} and \code{ncol=} arguments.  If the product of the number of rows and number of columns set by the user is less than the total number of histograms to be constructed then multiple pages of histograms will be produced (each requiring the user to click on the graph to go to the next graph).  The x-axis of each separate histogram will be labeled identically.  The default x-axis label is the name of the quantitative variable.  This can be changed by the user with the \code{xlab=} argument.
+#' The function produces a single (but see below) graphic that consists of a grid on which the separate histograms are printed.  The rows and columns of this grid are determined to construct a plot that is as square as possible.  However, the rows and columns can be set by the user with the \code{nrow=} and \code{ncol=} arguments.  If the product of the number of rows and number of columns set by the user is less than the total number of histograms to be constructed then multiple pages of histograms will be produced (each requiring the user to click on the graph to go to the next graph).  The x-axis of each separate histogram will be labeled identically.  The default x-axis label is the name of the quantitative variable.  This can be changed by the user with the \code{xlab=} argument.
 #'
-#'By default each histogram is labeled with a main title that consists of the levels formed by the right-hand-side of the formula.  If a string is given in \code{pre.main=} then that string will be appended with the names of the level formed by the right-hand-side of the formula.  If \code{pre.main=NULL} then NO main title will be printed.
+# 'By default each histogram is labeled with a main title that consists of the levels formed by the right-hand-side of the formula.  If a string is given in \code{pre.main=} then that string will be appended with the names of the level formed by the right-hand-side of the formula.  If \code{pre.main=NULL} then NO main title will be printed.
 #'
-#'I changed the \code{right=} argument from that used in the base \code{hist()} so that right-open (left-closed) is the default.
+#' I changed the \code{right=} argument from that used in the base \code{hist()} so that right-open (left-closed) is the default.
+#'
+#' @note Students often need to look at the distribution of a quantitative variable separated for different levels of a categorical variable.  One method for examining these distributions is with \code{boxplot(quantitative~factor)}.  Other methods use functions in \pkg{Lattice} and \pkg{ggplots2} but these packages have some learning \sQuote{overhead} for newbie students.  The formula notation, however, is a common way in R to tell R to separate a quantitative variable by the levels of a factor.  Thus, this function adds code for formulas to the generic \code{hist} function.  This allows newbie students to use a common notation (i.e., formula) to easily create multiple histograms of a quantitative variable separated by the levels of a factor.
 #'
 #' @param formula A formula of class(formula).  See details.
 #' @param data An optional data frame that contains the variables in the model.
@@ -32,40 +34,38 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}, but this implementation is largely a modification of the code provided by Marc Schwartz on the R-help mailing list on 1Jun07.
 #'
-#' @note Students often need to look at the distribution of a quantitative variable separated for different levels of a categorical variable.  One method for examining these distributions is with \code{boxplot(quantitative~factor)}.  Other methods use functions in \pkg{Lattice} and \pkg{ggplots2} but these packages have some learning \sQuote{overhead} for newbie students.  The formula notation, however, is a common way in R to tell R to separate a quantitative variable by the levels of a factor.  Thus, this function adds code for formulas to the generic \code{hist} function.  This allows newbie students to use a common notation (i.e., formula) to easily create multiple histograms of a quantitative variable separated by the levels of a factor.
-#'
 #' @seealso See base \code{hist} for related functionality and \code{multhist} in \pkg{plotrix} for similar functionality.
 #'
 #' @keywords hplot
 #'
 #' @examples
-#'## Using the defaults
-#'hist(Sepal.Length~Species,data=iris)
+#' ## Using the defaults
+#' hist(Sepal.Length~Species,data=iris)
 #'
-#'## Add x-labels and use a pre-fix on the main labels
-#'hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",pre.main="Species==")
+#' ## Add x-labels and use a pre-fix on the main labels
+#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",pre.main="Species==")
 #'
-#'## Use different breaks and different y-axis limits for each graph
-#'hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",same.breaks=FALSE,same.ylim=FALSE)
+#' ## Use different breaks and different y-axis limits for each graph
+#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",same.breaks=FALSE,same.ylim=FALSE)
 #'
-#'## Use same but user-controlled breaks for each graph
-#'hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",breaks=seq(4,8,1))
+#' ## Use same but user-controlled breaks for each graph
+#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",breaks=seq(4,8,1))
 #'
-#'## Use same but user-controlled maximum value for y-axis
-#'hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",ymax=30)
+#' ## Use same but user-controlled maximum value for y-axis
+#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",ymax=30)
 #'
-#'## Control the organization of the 'grid' of histograms
-#'hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",nrow=1,ncol=3)
+#' ## Control the organization of the 'grid' of histograms
+#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",nrow=1,ncol=3)
 #'
-#'## Use right=FALSE & freq=FALSE arguments to demonstrate sending an argument used by base hist()
-#'hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",right=FALSE,freq=FALSE)
+#' ## Use right=FALSE & freq=FALSE arguments to demonstrate sending an argument used by base hist()
+#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",right=FALSE,freq=FALSE)
 #'
-#'## Add a junk variable to the iris data set to show two factors on RHS
-#'iris$junk <- factor(sample(c("A","B"),nrow(iris),replace=TRUE))
-#'hist(Sepal.Length~Species*junk,data=iris,xlab="Sepal Length (cm)")
+#' ## Add a junk variable to the iris data set to show two factors on RHS
+#' iris$junk <- factor(sample(c("A","B"),nrow(iris),replace=TRUE))
+#' hist(Sepal.Length~Species*junk,data=iris,xlab="Sepal Length (cm)")
 #'
-#'## Single histogram without grouping using formula notation
-#'hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",main="")
+#' ## Single histogram without grouping using formula notation
+#' hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",main="")
 #'
 #' @rdname hist.formula
 #' @export

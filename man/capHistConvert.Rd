@@ -106,23 +106,27 @@ This function assumes that all unmarked captured fish are marked and returned to
 # convert to 'Rcapture' format
 ( ex2b <- capHistConvert(ex2,in.type="MARK",mch="mch",freq="freq",out.type="Rcapture") )
 
-## A larger example of 'Rcapture' format
-#require(Rcapture)
-#data(bunting)
-#head(bunting)
-# convert to 'FSA' format
-#ex3a <- capHistConvert(bunting,in.type="Rcapture",cols=1:8,freq="freq")
-#head(ex3a)
-# convert to 'MARK' format
-#ex3b <- capHistConvert(bunting,in.type="Rcapture",cols=1:8,freq="freq",out.type="MARK")
-#head(ex3b)
-# convert converted 'FSA' back to 'MARK' format
-#ex3c <- capHistConvert(ex3a,in.type="FSA",cols=1:8,out.type="MARK")
-#head(ex3c)
-# convert converted 'FSA' back to 'Rcapture' format
-#ex3d <- capHistConvert(ex3a,in.type="FSA",cols=1:8,out.type="Rcap",var.lbls.pre="Sample")
-#head(ex3d)
+## ONLY RUN IN INTERACTIVE MODE
+if (interactive()) {
 
+## A larger example of 'Rcapture' format
+require(Rcapture)
+data(bunting)
+head(bunting)
+# convert to 'FSA' format
+ex3a <- capHistConvert(bunting,in.type="Rcapture",cols=1:8,freq="freq")
+head(ex3a)
+# convert to 'MARK' format
+ex3b <- capHistConvert(bunting,in.type="Rcapture",cols=1:8,freq="freq",out.type="MARK")
+head(ex3b)
+# convert converted 'FSA' back to 'MARK' format
+ex3c <- capHistConvert(ex3a,in.type="FSA",cols=1:8,out.type="MARK")
+head(ex3c)
+# convert converted 'FSA' back to 'Rcapture' format
+ex3d <- capHistConvert(ex3a,in.type="FSA",cols=1:8,out.type="Rcap",var.lbls.pre="Sample")
+head(ex3d)
+
+}
 
 ## A small example of 'MARK' format with two groups -- males and females
 ( ex4 <- data.frame(mch=c("100101;","100001;"),male=c(3,1),female=c(2,2)) )

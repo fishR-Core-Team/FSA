@@ -1,8 +1,8 @@
-#'Provides a vector of possible color palettes.
+#' @title Provides a vector of possible color palettes.
 #'
-#'Provides a vector of possible color palettes.
+#' @description Provides a vector of possible color palettes.
 #'
-#'Generally serves as an internal function and should be called by the user.
+#' @details Generally serves as an internal function and should not be called by the user.
 #'
 #' @return A single string with a palette name.
 #' 
@@ -11,6 +11,4 @@
 #' @keywords misc
 #' 
 #' @export
-paletteChoices <- function() {
-  c("rich","cm","default","grey","gray","heat","jet","rainbow","topo","terrain")
-}
+paletteChoices <- function() c("rich","cm","default","grey","gray","heat","jet","rainbow","topo","terrain")

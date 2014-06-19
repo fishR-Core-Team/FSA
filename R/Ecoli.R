@@ -1,16 +1,16 @@
-#'Population growth of Escherichia coli.
+#' @title Population growth of Escherichia coli.
 #'
-#'The number of \emph{Escherichia coli} cells versus time.
+#' @description The number of \emph{Escherichia coli} cells versus time.
 #'
 #' @name Ecoli
 #' 
 #' @docType data
 #' 
 #' @format A data frame with 8 observations on the following 2 variables:
-#'\describe{
-#' \item{days}{Elapsed duration of the experiment.}
-#' \item{cells}{Number of cells in the population.} 
-#'}
+#'  \describe{
+#'    \item{days}{Elapsed duration of the experiment.}
+#'    \item{cells}{Number of cells in the population.} 
+#'  }
 #' 
 #' @concept 'Nonlinear Model'
 #' 

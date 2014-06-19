@@ -57,27 +57,27 @@
 #' @keywords htest manip
 #' 
 #' @examples
-#'## Example with just two age assignments
-#'data(WhitefishLC)
-#'ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)
-#'summary(ap1)
-#'summary(ap1,what="precision")
-#'summary(ap1,what="difference")
-#'summary(ap1,what="difference",percent=FALSE)
-#'summary(ap1,what="absolute",percent=FALSE)
+#' ## Example with just two age assignments
+#' data(WhitefishLC)
+#' ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)
+#' summary(ap1)
+#' summary(ap1,what="precision")
+#' summary(ap1,what="difference")
+#' summary(ap1,what="difference",percent=FALSE)
+#' summary(ap1,what="absolute",percent=FALSE)
 #'
-#'barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
-#'summary(ap1,what="detail")
-#'summary
+#' barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
+#' summary(ap1,what="detail")
+#' summary
 #'
-#'## Example with three age assignments
-#'ap2 <- agePrecision(~otolithC+finrayC+scaleC,data=WhitefishLC)
-#'summary(ap2)
-#'summary(ap2,what="precision")
-#'summary(ap2,what="difference")
-#'summary(ap2,what="difference",percent=FALSE)
-#'summary(ap2,what="absolute",percent=FALSE)
-#'summary(ap2,what="detail")
+#' ## Example with three age assignments
+#' ap2 <- agePrecision(~otolithC+finrayC+scaleC,data=WhitefishLC)
+#' summary(ap2)
+#' summary(ap2,what="precision")
+#' summary(ap2,what="difference")
+#' summary(ap2,what="difference",percent=FALSE)
+#' summary(ap2,what="absolute",percent=FALSE)
+#' summary(ap2,what="detail")
 #'
 #' @rdname agePrecision
 #' @export
@@ -85,7 +85,7 @@ agePrecision <- function(formula,data) {
   # change formula to have only a RHS
   tmp <- as.character(formula)[-1]
   formula <- as.formula(paste("~",paste(tmp,collapse="+")))
-  tmp <- hndlFormula(formula,data)
+  tmp <- iHndlFormula(formula,data)
   
   if (!tmp$Etype=="numeric") stop("All variables must be numeric.",call.=FALSE)
   # sample size & number of structures
@@ -171,7 +171,7 @@ summary.agePrec <- function(object,what=c("precision","difference","absolute dif
     cat("Precision summary statistics\n")
     print(with(object,data.frame(n=n,R=R,CV=CV,APE=APE,PercAgree=PercAgree)),
           row.names=FALSE,digits=digits)
-    what <- hndlMultWhat(what,"precision")
+    what <- iHndlMultWhat(what,"precision")
   }
   if ("absolute difference" %in% what) {
     tmp <- object$absdiff
@@ -184,7 +184,7 @@ summary.agePrec <- function(object,what=c("precision","difference","absolute dif
     } else msg <- paste("Frequency",msg)
     cat(msg)
     print(tmp,digits=digits)
-    what <- hndlMultWhat(what,"absolute difference")
+    what <- iHndlMultWhat(what,"absolute difference")
   }  
   if ("difference" %in% what) {
     tmp <- object$rawdiff
@@ -197,11 +197,11 @@ summary.agePrec <- function(object,what=c("precision","difference","absolute dif
     } else msg <- paste("Frequency",msg)
     cat(msg)
     print(tmp,digits=digits)
-    what <- hndlMultWhat(what,"difference")
+    what <- iHndlMultWhat(what,"difference")
   }
   if ("detail" %in% what) {
     cat("Intermediate calculations for each individual\n")
     print(object$detail,digits=digits)
-    what <- hndlMultWhat(what,"detail")
+    what <- iHndlMultWhat(what,"detail")
   }
 }

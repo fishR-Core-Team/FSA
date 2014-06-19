@@ -13,10 +13,10 @@
 #'
 #' @return The main function returns a matrix with as many rows as model comparisons and columns of the following types:
 #'  \itemize{
-#'    \item \code{Df.O} The degrees-of-freedom from the subset (more simple) model.
-#'    \item \code{RSS.O}, \code{logLik.O} The residual sum-of-squares (from \code{extraSS}) or log-likelihood (from \code{lrt}) from the subset (more simple) model.
-#'    \item \code{Df.A} The degrees-of-freedom from the \code{com=} model.
-#'    \item \code{RSS.A}, \code{logLik.A} The residual sum-of-squares (from \code{extraSS}) or log-likelihood (from \code{lrt}) from the \code{com=} model.
+#'    \item \code{DfO} The degrees-of-freedom from the subset (more simple) model.
+#'    \item \code{RSSO}, \code{logLikO} The residual sum-of-squares (from \code{extraSS}) or log-likelihood (from \code{lrt}) from the subset (more simple) model.
+#'    \item \code{DfA} The degrees-of-freedom from the \code{com=} model.
+#'    \item \code{RSSA}, \code{logLikA} The residual sum-of-squares (from \code{extraSS}) or log-likelihood (from \code{lrt}) from the \code{com=} model.
 #'    \item \code{Df} The difference in degrees-of-freedom between the two models.
 #'    \item \code{SS}, \code{logLik} The difference in residual sum-of-squares (from \code{extraSS}) or log-likelihood (from \code{lrt}) between the two models.
 #'    \item \code{F}, \code{Chisq} The corresponding F- (from \code{extraSS}) or Chi-square (from \code{lrt}) test statistic.
@@ -46,8 +46,8 @@ lrt <- function(sim,...,com) {
   res <- cbind(matrix(res[,1:5],nrow=n.sim),
                matrix(tmp,nrow=n.sim),
                matrix(res[,6:7],nrow=n.sim))
-  colnames(res) <- c("Df.O","logLik.O","Df.A","logLik.A","Df","logLik","Chisq","Pr(>Chisq)")
-  rownames(res) <- paste(1:n.sim,"vs A")
+  colnames(res) <- c("DfO","logLikO","DfA","logLikA","Df","logLik","Chisq","Pr(>Chisq)")
+  rownames(res) <- paste(1:n.sim,"v A")
   tmp <- 
     com.hdg <- paste("Model A: ",deparse(formula(com)),sep="")
   sim.hdg <- paste("Model ",1:n.sim,": ",lapply(sim,formula),sep="",collapse="\n")
@@ -68,8 +68,8 @@ extraSS <- function(sim,...,com) {
                  unlist(tmp[[i]][2,c("Res.Df","Res.Sum Sq")]),
                  unlist(tmp[[i]][2,c("Df","Sum Sq","F value","Pr(>F)")]))
   }
-  colnames(res) <- c("Df.O","RSS.O","Df.A","RSS.A","Df","SS","F","Pr(>F)")
-  rownames(res) <- paste(1:n.sim,"vs A")
+  colnames(res) <- c("DfO","RSSO","DfA","RSSA","Df","SS","F","Pr(>F)")
+  rownames(res) <- paste(1:n.sim,"v A")
   com.hdg <- paste("Model A: ",deparse(formula(com)),sep="")
   sim.hdg <- paste("Model ",1:n.sim,": ",lapply(sim,formula),sep="",collapse="\n")
   attr(res,"heading") <- paste(sim.hdg,com.hdg,sep="\n")

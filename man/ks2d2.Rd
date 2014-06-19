@@ -46,23 +46,22 @@ ks2d2(x1, y1, x2, y2, justD = FALSE, KSp = FALSE, divbylen = TRUE)
 }
 \value{
 The main function returns a single numeric of the D test statistic if \code{justD=TRUE} or a list with the following items if \code{justD=FALSE}:
-\itemize{
-\item D The D test statistic.  See details.
-\item pval The approximate p-value from the Kolmogorov-Smirnov distribution
-Returned only if \code{KSp=TRUE}.  NOT YET IMPLEMENTED.
-\item n1 Sample size of first set of coordinates.
-\item n2 Sample size of second set of coordinates.
-\item max1 Maximum D for first set of coordinates.
-\item max2 Maximum D for second set of coordinates.
-\item where1 Observation(s) where maximum D occurred for first set of coordinates.
-\item where2 Observation(s) where maximum D occurred for second set of coordinates.
-\item KSp Same logical supplied by user.
-\item divbylen Same logical supplied by user.
-\item x1 Same vector of X-coordinates for the first set of coordinates supplied by user.
-\item y1 Same vector of Y-coordinates for the first set of coordinates supplied by user.
-\item x2 Same vector of X-coordinates for the second set of coordinates supplied by user.
-\item y2 Same vector of Y-coordinates for the second set of coordinates supplied by user.
-}
+ \itemize{
+   \item D The D test statistic.  See details.
+   \item pval The approximate p-value from the Kolmogorov-Smirnov distribution.  Returned only if \code{KSp=TRUE}.  NOT YET IMPLEMENTED.
+   \item n1 Sample size of first set of coordinates.
+   \item n2 Sample size of second set of coordinates.
+   \item max1 Maximum D for first set of coordinates.
+   \item max2 Maximum D for second set of coordinates.
+   \item where1 Observation(s) where maximum D occurred for first set of coordinates.
+   \item where2 Observation(s) where maximum D occurred for second set of coordinates.
+   \item KSp Same logical supplied by user.
+   \item divbylen Same logical supplied by user.
+   \item x1 Same vector of X-coordinates for the first set of coordinates supplied by user.
+   \item y1 Same vector of Y-coordinates for the first set of coordinates supplied by user.
+   \item x2 Same vector of X-coordinates for the second set of coordinates supplied by user.
+   \item y2 Same vector of Y-coordinates for the second set of coordinates supplied by user.
+ }
 
 The \code{plot} function returns side-by-side plots showing the two sets of coordinates and the point or points that resulted in the maximum D value for each set of coordinates.  The \code{print} function prints results in a nice format if \code{justD=FALSE} (only D will be printed if \code{justD=TRUE}).
 }
@@ -93,9 +92,9 @@ plot(res1,xlim=c(-3,3),ylim=c(-3,3))
 Derek H. Ogle, \email{dogle@northland.edu}, with significant help from Ben Bolker.
 }
 \references{
-Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From star charts to stoneflies: detecting relationships in continuous bivariate data.  Ecology 79:442 447.  \url{http://opensiuc.lib.siu.edu/fiaq_pubs/17/}
+Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  \href{http://opensiuc.lib.siu.edu/fiaq_pubs/17/}{From star charts to stoneflies: detecting relationships in continuous bivariate data.} Ecology 79:442 447.
 
-Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.  Numerical Recipes: The Art of Scientific Computing, 3rd Edition.  Cambridge University Press.  1286 pages. \url{http://www.nr.com/}
+Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.  \href{http://www.nr.com/}{Numerical Recipes: The Art of Scientific Computing, 3rd Edition.}  Cambridge University Press.  1286 pages.
 }
 \seealso{
 \code{\link{ks2d1}} and \code{\link{ks2d2p}}

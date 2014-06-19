@@ -99,7 +99,7 @@ growthModelSim <- function(formula=NULL,data=NULL,
     # this allows the user to enter a type as the first argument as long as data is not given
     if (is.character(formula) & is.null(data)) type <- formula
     else {
-      tmp <- hndlFormula(formula,data,expNumR=1,expNumE=1)
+      tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
       if (!tmp$metExpNumR) stop("'vbStarts' must have only one LHS variable.",call.=FALSE)
       if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
       if (!tmp$metExpNumE) stop("'vbStarts' must have only one RHS variable.",call.=FALSE)

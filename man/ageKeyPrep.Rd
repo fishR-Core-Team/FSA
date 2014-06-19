@@ -27,11 +27,11 @@ Missing values can also be predicted using general linear or additive models as 
 \examples{
 # create a "good" small ALK matrix
 alk <- matrix(c(0.4,0.3,0.3,0.0,
-0.2,0.4,0.3,0.1,
-0.1,0.2,0.4,0.3,
-0.0,0.1,0.4,0.5,
-0.0,0.0,0.2,0.8),
-nrow=5,byrow=TRUE)
+                0.2,0.4,0.3,0.1,
+                0.1,0.2,0.4,0.3,
+                0.0,0.1,0.4,0.5,
+                0.0,0.0,0.2,0.8),
+              nrow=5,byrow=TRUE)
 rownames(alk) <- c(10,20,30,40,50)
 colnames(alk) <- c(2,3,4,5)
 addmargins(alk,margin=2)
@@ -69,11 +69,11 @@ ageKeyPrep(alk135)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Berg, C.W. and K. Kristensen.  2012.  Spatial age-length key modelling using continuation ratio logits.  Fisheries Research 129-130:119-126. \url{http://orbit.dtu.dk/fedora/objects/orbit:113964/datastreams/file_10214559/content}
+Berg, C.W. and K. Kristensen.  2012.  \href{http://orbit.dtu.dk/fedora/objects/orbit:113964/datastreams/file_10214559/content}{Spatial age-length key modelling using continuation ratio logits.}  Fisheries Research 129-130:119-126.
 
-Gerritsen, H.D., D. McGrath, and C. Lordan.  2006.  A simple method for comparing age-length keys reveals significant regional differences within a single stock of haddock (\emph{Melanogrammus aeglefinus}).  ICSE Journal of Marine Science 63:1096-1100.  \url{http://icesjms.oxfordjournals.org/content/63/6/1096.full}
+Gerritsen, H.D., D. McGrath, and C. Lordan.  2006. \href{http://icesjms.oxfordjournals.org/content/63/6/1096.full}{A simple method for comparing age-length keys reveals significant regional differences within a single stock of haddock (\emph{Melanogrammus aeglefinus}).}  ICSE Journal of Marine Science 63:1096-1100.
 
-Stari, T., K.F. Preedy, E. McKenzie, W.S.C. Gurney, M.R. Heath, P.A. Kunzlik, D.C. Speirs.  2010.  Smooth age length keys: Observations and implications for data collection on North Sea haddock.  Fisheries Research 105:2-12.  \url{http://www.sciencedirect.com/science/article/pii/S0165783610000512}.
+Stari, T., K.F. Preedy, E. McKenzie, W.S.C. Gurney, M.R. Heath, P.A. Kunzlik, D.C. Speirs.  2010.  \href{http://www.sciencedirect.com/science/article/pii/S0165783610000512}{Smooth age length keys: Observations and implications for data collection on North Sea haddock.}  Fisheries Research 105:2-12.
 }
 \seealso{
 See \code{\link{ageKey}} for using an age-length key to assign ages to individual fish and \code{\link{ageKeyPlot}} to visualize age-length keys.

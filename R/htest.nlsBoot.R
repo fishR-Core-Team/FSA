@@ -1,8 +1,8 @@
-#' Constructs a p-value for a bootstrapped hypothesis test using nlsBoot.
+#' @title Constructs a p-value for a bootstrapped hypothesis test using nlsBoot.
 #'
-#' Constructs a non-parametric bootstrap p-value from \code{nlsBoot()} (in the \pkg{nlstools} package) like results.
+#' @description Constructs a non-parametric bootstrap p-value from \code{nlsBoot()} (in the \pkg{nlstools} package) like results.
 #'
-#' The \dQuote{direction} of the alternative hypothesis is identified by a string in the \code{alt=} argument.  The strings may be \code{"less"} for a \dQuote{less than} alternative, \code{"greater"} for a \dQuote{greater than}
+#' @details The \dQuote{direction} of the alternative hypothesis is identified by a string in the \code{alt=} argument.  The strings may be \code{"less"} for a \dQuote{less than} alternative, \code{"greater"} for a \dQuote{greater than}
 #'alternative, or \code{"two.sided"} for a \dQuote{not equals} alternative (the DEFAULT).
 #'
 #' In the one-tailed alternatives the p-value is the proportion of bootstrapped parameter estimates in \code{object$coefboot} that are extreme of the null hypothesized parameter value in \code{bo}.  In the two-tailed alternative the p-value is twice the smallest of the proportion of bootstrapped parameter estimates above or below the null hypothesized parameter value in \code{bo}.

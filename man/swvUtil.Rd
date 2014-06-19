@@ -73,30 +73,30 @@ swvFinish(file, rqrdPkgs = NULL, closeGraphics = TRUE, addTOC = TRUE,
 }
 \value{
 \itemize{
-\item \code{swvCounts} returns a numeric value if the count is less than zero or greater than ten and returns a character string of the number \sQuote{name}.  See the examples.
-\item \code{swvPvalue} returns a character string of the supplied p-value rounded to the requested number of digits or a character string that indicates what the p-value is less than the value with a \sQuote{5} in the \code{digits}+1 place.  See the examples.
-\item \code{swvANOVA} returns the results of \code{anova} but without the heading attribute.
-\item \code{swvGLHT} returns a matrix of just the hypothesis test or confidence interval results from a \code{glht} object (i.e., all messages that are usually printed are stripped away).
-\item \code{swvREG} returns the results of \code{summary} but without the call and the information about the residuals.
-\item \code{swvHtest} returns the same as \code{stats:::print.htest} except that the name of the test, the data used, and, optionally, the descriptor of the alternative hypothesis are not printed.
-\item \code{swvCode} is a modification of \code{Stangle} (if using Sweave) or \code{purl} (if using knitr) that creates a file with the same name as \code{file} but with lines removed that contain certain words (those found in \code{ItemsToRemove} and \code{moreItems}).
-\item \code{swvFinish} returns LaTeX code that prints \dQuote{reproducibility information} at the bottom of the Sweaved/knitted document.
-}
+   \item \code{swvCounts} returns a numeric value if the count is less than zero or greater than ten and returns a character string of the number \sQuote{name}.  See the examples.
+   \item \code{swvPvalue} returns a character string of the supplied p-value rounded to the requested number of digits or a character string that indicates what the p-value is less than the value with a \sQuote{5} in the \code{digits}+1 place.  See the examples.
+   \item \code{swvANOVA} returns the results of \code{anova} but without the heading attribute.
+   \item \code{swvGLHT} returns a matrix of just the hypothesis test or confidence interval results from a \code{glht} object (i.e., all messages that are usually printed are stripped away).
+   \item \code{swvREG} returns the results of \code{summary} but without the call and the information about the residuals.
+   \item \code{swvHtest} returns the same as \code{stats:::print.htest} except that the name of the test, the data used, and, optionally, the descriptor of the alternative hypothesis are not printed.
+   \item \code{swvCode} is a modification of \code{Stangle} (if using Sweave) or \code{purl} (if using knitr) that creates a file with the same name as \code{file} but with lines removed that contain certain words (those found in \code{ItemsToRemove} and \code{moreItems}).
+   \item \code{swvFinish} returns LaTeX code that prints \dQuote{reproducibility information} at the bottom of the Sweaved/knitted document.
+ }
 }
 \description{
 Specific utilities for pretty printing various items in a Sweave/knitr document.
 }
 \details{
 \itemize{
-\item \code{swvCounts} is used to convert numeric numbers to \sQuote{word} numbers in a sentence.
-\item \code{swvPvalue} is used to print \sQuote{pretty} p-values.
-\item \code{swvANOVA} is used to print \sQuote{pretty} ANOVA tables (i.e., some output removed (see below)).
-\item \code{swvGLHT} is used to print \sQuote{pretty} multiple comparison tables (i.e., some output removed (see below)).
-\item \code{swvREG} is used to print \sQuote{pretty} summary regression results (i.e., some output removed (see below)).
-\item \code{swvHtest} is used to print \sQuote{pretty} hypothesis test (e.g., from \code{t.test} or \code{chisq.test}) tables (i.e., some output removed (see below)).
-\item \code{swvCode} is used to create a modified (see below) Stangled or purled script.
-\item \code{swvFinish} is used to print \sQuote{reproducibility information} for the document.
-}
+   \item \code{swvCounts} is used to convert numeric numbers to \sQuote{word} numbers in a sentence.
+   \item \code{swvPvalue} is used to print \sQuote{pretty} p-values.
+   \item \code{swvANOVA} is used to print \sQuote{pretty} ANOVA tables (i.e., some output removed (see below)).
+   \item \code{swvGLHT} is used to print \sQuote{pretty} multiple comparison tables (i.e., some output removed (see below)).
+   \item \code{swvREG} is used to print \sQuote{pretty} summary regression results (i.e., some output removed (see below)).
+   \item \code{swvHtest} is used to print \sQuote{pretty} hypothesis test (e.g., from \code{t.test} or \code{chisq.test}) tables (i.e., some output removed (see below)).
+   \item \code{swvCode} is used to create a modified (see below) Stangled or purled script.
+   \item \code{swvFinish} is used to print \sQuote{reproducibility information} for the document.
+ }
 }
 \note{
 In \code{swvFinish}, \code{elapsed} can be used to print the time it took to process the document by sending the elasped time for processing to this argument.  The simplest way to get an approximate elapsed time is to put  \code{st <- proc.time()} very early (first line?) in your Sweave/knitr code, put \code{et <- proc.time()-st} very late in your Sweave/knitr code (i.e., just prior to \code{swvFinish}), and then used \code{elapsed=et["user.self"]+et["sys.self"]} in \code{swvFinish}.

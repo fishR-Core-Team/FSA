@@ -1,51 +1,51 @@
-#'Convert between different capture history recording types.
+#' @title Convert between different capture history recording types.
 #'
-#'This function can be used to convert between four capture history recording types -- by event, FSA, MARK, and Rcapture.  The primary usage is to convert to the FSA format from these other formats for use in \code{\link{capHistSum}}.
+#' @description This function can be used to convert between four capture history recording types -- by event, FSA, MARK, and Rcapture.  The primary usage is to convert to the FSA format from these other formats for use in \code{\link{capHistSum}}.
 #'
-#'The \code{\link{capHistSum}} function requires capture histories to be recorded in a specific format.  This format, called the \sQuote{FSA} format, is in a data frame with (at least) as many columns as sample events and as many rows as individually marked or tagged individuals.  Each cell in the data frame contains a \sQuote{0} if the animal of that row was NOT seen in the event of that column and a \sQuote{1} if the animal of that row WAS seen in the event of that column.  For example, suppose that four fish were marked and four sampling events occurred.  Further suppose that fish \sQuote{17} was captured on the first two events, fish \sQuote{18} was captured on the first and third events, fish \sQuote{19} was captured on only the third event, fish \sQuote{20} was captured on only the fourth event, and fish \sQuote{21} was captured on the first and second events.  The \sQuote{FSA} capture history for these data would look like:
+#' @details The \code{\link{capHistSum}} function requires capture histories to be recorded in a specific format.  This format, called the \sQuote{FSA} format, is in a data frame with (at least) as many columns as sample events and as many rows as individually marked or tagged individuals.  Each cell in the data frame contains a \sQuote{0} if the animal of that row was NOT seen in the event of that column and a \sQuote{1} if the animal of that row WAS seen in the event of that column.  For example, suppose that four fish were marked and four sampling events occurred.  Further suppose that fish \sQuote{17} was captured on the first two events, fish \sQuote{18} was captured on the first and third events, fish \sQuote{19} was captured on only the third event, fish \sQuote{20} was captured on only the fourth event, and fish \sQuote{21} was captured on the first and second events.  The \sQuote{FSA} capture history for these data would look like:
 #'
-#'\tabular{ccccc}{
-#'id \tab Event1 \tab Event2 \tab Event3 \tab Event4 \cr
-#'17 \tab 1 \tab 1 \tab 0 \tab 0 \cr
-#'18 \tab 1 \tab 0 \tab 1 \tab 0 \cr
-#'19 \tab 0 \tab 0 \tab 1 \tab 0 \cr
-#'20 \tab 0 \tab 0 \tab 0 \tab 1 \cr 
-#'21 \tab 1 \tab 1 \tab 0 \tab 0 \cr
+#' \tabular{ccccc}{
+#' id \tab Event1 \tab Event2 \tab Event3 \tab Event4 \cr
+#' 17 \tab 1 \tab 1 \tab 0 \tab 0 \cr
+#' 18 \tab 1 \tab 0 \tab 1 \tab 0 \cr
+#' 19 \tab 0 \tab 0 \tab 1 \tab 0 \cr
+#' 20 \tab 0 \tab 0 \tab 0 \tab 1 \cr 
+#' 21 \tab 1 \tab 1 \tab 0 \tab 0 \cr
+#' }
+#'
+#' Another common format for capture histories is the \sQuote{'event'} format.  This format consists of a column that corresponds to the individual animal (likely a tag number) and a column that identifies the event in which this animal was observed.  For example, the situation from above would look like:
+#'
+#' \tabular{cc}{
+#' id \tab event \cr
+#' 17 \tab 1 \cr
+#' 18 \tab 1 \cr
+#' 21 \tab 1 \cr
+#' 17 \tab 2 \cr
+#' 21 \tab 2 \cr
+#' 18 \tab 3 \cr
+#' 19 \tab 3 \cr
+#' 20 \tab 4 \cr
 #'}
 #'
-#'Another common format for capture histories is the \sQuote{'event'} format.  This format consists of a column that corresponds to the individual animal (likely a tag number) and a column that identifies the event in which this animal was observed.  For example, the situation from above would look like:
+#' Program MARK is probably the \dQuote{gold-standard} software for analyzing complex capture history information.  In the \sQuote{MARK} format the 0s and 1s of the capture histories are combined together as a string without any spaces and an ending semicolon.  Thus, the \sQuote{MARK} format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the various capture histories.  For example, the situation from above would look like:
 #'
-#'\tabular{cc}{
-#'id \tab event \cr
-#'17 \tab 1 \cr
-#'18 \tab 1 \cr
-#'21 \tab 1 \cr
-#'17 \tab 2 \cr
-#'21 \tab 2 \cr
-#'18 \tab 3 \cr
-#'19 \tab 3 \cr
-#'20 \tab 4 \cr
-#'}
+#' \tabular{cc}{
+#' caphist \tab Freq \cr
+#' 0001; \tab 1 \cr
+#' 0010; \tab 1 \cr
+#' 1010; \tab 1 \cr
+#' 1100; \tab 2 \cr
+#' }
 #'
-#'Program MARK is probably the \dQuote{gold-standard} software for analyzing complex capture history information.  In the \sQuote{MARK} format the 0s and 1s of the capture histories are combined together as a string without any spaces and an ending semicolon.  Thus, the \sQuote{MARK} format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the various capture histories.  For example, the situation from above would look like:
+#' Rcapture is a an R package that fits some of the same models found in Program MARK.  The \sQuote{Rcapture} format has capture histories in separate columns as in the \sQuote{FSA} format and the frequency of individuals with the various capture histories recorded in a frequency column as in the \sQuote{MARK} format.  For example, the situation from above would look like:
 #'
-#'\tabular{cc}{
-#'caphist \tab Freq \cr
-#'0001; \tab 1 \cr
-#'0010; \tab 1 \cr
-#'1010; \tab 1 \cr
-#'1100; \tab 2 \cr
-#'}
-#'
-#'Rcapture is a an R package that fits some of the same models found in Program MARK.  The \sQuote{Rcapture} format has capture histories in separate columns as in the \sQuote{FSA} format and the frequency of individuals with the various capture histories recorded in a frequency column as in the \sQuote{MARK} format.  For example, the situation from above would look like:
-#'
-#'\tabular{ccccc}{
-#'Event1 \tab Event2 \tab Event3 \tab Event4 \tab Freq \cr
-#'1 \tab 1 \tab 0 \tab 0 \tab 2 \cr
-#'1 \tab 0 \tab 1 \tab 0 \tab 1 \cr
-#'0 \tab 0 \tab 1 \tab 0 \tab 1 \cr
-#'0 \tab 0 \tab 0 \tab 1 \tab 1 \cr
-#'}
+#' \tabular{ccccc}{
+#' Event1 \tab Event2 \tab Event3 \tab Event4 \tab Freq \cr
+#' 1 \tab 1 \tab 0 \tab 0 \tab 2 \cr
+#' 1 \tab 0 \tab 1 \tab 0 \tab 1 \cr
+#' 0 \tab 0 \tab 1 \tab 0 \tab 1 \cr
+#' 0 \tab 0 \tab 0 \tab 1 \tab 1 \cr
+#' }
 #'
 #' @param df A data.frame that contains the capture histories (and, perhaps, other information).  See details.
 #' @param event A string or numeric that indicates the column in \code{df} that contains the capture event information.  This argument is only used if \code{in.type=="event"}.
@@ -72,47 +72,51 @@
 #' @keywords manip
 #'
 #' @examples
-#'## A small example of 'event' format -- fish ID followed by capture year
-#'( ex1 <- data.frame(id=c(17,18,21,17,21,18,19,20),yr=c(1987,1987,1987,1988,1988,1989,1989,1990)) )
-#'# convert to 'FSA' format
-#'( ex1a <- capHistConvert(ex1,event="yr",id="id") )
-#'# convert to 'MARK' format
-#'( ex1b <- capHistConvert(ex1,event="yr",id="id",out.type="MARK") )
-#'# convert to 'Rcapture' format
-#'( ex1c <- capHistConvert(ex1,event="yr",id="id",out.type="Rcapture") )
+#' ## A small example of 'event' format -- fish ID followed by capture year
+#' ( ex1 <- data.frame(id=c(17,18,21,17,21,18,19,20),yr=c(1987,1987,1987,1988,1988,1989,1989,1990)) )
+#' # convert to 'FSA' format
+#' ( ex1a <- capHistConvert(ex1,event="yr",id="id") )
+#' # convert to 'MARK' format
+#' ( ex1b <- capHistConvert(ex1,event="yr",id="id",out.type="MARK") )
+#' # convert to 'Rcapture' format
+#' ( ex1c <- capHistConvert(ex1,event="yr",id="id",out.type="Rcapture") )
 #'
-#'## A small example of 'MARK' format -- capture history followed by frequency
-#'( ex2 <- data.frame(mch=c("10101;","10001;","01010;"),freq=c(3,1,2)) )
-#'# convert to 'FSA' format
-#'( ex2a <- capHistConvert(ex2,in.type="MARK",mch="mch",freq="freq") )
-#'# convert to 'Rcapture' format
-#'( ex2b <- capHistConvert(ex2,in.type="MARK",mch="mch",freq="freq",out.type="Rcapture") )
+#' ## A small example of 'MARK' format -- capture history followed by frequency
+#' ( ex2 <- data.frame(mch=c("10101;","10001;","01010;"),freq=c(3,1,2)) )
+#' # convert to 'FSA' format
+#' ( ex2a <- capHistConvert(ex2,in.type="MARK",mch="mch",freq="freq") )
+#' # convert to 'Rcapture' format
+#' ( ex2b <- capHistConvert(ex2,in.type="MARK",mch="mch",freq="freq",out.type="Rcapture") )
 #'
-#'## A larger example of 'Rcapture' format
-#'#require(Rcapture)
-#'#data(bunting)
-#'#head(bunting)
-#'# convert to 'FSA' format
-#'#ex3a <- capHistConvert(bunting,in.type="Rcapture",cols=1:8,freq="freq")
-#'#head(ex3a)
-#'# convert to 'MARK' format
-#'#ex3b <- capHistConvert(bunting,in.type="Rcapture",cols=1:8,freq="freq",out.type="MARK")
-#'#head(ex3b)
-#'# convert converted 'FSA' back to 'MARK' format
-#'#ex3c <- capHistConvert(ex3a,in.type="FSA",cols=1:8,out.type="MARK")
-#'#head(ex3c)
-#'# convert converted 'FSA' back to 'Rcapture' format
-#'#ex3d <- capHistConvert(ex3a,in.type="FSA",cols=1:8,out.type="Rcap",var.lbls.pre="Sample")
-#'#head(ex3d)
+#' ## ONLY RUN IN INTERACTIVE MODE
+#' if (interactive()) {
+#' 
+#' ## A larger example of 'Rcapture' format
+#' require(Rcapture)
+#' data(bunting)
+#' head(bunting)
+#' # convert to 'FSA' format
+#' ex3a <- capHistConvert(bunting,in.type="Rcapture",cols=1:8,freq="freq")
+#' head(ex3a)
+#' # convert to 'MARK' format
+#' ex3b <- capHistConvert(bunting,in.type="Rcapture",cols=1:8,freq="freq",out.type="MARK")
+#' head(ex3b)
+#' # convert converted 'FSA' back to 'MARK' format
+#' ex3c <- capHistConvert(ex3a,in.type="FSA",cols=1:8,out.type="MARK")
+#' head(ex3c)
+#' # convert converted 'FSA' back to 'Rcapture' format
+#' ex3d <- capHistConvert(ex3a,in.type="FSA",cols=1:8,out.type="Rcap",var.lbls.pre="Sample")
+#' head(ex3d)
+#' 
+#' }
 #'
-#'
-#'## A small example of 'MARK' format with two groups -- males and females
-#'( ex4 <- data.frame(mch=c("100101;","100001;"),male=c(3,1),female=c(2,2)) )
-#'# convert to 'FSA' format
-#'( ex4m <- capHistConvert(ex4,in.type="MARK",mch="mch",freq="male") )
-#'( ex4f <- capHistConvert(ex4,in.type="MARK",mch="mch",freq="female") )
-#'require(gdata)   # for combine()
-#'( ex4a <- combine(ex4m,ex4f,names=c("male","female")) )
+#' ## A small example of 'MARK' format with two groups -- males and females
+#' ( ex4 <- data.frame(mch=c("100101;","100001;"),male=c(3,1),female=c(2,2)) )
+#' # convert to 'FSA' format
+#' ( ex4m <- capHistConvert(ex4,in.type="MARK",mch="mch",freq="male") )
+#' ( ex4f <- capHistConvert(ex4,in.type="MARK",mch="mch",freq="female") )
+#' require(gdata)   # for combine()
+#' ( ex4a <- combine(ex4m,ex4f,names=c("male","female")) )
 #'
 #' @export
 capHistConvert <- function(df,event=NULL,id=NULL,event.ord=NULL,mch=NULL,cols=NULL,freq=NULL,

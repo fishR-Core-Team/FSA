@@ -1,6 +1,6 @@
-#'Show the stock-recruitment model formulas implemented in FSA.
+#' @title Show the stock-recruitment model formulas implemented in FSA.
 #'
-#'Show the stock-recruitment model formulas implemented in \code{\link{srFuns}}, \code{\link{srStarts}}, and \code{srSim}.
+#' @description Show the stock-recruitment model formulas implemented in \code{\link{srFuns}}, \code{\link{srStarts}}, and \code{srSim}.
 #'
 #' @param \dots Additional arguments for \code{plot}.  Generally not needed.
 #'
@@ -15,7 +15,7 @@
 #' @keywords manip hplot
 #'
 #' @examples
-#'srModels()
+#' srModels()
 #'
 #' @export
 srModels <- function(...) {

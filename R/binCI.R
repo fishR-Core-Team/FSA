@@ -30,15 +30,15 @@
 #' @keywords htest
 #'
 #' @examples
-#'binCI(7,20,type="wilson")
-#'binCI(7,20,type="exact")
-#'binCI(7,20,type="asymptotic")
+#' binCI(7,20,type="wilson")
+#' binCI(7,20,type="exact")
+#' binCI(7,20,type="asymptotic")
 #'
-#'## Demonstrates using all methods at once
-#'binCI(7,20,type="all")
+#' ## Demonstrates using all methods at once
+#' binCI(7,20,type="all")
 #'
-#'## Demonstrates use with multiple inputs
-#'binCI(c(7,10),c(20,30))
+#' ## Demonstrates use with multiple inputs
+#' binCI(c(7,10),c(20,30))
 #'
 #' @export
 binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic","all")) {
@@ -53,6 +53,6 @@ binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic","all"
     res <- rbind(res)                                                # convert to 1x2 matrix if only one set of CIs
     rownames(res) <- ""
   }
-  colnames(res) <- ciLabel(conf.level)
+  colnames(res) <- iCILabel(conf.level)
   res
 }

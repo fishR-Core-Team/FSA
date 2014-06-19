@@ -51,11 +51,11 @@ fit1 <- nls(tl~vb1(age,Linf,K,t0),data=SpotVA1,start=vbStarts(tl~age,data=SpotVA
 summary(fit1,correlation=TRUE)
 plot(tl~age,data=SpotVA1,pch=19)
 curve(vb1(x,Linf=coef(fit1)[1],K=coef(fit1)[2],t0=coef(fit1)[3]),from=0,to=5,
- col="red",lwd=10,add=TRUE)
+      col="red",lwd=10,add=TRUE)
 
 # Fitting the Francis paramaterization of the von B function
 fit2 <- nls(tl~vb2c(age,L1,L2,L3,t1=0,t3=5),data=SpotVA1,
- start=vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5)))
+            start=vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5)))
 summary(fit2,correlation=TRUE)
 ## showing how the coefficients and t values can be sent to the first arguments
 ##    if simple=FALSE in vbFuns() call
@@ -64,7 +64,7 @@ curve(vb2c(x,L1=coef(fit2),t1=c(0,5)),from=0,to=5,col="blue",lwd=5,add=TRUE)
 # Fitting the Schnute parameterization of the von B function
 vb3 <- vbFuns("Schnute",simple=FALSE)
 fit3 <- nls(tl~vb3(age,L1,L3,K,t1=0,t3=4),data=SpotVA1,
- start=vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,4)))
+            start=vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,4)))
 summary(fit3,correlation=TRUE)
 curve(vb3(x,L1=coef(fit3),t1=c(0,4)),from=0,to=5,col="green",lwd=2,add=TRUE)
 }

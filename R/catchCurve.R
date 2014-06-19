@@ -1,10 +1,10 @@
-#' Mortality estimates from the descending limb of a catch curve.
+#' @title Mortality estimates from the descending limb of a catch curve.
 #'
-#' Fits a linear model to the user-defined descending limb of a catch curve.  A plot method highlights the descending-limb, shows the linear model on the descending limb, and, optionally, prints the estimated instantaneous (Z) and annual (A) mortality rates.
+#' @description Fits a linear model to the user-defined descending limb of a catch curve.  A plot method highlights the descending-limb, shows the linear model on the descending limb, and, optionally, prints the estimated instantaneous (Z) and annual (A) mortality rates.
 #'
-#'The default is to use all ages in the age vector.  This is appropriate only if the age and catch vectors contain only the ages and catches on the descending limb of the catch curve.
+#' @details The default is to use all ages in the age vector.  This is appropriate only if the age and catch vectors contain only the ages and catches on the descending limb of the catch curve.
 #'
-#'If \code{use.weights=TRUE} then a weighted regression is used where the weights are the log(number) at each age predicted from the unweighted regression of log(number) on age (as proposed by Maceina and Bettoli (1998)).
+#' If \code{use.weights=TRUE} then a weighted regression is used where the weights are the log(number) at each age predicted from the unweighted regression of log(number) on age (as proposed by Maceina and Bettoli (1998)).
 #'
 #' @aliases catchCurve catchCurve.default catchCurve.formula plot.catchCurve summary.catchCurve
 #'coef.catchCurve anova.catchCurve confint.catchCurve
@@ -29,14 +29,14 @@
 #' @param \dots Additional arguments for methods.
 #'
 #' @return A list that contains the following items:
-#' \itemize{
-#' \item age The original vector of assigned ages.
-#' \item catch The original vector of observed catches or CPUEs.
-#' \item age.e A vector of assigned ages for which the catch curve was fit.
-#' \item log.catch.e A vector of log catches or CPUEs for which the catch curve was fit.
-#' \item W A vector of weights used in the catch curve fit.  Will be \code{NULL} unless \code{use.weights=TRUE}.
-#' \item lm An \code{lm} object from the fit to the ages and log catches or CPUEs on the descending limb (i.e., in age.e and log.catch.e).
-#' }
+#'  \itemize{
+#'    \item age The original vector of assigned ages.
+#'    \item catch The original vector of observed catches or CPUEs.
+#'    \item age.e A vector of assigned ages for which the catch curve was fit.
+#'    \item log.catch.e A vector of log catches or CPUEs for which the catch curve was fit.
+#'    \item W A vector of weights used in the catch curve fit.  Will be \code{NULL} unless \code{use.weights=TRUE}.
+#'    \item lm An \code{lm} object from the fit to the ages and log catches or CPUEs on the descending limb (i.e., in age.e and log.catch.e).
+#'  }
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
@@ -49,27 +49,27 @@
 #' @keywords hplot htest manip
 #' 
 #' @examples
-#'data(BrookTroutTH)
-#'cc <- with(BrookTroutTH,catchCurve(age,catch,2:6))
-#'par(mfrow=c(2,1))
-#'plot(cc)
-#'plot(cc,pos.est="topright")
-#'summary(cc)
-#'coef(cc)
-#'confint(cc)
+#' data(BrookTroutTH)
+#' cc <- with(BrookTroutTH,catchCurve(age,catch,2:6))
+#' par(mfrow=c(2,1))
+#' plot(cc)
+#' plot(cc,pos.est="topright")
+#' summary(cc)
+#' coef(cc)
+#' confint(cc)
 #'
-#'## demonstration of formula notation
-#'cc2 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6)
-#'summary(cc2)
+#' ## demonstration of formula notation
+#' cc2 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6)
+#' summary(cc2)
 #'
-#'## demonstration of using weights
-#'cc3 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6,use.weights=TRUE)
-#'summary(cc3)
+#' ## demonstration of using weights
+#' cc3 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6,use.weights=TRUE)
+#' summary(cc3)
 #'
-#'## demonstration of receiving the linear model results
-#'summary(cc2,type="lm")
-#'coef(cc2,type="lm")
-#'confint(cc2,type="lm")
+#' ## demonstration of receiving the linear model results
+#' summary(cc2,type="lm")
+#' coef(cc2,type="lm")
+#' confint(cc2,type="lm")
 #'
 #' @rdname catchCurve
 #' @export
@@ -151,7 +151,7 @@ confint.catchCurve <- function(object,parm=c("all","both","Z","A"),level=conf.le
     if (parm=="all" | parm=="both") res <- rbind(Zres,Ares)
       else if (parm=="Z") res <- Zres
         else res <- Zres
-    colnames(res) <- ciLabel(conf.level)
+    colnames(res) <- iCILabel(conf.level)
   }
   res
 }

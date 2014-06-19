@@ -1,6 +1,6 @@
-#' Converts "numeric" factor levels to numeric values.
+#' @title Converts "numeric" factor levels to numeric values.
 #'
-#' Converts \dQuote{numeric} factor levels to numeric values.
+#' @description Converts \dQuote{numeric} factor levels to numeric values.
 #'
 #' @param object A vector with \dQuote{numeric} factor levels to be converted to numeric values.
 #'

@@ -1,8 +1,6 @@
-#'Create a list of colors from among a variety of color palettes.
+#' @title Create a list of colors from among a variety of color palettes.
 #'
-#'Create a list of colors from among a variety of color palettes.
-#'
-#'The \code{pal} argument 
+#' @description Create a list of colors from among a variety of color palettes.
 #'
 #' @param pal A character that is the name of a palette.  Must be one of \dQuote{rich}, \dQuote{cm}, \dQuote{default}, \dQuote{grey}, \dQuote{gray}, \dQuote{heat}, \dQuote{jet}, \dQuote{rainbow}, \dQuote{topo}, or \dQuote{terrain}.
 #' @param num The number of colors to be returned.
@@ -17,13 +15,13 @@
 #' @keywords manip
 #'
 #' @examples
-#'n <- 20
-#'# Color Wheels
-#'pie(rep(1,n), col=chooseColors("rich",n))
-#'pie(rep(1,n), col=chooseColors("rainbow",n))
-#'pie(rep(1,n), col=chooseColors("topo",n))
-#'pie(rep(1,n), col=chooseColors("gray",n))
-#'pie(rep(1,n), col=chooseColors("jet",n))
+#' n <- 20
+#' # Color Wheels
+#' pie(rep(1,n), col=chooseColors("rich",n))
+#' pie(rep(1,n), col=chooseColors("rainbow",n))
+#' pie(rep(1,n), col=chooseColors("topo",n))
+#' pie(rep(1,n), col=chooseColors("gray",n))
+#' pie(rep(1,n), col=chooseColors("jet",n))
 #'
 #' @export
 chooseColors <- function(pal=paletteChoices(),num,...) {

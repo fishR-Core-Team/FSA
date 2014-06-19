@@ -88,47 +88,47 @@
 #' @keywords htest manip
 #'
 #' @examples
-#'data(WhitefishLC)
-#'ab1 <- ageBias(otolithC~scaleC,data=WhitefishLC,ref.lab="Otolith Age",nref.lab="Scale Age")
-#'summary(ab1)
-#'summary(ab1,what="symmetry")
-#'summary(ab1,what="Bowkers")
-#'summary(ab1,what="EvansHoenig")
-#'summary(ab1,what="McNemars")
-#'summary(ab1,what="McNemars",cont.corr="Yates")
-#'summary(ab1,what="bias")
-#'summary(ab1,what="diff.bias")
-#'summary(ab1,what="n")
-#'summary(ab1,what=c("n","symmetry","table"))
-#'# show the zeroes (rather than dashes)
-#'summary(ab1,what="table",zero.print="0")
-#'# flip the table -- ease of comparison to age-bias plot
-#'summary(ab1,what="table",flip.table=TRUE)
+#' data(WhitefishLC)
+#' ab1 <- ageBias(otolithC~scaleC,data=WhitefishLC,ref.lab="Otolith Age",nref.lab="Scale Age")
+#' summary(ab1)
+#' summary(ab1,what="symmetry")
+#' summary(ab1,what="Bowkers")
+#' summary(ab1,what="EvansHoenig")
+#' summary(ab1,what="McNemars")
+#' summary(ab1,what="McNemars",cont.corr="Yates")
+#' summary(ab1,what="bias")
+#' summary(ab1,what="diff.bias")
+#' summary(ab1,what="n")
+#' summary(ab1,what=c("n","symmetry","table"))
+#' # show the zeroes (rather than dashes)
+#' summary(ab1,what="table",zero.print="0")
+#' # flip the table -- ease of comparison to age-bias plot
+#' summary(ab1,what="table",flip.table=TRUE)
 #'
-#'## default plot
-#'plot(ab1)
-#'## demonstrates controlling the y-axis limits
-#'plot(ab1,ylim=c(0,10))
-#'## plot with the data points shown
-#'plot(ab1,show.pts=TRUE,transparency=1/3)
-#'## plot with the range shown
-#'plot(ab1,show.rng=TRUE)
-#'## plot with no difference in significance bar colors
-#'plot(ab1,col.err="black",col.err.sig="black")
-#'## plot of differences (note could use same modifications as shown above)
-#'plot(ab1,difference=TRUE)
-#'## sunflower plot
-#'plot(ab1,what="sunflower")
-#'plot(ab1,what="sunflower",difference=TRUE)
-#'## "Numbers" plot
-#'plot(ab1,what="number",col.ref="gray50")
+#' ## default plot
+#' plot(ab1)
+#' ## demonstrates controlling the y-axis limits
+#' plot(ab1,ylim=c(0,10))
+#' ## plot with the data points shown
+#' plot(ab1,show.pts=TRUE,transparency=1/3)
+#' ## plot with the range shown
+#' plot(ab1,show.rng=TRUE)
+#' ## plot with no difference in significance bar colors
+#' plot(ab1,col.err="black",col.err.sig="black")
+#' ## plot of differences (note could use same modifications as shown above)
+#' plot(ab1,difference=TRUE)
+#' ## sunflower plot
+#' plot(ab1,what="sunflower")
+#' plot(ab1,what="sunflower",difference=TRUE)
+#' ## "Numbers" plot
+#' plot(ab1,what="number",col.ref="gray50")
 #'
 #' @rdname ageBias
 #' @export
 ageBias <- function(formula,data,ref.lab=col.lab,nref.lab=row.lab,
                     method=p.adjust.methods,sig.level=0.05,min.n.CI=5,
                     col.lab=tmp$Rname,row.lab=tmp$Enames[1]) {
-  tmp <- hndlFormula(formula,data,expNumR=1,expNumE=1)
+  tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
   if (!tmp$metExpNumR) stop("'ageBias' must have only one LHS variable.",call.=FALSE)
   if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
   if (!tmp$metExpNumE) stop("'ageBias' must have only one RHS variable.",call.=FALSE)
@@ -176,17 +176,17 @@ summary.ageBias <- function(object,what=c("table","symmetry","Bowkers","EvansHoe
   what <- match.arg(what,several.ok=TRUE)
   if ("n" %in% what) {
     cat("Sample size in the age-agreement table is ",sum(object$agree),".\n",sep="")
-    what <- hndlMultWhat(what,"n")
+    what <- iHndlMultWhat(what,"n")
   }
   if ("bias" %in% what) {
     cat("Summary of",object$nref.lab,"by",object$ref.lab,"\n")
     print(object$bias[-ncol(object$bias)],row.names=FALSE,digits=digits)
-    what <- hndlMultWhat(what,"bias")
+    what <- iHndlMultWhat(what,"bias")
   }
   if ("diff.bias" %in% what) {
     cat("Summary of",object$nref.lab,"-",object$ref.lab,"by",object$ref.lab,"\n")
     print(object$bias.diff[-ncol(object$bias.diff)],row.names=FALSE,digits=digits)
-    what <- hndlMultWhat(what,"diff.bias")
+    what <- iHndlMultWhat(what,"diff.bias")
   }
   if ("table" %in% what) {
     # show the age-agreement table
@@ -201,7 +201,7 @@ summary.ageBias <- function(object,what=c("table","symmetry","Bowkers","EvansHoe
       class(tmp) <- "table"
       print(tmp,zero.print=zero.print)
     }
-    what <- hndlMultWhat(what,"table")
+    what <- iHndlMultWhat(what,"table")
   }
   if (any(c("symmetry","Bowkers","EvansHoenig","McNemars") %in% what)) {
     symTest <- NULL # to avoide "global bindings" warning in rcmd check

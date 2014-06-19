@@ -69,7 +69,7 @@ bcm2(lencap,rad,radcap,2)  # demonstrated with a=2
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Vigliola, L. and M.G. Meekan.  2009.  The back-calculation of fish growth from otoliths.  pp. 174-211.  in B.S. Green et al. (editors).  Tropical Fish Otoliths: Information fro Assessment, Management and Ecology.  Review: Methods and Technologies in Fish Biology and Fisheries 11.  Springer.  \url{http://link.springer.com/chapter/10.1007\%2F978-1-4020-5775-5_6#page-1}
+Vigliola, L. and M.G. Meekan.  2009.  The back-calculation of fish growth from otoliths.  pp. 174-211.  in B.S. Green et al. (editors).  \href{http://link.springer.com/chapter/10.1007\%2F978-1-4020-5775-5_6\#page-1}{Tropical Fish Otoliths: Information for Assessment, Management and Ecology.}  Review: Methods and Technologies in Fish Biology and Fisheries 11.  Springer.
 }
 \keyword{manip}
 

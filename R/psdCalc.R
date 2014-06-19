@@ -1,10 +1,10 @@
-#'Convenience function for caculating PSD-X values.
+#' @title Convenience function for caculating PSD-X values.
 #'
-#'Convenience function for caculating PSD-X values for all lengths in the Gabelhouse five-cell categories.
+#' @description Convenience function for caculating PSD-X values for all lengths in the Gabelhouse five-cell categories.
 #'
-#'This computes the PSD-X values, with associated confidence intervals, for each represented length in the Gabelhouse five-cell length categories.
+#' @details This computes the PSD-X values, with associated confidence intervals, for each represented length in the Gabelhouse five-cell length categories.
 #'
-#' @aliases psdCalc pssCalc
+#' @aliases psdCalc
 #'
 #' @param formula A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains length measurements.  Note that this formula can only contain one variable.
 #' @param data A data.frame that minimally contains the length measurements given in the variable in the \code{formula}.
@@ -23,26 +23,26 @@
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}
 #'
-#' @source Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).  Fisheries 31:86-87. \url{http://pubstorage.sdstate.edu/wfs/415-F.pdf}
+#' @references
+#' Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  \href{http://pubstorage.sdstate.edu/wfs/415-F.pdf}{New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).}  Fisheries 31:86-87.  
 #'
-#'Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  Proportional size distribution (PSD): A further refinement of population size structure index terminology.  Fisheries 32:348. \url{http://www.montana.edu/mtcfru/Guy/Publication\%20pdf/PSD\%20pub.pdf}
+#' Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  \href{http://www.montana.edu/mtcfru/Guy/Publication\%20pdf/PSD\%20pub.pdf}{Proportional size distribution (PSD): A further refinement of population size structure index terminology.}  Fisheries 32:348.
 #'
-#'Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  Stock density indices: development, use, and limitations.  Reviews in Fisheries Science 1:203-222. \url{http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf}
+#' Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  \href{http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf}{Stock density indices: development, use, and limitations.}  Reviews in Fisheries Science 1:203-222. 
 #'
 #' @keywords hplot
 #'
 #' @examples
-#'## Random length data
-#'# suppose this is yellow perch to the nearest mm
-#'yepdf <- data.frame(yepmm=c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),
-#'                    rnorm(20,mean=300,sd=40)))
+#' ## Random length data
+#' # suppose this is yellow perch to the nearest mm
+#' yepdf <- data.frame(yepmm=c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),
+#'                     rnorm(20,mean=300,sd=40)))
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",units="mm",digits=1)
 #'
-#'psdCalc(~yepmm,data=yepdf,species="Yellow perch",units="mm",digits=1)
-#'
-#' @export psdCalc pssCalc
-psdCalc <- pssCalc <- function(formula,data,species="List",units=c("mm","cm","in"),
-                               addLens=NULL,addNames=NULL,conf.level=0.95,
-                               digits=getOption("digits")) {
+#' @export psdCalc
+psdCalc <- function(formula,data,species="List",units=c("mm","cm","in"),
+                    addLens=NULL,addNames=NULL,conf.level=0.95,
+                    digits=getOption("digits")) {
   # INTERNAL function
   psdLabels <- function(psdbrks) {
     # get rid of zero and stock names
@@ -59,7 +59,7 @@ psdCalc <- pssCalc <- function(formula,data,species="List",units=c("mm","cm","in
   
   # MAIN FUNCTION
   units <- match.arg(units)
-  cl <- getVarFromFormula(formula,data,expNumVars=1)
+  cl <- iGetVarFromFormula(formula,data,expNumVars=1)
   # find psd lengths for this species     
   psdbrks <- psdVal(species,units=units,incl.zero=TRUE,addLens=addLens,addNames=addNames)
   dftemp <- lencat(formula,data=data,breaks=psdbrks,vname="lcatr")

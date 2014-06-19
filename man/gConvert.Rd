@@ -37,7 +37,8 @@ head(SMBassWB)     # to see column names & some data
 SMBi1 <- gConvert(SMBassWB,in.pre="anu",type="inc")
 head(SMBi1)
 SMBi2 <- gConvert(SMBassWB,in.var=c("anu1","anu2","anu3","anu4","anu5","anu6",
- "anu7","anu8","anu9","anu10","anu11","anu12"),type="inc")
+                                    "anu7","anu8","anu9","anu10","anu11","anu12"),
+                           type="inc")
 head(SMBi2)
 SMBi3 <- gConvert(SMBassWB,in.var=8:19,type="inc")
 head(SMBi3)

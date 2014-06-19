@@ -1,6 +1,6 @@
-#'Constructs plots of predicted weights at given lengths among different groups.
+#' @title Constructs plots of predicted weights at given lengths among different groups.
 #'
-#'Constructs plots of predicted weights at given lengths among different groups.  These plots allow the user to explore differences in predicted weights at a variety of lengths when the length-weight relationship is not the same across a variety of groups.
+#' @description Constructs plots of predicted weights at given lengths among different groups.  These plots allow the user to explore differences in predicted weights at a variety of lengths when the length-weight relationship is not the same across a variety of groups.
 #'
 #' @param mdl An \code{lm} object (i.e., returned from fitting a model with \code{lm}).  This model should have log(weight) as the response and log(length) as the explanatory covariate and an explanatory factor variable that describes the different groups.
 #' @param lens A numeric that indicates the lengths at which the weights should be predicted.
@@ -26,32 +26,32 @@
 #' @keywords manip
 #'
 #' @examples
-#'# load ruffe length-weight data
-#'data(ChinookArg)
-#'# add log length and weight data
-#'ChinookArg$logtl <- log(ChinookArg$tl)
-#'ChinookArg$logwt <- log(ChinookArg$w)
-#'# fit model to assess equality of slopes
-#'lm1 <- lm(logwt~logtl*loc,data=ChinookArg)
-#'anova(lm1)
+#' # load ruffe length-weight data
+#' data(ChinookArg)
+#' # add log length and weight data
+#' ChinookArg$logtl <- log(ChinookArg$tl)
+#' ChinookArg$logwt <- log(ChinookArg$w)
+#' # fit model to assess equality of slopes
+#' lm1 <- lm(logwt~logtl*loc,data=ChinookArg)
+#' anova(lm1)
 #'
-#'# show predicted weights (w/ CI and PI) at the default quantile lengths for each year
-#'lwPredsComp(lm1,xlab="Location")
-#'# show predicted weights (w/ CI and PI) at the quartile lengths for each year
-#'lwPredsComp(lm1,xlab="Location",quant.lens=c(0.25,0.5,0.75))
-#'# show predicted weights (w/ CI and PI) at certain lengths for each year
-#'lwPredsComp(lm1,xlab="Location",lens=c(60,90,120,150))
-#'# show predicted weights (just PI) at certain lengths for each year
-#'lwPredsComp(lm1,xlab="Locatoin",lens=c(60,90,120,150),interval="p")
-#'# show predicted weights (just CI) at certain lengths for each year
-#'lwPredsComp(lm1,xlab="Location",lens=c(60,90,120,150),interval="c")
+#' # show predicted weights (w/ CI and PI) at the default quantile lengths for each year
+#' lwPredsComp(lm1,xlab="Location")
+#' # show predicted weights (w/ CI and PI) at the quartile lengths for each year
+#' lwPredsComp(lm1,xlab="Location",quant.lens=c(0.25,0.5,0.75))
+#' # show predicted weights (w/ CI and PI) at certain lengths for each year
+#' lwPredsComp(lm1,xlab="Location",lens=c(60,90,120,150))
+#' # show predicted weights (just PI) at certain lengths for each year
+#' lwPredsComp(lm1,xlab="Locatoin",lens=c(60,90,120,150),interval="p")
+#' # show predicted weights (just CI) at certain lengths for each year
+#' lwPredsComp(lm1,xlab="Location",lens=c(60,90,120,150),interval="c")
 #'
-#'# fit model with centered data
-#'mn.logtl <- mean(ChinookArg$logtl,na.rm=TRUE)
-#'ChinookArg$clogtl <- ChinookArg$logtl-mn.logtl
-#'lm2 <- lm(logwt~clogtl*loc,data=ChinookArg)
-#'lwPredsComp(lm2,xlab="Location",center.value=mn.logtl)
-#'lwPredsComp(lm2,xlab="Location",lens=c(60,90,120,150),center.value=mn.logtl)
+#' # fit model with centered data
+#' mn.logtl <- mean(ChinookArg$logtl,na.rm=TRUE)
+#' ChinookArg$clogtl <- ChinookArg$logtl-mn.logtl
+#' lm2 <- lm(logwt~clogtl*loc,data=ChinookArg)
+#' lwPredsComp(lm2,xlab="Location",center.value=mn.logtl)
+#' lwPredsComp(lm2,xlab="Location",lens=c(60,90,120,150),center.value=mn.logtl)
 #'
 #' @export
 lwPredsComp <- function(mdl,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),

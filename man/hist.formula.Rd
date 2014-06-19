@@ -52,7 +52,6 @@ If the formula is of the form \code{~quantitative} or \code{quantitative~1} then
 
 The function produces a single (but see below) graphic that consists of a grid on which the separate histograms are printed.  The rows and columns of this grid are determined to construct a plot that is as square as possible.  However, the rows and columns can be set by the user with the \code{nrow=} and \code{ncol=} arguments.  If the product of the number of rows and number of columns set by the user is less than the total number of histograms to be constructed then multiple pages of histograms will be produced (each requiring the user to click on the graph to go to the next graph).  The x-axis of each separate histogram will be labeled identically.  The default x-axis label is the name of the quantitative variable.  This can be changed by the user with the \code{xlab=} argument.
 
-By default each histogram is labeled with a main title that consists of the levels formed by the right-hand-side of the formula.  If a string is given in \code{pre.main=} then that string will be appended with the names of the level formed by the right-hand-side of the formula.  If \code{pre.main=NULL} then NO main title will be printed.
 
 I changed the \code{right=} argument from that used in the base \code{hist()} so that right-open (left-closed) is the default.
 }

@@ -1,6 +1,6 @@
-#' Capitalizes the first letter of first or all words in a string.
+#' @title Capitalizes the first letter of first or all words in a string.
 #' 
-#' Capitalizes the first letter of first or all words in a string.
+#' @description Capitalizes the first letter of first or all words in a string.
 #' 
 #' @param x A single string.
 #' @param words A single string that indicates whether all (the default) or only the first words should be capitalized.
@@ -12,20 +12,20 @@
 #' @keywords manip
 #'
 #' @examples
-#'## Capitalize first letter of all words (the default)
-#'capFirst("Derek Ogle")
-#'capFirst("derek ogle")
-#'capFirst("derek")
-#'# apply to all elements in a vector
-#'vec <- c("Derek Ogle","derek ogle","Derek ogle","derek Ogle","DEREK OGLE")
-#'apply(matrix(vec),1,capFirst)
+#' ## Capitalize first letter of all words (the default)
+#' capFirst("Derek Ogle")
+#' capFirst("derek ogle")
+#' capFirst("derek")
+#' # apply to all elements in a vector
+#' vec <- c("Derek Ogle","derek ogle","Derek ogle","derek Ogle","DEREK OGLE")
+#' apply(matrix(vec),1,capFirst)
 #'
-#'## Capitalize first letter of only the first words
-#'capFirst("Derek Ogle",words="first")
-#'capFirst("derek ogle",words="first")
-#'capFirst("derek",words="first")
-#'# apply to all elements in a vector
-#'apply(matrix(vec),1,capFirst,words="first")
+#' ## Capitalize first letter of only the first words
+#' capFirst("Derek Ogle",words="first")
+#' capFirst("derek ogle",words="first")
+#' capFirst("derek",words="first")
+#' # apply to all elements in a vector
+#' apply(matrix(vec),1,capFirst,words="first")
 #'
 #' @export
 capFirst<- function(x,words=c("all","first")) {

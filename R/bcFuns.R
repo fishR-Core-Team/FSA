@@ -1,34 +1,34 @@
-#'Creates a function for a specific back-calculation model.
+#' @title Creates a function for a specific back-calculation model.
 #'
-#'Creates a function for a specific back-calculation model based on definitions in Vigloila and Meekan (2009).
+#' @description Creates a function for a specific back-calculation model based on definitions in Vigloila and Meekan (2009).
 #'
-#'The following back-calculation models, based on definitions with abbreviations and model numbers from Vigloila and Meekan (2009), are supported.  Also see the \href{https://sites.google.com/site/fishrfiles/gnrl/BackcalculationExtra.pdf}{Backcalculation-Extra} vignette on the \href{http://fishr.wordpress.com}{fishR webpage} for more information about each model.
+#' @details The following back-calculation models, based on definitions with abbreviations and model numbers from Vigloila and Meekan (2009), are supported.  Also see the \href{https://sites.google.com/site/fishrfiles/gnrl/BackcalculationExtra.pdf}{Backcalculation-Extra} vignette on the \href{http://fishr.wordpress.com}{fishR webpage} for more information about each model.
 #'
-#'\tabular{ccl}{
-#'\bold{Abbreviation} \tab \bold{Number} \tab \bold{Model} \cr
-#'DALE \tab 1 \tab Dahl-Lea \cr
-#'FRALE \tab 2 \tab Fraser-Lee \cr
-#'BI, LBI \tab 3 \tab (Linear) Biological Intercept \cr
-#'BPH, LBPH \tab 4 \tab (Linear) Body Proportional Hypothesis \cr
-#'TVG \tab 5 \tab Time-Varying Growth \cr
-#'SPH, LSPH \tab 6 \tab (Linear) Scale Proportional Hypothesis \cr
-#'AE, AESPH \tab 7 \tab (Age Effect) Scale Proportional Hypothesis \cr
-#'AEBPH \tab 8 \tab (Age Effect) Body Proportional Hypothesis \cr
-#'MONA \tab 9 \tab Monastyrsky \cr
-#'MONA-BPH \tab 10 \tab Monastyrsky Body Proportional Hypothesis \cr
-#'MONA-SPH \tab 11 \tab Monastyrsky Scale Proportional Hypothesis \cr
-#'WAKU \tab 12 \tab Watanabe and Kuroki \cr
-#'FRY \tab 13 \tab Fry \cr
-#'MF, ABI \tab 14 \tab Modified Fry, Allometric Biological Intercept \cr
-#'FRY-BPH, ABPH \tab 15 \tab Fry, Allometric Body Proportional Hypothesis \cr
-#'FRY-SPH, ASPH \tab 16 \tab Fry, Allometric Scale Proportional Hypothesis \cr
-#'QBPH \tab 17 \tab Quadratic Body Proportional Hypothesis \cr
-#'QSPH \tab 18 \tab Quadratic Scale Proportional Hypothesis \cr
-#'PBPH \tab 19 \tab Polynomial Body Proportional Hypothesis \cr
-#'PSPH \tab 20 \tab Polynomial Scale Proportional Hypothesis \cr
-#'EBPH \tab 21 \tab Exponential Body Proportional Hypothesis \cr
-#'ESPH \tab 22 \tab Exponential Scale Proportional Hypothesis \cr
-#'}
+#' \tabular{ccl}{
+#' \bold{Abbreviation} \tab \bold{Number} \tab \bold{Model} \cr
+#' DALE \tab 1 \tab Dahl-Lea \cr
+#' FRALE \tab 2 \tab Fraser-Lee \cr
+#' BI, LBI \tab 3 \tab (Linear) Biological Intercept \cr
+#' BPH, LBPH \tab 4 \tab (Linear) Body Proportional Hypothesis \cr
+#' TVG \tab 5 \tab Time-Varying Growth \cr
+#' SPH, LSPH \tab 6 \tab (Linear) Scale Proportional Hypothesis \cr
+#' AE, AESPH \tab 7 \tab (Age Effect) Scale Proportional Hypothesis \cr
+#' AEBPH \tab 8 \tab (Age Effect) Body Proportional Hypothesis \cr
+#' MONA \tab 9 \tab Monastyrsky \cr
+#' MONA-BPH \tab 10 \tab Monastyrsky Body Proportional Hypothesis \cr
+#' MONA-SPH \tab 11 \tab Monastyrsky Scale Proportional Hypothesis \cr
+#' WAKU \tab 12 \tab Watanabe and Kuroki \cr
+#' FRY \tab 13 \tab Fry \cr
+#' MF, ABI \tab 14 \tab Modified Fry, Allometric Biological Intercept \cr
+#' FRY-BPH, ABPH \tab 15 \tab Fry, Allometric Body Proportional Hypothesis \cr
+#' FRY-SPH, ASPH \tab 16 \tab Fry, Allometric Scale Proportional Hypothesis \cr
+#' QBPH \tab 17 \tab Quadratic Body Proportional Hypothesis \cr
+#' QSPH \tab 18 \tab Quadratic Scale Proportional Hypothesis \cr
+#' PBPH \tab 19 \tab Polynomial Body Proportional Hypothesis \cr
+#' PSPH \tab 20 \tab Polynomial Scale Proportional Hypothesis \cr
+#' EBPH \tab 21 \tab Exponential Body Proportional Hypothesis \cr
+#' ESPH \tab 22 \tab Exponential Scale Proportional Hypothesis \cr
+#' }
 #'
 #' @param BCM A single numeric between 1 and 22 that indicates which back-calculation model to use (based on numbers in Vigliola and Meekan (2009)).
 #' @param type A string that indicates which back-calculation model to use (based on abbreviations in Vigliola and Meekan (2009)).
@@ -41,24 +41,24 @@
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/Backcalculation.pdf},
 #'\url{https://sites.google.com/site/fishrfiles/gnrl/BackcalculationExtra.pdf}
 #'
-#' @references Vigliola, L. and M.G. Meekan.  2009.  The back-calculation of fish growth from otoliths.  pp. 174-211.  in B.S. Green et al. (editors).  Tropical Fish Otoliths: Information fro Assessment, Management and Ecology.  Review: Methods and Technologies in Fish Biology and Fisheries 11.  Springer.  \url{http://link.springer.com/chapter/10.1007\%2F978-1-4020-5775-5_6#page-1}
+#' @references
+#' Vigliola, L. and M.G. Meekan.  2009.  The back-calculation of fish growth from otoliths.  pp. 174-211.  in B.S. Green et al. (editors).  \href{http://link.springer.com/chapter/10.1007\%2F978-1-4020-5775-5_6\#page-1}{Tropical Fish Otoliths: Information for Assessment, Management and Ecology.}  Review: Methods and Technologies in Fish Biology and Fisheries 11.  Springer.  
 #'
 #' @keywords manip
 #'
 #' @examples
-#'## Simple Examples
-#'( bcm1 <- bcFuns(1) )
-#'bcm1(20,10,40)
+#' ## Simple Examples
+#' ( bcm1 <- bcFuns(1) )
+#' bcm1(20,10,40)
 #'
-#'## Example with dummy length-at-cap, radii-at-cap, and radii-at-age
-#'lencap <- c(100,100,100,150,150)
-#'radcap <- c(20,20,20,30,30)
-#'rad    <- c( 5,10,15,15,25)
-#'bcm1(lencap,rad,radcap)
+#' ## Example with dummy length-at-cap, radii-at-cap, and radii-at-age
+#' lencap <- c(100,100,100,150,150)
+#' radcap <- c(20,20,20,30,30)
+#' rad    <- c( 5,10,15,15,25)
+#' bcm1(lencap,rad,radcap)
 #'
-#'( bcm2 <- bcFuns(type="FRALE") )
-#'bcm2(lencap,rad,radcap,2)  # demonstrated with a=2
-#'
+#' ( bcm2 <- bcFuns(type="FRALE") )
+#' bcm2(lencap,rad,radcap,2)  # demonstrated with a=2
 #'
 #' @export
 bcFuns <- function(BCM=NULL,type=NULL,msg=FALSE) {

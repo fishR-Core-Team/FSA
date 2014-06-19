@@ -70,14 +70,14 @@ catchCurve(x, ...)
 }
 \value{
 A list that contains the following items:
-\itemize{
-\item age The original vector of assigned ages.
-\item catch The original vector of observed catches or CPUEs.
-\item age.e A vector of assigned ages for which the catch curve was fit.
-\item log.catch.e A vector of log catches or CPUEs for which the catch curve was fit.
-\item W A vector of weights used in the catch curve fit.  Will be \code{NULL} unless \code{use.weights=TRUE}.
-\item lm An \code{lm} object from the fit to the ages and log catches or CPUEs on the descending limb (i.e., in age.e and log.catch.e).
-}
+ \itemize{
+   \item age The original vector of assigned ages.
+   \item catch The original vector of observed catches or CPUEs.
+   \item age.e A vector of assigned ages for which the catch curve was fit.
+   \item log.catch.e A vector of log catches or CPUEs for which the catch curve was fit.
+   \item W A vector of weights used in the catch curve fit.  Will be \code{NULL} unless \code{use.weights=TRUE}.
+   \item lm An \code{lm} object from the fit to the ages and log catches or CPUEs on the descending limb (i.e., in age.e and log.catch.e).
+ }
 }
 \description{
 Fits a linear model to the user-defined descending limb of a catch curve.  A plot method highlights the descending-limb, shows the linear model on the descending limb, and, optionally, prints the estimated instantaneous (Z) and annual (A) mortality rates.

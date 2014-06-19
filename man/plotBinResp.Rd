@@ -61,9 +61,7 @@ A function to plot a binary response variable versus a quantitative explanatory 
 This function produces a plot that can be used to visualize the density of points for a binary response variable as a function of a quantitative explanatory variable.  In addition, the proportion of \dQuote{1}s for the response variable at various \dQuote{levels} of the explanatory variable are shown.
 }
 \note{
-This function is meant to allow newbie students the ability to
-visualize the data corresponding to a binary logistic regression without
-getting \dQuote{bogged-down} in the gritty details of how to produce this plot.
+This function is meant to allow newbie students the ability to visualize the data corresponding to a binary logistic regression without getting \dQuote{bogged-down} in the gritty details of how to produce this plot.
 }
 \examples{
 ## NASA space shuttle o-ring failures -- from graphics package

@@ -1,5 +1,56 @@
 # FSA 0.4.15 ongoing
-
+* lots of roxygen2 Rd cleaning.
+* `addLoessLine()`: Deleted.  Moved functionality to `iAddLoessLine()` and moved code to `residPlot()` file..
+* `addOutlierTestResults()`: Deleted.  Moved functionality to `iAddOutlierTestResults()` and moved code to `residPlot()` file.
+* `capHistConvert()`: Added an `interactive()` to the `Rcapture` example in the help file.
+* `checkStartcatW()`: Deleted.  Moved functionality to `iCheckStartcatW()`.
+* `ci.fp()`: Deleted.  Moved functionality to `iCIfp()` and moved code to `fitPlot()` file.
+* `ci.fp.1()`: Deleted.  Moved functionality to `iCIfp1()` and moved code to `fitPlot()` file.
+* `ciLabel()`: Deleted.  Moved functionality to `iCILabel()`.
+* `getAllDependencies()`: Deleted.  Moved functionality to `iGetAllDependencies()` and moved code to `swvUtils` file.
+* `getFilePrefix()`: Deleted.  Moved functionality to `iGetFilePrefix()` and moved code to `swvUtils` file.
+* `getMainTitle()`: Deleted.  Moved functionality to `iGetMainTitle()` and moved code to `residPlot()` file.
+* `getVarFromFormula()`: Deleted.  Moved functionality to `iGetVarFromFormula()`.
+* `hndlFormula()`: Deleted.  Moved functionality to `iHndlFormula()`.
+* `hndlMultWhat()`: Deleted.  Moved functionality to `iHndlMultWhat()`.
+* `iAddLoessLine()`: Added.  Was `addLoessLine()`.
+* `iAddOutlierTestResults()`: Added.  Was `addOutlierTestResults()`.
+* `iCheckStartcatW()`: Added.  Was `checkStartcatW()`.
+* `iCIfp()`: Added.  Was `ci.fp()`.
+* `iCIfp1()`: Added.  Was `ci.fp.1()`.
+* `iCILabel()`: Added.  Was `ciLabel()`.
+* `iGetAllDependencies()`: Added.  Was `getAllDependencies()`.
+* `iGetFilePrefix()`:  Added.  Was `getFilePrefix()`.
+* `iGetMainTitle()`: Added.  Was `getMainTitle()`.
+* `iGetVarFromFormula()`: Added.  Was `getVarFromFormula()`.
+* `iHndlFormula()`: Added.  Was `hndlFormula()`.
+* `iHndlMultWhat()`: Added.  Was `hndlMultWhat()`.
+* `iLegendHelp()`: Added.  Was `legendHelp()`.
+* `iMakeColor()`: Added.  Was `makeColor()`.
+* `iMakeFilename()`: Added.  Was `makeFilename()`.
+* `iMakeItemsToRemove()`:  Added.  Was `makeItemsToRemove()`.
+* `iProcessSessionInfo()`: Added.  Was `processSessionInfo()`.
+* `iPSDLitCheck()`: Added.  Was `psdLitCheck()`.
+* `is.even()`: Added.
+* `is.odd()`: Added.  Was `odd()`.
+* `iTypeoflm()`: Added.  Was `typeoflm()`.
+* `iwsLitCheck()`: Added.  Was `wsLitCheck()`
+* `legendHelp()`: Deleted.  Moved functionality to `iLegendHelp()`.
+* `listSpecies()`: Deleted.  Moved functionality to `iListSpecies()`.
+* `makeColor()`: Deleted.  Moved functionality to `iMakeColor()`.
+* `makeFilename()`: Deleted.  Moved functionality to `iMakeFilename()` and moved code to `swvUtils` file.
+* `makeItemsToRemove()`: Deleted.  Moved functionality to `iMakeItemsToRemove()` and moved code to `swvUtils` file.
+* `odd()`: Deleted.  Moved functionality to `is.odd()`.
+* `predict.nlsBoot()`:  Added an `interactive()` to the `nlstools` example in the help file.
+* `printProgressMsg()`:  Deleted.  Not used anywhere.
+* `processSessionInfo()`: Deleted.  Moved functionality `iProcessSessionInfo()` and moved code to `swvUtils` file.
+* `PSDLitCheck()`: Deleted.  Moved functionality to `iPSDLitCheck()` and moved code to `psdVals()` file.
+* `pssCalc()`: Deleted.  Was deprecated several versions ago. See `psdCalc()`.
+* `pssDataPrep()`: Deleted.  Was deprecated several versions ago. See `psdDataPrep()`.
+* `pssPlot()`: Deleted.  Was deprecated several versions ago. See `psdPlot()`.
+* `pssVal()`: Deleted.  Was deprecated several versions ago. See `psdVal()`.
+* `typeoflm()`: Deleted.  Moved functionality to `iTypeoflm()`.
+* `wsLitCheck()`: Deleted.  Moved functionality to `iwsLitCheck()` and moved code to `wsVals()` file.
 
 # FSA 0.4.14 Jun14
 

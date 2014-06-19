@@ -32,9 +32,9 @@
 #' @keywords hplot
 #'
 #' @examples
-#'data(SMBassWB)
-#'walfordPlot(lencap~agecap,data=SMBassWB)
-#'chapmanPlot(lencap~agecap,data=SMBassWB)
+#' data(SMBassWB)
+#' walfordPlot(lencap~agecap,data=SMBassWB)
+#' chapmanPlot(lencap~agecap,data=SMBassWB)
 #'
 #' @rdname walfordChapmanPlot
 #' @export
@@ -44,7 +44,7 @@ walfordPlot <- function(formula,data=NULL,
                         pch=19,col="black",pchLinf=9,colLinf="red",cexLinf=1.5,
                         showLS=TRUE,showVB=TRUE,...) {
   # some checks and handle the formula
-  tmp <- hndlFormula(formula,data,expNumR=1,expNumE=1)
+  tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
   if (!tmp$metExpNumR) stop("'walfordPlot' must have only one LHS variable.",call.=FALSE)
   if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
   if (!tmp$metExpNumE) stop("'walfordPlot' must have only one RHS variable.",call.=FALSE)
@@ -77,7 +77,7 @@ chapmanPlot <- function(formula,data=NULL,
                         pch=19,col="black",pchLinf=9,colLinf="red",cexLinf=1.5,
                         showLS=TRUE,showVB=TRUE,...) {
   # some checks and handle the formula
-  tmp <- hndlFormula(formula,data,expNumR=1,expNumE=1)
+  tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
   if (!tmp$metExpNumR) stop("'walfordPlot' must have only one LHS variable.",call.=FALSE)
   if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
   if (!tmp$metExpNumE) stop("'walfordPlot' must have only one RHS variable.",call.=FALSE)

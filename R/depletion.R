@@ -1,12 +1,12 @@
-#'Computes the Leslie or Delury population estimate from catch and effort data.
+#' @title Computes the Leslie or Delury population estimate from catch and effort data.
 #'
-#'Computes the Leslie or Delury estimates of population size and catchability coefficient from paired catch and effort data.  The Ricker modification may also be used.
+#' @description Computes the Leslie or Delury estimates of population size and catchability coefficient from paired catch and effort data.  The Ricker modification may also be used.
 #'
-#'Fits a linear regression model to catch-per-unit-effort on cumulative catch.  The catchability coefficient (q) is estimated from the negative of the slope and the initial population size (No)  is estimated by dividing the intercept by the catchability coefficient.
+#' @details Fits a linear regression model to catch-per-unit-effort on cumulative catch.  The catchability coefficient (q) is estimated from the negative of the slope and the initial population size (No)  is estimated by dividing the intercept by the catchability coefficient.
 #'
-#'Standard errors for the catchability and population size estimates are computed using formulas from Seber (1982).
+#' Standard errors for the catchability and population size estimates are computed using formulas from Seber (1982).
 #'
-#'Confidence intervals are computed using standard large-sample normal distribution theory with the regression error df.
+#' Confidence intervals are computed using standard large-sample normal distribution theory with the regression error df.
 #'
 #' @aliases depletion plot.depletion summary.depletion coef.depletion anova.depletion confint.depletion
 #' @param catch A numeric vector of catches of fish at each time.
@@ -29,15 +29,15 @@
 #' @param \dots Additional arguments for methods.
 #'
 #' @return A list with the following items:
-#'\itemize{
-#'\item type A string that indicates whether the \code{"Leslie"} or \code{"Delury"} model was used.
-#'\item catch The original vector of catches.
-#'\item effort The orginal vector of efforts.
-#'\item cpe A computed vector of catch-per-unit-effort for each time.
-#'\item KorE A computed vector of cumulative catch (K; Leslie method) or effort (E; Delury method).
-#'\item lm The \code{lm} object from the fit of log(CPE) on K (Leslie method) or E (Delury method).
-#'\item est A 2x2 matrix that contains the estimates and standard errors for No and q.
-#'}
+#'  \itemize{
+#'    \item type A string that indicates whether the \code{"Leslie"} or \code{"Delury"} model was used.
+#'    \item catch The original vector of catches.
+#'    \item effort The orginal vector of efforts.
+#'    \item cpe A computed vector of catch-per-unit-effort for each time.
+#'    \item KorE A computed vector of cumulative catch (K; Leslie method) or effort (E; Delury method).
+#'    \item lm The \code{lm} object from the fit of log(CPE) on K (Leslie method) or E (Delury method).
+#'    \item est A 2x2 matrix that contains the estimates and standard errors for No and q.
+#'  }
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
@@ -45,34 +45,35 @@
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/Depletion.pdf}
 #'
-#' @references Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
+#' @references
+#' Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 #'
-#'Seber, G.A.F. 1982. The Estimation of Animal Abundance. Edward Arnold, second edition.
+#' Seber, G.A.F. 1982. The Estimation of Animal Abundance. Edward Arnold, second edition.
 #'
 #' @keywords hplot manip
 #'
 #' @examples
-#'data(SMBassLS)
+#' data(SMBassLS)
 #'
-#'# Leslie model examples
-#'l1 <- depletion(SMBassLS$catch,SMBassLS$effort,type="Leslie")
-#'plot(l1)
-#'confint(l1)
-#'summary(l1)
-#'summary(l1,type="lm")
-#'l2 <- depletion(SMBassLS$catch,SMBassLS$effort,type="Leslie",ricker.mod=TRUE)
-#'plot(l2)
-#'confint(l2)
+#' # Leslie model examples
+#' l1 <- depletion(SMBassLS$catch,SMBassLS$effort,type="Leslie")
+#' plot(l1)
+#' confint(l1)
+#' summary(l1)
+#' summary(l1,type="lm")
+#' l2 <- depletion(SMBassLS$catch,SMBassLS$effort,type="Leslie",ricker.mod=TRUE)
+#' plot(l2)
+#' confint(l2)
 #'
-#'# Delury model examples
-#'d1 <- depletion(SMBassLS$catch,SMBassLS$effort,type="Delury")
-#'plot(d1)
-#'confint(d1)
-#'summary(d1)
-#'summary(d1,type="lm")
-#'d2 <- depletion(SMBassLS$catch,SMBassLS$effort,type="Delury",ricker.mod=TRUE)
-#'plot(d2)
-#'confint(d2)
+#' # Delury model examples
+#' d1 <- depletion(SMBassLS$catch,SMBassLS$effort,type="Delury")
+#' plot(d1)
+#' confint(d1)
+#' summary(d1)
+#' summary(d1,type="lm")
+#' d2 <- depletion(SMBassLS$catch,SMBassLS$effort,type="Delury",ricker.mod=TRUE)
+#' plot(d2)
+#' confint(d2)
 #'
 #' @rdname depletion
 #' @export
@@ -143,7 +144,7 @@ confint.depletion <- function(object,parm=c("both","all","q","No","lm"),level=co
     if (parm=="all" | parm=="both") res <- rbind(No=Nores,q=qres)
     else if (parm=="No") res <- Nores
       else res <- qres
-    colnames(res) <- ciLabel(conf.level)
+    colnames(res) <- iCILabel(conf.level)
     res
   }
 }

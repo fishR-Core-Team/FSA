@@ -1,8 +1,10 @@
-#'Plots a binary response variable versus a quantitative explanatory variable.
+#' @title Plots a binary response variable versus a quantitative explanatory variable.
 #'
-#'A function to plot a binary response variable versus a quantitative explanatory variable.
+#' @description A function to plot a binary response variable versus a quantitative explanatory variable.
 #'
-#'This function produces a plot that can be used to visualize the density of points for a binary response variable as a function of a quantitative explanatory variable.  In addition, the proportion of \dQuote{1}s for the response variable at various \dQuote{levels} of the explanatory variable are shown.
+#' @details This function produces a plot that can be used to visualize the density of points for a binary response variable as a function of a quantitative explanatory variable.  In addition, the proportion of \dQuote{1}s for the response variable at various \dQuote{levels} of the explanatory variable are shown.
+#'
+#' @note This function is meant to allow newbie students the ability to visualize the data corresponding to a binary logistic regression without getting \dQuote{bogged-down} in the gritty details of how to produce this plot.
 #'
 #' @aliases plotBinResp plotBinResp.default plotBinResp.formula
 #'
@@ -28,10 +30,6 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @note This function is meant to allow newbie students the ability to
-#'visualize the data corresponding to a binary logistic regression without
-#'getting \dQuote{bogged-down} in the gritty details of how to produce this plot.
-#'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
 #' @seealso \code{\link{fitPlot}} and \code{\link{cdplot}}.
@@ -39,36 +37,35 @@
 #' @keywords hplot models
 #'
 #' @examples
+#' ## NASA space shuttle o-ring failures -- from graphics package
+#' fail <- factor(c(2,2,2,2,1,1,1,1,1,1,2,1,2,1,1,1,1,2,1,1,1,1,1),
+#' levels = 1:2, labels = c("no","yes"))
+#' temperature <- c(53,57,58,63,66,67,67,67,68,69,70,70,70,70,72,73,75,75,76,76,78,79,81)
+#' d <- data.frame(fail,temperature)
 #'
-#'## NASA space shuttle o-ring failures -- from graphics package
-#'fail <- factor(c(2,2,2,2,1,1,1,1,1,1,2,1,2,1,1,1,1,2,1,1,1,1,1),
-#'levels = 1:2, labels = c("no","yes"))
-#'temperature <- c(53,57,58,63,66,67,67,67,68,69,70,70,70,70,72,73,75,75,76,76,78,79,81)
-#'d <- data.frame(fail,temperature)
+#' ## Default plot (using formula notation)
+#' plotBinResp(fail~temperature,data=d)
 #'
-#'## Default plot (using formula notation)
-#'plotBinResp(fail~temperature,data=d)
+#' ## Controlling where proportions are computed with a sequence in breaks
+#' plotBinResp(fail~temperature,data=d,breaks=seq(50,85,5))
 #'
-#'## Controlling where proportions are computed with a sequence in breaks
-#'plotBinResp(fail~temperature,data=d,breaks=seq(50,85,5))
+#' ## Controlling where proportions are computed with an integer in breaks
+#' plotBinResp(fail~temperature,data=d,breaks=10)
 #'
-#'## Controlling where proportions are computed with an integer in breaks
-#'plotBinResp(fail~temperature,data=d,breaks=10)
+#' ## Don't plot points, just plot proportions
+#' plotBinResp(fail~temperature,data=d,plot.pts=FALSE)
 #'
-#'## Don't plot points, just plot proportions
-#'plotBinResp(fail~temperature,data=d,plot.pts=FALSE)
+#' ## Don't plot proportions, just plot points
+#' plotBinResp(fail~temperature,data=d,plot.p=FALSE)
 #'
-#'## Don't plot proportions, just plot points
-#'plotBinResp(fail~temperature,data=d,plot.p=FALSE)
+#' ## Change points colors, and eliminate transparency
+#' plotBinResp(fail~temperature,data=d,col.pt="red",trans.pt=1)
 #'
-#'## Change points colors, and eliminate transparency
-#'plotBinResp(fail~temperature,data=d,col.pt="red",trans.pt=1)
+#' ## Remove the right y-axis
+#' plotBinResp(fail~temperature,data=d,yaxis2.show=FALSE)
 #'
-#'## Remove the right y-axis
-#'plotBinResp(fail~temperature,data=d,yaxis2.show=FALSE)
-#'
-#'## Change left y-axis ticks
-#'plotBinResp(fail~temperature,data=d,yaxis1.ticks=c(0,1),yaxis1.lbls=c(0,1))
+#' ## Change left y-axis ticks
+#' plotBinResp(fail~temperature,data=d,yaxis1.ticks=c(0,1),yaxis1.lbls=c(0,1))
 #'
 #' @rdname plotBinResp
 #' @export
@@ -93,7 +90,7 @@ plotBinResp.default <- function(x,y,
   # adjust for maximum allowable transparency
   if (trans.pt>500) trans.pt <- 500
   # plot raw data points
-  plot(yn~x,pch=16,col=makeColor(col.pt,trans.pt),yaxt="n",xlab=xlab,ylab=ylab,...)
+  plot(yn~x,pch=16,col=iMakeColor(col.pt,trans.pt),yaxt="n",xlab=xlab,ylab=ylab,...)
   # puts on ticks
   axis(2,yaxis1.ticks,FALSE,cex.axis=par()$cex.axis)
   # only label a few

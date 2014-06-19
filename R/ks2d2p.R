@@ -1,8 +1,10 @@
-#'A permutation test to compute a p-value for the D test statistic for the two-sample two-dimensional Kolmogrov-Smirnov test.
+#' @title A permutation test to compute a p-value for the D test statistic for the two-sample two-dimensional Kolmogrov-Smirnov test.
 #'
-#'A permutation test to compute a p-value for the D test statistic for the two-sample two-dimensional Kolmogrov-Smirnov test.
+#' @description A permutation test to compute a p-value for the D test statistic for the two-sample two-dimensional Kolmogrov-Smirnov test.
 #'
-#'NEED DETAIL HERE.
+#' @details NEED DETAIL HERE.
+#'
+#' @note This function is experimental at best at this point.
 #'
 #' @aliases ks2d2p print.ks2d2p plot.ks2d2p
 #'
@@ -18,41 +20,40 @@
 #' @param \dots Additional arguments sent to the plot function.
 #'
 #' @return The main function returns a list with the following items:
-#'\itemize{
-#'\item D The D test statistic from the \code{ks2d2} object.
-#'\item pval The p-value from the permutation test.  See details.
-#'\item Ds The D test statistics from each of the B \sQuote{resamples}.
-#'\item type The \code{type} supplied by the user.
-#'\item randtype The \code{randtype} supplied by the user.
-#'\item B The \code{B} value supplied by the user.
-#'}
+#'  \itemize{
+#'    \item D The D test statistic from the \code{ks2d2} object.
+#'    \item pval The p-value from the permutation test.  See details.
+#'    \item Ds The D test statistics from each of the B \sQuote{resamples}.
+#'    \item type The \code{type} supplied by the user.
+#'    \item randtype The \code{randtype} supplied by the user.
+#'    \item B The \code{B} value supplied by the user.
+#'  }
 #'The \code{plot} function returns a density plot of the D test statistics from each of the B \sQuote{resamples} with the observed D test statistic shown with a vertical line.  The \code{print} function prints the results in a nice format).
-#'
-#' @note This function is experimental at best at this point.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}, with significant help from Ben Bolker.
 #'
 #' @seealso \code{\link{ks2d2}}
 #'
-#' @references Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From star charts to stoneflies: detecting relationships in continuous bivariate data.  Ecology 79:442 447.  \url{http://opensiuc.lib.siu.edu/fiaq_pubs/17/}
+#' @references
+#' Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  \href{http://opensiuc.lib.siu.edu/fiaq_pubs/17/}{From star charts to stoneflies: detecting relationships in continuous bivariate data.} Ecology 79:442 447.
 #'
-#'Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.  Numerical Recipes: The Art of Scientific Computing, 3rd Edition.  Cambridge University Press.  1286 pages. \url{http://www.nr.com/}
+#' Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.  \href{http://www.nr.com/}{Numerical Recipes: The Art of Scientific Computing, 3rd Edition.}  Cambridge University Press.  1286 pages. 
 #'
 #' @keywords htest
 #'
 #' @examples
-#'data(KS2D_NR)
+#' data(KS2D_NR)
 #'
-#'# separate into the two sets of coordinates
-#'d1 <- subset(KS2D_NR,group=="triangles")
-#'d2 <- subset(KS2D_NR,group=="squares")
+#' # separate into the two sets of coordinates
+#' d1 <- subset(KS2D_NR,group=="triangles")
+#' d2 <- subset(KS2D_NR,group=="squares")
 #'
-#'# perform D2KS analysis
-#'( res1 <- ks2d2(d1$x,d1$y,d2$x,d2$y) )
+#' # perform D2KS analysis
+#' ( res1 <- ks2d2(d1$x,d1$y,d2$x,d2$y) )
 #'
-#'# perform permutation test using resampling
-#'( res1p <- ks2d2p(res1,B=10) )  # B should be >1000, used 10 here to save time
-#'plot(res1p)
+#' # perform permutation test using resampling
+#' ( res1p <- ks2d2p(res1,B=10) )  # B should be >1000, used 10 here to save time
+#' plot(res1p)
 #'
 #' @rdname ks2d2p
 #' @export

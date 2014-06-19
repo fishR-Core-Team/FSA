@@ -51,70 +51,70 @@
 #' @keywords manip
 #'
 #' @examples
-#'# Hypothetical data -- prey categories and biomasses in diets
-#'names <- c("bluegill","perch","minnows","bullheads","insects","zooplankton")
-#'lmb <- c(55,35,23,7,3,1)
-#'wae <- c(23,45,2,17,7,2)
+#' # Hypothetical data -- prey categories and biomasses in diets
+#' names <- c("bluegill","perch","minnows","bullheads","insects","zooplankton")
+#' lmb <- c(55,35,23,7,3,1)
+#' wae <- c(23,45,2,17,7,2)
 #'
-#'# demonstrate different indices (see below for Morisita)
-#'dietOverlap(lmb,wae,prey=names,type="Horn")
-#'dietOverlap(lmb,wae,prey=names,type="Levin")
-#'dietOverlap(lmb,wae,prey=names,type="Pianka")
-#'dietOverlap(lmb,wae,prey=names,type="Schoener")
+#' # demonstrate different indices (see below for Morisita)
+#' dietOverlap(lmb,wae,prey=names,type="Horn")
+#' dietOverlap(lmb,wae,prey=names,type="Levin")
+#' dietOverlap(lmb,wae,prey=names,type="Pianka")
+#' dietOverlap(lmb,wae,prey=names,type="Schoener")
 #'
-#'# demonstrate summary()
-#'do1 <- dietOverlap(lmb,wae,names,type="Horn")
-#'summary(do1)
-#'summary(do1,digits=3)
+#' # demonstrate summary()
+#' do1 <- dietOverlap(lmb,wae,names,type="Horn")
+#' summary(do1)
+#' summary(do1,digits=3)
 #'
-#'# demonstrate using a single matrix rather than two separate vectors
-#'diet <- cbind(lmb,wae)
-#'rownames(diet) <- names
-#'dietOverlap(diet,prey=rownames(diet),type="Horn")
+#' # demonstrate using a single matrix rather than two separate vectors
+#' diet <- cbind(lmb,wae)
+#' rownames(diet) <- names
+#' dietOverlap(diet,prey=rownames(diet),type="Horn")
 #'
-#'# Continuation of first example with 'extra' info required for Morisita's index
-#'# Hypothetical numbers of fish with each food item (occurrence)
-#'num.lmb <- c(17,13,4,7,24,13)
-#'num.wae <- c(37,12,23,8,9,13)
-#'# Hypothetical total numbers of each predator
-#'N.lmb <- 30
-#'N.wae <- 40
+#' # Continuation of first example with 'extra' info required for Morisita's index
+#' # Hypothetical numbers of fish with each food item (occurrence)
+#' num.lmb <- c(17,13,4,7,24,13)
+#' num.wae <- c(37,12,23,8,9,13)
+#' # Hypothetical total numbers of each predator
+#' N.lmb <- 30
+#' N.wae <- 40
 #'
-#'dietOverlap(lmb,wae,prey=names,type="Morisita",num1=num.lmb,num2=num.wae,N1=N.lmb,N2=N.wae)
+#' dietOverlap(lmb,wae,prey=names,type="Morisita",num1=num.lmb,num2=num.wae,N1=N.lmb,N2=N.wae)
 #'
-#'## An extended example which requires summarization of raw data
-#'data(TroutDietSL)
-#'# add percentage per fish, add zeroes for empty stomachs
-#'TroutDietSL$pvol.mysis <- TroutDietSL$vol.mysis/TroutDietSL$vol.ttl
-#'TroutDietSL$pvol.oi <- TroutDietSL$vol.oi/TroutDietSL$vol.ttl
-#'TroutDietSL$pvol.fish <- TroutDietSL$vol.fish/TroutDietSL$vol.ttl
-#'# add empty variable
-#'TroutDietSL$empty <- ifelse(TroutDietSL$vol.ttl==0,"YES","NO")
-#'# create TL from SL for Bull Trout using formula in paper -- TL=4.403+1.118SL
-#'TroutDietSL$tl[TroutDietSL$species=="BLT"] <- 4.403+1.118*TroutDietSL$sl[TroutDietSL$species=="BLT"]
-#'# add LCat length categories
-#'TroutDietSL$LCat <- lencat(TroutDietSL$tl,breaks=c(0,350,500,650,950),right=TRUE)
+#' ## An extended example which requires summarization of raw data
+#' data(TroutDietSL)
+#' # add percentage per fish, add zeroes for empty stomachs
+#' TroutDietSL$pvol.mysis <- TroutDietSL$vol.mysis/TroutDietSL$vol.ttl
+#' TroutDietSL$pvol.oi <- TroutDietSL$vol.oi/TroutDietSL$vol.ttl
+#' TroutDietSL$pvol.fish <- TroutDietSL$vol.fish/TroutDietSL$vol.ttl
+#' # add empty variable
+#' TroutDietSL$empty <- ifelse(TroutDietSL$vol.ttl==0,"YES","NO")
+#' # create TL from SL for Bull Trout using formula in paper -- TL=4.403+1.118SL
+#' TroutDietSL$tl[TroutDietSL$species=="BLT"] <- 4.403+1.118*TroutDietSL$sl[TroutDietSL$species=="BLT"]
+#' # add LCat length categories
+#' TroutDietSL$LCat <- lencat(TroutDietSL$tl,breaks=c(0,350,500,650,950),right=TRUE)
 #'
-#'# isolate the non-empty fish (as the authors did)
-#'TroutDietSL1 <- Subset(TroutDietSL,empty=="NO")
-#'with(TroutDietSL1,table(species,LCat))
+#' # isolate the non-empty fish (as the authors did)
+#' TroutDietSL1 <- Subset(TroutDietSL,empty=="NO")
+#' with(TroutDietSL1,table(species,LCat))
 #'
-#'# summarize by computing the mean percent of the three diet items
-#'mn.mysis <- aggregate(pvol.mysis~species*LCat,data=TroutDietSL1,FUN=mean)
-#'mn.oi <- aggregate(pvol.oi~species*LCat,data=TroutDietSL1,FUN=mean)
-#'mn.fish <- aggregate(pvol.fish~species*LCat,data=TroutDietSL1,FUN=mean)
-#'mndiet <- cbind(mn.mysis,mn.oi[,"pvol.oi"],mn.fish[,"pvol.fish"])
-#'colnames(mndiet)[3:5] <- c("mysis","oi","fish")
-#'# reorganize the result
-#'mndiet <- reshape(mndiet,direction="long",varying=c("mysis","oi","fish"),v.names="mnprop",
-#'                  idvar=c("species","LCat"),timevar="item",times=c("mysis","oi","fish"))
-#'mndiet <- reshape(mndiet,direct="wide",v.names="mnprop",idvar=c("item","LCat"),timevar="species")
+#' # summarize by computing the mean percent of the three diet items
+#' mn.mysis <- aggregate(pvol.mysis~species*LCat,data=TroutDietSL1,FUN=mean)
+#' mn.oi <- aggregate(pvol.oi~species*LCat,data=TroutDietSL1,FUN=mean)
+#' mn.fish <- aggregate(pvol.fish~species*LCat,data=TroutDietSL1,FUN=mean)
+#' mndiet <- cbind(mn.mysis,mn.oi[,"pvol.oi"],mn.fish[,"pvol.fish"])
+#' colnames(mndiet)[3:5] <- c("mysis","oi","fish")
+#' # reorganize the result
+#' mndiet <- reshape(mndiet,direction="long",varying=c("mysis","oi","fish"),v.names="mnprop",
+#'                   idvar=c("species","LCat"),timevar="item",times=c("mysis","oi","fish"))
+#' mndiet <- reshape(mndiet,direct="wide",v.names="mnprop",idvar=c("item","LCat"),timevar="species")
 #'                  
-#'# Now compute diet overlap between same sized fishes of the two species
-#'dietOverlap(mndiet[mndiet$LCat=="0",3:4],prey=levels(mndiet$item),type="Schoener")
-#'dietOverlap(mndiet[mndiet$LCat=="350",3:4],prey=levels(mndiet$item),type="Schoener")
-#'dietOverlap(mndiet[mndiet$LCat=="500",3:4],prey=levels(mndiet$item),type="Schoener")
-#'dietOverlap(mndiet[mndiet$LCat=="650",3:4],prey=levels(mndiet$item),type="Schoener")
+#' # Now compute diet overlap between same sized fishes of the two species
+#' dietOverlap(mndiet[mndiet$LCat=="0",3:4],prey=levels(mndiet$item),type="Schoener")
+#' dietOverlap(mndiet[mndiet$LCat=="350",3:4],prey=levels(mndiet$item),type="Schoener")
+#' dietOverlap(mndiet[mndiet$LCat=="500",3:4],prey=levels(mndiet$item),type="Schoener")
+#' dietOverlap(mndiet[mndiet$LCat=="650",3:4],prey=levels(mndiet$item),type="Schoener")
 #'
 #' @rdname dietOverlap
 #' @export dietOverlap

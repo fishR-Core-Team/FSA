@@ -73,7 +73,6 @@ table(df1$LCat3)
 df1$LCat4 <- lencat(df1$len,breaks=c(0,2,4,7,10))
 table(df1$LCat4)
 
-
 ## A Second example
 # random lengths measured to nearest unit
 df2 <- data.frame(len=round(runif(50,10,117),0))
@@ -98,7 +97,6 @@ table(df2$LCat4)
 df2$LCat5 <- lencat(df2$len,breaks=c(5,50,75,150))
 table(df2$LCat5)
 
-
 ## A Third example
 # random lengths measured to nearest 0.1 unit
 df3 <- data.frame(len=round(runif(50,10,117),1))
@@ -106,7 +104,6 @@ df3 <- data.frame(len=round(runif(50,10,117),1))
 # length categories by 5 units
 df3$LCat1 <- lencat(df3$len,w=5)
 table(df3$LCat1)
-
 
 ## A Fourth example
 # random lengths measured to nearest 0.01 unit
@@ -120,10 +117,9 @@ table(df4$LCat1)
 df4$LCat2 <- lencat(df4$len,w=2)
 table(df4$LCat2)
 
-
 ## A Fifth example -- with real data
 data(SMBassWB)
-#remove variables with "anu" and "radcap" just for simplicity
+# remove variables with "anu" and "radcap" just for simplicity
 smb1 <- smb2 <- SMBassWB[,-c(8:20)]
 
 # 10 mm length classes - in default LCat variable
@@ -158,10 +154,9 @@ table(smb1$PSDCat2)
 
 # same as above but drop the unused levels
 smb1$PSDCat2A <- lencat(smb1$lencap,breaks=psdVal("Smallmouth Bass"),
-                       use.names=TRUE,drop.levels=TRUE)
+                        use.names=TRUE,drop.levels=TRUE)
 head(smb1)
 table(smb1$PSDCat2A)
-
 str(smb1)
 
 ## A Sixth example -- similar to the fifth example but using the formula notation
@@ -179,9 +174,8 @@ head(smb2)
 
 # add category names
 smb2 <- lencat(~lencap,data=smb2,breaks=psdVal("Smallmouth Bass"),vname="LenPsd2",
-              use.names=TRUE,drop.levels=TRUE)
+               use.names=TRUE,drop.levels=TRUE)
 head(smb2)
-
 str(smb2)
 }
 \author{

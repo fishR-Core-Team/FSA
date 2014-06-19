@@ -1,10 +1,12 @@
-#'Construct a residual plot from lm or nls objects.
+#' @title Construct a residual plot from lm or nls objects.
 #'
-#'Constructs a residual plot for \code{lm} or \code{nls} objects.  Different symbols for different groups can be added to the plot if an indicator variable regression is used.
+#' @description Constructs a residual plot for \code{lm} or \code{nls} objects.  Different symbols for different groups can be added to the plot if an indicator variable regression is used.
 #'
-#'If the user chooses to add a legend without identifying coordinates for the upper-left corner of the legend (i.e., \code{legend=TRUE}) then the R console is suspended until the user places the legend by clicking on the produced graphic at the point where the upper-left corner of the legend should appear.  A legend will only be placed if the \code{mdl} is an indicator variable regression, even if \code{legend=TRUE}.
+#' @details If the user chooses to add a legend without identifying coordinates for the upper-left corner of the legend (i.e., \code{legend=TRUE}) then the R console is suspended until the user places the legend by clicking on the produced graphic at the point where the upper-left corner of the legend should appear.  A legend will only be placed if the \code{mdl} is an indicator variable regression, even if \code{legend=TRUE}.
 #'
-#'If \code{outlier.test=TRUE} then significant outliers are detected with \code{outlierTest()} from the \pkg{car} package.  See the help for this function for more details.
+#' If \code{outlier.test=TRUE} then significant outliers are detected with \code{outlierTest()} from the \pkg{car} package.  See the help for this function for more details.
+#'
+#' @note This function is meant to allow newbie students the ability to easily construct residual plots for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions.  The plots can be constructed by submitting a saved linear model to this function which allows students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
 #'
 #' @aliases residPlot residPlot.lm residPlot.SLR residPlot.IVR residPlot.POLY residPlot.ONEWAY residPlot.TWOWAY residPlot.nls residualPlot
 #'
@@ -33,70 +35,67 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @note This function is meant to allow newbie students the ability to easily construct residual plots for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions.  The plots can be constructed by submitting a saved linear model to this function which allows students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
-#'
 #' @seealso See \code{residualPlots} in \pkg{car} for similar functionality and \code{\link{fitPlot}} and \code{outlierTest} in \pkg{car} for related methods.
 #'
 #' @keywords hplot models
 #'
 #' @examples
-#'data(Mirex)
-#'Mirex$year <- factor(Mirex$year)
+#' data(Mirex)
+#' Mirex$year <- factor(Mirex$year)
 #'
-#'## Indicator variable regression with two factors
-#'lm1 <- lm(mirex~weight*year*species,data=Mirex)
-#'# defaults
-#'residPlot(lm1)
-#'# add a loess line to highlight any non-linearities in the residuals
-#'residPlot(lm1,loess=TRUE)
-#'# modify colors used
-#'residPlot(lm1,col="rainbow")
-#'# use only one point type -- notice that all points are of same type
-#'residPlot(lm1,pch=16)
-#'# use only one point and one color (might as well not use legend also)
-#'residPlot(lm1,pch=16,col="black",legend=FALSE)
-#'# can accomplish same thing just by removing the legend
-#'residPlot(lm1,legend=FALSE)
-#'# modify the reference line
-#'residPlot(lm1,col.ref="blue",lwd.ref=5)
+#' ## Indicator variable regression with two factors
+#' lm1 <- lm(mirex~weight*year*species,data=Mirex)
+#' # defaults
+#' residPlot(lm1)
+#' # add a loess line to highlight any non-linearities in the residuals
+#' residPlot(lm1,loess=TRUE)
+#' # modify colors used
+#' residPlot(lm1,col="rainbow")
+#' # use only one point type -- notice that all points are of same type
+#' residPlot(lm1,pch=16)
+#' # use only one point and one color (might as well not use legend also)
+#' residPlot(lm1,pch=16,col="black",legend=FALSE)
+#' # can accomplish same thing just by removing the legend
+#' residPlot(lm1,legend=FALSE)
+#' # modify the reference line
+#' residPlot(lm1,col.ref="blue",lwd.ref=5)
 #'
-#'## Indicator variable regression with same two factors but in different order
-#'##   (notice use of colors and symbols)
-#'lm1a <- lm(mirex~weight*species*year,data=Mirex)
-#'residPlot(lm1a)
+#' ## Indicator variable regression with same two factors but in different order
+#' ##   (notice use of colors and symbols)
+#' lm1a <- lm(mirex~weight*species*year,data=Mirex)
+#' residPlot(lm1a)
 #'
-#'## Indicator variable regression with only one factor
-#'lm2 <- lm(mirex~weight*year,data=Mirex)
-#'residPlot(lm2)
+#' ## Indicator variable regression with only one factor
+#' lm2 <- lm(mirex~weight*year,data=Mirex)
+#' residPlot(lm2)
 #'
-#'## Indicator variable regression (assuming same slope)
-#'lm3 <- lm(mirex~weight+year,data=Mirex)
-#'residPlot(lm3)
+#' ## Indicator variable regression (assuming same slope)
+#' lm3 <- lm(mirex~weight+year,data=Mirex)
+#' residPlot(lm3)
 #'
-#'## Simple linear regression
-#'lm4 <- lm(mirex~weight,data=Mirex)
-#'residPlot(lm4)
+#' ## Simple linear regression
+#' lm4 <- lm(mirex~weight,data=Mirex)
+#' residPlot(lm4)
 #'
-#'## One-way ANOVA
-#'lm5 <- lm(mirex~year,data=Mirex)
-#'# default (uses boxplots)
-#'residPlot(lm5)
-#'# use points rather than boxplot
-#'residPlot(lm5,bp=FALSE)
+#' ## One-way ANOVA
+#' lm5 <- lm(mirex~year,data=Mirex)
+#' # default (uses boxplots)
+#' residPlot(lm5)
+#' # use points rather than boxplot
+#' residPlot(lm5,bp=FALSE)
 #'
-#'## Two-Way ANOVA
-#'lm6 <- lm(mirex~species*year,data=Mirex)
-#'# default (uses boxplots)
-#'residPlot(lm6)
-#'# No boxplots
-#'residPlot(lm6,bp=FALSE)
+#' ## Two-Way ANOVA
+#' lm6 <- lm(mirex~species*year,data=Mirex)
+#' # default (uses boxplots)
+#' residPlot(lm6)
+#' # No boxplots
+#' residPlot(lm6,bp=FALSE)
 #'
-#'
-#'## Example showing outlier detection
-#'x <- c(runif(100))
-#'y <- c(7,runif(99))
-#'lma <- lm(y~x)
-#'residPlot(lma)
+#' ## Example showing outlier detection
+#' x <- c(runif(100))
+#' y <- c(7,runif(99))
+#' lma <- lm(y~x)
+#' residPlot(lma)
 #'
 #' @rdname residPlot
 #' @export
@@ -107,7 +106,7 @@ residPlot <- function (object, ...) {
 #' @rdname residPlot
 #' @export
 residPlot.lm <- function(object,...) {   
-  object <- typeoflm(object)
+  object <- iTypeoflm(object)
   if (object$type=="MLR") stop("Multiple linear regression objects are not supported by residPlot.",call.=FALSE)
   residPlot(object,...)                          
 }                         
@@ -118,14 +117,14 @@ residPlot.SLR <- function(object,student=TRUE,outlier.test=TRUE,loess=FALSE,alph
                           xlab="Fitted Values",ylab="Residuals",main=NULL,
                           pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                           lty.loess=2,lwd.loess=2,col.loess="red",loess.f=2/3,...) {
-  getMainTitle(object,main)
+  iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
   ifelse(student, r <- rstudent(object$mdl), r <- object$mdl$residuals)
   if (student & ylab=="Residuals") ylab <- "Studentized Residuals"
   plot(r~fv,xlab=xlab,ylab=ylab,main=main,pch=pch,col=col,...)
   abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref)
-  if (loess) addLoessLine(r,fv,loess.f,lwd.loess,lty.loess,col.loess)
-  if (outlier.test) addOutlierTestResults(object,fv,r,alpha) 
+  if (loess) iAddLoessLine(r,fv,loess.f,lwd.loess,lty.loess,col.loess)
+  if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha) 
 }
 
 #' @rdname residPlot
@@ -140,13 +139,13 @@ residPlot.IVR <- function(object,student=TRUE,outlier.test=TRUE,loess=FALSE,alph
                           xlab="Fitted Values",ylab="Residuals",main=NULL,
                           pch=c(16,21,15,22,17,24,c(3:14)),col="rich",lty.ref=3,lwd.ref=1,col.ref="black",
                           lty.loess=2,lwd.loess=2,col.loess="red",loess.f=2/3,legend="topright",...) {
-  getMainTitle(object,main)
+  iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
   ifelse(student, r <- rstudent(object$mdl), r <- object$mdl$residuals)
   if (student & ylab=="Residuals") ylab <- "Studentized Residuals"
   if (dim(object$mf)[2]>4) stop("Function does not handle models with more than two covariates or more than three factors.",call.=FALSE)
     else {
-      leg <- legendHelp(legend)   # will there be a legend
+      leg <- iLegendHelp(legend)   # will there be a legend
       if (!leg$do.legend) plot(r~fv,xlab=xlab,ylab=ylab,main=main,pch=16,col="black",...)
       else {      
         f1 <- object$mf[,3]
@@ -189,8 +188,8 @@ residPlot.IVR <- function(object,student=TRUE,outlier.test=TRUE,loess=FALSE,alph
       }
     }  
     abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref)
-    if (loess) addLoessLine(r,fv,loess.f,lwd.loess,lty.loess,col.loess)
-    if (outlier.test) addOutlierTestResults(object,fv,r,alpha)
+    if (loess) iAddLoessLine(r,fv,loess.f,lwd.loess,lty.loess,col.loess)
+    if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
 }
 
 #' @rdname residPlot
@@ -199,7 +198,7 @@ residPlot.ONEWAY <- function(object,student=TRUE,bp=TRUE,outlier.test=TRUE,loess
                           xlab="Fitted Values",ylab="Residuals",main=NULL,
                           pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                           lty.loess=2,lwd.loess=2,col.loess="red",loess.f=2/3,...) {
-  getMainTitle(object,main)
+  iGetMainTitle(object,main)
   if (bp & xlab=="Fitted Values") xlab <- "Treatment Group"
   fv <- object$mdl$fitted.values
   ifelse(student, r <- rstudent(object$mdl), r <- object$mdl$residuals)
@@ -208,8 +207,8 @@ residPlot.ONEWAY <- function(object,student=TRUE,bp=TRUE,outlier.test=TRUE,loess
   if (bp) boxplot(r~gf,xlab=xlab,ylab=ylab,main=main)
     else {
       plot(r~fv,xlab=xlab,ylab=ylab,main=main,pch=pch,col=col,...)
-      if (loess) addLoessLine(r,fv,loess.f,lwd.loess,lty.loess,col.loess)
-      if (outlier.test) addOutlierTestResults(object,fv,r,alpha)
+      if (loess) iAddLoessLine(r,fv,loess.f,lwd.loess,lty.loess,col.loess)
+      if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
     }
   abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref)
 }
@@ -220,7 +219,7 @@ residPlot.TWOWAY <- function(object,student=TRUE,bp=TRUE,outlier.test=TRUE,loess
                           xlab="Fitted Values",ylab="Residuals",main=NULL,pch=16,col="black",
                           lty.ref=3,lwd.ref=1,col.ref="black",
                           lty.loess=2,lwd.loess=2,col.loess="red",loess.f=2/3,...) {
-  getMainTitle(object,main)
+  iGetMainTitle(object,main)
   if (bp & xlab=="Fitted Values") xlab <- "Treatment Group"
   fv <- object$mdl$fitted.values
   ifelse(student, r <- rstudent(object$mdl), r <- object$mdl$residuals)
@@ -231,8 +230,8 @@ residPlot.TWOWAY <- function(object,student=TRUE,bp=TRUE,outlier.test=TRUE,loess
   if (bp) boxplot(r~gf,xlab=xlab,ylab=ylab,main=main)
     else {
       plot(r~fv,xlab=xlab,ylab=ylab,main=main,pch=pch,col=col,...)
-      if (loess) addLoessLine(r,fv,loess.f,lwd.loess,lty.loess,col.loess)
-      if (outlier.test) addOutlierTestResults(object,fv,r,alpha)
+      if (loess) iAddLoessLine(r,fv,loess.f,lwd.loess,lty.loess,col.loess)
+      if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
     }
   abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref)  
 }
@@ -248,3 +247,47 @@ residPlot.nls<-function(object,loess=FALSE,xlab="Fitted Values",ylab="Residuals"
   abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref)
   if (loess) lines(stats::lowess(r~fv,f=loess.f,iter=5),lwd=lwd.loess,lty=lty.loess,col=col.loess)
 }
+
+
+##################################################################
+### internal functions used in residPlot
+##################################################################
+iAddOutlierTestResults <- function(object,fv,r,alpha) {
+  # get results
+  out <- car::outlierTest(object$mdl,cutoff=alpha)
+  # number of points returned by outlierTest
+  num <- length(out$bonf.p)
+  # If only one point returned then ...
+  if (num==1) {
+    if (is.na(out$bonf.p)) num <- 0      # if it is NA then p>1 ... so not a significant point
+    else if (out$bonf.p>alpha) num <- 0  # if p>alpha then ... not a significant point
+  }
+  # If there are significant points to be highlighted then ...
+  if (num>0) {
+    # Determine which observation(s) is/are "significant" outlier(s)
+    obs <- names(out$bonf.p)
+    # Set text position based on sign of r if only one "outlier" is detected
+    if (num==1) ifelse(r[obs]<0,pos <- 3,pos <- 1)
+    # Use thigmophobe to find better text positions of more "outliers" are detected
+    else pos <- thigmophobe(fv[obs],r[obs])
+    # place labels
+    text(fv[obs],r[obs],obs,cex=1.25,col="red",pos=pos,xpd=TRUE)
+  }
+}  # end iAddOutlierTestResults internal function
+
+iAddLoessLine <- function(r,fv,loess.f,lwd.loess,lty.loess,col.loess) {
+  lines(stats::lowess(r~fv,f=loess.f,iter=5),lwd=lwd.loess,lty=lty.loess,col=col.loess)
+}  # end iAddLoessLine internal function
+
+
+iGetMainTitle <- function(object,main) {
+  # if no main title was sent to function
+  if (is.null(main)) {
+    # get formula parts
+    frm.chr <- as.character(formula(object$mdl))
+    # put together as a main title
+    main <- paste(frm.chr[2],frm.chr[1],frm.chr[3])
+  }
+  # return the title (NULL if NULL was sent)
+  main
+}  # end iGetMainTitle internal function

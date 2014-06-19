@@ -4,14 +4,14 @@
 \alias{KS2D_NR}
 \title{Data from Figure 14.7.1 of Numerical Recipes}
 \format{A data frame with 95 observations on the following 4 variables:
-\describe{
-\item{obs}{Observation number.}
-\item{x}{X coordinate.}
-\item{y}{Y coordinate.}
-\item{group}{Which coordinate set (\sQuote{triangles} or \sQuote{squares}).}
-}}
+ \describe{
+   \item{obs}{Observation number.}
+   \item{x}{X coordinate.}
+   \item{y}{Y coordinate.}
+   \item{group}{Which coordinate set (\sQuote{triangles} or \sQuote{squares}).}
+ }}
 \source{
-Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.  Numerical Recipes: The Art of Scientific Computing, 3rd Edition.  Cambridge University Press.  1286 pages. \url{http://www.nr.com/}
+Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.  \href{http://www.nr.com/}{Numerical Recipes: The Art of Scientific Computing, 3rd Edition.}  Cambridge University Press.  1286 pages.
 }
 \description{
 Data \sQuote{digitized} from Figure 14.7.1 of Numerical Recipes

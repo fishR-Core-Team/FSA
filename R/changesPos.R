@@ -1,6 +1,6 @@
-#'Find positions in a vector that have a different value from the previous position.
+#' @title Find positions in a vector that have a different value from the previous position.
 #'
-#'Find positions in a vector that have a different value from the previous position.
+#' @description Find positions in a vector that have a different value from the previous position.
 #'
 #' @param x A vector (generally) of sorted values.
 #' @param include.first A logical that indicates whether the returned vector of positions should have a ``1'' at the beginning (i.e., by definition the first position is the first position that is different than the previous value).
@@ -12,19 +12,19 @@
 #' @keywords manip
 #'
 #' @examples
-#'x <- rep(LETTERS[1:6],times=c(5,4,1,1,2,4))
-#'data.frame(pos=1:length(x),x)  # for demonstration only
-#'changesPos(x)
-#'v <- rep(10:17,times=c(4,1,1,2,4,2,1,1))
-#'data.frame(pos=1:length(v),v)  # for demonstration only
-#'changesPos(v)
-#'## An uninteresting example -- i.e., vector not sorted
-#'z <- sample(10:17,20,replace=TRUE)
-#'data.frame(pos=1:length(z),z)  # for demonstration only
-#'changesPos(z)
-#'z1 <- z[order(z)]
-#'data.frame(pos=1:length(z1),z1)  # for demonstration only
-#'changesPos(z1)
+#' x <- rep(LETTERS[1:6],times=c(5,4,1,1,2,4))
+#' data.frame(pos=1:length(x),x)  # for demonstration only
+#' changesPos(x)
+#' v <- rep(10:17,times=c(4,1,1,2,4,2,1,1))
+#' data.frame(pos=1:length(v),v)  # for demonstration only
+#' changesPos(v)
+#' ## An uninteresting example -- i.e., vector not sorted
+#' z <- sample(10:17,20,replace=TRUE)
+#' data.frame(pos=1:length(z),z)  # for demonstration only
+#' changesPos(z)
+#' z1 <- z[order(z)]
+#' data.frame(pos=1:length(z1),z1)  # for demonstration only
+#' changesPos(z1)
 #'
 #' @export
 changesPos <- function(x,include.first=TRUE) {

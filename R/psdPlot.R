@@ -1,12 +1,12 @@
-#'Length-frequency histogram with PSD-X categories highlighted.
+#' @title Length-frequency histogram with PSD-X categories highlighted.
 #'
-#'Constructs a length-frequency histogram with PSD-X categories highlighted.
+#' @description Constructs a length-frequency histogram with PSD-X categories highlighted.
 #'
-#'This function creates a length-frequency histogram with the stock-size fish highlighted, the Gabelhouse five-cell length category values marked by vertical lines, and superimposed calculations of PSD-X values.
+#' @details This function creates a length-frequency histogram with the stock-size fish highlighted, the Gabelhouse five-cell length category values marked by vertical lines, and superimposed calculations of PSD-X values.
 #'
-#'The length of fish plotted on the x-axis can be controlled with \code{xlim}, however, the minimum value in \code{xlim} must be less than the length of a stock size fish for that species.
+#' The length of fish plotted on the x-axis can be controlled with \code{xlim}, however, the minimum value in \code{xlim} must be less than the length of a stock size fish for that species.
 #'
-#' @aliases psdPlot pssPlot
+#' @aliases psdPlot
 #'
 #' @param formula A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains length measurements.  Note that this formula can only contain one variable.
 #' @param data A data.frame that minimally contains the length measurements given in the variable in the \code{formula}.
@@ -37,44 +37,47 @@
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}
 #'
-#' @source Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).  Fisheries 31:86-87.  \url{http://pubstorage.sdstate.edu/wfs/415-F.pdf}
+#' @references
+#' Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  \href{http://pubstorage.sdstate.edu/wfs/415-F.pdf}{New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).}  Fisheries 31:86-87.  
 #'
-#' Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  Proportional size distribution (PSD): A further refinement of population size structure index terminology.  Fisheries 32:348. \url{http://www.montana.edu/mtcfru/Guy/Publication\%20pdf/PSD\%20pub.pdf}
+#' Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  \href{http://www.montana.edu/mtcfru/Guy/Publication\%20pdf/PSD\%20pub.pdf}{Proportional size distribution (PSD): A further refinement of population size structure index terminology.}  Fisheries 32:348.
+#'
+#' Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  \href{http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf}{Stock density indices: development, use, and limitations.}  Reviews in Fisheries Science 1:203-222. 
 #'
 #' @keywords hplot
 #'
 #' @examples
-#'## Random length data
-#'# suppose this is yellow perch to the nearest mm
-#'yepmm <- c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),rnorm(20,mean=300,sd=40))
-#'# same data to the nearest 0.1 cm
-#'yepcm <- yepmm/10
-#'# same data to the nearest 0.1 in
-#'yepin <- yepmm/25.4
-#'# put together as data.frame
-#'yepdf <- data.frame(yepmm,yepcm,yepin)
+#' ## Random length data
+#' # suppose this is yellow perch to the nearest mm
+#' yepmm <- c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),rnorm(20,mean=300,sd=40))
+#' # same data to the nearest 0.1 cm
+#' yepcm <- yepmm/10
+#' # same data to the nearest 0.1 in
+#' yepin <- yepmm/25.4
+#' # put together as data.frame
+#' yepdf <- data.frame(yepmm,yepcm,yepin)
 #'
-#'## Example graphics
-#'op <- par(mfrow=c(2,2),mar=c(3.5,3.5,1,1),mgp=c(2,0.75,0))
-#'# mm data using 10-mm increments
-#'psdPlot(~yepmm,data=yepdf,species="Yellow perch",w=10)
-#'# cm data using 1-cm increments
-#'psdPlot(~yepcm,data=yepdf,species="Yellow perch",units="cm",w=1)
-#'# inch data using 1-in increments
-#'psdPlot(~yepin,data=yepdf,species="Yellow perch",units="in",w=1)
-#'# same as first with some color changes
-#'psdPlot(~yepmm,data=yepdf,species="Yellow perch",w=10,substock.col="gray90",stock.col="gray30")
+#' ## Example graphics
+#' op <- par(mfrow=c(2,2),mar=c(3.5,3.5,1,1),mgp=c(2,0.75,0))
+#' # mm data using 10-mm increments
+#' psdPlot(~yepmm,data=yepdf,species="Yellow perch",w=10)
+#' # cm data using 1-cm increments
+#' psdPlot(~yepcm,data=yepdf,species="Yellow perch",units="cm",w=1)
+#' # inch data using 1-in increments
+#' psdPlot(~yepin,data=yepdf,species="Yellow perch",units="in",w=1)
+#' # same as first with some color changes
+#' psdPlot(~yepmm,data=yepdf,species="Yellow perch",w=10,substock.col="gray90",stock.col="gray30")
 #'
-#'par(op)
+#' par(op)
 #'
-#' @export psdPlot pssPlot
-psdPlot <- pssPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
-                               startcat=0,w=1,justPSDQ=FALSE,main="",xlab="Length",
-                               ylab="Number",xlim=NULL,ylim=c(0,max(h$counts)),
-                               substock.col="white",stock.col="gray90",psd.col="red",
-                               psd.lty=2,psd.lwd=1,legend.pos="topright",legend.cex=0.75,...) {
+#' @export psdPlot
+psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
+                    startcat=0,w=1,justPSDQ=FALSE,main="",xlab="Length",
+                    ylab="Number",xlim=NULL,ylim=c(0,max(h$counts)),
+                    substock.col="white",stock.col="gray90",psd.col="red",
+                    psd.lty=2,psd.lwd=1,legend.pos="topright",legend.cex=0.75,...) {
   units <- match.arg(units)
-  cl <- getVarFromFormula(formula,data,expNumVars=1)
+  cl <- iGetVarFromFormula(formula,data,expNumVars=1)
   # get ultimate sample size 
   n <- nrow(data)
   # find psd values for this species

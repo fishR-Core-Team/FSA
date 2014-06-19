@@ -4,19 +4,19 @@
 \alias{PSDlit}
 \title{Gabelhouse five-cell length categories for various species.}
 \format{A data frame of 58 observations on the following 11 variables:
-\describe{
-\item{species}{Species name.}
-\item{stock.in}{Stock length in inches.}
-\item{quality.in}{Quality length in inches.}
-\item{preferred.in}{Preferred length in inches.}
-\item{memorable.in}{Memorable length in inches.}
-\item{trophy.in}{Trophy length in inches.}
-\item{stock.cm}{Stock length in cm.}
-\item{quality.cm}{Quality length in cm.}
-\item{preferred.cm}{Preferred length in cm.}
-\item{memorable.cm}{Memorable length in cm.}
-\item{trophy.cm}{Trophy length in cm.}
-}}
+ \describe{
+   \item{species}{Species name.}
+   \item{stock.in}{Stock length in inches.}
+   \item{quality.in}{Quality length in inches.}
+   \item{preferred.in}{Preferred length in inches.}
+   \item{memorable.in}{Memorable length in inches.}
+   \item{trophy.in}{Trophy length in inches.}
+   \item{stock.cm}{Stock length in cm.}
+   \item{quality.cm}{Quality length in cm.}
+   \item{preferred.cm}{Preferred length in cm.}
+   \item{memorable.cm}{Memorable length in cm.}
+   \item{trophy.cm}{Trophy length in cm.}
+ }}
 \source{
 Original summary table from Dr. Michael Hansen, University of Wisconsin-Stevens Point.  Additional species have been added by the package author from the literature.
 }
@@ -24,12 +24,13 @@ Original summary table from Dr. Michael Hansen, University of Wisconsin-Stevens 
 Cutoffs for the Gabelhouse five-cell length categories for a variety of species.
 }
 \section{Topic(s)}{
+
  \itemize{
-\item Size structure
-\item Proportional size structure
-\item Relative stock density
-\item Proportional stock density
-}
+   \item Size structure
+   \item Proportional size structure
+   \item Relative stock density
+   \item Proportional stock density
+ }
 }
 \examples{
 data(PSDlit)

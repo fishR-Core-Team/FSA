@@ -83,7 +83,7 @@ Summarize(len~age,data=WR3.comb,digits=2)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Isermann, D.A. and C.T. Knight.  2005.  A computer program for age-length keys incorporating age assignment to individual fish.  North American Journal of Fisheries Management, 25:1153-1160.  \url{http://www.tandfonline.com/doi/abs/10.1577/M04-130.1}
+Isermann, D.A. and C.T. Knight.  2005.  \href{http://www.tandfonline.com/doi/abs/10.1577/M04-130.1}{A computer program for age-length keys incorporating age assignment to individual fish.}  North American Journal of Fisheries Management, 25:1153-1160.
 }
 \seealso{
 See \code{\link{ageKeyPlot}} for methods to visualize age-length keys and \code{\link{ageKeyPrep}} for methods to prepare ill-formed age-length keys (e.g., length categories with no aged fish) for this function.

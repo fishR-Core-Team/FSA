@@ -1,13 +1,15 @@
-#'Fitted model plot for an lm, glm, or nls object.
+#' @title Fitted model plot for an lm, glm, or nls object.
 #'
-#'A generic function for constructing a fitted model plot for an \code{lm}, \code{glm}, or \code{nls} object.  Supported objects are linear models from simple linear regression (SLR), indicator variable regression (IVR), one-way ANOVA, or two-way ANOVA models; general linear models that are logistic regressions with a binary response; and non-linear regression with a single numerical response variable, at least one continuous explanatory variable and up to two group-factor explanatory variables.
+#' @description A generic function for constructing a fitted model plot for an \code{lm}, \code{glm}, or \code{nls} object.  Supported objects are linear models from simple linear regression (SLR), indicator variable regression (IVR), one-way ANOVA, or two-way ANOVA models; general linear models that are logistic regressions with a binary response; and non-linear regression with a single numerical response variable, at least one continuous explanatory variable and up to two group-factor explanatory variables.
 #'
-#'This function does not work with a multiple linear regression, indicator variable regressions with more than two factors, ANOVAs other than one-way and two-way, or models with a categorical response variable.  In addition, if the linear model contains a factor then the model must be fit with the quantitative explanatory variable first, followed by the factor(s).  This function only works for non-linear models with two or fewer groups.
+#' @details This function does not work with a multiple linear regression, indicator variable regressions with more than two factors, ANOVAs other than one-way and two-way, or models with a categorical response variable.  In addition, if the linear model contains a factor then the model must be fit with the quantitative explanatory variable first, followed by the factor(s).  This function only works for non-linear models with two or fewer groups.
 #'
-#'This function is basically a wrapper to a variety of other functions.  For one-way or two-way ANOVAs the primary functions called are \code{interaction.plot} and \code{lineplot.CI}.  For simple linear regression the function performs similarly to \code{abline} except that the line is constrained to the domain.  For indicator variable regression the function behaves as if several \code{abline} functions had been called.
+#' This function is basically a wrapper to a variety of other functions.  For one-way or two-way ANOVAs the primary functions called are \code{interaction.plot} and \code{lineplot.CI}.  For simple linear regression the function performs similarly to \code{abline} except that the line is constrained to the domain.  For indicator variable regression the function behaves as if several \code{abline} functions had been called.
 #'
-#'A legend can be added to the plot in three different ways.  First, if \code{legend = TRUE} then the R console is suspended until the user places the legend on the graphic by clicking on the graphic at the point where the upper-left corner of the legend should appear.  Second, the \code{legend=} argument can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} and \code{"center"}.  In this case, the legend will be placed inside the plot frame at the given location.  Finally, the \code{legend=} argument can be set to a vector of length two which identifies the plot coordinates for the upper-left corner of where the legend should be placed.  A legend will not be drawn if \code{legend = FALSE} or \code{legend = NULL}.  A legend also will not be drawn if there are not multiple groups in the model.
+#' A legend can be added to the plot in three different ways.  First, if \code{legend = TRUE} then the R console is suspended until the user places the legend on the graphic by clicking on the graphic at the point where the upper-left corner of the legend should appear.  Second, the \code{legend=} argument can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} and \code{"center"}.  In this case, the legend will be placed inside the plot frame at the given location.  Finally, the \code{legend=} argument can be set to a vector of length two which identifies the plot coordinates for the upper-left corner of where the legend should be placed.  A legend will not be drawn if \code{legend = FALSE} or \code{legend = NULL}.  A legend also will not be drawn if there are not multiple groups in the model.
 #'
+#' @note This function is meant to allow newbie students the ability to visualize the most common linear models found in an introductory or intermediate level undergraduate statistics course without getting \dQuote{bogged-down} in the gritty details of a wide variety of functions.  This generic function and it's S3 functions allow the student to visualize the means plot of a one-way anova, the main effects and interaction plots of a two-way ANOVA, the fit of a simple linear regression, the fits of many lines in an indicator variable regression, and the fit of a non-linear model with a simple and mostly common set of arguments -- generally, all that is required is a fitted linear model of the type mentioned here as the first argument.  This function thus allows newbie students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.  THIS IS NOT A RESEARCH GRADE FUNCTION and the user should learn how to use the functions that this function is based on, build plots from \dQuote{scratch}, or use more sophisticated plotting packages (e.g., \pkg{ggplot2} or \pkg{lattice}).
+#' 
 #' @aliases fitPlot fitPlot.lm fitPlot.SLR fitPlot.IVR fitPlot.POLY fitPlot.ONEWAY fitPlot.TWOWAY fitPlot.nls fitPlot.glm fitPlot.logreg
 #'
 #' @param object An \code{lm} or \code{nls} object (i.e., returned from fitting a model with either \code{lm} or \code{nls}).
@@ -27,7 +29,7 @@
 #' @param main a string for the main label to the plot.  Defaults to the model call.
 #' @param legend Controls use and placement of the legend.  See details.
 #' @param type The type of graphic to construct in a one-way and two-way ANOVA.  If \code{"b"} then points are plotted and lines are used to connect points (DEFAULT).  If \code{"p"} then only points are used and if \code{"l"} then only lines are drawn.
-#' @param ci.fun A function used to put error bars on the one-way or two-way ANOVA graphs.  The default is to use the internal \code{ci.fp} function which will place t-distribution based confidence intervals on the graph.  The user can provide alternative functions that may plot other types of \sQuote{error bars}.  See examples in \code{lineplot.CI} function of \pkg{sciplot} package.
+#' @param ci.fun A function used to put error bars on the one-way or two-way ANOVA graphs.  The default is to use the internal \code{iCIfp} function which will place t-distribution based confidence intervals on the graph.  The user can provide alternative functions that may plot other types of \sQuote{error bars}.  See examples in \code{lineplot.CI} function of \pkg{sciplot} package.
 #' @param col.ci A vector of color names or numbers or the name of a palette (see details) that indicates what colors to use for the confidence interval bars in one-way and two-way ANOVAs.
 #' @param which A character string listing the factor in the two-way ANOVA for which the means should be calculated and plotted.  This argument is used to indicate for which factor a main effects plot should be constructed.  If left missing then an interaction plot is constructed.
 #' @param change.order A logical that is used to change the order of the factors in the \code{lm} object.  This is used to change which factor is plotted on the x-axis and which is used to connect the means when constructing an interaction plot (ignored if \code{which} is used).
@@ -53,76 +55,74 @@
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
-#' @note This function is meant to allow newbie students the ability to visualize the most common linear models found in an introductory or intermediate level undergraduate statistics course without getting \dQuote{bogged-down} in the gritty details of a wide variety of functions.  This generic function and it's S3 functions allow the student to visualize the means plot of a one-way anova, the main effects and interaction plots of a two-way ANOVA, the fit of a simple linear regression, the fits of many lines in an indicator variable regression, and the fit of a non-linear model with a simple and mostly common set of arguments -- generally, all that is required is a fitted linear model of the type mentioned here as the first argument.  This function thus allows newbie students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.  THIS IS NOT A RESEARCH GRADE FUNCTION and the user should learn how to use the functions that this function is based on, build plots from \dQuote{scratch}, or use more sophisticated plotting packages (e.g., \pkg{ggplot2} or \pkg{lattice}).
-#' 
 #' @seealso \code{abline} in \pkg{graphics}; \code{reg.line} in \pkg{car}; \code{plotmeans} in \pkg{gplots}; \code{plotMeans} in \pkg{Rcmdr}; \code{interaction.plot} in \pkg{stats}; \code{lineplot.CI} in \pkg{sciplot}; and \code{\link{residPlot}}.
 #' 
 #' @keywords hplot models
 #' 
 #' @examples
-#'## Linear models example
-#'data(Mirex)
-#'Mirex$year <- factor(Mirex$year)
+#' ## Linear models example
+#' data(Mirex)
+#' Mirex$year <- factor(Mirex$year)
 #'
-#'# Indicator variable regression with two factors
-#'lm1 <- lm(mirex~weight*year*species,data=Mirex)
-#'fitPlot(lm1)
-#'fitPlot(lm1,ylim=c(0,0.65),legend="topleft")
+#' # Indicator variable regression with two factors
+#' lm1 <- lm(mirex~weight*year*species,data=Mirex)
+#' fitPlot(lm1)
+#' fitPlot(lm1,ylim=c(0,0.65),legend="topleft")
 #'
-#'# Indicator variable regression with one factor (also showing confidence bands)
-#'lm2 <- lm(mirex~weight*year,data=Mirex)
-#'fitPlot(lm2,legend="topleft")
-#'fitPlot(lm2,legend="topleft",interval="c")
+#' # Indicator variable regression with one factor (also showing confidence bands)
+#' lm2 <- lm(mirex~weight*year,data=Mirex)
+#' fitPlot(lm2,legend="topleft")
+#' fitPlot(lm2,legend="topleft",interval="c")
 #'
-#'# Indicator variable regression with one factor (assuming parallel lines)
-#'lm3 <- lm(mirex~weight+year,data=Mirex)
-#'fitPlot(lm3,legend="topleft")
-#'fitPlot(lm3,legend="topleft",pch=5)
+#' # Indicator variable regression with one factor (assuming parallel lines)
+#' lm3 <- lm(mirex~weight+year,data=Mirex)
+#' fitPlot(lm3,legend="topleft")
+#' fitPlot(lm3,legend="topleft",pch=5)
 #'
-#'# Simple linear regression (showing color change and confidence and prediction bands)
-#'lm4 <- lm(mirex~weight,data=Mirex)
-#'fitPlot(lm4,col.mdl="blue")
-#'fitPlot(lm4,interval="both")
+#' # Simple linear regression (showing color change and confidence and prediction bands)
+#' lm4 <- lm(mirex~weight,data=Mirex)
+#' fitPlot(lm4,col.mdl="blue")
+#' fitPlot(lm4,interval="both")
 #'
-#'# One-way ANOVA
-#'lm5 <- lm(mirex~year,data=Mirex)
-#'fitPlot(lm5)
+#' # One-way ANOVA
+#' lm5 <- lm(mirex~year,data=Mirex)
+#' fitPlot(lm5)
 #'
-#'# Two-way ANOVA (showing both interaction plots and a color change)
-#'lm6 <- lm(mirex~year*species,data=Mirex)
-#'fitPlot(lm6,legend="bottomleft")
-#'fitPlot(lm6,change.order=TRUE)
-#'fitPlot(lm6,change.order=TRUE,col="jet")
+#' # Two-way ANOVA (showing both interaction plots and a color change)
+#' lm6 <- lm(mirex~year*species,data=Mirex)
+#' fitPlot(lm6,legend="bottomleft")
+#' fitPlot(lm6,change.order=TRUE)
+#' fitPlot(lm6,change.order=TRUE,col="jet")
 #'
-#'# Two-way ANOVA (showing main effects plots)
-#'fitPlot(lm6,which="species")
-#'fitPlot(lm6,which="year")
+#' # Two-way ANOVA (showing main effects plots)
+#' fitPlot(lm6,which="species")
+#' fitPlot(lm6,which="year")
 #'
-#'# Polynomial regression
-#'lm7 <- lm(mirex~weight+I(weight^2),data=Mirex)
-#'fitPlot(lm7,interval="both")
+#' # Polynomial regression
+#' lm7 <- lm(mirex~weight+I(weight^2),data=Mirex)
+#' fitPlot(lm7,interval="both")
 #'
-#'## Non-linear model example
-#'data(Ecoli)
-#'lr.sv <- list(B1=6,B2=7.2,B3=-1.5)
-#'nl1 <- nls(cells~B1/(1+exp(B2+B3*days)),start=lr.sv,data=Ecoli)
-#'fitPlot(nl1,Ecoli,cex.main=0.7,lwd=2)
-#'fitPlot(nl1,Ecoli,xlab="Day",ylab="Cellsx10^6/ml",plot.pts=FALSE)
+#' ## Non-linear model example
+#' data(Ecoli)
+#' lr.sv <- list(B1=6,B2=7.2,B3=-1.5)
+#' nl1 <- nls(cells~B1/(1+exp(B2+B3*days)),start=lr.sv,data=Ecoli)
+#' fitPlot(nl1,Ecoli,cex.main=0.7,lwd=2)
+#' fitPlot(nl1,Ecoli,xlab="Day",ylab="Cellsx10^6/ml",plot.pts=FALSE)
 #'
 #'
-#'## Logistic regression example
-#'## NASA space shuttle o-ring failures -- from graphics package
-#'fail <- factor(c(2,2,2,2,1,1,1,1,1,1,2,1,2,1,1,1,1,2,1,1,1,1,1),
-#'levels = 1:2, labels = c("no","yes"))
-#'temperature <- c(53,57,58,63,66,67,67,67,68,69,70,70,70,70,72,73,75,75,76,76,78,79,81)
-#'d <- data.frame(fail,temperature)
-#'glm1 <- glm(fail~temperature,data=d,family="binomial")
-#'fitPlot(glm1)
-#'fitPlot(glm1,breaks=seq(52,82,2))
-#'fitPlot(glm1,yaxis1.ticks=c(0,1),yaxis1.lbls=c(0,1))
-#'# changing the size of the y-axis labels
-#'par(cex.axis=1.5,cex.lab=1.5)
-#'fitPlot(glm1)
+#' ## Logistic regression example
+#' ## NASA space shuttle o-ring failures -- from graphics package
+#' fail <- factor(c(2,2,2,2,1,1,1,1,1,1,2,1,2,1,1,1,1,2,1,1,1,1,1),
+#' levels = 1:2, labels = c("no","yes"))
+#' temperature <- c(53,57,58,63,66,67,67,67,68,69,70,70,70,70,72,73,75,75,76,76,78,79,81)
+#' d <- data.frame(fail,temperature)
+#' glm1 <- glm(fail~temperature,data=d,family="binomial")
+#' fitPlot(glm1)
+#' fitPlot(glm1,breaks=seq(52,82,2))
+#' fitPlot(glm1,yaxis1.ticks=c(0,1),yaxis1.lbls=c(0,1))
+#' # changing the size of the y-axis labels
+#' par(cex.axis=1.5,cex.lab=1.5)
+#' fitPlot(glm1)
 #'
 #' @rdname fitPlot
 #' @export
@@ -133,7 +133,7 @@ fitPlot <- function (object, ...) {
 #' @rdname fitPlot
 #' @export
 fitPlot.lm <- function(object, ...) {
-  object <- typeoflm(object)
+  object <- iTypeoflm(object)
   if (object$type=="MLR") stop("Multiple linear regression objects are not supported by fitPlot.",call.=FALSE)
   fitPlot(object,...)
 }
@@ -253,7 +253,7 @@ fitPlot.IVR <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
     } # end for j
   } # end for i
   # Prepare list of col,pch,lty for legend
-  leg <- legendHelp(legend)
+  leg <- iLegendHelp(legend)
   if (leg$do.legend) {
     lcol <- rep(col,each=num.f2)
     lpch <- rep(pch,times=num.f1)
@@ -277,7 +277,7 @@ fitPlot.POLY <- function(object,...) {
 fitPlot.ONEWAY <- function (object,
                              xlab=object$Enames[1],ylab=object$Rname,main="",
                              type="b",pch=16,lty=1,col="black",
-                             interval=TRUE,conf.level=0.95,ci.fun=ci.fp(conf.level),
+                             interval=TRUE,conf.level=0.95,ci.fun=iCIfp(conf.level),
                              col.ci=col,lty.ci=1,
                              ...) {
   # extract x and y variables
@@ -297,7 +297,7 @@ fitPlot.ONEWAY <- function (object,
 fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
                             xlab=object$Enames[ord[1]],ylab=object$Rname,main="",
                             type="b",pch=c(16,21,15,22,17,24,c(3:14)),lty=c(1:6,1:6,1:6),col="default",
-                            interval=TRUE,conf.level=0.95,ci.fun=ci.fp(conf.level),lty.ci=1,
+                            interval=TRUE,conf.level=0.95,ci.fun=iCIfp(conf.level),lty.ci=1,
                             legend="topright",cex.leg=1,box.lty.leg=0,
                             ...) {
   # extract y variables
@@ -331,7 +331,7 @@ fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
                         type=type,pch=pch[1:ngrps],lty=lty[1:ngrps],col=col[1:ngrps],
                         legend=FALSE,...) 
   if(ngrps>1) {
-    leg <- legendHelp(legend)
+    leg <- iLegendHelp(legend)
     legend(leg$x,leg$y,legend=levels(group),pch=pch[1:ngrps],lty=1:ngrps,col=col,cex=cex.leg,box.lty=box.lty.leg)
   }
 }
@@ -402,7 +402,7 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
     }
     lines(fitsg1$x,fitsg1$y,lwd=lwd[1],lty=lty[1],col=col.mdl[1])
     lines(fitsg2$x,fitsg2$y,lwd=lwd[2],lty=lty[2],col=col.mdl[2])
-    leg <- legendHelp(legend)
+    leg <- iLegendHelp(legend)
     if (leg$do.legend) {
       if (plot.pts) legend(x=leg$x,y=leg$y,legend=legend.lbls,col=col.pt,pch=pch,lty=lty)
         else legend(x=leg$x,y=leg$y,legend=legend.lbls,col=col.mdl,lty=lty)
@@ -433,3 +433,14 @@ fitPlot.logreg <- function(object,xlab=names(object$model)[2],ylab=names(object$
   names(nd) <- names(object$model)[2]
   lines(nd[,1],predict(object,nd,type="response"),col=col.mdl,lwd=lwd,lty=lty)
 }
+
+
+##################################################################
+### internal functions used in fitPlot
+##################################################################
+iCIfp1 <- function(x,conf.level) {
+  t <- qt((1-conf.level)/2,gdata::nobs(x)-1)
+  c(mean(x)-t*se(x),mean(x)+t*se(x))
+}
+
+iCIfp <- function(conf.level) function(x) iCIfp1(x,conf.level)

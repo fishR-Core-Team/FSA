@@ -1,8 +1,8 @@
-#'Computes the reverse cumulative sum of a vector.
+#' @title Computes the reverse cumulative sum of a vector.
 #'
-#'Computes the reverse cumulative sum (i.e., the number that large or larger) of a vector.
+#' @description Computes the reverse cumulative sum (i.e., the number that large or larger) of a vector.
 #'
-#'An \code{NA} in the vector causes all returned values to be \code{NA}.
+#' @details An \code{NA} in the vector causes all returned values to be \code{NA}.
 #'
 #' @param x a numeric object.
 #'
@@ -15,8 +15,8 @@
 #' @keywords misc
 #'
 #' @examples
-#'cumsum(1:10)
-#'rcumsum(1:10)
+#' cumsum(1:10)
+#' rcumsum(1:10)
 #'
 #' @export
 rcumsum <- function(x) {

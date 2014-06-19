@@ -1,10 +1,10 @@
-#'Constructs skeleton plots of radial or proportional radial measurements made at annuli on fish calcified structures.
+#' @title Constructs skeleton plots of radial or proportional radial measurements made at annuli on fish calcified structures.
 #'
-#'Constructs skeleton plots of radial or proportional radial measurements made at annuli on fish calcified structures.  These plots can be used to identify clearly incorrect radial measurements.
+#' @description Constructs skeleton plots of radial or proportional radial measurements made at annuli on fish calcified structures.  These plots can be used to identify clearly incorrect radial measurements.
 #'
-#'This function constructs a plot of horizonal lines for each individual with the annular increments marked with vertical lines.  This is simply an exploratory graph to allow visual comparison of patterns among individuals.
+#' @details This function constructs a plot of horizonal lines for each individual with the annular increments marked with vertical lines.  This is simply an exploratory graph to allow visual comparison of patterns among individuals.
 #'
-#'This function requires one-fish-per-line radial measurement data.  See \code{\link{gReshape}} and \code{\link{gConvert}} if your data is one-increment-per-line or increment measurements.  This function also assumes that the data frame has the total radius-at-capture and the fish's age.  See \code{\link{addRadCap}} to add the total radius at capture variable (if your data was increments).
+#' This function requires one-fish-per-line radial measurement data.  See \code{\link{gReshape}} and \code{\link{gConvert}} if your data is one-increment-per-line or increment measurements.  This function also assumes that the data frame has the total radius-at-capture and the fish's age.  See \code{\link{addRadCap}} to add the total radius at capture variable (if your data was increments).
 #'
 #' @param df A data frame that contains the radial growth measurement data in one-fish-per-line format.
 #' @param indivs A string that contains the variable name or a vector of strings that contains the variable names that identify individual fish in the data frame.

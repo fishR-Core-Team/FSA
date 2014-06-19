@@ -29,9 +29,9 @@
 #' @keywords datasets
 #'
 #' @examples
-#'data(SpotVA1)
-#'str(SpotVA1)
-#'head(SpotVA1)
-#'plot(tl~age,data=SpotVA1)
+#' data(SpotVA1)
+#' str(SpotVA1)
+#' head(SpotVA1)
+#' plot(tl~age,data=SpotVA1)
 #'
 NULL

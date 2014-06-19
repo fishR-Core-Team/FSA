@@ -39,25 +39,25 @@ removal(catch, type = c("Zippin", "CarleStrub", "Seber3", "Seber2",
 }
 \value{
 A vector that contains the estimaes and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with the following items:
-\itemize{
-\item catch the original vector of observed catches.
-\item type The type of method used (provided by the user).
-\item meth A label for the type of method used.
-\item est A vector that contains the estimates and standard errors for No and p.
-}
+ \itemize{
+   \item catch the original vector of observed catches.
+   \item type The type of method used (provided by the user).
+   \item meth A label for the type of method used.
+   \item est A vector that contains the estimates and standard errors for No and p.
+ }
 }
 \description{
 Computes estimates, with confidence intervals, of the population size and probability of capture from the number of fish removed in k-, 3-, or 2-passes in a closed population.
 }
 \details{
 The main function computes the estimates and associated standard errors for the initial population size, No, and probability of capture, p, for five possible methods chosen with the \code{type} argument.  The types of methods that can be used are listed below:
-\itemize{
-\item \code{type="Zippin"}: The general k-pass estimator generally attributed to Zippin.  This function iteratively solves for No in equation 3 of Carle and Strub (1978).
-\item \code{type="CarleStrub"}: The general weighted k-pass estimator proposed by Carle and Strub (1978).  This function iteratively solves for No in equation 7 of Carle and Strub (1978).
-\item \code{type="Seber3"}: The special case for k=3 estimator shown by Seber(1982).
-\item \code{type="Seber2"}: The special case for k=2 estimator shown by Seber(1982).
-\item \code{type="RobsonRegier2"}: The special case for k=2 estimator shown by Robson and Regier (1968).
-}
+ \itemize{
+   \item \code{type="Zippin"}: The general k-pass estimator generally attributed to Zippin.  This function iteratively solves for No in equation 3 of Carle and Strub (1978).
+   \item \code{type="CarleStrub"}: The general weighted k-pass estimator proposed by Carle and Strub (1978).  This function iteratively solves for No in equation 7 of Carle and Strub (1978).
+   \item \code{type="Seber3"}: The special case for k=3 estimator shown by Seber(1982).
+   \item \code{type="Seber2"}: The special case for k=2 estimator shown by Seber(1982).
+   \item \code{type="RobsonRegier2"}: The special case for k=2 estimator shown by Robson and Regier (1968).
+ }
 
 Confidence intervals are computed using standard large-sample normal distribution theory.  Note that the confidence intervals for the 2- and 3-pass special cases are only approximately correct if the estimated population size is greater than 200.  If the estimated population size is between 50 and 200 then a 95\% CI behaves more like a 90\% CI.
 

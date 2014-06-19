@@ -32,9 +32,9 @@ One should test the results of this function by creating a frequency table of th
 \examples{
 ## Example Data #1 (some nets missing some fish, ancillary net data)
 df1 <- data.frame(net=c(1,1,1,2,2,3),
-                 eff=c(1,1,1,1,1,1),
-                 species=c("BKT","LKT","RBT","BKT","LKT","RBT"),
-                 catch=c(3,4,5,5,4,3))
+                  eff=c(1,1,1,1,1,1),
+                  species=c("BKT","LKT","RBT","BKT","LKT","RBT"),
+                  catch=c(3,4,5,5,4,3))
 df1
 xtabs(~net+species,data=df1)                # not all 1s
 
@@ -53,9 +53,9 @@ df1mod2#'xtabs(~net+species,data=df1mod2)   # check, should all be 1
 
 ## Example Data #3 (All nets have same species ... no zeroes needed)
 df3 <- data.frame(net=c(1,1,1,2,2,2,3,3,3),
-                 eff=c(1,1,1,1,1,1,1,1,1),
-                 species=c("BKT","LKT","RBT","BKT","LKT","RBT","BKT","LKT","RBT"),
-                 catch=c(3,4,5,5,4,3,3,2,7))
+                  eff=c(1,1,1,1,1,1,1,1,1),
+                  species=c("BKT","LKT","RBT","BKT","LKT","RBT","BKT","LKT","RBT"),
+                  catch=c(3,4,5,5,4,3,3,2,7))
 df3
 xtabs(~net+species,data=df3)                # should all be 1 for this example
 
@@ -72,9 +72,9 @@ xtabs(~net+species,data=df4)                # not all 1s
 df4mod1 <- addZeroCatch(df4,"net","species",zerovar=c("catch","recaps"))
 df4mod1                                     # note zeroes in both variables
 xtabs(~net+species,data=df4mod1)            # check, should all be 1
-Summarize(catch~species,data=df4)           # observed difference from next
+Summarize(catch~species,data=df4)           # observe difference from next
 Summarize(catch~species,data=df4mod1)
-Summarize(recaps~species,data=df4)          # observed difference from next
+Summarize(recaps~species,data=df4)          # observe difference from next
 Summarize(recaps~species,data=df4mod1)
 }
 \author{

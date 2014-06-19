@@ -1,10 +1,12 @@
-#'Creates a one- or two-way table of summary statistics.
+#' @title Creates a one- or two-way table of summary statistics.
 #'
-#'Creates a one- or two-way table of summary statistics for a quantitative variable.
+#' @description Creates a one- or two-way table of summary statistics for a quantitative variable.
 #'
-#'The formula must be of the form \code{quantitative~factor} or \code{quantitative~factor*factor2} where \code{quantitative} is the quantitative variable to construct the summaries for and \code{factor} or \code{factor2} are factor variables that contain the levels for which separate summaries should be constructed.  If the variables on the right-hand-side are not factors then they will be coerced to be factors and a warning will be issued.
+#' @details The formula must be of the form \code{quantitative~factor} or \code{quantitative~factor*factor2} where \code{quantitative} is the quantitative variable to construct the summaries for and \code{factor} or \code{factor2} are factor variables that contain the levels for which separate summaries should be constructed.  If the variables on the right-hand-side are not factors then they will be coerced to be factors and a warning will be issued.
 #'
-#'This function currently only works for one quantitative variable on the left-hand-side and one or two factor variales on the right-hand-side.  Consider using \code{tapply} for situations with more factors on the right-hand-side.
+#' This function currently only works for one quantitative variable on the left-hand-side and one or two factor variales on the right-hand-side.  Consider using \code{tapply} for situations with more factors on the right-hand-side.
+#'
+#' @note This function is largely a wrapper to \code{tapply()}.
 #'
 #' @aliases sumTable sumTable.formula
 #'
@@ -18,27 +20,25 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @note This function is largely a wrapper to \code{tapply()}.
-#'
 #' @seealso \code{tapply}.
 #'
 #' @keywords hplot
 #'
 #' @examples
-#'## The same examples as in the old aggregate.table in gdata package
-#'g1 <- sample(letters[1:5], 1000, replace=TRUE)
-#'g2 <- sample(LETTERS[1:3], 1000, replace=TRUE )
-#'dat <- rnorm(1000)
-#'d <- data.frame(g1,g2,dat)   # put data into a data.frame to illustrate formula notation
+#' ## The same examples as in the old aggregate.table in gdata package
+#' g1 <- sample(letters[1:5], 1000, replace=TRUE)
+#' g2 <- sample(LETTERS[1:3], 1000, replace=TRUE )
+#' dat <- rnorm(1000)
+#' d <- data.frame(g1,g2,dat)   # put data into a data.frame to illustrate formula notation
 #'
-#'sumTable(dat~g1*g2,data=d,FUN=length)       # get sample size
-#'sumTable(dat~g1*g2,data=d,FUN=mean)         # get mean
-#'sumTable(dat~g1*g2,data=d,FUN=sd)           # get sd
-#'sumTable(dat~g1*g2,data=d,FUN=sd,digits=1)  # show digits= argument
+#' sumTable(dat~g1*g2,data=d,FUN=length)       # get sample size
+#' sumTable(dat~g1*g2,data=d,FUN=mean)         # get mean
+#' sumTable(dat~g1*g2,data=d,FUN=sd)           # get sd
+#' sumTable(dat~g1*g2,data=d,FUN=sd,digits=1)  # show digits= argument
 #'
-#'## Also demonstrate use in the 1-way example -- but see Summarize() in FSA package
-#'sumTable(dat~g1,data=d,FUN=length)
-#'sumTable(dat~g1,data=d,FUN=mean)
+#' ## Also demonstrate use in the 1-way example -- but see Summarize() in FSA package
+#' sumTable(dat~g1,data=d,FUN=length)
+#' sumTable(dat~g1,data=d,FUN=mean)
 #'
 #' @rdname sumTable
 #' @export

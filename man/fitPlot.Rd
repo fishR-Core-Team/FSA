@@ -32,13 +32,13 @@ fitPlot(object, ...)
 \method{fitPlot}{ONEWAY}(object, xlab = object$Enames[1],
   ylab = object$Rname, main = "", type = "b", pch = 16, lty = 1,
   col = "black", interval = TRUE, conf.level = 0.95,
-  ci.fun = ci.fp(conf.level), col.ci = col, lty.ci = 1, ...)
+  ci.fun = iCIfp(conf.level), col.ci = col, lty.ci = 1, ...)
 
 \method{fitPlot}{TWOWAY}(object, which, change.order = FALSE,
   xlab = object$Enames[ord[1]], ylab = object$Rname, main = "",
   type = "b", pch = c(16, 21, 15, 22, 17, 24, c(3:14)), lty = c(1:6, 1:6,
   1:6), col = "default", interval = TRUE, conf.level = 0.95,
-  ci.fun = ci.fp(conf.level), lty.ci = 1, legend = "topright",
+  ci.fun = iCIfp(conf.level), lty.ci = 1, legend = "topright",
   cex.leg = 1, box.lty.leg = 0, ...)
 
 \method{fitPlot}{nls}(object, d, pch = c(19, 1), col.pt = c("black", "red"),
@@ -91,7 +91,7 @@ fitPlot(object, ...)
 
 \item{type}{The type of graphic to construct in a one-way and two-way ANOVA.  If \code{"b"} then points are plotted and lines are used to connect points (DEFAULT).  If \code{"p"} then only points are used and if \code{"l"} then only lines are drawn.}
 
-\item{ci.fun}{A function used to put error bars on the one-way or two-way ANOVA graphs.  The default is to use the internal \code{ci.fp} function which will place t-distribution based confidence intervals on the graph.  The user can provide alternative functions that may plot other types of \sQuote{error bars}.  See examples in \code{lineplot.CI} function of \pkg{sciplot} package.}
+\item{ci.fun}{A function used to put error bars on the one-way or two-way ANOVA graphs.  The default is to use the internal \code{iCIfp} function which will place t-distribution based confidence intervals on the graph.  The user can provide alternative functions that may plot other types of \sQuote{error bars}.  See examples in \code{lineplot.CI} function of \pkg{sciplot} package.}
 
 \item{col.ci}{A vector of color names or numbers or the name of a palette (see details) that indicates what colors to use for the confidence interval bars in one-way and two-way ANOVAs.}
 

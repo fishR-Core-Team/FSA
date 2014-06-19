@@ -18,9 +18,6 @@ A vector of colors of length \code{num}.
 \description{
 Create a list of colors from among a variety of color palettes.
 }
-\details{
-The \code{pal} argument
-}
 \examples{
 n <- 20
 # Color Wheels

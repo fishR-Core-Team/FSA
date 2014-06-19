@@ -30,19 +30,25 @@ Constructs a non-parametric bootstrap prediction with confidence interval from \
 This function applies a user-supplied function to each row of the \code{coefBoot} object in a \code{nlsBoot} object and then finds the median and the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped predictions below and above.  The median is returned as the predicted value and the quantiles are returned as an approximate 100\code{conf.level}\% confidence interval for that prediction.
 }
 \examples{
-#require(nlstools)    # for nlsBoot()
 data(Ecoli)
 fnx <- function(days,B1,B2,B3) {
- if (length(B1) > 1) {
-   B2 <- B1[2]
-   B3 <- B1[3]
-   B1 <- B1[1]
- }
- B1/(1+exp(B2+B3*days))
+  if (length(B1) > 1) {
+    B2 <- B1[2]
+    B3 <- B1[3]
+    B1 <- B1[1]
+  }
+  B1/(1+exp(B2+B3*days))
 }
 nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,start=list(B1=6,B2=7.2,B3=-1.45))
-#nl1.boot <- nlsBoot(nl1,niter=99)  # way too few
-#predict(nl1.boot,fnx,days=3)
+
+## ONLY RUN IN INTERACTIVE MODE
+if (interactive()) {
+
+require(nlstools)    # for nlsBoot()
+nl1.boot <- nlsBoot(nl1,niter=99)  # way too few
+predict(nl1.boot,fnx,days=3)
+
+}
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

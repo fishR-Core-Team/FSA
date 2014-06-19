@@ -1,8 +1,8 @@
-#'Confidence interval for population size (N) in hypergeometric distribution.
+#' @title Confidence interval for population size (N) in hypergeometric distribution.
 #'
-#'Computes a confidence interval for population size (N) in hypergeometric distribution.
+#' @description Computes a confidence interval for population size (N) in hypergeometric distribution.
 #'
-#'This is an inefficient brute-force algorithm.  The algorithm computes the \code{conf.level} range of possible values for \code{m}, as if it was unknown, for a large range of values of N.  It then finds all possible values of N for which \code{m} was in the \code{conf.level} range.  The smallest and largest values of N for which \code{m} was in the \code{conf.level} range are the CI endpoints.
+#' @details This is an inefficient brute-force algorithm.  The algorithm computes the \code{conf.level} range of possible values for \code{m}, as if it was unknown, for a large range of values of N.  It then finds all possible values of N for which \code{m} was in the \code{conf.level} range.  The smallest and largest values of N for which \code{m} was in the \code{conf.level} range are the CI endpoints.
 #'
 #' @note This algorithm is experimental at this point.
 #'
@@ -18,7 +18,7 @@
 #' @keywords htest
 #'
 #' @examples
-#'hyperCI(50,25,10)
+#' hyperCI(50,25,10)
 #'
 #' @export
 hyperCI <- function(M,n,m,conf.level=0.95) {
@@ -27,6 +27,6 @@ hyperCI <- function(M,n,m,conf.level=0.95) {
   N.hi <- (n*M)/m
   while (qhyper(1-((1-conf.level)/2),n,N.hi-n,M) >= m) { N.hi <- N.hi + 1 }
   res <- round(cbind(N.low,N.hi),0)
-  colnames(res) <- ciLabel(conf.level)
+  colnames(res) <- iCILabel(conf.level)
   res
 }

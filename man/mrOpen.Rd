@@ -37,19 +37,12 @@ mrOpen(mb.top, mb.bot = NULL, ci.type = c("Jolly", "Manly"),
 }
 \value{
 A list with the following items:
-\itemize{
-\item df A data frame that contains observable summaries from the data
-and estimates of the number of extant marked fish, population size for each
-possible sample period, survival rate between each possible pair of sample
-periods, and the number of additional individuals added to the population
-between each possible pair of sample periods.  In addition to the estimates,
-values of the standard errors and the lower and upper confidence interval
-bounds for each parameter are provided (however, see the details above).
-\item ci.type The provided type of confidence intervals that was used.
-\item phi.type The provided type of standard error for phi that was
-used.
-\item conf.level The provided level of confidence that was used.
-}
+ \itemize{
+   \item df A data frame that contains observable summaries from the data and estimates of the number of extant marked fish, population size for each possible sample period, survival rate between each possible pair of sample periods, and the number of additional individuals added to the population between each possible pair of sample periods.  In addition to the estimates, values of the standard errors and the lower and upper confidence interval bounds for each parameter are provided (however, see the details above).
+   \item ci.type The provided type of confidence intervals that was used.
+   \item phi.type The provided type of standard error for phi that was used.
+   \item conf.level The provided level of confidence that was used.
+ }
 }
 \description{
 This function takes the two parts of a Method B table and uses the Jolly-Seber method to estimate the population size at each possible sample period and the survival rate and number of additional individuals added to the population between possible sample periods.  This method assumes that the population is open.

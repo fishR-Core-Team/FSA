@@ -1,8 +1,8 @@
-#' Expands a length frequency based on a subsample.
+#' @title Expands a length frequency based on a subsample.
 #'
-#' Creates a vector of lengths for the individuals not measured based on the lengths measured in a subsample of individuals.
+#' @description Creates a vector of lengths for the individuals not measured based on the lengths measured in a subsample of individuals.
 #'
-#' Creates a vector of lengths for the individuals not measured based on the lengths measured in a subsample of individuals.  Length categories are created first that begin with the value in \code{startcat} (or the minimum observed value by default) and continue by values of \code{w} until a category value greater than the largest observed length in \code{x}.  Categories of different widths are not allowed.  
+#' @details Creates a vector of lengths for the individuals not measured based on the lengths measured in a subsample of individuals.  Length categories are created first that begin with the value in \code{startcat} (or the minimum observed value by default) and continue by values of \code{w} until a category value greater than the largest observed length in \code{x}.  Categories of different widths are not allowed.  
 #'
 #' The resulting \dQuote{expanded} lengths are created by allocating individuals to each length class based on the proportion of measured individuals in the subsample in that length class.  Individuals within a length class are then assigned a specific length within that length class based on a uniform distribution.  Because the expanded number of individuals in a length class is rounded down based on the measured number per length class, not all individuals will initially be assigned a length value.  The remaining individuals are assigned to a length class randomly according to weights based on the proportion of individuals in the measured length classes.  Finally, these individuals are randomly assigned a specific length within the respective length class from a uniform distribution, same as above.
 #'
@@ -26,33 +26,32 @@
 #' @keywords manip
 #' 
 #' @examples
-#'## Set the random seed for reproducibility
-#'set.seed(15343437)
+#' ## Set the random seed for reproducibility
+#' set.seed(15343437)
 #'
-#'## First example
-#'# random lengths measured to nearest 0.1 unit -- values in a vector
-#'len1 <- round(runif(50,0.1,9.9),1)
-#'# assignment of integer lengths to 110 non-measured individuals
-#'( new.len1a <- lenFreqExpand(len1,w=1,total=160) )
-#'# assignment of lengths to 0.1 to 110 non-measured individuals
-#'( new.len1b <- lenFreqExpand(len1,w=1,total=160,decimals=1) )
+#' ## First example
+#' # random lengths measured to nearest 0.1 unit -- values in a vector
+#' len1 <- round(runif(50,0.1,9.9),1)
+#' # assignment of integer lengths to 110 non-measured individuals
+#' ( new.len1a <- lenFreqExpand(len1,w=1,total=160) )
+#' # assignment of lengths to 0.1 to 110 non-measured individuals
+#' ( new.len1b <- lenFreqExpand(len1,w=1,total=160,decimals=1) )
 #'
-#'## Second example -- if values are in a data.frame
-#'# random lengths measured to nearest 0.1 unit
-#'len2 <- data.frame(len=round(runif(50,10,117),1))
-#'# assignment of lengths to 0.1 for 140 non-measured indivs
-#'( new.len2a <- lenFreqExpand(len2$len,w=10,total=190,decimals=1) )
+#' ## Second example -- if values are in a data.frame
+#' # random lengths measured to nearest 0.1 unit
+#' len2 <- data.frame(len=round(runif(50,10,117),1))
+#' # assignment of lengths to 0.1 for 140 non-measured indivs
+#' ( new.len2a <- lenFreqExpand(len2$len,w=10,total=190,decimals=1) )
 #'
-#'## Third example
-#'# hypothetically measured lengths
-#'len <- c(6.7,6.9,7.3,7.4,7.5,8.2,8.7,8.9)
-#'# find lengths for unmeasured fish assuming a total of 30
-#'( newlen1 <- lenFreqExpand(len,w=0.5,total=30,decimals=1) )
-#'# set a starting length category
-#'( newlen2 <- lenFreqExpand(len,w=0.5,startcat=6.2,total=30,decimals=1) )
+#' ## Third example
+#' # hypothetically measured lengths
+#' len <- c(6.7,6.9,7.3,7.4,7.5,8.2,8.7,8.9)
+#' # find lengths for unmeasured fish assuming a total of 30
+#' ( newlen1 <- lenFreqExpand(len,w=0.5,total=30,decimals=1) )
+#' # set a starting length category
+#' ( newlen2 <- lenFreqExpand(len,w=0.5,startcat=6.2,total=30,decimals=1) )
 #'
 #' @export
-#' 
 lenFreqExpand <- function(x,w,additional,
                           startcat=NULL,total=additional+length(x),
                           decimals=decs$wdec,show.summary=TRUE,...) {
@@ -61,7 +60,7 @@ lenFreqExpand <- function(x,w,additional,
   # Find startcat if it is NULL
   if (is.null(startcat)) startcat <- floor(min(x,na.rm=TRUE)/w)*w
   # Find decimals in w and startcat, the decimals in w will be the default to round to
-  decs <- checkStartcatW(startcat,w,x)
+  decs <- iCheckStartcatW(startcat,w,x)
   if (total<length(x)) stop("\n Total number to expand to must be greater than number in 'x'.",call.=FALSE)
   # number to allocate
   num <- total-length(x)

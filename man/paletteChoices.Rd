@@ -12,7 +12,7 @@ A single string with a palette name.
 Provides a vector of possible color palettes.
 }
 \details{
-Generally serves as an internal function and should be called by the user.
+Generally serves as an internal function and should not be called by the user.
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

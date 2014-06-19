@@ -115,7 +115,7 @@ mndiet <- cbind(mn.mysis,mn.oi[,"pvol.oi"],mn.fish[,"pvol.fish"])
 colnames(mndiet)[3:5] <- c("mysis","oi","fish")
 # reorganize the result
 mndiet <- reshape(mndiet,direction="long",varying=c("mysis","oi","fish"),v.names="mnprop",
-                 idvar=c("species","LCat"),timevar="item",times=c("mysis","oi","fish"))
+                  idvar=c("species","LCat"),timevar="item",times=c("mysis","oi","fish"))
 mndiet <- reshape(mndiet,direct="wide",v.names="mnprop",idvar=c("item","LCat"),timevar="species")
 
 # Now compute diet overlap between same sized fishes of the two species

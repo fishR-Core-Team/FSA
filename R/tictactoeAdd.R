@@ -1,10 +1,10 @@
-#'Adds point and confidence intervals for observed preator-prey PSD to tic-tac-toe graph.
+#' @title Adds point and confidence intervals for observed preator-prey PSD to tic-tac-toe graph.
 #'
-#'Adds point and confidence intervals for observed preator-prey PSD to tic-tac-toe graph.  The base tic-tac-toe graph is constructed with the \code{tictactoe} function.
+#' @description Adds point and confidence intervals for observed preator-prey PSD to tic-tac-toe graph.  The base tic-tac-toe graph is constructed with the \code{tictactoe} function.
 #'
-#'This function adds the point and confidence interval for observed predator-prey PSD values to a base tic-tac-toe graph that already exists.  Thus, the \code{tictactoe} function must be run before this function and the resultant plot must be active.
+#' @details This function adds the point and confidence interval for observed predator-prey PSD values to a base tic-tac-toe graph that already exists.  Thus, the \code{tictactoe} function must be run before this function and the resultant plot must be active.
 #'
-#'Confidence intervals are constructed assuming a binomial distribution with the \code{binCI} function.
+#' Confidence intervals are constructed assuming a binomial distribution with the \code{binCI} function.
 #'
 #' @param predval A vector of length 2 that contains the number of predators in two length categories.  It is assumed that the number in the larger length category and, thus, the smaller number of individuals is given first.
 #' @param preyval A vector of length 2 that contains the number of prey in two length categories.  It is assumed that the number in the larger length category and, thus, the smaller number of individuals is given first.
@@ -30,7 +30,7 @@
 #' @keywords aplot
 #'
 #' @examples
-#'## See example for tictactoe() function.
+#' ## See example for tictactoe() function.
 #'
 #' @export
 tictactoeAdd <- function(predval,preyval,conf.level=0.95,ci.type=c("wilson","exact","asymptotic"),

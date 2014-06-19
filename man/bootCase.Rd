@@ -81,12 +81,12 @@ In the one-tailed alternatives, the p-value is the proportion of bootstrapped pa
 require(car)    # for bootCase()
 data(Ecoli)
 fnx <- function(days,B1,B2,B3) {
- if (length(B1) > 1) {
-   B2 <- B1[2]
-   B3 <- B1[3]
-   B1 <- B1[1]
- }
- B1/(1+exp(B2+B3*days))
+  if (length(B1) > 1) {
+    B2 <- B1[2]
+    B3 <- B1[3]
+    B1 <- B1[1]
+  }
+  B1/(1+exp(B2+B3*days))
 }
 nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,start=list(B1=6,B2=7.2,B3=-1.45))
 nl1.boot <- bootCase(nl1,B=99)  # B=99 too small to be useful

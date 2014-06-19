@@ -60,7 +60,7 @@ tail(new2)
 
 # Different variable names
 new3 <- wrAdd(wght~tl,data=BluegillLM,species="Bluegill",units="metric",
- wsname="Standard",wrname="Relative")
+              wsname="Standard",wrname="Relative")
 str(new3)
 tail(new3)
 

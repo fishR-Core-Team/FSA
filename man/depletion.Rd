@@ -62,15 +62,15 @@ depletion(catch, effort, type = c("Leslie", "Delury"), ricker.mod = FALSE)
 }
 \value{
 A list with the following items:
-\itemize{
-\item type A string that indicates whether the \code{"Leslie"} or \code{"Delury"} model was used.
-\item catch The original vector of catches.
-\item effort The orginal vector of efforts.
-\item cpe A computed vector of catch-per-unit-effort for each time.
-\item KorE A computed vector of cumulative catch (K; Leslie method) or effort (E; Delury method).
-\item lm The \code{lm} object from the fit of log(CPE) on K (Leslie method) or E (Delury method).
-\item est A 2x2 matrix that contains the estimates and standard errors for No and q.
-}
+ \itemize{
+   \item type A string that indicates whether the \code{"Leslie"} or \code{"Delury"} model was used.
+   \item catch The original vector of catches.
+   \item effort The orginal vector of efforts.
+   \item cpe A computed vector of catch-per-unit-effort for each time.
+   \item KorE A computed vector of cumulative catch (K; Leslie method) or effort (E; Delury method).
+   \item lm The \code{lm} object from the fit of log(CPE) on K (Leslie method) or E (Delury method).
+   \item est A 2x2 matrix that contains the estimates and standard errors for No and q.
+ }
 }
 \description{
 Computes the Leslie or Delury estimates of population size and catchability coefficient from paired catch and effort data.  The Ricker modification may also be used.

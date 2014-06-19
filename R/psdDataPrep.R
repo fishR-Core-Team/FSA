@@ -1,14 +1,14 @@
-#' Add five-cell length categories specific to a species to an entire data frame.
+#' @title Add five-cell length categories specific to a species to an entire data frame.
 #'
-#' Adds the five-cell length categories specific to a species to all individuals in an entire data frame.  The concept is to save the user from having to split each species into a separate data frame, then creating the required length categorization variable, and then binding the separate data frames back together.
+#' @description Adds the five-cell length categories specific to a species to all individuals in an entire data frame.  The concept is to save the user from having to split each species into a separate data frame, then creating the required length categorization variable, and then binding the separate data frames back together.
 #'
-#'This function requires that the data frame provided in \code{data} contains one column of length measurements and one column of species names.  All lengths must be in the same units.  Any species name that is not recognized as being a species with known five-cell length category values (and stored in \code{data(PSDlit)}) will be considered as an \dQuote{other} type of fish (see below for how these fish can be handled).  Species that are known to have five-cell length categories can be found with \code{\link{psdVal}()} (i.e., without any arguments).  Spelling and capitalization have to be exactly the same as in \code{data(PSDlit)}) (i.e., generally, capitalized first letter for each word in the common name; see \code{\link{recodeSpecies}} for one method to change species names before using this function).
+#' @details This function requires that the data frame provided in \code{data} contains one column of length measurements and one column of species names.  All lengths must be in the same units.  Any species name that is not recognized as being a species with known five-cell length category values (and stored in \code{data(PSDlit)}) will be considered as an \dQuote{other} type of fish (see below for how these fish can be handled).  Species that are known to have five-cell length categories can be found with \code{\link{psdVal}()} (i.e., without any arguments).  Spelling and capitalization have to be exactly the same as in \code{data(PSDlit)}) (i.e., generally, capitalized first letter for each word in the common name; see \code{\link{recodeSpecies}} for one method to change species names before using this function).
 #'
 #' A new variable will be created in the returned data frame that contains the five-cell length categories that correspond to the given lengths.  If \code{use.catnames=TRUE} (the default) then the \dQuote{levels} of the new  variable will be the word names of the five-cell categories -- i.e., \dQuote{stock}, \dQuote{Quality}, etc., with the possibility that \dQuote{sub-stock} length fish will be labeled with \dQuote{zero}.  If \code{use.catnames=FALSE} then the levels of the new variable will be the numeric value representing the minimum value in each five-cell category, again with the possibility that \dQuote{sub-stock} fish will be given a value of zero.
 #'
 #' The default behavior is for \dQuote{sub-stock} fish and \dQuote{other} fish (see above for the definition of an \dQuote{Other} fish) to be included in the resulting data frame, but with a \code{0} or \code{zero} in the new length categorization variable for the sub-stock fish and a \code{NA} in the new length categorization variable for the \dQuote{other} fish.  The \dQuote{sub-stock} fish can be excluded from the final data frame with \code{remove.substock=TRUE} and the \dQuote{other} fish can be excluded with \code{remove.other=TRUE}.
 #'
-#' @aliases psdDataPrep pssDataPrep
+#' @aliases psdDataPrep
 
 #' @param formula A formula of the form \code{length~species} where \dQuote{length} generically represents a variable that contains length measurements and \dQuote{species} generically represents a variable that contains species names.  Note that this formula can only contain two variables and must have the length variable on the left-hand-side and the species variable on the right-hand-side.
 #' @param data A data.frame that minimally contains the length measurements and species names given in the variables in the \code{formula}.
@@ -26,56 +26,59 @@
 #'
 #' @section fishR vignette: none yet.
 #' 
-#' @source Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).  Fisheries 31:86-87.  \url{http://pubstorage.sdstate.edu/wfs/415-F.pdf}
+#' @references
+#' Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  \href{http://pubstorage.sdstate.edu/wfs/415-F.pdf}{New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).}  Fisheries 31:86-87.  
 #'
-#' Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  Proportional size distribution (PSD): A further refinement of population size structure index terminology.  Fisheries 32:348. \url{http://www.montana.edu/mtcfru/Guy/Publication\%20pdf/PSD\%20pub.pdf}
+#' Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  \href{http://www.montana.edu/mtcfru/Guy/Publication\%20pdf/PSD\%20pub.pdf}{Proportional size distribution (PSD): A further refinement of population size structure index terminology.}  Fisheries 32:348.
+#'
+#' Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  \href{http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf}{Stock density indices: development, use, and limitations.}  Reviews in Fisheries Science 1:203-222. 
 #'
 #' @keywords manip
 #' 
 #' @examples
-#'## Create random data for three species
-#'set.seed(345234534)  # only for repeatability
-#'dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),tl=round(rnorm(30,130,50),0))
-#'dbg$wt <- round(4.23e-06*dbg$tl^3.316+rnorm(30,0,10),1)
-#'dlb <- data.frame(species=factor(rep(c("LMB"),30)),tl=round(rnorm(30,350,60),0))
-#'dlb$wt <- round(2.96e-06*dlb$tl^3.273+rnorm(30,0,60),1)
-#'dbt <- data.frame(species=factor(rep(c("bluefin tuna"),30)),tl=round(rnorm(30,1900,300),0))
-#'dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
-#'d <- rbind(dbg,dlb,dbt)
-#'str(d)
+#' ## Create random data for three species
+#' set.seed(345234534)  # only for repeatability
+#' dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),tl=round(rnorm(30,130,50),0))
+#' dbg$wt <- round(4.23e-06*dbg$tl^3.316+rnorm(30,0,10),1)
+#' dlb <- data.frame(species=factor(rep(c("LMB"),30)),tl=round(rnorm(30,350,60),0))
+#' dlb$wt <- round(2.96e-06*dlb$tl^3.273+rnorm(30,0,60),1)
+#' dbt <- data.frame(species=factor(rep(c("bluefin tuna"),30)),tl=round(rnorm(30,1900,300),0))
+#' dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
+#' d <- rbind(dbg,dlb,dbt)
+#' str(d)
 #'
-#'# Rename variables to match PSDlit -- see recodeSpecies()
-#'d2 <- recodeSpecies(~species,data=d,c("LMB"),c("Largemouth Bass"))
-#'levels(d2$species1)
+#' # Rename variables to match PSDlit -- see recodeSpecies()
+#' d2 <- recodeSpecies(~species,data=d,c("LMB"),c("Largemouth Bass"))
+#' levels(d2$species1)
 #'
-#'# Example where species without PSD values and sub-stock fish are retained (the defaults)
-#'d3 <- psdDataPrep(tl~species1,data=d2,units="mm")
-#'str(d3)
-#'with(d3,table(species1,PSDcat))
+#' # Example where species without PSD values and sub-stock fish are retained (the defaults)
+#' d3 <- psdDataPrep(tl~species1,data=d2,units="mm")
+#' str(d3)
+#' with(d3,table(species1,PSDcat))
 #'
-#'# Example where species without known PSD values are removed, but sub-stock fish are not
-#'d4 <- psdDataPrep(tl~species1,data=d2,units="mm",remove.other=TRUE)
-#'str(d4)
-#'with(d4,table(species1,PSDcat))
+#' # Example where species without known PSD values are removed, but sub-stock fish are not
+#' d4 <- psdDataPrep(tl~species1,data=d2,units="mm",remove.other=TRUE)
+#' str(d4)
+#' with(d4,table(species1,PSDcat))
 #'
-#'# Example where both sub-stock and species without known PSD values are excluded
-#'d5 <- psdDataPrep(tl~species1,data=d2,units="mm",remove.substock=TRUE,remove.other=TRUE)
-#'str(d5)
-#'with(d5,table(species1,PSDcat))
-#'with(d5,table(species1)) 
+#' # Example where both sub-stock and species without known PSD values are excluded
+#' d5 <- psdDataPrep(tl~species1,data=d2,units="mm",remove.substock=TRUE,remove.other=TRUE)
+#' str(d5)
+#' with(d5,table(species1,PSDcat))
+#' with(d5,table(species1)) 
 #'
-#'# Example where category names are not used
-#'d6 <- psdDataPrep(tl~species1,data=d2,units="mm",use.catnames=FALSE)
-#'str(d6)
-#'with(d6,table(species1,PSDcat))
+#' # Example where category names are not used
+#' d6 <- psdDataPrep(tl~species1,data=d2,units="mm",use.catnames=FALSE)
+#' str(d6)
+#' with(d6,table(species1,PSDcat))
 #'
-#' @export psdDataPrep pssDataPrep
-psdDataPrep <- pssDataPrep <- function(formula,data,psdname="PSDcat",
-                                       units=c("mm","cm","in"),
-                                       remove.substock=FALSE,remove.other=FALSE,
-                                       use.catnames=TRUE) {
+#' @export
+psdDataPrep <- function(formula,data,psdname="PSDcat",
+                        units=c("mm","cm","in"),
+                        remove.substock=FALSE,remove.other=FALSE,
+                        use.catnames=TRUE) {
   units <- match.arg(units)
-  cl <- getVarFromFormula(formula,data,expNumVars=2)
+  cl <- iGetVarFromFormula(formula,data,expNumVars=2)
   cspp <- cl[2]
   cl <- cl[1]
   incl.zero <- !remove.substock

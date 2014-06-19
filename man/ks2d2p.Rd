@@ -35,14 +35,14 @@ ks2d2p(object, B = 100, type = c("resample", "randomize"),
 }
 \value{
 The main function returns a list with the following items:
-\itemize{
-\item D The D test statistic from the \code{ks2d2} object.
-\item pval The p-value from the permutation test.  See details.
-\item Ds The D test statistics from each of the B \sQuote{resamples}.
-\item type The \code{type} supplied by the user.
-\item randtype The \code{randtype} supplied by the user.
-\item B The \code{B} value supplied by the user.
-}
+ \itemize{
+   \item D The D test statistic from the \code{ks2d2} object.
+   \item pval The p-value from the permutation test.  See details.
+   \item Ds The D test statistics from each of the B \sQuote{resamples}.
+   \item type The \code{type} supplied by the user.
+   \item randtype The \code{randtype} supplied by the user.
+   \item B The \code{B} value supplied by the user.
+ }
 The \code{plot} function returns a density plot of the D test statistics from each of the B \sQuote{resamples} with the observed D test statistic shown with a vertical line.  The \code{print} function prints the results in a nice format).
 }
 \description{
@@ -72,9 +72,9 @@ plot(res1p)
 Derek H. Ogle, \email{dogle@northland.edu}, with significant help from Ben Bolker.
 }
 \references{
-Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  From star charts to stoneflies: detecting relationships in continuous bivariate data.  Ecology 79:442 447.  \url{http://opensiuc.lib.siu.edu/fiaq_pubs/17/}
+Garvey, J.E., E.A. Marschall, and R.A. Wright.  1998.  \href{http://opensiuc.lib.siu.edu/fiaq_pubs/17/}{From star charts to stoneflies: detecting relationships in continuous bivariate data.} Ecology 79:442 447.
 
-Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.  Numerical Recipes: The Art of Scientific Computing, 3rd Edition.  Cambridge University Press.  1286 pages. \url{http://www.nr.com/}
+Press, W.H., S.A. Teukolsky, W.T. Vetterling, B.P. Flannery.  2007.  \href{http://www.nr.com/}{Numerical Recipes: The Art of Scientific Computing, 3rd Edition.}  Cambridge University Press.  1286 pages.
 }
 \seealso{
 \code{\link{ks2d2}}

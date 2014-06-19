@@ -55,24 +55,22 @@ chapmanRobson(x, ...)
 }
 \value{
 A list with the following items:
-\itemize{
-\item age the original vector of assigned ages.
-\item catch the original vector of observed catches or CPUEs.
-\item age.e a vector of assigned ages used to estimate mortalities.
-\item catch.e a vector of catches or CPUEs used to estimate mortalities.
-\item age.r a vector of recoded ages used to estimate mortalities.  See references.
-\item n a numeric holding the intermediate calcualtion of n.  See references.
-\item T a numeric holding the intermediate calcualtion of T.  See references.
-\item est A 2x2 matrix that contains the estimates and standard errors for S and Z.
-}
+ \itemize{
+   \item age the original vector of assigned ages.
+   \item catch the original vector of observed catches or CPUEs.
+   \item age.e a vector of assigned ages used to estimate mortalities.
+   \item catch.e a vector of catches or CPUEs used to estimate mortalities.
+   \item age.r a vector of recoded ages used to estimate mortalities.  See references.
+   \item n a numeric holding the intermediate calcualtion of n.  See references.
+   \item T a numeric holding the intermediate calcualtion of T.  See references.
+   \item est A 2x2 matrix that contains the estimates and standard errors for S and Z.
+ }
 }
 \description{
 Computes the Chapman-Robson estimates of annual survival rate (S) and instantaneous mortality rate (Z), along with associated standard errors, from catch-at-age data on the descending limb of a catch-curve.
 }
 \details{
 The default is to use all ages in the age vector.  This is only appropriate if the age and catch vector contain only the ages and catches on the descending limb of the catch curve.  Use \code{ages2use} to isolate only the catch and ages on the descending limb.
-
-The Chapman-Robson method provides an estimate of the annual survival rate, with the annual mortality rate (A) determined by 1-S.  The instantaneous mortality rate is often computed as -log(S).  However, Hoenig et al. (1983) showed that this produced a biased (over)estimate of Z and provided a correction.  The correction is applied by setting \code{zmethod="Hoenigetal"} (which is the default behavior).
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/CatchCurve.pdf}

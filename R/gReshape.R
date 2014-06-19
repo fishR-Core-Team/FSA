@@ -1,16 +1,16 @@
-#'Reshapes a one-fish-per-line data frame to a one-measurement-per-line data frame.
+#' @title Reshapes a one-fish-per-line data frame to a one-measurement-per-line data frame.
 #'
-#'Converts growth data from the one-fish-per-line format to the one-measurement-per-line format.  One-fish-per-line format is a common form for collecting or storing growth data.  One-measurement-per-line format is required for many statistical analyses.
+#' @description Converts growth data from the one-fish-per-line format to the one-measurement-per-line format.  One-fish-per-line format is a common form for collecting or storing growth data.  One-measurement-per-line format is required for many statistical analyses.
 #'
-#'This function does NOT convert the data from radial to incremental or incremental to radial measurements (see \code{\link{gConvert}}).
+#' @details This function does NOT convert the data from radial to incremental or incremental to radial measurements (see \code{\link{gConvert}}).
 #'
-#'The input data frame in \code{df} must have the following specific formats.  First, the measurements of annular increments or radii must be in one-fish-per-line format.  The measurements must be contained in columns that are named with a common prefix (e.g., \dQuote{anu}, \dQuote{inc}, or \dQuote{rad}) followed by a number that represents the age of the fish when that portion of the structure formed.  This prefix must be the same for all columns that contains measurements and \bold{must not be found in any other variable (as a prefix or not)}.  For example, the first annular measurement should be in a variable named \dQuote{anu1}, the second annular measurement in \dQuote{anu2}, and so on.  The name of the prefix should be included in the \code{in.pre=} argument.
+#' The input data frame in \code{df} must have the following specific formats.  First, the measurements of annular increments or radii must be in one-fish-per-line format.  The measurements must be contained in columns that are named with a common prefix (e.g., \dQuote{anu}, \dQuote{inc}, or \dQuote{rad}) followed by a number that represents the age of the fish when that portion of the structure formed.  This prefix must be the same for all columns that contains measurements and \bold{must not be found in any other variable (as a prefix or not)}.  For example, the first annular measurement should be in a variable named \dQuote{anu1}, the second annular measurement in \dQuote{anu2}, and so on.  The name of the prefix should be included in the \code{in.pre=} argument.
 #'
-#'If \code{id.var} is left blank then the vector of variables that will not be changed upon the reshaping will consist of all variables that do NOT contain the \code{in.pre} prefix.
+#' If \code{id.var} is left blank then the vector of variables that will not be changed upon the reshaping will consist of all variables that do NOT contain the \code{in.pre} prefix.
 #'
-#'Errors may occur if a particular variable in the original data frame, to be included in the \code{id.var=} list, is of POSIX type.  A workaround for this error is to include the name of that variable in \code{drop=}.
+#' Errors may occur if a particular variable in the original data frame, to be included in the \code{id.var=} list, is of POSIX type.  A workaround for this error is to include the name of that variable in \code{drop=}.
 #'
-#'The name of the variable in the reshaped output data frame that contains the measurements will be called the same as \code{in.pre} by default.  This can be changed by including a new name as a string in \code{val.name}.
+#' The name of the variable in the reshaped output data frame that contains the measurements will be called the same as \code{in.pre} by default.  This can be changed by including a new name as a string in \code{val.name}.
 #'
 #' @param df A data frame that contains the growth measurement data in one-fish-per-line format with specifs as defined in the details.
 #' @param in.pre A string that represents the common part of the measurement variable names.  See details.
@@ -30,23 +30,23 @@
 #' @keywords manip
 #'
 #' @examples
-#'data(SMBassWB)
-#'head(SMBassWB)
+#' data(SMBassWB)
+#' head(SMBassWB)
 #'
-#'# convert radial measurements to increments
-#'SMBi1 <- gConvert(SMBassWB,in.pre="anu",type="inc")
-#'head(SMBi1)
+#' # convert radial measurements to increments
+#' SMBi1 <- gConvert(SMBassWB,in.pre="anu",type="inc")
+#' head(SMBi1)
 #'
-#'SMBi1a <- gReshape(SMBi1,in.pre="inc")
-#'head(SMBi1a)
+#' SMBi1a <- gReshape(SMBi1,in.pre="inc")
+#' head(SMBi1a)
 #'
-#'# same as above but assume that last increment (in agecap variable) is plus-growth
-#'SMBi2a <- gReshape(SMBi1,in.pre="inc",last.plus="agecap")
-#'head(SMBi2a)
+#' # same as above but assume that last increment (in agecap variable) is plus-growth
+#' SMBi2a <- gReshape(SMBi1,in.pre="inc",last.plus="agecap")
+#' head(SMBi2a)
 #'
-#'# example of dropping some variables before reshaping
-#'SMBi1b <- gReshape(SMBi1,in.pre="inc",drop=c("species","lake"))
-#'head(SMBi1b)
+#' # example of dropping some variables before reshaping
+#' SMBi1b <- gReshape(SMBi1,in.pre="inc",drop=c("species","lake"))
+#' head(SMBi1b)
 #'
 #' @export
 gReshape <- function(df,in.pre,id.var,var.name="prvAge",val.name=in.pre,last.plus=NULL,
