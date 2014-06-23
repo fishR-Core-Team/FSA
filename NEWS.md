@@ -1,4 +1,12 @@
 # FSA 0.4.16 ongoing
+* `BluegillLM`: Modified.  Added a seealso.
+* `residPlot()`: Modified.  Changed the loess-related methods to use `loess()`, to put an approximate confident band with the line, the line and band are "under" the points, the line is lighter.  Put the horizontal reference line at zero under the points.  Made `loess=TRUE` the default.
+* `iAddLoessLine()`: Modified.  See `residPlot()`.
+* `iMakeBaseResidPlot()`:  Added as an internal function to `residPlot()` to simplify some coding.
+* `iMakeColor()`: Modified.  More intelligently handles values that are greater than 1 (converts them to decimals by inverting.)
+* `residPlot()`: Modified.  Corrected a bug around the use of `thigmophobe()` in `iAddOutlierTest()`.
+* `SMBassWB`: Modified.  Added a seealso.
+
 
 # FSA 0.4.15 Jun14
 * lots of roxygen2 Rd cleaning.

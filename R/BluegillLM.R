@@ -25,6 +25,8 @@
 #' 
 #' @keywords datasets
 #' 
+#' @seealso \code{lakemary} in \pkg{alr3} for a different sample of Bluegill from Lake Mary that has length and age.
+#' 
 #' @examples
 #' data(BluegillLM)
 #' str(BluegillLM)

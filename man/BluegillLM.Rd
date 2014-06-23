@@ -34,6 +34,9 @@ plot(tl~sl,data=BluegillLM)
 plot(fl~sl,data=BluegillLM)
 par(op)
 }
+\seealso{
+\code{lakemary} in \pkg{alr3} for a different sample of Bluegill from Lake Mary that has length and age.
+}
 \concept{
 'Length-Weight'
 }

@@ -15,37 +15,39 @@ residPlot(object, ...)
 
 \method{residPlot}{lm}(object, ...)
 
-\method{residPlot}{SLR}(object, student = TRUE, outlier.test = TRUE,
-  loess = FALSE, alpha = 0.05, xlab = "Fitted Values",
-  ylab = "Residuals", main = NULL, pch = 16, col = "black",
-  lty.ref = 3, lwd.ref = 1, col.ref = "black", lty.loess = 2,
-  lwd.loess = 2, col.loess = "red", loess.f = 2/3, ...)
+\method{residPlot}{SLR}(object, xlab = "Fitted Values", ylab = "Residuals",
+  main = NULL, pch = 16, col = "black", lty.ref = 3, lwd.ref = 1,
+  col.ref = "black", student = TRUE, outlier.test = TRUE, alpha = 0.05,
+  loess = TRUE, lty.loess = 2, lwd.loess = 1, col.loess = "black",
+  trans.loess = 10, ...)
 
 \method{residPlot}{POLY}(object, ...)
 
-\method{residPlot}{IVR}(object, student = TRUE, outlier.test = TRUE,
-  loess = FALSE, alpha = 0.05, xlab = "Fitted Values",
-  ylab = "Residuals", main = NULL, pch = c(16, 21, 15, 22, 17, 24,
-  c(3:14)), col = "rich", lty.ref = 3, lwd.ref = 1, col.ref = "black",
-  lty.loess = 2, lwd.loess = 2, col.loess = "red", loess.f = 2/3,
+\method{residPlot}{IVR}(object, xlab = "Fitted Values", ylab = "Residuals",
+  main = NULL, pch = c(16, 21, 15, 22, 17, 24, c(3:14)), col = "rich",
+  lty.ref = 3, lwd.ref = 1, col.ref = "black", student = TRUE,
+  outlier.test = TRUE, alpha = 0.05, loess = TRUE, lty.loess = 2,
+  lwd.loess = 1, col.loess = "black", trans.loess = 10,
   legend = "topright", ...)
 
-\method{residPlot}{ONEWAY}(object, student = TRUE, bp = TRUE,
-  outlier.test = TRUE, loess = FALSE, alpha = 0.05,
-  xlab = "Fitted Values", ylab = "Residuals", main = NULL, pch = 16,
-  col = "black", lty.ref = 3, lwd.ref = 1, col.ref = "black",
-  lty.loess = 2, lwd.loess = 2, col.loess = "red", loess.f = 2/3, ...)
+\method{residPlot}{ONEWAY}(object, xlab = "Fitted Values",
+  ylab = "Residuals", main = NULL, pch = 16, col = "black",
+  lty.ref = 3, lwd.ref = 1, col.ref = "black", student = TRUE,
+  bp = TRUE, outlier.test = TRUE, alpha = 0.05, loess = TRUE,
+  lty.loess = 2, lwd.loess = 1, col.loess = "black", trans.loess = 10,
+  ...)
 
-\method{residPlot}{TWOWAY}(object, student = TRUE, bp = TRUE,
-  outlier.test = TRUE, loess = FALSE, alpha = 0.05,
-  xlab = "Fitted Values", ylab = "Residuals", main = NULL, pch = 16,
-  col = "black", lty.ref = 3, lwd.ref = 1, col.ref = "black",
-  lty.loess = 2, lwd.loess = 2, col.loess = "red", loess.f = 2/3, ...)
+\method{residPlot}{TWOWAY}(object, xlab = "Fitted Values",
+  ylab = "Residuals", main = NULL, pch = 16, col = "black",
+  lty.ref = 3, lwd.ref = 1, col.ref = "black", student = TRUE,
+  bp = TRUE, outlier.test = TRUE, alpha = 0.05, loess = TRUE,
+  lty.loess = 2, lwd.loess = 1, col.loess = "black", trans.loess = 10,
+  ...)
 
-\method{residPlot}{nls}(object, loess = FALSE, xlab = "Fitted Values",
-  ylab = "Residuals", main = "", pch = 16, col = "black", lty.ref = 3,
-  lwd.ref = 1, col.ref = "black", lty.loess = 2, lwd.loess = 2,
-  col.loess = "red", loess.f = 2/3, ...)
+\method{residPlot}{nls}(object, xlab = "Fitted Values", ylab = "Residuals",
+  main = "", pch = 16, col = "black", lty.ref = 3, lwd.ref = 1,
+  col.ref = "black", loess = TRUE, lty.loess = 2, lwd.loess = 1,
+  col.loess = "black", trans.loess = 10, ...)
 }
 \arguments{
 \item{object}{An \code{lm} or \code{nls} object (i.e., returned from fitting a model with either \code{lm} or \code{nls}).}
@@ -54,7 +56,7 @@ residPlot(object, ...)
 
 \item{outlier.test}{A logical that indicates if an \code{outlierTest} will \code{TRUE} (default) be performed and if the indivdiual with the largest studentized residual is deemed to be a significant outlier it will be noted on the residual plot by its observation number.}
 
-\item{loess}{A logical that indicates if a loess smoother line is fit to and shown on the residual plot (\code{TRUE}).}
+\item{loess}{A logical that indicates if a loess smoother line and approximate confidence interval band is fit to and shown on the residual plot (\code{TRUE}).}
 
 \item{bp}{A logical that indicates if the plot for the one-way and two-way ANOVA will be a boxplot (\code{TRUE}; default) or not.}
 
@@ -82,7 +84,7 @@ residPlot(object, ...)
 
 \item{col.loess}{A numeric or character that indicates the line color to use for loess fit line.  See \code{par}.}
 
-\item{loess.f}{A numeric for the smoother span. This gives the proportion of points in the plot which influence the smooth at each value.  Larger values give more smoothness.}
+\item{trans.loess}{A single numeric that indicates how transparent the loess band should be (larger numbers are more transparent).}
 
 \item{legend}{If \code{TRUE}, draw a legend and the user must click in the upper-left corner of where the legend should be placed; if \code{FALSE} do not draw a legend.  If a vector of length 2 then draw the upper left corner of the legend at the coordinates given in the vector of length 2.}
 
@@ -110,7 +112,7 @@ Mirex$year <- factor(Mirex$year)
 lm1 <- lm(mirex~weight*year*species,data=Mirex)
 # defaults
 residPlot(lm1)
-# add a loess line to highlight any non-linearities in the residuals
+# remove the loess line
 residPlot(lm1,loess=TRUE)
 # modify colors used
 residPlot(lm1,col="rainbow")

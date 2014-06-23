@@ -47,6 +47,9 @@ data(SMBassWB)
 str(SMBassWB)
 head(SMBassWB)
 }
+\seealso{
+See \code{wblake2} from \pkg{alr3} for the same dataset with only the \code{agecap}, \code{lencap}, and \code{radcap} variables.
+}
 \concept{
 Growth 'Increment Analysis' Weisberg LGM
 }

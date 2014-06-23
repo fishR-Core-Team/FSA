@@ -42,6 +42,7 @@
 #'
 #' @source Data from the linear growth modelling software distributed in support of Weisberg, S.  1993.  Using hard-part increment data to estimate age and environmental effects. Canadian Journal of Fisheries and Aquatic Sciences 50:1229-1237.
 #'
+#' @seealso See \code{wblake2} from \pkg{alr3} for the same dataset with only the \code{agecap}, \code{lencap}, and \code{radcap} variables.
 #' @keywords datasets
 #'
 #' @examples

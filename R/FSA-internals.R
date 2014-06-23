@@ -193,8 +193,16 @@ iListSpecies <- function(d) {
 
 
 iMakeColor <- function(clr,transvalue) { 
+  ## Takes a color string and will make it transparent based on
+  ##  the value of transvalue.  The transvalue value must be greater
+  ##  than 0.  If transvalue is greater than 1 than it is interpreted
+  ##  as the number of points plotted on top of each other before the
+  ##  transparency is lost and is, thus, transformed to 1/transvalue.
+  ## The return value is an rgb() color.
+  if (transvalue < 0) stop("'transvalue' must be greater than 0.")
+  if (transvalue > 1) transvalue <- 1/transvalue
   clrprts <- col2rgb(clr)/255
-  rgb(clrprts[1,1],clrprts[2,1],clrprts[3,1],1/transvalue)
+  rgb(clrprts[1,1],clrprts[2,1],clrprts[3,1],transvalue)
 }
 
 

@@ -10,12 +10,12 @@
 \alias{iListSpecies}
 \alias{iMakeColor}
 \alias{iTypeoflm}
-\title{Internal functions used in FSA.}
+\title{Internal functions.}
 \usage{
 .onAttach(lib, pkg, ...)
 }
 \description{
-Internal functions used in FSA
+Internal functions that are common to several functions in FSA.
 }
 \details{
 Take note of the following uses:

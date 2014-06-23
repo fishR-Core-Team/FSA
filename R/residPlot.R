@@ -13,7 +13,7 @@
 #' @param object An \code{lm} or \code{nls} object (i.e., returned from fitting a model with either \code{lm} or \code{nls}).
 #' @param student A logical that indicates if the studentized residuals (\code{TRUE}]; default) are plotted or not.
 #' @param outlier.test A logical that indicates if an \code{outlierTest} will \code{TRUE} (default) be performed and if the indivdiual with the largest studentized residual is deemed to be a significant outlier it will be noted on the residual plot by its observation number.
-#' @param loess A logical that indicates if a loess smoother line is fit to and shown on the residual plot (\code{TRUE}).
+#' @param loess A logical that indicates if a loess smoother line and approximate confidence interval band is fit to and shown on the residual plot (\code{TRUE}).
 #' @param bp A logical that indicates if the plot for the one-way and two-way ANOVA will be a boxplot (\code{TRUE}; default) or not.
 #' @param alpha A numeric that indicates the alpha level to use for the outlier test (only used if \code{outlier.test=TRUE}).
 #' @param xlab A string for labelling the x-axis.
@@ -27,7 +27,7 @@
 #' @param lty.loess A numeric that indicates the line type to use for loess fit line.  See \code{par}.
 #' @param lwd.loess A numeric that indicates the line width to use for loess fit line.  See \code{par}.
 #' @param col.loess A numeric or character that indicates the line color to use for loess fit line.  See \code{par}.
-#' @param loess.f A numeric for the smoother span. This gives the proportion of points in the plot which influence the smooth at each value.  Larger values give more smoothness.
+#' @param trans.loess A single numeric that indicates how transparent the loess band should be (larger numbers are more transparent).
 #' @param legend If \code{TRUE}, draw a legend and the user must click in the upper-left corner of where the legend should be placed; if \code{FALSE} do not draw a legend.  If a vector of length 2 then draw the upper left corner of the legend at the coordinates given in the vector of length 2.
 #' @param \dots Other arguments to the generic \code{plot} function.
 #'
@@ -47,7 +47,7 @@
 #' lm1 <- lm(mirex~weight*year*species,data=Mirex)
 #' # defaults
 #' residPlot(lm1)
-#' # add a loess line to highlight any non-linearities in the residuals
+#' # remove the loess line
 #' residPlot(lm1,loess=TRUE)
 #' # modify colors used
 #' residPlot(lm1,col="rainbow")
@@ -99,7 +99,7 @@
 #'
 #' @rdname residPlot
 #' @export
-residPlot <- function (object, ...) {
+residPlot <- function (object,...) {
   UseMethod("residPlot") 
 }
 
@@ -113,17 +113,18 @@ residPlot.lm <- function(object,...) {
 
 #' @rdname residPlot
 #' @export
-residPlot.SLR <- function(object,student=TRUE,outlier.test=TRUE,loess=FALSE,alpha=0.05,
-                          xlab="Fitted Values",ylab="Residuals",main=NULL,
+residPlot.SLR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
                           pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
-                          lty.loess=2,lwd.loess=2,col.loess="red",loess.f=2/3,...) {
+                          student=TRUE,outlier.test=TRUE,alpha=0.05,
+                          loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=10,
+                          ...) {
   iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
   ifelse(student, r <- rstudent(object$mdl), r <- object$mdl$residuals)
   if (student & ylab=="Residuals") ylab <- "Studentized Residuals"
-  plot(r~fv,xlab=xlab,ylab=ylab,main=main,pch=pch,col=col,...)
-  abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref)
-  if (loess) iAddLoessLine(r,fv,loess.f,lwd.loess,lty.loess,col.loess)
+  iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
+                     loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
+  points(r~fv,pch=pch,col=col)
   if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha) 
 }
 
@@ -135,10 +136,11 @@ residPlot.POLY <- function(object,...) {
 
 #' @rdname residPlot
 #' @export
-residPlot.IVR <- function(object,student=TRUE,outlier.test=TRUE,loess=FALSE,alpha=0.05,
-                          xlab="Fitted Values",ylab="Residuals",main=NULL,
+residPlot.IVR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
                           pch=c(16,21,15,22,17,24,c(3:14)),col="rich",lty.ref=3,lwd.ref=1,col.ref="black",
-                          lty.loess=2,lwd.loess=2,col.loess="red",loess.f=2/3,legend="topright",...) {
+                          student=TRUE,outlier.test=TRUE,alpha=0.05,
+                          loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=10,
+                          legend="topright",...) {
   iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
   ifelse(student, r <- rstudent(object$mdl), r <- object$mdl$residuals)
@@ -146,8 +148,12 @@ residPlot.IVR <- function(object,student=TRUE,outlier.test=TRUE,loess=FALSE,alph
   if (dim(object$mf)[2]>4) stop("Function does not handle models with more than two covariates or more than three factors.",call.=FALSE)
     else {
       leg <- iLegendHelp(legend)   # will there be a legend
-      if (!leg$do.legend) plot(r~fv,xlab=xlab,ylab=ylab,main=main,pch=16,col="black",...)
-      else {      
+      if (!leg$do.legend) {
+        iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
+                           loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
+        points(r~fv,pch=pch,col="black")
+        if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
+      } else {      
         f1 <- object$mf[,3]
         ifelse(dim(object$mf)[2]==4,f2 <- object$mf[,4],f2 <- as.factor(rep(1,length(r))))
         num.f1 <- length(levels(f1))
@@ -171,54 +177,58 @@ residPlot.IVR <- function(object,student=TRUE,outlier.test=TRUE,loess=FALSE,alph
        # Makes room for legend
        ifelse(leg$do.legend,xlim <- c(min(fv),max(fv)+0.3*(max(fv)-min(fv))), xlim <- range(fv)) 
        # Creates plot schematic -- no points or lines
-       plot(r~fv,col="white",xlab=xlab,ylab=ylab,main=main,xlim=xlim,...)
-        for (i in 1:num.f1) {
-          for (j in 1:num.f2) {
-            # Plots points w/ different colors & points
-            fv.obs <- fv[unclass(f1)==i & unclass(f2)==j]
-            r.obs <- r[unclass(f1)==i & unclass(f2)==j]
-            points(fv.obs,r.obs,col=col[i],pch=pch[j])
-          }   # end for j
-        }     # end for i
+       iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
+                          loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
+       for (i in 1:num.f1) {
+         for (j in 1:num.f2) {
+           # Plots points w/ different colors & points
+           fv.obs <- fv[unclass(f1)==i & unclass(f2)==j]
+           r.obs <- r[unclass(f1)==i & unclass(f2)==j]
+           points(fv.obs,r.obs,col=col[i],pch=pch[j])
+         }   # end for j
+       }     # end for i
+       ## add outlier test if asked for
+       if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
        ### Prepare and place the legend
-        lcol <- rep(col,each=num.f2)
-        lpch <- rep(pch,times=num.f1)
-        ifelse(num.f2>1,levs <- levels(f1:f2),levs <- levels(f1))
-        if (leg$do.legend) legend(x=leg$x,y=leg$y,legend=levs,col=lcol,pch=lpch)    
-      }
-    }  
-    abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref)
-    if (loess) iAddLoessLine(r,fv,loess.f,lwd.loess,lty.loess,col.loess)
-    if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
+       lcol <- rep(col,each=num.f2)
+       lpch <- rep(pch,times=num.f1)
+       ifelse(num.f2>1,levs <- levels(f1:f2),levs <- levels(f1))
+       if (leg$do.legend) legend(x=leg$x,y=leg$y,legend=levs,col=lcol,pch=lpch)    
+     } # end for no legend
+   }
 }
 
 #' @rdname residPlot
 #' @export
-residPlot.ONEWAY <- function(object,student=TRUE,bp=TRUE,outlier.test=TRUE,loess=FALSE,alpha=0.05,
-                          xlab="Fitted Values",ylab="Residuals",main=NULL,
-                          pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
-                          lty.loess=2,lwd.loess=2,col.loess="red",loess.f=2/3,...) {
+residPlot.ONEWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
+                             pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
+                             student=TRUE,bp=TRUE,outlier.test=TRUE,alpha=0.05,
+                             loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=10,
+                             ...) {
   iGetMainTitle(object,main)
   if (bp & xlab=="Fitted Values") xlab <- "Treatment Group"
   fv <- object$mdl$fitted.values
   ifelse(student, r <- rstudent(object$mdl), r <- object$mdl$residuals)
   if (student & ylab=="Residuals") ylab <- "Studentized Residuals"
   gf <- object$mf[,2]
-  if (bp) boxplot(r~gf,xlab=xlab,ylab=ylab,main=main)
-    else {
-      plot(r~fv,xlab=xlab,ylab=ylab,main=main,pch=pch,col=col,...)
-      if (loess) iAddLoessLine(r,fv,loess.f,lwd.loess,lty.loess,col.loess)
+  if (bp) {
+    boxplot(r~gf,xlab=xlab,ylab=ylab,main=main)
+    abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref)
+  } else {
+      iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
+                         loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
+      points(r~fv,pch=pch,col=col)
       if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
     }
-  abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref)
 }
 
 #' @rdname residPlot
 #' @export
-residPlot.TWOWAY <- function(object,student=TRUE,bp=TRUE,outlier.test=TRUE,loess=FALSE,alpha=0.05,
-                          xlab="Fitted Values",ylab="Residuals",main=NULL,pch=16,col="black",
-                          lty.ref=3,lwd.ref=1,col.ref="black",
-                          lty.loess=2,lwd.loess=2,col.loess="red",loess.f=2/3,...) {
+residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
+                             pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
+                             student=TRUE,bp=TRUE,outlier.test=TRUE,alpha=0.05,
+                             loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=10,
+                             ...) {
   iGetMainTitle(object,main)
   if (bp & xlab=="Fitted Values") xlab <- "Treatment Group"
   fv <- object$mdl$fitted.values
@@ -227,31 +237,49 @@ residPlot.TWOWAY <- function(object,student=TRUE,bp=TRUE,outlier.test=TRUE,loess
   gf1 <- object$mf[,2]
   gf2 <- object$mf[,3]
   gf <- interaction(gf1,gf2)
-  if (bp) boxplot(r~gf,xlab=xlab,ylab=ylab,main=main)
-    else {
-      plot(r~fv,xlab=xlab,ylab=ylab,main=main,pch=pch,col=col,...)
-      if (loess) iAddLoessLine(r,fv,loess.f,lwd.loess,lty.loess,col.loess)
+  if (bp) {
+    boxplot(r~gf,xlab=xlab,ylab=ylab,main=main)
+    abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref) 
+  } else {
+      iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
+                         loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
+      points(r~fv,pch=pch,col=col)
       if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
-    }
-  abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref)  
+    } 
 }
 
 #' @rdname residPlot
 #' @export
-residPlot.nls<-function(object,loess=FALSE,xlab="Fitted Values",ylab="Residuals",main="",
-                          pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
-                          lty.loess=2,lwd.loess=2,col.loess="red",loess.f=2/3,...) {
+residPlot.nls<-function(object,xlab="Fitted Values",ylab="Residuals",main="",
+                        pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
+                        loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=10,
+                        ...) {
   fv <- fitted(object)
   r <- residuals(object)
-  plot(r~fv,pch=pch,col=col,xlab=xlab,ylab=ylab,main=main,...)
-  abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref)
-  if (loess) lines(stats::lowess(r~fv,f=loess.f,iter=5),lwd=lwd.loess,lty=lty.loess,col=col.loess)
+  iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
+                     loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
+  points(r~fv,pch=pch,col=col)
 }
 
 
 ##################################################################
 ### internal functions used in residPlot
 ##################################################################
+iMakeBaseResidPlot <- function(r,fv,xlab,ylab,main,
+                               lty.ref,lwd.ref,col.ref,
+                               loess,lty.loess,lwd.loess,col.loess,trans.loess,
+                               ...) {
+  ## makes a base plot that has the axes with appropriate range
+  ##  and labels, the horizontal reference line at 0, and, if
+  ##  asked for, a loess smoother for the points.  The functions
+  ##  that call this then just need to add the points.
+  xrng <- range(fv)
+  yrng <- range(r)
+  plot(r~fv,col="white",xlab=xlab,ylab=ylab,main=main,...)
+  if (loess) iAddLoessLine(r,fv,lty.loess,lwd.loess,col.loess,trans.loess)
+  abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref)
+}
+
 iAddOutlierTestResults <- function(object,fv,r,alpha) {
   # get results
   out <- car::outlierTest(object$mdl,cutoff=alpha)
@@ -265,18 +293,27 @@ iAddOutlierTestResults <- function(object,fv,r,alpha) {
   # If there are significant points to be highlighted then ...
   if (num>0) {
     # Determine which observation(s) is/are "significant" outlier(s)
-    obs <- names(out$bonf.p)
+    obs <- as.numeric(names(out$bonf.p))
     # Set text position based on sign of r if only one "outlier" is detected
     if (num==1) ifelse(r[obs]<0,pos <- 3,pos <- 1)
-    # Use thigmophobe to find better text positions of more "outliers" are detected
-    else pos <- thigmophobe(fv[obs],r[obs])
+      # Use thigmophobe to find better text positions if more "outliers" are detected
+      else pos <- thigmophobe(fv,r)[obs]
     # place labels
-    text(fv[obs],r[obs],obs,cex=1.25,col="red",pos=pos,xpd=TRUE)
+    text(fv[obs],r[obs],obs,cex=1.1,col="red",pos=pos,xpd=TRUE)
   }
 }  # end iAddOutlierTestResults internal function
 
-iAddLoessLine <- function(r,fv,loess.f,lwd.loess,lty.loess,col.loess) {
-  lines(stats::lowess(r~fv,f=loess.f,iter=5),lwd=lwd.loess,lty=lty.loess,col=col.loess)
+iAddLoessLine <- function(r,fv,lty.loess,lwd.loess,col.loess,trans.loess) {
+  mdl <- loess(r~fv)
+  xrng <- range(fv)
+  xseq <- seq(from=xrng[1],to=xrng[2],length=80)
+  pred <- predict(mdl,newdata=data.frame(fv=xseq),se=TRUE)
+  y <- pred$fit
+  ci <- pred$se.fit*qt(0.95/2+.5,pred$df)
+  ymin <- y-ci
+  ymax <- y+ci
+  polygon(c(xseq,rev(xseq)),c(ymin,rev(ymax)),col=iMakeColor(col.loess,trans.loess),border=NA)
+  lines(y~xseq,lwd=lwd.loess,lty=lty.loess,col=col.loess)
 }  # end iAddLoessLine internal function
 
 
