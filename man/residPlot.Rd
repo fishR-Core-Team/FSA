@@ -19,7 +19,7 @@ residPlot(object, ...)
   main = NULL, pch = 16, col = "black", lty.ref = 3, lwd.ref = 1,
   col.ref = "black", student = TRUE, outlier.test = TRUE, alpha = 0.05,
   loess = TRUE, lty.loess = 2, lwd.loess = 1, col.loess = "black",
-  trans.loess = 10, ...)
+  trans.loess = 4, ...)
 
 \method{residPlot}{POLY}(object, ...)
 
@@ -27,27 +27,27 @@ residPlot(object, ...)
   main = NULL, pch = c(16, 21, 15, 22, 17, 24, c(3:14)), col = "rich",
   lty.ref = 3, lwd.ref = 1, col.ref = "black", student = TRUE,
   outlier.test = TRUE, alpha = 0.05, loess = TRUE, lty.loess = 2,
-  lwd.loess = 1, col.loess = "black", trans.loess = 10,
+  lwd.loess = 1, col.loess = "black", trans.loess = 4,
   legend = "topright", ...)
 
 \method{residPlot}{ONEWAY}(object, xlab = "Fitted Values",
   ylab = "Residuals", main = NULL, pch = 16, col = "black",
   lty.ref = 3, lwd.ref = 1, col.ref = "black", student = TRUE,
   bp = TRUE, outlier.test = TRUE, alpha = 0.05, loess = TRUE,
-  lty.loess = 2, lwd.loess = 1, col.loess = "black", trans.loess = 10,
+  lty.loess = 2, lwd.loess = 1, col.loess = "black", trans.loess = 4,
   ...)
 
 \method{residPlot}{TWOWAY}(object, xlab = "Fitted Values",
   ylab = "Residuals", main = NULL, pch = 16, col = "black",
   lty.ref = 3, lwd.ref = 1, col.ref = "black", student = TRUE,
   bp = TRUE, outlier.test = TRUE, alpha = 0.05, loess = TRUE,
-  lty.loess = 2, lwd.loess = 1, col.loess = "black", trans.loess = 10,
+  lty.loess = 2, lwd.loess = 1, col.loess = "black", trans.loess = 4,
   ...)
 
 \method{residPlot}{nls}(object, xlab = "Fitted Values", ylab = "Residuals",
   main = "", pch = 16, col = "black", lty.ref = 3, lwd.ref = 1,
   col.ref = "black", loess = TRUE, lty.loess = 2, lwd.loess = 1,
-  col.loess = "black", trans.loess = 10, ...)
+  col.loess = "black", trans.loess = 4, ...)
 }
 \arguments{
 \item{object}{An \code{lm} or \code{nls} object (i.e., returned from fitting a model with either \code{lm} or \code{nls}).}

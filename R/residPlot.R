@@ -116,7 +116,7 @@ residPlot.lm <- function(object,...) {
 residPlot.SLR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
                           pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                           student=TRUE,outlier.test=TRUE,alpha=0.05,
-                          loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=10,
+                          loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
                           ...) {
   iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
@@ -139,7 +139,7 @@ residPlot.POLY <- function(object,...) {
 residPlot.IVR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
                           pch=c(16,21,15,22,17,24,c(3:14)),col="rich",lty.ref=3,lwd.ref=1,col.ref="black",
                           student=TRUE,outlier.test=TRUE,alpha=0.05,
-                          loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=10,
+                          loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
                           legend="topright",...) {
   iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
@@ -203,7 +203,7 @@ residPlot.IVR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL
 residPlot.ONEWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
                              pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                              student=TRUE,bp=TRUE,outlier.test=TRUE,alpha=0.05,
-                             loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=10,
+                             loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
                              ...) {
   iGetMainTitle(object,main)
   if (bp & xlab=="Fitted Values") xlab <- "Treatment Group"
@@ -227,7 +227,7 @@ residPlot.ONEWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
 residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
                              pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                              student=TRUE,bp=TRUE,outlier.test=TRUE,alpha=0.05,
-                             loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=10,
+                             loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
                              ...) {
   iGetMainTitle(object,main)
   if (bp & xlab=="Fitted Values") xlab <- "Treatment Group"
@@ -252,7 +252,7 @@ residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
 #' @export
 residPlot.nls<-function(object,xlab="Fitted Values",ylab="Residuals",main="",
                         pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
-                        loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=10,
+                        loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
                         ...) {
   fv <- fitted(object)
   r <- residuals(object)

@@ -7,7 +7,7 @@
 #'    \item \code{iCheckStartcatW} used in \code{\link{lencat}} and \code{\link{lenFreqExpand}}.
 #'    \item \code{iCILabel} is used in \code{\link{binCI}}, \code{\link{bootCase}}, \code{\link{catchCurve}}, \code{\link{chapmanRobson}}, \code{\link{confint.nlsBoot}}, \code{\link{depletion}}, \code{\link{hyperCI}}, \code{\link{mrClosed}}, \code{\link{poiCI}}, \code{\link{predict.nlsBoot}}, \code{\link{removal}}.
 #'    \item \code{iGetVarFromFormula} is used in \code{\link{ageKey}}, \code{\link{lencat}}, \code{\link{psdCalc}}, \code{\link{psdDataPrep}}, \code{\link{psdPlot}}, \code{\link{recodeSpecies}}, \code{\link{wrAdd}}, and \code{\link{wrDataPrep}}. 
-#'    \item \code{iHndlFormula} is used in \code{\link{ageBias}}, \code{\link{agePrecision}}, \code{\link{growthModelSim}}, \code{\link{vbStarts}},  \code{\link{walfordPlot}}, and \code{\link{chapmanPlot}}.
+#'    \item \code{iHndlFormula} is used in \code{\link{ageBias}}, \code{\link{agePrecision}}, \code{\link{chapmanPlot}}, \code{\link{growthModelSim}}, \code{\link{lwCompPreds}}, \code{\link{vbStarts}}, and \code{\link{walfordPlot}}.
 #'    \item \code{iHndlMultWhat} is used in \code{\link{ageBias}} and \code{\link{agePrecision}}.
 #'    \item \code{iLegendHelp} is used in \code{\link{fitPlot}} and \code{\link{residPlot}}.
 #'    \item \code{iListSpecies} is used in \code{\link{psdVal}} and \code{\link{wsVal}}.
@@ -79,7 +79,6 @@ iGetVarFromFormula <- function(formula,data,expNumVars=NULL) {
 
 iHndlFormula <- function(formula,data,expNumR=NULL,
                         expNumE=NULL,expNumENums=NULL,expNumEFacts=NULL) {
-  
   mf <- model.frame(formula,data=data)
   if (ncol(mf)==1) {
     # Only one variable in the model frame.  Return only the model.frame, name of 
@@ -121,6 +120,11 @@ iHndlFormula <- function(formula,data,expNumR=NULL,
     # get positions of numeric and factor explanatory vars on RHS
     ENumPos <- which(Eclass %in% c("numeric","integer","AsIs"))
     EFactPos <- which(Eclass=="factor")
+    # add one to positions if Rnum==1
+    if (Rnum==1) {
+      ENumPos <- ENumPos + 1
+      EFactPos <- EFactPos + 1
+    }
     # get number of numeric and number of factor explanatory vars on RHS
     ENumNum <- length(ENumPos)
     EFactNum <- length(EFactPos)

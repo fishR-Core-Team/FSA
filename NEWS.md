@@ -2,8 +2,10 @@
 * `BluegillLM`: Modified.  Added a seealso.
 * `residPlot()`: Modified.  Changed the loess-related methods to use `loess()`, to put an approximate confident band with the line, the line and band are "under" the points, the line is lighter.  Put the horizontal reference line at zero under the points.  Made `loess=TRUE` the default.
 * `iAddLoessLine()`: Modified.  See `residPlot()`.
+* `iHndlFormula()`: Modified.  COrrected the positioning of the explanatory variables when the model has a response variable.
 * `iMakeBaseResidPlot()`:  Added as an internal function to `residPlot()` to simplify some coding.
 * `iMakeColor()`: Modified.  More intelligently handles values that are greater than 1 (converts them to decimals by inverting.)
+* `lwPredsComp()`: Modified.  Added use of internal `iHndlFormula()` and moved two internal functions outside the main function.  Changed default for intervals from `both` to `confidence` and changed so that if only the confidence or prediction intervals are plotted they will be black with `lwd=` width (if both are plotted the CI is now black and the PI is now blue).  Added a `show.preds` argument.  Changed `connect.means=` to `connect.preds=`.  Changed default `lwd=` value and how it is used for CIs, PIs, and the connection lines.  Removed `mar` and `mgp` from `par()` call (left `mfrow`).  Added more examples. 
 * `residPlot()`: Modified.  Corrected a bug around the use of `thigmophobe()` in `iAddOutlierTest()`.
 * `SMBassWB`: Modified.  Added a seealso.
 
