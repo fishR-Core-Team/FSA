@@ -10,6 +10,7 @@
 #' @param lwd A single numeric that indicates the line width to be used for the confidence and prediction interval lines (if not \code{interval="both"}) and the prediction connections line.  If \code{interval="both"} then the width of the prediction interval will be one less than this value so that the CI and PI appear different.
 #' @param connect.preds A logical that indicates whether the predicted values should be connected with a line across groups or not.
 #' @param show.preds A logical that indicates whether the predicted values should be plotted with a point for each group or not.
+#' @param col.connect A color to use for the line that connects the predicted values (if \code{connect.preds=TRUE}).
 #' @param ylim A numeric vector of length two that indicates the limits of the y-axis to be used for each plot.  If null then limits will be chosen for each graph individually.
 #' @param main.pre A character string to be used as a prefix for the main title.  See details.
 #' @param cex.main A numeric value for the character expansion of the main title.  See details.
@@ -73,8 +74,8 @@
 #' @export lwCompPreds
 lwCompPreds <- function(mdl,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),
                         interval=c("confidence","prediction","both"),center.value=0,
-                        lwd=1,connect.preds=TRUE,show.preds=FALSE,ylim=NULL,
-                        main.pre="Length==",cex.main=0.9,
+                        lwd=1,connect.preds=TRUE,show.preds=FALSE,col.connect="gray50",
+                        ylim=NULL,main.pre="Length==",cex.main=0.9,
                         xlab="Groups",ylab="Predicted Weight",
                         rows=round(sqrt(num)),cols=ceiling(sqrt(num))) {
   # check and get inerval type
@@ -109,7 +110,8 @@ lwCompPreds <- function(mdl,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),
     # find results for each length
     res <- iMakeLWPred(mdl,lens[i],grps,vn,interval,center.value)
     # make plot for each length
-    iPlotLWPred(res,grps,ylim,xlab,ylab,paste(main.pre,lens[i],sep=""),cex.main,lwd,connect.preds,interval,show.preds)
+    iPlotLWPred(res,grps,ylim,xlab,ylab,paste(main.pre,lens[i],sep=""),
+                cex.main,lwd,connect.preds,col.connect,interval,show.preds)
   }
 }
 
@@ -139,7 +141,7 @@ iMakeLWPred <- function(mdl,lens,grps,vn,interval,center.value) {
 } # End internal iMakeLWPred()
 
 
-iPlotLWPred <- function(res,grps,ylim,xlab,ylab,main,cex.main,lwd,connect.preds,interval,show.preds) {
+iPlotLWPred <- function(res,grps,ylim,xlab,ylab,main,cex.main,lwd,connect.preds,col.connect,interval,show.preds) {
   #   find number of groups to plot along x-axis
   x.num <- length(grps)
   #   find y-axis range if none was provided
@@ -158,6 +160,6 @@ iPlotLWPred <- function(res,grps,ylim,xlab,ylab,main,cex.main,lwd,connect.preds,
     with(res,plotCI(1:x.num,pred,ui=UPI,li=LPI,add=TRUE,pch=ifelse(show.preds,16,"."),lwd=ifelse(lwd>1,lwd-1,1),scol="blue"))
   }
   # connect the means if desired
-  if (connect.preds) lines(1:x.num,res$pred,lty=3,lwd=lwd)
+  if (connect.preds) lines(1:x.num,res$pred,lty=1,lwd=lwd,col=col.connect)
 } # End of internal iPlotLWPred
 

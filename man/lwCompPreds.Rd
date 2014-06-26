@@ -5,10 +5,10 @@
 \usage{
 lwCompPreds(mdl, lens = NULL, quant.lens = c(0, 0.25, 0.5, 0.75, 1),
   interval = c("confidence", "prediction", "both"), center.value = 0,
-  lwd = 1, connect.preds = TRUE, show.preds = FALSE, ylim = NULL,
-  main.pre = "Length==", cex.main = 0.9, xlab = "Groups",
-  ylab = "Predicted Weight", rows = round(sqrt(num)),
-  cols = ceiling(sqrt(num)))
+  lwd = 1, connect.preds = TRUE, show.preds = FALSE,
+  col.connect = "gray50", ylim = NULL, main.pre = "Length==",
+  cex.main = 0.9, xlab = "Groups", ylab = "Predicted Weight",
+  rows = round(sqrt(num)), cols = ceiling(sqrt(num)))
 }
 \arguments{
 \item{mdl}{An \code{lm} object (i.e., returned from fitting a model with \code{lm}).  This model should have log(weight) as the response and log(length) as the explanatory covariate and an explanatory factor variable that describes the different groups.}
@@ -26,6 +26,8 @@ lwCompPreds(mdl, lens = NULL, quant.lens = c(0, 0.25, 0.5, 0.75, 1),
 \item{connect.preds}{A logical that indicates whether the predicted values should be connected with a line across groups or not.}
 
 \item{show.preds}{A logical that indicates whether the predicted values should be plotted with a point for each group or not.}
+
+\item{col.connect}{A color to use for the line that connects the predicted values (if \code{connect.preds=TRUE}).}
 
 \item{ylim}{A numeric vector of length two that indicates the limits of the y-axis to be used for each plot.  If null then limits will be chosen for each graph individually.}
 
