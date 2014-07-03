@@ -17,37 +17,37 @@ residPlot(object, ...)
 
 \method{residPlot}{SLR}(object, xlab = "Fitted Values", ylab = "Residuals",
   main = NULL, pch = 16, col = "black", lty.ref = 3, lwd.ref = 1,
-  col.ref = "black", student = TRUE, outlier.test = TRUE, alpha = 0.05,
+  col.ref = "black", student = FALSE, outlier.test = TRUE, alpha = 0.05,
   loess = TRUE, lty.loess = 2, lwd.loess = 1, col.loess = "black",
-  trans.loess = 4, ...)
+  trans.loess = 4, inclHist = TRUE, ...)
 
 \method{residPlot}{POLY}(object, ...)
 
 \method{residPlot}{IVR}(object, xlab = "Fitted Values", ylab = "Residuals",
   main = NULL, pch = c(16, 21, 15, 22, 17, 24, c(3:14)), col = "rich",
-  lty.ref = 3, lwd.ref = 1, col.ref = "black", student = TRUE,
+  lty.ref = 3, lwd.ref = 1, col.ref = "black", student = FALSE,
   outlier.test = TRUE, alpha = 0.05, loess = TRUE, lty.loess = 2,
   lwd.loess = 1, col.loess = "black", trans.loess = 4,
-  legend = "topright", ...)
+  legend = "topright", inclHist = TRUE, ...)
 
 \method{residPlot}{ONEWAY}(object, xlab = "Fitted Values",
   ylab = "Residuals", main = NULL, pch = 16, col = "black",
-  lty.ref = 3, lwd.ref = 1, col.ref = "black", student = TRUE,
+  lty.ref = 3, lwd.ref = 1, col.ref = "black", student = FALSE,
   bp = TRUE, outlier.test = TRUE, alpha = 0.05, loess = TRUE,
   lty.loess = 2, lwd.loess = 1, col.loess = "black", trans.loess = 4,
-  ...)
+  inclHist = TRUE, ...)
 
 \method{residPlot}{TWOWAY}(object, xlab = "Fitted Values",
   ylab = "Residuals", main = NULL, pch = 16, col = "black",
-  lty.ref = 3, lwd.ref = 1, col.ref = "black", student = TRUE,
+  lty.ref = 3, lwd.ref = 1, col.ref = "black", student = FALSE,
   bp = TRUE, outlier.test = TRUE, alpha = 0.05, loess = TRUE,
   lty.loess = 2, lwd.loess = 1, col.loess = "black", trans.loess = 4,
-  ...)
+  inclHist = TRUE, ...)
 
 \method{residPlot}{nls}(object, xlab = "Fitted Values", ylab = "Residuals",
   main = "", pch = 16, col = "black", lty.ref = 3, lwd.ref = 1,
   col.ref = "black", loess = TRUE, lty.loess = 2, lwd.loess = 1,
-  col.loess = "black", trans.loess = 4, ...)
+  col.loess = "black", trans.loess = 4, inclHist = TRUE, ...)
 }
 \arguments{
 \item{object}{An \code{lm} or \code{nls} object (i.e., returned from fitting a model with either \code{lm} or \code{nls}).}
@@ -88,6 +88,8 @@ residPlot(object, ...)
 
 \item{legend}{If \code{TRUE}, draw a legend and the user must click in the upper-left corner of where the legend should be placed; if \code{FALSE} do not draw a legend.  If a vector of length 2 then draw the upper left corner of the legend at the coordinates given in the vector of length 2.}
 
+\item{inclHist}{A logical that indicates if a second pane that includes the histogram of residuals should be constructed.}
+
 \item{\dots}{Other arguments to the generic \code{plot} function.}
 }
 \value{
@@ -112,18 +114,22 @@ Mirex$year <- factor(Mirex$year)
 lm1 <- lm(mirex~weight*year*species,data=Mirex)
 # defaults
 residPlot(lm1)
+# remove the histogram
+residPlot(lm1,inclHist=FALSE)
 # remove the loess line
-residPlot(lm1,loess=TRUE)
+residPlot(lm1,loess=FALSE,inclHist=FALSE)
 # modify colors used
-residPlot(lm1,col="rainbow")
+residPlot(lm1,col="rainbow",inclHist=FALSE)
 # use only one point type -- notice that all points are of same type
-residPlot(lm1,pch=16)
+residPlot(lm1,pch=16,inclHist=FALSE)
 # use only one point and one color (might as well not use legend also)
-residPlot(lm1,pch=16,col="black",legend=FALSE)
+residPlot(lm1,pch=16,col="black",legend=FALSE,inclHist=FALSE)
 # can accomplish same thing just by removing the legend
-residPlot(lm1,legend=FALSE)
+residPlot(lm1,legend=FALSE,inclHist=FALSE)
 # modify the reference line
-residPlot(lm1,col.ref="blue",lwd.ref=5)
+residPlot(lm1,col.ref="blue",lwd.ref=5,inclHist=FALSE)
+# use Studentized residuals
+residPlot(lm1,student=TRUE)
 
 ## Indicator variable regression with same two factors but in different order
 ##   (notice use of colors and symbols)
@@ -161,6 +167,8 @@ x <- c(runif(100))
 y <- c(7,runif(99))
 lma <- lm(y~x)
 residPlot(lma)
+# with studentized residuals
+residPlot(lm1,student=TRUE)
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

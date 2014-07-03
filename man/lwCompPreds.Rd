@@ -3,15 +3,15 @@
 \alias{lwCompPreds}
 \title{Constructs plots of predicted weights at given lengths among different groups.}
 \usage{
-lwCompPreds(mdl, lens = NULL, quant.lens = c(0, 0.25, 0.5, 0.75, 1),
+lwCompPreds(object, lens = NULL, quant.lens = c(0, 0.25, 0.5, 0.75, 1),
   interval = c("confidence", "prediction", "both"), center.value = 0,
   lwd = 1, connect.preds = TRUE, show.preds = FALSE,
   col.connect = "gray50", ylim = NULL, main.pre = "Length==",
-  cex.main = 0.9, xlab = "Groups", ylab = "Predicted Weight",
+  cex.main = 0.8, xlab = "Groups", ylab = "Predicted Weight",
   rows = round(sqrt(num)), cols = ceiling(sqrt(num)))
 }
 \arguments{
-\item{mdl}{An \code{lm} object (i.e., returned from fitting a model with \code{lm}).  This model should have log(weight) as the response and log(length) as the explanatory covariate and an explanatory factor variable that describes the different groups.}
+\item{object}{An \code{lm} object (i.e., returned from fitting a model with \code{lm}).  This model should have log(weight) as the response and log(length) as the explanatory covariate and an explanatory factor variable that describes the different groups.}
 
 \item{lens}{A numeric vector that indicates the lengths at which the weights should be predicted.}
 
@@ -19,7 +19,7 @@ lwCompPreds(mdl, lens = NULL, quant.lens = c(0, 0.25, 0.5, 0.75, 1),
 
 \item{interval}{A single string that indicates whether to plot confidence (\code{="confidence"}), prediction (\code{="prediction"}), or both (\code{="both"}) intervals.}
 
-\item{center.value}{A single numeric value that indicates the log length used if the log length data was centered when constructing \code{mdl}.}
+\item{center.value}{A single numeric value that indicates the log length used if the log length data was centered when constructing \code{object}.}
 
 \item{lwd}{A single numeric that indicates the line width to be used for the confidence and prediction interval lines (if not \code{interval="both"}) and the prediction connections line.  If \code{interval="both"} then the width of the prediction interval will be one less than this value so that the CI and PI appear different.}
 
@@ -49,13 +49,13 @@ lwCompPreds(mdl, lens = NULL, quant.lens = c(0, 0.25, 0.5, 0.75, 1),
 None.  However, a plot is produced.
 }
 \description{
-Constructs plots of predicted weights at given lengths among different groups.  These plots allow the user to explore differences in predicted weights at a variety of lengths when the length-weight relationship is not the same across a variety of groups.
+Constructs plots of predicted weights at given lengths among different groups.  These plots allow the user to explore differences in predicted weights at a variety of lengths when the weight-length relationship is not the same across a variety of groups.
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/LengthWeight.pdf}
 }
 \examples{
-# load ruffe length-weight data
+# load weight-length data
 data(ChinookArg)
 # add log length and weight data
 ChinookArg$logtl <- log(ChinookArg$tl)

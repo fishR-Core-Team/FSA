@@ -1,12 +1,12 @@
 #' @title Constructs plots of predicted weights at given lengths among different groups.
 #'
-#' @description Constructs plots of predicted weights at given lengths among different groups.  These plots allow the user to explore differences in predicted weights at a variety of lengths when the length-weight relationship is not the same across a variety of groups.
+#' @description Constructs plots of predicted weights at given lengths among different groups.  These plots allow the user to explore differences in predicted weights at a variety of lengths when the weight-length relationship is not the same across a variety of groups.
 #'
-#' @param mdl An \code{lm} object (i.e., returned from fitting a model with \code{lm}).  This model should have log(weight) as the response and log(length) as the explanatory covariate and an explanatory factor variable that describes the different groups.
+#' @param object An \code{lm} object (i.e., returned from fitting a model with \code{lm}).  This model should have log(weight) as the response and log(length) as the explanatory covariate and an explanatory factor variable that describes the different groups.
 #' @param lens A numeric vector that indicates the lengths at which the weights should be predicted.
 #' @param quant.lens A numeric vector that indicates the quantiles of lengths at which weights should be predicted.  This is ignored if \code{lens} is non-null.
 #' @param interval A single string that indicates whether to plot confidence (\code{="confidence"}), prediction (\code{="prediction"}), or both (\code{="both"}) intervals.
-#' @param center.value A single numeric value that indicates the log length used if the log length data was centered when constructing \code{mdl}.
+#' @param center.value A single numeric value that indicates the log length used if the log length data was centered when constructing \code{object}.
 #' @param lwd A single numeric that indicates the line width to be used for the confidence and prediction interval lines (if not \code{interval="both"}) and the prediction connections line.  If \code{interval="both"} then the width of the prediction interval will be one less than this value so that the CI and PI appear different.
 #' @param connect.preds A logical that indicates whether the predicted values should be connected with a line across groups or not.
 #' @param show.preds A logical that indicates whether the predicted values should be plotted with a point for each group or not.
@@ -29,7 +29,7 @@
 #' @keywords manip
 #'
 #' @examples
-#' # load ruffe length-weight data
+#' # load weight-length data
 #' data(ChinookArg)
 #' # add log length and weight data
 #' ChinookArg$logtl <- log(ChinookArg$tl)
@@ -72,21 +72,21 @@
 #'   
 #' }
 #' @export lwCompPreds
-lwCompPreds <- function(mdl,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),
+lwCompPreds <- function(object,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),
                         interval=c("confidence","prediction","both"),center.value=0,
                         lwd=1,connect.preds=TRUE,show.preds=FALSE,col.connect="gray50",
-                        ylim=NULL,main.pre="Length==",cex.main=0.9,
+                        ylim=NULL,main.pre="Length==",cex.main=0.8,
                         xlab="Groups",ylab="Predicted Weight",
                         rows=round(sqrt(num)),cols=ceiling(sqrt(num))) {
   # check and get inerval type
   interval <- match.arg(interval)
   ## check and extract information from the formula
   formula <- 
-  tmp <- iHndlFormula(formula(mdl),model.frame(mdl),expNumR=1,expNumE=2,expNumENums=1,expNumEFacts=1)
-  if (!tmp$metExpNumR) stop("'mdl' formula must have only one variable on LHS.",call.=FALSE)
-  if (!tmp$metExpNumE) stop("'mdl' formula must have two and only two variables on RHS.",call.=FALSE)
-  if (!tmp$metExpNumENums) stop("'mdl' formula must have one and only one numeric variable on RHS.",call.=FALSE)
-  if (!tmp$metExpNumEFacts) stop("'mdl' formula must have one and only one factor variable on RHS.",call.=FALSE)
+  tmp <- iHndlFormula(formula(object),model.frame(object),expNumR=1,expNumE=2,expNumENums=1,expNumEFacts=1)
+  if (!tmp$metExpNumR) stop("'object' formula must have only one variable on LHS.",call.=FALSE)
+  if (!tmp$metExpNumE) stop("'object' formula must have two and only two variables on RHS.",call.=FALSE)
+  if (!tmp$metExpNumENums) stop("'object' formula must have one and only one numeric variable on RHS.",call.=FALSE)
+  if (!tmp$metExpNumEFacts) stop("'object' formula must have one and only one factor variable on RHS.",call.=FALSE)
 
   # get the model.frame -- may not be needed
   mf <- tmp$mf                                                        
@@ -108,7 +108,7 @@ lwCompPreds <- function(mdl,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),
   # cycle through the lengths
   for (i in 1:length(lens)) {
     # find results for each length
-    res <- iMakeLWPred(mdl,lens[i],grps,vn,interval,center.value)
+    res <- iMakeLWPred(object,lens[i],grps,vn,interval,center.value)
     # make plot for each length
     iPlotLWPred(res,grps,ylim,xlab,ylab,paste(main.pre,lens[i],sep=""),
                 cex.main,lwd,connect.preds,col.connect,interval,show.preds)
@@ -116,19 +116,19 @@ lwCompPreds <- function(mdl,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),
 }
 
 
-iMakeLWPred <- function(mdl,lens,grps,vn,interval,center.value) {
+iMakeLWPred <- function(object,lens,grps,vn,interval,center.value) {
   #  Make a new data.frame with lengths and groups in it.
   nd <- data.frame(log(lens)-center.value,grps)
   #    label columns in the new data.frame to match model term names
   colnames(nd) <- vn
   if (interval=="both" | interval=="prediction") { #  If PI is asked for ...
     #  Predict (with PI) wt and put in a data frame
-    resp <- data.frame(exp(predict(mdl,nd,interval="prediction")))
+    resp <- data.frame(exp(predict(object,nd,interval="prediction")))
     colnames(resp) <- c("pred","LPI","UPI")    
   }
   if (interval=="both" | interval=="confidence") { #  If CI is asked for ...
     #  Predict (with CI) wt and put in a data frame
-    resc <- data.frame(exp(predict(mdl,nd,interval="confidence")))
+    resc <- data.frame(exp(predict(object,nd,interval="confidence")))
     colnames(resc) <- c("pred","LCI","UCI")    
   }
   #  Combine prediction, PI, and CI for wt into a results data.frame

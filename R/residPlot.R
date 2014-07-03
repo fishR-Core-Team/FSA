@@ -29,6 +29,7 @@
 #' @param col.loess A numeric or character that indicates the line color to use for loess fit line.  See \code{par}.
 #' @param trans.loess A single numeric that indicates how transparent the loess band should be (larger numbers are more transparent).
 #' @param legend If \code{TRUE}, draw a legend and the user must click in the upper-left corner of where the legend should be placed; if \code{FALSE} do not draw a legend.  If a vector of length 2 then draw the upper left corner of the legend at the coordinates given in the vector of length 2.
+#' @param inclHist A logical that indicates if a second pane that includes the histogram of residuals should be constructed.
 #' @param \dots Other arguments to the generic \code{plot} function.
 #'
 #' @return None.  However, a residual plot is produced.
@@ -47,18 +48,22 @@
 #' lm1 <- lm(mirex~weight*year*species,data=Mirex)
 #' # defaults
 #' residPlot(lm1)
+#' # remove the histogram
+#' residPlot(lm1,inclHist=FALSE)
 #' # remove the loess line
-#' residPlot(lm1,loess=TRUE)
+#' residPlot(lm1,loess=FALSE,inclHist=FALSE)
 #' # modify colors used
-#' residPlot(lm1,col="rainbow")
+#' residPlot(lm1,col="rainbow",inclHist=FALSE)
 #' # use only one point type -- notice that all points are of same type
-#' residPlot(lm1,pch=16)
+#' residPlot(lm1,pch=16,inclHist=FALSE)
 #' # use only one point and one color (might as well not use legend also)
-#' residPlot(lm1,pch=16,col="black",legend=FALSE)
+#' residPlot(lm1,pch=16,col="black",legend=FALSE,inclHist=FALSE)
 #' # can accomplish same thing just by removing the legend
-#' residPlot(lm1,legend=FALSE)
+#' residPlot(lm1,legend=FALSE,inclHist=FALSE)
 #' # modify the reference line
-#' residPlot(lm1,col.ref="blue",lwd.ref=5)
+#' residPlot(lm1,col.ref="blue",lwd.ref=5,inclHist=FALSE)
+#' # use Studentized residuals
+#' residPlot(lm1,student=TRUE)
 #'
 #' ## Indicator variable regression with same two factors but in different order
 #' ##   (notice use of colors and symbols)
@@ -96,6 +101,8 @@
 #' y <- c(7,runif(99))
 #' lma <- lm(y~x)
 #' residPlot(lma)
+#' # with studentized residuals
+#' residPlot(lm1,student=TRUE)
 #'
 #' @rdname residPlot
 #' @export
@@ -115,17 +122,19 @@ residPlot.lm <- function(object,...) {
 #' @export
 residPlot.SLR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
                           pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
-                          student=TRUE,outlier.test=TRUE,alpha=0.05,
+                          student=FALSE,outlier.test=TRUE,alpha=0.05,
                           loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
-                          ...) {
+                          inclHist=TRUE,...) {
   iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
   ifelse(student, r <- rstudent(object$mdl), r <- object$mdl$residuals)
   if (student & ylab=="Residuals") ylab <- "Studentized Residuals"
+  if (inclHist) par(mfrow=c(1,2))
   iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
                      loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
   points(r~fv,pch=pch,col=col)
   if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha) 
+  if (inclHist) iHistResids(r,ylab)
 }
 
 #' @rdname residPlot
@@ -138,15 +147,16 @@ residPlot.POLY <- function(object,...) {
 #' @export
 residPlot.IVR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
                           pch=c(16,21,15,22,17,24,c(3:14)),col="rich",lty.ref=3,lwd.ref=1,col.ref="black",
-                          student=TRUE,outlier.test=TRUE,alpha=0.05,
+                          student=FALSE,outlier.test=TRUE,alpha=0.05,
                           loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
-                          legend="topright",...) {
+                          legend="topright",inclHist=TRUE,...) {
   iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
   ifelse(student, r <- rstudent(object$mdl), r <- object$mdl$residuals)
   if (student & ylab=="Residuals") ylab <- "Studentized Residuals"
   if (dim(object$mf)[2]>4) stop("Function does not handle models with more than two covariates or more than three factors.",call.=FALSE)
     else {
+      if (inclHist) par(mfrow=c(1,2))
       leg <- iLegendHelp(legend)   # will there be a legend
       if (!leg$do.legend) {
         iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
@@ -194,7 +204,8 @@ residPlot.IVR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL
        lpch <- rep(pch,times=num.f1)
        ifelse(num.f2>1,levs <- levels(f1:f2),levs <- levels(f1))
        if (leg$do.legend) legend(x=leg$x,y=leg$y,legend=levs,col=lcol,pch=lpch)    
-     } # end for no legend
+     } # end for no legend 
+     if (inclHist) iHistResids(r,ylab)
    }
 }
 
@@ -202,15 +213,16 @@ residPlot.IVR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL
 #' @export
 residPlot.ONEWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
                              pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
-                             student=TRUE,bp=TRUE,outlier.test=TRUE,alpha=0.05,
+                             student=FALSE,bp=TRUE,outlier.test=TRUE,alpha=0.05,
                              loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
-                             ...) {
+                             inclHist=TRUE,...) {
   iGetMainTitle(object,main)
   if (bp & xlab=="Fitted Values") xlab <- "Treatment Group"
   fv <- object$mdl$fitted.values
   ifelse(student, r <- rstudent(object$mdl), r <- object$mdl$residuals)
   if (student & ylab=="Residuals") ylab <- "Studentized Residuals"
   gf <- object$mf[,2]
+  if (inclHist) par(mfrow=c(1,2))
   if (bp) {
     boxplot(r~gf,xlab=xlab,ylab=ylab,main=main)
     abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref)
@@ -219,16 +231,17 @@ residPlot.ONEWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
                          loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
       points(r~fv,pch=pch,col=col)
       if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
-    }
+  } 
+  if (inclHist) iHistResids(r,ylab)
 }
 
 #' @rdname residPlot
 #' @export
 residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
                              pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
-                             student=TRUE,bp=TRUE,outlier.test=TRUE,alpha=0.05,
+                             student=FALSE,bp=TRUE,outlier.test=TRUE,alpha=0.05,
                              loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
-                             ...) {
+                             inclHist=TRUE,...) {
   iGetMainTitle(object,main)
   if (bp & xlab=="Fitted Values") xlab <- "Treatment Group"
   fv <- object$mdl$fitted.values
@@ -237,6 +250,7 @@ residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
   gf1 <- object$mf[,2]
   gf2 <- object$mf[,3]
   gf <- interaction(gf1,gf2)
+  if (inclHist) par(mfrow=c(1,2))
   if (bp) {
     boxplot(r~gf,xlab=xlab,ylab=ylab,main=main)
     abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref) 
@@ -245,7 +259,8 @@ residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
                          loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
       points(r~fv,pch=pch,col=col)
       if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
-    } 
+  } 
+  if (inclHist) iHistResids(r,ylab) 
 }
 
 #' @rdname residPlot
@@ -253,12 +268,14 @@ residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
 residPlot.nls<-function(object,xlab="Fitted Values",ylab="Residuals",main="",
                         pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                         loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
-                        ...) {
+                        inclHist=TRUE,...) {
   fv <- fitted(object)
   r <- residuals(object)
+  if (inclHist) par(mfrow=c(1,2))
   iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
                      loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
-  points(r~fv,pch=pch,col=col)
+  points(r~fv,pch=pch,col=col) 
+  if (inclHist) iHistResids(r,ylab)
 }
 
 
@@ -328,3 +345,7 @@ iGetMainTitle <- function(object,main) {
   # return the title (NULL if NULL was sent)
   main
 }  # end iGetMainTitle internal function
+
+iHistResids <- function(r,xlab) {
+  hist(~r,xlab=xlab)
+}
