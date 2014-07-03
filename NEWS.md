@@ -1,4 +1,7 @@
-# FSA 0.4.16 ongoing
+# FSA 0.4.17 ongoing
+
+
+# FSA 0.4.16 Jul14
 * `BluegillLM`: Modified.  Added a seealso.
 * `residPlot()`: Modified.  Changed the loess-related methods to use `loess()`, to put an approximate confident band with the line, the line and band are "under" the points, the line is lighter.  Put the horizontal reference line at zero under the points.  Made `loess=TRUE` the default.
 * `iAddLoessLine()`: Modified.  See `residPlot()`.
