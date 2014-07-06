@@ -76,7 +76,7 @@ test_that("test AlewifeLH data against compare2() results",{
   expect_that(ab1sum3[1,"p"],equals(ab3$McNemar_continuity_correction$pvalue))
 })
 
-test_that("agePrecision compared to http://www.nefsc.noaa.gov/fbp/age-prec/ calculations for AlewifeLH",{
+test_that("ageBias compared to http://www.nefsc.noaa.gov/fbp/age-prec/ calculations for AlewifeLH",{
   library(FSAdata)
   data(AlewifeLH)
   ab1 <- ageBias(otoliths~scales,data=AlewifeLH,col.lab="Otolith Age",row.lab="Scale Age")

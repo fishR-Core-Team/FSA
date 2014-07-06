@@ -47,7 +47,7 @@ lrt <- function(sim,...,com) {
                matrix(tmp,nrow=n.sim),
                matrix(res[,6:7],nrow=n.sim))
   colnames(res) <- c("DfO","logLikO","DfA","logLikA","Df","logLik","Chisq","Pr(>Chisq)")
-  rownames(res) <- paste(1:n.sim,"v A")
+  rownames(res) <- paste(1:n.sim,"vA",sep="")
   tmp <- 
     com.hdg <- paste("Model A: ",deparse(formula(com)),sep="")
   sim.hdg <- paste("Model ",1:n.sim,": ",lapply(sim,formula),sep="",collapse="\n")
@@ -69,7 +69,7 @@ extraSS <- function(sim,...,com) {
                  unlist(tmp[[i]][2,c("Df","Sum Sq","F value","Pr(>F)")]))
   }
   colnames(res) <- c("DfO","RSSO","DfA","RSSA","Df","SS","F","Pr(>F)")
-  rownames(res) <- paste(1:n.sim,"v A")
+  rownames(res) <- paste(1:n.sim,"vA",sep="")
   com.hdg <- paste("Model A: ",deparse(formula(com)),sep="")
   sim.hdg <- paste("Model ",1:n.sim,": ",lapply(sim,formula),sep="",collapse="\n")
   attr(res,"heading") <- paste(sim.hdg,com.hdg,sep="\n")

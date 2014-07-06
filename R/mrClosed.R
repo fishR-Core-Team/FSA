@@ -13,7 +13,7 @@
 #'
 #' If \code{M} contains an object from the \code{capHistSum} function and one of Petersen, Chapman, Ricker, or Bailey methods has been chosen then \code{n} and \code{m} can be left missing or will be ignored.  In this case, the function will extract the needed data from the \code{sum} portion of the \code{CapHist} class object.  If the data were not summarized with \code{\link{capHistSum}} then all of \code{M}, \code{n}, and \code{m} must be supplied by the user.  The popuation estimate for each method is returned from \code{summary}.
 #'
-#' Confidence intervals for the initial population size estimated with the single census methods can be constructed using four different distributions as chosen with \code{ci.type=} in \code{confint}.  If \code{citype="suggested"} then the type of confidence interval suggested by the rules in Seber (2002) is used.  The hypergeometric method should be exact (with sampling without replacement) but is experimental at this point.  The other three types of confidence intervals are constructed according to Seber (2002) but using computer algorithms to estimate the distributions rather than tables and graphs as in Seber (2002).  If \code{ci.type="normal"} then the confidence interval is constructed from normal theory (i.e., plus/minus z critical value times the standard error).  In this case, the standard error for the Petersen method is the square root of eqn 3.6 in Ricker(1975), the standard error for the Chapman method uses square root of the unnumbered equation on page 60 of Seber(2002), the standard error for the Ricker method uses the square root of eqn 3.8 in Ricker(1975), and the standard error for the Bailey method uses the square root of the unnumbered equation on page 61 of Seber (2002).  The standard error for the single census population estimate will be returned, primarily for historical purposes, if \code{incl.SE=TRUE} is used in \code{summary}.
+#' Confidence intervals for the initial population size estimated with the single census methods can be constructed using four different distributions as chosen with \code{type=} in \code{confint}.  If \code{citype="suggested"} then the type of confidence interval suggested by the rules in Seber (2002) is used.  The hypergeometric method should be exact (with sampling without replacement) but is experimental at this point.  The other three types of confidence intervals are constructed according to Seber (2002) but using computer algorithms to estimate the distributions rather than tables and graphs as in Seber (2002).  If \code{type="normal"} then the confidence interval is constructed from normal theory (i.e., plus/minus z critical value times the standard error).  In this case, the standard error for the Petersen method is the square root of eqn 3.6 in Ricker(1975), the standard error for the Chapman method uses square root of the unnumbered equation on page 60 of Seber(2002), the standard error for the Ricker method uses the square root of eqn 3.8 in Ricker(1975), and the standard error for the Bailey method uses the square root of the unnumbered equation on page 61 of Seber (2002).  The standard error for the single census population estimate will be returned, primarily for historical purposes, if \code{incl.SE=TRUE} is used in \code{summary}.
 #'
 #' If \code{incl.all=TRUE} in the \code{summary} function and population estimates have been constructed for multiple sub-groups then an overall population estimate will be included by summing the population estimates for the multiple sub-groups.  In this case, if \code{incl.SE=TRUE}, then an overall SE will be computed by taking the square root of the summed VARIANCES for the multiple sub-groups.
 #'
@@ -26,7 +26,7 @@
 #'
 #' If \code{M} contains an object from \code{\link{capHistSum}} and the Schnabel or Schumacher-Eschmeyer methods has been chosen then \code{n}, \code{m} and \code{R} can be left missing or will be ignored.  In this case, the function will extract the needed data from the \code{sum} portion of the \code{CapHist} class object.  Otherwise, the user must supply vectors of results in \code{n}, \code{m}, and \code{R} or \code{M}.  The popuation estimate for each method is returned from \code{summary}.
 #'
-#' Confidence intervals for the initial population size using multiple census methods can be constructed using two different distributions (normal, Poisson) for the Schnabel method or the normal distribution for the Shumacher-Eschmeyer method as chosen with \code{ci.type=}.  If \code{citype="suggested"} then the type of confidence interval suggested by the rules in Seber (2002) is used.  If \code{type="Schnabel"} and \code{ci.type="normal"} then the standard error for the inverse of the population estimate is compute as the square root of eqn 2.11 from Krebs (1989) or eqn 3.16 from Ricker (1975).  If \code{type="SchumacherEschmeyer"} then the standard error for the inverse of the population estimate is computed with eqn 2.14 from Krebs (1989) (Note that the divisor in Krebs (1989) is different than the divisor in Ricker (1975) eqn 3.13, but consistent with eqn 4.17 in Seber (2002)).  The confidence intervals when \code{ci.type="normal"} are constructed by inverting a confidence interval for the inverse population estimate.  The confidence interval for the inverse population estimate is constructed from the inverse population estimate plus/minus a t critical value times the standard error for the inverse population estimate.  The t critical value uses the number of samples minus 1 when \code{ci.type="Schnabel"} and the number of samples minus 2 when \code{ci.type="SchumacherEschmeyer"} according to p. 32 of Krebs (1989) (note that this is different than whe Ricker (1975) does).  Note that confidence intervals for the population size when \code{ci.type="normal"} may contain negative values (for the upper value) when the population estimate is relatively large and the number of samples is small (say, three) because the intervals are orginally constructed on the inverted population estimate and they use the t-distribution. 
+#' Confidence intervals for the initial population size using multiple census methods can be constructed using two different distributions (normal, Poisson) for the Schnabel method or the normal distribution for the Shumacher-Eschmeyer method as chosen with \code{type=}.  If \code{citype="suggested"} then the type of confidence interval suggested by the rules in Seber (2002) is used.  If \code{type="Schnabel"} and \code{type="normal"} then the standard error for the inverse of the population estimate is compute as the square root of eqn 2.11 from Krebs (1989) or eqn 3.16 from Ricker (1975).  If \code{type="SchumacherEschmeyer"} then the standard error for the inverse of the population estimate is computed with eqn 2.14 from Krebs (1989) (Note that the divisor in Krebs (1989) is different than the divisor in Ricker (1975) eqn 3.13, but consistent with eqn 4.17 in Seber (2002)).  The confidence intervals when \code{type="normal"} are constructed by inverting a confidence interval for the inverse population estimate.  The confidence interval for the inverse population estimate is constructed from the inverse population estimate plus/minus a t critical value times the standard error for the inverse population estimate.  The t critical value uses the number of samples minus 1 when \code{type="Schnabel"} and the number of samples minus 2 when \code{type="SchumacherEschmeyer"} according to p. 32 of Krebs (1989) (note that this is different than whe Ricker (1975) does).  Note that confidence intervals for the population size when \code{type="normal"} may contain negative values (for the upper value) when the population estimate is relatively large and the number of samples is small (say, three) because the intervals are orginally constructed on the inverted population estimate and they use the t-distribution. 
 #'
 #' @aliases mrClosed summary.mrClosed confint.mrClosed plot.mrClosed
 #'
@@ -35,7 +35,7 @@
 #' @param m A numeric representing the number of recaptured (marked) fish in the second sample (single-census) or numeric vector of recaptured (marked) fish
 #'in ith sample (multiple-census).
 #' @param R A numeric vector representing the number of marked fish returned to the population (multiple-census).  Note that several references use the number of \dQuote{new} marks returned to the population rather than the \dQuote{total} number of marked returned to the population that is used here.
-#' @param type a string that identifies the type of calculation method to use. See details.
+#' @param type A single string that identifies the type of calculation method to use in the main function or the method to use when constructing confidence intervals in \code{confint}. See details.
 #' @param labels A character or character vector used to label the rows of the resulting output matrix when using a single census method separated by groups.  Must be the same length as \code{M}, \code{n}, and \code{m}.  Defaults to upper-case letters if no values are given.
 #' @param chapman.mod A logical that represents whether the Chapman modification method should be used (\code{=TRUE}, default) or not (\code{=FALSE}) when performing the Schnabel multiple census method.
 #' @param object An object saved from the \code{mrClosed} call (i.e., of class \code{mrClosed}).
@@ -47,7 +47,6 @@
 #' @param parm a specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.
 #' @param level Same as \code{conf.level} but used for compatability with generic \code{confint} function.
 #' @param conf.level A numeric representing the level of confidence to use for constructing confidence intervals.
-#' @param ci.type A string that identifies the type of confidence interval to contstruct.  See details.
 #' @param bin.type A string that identifies the method used to construct binomial confidence intervals (default is \code{"wilson"}).  This is only used if \code{citype="binomial"}.  See details of \code{binCI}
 #' @param pch A numeric used to indicate the type of plotting character.
 #' @param col.pt a string used to indicate the color of the plotted points.
@@ -102,7 +101,7 @@
 #' summary(mr1,incl.inputs=TRUE)
 #' confint(mr1)
 #' confint(mr1,incl.inputs=TRUE)
-#' confint(mr1,ci.type="hypergeom")
+#' confint(mr1,type="hypergeometric")
 #'
 #' # Chapman modification of the Petersen estimate
 #' mr2 <- mrClosed(346,184,49,type="Chapman")
@@ -160,86 +159,99 @@
 #'
 #' @rdname mrClosed
 #' @export
-mrClosed <- function(M,n,m,R,
+mrClosed <- function(M=NULL,n=NULL,m=NULL,R=NULL,
             type=c("Petersen","Chapman","Ricker","Bailey","Schnabel","SchumacherEschmeyer"),
             labels=NULL,chapman.mod=TRUE) {
-  ## INTERNAL M/R Closed, Single Census (Petersen, Chapman, Ricker, or Bailey) ##
-  mrc1 <- function(M,n,m,type,labels) {
-    # initial checks
-    if (missing(M)) stop("Missing 'M'.",call.=FALSE)
-    if (class(M)=="CapHist") {
-      m <- M$sum$m
-      n <- M$sum$n
-      M <- M$sum$M    
-    } else {
-      if (missing(n) & missing(m)) stop("One of 'n' or 'm' is missing without 'M' from capHistSum().",call.=FALSE)
-      # Make sure that the vectors are of the same size
-      lengths <- c(length(M),length(n),length(m))
-      if (any(diff(lengths)!=0)) stop("'M', 'n', or 'm' vectors must have same length.",call.=FALSE)
-    }
-    # Make sure that recapture number makes sense relative to sample size
-    if (any((n-m)<0)) stop(paste("Row number",which((n-m)<0),"has more recaptures (m) then total individuals (n)."),call.=FALSE)
-    # If no labels provided then assign letters as labels, if labels provided then make sure size is correct
-    if (is.null(labels)) {
-      if (length(M)>1) labels=LETTERS[1:length(M)]
-    } else if (length(M) != length(labels)) stop("'labels' must have same length as 'M', 'n', and 'm'.")
-    # handle modifications for simplicity of calculation below  
-    switch(type,
-           Petersen={meth="the 'naive' Petersen method"
-                     M1 <- M; n1 <- n; m1 <- m; cf <- rep(0,length(M)) },
-           Chapman={meth="Chapman's modification of the Petersen method"
-                    M1 <- M+1; n1 <- n+1; m1 <- m+1; cf <- rep(1,length(M)) },
-           Ricker={meth="Ricker's modification of the Petersen method"
-                   M1 <- M+1; n1 <- n+1; m1 <- m+1; cf <- rep(0,length(M)) },
-           Bailey={meth="Bailey's modification of the Petersen method"
-                   M1 <- M; n1 <- n+1; m1 <- m+1; cf <- rep(0,length(M)) }
-    ) # end swithc
-    # perform calculations and save all of the intermediate results to return
-    res <- list(M=M,n=n,m=m,M1=M1,n1=n1,m1=m1,cf=cf,N=M1*n1/m1-cf,labels=labels,type=type,meth=meth)
-    class(res) <- "mrClosed"
-    res
-  } ## end mrc1 internal function ##
-  
-  ## INTERNAL M/R Closed, Multiple Census (Schnabel or Shumacher-Eschmeyer) ##
-  mrc2 <- function(M,n,m,R,type,chapman.mod) {
-    # Initial Checks
-    if (!missing(M)) {
-      if (class(M)=="CapHist") {
-        n <- M$sum$n
-        m <- M$sum$m
-        R <- M$sum$R
-      } else if (missing(R) & !missing(n) & !missing(m)) {
-        R <- n
-        R[length(R)] <- 0
-      } else if (missing(n) | missing(m)) stop("Missing either 'n' or 'm' arguments.",call.=FALSE)
-    }
-    # calculate intermediate values
-    M <- cumsum(R-m)-(R-m)
-    sum.m <- sum(m)
-    sum.nM <- sum(n*M)
-    sum.nM2 <- sum(n*(M^2))
-    sum.mM <- sum(m*M)
-    sum.m2dn <- sum((m^2)/n)
-    # perform the estimates
-    switch(type,
-           Schnabel={
-             meth <- "the Schnabel method"     
-             ifelse(chapman.mod, N <- sum.nM/(sum.m+1), N <- sum.nM/sum.m) },
-           Schumacher=,SchumacherEschmeyer={
-             meth <- "the Schumacher-Eschmeyer method"
-             chapman.mod <- FALSE
-             N <- sum.nM2/sum.mM }
-    ) # end switch
-    # return the results and intermediate calculations
-    res <- list(n=n,m=m,R=R,M=M,N=N,sum.m=sum.m,sum.nM=sum.nM,sum.nM2=sum.nM2,sum.mM=sum.mM,sum.m2dn=sum.m2dn,labels=NULL,type=type,meth=meth,chapman.mod=chapman.mod)
-    class(res) <- "mrClosed"
-    res
-  } ## end mrc2 internal function ##  
-  ## Main Function
   type <- match.arg(type)
-  if (type %in% c("Petersen","Chapman","Ricker","Bailey")) mrc1(M,n,m,type,labels)
-  else mrc2(M,n,m,R,type,chapman.mod)
+  if (type %in% c("Petersen","Chapman","Ricker","Bailey")) {
+    if (!is.null(R)) warning("'R' not used in single census methods.  It will be ignored.",call.=FALSE)
+    iMRCSingle(M,n,m,type,labels)
+  } else iMRCMultiple(M,n,m,R,type,chapman.mod)
 }
+
+iMRCSingle <- function(M,n,m,type,labels) { ## INTERNAL Single Census (Petersen, Chapman, Ricker, or Bailey)
+  # initial checks
+  if (is.null(M)) stop("Missing 'M'.",call.=FALSE)
+  if (class(M)=="CapHist") {
+    if (!is.null(m) | !is.null(n)) warning("'m' and 'n' ignored when 'M' from capHistSum().",call.=FALSE)
+    m <- M$sum$m
+    n <- M$sum$n
+    M <- M$sum$M    
+  } else {
+    if (is.null(n) | is.null(m)) stop("One or both of 'n' or 'm' is missing without 'M' from capHistSum().",call.=FALSE)
+    # Make sure that the vectors are of the same size
+    lengths <- c(length(M),length(n),length(m))
+    if (any(diff(lengths)!=0)) stop("'M', 'n', or 'm' vectors must have same length.",call.=FALSE)
+  }
+  # Make sure that recapture number makes sense relative to sample size
+  if (any((n-m)<0)) {
+    if (length(n)==1) stop ("Can't have more recaptures (m) then total individuals (n).",call.=FALSE)
+    else stop(paste("Row",which((n-m)<0),"has more recaptures (m) then total individuals (n)."),call.=FALSE)
+  } 
+  # If no labels provided then assign letters as labels, if labels provided then make sure size is correct
+  if (is.null(labels)) {
+    if (length(M)>1) labels=LETTERS[1:length(M)]
+  } else {
+    if (length(M) != length(labels)) stop("'labels' must have same length as 'M', 'n', and 'm'.")
+  }
+  # handle modifications for simplicity of calculation below  
+  switch(type,
+         Petersen={meth="the 'naive' Petersen method"
+                   M1 <- M; n1 <- n; m1 <- m; cf <- rep(0,length(M)) },
+         Chapman={meth="Chapman's modification of the Petersen method"
+                  M1 <- M+1; n1 <- n+1; m1 <- m+1; cf <- rep(1,length(M)) },
+         Ricker={meth="Ricker's modification of the Petersen method"
+                 M1 <- M+1; n1 <- n+1; m1 <- m+1; cf <- rep(0,length(M)) },
+         Bailey={meth="Bailey's modification of the Petersen method"
+                 M1 <- M; n1 <- n+1; m1 <- m+1; cf <- rep(0,length(M)) }
+  ) # end switcc
+  # perform calculations and save all of the intermediate results to return
+  res <- list(M=M,n=n,m=m,M1=M1,n1=n1,m1=m1,cf=cf,N=M1*n1/m1-cf,labels=labels,type=type,meth=meth)
+  class(res) <- "mrClosed"
+  res
+} ## end iMRCSingle
+
+iMRCMultiple <- function(M,n,m,R,type,chapman.mod) { ## INTERNAL Multiple Census (Schnabel or Shumacher-Eschmeyer)
+  # Initial Checks
+  if (!is.null(M)) {
+    if (class(M)=="CapHist") {
+      n <- M$sum$n
+      m <- M$sum$m
+      R <- M$sum$R
+      M <- cumsum(R-m)-(R-m)
+    } else {
+      if (is.null(n) | is.null(m)) stop("One or both of 'n' or 'm' is missing without 'M' from capHistSum().",call.=FALSE)
+      else if (!is.null(R)) warning("Only need one of 'M' or 'R'.  'R' is ignored.",call.=FALSE)
+      R <- n
+      R[length(R)] <- 0
+    }
+  } else {
+    if (is.null(R)) stop("One of 'M' or 'R' must be supplied by user",call.=FALSE)
+    if (is.null(n) | is.null(m)) stop("One or both of 'n' or 'm' is missing.",call.=FALSE)
+    M <- cumsum(R-m)-(R-m)
+  }
+  # calculate intermediate values
+  sum.m <- sum(m)
+  sum.nM <- sum(n*M)
+  sum.nM2 <- sum(n*(M^2))
+  sum.mM <- sum(m*M)
+  sum.m2dn <- sum((m^2)/n)
+  # perform the estimates
+  switch(type,
+         Schnabel={
+           meth <- "the Schnabel method"     
+           ifelse(chapman.mod, N <- sum.nM/(sum.m+1), N <- sum.nM/sum.m) },
+         Schumacher=,SchumacherEschmeyer={
+           meth <- "the Schumacher-Eschmeyer method"
+           chapman.mod <- FALSE
+           N <- sum.nM2/sum.mM }
+  ) # end switch
+  # return the results and intermediate calculations
+  res <- list(n=n,m=m,R=R,M=M,N=N,sum.m=sum.m,sum.nM=sum.nM,sum.nM2=sum.nM2,sum.mM=sum.mM,sum.m2dn=sum.m2dn,labels=NULL,type=type,meth=meth,chapman.mod=chapman.mod)
+  class(res) <- "mrClosed"
+  res
+} ## end iMRCMultiple
+
 
 #' @rdname mrClosed
 #' @export
@@ -289,148 +301,150 @@ summary.mrClosed <- function(object,digits=0,incl.SE=FALSE,incl.all=FALSE,incl.i
 #' @rdname mrClosed
 #' @export
 confint.mrClosed <- function(object,parm=NULL,level=conf.level,conf.level=0.95,digits=0,
-                         ci.type=c("suggested","binomial","hypergeom","normal","Poisson"),
+                         type=c("suggested","binomial","hypergeometric","normal","Poisson"),
                          bin.type=c("wilson","exact","asymptotic"),incl.inputs=FALSE,...) {
-  ## Internal function for computing normal theory CIs -- from NCStats
-  ci.t <- function(est,SE,obsdf,conf.level=0.95) {
-    hw <- qt(1-(1-conf.level)/2,obsdf)*SE
-    res <- cbind(est-hw,est+hw)
-    colnames(res) <- iCILabel(conf.level)
-    res
-  } # end ci.t internal function
-  
-  
-  # M/R Closed, Single Census, Only One Population CI
-  ci.mrc1 <- function(object,conf.level,ci.type,bin.type,incl.inputs,...) {
-    # Follow Sebers' suggestions if asked to
-    if (ci.type=="suggested") {
-      if ((object$m/object$n) > 0.10) ci.type <- "binomial"
-      else if (object$m > 50) ci.type <- "normal"
-      else ci.type <- "Poisson"
-    }
-    switch(ci.type,
-           hypergeom={
-             ci <- hyperCI(object$M,object$n,object$m,conf.level)
-           }, 
-           binomial={
-             # Binomial CI for phat
-             ci1 <- binCI(object$m,object$n,conf.level,bin.type)
-             # Convert to CI for m1
-             ifelse(object$type=="Petersen",m.ci <- ci1*object$n,
-                    m.ci <- ci1*object$n+1)
-             # Put endpoints back into N formula to get CI for N
-             N.bin <- (object$M1*object$n1)/m.ci-object$cf
-             ci <- N.bin[2:1]
-           }, 
-           normal={
-             # Find +/- Z for normal CI
-             zalpha <- c(-1,1)*abs(qnorm((1-conf.level)/2))
-             if (object$type=="Petersen") {
-               ## Krebs eqn 2.4 (p.20), built in parts
-               # Find phat
-               phat <- object$m/object$n
-               # Find finite population correction factor
-               fpc <- 1-object$m/object$M
-               # Correction for continuity
-               cc <- 1/(2*object$n)
-               # SE for phat
-               SE <- sqrt(fpc*phat*(1-phat)/(object$n-1))
-               # CI for phat
-               ci <- phat-zalpha*SE+cc
-               # CI for N
-               ci <- rbind(object$M/ci)
-             } else {
-               # SE from Seber p.60 for Chapman
-               # SE from Ricker, eqn 3.8, p.78 for Ricker and Seber p.61 for Bailey
-               ifelse(object$type=="Chapman",SE <- with(object, sqrt(M1*n1*(M1-m1)*(n1-m1)/((m1^2)*(m1+1))) ),  
-                      SE <- with(object, sqrt(((M1^2)*n1*(n-m))/((m1^2)*(m1+1))) ) )  
-               # CI for N
-               ci <- rbind(object$N+zalpha*SE)
-             }
-           },
-           Poisson={
-             # Poisson CI for m
-             m.ci <- poiCI(object$m,conf.level)
-             # Convert to CI for m1
-             if (object$type!="Petersen") m.ci <- m.ci+1
-             # Put endpoints back in N formula to get CI for N
-             N.poi <- (object$M1*object$n1)/m.ci-object$cf    
-             ci <- N.poi[,2:1]
-           }
-    )
-    # Put message at top of output if asked for
-    if (incl.inputs) {
-      msg <- paste("The ",ci.type," method was used.\n")
-      if (!is.null(object$labels)) msg <- paste(object$labels,"-",msg)
-      message(msg)
-    }
-    # Show the CIs
-    ci
-  } # end ci.mrc1 internal function
-  
-  # M/R Closed, Multiple Census CI
-  ci.mrc2 <- function(object,conf.level,ci.type,incl.inputs,...) {  
-    # Follow Seber's suggestions if asked for
-    if (ci.type=="suggested") {
-      if (object$type=="SchumacherEschmeyer") ci.type <- "normal"
-      else if (object$sum.m < 50) ci.type <- "Poisson"
-      else ci.type <- "normal"
-    }
-    if (object$type=="Schnabel") {
-      if (ci.type=="normal") {
-        # Get df (from Krebs p. 32)
-        df <- length(object$n)-1
-        # Compute SE for inverse of N (from Krebs 2.11, Ricker 3.16)
-        ifelse(object$chapman.mod, invN.SE <- with(object, sqrt((sum.m+1)/(sum.nM^2)) ),
-               invN.SE <- with(object, sqrt(sum.m/(sum.nM^2)) ) )
-        # Compute CI for inverse of N
-        invN.ci <- ci.t(1/object$N,invN.SE,df)
-        # Invert to get CI for N
-        ci <- rbind((1/invN.ci)[2:1])
-      } else {
-        # Get Poisson CI
-        ci1 <- poiCI(object$sum.m,conf.level)
-        # Coeffect if chapman modification was used
-        ifelse(object$chapman.mod,N.poi <- object$sum.nM/(ci1+1),
-               N.poi <- object$sum.nM/ci1)
-        ci <- rbind(N.poi[2:1])
-      }
-    } else {
-      # Get df (from from Krebs p. 32)
-      df <- length(object$n)-2
-      # Compute SE for inverse of N (from Krebs 2.14)
-      invN.SE <- with(object, sqrt(((sum.m2dn-(sum.mM^2)/sum.nM2)/df)/(sum.nM2)) )
-      # Compute CI for inverse of N
-      invN.ci <- ci.t(1/object$N,invN.SE,df)
-      # Invert to get CI for N
-      ci <- rbind((1/invN.ci)[2:1])
-    }
-    # Put message at top of output if asked for
-    if (incl.inputs) message("The ",ci.type," method was used.\n")
-    # Show the CIs
-    ci
-  } # end ci.mrc2 internal function
-  ## MAIN FUNCTION
-  # Some initial checks
   if(!is.null(parm)) {
     warning("parm argument is meaningless for this class of object; it has been reset to NULL.\n\n",call.=FALSE)
     parm <- NULL
   }
-  ci.type <- match.arg(ci.type)
+  type <- match.arg(type)
   bin.type <- match.arg(bin.type)
-  if (object$type=="Schnabel" & ci.type %in% c("binomial","hypergeom")) stop("The CI type must be 'suggested', 'normal', or 'Poisson' when using the Schnabel method.",call.=FALSE)
-  if (object$type=="SchumacherEschmeyer" & ci.type %in% c("binomial","hypergeom","Poisson")) stop("The CI type must be 'normal' when using the Schumacher-Eschmeyer method.",call.=FALSE)
+  if (object$type=="Schnabel" & type %in% c("binomial","hypergeometric")) stop("The CI type must be 'suggested', 'normal', or 'Poisson' when using the Schnabel method.",call.=FALSE)
+  if (object$type=="SchumacherEschmeyer" & type %in% c("binomial","hypergeometric","Poisson")) stop("The CI type must be 'normal' when using the Schumacher-Eschmeyer method.",call.=FALSE)
   if (object$type %in% c("Petersen","Chapman","Ricker","Bailey")) {
     ci <- NULL
     for (i in 1:length(object$N)) {
       temp <- with(object, list(M=M[i],n=n[i],m=m[i],M1=M1[i],n1=n1[i],m1=m1[i],cf=cf[i],type=type,meth=meth,N=N[i],labels=labels[i]) )
-      ci <- rbind(ci,ci.mrc1(temp,conf.level,ci.type,bin.type,incl.inputs,...))
+      ci <- rbind(ci,iCI.MRCSingle(temp,conf.level,type,bin.type,incl.inputs,...))
     }
-  } else ci <- ci.mrc2(object,conf.level,ci.type,incl.inputs,...)
+  } else ci <- iCI.MRCMultiple(object,conf.level,type,incl.inputs,...)
   rownames(ci) <- object$labels
   colnames(ci) <- iCILabel(conf.level)
   round(ci,digits)
 }
+
+
+iCIt <- function(est,SE,obsdf,conf.level=0.95) {
+  ## Internal function for computing normal theory CIs -- from NCStats
+  hw <- qt(1-(1-conf.level)/2,obsdf)*SE
+  res <- cbind(est-hw,est+hw)
+  colnames(res) <- iCILabel(conf.level)
+  res
+}
+
+
+# M/R Closed, Single Census, Only One Population CI
+iCI.MRCSingle <- function(object,conf.level,type,bin.type,incl.inputs,...) {
+  # Follow Sebers' suggestions if asked to
+  if (type=="suggested") {
+    if ((object$m/object$n) > 0.10) type <- "binomial"
+    else if (object$m > 50) type <- "normal"
+    else type <- "Poisson"
+  }
+  switch(type,
+         hypergeometric={
+           ci <- hyperCI(object$M,object$n,object$m,conf.level)
+         }, 
+         binomial={
+           # Binomial CI for phat
+           ci1 <- binCI(object$m,object$n,conf.level,bin.type)
+           # Convert to CI for m1
+           ifelse(object$type=="Petersen",m.ci <- ci1*object$n,
+                  m.ci <- ci1*object$n+1)
+           # Put endpoints back into N formula to get CI for N
+           N.bin <- (object$M1*object$n1)/m.ci-object$cf
+           ci <- N.bin[2:1]
+         }, 
+         normal={
+           # Find +/- Z for normal CI
+           zalpha <- c(-1,1)*abs(qnorm((1-conf.level)/2))
+           if (object$type=="Petersen") {
+             ## Krebs eqn 2.4 (p.20), built in parts
+             # Find phat
+             phat <- object$m/object$n
+             # Find finite population correction factor
+             fpc <- 1-object$m/object$M
+             # Correction for continuity
+             cc <- 1/(2*object$n)
+             # SE for phat
+             SE <- sqrt(fpc*phat*(1-phat)/(object$n-1))
+             # CI for phat
+             ci <- phat-zalpha*SE+cc
+             # CI for N
+             ci <- rbind(object$M/ci)
+           } else {
+             # SE from Seber p.60 for Chapman
+             # SE from Ricker, eqn 3.8, p.78 for Ricker and Seber p.61 for Bailey
+             ifelse(object$type=="Chapman",SE <- with(object, sqrt(M1*n1*(M1-m1)*(n1-m1)/((m1^2)*(m1+1))) ),  
+                    SE <- with(object, sqrt(((M1^2)*n1*(n-m))/((m1^2)*(m1+1))) ) )  
+             # CI for N
+             ci <- rbind(object$N+zalpha*SE)
+           }
+         },
+         Poisson={
+           # Poisson CI for m
+           m.ci <- poiCI(object$m,conf.level)
+           # Convert to CI for m1
+           if (object$type!="Petersen") m.ci <- m.ci+1
+           # Put endpoints back in N formula to get CI for N
+           N.poi <- (object$M1*object$n1)/m.ci-object$cf    
+           ci <- N.poi[,2:1]
+         }
+  )
+  # Put message at top of output if asked for
+  if (incl.inputs) {
+    msg <- paste("The ",type," method was used.\n")
+    if (!is.null(object$labels)) msg <- paste(object$labels,"-",msg)
+    message(msg)
+  }
+  # Show the CIs
+  ci
+} # end iCI.MRCSingle internal function
+
+# M/R Closed, Multiple Census CI
+iCI.MRCMultiple <- function(object,conf.level,type,incl.inputs,...) {  
+  # Follow Seber's suggestions if asked for
+  if (type=="suggested") {
+    if (object$type=="SchumacherEschmeyer") type <- "normal"
+    else if (object$sum.m < 50) type <- "Poisson"
+    else type <- "normal"
+  }
+  if (object$type=="Schnabel") {
+    if (type=="normal") {
+      # Get df (from Krebs p. 32)
+      df <- length(object$n)-1
+      # Compute SE for inverse of N (from Krebs 2.11, Ricker 3.16)
+      ifelse(object$chapman.mod, invN.SE <- with(object, sqrt((sum.m+1)/(sum.nM^2)) ),
+             invN.SE <- with(object, sqrt(sum.m/(sum.nM^2)) ) )
+      # Compute CI for inverse of N
+      invN.ci <- iCIt(1/object$N,invN.SE,df)
+      # Invert to get CI for N
+      ci <- rbind((1/invN.ci)[2:1])
+    } else {
+      # Get Poisson CI
+      ci1 <- poiCI(object$sum.m,conf.level)
+      # Coeffect if chapman modification was used
+      ifelse(object$chapman.mod,N.poi <- object$sum.nM/(ci1+1),
+             N.poi <- object$sum.nM/ci1)
+      ci <- rbind(N.poi[2:1])
+    }
+  } else {
+    # Get df (from from Krebs p. 32)
+    df <- length(object$n)-2
+    # Compute SE for inverse of N (from Krebs 2.14)
+    invN.SE <- with(object, sqrt(((sum.m2dn-(sum.mM^2)/sum.nM2)/df)/(sum.nM2)) )
+    # Compute CI for inverse of N
+    invN.ci <- iCIt(1/object$N,invN.SE,df)
+    # Invert to get CI for N
+    ci <- rbind((1/invN.ci)[2:1])
+  }
+  # Put message at top of output if asked for
+  if (incl.inputs) message("The ",type," method was used.\n")
+  # Show the CIs
+  ci
+} # end iCI.MRCMultiple internal function
+
+
 
 
 #' @rdname mrClosed

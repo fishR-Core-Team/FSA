@@ -1,5 +1,10 @@
 # FSA 0.4.17 ongoing
-
+* `confint.mrClosed()`: Modified.  Moved all internal functions outside of `confint.mrClosed()` environment (see `iCI.MRCMultiple()` and `iCI.MRCSingle()`).  Changed `ci.type=` to just `type=`.
+* `extraSS()`: Modified.  Slight change to row labels in output table.
+* `iMRCMultiple()`:  Added.  Was `mrc2()` internal function inside of `mrClosed()` environment.
+* `iMRCSingle()`:  Added.  Was `mrc1()` internal function inside of `mrClosed()` environment.
+* `lrt()`: Modified.  Slight change to row labels in output table.
+* `mrClosed()`: Modified.  Moved all internal functions outside of `mrClosed()` environment (see `iMRCMultiple()` and `iMRCSingle()`).  Added more catches for argument problems (required setting `n=`, `m=`, `M=` and `R=` to `NULL`).  
 
 # FSA 0.4.16 Jul14
 * `BluegillLM`: Modified.  Added a seealso.
