@@ -13,15 +13,15 @@ mrClosed(M = NULL, n = NULL, m = NULL, R = NULL, type = c("Petersen",
 \method{summary}{mrClosed}(object, digits = 0, incl.SE = FALSE,
   incl.all = FALSE, incl.inputs = FALSE, ...)
 
+\method{plot}{mrClosed}(x, pch = 19, col.pt = "black",
+  xlab = expression(M[i]), ylab = expression(m[i]\%/\%n[i]),
+  loess = FALSE, lty.loess = 2, lwd.loess = 1, col.loess = "gray20",
+  trans.loess = 10, span = 0.9, ...)
+
 \method{confint}{mrClosed}(object, parm = NULL, level = conf.level,
   conf.level = 0.95, digits = 0, type = c("suggested", "binomial",
   "hypergeometric", "normal", "Poisson"), bin.type = c("wilson", "exact",
   "asymptotic"), incl.inputs = FALSE, ...)
-
-\method{plot}{mrClosed}(x, pch = 19, col.pt = "black",
-  xlab = expression(M[i]), ylab = expression(m[i]\%/\%n[i]),
-  loess = FALSE, lty = 2, lwd = 2, col.loess = "red", f = 2/3,
-  iter = 5, ...)
 }
 \arguments{
 \item{M}{A numeric representing the number of marked fish from the first sample (single-census), an object from \code{capHistSum()} (single- or multiple-census), or numeric vector of marked fish prior to ith samples (multiple-census).}
@@ -69,15 +69,15 @@ in ith sample (multiple-census).}
 
 \item{loess}{A logical that indicates if a loess smoother line is fit to and shown on plot.}
 
-\item{lty}{a numeric used to indicate the type of line used for the loess line.}
+\item{lty.loess}{A single numeric used to indicate the type of line used for the loess line.}
 
-\item{lwd}{a numeric used to indicate the line width of the loess line.}
+\item{lwd.loess}{A single numeric used to indicate the line width of the loess line.}
 
-\item{col.loess}{a string used to indicate the color of the loess line.}
+\item{col.loess}{A single string used to indicate the color of the loess line.}
 
-\item{f}{a numeric for the loess smoother span.  This gives the proportion of points in the plot which influence the smooth at each value.  Larger values give more smoothness.}
+\item{trans.loess}{A single numeric that indicates how transparent the loess band should be (larger numbers are more transparent).}
 
-\item{iter}{a numeric for the number of \dQuote{robustifying} iterations which should be performed.  Using smaller values of iter will make lowess run faster.}
+\item{span}{A single numeric that controls the degree of smoothing.  Values closer to 1 are more smooth.}
 
 \item{\dots}{Additional arguments for methods.}
 }
@@ -125,7 +125,9 @@ For multiple census data, the following methods can be declared for use with the
 
 If \code{M} contains an object from \code{\link{capHistSum}} and the Schnabel or Schumacher-Eschmeyer methods has been chosen then \code{n}, \code{m} and \code{R} can be left missing or will be ignored.  In this case, the function will extract the needed data from the \code{sum} portion of the \code{CapHist} class object.  Otherwise, the user must supply vectors of results in \code{n}, \code{m}, and \code{R} or \code{M}.  The popuation estimate for each method is returned from \code{summary}.
 
-Confidence intervals for the initial population size using multiple census methods can be constructed using two different distributions (normal, Poisson) for the Schnabel method or the normal distribution for the Shumacher-Eschmeyer method as chosen with \code{type=}.  If \code{citype="suggested"} then the type of confidence interval suggested by the rules in Seber (2002) is used.  If \code{type="Schnabel"} and \code{type="normal"} then the standard error for the inverse of the population estimate is compute as the square root of eqn 2.11 from Krebs (1989) or eqn 3.16 from Ricker (1975).  If \code{type="SchumacherEschmeyer"} then the standard error for the inverse of the population estimate is computed with eqn 2.14 from Krebs (1989) (Note that the divisor in Krebs (1989) is different than the divisor in Ricker (1975) eqn 3.13, but consistent with eqn 4.17 in Seber (2002)).  The confidence intervals when \code{type="normal"} are constructed by inverting a confidence interval for the inverse population estimate.  The confidence interval for the inverse population estimate is constructed from the inverse population estimate plus/minus a t critical value times the standard error for the inverse population estimate.  The t critical value uses the number of samples minus 1 when \code{type="Schnabel"} and the number of samples minus 2 when \code{type="SchumacherEschmeyer"} according to p. 32 of Krebs (1989) (note that this is different than whe Ricker (1975) does).  Note that confidence intervals for the population size when \code{type="normal"} may contain negative values (for the upper value) when the population estimate is relatively large and the number of samples is small (say, three) because the intervals are orginally constructed on the inverted population estimate and they use the t-distribution.
+Confidence intervals for the initial population size using multiple census methods can be constructed using two different distributions (normal, Poisson) for the Schnabel method or the normal distribution for the Shumacher-Eschmeyer method as chosen with \code{type=}.  If \code{citype="suggested"} then the type of confidence interval suggested by the rules in Seber (2002) is used.  If \code{type="Schnabel"} and \code{type="normal"} then the standard error for the inverse of the population estimate is compute as the square root of eqn 2.11 from Krebs (1989) or eqn 3.16 from Ricker (1975).  If \code{type="SchumacherEschmeyer"} then the standard error for the inverse of the population estimate is computed with eqn 2.14 from Krebs (1989) (Note that the divisor in Krebs (1989) is different than the divisor in Ricker (1975) eqn 3.13, but consistent with eqn 4.17 in Seber (2002)).  The confidence intervals when \code{type="normal"} are constructed by inverting a confidence interval for the inverse population estimate.  The confidence interval for the inverse population estimate is constructed from the inverse population estimate plus/minus a t critical value times the standard error for the inverse population estimate.  The t critical value uses the number of samples minus 1 when \code{type="Schnabel"} and the number of samples minus 2 when \code{type="SchumacherEschmeyer"} according to p. 32 of Krebs (1989) (note that this is different than what Ricker (1975) does).  Note that confidence intervals for the population size when \code{type="normal"} may contain negative values (for the upper value) when the population estimate is relatively large and the number of samples is small (say, three) because the intervals are orginally constructed on the inverted population estimate and they use the t-distribution.
+
+The \code{plot} can be used to identify assumption violations in the Schnabel and Schumacher-Eschmeyer methods (an error will be returned if used with any of the other methods).  If the assumptions ARE met then the plot of the proportion of marked fish in a sample versus the cumulative number of marked fish should look linear.  A loess line (with approximate 95% confidence bands) can be added to aid interpretation with \code{loess=TRUE}.  Note, however, that adding the loess line may return a number of warning or produce a non-informative if the number of samples is small (<8).
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/MRClosed.pdf}
@@ -176,6 +178,7 @@ data(PikeNY)
 # Schnabel method
 mr5 <- with(PikeNY,mrClosed(n=n,m=m,R=R,type="Schnabel"))
 plot(mr5)
+plot(mr5,loess=TRUE)
 summary(mr5)
 confint(mr5)
 

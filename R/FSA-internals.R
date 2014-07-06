@@ -4,6 +4,7 @@
 #'
 #' @details Take note of the following uses:
 #'  \itemize{
+#'    \item \code{iAddLoessLine} used in \code{\link{mrClosed}} and \code{\link{residPlot}}.
 #'    \item \code{iCheckStartcatW} used in \code{\link{lencat}} and \code{\link{lenFreqExpand}}.
 #'    \item \code{iCILabel} is used in \code{\link{binCI}}, \code{\link{bootCase}}, \code{\link{catchCurve}}, \code{\link{chapmanRobson}}, \code{\link{confint.nlsBoot}}, \code{\link{depletion}}, \code{\link{hyperCI}}, \code{\link{mrClosed}}, \code{\link{poiCI}}, \code{\link{predict.nlsBoot}}, \code{\link{removal}}.
 #'    \item \code{iGetVarFromFormula} is used in \code{\link{ageKey}}, \code{\link{lencat}}, \code{\link{psdCalc}}, \code{\link{psdDataPrep}}, \code{\link{psdPlot}}, \code{\link{recodeSpecies}}, \code{\link{wrAdd}}, and \code{\link{wrDataPrep}}. 
@@ -17,7 +18,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach iCheckStartcatW iCILabel iGetVarFromFormula iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iTypeoflm
+#' @aliases .onAttach iAddLoessLine iCheckStartcatW iCILabel iGetVarFromFormula iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iTypeoflm
 
 
 ##################################################################
@@ -41,6 +42,20 @@
   msg <- paste(msg,"############################################\n\n")
   packageStartupMessage(msg)
 }
+
+
+iAddLoessLine <- function(r,fv,lty.loess,lwd.loess,col.loess,trans.loess,span=0.75) {
+  mdl <- loess(r~fv,span=span)
+  xrng <- range(fv)
+  xseq <- seq(from=xrng[1],to=xrng[2],length=80)
+  pred <- predict(mdl,newdata=data.frame(fv=xseq),se=TRUE)
+  y <- pred$fit
+  ci <- pred$se.fit*qt(0.95/2+.5,pred$df)
+  ymin <- y-ci
+  ymax <- y+ci
+  polygon(c(xseq,rev(xseq)),c(ymin,rev(ymax)),col=iMakeColor(col.loess,trans.loess),border=NA)
+  lines(y~xseq,lwd=lwd.loess,lty=lty.loess,col=col.loess)
+}  # end iAddLoessLine internal function
 
 
 iCheckStartcatW <- function(startcat,w,d) {

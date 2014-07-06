@@ -320,20 +320,6 @@ iAddOutlierTestResults <- function(object,fv,r,alpha) {
   }
 }  # end iAddOutlierTestResults internal function
 
-iAddLoessLine <- function(r,fv,lty.loess,lwd.loess,col.loess,trans.loess) {
-  mdl <- loess(r~fv)
-  xrng <- range(fv)
-  xseq <- seq(from=xrng[1],to=xrng[2],length=80)
-  pred <- predict(mdl,newdata=data.frame(fv=xseq),se=TRUE)
-  y <- pred$fit
-  ci <- pred$se.fit*qt(0.95/2+.5,pred$df)
-  ymin <- y-ci
-  ymax <- y+ci
-  polygon(c(xseq,rev(xseq)),c(ymin,rev(ymax)),col=iMakeColor(col.loess,trans.loess),border=NA)
-  lines(y~xseq,lwd=lwd.loess,lty=lty.loess,col=col.loess)
-}  # end iAddLoessLine internal function
-
-
 iGetMainTitle <- function(object,main) {
   # if no main title was sent to function
   if (is.null(main)) {
