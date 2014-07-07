@@ -98,21 +98,30 @@ A list with the following items
  }
 }
 \description{
-Estimates of the initial population size, along with associated confidence intervals, are constructed from single or multiple census mark-recapture data using a variety of methods.  For single census data, the initial population size is estimated from the number of marked animals from a first sample, number of captured animals in a second sample, and the number of recaptured marked animals in the second sample using either the \sQuote{naive} Petersen method or Chapman, Ricker, or Bailey modifications of the Petersen method.  Single census data can also be separated by group (e.g., size class) to estimate the initial population size by class and for the overall population size.  For multiple census data, the initial population sizes is estimated from the number of captured animals, number of recaptured marked animals, the number of marked animals that are marked and returned to the population, or the number of extant marked animals prior to the sapmle on each of several samples using either the Schnabel (1938) or Schumacher-Eschmeyer (1943) method.
+Estimates of the initial population size, along with associated confidence intervals, are constructed from single or multiple census mark-recapture data using a variety of methods.  For single census data, the initial population size (N) is estimated from the number of marked animals from a first sample (M), number of captured animals in a second sample (n), and the number of recaptured marked animals in the second sample (m) using either the \sQuote{naive} Petersen method or Chapman, Ricker, or Bailey modifications of the Petersen method.  Single census data can also be separated by group (e.g., size class) to estimate the initial population size by class and for the overall population size.  For multiple census data, the initial population size is estimated from the number of captured animals (n), number of recaptured marked animals (m), the number of marked animals that are marked and returned to the population (R), or the number of extant marked animals prior to the sapmle (M) on each of several samples using either the Schnabel (1938) or Schumacher-Eschmeyer (1943) method.
 }
 \details{
-The main \code{mrClosed} function computes a variety of values that are intermediate to the final population estimate and its standard error and confidence intervals.  For single census data, the following methods can be declared for use with the \code{type=} argument:
+For single census data, the following methods can be used:
 
-\tabular{ll}{
- \code{type="Petersen"} \tab naive Petersen (from Krebs (1989) eqn 2.1) .\cr
- \code{type="Chapman"} \tab Chapman (1951) modification of the Petersen (from Krebs (1989) eqn 2.2).\cr
- \code{type="Ricker"} \tab Ricker (1975) modification of the Chapman modification (from Ricker (1975) eqn 3.7).\cr
- \code{type="Bailey"} \tab Bailey (1951,1952) modification of the Petersen (Krebs (1989) eqn 2.3).
+\itemize{
+  \item{\code{type="Petersen"}.  The \sQuote{naive} Petersen as computed using equation 2.1 from Krebs (1989).}
+  \item{\code{type="Chapman"}.  The Chapman (1951) modification of the Petersen method as computed using equation 2.2 from Krebs (1989).}
+  \item{\code{type="Ricker"}.  The Ricker (1975) modification of the Petersen as computed using equation 3.7 from Ricker (1975).  This is basically the same \code{type="Chapman"} except that Ricker (1975) did NOT subtract a 1 from the answer in the final step.  Thus, the estimate from \code{type="Chapman"} will always be one less than the estimate from \code{type="Ricker"}.}
+  \item{\code{type="Bailey"}.  The Bailey (1951, 1952) modification of the Petersen as computed using equation 2.3 from Krebs (1989).}
 }
 
-If \code{M} contains an object from the \code{capHistSum} function and one of Petersen, Chapman, Ricker, or Bailey methods has been chosen then \code{n} and \code{m} can be left missing or will be ignored.  In this case, the function will extract the needed data from the \code{sum} portion of the \code{CapHist} class object.  If the data were not summarized with \code{\link{capHistSum}} then all of \code{M}, \code{n}, and \code{m} must be supplied by the user.  The popuation estimate for each method is returned from \code{summary}.
+If \code{M} contains an object from \code{\link{capHistSum}} and one of Petersen, Chapman, Ricker, or Bailey methods has been selected with \code{type=} then \code{n=} and \code{m=} can be left missing or will be ignored and the needed data will be extracted from the \code{sum} portion of the \code{CapHist} class object.  If the data were not summarized with \code{\link{capHistSum}} then all of \code{M=}, \code{n=}, and \code{m=} must be supplied by the user.
 
-Confidence intervals for the initial population size estimated with the single census methods can be constructed using four different distributions as chosen with \code{type=} in \code{confint}.  If \code{citype="suggested"} then the type of confidence interval suggested by the rules in Seber (2002) is used.  The hypergeometric method should be exact (with sampling without replacement) but is experimental at this point.  The other three types of confidence intervals are constructed according to Seber (2002) but using computer algorithms to estimate the distributions rather than tables and graphs as in Seber (2002).  If \code{type="normal"} then the confidence interval is constructed from normal theory (i.e., plus/minus z critical value times the standard error).  In this case, the standard error for the Petersen method is the square root of eqn 3.6 in Ricker(1975), the standard error for the Chapman method uses square root of the unnumbered equation on page 60 of Seber(2002), the standard error for the Ricker method uses the square root of eqn 3.8 in Ricker(1975), and the standard error for the Bailey method uses the square root of the unnumbered equation on page 61 of Seber (2002).  The standard error for the single census population estimate will be returned, primarily for historical purposes, if \code{incl.SE=TRUE} is used in \code{summary}.
+The population estimate (as computed with the formulas noted in the table above) is extracted with \code{summary}.  In addition, the standard error of the population estimate (SE) can be extracted by including \code{incl.SE=TRUE}.  The SE is from equation 3.6 (p. 78) in Ricker (1975) for the Petersen method, from p. 60 (near bottom) of Seber (2002) for the Chapman method, from p. 61 (middle) of Seber (2002) (and as noted on p. 79 of Ricker (1975)) for the Bailey method, and from equation 3.8 (p. 78) in Ricker (1975) for the Ricker method.
+
+Confidence intervals for the initial population size from the single census methods can be constructed using four different distributions as chosen with \code{type=} in \code{confint}.  If \code{type="suggested"} then the type of confidence interval suggested by the rules on p. 18 in Krebs (1989) are used.  The general methods for constructing confidence intervals for N are described below
+
+\itemize{
+ \item{\code{type="hypergeometric"}.  Uses \code{\link{hyperCI}}.  This is experimental at this point.}
+ \item{\code{type="binomial"}.  Use \code{\link{binCI}} to construct a confidence interval for m/n (Petersen method) or (m+1)/(n+1) (Chapman, Bailey, Ricker methods), divides M or (M+1) by the CI endpoints, and substract 1 (for the Chapman method).}
+ \item{\code{type="Poisson"}.  Use \code{\link{poiCI}} to construct a confidence interval for m (Petersent method) or (m+1) (Chapman, Bailey, Ricker methods), substitute the CI endpoints into the appropriate equation for estimating N, and subtract 1 (for the Chapman method).}
+ \item{\code{type="normal"}.  Used equation 2.4 (p.20) from Krebs (2002) for the Petersen method.  For the other methods, used N+/- Z(0.975)*SE, where the SE was computed as noted above.}
+}
 
 If \code{incl.all=TRUE} in the \code{summary} function and population estimates have been constructed for multiple sub-groups then an overall population estimate will be included by summing the population estimates for the multiple sub-groups.  In this case, if \code{incl.SE=TRUE}, then an overall SE will be computed by taking the square root of the summed VARIANCES for the multiple sub-groups.
 
@@ -133,25 +142,24 @@ The \code{plot} can be used to identify assumption violations in the Schnabel an
  \url{https://sites.google.com/site/fishrfiles/gnrl/MRClosed.pdf}
 }
 \examples{
-## Single census with no sub-groups
-# Petersen estimate -- the default
+### Single census with no sub-groups
+## Petersen estimate -- the default
 mr1 <- mrClosed(346,184,49)
 summary(mr1)
 summary(mr1,incl.inputs=TRUE)
+summary(mr1,incl.SE=TRUE)
+summary(mr1,incl.SE=TRUE,digits=1)
 confint(mr1)
 confint(mr1,incl.inputs=TRUE)
 confint(mr1,type="hypergeometric")
 
-# Chapman modification of the Petersen estimate
+## Chapman modification of the Petersen estimate
 mr2 <- mrClosed(346,184,49,type="Chapman")
-confint(mr2)
-
-# Chapman estimate showing the SE
 summary(mr2,incl.SE=TRUE)
-summary(mr2,incl.SE=TRUE,digits=1)
+summary(mr2,incl.SE=TRUE,incl.inputs=TRUE)
 
-## Single census, using capHistSum() results
-# data in capture history format
+### Single census, using capHistSum() results
+## data in capture history format
 data(BluegillJL)
 str(BluegillJL)
 ch1 <- capHistSum(BluegillJL)
@@ -159,7 +167,7 @@ mr3 <- mrClosed(ch1)
 summary(mr3)
 confint(mr3)
 
-## Single census with sub-groups
+### Single census with sub-groups
 marked <- c(93,35,72,16,46,20)
 captured <- c(103,30,73,17,39,18)
 recaps <- c(20,23,52,15,35,16)
@@ -171,27 +179,27 @@ summary(mr4,incl.SE=TRUE,incl.all=TRUE)
 summary(mr4,incl.SE=TRUE,incl.all=TRUE,incl.inputs=FALSE)
 confint(mr4)
 
-## Multiple Census
-#Data in summarized form
+### Multiple Census
+## Data in summarized form
 data(PikeNY)
 
-# Schnabel method
+## Schnabel method
 mr5 <- with(PikeNY,mrClosed(n=n,m=m,R=R,type="Schnabel"))
 plot(mr5)
 plot(mr5,loess=TRUE)
 summary(mr5)
 confint(mr5)
 
-# Schumacher-Eschmeyer method
+## Schumacher-Eschmeyer method
 mr6 <- with(PikeNY,mrClosed(n=n,m=m,R=R,type="Schumacher"))
 summary(mr6)
 confint(mr6)
 
-## Capture history data summarized by capHistSum()
+### Capture history data summarized by capHistSum()
 data(PikeNYPartial1)
 ch2 <- capHistSum(PikeNYPartial1,cols=-1)  # ignore first column of ID numbers
 
-# Schnabel method
+## Schnabel method
 mr7 <- mrClosed(ch2,type="Schnabel")
 plot(mr7,loess=TRUE)
 summary(mr7)

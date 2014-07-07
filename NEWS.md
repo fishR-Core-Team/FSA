@@ -1,11 +1,13 @@
 # FSA 0.4.17 ongoing
-* `confint.mrClosed()`: Modified.  Moved all internal functions outside of `confint.mrClosed()` environment (see `iCI.MRCMultiple()` and `iCI.MRCSingle()`).  Changed `ci.type=` to just `type=`.
+* `confint.mrClosed()`: Modified.  Moved all internal functions outside of `confint.mrClosed()` environment (see `iCI.MRCMultiple()` and `iCI.MRCSingle()`).  Changed `ci.type=` to just `type=`.  Streamlined binomial method for single census.  Used `iMRCSingleSE()` to get SE for when `type="normal"` for Chapman, Bailey, and Ricker methods.
 * `extraSS()`: Modified.  Slight change to row labels in output table.
 * `iMRCMultiple()`:  Added.  Was `mrc2()` internal function inside of `mrClosed()` environment.
 * `iMRCSingle()`:  Added.  Was `mrc1()` internal function inside of `mrClosed()` environment.
+* `iMRCSingleSE()`: Added.  Moved functionality out of `summary.mrClosed()`.  Checked and documented all formulas with sources (in code and in Rd file).
 * `lrt()`: Modified.  Slight change to row labels in output table.
 * `mrClosed()`: Modified.  Moved all internal functions outside of `mrClosed()` environment (see `iMRCMultiple()` and `iMRCSingle()`).  Added more catches for argument problems (required setting `n=`, `m=`, `M=` and `R=` to `NULL`).  
 * `plot.mrClosed()`: Modified.  Removed setting of `par()`.  Changed from using `lowess()` to using `loess()` and set better default values.  Added descriptive text to help file.
+* `summary.mrClosed()`: Modified.  Moved SE calculations into an internal function (see `iMRCSingleSE()`).
 
 # FSA 0.4.16 Jul14
 * `BluegillLM`: Modified.  Added a seealso.
