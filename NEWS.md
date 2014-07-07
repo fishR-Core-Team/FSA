@@ -1,4 +1,7 @@
 # FSA 0.4.17 ongoing
+
+
+# FSA 0.4.17 Jul14
 * `confint.mrClosed()`: Modified.  Moved all internal functions outside of `confint.mrClosed()` environment (see `iCI.MRCMultiple()` and `iCI.MRCSingle()`).  Changed `ci.type=` to just `type=`.  Streamlined binomial method for single census.  Used `iMRCSingleSE()` to get SE for when `type="normal"` for Chapman, Bailey, and Ricker methods.
 * `extraSS()`: Modified.  Slight change to row labels in output table.
 * `iMRCMultiple()`:  Added.  Was `mrc2()` internal function inside of `mrClosed()` environment.
