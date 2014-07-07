@@ -28,46 +28,43 @@ mrClosed(M = NULL, n = NULL, m = NULL, R = NULL, type = c("Petersen",
 
 \item{n}{A numeric representing the number of captured fish in the second sample (single-census) or numeric vector of captured fish in ith sample (multiple-census).}
 
-\item{m}{A numeric representing the number of recaptured (marked) fish in the second sample (single-census) or numeric vector of recaptured (marked) fish
-in ith sample (multiple-census).}
+\item{m}{A numeric representing the number of recaptured (marked) fish in the second sample (single-census) or numeric vector of recaptured (marked) fish in ith sample (multiple-census).}
 
-\item{R}{A numeric vector representing the number of marked fish returned to the population (multiple-census).  Note that several references use the number of \dQuote{new} marks returned to the population rather than the \dQuote{total} number of marked returned to the population that is used here.}
+\item{R}{A numeric vector representing the number of marked fish returned to the population (multiple-census).  Note that several references use the number of \dQuote{new} marks returned to the population rather than the \dQuote{total} number of marks returned to the population that is used here.}
 
 \item{type}{A single string that identifies the type of calculation method to use in the main function or the method to use when constructing confidence intervals in \code{confint}. See details.}
 
 \item{labels}{A character or character vector used to label the rows of the resulting output matrix when using a single census method separated by groups.  Must be the same length as \code{M}, \code{n}, and \code{m}.  Defaults to upper-case letters if no values are given.}
 
-\item{chapman.mod}{A logical that represents whether the Chapman modification method should be used (\code{=TRUE}, default) or not (\code{=FALSE}) when performing the Schnabel multiple census method.}
+\item{chapman.mod}{A logical that represents whether the Chapman modification should be used (\code{=TRUE}, default) or not (\code{=FALSE}) when performing the Schnabel multiple census method.}
 
-\item{object}{An object saved from the \code{mrClosed} call (i.e., of class \code{mrClosed}).}
-
-\item{x}{An object saved from the \code{mrClosed} call when using \code{type="Schnabel"} or \code{type="SchumacherEschmeyer"} (i.e., of class \code{mrClosed}).}
+\item{object,x}{An \code{mrClosed} object.}
 
 \item{digits}{The number of decimal digits to round the population estimates to.  If \code{incl.SE=TRUE} then SE will be rounded to one more decimal place then given in \code{digits}.}
 
-\item{incl.SE}{A logical that indicates whether the results should include the SE calculation.  See details.}
+\item{incl.SE}{A logical that indicates whether the results should include the calculated SE value.  See details.}
 
 \item{incl.all}{A logical that indicates whether an overall population estimate should be computed when using a single census method that has been separated into sub-groups.  See details.}
 
 \item{incl.inputs}{A logical that indicates whether a reminder of the inputted values and what type of method was used should be printed with the summary and confidence interval results.}
 
-\item{parm}{a specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.}
+\item{parm}{Not used here (included in \code{confint} generic).}
 
-\item{level}{Same as \code{conf.level} but used for compatability with generic \code{confint} function.}
+\item{level}{Same as \code{conf.level} but used for compatability with \code{confint} generic.}
 
-\item{conf.level}{A numeric representing the level of confidence to use for constructing confidence intervals.}
+\item{conf.level}{A numeric representing the level of confidence to use for confidence intervals.}
 
-\item{bin.type}{A string that identifies the method used to construct binomial confidence intervals (default is \code{"wilson"}).  This is only used if \code{citype="binomial"}.  See details of \code{binCI}}
+\item{bin.type}{A string that identifies the method used to construct binomial confidence intervals (default is \code{"wilson"}).  This is only used if \code{type="binomial"} in \code{confint}.  See details of \code{binCI}}
 
 \item{pch}{A numeric used to indicate the type of plotting character.}
 
 \item{col.pt}{a string used to indicate the color of the plotted points.}
 
-\item{xlab}{A label for the x-axis (\code{"Age"} is the default).}
+\item{xlab}{A label for the x-axis.}
 
-\item{ylab}{A label for the y-axis (\code{"log(Catch)"} is the default).}
+\item{ylab}{A label for the y-axis.}
 
-\item{loess}{A logical that indicates if a loess smoother line is fit to and shown on plot.}
+\item{loess}{A logical that indicates if a loess smoother line (and approximate 95\% confidence band) is fit to and shown on plot.}
 
 \item{lty.loess}{A single numeric used to indicate the type of line used for the loess line.}
 
@@ -102,7 +99,6 @@ Estimates of the initial population size, along with associated confidence inter
 }
 \details{
 For single census data, the following methods can be used:
-
 \itemize{
   \item{\code{type="Petersen"}.  The \sQuote{naive} Petersen as computed using equation 2.1 from Krebs (1989).}
   \item{\code{type="Chapman"}.  The Chapman (1951) modification of the Petersen method as computed using equation 2.2 from Krebs (1989).}
@@ -123,21 +119,26 @@ Confidence intervals for the initial population size from the single census meth
  \item{\code{type="normal"}.  Used equation 2.4 (p.20) from Krebs (2002) for the Petersen method.  For the other methods, used N+/- Z(0.975)*SE, where the SE was computed as noted above.}
 }
 
-If \code{incl.all=TRUE} in the \code{summary} function and population estimates have been constructed for multiple sub-groups then an overall population estimate will be included by summing the population estimates for the multiple sub-groups.  In this case, if \code{incl.SE=TRUE}, then an overall SE will be computed by taking the square root of the summed VARIANCES for the multiple sub-groups.
+If \code{incl.all=TRUE} in \code{summary} and population estimates have been constructed for multiple sub-groups then an overall population estimate is included by summing the population estimates for the multiple sub-groups.  If \code{incl.SE=TRUE}, then an overall SE is computed by taking the square root of the summed VARIANCES for the multiple sub-groups.
 
 For multiple census data, the following methods can be declared for use with the \code{type=} argument:
-
-\tabular{ll}{
- \code{type="Schnabel"} \tab Schnabel (1938) method (from Ricker (1975) eqn 3.15).\cr
- \code{type="SchumacherEschmeyer"} \tab Schumacher and Eschmeyer (1943) method (from Ricker (1975) eqn 3.12).
+\itemize{
+  \item{\code{type="Schnabel"}.  The Schnabel (1938) method as computed with equation 3.15 from Ricker (1975).}
+  \item{\code{type="SchumacherEschmeyer"}.  The Schumacher and Eschmeyer (1943) method as computed with equation 3.12 from Ricker (1975) eqn 3.12.}
 }
 
-If \code{M} contains an object from \code{\link{capHistSum}} and the Schnabel or Schumacher-Eschmeyer methods has been chosen then \code{n}, \code{m} and \code{R} can be left missing or will be ignored.  In this case, the function will extract the needed data from the \code{sum} portion of the \code{CapHist} class object.  Otherwise, the user must supply vectors of results in \code{n}, \code{m}, and \code{R} or \code{M}.  The popuation estimate for each method is returned from \code{summary}.
+If \code{M} contains an object from \code{\link{capHistSum}} and the Schnabel or Schumacher-Eschmeyer methods has been chosen then \code{n}, \code{m} and \code{R} can be left missing or will be ignored.  In this case, the needed data is extracted from the \code{sum} portion of the \code{CapHist} class object.  Otherwise, the user must supply vectors of results in \code{n}, \code{m}, and \code{R} or \code{M}.
 
-Confidence intervals for the initial population size using multiple census methods can be constructed using two different distributions (normal, Poisson) for the Schnabel method or the normal distribution for the Shumacher-Eschmeyer method as chosen with \code{type=}.  If \code{citype="suggested"} then the type of confidence interval suggested by the rules in Seber (2002) is used.  If \code{type="Schnabel"} and \code{type="normal"} then the standard error for the inverse of the population estimate is compute as the square root of eqn 2.11 from Krebs (1989) or eqn 3.16 from Ricker (1975).  If \code{type="SchumacherEschmeyer"} then the standard error for the inverse of the population estimate is computed with eqn 2.14 from Krebs (1989) (Note that the divisor in Krebs (1989) is different than the divisor in Ricker (1975) eqn 3.13, but consistent with eqn 4.17 in Seber (2002)).  The confidence intervals when \code{type="normal"} are constructed by inverting a confidence interval for the inverse population estimate.  The confidence interval for the inverse population estimate is constructed from the inverse population estimate plus/minus a t critical value times the standard error for the inverse population estimate.  The t critical value uses the number of samples minus 1 when \code{type="Schnabel"} and the number of samples minus 2 when \code{type="SchumacherEschmeyer"} according to p. 32 of Krebs (1989) (note that this is different than what Ricker (1975) does).  Note that confidence intervals for the population size when \code{type="normal"} may contain negative values (for the upper value) when the population estimate is relatively large and the number of samples is small (say, three) because the intervals are orginally constructed on the inverted population estimate and they use the t-distribution.
+The population estimate for each method is extracted with \code{summary}.  Standard errors for the population estimate can NOT be computed for the Schnabel or Schumacher-Eschmeyer methods (a warning will be produced if \code{incl.SE=TRUE} is used).
 
-The \code{plot} can be used to identify assumption violations in the Schnabel and Schumacher-Eschmeyer methods (an error will be returned if used with any of the other methods).  If the assumptions ARE met then the plot of the proportion of marked fish in a sample versus the cumulative number of marked fish should look linear.  A loess line (with approximate 95% confidence bands) can be added to aid interpretation with \code{loess=TRUE}.  Note, however, that adding the loess line may return a number of warning or produce a non-informative if the number of samples is small (<8).
+Confidence intervals for the initial population size using multiple census methods can be constructed using the normal or Poisson distributions for the Schnabel method or the normal distribution for the Shumacher-Eschmeyer method as chosen with \code{type=}.  If \code{type="suggested"} then the type of confidence interval suggested by the rule on p. 32 of Krebs (1989) is used (for the Schnabel method).  If \code{type="Poisson"} for the Schnabel method then a confidence interval for the sum of m is computed with \code{\link{poiCI}} and the end points are substituted into the Schnabel equation to produce a CI for the population size.  If \code{type="normal"} for the Schnabel method then the standard error for the \emph{inverse} of the population estimate is computed as the square root of equation 2.11 from Krebs (1989) or equation 3.16 from Ricker (1975).  The standard error for the Schumacher-Eschmeyer method is for the \emph{inverse} of the population estimate and is computed with equation 2.14 from Krebs (1989) [Note that the divisor in Krebs (1989) is different than the divisor in equation 3.12 in Ricker (1975), but is consistent with equation 4.17 in Seber (2002).]  The confidence interval for the \emph{inverse} population estimate is constructed from the inverse population estimate plus/minus a t critical value times the standard error for the inverse population estimate.  The t critical value uses the number of samples minus 1 for the Schnabel method and the number of samples minus 2 when for the Schumacher-Eschmeyer method according to p. 32 of Krebs (1989) (note that this is different than what Ricker (1975) does).  Finally, the confidence interval for the population estimate is obtained by inverting the confidence interval for the inverse population estimate.  Note that confidence intervals for the population size when \code{type="normal"} may contain negative values (for the upper value) when the population estimate is relatively large and the number of samples is small (say, three) because the intervals are orginally constructed on the inverted population estimate and they use the t-distribution.
+
+The \code{plot} can be used to identify assumption violations in the Schnabel and Schumacher-Eschmeyer methods (an error will be returned if used with any of the other methods).  If the assumptions ARE met then the plot of the proportion of marked fish in a sample versus the cumulative number of marked fish should look linear.  A loess line (with approximate 95\% confidence bands) can be added to aid interpretation with \code{loess=TRUE}.  Note, however, that adding the loess line may return a number of warning or produce a non-informative if the number of samples is small (<8).
 }
+\section{Testing}{
+ The results from the single census methods have had the following checks.  The population estimates for all methods match reputable sources.  The SE for the Chapman and Bailey methods match the results from \code{mrN.single} in \pkg{fishmethods},  The CI for the Petersen, Chapman, and Bailey methods partially match (are within 1% when they do not match) the CIs from reputable sources.
+}
+
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/MRClosed.pdf}
 }
@@ -188,6 +189,7 @@ mr5 <- with(PikeNY,mrClosed(n=n,m=m,R=R,type="Schnabel"))
 plot(mr5)
 plot(mr5,loess=TRUE)
 summary(mr5)
+summary(mr5,incl.SE=TRUE)
 confint(mr5)
 
 ## Schumacher-Eschmeyer method
@@ -220,7 +222,7 @@ Schnabel, Z.E.  1938. The estimation of the total fish population of a lake. Ame
 Schumacher, F.X. and R.W. Eschmeyer. 1943.  The estimation of fish populations in lakes and ponds.  Journal of the Tennessee Academy of Sciences, 18:228-249.
 }
 \seealso{
-\code{\link{capHistSum}}, \code{\link{poiCI}}, \code{\link{binCI}}, \code{\link{hyperCI}}, and \code{\link{mrOpen}}; See \code{SunfishIN} in \pkg{FSAdata} for an example to test matching of results with Ricker (1975)'  See \code{mrN.single} and \code{schnabel} in \pkg{fishmethods} for similar functionality.
+See \code{\link{capHistSum}} for generating input data from capture histories.  See \code{\link{poiCI}}, \code{\link{binCI}}, and \code{\link{hyperCI}} for specifics on functions used in confidence interval constructuion.  See \code{\link{mrOpen}} for handling mark-recapture data in an open population.  See \code{SunfishIN} in \pkg{FSAdata} for an example to test matching of results with Ricker (1975)'  See \code{mrN.single} and \code{schnabel} in \pkg{fishmethods} for similar functionality.
 }
 \keyword{manip}
 

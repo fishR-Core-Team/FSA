@@ -41,4 +41,6 @@ test_that("mrClosed Multiple Census errors and warnings",{
   expect_that(mrClosed(R=R1,n=n1,type="Schnabel"),throws_error())
   expect_that(mrClosed(M=M1,R=R1,type="Schnabel"),throws_error())
   expect_that(mrClosed(M=M1,n=n1,m=m1,R=R1,type="Schnabel"),gives_warning())
+  tmp <- mrClosed(M=M1,n=n1,m=m1,type="Schnabel")
+  expect_that(summary(tmp,incl.SE=TRUE),gives_warning())
 })  
