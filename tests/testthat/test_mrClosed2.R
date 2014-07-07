@@ -11,21 +11,21 @@ test_that("mrClosed match the Petersen results from Box 2.1 in Krebs (1989)",{
 })
 
 test_that("mrClosed match the Chapman results from Box 2.1 Krebs (1989)",{
-  tmp <- mrClosed(M=948,n=421,m=167,type="Chapman")
+  tmp <- mrClosed(M=948,n=421,m=167,method="Chapman")
   stmp <- summary(tmp)
   expect_that(stmp[[1,"N"]], equals(2383))
 })
 
 test_that("mrClosed match the Chapman results from Ricker (1975)",{
   # Chapman estimate
-  tmp <- mrClosed(M=109,n=177,m=57,type="Chapman")
+  tmp <- mrClosed(M=109,n=177,m=57,method="Chapman")
   stmp <- summary(tmp)
   expect_that(stmp[[1,"N"]], equals(337))
 })  
 
 test_that("mrClosed match the Chapman results from Box 11.2 in Pine et al. (2013)",{
   # Chapmann estimate
-  tmp <- mrClosed(M=421,n=332,m=88,type="Chapman")
+  tmp <- mrClosed(M=421,n=332,m=88,method="Chapman")
   stmp <- summary(tmp)
   expect_that(stmp[[1,"N"]], equals(1578))
   ctmp <- confint(tmp,type="normal")
@@ -34,7 +34,7 @@ test_that("mrClosed match the Chapman results from Box 11.2 in Pine et al. (2013
 })  
 
 test_that("mrClosed match the Chapman results from Table 3.7 and 3.8 in Seber (2002)",{
-  tmp <- mrClosed(M=500,n=149,m=7,type="Chapman")
+  tmp <- mrClosed(M=500,n=149,m=7,method="Chapman")
   stmp <- summary(tmp,incl.SE=TRUE)
   expect_that(stmp[[1,"N"]], equals(9393))
   expect_that(round(stmp[[1,"SE"]],0), equals(3022))
@@ -43,7 +43,7 @@ test_that("mrClosed match the Chapman results from Table 3.7 and 3.8 in Seber (2
   #expect_that(ctmp[[1,"95% LCI"]], equals(3470))
   expect_that(ctmp[[1,"95% UCI"]], equals(15316))
   
-  tmp <- mrClosed(M=1000,n=243,m=21,type="Chapman")
+  tmp <- mrClosed(M=1000,n=243,m=21,method="Chapman")
   stmp <- summary(tmp,incl.SE=TRUE)
   expect_that(stmp[[1,"N"]], equals(11101))
   expect_that(round(stmp[[1,"SE"]],0), equals(2184))
@@ -57,7 +57,7 @@ test_that("mrClosed match the Chapman results from mrN.single() from fishmethods
   library(fishmethods)
   tmp1 <- mrN.single(M=948,C=421,R=167)
   
-  tmp <- mrClosed(M=948,n=421,m=167,type="Chapman")
+  tmp <- mrClosed(M=948,n=421,m=167,method="Chapman")
   stmp <- summary(tmp,incl.SE=TRUE)
   expect_that(stmp[[1,"N"]], equals(round(tmp1$N[1],0)))
   expect_that(stmp[[1,"SE"]], equals(round(tmp1$SE[1],1)))
@@ -74,7 +74,7 @@ test_that("mrClosed match the Bailey results from mrN.single() from fishmethods"
   library(fishmethods)
   tmp1 <- mrN.single(M=948,C=421,R=167)
     
-  tmp <- mrClosed(M=948,n=421,m=167,type="Bailey")
+  tmp <- mrClosed(M=948,n=421,m=167,method="Bailey")
   stmp <- summary(tmp,incl.SE=TRUE)
   expect_that(stmp[[1,"N"]], equals(round(tmp1$N[2],0)))
   expect_that(stmp[[1,"SE"]], equals(round(tmp1$SE[2],1)))

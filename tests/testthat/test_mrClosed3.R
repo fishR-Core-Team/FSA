@@ -4,7 +4,7 @@ test_that("mrClosed match the Schnabel Results from p. 32 Krebs (1989)",{
   library(FSAdata)
   data(SunfishIN)
   
-  tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,type="Schnabel",chapman.mod=FALSE))
+  tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,method="Schnabel",chapman.mod=FALSE))
   stmp <- summary(tmp)
   expect_that(stmp[[1,"N"]], equals(448))
   ## See if intermediate calculations match Krebs
@@ -28,7 +28,7 @@ test_that("mrClosed match the Schnabel results from p. 99 Ricker (1975)",{
   library(FSAdata)
   data(SunfishIN)
   
-  tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,type="Schnabel",chapman.mod=FALSE))
+  tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,method="Schnabel",chapman.mod=FALSE))
   stmp <- summary(tmp)
   expect_that(stmp[[1,"N"]], equals(448))
   ## See if intermediate calculations match Krebs
@@ -42,7 +42,7 @@ test_that("mrClosed match the Schnabel results from p. 99 Ricker (1975)",{
   #expect_that(ctmp[[1,"95% LCI"]], equals(320))
   #expect_that(ctmp[[1,"95% UCI"]], equals(746))
   
-  tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,type="Schnabel",chapman.mod=TRUE))
+  tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,method="Schnabel",chapman.mod=TRUE))
   stmp <- summary(tmp)
   expect_that(stmp[[1,"N"]], equals(430))
   ctmp <- confint(tmp,type="Poisson") 
@@ -56,7 +56,7 @@ test_that("mrClosed match the Schumacher-Eschmeyer results from p. 33 Krebs (198
   library(FSAdata)
   data(SunfishIN)
   
-  tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,type="Schumacher"))
+  tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,method="Schumacher"))
   stmp <- summary(tmp)
   expect_that(stmp[[1,"N"]], equals(423))
   ctmp <- confint(tmp,type="normal") 
@@ -69,7 +69,7 @@ test_that("mrClosed match the Schumacher-Eschmeyer results from p. 99 Ricker (19
   library(FSAdata)
   data(SunfishIN)
   
-  tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,type="Schumacher"))
+  tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,method="Schumacher"))
   stmp <- summary(tmp)
   expect_that(stmp[[1,"N"]], equals(423))
   ctmp <- confint(tmp,type="normal") 

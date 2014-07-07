@@ -2,7 +2,7 @@ context("mrClosed Messages")
 
 test_that("mrClosed Single Census errors and warnings",{
   ## wrong type
-  expect_that(mrClosed(346,184,49,type="Derek"),throws_error())
+  expect_that(mrClosed(346,184,49,method="Derek"),throws_error())
   ## missing numerical arguments
   expect_that(mrClosed(346),throws_error())
   expect_that(mrClosed(346,184),throws_error())
@@ -33,14 +33,14 @@ test_that("mrClosed Multiple Census errors and warnings",{
   R1 <- c(20,18,14, 9, 0)
   M1 <- c( 0,20,35,45,50)
   ## missing numerical arguments
-  expect_that(mrClosed(n=n1,type="Schnabel"),throws_error())
-  expect_that(mrClosed(n=n1,m=m1,type="Schnabel"),throws_error())
-  expect_that(mrClosed(M=M1,type="Schnabel"),throws_error())
-  expect_that(mrClosed(M=M1,n=n1,type="Schnabel"),throws_error())
-  expect_that(mrClosed(R=R1,type="Schnabel"),throws_error())
-  expect_that(mrClosed(R=R1,n=n1,type="Schnabel"),throws_error())
-  expect_that(mrClosed(M=M1,R=R1,type="Schnabel"),throws_error())
-  expect_that(mrClosed(M=M1,n=n1,m=m1,R=R1,type="Schnabel"),gives_warning())
-  tmp <- mrClosed(M=M1,n=n1,m=m1,type="Schnabel")
+  expect_that(mrClosed(n=n1,method="Schnabel"),throws_error())
+  expect_that(mrClosed(n=n1,m=m1,method="Schnabel"),throws_error())
+  expect_that(mrClosed(M=M1,method="Schnabel"),throws_error())
+  expect_that(mrClosed(M=M1,n=n1,method="Schnabel"),throws_error())
+  expect_that(mrClosed(R=R1,method="Schnabel"),throws_error())
+  expect_that(mrClosed(R=R1,n=n1,method="Schnabel"),throws_error())
+  expect_that(mrClosed(M=M1,R=R1,method="Schnabel"),throws_error())
+  expect_that(mrClosed(M=M1,n=n1,m=m1,R=R1,method="Schnabel"),gives_warning())
+  tmp <- mrClosed(M=M1,n=n1,m=m1,method="Schnabel")
   expect_that(summary(tmp,incl.SE=TRUE),gives_warning())
 })  

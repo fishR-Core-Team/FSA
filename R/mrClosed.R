@@ -4,13 +4,13 @@
 #'
 #' @details For single census data, the following methods can be used:
 #' \itemize{
-#'   \item{\code{type="Petersen"}.  The \sQuote{naive} Petersen as computed using equation 2.1 from Krebs (1989).}
-#'   \item{\code{type="Chapman"}.  The Chapman (1951) modification of the Petersen method as computed using equation 2.2 from Krebs (1989).}
-#'   \item{\code{type="Ricker"}.  The Ricker (1975) modification of the Petersen as computed using equation 3.7 from Ricker (1975).  This is basically the same \code{type="Chapman"} except that Ricker (1975) did NOT subtract a 1 from the answer in the final step.  Thus, the estimate from \code{type="Chapman"} will always be one less than the estimate from \code{type="Ricker"}.}
-#'   \item{\code{type="Bailey"}.  The Bailey (1951, 1952) modification of the Petersen as computed using equation 2.3 from Krebs (1989).}
+#'   \item{\code{method="Petersen"}.  The \sQuote{naive} Petersen as computed using equation 2.1 from Krebs (1989).}
+#'   \item{\code{method="Chapman"}.  The Chapman (1951) modification of the Petersen method as computed using equation 2.2 from Krebs (1989).}
+#'   \item{\code{method="Ricker"}.  The Ricker (1975) modification of the Petersen as computed using equation 3.7 from Ricker (1975).  This is basically the same \code{method="Chapman"} except that Ricker (1975) did NOT subtract a 1 from the answer in the final step.  Thus, the estimate from \code{method="Chapman"} will always be one less than the estimate from \code{method="Ricker"}.}
+#'   \item{\code{method="Bailey"}.  The Bailey (1951, 1952) modification of the Petersen as computed using equation 2.3 from Krebs (1989).}
 #' }
 #'
-#' If \code{M} contains an object from \code{\link{capHistSum}} and one of Petersen, Chapman, Ricker, or Bailey methods has been selected with \code{type=} then \code{n=} and \code{m=} can be left missing or will be ignored and the needed data will be extracted from the \code{sum} portion of the \code{CapHist} class object.  If the data were not summarized with \code{\link{capHistSum}} then all of \code{M=}, \code{n=}, and \code{m=} must be supplied by the user.
+#' If \code{M} contains an object from \code{\link{capHistSum}} and one of Petersen, Chapman, Ricker, or Bailey methods has been selected with \code{method=} then \code{n=} and \code{m=} can be left missing or will be ignored and the needed data will be extracted from the \code{sum} portion of the \code{CapHist} class object.  If the data were not summarized with \code{\link{capHistSum}} then all of \code{M=}, \code{n=}, and \code{m=} must be supplied by the user.
 #' 
 #' The population estimate (as computed with the formulas noted in the table above) is extracted with \code{summary}.  In addition, the standard error of the population estimate (SE) can be extracted by including \code{incl.SE=TRUE}.  The SE is from equation 3.6 (p. 78) in Ricker (1975) for the Petersen method, from p. 60 (near bottom) of Seber (2002) for the Chapman method, from p. 61 (middle) of Seber (2002) (and as noted on p. 79 of Ricker (1975)) for the Bailey method, and from equation 3.8 (p. 78) in Ricker (1975) for the Ricker method.
 #' 
@@ -25,10 +25,10 @@
 #'
 #' If \code{incl.all=TRUE} in \code{summary} and population estimates have been constructed for multiple sub-groups then an overall population estimate is included by summing the population estimates for the multiple sub-groups.  If \code{incl.SE=TRUE}, then an overall SE is computed by taking the square root of the summed VARIANCES for the multiple sub-groups.
 #'
-#' For multiple census data, the following methods can be declared for use with the \code{type=} argument:
+#' For multiple census data, the following methods can be declared for use with the \code{method=} argument:
 #' \itemize{
-#'   \item{\code{type="Schnabel"}.  The Schnabel (1938) method as computed with equation 3.15 from Ricker (1975).}
-#'   \item{\code{type="SchumacherEschmeyer"}.  The Schumacher and Eschmeyer (1943) method as computed with equation 3.12 from Ricker (1975) eqn 3.12.}
+#'   \item{\code{method="Schnabel"}.  The Schnabel (1938) method as computed with equation 3.15 from Ricker (1975).}
+#'   \item{\code{method="SchumacherEschmeyer"}.  The Schumacher and Eschmeyer (1943) method as computed with equation 3.12 from Ricker (1975) eqn 3.12.}
 #' }
 #'
 #' If \code{M} contains an object from \code{\link{capHistSum}} and the Schnabel or Schumacher-Eschmeyer methods has been chosen then \code{n}, \code{m} and \code{R} can be left missing or will be ignored.  In this case, the needed data is extracted from the \code{sum} portion of the \code{CapHist} class object.  Otherwise, the user must supply vectors of results in \code{n}, \code{m}, and \code{R} or \code{M}.
@@ -49,7 +49,8 @@
 #' @param n A numeric representing the number of captured fish in the second sample (single-census) or numeric vector of captured fish in ith sample (multiple-census).
 #' @param m A numeric representing the number of recaptured (marked) fish in the second sample (single-census) or numeric vector of recaptured (marked) fish in ith sample (multiple-census).
 #' @param R A numeric vector representing the number of marked fish returned to the population (multiple-census).  Note that several references use the number of \dQuote{new} marks returned to the population rather than the \dQuote{total} number of marks returned to the population that is used here.
-#' @param type A single string that identifies the type of calculation method to use in the main function or the method to use when constructing confidence intervals in \code{confint}. See details.
+#' @param method A single string that identifies the type of calculation method to use in the main function.
+#' @param type A single string that identifies the distribution to use when constructing confidence intervals in \code{confint}. See details.
 #' @param labels A character or character vector used to label the rows of the resulting output matrix when using a single census method separated by groups.  Must be the same length as \code{M}, \code{n}, and \code{m}.  Defaults to upper-case letters if no values are given.
 #' @param chapman.mod A logical that represents whether the Chapman modification should be used (\code{=TRUE}, default) or not (\code{=FALSE}) when performing the Schnabel multiple census method.
 #' @param object,x An \code{mrClosed} object.
@@ -82,8 +83,8 @@
 #'    \item n1 The adjusted (depending on \code{type}) number of captured fish in the second sample.
 #'    \item m1 The adjusted (depending on \code{type}) number of recaptured (marked) fish in the second sample.
 #'    \item cf A correction factor for the population estimate that depends on \code{type}.
-#'    \item type The type of method used (provided by the user).
-#'    \item meth A label for the type of method used.
+#'    \item method The type of method used (provided by the user).
+#'    \item methodLbl A label for the type of method used.
 #'    \item N The estimated initial population size.
 #'    \item labels Labels for the rows of summary matrix.
 #'  }
@@ -119,7 +120,7 @@
 #' confint(mr1,type="hypergeometric")
 #'
 #' ## Chapman modification of the Petersen estimate
-#' mr2 <- mrClosed(346,184,49,type="Chapman")
+#' mr2 <- mrClosed(346,184,49,method="Chapman")
 #' summary(mr2,incl.SE=TRUE)
 #' summary(mr2,incl.SE=TRUE,incl.inputs=TRUE)
 #'
@@ -137,7 +138,7 @@
 #' captured <- c(103,30,73,17,39,18)
 #' recaps <- c(20,23,52,15,35,16)
 #' lbls <- c("YOY","Juvenile","Stock","Quality","Preferred","Memorable")
-#' mr4 <- mrClosed(marked,captured,recaps,type="Ricker",labels=lbls)
+#' mr4 <- mrClosed(marked,captured,recaps,method="Ricker",labels=lbls)
 #' summary(mr4)
 #' summary(mr4,incl.SE=TRUE)
 #' summary(mr4,incl.SE=TRUE,incl.all=TRUE)
@@ -149,7 +150,7 @@
 #' data(PikeNY)
 #'
 #' ## Schnabel method
-#' mr5 <- with(PikeNY,mrClosed(n=n,m=m,R=R,type="Schnabel"))
+#' mr5 <- with(PikeNY,mrClosed(n=n,m=m,R=R,method="Schnabel"))
 #' plot(mr5)
 #' plot(mr5,loess=TRUE)
 #' summary(mr5)
@@ -157,7 +158,7 @@
 #' confint(mr5)
 #'
 #' ## Schumacher-Eschmeyer method
-#' mr6 <- with(PikeNY,mrClosed(n=n,m=m,R=R,type="Schumacher"))
+#' mr6 <- with(PikeNY,mrClosed(n=n,m=m,R=R,method="Schumacher"))
 #' summary(mr6)
 #' confint(mr6)
 #'
@@ -166,7 +167,7 @@
 #' ch2 <- capHistSum(PikeNYPartial1,cols=-1)  # ignore first column of ID numbers
 #'
 #' ## Schnabel method
-#' mr7 <- mrClosed(ch2,type="Schnabel")
+#' mr7 <- mrClosed(ch2,method="Schnabel")
 #' plot(mr7)
 #' summary(mr7)
 #' confint(mr7)
@@ -174,16 +175,16 @@
 #' @rdname mrClosed
 #' @export
 mrClosed <- function(M=NULL,n=NULL,m=NULL,R=NULL,
-            type=c("Petersen","Chapman","Ricker","Bailey","Schnabel","SchumacherEschmeyer"),
+            method=c("Petersen","Chapman","Ricker","Bailey","Schnabel","SchumacherEschmeyer"),
             labels=NULL,chapman.mod=TRUE) {
-  type <- match.arg(type)
-  if (type %in% c("Petersen","Chapman","Ricker","Bailey")) {
+  method <- match.arg(method)
+  if (method %in% c("Petersen","Chapman","Ricker","Bailey")) {
     if (!is.null(R)) warning("'R' not used in single census methods.  It will be ignored.",call.=FALSE)
-    iMRCSingle(M,n,m,type,labels)
-  } else iMRCMultiple(M,n,m,R,type,chapman.mod)
+    iMRCSingle(M,n,m,method,labels)
+  } else iMRCMultiple(M,n,m,R,method,chapman.mod)
 }
 
-iMRCSingle <- function(M,n,m,type,labels) { ## INTERNAL Single Census (Petersen, Chapman, Ricker, or Bailey)
+iMRCSingle <- function(M,n,m,method,labels) { ## INTERNAL Single Census (Petersen, Chapman, Ricker, or Bailey)
   # initial checks
   if (is.null(M)) stop("Missing 'M'.",call.=FALSE)
   if (class(M)=="CapHist") {
@@ -209,23 +210,23 @@ iMRCSingle <- function(M,n,m,type,labels) { ## INTERNAL Single Census (Petersen,
     if (length(M) != length(labels)) stop("'labels' must have same length as 'M', 'n', and 'm'.")
   }
   # handle modifications for simplicity of calculation below  
-  switch(type,
-         Petersen={meth="the 'naive' Petersen method"
+  switch(method,
+         Petersen={methodLbl="the 'naive' Petersen method"
                    M1 <- M; n1 <- n; m1 <- m; cf <- rep(0,length(M)) },
-         Chapman={meth="Chapman's modification of the Petersen method"
+         Chapman={methodLbl="Chapman's modification of the Petersen method"
                   M1 <- M+1; n1 <- n+1; m1 <- m+1; cf <- rep(1,length(M)) },
-         Ricker={meth="Ricker's modification of the Petersen method"
+         Ricker={methodLbl="Ricker's modification of the Petersen method"
                  M1 <- M+1; n1 <- n+1; m1 <- m+1; cf <- rep(0,length(M)) },
-         Bailey={meth="Bailey's modification of the Petersen method"
+         Bailey={methodLbl="Bailey's modification of the Petersen method"
                  M1 <- M; n1 <- n+1; m1 <- m+1; cf <- rep(0,length(M)) }
   ) # end switch
   # perform calculations and save all of the intermediate results to return
-  res <- list(M=M,n=n,m=m,M1=M1,n1=n1,m1=m1,cf=cf,N=M1*n1/m1-cf,labels=labels,type=type,meth=meth)
+  res <- list(M=M,n=n,m=m,M1=M1,n1=n1,m1=m1,cf=cf,N=M1*n1/m1-cf,labels=labels,method=method,methodLbl=methodLbl)
   class(res) <- "mrClosed"
   res
 } ## end iMRCSingle
 
-iMRCMultiple <- function(M,n,m,R,type,chapman.mod) { ## INTERNAL Multiple Census (Schnabel or Shumacher-Eschmeyer)
+iMRCMultiple <- function(M,n,m,R,method,chapman.mod) { ## INTERNAL Multiple Census (Schnabel or Shumacher-Eschmeyer)
   # Initial Checks
   if (!is.null(M)) {
     if (class(M)=="CapHist") {
@@ -251,17 +252,17 @@ iMRCMultiple <- function(M,n,m,R,type,chapman.mod) { ## INTERNAL Multiple Census
   sum.mM <- sum(m*M)
   sum.m2dn <- sum((m^2)/n)
   # perform the estimates
-  switch(type,
+  switch(method,
          Schnabel={
-           meth <- "the Schnabel method"     
+           methodLbl <- "the Schnabel method"     
            ifelse(chapman.mod, N <- sum.nM/(sum.m+1), N <- sum.nM/sum.m) },
          Schumacher=,SchumacherEschmeyer={
-           meth <- "the Schumacher-Eschmeyer method"
+           methodLbl <- "the Schumacher-Eschmeyer method"
            chapman.mod <- FALSE
            N <- sum.nM2/sum.mM }
   ) # end switch
   # return the results and intermediate calculations
-  res <- list(n=n,m=m,R=R,M=M,N=N,sum.m=sum.m,sum.nM=sum.nM,sum.nM2=sum.nM2,sum.mM=sum.mM,sum.m2dn=sum.m2dn,labels=NULL,type=type,meth=meth,chapman.mod=chapman.mod)
+  res <- list(n=n,m=m,R=R,M=M,N=N,sum.m=sum.m,sum.nM=sum.nM,sum.nM2=sum.nM2,sum.mM=sum.mM,sum.m2dn=sum.m2dn,labels=NULL,method=method,methodLbl=methodLbl,chapman.mod=chapman.mod)
   class(res) <- "mrClosed"
   res
 } ## end iMRCMultiple
@@ -272,14 +273,14 @@ iMRCMultiple <- function(M,n,m,R,type,chapman.mod) { ## INTERNAL Multiple Census
 summary.mrClosed <- function(object,digits=0,incl.SE=FALSE,incl.all=FALSE,incl.inputs=FALSE,...) {
   # Put descriptive label of input values at top of output if the user asked for it.
   if(incl.inputs) {
-    if (object$type %in% c("Petersen","Chapman","Ricker","Bailey")) {
-      if (is.null(object$labels)) message("Used ",object$meth," with M=",object$M,", n=",object$n,", and m=",object$m,".\n",sep="")
+    if (object$method %in% c("Petersen","Chapman","Ricker","Bailey")) {
+      if (is.null(object$labels)) message("Used ",object$methodLbl," with M=",object$M,", n=",object$n,", and m=",object$m,".\n",sep="")
       else {
-        message("Used ",object$meth," with observed inputs of:\n",sep="")
+        message("Used ",object$methodLbl," with observed inputs of:\n",sep="")
         message(paste(object$labels,"- M=",object$M,", n=",object$n,", and m=",object$m,".\n",sep=""))
       }
     } else {
-      msg <- paste("Used ",object$meth,sep="")
+      msg <- paste("Used ",object$methodLbl,sep="")
       ifelse(object$chapman.mod,msg <- paste(msg,"with Chapman modification.\n"),msg <- paste(msg,".\n",sep=""))
       message(msg)
     }
@@ -289,8 +290,8 @@ summary.mrClosed <- function(object,digits=0,incl.SE=FALSE,incl.all=FALSE,incl.i
   colnames(res) <- "N"
   # Add the SE to the return vector if the user asked for it (and it can be calculated)
   if (incl.SE) {
-    if (object$type %in% c("Schnabel","SchumacherEschmeyer")) {
-      msg <- paste("A standard error for N cannot be computed with the",object$type)
+    if (object$method %in% c("Schnabel","SchumacherEschmeyer")) {
+      msg <- paste("A standard error for N cannot be computed with the",object$method)
       msg <- paste(msg,"method.\n  The 'incl.SE=TRUE' will be ignored.")
       warning(msg,call.=FALSE)
     } else {
@@ -314,16 +315,16 @@ summary.mrClosed <- function(object,digits=0,incl.SE=FALSE,incl.all=FALSE,incl.i
 }
 
 iMRCSingleSE <- function(object) {
-  if (object$type == "Petersen") {
+  if (object$method == "Petersen") {
     ##  From equation 3.6 (p. 78) in Ricker (1975)
     V <- with(object, (M^2)*n*(n-m)/(m^3) )
-  } else if (object$type == "Chapman") {
+  } else if (object$method == "Chapman") {
     ## From p. 60 (near bottom) of Seber (2002)
     V <- with(object, M1*n1*(M1-m1)*(n1-m1)/((m1^2)*(m1+1)) )
-  } else if (object$type=="Bailey") {
+  } else if (object$method=="Bailey") {
     ## From p. 61 (middle) of Seber (2002) and as noted on p. 79 of Ricker (1975)
     V <- with(object, ((M^2)*n1*(n-m))/((m1^2)*(m1+1)) )
-  } else if (object$type=="Ricker") {
+  } else if (object$method=="Ricker") {
     ## From equation 3.8 in Ricker (1975)
     V <- with(object, ((M1^2)*n1*(n-m))/((m1^2)*(m1+1)) )
   }
@@ -337,7 +338,7 @@ plot.mrClosed <- function(x,pch=19,col.pt="black",
                           xlab=expression(M[i]),ylab=expression(m[i]%/%n[i]),
                           loess=FALSE,lty.loess=2,lwd.loess=1,
                           col.loess="gray20",trans.loess=10,span=0.9,...) {
-  if (!(x$type %in% c("Schnabel","SchumacherEschmeyer"))) stop("Plot only appropriate for 'Schnabel' or 'SchumacherEschmeyer' methods.",call.=FALSE)
+  if (!(x$method %in% c("Schnabel","SchumacherEschmeyer"))) stop("Plot only appropriate for 'Schnabel' or 'SchumacherEschmeyer' methods.",call.=FALSE)
   else {
     plot(x$M,x$m/x$n,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,...)
     # add loess line
@@ -357,16 +358,16 @@ confint.mrClosed <- function(object,parm=NULL,level=conf.level,conf.level=0.95,d
   }
   type <- match.arg(type)
   bin.type <- match.arg(bin.type)
-  if (object$type=="Schnabel" & type %in% c("binomial","hypergeometric")) {
+  if (object$method=="Schnabel" & type %in% c("binomial","hypergeometric")) {
     stop("The CI type must be 'suggested', 'normal', or 'Poisson' when using the Schnabel method.",call.=FALSE)
   }
-  if (object$type=="SchumacherEschmeyer" & type %in% c("binomial","hypergeometric","Poisson")) {
+  if (object$method=="SchumacherEschmeyer" & type %in% c("binomial","hypergeometric","Poisson")) {
     stop("The CI type must be 'normal' when using the Schumacher-Eschmeyer method.",call.=FALSE)
   }
-  if (object$type %in% c("Petersen","Chapman","Ricker","Bailey")) {
+  if (object$method %in% c("Petersen","Chapman","Ricker","Bailey")) {
     ci <- NULL
     for (i in 1:length(object$N)) {
-      temp <- with(object, list(M=M[i],n=n[i],m=m[i],M1=M1[i],n1=n1[i],m1=m1[i],cf=cf[i],type=type,meth=meth,N=N[i],labels=labels[i]) )
+      temp <- with(object, list(M=M[i],n=n[i],m=m[i],M1=M1[i],n1=n1[i],m1=m1[i],cf=cf[i],method=method,methodLbl=methodLbl,N=N[i],labels=labels[i]) )
       ci <- rbind(ci,iCI.MRCSingle(temp,conf.level,type,bin.type,incl.inputs,...))
     }
   } else ci <- iCI.MRCMultiple(object,conf.level,type,incl.inputs,...)
@@ -407,7 +408,7 @@ iCI.MRCSingle <- function(object,conf.level,type,bin.type,incl.inputs,...) {
            # Poisson CI for m
            m.ci <- poiCI(object$m,conf.level)
            # Convert to CI for m1
-           if (object$type!="Petersen") m.ci <- m.ci+1
+           if (object$method!="Petersen") m.ci <- m.ci+1
            # Put endpoints back in N formula to get CI for N
            N.poi <- (object$M1*object$n1)/m.ci-object$cf    
            ci <- N.poi[,2:1]
@@ -415,7 +416,7 @@ iCI.MRCSingle <- function(object,conf.level,type,bin.type,incl.inputs,...) {
          normal={
            # Find +/- Z for normal CI
            zalpha <- c(-1,1)*abs(qnorm((1-conf.level)/2))
-           if (object$type=="Petersen") {
+           if (object$method=="Petersen") {
              ## Krebs eqn 2.4 (p.20), built in parts
              # Find phat
              phat <- object$m/object$n
@@ -448,11 +449,11 @@ iCI.MRCSingle <- function(object,conf.level,type,bin.type,incl.inputs,...) {
 iCI.MRCMultiple <- function(object,conf.level,type,incl.inputs,...) {  
   # Follow Seber's suggestions if asked for
   if (type=="suggested") {
-    if (object$type=="SchumacherEschmeyer") type <- "normal"
+    if (object$method=="SchumacherEschmeyer") type <- "normal"
     else if (object$sum.m < 50) type <- "Poisson"
     else type <- "normal"
   }
-  if (object$type=="Schnabel") {
+  if (object$method=="Schnabel") {
     if (type=="normal") {
       # Get df (from Krebs p. 32)
       df <- length(object$n)-1
