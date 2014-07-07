@@ -15,10 +15,12 @@ test_that("mrClosed match the Schnabel Results from p. 32 Krebs (1989)",{
   expect_that(tmp$sum.mM, equals(2294))             # sum RM in Krebs
   expect_that(round(tmp$sum.m2dn,3), equals(7.745)) # sum R^2/C in Krebs
   ctmp <- confint(tmp,type="Poisson")
-  ## The CIs do not equal ... Krebs uses table, FSA uses
-  ##   numerical distribution for CIs
+  ## The CIs do not equal ... Krebs uses table, FSA uses poiCI (see below)
   #expect_that(ctmp[[1,"95% LCI"]], equals(310))
   #expect_that(ctmp[[1,"95% UCI"]], equals(720))
+  ptmp <- poiCI(tmp$sum.m)
+  #expect_that(ptmp[[1,"95% LCI"]], equals(14.921))
+  #expect_that(ptmp[[1,"95% UCI"]], equals(34.665))
 })
 
 

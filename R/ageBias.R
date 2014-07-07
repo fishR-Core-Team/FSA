@@ -19,6 +19,8 @@
 #' Individual t-tests to determine if the mean age of the non-reference set at a particular age of the reference set is equal to the reference age (e.g., is the mean age of the non-reference at age-3 of the reference set statistically equal to 3?) are constructed with \code{what="bias"} in \code{summary}.  The results provide a column that indicates whether the difference is significant or not as determined by adjusted p-value from the t-test and using the signficance level provided in \code{sig.level} (defaults to 0.05).  Similar results for the difference in ages (e.g., is the mean row variable age minus column variable age at column variable age-3 equal to 0?) are constructed with \code{what="diff.bias"} in \code{summary}.
 #'
 #' The sample size present in the age-agreement table is found with \code{what="n"}.
+#' 
+#' @section Testing: Tested all symmetry test results against results in Evans and Hoenig (2008), the McNemar's and Evans-Hoenig results against results from \code{compare2} in \pkg{fishmethods}, and the results for the \code{alewifeLH} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
 #'
 #' @param formula A formula of the form \code{refvar~nrefvar}, where \code{refvar} and \code{nrefvar} generically represent the variables that contain the \dQuote{reference} and \dQuote{non-reference} age assignments, respectively.  See details.
 #' @param data A data.frame that minimally contains the paired age assignments given \code{formula}.

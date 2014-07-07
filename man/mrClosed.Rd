@@ -137,6 +137,8 @@ The \code{plot} can be used to identify assumption violations in the Schnabel an
 }
 \section{Testing}{
  The results from the single census methods have had the following checks.  The population estimates for all methods match reputable sources.  The SE for the Chapman and Bailey methods match the results from \code{mrN.single} in \pkg{fishmethods},  The CI for the Petersen, Chapman, and Bailey methods partially match (are within 1% when they do not match) the CIs from reputable sources.
+
+The results for the multiple census methods have had the following checks.  The population estimates for both methods match reputable sources.  The intermediate calculations for both methods match those in Krebs (1989).  The confidence interval for the Schnabel method using the Poisson distribution does NOT match Krebs (1989).  This appears to be a difference in the use \code{\link{poiCI}} here versus distributional tables in Krebs (i.e., the difference appears to be completely in the critical values from the Poisson distribution).  The confidence interval for the Schnabel method using the normal or the Poission distribution do NOT match Ricker (1975), but there is not enough information in Ricker to determine why (it is likely due to numerical differences on the inverse scale).  The confidence interval for the Schumacher-Eschmeyer method do match Krebs (1989) but not Ricker (1975).  The Ricker result may be due to different df as noted above.
 }
 
 \section{fishR vignette}{
@@ -177,7 +179,7 @@ mr4 <- mrClosed(marked,captured,recaps,type="Ricker",labels=lbls)
 summary(mr4)
 summary(mr4,incl.SE=TRUE)
 summary(mr4,incl.SE=TRUE,incl.all=TRUE)
-summary(mr4,incl.SE=TRUE,incl.all=TRUE,incl.inputs=FALSE)
+summary(mr4,incl.SE=TRUE,incl.all=TRUE,incl.inputs=TRUE)
 confint(mr4)
 
 ### Multiple Census
@@ -189,7 +191,7 @@ mr5 <- with(PikeNY,mrClosed(n=n,m=m,R=R,type="Schnabel"))
 plot(mr5)
 plot(mr5,loess=TRUE)
 summary(mr5)
-summary(mr5,incl.SE=TRUE)
+summary(mr5,incl.inputs=TRUE)
 confint(mr5)
 
 ## Schumacher-Eschmeyer method
@@ -203,7 +205,7 @@ ch2 <- capHistSum(PikeNYPartial1,cols=-1)  # ignore first column of ID numbers
 
 ## Schnabel method
 mr7 <- mrClosed(ch2,type="Schnabel")
-plot(mr7,loess=TRUE)
+plot(mr7)
 summary(mr7)
 confint(mr7)
 }

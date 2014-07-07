@@ -33,6 +33,26 @@ test_that("mrClosed match the Chapman results from Box 11.2 in Pine et al. (2013
   expect_that(ctmp[[1,"95% UCI"]], equals(1826))
 })  
 
+test_that("mrClosed match the Chapman results from Table 3.7 and 3.8 in Seber (2002)",{
+  tmp <- mrClosed(M=500,n=149,m=7,type="Chapman")
+  stmp <- summary(tmp,incl.SE=TRUE)
+  expect_that(stmp[[1,"N"]], equals(9393))
+  expect_that(round(stmp[[1,"SE"]],0), equals(3022))
+  ctmp <- confint(tmp,type="normal")
+  ## The UCI does not match (<0.01%) ... due to digits on Z*
+  #expect_that(ctmp[[1,"95% LCI"]], equals(3470))
+  expect_that(ctmp[[1,"95% UCI"]], equals(15316))
+  
+  tmp <- mrClosed(M=1000,n=243,m=21,type="Chapman")
+  stmp <- summary(tmp,incl.SE=TRUE)
+  expect_that(stmp[[1,"N"]], equals(11101))
+  expect_that(round(stmp[[1,"SE"]],0), equals(2184))
+  ctmp <- confint(tmp,type="normal")
+  ## The CI does not match (<0.02%) ... due to digits on Z*
+  #expect_that(ctmp[[1,"95% LCI"]], equals(6820))
+  #expect_that(ctmp[[1,"95% UCI"]], equals(15382))
+})
+
 test_that("mrClosed match the Chapman results from mrN.single() from fishmethods",{
   library(fishmethods)
   tmp1 <- mrN.single(M=948,C=421,R=167)

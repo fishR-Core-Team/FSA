@@ -59,6 +59,10 @@ If \code{what="absolute difference"} is used in \code{summary} then a table that
 
 If \code{what="detail"} is used in \code{summary} then a data frame of the original \code{data} along with the intermediate caculations of the average age, standard deviation of age, APE, and CV for each individual will be printed.  These details are generally only used to check or to understand calculations.
 }
+\section{Testing}{
+ Tested all precision results against published results in Herbst and Marsden (2011) for the \code{WhitefishLC} data from \pkg{FSAdata} and the results for the \code{alewifeLH} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
+}
+
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/AgeComparisons.pdf}
 }

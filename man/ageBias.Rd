@@ -130,6 +130,10 @@ Individual t-tests to determine if the mean age of the non-reference set at a pa
 
 The sample size present in the age-agreement table is found with \code{what="n"}.
 }
+\section{Testing}{
+ Tested all symmetry test results against results in Evans and Hoenig (2008), the McNemar's and Evans-Hoenig results against results from \code{compare2} in \pkg{fishmethods}, and the results for the \code{alewifeLH} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
+}
+
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/AgeComparisons.pdf}
 }

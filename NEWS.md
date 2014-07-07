@@ -5,7 +5,7 @@
 * `iMRCSingle()`:  Added.  Was `mrc1()` internal function inside of `mrClosed()` environment.
 * `iMRCSingleSE()`: Added.  Moved functionality out of `summary.mrClosed()`.  Checked and documented all formulas with sources (in code and in Rd file).
 * `lrt()`: Modified.  Slight change to row labels in output table.
-* `mrClosed()`: Modified.  Moved all internal functions outside of `mrClosed()` environment (see `iMRCMultiple()` and `iMRCSingle()`).  Added more catches for argument problems (required setting `n=`, `m=`, `M=` and `R=` to `NULL`).  Streamlined warning message for when `incl.SE=TRUE` is used with Schnabel or Schumacher-Eschmeyer method.  
+* `mrClosed()`: Modified.  Moved all internal functions outside of `mrClosed()` environment (see `iMRCMultiple()` and `iMRCSingle()`).  Added more catches for argument problems (required setting `n=`, `m=`, `M=` and `R=` to `NULL`).  Streamlined warning message for when `incl.SE=TRUE` is used with Schnabel or Schumacher-Eschmeyer method.  Added tests and reported results in the help file for population size, SE, and CI estimates for each method.
 * `plot.mrClosed()`: Modified.  Removed setting of `par()`.  Changed from using `lowess()` to using `loess()` and set better default values.  Added descriptive text to help file.
 * `summary.mrClosed()`: Modified.  Moved SE calculations into an internal function (see `iMRCSingleSE()`).
 
