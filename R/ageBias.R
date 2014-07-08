@@ -128,21 +128,21 @@
 #' @rdname ageBias
 #' @export
 ageBias <- function(formula,data,ref.lab=col.lab,nref.lab=row.lab,
-                    method=p.adjust.methods,sig.level=0.05,min.n.CI=5,
+                    method=p.adjust.methods,sig.level=0.05,min.n.CI=3,
                     col.lab=tmp$Rname,row.lab=tmp$Enames[1]) {
   tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
   if (!tmp$metExpNumR) stop("'ageBias' must have only one LHS variable.",call.=FALSE)
   if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
   if (!tmp$metExpNumE) stop("'ageBias' must have only one RHS variable.",call.=FALSE)
   if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable must be numeric.",call.=FALSE)
-  # sample size
-  n <- nrow(tmp$mf)
   # get variable names, separately and together
   cname <- tmp$Rname
   rname <- tmp$Enames
   bname <- c(cname,rname)
   # rename dataframe of just ages (for simplicity)
   d <- tmp$mf
+  # sample size
+  n <- nrow(d)
   # add differences data
   d$diff <- d[,rname]-d[,cname]
   ## Summarizations of rdata by cdata (more 'true' structure)
@@ -156,7 +156,7 @@ ageBias <- function(formula,data,ref.lab=col.lab,nref.lab=row.lab,
   
   ## Agreement contingency table adjusted to be square  
   # finds overall range of ages
-  ages <- min(d[,c(cname,rname)]):max(d[,c(cname,rname)])
+  ages <- min(d[,c(cname,rname)],na.rm=TRUE):max(d[,c(cname,rname)],na.rm=TRUE)
   # converts row and column data to factor with ages levels
   rf <- factor(d[,rname],levels=ages)
   cf <- factor(d[,cname],levels=ages)
@@ -222,8 +222,8 @@ summary.ageBias <- function(object,what=c("table","symmetry","Bowkers","EvansHoe
 plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE,
                          xlab=x$ref.lab,ylab=x$nref.lab,show.n=TRUE,nYpos=1.1,
                          show.pts=FALSE,pch.pts=19,col.pts=rgb(0,0,0,transparency),transparency=1/10,
-                         pch.mean=3,col.err="blue",col.err.sig="red",lwd.err=2,
-                         show.rng=FALSE,col.rng="gray",lwd.rng=2,
+                         pch.mean=3,col.err="blue",col.err.sig="red",lwd.err=1,
+                         show.rng=FALSE,col.rng="gray",lwd.rng=1,
                          col.ref="black",lwd.ref=1,lty.ref=2,
                          xlim=NULL,ylim=NULL,yaxt=par("yaxt"),...) {
   what <- match.arg(what)
@@ -436,9 +436,15 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,show.pts,pch.pts,
   }
   # add on CIs for mean
   #  for ages that are signficantly different
-  plotrix::plotCI(x=d[,1][d$sig],y=d$mean[d$sig],li=d$LCI[d$sig],ui=d$UCI[d$sig],add=TRUE,slty=1,scol=col.err.sig,pch=pch.mean,lwd=lwd.err,gap=0)
+  if (any(d$sig)) {
+    plotrix::plotCI(x=d[,1][d$sig],y=d$mean[d$sig],li=d$LCI[d$sig],ui=d$UCI[d$sig],
+                    add=TRUE,slty=1,scol=col.err.sig,pch=pch.mean,lwd=lwd.err,gap=0)
+  }
   #  for ages that are not significantly different
-  plotrix::plotCI(x=d[,1][!d$sig],y=d$mean[!d$sig],li=d$LCI[!d$sig],ui=d$UCI[!d$sig],add=TRUE,slty=1,scol=col.err,pch=pch.mean,lwd=lwd.err,gap=0)
+  if (any(!d$sig)) {
+    plotrix::plotCI(x=d[,1][!d$sig],y=d$mean[!d$sig],li=d$LCI[!d$sig],ui=d$UCI[!d$sig],
+                    add=TRUE,slty=1,scol=col.err,pch=pch.mean,lwd=lwd.err,gap=0)
+  }
   # show the sample sizes at the top
   if (show.n) text(d[,1],grconvertY(nYpos,"npc"),d$n,cex=0.75,xpd=TRUE)
 } ## end internal age-bias plot function

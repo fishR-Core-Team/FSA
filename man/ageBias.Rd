@@ -6,7 +6,7 @@
 \title{Compute and view possible biases between paired sets of ages.}
 \usage{
 ageBias(formula, data, ref.lab = col.lab, nref.lab = row.lab,
-  method = p.adjust.methods, sig.level = 0.05, min.n.CI = 5,
+  method = p.adjust.methods, sig.level = 0.05, min.n.CI = 3,
   col.lab = tmp$Rname, row.lab = tmp$Enames[1])
 
 \method{summary}{ageBias}(object, what = c("table", "symmetry", "Bowkers",
@@ -18,8 +18,8 @@ ageBias(formula, data, ref.lab = col.lab, nref.lab = row.lab,
   difference = FALSE, xlab = x$ref.lab, ylab = x$nref.lab,
   show.n = TRUE, nYpos = 1.1, show.pts = FALSE, pch.pts = 19,
   col.pts = rgb(0, 0, 0, transparency), transparency = 1/10, pch.mean = 3,
-  col.err = "blue", col.err.sig = "red", lwd.err = 2, show.rng = FALSE,
-  col.rng = "gray", lwd.rng = 2, col.ref = "black", lwd.ref = 1,
+  col.err = "blue", col.err.sig = "red", lwd.err = 1, show.rng = FALSE,
+  col.rng = "gray", lwd.rng = 1, col.ref = "black", lwd.ref = 1,
   lty.ref = 2, xlim = NULL, ylim = NULL, yaxt = par("yaxt"), ...)
 }
 \arguments{
