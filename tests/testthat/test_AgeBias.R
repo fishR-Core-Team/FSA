@@ -58,7 +58,7 @@ test_that("test AlewifeLH data against compare2() results",{
   data(AlewifeLH)
   ab2 <- compare2(AlewifeLH)
   ## no continuity correction
-  ab1 <- ageBias(otoliths~scales,data=AlewifeLH,col.lab="Otolith Age",row.lab="Scale Age")
+  ab1 <- ageBias(otoliths~scales,data=AlewifeLH,ref.lab="Otolith Age",nref.lab="Scale Age")
   ab1sum <- summary(ab1)
   expect_that(ab1sum[ab1sum$symTest=="McNemars","chi.sq"],equals(ab2$McNemar$Chisq))
   expect_that(ab1sum[ab1sum$symTest=="McNemars","p"],equals(ab2$McNemar$pvalue))
@@ -79,7 +79,7 @@ test_that("test AlewifeLH data against compare2() results",{
 test_that("ageBias compared to http://www.nefsc.noaa.gov/fbp/age-prec/ calculations for AlewifeLH",{
   library(FSAdata)
   data(AlewifeLH)
-  ab1 <- ageBias(otoliths~scales,data=AlewifeLH,col.lab="Otolith Age",row.lab="Scale Age")
+  ab1 <- ageBias(otoliths~scales,data=AlewifeLH,ref.lab="Otolith Age",nref.lab="Scale Age")
   expect_that(ab1$bias$n,equals(c(2,18,20,13,18,10,8,7,5,1,2)))
   ## the fbp result is actually 4.62 for age-6
   expect_that(round(ab1$bias$mean,2),equals(c(0.00,1.11,2.20,2.85,3.78,4.20,4.62,5.00,4.80,6.00,6.00)))
@@ -91,6 +91,5 @@ test_that("ageBias errors and warnings",{
   expect_that(ageBias(otolithC+scaleC~finrayC,data=WhitefishLC),throws_error())
   ## Two variables on RHS
   expect_that(ageBias(otolithC~scaleC+finrayC,data=WhitefishLC),throws_error())
-
 })
   

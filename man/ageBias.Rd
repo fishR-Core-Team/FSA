@@ -5,9 +5,8 @@
 \alias{summary.ageBias}
 \title{Compute and view possible biases between paired sets of ages.}
 \usage{
-ageBias(formula, data, ref.lab = col.lab, nref.lab = row.lab,
-  method = p.adjust.methods, sig.level = 0.05, min.n.CI = 3,
-  col.lab = tmp$Rname, row.lab = tmp$Enames[1])
+ageBias(formula, data, ref.lab = tmp$Rname, nref.lab = tmp$Enames[1],
+  method = p.adjust.methods, sig.level = 0.05, min.n.CI = 3)
 
 \method{summary}{ageBias}(object, what = c("table", "symmetry", "Bowkers",
   "EvansHoenig", "McNemars", "bias", "diff.bias", "n"), flip.table = FALSE,
@@ -18,18 +17,18 @@ ageBias(formula, data, ref.lab = col.lab, nref.lab = row.lab,
   difference = FALSE, xlab = x$ref.lab, ylab = x$nref.lab,
   show.n = TRUE, nYpos = 1.1, show.pts = FALSE, pch.pts = 19,
   col.pts = rgb(0, 0, 0, transparency), transparency = 1/10, pch.mean = 3,
-  col.err = "blue", col.err.sig = "red", lwd.err = 1, show.rng = FALSE,
-  col.rng = "gray", lwd.rng = 1, col.ref = "black", lwd.ref = 1,
-  lty.ref = 2, xlim = NULL, ylim = NULL, yaxt = par("yaxt"), ...)
+  col.CI = "black", col.CIsig = "red", lwd.CI = 1, show.range = FALSE,
+  col.range = "gray", lwd.range = 1, col.agree = "black", lwd.agree = 1,
+  lty.agree = 2, xlim = NULL, ylim = NULL, yaxt = par("yaxt"), ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{refvar~nrefvar}, where \code{refvar} and \code{nrefvar} generically represent the variables that contain the \dQuote{reference} and \dQuote{non-reference} age assignments, respectively.  See details.}
 
 \item{data}{A data.frame that minimally contains the paired age assignments given \code{formula}.}
 
-\item{ref.lab,col.lab}{A string that contains a label for the column age assignment.  Note col.lab= is deprecated.}
+\item{ref.lab}{A string that contains a label for the column age assignment.}
 
-\item{nref.lab,row.lab}{A string that contains a label for the row age assignments.  Note col.lab= is deprecated.}
+\item{nref.lab}{A string that contains a label for the row age assignments.}
 
 \item{method}{A string that indicates which method to use when adjusting p-values for multiple comparisons.  See \code{?p.adjust.methods}.}
 
@@ -73,25 +72,25 @@ ageBias(formula, data, ref.lab = col.lab, nref.lab = row.lab,
 
 \item{transparency}{A value (between 0 and 1) that indicates the level of transparency to use for plotting the raw data points on an age bias plot.  If expressed as a fraction of 1/x then x points plotted on top of each other will represent the color in \code{col.pts}.}
 
-\item{show.rng}{A logical that indicates whether to show vertical bars that represent the range of the data points on an age bias plot.}
+\item{show.range}{A logical that indicates whether to show vertical bars that represent the range of the data points on an age bias plot.}
 
-\item{col.rng}{A string or value that indicates the color to be used for the interval representing the range of the data on an age bias plot.}
+\item{col.range}{A string or value that indicates the color to be used for the interval representing the range of the data on an age bias plot.}
 
-\item{lwd.rng}{A value that indicates the line width for the interval representing the range of the data on an age bias plot.}
+\item{lwd.range}{A value that indicates the line width for the interval representing the range of the data on an age bias plot.}
 
 \item{pch.mean}{A value that indicates the plotting character to be used for mean values (i.e., center of confidence interval bars) on an age bias plot.}
 
-\item{col.err}{A string or value that indicates the color to be used for confidence interval bars that are considered non-significant on an age bias plot.}
+\item{col.CI}{A string or value that indicates the color to be used for confidence interval bars that are considered non-significant on an age bias plot.}
 
-\item{col.err.sig}{A string or value that indicates the color to be used for confidence interval bars that are considered significant on an age bias plot.}
+\item{col.CIsig}{A string or value that indicates the color to be used for confidence interval bars that are considered significant on an age bias plot.}
 
-\item{lwd.err}{A value that indicates the line width for the confidence interval bars on an age bias plot.}
+\item{lwd.CI}{A value that indicates the line width for the confidence interval bars on an age bias plot.}
 
-\item{col.ref}{A value or string that indicates the color for the 1:1 or zero (if difference) reference line on an age bias plot.}
+\item{col.agree}{A value or string that indicates the color for the 1:1 or zero (if difference) reference line on an age bias plot.}
 
-\item{lwd.ref}{A value that indicates the line width for the 1:1 or zero (if difference) reference line on an age bias plot.}
+\item{lwd.agree}{A value that indicates the line width for the 1:1 or zero (if difference) reference line on an age bias plot.}
 
-\item{lty.ref}{A value that indicates the line type for the 1:1 or zero (if difference) reference line on an age bias plot.}
+\item{lty.agree}{A value that indicates the line type for the 1:1 or zero (if difference) reference line on an age bias plot.}
 
 \item{\dots}{Additional arguments for methods.}
 }
@@ -162,16 +161,16 @@ plot(ab1,ylim=c(0,10))
 ## plot with the data points shown
 plot(ab1,show.pts=TRUE,transparency=1/3)
 ## plot with the range shown
-plot(ab1,show.rng=TRUE)
+plot(ab1,show.range=TRUE)
 ## plot with no difference in significance bar colors
-plot(ab1,col.err="black",col.err.sig="black")
+plot(ab1,col.CIsig="black")
 ## plot of differences (note could use same modifications as shown above)
 plot(ab1,difference=TRUE)
 ## sunflower plot
 plot(ab1,what="sunflower")
 plot(ab1,what="sunflower",difference=TRUE)
 ## "Numbers" plot
-plot(ab1,what="number",col.ref="gray50")
+plot(ab1,what="number",col.agree="gray50")
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

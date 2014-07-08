@@ -24,8 +24,8 @@
 #'
 #' @param formula A formula of the form \code{refvar~nrefvar}, where \code{refvar} and \code{nrefvar} generically represent the variables that contain the \dQuote{reference} and \dQuote{non-reference} age assignments, respectively.  See details.
 #' @param data A data.frame that minimally contains the paired age assignments given \code{formula}.
-#' @param ref.lab,col.lab A string that contains a label for the column age assignment.  Note col.lab= is deprecated.
-#' @param nref.lab,row.lab A string that contains a label for the row age assignments.  Note col.lab= is deprecated.
+#' @param ref.lab A string that contains a label for the column age assignment.
+#' @param nref.lab A string that contains a label for the row age assignments.
 #' @param method A string that indicates which method to use when adjusting p-values for multiple comparisons.  See \code{?p.adjust.methods}.
 #' @param sig.level A value used to determine whether a p-value indicates a significant result.  The confidence level used in \code{plot} is 100*(1-\code{sig.level}).
 #' @param min.n.CI A value (default is 5) that indicates the smallest sample size for which a confidence interval should be computed.
@@ -47,16 +47,16 @@
 #' @param pch.pts A value that indicates the plotting character to be used when plotting the raw data points on an age bias plot.
 #' @param col.pts A string or value that indicates the color to be used for plotting the raw data points.  The default is to use black with a transparency found in \code{transparency} on an age bias plot.
 #' @param transparency A value (between 0 and 1) that indicates the level of transparency to use for plotting the raw data points on an age bias plot.  If expressed as a fraction of 1/x then x points plotted on top of each other will represent the color in \code{col.pts}.
-#' @param show.rng A logical that indicates whether to show vertical bars that represent the range of the data points on an age bias plot.
-#' @param col.rng A string or value that indicates the color to be used for the interval representing the range of the data on an age bias plot.
-#' @param lwd.rng A value that indicates the line width for the interval representing the range of the data on an age bias plot.
+#' @param show.range A logical that indicates whether to show vertical bars that represent the range of the data points on an age bias plot.
+#' @param col.range A string or value that indicates the color to be used for the interval representing the range of the data on an age bias plot.
+#' @param lwd.range A value that indicates the line width for the interval representing the range of the data on an age bias plot.
 #' @param pch.mean A value that indicates the plotting character to be used for mean values (i.e., center of confidence interval bars) on an age bias plot.
-#' @param col.err A string or value that indicates the color to be used for confidence interval bars that are considered non-significant on an age bias plot.
-#' @param col.err.sig A string or value that indicates the color to be used for confidence interval bars that are considered significant on an age bias plot.
-#' @param lwd.err A value that indicates the line width for the confidence interval bars on an age bias plot.
-#' @param col.ref A value or string that indicates the color for the 1:1 or zero (if difference) reference line on an age bias plot.
-#' @param lwd.ref A value that indicates the line width for the 1:1 or zero (if difference) reference line on an age bias plot.
-#' @param lty.ref A value that indicates the line type for the 1:1 or zero (if difference) reference line on an age bias plot.
+#' @param col.CI A string or value that indicates the color to be used for confidence interval bars that are considered non-significant on an age bias plot.
+#' @param col.CIsig A string or value that indicates the color to be used for confidence interval bars that are considered significant on an age bias plot.
+#' @param lwd.CI A value that indicates the line width for the confidence interval bars on an age bias plot.
+#' @param col.agree A value or string that indicates the color for the 1:1 or zero (if difference) reference line on an age bias plot.
+#' @param lwd.agree A value that indicates the line width for the 1:1 or zero (if difference) reference line on an age bias plot.
+#' @param lty.agree A value that indicates the line type for the 1:1 or zero (if difference) reference line on an age bias plot.
 #' @param \dots Additional arguments for methods.
 #'
 #' @return \code{ageBias} returns a list with the following items:
@@ -114,22 +114,21 @@
 #' ## plot with the data points shown
 #' plot(ab1,show.pts=TRUE,transparency=1/3)
 #' ## plot with the range shown
-#' plot(ab1,show.rng=TRUE)
+#' plot(ab1,show.range=TRUE)
 #' ## plot with no difference in significance bar colors
-#' plot(ab1,col.err="black",col.err.sig="black")
+#' plot(ab1,col.CIsig="black")
 #' ## plot of differences (note could use same modifications as shown above)
 #' plot(ab1,difference=TRUE)
 #' ## sunflower plot
 #' plot(ab1,what="sunflower")
 #' plot(ab1,what="sunflower",difference=TRUE)
 #' ## "Numbers" plot
-#' plot(ab1,what="number",col.ref="gray50")
+#' plot(ab1,what="number",col.agree="gray50")
 #'
 #' @rdname ageBias
 #' @export
-ageBias <- function(formula,data,ref.lab=col.lab,nref.lab=row.lab,
-                    method=p.adjust.methods,sig.level=0.05,min.n.CI=3,
-                    col.lab=tmp$Rname,row.lab=tmp$Enames[1]) {
+ageBias <- function(formula,data,ref.lab=tmp$Rname,nref.lab=tmp$Enames[1],
+                    method=p.adjust.methods,sig.level=0.05,min.n.CI=3) {
   tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
   if (!tmp$metExpNumR) stop("'ageBias' must have only one LHS variable.",call.=FALSE)
   if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
@@ -222,22 +221,22 @@ summary.ageBias <- function(object,what=c("table","symmetry","Bowkers","EvansHoe
 plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE,
                          xlab=x$ref.lab,ylab=x$nref.lab,show.n=TRUE,nYpos=1.1,
                          show.pts=FALSE,pch.pts=19,col.pts=rgb(0,0,0,transparency),transparency=1/10,
-                         pch.mean=3,col.err="blue",col.err.sig="red",lwd.err=1,
-                         show.rng=FALSE,col.rng="gray",lwd.rng=1,
-                         col.ref="black",lwd.ref=1,lty.ref=2,
+                         pch.mean=3,col.CI="black",col.CIsig="red",lwd.CI=1,
+                         show.range=FALSE,col.range="gray",lwd.range=1,
+                         col.agree="black",lwd.agree=1,lty.agree=2,
                          xlim=NULL,ylim=NULL,yaxt=par("yaxt"),...) {
   what <- match.arg(what)
   switch(what,
          bias={ iAgeBiasPlot(x,difference,
                              xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
                              show.n,nYpos,show.pts,pch.pts,col.pts,
-                             pch.mean,col.err,col.err.sig,lwd.err,
-                             show.rng,col.rng,lwd.rng,
-                             col.ref,lwd.ref,lty.ref,
+                             pch.mean,col.CI,col.CIsig,lwd.CI,
+                             show.range,col.range,lwd.range,
+                             col.agree,lwd.agree,lty.agree,
                              xlim,ylim,yaxt,...) },
          sunflower={ iAgeBiasSunflowerPlot(x,difference,xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
-                                           xlim,ylim,lwd.ref,lty.ref,col.ref,...) },
-         numbers={ iAgeBiasNumPlot(x,xlab,ylab,xlim,ylim,lwd.ref,lty.ref,col.ref,...) }
+                                           xlim,ylim,lwd.agree,lty.agree,col.agree,...) },
+         numbers={ iAgeBiasNumPlot(x,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,...) }
   ) # end switch
 }
 
@@ -408,8 +407,8 @@ iabAxisLmts <- function(d,xlim,ylim,show.n,difference) {
 #   by ageBias().
 #===============================================================================
 iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,show.pts,pch.pts,col.pts,
-                         pch.mean,col.err,col.err.sig,lwd.err,show.rng,col.rng,lwd.rng,
-                         col.ref,lwd.ref,lty.ref,xlim,ylim,yaxt,...) {
+                         pch.mean,col.CI,col.CIsig,lwd.CI,show.range,col.range,lwd.range,
+                         col.agree,lwd.agree,lty.agree,xlim,ylim,yaxt,...) {
   # identify whether difference data should be used or not, put in a tmp data frame
   if (!difference) d <- obj$bias
   else d <- obj$bias.diff
@@ -423,27 +422,27 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,show.pts,pch.pts,
   # Helps keep y-axis as integers (needed for difference plot)
   if (yaxt!="n") {axis(2,seq(axlmts$ylim[1],axlmts$ylim[2],1))}
   # agreement line -- horizontal for difference and 45 degree for bias plot
-  if (difference) abline(h=0,lwd=lwd.ref,lty=lty.ref,col=col.ref)
-  else abline(a=0,b=1,lwd=lwd.ref,lty=lty.ref,col=col.ref)
+  if (difference) abline(h=0,lwd=lwd.agree,lty=lty.agree,col=col.agree)
+  else abline(a=0,b=1,lwd=lwd.agree,lty=lty.agree,col=col.agree)
   # add individual points if asked for
   if (show.pts) {
     if (difference) points(obj$d[,1],obj$d[,3],col=col.pts,pch=pch.pts)
     else points(obj$d[,1],obj$d[,2],col=col.pts,pch=pch.pts)
   }
   # add range of individual points if asked for
-  if (show.rng) {
-    plotrix::plotCI(x=d[,1],y=d$mean,li=d$min,ui=d$max,add=TRUE,slty=1,scol=col.rng,pch=pch.mean,lwd=lwd.rng,gap=0,sfrac=0.005)
+  if (show.range) {
+    plotrix::plotCI(x=d[,1],y=d$mean,li=d$min,ui=d$max,add=TRUE,slty=1,scol=col.range,pch=pch.mean,lwd=lwd.range,gap=0,sfrac=0.005)
   }
   # add on CIs for mean
   #  for ages that are signficantly different
   if (any(d$sig)) {
     plotrix::plotCI(x=d[,1][d$sig],y=d$mean[d$sig],li=d$LCI[d$sig],ui=d$UCI[d$sig],
-                    add=TRUE,slty=1,scol=col.err.sig,pch=pch.mean,lwd=lwd.err,gap=0)
+                    add=TRUE,slty=1,scol=col.CIsig,pch=pch.mean,lwd=lwd.CI,gap=0)
   }
   #  for ages that are not significantly different
   if (any(!d$sig)) {
     plotrix::plotCI(x=d[,1][!d$sig],y=d$mean[!d$sig],li=d$LCI[!d$sig],ui=d$UCI[!d$sig],
-                    add=TRUE,slty=1,scol=col.err,pch=pch.mean,lwd=lwd.err,gap=0)
+                    add=TRUE,slty=1,scol=col.CI,pch=pch.mean,lwd=lwd.CI,gap=0)
   }
   # show the sample sizes at the top
   if (show.n) text(d[,1],grconvertY(nYpos,"npc"),d$n,cex=0.75,xpd=TRUE)
@@ -453,7 +452,7 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,show.pts,pch.pts,
 # This internal function is used to produce the age-bias sunflower plot.  This
 #   is called by 
 #===============================================================================
-iAgeBiasSunflowerPlot <- function(obj,difference,xlab,ylab,xlim,ylim,lwd.ref,lty.ref,col.ref,...) {
+iAgeBiasSunflowerPlot <- function(obj,difference,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,...) {
   x <- obj$d[,1]
   if (difference) {
     y <- obj$d[,3]
@@ -466,15 +465,15 @@ iAgeBiasSunflowerPlot <- function(obj,difference,xlab,ylab,xlim,ylim,lwd.ref,lty
   }
   sunflowerplot(x,y,seg.col="blue",size=1/10,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...)
   # agreement line -- horizontal for difference and 45 degree for bias plot
-  if (difference) abline(h=0,lwd=lwd.ref,lty=lty.ref,col=col.ref)
-  else abline(a=0,b=1,lwd=lwd.ref,lty=lty.ref,col=col.ref)
+  if (difference) abline(h=0,lwd=lwd.agree,lty=lty.agree,col=col.agree)
+  else abline(a=0,b=1,lwd=lwd.agree,lty=lty.agree,col=col.agree)
 }  ## end internal sunflowerplot function
 
 #===============================================================================
 # This internal function is used to produce the age-bias numbers plot.  This
 #   is called by 
 #===============================================================================
-iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,lwd.ref,lty.ref,col.ref,...) {
+iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,...) {
   # convert age-agreement table into a data frame with all zeroes removed
   d <- as.data.frame(obj$agree)
   d[,1] <- fact2num(d[,1])
@@ -490,7 +489,7 @@ iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,lwd.ref,lty.ref,col.ref,...)
   # make an empty plot
   plot(x,y,type="n",xlab=xlab,ylab=ylab,xlim=xlim,ylim=ylim,...)
   # add the one-to-one line
-  lines(xlim,xlim,lwd=lwd.ref,lty=lty.ref,col=col.ref)
+  lines(xlim,xlim,lwd=lwd.agree,lty=lty.agree,col=col.agree)
   # add the numbers at each point
   text(x,y,labels=lbls)
 }  ## end internal iAgeBiasNumPlot function

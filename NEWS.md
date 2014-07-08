@@ -1,6 +1,6 @@
 # FSA 0.4.18 ongoing
 * `ageBias()`: Modified.  Changed default value of `min.n.CI=` from 5 to 3.  Added an `na.rm=TRUE` to the `min()` and `max()` that produced the age ranges for the age agreement table.
-* `plot.AgeBias()`.  Modified.  Fixed bug that produced a warning if all of the bias t-tests were either significant or not significant.  Changed default values for `lwd.rng=` and `lwd.err=` from 2 to 1 in `plot.ageBias()`.
+* `plot.AgeBias()`.  Modified.  Fixed bug that produced a warning if all of the bias t-tests were either significant or not significant.  Changed `col.err=` to `col.CI=`, `lwd.err=` to `lwd.CI=`, `col.err.sig=` to `col.CIsig=`, `col.ref=` to `col.agree=`, `lwd.ref=` to `lwd.agree=`, `lty.ref=` to `lty.agree=`, `show.rng=` to `show.range=`, `col.rng=` to `col.range=`, `lwd.rng=` to `lwd.range=`.  Removed `col.lab=` and `row.lab=` which were deprecated several minor versions ago.  Changed default values for `lwd.rng=` and `lwd.CI=` from 2 to 1.
 
 # FSA 0.4.17 Jul14
 * `confint.mrClosed()`: Modified.  Moved all internal functions outside of `confint.mrClosed()` environment (see `iCI.MRCMultiple()` and `iCI.MRCSingle()`).  Changed `ci.type=` to just `type=`.  Streamlined binomial method for single census.  Used `iMRCSingleSE()` to get SE for when `type="normal"` for Chapman, Bailey, and Ricker methods.
