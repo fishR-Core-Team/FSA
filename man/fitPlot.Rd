@@ -51,7 +51,7 @@ fitPlot(object, ...)
 
 \method{fitPlot}{logreg}(object, xlab = names(object$model)[2],
   ylab = names(object$model)[1], main = "", plot.pts = TRUE,
-  col.pt = "black", trans.pt = NULL, plot.p = TRUE, breaks = 25,
+  col.pt = "black", transparency = NULL, plot.p = TRUE, breaks = 25,
   p.col = "blue", p.pch = 3, p.cex = 1, yaxis1.ticks = seq(0, 1, 0.1),
   yaxis1.lbls = c(0, 0.5, 1), yaxis2.show = TRUE, col.mdl = "red",
   lwd = 2, lty = 1, mdl.vals = 50, xlim = range(x), ...)
@@ -109,7 +109,7 @@ fitPlot(object, ...)
 
 \item{legend.lbls}{A vector of strings that will be the labels for the legend in an nls fitPlot graphic.}
 
-\item{trans.pt}{A numeric that indicates how many points would be plotted on top of each other in a logistic regression before the \sQuote{point} would have the full \code{pt.col} color.  The reciprocal of this value is the alpha transparency value.}
+\item{transparency}{A numeric that indicates how many points would be plotted on top of each other in a logistic regression before the \sQuote{point} would have the full \code{pt.col} color.  The reciprocal of this value is the alpha transparency value.}
 
 \item{plot.p}{A logical that indicates if the proportion for categorized values of X are plotted (\code{TRUE}; default).}
 

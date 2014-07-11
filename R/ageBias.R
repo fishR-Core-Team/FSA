@@ -57,6 +57,7 @@
 #' @param col.agree A value or string that indicates the color for the 1:1 or zero (if difference) reference line on an age bias plot.
 #' @param lwd.agree A value that indicates the line width for the 1:1 or zero (if difference) reference line on an age bias plot.
 #' @param lty.agree A value that indicates the line type for the 1:1 or zero (if difference) reference line on an age bias plot.
+#' @param cex.numbers A character expansion value for the size of the numbers plotted when \code{what="numbers"} in \code{plot}.
 #' @param \dots Additional arguments for methods.
 #'
 #' @return \code{ageBias} returns a list with the following items:
@@ -224,6 +225,7 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
                          pch.mean=3,col.CI="black",col.CIsig="red",lwd.CI=1,
                          show.range=FALSE,col.range="gray",lwd.range=1,
                          col.agree="black",lwd.agree=1,lty.agree=2,
+                         cex.numbers=0.9,
                          xlim=NULL,ylim=NULL,yaxt=par("yaxt"),...) {
   what <- match.arg(what)
   switch(what,
@@ -236,7 +238,7 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
                              xlim,ylim,yaxt,...) },
          sunflower={ iAgeBiasSunflowerPlot(x,difference,xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
                                            xlim,ylim,lwd.agree,lty.agree,col.agree,...) },
-         numbers={ iAgeBiasNumPlot(x,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,...) }
+         numbers={ iAgeBiasNumPlot(x,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,cex.numbers,...) }
   ) # end switch
 }
 
@@ -473,7 +475,7 @@ iAgeBiasSunflowerPlot <- function(obj,difference,xlab,ylab,xlim,ylim,lwd.agree,l
 # This internal function is used to produce the age-bias numbers plot.  This
 #   is called by 
 #===============================================================================
-iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,...) {
+iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,cex.numbers,...) {
   # convert age-agreement table into a data frame with all zeroes removed
   d <- as.data.frame(obj$agree)
   d[,1] <- fact2num(d[,1])
@@ -491,6 +493,6 @@ iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agre
   # add the one-to-one line
   lines(xlim,xlim,lwd=lwd.agree,lty=lty.agree,col=col.agree)
   # add the numbers at each point
-  text(x,y,labels=lbls)
+  text(x,y,labels=lbls,cex=cex.numbers)
 }  ## end internal iAgeBiasNumPlot function
 

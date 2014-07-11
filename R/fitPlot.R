@@ -38,7 +38,7 @@
 #' @param d A data frame that contains the variabls used in construction of the \code{nls} object.
 #' @param jittered A logical that indicates whether the points should be jittered horizontally.
 #' @param legend.lbls A vector of strings that will be the labels for the legend in an nls fitPlot graphic.
-#' @param trans.pt A numeric that indicates how many points would be plotted on top of each other in a logistic regression before the \sQuote{point} would have the full \code{pt.col} color.  The reciprocal of this value is the alpha transparency value.
+#' @param transparency A numeric that indicates how many points would be plotted on top of each other in a logistic regression before the \sQuote{point} would have the full \code{pt.col} color.  The reciprocal of this value is the alpha transparency value.
 #' @param plot.p A logical that indicates if the proportion for categorized values of X are plotted (\code{TRUE}; default).
 #' @param breaks A number that indicates how many intervals over which to compute proportions or a numeric vector that contains the endpoints of the intervals over which to compute proportions if \code{plot.p=TRUE}.
 #' @param p.col A color to plot the proportions.
@@ -420,13 +420,13 @@ fitPlot.glm <- function(object, ...) {
 #' @rdname fitPlot
 #' @export
 fitPlot.logreg <- function(object,xlab=names(object$model)[2],ylab=names(object$model)[1],main="",
-    plot.pts=TRUE,col.pt="black",trans.pt=NULL,
+    plot.pts=TRUE,col.pt="black",transparency=NULL,
     plot.p=TRUE,breaks=25,p.col="blue",p.pch=3,p.cex=1,
     yaxis1.ticks=seq(0,1,0.1),yaxis1.lbls=c(0,0.5,1),yaxis2.show=TRUE,
     col.mdl="red",lwd=2,lty=1,mdl.vals=50,xlim=range(x),...) {
   yc <- object$model[,1]
   x <- object$model[,2]
-  plotBinResp(x,yc,xlab,ylab,plot.pts,col.pt,trans.pt,plot.p,breaks,p.col,p.pch,p.cex,
+  plotBinResp(x,yc,xlab,ylab,plot.pts,col.pt,transparency,plot.p,breaks,p.col,p.pch,p.cex,
               yaxis1.ticks=yaxis1.ticks,yaxis1.lbls=yaxis1.lbls,yaxis2.show=yaxis2.show,
               main=main,xlim=xlim,...)
   nd <- data.frame(seq(min(xlim),max(xlim),length.out=mdl.vals))

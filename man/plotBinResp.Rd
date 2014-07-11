@@ -9,7 +9,7 @@ plotBinResp(x, ...)
 
 \method{plotBinResp}{default}(x, y, xlab = paste(deparse(substitute(x))),
   ylab = paste(deparse(substitute(y))), plot.pts = TRUE, col.pt = "black",
-  trans.pt = NULL, plot.p = TRUE, breaks = 25, p.col = "blue",
+  transparency = NULL, plot.p = TRUE, breaks = 25, p.col = "blue",
   p.pch = 3, p.cex = 1.25, yaxis1.ticks = seq(0, 1, 0.1),
   yaxis1.lbls = c(0, 0.5, 1), yaxis2.show = TRUE, ...)
 
@@ -29,9 +29,9 @@ plotBinResp(x, ...)
 
 \item{plot.pts}{A logical that indicates (\code{TRUE} (default)) whether the points should be plotted (\code{TRUE}; default) or not (\code{FALSE}).}
 
-\item{col.pt}{A string used to indicate the color of the plotted points.  Will be transparent unless \code{trans.pt=1}.}
+\item{col.pt}{A string used to indicate the color of the plotted points.  Will be transparent unless \code{transparency=1}.}
 
-\item{trans.pt}{A numeric that indicates how many points would be plotted on top of each other before the \sQuote{point} would have the full \code{col.pt} color.  The reciprocal of this value is the alpha transparency value.}
+\item{transparency}{A numeric that indicates how many points would be plotted on top of each other before the \sQuote{point} would have the full \code{col.pt} color.  The reciprocal of this value is the alpha transparency value.}
 
 \item{plot.p}{A logical that indicates if the proportion for categorized values of X are plotted (\code{TRUE}; default).}
 
@@ -86,7 +86,7 @@ plotBinResp(fail~temperature,data=d,plot.pts=FALSE)
 plotBinResp(fail~temperature,data=d,plot.p=FALSE)
 
 ## Change points colors, and eliminate transparency
-plotBinResp(fail~temperature,data=d,col.pt="red",trans.pt=1)
+plotBinResp(fail~temperature,data=d,col.pt="red",transparency=1)
 
 ## Remove the right y-axis
 plotBinResp(fail~temperature,data=d,yaxis2.show=FALSE)

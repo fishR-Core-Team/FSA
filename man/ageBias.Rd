@@ -19,7 +19,8 @@ ageBias(formula, data, ref.lab = tmp$Rname, nref.lab = tmp$Enames[1],
   col.pts = rgb(0, 0, 0, transparency), transparency = 1/10, pch.mean = 3,
   col.CI = "black", col.CIsig = "red", lwd.CI = 1, show.range = FALSE,
   col.range = "gray", lwd.range = 1, col.agree = "black", lwd.agree = 1,
-  lty.agree = 2, xlim = NULL, ylim = NULL, yaxt = par("yaxt"), ...)
+  lty.agree = 2, cex.numbers = 0.9, xlim = NULL, ylim = NULL,
+  yaxt = par("yaxt"), ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{refvar~nrefvar}, where \code{refvar} and \code{nrefvar} generically represent the variables that contain the \dQuote{reference} and \dQuote{non-reference} age assignments, respectively.  See details.}
@@ -91,6 +92,8 @@ ageBias(formula, data, ref.lab = tmp$Rname, nref.lab = tmp$Enames[1],
 \item{lwd.agree}{A value that indicates the line width for the 1:1 or zero (if difference) reference line on an age bias plot.}
 
 \item{lty.agree}{A value that indicates the line type for the 1:1 or zero (if difference) reference line on an age bias plot.}
+
+\item{cex.numbers}{A character expansion value for the size of the numbers plotted when \code{what="numbers"} in \code{plot}.}
 
 \item{\dots}{Additional arguments for methods.}
 }
