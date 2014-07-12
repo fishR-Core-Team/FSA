@@ -107,7 +107,7 @@
 #' # convert converted 'individual' back to 'frequency' format
 #' ex3d <- capHistConvert(ex3a,in.type="individual",cols=1:8,out.type="frequency",var.lbls.pre="Sample")
 #' head(ex3d)
-#' 
+#'
 #' }
 #'
 #' ## A small example of 'MARK' format with two groups -- males and females
@@ -124,57 +124,28 @@ capHistConvert <- function(df,event=NULL,id=NULL,event.ord=NULL,
                            in.type=c("event","frequency","individual","MARK"),
                            out.type=c("individual","frequency","MARK","RMark"),
                            var.lbls=NULL,var.lbls.pre="Event") {
-
+  # initial argument checks
   in.type <- match.arg(in.type)
   out.type <- match.arg(out.type)
+  # make sure df is a data.frame (could be sent as a matrix)
   df <- as.data.frame(df)
   
- ### convert from event form to individual form
+  ## Convert from event form to individual form
   switch(in.type,
          frequency={ ch.df <- iFrequency2Individual(df,cols,freq)      },
          event=    { ch.df <- iEvent2Individual(df,event,id,event.ord) },
          MARK=     { ch.df <- iMark2Individual(df,freq,mch)            }
          ) # end in.type switch
   
- ### output types
-  if (out.type=="individual") {
-    if (length(var.lbls) >= ncol(ch.df)) var.lbls <- var.lbls[1:ncol(ch.df)]
-      else {
-        if (!is.null(var.lbls)) warning("Too few variable labels sent in 'var.lbls', default labels will be used.",call.=FALSE)
-        if (in.type=="event") var.lbls <- c(id,paste(var.lbls.pre,1:(ncol(ch.df)-1),sep=""))
-          else var.lbls <- paste(var.lbls.pre,1:ncol(ch.df),sep="")
-      }
-    names(ch.df) <- var.lbls
-  } else if (out.type=="RMark") { ## this was new code for converting to RMark
-    if (in.type=="individual") ifelse(is.null(cols),ch.df <- df, ch.df <- df[,cols])
-    ch <- apply(as.matrix(ch.df),1,paste,sep="",collapse="")
-    ch.df <- data.frame(ch=ch)
-    ch.df$ch <- as.character(ch.df$ch)
-  } else {
-    if (in.type=="individual") chsum <- capHistSum(df,cols=cols)
-      else if(in.type=="event") chsum <- capHistSum(ch.df,cols=2:ncol(ch.df))
-        else chsum <- capHistSum(ch.df,1:ncol(ch.df))
-    ch.df <- as.data.frame(chsum$caphist)
-    rownames(ch.df) <- 1:nrow(ch.df)
-    colnames(ch.df)[1] <- "caphist"
-    if (out.type=="MARK") ch.df[,1] <- paste(ch.df[,1],";",sep="")
-      else {
-        ch.df1 <- matrix(NA,ncol=nchar(as.character(ch.df[1,1])),nrow=nrow(ch.df))
-        for (i in 1:nrow(ch.df)) {
-          ch1 <- as.numeric(noquote(unlist(strsplit(as.character(ch.df[i,1]),""))))
-          ch.df1[i,] <- ch1
-        }
-        ch.df <- data.frame(ch.df1,ch.df[,"Freq"])
-        if (length(var.lbls) >= (ncol(ch.df)-1)) var.lbls <- var.lbls[1:(ncol(ch.df)-1)]
-          else {
-            if (!is.null(var.lbls)) warning("Too few variable labels sent in 'var.lbls', default labels will be used.",call.=FALSE)
-            var.lbls <- c(paste(var.lbls.pre,1:(ncol(ch.df)-1),sep=""))
-          }
-        names(ch.df) <- c(var.lbls,"Freq")
-      }
-  }
-
-ch.df
+  ## Conver to the output types
+  switch(out.type,
+         individual={ ch.df <- iOutIndividual(ch.df,id,in.type,var.lbls,var.lbls.pre)     },
+         frequency= { ch.df <- iOutFrequency(df,ch.df,cols,in.type,var.lbls,var.lbls.pre) },
+         MARK=      { ch.df <- iOutMARK(df,ch.df,cols,in.type)                            },
+         RMark=     { ch.df <- iOutRMark(ch.df,cols,in.type)                              }
+         ) # end out.type switch
+  ## return the new data.frame
+  ch.df
 }
 
 
@@ -222,4 +193,74 @@ iMark2Individual <- function(df,freq,mch) {
     tmp[i,] <- ch1
   }
   tmp <- as.data.frame(tmp)
+}
+
+
+########################################################################
+## Internal functions to convert from the individual format returned by
+##   the in.type internal functions to one of the output formats.
+##   Each function that begins with iOut returns a data.frame in the
+##   proper format.  The other functions produce intermediate objects.
+########################################################################
+iOutIndividual <- function(ch.df,id,in.type,var.lbls,var.lbls.pre) {
+  if (length(var.lbls) >= ncol(ch.df)) {
+    var.lbls <- var.lbls[1:ncol(ch.df)]
+  } else {
+    if (!is.null(var.lbls)) warning("Too few labels in 'var.lbls'; default labels will be used.",call.=FALSE)
+    if (in.type=="event") {
+      var.lbls <- c(id,paste(var.lbls.pre,1:(ncol(ch.df)-1),sep=""))
+    } else {
+      var.lbls <- paste(var.lbls.pre,1:ncol(ch.df),sep="")
+    }
+  }
+  names(ch.df) <- var.lbls
+  ch.df
+}
+
+iOutRMark <- function(ch.df,cols,in.type) {
+  if (in.type=="individual") ifelse(is.null(cols),ch.df <- df, ch.df <- df[,cols])
+  ch <- apply(as.matrix(ch.df),1,paste,sep="",collapse="")
+  ch.df <- data.frame(ch=ch)
+  ch.df$ch <- as.character(ch.df$ch)
+  ch.df
+}
+
+iOutFrequency <- function(df,ch.df,cols,in.type,var.lbls,var.lbls.pre) {
+  ch.df <- iPrepCapHistSum(df,ch.df,cols,in.type)
+  ch.df1 <- matrix(NA,ncol=nchar(as.character(ch.df[1,1])),nrow=nrow(ch.df))
+  for (i in 1:nrow(ch.df)) {
+    ch1 <- as.numeric(noquote(unlist(strsplit(as.character(ch.df[i,1]),""))))
+    ch.df1[i,] <- ch1
+  }
+  ch.df <- data.frame(ch.df1,ch.df[,"Freq"])
+  if (length(var.lbls) >= (ncol(ch.df)-1)) {
+    var.lbls <- var.lbls[1:(ncol(ch.df)-1)]
+  } else {
+    if (!is.null(var.lbls)) warning("Too few labels in 'var.lbls'; default labels will be used.",call.=FALSE)
+    var.lbls <- c(paste(var.lbls.pre,1:(ncol(ch.df)-1),sep=""))
+  }
+  names(ch.df) <- c(var.lbls,"Freq")
+  ch.df
+}
+
+iOutMARK <- function(df,ch.df,cols,in.type) {
+  ch.df <- iPrepCapHistSum(df,ch.df,cols,in.type)
+  ch.df[,1] <- paste(ch.df[,1],";",sep="")
+  ch.df
+}
+
+iPrepCapHistSum <- function(df,ch.df,cols,in.type) {
+  if (in.type=="individual") {
+    chsum <- capHistSum(df,cols=cols)
+  } else {
+    if(in.type=="event") {
+      chsum <- capHistSum(ch.df,cols=2:ncol(ch.df))
+    } else {
+      chsum <- capHistSum(ch.df,1:ncol(ch.df))
+    }
+  }
+  ch.df <- as.data.frame(chsum$caphist)
+  rownames(ch.df) <- 1:nrow(ch.df)
+  colnames(ch.df)[1] <- "caphist"
+  ch.df
 }
