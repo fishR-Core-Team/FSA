@@ -4,9 +4,9 @@
 \title{Convert between different capture history recording types.}
 \usage{
 capHistConvert(df, event = NULL, id = NULL, event.ord = NULL,
-  mch = NULL, cols = NULL, freq = NULL, in.type = c("event", "MARK",
-  "Rcapture", "FSA"), out.type = c("FSA", "MARK", "RMark", "Rcapture"),
-  var.lbls = NULL, var.lbls.pre = "Event")
+  cols = NULL, freq = NULL, mch = NULL, in.type = c("event",
+  "frequency", "individual", "MARK"), out.type = c("individual", "frequency",
+  "MARK", "RMark"), var.lbls = NULL, var.lbls.pre = "Event")
 }
 \arguments{
 \item{df}{A data.frame that contains the capture histories (and, perhaps, other information).  See details.}
@@ -19,26 +19,26 @@ capHistConvert(df, event = NULL, id = NULL, event.ord = NULL,
 
 \item{mch}{A string or numeric that indicates the column in \code{df} that contains the MARK capture history codes.  This argument is only used if \code{in.type=="MARK"}.}
 
-\item{cols}{A string or numeric that indicates the columns in \code{df} that contain the Rcapture or FSA capture history codes (each column is an individual sampling event -- see details).  This argument is only used if \code{in.type=="Rcapture"} or \code{in.type=="FSA"}.}
+\item{cols}{A string or numeric that indicates the columns in \code{df} that contain the frequency or individual capture history codes (each column is an individual sampling event -- see details).  This argument is only used if \code{in.type=="frequency"} or \code{in.type=="individual"}.}
 
-\item{freq}{A string or numeric that indicates the columns in \code{df} that contain the frequency of individuals corresponding to a MARK or Rcapture capture history.  This argument is only used if \code{in.type=="MARK"} or \code{in.type=="Rcapture"}.}
+\item{freq}{A string or numeric that indicates the columns in \code{df} that contain the frequency of individuals corresponding to a MARK or frequency capture history.  This argument is only used if \code{in.type=="MARK"} or \code{in.type=="frequency"}.}
 
 \item{in.type}{A string that indicates the type of capture history format to convert FROM.}
 
 \item{out.type}{A string that indicates the type of capture history format to convert TO.}
 
-\item{var.lbls}{A vector of strings used to label the columns that contains the returned FSA or Rcapture capture histories.  This argument is only used if \code{in.type=="Rcapture"} or \code{in.type=="FSA"}.  If \code{var.lbls=NULL} or the length is different then the number of events then default labels using \code{var.lbls.pre} will be used.}
+\item{var.lbls}{A vector of strings used to label the columns that contains the returned individual or frequency capture histories.  This argument is only used if \code{in.type=="frequency"} or \code{in.type=="individual"}.  If \code{var.lbls=NULL} or the length is different then the number of events then default labels using \code{var.lbls.pre} will be used.}
 
-\item{var.lbls.pre}{A string used as a prefix for the labels of the columns that contains the returned FSA or Rcapture capture histories.  This prefix will be appended with a number corresponding to the sample event.  This argument is only used if \code{in.type=="Rcapture"} or \code{in.type=="FSA"} and will be ignored if a proper vector is given in \code{var.lbls}.}
+\item{var.lbls.pre}{A string used as a prefix for the labels of the columns that contains the returned individual or frequency capture histories.  This prefix will be appended with a number corresponding to the sample event.  This argument is only used if \code{in.type=="frequency"} or \code{in.type=="individual"} and will be ignored if a proper vector is given in \code{var.lbls}.}
 }
 \value{
 A data frame of the proper type given in \code{out.type} is returned.  See details.
 }
 \description{
-This function can be used to convert between four capture history recording types -- by event, FSA, MARK, and Rcapture.  The primary usage is to convert to the FSA format from these other formats for use in \code{\link{capHistSum}}.
+Use to convert between four capture history recording types -- \dQuote{event}, \dQuote{individual}, \dQuote{frequency}, and \dQuote{MARK}.  The primary usage is to convert to the \dQuote{individual} format from the other formats for use in \code{\link{capHistSum}}.
 }
 \details{
-The \code{\link{capHistSum}} function requires capture histories to be recorded in a specific format.  This format, called the \sQuote{FSA} format, is in a data frame with (at least) as many columns as sample events and as many rows as individually marked or tagged individuals.  Each cell in the data frame contains a \sQuote{0} if the animal of that row was NOT seen in the event of that column and a \sQuote{1} if the animal of that row WAS seen in the event of that column.  For example, suppose that four fish were marked and four sampling events occurred.  Further suppose that fish \sQuote{17} was captured on the first two events, fish \sQuote{18} was captured on the first and third events, fish \sQuote{19} was captured on only the third event, fish \sQuote{20} was captured on only the fourth event, and fish \sQuote{21} was captured on the first and second events.  The \sQuote{FSA} capture history for these data would look like:
+\code{\link{capHistSum}} requires capture histories to be recorded in the \dQuote{individual} format.  In this format, the data frame contains (at least) as many columns as sample events and as many rows as individually tagged fish.  Each cell in the data frame contains a \sQuote{0} if the fish of that row was NOT seen in the event of that column and a \sQuote{1} if the fish of that row WAS seen in the event of that column.  For example, suppose that four fish were marked and four sampling events occurred.  Further suppose that fish \sQuote{17} was captured on the first two events, fish \sQuote{18} was captured on the first and third events, fish \sQuote{19} was captured on only the third event, fish \sQuote{20} was captured on only the fourth event, and fish \sQuote{21} was captured on the first and second events.  The \dQuote{individual} capture history for these data looks like:
 
 \tabular{ccccc}{
 id \tab Event1 \tab Event2 \tab Event3 \tab Event4 \cr
@@ -49,7 +49,17 @@ id \tab Event1 \tab Event2 \tab Event3 \tab Event4 \cr
 21 \tab 1 \tab 1 \tab 0 \tab 0 \cr
 }
 
-Another common format for capture histories is the \sQuote{'event'} format.  This format consists of a column that corresponds to the individual animal (likely a tag number) and a column that identifies the event in which this animal was observed.  For example, the situation from above would look like:
+The data frame for the \dQuote{frequency} format has unique capture histories in separate columns as in the \dQuote{individual} format but it includes a column that contains the frequency of individuals with the capture history of that row.  The same data from above looks like:
+
+\tabular{ccccc}{
+Event1 \tab Event2 \tab Event3 \tab Event4 \tab Freq \cr
+1 \tab 1 \tab 0 \tab 0 \tab 2 \cr
+1 \tab 0 \tab 1 \tab 0 \tab 1 \cr
+0 \tab 0 \tab 1 \tab 0 \tab 1 \cr
+0 \tab 0 \tab 0 \tab 1 \tab 1 \cr
+}
+
+The data frame for the \dQuote{event} format consists of a column that corresponds to the individual fish (likely a tag number) and a column that identifies the event in which this fish was observed.  For example, the same data from above looks like:
 
 \tabular{cc}{
 id \tab event \cr
@@ -63,7 +73,7 @@ id \tab event \cr
 20 \tab 4 \cr
 }
 
-Program MARK is probably the \dQuote{gold-standard} software for analyzing complex capture history information.  In the \sQuote{MARK} format the 0s and 1s of the capture histories are combined together as a string without any spaces and an ending semicolon.  Thus, the \sQuote{MARK} format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the various capture histories.  For example, the situation from above would look like:
+MARK is the \dQuote{gold-standard} software for analyzing complex capture history information.  In the \dQuote{MARK} format the 0s and 1s of the capture histories are combined together as a string without any spaces and an ended with a semicolon.  Thus, the \dQuote{MARK} format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the various capture histories.  The sam data from above looks like:
 
 \tabular{cc}{
 caphist \tab Freq \cr
@@ -71,16 +81,6 @@ caphist \tab Freq \cr
 0010; \tab 1 \cr
 1010; \tab 1 \cr
 1100; \tab 2 \cr
-}
-
-Rcapture is a an R package that fits some of the same models found in Program MARK.  The \sQuote{Rcapture} format has capture histories in separate columns as in the \sQuote{FSA} format and the frequency of individuals with the various capture histories recorded in a frequency column as in the \sQuote{MARK} format.  For example, the situation from above would look like:
-
-\tabular{ccccc}{
-Event1 \tab Event2 \tab Event3 \tab Event4 \tab Freq \cr
-1 \tab 1 \tab 0 \tab 0 \tab 2 \cr
-1 \tab 0 \tab 1 \tab 0 \tab 1 \cr
-0 \tab 0 \tab 1 \tab 0 \tab 1 \cr
-0 \tab 0 \tab 0 \tab 1 \tab 1 \cr
 }
 }
 \note{
@@ -92,45 +92,45 @@ This function assumes that all unmarked captured fish are marked and returned to
 \examples{
 ## A small example of 'event' format -- fish ID followed by capture year
 ( ex1 <- data.frame(id=c(17,18,21,17,21,18,19,20),yr=c(1987,1987,1987,1988,1988,1989,1989,1990)) )
-# convert to 'FSA' format
+# convert to 'individual' format
 ( ex1a <- capHistConvert(ex1,event="yr",id="id") )
 # convert to 'MARK' format
 ( ex1b <- capHistConvert(ex1,event="yr",id="id",out.type="MARK") )
-# convert to 'Rcapture' format
-( ex1c <- capHistConvert(ex1,event="yr",id="id",out.type="Rcapture") )
+# convert to 'frequency' format
+( ex1c <- capHistConvert(ex1,event="yr",id="id",out.type="frequency") )
 
 ## A small example of 'MARK' format -- capture history followed by frequency
 ( ex2 <- data.frame(mch=c("10101;","10001;","01010;"),freq=c(3,1,2)) )
-# convert to 'FSA' format
+# convert to 'individual' format
 ( ex2a <- capHistConvert(ex2,in.type="MARK",mch="mch",freq="freq") )
-# convert to 'Rcapture' format
-( ex2b <- capHistConvert(ex2,in.type="MARK",mch="mch",freq="freq",out.type="Rcapture") )
+# convert to 'frequency' format
+( ex2b <- capHistConvert(ex2,in.type="MARK",mch="mch",freq="freq",out.type="frequency") )
 
 ## ONLY RUN IN INTERACTIVE MODE
 if (interactive()) {
 
-## A larger example of 'Rcapture' format
+## A larger example of 'frequency' format
 require(Rcapture)
 data(bunting)
 head(bunting)
-# convert to 'FSA' format
-ex3a <- capHistConvert(bunting,in.type="Rcapture",cols=1:8,freq="freq")
+# convert to 'individual' format
+ex3a <- capHistConvert(bunting,in.type="frequency",cols=1:8,freq="freq")
 head(ex3a)
 # convert to 'MARK' format
-ex3b <- capHistConvert(bunting,in.type="Rcapture",cols=1:8,freq="freq",out.type="MARK")
+ex3b <- capHistConvert(bunting,in.type="frequency",cols=1:8,freq="freq",out.type="MARK")
 head(ex3b)
-# convert converted 'FSA' back to 'MARK' format
-ex3c <- capHistConvert(ex3a,in.type="FSA",cols=1:8,out.type="MARK")
+# convert converted 'individual' back to 'MARK' format
+ex3c <- capHistConvert(ex3a,in.type="individual",cols=1:8,out.type="MARK")
 head(ex3c)
-# convert converted 'FSA' back to 'Rcapture' format
-ex3d <- capHistConvert(ex3a,in.type="FSA",cols=1:8,out.type="Rcap",var.lbls.pre="Sample")
+# convert converted 'individual' back to 'frequency' format
+ex3d <- capHistConvert(ex3a,in.type="individual",cols=1:8,out.type="frequency",var.lbls.pre="Sample")
 head(ex3d)
 
 }
 
 ## A small example of 'MARK' format with two groups -- males and females
 ( ex4 <- data.frame(mch=c("100101;","100001;"),male=c(3,1),female=c(2,2)) )
-# convert to 'FSA' format
+# convert to 'individual' format
 ( ex4m <- capHistConvert(ex4,in.type="MARK",mch="mch",freq="male") )
 ( ex4f <- capHistConvert(ex4,in.type="MARK",mch="mch",freq="female") )
 require(gdata)   # for combine()

@@ -1,5 +1,6 @@
 # FSA 0.4.18 ongoing
 * `ageBias()`: Modified.  Changed default value of `min.n.CI=` from 5 to 3.  Added an `na.rm=TRUE` to the `min()` and `max()` that produced the age ranges for the age agreement table.
+* `capHistConvert()`:  Modified.  Changed `FSA` format to `individual` and `Rcapture` format to `frequency`.  Changed default for new frequency variables from `Freq` to `freq`.
 * `fitPlot()`:  Modified.  Changed `trans.pt=` to `transparency=`.
 * `plot.AgeBias()`.  Modified.  Fixed bug that produced a warning if all of the bias t-tests were either significant or not significant.  Changed `col.err=` to `col.CI=`, `lwd.err=` to `lwd.CI=`, `col.err.sig=` to `col.CIsig=`, `col.ref=` to `col.agree=`, `lwd.ref=` to `lwd.agree=`, `lty.ref=` to `lty.agree=`, `show.rng=` to `show.range=`, `col.rng=` to `col.range=`, `lwd.rng=` to `lwd.range=`.  Removed `col.lab=` and `row.lab=` which were deprecated several minor versions ago.  Changed default values for `lwd.rng=` and `lwd.CI=` from 2 to 1.  Added a `cex.numbers=` argument for controlling the size of the numbers in the "numbers plot" (defaults to 0.9).
 * `plotBinResp()`:  Modified.  Changed `trans.pt=` to `transparency=`.
