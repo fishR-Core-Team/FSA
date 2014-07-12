@@ -5,7 +5,7 @@
 #' @details \code{\link{capHistSum}} requires capture histories to be recorded in the \dQuote{individual} format.  In this format, the data frame contains (at least) as many columns as sample events and as many rows as individually tagged fish.  Each cell in the data frame contains a \sQuote{0} if the fish of that row was NOT seen in the event of that column and a \sQuote{1} if the fish of that row WAS seen in the event of that column.  For example, suppose that four fish were marked and four sampling events occurred.  Further suppose that fish \sQuote{17} was captured on the first two events, fish \sQuote{18} was captured on the first and third events, fish \sQuote{19} was captured on only the third event, fish \sQuote{20} was captured on only the fourth event, and fish \sQuote{21} was captured on the first and second events.  The \dQuote{individual} capture history for these data looks like:
 #'
 #' \tabular{ccccc}{
-#' id \tab Event1 \tab Event2 \tab Event3 \tab Event4 \cr
+#' id \tab event1 \tab event2 \tab event3 \tab event4 \cr
 #' 17 \tab 1 \tab 1 \tab 0 \tab 0 \cr
 #' 18 \tab 1 \tab 0 \tab 1 \tab 0 \cr
 #' 19 \tab 0 \tab 0 \tab 1 \tab 0 \cr
@@ -16,7 +16,7 @@
 #' The data frame for the \dQuote{frequency} format has unique capture histories in separate columns as in the \dQuote{individual} format but it includes a column that contains the frequency of individuals with the capture history of that row.  The same data from above looks like:
 #'
 #' \tabular{ccccc}{
-#' Event1 \tab Event2 \tab Event3 \tab Event4 \tab Freq \cr
+#' event1 \tab event2 \tab event3 \tab event4 \tab freq \cr
 #' 1 \tab 1 \tab 0 \tab 0 \tab 2 \cr
 #' 1 \tab 0 \tab 1 \tab 0 \tab 1 \cr
 #' 0 \tab 0 \tab 1 \tab 0 \tab 1 \cr
@@ -40,7 +40,7 @@
 #' MARK is the \dQuote{gold-standard} software for analyzing complex capture history information.  In the \dQuote{MARK} format the 0s and 1s of the capture histories are combined together as a string without any spaces and an ended with a semicolon.  Thus, the \dQuote{MARK} format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the various capture histories.  The sam data from above looks like:
 #'
 #' \tabular{cc}{
-#' caphist \tab Freq \cr
+#' caphist \tab freq \cr
 #' 0001; \tab 1 \cr
 #' 0010; \tab 1 \cr
 #' 1010; \tab 1 \cr
@@ -48,16 +48,15 @@
 #' }
 #'
 #' @param df A data.frame that contains the capture histories (and, perhaps, other information).  See details.
-#' @param event A string or numeric that indicates the column in \code{df} that contains the capture event information.  This argument is only used if \code{in.type=="event"}.
-#' @param id A string or numeric that indicates the column in \code{df} that contains the unique identification for an individual.  This argument is only used if \code{in.type=="event"}.
-#' @param event.ord A string that contains the list of ordered levels in the \code{event} variable of \code{df} to be used when converting using \code{in.type=="event"}.
-#' @param mch A string or numeric that indicates the column in \code{df} that contains the MARK capture history codes.  This argument is only used if \code{in.type=="MARK"}.
-#' @param cols A string or numeric that indicates the columns in \code{df} that contain the frequency or individual capture history codes (each column is an individual sampling event -- see details).  This argument is only used if \code{in.type=="frequency"} or \code{in.type=="individual"}.
-#' @param freq A string or numeric that indicates the columns in \code{df} that contain the frequency of individuals corresponding to a MARK or frequency capture history.  This argument is only used if \code{in.type=="MARK"} or \code{in.type=="frequency"}.
+#' @param cols2ignore A string or numeric that indicates the columns in \code{df} to ignore (should include any columns here that are not either in \code{id=} or \code{freq=} or part of the capture history data).
 #' @param in.type A string that indicates the type of capture history format to convert FROM.
 #' @param out.type A string that indicates the type of capture history format to convert TO.
+#' @param id A string or numeric that indicates the column in \code{df} that contains the unique identification for an individual.  This argument is only used if \code{in.type=="event"}.
+#' @param freq A string or numeric that indicates the columns in \code{df} that contain the frequency of individuals corresponding to a MARK or frequency capture history.  This argument is only used if \code{in.type=="MARK"} or \code{in.type=="frequency"}.
+#' @param event.ord A string that contains the list of ordered levels in the \code{event} variable of \code{df} to be used when converting using \code{in.type=="event"}.
 #' @param var.lbls A vector of strings used to label the columns that contains the returned individual or frequency capture histories.  This argument is only used if \code{in.type=="frequency"} or \code{in.type=="individual"}.  If \code{var.lbls=NULL} or the length is different then the number of events then default labels using \code{var.lbls.pre} will be used.
 #' @param var.lbls.pre A string used as a prefix for the labels of the columns that contains the returned individual or frequency capture histories.  This prefix will be appended with a number corresponding to the sample event.  This argument is only used if \code{in.type=="frequency"} or \code{in.type=="individual"} and will be ignored if a proper vector is given in \code{var.lbls}.
+#' @param include.id A logical that indicates whether the id variable/column should be included in the output data.frame (only used if \code{out.type="individual"} or \code{out.type="RMark"})
 #'
 #' @return A data frame of the proper type given in \code{out.type} is returned.  See details.
 #'
@@ -72,21 +71,40 @@
 #' @keywords manip
 #'
 #' @examples
-#' ## A small example of 'event' format -- fish ID followed by capture year
-#' ( ex1 <- data.frame(id=c(17,18,21,17,21,18,19,20),yr=c(1987,1987,1987,1988,1988,1989,1989,1990)) )
+#' ## A small example of 'event' format
+#' ( ex1 <- data.frame(fish=c(17,18,21,17,21,18,19,20),yr=c(1987,1987,1987,1988,1988,1989,1989,1990)) )
 #' # convert to 'individual' format
-#' ( ex1a <- capHistConvert(ex1,event="yr",id="id") )
+#' ( ex1.E2I <- capHistConvert(ex1,id="fish") )
+#' # convert to 'frequency' format
+#' ( ex1.E2F <- capHistConvert(ex1,id="fish",out.type="frequency") )
 #' # convert to 'MARK' format
-#' ( ex1b <- capHistConvert(ex1,event="yr",id="id",out.type="MARK") )
-#' # convert to 'frequency' format
-#' ( ex1c <- capHistConvert(ex1,event="yr",id="id",out.type="frequency") )
+#' ( ex1.E2M <- capHistConvert(ex1,id="fish",out.type="MARK") )
+#' # convert to 'RMark' format
+#' ( ex1.E2R <- capHistConvert(ex1,id="fish",out.type="RMark") )
+#' 
+#' ## convert converted 'individual' format ...
+#' # to 'frequency' format (must ignore "id")
+#' ( ex1.I2F <- capHistConvert(ex1.E2I,id="fish",in.type="individual",out.type="frequency") )
+#' # to 'MARK' format
+#' ( ex1.I2M <- capHistConvert(ex1.E2I,id="fish",in.type="individual",out.type="MARK") )
+#' # to 'RMark' format
+#' ( ex1.I2R <- capHistConvert(ex1.E2I,id="fish",in.type="individual",out.type="RMark") )
 #'
+#' ## convert converted 'MARK' format ...
+#' # to 'individual' format
+#' ( ex1.M2I <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK",out.type="individual") )
+#' # to 'frequency' format
+#' ( ex1.M2F <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK",out.type="frequency") )
+#' # to 'RMark' format
+#' ( ex1.M2R <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK",out.type="RMark") )
+#' 
+#' 
 #' ## A small example of 'MARK' format -- capture history followed by frequency
-#' ( ex2 <- data.frame(mch=c("10101;","10001;","01010;"),freq=c(3,1,2)) )
+#' ( ex2 <- data.frame(ch=c("10101;","10001;","01010;"),freq=c(3,1,2)) )
 #' # convert to 'individual' format
-#' ( ex2a <- capHistConvert(ex2,in.type="MARK",mch="mch",freq="freq") )
+#' ( ex2a <- capHistConvert(ex2,in.type="MARK",freq="freq") )
 #' # convert to 'frequency' format
-#' ( ex2b <- capHistConvert(ex2,in.type="MARK",mch="mch",freq="freq",out.type="frequency") )
+#' ( ex2b <- capHistConvert(ex2,in.type="MARK",freq="freq",out.type="frequency") )
 #'
 #' ## ONLY RUN IN INTERACTIVE MODE
 #' if (interactive()) {
@@ -96,53 +114,58 @@
 #' data(bunting)
 #' head(bunting)
 #' # convert to 'individual' format
-#' ex3a <- capHistConvert(bunting,in.type="frequency",cols=1:8,freq="freq")
+#' ex3a <- capHistConvert(bunting,in.type="frequency",freq="freq")
 #' head(ex3a)
 #' # convert to 'MARK' format
-#' ex3b <- capHistConvert(bunting,in.type="frequency",cols=1:8,freq="freq",out.type="MARK")
+#' ex3b <- capHistConvert(bunting,id="id",in.type="frequency",freq="freq",out.type="MARK")
 #' head(ex3b)
 #' # convert converted 'individual' back to 'MARK' format
-#' ex3c <- capHistConvert(ex3a,in.type="individual",cols=1:8,out.type="MARK")
+#' ex3c <- capHistConvert(ex3a,id="id",in.type="individual",out.type="MARK")
 #' head(ex3c)
 #' # convert converted 'individual' back to 'frequency' format
-#' ex3d <- capHistConvert(ex3a,in.type="individual",cols=1:8,out.type="frequency",var.lbls.pre="Sample")
+#' ex3d <- capHistConvert(ex3a,id="id",in.type="individual",out.type="frequency",var.lbls.pre="Sample")
 #' head(ex3d)
 #'
 #' }
 #'
 #' ## A small example of 'MARK' format with two groups -- males and females
-#' ( ex4 <- data.frame(mch=c("100101;","100001;"),male=c(3,1),female=c(2,2)) )
+#' ( ex4 <- data.frame(ch=c("100101;","010001;"),male=c(3,1),female=c(2,2)) )
 #' # convert to 'individual' format
-#' ( ex4m <- capHistConvert(ex4,in.type="MARK",mch="mch",freq="male") )
-#' ( ex4f <- capHistConvert(ex4,in.type="MARK",mch="mch",freq="female") )
+#' ( ex4m <- capHistConvert(ex4[,c("ch","male")],in.type="MARK",freq="male",include.id=FALSE) )
+#' ( ex4f <- capHistConvert(ex4[,c("ch","female")],in.type="MARK",freq="female",include.id=FALSE) )
 #' require(gdata)   # for combine()
 #' ( ex4a <- combine(ex4m,ex4f,names=c("male","female")) )
 #'
 #' @export
-capHistConvert <- function(df,event=NULL,id=NULL,event.ord=NULL,
-                           cols=NULL,freq=NULL,mch=NULL,
+capHistConvert <- function(df,cols2ignore=NULL,
                            in.type=c("event","frequency","individual","MARK"),
                            out.type=c("individual","frequency","MARK","RMark"),
-                           var.lbls=NULL,var.lbls.pre="Event") {
+                           id=NULL,event.ord=NULL,freq=NULL,
+                           var.lbls=NULL,var.lbls.pre="event",
+                           include.id=TRUE) {
   # initial argument checks
   in.type <- match.arg(in.type)
   out.type <- match.arg(out.type)
+  if (in.type==out.type) stop("'in.type' and 'out.type' cannot be the same.",call.=FALSE)
   # make sure df is a data.frame (could be sent as a matrix)
   df <- as.data.frame(df)
+  # immediately remove cols2ignore cols
+  if (!is.null(cols2ignore)) df <- df[,-cols2ignore]
   
-  ## Convert from event form to individual form
+  ## Convert from other forms to individual form
   switch(in.type,
-         frequency={ ch.df <- iFrequency2Individual(df,cols,freq)      },
-         event=    { ch.df <- iEvent2Individual(df,event,id,event.ord) },
-         MARK=     { ch.df <- iMark2Individual(df,freq,mch)            }
+         individual={ ch.df <- iIndividual2Indiv(df,id)      },
+         event=     { ch.df <- iEvent2Indiv(df,id,event.ord) },
+         frequency= { ch.df <- iFrequency2Indiv(df,freq)     },
+         MARK=      { ch.df <- iMark2Indiv(df,freq)          }
          ) # end in.type switch
-  
-  ## Conver to the output types
+
+  ## Convert to the output types
   switch(out.type,
-         individual={ ch.df <- iOutIndividual(ch.df,id,in.type,var.lbls,var.lbls.pre)     },
-         frequency= { ch.df <- iOutFrequency(df,ch.df,cols,in.type,var.lbls,var.lbls.pre) },
-         MARK=      { ch.df <- iOutMARK(df,ch.df,cols,in.type)                            },
-         RMark=     { ch.df <- iOutRMark(ch.df,cols,in.type)                              }
+         individual={ ch.df <- iOutIndividual(ch.df,id,var.lbls,var.lbls.pre,include.id)  },
+         frequency= { ch.df <- iOutFrequency(ch.df,var.lbls,var.lbls.pre)                 },
+         MARK=      { ch.df <- iOutMARK(ch.df)                                            },
+         RMark=     { ch.df <- iOutRMark(ch.df,include.id)                                }
          ) # end out.type switch
   ## return the new data.frame
   ch.df
@@ -151,12 +174,25 @@ capHistConvert <- function(df,event=NULL,id=NULL,event.ord=NULL,
 
 
 ########################################################################
-## Internal functions to convert from one format to individual format
-##   Each function returns a data.frame of individual capture histories
+## Internal functions to convert from one format to an internal
+##   individual format.  Thus, each function below returns a data.frame
+##   with an id variable in the first column and individual capture
+##   histories in all other columns.
 ########################################################################
-iEvent2Individual <- function(df,event,id,event.ord) {
-  if (is.null(event)) stop("No variable with capture event information given in 'event'.",call.=FALSE)
+iIndividual2Indiv <- function(df,id) {
+  # make sure id is the first variable
+  if (!is.null(id)) {
+    tmp <- df[,c(which(names(df)==id),which(names(df)!=id))]
+  } else {
+    tmp <- data.frame(1:nrow(df),df)
+    names(tmp)[1] <- "id"
+  }
+  tmp
+}
+
+iEvent2Indiv <- function(df,id,event.ord) {
   if (is.null(id)) stop("No variable with unique fish identification information given in 'id'.",call.=FALSE)
+  event <- names(df)[which(names(df)!=id)]
   if (!is.null(event.ord)) {
     df$evento <- ordered(df[,event],levels=event.ord)
     ch.tab <- table(df[,id],df$evento)
@@ -166,101 +202,128 @@ iEvent2Individual <- function(df,event,id,event.ord) {
   tmp <- as.data.frame(ch.tab)
   names(tmp) <- c("id","event","freq")
   tmp <- unstack(tmp,freq~event)
-  tmp <- data.frame(id=rownames(ch.tab),tmp)
+  tmp <- data.frame(rownames(ch.tab),tmp)
+  if (is.null(id)) names(tmp)[1] <- "id"
+    else names(tmp)[1] <- id
+  tmp
 }
 
-
-iFrequency2Individual <- function(df,cols,freq) {
-  tmp <- matrix(NA,ncol=length(cols),nrow=sum(df[,freq]))
-  for (i in 1:length(cols)) tmp[,i] <- rep(df[,cols[i]],df[,freq])
-  tmp <- as.data.frame(tmp)
-}
-
-
-iMark2Individual <- function(df,freq,mch) {
-  if (is.null(mch)) stop("No capture history variable given in 'mch'.",call.=FALSE)
+iFrequency2Indiv <- function(df,freq) {
   if (is.null(freq)) {
-    warning("No frequency variable given in 'freq', assumed frequencies were 1 for each capture history.",call.=FALSE)
-    d$Freq <- rep(1,dim(df)[1])
-    freq <- "freq"
+    warning("No 'freq' given; assumed frequencies were 1 for each capture history.",call.=FALSE)
+    nfreq <- rep(1,nrow(df))
+  } else {
+    # isolate frequencies and create a df without them
+    nfreq <- df[,freq]
+    df <- df[,-which(names(df)==freq)]
+  }
+  tmp <- matrix(NA,ncol=ncol(df),nrow=sum(nfreq))
+  for (i in 1:ncol(df)) tmp[,i] <- rep(df[,i],nfreq)
+  tmp <- as.data.frame(tmp)
+  # add an "id" variable in the first column
+  tmp <- data.frame(1:nrow(tmp),tmp)
+  names(tmp)[1] <- "id"
+  tmp
+}
+
+iMark2Indiv <- function(df,freq) {
+  if (is.null(freq)) {
+    warning("No 'freq' given; assumed frequencies were 1 for each capture history.",call.=FALSE)
+    nfreq <- rep(1,nrow(df))
+  } else {
+    # isolate frequencies and create a df without them
+    nfreq <- df[,freq]
+    df <- df[,-which(names(df)==freq)]
   }
   # if ';' in ch then remove
-  if (length(grep(";",df[,mch]))>0) df[,mch] <- sub(";","",df[,mch])
-  chv <- rep(df[,mch],df[,freq])
+  if (length(grep(";",df))>0) df <- sub(";","",df)
+  chv <- rep(df,nfreq)
   tmp <- matrix(NA,ncol=nchar(chv[1]),nrow=length(chv))
   for (i in 1:length(chv)) {
     ch1 <- as.numeric(noquote(unlist(strsplit(chv[i],""))))
     tmp[i,] <- ch1
   }
   tmp <- as.data.frame(tmp)
+  # add an "id" variable in the first column
+  tmp <- data.frame(1:nrow(tmp),tmp)
+  names(tmp)[1] <- "id"
+  tmp
 }
 
 
 ########################################################################
-## Internal functions to convert from the individual format returned by
-##   the in.type internal functions to one of the output formats.
-##   Each function that begins with iOut returns a data.frame in the
-##   proper format.  The other functions produce intermediate objects.
+## Internal functions to convert from the internal individual format
+##   returned by the in.type internal functions above to one of the
+##   output formats.  Each function that begins with iOut returns a
+##   data.frame in the proper format.  The other functions produce
+##   intermediate objects.
 ########################################################################
-iOutIndividual <- function(ch.df,id,in.type,var.lbls,var.lbls.pre) {
-  if (length(var.lbls) >= ncol(ch.df)) {
-    var.lbls <- var.lbls[1:ncol(ch.df)]
+iOutIndividual <- function(ch.df,id,var.lbls,var.lbls.pre,include.id) {
+  # names the variables
+  names(ch.df) <- iMakeVarLabels(ch.df,id,var.lbls,var.lbls.pre)
+  # decide to remove the id variable or not
+  if (!include.id) ch.df <- ch.df[,-1]
+  ch.df
+}
+
+iOutRMark <- function(ch.df,include.id) {
+  if (include.id) {
+    idtmp <- ch.df[,1]
+    chtmp <- ch.df[-1]
   } else {
-    if (!is.null(var.lbls)) warning("Too few labels in 'var.lbls'; default labels will be used.",call.=FALSE)
-    if (in.type=="event") {
-      var.lbls <- c(id,paste(var.lbls.pre,1:(ncol(ch.df)-1),sep=""))
-    } else {
-      var.lbls <- paste(var.lbls.pre,1:ncol(ch.df),sep="")
-    }
+    chtmp <- ch.df
   }
-  names(ch.df) <- var.lbls
-  ch.df
+  ch <- apply(as.matrix(chtmp),1,paste,sep="",collapse="")
+  dftmp <- data.frame(ch=ch)
+  dftmp$ch <- as.character(dftmp$ch)
+  if (include.id) dftmp <- data.frame(idtmp,dftmp)
+  names(dftmp)[1] <- names(ch.df)[1]
+  dftmp
 }
 
-iOutRMark <- function(ch.df,cols,in.type) {
-  if (in.type=="individual") ifelse(is.null(cols),ch.df <- df, ch.df <- df[,cols])
-  ch <- apply(as.matrix(ch.df),1,paste,sep="",collapse="")
-  ch.df <- data.frame(ch=ch)
-  ch.df$ch <- as.character(ch.df$ch)
-  ch.df
-}
-
-iOutFrequency <- function(df,ch.df,cols,in.type,var.lbls,var.lbls.pre) {
-  ch.df <- iPrepCapHistSum(df,ch.df,cols,in.type)
+iOutFrequency <- function(ch.df,var.lbls,var.lbls.pre) {
+  ch.df <- iPrepCapHistSum(ch.df)
   ch.df1 <- matrix(NA,ncol=nchar(as.character(ch.df[1,1])),nrow=nrow(ch.df))
   for (i in 1:nrow(ch.df)) {
     ch1 <- as.numeric(noquote(unlist(strsplit(as.character(ch.df[i,1]),""))))
     ch.df1[i,] <- ch1
   }
-  ch.df <- data.frame(ch.df1,ch.df[,"Freq"])
+  ch.df <- data.frame(ch.df1,ch.df[,"freq"])
   if (length(var.lbls) >= (ncol(ch.df)-1)) {
     var.lbls <- var.lbls[1:(ncol(ch.df)-1)]
   } else {
     if (!is.null(var.lbls)) warning("Too few labels in 'var.lbls'; default labels will be used.",call.=FALSE)
     var.lbls <- c(paste(var.lbls.pre,1:(ncol(ch.df)-1),sep=""))
   }
-  names(ch.df) <- c(var.lbls,"Freq")
+  names(ch.df) <- c(var.lbls,"freq")
   ch.df
 }
 
-iOutMARK <- function(df,ch.df,cols,in.type) {
-  ch.df <- iPrepCapHistSum(df,ch.df,cols,in.type)
+iOutMARK <- function(ch.df) {
+  ch.df <- iPrepCapHistSum(ch.df)
   ch.df[,1] <- paste(ch.df[,1],";",sep="")
   ch.df
 }
 
-iPrepCapHistSum <- function(df,ch.df,cols,in.type) {
-  if (in.type=="individual") {
-    chsum <- capHistSum(df,cols=cols)
-  } else {
-    if(in.type=="event") {
-      chsum <- capHistSum(ch.df,cols=2:ncol(ch.df))
-    } else {
-      chsum <- capHistSum(ch.df,1:ncol(ch.df))
-    }
-  }
+iPrepCapHistSum <- function(ch.df) {
+  # get capture history summary without the id column
+  chsum <- capHistSum(ch.df,cols=2:ncol(ch.df))
+  # convert to a data.frame and re-label columns
   ch.df <- as.data.frame(chsum$caphist)
   rownames(ch.df) <- 1:nrow(ch.df)
-  colnames(ch.df)[1] <- "caphist"
+  colnames(ch.df) <- c("caphist","freq")
+  # return the data.frame
   ch.df
+}
+
+iMakeVarLabels <- function(ch.df,id,var.lbls,var.lbls.pre) {
+  # If var.lbls is longer than needed then truncate the vector
+  if (length(var.lbls) >= ncol(ch.df)) {
+    var.lbls <- var.lbls[1:ncol(ch.df)]
+  } else {
+    # Too few var.lbls given, warn user and then make new ones
+    if (!is.null(var.lbls)) warning("Too few labels in 'var.lbls'; default labels will be used.",call.=FALSE)
+    # Make default labels
+    var.lbls <- c(names(ch.df)[1],paste(var.lbls.pre,1:(ncol(ch.df)-1),sep=""))
+  }
 }

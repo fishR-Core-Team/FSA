@@ -3,33 +3,31 @@
 \alias{capHistConvert}
 \title{Convert between different capture history recording types.}
 \usage{
-capHistConvert(df, event = NULL, id = NULL, event.ord = NULL,
-  cols = NULL, freq = NULL, mch = NULL, in.type = c("event",
-  "frequency", "individual", "MARK"), out.type = c("individual", "frequency",
-  "MARK", "RMark"), var.lbls = NULL, var.lbls.pre = "Event")
+capHistConvert(df, cols2ignore = NULL, in.type = c("event", "frequency",
+  "individual", "MARK"), out.type = c("individual", "frequency", "MARK",
+  "RMark"), id = NULL, event.ord = NULL, freq = NULL, var.lbls = NULL,
+  var.lbls.pre = "event", include.id = TRUE)
 }
 \arguments{
 \item{df}{A data.frame that contains the capture histories (and, perhaps, other information).  See details.}
 
-\item{event}{A string or numeric that indicates the column in \code{df} that contains the capture event information.  This argument is only used if \code{in.type=="event"}.}
-
-\item{id}{A string or numeric that indicates the column in \code{df} that contains the unique identification for an individual.  This argument is only used if \code{in.type=="event"}.}
-
-\item{event.ord}{A string that contains the list of ordered levels in the \code{event} variable of \code{df} to be used when converting using \code{in.type=="event"}.}
-
-\item{mch}{A string or numeric that indicates the column in \code{df} that contains the MARK capture history codes.  This argument is only used if \code{in.type=="MARK"}.}
-
-\item{cols}{A string or numeric that indicates the columns in \code{df} that contain the frequency or individual capture history codes (each column is an individual sampling event -- see details).  This argument is only used if \code{in.type=="frequency"} or \code{in.type=="individual"}.}
-
-\item{freq}{A string or numeric that indicates the columns in \code{df} that contain the frequency of individuals corresponding to a MARK or frequency capture history.  This argument is only used if \code{in.type=="MARK"} or \code{in.type=="frequency"}.}
+\item{cols2ignore}{A string or numeric that indicates the columns in \code{df} to ignore (should include any columns here that are not either in \code{id=} or \code{freq=} or part of the capture history data).}
 
 \item{in.type}{A string that indicates the type of capture history format to convert FROM.}
 
 \item{out.type}{A string that indicates the type of capture history format to convert TO.}
 
+\item{id}{A string or numeric that indicates the column in \code{df} that contains the unique identification for an individual.  This argument is only used if \code{in.type=="event"}.}
+
+\item{freq}{A string or numeric that indicates the columns in \code{df} that contain the frequency of individuals corresponding to a MARK or frequency capture history.  This argument is only used if \code{in.type=="MARK"} or \code{in.type=="frequency"}.}
+
+\item{event.ord}{A string that contains the list of ordered levels in the \code{event} variable of \code{df} to be used when converting using \code{in.type=="event"}.}
+
 \item{var.lbls}{A vector of strings used to label the columns that contains the returned individual or frequency capture histories.  This argument is only used if \code{in.type=="frequency"} or \code{in.type=="individual"}.  If \code{var.lbls=NULL} or the length is different then the number of events then default labels using \code{var.lbls.pre} will be used.}
 
 \item{var.lbls.pre}{A string used as a prefix for the labels of the columns that contains the returned individual or frequency capture histories.  This prefix will be appended with a number corresponding to the sample event.  This argument is only used if \code{in.type=="frequency"} or \code{in.type=="individual"} and will be ignored if a proper vector is given in \code{var.lbls}.}
+
+\item{include.id}{A logical that indicates whether the id variable/column should be included in the output data.frame (only used if \code{out.type="individual"} or \code{out.type="RMark"})}
 }
 \value{
 A data frame of the proper type given in \code{out.type} is returned.  See details.
@@ -41,7 +39,7 @@ Use to convert between four capture history recording types -- \dQuote{event}, \
 \code{\link{capHistSum}} requires capture histories to be recorded in the \dQuote{individual} format.  In this format, the data frame contains (at least) as many columns as sample events and as many rows as individually tagged fish.  Each cell in the data frame contains a \sQuote{0} if the fish of that row was NOT seen in the event of that column and a \sQuote{1} if the fish of that row WAS seen in the event of that column.  For example, suppose that four fish were marked and four sampling events occurred.  Further suppose that fish \sQuote{17} was captured on the first two events, fish \sQuote{18} was captured on the first and third events, fish \sQuote{19} was captured on only the third event, fish \sQuote{20} was captured on only the fourth event, and fish \sQuote{21} was captured on the first and second events.  The \dQuote{individual} capture history for these data looks like:
 
 \tabular{ccccc}{
-id \tab Event1 \tab Event2 \tab Event3 \tab Event4 \cr
+id \tab event1 \tab event2 \tab event3 \tab event4 \cr
 17 \tab 1 \tab 1 \tab 0 \tab 0 \cr
 18 \tab 1 \tab 0 \tab 1 \tab 0 \cr
 19 \tab 0 \tab 0 \tab 1 \tab 0 \cr
@@ -52,7 +50,7 @@ id \tab Event1 \tab Event2 \tab Event3 \tab Event4 \cr
 The data frame for the \dQuote{frequency} format has unique capture histories in separate columns as in the \dQuote{individual} format but it includes a column that contains the frequency of individuals with the capture history of that row.  The same data from above looks like:
 
 \tabular{ccccc}{
-Event1 \tab Event2 \tab Event3 \tab Event4 \tab Freq \cr
+event1 \tab event2 \tab event3 \tab event4 \tab freq \cr
 1 \tab 1 \tab 0 \tab 0 \tab 2 \cr
 1 \tab 0 \tab 1 \tab 0 \tab 1 \cr
 0 \tab 0 \tab 1 \tab 0 \tab 1 \cr
@@ -76,7 +74,7 @@ id \tab event \cr
 MARK is the \dQuote{gold-standard} software for analyzing complex capture history information.  In the \dQuote{MARK} format the 0s and 1s of the capture histories are combined together as a string without any spaces and an ended with a semicolon.  Thus, the \dQuote{MARK} format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the various capture histories.  The sam data from above looks like:
 
 \tabular{cc}{
-caphist \tab Freq \cr
+caphist \tab freq \cr
 0001; \tab 1 \cr
 0010; \tab 1 \cr
 1010; \tab 1 \cr
@@ -90,21 +88,40 @@ This function assumes that all unmarked captured fish are marked and returned to
  \url{https://sites.google.com/site/fishrfiles/gnrl/MRClosed.pdf}, \url{https://sites.google.com/site/fishrfiles/gnrl/MROpen.pdf}
 }
 \examples{
-## A small example of 'event' format -- fish ID followed by capture year
-( ex1 <- data.frame(id=c(17,18,21,17,21,18,19,20),yr=c(1987,1987,1987,1988,1988,1989,1989,1990)) )
+## A small example of 'event' format
+( ex1 <- data.frame(fish=c(17,18,21,17,21,18,19,20),yr=c(1987,1987,1987,1988,1988,1989,1989,1990)) )
 # convert to 'individual' format
-( ex1a <- capHistConvert(ex1,event="yr",id="id") )
-# convert to 'MARK' format
-( ex1b <- capHistConvert(ex1,event="yr",id="id",out.type="MARK") )
+( ex1.E2I <- capHistConvert(ex1,id="fish") )
 # convert to 'frequency' format
-( ex1c <- capHistConvert(ex1,event="yr",id="id",out.type="frequency") )
+( ex1.E2F <- capHistConvert(ex1,id="fish",out.type="frequency") )
+# convert to 'MARK' format
+( ex1.E2M <- capHistConvert(ex1,id="fish",out.type="MARK") )
+# convert to 'RMark' format
+( ex1.E2R <- capHistConvert(ex1,id="fish",out.type="RMark") )
+
+## convert converted 'individual' format ...
+# to 'frequency' format (must ignore "id")
+( ex1.I2F <- capHistConvert(ex1.E2I,id="fish",in.type="individual",out.type="frequency") )
+# to 'MARK' format
+( ex1.I2M <- capHistConvert(ex1.E2I,id="fish",in.type="individual",out.type="MARK") )
+# to 'RMark' format
+( ex1.I2R <- capHistConvert(ex1.E2I,id="fish",in.type="individual",out.type="RMark") )
+
+## convert converted 'MARK' format ...
+# to 'individual' format
+( ex1.M2I <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK",out.type="individual") )
+# to 'frequency' format
+( ex1.M2F <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK",out.type="frequency") )
+# to 'RMark' format
+( ex1.M2R <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK",out.type="RMark") )
+
 
 ## A small example of 'MARK' format -- capture history followed by frequency
-( ex2 <- data.frame(mch=c("10101;","10001;","01010;"),freq=c(3,1,2)) )
+( ex2 <- data.frame(ch=c("10101;","10001;","01010;"),freq=c(3,1,2)) )
 # convert to 'individual' format
-( ex2a <- capHistConvert(ex2,in.type="MARK",mch="mch",freq="freq") )
+( ex2a <- capHistConvert(ex2,in.type="MARK",freq="freq") )
 # convert to 'frequency' format
-( ex2b <- capHistConvert(ex2,in.type="MARK",mch="mch",freq="freq",out.type="frequency") )
+( ex2b <- capHistConvert(ex2,in.type="MARK",freq="freq",out.type="frequency") )
 
 ## ONLY RUN IN INTERACTIVE MODE
 if (interactive()) {
@@ -114,25 +131,25 @@ require(Rcapture)
 data(bunting)
 head(bunting)
 # convert to 'individual' format
-ex3a <- capHistConvert(bunting,in.type="frequency",cols=1:8,freq="freq")
+ex3a <- capHistConvert(bunting,in.type="frequency",freq="freq")
 head(ex3a)
 # convert to 'MARK' format
-ex3b <- capHistConvert(bunting,in.type="frequency",cols=1:8,freq="freq",out.type="MARK")
+ex3b <- capHistConvert(bunting,id="id",in.type="frequency",freq="freq",out.type="MARK")
 head(ex3b)
 # convert converted 'individual' back to 'MARK' format
-ex3c <- capHistConvert(ex3a,in.type="individual",cols=1:8,out.type="MARK")
+ex3c <- capHistConvert(ex3a,id="id",in.type="individual",out.type="MARK")
 head(ex3c)
 # convert converted 'individual' back to 'frequency' format
-ex3d <- capHistConvert(ex3a,in.type="individual",cols=1:8,out.type="frequency",var.lbls.pre="Sample")
+ex3d <- capHistConvert(ex3a,id="id",in.type="individual",out.type="frequency",var.lbls.pre="Sample")
 head(ex3d)
 
 }
 
 ## A small example of 'MARK' format with two groups -- males and females
-( ex4 <- data.frame(mch=c("100101;","100001;"),male=c(3,1),female=c(2,2)) )
+( ex4 <- data.frame(ch=c("100101;","010001;"),male=c(3,1),female=c(2,2)) )
 # convert to 'individual' format
-( ex4m <- capHistConvert(ex4,in.type="MARK",mch="mch",freq="male") )
-( ex4f <- capHistConvert(ex4,in.type="MARK",mch="mch",freq="female") )
+( ex4m <- capHistConvert(ex4[,c("ch","male")],in.type="MARK",freq="male",include.id=FALSE) )
+( ex4f <- capHistConvert(ex4[,c("ch","female")],in.type="MARK",freq="female",include.id=FALSE) )
 require(gdata)   # for combine()
 ( ex4a <- combine(ex4m,ex4f,names=c("male","female")) )
 }
