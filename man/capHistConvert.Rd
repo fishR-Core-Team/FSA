@@ -72,14 +72,14 @@ fish \tab event \cr
 20 \tab 4 \cr
 }
 
-MARK is the \dQuote{gold-standard} software for analyzing complex capture history information.  In the \dQuote{MARK} format the 0s and 1s of the capture histories are combined together as a string without any spaces and ended with a semicolon.  Thus, the \dQuote{MARK} format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the capture history of that row.  The same data from above looks like:
+MARK is the \dQuote{gold-standard} software for analyzing complex capture history information.  In the \dQuote{MARK} format the 0s and 1s of the capture histories are combined together as a string without any spaces.  Thus, the \dQuote{MARK} format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the capture history of that row.  The final column is ended with a semi-colon.  The same data from above looks like:
 
 \tabular{cc}{
 ch \tab freq \cr
-0001; \tab 1 \cr
-0010; \tab 1 \cr
-1010; \tab 1 \cr
-1100; \tab 2 \cr
+0001 \tab 1; \cr
+0010 \tab 1; \cr
+1010 \tab 1; \cr
+1100 \tab 2; \cr
 }
 
 \pkg{RMark} and \pkg{marked} are R packages used to replace or interact with MARK.  The \dQuote{RMark} or \dQuote{marked} format requires the capture histories as one string (must be a character string and called \sQuote{ch}), as in the \dQuote{MARK} format, but without the semicolon.  The data.frame may be augmented with an indentifier for individual fish OR with a frequency variable.  If augmented with a unique fish identification variable then the same data from above looks like:
@@ -167,7 +167,7 @@ This function also assumes that all unmarked captured fish are marked and return
 
 ## Remove semi-colon from MARK format to make a RMark 'frequency' format
 ex1.E2R1 <- ex1.E2M
-ex1.E2R1$ch <- sub(";","",ex1.E2R1$ch)
+ex1.E2R1$freq <- as.numeric(sub(";","",ex1.E2R1$freq))
 ex1.E2R1
 # convert this to 'individual' format
 ( ex1.R2I1 <- capHistConvert(ex1.E2R1,freq="freq",in.type="RMark") )
