@@ -22,6 +22,7 @@ Imports:
 Suggests:
     FSAdata,
     fishmethods,
+    marked,
     nlstools,
     popbio,
     Rcapture,

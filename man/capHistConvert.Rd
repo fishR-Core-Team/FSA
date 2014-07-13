@@ -72,7 +72,7 @@ fish \tab event \cr
 20 \tab 4 \cr
 }
 
-MARK is the \dQuote{gold-standard} software for analyzing complex capture history information.  In the \dQuote{MARK} format the 0s and 1s of the capture histories are combined together as a string without any spaces.  Thus, the \dQuote{MARK} format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the capture history of that row.  The final column is ended with a semi-colon.  The same data from above looks like:
+\href{http://www.phidot.org/software/mark/index.html}{MARK}) is the \dQuote{gold-standard} software for analyzing complex capture history information.  In the \dQuote{MARK} format the 0s and 1s of the capture histories are combined together as a string without any spaces.  Thus, the \dQuote{MARK} format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the capture history of that row.  The final column is ended with a semi-colon.  The same data from above looks like:
 
 \tabular{cc}{
 ch \tab freq \cr
@@ -179,7 +179,8 @@ ex1.E2R1
 ( ex1.R2E1 <- capHistConvert(ex1.E2R1,freq="freq",in.type="RMark",out.type="event") )
 
 
-#' ## A small example using character ids
+########################################################################
+## A small example using character ids
 ( ex2 <- data.frame(fish=c("id17","id18","id21","id17","id21","id18","id19","id20"),
                     yr=c(1987,1987,1987,1988,1988,1989,1989,1990)) )
 # convert to 'individual' format
@@ -205,41 +206,48 @@ ex1.E2R1
 ## ONLY RUN IN INTERACTIVE MODE
 if (interactive()) {
 
-## A larger example of 'frequency' format
+########################################################################
+## A larger example of 'frequency' format (data from Rcapture package)
 require(Rcapture)
 data(bunting)
 head(bunting)
 # convert to 'individual' format
-ex2a <- capHistConvert(bunting,in.type="frequency",freq="freq")
-head(ex2a)
+ex2.F2I <- capHistConvert(bunting,in.type="frequency",freq="freq")
+head(ex2.F2I)
 # convert to 'MARK' format
-ex2b <- capHistConvert(bunting,id="id",in.type="frequency",freq="freq",out.type="MARK")
-head(ex2b)
+ex2.F2M <- capHistConvert(bunting,id="id",in.type="frequency",freq="freq",out.type="MARK")
+head(ex2.F2M)
 # convert converted 'individual' back to 'MARK' format
-ex2c <- capHistConvert(ex2a,id="id",in.type="individual",out.type="MARK")
-head(ex2c)
+ex2.I2M <- capHistConvert(ex2.F2I,id="id",in.type="individual",out.type="MARK")
+head(ex2.I2M)
 # convert converted 'individual' back to 'frequency' format
-ex2d <- capHistConvert(ex2a,id="id",in.type="individual",out.type="frequency",var.lbls.pre="Sample")
-head(ex2d)
+ex2.I2F <- capHistConvert(ex2.F2I,id="id",in.type="individual",out.type="frequency",var.lbls.pre="Sample")
+head(ex2.I2F)
+
+
+########################################################################
+## A larger example of 'marked' or 'RMark' format, but with a covariate
+##   and when the covariate is removed there is no frequency or individual
+##   fish identifier.
+require(marked)
+data(dipper)
+head(dipper)
+# isolate males and females
+dipperF <- subset(dipper,sex=="Female")
+dipperM <- subset(dipper,sex=="Male")
+# convert females to 'individual' format
+dipF.R2I <- capHistConvert(dipperF,cols2ignore="sex",in.type="RMark")
+head(dipF.R2I)
+# convert males to 'individual' format
+dipM.R2I <- capHistConvert(dipperM,cols2ignore="sex",in.type="RMark")
+head(dipM.R2I)
+# combine back together using combine() from gdata
+require(gdata)   # for combine()
+dip.R2I <- combine(dipF.R2I,dipM.R2I,names=c("female","male"))
+head(dip.R2I)
+tail(dip.R2I)
 
 }
-
-
-## A small example of 'MARK' format -- capture history followed by frequency
-( ex3 <- data.frame(ch=c("10101;","10001;","01010;"),freq=c(3,1,2)) )
-# convert to 'individual' format
-( ex3a <- capHistConvert(ex3,in.type="MARK",freq="freq") )
-# convert to 'frequency' format
-( ex3b <- capHistConvert(ex3,in.type="MARK",freq="freq",out.type="frequency") )
-
-
-## A small example of 'MARK' format with two groups -- males and females
-( ex4 <- data.frame(ch=c("100101;","010001;"),male=c(3,1),female=c(2,2)) )
-# convert to 'individual' format
-( ex4m <- capHistConvert(ex4[,c("ch","male")],in.type="MARK",freq="male",include.id=FALSE) )
-( ex4f <- capHistConvert(ex4[,c("ch","female")],in.type="MARK",freq="female",include.id=FALSE) )
-require(gdata)   # for combine()
-( ex4a <- combine(ex4m,ex4f,names=c("male","female")) )
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

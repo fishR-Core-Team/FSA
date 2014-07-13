@@ -37,7 +37,7 @@
 #' 20 \tab 4 \cr
 #'}
 #'
-#' MARK is the \dQuote{gold-standard} software for analyzing complex capture history information.  In the \dQuote{MARK} format the 0s and 1s of the capture histories are combined together as a string without any spaces.  Thus, the \dQuote{MARK} format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the capture history of that row.  The final column is ended with a semi-colon.  The same data from above looks like:
+#' \href{http://www.phidot.org/software/mark/index.html}{MARK}) is the \dQuote{gold-standard} software for analyzing complex capture history information.  In the \dQuote{MARK} format the 0s and 1s of the capture histories are combined together as a string without any spaces.  Thus, the \dQuote{MARK} format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the capture history of that row.  The final column is ended with a semi-colon.  The same data from above looks like:
 #'
 #' \tabular{cc}{
 #' ch \tab freq \cr
@@ -161,7 +161,8 @@
 #' ( ex1.R2E1 <- capHistConvert(ex1.E2R1,freq="freq",in.type="RMark",out.type="event") )
 #' 
 #' 
-#' #' ## A small example using character ids
+#' ########################################################################
+#' ## A small example using character ids
 #' ( ex2 <- data.frame(fish=c("id17","id18","id21","id17","id21","id18","id19","id20"),
 #'                     yr=c(1987,1987,1987,1988,1988,1989,1989,1990)) )
 #' # convert to 'individual' format
@@ -187,41 +188,48 @@
 #' ## ONLY RUN IN INTERACTIVE MODE
 #' if (interactive()) {
 #' 
-#' ## A larger example of 'frequency' format
+#' ########################################################################
+#' ## A larger example of 'frequency' format (data from Rcapture package)
 #' require(Rcapture)
 #' data(bunting)
 #' head(bunting)
 #' # convert to 'individual' format
-#' ex2a <- capHistConvert(bunting,in.type="frequency",freq="freq")
-#' head(ex2a)
+#' ex2.F2I <- capHistConvert(bunting,in.type="frequency",freq="freq")
+#' head(ex2.F2I)
 #' # convert to 'MARK' format
-#' ex2b <- capHistConvert(bunting,id="id",in.type="frequency",freq="freq",out.type="MARK")
-#' head(ex2b)
+#' ex2.F2M <- capHistConvert(bunting,id="id",in.type="frequency",freq="freq",out.type="MARK")
+#' head(ex2.F2M)
 #' # convert converted 'individual' back to 'MARK' format
-#' ex2c <- capHistConvert(ex2a,id="id",in.type="individual",out.type="MARK")
-#' head(ex2c)
+#' ex2.I2M <- capHistConvert(ex2.F2I,id="id",in.type="individual",out.type="MARK")
+#' head(ex2.I2M)
 #' # convert converted 'individual' back to 'frequency' format
-#' ex2d <- capHistConvert(ex2a,id="id",in.type="individual",out.type="frequency",var.lbls.pre="Sample")
-#' head(ex2d)
+#' ex2.I2F <- capHistConvert(ex2.F2I,id="id",in.type="individual",out.type="frequency",var.lbls.pre="Sample")
+#' head(ex2.I2F)
 #'
-#' }
-#' 
-#'   
-#' ## A small example of 'MARK' format -- capture history followed by frequency
-#' ( ex3 <- data.frame(ch=c("10101;","10001;","01010;"),freq=c(3,1,2)) )
-#' # convert to 'individual' format
-#' ( ex3a <- capHistConvert(ex3,in.type="MARK",freq="freq") )
-#' # convert to 'frequency' format
-#' ( ex3b <- capHistConvert(ex3,in.type="MARK",freq="freq",out.type="frequency") )
-#' 
 #'
-#' ## A small example of 'MARK' format with two groups -- males and females
-#' ( ex4 <- data.frame(ch=c("100101;","010001;"),male=c(3,1),female=c(2,2)) )
-#' # convert to 'individual' format
-#' ( ex4m <- capHistConvert(ex4[,c("ch","male")],in.type="MARK",freq="male",include.id=FALSE) )
-#' ( ex4f <- capHistConvert(ex4[,c("ch","female")],in.type="MARK",freq="female",include.id=FALSE) )
+#' ########################################################################
+#' ## A larger example of 'marked' or 'RMark' format, but with a covariate
+#' ##   and when the covariate is removed there is no frequency or individual
+#' ##   fish identifier.
+#' require(marked)
+#' data(dipper)
+#' head(dipper)
+#' # isolate males and females
+#' dipperF <- subset(dipper,sex=="Female")
+#' dipperM <- subset(dipper,sex=="Male")
+#' # convert females to 'individual' format
+#' dipF.R2I <- capHistConvert(dipperF,cols2ignore="sex",in.type="RMark")
+#' head(dipF.R2I)
+#' # convert males to 'individual' format
+#' dipM.R2I <- capHistConvert(dipperM,cols2ignore="sex",in.type="RMark")
+#' head(dipM.R2I)
+#' # combine back together using combine() from gdata
 #' require(gdata)   # for combine()
-#' ( ex4a <- combine(ex4m,ex4f,names=c("male","female")) )
+#' dip.R2I <- combine(dipF.R2I,dipM.R2I,names=c("female","male"))
+#' head(dip.R2I)
+#' tail(dip.R2I)
+#' 
+#' }
 #'
 #' @export
 capHistConvert <- function(df,cols2ignore=NULL,
@@ -237,8 +245,12 @@ capHistConvert <- function(df,cols2ignore=NULL,
   # make sure df is a data.frame (could be sent as a matrix)
   df <- as.data.frame(df)
   # immediately remove cols2ignore cols
-  if (!is.null(cols2ignore)) df <- df[,-cols2ignore]
-  
+  if (!is.null(cols2ignore)) {
+    # convert to column numbers if they are given as strings
+    if (is.character(cols2ignore)) cols2ignore <- which(names(df)==cols2ignore)
+    # remove those columns from df
+    df <- df[,-cols2ignore] 
+  }
   ## Convert from other forms to individual form
   switch(in.type,
          event=         { ch.df <- iEvent2Indiv(df,id,event.ord) },
@@ -336,23 +348,16 @@ iMark2Indiv <- function(df,freq) {
     # isolate frequencies and create a df without them
     # make sure frequencies are numeric and capture history is character
     nfreq <- as.numeric(df[,freq])
-    df <- as.character(df[,-which(names(df)==freq)])
+    df <- df[,-which(names(df)==freq)]
   }
-  # separate the capture history string to variables
-  chv <- rep(df,nfreq)
-  tmp <- matrix(NA,ncol=nchar(chv[1]),nrow=length(chv))
-  for (i in 1:length(chv)) {
-    ch1 <- as.numeric(noquote(unlist(strsplit(chv[i],""))))
-    tmp[i,] <- ch1
-  }
-  tmp <- as.data.frame(tmp)
-  # add an "id" variable in the first column
-  tmp <- data.frame(1:nrow(tmp),tmp)
-  names(tmp)[1] <- "id"
+  # expand the string 
+  tmp <- iExpandCHString(df,nfreq)
   tmp
 }
 
 iRMark2Indiv <- function(df,id,freq) {
+  # force to be a data.frame (likely comes as a vector)
+  df <- as.data.frame(df)
   # can't supply both id and freq
   if (!is.null(id) & !is.null(freq)) stop("Only one of 'id' or 'freq' can be used with the RMark format.",call.=FALSE)
   # if neither id nor freq then create a freq=1 column and use it
@@ -363,39 +368,47 @@ iRMark2Indiv <- function(df,id,freq) {
   }
   # Handle when an id variable is given
   if (!is.null(id)) {
-    # isolate id and ch variables
-    v.id <- df[,id]
-    v.ch <- as.character(df[,which(names(df)!=id)])
-    # separate the capture history string to variables
-    tmp <- matrix(NA,ncol=nchar(v.ch[1]),nrow=length(v.ch))
-    for (i in 1:length(v.ch)) {
-      ch1 <- as.numeric(noquote(unlist(strsplit(v.ch[i],""))))
-      tmp[i,] <- ch1
-    }
-    tmp <- as.data.frame(tmp)
+    # expland the string by first isolating the capture histories
+    #   and id variables (first two arguments)
+    tmp <- iExpandCHString(df[,which(names(df)!=id)],ids=df[,id],idname=id)
   } else {
-    # Handle when a freq variable is given
-    # isolate frequencies and ch variables
-    nfreq <- df[,freq]
-    v.ch <- as.character(df[,which(names(df)!=freq)])
-    # separate the capture history string to variables
-    v.ch <- rep(v.ch,nfreq)
-    tmp <- matrix(NA,ncol=nchar(v.ch[1]),nrow=length(v.ch))
-    for (i in 1:length(v.ch)) {
-      ch1 <- as.numeric(noquote(unlist(strsplit(v.ch[i],""))))
-      tmp[i,] <- ch1
-    }
-    tmp <- as.data.frame(tmp)
-    # create an id variable to add on later
-    v.id <- 1:nrow(tmp)
-    id <- "id"
+    # expand the string by first isolating the capture histories
+    #   and freq variables (first two arguments)
+    tmp <- iExpandCHString(df[,which(names(df)!=freq)],df[,freq])
   }
-  # add an "id" variable in the first column
-  tmp <- data.frame(v.id,tmp)
-  names(tmp)[1] <- id
   tmp
 }
 
+########################################################################
+## Internal function to expland the string of capture histories in the
+##   MARK and RMark formats.  Function takes a vector of the capture
+##   history strings, optional vectors of the frequencies or unique
+##   fish identifiers, and a name for the id variable.
+## See use in iMark2Indiv() and iRMark2Indiv().
+########################################################################
+iExpandCHString <- function(ch,nfreq=NULL,ids=NULL,idname="id") {
+  # expand the capture histories if nfreq is provided
+  if (!is.null(nfreq)) {
+    nfreq <- as.numeric(nfreq)
+    ch <- rep(ch,nfreq)
+  }
+  # make sure that ch is a character
+  ch <- as.character(ch)
+  # create a NA matrix to hold the separated capture histories
+  tmp <- matrix(NA,ncol=nchar(ch[1]),nrow=length(ch))
+  # expand each row in ch to fill a new row in tmp
+  for (i in 1:length(ch)) {
+    ch1 <- as.numeric(noquote(unlist(strsplit(ch[i],""))))
+    tmp[i,] <- ch1
+  }
+  # make tmp a data.frame
+  tmp <- as.data.frame(tmp)
+  # add an "id" variable in the first column
+  if (is.null(ids)) ids <- 1:nrow(tmp)
+  tmp <- data.frame(ids,tmp)
+  names(tmp)[1] <- idname
+  tmp
+}
 
 ########################################################################
 ## Internal functions to convert from the internal individual format
