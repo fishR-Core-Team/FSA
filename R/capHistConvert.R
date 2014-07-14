@@ -120,20 +120,24 @@
 #'#' ## convert converted 'frequency' format ...
 #' # to 'individual' format
 #' ( ex1.F2I <- capHistConvert(ex1.E2F,freq="freq",in.type="frequency") )
+#' ( ex1.F2Ia <- capHistConvert(ex1.E2F,freq="freq",in.type="frequency",include.id=TRUE) )
 #' # to 'Mark' format
 #' ( ex1.F2M <- capHistConvert(ex1.E2F,freq="freq",in.type="frequency",out.type="MARK") )
 #' # to 'RMark' format
 #' ( ex1.F2R <- capHistConvert(ex1.E2F,freq="freq",in.type="frequency",out.type="RMark") )
+#' ( ex1.F2Ra <- capHistConvert(ex1.E2F,freq="freq",in.type="frequency",out.type="RMark",include.id=TRUE) )
 #' # to 'event' format
 #' ( ex1.F2E <- capHistConvert(ex1.E2F,freq="freq",in.type="frequency",out.type="event") )
 #' 
 #' ## convert converted 'MARK' format ...
 #' # to 'individual' format
 #' ( ex1.M2I <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK") )
+#' ( ex1.M2Ia <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK",include.id=TRUE) )
 #' # to 'frequency' format
 #' ( ex1.M2F <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK",out.type="frequency") )
 #' # to 'RMark' format
 #' ( ex1.M2R <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK",out.type="RMark") )
+#' ( ex1.M2Ra <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK",out.type="RMark",include.id=TRUE) )
 #' # to 'event' format
 #' ( ex1.M2E <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK",out.type="event") )
 #'  
@@ -153,6 +157,7 @@
 #' ex1.E2R1
 #' # convert this to 'individual' format
 #' ( ex1.R2I1 <- capHistConvert(ex1.E2R1,freq="freq",in.type="RMark") )
+#' ( ex1.R2I1a <- capHistConvert(ex1.E2R1,freq="freq",in.type="RMark",include.id=TRUE) )
 #' # convert this to 'frequency' format
 #' ( ex1.R2F1 <- capHistConvert(ex1.E2R1,freq="freq",in.type="RMark",out.type="frequency") )
 #' # convert this to 'MARK' format
@@ -175,7 +180,7 @@
 #' ( ex2.E2R <- capHistConvert(ex2,id="fish",in.type="event",out.type="RMark") )
 #' 
 #' ## convert converted 'individual' format ...
-#' # to 'frequency' format (must ignore "id")
+#' # to 'frequency' format
 #' ( ex2.I2F <- capHistConvert(ex2.E2I,id="fish",in.type="individual",out.type="frequency") )
 #' # to 'MARK' format
 #' ( ex2.I2M <- capHistConvert(ex2.E2I,id="fish",in.type="individual",out.type="MARK") )
@@ -183,8 +188,16 @@
 #' ( ex2.I2R <- capHistConvert(ex2.E2I,id="fish",in.type="individual",out.type="RMark") )
 #' # to 'event' format
 #' ( ex2.I2E <- capHistConvert(ex2.E2I,id="fish",in.type="individual",out.type="event") )
+#' 
+#' ## demo use of var.lbls
+#' ( ex2.E2Ia <- capHistConvert(ex2,id="fish",in.type="event",var.lbls.pre="Sample") )
+#' ( ex2.E2Ib <- capHistConvert(ex2,id="fish",in.type="event",var.lbls=c("first","second","third","fourth")) )
 #'
-#'
+#' ## demo use of event.ord
+#' ( ex2.I2Ea <- capHistConvert(ex2.E2Ib,id="fish",in.type="individual",out.type="event") )
+#' ( ex2.E2Ibad <- capHistConvert(ex2.I2Ea,id="fish",in.type="event") )
+#' ( ex2.E2Igood <- capHistConvert(ex2.I2Ea,id="fish",in.type="event",event.ord=c("first","second","third","fourth")) )
+#' 
 #' ## ONLY RUN IN INTERACTIVE MODE
 #' if (interactive()) {
 #' 
@@ -194,17 +207,17 @@
 #' data(bunting)
 #' head(bunting)
 #' # convert to 'individual' format
-#' ex2.F2I <- capHistConvert(bunting,in.type="frequency",freq="freq")
-#' head(ex2.F2I)
+#' bun.F2I <- capHistConvert(bunting,in.type="frequency",freq="freq")
+#' head(bun.F2I)
 #' # convert to 'MARK' format
-#' ex2.F2M <- capHistConvert(bunting,id="id",in.type="frequency",freq="freq",out.type="MARK")
-#' head(ex2.F2M)
+#' bun.F2M <- capHistConvert(bunting,id="id",in.type="frequency",freq="freq",out.type="MARK")
+#' head(bun.F2M)
 #' # convert converted 'individual' back to 'MARK' format
-#' ex2.I2M <- capHistConvert(ex2.F2I,id="id",in.type="individual",out.type="MARK")
-#' head(ex2.I2M)
+#' bun.I2M <- capHistConvert(bun.F2I,id="id",in.type="individual",out.type="MARK")
+#' head(bun.I2M)
 #' # convert converted 'individual' back to 'frequency' format
-#' ex2.I2F <- capHistConvert(ex2.F2I,id="id",in.type="individual",out.type="frequency",var.lbls.pre="Sample")
-#' head(ex2.I2F)
+#' bun.I2F <- capHistConvert(bun.F2I,id="id",in.type="individual",out.type="frequency",var.lbls.pre="Sample")
+#' head(bun.I2F)
 #'
 #'
 #' ########################################################################
@@ -236,7 +249,7 @@ capHistConvert <- function(df,cols2ignore=NULL,
                            in.type=c("frequency","event","individual","MARK","marked","RMark"),
                            out.type=c("individual","event","frequency","MARK","marked","RMark"),
                            id=NULL,event.ord=NULL,freq=NULL,
-                           var.lbls=NULL,var.lbls.pre="event",
+                           var.lbls=NULL,var.lbls.pre=NULL,
                            include.id=ifelse(is.null(id),FALSE,TRUE)) {
   # initial argument checks
   in.type <- match.arg(in.type)
@@ -251,6 +264,7 @@ capHistConvert <- function(df,cols2ignore=NULL,
     # remove those columns from df
     df <- df[,-cols2ignore] 
   }
+  
   ## Convert from other forms to individual form
   switch(in.type,
          event=         { ch.df <- iEvent2Indiv(df,id,event.ord) },
@@ -260,17 +274,54 @@ capHistConvert <- function(df,cols2ignore=NULL,
          RMark=,marked= { ch.df <- iRMark2Indiv(df,id,freq)      }
          ) # end in.type switch
 
+  # names the variables
+  names(ch.df) <- iMakeVarLabels(ch.df,in.type,id,var.lbls,var.lbls.pre)
+ 
   ## Convert to the output types
   switch(out.type,
          event=         { ch.df <- iOutEvent(ch.df,id)                                        },
-         individual=    { ch.df <- iOutIndividual(ch.df,id,var.lbls,var.lbls.pre,include.id)  },
-         frequency=     { ch.df <- iOutFrequency(ch.df,var.lbls,var.lbls.pre)                 },
+         individual=    { ch.df <- iOutIndividual(ch.df,include.id)  },
+         frequency=     { ch.df <- iOutFrequency(ch.df)                 },
          MARK=          { ch.df <- iOutMARK(ch.df)                                            },
          RMark=,marked= { ch.df <- iOutRMark(ch.df,include.id)                                }
          ) # end out.type switch
   ## return the new data.frame
   ch.df
 }
+
+
+iMakeVarLabels <- function(ch.df,in.type,id,var.lbls,var.lbls.pre) {
+  # Internal function to make default labels for the internal individual format
+  iMakeDefaultCHLabels <- function(ch.df,var.lbls.pre) {
+    paste(var.lbls.pre,1:(ncol(ch.df)-1),sep="")
+  } # end internal function
+  
+  if (!is.null(var.lbls)) {
+    ## var.lbls given, but too many ... reduce to number needed
+    if (length(var.lbls)>=(ncol(ch.df)-1)) var.lbls <- var.lbls[1:(ncol(ch.df)-1)]
+    else {
+      ## var.lbls given, but too few ... warn and build default labels
+      warning("Too few labels in 'var.lbls'; default labels will be used.",call.=FALSE)
+      var.lbls <- iMakeDefaultCHLabels(ch.df,"event")
+    }
+  } else {
+    if (!is.null(var.lbls.pre)) {
+      ## var.lbls not given, but var.lbls.pre was
+      var.lbls <- iMakeDefaultCHLabels(ch.df,var.lbls.pre)
+    } else {
+      if (in.type %in% c("individual","frequency","event")) {
+        ## var.lbls & var.lbls.pre not given, make var.lbls from ch column names
+        var.lbls <- names(ch.df)[-1]
+        } else {
+        ## var.lbls & var.lbls.pre not given, make var.lbls from default values
+        var.lbls <- iMakeDefaultCHLabels(ch.df,"event")
+      }
+    }
+  }
+  # add id variable name
+  c(ifelse(is.null(id),"id",id),var.lbls)
+}
+
 
 
 
@@ -286,22 +337,17 @@ iEvent2Indiv <- function(df,id,event.ord) {
   if (is.null(id)) stop("No variable with unique fish identification information given in 'id'.",call.=FALSE)
   # All other variables are "events"
   event <- names(df)[which(names(df)!=id)]
-  # Make a table of ids by events
   # Control the event order if told to do so by the user
-  if (!is.null(event.ord)) {
-    df$evento <- ordered(df[,event],levels=event.ord)
-    ch.tab <- table(df[,id],df$evento)
-  } else {
-    ch.tab <- table(df[,id],df[,event])
-  }
+  if (!is.null(event.ord)) df[,event] <- ordered(df[,event],levels=event.ord)
+  # Make a table of ids by events
+  ch.tab <- table(df[,id],df[,event])
   # Turn the table into a data.frame and rename the variables
   tmp <- as.data.frame(ch.tab)
   names(tmp) <- c("id","event","freq")
   # Unstack and add rownames to data.frame
   tmp <- unstack(tmp,freq~event)
   tmp <- data.frame(rownames(ch.tab),tmp)
-  if (is.null(id)) names(tmp)[1] <- "id"
-  else names(tmp)[1] <- id
+  names(tmp) <- c(ifelse(is.null(id),"id",id),levels(factor(df[,event])))
   # force id to be a character (rather than a factor as from as.data.frame)
   tmp[,1] <- as.character(tmp[,1])
   # return the new data.frame
@@ -322,7 +368,7 @@ iFrequency2Indiv <- function(df,freq) {
   tmp <- as.data.frame(tmp)
   # add an "id" variable in the first column
   tmp <- data.frame(1:nrow(tmp),tmp)
-  names(tmp)[1] <- "id"
+  names(tmp) <- c("id",names(df))
   tmp
 }
 
@@ -420,8 +466,9 @@ iExpandCHString <- function(ch,nfreq=NULL,ids=NULL,idname="id") {
 iOutEvent <- function(ch.df,id) {
   # get total sample size as sum of all values in capture history
   n <- sum(ch.df[,-1])
-  # get number of events
-  n.ev <- ncol(ch.df)-1
+  # get event names and number
+  events <- names(ch.df)[-1]
+  n.ev <- length(events)
   # initiate vectors for id and events
   v.id <- NULL
   v.ev <- NULL
@@ -429,7 +476,7 @@ iOutEvent <- function(ch.df,id) {
   for (i in 1:n.ev) {
     tmp <- ch.df[as.logical(ch.df[,i+1]),1]
     v.id <- c(v.id,tmp)
-    v.ev <- c(v.ev,rep(i,length(tmp)))
+    v.ev <- c(v.ev,rep(events[i],length(tmp)))
   }
   # put ids and events together in a data.frame
   tmp <- data.frame(v.id,v.ev)
@@ -440,7 +487,8 @@ iOutEvent <- function(ch.df,id) {
   tmp
 }
 
-iOutFrequency <- function(ch.df,var.lbls,var.lbls.pre) {
+iOutFrequency <- function(ch.df) {
+  var.lbls <- c(names(ch.df)[-1],"freq")
   ch.df <- iPrepCapHistSum(ch.df)
   ch.df1 <- matrix(NA,ncol=nchar(as.character(ch.df[1,1])),nrow=nrow(ch.df))
   for (i in 1:nrow(ch.df)) {
@@ -448,19 +496,11 @@ iOutFrequency <- function(ch.df,var.lbls,var.lbls.pre) {
     ch.df1[i,] <- ch1
   }
   ch.df <- data.frame(ch.df1,ch.df[,"freq"])
-  if (length(var.lbls) >= (ncol(ch.df)-1)) {
-    var.lbls <- var.lbls[1:(ncol(ch.df)-1)]
-  } else {
-    if (!is.null(var.lbls)) warning("Too few labels in 'var.lbls'; default labels will be used.",call.=FALSE)
-    var.lbls <- c(paste(var.lbls.pre,1:(ncol(ch.df)-1),sep=""))
-  }
-  names(ch.df) <- c(var.lbls,"freq")
+  names(ch.df) <- var.lbls
   ch.df
 }
 
-iOutIndividual <- function(ch.df,id,var.lbls,var.lbls.pre,include.id) {
-  # names the variables
-  names(ch.df) <- iMakeVarLabels(ch.df,id,var.lbls,var.lbls.pre)
+iOutIndividual <- function(ch.df,include.id) {
   # decide to remove the id variable or not
   if (!include.id) ch.df <- ch.df[,-1]
   ch.df
@@ -489,18 +529,6 @@ iOutMARK <- function(ch.df) {
   ch.df[,ncol(ch.df)] <- paste(ch.df[,ncol(ch.df)],";",sep="")
   names(ch.df)[1] <- "ch"
   ch.df
-}
-
-iMakeVarLabels <- function(ch.df,id,var.lbls,var.lbls.pre) {
-  # If var.lbls is longer than needed then truncate the vector
-  if (length(var.lbls) >= ncol(ch.df)) {
-    var.lbls <- var.lbls[1:ncol(ch.df)]
-  } else {
-    # Too few var.lbls given, warn user and then make new ones
-    if (!is.null(var.lbls)) warning("Too few labels in 'var.lbls'; default labels will be used.",call.=FALSE)
-    # Make default labels
-    var.lbls <- c(names(ch.df)[1],paste(var.lbls.pre,1:(ncol(ch.df)-1),sep=""))
-  }
 }
 
 iPrepCapHistSum <- function(ch.df) {

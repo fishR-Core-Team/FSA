@@ -6,8 +6,8 @@
 capHistConvert(df, cols2ignore = NULL, in.type = c("frequency", "event",
   "individual", "MARK", "marked", "RMark"), out.type = c("individual",
   "event", "frequency", "MARK", "marked", "RMark"), id = NULL,
-  event.ord = NULL, freq = NULL, var.lbls = NULL,
-  var.lbls.pre = "event", include.id = ifelse(is.null(id), FALSE, TRUE))
+  event.ord = NULL, freq = NULL, var.lbls = NULL, var.lbls.pre = NULL,
+  include.id = ifelse(is.null(id), FALSE, TRUE))
 }
 \arguments{
 \item{df}{A data.frame that contains the capture histories and, perhaps, a unique fish identifier or frequency variable.  See details.}
@@ -138,20 +138,24 @@ This function also assumes that all unmarked captured fish are marked and return
 #' ## convert converted 'frequency' format ...
 # to 'individual' format
 ( ex1.F2I <- capHistConvert(ex1.E2F,freq="freq",in.type="frequency") )
+( ex1.F2Ia <- capHistConvert(ex1.E2F,freq="freq",in.type="frequency",include.id=TRUE) )
 # to 'Mark' format
 ( ex1.F2M <- capHistConvert(ex1.E2F,freq="freq",in.type="frequency",out.type="MARK") )
 # to 'RMark' format
 ( ex1.F2R <- capHistConvert(ex1.E2F,freq="freq",in.type="frequency",out.type="RMark") )
+( ex1.F2Ra <- capHistConvert(ex1.E2F,freq="freq",in.type="frequency",out.type="RMark",include.id=TRUE) )
 # to 'event' format
 ( ex1.F2E <- capHistConvert(ex1.E2F,freq="freq",in.type="frequency",out.type="event") )
 
 ## convert converted 'MARK' format ...
 # to 'individual' format
 ( ex1.M2I <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK") )
+( ex1.M2Ia <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK",include.id=TRUE) )
 # to 'frequency' format
 ( ex1.M2F <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK",out.type="frequency") )
 # to 'RMark' format
 ( ex1.M2R <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK",out.type="RMark") )
+( ex1.M2Ra <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK",out.type="RMark",include.id=TRUE) )
 # to 'event' format
 ( ex1.M2E <- capHistConvert(ex1.E2M,freq="freq",in.type="MARK",out.type="event") )
 
@@ -171,6 +175,7 @@ ex1.E2R1$freq <- as.numeric(sub(";","",ex1.E2R1$freq))
 ex1.E2R1
 # convert this to 'individual' format
 ( ex1.R2I1 <- capHistConvert(ex1.E2R1,freq="freq",in.type="RMark") )
+( ex1.R2I1a <- capHistConvert(ex1.E2R1,freq="freq",in.type="RMark",include.id=TRUE) )
 # convert this to 'frequency' format
 ( ex1.R2F1 <- capHistConvert(ex1.E2R1,freq="freq",in.type="RMark",out.type="frequency") )
 # convert this to 'MARK' format
@@ -193,7 +198,7 @@ ex1.E2R1
 ( ex2.E2R <- capHistConvert(ex2,id="fish",in.type="event",out.type="RMark") )
 
 ## convert converted 'individual' format ...
-# to 'frequency' format (must ignore "id")
+# to 'frequency' format
 ( ex2.I2F <- capHistConvert(ex2.E2I,id="fish",in.type="individual",out.type="frequency") )
 # to 'MARK' format
 ( ex2.I2M <- capHistConvert(ex2.E2I,id="fish",in.type="individual",out.type="MARK") )
@@ -202,6 +207,14 @@ ex1.E2R1
 # to 'event' format
 ( ex2.I2E <- capHistConvert(ex2.E2I,id="fish",in.type="individual",out.type="event") )
 
+## demo use of var.lbls
+( ex2.E2Ia <- capHistConvert(ex2,id="fish",in.type="event",var.lbls.pre="Sample") )
+( ex2.E2Ib <- capHistConvert(ex2,id="fish",in.type="event",var.lbls=c("first","second","third","fourth")) )
+
+## demo use of event.ord
+( ex2.I2Ea <- capHistConvert(ex2.E2Ib,id="fish",in.type="individual",out.type="event") )
+( ex2.E2Ibad <- capHistConvert(ex2.I2Ea,id="fish",in.type="event") )
+( ex2.E2Igood <- capHistConvert(ex2.I2Ea,id="fish",in.type="event",event.ord=c("first","second","third","fourth")) )
 
 ## ONLY RUN IN INTERACTIVE MODE
 if (interactive()) {
@@ -212,17 +225,17 @@ require(Rcapture)
 data(bunting)
 head(bunting)
 # convert to 'individual' format
-ex2.F2I <- capHistConvert(bunting,in.type="frequency",freq="freq")
-head(ex2.F2I)
+bun.F2I <- capHistConvert(bunting,in.type="frequency",freq="freq")
+head(bun.F2I)
 # convert to 'MARK' format
-ex2.F2M <- capHistConvert(bunting,id="id",in.type="frequency",freq="freq",out.type="MARK")
-head(ex2.F2M)
+bun.F2M <- capHistConvert(bunting,id="id",in.type="frequency",freq="freq",out.type="MARK")
+head(bun.F2M)
 # convert converted 'individual' back to 'MARK' format
-ex2.I2M <- capHistConvert(ex2.F2I,id="id",in.type="individual",out.type="MARK")
-head(ex2.I2M)
+bun.I2M <- capHistConvert(bun.F2I,id="id",in.type="individual",out.type="MARK")
+head(bun.I2M)
 # convert converted 'individual' back to 'frequency' format
-ex2.I2F <- capHistConvert(ex2.F2I,id="id",in.type="individual",out.type="frequency",var.lbls.pre="Sample")
-head(ex2.I2F)
+bun.I2F <- capHistConvert(bun.F2I,id="id",in.type="individual",out.type="frequency",var.lbls.pre="Sample")
+head(bun.I2F)
 
 
 ########################################################################
