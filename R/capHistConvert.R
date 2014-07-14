@@ -13,7 +13,7 @@
 #' 21 \tab 1 \tab 1 \tab 0 \tab 0 \cr
 #' }
 #'
-#' The \dQuote{frequency} format data.frame (this format is used in \pkg{rcapture}) has unique capture histories in separate columns, as in the \dQuote{individual} format, but also includes a column with the frequency of individuals that had the capture history of that row.  It will not contain a fish identifier variable.  The same data from above looks like:
+#' The \dQuote{frequency} format data.frame (this format is used in \pkg{Rcapture}) has unique capture histories in separate columns, as in the \dQuote{individual} format, but also includes a column with the frequency of individuals that had the capture history of that row.  It will not contain a fish identifier variable.  The same data from above looks like:
 #'
 #' \tabular{ccccc}{
 #' event1 \tab event2 \tab event3 \tab event4 \tab freq \cr
@@ -23,7 +23,7 @@
 #' 0 \tab 0 \tab 0 \tab 1 \tab 1 \cr
 #' }
 #'
-#' The \dQuote{event} format data.framed has a column with the unique fish identifier and a column with the event in which the fish of that row was observed.  The same data from above looks like:
+#' The \dQuote{event} format data.frame has a column with the unique fish identifier and a column with the event in which the fish of that row was observed.  The same data from above looks like:
 #'
 #' \tabular{cc}{
 #' fish \tab event \cr
@@ -37,7 +37,7 @@
 #' 20 \tab 4 \cr
 #'}
 #'
-#' \href{http://www.phidot.org/software/mark/index.html}{MARK}) is the \dQuote{gold-standard} software for analyzing complex capture history information.  In the \dQuote{MARK} format the 0s and 1s of the capture histories are combined together as a string without any spaces.  Thus, the \dQuote{MARK} format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the capture history of that row.  The final column is ended with a semi-colon.  The same data from above looks like:
+#' \href{http://www.phidot.org/software/mark/index.html}{MARK}) is the \dQuote{gold-standard} software for analyzing complex capture history information.  In the \dQuote{MARK} format the 0s and 1s of the capture histories are combined together as a string without any spaces.  Thus, the \dQuote{MARK} format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the capture history of that row.  The final column ends with a semi-colon.  The same data from above looks like:
 #'
 #' \tabular{cc}{
 #' ch \tab freq \cr
@@ -47,7 +47,7 @@
 #' 1100 \tab 2; \cr
 #' }
 #'
-#' \pkg{RMark} and \pkg{marked} are R packages used to replace or interact with MARK.  The \dQuote{RMark} or \dQuote{marked} format requires the capture histories as one string (must be a character string and called \sQuote{ch}), as in the \dQuote{MARK} format, but without the semicolon.  The data.frame may be augmented with an indentifier for individual fish OR with a frequency variable.  If augmented with a unique fish identification variable then the same data from above looks like:
+#' \pkg{RMark} and \pkg{marked} are R packages used to replace some of the functionality of MARK or to interact with MARK.  The \dQuote{RMark} or \dQuote{marked} format requires the capture histories as one string (must be a character string and called \sQuote{ch}), as in the \dQuote{MARK} format, but without the semicolon.  The data.frame may be augmented with an indentifier for individual fish OR with a frequency variable.  If augmented with a unique fish identification variable then the same data from above looks like:
 #'
 #' \tabular{cc}{
 #' fish \tab ch \cr
@@ -71,12 +71,12 @@
 #' Each of the formats can be used to convert from (i.e., in \code{in.type=}) or to convert to (i.e., in \code{out.type=}) with the exception that only the individual fish identifier version can be converted to when \code{out.type="RMark"}.
 #' 
 #' @param df A data.frame that contains the capture histories and, perhaps, a unique fish identifier or frequency variable.  See details.
-#' @param cols2ignore A string or numeric vector that indicates columns in \code{df} to ignore.  Typical columns to ignore are those that are not either in \code{id=} or \code{freq=} or part of the capture history data).
+#' @param cols2ignore A string or numeric vector that indicates columns in \code{df} to ignore.  Typical columns to ignore are those that are not either in \code{id=} or \code{freq=} or part of the capture history data.
 #' @param in.type A single string that indicates the type of capture history format to convert \bold{FROM}.
 #' @param out.type A single string that indicates the type of capture history format to convert \bold{TO}.
 #' @param id A string or numeric that indicates the column in \code{df} that contains the unique identifier for an individual fish.  This argument is only used if \code{in.type="event"}, \code{in.type="individual"}, or, possibly, \code{in.type="RMark"}.
 #' @param freq A string or numeric that indicates the column in \code{df} that contains the frequency of individual fish corresponding to a capture history.  This argument is only used if \code{in.type="MARK"}, \code{in.type="frequency"}, or, possibly, \code{in.type="RMark"}.
-#' @param event.ord A string that contains a vector of ordered levels to be used when \code{in.type="event"}.  The default is to order alphabetically which may not be desirable if the events are labelled as \sQuote{first}, \sQuote{second}, \sQuote{third}, and \sQuote{fourth}.  In this case, use \code{event.ord=c("first","second","third","fourth")}.
+#' @param event.ord A string that contains a vector of ordered levels to be used when \code{in.type="event"}.  The default is to order alphabetically which may not be desirable if, for example, the events are labelled as \sQuote{first}, \sQuote{second}, \sQuote{third}, and \sQuote{fourth}.  In this case, use \code{event.ord=c("first","second","third","fourth")}.
 #' @param var.lbls A string vector of labels for the columns that contain the returned individual or frequency capture histories.  If \code{var.lbls=NULL} or the length is different then the number of events then default labels using \code{var.lbls.pre} will be used.  This argument is only used if \code{out.type="frequency"} or \code{out.type="individual"}.
 #' @param var.lbls.pre A single string used as a prefix for the labels of the columns that contain the returned individual or frequency capture histories.  This prefix will be appended with a number corresponding to the sample event.  This argument is only used if \code{out.type="frequency"} or \code{out.type="individual"} and will be ignored if a proper vector is given in \code{var.lbls}.
 #' @param include.id A logical that indicates whether a unique fish identifier variable/column should be included in the output data.frame.  This argument is only used if \code{out.type="individual"} or \code{out.type="RMark"}.
@@ -85,11 +85,11 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @note The formats as used here are simple in the sense that one is only allowed to have the individual fish identifier or the frequency variable in addition to the capture history information.  More complex analyses may use a number of covariates.  For these more complex analyses, one should work directly with the \pkg{rcapture}, \pkg{RMark}, or \pkg{marked} packages.
+#' @note The formats as used here are simple in the sense that one is only allowed to have the individual fish identifier or the frequency variable in addition to the capture history information.  More complex analyses may use a number of covariates.  For these more complex analyses, one should work directly with the \pkg{Rcapture}, \pkg{RMark}, or \pkg{marked} packages.
 #' 
 #' This function also assumes that all unmarked captured fish are marked and returned to the population (i.e., no losses at the time of marking are allowed).
 #'
-#' @seealso \code{\link{capHistSum}} to summarize \dQuote{individual} capture histories into a format useable in \code{\link{mrClosed}} and \code{\link{mrOpen}}.  Also see \pkg{rcapture}, \pkg{RMark}, or \pkg{marked} packages.
+#' @seealso \code{\link{capHistSum}} to summarize \dQuote{individual} capture histories into a format useable in \code{\link{mrClosed}} and \code{\link{mrOpen}}.  Also see \pkg{Rcapture}, \pkg{RMark}, or \pkg{marked} packages for handling more complex analyses.
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/MRClosed.pdf}, \url{https://sites.google.com/site/fishrfiles/gnrl/MROpen.pdf}
 #'
