@@ -533,7 +533,7 @@ iOutMARK <- function(ch.df) {
 
 iPrepCapHistSum <- function(ch.df) {
   # get capture history summary without the id column
-  chsum <- capHistSum(ch.df,colsuse=2:ncol(ch.df))
+  chsum <- capHistSum(ch.df,cols2use=2:ncol(ch.df))
   # convert to a data.frame and re-label columns
   ch.df <- as.data.frame(chsum$caphist)
   rownames(ch.df) <- 1:nrow(ch.df)

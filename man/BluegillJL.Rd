@@ -2,17 +2,17 @@
 \docType{data}
 \name{BluegillJL}
 \alias{BluegillJL}
-\title{Capture histories (2 samples) of Bluegill from Jackson Lake.}
+\title{Capture histories (2 samples) of Bluegill from Jewett Lake.}
 \format{A data frame with 277 observations on the following 2 variables.
  \describe{
    \item{first}{a numeric vector of indicator variables for the first sample (1=captured).}
    \item{second}{a numeric vector of indicator variables for the second sample (1=captured).}
  }}
 \source{
-Unsure.
+From example 8.1 in Schneider, J.C. 1998. \href{http://www.michigandnr.com/publications/pdfs/IFR/manual/SMII\%20Chapter08.pdf}{Lake fish population estimates by mark-and-recapture methods.}  Chapter 8 in Schneider, J.C. (ed.) 2000. Manual of fisheries survey methods II: with periodic updates. Michigan Department of Natural Resources, Fisheries Special Report 25, Ann Arbor.
 }
 \description{
-Each line consists of the capture history over two samples of Bluegill (\emph{Lepomis macrochirus}) in Jackson Lake (MI).  This file contains the capture histories for only 6" Bluegill.
+Each line consists of the capture history over two samples of Bluegill (\emph{Lepomis macrochirus}) in Jewett Lake (MI).  This file contains the capture histories for only Bluegill larger thatn 6-in.
 }
 \section{Topic(s)}{
 

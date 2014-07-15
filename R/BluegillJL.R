@@ -1,6 +1,6 @@
-#' @title Capture histories (2 samples) of Bluegill from Jackson Lake.
+#' @title Capture histories (2 samples) of Bluegill from Jewett Lake.
 #'
-#' @description Each line consists of the capture history over two samples of Bluegill (\emph{Lepomis macrochirus}) in Jackson Lake (MI).  This file contains the capture histories for only 6" Bluegill.
+#' @description Each line consists of the capture history over two samples of Bluegill (\emph{Lepomis macrochirus}) in Jewett Lake (MI).  This file contains the capture histories for only Bluegill larger thatn 6-in.
 #'
 #' @name BluegillJL
 #'
@@ -23,7 +23,7 @@
 #' 
 #' @concept Abundance 'Population Size' 'Mark-Recapture' Petersen 'Capture History'
 #' 
-#' @source Unsure.
+#' @source From example 8.1 in Schneider, J.C. 1998. \href{http://www.michigandnr.com/publications/pdfs/IFR/manual/SMII\%20Chapter08.pdf}{Lake fish population estimates by mark-and-recapture methods.}  Chapter 8 in Schneider, J.C. (ed.) 2000. Manual of fisheries survey methods II: with periodic updates. Michigan Department of Natural Resources, Fisheries Special Report 25, Ann Arbor.
 #' 
 #' @keywords datasets
 #' 
