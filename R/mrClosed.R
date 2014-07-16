@@ -261,12 +261,15 @@ summary.mrClosed1 <- function(object,digits=0,incl.SE=FALSE,incl.all=FALSE,verbo
   rownames(res) <- object$labels
   # Include an overall PE if the user asked for it
   if (incl.all) {
-    N <- sum(res[,"N"])
-    if (incl.SE) {
-      SE <- round(sqrt(sum(res[,"SE"]^2)),digits+1)
-      res <- rbind(res,cbind(N,SE))
-    } else res <- rbind(res,N)
-    rownames(res)[dim(res)[1]] <- "All"
+    if (length(object$N)==1) warning("Multiple groups not present; 'incl.all=TRUE' ignored",call.=FALSE)
+    else {
+      N <- sum(res[,"N"])
+      if (incl.SE) {
+        SE <- round(sqrt(sum(res[,"SE"]^2)),digits+1)
+        res <- rbind(res,cbind(N,SE))
+      } else res <- rbind(res,N)
+      rownames(res)[dim(res)[1]] <- "All"
+    }
   }
   # Return the result
   res
@@ -320,13 +323,16 @@ confint.mrClosed1 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
   colnames(ci) <- iCILabel(conf.level)
   # Include a CI for the overall CI if asked for
   if (incl.all) {
-    if (verbose) message("All - The normal distribution was used.")
-    # get Ns and SEs from summary
-    smry <- summary(object,incl.SE=TRUE,incl.all=TRUE)
-    zalpha <- c(-1,1)*qnorm(0.5+conf.level/2)
-    ci.all <- smry["All","N"]+zalpha*smry["All","SE"] 
-    ci <- rbind(ci,ci.all)
-    rownames(ci)[nrow(ci)] <- "All"
+    if (length(object$N)==1) warning("Multiple groups not present; 'incl.all=TRUE' ignored",call.=FALSE)
+    else {
+      if (verbose) message("All - The normal distribution was used.")
+      # get Ns and SEs from summary
+      smry <- summary(object,incl.SE=TRUE,incl.all=TRUE)
+      zalpha <- c(-1,1)*qnorm(0.5+conf.level/2)
+      ci.all <- smry["All","N"]+zalpha*smry["All","SE"] 
+      ci <- rbind(ci,ci.all)
+      rownames(ci)[nrow(ci)] <- "All"
+    }
   }
   round(ci,digits)
 }

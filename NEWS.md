@@ -7,7 +7,7 @@
 * `capHistSum()`: Modified.  Change `cols=` argument to `cols2use=`.  Moved all internal functions outside of `capHistSum()` environment.
 * `CutthroatAL`:  Modified.  Updated from a new source to include many more years of samples.
 * `fitPlot()`:  Modified.  Changed `trans.pt=` to `transparency=`.
-* `mrClosed()`:  Modified.  Completely re-built the internal file structure.  Changed `incl.inputs=` to `verbose=`.  Added the ability to construct a CI for the overall PE when multiple groups are used in a Petersen family method (thus, added a `incl.all=` to `confint()`).  Modified the messages when `verbose=TRUE`.
+* `mrClosed()`:  Modified.  Completely re-built the internal file structure.  Changed `incl.inputs=` to `verbose=`.  Added the ability to construct a CI for the overall PE when multiple groups are used in a Petersen family method (thus, added a `incl.all=` to `confint()`).  Added error trapping around `incl.all=` in `confint()` and `summary()`.  Modified the messages when `verbose=TRUE`.
 * `plot.AgeBias()`.  Modified.  Fixed bug that produced a warning if all of the bias t-tests were either significant or not significant.  Changed `col.err=` to `col.CI=`, `lwd.err=` to `lwd.CI=`, `col.err.sig=` to `col.CIsig=`, `col.ref=` to `col.agree=`, `lwd.ref=` to `lwd.agree=`, `lty.ref=` to `lty.agree=`, `show.rng=` to `show.range=`, `col.rng=` to `col.range=`, `lwd.rng=` to `lwd.range=`.  Removed `col.lab=` and `row.lab=` which were deprecated several minor versions ago.  Changed default values for `lwd.rng=` and `lwd.CI=` from 2 to 1.  Added a `cex.numbers=` argument for controlling the size of the numbers in the "numbers plot" (defaults to 0.9).
 * `plotBinResp()`:  Modified.  Changed `trans.pt=` to `transparency=`.
 
