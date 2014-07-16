@@ -43,7 +43,7 @@
 #' 
 #' The results for the multiple census methods have had the following checks.  The population estimates for both methods match reputable sources.  The intermediate calculations for both methods match those in Krebs (1989).  The confidence interval for the Schnabel method using the Poisson distribution does NOT match Krebs (1989).  This appears to be a difference in the use \code{\link{poiCI}} here versus distributional tables in Krebs (i.e., the difference appears to be completely in the critical values from the Poisson distribution).  The confidence interval for the Schnabel method using the normal or the Poission distribution do NOT match Ricker (1975), but there is not enough information in Ricker to determine why (it is likely due to numerical differences on the inverse scale).  The confidence interval for the Schumacher-Eschmeyer method do match Krebs (1989) but not Ricker (1975).  The Ricker result may be due to different df as noted above.
 #'
-#' @aliases mrClosed summary.mrClosed confint.mrClosed plot.mrClosed
+#' @aliases mrClosed summary.mrClosed1 confint.mrClosed1 summary.mrClosed2 confint.mrClosed2 plot.mrClosed2
 #'
 #' @param M A numeric representing the number of marked fish from the first sample (single-census), an object from \code{capHistSum()} (single- or multiple-census), or numeric vector of marked fish prior to ith samples (multiple-census).
 #' @param n A numeric representing the number of captured fish in the second sample (single-census) or numeric vector of captured fish in ith sample (multiple-census).
@@ -53,7 +53,7 @@
 #' @param type A single string that identifies the distribution to use when constructing confidence intervals in \code{confint}. See details.
 #' @param labels A character or character vector used to label the rows of the resulting output matrix when using a single census method separated by groups.  Must be the same length as \code{M}, \code{n}, and \code{m}.  Defaults to upper-case letters if no values are given.
 #' @param chapman.mod A logical that represents whether the Chapman modification should be used (\code{=TRUE}, default) or not (\code{=FALSE}) when performing the Schnabel multiple census method.
-#' @param object,x An \code{mrClosed} object.
+#' @param object,x An \code{mrClosed1} or \code{mrClosed2} object.
 #' @param digits The number of decimal digits to round the population estimates to.  If \code{incl.SE=TRUE} then SE will be rounded to one more decimal place then given in \code{digits}.
 #' @param incl.SE A logical that indicates whether the results should include the calculated SE value.  See details.
 #' @param incl.all A logical that indicates whether an overall population estimate should be computed when using a single census method that has been separated into sub-groups.  See details.
@@ -186,7 +186,12 @@ mrClosed <- function(M=NULL,n=NULL,m=NULL,R=NULL,
   } else iMRCMultiple(M,n,m,R,method,chapman.mod)
 }
 
-## INTERNAL Single Census (Petersen, Chapman, Ricker, or Bailey)
+############################################################################
+## Methods related to SINGLE CENSUS (Petersen, Chapman, Ricker, or Bailey)
+############################################################################
+#===========================================================================
+## SINGLE -- Main calculations
+#===========================================================================
 iMRCSingle <- function(M,n,m,method,labels) {
   # initial checks
   if (is.null(M)) stop("Missing 'M'.",call.=FALSE)
@@ -223,14 +228,191 @@ iMRCSingle <- function(M,n,m,method,labels) {
          Bailey={methodLbl="Bailey's modification of the Petersen method"
                  M1 <- M; n1 <- n+1; m1 <- m+1; cf <- rep(0,length(M)) }
   ) # end switch
-  # perform calculations and save all of the intermediate results to return
+  # create list of inputs, intermediate results, and calculations
   res <- list(M=M,n=n,m=m,M1=M1,n1=n1,m1=m1,cf=cf,N=M1*n1/m1-cf,
               labels=labels,method=method,methodLbl=methodLbl)
-  class(res) <- "mrClosed"
+  class(res) <- "mrClosed1"
   res
-} ## end iMRCSingle
+}
 
-## INTERNAL Multiple Census (Schnabel or Shumacher-Eschmeyer)
+#===========================================================================
+# SINGLE -- Print PE and SE
+#===========================================================================
+#' @rdname mrClosed
+#' @export
+summary.mrClosed1 <- function(object,digits=0,incl.SE=FALSE,incl.all=FALSE,verbose=FALSE,...) {
+  # Put descriptive label of input values at top of output if the user asked for it.
+  if(verbose) {
+    if (is.null(object$labels)) message("Used ",object$methodLbl," with M=",object$M,", n=",object$n,", and m=",object$m,".\n",sep="")
+    else {
+      message("Used ",object$methodLbl," with observed inputs of:\n",sep="")
+      message(paste(object$labels,"- M=",object$M,", n=",object$n,", and m=",object$m,".\n",sep=""))
+    }
+  }
+  # Put the PE into a vector to return
+  res <- cbind(round(object$N,digits))
+  colnames(res) <- "N"
+  # Add the SE to the return vector if the user asked for it (and it can be calculated)
+  if (incl.SE) {
+    res <- cbind(res,round(sqrt(iMRCSingleVar(object)),digits+1))
+    colnames(res)[2] <- "SE"
+  }
+  # Label rows if labels provided
+  rownames(res) <- object$labels
+  # Include an overall PE if the user asked for it
+  if (incl.all) {
+    N <- sum(res[,"N"])
+    if (incl.SE) {
+      SE <- round(sqrt(sum(res[,"SE"]^2)),digits+1)
+      res <- rbind(res,cbind(N,SE))
+    } else res <- rbind(res,N)
+    rownames(res)[dim(res)[1]] <- "All"
+  }
+  # Return the result
+  res
+}
+
+
+#===========================================================================
+# SINGLE -- Internal helper for compute the SE
+#===========================================================================
+iMRCSingleVar <- function(object) {
+  if (object$method == "Petersen") {
+    ##  From equation 3.6 (p. 78) in Ricker (1975)
+    V <- with(object, (M^2)*n*(n-m)/(m^3) )
+  } else if (object$method == "Chapman") {
+    ## From p. 60 (near bottom) of Seber (2002)
+    V <- with(object, M1*n1*(M1-m1)*(n1-m1)/((m1^2)*(m1+1)) )
+  } else if (object$method=="Bailey") {
+    ## From p. 61 (middle) of Seber (2002) and as noted on p. 79 of Ricker (1975)
+    V <- with(object, ((M^2)*n1*(n-m))/((m1^2)*(m1+1)) )
+  } else if (object$method=="Ricker") {
+    ## From equation 3.8 in Ricker (1975)
+    V <- with(object, ((M1^2)*n1*(n-m))/((m1^2)*(m1+1)) )
+  }
+  V
+}
+
+#===========================================================================
+# SINGLE -- Confidence intervals
+#===========================================================================
+#' @rdname mrClosed
+#' @export
+confint.mrClosed1 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,digits=0,
+                              type=c("suggested","binomial","hypergeometric","normal","Poisson"),
+                              bin.type=c("wilson","exact","asymptotic"),
+                              incl.all=FALSE,verbose=FALSE,...) {
+  # Initial checks
+  type <- match.arg(type)
+  bin.type <- match.arg(bin.type)
+  parm <- iCI.CheckParm(parm)
+  # Construct the CIs, loop is for handling multiple groups
+  ci <- NULL
+  for (i in 1:length(object$N)) {
+    temp <- with(object,
+                 list(M=M[i],n=n[i],m=m[i],M1=M1[i],n1=n1[i],m1=m1[i],cf=cf[i],
+                      method=method,methodLbl=methodLbl,N=N[i],labels=labels[i])
+    )
+    ci <- rbind(ci,iCI.MRCSingle(temp,conf.level,type,bin.type,verbose,...))
+  }
+  # Add labels to the matrix
+  rownames(ci) <- object$labels
+  colnames(ci) <- iCILabel(conf.level)
+  # Include a CI for the overall CI if asked for
+  if (incl.all) {
+    if (verbose) message("All - The normal distribution was used.")
+    # get Ns and SEs from summary
+    smry <- summary(object,incl.SE=TRUE,incl.all=TRUE)
+    zalpha <- c(-1,1)*qnorm(0.5+conf.level/2)
+    ci.all <- smry["All","N"]+zalpha*smry["All","SE"] 
+    ci <- rbind(ci,ci.all)
+    rownames(ci)[nrow(ci)] <- "All"
+  }
+  round(ci,digits)
+}
+
+#===========================================================================
+# SINGLE -- Internal helper for computing the CIs
+#===========================================================================
+iCI.CheckParm <- function(parm) { # also used for multiple
+  if(!is.null(parm)) {
+    warning("'parm' is meaningless for this class of object; reset to NULL.\n\n",call.=FALSE)
+    parm <- NULL
+  }
+  parm
+}
+
+iCI1.HandleSuggested <- function(object) {
+  if ((object$m/object$n) > 0.10) type <- "binomial"
+  else if (object$m > 50) type <- "normal"
+  else type <- "Poisson"
+  type
+}
+
+iCI1.HandleVerbose <- function(object,type) {
+  msg <- paste("The",type,"distribution was used.")
+  if (!is.null(object$labels)) msg <- paste(object$labels,"-",msg)
+  message(msg)  
+}
+
+iCI.MRCSingle <- function(object,conf.level,type,bin.type,verbose,...) {
+  # Follow Sebers' suggestions if asked to
+  if (type=="suggested") type <- iCI1.HandleSuggested(object)
+  # Put message at top of output if asked for
+  if (verbose) iCI1.HandleVerbose(object,type)
+  # Construct CIs according to type=
+  switch(type,
+         hypergeometric={
+           ci <- hyperCI(object$M,object$n,object$m,conf.level)
+         }, 
+         binomial={
+           # Binomial CI for phat
+           ci1 <- binCI(object$m1,object$n1,conf.level,bin.type)
+           # Convert to CI for N
+           N.bin <- (object$M1/ci1)-object$cf
+           ci <- N.bin[2:1]
+         },
+         Poisson={
+           # Poisson CI for m
+           m.ci <- poiCI(object$m,conf.level)
+           # Convert to CI for m1
+           if (object$method!="Petersen") m.ci <- m.ci+1
+           # Put endpoints back in N formula to get CI for N
+           N.poi <- (object$M1*object$n1)/m.ci-object$cf    
+           ci <- N.poi[,2:1]
+         }, 
+         normal={
+           # Find +/- Z for normal CI
+           zalpha <- c(-1,1)*qnorm(0.5+conf.level/2)
+           if (object$method=="Petersen") {
+             ## Krebs eqn 2.4 (p.20), built in parts
+             # Find phat
+             phat <- object$m/object$n
+             # Find finite population correction factor
+             fpc <- 1-object$m/object$M
+             # Correction for continuity
+             cc <- 1/(2*object$n)
+             # SE for phat
+             SE <- sqrt(fpc*phat*(1-phat)/(object$n-1))
+             # CI for phat
+             ci <- phat-zalpha*SE+cc
+             # CI for N
+             ci <- rbind(object$M/ci)
+           } else { ## get SE from summary method
+             ci <- object$N+zalpha*sqrt(iMRCSingleVar(object))
+           }
+         }
+  )
+  ci
+}
+
+
+############################################################################
+## Methods related to MULTIPLE CENSUS (Schnabel, Schumacher-Eschmeyer)
+############################################################################
+#===========================================================================
+## MULTIPLE -- Main calculations
+#===========================================================================
 iMRCMultiple <- function(M,n,m,R,method,chapman.mod) {
   # Initial Checks
   if (!is.null(M)) {
@@ -266,133 +448,53 @@ iMRCMultiple <- function(M,n,m,R,method,chapman.mod) {
            chapman.mod <- FALSE
            N <- sum.nM2/sum.mM }
   ) # end switch
-  # return the results and intermediate calculations
+  # List of input values, intermediate and final results
   res <- list(n=n,m=m,R=R,M=M,N=N,sum.m=sum.m,sum.nM=sum.nM,sum.nM2=sum.nM2,
               sum.mM=sum.mM,sum.m2dn=sum.m2dn,labels=NULL,method=method,
               methodLbl=methodLbl,chapman.mod=chapman.mod)
-  class(res) <- "mrClosed"
+  class(res) <- "mrClosed2"
   res
-} ## end iMRCMultiple
+}
 
-
+#===========================================================================
+# MULTIPLE -- Print PE
+#===========================================================================
 #' @rdname mrClosed
 #' @export
-summary.mrClosed <- function(object,digits=0,incl.SE=FALSE,incl.all=FALSE,verbose=FALSE,...) {
+summary.mrClosed2 <- function(object,digits=0,verbose=FALSE,...) {
   # Put descriptive label of input values at top of output if the user asked for it.
   if(verbose) {
-    if (object$method %in% c("Petersen","Chapman","Ricker","Bailey")) {
-      if (is.null(object$labels)) message("Used ",object$methodLbl," with M=",object$M,", n=",object$n,", and m=",object$m,".\n",sep="")
-      else {
-        message("Used ",object$methodLbl," with observed inputs of:\n",sep="")
-        message(paste(object$labels,"- M=",object$M,", n=",object$n,", and m=",object$m,".\n",sep=""))
-      }
-    } else {
-      msg <- paste("Used ",object$methodLbl,sep="")
-      ifelse(object$chapman.mod,msg <- paste(msg,"with Chapman modification.\n"),msg <- paste(msg,".\n",sep=""))
-      message(msg)
-    }
+    msg <- paste("Used ",object$methodLbl,sep="")
+    ifelse(object$chapman.mod,msg <- paste(msg,"with Chapman modification.\n"),msg <- paste(msg,".\n",sep=""))
+    message(msg)
   }
-  # Put the PE into a vector to return
+  # Put the PE into a matrix to return
   res <- cbind(round(object$N,digits))
   colnames(res) <- "N"
-  # Add the SE to the return vector if the user asked for it (and it can be calculated)
-  if (incl.SE) {
-    if (object$method %in% c("Schnabel","SchumacherEschmeyer")) {
-      msg <- paste("A standard error for N cannot be computed with the",object$method)
-      msg <- paste(msg,"method.\n  The 'incl.SE=TRUE' will be ignored.")
-      warning(msg,call.=FALSE)
-    } else {
-      res <- cbind(res,round(sqrt(iMRCSingleVar(object)),digits+1))
-      colnames(res)[2] <- "SE"
-    }
-  }
-  # Label rows if labels provided
-  rownames(res) <- object$labels
-  # Included an overall PE if the user asked for it
-  if (incl.all) {
-    N <- sum(res[,"N"])
-    if (incl.SE) {
-      SE <- round(sqrt(sum(res[,"SE"]^2)),digits+1)
-      res <- rbind(res,cbind(N,SE))
-    } else res <- rbind(res,N)
-    rownames(res)[dim(res)[1]] <- "All"
-  }
-  # Return the result
   res
 }
 
-iMRCSingleVar <- function(object) {
-  if (object$method == "Petersen") {
-    ##  From equation 3.6 (p. 78) in Ricker (1975)
-    V <- with(object, (M^2)*n*(n-m)/(m^3) )
-  } else if (object$method == "Chapman") {
-    ## From p. 60 (near bottom) of Seber (2002)
-    V <- with(object, M1*n1*(M1-m1)*(n1-m1)/((m1^2)*(m1+1)) )
-  } else if (object$method=="Bailey") {
-    ## From p. 61 (middle) of Seber (2002) and as noted on p. 79 of Ricker (1975)
-    V <- with(object, ((M^2)*n1*(n-m))/((m1^2)*(m1+1)) )
-  } else if (object$method=="Ricker") {
-    ## From equation 3.8 in Ricker (1975)
-    V <- with(object, ((M1^2)*n1*(n-m))/((m1^2)*(m1+1)) )
-  }
-  V
-}
-
-
+#===========================================================================
+# MULTIPLE -- Confidence intervals
+#===========================================================================
 #' @rdname mrClosed
 #' @export
-plot.mrClosed <- function(x,pch=19,col.pt="black",
-                          xlab=expression(M[i]),ylab=expression(m[i]%/%n[i]),
-                          loess=FALSE,lty.loess=2,lwd.loess=1,
-                          col.loess="gray20",trans.loess=10,span=0.9,...) {
-  if (!(x$method %in% c("Schnabel","SchumacherEschmeyer"))) stop("Plot only appropriate for 'Schnabel' or 'SchumacherEschmeyer' methods.",call.=FALSE)
-  else {
-    plot(x$M,x$m/x$n,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,...)
-    # add loess line
-    if (loess) iAddLoessLine(x$m/x$n,x$M,lty.loess,lwd.loess,col.loess,trans.loess,span=span)
-  }
-}
-
-
-#' @rdname mrClosed
-#' @export
-confint.mrClosed <- function(object,parm=NULL,level=conf.level,conf.level=0.95,digits=0,
-                         type=c("suggested","binomial","hypergeometric","normal","Poisson"),
-                         bin.type=c("wilson","exact","asymptotic"),verbose=FALSE,...) {
-  # Checks
+confint.mrClosed2 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,digits=0,
+                              type=c("suggested","normal","Poisson"),verbose=FALSE,...) {
+  # Initial Checks
   type <- match.arg(type)
-  bin.type <- match.arg(bin.type)
-  if(!is.null(parm)) {
-    warning("'parm' is meaningless for this class of object; reset to NULL.\n\n",call.=FALSE)
-    parm <- NULL
-  }
-  if (object$method=="Schnabel" & type %in% c("binomial","hypergeometric")) {
-    stop("The CI type must be normal' or 'Poisson' when using the Schnabel method.",call.=FALSE)
-  }
-  if (object$method=="SchumacherEschmeyer" & type %in% c("binomial","hypergeometric","Poisson")) {
-    stop("The CI type must be 'normal' when using the Schumacher-Eschmeyer method.",call.=FALSE)
-  }
-  
-  if (object$method %in% c("Petersen","Chapman","Ricker","Bailey")) {
-    ## Single census methods
-    ci <- NULL
-    for (i in 1:length(object$N)) {
-      temp <- with(object,
-                   list(M=M[i],n=n[i],m=m[i],M1=M1[i],n1=n1[i],m1=m1[i],cf=cf[i],
-                        method=method,methodLbl=methodLbl,N=N[i],labels=labels[i])
-                  )
-      ci <- rbind(ci,iCI.MRCSingle(temp,conf.level,type,bin.type,verbose,...))
-    }
-    rownames(ci) <- object$labels
-  } else {
-    ## Multiple census methods
-    ci <- iCI.MRCMultiple(object,conf.level,type,verbose,...)
-  }
+  if (verbose) message("The ",type," distribution was used.")
+  parm <- iCI.CheckParm(parm)
+  # Construct the confidence intervals
+  switch(object$method,
+         Schnabel= { ci <- iCI2.MRCSchnabel(object,conf.level,type,verbose,...) },
+         SchumacherEschmeyer= { ci <- iCI2.MRCSchumacher(object,conf.level,type,verbose,...) }
+         ) # end switch
+  # CI labels for the materix
   colnames(ci) <- iCILabel(conf.level)
   # print out the CIs
   round(ci,digits)
 }
-
 
 iCIt <- function(est,SE,obsdf,conf.level=0.95) {
   ## Internal function for computing normal theory CIs -- from NCStats
@@ -402,106 +504,63 @@ iCIt <- function(est,SE,obsdf,conf.level=0.95) {
   res
 }
 
+iCI2.HandleSuggested <- function(object) {
+  if (object$sum.m < 50) type <- "Poisson"
+  else type <- "normal"
+  type
+}
 
-# M/R Closed, Single Census, Only One Population CI
-iCI.MRCSingle <- function(object,conf.level,type,bin.type,verbose,...) {
-  # Follow Sebers' suggestions if asked to
-  if (type=="suggested") {
-    if ((object$m/object$n) > 0.10) type <- "binomial"
-    else if (object$m > 50) type <- "normal"
-    else type <- "Poisson"
-  }
-  switch(type,
-         hypergeometric={
-           ci <- hyperCI(object$M,object$n,object$m,conf.level)
-         }, 
-         binomial={
-           # Binomial CI for phat
-           ci1 <- binCI(object$m1,object$n1,conf.level,bin.type)
-           N.bin <- (object$M1/ci1)-object$cf
-           ci <- N.bin[2:1]
-         },
-         Poisson={
-           # Poisson CI for m
-           m.ci <- poiCI(object$m,conf.level)
-           # Convert to CI for m1
-           if (object$method!="Petersen") m.ci <- m.ci+1
-           # Put endpoints back in N formula to get CI for N
-           N.poi <- (object$M1*object$n1)/m.ci-object$cf    
-           ci <- N.poi[,2:1]
-         }, 
-         normal={
-           # Find +/- Z for normal CI
-           zalpha <- c(-1,1)*abs(qnorm((1-conf.level)/2))
-           if (object$method=="Petersen") {
-             ## Krebs eqn 2.4 (p.20), built in parts
-             # Find phat
-             phat <- object$m/object$n
-             # Find finite population correction factor
-             fpc <- 1-object$m/object$M
-             # Correction for continuity
-             cc <- 1/(2*object$n)
-             # SE for phat
-             SE <- sqrt(fpc*phat*(1-phat)/(object$n-1))
-             # CI for phat
-             ci <- phat-zalpha*SE+cc
-             # CI for N
-             ci <- rbind(object$M/ci)
-           } else { ## get SE from summary method
-             ci <- object$N+zalpha*sqrt(iMRCSingleVar(object))
-           }
-         }
-  )
-  # Put message at top of output if asked for
-  if (verbose) {
-    msg <- paste("The",type,"distribution was used.")
-    if (!is.null(object$labels)) msg <- paste(object$labels,"-",msg)
-    message(msg)
-  }
-  # Return the CIs
-  ci
-} # end iCI.MRCSingle internal function
-
-# M/R Closed, Multiple Census CI
-iCI.MRCMultiple <- function(object,conf.level,type,verbose,...) {  
-  # Follow Seber's suggestions if asked for
-  if (type=="suggested") {
-    if (object$method=="SchumacherEschmeyer") type <- "normal"
-    else if (object$sum.m < 50) type <- "Poisson"
-    else type <- "normal"
-  }
-  if (object$method=="Schnabel") {
-    if (type=="normal") {
-      # Get df (from Krebs p. 32)
-      df <- length(object$n)-1
-      # Compute SE for inverse of N (from Krebs 2.11, Ricker 3.16)
-      ifelse(object$chapman.mod, invN.SE <- with(object, sqrt((sum.m+1)/(sum.nM^2)) ),
-             invN.SE <- with(object, sqrt(sum.m/(sum.nM^2)) ) )
-      # Compute CI for inverse of N
-      invN.ci <- iCIt(1/object$N,invN.SE,df)
-      # Invert to get CI for N
-      ci <- rbind((1/invN.ci)[2:1])
-    } else {
-      # Get Poisson CI for sum m
-      ci1 <- poiCI(object$sum.m,conf.level)
-      # Change if chapman modification was used
-      ifelse(object$chapman.mod,N.poi <- object$sum.nM/(ci1+1),
-             N.poi <- object$sum.nM/ci1)
-      ci <- rbind(N.poi[2:1])
-    }
-  } else {
-    # Get df (from from Krebs p. 32)
-    df <- length(object$n)-2
-    # Compute SE for inverse of N (from Krebs 2.14)
-    invN.SE <- with(object, sqrt(((sum.m2dn-(sum.mM^2)/sum.nM2)/df)/(sum.nM2)) )
+iCI2.MRCSchnabel <- function(object,conf.level,type,verbose,...) {
+  type <- iCI2.HandleSuggested(object)
+  if (type=="normal") {
+    # Get df (from Krebs p. 32)
+    df <- length(object$n)-1
+    # Compute SE for inverse of N (from Krebs 2.11, Ricker 3.16)
+    ifelse(object$chapman.mod, invN.SE <- with(object, sqrt((sum.m+1)/(sum.nM^2)) ),
+           invN.SE <- with(object, sqrt(sum.m/(sum.nM^2)) ) )
     # Compute CI for inverse of N
     invN.ci <- iCIt(1/object$N,invN.SE,df)
     # Invert to get CI for N
     ci <- rbind((1/invN.ci)[2:1])
+  } else {
+    # Get Poisson CI for sum m
+    ci1 <- poiCI(object$sum.m,conf.level)
+    # Change if chapman modification was used
+    ifelse(object$chapman.mod,N.poi <- object$sum.nM/(ci1+1),
+           N.poi <- object$sum.nM/ci1)
+    ci <- rbind(N.poi[2:1])
   }
-  # Put message at top of output if asked for
-  if (verbose) message("The ",type," distribution was used.")
-  # Return the CIs
   ci
-} # end iCI.MRCMultiple internal function
+}
+
+iCI2.MRCSchumacher <- function(object,conf.level,type,...) {
+  # check type
+  if (object$method=="SchumacherEschmeyer" & type!="normal") {
+    warning("'type' changed to 'normal' for the Schumacher-Eschmeyer method.",call.=FALSE)
+  }
+  # Get df (from from Krebs p. 32)
+  df <- length(object$n)-2
+  # Compute SE for inverse of N (from Krebs 2.14)
+  invN.SE <- with(object, sqrt(((sum.m2dn-(sum.mM^2)/sum.nM2)/df)/(sum.nM2)) )
+  # Compute CI for inverse of N
+  invN.ci <- iCIt(1/object$N,invN.SE,df)
+  # Invert to get CI for N
+  ci <- rbind((1/invN.ci)[2:1])
+  ci
+}
+
+#===========================================================================
+# MULTIPLE -- Plot for assumption violation detection
+#===========================================================================
+#' @rdname mrClosed
+#' @export
+plot.mrClosed2 <- function(x,pch=19,col.pt="black",
+                           xlab=expression(M[i]),ylab=expression(m[i]%/%n[i]),
+                           loess=FALSE,lty.loess=2,lwd.loess=1,
+                           col.loess="gray20",trans.loess=10,span=0.9,...) {
+  plot(x$M,x$m/x$n,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,...)
+  # add loess line if asked for
+  if (loess) iAddLoessLine(x$m/x$n,x$M,lty.loess,lwd.loess,col.loess,trans.loess,span=span)
+}
+
 
