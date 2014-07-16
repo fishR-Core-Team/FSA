@@ -11,7 +11,7 @@ mrClosed(M = NULL, n = NULL, m = NULL, R = NULL,
   "SchumacherEschmeyer"), labels = NULL, chapman.mod = TRUE)
 
 \method{summary}{mrClosed}(object, digits = 0, incl.SE = FALSE,
-  incl.all = FALSE, incl.inputs = FALSE, ...)
+  incl.all = FALSE, verbose = FALSE, ...)
 
 \method{plot}{mrClosed}(x, pch = 19, col.pt = "black",
   xlab = expression(M[i]), ylab = expression(m[i]\%/\%n[i]),
@@ -21,7 +21,7 @@ mrClosed(M = NULL, n = NULL, m = NULL, R = NULL,
 \method{confint}{mrClosed}(object, parm = NULL, level = conf.level,
   conf.level = 0.95, digits = 0, type = c("suggested", "binomial",
   "hypergeometric", "normal", "Poisson"), bin.type = c("wilson", "exact",
-  "asymptotic"), incl.inputs = FALSE, ...)
+  "asymptotic"), verbose = FALSE, ...)
 }
 \arguments{
 \item{M}{A numeric representing the number of marked fish from the first sample (single-census), an object from \code{capHistSum()} (single- or multiple-census), or numeric vector of marked fish prior to ith samples (multiple-census).}
@@ -48,7 +48,7 @@ mrClosed(M = NULL, n = NULL, m = NULL, R = NULL,
 
 \item{incl.all}{A logical that indicates whether an overall population estimate should be computed when using a single census method that has been separated into sub-groups.  See details.}
 
-\item{incl.inputs}{A logical that indicates whether a reminder of the inputted values and what type of method was used should be printed with the summary and confidence interval results.}
+\item{verbose}{A logical that indicates whether a reminder of the inputted values and what type of method was used should be printed with the summary and confidence interval results.}
 
 \item{parm}{Not used here (included in \code{confint} generic).}
 
@@ -151,17 +151,17 @@ The results for the multiple census methods have had the following checks.  The 
 ## Petersen estimate -- the default
 mr1 <- mrClosed(346,184,49)
 summary(mr1)
-summary(mr1,incl.inputs=TRUE)
+summary(mr1,verbose=TRUE)
 summary(mr1,incl.SE=TRUE)
 summary(mr1,incl.SE=TRUE,digits=1)
 confint(mr1)
-confint(mr1,incl.inputs=TRUE)
+confint(mr1,verbose=TRUE)
 confint(mr1,type="hypergeometric")
 
 ## Chapman modification of the Petersen estimate
 mr2 <- mrClosed(346,184,49,method="Chapman")
 summary(mr2,incl.SE=TRUE)
-summary(mr2,incl.SE=TRUE,incl.inputs=TRUE)
+summary(mr2,incl.SE=TRUE,verbose=TRUE)
 
 ### Single census, using capHistSum() results
 ## data in capture history format
@@ -181,7 +181,7 @@ mr4 <- mrClosed(marked,captured,recaps,method="Ricker",labels=lbls)
 summary(mr4)
 summary(mr4,incl.SE=TRUE)
 summary(mr4,incl.SE=TRUE,incl.all=TRUE)
-summary(mr4,incl.SE=TRUE,incl.all=TRUE,incl.inputs=TRUE)
+summary(mr4,incl.SE=TRUE,incl.all=TRUE,verbose=TRUE)
 confint(mr4)
 
 ### Multiple Census
@@ -193,7 +193,7 @@ mr5 <- with(PikeNY,mrClosed(n=n,m=m,R=R,method="Schnabel"))
 plot(mr5)
 plot(mr5,loess=TRUE)
 summary(mr5)
-summary(mr5,incl.inputs=TRUE)
+summary(mr5,verbose=TRUE)
 confint(mr5)
 
 ## Schumacher-Eschmeyer method

@@ -57,7 +57,7 @@
 #' @param digits The number of decimal digits to round the population estimates to.  If \code{incl.SE=TRUE} then SE will be rounded to one more decimal place then given in \code{digits}.
 #' @param incl.SE A logical that indicates whether the results should include the calculated SE value.  See details.
 #' @param incl.all A logical that indicates whether an overall population estimate should be computed when using a single census method that has been separated into sub-groups.  See details.
-#' @param incl.inputs A logical that indicates whether a reminder of the inputted values and what type of method was used should be printed with the summary and confidence interval results.
+#' @param verbose A logical that indicates whether a reminder of the inputted values and what type of method was used should be printed with the summary and confidence interval results.
 #' @param parm Not used here (included in \code{confint} generic).
 #' @param level Same as \code{conf.level} but used for compatability with \code{confint} generic.
 #' @param conf.level A numeric representing the level of confidence to use for confidence intervals.
@@ -112,17 +112,17 @@
 #' ## Petersen estimate -- the default
 #' mr1 <- mrClosed(346,184,49)
 #' summary(mr1)
-#' summary(mr1,incl.inputs=TRUE)
+#' summary(mr1,verbose=TRUE)
 #' summary(mr1,incl.SE=TRUE)
 #' summary(mr1,incl.SE=TRUE,digits=1)
 #' confint(mr1)
-#' confint(mr1,incl.inputs=TRUE)
+#' confint(mr1,verbose=TRUE)
 #' confint(mr1,type="hypergeometric")
 #'
 #' ## Chapman modification of the Petersen estimate
 #' mr2 <- mrClosed(346,184,49,method="Chapman")
 #' summary(mr2,incl.SE=TRUE)
-#' summary(mr2,incl.SE=TRUE,incl.inputs=TRUE)
+#' summary(mr2,incl.SE=TRUE,verbose=TRUE)
 #'
 #' ### Single census, using capHistSum() results
 #' ## data in capture history format
@@ -130,8 +130,8 @@
 #' str(BluegillJL)
 #' ch1 <- capHistSum(BluegillJL)
 #' mr3 <- mrClosed(ch1)
-#' summary(mr3)
-#' confint(mr3)
+#' summary(mr3,verbose=TRUE)
+#' confint(mr3,verbose=TRUE)
 #'
 #' ### Single census with sub-groups
 #' marked <- c(93,35,72,16,46,20)
@@ -142,8 +142,9 @@
 #' summary(mr4)
 #' summary(mr4,incl.SE=TRUE)
 #' summary(mr4,incl.SE=TRUE,incl.all=TRUE)
-#' summary(mr4,incl.SE=TRUE,incl.all=TRUE,incl.inputs=TRUE)
+#' summary(mr4,incl.SE=TRUE,incl.all=TRUE,verbose=TRUE)
 #' confint(mr4)
+#' confint(mr4,verbose=TRUE)
 #'
 #' ### Multiple Census
 #' ## Data in summarized form
@@ -154,8 +155,9 @@
 #' plot(mr5)
 #' plot(mr5,loess=TRUE)
 #' summary(mr5)
-#' summary(mr5,incl.inputs=TRUE)
+#' summary(mr5,verbose=TRUE)
 #' confint(mr5)
+#' confint(mr5,verbose=TRUE)
 #'
 #' ## Schumacher-Eschmeyer method
 #' mr6 <- with(PikeNY,mrClosed(n=n,m=m,R=R,method="Schumacher"))
@@ -184,7 +186,8 @@ mrClosed <- function(M=NULL,n=NULL,m=NULL,R=NULL,
   } else iMRCMultiple(M,n,m,R,method,chapman.mod)
 }
 
-iMRCSingle <- function(M,n,m,method,labels) { ## INTERNAL Single Census (Petersen, Chapman, Ricker, or Bailey)
+## INTERNAL Single Census (Petersen, Chapman, Ricker, or Bailey)
+iMRCSingle <- function(M,n,m,method,labels) {
   # initial checks
   if (is.null(M)) stop("Missing 'M'.",call.=FALSE)
   if (class(M)=="CapHist") {
@@ -221,12 +224,14 @@ iMRCSingle <- function(M,n,m,method,labels) { ## INTERNAL Single Census (Peterse
                  M1 <- M; n1 <- n+1; m1 <- m+1; cf <- rep(0,length(M)) }
   ) # end switch
   # perform calculations and save all of the intermediate results to return
-  res <- list(M=M,n=n,m=m,M1=M1,n1=n1,m1=m1,cf=cf,N=M1*n1/m1-cf,labels=labels,method=method,methodLbl=methodLbl)
+  res <- list(M=M,n=n,m=m,M1=M1,n1=n1,m1=m1,cf=cf,N=M1*n1/m1-cf,
+              labels=labels,method=method,methodLbl=methodLbl)
   class(res) <- "mrClosed"
   res
 } ## end iMRCSingle
 
-iMRCMultiple <- function(M,n,m,R,method,chapman.mod) { ## INTERNAL Multiple Census (Schnabel or Shumacher-Eschmeyer)
+## INTERNAL Multiple Census (Schnabel or Shumacher-Eschmeyer)
+iMRCMultiple <- function(M,n,m,R,method,chapman.mod) {
   # Initial Checks
   if (!is.null(M)) {
     if (class(M)=="CapHist") {
@@ -262,7 +267,9 @@ iMRCMultiple <- function(M,n,m,R,method,chapman.mod) { ## INTERNAL Multiple Cens
            N <- sum.nM2/sum.mM }
   ) # end switch
   # return the results and intermediate calculations
-  res <- list(n=n,m=m,R=R,M=M,N=N,sum.m=sum.m,sum.nM=sum.nM,sum.nM2=sum.nM2,sum.mM=sum.mM,sum.m2dn=sum.m2dn,labels=NULL,method=method,methodLbl=methodLbl,chapman.mod=chapman.mod)
+  res <- list(n=n,m=m,R=R,M=M,N=N,sum.m=sum.m,sum.nM=sum.nM,sum.nM2=sum.nM2,
+              sum.mM=sum.mM,sum.m2dn=sum.m2dn,labels=NULL,method=method,
+              methodLbl=methodLbl,chapman.mod=chapman.mod)
   class(res) <- "mrClosed"
   res
 } ## end iMRCMultiple
@@ -270,9 +277,9 @@ iMRCMultiple <- function(M,n,m,R,method,chapman.mod) { ## INTERNAL Multiple Cens
 
 #' @rdname mrClosed
 #' @export
-summary.mrClosed <- function(object,digits=0,incl.SE=FALSE,incl.all=FALSE,incl.inputs=FALSE,...) {
+summary.mrClosed <- function(object,digits=0,incl.SE=FALSE,incl.all=FALSE,verbose=FALSE,...) {
   # Put descriptive label of input values at top of output if the user asked for it.
-  if(incl.inputs) {
+  if(verbose) {
     if (object$method %in% c("Petersen","Chapman","Ricker","Bailey")) {
       if (is.null(object$labels)) message("Used ",object$methodLbl," with M=",object$M,", n=",object$n,", and m=",object$m,".\n",sep="")
       else {
@@ -295,7 +302,7 @@ summary.mrClosed <- function(object,digits=0,incl.SE=FALSE,incl.all=FALSE,incl.i
       msg <- paste(msg,"method.\n  The 'incl.SE=TRUE' will be ignored.")
       warning(msg,call.=FALSE)
     } else {
-      res <- cbind(res,round(sqrt(iMRCSingleSE(object)),digits+1))
+      res <- cbind(res,round(sqrt(iMRCSingleVar(object)),digits+1))
       colnames(res)[2] <- "SE"
     }
   }
@@ -314,7 +321,7 @@ summary.mrClosed <- function(object,digits=0,incl.SE=FALSE,incl.all=FALSE,incl.i
   res
 }
 
-iMRCSingleSE <- function(object) {
+iMRCSingleVar <- function(object) {
   if (object$method == "Petersen") {
     ##  From equation 3.6 (p. 78) in Ricker (1975)
     V <- with(object, (M^2)*n*(n-m)/(m^3) )
@@ -351,28 +358,38 @@ plot.mrClosed <- function(x,pch=19,col.pt="black",
 #' @export
 confint.mrClosed <- function(object,parm=NULL,level=conf.level,conf.level=0.95,digits=0,
                          type=c("suggested","binomial","hypergeometric","normal","Poisson"),
-                         bin.type=c("wilson","exact","asymptotic"),incl.inputs=FALSE,...) {
-  if(!is.null(parm)) {
-    warning("parm argument is meaningless for this class of object; it has been reset to NULL.\n\n",call.=FALSE)
-    parm <- NULL
-  }
+                         bin.type=c("wilson","exact","asymptotic"),verbose=FALSE,...) {
+  # Checks
   type <- match.arg(type)
   bin.type <- match.arg(bin.type)
+  if(!is.null(parm)) {
+    warning("'parm' is meaningless for this class of object; reset to NULL.\n\n",call.=FALSE)
+    parm <- NULL
+  }
   if (object$method=="Schnabel" & type %in% c("binomial","hypergeometric")) {
-    stop("The CI type must be 'suggested', 'normal', or 'Poisson' when using the Schnabel method.",call.=FALSE)
+    stop("The CI type must be normal' or 'Poisson' when using the Schnabel method.",call.=FALSE)
   }
   if (object$method=="SchumacherEschmeyer" & type %in% c("binomial","hypergeometric","Poisson")) {
     stop("The CI type must be 'normal' when using the Schumacher-Eschmeyer method.",call.=FALSE)
   }
+  
   if (object$method %in% c("Petersen","Chapman","Ricker","Bailey")) {
+    ## Single census methods
     ci <- NULL
     for (i in 1:length(object$N)) {
-      temp <- with(object, list(M=M[i],n=n[i],m=m[i],M1=M1[i],n1=n1[i],m1=m1[i],cf=cf[i],method=method,methodLbl=methodLbl,N=N[i],labels=labels[i]) )
-      ci <- rbind(ci,iCI.MRCSingle(temp,conf.level,type,bin.type,incl.inputs,...))
+      temp <- with(object,
+                   list(M=M[i],n=n[i],m=m[i],M1=M1[i],n1=n1[i],m1=m1[i],cf=cf[i],
+                        method=method,methodLbl=methodLbl,N=N[i],labels=labels[i])
+                  )
+      ci <- rbind(ci,iCI.MRCSingle(temp,conf.level,type,bin.type,verbose,...))
     }
-  } else ci <- iCI.MRCMultiple(object,conf.level,type,incl.inputs,...)
-  rownames(ci) <- object$labels
+    rownames(ci) <- object$labels
+  } else {
+    ## Multiple census methods
+    ci <- iCI.MRCMultiple(object,conf.level,type,verbose,...)
+  }
   colnames(ci) <- iCILabel(conf.level)
+  # print out the CIs
   round(ci,digits)
 }
 
@@ -387,7 +404,7 @@ iCIt <- function(est,SE,obsdf,conf.level=0.95) {
 
 
 # M/R Closed, Single Census, Only One Population CI
-iCI.MRCSingle <- function(object,conf.level,type,bin.type,incl.inputs,...) {
+iCI.MRCSingle <- function(object,conf.level,type,bin.type,verbose,...) {
   # Follow Sebers' suggestions if asked to
   if (type=="suggested") {
     if ((object$m/object$n) > 0.10) type <- "binomial"
@@ -431,22 +448,22 @@ iCI.MRCSingle <- function(object,conf.level,type,bin.type,incl.inputs,...) {
              # CI for N
              ci <- rbind(object$M/ci)
            } else { ## get SE from summary method
-             ci <- object$N+zalpha*sqrt(iMRCSingleSE(object))
+             ci <- object$N+zalpha*sqrt(iMRCSingleVar(object))
            }
          }
   )
   # Put message at top of output if asked for
-  if (incl.inputs) {
-    msg <- paste("The ",type," method was used.\n")
+  if (verbose) {
+    msg <- paste("The",type,"distribution was used.")
     if (!is.null(object$labels)) msg <- paste(object$labels,"-",msg)
     message(msg)
   }
-  # Show the CIs
+  # Return the CIs
   ci
 } # end iCI.MRCSingle internal function
 
 # M/R Closed, Multiple Census CI
-iCI.MRCMultiple <- function(object,conf.level,type,incl.inputs,...) {  
+iCI.MRCMultiple <- function(object,conf.level,type,verbose,...) {  
   # Follow Seber's suggestions if asked for
   if (type=="suggested") {
     if (object$method=="SchumacherEschmeyer") type <- "normal"
@@ -483,8 +500,8 @@ iCI.MRCMultiple <- function(object,conf.level,type,incl.inputs,...) {
     ci <- rbind((1/invN.ci)[2:1])
   }
   # Put message at top of output if asked for
-  if (incl.inputs) message("The ",type," method was used.\n")
-  # Show the CIs
+  if (verbose) message("The ",type," distribution was used.")
+  # Return the CIs
   ci
 } # end iCI.MRCMultiple internal function
 
