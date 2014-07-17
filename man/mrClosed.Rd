@@ -13,12 +13,12 @@ mrClosed(M = NULL, n = NULL, m = NULL, R = NULL,
   "SchumacherEschmeyer"), labels = NULL, chapman.mod = TRUE)
 
 \method{summary}{mrClosed1}(object, digits = 0, incl.SE = FALSE,
-  incl.all = FALSE, verbose = FALSE, ...)
+  incl.all = TRUE, verbose = FALSE, ...)
 
 \method{confint}{mrClosed1}(object, parm = NULL, level = conf.level,
   conf.level = 0.95, digits = 0, type = c("suggested", "binomial",
   "hypergeometric", "normal", "Poisson"), bin.type = c("wilson", "exact",
-  "asymptotic"), incl.all = FALSE, verbose = FALSE, ...)
+  "asymptotic"), incl.all = TRUE, verbose = FALSE, ...)
 
 \method{summary}{mrClosed2}(object, digits = 0, verbose = FALSE, ...)
 
@@ -188,10 +188,11 @@ lbls <- c("YOY","Juvenile","Stock","Quality","Preferred","Memorable")
 mr4 <- mrClosed(marked,captured,recaps,method="Ricker",labels=lbls)
 summary(mr4)
 summary(mr4,incl.SE=TRUE)
-summary(mr4,incl.SE=TRUE,incl.all=TRUE)
-summary(mr4,incl.SE=TRUE,incl.all=TRUE,verbose=TRUE)
+summary(mr4,incl.SE=TRUE,verbose=TRUE)
+summary(mr4,incl.SE=TRUE,incl.all=FALSE,verbose=TRUE)
 confint(mr4)
 confint(mr4,verbose=TRUE)
+confint(mr4,incl.all=FALSE,verbose=TRUE)
 
 ### Multiple Census
 ## Data in summarized form

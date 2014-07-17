@@ -53,36 +53,37 @@ test_that("ageBias symmetry tests match the results in Evans and Hoenig (2008)",
 })
 
 test_that("test AlewifeLH data against compare2() results",{
-  library(FSAdata)
-  library(fishmethods)
-  data(AlewifeLH)
-  ab2 <- compare2(AlewifeLH)
-  ## no continuity correction
-  ab1 <- ageBias(otoliths~scales,data=AlewifeLH,ref.lab="Otolith Age",nref.lab="Scale Age")
-  ab1sum <- summary(ab1)
-  expect_that(ab1sum[ab1sum$symTest=="McNemars","chi.sq"],equals(ab2$McNemar$Chisq))
-  expect_that(ab1sum[ab1sum$symTest=="McNemars","p"],equals(ab2$McNemar$pvalue))
-  expect_that(ab1sum[ab1sum$symTest=="EvansHoenig","chi.sq"],equals(ab2$Evans_Hoenig$Chisq))
-  expect_that(ab1sum[ab1sum$symTest=="EvansHoenig","p"],equals(ab2$Evans_Hoenig$pvalue))
-  expect_that(ab1sum[ab1sum$symTest=="EvansHoenig","df"],equals(ab2$Evans_Hoenig$df))
-  ## Yates continuity correction
-  ab1sum2 <- summary(ab1,what="McNemars",cont.corr="Yates")
-  expect_that(ab1sum2[1,"chi.sq"],equals(ab2$McNemar_continuity_correction$Chisq))
-  expect_that(ab1sum2[1,"p"],equals(ab2$McNemar_continuity_correction$pvalue))
-  ## Edwards continuity correction
-  ab3 <- compare2(AlewifeLH,correct="Edwards")
-  ab1sum3 <- summary(ab1,what="McNemars",cont.corr="Edwards")
-  expect_that(ab1sum3[1,"chi.sq"],equals(ab3$McNemar_continuity_correction$Chisq))
-  expect_that(ab1sum3[1,"p"],equals(ab3$McNemar_continuity_correction$pvalue))
+  if (require(FSAdata) & require(fishmethods)) {
+    data(AlewifeLH)
+    ab2 <- compare2(AlewifeLH)
+    ## no continuity correction
+    ab1 <- ageBias(otoliths~scales,data=AlewifeLH,ref.lab="Otolith Age",nref.lab="Scale Age")
+    ab1sum <- summary(ab1)
+    expect_that(ab1sum[ab1sum$symTest=="McNemars","chi.sq"],equals(ab2$McNemar$Chisq))
+    expect_that(ab1sum[ab1sum$symTest=="McNemars","p"],equals(ab2$McNemar$pvalue))
+    expect_that(ab1sum[ab1sum$symTest=="EvansHoenig","chi.sq"],equals(ab2$Evans_Hoenig$Chisq))
+    expect_that(ab1sum[ab1sum$symTest=="EvansHoenig","p"],equals(ab2$Evans_Hoenig$pvalue))
+    expect_that(ab1sum[ab1sum$symTest=="EvansHoenig","df"],equals(ab2$Evans_Hoenig$df))
+    ## Yates continuity correction
+    ab1sum2 <- summary(ab1,what="McNemars",cont.corr="Yates")
+    expect_that(ab1sum2[1,"chi.sq"],equals(ab2$McNemar_continuity_correction$Chisq))
+    expect_that(ab1sum2[1,"p"],equals(ab2$McNemar_continuity_correction$pvalue))
+    ## Edwards continuity correction
+    ab3 <- compare2(AlewifeLH,correct="Edwards")
+    ab1sum3 <- summary(ab1,what="McNemars",cont.corr="Edwards")
+    expect_that(ab1sum3[1,"chi.sq"],equals(ab3$McNemar_continuity_correction$Chisq))
+    expect_that(ab1sum3[1,"p"],equals(ab3$McNemar_continuity_correction$pvalue))
+  }
 })
 
 test_that("ageBias compared to http://www.nefsc.noaa.gov/fbp/age-prec/ calculations for AlewifeLH",{
-  library(FSAdata)
-  data(AlewifeLH)
-  ab1 <- ageBias(otoliths~scales,data=AlewifeLH,ref.lab="Otolith Age",nref.lab="Scale Age")
-  expect_that(ab1$bias$n,equals(c(2,18,20,13,18,10,8,7,5,1,2)))
-  ## the fbp result is actually 4.62 for age-6
-  expect_that(round(ab1$bias$mean,2),equals(c(0.00,1.11,2.20,2.85,3.78,4.20,4.62,5.00,4.80,6.00,6.00)))
+  if (require(FSAdata)) {
+    data(AlewifeLH)
+    ab1 <- ageBias(otoliths~scales,data=AlewifeLH,ref.lab="Otolith Age",nref.lab="Scale Age")
+    expect_that(ab1$bias$n,equals(c(2,18,20,13,18,10,8,7,5,1,2)))
+    ## the fbp result is actually 4.62 for age-6
+    expect_that(round(ab1$bias$mean,2),equals(c(0.00,1.11,2.20,2.85,3.78,4.20,4.62,5.00,4.80,6.00,6.00)))
+  }
 })
 
 test_that("ageBias errors and warnings",{

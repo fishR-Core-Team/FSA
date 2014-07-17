@@ -30,13 +30,14 @@ test_that("agePrecision gives correct precision values -- Second Example",{
 })
 
 test_that("agePrecision compared to http://www.nefsc.noaa.gov/fbp/age-prec/ calculations for AlewifeLH",{
-  library(FSAdata)
-  data(AlewifeLH)
-  ap3 <- agePrecision(~otoliths+scales,data=AlewifeLH)
-  expect_that(ap3$n, equals(104))
-  expect_that(ap3$R, equals(2))
-  expect_that(round(ap3$CV,2), equals(12.54))
-  expect_that(round(ap3$PercAgree,1), equals(58.7))
+  if (require(FSAdata)) {
+    data(AlewifeLH)
+    ap3 <- agePrecision(~otoliths+scales,data=AlewifeLH)
+    expect_that(ap3$n, equals(104))
+    expect_that(ap3$R, equals(2))
+    expect_that(round(ap3$CV,2), equals(12.54))
+    expect_that(round(ap3$PercAgree,1), equals(58.7))
+  }
 })
 
 test_that("agePrecision errors and warnings",{
@@ -44,4 +45,3 @@ test_that("agePrecision errors and warnings",{
   ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)
   expect_that(summary(ap1,what="agreement"),throws_error())
 })
-  

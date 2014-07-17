@@ -14,10 +14,6 @@ test_that("mrClosed Single Census errors and warnings",{
   expect_that(mrClosed(c(346,346),c(184,184),c(49,49),labels=c("A","B","C")),throws_error())
   ## R not used in single census
   expect_that(mrClosed(346,184,49,200),gives_warning())
-  ## incl.all not appropriate when multiple groups not present
-  tmp <- mrClosed(346,184,49)
-  expect_that(summary(tmp,incl.all=TRUE),gives_warning())
-  expect_that(confint(tmp,incl.all=TRUE),gives_warning())
   ## no M
   expect_that(mrClosed(n=200),throws_error())
   expect_that(mrClosed(m=200),throws_error())

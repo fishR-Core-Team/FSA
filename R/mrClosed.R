@@ -141,10 +141,11 @@
 #' mr4 <- mrClosed(marked,captured,recaps,method="Ricker",labels=lbls)
 #' summary(mr4)
 #' summary(mr4,incl.SE=TRUE)
-#' summary(mr4,incl.SE=TRUE,incl.all=TRUE)
-#' summary(mr4,incl.SE=TRUE,incl.all=TRUE,verbose=TRUE)
+#' summary(mr4,incl.SE=TRUE,verbose=TRUE)
+#' summary(mr4,incl.SE=TRUE,incl.all=FALSE,verbose=TRUE)
 #' confint(mr4)
 #' confint(mr4,verbose=TRUE)
+#' confint(mr4,incl.all=FALSE,verbose=TRUE)
 #'
 #' ### Multiple Census
 #' ## Data in summarized form
@@ -240,7 +241,7 @@ iMRCSingle <- function(M,n,m,method,labels) {
 #===========================================================================
 #' @rdname mrClosed
 #' @export
-summary.mrClosed1 <- function(object,digits=0,incl.SE=FALSE,incl.all=FALSE,verbose=FALSE,...) {
+summary.mrClosed1 <- function(object,digits=0,incl.SE=FALSE,incl.all=TRUE,verbose=FALSE,...) {
   # Put descriptive label of input values at top of output if the user asked for it.
   if(verbose) {
     if (is.null(object$labels)) message("Used ",object$methodLbl," with M=",object$M,", n=",object$n,", and m=",object$m,".\n",sep="")
@@ -260,16 +261,13 @@ summary.mrClosed1 <- function(object,digits=0,incl.SE=FALSE,incl.all=FALSE,verbo
   # Label rows if labels provided
   rownames(res) <- object$labels
   # Include an overall PE if the user asked for it
-  if (incl.all) {
-    if (length(object$N)==1) warning("Multiple groups not present; 'incl.all=TRUE' ignored",call.=FALSE)
-    else {
-      N <- sum(res[,"N"])
-      if (incl.SE) {
-        SE <- round(sqrt(sum(res[,"SE"]^2)),digits+1)
-        res <- rbind(res,cbind(N,SE))
-      } else res <- rbind(res,N)
-      rownames(res)[dim(res)[1]] <- "All"
-    }
+  if (incl.all & length(object$N)>1) {
+    N <- sum(res[,"N"])
+    if (incl.SE) {
+      SE <- round(sqrt(sum(res[,"SE"]^2)),digits+1)
+      res <- rbind(res,cbind(N,SE))
+    } else res <- rbind(res,N)
+    rownames(res)[dim(res)[1]] <- "All"
   }
   # Return the result
   res
@@ -304,7 +302,7 @@ iMRCSingleVar <- function(object) {
 confint.mrClosed1 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,digits=0,
                               type=c("suggested","binomial","hypergeometric","normal","Poisson"),
                               bin.type=c("wilson","exact","asymptotic"),
-                              incl.all=FALSE,verbose=FALSE,...) {
+                              incl.all=TRUE,verbose=FALSE,...) {
   # Initial checks
   type <- match.arg(type)
   bin.type <- match.arg(bin.type)
@@ -322,17 +320,14 @@ confint.mrClosed1 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
   rownames(ci) <- object$labels
   colnames(ci) <- iCILabel(conf.level)
   # Include a CI for the overall CI if asked for
-  if (incl.all) {
-    if (length(object$N)==1) warning("Multiple groups not present; 'incl.all=TRUE' ignored",call.=FALSE)
-    else {
-      if (verbose) message("All - The normal distribution was used.")
-      # get Ns and SEs from summary
-      smry <- summary(object,incl.SE=TRUE,incl.all=TRUE)
-      zalpha <- c(-1,1)*qnorm(0.5+conf.level/2)
-      ci.all <- smry["All","N"]+zalpha*smry["All","SE"] 
-      ci <- rbind(ci,ci.all)
-      rownames(ci)[nrow(ci)] <- "All"
-    }
+  if (incl.all & length(object$N)>1) {
+    if (verbose) message("All - The normal distribution was used.")
+    # get Ns and SEs from summary
+    smry <- summary(object,incl.SE=TRUE,incl.all=TRUE)
+    zalpha <- c(-1,1)*qnorm(0.5+conf.level/2)
+    ci.all <- smry["All","N"]+zalpha*smry["All","SE"] 
+    ci <- rbind(ci,ci.all)
+    rownames(ci)[nrow(ci)] <- "All"
   }
   round(ci,digits)
 }
