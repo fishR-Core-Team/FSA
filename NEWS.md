@@ -1,5 +1,7 @@
 # FSA 0.4.19 ongoing
 * Modified some tests to check whether the suggested package was installed.
+* `mrClosed()`:  Modified.  Fixed bugs around printing of CI type with Schnabel and the ignoring of `conf.level=` with Schnabel.
+* `plot.mrClosed()`:  Modified.  Changed axis labels as the expressions did not print with some fonts and devices.
 
 # FSA 0.4.18 Jul14
 * Moved to compiling under R 3.1.1.

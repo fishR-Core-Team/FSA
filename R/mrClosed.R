@@ -484,6 +484,7 @@ confint.mrClosed2 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
                               type=c("suggested","normal","Poisson"),verbose=FALSE,...) {
   # Initial Checks
   type <- match.arg(type)
+  if (type=="suggested") type <- iCI2.HandleSuggested(object)
   if (verbose) message("The ",type," distribution was used.")
   parm <- iCI.CheckParm(parm)
   # Construct the confidence intervals
@@ -497,7 +498,7 @@ confint.mrClosed2 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
   round(ci,digits)
 }
 
-iCIt <- function(est,SE,obsdf,conf.level=0.95) {
+iCIt <- function(est,SE,obsdf,conf.level) {
   ## Internal function for computing normal theory CIs -- from NCStats
   hw <- qt(1-(1-conf.level)/2,obsdf)*SE
   res <- cbind(est-hw,est+hw)
@@ -511,8 +512,7 @@ iCI2.HandleSuggested <- function(object) {
   type
 }
 
-iCI2.MRCSchnabel <- function(object,conf.level,type,verbose,...) {
-  type <- iCI2.HandleSuggested(object)
+iCI2.MRCSchnabel <- function(object,conf.level,type,...) {
   if (type=="normal") {
     # Get df (from Krebs p. 32)
     df <- length(object$n)-1
@@ -520,7 +520,7 @@ iCI2.MRCSchnabel <- function(object,conf.level,type,verbose,...) {
     ifelse(object$chapman.mod, invN.SE <- with(object, sqrt((sum.m+1)/(sum.nM^2)) ),
            invN.SE <- with(object, sqrt(sum.m/(sum.nM^2)) ) )
     # Compute CI for inverse of N
-    invN.ci <- iCIt(1/object$N,invN.SE,df)
+    invN.ci <- iCIt(1/object$N,invN.SE,df,conf.level)
     # Invert to get CI for N
     ci <- rbind((1/invN.ci)[2:1])
   } else {
@@ -544,7 +544,7 @@ iCI2.MRCSchumacher <- function(object,conf.level,type,...) {
   # Compute SE for inverse of N (from Krebs 2.14)
   invN.SE <- with(object, sqrt(((sum.m2dn-(sum.mM^2)/sum.nM2)/df)/(sum.nM2)) )
   # Compute CI for inverse of N
-  invN.ci <- iCIt(1/object$N,invN.SE,df)
+  invN.ci <- iCIt(1/object$N,invN.SE,df,conf.level)
   # Invert to get CI for N
   ci <- rbind((1/invN.ci)[2:1])
   ci
@@ -556,7 +556,8 @@ iCI2.MRCSchumacher <- function(object,conf.level,type,...) {
 #' @rdname mrClosed
 #' @export
 plot.mrClosed2 <- function(x,pch=19,col.pt="black",
-                           xlab=expression(M[i]),ylab=expression(m[i]%/%n[i]),
+                           xlab="Marked in Population",
+                           ylab="Proportion Recaptures in Sample",
                            loess=FALSE,lty.loess=2,lwd.loess=1,
                            col.loess="gray20",trans.loess=10,span=0.9,...) {
   plot(x$M,x$m/x$n,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,...)

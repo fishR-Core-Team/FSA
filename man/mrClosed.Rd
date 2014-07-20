@@ -27,7 +27,7 @@ mrClosed(M = NULL, n = NULL, m = NULL, R = NULL,
   "Poisson"), verbose = FALSE, ...)
 
 \method{plot}{mrClosed2}(x, pch = 19, col.pt = "black",
-  xlab = expression(M[i]), ylab = expression(m[i]\%/\%n[i]),
+  xlab = "Marked in Population", ylab = "Proportion Recaptures in Sample",
   loess = FALSE, lty.loess = 2, lwd.loess = 1, col.loess = "gray20",
   trans.loess = 10, span = 0.9, ...)
 }
