@@ -557,7 +557,7 @@ iCI2.MRCSchumacher <- function(object,conf.level,type,...) {
 #' @export
 plot.mrClosed2 <- function(x,pch=19,col.pt="black",
                            xlab="Marked in Population",
-                           ylab="Proportion Recaptures in Sample",
+                           ylab="Prop. Recaptures in Sample",
                            loess=FALSE,lty.loess=2,lwd.loess=1,
                            col.loess="gray20",trans.loess=10,span=0.9,...) {
   plot(x$M,x$m/x$n,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,...)

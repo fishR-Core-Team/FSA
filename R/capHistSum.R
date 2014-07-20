@@ -19,12 +19,13 @@
 #'    \item \code{sum} A data.frame that contains the number of marked fish from the first sample (\code{M}), the number of captured fish in the second sample (\code{n}), and the number of recaptured (i.e. previously marked) fish in the second sample (\code{m}).
 #'  }
 #'
-#' If the capture history data file represents more than two samples, then a list with the following four components is returned
+#' If the capture history data file represents more than two samples, then a list with the following five components is returned
 #'  \itemize{
 #'    \item \code{caphist} A vector summarizing the frequency of fish with each capture history.
 #'    \item \code{sum} A data frame that contains the the number of captured fish in the ith sample (\code{n}), the number of recaptured (i.e. previously marked) fish in the ith sample (\code{m}), the number of marked fish returned to the population following the ith sample (\code{R}; this will equal \code{n} as the function currently does not handle mortalities); and the number of marked fish in the population prior to the ith sample (\code{M}).
 #'    \item \code{methodB.top} A matrix that contains the top of the Method B table used for the Jolly-Seber method (i.e., a contingency table of capture sample (columns) and last seen sample (rows)).
 #'    \item \code{methodB.bot} A data.frame that contains the bottom of the Method B table used for the Jolly-Seber method (i.e., the number of marked fish in the sample (\code{m}), the number of unmarked fish in the sample (\code{u}), the total number of fish in the sample (\code{n}), and the number of marked fish returned to the population following the sample (\code{R}).
+#'    \item \code{m.array} A matrix that contains the the so-called \dQuote{m-array}.  The first column contains the number of fish captured on the ith event.  The columns labelled with \dQuote{cX} prefix show the number of fish originally captured in the ith row that were captured in the Xth event.  The last column shows the number of fish originally captured in the ith row that were never recaptured.
 #'  }
 #'
 #' @seealso See \code{\link{capHistConvert}} for a descriptions of capture history data file formats and how to convert between them.  See \code{\link{mrClosed}} and \code{\link{mrOpen}} for how to estimate abundance from the summarized capture history information.
@@ -62,7 +63,10 @@ capHistSum <- function(df,cols2use=NULL) {
     res2.jolly <- iSumCHnumJolly(res2,k)
     # Construct jolly top method B table
     res3 <- iMethodBTop(ch,k)
-    d <- list(caphist=res1,sum=res2.schnabel,methodB.top=res3,methodB.bot=res2.jolly)
+    # Construct m-array table from top of methodB table
+    res4 <- iMarray(res3,res2.schnabel)
+    # Put together as a list
+    d <- list(caphist=res1,sum=res2.schnabel,methodB.top=res3,methodB.bot=res2.jolly,m.array=res4)
   }
   class(d) <- "CapHist"
   d
@@ -144,7 +148,7 @@ iSumCHnumJolly <- function(df,k) {
 }
 
 ##############################################################
-## INTERNAL
+## INTERNAL -- Make top of the Method B table
 ##############################################################
 iMethodBTop <- function(ch,k) {
   # create a matrix to hold the Method B table (NA on lower triangle, 0 on upper)
@@ -169,3 +173,21 @@ iMethodBTop <- function(ch,k) {
   mb.top
 }
 
+##############################################################
+## INTERNAL -- Make m-array from top of Method B table
+##############################################################
+iMarray <- function(mb,smry) {
+  events <- ncol(mb)
+  # label rows and columns of mb (follow strategy in Rcapture)
+  rownames(mb) <- paste("i =",1:events)
+  colnames(mb) <- paste0("c",1:events)
+  # put ni in first column
+  mb[,1] <- smry$n
+  colnames(mb)[1] <- "ni"
+  # put non-captured total in last column
+  tmp <- mb[,1]-rowSums(mb[,2:events],na.rm=TRUE)
+  mb <- cbind(mb,tmp)
+  colnames(mb)[events+1] <- "not recapt"
+  # return matrix
+  mb
+}
