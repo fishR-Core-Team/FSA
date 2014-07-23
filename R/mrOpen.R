@@ -129,18 +129,19 @@ mrOpen <- function(mb.top,mb.bot=NULL,type=c("Jolly","Manly"),conf.level=0.95,ph
   k <- ncol(mb.bot)
   if (k<=2) stop("The Jolly-Seber method requires more than 2 samples.\n",call.=FALSE)
   # Transpose method B bottom portion, delete u column, make a data.frame
-  df <- data.frame(t(mb.bot)[,-2])
-  # Future catches of a sample
+  df <- data.frame(t(mb.bot))
+  df <- df[,-which(names(df)=="u")]
+  # Append r info
   df$r <- iCalcr(mb.top,k)
-  # Past catchs of a sample
+  # Append z info
   df$z <- iCalcz(mb.top,k)
-  # Estimate M
+  # Estimate M and append
   df <- iEstM(df)
-  # Estimate population sizes with CIs
+  # Estimate population sizes with CIs and append
   df <- iEstN(df,type,conf.level)
-  # Estimate survival rates wtih CIs
+  # Estimate survival rates wtih CIs and append
   df <- iEstPhi(df,k,type,conf.level,phi.full)
-  # Estimate additions to the population
+  # Estimate additions to the population and append
   df <- iEstB(df,k,type,conf.level)
   # round M, N, and B to one decimal
   tmp <- c(grep("M",names(df)),grep("N",names(df)),grep("B",names(df)))
