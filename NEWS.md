@@ -1,3 +1,5 @@
+# FSA 0.4.20 ongoing
+
 # FSA 0.4.19 Jul14
 * Modified some tests to check whether the suggested package was installed.
 * `capHistSum()`: Modified.  Changed column and row labels for `$methodB.top` and column labels for `$methodB.bot`.  Added a m-array object for when more than two sampling events are present.  Added calculations for the number of fish first seen on event i (ui), the number of fish last seen on event i (vi), and the number of fish seen i times (fi) to `$sum`.
