@@ -3,31 +3,30 @@
 \alias{confint.mrOpen}
 \alias{mrOpen}
 \alias{summary.mrOpen}
-\title{Estimate initial population size for multiple census mark-recapture data from an open population.}
+\title{Jolly-Seber analysis from multiple mark-recapture events from an open population.}
 \usage{
-mrOpen(mb.top, mb.bot = NULL, ci.type = c("Jolly", "Manly"),
-  conf.level = 0.95, phi.type = c("SD", "SE"))
+mrOpen(mb.top, mb.bot = NULL, type = c("Jolly", "Manly"),
+  conf.level = 0.95, phi.full = TRUE)
 
-\method{summary}{mrOpen}(object, type = c("all", "observables", "estimates"),
-  ...)
+\method{summary}{mrOpen}(object, verbose = FALSE, ...)
 
 \method{confint}{mrOpen}(object, parm = c("all", "N", "phi", "B"),
-  level = NULL, conf.level = NULL, ...)
+  level = NULL, conf.level = NULL, verbose = TRUE, ...)
 }
 \arguments{
-\item{mb.top}{A matrix that contains the \dQuote{top} of the Method B table (i.e., a contingency table of capture sample (columns) and last seen sample (rows)) or an object of class \code{CapHist} from the \code{capHistSum} function.  See details.}
+\item{mb.top}{A matrix that contains the \dQuote{top} of the Method B table (i.e., a contingency table of capture sample (columns) and last seen sample (rows)) or an object of class \code{CapHist} from \code{\link{capHistSum}}.  See details.}
 
 \item{mb.bot}{A data frame that contains the \dQuote{bottom} of the Method B table (i.e., the number of marked fish in the sample (\code{m}), the number of unmarked fish in the sample (\code{u}), the total number of fish in the sample (\code{n}), and the number of marked fish returned to the population following the sample (\code{R})).}
 
-\item{ci.type}{A string that indicates whether the large sample method of Jolly (\code{ci.type="Jolly"}) or the \dQuote{arbitrary} method of Manly (\code{ci.type="Manly"}) should be used to construct confidence intervals.}
+\item{type}{A string that indicates whether the large sample (normal theory) method of Jolly (\code{type="Jolly"}) or the \dQuote{arbitrary} method of Manly (\code{type="Manly"}) should be used to construct confidence intervals.}
 
-\item{conf.level}{A number that indicates the level of confidence to use for constructing confidence intervals (default is 0.95).  See details.}
+\item{conf.level}{A single numeric that indicates the level of confidence to use for constructing confidence intervals (default is 0.95).  See details.}
 
-\item{phi.type}{A string that indicates whether the standard error for phi should include only sampling variability (\code{phi.type="SE"}) or sampling and individual variability (\code{phi.type="SD"},default).}
+\item{phi.full}{A logical that indicates whether the standard error for phi should include only sampling variability (\code{phi.full=FALSE}) or sampling and individual variability (\code{phi.full=TRUE},default).}
 
-\item{object}{An object saved from the \code{mrOpen} call (i.e., of class \code{mrOpen}).}
+\item{object}{An object from \code{mrOpen} (i.e., of class \code{mrOpen}).}
 
-\item{type}{The type of summary to return.  See details.}
+\item{verbose}{A logical that indicates if the observables and other notes should be printed in \code{summary} and if the type of confidence interval used should be printed in \code{confint}.  See details.}
 
 \item{parm}{A specification of which parameters are to be given confidence intervals.  If missing, all parameters are considered.}
 
@@ -38,23 +37,21 @@ mrOpen(mb.top, mb.bot = NULL, ci.type = c("Jolly", "Manly"),
 \value{
 A list with the following items:
  \itemize{
-   \item df A data frame that contains observable summaries from the data and estimates of the number of extant marked fish, population size for each possible sample period, survival rate between each possible pair of sample periods, and the number of additional individuals added to the population between each possible pair of sample periods.  In addition to the estimates, values of the standard errors and the lower and upper confidence interval bounds for each parameter are provided (however, see the details above).
-   \item ci.type The provided type of confidence intervals that was used.
-   \item phi.type The provided type of standard error for phi that was used.
+   \item df A data frame that contains observable summaries from the data and estimates of the number of extant marked fish  (M), population size for each possible sample period (N), apparent survival rate between each possible pair of sample periods (phi), and the number of additional individuals added to the population between each possible pair of sample periods (B).  In addition to the estimates, values of the standard errors and the lower and upper confidence interval bounds for each parameter are provided (however, see the details above).
+   \item type The provided type of confidence intervals that was used.
+   \item phi.full The provided logical that indicates the type of standard error for phi that was used.
    \item conf.level The provided level of confidence that was used.
  }
 }
 \description{
-This function takes the two parts of a Method B table and uses the Jolly-Seber method to estimate the population size at each possible sample period and the survival rate and number of additional individuals added to the population between possible sample periods.  This method assumes that the population is open.
+This function takes the two parts of a Method B table and uses the Jolly-Seber method to estimate the population size at each possible sample period and the apparent survival rate and number of additional individuals added to the population between possible sample periods.  This method assumes that the population is open.
 }
 \details{
-If \code{mb.top} contains an object from the \code{capHistSum} function then \code{mb.bot} can be left missing or will be ignored.  In this case, the function will extract the needed data from the \code{methodB.top} and \code{methodB.bot} portions of the \code{CapHist} class object.
+If \code{mb.top} contains an object from the \code{\link{capHistSum}} function then \code{mb.bot} can be left missing.  In this case, the function will extract the needed data from the \code{methodB.top} and \code{methodB.bot} portions of the \code{CapHist} class object.
 
-Seber's (1965) modification to the traditional Jolly-Seber abundance and mortality estimates are used.
+All parameter estimates are performed using equations 4.6-4.9 from Pollock et al (1990).  If \code{type="Jolly"} then all standard errors (square root of the variances) are from equations 4.11, 4.12, and 4.14 in Pollock et al. (1990).  If \code{type="Jolly"} and \code{phi.full=TRUE} then the full variance for the phi parameter is given as in eqn 4.18 in Pollock et al. (1990), otherwise eqn 4.13 from Pollock et al. (1990) is used.  When \code{type="Jolly"} the confidence interval are produced using normal theory (i.e., estimate +/- z*SE).  If \code{type="Manly"} then the confidence intervals for N and phi (none will be produced for B) are constructed using the methods of Manly (1984).  No standard errors are returned when \code{type="Manly"}.
 
-Manly (1984) did not provide details for computing a confidence interval for the B parameter.  Thus, confidence intervals for this parameter are not included in the output when \code{ci.type="Manly"} is used.  Also, Manly's method does not compute standard errors; therefore, no standard errors are returned when \code{ci.type="Manly"} is used.
-
-If \code{type="observables"} in the \code{summary} function then only items that can be observed from the data will be returned -- n, m, R, r, and z.  If \code{type="estimates"} in the \code{summary} function then only items that are estimated from observables will be returned -- M, N, phi, B, and their associated standard errors.
+The \code{summary} function returns estimates of M, N, phi, B, and their associated standard errors and, if \code{verbose=TRUE} the intermediate calculations of \dQuote{observables} from the data -- n, m, R, r, and z.
 
 The level of confidence is not set in the \code{confint} function, in contrast to most \code{confint} functions.  Rather the confidence level is set in the main \code{mrOpen} function.
 }
@@ -64,10 +61,10 @@ The level of confidence is not set in the \code{confint} function, in contrast t
 \examples{
 ## First example -- capture histories summarized with capHistSum()
 data(CutthroatAL)
-ch1 <- capHistSum(CutthroatAL,-1)  # ignore first column of fish ID
+ch1 <- capHistSum(CutthroatAL,cols2use=-1)  # ignore first column of fish ID
 ex1 <- mrOpen(ch1)
 summary(ex1)
-summary(ex1)
+confint(ex1)
 
 ## Second example - Jolly's data -- summarized data entered "by hand"
 s1 <- rep(NA,13)
@@ -94,7 +91,7 @@ jolly.bot <- rbind(m,u,n,R)
 ex2 <- mrOpen(jolly.top,jolly.bot)
 summary(ex2)
 confint(ex2)
-ex3 <- mrOpen(jolly.top,jolly.bot,ci.type="Manly")
+ex3 <- mrOpen(jolly.top,jolly.bot,type="Manly")
 summary(ex3)
 confint(ex3)
 }
@@ -110,7 +107,7 @@ Seber, G.A.F. 1982. The Estimation of Animal Abundance. Edward Arnold, second ed
 
 Leslie, P.H. and D. Chitty. 1951. The estimation of population parameters from data obtained by means of the capture-recapture method. I. The maximum likelihood equations for estimating the death-rate. Biometrika, 38:269-292.
 
-Manly, B.F.J. Obtaining confidence limits on parameters of the Jolly-Seber model for capture-recapture data. Biometrics, 40:749-758.
+Manly, B.F.J. 1984.  Obtaining confidence limits on parameters of the Jolly-Seber model for capture-recapture data. Biometrics, 40:749-758.
 
 Pollock, K.H., J.D. Nichols, C. Brownie, and J.E. Hines. 1991. Statistical inference for capture-recapture experiments. Wildlife Monographs, 107:1-97.
 }

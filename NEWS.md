@@ -1,7 +1,9 @@
 # FSA 0.4.19 ongoing
 * Modified some tests to check whether the suggested package was installed.
-* `capHistConver()`: Modified.  Added a m-array object for when more than two sampling events are present.b
+* `capHistSum()`: Modified.  Changed column and row labels for `$methodB.top` and column labels for `$methodB.bot`.  Added a m-array object for when more than two sampling events are present.  Added calculations for the number of fish first seen on event i (ui), the number of fish last seen on event i (vi), and the number of fish seen i times (fi) to `$sum`.
 * `mrClosed()`:  Modified.  Fixed bugs around printing of CI type with Schnabel and the ignoring of `conf.level=` with Schnabel.
+* `mrOpen`: Modified.  Changed `ci.type=` to `type=` and `phi.type=` to `phi.full=`.  Removed `type=` from `summary()` and added a `verbose=` which will print only the estimates if `FALSE` or both observables and estimates if `TRUE`.  Added a `verbose=` to `confint()` to control whether the message about the type of confidence interval is printed or not.  Moved all internal functions outside of `mrOpen()` environment.  Changes to row and column labels in `capHistSum()` resulted in changes to row lables for `summary()` and `confint()` results.  Streamlined some clunky code.  Added tests and notes in the code as to sources for the fomulae.
+* `plot.CapHistSum()`:  Added.
 * `plot.mrClosed()`:  Modified.  Changed axis labels as the expressions did not print with some fonts and devices.
 
 # FSA 0.4.18 Jul14
