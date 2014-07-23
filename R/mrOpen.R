@@ -4,6 +4,8 @@
 #'
 #' @details If \code{mb.top} contains an object from the \code{\link{capHistSum}} function then \code{mb.bot} can be left missing.  In this case, the function will extract the needed data from the \code{methodB.top} and \code{methodB.bot} portions of the \code{CapHist} class object.
 #' 
+#' If \code{mb.top} is a matrix then it must be square, must have non-negative and no NA values in the upper triangle, and all NA values on the lower triangle and diagonal.  If \code{mb.bot} is a matrix then it must have four rows named \code{m}, \code{u}, \code{n}, and \code{R} (see \code{\link{capHistSum}} for definitions), all values must be non-NA, and the first value of \code{m} must be 0.  The last value of \code{R} can either be 0 or some positive number (it is ultimately ignored in all calculations).
+#' 
 #' All parameter estimates are performed using equations 4.6-4.9 from Pollock et al (1990) and from page 204 in Seber 2002.  If \code{type="Jolly"} then all standard errors (square root of the variances) are from equations 4.11, 4.12, and 4.14 in Pollock et al. (1990) (these are different than those in Seber (2002) ... see Pollock et al.'s note on page 21).  If \code{type="Jolly"} and \code{phi.full=TRUE} then the full variance for the phi parameter is given as in eqn 4.18 in Pollock et al. (1990), otherwise eqn 4.13 from Pollock et al. (1990) is used.  When \code{type="Jolly"} the confidence interval are produced using normal theory (i.e., estimate +/- z*SE).  If \code{type="Manly"} then the confidence intervals for N and phi (none will be produced for B) are constructed using the methods of Manly (1984) and as described in 2.24-2.33 of Krebs (1989).  No standard errors are returned when \code{type="Manly"}.
 #'
 #' The \code{summary} function returns estimates of M, N, phi, B, and their associated standard errors and, if \code{verbose=TRUE} the intermediate calculations of \dQuote{observables} from the data -- n, m, R, r, and z.
@@ -37,7 +39,11 @@
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/MROpen.pdf}
 #' 
-#' @section Testing:  The formulas have been double-checked against formulas in Pollock et al. (1990), Manly (1984), and Seber (2002).  The results of \code{mrOpen} relate to Pollock et al. (1990) Table 4.4 within 0.2 (within 1%) for N, within 0.5 (within 0.5%) for N.se, within 0.02 (less than 1%, except for phi17 and phi20 which are less than 2%) for phi, within 0.001 (less than 1%) for phi.se, within 1 for B except for B11 (within 5) and B18 (within 11), and within 0.02 (within 1%) for B.se.
+#' @section Testing:  The formulas have been triple-checked against formulas in Pollock et al. (1990), Manly (1984), and Seber (2002).
+#' 
+#' The results for the \code{\link{CutthroatAL}} data file (as analyzed in the example) was compared to results from the JOLLY program available at \url{http://www.mbr-pwrc.usgs.gov/software/jolly.html}.  The r and z values matched, all M and N estimates match at one decimal place, all phi are within 0.001, and all B are within 0.7.  The SE match for M except for two estimates that are within 0.1, match for N except for one estimate that is within 0.1, are within 0.001 for phi, and are within 1.3 for B (except for for the first estimate which is dramatically off).
+#' 
+#' The results of \code{mrOpen} related to Table 4.4 of Pollock et al. (1990) match (to one decimal place) except for three estimates that are within 0.1% for N, match (to two decimal places) for phi except for where Pollock set phi>1 to phi=1, match for B except for Pollock set B<0 to B=0. The SE match (to two decimal places) for N except for N15 (which is within 0.5, <5%), match (to three decimal places) for phi except for phi15 (which is within 0.001, <0.5%), match (to two decimal places) for B except for B17 and B20 which are within 0.2 (<0.2%)
 #' 
 #' All point estimates of M, N, phi, and B and the SE of phi match the results in Table 2.3 of Krebs (1989) (within minimal rounding error for a very small number of results).  The SE of N results are not close to those of Krebs (1989) (who does not provide a formula for SE so the discrepancy cannot be explored).  The SE of B results match those of Krebs (1989) for 5 of the 8 values and are within 5% for 2 of the other 3 values (the last estimate is off by 27%).
 #' 
@@ -68,6 +74,7 @@
 #' summary(ex1)
 #' summary(ex1,verbose=TRUE)
 #' confint(ex1)
+#' confint(ex1,verbose=TRUE)
 #'
 #' ## Second example - Jolly's data -- summarized data entered "by hand"
 #' s1 <- rep(NA,13)
@@ -89,15 +96,23 @@
 #' R <- c(54,143,164,202,214,207,243,175,169,126,120,120,0)
 #' m <- c(0,10,37,56,53,77,112,86,110,84,77,72,95)
 #' u <- n-m
-#'
 #' jolly.bot <- rbind(m,u,n,R)
+#' 
 #' ex2 <- mrOpen(jolly.top,jolly.bot)
-#' summary(ex2)
-#' confint(ex2)
+#' summary(ex2,verbose=TRUE)
+#' confint(ex2,verbose=TRUE)
+#' 
 #' ex3 <- mrOpen(jolly.top,jolly.bot,type="Manly")
-#' summary(ex3)
-#' confint(ex3)
-#'
+#' summary(ex3,verbose=TRUE)
+#' confint(ex3,verbose=TRUE)
+#' 
+#' ## demonstrate use of jolly()
+#' ex3a <- jolly(jolly.top,jolly.bot)
+#' 
+#' @rdname mrOpen
+#' @export
+jolly <- function(...) { mrOpen(...) }
+ 
 #' @rdname mrOpen
 #' @export
 mrOpen <- function(mb.top,mb.bot=NULL,type=c("Jolly","Manly"),conf.level=0.95,phi.full=TRUE) {
@@ -106,8 +121,10 @@ mrOpen <- function(mb.top,mb.bot=NULL,type=c("Jolly","Manly"),conf.level=0.95,ph
     mb.bot <- mb.top$methodB.bot
     mb.top <- mb.top$methodB.top
   } else if (is.null(mb.bot)) stop("Must have a 'mb.top' and a 'mb.bot'.",call.=FALSE)
+  iCheckMBtop(mb.top)
+  iCheckMBbot(mb.bot)
   # Number of samples
-  k <- dim(mb.bot)[2]
+  k <- ncol(mb.bot)
   if (k<=2) stop("The Jolly-Seber method requires more than 2 samples.\n",call.=FALSE)
   # Transpose method B bottom portion, delete u column, make a data.frame
   df <- data.frame(t(mb.bot)[,-2])
@@ -133,6 +150,27 @@ mrOpen <- function(mb.top,mb.bot=NULL,type=c("Jolly","Manly"),conf.level=0.95,ph
   d <- list(df=df,type=type,phi.full=phi.full,conf.level=conf.level)
   class(d) <- "mrOpen"
   d
+}
+
+##############################################################
+## INTERNAL -- functions to check aspects of the Metod B table parts
+##############################################################
+iCheckMBbot <- function(mb.bot) {
+  nr <- nrow(mb.bot)
+  if (nr!=4) stop("'mb.bot' must contain four rows with 'm', 'u', 'n', and 'R'.",call.=FALSE)
+  if (any(!names(mb.bot) %in% c("m","u","n","R"))) stop("rownames of 'mb.bot' must be 'm', 'u', 'n', and 'R'.",call.=FALSE)
+  if (any(is.na(mb.bot))) stop("All values in 'mb.bot' must be non-NA.",call.=FALSE)
+  if (any(mb.bot<0)) stop("All values in 'mb.bot' must be non-negative.",call.=FALSE)
+  if (is.na(mb.bot["m",1]) | mb.bot["m",1]!=0) stop("First value of 'm' row in 'mb.bot' must be 0.",call.=FALSE)
+}
+
+iCheckMBtop <- function(mb.top) {
+  nr <- nrow(mb.top)
+  nc <- ncol(mb.top)
+  if (nr!=nc) stop("'mb.top' must be square.",call.=FALSE)
+  if (!all(is.na(mb.top[lower.tri(mb.top,diag=TRUE)]))) stop ("Lower triangle and diagonal of 'mb.top' must all be 'NA'.",call.=FALSE)
+  if (any(is.na(mb.top[upper.tri(mb.top)]))) stop("Upper triangle of 'mb.top' cannot contain any 'NA'.",call.=FALSE)
+  if (any(mb.top<0,na.rm=TRUE)) stop("All non-NA values in 'mb.top' must be non-negative.",call.=FALSE)
 }
 
 ##############################################################

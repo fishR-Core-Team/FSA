@@ -25,7 +25,7 @@ BSEC <- c(NA,68.88,119.51,29.81,26.67,61.15,35.23,NA,NA)
 # enter data from table 4.3
 poll <- data.frame(period=1:23,
                    n=c(46,46,48,46,51,37,41,42,47,31,8,2,1,4,9,19,19,27,36,45,74,22,3),
-                   m=c(NA,42,42,42,46,37,41,39,43,26,7,2,0,3,8,17,14,20,36,34,46,20,2),
+                   m=c(0,42,42,42,46,37,41,39,43,26,7,2,0,3,8,17,14,20,36,34,46,20,2),
                    R=c(46,46,48,46,50,37,41,42,47,31,8,2,1,4,9,18,19,27,36,44,73,22,2),
                    r=c(43,44,48,45,46,35,40,37,40,26,8,2,1,3,8,17,18,24,32,33,15,2,NA),
                  z=c(NA,1,3,9,8,17,11,12,6,20,39,45,47,45,40,31,34,32,20,18,5,0,NA))
@@ -121,6 +121,9 @@ test_that("Does mrOpen match the Jolly-Seber results from JOLLY for CutthroatAL"
   # all M match at one decimal
   CcompM <- round(cbind(cutt$df$M,MC,cutt$df$M-MC,(cutt$df$M-MC)/MC*100),1)
   expect_that(CcompM[,1],equals(CcompM[,2]))
+  # all M.se match at one decimal except M3 and M4 which are off by 0.1
+  CcompSEM <- round(cbind(cutt$df$M.se,MSEC,cutt$df$M.se-MSEC,(cutt$df$M.se-MSEC)/MSEC*100),1)
+  expect_that(all(abs(CcompSEM[,3])<=0.5,na.rm=TRUE),is_true())
   # all N match at one decimal
   CcompN <- round(cbind(cutt$df$N,NC,cutt$df$N-NC,(cutt$df$N-NC)/NC*100),1)
   expect_that(CcompN[,1],equals(CcompN[,2]))
@@ -143,22 +146,22 @@ test_that("Does mrOpen match the Jolly-Seber results from JOLLY for CutthroatAL"
 
 
 test_that("Does mrOpen match the Jolly-Seber results from Table 4.4 in Pollock et al. (1990)",{
-  # all N within 0.2 (less than 1%)
+  # all N within 0.1 (less than 0.11%)
   PcompN <- round(cbind(poll$N,NP,poll$N-NP,(poll$N-NP)/NP*100),1)
-  expect_that(all(abs(PcompN[,3])<=0.2,na.rm=TRUE),is_true())
-  # all N.se within 0.5 (less than 0.5%, except for N15)
+  expect_that(all(abs(PcompN[,3])<=0.1,na.rm=TRUE),is_true())
+  # all N.se match at two decimals except for N15 wich is within 0.5 (less than 5%)
   PcompSEN <- round(cbind(poll$N.se,NSEP,poll$N.se-NSEP,(poll$N.se-NSEP)/NSEP*100),2)
   expect_that(all(abs(PcompSEN[,3])<=0.5,na.rm=TRUE),is_true())
-  # all phi within 0.02 (less than 1%, except phi17 and phi20 which are less than 2%)
+  # all phi match except where Pollock set them == 1 or did not report
   Pcompphi <- round(cbind(poll$phi,phiP,poll$phi-phiP,(poll$phi-phiP)/phiP*100),2)
-  expect_that(all(abs(Pcompphi[,3])<=0.02,na.rm=TRUE),is_true())
+  expect_that(Pcompphi[-c(7,17,20,12:14),1],equals(Pcompphi[-c(7,17,20,12:14),2]))
   # all phi.se within 0.001 (less than 1%)
-  PcompSEphi <- round(cbind(poll$phi.se,phiSEP,poll$phi.se-phiSEP,(poll$phi.se-phiSEP)/phiSEP*100),2)
+  PcompSEphi <- round(cbind(poll$phi.se,phiSEP,poll$phi.se-phiSEP,(poll$phi.se-phiSEP)/phiSEP*100),3)
   expect_that(all(abs(PcompSEphi[,3])<=0.001,na.rm=TRUE),is_true())
-  # all B within 1 except for B11 (within 5) and B18 (within 11)
+  # all B match except where Pollock set them -- 0 or did not report
   PcompB <- round(cbind(poll$B,BP,poll$B-BP,(poll$B-BP)/BP*100),1)
-  expect_that(all(abs(PcompB[-c(11,18),3])<=1,na.rm=TRUE),is_true())  
-  # all B.se within 0.02 (within 1%)
+  expect_that(PcompB[-c(5,11,18,21,12:14),1],equals(PcompB[-c(5,11,18,21,12:14),2]))
+  # all B.se within 0.02 (within 0.2%)
   PcompSEB <- round(cbind(poll$B.se,BSEP,poll$B.se-BSEP,(poll$B.se-BSEP)/BSEP*100),2)
   expect_that(all(abs(PcompSEB[,3])<=0.02,na.rm=TRUE),is_true()) 
 })
