@@ -101,17 +101,6 @@
 #' @rdname mrOpen
 #' @export
 mrOpen <- function(mb.top,mb.bot=NULL,type=c("Jolly","Manly"),conf.level=0.95,phi.full=TRUE) {
-  # All large sample formulae are as they appear in Pollock et al. (1990)
-  # r,z,M,N,phi,B all appear to be accurate with data in Krebs
-  # r,z accurate with data in Begon
-  # M,N,phi all approximately (rounding?) accurate with data in Begon
-  # B not accurate with data in Begon
-
-  # Jolly N.se, phi.se, B.se accurate with data in Krebs
-  # Jolly N.SE, phi.SE appears approximately accurate (rounding?) with data in Begon
-  # Jolly B.SE not accurate with data in Begon
-  # Manly N.CI, phi.CI NOT TESTED
-
   type <- match.arg(type)
   if (class(mb.top)=="CapHist") {
     mb.bot <- mb.top$methodB.bot
@@ -123,14 +112,9 @@ mrOpen <- function(mb.top,mb.bot=NULL,type=c("Jolly","Manly"),conf.level=0.95,ph
   # Transpose method B bottom portion, delete u column, make a data.frame
   df <- data.frame(t(mb.bot)[,-2])
   # Future catches of a sample
-  df$r <- apply(mb.top,1,sum,na.rm=TRUE)
-  df$r[k] <- NA
-  # Initialize vector for loop
-  df$z <- rep(NA,k)
-  for (i in 2:(k-1)) {
-    # Z is sum of matrix with smaller rows and larger columns
-    df$z[i] <- sum(mb.top[1:(i-1),(i+1):k],na.rm=TRUE)
-  }
+  df$r <- iCalcr(mb.top,k)
+  # Past catchs of a sample
+  df$z <- iCalcz(mb.top,k)
   # Estimate M
   df <- iEstM(df)
   # Estimate population sizes with CIs
@@ -149,6 +133,34 @@ mrOpen <- function(mb.top,mb.bot=NULL,type=c("Jolly","Manly"),conf.level=0.95,ph
   d <- list(df=df,type=type,phi.full=phi.full,conf.level=conf.level)
   class(d) <- "mrOpen"
   d
+}
+
+##############################################################
+## INTERNAL -- function to calculate r (future catches of fish
+##   released in i)
+##############################################################
+iCalcr <- function(mb.top,k) {
+  tmp <- apply(mb.top,1,sum,na.rm=TRUE)
+  # make last value NA
+  tmp[k] <- NA
+  # return vector
+  tmp
+}
+
+##############################################################
+## INTERNAL -- function to calculate z (number caught before i,
+##   but not in i, but later as well)
+##############################################################
+iCalcz <- function(mb.top,k) {
+  # Loop through 2nd to penultimate sample, but initialize vector for results first
+  #   Initialization will put NA in first and last samples
+  tmp <- rep(NA,k)
+  for (i in 2:(k-1)) {
+    # Z is sum of matrix with smaller rows and larger columns than i
+    tmp[i] <- sum(mb.top[1:(i-1),(i+1):k],na.rm=TRUE)
+  }
+  # return the vector
+  tmp
 }
 
 ##############################################################
@@ -264,7 +276,7 @@ iEstB <- function(df,k,type,conf.level) {
   switch(type,
          Jolly={
            # SE of B (eqn 4.14 in Pollock et al. (1990))
-           B.se <- sqrt((((B^2)*(df2$M-df2$m)*(df2$M-df2$m+df2$R)/(df2$M^2)))*((1/df2$r)-(1/df2$R))
+           B.se <- sqrt((((B^2)*(df2$M-df2$m)*(df2$M-df2$m+df2$R)/(df2$M^2))*((1/df2$r)-(1/df2$R)))
                         +((df1$M-df1$m)/(df1$M-df1$m+df1$R)*((df1$phi*df1$R*(df1$N-df1$M))^2)/(df1$M^2)*((1/df1$r)-(1/df1$R)))
                         +((df1$N-df1$n)*(df2$N-B)*(df1$N-df1$M)*(1-df1$phi)/(df1$N*(df1$M-df1$m+df1$R)))
                         +(df2$N*(df2$N-df2$n)*(df2$N-df2$M)/(df2$N*df2$m))
