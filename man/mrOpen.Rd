@@ -49,7 +49,7 @@ This function takes the two parts of a Method B table and uses the Jolly-Seber m
 \details{
 If \code{mb.top} contains an object from the \code{\link{capHistSum}} function then \code{mb.bot} can be left missing.  In this case, the function will extract the needed data from the \code{methodB.top} and \code{methodB.bot} portions of the \code{CapHist} class object.
 
-All parameter estimates are performed using equations 4.6-4.9 from Pollock et al (1990).  If \code{type="Jolly"} then all standard errors (square root of the variances) are from equations 4.11, 4.12, and 4.14 in Pollock et al. (1990).  If \code{type="Jolly"} and \code{phi.full=TRUE} then the full variance for the phi parameter is given as in eqn 4.18 in Pollock et al. (1990), otherwise eqn 4.13 from Pollock et al. (1990) is used.  When \code{type="Jolly"} the confidence interval are produced using normal theory (i.e., estimate +/- z*SE).  If \code{type="Manly"} then the confidence intervals for N and phi (none will be produced for B) are constructed using the methods of Manly (1984).  No standard errors are returned when \code{type="Manly"}.
+All parameter estimates are performed using equations 4.6-4.9 from Pollock et al (1990) and from page 204 in Seber 2002.  If \code{type="Jolly"} then all standard errors (square root of the variances) are from equations 4.11, 4.12, and 4.14 in Pollock et al. (1990) (these are different than those in Seber (2002) ... see Pollock et al.'s note on page 21).  If \code{type="Jolly"} and \code{phi.full=TRUE} then the full variance for the phi parameter is given as in eqn 4.18 in Pollock et al. (1990), otherwise eqn 4.13 from Pollock et al. (1990) is used.  When \code{type="Jolly"} the confidence interval are produced using normal theory (i.e., estimate +/- z*SE).  If \code{type="Manly"} then the confidence intervals for N and phi (none will be produced for B) are constructed using the methods of Manly (1984) and as described in 2.24-2.33 of Krebs (1989).  No standard errors are returned when \code{type="Manly"}.
 
 The \code{summary} function returns estimates of M, N, phi, B, and their associated standard errors and, if \code{verbose=TRUE} the intermediate calculations of \dQuote{observables} from the data -- n, m, R, r, and z.
 
@@ -58,12 +58,21 @@ The level of confidence is not set in the \code{confint} function, in contrast t
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/MROpen.pdf}
 }
+
+\section{Testing}{
+  The formulas have been double-checked against formulas in Pollock et al. (1990), Manly (1984), and Seber (2002).  The results of \code{mrOpen} relate to Pollock et al. (1990) Table 4.4 within 0.2 (within 1%) for N, within 0.5 (within 0.5%) for N.se, within 0.02 (less than 1%, except for phi17 and phi20 which are less than 2%) for phi, within 0.001 (less than 1%) for phi.se, within 1 for B except for B11 (within 5) and B18 (within 11), and within 0.02 (within 1%) for B.se.
+
+All point estimates of M, N, phi, and B and the SE of phi match the results in Table 2.3 of Krebs (1989) (within minimal rounding error for a very small number of results).  The SE of N results are not close to those of Krebs (1989) (who does not provide a formula for SE so the discrepancy cannot be explored).  The SE of B results match those of Krebs (1989) for 5 of the 8 values and are within 5% for 2 of the other 3 values (the last estimate is off by 27%).
+
+For comparing to Jolly's data as presented in Tables 5.1 and 5.2 of Seber (2002), M was within 4 (less than 1.5%), N was within 3% (except N2 which was within 9%), phi was within 0.01 (less than 1.5%), and B was within 7 (less than 5%) except for B2 and B8.
+}
 \examples{
 ## First example -- capture histories summarized with capHistSum()
 data(CutthroatAL)
 ch1 <- capHistSum(CutthroatAL,cols2use=-1)  # ignore first column of fish ID
 ex1 <- mrOpen(ch1)
 summary(ex1)
+summary(ex1,verbose=TRUE)
 confint(ex1)
 
 ## Second example - Jolly's data -- summarized data entered "by hand"
@@ -101,15 +110,17 @@ Derek H. Ogle, \email{dogle@northland.edu}
 \references{
 Jolly, G.M. 1965. Explicit estimates from capture-recapture data with both death and immigration -- stochastic model. Biometrika, 52:225-247.
 
-Seber, G.A.F. 1965. A note on the multiple recapture census. Biometrika 52:249-259.
-
-Seber, G.A.F. 1982. The Estimation of Animal Abundance. Edward Arnold, second edition.
+Krebs, C.J.  1989.  Ecological Methodology.  Harper & Row Publishers, New York.
 
 Leslie, P.H. and D. Chitty. 1951. The estimation of population parameters from data obtained by means of the capture-recapture method. I. The maximum likelihood equations for estimating the death-rate. Biometrika, 38:269-292.
 
 Manly, B.F.J. 1984.  Obtaining confidence limits on parameters of the Jolly-Seber model for capture-recapture data. Biometrics, 40:749-758.
 
 Pollock, K.H., J.D. Nichols, C. Brownie, and J.E. Hines. 1991. Statistical inference for capture-recapture experiments. Wildlife Monographs, 107:1-97.
+
+Seber, G.A.F. 1965. A note on the multiple recapture census. Biometrika 52:249-259.
+
+Seber, G.A.F. 2002. The Estimation of Animal Abundance. Edward Arnold, second edition (reprinted).
 }
 \seealso{
 \code{\link{capHistSum}}, \code{\link{mrClosed}}
