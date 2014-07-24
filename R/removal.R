@@ -1,40 +1,41 @@
-#' @title Computes population estimates for k-, 3-, or 2-pass removal data.
+#' @title Population estimates for k-, 3-, or 2-pass removal data.
 #'
 #' @description Computes estimates, with confidence intervals, of the population size and probability of capture from the number of fish removed in k-, 3-, or 2-passes in a closed population.
 #'
-#' @details The main function computes the estimates and associated standard errors for the initial population size, No, and probability of capture, p, for five possible methods chosen with the \code{type} argument.  The types of methods that can be used are listed below:
+#' @details The main function computes the estimates and associated standard errors for the initial population size, No, and probability of capture, p, for five methods chosen with \code{method=}.  The possible methods are:
 #'  \itemize{
-#'    \item \code{type="Zippin"}: The general k-pass estimator generally attributed to Zippin.  This function iteratively solves for No in equation 3 of Carle and Strub (1978).
-#'    \item \code{type="CarleStrub"}: The general weighted k-pass estimator proposed by Carle and Strub (1978).  This function iteratively solves for No in equation 7 of Carle and Strub (1978).
-#'    \item \code{type="Seber3"}: The special case for k=3 estimator shown by Seber(1982).
-#'    \item \code{type="Seber2"}: The special case for k=2 estimator shown by Seber(1982).
-#'    \item \code{type="RobsonRegier2"}: The special case for k=2 estimator shown by Robson and Regier (1968).
+#'    \item \code{method="Zippin"}: The general k-pass estimator generally attributed to Zippin.  This function iteratively solves for No in bias corrected version of equation 3 (pager 622) of Carle and Strub (1978).
+#'    \item \code{method="CarleStrub"}: The general weighted k-pass estimator proposed by Carle and Strub (1978).  This function iteratively solves for No in equation 7 of Carle and Strub (1978).
+#'    \item \code{method="Seber3"}: The special case for k=3 estimator shown by Seber(1982).
+#'    \item \code{method="Seber2"}: The special case for k=2 estimator shown by Seber(1982).
+#'    \item \code{method="RobsonRegier2"}: The special case for k=2 estimator shown by Robson and Regier (1968).
 #'  }
 #'
 #' Confidence intervals are computed using standard large-sample normal distribution theory.  Note that the confidence intervals for the 2- and 3-pass special cases are only approximately correct if the estimated population size is greater than 200.  If the estimated population size is between 50 and 200 then a 95\% CI behaves more like a 90\% CI.
 #'
-#' Note that, in the Carle Strub method, that if the resultant No estimate is equal to the sum of the catches (T) then the estimate of No that is returned will be the sum of the catches.  In this instance and if the \dQuote{Seber} method of computing the standard error is used then the SE will not be estimable and the confidence intervals can not be constructed.
+#' In the Carle Strub method, if the resultant No estimate is equal to the sum of the catches (T) then the estimate of No that is returned will be the sum of the catches.  In this instance, and if the \dQuote{Seber} method of computing the standard error is used, then the SE will not be estimable and the confidence intervals can not be constructed.
 #'
 #' @aliases removal summary.removal confint.removal
 #'
-#' @param catch A numerical vector of catches of fish at each pass.
-#' @param type A single string that identifies the type of removal method to use for the calculations.  See details.
+#' @param catch A numerical vector of catch at each pass.
+#' @param method A single string that identifies the removal method to use.  See details.
 #' @param alpha A single numeric value for the alpha parameter in the CarleStrub method (default is \code{1}).
 #' @param beta A single numeric value for the beta parameter in the CarleStrub method (default is \code{1}).
 #' @param CS.se A single string that identifies whether the SE in the CarleStrub method should be computed according to Seber or Zippin.
-#' @param object An object saved from \code{removal()} (i.e., of class \code{removal}).
+#' @param object An object saved from \code{removal()}.
 #' @param parm A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.
 #' @param level Same as \code{conf.level} but used for compatability with generic \code{confint} function.
 #' @param conf.level A single number representing the level of confidence to use for constructing confidence intervals.
 #' @param just.ests A logical that indicates whether just the estimates (\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.
+#' @param verbose A logical that indicates whether descriptive labels should be printed from \code{summary}.
 #' @param \dots Additional arguments for methods.
 #'
-#' @return A vector that contains the estimaes and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with the following items:
+#' @return A vector that contains the estimates and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with the following items:
 #'  \itemize{
-#'    \item catch the original vector of observed catches.
-#'    \item type The type of method used (provided by the user).
-#'    \item meth A label for the type of method used.
-#'    \item est A vector that contains the estimates and standard errors for No and p.
+#'    \item catch The original vector of observed catches.
+#'    \item method The method used (provided by the user).
+#'    \item lbl A descriptive label for the method used.
+#'    \item est A matrix that contains the estimates and standard errors for No and p.
 #'  }
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
@@ -46,11 +47,11 @@
 #' @references 
 #' Carle, F.L. and M.R. Strub. 1978. A new method for estimating population size from removal data.  Biometrics, 34:621-630.
 #'
+#' Cowx, I.G.  1983.  Review of the methods for estimating fish population size from survey removal data.  Fisheries Management, 14:67-82.
+#' 
 #' Seber, G.A.F. 1982. The Estimation of Animal Abundance. Edward Arnold, second edition.
 #'
 #' Robson, D.S., and H.A. Regier.  1968.  Estimation of population number and mortality rates.  pp. 124-158 in Ricker, W.E. (editor) Methods for Assessment of Fish Production in Fresh Waters.  IBP Handbook NO. 3 Blackwell Scientific Publications, Oxford.
-#'
-#' Cowx, I.G.  1983.  Review of the methods for estimating fish population size from survey removal data.  Fisheries Management, 14:67-82.
 #'
 #' @keywords manip
 #'
@@ -64,12 +65,12 @@
 #' confint(p1)  
 #'
 #' # Carle Strub method
-#' p2 <- removal(ct3,type="CarleStrub")
+#' p2 <- removal(ct3,method="CarleStrub")
 #' summary(p2)
 #' confint(p2)
 #'
 #' # Seber method
-#' p3 <- removal(ct3,type="Seber3")
+#' p3 <- removal(ct3,method="Seber3")
 #' summary(p3)
 #' confint(p3)
 #'
@@ -77,18 +78,14 @@
 #' ct2 <- c(77,37)
 #'
 #' # Seber method
-#' p4 <- removal(ct2,type="Seber2")
+#' p4 <- removal(ct2,method="Seber2")
 #' summary(p4)
 #' confint(p4)
 #'
 #' # Robson-Regier method
-#' p5 <- removal(ct2,type="RobsonRegier2")
+#' p5 <- removal(ct2,method="RobsonRegier2")
 #' summary(p5)
 #' confint(p5)
-#'
-#' ## Demonstration of situation where estimates cannot be made
-#' bad <- c(34,23,45)
-#' bad1 <- removal(bad)
 #'
 #'
 #' ### Using lapply() to use removal on many different groups
@@ -122,171 +119,191 @@
 #'
 #' @rdname removal
 #' @export
-removal <- function(catch,type=c("Zippin","CarleStrub","Seber3","Seber2","RobsonRegier2"),alpha=1,beta=1,CS.se=c("Zippin","Alternative"),just.ests=FALSE) {
-  #-----------------------------------------------------------------------------
-  # The following is an internal function for Zippin variance calculations
-  #-----------------------------------------------------------------------------
-  var.Zippin <- function(N0,p,k,which=c("p","N0")) {
-    q <- 1-p
-    if (which=="N0") {
-      # formula below is different then formula in cowx (1983) but same as
-      #   formula in Sweka et al. (2006)
-      (N0*(1-q^k)*(q^k))/(((1-q^k)^2)-((p*k)^2)*q^(k-1)) 
-    } else {
-      (((q*p)^2)*(1-q^k))/(N0*(q*((1-q^k)^2)-((p*k)^2)*(q^k)))
-    }
-  }
-
-  #-----------------------------------------------------------------------------
-  # The methods for each type of calculation are internal functions to removal
-  #-----------------------------------------------------------------------------
-  pr.Zippin <- function(X,T,k) {
-    # Uses modified equation 3 from Carle & Strub (1978) in the while statement
-    N0 <- T
-    while ((N0+0.5)*((k*N0-X-T)^k)-(N0-T+0.5)*((k*N0-X)^k) >= 0) { N0 <- N0+1 }
-    p <- T/(k*N0-X)
-    p.var <- var.Zippin(N0,p,k,"p")
-    N0.var <- var.Zippin(N0,p,k,"N0")
-    c(N0,p,sqrt(N0.var),sqrt(p.var))
-  }
-  
-  pr.CarleStrub <- function(X,T,k,alpha,beta,CS.se) {
-    # Uses equation 7 from Carle & Strub (1978) in the while statement
-    N0 <- T
-    while (((N0+1)/(N0-T+1))*prod((k*N0-X-T+beta+k-i)/(k*N0-X+alpha+beta+k-i)) >= 1.0) { N0 <- N0+1 }
-    p <- T/(k*N0-X)
-    p.var <- var.Zippin(N0,p,k,"p")
-    if (CS.se=="Zippin") {
-      # Seber notes that this works unders certain conditions
-      N0.var <- var.Zippin(N0,p,k,"N0")
-    } else {  
-      # Have yet to find a solid reference for this
-      N0.var <- (N0*(N0-T)*T)/((T^2)-N0*(N0-T)*(((k*p)^2)/(1-p)))
-    }
-    c(N0,p,sqrt(N0.var),sqrt(p.var))    
-  }
-  
-  pr.Seber3 <- function(X,T,k) {
-    if (length(catch)!=3) {
-      stop("3-Pass method can only be used three samples.",call.=FALSE)
-    } else {
-      N0 <- (6*X^2 - 3*X*T - T^2 +T*sqrt(T^2 + 6*X*T - 3*X^2))/(18*(X-T))
-      p <- (3*X - T - sqrt(T^2 + 6*X*T - 3*X^2))/(2*X)
-      p.var <- var.Zippin(N0,p,k,"p")
-      N0.var <- var.Zippin(N0,p,k,"N0")
-      c(N0,p,sqrt(N0.var),sqrt(p.var))
-    }
-  }
-  
-  pr.Seber2 <- function(catch) {
-    if (length(catch)!=2) {
-      stop("2-Pass method can only be used two samples.",call.=FALSE)
-    } else {
-      N0 <- catch[1]^2/(catch[1]-catch[2])
-      N0.var <- ((catch[1]^2)*(catch[2]^2)*(catch[1]+catch[2]))/((catch[1]-catch[2])^4)
-      p <- 1-catch[2]/catch[1]
-      p.var <- catch[2]*(catch[1]+catch[2])/(catch[1]^3)
-      c(N0,p,sqrt(N0.var),sqrt(p.var))
-    }
-  }
-
-  pr.RobsonRegier2 <- function(catch) {
-    if (length(catch)!=2) {
-      stop("2-Pass method can only be used two samples.",call.=FALSE)
-    } else {
-      N0 <- (catch[1]^2-catch[2])/(catch[1]-catch[2])
-      N0.var <- ((catch[1]^2)*(catch[2]^2)*(catch[1]+catch[2]))/((catch[1]-catch[2])^4)
-      p <- 1-(catch[2]/(catch[1]+1))
-      p.var <- catch[2]*(catch[1]+catch[2])/(catch[1]^3)
-      c(N0,p,sqrt(N0.var),sqrt(p.var))
-    }
-  }
-  
+removal <- function(catch,
+                    method=c("Zippin","CarleStrub","Seber3","Seber2","RobsonRegier2"),
+                    alpha=1,beta=1,CS.se=c("Zippin","Alternative"),just.ests=FALSE) {
+  method <- match.arg(method)
+  CS.se <- match.arg(CS.se)
   k <- length(catch)
   i <- seq(1,k)
   T <- sum(catch)
   X <- sum((k-i)*catch)
-  type <- match.arg(type)
-  switch(type,
+  switch(method,
     Zippin={
-      meth <- "Zippin's K-Pass Removal Method"
-      if (X <= (((T-1)*(k-1))/2)-1) {
-        warning("Catch data results in Zippin model failure.",call.=FALSE)
-        res <- rep(NA,4)
-      } else {
-        res <- pr.Zippin(X,T,k)
-      }
+      lbl <- "Zippin (1956,1958) K-Pass Removal Method"
+      res <- iZippin(X,T,k)
     },
     CarleStrub={
-      meth <- "Carle & Strub's K-Pass Removal Method"
-      res <- pr.CarleStrub(X,T,k,alpha,beta,match.arg(CS.se))
+      lbl <- "Carle & Strub (1978) K-Pass Removal Method"
+      res <- iCarleStrub(X,T,k,i,alpha,beta,CS.se)
     },
     Seber3={
-      meth <- "Seber's 3-Pass Removal Method"
-      if (catch[3] >= catch[1]) {
-        warning("Catch data results in 3-Pass Seber model failure.",call.=FALSE)
-        res <- rep(NA,4)
-      } else {
-        res <- pr.Seber3(X,T,k)
-      }
+      lbl <- "Seber (1982) 3-Pass Removal Method"
+      res <- iSeber3(catch,X,T,k)
     },
     Seber2={
-      meth <- "Seber's 2-Pass Removal Method"
-      if (catch[2] >= catch[1]) {
-        warning("Catch data results in 2-Pass Seber model failure.",call.=FALSE)
-        res <- rep(NA,4)
-      } else { 
-        res <- pr.Seber2(catch)
-      }
+      lbl <- "Seber (1982) 2-Pass Removal Method"
+      res <- iSeber2(catch)
     },        
     RobsonRegier2={
-      meth <- "Robson-Regier (1968) 2-Pass Removal Method"
-      if (catch[2] >= catch[1]) {
-        warning("Catch data results in 2-Pass Robson-Regier model failure.",call.=FALSE)
-        res <- rep(NA,4)
-      } else { 
-        res <- pr.RobsonRegier2(catch)
-      }
+      lbl <- "Robson-Regier (1968) 2-Pass Removal Method"
+      res <- iRobsonRegier2(catch)
     }
   ) # end switch
   names(res) <- c("No","p","No.se","p.se")
   if (just.ests) { res }
   else {
-    if (type %in% c("Zippin","CarleStrub","Seber3")) {
+    if (method %in% c("Zippin","CarleStrub","Seber3")) {
       int <- c(k,T,X)
       names(int) <- c("k","T","X")
-      d <- list(type=type,meth=meth,catch=catch,int=int,est=res)
+      d <- list(method=method,lbl=lbl,catch=catch,int=int,est=res)
     } else {
-      d <- list(type=type,meth=meth,catch=catch,est=res)
+      d <- list(method=method,lbl=lbl,catch=catch,est=res)
     }
     class(d) <- "removal"
     d
   }
 }
 
-#' @rdname removal
-#' @export
-summary.removal <- function(object,...) {
-  cat("The",object$meth,"method was used.\n")
-  res <- matrix(object$est,nrow=2,byrow=FALSE)
-  colnames(res) <- c("Estimate","Std. Error")
-  rownames(res) <- c("No","p")
-  res
+#=============================================================
+# INTERNAL -- Calculate Zippin estimates and SEs
+#=============================================================
+iZippinNoVar <- function(N0,p,k) {
+  q <- 1-p
+  # equation 7.23 (top) in Seber (2002) p.312 (note that k=s)
+  (N0*(1-q^k)*(q^k))/(((1-q^k)^2)-((p*k)^2)*q^(k-1))
+}
+
+iZippinpVar <- function(N0,p,k) {
+  q <- 1-p
+  # equation 7.23 (top) in Seber (2002) p.312 (note that k=s)
+  (((q*p)^2)*(1-q^k))/(N0*(q*((1-q^k)^2)-((p*k)^2)*(q^k)))
+}
+
+iZippin <- function(X,T,k) {
+  # Uses modified equation 3 from Carle & Strub (1978) in the while statement
+  N0 <- T
+  while ((N0+0.5)*((k*N0-X-T)^k)-(N0-T+0.5)*((k*N0-X)^k) >= 0) { N0 <- N0+1 }
+  # This condition is from equation 6 in Carle & Strub (1978)
+  if (X <= (((T-1)*(k-1))/2)-1) {
+    warning("Catch data results in Zippin model failure.",call.=FALSE)
+    # return empty vector
+    rep(NA,4)
+  } else {
+    # capture probability formula from Zippin (1956) according to Sweka (2006)
+    p <- T/(k*N0-X)
+    p.var <- iZippinpVar(N0,p,k) 
+    N0.var <- iZippinNoVar(N0,p,k)
+    # return vector
+    c(N0,p,sqrt(N0.var),sqrt(p.var))
+  }
+}
+
+#=============================================================
+# INTERNAL -- Calculate Carle-Strub estimates and SEs
+#=============================================================
+iCarleStrub <- function(X,T,k,i,alpha,beta,CS.se) {
+  # Uses equation 7 from Carle & Strub (1978) in the while statement
+  N0 <- T
+  while (((N0+1)/(N0-T+1))*prod((k*N0-X-T+beta+k-i)/(k*N0-X+alpha+beta+k-i)) >= 1.0) { N0 <- N0+1 }
+  p <- T/(k*N0-X)
+  p.var <- iZippinpVar(N0,p,k) 
+  if (CS.se=="Zippin") {
+    # PE variance ... Seber notes that this works under certain conditions
+    N0.var <- iZippinNoVar(N0,p,k)
+  } else {  
+    # Have yet to find a solid reference for this
+    N0.var <- (N0*(N0-T)*T)/((T^2)-N0*(N0-T)*(((k*p)^2)/(1-p)))
+  }
+  # return vector
+  c(N0,p,sqrt(N0.var),sqrt(p.var))    
+}
+
+#=============================================================
+# INTERNAL -- Calculate Seber 3-pass estimates and SEs
+#=============================================================
+iSeber3 <- function(catch,X,T,k) {
+  if (length(catch)!=3) {
+    stop("3-Pass method can only be used three samples.",call.=FALSE)
+  } else if (catch[3] >= catch[1]) {
+    warning("Catch data results in 3-Pass Seber model failure.",call.=FALSE)
+    # return empty vector
+    rep(NA,4)
+  } else {
+    # PE estimate (equation 7.24 (top) (p.315) of Seber (2002) ... note that T=Y)
+    N0 <- (6*X^2 - 3*X*T - T^2 + T*sqrt(T^2 + 6*X*T - 3*X^2))/(18*(X-T))
+    # capture probability estimate (equation 7.24 (bottom) (p.315) of Seber (2002) ... note that T=Y)
+    p <- (3*X - T - sqrt(T^2 + 6*X*T - 3*X^2))/(2*X)
+    p.var <- iZippinpVar(N0,p,k) 
+    N0.var <- iZippinNoVar(N0,p,k)
+    # return vector
+    c(N0,p,sqrt(N0.var),sqrt(p.var))
+  }
+}
+
+#=============================================================
+# INTERNAL -- Calculate Seber 2-pass estimates and SEs
+#=============================================================
+iSeber2 <- function(catch) {
+  if (length(catch)!=2) {
+    stop("2-Pass method can only be used two samples.",call.=FALSE)
+  } else if (catch[2] >= catch[1]) {
+    warning("Catch data results in 2-Pass Seber model failure.",call.=FALSE)
+    # return empty vector
+    rep(NA,4)
+  } else {
+    # PE estimate from middle of page 312 in Seber (2002)
+    N0 <- catch[1]^2/(catch[1]-catch[2])
+    # PE variance from equation 7.30 in Seber (2002)
+    N0.var <- ((catch[1]^2)*(catch[2]^2)*(catch[1]+catch[2]))/((catch[1]-catch[2])^4)
+    # Capture probability from middle of page 312 in Seber (2002)
+    p <- 1-catch[2]/catch[1]
+    # Capture probability variance from equation 7.31 in Seber (2002)
+    p.var <- catch[2]*(catch[1]+catch[2])/(catch[1]^3)
+    # return vector
+    c(N0,p,sqrt(N0.var),sqrt(p.var))
+  }
+}
+
+#=============================================================
+# INTERNAL -- Calculate Robson-Regier 2-pass estimates and SEs
+#=============================================================
+iRobsonRegier2 <- function(catch) {
+  if (length(catch)!=2) {
+    stop("2-Pass method can only be used two samples.",call.=FALSE)
+  } else if (catch[2] >= catch[1]) {
+    warning("Catch data results in 2-Pass Seber model failure.",call.=FALSE)
+    # return empty vector
+    rep(NA,4)
+  } else {
+    N0 <- (catch[1]^2-catch[2])/(catch[1]-catch[2])
+    N0.var <- ((catch[1]^2)*(catch[2]^2)*(catch[1]+catch[2]))/((catch[1]-catch[2])^4)
+    p <- 1-(catch[2]/(catch[1]+1))
+    p.var <- catch[2]*(catch[1]+catch[2])/(catch[1]^3)
+    # return vector
+    c(N0,p,sqrt(N0.var),sqrt(p.var))
+  }
 }
 
 #' @rdname removal
 #' @export
-confint.removal <- function(object,parm=c("both","all","No","p"),level=conf.level,conf.level=0.95,...) {
-  parm <- match.arg(parm)
-  z <- c(-1,1)*qnorm((1-(1-conf.level)/2))               
-  # compute No results
-  Nores <-rbind(No=object$est[1]+z*object$est[3])                  
-  # compute p results
-  pres <- rbind(p=object$est[2]+z*object$est[4])
-  # Create output matrix
-  if (parm=="all" | parm=="both") res <- rbind(Nores,pres)
-    else if (parm=="No") res <- Nores
-      else res <- pres
+summary.removal <- function(object,parm=c("No","p"),verbose=FALSE,...) {
+  if (verbose) cat("The",object$lbl,"method was used.\n")
+  res <- matrix(object$est,nrow=2,byrow=FALSE)
+  colnames(res) <- c("Estimate","Std. Error")
+  rownames(res) <- c("No","p")
+  res[which(rownames(res) %in% parm),,drop=FALSE]
+}
+
+#' @rdname removal
+#' @export
+confint.removal <- function(object,parm=c("No","p"),level=conf.level,conf.level=0.95,...) {
+  parm <- match.arg(parm,several.ok=TRUE)
+  z <- c(-1,1)*qnorm((1-(1-conf.level)/2))
+  tmp <- summary(object,parm)
+  z <- matrix(rep(z,nrow(tmp)),nrow=nrow(tmp),byrow=TRUE)
+  res <- tmp[,1]+z*tmp[,2]
+  rownames(res) <- parm
   colnames(res) <- iCILabel(conf.level)
   res
 }

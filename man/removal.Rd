@@ -3,21 +3,21 @@
 \alias{confint.removal}
 \alias{removal}
 \alias{summary.removal}
-\title{Computes population estimates for k-, 3-, or 2-pass removal data.}
+\title{Population estimates for k-, 3-, or 2-pass removal data.}
 \usage{
-removal(catch, type = c("Zippin", "CarleStrub", "Seber3", "Seber2",
+removal(catch, method = c("Zippin", "CarleStrub", "Seber3", "Seber2",
   "RobsonRegier2"), alpha = 1, beta = 1, CS.se = c("Zippin",
   "Alternative"), just.ests = FALSE)
 
-\method{summary}{removal}(object, ...)
+\method{summary}{removal}(object, parm = c("No", "p"), verbose = FALSE, ...)
 
-\method{confint}{removal}(object, parm = c("both", "all", "No", "p"),
-  level = conf.level, conf.level = 0.95, ...)
+\method{confint}{removal}(object, parm = c("No", "p"), level = conf.level,
+  conf.level = 0.95, ...)
 }
 \arguments{
-\item{catch}{A numerical vector of catches of fish at each pass.}
+\item{catch}{A numerical vector of catch at each pass.}
 
-\item{type}{A single string that identifies the type of removal method to use for the calculations.  See details.}
+\item{method}{A single string that identifies the removal method to use.  See details.}
 
 \item{alpha}{A single numeric value for the alpha parameter in the CarleStrub method (default is \code{1}).}
 
@@ -25,7 +25,7 @@ removal(catch, type = c("Zippin", "CarleStrub", "Seber3", "Seber2",
 
 \item{CS.se}{A single string that identifies whether the SE in the CarleStrub method should be computed according to Seber or Zippin.}
 
-\item{object}{An object saved from \code{removal()} (i.e., of class \code{removal}).}
+\item{object}{An object saved from \code{removal()}.}
 
 \item{parm}{A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.}
 
@@ -35,33 +35,35 @@ removal(catch, type = c("Zippin", "CarleStrub", "Seber3", "Seber2",
 
 \item{just.ests}{A logical that indicates whether just the estimates (\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.}
 
+\item{verbose}{A logical that indicates whether descriptive labels should be printed from \code{summary}.}
+
 \item{\dots}{Additional arguments for methods.}
 }
 \value{
-A vector that contains the estimaes and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with the following items:
+A vector that contains the estimates and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with the following items:
  \itemize{
-   \item catch the original vector of observed catches.
-   \item type The type of method used (provided by the user).
-   \item meth A label for the type of method used.
-   \item est A vector that contains the estimates and standard errors for No and p.
+   \item catch The original vector of observed catches.
+   \item method The method used (provided by the user).
+   \item lbl A descriptive label for the method used.
+   \item est A matrix that contains the estimates and standard errors for No and p.
  }
 }
 \description{
 Computes estimates, with confidence intervals, of the population size and probability of capture from the number of fish removed in k-, 3-, or 2-passes in a closed population.
 }
 \details{
-The main function computes the estimates and associated standard errors for the initial population size, No, and probability of capture, p, for five possible methods chosen with the \code{type} argument.  The types of methods that can be used are listed below:
+The main function computes the estimates and associated standard errors for the initial population size, No, and probability of capture, p, for five methods chosen with \code{method=}.  The possible methods are:
  \itemize{
-   \item \code{type="Zippin"}: The general k-pass estimator generally attributed to Zippin.  This function iteratively solves for No in equation 3 of Carle and Strub (1978).
-   \item \code{type="CarleStrub"}: The general weighted k-pass estimator proposed by Carle and Strub (1978).  This function iteratively solves for No in equation 7 of Carle and Strub (1978).
-   \item \code{type="Seber3"}: The special case for k=3 estimator shown by Seber(1982).
-   \item \code{type="Seber2"}: The special case for k=2 estimator shown by Seber(1982).
-   \item \code{type="RobsonRegier2"}: The special case for k=2 estimator shown by Robson and Regier (1968).
+   \item \code{method="Zippin"}: The general k-pass estimator generally attributed to Zippin.  This function iteratively solves for No in bias corrected version of equation 3 (pager 622) of Carle and Strub (1978).
+   \item \code{method="CarleStrub"}: The general weighted k-pass estimator proposed by Carle and Strub (1978).  This function iteratively solves for No in equation 7 of Carle and Strub (1978).
+   \item \code{method="Seber3"}: The special case for k=3 estimator shown by Seber(1982).
+   \item \code{method="Seber2"}: The special case for k=2 estimator shown by Seber(1982).
+   \item \code{method="RobsonRegier2"}: The special case for k=2 estimator shown by Robson and Regier (1968).
  }
 
 Confidence intervals are computed using standard large-sample normal distribution theory.  Note that the confidence intervals for the 2- and 3-pass special cases are only approximately correct if the estimated population size is greater than 200.  If the estimated population size is between 50 and 200 then a 95\% CI behaves more like a 90\% CI.
 
-Note that, in the Carle Strub method, that if the resultant No estimate is equal to the sum of the catches (T) then the estimate of No that is returned will be the sum of the catches.  In this instance and if the \dQuote{Seber} method of computing the standard error is used then the SE will not be estimable and the confidence intervals can not be constructed.
+In the Carle Strub method, if the resultant No estimate is equal to the sum of the catches (T) then the estimate of No that is returned will be the sum of the catches.  In this instance, and if the \dQuote{Seber} method of computing the standard error is used, then the SE will not be estimable and the confidence intervals can not be constructed.
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl//Depletion.pdf}
@@ -76,12 +78,12 @@ summary(p1)
 confint(p1)
 
 # Carle Strub method
-p2 <- removal(ct3,type="CarleStrub")
+p2 <- removal(ct3,method="CarleStrub")
 summary(p2)
 confint(p2)
 
 # Seber method
-p3 <- removal(ct3,type="Seber3")
+p3 <- removal(ct3,method="Seber3")
 summary(p3)
 confint(p3)
 
@@ -89,18 +91,14 @@ confint(p3)
 ct2 <- c(77,37)
 
 # Seber method
-p4 <- removal(ct2,type="Seber2")
+p4 <- removal(ct2,method="Seber2")
 summary(p4)
 confint(p4)
 
 # Robson-Regier method
-p5 <- removal(ct2,type="RobsonRegier2")
+p5 <- removal(ct2,method="RobsonRegier2")
 summary(p5)
 confint(p5)
-
-## Demonstration of situation where estimates cannot be made
-bad <- c(34,23,45)
-bad1 <- removal(bad)
 
 
 ### Using lapply() to use removal on many different groups
@@ -138,11 +136,11 @@ Derek H. Ogle, \email{dogle@northland.edu}
 \references{
 Carle, F.L. and M.R. Strub. 1978. A new method for estimating population size from removal data.  Biometrics, 34:621-630.
 
+Cowx, I.G.  1983.  Review of the methods for estimating fish population size from survey removal data.  Fisheries Management, 14:67-82.
+
 Seber, G.A.F. 1982. The Estimation of Animal Abundance. Edward Arnold, second edition.
 
 Robson, D.S., and H.A. Regier.  1968.  Estimation of population number and mortality rates.  pp. 124-158 in Ricker, W.E. (editor) Methods for Assessment of Fish Production in Fresh Waters.  IBP Handbook NO. 3 Blackwell Scientific Publications, Oxford.
-
-Cowx, I.G.  1983.  Review of the methods for estimating fish population size from survey removal data.  Fisheries Management, 14:67-82.
 }
 \seealso{
 \code{\link{depletion}}.
