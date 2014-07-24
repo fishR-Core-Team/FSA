@@ -1,5 +1,5 @@
 # FSA 0.4.20 ongoing
-* `removal()`: Modified.  Changed `type=` to `method=`.  Changed internal `meth` object to `lbl`.  Moved all internal functions outside of `mrOpen()` environment and added other internal functions to isolate all intermediate calculations.  Added a `verbose=` and `parm=` to `summary()`.  Streamlined clunky code in `confint()` including removing the `all` and `both` options from `parm=`.
+* `removal()`: Modified.  Made `"CarleStrub"` the default method.  Changed `type=` to `method=`.  Changed internal `meth` object to `lbl`.  Moved all internal functions outside of `mrOpen()` environment and added other internal functions to isolate all intermediate calculations.  Added a `verbose=` and `parm=` to `summary()`.  Streamlined clunky code in `confint()` including removing the `all` and `both` options from `parm=`.  Added more checks for abd inputs, notes in the code as to sources for the fomulae, and tests.
 
 # FSA 0.4.19 Jul14
 * Modified some tests to check whether the suggested package was installed.

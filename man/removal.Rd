@@ -5,9 +5,9 @@
 \alias{summary.removal}
 \title{Population estimates for k-, 3-, or 2-pass removal data.}
 \usage{
-removal(catch, method = c("Zippin", "CarleStrub", "Seber3", "Seber2",
+removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
   "RobsonRegier2"), alpha = 1, beta = 1, CS.se = c("Zippin",
-  "Alternative"), just.ests = FALSE)
+  "alternative"), just.ests = FALSE)
 
 \method{summary}{removal}(object, parm = c("No", "p"), verbose = FALSE, ...)
 
@@ -54,10 +54,10 @@ Computes estimates, with confidence intervals, of the population size and probab
 \details{
 The main function computes the estimates and associated standard errors for the initial population size, No, and probability of capture, p, for five methods chosen with \code{method=}.  The possible methods are:
  \itemize{
-   \item \code{method="Zippin"}: The general k-pass estimator generally attributed to Zippin.  This function iteratively solves for No in bias corrected version of equation 3 (pager 622) of Carle and Strub (1978).
    \item \code{method="CarleStrub"}: The general weighted k-pass estimator proposed by Carle and Strub (1978).  This function iteratively solves for No in equation 7 of Carle and Strub (1978).
-   \item \code{method="Seber3"}: The special case for k=3 estimator shown by Seber(1982).
-   \item \code{method="Seber2"}: The special case for k=2 estimator shown by Seber(1982).
+   \item \code{method="Zippin"}: The general k-pass estimator generally attributed to Zippin.  This function iteratively solves for No in bias corrected version of equation 3 (page 622) of Carle and Strub (1978).  These results are not yet trustworthy.
+   \item \code{method="Seber3"}: The special case for k=3 estimator shown in equation 7.24 of Seber(2002).
+   \item \code{method="Seber2"}: The special case for k=2 estimator shown on page 312 of Seber(2002).
    \item \code{method="RobsonRegier2"}: The special case for k=2 estimator shown by Robson and Regier (1968).
  }
 
@@ -68,23 +68,50 @@ In the Carle Strub method, if the resultant No estimate is equal to the sum of t
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl//Depletion.pdf}
 }
+
+\section{testing}{
+ The Carle-Strub method matches the examples in Carle and Strub (1978) for No, p, and the variance of No.  The Carle-Strub estimates of No and p match the examples in Cowx (1983) but the SE of No does not.  The Carle-Strub estimates of No match the results (for estimates that they did not reject) from Jones and Stockwell (1995) to within 1 individual in most instances and within 1\% for all other instances (e.g., off by 3 individuals when the esitmate was 930 individuals).
+
+The Seber3 results for No match the results in Cowx (1983).
+
+The Seber2 results for No, p, and the SE of No match the results in example 7.4 of Seber (2002) and in Cowx (1983).
+
+The RobsonRegier2 results for No and the SE of NO match the resultsin Cowx (1983)
+
+The Zippin method results do not match the examples in Seber (2002) or Cowx (1983) because \code{removal} uses the bias-corrected version from Carle and Strub (1978) and does not use the tables in Zippin (1958).  The Zippin method is not yet trustworthy.
+}
 \examples{
 ## First example -- 3 passes
 ct3 <- c(77,50,37)
 
-# Zippin (default) method
+# Carle Strub (default) method
 p1 <- removal(ct3)
 summary(p1)
+summary(p1,verbose=TRUE)
+summary(p1,parm="No")
+summary(p1,parm="p")
 confint(p1)
+confint(p1,parm="No")
+confint(p1,parm="p")
 
-# Carle Strub method
-p2 <- removal(ct3,method="CarleStrub")
-summary(p2)
+# Carle-Strub but use alternative form of SE
+p1a <- removal(ct3,CS.se="alternative")
+summary(p1a)
+confint(p1a)
+
+# Carle-Strub but use alpha and beta
+p1b <- removal(ct3,alpha=2,beta=2)
+summary(p1b)
+confint(p1b)
+
+# Zippin method
+p2 <- removal(ct3,method="Zippin")
+summary(p2,verbose=TRUE)
 confint(p2)
 
 # Seber method
 p3 <- removal(ct3,method="Seber3")
-summary(p3)
+summary(p3,verbose=TRUE)
 confint(p3)
 
 ## Second example -- 2 passes
@@ -92,12 +119,12 @@ ct2 <- c(77,37)
 
 # Seber method
 p4 <- removal(ct2,method="Seber2")
-summary(p4)
+summary(p4,verbose=TRUE)
 confint(p4)
 
 # Robson-Regier method
 p5 <- removal(ct2,method="RobsonRegier2")
-summary(p5)
+summary(p5,verbose=TRUE)
 confint(p5)
 
 
@@ -138,9 +165,9 @@ Carle, F.L. and M.R. Strub. 1978. A new method for estimating population size fr
 
 Cowx, I.G.  1983.  Review of the methods for estimating fish population size from survey removal data.  Fisheries Management, 14:67-82.
 
-Seber, G.A.F. 1982. The Estimation of Animal Abundance. Edward Arnold, second edition.
-
 Robson, D.S., and H.A. Regier.  1968.  Estimation of population number and mortality rates.  pp. 124-158 in Ricker, W.E. (editor) Methods for Assessment of Fish Production in Fresh Waters.  IBP Handbook NO. 3 Blackwell Scientific Publications, Oxford.
+
+Seber, G.A.F. 2002. The Estimation of Animal Abundance. Edward Arnold, second edition (Reprint).
 }
 \seealso{
 \code{\link{depletion}}.
