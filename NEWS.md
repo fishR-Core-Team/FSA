@@ -1,4 +1,9 @@
 # FSA 0.4.21 ongoing
+* `depletion()`: Modified.  Changed `type=` to `method=` and added `DeLury` as an option to `method=` (and left `Delury`).   Changed `ricker.mod=` to `Ricker.mod=`.  Created internal functions specific to the Leslie and DeLury methods (for isolation).  Modified some clunky code.  Added references to specific sections in Seber (2002) for SE equations.  Updated examples.
+* `coef.depletion()`: Modified.  Added `digits=`.
+* `confint.depletion()`: Modified.  Added `digits=`.
+* `plot.depletion()`: Modified.  Removed internal `par()` settings.
+* `summary.depletion()`: Modified.  Added `verbose=` and `digits=`.
 
 # FSA 0.4.20 Jul14
 * `removal()`: Modified.  Made `"CarleStrub"` the default method.  Changed `type=` to `method=`.  Changed internal `meth` object to `lbl`.  Moved all internal functions outside of `mrOpen()` environment and added other internal functions to isolate all intermediate calculations.  Added a `verbose=` and `parm=` to `summary()`.  Streamlined clunky code in `confint()` including removing the `all` and `both` options from `parm=`.  Added more checks for abd inputs, notes in the code as to sources for the fomulae, and tests.

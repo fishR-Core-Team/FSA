@@ -8,35 +8,49 @@
 \alias{summary.depletion}
 \title{Computes the Leslie or Delury population estimate from catch and effort data.}
 \usage{
-depletion(catch, effort, type = c("Leslie", "Delury"), ricker.mod = FALSE)
+depletion(catch, effort, method = c("Leslie", "DeLury", "Delury"),
+  Ricker.mod = FALSE)
 
-\method{summary}{depletion}(object, type = c("params", "lm"), ...)
+\method{summary}{depletion}(object, type = c("params", "lm"),
+  verbose = FALSE, digits = getOption("digits"), ...)
 
-\method{coef}{depletion}(object, type = c("params", "lm"), ...)
+\method{coef}{depletion}(object, type = c("params", "lm"),
+  digits = getOption("digits"), ...)
 
 \method{confint}{depletion}(object, parm = c("both", "all", "q", "No", "lm"),
-  level = conf.level, conf.level = 0.95, ...)
+  level = conf.level, conf.level = 0.95, digits = getOption("digits"),
+  ...)
 
 \method{anova}{depletion}(object, ...)
 
-\method{plot}{depletion}(x, pos.est = "topright", xlab = NULL,
-  ylab = NULL, pch = 19, col.pt = "black", col.mdl = "red", lwd = 2,
-  lty = 1, ...)
+\method{plot}{depletion}(x, xlab = NULL, ylab = NULL, pch = 19,
+  col.pt = "black", col.mdl = "gray70", lwd = 1, lty = 1,
+  pos.est = "topright", cex.est = 0.95, ...)
 }
 \arguments{
 \item{catch}{A numeric vector of catches of fish at each time.}
 
 \item{effort}{A numeric vector of efforts expended at each time.}
 
-\item{type}{A single string that indicates which depletion method to use (in \code{depletion} or a string that indicates the type of summary or coefficients to extract.  In the latter case, if \code{type="params"} (the default) then results for No and q are returned.  If \code{type="lm"} then results for the underlying linear model are returned.}
+\item{method}{A single string that indicates which depletion method to use}
 
-\item{ricker.mod}{A single logical that indicates whether to use the modification proposed by Ricker (=TRUE) or not (=FALSE, default).}
+\item{type}{A string that indicates the type of summary or coefficients to extract.  If \code{type="params"} (the default) then results for No and q are returned.  If \code{type="lm"} then results for the underlying linear model are returned.}
+
+\item{Ricker.mod}{A single logical that indicates whether to use the modification proposed by Ricker (=TRUE) or not (=FALSE, default).}
 
 \item{object}{An object saved from the \code{removal} call (i.e., of class \code{depletion}).}
 
 \item{x}{An object saved from the \code{depletion} call (i.e., of class \code{depletion}).}
 
-\item{pos.est}{A single string to identify where to place the estimated population estimate and catchability on the plot.  Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot.  Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements.  Set \code{pos.est} to \code{NULL} to remove the estimated population size and catchability coefficient from the plot.}
+\item{verbose}{A logical that indicates whether a reminder of the method used should be printed with the summary results.}
+
+\item{parm}{A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.}
+
+\item{conf.level}{A single number that represents the level of confidence to use for constructing confidence intervals.}
+
+\item{level}{Same as \code{conf.level} but used for compatability with generic \code{confint} function.}
+
+\item{digits}{A single numeric indicating the number of digits to round the output.}
 
 \item{ylab}{A label for the y-axis.}
 
@@ -52,23 +66,21 @@ depletion(catch, effort, type = c("Leslie", "Delury"), ricker.mod = FALSE)
 
 \item{lty}{A numeric that indicates the type of line used for the fitted line.}
 
-\item{parm}{A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.}
+\item{pos.est}{A single string to identify where to place the estimated population estimate and catchability on the plot.  Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot.  Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements.  Set \code{pos.est} to \code{NULL} to remove the estimated population size and catchability coefficient from the plot.}
 
-\item{conf.level}{A single number that represents the level of confidence to use for constructing confidence intervals.}
-
-\item{level}{Same as \code{conf.level} but used for compatability with generic \code{confint} function.}
+\item{cex.est}{A single numeric that identifies the character expansion value for the estimated population estimate and catchability placed on the plot.}
 
 \item{\dots}{Additional arguments for methods.}
 }
 \value{
 A list with the following items:
  \itemize{
-   \item type A string that indicates whether the \code{"Leslie"} or \code{"Delury"} model was used.
+   \item method A string that indicates whether the \code{"Leslie"} or \code{"Delury"} model was used.
    \item catch The original vector of catches.
    \item effort The orginal vector of efforts.
    \item cpe A computed vector of catch-per-unit-effort for each time.
    \item KorE A computed vector of cumulative catch (K; Leslie method) or effort (E; Delury method).
-   \item lm The \code{lm} object from the fit of log(CPE) on K (Leslie method) or E (Delury method).
+   \item lm The \code{lm} object from the fit of CPE on K (Leslie method) or log(CPE) on E (Delury method).
    \item est A 2x2 matrix that contains the estimates and standard errors for No and q.
  }
 }
@@ -76,11 +88,11 @@ A list with the following items:
 Computes the Leslie or Delury estimates of population size and catchability coefficient from paired catch and effort data.  The Ricker modification may also be used.
 }
 \details{
-Fits a linear regression model to catch-per-unit-effort on cumulative catch.  The catchability coefficient (q) is estimated from the negative of the slope and the initial population size (No)  is estimated by dividing the intercept by the catchability coefficient.
+For the Leslie method, a linear regression model of catch-per-unit-effort on cumulative catch prior to the sample is fit.  The catchability coefficient (q) is estimated from the negative of the slope and the initial population size (No) is estimated by dividing the intercept by the catchability coefficient.  If \code{Ricker.mod=TRUE} then the cumulative catch is modified to be the cumulative catch prior to the sample plus half of the catch of the current sample.
 
-Standard errors for the catchability and population size estimates are computed using formulas from Seber (1982).
+For the DeLury method, a linear regression model of log (catch-per-unit-effort) on cumulative effort is fit.  The catchability coefficient (q) is estimated from the negative of the slope and the initial population size (No) is estimated by dividing the intercept as an exponent of e by the catchability coefficient.  If \code{Ricker.mod=TRUE} then the cumulative effort is modified to be the cumulative effort prior to the sample plus half of the effort of the current sample.
 
-Confidence intervals are computed using standard large-sample normal distribution theory with the regression error df.
+Standard errors for the catchability and population size estimates are computed fronm formulas on page 298 (for Leslie) and 303 (for DeLury) from Seber (2002).  Confidence intervals are computed using standard large-sample normal distribution theory with the regression error df.
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/Depletion.pdf}
@@ -88,25 +100,37 @@ Confidence intervals are computed using standard large-sample normal distributio
 \examples{
 data(SMBassLS)
 
-# Leslie model examples
-l1 <- depletion(SMBassLS$catch,SMBassLS$effort,type="Leslie")
-plot(l1)
-confint(l1)
+## Leslie model examples
+# no Ricker modification
+l1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Leslie")
+coef(l1)
 summary(l1)
+summary(l1,verbose=TRUE)
+confint(l1)
 summary(l1,type="lm")
-l2 <- depletion(SMBassLS$catch,SMBassLS$effort,type="Leslie",ricker.mod=TRUE)
-plot(l2)
-confint(l2)
+plot(l1)
 
-# Delury model examples
-d1 <- depletion(SMBassLS$catch,SMBassLS$effort,type="Delury")
-plot(d1)
-confint(d1)
+# with Ricker modification
+l2 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Leslie",Ricker.mod=TRUE)
+summary(l2)
+confint(l2)
+plot(l2)
+
+## Delury model examples
+# no Ricker modification
+d1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Delury")
+coef(d1)
 summary(d1)
+summary(d1,verbose=TRUE)
+confint(d1)
 summary(d1,type="lm")
-d2 <- depletion(SMBassLS$catch,SMBassLS$effort,type="Delury",ricker.mod=TRUE)
-plot(d2)
+plot(d1)
+
+# with Ricker modification
+d2 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Delury",Ricker.mod=TRUE)
+summary(d2)
 confint(d2)
+plot(d2)
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
@@ -114,10 +138,10 @@ Derek H. Ogle, \email{dogle@northland.edu}
 \references{
 Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 
-Seber, G.A.F. 1982. The Estimation of Animal Abundance. Edward Arnold, second edition.
+Seber, G.A.F. 2002. The Estimation of Animal Abundance. Edward Arnold, Second edition (reprinted).
 }
 \seealso{
-\code{\link{removal}} and \code{deplet} in \pkg{fishmethods}.
+See \code{\link{removal}} for other depletion methods and \code{deplet} in \pkg{fishmethods} for similar functionality.
 }
 \keyword{hplot}
 \keyword{manip}
