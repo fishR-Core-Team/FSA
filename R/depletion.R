@@ -98,6 +98,8 @@ depletion <- function(catch,effort,method=c("Leslie","DeLury","Delury"),Ricker.m
   # check method, change bad spelling of DeLury if necessary
   method <- match.arg(method)
   if (method=="Delury") method <- "DeLury"
+  # some initial checks
+  iCheckCatchEffort(catch,effort)
   # goto internal function depending on method
   switch(method,
     Leslie= { d <- iLeslie(catch,effort,Ricker.mod) },
@@ -105,6 +107,20 @@ depletion <- function(catch,effort,method=c("Leslie","DeLury","Delury"),Ricker.m
   )
   class(d) <- "depletion"
   d  
+}
+
+##############################################################
+# INTERNAL function to check Catch and Effort vectors
+##############################################################
+iCheckCatchEffort <- function(catch,effort) {
+  if (!is.numeric(catch)) stop("'catch' must be a numeric vector.",call.=FALSE)
+  if (!is.vector(catch)) stop("'catch' must be a vector.",call.=FALSE)
+  if (any(catch<0)) stop("All 'catch' must be non-negative.",call.=FALSE)
+  if (!is.numeric(effort)) stop("'effort' must be a numeric vector.",call.=FALSE)
+  if (!is.vector(effort)) stop("'effort' must be a vector.",call.=FALSE)
+  if (any(effort<=0)) stop("All 'effort' must be positive.",call.=FALSE)
+  if (length(catch)!=length(effort)) stop("'catch' and 'effort' must be same length.",call.=FALSE)
+  if (length(catch)<3) stop("Must have at least 3 values in 'catch'.",call.=FALSE)
 }
 
 ##############################################################
@@ -130,6 +146,8 @@ iLeslie <- function(catch,effort,Ricker.mod) {
   mres <- cbind(c(N0,q),c(N0.SE,q.SE))
   rownames(mres) <- c("No","q")
   colnames(mres) <- c("Estimate","Std. Err.")
+  # check significance of slopes before leaving
+  iCheckRegSig(lm1)
   # put together a return list
   list(method="Leslie",catch=catch,effort=effort,cpe=cpe,K=K,lm=lm1,est=mres)
 }
@@ -138,6 +156,7 @@ iLeslie <- function(catch,effort,Ricker.mod) {
 # INTERNAL function for compute the DeLury estimates
 ##############################################################
 iDeLury <- function(catch,effort,Ricker.mod) {
+  if (any(catch==0)) stop("Can't have zero catches with 'DeLury' method.",call.=FALSE)
   cpe <- catch/effort
   ifelse(!Ricker.mod,E <- cumsum(effort)-effort,E <- cumsum(effort)-(effort/2))
   n <- length(effort)
@@ -157,10 +176,21 @@ iDeLury <- function(catch,effort,Ricker.mod) {
   mres <- cbind(c(N0,q),c(N0.SE,q.SE))
   rownames(mres) <- c("No","q")
   colnames(mres) <- c("Estimate","Std. Err.")
+  # check significance of slopes before leaving
+  iCheckRegSig(lm1)
   # put together a return list
   list(method="DeLury",catch=catch,effort=effort,cpe=cpe,E=E,lm=lm1,est=mres)
 }
 
+##############################################################
+# INTERNAL function for compute the Leslie estimates
+##############################################################
+iCheckRegSig <- function(tmp) {
+  tmp.slope <- coef(tmp)[2]
+  if (tmp.slope>0) warning("Estimates are suspect as model did not exhibit a negative slope.",call.=FALSE)
+  tmp.slope.p <- anova(tmp)[1,"Pr(>F)"]
+  if (tmp.slope.p>0.05 & tmp.slope<0) warning("Estimates are suspect as model did not exhibit a significantly (p>0.05) negative slope.", call.=FALSE)
+}
 
 #' @rdname depletion
 #' @export
@@ -183,18 +213,20 @@ coef.depletion <- function(object,type=c("params","lm"),
 
 #' @rdname depletion
 #' @export
-confint.depletion <- function(object,parm=c("both","all","q","No","lm"),
+confint.depletion <- function(object,parm=c("No","q","lm"),
                               level=conf.level,conf.level=0.95,
                               digits=getOption("digits"),...) {
-  parm <- match.arg(parm)
-  if (parm=="lm") confint(object$lm,level=conf.level)
+  parm <- match.arg(parm,several.ok=TRUE)
+  ## only print lm confidence intervals if that is the only parm chosen
+  if (length(parm)==1 & "lm" %in% parm) confint(object$lm,level=conf.level)
   else {
+    # remove "lm" if in parm with q or No
+    parm <- parm[-which(parm=="lm")]
     t <- c(-1,1)*qt(1-(1-conf.level)/2,summary(object$lm)$df[2])
-    Nores <- rbind(No=object$est["No","Estimate"]+t*object$est["No","Std. Err."])
-    qres <- rbind(q=object$est["q","Estimate"]+t*object$est["q","Std. Err."])
-    if (parm=="all" | parm=="both") res <- rbind(No=Nores,q=qres)
-    else if (parm=="No") res <- Nores
-      else res <- qres
+    tmp <- summary(object,parm="params")
+    t <- matrix(rep(t,nrow(tmp)),nrow=nrow(tmp),byrow=TRUE)
+    res <- tmp[,"Estimate"]+t*tmp[,"Std. Err."]
+    rownames(res) <- parm
     colnames(res) <- iCILabel(conf.level)
     round(res,digits)
   }

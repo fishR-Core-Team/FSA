@@ -17,7 +17,7 @@ depletion(catch, effort, method = c("Leslie", "DeLury", "Delury"),
 \method{coef}{depletion}(object, type = c("params", "lm"),
   digits = getOption("digits"), ...)
 
-\method{confint}{depletion}(object, parm = c("both", "all", "q", "No", "lm"),
+\method{confint}{depletion}(object, parm = c("No", "q", "lm"),
   level = conf.level, conf.level = 0.95, digits = getOption("digits"),
   ...)
 
