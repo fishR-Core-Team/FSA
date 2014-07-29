@@ -50,6 +50,12 @@
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/Depletion.pdf}
 #'
+#' @section testing:  The Leslie method without the Ricker modification and the DeLury method with the Ricker modification matches the results from \code{deplet} in \pkg{fishmethods} for the \code{darter} (from \pkg{fishmethods}), \code{LobsterPEI} and \code{BlueCrab} from \pkg{FSAdata}, and \code{\link{SMBassLS}} for N0 to whole numbers, the SE for No to one decimal, q to seven decimals, and the SE of q to at least five decimals.
+#' 
+#' The Leslie method matches the results of Seber (2002) for N0, q, and the CI for Q but not the CI for N (which was so far off that it might be that Seber's result is incorrect) for the lobster data and the q and CI for q but the NO or its CI (likely due to lots of rounding in Seber 2002) for the Blue Crab data.
+#' 
+#' The Leslie and DeLury methods match the results of Ricker (1975) for No and Q but not for the CI of No (Ricker used a very different method to compute CIs).
+#'
 #' @references
 #' Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 #'
