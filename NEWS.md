@@ -1,3 +1,5 @@
+# FSA 0.4.22 ongoing
+
 # FSA 0.4.21 ongoing
 * `depletion()`: Modified.  Changed `type=` to `method=` and added `DeLury` as an option to `method=` (and left `Delury`).   Changed `ricker.mod=` to `Ricker.mod=`.  Added some checking for bad arguments.  Created internal functions specific to the Leslie and DeLury methods (for isolation).  Modified some clunky code.  Added references to specific sections in Seber (2002) for SE equations.  Updated examples.  Added tests and error checking.
 * `coef.depletion()`: Modified.  Added `digits=`.
