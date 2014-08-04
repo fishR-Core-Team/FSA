@@ -359,7 +359,7 @@ summary.mrOpen <- function(object,verbose=FALSE,...) {
 
 #' @rdname mrOpen
 #' @export
-confint.mrOpen <- function(object,parm=c("all","N","phi","B"),level=NULL,conf.level=NULL,verbose=TRUE,...) {
+confint.mrOpen <- function(object,parm=c("all","N","phi","B"),level=NULL,conf.level=NULL,verbose=FALSE,...) {
   if(!is.null(conf.level)) cat("Confidence level was set at",conf.level,"in mrOpen function.  It cannot be changed here.\n")
   parm <- match.arg(parm)
   if (verbose) cat("The",object$type,"method was used to construct confidence intervals.\n\n")

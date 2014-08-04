@@ -8,7 +8,7 @@
 #'
 #' @note This function is meant to allow newbie students the ability to easily construct residual plots for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions.  The plots can be constructed by submitting a saved linear model to this function which allows students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
 #'
-#' @aliases residPlot residPlot.lm residPlot.SLR residPlot.IVR residPlot.POLY residPlot.ONEWAY residPlot.TWOWAY residPlot.nls residualPlot
+#' @aliases residPlot residPlot.lm residPlot.SLR residPlot.IVR residPlot.POLY residPlot.ONEWAY residPlot.TWOWAY residPlot.nls
 #'
 #' @param object An \code{lm} or \code{nls} object (i.e., returned from fitting a model with either \code{lm} or \code{nls}).
 #' @param student A logical that indicates if the studentized residuals (\code{TRUE}]; default) are plotted or not.

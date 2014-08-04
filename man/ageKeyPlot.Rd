@@ -4,9 +4,9 @@
 \title{Plots to visualize age-length keys.}
 \usage{
 ageKeyPlot(key, type = c("barplot", "area", "lines", "splines", "bubble"),
-  xlab = "Length", ylab = "Proportion", showLegend = FALSE,
-  lbl.cex = 1.25, leg.cex = 1, lwd = 2, span = 0.25, grid = TRUE,
-  col = "gray80", buf = 0.45, bubble.ylab = "Age", add = FALSE,
+  xlab = "Length", ylab = ifelse(type != "bubble", "Proportion", "Age"),
+  showLegend = FALSE, lbl.cex = 1.25, leg.cex = 1, lwd = 2,
+  span = 0.25, grid = TRUE, col = "gray80", buf = 0.45, add = FALSE,
   xlim = NULL, ylim = NULL, ...)
 }
 \arguments{
@@ -16,9 +16,7 @@ ageKeyPlot(key, type = c("barplot", "area", "lines", "splines", "bubble"),
 
 \item{xlab}{A string that contains the label for the x-axis.}
 
-\item{ylab}{A string that contains the label for the y-axis in all plots except when \code{type="bubble"} (see \code{bubble.ylab=)}.}
-
-\item{bubble.ylab}{A string that contains the label for the y-axis when \code{type="bubble"}.}
+\item{ylab}{A string that contains the label for the y-axis.}
 
 \item{xlim}{A numeric of length 2 that provide the limits for the x-axis.}
 

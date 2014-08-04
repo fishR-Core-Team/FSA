@@ -129,7 +129,8 @@ ageKey <- function(key,formula,data,type=c("SR","CR"),breaks=NULL) {
   key.row.sum <- apply(key,1,sum)
   key.row.sum <- key.row.sum[!is.na(key.row.sum) & key.row.sum!=0]
   # Warn if row sums in key are not =1 (implies bad key)
-  if (any(key.row.sum!=1)) warning("Key contains row that does not sum to 1.",call.=FALSE)
+  if(!isTRUE(all.equal(key.row.sum,rep(1,length(key.row.sum)),check.attributes=FALSE)))
+    warning("Key contains row that does not sum to 1.",call.=FALSE)
   # Find the length categories that are present in the key
   da.len.cats <- as.numeric(names(key.row.sum))
   # Check about min and max value in length sample relative to same on key
@@ -140,10 +141,15 @@ ageKey <- function(key,formula,data,type=c("SR","CR"),breaks=NULL) {
                your age sample or exclude fish of this length from your length sample.\n",
                sep=""),call.=FALSE)
   }
-  if (max(data[,cl])>max(da.len.cats)) {
+  # Find the minimum width of the length categories so that this can be used
+  #   in the check for the maximum length without being too sensitive.  In other words
+  #   If the maximum observed length is greater than the maximum length category in
+  #   the ALK PLUS the minimum width of length categories then don't send the message.
+  min.w <- min(diff(da.len.cats))
+  if (max(data[,cl])>(max(da.len.cats)+min.w)) {
     warning(paste("The maximum observed length in the length sample (",max(data[,cl]),
                   ")\n is greater than the largest length category in the age-length key (",
-                  max(da.len.cats),").\n Thus, the last length category will be treated as all-inclusive.\n",
+                  max(da.len.cats),").\n The last length category will be treated as all-inclusive.\n",
                   sep=""),call.=FALSE)
   }
   # Create length categories var (TMPLCAT) for L sample

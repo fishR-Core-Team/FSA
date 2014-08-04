@@ -15,8 +15,7 @@
 #' @param key A numeric matrix that contains the age-length key.
 #' @param type A string that indicates the type of plot to construct.  See details.
 #' @param xlab A string that contains the label for the x-axis.
-#' @param ylab A string that contains the label for the y-axis in all plots except when \code{type="bubble"} (see \code{bubble.ylab=)}.
-#' @param bubble.ylab A string that contains the label for the y-axis when \code{type="bubble"}.
+#' @param ylab A string that contains the label for the y-axis.
 #' @param xlim A numeric of length 2 that provide the limits for the x-axis.
 #' @param ylim A numeric of length 2 that provide the limits for the y-axis.
 #' @param showLegend A logical that indicates whether a legend should be displayed for when \code{type="barplot"} and \code{type="area"}.  See examples.
@@ -61,9 +60,9 @@
 #'
 #' @export
 ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
-                      xlab="Length",ylab="Proportion",showLegend=FALSE,
-                      lbl.cex=1.25,leg.cex=1,lwd=2,span=0.25,
-                      grid=TRUE,col="gray80",buf=0.45,bubble.ylab="Age",add=FALSE,
+                      xlab="Length",ylab=ifelse(type!="bubble","Proportion","Age"),
+                      showLegend=FALSE,lbl.cex=1.25,leg.cex=1,lwd=2,span=0.25,
+                      grid=TRUE,col="gray80",buf=0.45,add=FALSE,
                       xlim=NULL,ylim=NULL,...) {
   ## INTERNAL -- Identify the ages and lengths in the key and the number of each
   agesANDlens <- function(key) {
@@ -205,7 +204,7 @@ ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
       alsum <- agesANDlens(key)
       if (is.null(xlim)) xlim <- range(alsum$lens)+c(-1,1)*buf
       if (is.null(ylim)) ylim <- range(alsum$ages)+c(-1,1)*buf
-      plot(NA,xlim=xlim,ylim=ylim,xlab=xlab,ylab=bubble.ylab,...)
+      plot(NA,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...)
       if (!is.null(grid)) {
         abline(h=alsum$ages,col=grid,lty=2)
         abline(v=alsum$lens,col=grid,lty=2)

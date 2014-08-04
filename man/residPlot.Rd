@@ -8,7 +8,6 @@
 \alias{residPlot.TWOWAY}
 \alias{residPlot.lm}
 \alias{residPlot.nls}
-\alias{residualPlot}
 \title{Construct a residual plot from lm or nls objects.}
 \usage{
 residPlot(object, ...)

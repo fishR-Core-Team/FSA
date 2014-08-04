@@ -14,7 +14,7 @@ mrOpen(mb.top, mb.bot = NULL, type = c("Jolly", "Manly"),
 \method{summary}{mrOpen}(object, verbose = FALSE, ...)
 
 \method{confint}{mrOpen}(object, parm = c("all", "N", "phi", "B"),
-  level = NULL, conf.level = NULL, verbose = TRUE, ...)
+  level = NULL, conf.level = NULL, verbose = FALSE, ...)
 }
 \arguments{
 \item{mb.top}{A matrix that contains the \dQuote{top} of the Method B table (i.e., a contingency table of capture sample (columns) and last seen sample (rows)) or an object of class \code{CapHist} from \code{\link{capHistSum}}.  See details.}
