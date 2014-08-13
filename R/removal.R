@@ -28,10 +28,11 @@
 #' @param CS.se A single string that identifies whether the SE in the CarleStrub method should be computed according to Seber or Zippin.
 #' @param object An object saved from \code{removal()}.
 #' @param parm A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.
-#' @param level Same as \code{conf.level} but used for compatability with generic \code{confint} function.
-#' @param conf.level A single number representing the level of confidence to use for constructing confidence intervals.
+#' @param level Note used, but her for compatability with generic \code{confint} function.
+#' @param conf.level A single number representing the level of confidence to use for constructing confidence intervals.  This is sent in the main \code{removal} function rather than \code{confint}.
 #' @param just.ests A logical that indicates whether just the estimates (\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.
 #' @param verbose A logical that indicates whether descriptive labels should be printed from \code{summary} and if certain warnings are shown with \code{confint}.
+#' @param digits A single numeric that controls the number of decimals in the output from \code{summary} and \code{confint}.
 #' @param Tkmult A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute method.  Large values are much slower to compute, but too low of value can result in missing the best estimate.
 #' @param \dots Additional arguments for methods.
 #'
@@ -79,6 +80,8 @@
 #' Schnute, J.  1983.  A new approach to estimating populations by the removal method.  Canadian Journal of Fisheries and Aquatic Sciences, 40:2153-2169.
 #'
 #' Seber, G.A.F. 2002. The Estimation of Animal Abundance. Edward Arnold, second edition (Reprint).
+#' 
+#' van Dishoeck, P.  2009.  \href{http://rem-main.rem.sfu.ca/theses/vanDishoeckPier_2009_MRM483.pdf}{Effects of catchability variation on performance of depletion estimators: Application to an adaptive management experiment.}  Masters Thesis, Simon Fraser University.
 #' 
 #' @keywords manip
 #'
@@ -156,7 +159,8 @@
 #' summary(p4a)
 #' 
 #' 
-#' ### Using lapply() to use removal on many different groups
+#' ### Using lapply() to use removal() on many different groups
+#' ###   with the removals in a single variable ("long format")
 #' ## create a dummy data frame
 #' lake <- factor(rep(c("Ash Tree","Bark","Clay"),each=5))
 #' year <- factor(rep(c("2010","2011","2010","2011","2010","2011"),times=c(2,3,3,2,2,3)))
@@ -180,50 +184,71 @@
 #' rownames(fnl) <- NULL
 #' colnames(fnl)[1:2] <- c("Lake","Year")
 #' fnl
-#' ## append approx. 95% CIs
-#' fnl$No.LCI <- fnl$No-1.96*fnl$No.se
-#' fnl$No.UCI <- fnl$No+1.96*fnl$No.se
-#' fnl
 #'
+#'
+#' ### Using apply() to use removal() on many different groups
+#' ###   with the removals in several variables ("wide format")
+#' ## create a dummy data frame (just reshaped from above as
+#' ## an example; -5 to ignore the group variable from above)
+#' d1 <- reshape(d[,-5],timevar="pass",idvar=c("lake","year"),direction="wide")
+#' ## apply restore() to each row of only the catch data
+#' res1 <- apply(d1[,3:5],MARGIN=1,FUN=removal,just.ests=TRUE)
+#' res1 <- data.frame(t(data.frame(res1,check.names=FALSE)))
+#' ## add the grouping information to the results
+#' fnl1 <- data.frame(d1[,1:2],res1)
+#' ## put names together with values
+#' rownames(fnl1) <- NULL
+#' fnl1
+#' 
+#' ## Same as above but with the Schnute method
+#' # Schnute only works with 3 or more samples so remove those with 2
+#' d2 <- d1[!is.na(d1$catch.3),]
+#' res2 <- apply(d2[,3:5],MARGIN=1,FUN=removal,method="Schnute",just.ests=TRUE)
+#' res2 <- data.frame(t(data.frame(res2,check.names=FALSE)))
+#' ## add the grouping information to the results
+#' fnl2 <- data.frame(d2[,1:2],res2)
+#' ## put names together with values
+#' rownames(fnl2) <- NULL
+#' fnl2
+#' 
 #' @rdname removal
 #' @export
 removal <- function(catch,
                     method=c("CarleStrub","Zippin","Seber3","Seber2",
                              "RobsonRegier2","Moran","Schnute"),
                     alpha=1,beta=1,CS.se=c("Zippin","alternative"),
-                    Tkmult=3,just.ests=FALSE) {
+                    conf.level=0.95,just.ests=FALSE,Tkmult=3) {
   # some initial checks
   method <- match.arg(method)
-  if (!is.vector(catch)) stop("'catch' must be a vector.",call.=FALSE)
-  if (!is.numeric(catch)) stop("'catch' must be a numeric vector.",call.=FALSE)
+  if (!is.vector(catch)) {
+    # if a one row or column matrix then convert to a vector
+    if ((is.matrix(catch) | is.data.frame(catch)) & (nrow(catch)==1 | ncol(catch)==1)) {
+      catch <- as.numeric(catch)
+    } else {
+      # otherwise send an error
+      stop("'catch' must be a vector.",call.=FALSE)
+    }
+  } 
+  if (any(is.na(catch))) {
+    warning("'NA's removed from 'catch' to continue.",call.=FALSE)
+    catch <- catch[!is.na(catch)]
+  }  
   if (length(catch)<2) stop("Cannot perform calculations with one catch value.",call.=FALSE)
   if (Tkmult<1) stop("'Tkmult' should be greater than 1.",call.=FALSE)
   # intermediate calculations
-  k <- length(catch)
-  i <- seq(1,k)
-  T <- sum(catch)
-  X <- sum((k-i)*catch)
   # Different methods
   switch(method,
-    Zippin=        { tmp <- iZippin(X,T,k) },
-    CarleStrub=    { tmp <- iCarleStrub(X,T,k,i,alpha,beta,CS.se) },
-    Seber3=        { tmp <- iSeber3(catch,X,T,k) },
-    Seber2=        { tmp <- iSeber2(catch) },        
-    RobsonRegier2= { tmp <- iRobsonRegier2(catch) },
-    Moran=         { tmp <- iMoran(catch,Tkmult) },
-    Schnute=       { tmp <- iSchnute(catch,Tkmult) }
+    Zippin=        { tmp <- iZippin(catch,conf.level) },
+    CarleStrub=    { tmp <- iCarleStrub(catch,conf.level,alpha,beta,CS.se) },
+    Seber3=        { tmp <- iSeber3(catch,conf.level) },
+    Seber2=        { tmp <- iSeber2(catch,conf.level) },        
+    RobsonRegier2= { tmp <- iRobsonRegier2(catch,conf.level) },
+    Moran=         { tmp <- iMoran(catch,conf.level,Tkmult) },
+    Schnute=       { tmp <- iSchnute(catch,conf.level,Tkmult) }
   )
   if (just.ests) { tmp <- tmp$est }
   else {
-    if (method %in% c("Zippin","CarleStrub","Seber3")) {
-      int <- c(k,T,X)
-      names(int) <- c("k","T","X")
-      tmp <- list(method=method,lbl=tmp$lbl,catch=catch,int=int,est=tmp$est)
-    } else if (method %in% c("Moran","Schnute")) {
-      tmp <- list(method=method,lbl=tmp$lbl,catch=catch,min.nlogLH=tmp$min.nlogLH,est=tmp$est,Tkmult=Tkmult)
-    } else {
-      tmp <- list(method=method,lbl=tmp$lbl,catch=catch,est=tmp$est)
-    }
+    tmp <- c(tmp,method=method,conf.level=conf.level)
     class(tmp) <- "removal"
   }
   # return object
@@ -231,7 +256,102 @@ removal <- function(catch,
 }
 
 #=============================================================
-# INTERNAL -- Calculate Zippin estimates and SEs
+# INTERNAL -- Calculate some intermediate values
+#=============================================================
+iRemovalKTX <- function(catch) {
+  # number of samples
+  k <- length(catch)
+  # total catch
+  T <- sum(catch)
+  # cumulative catch prior to ith sample
+  i <- 1:k
+  X <- sum((k-i)*catch)
+  # return named vector
+  c(k=k,T=T,X=X)
+}
+
+#=============================================================
+# INTERNAL -- Calculate CIs with normal theory
+#=============================================================
+iRemovalNCI <- function(est,se,conf.level) {
+  est+c(-1,1)*qnorm(0.5+conf.level/2)*se
+}
+
+#=============================================================
+# INTERNAL -- Calculate CIs with likelihood theory for the
+#             Moran and Schnute methods.
+#=============================================================
+iRemovalLHCI <- function(method,catch,conf.level,k,Ti,Tk,min.nlogLH,Tkmult){ 
+  ## critical negative log-likelihood value
+  nlogLHcrit <- min.nlogLH+qchisq(conf.level,df=1)/2
+  
+  ## Determine if the upper limit is going to fail.
+  if (method=="Moran") {
+    # Modified catches to eliminates zero catches -- required
+    #   because formulas below uses log()s.
+    mod.catch <- catch[catch>0]
+    # This is (Schnute (1983) equation 3.6
+    nlogLHfail <- lfactorial(Tk)-Tk*log(Tk)+Tk*sum(mod.catch*log(k*mod.catch/Tk))
+  } else {
+    # Modified catches to eliminates first catch (per Schnute)
+    #   and zero catches as descirbed above
+    mod.catch <- catch[-1]
+    mod.catch <- mod.catch[mod.catch>0]
+    # This is (Schnute (1983) equation 3.11
+    nlogLHfail <- lfactorial(Tk)-Tk*log(Tk)+Tk+sum(mod.catch*log(((k-1)*mod.catch)/(Tk-catch[1])))
+  }
+  # logical for whether the upper limit fails (TRUE) or not
+  #   if it does then set UCI to infinity (per Schnute)
+  UCIfail <- nlogLHfail<nlogLHcrit
+  if (UCIfail) {
+    UCImsg <- "An upper confidence value for 'No' cannot be determined."
+    UCI <- Inf
+  } else UCImsg=NA
+  
+  ## Determine if the lower limit should be the total catch
+  # find negative log LH at total catch (internal functions are further below)
+  if (method=="Moran") {
+    tmp <- iLHMoran(Tk,catch,k=k,Ti=Ti,Tk=Tk)
+  } else {
+    tmp <- iLHSchnute(Tk,catch,k=k,Ti=Ti,Tk=Tk)
+  }
+  # if nlLH is the less than critical value then fail (logical will be true)
+  #   if it is then set LCI to total catch (per Schnute)
+  LCIfail <- tmp<nlogLHcrit
+  if (LCIfail) {
+    LCImsg <- "The lower confidence value for 'No' has been set at the total catch."
+    LCI <- Tk
+  } else LCImsg <- NA
+  
+  ## Find LCI or UCI if need be (i.e., at least one did not fail above) 
+  if (!LCIfail | !UCIfail) {
+    # create a vector (made as a matrix to use apply() below)
+    #   of N values to compute the negative log likelihood at
+    Ntrys <- matrix(seq(Tk,ceiling(Tkmult*Tk),0.02),ncol=1)
+    # compute the nlLH at all those values
+    if (method=="Moran") {
+      nlogLHvals <- apply(Ntrys,1,iLHMoran,catch=catch,k=k,Ti=Ti,Tk=Tk)
+    } else {
+      nlogLHvals <- apply(Ntrys,1,iLHSchnute,catch=catch,k=k,Ti=Ti,Tk=Tk)
+    }
+    # find which values are less than the critical negative log LH
+    #   value and then find the first and last position
+    tmp <- range(which(nlogLHvals<=nlogLHcrit))
+    # If the last position in the last N tried then the Ns
+    #   tried were probably not adequate.  Tell the user to
+    #   up the Tkmult value.
+    if (max(tmp)==length(Ntrys) & !UCIfail) warning("Upper confidence value is ill-formed; try increasing 'Tkmult' in 'removal()'.",call.=FALSE)
+    # The LCI is the N at the lower position, UCI is the N at
+    #   the higher position.
+    if (!LCIfail) LCI <- Ntrys[tmp[1]]
+    if (!UCIfail) UCI <- Ntrys[tmp[2]]
+  }
+  # return value rounded to one decimal place
+  list(CI=round(c(No.LCI=LCI,No.UCI=UCI),1),LCImsg=LCImsg,UCImsg=UCImsg)
+}
+
+#=============================================================
+# INTERNAL -- Calculate Zippin estimates
 #=============================================================
 iZippinNoVar <- function(N0,p,k) {
   q <- 1-p
@@ -245,34 +365,51 @@ iZippinpVar <- function(N0,p,k) {
   (((q*p)^2)*(1-q^k))/(N0*(q*((1-q^k)^2)-((p*k)^2)*(q^k)))
 }
 
-iZippin <- function(X,T,k) {
+iZippin <- function(catch,conf.level) {
+  # Get intermediate calculations
+  int <- iRemovalKTX(catch)
+  k <- int[["k"]]
+  T <- int[["T"]]
+  X <- int[["X"]]
   # This condition is from equation 6 in Carle & Strub (1978)
   if (X <= (((T-1)*(k-1))/2)-1) {
     warning("Catch data results in Zippin model failure.",call.=FALSE)
-    # return empty vector
-    tmp <- rep(NA,4)
+    # empty vector of estimates
+    tmp <- rep(NA,8)
   } else {
     # Uses modified equation 3 from Carle & Strub (1978) in the while statement
     N0 <- T
     while ((N0+0.5)*((k*N0-X-T)^k) >= (N0-T+0.5)*((k*N0-X)^k) ) { N0 <- N0+1 }
     # capture probability formula from Zippin (1956) according to Sweka (2006)
     p <- T/(k*N0-X)
+    # compute variances
     p.var <- iZippinpVar(N0,p,k) 
     N0.var <- iZippinNoVar(N0,p,k)
-    # return vector
-    tmp <- c(N0,p,sqrt(N0.var),sqrt(p.var))
+    # compute CIs
+    N0.ci <- iRemovalNCI(N0,sqrt(N0.var),conf.level)
+    p.ci <- iRemovalNCI(p,sqrt(p.var),conf.level)
+    # vector of estimates
+    tmp <- c(N0,sqrt(N0.var),N0.ci,p,sqrt(p.var),p.ci)
   }
-  names(tmp) <- c("No","p","No.se","p.se")
-  list(lbl="Zippin (1956,1958) K-Pass Removal Method",est=tmp)
+  # names to vector of estimates
+  names(tmp) <- c("No","No.se","No.LCI","No.UCI","p","p.se","p.LCI","p.UCI")
+  # return list
+  list(est=tmp,int=int,catch=catch,lbl="Zippin (1956,1958) K-Pass Removal Method")
 }
 
 #=============================================================
-# INTERNAL -- Calculate Carle-Strub estimates and SEs
+# INTERNAL -- Calculate Carle-Strub estimates
 #=============================================================
-iCarleStrub <- function(X,T,k,i,alpha,beta,CS.se=c("Zippin","alternative")) {
+iCarleStrub <- function(catch,conf.level,alpha,beta,CS.se=c("Zippin","alternative")) {
   # Some checks
   CS.se <- match.arg(CS.se)
   if (alpha<=0 | beta<=0) stop("'alpha' and 'beta' must be positive.",call.=FALSE)
+  # Get intermediate calculations
+  int <- iRemovalKTX(catch)
+  k <- int[["k"]]
+  T <- int[["T"]]
+  X <- int[["X"]]
+  i <- 1:k
   # Uses equation 7 from Carle & Strub (1978) in the while statement
   N0 <- T
   while (((N0+1)/(N0-T+1))*prod((k*N0-X-T+beta+k-i)/(k*N0-X+alpha+beta+k-i)) >= 1.0) { N0 <- N0+1 }
@@ -285,22 +422,33 @@ iCarleStrub <- function(X,T,k,i,alpha,beta,CS.se=c("Zippin","alternative")) {
     # Have yet to find a solid reference for this
     N0.var <- (N0*(N0-T)*T)/((T^2)-N0*(N0-T)*(((k*p)^2)/(1-p)))
   }
-  # return vector
-  tmp <- c(N0,p,sqrt(N0.var),sqrt(p.var))
-  names(tmp) <- c("No","p","No.se","p.se")
-  list(lbl="Carle & Strub (1978) K-Pass Removal Method",est=tmp)
+  # compute CIs
+  N0.ci <- iRemovalNCI(N0,sqrt(N0.var),conf.level)
+  p.ci <- iRemovalNCI(p,sqrt(p.var),conf.level)
+  # vector of estimates
+  tmp <- c(N0,sqrt(N0.var),N0.ci,p,sqrt(p.var),p.ci)
+  names(tmp) <- c("No","No.se","No.LCI","No.UCI","p","p.se","p.LCI","p.UCI")
+  # return list
+  list(est=tmp,int=int,CS.prior=c(alpha=alpha,beta=beta),CS.se=CS.se,
+       catch=catch,lbl="Carle & Strub (1978) K-Pass Removal Method")
 }
 
 #=============================================================
-# INTERNAL -- Calculate Seber 3-pass estimates and SEs
+# INTERNAL -- Calculate Seber 3-pass estimates
 #=============================================================
-iSeber3 <- function(catch,X,T,k) {
-  if (length(catch)!=3) {
-    stop("Seber (2002) 3-pass method can only be used three samples.",call.=FALSE)
+iSeber3 <- function(catch,conf.level) {
+  # Get intermediate calculations
+  int <- iRemovalKTX(catch)
+  k <- int[["k"]]
+  T <- int[["T"]]
+  X <- int[["X"]]
+  # Some checks
+  if (k!=3) {
+    stop("Seber (2002) 3-pass method can only be used with three samples.",call.=FALSE)
   } else if (catch[3] >= catch[1]) {
     warning("Catch data results in model failure for Seber (2002) 3-pass method.",call.=FALSE)
-    # return empty vector
-    tmp <- rep(NA,4)
+    # empty vector of estimates
+    tmp <- rep(NA,8)
   } else {
     # PE estimate (equation 7.24 (top) (p.315) of Seber (2002) ... note that T=Y)
     #   also matches Cowx (1983) equation 4
@@ -309,23 +457,28 @@ iSeber3 <- function(catch,X,T,k) {
     p <- (3*X - T - sqrt(T^2 + 6*X*T - 3*X^2))/(2*X)
     p.var <- iZippinpVar(N0,p,k) 
     N0.var <- iZippinNoVar(N0,p,k)
-    # return vector
-    tmp <- c(N0,p,sqrt(N0.var),sqrt(p.var))
+    # compute CIs
+    N0.ci <- iRemovalNCI(N0,sqrt(N0.var),conf.level)
+    p.ci <- iRemovalNCI(p,sqrt(p.var),conf.level)
+    # vector of estimates
+    tmp <- c(N0,sqrt(N0.var),N0.ci,p,sqrt(p.var),p.ci)
   }
-  names(tmp) <- c("No","p","No.se","p.se")
-  list(lbl="Seber (2002) 3-Pass Removal Method",est=tmp)
+  # names to vector of estimates
+  names(tmp) <- c("No","No.se","No.LCI","No.UCI","p","p.se","p.LCI","p.UCI")
+  # return list
+  list(est=tmp,int=int,catch=catch,lbl="Seber (2002) 3-Pass Removal Method")
 }
 
 #=============================================================
-# INTERNAL -- Calculate Seber 2-pass estimates and SEs
+# INTERNAL -- Calculate Seber 2-pass estimates
 #=============================================================
-iSeber2 <- function(catch) {
+iSeber2 <- function(catch,conf.level) {
   if (length(catch)!=2) {
     stop("Seber (2002) 2-Pass method can only be used two samples.",call.=FALSE)
   } else if (catch[2] >= catch[1]) {
     warning("Catch data results in model failure for Seber (2002) 2-Pass method.",call.=FALSE)
-    # return empty vector
-    tmp <- rep(NA,4)
+    # empty vector of estimates
+    tmp <- rep(NA,8)
   } else {
     # PE estimate from middle of page 312 in Seber (2002)
     N0 <- catch[1]^2/(catch[1]-catch[2])
@@ -335,37 +488,47 @@ iSeber2 <- function(catch) {
     p <- 1-catch[2]/catch[1]
     # Capture probability variance from equation 7.31 in Seber (2002)
     p.var <- catch[2]*(catch[1]+catch[2])/(catch[1]^3)
-    # return vector
-    tmp <- c(N0,p,sqrt(N0.var),sqrt(p.var))
+    # compute CIs
+    N0.ci <- iRemovalNCI(N0,sqrt(N0.var),conf.level)
+    p.ci <- iRemovalNCI(p,sqrt(p.var),conf.level)
+    # vector of estimates
+    tmp <- c(N0,sqrt(N0.var),N0.ci,p,sqrt(p.var),p.ci)
   }
-  names(tmp) <- c("No","p","No.se","p.se")
-  list(lbl="Seber (2002) 2-Pass Removal Method",est=tmp)
+  # names to vector of estimates
+  names(tmp) <- c("No","No.se","No.LCI","No.UCI","p","p.se","p.LCI","p.UCI")
+  # return list
+  list(est=tmp,catch=catch,lbl="Seber (2002) 2-Pass Removal Method")
 }
 
 #=============================================================
-# INTERNAL -- Calculate Robson-Regier 2-pass estimates and SEs
+# INTERNAL -- Calculate Robson-Regier 2-pass estimates
 #=============================================================
-iRobsonRegier2 <- function(catch) {
+iRobsonRegier2 <- function(catch,conf.level) {
   if (length(catch)!=2) {
     stop("Robson-Regier (1968) 2-pass method can only be used two samples.",call.=FALSE)
   } else if (catch[2] >= catch[1]) {
     warning("Catch data results in model failure for Robson-Regier (1968) 2-pass method.",call.=FALSE)
     # return empty vector
-    tmp <- rep(NA,4)
+    tmp <- rep(NA,8)
   } else {
     N0 <- (catch[1]^2-catch[2])/(catch[1]-catch[2])
     N0.var <- ((catch[1]^2)*(catch[2]^2)*(catch[1]+catch[2]))/((catch[1]-catch[2])^4)
     p <- 1-(catch[2]/(catch[1]+1))
     p.var <- catch[2]*(catch[1]+catch[2])/(catch[1]^3)
-    # return vector
-    tmp <- c(N0,p,sqrt(N0.var),sqrt(p.var))
+    # compute CIs
+    N0.ci <- iRemovalNCI(N0,sqrt(N0.var),conf.level)
+    p.ci <- iRemovalNCI(p,sqrt(p.var),conf.level)
+    # vector of estimates
+    tmp <- c(N0,sqrt(N0.var),N0.ci,p,sqrt(p.var),p.ci)
   }
-  names(tmp) <- c("No","p","No.se","p.se")
-  list(lbl="Robson-Regier (1968) 2-Pass Removal Method",est=tmp)
+  # names to vector of estimates
+  names(tmp) <- c("No","No.se","No.LCI","No.UCI","p","p.se","p.LCI","p.UCI")
+  # return list
+  list(est=tmp,catch=catch,lbl="Robson-Regier (1968) 2-Pass Removal Method")
 }
 
 #=============================================================
-# INTERNAL -- Calculate Moran estimates and CIs
+# INTERNAL -- Calculate Moran estimates
 #=============================================================
 ## Moran negative log-likelihood function
 iLHMoran <- function(N,catch,k,Ti,Tk) {
@@ -376,32 +539,38 @@ iLHMoran <- function(N,catch,k,Ti,Tk) {
   ct_pred <- N*q_pred*(1-q_pred)^(i-1) # Schnute (1983) equation 1.8
   Ti_pred <- cumsum(ct_pred)           # Schnute (1983) equation 1.1
   Tk_pred <- Ti_pred[k]
-  # log-likelihood (Schnute (1983) G(Z) and H(Z) (no K) from equation 2.6)
-  #   the [catch>0] solves issues with when a catch=0
+  # negative log-likelihood (Schnute (1983) G(Z) and H(Z) (no K)
+  #   from equation 2.6).  The [catch>0] solves issues with
+  #   when a catch=0
   N*log(N)-Tk*log(Tk)-(N-Tk)*log(N-Tk_pred)-log(choose(N,Tk))+sum(catch[catch>0]*log(catch[catch>0]/ct_pred[catch>0]))
 }
 
-iMoran <- function(catch,Tkmult) {
+iMoran <- function(catch,conf.level,Tkmult) {
   ## Follows methodology described at the bottom of page 2157 in Schnute (1983)
   # Intermediate Calculations
   k <- length(catch)  
   # actual total catches
   Ti <- cumsum(catch)
   Tk <- Ti[k]
+  # A check
+  if (k<3) stop("The Moran method requires at least three samples.",call.=FALSE)
   # optimize for N
   tmp <- optimize(iLHMoran,c(Tk,ceiling(Tkmult*Tk)),catch=catch,k=k,Ti=Ti,Tk=Tk)
   N0 <- tmp$minimum
   p <- Tk/(k*N0-sum(Ti[-k]))
-  # create return vector of estimates (no SEs)
-  est <- c(N0,p,NA,NA)
-  names(est) <- c("No","p","No.se","p.se")
+  # compute confidence intervals for No
+  tmpci <- iRemovalLHCI("Moran",catch,conf.level,k,Ti,Tk,tmp$objective,Tkmult)  
   # return list
-  list(lbl="Moran (1951) K-Pass Removal Method",est=est,min.nlogLH=tmp$objective)
+  list(est=c(No=N0,No.LCI=tmpci$CI[[1]],No.UCI=tmpci$CI[[2]],p=p),
+       catch=catch,min.nlogLH=tmp$objective,Tkmult=Tkmult,
+       LCImsg=tmpci$LCImsg,UCImsg=tmpci$UCImsg,
+       lbl="Moran (1951) K-Pass Removal Method")
 }
 
 #=============================================================
-# INTERNAL -- Calculate Schnute estimates and CIs
+# INTERNAL -- Calculate Schnute estimates
 #=============================================================
+## Schnute negative log-likelihood function
 iLHSchnute <- function(N,catch,k,Ti,Tk) {
   # Estimated q's
   q1_pred <- catch[1]/N                                              # Schnute (1983) equation 3.7
@@ -418,28 +587,32 @@ iLHSchnute <- function(N,catch,k,Ti,Tk) {
   N*log(N)-Tk*log(Tk)-(N-Tk)*log(N-Tk_pred)-log(choose(N,Tk))+sum(catch[catch>0]*log(catch[catch>0]/ct_pred[catch>0]))
 }
 
-iSchnute <- function(catch,Tkmult) {
+iSchnute <- function(catch,conf.level,Tkmult) {
   # Intermediate Calculations
   k <- length(catch)  
   # actual total catches
   Ti <- cumsum(catch)
   Tk <- Ti[k]
+  # A check
+  if (k<3) stop("The Schnute method requires at least three samples.",call.=FALSE)
   # optimize for N
   tmp <- optimize(iLHSchnute,c(Tk,ceiling(Tkmult*Tk)),catch=catch,k=k,Ti=Ti,Tk=Tk)
   N0 <- tmp$minimum
   p1 <- catch[1]/N0
   p <- (Tk-catch[1])/((k-1)*(N0-catch[1])-sum(Ti[-k]-catch[1]))
-  # create return vector of estimates (no SEs)
-  est <- c(N0,p1,p,NA,NA,NA)
-  names(est) <- c("No","p1","p","No.se","p1.se","p.se")
+  # compute confidence intervals for No
+  tmpci <- iRemovalLHCI("Schnute",catch,conf.level,k,Ti,Tk,tmp$objective,Tkmult)  
   # return list
-  list(lbl="Schnute (1983) K-Pass Removal Method w/ Non-constant Initial Catchability",est=est,min.nlogLH=tmp$objective)
+  list(est=c(No=N0,No.LCI=tmpci$CI[[1]],No.UCI=tmpci$CI[[2]],p=p,p1=p1),
+       catch=catch,min.nlogLH=tmp$objective,Tkmult=Tkmult,
+       LCImsg=tmpci$LCImsg,UCImsg=tmpci$UCImsg,
+       lbl="Schnute (1983) K-Pass Removal Method w/ Non-constant Initial Catchability")
 }
 
 
 #' @rdname removal
 #' @export
-summary.removal <- function(object,parm=c("No","p1","p"),verbose=FALSE,...) {
+summary.removal <- function(object,parm=c("No","p","p1"),digits=getOption("digits"),verbose=FALSE,...) {
   parm <- match.arg(parm,several.ok=TRUE)
   # send warning if chose 'p1' parameter but not Schnute method
   #   but don't warn if all parameters are chosen
@@ -454,102 +627,48 @@ summary.removal <- function(object,parm=c("No","p1","p"),verbose=FALSE,...) {
     cat("The",object$lbl,"method was used.\n")
     if (object$method %in% c("Moran","Schnute")) cat("SEs are not computed for this method.\n")
   }
-  res <- matrix(object$est,nrow=ifelse(object$method=="Schnute",3,2),byrow=FALSE)
-  colnames(res) <- c("Estimate","Std. Error")
-  ifelse(object$method=="Schnute",rownames(res) <- c("No","p1","p"),
-                                  rownames(res) <- c("No","p"))
-  res[which(rownames(res) %in% parm),,drop=FALSE]
+  if (object$method %in% c("Zippin","CarleStrub","Seber3","Seber2","RobsonRegier2")) {
+    res <- matrix(object$est[c("No","No.se","p","p.se")],nrow=2,byrow=TRUE)
+    colnames(res) <- c("Estimate","Std. Error")
+    rownames(res) <- c("No","p")
+  } else if (object$method=="Moran") {
+    res <- matrix(object$est[c("No","p")],nrow=2)
+    colnames(res) <- c("Estimate")
+    rownames(res) <- c("No","p")
+  } else {
+    res <- matrix(object$est[c("No","p","p1")],nrow=3)
+    colnames(res) <- c("Estimate")
+    rownames(res) <- c("No","p","p1")
+  }
+  res <- res[which(rownames(res) %in% parm),,drop=FALSE]
+  round(res,digits)
 }
 
 #' @rdname removal
 #' @export
 confint.removal <- function(object,parm=c("No","p"),
-                            level=conf.level,conf.level=0.95,
-                            verbose=FALSE,...) {
+                            level=conf.level,conf.level=NULL,
+                            digits=getOption("digits"),verbose=FALSE,...) {
+  if (!is.null(level)) warning("The confidence level is not set here, it is set with 'conf.level=' in 'removal()'.",call.=FALSE)
   parm <- match.arg(parm,several.ok=TRUE)
-  if (object$method %in% c("Moran","Schnute")) { ## Likelihood methods
-    # warn about no CIs for p with Moran and Schnute but only if p is the only parm chosen
-    if ("p" %in% parm) {
-      if (length(parm)==1) stop("Confidence intervals for 'p' cannot be computed with ",object$method," method.",call.=FALSE)
-      parm <- "No"
+  if (object$method %in% c("Zippin","CarleStrub","Seber3","Seber2","RobsonRegier2")) {
+    res <- matrix(object$est[c("No.LCI","No.UCI","p.LCI","p.UCI")],nrow=2,byrow=TRUE)
+    rownames(res) <- c("No","p")
+  } else {
+    ## Handle some messaging
+    if (object$method %in% c("Moran","Schnute")) {
+      # warn about no CIs for p with Moran and Schnute but only if p is the only parm chosen
+      if ("p" %in% parm) {
+        if (length(parm)==1) stop("Confidence intervals for 'p' cannot be computed with ",object$method," method.",call.=FALSE)
+        parm <- "No"
+      }
+      # print messages about CI fails if they exist
+      if (!is.na(object$LCImsg) & verbose) message(object$LCImsg)
+      if (!is.na(object$UCImsg) & verbose) message(object$UCImsg)
     }
-    # critical negative log-likelihood value for determining the CI
-    nlogLHcrit <- object$min.nlogLH+qchisq(conf.level,df=1)/2
-    # Intermediate calculations
-    k <- length(object$catch)
-    Ti <- cumsum(object$catch)
-    Tk <- Ti[k]
-    if (object$method=="Moran") {
-      res <- iCIMoran(object$catch,k,Ti,Tk,nlogLHcrit,verbose,object$Tkmult)
-    } else {
-      res <- iCISchnute(object$catch,k,Ti,Tk,nlogLHcrit,verbose,object$Tkmult)
-    }
-  } else{
-    ## Normal approximations
-    z <- c(-1,1)*qnorm((1-(1-conf.level)/2))
-    tmp <- summary(object,parm)
-    z <- matrix(rep(z,nrow(tmp)),nrow=nrow(tmp),byrow=TRUE)
-    res <- tmp[,1]+z*tmp[,2]    
-  }
-  rownames(res) <- parm
-  colnames(res) <- iCILabel(conf.level)
-  res
-}
-
-iCIMoran <- function(catch,k,Ti,Tk,nlogLHcrit,verbose,Tkmult) {
-  # determine if the upper limit is going to fail (Schnute (1983) equation 3.6)
-  # restrict to when the catch>0 to avoid error with log()
-  mod.catch <- catch[catch>0]
-  nlogLHfail <- lfactorial(Tk)-Tk*log(Tk)+Tk*sum(mod.catch*log(k*mod.catch/Tk))
-  UCIfail <- nlogLHfail<nlogLHcrit
-  if (UCIfail) {
-    if (verbose) message("An upper confidence value for 'No' cannot be determined.")
-    UCI <- Inf
-  } 
-  # determine if the lower limit should be the total catch
-  tmp <- iLHMoran(Tk,catch,k=k,Ti=Ti,Tk=Tk)
-  LCIfail <- tmp<nlogLHcrit
-  if (LCIfail) {
-    if (verbose) message("The lower confidence value for 'No' has been set at the total catch.")
-    LCI <- Tk
-  }
-  if (!LCIfail | !UCIfail) {
-    Ntrys <- matrix(seq(Tk,ceiling(Tkmult*Tk),0.02),ncol=1)
-    nlogLHvals <- apply(Ntrys,1,iLHMoran,catch=catch,k=k,Ti=Ti,Tk=Tk)
-    tmp <- range(which(nlogLHvals<=nlogLHcrit))
-    if (max(tmp)==length(Ntrys) & !UCIfail) warning("Upper confidence value is ill-formed; try increasing 'Tkmult' in 'removal()'.",call.=FALSE)
-    if (!LCIfail) LCI <- Ntrys[tmp[1]]
-    if (!UCIfail) UCI <- Ntrys[tmp[2]]
-  }
-  res <- matrix(round(c(LCI,UCI),1),nrow=1)
-}
-
-iCISchnute <- function(catch,k,Ti,Tk,nlogLHcrit,verbose,Tkmult) {
-  # determine if the upper limit is going to fail (Schnute (1983) equation 3.11)
-  # must eliminate first catch (per Schnute) and ...
-  mod.catch <- catch[-1]
-  # restrict to when the catch>0 to avoid error with log()
-  mod.catch <- mod.catch[mod.catch>0]
-  nlogLHfail <- lfactorial(Tk)-Tk*log(Tk)+Tk+sum(mod.catch*log(((k-1)*mod.catch)/(Tk-catch[1])))
-  UCIfail <- nlogLHfail<nlogLHcrit
-  if (UCIfail) {
-    if (verbose) message("An upper confidence value for 'No' cannot be determined.")
-    UCI <- Inf
-  } 
-  # determine if the lower limit should be the total catch
-  tmp <- iLHSchnute(Tk,catch,k=k,Ti=Ti,Tk=Tk)
-  LCIfail <- tmp<nlogLHcrit
-  if (LCIfail) {
-    if (verbose) message("The lower confidence value for 'No' has been set at the total catch.")
-    LCI <- Tk
-  }
-  if (!LCIfail | !UCIfail) {
-    Ntrys <- matrix(seq(Tk,ceiling(Tkmult*Tk),0.02),ncol=1)
-    nlogLHvals <- apply(Ntrys,1,iLHSchnute,catch=catch,k=k,Ti=Ti,Tk=Tk)
-    tmp <- range(which(nlogLHvals<nlogLHcrit))
-    if (max(tmp)==length(Ntrys) & !UCIfail) warning("Upper confidence value is ill-formed; try increasing 'Tkmult' in 'removal()'.",call.=FALSE)
-    if (!LCIfail) LCI <- Ntrys[tmp[1]]
-    if (!UCIfail) UCI <- Ntrys[tmp[2]]
-  }
-  res <- matrix(round(c(LCI,UCI),1),nrow=1)
+    res <- matrix(object$est[c("No.LCI","No.UCI")],nrow=1)
+    rownames(res) <- c("No")
+  }  
+  colnames(res) <- iCILabel(object$conf.level)
+  round(res,digits)
 }

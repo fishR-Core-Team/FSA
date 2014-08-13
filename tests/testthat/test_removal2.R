@@ -1,4 +1,4 @@
-context("Verification of 'removal()' results.")
+context("Verification of 'removal()' results. ")
 
 test_that("removal with 'CarleStrub' matches Carle-Strub (1978) examples",{
   tmp <- summary(removal(c(38,26,12)))
@@ -86,6 +86,7 @@ test_that("removal with 'Moran' matches Schnute (1983)",{
     expect_that(tmp[,"LHs"],equals(BrookTroutNEWP1$Moran.LH[]))
     ## Check CIs (off by no more than 0.1 in a small handful of the UCIs)
     tmp <- cbind(sample=1:nrow(BrookTroutNEWP1),NLCI,NUCI,BrookTroutNEWP1[,c("Moran.NLCI","Moran.NUCI")])
+    expect_that(all(abs(tmp[,2:3]-tmp[,4:5])<=0.1001),is_true())  
   }
 })
 
@@ -112,5 +113,6 @@ test_that("removal with 'Schnute' matches Schnute (1983)",{
     expect_that(tmp[,"LHs"],equals(BrookTroutNEWP1$Schnute.LH[]))
     ## Check CIs (off by no more than 0.1)
     tmp <- cbind(sample=1:nrow(BrookTroutNEWP1),NLCI,NUCI,BrookTroutNEWP1[,c("Schnute.NLCI","Schnute.NUCI")])
+    expect_that(all(abs(tmp[,2:3]-tmp[,4:5])<=0.1001,na.rm=TRUE),is_true())
   }
 })

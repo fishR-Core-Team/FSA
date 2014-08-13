@@ -11,10 +11,11 @@ test_that("removal errors and warnings",{
   expect_that(removal(c(346,184,49),method="CarleStrub",alpha=-1,beta=0),throws_error())
   ## Catch not in a vector
   expect_that(removal(matrix(c(346,184,49,12),nrow=2)),throws_error())
-  ## Catch not numeric
-  expect_that(removal(c("Derek","Hugh","Ogle")),throws_error())
   ## only one catch
   expect_that(removal(346),throws_error())
+  ## Try using Moran or Schnute method with not three catches
+  expect_that(removal(c(346,184),method="Moran"),throws_error())
+  expect_that(removal(c(346,184),method="Schnute"),throws_error())
   ## Try using 3-pass method with not three catches
   expect_that(removal(c(346,184),method="Seber3"),throws_error())
   expect_that(removal(c(346,184,49,12),method="Seber3"),throws_error())
@@ -39,6 +40,7 @@ test_that("removal errors and warnings",{
   tmp <- removal(c(45,11,18,8),method="Schnute")
   expect_that(confint(tmp,parm="p"),throws_error())
   ## Chose bad value for Tkmult
-  tmp <- removal(c(45,11,18,8),method="Moran",Tkmult=1.2)
-  expect_that(confint(tmp),gives_warning())  
+  expect_that(removal(c(45,11,18,8),method="Moran",Tkmult=1.2),gives_warning())  
+  ## NAs in catch vector
+  expect_that(removal(c(45,11,NA,8)),gives_warning()) 
 })  

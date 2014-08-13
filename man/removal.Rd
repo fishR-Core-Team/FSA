@@ -7,13 +7,14 @@
 \usage{
 removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
   "RobsonRegier2", "Moran", "Schnute"), alpha = 1, beta = 1,
-  CS.se = c("Zippin", "alternative"), Tkmult = 3, just.ests = FALSE)
+  CS.se = c("Zippin", "alternative"), conf.level = 0.95,
+  just.ests = FALSE, Tkmult = 3)
 
-\method{summary}{removal}(object, parm = c("No", "p1", "p"),
-  verbose = FALSE, ...)
+\method{summary}{removal}(object, parm = c("No", "p", "p1"),
+  digits = getOption("digits"), verbose = FALSE, ...)
 
 \method{confint}{removal}(object, parm = c("No", "p"), level = conf.level,
-  conf.level = 0.95, verbose = FALSE, ...)
+  conf.level = NULL, digits = getOption("digits"), verbose = FALSE, ...)
 }
 \arguments{
 \item{catch}{A numerical vector of catch at each pass.}
@@ -30,13 +31,15 @@ removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
 
 \item{parm}{A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.}
 
-\item{level}{Same as \code{conf.level} but used for compatability with generic \code{confint} function.}
+\item{level}{Note used, but her for compatability with generic \code{confint} function.}
 
-\item{conf.level}{A single number representing the level of confidence to use for constructing confidence intervals.}
+\item{conf.level}{A single number representing the level of confidence to use for constructing confidence intervals.  This is sent in the main \code{removal} function rather than \code{confint}.}
 
 \item{just.ests}{A logical that indicates whether just the estimates (\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.}
 
 \item{verbose}{A logical that indicates whether descriptive labels should be printed from \code{summary} and if certain warnings are shown with \code{confint}.}
+
+\item{digits}{A single numeric that controls the number of decimals in the output from \code{summary} and \code{confint}.}
 
 \item{Tkmult}{A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute method.  Large values are much slower to compute, but too low of value can result in missing the best estimate.}
 
@@ -74,7 +77,7 @@ The main function computes the estimates and associated standard errors, if poss
 
 Confidence intervals for the first five methods are computed using standard large-sample normal distribution theory.  Note that the confidence intervals for the 2- and 3-pass special cases are only approximately correct if the estimated population size is greater than 200.  If the estimated population size is between 50 and 200 then a 95\% CI behaves more like a 90\% CI.
 
-Confidence intervals for the last two methods use likelihood ratio theory as described in Schnute (1983).
+Confidence intervals for the last two methods use likelihood ratio theory as described in Schnute (1983) and are only produced for the No parameter.  Standard errors are not produced with the Moran or Schnute methods..
 
 In the Carle Strub method, if the resultant No estimate is equal to the sum of the catches (T) then the estimate of No that is returned will be the sum of the catches.  In this instance, and if the \dQuote{Seber} method of computing the standard error is used, then the SE will not be estimable and the confidence intervals can not be constructed.
 }
@@ -169,7 +172,8 @@ pchisq(chi2.val,df=1,lower.tail=FALSE)         # significant difference (catchab
 summary(p4a)
 
 
-### Using lapply() to use removal on many different groups
+### Using lapply() to use removal() on many different groups
+###   with the removals in a single variable ("long format")
 ## create a dummy data frame
 lake <- factor(rep(c("Ash Tree","Bark","Clay"),each=5))
 year <- factor(rep(c("2010","2011","2010","2011","2010","2011"),times=c(2,3,3,2,2,3)))
@@ -193,10 +197,32 @@ fnl <- data.frame(nms,res)
 rownames(fnl) <- NULL
 colnames(fnl)[1:2] <- c("Lake","Year")
 fnl
-## append approx. 95\% CIs
-fnl$No.LCI <- fnl$No-1.96*fnl$No.se
-fnl$No.UCI <- fnl$No+1.96*fnl$No.se
-fnl
+
+
+### Using apply() to use removal() on many different groups
+###   with the removals in several variables ("wide format")
+## create a dummy data frame (just reshaped from above as
+## an example; -5 to ignore the group variable from above)
+d1 <- reshape(d[,-5],timevar="pass",idvar=c("lake","year"),direction="wide")
+## apply restore() to each row of only the catch data
+res1 <- apply(d1[,3:5],MARGIN=1,FUN=removal,just.ests=TRUE)
+res1 <- data.frame(t(data.frame(res1,check.names=FALSE)))
+## add the grouping information to the results
+fnl1 <- data.frame(d1[,1:2],res1)
+## put names together with values
+rownames(fnl1) <- NULL
+fnl1
+
+## Same as above but with the Schnute method
+# Schnute only works with 3 or more samples so remove those with 2
+d2 <- d1[!is.na(d1$catch.3),]
+res2 <- apply(d2[,3:5],MARGIN=1,FUN=removal,method="Schnute",just.ests=TRUE)
+res2 <- data.frame(t(data.frame(res2,check.names=FALSE)))
+## add the grouping information to the results
+fnl2 <- data.frame(d2[,1:2],res2)
+## put names together with values
+rownames(fnl2) <- NULL
+fnl2
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
@@ -213,6 +239,8 @@ Robson, D.S., and H.A. Regier.  1968.  Estimation of population number and morta
 Schnute, J.  1983.  A new approach to estimating populations by the removal method.  Canadian Journal of Fisheries and Aquatic Sciences, 40:2153-2169.
 
 Seber, G.A.F. 2002. The Estimation of Animal Abundance. Edward Arnold, second edition (Reprint).
+
+van Dishoeck, P.  2009.  \href{http://rem-main.rem.sfu.ca/theses/vanDishoeckPier_2009_MRM483.pdf}{Effects of catchability variation on performance of depletion estimators: Application to an adaptive management experiment.}  Masters Thesis, Simon Fraser University.
 }
 \seealso{
 \code{\link{depletion}}.
