@@ -31,4 +31,14 @@ test_that("removal errors and warnings",{
   expect_that(confint(tmp,parm="Derek"),throws_error())
   ## Bad data leads to failure of Zippin (from Carle-Strub (1978) example 2)
   expect_that(removal(c(5,7,8),method="Zippin"),gives_warning())
+  ## Chose "p1" summary for other than Schnute method
+  tmp <- removal(c(45,11,18,8),method="Zippin")
+  expect_that(summary(tmp,parm="p1"),throws_error())
+  expect_that(summary(tmp,parm=c("p","p1")),gives_warning())
+  ## Chose only "p" CI for Moran or Schnute method
+  tmp <- removal(c(45,11,18,8),method="Schnute")
+  expect_that(confint(tmp,parm="p"),throws_error())
+  ## Chose bad value for Tkmult
+  tmp <- removal(c(45,11,18,8),method="Moran",Tkmult=1.2)
+  expect_that(confint(tmp),gives_warning())  
 })  

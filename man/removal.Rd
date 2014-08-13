@@ -6,13 +6,14 @@
 \title{Population estimates for k-, 3-, or 2-pass removal data.}
 \usage{
 removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
-  "RobsonRegier2"), alpha = 1, beta = 1, CS.se = c("Zippin",
-  "alternative"), just.ests = FALSE)
+  "RobsonRegier2", "Moran", "Schnute"), alpha = 1, beta = 1,
+  CS.se = c("Zippin", "alternative"), Tkmult = 3, just.ests = FALSE)
 
-\method{summary}{removal}(object, parm = c("No", "p"), verbose = FALSE, ...)
+\method{summary}{removal}(object, parm = c("No", "p1", "p"),
+  verbose = FALSE, ...)
 
 \method{confint}{removal}(object, parm = c("No", "p"), level = conf.level,
-  conf.level = 0.95, ...)
+  conf.level = 0.95, verbose = FALSE, ...)
 }
 \arguments{
 \item{catch}{A numerical vector of catch at each pass.}
@@ -35,33 +36,45 @@ removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
 
 \item{just.ests}{A logical that indicates whether just the estimates (\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.}
 
-\item{verbose}{A logical that indicates whether descriptive labels should be printed from \code{summary}.}
+\item{verbose}{A logical that indicates whether descriptive labels should be printed from \code{summary} and if certain warnings are shown with \code{confint}.}
+
+\item{Tkmult}{A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute method.  Large values are much slower to compute, but too low of value can result in missing the best estimate.}
 
 \item{\dots}{Additional arguments for methods.}
 }
 \value{
-A vector that contains the estimates and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with the following items:
+A vector that contains the estimates and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with at least the following items:
  \itemize{
    \item catch The original vector of observed catches.
    \item method The method used (provided by the user).
    \item lbl A descriptive label for the method used.
    \item est A matrix that contains the estimates and standard errors for No and p.
  }
+
+In addition, if the Moran or Schnute methods are used the list will also contain
+ \itemize{
+   \item min.nlogLH The minimum value of the negative log-likelihood function.
+   \item Tkmult The Tkmult value sent by the user.
+ }
 }
 \description{
 Computes estimates, with confidence intervals, of the population size and probability of capture from the number of fish removed in k-, 3-, or 2-passes in a closed population.
 }
 \details{
-The main function computes the estimates and associated standard errors for the initial population size, No, and probability of capture, p, for five methods chosen with \code{method=}.  The possible methods are:
+The main function computes the estimates and associated standard errors, if possible, for the initial population size, No, and probability of capture, p, for seven methods chosen with \code{method=}.  The possible methods are:
  \itemize{
    \item \code{method="CarleStrub"}: The general weighted k-pass estimator proposed by Carle and Strub (1978).  This function iteratively solves for No in equation 7 of Carle and Strub (1978).
    \item \code{method="Zippin"}: The general k-pass estimator generally attributed to Zippin.  This function iteratively solves for No in bias corrected version of equation 3 (page 622) of Carle and Strub (1978).  These results are not yet trustworthy.
    \item \code{method="Seber3"}: The special case for k=3 estimator shown in equation 7.24 of Seber(2002).
    \item \code{method="Seber2"}: The special case for k=2 estimator shown on page 312 of Seber(2002).
    \item \code{method="RobsonRegier2"}: The special case for k=2 estimator shown by Robson and Regier (1968).
+   \item \code{method="Moran"}: The likelihood method of Moran (1951) as implemented by Schnute (1983).
+   \item \code{method="Schnute"}: The likelihood method of Schnute (1983) for the model that has a different probability of capture for the first sample but a constant probability of capture for all ensuing samples..
  }
 
-Confidence intervals are computed using standard large-sample normal distribution theory.  Note that the confidence intervals for the 2- and 3-pass special cases are only approximately correct if the estimated population size is greater than 200.  If the estimated population size is between 50 and 200 then a 95\% CI behaves more like a 90\% CI.
+Confidence intervals for the first five methods are computed using standard large-sample normal distribution theory.  Note that the confidence intervals for the 2- and 3-pass special cases are only approximately correct if the estimated population size is greater than 200.  If the estimated population size is between 50 and 200 then a 95\% CI behaves more like a 90\% CI.
+
+Confidence intervals for the last two methods use likelihood ratio theory as described in Schnute (1983).
 
 In the Carle Strub method, if the resultant No estimate is equal to the sum of the catches (T) then the estimate of No that is returned will be the sum of the catches.  In this instance, and if the \dQuote{Seber} method of computing the standard error is used, then the SE will not be estimable and the confidence intervals can not be constructed.
 }
@@ -79,6 +92,8 @@ The Seber2 results for No, p, and the SE of No match the results in example 7.4 
 The RobsonRegier2 results for No and the SE of NO match the resultsin Cowx (1983)
 
 The Zippin method results do not match the examples in Seber (2002) or Cowx (1983) because \code{removal} uses the bias-corrected version from Carle and Strub (1978) and does not use the tables in Zippin (1958).  The Zippin method is not yet trustworthy.
+
+The Moran and Schnute methods match the examples in Schnute (1983) perfectly for all point estimates and within 0.1 units for all confidence intervals.
 }
 \examples{
 ## First example -- 3 passes
@@ -109,23 +124,49 @@ p2 <- removal(ct3,method="Zippin")
 summary(p2,verbose=TRUE)
 confint(p2)
 
-# Seber method
-p3 <- removal(ct3,method="Seber3")
+# Moran method
+p3 <- removal(ct3,method="Moran")
 summary(p3,verbose=TRUE)
-confint(p3)
+confint(p3,verbose=TRUE)
+#'
+# Schnute method
+p4 <- removal(ct3,method="Schnute")
+summary(p4,verbose=TRUE)
+confint(p4,verbose=TRUE)
+
+# Seber method
+p5 <- removal(ct3,method="Seber3")
+summary(p5,verbose=TRUE)
+confint(p5)
 
 ## Second example -- 2 passes
 ct2 <- c(77,37)
 
 # Seber method
-p4 <- removal(ct2,method="Seber2")
-summary(p4,verbose=TRUE)
-confint(p4)
+p6 <- removal(ct2,method="Seber2")
+summary(p6,verbose=TRUE)
+confint(p6)
 
 # Robson-Regier method
-p5 <- removal(ct2,method="RobsonRegier2")
-summary(p5,verbose=TRUE)
-confint(p5)
+p7 <- removal(ct2,method="RobsonRegier2")
+summary(p7,verbose=TRUE)
+confint(p7)
+
+
+### Test if catchability differs between first sample and the other samples
+# chi-square test statistic from  negative log-likelihoods
+#   from Moran and Schnute fits (from above)
+chi2.val <- 2*(p3$min.nlogLH-p4$min.nlogLH)
+# p-value ... no significant difference
+pchisq(chi2.val,df=1,lower.tail=FALSE)
+
+# Another LRT example ... sample 1 from Schnute (1983)
+ct4 <- c(45,11,18,8)
+p3a <- removal(ct4,method="Moran")
+p4a <- removal(ct4,method="Schnute")
+chi2.val <- 2*(p3a$min.nlogLH-p4a$min.nlogLH)  # 4.74 in Schnute(1983)
+pchisq(chi2.val,df=1,lower.tail=FALSE)         # significant difference (catchability differs)
+summary(p4a)
 
 
 ### Using lapply() to use removal on many different groups
@@ -165,7 +206,11 @@ Carle, F.L. and M.R. Strub. 1978. A new method for estimating population size fr
 
 Cowx, I.G.  1983.  Review of the methods for estimating fish population size from survey removal data.  Fisheries Management, 14:67-82.
 
+Moran, P.A.P.  1951.  A mathematical theory of animal trapping.  Biometrika 38:307-311.
+
 Robson, D.S., and H.A. Regier.  1968.  Estimation of population number and mortality rates.  pp. 124-158 in Ricker, W.E. (editor) Methods for Assessment of Fish Production in Fresh Waters.  IBP Handbook NO. 3 Blackwell Scientific Publications, Oxford.
+
+Schnute, J.  1983.  A new approach to estimating populations by the removal method.  Canadian Journal of Fisheries and Aquatic Sciences, 40:2153-2169.
 
 Seber, G.A.F. 2002. The Estimation of Animal Abundance. Edward Arnold, second edition (Reprint).
 }
