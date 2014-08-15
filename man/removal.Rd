@@ -8,7 +8,7 @@
 removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
   "RobsonRegier2", "Moran", "Schnute"), alpha = 1, beta = 1,
   CS.se = c("Zippin", "alternative"), conf.level = 0.95,
-  just.ests = FALSE, Tkmult = 3)
+  just.ests = FALSE, Tmult = 3)
 
 \method{summary}{removal}(object, parm = c("No", "p", "p1"),
   digits = getOption("digits"), verbose = FALSE, ...)
@@ -41,7 +41,7 @@ removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
 
 \item{digits}{A single numeric that controls the number of decimals in the output from \code{summary} and \code{confint}.}
 
-\item{Tkmult}{A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute method.  Large values are much slower to compute, but too low of value can result in missing the best estimate.}
+\item{Tmult}{A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute method.  Large values are much slower to compute, but too low of value can result in missing the best estimate.}
 
 \item{\dots}{Additional arguments for methods.}
 }
@@ -57,7 +57,7 @@ A vector that contains the estimates and standard errors for No and p if \code{j
 In addition, if the Moran or Schnute methods are used the list will also contain
  \itemize{
    \item min.nlogLH The minimum value of the negative log-likelihood function.
-   \item Tkmult The Tkmult value sent by the user.
+   \item Tmult The Tmult value sent by the user.
  }
 }
 \description{

@@ -33,7 +33,7 @@
 #' @param just.ests A logical that indicates whether just the estimates (\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.
 #' @param verbose A logical that indicates whether descriptive labels should be printed from \code{summary} and if certain warnings are shown with \code{confint}.
 #' @param digits A single numeric that controls the number of decimals in the output from \code{summary} and \code{confint}.
-#' @param Tkmult A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute method.  Large values are much slower to compute, but too low of value can result in missing the best estimate.
+#' @param Tmult A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute method.  Large values are much slower to compute, but too low of value can result in missing the best estimate.
 #' @param \dots Additional arguments for methods.
 #'
 #' @return A vector that contains the estimates and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with at least the following items:
@@ -47,7 +47,7 @@
 #' In addition, if the Moran or Schnute methods are used the list will also contain
 #'  \itemize{
 #'    \item min.nlogLH The minimum value of the negative log-likelihood function.
-#'    \item Tkmult The Tkmult value sent by the user.
+#'    \item Tmult The Tmult value sent by the user.
 #'  }
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
@@ -217,7 +217,7 @@ removal <- function(catch,
                     method=c("CarleStrub","Zippin","Seber3","Seber2",
                              "RobsonRegier2","Moran","Schnute"),
                     alpha=1,beta=1,CS.se=c("Zippin","alternative"),
-                    conf.level=0.95,just.ests=FALSE,Tkmult=3) {
+                    conf.level=0.95,just.ests=FALSE,Tmult=3) {
   # some initial checks
   method <- match.arg(method)
   if (!is.vector(catch)) {
@@ -234,7 +234,7 @@ removal <- function(catch,
     catch <- catch[!is.na(catch)]
   }  
   if (length(catch)<2) stop("Cannot perform calculations with one catch value.",call.=FALSE)
-  if (Tkmult<1) stop("'Tkmult' should be greater than 1.",call.=FALSE)
+  if (Tmult<1) stop("'Tmult' should be greater than 1.",call.=FALSE)
   # intermediate calculations
   # Different methods
   switch(method,
@@ -243,8 +243,8 @@ removal <- function(catch,
     Seber3=        { tmp <- iSeber3(catch,conf.level) },
     Seber2=        { tmp <- iSeber2(catch,conf.level) },        
     RobsonRegier2= { tmp <- iRobsonRegier2(catch,conf.level) },
-    Moran=         { tmp <- iMoran(catch,conf.level,Tkmult) },
-    Schnute=       { tmp <- iSchnute(catch,conf.level,Tkmult) }
+    Moran=         { tmp <- iMoran(catch,conf.level,Tmult) },
+    Schnute=       { tmp <- iSchnute(catch,conf.level,Tmult) }
   )
   if (just.ests) { tmp <- tmp$est }
   else {
@@ -282,7 +282,7 @@ iRemovalNCI <- function(est,se,conf.level) {
 # INTERNAL -- Calculate CIs with likelihood theory for the
 #             Moran and Schnute methods.
 #=============================================================
-iRemovalLHCI <- function(method,catch,conf.level,k,Tk,X,min.nlogLH,Tkmult){ 
+iRemovalLHCI <- function(method,catch,conf.level,k,T,X,min.nlogLH,Tmult){ 
   ## critical negative log-likelihood value
   nlogLHcrit <- min.nlogLH+qchisq(conf.level,df=1)/2
   
@@ -292,14 +292,14 @@ iRemovalLHCI <- function(method,catch,conf.level,k,Tk,X,min.nlogLH,Tkmult){
     #   because formulas below uses log()s.
     mod.catch <- catch[catch>0]
     # This is (Schnute (1983) equation 3.6
-    nlogLHfail <- lfactorial(Tk)-Tk*log(Tk)+Tk*sum(mod.catch*log(k*mod.catch/Tk))
+    nlogLHfail <- lfactorial(T)-T*log(T)+T*sum(mod.catch*log(k*mod.catch/T))
   } else {
     # Modified catches to eliminates first catch (per Schnute)
     #   and zero catches as descirbed above
     mod.catch <- catch[-1]
     mod.catch <- mod.catch[mod.catch>0]
     # This is (Schnute (1983) equation 3.11
-    nlogLHfail <- lfactorial(Tk)-Tk*log(Tk)+Tk+sum(mod.catch*log(((k-1)*mod.catch)/(Tk-catch[1])))
+    nlogLHfail <- lfactorial(T)-T*log(T)+T+sum(mod.catch*log(((k-1)*mod.catch)/(T-catch[1])))
   }
   # logical for whether the upper limit fails (TRUE) or not
   #   if it does then set UCI to infinity (per Schnute)
@@ -312,38 +312,38 @@ iRemovalLHCI <- function(method,catch,conf.level,k,Tk,X,min.nlogLH,Tkmult){
   ## Determine if the lower limit should be the total catch
   # find negative log LH at total catch (internal functions are further below)
   if (method=="Moran") {
-    tmp <- iLHMoran(Tk,catch,k=k,Tk=Tk,X=X)
+    tmp <- iLHMoran(T,catch,k=k,T=T,X=X)
   } else {
-    tmp <- iLHSchnute(Tk,catch,k=k,Tk=Tk,X=X)
+    tmp <- iLHSchnute(T,catch,k=k,T=T,X=X)
   }
   # if nlLH is the less than critical value then fail (logical will be true)
   #   if it is then set LCI to total catch (per Schnute)
   LCIfail <- tmp<nlogLHcrit
   if (LCIfail) {
     LCImsg <- "The lower confidence value for 'No' has been set at the total catch."
-    LCI <- Tk
+    LCI <- T
   } else LCImsg <- NA
   
   ## Find LCI or UCI if need be (i.e., at least one did not fail above) 
   if (!LCIfail | !UCIfail) {
     # create a vector (made as a matrix to use apply() below)
     #   of N values to compute the negative log likelihood at
-    Ntrys <- matrix(seq(Tk,ceiling(Tkmult*Tk),0.02),ncol=1)
+    Ntrys <- matrix(seq(T,ceiling(Tmult*T),0.02),ncol=1)
     # compute the nlLH at all those values
     nlogLHvals <- numeric(nrow(Ntrys))
     # I tried using apply() here but could not get it work
-    #      nlogLHvals <- apply(Ntrys,MARGIN=1,FUN=iLHMoran,catch=catch,k=k,Tk=Tk,X=X)    
+    #      nlogLHvals <- apply(Ntrys,MARGIN=1,FUN=iLHMoran,catch=catch,k=k,T=T,X=X)    
     for (i in 1:nrow(Ntrys)) {
-      if (method=="Moran") { nlogLHvals[i] <- iLHMoran(Ntrys[i],catch=catch,k=k,Tk=Tk,X=X) }
-      else { nlogLHvals[i] <- iLHSchnute(Ntrys[i],catch=catch,k=k,Tk=Tk,X=X) }
+      if (method=="Moran") { nlogLHvals[i] <- iLHMoran(Ntrys[i],catch=catch,k=k,T=T,X=X) }
+      else { nlogLHvals[i] <- iLHSchnute(Ntrys[i],catch=catch,k=k,T=T,X=X) }
     }
     # find which values are less than the critical negative log LH
     #   value and then find the first and last position
     tmp <- range(which(nlogLHvals<=nlogLHcrit))
     # If the last position in the last N tried then the Ns
     #   tried were probably not adequate.  Tell the user to
-    #   up the Tkmult value.
-    if (max(tmp)==length(Ntrys) & !UCIfail) warning("Upper confidence value is ill-formed; try increasing 'Tkmult' in 'removal()'.",call.=FALSE)
+    #   up the Tmult value.
+    if (max(tmp)==length(Ntrys) & !UCIfail) warning("Upper confidence value is ill-formed; try increasing 'Tmult' in 'removal()'.",call.=FALSE)
     # The LCI is the N at the lower position, UCI is the N at
     #   the higher position.
     if (!LCIfail) LCI <- Ntrys[tmp[1]]
@@ -357,41 +357,42 @@ iRemovalLHCI <- function(method,catch,conf.level,k,Tk,X,min.nlogLH,Tkmult){
 # INTERNAL -- Calculate Moran estimates
 #=============================================================
 ## Moran negative log-likelihood function
-iLHMoran <- function(N,catch,k,Tk,X) {
+iLHMoran <- function(N,catch,k,T,X) {
   # Estimated q (Schnute (1983) equation 3.2)
   #   Note sum(Ti[-k]) in Schnute is X here
-  ##   Note q in Schnute is p here
-  p_hat <- Tk/(k*N-X)
+  ##   Note q, Tk in Schnute are p, T here
+  p_hat <- T/(k*N-X)
   # Predicted catches and total catches
   i <- seq(1,k)
   ct_hat <- N*p_hat*(1-p_hat)^(i-1)                 # Schnute (1983) equation 1.8
   Ti_hat <- cumsum(ct_hat)                          # Schnute (1983) equation 1.1
-  Tk_hat <- Ti_hat[k]
+  T_hat <- Ti_hat[k]
   # negative log-likelihood (Schnute (1983) G(Z) and H(Z) (no K)
   #   from equation 2.6).  The [catch>0] solves issues with
   #   when a catch=0
-  N*log(N)-Tk*log(Tk)-(N-Tk)*log(N-Tk_hat)-log(choose(N,Tk))+sum(catch[catch>0]*log(catch[catch>0]/ct_hat[catch>0]))
+  N*log(N)-T*log(T)-(N-T)*log(N-T_hat)-log(choose(N,T))+sum(catch[catch>0]*log(catch[catch>0]/ct_hat[catch>0]))
 }
 
-iMoran <- function(catch,conf.level,Tkmult) {
+iMoran <- function(catch,conf.level,Tmult) {
   ## Follows methodology described at the bottom of page 2157 in Schnute (1983)
   ##   Note sum(Ti[-k]) in Schnute is X here
+  ##   Note q, Tk in Schnute are p, T here
   # Intermediate Calculations
   int <- iRemovalKTX(catch)
   k <- int[["k"]] 
-  Tk <- int[["T"]]
+  T <- int[["T"]]
   X <- int[["X"]]
   # A check
   if (k<3) stop("The Moran method requires at least three samples.",call.=FALSE)
   # optimize for N
-  tmp <- optimize(iLHMoran,c(Tk,ceiling(Tkmult*Tk)),catch=catch,k=k,Tk=Tk,X=X)
+  tmp <- optimize(iLHMoran,c(T,ceiling(Tmult*T)),catch=catch,k=k,T=T,X=X)
   N0 <- tmp$minimum
-  p <- Tk/(k*N0-X)
+  p <- T/(k*N0-X)
   # compute confidence intervals for No
-  tmpci <- iRemovalLHCI("Moran",catch,conf.level,k,Tk,X,tmp$objective,Tkmult)  
+  tmpci <- iRemovalLHCI("Moran",catch,conf.level,k,T,X,tmp$objective,Tmult)  
   # return list
   list(est=c(No=N0,No.LCI=tmpci$CI[[1]],No.UCI=tmpci$CI[[2]],p=p),
-       catch=catch,min.nlogLH=tmp$objective,Tkmult=Tkmult,
+       catch=catch,min.nlogLH=tmp$objective,Tmult=Tmult,
        LCImsg=tmpci$LCImsg,UCImsg=tmpci$UCImsg,
        lbl="Moran (1951) K-Pass Removal Method")
 }
@@ -400,46 +401,47 @@ iMoran <- function(catch,conf.level,Tkmult) {
 # INTERNAL -- Calculate Schnute estimates
 #=============================================================
 ## Schnute negative log-likelihood function
-iLHSchnute <- function(N,catch,k,Tk,X) {
+iLHSchnute <- function(N,catch,k,T,X) {
   ##   Note sum(Ti[-k]) in Schnute is X here
   ##   Note sum(Ti[-k]-catch[1]) in Schnute is X-(k-1)*catch[1] here
-  ##   Note q in Schnute is p here
-  # Estimated q's
+  ##   Note q, Tk in Schnute are p, T here
+  # Estimated p's
   p1_hat <- catch[1]/N                                            # Schnute (1983) equation 3.7
-  p_hat <- (Tk-catch[1])/((k-1)*(N-catch[1])-(X-(k-1)*catch[1]))  # Schnute (1983) equation 3.8
+  p_hat <- (T-catch[1])/((k-1)*(N-catch[1])-(X-(k-1)*catch[1]))   # Schnute (1983) equation 3.8
   # Predicted catches and total catches
   ct1_hat <- N*p1_hat                                             # Schnute (1983) equation 1.12
   i <- seq(2,k)
   ct_hat <- N*p_hat*(1-p1_hat)*(1-p_hat)^(i-2)                    # Schnute (1983) equation 1.12
   ct_hat <- c(ct1_hat,ct_hat)
   Ti_hat <- cumsum(ct_hat)
-  Tk_hat <- Ti_hat[k]
+  T_hat <- Ti_hat[k]
   # log-likelihood (Schnute (1983) G(Z) and H(Z) (no K) from equation 2.6)
   #   the [catch>0] solves issues with when a catch=0
-  N*log(N)-Tk*log(Tk)-(N-Tk)*log(N-Tk_hat)-log(choose(N,Tk))+sum(catch[catch>0]*log(catch[catch>0]/ct_hat[catch>0]))
+  N*log(N)-T*log(T)-(N-T)*log(N-T_hat)-log(choose(N,T))+sum(catch[catch>0]*log(catch[catch>0]/ct_hat[catch>0]))
 }
 
-iSchnute <- function(catch,conf.level,Tkmult) {
+iSchnute <- function(catch,conf.level,Tmult) {
   ## Follows methodology described in Schnute (1983)
   ##   Note sum(Ti[-k]) in Schnute is X here
   ##   Note sum(Ti[-k]-catch[1]) in Schnute is X-(k-1)*catch[1] here
+  ##   Note q, Tk in Schnute are p, T here
   # Intermediate Calculations
   int <- iRemovalKTX(catch)
   k <- int[["k"]] 
-  Tk <- int[["T"]]
+  T <- int[["T"]]
   X <- int[["X"]]
   # A check
   if (k<3) stop("The Schnute method requires at least three samples.",call.=FALSE)
   # optimize for N
-  tmp <- optimize(iLHSchnute,c(Tk,ceiling(Tkmult*Tk)),catch=catch,k=k,Tk=Tk,X=X)
+  tmp <- optimize(iLHSchnute,c(T,ceiling(Tmult*T)),catch=catch,k=k,T=T,X=X)
   N0 <- tmp$minimum
   p1 <- catch[1]/N0
-  p <- (Tk-catch[1])/((k-1)*(N0-catch[1])-(X-(k-1)*catch[1]))
+  p <- (T-catch[1])/((k-1)*(N0-catch[1])-(X-(k-1)*catch[1]))
   # compute confidence intervals for No
-  tmpci <- iRemovalLHCI("Schnute",catch,conf.level,k,Tk,X=X,tmp$objective,Tkmult)  
+  tmpci <- iRemovalLHCI("Schnute",catch,conf.level,k=k,T=T,X=X,tmp$objective,Tmult)  
   # return list
   list(est=c(No=N0,No.LCI=tmpci$CI[[1]],No.UCI=tmpci$CI[[2]],p=p,p1=p1),
-       catch=catch,min.nlogLH=tmp$objective,Tkmult=Tkmult,
+       catch=catch,min.nlogLH=tmp$objective,Tmult=Tmult,
        LCImsg=tmpci$LCImsg,UCImsg=tmpci$UCImsg,
        lbl="Schnute (1983) K-Pass Removal Method w/ Non-constant Initial Catchability")
 }

@@ -39,8 +39,9 @@ test_that("removal errors and warnings",{
   ## Chose only "p" CI for Moran or Schnute method
   tmp <- removal(c(45,11,18,8),method="Schnute")
   expect_that(confint(tmp,parm="p"),throws_error())
-  ## Chose bad value for Tkmult
-  expect_that(removal(c(45,11,18,8),method="Moran",Tkmult=1.2),gives_warning())  
+  ## Chose bad value for Tmult
+  expect_that(removal(c(45,11,18,8),method="Moran",Tmult=0.9),throws_error())  
+  expect_that(removal(c(45,11,18,8),method="Moran",Tmult=1.2),gives_warning())  
   ## NAs in catch vector
   expect_that(removal(c(45,11,NA,8)),gives_warning()) 
 })  
