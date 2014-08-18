@@ -1,4 +1,7 @@
 # FSA 0.4.24 ongoing
+* `ALKAgeDist()`: Added.
+* `ALKMeanVar()`: Added.
+* `summary.mrOpen()`: Modified.  Removed "Estimates" heading if `verbose=FALSE`.
 
 
 # FSA 0.4.23 Aug14

@@ -306,8 +306,8 @@ iEstPhi <- function(df,k,type,conf.level,phi.full) {
 
 ##############################################################
 ## INTERNAL -- estimate B
-iEstB <- function(df,k,type,conf.level) {
 ##############################################################
+iEstB <- function(df,k,type,conf.level) {
   # Current time vector w/o last row to match size of future time vector
   df1 <- df[-k,]
   # Future time vector w/o first row to match size of current time vector
@@ -344,8 +344,8 @@ summary.mrOpen <- function(object,verbose=FALSE,...) {
   if (verbose) {
     cat("Observables\n")
     print(object$df[,c("m","n","R","r","z")])
+    cat("\nEstimates\n")
   }
-  cat("\nEstimates\n")
   if (object$type=="Jolly") {
     print(object$df[,c("M","M.se","N","N.se","phi","phi.se","B","B.se")]) 
   } else {

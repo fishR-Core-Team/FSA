@@ -54,7 +54,7 @@
 #'
 #'Chang, W.Y.B. 1982.  \href{http://www.nrcresearchpress.com/doi/abs/10.1139/f82-158}{A statistical method for evaluating the reproducibility of age determination.}  Canadian Journal of Fisheries and Aquatic Sciences 39:1208-1210.  
 #'
-#' @aliases agePrec plot.agePrec summary.agePrec
+#' @aliases agePrecision plot.agePrec summary.agePrec
 #'
 #' @keywords htest manip
 #' 
