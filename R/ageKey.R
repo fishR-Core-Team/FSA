@@ -45,7 +45,9 @@
 #' WR1.len <- ageKey(WR1.key,age~len,data=WR1.len) # apply the age-length key
 #' head(WR1.len)                                   # now there are ages
 #' WR1.comb <- rbind(WR1.age, WR1.len)             # combine orig age & new length sample
-#' Summarize(len~age,data=WR1.comb,digits=2)
+#' Summarize(len~age,data=WR1.comb,digits=2)       # mean length-at-age
+#' ( af <- xtabs(~age,data=WR1.comb) )             # age frequency distribution
+#' ( ap <- prop.table(af) )                        # proportional age distribution
 #'
 #' ## Second Example -- length sample does not have an age variable
 #' WR2 <- WR79

@@ -28,7 +28,25 @@
 #' @keywords manip
 #'
 #' @examples
-#' ## None yet
+#' ## Get data with length measurements and some assigned ages
+#' data(WR79)
+#'
+#' ## Example -- Even breaks for length categories
+#' WR1 <- WR79
+#' # add length intervals (width=5)
+#' WR1$LCat <- lencat(WR1$len,w=5)
+#' # get number of fish in each length interval in the entire sample
+#' len.n <- xtabs(~LCat,data=WR1)
+#' # isolate aged sample and get number in each length interval
+#' WR1.age <- Subset(WR1, !is.na(age))
+#' lenA.n <- xtabs(~LCat,data=WR1.age)
+#' # create age-length key
+#' raw <- xtabs(~LCat+age,data=WR1.age)
+#' ( WR1.key <- prop.table(raw, margin=1) )
+#' 
+#' # use age-length key to estimate age distribution of all fish
+#' ALKMeanVar(len~LCat+age,WR1.age,WR1.key,lenA.n,len.n)
+#' 
 #' 
 #' @export
 #' 
@@ -40,32 +58,37 @@ ALKMeanVar <- function(formula,data,key,lenA.n,len.n) {
   if (length(lenA.n)!=num.lens) stop("'lenA.n' and the 'key' have different numbers of length intervals.",call.=FALSE)
   if (length(lenA.n)!=num.lens) stop("'lenN.n' and the 'key' have different numbers of length intervals.",call.=FALSE)
   
-  ## Mean by length and age
+  ## Compute mean and variance by length and age
+  # suppress warnings
+  options(warn=-1)
   mns <- sumTable(formula,data,FUN=mean)
-  ## Variance by length and age
   vars <- sumTable(formula,data,FUN=var)
+  options(warn=0)
   
   ## total number of fish sampled
   n <- sum(len.n)
   ## proportion of total fish sampled by length interval
   alpha_l <- len.n/n
-  W_a <- var_W_a <- numeric(num.ages)
+  mnW_a <- varW_a <- numeric(num.ages)
   for (i in 1:num.ages) {
     # top of page 305 from Quinn and Deriso (1999)
     theta_la <- key[,i]
     # extract "age" columns from the mean and variance matrices
     mnW_la <- mns[,i]
     varW_la <- vars[,i]
-    # equation 8.14a from Quinn and Deriso (1999)
+    # equation 8.14a from Quinn and Deriso (1999) ... correct from ALKAgeDist
     r_la <- alpha_l*theta_la
     theta_a <- sum(r_la)
-    # equation 8.15a from Quinn and Deriso (1999)
-    W_a[i] <- sum(r_la*mnW_la,na.rm=TRUE)/theta_a
-    # RHS equivalency of 8.14b and 8.14c from Quinn and Deriso (1999)
+    # RHS equivalency of 8.14b and 8.14c from Quinn and Deriso (1999) ... correct from ALKAgeDist
     var_r_la <- ((alpha_l^2)*theta_la*(1-theta_la))/(lenA.n[i]-1) + (alpha_l*((theta_la-theta_a)^2))/n
+    # equation 8.15a from Quinn and Deriso (1999)
+    mnW_a[i] <- sum(r_la*mnW_la,na.rm=TRUE)/theta_a
     # 8.15b from Quinn and Deriso (1999)
-    var_W_a[i] <- sum((r_la^2)*varW_la + ((varW_la-W_a[i])^2)*var_r_la,na.rm=TRUE)/(theta_a^2)
+    varW_a[i] <- sum((r_la^2)*varW_la + ((mnW_la-mnW_a[i])^2)*var_r_la,na.rm=TRUE)/(theta_a^2)
   }
-  res <- cbind(mean=W_a,SE=sqrt(var_W_a))
+  res <- data.frame(age=as.numeric(colnames(key)),mean=mnW_a,se=sqrt(varW_a))
+  rownames(res) <- NULL
+  ## return the result
+  message("The 'se' values should not be trusted!")
   res
 }

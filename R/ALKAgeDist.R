@@ -28,7 +28,24 @@
 #' @keywords manip
 #'
 #' @examples
-#' ## None yet
+#' ## Get data with length measurements and some assigned ages
+#' data(WR79)
+#'
+#' ## Example -- Even breaks for length categories
+#' WR1 <- WR79
+#' # add length intervals (width=5)
+#' WR1$LCat <- lencat(WR1$len,w=5)
+#' # get number of fish in each length interval in the entire sample
+#' len.n <- xtabs(~LCat,data=WR1)
+#' # isolate aged sample and get number in each length interval
+#' WR1.age <- Subset(WR1, !is.na(age))
+#' lenA.n <- xtabs(~LCat,data=WR1.age)
+#' # create age-length key
+#' raw <- xtabs(~LCat+age,data=WR1.age)
+#' ( WR1.key <- prop.table(raw, margin=1) )
+#' 
+#' # use age-length key to estimate age distribution of all fish
+#' ALKAgeDist(WR1.key,lenA.n,len.n)
 #' 
 #' @export
 #' 
@@ -61,7 +78,9 @@ ALKAgeDist <- function(key,lenA.n,len.n) {
 ## Deriso (1999).  The CV (SE/prop) is also returned.
 ## ===========================================================
 iALKAgeProp <- function(theta_la,alpha_l,lenA.n,n) {
-  theta_a <- sum(theta_la*alpha_l)
-  var.theta_a <- sum(alpha_l^2*theta_la*(1-theta_la)/(lenA.n-1) + alpha_l*((theta_la-theta_a)^2)/n)
+  r_la <- alpha_l*theta_la
+  theta_a <- sum(r_la)
+  var_r_la <- ((alpha_l^2)*theta_la*(1-theta_la))/(lenA.n-1) + (alpha_l*((theta_la-theta_a)^2))/n
+  var.theta_a <- sum(var_r_la)
   c(theta_a,sqrt(var.theta_a),sqrt(var.theta_a)/theta_a)
 }

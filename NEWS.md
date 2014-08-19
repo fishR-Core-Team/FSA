@@ -2,6 +2,7 @@
 * `ALKAgeDist()`: Added.
 * `ALKMeanVar()`: Added.
 * `summary.mrOpen()`: Modified.  Removed "Estimates" heading if `verbose=FALSE`.
+* `Summarize()`: Modified.  Moved all internal functions outside of `Summarize()` environment (and renamed them).
 
 
 # FSA 0.4.23 Aug14

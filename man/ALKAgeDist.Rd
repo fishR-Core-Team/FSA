@@ -34,7 +34,24 @@ The age-length key sent in \code{key} must be constructed with length intervals 
  The results from this function perfectly match the results in Table 8.4 (left) of Quinn and Deriso when using \code{data(SnapperHG2)} from \pkg{FSAdata}.  The results also perfectly match the results from using \code{alkprop} in \pkg{fishmethods}.
 }
 \examples{
-## None yet
+## Get data with length measurements and some assigned ages
+data(WR79)
+
+## Example -- Even breaks for length categories
+WR1 <- WR79
+# add length intervals (width=5)
+WR1$LCat <- lencat(WR1$len,w=5)
+# get number of fish in each length interval in the entire sample
+len.n <- xtabs(~LCat,data=WR1)
+# isolate aged sample and get number in each length interval
+WR1.age <- Subset(WR1, !is.na(age))
+lenA.n <- xtabs(~LCat,data=WR1.age)
+# create age-length key
+raw <- xtabs(~LCat+age,data=WR1.age)
+( WR1.key <- prop.table(raw, margin=1) )
+
+# use age-length key to estimate age distribution of all fish
+ALKAgeDist(WR1.key,lenA.n,len.n)
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
