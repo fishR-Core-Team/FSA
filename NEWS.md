@@ -1,4 +1,5 @@
 # FSA 0.4.24 ongoing
+* `ageKey()`: Modified.  Moved all internal functions outside of `ageKey()` environment (and renamed them).
 * `ALKAgeDist()`: Added.
 * `ALKMeanVar()`: Added.
 * `summary.mrOpen()`: Modified.  Removed "Estimates" heading if `verbose=FALSE`.

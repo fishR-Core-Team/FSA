@@ -79,45 +79,7 @@
 #'
 #' @export
 ageKey <- function(key,formula,data,type=c("SR","CR"),breaks=NULL) {
-  #### Semi-random assignment internal function
-  ageKey.sr <- function(key,age.cats,data,data.len.cats,ca) {                        
-    for (i in data.len.cats) {  ### Cycle through len categories in L sample                                              
-      # Number in len interval from L sample
-      len.n <- nrow(data[data$TMPLCAT==i,])
-      # Conditional probability of age for len interval
-      age.prob <- key[which(as.numeric(rownames(key))==i),]
-      # Integer number of fish for each age
-      age.freq <- floor(len.n*age.prob)
-      # Vector of ages for integer counts
-      ages <- rep(age.cats,age.freq)
-      # Identify and deal with fractionality
-      if (length(ages)<len.n) {
-        # How many fish must be added?
-        num.add <- len.n-length(ages)
-        # Randomly ages for added fish
-        ages.add <- sample(age.cats,num.add,replace=TRUE,prob=age.prob)
-        # Add additional fish ages to end
-        ages <- c(ages,ages.add)
-      }
-      # Randomly mix up the ages vector
-      if (length(ages)>1) { ages <- sample(ages,length(ages),replace=FALSE) }
-      # Replace rows of age col w/ assigned ages
-      data[data$TMPLCAT==i,ca] <- ages                                               
-    }
-    data
-  } ### end of ageKey.sr internal function
-  
-  ### Completely random assignment internal function
-  ageKey.cr <- function(key,age.cats,data,ca) {                                    
-    for (i in 1:dim(data)[1]) { #### Cycle through the fish
-      # Conditional probability of age for length interval
-      age.prob <- key[which(as.numeric(rownames(key))==data$TMPLCAT[i]),]
-      data[i,ca] <- sample(age.cats,1,prob=age.prob)                              
-    }
-    data
-  } ### end of ageKey.cr internal function
-
-  ### Start of main function      
+  ## some checks
   type <- match.arg(type)
   cl <- iGetVarFromFormula(formula,data)
   if (length(cl)==1) ca <- "age"
@@ -170,10 +132,52 @@ ageKey <- function(key,formula,data,type=c("SR","CR"),breaks=NULL) {
   age.cats <- as.numeric(colnames(key))
   # Perform the randomization depending on type chosen by user
   switch(type,
-    SR=,Sr=,sr=,S=,s= {data <- ageKey.sr(key,age.cats,data,data.len.cats,ca)},
-    CR=,Cr=,cr=,C=,c= {data <- ageKey.cr(key,age.cats,data,ca)}
+    SR=,Sr=,sr=,S=,s= {data <- iAgeKey.SR(key,age.cats,data,data.len.cats,ca)},
+    CR=,Cr=,cr=,C=,c= {data <- iAgeKey.CR(key,age.cats,data,ca)}
   )
   # Remove length category column that was added
-  data <- data[,-which(names(data)=="TMPLCAT")]
+  data[,-which(names(data)=="TMPLCAT")]
+}
+
+
+##############################################################
+## Semi-random assignment internal function
+##############################################################
+iAgeKey.SR <- function(key,age.cats,data,data.len.cats,ca) {                        
+  for (i in data.len.cats) {  ### Cycle through len categories in L sample                                              
+    # Number in len interval from L sample
+    len.n <- nrow(data[data$TMPLCAT==i,])
+    # Conditional probability of age for len interval
+    age.prob <- key[which(as.numeric(rownames(key))==i),]
+    # Integer number of fish for each age
+    age.freq <- floor(len.n*age.prob)
+    # Vector of ages for integer counts
+    ages <- rep(age.cats,age.freq)
+    # Identify and deal with fractionality
+    if (length(ages)<len.n) {
+      # How many fish must be added?
+      num.add <- len.n-length(ages)
+      # Randomly ages for added fish
+      ages.add <- sample(age.cats,num.add,replace=TRUE,prob=age.prob)
+      # Add additional fish ages to end
+      ages <- c(ages,ages.add)
+    }
+    # Randomly mix up the ages vector
+    if (length(ages)>1) { ages <- sample(ages,length(ages),replace=FALSE) }
+    # Replace rows of age col w/ assigned ages
+    data[data$TMPLCAT==i,ca] <- ages                                               
+  }
+  data
+}
+
+##############################################################
+## Completely random assignment internal function
+##############################################################
+iAgeKey.CR <- function(key,age.cats,data,ca) {                                    
+  for (i in 1:dim(data)[1]) { #### Cycle through the fish
+    # Conditional probability of age for length interval
+    age.prob <- key[which(as.numeric(rownames(key))==data$TMPLCAT[i]),]
+    data[i,ca] <- sample(age.cats,1,prob=age.prob)                              
+  }
   data
 }

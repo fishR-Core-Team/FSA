@@ -10,14 +10,19 @@
 #' 
 #' @return A data.frame with as many rows as ages present in \code{key} and the following three variables:
 #' \itemize{
+#'   \item age The ages.
 #'   \item prop The prortion of fish at each age.
 #'   \item se The SE for the proportion of fish at each age.
-#'   \item cv The CV for the proportion of fish at each age.
 #'  } 
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @references Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages
+#' @references 
+#' Lai, H.-N.  1987.
+#' 
+#' Lai, H.-N.  1993.
+#' 
+#' Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages
 #'
 #' @seealso  See \code{\link{ageKey}} and related functions for a completely different methodology.  See \code{alkprop} from \pkg{fishmethods} for the exact same methodology but with different inputs.
 #' 
@@ -48,7 +53,6 @@
 #' ALKAgeDist(WR1.key,lenA.n,len.n)
 #' 
 #' @export
-#' 
 ALKAgeDist <- function(key,lenA.n,len.n) {
   ## Some checks
   num.ages <- ncol(key)
@@ -57,14 +61,14 @@ ALKAgeDist <- function(key,lenA.n,len.n) {
   if (length(lenA.n)!=num.lens) stop("'lenN.n' and the 'key' have different numbers of length intervals.",call.=FALSE)
   
   ## total number of fish sampled
-  n <- sum(len.n)
+  N <- sum(len.n)
   ## proportion of total fish sampled by length interval
-  alpha_l <- len.n/n
+  l_i <- len.n/N
   ## Create a matrix of proportions-at-age with corresponding SE and CV.
-  tmp <- t(apply(key,2,iALKAgeProp,alpha_l=alpha_l,lenA.n=lenA.n,n=n))
+  tmp <- t(apply(key,2,iALKAgeProp,l_i=l_i,n_i=lenA.n,N=N))
   res <- data.frame(as.numeric(rownames(tmp)),tmp)
-  names(res) <- c("age","prop","se","cv")
-  rownames(res) <- NULL
+  names(res) <- c("age","prop","se")
+  row.names(res) <- NULL
   ## return the result
   res
 }
@@ -72,15 +76,15 @@ ALKAgeDist <- function(key,lenA.n,len.n) {
 ## ===========================================================
 ## An internal function that allows the use of apply()
 ## in ALKAgeDist() rather than using a for loop.  This computes
-## the proportion at each age (theta_a) using 8.14a and the SE
-## (sqrt of var.theta_a) of each proportion using 8.14b
+## the proportion at each age (p_j) using 8.14a and the SE
+## (sqrt of var.p_j) of each proportion using 8.14b
 ## (note that only a single sum was used here) of Quinn and
-## Deriso (1999).  The CV (SE/prop) is also returned.
+## Deriso (1999).
 ## ===========================================================
-iALKAgeProp <- function(theta_la,alpha_l,lenA.n,n) {
-  r_la <- alpha_l*theta_la
-  theta_a <- sum(r_la)
-  var_r_la <- ((alpha_l^2)*theta_la*(1-theta_la))/(lenA.n-1) + (alpha_l*((theta_la-theta_a)^2))/n
-  var.theta_a <- sum(var_r_la)
-  c(theta_a,sqrt(var.theta_a),sqrt(var.theta_a)/theta_a)
+iALKAgeProp <- function(p_jgi,l_i,n_i,N) {
+  p_ij <- l_i*p_jgi
+  p_j <- sum(p_ij,na.rm=TRUE)
+  var_p_ij <- ((l_i^2)*p_jgi*(1-p_jgi))/(n_i-1) + (l_i*((p_jgi-p_j)^2))/N
+  var.p_j <- sum(var_p_ij,na.rm=TRUE)
+  c(p_j,sqrt(var.p_j))
 }

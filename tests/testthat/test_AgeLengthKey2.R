@@ -19,7 +19,7 @@ test_that("ALKAgeDist() reporduces results from Table 8.4 (left) of Quinn and De
     tmp2 <- ALKAgeDist(agekey,lenA.n,len.n)
 
     ## Find difference in results
-    diff <- tmp2[,2:4]-tmp1
+    diff <- tmp2[,-1]-tmp1[,-3]
     expect_that(all(diff==0),is_true())
     
     ## enter Q&D results as a guard against fishmethods changing

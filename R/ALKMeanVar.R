@@ -9,6 +9,7 @@
 #' @param key A numeric matrix that contains the age-length key.  See details.
 #' @param lenA.n A vector of sample sizes for each length interval in the \emph{aged sample}.
 #' @param len.n A vector of sample sizes for each length interval in the \emph{complete sample} (i.e., all fish regardles of whether they were aged or not).
+#' @param method A string that indicates which method of calculation should be used.  See details.
 #' 
 #' @return A data.frame with as many rows as ages present in \code{key} and the following three variables:
 #' \itemize{
@@ -19,7 +20,10 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @references Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages
+#' @references
+#' Bettoli,
+#'  
+#' Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages
 #'
 #' @seealso  See \code{\link{ageKey}} and related functions for a completely different methodology.  See \code{\link{ALKAgeDist}} for a related method of determining the proportion of fish at each age.
 #' 
@@ -44,51 +48,96 @@
 #' raw <- xtabs(~LCat+age,data=WR1.age)
 #' ( WR1.key <- prop.table(raw, margin=1) )
 #' 
-#' # use age-length key to estimate age distribution of all fish
+#' ## use age-length key to estimate mean length-at-age of all fish
+#' # Bettoli-Miranda method
 #' ALKMeanVar(len~LCat+age,WR1.age,WR1.key,lenA.n,len.n)
 #' 
+#' # Quinn-Deriso method
+#' ALKMeanVar(len~LCat+age,WR1.age,WR1.key,lenA.n,len.n,method="QuinnDeriso")
 #' 
 #' @export
 #' 
-ALKMeanVar <- function(formula,data,key,lenA.n,len.n) {
-  ## end internal function, start of main function
+ALKMeanVar <- function(formula,data,key,lenA.n,len.n,method=c("BettoliMiranda","QuinnDeriso")) {
   ## Some checks
+  method <- match.arg(method)
   num.ages <- ncol(key)
   num.lens <- nrow(key)
   if (length(lenA.n)!=num.lens) stop("'lenA.n' and the 'key' have different numbers of length intervals.",call.=FALSE)
   if (length(lenA.n)!=num.lens) stop("'lenN.n' and the 'key' have different numbers of length intervals.",call.=FALSE)
-  
-  ## Compute mean and variance by length and age
-  # suppress warnings
+  switch(method,
+         BettoliMiranda= {iALKMean.BM(formula,data,key,n_i=lenA.n,N_i=len.n)},
+         QuinnDeriso=    {iALKMean.QD(formula,data,key,n_i=lenA.n,N_i=len.n)})
+}
+
+
+##############################################################
+## Internal function for Bettoli-Miranda method 
+##   equations 3 and 4b
+##############################################################
+iALKMean.BM <- function(formula,data,key,n_i,N_i) {
+  ## Compute mean by length and age (suppress warnings)
   options(warn=-1)
   mns <- sumTable(formula,data,FUN=mean)
-  vars <- sumTable(formula,data,FUN=var)
+  options(warn=0)
+  ## Get overall number by length and age
+  N_ij <- sweep(key,MARGIN=1,FUN="*",STATS=N_i)
+  ## Get overall number by age
+  N_j <- colSums(N_ij)
+  ## Number of ages prsent
+  A <- ncol(key)
+  ## Prepare result vectors
+  mn_j <- var_j <- numeric(A)
+  ## Loop through the ages
+  for (j in 1:A) {
+    mn_j[j] <- sum(N_ij[,j]*mns[,j],na.rm=TRUE)/N_j[j] 
+    var_j[j] <- sum(N_ij[,j]*((mns[,j]-mn_j[j])^2),na.rm=TRUE)/(N_j[j]-1)
+  }
+  res <- data.frame(age=as.numeric(colnames(key)),mean=mn_j,sd=sqrt(var_j))
+  rownames(res) <- NULL
+  ## return the result
+  res  
+}
+  
+##############################################################
+## Internal function for Quinn-Deriso method 
+##   equations 8.15a and 8.15b
+##############################################################
+iALKMean.QD <- function(formula,data,key,n_i,N_i) {
+  ## Compute mean and variance by length and age (suppress warnings)
+  options(warn=-1)
+  mns <- sumTable(formula,data,FUN=mean)
+  # Not sure from Q&D if this should be divided by sqrt(n) or not
+  vars <- sumTable(formula,data,FUN=var)/sqrt(sumTable(formula,data,FUN=length))
   options(warn=0)
   
   ## total number of fish sampled
-  n <- sum(len.n)
+  N <- sum(N_i)
   ## proportion of total fish sampled by length interval
-  alpha_l <- len.n/n
-  mnW_a <- varW_a <- numeric(num.ages)
-  for (i in 1:num.ages) {
+  l_i <- N_i/N
+  ## Number of ages prsent
+  A <- ncol(key)
+  ## Prepare result vectors
+  mn_j <- var_j <- numeric(A)
+  ## Loop through ages
+  for (j in 1:A) {
     # top of page 305 from Quinn and Deriso (1999)
-    theta_la <- key[,i]
+    p_jgi <- key[,j]
     # extract "age" columns from the mean and variance matrices
-    mnW_la <- mns[,i]
-    varW_la <- vars[,i]
+    mn_ij <- mns[,j]
+    var_ij <- vars[,j]
     # equation 8.14a from Quinn and Deriso (1999) ... correct from ALKAgeDist
-    r_la <- alpha_l*theta_la
-    theta_a <- sum(r_la)
+    p_ij <- l_i*p_jgi
+    p_j <- sum(p_ij)
     # RHS equivalency of 8.14b and 8.14c from Quinn and Deriso (1999) ... correct from ALKAgeDist
-    var_r_la <- ((alpha_l^2)*theta_la*(1-theta_la))/(lenA.n[i]-1) + (alpha_l*((theta_la-theta_a)^2))/n
+    var_p_ij <- ((l_i^2)*p_jgi*(1-p_jgi))/(n_i[j]-1) + (l_i*((p_jgi-p_j)^2))/N
     # equation 8.15a from Quinn and Deriso (1999)
-    mnW_a[i] <- sum(r_la*mnW_la,na.rm=TRUE)/theta_a
+    mn_j[j] <- sum(p_ij*mn_ij,na.rm=TRUE)/p_j
     # 8.15b from Quinn and Deriso (1999)
-    varW_a[i] <- sum((r_la^2)*varW_la + ((mnW_la-mnW_a[i])^2)*var_r_la,na.rm=TRUE)/(theta_a^2)
+    var_j[j] <- sum((p_ij^2)*var_ij + ((mn_ij-mn_j[j])^2)*var_p_ij,na.rm=TRUE)/(p_j^2)
   }
-  res <- data.frame(age=as.numeric(colnames(key)),mean=mnW_a,se=sqrt(varW_a))
+  ## Put it all together and return the result
+  res <- data.frame(age=as.numeric(colnames(key)),mean=mn_j,se=sqrt(var_j))
   rownames(res) <- NULL
-  ## return the result
   message("The 'se' values should not be trusted!")
   res
 }

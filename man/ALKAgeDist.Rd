@@ -15,9 +15,9 @@ ALKAgeDist(key, lenA.n, len.n)
 \value{
 A data.frame with as many rows as ages present in \code{key} and the following three variables:
 \itemize{
+  \item age The ages.
   \item prop The prortion of fish at each age.
   \item se The SE for the proportion of fish at each age.
-  \item cv The CV for the proportion of fish at each age.
  }
 }
 \description{
@@ -57,6 +57,10 @@ ALKAgeDist(WR1.key,lenA.n,len.n)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
+Lai, H.-N.  1987.
+
+Lai, H.-N.  1993.
+
 Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages
 }
 \seealso{

@@ -3,7 +3,8 @@
 \alias{ALKMeanVar}
 \title{Mean Values-at-age from an Age-Length Key}
 \usage{
-ALKMeanVar(formula, data, key, lenA.n, len.n)
+ALKMeanVar(formula, data, key, lenA.n, len.n, method = c("BettoliMiranda",
+  "QuinnDeriso"))
 }
 \arguments{
 \item{formula}{A formula of the form \code{var~length+age} where \dQuote{var} generically represents the variable to be summarized (e.g., length, weight, fecundity), \dQuote{length} generically represents the variable that contains the known length measurements, and \dQuote{age} generically represents the variable that contain the assessed ages.}
@@ -15,6 +16,8 @@ ALKMeanVar(formula, data, key, lenA.n, len.n)
 \item{lenA.n}{A vector of sample sizes for each length interval in the \emph{aged sample}.}
 
 \item{len.n}{A vector of sample sizes for each length interval in the \emph{complete sample} (i.e., all fish regardles of whether they were aged or not).}
+
+\item{method}{A string that indicates which method of calculation should be used.  See details.}
 }
 \value{
 A data.frame with as many rows as ages present in \code{key} and the following three variables:
@@ -50,13 +53,19 @@ lenA.n <- xtabs(~LCat,data=WR1.age)
 raw <- xtabs(~LCat+age,data=WR1.age)
 ( WR1.key <- prop.table(raw, margin=1) )
 
-# use age-length key to estimate age distribution of all fish
+## use age-length key to estimate mean length-at-age of all fish
+# Bettoli-Miranda method
 ALKMeanVar(len~LCat+age,WR1.age,WR1.key,lenA.n,len.n)
+
+# Quinn-Deriso method
+ALKMeanVar(len~LCat+age,WR1.age,WR1.key,lenA.n,len.n,method="QuinnDeriso")
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
+Bettoli,
+
 Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages
 }
 \seealso{
