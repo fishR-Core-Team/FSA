@@ -55,10 +55,9 @@
 #' @export
 ALKAgeDist <- function(key,lenA.n,len.n) {
   ## Some checks
-  num.ages <- ncol(key)
-  num.lens <- nrow(key)
-  if (length(lenA.n)!=num.lens) stop("'lenA.n' and the 'key' have different numbers of length intervals.",call.=FALSE)
-  if (length(lenA.n)!=num.lens) stop("'lenN.n' and the 'key' have different numbers of length intervals.",call.=FALSE)
+  L <- nrow(key)
+  if (length(lenA.n)!=L) stop("'lenA.n' and the 'key' have different numbers of length intervals.",call.=FALSE)
+  if (length(len.n)!=L) stop("'len.n' and the 'key' have different numbers of length intervals.",call.=FALSE)
   
   ## total number of fish sampled
   N <- sum(len.n)

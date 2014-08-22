@@ -3,17 +3,15 @@
 \alias{ALKMeanVar}
 \title{Mean Values-at-age from an Age-Length Key}
 \usage{
-ALKMeanVar(formula, data, key, lenA.n, len.n, method = c("BettoliMiranda",
+ALKMeanVar(key, formula, data, len.n, method = c("BettoliMiranda",
   "QuinnDeriso"))
 }
 \arguments{
-\item{formula}{A formula of the form \code{var~length+age} where \dQuote{var} generically represents the variable to be summarized (e.g., length, weight, fecundity), \dQuote{length} generically represents the variable that contains the known length measurements, and \dQuote{age} generically represents the variable that contain the assessed ages.}
-
-\item{data}{A data.frame that minimally contains the length measurements, assessed ages, and the variable to be summarized (i.e., this should be the aged sample) as given in \code{formula}.}
-
 \item{key}{A numeric matrix that contains the age-length key.  See details.}
 
-\item{lenA.n}{A vector of sample sizes for each length interval in the \emph{aged sample}.}
+\item{formula}{A formula of the form \code{var~lencat+age} where \dQuote{var} generically represents the variable to be summarized (e.g., length, weight, fecundity), \dQuote{lencat} generically represents the variable that contains the length categories, and \dQuote{age} generically represents the variable that contain the assessed ages.}
+
+\item{data}{A data.frame that minimally contains the length measurements, assessed ages, and the variable to be summarized (i.e., this should be the aged sample) as given in \code{formula}.}
 
 \item{len.n}{A vector of sample sizes for each length interval in the \emph{complete sample} (i.e., all fish regardles of whether they were aged or not).}
 
@@ -22,9 +20,9 @@ ALKMeanVar(formula, data, key, lenA.n, len.n, method = c("BettoliMiranda",
 \value{
 A data.frame with as many rows as ages present in \code{key} and the following three variables:
 \itemize{
+  \item age The ages.
   \item mean The mean value at each age.
-  \item se The SE for the mean value at each age.
-  \item cv The CV for the mean value at each age.
+  \item sd,se The SD if \code{method="BettoliMiranda"} or SE of the mean if \code{method="QuinnDeriso"} for the value at each age.
  }
 }
 \description{
@@ -46,19 +44,18 @@ WR1 <- WR79
 WR1$LCat <- lencat(WR1$len,w=5)
 # get number of fish in each length interval in the entire sample
 len.n <- xtabs(~LCat,data=WR1)
-# isolate aged sample and get number in each length interval
+# isolate aged sample
 WR1.age <- Subset(WR1, !is.na(age))
-lenA.n <- xtabs(~LCat,data=WR1.age)
 # create age-length key
 raw <- xtabs(~LCat+age,data=WR1.age)
 ( WR1.key <- prop.table(raw, margin=1) )
 
 ## use age-length key to estimate mean length-at-age of all fish
 # Bettoli-Miranda method
-ALKMeanVar(len~LCat+age,WR1.age,WR1.key,lenA.n,len.n)
+ALKMeanVar(WR1.key,len~LCat+age,WR1.age,len.n)
 
 # Quinn-Deriso method
-ALKMeanVar(len~LCat+age,WR1.age,WR1.key,lenA.n,len.n,method="QuinnDeriso")
+ALKMeanVar(WR1.key,len~LCat+age,WR1.age,len.n,method="QuinnDeriso")
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

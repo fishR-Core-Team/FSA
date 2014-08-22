@@ -4,18 +4,17 @@
 #' 
 #' @details The age-length key sent in \code{key} must be constructed with length intervals as rows and age values as columns.  XXX
 #' 
-#' @param formula A formula of the form \code{var~length+age} where \dQuote{var} generically represents the variable to be summarized (e.g., length, weight, fecundity), \dQuote{length} generically represents the variable that contains the known length measurements, and \dQuote{age} generically represents the variable that contain the assessed ages.
-#' @param data A data.frame that minimally contains the length measurements, assessed ages, and the variable to be summarized (i.e., this should be the aged sample) as given in \code{formula}.
 #' @param key A numeric matrix that contains the age-length key.  See details.
-#' @param lenA.n A vector of sample sizes for each length interval in the \emph{aged sample}.
+#' @param formula A formula of the form \code{var~lencat+age} where \dQuote{var} generically represents the variable to be summarized (e.g., length, weight, fecundity), \dQuote{lencat} generically represents the variable that contains the length categories, and \dQuote{age} generically represents the variable that contain the assessed ages.
+#' @param data A data.frame that minimally contains the length measurements, assessed ages, and the variable to be summarized (i.e., this should be the aged sample) as given in \code{formula}.
 #' @param len.n A vector of sample sizes for each length interval in the \emph{complete sample} (i.e., all fish regardles of whether they were aged or not).
 #' @param method A string that indicates which method of calculation should be used.  See details.
 #' 
 #' @return A data.frame with as many rows as ages present in \code{key} and the following three variables:
 #' \itemize{
+#'   \item age The ages.
 #'   \item mean The mean value at each age.
-#'   \item se The SE for the mean value at each age.
-#'   \item cv The CV for the mean value at each age.
+#'   \item sd,se The SD if \code{method="BettoliMiranda"} or SE of the mean if \code{method="QuinnDeriso"} for the value at each age.
 #'  } 
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
@@ -41,32 +40,32 @@
 #' WR1$LCat <- lencat(WR1$len,w=5)
 #' # get number of fish in each length interval in the entire sample
 #' len.n <- xtabs(~LCat,data=WR1)
-#' # isolate aged sample and get number in each length interval
+#' # isolate aged sample
 #' WR1.age <- Subset(WR1, !is.na(age))
-#' lenA.n <- xtabs(~LCat,data=WR1.age)
 #' # create age-length key
 #' raw <- xtabs(~LCat+age,data=WR1.age)
 #' ( WR1.key <- prop.table(raw, margin=1) )
 #' 
 #' ## use age-length key to estimate mean length-at-age of all fish
 #' # Bettoli-Miranda method
-#' ALKMeanVar(len~LCat+age,WR1.age,WR1.key,lenA.n,len.n)
+#' ALKMeanVar(WR1.key,len~LCat+age,WR1.age,len.n)
 #' 
 #' # Quinn-Deriso method
-#' ALKMeanVar(len~LCat+age,WR1.age,WR1.key,lenA.n,len.n,method="QuinnDeriso")
+#' ALKMeanVar(WR1.key,len~LCat+age,WR1.age,len.n,method="QuinnDeriso")
 #' 
 #' @export
 #' 
-ALKMeanVar <- function(formula,data,key,lenA.n,len.n,method=c("BettoliMiranda","QuinnDeriso")) {
+ALKMeanVar <- function(key,formula,data,len.n,method=c("BettoliMiranda","QuinnDeriso")) {
   ## Some checks
   method <- match.arg(method)
-  num.ages <- ncol(key)
-  num.lens <- nrow(key)
-  if (length(lenA.n)!=num.lens) stop("'lenA.n' and the 'key' have different numbers of length intervals.",call.=FALSE)
-  if (length(lenA.n)!=num.lens) stop("'lenN.n' and the 'key' have different numbers of length intervals.",call.=FALSE)
+  L <- nrow(key)
+  if (length(len.n)!=L) stop("'len.n' and the 'key' have different numbers of length intervals.",call.=FALSE)
+  ## Main calculations (in internal functions)
   switch(method,
-         BettoliMiranda= {iALKMean.BM(formula,data,key,n_i=lenA.n,N_i=len.n)},
-         QuinnDeriso=    {iALKMean.QD(formula,data,key,n_i=lenA.n,N_i=len.n)})
+         BettoliMiranda= { res=iALKMean.BM(key,formula,data,N_i=len.n) },
+         QuinnDeriso=    { res=iALKMean.QD(key,formula,data,N_i=len.n) }
+         )
+  res
 }
 
 
@@ -74,10 +73,10 @@ ALKMeanVar <- function(formula,data,key,lenA.n,len.n,method=c("BettoliMiranda","
 ## Internal function for Bettoli-Miranda method 
 ##   equations 3 and 4b
 ##############################################################
-iALKMean.BM <- function(formula,data,key,n_i,N_i) {
-  ## Compute mean by length and age (suppress warnings)
+iALKMean.BM <- function(key,formula,data,N_i) {
+  ## Compute means by length and age (suppress warnings)
   options(warn=-1)
-  mns <- sumTable(formula,data,FUN=mean)
+  mn_ij <- sumTable(formula,data,FUN=mean)
   options(warn=0)
   ## Get overall number by length and age
   N_ij <- sweep(key,MARGIN=1,FUN="*",STATS=N_i)
@@ -89,8 +88,13 @@ iALKMean.BM <- function(formula,data,key,n_i,N_i) {
   mn_j <- var_j <- numeric(A)
   ## Loop through the ages
   for (j in 1:A) {
-    mn_j[j] <- sum(N_ij[,j]*mns[,j],na.rm=TRUE)/N_j[j] 
-    var_j[j] <- sum(N_ij[,j]*((mns[,j]-mn_j[j])^2),na.rm=TRUE)/(N_j[j]-1)
+    ## These are the formulas in Bettoli and Miranda (2001)
+    mn_j[j] <- sum(N_ij[,j]*mn_ij[,j],na.rm=TRUE)/N_j[j] 
+    var_j[j] <- sum(N_ij[,j]*((mn_ij[,j]-mn_j[j])^2),na.rm=TRUE)/(N_j[j]-1) 
+    ## These are the equivalent formulas in IFSWR (would need to
+    ##   define N <- sum(N_i) and p_ij <- N_ij/N before loop.)  
+    #mn_j[j] <- sum(p_ij[,j]*mn_ij[,j],na.rm=TRUE)/N_j[j]*N 
+    #var_j[j] <- sum(p_ij[,j]*((mn_ij[,j]-mn_j[j])^2),na.rm=TRUE)/(N_j[j]-1)*N
   }
   res <- data.frame(age=as.numeric(colnames(key)),mean=mn_j,sd=sqrt(var_j))
   rownames(res) <- NULL
@@ -102,14 +106,17 @@ iALKMean.BM <- function(formula,data,key,n_i,N_i) {
 ## Internal function for Quinn-Deriso method 
 ##   equations 8.15a and 8.15b
 ##############################################################
-iALKMean.QD <- function(formula,data,key,n_i,N_i) {
-  ## Compute mean and variance by length and age (suppress warnings)
+iALKMean.QD <- function(key,formula,data,N_i) {
+  ## Compute ns, means, and variances by length and age (suppress warnings)
   options(warn=-1)
-  mns <- sumTable(formula,data,FUN=mean)
+  n_ij <- sumTable(formula,data,FUN=length)
+  mn_ij <- sumTable(formula,data,FUN=mean)
   # Not sure from Q&D if this should be divided by sqrt(n) or not
-  vars <- sumTable(formula,data,FUN=var)/sqrt(sumTable(formula,data,FUN=length))
+  var_ij <- sumTable(formula,data,FUN=var)/sqrt(sumTable(formula,data,FUN=length))
+  #var_ij <- sumTable(formula,data,FUN=var)/sqrt(sumTable(formula,data,FUN=length))
   options(warn=0)
-  
+  ## Get the number in aged sample in each length
+  n_i <- colSums(n_ij,na.rm=TRUE)
   ## total number of fish sampled
   N <- sum(N_i)
   ## proportion of total fish sampled by length interval
@@ -122,18 +129,15 @@ iALKMean.QD <- function(formula,data,key,n_i,N_i) {
   for (j in 1:A) {
     # top of page 305 from Quinn and Deriso (1999)
     p_jgi <- key[,j]
-    # extract "age" columns from the mean and variance matrices
-    mn_ij <- mns[,j]
-    var_ij <- vars[,j]
     # equation 8.14a from Quinn and Deriso (1999) ... correct from ALKAgeDist
     p_ij <- l_i*p_jgi
     p_j <- sum(p_ij)
     # RHS equivalency of 8.14b and 8.14c from Quinn and Deriso (1999) ... correct from ALKAgeDist
     var_p_ij <- ((l_i^2)*p_jgi*(1-p_jgi))/(n_i[j]-1) + (l_i*((p_jgi-p_j)^2))/N
     # equation 8.15a from Quinn and Deriso (1999)
-    mn_j[j] <- sum(p_ij*mn_ij,na.rm=TRUE)/p_j
+    mn_j[j] <- sum(p_ij*mn_ij[,j],na.rm=TRUE)/p_j
     # 8.15b from Quinn and Deriso (1999)
-    var_j[j] <- sum((p_ij^2)*var_ij + ((mn_ij-mn_j[j])^2)*var_p_ij,na.rm=TRUE)/(p_j^2)
+    var_j[j] <- sum((p_ij^2)*var_ij[,j] + ((mn_ij[,j]-mn_j[j])^2)*var_p_ij,na.rm=TRUE)/(p_j^2)
   }
   ## Put it all together and return the result
   res <- data.frame(age=as.numeric(colnames(key)),mean=mn_j,se=sqrt(var_j))

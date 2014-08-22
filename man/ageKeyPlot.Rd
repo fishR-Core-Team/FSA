@@ -5,9 +5,9 @@
 \usage{
 ageKeyPlot(key, type = c("barplot", "area", "lines", "splines", "bubble"),
   xlab = "Length", ylab = ifelse(type != "bubble", "Proportion", "Age"),
-  showLegend = FALSE, lbl.cex = 1.25, leg.cex = 1, lwd = 2,
-  span = 0.25, grid = TRUE, col = "gray80", buf = 0.45, add = FALSE,
-  xlim = NULL, ylim = NULL, ...)
+  xlim = NULL, ylim = NULL, showLegend = FALSE, lbl.cex = 1.25,
+  leg.cex = 1, lwd = 2, span = 0.25, pal = paletteChoices(),
+  grid = TRUE, col = "gray80", buf = 0.45, add = FALSE, ...)
 }
 \arguments{
 \item{key}{A numeric matrix that contains the age-length key.}
@@ -36,11 +36,13 @@ ageKeyPlot(key, type = c("barplot", "area", "lines", "splines", "bubble"),
 
 \item{col}{A string that indicates the color of the bubbles when \code{type="bubble"}.}
 
+\item{pal}{A string that indicates the palette to generate colors for the bars, areas, lines, or spline lines.  The name of a palette must be one of \dQuote{rich}, \dQuote{cm}, \dQuote{default}, \dQuote{grey}, \dQuote{gray}, \dQuote{heat}, \dQuote{jet}, \dQuote{rainbow}, \dQuote{topo}, or \dQuote{terrain}.  See \code{\link{chooseColors}}.}
+
 \item{buf}{A single numeric that indicates the relative width of the bubbles when \code{type="bubble"}. A value of 0.5 would mean that two full-width bubbles would touch each other either in the x- or y-direction (i.e., this would represent half of the minimum of the physical distance between values one-unit apart on the x- and y-axes).  Set this to a value less than 0.5 so that the bubbles will not touch (the default is 0.45).}
 
 \item{add}{A logical that indicates whether the data should be added to an already existing plot.  May be useful for visually comparing age-length keys.  Only implemented when \code{type="bubble"}.}
 
-\item{\dots}{Additional arguments to pass to \code{plot}, \code{barplot}, or \code{stackpoly}.}
+\item{\dots}{Additional arguments to pass to \code{plot} or \code{barplot}.}
 }
 \value{
 None, but a plot is constructed.
@@ -72,10 +74,14 @@ raw <- xtabs(~LCat+age,data=WR.age)      # create age-length key
 
 ## Various visualizations of the age-length key
 ageKeyPlot(WR.key,"barplot")
+ageKeyPlot(WR.key,"barplot",pal="gray")
 ageKeyPlot(WR.key,"barplot",showLegend=TRUE)
-ageKeyPlot(WR.key,"area",showLegend=TRUE)
-ageKeyPlot(WR.key,"splines")
+ageKeyPlot(WR.key,"area")
+ageKeyPlot(WR.key,"area",pal="gray")
 ageKeyPlot(WR.key,"lines")
+ageKeyPlot(WR.key,"lines",pal="gray")
+ageKeyPlot(WR.key,"splines")
+ageKeyPlot(WR.key,"splines",span=0.2)
 ageKeyPlot(WR.key,"bubble")
 ageKeyPlot(WR.key,"bubble",grid=FALSE)
 ageKeyPlot(WR.key,"bubble",grid="blue")
