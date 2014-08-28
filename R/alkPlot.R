@@ -1,16 +1,16 @@
 #' @title Plots to visualize age-length keys.
 #' 
-#' @description Various plots to visualize the proportion of fish of certain ages within length categories in an age-length key.
+#' @description Various plots to visualize the proportion of fish of certain ages within length intervals in an age-length key.
 #' 
-#' @details A variety of plots can be used to visualize the proportion of fish of certain ages withing length categories of an age-length key.  The types of plots are described below and illustrated in the examples.
+#' @details A variety of plots can be used to visualize the proportion of fish of certain ages within length intervals of an age-length key.  The types of plots are described below and illustrated in the examples.
 #' \itemize{
-#'   \item A \dQuote{stacked} bar chart where vertical bars over length categories that each sum to 1 but are segmented by the proportion of each age in that length category is constructed with \code{type="barplot"}.  The ages will be labeled in the bar segments unless \code{showLegend=TRUE} is used.
-#'   \item A \dQuote{stacked} are chart similar to the bar chart described above is constructed with \code{type="area"}.
-#'   \item A plot with (different colored) lines that connect the proportions of ages within each length category is constructed with \code{type="lines"}.
-#'   \item A plot with (different colored) lines, as estimated by loess splines, that connect the proportions of ages within each length category is constructed with \code{type="splines"}.
-#'   \item A \dQuote{bubble} plot where circles whose size is proportional to the proportion of fish of each age in each length category is constructed with \code{type="bubble"}.  The color of the bubbles can be controlled with \code{col=} and an underlying grid for ease of seeing the age and length category for each bubble can be controlled with \code{grid=}.  Bubbles from a second age-length key can be overlaid on an already constructed bubble plot by using \code{add=TRUE} in a second call to \code{ageKeyPlot}.
+#'   \item A \dQuote{stacked} bar chart where vertical bars over length intervals that each sum to 1 but are segmented by the proportion of each age in that length interval is constructed with \code{type="barplot"}.  The ages will be labeled in the bar segments unless \code{showLegend=TRUE} is used.
+#'   \item A \dQuote{stacked} area chart similar to the bar chart described above is constructed with \code{type="area"}.
+#'   \item A plot with (different colored) lines that connect the proportions of ages within each length interval is constructed with \code{type="lines"}.
+#'   \item A plot with (different colored) lines, as estimated by loess splines, that connect the proportions of ages within each length interval is constructed with \code{type="splines"}.
+#'   \item A \dQuote{bubble} plot where circles whose size is proportional to the proportion of fish of each age in each length interval is constructed with \code{type="bubble"}.  The color of the bubbles can be controlled with \code{col=} and an underlying grid for ease of seeing the age and length interval for each bubble can be controlled with \code{grid=}.  Bubbles from a second age-length key can be overlaid on an already constructed bubble plot by using \code{add=TRUE} in a second call to \code{alkPlot}.
 #' }
-#' Note that all plots are \dQuote{vertically conditional} -- i.e., each represents the proportional ages WITHIN each length category.
+#' Note that all plots are \dQuote{vertically conditional} -- i.e., each represents the proportional ages WITHIN each length interval.
 #' 
 #' @param key A numeric matrix that contains the age-length key.
 #' @param type A string that indicates the type of plot to construct.  See details.
@@ -18,7 +18,7 @@
 #' @param ylab A string that contains the label for the y-axis.
 #' @param xlim A numeric of length 2 that provide the limits for the x-axis.
 #' @param ylim A numeric of length 2 that provide the limits for the y-axis.
-#' @param showLegend A logical that indicates whether a legend should be displayed for when \code{type="barplot"} and \code{type="area"}.  See examples.
+#' @param showLegend A logical that indicates whether a legend should be displayed (not implemented for \code{type="bubble"}).  See examples.
 #' @param lbl.cex A numeric character expansion value for labels inside the bars when \code{type="barplot"} and \code{showLegend=FALSE} or on the lines when \code{type="lines"} or \code{type="splines"}.
 #' @param leg.cex A numeric character expansion value for labels on the legend when \code{type="barplot"} or \code{type="area"} and \code{showLegend=TRUE}.
 #' @param lwd A numeric that indicates the line width for when \code{type="lines"} or \code{type="splines"}.
@@ -34,7 +34,7 @@
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
-#' @seealso See \code{\link{ageKey}} for using an age-length key to assign ages to individual fish and \code{\link{ageKeyPrep}} to \dQuote{fix} ill-formed age-length keys.
+#' @seealso See \code{\link{alkIndivAge}} for using an age-length key to assign ages to individual fish and \code{\link{alkPrep}} to \dQuote{fix} ill-formed age-length keys.
 #' 
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeLengthKey.pdf}
 #' 
@@ -44,50 +44,67 @@
 #' ## Make an example age-length key -- same as in ageKey()
 #' data(WR79)
 #' WR.age <- Subset(WR79, !is.na(age))      # isolate the age sample
-#' WR.age$LCat <- lencat(WR.age$len,w=5)    # add length categories (width=5)
+#' WR.age$LCat <- lencat(WR.age$len,w=5)    # add length intervals (width=5)
 #' raw <- xtabs(~LCat+age,data=WR.age)      # create age-length key
 #' ( WR.key <- prop.table(raw, margin=1) )
 #'
 #' ## Various visualizations of the age-length key
-#' ageKeyPlot(WR.key,"barplot")
-#' ageKeyPlot(WR.key,"barplot",pal="gray")
-#' ageKeyPlot(WR.key,"barplot",showLegend=TRUE)
-#' ageKeyPlot(WR.key,"area")
-#' ageKeyPlot(WR.key,"area",pal="gray")
-#' ageKeyPlot(WR.key,"lines")
-#' ageKeyPlot(WR.key,"lines",pal="gray")
-#' ageKeyPlot(WR.key,"splines")
-#' ageKeyPlot(WR.key,"splines",span=0.2)
-#' ageKeyPlot(WR.key,"bubble")
-#' ageKeyPlot(WR.key,"bubble",grid=FALSE)
-#' ageKeyPlot(WR.key,"bubble",grid="blue")
-#' ageKeyPlot(WR.key,"bubble",grid=rgb(0,0,0,0.2),col=rgb(0,0,0,0.5))
+#' alkPlot(WR.key,"barplot")
+#' alkPlot(WR.key,"barplot",pal="gray")
+#' alkPlot(WR.key,"barplot",showLegend=TRUE)
+#' alkPlot(WR.key,"area")
+#' alkPlot(WR.key,"area",showLegend=TRUE)
+#' alkPlot(WR.key,"area",pal="gray")
+#' alkPlot(WR.key,"lines")
+#' alkPlot(WR.key,"lines",pal="gray")
+#' alkPlot(WR.key,"lines",showLegend=TRUE)
+#' alkPlot(WR.key,"splines")
+#' alkPlot(WR.key,"splines",span=0.2)
+#' alkPlot(WR.key,"splines",pal="gray",showLegend=TRUE)
+#' alkPlot(WR.key,"bubble")
+#' alkPlot(WR.key,"bubble",grid=FALSE)
+#' alkPlot(WR.key,"bubble",grid="blue")
+#' alkPlot(WR.key,"bubble",grid=rgb(0,0,0,0.2),col=rgb(0,0,0,0.5))
 #'
-#' @export
+#' @export ageKeyPlot
+#' @rdname alkPlot
 ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
-                      xlab="Length",ylab=ifelse(type!="bubble","Proportion","Age"),
-                      xlim=NULL,ylim=NULL,
-                      showLegend=FALSE,lbl.cex=1.25,leg.cex=1,
-                      lwd=2,span=0.25,
-                      pal = paletteChoices(),
-                      grid=TRUE,col="gray80",buf=0.45,add=FALSE,
-                      ...) {
-  op <- par(mar=c(3.25,3.25,0.7,0.7),mgp=c(1.7,0.5,0),tcl=-0.2)
-  # check key (allow for some minimal rounding error)
-  key.rowSum <- rowSums(key)
-  if (any(key.rowSum>0.01 & key.rowSum<0.99)) warning("Key contains a row that does not sum to 0 or 1.",call.=FALSE)
-  # match arguments
+                       xlab="Length",ylab=ifelse(type!="bubble","Proportion","Age"),
+                       xlim=NULL,ylim=NULL,
+                       showLegend=FALSE,lbl.cex=1.25,leg.cex=1,
+                       lwd=2,span=0.25,
+                       pal = paletteChoices(),
+                       grid=TRUE,col="gray80",buf=0.45,add=FALSE,
+                       ...) {
+  warning("'ageKeyPlot' is deprecated and will be removed by v1.0.0.  Please use 'alkPlot' instead.",call.=FALSE)
+  alkPlot(key,type,xlab,ylab,xlim,ylim,showLegend,lbl.cex,leg.cex,
+          lwd,span,pal,grid,col,buf,add,...)
+}
+
+#' @export alkPlot
+#' @rdname alkPlot
+alkPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
+                    xlab="Length",ylab=ifelse(type!="bubble","Proportion","Age"),
+                    xlim=NULL,ylim=NULL,
+                    showLegend=FALSE,lbl.cex=1.25,leg.cex=1,
+                    lwd=2,span=0.25,
+                    pal = paletteChoices(),
+                    grid=TRUE,col="gray80",buf=0.45,add=FALSE,
+                    ...) {
+  ## Some checks
   type <- match.arg(type)
   pal <- match.arg(pal)
-  # construct the plots (all internal functions)
+  iCheckALK(key)
+  ## construct the plots (all internal functions)
+  op <- par(mar=c(3.25,3.25,0.7,0.7),mgp=c(1.7,0.5,0),tcl=-0.2)
   switch(type,
          area=    { iALKPlotArea(key,xlab,ylab,showLegend,leg.cex,pal) },
          barplot= { iALKPlotBar(key,xlab,ylab,lbl.cex,showLegend,leg.cex,pal,...) },
          bubble=  { iALKPlotBubble(key,xlab,ylab,xlim,ylim,grid,buf,col,add,...) },
-         lines=   { iALKPlotLines(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,pal,...) },
-         splines= { iALKPlotSplines(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,pal,...) }
+         lines=   { iALKPlotLines(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,pal,showLegend,leg.cex,...) },
+         splines= { iALKPlotSplines(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,pal,showLegend,leg.cex,...) }
   )
-  # return to original graphing parameters
+  ## return to original graphing parameters
   layout(1)
   par(op)
 }
@@ -106,20 +123,21 @@ iFindAgesAndLens <- function(key) {
 }
 
 ##############################################################
-## INTERNAL -- Setup a figure layout if a legend is added to
-##   bar or area plot
+## INTERNAL -- Add a legend
 ##############################################################
-iPrepLayoutForLegend <- function(){
-  layout(matrix(c(2,1),nrow=2),heights=c(1,14))
+iAddLegend <- function(alsum,leg.cex,col){
+  layout(matrix(c(1,2),nrow=2),heights=c(1,14))
+  op <- par(mar=c(0.2,11.0,0.2,8.0))
+  barplot(matrix(1,nrow=alsum$num.ages,ncol=1),col=col,horiz=TRUE,xaxt="n")
+  text(c(1,alsum$num.ages)-0.5,c(0.75,0.75),range(alsum$ages),col=c("white","black"),cex=leg.cex) 
+  par(op)
 }
 
 ##############################################################
-## INTERNAL -- Add a legend to bar or area plot
+## INTERNAL -- Add age labels to lines in line and spline plots
 ##############################################################
-iAddLegend <- function(alsum,leg.cex,col){
-  par(mar=c(0.2,11.0,0.2,8.0))
-  barplot(matrix(1,nrow=alsum$num.ages,ncol=1),col=col,horiz=TRUE,xaxt="n")
-  text(c(1,alsum$num.ages)-0.5,c(0.75,0.75),range(alsum$ages),col=c("white","black"),cex=leg.cex) 
+iLinesAddLabelsToLines <- function(maxvals,lbl.cex) {
+  text(maxvals[,1],maxvals[,2],maxvals[,3],cex=lbl.cex)
 }
 
 
@@ -127,18 +145,12 @@ iAddLegend <- function(alsum,leg.cex,col){
 ## Internal function to make the area plot
 ##############################################################
 iALKPlotArea <- function(key,xlab,ylab,showLegend,leg.cex,pal) {
-  # Get ages and lengths summaries
-  alsum <- iFindAgesAndLens(key)
-  # Create colors for the areas in the bar and poly plots
-  col <- chooseColors(pal,alsum$num.ages)
   if (any(is.na(rowSums(key)))) stop("A stacked area plot cannot be constructed with a 'key' that has lengths with no ages.",call.=FALSE)
-  else {
-    if (showLegend) iPrepLayoutForLegend()
-    plotrix::stackpoly(key,stack=TRUE,col=col,axis4=FALSE,xlab=xlab,ylab=ylab,xaxt="n",xat=0)
-    axis(1,1:alsum$num.lens,alsum$lens)
-    if (showLegend) iAddLegend(alsum,leg.cex,col)
-  }
-  
+  alsum <- iFindAgesAndLens(key)
+  col <- chooseColors(pal,alsum$num.ages)
+  if (showLegend) iAddLegend(alsum,leg.cex,col)
+  plotrix::stackpoly(key,stack=TRUE,col=col,axis4=FALSE,xlab=xlab,ylab=ylab,xaxt="n",xat=0)
+  axis(1,1:alsum$num.lens,alsum$lens)
 }  
 
 ##############################################################
@@ -167,35 +179,20 @@ iBarplotAddLabelsToBars <- function(key,alsum,lbl.cex,col,...) {
 }
 
 iALKPlotBar <- function(key,xlab,ylab,lbl.cex,showLegend,leg.cex,pal,...) {
-  # Get ages and lengths summaries
   alsum <- iFindAgesAndLens(key)
-  # Create colors for the areas in the bar and poly plots
   col <- chooseColors(pal,alsum$num.ages)
-  if (showLegend) iPrepLayoutForLegend()
+  if (showLegend) iAddLegend(alsum,leg.cex,col)
   barplot(t(key),space=0,col=col,xlab=xlab,ylab=ylab,...)
-  if (showLegend) { 
-    iAddLegend(alsum,leg.cex,col)
-  } else {
-    iBarplotAddLabelsToBars(key,alsum,lbl.cex,col)
-  }
-}
-
-##############################################################
-## INTERNAL -- Add age labels to lines in line and spline plots
-##############################################################
-iLinesAddLabelsToLines <- function(maxvals,lbl.cex) {
-  text(maxvals[,1],maxvals[,2],maxvals[,3],cex=lbl.cex)
+  if (!showLegend) iBarplotAddLabelsToBars(key,alsum,lbl.cex,col)
 }
 
 ##############################################################
 ## Internal function to make the lines plot
 ##############################################################
-iALKPlotLines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,pal,...) {
-  # Get ages and lengths summaries
+iALKPlotLines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,pal,showLegend,leg.cex,...) {
   alsum <- iFindAgesAndLens(key)
-  # Create colors for the lines in the line plots
   col <- chooseColors(pal,alsum$num.ages)
-  # Handle axes limits  
+  if (showLegend) iAddLegend(alsum,leg.cex,col)
   if (is.null(xlim)) xlim <- range(alsum$lens)
   if (is.null(ylim)) ylim <- c(0,1)
   plot(NA,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...)
@@ -205,18 +202,16 @@ iALKPlotLines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,pal,...) {
     tmp <- min(which(key[,i]==max(key[,i],na.rm=TRUE)))
     maxvals[i,] <- c(alsum$lens[tmp],key[tmp,i],alsum$ages[i])
   }
-  iLinesAddLabelsToLines(maxvals,lbl.cex)  
+  if (!showLegend) iLinesAddLabelsToLines(maxvals,lbl.cex)  
 }
 
 ##############################################################
 ## Internal function to make the splines plot
 ##############################################################
-iALKPlotSplines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,pal,...) {
-  # Get ages and lengths summaries
+iALKPlotSplines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,pal,showLegend,leg.cex,...) {
   alsum <- iFindAgesAndLens(key)
-  # Create colors for the lines in the line plots
   col <- chooseColors(pal,alsum$num.ages)
-  # Handle axes limits  
+  if (showLegend) iAddLegend(alsum,leg.cex,col)
   if (is.null(xlim)) xlim <- range(alsum$lens)
   if (is.null(ylim)) ylim <- c(0,1)
   plot(NA,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...)
@@ -233,9 +228,8 @@ iALKPlotSplines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,pal,...) {
     tmp <- min(which(pprob==max(pprob)))
     maxvals[i,] <- c(plens[tmp],pprob[tmp],alsum$ages[i])
   }
-  iLinesAddLabelsToLines(maxvals,lbl.cex)
+  if (!showLegend) iLinesAddLabelsToLines(maxvals,lbl.cex)
 }
-
 
 ##############################################################
 ## Internal function to create the bubble plot
@@ -289,4 +283,3 @@ iALKPlotBubble <- function(key,xlab,ylab,xlim,ylim,grid,buf,col,add,...) {
   }
   iBubblesAdd(key,alsum,buf,col)
 }
-

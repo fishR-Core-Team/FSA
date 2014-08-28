@@ -1,8 +1,12 @@
 # FSA 0.4.24 ongoing
-* `ageKey()`: Modified.  Moved all internal functions outside of `ageKey()` environment (and renamed them).
-* `ageKeyPlot()`: Modified.  Create internal functions for each plot type.  Fixed bug with adding legend to bar and area plots.  Allowed legend to be removed from area plot.  Added `pal=` to allow choice of color palette for areas in bar and area plot and lines in lines and splines plots.  Moved all internal functions outside of `ageKeyPlot()` environment (and renamed them).
-* `ALKAgeDist()`: Added.
-* `ALKMeanVar()`: Added.
+* `ageKey()`: Deprecated.  See `alkIndAge()`.
+* `ageKeyPlot()`: Deprecated.  See `alkPlot()`.
+* `ageKeyPrep()`: Deprecated.  See `alkPrep()`.
+* `alkAgeDist()`: Added.
+* `alkIndAge()`: Added.  Was `ageKey()`.  Moved all internal functions outside of `alkIndAge()` environment (and renamed them).
+* `alkMeanVar()`: Added.
+* `alkPlot()`: Added.  Was `ageKeyPlot()`.  Create internal functions for each plot type.  Fixed bug with colrs when adding legend to bar and area plots.  Allowed legend to be removed from area plot.  Added ability to add a legend to the lines and splines plot.  Added `pal=` to allow choice of color palette for areas in bar and area plot and lines in lines and splines plots.  Moved all internal functions outside of `alkPlot()` environment (and renamed them).
+* `alkPrep()`: Added.  Was `ageKeyPrep()`.
 * `summary.mrOpen()`: Modified.  Removed "Estimates" heading if `verbose=FALSE`.
 * `Summarize()`: Modified.  Moved all internal functions outside of `Summarize()` environment (and renamed them).
 

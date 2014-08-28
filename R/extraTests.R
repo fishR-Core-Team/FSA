@@ -1,12 +1,12 @@
 #' @title Likelihood ratio and extra sum-of-squares tests.
 #' 
-#' @description Likelihood ratio and extra sum-of-squares tests with multiple models nested at the same level below one commond model.
+#' @description Likelihood ratio and extra sum-of-squares tests with multiple models nested at the same level below one common model.
 #' 
-#' @details \code{anova()} and \code{lrtest()} (from \pkg{lmtest}) provide simple methods for conduction extra sum-of-squares or likelihood ratio tests when one model is nested within another model or when there are several layers of single models all nested within each other.  However, to compare several models that are nested at the same level with one common more complex model then \code{anova()} and \code{lrtest()} need to be repeated for each comparison.  This repetion can be eliminated with \code{lapply()} but then the output is voluminous.  This function is designed to remove the reptitiveness and to provide output that compact and easy to read.
+#' @details \code{anova()} and \code{lrtest()} (from \pkg{lmtest}) provide simple methods for conducting extra sum-of-squares or likelihood ratio tests when one model is nested within another model or when there are several layers of simple models all nested within each other.  However, to compare several models that are nested at the same level with one common more complex model then \code{anova()} and \code{lrtest()} need to be repeated for each comparison.  This repetition can be eliminated with \code{lapply()} but then the output is voluminous.  This function is designed to remove the repetitiveness and to provide output that is compact and easy to read.
 #' 
 #' @note This is experimental at this point.  It seems to work fine for \code{nls} models but has not been tested thoroughly or with other types of models.
 #' 
-#' @param sim The results of one \code{lm} or \code{nls} model, for example, that is a nested subsets of the model in \code{com=}.
+#' @param sim The results of one \code{lm} or \code{nls} model, for example, that is a nested subset of the model in \code{com=}.
 #' @param \dots More model results that are nested subsets of the model in \code{com=}.
 #' @param com The results of one \code{lm} or \code{nls} model, for example, that the models in \code{sim=} and \code{\dots} are a subset of.
 #' @param x An object from \code{lrt()} or \code{extraSS()}.

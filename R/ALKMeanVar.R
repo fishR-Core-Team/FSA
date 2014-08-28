@@ -20,11 +20,11 @@
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
 #' @references
-#' Bettoli,
+#' Bettoli, P. W. and Miranda, L. E.  2001. A cautionary note about estimating mean length at age with subsampled data. North American Journal of Fisheries Management, 21:425-428.
 #'  
 #' Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages
 #'
-#' @seealso  See \code{\link{ageKey}} and related functions for a completely different methodology.  See \code{\link{ALKAgeDist}} for a related method of determining the proportion of fish at each age.
+#' @seealso  See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{\link{alkAgeDist}} for a related method of determining the proportion of fish at each age.
 #' 
 #' @section fishR vignette: none yet.
 #'
@@ -48,14 +48,14 @@
 #' 
 #' ## use age-length key to estimate mean length-at-age of all fish
 #' # Bettoli-Miranda method
-#' ALKMeanVar(WR1.key,len~LCat+age,WR1.age,len.n)
+#' alkMeanVar(WR1.key,len~LCat+age,WR1.age,len.n)
 #' 
 #' # Quinn-Deriso method
-#' ALKMeanVar(WR1.key,len~LCat+age,WR1.age,len.n,method="QuinnDeriso")
+#' alkMeanVar(WR1.key,len~LCat+age,WR1.age,len.n,method="QuinnDeriso")
 #' 
 #' @export
 #' 
-ALKMeanVar <- function(key,formula,data,len.n,method=c("BettoliMiranda","QuinnDeriso")) {
+alkMeanVar <- function(key,formula,data,len.n,method=c("BettoliMiranda","QuinnDeriso")) {
   ## Some checks
   method <- match.arg(method)
   L <- nrow(key)

@@ -1,30 +1,30 @@
-#' @title Use an age-length key to assign age to individuals in a length sample.
+#' @title Use an age-length key to assign age to individuals in the unaged sample.
 #'
-#' @description Use either the semi- or completely-random methods from Isermann and Knight (2005) to assign ages to individual fish in a length-sample according to the information in an age-length key supplied by the user. 
+#' @description Use either the semi- or completely-random methods from Isermann and Knight (2005) to assign ages to individual fish in the unaged sample according to the information in an age-length key supplied by the user. 
 #'
-#' @details The age-length key sent in \code{key} must be constructed with length intervals as rows and age values as columns.  The row names of \code{key} (i.e., \code{rownames(key)}) must contain the mininum values of each length interval (e.g., if an interval is 100-109 then the corresponding row name must be 100).  The column names of \code{key} (i.e., \code{colnames(key)}) must contain the age values (e.g., the columns can NOT be named with \dQuote{age.1}, for example).
+#' @details The age-length key sent in \code{key} must be constructed with length intervals as rows and ages as columns.  The row names of \code{key} (i.e., \code{rownames(key)}) must contain the mininum values of each length interval (e.g., if an interval is 100-109 then the corresponding row name must be 100).  The column names of \code{key} (i.e., \code{colnames(key)}) must contain the age values (e.g., the columns can NOT be named with \dQuote{age.1}, for example).
 #'
-#' The length intervals in the rows of the age-length key sent in \code{key} must contain all of the length intervals present in the length sample to which the age-length key is to be applied (i.e., sent in the \dQuote{length} portion of the \code{formula}).  If this constraint is not met, then the function will stop with an error message.  See \code{\link{ageKeyPrep}} for help preparing some ill-formed age-length keys for use with this function.
+#' The length intervals in the rows of \code{key} must contain all of the length intervals present in the length sample to which the age-length key is to be applied (i.e., sent in the \dQuote{length} portion of the \code{formula}).  If this constraint is not met, then the function will stop with an error message.  See \code{\link{alkPrep}} for help preparing some ill-formed age-length keys for use with this function.
 #'
-#' If \code{breaks=NULL} then the length categories for the length sample are determined with a starting category as the minimum value of the row names and a width of the length interval categories as determined by the minimum difference in adjacent row names of the age-length key matrix.  If length categories of differing widths were used in construction of the age-length key, then those breaks should be supplied to \code{breaks=}.  Use of \code{breaks=} may be useful when \dQuote{uneven} length categories widths must be used because the lengths in the length sample are not fully represented in the age sample.  See the examples below.
+#' If \code{breaks=NULL} then the length intervals for the unaged sample will be determined with a starting interval at the minimum value of the row names in \code{key} and a width of the length intervals as determined by the minimum difference in adjacent row names of \code{key}.  If length intervals of differing widths were used when constructing \code{key}, then those breaks should be supplied to \code{breaks=}.  Use of \code{breaks=} may be useful when \dQuote{uneven} length interval widths must be used because the lengths in the unaged sample are not fully represented in the aged sample.  See the examples.
 #'
 #' Assigned ages will be stored in the column identified in the left-hand-side of \code{formula} (if the formula has both a left- and right-hand-side).  If this variable is missing in \code{formula}, then the new column wil be labeled with \code{age}.
 #'
-#' @param key A numeric matrix that contains the age-length key.  See details.
-#' @param formula A formula of the form \code{age~length} where \dQuote{age} generically represents thevariable that will contain the estimated age measurements once the key is applied (i.e., should currently contain no values) and \dQuote{length} generically represents the variable that contains the known length measurements.  If only \code{~length} is used, then a new variable called \dQuote{age} will be created in the resulting data frame.
+#' @param key A numeric matrix that contains the age-length key.  The format of this matrix is important.  See details.
+#' @param formula A formula of the form \code{age~length} where \dQuote{age} generically represents the variable that will contain the estimated age measurements once the key is applied (i.e., should currently contain no values) and \dQuote{length} generically represents the variable that contains the known length measurements.  If only \code{~length} is used, then a new variable called \dQuote{age} will be created in the resulting data frame.
 #' @param data A data.frame that minimally contains the length measurements and possibly contains a variable that will receive the age assignments as given in \code{formula}.
-#' @param type A string that indicates whether to use the semi-random (\code{type="SR"}, default) or completely-random (\code{type="CR"}) techniques for assigning ages to individual fish.  See the fishR vignette for more details.
-#' @param breaks A numeric vector of lower values that define the length category breaks.
+#' @param type A string that indicates whether to use the semi-random (\code{type="SR"}, default) or completely-random (\code{type="CR"}) methods for assigning ages to individual fish.  See the fishR vignette for more details.
+#' @param breaks A numeric vector of lower values that define the length intervals.  See details.
 #' 
-#' @return The original data frame in \code{data} with assigned ages added to the column supplied in \code{formula} or in an additional column labeled as \code{age} (see details).
+#' @return The original data.frame in \code{data} with assigned ages added to the column supplied in \code{formula} or in an additional column labeled as \code{age}.  See details.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}.  This is largely an R version of the SAS code provided by Isermann and Knight (2005).
 #'
 #' @references Isermann, D.A. and C.T. Knight.  2005.  \href{http://www.tandfonline.com/doi/abs/10.1577/M04-130.1}{A computer program for age-length keys incorporating age assignment to individual fish.}  North American Journal of Fisheries Management, 25:1153-1160.  
 #'
-#' @seealso  See \code{\link{ageKeyPlot}} for methods to visualize age-length keys and \code{\link{ageKeyPrep}} for methods to prepare ill-formed age-length keys (e.g., length categories with no aged fish) for this function.
+#' @seealso  See \code{\link{alkPlot}} for methods to visualize age-length keys and \code{\link{alkPrep}} for methods to prepare ill-formed age-length keys (e.g., length intervals with no aged fish) for this function.
 #' 
-#' See \code{alk}, \code{alkprop}, and \code{alkss} in \pkg{fishmethods} and the entire \pkg{ALKr} package for functionality with a similar purpose but different methodology.
+#' See \code{alk} and \code{alkprop} in \pkg{fishmethods} and the entire \pkg{ALKr} package for functionality with a similar purpose but different methodology.
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeLengthKey.pdf}
 #'
@@ -36,49 +36,57 @@
 #'
 #' ## First Example -- Even breaks for length categories
 #' WR1 <- WR79
-#' WR1$LCat <- lencat(WR1$len,w=5)                 # add length categories (width=5)
-#' WR1.age <- Subset(WR1, !is.na(age))             # isolate age and length samples
+#' WR1$LCat <- lencat(WR1$len,w=5)                      # add length categories (width=5)
+#' WR1.age <- Subset(WR1, !is.na(age))                  # isolate aged and unaged samples
 #' WR1.len <- Subset(WR1, is.na(age))
-#' head(WR1.len)                                   # note no ages in length sample
-#' raw <- xtabs(~LCat+age,data=WR1.age)            # create age-length key
+#' head(WR1.len)                                        # note no ages in unaged sample
+#' raw <- xtabs(~LCat+age,data=WR1.age)                 # create age-length key
 #' ( WR1.key <- prop.table(raw, margin=1) )
-#' WR1.len <- ageKey(WR1.key,age~len,data=WR1.len) # apply the age-length key
-#' head(WR1.len)                                   # now there are ages
-#' WR1.comb <- rbind(WR1.age, WR1.len)             # combine orig age & new length sample
-#' Summarize(len~age,data=WR1.comb,digits=2)       # mean length-at-age
-#' ( af <- xtabs(~age,data=WR1.comb) )             # age frequency distribution
-#' ( ap <- prop.table(af) )                        # proportional age distribution
+#' WR1.len <- alkIndivAge(WR1.key,age~len,data=WR1.len) # apply the age-length key
+#' head(WR1.len)                                        # now there are ages
+#' WR1.comb <- rbind(WR1.age, WR1.len)                  # combine orig age & new ages
+#' Summarize(len~age,data=WR1.comb,digits=2)            # mean length-at-age
+#' ( af <- xtabs(~age,data=WR1.comb) )                  # age frequency distribution
+#' ( ap <- prop.table(af) )                             # proportional age distribution
 #'
 #' ## Second Example -- length sample does not have an age variable
 #' WR2 <- WR79
-#' WR2.age <- Subset(WR2, !is.na(age))             # isolate age and length samples
+#' WR2.age <- Subset(WR2, !is.na(age))                  # isolate age and unaged samples
 #' WR2.len <- Subset(WR2, is.na(age))
-#' WR2.len <- WR2.len[,-3]                         # remove age variable (for demo only)
-#' WR2.age$LCat <- lencat(WR2.age$len,w=5)         # add length categories to age sample
-#' raw <- xtabs(~LCat+age,data=WR2.age)            # create age-length key
+#' WR2.len <- WR2.len[,-3]                              # remove age variable (for demo only)
+#' WR2.age$LCat <- lencat(WR2.age$len,w=5)              # add length categories to aged sample
+#' raw <- xtabs(~LCat+age,data=WR2.age)                 # create age-length key
 #' ( WR2.key <- prop.table(raw, margin=1) )
-#' WR2.len <- ageKey(WR2.key,~len,data=WR2.len)    # apply the age-length key
-#' WR2.len$LCat <- lencat(WR2.len$len,w=5)         # add length cat to length sample
-#' head(WR2.len)                                   # now there are ages
-#' WR2.comb <- rbind(WR2.age, WR2.len)             # combine orig age & new length sample
+#' WR2.len <- alkIndivAge(WR2.key,~len,data=WR2.len)    # apply the age-length key
+#' WR2.len$LCat <- lencat(WR2.len$len,w=5)              # add length cat to length sample
+#' head(WR2.len)                                        # now there are ages
+#' WR2.comb <- rbind(WR2.age, WR2.len)                  # combine orig age & new ages
 #' Summarize(len~age,data=WR2.comb,digits=2)
 #'
 #' ## Third Example -- Uneven breaks for length categories
 #' WR3 <- WR79
-#' brks <- c(seq(35,100,5),110,130)                # set up uneven breaks
-#' WR3$LCat <- lencat(WR3$len,breaks=brks)         # add length categories (width=5)
-#' WR3.age <- Subset(WR3, !is.na(age))             # isolate age and length samples
+#' brks <- c(seq(35,100,5),110,130)                     # set up uneven breaks
+#' WR3$LCat <- lencat(WR3$len,breaks=brks)              # add length categories (width=5)
+#' WR3.age <- Subset(WR3, !is.na(age))                  # isolate aged and unaged samples
 #' WR3.len <- Subset(WR3, is.na(age))
-#' head(WR3.len)                                   # note no ages in length sample
-#' raw <- xtabs(~LCat+age,data=WR3.age)            # create age-length key
+#' head(WR3.len)                                        # note no ages in length sample
+#' raw <- xtabs(~LCat+age,data=WR3.age)                 # create age-length key
 #' ( WR3.key <- prop.table(raw, margin=1) )
-#' WR3.len <- ageKey(WR3.key,age~len,data=WR3.len,breaks=brks)  # apply the age-length key
-#' head(WR3.len)                                   # now there are ages
-#' WR3.comb <- rbind(WR3.age, WR3.len)             # combine orig age & new length sample
+#' WR3.len <- alkIndivAge(WR3.key,age~len,data=WR3.len,breaks=brks)  # apply the age-length key
+#' head(WR3.len)                                        # now there are ages
+#' WR3.comb <- rbind(WR3.age, WR3.len)                  # combine orig age & new ages
 #' Summarize(len~age,data=WR3.comb,digits=2)
 #'
-#' @export
+#' @export ageKey
+#' @rdname alkIndivAge
 ageKey <- function(key,formula,data,type=c("SR","CR"),breaks=NULL) {
+  warning("'ageKey' is deprecated and will be removed by v1.0.0.  Please use 'alkIndivAge' instead.",call.=FALSE)
+  alkIndivAge(key,formula,data,type,breaks)
+}
+
+#' @export alkIndivAge
+#' @rdname alkIndivAge
+alkIndivAge <- function(key,formula,data,type=c("SR","CR"),breaks=NULL) {
   ## some checks
   type <- match.arg(type)
   cl <- iGetVarFromFormula(formula,data)

@@ -1,8 +1,8 @@
 #' @title Prepares problematic age-length key matrices for use.
 #' 
-#' @description Used to prepare problematic age-length key matrices for use in \code{\link{ageKey}}.  Problems that can be fixed are the deletion of empty rows at the beginning or at the end of the age-length key matrix and the \sQuote{interpolation} of values in missing rows in the \sQuote{middle} of the age-length key.
+#' @description Used to prepare problematic age-length key matrices for use in \code{\link{alkIndivAge}}.  Problems that can be fixed are the deletion of empty rows at the beginning or at the end of the age-length key matrix and the \sQuote{interpolation} of values in missing rows in the \sQuote{middle} of the age-length key.
 #' 
-#' @details This function can be used to prepare problematic age-length key matrices for use in \code{\link{ageKey}}.  Problems that can be fixed are the deletion of empty rows at the beginning or at the end of the age-length key matrix and the \sQuote{interpolation} of values in missing rows in the \sQuote{middle} of the age-length key.  In the case of interpolation, a cell in the missing row is computed by assuming a linear trend between the immediately adjacent rows with data both above and below the missing row.  This results in simply averaging the values in the adjacent rows if only one row is missing in the age-length key matrix.
+#' @details This function can be used to prepare problematic age-length key matrices for use in \code{\link{alkIndivAge}}.  Problems that can be fixed are the deletion of empty rows at the beginning or at the end of the age-length key matrix and the \sQuote{interpolation} of values in missing rows in the \sQuote{middle} of the age-length key.  In the case of interpolation, a cell in the missing row is computed by assuming a linear trend between the immediately adjacent rows with data both above and below the missing row.  This results in simply averaging the values in the adjacent rows if only one row is missing in the age-length key matrix.
 #' 
 #' Missing values can also be predicted using general linear or additive models as described in the references.
 #' 
@@ -20,7 +20,7 @@
 #'
 #' Stari, T., K.F. Preedy, E. McKenzie, W.S.C. Gurney, M.R. Heath, P.A. Kunzlik, D.C. Speirs.  2010.  \href{http://www.sciencedirect.com/science/article/pii/S0165783610000512}{Smooth age length keys: Observations and implications for data collection on North Sea haddock.}  Fisheries Research 105:2-12.
 #'
-#' @seealso See \code{\link{ageKey}} for using an age-length key to assign ages to individual fish and \code{\link{ageKeyPlot}} to visualize age-length keys.
+#' @seealso See \code{\link{alkIndivAge}} for using an age-length key to assign ages to individual fish and \code{\link{alkPlot}} to visualize age-length keys.
 #'
 #' Also see functions in the DATRAS package (avaiable at \url{http://www.rforge.net/DATRAS/index.html}).
 #'
@@ -53,24 +53,32 @@
 #'
 #' # Show how the "problematic" matrices are "fixed"
 #' alk1
-#' ageKeyPrep(alk1)
+#' alkPrep(alk1)
 #' alk5
-#' ageKeyPrep(alk5)
+#' alkPrep(alk5)
 #' alk2
-#' ageKeyPrep(alk2)
+#' alkPrep(alk2)
 #' alk24
-#' ageKeyPrep(alk24)
+#' alkPrep(alk24)
 #' alk23
-#' ageKeyPrep(alk23)
+#' alkPrep(alk23)
 #' alk12
-#' ageKeyPrep(alk12)
+#' alkPrep(alk12)
 #' alk45
-#' ageKeyPrep(alk45)
+#' alkPrep(alk45)
 #' alk135
-#' ageKeyPrep(alk135)
+#' alkPrep(alk135)
 #'
-#' @export
+#' @export ageKeyPrep
+#' @rdname alkPrep
 ageKeyPrep <- function(key,show.msgs=TRUE) {
+  warning("'ageKeyPrep' is deprecated and will be removed by v1.0.0.  Please use 'alkPrep' instead.",call.=FALSE)
+  alkPrep(key,show.msgs)
+}
+
+#' @export alkPrep
+#' @rdname alkPrep
+alkPrep <- function(key,show.msgs=TRUE) {
   # determine which rows are missing
   miss <- iFindMissingRows(key)
   # kick out if none are missing

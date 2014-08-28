@@ -18,13 +18,13 @@
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
 #' @references 
-#' Lai, H.-N.  1987.
+#' Lai, H.-L.  1987.  Optimum allocation for estimating age composition using age-length key. Fishery Bulletin, 85:179-185.
 #' 
-#' Lai, H.-N.  1993.
+#' Lai, H.-L.  1993.  Optimum sampling design for using the age-length key to estimate age composition of a fish population. Fishery Bulletin, 92:382-388.
 #' 
 #' Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages
 #'
-#' @seealso  See \code{\link{ageKey}} and related functions for a completely different methodology.  See \code{alkprop} from \pkg{fishmethods} for the exact same methodology but with different inputs.
+#' @seealso  See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{alkprop} from \pkg{fishmethods} for the exact same methodology but with different inputs.
 #' 
 #' @section fishR vignette: none yet.
 #' 
@@ -50,10 +50,10 @@
 #' ( WR1.key <- prop.table(raw, margin=1) )
 #' 
 #' # use age-length key to estimate age distribution of all fish
-#' ALKAgeDist(WR1.key,lenA.n,len.n)
+#' alkAgeDist(WR1.key,lenA.n,len.n)
 #' 
 #' @export
-ALKAgeDist <- function(key,lenA.n,len.n) {
+alkAgeDist <- function(key,lenA.n,len.n) {
   ## Some checks
   L <- nrow(key)
   if (length(lenA.n)!=L) stop("'lenA.n' and the 'key' have different numbers of length intervals.",call.=FALSE)
@@ -74,7 +74,7 @@ ALKAgeDist <- function(key,lenA.n,len.n) {
 
 ## ===========================================================
 ## An internal function that allows the use of apply()
-## in ALKAgeDist() rather than using a for loop.  This computes
+## in alkAgeDist() rather than using a for loop.  This computes
 ## the proportion at each age (p_j) using 8.14a and the SE
 ## (sqrt of var.p_j) of each proportion using 8.14b
 ## (note that only a single sum was used here) of Quinn and

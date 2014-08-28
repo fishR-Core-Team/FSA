@@ -16,7 +16,7 @@ test_that("ALKAgeDist() reporduces results from Table 8.4 (left) of Quinn and De
     agekey <- prop.table(xtabs(~len+age,data=sn.age),1)
     lenA.n <- xtabs(~len,data=sn.age)
     ## get ALKAgeDist results
-    tmp2 <- ALKAgeDist(agekey,lenA.n,len.n)
+    tmp2 <- alkAgeDist(agekey,lenA.n,len.n)
 
     ## Find difference in results
     diff <- tmp2[,-1]-tmp1[,-3]
