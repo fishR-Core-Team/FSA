@@ -9,9 +9,9 @@ alkMeanVar(key, formula, data, len.n, method = c("BettoliMiranda",
 \arguments{
 \item{key}{A numeric matrix that contains the age-length key.  See details.}
 
-\item{formula}{A formula of the form \code{var~lencat+age} where \dQuote{var} generically represents the variable to be summarized (e.g., length, weight, fecundity), \dQuote{lencat} generically represents the variable that contains the length categories, and \dQuote{age} generically represents the variable that contain the assessed ages.}
+\item{formula}{A formula of the form \code{var~lencat+age} where \dQuote{var} generically represents the variable to be summarized (e.g., length, weight, fecundity), \dQuote{lencat} generically represents the variable that contains the length intervals, and \dQuote{age} generically represents the variable that contains the assessed ages.}
 
-\item{data}{A data.frame that minimally contains the length measurements, assessed ages, and the variable to be summarized (i.e., this should be the aged sample) as given in \code{formula}.}
+\item{data}{A data.frame that minimally contains the length intervals, assessed ages, and the variable to be summarized (i.e., this should be the aged sample) as given in \code{formula}.}
 
 \item{len.n}{A vector of sample sizes for each length interval in the \emph{complete sample} (i.e., all fish regardles of whether they were aged or not).}
 
@@ -26,13 +26,21 @@ A data.frame with as many rows as ages present in \code{key} and the following t
  }
 }
 \description{
-Uses the methods of Quinn and Deriso (1999) to compute the mean value-at-age (and the standard errors and coefficient of variation of those means) in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design.  The mean values could be mean length-, weight-, or fecundity-at-age, for example.
+Uses the methods of Bettoli and Miranda (2001) or Quinn and Deriso (1999) (but see the note on testing) to compute the mean value-at-age (with standard deviation for the Bettoli and Miranda method and standard error for the Quinn and Deriso method) in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design.  The mean values could be mean length-, weight-, or fecundity-at-age, for example.
 }
 \details{
-The age-length key sent in \code{key} must be constructed with length intervals as rows and age values as columns.  XXX
+The age-length key sent in \code{key} must be constructed with length intervals as rows and ages as columns.  The row names of \code{key} (i.e., \code{rownames(key)}) must contain the mininum values of each length interval (e.g., if an interval is 100-109 then the corresponding row name must be 100).  The column names of \code{key} (i.e., \code{colnames(key)}) must contain the age values (e.g., the columns can NOT be named with \dQuote{age.1}, for example).
+
+The length intervals in the rows of \code{key} must contain all of the length intervals present in the larger sample.  Thus, the length of \code{len.n} must, at least, equal the number of rows in \code{key}.  If this constraint is not met, then the function will stop with an error message.
+
+Note that the function will stop with an error if the formula in \code{formula} does not meet the specific criteria outlined in the parameter list.
 }
 \section{fishR vignette}{
  none yet.
+}
+
+\section{Testing}{
+ The results of these functions have not yet been rigorously tested.  The results using the Bettoli and Miranda method appear, at least, approximately correct when compared to the results from \code{\link{alkIndivAge}}.  The results from the Quinn and Deriso method appear at least approximately correct for the mean values but do not appear to be correct for the SE values.  Thus, a note is returned with the Quinn and Deriso results that the SE should not be trusted.
 }
 \examples{
 ## Get data with length measurements and some assigned ages

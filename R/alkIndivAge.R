@@ -4,7 +4,7 @@
 #'
 #' @details The age-length key sent in \code{key} must be constructed with length intervals as rows and ages as columns.  The row names of \code{key} (i.e., \code{rownames(key)}) must contain the mininum values of each length interval (e.g., if an interval is 100-109 then the corresponding row name must be 100).  The column names of \code{key} (i.e., \code{colnames(key)}) must contain the age values (e.g., the columns can NOT be named with \dQuote{age.1}, for example).
 #'
-#' The length intervals in the rows of \code{key} must contain all of the length intervals present in the length sample to which the age-length key is to be applied (i.e., sent in the \dQuote{length} portion of the \code{formula}).  If this constraint is not met, then the function will stop with an error message.  See \code{\link{alkPrep}} for help preparing some ill-formed age-length keys for use with this function.
+#' The length intervals in the rows of \code{key} must contain all of the length intervals present in the unaged sample to which the age-length key is to be applied (i.e., sent in the \dQuote{length} portion of the \code{formula}).  If this constraint is not met, then the function will stop with an error message.  See \code{\link{alkPrep}} for help preparing some ill-formed age-length keys for use with this function.
 #'
 #' If \code{breaks=NULL} then the length intervals for the unaged sample will be determined with a starting interval at the minimum value of the row names in \code{key} and a width of the length intervals as determined by the minimum difference in adjacent row names of \code{key}.  If length intervals of differing widths were used when constructing \code{key}, then those breaks should be supplied to \code{breaks=}.  Use of \code{breaks=} may be useful when \dQuote{uneven} length interval widths must be used because the lengths in the unaged sample are not fully represented in the aged sample.  See the examples.
 #'
@@ -89,22 +89,15 @@ ageKey <- function(key,formula,data,type=c("SR","CR"),breaks=NULL) {
 alkIndivAge <- function(key,formula,data,type=c("SR","CR"),breaks=NULL) {
   ## some checks
   type <- match.arg(type)
+  key <- iCheckALK(key,only1=TRUE,remove0rows=TRUE)
   cl <- iGetVarFromFormula(formula,data)
   if (length(cl)==1) ca <- "age"
     else {
       ca <- cl[1]
       cl <- cl[2]
     }
-  # Check if key is proportions, if not change to proportions
-  if (any(key>1,na.rm=TRUE)) key <- prop.table(key,1)
-  # Remove rows with row sums of NA or 0 (i.e., only keeps lens with data in key)
-  key.row.sum <- apply(key,1,sum)
-  key.row.sum <- key.row.sum[!is.na(key.row.sum) & key.row.sum!=0]
-  # Warn if row sums in key are not =1 (implies bad key)
-  if(!isTRUE(all.equal(key.row.sum,rep(1,length(key.row.sum)),check.attributes=FALSE)))
-    warning("Key contains row that does not sum to 1.",call.=FALSE)
   # Find the length categories that are present in the key
-  da.len.cats <- as.numeric(names(key.row.sum))
+  da.len.cats <- as.numeric(rownames(key))
   # Check about min and max value in length sample relative to same on key
   if (min(data[,cl])<min(da.len.cats)) {
     stop(paste("The minimum observed length in the length sample (",min(data[,cl]),

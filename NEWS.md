@@ -5,8 +5,9 @@
 * `alkAgeDist()`: Added.
 * `alkIndAge()`: Added.  Was `ageKey()`.  Moved all internal functions outside of `alkIndAge()` environment (and renamed them).
 * `alkMeanVar()`: Added.
-* `alkPlot()`: Added.  Was `ageKeyPlot()`.  Create internal functions for each plot type.  Fixed bug with colrs when adding legend to bar and area plots.  Allowed legend to be removed from area plot.  Added ability to add a legend to the lines and splines plot.  Added `pal=` to allow choice of color palette for areas in bar and area plot and lines in lines and splines plots.  Moved all internal functions outside of `alkPlot()` environment (and renamed them).
-* `alkPrep()`: Added.  Was `ageKeyPrep()`.
+* `alkPlot()`: Added.  Was `ageKeyPlot()`.  Create internal functions for each plot type.  Fixed bug with colrs when adding legend to bar and area plots.  Allowed legend to be removed from area plot.  Added ability to add a legend to the lines and splines plot.  Added `pal=` to allow choice of color palette for areas in bar and area plot and lines in lines and splines plots.  Moved all internal functions outside of `alkPlot()` environment (and renamed them).  Added some checks on the age-length key structure.
+* `alkPrep()`: Added.  Was `ageKeyPrep()`.  Added some checks on the age-length key structure.
+* `iCheck ALK()`: Added as an internal function (used to test the structure of the age-length keys in several other functions).
 * `summary.mrOpen()`: Modified.  Removed "Estimates" heading if `verbose=FALSE`.
 * `Summarize()`: Modified.  Moved all internal functions outside of `Summarize()` environment (and renamed them).
 

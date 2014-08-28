@@ -16,15 +16,19 @@ alkAgeDist(key, lenA.n, len.n)
 A data.frame with as many rows as ages present in \code{key} and the following three variables:
 \itemize{
   \item age The ages.
-  \item prop The prortion of fish at each age.
+  \item prop The proportion of fish at each age.
   \item se The SE for the proportion of fish at each age.
  }
 }
 \description{
-Uses the methods of Quinn and Deriso (1999) to compute the proportions-at-age (and the standard errors and coefficient of variation of those proportions) in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design.
+Uses the methods of Quinn and Deriso (1999) to compute the proportions-at-age (with standard errors) in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design.
 }
 \details{
-The age-length key sent in \code{key} must be constructed with length intervals as rows and age values as columns.  XXX
+The age-length key sent in \code{key} must be constructed with length intervals as rows and ages as columns.  The row names of \code{key} (i.e., \code{rownames(key)}) must contain the mininum values of each length interval (e.g., if an interval is 100-109 then the corresponding row name must be 100).  The column names of \code{key} (i.e., \code{colnames(key)}) must contain the age values (e.g., the columns can NOT be named with \dQuote{age.1}, for example).
+
+The length intervals in the rows of \code{key} must contain all of the length intervals present in the larger sample.  Thus, the length of \code{len.n} must, at least, equal the number of rows in \code{key}.  If this constraint is not met, then the function will stop with an error message.
+
+The values in \code{lenA.n} are equal to what the row sums of \code{key} would have been before \code{key} was converted to a row proportions table.  The length of \code{lenA.n} must also be equal to the number of rows in \code{key}.  If this constraint is not met, then the function will stop with an error message.
 }
 \section{fishR vignette}{
  none yet.
@@ -64,7 +68,7 @@ Lai, H.-L.  1993.  Optimum sampling design for using the age-length key to estim
 Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages
 }
 \seealso{
-See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{alkprop} from \pkg{fishmethods} for the exact same methodology but with different inputs.
+See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{alkprop} from \pkg{fishmethods} for the exact same methodology but with a different format for the inputs.
 }
 \keyword{manip}
 

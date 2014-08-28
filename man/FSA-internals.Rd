@@ -3,6 +3,7 @@
 \alias{.onAttach}
 \alias{iAddLoessLine}
 \alias{iCILabel}
+\alias{iCheckALK}
 \alias{iCheckStartcatW}
 \alias{iGetVarFromFormula}
 \alias{iHndlFormula}
@@ -22,6 +23,7 @@ Internal functions that are common to several functions in FSA.
 Take note of the following uses:
  \itemize{
    \item \code{iAddLoessLine} used in \code{\link{mrClosed}} and \code{\link{residPlot}}.
+   \item \code{iCheckALK} used in \code{\link{alkIndivAge}}, \code{\link{alkPlot}}, \code{\link{alkPrep}}, \code{\link{alkAgeDist}}, and \code{\link{alkMeanVar}}
    \item \code{iCheckStartcatW} used in \code{\link{lencat}} and \code{\link{lenFreqExpand}}.
    \item \code{iCILabel} is used in \code{\link{binCI}}, \code{\link{bootCase}}, \code{\link{catchCurve}}, \code{\link{chapmanRobson}}, \code{\link{confint.nlsBoot}}, \code{\link{depletion}}, \code{\link{hyperCI}}, \code{\link{mrClosed}}, \code{\link{poiCI}}, \code{\link{predict.nlsBoot}}, \code{\link{removal}}.
    \item \code{iGetVarFromFormula} is used in \code{\link{ageKey}}, \code{\link{lencat}}, \code{\link{psdCalc}}, \code{\link{psdDataPrep}}, \code{\link{psdPlot}}, \code{\link{recodeSpecies}}, \code{\link{wrAdd}}, and \code{\link{wrDataPrep}}.

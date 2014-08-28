@@ -94,7 +94,7 @@ alkPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
   ## Some checks
   type <- match.arg(type)
   pal <- match.arg(pal)
-  iCheckALK(key)
+  key <- iCheckALK(key)
   ## construct the plots (all internal functions)
   op <- par(mar=c(3.25,3.25,0.7,0.7),mgp=c(1.7,0.5,0),tcl=-0.2)
   switch(type,

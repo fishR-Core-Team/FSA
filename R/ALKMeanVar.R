@@ -1,12 +1,16 @@
 #' @title Mean Values-at-age from an Age-Length Key
 #' 
-#' @description Uses the methods of Quinn and Deriso (1999) to compute the mean value-at-age (and the standard errors and coefficient of variation of those means) in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design.  The mean values could be mean length-, weight-, or fecundity-at-age, for example.
+#' @description Uses the methods of Bettoli and Miranda (2001) or Quinn and Deriso (1999) (but see the note on testing) to compute the mean value-at-age (with standard deviation for the Bettoli and Miranda method and standard error for the Quinn and Deriso method) in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design.  The mean values could be mean length-, weight-, or fecundity-at-age, for example.
 #' 
-#' @details The age-length key sent in \code{key} must be constructed with length intervals as rows and age values as columns.  XXX
+#' @details The age-length key sent in \code{key} must be constructed with length intervals as rows and ages as columns.  The row names of \code{key} (i.e., \code{rownames(key)}) must contain the mininum values of each length interval (e.g., if an interval is 100-109 then the corresponding row name must be 100).  The column names of \code{key} (i.e., \code{colnames(key)}) must contain the age values (e.g., the columns can NOT be named with \dQuote{age.1}, for example).
+#' 
+#' The length intervals in the rows of \code{key} must contain all of the length intervals present in the larger sample.  Thus, the length of \code{len.n} must, at least, equal the number of rows in \code{key}.  If this constraint is not met, then the function will stop with an error message.
+#' 
+#' Note that the function will stop with an error if the formula in \code{formula} does not meet the specific criteria outlined in the parameter list.
 #' 
 #' @param key A numeric matrix that contains the age-length key.  See details.
-#' @param formula A formula of the form \code{var~lencat+age} where \dQuote{var} generically represents the variable to be summarized (e.g., length, weight, fecundity), \dQuote{lencat} generically represents the variable that contains the length categories, and \dQuote{age} generically represents the variable that contain the assessed ages.
-#' @param data A data.frame that minimally contains the length measurements, assessed ages, and the variable to be summarized (i.e., this should be the aged sample) as given in \code{formula}.
+#' @param formula A formula of the form \code{var~lencat+age} where \dQuote{var} generically represents the variable to be summarized (e.g., length, weight, fecundity), \dQuote{lencat} generically represents the variable that contains the length intervals, and \dQuote{age} generically represents the variable that contains the assessed ages.
+#' @param data A data.frame that minimally contains the length intervals, assessed ages, and the variable to be summarized (i.e., this should be the aged sample) as given in \code{formula}.
 #' @param len.n A vector of sample sizes for each length interval in the \emph{complete sample} (i.e., all fish regardles of whether they were aged or not).
 #' @param method A string that indicates which method of calculation should be used.  See details.
 #' 
@@ -27,6 +31,8 @@
 #' @seealso  See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{\link{alkAgeDist}} for a related method of determining the proportion of fish at each age.
 #' 
 #' @section fishR vignette: none yet.
+#'
+#' @section Testing: The results of these functions have not yet been rigorously tested.  The results using the Bettoli and Miranda method appear, at least, approximately correct when compared to the results from \code{\link{alkIndivAge}}.  The results from the Quinn and Deriso method appear at least approximately correct for the mean values but do not appear to be correct for the SE values.  Thus, a note is returned with the Quinn and Deriso results that the SE should not be trusted.
 #'
 #' @keywords manip
 #'
@@ -58,8 +64,12 @@
 alkMeanVar <- function(key,formula,data,len.n,method=c("BettoliMiranda","QuinnDeriso")) {
   ## Some checks
   method <- match.arg(method)
-  L <- nrow(key)
-  if (length(len.n)!=L) stop("'len.n' and the 'key' have different numbers of length intervals.",call.=FALSE)
+  key <- iCheckALK(key)
+  tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=2)
+  if (!tmp$metExpNumR) stop("'formula' must have a LHS with only one variable.",call.=FALSE)
+  if (!tmp$Rclass %in% c("numeric","integer")) stop ("LHS of 'formula' must be numeric.",call.=FALSE)
+  if (!tmp$metExpNumE) stop("'formula' must have two and only two variables on the RHS.",call.=FALSE)
+  if (length(len.n)!=nrow(key)) stop("'len.n' and the 'key' have different numbers of length intervals.",call.=FALSE)
   ## Main calculations (in internal functions)
   switch(method,
          BettoliMiranda= { res=iALKMean.BM(key,formula,data,N_i=len.n) },

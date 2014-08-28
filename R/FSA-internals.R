@@ -5,6 +5,7 @@
 #' @details Take note of the following uses:
 #'  \itemize{
 #'    \item \code{iAddLoessLine} used in \code{\link{mrClosed}} and \code{\link{residPlot}}.
+#'    \item \code{iCheckALK} used in \code{\link{alkIndivAge}}, \code{\link{alkPlot}}, \code{\link{alkPrep}}, \code{\link{alkAgeDist}}, and \code{\link{alkMeanVar}}
 #'    \item \code{iCheckStartcatW} used in \code{\link{lencat}} and \code{\link{lenFreqExpand}}.
 #'    \item \code{iCILabel} is used in \code{\link{binCI}}, \code{\link{bootCase}}, \code{\link{catchCurve}}, \code{\link{chapmanRobson}}, \code{\link{confint.nlsBoot}}, \code{\link{depletion}}, \code{\link{hyperCI}}, \code{\link{mrClosed}}, \code{\link{poiCI}}, \code{\link{predict.nlsBoot}}, \code{\link{removal}}.
 #'    \item \code{iGetVarFromFormula} is used in \code{\link{ageKey}}, \code{\link{lencat}}, \code{\link{psdCalc}}, \code{\link{psdDataPrep}}, \code{\link{psdPlot}}, \code{\link{recodeSpecies}}, \code{\link{wrAdd}}, and \code{\link{wrDataPrep}}. 
@@ -18,7 +19,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach iAddLoessLine iCheckStartcatW iCILabel iGetVarFromFormula iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iTypeoflm
+#' @aliases .onAttach iAddLoessLine iCheckALK iCheckStartcatW iCILabel iGetVarFromFormula iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iTypeoflm
 
 
 ##################################################################
@@ -58,6 +59,39 @@ iAddLoessLine <- function(r,fv,lty.loess,lwd.loess,col.loess,trans.loess,span=0.
 }  # end iAddLoessLine internal function
 
 
+iCheckALK <- function(key,only1=FALSE,remove0rows=FALSE) {
+  #### only1=TRUE ... only check if rows sum to 1, otherwise also check if they sum to 0
+  #### remove0rows=TRUE ... remove the rows that sum to 0.
+  
+  ## Check that row names and column names can be considered as numeric
+  options(warn=-1) ## turn off warnings
+  tmp <- as.numeric(rownames(key))
+  options(warn=0)
+  if (any(is.na(tmp))) stop("The row names of 'key' must be numeric (and\n contain the minimum value of the lenth intervals).",call.=FALSE)
+  options(warn=-1) ## turn off warnings
+  tmp <- as.numeric(colnames(key))
+  options(warn=0)
+  if (any(is.na(tmp))) stop("The column names of 'key' must be numeric\n (and contain age values).",call.=FALSE)  
+  ## Check if key is proportions, if not change to proportions
+  if (any(key>1,na.rm=TRUE)) {
+    warning("'key' contains values >1; to continue, assumed\n values were frequencies and converted to row proportions.",call.=FALSE)
+    key <- prop.table(key,margin=1)
+  }
+  ## Remove rows that sum to 0 or NA (i.e., only keeps lens with data in key)
+  key.rowSum <- rowSums(key,na.rm=TRUE)
+  if (remove0rows) {
+    warning("'key' contains rows that sum to 0; as requested,\n these rows were removed from the table.",call.=FALSE)
+    key <- key[!is.na(key.rowSum) & key.rowSum!=0,]
+  }
+  ## Check if rows sum to 1 (allow for some minimal rounding error and does not consider zeroes )
+  if (any(key.rowSum>0.01 & (key.rowSum<0.99 | key.rowSum>1.01))) warning("Key contains a row that does not sum to 1.",call.=FALSE)
+  ## Check if rows sum to 0 (allow for some minimal rounding error)
+  if (!only1 & !remove0rows & any(key.rowSum==0)) warning("Key contains a row that sums to 0.",call.=FALSE)
+  ## Return the potentially modified key
+  key
+}
+
+
 iCheckStartcatW <- function(startcat,w,d) {
   # is w positive?
   if (w<=0) stop("\n Width value must be positive.",call.=FALSE)
@@ -93,7 +127,7 @@ iGetVarFromFormula <- function(formula,data,expNumVars=NULL) {
 
 
 iHndlFormula <- function(formula,data,expNumR=NULL,
-                        expNumE=NULL,expNumENums=NULL,expNumEFacts=NULL) {
+                         expNumE=NULL,expNumENums=NULL,expNumEFacts=NULL) {
   mf <- model.frame(formula,data=data)
   if (ncol(mf)==1) {
     # Only one variable in the model frame.  Return only the model.frame, name of 

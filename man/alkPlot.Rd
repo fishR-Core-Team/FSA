@@ -55,18 +55,18 @@ alkPlot(key, type = c("barplot", "area", "lines", "splines", "bubble"),
 None, but a plot is constructed.
 }
 \description{
-Various plots to visualize the proportion of fish of certain ages within length categories in an age-length key.
+Various plots to visualize the proportion of fish of certain ages within length intervals in an age-length key.
 }
 \details{
-A variety of plots can be used to visualize the proportion of fish of certain ages withing length categories of an age-length key.  The types of plots are described below and illustrated in the examples.
+A variety of plots can be used to visualize the proportion of fish of certain ages within length intervals of an age-length key.  The types of plots are described below and illustrated in the examples.
 \itemize{
-  \item A \dQuote{stacked} bar chart where vertical bars over length categories that each sum to 1 but are segmented by the proportion of each age in that length category is constructed with \code{type="barplot"}.  The ages will be labeled in the bar segments unless \code{showLegend=TRUE} is used.
-  \item A \dQuote{stacked} are chart similar to the bar chart described above is constructed with \code{type="area"}.
-  \item A plot with (different colored) lines that connect the proportions of ages within each length category is constructed with \code{type="lines"}.
-  \item A plot with (different colored) lines, as estimated by loess splines, that connect the proportions of ages within each length category is constructed with \code{type="splines"}.
-  \item A \dQuote{bubble} plot where circles whose size is proportional to the proportion of fish of each age in each length category is constructed with \code{type="bubble"}.  The color of the bubbles can be controlled with \code{col=} and an underlying grid for ease of seeing the age and length category for each bubble can be controlled with \code{grid=}.  Bubbles from a second age-length key can be overlaid on an already constructed bubble plot by using \code{add=TRUE} in a second call to \code{alkPlot}.
+  \item A \dQuote{stacked} bar chart where vertical bars over length intervals that each sum to 1 but are segmented by the proportion of each age in that length interval is constructed with \code{type="barplot"}.  The ages will be labeled in the bar segments unless \code{showLegend=TRUE} is used.
+  \item A \dQuote{stacked} area chart similar to the bar chart described above is constructed with \code{type="area"}.
+  \item A plot with (different colored) lines that connect the proportions of ages within each length interval is constructed with \code{type="lines"}.
+  \item A plot with (different colored) lines, as estimated by loess splines, that connect the proportions of ages within each length interval is constructed with \code{type="splines"}.
+  \item A \dQuote{bubble} plot where circles whose size is proportional to the proportion of fish of each age in each length interval is constructed with \code{type="bubble"}.  The color of the bubbles can be controlled with \code{col=} and an underlying grid for ease of seeing the age and length interval for each bubble can be controlled with \code{grid=}.  Bubbles from a second age-length key can be overlaid on an already constructed bubble plot by using \code{add=TRUE} in a second call to \code{alkPlot}.
 }
-Note that all plots are \dQuote{vertically conditional} -- i.e., each represents the proportional ages WITHIN each length category.
+Note that all plots are \dQuote{vertically conditional} -- i.e., each represents the proportional ages WITHIN each length interval.
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/AgeLengthKey.pdf}
@@ -75,7 +75,7 @@ Note that all plots are \dQuote{vertically conditional} -- i.e., each represents
 ## Make an example age-length key -- same as in ageKey()
 data(WR79)
 WR.age <- Subset(WR79, !is.na(age))      # isolate the age sample
-WR.age$LCat <- lencat(WR.age$len,w=5)    # add length categories (width=5)
+WR.age$LCat <- lencat(WR.age$len,w=5)    # add length intervals (width=5)
 raw <- xtabs(~LCat+age,data=WR.age)      # create age-length key
 ( WR.key <- prop.table(raw, margin=1) )
 

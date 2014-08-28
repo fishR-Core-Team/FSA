@@ -2,12 +2,12 @@
 #' 
 #' @description Used to prepare problematic age-length key matrices for use in \code{\link{alkIndivAge}}.  Problems that can be fixed are the deletion of empty rows at the beginning or at the end of the age-length key matrix and the \sQuote{interpolation} of values in missing rows in the \sQuote{middle} of the age-length key.
 #' 
-#' @details This function can be used to prepare problematic age-length key matrices for use in \code{\link{alkIndivAge}}.  Problems that can be fixed are the deletion of empty rows at the beginning or at the end of the age-length key matrix and the \sQuote{interpolation} of values in missing rows in the \sQuote{middle} of the age-length key.  In the case of interpolation, a cell in the missing row is computed by assuming a linear trend between the immediately adjacent rows with data both above and below the missing row.  This results in simply averaging the values in the adjacent rows if only one row is missing in the age-length key matrix.
+#' @details This function can be used to prepare problematic age-length key matrices for use in \code{\link{alkIndivAge}}.  Problems that can be fixed are the deletion of empty rows at the beginning or at the end of the age-length key matrix and the \sQuote{interpolation} of values in missing rows in the \sQuote{middle} of the age-length key.  In the case of interpolation, a cell in the missing row is computed by assuming a linear trend between the rows immediately adjacent (both above and below) to the missing row.  This results in simply averaging the values in the adjacent rows if only one row is missing in the age-length key matrix.
 #' 
-#' Missing values can also be predicted using general linear or additive models as described in the references.
+#' An alternative to the linear interpolation method is to predict missing values from the fits of general linear or additive models.  See the methos in the references for details on using this method.
 #' 
-#' @param key A numeric matrix that contains the problematic age-length key.
-#' @param show.msgs A logicical that indicates if process messages should be displayed (\code{TRUE}; default).
+#' @param key A numeric matrix that contains the problematic age-length key.  The rows must sum to 1, the rows must be labeled with the mininum (numeric) value of the length intervals, and the columns must be labeled with numeric ages.
+#' @param show.msgs A logical that indicates if process messages should be displayed (\code{TRUE}; default).
 #' 
 #' @return A matrix that contains the original age-length key matrix sent in \code{key} with missing rows either deleted if they were at the beginning or end of the matrix or replaced with interpolated values (see details) if in the middle of the matrix.
 #' 
@@ -79,6 +79,8 @@ ageKeyPrep <- function(key,show.msgs=TRUE) {
 #' @export alkPrep
 #' @rdname alkPrep
 alkPrep <- function(key,show.msgs=TRUE) {
+  ## make sure key is proportions and rows sum to 0 or 1
+  key <- iCheckALK(key)
   # determine which rows are missing
   miss <- iFindMissingRows(key)
   # kick out if none are missing
