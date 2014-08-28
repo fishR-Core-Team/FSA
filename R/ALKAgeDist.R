@@ -47,7 +47,7 @@
 #' # get number of fish in each length interval in the entire sample
 #' len.n <- xtabs(~LCat,data=WR1)
 #' # isolate aged sample and get number in each length interval
-#' WR1.age <- Subset(WR1, !is.na(age))
+#' WR1.age <- subset(WR1, !is.na(age))
 #' lenA.n <- xtabs(~LCat,data=WR1.age)
 #' # create age-length key
 #' raw <- xtabs(~LCat+age,data=WR1.age)

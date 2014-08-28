@@ -1,6 +1,79 @@
 context("Verification of Age-Length Key results")
 
-test_that("ALKAgeDist() reporduces results from Table 8.4 (left) of Quinn and Deriso (1999)",{
+test_that("Does 'seed=' work in alkIndivAge()",{
+  data(WR79)
+  WR1 <- WR79
+  WR1$LCat <- lencat(WR1$len,w=5)
+  WR1.age <- subset(WR1, !is.na(age))
+  WR1.len <- subset(WR1, is.na(age))
+  WR1.key <- prop.table(xtabs(~LCat+age,data=WR1.age),margin=1)
+  WR1.comb <- rbind(WR1.age, alkIndivAge(WR1.key,age~len,data=WR1.len,seed=1234343))
+  WR1.comb2 <- rbind(WR1.age, alkIndivAge(WR1.key,age~len,data=WR1.len,seed=1234343))
+  sum1 <- Summarize(len~age,data=WR1.comb)
+  sum2 <- Summarize(len~age,data=WR1.comb)
+  diff <- sum1[,-1]-sum2[,-1]
+  expect_that(all(diff==0),is_true())
+})
+
+test_that("Does same results are achieved if with handling a missing row differently",{
+  WR1 <- WR79
+  ## Create a missing row in the ALK
+  WR1 <- subset(WR1,len<100 | len>105)
+  ## Create different versions of the length intervals variable
+  WR1$LCat1 <- lencat(WR1$len,w=5)
+  WR1$LCat2 <- lencat(WR1$len,w=5,as.fact=TRUE)
+  WR1$LCat3 <- lencat(WR1$len,w=5,as.fact=TRUE,drop.levels=TRUE)
+  ## Get keys with different length interval variables
+  WR1.age <- subset(WR1, !is.na(age))
+  WR1.len <- subset(WR1, is.na(age))
+  WR1.key1 <- prop.table(xtabs(~LCat1+age,data=WR1.age),margin=1)
+  WR1.key2 <- prop.table(xtabs(~LCat2+age,data=WR1.age),margin=1)
+  WR1.key3 <- prop.table(xtabs(~LCat3+age,data=WR1.age),margin=1)
+  ## Apply the different ALKs with alkIndivAge
+  WR1.comb1 <- rbind(WR1.age, alkIndivAge(WR1.key1,age~len,data=WR1.len,seed=1234343))
+  WR1.comb2 <- rbind(WR1.age, alkIndivAge(WR1.key2,age~len,data=WR1.len,seed=1234343))
+  WR1.comb3 <- rbind(WR1.age, alkIndivAge(WR1.key3,age~len,data=WR1.len,seed=1234343))
+  ## Make the combined data.frames
+  sum1 <- Summarize(len~age,data=WR1.comb1)
+  sum2 <- Summarize(len~age,data=WR1.comb2)
+  sum3 <- Summarize(len~age,data=WR1.comb3)
+  ## Compare the different results
+  diff12 <- sum1[,-1]-sum2[,-1]
+  diff23 <- sum2[,-1]-sum3[,-1]
+  expect_that(all(diff12==0),is_true())
+  expect_that(all(diff23==0),is_true())  
+  
+  ## Apply the different ALKs with alkAgeDist
+  len.n1 <- xtabs(~LCat1,data=WR1)
+  len.An1 <- xtabs(~LCat1,data=WR1.age)
+  sum1 <- alkAgeDist(WR1.key1,len.An1,len.n1)
+  len.n2 <- xtabs(~LCat2,data=WR1)
+  len.An2 <- xtabs(~LCat2,data=WR1.age)
+  sum2 <- alkAgeDist(WR1.key2,len.An2,len.n2)
+  len.n3 <- xtabs(~LCat3,data=WR1)
+  len.An3 <- xtabs(~LCat3,data=WR1.age)
+  sum3 <- alkAgeDist(WR1.key3,len.An3,len.n3)
+  ## Compare the different results
+  diff12 <- sum1-sum2
+  diff23 <- sum2-sum3
+  expect_that(all(diff12==0),is_true())
+  expect_that(all(diff23==0),is_true())  
+  
+  
+  ## Apply the different ALKs with alkMeanVar
+  sum1 <- alkMeanVar(WR1.key1,len~LCat1+age,WR1.age,len.n1)
+  sum2 <- alkMeanVar(WR1.key2,len~LCat2+age,WR1.age,len.n2)
+  sum3 <- alkMeanVar(WR1.key3,len~LCat3+age,WR1.age,len.n3)
+  ## Compare the different results
+  diff12 <- sum1-sum2
+  diff23 <- sum2-sum3
+#  expect_that(all(diff12==0),is_true())
+#  expect_that(all(diff23==0),is_true())  
+  
+})
+
+
+test_that("ALKAgeDist() reproduces results from Table 8.4 (left) of Quinn and Deriso (1999)",{
   if (require(fishmethods)) {
     ## Quinn and Deriso (1999) data are alkdata and alkprop reproduces
     ##   Table 8.4 results

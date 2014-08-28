@@ -3,7 +3,7 @@
 * `ageKeyPlot()`: Deprecated.  See `alkPlot()`.
 * `ageKeyPrep()`: Deprecated.  See `alkPrep()`.
 * `alkAgeDist()`: Added.
-* `alkIndAge()`: Added.  Was `ageKey()`.  Moved all internal functions outside of `alkIndAge()` environment (and renamed them).
+* `alkIndAge()`: Added.  Was `ageKey()`.  Added `seed=` to help with reproducibility.  Added some checks on the age-length key structure.  Moved all internal functions outside of `alkIndAge()` environment (and renamed them).
 * `alkMeanVar()`: Added.
 * `alkPlot()`: Added.  Was `ageKeyPlot()`.  Create internal functions for each plot type.  Fixed bug with colrs when adding legend to bar and area plots.  Allowed legend to be removed from area plot.  Added ability to add a legend to the lines and splines plot.  Added `pal=` to allow choice of color palette for areas in bar and area plot and lines in lines and splines plots.  Moved all internal functions outside of `alkPlot()` environment (and renamed them).  Added some checks on the age-length key structure.
 * `alkPrep()`: Added.  Was `ageKeyPrep()`.  Added some checks on the age-length key structure.

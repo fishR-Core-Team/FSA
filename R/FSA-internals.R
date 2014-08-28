@@ -74,19 +74,19 @@ iCheckALK <- function(key,only1=FALSE,remove0rows=FALSE) {
   if (any(is.na(tmp))) stop("The column names of 'key' must be numeric\n (and contain age values).",call.=FALSE)  
   ## Check if key is proportions, if not change to proportions
   if (any(key>1,na.rm=TRUE)) {
-    warning("'key' contains values >1; to continue, assumed\n values were frequencies and converted to row proportions.",call.=FALSE)
+    warning("'key' contained values >1; to continue, assumed\n values were frequencies and converted to row proportions.",call.=FALSE)
     key <- prop.table(key,margin=1)
   }
   ## Remove rows that sum to 0 or NA (i.e., only keeps lens with data in key)
   key.rowSum <- rowSums(key,na.rm=TRUE)
-  if (remove0rows) {
-    warning("'key' contains rows that sum to 0; as requested,\n these rows were removed from the table.",call.=FALSE)
+  if (remove0rows & any(key.rowSum==0)) {
+    warning("'key' contained rows that sum to 0; as requested,\n these rows were removed from the table.",call.=FALSE)
     key <- key[!is.na(key.rowSum) & key.rowSum!=0,]
   }
   ## Check if rows sum to 1 (allow for some minimal rounding error and does not consider zeroes )
-  if (any(key.rowSum>0.01 & (key.rowSum<0.99 | key.rowSum>1.01))) warning("Key contains a row that does not sum to 1.",call.=FALSE)
+  if (any(key.rowSum>0.01 & (key.rowSum<0.99 | key.rowSum>1.01))) warning("Key contained a row that does not sum to 1.",call.=FALSE)
   ## Check if rows sum to 0 (allow for some minimal rounding error)
-  if (!only1 & !remove0rows & any(key.rowSum==0)) warning("Key contains a row that sums to 0.",call.=FALSE)
+  if (!only1 & !remove0rows & any(key.rowSum==0)) warning("Key contained rows that sum to 0.",call.=FALSE)
   ## Return the potentially modified key
   key
 }

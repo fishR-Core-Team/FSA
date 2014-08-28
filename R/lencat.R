@@ -184,13 +184,12 @@ lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,right=FALSE,use.names
   lcat <- breaks[cut(x,breaks,labels=FALSE,right=right,include.lowest=TRUE)]
   # convert numeric to factor if asked to do so (drop last break that is always empty)
   if (as.fact) lcat <- factor(lcat,levels=breaks[-length(breaks)])
-  
   # converts length categories to level names
   if (!use.names) { # remove names from variable if they exist and use.names=FALSE
     if(!is.null(names(breaks))) names(lcat) <- NULL
   } else {
     if (is.null(names(breaks))) {
-      warning("'use.catnames=TRUE', but 'breaks' is not named.  Used default labels",call.=FALSE)
+      warning("'use.catnames=TRUE', but 'breaks' is not named.  Used default labels.",call.=FALSE)
     } else {
       # if breaks has names, add new var with those names by comparing to numeric breaks
       lcat <- names(breaks)[match(lcat,breaks)]

@@ -4,9 +4,11 @@
 \alias{alkIndivAge}
 \title{Use an age-length key to assign age to individuals in the unaged sample.}
 \usage{
-ageKey(key, formula, data, type = c("SR", "CR"), breaks = NULL)
+ageKey(key, formula, data, type = c("SR", "CR"), breaks = NULL,
+  seed = NULL)
 
-alkIndivAge(key, formula, data, type = c("SR", "CR"), breaks = NULL)
+alkIndivAge(key, formula, data, type = c("SR", "CR"), breaks = NULL,
+  seed = NULL)
 }
 \arguments{
 \item{key}{A numeric matrix that contains the age-length key.  The format of this matrix is important.  See details.}
@@ -18,6 +20,8 @@ alkIndivAge(key, formula, data, type = c("SR", "CR"), breaks = NULL)
 \item{type}{A string that indicates whether to use the semi-random (\code{type="SR"}, default) or completely-random (\code{type="CR"}) methods for assigning ages to individual fish.  See the fishR vignette for more details.}
 
 \item{breaks}{A numeric vector of lower values that define the length intervals.  See details.}
+
+\item{seed}{A single numeric that is given to the \code{set.seed} function to set the random seed.  This allows repeatability of results.}
 }
 \value{
 The original data.frame in \code{data} with assigned ages added to the column supplied in \code{formula} or in an additional column labeled as \code{age}.  See details.
@@ -44,8 +48,8 @@ data(WR79)
 ## First Example -- Even breaks for length categories
 WR1 <- WR79
 WR1$LCat <- lencat(WR1$len,w=5)                      # add length categories (width=5)
-WR1.age <- Subset(WR1, !is.na(age))                  # isolate aged and unaged samples
-WR1.len <- Subset(WR1, is.na(age))
+WR1.age <- subset(WR1, !is.na(age))                  # isolate aged and unaged samples
+WR1.len <- subset(WR1, is.na(age))
 head(WR1.len)                                        # note no ages in unaged sample
 raw <- xtabs(~LCat+age,data=WR1.age)                 # create age-length key
 ( WR1.key <- prop.table(raw, margin=1) )
@@ -58,8 +62,8 @@ Summarize(len~age,data=WR1.comb,digits=2)            # mean length-at-age
 
 ## Second Example -- length sample does not have an age variable
 WR2 <- WR79
-WR2.age <- Subset(WR2, !is.na(age))                  # isolate age and unaged samples
-WR2.len <- Subset(WR2, is.na(age))
+WR2.age <- subset(WR2, !is.na(age))                  # isolate age and unaged samples
+WR2.len <- subset(WR2, is.na(age))
 WR2.len <- WR2.len[,-3]                              # remove age variable (for demo only)
 WR2.age$LCat <- lencat(WR2.age$len,w=5)              # add length categories to aged sample
 raw <- xtabs(~LCat+age,data=WR2.age)                 # create age-length key
@@ -74,8 +78,8 @@ Summarize(len~age,data=WR2.comb,digits=2)
 WR3 <- WR79
 brks <- c(seq(35,100,5),110,130)                     # set up uneven breaks
 WR3$LCat <- lencat(WR3$len,breaks=brks)              # add length categories (width=5)
-WR3.age <- Subset(WR3, !is.na(age))                  # isolate aged and unaged samples
-WR3.len <- Subset(WR3, is.na(age))
+WR3.age <- subset(WR3, !is.na(age))                  # isolate aged and unaged samples
+WR3.len <- subset(WR3, is.na(age))
 head(WR3.len)                                        # note no ages in length sample
 raw <- xtabs(~LCat+age,data=WR3.age)                 # create age-length key
 ( WR3.key <- prop.table(raw, margin=1) )
