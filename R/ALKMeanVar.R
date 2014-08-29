@@ -88,8 +88,17 @@ iALKMean.BM <- function(key,formula,data,N_i) {
   options(warn=-1)
   mn_ij <- sumTable(formula,data,FUN=mean)
   options(warn=0)
-  ## Get overall number by length and age
-  N_ij <- sweep(key,MARGIN=1,FUN="*",STATS=N_i)
+  ## See if key has a row that sums to zero, remove that row from
+  ##   the key, N_i, and mn_ij
+  key.goodrows <- which(rowSums(key,na.rm=TRUE)!=0)
+  if (length(key.goodrows)>0) {
+    key <- key[key.goodrows,]
+    N_i <- N_i[key.goodrows]
+    mn_ij <- mn_ij[key.goodrows,]
+  }
+  ## Get overall number by length and age (can set check.margin=FALSE
+  ##   because already checked the dimensions ... see ?sweep)
+  N_ij <- sweep(key,MARGIN=1,FUN="*",STATS=N_i,check.margin=FALSE)
   ## Get overall number by age
   N_j <- colSums(N_ij)
   ## Number of ages prsent
@@ -125,6 +134,16 @@ iALKMean.QD <- function(key,formula,data,N_i) {
   var_ij <- sumTable(formula,data,FUN=var)/sqrt(sumTable(formula,data,FUN=length))
   #var_ij <- sumTable(formula,data,FUN=var)/sqrt(sumTable(formula,data,FUN=length))
   options(warn=0)
+  ## See if key has a row that sums to zero, remove that row from
+  ##   the key, N_i, n_ij, mn_ij, and var_ij
+  key.goodrows <- which(rowSums(key,na.rm=TRUE)!=0)
+  if (length(key.goodrows)>0) {
+    key <- key[key.goodrows,]
+    N_i <- N_i[key.goodrows]
+    n_ij <- n_ij[key.goodrows,]
+    mn_ij <- mn_ij[key.goodrows,]
+    var_ij <- var_ij[key.goodrows,]
+  }
   ## Get the number in aged sample in each length
   n_i <- colSums(n_ij,na.rm=TRUE)
   ## total number of fish sampled

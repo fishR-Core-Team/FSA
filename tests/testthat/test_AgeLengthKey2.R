@@ -15,7 +15,7 @@ test_that("Does 'seed=' work in alkIndivAge()",{
   expect_that(all(diff==0),is_true())
 })
 
-test_that("Does same results are achieved if with handling a missing row differently",{
+test_that("Does same results are achieved when handling a missing row differently",{
   WR1 <- WR79
   ## Create a missing row in the ALK
   WR1 <- subset(WR1,len<100 | len>105)
@@ -59,7 +59,6 @@ test_that("Does same results are achieved if with handling a missing row differe
   expect_that(all(diff12==0),is_true())
   expect_that(all(diff23==0),is_true())  
   
-  
   ## Apply the different ALKs with alkMeanVar
   sum1 <- alkMeanVar(WR1.key1,len~LCat1+age,WR1.age,len.n1)
   sum2 <- alkMeanVar(WR1.key2,len~LCat2+age,WR1.age,len.n2)
@@ -67,9 +66,17 @@ test_that("Does same results are achieved if with handling a missing row differe
   ## Compare the different results
   diff12 <- sum1-sum2
   diff23 <- sum2-sum3
-#  expect_that(all(diff12==0),is_true())
-#  expect_that(all(diff23==0),is_true())  
+  expect_that(all(diff12==0),is_true())
+  expect_that(all(diff23==0),is_true())  
   
+  sum1 <- alkMeanVar(WR1.key1,len~LCat1+age,WR1.age,len.n1,method="QuinnDeriso")
+  sum2 <- alkMeanVar(WR1.key2,len~LCat2+age,WR1.age,len.n2,method="QuinnDeriso")
+  sum3 <- alkMeanVar(WR1.key3,len~LCat3+age,WR1.age,len.n3,method="QuinnDeriso")
+  ## Compare the different results
+  diff12 <- sum1-sum2
+  diff23 <- sum2-sum3
+  expect_that(all(diff12==0),is_true())
+  expect_that(all(diff23==0),is_true())  
 })
 
 
