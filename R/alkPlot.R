@@ -145,7 +145,10 @@ iLinesAddLabelsToLines <- function(maxvals,lbl.cex) {
 ## Internal function to make the area plot
 ##############################################################
 iALKPlotArea <- function(key,xlab,ylab,showLegend,leg.cex,pal) {
-  if (any(is.na(rowSums(key)))) stop("A stacked area plot cannot be constructed with a 'key' that has lengths with no ages.",call.=FALSE)
+  if (any(is.na(rowSums(key)))) {
+    tmp <- which(is.na(rowSums(key)))
+    key[tmp,] <- 0
+  } 
   alsum <- iFindAgesAndLens(key)
   col <- chooseColors(pal,alsum$num.ages)
   if (showLegend) iAddLegend(alsum,leg.cex,col)

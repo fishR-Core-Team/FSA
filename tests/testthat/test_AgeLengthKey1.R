@@ -58,5 +58,23 @@ test_that("alkMeanVar() errors and warnings",{
   expect_that(alkMeanVar(alk,len~LCat,WR79.age,len.n),throws_error())
   # three variables on RHS
   expect_that(alkMeanVar(alk,len~LCat+age+ID,WR79.age,len.n),throws_error())
+})
+
+test_that("alkPlot() errors and warnings",{
+  ## create a "good" small ALK matrix
+  alk <- matrix(c(0.4,0.3,0.3,0.0,
+                  0.2,0.4,0.3,0.1,
+                  0.1,0.2,0.4,0.3,
+                  0.0,0.1,0.4,0.5,
+                  0.0,0.0,0.2,0.8),
+                nrow=5,byrow=TRUE)
+  rownames(alk) <- c(10,20,30,40,50)
+  colnames(alk) <- c(2,3,4,5)
+  addmargins(alk,margin=2)
   
+  ## one row is all zeroes
+  tmp <- alk
+  tmp[2,] <- 0
+  expect_that(alkPlot(tmp),gives_warning())
+  expect_that(alkPlot(tmp,type="area"),gives_warning())
 })
