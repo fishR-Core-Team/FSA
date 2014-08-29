@@ -81,4 +81,3 @@ test_that("mrClosed match the Schumacher-Eschmeyer results from p. 99 Ricker (19
     #expect_that(ctmp[[1,"95% UCI"]], equals(696))
   }
 })
-

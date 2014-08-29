@@ -17,7 +17,9 @@ test_that("mrClosed Single Census errors and warnings",{
   ## no M
   expect_that(mrClosed(n=200),throws_error())
   expect_that(mrClosed(m=200),throws_error())
+  ## give R
   expect_that(mrClosed(R=200),throws_error())
+  expect_that(mrClosed(M=346,n=184,m=49,R=200),gives_warning())
   ## can't have more recaps (m) than number checked (n)
   expect_that(mrClosed(346,184,200),throws_error())
   expect_that(mrClosed(c(346,346),c(184,184),c(49,200)),throws_error())
@@ -41,4 +43,4 @@ test_that("mrClosed Multiple Census errors and warnings",{
   expect_that(mrClosed(R=R1,n=n1,method="Schnabel"),throws_error())
   expect_that(mrClosed(M=M1,R=R1,method="Schnabel"),throws_error())
   expect_that(mrClosed(M=M1,n=n1,m=m1,R=R1,method="Schnabel"),gives_warning())
-})  
+})

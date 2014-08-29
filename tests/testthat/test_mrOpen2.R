@@ -38,9 +38,9 @@ BP <- c(NA,6.3,4.5,5.1,0.0,0.0,3.9,3.7,8.7,2.2,0.0,NA,NA,NA,1.0,13.1,6.8,0.0,18.
 BSEP <- c(NA,0.77,1.27,1.53,1.06,0.00,1.22,1.45,3.30,6.60,5.99,NA,NA,NA,6.57,8.25,10.14,6.28,4.22,8.86,2.23,NA,NA)
 # get mrOpen results by using internal functions
 poll <- FSA:::iEstM(poll)
-poll <- FSA:::iEstN(poll,type="Jolly",conf.level=0.95)
+suppressWarnings(poll <- FSA:::iEstN(poll,type="Jolly",conf.level=0.95))
 poll <- FSA:::iEstPhi(poll,k=23,type="Jolly",conf.level=0.95,phi.full=TRUE)
-poll <- FSA:::iEstB(poll,k=23,type="Jolly",conf.level=0.95)
+suppressWarnings(poll <- FSA:::iEstB(poll,k=23,type="Jolly",conf.level=0.95))
 
 
 ## Field Vole example from Krebs (Table 2.2)
@@ -75,7 +75,7 @@ BK <- c(NA,31.4,47.9,24.6,22.1,27.3,12.8,11.4,11.7,NA,NA)
 BSEK <- c(NA,2.7,3.6,3.3,2.6,2.8,1.7,1.8,1.1,NA,NA)
 
 # mrOpen() results
-krebs <- mrOpen(krebs.top,krebs.bot)
+suppressWarnings(krebs <- mrOpen(krebs.top,krebs.bot))
 
 
 ## Jolly's data from Table 5.1 and 5.2 in Seber (2002) page 206

@@ -25,9 +25,9 @@ test_that("depletion() errors and warnings",{
   expect_that(depletion(c(49,184,346),rep(7,3),method="DeLury"),gives_warning())
   expect_that(depletion(c(346,144,341),rep(7,3),method="DeLury"),gives_warning())
   
-  ex1 <- depletion(c(346,184,49),rep(1,3))
+  suppressWarnings(ex1 <- depletion(c(346,184,49),rep(1,3)))
   ## wrong type in methods
   expect_that(summary(ex5,type="Derek"),throws_error())
   expect_that(coef(ex5,type="Derek"),throws_error())
   expect_that(confint(ex5,parm="Derek"),throws_error())
-})  
+})

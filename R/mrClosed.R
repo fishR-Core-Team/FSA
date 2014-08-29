@@ -182,7 +182,13 @@ mrClosed <- function(M=NULL,n=NULL,m=NULL,R=NULL,
             labels=NULL,chapman.mod=TRUE) {
   method <- match.arg(method)
   if (method %in% c("Petersen","Chapman","Ricker","Bailey")) {
-    if (!is.null(R)) warning("'R' not used in single census methods.  It will be ignored.",call.=FALSE)
+    if (!is.null(R)) {
+      ## R not used in single census methods.  If nothing else
+      ##   is supplied then just throw an error
+      if (is.null(c(M,n,m))) stop("'R' not used in single census methods; must supply 'M', 'n', and 'm'.",call.=FALSE)
+      ## Otherwise warn that it will be ignored
+      warning("'R' not used in single census methods; It will be ignored.",call.=FALSE)
+    }
     iMRCSingle(M,n,m,method,labels)
   } else iMRCMultiple(M,n,m,R,method,chapman.mod)
 }

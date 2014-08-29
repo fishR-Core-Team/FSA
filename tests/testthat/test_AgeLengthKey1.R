@@ -15,27 +15,27 @@ test_that("iCheckALK() errors and warnings",{
   ## one row does not sum to 1
   tmp <- alk
   tmp[2,2] <- 0.6  # sum >1
-  expect_that(iCheckALK(tmp),gives_warning())
+  expect_that(FSA:::iCheckALK(tmp),gives_warning())
   tmp[2,2] <- 0.1  # sum <1
-  expect_that(iCheckALK(tmp),gives_warning())
+  expect_that(FSA:::iCheckALK(tmp),gives_warning())
   ## table looks like frequencies, gives warning but converted to row proportions
   tmp <- 10*alk
-  expect_that(iCheckALK(tmp),gives_warning())
+  expect_that(FSA:::iCheckALK(tmp),gives_warning())
   ## table contains a row that sums to 0
   tmp <- alk
   tmp[2,] <- 0
   # give warning of this
-  expect_that(iCheckALK(tmp),gives_warning())
+  expect_that(FSA:::iCheckALK(tmp),gives_warning())
   # give warning that the row was removed
-  expect_that(iCheckALK(tmp,remove0rows=TRUE),gives_warning())
+  expect_that(FSA:::iCheckALK(tmp,remove0rows=TRUE),gives_warning())
   ## bad row names
   tmp <- alk
   rownames(tmp) <- paste0("Len",rownames(alk))
-  expect_that(iCheckALK(tmp),throws_error())
+  expect_that(FSA:::iCheckALK(tmp),throws_error())
   ## bad column names
   tmp <- alk
   colnames(tmp) <- paste0("Age",colnames(alk))
-  expect_that(iCheckALK(tmp),throws_error())
+  expect_that(FSA:::iCheckALK(tmp),throws_error())
 })  
 
 test_that("alkMeanVar() errors and warnings",{

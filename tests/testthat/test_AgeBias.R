@@ -6,7 +6,6 @@ test_that("ageBias symmetry tests match the results in Evans and Hoenig (2008)",
   X.dat <- data.frame(ageR=c(2,2,2,2,2,2,2,2),
                       ageC=c(1,1,1,1,3,3,3,3))
   X <- ageBias(ageC~ageR,data=X.dat)
-  summary(X,what="table",zero.print=0)
   Xsum <- summary(X,what="symmetry")
   expect_that(Xsum[Xsum$symTest=="McNemars","df"], equals(1))
   expect_that(Xsum[Xsum$symTest=="McNemars","chi.sq"], equals(0))
@@ -39,7 +38,6 @@ test_that("ageBias symmetry tests match the results in Evans and Hoenig (2008)",
   Z.dat <- data.frame(ageR=c(1,1,1,2,2,2,3),
                       ageC=c(2,2,2,3,3,3,1))
   Z <- ageBias(ageC~ageR,data=Z.dat)
-  summary(Z,what="table",zero.print=0)
   Zsum <- summary(Z,what="symmetry")
   expect_that(Zsum[Zsum$symTest=="McNemars","df"], equals(1))
   expect_that(round(Zsum[Zsum$symTest=="McNemars","chi.sq"],2), equals(3.57))
@@ -55,7 +53,7 @@ test_that("ageBias symmetry tests match the results in Evans and Hoenig (2008)",
 test_that("test AlewifeLH data against compare2() results",{
   if (require(FSAdata) & require(fishmethods)) {
     data(AlewifeLH)
-    ab2 <- compare2(AlewifeLH)
+    ab2 <- compare2(AlewifeLH,barplot=FALSE)
     ## no continuity correction
     ab1 <- ageBias(otoliths~scales,data=AlewifeLH,ref.lab="Otolith Age",nref.lab="Scale Age")
     ab1sum <- summary(ab1)
@@ -69,7 +67,7 @@ test_that("test AlewifeLH data against compare2() results",{
     expect_that(ab1sum2[1,"chi.sq"],equals(ab2$McNemar_continuity_correction$Chisq))
     expect_that(ab1sum2[1,"p"],equals(ab2$McNemar_continuity_correction$pvalue))
     ## Edwards continuity correction
-    ab3 <- compare2(AlewifeLH,correct="Edwards")
+    ab3 <- compare2(AlewifeLH,correct="Edwards",barplot=FALSE)
     ab1sum3 <- summary(ab1,what="McNemars",cont.corr="Edwards")
     expect_that(ab1sum3[1,"chi.sq"],equals(ab3$McNemar_continuity_correction$Chisq))
     expect_that(ab1sum3[1,"p"],equals(ab3$McNemar_continuity_correction$pvalue))
@@ -93,4 +91,3 @@ test_that("ageBias errors and warnings",{
   ## Two variables on RHS
   expect_that(ageBias(otolithC~scaleC+finrayC,data=WhitefishLC),throws_error())
 })
-  
