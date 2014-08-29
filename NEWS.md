@@ -1,4 +1,7 @@
-# FSA 0.4.24 ongoing
+# FSA 0.4.25 ongoing
+
+
+# FSA 0.4.24 Aug14
 * `ageKey()`: Deprecated.  See `alkIndAge()`.
 * `ageKeyPlot()`: Deprecated.  See `alkPlot()`.
 * `ageKeyPrep()`: Deprecated.  See `alkPrep()`.
