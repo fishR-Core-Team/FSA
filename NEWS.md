@@ -1,4 +1,6 @@
-# FSA 0.4.25 ongoing
+# FSA 0.4.26 ongoing
+
+# FSA 0.4.25 Sep14
 * `mrClosed()`: Modified.  Better handled a given value of `R=`.
 * `psdCalc()` Modified.  Fixed a bug that appeared when no "zero" fish were present in the data.  Moved all internal functions outside of `psdCalc()` environment (and renamed them).
 * `psdCI()`: Added.
