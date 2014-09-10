@@ -32,6 +32,7 @@
 #' @param out.dir A string that indicates the directory structure in which the purled file should be located.  This should not have a forward slash at the end.
 #' @param moreItems A string that contains additional words that when found in the Stangled file will result in the entire line with those words to be deleted.
 #' @param blanks A string that indicates if blank lines should be removed.  If \code{blanks="all"} then all blank lines will be removed.  If \code{blanks="extra"} then only \dQuote{extra} blanks lines will be removed (i.e., one blank line will be left where there was originally more than one blank line).
+#' @param topnotes A character vector of lines to be added to the top of output file.  Each value in the vector will be placed on a single line at the top of the output file.
 #' @param annotate A logical that indicates whether decorating comments around code chunks should be used (\code{TRUE}) or not (\code{FALSE}; default).
 #' @param show.alt A logical that indicates whether the line stating what the alternative hypothesis is should be printed (\code{TRUE}) or not (\code{FALSE}; default).
 #' @param method A string that indicates whether the file will be treated as knitr or Sweave input.
@@ -185,45 +186,66 @@ swvHtest <- function(x,digits=4,show.alt=FALSE,...) {
 
 #' @rdname swvUtil
 #' @export
-swvCode <- function(file,out.dir=NULL,moreItems=NULL,blanks=c("extra","all","none"),
+swvCode <- function(file,out.dir=NULL,topnotes=NULL,
+                    moreItems=NULL,blanks=c("extra","all","none"),
                     annotate=FALSE,method=c("knitr","Sweave"),...) {
+  ## Some checks
   blanks <- match.arg(blanks)
   method <- match.arg(method)
+  ## if no file is sent then find the .Rnw file in the current working directory
+  if (missing(file)) file <- list.files(pattern=".Rnw",ignore.case=TRUE)
+  ## Get input directory (from filename) and potentially change the output directory
+  in.dir <- file.path(dirname(file))
+  if (is.null(out.dir)) out.dir <- in.dir
+  ## Get just the filename prefix (i.e., remove directory and .Rnw if it exists)
+  fn.pre <- unlist(strsplit(basename(file),"\\.Rnw|\\.rnw|\\.RNW"))
+  ## Make intermediate file for the purl result (in in.dir)
+  fn.Ri <- iMakeFilename(fn.pre,".R",in.dir)
+  ## Make output file (in out.dir)
+  fn.Ro <- iMakeFilename(fn.pre,".R",out.dir)
+  ## Remove already existing .R files with the same name
+  # Delete the original purled/stangled file
+  unlink(fn.Ri)
+  unlink(fn.Ro)
+  ## purl or stangle the results and then read those results back into flines
+  if (method=="knitr") knitr::purl(file,fn.Ri,documentation=0)
+  else Stangle(file,annotate=annotate,...)
+  flines <- readLines(fn.Ri)
+  ## Expand itemsToRemove if someting in moreItems
   itemsToRemove <- iMakeItemsToRemove(moreItems)
-  # Make filenames ... get file prefix from "file" argument, add the .Rnw extension
-  #   for the input file, add the .R extension and potentially change directories
-  #   for the output file.
-  file <- ifelse(missing(file),file <- iGetFilePrefix(),file <- iGetFilePrefix(file))
-  fn1 <- iMakeFilename(file,".Rnw")
-  fn2 <- iMakeFilename(file,".R")          # intermediate file after purl/stangle
-  fn3 <- iMakeFilename(file,".R",out.dir)  # final file after modifying intermed file
-  # purl or stangle the results and then read those results back into flines
-  if (method=="knitr") purl(fn1)
-    else Stangle(fn1,annotate=annotate,...)
-  flines <- readLines(fn2)
-  # Find the rows with the items to remove and then remove those item is they exist
+  ## Find the rows with the items to remove and then remove those items if they exist
   for (i in 1:length(itemsToRemove)) {                            
     RowsToRemove <- grep(itemsToRemove[i],flines)
     if (length(RowsToRemove)>0) flines <- flines[-RowsToRemove]
   }
-  # Remove the blank lines as directed in blanks argument
-  if (blanks=="all") flines <- flines[-which(flines=="")]
-  else if (blanks=="extra") {
-    blankLines <- which(flines=="")
-    extras <- which(c(2,diff(blankLines))==1)
-    flines <- flines[-blankLines[extras]]
+  ## Remove the blank lines as directed in blanks argument
+  if (blanks=="all") {
+    flines <- flines[-which(flines=="")]
+  } else {
+    if (blanks=="extra") {
+      blankLines <- which(flines=="")
+      extras <- which(c(2,diff(blankLines))==1)
+      flines <- flines[-blankLines[extras]]
+    }
   }
-  # Delete the original purled/stangled file
-  unlink(fn2)
-  # Write out a new purled/stangled file with the lines with ItemsToRemove removed
-  write(flines,fn3)
+  ## Add topnotes if any given
+  if (!is.null(topnotes)) flines <- c(paste("#",topnotes),flines)
+  ## Delete first line if it is blank (often the case after removeItems)
+  if (flines[1]=="") flines <- flines[-1]
+  ## Delete the original purled/stangled file
+  unlink(fn.Ri)
+  ## Write out a new purled/stangled file with the lines with ItemsToRemove removed
+  write(flines,fn.Ro)
 }
 
 #' @rdname swvUtil
 #' @export
 swvFinish <- function(file,rqrdPkgs=NULL,closeGraphics=TRUE,
                       addTOC=TRUE,newPage=FALSE,elapsed=NULL,listFiles=FALSE) {
-  file <- ifelse(missing(file),file <- iGetFilePrefix(),file <- iGetFilePrefix(file))   
+  ## if no file is sent then find the .Rnw file in the current working directory
+  if (missing(file)) file <- list.files(pattern=".Rnw",ignore.case=TRUE)
+  ## Get just the filename prefix (i.e., remove directory and .Rnw if it exists)
+  file <- unlist(strsplit(basename(file),c("\\.Rnw","\\.rnw","\\.RNW")))
   swvFile <- iMakeFilename(file,".rnw")
   rFile <- iMakeFilename(file,".r")
   ses <- iProcessSessionInfo()
@@ -303,16 +325,6 @@ iGetAllDependencies <- function(pkgs) {
   deps <- sort(deps)
   # return original list and dependents
   unique(c(pkgs,deps))
-}
-
-iGetFilePrefix <- function(file) {
-  # if no file is sent then find the .RNW file in the current working directory
-  if (missing(file)) file <- unlist(strsplit(list.files(pattern=".Rnw",ignore.case=TRUE),"\\.Rnw"))
-  # break off .Rnw if it is there
-  file <- unlist(strsplit(file,"\\.Rnw"))
-  # break off .rnw if it is there
-  file <- unlist(strsplit(file,"\\.rnw"))  
-  file
 }
 
 iMakeFilename <- function(file,extension,directory=NULL) {

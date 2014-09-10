@@ -36,46 +36,66 @@
 #' ## Random length data
 #' # suppose this is yellow perch to the nearest mm
 #' yepdf <- data.frame(yepmm=c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),
-#'                     rnorm(20,mean=300,sd=40)))
+#'                     rnorm(20,mean=300,sd=40)),
+#'                     species=rep("Yellow Perch",170))
 #' psdCalc(~yepmm,data=yepdf,species="Yellow perch",units="mm",digits=1)
 #'
+#' ## all values above stock value (troubleshooting a problem)
+#' yepdf2 <- subset(yepdf,yepmm>=130)
+#' psdCalc(~yepmm,data=yepdf2,species="Yellow perch",units="mm",digits=1)
+#' 
+#' ## all values above quality value (troubleshooting a problem)
+#' yepdf3 <- subset(yepdf,yepmm>=200)
+#' psdCalc(~yepmm,data=yepdf3,species="Yellow perch",units="mm",digits=1)
+#' 
 #' @export psdCalc
 psdCalc <- function(formula,data,species="List",units=c("mm","cm","in"),
                     addLens=NULL,addNames=NULL,conf.level=0.95,
                     digits=getOption("digits")) {
-  # INTERNAL function
-  psdLabels <- function(psdbrks) {
-    # get rid of zero and stock names
-    psdbrks <- psdbrks[-c(1,2)]
-    # check if any breaks are labeled with numeric values
-    suppressWarnings(psdnums <- which(!is.na(as.numeric(names(psdbrks)))))
-    # convert breaks names to one letter
-    psdnms <- toupper(substring(names(psdbrks),1,1))
-    # but put numeric labels back in
-    psdnms[psdnums] <- names(psdbrks)[psdnums]
-    # add on PSD prefix and return
-    paste("PSD-",psdnms,sep="")
-  }  # end internal function
-  
-  # MAIN FUNCTION
   units <- match.arg(units)
+  ## check if the data.frame has data
+  if (nrow(data)==0) stop("'data' does not contain any rows.",call.=FALSE)
+  ## get name of length variable from the formula
   cl <- iGetVarFromFormula(formula,data,expNumVars=1)
-  # find psd lengths for this species     
-  psdbrks <- psdVal(species,units=units,incl.zero=TRUE,addLens=addLens,addNames=addNames)
-  dftemp <- lencat(formula,data=data,breaks=psdbrks,vname="lcatr")
-  # make RSD calculations
+  ## find psd lengths for this species     
+  psdbrks <- psdVal(species,units=units,incl.zero=FALSE,addLens=addLens,addNames=addNames)
+  ## restrict data to above the stock length
+  print(psdbrks)
+  dftemp <- data[data[,cl]>=psdbrks[1],]
+  print(dftemp)
+  # if nothing in data.frame then send error
+  if (nrow(dftemp)==0) stop("There are no stock-length fish in the sample.",call.=FALSE)
+  ## add the length categorization variable, dropping unused levels
+  dftemp <- lencat(formula,data=dftemp,breaks=psdbrks,vname="lcatr",use.names=TRUE,drop.levels=TRUE)
+  ## get reverse cumulative sum table and number of stock fish
   rcum <- rcumsum(table(dftemp$lcatr))
-  n.stock <- rcum[2]
-  rcum <- rcum[-c(1,2)]
-  rsds <- (rcum/n.stock)*100
-  # get CIs
-  cis <- 100*binCI(as.vector(rcum),n.stock,conf.level=conf.level)
+  # if rcum does not have the stock length then a value must be added
+  if (names(rcum)[1]!="stock") rcum <- c(rcum[1],rcum)
+  n.stock <- rcum[1]
+  ## make PSD calculations
+  psds <- (rcum[-1]/n.stock)*100
+  ## get CIs
+  cis <- 100*binCI(as.vector(rcum[-1]),n.stock,conf.level=conf.level)
   # put together
-  res <- cbind(rsds,cis)
+  res <- cbind(psds,cis)
   # remove temporary data.frame
   rm(dftemp)
   # label
-  rownames(res) <- psdLabels(psdbrks)[1:length(rsds)]
-  colnames(res)[1] <- "Value" 
+  rownames(res) <- iPSDLabels(rownames(res))
+  colnames(res)[1] <- "Estimate" 
   round(res,digits)
+}
+
+##############################################################
+# INTERNAL function to create labels for the PSD values
+##############################################################
+iPSDLabels <- function(psdbrks) {
+  # check if any breaks are labeled with numeric values
+  suppressWarnings(psdnums <- which(!is.na(as.numeric(names(psdbrks)))))
+  # convert breaks names to one letter
+  psdnms <- toupper(substring(psdbrks,1,1))
+  # but put numeric labels back in
+  psdnms[psdnums] <- psdbrks[psdnums]
+  # add on PSD prefix and return
+  paste("PSD-",psdnms,sep="")
 }

@@ -7,7 +7,7 @@ psdPlot(formula, data, species = "List", units = c("mm", "cm", "in"),
   startcat = 0, w = 1, justPSDQ = FALSE, main = "", xlab = "Length",
   ylab = "Number", xlim = NULL, ylim = c(0, max(h$counts)),
   substock.col = "white", stock.col = "gray90", psd.col = "red",
-  psd.lty = 2, psd.lwd = 1, legend.pos = "topright", legend.cex = 0.75,
+  psd.lty = 2, psd.lwd = 1, legend.pos = "topleft", legend.cex = 0.75,
   ...)
 }
 \arguments{

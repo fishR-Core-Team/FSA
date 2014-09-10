@@ -22,8 +22,9 @@ swvREG(x, digits = max(3, getOption("digits") - 3))
 
 swvHtest(x, digits = 4, show.alt = FALSE, ...)
 
-swvCode(file, out.dir = NULL, moreItems = NULL, blanks = c("extra", "all",
-  "none"), annotate = FALSE, method = c("knitr", "Sweave"), ...)
+swvCode(file, out.dir = NULL, topnotes = NULL, moreItems = NULL,
+  blanks = c("extra", "all", "none"), annotate = FALSE,
+  method = c("knitr", "Sweave"), ...)
 
 swvFinish(file, rqrdPkgs = NULL, closeGraphics = TRUE, addTOC = TRUE,
   newPage = FALSE, elapsed = NULL, listFiles = FALSE)
@@ -50,6 +51,8 @@ swvFinish(file, rqrdPkgs = NULL, closeGraphics = TRUE, addTOC = TRUE,
 \item{moreItems}{A string that contains additional words that when found in the Stangled file will result in the entire line with those words to be deleted.}
 
 \item{blanks}{A string that indicates if blank lines should be removed.  If \code{blanks="all"} then all blank lines will be removed.  If \code{blanks="extra"} then only \dQuote{extra} blanks lines will be removed (i.e., one blank line will be left where there was originally more than one blank line).}
+
+\item{topnotes}{A character vector of lines to be added to the top of output file.  Each value in the vector will be placed on a single line at the top of the output file.}
 
 \item{annotate}{A logical that indicates whether decorating comments around code chunks should be used (\code{TRUE}) or not (\code{FALSE}; default).}
 

@@ -40,8 +40,17 @@ This computes the PSD-X values, with associated confidence intervals, for each r
 ## Random length data
 # suppose this is yellow perch to the nearest mm
 yepdf <- data.frame(yepmm=c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),
-                    rnorm(20,mean=300,sd=40)))
+                    rnorm(20,mean=300,sd=40)),
+                    species=rep("Yellow Perch",170))
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",units="mm",digits=1)
+
+## all values above stock value (troubleshooting a problem)
+yepdf2 <- subset(yepdf,yepmm>=130)
+psdCalc(~yepmm,data=yepdf2,species="Yellow perch",units="mm",digits=1)
+
+## all values above quality value (troubleshooting a problem)
+yepdf3 <- subset(yepdf,yepmm>=200)
+psdCalc(~yepmm,data=yepdf3,species="Yellow perch",units="mm",digits=1)
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

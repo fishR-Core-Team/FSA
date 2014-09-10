@@ -75,28 +75,27 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
                     startcat=0,w=1,justPSDQ=FALSE,main="",xlab="Length",
                     ylab="Number",xlim=NULL,ylim=c(0,max(h$counts)),
                     substock.col="white",stock.col="gray90",psd.col="red",
-                    psd.lty=2,psd.lwd=1,legend.pos="topright",legend.cex=0.75,...) {
+                    psd.lty=2,psd.lwd=1,legend.pos="topleft",legend.cex=0.75,...) {
   units <- match.arg(units)
   cl <- iGetVarFromFormula(formula,data,expNumVars=1)
-  # get ultimate sample size 
+  ## get ultimate sample size 
   n <- nrow(data)
-  # find psd values for this species
+  ## find psd values for this species
   if (justPSDQ) psdlens <- psdVal(species,units=units)[1:3]
     else psdlens <- psdVal(species,units=units)  
-  # If xlim is provided then limit temporary df to fish in range of xlim
+  ## If xlim is provided then limit temporary df to fish in range of xlim
   if (!is.null(xlim)) {
     if (min(xlim)>psdlens["stock"]) stop("Minimum chosen length value in 'xlim' is greater than 'stock' size.",call.=FALSE)
     dftemp <- data[data[,cl]>=min(xlim) & data[,cl]<=max(xlim),] 
   } else dftemp <- data
-  # add length category variables to data frame
+  ## add length category variables for making the plot to the data frame
   dftemp <- lencat(formula,data=dftemp,startcat=startcat,w=w,as.fact=FALSE,vname="lcatw")
-  dftemp <- lencat(formula,data=dftemp,breaks=psdlens,vname="lcatr")
-  # make an initial histogram to get the breaks and counts
+  ## make an initial histogram to get the breaks and counts
   min.brk <- min(c(min(dftemp$lcatw,na.rm=TRUE),min(psdlens)))
   h <- hist(dftemp$lcatw,right=FALSE,breaks=seq(min.brk,max(dftemp$lcatw,na.rm=TRUE),w),plot=FALSE)
-  # Create xlim values if none were given
+  ## Create xlim values if none were given
   if (is.null(xlim)) xlim=range(h$breaks)
-  # find PSD cutoff values
+  ## find PSD cutoff values
   # make a schematic plot
   plot(h$breaks[-length(h$breaks)],h$counts,type="n",xlim=xlim,ylim=ylim,main=main,xlab=xlab,ylab=ylab,...)
   # Which breaks correspond to sub- and stock fish
@@ -118,13 +117,11 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
   rect(xleft,ybott,xright,ytop,col=stock.col)
   # add psd category lines
   abline(v=psdlens[-1],col=psd.col,lty=psd.lty,lwd=psd.lwd)
-  # add PSD calculations
-  psd <- rcumsum(table(dftemp$lcatr))
-  n.stock <- psd[2]
-  psd <- (psd[-c(1,2)]/psd[2])*100
-  numpsd <- length(psd)
-  psdlbls <- c("PSD-Q","PSD-P","PSD-M","PSD-T")[1:numpsd]
-  psdleg <- paste(c("n","n[stock]",psdlbls),"=",formatC(c(n,n.stock,psd),format="f",digits=0))
+  ## add PSD calculations
+  psds <- psdCalc(formula,data=dftemp,species=species,units=units)
+  n.stock <- nrow(Subset(dftemp,dftemp[,cl]>psdlens[2]))
+  psdlbls <- rownames(psds)
+  psdleg <- paste(c("n","n[stock]",psdlbls),"=",formatC(c(n,n.stock,psds[,"Estimate"]),format="f",digits=0))
   legend(legend.pos,psdleg,cex=legend.cex,box.col="white",bg="white",inset=0.02)
   rm(dftemp)
 }

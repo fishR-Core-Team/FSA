@@ -81,7 +81,7 @@ test_that("Does same results are achieved when handling a missing row differentl
 })
 
 
-test_that("ALKAgeDist() reproduces results from Table 8.4 (left) of Quinn and Deriso (1999)",{
+test_that("alkAgeDist() reproduces results from Table 8.4 (left) of Quinn and Deriso (1999)",{
   if (require(fishmethods)) {
     ## Quinn and Deriso (1999) data are alkdata and alkprop reproduces
     ##   Table 8.4 results

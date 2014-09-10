@@ -1,5 +1,10 @@
 # FSA 0.4.25 ongoing
 * `mrClosed()`: Modified.  Better handled a given value of `R=`.
+* `psdCalc()` Modified.  Fixed a bug that appeared when no "zero" fish were present in the data.  Moved all internal functions outside of `psdCalc()` environment (and renamed them).
+* `psdCI()`: Added.
+* `psdPlot()`: Modified.  Fixed a bug that appeared when no "zero" fish were present in the data.  Used `psdCalc()` to compute the PSD values.  Moved default legend position to `topleft`.
+* `swvCode()`: Modified.  Fixed bug when attempting to use this function from outside of the directory where the .Rnw file exists.  Added functionality to add a "note" to the first line(s) of the output file.  Added code to remove the first line of the output file if it was going to be blank.
+* `swvFinish()`: Modified.  Updated code because `iGetFilePrefix()` was deleted.
 
 # FSA 0.4.24 Aug14
 * `ageKey()`: Deprecated.  See `alkIndAge()`.
