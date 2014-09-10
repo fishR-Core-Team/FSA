@@ -1,4 +1,5 @@
 # FSA 0.4.26 ongoing
+* `lencat()`: Modified.  Moved all internal functions outside of `lencat()` environment (and renamed them).
 
 # FSA 0.4.25 Sep14
 * `mrClosed()`: Modified.  Better handled a given value of `R=`.
@@ -1139,7 +1140,7 @@
 * lencat(): Modified by adding an as.fact= argument that allows the user to decide
     if the resulting variable should be returned as a factor variable or not.  The
     default is set to return as a factor variable.  This allows tables of the new
-    variable to include zeroes for levels of the new variable that contain n* individuals.
+    variable to include zeroes for levels of the new variable that contain no individuals.
     This makes some RSD/PSD (and likely age-length key) calculations simpler.  Also added
     a drop.levels= argument to allow the user to drop unused levels if so desired.
 * mr.closed():  This function is a combination of the old mr.closed1() and mr.closed2().
