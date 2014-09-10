@@ -2,7 +2,7 @@
 #'
 #' @description Constructs a length-frequency histogram with PSD-X categories highlighted.
 #'
-#' @details This function creates a length-frequency histogram with the stock-size fish highlighted, the Gabelhouse five-cell length category values marked by vertical lines, and superimposed calculations of PSD-X values.
+#' @details This function creates a length-frequency histogram with the stock-size fish highlighted, the Gabelhouse length values marked by vertical lines, and the PSD-X values superimposed.
 #'
 #' The length of fish plotted on the x-axis can be controlled with \code{xlim}, however, the minimum value in \code{xlim} must be less than the length of a stock size fish for that species.
 #'
@@ -26,6 +26,7 @@
 #' @param psd.lty A numeric that indicates the line type to use for the vertical lines at the PSD category values.
 #' @param psd.lwd A numeric that indicates the line width to use for the vertical lines at the PSD category values.
 #' @param legend.pos A string that indicates the position for the legend text.
+#' @param show.abbrevs A logical that indicates if the abbreviations for the Gabelhouse length categories should be added to the top of the plot.
 #' @param legend.cex A numeric value that indicates the character expansion for the legend text.
 #' @param \dots Arguments to be passed to the low-level plotting functions.
 #'
@@ -72,15 +73,18 @@
 #'
 #' @export psdPlot
 psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
-                    startcat=0,w=1,justPSDQ=FALSE,main="",xlab="Length",
-                    ylab="Number",xlim=NULL,ylim=c(0,max(h$counts)),
-                    substock.col="white",stock.col="gray90",psd.col="red",
-                    psd.lty=2,psd.lwd=1,legend.pos="topleft",legend.cex=0.75,...) {
-  units <- match.arg(units)
+                    startcat=0,w=1,justPSDQ=FALSE,
+                    main="",xlab="Length",ylab="Number",
+                    xlim=NULL,ylim=c(0,max(h$counts)),
+                    substock.col="white",stock.col="gray90",
+                    psd.col="black",psd.lty=2,psd.lwd=1,
+                    show.abbrevs=TRUE,
+                    legend.pos="topleft",legend.cex=0.75,...) {
+  ## Get variable name that contains the lengths
   cl <- iGetVarFromFormula(formula,data,expNumVars=1)
   ## get ultimate sample size 
   n <- nrow(data)
-  ## find psd values for this species
+  ## get psd values for this species
   if (justPSDQ) psdlens <- psdVal(species,units=units)[1:3]
     else psdlens <- psdVal(species,units=units)  
   ## If xlim is provided then limit temporary df to fish in range of xlim
@@ -88,40 +92,29 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
     if (min(xlim)>psdlens["stock"]) stop("Minimum chosen length value in 'xlim' is greater than 'stock' size.",call.=FALSE)
     dftemp <- data[data[,cl]>=min(xlim) & data[,cl]<=max(xlim),] 
   } else dftemp <- data
-  ## add length category variables for making the plot to the data frame
-  dftemp <- lencat(formula,data=dftemp,startcat=startcat,w=w,as.fact=FALSE,vname="lcatw")
   ## make an initial histogram to get the breaks and counts
-  min.brk <- min(c(min(dftemp$lcatw,na.rm=TRUE),min(psdlens)))
-  h <- hist(dftemp$lcatw,right=FALSE,breaks=seq(min.brk,max(dftemp$lcatw,na.rm=TRUE),w),plot=FALSE)
+  min.brk <- min(c(dftemp[,cl],psdlens),na.rm=TRUE)
+  max.brk <- max(dftemp[,cl])+w
+  h <- hist(dftemp[,cl],right=FALSE,breaks=seq(min.brk,max.brk,w),plot=FALSE)
   ## Create xlim values if none were given
   if (is.null(xlim)) xlim=range(h$breaks)
-  ## find PSD cutoff values
-  # make a schematic plot
-  plot(h$breaks[-length(h$breaks)],h$counts,type="n",xlim=xlim,ylim=ylim,main=main,xlab=xlab,ylab=ylab,...)
-  # Which breaks correspond to sub- and stock fish
-  substock.ind <- which(h$breaks < psdlens[2])
-  stock.ind <- which(h$breaks >= psdlens[2]) 
-  # add the below stock fish
-  if (length(substock.ind) > 0) {
-    xleft <- h$breaks[substock.ind]
-    ybott <- rep(0,length(xleft))
-    xright <- h$breaks[c(substock.ind[-1],stock.ind[1])]
-    ytop <- h$counts[substock.ind]
-    rect(xleft,ybott,xright,ytop,col=substock.col)
-  }
-  # add the stock fish
-  xleft <- h$breaks[stock.ind]
-  ybott <- rep(0,length(xleft))
-  xright <- h$breaks[stock.ind[-1]]
-  ytop <- h$counts[stock.ind]
-  rect(xleft,ybott,xright,ytop,col=stock.col)
-  # add psd category lines
+  ## Create colors for the bars
+  clr <- ifelse(h$breaks<psdlens[2],substock.col,stock.col)
+  ## Plot the histogram with the new colors
+  plot(h,col=clr,xlim=xlim,ylim=ylim,main=main,xlab=xlab,ylab=ylab,...)
+  box()
+  if (show.abbrevs) axis(3,at=psdlens[-1],labels=toupper(substring(names(psdlens)[-1],1,1)))
+  ## add psd category lines
   abline(v=psdlens[-1],col=psd.col,lty=psd.lty,lwd=psd.lwd)
   ## add PSD calculations
-  psds <- psdCalc(formula,data=dftemp,species=species,units=units)
+  # get PSDs
+  psds <- psdCalc(formula,data=dftemp,species=species,units=units,what="traditional")
+  # reduce to only those that are >0 (drop is needed in case it reduces to only one)
+  psds <- psds[psds[,"Estimate"]>0,,drop=FALSE]
+  # add stock number
   n.stock <- nrow(Subset(dftemp,dftemp[,cl]>psdlens[2]))
-  psdlbls <- rownames(psds)
-  psdleg <- paste(c("n","n[stock]",psdlbls),"=",formatC(c(n,n.stock,psds[,"Estimate"]),format="f",digits=0))
-  legend(legend.pos,psdleg,cex=legend.cex,box.col="white",bg="white",inset=0.02)
+  # put it all together
+  psdleg <- paste(c("n","n[stock]",rownames(psds)),"=",formatC(c(n,n.stock,psds[,"Estimate"]),format="f",digits=0))
+  legend(legend.pos,psdleg,cex=legend.cex,box.col="white",bg="white",inset=0.002)
   rm(dftemp)
 }

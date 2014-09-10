@@ -1,21 +1,23 @@
-#' @title Convenience function for caculating PSD-X values.
+#' @title Convenience function for calculating PSD-X and PSD X-Y values.
 #'
-#' @description Convenience function for caculating PSD-X values for all lengths in the Gabelhouse five-cell categories.
+#' @description Convenience function for calculating (traditional) PSD-X and (interval) PSD X-Y values for all lengths and intervals of Gabelhouse lengths.
 #'
-#' @details This computes the PSD-X values, with associated confidence intervals, for each represented length in the Gabelhouse five-cell length categories.
+#' @details This computes the  (traditional) PSD-X and (interval) PSD X-Y values, with associated confidence intervals, for each Gabelhouse length.  All PSD-X and PSD X-Y values are printed if \code{what="all"} (DEFAULT), only PSD-X values are printed if \code{what="traditional"}, only PSD X-Y values are printed if \code{what="interval"}, and nothing is printed (but the matrix is still returned) if \code{what="none"}.
 #'
 #' @aliases psdCalc
 #'
-#' @param formula A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains length measurements.  Note that this formula can only contain one variable.
+#' @param formula A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains length measurements.  Note that this formula may only contain one variable.
 #' @param data A data.frame that minimally contains the length measurements given in the variable in the \code{formula}.
-#' @param species A string that contains the species name for which five-cell length categories exist.  See \code{\link{psdVal}} for details.
+#' @param species A string that contains the species name for which Gabelhouse length categories exist.  See \code{\link{psdVal}} for details.
 #' @param units A string that indicates the type of units used for the length measurements.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
+#' @param what A string that indicates the level of PSD values that will be printed.  See details.
+#' @param method A character that identifies the confidence interval method to use.  See details in \code{\link{psdCI}}.
 #' @param addLens A numeric vector that contains minimum length definitions for additional categories.  See \code{\link{psdVal}} for details.
 #' @param addNames A string vector that contains names for the additional length categories added with \code{addLens}.  See \code{\link{psdVal}} for details.
 #' @param conf.level A number that indicates the level of confidence to use for constructing confidence intervals (default is \code{0.95}).
 #' @param digits A numeric that indicates the number of decimals to round the result to.
 #'
-#' @return A matrix with columns that contain the computed PSD-X value and the associated confidence intervals.
+#' @return A matrix with columns that contain the computed PSD-X or PSD X-Y values and the associated confidence intervals.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
@@ -38,53 +40,117 @@
 #' yepdf <- data.frame(yepmm=c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),
 #'                     rnorm(20,mean=300,sd=40)),
 #'                     species=rep("Yellow Perch",170))
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",units="mm",digits=1)
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1)
 #'
 #' ## all values above stock value (troubleshooting a problem)
 #' yepdf2 <- subset(yepdf,yepmm>=130)
-#' psdCalc(~yepmm,data=yepdf2,species="Yellow perch",units="mm",digits=1)
+#' psdCalc(~yepmm,data=yepdf2,species="Yellow perch",digits=1)
 #' 
 #' ## all values above quality value (troubleshooting a problem)
 #' yepdf3 <- subset(yepdf,yepmm>=200)
-#' psdCalc(~yepmm,data=yepdf3,species="Yellow perch",units="mm",digits=1)
+#' psdCalc(~yepmm,data=yepdf3,species="Yellow perch",digits=1)
+#' 
+#' ## add a length
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1)
+#' 
+#' ## add a length with a name
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,addNames="minLen",digits=1)
+#' 
+#' ## different output types
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="traditional")
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="interval")
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="none")
 #' 
 #' @export psdCalc
 psdCalc <- function(formula,data,species="List",units=c("mm","cm","in"),
-                    addLens=NULL,addNames=NULL,conf.level=0.95,
+                    what=c("all","traditional","interval","none"),
+                    method=c("multinom","binom","Gustafson"),conf.level=0.95,
+                    addLens=NULL,addNames=NULL,
                     digits=getOption("digits")) {
-  units <- match.arg(units)
+  ## find psd lengths for this species
+  brks <- psdVal(species,units=units,incl.zero=FALSE,addLens=addLens,addNames=addNames)
+  ## perform checks and initial preparation of the data.frame
+  dftemp <- iPrepData4PSD(formula,data,brks["stock"])
+  ## add the length categorization variable, dropping unused levels
+  dftemp <- lencat(formula,data=dftemp,breaks=brks,vname="lcatr",use.names=TRUE,drop.levels=FALSE)
+  ## get sample size (number of stock-length fish)
+  n <- nrow(dftemp)
+  ## make the proportions table
+  ptbl <- prop.table(table(dftemp$lcatr))
+  ## compute all traditional and interval PSD values
+  res <- iGetAllPSD(ptbl,n=n,method=method,conf.level=conf.level)
+  ## return result
+  k <- length(ptbl)
+  switch(match.arg(what),
+         all=         { round(res,digits) },
+         traditional= { round(res[1:(k-1),],digits) },
+         interval=    { round(res[k:nrow(res),],digits) },
+         none=        { invisible(res) }
+         )
+}
+
+# ============================================================
+# Internal function to prepare the data.frame for ease of 
+#   computing the PSD values.  Performs some checks and 
+#   deletes the sub-stock fish.
+# ============================================================
+iPrepData4PSD <- function(formula,data,stock.len) {
   ## check if the data.frame has data
   if (nrow(data)==0) stop("'data' does not contain any rows.",call.=FALSE)
   ## get name of length variable from the formula
   cl <- iGetVarFromFormula(formula,data,expNumVars=1)
-  ## find psd lengths for this species     
-  psdbrks <- psdVal(species,units=units,incl.zero=FALSE,addLens=addLens,addNames=addNames)
   ## restrict data to above the stock length
-  print(psdbrks)
-  dftemp <- data[data[,cl]>=psdbrks[1],]
-  print(dftemp)
+  data <- data[data[,cl]>=stock.len,]
+  ## assure that NA values in the length variable are removed
+  data <- data[!is.na(data[,cl]),]
   # if nothing in data.frame then send error
-  if (nrow(dftemp)==0) stop("There are no stock-length fish in the sample.",call.=FALSE)
-  ## add the length categorization variable, dropping unused levels
-  dftemp <- lencat(formula,data=dftemp,breaks=psdbrks,vname="lcatr",use.names=TRUE,drop.levels=TRUE)
-  ## get reverse cumulative sum table and number of stock fish
-  rcum <- rcumsum(table(dftemp$lcatr))
-  # if rcum does not have the stock length then a value must be added
-  if (names(rcum)[1]!="stock") rcum <- c(rcum[1],rcum)
-  n.stock <- rcum[1]
-  ## make PSD calculations
-  psds <- (rcum[-1]/n.stock)*100
-  ## get CIs
-  cis <- 100*binCI(as.vector(rcum[-1]),n.stock,conf.level=conf.level)
-  # put together
-  res <- cbind(psds,cis)
-  # remove temporary data.frame
-  rm(dftemp)
-  # label
-  rownames(res) <- iPSDLabels(rownames(res))
-  colnames(res)[1] <- "Estimate" 
-  round(res,digits)
+  if (nrow(data)==0) stop("There are no stock-length fish in the sample.",call.=FALSE)
+  # return new data.frame
+  data
 }
+
+# ============================================================
+# INTERNAL functions that will compute all available
+#   traditional and interval PSD values.  A matrix of
+#   PSD values and confidence intervals will be returned.
+# ============================================================
+iMakePSDLabels <- function(nms) {
+  # check if any names are not Gabelhouse names
+  tmp <- which(!(nms %in% c("stock","quality","preferred","memorable","trophy")))
+  # convert breaks names to one letter
+  abb <- toupper(substring(nms,1,1))
+  # but put non-Gabelhouse names back in
+  abb[tmp] <- nms[tmp]
+  # return abbreviations
+  abb
+}
+
+iMakePSDIV <- function(ptbl) {
+  ## Get number of categories
+  k <- length(ptbl)
+  ## Get category name abbreviations
+  abb <- iMakePSDLabels(names(ptbl))
+  ## make matrix for traditional PSDs
+  tmp1 <- matrix(0,nrow=k-1,ncol=k)
+  tmp1[upper.tri(tmp1)] <- 1
+  rownames(tmp1) <- paste("PSD",abb[-1],sep="-")
+  ## make identify matrix for interval PSD
+  tmp2 <- matrix(0,nrow=k-1,ncol=k)
+  diag(tmp2) <- 1
+  rownames(tmp2) <- paste("PSD ",abb[1:(k-1)],"-",abb[2:k],sep="")
+  ## put together and return
+  rbind(tmp1,tmp2)
+}
+
+iGetAllPSD <- function(ptbl,n,method,conf.level=0.95) {
+  ## Make a matrix of indicator variables for all PSDs
+  id1 <- iMakePSDIV(ptbl)
+  ## Compute all PSDs
+  res <- t(apply(id1,MARGIN=1,FUN=psdCI,tbl=ptbl,n=n,method=method,conf.level=conf.level))
+  colnames(res) <- c("Estimate",iCILabel(conf.level))
+  res
+}
+
 
 ##############################################################
 # INTERNAL function to create labels for the PSD values

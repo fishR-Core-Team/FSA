@@ -448,7 +448,7 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,show.pts,pch.pts,
   }
   # show the sample sizes at the top
   if (show.n) text(d[,1],grconvertY(nYpos,"npc"),d$n,cex=0.75,xpd=TRUE)
-} ## end internal age-bias plot function
+}
 
 #===============================================================================
 # This internal function is used to produce the age-bias sunflower plot.  This
@@ -469,7 +469,7 @@ iAgeBiasSunflowerPlot <- function(obj,difference,xlab,ylab,xlim,ylim,lwd.agree,l
   # agreement line -- horizontal for difference and 45 degree for bias plot
   if (difference) abline(h=0,lwd=lwd.agree,lty=lty.agree,col=col.agree)
   else abline(a=0,b=1,lwd=lwd.agree,lty=lty.agree,col=col.agree)
-}  ## end internal sunflowerplot function
+}
 
 #===============================================================================
 # This internal function is used to produce the age-bias numbers plot.  This
@@ -494,5 +494,5 @@ iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agre
   lines(xlim,xlim,lwd=lwd.agree,lty=lty.agree,col=col.agree)
   # add the numbers at each point
   text(x,y,labels=lbls,cex=cex.numbers)
-}  ## end internal iAgeBiasNumPlot function
+}
 

@@ -17,7 +17,7 @@
 #' @param startcat A single numeric that indicates the beginning of the first length category.
 #' @param right A logical that indicates if the intervals should be closed on the right (and open on the left) or vice versa.
 #' @param use.names A logical that indicates whether the names for the values in \code{breaks} should be used for the levels in the new variable.  Will throw a warning and then use default levels if \code{TRUE} but \code{names(breaks)} is \code{NULL}.
-#' @param as.fact A logical that indicates that the new variable should be returned as a factor (\code{=TRUE}; default) or not.
+#' @param as.fact A logical that indicates that the new variable should be returned as a factor (\code{=TRUE}) or not (\code{=FALSE}; default).
 #' @param drop.levels A logical that indicates that the new variable should retain all levels indicated in \code{breaks} (\code{=FALSE}; default) or not.  Ignored if \code{as.fact=FALSE}.
 #' @param vname A string that contains the name for the new length class variable.
 #' @param \dots Not implemented.
@@ -161,31 +161,31 @@ lencat <- function (x,...) {
 
 #' @rdname lencat
 #' @export
-lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,right=FALSE,use.names=FALSE,
-                           as.fact=FALSE,drop.levels=FALSE,...) {
-  # find range of values in x
+lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,
+                           right=FALSE,use.names=FALSE,
+                           as.fact=FALSE,drop.levels=FALSE,
+                           ...) {
+  ## find range of values in x
   maxx <- max(x,na.rm=TRUE)
   minx <- min(x,na.rm=TRUE)
+  ## If no breaks given then create them
   if (is.null(breaks)) {
     if (is.null(startcat)) startcat <- floor(minx/w)*w
     # identify decimals in startcat and w
     decs <- iCheckStartcatW(startcat,w,x)
     # Creates cut breaks (one more than max so that max is included in a break)
-    breaks <- seq(startcat,maxx+w,w)
-    breaks <- round(breaks,decs$wdec)
-  } else {
-    if (minx < breaks[1])
-      stop(paste("Lowest break (",breaks[1],") is larger than minimum observation (",minx,").\n  Adjust the breaks you used.",sep=""),call.=FALSE)
-    if (maxx >= max(breaks)) {
-      breaks <- c(breaks,1.1*maxx)
-    }
+    breaks <- round(seq(startcat,maxx+w,w),decs$wdec)
+  } else { # breaks are given, check to see if they are useable
+    if (minx < breaks[1]) stop("Lowest break (",breaks[1],") is larger than minimum observation (",minx,").",call.=FALSE)
+    if (maxx >= max(breaks)) breaks <- c(breaks,1.1*maxx)
   }
-  # actually make the values
+  ## actually make the values
   lcat <- breaks[cut(x,breaks,labels=FALSE,right=right,include.lowest=TRUE)]
-  # convert numeric to factor if asked to do so (drop last break that is always empty)
+  ## convert numeric to factor if asked to do so (drop last break that is always empty)
   if (as.fact) lcat <- factor(lcat,levels=breaks[-length(breaks)])
-  # converts length categories to level names
-  if (!use.names) { # remove names from variable if they exist and use.names=FALSE
+  ## converts length categories to level names
+  if (!use.names) {
+    # remove names from variable if they exist and use.names=FALSE
     if(!is.null(names(breaks))) names(lcat) <- NULL
   } else {
     if (is.null(names(breaks))) {
@@ -193,8 +193,8 @@ lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,right=FALSE,use.names
     } else {
       # if breaks has names, add new var with those names by comparing to numeric breaks
       lcat <- names(breaks)[match(lcat,breaks)]
-      # make sure the labels are ordered as ordered in breaks
-      lcat <- factor(lcat,levels=names(breaks))
+      # make sure the labels are ordered as ordered in breaks (drop last break that is always empty)
+      lcat <- factor(lcat,levels=names(breaks)[-length(breaks)])
       # change logical to note that it was a factor
       as.fact <- TRUE
     }
@@ -205,13 +205,20 @@ lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,right=FALSE,use.names
 
 #' @rdname lencat
 #' @export
-lencat.formula <- function(x,data,w=1,breaks=NULL,startcat=NULL,right=FALSE,use.names=FALSE,
-                           as.fact=FALSE,drop.levels=FALSE,vname=NULL,...) {
+lencat.formula <- function(x,data,w=1,breaks=NULL,startcat=NULL,
+                           right=FALSE,use.names=FALSE,
+                           as.fact=FALSE,drop.levels=FALSE,
+                           vname=NULL,...) {
+  ## Get the name of the variable with the lengths
   cl <- iGetVarFromFormula(x,data,expNumVars=1)
+  ## Create the length category variable
   tmp <- lencat.default(data[,cl],w=w,breaks=breaks,startcat=startcat,right=right,
                         use.names=use.names,as.fact=as.fact,drop.levels=drop.levels)
+  ## Append the new variable to the old data.frame
   nd <- data.frame(data,tmp)
+  ## Name the new variable
   names(nd)[ncol(nd)] <- iMakeVname(vname,data)
+  ## Return the new data.frame
   nd
 }
 

@@ -30,7 +30,7 @@ lencat(x, ...)
 
 \item{use.names}{A logical that indicates whether the names for the values in \code{breaks} should be used for the levels in the new variable.  Will throw a warning and then use default levels if \code{TRUE} but \code{names(breaks)} is \code{NULL}.}
 
-\item{as.fact}{A logical that indicates that the new variable should be returned as a factor (\code{=TRUE}; default) or not.}
+\item{as.fact}{A logical that indicates that the new variable should be returned as a factor (\code{=TRUE}) or not (\code{=FALSE}; default).}
 
 \item{drop.levels}{A logical that indicates that the new variable should retain all levels indicated in \code{breaks} (\code{=FALSE}; default) or not.  Ignored if \code{as.fact=FALSE}.}
 

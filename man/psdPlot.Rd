@@ -6,9 +6,9 @@
 psdPlot(formula, data, species = "List", units = c("mm", "cm", "in"),
   startcat = 0, w = 1, justPSDQ = FALSE, main = "", xlab = "Length",
   ylab = "Number", xlim = NULL, ylim = c(0, max(h$counts)),
-  substock.col = "white", stock.col = "gray90", psd.col = "red",
-  psd.lty = 2, psd.lwd = 1, legend.pos = "topleft", legend.cex = 0.75,
-  ...)
+  substock.col = "white", stock.col = "gray90", psd.col = "black",
+  psd.lty = 2, psd.lwd = 1, show.abbrevs = TRUE, legend.pos = "topleft",
+  legend.cex = 0.75, ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains length measurements.  Note that this formula can only contain one variable.}
@@ -47,6 +47,8 @@ psdPlot(formula, data, species = "List", units = c("mm", "cm", "in"),
 
 \item{legend.pos}{A string that indicates the position for the legend text.}
 
+\item{show.abbrevs}{A logical that indicates if the abbreviations for the Gabelhouse length categories should be added to the top of the plot.}
+
 \item{legend.cex}{A numeric value that indicates the character expansion for the legend text.}
 
 \item{\dots}{Arguments to be passed to the low-level plotting functions.}
@@ -58,7 +60,7 @@ None.  However, a graphic is produced.
 Constructs a length-frequency histogram with PSD-X categories highlighted.
 }
 \details{
-This function creates a length-frequency histogram with the stock-size fish highlighted, the Gabelhouse five-cell length category values marked by vertical lines, and superimposed calculations of PSD-X values.
+This function creates a length-frequency histogram with the stock-size fish highlighted, the Gabelhouse length values marked by vertical lines, and the PSD-X values superimposed.
 
 The length of fish plotted on the x-axis can be controlled with \code{xlim}, however, the minimum value in \code{xlim} must be less than the length of a stock size fish for that species.
 }
