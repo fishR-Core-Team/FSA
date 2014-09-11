@@ -3,21 +3,24 @@
 \alias{psdCI}
 \title{Compute confidence intervals for PSD-X and PSD X-Y values.}
 \usage{
-psdCI(indvec, tbl, n, method = c("multinom", "binom", "Gustafson"),
-  conf.level = 0.95, label = NULL, digits = 1)
+psdCI(indvec, ptbl, n, method = c("binomial", "multinomial"),
+  bin.type = c("wilson", "exact", "asymptotic"), conf.level = 0.95,
+  label = NULL, digits = 1)
 }
 \arguments{
-\item{indvec}{A numeric vector of 0s and 1s that identify the linear combination of proprtions from \code{tbl} that the user is interested in.  See details.}
+\item{indvec}{A numeric vector of 0s and 1s that identify the linear combination of proprtions from \code{ptbl} that the user is interested in.  See details.}
 
-\item{tbl}{A numeric vector or array that contains the proportion of all individuals in each length category.  See details.}
+\item{ptbl}{A numeric vector or array that contains the proportion of all individuals in each length category.  See details.}
 
-\item{n}{A single numeric of the number of fish used to construct \code{tbl}.}
+\item{n}{A single numeric of the number of fish used to construct \code{ptbl}.}
 
-\item{method}{A character that identifies the confidence interval method to use.  See details.}
+\item{method}{A string that identifies the confidence interval method to use.  See details.}
+
+\item{bin.type}{A string that identifies the type of method to use for calculation of the confidence intervals when \R{method="binomial"}.  See details of \code{\link{binCI}}.}
 
 \item{conf.level}{A number that indicates the level of confidence to use for constructing confidence intervals (default is \code{0.95}).}
 
-\item{label}{A single character that can be used to label the row of the output matrix.}
+\item{label}{A single string that can be used to label the row of the output matrix.}
 
 \item{digits}{A numeric that indicates the number of decimals to round the result to.}
 }
@@ -28,11 +31,11 @@ A matrix with columns that contain the computed PSD-X or PSD X-Y value and the a
 Compute confidence intervals for PSD-X and PSD X-Y values as requested by the user.
 }
 \details{
-Computes confidence intervals for PSD-X and PSD X-Y values.  Three methods can be used as chosen with \code{method=}.  If \code{method="multinom"} then the multinomial method described by Brenden et al. (2008) is used.  If \code{method="Gustafson"} then the approximate binomial method of Gustafson (1988) is used.  If \code{method="binomial"} then the binomial distribution (via \R{binCI()}) is used.
+Computes confidence intervals for PSD-X and PSD X-Y values.  Two methods can be used as chosen with \code{method=}.  If \code{method="binomial"} then the binomial distribution (via \code{binCI()}) is used.  If \code{method="multinomial"} then the multinomial method described by Brenden et al. (2008) is used.  This function is defined to compute one confidence interval so \code{method="binomial"} is the default.  See examples and \code{\link{psdCalc}} for computing several simultaneous confidence intervals.
 
-A table of proportions within each length category is given in \code{tbl}.  If \code{tbl} has any values greater than 1 then it is assumed that a table of percentages was suplied and the entire table will divided by 100 to continue.  The proportions must sum to 1 (with some allowance for rounding).
+A table of proportions within each length category is given in \code{ptbl}.  If \code{ptbl} has any values greater than 1 then it is assumed that a table of percentages was suplied and the entire table will divided by 100 to continue.  The proportions must sum to 1 (with some allowance for rounding).
 
-A vector of length equal to the length of \code{tbl} is given in \code{indvec} which contains zeroes and ones to identify the linear combination of values in \code{tbl} to use to construct the confidence intervals.  For example, if \code{tbl} has four proportions then \code{indvec=c(1,0,0,0)} would be used to construct a confidence interval for the population proportion in the first category.  Alternatively, \code{indvec=c(0,0,1,1)} would be used to construct a confidence interval for the population proportion in the last two categories.  This vector must not contain all zeroes or all ones.
+A vector of length equal to the length of \code{ptbl} is given in \code{indvec} which contains zeroes and ones to identify the linear combination of values in \code{ptbl} to use to construct the confidence intervals.  For example, if \code{ptbl} has four proportions then \code{indvec=c(1,0,0,0)} would be used to construct a confidence interval for the population proportion in the first category.  Alternatively, \code{indvec=c(0,0,1,1)} would be used to construct a confidence interval for the population proportion in the last two categories.  This vector must not contain all zeroes or all ones.
 }
 \section{fishR vignette}{
  none
@@ -41,17 +44,34 @@ A vector of length equal to the length of \code{tbl} is given in \code{indvec} w
 ## from Brenden et al. (2008)
 ipsd <- c(0.130,0.491,0.253,0.123)
 n <- 445
+
+## single binomial
 psdCI(c(0,0,1,1),ipsd,n=n)
 psdCI(c(1,0,0,0),ipsd,n=n,label="PSD S-Q")
 
-lbls <- c("PSD-P","PSD S-Q")
-imat <- matrix(c(0,0,1,1,
-                 1,0,0,0),nrow=2,byrow=TRUE)
+## single multinomial
+psdCI(c(0,0,1,1),ipsd,n=n,method="multinomial")
+psdCI(c(1,0,0,0),ipsd,n=n,method="multinomial",label="PSD S-Q")
+
+## multiple multinomials (but see psdCalc())
+lbls <- c("PSD S-Q","PSD Q-P","PSD P-M","PSD M-T","PSD","PSD-P")
+imat <- matrix(c(1,0,0,0,
+                 0,1,0,0,
+                 0,0,1,0,
+                 0,0,0,1,
+                 0,1,1,1,
+                 0,0,1,1),nrow=6,byrow=TRUE)
 rownames(imat) <- lbls
 imat
-cis <- t(apply(imat,MARGIN=1,FUN=psdCI,tbl=ipsd,n=n))
-colnames(cis) <- c("Estimate","95\% LCI","95\% UCI")
-cis
+
+mcis <- t(apply(imat,MARGIN=1,FUN=psdCI,ptbl=ipsd,n=n,method="multinomial"))
+colnames(mcis) <- c("Estimate","95\% LCI","95\% UCI")
+mcis
+
+## Multiple "Bonferroni-corrected" (for six comparisons) binomial method
+bcis <- t(apply(imat,MARGIN=1,FUN=psdCI,ptbl=ipsd,n=n,conf.level=1-0.05/6))
+colnames(bcis) <- c("Estimate","95\% LCI","95\% UCI")
+bcis
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

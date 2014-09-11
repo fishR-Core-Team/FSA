@@ -1,8 +1,8 @@
 #' @title Convenience function for calculating PSD-X and PSD X-Y values.
 #'
-#' @description Convenience function for calculating (traditional) PSD-X and (interval) PSD X-Y values for all lengths and intervals of Gabelhouse lengths.
+#' @description Convenience function for calculating (traditional) PSD-X and (incremental) PSD X-Y values for all lengths and increments of Gabelhouse lengths.
 #'
-#' @details This computes the  (traditional) PSD-X and (interval) PSD X-Y values, with associated confidence intervals, for each Gabelhouse length.  All PSD-X and PSD X-Y values are printed if \code{what="all"} (DEFAULT), only PSD-X values are printed if \code{what="traditional"}, only PSD X-Y values are printed if \code{what="interval"}, and nothing is printed (but the matrix is still returned) if \code{what="none"}.
+#' @details This computes the  (traditional) PSD-X and (incremental) PSD X-Y values, with associated confidence intervals, for each Gabelhouse length.  All PSD-X and PSD X-Y values are printed if \code{what="all"} (DEFAULT), only PSD-X values are printed if \code{what="traditional"}, only PSD X-Y values are printed if \code{what="incremental"}, and nothing is printed (but the matrix is still returned) if \code{what="none"}.
 #'
 #' @aliases psdCalc
 #'
@@ -58,15 +58,16 @@
 #' 
 #' ## different output types
 #' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="traditional")
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="interval")
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="incremental")
 #' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="none")
 #' 
 #' @export psdCalc
 psdCalc <- function(formula,data,species="List",units=c("mm","cm","in"),
-                    what=c("all","traditional","interval","none"),
-                    method=c("multinom","binom","Gustafson"),conf.level=0.95,
+                    what=c("all","traditional","incremental","none"),
+                    method=c("multinomial","binomial"),conf.level=0.95,
                     addLens=NULL,addNames=NULL,
                     digits=getOption("digits")) {
+  method=match.arg(method)
   ## find psd lengths for this species
   brks <- psdVal(species,units=units,incl.zero=FALSE,addLens=addLens,addNames=addNames)
   ## perform checks and initial preparation of the data.frame
@@ -84,7 +85,7 @@ psdCalc <- function(formula,data,species="List",units=c("mm","cm","in"),
   switch(match.arg(what),
          all=         { round(res,digits) },
          traditional= { round(res[1:(k-1),],digits) },
-         interval=    { round(res[k:nrow(res),],digits) },
+         incremental= { round(res[k:nrow(res),],digits) },
          none=        { invisible(res) }
          )
 }
@@ -111,7 +112,7 @@ iPrepData4PSD <- function(formula,data,stock.len) {
 
 # ============================================================
 # INTERNAL functions that will compute all available
-#   traditional and interval PSD values.  A matrix of
+#   traditional and incremental PSD values.  A matrix of
 #   PSD values and confidence intervals will be returned.
 # ============================================================
 iMakePSDLabels <- function(nms) {
@@ -134,7 +135,7 @@ iMakePSDIV <- function(ptbl) {
   tmp1 <- matrix(0,nrow=k-1,ncol=k)
   tmp1[upper.tri(tmp1)] <- 1
   rownames(tmp1) <- paste("PSD",abb[-1],sep="-")
-  ## make identify matrix for interval PSD
+  ## make identify matrix for incremental PSD
   tmp2 <- matrix(0,nrow=k-1,ncol=k)
   diag(tmp2) <- 1
   rownames(tmp2) <- paste("PSD ",abb[1:(k-1)],"-",abb[2:k],sep="")
@@ -149,7 +150,7 @@ iGetAllPSD <- function(ptbl,n,method,conf.level=0.95) {
   # do this here and suppress warnings for psdCI so that there is only one warning
   if (any(n*ptbl<20)) warning("Some category sample size <20, some CI coverage may be lower than ",100*conf.level,"%.",call.=FALSE)
   ## Compute all PSDs
-  suppressWarnings(res <- t(apply(id1,MARGIN=1,FUN=psdCI,tbl=ptbl,n=n,method=method,conf.level=conf.level)))
+  suppressWarnings(res <- t(apply(id1,MARGIN=1,FUN=psdCI,ptbl=ptbl,n=n,method=method,conf.level=conf.level)))
   colnames(res) <- c("Estimate",iCILabel(conf.level))
   res
 }

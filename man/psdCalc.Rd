@@ -4,9 +4,9 @@
 \title{Convenience function for calculating PSD-X and PSD X-Y values.}
 \usage{
 psdCalc(formula, data, species = "List", units = c("mm", "cm", "in"),
-  what = c("all", "traditional", "interval", "none"), method = c("multinom",
-  "binom", "Gustafson"), conf.level = 0.95, addLens = NULL,
-  addNames = NULL, digits = getOption("digits"))
+  what = c("all", "traditional", "incremental", "none"),
+  method = c("multinomial", "binomial"), conf.level = 0.95,
+  addLens = NULL, addNames = NULL, digits = getOption("digits"))
 }
 \arguments{
 \item{formula}{A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains length measurements.  Note that this formula may only contain one variable.}
@@ -33,10 +33,10 @@ psdCalc(formula, data, species = "List", units = c("mm", "cm", "in"),
 A matrix with columns that contain the computed PSD-X or PSD X-Y values and the associated confidence intervals.
 }
 \description{
-Convenience function for calculating (traditional) PSD-X and (interval) PSD X-Y values for all lengths and intervals of Gabelhouse lengths.
+Convenience function for calculating (traditional) PSD-X and (incremental) PSD X-Y values for all lengths and increments of Gabelhouse lengths.
 }
 \details{
-This computes the  (traditional) PSD-X and (interval) PSD X-Y values, with associated confidence intervals, for each Gabelhouse length.  All PSD-X and PSD X-Y values are printed if \code{what="all"} (DEFAULT), only PSD-X values are printed if \code{what="traditional"}, only PSD X-Y values are printed if \code{what="interval"}, and nothing is printed (but the matrix is still returned) if \code{what="none"}.
+This computes the  (traditional) PSD-X and (incremental) PSD X-Y values, with associated confidence intervals, for each Gabelhouse length.  All PSD-X and PSD X-Y values are printed if \code{what="all"} (DEFAULT), only PSD-X values are printed if \code{what="traditional"}, only PSD X-Y values are printed if \code{what="incremental"}, and nothing is printed (but the matrix is still returned) if \code{what="none"}.
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}
@@ -65,7 +65,7 @@ psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,addNames="minLen",d
 
 ## different output types
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="traditional")
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="interval")
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="incremental")
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="none")
 }
 \author{

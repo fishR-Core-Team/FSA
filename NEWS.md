@@ -1,6 +1,6 @@
 # FSA 0.4.26 ongoing
 * `lencat()`: Modified.  Fixed bug with category names when `use.names=TRUE`.  Moved all internal functions outside of `lencat()` environment (and renamed them).  Cleaned up code.
-* `psdCalc()`: Modified.  Completely redone.
+* `psdCalc()`: Modified.  Completely redone.  Changed default to use multinomial rather than binomial method for confidence intervals (added `method=` argument to control CI type).
 * `psdPlot()`: Modified.  Completely redone (fixed several bugs and overall sloppy code).
 
 # FSA 0.4.25 Sep14

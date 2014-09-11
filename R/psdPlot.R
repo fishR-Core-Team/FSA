@@ -110,7 +110,7 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
   abline(v=psdlens[-1],col=psd.col,lty=psd.lty,lwd=psd.lwd)
   ## add PSD calculations
   # get PSDs
-  suppressWarnings(psds <- psdCalc(formula,data=dftemp,species=species,units=units,what="traditional"))
+  suppressWarnings(psds <- psdCalc(formula,data=dftemp,species=species,units=units,method="multinomial",what="traditional"))
   # reduce to only those that are >0 (drop is needed in case it reduces to only one)
   psds <- psds[psds[,"Estimate"]>0,,drop=FALSE]
   # add stock number
