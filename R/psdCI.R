@@ -18,7 +18,7 @@
 #' @param label A single character that can be used to label the row of the output matrix.
 #' @param digits A numeric that indicates the number of decimals to round the result to.
 #'
-#' @return A matrix with columns that contain the computed PSD-X value and the associated confidence intervals.
+#' @return A matrix with columns that contain the computed PSD-X or PSD X-Y value and the associated confidence interval.  The confidence interval values were set to zero or 100 if the computed value was negative or greater than 100, respectively.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
@@ -79,16 +79,27 @@ psdCI <- function(indvec,tbl,n,method=c("multinom","binom","Gustafson"),conf.lev
 }
 
 zPSDCImultinom <- function(indvec,tbl,n,k,conf.level) {
+  ## check if sample size is >20 (see Brenden et al. 2008), warn if not
+  tmp <- drop(t(indvec) %*% (n*tbl))
+  if (tmp<20 & tmp>0) warning("Category sample size (",tmp,") <20, CI coverage may be lower than ",100*conf.level,"%.",call.=FALSE)
   ## create covariance matrix ... from hints at
   ##    http://stackoverflow.com/questions/19960605/r-multinomial-distribution-variance
   cov <- -outer(tbl,tbl)
   diag(cov) <- tbl*(1-tbl)
   ## get psd val asked for (drop gets rid of matrix result)
   psd <- drop(t(indvec) %*% tbl)
-  ## get SE
-  se <- drop(sqrt((t(indvec) %*% cov %*% indvec)/n))
-  ## get critical chi-square value
-  cv <- sqrt(qchisq(conf.level,k-1))
-  ## put together and return
-  c(psd,psd + c(-1,1)*cv*se)
+  if (psd==0 | psd==1) {
+    res <- c(psd,NA,NA)
+  } else {
+    ## get SE
+    se <- drop(sqrt((t(indvec) %*% cov %*% indvec)/n))
+    ## get critical chi-square value
+    cv <- sqrt(qchisq(conf.level,k-1))
+    ## put together
+    res <- c(psd,psd + c(-1,1)*cv*se)
+    ## replace negative numbers with 0, values >1 with 1
+    res[res<0] <- 0
+    res[res>1] <- 1
+  }
+  res
 }

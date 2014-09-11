@@ -40,7 +40,7 @@ binCI(7,20,type="wilson")
 binCI(7,20,type="exact")
 binCI(7,20,type="asymptotic")
 
-## Demonstrates using all methods at once
+## Demonstrates using all types at once
 binCI(7,20,type="all")
 
 ## Demonstrates use with multiple inputs

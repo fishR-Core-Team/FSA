@@ -34,7 +34,7 @@
 #' binCI(7,20,type="exact")
 #' binCI(7,20,type="asymptotic")
 #'
-#' ## Demonstrates using all methods at once
+#' ## Demonstrates using all types at once
 #' binCI(7,20,type="all")
 #'
 #' ## Demonstrates use with multiple inputs
@@ -45,12 +45,14 @@ binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic","all"
   type <- match.arg(type)
   if (!is.vector(x)) stop("First argument must be a single numeric or a vector of numerics.",call.=FALSE)
   if (type=="all" & length(x)>1) {
+    warning("'type=all' will not work with vectors; 'type' re-set to 'wilson'.",call.=FALSE)
     type <- "wilson"
-    warning("method=all will not work with vectors...setting method to wilson",call.=FALSE)
   }
-  res <- Hmisc::binconf(x,n,alpha=1-conf.level,method=type)[,-1]     # deletes point estimate value
+  # deletes point estimate value
+  res <- Hmisc::binconf(x,n,alpha=1-conf.level,method=type)[,-1]
   if (is.vector(res)) {
-    res <- rbind(res)                                                # convert to 1x2 matrix if only one set of CIs
+    # convert to 1x2 matrix if only one set of CIs
+    res <- rbind(res)
     rownames(res) <- ""
   }
   colnames(res) <- iCILabel(conf.level)

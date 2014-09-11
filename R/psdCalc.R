@@ -145,8 +145,11 @@ iMakePSDIV <- function(ptbl) {
 iGetAllPSD <- function(ptbl,n,method,conf.level=0.95) {
   ## Make a matrix of indicator variables for all PSDs
   id1 <- iMakePSDIV(ptbl)
+  ## check if sample size is >20 (see Brenden et al. 2008), warn if not
+  # do this here and suppress warnings for psdCI so that there is only one warning
+  if (any(n*ptbl<20)) warning("Some category sample size <20, some CI coverage may be lower than ",100*conf.level,"%.",call.=FALSE)
   ## Compute all PSDs
-  res <- t(apply(id1,MARGIN=1,FUN=psdCI,tbl=ptbl,n=n,method=method,conf.level=conf.level))
+  suppressWarnings(res <- t(apply(id1,MARGIN=1,FUN=psdCI,tbl=ptbl,n=n,method=method,conf.level=conf.level)))
   colnames(res) <- c("Estimate",iCILabel(conf.level))
   res
 }

@@ -22,7 +22,7 @@ psdCI(indvec, tbl, n, method = c("multinom", "binom", "Gustafson"),
 \item{digits}{A numeric that indicates the number of decimals to round the result to.}
 }
 \value{
-A matrix with columns that contain the computed PSD-X value and the associated confidence intervals.
+A matrix with columns that contain the computed PSD-X or PSD X-Y value and the associated confidence interval.  The confidence interval values were set to zero or 100 if the computed value was negative or greater than 100, respectively.
 }
 \description{
 Compute confidence intervals for PSD-X and PSD X-Y values as requested by the user.

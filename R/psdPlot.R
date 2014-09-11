@@ -84,6 +84,8 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
   cl <- iGetVarFromFormula(formula,data,expNumVars=1)
   ## get ultimate sample size 
   n <- nrow(data)
+  ## check if the data.frame has data
+  if (n==0) stop("'data' does not contain any rows.",call.=FALSE)
   ## get psd values for this species
   if (justPSDQ) psdlens <- psdVal(species,units=units)[1:3]
     else psdlens <- psdVal(species,units=units)  
@@ -108,7 +110,7 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
   abline(v=psdlens[-1],col=psd.col,lty=psd.lty,lwd=psd.lwd)
   ## add PSD calculations
   # get PSDs
-  psds <- psdCalc(formula,data=dftemp,species=species,units=units,what="traditional")
+  suppressWarnings(psds <- psdCalc(formula,data=dftemp,species=species,units=units,what="traditional"))
   # reduce to only those that are >0 (drop is needed in case it reduces to only one)
   psds <- psds[psds[,"Estimate"]>0,,drop=FALSE]
   # add stock number
