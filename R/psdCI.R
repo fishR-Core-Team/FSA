@@ -86,7 +86,7 @@ psdCI <- function(indvec,ptbl,n,method=c("binomial","multinomial"),
   indvec <- matrix(indvec,ncol=1)
   ## process through internal functions
   switch(method,
-         multinomial= { res <- zPSDCImultinom(indvec,ptbl,n,k,conf.level) },
+         multinomial= { res <- zPSDCImultinom(indvec,ptbl,n,conf.level) },
          binomial=    { res <- zPSDCIbinom(indvec,ptbl,n,conf.level,bin.type) },
          )
   ## add names to result and then return
@@ -111,7 +111,7 @@ zPSDCIbinom <- function(indvec,ptbl,n,conf.level,type) {
   res
 }
 
-zPSDCImultinom <- function(indvec,ptbl,n,k,conf.level) {
+zPSDCImultinom <- function(indvec,ptbl,n,conf.level) {
   ## check if sample size is >20 (see Brenden et al. 2008), warn if not
   tmp <- drop(t(indvec) %*% (n*ptbl))
   if (tmp<20 & tmp>0) warning("Category sample size (",tmp,") <20, CI coverage may be lower than ",100*conf.level,"%.",call.=FALSE)
@@ -127,6 +127,8 @@ zPSDCImultinom <- function(indvec,ptbl,n,k,conf.level) {
     ## get SE
     se <- drop(sqrt((t(indvec) %*% cov %*% indvec)/n))
     ## get critical chi-square value
+    # get number of non-zero values in ptbl
+    k <- length(ptbl[ptbl>0])
     cv <- sqrt(qchisq(conf.level,k-1))
     ## put together
     res <- c(psd,psd + c(-1,1)*cv*se)
