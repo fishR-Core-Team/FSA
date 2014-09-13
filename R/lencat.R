@@ -194,7 +194,8 @@ lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,
       # if breaks has names, add new var with those names by comparing to numeric breaks
       lcat <- names(breaks)[match(lcat,breaks)]
       # make sure the labels are ordered as ordered in breaks (drop last break that is always empty)
-      lcat <- factor(lcat,levels=names(breaks)[-length(breaks)])
+      lcat <- factor(lcat,levels=names(breaks))
+#      lcat <- factor(lcat,levels=names(breaks)[-length(breaks)])
       # change logical to note that it was a factor
       as.fact <- TRUE
     }

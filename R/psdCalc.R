@@ -11,6 +11,7 @@
 #' @param species A string that contains the species name for which Gabelhouse length categories exist.  See \code{\link{psdVal}} for details.
 #' @param units A string that indicates the type of units used for the length measurements.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
 #' @param what A string that indicates the level of PSD values that will be printed.  See details.
+#' @param drop0Est A logical that indicates whether the PSD values that are zero should be dropped from the output.
 #' @param method A character that identifies the confidence interval method to use.  See details in \code{\link{psdCI}}.
 #' @param addLens A numeric vector that contains minimum length definitions for additional categories.  See \code{\link{psdVal}} for details.
 #' @param addNames A string vector that contains names for the additional length categories added with \code{addLens}.  See \code{\link{psdVal}} for details.
@@ -41,6 +42,7 @@
 #'                     rnorm(20,mean=300,sd=40)),
 #'                     species=rep("Yellow Perch",170))
 #' psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1)
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1,drop0Est=TRUE)
 #'
 #' ## all values above stock value (troubleshooting a problem)
 #' yepdf2 <- subset(yepdf,yepmm>=130)
@@ -49,6 +51,11 @@
 #' ## all values above quality value (troubleshooting a problem)
 #' yepdf3 <- subset(yepdf,yepmm>=200)
 #' psdCalc(~yepmm,data=yepdf3,species="Yellow perch",digits=1)
+#' psdCalc(~yepmm,data=yepdf3,species="Yellow perch",digits=1,drop0Est=TRUE)
+#' 
+#' ## all values below memorable value (troubleshooting a problem)
+#' yepdf4 <- subset(yepdf,yepmm<300)
+#' psdCalc(~yepmm,data=yepdf4,species="Yellow perch",digits=1)
 #' 
 #' ## add a length
 #' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1)
@@ -63,7 +70,7 @@
 #' 
 #' @export psdCalc
 psdCalc <- function(formula,data,species="List",units=c("mm","cm","in"),
-                    what=c("all","traditional","incremental","none"),
+                    what=c("all","traditional","incremental","none"),drop0Est=TRUE,
                     method=c("multinomial","binomial"),conf.level=0.95,
                     addLens=NULL,addNames=NULL,
                     digits=getOption("digits")) {
@@ -72,7 +79,7 @@ psdCalc <- function(formula,data,species="List",units=c("mm","cm","in"),
   brks <- psdVal(species,units=units,incl.zero=FALSE,addLens=addLens,addNames=addNames)
   ## perform checks and initial preparation of the data.frame
   dftemp <- iPrepData4PSD(formula,data,brks["stock"])
-  ## add the length categorization variable, dropping unused levels
+  ## add the length categorization variable, don't drop unused levels
   dftemp <- lencat(formula,data=dftemp,breaks=brks,vname="lcatr",use.names=TRUE,drop.levels=FALSE)
   ## get sample size (number of stock-length fish)
   n <- nrow(dftemp)
@@ -83,11 +90,13 @@ psdCalc <- function(formula,data,species="List",units=c("mm","cm","in"),
   ## return result
   k <- length(ptbl)
   switch(match.arg(what),
-         all=         { round(res,digits) },
-         traditional= { round(res[1:(k-1),],digits) },
-         incremental= { round(res[k:nrow(res),],digits) },
+         all=         {  },
+         traditional= { res <- res[1:(k-1),] },
+         incremental= { res <- res[k:nrow(res),] },
          none=        { invisible(res) }
          )
+  if (drop0Est) res <- res[res[,"Estimate"]>0,]
+  round(res,digits)
 }
 
 # ============================================================
@@ -148,24 +157,10 @@ iGetAllPSD <- function(ptbl,n,method,conf.level=0.95) {
   id1 <- iMakePSDIV(ptbl)
   ## check if sample size is >20 (see Brenden et al. 2008), warn if not
   # do this here and suppress warnings for psdCI so that there is only one warning
-  if (any(n*ptbl<20)) warning("Some category sample size <20, some CI coverage may be\n lower than ",100*conf.level,"%.",call.=FALSE)
+  ns <- n*ptbl
+  if (any(ns>0 & ns<20)) warning("Some category sample size <20, some CI coverage may be\n lower than ",100*conf.level,"%.",call.=FALSE)
   ## Compute all PSDs
   suppressWarnings(res <- t(apply(id1,MARGIN=1,FUN=psdCI,ptbl=ptbl,n=n,method=method,conf.level=conf.level)))
   colnames(res) <- c("Estimate",iCILabel(conf.level))
   res
-}
-
-
-##############################################################
-# INTERNAL function to create labels for the PSD values
-##############################################################
-iPSDLabels <- function(psdbrks) {
-  # check if any breaks are labeled with numeric values
-  suppressWarnings(psdnums <- which(!is.na(as.numeric(names(psdbrks)))))
-  # convert breaks names to one letter
-  psdnms <- toupper(substring(psdbrks,1,1))
-  # but put numeric labels back in
-  psdnms[psdnums] <- psdbrks[psdnums]
-  # add on PSD prefix and return
-  paste("PSD-",psdnms,sep="")
 }

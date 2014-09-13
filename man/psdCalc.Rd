@@ -4,7 +4,7 @@
 \title{Convenience function for calculating PSD-X and PSD X-Y values.}
 \usage{
 psdCalc(formula, data, species = "List", units = c("mm", "cm", "in"),
-  what = c("all", "traditional", "incremental", "none"),
+  what = c("all", "traditional", "incremental", "none"), drop0Est = TRUE,
   method = c("multinomial", "binomial"), conf.level = 0.95,
   addLens = NULL, addNames = NULL, digits = getOption("digits"))
 }
@@ -18,6 +18,8 @@ psdCalc(formula, data, species = "List", units = c("mm", "cm", "in"),
 \item{units}{A string that indicates the type of units used for the length measurements.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
 
 \item{what}{A string that indicates the level of PSD values that will be printed.  See details.}
+
+\item{drop0Est}{A logical that indicates whether the PSD values that are zero should be dropped from the output.}
 
 \item{method}{A character that identifies the confidence interval method to use.  See details in \code{\link{psdCI}}.}
 
@@ -48,6 +50,7 @@ yepdf <- data.frame(yepmm=c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),
                     rnorm(20,mean=300,sd=40)),
                     species=rep("Yellow Perch",170))
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1)
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1,drop0Est=TRUE)
 
 ## all values above stock value (troubleshooting a problem)
 yepdf2 <- subset(yepdf,yepmm>=130)
@@ -56,6 +59,11 @@ psdCalc(~yepmm,data=yepdf2,species="Yellow perch",digits=1)
 ## all values above quality value (troubleshooting a problem)
 yepdf3 <- subset(yepdf,yepmm>=200)
 psdCalc(~yepmm,data=yepdf3,species="Yellow perch",digits=1)
+psdCalc(~yepmm,data=yepdf3,species="Yellow perch",digits=1,drop0Est=TRUE)
+
+## all values below memorable value (troubleshooting a problem)
+yepdf4 <- subset(yepdf,yepmm<300)
+psdCalc(~yepmm,data=yepdf4,species="Yellow perch",digits=1)
 
 ## add a length
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1)
