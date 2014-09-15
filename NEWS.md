@@ -1,4 +1,6 @@
 # FSA 0.4.27 ongoing
+* `Summarize()`: Modified.  Slight modification to warning messages.
+* `tictactoe()`: Modified.  Changed `predbal=` to `predobj=`, `preybal=` to `predbal=`, `xlab=` to `predlab=`, `ylab=` to `preylab=`, `bal.col=` to `obj.col=`, and `bal.trans=` to `obj.trans=`.
 
 # FSA 0.4.26 Sep14
 * `capFirst()` Modified.  Added an option to handle a vector of strings rather than just a single string.

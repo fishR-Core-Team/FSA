@@ -185,7 +185,7 @@ iSummarizeC1 <- function(object,addtotal,percent,percdigs,exclude,...) {
 iCheckRHSfactors <- function(mf) {
   numvars <- ncol(mf)
   if (any(attr(attr(mf, "terms"),"dataClasses")[2:numvars]!="factor")) {
-    warning("Variable(s) on RHS of 'formula' were converted to a factor.\n",call.=FALSE)
+    warning("Variable(s) on RHS of 'formula' converted to a factor.\n",call.=FALSE)
     for (i in 2:numvars) {
       mf[,i] <- factor(mf[,i])
     }
@@ -197,7 +197,7 @@ iCheckRHSfactors <- function(mf) {
 ## Internal function for formula with quantitative response
 ##############################################################
 iSummarizeQf <- function(object,mf,digits,na.rm,exclude,...) {
-  if (dim(mf)[2]>3) stop("With a quantitative response (LHS), the RHS must contain only one or two factors.",call.=FALSE)
+  if (dim(mf)[2]>3) stop("With a quantitative response (LHS), the RHS\n must contain only one or two factors.",call.=FALSE)
   mf <- iCheckRHSfactors(mf)
   if (dim(mf)[2]==2) {
     # Get results for quant variable by each level of a single factor variable
@@ -234,9 +234,9 @@ iSummarizeQf <- function(object,mf,digits,na.rm,exclude,...) {
 ## Internal function for formula with categorical response
 ##############################################################
 iSummarizeCf <- function(object,mf,percent,percdigs,addtotal,exclude,...) {
-  if (dim(mf)[2]>2) stop("With a categorical response (LHS), the RHS must contain only one factor.",call.=FALSE)
+  if (dim(mf)[2]>2) stop("With a categorical response (LHS), the RHS\n must contain only one factor.",call.=FALSE)
   if (attr(attr(mf, "terms"),"dataClasses")[2]!="factor") {
-    warning("To continue, variable(s) on RHS of formula were converted to a factor.\n",call.=FALSE)
+    warning("Variable(s) on RHS of 'formula' converted to a factor.\n",call.=FALSE)
     mf[,2] <- factor(mf[,2])
   }
   res <- table(mf[,2],mf[,1],exclude=exclude)

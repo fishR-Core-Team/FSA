@@ -3,28 +3,28 @@
 \alias{tictactoe}
 \title{Construct a base tic-tac-toe plot for presenting predator-prey PSD values.}
 \usage{
-tictactoe(predbal = c(30, 70), preybal = c(30, 70), xlab = "Predator PSD",
-  ylab = "Prey PSD", bal.col = "wheat", bal.trans = 0.3,
-  bnd.col = "red", bnd.lwd = 2, bnd.lty = 2)
+tictactoe(predobj = c(30, 70), preyobj = c(30, 70),
+  predlab = "Predator PSD", preylab = "Prey PSD", obj.col = "black",
+  obj.trans = 0.2, bnd.col = "black", bnd.lwd = 1, bnd.lty = 2)
 }
 \arguments{
-\item{predbal}{A vector of length 2 that contains the range of values to be considered \dQuote{in balance} for the predator.}
+\item{predobj}{A vector of length 2 that contains the target objective range for the predator.}
 
-\item{preybal}{A vector of length 2 that contains the range of values to be considered \dQuote{in balance} for the prey.}
+\item{preyobj}{A vector of length 2 that contains the target objective range for the prey.}
 
-\item{xlab}{A string representing a label for the x-axis.}
+\item{predlab}{A string representing a label for the x-axis.}
 
-\item{ylab}{A string representing a label for the y-axis.}
+\item{preylab}{A string representing a label for the y-axis.}
 
-\item{bal.col}{A string designating a color to which the \dQuote{in balance} regions should be shaded.}
+\item{obj.col}{A string designating a color to which the target objective regions should be shaded.}
 
-\item{bal.trans}{A numeric (decimal) that indicates the level of transparency for marking the \dQuote{in balance} regions.}
+\item{obj.trans}{A numeric (decimal) that indicates the level of transparency for marking the target objective regions.}
 
-\item{bnd.col}{A string that indicates a color for the boundaries of the \dQuote{in balance} regions.}
+\item{bnd.col}{A string that indicates a color for the boundaries of the target objective regions.}
 
-\item{bnd.lwd}{A numeric that indicates the line width for the boundaries of the \dQuote{in balance} region.}
+\item{bnd.lwd}{A numeric that indicates the line width for the boundaries of the target objectve regions.}
 
-\item{bnd.lty}{A numeric that indicates the line type for the boundaries of the \dQuote{in balance} regions.}
+\item{bnd.lty}{A numeric that indicates the line type for the boundaries of the target objective regions.}
 }
 \value{
 None.  However, a graphic is produced.
@@ -33,7 +33,7 @@ None.  However, a graphic is produced.
 Construct a base tic-tac-toe plot for presenting predator-prey PSD values.  Predator-prey PSD values are added with \code{plotCI} from \pkg{plotrix}.
 }
 \details{
-This function simply creates a base tic-tac-toe plot.  Observed values, with confidence intervals, are added to this plot with \code{plotCI} from \pkg{plotrix}.
+This function simply creates a base tic-tac-toe plot.  Observed values, with confidence intervals, are added to this plot with \code{plotCI} from \pkg{plotrix}; see examples.
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}
