@@ -1,7 +1,14 @@
 # FSA 0.4.26 ongoing
+* `capFirst()` Modified.  Added an option to handle a vector of strings rather than just a single string.
 * `lencat()`: Modified.  Fixed bug with category names when `use.names=TRUE`.  Moved all internal functions outside of `lencat()` environment (and renamed them).  Cleaned up code.
-* `psdCalc()`: Modified.  Completely redone.  Changed default to use multinomial rather than binomial method for confidence intervals (added `method=` argument to control CI type).
-* `psdPlot()`: Modified.  Completely redone (fixed several bugs and overall sloppy code).
+* `psdCI()`: Modified.  Added more catches for calls with mistakes.  Create some internal functions to modularize the computations.   Added tests.
+* `psdVal()`: Modified.  Added more catches for calls with mistakes.  Added tests.
+* `psdCalc()`: Modified.  Completely redone.  Changed default to use multinomial rather than binomial method for confidence intervals (added `method=` argument to control CI type).  Changed to throw an error of a species is not given in ``species=''.  Added tests.
+* `psdDataPrep()`: Modified.  Changed `use.catnames=` to `use.names` and `psdname=` to `vname=` to be consistent with `psdVal()`.  Removed duplicitous `factor()` calls for the length category and species name variables in the returned data.framed.
+* `psdPlot()`: Modified.  Completely redone (fixed several bugs and overall sloppy code).  Added `psd.add=`.  Changed `legend.pos=` and `legend.cex=` to `psd.pos=` and `psd.cex=`.
+* `recodeSpecies()`: Modified.  Made changes to reflect new `capFirst()` functionality.
+* `tictactoe()`: Modfied.  
+* `tictactoeAdd()`: Removed.  Directed user to use `plotCI()` from `plotrix` instead.
 
 # FSA 0.4.25 Sep14
 * `mrClosed()`: Modified.  Better handled a given value of `R=`.

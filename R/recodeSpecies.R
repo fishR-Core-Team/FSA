@@ -68,11 +68,11 @@ recodeSpecies <- function(formula,data,oldnames=NULL,newnames=NULL,
   # initialize new "species" variable, either with the old "species" variable or
   #   the old "species" variable but with the case changed to only first name capitalized
   if (doCapFirst=="none") data[,nspp] <- as.character(data[,cspp])
-    else data[,nspp] <- apply(matrix(data[,cspp]),1,capFirst,doCapFirst)
+    else data[,nspp] <- capFirst(data[,cspp],doCapFirst)
   # If no newnames then nothing else to do
   if (!is.null(newnames)) {
     # if appropriate, make sure that only the first name is capitalized
-    if (doCapFirst!="none") newnames <- apply(matrix(newnames),1,capFirst,doCapFirst)
+    if (doCapFirst!="none") newnames <- capFirst(newnames,doCapFirst)
     # make sure that newnames and oldnames have the same number of names
     if (length(oldnames) != length(newnames)) stop("'oldnames' and 'newnames' must be the same length")
     # change the oldnames to the new names

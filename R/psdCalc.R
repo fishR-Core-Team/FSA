@@ -1,30 +1,34 @@
 #' @title Convenience function for calculating PSD-X and PSD X-Y values.
 #'
-#' @description Convenience function for calculating (traditional) PSD-X and (incremental) PSD X-Y values for all lengths and increments of Gabelhouse lengths.
+#' @description Convenience function for calculating (traditional) PSD-X and (incremental) PSD X-Y values for all Gabelhouse lengths and increments thereof.
 #'
-#' @details This computes the  (traditional) PSD-X and (incremental) PSD X-Y values, with associated confidence intervals, for each Gabelhouse length.  All PSD-X and PSD X-Y values are printed if \code{what="all"} (DEFAULT), only PSD-X values are printed if \code{what="traditional"}, only PSD X-Y values are printed if \code{what="incremental"}, and nothing is printed (but the matrix is still returned) if \code{what="none"}.
+#' @details Computes the (traditional) PSD-X and (incremental) PSD X-Y values, with associated confidence intervals, for each Gabelhouse length.  All PSD-X and PSD X-Y values are printed if \code{what="all"} (DEFAULT), only PSD-X values are printed if \code{what="traditional"}, only PSD X-Y values are printed if \code{what="incremental"}, and nothing is printed (but the matrix is still returned) if \code{what="none"}.
+#' 
+#' Confidence intervals can be computed with either the multinomial (Default) or binomial distribution as set in \code{method}.  See details in \code{\link{psdCI}} for more information.
 #'
 #' @aliases psdCalc
 #'
-#' @param formula A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains length measurements.  Note that this formula may only contain one variable.
-#' @param data A data.frame that minimally contains the length measurements given in the variable in the \code{formula}.
-#' @param species A string that contains the species name for which Gabelhouse length categories exist.  See \code{\link{psdVal}} for details.
-#' @param units A string that indicates the type of units used for the length measurements.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
-#' @param what A string that indicates the level of PSD values that will be printed.  See details.
+#' @param formula A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains the observed lengths.  Note that this formula may only contain one variable and it must be numeric.
+#' @param data A data.frame that minimally contains the observed lengths given in the variable in \code{formula}.
+#' @param species A string that contains the species name for which Gabelhouse lengths exist.  See \code{\link{psdVal}} for details.
+#' @param units A string that indicates the type of units used for the lengths.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
+#' @param what A string that indicates the type of PSD values that will be printed.  See details.
 #' @param drop0Est A logical that indicates whether the PSD values that are zero should be dropped from the output.
 #' @param method A character that identifies the confidence interval method to use.  See details in \code{\link{psdCI}}.
-#' @param addLens A numeric vector that contains minimum length definitions for additional categories.  See \code{\link{psdVal}} for details.
-#' @param addNames A string vector that contains names for the additional length categories added with \code{addLens}.  See \code{\link{psdVal}} for details.
+#' @param addLens A numeric vector that contains minimum lengths for additional categories.  See \code{\link{psdVal}} for details.
+#' @param addNames A string vector that contains names for the additional lengths added with \code{addLens}.  See \code{\link{psdVal}} for details.
 #' @param conf.level A number that indicates the level of confidence to use for constructing confidence intervals (default is \code{0.95}).
 #' @param digits A numeric that indicates the number of decimals to round the result to.
 #'
-#' @return A matrix with columns that contain the computed PSD-X or PSD X-Y values and the associated confidence intervals.
+#' @return A matrix with columns that contain the computed PSD-X or PSD X-Y values and associated confidence intervals.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdDataPrep}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{tictactoeAdd}}, \code{\link{lencat}}, and \code{\link{rcumsum}}.
+#' @seealso \code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdDataPrep}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}}.
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}
+#' 
+#' @section Testing: Point estimate calculations match those constructed "by hand."
 #'
 #' @references
 #' Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  \href{http://pubstorage.sdstate.edu/wfs/415-F.pdf}{New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).}  Fisheries 31:86-87.  
@@ -69,12 +73,14 @@
 #' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="none")
 #' 
 #' @export psdCalc
-psdCalc <- function(formula,data,species="List",units=c("mm","cm","in"),
+psdCalc <- function(formula,data,species,units=c("mm","cm","in"),
                     what=c("all","traditional","incremental","none"),drop0Est=TRUE,
                     method=c("multinomial","binomial"),conf.level=0.95,
                     addLens=NULL,addNames=NULL,
-                    digits=getOption("digits")) {
-  method=match.arg(method)
+                    digits=1) {
+  method <- match.arg(method)
+  ## make sure species is not missing
+  if (missing(species)) stop("Must include a species name in 'species'.",call.=FALSE)
   ## find psd lengths for this species
   brks <- psdVal(species,units=units,incl.zero=FALSE,addLens=addLens,addNames=addNames)
   ## perform checks and initial preparation of the data.frame
@@ -86,7 +92,7 @@ psdCalc <- function(formula,data,species="List",units=c("mm","cm","in"),
   ## make the proportions table
   ptbl <- prop.table(table(dftemp$lcatr))
   ## compute all traditional and interval PSD values
-  res <- iGetAllPSD(ptbl,n=n,method=method,conf.level=conf.level)
+  res <- iGetAllPSD(ptbl,n=n,method=method,conf.level=conf.level,digits=digits)
   ## return result
   k <- length(ptbl)
   switch(match.arg(what),
@@ -109,6 +115,7 @@ iPrepData4PSD <- function(formula,data,stock.len) {
   if (nrow(data)==0) stop("'data' does not contain any rows.",call.=FALSE)
   ## get name of length variable from the formula
   cl <- iGetVarFromFormula(formula,data,expNumVars=1)
+  if (!is.numeric(data[,cl])) stop("Variable in 'formula' must be numeric.",call.=FALSE)
   ## restrict data to above the stock length
   data <- data[data[,cl]>=stock.len,]
   ## assure that NA values in the length variable are removed
@@ -152,7 +159,7 @@ iMakePSDIV <- function(ptbl) {
   rbind(tmp1,tmp2)
 }
 
-iGetAllPSD <- function(ptbl,n,method,conf.level=0.95) {
+iGetAllPSD <- function(ptbl,n,method,conf.level=0.95,digits) {
   ## Make a matrix of indicator variables for all PSDs
   id1 <- iMakePSDIV(ptbl)
   ## check if sample size is >20 (see Brenden et al. 2008), warn if not
@@ -160,7 +167,7 @@ iGetAllPSD <- function(ptbl,n,method,conf.level=0.95) {
   ns <- n*ptbl
   if (any(ns>0 & ns<20)) warning("Some category sample size <20, some CI coverage may be\n lower than ",100*conf.level,"%.",call.=FALSE)
   ## Compute all PSDs
-  suppressWarnings(res <- t(apply(id1,MARGIN=1,FUN=psdCI,ptbl=ptbl,n=n,method=method,conf.level=conf.level)))
+  suppressWarnings(res <- t(apply(id1,MARGIN=1,FUN=psdCI,ptbl=ptbl,n=n,method=method,conf.level=conf.level,digits=digits)))
   colnames(res) <- c("Estimate",iCILabel(conf.level))
   res
 }

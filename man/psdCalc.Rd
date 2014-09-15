@@ -3,45 +3,51 @@
 \alias{psdCalc}
 \title{Convenience function for calculating PSD-X and PSD X-Y values.}
 \usage{
-psdCalc(formula, data, species = "List", units = c("mm", "cm", "in"),
-  what = c("all", "traditional", "incremental", "none"), drop0Est = TRUE,
+psdCalc(formula, data, species, units = c("mm", "cm", "in"), what = c("all",
+  "traditional", "incremental", "none"), drop0Est = TRUE,
   method = c("multinomial", "binomial"), conf.level = 0.95,
-  addLens = NULL, addNames = NULL, digits = getOption("digits"))
+  addLens = NULL, addNames = NULL, digits = 1)
 }
 \arguments{
-\item{formula}{A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains length measurements.  Note that this formula may only contain one variable.}
+\item{formula}{A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains the observed lengths.  Note that this formula may only contain one variable and it must be numeric.}
 
-\item{data}{A data.frame that minimally contains the length measurements given in the variable in the \code{formula}.}
+\item{data}{A data.frame that minimally contains the observed lengths given in the variable in \code{formula}.}
 
-\item{species}{A string that contains the species name for which Gabelhouse length categories exist.  See \code{\link{psdVal}} for details.}
+\item{species}{A string that contains the species name for which Gabelhouse lengths exist.  See \code{\link{psdVal}} for details.}
 
-\item{units}{A string that indicates the type of units used for the length measurements.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
+\item{units}{A string that indicates the type of units used for the lengths.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
 
-\item{what}{A string that indicates the level of PSD values that will be printed.  See details.}
+\item{what}{A string that indicates the type of PSD values that will be printed.  See details.}
 
 \item{drop0Est}{A logical that indicates whether the PSD values that are zero should be dropped from the output.}
 
 \item{method}{A character that identifies the confidence interval method to use.  See details in \code{\link{psdCI}}.}
 
-\item{addLens}{A numeric vector that contains minimum length definitions for additional categories.  See \code{\link{psdVal}} for details.}
+\item{addLens}{A numeric vector that contains minimum lengths for additional categories.  See \code{\link{psdVal}} for details.}
 
-\item{addNames}{A string vector that contains names for the additional length categories added with \code{addLens}.  See \code{\link{psdVal}} for details.}
+\item{addNames}{A string vector that contains names for the additional lengths added with \code{addLens}.  See \code{\link{psdVal}} for details.}
 
 \item{conf.level}{A number that indicates the level of confidence to use for constructing confidence intervals (default is \code{0.95}).}
 
 \item{digits}{A numeric that indicates the number of decimals to round the result to.}
 }
 \value{
-A matrix with columns that contain the computed PSD-X or PSD X-Y values and the associated confidence intervals.
+A matrix with columns that contain the computed PSD-X or PSD X-Y values and associated confidence intervals.
 }
 \description{
-Convenience function for calculating (traditional) PSD-X and (incremental) PSD X-Y values for all lengths and increments of Gabelhouse lengths.
+Convenience function for calculating (traditional) PSD-X and (incremental) PSD X-Y values for all Gabelhouse lengths and increments thereof.
 }
 \details{
-This computes the  (traditional) PSD-X and (incremental) PSD X-Y values, with associated confidence intervals, for each Gabelhouse length.  All PSD-X and PSD X-Y values are printed if \code{what="all"} (DEFAULT), only PSD-X values are printed if \code{what="traditional"}, only PSD X-Y values are printed if \code{what="incremental"}, and nothing is printed (but the matrix is still returned) if \code{what="none"}.
+Computes the (traditional) PSD-X and (incremental) PSD X-Y values, with associated confidence intervals, for each Gabelhouse length.  All PSD-X and PSD X-Y values are printed if \code{what="all"} (DEFAULT), only PSD-X values are printed if \code{what="traditional"}, only PSD X-Y values are printed if \code{what="incremental"}, and nothing is printed (but the matrix is still returned) if \code{what="none"}.
+
+Confidence intervals can be computed with either the multinomial (Default) or binomial distribution as set in \code{method}.  See details in \code{\link{psdCI}} for more information.
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}
+}
+
+\section{Testing}{
+ Point estimate calculations match those constructed "by hand."
 }
 \examples{
 ## Random length data
@@ -87,7 +93,7 @@ Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  \href{http://ww
 Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  \href{http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf}{Stock density indices: development, use, and limitations.}  Reviews in Fisheries Science 1:203-222.
 }
 \seealso{
-\code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdDataPrep}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{tictactoeAdd}}, \code{\link{lencat}}, and \code{\link{rcumsum}}.
+\code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdDataPrep}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}}.
 }
 \keyword{hplot}
 

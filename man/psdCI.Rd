@@ -28,17 +28,21 @@ psdCI(indvec, ptbl, n, method = c("binomial", "multinomial"),
 A matrix with columns that contain the computed PSD-X or PSD X-Y value and the associated confidence interval.  The confidence interval values were set to zero or 100 if the computed value was negative or greater than 100, respectively.
 }
 \description{
-Compute confidence intervals for PSD-X and PSD X-Y values as requested by the user.
+Compute confidence intervals for (traditional) PSD-X and (incremental) PSD X-Y values as requested by the user.
 }
 \details{
-Computes confidence intervals for PSD-X and PSD X-Y values.  Two methods can be used as chosen with \code{method=}.  If \code{method="binomial"} then the binomial distribution (via \code{binCI()}) is used.  If \code{method="multinomial"} then the multinomial method described by Brenden et al. (2008) is used.  This function is defined to compute one confidence interval so \code{method="binomial"} is the default.  See examples and \code{\link{psdCalc}} for computing several simultaneous confidence intervals.
+Computes confidence intervals for (traditional) PSD-X and (incremental) PSD X-Y values.  Two methods can be used as chosen with \code{method=}.  If \code{method="binomial"} then the binomial distribution (via \code{binCI()}) is used.  If \code{method="multinomial"} then the multinomial method described by Brenden et al. (2008) is used.  This function is defined to compute one confidence interval so \code{method="binomial"} is the default.  See examples and \code{\link{psdCalc}} for computing several simultaneous confidence intervals.
 
-A table of proportions within each length category is given in \code{ptbl}.  If \code{ptbl} has any values greater than 1 then it is assumed that a table of percentages was suplied and the entire table will divided by 100 to continue.  The proportions must sum to 1 (with some allowance for rounding).
+A table of proportions within each length category is given in \code{ptbl}.  If \code{ptbl} has any values greater than 1 then it is assumed that a table of percentages was supplied and the entire table will be divided by 100 to continue.  The proportions must sum to 1 (with some allowance for rounding).
 
 A vector of length equal to the length of \code{ptbl} is given in \code{indvec} which contains zeroes and ones to identify the linear combination of values in \code{ptbl} to use to construct the confidence intervals.  For example, if \code{ptbl} has four proportions then \code{indvec=c(1,0,0,0)} would be used to construct a confidence interval for the population proportion in the first category.  Alternatively, \code{indvec=c(0,0,1,1)} would be used to construct a confidence interval for the population proportion in the last two categories.  This vector must not contain all zeroes or all ones.
 }
 \section{fishR vignette}{
  none
+}
+
+\section{Testing}{
+ The multinomial results match the results given in Brendent et al. (2008).
 }
 \examples{
 ## from Brenden et al. (2008)
@@ -80,7 +84,7 @@ Derek H. Ogle, \email{dogle@northland.edu}
 Brenden, T.O., T. Wagner, and B.R. Murphy.  2008.  \href{http://qfc.fw.msu.edu/Publications/Publication\%20List/2008/Novel\%20Tools\%20for\%20Analyzing\%20Proportional\%20Size\%20Distribution_Brenden.pdf}{Novel tools for analyzing proportional size distribution index data.}  North American Journal of Fisheries Management 28:1233-1242.
 }
 \seealso{
-\code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdDataPrep}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{tictactoeAdd}}, \code{\link{lencat}}, and \code{\link{rcumsum}}.
+\code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdDataPrep}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}}.
 }
 \keyword{hplot}
 

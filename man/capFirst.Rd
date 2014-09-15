@@ -21,16 +21,15 @@ Capitalizes the first letter of first or all words in a string.
 capFirst("Derek Ogle")
 capFirst("derek ogle")
 capFirst("derek")
-# apply to all elements in a vector
-vec <- c("Derek Ogle","derek ogle","Derek ogle","derek Ogle","DEREK OGLE")
-apply(matrix(vec),1,capFirst)
 
 ## Capitalize first letter of only the first words
 capFirst("Derek Ogle",words="first")
 capFirst("derek ogle",words="first")
 capFirst("derek",words="first")
-# apply to all elements in a vector
-apply(matrix(vec),1,capFirst,words="first")
+## apply to all elements in a vector
+vec <- c("Derek Ogle","derek ogle","Derek ogle","derek Ogle","DEREK OGLE")
+capFirst(vec)
+capFirst(vec,words="first")
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

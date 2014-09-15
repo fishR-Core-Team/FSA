@@ -1,10 +1,10 @@
-#' @title Length-frequency histogram with PSD-X categories highlighted.
+#' @title Length-frequency histogram with Gabelhouse lengthshighlighted.
 #'
-#' @description Constructs a length-frequency histogram with PSD-X categories highlighted.
+#' @description Constructs a length-frequency histogram with Gabelhouse lengths highlighted.
 #'
-#' @details This function creates a length-frequency histogram with the stock-size fish highlighted, the Gabelhouse length values marked by vertical lines, and the PSD-X values superimposed.
+#' @details Constructs a length-frequency histogram with the stock-sized fish highlighted, the Gabelhouse lengths marked by vertical lines, and the (traditional) PSD-X values superimposed.
 #'
-#' The length of fish plotted on the x-axis can be controlled with \code{xlim}, however, the minimum value in \code{xlim} must be less than the length of a stock size fish for that species.
+#' The length of fish plotted on the x-axis can be controlled with \code{xlim}, however, the minimum value in \code{xlim} must be less than the stock length for that species.
 #'
 #' @aliases psdPlot
 #'
@@ -25,16 +25,17 @@
 #' @param psd.col A string that indicates the color to use for the vertical lines at the PSD category values.
 #' @param psd.lty A numeric that indicates the line type to use for the vertical lines at the PSD category values.
 #' @param psd.lwd A numeric that indicates the line width to use for the vertical lines at the PSD category values.
-#' @param legend.pos A string that indicates the position for the legend text.
 #' @param show.abbrevs A logical that indicates if the abbreviations for the Gabelhouse length categories should be added to the top of the plot.
-#' @param legend.cex A numeric value that indicates the character expansion for the legend text.
+#' @param psd.add A logical that indicates if the calculated PSD values should be added to the plot (Default is \code{TRUE}).
+#' @param psd.pos A string that indicates the position for the legend text.
+#' @param psd.cex A numeric value that indicates the character expansion for the legend text.
 #' @param \dots Arguments to be passed to the low-level plotting functions.
 #'
 #' @return None.  However, a graphic is produced.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdDataPrep}}, \code{\link{PSDlit}}, \code{\link{lencat}}, \code{\link{tictactoe}}, \code{\link{tictactoeAdd}}, \code{\link{lencat}}, and \code{\link{rcumsum}}.
+#' @seealso \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdDataPrep}}, \code{\link{PSDlit}}, \code{\link{lencat}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}}.
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}
 #'
@@ -50,25 +51,44 @@
 #' @examples
 #' ## Random length data
 #' # suppose this is yellow perch to the nearest mm
-#' yepmm <- c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),rnorm(20,mean=300,sd=40))
+#' mm <- c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),rnorm(20,mean=300,sd=40))
 #' # same data to the nearest 0.1 cm
-#' yepcm <- yepmm/10
+#' cm <- mm/10
 #' # same data to the nearest 0.1 in
-#' yepin <- yepmm/25.4
+#' inch <- mm/25.4
 #' # put together as data.frame
-#' yepdf <- data.frame(yepmm,yepcm,yepin)
+#' df <- data.frame(mm,cm,inch)
 #'
 #' ## Example graphics
-#' op <- par(mfrow=c(2,2),mar=c(3.5,3.5,1,1),mgp=c(2,0.75,0))
+#' op <- par(mar=c(3,3,2,1),mgp=c(1.7,0.5,0))
 #' # mm data using 10-mm increments
-#' psdPlot(~yepmm,data=yepdf,species="Yellow perch",w=10)
+#' psdPlot(~mm,data=df,species="Yellow perch",w=10)
 #' # cm data using 1-cm increments
-#' psdPlot(~yepcm,data=yepdf,species="Yellow perch",units="cm",w=1)
+#' psdPlot(~cm,data=df,species="Yellow perch",units="cm",w=1)
 #' # inch data using 1-in increments
-#' psdPlot(~yepin,data=yepdf,species="Yellow perch",units="in",w=1)
+#' psdPlot(~inch,data=df,species="Yellow perch",units="in",w=1)
 #' # same as first with some color changes
-#' psdPlot(~yepmm,data=yepdf,species="Yellow perch",w=10,substock.col="gray90",stock.col="gray30")
-#'
+#' psdPlot(~mm,data=df,species="Yellow perch",w=10,substock.col="gray90",stock.col="gray30")
+#' # ... but without the PSD values
+#' psdPlot(~mm,data=df,species="Yellow perch",w=10,psd.add=FALSE)
+#' # ... demonstrate use of xlim
+#' psdPlot(~mm,data=df,species="Yellow perch",w=10,xlim=c(100,300))
+#' 
+#' 
+#' 
+#' ## different subsets of fish
+#' # ... without any sub-stock fish
+#' brks <- psdVal("Yellow Perch")
+#' tmp <- Subset(df,mm>brks["stock"])
+#' psdPlot(~mm,data=tmp,species="Yellow perch",w=10)
+#' # ... without any sub-stock or stock fish
+#' tmp <- Subset(df,mm>brks["quality"])
+#' psdPlot(~mm,data=tmp,species="Yellow perch",w=10)
+#' # ... with only sub-stock fish (don't run ... setup to give an error)
+#' tmp <- Subset(df,mm<brks["stock"])
+#' \dontrun{ psdPlot(~mm,data=tmp,species="Yellow perch",w=10) }
+#' 
+#' 
 #' par(op)
 #'
 #' @export psdPlot
@@ -79,44 +99,47 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
                     substock.col="white",stock.col="gray90",
                     psd.col="black",psd.lty=2,psd.lwd=1,
                     show.abbrevs=TRUE,
-                    legend.pos="topleft",legend.cex=0.75,...) {
+                    psd.add=TRUE,psd.pos="topleft",psd.cex=0.75,...) {
   ## Get variable name that contains the lengths
   cl <- iGetVarFromFormula(formula,data,expNumVars=1)
-  ## get ultimate sample size 
-  n <- nrow(data)
-  ## check if the data.frame has data
-  if (n==0) stop("'data' does not contain any rows.",call.=FALSE)
-  ## get psd values for this species
-  if (justPSDQ) psdlens <- psdVal(species,units=units)[1:3]
-    else psdlens <- psdVal(species,units=units)  
+  if (!is.numeric(data[,cl])) stop("Variable in 'formula' must be numeric.",call.=FALSE)
+  ## make sure there is data 
+  if (nrow(data)==0) stop("'data' does not contain any rows.",call.=FALSE)
+  ## get psd breaks for this species
+  if (justPSDQ) brks <- psdVal(species,units=units)[1:3]
+    else brks <- psdVal(species,units=units)  
   ## If xlim is provided then limit temporary df to fish in range of xlim
   if (!is.null(xlim)) {
-    if (min(xlim)>psdlens["stock"]) stop("Minimum chosen length value in 'xlim' is greater than 'stock' size.",call.=FALSE)
-    dftemp <- data[data[,cl]>=min(xlim) & data[,cl]<=max(xlim),] 
-  } else dftemp <- data
+    if (min(xlim)>brks["stock"]) stop("Minimum chosen length value in 'xlim' is greater than 'stock' size.",call.=FALSE)
+    data <- data[data[,cl]>=min(xlim) & data[,cl]<=max(xlim),] 
+  } else data <- data
   ## make an initial histogram to get the breaks and counts
-  min.brk <- min(c(dftemp[,cl],psdlens),na.rm=TRUE)
-  max.brk <- max(dftemp[,cl])+w
-  h <- hist(dftemp[,cl],right=FALSE,breaks=seq(min.brk,max.brk,w),plot=FALSE)
+  min.brk <- min(c(data[,cl],brks),na.rm=TRUE)
+  max.brk <- max(data[,cl])+w
+  h <- hist(data[,cl],right=FALSE,breaks=seq(min.brk,max.brk,w),plot=FALSE)
   ## Create xlim values if none were given
   if (is.null(xlim)) xlim=range(h$breaks)
   ## Create colors for the bars
-  clr <- ifelse(h$breaks<psdlens[2],substock.col,stock.col)
+  clr <- ifelse(h$breaks<brks["stock"],substock.col,stock.col)
   ## Plot the histogram with the new colors
   plot(h,col=clr,xlim=xlim,ylim=ylim,main=main,xlab=xlab,ylab=ylab,...)
   box()
-  if (show.abbrevs) axis(3,at=psdlens[-1],labels=toupper(substring(names(psdlens)[-1],1,1)))
   ## add psd category lines
-  abline(v=psdlens[-1],col=psd.col,lty=psd.lty,lwd=psd.lwd)
+  abline(v=brks[-1],col=psd.col,lty=psd.lty,lwd=psd.lwd)
+  if (show.abbrevs) axis(3,at=brks[-1],labels=toupper(substring(names(brks)[-1],1,1)))
   ## add PSD calculations
+  if (psd.add) iAddPSDLeg(formula,data,cl,brks,species,units,psd.pos,psd.cex)
+}
+
+iAddPSDLeg <- function(formula,data,cl,brks,species,units,psd.pos,psd.cex) {
   # get PSDs
-  suppressWarnings(psds <- psdCalc(formula,data=dftemp,species=species,units=units,method="multinomial",what="traditional"))
-  # reduce to only those that are >0 (drop is needed in case it reduces to only one)
+  suppressWarnings(psds <- psdCalc(formula,data,species=species,units=units,method="multinomial",what="traditional"))
+  # reduce to only those that are >0 (drop=FALSE is needed in case it reduces to only one)
   psds <- psds[psds[,"Estimate"]>0,,drop=FALSE]
-  # add stock number
-  n.stock <- nrow(Subset(dftemp,dftemp[,cl]>psdlens[2]))
+  # get two sample sizes
+  n <- nrow(data)
+  n.stock <- nrow(Subset(data,data[,cl]>brks["stock"]))
   # put it all together
   psdleg <- paste(c("n","n[stock]",rownames(psds)),"=",formatC(c(n,n.stock,psds[,"Estimate"]),format="f",digits=0))
-  legend(legend.pos,psdleg,cex=legend.cex,box.col="white",bg="white",inset=0.002)
-  rm(dftemp)
+  legend(psd.pos,psdleg,cex=psd.cex,box.col="white",bg="white",inset=0.002)
 }
