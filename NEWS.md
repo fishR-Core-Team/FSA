@@ -1,4 +1,6 @@
-# FSA 0.4.26 ongoing
+# FSA 0.4.27 ongoing
+
+# FSA 0.4.26 Sep14
 * `capFirst()` Modified.  Added an option to handle a vector of strings rather than just a single string.
 * `lencat()`: Modified.  Fixed bug with category names when `use.names=TRUE`.  Moved all internal functions outside of `lencat()` environment (and renamed them).  Cleaned up code.
 * `psdCI()`: Modified.  Added more catches for calls with mistakes.  Create some internal functions to modularize the computations.   Added tests.
