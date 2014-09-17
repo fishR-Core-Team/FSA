@@ -1,4 +1,5 @@
 # FSA 0.4.27 ongoing
+* `hist()`: Modified.  Slight modifications to warning messages.
 * `Summarize()`: Modified.  Slight modification to warning messages.
 * `tictactoe()`: Modified.  Changed `predbal=` to `predobj=`, `preybal=` to `predbal=`, `xlab=` to `predlab=`, `ylab=` to `preylab=`, `bal.col=` to `obj.col=`, and `bal.trans=` to `obj.trans=`.
 

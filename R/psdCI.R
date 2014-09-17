@@ -11,7 +11,7 @@
 #' @aliases psdCI
 #'
 #' @param indvec A numeric vector of 0s and 1s that identify the linear combination of proprtions from \code{ptbl} that the user is interested in.  See details.
-#' @param ptbl A numeric vector or array that contains the proportion of all individuals in each length category.  See details.
+#' @param ptbl A numeric vector or array that contains the proportion or precentage of all individuals in each length category.  See details.
 #' @param n A single numeric of the number of fish used to construct \code{ptbl}.
 #' @param method A string that identifies the confidence interval method to use.  See details.
 #' @param bin.type A string that identifies the type of method to use for calculation of the confidence intervals when \R{method="binomial"}.  See details of \code{\link{binCI}}.
@@ -98,7 +98,7 @@ psdCI <- function(indvec,ptbl,n,method=c("binomial","multinomial"),
 iCheckPtbl <- function(ptbl) {
   ## make sure table is proportions
   if (any(ptbl>1)) {
-    warning("'ptbl' not a table of proportions; attempted to convert to proportions to continue.",call.=FALSE)
+ #   warning("'ptbl' not a table of proportions; attempted to convert\n to proportions to continue.",call.=FALSE)
     ptbl <- ptbl/sum(ptbl)
   }
   ## make sure table sums to one (within rounding)

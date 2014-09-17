@@ -79,16 +79,16 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
     hist(DF[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,...)
   } else {
     if (attr(attr(DF, "terms"),"dataClasses")[1]!="numeric") stop("Single variable in formula must be a numeric vector.",call.=FALSE)
-    if (dim(DF)[2]>3) stop("hist.formula only works with one quantitative variable on LHS and one or two factor variables on RHS of formula.",call.=FALSE)
+    if (dim(DF)[2]>3) stop("hist.formula only works with one quantitative variable on LHS\n and one or two factor variables on RHS of formula.",call.=FALSE)
     if (attr(attr(DF, "terms"),"dataClasses")[2]!="factor") {
-      warning("Variable on RHS of formula must be a factor.  Will convert to factor and continue.\n  This may result in an error.",call.=FALSE)
+      warning("Variable on RHS of formula must be a factor.  Will convert to factor\n and continue.  This may result in an error.",call.=FALSE)
       DF[,2] <- factor(DF[,2])
     }
     if (dim(DF)[2]==2) {
       DF.split <- split(DF[[1]],DF[[2]])
     } else {
       if (attr(attr(DF, "terms"),"dataClasses")[3]!="factor") {
-        warning("Variable on RHS of formula must be a factor.  Will convert to factor and continue.\n  This may result in an error.",call.=FALSE)
+        warning("Variable on RHS of formula must be a factor.  Will convert to factor\n and continue.  This may result in an error.",call.=FALSE)
         DF[,3] <- factor(DF[,3])
       }
       DF[,4] <- interaction(DF[,2],DF[,3])
@@ -103,7 +103,7 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
       if (same.ylim) { ymax <- rep(max(ymax),length(ymax)) }
     } else {
       if (length(ymax)==1) ymax <- rep(ymax,num)
-      else if (length(ymax)!= num) stop("'ymax' argument must be 'NULL', a vector length 1, or a vector of length equal to the number of groups.",call.=FALSE)
+      else if (length(ymax)!= num) stop("'ymax' argument must be 'NULL', a vector of length 1,\n or a vector of length equal to the number of groups.",call.=FALSE)
     }
     if (num <= (nrow*ncol)) {
       if (byrow) old.par <- par(mfrow=c(nrow,ncol),mar=c(3.5,3.5,2.5,1),mgp=c(2,0.4,0))

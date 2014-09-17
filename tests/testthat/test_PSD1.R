@@ -16,8 +16,8 @@ test_that("psdVal() errors and warnings",{
 test_that("psdCI() errors and warnings",{
   ## problems with proportions table
   # not obviously a proportions table
-  expect_that(psdCI(c(1,0,0,0),c(0.5,0.3,0.2,10),11),gives_warning())
-  expect_that(psdCI(c(1,0,0,0),c(5,3,2,10),20),gives_warning())
+#  expect_that(psdCI(c(1,0,0,0),c(0.5,0.3,0.2,10),11),gives_warning())
+#  expect_that(psdCI(c(1,0,0,0),c(5,3,2,10),20),gives_warning())
   # looks like proportions, but doesn't sum to 1
   expect_that(psdCI(c(1,0,0,0),c(0.5,0.3,0.1,0.08),20),throws_error())
   expect_that(psdCI(c(1,0,0,0),c(0.5,0.3,0.2,0.08),20),throws_error())

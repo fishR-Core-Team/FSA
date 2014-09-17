@@ -10,7 +10,7 @@ psdCI(indvec, ptbl, n, method = c("binomial", "multinomial"),
 \arguments{
 \item{indvec}{A numeric vector of 0s and 1s that identify the linear combination of proprtions from \code{ptbl} that the user is interested in.  See details.}
 
-\item{ptbl}{A numeric vector or array that contains the proportion of all individuals in each length category.  See details.}
+\item{ptbl}{A numeric vector or array that contains the proportion or precentage of all individuals in each length category.  See details.}
 
 \item{n}{A single numeric of the number of fish used to construct \code{ptbl}.}
 
