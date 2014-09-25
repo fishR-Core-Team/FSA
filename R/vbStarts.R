@@ -50,10 +50,15 @@
 #' ## Simple Examples
 #' data(SpotVA1)
 #' vbStarts(tl~age,data=SpotVA1)
+#' vbStarts(tl~age,data=SpotVA1,type="GallucciQuinn")
 #' vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5))
+#' vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5))
 #' 
 #' ## Simple Example with a Plot
+#' vbStarts(tl~age,data=SpotVA1,plot=TRUE)
 #' vbStarts(tl~age,data=SpotVA1,type="GallucciQuinn",plot=TRUE)
+#' vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5),plot=TRUE)
+#' vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5),plot=TRUE)
 #' 
 #' ## See examples in vbFuns() for use of vbStarts() when fitting Von B models
 #' 
@@ -144,9 +149,9 @@ vbStarts <- function(formula,data=NULL,
          main=paste("von B (",type," paramaterization) fit at initial values",sep=""))
     mdl <- vbFuns(type)
     if (!(type %in% c("Schnute","Francis"))) curve(mdl(x,sv[[1]],sv[[2]],sv[[3]]),from=min(age),to=max(age),col="red",lwd=3,add=TRUE)
-      else if (type=="Schnute") curve(mdl(x,sv[[1]],sv[[2]],sv[[3]],t1=min(ages),t2=max(ages)),from=min(age),to=max(age),col="red",lwd=3,add=TRUE)
+      else if (type=="Schnute") curve(mdl(x,sv[[1]],sv[[2]],sv[[3]],t1=ages2use[1],t3=ages2use[2]),from=min(age),to=max(age),col="red",lwd=3,add=TRUE)
         else {
-          curve(mdl(x,sv[[1]],sv[[2]],sv[[3]],t1=ages2use[1],t2=ages2use[2],t3=ages2use[3]),from=min(age),to=max(age),col="red",lwd=3,add=TRUE)
+          curve(mdl(x,sv[[1]],sv[[2]],sv[[3]],t1=ages2use[1],t3=ages2use[2]),from=min(age),to=max(age),col="red",lwd=3,add=TRUE)
         }
     legend("bottomright",legend=paste(names(sv),formatC(unlist(sv),format="f",digits=2),sep=" = "),bty="n")
   }

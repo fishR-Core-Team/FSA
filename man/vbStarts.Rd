@@ -51,10 +51,15 @@ The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \
 ## Simple Examples
 data(SpotVA1)
 vbStarts(tl~age,data=SpotVA1)
+vbStarts(tl~age,data=SpotVA1,type="GallucciQuinn")
 vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5))
+vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5))
 
 ## Simple Example with a Plot
+vbStarts(tl~age,data=SpotVA1,plot=TRUE)
 vbStarts(tl~age,data=SpotVA1,type="GallucciQuinn",plot=TRUE)
+vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5),plot=TRUE)
+vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5),plot=TRUE)
 
 ## See examples in vbFuns() for use of vbStarts() when fitting Von B models
 }

@@ -2,6 +2,7 @@
 * `hist()`: Modified.  Slight modifications to warning messages.
 * `Summarize()`: Modified.  Slight modification to warning messages.
 * `tictactoe()`: Modified.  Changed `predbal=` to `predobj=`, `preybal=` to `predbal=`, `xlab=` to `predlab=`, `ylab=` to `preylab=`, `bal.col=` to `obj.col=`, and `bal.trans=` to `obj.trans=`.
+* `vbStarts()`: Modified.  Fixed a bug related to `plot=TRUE` when `type="Francis"` or `type="Schnute"`.
 
 # FSA 0.4.26 Sep14
 * `capFirst()` Modified.  Added an option to handle a vector of strings rather than just a single string.
