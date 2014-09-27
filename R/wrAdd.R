@@ -70,13 +70,20 @@ wrAdd <- function(formula,data,species="List",units=c("metric","English"),
   cw <- cl[1]
   cl <- cl[2]
   nd <- data
+  ## predict log Ws
   predlog <- wseqn$int+wseqn$slope*log10(nd[,cl])
-  if (!is.na(wseqn$quad)) predlog <- predlog + wseqn$quad*(log10(nd[,cl])^2)
+  # If quadratic coefficient exists then use it
+  if (any(names(wseqn)=="quad")) predlog <- predlog + wseqn$quad*(log10(nd[,cl])^2)
+  ## convert to Ws and name
   nd$ws <- 10^predlog
   names(nd)[ncol(nd)] <- wsname
+  ## Compure Wr and name
   nd$wr <- (nd[,cw]/nd[,wsname])*100
   names(nd)[ncol(nd)] <- wrname
-  if (!remove.submin) nd[nd[,cl]<wseqn$min.len,c(wsname,wrname)] <- NA
-    else nd <- Subset(nd,nd[,cl]>=wseqn$min.len)
+  ## Handle submin fish
+  # find minimum length (could be called min.TL or min.FL)
+  min.len <- wseqn[,which(grepl("min.",names(wseqn)))]
+  if (!remove.submin) nd[nd[,cl]<min.len,c(wsname,wrname)] <- NA
+    else nd <- Subset(nd,nd[,cl]>=min.len)
   nd
 }

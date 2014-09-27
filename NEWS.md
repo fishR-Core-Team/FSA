@@ -3,6 +3,9 @@
 * `Summarize()`: Modified.  Slight modification to warning messages.
 * `tictactoe()`: Modified.  Changed `predbal=` to `predobj=`, `preybal=` to `predbal=`, `xlab=` to `predlab=`, `ylab=` to `preylab=`, `bal.col=` to `obj.col=`, and `bal.trans=` to `obj.trans=`.
 * `vbStarts()`: Modified.  Fixed a bug related to `plot=TRUE` when `type="Francis"` or `type="Schnute"`.
+* `wrAdd()`: Modified.  Modified how quadratic functions and the handling of fish less than the minimum applicable length were handled because of changes to `wsVal()`.
+* `wsLit`: Modified.  Changed order of variables, changed hybrid species names to match that of Neumann et al. (2012), update comments to related to Neumman et al. (2012) rather than Blackwell et al. (2012), and added information for the Riffle Dace.
+* `wsVal()`: Modified.  Changed the names of the `min.len` and `max.len` variables to be either `min.TL` and `max.TL` or `min.FL` and `max.TL` as appropriate.  Suppressed the return of `max.len` and `quad` if they did not exist and suppressed return of `comment` if it was `none`.  Added a catch if more than one species was given in `species=`.  Created some tests.
 
 # FSA 0.4.26 Sep14
 * `capFirst()` Modified.  Added an option to handle a vector of strings rather than just a single string.
