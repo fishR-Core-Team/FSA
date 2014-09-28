@@ -1,4 +1,6 @@
-# FSA 0.4.28 ongoing
+# FSA 0.4.29 ongoing
+
+# FSA 0.4.28 Sep14
 * `psdAdd()`: Added.
 * `psdDataPrep()`: Deleted.  Functionality replaced by `psdAdd()`.
 * `recodeSpecies()`: Modified.  Completely re-written but with the same basic functionality.  This new version returns a vector that can then be appended to an existing data.frame rather than the old function that returned a whole data.frame.  This function should allow ease of use with `mutate()` from `dplyr`.  Added more catches for bad `formuala=`s.  Added some tests.
