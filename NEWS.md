@@ -1,4 +1,12 @@
-# FSA 0.4.27 ongoing
+# FSA 0.4.28 ongoing
+* `psdAdd()`: Added.
+* `psdDataPrep()`: Deleted.  Functionality replaced by `psdAdd()`.
+* `recodeSpecies()`: Modified.  Completely re-written but with the same basic functionality.  This new version returns a vector that can then be appended to an existing data.frame rather than the old function that returned a whole data.frame.  This function should allow ease of use with `mutate()` from `dplyr`.  Added more catches for bad `formuala=`s.  Added some tests.
+* `wrAdd()`: Modified.  Completely re-written with completely new functionality.  This new version returns a vector that can then be appended to an existing data.frame rather than the old function that returned a whole data.frame.  This function should allow ease of use with `mutate()` from `dplyr`.  Added more catches for bad `formuala=`s.  Added some tests.
+* `wrDataPrep()`: Deleted.  Functionality replaced by new `wrAdd()`.
+
+
+# FSA 0.4.27 Sep14
 * `hist()`: Modified.  Slight modifications to warning messages.
 * `Summarize()`: Modified.  Slight modification to warning messages.
 * `tictactoe()`: Modified.  Changed `predbal=` to `predobj=`, `preybal=` to `predbal=`, `xlab=` to `predlab=`, `ylab=` to `preylab=`, `bal.col=` to `obj.col=`, and `bal.trans=` to `obj.trans=`.

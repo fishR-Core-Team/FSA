@@ -34,7 +34,7 @@
 #'
 #' @concept Condition 'Relative Weight' 'Standard Weight'
 #'
-#' @seealso \code{\link{wsVal}}, \code{\link{wrAdd}}, and \code{\link{wrDataPrep}}.
+#' @seealso \code{\link{wsVal}} and \code{\link{wrAdd}}.
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/RelativeWeight.pdf}.
 #'

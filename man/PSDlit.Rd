@@ -38,7 +38,7 @@ str(PSDlit)
 head(PSDlit)
 }
 \seealso{
-\code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{psdDataPrep}}, and \code{\link{tictactoe}}.
+\code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, and \code{\link{tictactoe}}.
 }
 \concept{
 'Size Structure' PSD

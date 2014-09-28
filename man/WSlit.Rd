@@ -48,7 +48,7 @@ str(WSlit)
 head(WSlit)
 }
 \seealso{
-\code{\link{wsVal}}, \code{\link{wrAdd}}, and \code{\link{wrDataPrep}}.
+\code{\link{wsVal}} and \code{\link{wrAdd}}.
 }
 \concept{
 Condition 'Relative Weight' 'Standard Weight'

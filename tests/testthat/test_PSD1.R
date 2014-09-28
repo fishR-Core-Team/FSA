@@ -86,7 +86,7 @@ test_that("psdPlot() errors and warnings",{
   expect_that(psdPlot(~species,data=df,species="Yellow perch"),throws_error())
 })
 
-test_that("psdDataPrep() errors and warnings",{
+test_that("psdAdd() errors and warnings",{
   ## simulate data set
   dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),tl=round(rnorm(30,130,50),0))
   dbg$wt <- round(4.23e-06*dbg$tl^3.316+rnorm(30,0,10),1)
@@ -95,12 +95,13 @@ test_that("psdDataPrep() errors and warnings",{
   dbt <- data.frame(species=factor(rep(c("bluefin tuna"),30)),tl=round(rnorm(30,1900,300),0))
   dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
   df <- rbind(dbg,dlb,dbt)
-  df <- recodeSpecies(~species,data=df,c("LMB"),c("Largemouth Bass"))
+  df$species <- recodeSpecies(df,~species,oldn=c("LMB"),newn=c("Largemouth Bass"))
   
   ## bad formulae
-  expect_that(psdPlot(tl,data=df,species="Yellow perch"),throws_error())
-  expect_that(psdPlot(tl~species,data=df,species="Yellow perch"),throws_error())
-  expect_that(psdPlot(~tl+species,data=df,species="Yellow perch"),throws_error())
-  expect_that(psdPlot(~species,data=df,species="Yellow perch"),throws_error())
+  expect_that(psdAdd(df,~tl),throws_error())
+  expect_that(psdAdd(df,~species),throws_error())
+  expect_that(psdAdd(df,species~tl),throws_error())
+  expect_that(psdAdd(df,tl~wt),throws_error())
+  expect_that(psdAdd(df,tl~wt+species),throws_error())
 })
 
