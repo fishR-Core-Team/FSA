@@ -88,20 +88,29 @@ test_that("psdPlot() errors and warnings",{
 
 test_that("psdAdd() errors and warnings",{
   ## simulate data set
+  set.seed(345234534)
+  dbt <- data.frame(species=factor(rep(c("bluefin tuna"),30)),tl=round(rnorm(30,1900,300),0))
+  dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
   dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),tl=round(rnorm(30,130,50),0))
   dbg$wt <- round(4.23e-06*dbg$tl^3.316+rnorm(30,0,10),1)
   dlb <- data.frame(species=factor(rep(c("LMB"),30)),tl=round(rnorm(30,350,60),0))
   dlb$wt <- round(2.96e-06*dlb$tl^3.273+rnorm(30,0,60),1)
-  dbt <- data.frame(species=factor(rep(c("bluefin tuna"),30)),tl=round(rnorm(30,1900,300),0))
-  dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
-  df <- rbind(dbg,dlb,dbt)
-  df$species <- recodeSpecies(df,~species,oldn=c("LMB"),newn=c("Largemouth Bass"))
+  df <- rbind(dbt,dbg,dlb)
+  df$species <- recodeF(df$species,"LMB","Largemouth Bass")
+  
+  ## bad units
+  expect_error(psdAdd(tl~species,df,units="inches"),"units")
+  expect_error(psdAdd(df$tl,df$species,units="inches"),"units")
   
   ## bad formulae
-  expect_that(psdAdd(df,~tl),throws_error())
-  expect_that(psdAdd(df,~species),throws_error())
-  expect_that(psdAdd(df,species~tl),throws_error())
-  expect_that(psdAdd(df,tl~wt),throws_error())
-  expect_that(psdAdd(df,tl~wt+species),throws_error())
+  expect_error(psdAdd(~tl,df),"one variable")
+  expect_error(psdAdd(~species,df),"one variable")
+  expect_error(psdAdd(tl~wt+species,df),"one variable")
+  
+  ## bad variable types
+  expect_error(psdAdd(species~tl,df),"not numeric")
+  expect_error(psdAdd(tl~wt,df),"only one factor")
+  expect_error(psdAdd(df$species,df$tl),"numeric")
+  expect_error(psdAdd(df$tl,df$wt),"factor")
 })
 

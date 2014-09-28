@@ -82,22 +82,22 @@ test_that("Does psdCI results match Brenden et al. (2008) results",{
 
 test_that("Does manual calculation after psdAdd() equal psdCalc() results",{
   ## simulate data set
-  set.seed(898343789)
+  set.seed(345234534)
+  dbt <- data.frame(species=factor(rep(c("bluefin tuna"),30)),tl=round(rnorm(30,1900,300),0))
+  dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
   dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),tl=round(rnorm(30,130,50),0))
   dbg$wt <- round(4.23e-06*dbg$tl^3.316+rnorm(30,0,10),1)
   dlb <- data.frame(species=factor(rep(c("LMB"),30)),tl=round(rnorm(30,350,60),0))
   dlb$wt <- round(2.96e-06*dlb$tl^3.273+rnorm(30,0,60),1)
-  dbt <- data.frame(species=factor(rep(c("bluefin tuna"),30)),tl=round(rnorm(30,1900,300),0))
-  dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
-  df <- rbind(dbg,dlb,dbt)
-  df$species1 <- recodeSpecies(df,~species,oldn=c("LMB"),newn=c("Largemouth Bass"))
-
+  df <- rbind(dbt,dbg,dlb)
+  df$species1 <- recodeF(df$species,"LMB","Largemouth Bass")
+  
   ## get psdCalc results for LMB and BG .. ultimately compare to psdDataPrep results
   suppressWarnings(psdBG <- psdCalc(~tl,data=Subset(df,species1=="Bluegill"),species="Bluegill",digits=getOption("digits")))
   suppressWarnings(psdLMB <- psdCalc(~tl,data=Subset(df,species1=="Largemouth Bass"),species="Largemouth Bass",digits=getOption("digits")))
   
   ## apply psdAdd
-  df$PSDcat <- psdAdd(df,tl~species1)
+  df$PSDcat <- psdAdd(tl~species1,df)
   # remove substock and other fish
   df <- Subset(df,species1 %in% c("Bluegill","Largemouth Bass"))
   df <- Subset(df,PSDcat!="zero")

@@ -1,4 +1,10 @@
 # FSA 0.4.29 ongoing
+* Added a suggests for `dplyr`.
+* `capFirst()`: Modified.  Changed `words=` to `which=`.
+* `psdAdd()`: Modified.  Added a default and a formula version to allow efficiency with `dplyr`.  Added examples.  Updated tests.
+* `recodeF()`: Added.
+* `recodeSpecies()`: Deleted.  Functionality replaced by `recodeF()` in combination with `capFirst()`.
+* `wrAdd()`: Modified.  Added a default and a formula version to allow efficiency with `dplyr`.  Added examples.  Updated tests.
 
 # FSA 0.4.28 Sep14
 * `psdAdd()`: Added.

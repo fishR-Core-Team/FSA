@@ -16,27 +16,36 @@ test_that("wsVal() errors and warnings",{
 
 test_that("wrAdd() errors and warnings",{
   ## simulate data set
+  set.seed(345234534)
+  dbt <- data.frame(species=factor(rep(c("bluefin tuna"),30)),tl=round(rnorm(30,1900,300),0))
+  dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
   dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),tl=round(rnorm(30,130,50),0))
   dbg$wt <- round(4.23e-06*dbg$tl^3.316+rnorm(30,0,10),1)
   dlb <- data.frame(species=factor(rep(c("LMB"),30)),tl=round(rnorm(30,350,60),0))
   dlb$wt <- round(2.96e-06*dlb$tl^3.273+rnorm(30,0,60),1)
-  dbt <- data.frame(species=factor(rep(c("bluefin tuna"),30)),tl=round(rnorm(30,1900,300),0))
-  dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
-  df <- rbind(dbg,dlb,dbt)
+  df <- rbind(dbt,dbg,dlb)
   df$rnd <- runif(nrow(df))
   df$junk <- sample(c("Derek","Hugh","Ogle"),nrow(df),replace=TRUE)
-  df$species <- recodeSpecies(df,~species,oldn=c("LMB"),newn=c("Largemouth Bass"))
+  df$species <- recodeF(df$species,"LMB","Largemouth Bass")
+  
+  ## bad units
+  expect_error(wrAdd(wt~tl+species,df,units="inches"),"units")
   
   ## bad formulae
-  expect_that(wrAdd(df,~tl),throws_error())
-  expect_that(wrAdd(df,~tl+species),throws_error())
-  expect_that(wrAdd(df,~tl+species+wt),throws_error())
-  expect_that(wrAdd(df,wt~tl),throws_error())
-  expect_that(wrAdd(df,wt~species),throws_error())
-  expect_that(wrAdd(df,wt~tl+rnd),throws_error())
-  expect_that(wrAdd(df,wt~species+junk),throws_error())
-  expect_that(wrAdd(df,wt~tl+species+junk),throws_error())
-  expect_that(wrAdd(df,wt+tl~species),throws_error())
-  expect_that(wrAdd(df,wt~tl+rnd+species),throws_error())
-  expect_that(wrAdd(df,species~wt+junk),throws_error())
+  expect_error(wrAdd(~tl,df),"one variable")
+  expect_error(wrAdd(~tl+species,df),"one variable")
+  expect_error(wrAdd(~tl+species+wt,df),"left-hand-side")
+  expect_error(wrAdd(wt~tl,df),"one variable")
+  expect_error(wrAdd(wt~species,df),"one variable")
+  expect_error(wrAdd(wt~tl+rnd,df),"only one numeric")
+  expect_error(wrAdd(wt~species+junk,df),"only one numeric")
+  expect_error(wrAdd(wt~tl+species+junk,df),"one variable")
+  expect_error(wrAdd(wt+tl~species,df),"more than one variable")
+  expect_error(wrAdd(wt~tl+rnd+species,df),"one variable")
+  
+  ## bad vector types
+  expect_error(wrAdd(species~wt+tl,df),"not numeric")
+  expect_error(wrAdd(df$species,df$wt,df$tl),"numeric")
+  expect_error(wrAdd(df$wt,df$species,df$tl),"numeric")
+  expect_error(wrAdd(df$wt,df$tl,df$rnd),"factor")
 })

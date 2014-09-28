@@ -3,12 +3,12 @@
 \alias{capFirst}
 \title{Capitalizes the first letter of first or all words in a string.}
 \usage{
-capFirst(x, words = c("all", "first"))
+capFirst(x, which = c("all", "first"))
 }
 \arguments{
 \item{x}{A single string.}
 
-\item{words}{A single string that indicates whether all (the default) or only the first words should be capitalized.}
+\item{which}{A single string that indicates whether all (the default) or only the first words should be capitalized.}
 }
 \value{
 A single string with the first letter of the first or all words capitalized.
@@ -23,13 +23,13 @@ capFirst("derek ogle")
 capFirst("derek")
 
 ## Capitalize first letter of only the first words
-capFirst("Derek Ogle",words="first")
-capFirst("derek ogle",words="first")
-capFirst("derek",words="first")
+capFirst("Derek Ogle",which="first")
+capFirst("derek ogle",which="first")
+capFirst("derek",which="first")
 ## apply to all elements in a vector
 vec <- c("Derek Ogle","derek ogle","Derek ogle","derek Ogle","DEREK OGLE")
 capFirst(vec)
-capFirst(vec,words="first")
+capFirst(vec,which="first")
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

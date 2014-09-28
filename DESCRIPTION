@@ -20,6 +20,7 @@ Imports:
     relax,
     sciplot
 Suggests:
+    dplyr,
     FSAdata,
     fishmethods,
     marked,
