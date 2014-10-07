@@ -1,5 +1,9 @@
+# FSA 0.4.30 ongoing
+
+
 # FSA 0.4.29 ongoing
 * Added a suggests for `dplyr`.
+* Added an external file in inst/extdata for testing PSD and Wr calculations.
 * `capFirst()`: Modified.  Changed `words=` to `which=`.
 * `psdAdd()`: Modified.  Added a default and a formula version to allow efficiency with `dplyr`.  Added examples.  Updated tests.
 * `recodeF()`: Added.

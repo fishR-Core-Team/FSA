@@ -1,8 +1,78 @@
-context("Mark-Recapture, Open Populations, Jolly-Seber")
+context("Mark-Recapture Open")
 
-##############################################################
-## Set up some data
-##############################################################
+# ############################################################
+# ============================================================
+# Messaging
+# ============================================================
+# ############################################################
+
+# ------------------------------------------------------------
+# Setup some matrices for the tests
+# ------------------------------------------------------------
+good.top <- matrix(c(
+  NA,15, 1, 0, 0,
+  NA,NA,13, 3, 0,
+  NA,NA,NA,10, 5,
+  NA,NA,NA,NA, 9,
+  NA,NA,NA,NA,NA),nrow=5,byrow=TRUE)
+good.bot <- matrix(c(
+  15,14,13, 5,
+  10, 9, 8,11,
+  25,23,21,16,
+  25,23,21,16),nrow=4,byrow=TRUE,
+  dimnames=list(c("m","u","n","R")))
+
+test_that("mrOpen errors and warnings",{
+  ## a top but not a bottom, but with capHistSum
+  expect_that(mrOpen(good.top),throws_error())
+  ## a top that is not square
+  expect_that(mrOpen(good.top[,-1],good.bot),throws_error())
+  expect_that(mrOpen(good.top[-1,],good.bot),throws_error())
+  ## a top without an NA on the diagonal or lower triangle
+  bad.top <- good.top
+  bad.top[2,2] <- 3
+  expect_that(mrOpen(bad.top,good.bot),throws_error())
+  bad.top <- good.top
+  bad.top[3,2] <- 3
+  expect_that(mrOpen(bad.top,good.bot),throws_error())
+  ## a top with an NA in the upper triangle
+  bad.top <- good.top
+  bad.top[1,2] <- NA
+  expect_that(mrOpen(bad.top,good.bot),throws_error())
+  ## a top with a negative value in the upper triangle
+  bad.top <- good.top
+  bad.top[1,2] <- -3
+  expect_that(mrOpen(bad.top,good.bot),throws_error())
+  
+  ## bottom does not have enough rows
+  expect_that(mrOpen(good.top,good.bot[-1,]),throws_error())
+  ## bottom has bad names
+  bad.bot <- good.bot
+  names(bad.bot)[1] <- "Derek"
+  expect_that(mrOpen(good.top,bad.bot),throws_error())
+  ## a bottom with a negative value
+  bad.bot <- good.bot
+  bad.bot[1,2] <- -3
+  expect_that(mrOpen(good.top,bad.bot),throws_error())
+  ## a bottom with a non-zero first number of marked fish
+  bad.bot <- good.bot
+  bad.bot["m",1] <- 3
+  expect_that(mrOpen(good.top,bad.bot),throws_error())
+  ## a bottom with a NA
+  bad.bot["m",1] <- NA
+  expect_that(mrOpen(good.top,bad.bot),throws_error())
+})
+
+
+# ############################################################
+# ============================================================
+# Analytical Results
+# ============================================================
+# ############################################################
+
+# ------------------------------------------------------------
+# Set up some data
+# ------------------------------------------------------------
 ## CutthroatAL from capture histories
 # get mrOpen results
 data(CutthroatAL)
@@ -28,7 +98,7 @@ poll <- data.frame(period=1:23,
                    m=c(0,42,42,42,46,37,41,39,43,26,7,2,0,3,8,17,14,20,36,34,46,20,2),
                    R=c(46,46,48,46,50,37,41,42,47,31,8,2,1,4,9,18,19,27,36,44,73,22,2),
                    r=c(43,44,48,45,46,35,40,37,40,26,8,2,1,3,8,17,18,24,32,33,15,2,NA),
-                 z=c(NA,1,3,9,8,17,11,12,6,20,39,45,47,45,40,31,34,32,20,18,5,0,NA))
+                   z=c(NA,1,3,9,8,17,11,12,6,20,39,45,47,45,40,31,34,32,20,18,5,0,NA))
 # expectations from Table 4.4
 NP <- c(NA,47.1,51.3,56.0,60.5,54.9,52.3,56.5,54.6,58.9,51.8,NA,NA,NA,58.3,55.3,66.4,74.5,58.4,76.0,110.3,21.9,NA)
 NSEP <- c(NA,0.39,0.70,1.19,1.51,1.23,0.60,2.06,1.57,4.59,5.99,NA,NA,NA,9.20,4.30,8.14,7.91,2.13,6.12,18.10,0.00,NA)
@@ -112,9 +182,9 @@ jolly <- mrOpen(jolly.top,jolly.bot)
 
 
 
-##############################################################
-## Set up some tests
-##############################################################
+# ------------------------------------------------------------
+# Set up some tests
+# ------------------------------------------------------------
 test_that("Does mrOpen match the Jolly-Seber results from JOLLY for CutthroatAL",{
   expect_that(cutt$df$r,equals(rC))
   expect_that(cutt$df$z,equals(zC))

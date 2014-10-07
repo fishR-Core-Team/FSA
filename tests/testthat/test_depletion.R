@@ -1,8 +1,53 @@
-context("Verification of 'depletion()' results.")
+context("depletion() Tests")
 
-##############################################################
-## Set up some results to test below
-##############################################################
+# ############################################################
+# ============================================================
+# Messaging
+# ============================================================
+# ############################################################
+
+test_that("depletion() errors and warnings",{
+  ## wrong type
+  expect_that(depletion(c(346,184,49),rep(7,3),method="Derek"),throws_error())
+  ## no efforts
+  expect_that(depletion(c(346,184,49)),throws_error())
+  ## bad types of data
+  expect_that(depletion(c(346,184,"Derek"),rep(7,3)),throws_error())
+  expect_that(depletion(c(346,184,49),rep("Derek",3)),throws_error())
+  ## different vector sizes
+  expect_that(depletion(c(346,184,49,57),rep(7,3)),throws_error())
+  expect_that(depletion(c(346,184,49),rep(7,4)),throws_error())
+  ## too few catches
+  expect_that(depletion(c(346,184),rep(7,2)),throws_error())
+  ## negative catchs or non-non-negative efforts
+  expect_that(depletion(c(346,184,-49),rep(7,3)),throws_error())
+  expect_that(depletion(c(346,184,49),c(7,3,-1)),throws_error())
+  expect_that(depletion(c(346,184,49),c(7,3,0)),throws_error())
+  ## zero catches with DeLury method
+  expect_that(depletion(c(346,184,0),rep(7,3),method="DeLury"),throws_error())
+  ## Bad regressions (i.e., have non-significant or positive slopes)
+  expect_that(depletion(c(49,184,346),rep(7,3)),gives_warning())
+  expect_that(depletion(c(346,144,341),rep(7,3)),gives_warning())
+  expect_that(depletion(c(49,184,346),rep(7,3),method="DeLury"),gives_warning())
+  expect_that(depletion(c(346,144,341),rep(7,3),method="DeLury"),gives_warning())
+  
+  suppressWarnings(ex1 <- depletion(c(346,184,49),rep(1,3)))
+  ## wrong type in methods
+  expect_that(summary(ex5,type="Derek"),throws_error())
+  expect_that(coef(ex5,type="Derek"),throws_error())
+  expect_that(confint(ex5,parm="Derek"),throws_error())
+})
+
+
+# ############################################################
+# ============================================================
+# Analytical Results
+# ============================================================
+# ############################################################
+
+# ------------------------------------------------------------
+# Set up some results to test below
+# ------------------------------------------------------------
 # fishmethods's Darter data
 if (require(fishmethods)) {
   data(darter)
@@ -97,9 +142,9 @@ if (require(FSAdata)) {
 }
 
 
-##############################################################
-## Tests of LESLIE results
-##############################################################
+# ------------------------------------------------------------
+# Tests of LESLIE results
+# ------------------------------------------------------------
 test_that("depletion with 'Leslie' matches fishmethod's 'deplet' for darter data",{
   if (require(fishmethods)) {
     expect_that(round(cf1[["No","Estimate"]],0), equals(round(cf1fm[["N","Estimate"]],0)))
@@ -174,10 +219,9 @@ test_that("depletion with 'Leslie' with Ricker.mod matches example 6.1 (p. 151) 
 })
 
 
-
-##############################################################
-## Tests of DELURY results
-##############################################################
+# ------------------------------------------------------------
+# Tests of DELURY results
+# ------------------------------------------------------------
 test_that("depletion with 'DeLury' and Ricker.mod matches fishmethod's 'deplet'",{
   if (require(fishmethods)) {
     expect_that(round(cf2[["No","Estimate"]],0), equals(round(cf2fm[["N","Estimate"]],0)))

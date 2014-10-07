@@ -116,7 +116,7 @@ psdAdd.formula <- function(len,data=NULL,units=c("mm","cm","in"),use.names=TRUE,
   tmp <- iHndlFormula(len,data,expNumR=1,expNumE=1,expNumENums=0,expNumEFacts=1)
   if (tmp$vnum!=2) stop("'len' must have one variable on the left-hand-side\n and one variable on the right-hand-side.",call.=FALSE)
   if (!tmp$metExpNumR) stop("'len' must have a left-hand-side with one and only one variable.",call.=FALSE)
-  if (tmp$Rclass!="numeric") stop("Variable on left-hand-side of 'len' is not numeric (thus, not lengths).",call.=FALSE)
+  if (!(tmp$Rclass %in% c("numeric","integer"))) stop("Variable on left-hand-side of 'len' is not numeric (thus, not lengths).",call.=FALSE)
   if (!tmp$metExpNumE) stop("'len' must have a right-hand-side with one and only one variable.",call.=FALSE)
   if (!tmp$metExpNumEFacts) stop("'len' must have one and only one factor variable (species) on right-hand-side.",call.=FALSE)
   ## Send to default method

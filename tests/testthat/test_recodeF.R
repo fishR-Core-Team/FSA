@@ -43,3 +43,13 @@ test_that("capFirst() capitalizations are correct",{
   expect_equivalent(levels(factor(capFirst(df$species1))),c("Bluefin Tuna","Bluegill","Largemouth Bass"))
   expect_equivalent(levels(factor(capFirst(df$species1,which="first"))),c("Bluefin tuna","Bluegill","Largemouth bass"))
 })
+
+
+test_that("recodeF() matches values in file.",{
+  ## read in external CSV file
+  ftmp <- system.file("extdata", "PSDWR_testdata.csv", package="FSA")
+  df <- read.csv(ftmp)
+  ## recode spec_code variable
+  df$species1 <- recodeF(~spec_code,data=df,o=c("BG","IAD","LMB"),n=c("Bluegill","Iowa Darter","Largemouth Bass"))
+  expect_equal(df$species,df$species1)
+})

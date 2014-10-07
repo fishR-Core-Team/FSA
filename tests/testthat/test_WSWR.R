@@ -1,4 +1,10 @@
-context("wsXXX and wrXXX function Messages")
+context("wsXXX and wrXXX function Tests")
+
+# ############################################################
+# ============================================================
+# Messaging
+# ============================================================
+# ############################################################
 
 test_that("wsVal() errors and warnings",{
   ## bad species name
@@ -48,4 +54,21 @@ test_that("wrAdd() errors and warnings",{
   expect_error(wrAdd(df$species,df$wt,df$tl),"numeric")
   expect_error(wrAdd(df$wt,df$species,df$tl),"numeric")
   expect_error(wrAdd(df$wt,df$tl,df$rnd),"factor")
+})
+
+
+# ############################################################
+# ============================================================
+# Analytical Results
+# ============================================================
+# ############################################################
+# ------------------------------------------------------------
+# read in external CSV file
+# ------------------------------------------------------------
+ftmp <- system.file("extdata", "PSDWR_testdata.csv", package="FSA")
+df <- read.csv(ftmp)
+
+test_that("wrAdd() matches values computed in Excel.",{
+  df$wr <- wrAdd(wt~tl+species,data=df)
+  expect_equivalent(df$wr,df$WR)
 })

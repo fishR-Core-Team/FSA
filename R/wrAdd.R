@@ -120,7 +120,7 @@ wrAdd.formula <- function(wt,data,units=c("metric","English"),...) {
   tmp <- iHndlFormula(wt,data,expNumR=1,expNumE=2,expNumENums=1,expNumEFacts=1)
   if (tmp$vnum!=3) stop("'wt' must have one variable on the left-hand-side\n and two variables on the right-hand-side.",call.=FALSE)
   if (!tmp$metExpNumR) stop("'wt' must have a left-hand-side.",call.=FALSE)
-  if (tmp$Rclass!="numeric") stop("Variable on left-hand-side of 'wt' is not numeric (thus, not weights).",call.=FALSE)
+  if (!(tmp$Rclass %in% c("numeric","integer"))) stop("Variable on left-hand-side of 'wt' is not numeric (thus, not weights).",call.=FALSE)
   if (!tmp$metExpNumE) stop("'wt' must have a right-hand-side with two variables.",call.=FALSE)
   if (!tmp$metExpNumENums) stop("'wt' must have one and only one numeric variable (lengths) on right-hand-side.",call.=FALSE)
   if (!tmp$metExpNumEFacts) stop("'wt' must have one and only one factor variable (species) on right-hand-side.",call.=FALSE)
