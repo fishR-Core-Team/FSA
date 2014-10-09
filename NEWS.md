@@ -1,5 +1,5 @@
 # FSA 0.4.30 ongoing
-
+* `PSDlit`: Modified.  Changed "Walleye x Sauger" to "Saugeye" and "White Bass x Striped Bass" to "Palmetto Bass".  Updated the Palmetto Bass values based on Dumont and Neely (2011), but kept old values as "Palmetto Bass (original)".  Deleted redundant entries for some species.
 
 # FSA 0.4.29 ongoing
 * Added a suggests for `dplyr`.
