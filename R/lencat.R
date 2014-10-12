@@ -134,6 +134,11 @@
 #' table(smb1$PSDCat2A)
 #' str(smb1)
 #'
+#' # same as above but not returned as a factor (returned as a character)
+#' smb1$PSDcat2B <- lencat(smb1$lencap,breaks=psdVal("Smallmouth Bass"),
+#'                         use.names=TRUE,as.fact=FALSE)
+#' str(smb1)
+#' 
 #' ## A Sixth example -- similar to the fifth example but using the formula notation
 #' # 10 mm length classes - in default LCat variable
 #' smb2 <- lencat(~lencap,data=smb2,w=10)
@@ -163,7 +168,7 @@ lencat <- function (x,...) {
 #' @export
 lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,
                            right=FALSE,use.names=FALSE,
-                           as.fact=FALSE,drop.levels=FALSE,
+                           as.fact=use.names,drop.levels=FALSE,
                            ...) {
   ## find range of values in x
   maxx <- max(x,na.rm=TRUE)
@@ -194,10 +199,10 @@ lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,
       # if breaks has names, add new var with those names by comparing to numeric breaks
       lcat <- names(breaks)[match(lcat,breaks)]
       # make sure the labels are ordered as ordered in breaks (drop last break that is always empty)
-      lcat <- factor(lcat,levels=names(breaks))
+      if (as.fact) lcat <- factor(lcat,levels=names(breaks))
 #      lcat <- factor(lcat,levels=names(breaks)[-length(breaks)])
       # change logical to note that it was a factor
-      as.fact <- TRUE
+#      as.fact <- TRUE
     }
   }
   if (as.fact & drop.levels) lcat <- droplevels(lcat)
@@ -208,7 +213,7 @@ lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,
 #' @export
 lencat.formula <- function(x,data,w=1,breaks=NULL,startcat=NULL,
                            right=FALSE,use.names=FALSE,
-                           as.fact=FALSE,drop.levels=FALSE,
+                           as.fact=use.names,drop.levels=FALSE,
                            vname=NULL,...) {
   ## Get the name of the variable with the lengths
   cl <- iGetVarFromFormula(x,data,expNumVars=1)

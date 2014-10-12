@@ -1,4 +1,6 @@
 # FSA 0.4.30 ongoing
+* `lencat`: Modified.  Changed `as.fact=` to default to same as `use.names=`.  This will result in the same behavior as before.  However, it also allows the user to set `use.names=TRUE` and `as.fact=FALSE` to return a character vector (that is not a factor).
+* `psdAdd`: Modified.  Added `addSpec=` and `addLens=` so that the user can have non-Gabelhouse lengths for individual species.
 * `PSDlit`: Modified.  Changed "Walleye x Sauger" to "Saugeye" and "White Bass x Striped Bass" to "Palmetto Bass".  Updated the Palmetto Bass values based on Dumont and Neely (2011), but kept old values as "Palmetto Bass (original)".  Deleted redundant entries for some species.
 
 # FSA 0.4.29 ongoing

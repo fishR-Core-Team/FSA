@@ -8,11 +8,11 @@
 lencat(x, ...)
 
 \method{lencat}{default}(x, w = 1, breaks = NULL, startcat = NULL,
-  right = FALSE, use.names = FALSE, as.fact = FALSE,
+  right = FALSE, use.names = FALSE, as.fact = use.names,
   drop.levels = FALSE, ...)
 
 \method{lencat}{formula}(x, data, w = 1, breaks = NULL, startcat = NULL,
-  right = FALSE, use.names = FALSE, as.fact = FALSE,
+  right = FALSE, use.names = FALSE, as.fact = use.names,
   drop.levels = FALSE, vname = NULL, ...)
 }
 \arguments{
@@ -157,6 +157,11 @@ smb1$PSDCat2A <- lencat(smb1$lencap,breaks=psdVal("Smallmouth Bass"),
                         use.names=TRUE,drop.levels=TRUE)
 head(smb1)
 table(smb1$PSDCat2A)
+str(smb1)
+
+# same as above but not returned as a factor (returned as a character)
+smb1$PSDcat2B <- lencat(smb1$lencap,breaks=psdVal("Smallmouth Bass"),
+                        use.names=TRUE,as.fact=FALSE)
 str(smb1)
 
 ## A Sixth example -- similar to the fifth example but using the formula notation
