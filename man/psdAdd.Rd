@@ -50,16 +50,12 @@ Additional lengths to be use for each species can be included by giving a vector
 set.seed(345234534)
 dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),tl=round(rnorm(30,130,50),0))
 dbg$wt <- round(4.23e-06*dbg$tl^3.316+rnorm(30,0,10),1)
-dlb <- data.frame(species=factor(rep(c("LMB"),30)),tl=round(rnorm(30,350,60),0))
+dlb <- data.frame(species=factor(rep(c("Largemouth Bass"),30)),tl=round(rnorm(30,350,60),0))
 dlb$wt <- round(2.96e-06*dlb$tl^3.273+rnorm(30,0,60),1)
-dbt <- data.frame(species=factor(rep(c("bluefin tuna"),30)),tl=round(rnorm(30,1900,300),0))
+dbt <- data.frame(species=factor(rep(c("Bluefin Tuna"),30)),tl=round(rnorm(30,1900,300),0))
 dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
 df <- rbind(dbg,dlb,dbt)
 str(df)
-
-# Rename variables to match PSDlit -- see recodeF()
-df$species <- recodeF(df$species,"LMB","Largemouth Bass")
-levels(df$species)
 
 ## Examples (non-dplyr)
 # Add variable using category names -- formula notation
@@ -101,7 +97,7 @@ Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  \href{http://ww
 Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  \href{http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf}{Stock density indices: development, use, and limitations.}  Reviews in Fisheries Science 1:203-222.
 }
 \seealso{
-\code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{PSDlit}}, \code{\link{recodeF}}, and \code{\link{wrAdd}}.
+\code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{PSDlit}}, and \code{\link{wrAdd}} for related functions.  See \code{mapvalues} from \pkg{plyr} for help in changing species names to match those in \code{\link{PSDlit}}.
 }
 \keyword{manip}
 

@@ -25,6 +25,7 @@ Suggests:
     fishmethods,
     marked,
     nlstools,
+    plyr,
     popbio,
     Rcapture,
     testthat
