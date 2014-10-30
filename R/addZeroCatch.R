@@ -75,7 +75,7 @@ addZeroCatch <- function(df,eventvar,specvar,idvar=NULL,zerovar=NULL) {
   ## checks
   if (is.null(idvar) & is.null(zerovar)) stop("One of 'idvar' or 'zerovar' must be non-null.",call.=FALSE)    
   if (!is.null(zerovar) & !is.null(idvar)) {
-    if (length(names(df)) != (length(names(idvar))+length(names(zerovar))+2))
+    if (length(names(df)) != (length(idvar)+length(zerovar)+2))
       stop("Combined lengths of 'eventvar', 'specvar', 'idvar', and 'zerovar' do not match number of columns in 'df'.",call.=FALSE)
   }
   # get vectors of event and species names
@@ -91,7 +91,7 @@ addZeroCatch <- function(df,eventvar,specvar,idvar=NULL,zerovar=NULL) {
   
   # Catch if there are no need for zeroes
   if (nrow(need0s)==0) {
-    warning("All 'eventvar' have all species in 'specvar';\n thus, there are no zeroes to add.\n  The original data frame was returned.",call.=FALSE)
+    warning("All 'eventvar' have all species in 'specvar'; thus, there are\n no zeroes to add.  The original data frame was returned.",call.=FALSE)
     df
   } else {
     # fills idvar or zerovar if null

@@ -1,5 +1,5 @@
 # FSA 0.4.31 ongoing
-* `addZeroCatch()`: Modified.  Slight modifications to help file.
+* `addZeroCatch()`: Modified.  Slight modifications to help file.  Fixed bug related to error checking the number of variables.  Added some tests.
 
 
 # FSA 0.4.30 Oct14
