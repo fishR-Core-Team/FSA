@@ -1,10 +1,13 @@
-# FSA 0.4.30 ongoing
+# FSA 0.4.31 ongoing
+* `addZeroCatch()`: Modified.  Slight modifications to help file.
+
+
+# FSA 0.4.30 Oct14
 * Added a suggests for `plyr`, for examples using `mapvalues()`.
 * `lencat()`: Modified.  Changed `as.fact=` to default to same as `use.names=`.  This will result in the same behavior as before.  However, it also allows the user to set `use.names=TRUE` and `as.fact=FALSE` to return a character vector (that is not a factor).
 * `psdAdd()`: Modified.  Added `addSpec=` and `addLens=` so that the user can have non-Gabelhouse lengths for individual species.
 * `PSDlit`: Modified.  Changed "Walleye x Sauger" to "Saugeye" and "White Bass x Striped Bass" to "Palmetto Bass".  Updated the Palmetto Bass values based on Dumont and Neely (2011), but kept old values as "Palmetto Bass (original)".  Deleted redundant entries for some species.
 * `recodeF()`: Deleted.  Functionality is in `mapvalues()` from `plyr`.  Ease come easy go (i.e., added in last version).
-
 
 # FSA 0.4.29 Oct14
 * Added a suggests for `dplyr`.

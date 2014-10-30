@@ -1,19 +1,19 @@
-#' @title Adds zero catch values for sampling events and species that were not captured.
+#' @title Adds zeroes for catches of species not collected in some sampling events.
 #'
-#' @description Adds zero catch values for species that were not captured in a sampling event but were captured in at least one other sampling event (i.e., adds zeroes to the data frame for capture events where a species was not observed).
+#' @description Adds zeroes for catches of species that were not captured in a sampling event but were captured in at least one other sampling event (i.e., adds zeroes to the data frame for capture events where a species was not observed).
 #'
-#' @details The data frame in \code{df} must contain a column that identifies a unique capture event (given in \code{eventvar}), a column with the name for the species captured (given in \code{specvar}), and a column that contains the number of that species captured (potentially given to \code{zerovar}; see details).  All sampling event and species combinations where catch informationdoes not exist will be identified and a new data frame that contains a zero for the catch for all of these combinations will be created.  This new data frame is appended to the original data frame to construct a data frame that contains complete catch information -- i.e., including zeroes for species in events where that species was not captured.
+#' @details The data frame in \code{df} must contain a column that identifies a unique capture event (given in \code{eventvar}), a column with the name for the species captured (given in \code{specvar}), and a column that contains the number of that species captured (potentially given to \code{zerovar}; see details).  All sampling event and species combinations where catch information does not exist is identified and a new data frame that contains a zero for the catch for all of these combinations is created.  This new data frame is appended to the original data frame to construct a data frame that contains complete catch information -- i.e., including zeroes for species in events where that species was not captured.
 #'
-#' The original data frame (\code{df}) may also contain columns of data not discussed above.  For example, it may include columns of data that are specific to the capture event, such as date, gear type, habitat, etc.  Information in these variables should be repeated specific to the sampling event when the zero catches are added to the data frame.  Thus, the variable names for these data can be given in \code{idvar} so that these data can be repeated with each zero added to the data frame.  In addition, the data frame may contain other information related to the catch, such as number of recaptured fish, number of fish released, etc.  These variables should also have zeroes for each species not caught in a sampling event (e.g., if the catch of the species is zero, then the number of recaptures must also be zero).  Thus, the variable names for this information should be given in \code{zerovar} so that zeroes can be added to these variables as well.  Only one of \code{idvar} or \code{zerovar} needs to be given as it will be assumed that the rest of variable names in the data frame (not including those given in \code{eventvar} and \code{specvar}) will be of the other type.
+#' The original data frame (\code{df}) may also contain columns of data not discussed above.  For example, it may include columns of data that are specific to the capture event, such as date, gear type, habitat, etc.  The names for these variables can be given in \code{idvar} so that these data can be repeated with each row of zeroes added to the data frame.  In addition, the data frame may contain other information related to the catch, such as number of recaptured fish, number of fish released, etc.  These variables can be given in \code{zerovar} so that zeroes can be added to these variables as well (e.g., if the catch of the species is zero, then the number of recaptures must also be zero).  Only one of \code{idvar} or \code{zerovar} needs to be given as it will be assumed that the rest of variable names in the data frame (not including those given in \code{eventvar} and \code{specvar}) will be of the other type.
 #' 
-#' One should test the results of this function by creating a frequency table of the \code{eventvar} or \code{specvar}.  In either case, the table should contain the same value in each cell of the table.  See the examples for an example.
+#' One should test the results of this function by creating a frequency table of the \code{eventvar} or \code{specvar}.  In either case, the table should contain the same value in each cell of the table.  See the examples.
 #'
 #' @param df A data frame that contains the capture summary data as described in the details.
 #' @param eventvar A string for the variable that identifies unique capture events.
 #' @param specvar A string for the variable that identifies the species captured.
 #' @param idvar A string or vector of strings for the variable(s) that are common to a unique capture event and should be repeated for each zero row added to the data frame (e.g., dates, gear type, etc.).  See details
-#' @param zerovar A string or vector of strings for the variable(s) that should be  set equal to zero.  See details.
-#' @return Returns a data frame of the same type as \code{df} but with rows of zero observation data appended and the columns slightly reorganized.
+#' @param zerovar A string or vector of strings for the variable(s) that should be set equal to zero.  See details.
+#' @return A data frame with the same structure as \code{df} but with rows of zero observation data appended.
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
@@ -32,14 +32,15 @@
 #' df1mod1
 #' xtabs(~net,data=df1mod1)                    # check, should all be 3
 #' xtabs(~net+species,data=df1mod1)            # check, should all be 1
-#' Summarize(catch~species,data=df1)           # observed difference from next
-#' Summarize(catch~species,data=df1mod1)
+#' Summarize(catch~species,data=df1mod1)       # correct mean/sd of catches
+#' Summarize(catch~species,data=df1)           # incorrect mean/sd of catches (no zeroes)
 #'
 #' # Same as example 1 but with no ancillary data specific to the net number
 #' df2 <- df1[,-2]
 #' df2
 #' df1mod2 <- addZeroCatch(df2,"net","species",zerovar="catch")
-#' df1mod2#'xtabs(~net+species,data=df1mod2)   # check, should all be 1
+#' df1mod2
+#' xtabs(~net+species,data=df1mod2)   # check, should all be 1
 #'
 #' ## Example Data #3 (All nets have same species ... no zeroes needed)
 #' df3 <- data.frame(net=c(1,1,1,2,2,2,3,3,3),
@@ -71,7 +72,8 @@
 addZeroCatch <- function(df,eventvar,specvar,idvar=NULL,zerovar=NULL) {
   df <- as.data.frame(df)
   dfnames <- names(df)
-  if (is.null(idvar) & is.null(zerovar)) stop("One of 'idvar' or 'zerovar' must be non-null.",call.=FALSE)    # checks
+  ## checks
+  if (is.null(idvar) & is.null(zerovar)) stop("One of 'idvar' or 'zerovar' must be non-null.",call.=FALSE)    
   if (!is.null(zerovar) & !is.null(idvar)) {
     if (length(names(df)) != (length(names(idvar))+length(names(zerovar))+2))
       stop("Combined lengths of 'eventvar', 'specvar', 'idvar', and 'zerovar' do not match number of columns in 'df'.",call.=FALSE)
@@ -87,9 +89,9 @@ addZeroCatch <- function(df,eventvar,specvar,idvar=NULL,zerovar=NULL) {
   combos.in.df <- paste(df[,eventvar],df[,specvar],sep=":")
   need0s <- tmp[which(!(all.combos %in% combos.in.df)),]
   
-  # Catch if there are no need zeroes
+  # Catch if there are no need for zeroes
   if (nrow(need0s)==0) {
-    warning("All 'eventvar' have all species in 'specvar'; thus, there are no zeroes to add.\n  The original data frame has been returned.",call.=FALSE)
+    warning("All 'eventvar' have all species in 'specvar';\n thus, there are no zeroes to add.\n  The original data frame was returned.",call.=FALSE)
     df
   } else {
     # fills idvar or zerovar if null
