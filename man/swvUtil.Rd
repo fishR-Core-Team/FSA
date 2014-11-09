@@ -23,8 +23,7 @@ swvREG(x, digits = max(3, getOption("digits") - 3))
 swvHtest(x, digits = 4, show.alt = FALSE, ...)
 
 swvCode(file, out.dir = NULL, topnotes = NULL, moreItems = NULL,
-  blanks = c("extra", "all", "none"), annotate = FALSE,
-  method = c("knitr", "Sweave"), ...)
+  blanks = c("extra", "all", "none"), annotate = FALSE, ...)
 
 swvFinish(file, rqrdPkgs = NULL, closeGraphics = TRUE, addTOC = TRUE,
   newPage = FALSE, elapsed = NULL, listFiles = FALSE)
@@ -57,8 +56,6 @@ swvFinish(file, rqrdPkgs = NULL, closeGraphics = TRUE, addTOC = TRUE,
 \item{blanks}{A string that indicates if blank lines should be removed.  If \code{blanks="all"} then all blank lines will be removed.  If \code{blanks="extra"} then only \dQuote{extra} blanks lines will be removed (i.e., one blank line will be left where there was originally more than one blank line).}
 
 \item{annotate}{A logical that indicates whether decorating comments around code chunks should be used (\code{TRUE}) or not (\code{FALSE}; default).}
-
-\item{method}{A string that indicates whether the file will be treated as knitr or Sweave input.}
 
 \item{rqrdPkgs}{A string vector that contains packages that are required for the vignette and for which all dependencies should be found.}
 
@@ -125,7 +122,7 @@ swvPvalue(0.000012345,include.p=FALSE,latex=FALSE)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-\code{formatC}, \code{Stangle}, \code{Sweave} in base R; \code{knitr} and \code{purl} in \pkg{knitr}; and \code{glht} in \pkg{multcomp}.
+\code{formatC} in base R; \code{knit} in \pkg{knitr}; and \code{glht} in \pkg{multcomp}.
 }
 \keyword{hplot}
 \keyword{manip}

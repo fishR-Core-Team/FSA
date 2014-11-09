@@ -1,5 +1,7 @@
 # FSA 0.4.31 ongoing
 * `addZeroCatch()`: Modified.  Slight modifications to help file.  Fixed bug related to error checking the number of variables.  Added some tests.
+* `perc()`: Added.
+* `swvCode()`: Modified.  Removed ability to Stangle the code and thus removed `method=`.  Modified code to allow usage of .Rmd files in addition to .Rnw files.
 
 
 # FSA 0.4.30 Oct14

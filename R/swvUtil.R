@@ -35,7 +35,6 @@
 #' @param topnotes A character vector of lines to be added to the top of output file.  Each value in the vector will be placed on a single line at the top of the output file.
 #' @param annotate A logical that indicates whether decorating comments around code chunks should be used (\code{TRUE}) or not (\code{FALSE}; default).
 #' @param show.alt A logical that indicates whether the line stating what the alternative hypothesis is should be printed (\code{TRUE}) or not (\code{FALSE}; default).
-#' @param method A string that indicates whether the file will be treated as knitr or Sweave input.
 #' @param rqrdPkgs A string vector that contains packages that are required for the vignette and for which all dependencies should be found.
 #' @param closeGraphics A logical that indicates whether the graphics device should be closed or not.
 #' @param addTOC A logical that indicates whether or not a table of contents entry for the reproducibity section should be added to the LaTeX output.
@@ -58,7 +57,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{formatC}, \code{Stangle}, \code{Sweave} in base R; \code{knitr} and \code{purl} in \pkg{knitr}; and \code{glht} in \pkg{multcomp}.
+#' @seealso \code{formatC} in base R; \code{knit} in \pkg{knitr}; and \code{glht} in \pkg{multcomp}.
 #'
 #' @keywords hplot models manip
 #'
@@ -188,28 +187,29 @@ swvHtest <- function(x,digits=4,show.alt=FALSE,...) {
 #' @export
 swvCode <- function(file,out.dir=NULL,topnotes=NULL,
                     moreItems=NULL,blanks=c("extra","all","none"),
-                    annotate=FALSE,method=c("knitr","Sweave"),...) {
+                    annotate=FALSE,...) {
   ## Some checks
   blanks <- match.arg(blanks)
-  method <- match.arg(method)
-  ## if no file is sent then find the .Rnw file in the current working directory
-  if (missing(file)) file <- list.files(pattern=".Rnw",ignore.case=TRUE)
+  ## if no file is sent then stop
+  if (missing(file)) stop("Must given filename with extenstion.",call.=FALSE)
   ## Get input directory (from filename) and potentially change the output directory
   in.dir <- file.path(dirname(file))
   if (is.null(out.dir)) out.dir <- in.dir
-  ## Get just the filename prefix (i.e., remove directory and .Rnw if it exists)
-  fn.pre <- unlist(strsplit(basename(file),"\\.Rnw|\\.rnw|\\.RNW"))
-  ## Make intermediate file for the purl result (in in.dir)
+  ## Get just the filename prefix (i.e., remove directory and .Rnw or .Rmd if it exists)
+  fn.pre <- unlist(strsplit(basename(file),"\\.Rnw|\\.rnw|\\.RNW|\\.rmd|\\.Rmd|\\.RMD"))
+  ## Make intermediate file for the tangled result (in in.dir)
   fn.Ri <- iMakeFilename(fn.pre,".R",in.dir)
   ## Make output file (in out.dir)
   fn.Ro <- iMakeFilename(fn.pre,".R",out.dir)
   ## Remove already existing .R files with the same name
-  # Delete the original purled/stangled file
+  # Delete the original tangled file
   unlink(fn.Ri)
   unlink(fn.Ro)
-  ## purl or stangle the results and then read those results back into flines
-  if (method=="knitr") knitr::purl(file,fn.Ri,documentation=0)
-  else Stangle(file,annotate=annotate,...)
+  ## tangle the results and then read those results back into flines
+  # handle documentation (i.e., pure code)
+  on.exit(knitr::opts_knit$set(documentation=knitr::opts_knit$get("documentation")))
+  knitr::opts_knit$set(documentation=0)
+  knitr::knit(file,fn.Ri,tangle=TRUE)
   flines <- readLines(fn.Ri)
   ## Expand itemsToRemove if someting in moreItems
   itemsToRemove <- iMakeItemsToRemove(moreItems)
