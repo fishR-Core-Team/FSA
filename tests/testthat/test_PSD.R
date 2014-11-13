@@ -54,7 +54,7 @@ test_that("psdCalc() errors and warnings",{
   tmp <- subset(df,tl<ghl["stock"])
   expect_that(psdCalc(~tl,data=tmp,species="Yellow perch"),throws_error())
   ## restrict data.frame to no fish
-  tmp <- subset(df,tl<ghl["zero"])
+  tmp <- subset(df,tl<ghl["substock"])
   expect_that(psdCalc(~tl,data=tmp,species="Yellow perch"),throws_error())
   
   ## no species name given
@@ -80,7 +80,7 @@ test_that("psdPlot() errors and warnings",{
   expect_that(psdPlot(~tl,data=df,species="Yellow perch",xlim=c(ghl["stock"]+10,300)),throws_error())
   
   ## restrict data.frame to no fish
-  tmp <- subset(df,tl<ghl["zero"])
+  tmp <- subset(df,tl<ghl["substock"])
   expect_that(psdPlot(~tl,data=tmp,species="Yellow perch"),throws_error())
   
   ## bad formulae
@@ -224,7 +224,7 @@ test_that("Does manual calculation after psdAdd() equal psdCalc() results?",{
   df$PSDcat <- psdAdd(tl~species,df)
   # remove substock and other fish
   df <- Subset(df,species %in% c("Bluegill","Largemouth Bass"))
-  df <- Subset(df,PSDcat!="zero")
+  df <- Subset(df,PSDcat!="substock")
   res <- prop.table(xtabs(~species+PSDcat,data=df),margin=1)*100
   ## do PSD X-Y results match for two species
   expect_that(all(round(res["Bluegill",1:3]-psdBG[3:5,"Estimate"],7)==0),is_true())

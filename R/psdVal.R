@@ -12,7 +12,7 @@
 #'
 #' @param species A string that contains the species name for which to find Gabelhous lengths.  See details.
 #' @param units A string that indicates the units for the returned lengths.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
-#' @param incl.zero A logical that indicates if a zero is included in the first position of the returned vector (DEFAULT) or not.  See details.
+#' @param incl.zero A logical that indicates if a zero is included in the first position of the returned vector (DEFAULT) or not.  This position will be names as \dQuote{substock}.  See details.
 #' @param addLens A numeric vector that contains minimum length definitions for additional categories.  See details.
 #' @param addNames A string vector that contains names for the additional length categories added with \code{addLens}.  See details.
 #'
@@ -69,7 +69,7 @@ psdVal <- function(species="List",units=c("mm","cm","in"),incl.zero=TRUE,
     # add a zero category if asked to
     if (incl.zero) {
       PSDvec <- c(0,PSDvec)
-      names(PSDvec)[1] <- "zero"
+      names(PSDvec)[1] <- "substock"
     }
     # add additional lengths if asked to
     if (!is.null(addLens)) {

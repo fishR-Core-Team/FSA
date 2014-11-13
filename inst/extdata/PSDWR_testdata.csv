@@ -1,8 +1,8 @@
 species,spec_code,GCATN,GCATV,tl,wt,WS,WR
-Bluegill,BG,zero,0,53,3,,
-Bluegill,BG,zero,0,56,3,,
-Bluegill,BG,zero,0,60,4,,
-Bluegill,BG,zero,0,62,3,,
+Bluegill,BG,substock,0,53,3,,
+Bluegill,BG,substock,0,56,3,,
+Bluegill,BG,substock,0,60,4,,
+Bluegill,BG,substock,0,62,3,,
 Bluegill,BG,stock,80,82,6,9.38008415,63.96531102
 Bluegill,BG,stock,80,87,9,11.41420956,78.84908678
 Bluegill,BG,stock,80,88,13,11.85508141,109.6576189
@@ -64,10 +64,10 @@ Iowa Darter,IAD,NA,,77,8,,
 Iowa Darter,IAD,NA,,84,11,,
 Iowa Darter,IAD,NA,,85,11,,
 Iowa Darter,IAD,NA,,86,11,,
-Largemouth Bass,LMB,zero,0,112,10,,
-Largemouth Bass,LMB,zero,0,146,47,,
-Largemouth Bass,LMB,zero,0,164,69,52.62400709,131.1188635
-Largemouth Bass,LMB,zero,0,199,75,99.1165368,75.66850338
+Largemouth Bass,LMB,substock,0,112,10,,
+Largemouth Bass,LMB,substock,0,146,47,,
+Largemouth Bass,LMB,substock,0,164,69,52.62400709,131.1188635
+Largemouth Bass,LMB,substock,0,199,75,99.1165368,75.66850338
 Largemouth Bass,LMB,stock,200,201,106,102.4143224,103.5011486
 Largemouth Bass,LMB,stock,200,201,178,102.4143224,173.8038156
 Largemouth Bass,LMB,stock,200,203,112,105.7875434,105.8725786

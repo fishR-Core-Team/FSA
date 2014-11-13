@@ -207,9 +207,9 @@ swvCode <- function(file,out.dir=NULL,topnotes=NULL,
   unlink(fn.Ro)
   ## tangle the results and then read those results back into flines
   # handle documentation (i.e., pure code)
-  on.exit(knitr::opts_knit$set(documentation=knitr::opts_knit$get("documentation")))
-  knitr::opts_knit$set(documentation=0)
-  knitr::knit(file,fn.Ri,tangle=TRUE)
+#  on.exit(knitr::opts_knit$set(documentation=knitr::opts_knit$get("documentation")))
+#  knitr::opts_knit$set(documentation=0)
+  knitr::purl(file,fn.Ri,documentation=0)
   flines <- readLines(fn.Ri)
   ## Expand itemsToRemove if someting in moreItems
   itemsToRemove <- iMakeItemsToRemove(moreItems)

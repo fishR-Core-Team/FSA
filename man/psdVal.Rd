@@ -11,7 +11,7 @@ psdVal(species = "List", units = c("mm", "cm", "in"), incl.zero = TRUE,
 
 \item{units}{A string that indicates the units for the returned lengths.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
 
-\item{incl.zero}{A logical that indicates if a zero is included in the first position of the returned vector (DEFAULT) or not.  See details.}
+\item{incl.zero}{A logical that indicates if a zero is included in the first position of the returned vector (DEFAULT) or not.  This position will be names as \dQuote{substock}.  See details.}
 
 \item{addLens}{A numeric vector that contains minimum length definitions for additional categories.  See details.}
 
