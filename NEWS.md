@@ -1,8 +1,10 @@
 # FSA 0.4.31 ongoing
 * Removed the suggests for `plyr`.
 * `addZeroCatch()`: Modified.  Slight modifications to help file.  Fixed bug related to error checking the number of variables.  Added some tests.
+* `lencat()` Modified.  Added `droplevels=` and kept `drop.levels=` as I could not consistently remember what the name of the argument was -- i.e., the user can use either one, but `droplevels=` is preferred.
 * `mapvalues()`: Added.  This is the exact same function from the `plyr` package.  Included here to minimize conflicts between functions in `dplyr` and `plyr` that have the same name (i.e., don't have to install `plyr` just for `mapvalues()` when also using `dplyr`).
 * `perc()`: Added.
+* `psdCalc()`: Modified.  Minor change related to `droplevels=` in `lencat()`.
 * `psdVal()`: Modified.  Changed name for the "zero" group to "substock."
 * `swvCode()`: Modified.  Removed ability to Stangle the code and thus removed `method=`.  Modified code to allow usage of .Rmd files in addition to .Rnw files.
 

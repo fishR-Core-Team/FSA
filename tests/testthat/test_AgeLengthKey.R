@@ -114,7 +114,7 @@ test_that("Does same results are achieved when handling a missing row differentl
   ## Create different versions of the length intervals variable
   WR1$LCat1 <- lencat(WR1$len,w=5)
   WR1$LCat2 <- lencat(WR1$len,w=5,as.fact=TRUE)
-  WR1$LCat3 <- lencat(WR1$len,w=5,as.fact=TRUE,drop.levels=TRUE)
+  WR1$LCat3 <- lencat(WR1$len,w=5,as.fact=TRUE,droplevels=TRUE)
   ## Get keys with different length interval variables
   WR1.age <- subset(WR1, !is.na(age))
   WR1.len <- subset(WR1, is.na(age))

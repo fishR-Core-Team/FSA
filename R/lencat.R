@@ -18,7 +18,7 @@
 #' @param right A logical that indicates if the intervals should be closed on the right (and open on the left) or vice versa.
 #' @param use.names A logical that indicates whether the names for the values in \code{breaks} should be used for the levels in the new variable.  Will throw a warning and then use default levels if \code{TRUE} but \code{names(breaks)} is \code{NULL}.
 #' @param as.fact A logical that indicates that the new variable should be returned as a factor (\code{=TRUE}) or not (\code{=FALSE}; default).
-#' @param drop.levels A logical that indicates that the new variable should retain all levels indicated in \code{breaks} (\code{=FALSE}; default) or not.  Ignored if \code{as.fact=FALSE}.
+#' @param droplevels,drop.levels A logical that indicates that the new variable should retain all levels indicated in \code{breaks} (\code{=FALSE}; default) or not.  Ignored if \code{as.fact=FALSE}.
 #' @param vname A string that contains the name for the new length class variable.
 #' @param \dots Not implemented.
 #'
@@ -108,7 +108,7 @@
 #' table(smb1$LCat10A)
 #'
 #' # Same as previous but returned as a factor with unused levels dropped
-#' smb1$LCat10B <- lencat(smb1$lencap,w=10,as.fact=TRUE,drop.levels=TRUE)
+#' smb1$LCat10B <- lencat(smb1$lencap,w=10,as.fact=TRUE,droplevels=TRUE)
 #' head(smb1)
 #' table(smb1$LCat10B)
 #'
@@ -129,7 +129,7 @@
 #'
 #' # same as above but drop the unused levels
 #' smb1$PSDCat2A <- lencat(smb1$lencap,breaks=psdVal("Smallmouth Bass"),
-#'                         use.names=TRUE,drop.levels=TRUE)
+#'                         use.names=TRUE,droplevels=TRUE)
 #' head(smb1)
 #' table(smb1$PSDCat2A)
 #' str(smb1)
@@ -154,7 +154,7 @@
 #'
 #' # add category names
 #' smb2 <- lencat(~lencap,data=smb2,breaks=psdVal("Smallmouth Bass"),vname="LenPsd2",
-#'                use.names=TRUE,drop.levels=TRUE)
+#'                use.names=TRUE,droplevels=TRUE)
 #' head(smb2)
 #' str(smb2)
 #'
@@ -168,7 +168,8 @@ lencat <- function (x,...) {
 #' @export
 lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,
                            right=FALSE,use.names=FALSE,
-                           as.fact=use.names,drop.levels=FALSE,
+                           as.fact=use.names,
+                           droplevels=drop.levels,drop.levels=FALSE,
                            ...) {
   ## find range of values in x
   maxx <- max(x,na.rm=TRUE)
@@ -205,7 +206,7 @@ lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,
 #      as.fact <- TRUE
     }
   }
-  if (as.fact & drop.levels) lcat <- droplevels(lcat)
+  if (as.fact & droplevels) lcat <- droplevels(lcat)
   lcat
 }
 
@@ -213,13 +214,14 @@ lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,
 #' @export
 lencat.formula <- function(x,data,w=1,breaks=NULL,startcat=NULL,
                            right=FALSE,use.names=FALSE,
-                           as.fact=use.names,drop.levels=FALSE,
+                           as.fact=use.names,
+                           droplevels=drop.levels,drop.levels=FALSE,
                            vname=NULL,...) {
   ## Get the name of the variable with the lengths
   cl <- iGetVarFromFormula(x,data,expNumVars=1)
   ## Create the length category variable
   tmp <- lencat.default(data[,cl],w=w,breaks=breaks,startcat=startcat,right=right,
-                        use.names=use.names,as.fact=as.fact,drop.levels=drop.levels)
+                        use.names=use.names,as.fact=as.fact,droplevels=droplevels)
   ## Append the new variable to the old data.frame
   nd <- data.frame(data,tmp)
   ## Name the new variable

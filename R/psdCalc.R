@@ -86,7 +86,7 @@ psdCalc <- function(formula,data,species,units=c("mm","cm","in"),
   ## perform checks and initial preparation of the data.frame
   dftemp <- iPrepData4PSD(formula,data,brks["stock"])
   ## add the length categorization variable, don't drop unused levels
-  dftemp <- lencat(formula,data=dftemp,breaks=brks,vname="lcatr",use.names=TRUE,drop.levels=FALSE)
+  dftemp <- lencat(formula,data=dftemp,breaks=brks,vname="lcatr",use.names=TRUE,droplevels=FALSE)
   ## get sample size (number of stock-length fish)
   n <- nrow(dftemp)
   ## make the proportions table
