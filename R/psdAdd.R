@@ -19,7 +19,7 @@
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
-#' @seealso \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{PSDlit}}, and \code{\link{wrAdd}} for related functions.  See \code{mapvalues} from \pkg{plyr} for help in changing species names to match those in \code{\link{PSDlit}}.
+#' @seealso \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{PSDlit}}, and \code{\link{wrAdd}} for related functions.  See \code{\link{mapvalues}} for help in changing species names to match those in \code{\link{PSDlit}}.
 #'
 #' @section fishR vignette: none yet.
 #' 

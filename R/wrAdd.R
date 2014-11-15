@@ -17,7 +17,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{\link{wsVal}}, \code{\link{WSlit}}, and \code{\link{psdAdd}} for related functionality.  See \code{mapvalues} from \pkg{plyr} for help in changing species names to match those in \code{\link{WSlit}}.
+#' @seealso \code{\link{wsVal}}, \code{\link{WSlit}}, and \code{\link{psdAdd}} for related functionality.  See \code{\link{mapvalues}} for help in changing species names to match those in \code{\link{PSDlit}}.
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/RelativeWeight.pdf}.
 #'

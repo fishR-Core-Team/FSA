@@ -97,7 +97,7 @@ Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  \href{http://ww
 Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  \href{http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf}{Stock density indices: development, use, and limitations.}  Reviews in Fisheries Science 1:203-222.
 }
 \seealso{
-\code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{PSDlit}}, and \code{\link{wrAdd}} for related functions.  See \code{mapvalues} from \pkg{plyr} for help in changing species names to match those in \code{\link{PSDlit}}.
+\code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{PSDlit}}, and \code{\link{wrAdd}} for related functions.  See \code{\link{mapvalues}} for help in changing species names to match those in \code{\link{PSDlit}}.
 }
 \keyword{manip}
 

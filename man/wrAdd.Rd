@@ -68,7 +68,7 @@ bg$Wr4 <- wrAdd(wt~tl+species,data=bg)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-\code{\link{wsVal}}, \code{\link{WSlit}}, and \code{\link{psdAdd}} for related functionality.  See \code{mapvalues} from \pkg{plyr} for help in changing species names to match those in \code{\link{WSlit}}.
+\code{\link{wsVal}}, \code{\link{WSlit}}, and \code{\link{psdAdd}} for related functionality.  See \code{\link{mapvalues}} for help in changing species names to match those in \code{\link{PSDlit}}.
 }
 \keyword{manip}
 
