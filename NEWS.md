@@ -1,4 +1,6 @@
-# FSA 0.4.31 ongoing
+# FSA 0.4.32 ongoing
+
+# FSA 0.4.31 Nov14
 * Removed the suggests for `plyr`.
 * `addZeroCatch()`: Modified.  Slight modifications to help file.  Fixed bug related to error checking the number of variables.  Added some tests.
 * `lencat()` Modified.  Added `droplevels=` and kept `drop.levels=` as I could not consistently remember what the name of the argument was -- i.e., the user can use either one, but `droplevels=` is preferred.
