@@ -1,4 +1,5 @@
 # FSA 0.4.32 ongoing
+* `validn()`:  Added.
 
 # FSA 0.4.31 Nov14
 * Removed the suggests for `plyr`.
