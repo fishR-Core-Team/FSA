@@ -16,7 +16,7 @@ Finds the number of valid (non-NA) values in a vector.
 }
 \examples{
 junk1 <- c(1,7,2,4,3,10,NA)
-junk2 <- c("Derek","Hugh","Ogle","Santa","Claus","Frank",NA,NA)
+junk2 <- c("Derek","Hugh","Ogle","Santa","Claus","Nick",NA,NA)
 junk3 <- factor(junk2)
 junk4 <- c(TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,NA,NA)
 
