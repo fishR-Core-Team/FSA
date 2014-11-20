@@ -1,4 +1,6 @@
 # FSA 0.4.32 ongoing
+* `expandcounts()`: Added (from `fishWiDNR` package).
+* `expandLenFreq()`: Added.  Same as `lenFreqExpand()` but thought that this name fits better with `expandCounts()`.
 * `pcumsum()`: Added.
 * `rcumsum()`: Modified.  Completely new code (much simpler).
 * `validn()`:  Added.
