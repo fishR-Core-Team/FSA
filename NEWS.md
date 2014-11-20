@@ -1,4 +1,7 @@
-# FSA 0.4.32 ongoing
+# FSA 0.4.33 ongoing
+
+
+# FSA 0.4.32 Nov14
 * `expandcounts()`: Added (from `fishWiDNR` package).
 * `expandLenFreq()`: Added.  Same as `lenFreqExpand()` but thought that this name fits better with `expandCounts()`.
 * `pcumsum()`: Added.
