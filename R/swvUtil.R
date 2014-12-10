@@ -211,7 +211,7 @@ swvCode <- function(file,out.dir=NULL,topnotes=NULL,
 #  knitr::opts_knit$set(documentation=0)
   knitr::purl(file,fn.Ri,documentation=0)
   flines <- readLines(fn.Ri)
-  ## Expand itemsToRemove if someting in moreItems
+  ## Expand itemsToRemove if something in moreItems
   itemsToRemove <- iMakeItemsToRemove(moreItems)
   ## Find the rows with the items to remove and then remove those items if they exist
   for (i in 1:length(itemsToRemove)) {                            
@@ -234,7 +234,7 @@ swvCode <- function(file,out.dir=NULL,topnotes=NULL,
   if (flines[1]=="") flines <- flines[-1]
   ## Delete the original purled/stangled file
   unlink(fn.Ri)
-  ## Write out a new purled/stangled file with the lines with ItemsToRemove removed
+  ## Write out a new purled/stangled file
   write(flines,fn.Ro)
 }
 
