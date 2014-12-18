@@ -5,6 +5,7 @@
 #' @param object An \code{lm} object (i.e., returned from fitting a model with \code{lm}).  This model should have log(weight) as the response and log(length) as the explanatory covariate and an explanatory factor variable that describes the different groups.
 #' @param lens A numeric vector that indicates the lengths at which the weights should be predicted.
 #' @param quant.lens A numeric vector that indicates the quantiles of lengths at which weights should be predicted.  This is ignored if \code{lens} is non-null.
+#' @param base A single positive numeric value that indicates the base of the logarithm used in the \code{lm} object in \code{object}.  The default is \code{exp(1)}, or the value e.
 #' @param interval A single string that indicates whether to plot confidence (\code{="confidence"}), prediction (\code{="prediction"}), or both (\code{="both"}) intervals.
 #' @param center.value A single numeric value that indicates the log length used if the log length data was centered when constructing \code{object}.
 #' @param lwd A single numeric that indicates the line width to be used for the confidence and prediction interval lines (if not \code{interval="both"}) and the prediction connections line.  If \code{interval="both"} then the width of the prediction interval will be one less than this value so that the CI and PI appear different.
@@ -62,6 +63,12 @@
 #' lwCompPreds(lm2,xlab="Location",center.value=mn.logtl)
 #' lwCompPreds(lm2,xlab="Location",lens=c(60,90,120,150),center.value=mn.logtl)
 #'
+#' # fit model with a different base (plot should be the same as the first example)
+#' ChinookArg$logtl <- log10(ChinookArg$tl)
+#' ChinookArg$logwt <- log10(ChinookArg$w)
+#' lm1 <- lm(logwt~logtl*loc,data=ChinookArg)
+#' lwCompPreds(lm1,base=10,xlab="Location")
+#' 
 #' if (interactive()) {
 #'   # should give error, does not work for only a simple linear regression
 #'   lm2 <- lm(logwt~logtl,data=ChinookArg)
@@ -72,7 +79,7 @@
 #'   
 #' }
 #' @export lwCompPreds
-lwCompPreds <- function(object,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),
+lwCompPreds <- function(object,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),base=exp(1),
                         interval=c("confidence","prediction","both"),center.value=0,
                         lwd=1,connect.preds=TRUE,show.preds=FALSE,col.connect="gray50",
                         ylim=NULL,main.pre="Length==",cex.main=0.8,
@@ -80,6 +87,10 @@ lwCompPreds <- function(object,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),
                         rows=round(sqrt(num)),cols=ceiling(sqrt(num))) {
   # check and get inerval type
   interval <- match.arg(interval)
+  # check base type
+  if (!is.numeric(base)) stop("'base' must be a numeric.",call.=FALSE)
+  if (length(base)!=1) stop("'base' must be a single numeric value.",call.=FALSE)
+  if (base<=0) stop("'base' must be a positive number.",call.=FALSE)
   ## check and extract information from the formula
   formula <- 
   tmp <- iHndlFormula(formula(object),model.frame(object),expNumR=1,expNumE=2,expNumENums=1,expNumEFacts=1)
@@ -97,7 +108,7 @@ lwCompPreds <- function(object,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),
 
   if (is.null(lens)) {
     # if no lens are provided then use provided quantile probabilities
-    lens <- quantile(exp(mf[,tmp$ENumPos]+center.value),quant.lens)
+    lens <- quantile(base^(mf[,tmp$ENumPos]+center.value),quant.lens)
     # must unname the lens when quartiles are used to remove later warning
     lens <- unname(lens)
   }
@@ -108,7 +119,7 @@ lwCompPreds <- function(object,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),
   # cycle through the lengths
   for (i in 1:length(lens)) {
     # find results for each length
-    res <- iMakeLWPred(object,lens[i],grps,vn,interval,center.value)
+    res <- iMakeLWPred(object,lens[i],grps,vn,interval,center.value,base)
     # make plot for each length
     iPlotLWPred(res,grps,ylim,xlab,ylab,paste(main.pre,lens[i],sep=""),
                 cex.main,lwd,connect.preds,col.connect,interval,show.preds)
@@ -116,19 +127,19 @@ lwCompPreds <- function(object,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),
 }
 
 
-iMakeLWPred <- function(object,lens,grps,vn,interval,center.value) {
+iMakeLWPred <- function(object,lens,grps,vn,interval,center.value,base) {
   #  Make a new data.frame with lengths and groups in it.
-  nd <- data.frame(log(lens)-center.value,grps)
+  nd <- data.frame(log(lens,base=base)-center.value,grps)
   #    label columns in the new data.frame to match model term names
   colnames(nd) <- vn
   if (interval=="both" | interval=="prediction") { #  If PI is asked for ...
     #  Predict (with PI) wt and put in a data frame
-    resp <- data.frame(exp(predict(object,nd,interval="prediction")))
+    resp <- data.frame(base^(predict(object,nd,interval="prediction")))
     colnames(resp) <- c("pred","LPI","UPI")    
   }
   if (interval=="both" | interval=="confidence") { #  If CI is asked for ...
     #  Predict (with CI) wt and put in a data frame
-    resc <- data.frame(exp(predict(object,nd,interval="confidence")))
+    resc <- data.frame(base^(predict(object,nd,interval="confidence")))
     colnames(resc) <- c("pred","LCI","UCI")    
   }
   #  Combine prediction, PI, and CI for wt into a results data.frame

@@ -1,6 +1,7 @@
 # FSA 0.4.33 ongoing
 * `headtail()`: Added.
 * `logbtcf()`: Added.
+* `lwCompPreds()`: Modified.  Added `base=` to allow the function to work with logarithms to a different base.  The original function was hard-wired to only use natural logarithms.  Update the examples and the tests.
 
 # FSA 0.4.32 Nov14
 * `expandcounts()`: Added (from `fishWiDNR` package).

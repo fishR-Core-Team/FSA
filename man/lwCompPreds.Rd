@@ -5,8 +5,8 @@
 \title{Constructs plots of predicted weights at given lengths among different groups.}
 \usage{
 lwCompPreds(object, lens = NULL, quant.lens = c(0, 0.25, 0.5, 0.75, 1),
-  interval = c("confidence", "prediction", "both"), center.value = 0,
-  lwd = 1, connect.preds = TRUE, show.preds = FALSE,
+  base = exp(1), interval = c("confidence", "prediction", "both"),
+  center.value = 0, lwd = 1, connect.preds = TRUE, show.preds = FALSE,
   col.connect = "gray50", ylim = NULL, main.pre = "Length==",
   cex.main = 0.8, xlab = "Groups", ylab = "Predicted Weight",
   rows = round(sqrt(num)), cols = ceiling(sqrt(num)))
@@ -17,6 +17,8 @@ lwCompPreds(object, lens = NULL, quant.lens = c(0, 0.25, 0.5, 0.75, 1),
 \item{lens}{A numeric vector that indicates the lengths at which the weights should be predicted.}
 
 \item{quant.lens}{A numeric vector that indicates the quantiles of lengths at which weights should be predicted.  This is ignored if \code{lens} is non-null.}
+
+\item{base}{A single positive numeric value that indicates the base of the logarithm used in the \code{lm} object in \code{object}.  The default is \code{exp(1)}, or the value e.}
 
 \item{interval}{A single string that indicates whether to plot confidence (\code{="confidence"}), prediction (\code{="prediction"}), or both (\code{="both"}) intervals.}
 
@@ -88,6 +90,12 @@ ChinookArg$clogtl <- ChinookArg$logtl-mn.logtl
 lm2 <- lm(logwt~clogtl*loc,data=ChinookArg)
 lwCompPreds(lm2,xlab="Location",center.value=mn.logtl)
 lwCompPreds(lm2,xlab="Location",lens=c(60,90,120,150),center.value=mn.logtl)
+
+# fit model with a different base (plot should be the same as the first example)
+ChinookArg$logtl <- log10(ChinookArg$tl)
+ChinookArg$logwt <- log10(ChinookArg$w)
+lm1 <- lm(logwt~logtl*loc,data=ChinookArg)
+lwCompPreds(lm1,base=10,xlab="Location")
 
 if (interactive()) {
   # should give error, does not work for only a simple linear regression
