@@ -1,5 +1,6 @@
 # FSA 0.4.33 ongoing
 * `headtail()`: Added.
+* `logbtcf()`: Added.
 
 # FSA 0.4.32 Nov14
 * `expandcounts()`: Added (from `fishWiDNR` package).
