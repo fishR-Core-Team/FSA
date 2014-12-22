@@ -177,7 +177,7 @@ growthModelSim <- function(formula=NULL,data=NULL,
       }, # end vbMooij
     vbWeisberg= {
       relax::gslider(refresh,prompt=TRUE,
-                     sl.names=   c("L_inf",            "K0", "t_0", "Max Age"),
+                     sl.names=   c("L_inf",           "t50", "t_0", "Max Age"),
                      sl.mins=    c(  min.y,               1,   -10,         5),
                      sl.maxs=    c(  max.y,         t.max-1,    10,       100),
                      sl.deltas=  c(delta.y,             0.1,   0.1,         1),
@@ -248,7 +248,7 @@ iPredLength <- function(type,t,p1,p2,p3,p4) {
          vbOriginalW= { sd <- (p1-(p1-p2)*exp(-p3*t))^p4 },
          # p1=omega,p2=K,  p3=t0, p4 not used
          vbGQ=, vbGallucciQuinn= { sd <- (p1/p2)*(1-exp(-p2*(t-p3))) },
-         # p1=Linf, p2=K0,  p3=to, p4 not used
+         # p1=Linf, p2=t50,  p3=to, p4 not used
          vbWeisberg= {  sd <- p1*(1-exp(-(log(2)/(p2-p3))*(t-p3))) },
          # p1=Linf, p2=L0, p3=ome,p4 not used
          vbMooij= { sd <- p1-(p1-p2)*exp(-(p3/p1)*t) },

@@ -4,7 +4,7 @@
 #' 
 #' @details This function attempts to find reasonable starting values for a variety of parameterizations of the von Bertalanffy growth model.  There is no guarantee that these starting values are the \sQuote{best} starting values.  One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.
 #' 
-#' The Linf and K paramaters are estimated via the Ford-Walford plot (see \code{\link{walfordPlot}}.  The product of the starting values for Linf and K is used as a starting value for omega in the GallucciQuinn and Mooij parameterizations.  The result of log(2) divided by the starting value for K is used as the starting value for K0 in the Weisberg parameterization.
+#' The Linf and K paramaters are estimated via the Ford-Walford plot (see \code{\link{walfordPlot}}.  The product of the starting values for Linf and K is used as a starting value for omega in the GallucciQuinn and Mooij parameterizations.  The result of log(2) divided by the starting value for K is used as the starting value for t50 in the Weisberg parameterization.
 #' 
 #' If \code{meth0="yngAge"} then a starting value for t0 or L0 is found by algebraically solving the typical or original paramaterizations, respectively, for t0 or L0 using the first age with more than one data point.  If \code{meth0="poly"} then a second-degree polynomial model is fit to the mean length-at-age data.  The t0 starting value is set equal to the root of the polynomial that is closest to zero.  The L0 starting value is set equal to the mean length at age-0 predicted from the polynomial.
 #' 
@@ -119,7 +119,7 @@ vbStarts <- function(formula,data=NULL,
     original=,vonBertalanffy={ sv <- list(Linf=sLinf,L0=sL0,K=sK) },
     GQ=,GallucciQuinn={ sv <- list(omega=sLinf*sK,K=sK,t0=st0) },
     Mooij={ sv <- list(Linf=sLinf,L0=sL0,omega=sLinf*sK) },
-    Weisberg={ sv <- list(Linf=sLinf,K0=log(2)/sK+st0,t0=st0) },
+    Weisberg={ sv <- list(Linf=sLinf,t50=log(2)/sK+st0,t0=st0) },
     Schnute=,Francis={
       if (is.null(ages2use)) ages2use <- range(ages)
       if (length(ages2use)!=2) stop("'age2use=' must be NULL or have only two ages.",call.=FALSE)

@@ -121,14 +121,14 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
   SMooij <- function(t,Linf,L0,omega) {
     Linf-(Linf-L0)*exp(-(omega/Linf)*t)
   }
-  Weisberg <- function(t,Linf,K0=NULL,t0=NULL) {
-  if (length(Linf)==3) { K0 <- Linf[2]
+  Weisberg <- function(t,Linf,t50=NULL,t0=NULL) {
+  if (length(Linf)==3) { t50 <- Linf[2]
                          t0 <- Linf[3]
                          Linf <- Linf[1] }
-  Linf*(1-exp(-(log(2)/(K0-t0))*(t-t0)))
+  Linf*(1-exp(-(log(2)/(t50-t0))*(t-t0)))
 }
-  SWeisberg <- function(t,Linf,K0,t0) {
-    Linf*(1-exp(-(log(2)/(K0-t0))*(t-t0)))
+  SWeisberg <- function(t,Linf,t50,t0) {
+    Linf*(1-exp(-(log(2)/(t50-t0))*(t-t0)))
   } 
   Schnute <- function(t,L1,L3=NULL,K=NULL,t1,t3=NULL) {
   if (length(L1)==3) { L3 <- L1[2]; K <- L1[3]; L1 <- L1[1] }
@@ -251,9 +251,9 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
       },
       Weisberg= {
         cat("You have chosen the 'Weisberg et al. (2010)' von Bertalanffy parameterization.\n\n")
-        cat("  E[L|t] = Linf*(1-exp(-(log(2)/(K0-t0))*(t-t0)))\n\n")
+        cat("  E[L|t] = Linf*(1-exp(-(log(2)/(t50-t0))*(t-t0)))\n\n")
         cat("where Linf = asymptotic mean length\n")
-        cat("      K0 = age when half of Linf is reached\n")
+        cat("      t50 = age when half of Linf is reached\n")
         cat("      t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
       },
       Schnute={

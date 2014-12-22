@@ -1,7 +1,10 @@
 # FSA 0.4.33 ongoing
+* `growthModelSim()`: Modified.  Changed all "K0" objects to "t50".
 * `headtail()`: Added.
 * `logbtcf()`: Added.
 * `lwCompPreds()`: Modified.  Added `base=` to allow the function to work with logarithms to a different base.  The original function was hard-wired to only use natural logarithms.  Update the examples and the tests.
+* `vbFuns()`: Modified.  Changed all "K0" objects to "t50".
+* `vbStarts()`: Modified.  Changed all "K0" objects to "t50".
 
 # FSA 0.4.32 Nov14
 * `expandcounts()`: Added (from `fishWiDNR` package).
