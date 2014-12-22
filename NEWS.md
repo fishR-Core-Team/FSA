@@ -1,4 +1,6 @@
-# FSA 0.4.33 ongoing
+# FSA 0.4.34 ongoing
+
+# FSA 0.4.33 Dec14
 * `growthModelSim()`: Modified.  Changed all "K0" objects to "t50".
 * `headtail()`: Added.
 * `logbtcf()`: Added.
