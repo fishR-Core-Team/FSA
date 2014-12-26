@@ -19,11 +19,14 @@ df3 <- data.frame(net=c(1,1,1,2,2,2,3,3,3),
 df4 <- df1
 df4$recaps <- c(0,0,0,1,2,1)
 
+#' ## Example Data #5 (two "specvar"s)
+df5 <- df1
+df5$sex <- c("m","m","f","m","f","f")
+
+
 test_that("addZeroCatch() messages",{
   expect_error(addZeroCatch(df1,"net","species"))
-  expect_error(addZeroCatch(df1,"net","species",idvar="eff",zerovar=c("catch","eff")))
   expect_warning(addZeroCatch(df3,"net","species",zerovar="catch"))
-  expect_error(addZeroCatch(df1,"net","species",idvar=c("catch","eff")))
 })
 
 test_that("addZeroCatch() results",{
@@ -46,5 +49,9 @@ test_that("addZeroCatch() results",{
   
   df4mod1 <- addZeroCatch(df4,"net","species",zerovar=c("catch","recaps"))
   tmp <- xtabs(~net+species,data=df4mod1)
+  expect_true(all(tmp==1))
+  
+  df5mod1 <- addZeroCatch(df5,"net",c("species","sex"),zerovar="catch")
+  tmp <- xtabs(~sex+species+net,data=df5mod1)
   expect_true(all(tmp==1))
 })

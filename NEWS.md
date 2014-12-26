@@ -1,4 +1,7 @@
-# FSA 0.4.34 ongoing
+# FSA 0.4.35 ongoing
+
+# FSA 0.4.34 Dec14
+* `addZeroCatch()`: Modified.  Removed `idvar=`, forced the `eventvar=` and `speciesvar=` variables in the returned data.frame to be numeric if they were numeric in the original data.frame, allowed `speciesvar=` to have more than one variable, and added `na.rm=`.  Multiple values for `specvar=` will allow the user to add zeroes based on a combination of variables (e.g., species and size category).  The `na.rm=` argument allows the user to remove "missing" species, which are common if some sampling events did not capture any fish.
 
 # FSA 0.4.33 Dec14
 * `growthModelSim()`: Modified.  Changed all "K0" objects to "t50".

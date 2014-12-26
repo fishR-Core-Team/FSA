@@ -4,15 +4,17 @@
 #'
 #' @details The data frame in \code{df} must contain a column that identifies a unique capture event (given in \code{eventvar}), a column with the name for the species captured (given in \code{specvar}), and a column that contains the number of that species captured (potentially given to \code{zerovar}; see details).  All sampling event and species combinations where catch information does not exist is identified and a new data frame that contains a zero for the catch for all of these combinations is created.  This new data frame is appended to the original data frame to construct a data frame that contains complete catch information -- i.e., including zeroes for species in events where that species was not captured.
 #'
-#' The original data frame (\code{df}) may also contain columns of data not discussed above.  For example, it may include columns of data that are specific to the capture event, such as date, gear type, habitat, etc.  The names for these variables can be given in \code{idvar} so that these data can be repeated with each row of zeroes added to the data frame.  In addition, the data frame may contain other information related to the catch, such as number of recaptured fish, number of fish released, etc.  These variables can be given in \code{zerovar} so that zeroes can be added to these variables as well (e.g., if the catch of the species is zero, then the number of recaptures must also be zero).  Only one of \code{idvar} or \code{zerovar} needs to be given as it will be assumed that the rest of variable names in the data frame (not including those given in \code{eventvar} and \code{specvar}) will be of the other type.
+#' The data frame may contain other information related to the catch, such as number of recaptured fish, number of fish released, etc.  These additional variables can be includedn in \code{zerovar} so that zeroes will be added to these variables as well (e.g., if the catch of the species is zero, then the number of recaptures must also be zero).  All variables not given in \code{eventvar}, \code{specvar}, or \code{zerovar} will be assumed to related to \code{eventvar} and \code{specvar} (e.g., date, gear type, and habitat) and, thus, will be repeated with these variables.
+#' 
+#' In situations where no fish were captured in some events, the \code{df} may contain rows that have a value for \code{eventvar} but not for \code{specvar}.  These rows are important because zeroes need to be added for each observed species for these events.  However, in these situations, a \code{<NA>} species will appear in the resulting data.frame.  It is unlikely that these \dQuote{missing} species are needed so they will be removed if \code{na.rm=TRUE} (default) is used.
 #' 
 #' One should test the results of this function by creating a frequency table of the \code{eventvar} or \code{specvar}.  In either case, the table should contain the same value in each cell of the table.  See the examples.
 #'
 #' @param df A data frame that contains the capture summary data as described in the details.
 #' @param eventvar A string for the variable that identifies unique capture events.
 #' @param specvar A string for the variable that identifies the species captured.
-#' @param idvar A string or vector of strings for the variable(s) that are common to a unique capture event and should be repeated for each zero row added to the data frame (e.g., dates, gear type, etc.).  See details
 #' @param zerovar A string or vector of strings for the variable(s) that should be set equal to zero.  See details.
+#' @param na.rm A logicial that indicates if rows of df that are \code{NA} should be removed after adding the zeroes.  See details.
 #' @return A data frame with the same structure as \code{df} but with rows of zero observation data appended.
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
@@ -40,7 +42,7 @@
 #' df2
 #' df1mod2 <- addZeroCatch(df2,"net","species",zerovar="catch")
 #' df1mod2
-#' xtabs(~net+species,data=df1mod2)   # check, should all be 1
+#' xtabs(~net+species,data=df1mod2)            # check, should all be 1
 #'
 #' ## Example Data #3 (All nets have same species ... no zeroes needed)
 #' df3 <- data.frame(net=c(1,1,1,2,2,2,3,3,3),
@@ -68,40 +70,76 @@
 #' Summarize(recaps~species,data=df4)          # observe difference from next
 #' Summarize(recaps~species,data=df4mod1)
 #'
+#' ## Example Data #5 (two "specvar"s)
+#' df5 <- df1
+#' df5$sex <- c("m","m","f","m","f","f")
+#' df5
+#' xtabs(~sex+species+net,data=df5)            # not all 1s
+#' 
+#' df5mod1 <- addZeroCatch(df5,"net",c("species","sex"),zerovar="catch")
+#' df5mod1
+#' xtabs(~sex+species+net,data=df5mod1)        # all 1s
+#' str(df5mod1) 
+#'
+#' ## Example Data #6 (three "specvar"s)
+#' df6 <- df5
+#' df6$size <- c("lrg","lrg","lrg","sm","lrg","sm")
+#' df6
+#' 
+#' df6mod1 <- addZeroCatch(df6,"net",c("species","sex","size"),zerovar="catch")
+#' df6mod1
+#'  
 #' @export
-addZeroCatch <- function(df,eventvar,specvar,idvar=NULL,zerovar=NULL) {
+addZeroCatch <- function(df,eventvar,specvar,zerovar,na.rm=TRUE) {
+  ## assure that df is a data.frame
   df <- as.data.frame(df)
+  ## get names of the variables in df, used at the end to make sure
+  ##   that the df is returned with the same order of variables
   dfnames <- names(df)
-  ## checks
-  if (is.null(idvar) & is.null(zerovar)) stop("One of 'idvar' or 'zerovar' must be non-null.",call.=FALSE)    
-  if (!is.null(zerovar) & !is.null(idvar)) {
-    if (length(names(df)) != (length(idvar)+length(zerovar)+2))
-      stop("Combined lengths of 'eventvar', 'specvar', 'idvar', and 'zerovar' do not match number of columns in 'df'.",call.=FALSE)
+  ## Handle multiple specvar variables
+  multSpec <- FALSE
+  if (length(specvar)>1) {
+    multSpec=TRUE
+    # allow converting back to factors later if only two variables
+    if (length(specvar)==2) {
+      lvls1 <- lvls2 <- NULL
+      if (is.factor(df[,specvar[1]])) lvls1 <- levels(df[,specvar[1]])
+      if (is.factor(df[,specvar[2]])) lvls2 <- levels(df[,specvar[2]])
+    }
+    # keep the old names for later
+    ospecvar <- specvar
+    # combine the multiple variables into one
+    df$speccomb <- interaction(df[,specvar])
+    # remove the original variables
+    df <- df[,-which(names(df) %in% specvar)]
+    # state the new name
+    specvar <- "speccomb"
   }
-  # get vectors of event and species names
+  ## get vectors of event and species names, catches to force
+  ##   each to be numeric if it was numeric in the original df
   tmp <- table(df[,eventvar],df[,specvar])
   events <- rownames(tmp)
+  if (is.numeric(df[,eventvar])) events <- as.numeric(events)
   species <- colnames(tmp)
-  # identify combos of events and species in df that need zeroes
+  ## identify combos of events and species in df that need zeroes
   tmp <- expand.grid(events,species)
   colnames(tmp) <- c(eventvar,specvar)
   all.combos <- paste(tmp[,eventvar],tmp[,specvar],sep=":")
   combos.in.df <- paste(df[,eventvar],df[,specvar],sep=":")
   need0s <- tmp[which(!(all.combos %in% combos.in.df)),]
-  
-  # Catch if there are no need for zeroes
+  ## Catch if there are no need for zeroes, send warning, return df
   if (nrow(need0s)==0) {
-    warning("All 'eventvar' have all species in 'specvar'; thus, there are\n no zeroes to add.  The original data frame was returned.",call.=FALSE)
+    warning("All 'eventvar' have all species in 'specvar';\n
+            thus, there are no zeroes to add.  The original\n
+            data frame was returned.",call.=FALSE)
     df
-  } else {
-    # fills idvar or zerovar if null
-    if (is.null(zerovar)) zerovar <- dfnames[!dfnames %in% c(eventvar,specvar,idvar)]
-    if (length(zerovar)==0) stop("No variables are to be given zeroes.  Check that 'zerovar' will not be empty.",call.=FALSE)
-    if (is.null(idvar)) idvar <- dfnames[!dfnames %in% c(eventvar,specvar,zerovar)]                 
-    # create a vector full of zeroes for zerovar
+  } else { ## Process because some zeroes need to be added
+    ## creates vector of names not in eventvar, specvar, or zerovar
+    ## these variables are just repeated for each zero that is added
+    idvar <- names(df)[!names(df) %in% c(eventvar,specvar,zerovar)]
+    ## create a vector full of zeroes for zerovar
     zeroes <- matrix(0,ncol=length(zerovar),nrow=1)  
-  
-    # Create new rows for the data frame that contain zeroes
+    ## Create new rows for the data frame that contain zeroes
     if (length(idvar)==0) { # idvar is empty
       # reorders columns for simplicity
       df <- df[,c(eventvar,specvar,zerovar)]
@@ -121,12 +159,31 @@ addZeroCatch <- function(df,eventvar,specvar,idvar=NULL,zerovar=NULL) {
                              unique(df[df[,eventvar]==need0s[i,eventvar],idvar]),
                              zeroes)
         newdf <- rbind(newdf,newrow)                                                              
-      }    
+      }
     }
+    ## give newdf the same names as old (re-arranged) df
     names(newdf) <- names(df)
-    # combine new zero rows with original rows
+    ## combine new zero rows with original rows
     df <- rbind(df,newdf)
-    # puts the order of the variables back to the original order
+    ## If original specvar contained multiple variables then we
+    ##   need to split back out to the original variables
+    ##   delete the speccomb variable
+    ##   if only two specvar then potentially change back to factors
+    ##     with the original levels.
+    if (multSpec) {
+      specvar <- ospecvar
+      df <- cbind(df,do.call(rbind,lapply(strsplit(as.character(df$speccomb),"\\."),rbind)))
+      names(df)[(ncol(df)-(length(ospecvar)-1)):ncol(df)] <- specvar
+      df <- df[,-which(names(df)=="speccomb")]
+      if (length(specvar)==2) {
+        if (!is.null(lvls1)) df[,specvar[1]] <- factor(df[,specvar[1]],levels=lvls1)
+        if (!is.null(lvls2)) df[,specvar[2]] <- factor(df[,specvar[2]],levels=lvls2)
+      }
+
+    }
+    ## remove NAs in specvar if they exist
+    if (na.rm) df <- df[complete.cases(df[,specvar]),]
+    ## puts the order of the variables back to the original order
     df[,dfnames]
   }
 }
