@@ -18,13 +18,16 @@
 #' @name FSA
 #' 
 #' @importFrom car bootCase outlierTest
+#' @importFrom dunn.test dunn.test
 #' @importFrom gdata drop.levels nobs
 #' @importFrom gplots rich.colors
 #' @importFrom Hmisc binconf
 #' @importFrom knitr purl
+#' @importFrom pgirmess kruskalmc
 #' @importFrom lmtest lrtest
 #' @importFrom multcomp cld
 #' @importFrom plotrix plotCI stackpoly thigmophobe
+#' @importFrom PMCMR posthoc.kruskal.nemenyi.test
 #' @importFrom relax gslider
 #' @importFrom sciplot lineplot.CI se
 #' 

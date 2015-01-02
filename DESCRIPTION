@@ -10,13 +10,16 @@ Depends:
     R (>= 3.0.0)
 Imports:
     car,
+    dunn.test,
     gdata,
     gplots,
     Hmisc,
     knitr,
     lmtest,
     multcomp,
+    pgirmess,
     plotrix,
+    PMCMR,
     relax,
     sciplot
 Suggests:

@@ -1,4 +1,7 @@
 # FSA 0.4.35 ongoing
+* added importFroms to `PMCMR` for `posthoc.kruskal.nemenyi.test()`, `dunn.test` for `dunn.test()`, and `pgirmess` for `kruskalmc()` used in `kruskalMC()`.
+* `kruskalMC()`: Added.
+
 
 # FSA 0.4.34 Dec14
 * `addZeroCatch()`: Modified.  Removed `idvar=`, forced the `eventvar=` and `speciesvar=` variables in the returned data.frame to be numeric if they were numeric in the original data.frame, allowed `speciesvar=` to have more than one variable, and added `na.rm=`.  Multiple values for `specvar=` will allow the user to add zeroes based on a combination of variables (e.g., species and size category).  The `na.rm=` argument allows the user to remove "missing" species, which are common if some sampling events did not capture any fish.
@@ -7,7 +10,7 @@
 * `growthModelSim()`: Modified.  Changed all "K0" objects to "t50".
 * `headtail()`: Added.
 * `logbtcf()`: Added.
-* `lwCompPreds()`: Modified.  Added `base=` to allow the function to work with logarithms to a different base.  The original function was hard-wired to only use natural logarithms.  Update the examples and the tests.
+* `lwCompPreds()`: Modified.  Added `base=` to allow the function to work with logarithms to a different base.  The original function was hard-wired to only use natural logarithms.  Updated the examples and the tests.
 * `vbFuns()`: Modified.  Changed all "K0" objects to "t50".
 * `vbStarts()`: Modified.  Changed all "K0" objects to "t50".
 
