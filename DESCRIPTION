@@ -9,6 +9,7 @@ Maintainer: Derek H. Ogle <dogle@northland.edu>
 Depends:
     R (>= 3.0.0)
 Imports:
+    asbio,
     car,
     dunn.test,
     gdata,

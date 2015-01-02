@@ -2,9 +2,9 @@
 #'
 #' @description Performs Dunn, Nemenyi, or Siegel-Castellan tests of multiple comparisons following a significant Kruskal-Wallis test.
 #'
-#' @details This function is largely a wrapper for \code{dunn.test} from the \pkg{dunn.test} package, \code{posthoc.kruskal.nemenyi.test} from the \pkg{PMCMR} package, and \code{kruskalmc} from the \pkg{pgirmess} package.  It is intended to provide one interface for the most common methods for performing multiple comparisons following a significant Kruskal-Wallis test.  The data are provided to this function in the same way that they are provided to \code{kruskal.test}, which makes for more uniform use.
+#' @details This function is largely a wrapper for \code{dunn.test} from the \pkg{dunn.test} package, \code{pairw.kw} from the \pkg{asbio} package, \code{posthoc.kruskal.nemenyi.test} from the \pkg{PMCMR} package, and \code{kruskalmc} from the \pkg{pgirmess} package.  It is intended to provide one interface for the most common methods for performing multiple comparisons following a significant Kruskal-Wallis test.  The data are provided to this function in the same way that they are provided to \code{kruskal.test}, which makes for more uniform use.
 #' 
-#' The user uses \code{type} to choose the \dQuote{Dunn}, \dQuote{Nemenyi}, or \dQuote{Siegel-Castellan} type of tests.  If \code{type="Dunn"} (Default) or \code{type="Nemenyi"} are chosen, then the user can choose a method to control the experimentwise error rate with \code{method}.  The \code{method="Tukey"} is only available for \code{type="Nemenyi"} and no other methods can be used with \code{type="Nemenyi"}.  The allowable methods for \code{type="Dunn"} are described in \code{p.adjust.methods} from \pkg{dunn.test}.  The default is to not control the experimentwise error rate.
+#' The user uses \code{type} to choose the \dQuote{Dunn}, \dQuote{asbio}, \dQuote{Nemenyi}, or \dQuote{Siegel-Castellan} type of tests.  If \code{type="Dunn"} (Default) or \code{type="Nemenyi"} are chosen, then the user can choose a method to control the experimentwise error rate with \code{method}.  The \code{method="Tukey"} is only available for \code{type="Nemenyi"} and no other methods can be used with \code{type="Nemenyi"}.  Only \code{method="bonferroni"} can be used with \code{type="asbio"}.  The allowable methods for \code{type="Dunn"} are described in \code{p.adjust.methods} from \pkg{dunn.test}.  The default is to not control the experimentwise error rate.
 #' 
 #'   Other arguments to be sent to \code{dunn.test}, \code{posthoc.kruskal.nemenyi.test}, or \code{kruskalmc} are described in their respective help pages.
 #' 
@@ -15,7 +15,7 @@
 #' @param x A numeric vector of data values or a formula of the form x~g.
 #' @param g A factor vector or a (non-numeric) vector that can be coerced to a factor vector.
 #' @param data A data.frame that minimally contains \code{x} and \code{g}.
-#' @param type A single string that identifies if the \dQuote{Dunn}, \dQuote{Nemenyi}, or \dQuote{Siegel-Castellan} multiple comparison method should be used.
+#' @param type A single string that identifies if the \dQuote{Dunn}, \dQuote{asbio}, \dQuote{Nemenyi}, or \dQuote{Siegel-Castellan} multiple comparison method should be used.
 #' @param method A single string that identifies the method to use to control the experimentwise error rate.  See details.
 #' @param kw A logical that indicates whether the results of the Kruskal-Wallis test are reported.  Only used with \code{type="Dunn"}.  In contrast to \code{dunn.test()}, the default is \code{FALSE}.
 #' @param alpha The nominal level of significance to be used.  This is mapped to the \code{probs} argument in \code{kruskalmc} if \code{type="SiegelCastellan"}.
@@ -28,11 +28,11 @@
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}, but largely a wrapper to the See Also functions.
 #'
 #' @references 
-#' Dunn, O.J.  1964.  Multiple comparisons using rank sums. Technometrics 6:241-252.
+#' Dunn, O.J. 1964. Multiple comparisons using rank sums. Technometrics 6:241-252.
 #' 
-#' Nemenyi, P.B.  1963.  Distribution-free multiple comparisons.  PhD dissertation, Princetion Univesity.
+#' Nemenyi, P.B. 1963. Distribution-free multiple comparisons.  PhD dissertation, Princetion Univesity.
 #' 
-#' Siegel, S. and N.J. Castellan, Jr.  1988.  Nonparametric statistics for the behavioural sciences. MacGraw-Hill, New York. Relevant pages are 213-214 which are available at \url{http://giraudoux.pagesperso-orange.fr/#pgirmess}.
+#' Siegel, S. and N.J. Castellan, Jr. 1988. Nonparametric statistics for the behavioural sciences. MacGraw-Hill, New York. Relevant pages are 213-214 which are available at \url{http://giraudoux.pagesperso-orange.fr/#pgirmess}.
 #' @keywords htest
 #'
 #' @examples
@@ -49,7 +49,7 @@
 #' with(airquality,dunn.test(Ozone, Month, kw=FALSE, method="bh"))
 #' kruskalMC(Ozone~Month,data=airquality,type="Dunn",method="bonferroni",kw=FALSE)
 #' kruskalMC(Ozone~Month,data=airquality,type="Dunn",method="hs",kw=FALSE)
-#' kruskalMC(Ozone~Month,data=airquality,type="Dunn",method="bh",kw=FALSE)
+#' d1 <- kruskalMC(Ozone~Month,data=airquality,type="Dunn",method="bh",kw=FALSE)
 #' }
 #' 
 #' \dontrun{
@@ -64,7 +64,7 @@
 #' kruskalmc(resp~categ,data=df,cont="one-tailed")
 #' kruskalmc(resp~categ,data=df,cont="two-tailed")
 #' 
-#' kruskalMC(resp~categ,data=df,type="Siegel")
+#' d2 <- kruskalMC(resp~categ,data=df,type="Siegel")
 #' kruskalMC(resp~categ,data=df,type="Siegel",alpha=0.01)
 #' kruskalMC(resp~categ,data=df,type="Siegel",cont="one-tailed")
 #' kruskalMC(resp~categ,data=df,type="Siegel",cont="two-tailed")
@@ -76,8 +76,19 @@
 #' data(InsectSprays)
 #' with(InsectSprays,posthoc.kruskal.nemenyi.test(count,spray))
 #' with(InsectSprays,posthoc.kruskal.nemenyi.test(count,spray,"Chisq"))
-#' kruskalMC(count~spray,data=InsectSprays,type="Nemenyi",method="Tukey")
+#' d3 <- kruskalMC(count~spray,data=InsectSprays,type="Nemenyi",method="Tukey")
 #' kruskalMC(count~spray,data=InsectSprays,type="Nemenyi",method="Chisquare")
+#' }
+#' 
+#' \dontrun{
+#' ## examples from pairw.kw in the asbio package
+#' require(asbio)
+#' rye.data <- data.frame(
+#'   rye=c(50,49.8,52.3,44.5,62.3,74.8,72.5,80.2,47.6,39.5,47.7,50.7),
+#'   nutrient=factor(c(rep(1,4),rep(2,4),rep(3,4)))
+#' )
+#' with(rye.data, pairw.kw(y = rye, x = nutrient, conf = .95))
+#' kruskalMC(rye~nutrient,data=rye.data,type="asbio")
 #' }
 #' 
 #' @rdname kruskalMC
@@ -88,7 +99,7 @@ kruskalMC <- function (x,...) {
 
 #' @rdname kruskalMC
 #' @export
-kruskalMC.default <- function(x,g,type=c("Dunn","Nemenyi","SiegelCastellan"),
+kruskalMC.default <- function(x,g,type=c("Dunn","asbio","Nemenyi","SiegelCastellan"),
                               method=c("none","bonferroni","sidak","holm","hs",
                                        "hochberg","bh","by","Tukey","Chisquare"),
                               kw=FALSE,alpha=0.05,...) {
@@ -106,22 +117,32 @@ kruskalMC.default <- function(x,g,type=c("Dunn","Nemenyi","SiegelCastellan"),
   switch(type,
          Dunn={
            if (method=="Tukey") stop("method='Tukey' cannot be used with type='Dunn'",call.=FALSE)
-           dunn.test::dunn.test(x=x,g=g,method=method,kw=kw,alpha=alpha,...)},
+           res <- dunn.test::dunn.test(x=x,g=g,method=method,kw=kw,alpha=alpha,...)},
+         asbio={
+           if (method=="none") {
+             warning("method changed to 'bonferroni' for when type='asbio'",call.=FALSE)
+             method <- "bonferroni"
+           }
+           if (method!="bonferroni") stop("'method' must be 'bonferroni' when type='asbio'",call.=FALSE)
+           res <- asbio::pairw.kw(y=x,x=g,conf=1-alpha)
+         },
          Nemenyi={
            if (!method %in% c("Chisquare","Tukey")) stop("'method' must be 'Chisquare' or 'Tukey' when type='Nemenyi'",call.=FALSE)
-           PMCMR::posthoc.kruskal.nemenyi.test(x=x,g=g,method=method)
+           res <- PMCMR::posthoc.kruskal.nemenyi.test(x=x,g=g,method=method)
          },
          SiegelCastellan={
            if (method!="none") warning("method changed to 'none' for when type='SiegelCastellan'",call.=FALSE)
            method <- "none"
-           pgirmess::kruskalmc(resp=x,categ=g,probs=alpha,...)
+           res <- pgirmess::kruskalmc(resp=x,categ=g,probs=alpha,...)
            }
          ) # end switch 
+  ## Return the result
+  res
 }
 
 #' @rdname kruskalMC
 #' @export
-kruskalMC.formula <- function(x,data=NULL,type=c("Dunn","Nemenyi","SiegelCastellan"),
+kruskalMC.formula <- function(x,data=NULL,type=c("Dunn","asbio","Nemenyi","SiegelCastellan"),
                               method=c("none","bonferroni","sidak","holm","hs",
                                        "hochberg","bh","by","Tukey","Chisquare"),
                               kw=FALSE,alpha=0.05,...) {

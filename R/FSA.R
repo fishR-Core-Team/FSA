@@ -17,6 +17,7 @@
 #' 
 #' @name FSA
 #' 
+#' @importFrom asbio pairw.kw
 #' @importFrom car bootCase outlierTest
 #' @importFrom dunn.test dunn.test
 #' @importFrom gdata drop.levels nobs

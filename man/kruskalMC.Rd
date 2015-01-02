@@ -8,15 +8,15 @@
 \usage{
 kruskalMC(x, ...)
 
-\method{kruskalMC}{default}(x, g, type = c("Dunn", "Nemenyi",
+\method{kruskalMC}{default}(x, g, type = c("Dunn", "asbio", "Nemenyi",
   "SiegelCastellan"), method = c("none", "bonferroni", "sidak", "holm", "hs",
   "hochberg", "bh", "by", "Tukey", "Chisquare"), kw = FALSE, alpha = 0.05,
   ...)
 
-\method{kruskalMC}{formula}(x, data = NULL, type = c("Dunn", "Nemenyi",
-  "SiegelCastellan"), method = c("none", "bonferroni", "sidak", "holm", "hs",
-  "hochberg", "bh", "by", "Tukey", "Chisquare"), kw = FALSE, alpha = 0.05,
-  ...)
+\method{kruskalMC}{formula}(x, data = NULL, type = c("Dunn", "asbio",
+  "Nemenyi", "SiegelCastellan"), method = c("none", "bonferroni", "sidak",
+  "holm", "hs", "hochberg", "bh", "by", "Tukey", "Chisquare"), kw = FALSE,
+  alpha = 0.05, ...)
 }
 \arguments{
 \item{x}{A numeric vector of data values or a formula of the form x~g.}
@@ -64,7 +64,7 @@ with(airquality,dunn.test(Ozone, Month, kw=FALSE, method="hs"))
 with(airquality,dunn.test(Ozone, Month, kw=FALSE, method="bh"))
 kruskalMC(Ozone~Month,data=airquality,type="Dunn",method="bonferroni",kw=FALSE)
 kruskalMC(Ozone~Month,data=airquality,type="Dunn",method="hs",kw=FALSE)
-kruskalMC(Ozone~Month,data=airquality,type="Dunn",method="bh",kw=FALSE)
+d1 <- kruskalMC(Ozone~Month,data=airquality,type="Dunn",method="bh",kw=FALSE)
 }
 
 \dontrun{
@@ -79,7 +79,7 @@ kruskalmc(resp~categ,data=df,probs=0.01)
 kruskalmc(resp~categ,data=df,cont="one-tailed")
 kruskalmc(resp~categ,data=df,cont="two-tailed")
 
-kruskalMC(resp~categ,data=df,type="Siegel")
+d2 <- kruskalMC(resp~categ,data=df,type="Siegel")
 kruskalMC(resp~categ,data=df,type="Siegel",alpha=0.01)
 kruskalMC(resp~categ,data=df,type="Siegel",cont="one-tailed")
 kruskalMC(resp~categ,data=df,type="Siegel",cont="two-tailed")
@@ -91,8 +91,19 @@ require(PMCMR)
 data(InsectSprays)
 with(InsectSprays,posthoc.kruskal.nemenyi.test(count,spray))
 with(InsectSprays,posthoc.kruskal.nemenyi.test(count,spray,"Chisq"))
-kruskalMC(count~spray,data=InsectSprays,type="Nemenyi",method="Tukey")
+d3 <- kruskalMC(count~spray,data=InsectSprays,type="Nemenyi",method="Tukey")
 kruskalMC(count~spray,data=InsectSprays,type="Nemenyi",method="Chisquare")
+}
+
+\dontrun{
+## examples from pairw.kw in the asbio package
+require(asbio)
+rye.data <- data.frame(
+  rye=c(50,49.8,52.3,44.5,62.3,74.8,72.5,80.2,47.6,39.5,47.7,50.7),
+  nutrient=factor(c(rep(1,4),rep(2,4),rep(3,4)))
+)
+with(rye.data, pairw.kw(y = rye, x = nutrient, conf = .95))
+kruskalMC(rye~nutrient,data=rye.data,type="asbio")
 }
 }
 \author{

@@ -1,5 +1,5 @@
 # FSA 0.4.35 ongoing
-* added importFroms to `PMCMR` for `posthoc.kruskal.nemenyi.test()`, `dunn.test` for `dunn.test()`, and `pgirmess` for `kruskalmc()` used in `kruskalMC()`.
+* added importFroms to `PMCMR` for `posthoc.kruskal.nemenyi.test()`, `dunn.test` for `dunn.test()`, `asbio` for `pairw.kw()`, and `pgirmess` for `kruskalmc()` used in `kruskalMC()`.
 * `kruskalMC()`: Added.
 
 
