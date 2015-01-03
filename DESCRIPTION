@@ -1,5 +1,5 @@
 Package: FSA
-Version: 0.4.35
+Version: 0.4.36
 Title: Functions for simple fisheries stock assessment methods.
 Description: This package can be used to peform a variety of simple fish stock
     assessment methods.  Detailed vignettes are available on the fishR website
