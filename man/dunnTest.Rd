@@ -4,15 +4,18 @@
 \alias{dunnTest}
 \alias{dunnTest.default}
 \alias{dunnTest.formula}
+\alias{print.DunnTest}
 \title{Dunn's Kruskal-Wallis Multiple Comparisons.}
 \usage{
 dunnTest(x, ...)
 
-\method{dunnTest}{default}(x, g, method = p.adjust.methods, alpha = 0.05,
+\method{dunnTest}{default}(x, g, method = p.adjust.methods[c(4, 1:3, 5:8)],
   ...)
 
-\method{dunnTest}{formula}(x, data = NULL, method = p.adjust.methods,
-  alpha = 0.05, ...)
+\method{dunnTest}{formula}(x, data = NULL, method = p.adjust.methods[c(4,
+  1:3, 5:8)], ...)
+
+\method{print}{DunnTest}(x, ...)
 }
 \arguments{
 \item{x}{A numeric vector of data values or a formula of the form x~g.}
@@ -20,8 +23,6 @@ dunnTest(x, ...)
 \item{g}{A factor vector or a (non-numeric) vector that can be coerced to a factor vector.}
 
 \item{method}{A single string that identifies the method to use to control the experimentwise error rate.  See details in \code{p.adjust}.}
-
-\item{alpha}{The nominal level of significance to be used.}
 
 \item{data}{A data.frame that minimally contains \code{x} and \code{g}.}
 
@@ -32,7 +33,7 @@ A list with two items -- \code{method} is the long name of the method used to co
 \itemize{
   \item Comparison Labels for each pairwise comparison.
   \item Z Values for the Z test statistic for each comparison.
-  \item P.raw Unadjusted p-values for each comparison.
+  \item P.unadj Unadjusted p-values for each comparison.
   \item P.adj Adjusted p-values for each comparison.
 }
 }
@@ -41,11 +42,13 @@ Performs Dunn's (1964) test of multiple comparisons following a significant Krus
 }
 \details{
 This function performs \dQuote{Dunn's} test of multiple comparisons following a Kruskal-Wallis test.  Unadjusted two-sided p-values for each pairwise comparison among groups are computed following Dunn's description.  These p-values may be adjusted with the methods of \code{p.adjust}.
+
+Dunn's method can be described in the following way.  To compare groups i and j, the absolute value of the difference between the mean rank of group i and the mean rank of group j is found.  If there are no ties, this difference in mean ranks is divided by the square root of [(N*(N+1)/12)*((1/Ni)+(1/Nj))], where N is the total number of individuals in all groups, and ni and nj are the number of individuals in the groups i and j, respectively. If there are ties, the difference in mean ranks is divided by the square root of [(N*(N+1)-Sum((ti^3)-ti)/(N-1))/12*((1/ni)+(1/nj))], where ti is the number of ties in the ith group of ties.  These ratios are a Z test statistic and the two-sided p-value is computed as 2*Pr(Z>|z|).
 }
 \note{
 There are a number of functions in other packages that purport to do similar analyses.
 
-The \code{dunn.test} function in \pkg{dunn.test} performs the same calculations but does not use formula notation, does not produce two-sided p-values, and does provide a few other methods to correct for the experimentwise error rate.  Additionally, the results from \code{dunn.test} are printed automatically and in a format that I consider cumbersome.  The results from \code{dunnTest} match those from \code{dunn.test} if the p-values are adjusted to be two-sided.
+The \code{dunn.test} function in \pkg{dunn.test} performs the same calculations but does not use formula notation, does not produce two-sided p-values, and prints results automatically and in a format that I consider cumbersome.  It does, however, provide a few more methods for controlling the experimentwise error rate.  The results from \code{dunnTest} match those from \code{dunn.test} (if the p-values are adjusted to be two-sided) for the Bonferroni method and for some but not all p-values for the Holm, Hochberg, Benjamini-Hochberg, and Benjamini-Yekuteili methods.  Most differences are very slight.  The author of \code{dunn.test} says that the difference is due to \code{dunn.test} utilizing the order of the p-values where \code{p.adjust} does not.
 
 The \code{pairw.kw} function from the \pkg{asbio} package performs the Dunn test with the Bonferroni correction.  The p-value results from \code{DunnTest} match the results from \code{pairw.kw}.  The \code{pairw.kw} also provides a confidence interval for the difference in mean ranks between pairs of groups.
 
@@ -64,11 +67,16 @@ ponds <- data.frame(pond=as.factor(rep(1:4,each=8)),
                          7.71,7.71,7.74,7.79,7.81,7.85,7.87,7.91))
 ponds <- ponds[complete.cases(ponds),]
 
-# non-formula usage
+# non-formula usage (default "bonferroni" method)
 dunnTest(ponds$pH,ponds$pond)
 
-# formula usage
+# formula usage (default "Bonferroni" method)
 dunnTest(pH~pond,data=ponds)
+
+# other methods
+dunnTest(pH~pond,data=ponds,method="holm")
+dunnTest(pH~pond,data=ponds,method="BH")
+dunnTest(pH~pond,data=ponds,method="none")
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}, but learned a lot from \code{dunn.test} in \pkg{dunn.test}.
