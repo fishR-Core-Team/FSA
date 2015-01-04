@@ -7,7 +7,8 @@
 \method{hist}{formula}(formula, data = NULL, main = "", right = FALSE,
   pre.main = "", xlab = names(DF)[1], ylab = "Frequency",
   same.breaks = TRUE, same.ylim = TRUE, ymax = NULL, col = "gray90",
-  nrow = round(sqrt(num)), ncol = ceiling(sqrt(num)), byrow = TRUE, ...)
+  nrow = round(sqrt(num)), ncol = ceiling(sqrt(num)), byrow = TRUE,
+  iaxs = TRUE, ...)
 }
 \arguments{
 \item{formula}{A formula of class(formula).  See details.}
@@ -38,6 +39,8 @@
 
 \item{byrow}{A logical that indicates if the histograms should fill rows first (\code{=TRUE} or columns first (\code{=FALSE}).}
 
+\item{iaxs}{A logical that indicates whether both axes should be plotted using \code{xaxs="i"} and \code{yaxs="i"} (the Default) or \code{xaxs="r"} and \code{yaxs="r"} (what R typically does).}
+
 \item{\dots}{Other arguments to pass through to the default \code{hist()}.}
 }
 \value{
@@ -55,6 +58,8 @@ The function produces a single (but see below) graphic that consists of a grid o
 
 
 I changed the \code{right=} argument from that used in the base \code{hist()} so that right-open (left-closed) is the default.
+
+I added the \code{iaxs=} argument and set the default to \code{TRUE} so that \code{xaxs="i"} and \code{yaxs="i"} are used when plotting both axes.  This removes the \dQuote{floating} x-axis that R typically plots for histograms.
 }
 \note{
 Students often need to look at the distribution of a quantitative variable separated for different levels of a categorical variable.  One method for examining these distributions is with \code{boxplot(quantitative~factor)}.  Other methods use functions in \pkg{Lattice} and \pkg{ggplots2} but these packages have some learning \sQuote{overhead} for newbie students.  The formula notation, however, is a common way in R to tell R to separate a quantitative variable by the levels of a factor.  Thus, this function adds code for formulas to the generic \code{hist} function.  This allows newbie students to use a common notation (i.e., formula) to easily create multiple histograms of a quantitative variable separated by the levels of a factor.
@@ -86,7 +91,13 @@ iris$junk <- factor(sample(c("A","B"),nrow(iris),replace=TRUE))
 hist(Sepal.Length~Species*junk,data=iris,xlab="Sepal Length (cm)")
 
 ## Single histogram without grouping using formula notation
-hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",main="")
+hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)")
+
+## Single histogram with "axis correction" turned off (compare to previous)
+hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",iaxs=FALSE)
+
+## Single histogram with "axis correction", testing xlim and ylim
+hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",xlim=c(3.8,8.2),ylim=c(0,35))
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}, but this implementation is largely a modification of the code provided by Marc Schwartz on the R-help mailing list on 1Jun07.

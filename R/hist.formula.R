@@ -11,6 +11,8 @@
 # 'By default each histogram is labeled with a main title that consists of the levels formed by the right-hand-side of the formula.  If a string is given in \code{pre.main=} then that string will be appended with the names of the level formed by the right-hand-side of the formula.  If \code{pre.main=NULL} then NO main title will be printed.
 #'
 #' I changed the \code{right=} argument from that used in the base \code{hist()} so that right-open (left-closed) is the default.
+#' 
+#' I added the \code{iaxs=} argument and set the default to \code{TRUE} so that \code{xaxs="i"} and \code{yaxs="i"} are used when plotting both axes.  This removes the \dQuote{floating} x-axis that R typically plots for histograms.
 #'
 #' @note Students often need to look at the distribution of a quantitative variable separated for different levels of a categorical variable.  One method for examining these distributions is with \code{boxplot(quantitative~factor)}.  Other methods use functions in \pkg{Lattice} and \pkg{ggplots2} but these packages have some learning \sQuote{overhead} for newbie students.  The formula notation, however, is a common way in R to tell R to separate a quantitative variable by the levels of a factor.  Thus, this function adds code for formulas to the generic \code{hist} function.  This allows newbie students to use a common notation (i.e., formula) to easily create multiple histograms of a quantitative variable separated by the levels of a factor.
 #'
@@ -28,6 +30,7 @@
 #' @param nrow A numeric that contains the number of rows to use on the graphic.
 #' @param ncol A numeric that contains the number of columns to use on the graphic.
 #' @param byrow A logical that indicates if the histograms should fill rows first (\code{=TRUE} or columns first (\code{=FALSE}).
+#' @param iaxs A logical that indicates whether both axes should be plotted using \code{xaxs="i"} and \code{yaxs="i"} (the Default) or \code{xaxs="r"} and \code{yaxs="r"} (what R typically does).
 #' @param \dots Other arguments to pass through to the default \code{hist()}.
 #'
 #' @return Nothing is returned; however, a graphic is produced.
@@ -65,18 +68,27 @@
 #' hist(Sepal.Length~Species*junk,data=iris,xlab="Sepal Length (cm)")
 #'
 #' ## Single histogram without grouping using formula notation
-#' hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",main="")
-#'
+#' hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)")
+#' 
+#' ## Single histogram with "axis correction" turned off (compare to previous)
+#' hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",iaxs=FALSE)
+#' 
+#' ## Single histogram with "axis correction", testing xlim and ylim
+#' hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",xlim=c(3.8,8.2),ylim=c(0,35))
+#'  
 #' @rdname hist.formula
 #' @export
 hist.formula <- function(formula,data=NULL,main="",right=FALSE,
                          pre.main="",xlab=names(DF)[1],ylab="Frequency",
                          same.breaks=TRUE,same.ylim=TRUE,ymax=NULL,col="gray90",
-                         nrow=round(sqrt(num)),ncol=ceiling(sqrt(num)),byrow=TRUE,...) {
+                         nrow=round(sqrt(num)),ncol=ceiling(sqrt(num)),byrow=TRUE,
+                         iaxs=TRUE,...) {
 
   DF <- model.frame(formula,data=data)
   if (dim(DF)[2]==1) {
-    hist(DF[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,...)
+    hist(DF[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,
+         xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
+    if (iaxs) abline(h=0)  # will assure a line at y=0
   } else {
     if (attr(attr(DF, "terms"),"dataClasses")[1]!="numeric") stop("Single variable in formula must be a numeric vector.",call.=FALSE)
     if (dim(DF)[2]>3) stop("hist.formula only works with one quantitative variable on LHS\n and one or two factor variables on RHS of formula.",call.=FALSE)
@@ -111,7 +123,9 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
       on.exit(par(old.par))
       for (i in 1:num) {
         if (!is.null(pre.main)) main <- paste(pre.main,names(DF.split)[i],sep="")
-        hist(DF.split[[i]],main=main,xlab=xlab,ylab=ylab,right=right,ylim=c(0,ymax[i]),col=col,...)
+        hist(DF.split[[i]],main=main,xlab=xlab,ylab=ylab,right=right,ylim=c(0,ymax[i]),col=col,
+             xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
+        if (iaxs) abline(h=0)  # will assure a line at y=0
       }
     } else {
       max.per.page <- nrow*ncol
@@ -123,7 +137,9 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
         for (j in 1:todo) {
           pos <- (i-1)*max.per.page+j
           if (!is.null(pre.main)) main <- paste(pre.main,names(DF.split)[pos],sep="")
-          hist(DF.split[[pos]],main=main,xlab=xlab,ylab=ylab,right=right,ylim=c(0,ymax[pos]),col=col,...)
+          hist(DF.split[[pos]],main=main,xlab=xlab,ylab=ylab,right=right,ylim=c(0,ymax[pos]),col=col,
+               xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
+          if (iaxs) abline(h=0)  # will assure a line at y=0
         }  
       }
     }

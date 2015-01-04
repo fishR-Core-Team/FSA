@@ -1,4 +1,5 @@
 # FSA 0.4.36 ongoing
+* `hist.formula()`: Modifiied.  Added `iaxs=`, which when set to the default value of `TRUE` will use `xaxs="i"` and `yaxs="i"` to remove the "floating" x-axis produced by `hist()` in base R.
 
 # FSA 0.4.35 Jan15
 * `dunnTest()`: Added.
