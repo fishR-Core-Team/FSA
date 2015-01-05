@@ -4,10 +4,11 @@
 \alias{psdCalc}
 \title{Convenience function for calculating PSD-X and PSD X-Y values.}
 \usage{
-psdCalc(formula, data, species, units = c("mm", "cm", "in"), what = c("all",
-  "traditional", "incremental", "none"), drop0Est = TRUE,
+psdCalc(formula, data, species, units = c("mm", "cm", "in"),
   method = c("multinomial", "binomial"), conf.level = 0.95,
-  addLens = NULL, addNames = NULL, digits = 1)
+  addLens = NULL, addNames = NULL, justAdds = FALSE, what = c("all",
+  "traditional", "incremental", "none"), drop0Est = TRUE,
+  showIntermediate = FALSE, digits = 0)
 }
 \arguments{
 \item{formula}{A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains the observed lengths.  Note that this formula may only contain one variable and it must be numeric.}
@@ -18,10 +19,6 @@ psdCalc(formula, data, species, units = c("mm", "cm", "in"), what = c("all",
 
 \item{units}{A string that indicates the type of units used for the lengths.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
 
-\item{what}{A string that indicates the type of PSD values that will be printed.  See details.}
-
-\item{drop0Est}{A logical that indicates whether the PSD values that are zero should be dropped from the output.}
-
 \item{method}{A character that identifies the confidence interval method to use.  See details in \code{\link{psdCI}}.}
 
 \item{conf.level}{A number that indicates the level of confidence to use for constructing confidence intervals (default is \code{0.95}).}
@@ -30,10 +27,18 @@ psdCalc(formula, data, species, units = c("mm", "cm", "in"), what = c("all",
 
 \item{addNames}{A string vector that contains names for the additional lengths added with \code{addLens}.  See \code{\link{psdVal}} for details.}
 
-\item{digits}{A numeric that indicates the number of decimals to round the result to.}
+\item{justAdds}{A logical that indicates whether just the values related to the length sin \code{addLens} should be returned.}
+
+\item{what}{A string that indicates the type of PSD values that will be printed.  See details.}
+
+\item{drop0Est}{A logical that indicates whether the PSD values that are zero should be dropped from the output.}
+
+\item{showIntermediate}{A logical that indicates whether the number of fish in the category and the number of stock fish (i.e., \dQuote{intermediate} values) should be included in the returned matrix.  Default is to not include these values.}
+
+\item{digits}{A numeric that indicates the number of decimals to round the result to.  Default is zero digits following the recommendation of Neumann and Allen (2007).}
 }
 \value{
-A matrix with columns that contain the computed PSD-X or PSD X-Y values and associated confidence intervals.
+A matrix with columns that contain the computed PSD-X or PSD X-Y values and associated confidence intervals.  If \code{showIntermediate=TRUE} then the number of fish in the category and the number of stock fish will also be shown.
 }
 \description{
 Convenience function for calculating (traditional) PSD-X and (incremental) PSD X-Y values for all Gabelhouse lengths and increments thereof.
@@ -61,27 +66,44 @@ psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1,drop0Est=TRUE)
 
 ## all values above stock value (troubleshooting a problem)
 yepdf2 <- subset(yepdf,yepmm>=130)
-psdCalc(~yepmm,data=yepdf2,species="Yellow perch",digits=1)
+psdCalc(~yepmm,data=yepdf2,species="Yellow perch")
 
 ## all values above quality value (troubleshooting a problem)
 yepdf3 <- subset(yepdf,yepmm>=200)
-psdCalc(~yepmm,data=yepdf3,species="Yellow perch",digits=1)
-psdCalc(~yepmm,data=yepdf3,species="Yellow perch",digits=1,drop0Est=TRUE)
+psdCalc(~yepmm,data=yepdf3,species="Yellow perch")
+psdCalc(~yepmm,data=yepdf3,species="Yellow perch",drop0Est=TRUE)
 
 ## all values below memorable value (troubleshooting a problem)
 yepdf4 <- subset(yepdf,yepmm<300)
-psdCalc(~yepmm,data=yepdf4,species="Yellow perch",digits=1)
+psdCalc(~yepmm,data=yepdf4,species="Yellow perch")
 
 ## add a length
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1)
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150)
 
-## add a length with a name
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,addNames="minLen",digits=1)
+## add lengths with names
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,addNames="minLen")
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150))
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),addNames=c("minSlot","maxSlot"))
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150,"maxslot"=275))
+
+## add lengths with names, return just those values that use those lengths
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150),justAdds=TRUE)
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150),justAdds=TRUE,what="traditional")
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),addNames=c("minSlot","maxSlot"),justAdds=TRUE)
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),addNames=c("minSlot","maxSlot"),justAdds=TRUE,what="traditional")
 
 ## different output types
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="traditional")
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="incremental")
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="none")
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,what="traditional")
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,what="incremental")
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,what="none")
+
+## Show intermediate values
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",showInterm=TRUE)
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",what="traditional",showInterm=TRUE)
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",what="incremental",showInterm=TRUE)
+
+## Control the digits
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1)
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
@@ -90,6 +112,8 @@ Derek H. Ogle, \email{dogle@northland.edu}
 Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  \href{http://pubstorage.sdstate.edu/wfs/415-F.pdf}{New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).}  Fisheries 31:86-87.
 
 Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  \href{http://www.montana.edu/mtcfru/Guy/Publication\%20pdf/PSD\%20pub.pdf}{Proportional size distribution (PSD): A further refinement of population size structure index terminology.}  Fisheries 32:348.
+
+Neumann, R. M. and Allen, M. S.  2007.  Size structure. In Guy, C. S. and Brown, M. L., editors, Analysis and Interpretation of Freshwater Fisheries Data, Chapter 9, pages 375-421. American Fisheries Society, Bethesda, MD.
 
 Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  \href{http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf}{Stock density indices: development, use, and limitations.}  Reviews in Fisheries Science 1:203-222.
 }

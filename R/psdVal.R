@@ -48,7 +48,9 @@
 #' # Demonstrate adding in user-defined categories
 #' psdVal("Bluegill",units="in",addLens=7)
 #' psdVal("Bluegill",units="in",addLens=7,addNames="MinLen")
-#' psdVal("Bluegill",units="in",addLens=c(7,9))
+#' psdVal("Bluegill",units="in",addLens=c(7,9),addNames=c("MinSlot","MaxSlot"))
+#' psdVal("Bluegill",units="in",addLens=c("MinLen"=7))
+#' psdVal("Bluegill",units="in",addLens=c("MinSlot"=7,"MaxSlot"=9))
 #'
 #' @export psdVal
 psdVal <- function(species="List",units=c("mm","cm","in"),incl.zero=TRUE,
@@ -73,10 +75,17 @@ psdVal <- function(species="List",units=c("mm","cm","in"),incl.zero=TRUE,
     }
     # add additional lengths if asked to
     if (!is.null(addLens)) {
-      if (is.null(addNames)) addNames <- addLens
-      if (length(addLens)!=length(addNames)) stop("Length of 'addNames' does not equal length of 'addLens'.")
-      names(addLens) <- addNames
+      # add names to the addLens vector
+      addLens <- iHndlAddNames(addLens,addNames)
+      # handle duplicated values
+      tmp <- which(PSDvec %in% addLens)
+      if (length(tmp>0)) {
+        warning("At least one Gabelhouse length that was in 'addLens' has been removed.",call.=FALSE)
+        PSDvec <- PSDvec[-tmp]
+      }
+      # append the new lens to the Gabelhouse lengths
       PSDvec <- c(PSDvec,addLens)
+      # re-order so the new values are within the Gabelhouse lengths
       PSDvec <- PSDvec[order(PSDvec)]
     }        
     PSDvec
@@ -95,4 +104,25 @@ iPSDLitCheck <- function(data,species) {
        else if (!any(levels(data$species)==species)) stop("The Gabelhouse lengths do not exist for ",species,".\n  Type psdVal() for a list of available species.\n\n",call.=FALSE)
             else OK <- TRUE
   OK
+}
+
+# ============================================================
+# An internal function to handle adding names to the specific
+#   values to be added to the vector of Gabelhouse length
+#   categories.  Used in psdVal() (here) and psdCalc().
+# ============================================================
+iHndlAddNames <- function(addLens,addNames) {
+  ## check to make sure that addLens is not named
+  if (is.null(names(addLens))) {
+    ## if addNames is Null then use addLens values as the names
+    if (is.null(addNames)) names(addLens) <- as.character(addLens)
+    else {
+      ## Otherwise change the names to what is in addNames
+      ##   but make sure they are the same length first
+      if (length(addLens)!=length(addNames)) stop("'addLens' and 'addNames' have different lengths.",call.=FALSE)
+      names(addLens) <- addNames
+    }
+  }
+  ## return the named addLens vector
+  addLens
 }

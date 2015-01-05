@@ -17,10 +17,12 @@
 #' @param method A character that identifies the confidence interval method to use.  See details in \code{\link{psdCI}}.
 #' @param addLens A numeric vector that contains minimum lengths for additional categories.  See \code{\link{psdVal}} for details.
 #' @param addNames A string vector that contains names for the additional lengths added with \code{addLens}.  See \code{\link{psdVal}} for details.
+#' @param justAdds A logical that indicates whether just the values related to the length sin \code{addLens} should be returned.
 #' @param conf.level A number that indicates the level of confidence to use for constructing confidence intervals (default is \code{0.95}).
-#' @param digits A numeric that indicates the number of decimals to round the result to.
+#' @param showIntermediate A logical that indicates whether the number of fish in the category and the number of stock fish (i.e., \dQuote{intermediate} values) should be included in the returned matrix.  Default is to not include these values.
+#' @param digits A numeric that indicates the number of decimals to round the result to.  Default is zero digits following the recommendation of Neumann and Allen (2007).
 #'
-#' @return A matrix with columns that contain the computed PSD-X or PSD X-Y values and associated confidence intervals.
+#' @return A matrix with columns that contain the computed PSD-X or PSD X-Y values and associated confidence intervals.  If \code{showIntermediate=TRUE} then the number of fish in the category and the number of stock fish will also be shown.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
@@ -34,6 +36,8 @@
 #' Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  \href{http://pubstorage.sdstate.edu/wfs/415-F.pdf}{New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).}  Fisheries 31:86-87.  
 #'
 #' Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  \href{http://www.montana.edu/mtcfru/Guy/Publication\%20pdf/PSD\%20pub.pdf}{Proportional size distribution (PSD): A further refinement of population size structure index terminology.}  Fisheries 32:348.
+#' 
+#' Neumann, R. M. and Allen, M. S.  2007.  Size structure. In Guy, C. S. and Brown, M. L., editors, Analysis and Interpretation of Freshwater Fisheries Data, Chapter 9, pages 375-421. American Fisheries Society, Bethesda, MD.
 #'
 #' Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  \href{http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf}{Stock density indices: development, use, and limitations.}  Reviews in Fisheries Science 1:203-222. 
 #'
@@ -50,35 +54,53 @@
 #'
 #' ## all values above stock value (troubleshooting a problem)
 #' yepdf2 <- subset(yepdf,yepmm>=130)
-#' psdCalc(~yepmm,data=yepdf2,species="Yellow perch",digits=1)
+#' psdCalc(~yepmm,data=yepdf2,species="Yellow perch")
 #' 
 #' ## all values above quality value (troubleshooting a problem)
 #' yepdf3 <- subset(yepdf,yepmm>=200)
-#' psdCalc(~yepmm,data=yepdf3,species="Yellow perch",digits=1)
-#' psdCalc(~yepmm,data=yepdf3,species="Yellow perch",digits=1,drop0Est=TRUE)
+#' psdCalc(~yepmm,data=yepdf3,species="Yellow perch")
+#' psdCalc(~yepmm,data=yepdf3,species="Yellow perch",drop0Est=TRUE)
 #' 
 #' ## all values below memorable value (troubleshooting a problem)
 #' yepdf4 <- subset(yepdf,yepmm<300)
-#' psdCalc(~yepmm,data=yepdf4,species="Yellow perch",digits=1)
+#' psdCalc(~yepmm,data=yepdf4,species="Yellow perch")
 #' 
 #' ## add a length
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1)
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150)
 #' 
-#' ## add a length with a name
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,addNames="minLen",digits=1)
+#' ## add lengths with names
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,addNames="minLen")
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150))
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),addNames=c("minSlot","maxSlot"))
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150,"maxslot"=275))
+#' 
+#' ## add lengths with names, return just those values that use those lengths
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150),justAdds=TRUE)
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150),justAdds=TRUE,what="traditional")
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),addNames=c("minSlot","maxSlot"),justAdds=TRUE)
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),addNames=c("minSlot","maxSlot"),justAdds=TRUE,what="traditional")
 #' 
 #' ## different output types
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="traditional")
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="incremental")
-#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,digits=1,what="none")
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,what="traditional")
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,what="incremental")
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,what="none")
+#' 
+#' ## Show intermediate values
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",showInterm=TRUE)
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",what="traditional",showInterm=TRUE)
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",what="incremental",showInterm=TRUE)
+#' 
+#' ## Control the digits
+#' psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1)
 #' 
 #' @export psdCalc
 psdCalc <- function(formula,data,species,units=c("mm","cm","in"),
-                    what=c("all","traditional","incremental","none"),drop0Est=TRUE,
                     method=c("multinomial","binomial"),conf.level=0.95,
-                    addLens=NULL,addNames=NULL,
-                    digits=1) {
+                    addLens=NULL,addNames=NULL,justAdds=FALSE,
+                    what=c("all","traditional","incremental","none"),drop0Est=TRUE,
+                    showIntermediate=FALSE,digits=0) {
   method <- match.arg(method)
+  what <- match.arg(what)
   ## make sure species is not missing
   if (missing(species)) stop("Must include a species name in 'species'.",call.=FALSE)
   ## find psd lengths for this species
@@ -93,16 +115,30 @@ psdCalc <- function(formula,data,species,units=c("mm","cm","in"),
   ptbl <- prop.table(table(dftemp$lcatr))
   ## compute all traditional and interval PSD values
   res <- iGetAllPSD(ptbl,n=n,method=method,conf.level=conf.level,digits=digits)
+  ## decided to keep intermediate calculation columns or not (in first two columns)
+  if (!showIntermediate) res <- res[,-c(1:2)]
   ## return result
   k <- length(ptbl)
-  switch(match.arg(what),
+  switch(what,
          all=         {  },
          traditional= { res <- res[1:(k-1),] },
-         incremental= { res <- res[k:nrow(res),] },
-         none=        { invisible(res) }
+         incremental= { res <- res[k:nrow(res),] }
          )
+  ## Drop estimates that are zero if requested to do so
   if (drop0Est) res <- res[res[,"Estimate"]>0,]
-  round(res,digits)
+  ## Return just the additional lengths if requested to do so
+  if (justAdds & !is.null(addLens)) {
+    # add names to the additional lengths
+    addLens <- iHndlAddNames(addLens,addNames)
+    # find which rows in the result vector contain the 
+    # additional lengths that the user is asking for
+    tmp <- NULL
+    for (i in names(addLens)) tmp <- c(tmp,grep(i,rownames(res)))
+    res <- res[sort(tmp),]
+  }
+  ## Invisibly return the matrix if requested to do so
+  if (what=="none") invisible(res)
+    else round(res,digits)
 }
 
 # ============================================================
@@ -168,6 +204,8 @@ iGetAllPSD <- function(ptbl,n,method,conf.level=0.95,digits) {
   if (any(ns>0 & ns<20)) warning("Some category sample size <20, some CI coverage may be\n lower than ",100*conf.level,"%.",call.=FALSE)
   ## Compute all PSDs
   suppressWarnings(res <- t(apply(id1,MARGIN=1,FUN=psdCI,ptbl=ptbl,n=n,method=method,conf.level=conf.level,digits=digits)))
-  colnames(res) <- c("Estimate",iCILabel(conf.level))
+  ## Add the numerator (number in category) and denominator (stock) columns
+  res <- cbind(res[,1]*n/100,n,res)
+  colnames(res) <- c("num","stock","Estimate",iCILabel(conf.level))
   res
 }

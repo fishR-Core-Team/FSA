@@ -49,7 +49,9 @@ psdVal("Yellow Perch")
 # Demonstrate adding in user-defined categories
 psdVal("Bluegill",units="in",addLens=7)
 psdVal("Bluegill",units="in",addLens=7,addNames="MinLen")
-psdVal("Bluegill",units="in",addLens=c(7,9))
+psdVal("Bluegill",units="in",addLens=c(7,9),addNames=c("MinSlot","MaxSlot"))
+psdVal("Bluegill",units="in",addLens=c("MinLen"=7))
+psdVal("Bluegill",units="in",addLens=c("MinSlot"=7,"MaxSlot"=9))
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

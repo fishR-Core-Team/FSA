@@ -8,38 +8,40 @@ context("PSD functions")
 
 test_that("psdVal() errors and warnings",{
   ## bad species name
-  expect_that(psdVal("Derek"),throws_error())
+  expect_error(psdVal("Derek"))
   ## bad units
-  expect_that(psdVal("Bluegill",units="inches"),throws_error())
+  expect_error(psdVal("Bluegill",units="inches"))
   ## too many species name
-  expect_that(psdVal(c("Bluegill","Yellow Perch")),throws_error())
+  expect_error(psdVal(c("Bluegill","Yellow Perch")))
   ## addLens and addNames don't match up
-  expect_that(psdVal("Bluegill",addLens=7,addNames=c("Derek","Ogle")),throws_error())
-  expect_that(psdVal("Bluegill",addLens=c(7,9),addNames="Derek"),throws_error())
+  expect_error(psdVal("Bluegill",addLens=7,addNames=c("Derek","Ogle")))
+  expect_error(psdVal("Bluegill",addLens=c(7,9),addNames="Derek"))
+  ## and addLens is also a Gabelhous length
+  expect_warning(psdVal("Bluegill",addLens=150))
 })
 
 
 test_that("psdCI() errors and warnings",{
   ## problems with proportions table
   # not obviously a proportions table
-#  expect_that(psdCI(c(1,0,0,0),c(0.5,0.3,0.2,10),11),gives_warning())
-#  expect_that(psdCI(c(1,0,0,0),c(5,3,2,10),20),gives_warning())
+#  expect_warning(psdCI(c(1,0,0,0),c(0.5,0.3,0.2,10),11))
+#  expect_warning(psdCI(c(1,0,0,0),c(5,3,2,10),20))
   # looks like proportions, but doesn't sum to 1
-  expect_that(psdCI(c(1,0,0,0),c(0.5,0.3,0.1,0.08),20),throws_error())
-  expect_that(psdCI(c(1,0,0,0),c(0.5,0.3,0.2,0.08),20),throws_error())
+  expect_error(psdCI(c(1,0,0,0),c(0.5,0.3,0.1,0.08),20))
+  expect_error(psdCI(c(1,0,0,0),c(0.5,0.3,0.2,0.08),20))
   # small n for table using multinomial distribution
-  expect_that(psdCI(c(0,0,0,1),c(0.5,0.3,0.1,0.1),20,method="multinomial"),gives_warning())
+  expect_warning(psdCI(c(0,0,0,1),c(0.5,0.3,0.1,0.1),20,method="multinomial"))
   
   ## problems with indicator vector
   ipsd <- c(0.130,0.491,0.253,0.123)
   n <- 445
   # all zeroes
-  expect_that(psdCI(c(0,0,0,0),ipsd,n),throws_error())
+  expect_error(psdCI(c(0,0,0,0),ipsd,n))
   # all ones
-  expect_that(psdCI(c(1,1,1,1),ipsd,n),throws_error())
+  expect_error(psdCI(c(1,1,1,1),ipsd,n))
   # wrong length of indvec
-  expect_that(psdCI(c(1,0,0),ipsd,n),throws_error())
-  expect_that(psdCI(c(1,0,0,0,0),ipsd,n),throws_error())
+  expect_error(psdCI(c(1,0,0),ipsd,n))
+  expect_error(psdCI(c(1,0,0,0,0),ipsd,n))
 })
 
 test_that("psdCalc() errors and warnings",{
@@ -52,19 +54,19 @@ test_that("psdCalc() errors and warnings",{
   ghl <- psdVal("Yellow perch")
   ## restrict data.frame to sub-stock-length fish
   tmp <- subset(df,tl<ghl["stock"])
-  expect_that(psdCalc(~tl,data=tmp,species="Yellow perch"),throws_error())
+  expect_error(psdCalc(~tl,data=tmp,species="Yellow perch"))
   ## restrict data.frame to no fish
   tmp <- subset(df,tl<ghl["substock"])
-  expect_that(psdCalc(~tl,data=tmp,species="Yellow perch"),throws_error())
+  expect_error(psdCalc(~tl,data=tmp,species="Yellow perch"))
   
   ## no species name given
-  expect_that(psdCalc(~tl,data=tmp),throws_error())
+  expect_error(psdCalc(~tl,data=tmp))
   
   ## bad formulae
-  expect_that(psdCalc(tl,data=df,species="Yellow perch"),throws_error())
-  expect_that(psdCalc(tl~species,data=df,species="Yellow perch"),throws_error())
-  expect_that(psdCalc(~tl+species,data=df,species="Yellow perch"),throws_error())
-  expect_that(psdCalc(~species,data=df,species="Yellow perch"),throws_error())
+  expect_error(psdCalc(tl,data=df,species="Yellow perch"))
+  expect_error(psdCalc(tl~species,data=df,species="Yellow perch"))
+  expect_error(psdCalc(~tl+species,data=df,species="Yellow perch"))
+  expect_error(psdCalc(~species,data=df,species="Yellow perch"))
 })
 
 test_that("psdPlot() errors and warnings",{
@@ -77,17 +79,17 @@ test_that("psdPlot() errors and warnings",{
   ghl <- psdVal("Yellow perch")
 
   ## set minimum length higher than stock length
-  expect_that(psdPlot(~tl,data=df,species="Yellow perch",xlim=c(ghl["stock"]+10,300)),throws_error())
+  expect_error(psdPlot(~tl,data=df,species="Yellow perch",xlim=c(ghl["stock"]+10,300)))
   
   ## restrict data.frame to no fish
   tmp <- subset(df,tl<ghl["substock"])
-  expect_that(psdPlot(~tl,data=tmp,species="Yellow perch"),throws_error())
+  expect_error(psdPlot(~tl,data=tmp,species="Yellow perch"))
   
   ## bad formulae
-  expect_that(psdPlot(tl,data=df,species="Yellow perch"),throws_error())
-  expect_that(psdPlot(tl~species,data=df,species="Yellow perch"),throws_error())
-  expect_that(psdPlot(~tl+species,data=df,species="Yellow perch"),throws_error())
-  expect_that(psdPlot(~species,data=df,species="Yellow perch"),throws_error())
+  expect_error(psdPlot(tl,data=df,species="Yellow perch"))
+  expect_error(psdPlot(tl~species,data=df,species="Yellow perch"))
+  expect_error(psdPlot(~tl+species,data=df,species="Yellow perch"))
+  expect_error(psdPlot(~species,data=df,species="Yellow perch"))
 })
 
 test_that("psdAdd() errors and warnings",{
