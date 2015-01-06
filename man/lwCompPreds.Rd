@@ -9,7 +9,7 @@ lwCompPreds(object, lens = NULL, quant.lens = c(0, 0.25, 0.5, 0.75, 1),
   center.value = 0, lwd = 1, connect.preds = TRUE, show.preds = FALSE,
   col.connect = "gray50", ylim = NULL, main.pre = "Length==",
   cex.main = 0.8, xlab = "Groups", ylab = "Predicted Weight",
-  rows = round(sqrt(num)), cols = ceiling(sqrt(num)))
+  yaxs = "r", rows = round(sqrt(num)), cols = ceiling(sqrt(num)))
 }
 \arguments{
 \item{object}{An \code{lm} object (i.e., returned from fitting a model with \code{lm}).  This model should have log(weight) as the response and log(length) as the explanatory covariate and an explanatory factor variable that describes the different groups.}
@@ -41,6 +41,8 @@ lwCompPreds(object, lens = NULL, quant.lens = c(0, 0.25, 0.5, 0.75, 1),
 \item{xlab}{A single string for labelling the x-axis.}
 
 \item{ylab}{A single string for labelling the y-axis.}
+
+\item{yaxs}{A single string that indicates how the y-axis is formed.  See \code{par} for more details.}
 
 \item{rows}{A single numeric that contains the number of rows to use on the graphic.}
 
@@ -104,7 +106,6 @@ if (interactive()) {
   # or a one-way ANOVA
   lm3 <- lm(logwt~loc,data=ChinookArg)
   lwCompPreds(lm3)
-
 }
 }
 \author{

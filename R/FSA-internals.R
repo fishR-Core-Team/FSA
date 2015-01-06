@@ -39,8 +39,8 @@ iAddLoessLine <- function(r,fv,lty.loess,lwd.loess,col.loess,trans.loess,span=0.
   ci <- pred$se.fit*qt(0.95/2+.5,pred$df)
   ymin <- y-ci
   ymax <- y+ci
-  polygon(c(xseq,rev(xseq)),c(ymin,rev(ymax)),col=iMakeColor(col.loess,trans.loess),border=NA)
-  lines(y~xseq,lwd=lwd.loess,lty=lty.loess,col=col.loess)
+  polygon(c(xseq,rev(xseq)),c(ymin,rev(ymax)),col=iMakeColor(col.loess,trans.loess),border=NA,xpd=FALSE)
+  lines(y~xseq,lwd=lwd.loess,lty=lty.loess,col=col.loess,xpd=FALSE)
 }  # end iAddLoessLine internal function
 
 

@@ -1,7 +1,10 @@
 # FSA 0.4.36 ongoing
 * `hist.formula()`: Modifiied.  Added `iaxs=`, which when set to the default value of `TRUE` will use `xaxs="i"` and `yaxs="i"` to remove the "floating" x-axis produced by `hist()` in base R.
+* `lwCompPreds()`: Modified.  Added the `yaxs=` argument.
 * `psdCalc()`: Modified.  Added `showIntermediate=` to allow showing intermediate values in the calculation of the PSD indices.  Added `justAdds=` to allow the user to return just those results that pertain to the values in `addLens=`.  Added ability to use a named vector in `addLens=` and then not use `addNames=`.  Changed `digits=1` to `digits=0`.  Thanks to Ben Neely for the suggestions.
 * `psdVal()`: Modified.  Added ability to use a named vector in `addLens=` and then not use `addNames=`.  The original functionality is still there.  Added a check that one of the Gabelhouse lengths is not also one of the `addLens=` values.  Deleted the `addLens=` value if it was (the user might have sent a name with this value and will want that name to appear in the results).
+* `residPlot()`: Modiifed.  Added `xpd=TRUE` to the loess line routine so that the curve and polygon would stay within the plotting region.
+* `tictactoe()`: Modified.  Add the ability to handle differences between when `xaxs="r"` and `yaxs="r"` are used and when `xaxs="i"` and `yaxs="i"` are used.
 
 # FSA 0.4.35 Jan15
 * `dunnTest()`: Added.

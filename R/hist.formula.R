@@ -88,7 +88,7 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
   if (dim(DF)[2]==1) {
     hist(DF[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,
          xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
-    if (iaxs) abline(h=0)  # will assure a line at y=0
+    if (iaxs) abline(h=0,xpd=FALSE)  # will assure a line at y=0
   } else {
     if (attr(attr(DF, "terms"),"dataClasses")[1]!="numeric") stop("Single variable in formula must be a numeric vector.",call.=FALSE)
     if (dim(DF)[2]>3) stop("hist.formula only works with one quantitative variable on LHS\n and one or two factor variables on RHS of formula.",call.=FALSE)
@@ -125,7 +125,7 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
         if (!is.null(pre.main)) main <- paste(pre.main,names(DF.split)[i],sep="")
         hist(DF.split[[i]],main=main,xlab=xlab,ylab=ylab,right=right,ylim=c(0,ymax[i]),col=col,
              xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
-        if (iaxs) abline(h=0)  # will assure a line at y=0
+        if (iaxs) abline(h=0,xpd=FALSE)  # will assure a line at y=0
       }
     } else {
       max.per.page <- nrow*ncol
@@ -139,7 +139,7 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
           if (!is.null(pre.main)) main <- paste(pre.main,names(DF.split)[pos],sep="")
           hist(DF.split[[pos]],main=main,xlab=xlab,ylab=ylab,right=right,ylim=c(0,ymax[pos]),col=col,
                xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
-          if (iaxs) abline(h=0)  # will assure a line at y=0
+          if (iaxs) abline(h=0,xpd=FALSE)  # will assure a line at y=0
         }  
       }
     }

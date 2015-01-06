@@ -17,6 +17,7 @@
 #' @param cex.main A numeric value for the character expansion of the main title.  See details.
 #' @param xlab A single string for labelling the x-axis.
 #' @param ylab A single string for labelling the y-axis.
+#' @param yaxs A single string that indicates how the y-axis is formed.  See \code{par} for more details.
 #' @param rows A single numeric that contains the number of rows to use on the graphic.
 #' @param cols A single numeric that contains the number of columns to use on the graphic.
 #' @param \dots Other arguments to pass through to the \code{plot} function.
@@ -75,15 +76,15 @@
 #'   lwCompPreds(lm2)
 #'   # or a one-way ANOVA
 #'   lm3 <- lm(logwt~loc,data=ChinookArg)
-#'   lwCompPreds(lm3)
-#'   
+#'   lwCompPreds(lm3)   
 #' }
+#' 
 #' @export lwCompPreds
 lwCompPreds <- function(object,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),base=exp(1),
                         interval=c("confidence","prediction","both"),center.value=0,
                         lwd=1,connect.preds=TRUE,show.preds=FALSE,col.connect="gray50",
                         ylim=NULL,main.pre="Length==",cex.main=0.8,
-                        xlab="Groups",ylab="Predicted Weight",
+                        xlab="Groups",ylab="Predicted Weight",yaxs="r",
                         rows=round(sqrt(num)),cols=ceiling(sqrt(num))) {
   # check and get inerval type
   interval <- match.arg(interval)
@@ -122,7 +123,7 @@ lwCompPreds <- function(object,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),base=ex
     res <- iMakeLWPred(object,lens[i],grps,vn,interval,center.value,base)
     # make plot for each length
     iPlotLWPred(res,grps,ylim,xlab,ylab,paste(main.pre,lens[i],sep=""),
-                cex.main,lwd,connect.preds,col.connect,interval,show.preds)
+                cex.main,lwd,connect.preds,col.connect,interval,show.preds,yaxs)
   }
 }
 
@@ -152,13 +153,13 @@ iMakeLWPred <- function(object,lens,grps,vn,interval,center.value,base) {
 } # End internal iMakeLWPred()
 
 
-iPlotLWPred <- function(res,grps,ylim,xlab,ylab,main,cex.main,lwd,connect.preds,col.connect,interval,show.preds) {
+iPlotLWPred <- function(res,grps,ylim,xlab,ylab,main,cex.main,lwd,connect.preds,col.connect,interval,show.preds,yaxs) {
   #   find number of groups to plot along x-axis
   x.num <- length(grps)
   #   find y-axis range if none was provided
   if (is.null(ylim)) ylim=range(res)
   # create a base plot
-  plot(0,xlab=xlab,ylab=ylab,col="white",xlim=c(0.5,x.num+0.5),ylim=ylim,xaxt="n")
+  plot(0,xlab=xlab,ylab=ylab,col="white",xlim=c(0.5,x.num+0.5),ylim=ylim,xaxt="n",yaxs=yaxs)
   mtext(main,cex=cex.main)
   #   label the axis with the group labels
   axis(1,at=1:x.num,labels=grps)
