@@ -1,5 +1,7 @@
 # FSA 0.4.37 ongoing
+* `confint.nlsBoot()`: Modified.  Changed default for `err.col=` to `black` from `red`.  Fixed example due to changes in `nlsBoot` package.
 * `extraSS()`: Modified.  Added a catch to make sure all models are of the same type.  Added a catch to note that the function does not work with other that `lm()` or `nls()` models.  Fixed a bug related to the labels for results from `anova()` being different depending on whether `lm()` or `nls()` models were given.  Added some examples.
+* `hist.formula()`: Modified.  Fixed bug (originated in last version) that nothing was returned when only one histogram was constructed.
 * `lrt()`: Modified.  Changed call to `lrtest()` to a call to `lrtest.default()`.  Added a catch to make sure all models are of the same type.  Note that degrees-of-freedom from `lrtest()` are not error df; thus, modified to report error df to match `extraSS()`.  Added some examples.
 
 # FSA 0.4.36 Jan15

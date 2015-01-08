@@ -6,7 +6,7 @@
 \title{Construct a confidence interval from nlsBoot results.}
 \usage{
 \method{confint}{nlsBoot}(object, parm = NULL, level = 0.95,
-  conf.level = level, plot = FALSE, err.col = "red", err.lwd = 2,
+  conf.level = level, plot = FALSE, err.col = "black", err.lwd = 2,
   rows = round(sqrt(ncol(object$coefboot))),
   cols = ceiling(sqrt(ncol(object$coefboot))), ...)
 }
@@ -43,12 +43,10 @@ This function finds the two quantiles that have the proportion (1-\code{conf.lev
 \examples{
 ## ONLY RUN IN INTERACTIVE MODE
 if (interactive()) {
-
-require(nlstools)
-example(nlsBoot)
-confint(boo,conf.level=0.90)
-confint(boo,conf.level=0.90,plot=TRUE)
-
+  require(nlstools)
+  example(nlsBoot)
+  confint(O2K.boot1,conf.level=0.90)
+  confint(O2K.boot1,conf.level=0.90,plot=TRUE)
 } ## END IF INTERACTIVE MODE
 }
 \author{

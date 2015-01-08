@@ -28,18 +28,16 @@
 #' @examples
 #' ## ONLY RUN IN INTERACTIVE MODE
 #' if (interactive()) {
-#'
-#' require(nlstools)
-#' example(nlsBoot)
-#' confint(boo,conf.level=0.90)
-#' confint(boo,conf.level=0.90,plot=TRUE)
-#'
+#'   require(nlstools)
+#'   example(nlsBoot)
+#'   confint(O2K.boot1,conf.level=0.90)
+#'   confint(O2K.boot1,conf.level=0.90,plot=TRUE)
 #' } ## END IF INTERACTIVE MODE
 #'
 #' @rdname confint.nlsBoot
 #' @export
 confint.nlsBoot <- function(object,parm=NULL,level=0.95,conf.level=level,
-                            plot=FALSE,err.col="red",err.lwd=2,
+                            plot=FALSE,err.col="black",err.lwd=2,
                             rows=round(sqrt(ncol(object$coefboot))),cols=ceiling(sqrt(ncol(object$coefboot))),...) {
   # internal function to find CIs
   cl <- function(x) quantile(x,c((1-conf.level)/2,1-(1-conf.level)/2))
