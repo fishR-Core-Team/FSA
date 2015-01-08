@@ -86,9 +86,10 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
 
   DF <- model.frame(formula,data=data)
   if (dim(DF)[2]==1) {
-    hist(DF[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,
-         xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
+    h <- hist(DF[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,
+              xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
     if (iaxs) abline(h=0,xpd=FALSE)  # will assure a line at y=0
+    invisible(h)
   } else {
     if (attr(attr(DF, "terms"),"dataClasses")[1]!="numeric") stop("Single variable in formula must be a numeric vector.",call.=FALSE)
     if (dim(DF)[2]>3) stop("hist.formula only works with one quantitative variable on LHS\n and one or two factor variables on RHS of formula.",call.=FALSE)
