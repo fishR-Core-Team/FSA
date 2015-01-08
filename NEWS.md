@@ -1,6 +1,8 @@
-# FSA 0.4.36 ongoing
+# FSA 0.4.37 ongoing
+* `extraSS()`: Modified.  Added a catch to make sure all models are of the same type.  Added a catch to note that the function does not work with other that `lm()` or `nls()` models.  Fixed a bug related to the labels for results from `anova()` being different depending on whether `lm()` or `nls()` models were given.  Added some examples.
+* `lrt()`: Modified.  Changed call to `lrtest()` to a call to `lrtest.default()`.  Added a catch to make sure all models are of the same type.  Note that degrees-of-freedom from `lrtest()` are not error df; thus, modified to report error df to match `extraSS()`.  Added some examples.
 
-# FSA 0.4.37 Jan15
+# FSA 0.4.36 Jan15
 * `hist.formula()`: Modifiied.  Added `iaxs=`, which when set to the default value of `TRUE` will use `xaxs="i"` and `yaxs="i"` to remove the "floating" x-axis produced by `hist()` in base R.
 * `lwCompPreds()`: Modified.  Added the `yaxs=` argument.
 * `psdCalc()`: Modified.  Added `showIntermediate=` to allow showing intermediate values in the calculation of the PSD indices.  Added `justAdds=` to allow the user to return just those results that pertain to the values in `addLens=`.  Added ability to use a named vector in `addLens=` and then not use `addNames=`.  Changed `digits=1` to `digits=0`.  Thanks to Ben Neely for the suggestions.

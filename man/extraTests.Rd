@@ -24,27 +24,70 @@ extraSS(sim, ..., com)
 \value{
 The main function returns a matrix with as many rows as model comparisons and columns of the following types:
  \itemize{
-   \item \code{DfO} The degrees-of-freedom from the subset (more simple) model.
+   \item \code{DfO} The error degrees-of-freedom from the subset (more simple) model.
    \item \code{RSSO}, \code{logLikO} The residual sum-of-squares (from \code{extraSS}) or log-likelihood (from \code{lrt}) from the subset (more simple) model.
-   \item \code{DfA} The degrees-of-freedom from the \code{com=} model.
+   \item \code{DfA} The error degrees-of-freedom from the \code{com=} model.
    \item \code{RSSA}, \code{logLikA} The residual sum-of-squares (from \code{extraSS}) or log-likelihood (from \code{lrt}) from the \code{com=} model.
-   \item \code{Df} The difference in degrees-of-freedom between the two models.
+   \item \code{Df} The difference in error degrees-of-freedom between the two models.
    \item \code{SS}, \code{logLik} The difference in residual sum-of-squares (from \code{extraSS}) or log-likelihood (from \code{lrt}) between the two models.
    \item \code{F}, \code{Chisq} The corresponding F- (from \code{extraSS}) or Chi-square (from \code{lrt}) test statistic.
-   \item \code{Pr(>F)"}, \code{Pr(>Chisq)"} The corresponding p-value.
+   \item \code{Pr(>F)}, \code{Pr(>Chisq)} The corresponding p-value.
  }
 }
 \description{
-Likelihood ratio and extra sum-of-squares tests with multiple models nested at the same level below one common model.
+Likelihood ratio and extra sum-of-squares tests with multiple \code{lm} or \code{nls} models nested within one common model.  This function is most useful when the nested functions are all at the same level; otherise use \code{anova()} or \code{lrtest()} which are more flexible.
 }
 \details{
-\code{anova()} and \code{lrtest()} (from \pkg{lmtest}) provide simple methods for conducting extra sum-of-squares or likelihood ratio tests when one model is nested within another model or when there are several layers of simple models all nested within each other.  However, to compare several models that are nested at the same level with one common more complex model then \code{anova()} and \code{lrtest()} need to be repeated for each comparison.  This repetition can be eliminated with \code{lapply()} but then the output is voluminous.  This function is designed to remove the repetitiveness and to provide output that is compact and easy to read.
+\code{anova()} and \code{lrtest()} (from \pkg{lmtest}) provide simple methods for conducting extra sum-of-squares or likelihood ratio tests when one model is nested within another model or when there are several layers of simple models all sequentially nested within each other.  However, to compare several models that are nested at the same level with one common more complex model, then \code{anova()} and \code{lrtest()} must be repeated for each comparison.  This repetition can be eliminated with \code{lapply()} but then the output is voluminous.  This function is designed to remove the repetitiveness and to provide output that is compact and easy to read.
 }
 \note{
-This is experimental at this point.  It seems to work fine for \code{nls} models but has not been tested thoroughly or with other types of models.
+This function is experimental at this point.  It seems to work fine for \code{lm} and \code{nls} models.  An error will be thrown by \code{extraSS} for other model classes, but \code{lrt} will not (but it has not been thoroughly tests for other models).
 }
 \examples{
-## Nothing yet:
+## Example data
+df <- data.frame(x=c(1,2,3,4,5,6,7,8,9,10),
+                 y=c(4,6,5,7,9,8,7,12,16,22),
+                 z=as.factor(rep(c("A","B"),each=5)),
+                 w=as.factor(rep(c("A","B"),times=5)))
+df$x2 <- df$x^2
+
+## Linear (lm()) models
+#  ... regression
+fit.0 <- lm(y~1,data=df)
+fit.1 <- lm(y~x,data=df)
+fit.2 <- lm(y~x2+x,data=df)
+extraSS(fit.0,fit.1, com=fit.2)
+lrt(fit.0,fit.1, com=fit.2)
+
+#  ... dummy variable regression
+fit.2b <- lm(y~x*z,data=df)
+extraSS(fit.0,fit.1, com=fit.2b)
+lrt(fit.0,fit.1, com=fit.2b)
+
+#  ... ANOVAs
+fit.1 <- lm(y~w,data=df)
+fit.2 <- lm(y~w*z,data=df)
+extraSS(fit.0,fit.1, com=fit.2)
+lrt(fit.0,fit.1, com=fit.2)
+
+
+## Non-linear (nls()) models
+fit.0 = nls(y~c,data=df,start=list(c=10))
+fit.1 = nls(y~a*x+c,data=df,start=list(a=1,c=1))
+fit.2 = nls(y~b*x2+a*x+c,data=df,start=list(a=-1,b=0.3,c=10))
+extraSS(fit.0,fit.1, com=fit.2)
+lrt(fit.0,fit.1, com=fit.2)
+
+## General least-squares (gls()) models
+\dontrun{
+  require(nlme)
+  fit.0 <- gls(y~1,data=df,method="ML")
+  fit.1 <- gls(y~x,data=df,method="ML")
+  fit.2 <- gls(y~x2+x,data=df,method="ML")
+  lrt(fit.0,fit.1, com=fit.2)
+  ## will return an error ... does not work with gls() models
+  # extraSS(fit.0,fit.1, com=fit.2)
+}
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
