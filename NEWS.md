@@ -1,4 +1,6 @@
 # FSA 0.4.36 ongoing
+
+# FSA 0.4.37 Jan15
 * `hist.formula()`: Modifiied.  Added `iaxs=`, which when set to the default value of `TRUE` will use `xaxs="i"` and `yaxs="i"` to remove the "floating" x-axis produced by `hist()` in base R.
 * `lwCompPreds()`: Modified.  Added the `yaxs=` argument.
 * `psdCalc()`: Modified.  Added `showIntermediate=` to allow showing intermediate values in the calculation of the PSD indices.  Added `justAdds=` to allow the user to return just those results that pertain to the values in `addLens=`.  Added ability to use a named vector in `addLens=` and then not use `addNames=`.  Changed `digits=1` to `digits=0`.  Thanks to Ben Neely for the suggestions.
