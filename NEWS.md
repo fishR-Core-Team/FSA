@@ -1,5 +1,6 @@
 # FSA 0.4.38 ongoing
-
+* `alkPlot()`: Modified.  Changed behavior for adding a legend to alleviate a bug.
+* `metaM()`: Added.
 
 # FSA 0.4.37 Jan15
 * `confint.nlsBoot()`: Modified.  Changed default for `err.col=` to `black` from `red`.  Fixed example due to changes in `nlsBoot` package.
