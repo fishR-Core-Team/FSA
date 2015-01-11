@@ -1,4 +1,6 @@
-# FSA 0.4.38 ongoing
+# FSA 0.4.39 ongoing
+
+# FSA 0.4.38 Jan15
 * `alkPlot()`: Modified.  Changed behavior for adding a legend to alleviate a bug.
 * `metaM()`: Added.
 
