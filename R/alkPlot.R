@@ -127,7 +127,8 @@ iFindAgesAndLens <- function(key) {
 ##############################################################
 iAddLegend <- function(alsum,leg.cex,col){
   layout(matrix(c(1,2),nrow=2),heights=c(1,14))
-  op <- par(mar=c(0.2,11.0,0.2,8.0))
+  tmp <- par("mar")
+  op <- par(mar=c(0.1,1.5*tmp[2],0.1,4*tmp[4]))
   barplot(matrix(1,nrow=alsum$num.ages,ncol=1),col=col,horiz=TRUE,xaxt="n")
   text(c(1,alsum$num.ages)-0.5,c(0.75,0.75),range(alsum$ages),col=c("white","black"),cex=leg.cex) 
   par(op)
