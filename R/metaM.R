@@ -269,7 +269,6 @@ metaM <- function(method=Mmethods,group=c("pelagic","demersal"),
 }
 
 #' @rdname metaM
-#' @method print metaM
 #' @export
 print.metaM <- function(x,digits=4,...) {
   cat("M=",round(x$M,digits)," as estimated with ",x$name,"\n",sep="")

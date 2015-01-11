@@ -15,7 +15,7 @@ metaM(method = Mmethods, group = c("pelagic", "demersal"), tmax = NULL,
   K = NULL, Linf = NULL, t0 = NULL, b = NULL, L = NULL, T = NULL,
   t50 = NULL, Winf = NULL, justM = FALSE, ...)
 
-\\method{print}{metaM}(x, digits = 4, ...)
+print.metaM(x, digits = 4, ...)
 }
 \arguments{
 \item{method}{A string that indicates which method or equation to use.  See details.}
