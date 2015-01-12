@@ -80,10 +80,10 @@ A list that contains the following items:
  }
 }
 \description{
-Fits a linear model to the user-defined descending limb of a catch curve.  Method functions extracts estimates of the instantaneous (Z) and total annual (A) mortality rates with associated standard errors and confidence intervals.  A plot method highlights the descending-limb, shows the linear model on the descending limb, and, optionally, prints the estimated Z and A.
+Fits a linear model to the user-defined descending limb of a catch curve.  Method functions extract estimates of the instantaneous (Z) and total annual (A) mortality rates with associated standard errors and confidence intervals.  A plot method highlights the descending-limb, shows the linear model on the descending limb, and, optionally, prints the estimated Z and A.
 }
 \details{
-The default is to use all ages in the age vector.  This is appropriate only when the age and catch vectors contain only the ages and catches on the descending limb of the catch curve.
+The default is to use all ages in the age vector.  This is appropriate only when the age and catch vectors contain only the ages and catches on the descending limb of the catch curve.  Use \code{ages2use} to isolate only the catch and ages on the descending limb.
 
 If \code{weighted=TRUE} then a weighted regression is used where the weights are the log(number) at each age predicted from the unweighted regression of log(number) on age (as proposed by Maceina and Bettoli (1998)).
 }
@@ -92,7 +92,7 @@ If \code{weighted=TRUE} then a weighted regression is used where the weights are
 }
 
 \section{Testing}{
- Tested the results of catch curve, both unweighted and weighted, against the results in Miranda and Bettoli (2007).  Results for Z and the SE of Z matched perfectly.
+ Tested the results of catch curve, both unweighted and weighted, against the results in Miranda and Bettoli (2007).  Results for Z and the SE of Z matched perfectly.  Tested the unweighted results against the results from \code{agesurv} in \pkg{fishmethods} using the \code{rockbass} data.frame in \pkg{fishmethods}.  Results for Z and the SE of Z matched perfectly.
 }
 \examples{
 data(BrookTroutTH)
@@ -126,7 +126,7 @@ Maceina, M.J., and P.W. Bettoli.  1998.  Variation in largemouth bass recruitmen
 Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 }
 \seealso{
-See \code{agesurv} in \pkg{fishmethods} for similar functionality and \code{\link{chapmanRobson}} and \code{agesurvcl} in \pkg{fishmethods} for alternative methods to estimate mortality rates.
+See \code{agesurv} in \pkg{fishmethods} for similar functionality.  See \code{\link{chapmanRobson}} and \code{agesurvcl} in \pkg{fishmethods} for alternative methods to estimate mortality rates.  See \code{\link{metaM}} for empirical methods to estimate natural mortality.
 }
 \keyword{hplot}
 \keyword{htest}

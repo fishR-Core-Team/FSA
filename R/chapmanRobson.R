@@ -1,10 +1,10 @@
 #' @title Computes Chapman-Robson estimates of S and Z.
 #'
-#' @description Computes the Chapman-Robson estimates of annual survival rate (S) and instantaneous mortality rate (Z), along with associated standard errors, from catch-at-age data on the descending limb of a catch-curve.
+#' @description Computes the Chapman-Robson estimates of annual survival rate (S) and instantaneous mortality rate (Z) from catch-at-age data on the descending limb of a catch-curve.  Method functions extract estimates with associated standard errors and confidence intervals.  A plot method highlights the descending-limb, shows the linear model on the descending limb, and, optionally, prints the estimated Z and A.
 #'
-#' @details The default is to use all ages in the age vector.  This is only appropriate if the age and catch vector contain only the ages and catches on the descending limb of the catch curve.  Use \code{ages2use} to isolate only the catch and ages on the descending limb.
+#' @details The default is to use all ages in the age vector.  This is only appropriate if the age and catch vectors contain only the ages and catches on the descending limb of the catch curve.  Use \code{ages2use} to isolate only the catch and ages on the descending limb.
 #'
-#' @details The Chapman-Robson method provides an estimate of the annual survival rate, with the annual mortality rate (A) determined by 1-S.  The instantaneous mortality rate is often computed as -log(S).  However, Hoenig et al. (1983) showed that this produced a biased (over)estimate of Z and provided a correction.  The correction is applied by setting \code{zmethod="Hoenigetal"} (which is the default behavior).
+#' The Chapman-Robson method provides an estimate of the annual survival rate, with the annual mortality rate (A) determined by 1-S.  The instantaneous mortality rate is often computed as -log(S).  However, Hoenig et al. (1983) showed that this produced a biased (over)estimate of Z and provided a correction.  The correction is applied by setting \code{zmethod="Hoenigetal"} (which is the default behavior).  Choose \code{zmethod="original"} to use the original estimates for Z and it's SE as provided by Chapman and Robson.
 #'
 #' @aliases chapmanRobson chapmanRobson.default chapmanRobson.formula plot.chapmanRobson summary.chapmanRobson confint.chapmanRobson
 #' 
@@ -38,11 +38,13 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{\link{catchCurve}}
+#' @seealso See \code{agesurv} in \pkg{fishmethods} for similar functionality.  See \code{\link{catchCurve}} and \code{agesurvcl} in \pkg{fishmethods} for alternative methods.  See \code{\link{metaM}} for empirical methods to estimate natural mortality.
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/CatchCurve.pdf}
 #'
 #' @section Testing: Tested the results of chapmanRobson against the results in Miranda and Bettoli (2007).  The point estimates of S matched perfectly but the SE of S did not because Miranda and Bettoli used a rounded estimate of S in the calculation of the SE of S but chapmanRobson does not.
+#' 
+#' Tested the results against the results from \code{agesurv} in \pkg{fishmethods} using the \code{rockbass} data.frame in \pkg{fishmethods}.  Results for Z and the SE of Z matched perfectly for non-bias-corrected results.  The estimate of Z, but the SE of Z, matched for the bias-corrected (following Smith et al. (2012)) results.  \pkg{FSA} uses equation 2 from Smith et al. (2012) whereas \pkg{fishmethods} appears to use equation 5 from the same source to estimate the SE of Z.
 #' 
 #' @references Chapman, D.G. and D.S. Robson. 1960. The analysis of a catch curve. Biometrics. 16:354-368.
 #'
@@ -51,6 +53,8 @@
 #' Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 #'
 #' Robson, D.S. and D.G. Chapman. 1961. Catch curves and mortality rates.  Transactions of the American Fisheries Society. 90:181-189.
+#' 
+#' Smith, M.W., A.Y. Then, C. Wor, G. Ralph, K.H. Pollock, and J.M. Hoenig. 2012. Recommendations for catch-curve analysis. North American Journal of Fisheries Management. 32:956-967.
 #'
 #' @keywords htest manip
 #'
@@ -78,7 +82,7 @@ chapmanRobson <- function (x,...) {
 
 #' @rdname chapmanRobson
 #' @export
-chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Hoenigetal","original"),...) {
+chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Hoenigetal","Smithetal","original"),...) {
   ## Put x into age variable for rest of function
   age <- x
   
@@ -112,20 +116,35 @@ chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Hoenigetal","o
   S.est <- T/(n+T-1)
   S.SE <- sqrt(S.est*(S.est-((T-1)/(n+T-2))))
   ## Estimate Z and SE
-  if (zmethod=="Hoenigetal") {
-    # From eqn 1 in Smith et al. (2012) but noting that their
-    #   Tbar is T/n, N is n, and Tc is ignored b/c of the re-coding
-    Z.est <- -log(S.est) - ((n-1)*(n-2))/(n*(T+1)*(n+T-1))
-    Z.SE <- (1-exp(-Z.est))/sqrt(n*exp(-Z.est))
-  } else {
-    Z.est <- -log(S.est)
-    # from Jensen (1985)
-    Z.SE <- S.SE/S.est
-  }
+  switch(zmethod,
+         original= {
+           Z.est <- -log(S.est)
+           # from Jensen (1985)
+           Z.SE <- S.SE/S.est },
+         Hoenigetal= {
+           # From eqn 1 in Smith et al. (2012) but noting that their
+           #   Tbar is T/n, N is n, and Tc is ignored b/c of the re-coding
+           Z.est <- -log(S.est) - ((n-1)*(n-2))/(n*(T+1)*(n+T-1))
+           # Square root of eqn 2 in Smith et al. (2012)
+           Z.SE <- (1-exp(-Z.est))/sqrt(n*exp(-Z.est)) },
+         Smithetal= {
+           # Same as for Hoenig et al. but including the chi-square
+           #   VIF noted on last full paragraph in the left column
+           #   on page 960 of Smith et al.
+           Z.est <- -log(S.est) - ((n-1)*(n-2))/(n*(T+1)*(n+T-1))
+           Z.SE <- (1-exp(-Z.est))/sqrt(n*exp(-Z.est))
+           # Create the VIF as the usual chi-square GOF test 
+           #   statistics divided by number of age-groups-1
+           exp <- catch.e[1]*S.est^age.r
+           chi <- sum(((catch.e-exp)^2)/exp)
+           VIF <- chi/(length(catch)-1)
+           # Adjust the Z SE by the square root of the VIF
+           Z.SE <- Z.SE*sqrt(VIF) }
+  ) # end switch
   ## Prepare result to return
   mres <- cbind(c(100*S.est,Z.est),c(100*S.SE,Z.SE))
   rownames(mres) <- c("S","Z")
-  colnames(mres) <- c("Estimate","Std. Err.")
+  colnames(mres) <- c("Estimate","Std. Error")
   cr <- list(age=age,catch=catch,age.e=age.e,catch.e=catch.e,age.r=age.r,n=n,T=T,est=mres)
   class(cr) <- "chapmanRobson"
   cr
@@ -133,7 +152,7 @@ chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Hoenigetal","o
 
 #' @rdname chapmanRobson
 #' @export
-chapmanRobson.formula <- function(x,data,ages2use=age,zmethod=c("Hoenigetal","original"),...) {
+chapmanRobson.formula <- function(x,data,ages2use=age,zmethod=c("Hoenigetal","Smithetal","original"),...) {
   ## Handle the formula and perform some checks
   tmp <- iHndlFormula(x,data,expNumR=1,expNumE=1)
   if (!tmp$metExpNumR) stop("'chapmanRobson' must have only one LHS variable.",call.=FALSE)
@@ -164,9 +183,9 @@ confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),level=conf
   parm <- match.arg(parm)
   z <- c(-1,1)*qnorm((1-(1-conf.level)/2))
   # compute S results
-  Sres <- rbind(S=object$est["S","Estimate"]+z*object$est["S","Std. Err."])
+  Sres <- rbind(S=object$est["S","Estimate"]+z*object$est["S","Std. Error"])
   # compute Z results
-  Zres <- rbind(Z=object$est["Z","Estimate"]+z*object$est["Z","Std. Err."])
+  Zres <- rbind(Z=object$est["Z","Estimate"]+z*object$est["Z","Std. Error"])
   # Create output matrix
   if (parm=="all" | parm=="both") res <- rbind(Sres,Zres)
     else if (parm=="S") res <- Sres

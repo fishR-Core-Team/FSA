@@ -1,8 +1,8 @@
 #' @title Mortality estimates from the descending limb of a catch curve.
 #'
-#' @description Fits a linear model to the user-defined descending limb of a catch curve.  Method functions extracts estimates of the instantaneous (Z) and total annual (A) mortality rates with associated standard errors and confidence intervals.  A plot method highlights the descending-limb, shows the linear model on the descending limb, and, optionally, prints the estimated Z and A.
+#' @description Fits a linear model to the user-defined descending limb of a catch curve.  Method functions extract estimates of the instantaneous (Z) and total annual (A) mortality rates with associated standard errors and confidence intervals.  A plot method highlights the descending-limb, shows the linear model on the descending limb, and, optionally, prints the estimated Z and A.
 #'
-#' @details The default is to use all ages in the age vector.  This is appropriate only when the age and catch vectors contain only the ages and catches on the descending limb of the catch curve.
+#' @details The default is to use all ages in the age vector.  This is appropriate only when the age and catch vectors contain only the ages and catches on the descending limb of the catch curve.  Use \code{ages2use} to isolate only the catch and ages on the descending limb.
 #'
 #' If \code{weighted=TRUE} then a weighted regression is used where the weights are the log(number) at each age predicted from the unweighted regression of log(number) on age (as proposed by Maceina and Bettoli (1998)).
 #'
@@ -40,11 +40,11 @@
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
-#' @seealso See \code{agesurv} in \pkg{fishmethods} for similar functionality and \code{\link{chapmanRobson}} and \code{agesurvcl} in \pkg{fishmethods} for alternative methods to estimate mortality rates.
+#' @seealso See \code{agesurv} in \pkg{fishmethods} for similar functionality.  See \code{\link{chapmanRobson}} and \code{agesurvcl} in \pkg{fishmethods} for alternative methods to estimate mortality rates.  See \code{\link{metaM}} for empirical methods to estimate natural mortality.
 #' 
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/CatchCurve.pdf}
 #' 
-#' @section Testing: Tested the results of catch curve, both unweighted and weighted, against the results in Miranda and Bettoli (2007).  Results for Z and the SE of Z matched perfectly.
+#' @section Testing: Tested the results of catch curve, both unweighted and weighted, against the results in Miranda and Bettoli (2007).  Results for Z and the SE of Z matched perfectly.  Tested the unweighted results against the results from \code{agesurv} in \pkg{fishmethods} using the \code{rockbass} data.frame in \pkg{fishmethods}.  Results for Z and the SE of Z matched perfectly.
 #' 
 #' @references Maceina, M.J., and P.W. Bettoli.  1998.  Variation in largemouth bass recruitment in four mainstream impoundments on the Tennessee River. North American Journal of Fisheries Management 18:998-1003.
 #' 
