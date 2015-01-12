@@ -15,7 +15,7 @@ metaM(method = Mmethods, group = c("pelagic", "demersal"), tmax = NULL,
   K = NULL, Linf = NULL, t0 = NULL, b = NULL, L = NULL, T = NULL,
   t50 = NULL, Winf = NULL, justM = FALSE, ...)
 
-print.metaM(x, digits = 4, ...)
+\\method{print}{metaM}(x, digits = 4, ...)
 }
 \arguments{
 \item{method}{A string that indicates which method or equation to use.  See details.}
@@ -81,8 +81,8 @@ One of several methods is chosen with \code{method}.  The available methods can 
    \item \code{method="AlversonCarney"}: The \dQuote{Alverson and Carney (1975) equation} as given in equation 10 of Zhang and Megrey (2006).  Requires \code{tmax} and \code{K}.
    \item \code{method="Charnov"}: The \dQuote{Charnov et al. (2013) equation} as given in the second column of pge 545 of Kenchington (2013).  Requires \code{K}, \code{Linf}, and \code{L}.
    \item \code{method="ZhangMegrey"}: The \dQuote{Zhang and Megrey (2006) equation} as given in their equation 8.  The formula differs depending on whether demersal or pelagic fish are being studied.  Thus, the user must choose the fish type with \R{group}.  Requires \code{tmax}, \code{K}, \code{t0}, \code{t50}, and \code{b}.
-   \item \code{method="RikhterEvanov1"}: The \dQuote{Rikhter and Evanov (1976) equation (#2)} as given in the second column of pge 541 of Kenchington (2013) and in Table 6.4 of Miranda and Bettoli (2007).  Requires only \code{t50}.
-   \item \code{method="RikhterEvanov2"}: The \dQuote{Rikhter and Evanov (1976) equation (#1)} as given in the first column of pge 541 of Kenchington (2013).  Requires \code{K}, \code{t0}, \code{t50}, and \code{b}.
+   \item \code{method="RikhterEfanov1"}: The \dQuote{Rikhter and Efanov (1976) equation (#2)} as given in the second column of pge 541 of Kenchington (2013) and in Table 6.4 of Miranda and Bettoli (2007).  Requires only \code{t50}.
+   \item \code{method="RikhterEfanov2"}: The \dQuote{Rikhter and Efanov (1976) equation (#1)} as given in the first column of pge 541 of Kenchington (2013).  Requires \code{K}, \code{t0}, \code{t50}, and \code{b}.
    \item \code{method="PaulyW"}: The \dQuote{Pauly (1980) equation for weights} from his equation 10.  Requires \code{K}, \code{Winf}, and \code{T}.
  }
 }
