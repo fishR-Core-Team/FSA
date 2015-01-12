@@ -17,7 +17,7 @@ chapmanRobson(x, ...)
 \method{chapmanRobson}{formula}(x, data, ages2use = age,
   zmethod = c("Hoenigetal", "original"), ...)
 
-\method{summary}{chapmanRobson}(object, ...)
+\method{summary}{chapmanRobson}(object, verbose = FALSE, ...)
 
 \method{confint}{chapmanRobson}(object, parm = c("all", "both", "S", "Z"),
   level = conf.level, conf.level = 0.95, ...)
@@ -37,6 +37,8 @@ chapmanRobson(x, ...)
 \item{data}{A data frame from which the variables in the \code{x} formula can be found.  Not used if \code{x} is not a formula.}
 
 \item{object}{An object saved from the \code{chapmanRobson} call (i.e., of class \code{chapmanRobson}).}
+
+\item{verbose}{A logical that indicates whether the method should return just the estimate (\code{FALSE}; default) or a more verbose statement.}
 
 \item{parm}{A numeric or string (of parameter names) vector that specifies which parameters are to be given confidence intervals  If missing, all parameters are considered.}
 
@@ -76,6 +78,10 @@ The default is to use all ages in the age vector.  This is only appropriate if t
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/CatchCurve.pdf}
 }
+
+\section{Testing}{
+ Tested the results of chapmanRobson against the results in Miranda and Bettoli (2007).  The point estimates of S matched perfectly but the SE of S did not because Miranda and Bettoli used a rounded estimate of S in the calculation of the SE of S but chapmanRobson does not.
+}
 \examples{
 data(BrookTroutTH)
 cr <- with(BrookTroutTH,chapmanRobson(age,catch,2:6))
@@ -96,11 +102,13 @@ summary(cr3)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-D.G. Chapman and D.S. Robson. 1960. The analysis of a catch curve. Biometrics. 16:354-368.
+Chapman, D.G. and D.S. Robson. 1960. The analysis of a catch curve. Biometrics. 16:354-368.
 
-D.S. Robson and D.G. Chapman. 1961. Catch curves and mortality rates.  Transactions of the American Fisheries Society. 90:181-189.
+Hoenig, J.M. and W.D. Lawing, and N.A. Hoenig.  1983.  \href{http://www.fisheries.vims.edu/hoenig/pdfs/Hoenig_Lawing_Hoenig.pdf}{Using mean age, mean length and median length data to estimate the total mortality rate}.  International Council for the Exploration of the Sea, CM 1983/D:23, Copenhagen.
 
-Hoenig, J.M. and W.D. Lawing, and N.A. Hoenig.  1983.  Useing mean age, mean  length and median length data to estimate the total mortality rate.  International Council for the Exploration of the Sea, CM 1983/D:23, Copenhagen.
+Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
+
+Robson, D.S. and D.G. Chapman. 1961. Catch curves and mortality rates.  Transactions of the American Fisheries Society. 90:181-189.
 }
 \seealso{
 \code{\link{catchCurve}}

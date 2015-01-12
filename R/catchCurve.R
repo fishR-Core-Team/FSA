@@ -1,10 +1,10 @@
 #' @title Mortality estimates from the descending limb of a catch curve.
 #'
-#' @description Fits a linear model to the user-defined descending limb of a catch curve.  A plot method highlights the descending-limb, shows the linear model on the descending limb, and, optionally, prints the estimated instantaneous (Z) and annual (A) mortality rates.
+#' @description Fits a linear model to the user-defined descending limb of a catch curve.  Method functions extracts estimates of the instantaneous (Z) and total annual (A) mortality rates with associated standard errors and confidence intervals.  A plot method highlights the descending-limb, shows the linear model on the descending limb, and, optionally, prints the estimated Z and A.
 #'
-#' @details The default is to use all ages in the age vector.  This is appropriate only if the age and catch vectors contain only the ages and catches on the descending limb of the catch curve.
+#' @details The default is to use all ages in the age vector.  This is appropriate only when the age and catch vectors contain only the ages and catches on the descending limb of the catch curve.
 #'
-#' If \code{use.weights=TRUE} then a weighted regression is used where the weights are the log(number) at each age predicted from the unweighted regression of log(number) on age (as proposed by Maceina and Bettoli (1998)).
+#' If \code{weighted=TRUE} then a weighted regression is used where the weights are the log(number) at each age predicted from the unweighted regression of log(number) on age (as proposed by Maceina and Bettoli (1998)).
 #'
 #' @aliases catchCurve catchCurve.default catchCurve.formula plot.catchCurve summary.catchCurve
 #'coef.catchCurve anova.catchCurve confint.catchCurve
@@ -14,7 +14,7 @@
 #' @param catch A numerical vector of the catches or CPUEs for the ages in the catch curve.  Not used if \code{x} is a formula.
 #' @param data A data frame from which the variables in the \code{x} formula can be found.  Not used if \code{x} is not a formula.
 #' @param ages2use A numerical vector of the ages that define the descending limb of the catch curve.
-#' @param use.weights A logical that indicates whether a weighted regression should be used.  See details.
+#' @param weighted A logical that indicates whether a weighted regression should be used.  See details.
 #' @param pos.est A string to identify where to place the estimated mortality rates on the plot.  Can be set to one of \code{"bottomright"}, '\code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for 'positioning the estimated mortality rates on the plot.  Typically '\code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements.  Set \code{pos.est} to \code{NULL} to remove the estimated mortality rates from the plot.
 #' @param ylab A label for the y-axis (\code{"log(Catch)"} is the default).
 #' @param xlab A label for the x-axis (\code{"Age"} is the default).
@@ -34,7 +34,7 @@
 #'    \item catch The original vector of observed catches or CPUEs.
 #'    \item age.e A vector of assigned ages for which the catch curve was fit.
 #'    \item log.catch.e A vector of log catches or CPUEs for which the catch curve was fit.
-#'    \item W A vector of weights used in the catch curve fit.  Will be \code{NULL} unless \code{use.weights=TRUE}.
+#'    \item W A vector of weights used in the catch curve fit.  Will be \code{NULL} unless \code{weighted=TRUE}.
 #'    \item lm An \code{lm} object from the fit to the ages and log catches or CPUEs on the descending limb (i.e., in age.e and log.catch.e).
 #'  }
 #' 
@@ -44,7 +44,11 @@
 #' 
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/CatchCurve.pdf}
 #' 
+#' @section Testing: Tested the results of catch curve, both unweighted and weighted, against the results in Miranda and Bettoli (2007).  Results for Z and the SE of Z matched perfectly.
+#' 
 #' @references Maceina, M.J., and P.W. Bettoli.  1998.  Variation in largemouth bass recruitment in four mainstream impoundments on the Tennessee River. North American Journal of Fisheries Management 18:998-1003.
+#' 
+#' Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 #' 
 #' @keywords hplot htest manip
 #' 
@@ -63,10 +67,10 @@
 #' summary(cc2)
 #'
 #' ## demonstration of using weights
-#' cc3 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6,use.weights=TRUE)
+#' cc3 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6,weighted=TRUE)
 #' summary(cc3)
 #'
-#' ## demonstration of receiving the linear model results
+#' ## demonstration of returning the linear model results
 #' summary(cc2,type="lm")
 #' coef(cc2,type="lm")
 #' confint(cc2,type="lm")
@@ -79,18 +83,44 @@ catchCurve <- function (x,...) {
 
 #' @rdname catchCurve
 #' @export
-catchCurve.default <- function(x,catch,ages2use=age,use.weights=FALSE,...) {
+catchCurve.default <- function(x,catch,ages2use=age,weighted=FALSE,...) {
+  ## Put x into age variable for rest of function
   age <- x
-  log.catch <- log(catch)                                      # Log of all catches
-  rows2use <- match(ages2use,age)                              # Find rows to use according to ages to use
-  age.e <- age[rows2use]; log.catch.e <- log.catch[rows2use]   # Ages and log catches of descending limb
-  cclm <- lm(log.catch.e~age.e)                                # Fit the model to descending limb
-  if (use.weights) {                                           # Fit weighted regression is asked for
-    W <- predict(cclm)                                         # Find the weights from the unweighted regression
+  
+  ## Some Checks
+  if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
+  if (!is.numeric(catch)) stop("'catch' must be numeric.",call.=FALSE)
+  if (length(age)!=length(catch)) stop("'age' and 'catch' have different lenghts.",call.=FALSE)
+  # Check to make sure enough ages and catches exist
+  if (length(age)<2) stop("Fewer than 2 data points.",call.=FALSE)
+  # Check ages2use
+  if (any(ages2use<0)) warning("Some 'ages2use' are negative.",call.=FALSE)
+  if (any(!ages2use %in% age)) warning("Some 'ages2use' not in observed ages.",call.=FALSE)
+  
+  ## Isolate the ages and catches to be used  
+  # Find rows to use according to ages to use
+  rows2use <- match(ages2use,age)
+  # Create new vectors with just the data to use
+  age.e <- age[rows2use]
+  catch.e <- catch[rows2use]
+  # Check to make sure enough ages and catches exist
+  if (length(age.e)<2) stop("Fewer than 2 data points after applying 'ages2use'.",call.=FALSE)
+  
+  ## Fit the model to descending limb
+  log.catch.e <- log(catch.e)
+  cclm <- lm(log.catch.e~age.e)
+  if (weighted) {
+    # if asked to fit weighted regression then find weights as
+    #   the predicted values from the raw regression
+    W <- predict(cclm)
+    # and then fit the weighted regression
     cclm <- lm(log.catch.e~age.e,weights=W)
   } else {
+    # if not asked to fit weighted regression then fill weights
+    #   with NULL for return in the list below.
     W <- NULL
   }
+  ## Prepare the list of results to return
   cc <- list(age=age,catch=catch,age.e=age.e,log.catch.e=log.catch.e,weights.e=W,lm=cclm)
   class(cc) <- "catchCurve"
   cc
@@ -98,11 +128,18 @@ catchCurve.default <- function(x,catch,ages2use=age,use.weights=FALSE,...) {
 
 #' @rdname catchCurve
 #' @export
-catchCurve.formula <- function(x,data,ages2use=age,use.weights=FALSE,...) {
-  mf <- model.frame(x,data=data)
-  age <- mf[,2]
-  catch <- mf[,1]
-  catchCurve.default(age,catch,ages2use=ages2use,use.weights=use.weights,...)
+catchCurve.formula <- function(x,data,ages2use=age,weighted=FALSE,...) {
+  ## Handle the formula and perform some checks
+  tmp <- iHndlFormula(x,data,expNumR=1,expNumE=1)
+  if (!tmp$metExpNumR) stop("'catchCurve' must have only one LHS variable.",call.=FALSE)
+  if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
+  if (!tmp$metExpNumE) stop("'catchCurve' must have only one RHS variable.",call.=FALSE)
+  if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable must be numeric.",call.=FALSE)
+  ## Get variables from model frame
+  age <- tmp$mf[,tmp$Enames]
+  catch <- tmp$mf[,tmp$Rname]
+  ## Call the default function
+  catchCurve.default(age,catch,ages2use=ages2use,weighted=weighted,...)
 }
 
 #' @rdname catchCurve
@@ -160,13 +197,17 @@ confint.catchCurve <- function(object,parm=c("all","both","Z","A"),level=conf.le
 #' @export
 plot.catchCurve <- function(x,pos.est="bottomleft",ylab="log(Catch)",xlab="Age",
                             col.pt="black",col.mdl="red",lwd=2,lty=1,...) {
-  old.par <- par(mar=c(3.5,3.5,1,1), mgp=c(2,0.75,0)); on.exit(par(old.par))
+  # Find the range of the y-axis
   yrng <- c(min(0,min(log(x$catch),na.rm=TRUE)),max(log(x$catch),na.rm=TRUE))
-  plot(log(x$catch)~x$age,col=col.pt,xlab=xlab,ylab=ylab,ylim=yrng,...)         # Plot raw data
-  points(x$age.e,x$log.catch.e,col=col.pt,pch=19,cex=1.25)                      # Highlight descending limb portion
-  lines(x$age.e,predict(x$lm,data.frame(x$age.e)),lwd=lwd,lty=lty,col=col.mdl)  # Put model on descending limb
-  if (!is.null(pos.est)) {                                                      # Put mortality val on graph
-    Z <- -coef(x$lm)[2]                                                         #   Find mortality values
+  # Plot raw data
+  plot(log(x$catch)~x$age,col=col.pt,xlab=xlab,ylab=ylab,ylim=yrng,...)
+  # Highlight descending limb portion
+  points(x$age.e,x$log.catch.e,col=col.pt,pch=19,cex=1.25)
+  # Put model on descending limb
+  lines(x$age.e,predict(x$lm,data.frame(x$age.e)),lwd=lwd,lty=lty,col=col.mdl)
+  # Put mortality values on the plot
+  if (!is.null(pos.est)) {
+    Z <- -coef(x$lm)[2]
     A <- 100*(1-exp(-Z))
     legend(pos.est,legend=paste("Z=",round(Z,3),"\nA=",round(A,1),"%",sep=""),bty="n")
   }

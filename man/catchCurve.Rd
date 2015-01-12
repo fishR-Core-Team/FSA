@@ -13,11 +13,10 @@
 \usage{
 catchCurve(x, ...)
 
-\method{catchCurve}{default}(x, catch, ages2use = age, use.weights = FALSE,
+\method{catchCurve}{default}(x, catch, ages2use = age, weighted = FALSE,
   ...)
 
-\method{catchCurve}{formula}(x, data, ages2use = age, use.weights = FALSE,
-  ...)
+\method{catchCurve}{formula}(x, data, ages2use = age, weighted = FALSE, ...)
 
 \method{summary}{catchCurve}(object, type = c("params", "lm"), ...)
 
@@ -39,7 +38,7 @@ catchCurve(x, ...)
 
 \item{ages2use}{A numerical vector of the ages that define the descending limb of the catch curve.}
 
-\item{use.weights}{A logical that indicates whether a weighted regression should be used.  See details.}
+\item{weighted}{A logical that indicates whether a weighted regression should be used.  See details.}
 
 \item{data}{A data frame from which the variables in the \code{x} formula can be found.  Not used if \code{x} is not a formula.}
 
@@ -76,20 +75,24 @@ A list that contains the following items:
    \item catch The original vector of observed catches or CPUEs.
    \item age.e A vector of assigned ages for which the catch curve was fit.
    \item log.catch.e A vector of log catches or CPUEs for which the catch curve was fit.
-   \item W A vector of weights used in the catch curve fit.  Will be \code{NULL} unless \code{use.weights=TRUE}.
+   \item W A vector of weights used in the catch curve fit.  Will be \code{NULL} unless \code{weighted=TRUE}.
    \item lm An \code{lm} object from the fit to the ages and log catches or CPUEs on the descending limb (i.e., in age.e and log.catch.e).
  }
 }
 \description{
-Fits a linear model to the user-defined descending limb of a catch curve.  A plot method highlights the descending-limb, shows the linear model on the descending limb, and, optionally, prints the estimated instantaneous (Z) and annual (A) mortality rates.
+Fits a linear model to the user-defined descending limb of a catch curve.  Method functions extracts estimates of the instantaneous (Z) and total annual (A) mortality rates with associated standard errors and confidence intervals.  A plot method highlights the descending-limb, shows the linear model on the descending limb, and, optionally, prints the estimated Z and A.
 }
 \details{
-The default is to use all ages in the age vector.  This is appropriate only if the age and catch vectors contain only the ages and catches on the descending limb of the catch curve.
+The default is to use all ages in the age vector.  This is appropriate only when the age and catch vectors contain only the ages and catches on the descending limb of the catch curve.
 
-If \code{use.weights=TRUE} then a weighted regression is used where the weights are the log(number) at each age predicted from the unweighted regression of log(number) on age (as proposed by Maceina and Bettoli (1998)).
+If \code{weighted=TRUE} then a weighted regression is used where the weights are the log(number) at each age predicted from the unweighted regression of log(number) on age (as proposed by Maceina and Bettoli (1998)).
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/CatchCurve.pdf}
+}
+
+\section{Testing}{
+ Tested the results of catch curve, both unweighted and weighted, against the results in Miranda and Bettoli (2007).  Results for Z and the SE of Z matched perfectly.
 }
 \examples{
 data(BrookTroutTH)
@@ -106,10 +109,10 @@ cc2 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6)
 summary(cc2)
 
 ## demonstration of using weights
-cc3 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6,use.weights=TRUE)
+cc3 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6,weighted=TRUE)
 summary(cc3)
 
-## demonstration of receiving the linear model results
+## demonstration of returning the linear model results
 summary(cc2,type="lm")
 coef(cc2,type="lm")
 confint(cc2,type="lm")
@@ -119,6 +122,8 @@ Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
 Maceina, M.J., and P.W. Bettoli.  1998.  Variation in largemouth bass recruitment in four mainstream impoundments on the Tennessee River. North American Journal of Fisheries Management 18:998-1003.
+
+Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 }
 \seealso{
 See \code{agesurv} in \pkg{fishmethods} for similar functionality and \code{\link{chapmanRobson}} and \code{agesurvcl} in \pkg{fishmethods} for alternative methods to estimate mortality rates.
