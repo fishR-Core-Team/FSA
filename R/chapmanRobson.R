@@ -152,7 +152,7 @@ chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Smithetal","Ho
 
 #' @rdname chapmanRobson
 #' @export
-chapmanRobson.formula <- function(x,data,ages2use=age,zmethod=c("Hoenigetal","Smithetal","original"),...) {
+chapmanRobson.formula <- function(x,data,ages2use=age,zmethod=c("Smithetal","Hoenigetal","original"),...) {
   ## Handle the formula and perform some checks
   tmp <- iHndlFormula(x,data,expNumR=1,expNumE=1)
   if (!tmp$metExpNumR) stop("'chapmanRobson' must have only one LHS variable.",call.=FALSE)

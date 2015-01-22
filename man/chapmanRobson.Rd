@@ -15,7 +15,7 @@ chapmanRobson(x, ...)
   zmethod = c("Smithetal", "Hoenigetal", "original"), ...)
 
 \method{chapmanRobson}{formula}(x, data, ages2use = age,
-  zmethod = c("Hoenigetal", "Smithetal", "original"), ...)
+  zmethod = c("Smithetal", "Hoenigetal", "original"), ...)
 
 \method{summary}{chapmanRobson}(object, verbose = FALSE, ...)
 
