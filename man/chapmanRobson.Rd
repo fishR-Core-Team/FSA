@@ -12,7 +12,7 @@
 chapmanRobson(x, ...)
 
 \method{chapmanRobson}{default}(x, catch, ages2use = age,
-  zmethod = c("Hoenigetal", "Smithetal", "original"), ...)
+  zmethod = c("Smithetal", "Hoenigetal", "original"), ...)
 
 \method{chapmanRobson}{formula}(x, data, ages2use = age,
   zmethod = c("Hoenigetal", "Smithetal", "original"), ...)
@@ -84,7 +84,7 @@ The Chapman-Robson method provides an estimate of the annual survival rate, with
 \section{Testing}{
  Tested the results of chapmanRobson against the results in Miranda and Bettoli (2007).  The point estimates of S matched perfectly but the SE of S did not because Miranda and Bettoli used a rounded estimate of S in the calculation of the SE of S but chapmanRobson does not.
 
-Tested the results against the results from \code{agesurv} in \pkg{fishmethods} using the \code{rockbass} data.frame in \pkg{fishmethods}.  Results for Z and the SE of Z matched perfectly for non-bias-corrected results.  The estimate of Z, but the SE of Z, matched for the bias-corrected (following Smith et al. (2012)) results.  \pkg{FSA} uses equation 2 from Smith et al. (2012) whereas \pkg{fishmethods} appears to use equation 5 from the same source to estimate the SE of Z.
+Tested the results against the results from \code{agesurv} in \pkg{fishmethods} using the \code{rockbass} data.frame in \pkg{fishmethods}.  Results for Z and the SE of Z matched perfectly for non-bias-corrected results.  The estimate of Z, but not the SE of Z, matched for the bias-corrected (following Smith et al. (2012)) results.  \pkg{FSA} uses equation 2 from Smith et al. (2012) whereas \pkg{fishmethods} appears to use equation 5 from the same source to estimate the SE of Z.
 }
 \examples{
 data(BrookTroutTH)

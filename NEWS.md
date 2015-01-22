@@ -1,6 +1,6 @@
 # FSA 0.4.39 ongoing
 * `catchCurve()`: Modified.  Changed `use.weights=` to `weighted=`.  Added some checks for the formula in the formula version and for the variables in the default version.  Add unit tests for warnings and errors and tow tests for values.
-* `chapmanRobson()`: Modified.  Added the `method="Smithetal"` methodology for estimating the SE of Z.  Added some checks for the formula in the formula version and for the variables in the default version.  Added `verbose=` to `summary()`.  Add unit tests for warnings and errors and two tests for values.
+* `chapmanRobson()`: Modified.  Added the `method="Smithetal"` methodology for estimating the SE of Z (and made it the default).  Added some checks for the formula in the formula version and for the variables in the default version.  Added `verbose=` to `summary()`.  Add unit tests for warnings and errors and two tests for values.
 
 # FSA 0.4.38 Jan15
 * `alkPlot()`: Modified.  Changed behavior for adding a legend to alleviate a bug.

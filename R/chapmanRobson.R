@@ -44,7 +44,7 @@
 #'
 #' @section Testing: Tested the results of chapmanRobson against the results in Miranda and Bettoli (2007).  The point estimates of S matched perfectly but the SE of S did not because Miranda and Bettoli used a rounded estimate of S in the calculation of the SE of S but chapmanRobson does not.
 #' 
-#' Tested the results against the results from \code{agesurv} in \pkg{fishmethods} using the \code{rockbass} data.frame in \pkg{fishmethods}.  Results for Z and the SE of Z matched perfectly for non-bias-corrected results.  The estimate of Z, but the SE of Z, matched for the bias-corrected (following Smith et al. (2012)) results.  \pkg{FSA} uses equation 2 from Smith et al. (2012) whereas \pkg{fishmethods} appears to use equation 5 from the same source to estimate the SE of Z.
+#' Tested the results against the results from \code{agesurv} in \pkg{fishmethods} using the \code{rockbass} data.frame in \pkg{fishmethods}.  Results for Z and the SE of Z matched perfectly for non-bias-corrected results.  The estimate of Z, but not the SE of Z, matched for the bias-corrected (following Smith et al. (2012)) results.  \pkg{FSA} uses equation 2 from Smith et al. (2012) whereas \pkg{fishmethods} appears to use equation 5 from the same source to estimate the SE of Z.
 #' 
 #' @references Chapman, D.G. and D.S. Robson. 1960. The analysis of a catch curve. Biometrics. 16:354-368.
 #'
@@ -82,7 +82,7 @@ chapmanRobson <- function (x,...) {
 
 #' @rdname chapmanRobson
 #' @export
-chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Hoenigetal","Smithetal","original"),...) {
+chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Smithetal","Hoenigetal","original"),...) {
   ## Put x into age variable for rest of function
   age <- x
   
@@ -90,7 +90,7 @@ chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Hoenigetal","S
   zmethod <- match.arg(zmethod)
   if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
   if (!is.numeric(catch)) stop("'catch' must be numeric.",call.=FALSE)
-  if (length(age)!=length(catch)) stop("'age' and 'catch' have different lenghts.",call.=FALSE)
+  if (length(age)!=length(catch)) stop("'age' and 'catch' have different lengths.",call.=FALSE)
   # Check to make sure enough ages and catches exist
   if (length(age)<2) stop("Fewer than 2 data points.",call.=FALSE)
   # Check ages2use
