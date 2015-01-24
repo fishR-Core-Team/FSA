@@ -174,15 +174,20 @@ lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,
   ## find range of values in x
   maxx <- max(x,na.rm=TRUE)
   minx <- min(x,na.rm=TRUE)
-  ## If no breaks given then create them
   if (is.null(breaks)) {
+    ## If no breaks given then create them
     if (is.null(startcat)) startcat <- floor(minx/w)*w
     # identify decimals in startcat and w
     decs <- iCheckStartcatW(startcat,w,x)
     # Creates cut breaks (one more than max so that max is included in a break)
     breaks <- round(seq(startcat,maxx+w,w),decs$wdec)
-  } else { # breaks are given, check to see if they are useable
+  } else {
+    ## breaks are given, check to see if they are useable
+    # remove NAs (if they exist)
+    breaks <- breaks[!is.na(breaks)]
+    # stop if breaks don't go below minimum observed value
     if (minx < breaks[1]) stop("Lowest break (",breaks[1],") is larger than minimum observation (",minx,").",call.=FALSE)
+    # make a break larger than maximum value if needed
     if (maxx >= max(breaks)) breaks <- c(breaks,1.1*maxx)
   }
   ## actually make the values

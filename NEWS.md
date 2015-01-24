@@ -1,4 +1,7 @@
-# FSA 0.4.39 ongoing
+# FSA 0.4.40 ongoing
+* `lencat()`: Modified.  Fixed a bug that occurred if `breaks=` were given but the vector contained `NA`s.  Thanks to Ben Neely for pointing this out.
+
+# FSA 0.4.39 Jan15
 * `catchCurve()`: Modified.  Changed `use.weights=` to `weighted=`.  Added some checks for the formula in the formula version and for the variables in the default version.  Add unit tests for warnings and errors and tow tests for values.
 * `chapmanRobson()`: Modified.  Added the `method="Smithetal"` methodology for estimating the SE of Z (and made it the default).  Added some checks for the formula in the formula version and for the variables in the default version.  Added `verbose=` to `summary()`.  Add unit tests for warnings and errors and two tests for values.
 
