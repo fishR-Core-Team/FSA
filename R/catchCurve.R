@@ -202,7 +202,7 @@ plot.catchCurve <- function(x,pos.est="bottomleft",ylab="log(Catch)",xlab="Age",
   # Plot raw data
   plot(log(x$catch)~x$age,col=col.pt,xlab=xlab,ylab=ylab,ylim=yrng,...)
   # Highlight descending limb portion
-  points(x$age.e,x$log.catch.e,col=col.pt,pch=19,cex=1.25)
+  points(x$age.e,x$log.catch.e,col=col.pt,pch=19)
   # Put model on descending limb
   lines(x$age.e,predict(x$lm,data.frame(x$age.e)),lwd=lwd,lty=lty,col=col.mdl)
   # Put mortality values on the plot

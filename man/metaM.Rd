@@ -6,12 +6,13 @@
 \alias{metaM}
 \alias{print.metaM}
 \title{Estimate natural mortality from a variety of empirical methods.}
-\format{\preformatted{ chr [1:21] "tmax1" "PaulyL" "HoenigAll" "HoenigLM" "HoenigNLS" ...
+\format{\preformatted{ chr [1:20] "tmax1" "PaulyL" "HoenigAll" "HoenigLM" "HoenigNLS" ...
 }}
 \usage{
 Mmethods
 
-metaM(method = Mmethods, group = c("pelagic", "demersal"), tmax = NULL,
+metaM(method = Mmethods, ZMgroup = c("pelagic", "demersal"),
+  Hgroup = c("all", "fish", "molluscs", "cetaceans"), tmax = NULL,
   K = NULL, Linf = NULL, t0 = NULL, b = NULL, L = NULL, T = NULL,
   t50 = NULL, Winf = NULL, justM = FALSE, ...)
 
@@ -20,7 +21,9 @@ metaM(method = Mmethods, group = c("pelagic", "demersal"), tmax = NULL,
 \arguments{
 \item{method}{A string that indicates which method or equation to use.  See details.}
 
-\item{group}{A string that indicates whether the \code{ZhangMegrey} method should be modified for \code{"demersal"} or \code{"pelagic"} fish.}
+\item{ZMgroup}{A string that indicates whether the \code{ZhangMegrey} method should be modified for \code{"demersal"} or \code{"pelagic"} fish.}
+
+\item{Hgroup}{A string that indicates whether the \code{Hoenig} methods should be modified for \code{"all"}, \code{"fish"}, \code{"molluscs"}, or \code{"cetaceans"}.}
 
 \item{tmax}{The maximum age for the population of fish.}
 
@@ -68,26 +71,31 @@ One of several methods is chosen with \code{method}.  The available methods can 
    \item \code{method="HoeingALL"}: The \dQuote{Hoenig (1983) composite equation} from the fourth line in the second column on page 899 of Hoenig (1983).  Requires only \code{tmax}.
    \item \code{method="HoenigLM"}:  The \dQuote{modified Hoenig equation derived with a linear model} as described in Then et al. (2014) on the second line of Table 3.  Requires only \code{tmax}.
    \item \code{method="HoenigNLS"}:  The \dQuote{modified Hoenig equation derived with a non-linear model} as described in Then et al. (2014) on the third line of Table 3.  Requires only \code{tmax}.
-   \item \code{method="HoenigMollusks"}:  The \dQuote{Hoenig (1983) mollusks equation} from the first line in the second column on page 899 of Hoenig (1983).  Requires only \code{tmax}.
-   \item \code{method="HoenigFish"}:  The \dQuote{Hoenig (1983) fish equation} from the second line in the second column on page 899 of Hoenig (1983).  Requires only \code{tmax}.
-   \item \code{method="HoenigCetaceans"}:  The \dQuote{Hoenig (1983) cetaceans equation} from the third line in the second column on page 899 of Hoenig (1983).  Requires only \code{tmax}.
+   \item \code{method="HoenigO"}:  The original \dQuote{Hoenig (1983) equation} (fit with OLS) that requires only \code{tmax}.  In combination with \code{Hgroup} the equation specific to \code{"fish"}, \code{"molluscs"}, or \code{"cetaceans"} or an equation for \code{"all"} (DEFAULT) groups combined can be used.  These equations are from the second column on page 899 of Hoenig (1983).
+   \item \code{method="HoenigO2"}:  The original \dQuote{Hoenig (1983) equation}, but fit with geometric mean regression, that requires only \code{tmax}.  In combination with \code{Hgroup} the equation specific to \code{"fish"}, \code{"molluscs"}, or \code{"cetaceans"} or an equation for \code{"all"} (DEFAULT) groups combined can be used.  These equations are from the second column on page 537 of Kenchington (2014).
    \item \code{method="HewittHoenig"}:  The \dQuote{Hewitt and Hoenig (2005) equation} from their equation 8.  Requires only \code{tmax}.
    \item \code{method="K1"}:  The \dQuote{one-parameter K equation} from the fourth line of Table 3 in Then et al. (2014).  Requires only \code{K}.
    \item \code{method="K2"}: The \dQuote{two-parameter K equation} from the fifth line of Table 3 in Then et al. (2014).  Requires only \code{K}.
    \item \code{method="JensenK1"}: The \dQuote{Jensen (1996) one-parameter K equation}.  Requires only \code{K}.
    \item \code{method="JensenK2"}: The \dQuote{Jensen (2001) two-parameter K equation} from their equation 8.  Requires only \code{K}.
    \item \code{method="PaulyNoT"}: The \dQuote{modified Pauly length equation} as described on the sixth line of Table 3 in Then et al. (2014).  Then et al. (2014) suggested using this model of maximum age (tmax) information was not available.  Requires \code{K} and \code{Linf}.
-   \item \code{method="Gislason"}: The \dQuote{Gislason et al. (2010) equation} from their equation 2.  Requires \code{K} and \code{Linf}.
+   \item \code{method="Gislason"}: The \dQuote{Gislason et al. (2010) equation} from their equation 2.  Requires \code{K}, \code{Linf}, and \code{L}.
    \item \code{method="AlversonCarney"}: The \dQuote{Alverson and Carney (1975) equation} as given in equation 10 of Zhang and Megrey (2006).  Requires \code{tmax} and \code{K}.
-   \item \code{method="Charnov"}: The \dQuote{Charnov et al. (2013) equation} as given in the second column of pge 545 of Kenchington (2013).  Requires \code{K}, \code{Linf}, and \code{L}.
+   \item \code{method="Charnov"}: The \dQuote{Charnov et al. (2013) equation} as given in the second column of pge 545 of Kenchington (2014).  Requires \code{K}, \code{Linf}, and \code{L}.
    \item \code{method="ZhangMegrey"}: The \dQuote{Zhang and Megrey (2006) equation} as given in their equation 8.  The formula differs depending on whether demersal or pelagic fish are being studied.  Thus, the user must choose the fish type with \R{group}.  Requires \code{tmax}, \code{K}, \code{t0}, \code{t50}, and \code{b}.
-   \item \code{method="RikhterEfanov1"}: The \dQuote{Rikhter and Efanov (1976) equation (#2)} as given in the second column of pge 541 of Kenchington (2013) and in Table 6.4 of Miranda and Bettoli (2007).  Requires only \code{t50}.
-   \item \code{method="RikhterEfanov2"}: The \dQuote{Rikhter and Efanov (1976) equation (#1)} as given in the first column of pge 541 of Kenchington (2013).  Requires \code{K}, \code{t0}, \code{t50}, and \code{b}.
+   \item \code{method="RikhterEfanov1"}: The \dQuote{Rikhter and Efanov (1976) equation (#2)} as given in the second column of pge 541 of Kenchington (2014) and in Table 6.4 of Miranda and Bettoli (2007).  Requires only \code{t50}.
+   \item \code{method="RikhterEfanov2"}: The \dQuote{Rikhter and Efanov (1976) equation (#1)} as given in the first column of pge 541 of Kenchington (2014).  Requires \code{K}, \code{t0}, \code{t50}, and \code{b}.
    \item \code{method="PaulyW"}: The \dQuote{Pauly (1980) equation for weights} from his equation 10.  Requires \code{K}, \code{Winf}, and \code{T}.
  }
 }
 \section{fishR vignette}{
  XXX
+}
+
+\section{Testing}{
+ Kenchington (2014) provided life history parameters for several stocks and used many models to estimate M.  I checked the calculations for the \code{PaulyL}, \code{PaulyW}, \code{HoenigO} for \code{Hgroup="all"} and \code{Hgroup="fish"}, \code{HoenigO2} for \code{Hgroup="all"} and \code{Hgroup="fish"}, \code{"JensenK1"}, \code{"Gislason"}, \code{"AlversonCarney"}, \code{"Charnov"}, \code{"ZhangMegrey"}, \code{"RikhterEfanov1"}, and \code{"RikhterEfanov2"} methods for three stocks.  All results perfectly matched Kenchington's results for Chesapeake Bay Anchovy and Rio Formosa Seahorse.  For the Norwegian Fjord Lanternfish, all results perfectly matched Kenchington's results except for when \code{Hgroup="fish"} for both \code{HoenigO} and \code{HoenigO2}.
+
+Results for the Rio Formosa Seahorse data were also tested against results from \code{M.empirical()} from \pkg{fishmethods} for the \code{PaulyL}, \code{PaulyW}, \code{HoenigO} for \code{Hgroup="all"} and \code{Hgroup="fish"}, \code{"Gislason"}, and \code{"AlversonCarney"} methods (the only methods in common between the two packages).  All results matched perfectly.
 }
 \examples{
 ## List names for available methods
@@ -96,16 +104,6 @@ Mmethods
 ## Examples
 metaM(tmax=20)
 metaM(tmax=20,justM=TRUE)
-
-# Example 8.11 (Atka Mackerel) from Quinn & Deriso (1999)
-metaM("AlversonCarney",K=0.285,tmax=10)
-metaM("AlversonCarney",K=0.285,tmax=12)
-metaM("AlversonCarney",K=0.66,tmax=10)
-metaM("AlversonCarney",K=0.66,tmax=12)
-
-# Example 8.13 (Haddock) from Quinn & Deriso (1999)
-metaM("PaulyL",K=0.233,Linf=71.8,T=3.9)
-metaM("PaulyL",K=0.309,Linf=68.3,T=5.24)
 
 # Example Patagonial Sprat ... from Table 2 in Cerna et al. (2014)
 # http://www.scielo.cl/pdf/lajar/v42n3/art15.pdf
@@ -117,8 +115,9 @@ tmax <- t0+3/K
 t50 <- t0-(1/K)*log(1-13.5/Linf)
 metaM("RikhterEfanov1",t50=t50)
 metaM("PaulyL",K=K,Linf=Linf,T=T)
-metaM("HoenigAll",tmax=tmax)
+metaM("HoenigO",tmax=tmax)
 metaM("HewittHoenig",tmax=tmax)
+metaM("AlversonCarney",K=K,tmax=tmax)
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

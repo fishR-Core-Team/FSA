@@ -10,5 +10,4 @@ o ks2d() ... make one common function for the 1-sample and 2-sample versions.  D
 
 o srSim() et al -- add the Schaeffer model.
 
-o Create a estimateM() where the user can estimate M from growth history traits with a variety of methods (e.g., Pauly (1980), Hoenig, Hewitt and Hoenig (2005), etc.).  Some of these are coded in fishMethods and some on Hoenigs webpage.  See review at https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=9&cad=rja&ved=0CGgQFjAI&url=http%3A%2F%2Fwww.sefsc.noaa.gov%2Fsedar%2Fdownload%2FS19_RD29_Andrews_natural%2520mortality%2520chapter_5_22.pdf%3Fid%3DDOCUMENT&ei=Sw_8UNqKEMjIrQHj_ICYBA&usg=AFQjCNFdFPPOpqVXscBasw8k03HxHyyUTQ&sig2=LTRs3E3dcyjE2EHsh9DryQ&bvm=bv.41248874,d.aWM
-
+o Create a function that will construct a histogram from summarized data ... e.g., length frequency data.

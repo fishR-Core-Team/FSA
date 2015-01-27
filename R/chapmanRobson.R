@@ -204,7 +204,7 @@ plot.chapmanRobson <- function(x,pos.est="bottomleft",ylab="Catch",xlab="Age",co
   # Plot raw data
   plot(x$catch~x$age,col=col.pt,xlab="",ylab=ylab,ylim=yrng,xaxt="n",...)
   # Highlight descending limb portion
-  points(x$age.e,x$catch.e,col=col.pt,pch=19,cex=1.25)
+  points(x$age.e,x$catch.e,col=col.pt,pch=19)
   # Put age (original) axis on plot
   axis(1,at=x$age,labels=x$age,line=0)
   mtext(xlab,side=1,line=1.5)
