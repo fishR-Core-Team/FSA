@@ -1,8 +1,7 @@
 # FSA 0.4.41 ongoing
 * `catchCurve()`: Modified.  Removed the use of larger points in the `plot()`.
 * `chapmanRobson()`: Modified.  Removed the use of larger points in the `plot()`.
-* `metaM()`: Modified.  Changed `group=` to `ZMgroup=`.  Added `Hgroup=` which deleted several of the specific Hoenig methods.  The Hoenig methods are thus chosen with `method="HoenigO"`. and selecting the type with `Hgroup=`.  Added geometric mean regresson methods for Hoenig by using `method="HoenigO2"`.  Fixed several minor bugs from the original implementation.  Added some checks for reasonableness of some arguments.  Created tests for several methods to see if the results matched those from Kenchington (2014).
-
+* `metaM()`: Modified.  Deleted `group=` (and created `method="ZhangMegreyD"` and `method="ZhangMegreyP"`).    Added geometric mean regresson methods for Hoenig.  Changed default for `justM=` to `TRUE`.  Fixed several minor bugs from the original implementation.  Added some checks for reasonableness of some arguments.  Created tests for several methods to see if the results matched those from Kenchington (2014).  Added examples to show how to compute with several methods at once.
 
 # FSA 0.4.40 Jan15
 * `lencat()`: Modified.  Fixed a bug that occurred if `breaks=` were given but the vector contained `NA`s.  Thanks to Ben Neely for pointing this out.
