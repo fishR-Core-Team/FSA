@@ -4,8 +4,8 @@
 #'
 #' @details One of several methods is chosen with \code{method}.  The available methods can be seen with \code{Mmethods()} and are listed below with a brief description of where the equation came from.  The sources (listed below) should be consulted for more specific information.
 #'  \itemize{
-#'    \item \code{method="tmax1"}: The \dQuote{one-parameter tmax equation} from the first line of Table 3 in Then et al. (2015).  This method was the method suggested by Then et al. (2015) and, thus, is the default method used.  Requires only \code{tmax}.
-#'    \item \code{method="PaulyLNoT"}: The \dQuote{modified Pauly length equation} as described on the sixth line of Table 3 in Then et al. (2015).  Then et al. (2015) suggested using this model if maximum age (tmax) information was not available.  Requires \code{K} and \code{Linf}.
+#'    \item \code{method="tmax1"}: The \dQuote{one-parameter tmax equation} from the first line of Table 3 in Then et al. (2015).  This method was the preferred method suggested by Then et al. (2015).  Requires only \code{tmax}.
+#'    \item \code{method="PaulyLNoT"}: The \dQuote{modified Pauly length equation} as described on the sixth line of Table 3 in Then et al. (2015).  Then et al. (2015) suggested that this is the preferred model if maximum age (tmax) information was not available.  Requires \code{K} and \code{Linf}.
 #'    \item \code{method="PaulyL"}: The \dQuote{Pauly (1980) equation using fish lengths} from his equation 11.  This is the most commonly used method in the literature.  Note that Pauly used common logarithms as used here but the model is often presented in other sources with natural logarithms.  Requires \code{K}, \code{Linf}, and \code{T}.
 #'    \item \code{method="PaulyW"}: The \dQuote{Pauly (1980) equation for weights} from his equation 10.  Requires \code{K}, \code{Winf}, and \code{T}.
 #'    \item \code{method="HoeingO"}, \code{method="HoeingOF"}, \code{method="HoeingOM"}, \code{method="HoeingOC"}: The original \dQuote{Hoenig (1983) composite}, \dQuote{fish}, \dQuote{mollusc}, and \dQuote{cetacean} (fit with OLS) equations from the second column on page 899 of Hoenig (1983).  Requires only \code{tmax}.
@@ -43,13 +43,15 @@
 #' @param digits A numeric that controls the number of digits printed for the estimate of M.
 #' @param \dots Additional arguments for methods.  Not implemented.
 #'
-#' @return \code{Mmethods} returns a charachter vector with a list of methods.  \code{metaM} returns a single numeric if \code{justM=TRUE}, otherwise a \code{metaM} object that is a list with the following items:
+#' @return \code{Mmethods} returns a charachter vector with a list of methods.  If only one \code{method} is chosen then \code{metaM} returns a single numeric if \code{justM=TRUE} or, otherwise, a \code{metaM} object that is a list with the following items:
 #' \itemize{
 #'    \item \code{method}: The name for the method within the function (as given in \code{method}).
 #'    \item \code{name}: A more descriptive name for the method.
 #'    \item \code{givens}: A vector of values required by the method to estimate M.
 #'    \item \code{M}: The estimated natural mortality rate.
 #'  }
+#' 
+#' If multiple \code{method}s are chosen then a data.frame is returned with the method name abbreviation in the \code{method} variable and the associated estimated of M in the \code{M} variable.
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
@@ -94,8 +96,8 @@
 #' Mmethods("tmax")
 #' 
 #' ## Simple Examples
-#' metaM(tmax=20)
-#' metaM(tmax=20,justM=FALSE)
+#' metaM("tmax",tmax=20)
+#' metaM("tmax",tmax=20,justM=FALSE)
 #'  
 #' ## Example Patagonian Sprat ... from Table 2 in Cerna et al. (2014)
 #' ## http://www.scielo.cl/pdf/lajar/v42n3/art15.pdf
@@ -112,19 +114,14 @@
 #' metaM("AlversonCarney",K=K,tmax=tmax)
 #' 
 #' ## Example of multiple calculations
-#' meths <- c("RikhterEfanov1","PaulyL","HoenigO","HewittHoenig","AlversonCarney")
-#' Mests <- apply(matrix(meths),1,metaM,K=K,Linf=Linf,T=T,tmax=tmax,t50=t50)
-#' data.frame(meths,Mests)
+#' metaM(c("RikhterEfanov1","PaulyL","HoenigO","HewittHoenig","AlversonCarney"),
+#'      K=K,Linf=Linf,T=T,tmax=tmax,t50=t50)
 #'
 #' ## Example of multiple methods using Mmethods
 #' # select some methods
-#' meths <- Mmethods()[-c(4,20,22:24,26)]
-#' Mests <- apply(matrix(meths),1,metaM,K=K,Linf=Linf,T=T,tmax=tmax,t50=t50)
-#' data.frame(meths,Mests)
+#' metaM(Mmethods()[-c(4,20,22:24,26)],K=K,Linf=Linf,T=T,tmax=tmax,t50=t50)
 #' # select just the Hoenig methods
-#' meths <- Mmethods("Hoenig")
-#' Mests <- apply(matrix(meths),1,metaM,K=K,Linf=Linf,T=T,tmax=tmax,t50=t50)
-#' data.frame(meths,Mests)
+#' metaM(Mmethods("Hoenig"),K=K,Linf=Linf,T=T,tmax=tmax,t50=t50)
 #'  
 #' @rdname metaM
 #' @export
@@ -153,8 +150,24 @@ Mmethods <- function(what=c("all","tmax","K","Hoenig","Pauly")) {
 #' @export
 metaM <- function(method=Mmethods(),justM=TRUE,
                   tmax=NULL,K=NULL,Linf=NULL,t0=NULL,b=NULL,
+                  L=NULL,T=NULL,t50=NULL,Winf=NULL) {
+  ## Get method or methods
+  method <- match.arg(method,several.ok=TRUE)
+  ## If only one method then one call to metaM1
+  if (length(method)==1) res <- metaM1(method,justM,tmax,K,Linf,t0,b,L,T,t50,Winf)
+  else {
+  ## If multiple methods then use apply to run all at once
+    res <- apply(matrix(method),1,metaM1,justM,tmax,K,Linf,t0,b,L,T,t50,Winf)
+    ## put together as a data.frame to return
+    res <- data.frame(method,M=res)
+  }
+  ## Return the result
+  res
+}
+  
+metaM1 <- function(method,justM=TRUE,
+                  tmax=NULL,K=NULL,Linf=NULL,t0=NULL,b=NULL,
                   L=NULL,T=NULL,t50=NULL,Winf=NULL,...) {
-  method <- match.arg(method)
   switch(method,
          tmax1 = { ## from Then et al. (2015), Table 3, 1st line
            name <- "Then et al. (2015) tmax equation"
@@ -312,11 +325,13 @@ metaM <- function(method=Mmethods(),justM=TRUE,
            givens <- c(K=K,t0=t0,t50=t50,b=b)
            M <- (b*K)/(exp(K*(t50-t0))-1) },
   ) # end switch()
+  ## Return just M result if justM=TRUE
   if (justM) res <- M
-    else {
-      res <- list(method=method,name=name,givens=givens,M=M)
-      class(res) <- "metaM"
-    }
+  else {
+  ## Otherwise a list with a class for printing
+    res <- list(method=method,name=name,givens=givens,M=M)
+    class(res) <- "metaM"
+  }
   res
 }
 
