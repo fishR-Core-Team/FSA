@@ -1,5 +1,9 @@
 context("metaM() function Tests")
 
+test_that("Mmethods() error and warning messages",{
+  expect_error(Mmethods("Ogle"))
+})
+
 test_that("metaM() error and warning messages",{
   ## bad method
   expect_error(metaM("Ogle"))

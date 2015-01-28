@@ -2,6 +2,7 @@
 * `catchCurve()`: Modified.  Removed the use of larger points in the `plot()`.
 * `chapmanRobson()`: Modified.  Removed the use of larger points in the `plot()`.
 * `metaM()`: Modified.  Deleted `group=` (and created `method="ZhangMegreyD"` and `method="ZhangMegreyP"`).    Added geometric mean regresson methods for Hoenig.  Changed default for `justM=` to `TRUE`.  Fixed several minor bugs from the original implementation.  Added some checks for reasonableness of some arguments.  Created tests for several methods to see if the results matched those from Kenchington (2014).  Added examples to show how to compute with several methods at once.
+* `Mmethods()`: Added.  Added as a function and removed as a vector.
 
 # FSA 0.4.40 Jan15
 * `lencat()`: Modified.  Fixed a bug that occurred if `breaks=` were given but the vector contained `NA`s.  Thanks to Ben Neely for pointing this out.

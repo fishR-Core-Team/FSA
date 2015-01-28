@@ -2,14 +2,14 @@
 #'
 #' @description Several methods can be used to estimated natural mortality (M) from other types of data, including parameters from the von Bertalanffy growth equation, maximum age, and temperature.  These relationships have been developed from meta-analyses of a large number of populations.  Several of these methods are implemented in this function.
 #'
-#' @details One of several methods is chosen with \code{method}.  The available methods can be seen with \code{Mmethods} and are listed below with a brief description of where the equation came from.  The sources (listed below) should be consulted for more specific information.
+#' @details One of several methods is chosen with \code{method}.  The available methods can be seen with \code{Mmethods()} and are listed below with a brief description of where the equation came from.  The sources (listed below) should be consulted for more specific information.
 #'  \itemize{
 #'    \item \code{method="tmax1"}: The \dQuote{one-parameter tmax equation} from the first line of Table 3 in Then et al. (2015).  This method was the method suggested by Then et al. (2015) and, thus, is the default method used.  Requires only \code{tmax}.
-#'    \item \code{method="PaulyLNoT"}: The \dQuote{modified Pauly length equation} as described on the sixth line of Table 3 in Then et al. (2015).  Then et al. (2015) suggested using this model of maximum age (tmax) information was not available.  Requires \code{K} and \code{Linf}.
+#'    \item \code{method="PaulyLNoT"}: The \dQuote{modified Pauly length equation} as described on the sixth line of Table 3 in Then et al. (2015).  Then et al. (2015) suggested using this model if maximum age (tmax) information was not available.  Requires \code{K} and \code{Linf}.
 #'    \item \code{method="PaulyL"}: The \dQuote{Pauly (1980) equation using fish lengths} from his equation 11.  This is the most commonly used method in the literature.  Note that Pauly used common logarithms as used here but the model is often presented in other sources with natural logarithms.  Requires \code{K}, \code{Linf}, and \code{T}.
 #'    \item \code{method="PaulyW"}: The \dQuote{Pauly (1980) equation for weights} from his equation 10.  Requires \code{K}, \code{Winf}, and \code{T}.
 #'    \item \code{method="HoeingO"}, \code{method="HoeingOF"}, \code{method="HoeingOM"}, \code{method="HoeingOC"}: The original \dQuote{Hoenig (1983) composite}, \dQuote{fish}, \dQuote{mollusc}, and \dQuote{cetacean} (fit with OLS) equations from the second column on page 899 of Hoenig (1983).  Requires only \code{tmax}.
-#'    #'    \item \code{method="HoeingO2"}, \code{method="HoeingO2F"}, \code{method="HoeingO2M"}, \code{method="HoeingO2C"}: The original \dQuote{Hoenig (1983) composite}, \dQuote{fish}, \dQuote{mollusc}, and \dQuote{cetacean} (fit with Geometric Mean Regression) equations from the second column on page 537 of Kenchington (2014).  Requires only \code{tmax}.
+#'    \item \code{method="HoeingO2"}, \code{method="HoeingO2F"}, \code{method="HoeingO2M"}, \code{method="HoeingO2C"}: The original \dQuote{Hoenig (1983) composite}, \dQuote{fish}, \dQuote{mollusc}, and \dQuote{cetacean} (fit with Geometric Mean Regression) equations from the second column on page 537 of Kenchington (2014).  Requires only \code{tmax}.
 #'    \item \code{method="HoenigLM"}:  The \dQuote{modified Hoenig equation derived with a linear model} as described in Then et al. (2015) on the second line of Table 3.  Requires only \code{tmax}.
 #'    \item \code{method="HoenigNLS"}:  The \dQuote{modified Hoenig equation derived with a non-linear model} as described in Then et al. (2015) on the third line of Table 3.  Requires only \code{tmax}.
 #'    \item \code{method="HewittHoenig"}:  The \dQuote{Hewitt and Hoenig (2005) equation} from their equation 8.  Requires only \code{tmax}.
@@ -27,22 +27,23 @@
 #'    
 #' @aliases metaM print.metaM Mmethods
 #'
+#' @param what A string that indicates what grouping of methods to return.  Defaults to returning all methods.
 #' @param method A string that indicates which method or equation to use.  See details.
+#' @param justM A logical that indicates whether just the estimate of M (\code{TRUE}; Default) or a more descriptive list should be returned.
 #' @param tmax The maximum age for the population of fish.
 #' @param K The Brody growth coefficident from the fit of the von Bertalanffy growth function.
-#' @param Linf The asymptotic mean length from the fit of the von Bertalanffy growth function.
+#' @param Linf The asymptotic mean length (cm) from the fit of the von Bertalanffy growth function.
 #' @param t0 The x-intercept from the fit of the von Bertalanffy growth function.
 #' @param b The exponent from the weight-length relationship (slope from the logW-logL relationship).
 #' @param L The body length of the fish (cm).
 #' @param T The temperature experienced by the fish (C).
 #' @param t50 The age (time) when half the fish in the population are mature.
-#' @param Winf The asymptotic mean weight from the fit of the von Bertalanffy growth function.
-#' @param justM A logical that indicates whether just the estimate of M (\code{TRUE}) or a more descriptive list (Default) should be returned.
-#' @param x A \code{metaM} object returned from \code{metaM}.
+#' @param Winf The asymptotic mean weight (g) from the fit of the von Bertalanffy growth function.
+#' @param x A \code{metaM} object returned from \code{metaM} when \code{justM=FALSE}.
 #' @param digits A numeric that controls the number of digits printed for the estimate of M.
 #' @param \dots Additional arguments for methods.  Not implemented.
 #'
-#' @return A single numeric if \code{justM=TRUE}, otherwise a \code{metaM} object that is a list with the following items:
+#' @return \code{Mmethods} returns a charachter vector with a list of methods.  \code{metaM} returns a single numeric if \code{justM=TRUE}, otherwise a \code{metaM} object that is a list with the following items:
 #' \itemize{
 #'    \item \code{method}: The name for the method within the function (as given in \code{method}).
 #'    \item \code{name}: A more descriptive name for the method.
@@ -89,7 +90,8 @@
 #' 
 #' @examples
 #' ## List names for available methods
-#' Mmethods
+#' Mmethods()
+#' Mmethods("tmax")
 #' 
 #' ## Simple Examples
 #' metaM(tmax=20)
@@ -115,27 +117,41 @@
 #' data.frame(meths,Mests)
 #'
 #' ## Example of multiple methods using Mmethods
-#' # see numeric list of methods
-#' data.frame(1:length(Mmethods),Mmethods)
 #' # select some methods
-#' meths <- Mmethods[-c(4,20,22:24,26)]
+#' meths <- Mmethods()[-c(4,20,22:24,26)]
 #' Mests <- apply(matrix(meths),1,metaM,K=K,Linf=Linf,T=T,tmax=tmax,t50=t50)
 #' data.frame(meths,Mests)
-#' 
+#' # select just the Hoenig methods
+#' meths <- Mmethods("Hoenig")
+#' Mests <- apply(matrix(meths),1,metaM,K=K,Linf=Linf,T=T,tmax=tmax,t50=t50)
+#' data.frame(meths,Mests)
+#'  
 #' @rdname metaM
 #' @export
-Mmethods <- c("tmax1","PaulyLNoT","PaulyL","PaulyW",
-              "HoenigO","HoenigOF","HoenigOM","HoenigOC",
-              "HoenigO2","HoenigO2F","HoenigO2M","HoenigO2C",
-              "HoenigLM","HoenigNLS","HewittHoenig",
-              "K1","K2","JensenK1","JensenK2","Gislason",
-              "AlversonCarney","Charnov",
-              "ZhangMegreyD","ZhangMegreyP",
-              "RikhterEfanov1","RikhterEfanov2")
+Mmethods <- function(what=c("all","tmax","K","Hoenig","Pauly")) {
+  what <- match.arg(what)
+  all_meth <- c("tmax1","PaulyLNoT","PaulyL","PaulyW",
+                "HoenigO","HoenigOF","HoenigOM","HoenigOC",
+                "HoenigO2","HoenigO2F","HoenigO2M","HoenigO2C",
+                "HoenigLM","HoenigNLS","HewittHoenig",
+                "K1","K2","JensenK1","JensenK2","Gislason",
+                "AlversonCarney","Charnov",
+                "ZhangMegreyD","ZhangMegreyP",
+                "RikhterEfanov1","RikhterEfanov2")
+  H_meth <- all_meth[grep("Hoenig",all_meth)]
+  P_meth <- 
+  switch(what,
+         all    = { meths <- all_meth },
+         tmax   = { meths <- c("tmax1",H_meth)},
+         K      = { meths <- c("K1","K2","JensenK1","JensenK2")},
+         Hoenig = { meths <- H_meth},
+         Pauly  = { meths <- all_meth[grep("Pauly",all_meth)] })
+  meths
+}
 
 #' @rdname metaM
 #' @export
-metaM <- function(method=Mmethods,justM=TRUE,
+metaM <- function(method=Mmethods(),justM=TRUE,
                   tmax=NULL,K=NULL,Linf=NULL,t0=NULL,b=NULL,
                   L=NULL,T=NULL,t50=NULL,Winf=NULL,...) {
   method <- match.arg(method)
@@ -360,10 +376,6 @@ iCheck_t50 <- function(t50) {
   if (is.null(t50)) stop("A value must be given to 't50'.",call.=FALSE)  
   if (t50 <= 0) stop("'t50' must be positive.",call.=FALSE)
   if (t50 > 100) warning("'t50' value seems unreasonable.",call.=FALSE)
-}
-
-iCheck_a <- function(a) {
-  if (is.null(a)) stop("A value must be given to 'a'.",call.=FALSE)  
 }
 
 iCheck_b <- function(b) {
