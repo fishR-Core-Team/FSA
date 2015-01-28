@@ -9,7 +9,7 @@ This package can be installed from github to your R with the following code
 
 ```r
 if (!require('devtools')) install.packages('devtools'); require('devtools')
-devtools::install_github('FSA','droglenc')
+devtools::install_github('droglenc/FSA')
 ```
 
 Descriptions of recent changes can be found in the [News.md file](https://github.com/droglenc/FSA/blob/master/NEWS.md)
