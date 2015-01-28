@@ -1,3 +1,5 @@
+# FSA 0.4.42 ongoing
+
 # FSA 0.4.41 ongoing
 * `catchCurve()`: Modified.  Removed the use of larger points in the `plot()`.
 * `chapmanRobson()`: Modified.  Removed the use of larger points in the `plot()`.
