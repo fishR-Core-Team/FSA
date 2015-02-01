@@ -207,8 +207,6 @@ swvCode <- function(file,out.dir=NULL,topnotes=NULL,
   unlink(fn.Ro)
   ## tangle the results and then read those results back into flines
   # handle documentation (i.e., pure code)
-#  on.exit(knitr::opts_knit$set(documentation=knitr::opts_knit$get("documentation")))
-#  knitr::opts_knit$set(documentation=0)
   knitr::purl(file,fn.Ri,documentation=0)
   flines <- readLines(fn.Ri)
   ## Expand itemsToRemove if something in moreItems
@@ -225,7 +223,7 @@ swvCode <- function(file,out.dir=NULL,topnotes=NULL,
     if (blanks=="extra") {
       blankLines <- which(flines=="")
       extras <- which(c(2,diff(blankLines))==1)
-      flines <- flines[-blankLines[extras]]
+      if (length(extras)>0) flines <- flines[-blankLines[extras]]
     }
   }
   ## Add topnotes if any given

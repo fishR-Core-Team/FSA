@@ -1,6 +1,10 @@
-# FSA 0.4.42 ongoing
+# FSA 0.4.43 ongoing
+* `swvCode()`: Modified.  Fixed bug related to `blanks='extra'`.
 
-# FSA 0.4.41 ongoing
+# FSA 0.4.42 Feb15
+* `filterD()`: Added.
+
+# FSA 0.4.41 Jan15
 * `catchCurve()`: Modified.  Removed the use of larger points in the `plot()`.
 * `chapmanRobson()`: Modified.  Removed the use of larger points in the `plot()`.
 * `metaM()`: Modified.  Deleted `group=` (and created `method="ZhangMegreyD"` and `method="ZhangMegreyP"`).    Added geometric mean regresson methods for Hoenig.  Changed default for `justM=` to `TRUE`.  Fixed several minor bugs from the original implementation.  Added some checks for reasonableness of some arguments.  Created tests for several methods to see if the results matched those from Kenchington (2014).  Added code to compute with several methods at once.

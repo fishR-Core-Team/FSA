@@ -18,6 +18,7 @@
 #' @name FSA
 #' 
 #' @importFrom car bootCase outlierTest
+#' @importFrom dplyr filter
 #' @importFrom gdata drop.levels nobs
 #' @importFrom gplots rich.colors
 #' @importFrom Hmisc binconf
