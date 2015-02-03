@@ -196,7 +196,7 @@ confint.catchCurve <- function(object,parm=c("all","both","Z","A"),level=conf.le
 #' @rdname catchCurve
 #' @export
 plot.catchCurve <- function(x,pos.est="bottomleft",ylab="log(Catch)",xlab="Age",
-                            col.pt="black",col.mdl="red",lwd=2,lty=1,...) {
+                            col.pt="gray30",col.mdl="black",lwd=2,lty=1,...) {
   # Find the range of the y-axis
   yrng <- c(min(0,min(log(x$catch),na.rm=TRUE)),max(log(x$catch),na.rm=TRUE))
   # Plot raw data

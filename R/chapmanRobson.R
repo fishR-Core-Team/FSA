@@ -196,7 +196,7 @@ confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),level=conf
 
 #' @rdname chapmanRobson
 #' @export
-plot.chapmanRobson <- function(x,pos.est="bottomleft",ylab="Catch",xlab="Age",col.pt="black",...) {
+plot.chapmanRobson <- function(x,pos.est="bottomleft",ylab="Catch",xlab="Age",col.pt="gray30",...) {
   # Need to make area below x-axis larger to hold re-coded ages scale
   old.par <- par(mar=c(6,3.5,1,1)); on.exit(par(old.par))
   # Find range for y-axis
