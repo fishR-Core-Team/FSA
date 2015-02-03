@@ -1,4 +1,8 @@
-# FSA 0.4.43 ongoing
+# FSA 0.4.44 ongoing
+* `catchCurve()`: Modified.  Changed `plot()` to default to slighly lighter colored dots and a black line.
+* `chapmanRobson()`: Modified.  Changed `plot()` to default to slighly lighter colored dots. 
+
+# FSA 0.4.43 Feb15
 * `mrOpen()`: Modified.  Changed `summary()` and `confint()` methods to allow single, multiple, or all choices of parameters to return results for.  Also added code to print the results more prettily.
 * `swvCode()`: Modified.  Fixed bug related to `blanks='extra'`.
 
