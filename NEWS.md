@@ -1,4 +1,5 @@
 # FSA 0.4.43 ongoing
+* `mrOpen()`: Modified.  Changed `summary()` and `confint()` methods to allow single, multiple, or all choices of parameters to return results for.  Also added code to print the results more prettily.
 * `swvCode()`: Modified.  Fixed bug related to `blanks='extra'`.
 
 # FSA 0.4.42 Feb15

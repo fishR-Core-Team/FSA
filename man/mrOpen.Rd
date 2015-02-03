@@ -12,10 +12,11 @@ jolly(...)
 mrOpen(mb.top, mb.bot = NULL, type = c("Jolly", "Manly"),
   conf.level = 0.95, phi.full = TRUE)
 
-\method{summary}{mrOpen}(object, verbose = FALSE, ...)
+\method{summary}{mrOpen}(object, parm = c("N", "phi", "B", "M"),
+  verbose = FALSE, ...)
 
-\method{confint}{mrOpen}(object, parm = c("all", "N", "phi", "B"),
-  level = NULL, conf.level = NULL, verbose = FALSE, ...)
+\method{confint}{mrOpen}(object, parm = c("N", "phi", "B"), level = NULL,
+  conf.level = NULL, verbose = FALSE, ...)
 }
 \arguments{
 \item{mb.top}{A matrix that contains the \dQuote{top} of the Method B table (i.e., a contingency table of capture sample (columns) and last seen sample (rows)) or an object of class \code{CapHist} from \code{\link{capHistSum}}.  See details.}
@@ -30,9 +31,9 @@ mrOpen(mb.top, mb.bot = NULL, type = c("Jolly", "Manly"),
 
 \item{object}{An object from \code{mrOpen} (i.e., of class \code{mrOpen}).}
 
-\item{verbose}{A logical that indicates if the observables and other notes should be printed in \code{summary} and if the type of confidence interval used should be printed in \code{confint}.  See details.}
+\item{parm}{A string that identifies the model parameters for which to return summaries or confidence intervals.  By default, all parameters are returned.}
 
-\item{parm}{A specification of which parameters are to be given confidence intervals.  If missing, all parameters are considered.}
+\item{verbose}{A logical that indicates if the observables and other notes should be printed in \code{summary} and if the type of confidence interval used should be printed in \code{confint}.  See details.}
 
 \item{level}{Same as \code{conf.level} but used for compatability with generic \code{confint} function.}
 
@@ -85,7 +86,11 @@ ch1 <- capHistSum(CutthroatAL,cols2use=-1)  # ignore first column of fish ID
 ex1 <- mrOpen(ch1)
 summary(ex1)
 summary(ex1,verbose=TRUE)
+summary(ex1,parm="N")
+summary(ex1,parm=c("N","phi"))
 confint(ex1)
+confint(ex1,parm="N")
+confint(ex1,parm=c("N","phi"))
 confint(ex1,verbose=TRUE)
 
 ## Second example - Jolly's data -- summarized data entered "by hand"

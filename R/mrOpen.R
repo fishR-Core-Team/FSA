@@ -23,7 +23,7 @@
 #' @param phi.full A logical that indicates whether the standard error for phi should include only sampling variability (\code{phi.full=FALSE}) or sampling and individual variability (\code{phi.full=TRUE},default).
 #' @param object An object from \code{mrOpen} (i.e., of class \code{mrOpen}).
 #' @param verbose A logical that indicates if the observables and other notes should be printed in \code{summary} and if the type of confidence interval used should be printed in \code{confint}.  See details.
-#' @param parm A specification of which parameters are to be given confidence intervals.  If missing, all parameters are considered.
+#' @param parm A string that identifies the model parameters for which to return summaries or confidence intervals.  By default, all parameters are returned.
 #' @param level Same as \code{conf.level} but used for compatability with generic \code{confint} function.
 #' @param \dots Additional arguments for methods.
 #'
@@ -75,7 +75,11 @@
 #' ex1 <- mrOpen(ch1)
 #' summary(ex1)
 #' summary(ex1,verbose=TRUE)
+#' summary(ex1,parm="N")
+#' summary(ex1,parm=c("N","phi"))
 #' confint(ex1)
+#' confint(ex1,parm="N")
+#' confint(ex1,parm=c("N","phi"))
 #' confint(ex1,verbose=TRUE)
 #'
 #' ## Second example - Jolly's data -- summarized data entered "by hand"
@@ -153,6 +157,61 @@ mrOpen <- function(mb.top,mb.bot=NULL,type=c("Jolly","Manly"),conf.level=0.95,ph
   d <- list(df=df,type=type,phi.full=phi.full,conf.level=conf.level)
   class(d) <- "mrOpen"
   d
+}
+
+#' @rdname mrOpen
+#' @export
+summary.mrOpen <- function(object,parm=c("N","phi","B","M"),verbose=FALSE,...) {
+  ## Identify the parameters to return
+  parm <- match.arg(parm,several.ok=TRUE)
+  ## Print the observables if asked to be verbose
+  if (verbose) {
+    cat("Observables\n")
+    print(object$df[,c("m","n","R","r","z")])
+    cat("\nEstimates\n")
+    if ("phi" %in% parm) {
+      if (object$phi.full) cat("Standard error of phi includes sampling and individual variability.\n")
+      else cat("Standard error of phi includes only sampling variability.\n")
+    }
+    
+  }
+  ## Prepare the appropriate object
+  # remove the observables and CI columns
+  tmp <- object$df[,-which(names(object$df) %in% c("m","n","R","r","z"))]
+  tmp <- tmp[,!grepl("lci",names(tmp))]
+  tmp <- tmp[,!grepl("uci",names(tmp))]
+  # include the appropriate SE columns if Jolly was used
+  # interleave the SE values so they appear next to the point estimate
+  if (object$type=="Jolly") parm <- as.vector(rbind(parm,paste0(parm,".se")))
+  # get the object with column names in parm
+  tmp <- tmp[,which(names(tmp) %in% parm)]
+  ## print prettily
+  print(as.matrix(tmp),na.print="-")
+  ## return the data.frame
+  invisible(tmp)
+}
+
+#' @rdname mrOpen
+#' @export
+confint.mrOpen <- function(object,parm=c("N","phi","B"),level=NULL,conf.level=NULL,verbose=FALSE,...) {
+  ## send a note that the CI level cannot be changed here
+  if(!is.null(conf.level)) cat("Confidence level was set at",conf.level,"in mrOpen function.  It cannot be changed here.\n")
+  ## get the parameters to return
+  parm <- match.arg(parm,several.ok=TRUE)
+  if (object$type=="Manly" & ("B" %in% parm)) {
+    cat("Manly did not provide a method for constructing confidence intervals for B.\n\n")
+    parm <- parm[-which(parm=="B")]
+  }
+  ## Tell the method used if asked to be verbose
+  if (verbose) cat("The",object$type,"method was used to construct confidence intervals.\n\n")
+  ## change parm to include .lci and .uci
+  parm <- as.vector(rbind(paste0(parm,".lci"),paste0(parm,".uci")))
+  ## get results to print and return
+  tmp <- object$df[,which(names(object$df) %in% parm)]
+  ## print prettily
+  print(as.matrix(tmp),na.print="-")
+  ## return the data.frame
+  invisible(tmp)
 }
 
 ##############################################################
@@ -331,47 +390,8 @@ iEstB <- function(df,k,type,conf.level) {
            data.frame(df,B,B.se,B.lci,B.uci)
          },
          Manly={
-           cat("Manly did not provide a method for computing confidence intervals for B.\n")
            B[k] <- NA
            data.frame(df,B)
          }
   ) #end switch
 }      
-
-#' @rdname mrOpen
-#' @export
-summary.mrOpen <- function(object,verbose=FALSE,...) {
-  if (verbose) {
-    cat("Observables\n")
-    print(object$df[,c("m","n","R","r","z")])
-    cat("\nEstimates\n")
-  }
-  if (object$type=="Jolly") {
-    print(object$df[,c("M","M.se","N","N.se","phi","phi.se","B","B.se")]) 
-  } else {
-    print(object$df[,c("M","N","phi","B")]) 
-  }
-  if (verbose) {
-    if (object$phi.full) cat("\nStandard error of phi includes sampling and individual variability.\n")
-      else cat("\nStandard error of phi includes only sampling variability.\n")
-  }
-}
-
-#' @rdname mrOpen
-#' @export
-confint.mrOpen <- function(object,parm=c("all","N","phi","B"),level=NULL,conf.level=NULL,verbose=FALSE,...) {
-  if(!is.null(conf.level)) cat("Confidence level was set at",conf.level,"in mrOpen function.  It cannot be changed here.\n")
-  parm <- match.arg(parm)
-  if (verbose) cat("The",object$type,"method was used to construct confidence intervals.\n\n")
-  if (object$type=="Manly") {
-    if ((parm=="all" | parm=="B")) cat("Manly did not provide a method for constructing confidence intervals for B.\n\n")
-    if (parm=="all") print(object$df[,c("N.lci","N.uci","phi.lci","phi.uci")])
-      else if (parm=="N") print(object$df[,c("N.lci","N.uci")])
-        else if (parm=="phi") print(object$df[,c("phi.lci","phi.uci")])
-  } else {
-    if (parm=="all") print(object$df[,c("N.lci","N.uci","phi.lci","phi.uci","B.lci","B.uci")])
-      else if (parm=="N") print(object$df[,c("N.lci","N.uci")])
-        else if (parm=="phi") print(object$df[,c("phi.lci","phi.uci")])
-          else print(object$df[,c("B.lci","B.uci")])
-  }
-}
