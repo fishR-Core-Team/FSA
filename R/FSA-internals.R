@@ -13,14 +13,15 @@
 .onAttach <- function(lib,pkg,...) {
   ## Get version number -- basically code from readPkgVersion in SweaveListingUtils
   vers <- read.dcf(system.file("DESCRIPTION",package=pkg,lib.loc=lib),fields="Version")
+  vers <- paste0(vers,"      ",ifelse(nchar(vers)==5," ",""))
   ## Send message
   msg <- paste("\n\n")
   msg <- paste(msg,"############################################\n")
-  msg <- paste(msg,"##","FSA package, version",vers,"            ##\n")
-  msg <- paste(msg,"##   by Derek H. Ogle, Northland College  ##\n")
+  msg <- paste(msg,"##      FSA package, version",vers,"##\n")
+  msg <- paste(msg,"##    Derek H. Ogle, Northland College    ##\n")
   msg <- paste(msg,"##                                        ##\n")
-  msg <- paste(msg,"## Type ?FSA for documentation.           ##\n")
-  msg <- paste(msg,"## Type citation('FSA') for citation      ##\n")
+  msg <- paste(msg,"## Run ?FSA for documentation.            ##\n")
+  msg <- paste(msg,"## Run citation('FSA') for citation ...   ##\n")
   msg <- paste(msg,"##   please cite if used in publication.  ##\n")
   msg <- paste(msg,"##                                        ##\n")
   msg <- paste(msg,"## See fishR.wordpress.com for more       ##\n")    

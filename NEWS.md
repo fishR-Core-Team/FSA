@@ -1,4 +1,5 @@
 # FSA 0.4.44 ongoing
+* `.onAttach()`: Modified.  Centered the message and adjusted for different lengths of version numbers.
 * `catchCurve()`: Modified.  Changed `plot()` to default to slighly lighter colored dots and a black line.
 * `chapmanRobson()`: Modified.  Changed `plot()` to default to slighly lighter colored dots. 
 
