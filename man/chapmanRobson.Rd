@@ -23,7 +23,7 @@ chapmanRobson(x, ...)
   level = conf.level, conf.level = 0.95, ...)
 
 \method{plot}{chapmanRobson}(x, pos.est = "bottomleft", ylab = "Catch",
-  xlab = "Age", col.pt = "black", ...)
+  xlab = "Age", col.pt = "gray30", ...)
 }
 \arguments{
 \item{x}{A numerical vector of the assigned ages in the catch curve or a formula of the form \code{catch~age} when used in \code{chapmanRobson}.  An object saved from \code{chapmanRobson} (i.e., of class \code{chapmanRobson}) when used in the methods.}

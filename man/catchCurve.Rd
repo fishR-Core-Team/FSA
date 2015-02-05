@@ -28,8 +28,8 @@ catchCurve(x, ...)
   level = conf.level, conf.level = 0.95, type = c("params", "lm"), ...)
 
 \method{plot}{catchCurve}(x, pos.est = "bottomleft", ylab = "log(Catch)",
-  xlab = "Age", col.pt = "black", col.mdl = "red", lwd = 2, lty = 1,
-  ...)
+  xlab = "Age", col.pt = "gray30", col.mdl = "black", lwd = 2,
+  lty = 1, ...)
 }
 \arguments{
 \item{x}{A numerical vector of the assigned ages in the catch curve or a formula of the form \code{catch~age} when used in \code{catchCurve}.  An object saved from \code{catchCurve} (i.e., of class \code{catchCurve}) when used in the methods.}
