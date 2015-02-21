@@ -274,9 +274,9 @@ iALKPlotBubble <- function(key,xlab,ylab,xlim,ylim,grid,buf,col,add,...) {
     if (grid) grid <- "gray80"
     else grid <- NULL
   } 
+  alsum <- iFindAgesAndLens(key)
   if (!add) {
     # not adding to an existing bubble plot, so make the base plot
-    alsum <- iFindAgesAndLens(key)
     if (is.null(xlim)) xlim <- range(alsum$lens)+c(-1,1)*buf
     if (is.null(ylim)) ylim <- range(alsum$ages)+c(-1,1)*buf
     plot(NA,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...)
