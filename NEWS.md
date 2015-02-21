@@ -1,7 +1,9 @@
 # FSA 0.4.44 ongoing
 * `.onAttach()`: Modified.  Centered the message and adjusted for different lengths of version numbers.
+* `alkPlot()`: Modified.  Fixed bug when using `add=TRUE` with `type="bubble"`.
 * `catchCurve()`: Modified.  Changed `plot()` to default to slighly lighter colored dots and a black line.
 * `chapmanRobson()`: Modified.  Changed `plot()` to default to slighly lighter colored dots. 
+* `lwCompPreds()`: Modified.  Changed `quant.lens=` to `qlens=`.  Changed default `qlens=` to have the 5th and 95th percentiles rather than the minimum and maximum values.  Added `qpens.dec=` so that the user could control the number of decimals for the lengths derived from `qlens=`.
 
 # FSA 0.4.43 Feb15
 * `mrOpen()`: Modified.  Changed `summary()` and `confint()` methods to allow single, multiple, or all choices of parameters to return results for.  Also added code to print the results more prettily.

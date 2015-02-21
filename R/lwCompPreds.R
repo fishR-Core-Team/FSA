@@ -4,7 +4,8 @@
 #'
 #' @param object An \code{lm} object (i.e., returned from fitting a model with \code{lm}).  This model should have log(weight) as the response and log(length) as the explanatory covariate and an explanatory factor variable that describes the different groups.
 #' @param lens A numeric vector that indicates the lengths at which the weights should be predicted.
-#' @param quant.lens A numeric vector that indicates the quantiles of lengths at which weights should be predicted.  This is ignored if \code{lens} is non-null.
+#' @param qlens A numeric vector that indicates the quantiles of lengths at which weights should be predicted.  This is ignored if \code{lens} is non-null.
+#' @param qlens.dec A single numeric that identifies the decimal place that the lengths derived from \code{qlens} should be rounded to (Default is 1).
 #' @param base A single positive numeric value that indicates the base of the logarithm used in the \code{lm} object in \code{object}.  The default is \code{exp(1)}, or the value e.
 #' @param interval A single string that indicates whether to plot confidence (\code{="confidence"}), prediction (\code{="prediction"}), or both (\code{="both"}) intervals.
 #' @param center.value A single numeric value that indicates the log length used if the log length data was centered when constructing \code{object}.
@@ -45,7 +46,7 @@
 #' # show predicted weights (w/ CI) at the default quantile lengths for each year
 #' lwCompPreds(lm1,xlab="Location")
 #' # show predicted weights (w/ CI) at the quartile lengths for each year
-#' lwCompPreds(lm1,xlab="Location",quant.lens=c(0.25,0.5,0.75))
+#' lwCompPreds(lm1,xlab="Location",qlens=c(0.25,0.5,0.75))
 #' # show predicted weights (w/ CI) at certain lengths for each year
 #' lwCompPreds(lm1,xlab="Location",lens=c(60,90,120,150))
 #' # show predicted weights (w/ just PI) at certain lengths for each year
@@ -80,7 +81,7 @@
 #' }
 #' 
 #' @export lwCompPreds
-lwCompPreds <- function(object,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),base=exp(1),
+lwCompPreds <- function(object,lens=NULL,qlens=c(0.05,0.25,0.5,0.75,0.95),qlens.dec=1,base=exp(1),
                         interval=c("confidence","prediction","both"),center.value=0,
                         lwd=1,connect.preds=TRUE,show.preds=FALSE,col.connect="gray50",
                         ylim=NULL,main.pre="Length==",cex.main=0.8,
@@ -109,14 +110,14 @@ lwCompPreds <- function(object,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),base=ex
 
   if (is.null(lens)) {
     # if no lens are provided then use provided quantile probabilities
-    lens <- quantile(base^(mf[,tmp$ENumPos]+center.value),quant.lens)
+    lens <- round(quantile(base^(mf[,tmp$ENumPos]+center.value),qlens),qlens.dec)
     # must unname the lens when quartiles are used to remove later warning
     lens <- unname(lens)
   }
   # number of plots to construct
   num <- length(lens)
   # reset par so as to make nice plots
-  old.par <- par(mfrow=c(rows,cols)); on.exit(par(old.par))
+  old.par <- par(mfrow=c(rows,cols))
   # cycle through the lengths
   for (i in 1:length(lens)) {
     # find results for each length
@@ -125,6 +126,7 @@ lwCompPreds <- function(object,lens=NULL,quant.lens=c(0,0.25,0.5,0.75,1),base=ex
     iPlotLWPred(res,grps,ylim,xlab,ylab,paste(main.pre,lens[i],sep=""),
                 cex.main,lwd,connect.preds,col.connect,interval,show.preds,yaxs)
   }
+  par(old.par)
 }
 
 

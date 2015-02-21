@@ -4,19 +4,22 @@
 \alias{lwCompPreds}
 \title{Constructs plots of predicted weights at given lengths among different groups.}
 \usage{
-lwCompPreds(object, lens = NULL, quant.lens = c(0, 0.25, 0.5, 0.75, 1),
-  base = exp(1), interval = c("confidence", "prediction", "both"),
-  center.value = 0, lwd = 1, connect.preds = TRUE, show.preds = FALSE,
-  col.connect = "gray50", ylim = NULL, main.pre = "Length==",
-  cex.main = 0.8, xlab = "Groups", ylab = "Predicted Weight",
-  yaxs = "r", rows = round(sqrt(num)), cols = ceiling(sqrt(num)))
+lwCompPreds(object, lens = NULL, qlens = c(0.05, 0.25, 0.5, 0.75, 0.95),
+  qlens.dec = 1, base = exp(1), interval = c("confidence", "prediction",
+  "both"), center.value = 0, lwd = 1, connect.preds = TRUE,
+  show.preds = FALSE, col.connect = "gray50", ylim = NULL,
+  main.pre = "Length==", cex.main = 0.8, xlab = "Groups",
+  ylab = "Predicted Weight", yaxs = "r", rows = round(sqrt(num)),
+  cols = ceiling(sqrt(num)))
 }
 \arguments{
 \item{object}{An \code{lm} object (i.e., returned from fitting a model with \code{lm}).  This model should have log(weight) as the response and log(length) as the explanatory covariate and an explanatory factor variable that describes the different groups.}
 
 \item{lens}{A numeric vector that indicates the lengths at which the weights should be predicted.}
 
-\item{quant.lens}{A numeric vector that indicates the quantiles of lengths at which weights should be predicted.  This is ignored if \code{lens} is non-null.}
+\item{qlens}{A numeric vector that indicates the quantiles of lengths at which weights should be predicted.  This is ignored if \code{lens} is non-null.}
+
+\item{qlens.dec}{A single numeric that identifies the decimal place that the lengths derived from \code{qlens} should be rounded to (Default is 1).}
 
 \item{base}{A single positive numeric value that indicates the base of the logarithm used in the \code{lm} object in \code{object}.  The default is \code{exp(1)}, or the value e.}
 
@@ -74,7 +77,7 @@ par(mar=c(3.5,3.5,1,1),mgp=c(1.8,0.4,0),tcl=-0.2)
 # show predicted weights (w/ CI) at the default quantile lengths for each year
 lwCompPreds(lm1,xlab="Location")
 # show predicted weights (w/ CI) at the quartile lengths for each year
-lwCompPreds(lm1,xlab="Location",quant.lens=c(0.25,0.5,0.75))
+lwCompPreds(lm1,xlab="Location",qlens=c(0.25,0.5,0.75))
 # show predicted weights (w/ CI) at certain lengths for each year
 lwCompPreds(lm1,xlab="Location",lens=c(60,90,120,150))
 # show predicted weights (w/ just PI) at certain lengths for each year
