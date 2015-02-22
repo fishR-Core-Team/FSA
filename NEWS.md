@@ -1,4 +1,6 @@
-# FSA 0.4.44 ongoing
+# FSA 0.4.45 ongoing
+
+# FSA 0.4.44 Feb15
 * `.onAttach()`: Modified.  Centered the message and adjusted for different lengths of version numbers.
 * `alkPlot()`: Modified.  Fixed bug when using `add=TRUE` with `type="bubble"`.
 * `capHistSum()`: Modified.  Changed to return `par()` options to what they were before the function was called.
