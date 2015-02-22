@@ -1,5 +1,5 @@
 # FSA 0.4.45 ongoing
-
+* `residPlot()`: Modified.  Adjusted use of `par()`.
 # FSA 0.4.44 Feb15
 * `.onAttach()`: Modified.  Centered the message and adjusted for different lengths of version numbers.
 * `alkPlot()`: Modified.  Fixed bug when using `add=TRUE` with `type="bubble"`.
@@ -9,7 +9,7 @@
 * `growthModelSim()`: Modified.  Changed to return `par()` options to what they were before the function was called.
 * `growthRadPlot()`: Modified.  Changed to return `par()` options to what they were before the function was called.
 * `hist()`: Modified.  Changed to return `par()` options to what they were before the function was called.
-* `lwCompPreds()`: Modified.  Changed `quant.lens=` to `qlens=`.  Changed default `qlens=` to have the 5th and 95th percentiles rather than the minimum and maximum values.  Added `qpens.dec=` so that the user could control the number of decimals for the lengths derived from `qlens=`.
+* `lwCompPreds()`: Modified.  Changed `quant.lens=` to `qlens=`.  Changed default `qlens=` to have the 5th and 95th percentiles rather than the minimum and maximum values.  Added `qlens.dec=` so that the user could control the number of decimals for the lengths derived from `qlens=`.
 * `srSim()`: Modified.  Changed to return `par()` options to what they were before the function was called.
 
 # FSA 0.4.43 Feb15
