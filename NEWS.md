@@ -1,4 +1,6 @@
-# FSA 0.4.46 ongoing
+# FSA 0.4.47 ongoing
+
+# FSA 0.4.46 Feb15
 * `catchCurve()`: Modified.  Changed default for `pos.est=` to `topright`.  Added `cex.pos=` (and set default to slightly smaller value).
 * `chapmanRobson()`: Modified.  Changed default for `pos.est=` to `topright`.  Added `cex.pos=` (and set default to slightly smaller value).
 
