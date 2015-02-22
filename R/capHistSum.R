@@ -277,6 +277,7 @@ iMarray <- function(mb,smry) {
 #' @rdname capHistSum
 #' @export
 plot.CapHist <- function(x,what=c("u","f"),...) {
+  opar <- par()
   what <- match.arg(what,several.ok=TRUE)
   tmp <- x$sum[,c("n","u","f")]
   t <- nrow(tmp)
@@ -288,10 +289,7 @@ plot.CapHist <- function(x,what=c("u","f"),...) {
   tmp$su <- log(tmp$u)
   tmp$su[which(tmp$u==0)] <- NA
   # catch if two plots are being made
-  if (length(what)==2) {
-    old.par <- par(mfrow=c(1,2))
-    on.exit(par(old.par))
-  }
+  if (length(what)==2) opar <- par(mfrow=c(1,2))
   # make the fi plot
   if ("f" %in% what) {
     tmp2 <- tmp[!is.na(tmp$sf),]
@@ -301,4 +299,5 @@ plot.CapHist <- function(x,what=c("u","f"),...) {
   if ("u" %in% what) {
     plot(su~i,data=tmp,ylab="log(ui)",xlab="Capture Event (i)",type="b",pch=16,...)
   }
+  par(opar)
 }

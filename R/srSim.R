@@ -89,7 +89,7 @@ srSimPlot <- function(a,b,S,R,type,param,max.S,max.R,max.rds) {
               y <- a*x*exp(-a*x/(Rp*exp(1))) }
            ) # end Ricker switch
   }
-  old.par <- par(mfrow=c(1,2), mar=c(3.5,3.5,1.25,1.25), mgp=c(2,0.4,0), tcl=-0.2, pch=19); on.exit(par(old.par))
+  old.par <- par(mfrow=c(1,2), mar=c(3.5,3.5,1.25,1.25), mgp=c(2,0.4,0), tcl=-0.2, pch=19)
   plot(x,y,xlab="Parental (Spawner) Stock",ylab="Recruits",type="l",lwd=2,col="blue",ylim=c(0,max.R),xlim=c(0,max.S))
   if (!(is.null(R)||is.null(S))) { points(S,R,pch=19) }
   abline(h=Rp,lwd=2,lty=3,col="red")
@@ -100,6 +100,7 @@ srSimPlot <- function(a,b,S,R,type,param,max.S,max.R,max.rds) {
   }
   plot(x,y/x,xlab="Parental (Spawner) Stock",ylab="Recruits/Spawner",type="l",lwd=2,col="blue",ylim=c(0,max.rds),xlim=c(0,max.S))
   if (!(is.null(R)||is.null(S))) { points(S,R/S,pch=19) } 
+  par(old.par)
 } # end srSimPlot internal function
 
 ## Internal function that processes the dialog box

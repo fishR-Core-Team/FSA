@@ -117,7 +117,7 @@ lwCompPreds <- function(object,lens=NULL,qlens=c(0.05,0.25,0.5,0.75,0.95),qlens.
   # number of plots to construct
   num <- length(lens)
   # reset par so as to make nice plots
-  old.par <- par(mfrow=c(rows,cols))
+  opar <- par(mfrow=c(rows,cols))
   # cycle through the lengths
   for (i in 1:length(lens)) {
     # find results for each length
@@ -126,7 +126,7 @@ lwCompPreds <- function(object,lens=NULL,qlens=c(0.05,0.25,0.5,0.75,0.95),qlens.
     iPlotLWPred(res,grps,ylim,xlab,ylab,paste(main.pre,lens[i],sep=""),
                 cex.main,lwd,connect.preds,col.connect,interval,show.preds,yaxs)
   }
-  par(old.par)
+  par(opar)
 }
 
 

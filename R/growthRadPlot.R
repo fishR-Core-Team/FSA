@@ -56,7 +56,7 @@ growthRadPlot <- function(df,indivs,in.pre="rad",in.var,radcap="radcap",agevar="
     else ylabs <- df[,indivs]
 
   # make the plot    
-  op <- par(mar=c(3,ymar,1,3),mgp=c(1.75,0.75,0),ask=TRUE); on.exit(par(op))
+  opar <- par(mar=c(3,ymar,1,3),mgp=c(1.75,0.75,0),ask=TRUE)
   # set values for y-axis of the plots
   yvals <- -(1:numperpg)
   # set maximum for x-axis
@@ -88,4 +88,5 @@ growthRadPlot <- function(df,indivs,in.pre="rad",in.var,radcap="radcap",agevar="
     axis(4,at=yvals,labels=df[(numperpg*(i-1)+1):(numperpg*i),agevar],las=1)
     mtext("age",at=grconvertX(1.05,"npc"),xpd=TRUE)                                               
   } # end pages loop (i)
+  par(opar)
 }

@@ -115,14 +115,15 @@ htest.bootCase <- function(object,parm=NULL,bo=0,alt=c("two.sided","less","great
 #' @rdname bootCase
 #' @export
 hist.bootCase <- function(x,same.ylim=TRUE,ymax=NULL,col="gray90",nr=round(sqrt(ncol(x))),nc=ceiling(sqrt(ncol(x))),right=FALSE,...){
-	old.par <- par(mfrow=c(nr,nc),mar=c(3.5,3.5,2,1),mgp=c(2,0.75,0))
+	opar <- par(mfrow=c(nr,nc),mar=c(3.5,3.5,2,1),mgp=c(2,0.75,0))
   if (is.null(ymax)) {
     for (i in 1:ncol(x)) {  # used to find highest count on all histograms
       ymax[i] <- max(hist(x[,i],right=right,plot=FALSE,warn.unused=FALSE,...)$counts)
     }
   }
   if (same.ylim) { ymax <- rep(max(ymax),length(ymax)) }
-	for(i in 1:ncol(x)){ hist(x[,i],xlab=colnames(x)[i],col=col,main="",right=right,ylim=c(0,ymax[i]),...) }	
+	for(i in 1:ncol(x)){ hist(x[,i],xlab=colnames(x)[i],col=col,main="",right=right,ylim=c(0,ymax[i]),...) }
+  par(opar)
 }
 
 #' @rdname bootCase
@@ -132,11 +133,11 @@ plot.bootCase <- function(x,nr=round(sqrt(np)),nc=ceiling(sqrt(np)),...){
 	lay <- lower.tri(matrix(0,(np-1),(np-1)), TRUE)
 	lay[which(lay, TRUE)] <- 1:choose(np,2)
 	layout(lay)
-	old.par <- par(mar=c(3.5,3.5,1,1),mgp=c(2,0.75,0))
+	opar <- par(mar=c(3.5,3.5,1,1),mgp=c(2,0.75,0))
 	for(i in 1:(np-1))
 		for(j in (i+1):np)
 			 plot(x[,i],x[,j],xlab=colnames(x)[i],ylab=colnames(x)[j],pch=20)
-	par(old.par)
+	par(opar)
 }
 
 #' @rdname bootCase

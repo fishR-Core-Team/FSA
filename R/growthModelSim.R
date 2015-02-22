@@ -295,10 +295,11 @@ iGrowthSimPlot <- function(type,x,y,max.y,t.max,p1,p2,p3,p4) {
   t <- seq(0,t.max,length.out=t.max*20)
   vals <- iPredLength(type,t,p1,p2,p3,p4)
   ylbl <- ifelse (type %in% c("vbTypicalW","vbOriginalW"),"Weight","Length")
-  old.par <- par(mar=c(3.5,3.5,1,1), mgp=c(2,0.4,0), tcl=-0.2); on.exit(par(old.par))
+  opar <- par(mar=c(3.5,3.5,1,1), mgp=c(2,0.4,0), tcl=-0.2)
   if (is.null(x)||is.null(y)) plot(t,vals,xlab="Age",ylab=paste("Mean",ylbl),type="l",lwd=2,col="blue",ylim=c(0,max.y))
   else {
     plot(x,y,xlab="Age",ylab=ylbl,ylim=c(0,max.y),xlim=c(0,t.max))
     lines(t,vals,type="l",lwd=2,col="blue")
   }
+  par(opar)
 } ## end iGrowthSimPlot internal function

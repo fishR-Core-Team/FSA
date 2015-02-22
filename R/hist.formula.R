@@ -83,7 +83,7 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
                          same.breaks=TRUE,same.ylim=TRUE,ymax=NULL,col="gray90",
                          nrow=round(sqrt(num)),ncol=ceiling(sqrt(num)),byrow=TRUE,
                          iaxs=TRUE,...) {
-
+  opar <- par()
   DF <- model.frame(formula,data=data)
   if (dim(DF)[2]==1) {
     h <- hist(DF[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,
@@ -119,9 +119,8 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
       else if (length(ymax)!= num) stop("'ymax' argument must be 'NULL', a vector of length 1,\n or a vector of length equal to the number of groups.",call.=FALSE)
     }
     if (num <= (nrow*ncol)) {
-      if (byrow) old.par <- par(mfrow=c(nrow,ncol),mar=c(3.5,3.5,2.5,1),mgp=c(2,0.4,0))
-        else old.par <- par(mfcol=c(nrow,ncol),mar=c(3.5,3.5,2.5,1),mgp=c(2,0.4,0))
-      on.exit(par(old.par))
+      if (byrow) opar <- par(mfrow=c(nrow,ncol),mar=c(3.5,3.5,2.5,1),mgp=c(2,0.4,0))
+        else opar <- par(mfcol=c(nrow,ncol),mar=c(3.5,3.5,2.5,1),mgp=c(2,0.4,0))
       for (i in 1:num) {
         if (!is.null(pre.main)) main <- paste(pre.main,names(DF.split)[i],sep="")
         hist(DF.split[[i]],main=main,xlab=xlab,ylab=ylab,right=right,ylim=c(0,ymax[i]),col=col,
@@ -130,9 +129,8 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
       }
     } else {
       max.per.page <- nrow*ncol
-      if (byrow) old.par <- par(mfrow=c(nrow,ncol),mar=c(3.5,3.5,2.5,1),mgp=c(2,0.4,0))
-        else old.par <- par(mfcol=c(nrow,ncol),mar=c(3.5,3.5,2.5,1),mgp=c(2,0.4,0))
-      on.exit(par(old.par))
+      if (byrow) opar <- par(mfrow=c(nrow,ncol),mar=c(3.5,3.5,2.5,1),mgp=c(2,0.4,0))
+        else opar <- par(mfcol=c(nrow,ncol),mar=c(3.5,3.5,2.5,1),mgp=c(2,0.4,0))
       for (i in 1:ceiling(num/max.per.page)) {
         ifelse((num-(i-1)*max.per.page)>=max.per.page,todo <- max.per.page,todo <- num-(i-1)*max.per.page)
         for (j in 1:todo) {
@@ -145,4 +143,5 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
       }
     }
   }
+  par(opar)
 }

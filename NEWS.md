@@ -1,9 +1,14 @@
 # FSA 0.4.44 ongoing
 * `.onAttach()`: Modified.  Centered the message and adjusted for different lengths of version numbers.
 * `alkPlot()`: Modified.  Fixed bug when using `add=TRUE` with `type="bubble"`.
+* `capHistSum()`: Modified.  Changed to return `par()` options to what they were before the function was called.
 * `catchCurve()`: Modified.  Changed `plot()` to default to slighly lighter colored dots and a black line.
-* `chapmanRobson()`: Modified.  Changed `plot()` to default to slighly lighter colored dots. 
+* `chapmanRobson()`: Modified.  Changed `plot()` to default to slighly lighter colored dots.  Changed to return `par()` options to what they were before the function was called.
+* `growthModelSim()`: Modified.  Changed to return `par()` options to what they were before the function was called.
+* `growthRadPlot()`: Modified.  Changed to return `par()` options to what they were before the function was called.
+* `hist()`: Modified.  Changed to return `par()` options to what they were before the function was called.
 * `lwCompPreds()`: Modified.  Changed `quant.lens=` to `qlens=`.  Changed default `qlens=` to have the 5th and 95th percentiles rather than the minimum and maximum values.  Added `qpens.dec=` so that the user could control the number of decimals for the lengths derived from `qlens=`.
+* `srSim()`: Modified.  Changed to return `par()` options to what they were before the function was called.
 
 # FSA 0.4.43 Feb15
 * `mrOpen()`: Modified.  Changed `summary()` and `confint()` methods to allow single, multiple, or all choices of parameters to return results for.  Also added code to print the results more prettily.
