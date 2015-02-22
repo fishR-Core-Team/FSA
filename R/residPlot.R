@@ -125,16 +125,18 @@ residPlot.SLR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL
                           student=FALSE,outlier.test=TRUE,alpha=0.05,
                           loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
                           inclHist=TRUE,...) {
+  opar <- par()
   iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
   ifelse(student, r <- rstudent(object$mdl), r <- object$mdl$residuals)
   if (student & ylab=="Residuals") ylab <- "Studentized Residuals"
-  if (inclHist) par(mfrow=c(1,2))
+  if (inclHist) opar <- par(mfrow=c(1,2))
   iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
                      loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
   points(r~fv,pch=pch,col=col)
   if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha) 
   if (inclHist) iHistResids(r,ylab)
+  par(opar)
 }
 
 #' @rdname residPlot
@@ -150,13 +152,14 @@ residPlot.IVR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL
                           student=FALSE,outlier.test=TRUE,alpha=0.05,
                           loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
                           legend="topright",inclHist=TRUE,...) {
+  opar <- par()
   iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
   ifelse(student, r <- rstudent(object$mdl), r <- object$mdl$residuals)
   if (student & ylab=="Residuals") ylab <- "Studentized Residuals"
   if (dim(object$mf)[2]>4) stop("Function does not handle models with more than two covariates or more than three factors.",call.=FALSE)
     else {
-      if (inclHist) par(mfrow=c(1,2))
+      if (inclHist) opar <- par(mfrow=c(1,2))
       leg <- iLegendHelp(legend)   # will there be a legend
       if (!leg$do.legend) {
         iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
@@ -207,6 +210,7 @@ residPlot.IVR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL
      } # end for no legend 
      if (inclHist) iHistResids(r,ylab)
    }
+  par(opar)
 }
 
 #' @rdname residPlot
@@ -216,13 +220,14 @@ residPlot.ONEWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
                              student=FALSE,bp=TRUE,outlier.test=TRUE,alpha=0.05,
                              loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
                              inclHist=TRUE,...) {
+  opar <- par()
   iGetMainTitle(object,main)
   if (bp & xlab=="Fitted Values") xlab <- "Treatment Group"
   fv <- object$mdl$fitted.values
   ifelse(student, r <- rstudent(object$mdl), r <- object$mdl$residuals)
   if (student & ylab=="Residuals") ylab <- "Studentized Residuals"
   gf <- object$mf[,2]
-  if (inclHist) par(mfrow=c(1,2))
+  if (inclHist) opar <- par(mfrow=c(1,2))
   if (bp) {
     boxplot(r~gf,xlab=xlab,ylab=ylab,main=main)
     abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref)
@@ -233,6 +238,7 @@ residPlot.ONEWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
       if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
   } 
   if (inclHist) iHistResids(r,ylab)
+  par(opar)
 }
 
 #' @rdname residPlot
@@ -242,6 +248,7 @@ residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
                              student=FALSE,bp=TRUE,outlier.test=TRUE,alpha=0.05,
                              loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
                              inclHist=TRUE,...) {
+  opar <- par()
   iGetMainTitle(object,main)
   if (bp & xlab=="Fitted Values") xlab <- "Treatment Group"
   fv <- object$mdl$fitted.values
@@ -250,7 +257,7 @@ residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
   gf1 <- object$mf[,2]
   gf2 <- object$mf[,3]
   gf <- interaction(gf1,gf2)
-  if (inclHist) par(mfrow=c(1,2))
+  if (inclHist) opar <- par(mfrow=c(1,2))
   if (bp) {
     boxplot(r~gf,xlab=xlab,ylab=ylab,main=main)
     abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref) 
@@ -261,6 +268,7 @@ residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
       if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
   } 
   if (inclHist) iHistResids(r,ylab) 
+  par(opar)
 }
 
 #' @rdname residPlot
@@ -269,13 +277,15 @@ residPlot.nls<-function(object,xlab="Fitted Values",ylab="Residuals",main="",
                         pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                         loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
                         inclHist=TRUE,...) {
+  opar <- par()
   fv <- fitted(object)
   r <- residuals(object)
-  if (inclHist) par(mfrow=c(1,2))
+  if (inclHist) opar <- par(mfrow=c(1,2))
   iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
                      loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
   points(r~fv,pch=pch,col=col) 
   if (inclHist) iHistResids(r,ylab)
+  par(opar)
 }
 
 
