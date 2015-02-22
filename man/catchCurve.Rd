@@ -27,9 +27,9 @@ catchCurve(x, ...)
 \method{confint}{catchCurve}(object, parm = c("all", "both", "Z", "A"),
   level = conf.level, conf.level = 0.95, type = c("params", "lm"), ...)
 
-\method{plot}{catchCurve}(x, pos.est = "bottomleft", ylab = "log(Catch)",
-  xlab = "Age", col.pt = "gray30", col.mdl = "black", lwd = 2,
-  lty = 1, ...)
+\method{plot}{catchCurve}(x, pos.est = "topright", cex.est = 0.95,
+  ylab = "log(Catch)", xlab = "Age", col.pt = "gray30",
+  col.mdl = "black", lwd = 2, lty = 1, ...)
 }
 \arguments{
 \item{x}{A numerical vector of the assigned ages in the catch curve or a formula of the form \code{catch~age} when used in \code{catchCurve}.  An object saved from \code{catchCurve} (i.e., of class \code{catchCurve}) when used in the methods.}
@@ -52,7 +52,9 @@ catchCurve(x, ...)
 
 \item{conf.level}{A number representing the level of confidence to use for constructing confidence intervals.}
 
-\item{pos.est}{A string to identify where to place the estimated mortality rates on the plot.  Can be set to one of \code{"bottomright"}, '\code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for 'positioning the estimated mortality rates on the plot.  Typically '\code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements.  Set \code{pos.est} to \code{NULL} to remove the estimated mortality rates from the plot.}
+\item{pos.est}{A string to identify where to place the estimated mortality rates on the plot.  Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot.  Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements.  Set \code{pos.est} to \code{NULL} to remove the estimated mortality rates from the plot.}
+
+\item{cex.est}{A single numeric characther expansion value for the estimated mortaliry rates on the plot.}
 
 \item{ylab}{A label for the y-axis (\code{"log(Catch)"} is the default).}
 
@@ -99,7 +101,7 @@ data(BrookTroutTH)
 cc <- with(BrookTroutTH,catchCurve(age,catch,2:6))
 par(mfrow=c(2,1))
 plot(cc)
-plot(cc,pos.est="topright")
+plot(cc,pos.est="bottomleft")
 summary(cc)
 coef(cc)
 confint(cc)
@@ -107,10 +109,12 @@ confint(cc)
 ## demonstration of formula notation
 cc2 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6)
 summary(cc2)
+plot(cc2)
 
 ## demonstration of using weights
 cc3 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6,weighted=TRUE)
 summary(cc3)
+plot(cc3)
 
 ## demonstration of returning the linear model results
 summary(cc2,type="lm")

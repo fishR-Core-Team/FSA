@@ -15,7 +15,8 @@
 #' @param data A data frame from which the variables in the \code{x} formula can be found.  Not used if \code{x} is not a formula.
 #' @param ages2use A numerical vector of the ages that define the descending limb of the catch curve.
 #' @param weighted A logical that indicates whether a weighted regression should be used.  See details.
-#' @param pos.est A string to identify where to place the estimated mortality rates on the plot.  Can be set to one of \code{"bottomright"}, '\code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for 'positioning the estimated mortality rates on the plot.  Typically '\code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements.  Set \code{pos.est} to \code{NULL} to remove the estimated mortality rates from the plot.
+#' @param pos.est A string to identify where to place the estimated mortality rates on the plot.  Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot.  Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements.  Set \code{pos.est} to \code{NULL} to remove the estimated mortality rates from the plot.
+#' @param cex.est A single numeric characther expansion value for the estimated mortaliry rates on the plot.
 #' @param ylab A label for the y-axis (\code{"log(Catch)"} is the default).
 #' @param xlab A label for the x-axis (\code{"Age"} is the default).
 #' @param col.pt A string that indicates the color of the plotted points.
@@ -57,7 +58,7 @@
 #' cc <- with(BrookTroutTH,catchCurve(age,catch,2:6))
 #' par(mfrow=c(2,1))
 #' plot(cc)
-#' plot(cc,pos.est="topright")
+#' plot(cc,pos.est="bottomleft")
 #' summary(cc)
 #' coef(cc)
 #' confint(cc)
@@ -65,10 +66,12 @@
 #' ## demonstration of formula notation
 #' cc2 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6)
 #' summary(cc2)
-#'
+#' plot(cc2)
+#' 
 #' ## demonstration of using weights
 #' cc3 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6,weighted=TRUE)
 #' summary(cc3)
+#' plot(cc3)
 #'
 #' ## demonstration of returning the linear model results
 #' summary(cc2,type="lm")
@@ -195,7 +198,8 @@ confint.catchCurve <- function(object,parm=c("all","both","Z","A"),level=conf.le
 
 #' @rdname catchCurve
 #' @export
-plot.catchCurve <- function(x,pos.est="bottomleft",ylab="log(Catch)",xlab="Age",
+plot.catchCurve <- function(x,pos.est="topright",cex.est=0.95,
+                            ylab="log(Catch)",xlab="Age",
                             col.pt="gray30",col.mdl="black",lwd=2,lty=1,...) {
   # Find the range of the y-axis
   yrng <- c(min(0,min(log(x$catch),na.rm=TRUE)),max(log(x$catch),na.rm=TRUE))
@@ -209,6 +213,6 @@ plot.catchCurve <- function(x,pos.est="bottomleft",ylab="log(Catch)",xlab="Age",
   if (!is.null(pos.est)) {
     Z <- -coef(x$lm)[2]
     A <- 100*(1-exp(-Z))
-    legend(pos.est,legend=paste("Z=",round(Z,3),"\nA=",round(A,1),"%",sep=""),bty="n")
+    legend(pos.est,legend=paste("Z=",round(Z,3),"\nA=",round(A,1),"%",sep=""),bty="n",cex=cex.est)
   }
 }

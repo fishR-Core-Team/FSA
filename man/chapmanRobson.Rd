@@ -22,8 +22,8 @@ chapmanRobson(x, ...)
 \method{confint}{chapmanRobson}(object, parm = c("all", "both", "S", "Z"),
   level = conf.level, conf.level = 0.95, ...)
 
-\method{plot}{chapmanRobson}(x, pos.est = "bottomleft", ylab = "Catch",
-  xlab = "Age", col.pt = "gray30", ...)
+\method{plot}{chapmanRobson}(x, pos.est = "topright", cex.est = 0.95,
+  ylab = "Catch", xlab = "Age", col.pt = "gray30", ...)
 }
 \arguments{
 \item{x}{A numerical vector of the assigned ages in the catch curve or a formula of the form \code{catch~age} when used in \code{chapmanRobson}.  An object saved from \code{chapmanRobson} (i.e., of class \code{chapmanRobson}) when used in the methods.}
@@ -46,7 +46,9 @@ chapmanRobson(x, ...)
 
 \item{conf.level}{A number representing the level of confidence to use for constructing confidence intervals.}
 
-\item{pos.est}{A string to identify where to place the estimated mortality rates on the graph.  Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot.  Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements.  Set \code{pos.est} to \code{NULL} to remove the estimated mortality rates from the plot.}
+\item{pos.est}{A string to identify where to place the estimated mortality rates on the plot.  Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot.  Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements.  Set \code{pos.est} to \code{NULL} to remove the estimated mortality rates from the plot.}
+
+\item{cex.est}{A single numeric characther expansion value for the estimated mortaliry rates on the plot.}
 
 \item{ylab}{A label for the y-axis (\code{"Catch"} is the default).}
 
@@ -91,16 +93,19 @@ data(BrookTroutTH)
 cr <- with(BrookTroutTH,chapmanRobson(age,catch,2:6))
 summary(cr)
 confint(cr)
+plot(cr)
 
 ## demonstration of formula notation
 cr2 <- chapmanRobson(catch~age,BrookTroutTH,2:6)
 summary(cr2)
+plot(cr2)
 
 ## demonstration of ability to work with missing age classes
 age <- c(  2, 3, 4, 5, 7, 9,12)
 ct  <- c(100,92,83,71,56,35, 1)
 cr3 <- chapmanRobson(age,ct,4:12)
 summary(cr3)
+plot(cr3)
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
