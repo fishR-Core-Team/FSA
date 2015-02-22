@@ -183,12 +183,8 @@ summary.mrOpen <- function(object,parm=c("N","phi","B","M"),verbose=FALSE,...) {
   # include the appropriate SE columns if Jolly was used
   # interleave the SE values so they appear next to the point estimate
   if (object$type=="Jolly") parm <- as.vector(rbind(parm,paste0(parm,".se")))
-  # get the object with column names in parm
-  tmp <- tmp[,which(names(tmp) %in% parm)]
-  ## print prettily
-  print(as.matrix(tmp),na.print="-")
-  ## return the data.frame
-  invisible(tmp)
+  # get and return the object with column names in parm
+  tmp[,which(names(tmp) %in% parm)]
 }
 
 #' @rdname mrOpen
@@ -206,12 +202,8 @@ confint.mrOpen <- function(object,parm=c("N","phi","B"),level=NULL,conf.level=NU
   if (verbose) cat("The",object$type,"method was used to construct confidence intervals.\n\n")
   ## change parm to include .lci and .uci
   parm <- as.vector(rbind(paste0(parm,".lci"),paste0(parm,".uci")))
-  ## get results to print and return
-  tmp <- object$df[,which(names(object$df) %in% parm)]
-  ## print prettily
-  print(as.matrix(tmp),na.print="-")
-  ## return the data.frame
-  invisible(tmp)
+  ## get and return results to print and return
+  object$df[,which(names(object$df) %in% parm)]
 }
 
 ##############################################################
