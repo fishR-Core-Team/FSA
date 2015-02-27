@@ -1,13 +1,14 @@
 # FSA 0.4.47 ongoing
+* `dunnTest()`: Modified.  Corrected "bug" in the order that the groups are subtracted (i.e., they were flipped).
 
 # FSA 0.4.46 Feb15
 * `catchCurve()`: Modified.  Changed default for `pos.est=` to `topright`.  Added `cex.pos=` (and set default to slightly smaller value).
 * `chapmanRobson()`: Modified.  Changed default for `pos.est=` to `topright`.  Added `cex.pos=` (and set default to slightly smaller value).
 
 # FSA 0.4.45 Feb15
-* `hist.formula()`: Modified.  Changed use of `par()` to eliminate modifications to the gridding of plots after the functions is complete.  Also removed the setting of `mar=` and `mgp=` in `par()`.
+* `hist.formula()`: Modified.  Changed use of `par()` to eliminate modifications to the gridding of plots after the function is complete.  Also removed the setting of `mar=` and `mgp=` in `par()`.
 * `mrOpen()`: Modified.  Removed pretty printing for `summary()` and `confint()` methods.  These got in the way of being able to `cbind()` the results together for a succinct display.
-* `residPlot()`: Modified.  Changed use of `par()` to eliminate modifications to the gridding of plots after the functions is complete.
+* `residPlot()`: Modified.  Changed use of `par()` to eliminate modifications to the gridding of plots after the function is complete.
 
 # FSA 0.4.44 Feb15
 * `.onAttach()`: Modified.  Centered the message and adjusted for different lengths of version numbers.

@@ -107,7 +107,7 @@ dunnTest.default <- function(x,g,method=p.adjust.methods[c(4,1:3,5:8)],...) {
       nj <- sum(d$g==lvls[j])
       meanranki <- mean(d$ranks[d$g==lvls[i]])
       meanrankj <- mean(d$ranks[d$g==lvls[j]])
-      z <- (meanrankj - meanranki) / sqrt( ((N*(N+1)/12) - tiesadj) * ((1/nj) + (1/ni)) )
+      z <- (meanranki - meanrankj) / sqrt( ((N*(N+1)/12) - tiesadj) * ((1/nj) + (1/ni)) )
       index <- ((i-2)*(i-1)/2) + j
       Z[index] <- z
       lbls[index] <- paste0(lvls[i],"-",lvls[j],"=0")
