@@ -1,4 +1,6 @@
-# FSA 0.4.47 ongoing
+# FSA 0.4.48 ongoing
+
+# FSA 0.4.47 Feb15
 * `dunnTest()`: Modified.  Corrected "bug" in the order that the groups are subtracted (i.e., they were flipped).
 
 # FSA 0.4.46 Feb15
