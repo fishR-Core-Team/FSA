@@ -58,8 +58,8 @@ Confidence intervals can be computed with either the multinomial (Default) or bi
 \examples{
 ## Random length data
 # suppose this is yellow perch to the nearest mm
-yepdf <- data.frame(yepmm=c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),
-                    rnorm(20,mean=300,sd=40)),
+yepdf <- data.frame(yepmm=round(c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),
+                    rnorm(20,mean=300,sd=40)),0),
                     species=rep("Yellow Perch",170))
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1)
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1,drop0Est=TRUE)

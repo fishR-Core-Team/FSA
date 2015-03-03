@@ -1,4 +1,7 @@
-# FSA 0.4.48 ongoing
+# FSA 0.4.49 ongoing
+
+# FSA 0.4.48 Mar15
+* `psdCalc()`: Modified.  Corrected "bug" with `units=`.  Also modified warning message when no "stock" fish were present in the data.frame to further note what `units=` were used (i.e., this problem is likely to happen if the data is inches but the user uses the default `units='mm'`).  Thanks to S. Mather for inspring this fix.
 
 # FSA 0.4.47 Feb15
 * `dunnTest()`: Modified.  Corrected "bug" in the order that the groups are subtracted (i.e., they were flipped).

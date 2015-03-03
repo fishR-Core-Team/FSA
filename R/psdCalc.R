@@ -46,8 +46,8 @@
 #' @examples
 #' ## Random length data
 #' # suppose this is yellow perch to the nearest mm
-#' yepdf <- data.frame(yepmm=c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),
-#'                     rnorm(20,mean=300,sd=40)),
+#' yepdf <- data.frame(yepmm=round(c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),
+#'                     rnorm(20,mean=300,sd=40)),0),
 #'                     species=rep("Yellow Perch",170))
 #' psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1)
 #' psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1,drop0Est=TRUE)
@@ -101,12 +101,13 @@ psdCalc <- function(formula,data,species,units=c("mm","cm","in"),
                     showIntermediate=FALSE,digits=0) {
   method <- match.arg(method)
   what <- match.arg(what)
+  units <- match.arg(units)
   ## make sure species is not missing
   if (missing(species)) stop("Must include a species name in 'species'.",call.=FALSE)
   ## find psd lengths for this species
   brks <- psdVal(species,units=units,incl.zero=FALSE,addLens=addLens,addNames=addNames)
   ## perform checks and initial preparation of the data.frame
-  dftemp <- iPrepData4PSD(formula,data,brks["stock"])
+  dftemp <- iPrepData4PSD(formula,data,brks["stock"],units)
   ## add the length categorization variable, don't drop unused levels
   dftemp <- lencat(formula,data=dftemp,breaks=brks,vname="lcatr",use.names=TRUE,droplevels=FALSE)
   ## get sample size (number of stock-length fish)
@@ -146,7 +147,7 @@ psdCalc <- function(formula,data,species,units=c("mm","cm","in"),
 #   computing the PSD values.  Performs some checks and 
 #   deletes the sub-stock fish.
 # ============================================================
-iPrepData4PSD <- function(formula,data,stock.len) {
+iPrepData4PSD <- function(formula,data,stock.len,units) {
   ## check if the data.frame has data
   if (nrow(data)==0) stop("'data' does not contain any rows.",call.=FALSE)
   ## get name of length variable from the formula
@@ -157,7 +158,11 @@ iPrepData4PSD <- function(formula,data,stock.len) {
   ## assure that NA values in the length variable are removed
   data <- data[!is.na(data[,cl]),]
   # if nothing in data.frame then send error
-  if (nrow(data)==0) stop("There are no stock-length fish in the sample.",call.=FALSE)
+  if (nrow(data)==0) {
+    msg <- "There are no stock-length fish in the sample.\n"
+    msg <- paste0(msg,"Note that units='",units,"' was used.\n")
+    stop(msg,call.=FALSE)
+  }
   # return new data.frame
   data
 }
