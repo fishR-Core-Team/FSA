@@ -5,7 +5,7 @@
 \title{Repeat individual fish data (including lengths) from tallied counts.}
 \usage{
 expandCounts(data, cform, lform = NULL, removeCount = TRUE, lprec = 0.1,
-  new.name = "newlen", verbose = TRUE, ...)
+  new.name = "newlen", cwid = 0, verbose = TRUE, ...)
 }
 \arguments{
 \item{data}{A data.frame that contains variables in \code{cform} and \code{lform}.}
@@ -19,6 +19,8 @@ expandCounts(data, cform, lform = NULL, removeCount = TRUE, lprec = 0.1,
 \item{lprec}{A single numeric that controls the precision to which the random lengths are recorded.  See details.}
 
 \item{new.name}{A single string that contains a name for the new length variable if random lengths are to be created.}
+
+\item{cwid}{A single positive numeric that will be added to the lower length bin value in instances where the count exceeds one but only a lower (and not an upper) length were recorded.  See details.}
 
 \item{verbose}{A logical indicating whether progress message should be printed or not.}
 
@@ -34,6 +36,8 @@ Repeat individual fish data, including lengths, from tallied counts and, optiona
 Fisheries data may be recorded as tallied counts in the field.  For example, field biologists may have simply recorded that there were 10 fish in one group, 15 in another, etc.  More specifically, the biologist may have recorded that there were 10 male Bluegill from the first sampling event between 100 and 124 mm, 15 male Bluegill from the first sampling event between 125 and 149 mm, and so on.  At times, it may be necessary to expand these counts such that the repeated information appears in individual rows in a new data.frame.  In this specific example, the tallied counts would be repeated such that the male, Bluegill, first sampling event, 100-124 mm information would be repeated 10 times; the male, Bluegill, first sampling event, 125-149 mm information would be repeated 15 times, and so on.  This function facilitates this type of expansion.
 
 Length data has often been collected in a \dQuote{binned-and-tallied} format (e.g., 10 fish in the 100-124 mm group, 15 in the 125-149 mm group, etc.).  This type of data collection does not facilitate easy or precise calculations of summary statistics of length (i.e., mean and standard deviations of length).  Expanding the data as described above does not solve this problem because the length data are still essentially categorical (i.e., which group the fish belongs to rather than what it's actual length is).  To facilitate computation of summary statistics, the data can be expanded as described above and then a length can be randomly selected from within the recorded length bin to serve as a \dQuote{measured} length for that fish.  This function performs this type of expansion by randomly selecting the length from a uniform distribuion within the length bin (e.g., each value between 100 and 124 mm has the same probability of being selected).
+
+This function makes some assumptions for some coding situtions.  First, it assumes that all \code{lowerbin} values are actually lower than all \code{upperbin} values.  The function will throw an error if this is not true.  Second, it assumes that if a \code{lowerbin} but no \code{upperbin} value is given then the \code{lowerbin} value is the exact measurement for those fish.  Third, it assumes that if an \code{upperbin} but no \code{lowerbin} value is given that this is a data entry error and that the \code{upperbin} value should be the \code{lowerbin} value.  Fourth, it assumes that it is a data entry error if \code{varcount} is zero or \code{NA} and \code{lowerbin} or \code{upperbin} contains values (i.e., why would there be lengths if no fish were captured?).
 }
 \examples{
 # all need expansion
@@ -67,6 +71,27 @@ expandCounts(d3,~freq,~lwr.bin+upr.bin)
                    freq=c(6,4,2,3,1,1)) )
 expandCounts(d4,~freq)
 expandCounts(d4,~freq,~lwr.bin+upr.bin)
+
+# some need expansion but include zeroes and NAs for counts
+( d2a <- data.frame(name=c("Johnson","Johnson","Jones","Frank","Frank","Max","Max","Max","Max"),
+                    lwr.bin=c(15,  15.5,16  ,16  ,17.1,17.3,NA,NA,NA),
+                    upr.bin=c(15.5,16  ,16.5,16.5,17.1,17.3,NA,NA,NA),
+                    freq=c(6,4,2,3,1,1,NA,0,NA)) )
+expandCounts(d2a,~freq,~lwr.bin+upr.bin)
+
+# some need expansion but include NAs for upper values
+( d2b <- data.frame(name=c("Johnson","Johnson","Jones","Frank","Frank","Max"),
+                    lwr.bin=c(15,  15.5,16  ,16  ,17.1,17.3),
+                    upr.bin=c(NA  ,NA  ,16.5,16.5,17.1,17.3),
+                    freq=c(6,4,2,3,1,1)) )
+expandCounts(d2b,~freq,~lwr.bin+upr.bin)
+
+# some need expansion but include NAs for upper values
+( d2c <- data.frame(name=c("Johnson","Johnson","Jones","Frank","Frank","Max"),
+                    lwr.bin=c(NA,NA,  16  ,16  ,17.1,17.3),
+                    upr.bin=c(15,15.5,16.5,16.5,17.1,17.3),
+                    freq=c(6,4,2,3,1,1)) )
+expandCounts(d2c,~freq,~lwr.bin+upr.bin)
 
 \dontrun{
 ##!!##!!## Change path to where example file is and then run to demo

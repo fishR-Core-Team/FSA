@@ -1,4 +1,7 @@
-# FSA 0.4.49 ongoing
+# FSA 0.4.50 ongoing
+
+# FSA 0.4.49 Mar15
+* `expandCounts()`: Modified.  Made message regarding rows with zero counts more useful.  Added missing counts to the catch of zero counts.  Made changes to handle more "odd" data entries (see "details" in the help file).  Made some tests.  Added some tests.
 
 # FSA 0.4.48 Mar15
 * `psdCalc()`: Modified.  Corrected "bug" with `units=`.  Also modified warning message when no "stock" fish were present in the data.frame to further note what `units=` were used (i.e., this problem is likely to happen if the data is inches but the user uses the default `units='mm'`).  Thanks to S. Mather for inspring this fix.
