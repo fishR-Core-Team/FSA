@@ -13,6 +13,7 @@
 #' @param use.names A logical that indicates whether the vector returned is numeric (\code{=FALSE}) or word (\code{=TRUE}; default) representations of the Gabelhouse lengths.  See details.
 #' @param addSpec A character vector of species names for whiach \code{addLens} will be provided.
 #' @param addLens A numeric vector of lengths that should be used for the species in \code{addSpec} in addition to the Gabelhouse lengths.  See examples.
+#' @param verbose A logical that indicates whether detailed messages about species without Gabelhouse lengths or with no recorded values should be printed or not.
 #' @param \dots Not used.
 #'
 #' @return A numeric or factor vector that contains the Gabelhouse length categories.
@@ -83,7 +84,7 @@ psdAdd <- function (len,...) {
 #' @rdname psdAdd
 #' @export
 psdAdd.default <- function(len,spec,units=c("mm","cm","in"),use.names=TRUE,
-                           addSpec=NULL,addLens=NULL,...) {
+                           addSpec=NULL,addLens=NULL,verbose=TRUE,...) {
   ## Some checks
   units <- match.arg(units)
   if (!is.numeric(len)) stop("'len' must be numeric.",call.=FALSE)
@@ -118,8 +119,11 @@ psdAdd.default <- function(len,spec,units=c("mm","cm","in"),use.names=TRUE,
       # get the Gabelhouse length categories
       glhse <- psdVal(specs[i],units=units,addLens=tmpAddLens)
       # computes the Gabelhouse length categories and adds to the data frame
-      tmpdf$PSD <- lencat(tmpdf[,1],breaks=glhse,use.names=use.names,as.fact=FALSE)
-    }
+      if (all(is.na(tmpdf[,1]))) {
+        if (verbose) message("All values in 'len' were missing for ",specs[i])
+        tmpdf$PSD <- tmpdf[,1]
+      } else tmpdf$PSD <- lencat(tmpdf[,1],breaks=glhse,use.names=use.names,as.fact=FALSE)
+    } else if (verbose) message("No known Gabelhouse (PSD) lengths for ",specs[i])
     # bind current species to the new data frame being created
     ndata <- rbind(ndata,tmpdf)
   }
@@ -134,7 +138,7 @@ psdAdd.default <- function(len,spec,units=c("mm","cm","in"),use.names=TRUE,
 #' @rdname psdAdd
 #' @export
 psdAdd.formula <- function(len,data=NULL,units=c("mm","cm","in"),use.names=TRUE,
-                           addSpec=NULL,addLens=NULL,...) {
+                           addSpec=NULL,addLens=NULL,verbose=TRUE,...) {
   ## Perform some checks on the formula
   tmp <- iHndlFormula(len,data,expNumR=1,expNumE=1,expNumENums=0,expNumEFacts=1)
   if (tmp$vnum!=2) stop("'len' must have one variable on the left-hand-side\n and one variable on the right-hand-side.",call.=FALSE)
@@ -143,5 +147,5 @@ psdAdd.formula <- function(len,data=NULL,units=c("mm","cm","in"),use.names=TRUE,
   if (!tmp$metExpNumE) stop("'len' must have a right-hand-side with one and only one variable.",call.=FALSE)
   if (!tmp$metExpNumEFacts) stop("'len' must have one and only one factor variable (species) on right-hand-side.",call.=FALSE)
   ## Send to default method
-  psdAdd.default(tmp$mf[[tmp$Rpos]],tmp$mf[[tmp$EFactPos]],units,use.names,addSpec,addLens,...)
+  psdAdd.default(tmp$mf[[tmp$Rpos]],tmp$mf[[tmp$EFactPos]],units,use.names,addSpec,addLens,verbose,...)
 }

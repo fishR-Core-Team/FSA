@@ -1,7 +1,7 @@
 # FSA 0.4.50 ongoing
 * `capFirst()`: Modified.  Added a check to make sure the inputted object was either a character or factor class.  Added code to return the object as the same class of the original object.
 * `lencat()`: Modified.  Added a catch for bad choices of arguments.  Added a catch to send a warning if the vector contains all `NA` values (this happens when `lencat()` is used within a loop or as part of `psdAdd()`).  Added tests for error and warning messages.  Changed how the formula was handled in the formula method.
-* `psdAdd()`: Modified.  Fixed a bug with names when using labels.
+* `psdAdd()`: Modified.  Fixed a bug with names when using labels.  Added `verbose=`.  Added catches and sent messages if `verbose=TRUE` for when no Gabelhouse lengths are know for a species and if the lengths for a species are all missing (see note for `lencat()` above).
 * `PSDlit`: Modified.  Fixed the trophy length for White Bass (from 15 to 18).  This solved a bug related to non-unique breaks.
 
 # FSA 0.4.49 Mar15
