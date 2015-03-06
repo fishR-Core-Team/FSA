@@ -16,3 +16,14 @@ test_that("capFirst() capitalizations are correct",{
   expect_equivalent(levels(factor(capFirst(df$species))),c("Bluefin Tuna","Bluegill","Lmb"))
   expect_equivalent(levels(factor(capFirst(df$species,which="first"))),c("Bluefin tuna","Bluegill","Lmb"))
 })
+
+test_that("capFirst() returned classes are correct",{
+  vec <- c("Derek Ogle","derek ogle","Derek ogle","derek Ogle","DEREK OGLE")
+  vec1 <- capFirst(vec)
+  expect_equivalent(class(vec),class(vec1))
+  expect_equivalent(class(vec1),"character")
+  fvec <- factor(vec)
+  fvec1 <- capFirst(fvec)
+  expect_equivalent(class(fvec),class(fvec1))
+  expect_equivalent(class(fvec1),"factor")
+})

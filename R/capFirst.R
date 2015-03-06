@@ -27,10 +27,26 @@
 #' capFirst(vec)
 #' capFirst(vec,which="first")
 #'
+#' ## check class types
+#' class(vec)
+#' vec1 <- capFirst(vec)
+#' class(vec1)
+#' fvec <- factor(vec)
+#' fvec1 <- capFirst(fvec)
+#' class(fvec1)
 #' @export
 capFirst <- function(x,which=c("all","first")) {
-  if (length(x)==1) iCapFirst(x,which)
-  else apply(matrix(x),MARGIN=1,FUN=iCapFirst,which=which)
+  ## Get the class of the object
+  cls <- class(x)
+  ## Perform a check
+  if (!(cls %in% c("character","factor"))) stop("'capFirst' only works with 'character' or 'class' objects.",call.=FALSE)
+  ## Capitalize the one word or the words in the vector
+  if (length(x)==1) x <- iCapFirst(x,which)
+  else x <- apply(matrix(x),MARGIN=1,FUN=iCapFirst,which=which)
+  ## Change the case to what the original was
+  if (cls=="factor") x <- as.factor(x)
+  ## Return the object
+  x
 }
 
 iCapFirst<- function(x,which=c("all","first")) {

@@ -1,4 +1,5 @@
 # FSA 0.4.50 ongoing
+* `capFirst()`: Modified.  Added a check to make sure the inputted object was either a character or factor class.  Added code to return the object as the same class of the original object.
 
 # FSA 0.4.49 Mar15
 * `expandCounts()`: Modified.  Made message regarding rows with zero counts more useful.  Added missing counts to the catch of zero counts.  Made changes to handle more "odd" data entries (see "details" in the help file).  Made some tests.  Added some tests.
