@@ -52,7 +52,7 @@
 "Suwannee Bass" 6 9.75 11.75 13.75 15.75 15 25 30 35 40
 "Walleye" 10 15 20 25 30 25 38 51 63 76
 "Warmouth" 3 6 8 10 12 8 15 20 25 30
-"White Bass" 6 9 12 15 15 15 23 30 38 46
+"White Bass" 6 9 12 15 18 15 23 30 38 46
 "Palmetto Bass" 10 16 20 24 28 25 41 51 61 71
 "Palmetto Bass (original)" 8 12 15 20 25 20 30 38 51 63
 "White Catfish" 8 13 17 21 26 20 33 43 53 66
