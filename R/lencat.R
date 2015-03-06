@@ -171,47 +171,62 @@ lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,
                            as.fact=use.names,
                            droplevels=drop.levels,drop.levels=FALSE,
                            ...) {
-  ## find range of values in x
-  maxx <- max(x,na.rm=TRUE)
-  minx <- min(x,na.rm=TRUE)
-  if (is.null(breaks)) {
-    ## If no breaks given then create them
-    if (is.null(startcat)) startcat <- floor(minx/w)*w
-    # identify decimals in startcat and w
-    decs <- iCheckStartcatW(startcat,w,x)
-    # Creates cut breaks (one more than max so that max is included in a break)
-    breaks <- round(seq(startcat,maxx+w,w),decs$wdec)
+  ## Some Checks
+  if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
+  if (length(w)>1) stop("'w' must be of length 1.",call.=FALSE)
+  if (w<0) stop("'w' must be positive.",call.=FALSE)
+  if (!is.null(startcat)) if (length(startcat)>1) stop("'startcat' must be of length 1.",call.=FALSE)
+  ## Check whether x is all NAs
+  if (all(is.na(x))) {
+    ## If so, send a warning.
+    warning("Note that all values in 'x' were missing.",call.=FALSE)
+    ## and put all NAs in lcat to return (i.e., if x are all
+    ## missing then make the length categories all missing)
+    lcat <- x
   } else {
-    ## breaks are given, check to see if they are useable
-    # remove NAs (if they exist)
-    breaks <- breaks[!is.na(breaks)]
-    # stop if breaks don't go below minimum observed value
-    if (minx < breaks[1]) stop("Lowest break (",breaks[1],") is larger than minimum observation (",minx,").",call.=FALSE)
-    # make a break larger than maximum value if needed
-    if (maxx >= max(breaks)) breaks <- c(breaks,1.1*maxx)
-  }
-  ## actually make the values
-  lcat <- breaks[cut(x,breaks,labels=FALSE,right=right,include.lowest=TRUE)]
-  ## convert numeric to factor if asked to do so (drop last break that is always empty)
-  if (as.fact) lcat <- factor(lcat,levels=breaks[-length(breaks)])
-  ## converts length categories to level names
-  if (!use.names) {
-    # remove names from variable if they exist and use.names=FALSE
-    if(!is.null(names(breaks))) names(lcat) <- NULL
-  } else {
-    if (is.null(names(breaks))) {
-      warning("'use.catnames=TRUE', but 'breaks' is not named.  Used default labels.",call.=FALSE)
+    ## If not then create the length categories
+    ## find range of values in x
+    maxx <- max(x,na.rm=TRUE)
+    minx <- min(x,na.rm=TRUE)
+    if (is.null(breaks)) {
+      ## If no breaks given then create them
+      if (is.null(startcat)) startcat <- floor(minx/w)*w
+      # identify decimals in startcat and w
+      decs <- iCheckStartcatW(startcat,w,x)
+      # Creates cut breaks (one more than max so that max is included in a break)
+      breaks <- round(seq(startcat,maxx+w,w),decs$wdec)
     } else {
-      # if breaks has names, add new var with those names by comparing to numeric breaks
-      lcat <- names(breaks)[match(lcat,breaks)]
-      # make sure the labels are ordered as ordered in breaks (drop last break that is always empty)
-      if (as.fact) lcat <- factor(lcat,levels=names(breaks))
-#      lcat <- factor(lcat,levels=names(breaks)[-length(breaks)])
-      # change logical to note that it was a factor
-#      as.fact <- TRUE
+      ## breaks are given, check to see if they are useable
+      # remove NAs (if they exist)
+      breaks <- breaks[!is.na(breaks)]
+      # stop if breaks don't go below minimum observed value
+      if (minx < breaks[1]) stop("Lowest break (",breaks[1],") is larger than minimum observation (",minx,").",call.=FALSE)
+      # make a break larger than maximum value if needed
+      if (maxx >= max(breaks)) breaks <- c(breaks,1.1*maxx)
     }
+    ## actually make the values
+    lcat <- breaks[cut(x,breaks,labels=FALSE,right=right,include.lowest=TRUE)]
+    ## convert numeric to factor if asked to do so (drop last break that is always empty)
+    if (as.fact) lcat <- factor(lcat,levels=breaks[-length(breaks)])
+    ## converts length categories to level names
+    if (!use.names) {
+      # remove names from variable if they exist and use.names=FALSE
+      if(!is.null(names(breaks))) names(lcat) <- NULL
+    } else {
+      if (is.null(names(breaks))) {
+        warning("'use.catnames=TRUE', but 'breaks' is not named.  Used default labels.",call.=FALSE)
+      } else {
+        # if breaks has names, add new var with those names by comparing to numeric breaks
+        lcat <- names(breaks)[match(lcat,breaks)]
+        # make sure the labels are ordered as ordered in breaks (drop last break that is always empty)
+        if (as.fact) lcat <- factor(lcat,levels=names(breaks))
+        #      lcat <- factor(lcat,levels=names(breaks)[-length(breaks)])
+        # change logical to note that it was a factor
+        #      as.fact <- TRUE
+      }
+    }
+    if (as.fact & droplevels) lcat <- droplevels(lcat)
   }
-  if (as.fact & droplevels) lcat <- droplevels(lcat)
   lcat
 }
 
@@ -219,13 +234,14 @@ lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,
 #' @export
 lencat.formula <- function(x,data,w=1,breaks=NULL,startcat=NULL,
                            right=FALSE,use.names=FALSE,
-                           as.fact=use.names,
-                           droplevels=drop.levels,drop.levels=FALSE,
+                           as.fact=use.names,droplevels=drop.levels,drop.levels=FALSE,
                            vname=NULL,...) {
-  ## Get the name of the variable with the lengths
-  cl <- iGetVarFromFormula(x,data,expNumVars=1)
+  ## Handle the formula with some checks
+  x <- iHndlFormula(x,data)
+  if (x$vnum>1) stop("'x' must be only one variable.",call.=FALSE)
+
   ## Create the length category variable
-  tmp <- lencat.default(data[,cl],w=w,breaks=breaks,startcat=startcat,right=right,
+  tmp <- lencat.default(data[,x$vname],w=w,breaks=breaks,startcat=startcat,right=right,
                         use.names=use.names,as.fact=as.fact,droplevels=droplevels)
   ## Append the new variable to the old data.frame
   nd <- data.frame(data,tmp)
