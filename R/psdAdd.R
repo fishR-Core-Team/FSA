@@ -126,7 +126,7 @@ psdAdd.default <- function(len,spec,units=c("mm","cm","in"),use.names=TRUE,
   ## reorder the data.frame to match original rows
   ndata <- ndata[order(ndata$rownums),]
   ## factor the PSD variable if using category names
-  if (use.names) ndata$PSD <- factor(ndata$PSD,levels=names(glhse))
+  if (use.names) ndata$PSD <- factor(ndata$PSD,levels=c("substock","stock","quality","preferred","memorable","trophy"))
   ## return just the vector of PSD values
   ndata$PSD
 }
