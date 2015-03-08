@@ -1,12 +1,12 @@
 #' @title Compute measures of precision among sets of ages.
 #'
-#' @description Computes overall measures of precision for multiple age assignments made on the same individuals.  The age assignments may be from two or more readers of the same structure, one reader at two or more times, or two or more stuctures (e.g., scales, spines, otoliths).  Measures of precision include CV, APE, and various percentage difference values.
+#' @description Computes overall measures of precision for multiple age assignments made on the same individuals.  The age assignments may be from two or more readers of the same structure, one reader at two or more times, or two or more stuctures (e.g., scales, spines, otoliths).  Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), and various percentage difference values.
 #'
 #' @details If \code{what="precision"} in \code{summary} then a summary table that contains the following items will be printed:
 #' \itemize{
 #'   \item n Number of fish in \code{data}.
 #'   \item R Number of age assessments given in \code{formula}.
-#'   \item CV The mean coefficient of variation.  See the fishR vignette for calculational details.
+#'   \item ACV The mean coefficient of variation.  See the fishR vignette for calculational details.
 #'   \item APE The mean average percent error.  See the fishR vignette for calculational details.
 #'   \item PercAgree The percentage of fish for which all age assignments perfectly agree.
 #' }
@@ -15,7 +15,7 @@
 #'
 #' If \code{what="absolute difference"} is used in \code{summary} then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the absolute value of the difference in paired age assignments.  This table has one row for each possible pair of age assignments.  The \dQuote{1} column, for example, represents age assignments that disagree by one year (in either direction).
 #'
-#' If \code{what="detail"} is used in \code{summary} then a data frame of the original \code{data} along with the intermediate caculations of the average age, standard deviation of age, APE, and CV for each individual will be printed.  These details are generally only used to check or to understand calculations.
+#' If \code{what="detail"} is used in \code{summary} then a data frame of the original \code{data} along with the intermediate caculations of the average age, standard deviation of age, APE, and ACV for each individual will be printed.  These details are generally only used to check or to understand calculations.
 #' 
 #' @section Testing: Tested all precision results against published results in Herbst and Marsden (2011) for the \code{WhitefishLC} data from \pkg{FSAdata} and the results for the \code{alewifeLH} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
 #' 
@@ -33,7 +33,7 @@
 #'   \item rawdiff A frequency table of fish by differences for each pair of ages.
 #'   \item absdiff A frequency table of fish by absolute differences for each pair of ages.
 #'   \item APE The mean average percent error.
-#'   \item CV The mean coefficient of variation.
+#'   \item ACV The mean coefficient of variation.
 #'   \item n Number of fish in \code{data}.
 #'   \item R Number of age assessments for each fish given in \code{formula}.
 #' }
@@ -96,25 +96,25 @@ agePrecision <- function(formula,data) {
   # get dataframe of just ages (for simplicity)
   d <- tmp$mf
   
-  ## Precision alculations (APE and CV) on each fish
+  ## Precision alculations (APE and ACV) on each fish
   # Mean, SD of assigned ages
   age.avg <- apply(d,1,mean)
   age.sd <- apply(d,1,sd)
   # Summed absolute deviation
   tmp.adevs <- abs(apply(d,2,'-',age.avg))
   age.ad <- apply(tmp.adevs,1,sum)
-  # APE & CV for each fish
+  # APE & ACV for each fish
   APE.j <- ((age.ad/age.avg)/R)*100
-  CV.j <- (age.sd/age.avg)*100
-  # Replaced NAs with 0 in APE.j and CV.j for when age.avg==0
+  ACV.j <- (age.sd/age.avg)*100
+  # Replaced NAs with 0 in APE.j and ACV.j for when age.avg==0
   tmp <- which(age.avg==0)
   APE.j[tmp] <- 0
-  CV.j[tmp] <- 0
+  ACV.j[tmp] <- 0
   # Put results into a data.frame to return
-  detail.df <- data.frame(d,avg=age.avg,sd=age.sd,APE=APE.j,CV=CV.j)
-  ## Summary precision calculations (mean APE, CV, total agreement) for all fish
+  detail.df <- data.frame(d,avg=age.avg,sd=age.sd,APE=APE.j,ACV=ACV.j)
+  ## Summary precision calculations (mean APE, ACV, total agreement) for all fish
   APE <- mean(APE.j)
-  CV <- mean(CV.j)
+  ACV <- mean(ACV.j)
   # all ages agree if sd=0
   all.agree <- length(detail.df$sd[detail.df$sd==0])/n*100
 
@@ -159,7 +159,7 @@ agePrecision <- function(formula,data) {
   
   ## Put together an output list
   d <- list(detail=detail.df,rawdiff=as.table(ragree),absdiff=as.table(aagree),
-            APE=APE,CV=CV,PercAgree=all.agree,n=n,R=R)
+            APE=APE,ACV=ACV,PercAgree=all.agree,n=n,R=R)
   class(d) <- "agePrec"
   d 
 }
@@ -171,7 +171,7 @@ summary.agePrec <- function(object,what=c("precision","difference","absolute dif
   what <- match.arg(what,several.ok=TRUE)
   if ("precision" %in% what) {
     cat("Precision summary statistics\n")
-    print(with(object,data.frame(n=n,R=R,CV=CV,APE=APE,PercAgree=PercAgree)),
+    print(with(object,data.frame(n=n,R=R,ACV=ACV,APE=APE,PercAgree=PercAgree)),
           row.names=FALSE,digits=digits)
     what <- iHndlMultWhat(what,"precision")
   }

@@ -33,7 +33,7 @@ The main function returns a list with the following items:
   \item rawdiff A frequency table of fish by differences for each pair of ages.
   \item absdiff A frequency table of fish by absolute differences for each pair of ages.
   \item APE The mean average percent error.
-  \item CV The mean coefficient of variation.
+  \item ACV The mean coefficient of variation.
   \item n Number of fish in \code{data}.
   \item R Number of age assessments for each fish given in \code{formula}.
 }
@@ -41,14 +41,14 @@ The main function returns a list with the following items:
 Nothing is returned by \code{summary}, but see details for what is printed.
 }
 \description{
-Computes overall measures of precision for multiple age assignments made on the same individuals.  The age assignments may be from two or more readers of the same structure, one reader at two or more times, or two or more stuctures (e.g., scales, spines, otoliths).  Measures of precision include CV, APE, and various percentage difference values.
+Computes overall measures of precision for multiple age assignments made on the same individuals.  The age assignments may be from two or more readers of the same structure, one reader at two or more times, or two or more stuctures (e.g., scales, spines, otoliths).  Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), and various percentage difference values.
 }
 \details{
 If \code{what="precision"} in \code{summary} then a summary table that contains the following items will be printed:
 \itemize{
   \item n Number of fish in \code{data}.
   \item R Number of age assessments given in \code{formula}.
-  \item CV The mean coefficient of variation.  See the fishR vignette for calculational details.
+  \item ACV The mean coefficient of variation.  See the fishR vignette for calculational details.
   \item APE The mean average percent error.  See the fishR vignette for calculational details.
   \item PercAgree The percentage of fish for which all age assignments perfectly agree.
 }
@@ -57,7 +57,7 @@ If \code{what="difference"} is used in \code{summary} then a table that describe
 
 If \code{what="absolute difference"} is used in \code{summary} then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the absolute value of the difference in paired age assignments.  This table has one row for each possible pair of age assignments.  The \dQuote{1} column, for example, represents age assignments that disagree by one year (in either direction).
 
-If \code{what="detail"} is used in \code{summary} then a data frame of the original \code{data} along with the intermediate caculations of the average age, standard deviation of age, APE, and CV for each individual will be printed.  These details are generally only used to check or to understand calculations.
+If \code{what="detail"} is used in \code{summary} then a data frame of the original \code{data} along with the intermediate caculations of the average age, standard deviation of age, APE, and ACV for each individual will be printed.  These details are generally only used to check or to understand calculations.
 }
 \section{Testing}{
  Tested all precision results against published results in Herbst and Marsden (2011) for the \code{WhitefishLC} data from \pkg{FSAdata} and the results for the \code{alewifeLH} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.

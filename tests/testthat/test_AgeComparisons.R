@@ -37,7 +37,7 @@ test_that("agePrecision gives correct precision values -- First Example",{
   expect_equal(length(ap1$rawdiff), 17)
   expect_equal(length(ap1$absdiff), 14)
   expect_equal(round(ap1$APE,5), 14.92923)
-  expect_equal(round(ap1$CV,5), 21.11312)
+  expect_equal(round(ap1$ACV,5), 21.11312)
   expect_equal(round(ap1$PercAgree,5), 19.86755)
 })
 
@@ -52,7 +52,7 @@ test_that("agePrecision gives correct precision values -- Second Example",{
   expect_equal(dim(ap2$absdiff), c(3,15))
   expect_equal(dim(ap2$rawdiff), c(3,19))
   expect_equal(round(ap2$APE,5), 16.1851)
-  expect_equal(round(ap2$CV,5), 21.76877)
+  expect_equal(round(ap2$ACV,5), 21.76877)
   expect_equal(round(ap2$PercAgree,5), 12.58278)
 })
 
@@ -62,7 +62,7 @@ test_that("agePrecision compared to http://www.nefsc.noaa.gov/fbp/age-prec/ calc
     ap3 <- agePrecision(~otoliths+scales,data=AlewifeLH)
     expect_equal(ap3$n, 104)
     expect_equal(ap3$R, 2)
-    expect_equal(round(ap3$CV,2), 12.54)
+    expect_equal(round(ap3$ACV,2), 12.54)
     expect_equal(round(ap3$PercAgree,1), 58.7)
   }
 })
