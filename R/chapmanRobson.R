@@ -4,7 +4,7 @@
 #'
 #' @details The default is to use all ages in the age vector.  This is only appropriate if the age and catch vectors contain only the ages and catches on the descending limb of the catch curve.  Use \code{ages2use} to isolate only the catch and ages on the descending limb.
 #'
-#' The Chapman-Robson method provides an estimate of the annual survival rate, with the annual mortality rate (A) determined by 1-S.  The instantaneous mortality rate is often computed as -log(S).  However, Hoenig et al. (1983) showed that this produced a biased (over)estimate of Z and provided a correction.  The correction is applied by setting \code{zmethod="Hoenigetal"}.  Smith et al. (2012) showed that the Hoenig et al. method should be corrected for a variance inflation factor.  This correction is applied by setting \code{zmethod="Smithetal"} (which is the default behavior).  Choose \code{zmethod="original"} to use the original estimates for Z and it's SE as provided by Chapman and Robson.
+#' The Chapman-Robson method provides an estimate of the annual survival rate, with the annual mortality rate (A) determined by 1-S.  The instantaneous mortality rate is often computed as -log(S).  However, Hoenig et al. (1983) showed that this produced a biased (over)estimate of Z and provided a correction.  The correction is applied by setting \code{zmethod="Hoenigetal"} (which is the default behavior).  Choose \code{zmethod="original"} to use the original estimates for Z and it's SE as provided by Chapman and Robson.
 #'
 #' @aliases chapmanRobson chapmanRobson.default chapmanRobson.formula plot.chapmanRobson summary.chapmanRobson confint.chapmanRobson
 #' 

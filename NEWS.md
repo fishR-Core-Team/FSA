@@ -3,7 +3,6 @@
 
 
 # FSA 0.4.51 ongoing
-* `catchCurve()`: Modified.  Updated the help file regarding `zmethod="Smithetal"`.
 
 # FSA 0.4.50 Mar15
 * `capFirst()`: Modified.  Added a check to make sure the inputted object was either a character or factor class.  Added code to return the object as the same class of the original object.
