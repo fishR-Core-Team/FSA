@@ -22,10 +22,10 @@
 #' 
 #' @section Testing: Tested all symmetry test results against results in Evans and Hoenig (2008), the McNemar's and Evans-Hoenig results against results from \code{compare2} in \pkg{fishmethods}, and the results for the \code{alewifeLH} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
 #'
-#' @param formula A formula of the form \code{refvar~nrefvar}, where \code{refvar} and \code{nrefvar} generically represent the variables that contain the \dQuote{reference} and \dQuote{non-reference} age assignments, respectively.  See details.
+#' @param formula A formula of the form \code{nrefvar~refvar}, where \code{hrefvar} and \code{refvar} generically represent the variables that contain the \dQuote{nonreference} and \dQuote{reference} age assignments, respectively.  See details.
 #' @param data A data.frame that minimally contains the paired age assignments given \code{formula}.
-#' @param ref.lab A string that contains a label for the column age assignment.
-#' @param nref.lab A string that contains a label for the row age assignments.
+#' @param ref.lab A string that contains a label for the reference age assignment.
+#' @param nref.lab A string that contains a label for the nonreference age assignments.
 #' @param method A string that indicates which method to use when adjusting p-values for multiple comparisons.  See \code{?p.adjust.methods}.
 #' @param sig.level A value used to determine whether a p-value indicates a significant result.  The confidence level used in \code{plot} is 100*(1-\code{sig.level}).
 #' @param min.n.CI A value (default is 5) that indicates the smallest sample size for which a confidence interval should be computed.
@@ -43,6 +43,7 @@
 #' @param yaxt A string which specifies the x-axis type. Specifying \dQuote{n} suppresses plotting of the axis.  See \code{?par}. 
 #' @param show.n A logical that indicates whether the sample sizes for each level of the x-axis variable is shown (\code{=TRUE}, default) or not (\code{=FALSE}).
 #' @param nYpos A numeric that indicates the relative Y position of the sample size values when \code{show.n=TRUE}.  For example, if \code{nYpos=1.1} then the sample size values will be 10 percent above the top end of the y-axis.
+#' @param lwd A single numeric that can be used to controll the separate \sQuote{lwd} argument (e.g., \code{lwd.CI}, \code{lwd.range}).
 #' @param show.pts A logical that indicates whether to show the raw data points on an age-bias plot.
 #' @param pch.pts A value that indicates the plotting character to be used when plotting the raw data points on an age bias plot.
 #' @param col.pts A string or value that indicates the color to be used for plotting the raw data points.  The default is to use black with a transparency found in \code{transparency} on an age bias plot.
@@ -51,9 +52,11 @@
 #' @param col.range A string or value that indicates the color to be used for the interval representing the range of the data on an age bias plot.
 #' @param lwd.range A value that indicates the line width for the interval representing the range of the data on an age bias plot.
 #' @param pch.mean A value that indicates the plotting character to be used for mean values (i.e., center of confidence interval bars) on an age bias plot.
+#' @param cex.mean A character expansion value for the size for plotting the mean symbol.
 #' @param col.CI A string or value that indicates the color to be used for confidence interval bars that are considered non-significant on an age bias plot.
 #' @param col.CIsig A string or value that indicates the color to be used for confidence interval bars that are considered significant on an age bias plot.
 #' @param lwd.CI A value that indicates the line width for the confidence interval bars on an age bias plot.
+#' @param sfrac A value that controls the size of the ends of the confidence interval bars.  See \code{sfrac} in \code{plotCI} of \pkg{plotrix}.
 #' @param col.agree A value or string that indicates the color for the 1:1 or zero (if difference) reference line on an age bias plot.
 #' @param lwd.agree A value that indicates the line width for the 1:1 or zero (if difference) reference line on an age bias plot.
 #' @param lty.agree A value that indicates the line type for the 1:1 or zero (if difference) reference line on an age bias plot.
@@ -92,7 +95,7 @@
 #'
 #' @examples
 #' data(WhitefishLC)
-#' ab1 <- ageBias(otolithC~scaleC,data=WhitefishLC,ref.lab="Otolith Age",nref.lab="Scale Age")
+#' ab1 <- ageBias(scaleC~otolithC,data=WhitefishLC,ref.lab="Otolith Age",nref.lab="Scale Age")
 #' summary(ab1)
 #' summary(ab1,what="symmetry")
 #' summary(ab1,what="Bowkers")
@@ -113,7 +116,7 @@
 #' ## demonstrates controlling the y-axis limits
 #' plot(ab1,ylim=c(0,10))
 #' ## plot with the data points shown
-#' plot(ab1,show.pts=TRUE,transparency=1/3)
+#' plot(ab1,show.pts=TRUE,transparency=1/8)
 #' ## plot with the range shown
 #' plot(ab1,show.range=TRUE)
 #' ## plot with no difference in significance bar colors
@@ -130,38 +133,41 @@
 #' @export
 ageBias <- function(formula,data,ref.lab=tmp$Rname,nref.lab=tmp$Enames[1],
                     method=p.adjust.methods,sig.level=0.05,min.n.CI=3) {
+  ## Perform some checks on the formula
   tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
   if (!tmp$metExpNumR) stop("'ageBias' must have only one LHS variable.",call.=FALSE)
   if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
   if (!tmp$metExpNumE) stop("'ageBias' must have only one RHS variable.",call.=FALSE)
   if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable must be numeric.",call.=FALSE)
-  # get variable names, separately and together
-  cname <- tmp$Rname
-  rname <- tmp$Enames
-  bname <- c(cname,rname)
-  # rename dataframe of just ages (for simplicity)
+  ## get variable names separately (r=ref, nr=nonref)
+  nref.name <- tmp$Rname
+  ref.name <- tmp$Enames
+  ## rename dataframe of just ages (for simplicity)
   d <- tmp$mf
-  # sample size
+  ## sample size
   n <- nrow(d)
-  # add differences data
-  d$diff <- d[,rname]-d[,cname]
-  ## Summarizations of rdata by cdata (more 'true' structure)
+  ## add differences data
+  d$diff <- d[,nref.name]-d[,ref.name]
+  
+  ## Summarizations of nrdata by rdata (more 'true' structure)
   # turn off warnings for not using factor data (turn back on below)
   options(warn=-1)
   # Summary stats of cdata by ages of rdata
-  bias.df <- iAgeBiasDF(Summarize(as.formula(paste(rname,"~",cname)),data=d),cname,FALSE,min.n.CI,sig.level)
+  bias.df <- iAgeBiasDF(Summarize(as.formula(paste(nref.name,"~",ref.name)),data=d),
+                        ref.name,FALSE,min.n.CI,sig.level)
   # Summary stats of diff by cdata
-  bias2.df <- iAgeBiasDF(Summarize(as.formula(paste("diff~",cname)),data=d),cname,TRUE,min.n.CI,sig.level)
+  bias2.df <- iAgeBiasDF(Summarize(as.formula(paste("diff~",ref.name)),data=d),
+                         ref.name,TRUE,min.n.CI,sig.level)
   options(warn=0)
   
   ## Agreement contingency table adjusted to be square  
   # finds overall range of ages
-  ages <- min(d[,c(cname,rname)],na.rm=TRUE):max(d[,c(cname,rname)],na.rm=TRUE)
-  # converts row and column data to factor with ages levels
-  rf <- factor(d[,rname],levels=ages)
-  cf <- factor(d[,cname],levels=ages)
+  ages <- min(d[,c(nref.name,ref.name)],na.rm=TRUE):max(d[,c(nref.name,ref.name)],na.rm=TRUE)
+  # converts nr and r data to factor with ages levels
+  nref.fact <- factor(d[,nref.name],levels=ages)
+  ref.fact <- factor(d[,ref.name],levels=ages)
   # Agreement contingency table
-  agree.table <- table(rf,cf,dnn=c(nref.lab,ref.lab))
+  agree.table <- table(nref.fact,ref.fact,dnn=c(nref.lab,ref.lab))
   
   ## Put together an output list
   d <- list(data=d,agree=agree.table,bias=bias.df,bias.diff=bias2.df,
@@ -172,9 +178,10 @@ ageBias <- function(formula,data,ref.lab=tmp$Rname,nref.lab=tmp$Enames[1],
 
 #' @rdname ageBias
 #' @export
-summary.ageBias <- function(object,what=c("table","symmetry","Bowkers","EvansHoenig","McNemars","bias","diff.bias","n"),
-                            flip.table=FALSE,zero.print="-",digits=3,cont.corr=c("none","Yates","Edwards"),
-                            ...) {
+summary.ageBias <- function(object,
+                   what=c("table","symmetry","Bowkers","EvansHoenig","McNemars","bias","diff.bias","n"),
+                   flip.table=FALSE,zero.print="-",digits=3,cont.corr=c("none","Yates","Edwards"),
+                   ...) {
   what <- match.arg(what,several.ok=TRUE)
   if ("n" %in% what) {
     cat("Sample size in the age-agreement table is ",sum(object$agree),".\n",sep="")
@@ -221,10 +228,12 @@ summary.ageBias <- function(object,what=c("table","symmetry","Bowkers","EvansHoe
 #' @export
 plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE,
                          xlab=x$ref.lab,ylab=x$nref.lab,show.n=TRUE,nYpos=1.1,
+                         lwd=1,
                          show.pts=FALSE,pch.pts=19,col.pts=rgb(0,0,0,transparency),transparency=1/10,
-                         pch.mean=3,col.CI="black",col.CIsig="red",lwd.CI=1,
-                         show.range=FALSE,col.range="gray",lwd.range=1,
-                         col.agree="black",lwd.agree=1,lty.agree=2,
+                         pch.mean=175,cex.mean=lwd,
+                         col.CI="black",col.CIsig="red",lwd.CI=lwd,sfrac=0,
+                         show.range=FALSE,col.range="gray",lwd.range=lwd,
+                         col.agree="black",lwd.agree=lwd,lty.agree=2,
                          cex.numbers=0.9,
                          xlim=NULL,ylim=NULL,yaxt=par("yaxt"),...) {
   what <- match.arg(what)
@@ -232,7 +241,7 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
          bias={ iAgeBiasPlot(x,difference,
                              xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
                              show.n,nYpos,show.pts,pch.pts,col.pts,
-                             pch.mean,col.CI,col.CIsig,lwd.CI,
+                             pch.mean,cex.mean,col.CI,col.CIsig,lwd.CI,sfrac,
                              show.range,col.range,lwd.range,
                              col.agree,lwd.agree,lty.agree,
                              xlim,ylim,yaxt,...) },
@@ -409,7 +418,7 @@ iabAxisLmts <- function(d,xlim,ylim,show.n,difference) {
 #   by ageBias().
 #===============================================================================
 iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,show.pts,pch.pts,col.pts,
-                         pch.mean,col.CI,col.CIsig,lwd.CI,show.range,col.range,lwd.range,
+                         pch.mean,cex.mean,col.CI,col.CIsig,lwd.CI,sfrac,show.range,col.range,lwd.range,
                          col.agree,lwd.agree,lty.agree,xlim,ylim,yaxt,...) {
   # identify whether difference data should be used or not, put in a tmp data frame
   if (!difference) d <- obj$bias
@@ -418,9 +427,9 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,show.pts,pch.pts,
   axlmts <- iabAxisLmts(d,xlim,ylim,show.n,difference)  
   # Plot more tick marks    
   par(lab=c(length(d[,1]),length(d$mean),7))    
-  # Mean of 2nd vs. 1st age range
+  # Set base plot with Mean of 2nd vs. 1st age range
   plot(d$mean~d[,1],xlim=axlmts$xlim,ylim=axlmts$ylim,xlab=xlab,ylab=ylab,
-       pch=pch.mean,yaxt="n",...)
+       col="white",yaxt="n",...)
   # Helps keep y-axis as integers (needed for difference plot)
   if (yaxt!="n") {axis(2,seq(axlmts$ylim[1],axlmts$ylim[2],1))}
   # agreement line -- horizontal for difference and 45 degree for bias plot
@@ -439,12 +448,14 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,show.pts,pch.pts,
   #  for ages that are signficantly different
   if (any(d$sig)) {
     plotrix::plotCI(x=d[,1][d$sig],y=d$mean[d$sig],li=d$LCI[d$sig],ui=d$UCI[d$sig],
-                    add=TRUE,slty=1,scol=col.CIsig,pch=pch.mean,lwd=lwd.CI,gap=0)
+                    add=TRUE,slty=1,scol=col.CIsig,pch=pch.mean,lwd=lwd.CI,gap=0,sfrac=sfrac)
+    points(x=d[,1][d$sig],y=d$mean[d$sig],pch=pch.mean,cex=cex.mean,col=col.CIsig)
   }
   #  for ages that are not significantly different
   if (any(!d$sig)) {
     plotrix::plotCI(x=d[,1][!d$sig],y=d$mean[!d$sig],li=d$LCI[!d$sig],ui=d$UCI[!d$sig],
-                    add=TRUE,slty=1,scol=col.CI,pch=pch.mean,lwd=lwd.CI,gap=0)
+                    add=TRUE,slty=1,scol=col.CI,pch=pch.mean,lwd=lwd.CI,gap=0,sfrac=sfrac)
+    points(x=d[,1][!d$sig],y=d$mean[!d$sig],pch=pch.mean,cex=cex.mean)
   }
   # show the sample sizes at the top
   if (show.n) text(d[,1],grconvertY(nYpos,"npc"),d$n,cex=0.75,xpd=TRUE)

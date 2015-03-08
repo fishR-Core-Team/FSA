@@ -16,21 +16,21 @@ ageBias(formula, data, ref.lab = tmp$Rname, nref.lab = tmp$Enames[1],
 
 \method{plot}{ageBias}(x, what = c("bias", "sunflower", "numbers"),
   difference = FALSE, xlab = x$ref.lab, ylab = x$nref.lab,
-  show.n = TRUE, nYpos = 1.1, show.pts = FALSE, pch.pts = 19,
-  col.pts = rgb(0, 0, 0, transparency), transparency = 1/10, pch.mean = 3,
-  col.CI = "black", col.CIsig = "red", lwd.CI = 1, show.range = FALSE,
-  col.range = "gray", lwd.range = 1, col.agree = "black", lwd.agree = 1,
-  lty.agree = 2, cex.numbers = 0.9, xlim = NULL, ylim = NULL,
-  yaxt = par("yaxt"), ...)
+  show.n = TRUE, nYpos = 1.1, lwd = 1, show.pts = FALSE, pch.pts = 19,
+  col.pts = rgb(0, 0, 0, transparency), transparency = 1/10,
+  pch.mean = 175, cex.mean = lwd, col.CI = "black", col.CIsig = "red",
+  lwd.CI = lwd, sfrac = 0, show.range = FALSE, col.range = "gray",
+  lwd.range = lwd, col.agree = "black", lwd.agree = lwd, lty.agree = 2,
+  cex.numbers = 0.9, xlim = NULL, ylim = NULL, yaxt = par("yaxt"), ...)
 }
 \arguments{
-\item{formula}{A formula of the form \code{refvar~nrefvar}, where \code{refvar} and \code{nrefvar} generically represent the variables that contain the \dQuote{reference} and \dQuote{non-reference} age assignments, respectively.  See details.}
+\item{formula}{A formula of the form \code{nrefvar~refvar}, where \code{hrefvar} and \code{refvar} generically represent the variables that contain the \dQuote{nonreference} and \dQuote{reference} age assignments, respectively.  See details.}
 
 \item{data}{A data.frame that minimally contains the paired age assignments given \code{formula}.}
 
-\item{ref.lab}{A string that contains a label for the column age assignment.}
+\item{ref.lab}{A string that contains a label for the reference age assignment.}
 
-\item{nref.lab}{A string that contains a label for the row age assignments.}
+\item{nref.lab}{A string that contains a label for the nonreference age assignments.}
 
 \item{method}{A string that indicates which method to use when adjusting p-values for multiple comparisons.  See \code{?p.adjust.methods}.}
 
@@ -60,6 +60,8 @@ ageBias(formula, data, ref.lab = tmp$Rname, nref.lab = tmp$Enames[1],
 
 \item{nYpos}{A numeric that indicates the relative Y position of the sample size values when \code{show.n=TRUE}.  For example, if \code{nYpos=1.1} then the sample size values will be 10 percent above the top end of the y-axis.}
 
+\item{lwd}{A single numeric that can be used to controll the separate \sQuote{lwd} argument (e.g., \code{lwd.CI}, \code{lwd.range}).}
+
 \item{show.pts}{A logical that indicates whether to show the raw data points on an age-bias plot.}
 
 \item{pch.pts}{A value that indicates the plotting character to be used when plotting the raw data points on an age bias plot.}
@@ -70,11 +72,15 @@ ageBias(formula, data, ref.lab = tmp$Rname, nref.lab = tmp$Enames[1],
 
 \item{pch.mean}{A value that indicates the plotting character to be used for mean values (i.e., center of confidence interval bars) on an age bias plot.}
 
+\item{cex.mean}{A character expansion value for the size for plotting the mean symbol.}
+
 \item{col.CI}{A string or value that indicates the color to be used for confidence interval bars that are considered non-significant on an age bias plot.}
 
 \item{col.CIsig}{A string or value that indicates the color to be used for confidence interval bars that are considered significant on an age bias plot.}
 
 \item{lwd.CI}{A value that indicates the line width for the confidence interval bars on an age bias plot.}
+
+\item{sfrac}{A value that controls the size of the ends of the confidence interval bars.  See \code{sfrac} in \code{plotCI} of \pkg{plotrix}.}
 
 \item{show.range}{A logical that indicates whether to show vertical bars that represent the range of the data points on an age bias plot.}
 
@@ -142,7 +148,7 @@ The sample size present in the age-agreement table is found with \code{what="n"}
 }
 \examples{
 data(WhitefishLC)
-ab1 <- ageBias(otolithC~scaleC,data=WhitefishLC,ref.lab="Otolith Age",nref.lab="Scale Age")
+ab1 <- ageBias(scaleC~otolithC,data=WhitefishLC,ref.lab="Otolith Age",nref.lab="Scale Age")
 summary(ab1)
 summary(ab1,what="symmetry")
 summary(ab1,what="Bowkers")
@@ -163,7 +169,7 @@ plot(ab1)
 ## demonstrates controlling the y-axis limits
 plot(ab1,ylim=c(0,10))
 ## plot with the data points shown
-plot(ab1,show.pts=TRUE,transparency=1/3)
+plot(ab1,show.pts=TRUE,transparency=1/8)
 ## plot with the range shown
 plot(ab1,show.range=TRUE)
 ## plot with no difference in significance bar colors

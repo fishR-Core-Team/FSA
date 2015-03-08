@@ -1,3 +1,7 @@
+# FSA 0.5.1 ongoing
+* `ageBias()`: Modified.  Reversed the order of the formula ... it is now `nrefvar~refvar`.  This more closely matches other R functions where the tilde may be interpreted as the word "by".  In other words, the formula now reads as "nonreference variable by reference variable" (i.e., Y by X).  Thanks for Richard McBride for the suggestion.  Modified the age-bias plot extensively ... added `sfrac=` and defaulted to 0 to remove ends of the confidence intervals, added `cex.mean=` to control the size of the symbol for the mean point, added `lwd=` that will controland set all of the `lwd` defaults to 1.
+
+
 # FSA 0.4.51 ongoing
 * `catchCurve()`: Modified.  Updated the help file regarding `zmethod="Smithetal"`.
 
