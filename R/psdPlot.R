@@ -115,7 +115,7 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
   } else data <- data
   ## make an initial histogram to get the breaks and counts
   min.brk <- min(c(data[,cl],brks),na.rm=TRUE)
-  max.brk <- max(data[,cl])+w
+  max.brk <- max(data[,cl],na.rm=TRUE)+w
   h <- hist(data[,cl],right=FALSE,breaks=seq(min.brk,max.brk,w),plot=FALSE)
   ## Create xlim values if none were given
   if (is.null(xlim)) xlim=range(h$breaks)
