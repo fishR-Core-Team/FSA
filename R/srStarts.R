@@ -121,15 +121,9 @@ srStarts <- function(formula,data=NULL,type=c("BevertonHolt","Ricker","Shepherd"
   if (dynamicPlot) {
     iSRStatsDynPlot(S,R,type,param,sv,min.prop,max.mult,delta.prop)
   } else {
-    if (plot) {
-      ttl1 <- ifelse(type %in% c("BevertonHolt","Ricker"),paste0(type," #",param),type)
-      ttl2 <- paste(paste(names(sv),formatC(unlist(sv),format="f",digits=5),sep="="),collapse=", ")
-      ttl <- paste(ttl1,"at",ttl2)
-      plot(R~S,pch=19,xlim=c(0,max(S)),xlab="Stock Level",ylab="Recruitment Level",main=ttl)
-      mdl <- srFuns(type,param)
-      curve(mdl(x,unlist(sv)),from=0,to=max(S),col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
-    }
-    # return the vector of starting values
+    # make the static plot if asked for
+    if (plot) iSRStartsPlot(S,R,type,param,sv,col.mdl,lwd.mdl,lty.mdl)
+    # return the list of starting values
     return(sv)
   }
 }
@@ -192,6 +186,23 @@ iSRStartsS <- function(S,R) c(iSRStartsBH(S,R,param=1),c=1)
 # Find starting values for Saila-Lorda models
 #=============================================================
 iSRStartsSL <- function(S,R) c(iSRStartsR(S,R,param=1),c=1)
+
+
+#=============================================================
+# Static plot of starting values
+#=============================================================
+iSRStartsPlot <- function(S,R,type,param,sv,col.mdl,lwd.mdl,lty.mdl) {
+  ## Make a title
+  ttl1 <- ifelse(type %in% c("BevertonHolt","Ricker"),paste0(type," #",param),type)
+  ttl2 <- paste(paste(names(sv),formatC(unlist(sv),format="f",digits=5),sep="="),collapse=", ")
+  ttl <- paste(ttl1,"at",ttl2)
+  ## Plot the data
+  max.S <- max(S,na.rm=TRUE)
+  plot(S,R,pch=19,xlim=c(0,max.S),xlab="Stock Level",ylab="Recruitment Level",main=ttl)
+  ## Plot the model
+  mdl <- srFuns(type,param)
+  curve(mdl(x,unlist(sv)),from=0,to=max.S,col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
+}
 
 
 #=============================================================
