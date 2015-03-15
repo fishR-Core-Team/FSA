@@ -11,6 +11,8 @@
 #' Starting values for the Ricker parameterizations followed the same general procedure as described for the Beverton-Holt parameterizations.  If the computed starting value for \code{atilde} was less than zero then the starting value was set to 0.00001.
 #' 
 #' Starting values for the Saila-Lorda function were the same as those for the first parameterization of the Ricker function with the addition that \code{c=1}.
+#' 
+#' Starting values can also be obtained by plotting the data with the model superimposed but tied to slider bars for changing parameters.  One can change the parameters until a reasonable fit is observed and then use those valeus as starting values.  Such a plot can be constructed by including \code{dynamicPlot=TRUE}.  The initial parameters for the slider bars are the starting values constructed as described above.  The range for the sliders will have a minimum that is \code{min,prop} times the initial value and a maximum that is \code{max.mult} times the initial value.  The step or interval of the slider bar is \code{delta.mult} times the initial value.  It should be noted that the dynamic plot may show an error of \dQuote{[tcl] can't get device image} but the plot will correctly update if the slider bar is adjusted.
 #'
 #' @aliases srStarts
 #'
@@ -23,7 +25,8 @@
 #' @param lwd.mdl A line width for the model when \code{plot=TRUE}.
 #' @param lty.mdl A line type for the model when \code{plot=TRUE}.
 #' @param dynamicPlot A logical that indicates where a plot with dynamically linked slider bars should be constructed for finding starting values.
-#' @param minmax.ratio A single numeric that is used to set the minimum and maximum values for the slider bars in the dynamic plot.  see details.
+#' @param min.prop A single numeric that is used to set the minimum values for the slider bars in the dynamic plot.  see details.
+#' @param max.mult A single numeric that is used to set the maximum values for the slider bars in the dynamic plot.  see details.
 #' @param delta.prop A single numeric that is used to set the step value for the slider bars in the dynamic plots.  See details.
 #' @param \dots Further arguments passed to the methods.
 #'
@@ -73,10 +76,17 @@
 #' ## Dynamic Plots Method -- ONLY RUN IN INTERACTIVE MODE
 #' if (interactive()) {
 #'   # Beverton-Holt
+#'   srStarts(recruits~stock,data=CodNorwegian,dynamicPlot=TRUE)
+#'   srStarts(recruits~stock,data=CodNorwegian,param=2,dynamicPlot=TRUE)
+#'   srStarts(recruits~stock,data=CodNorwegian,param=3,dynamicPlot=TRUE)
+#'   srStarts(recruits~stock,data=CodNorwegian,param=4,dynamicPlot=TRUE)
 #'   # Ricker Models
 #'   srStarts(recruits~stock,data=CodNorwegian,type="Ricker",dynamicPlot=TRUE)
 #'   srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=2,dynamicPlot=TRUE)
 #'   srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=3,dynamicPlot=TRUE)
+#'   # Shepherd and Saila-Lorda Models
+#'   srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",dynamicPlot=TRUE)
+#'   srStarts(recruits~stock,data=CodNorwegian,type="SailaLorda",dynamicPlot=TRUE)
 #' } ## END .. ONLY INTERACTIVE
 #' 
 #' ## See examples in srFuns() for use of srStarts() when fitting stock-recruit models
@@ -85,7 +95,7 @@
 #' @export
 srStarts <- function(formula,data=NULL,type=c("BevertonHolt","Ricker","Shepherd","SailaLorda"),
                      param=1,plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,
-                     dynamicPlot=FALSE,minmax.ratio=4,delta.prop=0.005,...) {
+                     dynamicPlot=FALSE,min.prop=0.1,max.mult=3,delta.prop=0.005,...) {
   ## attempting to get by bindings warning in RCMD CHECK
   x <- NULL
   ## some checks
@@ -109,7 +119,7 @@ srStarts <- function(formula,data=NULL,type=c("BevertonHolt","Ricker","Shepherd"
   ) # end type switch
   ## Check if user wants to choose starting values from an interactive plot
   if (dynamicPlot) {
-    iSRStatsDynPlot(S,R,type,param,sv,minmax.ratio,delta.prop)
+    iSRStatsDynPlot(S,R,type,param,sv,min.prop,max.mult,delta.prop)
   } else {
     if (plot) {
       ttl1 <- ifelse(type %in% c("BevertonHolt","Ricker"),paste0(type," #",param),type)
@@ -187,7 +197,7 @@ iSRStartsSL <- function(S,R) c(iSRStartsR(S,R,param=1),c=1)
 #=============================================================
 # Dynamics plots for finding starting values -- main function
 #=============================================================
-iSRStatsDynPlot <- function(S,R,type,param,sv,minmax.ratio,delta.prop) {
+iSRStatsDynPlot <- function(S,R,type,param,sv,min.prop,max.mult,delta.prop) {
   ## internal refresh function for the dialog box
   refresh <- function(...) {
     p1 <- relax::slider(no=1)
@@ -198,14 +208,14 @@ iSRStatsDynPlot <- function(S,R,type,param,sv,minmax.ratio,delta.prop) {
   } # end internal refresh
   
   ## Main function
-  ## Set the minimum value as a proportion (from minmax.ratio)
+  ## Set the minimum value as a proportion (from min.prop)
   ## of the starting values, the maximum value at a multiple
-  ## (from minmax.ratio) of the starting values, and the delta
+  ## (from max.mult) of the starting values, and the delta
   ## value at a proportion (from delta.prop) of the starting
   ## values.  Unlist first to make as a vector.
   sl.defaults <- unlist(sv)
-  sl.mins <- sl.defaults/minmax.ratio
-  sl.maxs <- sl.defaults*minmax.ratio
+  sl.mins <- sl.defaults*min.prop
+  sl.maxs <- sl.defaults*max.mult
   sl.deltas <- sl.defaults*delta.prop
   ## Grab names from the sv vector
   sl.names <- names(sl.defaults)
@@ -217,7 +227,6 @@ iSRStatsDynPlot <- function(S,R,type,param,sv,minmax.ratio,delta.prop) {
                  title=sl.ttl,sl.names=sl.names,
                  sl.mins=sl.mins,sl.maxs=sl.maxs,
                  sl.deltas=sl.deltas,sl.defaults=sl.defaults)
-  refresh()
 }
 
 #=============================================================
@@ -274,9 +283,11 @@ iSRDynPlot_makeR <- function(x,type,param,p1,p2,p3=NULL){
       y <- p1*x*exp(-p1*x/(p2*exp(1)))
     } # end Ricker switch
   } else if (type=="Shepherd") {
-    # p1=a, p2=b, p3=c
+      # p1=a, p2=b, p3=c
+      y <- (p1*x)/(1+(p2*x)^p3)
   } else { # Saila-Lorda
-    # p1=a, p2=b, p3=c    
+      # p1=a, p2=b, p3=c    
+      y <- p1*(x^p3)*exp(-p2*x) 
   }
   # return the value of y
   y

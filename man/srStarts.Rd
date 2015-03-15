@@ -6,8 +6,8 @@
 \usage{
 srStarts(formula, data = NULL, type = c("BevertonHolt", "Ricker",
   "Shepherd", "SailaLorda"), param = 1, plot = FALSE, col.mdl = "gray70",
-  lwd.mdl = 3, lty.mdl = 1, dynamicPlot = FALSE, minmax.ratio = 4,
-  delta.prop = 0.005, ...)
+  lwd.mdl = 3, lty.mdl = 1, dynamicPlot = FALSE, min.prop = 0.1,
+  max.mult = 3, delta.prop = 0.005, ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{Recruits~Stock}.}
@@ -28,7 +28,9 @@ srStarts(formula, data = NULL, type = c("BevertonHolt", "Ricker",
 
 \item{dynamicPlot}{A logical that indicates where a plot with dynamically linked slider bars should be constructed for finding starting values.}
 
-\item{minmax.ratio}{A single numeric that is used to set the minimum and maximum values for the slider bars in the dynamic plot.  see details.}
+\item{min.prop}{A single numeric that is used to set the minimum values for the slider bars in the dynamic plot.  see details.}
+
+\item{max.mult}{A single numeric that is used to set the maximum values for the slider bars in the dynamic plot.  see details.}
 
 \item{delta.prop}{A single numeric that is used to set the step value for the slider bars in the dynamic plots.  See details.}
 
@@ -50,6 +52,8 @@ Starting values for the Shepherd function were the same as those for the first p
 Starting values for the Ricker parameterizations followed the same general procedure as described for the Beverton-Holt parameterizations.  If the computed starting value for \code{atilde} was less than zero then the starting value was set to 0.00001.
 
 Starting values for the Saila-Lorda function were the same as those for the first parameterization of the Ricker function with the addition that \code{c=1}.
+
+Starting values can also be obtained by plotting the data with the model superimposed but tied to slider bars for changing parameters.  One can change the parameters until a reasonable fit is observed and then use those valeus as starting values.  Such a plot can be constructed by including \code{dynamicPlot=TRUE}.  The initial parameters for the slider bars are the starting values constructed as described above.  The range for the sliders will have a minimum that is \code{min,prop} times the initial value and a maximum that is \code{max.mult} times the initial value.  The step or interval of the slider bar is \code{delta.mult} times the initial value.  It should be noted that the dynamic plot may show an error of \dQuote{[tcl] can't get device image} but the plot will correctly update if the slider bar is adjusted.
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
@@ -76,10 +80,17 @@ srStarts(recruits~stock,data=CodNorwegian,type="SailaLorda",plot=TRUE)
 ## Dynamic Plots Method -- ONLY RUN IN INTERACTIVE MODE
 if (interactive()) {
   # Beverton-Holt
+  srStarts(recruits~stock,data=CodNorwegian,dynamicPlot=TRUE)
+  srStarts(recruits~stock,data=CodNorwegian,param=2,dynamicPlot=TRUE)
+  srStarts(recruits~stock,data=CodNorwegian,param=3,dynamicPlot=TRUE)
+  srStarts(recruits~stock,data=CodNorwegian,param=4,dynamicPlot=TRUE)
   # Ricker Models
   srStarts(recruits~stock,data=CodNorwegian,type="Ricker",dynamicPlot=TRUE)
   srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=2,dynamicPlot=TRUE)
   srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=3,dynamicPlot=TRUE)
+  # Shepherd and Saila-Lorda Models
+  srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",dynamicPlot=TRUE)
+  srStarts(recruits~stock,data=CodNorwegian,type="SailaLorda",dynamicPlot=TRUE)
 } ## END .. ONLY INTERACTIVE
 
 ## See examples in srFuns() for use of srStarts() when fitting stock-recruit models
