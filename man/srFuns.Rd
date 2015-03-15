@@ -4,33 +4,49 @@
 \alias{srFuns}
 \title{Creates a function for a specific stock-recruitment model parameterization.}
 \usage{
-srFuns(type = c("BevertonHolt", "Ricker"), param = 1, msg = FALSE)
+srFuns(type = c("BevertonHolt", "Ricker", "Shepherd", "SailaLorda"),
+  param = 1, simple = FALSE, msg = FALSE)
 }
 \arguments{
-\item{type}{A string that indicates the type of the stock-recruitment model.}
+\item{type}{A string that indicates the type of stock-recruitment model.}
 
-\item{param}{A numeric that indicates the parameterization of the stock-recruitment model type.}
+\item{param}{A single numeric that indicates the parameterization of the stock-recruitment model type.}
 
-\item{msg}{A logical that indicates whether a message about the model and parameter definitions should be output.}
+\item{simple}{A logical that indicates whether the user should be allowed to send all parameter values in the first parameter argument (\code{=FALSE}; default) or whether all individual parameters must be specified (\code{=TRUE}).}
+
+\item{msg}{A logical that indicates whether a message about the model and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).}
 }
 \value{
-A function that can be used to predict recruitment given a vector of stock sizes and values for the model parameters.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (assuming that \code{msg=TRUE}).  The values for both parameters can be included as a vector of length two in the first parameter argument.
+A function that can be used to predict recruitment given a vector of stock sizes and values for the model parameters.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (assuming that \code{msg=TRUE}).  The values for both/all parameters can be included as a vector of length two/three in the first parameter argument.
+
+If \code{simple=FALSE} then the values for all parameters can be included as a vector in the first parameter argument.  If \code{simple=TRUE} then all parameters must be declared individually in each function.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
 }
 \description{
-Creates a function for a specific stock-recruitment model parameterization.
+Creates a function for a specific parameterization of a \dQuote{Beverton-Holt}, \dQuote{Ricker}, or \dQuote{Shepherd} stock-recruitment model.
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
 }
 \examples{
 ## Simple Examples
-( bh1 <- srFuns() )               # Beverton-Holt #1 parameterization
-stock <- sample(1:1000,50)
-stock <- stock[order(stock)]
-plot(bh1(stock,a=0.5,b=0.01)~stock,type="b",pch=19)
+# create some dummy stock data
+stock <- seq(0.01,1000,length.out=199)
 
-( r1 <- srFuns("Ricker") )       # Ricker #1 parameterization
-points(r1(stock,a=0.5,b=0.005)~stock,type="b",pch=19,col="red")
+# Beverton-Holt #1 parameterization
+( bh1 <- srFuns() )
+plot(bh1(stock,a=0.5,b=0.01)~stock,type="l",lwd=2,ylab="Recruits",xlab="Spawners",ylim=c(0,50))
+
+# Ricker #1 parameterization
+( r1 <- srFuns("Ricker") )
+lines(r1(stock,a=0.5,b=0.005)~stock,lwd=2,col="red")
+
+# Shephered parameterization
+( s1 <- srFuns("Shepherd") )
+lines(s1(stock,a=0.5,b=0.005,c=2.5)~stock,lwd=2,col="blue")
+
+# Saila-Lorda parameterization
+( sl1 <- srFuns("SailaLorda") )
+lines(sl1(stock,a=0.5,b=0.005,c=1.05)~stock,lwd=2,col="salmon")
 
 ## Examples of fitting stock-recruitment models
 data(CodNorwegian)
@@ -50,16 +66,20 @@ summary(fit2,correlation=TRUE)
 curve(r3(x,a=coef(fit2)[1],Rp=coef(fit2)[2]),from=0,to=200,col="blue",lwd=3,add=TRUE)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}.  Thanks to Greg Snow for a hint about returning the functions.
+Derek H. Ogle, \email{dogle@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 }
 \references{
 Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19. United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
+
+Iles, T.C.  1994.  A review of stock-recruitment relationships with reference to flatfish populations.  Netherlands Journal of Sea Research 32:399-420.
 
 Quinn II, T.J. and R.B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press.
 
 Ricker, W.E. 1954. Stock and recruitment. Journal of the Fisheries Research Board of Canada 11:559-623.
 
 Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
+
+Shepherd, J. 1982. A versatile new stock-recruitment relationship for fisheries and construction of sustainable yield curves. Journal du Conseil International pour l'Exploration de la Mar 40:67-75.
 }
 \seealso{
 \code{\link{srStarts}}, \code{\link{srModels}}, and \code{\link{srSim}}

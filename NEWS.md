@@ -1,4 +1,8 @@
-# FSA 0.5.2 ongoing
+# FSA 0.5.3 ongoing
+* `srFuns()`: Modified.  A complete rebuild to make similar to `vbFuns()`.  Added `simple=`.  Added `type='Shepherd'` for the Shepherd (1982) three parameter model and `type='SailaLorda'` for the "Saila-Lorda" three parameter model from Iles (1994).  Added tests for error messages.
+* `srModels()`: Modified.  A complete rebuild to make similar to `growthModels()`.  Added "Shepherd" and "Saila-Lorda" models.
+
+# FSA 0.5.2 Mar15
 * `psdPlot()`: Modified.  Fixed bug related to `NA`s in `max.brks` variable.
 
 # FSA 0.5.1 Mar15

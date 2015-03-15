@@ -19,6 +19,7 @@ Show the stock-recruitment model formulas implemented in \code{\link{srFuns}}, \
  \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
 }
 \examples{
+\dontrun{windows(6,5)}
 srModels()
 }
 \author{
