@@ -6,7 +6,8 @@
 \usage{
 srStarts(formula, data = NULL, type = c("BevertonHolt", "Ricker",
   "Shepherd", "SailaLorda"), param = 1, plot = FALSE, col.mdl = "gray70",
-  lwd.mdl = 3, lty.mdl = 1, ...)
+  lwd.mdl = 3, lty.mdl = 1, dynamicPlot = FALSE, minmax.ratio = 4,
+  delta.prop = 0.005, ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{Recruits~Stock}.}
@@ -24,6 +25,12 @@ srStarts(formula, data = NULL, type = c("BevertonHolt", "Ricker",
 \item{lwd.mdl}{A line width for the model when \code{plot=TRUE}.}
 
 \item{lty.mdl}{A line type for the model when \code{plot=TRUE}.}
+
+\item{dynamicPlot}{A logical that indicates where a plot with dynamically linked slider bars should be constructed for finding starting values.}
+
+\item{minmax.ratio}{A single numeric that is used to set the minimum and maximum values for the slider bars in the dynamic plot.  see details.}
+
+\item{delta.prop}{A single numeric that is used to set the step value for the slider bars in the dynamic plots.  See details.}
 
 \item{\dots}{Further arguments passed to the methods.}
 }
@@ -66,6 +73,15 @@ srStarts(recruits~stock,data=CodNorwegian,type="BevertonHolt",plot=TRUE)
 srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",plot=TRUE)
 srStarts(recruits~stock,data=CodNorwegian,type="SailaLorda",plot=TRUE)
 
+## Dynamic Plots Method -- ONLY RUN IN INTERACTIVE MODE
+if (interactive()) {
+  # Beverton-Holt
+  # Ricker Models
+  srStarts(recruits~stock,data=CodNorwegian,type="Ricker",dynamicPlot=TRUE)
+  srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=2,dynamicPlot=TRUE)
+  srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=3,dynamicPlot=TRUE)
+} ## END .. ONLY INTERACTIVE
+
 ## See examples in srFuns() for use of srStarts() when fitting stock-recruit models
 }
 \author{
@@ -85,7 +101,7 @@ Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation 
 Shepherd, J. 1982. A versatile new stock-recruitment relationship for fisheries and construction of sustainable yield curves. Journal du Conseil International pour l'Exploration de la Mar 40:67-75.
 }
 \seealso{
-\code{\link{srModels}}, \code{\link{srFuns}}, and \code{\link{srSim}}.
+\code{\link{srModels}} and \code{\link{srFuns}}.
 }
 \keyword{manip}
 

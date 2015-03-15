@@ -26,7 +26,7 @@ srModels()
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-\code{\link{srFuns}}, \code{\link{srStarts}}, and \code{\link{srSim}}
+\code{\link{srFuns}} and \code{\link{srStarts}}.
 }
 \keyword{hplot}
 \keyword{manip}

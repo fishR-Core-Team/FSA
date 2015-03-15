@@ -22,13 +22,16 @@
 #' @param col.mdl A color for the model when \code{plot=TRUE}.
 #' @param lwd.mdl A line width for the model when \code{plot=TRUE}.
 #' @param lty.mdl A line type for the model when \code{plot=TRUE}.
+#' @param dynamicPlot A logical that indicates where a plot with dynamically linked slider bars should be constructed for finding starting values.
+#' @param minmax.ratio A single numeric that is used to set the minimum and maximum values for the slider bars in the dynamic plot.  see details.
+#' @param delta.prop A single numeric that is used to set the step value for the slider bars in the dynamic plots.  See details.
 #' @param \dots Further arguments passed to the methods.
 #'
 #' @return A list that contains reasonable starting values.  Note that the parameters will be listed in the same order and with the same names as listed in \code{\link{srFuns}}.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{\link{srModels}}, \code{\link{srFuns}}, and \code{\link{srSim}}.
+#' @seealso \code{\link{srModels}} and \code{\link{srFuns}}.
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
 #'
@@ -67,12 +70,22 @@
 #' srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",plot=TRUE)
 #' srStarts(recruits~stock,data=CodNorwegian,type="SailaLorda",plot=TRUE)
 #' 
+#' ## Dynamic Plots Method -- ONLY RUN IN INTERACTIVE MODE
+#' if (interactive()) {
+#'   # Beverton-Holt
+#'   # Ricker Models
+#'   srStarts(recruits~stock,data=CodNorwegian,type="Ricker",dynamicPlot=TRUE)
+#'   srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=2,dynamicPlot=TRUE)
+#'   srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=3,dynamicPlot=TRUE)
+#' } ## END .. ONLY INTERACTIVE
+#' 
 #' ## See examples in srFuns() for use of srStarts() when fitting stock-recruit models
 #'
 #' @rdname srStarts
 #' @export
 srStarts <- function(formula,data=NULL,type=c("BevertonHolt","Ricker","Shepherd","SailaLorda"),
-                     param=1,plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,...) {
+                     param=1,plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,
+                     dynamicPlot=FALSE,minmax.ratio=4,delta.prop=0.005,...) {
   ## attempting to get by bindings warning in RCMD CHECK
   x <- NULL
   ## some checks
@@ -84,30 +97,39 @@ srStarts <- function(formula,data=NULL,type=c("BevertonHolt","Ricker","Shepherd"
   if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
   if (!tmp$metExpNumE) stop("'srStarts' must have only one RHS variable.",call.=FALSE)
   if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable must be numeric.",call.=FALSE)
-  # get the R and S vectors
+  ## get the R and S vectors
   R <- tmp$mf[,tmp$Rname[1]]
   S <- tmp$mf[,tmp$Enames[1]]
-  ## handle each type separately
+  ## find starting values for the type and param
   switch(type,
     BevertonHolt={ sv <- iSRStartsBH(S,R,param) },
     Ricker=      { sv <- iSRStartsR(S,R,param) },
     Shepherd =   { sv <- iSRStartsS(S,R) },
     SailaLorda = { sv <- iSRStartsSL(S,R) }
   ) # end type switch
-  if (plot) {
-    ttl1 <- ifelse(type %in% c("BevertonHolt","Ricker"),paste0(type," #",param),type)
-    ttl2 <- paste(paste(names(sv),formatC(unlist(sv),format="f",digits=5),sep="="),collapse=", ")
-    ttl <- paste(ttl1,"at",ttl2)
-    plot(R~S,pch=19,xlim=c(0,max(S)),xlab="Stock Level",ylab="Recruitment Level",main=ttl)
-    mdl <- srFuns(type,param)
-    curve(mdl(x,unlist(sv)),from=0,to=max(S),col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
+  ## Check if user wants to choose starting values from an interactive plot
+  if (dynamicPlot) {
+    iSRStatsDynPlot(S,R,type,param,sv,minmax.ratio,delta.prop)
+  } else {
+    if (plot) {
+      ttl1 <- ifelse(type %in% c("BevertonHolt","Ricker"),paste0(type," #",param),type)
+      ttl2 <- paste(paste(names(sv),formatC(unlist(sv),format="f",digits=5),sep="="),collapse=", ")
+      ttl <- paste(ttl1,"at",ttl2)
+      plot(R~S,pch=19,xlim=c(0,max(S)),xlab="Stock Level",ylab="Recruitment Level",main=ttl)
+      mdl <- srFuns(type,param)
+      curve(mdl(x,unlist(sv)),from=0,to=max(S),col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
+    }
+    # return the vector of starting values
+    return(sv)
   }
-  sv
 }
 
 ##############################################################
 # INTERNAL FUNCTIONS
 ##############################################################
+#=============================================================
+# Find starting values for Beverton-Holt models
+#=============================================================
 iSRStartsBH <- function(S,R,param) {
   ## some checks
   if (!param %in% 1:4) stop("'param' must be in 1:4 when type='BevertonHolt'.",call.=FALSE)
@@ -127,8 +149,11 @@ iSRStartsBH <- function(S,R,param) {
   else if (param==3) sv <- list(a=atilde,b=btilde)
   else sv <- list(a=atilde,Rp=Rp)
   sv
-}
+} # end internal iSRStartsBH
 
+#=============================================================
+# Find starting values for Ricker models
+#=============================================================
 iSRStartsR <- function(S,R,param) {
   ## some checks
   if (!param %in% 1:3) stop("'param' must be in 1:3 when type='Ricker'.",call.=FALSE)
@@ -146,12 +171,113 @@ iSRStartsR <- function(S,R,param) {
   else if (param==2) sv <- list(a=atilde,b=b)
   else sv <- list(a=a,Rp=Rp)
   sv
+} # end internal iSRStartsR
+
+#=============================================================
+# Find starting values for Shepherd model
+#=============================================================
+iSRStartsS <- function(S,R) c(iSRStartsBH(S,R,param=1),c=1)
+
+#=============================================================
+# Find starting values for Saila-Lorda models
+#=============================================================
+iSRStartsSL <- function(S,R) c(iSRStartsR(S,R,param=1),c=1)
+
+
+#=============================================================
+# Dynamics plots for finding starting values -- main function
+#=============================================================
+iSRStatsDynPlot <- function(S,R,type,param,sv,minmax.ratio,delta.prop) {
+  ## internal refresh function for the dialog box
+  refresh <- function(...) {
+    p1 <- relax::slider(no=1)
+    p2 <- relax::slider(no=2)
+    if (type %in% c("Shepherd","SailaLorda")) p3 <- relax::slider(no=3)
+    else p3=NULL
+    iSRDynPlot(S,R,type,param,p1,p2,p3)
+  } # end internal refresh
+  
+  ## Main function
+  ## Set the minimum value as a proportion (from minmax.ratio)
+  ## of the starting values, the maximum value at a multiple
+  ## (from minmax.ratio) of the starting values, and the delta
+  ## value at a proportion (from delta.prop) of the starting
+  ## values.  Unlist first to make as a vector.
+  sl.defaults <- unlist(sv)
+  sl.mins <- sl.defaults/minmax.ratio
+  sl.maxs <- sl.defaults*minmax.ratio
+  sl.deltas <- sl.defaults*delta.prop
+  ## Grab names from the sv vector
+  sl.names <- names(sl.defaults)
+  ## Make a title
+  sl.ttl <- paste(type,"Stock-Recruit Model")
+  if (type %in% c("BevertonHolt","Ricker")) sl.ttl <- paste0(sl.ttl," #",param)
+  ## Set up names that are specific to type and param
+  relax::gslider(refresh,prompt=TRUE,hscale=2,pos.of.panel="left",
+                 title=sl.ttl,sl.names=sl.names,
+                 sl.mins=sl.mins,sl.maxs=sl.maxs,
+                 sl.deltas=sl.deltas,sl.defaults=sl.defaults)
+  refresh()
 }
 
-iSRStartsS <- function(S,R) {
-  c(iSRStartsBH(S,R,param=1),c=1)
+#=============================================================
+# Constructs the actual plot in the dynamics plots for finding
+# starting values
+#=============================================================
+iSRDynPlot <- function(S,R,type,param,p1,p2,p3=NULL) {
+  ## create a sequence of spawning stock values
+  max.S <- max(S,na.rm=TRUE)
+  x <- c(seq(0,0.2*max.S,length.out=500),seq(0.2*max.S,max.S,length.out=500)) 
+  ## create a sequence of matching recruit values according to
+  ## the model type and param
+  y <- iSRDynPlot_makeR(x,type,param,p1,p2,p3)
+  ## Construct the scatterplot with superimposed model
+  old.par <- par(mfrow=c(1,2), mar=c(3.5,3.5,1.25,1.25), mgp=c(2,0.4,0), tcl=-0.2, pch=19)
+  plot(S,R,xlab="Parental (Spawner) Stock",ylab="Recruits",
+       ylim=c(0,max(R,na.rm=TRUE)),xlim=c(0,max(S,na.rm=TRUE)))
+  lines(x,y,lwd=2,lty=1,col="blue")
+  plot(S,R/S,xlab="Parental (Spawner) Stock",ylab="Recruits/Spawner",
+       ylim=c(0,max(R/S,na.rm=TRUE)),xlim=c(0,max(S,na.rm=TRUE)))
+  lines(x,y/x,lwd=2,lty=1,col="blue")
+  par(old.par)
 }
 
-iSRStartsSL <- function(S,R) {
-  c(iSRStartsR(S,R,param=1),c=1)
+#=============================================================
+# Construct values for R given values of S, a stock-recruit
+# model and parameterization, and values of the parameters.
+# This is called by iSRDynPlot()
+#=============================================================
+iSRDynPlot_makeR <- function(x,type,param,p1,p2,p3=NULL){
+  if (type=="BevertonHolt") {
+    if (param==1) {
+      # p1=a,p2=b
+      y <- p1*x/(1+p2*x)
+    } else if (param==2) {
+      # p1=a, p2=Rp
+      y <- p1*x/(1+p1*(x/p2))
+    } else if (param==3) {
+      # p1=atilde, p2=btilde
+      y <- x/(p1+p2*x)
+    } else if (param==4) {
+      # p1=atilde, p2=Rp
+      y <- x/(p1+x/p2)
+    } # end B-H switch
+  } else if (type=="Ricker") {
+    if (param==1) {
+      # p1=a,p2=b
+      y <- p1*x*exp(-p2*x)
+    } else if (param==2) {
+      # p1=atilde, p2=b
+      y <- x*exp(p1-p2*x)
+    } else if (param==3) {
+      # p1=a, p2=Rp
+      y <- p1*x*exp(-p1*x/(p2*exp(1)))
+    } # end Ricker switch
+  } else if (type=="Shepherd") {
+    # p1=a, p2=b, p3=c
+  } else { # Saila-Lorda
+    # p1=a, p2=b, p3=c    
+  }
+  # return the value of y
+  y
 }

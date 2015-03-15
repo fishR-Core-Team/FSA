@@ -82,7 +82,7 @@ Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation 
 Shepherd, J. 1982. A versatile new stock-recruitment relationship for fisheries and construction of sustainable yield curves. Journal du Conseil International pour l'Exploration de la Mar 40:67-75.
 }
 \seealso{
-\code{\link{srStarts}}, \code{\link{srModels}}, and \code{\link{srSim}}
+\code{\link{srStarts}} and \code{\link{srModels}}.
 }
 \keyword{manip}
 

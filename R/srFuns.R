@@ -13,7 +13,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
-#' @seealso \code{\link{srStarts}}, \code{\link{srModels}}, and \code{\link{srSim}}
+#' @seealso \code{\link{srStarts}} and \code{\link{srModels}}.
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
 #'

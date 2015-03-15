@@ -8,7 +8,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{\link{srFuns}}, \code{\link{srStarts}}, and \code{\link{srSim}}
+#' @seealso \code{\link{srFuns}} and \code{\link{srStarts}}.
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
 #'
