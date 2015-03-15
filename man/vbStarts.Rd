@@ -8,7 +8,7 @@ vbStarts(formula, data = NULL, type = c("typical", "BevertonHolt",
   "original", "vonBertalanffy", "GQ", "GallucciQuinn", "Mooij", "Weisberg",
   "Schnute", "Francis", "Somers", "Somers2"), ages2use = NULL,
   methEV = c("poly", "means"), meth0 = c("poly", "yngAge"), plot = FALSE,
-  ...)
+  col.mdl = "gray70", lwd.mdl = 3, lty.mdl = 1, ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{len~age}.}
@@ -24,6 +24,12 @@ vbStarts(formula, data = NULL, type = c("typical", "BevertonHolt",
 \item{meth0}{A string that indicates how the t0 and L0 paramaters should be derived.  See details.}
 
 \item{plot}{A logical that indicates whether a plot of the data with the model fit at the starting values superimposed should be created.}
+
+\item{col.mdl}{A color for the model when \code{plot=TRUE}.}
+
+\item{lwd.mdl}{A line width for the model when \code{plot=TRUE}.}
+
+\item{lty.mdl}{A line type for the model when \code{plot=TRUE}.}
 
 \item{\dots}{Further arguments passed to the methods.}
 }
@@ -49,18 +55,36 @@ The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \
  \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffy.pdf}, \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffyExtra.pdf}
 }
 \examples{
-## Simple Examples
+## Examples
 data(SpotVA1)
 vbStarts(tl~age,data=SpotVA1)
-vbStarts(tl~age,data=SpotVA1,type="GallucciQuinn")
+vbStarts(tl~age,data=SpotVA1,type="original")
+vbStarts(tl~age,data=SpotVA1,type="GQ")
+vbStarts(tl~age,data=SpotVA1,type="Mooij")
+vbStarts(tl~age,data=SpotVA1,type="Weisberg")
 vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5))
 vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5))
+vbStarts(tl~age,data=SpotVA1,type="Somers")
+vbStarts(tl~age,data=SpotVA1,type="Somers2")
 
-## Simple Example with a Plot
+## Using a different method to find t0 and L0
+vbStarts(tl~age,data=SpotVA1,meth0="yngAge")
+vbStarts(tl~age,data=SpotVA1,type="original",meth0="yngAge")
+
+## Using a different method to find the L1, L2, and L3
+vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5),methEV="means")
+vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5),methEV="means")
+
+## Example with a Plot
 vbStarts(tl~age,data=SpotVA1,plot=TRUE)
-vbStarts(tl~age,data=SpotVA1,type="GallucciQuinn",plot=TRUE)
+vbStarts(tl~age,data=SpotVA1,type="original",plot=TRUE)
+vbStarts(tl~age,data=SpotVA1,type="GQ",plot=TRUE)
+vbStarts(tl~age,data=SpotVA1,type="Mooij",plot=TRUE)
+vbStarts(tl~age,data=SpotVA1,type="Weisberg",plot=TRUE)
 vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5),plot=TRUE)
 vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5),plot=TRUE)
+vbStarts(tl~age,data=SpotVA1,type="Somers",plot=TRUE)
+vbStarts(tl~age,data=SpotVA1,type="Somers2",plot=TRUE)
 
 ## See examples in vbFuns() for use of vbStarts() when fitting Von B models
 }

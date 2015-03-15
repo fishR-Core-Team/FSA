@@ -96,8 +96,6 @@
 srStarts <- function(formula,data=NULL,type=c("BevertonHolt","Ricker","Shepherd","SailaLorda"),
                      param=1,plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,
                      dynamicPlot=FALSE,min.prop=0.1,max.mult=3,delta.prop=0.005,...) {
-  ## attempting to get by bindings warning in RCMD CHECK
-  x <- NULL
   ## some checks
   type <- match.arg(type)
   if (length(param)!=1) stop("Only one 'param' is allowed.",call.=FALSE)
@@ -192,6 +190,8 @@ iSRStartsSL <- function(S,R) c(iSRStartsR(S,R,param=1),c=1)
 # Static plot of starting values
 #=============================================================
 iSRStartsPlot <- function(S,R,type,param,sv,col.mdl,lwd.mdl,lty.mdl) {
+  ## attempting to get by bindings warning in RCMD CHECK
+  x <- NULL
   ## Make a title
   ttl1 <- ifelse(type %in% c("BevertonHolt","Ricker"),paste0(type," #",param),type)
   ttl2 <- paste(paste(names(sv),formatC(unlist(sv),format="f",digits=5),sep="="),collapse=", ")

@@ -19,6 +19,9 @@
 #' @param methEV A string that indicates how the lengths of the two ages in the Schnute paramaterization or the three ages in the Francis paramaterization should be derived.  See details.
 #' @param meth0 A string that indicates how the t0 and L0 paramaters should be derived.  See details.
 #' @param plot A logical that indicates whether a plot of the data with the model fit at the starting values superimposed should be created.
+#' @param col.mdl A color for the model when \code{plot=TRUE}.
+#' @param lwd.mdl A line width for the model when \code{plot=TRUE}.
+#' @param lty.mdl A line type for the model when \code{plot=TRUE}.
 #' @param \dots Further arguments passed to the methods.
 #' 
 #' @return A list that contains reasonable starting values.  Note that the parameters will be listed in the same order and with the same names as listed in \code{\link{vbFuns}}.
@@ -47,18 +50,36 @@
 #' 
 #' @keywords manip
 #' @examples
-#' ## Simple Examples
+#' ## Examples
 #' data(SpotVA1)
 #' vbStarts(tl~age,data=SpotVA1)
-#' vbStarts(tl~age,data=SpotVA1,type="GallucciQuinn")
+#' vbStarts(tl~age,data=SpotVA1,type="original")
+#' vbStarts(tl~age,data=SpotVA1,type="GQ")
+#' vbStarts(tl~age,data=SpotVA1,type="Mooij")
+#' vbStarts(tl~age,data=SpotVA1,type="Weisberg")
 #' vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5))
 #' vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5))
+#' vbStarts(tl~age,data=SpotVA1,type="Somers")
+#' vbStarts(tl~age,data=SpotVA1,type="Somers2")
 #' 
-#' ## Simple Example with a Plot
+#' ## Using a different method to find t0 and L0
+#' vbStarts(tl~age,data=SpotVA1,meth0="yngAge")
+#' vbStarts(tl~age,data=SpotVA1,type="original",meth0="yngAge")
+#' 
+#' ## Using a different method to find the L1, L2, and L3
+#' vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5),methEV="means")
+#' vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5),methEV="means")
+#' 
+#' ## Example with a Plot
 #' vbStarts(tl~age,data=SpotVA1,plot=TRUE)
-#' vbStarts(tl~age,data=SpotVA1,type="GallucciQuinn",plot=TRUE)
+#' vbStarts(tl~age,data=SpotVA1,type="original",plot=TRUE)
+#' vbStarts(tl~age,data=SpotVA1,type="GQ",plot=TRUE)
+#' vbStarts(tl~age,data=SpotVA1,type="Mooij",plot=TRUE)
+#' vbStarts(tl~age,data=SpotVA1,type="Weisberg",plot=TRUE)
 #' vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5),plot=TRUE)
 #' vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5),plot=TRUE)
+#' vbStarts(tl~age,data=SpotVA1,type="Somers",plot=TRUE)
+#' vbStarts(tl~age,data=SpotVA1,type="Somers2",plot=TRUE)
 #' 
 #' ## See examples in vbFuns() for use of vbStarts() when fitting Von B models
 #' 
@@ -68,98 +89,73 @@ vbStarts <- function(formula,data=NULL,
                             "GQ","GallucciQuinn","Mooij","Weisberg",
                             "Schnute","Francis","Somers","Somers2"),
                      ages2use=NULL,methEV=c("poly","means"),meth0=c("poly","yngAge"),
-                     plot=FALSE,...) {
-  # some checks and handle the formula
+                     plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,...) {
+  ## some checks of arguments
   type <- match.arg(type)
+  methEV <- match.arg(methEV)
+  meth0 <- match.arg(meth0)
+  ## handle the formula with some checkes
   tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
   if (!tmp$metExpNumR) stop("'vbStarts' must have only one LHS variable.",call.=FALSE)
   if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
   if (!tmp$metExpNumE) stop("'vbStarts' must have only one RHS variable.",call.=FALSE)
   if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable must be numeric.",call.=FALSE)
-  # get the length and age vectors
+  ## get the length and age vectors
   len <- tmp$mf[,tmp$Rname[1]]
   age <- tmp$mf[,tmp$Enames[1]]
-  # attempting to get by bindings warning in RCMD CHECK
-  x <- NULL
-  # mean lengths-at-age
-  meanL <- tapply(len,age,mean)
-  # ages represented
-  ages <- as.numeric(names(meanL))
-  ns <- tapply(len,age,length)
-  # find starting values for K & Linf from Walford plot regression
-  lmK <- lm(meanL[-1]~meanL[-length(meanL)])
-  sK <- -log(coef(lmK)[2])
-  sLinf <- coef(lmK)[1]/(1-coef(lmK)[2])
-  # fit polynomial regression
-  respoly <- lm(meanL~poly(ages,2))
-  if(match.arg(meth0)=="poly") {
-    # get real component of roots to polynomial equation
-    resroots <- Re(polyroot(coef(respoly)))
-    # find starting value for t0 as polynomial root closest to zero
-    st0 <- resroots[which(abs(resroots)==min(abs(resroots)))]
-    # find starting value for L0 as predicted value from polynomial at age=0
-    sL0 <- predict(respoly,data.frame(ages=0))
-  } else {
-    # find the youngest age with a n>1
-    yngAge <- min(ages[which(ns>1)])
-    # find starting values for t0 from re-arrangement of typical VonB model and yngAge
-    st0 <- yngAge+(1/sK)*log((sLinf-meanL[yngAge])/sLinf)
-    # find starting values for L0 from re-arrangement of original VonB model and yngAge
-    sL0 <- sLinf+(meanL[yngAge]-sLinf)/exp(-sK*yngAge)
-  }
-  # if a "double root" was found then reduce to just a single root
-  if (length(st0)>1) st0 <- st0[1]
-  if (length(sL0)>1) sL0 <- sL0[1]
-  # strip attributes (names mostly)
-  attributes(sLinf) <- attributes(sK) <- attributes(st0) <- attributes(sL0) <- attributes(meanL) <- NULL
-  type <- match.arg(type)
-  if (!(type %in% c("Schnute","Francis"))) iCheckKLinf(sK,sLinf,type,len)
+  ## get starting valeus depending on type
   switch(type,
-    typical=,BevertonHolt={ sv <- list(Linf=sLinf,K=sK,t0=st0) },
-    original=,vonBertalanffy={ sv <- list(Linf=sLinf,L0=sL0,K=sK) },
-    GQ=,GallucciQuinn={ sv <- list(omega=sLinf*sK,K=sK,t0=st0) },
-    Mooij={ sv <- list(Linf=sLinf,L0=sL0,omega=sLinf*sK) },
-    Weisberg={ sv <- list(Linf=sLinf,t50=log(2)/sK+st0,t0=st0) },
-    Schnute=,Francis={
-      if (is.null(ages2use)) ages2use <- range(ages)
-      if (length(ages2use)!=2) stop("'age2use=' must be NULL or have only two ages.",call.=FALSE)
-      if (ages2use[2]<=ages2use[1]) {
-        warning("'ages2use' should be in ascending order; order reversed to continue.",call.=FALSE)
-        ages2use <- rev(ages2use)
-      }
-      if (type=="Francis") ages2use <- c(ages2use[1],mean(ages2use),ages2use[2])
-      switch(match.arg(methEV),
-        poly={ vals <- predict(respoly,data.frame(ages=ages2use)) },
-        means={
-          meanFnx <- approxfun(ages,meanL)
-          vals <- meanFnx(ages2use)
-        }
-      ) # end 'methEv' switch
-      if (any(diff(vals)<=0)) warning("At least one of the starting values for an older age\n  is smaller than the starting value for a younger age.",call.=FALSE)
-      attributes(vals) <- NULL
-      ifelse(type=="Schnute",sv <- list(L1=vals[1],L3=vals[2],K=sK),sv <- list(L1=vals[1],L2=vals[2],L3=vals[3]))
-    },
-    Somers={ sv <- list(Linf=sLinf,K=sK,t0=st0,C=0.9,ts=0.1)   },
-    Somers2={ sv <- list(Linf=sLinf,K=sK,t0=st0,C=0.9,WP=0.9)   }
+    typical=,BevertonHolt=   { sv <- iVBStarts.typical(len,age,type,meth0) },
+    original=,vonBertalanffy={ sv <- iVBStarts.original(len,age,type,meth0) },
+    GQ=,GallucciQuinn=       { sv <- iVBStarts.GQ(len,age,type,meth0) },
+    Mooij=                   { sv <- iVBStarts.Mooij(len,age,type,meth0) },
+    Weisberg=                { sv <- iVBStarts.Weisberg(len,age,type,meth0) },
+    Francis=                 { sv <- iVBStarts.Francis(len,age,type,methEV,ages2use) },
+    Schnute=                 { sv <- iVBStarts.Schnute(len,age,type,meth0,methEV,ages2use) },
+    Somers=                  { sv <- iVBStarts.Somers(len,age,type,meth0) },
+    Somers2=                 { sv <- iVBStarts.Somers2(len,age,type,meth0) }
   ) # end 'type' switch
-  if (plot) {
-    # create a transparency value that is the max of 1/2th of the maximum number at any length and age combination or 0.1
-    clr <- rgb(0,0,0,max(2/max(table(age,len)),0.1))
-    plot(len~age,pch=16,col=clr,xlab="Age",ylab="Length",
-         main=paste("von B (",type," paramaterization) fit at initial values",sep=""))
-    mdl <- vbFuns(type)
-    if (!(type %in% c("Schnute","Francis"))) curve(mdl(x,sv[[1]],sv[[2]],sv[[3]]),from=min(age),to=max(age),col="red",lwd=3,add=TRUE)
-      else if (type=="Schnute") curve(mdl(x,sv[[1]],sv[[2]],sv[[3]],t1=ages2use[1],t3=ages2use[2]),from=min(age),to=max(age),col="red",lwd=3,add=TRUE)
-        else {
-          curve(mdl(x,sv[[1]],sv[[2]],sv[[3]],t1=ages2use[1],t3=ages2use[2]),from=min(age),to=max(age),col="red",lwd=3,add=TRUE)
-        }
-    legend("bottomright",legend=paste(names(sv),formatC(unlist(sv),format="f",digits=2),sep=" = "),bty="n")
-  }
-  # return starting values list
+  # make the static plot if asked for
+  if (plot) iVBStartsPlot(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl)
+  ## return starting values list
   sv
 }
 
-iCheckKLinf <- function(sK,sLinf,type,len) {
+
+
+##############################################################
+# INTERNAL FUNCTIONS
+##############################################################
+#=============================================================
+# Find starting values for Linf and K from a Walford Plot
+#=============================================================
+iVBStarts.LinfK <- function(len,age,type) {
+  ## compute mean lengths-at-age and numbers-at-age
+  meanL <- tapply(len,age,mean)
+  ns <- tapply(len,age,length)
+  ## fit Walford plot regression
+  cfs <- coef(lm(meanL[-1]~meanL[-length(meanL)]))
+  ## find starting values from Walford plot regression coefficients
+  sLinf <- cfs[[1]]/(1-cfs[[2]])
+  sK <- -log(cfs[[2]])
+  ## check reasonableness of values
+  iCheckLinfK(sLinf,sK,type,len)
+  ## return the starting values
+  c(Linf=sLinf,K=sK)
+}
+
+#=============================================================
+# Perform some checks for "bad" values of Linf and K
+#=============================================================
+iCheckLinfK <- function(sLinf,sK,type,len) {
+  if ((sLinf<0.5*max(len)) | sLinf>1.5*max(len)) {
+    msg <- "Starting value for Linf is very different from the observed maximum length, "
+    msg <- paste(msg,"which suggests a model fitting problem.\n",sep="")
+    msg <- paste(msg,"See a walfordPlot or chapmanPlot to examine the problem.\n",sep="")
+    msg <- paste(msg,"Consider manually setting Linf to the maximum observed length\n",sep="")
+    msg <- paste(msg,"in the starting value list.\n",sep="")
+    warning(msg,call.=FALSE)    
+  } 
   if (sK<0) {
     if (type %in% c("typical","original","BevertonHolt","vonBertalanffy","GQ","GallucciQuinn","Schnute")) {
       msg <- "The suggested starting value for K is negative, "
@@ -171,12 +167,180 @@ iCheckKLinf <- function(sK,sLinf,type,len) {
     msg <- paste(msg,"Consider manually setting K=0.3 in the starting value list.\n",sep="")
     warning(msg,call.=FALSE)
   }
-  if ((sLinf<0.5*max(len)) | sLinf>1.5*max(len)) {
-    msg <- "Starting value for Linf is very different from the observed maximum length, "
-    msg <- paste(msg,"which suggests a model fitting problem.\n",sep="")
-    msg <- paste(msg,"See a walfordPlot or chapmanPlot to examine the problem.\n",sep="")
-    msg <- paste(msg,"Consider manually setting Linf to the maximum observed length\n",sep="")
-    msg <- paste(msg,"in the starting value list.\n",sep="")
-    warning(msg,call.=FALSE)    
-  } 
+}
+
+#=============================================================
+# Find starting values for t0 and L0
+#=============================================================
+iVBStarts.0 <- function(len,age,type,meth0) {
+  ## compute mean lengths-at-age and numbers-at-age
+  meanL <- tapply(len,age,mean)
+  ns <- tapply(len,age,length)
+  ## find ages represented
+  ages <- as.numeric(names(meanL))
+  ## find values depending on method
+  if(meth0=="poly") {
+    # fit polynomial regression
+    respoly <- lm(meanL~poly(ages,2))
+    # get real component of roots to polynomial equation
+    resroots <- Re(polyroot(coef(respoly)))
+    # find starting value for t0 as polynomial root closest to zero
+    st0 <- resroots[which(abs(resroots)==min(abs(resroots)))]
+    # find starting value for L0 as predicted value from polynomial at age=0
+    sL0 <- predict(respoly,data.frame(ages=0))
+    # this removes the attributes and will return only the first
+    # root if a "double root" was found
+    st0 <- st0[[1]]
+    sL0 <- sL0[[1]]
+  } else {
+    # find starting values for Linf and K
+    tmp <- iVBStarts.LinfK(len,age,type)
+    # find the youngest age with a n>1
+    yngAge <- min(ages[which(ns>1)])
+    # find starting values for t0 from re-arrangement of typical VonB model and yngAge
+    st0 <- yngAge+(1/tmp[["K"]])*log((tmp[["Linf"]]-meanL[[which(ages==yngAge)]])/tmp[["Linf"]])
+    # find starting values for L0 from re-arrangement of original VonB model and yngAge
+    sL0 <- tmp[["Linf"]]+(meanL[[which(ages==yngAge)]]-tmp[["Linf"]])/exp(-tmp[["K"]]*yngAge)
+  }
+  ## Return starting values
+  c(t0=st0,L0=sL0)
+}
+
+#=============================================================
+# find starting values for L1, L2, and L3 (of the Francis and
+# Schnute methods)
+#=============================================================
+iVBStarts.Ls <- function(len,age,type,methEV,ages2use) {
+  ## compute mean lengths-at-age and numbers-at-age
+  meanL <- tapply(len,age,mean)
+  ns <- tapply(len,age,length)
+  ## find ages represented
+  ages <- as.numeric(names(meanL))
+  ## Handle ages2use
+  # if none given then use the min and max
+  if (is.null(ages2use)) ages2use <- range(ages)
+  # if too many given then send an error
+  if (length(ages2use)!=2) stop("'age2use=' must be NULL or have only two ages.",call.=FALSE)
+  # if order is backwards then warn and flip
+  if (ages2use[2]<=ages2use[1]) {
+    warning("'ages2use' should be in ascending order; order reversed to continue.",call.=FALSE)
+    ages2use <- rev(ages2use)
+  }
+  # if using the Francis parameterization then must find the
+  # intermediate age
+  if (type=="Francis") ages2use <- c(ages2use[1],mean(ages2use),ages2use[2])
+  ## Find mean lengths at ages2use
+  if (methEV=="poly") {
+    # fit polynomial regression
+    respoly <- lm(meanL~poly(ages,2))
+    # predict length at ages2use
+    vals <- predict(respoly,data.frame(ages=ages2use))
+  } else {
+    # fit an interpolating functions
+    meanFnx <- approxfun(ages,meanL)
+    # find ages from that function
+    vals <- meanFnx(ages2use)
+  }
+  ## Check if these values make sense
+  if (any(diff(vals)<=0)) warning("At least one of the starting values for an older age\n  is smaller than the starting value for a younger age.",call.=FALSE)
+  ## Return the values
+  if (type=="Francis") list(L1=vals[[1]],L2=vals[[2]],L3=vals[[3]])
+  else list(L1=vals[[1]],L3=vals[[2]])
+}
+
+
+#=============================================================
+# Find starting values the typical VB parameterization
+#=============================================================
+iVBStarts.typical <- function(len,age,type,meth0) {
+  as.list(c(iVBStarts.LinfK(len,age,type),iVBStarts.0(len,age,type,meth0)["t0"]))
+}
+
+#=============================================================
+# Find starting values the original VB parameterization
+#=============================================================
+iVBStarts.original <- function(len,age,type,meth0) {
+  tmp <- iVBStarts.LinfK(len,age,type)
+  as.list(c(tmp["Linf"],iVBStarts.0(len,age,type,meth0)["L0"],tmp["K"]))
+}
+
+#=============================================================
+# Find starting values the GQ VB parameterization
+#=============================================================
+iVBStarts.GQ <- function(len,age,type,meth0) {
+  tmp <- iVBStarts.typical(len,age,type,meth0)
+  as.list(c(omega=tmp[["Linf"]]*tmp[["K"]],tmp["K"],tmp["t0"]))
+}
+
+#=============================================================
+# Find starting values the Mooij VB parameterization
+#=============================================================
+iVBStarts.Mooij <- function(len,age,type,meth0) {
+  tmp <- iVBStarts.original(len,age,type,meth0)
+  as.list(c(tmp["Linf"],omega=tmp[["Linf"]]*tmp[["K"]],tmp["L0"]))
+}
+
+#=============================================================
+# Find starting values the Weisberg VB parameterization
+#=============================================================
+iVBStarts.Weisberg <- function(len,age,type,meth0) {
+  tmp <- iVBStarts.typical(len,age,type,meth0)
+  as.list(c(tmp["Linf"],t50=log(2)/tmp[["K"]]+tmp[["t0"]],tmp["t0"]))
+}
+
+#=============================================================
+# Find starting values the Francis VB parameterization
+#=============================================================
+iVBStarts.Francis <- function(len,age,type,methEV,ages2use) {
+  iVBStarts.Ls(len,age,type,methEV,ages2use)
+}
+
+#=============================================================
+# Find starting values the Schnute VB parameterization
+#=============================================================
+iVBStarts.Schnute <- function(len,age,type,meth0,methEV,ages2use) {
+  as.list(c(iVBStarts.Ls(len,age,type,methEV,ages2use),iVBStarts.LinfK(len,age,type)["K"]))
+}
+
+#=============================================================
+# Find starting values the Somers VB parameterization
+#=============================================================
+iVBStarts.Somers <- function(len,age,type,meth0) {
+  as.list(c(iVBStarts.typical(len,age,type,meth0),C=0.9,ts=0.1))
+}
+
+#=============================================================
+# Find starting values the Somers2 VB parameterization
+#=============================================================
+iVBStarts.Somers2 <- function(len,age,type,meth0) {
+  as.list(c(iVBStarts.typical(len,age,type,meth0),C=0.9,WP=0.9))
+}
+
+
+#=============================================================
+# Static plot of starting values
+#=============================================================
+iVBStartsPlot <- function(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl) {
+  ## attempting to get by bindings warning in RCMD CHECK
+  x <- NULL
+  ## Make a title
+  ttl1 <- paste0("von B (",type,") fit")
+  ttl2 <- paste(paste(names(sv),formatC(unlist(sv),format="f",digits=2),sep="="),collapse=", ")
+  ttl <- paste(ttl1,"at",ttl2)
+  ## Plot the data
+  # create a transparency value that is the max of 1/2th of the
+  # maximum number at any length and age combination or 0.1
+  clr <- rgb(0,0,0,max(2/max(table(age,len)),0.1))
+  # Make the base plot
+  plot(age,len,pch=19,col=clr,xlab="Age",ylab="Length",main=ttl,cex.main=0.95)
+  ## Plot the model
+  mdl <- vbFuns(type)
+  min.age <- min(age,na.rm=TRUE)
+  max.age <- max(age,na.rm=TRUE)
+  if (!type %in% c("Schnute","Francis")) {
+    curve(mdl(x,unlist(sv)),from=min.age,to=max.age,col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
+  } else {
+    # Schnute/Francis requires t1 argument
+    curve(mdl(x,unlist(sv),t1=ages2use),from=min.age,to=max.age,col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
+  }
 }
