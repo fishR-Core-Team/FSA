@@ -2,7 +2,7 @@
 % Please edit documentation in R/srFuns.R
 \name{srFuns}
 \alias{srFuns}
-\title{Creates a function for a specific stock-recruitment model parameterization.}
+\title{Creates a function for a specific parameterization of a common stock-recruitment model .}
 \usage{
 srFuns(type = c("BevertonHolt", "Ricker", "Shepherd", "SailaLorda"),
   param = 1, simple = FALSE, msg = FALSE)
@@ -22,7 +22,7 @@ A function that can be used to predict recruitment given a vector of stock sizes
 If \code{simple=FALSE} then the values for all parameters can be included as a vector in the first parameter argument.  If \code{simple=TRUE} then all parameters must be declared individually in each function.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
 }
 \description{
-Creates a function for a specific parameterization of a \dQuote{Beverton-Holt}, \dQuote{Ricker}, or \dQuote{Shepherd} stock-recruitment model.
+Creates a function for a specific parameterization of a \dQuote{Beverton-Holt}, \dQuote{Ricker},  \dQuote{Shepherd}, or \dQuote{Saila-Lorda} stock-recruitment model.  Type \code{srModels()} for the equations of each model.
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
