@@ -12,11 +12,10 @@
 #' 
 #' Starting values for the Saila-Lorda function were the same as those for the first parameterization of the Ricker function with the addition that \code{c=1}.
 #'
-#' @aliases srStarts srStarts.default srStarts.formula
+#' @aliases srStarts
 #'
-#' @param S Either a vector of observed stock levels or a formula of the form \code{R~S}.
-#' @param R A vector of observed recruitment levels.
-#' @param data A data frame from which the vectors of observed stock and recruitment levels can be found.  Used only if a formula is used in \code{s}.
+#' @param formula A formula of the form \code{Recruits~Stock}.
+#' @param data A data frame in which \code{Recruits} and \code{Stock} are found.
 #' @param type A string that indicates the type of the stock-recruitment model.  Must be one of \code{"BevertonHolt"}, \code{"Ricker"}, \code{"Shepherd"}, or \code{"SailaLorda"}.
 #' @param param A numeric that indicates the parameterization of the stock-recruitment model type.  This is ignored if \code{type="Shepherd"} or \code{type="SailaLorda"}
 #' @param plot A logical that indicates whether or not a plot of the data with the model fit at the starting values superimposed is created.
@@ -72,28 +71,22 @@
 #'
 #' @rdname srStarts
 #' @export
-srStarts <- function(S,...) {
-  UseMethod("srStarts") 
-}
-
-#' @rdname srStarts
-#' @export
-srStarts.formula <- function(S,data=NULL,...) {
-  mf <- model.frame(S,data)
-  x <- mf[,2]
-  y <- mf[,1]
-  srStarts.default(x,y,,...)
-}
-
-#' @rdname srStarts
-#' @export
-srStarts.default <- function(S,R,type=c("BevertonHolt","Ricker","Shepherd","SailaLorda"),
-                             param=1,plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,...) {
+srStarts <- function(formula,data=NULL,type=c("BevertonHolt","Ricker","Shepherd","SailaLorda"),
+                     param=1,plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,...) {
   ## attempting to get by bindings warning in RCMD CHECK
   x <- NULL
   ## some checks
   type <- match.arg(type)
   if (length(param)!=1) stop("Only one 'param' is allowed.",call.=FALSE)
+  ## some checks on the formula
+  tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
+  if (!tmp$metExpNumR) stop("'srStarts' must have only one LHS variable.",call.=FALSE)
+  if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
+  if (!tmp$metExpNumE) stop("'srStarts' must have only one RHS variable.",call.=FALSE)
+  if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable must be numeric.",call.=FALSE)
+  # get the R and S vectors
+  R <- tmp$mf[,tmp$Rname[1]]
+  S <- tmp$mf[,tmp$Enames[1]]
   ## handle each type separately
   switch(type,
     BevertonHolt={ sv <- iSRStartsBH(S,R,param) },

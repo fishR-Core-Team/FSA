@@ -2,24 +2,16 @@
 % Please edit documentation in R/srStarts.R
 \name{srStarts}
 \alias{srStarts}
-\alias{srStarts.default}
-\alias{srStarts.formula}
 \title{Finds reasonable starting values for parameters in specific paramaterizations of common stock-recruitment models.}
 \usage{
-srStarts(S, ...)
-
-\method{srStarts}{formula}(S, data = NULL, ...)
-
-\method{srStarts}{default}(S, R, type = c("BevertonHolt", "Ricker",
+srStarts(formula, data = NULL, type = c("BevertonHolt", "Ricker",
   "Shepherd", "SailaLorda"), param = 1, plot = FALSE, col.mdl = "gray70",
   lwd.mdl = 3, lty.mdl = 1, ...)
 }
 \arguments{
-\item{S}{Either a vector of observed stock levels or a formula of the form \code{R~S}.}
+\item{formula}{A formula of the form \code{Recruits~Stock}.}
 
-\item{data}{A data frame from which the vectors of observed stock and recruitment levels can be found.  Used only if a formula is used in \code{s}.}
-
-\item{R}{A vector of observed recruitment levels.}
+\item{data}{A data frame in which \code{Recruits} and \code{Stock} are found.}
 
 \item{type}{A string that indicates the type of the stock-recruitment model.  Must be one of \code{"BevertonHolt"}, \code{"Ricker"}, \code{"Shepherd"}, or \code{"SailaLorda"}.}
 

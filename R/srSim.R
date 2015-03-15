@@ -1,16 +1,18 @@
 #' @title Dynamic plots to explore typical fisheries stock-recruitment models.
 #'
-#' @description Plots hypothetical number of recruits versus stock size for four parameterizations of the Beverton-Holt and three parameterizations of the Ricker stock-recruit models.  Slider bars are used to alter the parameters of each model.
+#' @description Plots modeled number of recruits versus stock size for common parameterizations of the Beverton-Holt, Ricker, Shepherd, and Saila-Lorda stock-recruit models.  Slider bars are used to dynamically alter the parameters of each model.
 #'
-#' @details This function can be used to explore the dynamics of stock-recruitment models for various parameter choices.  In these instances of model exploration the \code{S=} and \code{R=} arguments should be (left) set at \code{NULL}.  This function can  also be used to visually \dQuote{fit} a stock-recruit model to a set of observed stock and recruitment data in order to determine reasonable starting values for the non-linear least-squares fit of the stock-recruit model.  In this instance, observed data are plotted by including the vectors of observed stock sizes and recruits in a model of the form \code{S~R}, in conjunction with the \code{data=} argument.
+#' @details This function can be used to explore the dynamics of stock-recruitment models for various parameter choices.  In these instances of model exploration the \code{S=} and \code{R=} arguments should be (left) set at \code{NULL}.
+#' 
+#' This function can  also be used to visually \dQuote{fit} a stock-recruit model to a set of observed stock and recruitment data to determine reasonable starting values for non-linear model fitting.  In this use, observed data are plotted by including the vectors of observed stock sizes and recruits in a formula of the form \code{S~R}, in conjunction with the \code{data=} argument.
 #'
-#' The \code{type=} argument is used to choose either the \code{"BevertonHolt"} or \code{"Ricker"} models.  Different parameterizations of these two models are chosen with the \code{param=} argument.  Four paramaterizations of the Beverton-Holt model and three parameterizations of the Ricker model are allowed.  See \code{\link{srModels}} for a representation of each parameterization.
+#' The \code{type=} argument is used to choose either the \code{"BevertonHolt"}, \code{"Ricker"}, \code{"Shepherd"}, or \code{"SailaLorda"} stock-recruitment models.  Common parameterizations of the \code{"BevertonHolt"} and \code{"Ricker"} models can be chosen with \code{param=}.  Four paramaterizations of the Beverton-Holt model and three parameterizations of the Ricker model are allowed.  Type \code{srModels()} to see equations for each model.
 #'
-#' @param S An optional vector that contains observed numbers of spawning stock or a formula as described in the details.
-#' @param R An optional vector that contains observed numbers of recruits.  See details.
-#' @param data An optional data frame that contains the variables if \code{S} is a formula.  See details.
-#' @param type A single string that indicates which stock-recruitment model to use.  See details.
-#' @param param A single numeric that indicates which parameterization of the \code{type} to use.  See details.
+#' @param S Either a vector of observed stock levels or a formula of the form \code{R~S}.
+#' @param R A vector of observed recruitment levels.
+#' @param data A data frame from which the vectors of observed stock and recruitment levels can be found.  Used only if a formula is used in \code{s}.
+#' @param type A string that indicates the type of the stock-recruitment model.  Must be one of \code{"BevertonHolt"}, \code{"Ricker"}, \code{"Shepherd"}, or \code{"SailaLorda"}.
+#' @param param A numeric that indicates the parameterization of the stock-recruitment model type.  This is ignored if \code{type="Shepherd"} or \code{type="SailaLorda"}
 #' @param max.S A single numeric that indicates the maximum spawning stock to use for scaling the x-axis.  Ignored if \code{S} is not NULL.
 #' @param max.R A single numeric that indicates the maximum recruitment to use for scaling the y-axis.  Ignored if \code{S} is not NULL.
 #'
