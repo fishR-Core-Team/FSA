@@ -1,46 +1,27 @@
-#' @title Show the growth model formulas implemented in the FSA package.
+#' @title Show the von Vertalanffy model formulas implemented in the FSA package.
 #'
-#' @description Show the growth model formulas implemented in \code{\link{vbFuns}}, \code{\link{vbStarts}}, and \code{growthModelSim}.
+#' @description Show the von Bertalanffy model formulas implemented in \code{\link{vbFuns}} and \code{\link{vbStarts}}.
 #'
-#' @aliases growthModels vbModels
+#' @aliases vbModels
 #'
 #' @param \dots Additional arguments for \code{plot}.  Generally not needed
 #'
-#' @return A graphic that uses \code{plotmath} to show the model formulas in a pretty format. \code{vbModels()} shows just the von Bertalanffy models.
+#' @return A graphic that uses \code{plotmath} to show the model formulas in a pretty format.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso See \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations and \code{\link{vbStarts}} and \code{\link{growthModelSim}} for methods to find starting values.
+#' @seealso See \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations and \code{\link{vbStarts}} for methods to find starting values.
 #'
 #' @keywords manip hplot
 #'
 #' @examples
 #' \dontrun{windows(8,5)}
-#' growthModels()
 #' vbModels()
 #'
-#' @export growthModels vbModels
-growthModels <- function(...) {
-  op <- par(mar=c(0,0,2,0))
-  plot(1,type="n",ylim=c(0,10),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA Growth Model Parametrizations",...)
-  iGrowthModels("vbOriginal", 0,9.0)
-  iGrowthModels("vbTypical",  0,7.5)
-  iGrowthModels("vbGQ",       0,6.0)
-  iGrowthModels("vbMooij",    0,4.5)
-  iGrowthModels("vbWeisberg", 0,3.0)
-  abline(v=0.55)
-  iGrowthModels("vbSchnute", 0.55,9.0)
-  iGrowthModels("vbFrancis", 0.55,7.25)
-  iGrowthModels("vbFrancis2",0.70,6.0)
-  iGrowthModels("Gompertz1", 0.55,3.5)
-  iGrowthModels("Gompertz2", 0.55,2.0)
-  iGrowthModels("Gompertz3", 0.55,0.5)
-  par(op)
-}
-
+#' @export
 vbModels <- function(...) {
   op <- par(mar=c(0,0,3,0))
-  plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA von Bertalanffy Parametrizations",...)
+  plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA von Bertalanffy Parameterizations",...)
   iGrowthModels("vbOriginal",0,6.0)
   iGrowthModels("vbTypical", 0,4.0)
   iGrowthModels("vbGQ",      0,2.0)

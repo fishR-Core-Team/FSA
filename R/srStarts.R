@@ -117,7 +117,7 @@ srStarts <- function(formula,data=NULL,type=c("BevertonHolt","Ricker","Shepherd"
   ) # end type switch
   ## Check if user wants to choose starting values from an interactive plot
   if (dynamicPlot) {
-    iSRStatsDynPlot(S,R,type,param,sv,min.prop,max.mult,delta.prop)
+    iSRStartsDynPlot(S,R,type,param,sv,min.prop,max.mult,delta.prop)
   } else {
     # make the static plot if asked for
     if (plot) iSRStartsPlot(S,R,type,param,sv,col.mdl,lwd.mdl,lty.mdl)
@@ -208,7 +208,7 @@ iSRStartsPlot <- function(S,R,type,param,sv,col.mdl,lwd.mdl,lty.mdl) {
 #=============================================================
 # Dynamics plots for finding starting values -- main function
 #=============================================================
-iSRStatsDynPlot <- function(S,R,type,param,sv,min.prop,max.mult,delta.prop) {
+iSRStartsDynPlot <- function(S,R,type,param,sv,min.prop,max.mult,delta.prop) {
   ## internal refresh function for the dialog box
   refresh <- function(...) {
     p1 <- relax::slider(no=1)

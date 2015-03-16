@@ -4,10 +4,10 @@ o bcFuns() -- need details in help file.
 
 o dietOverlap -- need details in help file.
 
-o growthModelSim() -- check vbOriginalW (does not seem to respond properly to changes in b), make the sliders depenent for the situations where lengths are declared (Francis, Schnute) so that the smaller length cannot exceed the larger length and vice versa.
-
 o ks2d() ... make one common function for the 1-sample and 2-sample versions.  Do this after you confirm that you are getting correct results.
 
-o srSim() et al -- add the Schaeffer model.
-
 o Create a function that will construct a histogram from summarized data ... e.g., length frequency data.
+
+O Add Somers/Somers2 to dynamics plotting in vbStarts()
+
+o Add use of manipulate() in RStudio to the dynamic plotting in vbStarts() and srStarts().

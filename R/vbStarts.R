@@ -10,6 +10,8 @@
 #' 
 #' Starting values for the L1 and L3 parameters in the Schnute paramaterization and the L1, L2, and L3 parameters in the Francis parameterization can be found in two ways.  If \code{methEV="poly"} then the starting values are the predicted length-at-age from a second-degree polynomial fit to the mean length-at-age data.  If \code{methEV="means"} then the observed sample means at the corresponding ages are used.  In the case where one of the supplied ages is fractional then the value returned will be linearly interpolated between the mean lengths of the two closest ages.  The ages to be used for L1 and L3 in the Schnute and Francis parameterizations are supplied as a numeric vector of length 2 in \code{ages2use=}.  If \code{ages2use=NULL} then the minimum and maximum observed ages will be used.  In the Francis method, L2 will correspond to the age half-way between the two ages in \code{ages2use=}.  A warning will be given if L2<L1 for the Schnute method or if L2<L1 or L3<L2 for the Francis method.
 #' 
+#' Starting values can also be obtained by plotting the data with the model superimposed but tied to slider bars for changing parameters.  One can change the parameters until a reasonable fit is observed and then use those valeus as starting values.  Such a plot can be constructed by including \code{dynamicPlot=TRUE}.  The initial parameters for the slider bars are the starting values constructed as described above.  It should be noted that the dynamic plot may show an error of \dQuote{[tcl] can't get device image} but the plot will correctly update if the slider bar is adjusted.
+#' 
 #' @aliases vbStarts
 #' 
 #' @param formula A formula of the form \code{len~age}.
@@ -22,6 +24,7 @@
 #' @param col.mdl A color for the model when \code{plot=TRUE}.
 #' @param lwd.mdl A line width for the model when \code{plot=TRUE}.
 #' @param lty.mdl A line type for the model when \code{plot=TRUE}.
+#' @param dynamicPlot A logical that indicates where a plot with dynamically linked slider bars should be constructed for finding starting values.
 #' @param \dots Further arguments passed to the methods.
 #' 
 #' @return A list that contains reasonable starting values.  Note that the parameters will be listed in the same order and with the same names as listed in \code{\link{vbFuns}}.
@@ -30,7 +33,7 @@
 #' 
 #' @note The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} parameterizations are synonymous.
 #' 
-#' @seealso See \code{\link{growthModels}} and \code{\link{vbModels}} for a list of models and parameterizations used in \pkg{FSA}, \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations, \code{\link{walfordPlot}} for a common method to estimate Linf and K, and \code{\link{growthModelSim}} for a graphical method to determine starting values.
+#' @seealso See \code{\link{vbModels}} for a list of models and parameterizations used in \pkg{FSA}, \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations, and \code{\link{walfordPlot}} for a common method to estimate Linf and K.
 #' 
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffy.pdf}, \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffyExtra.pdf}
 #' 
@@ -81,6 +84,17 @@
 #' vbStarts(tl~age,data=SpotVA1,type="Somers",plot=TRUE)
 #' vbStarts(tl~age,data=SpotVA1,type="Somers2",plot=TRUE)
 #' 
+#' ## Dynamic Plots Method -- ONLY RUN IN INTERACTIVE MODE
+#' if (interactive()) {
+#'   vbStarts(tl~age,data=SpotVA1,dynamicPlot=TRUE)
+#'   vbStarts(tl~age,data=SpotVA1,type="original",dynamicPlot=TRUE)
+#'   vbStarts(tl~age,data=SpotVA1,type="GQ",dynamicPlot=TRUE)
+#'   vbStarts(tl~age,data=SpotVA1,type="Mooij",dynamicPlot=TRUE)
+#'   vbStarts(tl~age,data=SpotVA1,type="Weisberg",dynamicPlot=TRUE)
+#'   vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5),dynamicPlot=TRUE)
+#'   vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5),dynamicPlot=TRUE)
+#' } 
+#' 
 #' ## See examples in vbFuns() for use of vbStarts() when fitting Von B models
 #' 
 #' @export vbStarts
@@ -89,7 +103,7 @@ vbStarts <- function(formula,data=NULL,
                             "GQ","GallucciQuinn","Mooij","Weisberg",
                             "Schnute","Francis","Somers","Somers2"),
                      ages2use=NULL,methEV=c("poly","means"),meth0=c("poly","yngAge"),
-                     plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,...) {
+                     plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,dynamicPlot=FALSE,...) {
   ## some checks of arguments
   type <- match.arg(type)
   methEV <- match.arg(methEV)
@@ -105,20 +119,25 @@ vbStarts <- function(formula,data=NULL,
   age <- tmp$mf[,tmp$Enames[1]]
   ## get starting valeus depending on type
   switch(type,
-    typical=,BevertonHolt=   { sv <- iVBStarts.typical(len,age,type,meth0) },
-    original=,vonBertalanffy={ sv <- iVBStarts.original(len,age,type,meth0) },
-    GQ=,GallucciQuinn=       { sv <- iVBStarts.GQ(len,age,type,meth0) },
-    Mooij=                   { sv <- iVBStarts.Mooij(len,age,type,meth0) },
-    Weisberg=                { sv <- iVBStarts.Weisberg(len,age,type,meth0) },
-    Francis=                 { sv <- iVBStarts.Francis(len,age,type,methEV,ages2use) },
-    Schnute=                 { sv <- iVBStarts.Schnute(len,age,type,meth0,methEV,ages2use) },
-    Somers=                  { sv <- iVBStarts.Somers(len,age,type,meth0) },
-    Somers2=                 { sv <- iVBStarts.Somers2(len,age,type,meth0) }
+    typical=,BevertonHolt=   { sv <- iVBStarts.typical(age,len,type,meth0) },
+    original=,vonBertalanffy={ sv <- iVBStarts.original(age,len,type,meth0) },
+    GQ=,GallucciQuinn=       { sv <- iVBStarts.GQ(age,len,type,meth0) },
+    Mooij=                   { sv <- iVBStarts.Mooij(age,len,type,meth0) },
+    Weisberg=                { sv <- iVBStarts.Weisberg(age,len,type,meth0) },
+    Francis=                 { sv <- iVBStarts.Francis(age,len,type,methEV,ages2use) },
+    Schnute=                 { sv <- iVBStarts.Schnute(age,len,type,meth0,methEV,ages2use) },
+    Somers=                  { sv <- iVBStarts.Somers(age,len,type,meth0) },
+    Somers2=                 { sv <- iVBStarts.Somers2(age,len,type,meth0) }
   ) # end 'type' switch
-  # make the static plot if asked for
-  if (plot) iVBStartsPlot(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl)
-  ## return starting values list
-  sv
+  ## Check if user wants to choose starting values from an interactive plot
+  if (dynamicPlot) {
+    iVBStartsDynPlot(age,len,type,sv,ages2use)
+  } else {
+    # make the static plot if asked for
+    if (plot) iVBStartsPlot(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl)
+    ## return starting values list
+    sv
+  }
 }
 
 
@@ -129,7 +148,7 @@ vbStarts <- function(formula,data=NULL,
 #=============================================================
 # Find starting values for Linf and K from a Walford Plot
 #=============================================================
-iVBStarts.LinfK <- function(len,age,type) {
+iVBStarts.LinfK <- function(age,len,type) {
   ## compute mean lengths-at-age and numbers-at-age
   meanL <- tapply(len,age,mean)
   ns <- tapply(len,age,length)
@@ -172,7 +191,7 @@ iCheckLinfK <- function(sLinf,sK,type,len) {
 #=============================================================
 # Find starting values for t0 and L0
 #=============================================================
-iVBStarts.0 <- function(len,age,type,meth0) {
+iVBStarts.0 <- function(age,len,type,meth0) {
   ## compute mean lengths-at-age and numbers-at-age
   meanL <- tapply(len,age,mean)
   ns <- tapply(len,age,length)
@@ -194,7 +213,7 @@ iVBStarts.0 <- function(len,age,type,meth0) {
     sL0 <- sL0[[1]]
   } else {
     # find starting values for Linf and K
-    tmp <- iVBStarts.LinfK(len,age,type)
+    tmp <- iVBStarts.LinfK(age,len,type)
     # find the youngest age with a n>1
     yngAge <- min(ages[which(ns>1)])
     # find starting values for t0 from re-arrangement of typical VonB model and yngAge
@@ -210,7 +229,7 @@ iVBStarts.0 <- function(len,age,type,meth0) {
 # find starting values for L1, L2, and L3 (of the Francis and
 # Schnute methods)
 #=============================================================
-iVBStarts.Ls <- function(len,age,type,methEV,ages2use) {
+iVBStarts.Ls <- function(age,len,type,methEV,ages2use) {
   ## compute mean lengths-at-age and numbers-at-age
   meanL <- tapply(len,age,mean)
   ns <- tapply(len,age,length)
@@ -220,7 +239,7 @@ iVBStarts.Ls <- function(len,age,type,methEV,ages2use) {
   # if none given then use the min and max
   if (is.null(ages2use)) ages2use <- range(ages)
   # if too many given then send an error
-  if (length(ages2use)!=2) stop("'age2use=' must be NULL or have only two ages.",call.=FALSE)
+  if (length(ages2use)!=2) stop("'ages2use=' must be NULL or have only two ages.",call.=FALSE)
   # if order is backwards then warn and flip
   if (ages2use[2]<=ages2use[1]) {
     warning("'ages2use' should be in ascending order; order reversed to continue.",call.=FALSE)
@@ -252,68 +271,68 @@ iVBStarts.Ls <- function(len,age,type,methEV,ages2use) {
 #=============================================================
 # Find starting values the typical VB parameterization
 #=============================================================
-iVBStarts.typical <- function(len,age,type,meth0) {
-  as.list(c(iVBStarts.LinfK(len,age,type),iVBStarts.0(len,age,type,meth0)["t0"]))
+iVBStarts.typical <- function(age,len,type,meth0) {
+  as.list(c(iVBStarts.LinfK(age,len,type),iVBStarts.0(age,len,type,meth0)["t0"]))
 }
 
 #=============================================================
 # Find starting values the original VB parameterization
 #=============================================================
-iVBStarts.original <- function(len,age,type,meth0) {
-  tmp <- iVBStarts.LinfK(len,age,type)
-  as.list(c(tmp["Linf"],iVBStarts.0(len,age,type,meth0)["L0"],tmp["K"]))
+iVBStarts.original <- function(age,len,type,meth0) {
+  tmp <- iVBStarts.LinfK(age,len,type)
+  as.list(c(tmp["Linf"],iVBStarts.0(age,len,type,meth0)["L0"],tmp["K"]))
 }
 
 #=============================================================
 # Find starting values the GQ VB parameterization
 #=============================================================
-iVBStarts.GQ <- function(len,age,type,meth0) {
-  tmp <- iVBStarts.typical(len,age,type,meth0)
+iVBStarts.GQ <- function(age,len,type,meth0) {
+  tmp <- iVBStarts.typical(age,len,type,meth0)
   as.list(c(omega=tmp[["Linf"]]*tmp[["K"]],tmp["K"],tmp["t0"]))
 }
 
 #=============================================================
 # Find starting values the Mooij VB parameterization
 #=============================================================
-iVBStarts.Mooij <- function(len,age,type,meth0) {
-  tmp <- iVBStarts.original(len,age,type,meth0)
+iVBStarts.Mooij <- function(age,len,type,meth0) {
+  tmp <- iVBStarts.original(age,len,type,meth0)
   as.list(c(tmp["Linf"],omega=tmp[["Linf"]]*tmp[["K"]],tmp["L0"]))
 }
 
 #=============================================================
 # Find starting values the Weisberg VB parameterization
 #=============================================================
-iVBStarts.Weisberg <- function(len,age,type,meth0) {
-  tmp <- iVBStarts.typical(len,age,type,meth0)
+iVBStarts.Weisberg <- function(age,len,type,meth0) {
+  tmp <- iVBStarts.typical(age,len,type,meth0)
   as.list(c(tmp["Linf"],t50=log(2)/tmp[["K"]]+tmp[["t0"]],tmp["t0"]))
 }
 
 #=============================================================
 # Find starting values the Francis VB parameterization
 #=============================================================
-iVBStarts.Francis <- function(len,age,type,methEV,ages2use) {
-  iVBStarts.Ls(len,age,type,methEV,ages2use)
+iVBStarts.Francis <- function(age,len,type,methEV,ages2use) {
+  iVBStarts.Ls(age,len,type,methEV,ages2use)
 }
 
 #=============================================================
 # Find starting values the Schnute VB parameterization
 #=============================================================
-iVBStarts.Schnute <- function(len,age,type,meth0,methEV,ages2use) {
-  as.list(c(iVBStarts.Ls(len,age,type,methEV,ages2use),iVBStarts.LinfK(len,age,type)["K"]))
+iVBStarts.Schnute <- function(age,len,type,meth0,methEV,ages2use) {
+  as.list(c(iVBStarts.Ls(age,len,type,methEV,ages2use),iVBStarts.LinfK(age,len,type)["K"]))
 }
 
 #=============================================================
 # Find starting values the Somers VB parameterization
 #=============================================================
-iVBStarts.Somers <- function(len,age,type,meth0) {
-  as.list(c(iVBStarts.typical(len,age,type,meth0),C=0.9,ts=0.1))
+iVBStarts.Somers <- function(age,len,type,meth0) {
+  as.list(c(iVBStarts.typical(age,len,type,meth0),C=0.9,ts=0.1))
 }
 
 #=============================================================
 # Find starting values the Somers2 VB parameterization
 #=============================================================
-iVBStarts.Somers2 <- function(len,age,type,meth0) {
-  as.list(c(iVBStarts.typical(len,age,type,meth0),C=0.9,WP=0.9))
+iVBStarts.Somers2 <- function(age,len,type,meth0) {
+  as.list(c(iVBStarts.typical(age,len,type,meth0),C=0.9,WP=0.9))
 }
 
 
@@ -343,4 +362,139 @@ iVBStartsPlot <- function(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl) {
     # Schnute/Francis requires t1 argument
     curve(mdl(x,unlist(sv),t1=ages2use),from=min.age,to=max.age,col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
   }
+}
+
+
+#=============================================================
+# Dynamics plots for finding starting values -- main function
+#=============================================================
+iVBStartsDynPlot <- function(age,len,type,sv,ages2use) {
+  ## internal refresh function for the dialog box
+  refresh <- function(...) {
+    p1 <- relax::slider(no=1)
+    p2 <- relax::slider(no=2)
+    p3 <- relax::slider(no=3)
+    iVBDynPlot(age,len,type,p1,p2,p3,ages2use)
+  } # end internal refresh
+
+  ## internal function to make minimum values for the sliders
+  iMake.slMins <- function(sv) {
+    svnms <- names(sv)
+    tmp <- c(Linf=NA,K=NA,t0=NA,L0=NA,omega=NA,t50=NA,L1=NA,L2=NA,L3=NA)
+    if ("Linf" %in% svnms) tmp["Linf"] <- 0.5*sv[["Linf"]]
+    if ("K" %in% svnms) tmp["K"] <- 0.01
+    if ("t0" %in% svnms) tmp["t0"] <- -5
+    if ("L0" %in% svnms) tmp["L0"] <- 0
+    if ("omega" %in% svnms) tmp["omega"] <- 0.5*sv[["omega"]]
+    if ("t50" %in% svnms) tmp["t50"] <- 0.1*sv[["t50"]]
+    if ("L1" %in% svnms) tmp["L1"] <- 0.5*sv[["L1"]]
+    if ("L2" %in% svnms) tmp["L2"] <- 0.5*(sv[["L1"]]+sv[["L2"]])
+    if ("L3" %in% svnms) tmp["L3"] <- ifelse("L2" %in% svnms,0.5*(sv[["L2"]]+sv[["L3"]]),0.5*(sv[["L1"]]+sv[["L3"]]))
+    # reduce to only those in sv
+    tmp <- tmp[which(names(tmp) %in% svnms)]
+    # make sure they are in the same order as in sv
+    tmp[svnms]
+  }  # end iMake.slMins
+  
+  ## internal function to make maximum values for the sliders
+  iMake.slMaxs <- function(sv,age) {
+    svnms <- names(sv)
+    tmp <- c(Linf=NA,K=NA,t0=NA,L0=NA,omega=NA,t50=NA,L1=NA,L2=NA,L3=NA)
+    if ("Linf" %in% svnms) tmp["Linf"] <- 1.5*sv[["Linf"]]
+    if ("K" %in% svnms) tmp["K"] <- 2*sv[["K"]]
+    if ("t0" %in% svnms) tmp["t0"] <- 5
+    if ("L0" %in% svnms) tmp["L0"] <- 2*sv[["L0"]]
+    if ("omega" %in% svnms) tmp["omega"] <- 2*sv[["omega"]]
+    if ("t50" %in% svnms) tmp["t50"] <- 0.6*max(age,na.rm=TRUE)
+    if ("L1" %in% svnms) tmp["L1"] <- ifelse("L2" %in% svnms,0.5*(sv[["L1"]]+sv[["L2"]]),0.5*(sv[["L1"]]+sv[["L3"]]))
+    if ("L2" %in% svnms) tmp["L2"] <- 0.5*(sv[["L2"]]+sv[["L3"]])
+    if ("L3" %in% svnms) tmp["L3"] <- 1.5*sv[["L3"]]
+    # reduce to only those in sv
+    tmp <- tmp[which(names(tmp) %in% svnms)]
+    # make sure they are in the same order as in sv
+    tmp[svnms]
+  } # end iMake.slMaxs
+  
+  ## internal function to make delta values for the sliders
+  iMake.slDeltas <- function(sv) {
+    svnms <- names(sv)
+    tmp <- c(Linf=NA,K=NA,t0=NA,L0=NA,omega=NA,t50=NA,L1=NA,L2=NA,L3=NA)
+    if ("Linf" %in% svnms) tmp["Linf"] <- 0.01*sv[["Linf"]]
+    if ("K" %in% svnms) tmp["K"] <- 0.01
+    if ("t0" %in% svnms) tmp["t0"] <- 0.01
+    if ("L0" %in% svnms) tmp["L0"] <- 0.01*sv[["L0"]]
+    if ("omega" %in% svnms) tmp["omega"] <- 0.01*sv[["omega"]]
+    if ("t50" %in% svnms) tmp["t50"] <- 0.01
+    if ("L1" %in% svnms) tmp["L1"] <- 0.01*sv[["L1"]]
+    if ("L2" %in% svnms) tmp["L2"] <- 0.01*sv[["L2"]]
+    if ("L3" %in% svnms) tmp["L3"] <- 0.01*sv[["L3"]]
+    # reduce to only those in sv
+    tmp <- tmp[which(names(tmp) %in% svnms)]
+    # make sure they are in the same order as in sv
+    tmp[svnms]
+  } # end iMake.slDeltas
+  
+  ## Main function
+  ## The default values for the sliders will be at the starting
+  ## values as determined above.  Unlist first to make as a vector.
+  sl.defaults <- unlist(sv)
+  ## Grab names from the sv vector
+  sl.names <- names(sl.defaults)
+  ## Make minimum, maximum and delta values
+  sl.mins <- iMake.slMins(sl.defaults)
+  sl.maxs <- iMake.slMaxs(sl.defaults,age)
+  sl.deltas <- iMake.slDeltas(sl.defaults)
+  ## Make a title
+  sl.ttl <- paste0("Von Bertalanffy (",type,")")
+  ## Set up names that are specific to type and param
+  relax::gslider(refresh,prompt=TRUE,hscale=2,pos.of.panel="left",
+                 title=sl.ttl,sl.names=sl.names,
+                 sl.mins=sl.mins,sl.maxs=sl.maxs,
+                 sl.deltas=sl.deltas,sl.defaults=sl.defaults)
+}
+
+#=============================================================
+# Constructs the actual plot in the dynamics plots for finding
+# starting values
+#=============================================================
+iVBDynPlot <- function(age,len,type,p1,p2,p3,ages2use) {
+  ## create a sequence of age values
+  max.age <- max(age,na.rm=TRUE)
+  x <- seq(0,max.age,length.out=20*max.age)
+  ## create a sequence of matching recruit values according to
+  ## the model type and param
+  y <- iVBDynPlot_makeL(x,type,p1,p2,p3,ages2use)
+  ## Construct the scatterplot with superimposed model
+  opar <- par(mar=c(3.5,3.5,1.25,1.25), mgp=c(2,0.4,0), tcl=-0.2, pch=19)
+  plot(age,len,xlab="Age",ylab="Mean Length")
+  lines(x,y,lwd=2,lty=1,col="blue")
+  par(opar)
+}
+
+#=============================================================
+# Construct values for length given values of age, a Von B
+# model and values of the parameters.  This is called by iVBDynPlot()
+#=============================================================
+iVBDynPlot_makeL <- function(x,type,p1,p2,p3,ages2use){
+  switch(type,
+         typical=            { # p1=Linf, p2=K,  p3=to
+                               y <- p1*(1-exp(-p2*(x-p3))) },
+         original=           { # p1=Linf, p2=L0, p3=K
+                               y <- (p1-(p1-p2)*exp(-p3*x)) },
+         GQ=, GallucciQuinn= { # p1=omega,p2=K,  p3=t0
+                               y <- (p1/p2)*(1-exp(-p2*(x-p3))) },
+         Weisberg=           { # p1=Linf, p2=t50,  p3=to
+                               y <- p1*(1-exp(-(log(2)/(p2-p3))*(x-p3))) },
+         Mooij=              { # p1=Linf, p2=L0, p3=omega
+                               y <- p1-(p1-p2)*exp(-(p3/p1)*x) },
+         Francis=            { # p1=L1, p2=L2, p3=L3
+                               r <- (p3-p2)/(p2-p1)
+                               t <- c(ages2use[1],mean(ages2use),ages2use[2])
+                               y <- p1+(p3-p1)*((1-r^(2*((x-t[1])/(t[3]-t[1]))))/(1-r^2)) },
+         Schnute=            { # p1=L1, p2=L3, p3=K
+                               t <- ages2use
+                               y <- p1+(p2-p1)*((1-exp(-p3*(x-t[1])))/(1-exp(-p3*(t[2]-t[1])))) }
+  ) # end type switch
+  ## return the value of y
+  y
 }

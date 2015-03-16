@@ -94,7 +94,7 @@ Wang, Y.-G.  1998.  An improved Fabens method for estimation of growth parameter
 Weisberg, S., G.R. Spangler, and L. S. Richmond. 2010. Mixed effects models for fish growth. Canadian Journal of Fisheries And Aquatic Sciences 67:269-277.
 }
 \seealso{
-See \code{\link{vbModels}} and \code{\link{growthModels}} for a list of models and parameterizations used in \pkg{FSA} and \code{\link{vbStarts}} and \code{\link{growthModelSim}} for methods to find starting values.
+See \code{\link{vbModels}} for a list of models and parameterizations used in \pkg{FSA} and \code{\link{vbStarts}} for methods to find starting values.
 }
 \keyword{manip}
 
