@@ -102,7 +102,6 @@ if (interactive()) {
   vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5),dynamicPlot=TRUE)
 }
 
-
 ## See examples in vbFuns() for use of vbStarts() when fitting Von B models
 }
 \author{

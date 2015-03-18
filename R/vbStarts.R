@@ -447,7 +447,7 @@ iVBStartsDynPlot <- function(age,len,type,sv,ages2use) {
   ## Make a title
   sl.ttl <- paste0("Von Bertalanffy (",type,")")
   ## Set up names that are specific to type and param
-  relax::gslider(refresh,prompt=TRUE,hscale=2,pos.of.panel="left",
+  relax::gslider(refresh,prompt=TRUE,hscale=1.5,pos.of.panel="left",
                  title=sl.ttl,sl.names=sl.names,
                  sl.mins=sl.mins,sl.maxs=sl.maxs,
                  sl.deltas=sl.deltas,sl.defaults=sl.defaults)
