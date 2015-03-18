@@ -1,4 +1,5 @@
 # FSA 0.6.0 ongoing
+* updated DESCRIPTION file (following this -- http://r-pkgs.had.co.nz/description.html).
 
 # FSA 0.5.3 Mar15
 * `growthModelSim()`: Deleted.  The simulation functionality was moved to the `FSAsims` package.  The functionality related to finding starting values for the von Bertalanffy modesl was moved to `vbStarts()`.

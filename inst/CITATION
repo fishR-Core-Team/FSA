@@ -8,5 +8,5 @@ citEntry(entry="Manual",
          author = personList(as.person("Derek H. Ogle")),
          year = year,
          note = vers,
-         textVersion = paste("Ogle, D.H. ",year,". FSA: Fisheries Stock Analysis. ",vers,".", sep="")
+         textVersion = paste0("Ogle, D.H. ",year,". FSA: Fisheries Stock Analysis. ",vers,".")
 )
