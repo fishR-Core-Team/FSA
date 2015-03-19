@@ -4,8 +4,8 @@
 \alias{srFuns}
 \title{Creates a function for a specific parameterization of a common stock-recruitment model .}
 \usage{
-srFuns(type = c("BevertonHolt", "Ricker", "Shepherd", "SailaLorda"),
-  param = 1, simple = FALSE, msg = FALSE)
+srFuns(type = c("BevertonHolt", "Ricker", "Shepherd", "SailaLorda",
+  "independence"), param = 1, simple = FALSE, msg = FALSE)
 }
 \arguments{
 \item{type}{A string that indicates the type of stock-recruitment model.}

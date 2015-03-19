@@ -5,9 +5,9 @@
 \title{Finds reasonable starting values for parameters in specific paramaterizations of common stock-recruitment models.}
 \usage{
 srStarts(formula, data = NULL, type = c("BevertonHolt", "Ricker",
-  "Shepherd", "SailaLorda"), param = 1, plot = FALSE, col.mdl = "gray70",
-  lwd.mdl = 3, lty.mdl = 1, dynamicPlot = FALSE, min.prop = 0.1,
-  max.mult = 3, delta.prop = 0.005, ...)
+  "Shepherd", "SailaLorda", "independence"), param = 1, plot = FALSE,
+  col.mdl = "gray70", lwd.mdl = 3, lty.mdl = 1, dynamicPlot = FALSE,
+  min.prop = 0.1, max.mult = 3, delta.prop = 0.005, ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{Recruits~Stock}.}
@@ -70,12 +70,14 @@ srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=2)
 srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=3)
 srStarts(recruits~stock,data=CodNorwegian,type="Shepherd")
 srStarts(recruits~stock,data=CodNorwegian,type="SailaLorda")
+srStarts(recruits~stock,data=CodNorwegian,type="independence")
 
 ## Simple Examples with a Plot
 srStarts(recruits~stock,data=CodNorwegian,type="Ricker",plot=TRUE)
 srStarts(recruits~stock,data=CodNorwegian,type="BevertonHolt",plot=TRUE)
 srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",plot=TRUE)
 srStarts(recruits~stock,data=CodNorwegian,type="SailaLorda",plot=TRUE)
+srStarts(recruits~stock,data=CodNorwegian,type="independence",plot=TRUE)
 
 ## Dynamic Plots Method -- ONLY RUN IN INTERACTIVE MODE
 if (interactive()) {
@@ -88,9 +90,10 @@ if (interactive()) {
   srStarts(recruits~stock,data=CodNorwegian,type="Ricker",dynamicPlot=TRUE)
   srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=2,dynamicPlot=TRUE)
   srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=3,dynamicPlot=TRUE)
-  # Shepherd and Saila-Lorda Models
+  # Shepherd, Saila-Lorda, and Independence Models
   srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",dynamicPlot=TRUE)
   srStarts(recruits~stock,data=CodNorwegian,type="SailaLorda",dynamicPlot=TRUE)
+  srStarts(recruits~stock,data=CodNorwegian,type="independence",dynamicPlot=TRUE)
 } ## END .. ONLY INTERACTIVE
 
 ## See examples in srFuns() for use of srStarts() when fitting stock-recruit models

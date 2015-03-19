@@ -86,61 +86,61 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
                           "Fabens","Fabens2","Somers","Somers2","Wang","Wang2"),
                    simple=FALSE,msg=FALSE) {
   typical <- BevertonHolt <- function(t,Linf,K=NULL,t0=NULL) {
-  if (length(Linf)==3) { K <- Linf[2]
-                         t0 <- Linf[3]
-                         Linf <- Linf[1] }
+  if (length(Linf)==3) { K <- Linf[[2]]
+                         t0 <- Linf[[3]]
+                         Linf <- Linf[[1]] }
   Linf*(1-exp(-K*(t-t0)))
 }
   Stypical <- sBevertonHolt <- function(t,Linf,K,t0) {
     Linf*(1-exp(-K*(t-t0)))
   }
   original <- vonBertalanffy <- function(t,Linf,L0=NULL,K=NULL) {
-  if (length(Linf)==3) { L0 <- Linf[2]
-                         K <- Linf[3]
-                         Linf <- Linf[1] }
+  if (length(Linf)==3) { L0 <- Linf[[2]]
+                         K <- Linf[[3]]
+                         Linf <- Linf[[1]] }
   Linf-(Linf-L0)*exp(-K*t)
 }
   Soriginal <- SvonBertalanffy <- function(t,Linf,L0,K) {
     Linf-(Linf-L0)*exp(-K*t)
   }
   GQ <- GallucciQuinn <- function(t,omega,K=NULL,t0=NULL) {
-  if (length(omega)==3) { K <- omega[2]
-                          t0 <- omega[3]
-                          omega <- omega[1] }
+  if (length(omega)==3) { K <- omega[[2]]
+                          t0 <- omega[[3]]
+                          omega <- omega[[1]] }
   (omega/K)*(1-exp(-K*(t-t0)))
 }
   SGQ <- SGallucciQuinn <- function(t,omega,K,t0) {
     (omega/K)*(1-exp(-K*(t-t0)))
   }
   Mooij <- function(t,Linf,L0=NULL,omega=NULL) {
-  if (length(Linf)==3) { L0 <- Linf[2]
-                         omega <- Linf[3]
-                         Linf <- Linf[1] }
+  if (length(Linf)==3) { L0 <- Linf[[2]]
+                         omega <- Linf[[3]]
+                         Linf <- Linf[[1]] }
   Linf-(Linf-L0)*exp(-(omega/Linf)*t)
 }
   SMooij <- function(t,Linf,L0,omega) {
     Linf-(Linf-L0)*exp(-(omega/Linf)*t)
   }
   Weisberg <- function(t,Linf,t50=NULL,t0=NULL) {
-  if (length(Linf)==3) { t50 <- Linf[2]
-                         t0 <- Linf[3]
-                         Linf <- Linf[1] }
+  if (length(Linf)==3) { t50 <- Linf[[2]]
+                         t0 <- Linf[[3]]
+                         Linf <- Linf[[1]] }
   Linf*(1-exp(-(log(2)/(t50-t0))*(t-t0)))
 }
   SWeisberg <- function(t,Linf,t50,t0) {
     Linf*(1-exp(-(log(2)/(t50-t0))*(t-t0)))
   } 
   Schnute <- function(t,L1,L3=NULL,K=NULL,t1,t3=NULL) {
-  if (length(L1)==3) { L3 <- L1[2]; K <- L1[3]; L1 <- L1[1] }
-  if (length(t1)==2) { t3 <- t1[2]; t1 <- t1[1] }
+  if (length(L1)==3) { L3 <- L1[[2]]; K <- L1[[3]]; L1 <- L1[[1]] }
+  if (length(t1)==2) { t3 <- t1[[2]]; t1 <- t1[[1]] }
   L1+(L3-L1)*((1-exp(-K*(t-t1)))/(1-exp(-K*(t3-t1))))
 }
   SSchnute <- function(t,L1,L3,K,t1,t3) {
     L1+(L3-L1)*((1-exp(-K*(t-t1)))/(1-exp(-K*(t3-t1))))
   }
   Francis <- function(t,L1,L2=NULL,L3=NULL,t1,t3=NULL) {
-  if (length(L1)==3) { L2 <- L1[2]; L3 <- L1[3]; L1 <- L1[1] }
-  if (length(t1)==2) { t3 <- t1[2]; t1 <- t1[1] }
+  if (length(L1)==3) { L2 <- L1[[2]]; L3 <- L1[[3]]; L1 <- L1[[1]] }
+  if (length(t1)==2) { t3 <- t1[[2]]; t1 <- t1[[1]] }
   r <- (L3-L2)/(L2-L1)
   L1+(L3-L1)*((1-r^(2*((t-t1)/(t3-t1))))/(1-r^2))
 }
@@ -149,9 +149,9 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
     L1+(L3-L1)*((1-r^(2*((t-t1)/(t3-t1))))/(1-r^2))
   }
   Somers <- function(t,Linf,K,t0,C,ts) {
-  if (length(Linf)==5) { K <- Linf[2]; t0 <- Linf[3]
-                         C <- Linf[4]; ts <- Linf[5]
-                         Linf <- Linf[1] }
+  if (length(Linf)==5) { K <- Linf[[2]]; t0 <- Linf[[3]]
+                         C <- Linf[[4]]; ts <- Linf[[5]]
+                         Linf <- Linf[[1]] }
   St <- (C*K)/(2*pi)*sin(2*pi*(t-ts))
   Sto <- (C*K)/(2*pi)*sin(2*pi*(t0-ts))
   Linf*(1-exp(-K*(t-t0)-St+Sto))
@@ -160,9 +160,9 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
     Linf*(1-exp(-K*(t-t0)-(C*K)/(2*pi)*sin(2*pi*(t-ts))+(C*K)/(2*pi)*sin(2*pi*(t0-ts))))
   }
   Somers2 <- function(t,Linf,K,t0,C,WP) {
-  if (length(Linf)==5) { K <- Linf[2]; t0 <- Linf[3]
-                         C <- Linf[4]; WP <- Linf[5]
-                         Linf <- Linf[1] }
+  if (length(Linf)==5) { K <- Linf[[2]]; t0 <- Linf[[3]]
+                         C <- Linf[[4]]; WP <- Linf[[5]]
+                         Linf <- Linf[[1]] }
   Rt <- (C*K)/(2*pi)*sin(2*pi*(t-WP+0.5))
   Rto <- (C*K)/(2*pi)*sin(2*pi*(t0-WP+0.5))
   Linf*(1-exp(-K*(t-t0)-Rt+Rto))
@@ -171,38 +171,38 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
     Linf*(1-exp(-K*(t-t0)-(C*K)/(2*pi)*sin(2*pi*(t-WP+0.5))+(C*K)/(2*pi)*sin(2*pi*(t0-WP+0.5))))
   }
   Fabens <- function(Lm,dt,Linf,K) {
-  if (length(Linf)==2) { K <- Linf[2]; Linf <- Linf[1] }
+  if (length(Linf)==2) { K <- Linf[[2]]; Linf <- Linf[[1]] }
   Lm+(Linf-Lm)*(1-exp(-K*dt))
 }
   SFabens <- function(Lm,dt,Linf,K) {
     Lm+(Linf-Lm)*(1-exp(-K*dt))
   }
   Fabens2 <- function(Lm,dt,Linf,K) {
-  if (length(Linf)==2) { K <- Linf[2]; Linf <- Linf[1] }
+  if (length(Linf)==2) { K <- Linf[[2]]; Linf <- Linf[[1]] }
   (Linf-Lm)*(1-exp(-K*dt))
 }
   SFabens2 <- function(Lm,dt,Linf,K) {
     (Linf-Lm)*(1-exp(-K*dt))
   }
   Wang <- function(Lm,dt,Linf,K,b) {
-  if (length(Linf)==3) { b <- Linf[3]; K <- Linf[2]
-                         Linf <- Linf[1] }
+  if (length(Linf)==3) { b <- Linf[[3]]; K <- Linf[[2]]
+                         Linf <- Linf[[1]] }
   (Linf+b*(Lm-mean(Lm))-Lm)*(1-exp(-K*dt))
 }
   SWang <- function(Lm,dt,Linf,K,b) {
     (Linf+b*(Lm-mean(Lm))-Lm)*(1-exp(-K*dt))
   }
   Wang2 <- function(Lm,dt,K,a,d) {
-  if (length(K)==3) { d <- K[3]; a <- K[2]; K <- K[1] }
+  if (length(K)==3) { d <- K[[3]]; a <- K[[2]]; K <- K[[1]] }
   (a+d*Lm)*(1-exp(-K*dt))
 }
   SWang2 <- function(Lm,dt,K,a,d) {
     (a+d*Lm)*(1-exp(-K*dt))
   }
   Laslett <- function(t,Linf,K1,K2,t0,a,b) {
-  if (length(Linf)==6) { K1 <- Linf[2]; K2 <- Linf[3]
-                         t0 <- Linf[4]; a <- Linf[5]
-                         b <- Linf[6]; Linf <- Linf[1] }
+  if (length(Linf)==6) { K1 <- Linf[[2]]; K2 <- Linf[[3]]
+                         t0 <- Linf[[4]]; a <- Linf[[5]]
+                         b <- Linf[[6]]; Linf <- Linf[[1]] }
 }
   SLaslett <- function(t,Linf,K1,K2,t0,a,b) {
     Linf*(1-exp(-K2*(t-t0))*((1+exp(-b*(t-t0-a)))/(1+exp(a*b)))^(-(K2-K1)/b))

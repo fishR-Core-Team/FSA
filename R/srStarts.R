@@ -66,12 +66,14 @@
 #' srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=3)
 #' srStarts(recruits~stock,data=CodNorwegian,type="Shepherd")
 #' srStarts(recruits~stock,data=CodNorwegian,type="SailaLorda")
+#' srStarts(recruits~stock,data=CodNorwegian,type="independence")
 #'
 #' ## Simple Examples with a Plot
 #' srStarts(recruits~stock,data=CodNorwegian,type="Ricker",plot=TRUE)
 #' srStarts(recruits~stock,data=CodNorwegian,type="BevertonHolt",plot=TRUE)
 #' srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",plot=TRUE)
 #' srStarts(recruits~stock,data=CodNorwegian,type="SailaLorda",plot=TRUE)
+#' srStarts(recruits~stock,data=CodNorwegian,type="independence",plot=TRUE)
 #' 
 #' ## Dynamic Plots Method -- ONLY RUN IN INTERACTIVE MODE
 #' if (interactive()) {
@@ -84,16 +86,17 @@
 #'   srStarts(recruits~stock,data=CodNorwegian,type="Ricker",dynamicPlot=TRUE)
 #'   srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=2,dynamicPlot=TRUE)
 #'   srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=3,dynamicPlot=TRUE)
-#'   # Shepherd and Saila-Lorda Models
+#'   # Shepherd, Saila-Lorda, and Independence Models
 #'   srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",dynamicPlot=TRUE)
 #'   srStarts(recruits~stock,data=CodNorwegian,type="SailaLorda",dynamicPlot=TRUE)
+#'   srStarts(recruits~stock,data=CodNorwegian,type="independence",dynamicPlot=TRUE)
 #' } ## END .. ONLY INTERACTIVE
 #' 
 #' ## See examples in srFuns() for use of srStarts() when fitting stock-recruit models
 #'
 #' @rdname srStarts
 #' @export
-srStarts <- function(formula,data=NULL,type=c("BevertonHolt","Ricker","Shepherd","SailaLorda"),
+srStarts <- function(formula,data=NULL,type=c("BevertonHolt","Ricker","Shepherd","SailaLorda","independence"),
                      param=1,plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,
                      dynamicPlot=FALSE,min.prop=0.1,max.mult=3,delta.prop=0.005,...) {
   ## some checks
@@ -110,10 +113,11 @@ srStarts <- function(formula,data=NULL,type=c("BevertonHolt","Ricker","Shepherd"
   S <- tmp$mf[,tmp$Enames[1]]
   ## find starting values for the type and param
   switch(type,
-    BevertonHolt={ sv <- iSRStartsBH(S,R,param) },
-    Ricker=      { sv <- iSRStartsR(S,R,param) },
-    Shepherd =   { sv <- iSRStartsS(S,R) },
-    SailaLorda = { sv <- iSRStartsSL(S,R) }
+    BevertonHolt=  { sv <- iSRStartsBH(S,R,param) },
+    Ricker=        { sv <- iSRStartsR(S,R,param) },
+    Shepherd =     { sv <- iSRStartsS(S,R) },
+    SailaLorda =   { sv <- iSRStartsSL(S,R) },
+    independence = { sv <- iSRStartsI(S,R) }
   ) # end type switch
   ## Check if user wants to choose starting values from an interactive plot
   if (dynamicPlot) {
@@ -185,6 +189,11 @@ iSRStartsS <- function(S,R) c(iSRStartsBH(S,R,param=1),c=1)
 #=============================================================
 iSRStartsSL <- function(S,R) c(iSRStartsR(S,R,param=1),c=1)
 
+#=============================================================
+# Find starting values for independence model
+#=============================================================
+iSRStartsI <- function(S,R) c(a=coef(lm(R~0+S))[[1]])
+
 
 #=============================================================
 # Static plot of starting values
@@ -212,9 +221,10 @@ iSRStartsDynPlot <- function(S,R,type,param,sv,min.prop,max.mult,delta.prop) {
   ## internal refresh function for the dialog box
   refresh <- function(...) {
     p1 <- relax::slider(no=1)
-    p2 <- relax::slider(no=2)
+    if (type!="independence") p2 <- relax::slider(no=2)
+      else p2=NULL
     if (type %in% c("Shepherd","SailaLorda")) p3 <- relax::slider(no=3)
-    else p3=NULL
+      else p3=NULL
     iSRDynPlot(S,R,type,param,p1,p2,p3)
   } # end internal refresh
   
@@ -244,7 +254,7 @@ iSRStartsDynPlot <- function(S,R,type,param,sv,min.prop,max.mult,delta.prop) {
 # Constructs the actual plot in the dynamics plots for finding
 # starting values
 #=============================================================
-iSRDynPlot <- function(S,R,type,param,p1,p2,p3=NULL) {
+iSRDynPlot <- function(S,R,type,param,p1,p2=NULL,p3=NULL) {
   ## create a sequence of spawning stock values
   max.S <- max(S,na.rm=TRUE)
   x <- c(seq(0,0.2*max.S,length.out=500),seq(0.2*max.S,max.S,length.out=500)) 
@@ -296,9 +306,12 @@ iSRDynPlot_makeR <- function(x,type,param,p1,p2,p3=NULL){
   } else if (type=="Shepherd") {
       # p1=a, p2=b, p3=c
       y <- (p1*x)/(1+(p2*x)^p3)
-  } else { # Saila-Lorda
+  } else if (type=="SailaLorda") {
       # p1=a, p2=b, p3=c    
       y <- p1*(x^p3)*exp(-p2*x) 
+  } else {  # Independence model
+      # p1=a
+      y <- p1*x
   }
   # return the value of y
   y

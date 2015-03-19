@@ -71,53 +71,55 @@
 #' curve(r3(x,a=coef(fit2)[1],Rp=coef(fit2)[2]),from=0,to=200,col="blue",lwd=3,add=TRUE)
 #'
 #' @export
-srFuns <- function(type=c("BevertonHolt","Ricker","Shepherd","SailaLorda"),param=1,simple=FALSE,msg=FALSE) {
+srFuns <- function(type=c("BevertonHolt","Ricker","Shepherd","SailaLorda","independence"),param=1,simple=FALSE,msg=FALSE) {
   ## Define functions (internal)
   BevertonHolt1 <- function(S,a,b=NULL) {
-    if (length(a)>1) { b <- a[2]; a <- a[1] }
+    if (length(a)>1) { b <- a[[2]]; a <- a[[1]] }
     a*S/(1+b*S)
   }
   SBevertonHolt1 <- function(S,a,b) a*S/(1+b*S)
   BevertonHolt2 <- function(S,a,Rp=NULL) {
-    if (length(a)>1) { Rp <- a[2]; a <- a[1] }
+    if (length(a)>1) { Rp <- a[[2]]; a <- a[1] }
     a*S/(1+a*S/Rp)
   }
   SBevertonHolt2 <- function(S,a,Rp) a*S/(1+a*S/Rp)
   BevertonHolt3 <- function(S,a,b=NULL) {
-    if (length(a)>1) { b <- a[2]; a <- a[1] }
+    if (length(a)>1) { b <- a[[2]]; a <- a[1] }
     S/(a+b*S)
   }
   SBevertonHolt3 <- function(S,a,b) S/(a+b*S)
   BevertonHolt4 <- function(S,a,Rp=NULL) {
-      if (length(a)>1) { Rp <- a[2]; a <- a[1] }
+      if (length(a)>1) { Rp <- a[[2]]; a <- a[[1]] }
       S/(a+S/Rp)
     }
   SBevertonHolt4 <- function(S,a,Rp) S/(a+S/Rp)
   Ricker1 <- function(S,a,b=NULL) {
-    if (length(a)>1) { b <- a[2]; a <- a[1] }
+    if (length(a)>1) { b <- a[[2]]; a <- a[[1]] }
     a*S*exp(-b*S)
   }
   SRicker1 <- function(S,a,b) a*S*exp(-b*S)
   Ricker2 <- function(S,a,b=NULL) {
-    if (length(a)>1) { b <- a[2]; a <- a[1] }
+    if (length(a)>1) { b <- a[[2]]; a <- a[[1]] }
     S*exp(a-b*S)
   }
   SRicker2 <- function(S,a,b) S*exp(a-b*S)
   Ricker3 <- function(S,a,Rp=NULL) {
-    if (length(a)>1) { Rp <- a[2]; a <- a[1] }
+    if (length(a)>1) { Rp <- a[[2]]; a <- a[[1]] }
     a*S*exp(-a/exp(1)*S/Rp)
   }
   SRicker3 <- function(S,a,Rp) a*S*exp(-a/exp(1)*S/Rp)
   Shepherd <- function(S,a,b=NULL,c=NULL) {
-    if (length(a)>1) { c <- a[3]; b <- a[2]; a <- a[1] }
+    if (length(a)>1) { c <- a[[3]]; b <- a[[2]]; a <- a[[1]] }
     a*S/(1+(b*S)^c)
   }
   SShepherd <- function(S,a,b,c) a*S/(1+(b*S)^c)
   SailaLorda <- function(S,a,b=NULL,c=NULL) {
-    if (length(a)>1) { c <- a[3]; b <- a[2]; a <- a[1] }
+    if (length(a)>1) { c <- a[[3]]; b <- a[[2]]; a <- a[[1]] }
     a*(S^c)*exp(-b*S)
   }
   SSailaLorda <- function(S,a,b,c) a*(S^c)*exp(-b*S)
+  Sindependence <- function(S,a) a*S
+  independence <- function(S,a) a*S
   ## END INTERNAL FUNCTIONS
   
   ## START MAIN FUNCTION  
@@ -185,7 +187,11 @@ srFuns <- function(type=c("BevertonHolt","Ricker","Shepherd","SailaLorda"),param
         cat("  E[R|S] = a*(S^c)*exp(-b*S)\n\n")
         cat("where a = the density-independent slope near S=0.\n")
         cat("      b = density-dependent parameter.\n")
-        cat("      c = shape parameter.\n\n")      }
+        cat("      c = shape parameter.\n\n")      },
+      independence={
+        cat("You have chosen the 'density-independent' stock-recruitment model.\n\n")
+        cat("  E[R|S] = a*S\n\n")
+        cat("where a = the density-independent slope near S=0.\n\n")      }
     )  # end type switch
   } # end if (msg)
   if (simple) type <- paste("S",type,sep="")

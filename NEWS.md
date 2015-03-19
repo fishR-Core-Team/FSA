@@ -1,5 +1,8 @@
 # FSA 0.6.0 ongoing
-* updated DESCRIPTION file (following this -- http://r-pkgs.had.co.nz/description.html).
+* updated DESCRIPTION file (following this -- http://r-pkgs.had.co.nz/description.html
+* `srFuns()`: Modified.  Changed function returned when `simplify=FALSE` so that if the parameters are named that the name is dropped.  Thus, when the function is used, the returned result will not be annoyingly named as the first parameter.  Added functionality for the "density-independence" model.
+* `srStarts()`: Modified.  Added functionality for the "density-independence" model.
+* `vbFuns()`: Modified.  Changed function returned when `simplify=FALSE` so that if the parameters are named that the name is dropped.  Thus, when the function is used, the returned result will not be annoyingly named as the first parameter.
 
 # FSA 0.5.3 Mar15
 * `growthModelSim()`: Deleted.  The simulation functionality was moved to the `FSAsims` package.  The functionality related to finding starting values for the von Bertalanffy modesl was moved to `vbStarts()`.
