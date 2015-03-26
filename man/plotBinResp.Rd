@@ -80,6 +80,9 @@ plotBinResp(fail~temperature,data=d,breaks=seq(50,85,5))
 ## Controlling where proportions are computed with an integer in breaks
 plotBinResp(fail~temperature,data=d,breaks=10)
 
+## Controlling where proportions are computed at each value of x
+plotBinResp(fail~temperature,data=d,breaks=NULL)
+
 ## Don't plot points, just plot proportions
 plotBinResp(fail~temperature,data=d,plot.pts=FALSE)
 

@@ -51,6 +51,9 @@
 #'
 #' ## Controlling where proportions are computed with an integer in breaks
 #' plotBinResp(fail~temperature,data=d,breaks=10)
+#' 
+#' ## Controlling where proportions are computed at each value of x
+#' plotBinResp(fail~temperature,data=d,breaks=NULL)
 #'
 #' ## Don't plot points, just plot proportions
 #' plotBinResp(fail~temperature,data=d,plot.pts=FALSE)
@@ -96,26 +99,23 @@ plotBinResp.default <- function(x,y,
   # only label a few
   axis(2,yaxis1.lbls,cex.axis=par()$cex.axis)
   if (yaxis2.show) axis(4,c(0,1),levels(y))
+  # plot proportions points
   if (plot.p) {
     if (is.null(breaks)) {
       # if no p intervals defined on call then find ps for each value of x
       p.i <- tapply(yn,x,mean)  
       xs <- as.numeric(names(p.i)) 
     } else {
-      x.1 <- min(x)                                                           
-      # if sequence is provided then create intervals of x as defined by the sequence
-      if (length(breaks)>1) {
-        if (min(breaks)>x.1) stop("Minimum of provided sequence is greater than minimum observed X.",call.=FALSE) 
-        if (max(breaks)<max(x)) stop("Maximum of provided sequence is less than maximum observed X.",call.=FALSE) 
-        x.1 <- min(breaks)  
-        w <- breaks[2]-breaks[1]
+      if (length(breaks)==1) {
+        # handle if just a number of breaks is given
+        x.i <- lencat(x,startcat=min(x),w=round((max(x)-min(x))/breaks))
       } else {
-        # if no sequence but number of intervals provided then create intervals of x
-        w <- (max(x)-min(x))/breaks
+        # handle if actual breaks are given
+        x.i <- lencat(x,breaks=breaks)
       }
-      x.i <- w*floor((x-x.1)/w)+x.1
       p.i <- tapply(yn,x.i,mean)
-      xs <- as.numeric(names(p.i)) + w/2
+      xs <- as.numeric(names(p.i))
+      xs <- xs + min(diff(xs))/2
     }
     points(p.i~xs,pch=p.pch,col=p.col,cex=p.cex)
   }
