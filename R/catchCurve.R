@@ -55,16 +55,17 @@
 #' 
 #' @examples
 #' data(BrookTroutTH)
-#' cc <- with(BrookTroutTH,catchCurve(age,catch,2:6))
-#' par(mfrow=c(2,1))
-#' plot(cc)
-#' plot(cc,pos.est="bottomleft")
-#' summary(cc)
-#' coef(cc)
-#' confint(cc)
-#'
+#' plot(catch~age,data=BrookTroutTH,pch=19)
+#' 
 #' ## demonstration of formula notation
-#' cc2 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6)
+#' cc1 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6)
+#' summary(cc1)
+#' plot(cc1)
+#' coef(cc1)
+#' confint(cc1)
+#' 
+#' ## demonstration of excluding ages2use
+#' cc2 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=-c(0,1))
 #' summary(cc2)
 #' plot(cc2)
 #' 
@@ -74,9 +75,24 @@
 #' plot(cc3)
 #'
 #' ## demonstration of returning the linear model results
-#' summary(cc2,type="lm")
-#' coef(cc2,type="lm")
-#' confint(cc2,type="lm")
+#' summary(cc3,type="lm")
+#' coef(cc3,type="lm")
+#' confint(cc3,type="lm")
+#' 
+#' ## demonstration of ability to work with missing age classes
+#' df <- data.frame(age=c(  2, 3, 4, 5, 7, 9,12),
+#'                  ct= c(100,92,83,71,56,35, 1))
+#' cc4 <- catchCurve(ct~age,data=df,ages2use=4:12)
+#' summary(cc4)
+#' plot(cc4)
+#' 
+#' ## demonstration of ability to work with missing age classes
+#' ## evein if catches are recorded as NAs
+#' df <- data.frame(age=c(  2, 3, 4, 5, 6, 7, 8, 9,10,11,12),
+#'                  ct= c(100,92,83,71,NA,56,NA,35,NA,NA, 1))
+#' cc5 <- catchCurve(ct~age,data=df,ages2use=4:12)
+#' summary(cc5)
+#' plot(cc5)
 #'
 #' @rdname catchCurve
 #' @export
@@ -96,13 +112,10 @@ catchCurve.default <- function(x,catch,ages2use=age,weighted=FALSE,...) {
   if (length(age)!=length(catch)) stop("'age' and 'catch' have different lenghts.",call.=FALSE)
   # Check to make sure enough ages and catches exist
   if (length(age)<2) stop("Fewer than 2 data points.",call.=FALSE)
-  # Check ages2use
-  if (any(ages2use<0)) warning("Some 'ages2use' are negative.",call.=FALSE)
-  if (any(!ages2use %in% age)) warning("Some 'ages2use' not in observed ages.",call.=FALSE)
-  
+
   ## Isolate the ages and catches to be used  
   # Find rows to use according to ages to use
-  rows2use <- match(ages2use,age)
+  rows2use <- iCheck_ages2use(ages2use,age)
   # Create new vectors with just the data to use
   age.e <- age[rows2use]
   catch.e <- catch[rows2use]
@@ -116,6 +129,12 @@ catchCurve.default <- function(x,catch,ages2use=age,weighted=FALSE,...) {
     # if asked to fit weighted regression then find weights as
     #   the predicted values from the raw regression
     W <- predict(cclm)
+    # if any weights are zero or negative then replace with the
+    # minimum of positive weights.  Send a warning.
+    if (any(W)<=0) {
+      warning("Some weights were non-positive and were changed to minimum of positive weights.",call.=TRUE)
+      W[W<=0] <- min(W[W>0])
+    } 
     # and then fit the weighted regression
     cclm <- lm(log.catch.e~age.e,weights=W)
   } else {
@@ -215,4 +234,36 @@ plot.catchCurve <- function(x,pos.est="topright",cex.est=0.95,
     A <- 100*(1-exp(-Z))
     legend(pos.est,legend=paste("Z=",round(Z,3),"\nA=",round(A,1),"%",sep=""),bty="n",cex=cex.est)
   }
+}
+
+
+##############################################################
+# INTERNAL FUNCTIONS
+##############################################################
+#=============================================================
+# A check on appropriateness for ages2 use.  Will handle if 
+# negative ages2use are supplied.  Will return in row2use the
+# rows in ages that were asked for in ages2use.
+#
+# Also called by chapmanRobson.
+#=============================================================
+iCheck_ages2use <- function(ages2use,ages) {
+  ## Can't have both positive and negative ages
+  if (any(ages2use<0) & any(ages2use>0)) stop("'ages2use' must be all positive or negative.",call.=FALSE)
+  ## If all negative then those are ages not to use
+  ##   create a vector of ages to use
+  if (all(ages2use<=0)) {
+    agesnot2use <- -1*ages2use
+    rowsnot2use <- match(agesnot2use,ages)
+    ages2use <- ages[-rowsnot2use]
+  }
+  ## Find rows to use based on matching ages2use and ages
+  rows2use <- match(ages2use,ages)
+  ## Send a warning if the user asked for ages that don't exist
+  if (!all(ages[rows2use] %in% ages)) {
+    warning("Some 'ages2use' not in observed ages.",call.=FALSE)
+    rows2use <- rows2use[!is.na(rows2use)]
+  }
+  ## return the ROWS (not the ages) to use
+  rows2use
 }

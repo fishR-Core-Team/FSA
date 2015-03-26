@@ -1,5 +1,9 @@
-# FSA 0.6.1 ongoing
-* `expandCounts()`: Modified.  Changes so that ``message()''s are printed at the end instead of along the way.  This reduces confusion of what appear to be messages of success followed by an error.  Thanks to Dan Oele bringing this confusion to my attention.
+# FSA 0.6.2 ongoing
+
+# FSA 0.6.1 Mar15
+* `catchCurve()`: Modified.  Changed how `ages2use=` was handled so that negative values can be used to exclude some ages.  Will also now send an error if a mix of positive and negative ages are sent in `ages2use=`.  Better handled the situation where `ages2use=` had more ages than the `age` variable.  Checked for non-positive weights if `weighted=TRUE` and returned a warning and changed the non-positive weights to the minimum of the positive weights.
+* `chapmanRobson()`: Modified.  Changed how `ages2use=` was handled so that negative values can be used to exclude some ages.  Will also now send an error if a mix of positive and negative ages are sent in `ages2use=`.  Better handled the situation where `ages2use=` had more ages than the `age` variable.
+* `expandCounts()`: Modified.  Changed so that ``message()''s are printed at the end instead of along the way.  This reduces confusion of what appear to be messages of success followed by an error.  Thanks to Dan Oele bringing this confusion to my attention.
 * `plotBinResp()`: Modified.  Changed the way the breaks were calculated (uses `lencat()` now).
 
 # FSA 0.6.0 Mar15

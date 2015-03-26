@@ -61,13 +61,16 @@
 #'
 #' @examples
 #' data(BrookTroutTH)
-#' cr <- with(BrookTroutTH,chapmanRobson(age,catch,2:6))
-#' summary(cr)
-#' confint(cr)
-#' plot(cr)
+#' plot(catch~age,data=BrookTroutTH,pch=19)
 #' 
 #' ## demonstration of formula notation
-#' cr2 <- chapmanRobson(catch~age,BrookTroutTH,2:6)
+#' cr1 <- chapmanRobson(catch~age,data=BrookTroutTH,ages2use=2:6)
+#' summary(cr1)
+#' confint(cr1)
+#' plot(cr1)
+#' 
+#' ## demonstration of excluding ages2use
+#' cr2 <- chapmanRobson(catch~age,data=BrookTroutTH,ages2use=-c(0,1))
 #' summary(cr2)
 #' plot(cr2)
 #' 
@@ -97,14 +100,11 @@ chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Smithetal","Ho
   if (length(age)!=length(catch)) stop("'age' and 'catch' have different lengths.",call.=FALSE)
   # Check to make sure enough ages and catches exist
   if (length(age)<2) stop("Fewer than 2 data points.",call.=FALSE)
-  # Check ages2use
-  if (any(ages2use<0)) warning("Some 'ages2use' are negative.",call.=FALSE)
-  if (any(!ages2use %in% age)) warning("Some 'ages2use' not in observed ages.",call.=FALSE)
-  
+
   ## Isolate the ages and catches to be used
   # Find rows to use according to ages to use, adjust if missing values occur
-  rows2use <- match(ages2use,age)
-  rows2use <- rows2use[!is.na(rows2use)]
+  rows2use <- iCheck_ages2use(ages2use,age)
+  print(rows2use)
   # Create new vectors with just the data to use
   age.e <- age[rows2use]
   catch.e <- catch[rows2use]
@@ -225,3 +225,8 @@ plot.chapmanRobson <- function(x,pos.est="topright",cex.est=0.95,ylab="Catch",xl
   }
   par(mar=opar)
 }
+
+##############################################################
+# INTERNAL FUNCTIONS
+##############################################################
+# Note that iCheck_age2use() is in catchCurve()

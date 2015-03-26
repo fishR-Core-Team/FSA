@@ -90,13 +90,16 @@ Tested the results against the results from \code{agesurv} in \pkg{fishmethods} 
 }
 \examples{
 data(BrookTroutTH)
-cr <- with(BrookTroutTH,chapmanRobson(age,catch,2:6))
-summary(cr)
-confint(cr)
-plot(cr)
+plot(catch~age,data=BrookTroutTH,pch=19)
 
 ## demonstration of formula notation
-cr2 <- chapmanRobson(catch~age,BrookTroutTH,2:6)
+cr1 <- chapmanRobson(catch~age,data=BrookTroutTH,ages2use=2:6)
+summary(cr1)
+confint(cr1)
+plot(cr1)
+
+## demonstration of excluding ages2use
+cr2 <- chapmanRobson(catch~age,data=BrookTroutTH,ages2use=-c(0,1))
 summary(cr2)
 plot(cr2)
 

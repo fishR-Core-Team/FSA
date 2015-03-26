@@ -28,7 +28,7 @@ test_that("catchCurve errors and warnings",{
   expect_error(catchCurve(d$age,d$catch,ages2use=3))
   # bad ages2use
   expect_warning(catchCurve(catch~age,data=d,ages2use=c(2:9)))
-  expect_warning(catchCurve(catch~age,data=d,ages2use=c(-1,2:6)))
+  expect_error(catchCurve(catch~age,data=d,ages2use=c(-1,2:6)))
 })
 
 test_that("chapmanRobson errors and warnings",{
@@ -50,7 +50,7 @@ test_that("chapmanRobson errors and warnings",{
   expect_error(chapmanRobson(d$age,d$catch,ages2use=3))
   # bad ages2use
   expect_warning(chapmanRobson(catch~age,data=d,ages2use=c(2:9)))
-  expect_warning(chapmanRobson(catch~age,data=d,ages2use=c(-1,2:6)))
+  expect_error(chapmanRobson(catch~age,data=d,ages2use=c(-1,2:6)))
 })
 
 test_that("catchCurve and chapmanRobson match Miranda & Bettoli (2007) boxes 6.3 and 6.4",{

@@ -98,16 +98,17 @@ If \code{weighted=TRUE} then a weighted regression is used where the weights are
 }
 \examples{
 data(BrookTroutTH)
-cc <- with(BrookTroutTH,catchCurve(age,catch,2:6))
-par(mfrow=c(2,1))
-plot(cc)
-plot(cc,pos.est="bottomleft")
-summary(cc)
-coef(cc)
-confint(cc)
+plot(catch~age,data=BrookTroutTH,pch=19)
 
 ## demonstration of formula notation
-cc2 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6)
+cc1 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6)
+summary(cc1)
+plot(cc1)
+coef(cc1)
+confint(cc1)
+
+## demonstration of excluding ages2use
+cc2 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=-c(0,1))
 summary(cc2)
 plot(cc2)
 
@@ -117,9 +118,24 @@ summary(cc3)
 plot(cc3)
 
 ## demonstration of returning the linear model results
-summary(cc2,type="lm")
-coef(cc2,type="lm")
-confint(cc2,type="lm")
+summary(cc3,type="lm")
+coef(cc3,type="lm")
+confint(cc3,type="lm")
+
+## demonstration of ability to work with missing age classes
+df <- data.frame(age=c(  2, 3, 4, 5, 7, 9,12),
+                 ct= c(100,92,83,71,56,35, 1))
+cc4 <- catchCurve(ct~age,data=df,ages2use=4:12)
+summary(cc4)
+plot(cc4)
+
+## demonstration of ability to work with missing age classes
+## evein if catches are recorded as NAs
+df <- data.frame(age=c(  2, 3, 4, 5, 6, 7, 8, 9,10,11,12),
+                 ct= c(100,92,83,71,NA,56,NA,35,NA,NA, 1))
+cc5 <- catchCurve(ct~age,data=df,ages2use=4:12)
+summary(cc5)
+plot(cc5)
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
