@@ -1,4 +1,8 @@
-# FSA 0.6.0 ongoing
+# FSA 0.6.1 ongoing
+* `expandCounts()`: Modified.  Changes so that ``message()''s are printed at the end instead of along the way.  This reduces confusion of what appear to be messages of success followed by an error.  Thanks to Dan Oele bringing this confusion to my attention.
+* `plotBinResp()`: Modified.  Changed the way the breaks were calculated (uses `lencat()` now).
+
+# FSA 0.6.0 Mar15
 * updated DESCRIPTION file (following this -- http://r-pkgs.had.co.nz/description.html
 * `srFuns()`: Modified.  Changed function returned when `simplify=FALSE` so that if the parameters are named that the name is dropped.  Thus, when the function is used, the returned result will not be annoyingly named as the first parameter.  Added functionality for the "density-independence" model.
 * `srStarts()`: Modified.  Added functionality for the "density-independence" model.

@@ -107,26 +107,27 @@ expandCounts <- function(data,cform,lform=NULL,removeCount=TRUE,lprec=0.1,new.na
   cform <- iHndlFormula(cform,data)
   if (cform$vnum>1) stop("'cform' must be only one variable.",call.=FALSE)
   if (!cform$vclass %in% c("integer","numeric")) stop("'cform' must be a 'numeric' or 'integer' variable.",call.=FALSE)
+  ## initialize the message
+  msg <- "Results messages from expandCounts():\n"
   
   ## find those fish with zero counts or missing value in counts
-  ##   and return a message of the counts if verbose=TRUE
   zerocounts <- which(data[,cform$vname]==0 | is.na(data[,cform$vname]))
-  if (length(zerocounts)>0 & verbose) {
-    if (length(zerocounts)>5) msg <- paste0(length(zerocounts)," rows")
-    else msg <- paste0("Rows ",paste(zerocounts,collapse=", "))
-    message(paste0(msg," had zero or no counts in ",cform$vname,"."))
+  if (length(zerocounts)>0) {
+    if (length(zerocounts)>5) msg <- paste0(msg,length(zerocounts)," rows")
+    else msg <- paste0(msg,"  Rows ",paste(zerocounts,collapse=", "))
+    msg <- paste0(msg," had zero or no counts in ",cform$vname,".\n")
   }
   
   ## Expand the rows based on the counts
   #  First, identify Which rows have a count of 1 ...
   onecounts <- which(data[,cform$vname]==1)
-  if (verbose) message(paste(length(onecounts),"rows had an individual measurement."))
+  msg <- paste0(msg,"  ",length(onecounts)," rows had an individual measurement.\n")
   #  Second, identify which rows have a count >1
   morecounts <- which(data[,cform$vname]>1)
   tmp <- length(morecounts)
   #  Third, Repeat the row numbers 'count' times for those rows with a count > 1
   morecounts <- rep(morecounts,data[morecounts,cform$vname])
-  if (verbose) message(paste(tmp,"rows with multiple measurements were expanded to",length(morecounts),"rows of individual measurements."))
+  msg <- paste0(msg,"  ",tmp," rows with multiple measurements were expanded to ",length(morecounts)," rows of individual measurements.\n")
   # Fourth, create a new data.frame that combines the original rows
   # that had zero counts, the original rows that had one count, and
   # the original rows with more than one count but with each of these
@@ -162,10 +163,10 @@ expandCounts <- function(data,cform,lform=NULL,removeCount=TRUE,lprec=0.1,new.na
     if (length(zerocounts)>0) {
       tmp <- zerocounts[which(!is.na(data[zerocounts,lwr]) | !is.na(data[zerocounts,upr]))]
       if (length(tmp)>0) {
-        msg <- paste0("Rows ",paste0(tmp,collapse=", ")," had zero or no ",cform$vname)
-        msg <- paste0(msg," but had non-missing\n values for ",lwr," and ",upr,".")
-        msg <- paste0(msg,"  This implies a data entry error.")
-        stop(msg,call.=FALSE)
+        emsg <- paste0("Rows ",paste0(tmp,collapse=", ")," had zero or no ",cform$vname)
+        emsg <- paste0(emsg," but had non-missing\n values for ",lwr," and ",upr,".")
+        emsg <- paste0(emsg,"  This implies a data entry error.")
+        stop(emsg,call.=FALSE)
       }
     }
 
@@ -204,6 +205,8 @@ expandCounts <- function(data,cform,lform=NULL,removeCount=TRUE,lprec=0.1,new.na
     }
     newdf <- rbind(dfnorand,dfrand)
   }
+  ## print message about what happened if verbose=TRUE
+  if (verbose) message(msg)
   ## return the new data.frame
   newdf
 }
