@@ -7,6 +7,7 @@
 \alias{iCheckALK}
 \alias{iCheckStartcatW}
 \alias{iGetVarFromFormula}
+\alias{iHndlCols2use}
 \alias{iHndlFormula}
 \alias{iHndlMultWhat}
 \alias{iLegendHelp}

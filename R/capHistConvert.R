@@ -71,7 +71,8 @@
 #' Each of the formats can be used to convert from (i.e., in \code{in.type=}) or to convert to (i.e., in \code{out.type=}) with the exception that only the individual fish identifier version can be converted to when \code{out.type="RMark"}.
 #' 
 #' @param df A data.frame that contains the capture histories and, perhaps, a unique fish identifier or frequency variable.  See details.
-#' @param cols2ignore A string or numeric vector that indicates columns in \code{df} to ignore.  Typical columns to ignore are those that are not either in \code{id=} or \code{freq=} or part of the capture history data.
+#' @param cols2use A string or numeric vector that indicates columns in \code{df} to use.  Negative numeric values will not use those columns.  Cannot use both \code{cols2use} and \code{col2ignore}.
+#' @param cols2ignore A string or numeric vector that indicates columns in \code{df} to ignore.  Typical columns to ignore are those that are not either in \code{id=} or \code{freq=} or part of the capture history data.  Cannot use both \code{cols2use} and \code{col2ignore}.
 #' @param in.type A single string that indicates the type of capture history format to convert \bold{FROM}.
 #' @param out.type A single string that indicates the type of capture history format to convert \bold{TO}.
 #' @param id A string or numeric that indicates the column in \code{df} that contains the unique identifier for an individual fish.  This argument is only used if \code{in.type="event"}, \code{in.type="individual"}, or, possibly, \code{in.type="RMark"}.
@@ -245,7 +246,7 @@
 #' }
 #'
 #' @export
-capHistConvert <- function(df,cols2ignore=NULL,
+capHistConvert <- function(df,cols2use=NULL,cols2ignore=NULL,
                            in.type=c("frequency","event","individual","MARK","marked","RMark"),
                            out.type=c("individual","event","frequency","MARK","marked","RMark"),
                            id=NULL,event.ord=NULL,freq=NULL,
@@ -257,14 +258,9 @@ capHistConvert <- function(df,cols2ignore=NULL,
   if (in.type==out.type) stop("'in.type' and 'out.type' cannot be the same.",call.=FALSE)
   # make sure df is a data.frame (could be sent as a matrix)
   df <- as.data.frame(df)
-  # immediately remove cols2ignore cols
-  if (!is.null(cols2ignore)) {
-    # convert to column numbers if they are given as strings
-    if (is.character(cols2ignore)) cols2ignore <- which(names(df)==cols2ignore)
-    # remove those columns from df
-    df <- df[,-cols2ignore] 
-  }
-  
+  # change data.frame based on cols2use or cols2ignore
+  df <- iHndlCols2use(df,cols2use,cols2ignore)
+
   ## Convert from other forms to individual form
   switch(in.type,
          event=         { ch.df <- iEvent2Indiv(df,id,event.ord) },

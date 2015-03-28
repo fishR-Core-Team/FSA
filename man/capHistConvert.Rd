@@ -4,16 +4,18 @@
 \alias{capHistConvert}
 \title{Convert between capture history data.frame formats.}
 \usage{
-capHistConvert(df, cols2ignore = NULL, in.type = c("frequency", "event",
-  "individual", "MARK", "marked", "RMark"), out.type = c("individual",
-  "event", "frequency", "MARK", "marked", "RMark"), id = NULL,
-  event.ord = NULL, freq = NULL, var.lbls = NULL,
+capHistConvert(df, cols2use = NULL, cols2ignore = NULL,
+  in.type = c("frequency", "event", "individual", "MARK", "marked", "RMark"),
+  out.type = c("individual", "event", "frequency", "MARK", "marked", "RMark"),
+  id = NULL, event.ord = NULL, freq = NULL, var.lbls = NULL,
   var.lbls.pre = "event", include.id = ifelse(is.null(id), FALSE, TRUE))
 }
 \arguments{
 \item{df}{A data.frame that contains the capture histories and, perhaps, a unique fish identifier or frequency variable.  See details.}
 
-\item{cols2ignore}{A string or numeric vector that indicates columns in \code{df} to ignore.  Typical columns to ignore are those that are not either in \code{id=} or \code{freq=} or part of the capture history data.}
+\item{cols2use}{A string or numeric vector that indicates columns in \code{df} to use.  Negative numeric values will not use those columns.  Cannot use both \code{cols2use} and \code{col2ignore}.}
+
+\item{cols2ignore}{A string or numeric vector that indicates columns in \code{df} to ignore.  Typical columns to ignore are those that are not either in \code{id=} or \code{freq=} or part of the capture history data.  Cannot use both \code{cols2use} and \code{col2ignore}.}
 
 \item{in.type}{A single string that indicates the type of capture history format to convert \bold{FROM}.}
 

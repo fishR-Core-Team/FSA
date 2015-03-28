@@ -4,7 +4,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach iAddLoessLine iCheckALK iCheckStartcatW iCILabel iGetVarFromFormula iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iTypeoflm
+#' @aliases .onAttach iAddLoessLine iCheckALK iCheckStartcatW iCILabel iGetVarFromFormula iHndlCols2use iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iTypeoflm
 
 
 ##################################################################
@@ -109,6 +109,32 @@ iGetVarFromFormula <- function(formula,data,expNumVars=NULL) {
   if (is.null(expNumVars)) varNms
   else if (length(varNms)!=expNumVars) stop("Function only works with formulas with ",expNumVars," variable",ifelse(expNumVars==1,".","s."))
   else varNms
+}
+
+
+iHndlCols2use <- function(df,cols2use,cols2ignore) {
+  ## if both cols2use and cols2ignore are NULL then return the original df
+  if (is.null(cols2use) & is.null(cols2ignore)) {
+    return(df)
+  } else {
+    ## Can't use both cols2use and cols2ignore
+    if (!is.null(cols2use) & !is.null(cols2ignore)) stop("Cannot use both 'cols2use' and 'cols2ignore'.",call.=FALSE)
+    ## Handle cols2use
+    if (!is.null(cols2use)) {
+      ## Convert character column names to numeric
+      if (is.character(cols2use)) cols2use <- which(cols2use %in% names(df))
+    } else {
+      ## Handle col2ignore
+      ## convert character column names to numeric
+      if (is.character(cols2ignore)) cols2ignore <- which(cols2ignore %in% names(df))
+      ## Convert numeric col2ignore to negative if all are positive
+      if (all(cols2ignore>0)) cols2ignore <- -cols2ignore
+      ## put negative cols2ignore into cols2use
+      cols2use <- cols2ignore
+    }
+    ## Return data.frame of only columns asked for
+    return(df[,cols2use])
+  }
 }
 
 

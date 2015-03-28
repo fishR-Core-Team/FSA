@@ -6,14 +6,16 @@
 \alias{plot.CapHist}
 \title{Summarize capture histories in individual fish format.}
 \usage{
-capHistSum(df, cols2use = NULL)
+capHistSum(df, cols2use = NULL, cols2ignore = NULL)
 
 \method{plot}{CapHist}(x, what = c("u", "f"), ...)
 }
 \arguments{
 \item{df}{A data.frame that contains the capture histories (and, perhaps, other information) in \dQuote{individual} fish format.  See details.}
 
-\item{cols2use}{A numeric vector of columns that contain the capture histories.  See details.}
+\item{cols2use}{A string or numeric vector that indicates columns in \code{df} that contain the capture histories.  Negative numeric values will not use those columns.  Cannot use both \code{cols2use} and \code{col2ignore}.  See details.}
+
+\item{cols2ignore}{A string or numeric vector that indicates columns in \code{df} that do not contain the capture histories and should be ignored.  Cannot use both \code{cols2use} and \code{col2ignore}.}
 
 \item{x}{An object from \code{capHistSum}.}
 
@@ -57,7 +59,11 @@ This function assumes that all unmarked captured fish are marked and returned to
 # data.frame with IDs in the first column
 data(PikeNYPartial1)
 head(PikeNYPartial1)
+
+# Three ways to ignore first column of ID numbers
 ( ch1 <- capHistSum(PikeNYPartial1,cols2use=-1) )
+( ch1 <- capHistSum(PikeNYPartial1,cols2ignore=1) )
+( ch1 <- capHistSum(PikeNYPartial1,cols2ignore="id") )
 
 # diagnostic plots
 plot(ch1)

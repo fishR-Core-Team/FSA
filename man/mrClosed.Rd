@@ -215,7 +215,8 @@ confint(mr6)
 
 ### Capture history data summarized by capHistSum()
 data(PikeNYPartial1)
-ch2 <- capHistSum(PikeNYPartial1,cols=-1)  # ignore first column of ID numbers
+# ignore first column of ID numbers
+ch2 <- capHistSum(PikeNYPartial1,cols2ignore="id")
 
 ## Schnabel method
 mr7 <- mrClosed(ch2,method="Schnabel")
