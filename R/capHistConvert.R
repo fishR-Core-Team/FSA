@@ -249,7 +249,7 @@ capHistConvert <- function(df,cols2ignore=NULL,
                            in.type=c("frequency","event","individual","MARK","marked","RMark"),
                            out.type=c("individual","event","frequency","MARK","marked","RMark"),
                            id=NULL,event.ord=NULL,freq=NULL,
-                           var.lbls=NULL,var.lbls.pre=NULL,
+                           var.lbls=NULL,var.lbls.pre="event",
                            include.id=ifelse(is.null(id),FALSE,TRUE)) {
   # initial argument checks
   in.type <- match.arg(in.type)
@@ -289,49 +289,60 @@ capHistConvert <- function(df,cols2ignore=NULL,
   ch.df
 }
 
+##############################################################
+# Internal functions
+##############################################################
+#=============================================================
+# Internal function to make default labels
+#=============================================================
+iMakeDefaultCHLabels <- function(ch.df,var.lbls.pre) {
+  ## check var.lbls.pre
+  # check of only one is given
+  if (length(var.lbls.pre)>1) {
+    warning("'var.lbls.pre' contains more than one prefix, only first was used.",call.=FALSE) 
+    var.lbls.pre <- var.lbls.pre[1]
+  }
+  # check that it does not start with a number
+  if (!is.na(suppressWarnings(as.numeric(substring(var.lbls.pre,1,1))))) {
+    warning("'var.lbls.pre' cannot begin with a number, changed to 'event'.",call.=FALSE)
+    var.lbls.pre <- "event"
+  }
+  ## make labels
+  paste(var.lbls.pre,1:(ncol(ch.df)-1),sep="")
+}
 
+#=============================================================
+# Make labels for variable in output format
+#=============================================================
 iMakeVarLabels <- function(ch.df,in.type,id,var.lbls,var.lbls.pre) {
-  # Internal function to make default labels for the internal individual format
-  iMakeDefaultCHLabels <- function(ch.df,var.lbls.pre) {
-    paste(var.lbls.pre,1:(ncol(ch.df)-1),sep="")
-  } # end internal function
-  
+  ## var.lbls were given
   if (!is.null(var.lbls)) {
-    ## var.lbls given, but too many ... reduce to number needed
+    ## too many var.lbls ... reduce to number needed
     if (length(var.lbls)>=(ncol(ch.df)-1)) var.lbls <- var.lbls[1:(ncol(ch.df)-1)]
     else {
-      ## var.lbls given, but too few ... warn and build default labels
+      ## too few var.lbls ... warn and build default labels
       warning("Too few labels in 'var.lbls'; default labels will be used.",call.=FALSE)
-      var.lbls <- iMakeDefaultCHLabels(ch.df,"event")
-    }
-  } else {
-    if (!is.null(var.lbls.pre)) {
-      ## var.lbls not given, but var.lbls.pre was
       var.lbls <- iMakeDefaultCHLabels(ch.df,var.lbls.pre)
+    }
+  } else { ## var.lbls not given
+    ## for certain in.types, make var.lbls from ch column names
+    if (in.type %in% c("individual","frequency","event")) {
+      var.lbls <- names(ch.df)[-1]
     } else {
-      if (in.type %in% c("individual","frequency","event")) {
-        ## var.lbls & var.lbls.pre not given, make var.lbls from ch column names
-        var.lbls <- names(ch.df)[-1]
-        } else {
-        ## var.lbls & var.lbls.pre not given, make var.lbls from default values
-        var.lbls <- iMakeDefaultCHLabels(ch.df,"event")
-      }
+      ## make var.lbls from default values
+      var.lbls <- iMakeDefaultCHLabels(ch.df,var.lbls.pre)
     }
   }
   # add id variable name
   c(ifelse(is.null(id),"id",id),var.lbls)
 }
 
-
-
-
-########################################################################
+#=============================================================
 ## Internal functions to convert from one format to an internal
 ##   individual format.  Thus, each function below returns a data.frame
 ##   with an id variable in the first column and individual capture
 ##   histories in all other columns.
-########################################################################
-
+#=============================================================
 iEvent2Indiv <- function(df,id,event.ord) {
   # See if there is an id variable
   if (is.null(id)) stop("No variable with unique fish identification information given in 'id'.",call.=FALSE)
@@ -354,9 +365,13 @@ iEvent2Indiv <- function(df,id,event.ord) {
   tmp
 }
 
+#=============================================================
+#=============================================================
 iFrequency2Indiv <- function(df,freq) {
   if (is.null(freq)) {
-    warning("No 'freq' given; assumed frequencies were 1 for each capture history.",call.=FALSE)
+    tmp <- "No 'freq' given; assumed frequencies were 1 for each capture history."
+    if (any(c("freq","Freq","FREQ") %in% names(df))) tmp <- paste0(tmp,"\nHowever, one variable appears to contain frequencies.")
+    warning(tmp,call.=FALSE)
     nfreq <- rep(1,nrow(df))
   } else {
     # isolate frequencies and create a df without them
@@ -372,6 +387,8 @@ iFrequency2Indiv <- function(df,freq) {
   tmp
 }
 
+#=============================================================
+#=============================================================
 iIndividual2Indiv <- function(df,id) {
   # make sure id is the first variable
   if (!is.null(id)) {
@@ -383,12 +400,16 @@ iIndividual2Indiv <- function(df,id) {
   tmp
 }
 
+#=============================================================
+#=============================================================
 iMark2Indiv <- function(df,freq) {
   # remove ";" from last column
   df[,ncol(df)] <- sub(";","",df[,ncol(df)])
   # isolate frequencies and capture histories
   if (is.null(freq)) {
-    warning("No 'freq' given; assumed frequencies were 1 for each capture history.",call.=FALSE)
+    tmp <- "No 'freq' given; assumed frequencies were 1 for each capture history."
+    if (any(c("freq","Freq","FREQ") %in% names(df))) tmp <- paste0(tmp,"\nHowever, one variable appears to contain frequencies.")
+    warning(tmp,call.=FALSE)
     nfreq <- rep(1,nrow(df))
   } else {
     # isolate frequencies and create a df without them
@@ -401,6 +422,8 @@ iMark2Indiv <- function(df,freq) {
   tmp
 }
 
+#=============================================================
+#=============================================================
 iRMark2Indiv <- function(df,id,freq) {
   # force to be a data.frame (likely comes as a vector)
   df <- as.data.frame(df)
@@ -408,7 +431,9 @@ iRMark2Indiv <- function(df,id,freq) {
   if (!is.null(id) & !is.null(freq)) stop("Only one of 'id' or 'freq' can be used with the RMark format.",call.=FALSE)
   # if neither id nor freq then create a freq=1 column and use it
   if (is.null(id) & is.null(freq)) {
-    warning("No 'freq' or 'id' given; assumed frequencies were 1 for each capture history.",call.=FALSE)
+    tmp <- "No 'freq' or 'id' given; assumed frequencies were 1 for each capture history."
+    if (any(c("freq","Freq","FREQ") %in% names(df))) tmp <- paste0(tmp,"\nHowever, one variable appears to contain frequencies.")
+    warning(tmp,call.=FALSE)
     df$freq <- rep(1,nrow(df))
     freq <- "freq"
   }
@@ -425,13 +450,13 @@ iRMark2Indiv <- function(df,id,freq) {
   tmp
 }
 
-########################################################################
-## Internal function to expland the string of capture histories in the
+#=============================================================
+## Internal function to expand the string of capture histories in the
 ##   MARK and RMark formats.  Function takes a vector of the capture
 ##   history strings, optional vectors of the frequencies or unique
 ##   fish identifiers, and a name for the id variable.
 ## See use in iMark2Indiv() and iRMark2Indiv().
-########################################################################
+#=============================================================
 iExpandCHString <- function(ch,nfreq=NULL,ids=NULL,idname="id") {
   # expand the capture histories if nfreq is provided
   if (!is.null(nfreq)) {
@@ -456,13 +481,13 @@ iExpandCHString <- function(ch,nfreq=NULL,ids=NULL,idname="id") {
   tmp
 }
 
-########################################################################
+#=============================================================
 ## Internal functions to convert from the internal individual format
 ##   returned by the in.type internal functions above to one of the
 ##   output formats.  Each function that begins with iOut returns a
 ##   data.frame in the proper format.  The other functions produce
 ##   intermediate objects.
-########################################################################
+#=============================================================
 iOutEvent <- function(ch.df,id) {
   # get total sample size as sum of all values in capture history
   n <- sum(ch.df[,-1])
@@ -487,6 +512,8 @@ iOutEvent <- function(ch.df,id) {
   tmp
 }
 
+#=============================================================
+#=============================================================
 iOutFrequency <- function(ch.df) {
   var.lbls <- c(names(ch.df)[-1],"freq")
   ch.df <- iPrepCapHistSum(ch.df)
@@ -500,12 +527,16 @@ iOutFrequency <- function(ch.df) {
   ch.df
 }
 
+#=============================================================
+#=============================================================
 iOutIndividual <- function(ch.df,include.id) {
   # decide to remove the id variable or not
   if (!include.id) ch.df <- ch.df[,-1]
   ch.df
 }
 
+#=============================================================
+#=============================================================
 iOutRMark <- function(ch.df,include.id) {
   # isolate the id variable if it is going to be included at the end
   if (include.id) idtmp <- ch.df[,1]
@@ -524,6 +555,8 @@ iOutRMark <- function(ch.df,include.id) {
   dftmp
 }
 
+#=============================================================
+#=============================================================
 iOutMARK <- function(ch.df) {
   ch.df <- iPrepCapHistSum(ch.df)
   ch.df[,ncol(ch.df)] <- paste(ch.df[,ncol(ch.df)],";",sep="")
@@ -531,6 +564,8 @@ iOutMARK <- function(ch.df) {
   ch.df
 }
 
+#=============================================================
+#=============================================================
 iPrepCapHistSum <- function(ch.df) {
   # get capture history summary without the id column
   chsum <- capHistSum(ch.df,cols2use=2:ncol(ch.df))
