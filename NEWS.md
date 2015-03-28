@@ -1,4 +1,5 @@
 # FSA 0.6.2 ongoing
+* `capHistConvert()`: Modified.  Streamlined code around creating `var.lbls`.  Made `event` the default value for `var.lbls.pre=`.  Added some checks to `var.lbls.pre=` if it starts with a number or has too many values.
 
 # FSA 0.6.1 Mar15
 * `catchCurve()`: Modified.  Changed how `ages2use=` was handled so that negative values can be used to exclude some ages.  Will also now send an error if a mix of positive and negative ages are sent in `ages2use=`.  Better handled the situation where `ages2use=` had more ages than the `age` variable.  Checked for non-positive weights if `weighted=TRUE` and returned a warning and changed the non-positive weights to the minimum of the positive weights.

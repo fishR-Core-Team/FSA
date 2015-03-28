@@ -131,7 +131,7 @@ catchCurve.default <- function(x,catch,ages2use=age,weighted=FALSE,...) {
     W <- predict(cclm)
     # if any weights are zero or negative then replace with the
     # minimum of positive weights.  Send a warning.
-    if (any(W)<=0) {
+    if (any(W<=0)) {
       warning("Some weights were non-positive and were changed to minimum of positive weights.",call.=TRUE)
       W[W<=0] <- min(W[W>0])
     } 
