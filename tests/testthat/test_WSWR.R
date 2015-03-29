@@ -8,16 +8,16 @@ context("wsXXX and wrXXX function Tests")
 
 test_that("wsVal() errors and warnings",{
   ## bad species name
-  expect_that(wsVal("Derek"),throws_error())
+  expect_error(wsVal("Derek"))
   ## too many species name
-  expect_that(wsVal(c("Bluegill","Yellow Perch")),throws_error())
+  expect_error(wsVal(c("Bluegill","Yellow Perch")))
   ## bad units
   # typed wrong
-  expect_that(wsVal("Bluegill",units="inches"),throws_error())
+  expect_error(wsVal("Bluegill",units="inches"))
   # don't exist for the species
-  expect_that(wsVal("Ruffe",units="English"),throws_error())
+  expect_error(wsVal("Ruffe",units="English"))
   ## reference value does not exist
-  expect_that(wsVal("Bluegill",ref=50),throws_error())
+  expect_error(wsVal("Bluegill",ref=50))
 })
 
 test_that("wrAdd() errors and warnings",{
