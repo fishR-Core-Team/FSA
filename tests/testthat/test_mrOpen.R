@@ -24,43 +24,43 @@ good.bot <- matrix(c(
 
 test_that("mrOpen errors and warnings",{
   ## a top but not a bottom, but with capHistSum
-  expect_that(mrOpen(good.top),throws_error())
+  expect_error(mrOpen(good.top))
   ## a top that is not square
-  expect_that(mrOpen(good.top[,-1],good.bot),throws_error())
-  expect_that(mrOpen(good.top[-1,],good.bot),throws_error())
+  expect_error(mrOpen(good.top[,-1],good.bot))
+  expect_error(mrOpen(good.top[-1,],good.bot))
   ## a top without an NA on the diagonal or lower triangle
   bad.top <- good.top
   bad.top[2,2] <- 3
-  expect_that(mrOpen(bad.top,good.bot),throws_error())
+  expect_error(mrOpen(bad.top,good.bot))
   bad.top <- good.top
   bad.top[3,2] <- 3
-  expect_that(mrOpen(bad.top,good.bot),throws_error())
+  expect_error(mrOpen(bad.top,good.bot))
   ## a top with an NA in the upper triangle
   bad.top <- good.top
   bad.top[1,2] <- NA
-  expect_that(mrOpen(bad.top,good.bot),throws_error())
+  expect_error(mrOpen(bad.top,good.bot))
   ## a top with a negative value in the upper triangle
   bad.top <- good.top
   bad.top[1,2] <- -3
-  expect_that(mrOpen(bad.top,good.bot),throws_error())
+  expect_error(mrOpen(bad.top,good.bot))
   
   ## bottom does not have enough rows
-  expect_that(mrOpen(good.top,good.bot[-1,]),throws_error())
+  expect_error(mrOpen(good.top,good.bot[-1,]))
   ## bottom has bad names
   bad.bot <- good.bot
   names(bad.bot)[1] <- "Derek"
-  expect_that(mrOpen(good.top,bad.bot),throws_error())
+  expect_error(mrOpen(good.top,bad.bot))
   ## a bottom with a negative value
   bad.bot <- good.bot
   bad.bot[1,2] <- -3
-  expect_that(mrOpen(good.top,bad.bot),throws_error())
+  expect_error(mrOpen(good.top,bad.bot))
   ## a bottom with a non-zero first number of marked fish
   bad.bot <- good.bot
   bad.bot["m",1] <- 3
-  expect_that(mrOpen(good.top,bad.bot),throws_error())
+  expect_error(mrOpen(good.top,bad.bot))
   ## a bottom with a NA
   bad.bot["m",1] <- NA
-  expect_that(mrOpen(good.top,bad.bot),throws_error())
+  expect_error(mrOpen(good.top,bad.bot))
 })
 
 
@@ -186,97 +186,97 @@ jolly <- mrOpen(jolly.top,jolly.bot)
 # Set up some tests
 # ------------------------------------------------------------
 test_that("Does mrOpen match the Jolly-Seber results from JOLLY for CutthroatAL",{
-  expect_that(cutt$df$r,equals(rC))
-  expect_that(cutt$df$z,equals(zC))
+  expect_equal(cutt$df$r,rC)
+  expect_equal(cutt$df$z,zC)
   # all M match at one decimal
   CcompM <- round(cbind(cutt$df$M,MC,cutt$df$M-MC,(cutt$df$M-MC)/MC*100),1)
-  expect_that(CcompM[,1],equals(CcompM[,2]))
+  expect_equal(CcompM[,1],CcompM[,2])
   # all M.se match at one decimal except M3 and M4 which are off by 0.1
   CcompSEM <- round(cbind(cutt$df$M.se,MSEC,cutt$df$M.se-MSEC,(cutt$df$M.se-MSEC)/MSEC*100),1)
-  expect_that(all(abs(CcompSEM[,3])<=0.5,na.rm=TRUE),is_true())
+  expect_true(all(abs(CcompSEM[,3])<=0.5,na.rm=TRUE))
   # all N match at one decimal
   CcompN <- round(cbind(cutt$df$N,NC,cutt$df$N-NC,(cutt$df$N-NC)/NC*100),1)
-  expect_that(CcompN[,1],equals(CcompN[,2]))
+  expect_equal(CcompN[,1],CcompN[,2])
   # all N.se match at one decimal except N8 which is off by 0.1
   CcompSEN <- round(cbind(cutt$df$N.se,NSEC,cutt$df$N.se-NSEC,(cutt$df$N.se-NSEC)/NSEC*100),1)
-  expect_that(all(abs(CcompSEN[,3])<=0.5,na.rm=TRUE),is_true())
+  expect_true(all(abs(CcompSEN[,3])<=0.5,na.rm=TRUE))
   # all phi within 0.001 at three decimals
   Ccompphi <- round(cbind(cutt$df$phi,phiC,cutt$df$phi-phiC,(cutt$df$phi-phiC)/phiC*100),3)
-  expect_that(all(abs(Ccompphi[,3])<=0.001,na.rm=TRUE),is_true())
+  expect_true(all(abs(Ccompphi[,3])<=0.001,na.rm=TRUE))
   # all phi.se within 0.001 at three decimals
   CcompSEphi <- round(cbind(cutt$df$phi.se,phiSEC,cutt$df$phi.se-phiSEC,(cutt$df$phi.se-phiSEC)/phiSEC*100),3)
-  expect_that(all(abs(CcompSEphi[,3])<=0.001,na.rm=TRUE),is_true())
+  expect_true(all(abs(CcompSEphi[,3])<=0.001,na.rm=TRUE))
   # all B within 0.7 at one decimal
   CcompB <- round(cbind(cutt$df$B,BC,cutt$df$B-BC,(cutt$df$B-BC)/BC*100),1)
-  expect_that(all(abs(CcompB[,3])<=0.7,na.rm=TRUE),is_true())  
+  expect_true(all(abs(CcompB[,3])<=0.7,na.rm=TRUE))  
   # all B.se within 0.02 (within 1%)
   CcompSEB <- round(cbind(cutt$df$B.se,BSEC,cutt$df$B.se-BSEC,(cutt$df$B.se-BSEC)/BSEC*100),2)
-  #expect_that(all(abs(CcompSEB[,3])<=0.02,na.rm=TRUE),is_true()) 
+  #expect_true(all(abs(CcompSEB[,3])<=0.02,na.rm=TRUE)) 
 })
 
 
 test_that("Does mrOpen match the Jolly-Seber results from Table 4.4 in Pollock et al. (1990)",{
   # all N within 0.1 (less than 0.11%)
   PcompN <- round(cbind(poll$N,NP,poll$N-NP,(poll$N-NP)/NP*100),1)
-  expect_that(all(abs(PcompN[,3])<=0.1,na.rm=TRUE),is_true())
+  expect_true(all(abs(PcompN[,3])<=0.1,na.rm=TRUE))
   # all N.se match at two decimals except for N15 wich is within 0.5 (less than 5%)
   PcompSEN <- round(cbind(poll$N.se,NSEP,poll$N.se-NSEP,(poll$N.se-NSEP)/NSEP*100),2)
-  expect_that(all(abs(PcompSEN[,3])<=0.5,na.rm=TRUE),is_true())
+  expect_true(all(abs(PcompSEN[,3])<=0.5,na.rm=TRUE))
   # all phi match except where Pollock set them == 1 or did not report
   Pcompphi <- round(cbind(poll$phi,phiP,poll$phi-phiP,(poll$phi-phiP)/phiP*100),2)
-  expect_that(Pcompphi[-c(7,17,20,12:14),1],equals(Pcompphi[-c(7,17,20,12:14),2]))
+  expect_equal(Pcompphi[-c(7,17,20,12:14),1],Pcompphi[-c(7,17,20,12:14),2])
   # all phi.se within 0.001 (less than 1%)
   PcompSEphi <- round(cbind(poll$phi.se,phiSEP,poll$phi.se-phiSEP,(poll$phi.se-phiSEP)/phiSEP*100),3)
-  expect_that(all(abs(PcompSEphi[,3])<=0.001,na.rm=TRUE),is_true())
+  expect_true(all(abs(PcompSEphi[,3])<=0.001,na.rm=TRUE))
   # all B match except where Pollock set them -- 0 or did not report
   PcompB <- round(cbind(poll$B,BP,poll$B-BP,(poll$B-BP)/BP*100),1)
-  expect_that(PcompB[-c(5,11,18,21,12:14),1],equals(PcompB[-c(5,11,18,21,12:14),2]))
+  expect_equal(PcompB[-c(5,11,18,21,12:14),1],PcompB[-c(5,11,18,21,12:14),2])
   # all B.se within 0.02 (within 0.2%)
   PcompSEB <- round(cbind(poll$B.se,BSEP,poll$B.se-BSEP,(poll$B.se-BSEP)/BSEP*100),2)
-  expect_that(all(abs(PcompSEB[,3])<=0.02,na.rm=TRUE),is_true()) 
+  expect_true(all(abs(PcompSEB[,3])<=0.02,na.rm=TRUE)) 
 })
 
 test_that("Does mrOpen match the Jolly-Seber results from Table 2.3 in Krebs (1989)",{
   # all M match except M5 which was within 0.1
   KcompM <- round(cbind(krebs$df$M,MK,krebs$df$M-MK,(krebs$df$M-MK)/MK*100),1)
-  expect_that(KcompM[-5,1],equals(KcompM[-5,2]))
-  expect_that(all(abs(KcompM[,3])<=0.1,na.rm=TRUE),is_true())
+  expect_equal(KcompM[-5,1],KcompM[-5,2])
+  expect_true(all(abs(KcompM[,3])<=0.1,na.rm=TRUE))
   # all N match except M8 which was within 0.2
   KcompN <- round(cbind(krebs$df$N,NK,krebs$df$N-NK,(krebs$df$N-NK)/NK*100),1)
-  expect_that(KcompN[-8,1],equals(KcompN[-8,2]))
-  expect_that(all(abs(KcompN[,3])<=0.2,na.rm=TRUE),is_true())
+  expect_equal(KcompN[-8,1],KcompN[-8,2])
+  expect_true(all(abs(KcompN[,3])<=0.2,na.rm=TRUE))
   # all phi match
   Kcompphi <- round(cbind(krebs$df$phi,phiK,krebs$df$phi-phiK,(krebs$df$phi-phiK)/phiK*100),3)
-  expect_that(Kcompphi[,1],equals(Kcompphi[,2]))
+  expect_equal(Kcompphi[,1],Kcompphi[,2])
   # all B match except B7 which was within 0.2
   KcompB <- round(cbind(krebs$df$B,BK,krebs$df$B-BK,(krebs$df$B-BK)/BK*100),1)
-  expect_that(KcompB[-7,1],equals(KcompB[-7,2]))
-  expect_that(all(abs(KcompB[,3])<=0.2,na.rm=TRUE),is_true())
+  expect_equal(KcompB[-7,1],KcompB[-7,2])
+  expect_true(all(abs(KcompB[,3])<=0.2,na.rm=TRUE))
   # all N.se are not close (Krebs does not give formulas for checking why)
   KcompSEN <- round(cbind(krebs$df$N.se,NSEK,krebs$df$N.se-NSEK,(krebs$df$N.se-NSEK)/NSEK*100),1)
   # all phi.se match
   KcompSEphi <- round(cbind(krebs$df$phi.se,phiSEK,krebs$df$phi.se-phiSEK,(krebs$df$phi.se-phiSEK)/phiSEK*100),3)
-  expect_that(KcompSEphi[,1],equals(KcompSEphi[,2]))
+  expect_equal(KcompSEphi[,1],KcompSEphi[,2])
   # all B.se are within 0.3 (all match except B6, B7, and B9)
   KcompSEB <- round(cbind(krebs$df$B.se,BSEK,krebs$df$B.se-BSEK,(krebs$df$B.se-BSEK)/BSEK*100),1)
-  expect_that(KcompSEphi[,1],equals(KcompSEphi[,2]))
+  expect_equal(KcompSEphi[,1],KcompSEphi[,2])
 })
 
 
 test_that("Does mrOpen match the Jolly-Seber results from Table 5.3 in Seber (2002)",{
-  expect_that(jolly$df$r,equals(rJ))
-  expect_that(jolly$df$z,equals(zJ))
+  expect_equal(jolly$df$r,rJ)
+  expect_equal(jolly$df$z,zJ)
   
   # all M within 4 (less than 1.5%)
   JcompM <- round(cbind(jolly$df$M,MJ,jolly$df$M-MJ,(jolly$df$M-MJ)/MJ*100),1)
-  expect_that(all(abs(JcompM[,3])<=4.0,na.rm=TRUE),is_true())
+  expect_true(all(abs(JcompM[,3])<=4.0,na.rm=TRUE))
   # all N within 3% (except N2 which is within 9%))
   JcompN <- round(cbind(jolly$df$N,NJ,jolly$df$N-NJ,(jolly$df$N-NJ)/NJ*100),1)
-  expect_that(all(abs(JcompN[-2,4])<=3,na.rm=TRUE),is_true())
+  expect_true(all(abs(JcompN[-2,4])<=3,na.rm=TRUE))
   # all phi within 0.01 (less than 1.5%)
   Jcompphi <- round(cbind(jolly$df$phi,phiJ,jolly$df$phi-phiJ,(jolly$df$phi-phiJ)/phiJ*100),3)
-  expect_that(all(abs(Jcompphi[,3])<=0.01,na.rm=TRUE),is_true())
+  expect_true(all(abs(Jcompphi[,3])<=0.01,na.rm=TRUE))
   # all B within 7 (less than 5%) except B2 and B8
   JcompB <- round(cbind(jolly$df$B,BJ,jolly$df$B-BJ,(jolly$df$B-BJ)/BJ*100),1)
-  expect_that(all(abs(JcompB[-c(2,8),3])<=6.2,na.rm=TRUE),is_true())
+  expect_true(all(abs(JcompB[-c(2,8),3])<=6.2,na.rm=TRUE))
 })
