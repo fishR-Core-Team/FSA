@@ -44,7 +44,7 @@ test_that("expandCounts() gives correct number of results",{
                    upr.bin=c(1.5,2  ,2.5,1.5,2  ,2.5),
                    freq=c(1,2,3,4,5,6))
   exp <- tapply(d1$freq,d1$name,FUN=sum)
-  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin)
+  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin,verbose=FALSE)
   obs <- xtabs(~name,data=tmp)
   expect_equivalent(nrow(tmp),sum(exp))
   expect_equivalent(as.vector(obs),as.vector(exp))
@@ -55,7 +55,7 @@ test_that("expandCounts() gives correct number of results",{
                    upr.bin=c(1  ,1.5,2  ,1  ,1.5,2),
                    freq=c(1,2,3,4,5,6))
   exp <- tapply(d1$freq,d1$name,FUN=sum)
-  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin)
+  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin,verbose=FALSE)
   obs <- xtabs(~name,data=tmp)
   expect_equivalent(nrow(tmp),sum(exp))
   expect_equivalent(as.vector(obs),as.vector(exp))
@@ -66,7 +66,7 @@ test_that("expandCounts() gives correct number of results",{
                    upr.bin=c(1.5,2  ,2.5,1.5,2  ,2.5),
                    freq=c(1,1,1,1,1,1))
   exp <- tapply(d1$freq,d1$name,FUN=sum)
-  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin)
+  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin,verbose=FALSE)
   obs <- xtabs(~name,data=tmp)
   expect_equivalent(nrow(tmp),sum(exp))
   expect_equivalent(as.vector(obs),as.vector(exp))
@@ -77,7 +77,7 @@ test_that("expandCounts() gives correct number of results",{
                    upr.bin=c(1.5,1.5,2.5,1.5,2  ,2.5),
                    freq=c(1,2,3,1,2,3))
   exp <- tapply(d1$freq,d1$name,FUN=sum)
-  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin)
+  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin,verbose=FALSE)
   obs <- xtabs(~name,data=tmp)
   expect_equivalent(nrow(tmp),sum(exp))
   expect_equivalent(as.vector(obs),as.vector(exp))
@@ -88,7 +88,7 @@ test_that("expandCounts() gives correct number of results",{
                    upr.bin=c(1  ,1.5,2  ,1  ,1.5,2.5),
                    freq=c(1,1,1,1,1,1))
   exp <- tapply(d1$freq,d1$name,FUN=sum)
-  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin)
+  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin,verbose=FALSE)
   obs <- xtabs(~name,data=tmp)
   expect_equivalent(nrow(tmp),sum(exp))
   expect_equivalent(as.vector(obs),as.vector(exp))
@@ -99,7 +99,7 @@ test_that("expandCounts() gives correct number of results",{
                    upr.bin=c(1.5,NA ,2.5,NA ,2  ,2.5),
                    freq=c(1,2,3,1,2,3))
   exp <- tapply(d1$freq,d1$name,FUN=sum)
-  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin)
+  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin,verbose=FALSE)
   obs <- xtabs(~name,data=tmp)
   expect_equivalent(nrow(tmp),sum(exp))
   expect_equivalent(as.vector(obs),as.vector(exp))
@@ -110,7 +110,7 @@ test_that("expandCounts() gives correct number of results",{
                    upr.bin=c(1.5,1.5,2.5,1.5,2  ,2.5),
                    freq=c(1,2,3,1,2,3))
   exp <- tapply(d1$freq,d1$name,FUN=sum)
-  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin)
+  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin,verbose=FALSE)
   obs <- xtabs(~name,data=tmp)
   expect_equivalent(nrow(tmp),sum(exp))
   expect_equivalent(as.vector(obs),as.vector(exp))
@@ -121,7 +121,7 @@ test_that("expandCounts() gives correct number of results",{
                    upr.bin=c(1.5,NA,2.5,NA,2  ,2.5),
                    freq=c(1,0,3,0,2,3))
   exp <- tapply(d1$freq,d1$name,FUN=sum)
-  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin)
+  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin,verbose=FALSE)
   obs <- xtabs(~name,data=Subset(tmp,!is.na(lwr.bin)))
   expect_equivalent(sum(obs),sum(exp))
   expect_equivalent(as.vector(obs),as.vector(exp))
@@ -132,7 +132,7 @@ test_that("expandCounts() gives correct number of results",{
                    upr.bin=c(1.5,NA,2.5,NA,2  ,2.5),
                    freq=c(1,NA,3,NA,2,3))
   exp <- tapply(d1$freq,d1$name,FUN=sum,na.rm=TRUE)
-  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin)
+  tmp <- expandCounts(d1,~freq,~lwr.bin+upr.bin,verbose=FALSE)
   obs <- xtabs(~name,data=Subset(tmp,!is.na(lwr.bin)))
   expect_equivalent(sum(obs),sum(exp))
   expect_equivalent(as.vector(obs),as.vector(exp))
