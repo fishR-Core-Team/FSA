@@ -1,6 +1,6 @@
 # FSA 0.6.3 ongoing
 * Some modifications to tests.
-
+* `plot.capHist()`: Modified.  Changed default plot look which can now be controlled with `pch=`, `cex.pch=`, and `lwd=`.  Modified the two y-axis scales to use `plotmath` characters.
 
 # FSA 0.6.2 Mar15
 * `capHistConvert()`: Modified.  Streamlined code around creating `var.lbls`.  Made `event` the default value for `var.lbls.pre=`.  Added some checks to `var.lbls.pre=` if it starts with a number or has too many values.  Added `cols2use=` and modified use of `cols2ignore=` via `iHndlCols2use()`.

@@ -8,7 +8,8 @@
 \usage{
 capHistSum(df, cols2use = NULL, cols2ignore = NULL)
 
-\method{plot}{CapHist}(x, what = c("u", "f"), ...)
+\method{plot}{CapHist}(x, what = c("u", "f"), pch = 19, cex.pch = 0.7,
+  lwd = 1, ...)
 }
 \arguments{
 \item{df}{A data.frame that contains the capture histories (and, perhaps, other information) in \dQuote{individual} fish format.  See details.}
@@ -20,6 +21,12 @@ capHistSum(df, cols2use = NULL, cols2ignore = NULL)
 \item{x}{An object from \code{capHistSum}.}
 
 \item{what}{A string that indicates what type of diagnostic plot to construct with \code{plot}.  See details.}
+
+\item{pch}{A numeric that indicates the plotting character for the diagnostic plot.}
+
+\item{cex.pch}{A numeric that indicates the character expansion value for the plotting characters in the diagnostic plot.  The default is to be \dQuote{slightly smaller} (i.e., \code{cex.pch=0.7}).}
+
+\item{lwd}{A numeric that indicates the line width in the diagnostic plot.}
 
 \item{\dots}{Optional arguments to send to \code{plot}.}
 }

@@ -15,6 +15,9 @@
 #' @param cols2ignore A string or numeric vector that indicates columns in \code{df} that do not contain the capture histories and should be ignored.  Cannot use both \code{cols2use} and \code{col2ignore}.
 #' @param x An object from \code{capHistSum}.
 #' @param what A string that indicates what type of diagnostic plot to construct with \code{plot}.  See details.
+#' @param pch A numeric that indicates the plotting character for the diagnostic plot.
+#' @param cex.pch A numeric that indicates the character expansion value for the plotting characters in the diagnostic plot.  The default is to be \dQuote{slightly smaller} (i.e., \code{cex.pch=0.7}).
+#' @param lwd A numeric that indicates the line width in the diagnostic plot.
 #' @param \dots Optional arguments to send to \code{plot}.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
@@ -280,13 +283,13 @@ iMarray <- function(mb,smry) {
 
 #' @rdname capHistSum
 #' @export
-plot.CapHist <- function(x,what=c("u","f"),...) {
+plot.CapHist <- function(x,what=c("u","f"),pch=19,cex.pch=0.7,lwd=1,...) {
   opar <- par()
   what <- match.arg(what,several.ok=TRUE)
   tmp <- x$sum[,c("n","u","f")]
   t <- nrow(tmp)
   tmp$i <- 1:t
-  # scale the F variable
+  # scale the f variable
   tmp$sf <- log(tmp$f/choose(t,tmp$i))
   tmp$sf[which(tmp$f==0)] <- NA
   # log of the U variable
@@ -297,11 +300,18 @@ plot.CapHist <- function(x,what=c("u","f"),...) {
   # make the fi plot
   if ("f" %in% what) {
     tmp2 <- tmp[!is.na(tmp$sf),]
-    plot(sf~i,data=tmp2,ylab="log(scaled fi)",xlab="Number of Times Captured",type="b",pch=16,...)
+    lbl <- 
+    plot(sf~i,data=tmp2,type="l",lwd=lwd,
+         ylab=expression(paste("log(scaled",~~f[phantom(i)][i],phantom(i),")")),
+         xlab="Number of Times Captured",...)
+    points(sf~i,data=tmp2,pch=pch,cex=cex.pch)
   }
   # make the ui plot
   if ("u" %in% what) {
-    plot(su~i,data=tmp,ylab="log(ui)",xlab="Capture Event (i)",type="b",pch=16,...)
+    plot(su~i,data=tmp,type="l",lwd=lwd,
+         ylab=expression(paste("log(",phantom(i),u[phantom(i)][i],phantom(i),")")),
+         xlab="Capture Event (i)",...)
+    points(su~i,data=tmp,pch=pch,cex=cex.pch)
   }
   par(opar)
 }
