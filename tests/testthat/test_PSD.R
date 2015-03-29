@@ -151,7 +151,7 @@ test_that("Does psdCI results match Brenden et al. (2008) results",{
   colnames(mcis) <- c("Estimate","95% LCI","95% UCI")
   diff <- mcis-bpsd
   # Brenden's results were rounded, thus all should be within 0.5
-  expect_that(all(abs(diff)<=0.5),is_true())
+  expect_true(all(abs(diff)<=0.5))
 })
 
 test_that("Does psdCI results match Brenden et al. (2008) results",{
@@ -167,20 +167,20 @@ test_that("Does psdCI results match Brenden et al. (2008) results",{
   suppressWarnings(resXY <- psdCalc(~tl,data=df,species="Yellow Perch",what="incremental",digits=getOption("digits")))
   suppressWarnings(resX <- psdCalc(~tl,data=df,species="Yellow Perch",what="traditional",digits=getOption("digits")))
   ## Are lengths what you would expect
-  expect_that(nrow(resXY),equals(5))
-  expect_that(nrow(resX),equals(4))
+  expect_equal(nrow(resXY),5)
+  expect_equal(nrow(resX),4)
   ## Are values the same
-  expect_that(all(round(resXY[,"Estimate"]-psdXYs,7)==0),is_true())
-  expect_that(all(round(resX[,"Estimate"]-psdXs,7)==0),is_true())
+  expect_true(all(round(resXY[,"Estimate"]-psdXYs,7)==0))
+  expect_true(all(round(resX[,"Estimate"]-psdXs,7)==0))
   
   ## Do things still work if all sub-stock fish are removed
   tmp <- Subset(df,tl>=brks["stock"])
   suppressWarnings(resXY <- psdCalc(~tl,data=tmp,species="Yellow Perch",what="incremental",digits=getOption("digits")))
   suppressWarnings(resX <- psdCalc(~tl,data=tmp,species="Yellow Perch",what="traditional",digits=getOption("digits")))
-  expect_that(nrow(resXY),equals(5))
-  expect_that(nrow(resX),equals(4))
-  expect_that(all(round(resXY[,"Estimate"]-psdXYs,7)==0),is_true())
-  expect_that(all(round(resX[,"Estimate"]-psdXs,7)==0),is_true())
+  expect_equal(nrow(resXY),5)
+  expect_equal(nrow(resX),4)
+  expect_true(all(round(resXY[,"Estimate"]-psdXYs,7)==0))
+  expect_true(all(round(resX[,"Estimate"]-psdXs,7)==0))
   
   ## Do things still work if all sub-stock and stock fish are removed  
   psdXYs <- prop.table(freq[-c(1:2)])*100
@@ -189,10 +189,10 @@ test_that("Does psdCI results match Brenden et al. (2008) results",{
   tmp <- Subset(df,tl>=brks["quality"])
   suppressWarnings(resXY <- psdCalc(~tl,data=tmp,species="Yellow Perch",what="incremental",digits=getOption("digits")))
   suppressWarnings(resX <- psdCalc(~tl,data=tmp,species="Yellow Perch",what="traditional",digits=getOption("digits")))
-  expect_that(nrow(resXY),equals(4))  # no S-Q row
-  expect_that(nrow(resX),equals(4))   # all should be there
-  expect_that(all(round(resXY[,"Estimate"]-psdXYs,7)==0),is_true())
-  expect_that(all(round(resX[-1,"Estimate"]-psdXs,7)==0),is_true()) # psdXs does not have PSD-Q
+  expect_equal(nrow(resXY),4)  # no S-Q row
+  expect_equal(nrow(resX),4)   # all should be there
+  expect_true(all(round(resXY[,"Estimate"]-psdXYs,7)==0))
+  expect_true(all(round(resX[-1,"Estimate"]-psdXs,7)==0)) # psdXs does not have PSD-Q
   
   ## Do things still work if all trophy fish are removed  
   psdXYs <- prop.table(freq[-c(1,length(freq))])*100
@@ -201,10 +201,10 @@ test_that("Does psdCI results match Brenden et al. (2008) results",{
   tmp <- Subset(df,tl<brks["trophy"])
   suppressWarnings(resXY <- psdCalc(~tl,data=tmp,species="Yellow Perch",what="incremental",digits=getOption("digits")))
   suppressWarnings(resX <- psdCalc(~tl,data=tmp,species="Yellow Perch",what="traditional",digits=getOption("digits")))
-  expect_that(nrow(resXY),equals(4))  # no T- row
-  expect_that(nrow(resX),equals(3))   # no T row
-  expect_that(all(round(resXY[,"Estimate"]-psdXYs,7)==0),is_true())
-  expect_that(all(round(resX[,"Estimate"]-psdXs,7)==0),is_true())
+  expect_equal(nrow(resXY),4)  # no T- row
+  expect_equal(nrow(resX),3)   # no T row
+  expect_true(all(round(resXY[,"Estimate"]-psdXYs,7)==0))
+  expect_true(all(round(resX[,"Estimate"]-psdXs,7)==0))
 })
 
 test_that("Does manual calculation after psdAdd() equal psdCalc() results?",{
@@ -229,8 +229,8 @@ test_that("Does manual calculation after psdAdd() equal psdCalc() results?",{
   df <- Subset(df,PSDcat!="substock")
   res <- prop.table(xtabs(~species+PSDcat,data=df),margin=1)*100
   ## do PSD X-Y results match for two species
-  expect_that(all(round(res["Bluegill",1:3]-psdBG[3:5,"Estimate"],7)==0),is_true())
-  expect_that(all(round(res["Largemouth Bass",1:3]-psdLMB[3:5,"Estimate"],7)==0),is_true())  
+  expect_true(all(round(res["Bluegill",1:3]-psdBG[3:5,"Estimate"],7)==0))
+  expect_true(all(round(res["Largemouth Bass",1:3]-psdLMB[3:5,"Estimate"],7)==0))  
 })
 
 
