@@ -21,27 +21,27 @@ test_that("iCheckALK() errors and warnings",{
   ## one row does not sum to 1
   tmp <- alk
   tmp[2,2] <- 0.6  # sum >1
-  expect_that(FSA:::iCheckALK(tmp),gives_warning())
+  expect_warning(FSA:::iCheckALK(tmp))
   tmp[2,2] <- 0.1  # sum <1
-  expect_that(FSA:::iCheckALK(tmp),gives_warning())
+  expect_warning(FSA:::iCheckALK(tmp))
   ## table looks like frequencies, gives warning but converted to row proportions
   tmp <- 10*alk
-  expect_that(FSA:::iCheckALK(tmp),gives_warning())
+  expect_warning(FSA:::iCheckALK(tmp))
   ## table contains a row that sums to 0
   tmp <- alk
   tmp[2,] <- 0
   # give warning of this
-  expect_that(FSA:::iCheckALK(tmp),gives_warning())
+  expect_warning(FSA:::iCheckALK(tmp))
   # give warning that the row was removed
-  expect_that(FSA:::iCheckALK(tmp,remove0rows=TRUE),gives_warning())
+  expect_warning(FSA:::iCheckALK(tmp,remove0rows=TRUE))
   ## bad row names
   tmp <- alk
   rownames(tmp) <- paste0("Len",rownames(alk))
-  expect_that(FSA:::iCheckALK(tmp),throws_error())
+  expect_error(FSA:::iCheckALK(tmp))
   ## bad column names
   tmp <- alk
   colnames(tmp) <- paste0("Age",colnames(alk))
-  expect_that(FSA:::iCheckALK(tmp),throws_error())
+  expect_error(FSA:::iCheckALK(tmp))
 })  
 
 test_that("alkMeanVar() errors and warnings",{
@@ -51,19 +51,19 @@ test_that("alkMeanVar() errors and warnings",{
   WR79.age <- Subset(WR79,!is.na(age))
   alk <- prop.table(xtabs(~LCat+age,data=WR79.age),margin=1)
   ## bad key
-  expect_that(alkMeanVar(alk*10,len~LCat+age,WR79.age,len.n),gives_warning())
+  expect_warning(alkMeanVar(alk*10,len~LCat+age,WR79.age,len.n))
   ## bad len.n
   tmp <- len.n[-1]
-  expect_that(alkMeanVar(alk,len~LCat+age,WR79.age,tmp),throws_error())
+  expect_error(alkMeanVar(alk,len~LCat+age,WR79.age,tmp))
   ## bad formulas
   # no LHS
-  expect_that(alkMeanVar(alk,~LCat+age,WR79.age,len.n),throws_error())
+  expect_error(alkMeanVar(alk,~LCat+age,WR79.age,len.n))
   # factor on LHS
-  expect_that(alkMeanVar(alk,factor(len)~LCat+age,WR79.age,len.n),throws_error())
+  expect_error(alkMeanVar(alk,factor(len)~LCat+age,WR79.age,len.n))
   # only one variable on RHS
-  expect_that(alkMeanVar(alk,len~LCat,WR79.age,len.n),throws_error())
+  expect_error(alkMeanVar(alk,len~LCat,WR79.age,len.n))
   # three variables on RHS
-  expect_that(alkMeanVar(alk,len~LCat+age+ID,WR79.age,len.n),throws_error())
+  expect_error(alkMeanVar(alk,len~LCat+age+ID,WR79.age,len.n))
 })
 
 test_that("alkPlot() errors and warnings",{
@@ -81,8 +81,8 @@ test_that("alkPlot() errors and warnings",{
   ## one row is all zeroes
   tmp <- alk
   tmp[2,] <- 0
-  expect_that(alkPlot(tmp),gives_warning())
-  expect_that(alkPlot(tmp,type="area"),gives_warning())
+  expect_warning(alkPlot(tmp))
+  expect_warning(alkPlot(tmp,type="area"))
 })
 
 
@@ -103,7 +103,7 @@ test_that("Does 'seed=' work in alkIndivAge()",{
   suppressWarnings(sum1 <- Summarize(len~age,data=WR1.comb))
   suppressWarnings(sum2 <- Summarize(len~age,data=WR1.comb))
   diff <- sum1[,-1]-sum2[,-1]
-  expect_that(all(diff==0),is_true())
+  expect_true(all(diff==0))
 })
 
 test_that("Does same results are achieved when handling a missing row differently",{
@@ -132,8 +132,8 @@ test_that("Does same results are achieved when handling a missing row differentl
   ## Compare the different results
   diff12 <- sum1[,-1]-sum2[,-1]
   diff23 <- sum2[,-1]-sum3[,-1]
-  expect_that(all(diff12==0),is_true())
-  expect_that(all(diff23==0),is_true())  
+  expect_true(all(diff12==0))
+  expect_true(all(diff23==0))  
   
   ## Apply the different ALKs with alkAgeDist
   len.n1 <- xtabs(~LCat1,data=WR1)
@@ -148,8 +148,8 @@ test_that("Does same results are achieved when handling a missing row differentl
   ## Compare the different results
   diff12 <- sum1-sum2
   diff23 <- sum2-sum3
-  expect_that(all(diff12==0),is_true())
-  expect_that(all(diff23==0),is_true())  
+  expect_true(all(diff12==0))
+  expect_true(all(diff23==0))  
   
   ## Apply the different ALKs with alkMeanVar
   sum1 <- alkMeanVar(WR1.key1,len~LCat1+age,WR1.age,len.n1)
@@ -158,8 +158,8 @@ test_that("Does same results are achieved when handling a missing row differentl
   ## Compare the different results
   diff12 <- sum1-sum2
   diff23 <- sum2-sum3
-  expect_that(all(diff12==0),is_true())
-  expect_that(all(diff23==0),is_true())  
+  expect_true(all(diff12==0))
+  expect_true(all(diff23==0))  
   
   sum1 <- alkMeanVar(WR1.key1,len~LCat1+age,WR1.age,len.n1,method="QuinnDeriso")
   suppressWarnings(sum2 <- alkMeanVar(WR1.key2,len~LCat2+age,WR1.age,len.n2,method="QuinnDeriso"))
@@ -167,8 +167,8 @@ test_that("Does same results are achieved when handling a missing row differentl
   ## Compare the different results
   diff12 <- sum1-sum2
   diff23 <- sum2-sum3
-  expect_that(all(diff12==0),is_true())
-  expect_that(all(diff23==0),is_true())  
+  expect_true(all(diff12==0))
+  expect_true(all(diff23==0))  
 })
 
 
@@ -192,13 +192,13 @@ test_that("alkAgeDist() reproduces results from Table 8.4 (left) of Quinn and De
     
     ## Find difference in results
     diff <- tmp2[,-1]-tmp1[,-3]
-    expect_that(all(diff==0),is_true())
+    expect_true(all(diff==0))
     
     ## enter Q&D results as a guard against fishmethods changing
     props <- c(0.0003,0.0213,0.1624,0.0926,0.1533,0.1461,0.1260,0.0133,0.0277,0.0763,0.0298,0.0332,0.0162,0.1017)
     ses <- c(0.0003,0.0056,0.0157,0.0158,0.0185,0.0182,0.0150,0.0050,0.0074,0.0083,0.0047,0.0050,0.0031,0.0063)
-    expect_that(all(round(tmp2$prop,4)-props==0),is_true())
-    expect_that(all(round(tmp2$se,4)-ses==0),is_true())
+    expect_true(all(round(tmp2$prop,4)-props==0))
+    expect_true(all(round(tmp2$se,4)-ses==0))
   }
 })
 

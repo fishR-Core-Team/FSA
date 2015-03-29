@@ -104,7 +104,6 @@ chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Smithetal","Ho
   ## Isolate the ages and catches to be used
   # Find rows to use according to ages to use, adjust if missing values occur
   rows2use <- iCheck_ages2use(ages2use,age)
-  print(rows2use)
   # Create new vectors with just the data to use
   age.e <- age[rows2use]
   catch.e <- catch[rows2use]

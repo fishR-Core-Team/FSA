@@ -35,8 +35,8 @@ test_that("capHistConvert() errors and warnings",{
   expect_error(capHistConvert(ex1,in.type="event"))
   # no "freq" variable when converting from 'frequency', 'RMark' or 'MARK' to 'individual' formats
   expect_warning(capHistConvert(ex1.E2F,in.type="frequency"))
-  expect_error(capHistConvert(ex1.E2R,in.type="RMark"))   # should give a warning as well
+  expect_error(suppressWarnings(capHistConvert(ex1.E2R,in.type="RMark")))   # should give a warning as well
   expect_error(capHistConvert(ex1.E2R,in.type="RMark",id="fish",freq="fish"))
-  expect_error(capHistConvert(ex1.E2M,in.type="MARK"))    # should give a warning as well
+  expect_error(suppressWarnings(capHistConvert(ex1.E2M,in.type="MARK")))    # should give a warning as well
   
 })

@@ -1,4 +1,5 @@
 # FSA 0.6.3 ongoing
+* Some modifications to tests.
 
 
 # FSA 0.6.2 Mar15
