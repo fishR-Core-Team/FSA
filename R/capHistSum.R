@@ -302,8 +302,8 @@ plot.CapHist <- function(x,what=c("u","f"),pch=19,cex.pch=0.7,lwd=1,...) {
     tmp2 <- tmp[!is.na(tmp$sf),]
     lbl <- 
     plot(sf~i,data=tmp2,type="l",lwd=lwd,
-         ylab=expression(paste("log(scaled",~~f[phantom(i)][i],phantom(i),")")),
-         xlab="Number of Times Captured",...)
+         ylab=expression(paste("log(scaled",phantom(i),f[phantom(i)][j],phantom(i),")")),
+         xlab="Times Captured (j)",...)
     points(sf~i,data=tmp2,pch=pch,cex=cex.pch)
   }
   # make the ui plot
