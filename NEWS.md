@@ -1,4 +1,7 @@
-# FSA 0.6.3 ongoing
+# FSA 0.6.4 ongoing
+* Changed to using `LazyData: true`.
+
+# FSA 0.6.3 Apr15
 * Some modifications to tests.
 * `plot.capHist()`: Modified.  Changed default plot look which can now be controlled with `pch=`, `cex.pch=`, and `lwd=`.  Modified the two y-axis scales to use `plotmath` characters.
 
