@@ -1,5 +1,6 @@
 # FSA 0.6.4 ongoing
 * Changed to using `LazyData: true`.
+* `se()`: Added.  Removed `importFrom` of `se()` from `sciplot`.
 
 # FSA 0.6.3 Apr15
 * Some modifications to tests.

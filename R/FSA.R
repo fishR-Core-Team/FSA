@@ -27,6 +27,6 @@
 #' @importFrom multcomp cld
 #' @importFrom plotrix plotCI stackpoly thigmophobe
 #' @importFrom relax gslider
-#' @importFrom sciplot lineplot.CI se
+#' @importFrom sciplot lineplot.CI
 #' 
 NULL
