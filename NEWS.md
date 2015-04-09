@@ -1,4 +1,7 @@
 # FSA 0.6.4 ongoing
+* `iHndlCols2Use` (Intrnal Function): Modified.  Fixed bug with how the columns were selected.  Added a suite of tests for this function.  Thanks to Joseph Feldhous for pointing out this egregious error.
+
+# FSA 0.6.4 Apr15
 * Changed to using `LazyData: true`.
 * `se()`: Added.  Removed `importFrom` of `se()` from `sciplot`.
 

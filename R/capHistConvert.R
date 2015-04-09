@@ -243,7 +243,7 @@
 #' head(dip.R2I)
 #' tail(dip.R2I)
 #' 
-#' }
+#' } # end interactive
 #'
 #' @export
 capHistConvert <- function(df,cols2use=NULL,cols2ignore=NULL,

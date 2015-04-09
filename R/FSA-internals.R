@@ -122,18 +122,20 @@ iHndlCols2use <- function(df,cols2use,cols2ignore) {
     ## Handle cols2use
     if (!is.null(cols2use)) {
       ## Convert character column names to numeric
-      if (is.character(cols2use)) cols2use <- which(cols2use %in% names(df))
+      if (is.character(cols2use)) cols2use <- which(names(df) %in% cols2use)
     } else {
       ## Handle col2ignore
       ## convert character column names to numeric
-      if (is.character(cols2ignore)) cols2ignore <- which(cols2ignore %in% names(df))
+      if (is.character(cols2ignore)) cols2ignore <- which(names(df) %in% cols2ignore)
       ## Convert numeric col2ignore to negative if all are positive
       if (all(cols2ignore>0)) cols2ignore <- -cols2ignore
       ## put negative cols2ignore into cols2use
       cols2use <- cols2ignore
     }
     ## Return data.frame of only columns asked for
-    return(df[,cols2use])
+    res <- df[,cols2use,drop=FALSE]
+    if (ncol(res)==0) warning("Resultant data.frame contains no columns.",call.=FALSE)
+    return(res)
   }
 }
 
