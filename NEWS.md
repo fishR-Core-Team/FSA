@@ -1,5 +1,8 @@
 # FSA 0.6.5 ongoing
+* `capHistConvert()`: Modified.  Added a warning section and an example of problems that can occur if the data are in event format but the event variable contains unused levels as may occur following subsetting.  Thanks to Joseph Feldhaus for pointing out this problem.
+* `extraSS()`: Modified.  Changed algorithm to determine if the models were of the same class or not.  The modification allows a model to have multiple classes.
 * `iHndlCols2Use` (Intrnal Function): Modified.  Fixed bug with how the columns were selected.  Added a suite of tests for this function.  This will fix bugs in `capHistConvert()` and `capHistSum()`.  Thanks to Joseph Feldhaus for pointing out this egregious error.
+* `lrt()`: Modified.  Changed algorithm to determine if the models were of the same class or not.  The modification allows a model to have multiple classes.
 
 # FSA 0.6.4 Apr15
 * Changed to using `LazyData: true`.

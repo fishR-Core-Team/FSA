@@ -168,7 +168,12 @@ print.extraTest <- function(x,...) {
 #   stop with an error.  If so, then return the class type.
 # ============================================================
 iSameModelClass <- function(mdllist) {
-  tmp <- unique(unlist(lapply(mdllist,class)))
+  # an internal function that will collapse multiple classes
+  # into one string.  This allows this method to identify if
+  # models have the same class OR classes.
+  classp <- function(x) paste(class(x),collapse="")
+  # end internal function, start of main function
+  tmp <- unique(unlist(lapply(mdllist,classp)))
   if (length(tmp)>1) stop("All supplied models are not of the same class.",call.=FALSE)
   tmp
 }
