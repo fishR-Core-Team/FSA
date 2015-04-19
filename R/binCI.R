@@ -12,7 +12,7 @@
 #'
 #' Note that Agresti and Coull (2000) suggest that the Wilson interval is the preferred method and is, thus, the default \code{type}.
 #'
-#' @note This is primarily a wrapper function for \code{binconf} in the \pkg{Hmisc} package (this implementation uses arguments, specificially \code{conf.level}, that more closely match other functions).
+#' @note This is primarily a wrapper function for \code{\link[Hmisc]{binconf}} in the \pkg{Hmisc} package (this implementation uses arguments, specificially \code{conf.level}, that more closely match other functions).
 #'
 #' @param x A single or vector of numbers that contains the number of observed successes.
 #' @param n A single or vector of numbers that contains the sample size.
@@ -23,7 +23,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{binconf} in \pkg{Hmisc}, \code{bin.conf.int} in \pkg{epitools}, and \code{binom.conf.interval} in \pkg{UCS}.
+#' @seealso See \code{\link{binom.test}}, \code{\link[Hmisc]{binconf}} in \pkg{Hmisc}, \code{\link[epitools]{binom.conf.int}} in \pkg{epitools}, and functions in \pkg{binom}.
 #'
 #' @references Agresti, A. and B.A. Coull.  1998.  Approximate is better than \dQuote{exact} for interval estimation of binomial proportions.  American Statistician, 52:119-126.
 #'

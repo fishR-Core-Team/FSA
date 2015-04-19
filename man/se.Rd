@@ -35,7 +35,7 @@ se(x2)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-\code{se} in \pkg{sciplot}.
+See \code{\link[sciplot]{se}} in \pkg{sciplot} for similar functionality.
 }
 \keyword{manip}
 

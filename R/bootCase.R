@@ -1,6 +1,6 @@
 #' @title Associated S3 methods for bootCase from car.
 #'
-#' @description Provides S3 methods to construct non-parametric bootstrap confidence intervals, hypothesis tests, and plots of the parameter estimates for a \code{bootCase()} object (from the \pkg{car} package).
+#' @description Provides S3 methods to construct non-parametric bootstrap confidence intervals, hypothesis tests, and plots of the parameter estimates for a \code{\link[car]{bootCase}} object (from the \pkg{car} package).
 #'
 #' @details \code{confint} finds the two quantiles that have the (1-\code{conf.level})/2 proportion of bootstrapped parameter estimates below and above.  This is an approximate 100\code{conf.level}\% confidence interval.
 #'
@@ -38,7 +38,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{\link{bootCase}} in \pkg{car}.
+#' @seealso \code{\link[car]{bootCase}} in \pkg{car}.
 #'
 #' @references S. Weisberg (2005). \emph{Applied Linear Regression}, third edition.  New York: Wiley, Chapters 4 and 11.
 #' 

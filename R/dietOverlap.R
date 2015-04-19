@@ -31,7 +31,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso See \code{piankabio} in \pkg{pgirmess} for similar functionality.
+#' @seealso See \code{\link[pgirmess]{piankabio}} in \pkg{pgirmess} for similar functionality.
 #'
 #' @references
 #' Horn, H.S. 1966. Measurement of overlap in comparative ecological studies. American Naturalist 100:419-424.

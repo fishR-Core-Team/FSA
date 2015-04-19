@@ -1,6 +1,6 @@
 #' @title Construct a confidence interval from nlsBoot results.
 #'
-#' @description Constructs a non-parametric bootstrap confidence interval from an object of \code{nlsBoot()} (in the \pkg{nlstools} package) results.
+#' @description Constructs a non-parametric bootstrap confidence interval from an object of \code{\link[nlstools]{nlsBoot}} (from \pkg{nlstools}) results.
 #'
 #' @details This function finds the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped parameter estimates below and above.  This is an approximate 100\code{conf.level}\% confidence interval.
 #'
@@ -19,7 +19,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{\link{predict.nlsBoot}}, \code{summary.nlsBoot} in \pkg{nlstools}
+#' @seealso See \code{\link{predict.nlsBoot}} and \code{\link[nlstools]{summary.nlsBoot}} in \pkg{nlstools}
 #'
 #' @aliases confint.nlsboot
 #'

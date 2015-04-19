@@ -11,7 +11,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso See \code{pois.exact} in \pkg{epitools} for similar functionality.
+#' @seealso See \code{\link[epitools]{pois.exact}} in \pkg{epitools} for similar functionality.
 #'
 #' @references Garwood, F.  1936.  Fiducial limits for the Poisson distribution.  Biometrika.  28(3/4):437-442.
 #'

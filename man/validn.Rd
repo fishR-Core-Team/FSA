@@ -30,7 +30,7 @@ validn(junk4)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-See \code{valid.n} in \pkg{plotrix} and \code{nobs} in \pkg{gdata}.  See \code{is.na} for finding the missing values.
+See \code{\link[plotrix]{valid.n}} in \pkg{plotrix} and \code{\link[gdata]{nobs}} in \pkg{gdata} for similar functionality.  See \code{\link{is.na}} for finding the missing values.
 }
 \keyword{manip}
 

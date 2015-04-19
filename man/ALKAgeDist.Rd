@@ -36,7 +36,7 @@ The values in \code{lenA.n} are equal to what the row sums of \code{key} would h
 }
 
 \section{Tests}{
- The results from this function perfectly match the results in Table 8.4 (left) of Quinn and Deriso when using \code{data(SnapperHG2)} from \pkg{FSAdata}.  The results also perfectly match the results from using \code{alkprop} in \pkg{fishmethods}.
+ The results from this function perfectly match the results in Table 8.4 (left) of Quinn and Deriso with \code{\link[FSAdata]{SnapperHG2}} from \pkg{FSAdata}.  The results also perfectly match the results from using \code{\link[fishmethods]{alkprop}} in \pkg{fishmethods}.
 }
 \examples{
 ## Get data with length measurements and some assigned ages
@@ -69,7 +69,7 @@ Lai, H.-L.  1993.  Optimum sampling design for using the age-length key to estim
 Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages
 }
 \seealso{
-See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{alkprop} from \pkg{fishmethods} for the exact same methodology but with a different format for the inputs.
+See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{\link[fishmethods]{alkprop}} from \pkg{fishmethods} for the exact same methodology but with a different format for the inputs.
 }
 \keyword{manip}
 

@@ -9,7 +9,7 @@ filterD(.data, ...)
 \arguments{
 \item{.data}{A data frame.}
 
-\item{\dots}{further arguments to be passed to \code{filter} from \pkg{dplyr}.}
+\item{\dots}{further arguments to be passed to \code{\link[dplyr]{filter}} from \pkg{dplyr}.}
 }
 \value{
 A data frame with same variables as \code{.data}.
@@ -18,10 +18,10 @@ A data frame with same variables as \code{.data}.
 Filters a data frame and drops the unused levels.
 }
 \details{
-This function is equivalent to the combined usage of \code{filter} from \pkg{dplyr} and \code{droplevels}.
+This function is equivalent to the combined usage of \code{\link[dplyr]{filter}} from \pkg{dplyr} and \code{\link{droplevels}}.
 }
 \note{
-Newbie students using R expect that when a data.frame is filtered via a factor variable that any original levels that are no longer used after the filterting will be ignored.  This, however, is not the case and often results in tables with empty cells and figures with empty bars.  One remedy is to use \code{droplevels} immediately following \code{filter}.  This generally becomes a repetitive sequence; thus, \code{filterD} incorporates these two functions into one function.
+Newbie students using R expect that when a data.frame is filtered via a factor variable that any original levels that are no longer used after the filterting will be ignored.  This, however, is not the case and often results in tables with empty cells and figures with empty bars.  One remedy is to use \code{\link{droplevels}} immediately following \code{\link[dplyr]{filter}}.  This generally becomes a repetitive sequence; thus, \code{filterD} incorporates these two functions into one function.
 }
 \examples{
 ## The problem -- note use of unused level in the final table.
@@ -40,7 +40,7 @@ xtabs(~Species,data=tmp2)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-See also \code{subset} and \code{filter} in \pkg{dplyr}.
+See also \code{subset} and \code{\link[dplyr]{filter}} in \pkg{dplyr}.
 }
 \keyword{misc}
 

@@ -31,10 +31,10 @@ tictactoe(predobj = c(30, 70), preyobj = c(30, 70),
 None.  However, a graphic is produced.
 }
 \description{
-Construct a base tic-tac-toe plot for presenting predator-prey PSD values.  Predator-prey PSD values are added with \code{plotCI} from \pkg{plotrix}.
+Construct a base tic-tac-toe plot for presenting predator-prey PSD values.  Predator-prey PSD values are added with \code{\link[plotrix]{plotCI}} from \pkg{plotrix}.
 }
 \details{
-This function simply creates a base tic-tac-toe plot.  Observed values, with confidence intervals, are added to this plot with \code{plotCI} from \pkg{plotrix}; see examples.
+This function simply creates a base tic-tac-toe plot.  Observed values, with confidence intervals, are added to this plot with \code{\link[plotrix]{plotCI}} from \pkg{plotrix}; see examples.
 }
 \section{fishR vignette}{
  \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}

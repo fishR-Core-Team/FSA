@@ -125,7 +125,7 @@ Robson, D.S. and D.G. Chapman. 1961. Catch curves and mortality rates.  Transact
 Smith, M.W., A.Y. Then, C. Wor, G. Ralph, K.H. Pollock, and J.M. Hoenig. 2012. Recommendations for catch-curve analysis. North American Journal of Fisheries Management. 32:956-967.
 }
 \seealso{
-See \code{agesurv} in \pkg{fishmethods} for similar functionality.  See \code{\link{catchCurve}} and \code{agesurvcl} in \pkg{fishmethods} for alternative methods.  See \code{\link{metaM}} for empirical methods to estimate natural mortality.
+See \code{\link[fishmethods]{agesurv}} in \pkg{fishmethods} for similar functionality.  See \code{\link{catchCurve}} and \code{\link[fishmethods]{agesurvcl}} in \pkg{fishmethods} for alternative methods.  See \code{\link{metaM}} for empirical methods to estimate natural mortality.
 }
 \keyword{htest}
 \keyword{manip}

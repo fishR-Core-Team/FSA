@@ -9,7 +9,7 @@
 #'    \item \code{swvANOVA} is used to print \sQuote{pretty} ANOVA tables (i.e., some output removed (see below)).
 #'    \item \code{swvGLHT} is used to print \sQuote{pretty} multiple comparison tables (i.e., some output removed (see below)).
 #'    \item \code{swvREG} is used to print \sQuote{pretty} summary regression results (i.e., some output removed (see below)).
-#'    \item \code{swvHtest} is used to print \sQuote{pretty} hypothesis test (e.g., from \code{t.test} or \code{chisq.test}) tables (i.e., some output removed (see below)).
+#'    \item \code{swvHtest} is used to print \sQuote{pretty} hypothesis test (e.g., from \code{\link{t.test}} or \code{\link{chisq.test}}) tables (i.e., some output removed (see below)).
 #'    \item \code{swvCode} is used to create a modified (see below) Stangled or purled script.
 #'    \item \code{swvFinish} is used to print \sQuote{reproducibility information} for the document.
 #'  }
@@ -57,7 +57,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{formatC} in base R; \code{knit} in \pkg{knitr}; and \code{glht} in \pkg{multcomp}.
+#' @seealso See \code{\link{formatC}}, \code{\link[knitr]{knit}} in \pkg{knitr}, and \code{\link[multcomp]{glht}} in \pkg{multcomp} for related functionality.
 #'
 #' @keywords hplot models manip
 #'

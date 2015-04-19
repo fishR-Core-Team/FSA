@@ -8,7 +8,7 @@ popSizesPlot(object, use.log = FALSE, xlab = "Time",
   ylab = "Population Size", type = "l", lwd = 2, add = FALSE, ...)
 }
 \arguments{
-\item{object}{An object saved from \code{pop.projection()} from the \pkg{popbio} package.}
+\item{object}{An object saved from \code{\link[popbio]{pop.projection}} from the \pkg{popbio} package.}
 
 \item{use.log}{A logical that indicates if the population sizes should be logged before plotting.}
 
@@ -28,7 +28,7 @@ popSizesPlot(object, use.log = FALSE, xlab = "Time",
 A plot of either population sizes or log population sizes versus time.
 }
 \description{
-Constructs a plot of population size versus time from the projection of Leslie matrix using \code{pop.projection()} from the \pkg{popbio} package.
+Constructs a plot of population size versus time from the projection of Leslie matrix using \code{\link[popbio]{pop.projection}} from the \pkg{popbio} package.
 }
 \note{
 This function is meant to work with an object saved from \code{pop.projection()} in the \pkg{popbio} package.  It is not a general function for plotting population size versus time.
@@ -47,7 +47,7 @@ popSizesPlot(p)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-\code{pop.projection} and \code{stage.vectors.plot} in \pkg{popbio}.
+\code{\link[popbio]{pop.projection}} and \code{\link[popbio]{stage.vector.plot}} in \pkg{popbio}.
 }
 \keyword{hplot}
 

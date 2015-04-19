@@ -35,7 +35,7 @@
 A matrix with as many rows as columns (i.e., parameter estimates) in the \code{object$coefboot} data frame and two columns of the quantiles that correspond to the approximate confidence interval.
 }
 \description{
-Constructs a non-parametric bootstrap confidence interval from an object of \code{nlsBoot()} (in the \pkg{nlstools} package) results.
+Constructs a non-parametric bootstrap confidence interval from an object of \code{\link[nlstools]{nlsBoot}} (from \pkg{nlstools}) results.
 }
 \details{
 This function finds the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped parameter estimates below and above.  This is an approximate 100\code{conf.level}\% confidence interval.
@@ -53,7 +53,7 @@ if (interactive()) {
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-\code{\link{predict.nlsBoot}}, \code{summary.nlsBoot} in \pkg{nlstools}
+See \code{\link{predict.nlsBoot}} and \code{\link[nlstools]{summary.nlsBoot}} in \pkg{nlstools}
 }
 \keyword{htest}
 

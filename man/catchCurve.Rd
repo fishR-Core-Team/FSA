@@ -146,7 +146,7 @@ Maceina, M.J., and P.W. Bettoli.  1998.  Variation in largemouth bass recruitmen
 Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 }
 \seealso{
-See \code{agesurv} in \pkg{fishmethods} for similar functionality.  See \code{\link{chapmanRobson}} and \code{agesurvcl} in \pkg{fishmethods} for alternative methods to estimate mortality rates.  See \code{\link{metaM}} for empirical methods to estimate natural mortality.
+See \code{\link[fishmethods]{agesurv}} in \pkg{fishmethods} for similar functionality.  See \code{\link{chapmanRobson}} and \code{\link[fishmethods]{agesurvcl}} in \pkg{fishmethods} for alternative methods to estimate mortality rates.  See \code{\link{metaM}} for empirical methods to estimate natural mortality.
 }
 \keyword{hplot}
 \keyword{htest}

@@ -1,6 +1,6 @@
 #' @title Constructs a p-value for a bootstrapped hypothesis test using nlsBoot.
 #'
-#' @description Constructs a non-parametric bootstrap p-value from \code{nlsBoot()} (in the \pkg{nlstools} package) like results.
+#' @description Constructs a non-parametric bootstrap p-value from \code{\link[nlstools]{nlsBoot}} (from \pkg{nlstools}) results.
 #'
 #' @details The \dQuote{direction} of the alternative hypothesis is identified by a string in the \code{alt=} argument.  The strings may be \code{"less"} for a \dQuote{less than} alternative, \code{"greater"} for a \dQuote{greater than}
 #'alternative, or \code{"two.sided"} for a \dQuote{not equals} alternative (the DEFAULT).
@@ -18,7 +18,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{summary.nlsBoot} in \pkg{nlstools} and \code{\link{confint.nlsBoot}}.
+#' @seealso See \code{\link[nlstools]{summary.nlsBoot}} in \pkg{nlstools} and \code{\link{confint.nlsBoot}} for related functionality.
 #'
 #' @aliases htest htest.nlsBoot
 #'

@@ -6,7 +6,7 @@
 #'
 #' @return A single numeric value that is the number of non-\code{NA} values in a vector.
 #' 
-#' @seealso See \code{valid.n} in \pkg{plotrix} and \code{nobs} in \pkg{gdata}.  See \code{is.na} for finding the missing values.
+#' @seealso See \code{\link[plotrix]{valid.n}} in \pkg{plotrix} and \code{\link[gdata]{nobs}} in \pkg{gdata} for similar functionality.  See \code{\link{is.na}} for finding the missing values.
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 

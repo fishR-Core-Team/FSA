@@ -27,7 +27,7 @@ htest(object, ...)
 Returns a matrix with two columns.  The first column contains the hypothesized value sent to this function and the second column is the corresponding p-value.
 }
 \description{
-Constructs a non-parametric bootstrap p-value from \code{nlsBoot()} (in the \pkg{nlstools} package) like results.
+Constructs a non-parametric bootstrap p-value from \code{\link[nlstools]{nlsBoot}} (from \pkg{nlstools}) results.
 }
 \details{
 The \dQuote{direction} of the alternative hypothesis is identified by a string in the \code{alt=} argument.  The strings may be \code{"less"} for a \dQuote{less than} alternative, \code{"greater"} for a \dQuote{greater than}
@@ -50,7 +50,7 @@ htest(boo,"lag",50,alt="less")
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-\code{summary.nlsBoot} in \pkg{nlstools} and \code{\link{confint.nlsBoot}}.
+See \code{\link[nlstools]{summary.nlsBoot}} in \pkg{nlstools} and \code{\link{confint.nlsBoot}} for related functionality.
 }
 \keyword{htest}
 

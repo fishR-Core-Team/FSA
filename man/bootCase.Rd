@@ -71,7 +71,7 @@
 \code{predict} applies a user-supplied function to each row of \code{object} and then finds the median and the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped predictions below and above.  The median is returned as the predicted value and the quantiles are returned as an approximate 100\code{conf.level}\% confidence interval for that prediction.
 }
 \description{
-Provides S3 methods to construct non-parametric bootstrap confidence intervals, hypothesis tests, and plots of the parameter estimates for a \code{bootCase()} object (from the \pkg{car} package).
+Provides S3 methods to construct non-parametric bootstrap confidence intervals, hypothesis tests, and plots of the parameter estimates for a \code{\link[car]{bootCase}} object (from the \pkg{car} package).
 }
 \details{
 \code{confint} finds the two quantiles that have the (1-\code{conf.level})/2 proportion of bootstrapped parameter estimates below and above.  This is an approximate 100\code{conf.level}\% confidence interval.
@@ -106,7 +106,7 @@ Derek H. Ogle, \email{dogle@northland.edu}
 S. Weisberg (2005). \emph{Applied Linear Regression}, third edition.  New York: Wiley, Chapters 4 and 11.
 }
 \seealso{
-\code{\link{bootCase}} in \pkg{car}.
+\code{\link[car]{bootCase}} in \pkg{car}.
 }
 \keyword{htest}
 

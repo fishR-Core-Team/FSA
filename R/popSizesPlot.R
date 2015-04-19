@@ -1,10 +1,10 @@
 #' @title Constructs a plot of population size versus time from the projection of Leslie matrix.
 #'
-#' @description Constructs a plot of population size versus time from the projection of Leslie matrix using \code{pop.projection()} from the \pkg{popbio} package.
+#' @description Constructs a plot of population size versus time from the projection of Leslie matrix using \code{\link[popbio]{pop.projection}} from the \pkg{popbio} package.
 #'
 #' @note This function is meant to work with an object saved from \code{pop.projection()} in the \pkg{popbio} package.  It is not a general function for plotting population size versus time.
 #'
-#' @param object An object saved from \code{pop.projection()} from the \pkg{popbio} package.
+#' @param object An object saved from \code{\link[popbio]{pop.projection}} from the \pkg{popbio} package.
 #' @param use.log A logical that indicates if the population sizes should be logged before plotting.
 #' @param xlab A string for labelling the x-axis.
 #' @param ylab A string for labelling the y-axis.
@@ -17,7 +17,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{pop.projection} and \code{stage.vectors.plot} in \pkg{popbio}.
+#' @seealso \code{\link[popbio]{pop.projection}} and \code{\link[popbio]{stage.vector.plot}} in \pkg{popbio}.
 #'
 #' @keywords hplot
 #'

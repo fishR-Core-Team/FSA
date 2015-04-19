@@ -48,15 +48,15 @@ Dunn's method can be described in the following way.  To compare groups i and j,
 \note{
 There are a number of functions in other packages that purport to do similar analyses.
 
-The \code{dunn.test} function in \pkg{dunn.test} performs the same calculations but does not use formula notation, does not produce two-sided p-values, and prints results automatically and in a format that I consider cumbersome.  It does, however, provide a few more methods for controlling the experimentwise error rate.  The results from \code{dunnTest} match those from \code{dunn.test} (if the p-values are adjusted to be two-sided) for the Bonferroni method and for some but not all p-values for the Holm, Hochberg, Benjamini-Hochberg, and Benjamini-Yekuteili methods.  Most differences are very slight.  The author of \code{dunn.test} says that the difference is due to \code{dunn.test} utilizing the order of the p-values where \code{p.adjust} does not.
+The \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test} performs the same calculations but does not use formula notation, does not produce two-sided p-values, and prints results automatically and in a format that I consider cumbersome.  It does, however, provide a few more methods for controlling the experimentwise error rate.  The results from \code{dunnTest} match those from \code{dunn.test} (if the p-values are adjusted to be two-sided) for the Bonferroni method and for some but not all p-values for the Holm, Hochberg, Benjamini-Hochberg, and Benjamini-Yekuteili methods.  Most differences are very slight.  The author of \code{dunn.test} says that the difference is due to \code{dunn.test} utilizing the order of the p-values where \code{p.adjust} does not.
 
-The \code{pairw.kw} function from the \pkg{asbio} package performs the Dunn test with the Bonferroni correction.  The p-value results from \code{DunnTest} match the results from \code{pairw.kw}.  The \code{pairw.kw} also provides a confidence interval for the difference in mean ranks between pairs of groups.
+The \code{\link[asbio]{pairw.kw}} function from the \pkg{asbio} package performs the Dunn test with the Bonferroni correction.  The p-value results from \code{DunnTest} match the results from \code{pairw.kw}.  The \code{pairw.kw} also provides a confidence interval for the difference in mean ranks between pairs of groups.
 
-The \code{posthoc.kruskal.nemenyi.test} function from the \pkg{PMCMR} package uses the \dQuote{Nemenyi} (1963) method of multiple comparisons.
+The \code{\link[PMCMR]{posthoc.kruskal.nemenyi.test}} function from the \pkg{PMCMR} package uses the \dQuote{Nemenyi} (1963) method of multiple comparisons.
 
-The \code{kruskalmc} function from the \pkg{pgirmess} package uses the method described by Siegel and Castellan (1988).
+The \code{\link[pgirmess]{kruskalmc}} function from the \pkg{pgirmess} package uses the method described by Siegel and Castellan (1988).
 
-It is not clear which method the \code{kruskal} function from the \pkg{agricolae} package uses.  It does not seem to output p-values but it does allow for a wide variety of methods to control the experimentise error rate.
+It is not clear which method the \code{\link[agricolae]{kruskal}} function from the \pkg{agricolae} package uses.  It does not seem to output p-values but it does allow for a wide variety of methods to control the experimentise error rate.
 }
 \examples{
 ## pH in four ponds data from Zar (2010)
@@ -79,12 +79,12 @@ dunnTest(pH~pond,data=ponds,method="BH")
 dunnTest(pH~pond,data=ponds,method="none")
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}, but learned a lot from \code{dunn.test} in \pkg{dunn.test}.
+Derek H. Ogle, \email{dogle@northland.edu}, but learned a lot from \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test}.
 }
 \references{
 Dunn, O.J. 1964. Multiple comparisons using rank sums. Technometrics 6:241-252.
 }
 \seealso{
-See \code{kruskal.test} and \code{dunn.test} in \pkg{dunn.test}, \code{posthoc.kruskal.nemenyi.test} in \pkg{PMCMR}, \code{kruskalmc} in \pkg{pgirmess}, and \code{kruskal} in \pkg{agricolae}.
+See \code{\link{kruskal.test}} and \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test}, \code{\link[PMCMR]{posthoc.kruskal.nemenyi.test}} in \pkg{PMCMR}, \code{\link[pgirmess]{kruskalmc}} in \pkg{pgirmess}, and \code{\link[agricolae]{kruskal}} in \pkg{agricolae}.
 }
 

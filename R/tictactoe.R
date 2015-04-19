@@ -1,8 +1,8 @@
 #' @title Construct a base tic-tac-toe plot for presenting predator-prey PSD values.
 #'
-#' @description Construct a base tic-tac-toe plot for presenting predator-prey PSD values.  Predator-prey PSD values are added with \code{plotCI} from \pkg{plotrix}.
+#' @description Construct a base tic-tac-toe plot for presenting predator-prey PSD values.  Predator-prey PSD values are added with \code{\link[plotrix]{plotCI}} from \pkg{plotrix}.
 #'
-#' @details This function simply creates a base tic-tac-toe plot.  Observed values, with confidence intervals, are added to this plot with \code{plotCI} from \pkg{plotrix}; see examples.
+#' @details This function simply creates a base tic-tac-toe plot.  Observed values, with confidence intervals, are added to this plot with \code{\link[plotrix]{plotCI}} from \pkg{plotrix}; see examples.
 #'
 #' @param predobj A vector of length 2 that contains the target objective range for the predator.
 #' @param preyobj A vector of length 2 that contains the target objective range for the prey.

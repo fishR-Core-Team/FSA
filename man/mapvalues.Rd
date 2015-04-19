@@ -21,7 +21,7 @@ Item in \code{x} that match items \code{from} will be replaced by items in \code
 \details{
 If \code{x} is a factor, the matching levels of the factor will be replaced with the new values.
 
-This is the EXACT SAME FUNCTION AS IN THE plyr PACKAGE.  I included it here to minimize conflicts between same-named functions in \pkg{dplyr} and \pkg{plyr}.
+This is the EXACT SAME FUNCTION AS IN THE \pkg{plyr} PACKAGE.  I included it here to minimize conflicts between same-named functions in \pkg{dplyr} and \pkg{plyr}.
 }
 \examples{
 ## Examples from plyr
@@ -51,6 +51,6 @@ df$species1 <- mapvalues(df$species,from=c("BLUEGILL","LMB"),to=c("Bluegill","La
 xtabs(~species+species1,data=df)
 }
 \seealso{
-See \code{mapvalues} in \pkg{plyr} for the EXACT SAME FUNCTION.  See \code{revalue} in \pkg{plyr} to do the same thing but with a single named vector instead of two separate vectors.
+See \code{\link[plyr]{mapvalues}} in \pkg{plyr} for the EXACT SAME FUNCTION.  See \code{\link[plyr]{revalue}} in \pkg{plyr} to do the same thing but with a single named vector instead of two separate vectors.
 }
 

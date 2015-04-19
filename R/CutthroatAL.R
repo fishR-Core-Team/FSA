@@ -31,7 +31,7 @@
 #' 
 #' @concept Abundance 'Population Size' 'Mark-Recapture' 'Jolly-Seber' 'Capture History'
 #' 
-#' @source Entered from Appendix A.3 of Harding, R.D., C.L. Hoover, and R.P. Marshall. 2010.  \href{http://www.sf.adfg.state.ak.us/FedAidPDFs/FDS10-82.pdf}{Abundance of Cutthroat Trout in Auke Lake, Southeast Alaska, in 2005 and 2006}.  Alaska Department of Fish and Game Fisheries Data Series No. 10-82 into \dQuote{RMark} format (see \code{CutthroatALf} in \pkg{FSAdata}) and then converted to individual format with \code{\link{capHistConvert}}.
+#' @source Entered from Appendix A.3 of Harding, R.D., C.L. Hoover, and R.P. Marshall. 2010.  \href{http://www.sf.adfg.state.ak.us/FedAidPDFs/FDS10-82.pdf}{Abundance of Cutthroat Trout in Auke Lake, Southeast Alaska, in 2005 and 2006}.  Alaska Department of Fish and Game Fisheries Data Series No. 10-82 into \dQuote{RMark} format (see \code{\link[FSAdata]{CutthroatALf}} in \pkg{FSAdata}) and then converted to individual format with \code{\link{capHistConvert}}.
 #' 
 #' @seealso See \code{\link{mrOpen}} for an example analysis.
 #' 

@@ -1,5 +1,6 @@
 # FSA 0.6.10 ongoing
 * Compiling under R 3.2.0.
+* Added some cross-reference links to help files.
 
 # FSA 0.6.5 Apr15
 * Last version for submission of first draft of Introductory Fisheries Analyses with R.

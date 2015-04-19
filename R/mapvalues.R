@@ -4,14 +4,14 @@
 #'
 #' If \code{x} is a factor, the matching levels of the factor will be replaced with the new values.
 #'
-#' This is the EXACT SAME FUNCTION AS IN THE plyr PACKAGE.  I included it here to minimize conflicts between same-named functions in \pkg{dplyr} and \pkg{plyr}.
+#' This is the EXACT SAME FUNCTION AS IN THE \pkg{plyr} PACKAGE.  I included it here to minimize conflicts between same-named functions in \pkg{dplyr} and \pkg{plyr}.
 #'
 #' @param x the factor or vector to modify
 #' @param from a vector of the items to replace
 #' @param to a vector of replacement values
 #' @param warn_missing print a message if any of the old values are not actually present in \code{x}
 #'
-#' @seealso See \code{mapvalues} in \pkg{plyr} for the EXACT SAME FUNCTION.  See \code{revalue} in \pkg{plyr} to do the same thing but with a single named vector instead of two separate vectors.
+#' @seealso See \code{\link[plyr]{mapvalues}} in \pkg{plyr} for the EXACT SAME FUNCTION.  See \code{\link[plyr]{revalue}} in \pkg{plyr} to do the same thing but with a single named vector instead of two separate vectors.
 #' 
 #' @export
 #' 

@@ -37,7 +37,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}, but this implementation is largely a modification of the code provided by Marc Schwartz on the R-help mailing list on 1Jun07.
 #'
-#' @seealso See base \code{hist} for related functionality and \code{multhist} in \pkg{plotrix} for similar functionality.
+#' @seealso See base \code{\link{hist}} for related functionality and \code{\link[plotrix]{multhist}} in \pkg{plotrix} for similar functionality.
 #'
 #' @keywords hplot
 #'

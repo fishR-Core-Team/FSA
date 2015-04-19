@@ -9,7 +9,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{se} in \pkg{sciplot}.
+#' @seealso See \code{\link[sciplot]{se}} in \pkg{sciplot} for similar functionality.
 #'
 #' @keywords manip
 #'

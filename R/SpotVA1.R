@@ -22,7 +22,7 @@
 #'
 #' @concept Growth 'von Bertalanffy'
 #'
-#' @seealso \code{SpotVA2} in \pkg{FSAdata}.
+#' @seealso See \code{\link[FSAdata]{SpotVA2}} in \pkg{FSAdata} for related data.
 #'
 #' @source Extracted from Table 1 in Chapter 8 (Spot) of the VMRC Final Report on Finfish Ageing, 2002 by the \href{http://ww2.odu.edu/sci/cqfe/}{Center for Quantitative Fisheries Ecology} at Old Dominion University.
 #'

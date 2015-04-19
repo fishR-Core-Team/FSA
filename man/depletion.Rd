@@ -100,7 +100,7 @@ Standard errors for the catchability and population size estimates are computed 
 }
 
 \section{testing}{
-  The Leslie method without the Ricker modification and the DeLury method with the Ricker modification matches the results from \code{deplet} in \pkg{fishmethods} for the \code{darter} (from \pkg{fishmethods}), \code{LobsterPEI} and \code{BlueCrab} from \pkg{FSAdata}, and \code{\link{SMBassLS}} for N0 to whole numbers, the SE for No to one decimal, q to seven decimals, and the SE of q to at least five decimals.
+  The Leslie method without the Ricker modification and the DeLury method with the Ricker modification matches the results from \code{\link[fishmethods]{deplet}} in \pkg{fishmethods} for the \code{\link[fishmethods]{darter}} (from \pkg{fishmethods}), \code{\link[FSAdata]{LobsterPEI}} and \code{\link[FSAdata]{BlueCrab}} from \pkg{FSAdata}, and \code{\link{SMBassLS}} for N0 to whole numbers, the SE for No to one decimal, q to seven decimals, and the SE of q to at least five decimals.
 
 The Leslie method matches the results of Seber (2002) for N0, q, and the CI for Q but not the CI for N (which was so far off that it might be that Seber's result is incorrect) for the lobster data and the q and CI for q but the NO or its CI (likely due to lots of rounding in Seber 2002) for the Blue Crab data.
 
@@ -150,7 +150,7 @@ Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation 
 Seber, G.A.F. 2002. The Estimation of Animal Abundance. Edward Arnold, Second edition (reprinted).
 }
 \seealso{
-See \code{\link{removal}} for other depletion methods and \code{deplet} in \pkg{fishmethods} for similar functionality.
+See \code{\link{removal}} for other depletion methods and \code{\link[fishmethods]{deplet}} in \pkg{fishmethods} for similar functionality.
 }
 \keyword{hplot}
 \keyword{manip}

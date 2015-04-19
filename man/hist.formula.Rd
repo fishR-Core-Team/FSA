@@ -103,7 +103,7 @@ hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",xlim=c(3.8,8.2),ylim=c(0,3
 Derek H. Ogle, \email{dogle@northland.edu}, but this implementation is largely a modification of the code provided by Marc Schwartz on the R-help mailing list on 1Jun07.
 }
 \seealso{
-See base \code{hist} for related functionality and \code{multhist} in \pkg{plotrix} for similar functionality.
+See base \code{\link{hist}} for related functionality and \code{\link[plotrix]{multhist}} in \pkg{plotrix} for similar functionality.
 }
 \keyword{hplot}
 

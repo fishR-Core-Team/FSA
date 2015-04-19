@@ -143,7 +143,7 @@ Schoener, T.W. 1970. Nonsynchronous spatial overlap of lizards in patchy habitat
 Smith, E.P. and T.M. Zaret.  1982.  Bias in estimating niche overlap.  Ecology 63:1248-1253.
 }
 \seealso{
-See \code{piankabio} in \pkg{pgirmess} for similar functionality.
+See \code{\link[pgirmess]{piankabio}} in \pkg{pgirmess} for similar functionality.
 }
 \keyword{manip}
 

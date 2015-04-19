@@ -92,7 +92,7 @@ fitPlot(object, ...)
 
 \item{type}{The type of graphic to construct in a one-way and two-way ANOVA.  If \code{"b"} then points are plotted and lines are used to connect points (DEFAULT).  If \code{"p"} then only points are used and if \code{"l"} then only lines are drawn.}
 
-\item{ci.fun}{A function used to put error bars on the one-way or two-way ANOVA graphs.  The default is to use the internal \code{iCIfp} function which will place t-distribution based confidence intervals on the graph.  The user can provide alternative functions that may plot other types of \sQuote{error bars}.  See examples in \code{lineplot.CI} function of \pkg{sciplot} package.}
+\item{ci.fun}{A function used to put error bars on the one-way or two-way ANOVA graphs.  The default is to use the internal \code{iCIfp} function which will place t-distribution based confidence intervals on the graph.  The user can provide alternative functions that may plot other types of \sQuote{error bars}.  See examples in \code{\link[sciplot]{lineplot.CI}} function of \pkg{sciplot} package.}
 
 \item{col.ci}{A vector of color names or numbers or the name of a palette (see details) that indicates what colors to use for the confidence interval bars in one-way and two-way ANOVAs.}
 
@@ -219,7 +219,7 @@ fitPlot(glm1)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-\code{abline} in \pkg{graphics}; \code{reg.line} in \pkg{car}; \code{plotmeans} in \pkg{gplots}; \code{plotMeans} in \pkg{Rcmdr}; \code{interaction.plot} in \pkg{stats}; \code{lineplot.CI} in \pkg{sciplot}; and \code{\link{residPlot}}.
+See \code{\link{abline}}, \code{\link[car]{regLine}} in \pkg{car}, \code{\link[gplots]{plotmeans}} in \pkg{gplots}, \code{\link[psych]{error.bars}} in \pkg{psych}, \code{\link[Rcmdr]{plotMeans}} in \pkg{Rcmdr}, \code{interaction.plot}, and \code{\link[sciplot]{lineplot.CI}} in \pkg{sciplot} for similar functionality. See \code{\link{residPlot}} for related functionality.
 }
 \keyword{hplot}
 \keyword{models}

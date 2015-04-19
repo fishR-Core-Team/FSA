@@ -1,6 +1,6 @@
 #' @title Constructs a prediction and confidence interval from nlsBoot results.
 #'
-#' @description Constructs a non-parametric bootstrap prediction with confidence interval from \code{nlsBoot()} (in the \pkg{nlstools} package) like results.
+#' @description Constructs a non-parametric bootstrap prediction with confidence interval from \code{\link[nlstools]{nlsBoot}} (from \pkg{nlstools}) results.
 #'
 #' @details This function applies a user-supplied function to each row of the \code{coefBoot} object in a \code{nlsBoot} object and then finds the median and the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped predictions below and above.  The median is returned as the predicted value and the quantiles are returned as an approximate 100\code{conf.level}\% confidence interval for that prediction.
 #'
@@ -17,7 +17,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{\link{confint.nlsBoot}}, \code{summary.nlsBoot} in \pkg{nlstools}
+#' @seealso See \code{\link{confint.nlsBoot}} and \code{\link[nlstools]{summary.nlsBoot}} in \pkg{nlstools} for related functionality.
 #'
 #' @keywords htest
 #'

@@ -36,7 +36,7 @@ Ulm, K.  1990.  A simple method to calculate the confidence interval of a standa
 vand der Gulden, J.W.J. and A.L.M. Verbeck.  1992.  Re: \dQuote{A simple method to calculate the confidence interval of a standardized mortality ratio (SMR)}.  American Journal of Epidemiology 136(9):1170-1171.
 }
 \seealso{
-See \code{pois.exact} in \pkg{epitools} for similar functionality.
+See \code{\link[epitools]{pois.exact}} in \pkg{epitools} for similar functionality.
 }
 \keyword{htest}
 

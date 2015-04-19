@@ -25,7 +25,7 @@
 #'
 #' @seealso  See \code{\link{alkPlot}} for methods to visualize age-length keys and \code{\link{alkPrep}} for methods to prepare ill-formed age-length keys (e.g., length intervals with no aged fish) for this function.
 #' 
-#' See \code{alk} and \code{alkprop} in \pkg{fishmethods} and the entire \pkg{ALKr} package for functionality with a similar purpose but different methodology.
+#' See \code{\link[fishmethods]{alk}} and \code{\link[fishmethods]{alkprop}} in \pkg{fishmethods} and the entire \pkg{ALKr} package for functionality with a similar purpose but different methodology.
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeLengthKey.pdf}
 #'

@@ -29,7 +29,7 @@
 #' @param main a string for the main label to the plot.  Defaults to the model call.
 #' @param legend Controls use and placement of the legend.  See details.
 #' @param type The type of graphic to construct in a one-way and two-way ANOVA.  If \code{"b"} then points are plotted and lines are used to connect points (DEFAULT).  If \code{"p"} then only points are used and if \code{"l"} then only lines are drawn.
-#' @param ci.fun A function used to put error bars on the one-way or two-way ANOVA graphs.  The default is to use the internal \code{iCIfp} function which will place t-distribution based confidence intervals on the graph.  The user can provide alternative functions that may plot other types of \sQuote{error bars}.  See examples in \code{lineplot.CI} function of \pkg{sciplot} package.
+#' @param ci.fun A function used to put error bars on the one-way or two-way ANOVA graphs.  The default is to use the internal \code{iCIfp} function which will place t-distribution based confidence intervals on the graph.  The user can provide alternative functions that may plot other types of \sQuote{error bars}.  See examples in \code{\link[sciplot]{lineplot.CI}} function of \pkg{sciplot} package.
 #' @param col.ci A vector of color names or numbers or the name of a palette (see details) that indicates what colors to use for the confidence interval bars in one-way and two-way ANOVAs.
 #' @param which A character string listing the factor in the two-way ANOVA for which the means should be calculated and plotted.  This argument is used to indicate for which factor a main effects plot should be constructed.  If left missing then an interaction plot is constructed.
 #' @param change.order A logical that is used to change the order of the factors in the \code{lm} object.  This is used to change which factor is plotted on the x-axis and which is used to connect the means when constructing an interaction plot (ignored if \code{which} is used).
@@ -55,7 +55,7 @@
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
-#' @seealso \code{abline} in \pkg{graphics}; \code{reg.line} in \pkg{car}; \code{plotmeans} in \pkg{gplots}; \code{plotMeans} in \pkg{Rcmdr}; \code{interaction.plot} in \pkg{stats}; \code{lineplot.CI} in \pkg{sciplot}; and \code{\link{residPlot}}.
+#' @seealso See \code{\link{abline}}, \code{\link[car]{regLine}} in \pkg{car}, \code{\link[gplots]{plotmeans}} in \pkg{gplots}, \code{\link[psych]{error.bars}} in \pkg{psych}, \code{\link[Rcmdr]{plotMeans}} in \pkg{Rcmdr}, \code{interaction.plot}, and \code{\link[sciplot]{lineplot.CI}} in \pkg{sciplot} for similar functionality. See \code{\link{residPlot}} for related functionality.
 #' 
 #' @keywords hplot models
 #' 

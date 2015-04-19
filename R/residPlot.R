@@ -4,7 +4,7 @@
 #'
 #' @details If the user chooses to add a legend without identifying coordinates for the upper-left corner of the legend (i.e., \code{legend=TRUE}) then the R console is suspended until the user places the legend by clicking on the produced graphic at the point where the upper-left corner of the legend should appear.  A legend will only be placed if the \code{mdl} is an indicator variable regression, even if \code{legend=TRUE}.
 #'
-#' If \code{outlier.test=TRUE} then significant outliers are detected with \code{outlierTest()} from the \pkg{car} package.  See the help for this function for more details.
+#' If \code{outlier.test=TRUE} then significant outliers are detected with \code{\link[car]{outlierTest}} from the \pkg{car} package.  See the help for this function for more details.
 #'
 #' @note This function is meant to allow newbie students the ability to easily construct residual plots for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions.  The plots can be constructed by submitting a saved linear model to this function which allows students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
 #'
@@ -36,7 +36,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso See \code{residualPlots} in \pkg{car} for similar functionality and \code{\link{fitPlot}} and \code{outlierTest} in \pkg{car} for related methods.
+#' @seealso See \code{\link[car]{residualPlots}} in \pkg{car} for similar functionality and \code{\link{fitPlot}} and \code{\link[car]{outlierTest}} in \pkg{car} for related methods.
 #'
 #' @keywords hplot models
 #'

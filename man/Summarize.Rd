@@ -115,7 +115,7 @@ lapply(as.list(df),Summarize,digits=4)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-\code{summary}, \code{table}, \code{tapply}, \code{summaryBy} in \pkg{doBy}, \code{describe} in \pkg{psych}, \code{describe} in \pkg{prettyR}, and \code{basicStats} in \pkg{fBasics}.
+See \code{\link{summary}}, \code{\link{table}}, and \code{\link{xtabs}} for related functionality.  See \code{\link{tapply}}, \code{\link[doBy]{summaryBy}} in \pkg{doBy}, \code{\link[psych]{describe}} in \pkg{psych}, \code{\link[prettyR]{describe}} in \pkg{prettyR}, and \code{\link[fBasics]{basicStats}} in \pkg{fBasics} for similar functionality.
 }
 \keyword{misc}
 
