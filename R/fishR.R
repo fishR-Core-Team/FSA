@@ -15,6 +15,7 @@
 #' if (interactive()) {
 #' 
 #' fishR()            # home page
+#' fishR("IFAR")      # Introduction to Fisheries Analysis with R page
 #' fishR("general")   # general vignettes page
 #' fishR("books")     # books vignettes page
 #' fishR("AIFFD")     # Analysis & Interpretation of Freshwater Fisheries Data page
@@ -23,13 +24,16 @@
 #' } ## END IF INTERACTIVE MODE
 #' 
 #' @export
-fishR <- function(where=c("home","general","books","AIFFD","posts","news")) {
+fishR <- function(where=c("home","IFAR","general","books","AIFFD","posts","news")) {
   where <- match.arg(where)
+  tmp <- "http://fishr.wordpress.com"
   switch(where,
-    home={browseURL("http://fishr.wordpress.com")},
-    general={browseURL("http://fishr.wordpress.com/vignettes/")},
-    books={browseURL("http://fishr.wordpress.com/books/")},
-    AIFFD={browseURL("http://fishr.wordpress.com/books/aiffd/")},
-    posts={browseURL("http://fishr.wordpress.com/news/")}
+    home=   { tmp <- tmp },
+    IFAR=   { tmp <- paste0(tmp,"/ifar/") },
+    general={ tmp <- paste0(tmp,"/vignettes/") },
+    books=  { tmp <- paste0(tmp,"/books/") },
+    AIFFD=  { tmp <- paste0(tmp,"/books/aiffd/") },
+    posts=  { tmp <- paste0(tmp,"/news/") }
   )
+  browseURL(tmp)
 }
