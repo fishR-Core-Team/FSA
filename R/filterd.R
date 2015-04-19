@@ -6,8 +6,6 @@
 #'
 #' @note Newbie students using R expect that when a data.frame is filtered via a factor variable that any original levels that are no longer used after the filterting will be ignored.  This, however, is not the case and often results in tables with empty cells and figures with empty bars.  One remedy is to use \code{\link{droplevels}} immediately following \code{\link[dplyr]{filter}}.  This generally becomes a repetitive sequence; thus, \code{filterD} incorporates these two functions into one function.
 #'
-#' @aliases filterD
-#'
 #' @param .data A data frame.
 #' @param \dots further arguments to be passed to \code{\link[dplyr]{filter}} from \pkg{dplyr}.
 #'

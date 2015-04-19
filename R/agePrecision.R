@@ -17,8 +17,6 @@
 #'
 #' If \code{what="detail"} is used in \code{summary} then a data frame of the original \code{data} along with the intermediate caculations of the average age, standard deviation of age, APE, and ACV for each individual will be printed.  These details are generally only used to check or to understand calculations.
 #' 
-#' @section Testing: Tested all precision results against published results in Herbst and Marsden (2011) for the \code{\link{WhitefishLC}} data and the results for the \code{\link[FSAdata]{AlewifeLH}} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
-#' 
 #' @param formula A formula of the form \code{~var1+var2+var3+...} or, alternatively, \code{var1~var2+var3+...}, where the \code{varX} generically represent the variables that contain the age assignments.  The alternative formula allows for similar code as used in \code{\link{ageBias}} and can have only one variable on the left-hand side.
 #' @param data A data.frame that minimally contains the variables in \code{formula}.
 #' @param object An object of class \code{agePrec}, usuall a result from \code{agePrecision}.
@@ -39,6 +37,8 @@
 #' }
 #'
 #' Nothing is returned by \code{summary}, but see details for what is printed.
+#' 
+#' @section Testing: Tested all precision results against published results in Herbst and Marsden (2011) for the \code{\link{WhitefishLC}} data and the results for the \code{\link[FSAdata]{AlewifeLH}} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
