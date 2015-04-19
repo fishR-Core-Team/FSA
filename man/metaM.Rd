@@ -83,14 +83,14 @@ One of several methods is chosen with \code{method}.  The available methods can 
    \item \code{method="RikhterEfanov2"}: The \dQuote{Rikhter and Efanov (1976) equation (#1)} as given in the first column of pge 541 of Kenchington (2014).  Requires \code{t50}, \code{K}, \code{t0}, and \code{b}.
  }
 }
-\section{fishR vignette}{
- XXX
-}
-
 \section{Testing}{
  Kenchington (2014) provided life history parameters for several stocks and used many models to estimate M.  I checked the calculations for the \code{PaulyL}, \code{PaulyW}, \code{HoenigO} for \code{Hgroup="all"} and \code{Hgroup="fish"}, \code{HoenigO2} for \code{Hgroup="all"} and \code{Hgroup="fish"}, \code{"JensenK1"}, \code{"Gislason"}, \code{"AlversonCarney"}, \code{"Charnov"}, \code{"ZhangMegrey"}, \code{"RikhterEfanov1"}, and \code{"RikhterEfanov2"} methods for three stocks.  All results perfectly matched Kenchington's results for Chesapeake Bay Anchovy and Rio Formosa Seahorse.  For the Norwegian Fjord Lanternfish, all results perfectly matched Kenchington's results except for when \code{Hgroup="fish"} for both \code{HoenigO} and \code{HoenigO2}.
 
 Results for the Rio Formosa Seahorse data were also tested against results from \code{\link[fishmethods]{M.empirical}} from \pkg{fishmethods} for the \code{PaulyL}, \code{PaulyW}, \code{HoenigO} for \code{Hgroup="all"} and \code{Hgroup="fish"}, \code{"Gislason"}, and \code{"AlversonCarney"} methods (the only methods in common between the two packages).  All results matched perfectly.
+}
+
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{8-Mortality}.
 }
 \examples{
 ## List names for available methods
@@ -129,6 +129,8 @@ metaM(Mmethods("Hoenig"),K=K,Linf=Linf,T=T,tmax=tmax,t50=t50)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+
 Alverson, D.L. and M.J. Carney.  1975.  A graphic review of the growth and decay of population cohorts.  Journal du Conseil International pour l'Exploration de la Mer. 36:133-143.
 
 Charnov, E.L., H. Gislason, and J.G. Pope.  2013.  \href{http://www.sefsc.noaa.gov/sedar/download/S32_RD17_Charnov_etal _2012.pdf?id=DOCUMENT}{Evolutionary assembly rules for fish life histories}.  Fish and Fisheries.  14:213-224.

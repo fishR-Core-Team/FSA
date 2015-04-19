@@ -27,8 +27,8 @@ Creates a function for a specific von Bertalanffy model parameterization.
 \note{
 The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} versions are synonymous.
 }
-\section{fishR vignette}{
- \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffy.pdf}, \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffyExtra.pdf}
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth}.
 }
 \examples{
 ## Simple Examples
@@ -73,6 +73,8 @@ curve(vb3(x,L1=coef(fit3),t1=c(0,4)),from=0,to=5,col="green",lwd=2,add=TRUE)
 Derek H. Ogle, \email{dogle@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 }
 \references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+
 Fabens, A. 1965. Properties and fitting of the von Bertalanffy growth curve. Growth 29:265-289.
 
 Francis, R.I.C.C.  1988.  Are growth parameters estimated from tagging and age-length data comparable?  Canadian Journal of Fisheries and Aquatic Sciences, 45:936-942.

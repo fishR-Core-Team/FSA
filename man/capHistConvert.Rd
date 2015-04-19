@@ -117,8 +117,8 @@ This function also assumes that all unmarked captured fish are marked and return
  \code{capHistConvert} may give unwanted results if the data are \code{in.type="event"} but there are unused levels for the variable, as would result if the data.frame had been subsetted on the event variable.  The unwanted results can be corrected by using \code{droplevels} before \code{capHistConvert}.  See the last example for an example.
 }
 
-\section{fishR vignette}{
- \url{https://sites.google.com/site/fishrfiles/gnrl/MRClosed.pdf}, \url{https://sites.google.com/site/fishrfiles/gnrl/MROpen.pdf}
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{7-Abundance}.
 }
 \examples{
 ## A small example of 'event' format
@@ -285,6 +285,9 @@ capHistConvert(df1,id="fish",in.type="event")
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
+}
+\references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See \code{\link{capHistSum}} to summarize \dQuote{individual} capture histories into a format useable in \code{\link{mrClosed}} and \code{\link{mrOpen}}.  Also see \code{\link[Rcapture:Rcapture-package]{Rcapture}}, \code{\link[RMark:ABeginnersGuide]{RMark}}, or \pkg{marked} packages for handling more complex analyses.

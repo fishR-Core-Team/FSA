@@ -40,16 +40,19 @@ The minimum TL for the English units were derived by rounding the converted mini
  }
 }
 
-\section{fishR vignette}{
- \url{https://sites.google.com/site/fishrfiles/gnrl/RelativeWeight.pdf}.
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{6-Condition}.
 }
 \examples{
 data(WSlit)
 str(WSlit)
 head(WSlit)
 }
+\references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+}
 \seealso{
-\code{\link{wsVal}} and \code{\link{wrAdd}}.
+See \code{\link{wsVal}} and \code{\link{wrAdd}} for related functionality.
 }
 \concept{
 Condition 'Relative Weight' 'Standard Weight'

@@ -34,9 +34,11 @@
 #'
 #' @concept Condition 'Relative Weight' 'Standard Weight'
 #'
-#' @seealso \code{\link{wsVal}} and \code{\link{wrAdd}}.
+#' @seealso See \code{\link{wsVal}} and \code{\link{wrAdd}} for related functionality.
 #'
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/RelativeWeight.pdf}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{6-Condition}.
+#'
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #'
 #' @source Most of these equations can be found in Neumann, R.M., C.S. Guy, and D.W. Willis.  2012.  \href{http://www.fisheriessociety.org/proofs/ft3/chapter 14.pdf}{Length, Weight, and Associated Indices}.  Chapter 14 in Zale, A.V., D.L. Parrish, and T.M. Sutton, editors.  Fisheries Techniques.  American Fisheries Society, Bethesda, MD.
 #' 

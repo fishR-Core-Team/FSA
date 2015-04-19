@@ -20,8 +20,6 @@
 #' @param lwd A numeric that indicates the line width in the diagnostic plot.
 #' @param \dots Optional arguments to send to \code{plot}.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
-#'
 #' @return If the capture history data file represents only two samples, then a list with the following two components is returned.
 #'  \itemize{
 #'    \item \code{caphist} A vector summarizing the frequency of fish with each capture history.
@@ -37,15 +35,19 @@
 #'    \item \code{m.array} A matrix that contains the the so-called \dQuote{m-array}.  The first column contains the number of fish captured on the ith event.  The columns labelled with \dQuote{cX} prefix show the number of fish originally captured in the ith row that were captured in the Xth event.  The last column shows the number of fish originally captured in the ith row that were never recaptured.
 #'  }
 #'
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{7-Abundance}.
+#'
 #' @seealso See \code{\link[Rcapture]{descriptive}} in \pkg{Rcapture} for \code{m.array} and some of the same values in \code{sum}.  See \code{\link{capHistConvert}} for a descriptions of capture history data file formats and how to convert between them.  See \code{\link{mrClosed}} and \code{\link{mrOpen}} for how to estimate abundance from the summarized capture history information.
 #'
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/MRClosed.pdf}, \url{https://sites.google.com/site/fishrfiles/gnrl/MROpen.pdf}
-#'
-#' @references Baillargeon, S. and Rivest, L.-P. (2007). Rcapture: Loglinear models for capture-recapture in R. Journal of Statistical Software, 19(5):1-31.
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
+#' Baillargeon, S. and Rivest, L.-P. (2007). Rcapture: Loglinear models for capture-recapture in R. Journal of Statistical Software, 19(5):1-31.
 #' 
 #' @keywords manip
 #' 
-#' @aliases capHistSum age.CapHist
+#' @aliases capHistSum plot.CapHist
 #' 
 #' @examples
 #' # data.frame with IDs in the first column

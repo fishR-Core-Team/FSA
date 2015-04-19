@@ -6,8 +6,6 @@
 #' 
 #' Confidence intervals can be computed with either the multinomial (Default) or binomial distribution as set in \code{method}.  See details in \code{\link{psdCI}} for more information.
 #'
-#' @aliases psdCalc
-#'
 #' @param formula A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains the observed lengths.  Note that this formula may only contain one variable and it must be numeric.
 #' @param data A data.frame that minimally contains the observed lengths given in the variable in \code{formula}.
 #' @param species A string that contains the species name for which Gabelhouse lengths exist.  See \code{\link{psdVal}} for details.
@@ -23,16 +21,17 @@
 #' @param digits A numeric that indicates the number of decimals to round the result to.  Default is zero digits following the recommendation of Neumann and Allen (2007).
 #'
 #' @return A matrix with columns that contain the computed PSD-X or PSD X-Y values and associated confidence intervals.  If \code{showIntermediate=TRUE} then the number of fish in the category and the number of stock fish will also be shown.
-#'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
-#'
-#' @seealso \code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}}.
-#'
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}
 #' 
 #' @section Testing: Point estimate calculations match those constructed "by hand."
 #'
-#' @references
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{4-Size Structure}.
+#'
+#' @seealso See \code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}} for related functionality.
+#'
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
 #' Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  \href{http://pubstorage.sdstate.edu/wfs/415-F.pdf}{New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).}  Fisheries 31:86-87.  
 #'
 #' Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  \href{http://www.montana.edu/mtcfru/Guy/Publication\%20pdf/PSD\%20pub.pdf}{Proportional size distribution (PSD): A further refinement of population size structure index terminology.}  Fisheries 32:348.

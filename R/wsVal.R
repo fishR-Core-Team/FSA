@@ -10,8 +10,6 @@
 #' 
 #' Note from above that the coefficients are returned for the TRANSFORMED model.  Thus, to obtain the standard weight (Ws), the returned coefficients are used to compute the common log of Ws which must then bed raised to the power of 10 to compute the Ws.
 #'
-#' @aliases wsVal
-#'
 #' @param species A string that contains the species name for which to find coefficients.  See details.
 #' @param units A string that indicates whether the coefficients for the standard weight equation to be returned are in (\code{"metric"} (DEFAULT; mm and g) or \code{"English"} (in and lbs) units.
 #' @param ref A numeric that indicates which percentile the equation should be returned for.  Note that the vast majority of equations only exist for the \code{75}th percentile (DEFAULT).
@@ -23,10 +21,12 @@
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{\link{wrAdd}} and \code{\link{WSlit}}
+#' @seealso See \code{\link{wrAdd}} and \code{\link{WSlit}} for related functionality.
 #'
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/RelativeWeight.pdf}
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{6-Condition}.
 #'
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
 #' @keywords manip
 #'
 #' @examples

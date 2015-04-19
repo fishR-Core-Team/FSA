@@ -17,22 +17,23 @@
 #'   \item age The ages.
 #'   \item prop The proportion of fish at each age.
 #'   \item se The SE for the proportion of fish at each age.
-#'  } 
+#'  }
+#' 
+#' @section Testing: The results from this function perfectly match the results in Table 8.4 (left) of Quinn and Deriso with \code{\link[FSAdata]{SnapperHG2}} from \pkg{FSAdata}.  The results also perfectly match the results from using \code{\link[fishmethods]{alkprop}} in \pkg{fishmethods}.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' 
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{12-Age-Length Key}.
 #'
-#' @references 
+#' @seealso  See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{\link[fishmethods]{alkprop}} from \pkg{fishmethods} for the exact same methodology but with a different format for the inputs.
+#'
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
 #' Lai, H.-L.  1987.  Optimum allocation for estimating age composition using age-length key. Fishery Bulletin, 85:179-185.
 #' 
 #' Lai, H.-L.  1993.  Optimum sampling design for using the age-length key to estimate age composition of a fish population. Fishery Bulletin, 92:382-388.
 #' 
-#' Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages
-#'
-#' @seealso  See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{\link[fishmethods]{alkprop}} from \pkg{fishmethods} for the exact same methodology but with a different format for the inputs.
-#' 
-#' @section fishR vignette: none yet.
-#' 
-#' @section Tests: The results from this function perfectly match the results in Table 8.4 (left) of Quinn and Deriso with \code{\link[FSAdata]{SnapperHG2}} from \pkg{FSAdata}.  The results also perfectly match the results from using \code{\link[fishmethods]{alkprop}} in \pkg{fishmethods}.
+#' Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages.
 #'
 #' @keywords manip
 #'

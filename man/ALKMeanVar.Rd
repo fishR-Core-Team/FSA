@@ -36,12 +36,12 @@ The length intervals in the rows of \code{key} must contain all of the length in
 
 Note that the function will stop with an error if the formula in \code{formula} does not meet the specific criteria outlined in the parameter list.
 }
-\section{fishR vignette}{
- none yet.
-}
-
 \section{Testing}{
  The results of these functions have not yet been rigorously tested.  The results using the Bettoli and Miranda method appear, at least, approximately correct when compared to the results from \code{\link{alkIndivAge}}.  The results from the Quinn and Deriso method appear at least approximately correct for the mean values but do not appear to be correct for the SE values.  Thus, a note is returned with the Quinn and Deriso results that the SE should not be trusted.
+}
+
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{12-Age-Length Key}.
 }
 \examples{
 ## Get data with length measurements and some assigned ages
@@ -70,6 +70,8 @@ alkMeanVar(WR1.key,len~LCat+age,WR1.age,len.n,method="QuinnDeriso")
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+
 Bettoli, P. W. and Miranda, L. E.  2001. A cautionary note about estimating mean length at age with subsampled data. North American Journal of Fisheries Management, 21:425-428.
 
 Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages

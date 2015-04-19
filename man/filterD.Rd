@@ -23,6 +23,9 @@ This function is equivalent to the combined usage of \code{\link[dplyr]{filter}}
 \note{
 Newbie students using R expect that when a data.frame is filtered via a factor variable that any original levels that are no longer used after the filterting will be ignored.  This, however, is not the case and often results in tables with empty cells and figures with empty bars.  One remedy is to use \code{\link{droplevels}} immediately following \code{\link[dplyr]{filter}}.  This generally becomes a repetitive sequence; thus, \code{filterD} incorporates these two functions into one function.
 }
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{2-Basic Data Manipulations}.
+}
 \examples{
 ## The problem -- note use of unused level in the final table.
 require(dplyr)
@@ -40,7 +43,7 @@ xtabs(~Species,data=tmp2)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-See also \code{subset} and \code{\link[dplyr]{filter}} in \pkg{dplyr}.
+See also \code{\link{subset}} and \code{\link[dplyr]{filter}} in \pkg{dplyr}.
 }
 \keyword{misc}
 

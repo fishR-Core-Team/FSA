@@ -25,8 +25,8 @@ This function can be used to prepare problematic age-length key matrices for use
 
 An alternative to the linear interpolation method is to predict missing values from the fits of general linear or additive models.  See the methos in the references for details on using this method.
 }
-\section{fishR vignette}{
- \url{https://sites.google.com/site/fishrfiles/gnrl/AgeLengthKey.pdf}
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{12-Age-Length Key}.
 }
 \examples{
 # create a "good" small ALK matrix
@@ -73,6 +73,8 @@ alkPrep(alk135)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+
 Berg, C.W. and K. Kristensen.  2012.  \href{http://orbit.dtu.dk/fedora/objects/orbit:113964/datastreams/file_10214559/content}{Spatial age-length key modelling using continuation ratio logits.}  Fisheries Research 129-130:119-126.
 
 Gerritsen, H.D., D. McGrath, and C. Lordan.  2006. \href{http://icesjms.oxfordjournals.org/content/63/6/1096.full}{A simple method for comparing age-length keys reveals significant regional differences within a single stock of haddock (\emph{Melanogrammus aeglefinus}).}  ICSE Journal of Marine Science 63:1096-1100.

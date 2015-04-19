@@ -33,8 +33,8 @@ See \code{\link{WSlit}} for more information about the meaning of each value ret
 
 Note from above that the coefficients are returned for the TRANSFORMED model.  Thus, to obtain the standard weight (Ws), the returned coefficients are used to compute the common log of Ws which must then bed raised to the power of 10 to compute the Ws.
 }
-\section{fishR vignette}{
- \url{https://sites.google.com/site/fishrfiles/gnrl/RelativeWeight.pdf}
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{6-Condition}.
 }
 \examples{
 wsVal()
@@ -48,8 +48,11 @@ wsVal("Ruffe",units="metric",ref=50,simplify=TRUE)
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
 }
+\references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+}
 \seealso{
-\code{\link{wrAdd}} and \code{\link{WSlit}}
+See \code{\link{wrAdd}} and \code{\link{WSlit}} for related functionality.
 }
 \keyword{manip}
 

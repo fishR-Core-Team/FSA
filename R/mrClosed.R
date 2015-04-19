@@ -38,12 +38,6 @@
 #' Confidence intervals for the initial population size using multiple census methods can be constructed using the normal or Poisson distributions for the Schnabel method or the normal distribution for the Shumacher-Eschmeyer method as chosen with \code{type=}.  If \code{type="suggested"} then the type of confidence interval suggested by the rule on p. 32 of Krebs (1989) is used (for the Schnabel method).  If \code{type="Poisson"} for the Schnabel method then a confidence interval for the sum of m is computed with \code{\link{poiCI}} and the end points are substituted into the Schnabel equation to produce a CI for the population size.  If \code{type="normal"} for the Schnabel method then the standard error for the \emph{inverse} of the population estimate is computed as the square root of equation 2.11 from Krebs (1989) or equation 3.16 from Ricker (1975).  The standard error for the Schumacher-Eschmeyer method is for the \emph{inverse} of the population estimate and is computed with equation 2.14 from Krebs (1989) [Note that the divisor in Krebs (1989) is different than the divisor in equation 3.12 in Ricker (1975), but is consistent with equation 4.17 in Seber (2002).]  The confidence interval for the \emph{inverse} population estimate is constructed from the inverse population estimate plus/minus a t critical value times the standard error for the inverse population estimate.  The t critical value uses the number of samples minus 1 for the Schnabel method and the number of samples minus 2 when for the Schumacher-Eschmeyer method according to p. 32 of Krebs (1989) (note that this is different than what Ricker (1975) does).  Finally, the confidence interval for the population estimate is obtained by inverting the confidence interval for the inverse population estimate.  Note that confidence intervals for the population size when \code{type="normal"} may contain negative values (for the upper value) when the population estimate is relatively large and the number of samples is small (say, three) because the intervals are orginally constructed on the inverted population estimate and they use the t-distribution.
 #' 
 #' The \code{plot} can be used to identify assumption violations in the Schnabel and Schumacher-Eschmeyer methods (an error will be returned if used with any of the other methods).  If the assumptions ARE met then the plot of the proportion of marked fish in a sample versus the cumulative number of marked fish should look linear.  A loess line (with approximate 95\% confidence bands) can be added to aid interpretation with \code{loess=TRUE}.  Note, however, that adding the loess line may return a number of warning or produce a non-informative if the number of samples is small (<8).
-#' 
-#' @section Testing: The results from the single census methods have had the following checks.  The population estimates for all methods match reputable sources.  The SE for the Chapman and Bailey methods match the results from \code{\link[fishmethods]{mrN.single}} in \pkg{fishmethods},  The CI for the Petersen, Chapman, and Bailey methods partially match (are within 1% when they do not match) the CIs from reputable sources.
-#' 
-#' The results for the multiple census methods have had the following checks.  The population estimates for both methods match reputable sources.  The intermediate calculations for both methods match those in Krebs (1989).  The confidence interval for the Schnabel method using the Poisson distribution does NOT match Krebs (1989).  This appears to be a difference in the use \code{\link{poiCI}} here versus distributional tables in Krebs (i.e., the difference appears to be completely in the critical values from the Poisson distribution).  The confidence interval for the Schnabel method using the normal or the Poission distribution do NOT match Ricker (1975), but there is not enough information in Ricker to determine why (it is likely due to numerical differences on the inverse scale).  The confidence interval for the Schumacher-Eschmeyer method do match Krebs (1989) but not Ricker (1975).  The Ricker result may be due to different df as noted above.
-#'
-#' @aliases mrClosed summary.mrClosed1 confint.mrClosed1 summary.mrClosed2 confint.mrClosed2 plot.mrClosed2
 #'
 #' @param M A numeric representing the number of marked fish from the first sample (single-census), an object from \code{capHistSum()} (single- or multiple-census), or numeric vector of marked fish prior to ith samples (multiple-census).
 #' @param n A numeric representing the number of captured fish in the second sample (single-census) or numeric vector of captured fish in ith sample (multiple-census).
@@ -88,14 +82,20 @@
 #'    \item N The estimated initial population size.
 #'    \item labels Labels for the rows of summary matrix.
 #'  }
+#' 
+#' @section Testing: The results from the single census methods have had the following checks.  The population estimates for all methods match reputable sources.  The SE for the Chapman and Bailey methods match the results from \code{\link[fishmethods]{mrN.single}} in \pkg{fishmethods},  The CI for the Petersen, Chapman, and Bailey methods partially match (are within 1% when they do not match) the CIs from reputable sources.
+#' 
+#' The results for the multiple census methods have had the following checks.  The population estimates for both methods match reputable sources.  The intermediate calculations for both methods match those in Krebs (1989).  The confidence interval for the Schnabel method using the Poisson distribution does NOT match Krebs (1989).  This appears to be a difference in the use \code{\link{poiCI}} here versus distributional tables in Krebs (i.e., the difference appears to be completely in the critical values from the Poisson distribution).  The confidence interval for the Schnabel method using the normal or the Poission distribution do NOT match Ricker (1975), but there is not enough information in Ricker to determine why (it is likely due to numerical differences on the inverse scale).  The confidence interval for the Schumacher-Eschmeyer method do match Krebs (1989) but not Ricker (1975).  The Ricker result may be due to different df as noted above.
 #'  
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{7-Abundance}.
+#' 
 #' @seealso See \code{\link{capHistSum}} for generating input data from capture histories.  See \code{\link{poiCI}}, \code{\link{binCI}}, and \code{\link{hyperCI}} for specifics on functions used in confidence interval constructuion.  See \code{\link{mrOpen}} for handling mark-recapture data in an open population.  See \code{\link[FSAdata]{SunfishIN}} in \pkg{FSAdata} for an example to test matching of results with Ricker (1975)'  See \code{\link[fishmethods]{mrN.single}} and \code{\link[fishmethods]{schnabel}} in \pkg{fishmethods} for similar functionality.
 #' 
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/MRClosed.pdf}
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
-#' @references Krebs, C.J.  1989.  Ecological Methodology.  Addison-Welsey Educational Publishing.
+#' Krebs, C.J.  1989.  Ecological Methodology.  Addison-Welsey Educational Publishing.
 #'
 #' Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 #'
@@ -106,6 +106,8 @@
 #' Schumacher, F.X. and R.W. Eschmeyer. 1943.  The estimation of fish populations in lakes and ponds.  Journal of the Tennessee Academy of Sciences, 18:228-249.
 #'
 #' @keywords manip
+#'
+#' @aliases mrClosed summary.mrClosed1 confint.mrClosed1 summary.mrClosed2 confint.mrClosed2 plot.mrClosed2
 #'
 #' @examples
 #' ### Single census with no sub-groups

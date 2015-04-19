@@ -23,9 +23,7 @@
 #'    \item \code{method="ZhangMegreyD"}, \code{method="ZhangMegreyP"}: The \dQuote{Zhang and Megrey (2006) equation} as given in their equation 8 but modified for demersal or pelagic fish.  Thus, the user must choose the fish type with \R{group}.  Requires \code{tmax}, \code{K}, \code{t0}, \code{t50}, and \code{b}.
 #'    \item \code{method="RikhterEfanov1"}: The \dQuote{Rikhter and Efanov (1976) equation (#2)} as given in the second column of pge 541 of Kenchington (2014) and in Table 6.4 of Miranda and Bettoli (2007).  Requires only \code{t50}.
 #'    \item \code{method="RikhterEfanov2"}: The \dQuote{Rikhter and Efanov (1976) equation (#1)} as given in the first column of pge 541 of Kenchington (2014).  Requires \code{t50}, \code{K}, \code{t0}, and \code{b}.
-#'  }  
-#'    
-#' @aliases metaM print.metaM Mmethods
+#'  } 
 #'
 #' @param what A string that indicates what grouping of methods to return.  Defaults to returning all methods.
 #' @param method A string that indicates which method or equation to use.  See details.
@@ -53,17 +51,18 @@
 #' 
 #' If multiple \code{method}s are chosen then a data.frame is returned with the method name abbreviation in the \code{method} variable and the associated estimated of M in the \code{M} variable.
 #' 
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
-#' 
-#' @seealso See \code{\link[fishmethods]{M.empirical}} in \pkg{fishmethods} for similar functionality.
-#' 
-#' @section fishR vignette: XXX
-#' 
 #' @section Testing: Kenchington (2014) provided life history parameters for several stocks and used many models to estimate M.  I checked the calculations for the \code{PaulyL}, \code{PaulyW}, \code{HoenigO} for \code{Hgroup="all"} and \code{Hgroup="fish"}, \code{HoenigO2} for \code{Hgroup="all"} and \code{Hgroup="fish"}, \code{"JensenK1"}, \code{"Gislason"}, \code{"AlversonCarney"}, \code{"Charnov"}, \code{"ZhangMegrey"}, \code{"RikhterEfanov1"}, and \code{"RikhterEfanov2"} methods for three stocks.  All results perfectly matched Kenchington's results for Chesapeake Bay Anchovy and Rio Formosa Seahorse.  For the Norwegian Fjord Lanternfish, all results perfectly matched Kenchington's results except for when \code{Hgroup="fish"} for both \code{HoenigO} and \code{HoenigO2}.
 #' 
 #' Results for the Rio Formosa Seahorse data were also tested against results from \code{\link[fishmethods]{M.empirical}} from \pkg{fishmethods} for the \code{PaulyL}, \code{PaulyW}, \code{HoenigO} for \code{Hgroup="all"} and \code{Hgroup="fish"}, \code{"Gislason"}, and \code{"AlversonCarney"} methods (the only methods in common between the two packages).  All results matched perfectly.
 #' 
-#' @references 
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' 
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{8-Mortality}.
+#' 
+#' @seealso See \code{\link[fishmethods]{M.empirical}} in \pkg{fishmethods} for similar functionality.
+#' 
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
 #' Alverson, D.L. and M.J. Carney.  1975.  A graphic review of the growth and decay of population cohorts.  Journal du Conseil International pour l'Exploration de la Mer. 36:133-143.
 #' 
 #' Charnov, E.L., H. Gislason, and J.G. Pope.  2013.  \href{http://www.sefsc.noaa.gov/sedar/download/S32_RD17_Charnov_etal _2012.pdf?id=DOCUMENT}{Evolutionary assembly rules for fish life histories}.  Fish and Fisheries.  14:213-224.
@@ -88,7 +87,9 @@
 #' 
 #' Zhang, C-I and B.A. Megrey.  2006.  \href{http://www.pmel.noaa.gov/foci/publications/2006/zhan0531.pdf}{A revised Alverson and Carney model for estimating the instantaneous rate of natural mortality}.  Transactions of the American Fisheries Socity.  135-620-633.
 #' 
-#' @keywords manip
+#' @keywords manip 
+#'    
+#' @aliases metaM print.metaM Mmethods
 #' 
 #' @examples
 #' ## List names for available methods

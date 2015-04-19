@@ -34,9 +34,11 @@
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{12-Age-Length Key}. 
+#' 
 #' @seealso See \code{\link{alkIndivAge}} for using an age-length key to assign ages to individual fish and \code{\link{alkPrep}} to \dQuote{fix} ill-formed age-length keys.
 #' 
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeLengthKey.pdf}
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' @keywords plot
 #' 

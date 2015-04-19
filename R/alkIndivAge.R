@@ -13,7 +13,7 @@
 #' @param key A numeric matrix that contains the age-length key.  The format of this matrix is important.  See details.
 #' @param formula A formula of the form \code{age~length} where \dQuote{age} generically represents the variable that will contain the estimated age measurements once the key is applied (i.e., should currently contain no values) and \dQuote{length} generically represents the variable that contains the known length measurements.  If only \code{~length} is used, then a new variable called \dQuote{age} will be created in the resulting data frame.
 #' @param data A data.frame that minimally contains the length measurements and possibly contains a variable that will receive the age assignments as given in \code{formula}.
-#' @param type A string that indicates whether to use the semi-random (\code{type="SR"}, default) or completely-random (\code{type="CR"}) methods for assigning ages to individual fish.  See the fishR vignette for more details.
+#' @param type A string that indicates whether to use the semi-random (\code{type="SR"}, default) or completely-random (\code{type="CR"}) methods for assigning ages to individual fish.  See the IFAR chapter for more details.
 #' @param breaks A numeric vector of lower values that define the length intervals.  See details.
 #' @param seed A single numeric that is given to the \code{set.seed} function to set the random seed.  This allows repeatability of results.
 #' 
@@ -21,13 +21,15 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}.  This is largely an R version of the SAS code provided by Isermann and Knight (2005).
 #'
-#' @references Isermann, D.A. and C.T. Knight.  2005.  \href{http://www.tandfonline.com/doi/abs/10.1577/M04-130.1}{A computer program for age-length keys incorporating age assignment to individual fish.}  North American Journal of Fisheries Management, 25:1153-1160.  
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{12-Age-Length Key}.  
 #'
 #' @seealso  See \code{\link{alkPlot}} for methods to visualize age-length keys and \code{\link{alkPrep}} for methods to prepare ill-formed age-length keys (e.g., length intervals with no aged fish) for this function.
 #' 
 #' See \code{\link[fishmethods]{alk}} and \code{\link[fishmethods]{alkprop}} in \pkg{fishmethods} and the entire \pkg{ALKr} package for functionality with a similar purpose but different methodology.
 #'
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeLengthKey.pdf}
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
+#' Isermann, D.A. and C.T. Knight.  2005.  \href{http://www.tandfonline.com/doi/abs/10.1577/M04-130.1}{A computer program for age-length keys incorporating age assignment to individual fish.}  North American Journal of Fisheries Management, 25:1153-1160.
 #'
 #' @keywords manip
 #'

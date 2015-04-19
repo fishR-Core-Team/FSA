@@ -152,8 +152,8 @@ The \code{plot} can be used to identify assumption violations in the Schnabel an
 The results for the multiple census methods have had the following checks.  The population estimates for both methods match reputable sources.  The intermediate calculations for both methods match those in Krebs (1989).  The confidence interval for the Schnabel method using the Poisson distribution does NOT match Krebs (1989).  This appears to be a difference in the use \code{\link{poiCI}} here versus distributional tables in Krebs (i.e., the difference appears to be completely in the critical values from the Poisson distribution).  The confidence interval for the Schnabel method using the normal or the Poission distribution do NOT match Ricker (1975), but there is not enough information in Ricker to determine why (it is likely due to numerical differences on the inverse scale).  The confidence interval for the Schumacher-Eschmeyer method do match Krebs (1989) but not Ricker (1975).  The Ricker result may be due to different df as noted above.
 }
 
-\section{fishR vignette}{
- \url{https://sites.google.com/site/fishrfiles/gnrl/MRClosed.pdf}
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{7-Abundance}.
 }
 \examples{
 ### Single census with no sub-groups
@@ -228,6 +228,8 @@ confint(mr7)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+
 Krebs, C.J.  1989.  Ecological Methodology.  Addison-Welsey Educational Publishing.
 
 Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.

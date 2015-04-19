@@ -19,20 +19,21 @@
 #'   \item age The ages.
 #'   \item mean The mean value at each age.
 #'   \item sd,se The SD if \code{method="BettoliMiranda"} or SE of the mean if \code{method="QuinnDeriso"} for the value at each age.
-#'  } 
+#'  }
+#'
+#' @section Testing: The results of these functions have not yet been rigorously tested.  The results using the Bettoli and Miranda method appear, at least, approximately correct when compared to the results from \code{\link{alkIndivAge}}.  The results from the Quinn and Deriso method appear at least approximately correct for the mean values but do not appear to be correct for the SE values.  Thus, a note is returned with the Quinn and Deriso results that the SE should not be trusted.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' 
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{12-Age-Length Key}.
 #'
-#' @references
+#' @seealso  See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{\link{alkAgeDist}} for a related method of determining the proportion of fish at each age.
+#'
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
 #' Bettoli, P. W. and Miranda, L. E.  2001. A cautionary note about estimating mean length at age with subsampled data. North American Journal of Fisheries Management, 21:425-428.
 #'  
 #' Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages
-#'
-#' @seealso  See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{\link{alkAgeDist}} for a related method of determining the proportion of fish at each age.
-#' 
-#' @section fishR vignette: none yet.
-#'
-#' @section Testing: The results of these functions have not yet been rigorously tested.  The results using the Bettoli and Miranda method appear, at least, approximately correct when compared to the results from \code{\link{alkIndivAge}}.  The results from the Quinn and Deriso method appear at least approximately correct for the mean values but do not appear to be correct for the SE values.  Thus, a note is returned with the Quinn and Deriso results that the SE should not be trusted.
 #'
 #' @keywords manip
 #'

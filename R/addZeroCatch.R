@@ -18,6 +18,10 @@
 #' @return A data frame with the same structure as \code{df} but with rows of zero observation data appended.
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{2-Basic Data Manipulations}.
+#'
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' @keywords manip
 #'

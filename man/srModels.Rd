@@ -15,8 +15,8 @@ A graphic that uses \code{plotmath} to show the model formulas in a pretty forma
 \description{
 Show the stock-recruitment model formulas implemented in \code{\link{srFuns}}, \code{\link{srStarts}}, and \code{srSim}.
 }
-\section{fishR vignette}{
- \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{10-Recruitment}.
 }
 \examples{
 \dontrun{windows(6,5)}
@@ -25,8 +25,11 @@ srModels()
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
 }
+\references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+}
 \seealso{
-\code{\link{srFuns}} and \code{\link{srStarts}}.
+See \code{\link{srFuns}} and \code{\link{srStarts}} for related functionality.
 }
 \keyword{hplot}
 \keyword{manip}

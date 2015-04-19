@@ -79,13 +79,17 @@
 #'
 #' @seealso See \code{\link{agePrecision}} for measures of precision between pairs of age assignments.  See \code{\link[fishmethods]{compare2}} in \pkg{fishmethods} for similar functionality.
 #'
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeComparisons.pdf}
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{11-Age Comparisons}. 
 #'
-#' @references Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  \href{http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf}{Graphical and statistical methods for determining the consistency of age determinations.} Transactions of the American Fisheries Society 124:131-138.
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
+#' Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  \href{http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf}{Graphical and statistical methods for determining the consistency of age determinations.} Transactions of the American Fisheries Society 124:131-138.
 #'
 #' Evans, G.T. and J.M. Hoenig.  1998.  \href{http://www.fisheries.vims.edu/hoenig/pdfs/Viewing.pdf}{Testing and viewing symmetry in contingency tables, with application to readers of fish ages.}  Biometrics 54:620-629.
 #'
 #' Hoenig, J.M., M.J. Morgan, and C.A. Brown. 1995.  \href{http://www.fisheries.vims.edu/hoenig/pdfs/Hoenig_Morgan_Brown_AgeDeterminationSymmetry.pdf}{Analysing differences between two age determination methods by tests of symmetry.}  Canadian Journal of Fisheries And Aquatic Systems 52:364-368.
+#' 
+#' McBride, R.S.  2015. Diagnosis of paired age agreement: A simulation approach of accuracy and precision effects. ICES Journal of Marine Science, XX:XXX-XXX.
 #'
 #' Muir, A.M., M.P. Ebener, J.X. He, and J.E. Johnson.  2008.  \href{http://www.tandfonline.com/doi/abs/10.1577/M06-160.1}{A comparison of the scale and otolith methods of age estimation for lake whitefish in Lake Huron.}  North American Journal of Fisheries Management 28:625-635.
 #'

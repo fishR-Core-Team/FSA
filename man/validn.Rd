@@ -15,6 +15,9 @@ A single numeric value that is the number of non-\code{NA} values in a vector.
 \description{
 Finds the number of valid (non-NA) values in a vector.
 }
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{2-Basic Data Manipulations}.
+}
 \examples{
 junk1 <- c(1,7,2,4,3,10,NA)
 junk2 <- c("Derek","Hugh","Ogle","Santa","Claus","Nick",NA,NA)

@@ -6,9 +6,6 @@
 #'
 #' If \code{weighted=TRUE} then a weighted regression is used where the weights are the log(number) at each age predicted from the unweighted regression of log(number) on age (as proposed by Maceina and Bettoli (1998)).
 #'
-#' @aliases catchCurve catchCurve.default catchCurve.formula plot.catchCurve summary.catchCurve
-#'coef.catchCurve anova.catchCurve confint.catchCurve
-#'
 #' @param x A numerical vector of the assigned ages in the catch curve or a formula of the form \code{catch~age} when used in \code{catchCurve}.  An object saved from \code{catchCurve} (i.e., of class \code{catchCurve}) when used in the methods.
 #' @param object An object saved from the \code{catchCurve} call (i.e., of class \code{catchCurve}).
 #' @param catch A numerical vector of the catches or CPUEs for the ages in the catch curve.  Not used if \code{x} is a formula.
@@ -39,19 +36,24 @@
 #'    \item lm An \code{lm} object from the fit to the ages and log catches or CPUEs on the descending limb (i.e., in age.e and log.catch.e).
 #'  }
 #' 
+#' @section Testing: Tested the results of catch curve, both unweighted and weighted, against the results in Miranda and Bettoli (2007).  Results for Z and the SE of Z matched perfectly.  Tested the unweighted results against the results from \code{agesurv} in \pkg{fishmethods} using the \code{rockbass} data.frame in \pkg{fishmethods}.  Results for Z and the SE of Z matched perfectly.
+#' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' 
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{8-Mortality}.
 #' 
 #' @seealso See \code{\link[fishmethods]{agesurv}} in \pkg{fishmethods} for similar functionality.  See \code{\link{chapmanRobson}} and \code{\link[fishmethods]{agesurvcl}} in \pkg{fishmethods} for alternative methods to estimate mortality rates.  See \code{\link{metaM}} for empirical methods to estimate natural mortality.
 #' 
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/CatchCurve.pdf}
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
-#' @section Testing: Tested the results of catch curve, both unweighted and weighted, against the results in Miranda and Bettoli (2007).  Results for Z and the SE of Z matched perfectly.  Tested the unweighted results against the results from \code{agesurv} in \pkg{fishmethods} using the \code{rockbass} data.frame in \pkg{fishmethods}.  Results for Z and the SE of Z matched perfectly.
-#' 
-#' @references Maceina, M.J., and P.W. Bettoli.  1998.  Variation in largemouth bass recruitment in four mainstream impoundments on the Tennessee River. North American Journal of Fisheries Management 18:998-1003.
+#' Maceina, M.J., and P.W. Bettoli.  1998.  Variation in largemouth bass recruitment in four mainstream impoundments on the Tennessee River. North American Journal of Fisheries Management 18:998-1003.
 #' 
 #' Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 #' 
 #' @keywords hplot htest manip
+#'
+#' @aliases catchCurve catchCurve.default catchCurve.formula plot.catchCurve summary.catchCurve
+#'coef.catchCurve anova.catchCurve confint.catchCurve
 #' 
 #' @examples
 #' data(BrookTroutTH)

@@ -55,8 +55,8 @@ Starting values for the Saila-Lorda function were the same as those for the firs
 
 Starting values can also be obtained by plotting the data with the model superimposed but tied to slider bars for changing parameters.  One can change the parameters until a reasonable fit is observed and then use those valeus as starting values.  Such a plot can be constructed by including \code{dynamicPlot=TRUE}.  The initial parameters for the slider bars are the starting values constructed as described above.  The range for the sliders will have a minimum that is \code{min,prop} times the initial value and a maximum that is \code{max.mult} times the initial value.  The step or interval of the slider bar is \code{delta.mult} times the initial value.  It should be noted that the dynamic plot may show an error of \dQuote{[tcl] can't get device image} but the plot will correctly update if the slider bar is adjusted.
 }
-\section{fishR vignette}{
- \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{10-Recruitment}.
 }
 \examples{
 ## Simple Examples
@@ -102,6 +102,8 @@ if (interactive()) {
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+
 Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19.  United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
 
 Iles, T.C.  1994.  A review of stock-recruitment relationships with reference to flatfish populations.  Netherlands Journal of Sea Research 32:399-420.
@@ -115,7 +117,7 @@ Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation 
 Shepherd, J. 1982. A versatile new stock-recruitment relationship for fisheries and construction of sustainable yield curves. Journal du Conseil International pour l'Exploration de la Mar 40:67-75.
 }
 \seealso{
-\code{\link{srModels}} and \code{\link{srFuns}}.
+See \code{\link{srModels}} and \code{\link{srFuns}} for related functionality.
 }
 \keyword{manip}
 

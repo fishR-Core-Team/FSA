@@ -10,10 +10,13 @@ vbModels(...)
 \item{\dots}{Additional arguments for \code{plot}.  Generally not needed}
 }
 \value{
-A graphic that uses \code{plotmath} to show the model formulas in a pretty format.
+A graphic that uses \code{plotmath} to show the model formulae in a pretty format.
 }
 \description{
 Show the von Bertalanffy model formulas implemented in \code{\link{vbFuns}} and \code{\link{vbStarts}}.
+}
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth}.
 }
 \examples{
 \dontrun{windows(8,5)}
@@ -21,6 +24,9 @@ vbModels()
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
+}
+\references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations and \code{\link{vbStarts}} for methods to find starting values.

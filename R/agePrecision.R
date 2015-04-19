@@ -6,8 +6,8 @@
 #' \itemize{
 #'   \item n Number of fish in \code{data}.
 #'   \item R Number of age assessments given in \code{formula}.
-#'   \item ACV The mean coefficient of variation.  See the fishR vignette for calculational details.
-#'   \item APE The mean average percent error.  See the fishR vignette for calculational details.
+#'   \item ACV The mean coefficient of variation.  See the IFAR chapter for calculational details.
+#'   \item APE The mean average percent error.  See the IFAR chapter for calculational details.
 #'   \item PercAgree The percentage of fish for which all age assignments perfectly agree.
 #' }
 #'
@@ -42,17 +42,21 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeComparisons.pdf}
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{11-Age Comparisons}. 
 #'
 #' @seealso See \code{\link{ageBias}} for computation of the full age agreement table, along with tests and plots of age bias.
 #' 
-#' @references Beamish, R.J. and D.A. Fournier.  1981.  \href{http://www.pac.dfo-mpo.gc.ca/science/people-gens/beamish/PDF_files/compareagecjfas1981.pdf}{A method for comparing the precision of a set of age determinations.}  Canadian Journal of Fisheries and Aquatic Sciences 38:982-983.
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
+#' Beamish, R.J. and D.A. Fournier.  1981.  \href{http://www.pac.dfo-mpo.gc.ca/science/people-gens/beamish/PDF_files/compareagecjfas1981.pdf}{A method for comparing the precision of a set of age determinations.}  Canadian Journal of Fisheries and Aquatic Sciences 38:982-983.
 #'
 #'Campana, S.E.  1982.  \href{http://www.denix.osd.mil/nr/crid/Coral_Reef_Iniative_Database/References_for_Reef_Assessment_files/Campana,\%202001.pdf}{Accuracy, precision and quality control in age determination, including a review of the use and abuse of age validation methods.} Journal of Fish Biology 59:197-242.
 #'
 #'Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  \href{http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf}{Graphical and statistical methods for determining the consistency of age determinations.} Transactions of the American Fisheries Society 124:131-138.
 #'
-#'Chang, W.Y.B. 1982.  \href{http://www.nrcresearchpress.com/doi/abs/10.1139/f82-158}{A statistical method for evaluating the reproducibility of age determination.}  Canadian Journal of Fisheries and Aquatic Sciences 39:1208-1210.  
+#'Chang, W.Y.B. 1982.  \href{http://www.nrcresearchpress.com/doi/abs/10.1139/f82-158}{A statistical method for evaluating the reproducibility of age determination.}  Canadian Journal of Fisheries and Aquatic Sciences 39:1208-1210.
+#' 
+#' McBride, R.S.  2015. Diagnosis of paired age agreement: A simulation approach of accuracy and precision effects. ICES Journal of Marine Science, XX:XXX-XXX.
 #'
 #' @aliases agePrecision plot.agePrec summary.agePrec
 #'

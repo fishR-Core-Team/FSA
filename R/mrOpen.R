@@ -14,8 +14,6 @@
 #'
 #' The level of confidence is not set in the \code{confint} function, in contrast to most \code{confint} functions.  Rather the confidence level is set in the main \code{mrOpen} function.
 #'
-#' @aliases mrOpen summary.mrOpen confint.mrOpen
-#'
 #' @param mb.top A matrix that contains the \dQuote{top} of the Method B table (i.e., a contingency table of capture sample (columns) and last seen sample (rows)) or an object of class \code{CapHist} from \code{\link{capHistSum}}.  See details.
 #' @param mb.bot A data frame that contains the \dQuote{bottom} of the Method B table (i.e., the number of marked fish in the sample (\code{m}), the number of unmarked fish in the sample (\code{u}), the total number of fish in the sample (\code{n}), and the number of marked fish returned to the population following the sample (\code{R})).
 #' @param type A string that indicates whether the large sample (normal theory) method of Jolly (\code{type="Jolly"}) or the \dQuote{arbitrary} method of Manly (\code{type="Manly"}) should be used to construct confidence intervals.
@@ -34,13 +32,7 @@
 #'    \item phi.full The provided logical that indicates the type of standard error for phi that was used.
 #'    \item conf.level The provided level of confidence that was used.
 #'  }
-#'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
-#'
-#' @seealso \code{\link{capHistSum}}, \code{\link{mrClosed}}
-#'
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/MROpen.pdf}
-#' 
+#'  
 #' @section Testing:  The formulas have been triple-checked against formulas in Pollock et al. (1990), Manly (1984), and Seber (2002).
 #' 
 #' The results for the \code{\link{CutthroatAL}} data file (as analyzed in the example) was compared to results from the JOLLY program available at \url{http://www.mbr-pwrc.usgs.gov/software/jolly.html}.  The r and z values matched, all M and N estimates match at one decimal place, all phi are within 0.001, and all B are within 0.7.  The SE match for M except for two estimates that are within 0.1, match for N except for one estimate that is within 0.1, are within 0.001 for phi, and are within 1.3 for B (except for for the first estimate which is dramatically off).
@@ -51,7 +43,14 @@
 #' 
 #' For comparing to Jolly's data as presented in Tables 5.1 and 5.2 of Seber (2002), M was within 4 (less than 1.5\%), N was within 3\% (except N2 which was within 9\%), phi was within 0.01 (less than 1.5%), and B was within 7 (less than 5\%) except for B2 and B8.
 #'
-#' @references
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{7-Abundance}.
+#'
+#' @seealso \code{\link{capHistSum}}, \code{\link{mrClosed}}
+#'
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
 #' Jolly, G.M. 1965. Explicit estimates from capture-recapture data with both death and immigration -- stochastic model. Biometrika, 52:225-247.
 #' 
 #' Krebs, C.J.  1989.  Ecological Methodology.  Harper & Row Publishers, New York.
@@ -67,6 +66,8 @@
 #' Seber, G.A.F. 2002. The Estimation of Animal Abundance. Edward Arnold, second edition (reprinted).
 #'
 #' @keywords manip
+#'
+#' @aliases mrOpen summary.mrOpen confint.mrOpen
 #'
 #' @examples
 #' ## First example -- capture histories summarized with capHistSum()

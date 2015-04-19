@@ -12,6 +12,8 @@
 #' @param warn_missing print a message if any of the old values are not actually present in \code{x}
 #'
 #' @seealso See \code{\link[plyr]{mapvalues}} in \pkg{plyr} for the EXACT SAME FUNCTION.  See \code{\link[plyr]{revalue}} in \pkg{plyr} to do the same thing but with a single named vector instead of two separate vectors.
+#'
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{2-Basic Data Manipulations}.
 #' 
 #' @export
 #' 

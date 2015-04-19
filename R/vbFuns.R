@@ -10,15 +10,17 @@
 #'
 #'If \code{simple=FALSE} then the values for all parameters can be included as a vector in the first parameter argument.  Similarly, the values for all constants can be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE} then all parameters and constants must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
 #'
+#' @note The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} versions are synonymous.
+#'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
-#' @note The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} versions are synonymous.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth}.
 #'
 #' @seealso See \code{\link{vbModels}} for a list of models and parameterizations used in \pkg{FSA} and \code{\link{vbStarts}} for methods to find starting values.
 #'
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffy.pdf}, \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffyExtra.pdf}
-#'
-#' @references Fabens, A. 1965. Properties and fitting of the von Bertalanffy growth curve. Growth 29:265-289.
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
+#' Fabens, A. 1965. Properties and fitting of the von Bertalanffy growth curve. Growth 29:265-289.
 #'
 #' Francis, R.I.C.C.  1988.  Are growth parameters estimated from tagging and age-length data comparable?  Canadian Journal of Fisheries and Aquatic Sciences, 45:936-942.
 #'

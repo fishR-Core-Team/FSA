@@ -15,7 +15,9 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso See also \code{subset} and \code{\link[dplyr]{filter}} in \pkg{dplyr}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{2-Basic Data Manipulations}.
+#'
+#' @seealso See also \code{\link{subset}} and \code{\link[dplyr]{filter}} in \pkg{dplyr}.
 #'
 #' @keywords misc
 #'

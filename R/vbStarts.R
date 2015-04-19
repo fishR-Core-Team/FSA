@@ -12,8 +12,6 @@
 #' 
 #' Starting values can also be obtained by plotting the data with the model superimposed but tied to slider bars for changing parameters.  One can change the parameters until a reasonable fit is observed and then use those valeus as starting values.  Such a plot can be constructed by including \code{dynamicPlot=TRUE}.  The initial parameters for the slider bars are the starting values constructed as described above.  It should be noted that the dynamic plot may show an error of \dQuote{[tcl] can't get device image} but the plot will correctly update if the slider bar is adjusted.
 #' 
-#' @aliases vbStarts
-#' 
 #' @param formula A formula of the form \code{len~age}.
 #' @param data A data frame that contains the variables in \code{formula}.
 #' @param type A string that indicates the parameterization of the von Bertalanffy model.
@@ -29,15 +27,17 @@
 #' 
 #' @return A list that contains reasonable starting values.  Note that the parameters will be listed in the same order and with the same names as listed in \code{\link{vbFuns}}.
 #' 
+#' @note The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} parameterizations are synonymous.
+#' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
-#' @note The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} parameterizations are synonymous.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth}.
 #' 
 #' @seealso See \code{\link{vbModels}} for a list of models and parameterizations used in \pkg{FSA}, \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations, and \code{\link{walfordPlot}} for a common method to estimate Linf and K.
 #' 
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffy.pdf}, \url{https://sites.google.com/site/fishrfiles/gnrl/VonBertalanffyExtra.pdf}
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
-#' @references Francis, R.I.C.C.  1988.  Are growth parameters estimated from tagging and age-length data comparable?  Canadian Journal of Fisheries and Aquatic Sciences, 45:936-942.
+#' Francis, R.I.C.C.  1988.  Are growth parameters estimated from tagging and age-length data comparable?  Canadian Journal of Fisheries and Aquatic Sciences, 45:936-942.
 #' 
 #' Gallucci, V.F. and T.J. Quinn II. 1979.  Reparameterizing, fitting, and testing a simple growth model.  Transactions of the American Fisheries Society, 108:14-25.
 #' 

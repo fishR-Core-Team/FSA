@@ -8,8 +8,6 @@
 #'
 #' Additional lengths can be added to the returned vector with \code{addLens}.  Names for these lengths can be included in \code{addNames}.  If \code{addNames} is non-NULL then it must be of the same length as \code{addLens}.  If \code{addLens} is non-NULL but \code{addNames} is NULL then the default names will be the same as the lengths in \code{addLens}.  The \code{addLens} argument is useful for calculating PSD values that are different from the Gabelhouse lengths.
 #'
-#' @aliases psdVal
-#'
 #' @param species A string that contains the species name for which to find Gabelhous lengths.  See details.
 #' @param units A string that indicates the units for the returned lengths.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
 #' @param incl.zero A logical that indicates if a zero is included in the first position of the returned vector (DEFAULT) or not.  This position will be names as \dQuote{substock}.  See details.
@@ -20,11 +18,12 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{4-Size Structure}.
+#' 
+#' @seealso See \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}} for related functionality.
 #'
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}
-#'
-#' @references
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
 #' Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  \href{http://pubstorage.sdstate.edu/wfs/415-F.pdf}{New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).}  Fisheries 31:86-87.  
 #'
 #' Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  \href{http://www.montana.edu/mtcfru/Guy/Publication\%20pdf/PSD\%20pub.pdf}{Proportional size distribution (PSD): A further refinement of population size structure index terminology.}  Fisheries 32:348.

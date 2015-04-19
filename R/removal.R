@@ -19,8 +19,6 @@
 #'
 #' In the Carle Strub method, if the resultant No estimate is equal to the sum of the catches (T) then the estimate of No that is returned will be the sum of the catches.  In this instance, and if the \dQuote{Seber} method of computing the standard error is used, then the SE will not be estimable and the confidence intervals can not be constructed.
 #'
-#' @aliases removal summary.removal confint.removal
-#'
 #' @param catch A numerical vector of catch at each pass.
 #' @param method A single string that identifies the removal method to use.  See details.
 #' @param alpha A single numeric value for the alpha parameter in the CarleStrub method (default is \code{1}).
@@ -49,12 +47,6 @@
 #'    \item min.nlogLH The minimum value of the negative log-likelihood function.
 #'    \item Tmult The Tmult value sent by the user.
 #'  }
-#'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
-#'
-#' @seealso \code{\link{depletion}}.
-#'
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl//Depletion.pdf}
 #' 
 #' @section testing: The Carle-Strub method matches the examples in Carle and Strub (1978) for No, p, and the variance of No.  The Carle-Strub estimates of No and p match the examples in Cowx (1983) but the SE of No does not.  The Carle-Strub estimates of No match the results (for estimates that they did not reject) from Jones and Stockwell (1995) to within 1 individual in most instances and within 1\% for all other instances (e.g., off by 3 individuals when the esitmate was 930 individuals).
 #' 
@@ -68,7 +60,14 @@
 #' 
 #' The Moran and Schnute methods match the examples in Schnute (1983) perfectly for all point estimates and within 0.1 units for all confidence intervals.
 #'
-#' @references 
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{7-Abundance}.
+#'
+#' @seealso See \code{\link{depletion}} for related functionality.
+#' 
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
 #' Carle, F.L. and M.R. Strub. 1978. A new method for estimating population size from removal data.  Biometrics, 34:621-630.
 #'
 #' Cowx, I.G.  1983.  Review of the methods for estimating fish population size from survey removal data.  Fisheries Management, 14:67-82.
@@ -84,6 +83,8 @@
 #' van Dishoeck, P.  2009.  \href{http://rem-main.rem.sfu.ca/theses/vanDishoeckPier_2009_MRM483.pdf}{Effects of catchability variation on performance of depletion estimators: Application to an adaptive management experiment.}  Masters Thesis, Simon Fraser University.
 #' 
 #' @keywords manip
+#'
+#' @aliases removal summary.removal confint.removal
 #'
 #' @examples
 #' ## First example -- 3 passes

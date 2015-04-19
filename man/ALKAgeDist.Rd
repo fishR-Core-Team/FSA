@@ -31,12 +31,12 @@ The length intervals in the rows of \code{key} must contain all of the length in
 
 The values in \code{lenA.n} are equal to what the row sums of \code{key} would have been before \code{key} was converted to a row proportions table.  The length of \code{lenA.n} must also be equal to the number of rows in \code{key}.  If this constraint is not met, then the function will stop with an error message.
 }
-\section{fishR vignette}{
- none yet.
+\section{Testing}{
+ The results from this function perfectly match the results in Table 8.4 (left) of Quinn and Deriso with \code{\link[FSAdata]{SnapperHG2}} from \pkg{FSAdata}.  The results also perfectly match the results from using \code{\link[fishmethods]{alkprop}} in \pkg{fishmethods}.
 }
 
-\section{Tests}{
- The results from this function perfectly match the results in Table 8.4 (left) of Quinn and Deriso with \code{\link[FSAdata]{SnapperHG2}} from \pkg{FSAdata}.  The results also perfectly match the results from using \code{\link[fishmethods]{alkprop}} in \pkg{fishmethods}.
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{12-Age-Length Key}.
 }
 \examples{
 ## Get data with length measurements and some assigned ages
@@ -62,11 +62,13 @@ alkAgeDist(WR1.key,lenA.n,len.n)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+
 Lai, H.-L.  1987.  Optimum allocation for estimating age composition using age-length key. Fishery Bulletin, 85:179-185.
 
 Lai, H.-L.  1993.  Optimum sampling design for using the age-length key to estimate age composition of a fish population. Fishery Bulletin, 92:382-388.
 
-Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages
+Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages.
 }
 \seealso{
 See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{\link[fishmethods]{alkprop}} from \pkg{fishmethods} for the exact same methodology but with a different format for the inputs.

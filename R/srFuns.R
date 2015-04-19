@@ -13,11 +13,12 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
-#' @seealso \code{\link{srStarts}} and \code{\link{srModels}}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{10-Recruitment}.
 #'
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
+#' @seealso See \code{\link{srStarts}} and \code{\link{srModels}} for related functionality.
 #'
-#' @references 
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
 #' Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19. United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
 #' 
 #' Iles, T.C.  1994.  A review of stock-recruitment relationships with reference to flatfish populations.  Netherlands Journal of Sea Research 32:399-420.

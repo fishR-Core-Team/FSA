@@ -44,8 +44,8 @@ This computes a vector that contains the Gabelhouse lengths specific to each spe
 
 Additional lengths to be use for each species can be included by giving a vector of species names in \code{addSpec} and a corresponding vector of additional lengths in \code{addLens}.  Note, however, that \code{use.names} will be reset to \code{FALSE} if \code{addSpec} and \code{addLens} are specified as there is no way to order the names when additional lengths are used.
 }
-\section{fishR vignette}{
- none yet.
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{4-Size Structure}.
 }
 \examples{
 ## Create random data for three species
@@ -93,6 +93,8 @@ df
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+
 Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  \href{http://pubstorage.sdstate.edu/wfs/415-F.pdf}{New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).}  Fisheries 31:86-87.
 
 Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  \href{http://www.montana.edu/mtcfru/Guy/Publication\%20pdf/PSD\%20pub.pdf}{Proportional size distribution (PSD): A further refinement of population size structure index terminology.}  Fisheries 32:348.

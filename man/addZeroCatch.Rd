@@ -32,6 +32,9 @@ In situations where no fish were captured in some events, the \code{df} may cont
 
 One should test the results of this function by creating a frequency table of the \code{eventvar} or \code{specvar}.  In either case, the table should contain the same value in each cell of the table.  See the examples.
 }
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{2-Basic Data Manipulations}.
+}
 \examples{
 ## Example Data #1 (some nets missing some fish, ancillary net data)
 df1 <- data.frame(net=c(1,1,1,2,2,3),
@@ -102,6 +105,9 @@ df6mod1
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
+}
+\references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \keyword{manip}
 

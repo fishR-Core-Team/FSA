@@ -24,8 +24,8 @@ If \code{simple=FALSE} then the values for all parameters can be included as a v
 \description{
 Creates a function for a specific parameterization of a \dQuote{Beverton-Holt}, \dQuote{Ricker},  \dQuote{Shepherd}, or \dQuote{Saila-Lorda} stock-recruitment model.  Type \code{srModels()} for the equations of each model.
 }
-\section{fishR vignette}{
- \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{10-Recruitment}.
 }
 \examples{
 ## Simple Examples
@@ -69,6 +69,8 @@ curve(r3(x,a=coef(fit2)[1],Rp=coef(fit2)[2]),from=0,to=200,col="blue",lwd=3,add=
 Derek H. Ogle, \email{dogle@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 }
 \references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+
 Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19. United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
 
 Iles, T.C.  1994.  A review of stock-recruitment relationships with reference to flatfish populations.  Netherlands Journal of Sea Research 32:399-420.
@@ -82,7 +84,7 @@ Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation 
 Shepherd, J. 1982. A versatile new stock-recruitment relationship for fisheries and construction of sustainable yield curves. Journal du Conseil International pour l'Exploration de la Mar 40:67-75.
 }
 \seealso{
-\code{\link{srStarts}} and \code{\link{srModels}}.
+See \code{\link{srStarts}} and \code{\link{srModels}} for related functionality.
 }
 \keyword{manip}
 

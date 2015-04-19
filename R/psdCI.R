@@ -8,8 +8,6 @@
 #' 
 #' A vector of length equal to the length of \code{ptbl} is given in \code{indvec} which contains zeroes and ones to identify the linear combination of values in \code{ptbl} to use to construct the confidence intervals.  For example, if \code{ptbl} has four proportions then \code{indvec=c(1,0,0,0)} would be used to construct a confidence interval for the population proportion in the first category.  Alternatively, \code{indvec=c(0,0,1,1)} would be used to construct a confidence interval for the population proportion in the last two categories.  This vector must not contain all zeroes or all ones.
 #'
-#' @aliases psdCI
-#'
 #' @param indvec A numeric vector of 0s and 1s that identify the linear combination of proprtions from \code{ptbl} that the user is interested in.  See details.
 #' @param ptbl A numeric vector or array that contains the proportion or precentage of all individuals in each length category.  See details.
 #' @param n A single numeric of the number of fish used to construct \code{ptbl}.
@@ -20,16 +18,17 @@
 #' @param digits A numeric that indicates the number of decimals to round the result to.
 #'
 #' @return A matrix with columns that contain the computed PSD-X or PSD X-Y value and the associated confidence interval.  The confidence interval values were set to zero or 100 if the computed value was negative or greater than 100, respectively.
-#'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
-#'
-#' @seealso \code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}}.
-#'
-#' @section fishR vignette: none
 #' 
 #' @section Testing: The multinomial results match the results given in Brendent et al. (2008).
 #'
-#' @references
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{4-Size Structure}.
+#'
+#' @seealso See \code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}} for related functionality.
+#'
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
 #' Brenden, T.O., T. Wagner, and B.R. Murphy.  2008.  \href{http://qfc.fw.msu.edu/Publications/Publication\%20List/2008/Novel\%20Tools\%20for\%20Analyzing\%20Proportional\%20Size\%20Distribution_Brenden.pdf}{Novel tools for analyzing proportional size distribution index data.}  North American Journal of Fisheries Management 28:1233-1242.
 #'
 #' @keywords hplot

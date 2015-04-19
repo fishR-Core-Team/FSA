@@ -89,12 +89,12 @@ The default is to use all ages in the age vector.  This is appropriate only when
 
 If \code{weighted=TRUE} then a weighted regression is used where the weights are the log(number) at each age predicted from the unweighted regression of log(number) on age (as proposed by Maceina and Bettoli (1998)).
 }
-\section{fishR vignette}{
- \url{https://sites.google.com/site/fishrfiles/gnrl/CatchCurve.pdf}
-}
-
 \section{Testing}{
  Tested the results of catch curve, both unweighted and weighted, against the results in Miranda and Bettoli (2007).  Results for Z and the SE of Z matched perfectly.  Tested the unweighted results against the results from \code{agesurv} in \pkg{fishmethods} using the \code{rockbass} data.frame in \pkg{fishmethods}.  Results for Z and the SE of Z matched perfectly.
+}
+
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{8-Mortality}.
 }
 \examples{
 data(BrookTroutTH)
@@ -141,6 +141,8 @@ plot(cc5)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+
 Maceina, M.J., and P.W. Bettoli.  1998.  Variation in largemouth bass recruitment in four mainstream impoundments on the Tennessee River. North American Journal of Fisheries Management 18:998-1003.
 
 Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.

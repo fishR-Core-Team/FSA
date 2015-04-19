@@ -23,6 +23,9 @@ If \code{x} is a factor, the matching levels of the factor will be replaced with
 
 This is the EXACT SAME FUNCTION AS IN THE \pkg{plyr} PACKAGE.  I included it here to minimize conflicts between same-named functions in \pkg{dplyr} and \pkg{plyr}.
 }
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{2-Basic Data Manipulations}.
+}
 \examples{
 ## Examples from plyr
 x <- c("a", "b", "c")

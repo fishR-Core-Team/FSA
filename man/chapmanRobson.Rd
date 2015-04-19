@@ -79,14 +79,14 @@ The default is to use all ages in the age vector.  This is only appropriate if t
 
 The Chapman-Robson method provides an estimate of the annual survival rate, with the annual mortality rate (A) determined by 1-S.  The instantaneous mortality rate is often computed as -log(S).  However, Hoenig et al. (1983) showed that this produced a biased (over)estimate of Z and provided a correction.  The correction is applied by setting \code{zmethod="Hoenigetal"}.  Smith et al. (2012) showed that the Hoenig et al. method should be corrected for a variance inflation factor.  This correction is applied by setting \code{zmethod="Smithetal"} (which is the default behavior).  Choose \code{zmethod="original"} to use the original estimates for Z and it's SE as provided by Chapman and Robson.
 }
-\section{fishR vignette}{
- \url{https://sites.google.com/site/fishrfiles/gnrl/CatchCurve.pdf}
-}
-
 \section{Testing}{
  Tested the results of chapmanRobson against the results in Miranda and Bettoli (2007).  The point estimates of S matched perfectly but the SE of S did not because Miranda and Bettoli used a rounded estimate of S in the calculation of the SE of S but chapmanRobson does not.
 
 Tested the results against the results from \code{agesurv} in \pkg{fishmethods} using the \code{rockbass} data.frame in \pkg{fishmethods}.  Results for Z and the SE of Z matched perfectly for non-bias-corrected results.  The estimate of Z, but not the SE of Z, matched for the bias-corrected (following Smith et al. (2012)) results.  \pkg{FSA} uses equation 2 from Smith et al. (2012) whereas \pkg{fishmethods} appears to use equation 5 from the same source to estimate the SE of Z.
+}
+
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{8-Mortality}.
 }
 \examples{
 data(BrookTroutTH)
@@ -114,6 +114,8 @@ plot(cr3)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+
 Chapman, D.G. and D.S. Robson. 1960. The analysis of a catch curve. Biometrics. 16:354-368.
 
 Hoenig, J.M. and W.D. Lawing, and N.A. Hoenig.  1983.  \href{http://www.fisheries.vims.edu/hoenig/pdfs/Hoenig_Lawing_Hoenig.pdf}{Using mean age, mean length and median length data to estimate the total mortality rate}.  International Council for the Exploration of the Sea, CM 1983/D:23, Copenhagen.

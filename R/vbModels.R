@@ -2,15 +2,18 @@
 #'
 #' @description Show the von Bertalanffy model formulas implemented in \code{\link{vbFuns}} and \code{\link{vbStarts}}.
 #'
-#' @aliases vbModels
-#'
 #' @param \dots Additional arguments for \code{plot}.  Generally not needed
 #'
-#' @return A graphic that uses \code{plotmath} to show the model formulas in a pretty format.
+#' @return A graphic that uses \code{plotmath} to show the model formulae in a pretty format.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' 
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth}.
 #'
 #' @seealso See \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations and \code{\link{vbStarts}} for methods to find starting values.
+#' 
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
 #'
 #' @keywords manip hplot
 #'

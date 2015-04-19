@@ -8,10 +8,12 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{\link{srFuns}} and \code{\link{srStarts}}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{10-Recruitment}.
 #'
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/StockRecruit.pdf}
+#' @seealso See \code{\link{srFuns}} and \code{\link{srStarts}} for related functionality.
 #'
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
 #' @keywords manip hplot
 #'
 #' @examples

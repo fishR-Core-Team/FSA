@@ -31,8 +31,8 @@ A zero is included in the first postion of the returned vector if \code{incl.zer
 
 Additional lengths can be added to the returned vector with \code{addLens}.  Names for these lengths can be included in \code{addNames}.  If \code{addNames} is non-NULL then it must be of the same length as \code{addLens}.  If \code{addLens} is non-NULL but \code{addNames} is NULL then the default names will be the same as the lengths in \code{addLens}.  The \code{addLens} argument is useful for calculating PSD values that are different from the Gabelhouse lengths.
 }
-\section{fishR vignette}{
- \url{https://sites.google.com/site/fishrfiles/gnrl/SizeStructure.pdf}
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{4-Size Structure}.
 }
 \examples{
 # List all of the species
@@ -57,6 +57,8 @@ psdVal("Bluegill",units="in",addLens=c("MinSlot"=7,"MaxSlot"=9))
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+
 Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  \href{http://pubstorage.sdstate.edu/wfs/415-F.pdf}{New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).}  Fisheries 31:86-87.
 
 Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  \href{http://www.montana.edu/mtcfru/Guy/Publication\%20pdf/PSD\%20pub.pdf}{Proportional size distribution (PSD): A further refinement of population size structure index terminology.}  Fisheries 32:348.
@@ -64,7 +66,7 @@ Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  \href{http://ww
 Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  \href{http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf}{Stock density indices: development, use, and limitations.}  Reviews in Fisheries Science 1:203-222.
 }
 \seealso{
-\code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}}.
+See \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}} for related functionality.
 }
 \keyword{manip}
 

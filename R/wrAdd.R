@@ -2,9 +2,7 @@
 #'
 #' @description This computes a vector that contains the relative weight specific to each species for all individuals in an entire data frame.
 #'
-#' @details This computes a vector that contains the relative weight specific to each species for all individuals in an entire data frame.  The vector can be appended to an existing data.frame to create a variable that contains the relative weights for each individual.  The relative weight value will be \code{NA} for each individual for which a standard weight equation does not exist in \code{\link{WSlit}}, a standard weight equation for the units given in \code{units=} does not exist in \code{\link{WSlit}}, a standard weight equation for the 75th percentile does not exist in \code{\link{WSlit}}, or if the individual is shorter or longer than the lengths for which the standard weight equation should be applied.  Either the linear or quadratic equation has been listed as preferred for each species, so only that equation will be used.  The use of the 75th percentile is by far the most common and, because this function is designed for use on entire data frames, it will be the only percentile allowed.  Thus, to use equations for other percentiles, one will have to use \dQuote{manual} methods.  See \code{\link{WSlit}} and \code{\link{wsVal}} for more details about types of equations, percentiles, finding which species have published standard weight equations, etc.  See the examples for one method for changing species names to something that this function will recognize. 
-#'
-#' @aliases wrAdd
+#' @details This computes a vector that contains the relative weight specific to each species for all individuals in an entire data frame.  The vector can be appended to an existing data.frame to create a variable that contains the relative weights for each individual.  The relative weight value will be \code{NA} for each individual for which a standard weight equation does not exist in \code{\link{WSlit}}, a standard weight equation for the units given in \code{units=} does not exist in \code{\link{WSlit}}, a standard weight equation for the 75th percentile does not exist in \code{\link{WSlit}}, or if the individual is shorter or longer than the lengths for which the standard weight equation should be applied.  Either the linear or quadratic equation has been listed as preferred for each species, so only that equation will be used.  The use of the 75th percentile is by far the most common and, because this function is designed for use on entire data frames, it will be the only percentile allowed.  Thus, to use equations for other percentiles, one will have to use \dQuote{manual} methods.  See \code{\link{WSlit}} and \code{\link{wsVal}} for more details about types of equations, percentiles, finding which species have published standard weight equations, etc.  See the examples for one method for changing species names to something that this function will recognize.
 #'
 #' @param wt A numeric vector that contains weight measurements or a formula of the form \code{wt~len+spec} where \dQuote{wt} generically represents the weight variable, \dQuote{len} generically represents the length variable, and \dQuote{spec} generically represents the species variable.  Note that this formula can only contain three variables and they must be in the order of weight first, length second, species third.
 #' @param len A numeric vector that contains length measurements.  Not used if \code{wt} is a formula.
@@ -17,9 +15,11 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{\link{wsVal}}, \code{\link{WSlit}}, and \code{\link{psdAdd}} for related functionality.  See \code{\link{mapvalues}} for help in changing species names to match those in \code{\link{PSDlit}}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{6-Condition}.
 #'
-#' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/RelativeWeight.pdf}.
+#' @seealso See \code{\link{wsVal}}, \code{\link{WSlit}}, and \code{\link{psdAdd}} for related functionality.  See \code{\link{mapvalues}} for help in changing species names to match those in \code{\link{WSlit}}.
+#'
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #'
 #' @keywords manip
 #'

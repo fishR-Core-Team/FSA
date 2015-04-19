@@ -95,16 +95,16 @@ For the DeLury method, a linear regression model of log (catch-per-unit-effort) 
 
 Standard errors for the catchability and population size estimates are computed fronm formulas on page 298 (for Leslie) and 303 (for DeLury) from Seber (2002).  Confidence intervals are computed using standard large-sample normal distribution theory with the regression error df.
 }
-\section{fishR vignette}{
- \url{https://sites.google.com/site/fishrfiles/gnrl/Depletion.pdf}
-}
-
 \section{testing}{
   The Leslie method without the Ricker modification and the DeLury method with the Ricker modification matches the results from \code{\link[fishmethods]{deplet}} in \pkg{fishmethods} for the \code{\link[fishmethods]{darter}} (from \pkg{fishmethods}), \code{\link[FSAdata]{LobsterPEI}} and \code{\link[FSAdata]{BlueCrab}} from \pkg{FSAdata}, and \code{\link{SMBassLS}} for N0 to whole numbers, the SE for No to one decimal, q to seven decimals, and the SE of q to at least five decimals.
 
 The Leslie method matches the results of Seber (2002) for N0, q, and the CI for Q but not the CI for N (which was so far off that it might be that Seber's result is incorrect) for the lobster data and the q and CI for q but the NO or its CI (likely due to lots of rounding in Seber 2002) for the Blue Crab data.
 
 The Leslie and DeLury methods match the results of Ricker (1975) for No and Q but not for the CI of No (Ricker used a very different method to compute CIs).
+}
+
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{7-Abundance}.
 }
 \examples{
 data(SMBassLS)
@@ -145,12 +145,14 @@ plot(d2)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+
 Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 
 Seber, G.A.F. 2002. The Estimation of Animal Abundance. Edward Arnold, Second edition (reprinted).
 }
 \seealso{
-See \code{\link{removal}} for other depletion methods and \code{\link[fishmethods]{deplet}} in \pkg{fishmethods} for similar functionality.
+See \code{\link{removal}} for related functionality and \code{\link[fishmethods]{deplet}} in \pkg{fishmethods} for similar functionality.
 }
 \keyword{hplot}
 \keyword{manip}

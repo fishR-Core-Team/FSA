@@ -64,10 +64,6 @@ The \code{summary} function returns estimates of M, N, phi, B, and their associa
 
 The level of confidence is not set in the \code{confint} function, in contrast to most \code{confint} functions.  Rather the confidence level is set in the main \code{mrOpen} function.
 }
-\section{fishR vignette}{
- \url{https://sites.google.com/site/fishrfiles/gnrl/MROpen.pdf}
-}
-
 \section{Testing}{
   The formulas have been triple-checked against formulas in Pollock et al. (1990), Manly (1984), and Seber (2002).
 
@@ -78,6 +74,10 @@ The results of \code{mrOpen} related to Table 4.4 of Pollock et al. (1990) match
 All point estimates of M, N, phi, and B and the SE of phi match the results in Table 2.3 of Krebs (1989) (within minimal rounding error for a very small number of results).  The SE of N results are not close to those of Krebs (1989) (who does not provide a formula for SE so the discrepancy cannot be explored).  The SE of B results match those of Krebs (1989) for 5 of the 8 values and are within 5\% for 2 of the other 3 values (the last estimate is off by 27\%).
 
 For comparing to Jolly's data as presented in Tables 5.1 and 5.2 of Seber (2002), M was within 4 (less than 1.5\%), N was within 3\% (except N2 which was within 9\%), phi was within 0.01 (less than 1.5%), and B was within 7 (less than 5\%) except for B2 and B8.
+}
+
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{7-Abundance}.
 }
 \examples{
 ## First example -- capture histories summarized with capHistSum()
@@ -130,6 +130,8 @@ ex3a <- jolly(jolly.top,jolly.bot)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
+Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+
 Jolly, G.M. 1965. Explicit estimates from capture-recapture data with both death and immigration -- stochastic model. Biometrika, 52:225-247.
 
 Krebs, C.J.  1989.  Ecological Methodology.  Harper & Row Publishers, New York.
