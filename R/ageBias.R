@@ -20,7 +20,7 @@
 #'
 #' The sample size present in the age-agreement table is found with \code{what="n"}.
 #' 
-#' @section Testing: Tested all symmetry test results against results in Evans and Hoenig (2008), the McNemar's and Evans-Hoenig results against results from \code{compare2} in \pkg{fishmethods}, and the results for the \code{alewifeLH} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
+#' @section Testing: Tested all symmetry test results against results in Evans and Hoenig (2008), the McNemar's and Evans-Hoenig results against results from \code{\link[fishmethods]{compare2}} in \pkg{fishmethods}, and the results for the \code{\link[FSAdata]{AlewifeLH}} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
 #'
 #' @param formula A formula of the form \code{nrefvar~refvar}, where \code{hrefvar} and \code{refvar} generically represent the variables that contain the \dQuote{nonreference} and \dQuote{reference} age assignments, respectively.  See details.
 #' @param data A data.frame that minimally contains the paired age assignments given \code{formula}.
@@ -77,7 +77,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso See \code{\link{agePrecision}} for measures of precision between pairs of age assignments.  See \code{compare2} in \pkg{fishmethods} for similar functionality.
+#' @seealso See \code{\link{agePrecision}} for measures of precision between pairs of age assignments.  See \code{\link[fishmethods]{compare2}} in \pkg{fishmethods} for similar functionality.
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/AgeComparisons.pdf}
 #'

@@ -13,7 +13,7 @@
 #'
 #' @return A data frame of increments in one-fish-per-line  (i.e., \dQuote{wide}) format with the total radius-at-capture appended in a variable named as given in \code{var.name} (defaults to \dQuote{radcap}).
 #'
-#' @seealso \code{\link{gConvert}}, \code{\link{gReshape}}
+#' @seealso \code{\link{gConvert}} and \code{\link{gReshape}}
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'

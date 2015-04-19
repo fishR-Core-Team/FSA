@@ -42,7 +42,7 @@ head(SMBi1a)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-\code{\link{gConvert}}, \code{\link{gReshape}}
+\code{\link{gConvert}} and \code{\link{gReshape}}
 }
 \keyword{manip}
 

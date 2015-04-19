@@ -140,7 +140,7 @@ Individual t-tests to determine if the mean age of the non-reference set at a pa
 The sample size present in the age-agreement table is found with \code{what="n"}.
 }
 \section{Testing}{
- Tested all symmetry test results against results in Evans and Hoenig (2008), the McNemar's and Evans-Hoenig results against results from \code{compare2} in \pkg{fishmethods}, and the results for the \code{alewifeLH} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
+ Tested all symmetry test results against results in Evans and Hoenig (2008), the McNemar's and Evans-Hoenig results against results from \code{\link[fishmethods]{compare2}} in \pkg{fishmethods}, and the results for the \code{\link[FSAdata]{AlewifeLH}} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
 }
 
 \section{fishR vignette}{
@@ -195,7 +195,7 @@ Hoenig, J.M., M.J. Morgan, and C.A. Brown. 1995.  \href{http://www.fisheries.vim
 Muir, A.M., M.P. Ebener, J.X. He, and J.E. Johnson.  2008.  \href{http://www.tandfonline.com/doi/abs/10.1577/M06-160.1}{A comparison of the scale and otolith methods of age estimation for lake whitefish in Lake Huron.}  North American Journal of Fisheries Management 28:625-635.
 }
 \seealso{
-See \code{\link{agePrecision}} for measures of precision between pairs of age assignments.  See \code{compare2} in \pkg{fishmethods} for similar functionality.
+See \code{\link{agePrecision}} for measures of precision between pairs of age assignments.  See \code{\link[fishmethods]{compare2}} in \pkg{fishmethods} for similar functionality.
 }
 \keyword{htest}
 \keyword{manip}
