@@ -1,4 +1,6 @@
-# FSA 0.6.10 ongoing
+# FSA 0.6.11 ongoing
+
+# FSA 0.6.10 Apr15
 * Compiling under R 3.2.0.
 * Added some cross-reference links to help files.
 * Remove fishR vignette section and added IFAR Chapter section to help files.
