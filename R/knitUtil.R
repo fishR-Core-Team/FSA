@@ -1,82 +1,68 @@
-#' @title Specific utilities for use in a Sweave/knitr document.
+#' @title Specific utilities for use in a knitr document.
 #'
-#' @description Specific utilities for pretty printing various items in a Sweave/knitr document.
+#' @description Specific utilities for pretty printing various items in a knitr document.
 #'
 #' @details
 #'  \itemize{
-#'    \item \code{swvCounts} is used to convert numeric numbers to \sQuote{word} numbers in a sentence.
-#'    \item \code{swvPvalue} is used to print \sQuote{pretty} p-values. 
-#'    \item \code{swvANOVA} is used to print \sQuote{pretty} ANOVA tables (i.e., some output removed (see below)).
-#'    \item \code{swvGLHT} is used to print \sQuote{pretty} multiple comparison tables (i.e., some output removed (see below)).
-#'    \item \code{swvREG} is used to print \sQuote{pretty} summary regression results (i.e., some output removed (see below)).
-#'    \item \code{swvHtest} is used to print \sQuote{pretty} hypothesis test (e.g., from \code{\link{t.test}} or \code{\link{chisq.test}}) tables (i.e., some output removed (see below)).
-#'    \item \code{swvCode} is used to create a modified (see below) Stangled or purled script.
-#'    \item \code{swvFinish} is used to print \sQuote{reproducibility information} for the document.
+#'    \item \code{kCounts} is used to convert numeric numbers to \sQuote{word} numbers in a sentence.
+#'    \item \code{kPvalue} is used to print \sQuote{pretty} p-values. 
+#'    \item \code{purl2} is used to create a modified (see below) Stangled or purled script.
+#'    \item \code{reproInfo} is used to print \sQuote{reproducibility information} for the document.
 #'  }
 #'
-#' @note In \code{swvFinish}, \code{elapsed} can be used to print the time it took to process the document by sending the elasped time for processing to this argument.  The simplest way to get an approximate elapsed time is to put  \code{st <- proc.time()} very early (first line?) in your Sweave/knitr code, put \code{et <- proc.time()-st} very late in your Sweave/knitr code (i.e., just prior to \code{swvFinish}), and then used \code{elapsed=et["user.self"]+et["sys.self"]} in \code{swvFinish}.
-#'
-#' @section warning:
-#'I have not checked these commands with Sweave for quite sometime, but do often with knitr.  Please let me know if you have any problems when using Sweave.
-#'
-#' @aliases swvCounts swvPvalue swvANOVA swvGLHT swvREG swvHtest swvCode swvFinish
+#' @note In \code{reproInfo}, \code{elapsed} can be used to print the time it took to process the document by sending the elasped time for processing to this argument.  The simplest way to get an approximate elapsed time is to put  \code{st <- proc.time()} very early (first line?) in your knitr code, put \code{et <- proc.time()-st} very late in your knitr code (i.e., just prior to \code{reproInfo}), and then used \code{elapsed=et["user.self"]+et["sys.self"]} in \code{reproInfo}.
 #' 
 #' @param value A single numeric count or p-value.
 #' @param capitalize A logical that indicates if the returned words should be capitalized or not (the default).
 #' @param digits Number of decimal places to round the values to.
 #' @param include.p A logical that indicates whether the result should be a character string with \dQuote{p=} appended to the numerical result.
 #' @param latex A logical that indicates whether the resultant p-value string should be contained within dollar signs to form a latex formula.
-#' @param x An object saved from \code{lm} or \code{glht} or an object of class \code{htest} (e.g., saved from \code{t.test}).
-#' @param type A string that indicates the type of glht result to extract.
 #' @param file A string that contains the root name of the .RNW file.  This will also be the name of the resultant Stangled file with .R appended, the resultant PDF file with .PDF appended, the resultant asciidoc file with .txt appended, and the defaul HTML file with .html appended.  If missing then will search for a .Rnw file in the current working directory.
 #' @param out.dir A string that indicates the directory structure in which the purled file should be located.  This should not have a forward slash at the end.
 #' @param moreItems A string that contains additional words that when found in the Stangled file will result in the entire line with those words to be deleted.
 #' @param blanks A string that indicates if blank lines should be removed.  If \code{blanks="all"} then all blank lines will be removed.  If \code{blanks="extra"} then only \dQuote{extra} blanks lines will be removed (i.e., one blank line will be left where there was originally more than one blank line).
 #' @param topnotes A character vector of lines to be added to the top of output file.  Each value in the vector will be placed on a single line at the top of the output file.
-#' @param annotate A logical that indicates whether decorating comments around code chunks should be used (\code{TRUE}) or not (\code{FALSE}; default).
-#' @param show.alt A logical that indicates whether the line stating what the alternative hypothesis is should be printed (\code{TRUE}) or not (\code{FALSE}; default).
+#' @param timestamp A logical that indicates whether a timestampe comment should be appended to the bottom of the script created by \code{purl2}.
 #' @param rqrdPkgs A string vector that contains packages that are required for the vignette and for which all dependencies should be found.
 #' @param closeGraphics A logical that indicates whether the graphics device should be closed or not.
 #' @param addTOC A logical that indicates whether or not a table of contents entry for the reproducibity section should be added to the LaTeX output.
 #' @param newPage A logical that indicates whether a new page call should be added to the LaTeX output so that the reproducibility sections starts on a new page.
 #' @param elapsed A numeric, usually from \code{proc.time}, that is the time required to run the vignette.  If \code{NULL} then this output will not be used.  See the note below.
 #' @param listFiles A logical that indicates whether the Sweave/knitr markup and R code files should be listed in the reproducibility information list.
-#' @param \dots Additional arguments for the original \code{Stangle} or \code{purl}.
+#' @param \dots Additional arguments for the original \code{purl}.
 #'
 #' @return
 #'  \itemize{
-#'    \item \code{swvCounts} returns a numeric value if the count is less than zero or greater than ten and returns a character string of the number \sQuote{name}.  See the examples.
-#'    \item \code{swvPvalue} returns a character string of the supplied p-value rounded to the requested number of digits or a character string that indicates what the p-value is less than the value with a \sQuote{5} in the \code{digits}+1 place.  See the examples. 
-#'    \item \code{swvANOVA} returns the results of \code{anova} but without the heading attribute. 
-#'    \item \code{swvGLHT} returns a matrix of just the hypothesis test or confidence interval results from a \code{glht} object (i.e., all messages that are usually printed are stripped away). 
-#'    \item \code{swvREG} returns the results of \code{summary} but without the call and the information about the residuals. 
-#'    \item \code{swvHtest} returns the same as \code{stats:::print.htest} except that the name of the test, the data used, and, optionally, the descriptor of the alternative hypothesis are not printed. 
-#'    \item \code{swvCode} is a modification of \code{Stangle} (if using Sweave) or \code{purl} (if using knitr) that creates a file with the same name as \code{file} but with lines removed that contain certain words (those found in \code{ItemsToRemove} and \code{moreItems}). 
-#'    \item \code{swvFinish} returns LaTeX code that prints \dQuote{reproducibility information} at the bottom of the Sweaved/knitted document.
+#'    \item \code{kCounts} returns a numeric value if the count is less than zero or greater than ten and returns a character string of the number \sQuote{name}.  See the examples.
+#'    \item \code{kPvalue} returns a character string of the supplied p-value rounded to the requested number of digits or a character string that indicates what the p-value is less than the value with a \sQuote{5} in the \code{digits}+1 place.  See the examples. 
+#'    \item \code{purl2} is a modification of \code{\link[knitr]{purl}} from \pkg{knitr} that creates a file with the same name as \code{file} but with lines removed that contain certain words (those found in \code{ItemsToRemove} and \code{moreItems}). 
+#'    \item \code{reproInfo} returns LaTeX code that prints \dQuote{reproducibility information} at the bottom of the Sweaved/knitted document.
 #'  }
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso See \code{\link{formatC}}, \code{\link[knitr]{knit}} in \pkg{knitr}, and \code{\link[multcomp]{glht}} in \pkg{multcomp} for related functionality.
+#' @seealso See \code{\link{formatC}} for functionality similar to \code{kPvalue}.  See \code{\link[knitr]{purl}} and \code{\link[knitr]{knit}} in \pkg{knitr} for functionality similar to \code{purl2}.
 #'
-#' @keywords hplot models manip
+#' @keywords manip
+#'
+#' @aliases kCounts kPvalue purl2 reproInfo
 #'
 #' @examples
-#' swvCounts(7)
-#' swvCounts(17)
-#' swvCounts(0)
-#' swvCounts(-6)
-#' swvCounts(3,capitalize=TRUE)
+#' kCounts(7)
+#' kCounts(17)
+#' kCounts(0)
+#' kCounts(-6)
+#' kCounts(3,capitalize=TRUE)
 #'
-#' swvPvalue(0.123456789)
-#' swvPvalue(0.000123456)
-#' swvPvalue(0.000012345)
-#' swvPvalue(0.000012345,include.p=FALSE)
-#' swvPvalue(0.000012345,include.p=FALSE,latex=FALSE)
+#' kPvalue(0.123456789)
+#' kPvalue(0.000123456)
+#' kPvalue(0.000012345)
+#' kPvalue(0.000012345,include.p=FALSE)
+#' kPvalue(0.000012345,include.p=FALSE,latex=FALSE)
 #'
-#' @rdname swvUtil
+#' @rdname knitUtil
 #' @export
-swvCounts <- function(value,capitalize=FALSE) {    
+kCounts <- function(value,capitalize=FALSE) {    
   numwords <- c("one","two","three","four","five","six","seven","eight","nine","ten")
   if (value == 0) "zero"
     else if (value <= 10 & value >= 1) {
@@ -86,9 +72,9 @@ swvCounts <- function(value,capitalize=FALSE) {
     } else value
 }
 
-#' @rdname swvUtil
+#' @rdname knitUtil
 #' @export
-swvPvalue <- function(value,digits=4,include.p=TRUE,latex=TRUE) {
+kPvalue <- function(value,digits=4,include.p=TRUE,latex=TRUE) {
   if(round(value,digits) == 0) {
     res <- paste("<",formatC(value,format="f",digits=digits),"5",sep="")
     if(include.p) res <- paste("p",res,sep="")
@@ -103,91 +89,11 @@ swvPvalue <- function(value,digits=4,include.p=TRUE,latex=TRUE) {
     else res
 }
 
-#' @rdname swvUtil
+#' @rdname knitUtil
 #' @export
-swvANOVA <- function(x) {
-  x <- anova(x)
-  attr(x,"heading") <- NULL
-  x
-}
-
-#' @rdname swvUtil
-#' @export
-swvGLHT <- function(x,type=c("hypothesis","confidence")) {
-  type <- match.arg(type)
-  if (type=="hypothesis") {
-    int <- summary(x)$test
-    res <- cbind(int$coefficients,int$sigma,int$tstat,int$pvalues)
-    colnames(res) <- c("Estimate","Std. Error","t value","p value")
-    rownames(res) <- paste (rownames(res),"= 0")
-  } else res <- confint(x)$confint[,1:3]
-  res
-}
-
-#' @rdname swvUtil
-#' @export
-swvREG <- function(x,digits=max(3,getOption("digits")-3)) {
-  x <- summary(x)
-  rdf <- x$df[2L]
-  coefs <- x$coefficients
-  if (!is.null(aliased <- x$aliased) && any(aliased)) {
-    cn <- names(aliased)
-    coefs <- matrix(NA, length(aliased), 4, dimnames = list(cn, colnames(coefs)))
-    coefs[!aliased, ] <- x$coefficients
-  }
-  printCoefmat(coefs, digits = digits, na.print = "NA")
-  cat("---")
-  cat("\nResidual standard error:", format(signif(x$sigma,digits)), "on", rdf, "degrees of freedom\n")
-  if (nzchar(mess <- naprint(x$na.action))) cat("  (", mess, ")\n", sep = "")
-  if (!is.null(x$fstatistic)) {
-    cat("Multiple R-squared:", formatC(x$r.squared, digits = digits))
-    cat(",\tAdjusted R-squared:", formatC(x$adj.r.squared,digits = digits), "\nF-statistic:",
-        formatC(x$fstatistic[1],digits=digits), "on", x$fstatistic[2], "and", x$fstatistic[3], 
-        "DF,  p-value:",base::format.pval(pf(x$fstatistic[1L],x$fstatistic[2L],x$fstatistic[3L],lower.tail=FALSE),digits=digits), "\n")
-    }
-  cat("\n")
-}
-                
-#' @rdname swvUtil
-#' @export
-swvHtest <- function(x,digits=4,show.alt=FALSE,...) {
-  # the same as stats:::print.htest without the test name and listing the data
-  outp <- character()
-  if (show.alt & !is.null(x$alternative)) {
-    cat("alternative hypothesis: ")
-    if (!is.null(x$null.value)) {
-      if (length(x$null.value) == 1L) {
-        alt.char <- switch(x$alternative,two.sided="not equal to",less="less than",greater="greater than")
-        cat("true",names(x$null.value),"is",alt.char,x$null.value, "\n")
-      }
-      else {
-        cat(x$alternative, "\nnull values:\n")
-        print(x$null.value, ...)
-      }
-    }
-    else cat(x$alternative, "\n")
-  }
-  if (!is.null(x$statistic)) outp <- c(outp,paste(names(x$statistic),"=",format(round(x$statistic,4))))
-  if (!is.null(x$parameter)) outp <- c(outp,paste(names(x$parameter),"=",format(round(x$parameter,3))))
-  if (!is.null(x$p.value)) {
-    fp <- format.pval(x$p.value,digits=digits)
-    outp <- c(outp,paste("p-value",if(substr(fp,1L,1L) == "<") fp else paste("=",fp)))
-  }
-  cat(strwrap(paste(outp,collapse=", ")),sep="\n")
-  if (!is.null(x$conf.int)) {cat(format(100*attr(x$conf.int,"conf.level")),"percent confidence interval:\n",format(c(x$conf.int[1L],x$conf.int[2L])),"\n") }
-  if (!is.null(x$estimate)) {
-    cat("sample estimates:\n")
-    print(x$estimate, ...)
-  }
-  cat("\n")
-  invisible(x)
-}
-
-#' @rdname swvUtil
-#' @export
-swvCode <- function(file,out.dir=NULL,topnotes=NULL,
-                    moreItems=NULL,blanks=c("extra","all","none"),
-                    annotate=FALSE,...) {
+purl2 <- function(file,out.dir=NULL,topnotes=NULL,
+                  moreItems=NULL,blanks=c("extra","all","none"),
+                  timestamp=TRUE,...) {
   ## Some checks
   blanks <- match.arg(blanks)
   ## if no file is sent then stop
@@ -205,9 +111,9 @@ swvCode <- function(file,out.dir=NULL,topnotes=NULL,
   # Delete the original tangled file
   unlink(fn.Ri)
   unlink(fn.Ro)
-  ## tangle the results and then read those results back into flines
+  ## Purl the results and then read those results back into flines
   # handle documentation (i.e., pure code)
-  knitr::purl(file,fn.Ri,documentation=0)
+  knitr::purl(file,fn.Ri,documentation=1)
   flines <- readLines(fn.Ri)
   ## Expand itemsToRemove if something in moreItems
   itemsToRemove <- iMakeItemsToRemove(moreItems)
@@ -230,21 +136,23 @@ swvCode <- function(file,out.dir=NULL,topnotes=NULL,
   if (!is.null(topnotes)) flines <- c(paste("#",topnotes),flines)
   ## Delete first line if it is blank (often the case after removeItems)
   if (flines[1]=="") flines <- flines[-1]
+  ## Add timestampe if asked for
+  if (timestamp) flines <- c(flines,"",paste("# Script created at",Sys.time()))
   ## Delete the original purled/stangled file
   unlink(fn.Ri)
   ## Write out a new purled/stangled file
   write(flines,fn.Ro)
 }
 
-#' @rdname swvUtil
+#' @rdname knitUtil
 #' @export
-swvFinish <- function(file,rqrdPkgs=NULL,closeGraphics=TRUE,
+reproInfo <- function(file,rqrdPkgs=NULL,closeGraphics=TRUE,
                       addTOC=TRUE,newPage=FALSE,elapsed=NULL,listFiles=FALSE) {
   ## if no file is sent then find the .Rnw file in the current working directory
   if (missing(file)) file <- list.files(pattern=".Rnw",ignore.case=TRUE)
   ## Get just the filename prefix (i.e., remove directory and .Rnw if it exists)
   file <- unlist(strsplit(basename(file),c("\\.Rnw","\\.rnw","\\.RNW")))
-  swvFile <- iMakeFilename(file,".rnw")
+  knitFile <- iMakeFilename(file,".rnw")
   rFile <- iMakeFilename(file,".r")
   ses <- iProcessSessionInfo()
   if (is.null(rqrdPkgs)) rqrdPkgs <- "None given.\n"
@@ -274,7 +182,7 @@ swvFinish <- function(file,rqrdPkgs=NULL,closeGraphics=TRUE,
   if (listFiles) {
     outp <- "  \\subsection*{Files}\n"    
     outp <- paste(outp,"    \\begin{Itemize}\n",sep="")
-    outp <- paste(outp,"      \\item \\href{",swvFile,"}{NoWeb Source (.Rnw) file}\n",sep="")
+    outp <- paste(outp,"      \\item \\href{",knitFile,"}{NoWeb Source (.Rnw) file}\n",sep="")
     outp <- paste(outp,"      \\item \\href{",rFile,"}{R Script (.R) file}\n",sep="")
     outp <- paste(outp,"    \\end{Itemize}\n\n",sep="")  
     cat(outp)
@@ -294,7 +202,7 @@ swvFinish <- function(file,rqrdPkgs=NULL,closeGraphics=TRUE,
 
 
 ##################################################################
-## Internal files used in swvUtils functions                                      
+## Internal files used in knitUtils functions                                      
 ##################################################################
 iGetAllDependencies <- function(pkgs) {
   # get a list of available packages ... this is needed for package.dependencies below
@@ -332,7 +240,7 @@ iMakeFilename <- function(file,extension,directory=NULL) {
 }
 
 iMakeItemsToRemove <- function(moreItems) {
-  mainItems <- c("Stangle","SweaveHooks","swvCode","swvFinish","#line","## ","graphics.off()","purl")
+  mainItems <- c("Stangle","SweaveHooks","purl2","reproInfo","#line","## ","graphics.off()","purl")
   c(mainItems,moreItems)
 }
 

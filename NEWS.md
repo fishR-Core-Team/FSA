@@ -1,4 +1,16 @@
 # FSA 0.6.11 ongoing
+* `kCounts()`: Added.  Was `swvCounts()`.
+* `kPvalue()`: Added.  Was `swvPvalue()`.
+* `purl2()`: Added.  Was `swvCode()`.  Added `timestamp=` argument for adding a timestamp to the created script.
+* `reproInfo()`: Added.  Was `swvFinish()`.
+* `swvANOVA()`: Deleted.  Moved to `NCStats`.
+* `swvCode()`: Deleted.  Changed to `purl2()`.
+* `swvCounts()`: Deleted.  Changed to `kCounts()`.
+* `swvFinish()`: Deleted.  Changed to `reproInfo()`.
+* `swvGLHT()`: Deleted.  Moved to `NCStats`.
+* `swvHtest()`: Deleted.  Moved to `NCStats`.
+* `swvPvalue()`: Deleted.  Changed to `kPvalue()`.
+* `swvREG()`: Deleted.  Moved to `NCStats`.
 
 # FSA 0.6.10 Apr15
 * Compiling under R 3.2.0.
