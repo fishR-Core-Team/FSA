@@ -15,7 +15,8 @@ purl2(file, out.dir = NULL, topnotes = NULL, moreItems = NULL,
   blanks = c("extra", "all", "none"), timestamp = TRUE, ...)
 
 reproInfo(out = c("R", "r", "LaTeX", "latex", "Latex"), rqrdPkgs = NULL,
-  elapsed = NULL, addTOC = TRUE, newpage = FALSE, closeGraphics = TRUE)
+  elapsed = NULL, width = 0.95 * getOption("width"), addTOC = TRUE,
+  newpage = FALSE, closeGraphics = TRUE)
 }
 \arguments{
 \item{value}{A single numeric count or p-value.}
@@ -45,6 +46,8 @@ reproInfo(out = c("R", "r", "LaTeX", "latex", "Latex"), rqrdPkgs = NULL,
 \item{rqrdPkgs}{A string vector that contains packages that are required for the vignette and for which all dependencies should be found.}
 
 \item{elapsed}{A numeric, usually from \code{proc.time}, that is the time required to run the vignette.  If \code{NULL} then this output will not be used.  See the note below.}
+
+\item{width}{A numertic that indicates the width to use for wrapping the reproducibility information when \code{out="R"}.}
 
 \item{addTOC}{A logical that indicates whether or not a table of contents entry for the reproducibity section should be added to the LaTeX output.  Used only if \R{out="LaTeX"}}
 

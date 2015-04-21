@@ -26,6 +26,7 @@
 #' @param out A string that indicates the type of output from \code{reproInfo} -- simple R code or LaTeX code.
 #' @param rqrdPkgs A string vector that contains packages that are required for the vignette and for which all dependencies should be found.
 #' @param elapsed A numeric, usually from \code{proc.time}, that is the time required to run the vignette.  If \code{NULL} then this output will not be used.  See the note below.
+#' @param width A numertic that indicates the width to use for wrapping the reproducibility information when \code{out="R"}.
 #' @param addTOC A logical that indicates whether or not a table of contents entry for the reproducibity section should be added to the LaTeX output.  Used only if \R{out="LaTeX"}
 #' @param newpage A logical that indicates whether or not the reproduciility information should begin on a new page.  Used only if \R{out="LaTeX"}
 #' @param closeGraphics A logical that indicates whether the graphics device should be closed or not.
@@ -147,6 +148,7 @@ purl2 <- function(file,out.dir=NULL,topnotes=NULL,
 #' @rdname knitUtil
 #' @export
 reproInfo <- function(out=c("R","r","LaTeX","latex","Latex"),rqrdPkgs=NULL,elapsed=NULL,
+                      width=0.95*getOption("width"),
                       addTOC=TRUE,newpage=FALSE,closeGraphics=TRUE) {
   ## Process the session info
   ses <- iProcessSessionInfo()
@@ -165,7 +167,7 @@ reproInfo <- function(out=c("R","r","LaTeX","latex","Latex"),rqrdPkgs=NULL,elaps
   if (!is.null(elapsed)) elapsed <- round(elapsed,2)
   ## Prepare output depending on type of out
   out <- tolower(match.arg(out))
-  if (out=="r") iReproInfoR(rqrdPkgs,ses,elapsed,compDate,compTime)
+  if (out=="r") iReproInfoR(rqrdPkgs,ses,elapsed,compDate,compTime,width)
   else iReproInfoLaTeX(rqrdPkgs,ses,elapsed,compDate,compTime,addTOC,newpage)
   if (closeGraphics) graphics.off()
 }
@@ -243,39 +245,36 @@ iReproInfoLaTeX <- function(rqrdPkgs,ses,elapsed,compDate,compTime,addTOC,newPag
   outp <- paste0(outp,"\\section*{Reproducibility Information}\n")
   if (addTOC) outp <- paste(outp,"\\addcontentsline{toc}{section}{Reproducibility Information}\n")
   cat(outp)
-  outp <- "  \\subsection*{Version Information}\n"
-  outp <- paste0(outp,"    \\begin{Itemize}\n")
-  outp <- paste0(outp,"      \\item \\textbf{Compiled Date:} ",compDate,"\n")
-  outp <- paste0(outp,"      \\item \\textbf{Compiled Time:} ",compTime,"\n")
-  if (!is.null(elapsed)) outp <- paste0(outp,"      \\item \\textbf{Code Execution Time:} ",elapsed," s\n")
-  outp <- paste0(outp,"    \\end{Itemize}\n\n")
-  cat(outp)   
-  outp <- "  \\subsection*{R Information}\n"
-  outp <- paste0(outp,"    \\begin{Itemize}\n")
-  outp <- paste0(outp,"      \\item \\textbf{R Version:} ",ses$vers)
-  outp <- paste0(outp,"      \\item \\textbf{System:} ",gsub("[_]","\\\\_",ses$sys))
-  outp <- paste0(outp,"      \\item \\textbf{Base Packages:} ",gsub("[_]","\\\\_",ses$bpkgsP))
-  outp <- paste0(outp,"      \\item \\textbf{Required Packages:} ",rqrdPkgs)
-  outp <- paste0(outp,"      \\item \\textbf{Other Packages:} ",gsub("[_]","\\\\_",ses$opkgsP))
-  outp <- paste0(outp,"      \\item \\textbf{Loaded-Only Packages:} ",gsub("[_]","\\\\_",ses$lpkgsP))
-  outp <- paste0(outp,"    \\end{Itemize}\n\n")
+  outp <- paste0("\\begin{Itemize}\n")
+  outp <- paste0(outp,"  \\item \\textbf{Compiled Date:} ",compDate,"\n")
+  outp <- paste0(outp,"  \\item \\textbf{Compiled Time:} ",compTime,"\n")
+  if (!is.null(elapsed)) outp <- paste0(outp,"  \\item \\textbf{Code Execution Time:} ",elapsed," s\n")
+  outp <- paste0(outp,"  \\item \\textbf{R Version:} ",ses$vers)
+  outp <- paste0(outp,"  \\item \\textbf{System:} ",gsub("[_]","\\\\_",ses$sys))
+  outp <- paste0(outp,"  \\item \\textbf{Base Packages:} ",gsub("[_]","\\\\_",ses$bpkgsP))
+  outp <- paste0(outp,"  \\item \\textbf{Required Packages:} ",rqrdPkgs)
+  outp <- paste0(outp,"  \\item \\textbf{Other Packages:} ",gsub("[_]","\\\\_",ses$opkgsP))
+  outp <- paste0(outp,"  \\item \\textbf{Loaded-Only Packages:} ",gsub("[_]","\\\\_",ses$lpkgsP))
+  outp <- paste0(outp,"\\end{Itemize}\n\n")
   cat(outp)
 }
 
-iReproInfoR <- function(rqrdPkgs,ses,elapsed,compDate,compTime) {
+iReproInfoR <- function(rqrdPkgs,ses,elapsed,compDate,compTime,width) {
   outp <- cat("Reproducibility Information\n")
-  outp <- "  Version Information\n"
-  outp <- paste0(outp,"    Compiled Date: ",compDate,"\n")
-  outp <- paste0(outp,"    Compiled Time: ",compTime,"\n")
-  if (!is.null(elapsed)) outp <- paste0(outp,"    Code Execution Time: ",elapsed," s\n")
+  outp <- paste0(outp,"  Compiled Date: ",compDate,"\n")
+  outp <- paste0(outp,"  Compiled Time: ",compTime,"\n")
+  if (!is.null(elapsed)) outp <- paste0(outp,"  Code Execution Time: ",elapsed," s\n")
   outp <- paste0(outp,"\n")  
-  cat(outp)   
-  outp <- "  R Information\n"
-  outp <- paste0(outp,"    R Version: ",ses$vers)
-  outp <- paste0(outp,"    System: ",ses$sys)
-  outp <- paste0(outp,"    Base Packages: ",ses$bpkgsP)
-  outp <- paste0(outp,"    Required Packages: ",rqrdPkgs)
-  outp <- paste0(outp,"    Other Packages: ",ses$opkgsP)
-  outp <- paste0(outp,"    Loaded-Only Packages: ",ses$lpkgsP)
   cat(outp)
+  outp <- paste0("  R Version: ",ses$vers)
+  outp <- paste0(outp,"  System: ",ses$sys)
+  cat(outp)
+  outp <- paste0("Base Packages: ",ses$bpkgsP)
+  cat(unlist(strwrap(outp,indent=2,exdent=4,simplify=FALSE,width=width)),sep="\n")
+  outp <- paste0("Required Packages: ",rqrdPkgs)
+  cat(unlist(strwrap(outp,indent=2,exdent=4,simplify=FALSE,width=width)),sep="\n")
+  outp <- paste0("Other Packages: ",ses$opkgsP)
+  cat(unlist(strwrap(outp,indent=2,exdent=4,simplify=FALSE,width=width)),sep="\n")
+  outp <- paste0("Loaded-Only Packages: ",ses$lpkgsP)
+  cat(unlist(strwrap(outp,indent=2,exdent=4,simplify=FALSE,width=width)),sep="\n")
 }
