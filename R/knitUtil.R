@@ -23,12 +23,12 @@
 #' @param blanks A string that indicates if blank lines should be removed.  If \code{blanks="all"} then all blank lines will be removed.  If \code{blanks="extra"} then only \dQuote{extra} blanks lines will be removed (i.e., one blank line will be left where there was originally more than one blank line).
 #' @param topnotes A character vector of lines to be added to the top of output file.  Each value in the vector will be placed on a single line at the top of the output file.
 #' @param timestamp A logical that indicates whether a timestampe comment should be appended to the bottom of the script created by \code{purl2}.
+#' @param out A string that indicates the type of output from \code{reproInfo} -- simple R code or LaTeX code.
 #' @param rqrdPkgs A string vector that contains packages that are required for the vignette and for which all dependencies should be found.
-#' @param closeGraphics A logical that indicates whether the graphics device should be closed or not.
-#' @param addTOC A logical that indicates whether or not a table of contents entry for the reproducibity section should be added to the LaTeX output.
-#' @param newPage A logical that indicates whether a new page call should be added to the LaTeX output so that the reproducibility sections starts on a new page.
 #' @param elapsed A numeric, usually from \code{proc.time}, that is the time required to run the vignette.  If \code{NULL} then this output will not be used.  See the note below.
-#' @param listFiles A logical that indicates whether the Sweave/knitr markup and R code files should be listed in the reproducibility information list.
+#' @param addTOC A logical that indicates whether or not a table of contents entry for the reproducibity section should be added to the LaTeX output.  Used only if \R{out="LaTeX"}
+#' @param newpage A logical that indicates whether or not the reproduciility information should begin on a new page.  Used only if \R{out="LaTeX"}
+#' @param closeGraphics A logical that indicates whether the graphics device should be closed or not.
 #' @param \dots Additional arguments for the original \code{purl}.
 #'
 #' @return
@@ -146,57 +146,27 @@ purl2 <- function(file,out.dir=NULL,topnotes=NULL,
 
 #' @rdname knitUtil
 #' @export
-reproInfo <- function(file,rqrdPkgs=NULL,closeGraphics=TRUE,
-                      addTOC=TRUE,newPage=FALSE,elapsed=NULL,listFiles=FALSE) {
-  ## if no file is sent then find the .Rnw file in the current working directory
-  if (missing(file)) file <- list.files(pattern=".Rnw",ignore.case=TRUE)
-  ## Get just the filename prefix (i.e., remove directory and .Rnw if it exists)
-  file <- unlist(strsplit(basename(file),c("\\.Rnw","\\.rnw","\\.RNW")))
-  knitFile <- iMakeFilename(file,".rnw")
-  rFile <- iMakeFilename(file,".r")
+reproInfo <- function(out=c("R","r","LaTeX","latex","Latex"),rqrdPkgs=NULL,elapsed=NULL,
+                      addTOC=TRUE,newpage=FALSE,closeGraphics=TRUE) {
+  ## Process the session info
   ses <- iProcessSessionInfo()
+  ## Handle the rqrdPkgs
   if (is.null(rqrdPkgs)) rqrdPkgs <- "None given.\n"
-    else {
-      deps <- iGetAllDependencies(rqrdPkgs)
-      deps <- deps[!(deps %in% rqrdPkgs)]
-      rqrdPkgs <- paste(paste(rqrdPkgs,collapse=", ")," and ",ifelse(length(rqrdPkgs)>1,"their","its")," dependencies (",paste(deps,collapse=", "),")\n",sep="")
-    }
+  else {
+    deps <- iGetAllDependencies(rqrdPkgs)
+    deps <- deps[!(deps %in% rqrdPkgs)]
+    rqrdPkgs <- paste(paste(rqrdPkgs,collapse=", ")," and ",
+                      ifelse(length(rqrdPkgs)>1,"their","its"),
+                      " dependencies (",paste(deps,collapse=", "),")\n",sep="")
+  }
+  ## Get date and time
   compDate <- format(Sys.time(),'%a %b %d %Y') 
   compTime <- format(Sys.time(),'%X')
-  pdfFile <- iMakeFilename(file,".pdf")
-  outp <- character()
-  if (newPage) {
-    if (addTOC) outp <- "\\cleardoublepage\n\\phantomsection\n"
-    else outp <- "\\newpage\n"
-  }
-  outp <- paste(outp,"\\section*{Reproducibility Information}\n",sep="")
-  if (addTOC) outp <- paste(outp,"\\addcontentsline{toc}{section}{Reproducibility Information}\n")
-  cat(outp)
-  outp <- "  \\subsection*{Version Information}\n"
-  outp <- paste(outp,"    \\begin{Itemize}\n",sep="")
-  outp <- paste(outp,"      \\item \\textbf{Compiled Date:} ",compDate,"\n",sep="")
-  outp <- paste(outp,"      \\item \\textbf{Compiled Time:} ",compTime,"\n",sep="")
-  if (!is.null(elapsed)) outp <- paste(outp,"      \\item \\textbf{Code Execution Time:} ",round(elapsed,2)," s\n",sep="")
-  outp <- paste(outp,"    \\end{Itemize}\n\n",sep="")  
-  cat(outp)   
-  if (listFiles) {
-    outp <- "  \\subsection*{Files}\n"    
-    outp <- paste(outp,"    \\begin{Itemize}\n",sep="")
-    outp <- paste(outp,"      \\item \\href{",knitFile,"}{NoWeb Source (.Rnw) file}\n",sep="")
-    outp <- paste(outp,"      \\item \\href{",rFile,"}{R Script (.R) file}\n",sep="")
-    outp <- paste(outp,"    \\end{Itemize}\n\n",sep="")  
-    cat(outp)
-  }
-  outp <- "  \\subsection*{R Information}\n"
-  outp <- paste(outp,"    \\begin{Itemize}\n",sep="")
-  outp <- paste(outp,"      \\item \\textbf{R Version:} ",ses$vers,sep="")
-  outp <- paste(outp,"      \\item \\textbf{System:} ",gsub("[_]","\\\\_",ses$sys),sep="")
-  outp <- paste(outp,"      \\item \\textbf{Base Packages:} ",gsub("[_]","\\\\_",ses$bpkgsP),sep="")
-  outp <- paste(outp,"      \\item \\textbf{Other Packages:} ",gsub("[_]","\\\\_",ses$opkgsP),sep="")
-  outp <- paste(outp,"      \\item \\textbf{Loaded-Only Packages:} ",gsub("[_]","\\\\_",ses$lpkgsP),sep="")
-  outp <- paste(outp,"      \\item \\textbf{Required Packages:} ",rqrdPkgs,sep="")
-  outp <- paste(outp,"    \\end{Itemize}\n\n",sep="")
-  cat(outp)
+  if (!is.null(elapsed)) elapsed <- round(elapsed,2)
+  ## Prepare output depending on type of out
+  out <- tolower(match.arg(out))
+  if (out=="r") iReproInfoR(rqrdPkgs,ses,elapsed,compDate,compTime)
+  else iReproInfoLaTeX(rqrdPkgs,ses,elapsed,compDate,compTime,addTOC,newpage)
   if (closeGraphics) graphics.off()
 }
 
@@ -204,6 +174,17 @@ reproInfo <- function(file,rqrdPkgs=NULL,closeGraphics=TRUE,
 ##################################################################
 ## Internal files used in knitUtils functions                                      
 ##################################################################
+iMakeItemsToRemove <- function(moreItems) {
+  mainItems <- c("Stangle","SweaveHooks","purl2","reproInfo","#line","## ","graphics.off()","purl")
+  c(mainItems,moreItems)
+}
+
+iMakeFilename <- function(file,extension,directory=NULL) {
+  res <- paste(file,extension,sep="")
+  if (!is.null(directory)) res <- paste(directory,res,sep="/")
+  res
+}
+
 iGetAllDependencies <- function(pkgs) {
   # get a list of available packages ... this is needed for package.dependencies below
   inst <- installed.packages()
@@ -233,17 +214,6 @@ iGetAllDependencies <- function(pkgs) {
   unique(c(pkgs,deps))
 }
 
-iMakeFilename <- function(file,extension,directory=NULL) {
-  res <- paste(file,extension,sep="")
-  if (!is.null(directory)) res <- paste(directory,res,sep="/")
-  res
-}
-
-iMakeItemsToRemove <- function(moreItems) {
-  mainItems <- c("Stangle","SweaveHooks","purl2","reproInfo","#line","## ","graphics.off()","purl")
-  c(mainItems,moreItems)
-}
-
 iProcessSessionInfo <- function() {
   mkLabel <- function(L, n) { 
     # this is from print.sessionInfo in utils package
@@ -263,3 +233,49 @@ iProcessSessionInfo <- function() {
   list(sys=sys,vers=vers,bpkgs=bpkgs,bpkgsP=bpkgsP,opkgs=opkgs,opkgsP=opkgsP,lpkgs=lpkgs,lpkgsP=lpkgsP)
 }
 
+
+iReproInfoLaTeX <- function(rqrdPkgs,ses,elapsed,compDate,compTime,addTOC,newPage) {
+  outp <- character()
+  if (newPage) {
+    if (addTOC) outp <- "\\cleardoublepage\n\\phantomsection\n"
+    else outp <- "\\newpage\n"
+  }
+  outp <- paste0(outp,"\\section*{Reproducibility Information}\n")
+  if (addTOC) outp <- paste(outp,"\\addcontentsline{toc}{section}{Reproducibility Information}\n")
+  cat(outp)
+  outp <- "  \\subsection*{Version Information}\n"
+  outp <- paste0(outp,"    \\begin{Itemize}\n")
+  outp <- paste0(outp,"      \\item \\textbf{Compiled Date:} ",compDate,"\n")
+  outp <- paste0(outp,"      \\item \\textbf{Compiled Time:} ",compTime,"\n")
+  if (!is.null(elapsed)) outp <- paste0(outp,"      \\item \\textbf{Code Execution Time:} ",elapsed," s\n")
+  outp <- paste0(outp,"    \\end{Itemize}\n\n")
+  cat(outp)   
+  outp <- "  \\subsection*{R Information}\n"
+  outp <- paste0(outp,"    \\begin{Itemize}\n")
+  outp <- paste0(outp,"      \\item \\textbf{R Version:} ",ses$vers)
+  outp <- paste0(outp,"      \\item \\textbf{System:} ",gsub("[_]","\\\\_",ses$sys))
+  outp <- paste0(outp,"      \\item \\textbf{Base Packages:} ",gsub("[_]","\\\\_",ses$bpkgsP))
+  outp <- paste0(outp,"      \\item \\textbf{Required Packages:} ",rqrdPkgs)
+  outp <- paste0(outp,"      \\item \\textbf{Other Packages:} ",gsub("[_]","\\\\_",ses$opkgsP))
+  outp <- paste0(outp,"      \\item \\textbf{Loaded-Only Packages:} ",gsub("[_]","\\\\_",ses$lpkgsP))
+  outp <- paste0(outp,"    \\end{Itemize}\n\n")
+  cat(outp)
+}
+
+iReproInfoR <- function(rqrdPkgs,ses,elapsed,compDate,compTime) {
+  outp <- cat("Reproducibility Information\n")
+  outp <- "  Version Information\n"
+  outp <- paste0(outp,"    Compiled Date: ",compDate,"\n")
+  outp <- paste0(outp,"    Compiled Time: ",compTime,"\n")
+  if (!is.null(elapsed)) outp <- paste0(outp,"    Code Execution Time: ",elapsed," s\n")
+  outp <- paste0(outp,"\n")  
+  cat(outp)   
+  outp <- "  R Information\n"
+  outp <- paste0(outp,"    R Version: ",ses$vers)
+  outp <- paste0(outp,"    System: ",ses$sys)
+  outp <- paste0(outp,"    Base Packages: ",ses$bpkgsP)
+  outp <- paste0(outp,"    Required Packages: ",rqrdPkgs)
+  outp <- paste0(outp,"    Other Packages: ",ses$opkgsP)
+  outp <- paste0(outp,"    Loaded-Only Packages: ",ses$lpkgsP)
+  cat(outp)
+}

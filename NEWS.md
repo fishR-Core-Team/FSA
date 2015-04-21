@@ -1,4 +1,7 @@
-# FSA 0.6.11 ongoing
+# FSA 0.6.12 ongoing
+* `reproInfo()`: Modified.  Added the `out=` argument to allow the output to be straight R or LaTeX.  Removed the `listFiles=` argument.  Streamlined the code.
+
+# FSA 0.6.11 Apr15
 * `kCounts()`: Added.  Was `swvCounts()`.
 * `kPvalue()`: Added.  Was `swvPvalue()`.
 * `purl2()`: Added.  Was `swvCode()`.  Added `timestamp=` argument for adding a timestamp to the created script.
