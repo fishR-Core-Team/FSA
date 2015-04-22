@@ -1,0 +1,177 @@
+#' @title Creates a function for a specific Gompertz function parameterization.
+#'
+#' @description Creates a function for a specific Gompertz function parameterization.
+#'
+#' @param type A string that indicates the parameterization of the Gompertz function.
+#' @param simple A logical that indicates whether the user should be allowed to send all parameter values in the first parameter argument (\code{=FALSE}; default) or whether all individual parameters must be specified (\code{=TRUE}).
+#' @param msg A logical that indicates whether a message about the model and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).
+#' 
+#' @return A function that can be used to predict fish length or weight given a vector of ages and values for the function parameters.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).
+#'
+#'If \code{simple=FALSE}, then the values for all parameters may be included as a vector in the first parameter argument.  If \code{simple=TRUE}, then all parameters must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
+#'
+#' @note The \sQuote{Ricker1} and \sQuote{QD1}; \sQuote{Ricker2} and \sQuote{QD2}; and \sQuote{QD3}, \sQuote{AFS}, and \sQuote{MK} are synonymous in their usage here.  Different parameters might have been used in the original references.  Those parameters were changed here when they did not have a specific meaning or were combinations of other parameters in the original reference and to create some uniformity in the usage and meanings of the parameters (i.e., G meant very different things across references.)
+#' 
+#' Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, t0 is the theoretical age when length equals zero is a modeling artifact, g0 is the instantaneous growth rate at t0, ti is the age at the inflection point, and gi is both the instantaneous growth rate at the inflection point and the decrease in growth rate after the inflection point.
+#'
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
+#'
+#' @section IFAR Chapter: None specifically, but \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth} is related.
+#'
+#' @seealso See \code{\link{gompModels}} for a list of parameterizations used in \pkg{FSA}.
+#'
+#' @references 
+#' Campana, S.E. and C.M. Jones.  1992.  Analysis of otolith microstructure data.  Pages 73-100 In D.K. Stevenson and S.E. Campana, editors.  Otolith microstructure examination and analysis.  Canadian Special Publication of Fisheries and Aquatic Sciences 117.
+#' 
+#' Katsanevakis, S. and C.D. Maravelias.  2008.  Modelling fish growth: multi-model inference as a better alternative to a priori using von Bertalanffy equation.  Fish and Fisheries 9:178-187.
+#' 
+#' Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages.
+#' 
+#' Quist, M.C., M.A. Pegg, and D.R. DeVries.  2012.  Age and Growth.  Chapter 15 in A.V. Zale, D.L Parrish, and T.M. Sutton, Editors  Fisheries Techniques, Third Edition.  American Fisheries Society, Bethesda, MD.
+#' 
+#' Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
+#' 
+#' @keywords manip
+#'
+#' @examples
+#' ## Simple Examples
+#' ( gomp1 <- gompFuns() )              # First Ricker parameterization
+#' ages <- 0:15
+#' plot(gomp1(ages,L0=2,g0=6,gi=0.5)~ages,type="b",pch=19)
+#'
+#' ( gomp2 <- gompFuns("Ricker3") )     # Third Ricker parameterization
+#' plot(gomp2(ages,Linf=800,gi=0.5,ti=5)~ages,type="b",pch=19)
+#'
+#' ( gomp2c <- gompFuns("Ricker3",simple=TRUE) )   # compare to gomp2
+#'
+#' #######################################################################################
+#' ## Examples of fitting Gompertz models
+#' ##   After the last example a plot is constructed with three lines on top of each
+#' ##   other illustrating that the parameterizations all produce the same fitted values.
+#' # Make some fake data using the original parameterization
+#' 
+#' gompO <- gompFuns("original")
+#' # setup ages, sample sizes (general reduction in numbers with
+#' # increasing age), and additive SD to model
+#' t <- 1:15
+#' n <- c(10,40,35,25,12,10,10,8,6,5,3,3,3,2,2)
+#' sd <- 15
+#' # expand ages
+#' ages <- rep(t,n)
+#' # get lengths from gompertz and a random error for individuals
+#' lens <- gompO(ages,Linf=450,a=1,gi=0.3)+rnorm(length(ages),0,sd)
+#' # put together as a data.frame
+#' df <- data.frame(age=ages,len=round(lens,0))
+#' 
+#' # Fit first Ricker parameterization
+#' fit1 <- nls(len~gomp1(age,L0,g0,gi),data=df,start=list(L0=30,g0=3,gi=0.3))
+#' summary(fit1,correlation=TRUE)
+#' plot(len~age,data=df,pch=19,col=rgb(0,0,0,1/5))
+#' curve(gomp1(x,L0=coef(fit1)),from=0,to=15,col="red",lwd=10,add=TRUE)
+#'
+#' # Fit third Ricker parameterization
+#' fit2 <- nls(len~gomp2(age,Linf,gi,ti),data=df,start=list(Linf=500,gi=0.3,ti=3))
+#' summary(fit2,correlation=TRUE)
+#' curve(gomp2(x,Linf=coef(fit2)),from=0,to=15,col="blue",lwd=5,add=TRUE)
+#'
+#' # Fit third Quinn and Deriso parameterization (using simple=TRUE model)
+#' gomp3 <- gompFuns("QD3",simple=TRUE)
+#' fit3 <- nls(len~gomp3(age,Linf,gi,t0),data=df,start=list(Linf=500,gi=0.3,t0=0))
+#' summary(fit3,correlation=TRUE)
+#' curve(gomp3(x,Linf=coef(fit3)[1],gi=coef(fit3)[2],t0=coef(fit3)[3]),
+#'       from=0,to=15,col="green",lwd=2,add=TRUE)
+#' 
+#' @export
+gompFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
+                          "QD1","QD2","QD3","KM","AFS","original"),
+                   simple=FALSE,msg=FALSE) {
+  original <- function(t,Linf,a=NULL,gi=NULL) {
+  if (length(Linf)==3) { a <- Linf[[2]]
+                         gi <- Linf[[3]]
+                         Linf <- Linf[[1]] }
+  Linf*exp(-exp(a-gi*t))
+  }
+  Soriginal <-function(t,Linf,a,gi) {
+    Linf*exp(-exp(a-gi*t))
+  }
+  QD1 <- Ricker1 <- function(t,L0,g0=NULL,gi=NULL) {
+    if (length(L0)==3) { g0 <- L0[[2]]
+                         gi <- L0[[3]]
+                         L0 <- L0[[1]] }
+    L0*exp(g0*(1-exp(-gi*t)))
+  }
+  SQD1 <- SRicker1 <- function(t,L0,g0,gi) {
+    L0*exp(g0*(1-exp(-gi*t)))
+  }
+  QD2 <- Ricker2 <-  function(t,Linf,g0=NULL,gi=NULL) {
+    if (length(Linf)==3) { g0 <- Linf[[2]]
+                           gi <- Linf[[3]]
+                           Linf <- Linf[[1]] }
+    Linf*exp(-(g0/gi)*exp(-gi*t))
+  }
+  SQD2 <- SRicker2 <- function(t,Linf,g0,gi) {
+    Linf*exp(-(g0/gi)*exp(-gi*t))
+  }
+  QD3 <- function(t,Linf,gi=NULL,t0=NULL) {
+    if (length(Linf)==3) { gi <- Linf[[2]]
+                           t0 <- Linf[[3]]
+                           L0 <- Linf[[1]] }
+    Linf*exp(-(1/gi)*exp(-gi*(t-t0)))
+  }
+  SQD3 <- function(t,Linf,gi,t0) {
+    Linf*exp(-(1/gi)*exp(-gi*(t-t0)))
+  }
+  Ricker3 <- KM <- AFS <- function(t,Linf,gi=NULL,ti=NULL) {
+    if (length(Linf)==3) { gi <- Linf[[2]]
+                           ti <- Linf[[3]]
+                           Linf <- Linf[[1]] }
+    Linf*exp(-exp(-gi*(t-ti)))
+  }
+  SRicker3 <- SKM <- SAFS <- function(t,Linf,gi,ti) {
+    Linf*exp(-exp(-gi*(t-ti)))
+  }
+  ## Main function
+  type <- match.arg(type)
+  comcat <- "parameterization of the Gompertz function.\n\n"
+  if (msg) {
+    switch(type,
+      original= {
+        cat("You have chosen the 'original'",comcat)
+        cat("  E[L|t] = Linf*exp(-exp(a-gi*t))\n\n")
+        cat("where Linf = asymptotic mean length\n")
+        cat("      gi = decrease in growth rate at the inflection point\n")
+        cat("      a = an undefined parameter\n\n")
+      },
+      Ricker1,QD1= {
+        cat("You have chosen the 'Ricker1' or 'QD1'",comcat)
+        cat("  E[L|t] = L0*exp(g0*(1-exp(-gi*t)))\n\n")
+        cat("where Linf = asymptotic mean length\n")
+        cat("      gi = instantaneous growth rate at the inflection point\n")
+        cat("      g0 = instantaneous growth rate at t=0\n\n")
+      },
+      Ricker2,QD2= {
+        cat("You have chosen the 'Ricker2' or 'QD2'",comcat)
+        cat("  E[L|t] = Linf*exp(-(g0/gi)*exp(-gi*t))\n\n")
+        cat("where Linf = asymptotic mean length\n")
+        cat("      gi = instantaneous growth rate at the inflection point\n")
+        cat("      g0 = instantaneous growth rate at t=0\n\n")
+      },
+      Ricker3= {
+        cat("You have chosen the 'Ricker3",comcat)
+        cat("  E[L|t] = Linf*exp(-exp(-gi*(t-ti)))\n\n")
+        cat("where Linf = asymptotic mean length\n")
+        cat("      gi = instantaneous growth rate at the inflection point\n")
+        cat("      ti = time at the inflection point\n\n")
+      },
+      QD3,KM,AFS= {
+        cat("You have chosen the 'QD3",comcat)
+        cat("  E[L|t] = Linf*exp(-(1/gi)*exp(-gi*(t-t0)))\n\n")
+        cat("where Linf = asymptotic mean length\n")
+        cat("      gi = instantaneous growth rate at the inflection point\n")
+        cat("      t0 =  the theoretical age when length = 0 (a modeling artifact)\n\n")
+      }
+    )
+  }
+  if (simple) type <- paste("S",type,sep="")
+  get(type)
+}

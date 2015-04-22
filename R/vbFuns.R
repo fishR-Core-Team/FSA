@@ -1,14 +1,14 @@
-#' @title Creates a function for a specific von Bertalanffy parameterization.
+#' @title Creates a function for a specific parameterizations of the von Bertalanffy growth function.
 #'
-#' @description Creates a function for a specific von Bertalanffy model parameterization.
+#' @description Creates a function for a specific parameterizations of the von Bertalanffy growth function.
 #'
-#' @param type A string that indicates the parameterization of the von Bertalanffy model.
+#' @param type A string that indicates the parameterization of the von Bertalanffy growth function.
 #' @param simple A logical that indicates whether the user should be allowed to send all parameter values in the first parameter argument (\code{=FALSE}; default) or whether all individual parameters must be specified (\code{=TRUE}).
-#' @param msg A logical that indicates whether a message about the model and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).
+#' @param msg A logical that indicates whether a message about the function and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).
 #' 
-#' @return A function that can be used to predict fish length given a vector of ages and values for the model parameters and, in some parameterizations, values for some constants.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).
+#' @return A function that can be used to predict fish length given a vector of ages and values for the function parameters and, in some parameterizations, values for some constants.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).
 #'
-#'If \code{simple=FALSE} then the values for all parameters can be included as a vector in the first parameter argument.  Similarly, the values for all constants can be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE} then all parameters and constants must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
+#'If \code{simple=FALSE} then the values for all parameters may be included as a vector in the first parameter argument.  Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE} then all parameters and constants must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
 #'
 #' @note The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} versions are synonymous.
 #'
@@ -51,7 +51,7 @@
 #' ( vb2 <- vbFuns("Francis") )     # Francis parameterization
 #' plot(vb2(ages,L1=10,L2=19,L3=20,t1=2,t3=18)~ages,type="b",pch=19)
 #'
-#' ( vb2c <- vbFuns("Francis",simple=FALSE) )   # compare to vb2
+#' ( vb2c <- vbFuns("Francis",simple=TRUE) )   # compare to vb2
 #'
 #' ## Examples of fitting Von B models
 #' ##   After the last example a plot is constructed with three lines on top of each
@@ -63,19 +63,17 @@
 #' fit1 <- nls(tl~vb1(age,Linf,K,t0),data=SpotVA1,start=vbStarts(tl~age,data=SpotVA1))
 #' summary(fit1,correlation=TRUE)
 #' plot(tl~age,data=SpotVA1,pch=19)
-#' curve(vb1(x,Linf=coef(fit1)[1],K=coef(fit1)[2],t0=coef(fit1)[3]),from=0,to=5,
-#'       col="red",lwd=10,add=TRUE)
+#' curve(vb1(x,Linf=coef(fit1)),from=0,to=5,col="red",lwd=10,add=TRUE)
 #'
 #' # Fitting the Francis paramaterization of the von B function
 #' fit2 <- nls(tl~vb2c(age,L1,L2,L3,t1=0,t3=5),data=SpotVA1,
 #'             start=vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5)))
 #' summary(fit2,correlation=TRUE)
-#' ## showing how the coefficients and t values can be sent to the first arguments
-#' ##    if simple=FALSE in vbFuns() call
-#' curve(vb2c(x,L1=coef(fit2),t1=c(0,5)),from=0,to=5,col="blue",lwd=5,add=TRUE)
+#' curve(vb2c(x,L1=coef(fit2)[1],L2=coef(fit2)[2],L3=coef(fit2)[3],t1=0,t3=5),
+#'       from=0,to=5,col="blue",lwd=5,add=TRUE)
 #'
 #' # Fitting the Schnute parameterization of the von B function
-#' vb3 <- vbFuns("Schnute",simple=FALSE)
+#' vb3 <- vbFuns("Schnute")
 #' fit3 <- nls(tl~vb3(age,L1,L3,K,t1=0,t3=4),data=SpotVA1,
 #'             start=vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,4)))
 #' summary(fit3,correlation=TRUE)
