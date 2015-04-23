@@ -2,9 +2,9 @@
 #'
 #' @description Show the von Bertalanffy model formulas implemented in \code{\link{vbFuns}} and \code{\link{vbStarts}}.
 #'
-#' @param \dots Additional arguments for \code{plot}.  Generally not needed
+#' @param \dots Additional arguments for \code{\link{par}}.  Generally not needed
 #'
-#' @return A graphic that uses \code{plotmath} to show the model formulae in a pretty format.
+#' @return A graphic that uses \code{\link{plotmath}} to show the model formulae in a pretty format.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
@@ -23,8 +23,8 @@
 #'
 #' @export
 vbModels <- function(...) {
-  op <- par(mar=c(0,0,3,0))
-  plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA von Bertalanffy Parameterizations",...)
+  op <- par(mar=c(0,0,3,0),...)
+  plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA von Bertalanffy Parameterizations")
   iGrowthModels("vbOriginal",0,6.0)
   iGrowthModels("vbTypical", 0,4.0)
   iGrowthModels("vbGQ",      0,2.0)
@@ -51,8 +51,8 @@ iGrowthModels <- function(which,xpos,ypos) {
          vbFrancis2= {text(xpos,ypos,expression(plain("where" )~r==frac(L[3]-L[2],L[2]-L[1])),pos=4)},
          
          gRicker1=   {text(xpos,ypos,expression(plain("Ricker1, QD1: ")~~~E(L[t])==L[0]*~e^{g[0]*bgroup("(",1-e^{-g[i]*t},")")}),pos=4)},
-         gRicker2=   {text(xpos,ypos,expression(plain("Ricker2, QD2: ")~~~E(L[t])==L[infinity]*~e^{bgroup("(",frac(g[0],g[i])*~e^{-g[i]*t},")")}),pos=4)},
-         gRicker3=   {text(xpos,ypos,expression(plain("Ricker3:           ")~~~E(L[t])==L[infinity]*~e^{-g[i]*(t-t[i])}),pos=4)},
+         gRicker2=   {text(xpos,ypos,expression(plain("Ricker2, QD2: ")~~~E(L[t])==L[infinity]*~e^{bgroup("(",-g[0]*~e^{-g[i]*t},")")}),pos=4)},
+         gRicker3=   {text(xpos,ypos,expression(plain("Ricker3:           ")~~~E(L[t])==L[infinity]*~e^{bgroup("(",e^{-g[i]*(t-t[i])},")")}),pos=4)},
          gQD3=       {text(xpos,ypos,expression(plain("QD3:               ")~~~E(L[t])==L[infinity]*~e^{-~frac(1,g[i])*~bgroup("(",e^{-g[i]*~(~t~-~t[0])},")")}),pos=4)},
          gOriginal=  {text(xpos,ypos,expression(plain("Original:          ")~~~E(L[t])==L[infinity]*~e^{-e^{a-g[i]*t}}),pos=4)}
   ) # end swich

@@ -7,10 +7,10 @@
 gompModels(...)
 }
 \arguments{
-\item{\dots}{Additional arguments for \code{plot}.  Generally not needed}
+\item{\dots}{Additional arguments for \code{\link{plot}}.  Generally not needed}
 }
 \value{
-A graphic that uses \code{plotmath} to show the model formulae in a pretty format.
+A graphic that uses \code{\link{plotmath}} to show the model formulae in a pretty format.
 }
 \description{
 Show the Gompertz function formulae implemented in \code{\link{gompFuns}}.

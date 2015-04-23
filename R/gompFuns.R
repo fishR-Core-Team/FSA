@@ -10,10 +10,22 @@
 #'
 #'If \code{simple=FALSE}, then the values for all parameters may be included as a vector in the first parameter argument.  If \code{simple=TRUE}, then all parameters must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
 #'
-#' @note The \sQuote{Ricker1} and \sQuote{QD1}; \sQuote{Ricker2} and \sQuote{QD2}; and \sQuote{QD3}, \sQuote{AFS}, and \sQuote{MK} are synonymous in their usage here.  Different parameters might have been used in the original references.  Those parameters were changed here when they did not have a specific meaning or were combinations of other parameters in the original reference and to create some uniformity in the usage and meanings of the parameters (i.e., G meant very different things across references.)
+#' @note The parameterizations and parameters for the Gompertz function are varied and confusing in the literature.  I have attempted to use a uniform set of paraemters in these functions but that makes a direct comparison to the literature difficult.  Common sources for Gompertz models are listed in the references below.  I make some comments here to aid the comparison.  It is likely worth your while to look at \code{\link{gompModels}} while you make these comparisons.
 #' 
-#' Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, t0 is the theoretical age when length equals zero is a modeling artifact, g0 is the instantaneous growth rate at t0, ti is the age at the inflection point, and gi is both the instantaneous growth rate at the inflection point and the decrease in growth rate after the inflection point.
+#' Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, t0 is the theoretical age when length equals zero and is a modeling artifact, g0 is the instantaneous growth rate at t0, ti is the age at the inflection point, and gi is both the instantaneous growth rate at the inflection point and the decrease in growth rate after the inflection point.
 #'
+#' In the Quinn and Deriso (1999) models (the \sQuote{QD} models), the g0 parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there.  Also note that their Y is L here.
+#' 
+#' In the Ricker (1979) models (the \sQuote{Ricker} models) as presented in Campana and Jones (1992), the g0 parameter here is equal to k there and the gi paramter here is equal to the G parameter there.  Also note that their X is L here.
+#' 
+#' The model in Ricker (1975)[p. 232] is the same as \sQuote{Ricker1} where the g0 parameter here is qual to G there and the gi parameter here is equal to the g parameter there.  Also note that their w is L here.
+#' 
+#' The model in Quist et al. (2012)[p. 714] is the same as \sQuote{Ricker3} where the gi parameter here is equal to G there and the ti parameter here is equal to the t0 parameter there.  This parameterization can also be called with \code{type="AFS"}.
+#' 
+#' The model in Katsanevakis and Maravelias (2008) is the same as \sQuote{Ricker3} where the gi parameter here is equal to k2 there and the ti parameter here is equal to t2 there.  This parameterization can also be called with \code{type="MK"}.
+#'   
+#' The \sQuote{Ricker1} and \sQuote{QD1}; \sQuote{Ricker2} and \sQuote{QD2}; and \sQuote{QD3}, \sQuote{AFS}, and \sQuote{MK} parameterizations are synonymous in their usage here.
+#' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
 #' @section IFAR Chapter: None specifically, but \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth} is related.
@@ -30,6 +42,8 @@
 #' Quist, M.C., M.A. Pegg, and D.R. DeVries.  2012.  Age and Growth.  Chapter 15 in A.V. Zale, D.L Parrish, and T.M. Sutton, Editors  Fisheries Techniques, Third Edition.  American Fisheries Society, Bethesda, MD.
 #' 
 #' Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
+#' 
+#' Ricker, W.E. 1979.  Growth rates and models.  Pages 677-743 In W.S. Hoar, D.J. Randall, and J.R. Brett, editors.  Fish Physiology, Vol. 8: Bioenergetics and Growth.  Academic Press, NY, NY.
 #' 
 #' @keywords manip
 #'
@@ -107,15 +121,15 @@ gompFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
     if (length(Linf)==3) { g0 <- Linf[[2]]
                            gi <- Linf[[3]]
                            Linf <- Linf[[1]] }
-    Linf*exp(-(g0/gi)*exp(-gi*t))
+    Linf*exp(-g0*exp(-gi*t))
   }
   SQD2 <- SRicker2 <- function(t,Linf,g0,gi) {
-    Linf*exp(-(g0/gi)*exp(-gi*t))
+    Linf*exp(-g0*exp(-gi*t))
   }
   QD3 <- function(t,Linf,gi=NULL,t0=NULL) {
     if (length(Linf)==3) { gi <- Linf[[2]]
                            t0 <- Linf[[3]]
-                           L0 <- Linf[[1]] }
+                           Linf <- Linf[[1]] }
     Linf*exp(-(1/gi)*exp(-gi*(t-t0)))
   }
   SQD3 <- function(t,Linf,gi,t0) {

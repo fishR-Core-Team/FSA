@@ -7,10 +7,10 @@
 vbModels(...)
 }
 \arguments{
-\item{\dots}{Additional arguments for \code{plot}.  Generally not needed}
+\item{\dots}{Additional arguments for \code{\link{par}}.  Generally not needed}
 }
 \value{
-A graphic that uses \code{plotmath} to show the model formulae in a pretty format.
+A graphic that uses \code{\link{plotmath}} to show the model formulae in a pretty format.
 }
 \description{
 Show the von Bertalanffy model formulas implemented in \code{\link{vbFuns}} and \code{\link{vbStarts}}.
