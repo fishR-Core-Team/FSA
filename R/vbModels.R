@@ -51,9 +51,9 @@ iGrowthModels <- function(which,xpos,ypos) {
          vbFrancis2= {text(xpos,ypos,expression(plain("where" )~r==frac(L[3]-L[2],L[2]-L[1])),pos=4)},
          
          gRicker1=   {text(xpos,ypos,expression(plain("Ricker1, QD1: ")~~~E(L[t])==L[0]*~e^{g[0]*bgroup("(",1-e^{-g[i]*t},")")}),pos=4)},
-         gRicker2=   {text(xpos,ypos,expression(plain("Ricker2, QD2: ")~~~E(L[t])==L[infinity]*~e^{bgroup("(",-g[0]*~e^{-g[i]*t},")")}),pos=4)},
-         gRicker3=   {text(xpos,ypos,expression(plain("Ricker3:           ")~~~E(L[t])==L[infinity]*~e^{bgroup("(",e^{-g[i]*(t-t[i])},")")}),pos=4)},
-         gQD3=       {text(xpos,ypos,expression(plain("QD3:               ")~~~E(L[t])==L[infinity]*~e^{-~frac(1,g[i])*~bgroup("(",e^{-g[i]*~(~t~-~t[0])},")")}),pos=4)},
+         gRicker2=   {text(xpos,ypos,expression(plain("Ricker2, QD2: ")~~~E(L[t])==L[infinity]*~e^{-g[0]*~e^{-g[i]*t}}),pos=4)},
+         gRicker3=   {text(xpos,ypos,expression(plain("Ricker3:           ")~~~E(L[t])==L[infinity]*~e^{e^{-g[i]*(t-t[i])}}),pos=4)},
+         gQD3=       {text(xpos,ypos,expression(plain("QD3:               ")~~~E(L[t])==L[infinity]*~e^{-~frac(1,g[i])*~e^{-g[i]*~(~t~-~t[0])}}),pos=4)},
          gOriginal=  {text(xpos,ypos,expression(plain("Original:          ")~~~E(L[t])==L[infinity]*~e^{-e^{a-g[i]*t}}),pos=4)}
   ) # end swich
 } ## end iGrowthModels internal function

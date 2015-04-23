@@ -35,6 +35,8 @@
 #' @references 
 #' Campana, S.E. and C.M. Jones.  1992.  Analysis of otolith microstructure data.  Pages 73-100 In D.K. Stevenson and S.E. Campana, editors.  Otolith microstructure examination and analysis.  Canadian Special Publication of Fisheries and Aquatic Sciences 117.
 #' 
+#' Gompertz, B.  1825.  On the nature of the function expressive of the law of human mortality, and on a new method of determining the value of life contingencies.  Philosophical Transactions of the Royal Society of London.  115:513-583. 
+#' 
 #' Katsanevakis, S. and C.D. Maravelias.  2008.  Modelling fish growth: multi-model inference as a better alternative to a priori using von Bertalanffy equation.  Fish and Fisheries 9:178-187.
 #' 
 #' Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages.
