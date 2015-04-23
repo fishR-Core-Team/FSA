@@ -16,7 +16,7 @@
 #'
 #' In the Quinn and Deriso (1999) models (the \sQuote{QD} models), the g0 parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there.  Also note that their Y is L here.
 #' 
-#' In the Ricker (1979) models (the \sQuote{Ricker} models) as presented in Campana and Jones (1992), the g0 parameter here is equal to k there and the gi paramter here is equal to the G parameter there.  Also note that their X is L here.
+#' In the Ricker (1979)[p. 705] models (the \sQuote{Ricker} models), the g0 parameter here is equal to k there, the gi paramter here is equal to the g parameter there, and the g0 parameter here is equal to their kg parameter.  Also note that their w is L here.  In the Ricker (1979) models as presented in Campana and Jones (1992), the g0 parameter here is equal to k there and the gi paramter here is equal to the G parameter there.  Also note that their X is L here.
 #' 
 #' The model in Ricker (1975)[p. 232] is the same as \sQuote{Ricker1} where the g0 parameter here is qual to G there and the gi parameter here is equal to the g parameter there.  Also note that their w is L here.
 #' 
@@ -43,7 +43,9 @@
 #' 
 #' Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 #' 
-#' Ricker, W.E. 1979.  Growth rates and models.  Pages 677-743 In W.S. Hoar, D.J. Randall, and J.R. Brett, editors.  Fish Physiology, Vol. 8: Bioenergetics and Growth.  Academic Press, NY, NY.
+#' Ricker, W.E. 1979.  \href{https://books.google.com/books?id=CB1qu2VbKwQC&pg=PA705&lpg=PA705&dq=Gompertz+fish&source=bl&ots=y34lhFP4IU&sig=EM_DGEQMPGIn_DlgTcGIi_wbItE&hl=en&sa=X&ei=QmM4VZK6EpDAgwTt24CABw&ved=0CE8Q6AEwBw#v=onepage&q=Gompertz fish&f=false}{Growth rates and models}.  Pages 677-743 In W.S. Hoar, D.J. Randall, and J.R. Brett, editors.  Fish Physiology, Vol. 8: Bioenergetics and Growth.  Academic Press, NY, NY.
+#' 
+#' Winsor, C.P.  1932.  \href{http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1076153/pdf/pnas01729-0009.pdf}{The Gompertz curve as a growth curve}.  Proceedings of the National Academy of Sciences.  18:1-8.
 #' 
 #' @keywords manip
 #'
@@ -182,7 +184,7 @@ gompFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
         cat("  E[L|t] = Linf*exp(-(1/gi)*exp(-gi*(t-t0)))\n\n")
         cat("where Linf = asymptotic mean length\n")
         cat("      gi = instantaneous growth rate at the inflection point\n")
-        cat("      t0 =  the theoretical age when length = 0 (a modeling artifact)\n\n")
+        cat("      t0 = a modeling artifact\n\n")
       }
     )
   }
