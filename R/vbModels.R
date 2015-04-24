@@ -58,6 +58,12 @@ iGrowthModels <- function(which,xpos,ypos) {
          
          CJ1=  {text(xpos,ypos,expression(plain("CJ1: ")~~~E(L[t])==frac(L[infinity],1+g[-infinity]*(t-t[i]))),pos=4)},
          CJ2=  {text(xpos,ypos,expression(plain("CJ2: ")~~~E(L[t])==frac(L[infinity],1+~ae^{-g[-infinity]*t})),pos=4)},
-         Richards=  {text(xpos,ypos,expression(plain("Richards: ")~~~E(L[t])==frac(L[0]*L[infinity],L[0]+(L[infinity]-L[0])*~e^{-g[-infinity]*t})),pos=4)}
+         Richards=  {text(xpos,ypos,expression(plain("Richards: ")~~~E(L[t])==frac(L[0]*L[infinity],L[0]+(L[infinity]-L[0])*~e^{-g[-infinity]*t})),pos=4)},
+         
+         Schnute1=  {text(xpos,ypos,expression(plain("Case 1: ")~~~E(L[t])==bgroup("[",L[1]^{gamma}+(L[3]^{gamma}-L[1]^{gamma})*~frac(1-e^{-a*(~t~-~t[1])},1-e^{-a*(~t[3]~-~t[1])}),"]")^{~frac(1,gamma)}),pos=4)},
+         Schnute2=  {text(xpos,ypos,expression(plain("Case 2: ")~~~E(L[t])==L[1]*e^{log~bgroup("(",frac(L[3],L[1]),")")*~frac(1-e^{-a*(~t~-~t[1])},1-e^{-a*(~t[3]~-~t[1])})}),pos=4)},
+         
+         Schnute3=  {text(xpos,ypos,expression(plain("Case 3: ")~~~E(L[t])==bgroup("[",L[1]^{gamma}+(L[3]^{gamma}-L[1]^{gamma})*~frac(~t~-~t[1],~t[3]~-~t[1]),"]")^{~frac(1,gamma)}),pos=4)},
+         Schnute4=  {text(xpos,ypos,expression(plain("Case 4: ")~~~E(L[t])==L[1]*e^{log~bgroup("(",frac(L[3],L[1]),")")*~frac(~t~-~t[1],~t[3]~-~t[1])}),pos=4)}
   ) # end swich
 } ## end iGrowthModels internal function
