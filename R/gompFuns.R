@@ -12,19 +12,19 @@
 #'
 #' @note The parameterizations and parameters for the Gompertz function are varied and confusing in the literature.  I have attempted to use a uniform set of paraemters in these functions but that makes a direct comparison to the literature difficult.  Common sources for Gompertz models are listed in the references below.  I make some comments here to aid the comparison.  It is likely worth your while to look at \code{\link{gompModels}} while you make these comparisons.
 #' 
-#' Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, t0 is the theoretical age when length equals zero and is a modeling artifact, g0 is the instantaneous growth rate at t0, ti is the age at the inflection point, and gi is both the instantaneous growth rate at the inflection point and the decrease in growth rate after the inflection point.
+#' Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, ti is the age at the inflection point, gi is the instantaneous growth rate at the inflection point, t* is a dimensionless parameter related to time/age, and a is a dimensionless parameter related to growth.
 #'
-#' In the Quinn and Deriso (1999) models (the \sQuote{QD} models), the g0 parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there.  Also note that their Y is L here.
+#' In the Quinn and Deriso (1999) models (the \sQuote{QD} models), the a parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there.  Also note that their Y is L here.
 #' 
-#' In the Ricker (1979)[p. 705] models (the \sQuote{Ricker} models), the g0 parameter here is equal to k there, the gi paramter here is equal to the g parameter there, and the g0 parameter here is equal to their kg parameter.  Also note that their w is L here.  In the Ricker (1979) models as presented in Campana and Jones (1992), the g0 parameter here is equal to k there and the gi paramter here is equal to the G parameter there.  Also note that their X is L here.
+#' In the Ricker (1979)[p. 705] models (the \sQuote{Ricker} models), the a parameter here is equal to k there and the gi paramter here is equal to the g parameter there.  Also note that their w is L here.  In the Ricker (1979) models as presented in Campana and Jones (1992), the a parameter here is equal to k there and the gi paramter here is equal to the G parameter there.  Also note that their X is L here.
 #' 
-#' The model in Ricker (1975)[p. 232] is the same as \sQuote{Ricker1} where the g0 parameter here is qual to G there and the gi parameter here is equal to the g parameter there.  Also note that their w is L here.
+#' The model in Ricker (1975)[p. 232] is the same as \sQuote{Ricker2} where the a parameter here is qual to G there and the gi parameter here is equal to the g parameter there.  Also note that their w is L here.
 #' 
-#' The model in Quist et al. (2012)[p. 714] is the same as \sQuote{Ricker3} where the gi parameter here is equal to G there and the ti parameter here is equal to the t0 parameter there.  This parameterization can also be called with \code{type="AFS"}.
+#' The model in Quist et al. (2012)[p. 714] is the same as \sQuote{Ricker1} where the gi parameter here is equal to G there and the ti parameter here is equal to the t0 parameter there.  This parameterization can also be called with \code{type="AFS"}.
 #' 
-#' The model in Katsanevakis and Maravelias (2008) is the same as \sQuote{Ricker3} where the gi parameter here is equal to k2 there and the ti parameter here is equal to t2 there.  This parameterization can also be called with \code{type="MK"}.
+#' The model in Katsanevakis and Maravelias (2008) is the same as \sQuote{Ricker1} where the gi parameter here is equal to k2 there and the ti parameter here is equal to t2 there.  This parameterization can also be called with \code{type="MK"}.
 #'   
-#' The \sQuote{Ricker1} and \sQuote{QD1}; \sQuote{Ricker2} and \sQuote{QD2}; and \sQuote{QD3}, \sQuote{AFS}, and \sQuote{MK} parameterizations are synonymous in their usage here.
+#' The \sQuote{Ricker2} and \sQuote{QD1}; \sQuote{Ricker3} and \sQuote{QD2}; and \sQuote{Ricker1}, \sQuote{AFS}, and \sQuote{MK} parameterizations are synonymous in their usage here.
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
@@ -55,12 +55,12 @@
 #' ## Simple Examples
 #' ( gomp1 <- gompFuns() )              # First Ricker parameterization
 #' ages <- 0:15
-#' plot(gomp1(ages,L0=2,g0=6,gi=0.5)~ages,type="b",pch=19)
+#' plot(gomp1(ages,Linf=800,gi=0.5,ti=5)~ages,type="b",pch=19)
 #'
-#' ( gomp2 <- gompFuns("Ricker3") )     # Third Ricker parameterization
-#' plot(gomp2(ages,Linf=800,gi=0.5,ti=5)~ages,type="b",pch=19)
+#' ( gomp2 <- gompFuns("Ricker2") )     # Second Ricker parameterization
+#' plot(gomp2(ages,L0=2,a=6,gi=0.5)~ages,type="b",pch=19)
 #'
-#' ( gomp2c <- gompFuns("Ricker3",simple=TRUE) )   # compare to gomp2
+#' ( gomp2c <- gompFuns("Ricker2",simple=TRUE) )   # compare to gomp2
 #'
 #' #######################################################################################
 #' ## Examples of fitting Gompertz models
@@ -82,15 +82,15 @@
 #' df <- data.frame(age=ages,len=round(lens,0))
 #' 
 #' # Fit first Ricker parameterization
-#' fit1 <- nls(len~gomp1(age,L0,g0,gi),data=df,start=list(L0=30,g0=3,gi=0.3))
+#' fit1 <- nls(len~gomp1(age,Linf,gi,ti),data=df,start=list(Linf=500,gi=0.3,ti=3))
 #' summary(fit1,correlation=TRUE)
 #' plot(len~age,data=df,pch=19,col=rgb(0,0,0,1/5))
-#' curve(gomp1(x,L0=coef(fit1)),from=0,to=15,col="red",lwd=10,add=TRUE)
+#' curve(gomp1(x,Linf=coef(fit1)),from=0,to=15,col="red",lwd=10,add=TRUE)
 #'
 #' # Fit third Ricker parameterization
-#' fit2 <- nls(len~gomp2(age,Linf,gi,ti),data=df,start=list(Linf=500,gi=0.3,ti=3))
+#' fit2 <- nls(len~gomp2(age,L0,a,gi),data=df,start=list(L0=30,a=3,gi=0.3))
 #' summary(fit2,correlation=TRUE)
-#' curve(gomp2(x,Linf=coef(fit2)),from=0,to=15,col="blue",lwd=5,add=TRUE)
+#' curve(gomp2(x,L0=coef(fit2)),from=0,to=15,col="blue",lwd=5,add=TRUE)
 #'
 #' # Fit third Quinn and Deriso parameterization (using simple=TRUE model)
 #' gomp3 <- gompFuns("QD3",simple=TRUE)
@@ -112,23 +112,32 @@ gompFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
   Soriginal <-function(t,Linf,a,gi) {
     Linf*exp(-exp(a-gi*t))
   }
-  QD1 <- Ricker1 <- function(t,L0,g0=NULL,gi=NULL) {
-    if (length(L0)==3) { g0 <- L0[[2]]
+  Ricker1 <- KM <- AFS <- function(t,Linf,gi=NULL,ti=NULL) {
+    if (length(Linf)==3) { gi <- Linf[[2]]
+    ti <- Linf[[3]]
+    Linf <- Linf[[1]] }
+    Linf*exp(-exp(-gi*(t-ti)))
+  }
+  SRicker1 <- SKM <- SAFS <- function(t,Linf,gi,ti) {
+    Linf*exp(-exp(-gi*(t-ti)))
+  }
+  QD1 <- Ricker2 <- function(t,L0,a=NULL,gi=NULL) {
+    if (length(L0)==3) { a <- L0[[2]]
                          gi <- L0[[3]]
                          L0 <- L0[[1]] }
-    L0*exp(g0*(1-exp(-gi*t)))
+    L0*exp(a*(1-exp(-gi*t)))
   }
-  SQD1 <- SRicker1 <- function(t,L0,g0,gi) {
-    L0*exp(g0*(1-exp(-gi*t)))
+  SQD1 <- SRicker2 <- function(t,L0,a,gi) {
+    L0*exp(a*(1-exp(-gi*t)))
   }
-  QD2 <- Ricker2 <-  function(t,Linf,g0=NULL,gi=NULL) {
-    if (length(Linf)==3) { g0 <- Linf[[2]]
+  QD2 <- Ricker3 <-  function(t,Linf,a=NULL,gi=NULL) {
+    if (length(Linf)==3) { a <- Linf[[2]]
                            gi <- Linf[[3]]
                            Linf <- Linf[[1]] }
-    Linf*exp(-g0*exp(-gi*t))
+    Linf*exp(-a*exp(-gi*t))
   }
-  SQD2 <- SRicker2 <- function(t,Linf,g0,gi) {
-    Linf*exp(-g0*exp(-gi*t))
+  SQD2 <- SRicker3 <- function(t,Linf,a,gi) {
+    Linf*exp(-a*exp(-gi*t))
   }
   QD3 <- function(t,Linf,gi=NULL,t0=NULL) {
     if (length(Linf)==3) { gi <- Linf[[2]]
@@ -138,15 +147,6 @@ gompFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
   }
   SQD3 <- function(t,Linf,gi,t0) {
     Linf*exp(-(1/gi)*exp(-gi*(t-t0)))
-  }
-  Ricker3 <- KM <- AFS <- function(t,Linf,gi=NULL,ti=NULL) {
-    if (length(Linf)==3) { gi <- Linf[[2]]
-                           ti <- Linf[[3]]
-                           Linf <- Linf[[1]] }
-    Linf*exp(-exp(-gi*(t-ti)))
-  }
-  SRicker3 <- SKM <- SAFS <- function(t,Linf,gi,ti) {
-    Linf*exp(-exp(-gi*(t-ti)))
   }
   ## Main function
   type <- match.arg(type)
@@ -160,33 +160,33 @@ gompFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
         cat("      gi = decrease in growth rate at the inflection point\n")
         cat("      a = an undefined parameter\n\n")
       },
-      Ricker1,QD1= {
-        cat("You have chosen the 'Ricker1' or 'QD1'",comcat)
-        cat("  E[L|t] = L0*exp(g0*(1-exp(-gi*t)))\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      gi = instantaneous growth rate at the inflection point\n")
-        cat("      g0 = instantaneous growth rate at t=0\n\n")
-      },
-      Ricker2,QD2= {
-        cat("You have chosen the 'Ricker2' or 'QD2'",comcat)
-        cat("  E[L|t] = Linf*exp(-(g0/gi)*exp(-gi*t))\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      gi = instantaneous growth rate at the inflection point\n")
-        cat("      g0 = instantaneous growth rate at t=0\n\n")
-      },
-      Ricker3= {
-        cat("You have chosen the 'Ricker3",comcat)
+      Ricker1,KM,AFS= {
+        cat("You have chosen the 'Ricker1'/'KM'/'AFS'",comcat)
         cat("  E[L|t] = Linf*exp(-exp(-gi*(t-ti)))\n\n")
         cat("where Linf = asymptotic mean length\n")
         cat("      gi = instantaneous growth rate at the inflection point\n")
         cat("      ti = time at the inflection point\n\n")
       },
-      QD3,KM,AFS= {
+      Ricker2,QD1= {
+        cat("You have chosen the 'Ricker1'/'QD1'",comcat)
+        cat("  E[L|t] = L0*exp(a*(1-exp(-gi*t)))\n\n")
+        cat("where Linf = asymptotic mean length\n")
+        cat("      gi = instantaneous growth rate at the inflection point\n")
+        cat("      a = dimenstionless parameter related to growth\n\n")
+      },
+      Ricker3,QD2= {
+        cat("You have chosen the 'Ricker3' or 'QD2'",comcat)
+        cat("  E[L|t] = Linf*exp(-(a/gi)*exp(-gi*t))\n\n")
+        cat("where Linf = asymptotic mean length\n")
+        cat("      gi = instantaneous growth rate at the inflection point\n")
+        cat("      a = dimenstionless parameter related to growth\n\n")
+      },
+      QD3= {
         cat("You have chosen the 'QD3",comcat)
         cat("  E[L|t] = Linf*exp(-(1/gi)*exp(-gi*(t-t0)))\n\n")
         cat("where Linf = asymptotic mean length\n")
         cat("      gi = instantaneous growth rate at the inflection point\n")
-        cat("      t0 = a modeling artifact\n\n")
+        cat("      t0 = a dimensionless parameter related to time/age\n\n")
       }
     )
   }

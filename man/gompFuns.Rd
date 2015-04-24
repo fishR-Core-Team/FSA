@@ -25,19 +25,19 @@ Creates a function for a specific Gompertz function parameterization.
 \note{
 The parameterizations and parameters for the Gompertz function are varied and confusing in the literature.  I have attempted to use a uniform set of paraemters in these functions but that makes a direct comparison to the literature difficult.  Common sources for Gompertz models are listed in the references below.  I make some comments here to aid the comparison.  It is likely worth your while to look at \code{\link{gompModels}} while you make these comparisons.
 
-Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, t0 is the theoretical age when length equals zero and is a modeling artifact, g0 is the instantaneous growth rate at t0, ti is the age at the inflection point, and gi is both the instantaneous growth rate at the inflection point and the decrease in growth rate after the inflection point.
+Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, ti is the age at the inflection point, gi is the instantaneous growth rate at the inflection point, t* is a dimensionless parameter related to time/age, and a is a dimensionless parameter related to growth.
 
-In the Quinn and Deriso (1999) models (the \sQuote{QD} models), the g0 parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there.  Also note that their Y is L here.
+In the Quinn and Deriso (1999) models (the \sQuote{QD} models), the a parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there.  Also note that their Y is L here.
 
-In the Ricker (1979)[p. 705] models (the \sQuote{Ricker} models), the g0 parameter here is equal to k there, the gi paramter here is equal to the g parameter there, and the g0 parameter here is equal to their kg parameter.  Also note that their w is L here.  In the Ricker (1979) models as presented in Campana and Jones (1992), the g0 parameter here is equal to k there and the gi paramter here is equal to the G parameter there.  Also note that their X is L here.
+In the Ricker (1979)[p. 705] models (the \sQuote{Ricker} models), the a parameter here is equal to k there and the gi paramter here is equal to the g parameter there.  Also note that their w is L here.  In the Ricker (1979) models as presented in Campana and Jones (1992), the a parameter here is equal to k there and the gi paramter here is equal to the G parameter there.  Also note that their X is L here.
 
-The model in Ricker (1975)[p. 232] is the same as \sQuote{Ricker1} where the g0 parameter here is qual to G there and the gi parameter here is equal to the g parameter there.  Also note that their w is L here.
+The model in Ricker (1975)[p. 232] is the same as \sQuote{Ricker2} where the a parameter here is qual to G there and the gi parameter here is equal to the g parameter there.  Also note that their w is L here.
 
-The model in Quist et al. (2012)[p. 714] is the same as \sQuote{Ricker3} where the gi parameter here is equal to G there and the ti parameter here is equal to the t0 parameter there.  This parameterization can also be called with \code{type="AFS"}.
+The model in Quist et al. (2012)[p. 714] is the same as \sQuote{Ricker1} where the gi parameter here is equal to G there and the ti parameter here is equal to the t0 parameter there.  This parameterization can also be called with \code{type="AFS"}.
 
-The model in Katsanevakis and Maravelias (2008) is the same as \sQuote{Ricker3} where the gi parameter here is equal to k2 there and the ti parameter here is equal to t2 there.  This parameterization can also be called with \code{type="MK"}.
+The model in Katsanevakis and Maravelias (2008) is the same as \sQuote{Ricker1} where the gi parameter here is equal to k2 there and the ti parameter here is equal to t2 there.  This parameterization can also be called with \code{type="MK"}.
 
-The \sQuote{Ricker1} and \sQuote{QD1}; \sQuote{Ricker2} and \sQuote{QD2}; and \sQuote{QD3}, \sQuote{AFS}, and \sQuote{MK} parameterizations are synonymous in their usage here.
+The \sQuote{Ricker2} and \sQuote{QD1}; \sQuote{Ricker3} and \sQuote{QD2}; and \sQuote{Ricker1}, \sQuote{AFS}, and \sQuote{MK} parameterizations are synonymous in their usage here.
 }
 \section{IFAR Chapter}{
  None specifically, but \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth} is related.
@@ -46,12 +46,12 @@ The \sQuote{Ricker1} and \sQuote{QD1}; \sQuote{Ricker2} and \sQuote{QD2}; and \s
 ## Simple Examples
 ( gomp1 <- gompFuns() )              # First Ricker parameterization
 ages <- 0:15
-plot(gomp1(ages,L0=2,g0=6,gi=0.5)~ages,type="b",pch=19)
+plot(gomp1(ages,Linf=800,gi=0.5,ti=5)~ages,type="b",pch=19)
 
-( gomp2 <- gompFuns("Ricker3") )     # Third Ricker parameterization
-plot(gomp2(ages,Linf=800,gi=0.5,ti=5)~ages,type="b",pch=19)
+( gomp2 <- gompFuns("Ricker2") )     # Second Ricker parameterization
+plot(gomp2(ages,L0=2,a=6,gi=0.5)~ages,type="b",pch=19)
 
-( gomp2c <- gompFuns("Ricker3",simple=TRUE) )   # compare to gomp2
+( gomp2c <- gompFuns("Ricker2",simple=TRUE) )   # compare to gomp2
 
 #######################################################################################
 ## Examples of fitting Gompertz models
@@ -73,15 +73,15 @@ lens <- gompO(ages,Linf=450,a=1,gi=0.3)+rnorm(length(ages),0,sd)
 df <- data.frame(age=ages,len=round(lens,0))
 
 # Fit first Ricker parameterization
-fit1 <- nls(len~gomp1(age,L0,g0,gi),data=df,start=list(L0=30,g0=3,gi=0.3))
+fit1 <- nls(len~gomp1(age,Linf,gi,ti),data=df,start=list(Linf=500,gi=0.3,ti=3))
 summary(fit1,correlation=TRUE)
 plot(len~age,data=df,pch=19,col=rgb(0,0,0,1/5))
-curve(gomp1(x,L0=coef(fit1)),from=0,to=15,col="red",lwd=10,add=TRUE)
+curve(gomp1(x,Linf=coef(fit1)),from=0,to=15,col="red",lwd=10,add=TRUE)
 
 # Fit third Ricker parameterization
-fit2 <- nls(len~gomp2(age,Linf,gi,ti),data=df,start=list(Linf=500,gi=0.3,ti=3))
+fit2 <- nls(len~gomp2(age,L0,a,gi),data=df,start=list(L0=30,a=3,gi=0.3))
 summary(fit2,correlation=TRUE)
-curve(gomp2(x,Linf=coef(fit2)),from=0,to=15,col="blue",lwd=5,add=TRUE)
+curve(gomp2(x,L0=coef(fit2)),from=0,to=15,col="blue",lwd=5,add=TRUE)
 
 # Fit third Quinn and Deriso parameterization (using simple=TRUE model)
 gomp3 <- gompFuns("QD3",simple=TRUE)

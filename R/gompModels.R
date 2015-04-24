@@ -24,11 +24,11 @@
 gompModels <- function(...) {
   op <- par(mar=c(0,0,3,0),cex=1.25)
   plot(1,type="n",ylim=c(0,5),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA Gompertz Parameterizations",...)
-  iGrowthModels("gRicker1", 0.1,4.5)
-  iGrowthModels("gRicker2", 0.1,3.5)
-  iGrowthModels("gRicker3", 0.1,2.5)
-  iGrowthModels("gQD3",     0.1,1.5)
-  iGrowthModels("gOriginal",0.1,0.5)
+  iGrowthModels("gOriginal", 0.1,4.5)
+  iGrowthModels("gRicker1", 0.1,3.5)
+  iGrowthModels("gRicker2", 0.1,2.5)
+  iGrowthModels("gRicker3",     0.1,1.5)
+  iGrowthModels("gQD3",0.1,0.5)
   par(op)
 }
 

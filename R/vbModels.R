@@ -50,10 +50,14 @@ iGrowthModels <- function(which,xpos,ypos) {
          vbFrancis=  {text(xpos,ypos,expression(plain("Francis: ")~~~E(L[t])==L[1]+(L[3]-L[1])*~frac(1-r^{2*frac(t-t[1],t[3]-t[1])},1-r^{2})),pos=4)},
          vbFrancis2= {text(xpos,ypos,expression(plain("where" )~r==frac(L[3]-L[2],L[2]-L[1])),pos=4)},
          
-         gRicker1=   {text(xpos,ypos,expression(plain("Ricker1, QD1: ")~~~E(L[t])==L[0]*~e^{g[0]*bgroup("(",1-e^{-g[i]*t},")")}),pos=4)},
-         gRicker2=   {text(xpos,ypos,expression(plain("Ricker2, QD2: ")~~~E(L[t])==L[infinity]*~e^{-g[0]*~e^{-g[i]*t}}),pos=4)},
-         gRicker3=   {text(xpos,ypos,expression(plain("Ricker3:           ")~~~E(L[t])==L[infinity]*~e^{e^{-g[i]*(t-t[i])}}),pos=4)},
-         gQD3=       {text(xpos,ypos,expression(plain("QD3:               ")~~~E(L[t])==L[infinity]*~e^{-~frac(1,g[i])*~e^{-g[i]*~(~t~-~t[0])}}),pos=4)},
-         gOriginal=  {text(xpos,ypos,expression(plain("Original:          ")~~~E(L[t])==L[infinity]*~e^{-e^{a-g[i]*t}}),pos=4)}
+         gOriginal=  {text(xpos,ypos,expression(plain("Original:         ")~~~E(L[t])==L[infinity]*~e^{-e^{a-g[i]*t}}),pos=4)},
+         gRicker1=   {text(xpos,ypos,expression(plain("Ricker1:          ")~~~E(L[t])==L[infinity]*~e^{-e^{-g[i]*(t-t[i])}}),pos=4)},
+         gRicker2=   {text(xpos,ypos,expression(plain("Ricker2, QD1: ")~~~E(L[t])==L[0]*~e^{a*bgroup("(",1-e^{-g[i]*t},")")}),pos=4)},
+         gRicker3=   {text(xpos,ypos,expression(plain("Ricker3, QD2: ")~~~E(L[t])==L[infinity]*~e^{-a*~e^{-g[i]*t}}),pos=4)},
+         gQD3=       {text(xpos,ypos,expression(plain("QD3:              ")~~~E(L[t])==L[infinity]*~e^{-~frac(1,g[i])*~e^{-g[i]*~(~t~-~t^{plain("*")})}}),pos=4)},
+         
+         CJ1=  {text(xpos,ypos,expression(plain("CJ1: ")~~~E(L[t])==frac(L[infinity],1+g[-infinity]*(t-t[i]))),pos=4)},
+         CJ2=  {text(xpos,ypos,expression(plain("CJ2: ")~~~E(L[t])==frac(L[infinity],1+~ae^{-g[-infinity]*t})),pos=4)},
+         Richards=  {text(xpos,ypos,expression(plain("Richards: ")~~~E(L[t])==frac(L[0]*L[infinity],L[0]+(L[infinity]-L[0])*~e^{-g[-infinity]*t})),pos=4)}
   ) # end swich
 } ## end iGrowthModels internal function

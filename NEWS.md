@@ -1,6 +1,8 @@
 # FSA 0.6.12 ongoing
 * `gompFuns()`: Added.
 * `gompModels()`: Added.
+* `logisticFuns()`: Added.
+* `logisticModels()`: Added.
 * `reproInfo()`: Modified.  Added the `out=` argument to allow the output to be straight R or LaTeX.  Removed the `listFiles=` argument.  Changed the output to be more succinct.  Streamlined the code.
 
 # FSA 0.6.11 Apr15
