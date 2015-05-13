@@ -9,7 +9,7 @@
 #' @param L1 The mean size/length at \code{t1}.
 #' @param L3 The mean size/length at \code{t3}.
 #' @param a  A dimensionless parameter that is related to the time/age at the inflection point.
-#' @param gamma A dimensionless parameter that is related to size/length at the inflection point.
+#' @param b A dimensionless parameter that is related to size/length at the inflection point.
 #' @return A predicted size/length given the case of the function and the provided parameter values..
 #' 
 #' @author Derek H. Ogle.
@@ -24,10 +24,10 @@
 #'
 #' @examples
 #' ages <- 1:15
-#' s1 <- schnute(ages,case=1,L1=30,L3=400,a=0.3,gamma=1)
-#' s2 <- schnute(ages,case=2,L1=30,L3=400,a=0.3,gamma=1)
-#' s3 <- schnute(ages,case=3,L1=30,L3=400,a=0.3,gamma=1)
-#' s4 <- schnute(ages,case=4,L1=30,L3=400,a=0.3,gamma=1)
+#' s1 <- schnute(ages,case=1,L1=30,L3=400,a=0.3,b=1)
+#' s2 <- schnute(ages,case=2,L1=30,L3=400,a=0.3,b=1)
+#' s3 <- schnute(ages,case=3,L1=30,L3=400,a=0.3,b=1)
+#' s4 <- schnute(ages,case=4,L1=30,L3=400,a=0.3,b=1)
 #'
 #' plot(s1~ages,type="l",lwd=2)
 #' lines(s2~ages,lwd=2,col="red")
@@ -35,14 +35,14 @@
 #' lines(s4~ages,lwd=2,col="green")
 #' 
 #' @export
-schnute <- function(t,case=1,t1=min(t),t3=max(t),L1=NULL,L3=NULL,a=NULL,gamma=NULL) {
+schnute <- function(t,case=1,t1=min(t),t3=max(t),L1=NULL,L3=NULL,a=NULL,b=NULL) {
   case <- as.character(case)
   if (!case %in% c("1","2","3","4")) stop("'case' must be 1, 2, 3, or 4.",call.=FALSE)
-  g <- gamma
+  b <- b
   switch(case,
-         "1"={ val <- ((L1^g)+((L3^g)-(L1^g))*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1)))))^(1/g) },
+         "1"={ val <- ((L1^b)+((L3^b)-(L1^b))*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1)))))^(1/b) },
          "2"={ val <- L1*exp(log(L3/L1)*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1))))) },
-         "3"={ val <- ((L1^g)+((L3^g)-(L1^g))*((t-t1)/(t3-t1)))^(1/g) },
+         "3"={ val <- ((L1^b)+((L3^b)-(L1^b))*((t-t1)/(t3-t1)))^(1/b) },
          "4"={ val <- L1*exp(log(L3/L1)*((t-t1)/(t3-t1))) }
   )
   val

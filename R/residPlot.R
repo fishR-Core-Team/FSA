@@ -4,6 +4,8 @@
 #'
 #' @details If the user chooses to add a legend without identifying coordinates for the upper-left corner of the legend (i.e., \code{legend=TRUE}) then the R console is suspended until the user places the legend by clicking on the produced graphic at the point where the upper-left corner of the legend should appear.  A legend will only be placed if the \code{mdl} is an indicator variable regression, even if \code{legend=TRUE}.
 #'
+#' Three types of residuals are allowed for most model types.  Raw residuals are simply the difference between the observed response variable and the predicted/fitted value.  Standardized residuals are internally studentized residuals returned by \code{\link{rstandard}} for linear models and are the raw residual divided by the standard deviation of the residuals for nonlinear models (as is done by \code{\link[nlstools]{nlsResiduals}} from \pkg{nlstools}).  Studentized residuals are the externally studentized residuals returned by \code{\link{rstudent}} for linear models and are not available for nonlinear models.
+#' 
 #' If \code{outlier.test=TRUE} then significant outliers are detected with \code{\link[car]{outlierTest}} from the \pkg{car} package.  See the help for this function for more details.
 #'
 #' @note This function is meant to allow newbie students the ability to easily construct residual plots for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions.  The plots can be constructed by submitting a saved linear model to this function which allows students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
@@ -11,7 +13,7 @@
 #' @aliases residPlot residPlot.lm residPlot.SLR residPlot.IVR residPlot.POLY residPlot.ONEWAY residPlot.TWOWAY residPlot.nls
 #'
 #' @param object An \code{lm} or \code{nls} object (i.e., returned from fitting a model with either \code{lm} or \code{nls}).
-#' @param student A logical that indicates if the studentized residuals (\code{TRUE}]; default) are plotted or not.
+#' @param resid.type  The type of residual to use.  \sQuote{Raw} residuals are used by default.  See details.
 #' @param outlier.test A logical that indicates if an \code{outlierTest} will \code{TRUE} (default) be performed and if the indivdiual with the largest studentized residual is deemed to be a significant outlier it will be noted on the residual plot by its observation number.
 #' @param loess A logical that indicates if a loess smoother line and approximate confidence interval band is fit to and shown on the residual plot (\code{TRUE}).
 #' @param bp A logical that indicates if the plot for the one-way and two-way ANOVA will be a boxplot (\code{TRUE}; default) or not.
@@ -36,7 +38,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso See \code{\link[car]{residualPlots}} in \pkg{car} for similar functionality and \code{\link{fitPlot}} and \code{\link[car]{outlierTest}} in \pkg{car} for related methods.
+#' @seealso See \code{\link[car]{residualPlots}} in \pkg{car} and \code{\link[nlstools]{nlsResiduals}} in \pkg{nlstools}) for similar functionality and \code{\link{fitPlot}} and \code{\link[car]{outlierTest}} in \pkg{car} for related methods.
 #'
 #' @keywords hplot models
 #'
@@ -63,7 +65,9 @@
 #' # modify the reference line
 #' residPlot(lm1,col.ref="blue",lwd.ref=5,inclHist=FALSE)
 #' # use Studentized residuals
-#' residPlot(lm1,student=TRUE)
+#' residPlot(lm1,resid.type="studentized",inclHist=FALSE)
+#' # use Standardized residuals
+#' residPlot(lm1,resid.type="standardized",inclHist=FALSE)
 #'
 #' ## Indicator variable regression with same two factors but in different order
 #' ##   (notice use of colors and symbols)
@@ -102,8 +106,15 @@
 #' lma <- lm(y~x)
 #' residPlot(lma)
 #' # with studentized residuals
-#' residPlot(lm1,student=TRUE)
-#'
+#' residPlot(lm1,resid.type="studentized")
+#' 
+#' ## Nonlinear regression
+#' # from first example in nls()
+#' DNase1 <- subset(DNase,Run==1)
+#' fm1DNase1 <- nls(density~SSlogis(log(conc),Asym,xmid,scal),DNase1)
+#' residPlot(fm1DNase1)
+#' residPlot(fm1DNase1,resid.type="standardized")
+#' 
 #' @rdname residPlot
 #' @export
 residPlot <- function (object,...) {
@@ -122,14 +133,16 @@ residPlot.lm <- function(object,...) {
 #' @export
 residPlot.SLR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
                           pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
-                          student=FALSE,outlier.test=TRUE,alpha=0.05,
+                          resid.type=c("raw","standardized","studentized"),
+                          outlier.test=TRUE,alpha=0.05,
                           loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
                           inclHist=TRUE,...) {
   opar <- par("mfrow")
   iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
-  ifelse(student, r <- rstudent(object$mdl), r <- object$mdl$residuals)
-  if (student & ylab=="Residuals") ylab <- "Studentized Residuals"
+  tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
+  r <- tmp$r
+  ylab <- tmp$ylab
   if (inclHist) {
     opar <- par(mfrow=c(1,2))
     on.exit(par(mfrow=opar))
@@ -151,14 +164,16 @@ residPlot.POLY <- function(object,...) {
 #' @export
 residPlot.IVR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
                           pch=c(16,21,15,22,17,24,c(3:14)),col="rich",lty.ref=3,lwd.ref=1,col.ref="black",
-                          student=FALSE,outlier.test=TRUE,alpha=0.05,
+                          resid.type=c("raw","standardized","studentized"),
+                          outlier.test=TRUE,alpha=0.05,
                           loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
                           legend="topright",inclHist=TRUE,...) {
   opar <- par("mfrow")
   iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
-  ifelse(student, r <- rstudent(object$mdl), r <- object$mdl$residuals)
-  if (student & ylab=="Residuals") ylab <- "Studentized Residuals"
+  tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
+  r <- tmp$r
+  ylab <- tmp$ylab
   if (dim(object$mf)[2]>4) stop("Function does not handle models with more than two covariates or more than three factors.",call.=FALSE)
     else {
       if (inclHist) {
@@ -221,15 +236,17 @@ residPlot.IVR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL
 #' @export
 residPlot.ONEWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
                              pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
-                             student=FALSE,bp=TRUE,outlier.test=TRUE,alpha=0.05,
+                             resid.type=c("raw","standardized","studentized"),
+                             bp=TRUE,outlier.test=TRUE,alpha=0.05,
                              loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
                              inclHist=TRUE,...) {
   opar <- par("mfrow")
   iGetMainTitle(object,main)
   if (bp & xlab=="Fitted Values") xlab <- "Treatment Group"
   fv <- object$mdl$fitted.values
-  ifelse(student, r <- rstudent(object$mdl), r <- object$mdl$residuals)
-  if (student & ylab=="Residuals") ylab <- "Studentized Residuals"
+  tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
+  r <- tmp$r
+  ylab <- tmp$ylab
   gf <- object$mf[,2]
   if (inclHist) {
     par(mfrow=c(1,2))
@@ -251,15 +268,17 @@ residPlot.ONEWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
 #' @export
 residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
                              pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
-                             student=FALSE,bp=TRUE,outlier.test=TRUE,alpha=0.05,
+                             resid.type=c("raw","standardized","studentized"),
+                             bp=TRUE,outlier.test=TRUE,alpha=0.05,
                              loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
                              inclHist=TRUE,...) {
   opar <- par("mfrow")
   iGetMainTitle(object,main)
   if (bp & xlab=="Fitted Values") xlab <- "Treatment Group"
   fv <- object$mdl$fitted.values
-  ifelse(student, r <- rstudent(object$mdl), r <- object$mdl$residuals)
-  if (student & ylab=="Residuals") ylab <- "Studentized Residuals"
+  tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
+  r <- tmp$r
+  ylab <- tmp$ylab
   gf1 <- object$mf[,2]
   gf2 <- object$mf[,3]
   gf <- interaction(gf1,gf2)
@@ -283,11 +302,14 @@ residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
 #' @export
 residPlot.nls<-function(object,xlab="Fitted Values",ylab="Residuals",main="",
                         pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
-                        loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
-                        inclHist=TRUE,...) {
+                        resid.type=c("raw","standardized","studentized"),
+                        loess=TRUE,lty.loess=2,lwd.loess=1,
+                        col.loess="black",trans.loess=4,inclHist=TRUE,...) {
   opar <- par("mfrow")
   fv <- fitted(object)
-  r <- residuals(object)
+  tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
+  r <- tmp$r
+  ylab <- tmp$ylab
   if (inclHist) {
     par(mfrow=c(1,2))
     on.exit(par(mfrow=opar))
@@ -354,4 +376,27 @@ iGetMainTitle <- function(object,main) {
 
 iHistResids <- function(r,xlab) {
   hist(~r,xlab=xlab)
+}
+
+iHndlResidType <- function(object,resid.type,ylab) {
+  suppressWarnings(if (class(object)!="nls") {
+    switch(resid.type,
+           raw= { r <- object$mdl$residuals },
+           standardized= { r <- rstandard(object$mdl) },
+           studentized= { r <- rstudent(object$mdl) }
+           )
+  } else {
+    r <- residuals(object)
+    if (resid.type=="studentized") stop("resid.type= cannot be 'studentized' for NLS objects.  Try resid.type='standardized'.",call.=FALSE)
+    else if (resid.type=="standardized") {
+      # this follows nlsResiduals() from nlstools
+      r <- (r-mean(r))/summary(object)$sigma
+      if (ylab=="Residuals") ylab <- "Studentized Residuals"
+    }
+  })
+  if (resid.type!="raw" & ylab=="Residuals") {
+    if (resid.type=="standardized") ylab <- "Standardized Residuals"
+    else ylab <- "Studentized Residuals"
+  }
+  return(list(r=r,ylab=ylab))
 }

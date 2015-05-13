@@ -1,9 +1,13 @@
-# FSA 0.6.12 ongoing
+# FSA 0.6.13 ongoing
+* `residPlot()`: Modified.  Deleted `student=`.  Added `resid.type=` which allows used of standardized (internally studentized) and (externally) studentized residuals for linear models (along with raw residuals).  Added code following `nlsResiduals()` from `nlstools` for standardized residuals for nonlinear models.
+
+# FSA 0.6.12 May15
 * `gompFuns()`: Added.
 * `gompModels()`: Added.
 * `logisticFuns()`: Added.
 * `logisticModels()`: Added.
 * `reproInfo()`: Modified.  Added the `out=` argument to allow the output to be straight R or LaTeX.  Removed the `listFiles=` argument.  Changed the output to be more succinct.  Streamlined the code.
+* `vbFuns()`: Modified.  Fixed a bug with the Laslett model.
 
 # FSA 0.6.11 Apr15
 * `kCounts()`: Added.  Was `swvCounts()`.

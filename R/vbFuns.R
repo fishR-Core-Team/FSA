@@ -203,7 +203,8 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
   if (length(Linf)==6) { K1 <- Linf[[2]]; K2 <- Linf[[3]]
                          t0 <- Linf[[4]]; a <- Linf[[5]]
                          b <- Linf[[6]]; Linf <- Linf[[1]] }
-}
+    Linf*(1-exp(-K2*(t-t0))*((1+exp(-b*(t-t0-a)))/(1+exp(a*b)))^(-(K2-K1)/b))
+  }
   SLaslett <- function(t,Linf,K1,K2,t0,a,b) {
     Linf*(1-exp(-K2*(t-t0))*((1+exp(-b*(t-t0-a)))/(1+exp(a*b)))^(-(K2-K1)/b))
   }
