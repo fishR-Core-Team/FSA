@@ -10,6 +10,8 @@
 #' 
 #' One should test the results of this function by creating a frequency table of the \code{eventvar} or \code{specvar}.  In either case, the table should contain the same value in each cell of the table.  See the examples.
 #'
+#' @note An error will be returned if either \code{specvar} or \code{eventvar} are factors with any \code{NA} levels.  This usually arises if the dataframe was subsetted/filtered prior to using \code{addZeroCatch}.  See \code{\link{filterD}} or \code{\link[base]{droplevels}} for descriptions of how to drop unused levels.
+#' 
 #' @param df A data frame that contains the capture summary data as described in the details.
 #' @param eventvar A string for the variable that identifies unique capture events.
 #' @param specvar A string for the variable that identifies the species captured.
@@ -159,6 +161,7 @@ addZeroCatch <- function(df,eventvar,specvar,zerovar,na.rm=TRUE) {
       # prepare an empty data frame to receive zeroes
       newdf <- df[FALSE,]
       for (i in 1:nrow(need0s)) {
+        print(need0s[i,eventvar])
         newrow <- data.frame(need0s[i,eventvar],need0s[i,specvar],
                              unique(df[df[,eventvar]==need0s[i,eventvar],idvar]),
                              zeroes)
