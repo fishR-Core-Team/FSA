@@ -130,7 +130,8 @@
 #' ( ex1.F2M <- capHistConvert(ex1.E2F,freq="freq",in.type="frequency",out.type="MARK") )
 #' # to 'RMark' format
 #' ( ex1.F2R <- capHistConvert(ex1.E2F,freq="freq",in.type="frequency",out.type="RMark") )
-#' ( ex1.F2Ra <- capHistConvert(ex1.E2F,freq="freq",in.type="frequency",out.type="RMark",include.id=TRUE) )
+#' ( ex1.F2Ra <- capHistConvert(ex1.E2F,freq="freq",in.type="frequency",out.type="RMark",
+#'                              include.id=TRUE) )
 #' # to 'event' format
 #' ( ex1.F2E <- capHistConvert(ex1.E2F,freq="freq",in.type="frequency",out.type="event") )
 #' 
@@ -196,12 +197,14 @@
 #' 
 #' ## demo use of var.lbls
 #' ( ex2.E2Ia <- capHistConvert(ex2,id="fish",in.type="event",var.lbls.pre="Sample") )
-#' ( ex2.E2Ib <- capHistConvert(ex2,id="fish",in.type="event",var.lbls=c("first","second","third","fourth")) )
+#' ( ex2.E2Ib <- capHistConvert(ex2,id="fish",in.type="event",
+#'                              var.lbls=c("first","second","third","fourth")) )
 #'
 #' ## demo use of event.ord
 #' ( ex2.I2Ea <- capHistConvert(ex2.E2Ib,id="fish",in.type="individual",out.type="event") )
 #' ( ex2.E2Ibad <- capHistConvert(ex2.I2Ea,id="fish",in.type="event") )
-#' ( ex2.E2Igood <- capHistConvert(ex2.I2Ea,id="fish",in.type="event",event.ord=c("first","second","third","fourth")) )
+#' ( ex2.E2Igood <- capHistConvert(ex2.I2Ea,id="fish",in.type="event",
+#'                                 event.ord=c("first","second","third","fourth")) )
 #' 
 #' ## ONLY RUN IN INTERACTIVE MODE
 #' if (interactive()) {
@@ -221,7 +224,8 @@
 #' bun.I2M <- capHistConvert(bun.F2I,id="id",in.type="individual",out.type="MARK")
 #' head(bun.I2M)
 #' # convert converted 'individual' back to 'frequency' format
-#' bun.I2F <- capHistConvert(bun.F2I,id="id",in.type="individual",out.type="frequency",var.lbls.pre="Sample")
+#' bun.I2F <- capHistConvert(bun.F2I,id="id",in.type="individual",out.type="frequency",
+#'                           var.lbls.pre="Sample")
 #' head(bun.I2F)
 #'
 #'

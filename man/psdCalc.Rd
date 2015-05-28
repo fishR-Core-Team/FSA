@@ -88,9 +88,12 @@ psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150,"maxslot
 
 ## add lengths with names, return just those values that use those lengths
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150),justAdds=TRUE)
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150),justAdds=TRUE,what="traditional")
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),addNames=c("minSlot","maxSlot"),justAdds=TRUE)
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),addNames=c("minSlot","maxSlot"),justAdds=TRUE,what="traditional")
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150),justAdds=TRUE,
+        what="traditional")
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),addNames=c("minSlot","maxSlot"),
+        justAdds=TRUE)
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),addNames=c("minSlot","maxSlot"),
+        justAdds=TRUE,what="traditional")
 
 ## different output types
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,what="traditional")
