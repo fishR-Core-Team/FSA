@@ -441,8 +441,8 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,show.pts,pch.pts,
   else abline(a=0,b=1,lwd=lwd.agree,lty=lty.agree,col=col.agree)
   # add individual points if asked for
   if (show.pts) {
-    if (difference) points(obj$d[,1],obj$d[,3],col=col.pts,pch=pch.pts)
-    else points(obj$d[,1],obj$d[,2],col=col.pts,pch=pch.pts)
+    if (difference) points(obj$d[,2],obj$d[,3],col=col.pts,pch=pch.pts)
+    else points(obj$d[,2],obj$d[,1],col=col.pts,pch=pch.pts)
   }
   # add range of individual points if asked for
   if (show.range) {
@@ -470,13 +470,13 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,show.pts,pch.pts,
 #   is called by 
 #===============================================================================
 iAgeBiasSunflowerPlot <- function(obj,difference,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,...) {
-  x <- obj$d[,1]
+  x <- obj$d[,2]
   if (difference) {
     y <- obj$d[,3]
     if (is.null(ylim)) ylim <- range(y)
     if (is.null(xlim)) xlim <- range(x)
   } else {
-    y <- obj$d[,2]
+    y <- obj$d[,1]
     if (is.null(ylim)) ylim <- range(x,y)
     if (is.null(xlim)) xlim <- range(x,y)
   }
