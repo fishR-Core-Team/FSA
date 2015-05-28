@@ -10,7 +10,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso \code{cumsum}.
+#' @seealso \code{\link{cumsum}}.
 #'
 #' @keywords misc
 #'

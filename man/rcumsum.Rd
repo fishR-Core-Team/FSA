@@ -31,7 +31,7 @@ cbind(vals=1:10,
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-\code{cumsum}.
+\code{\link{cumsum}}.
 }
 \keyword{misc}
 
