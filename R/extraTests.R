@@ -154,7 +154,6 @@ extraSS <- function(sim,...,com) {
 }
 
 #' @rdname extraTests
-#' @method print extraTest
 #' @export
 print.extraTest <- function(x,...) {
   cat(attr(x,"heading"),"\n\n")

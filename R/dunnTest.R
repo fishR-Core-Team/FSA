@@ -145,7 +145,6 @@ dunnTest.formula <- function(x,data=NULL,method=p.adjust.methods[c(4,1:3,5:8)],.
 }
 
 #' @rdname dunnTest
-#' @method print DunnTest
 #' @export
 print.DunnTest <- function(x,...) {
   message("Dunn (1964) Kruskal-Wallis multiple comparison")

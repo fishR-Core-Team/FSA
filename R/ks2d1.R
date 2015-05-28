@@ -105,7 +105,6 @@ ks2d1 <- function(x1,y1,justD=FALSE,KSp=FALSE,divbylen=TRUE) {
 }
 
 #' @rdname ks2d1
-#' @method print ks2d1
 #' @export
 print.ks2d1 <- function(x,...) {
   cat("1-Sample Two-Dimensional Kolmogorov-Smirnov Test -- THESE RESULTS ARE EXPERIMENTAL AT THIS POINT!!!\n\n")

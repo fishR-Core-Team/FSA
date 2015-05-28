@@ -69,7 +69,6 @@ ks2d1p <- function(object,B=100) {
 }
 
 #' @rdname ks2d1p
-#' @method print ks2d1p
 #' @export
 print.ks2d1p <- function(x,...) {
   cat("One-Sample Two-Dimensional Kolmogorov-Smirnov Test p-value - THESE RESULTS ARE EXPERIMENTAL AT THIS POINT!!!\n")

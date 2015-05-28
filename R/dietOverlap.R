@@ -189,7 +189,6 @@ dietOverlap <- function(diet1,diet2=NULL,type=c("Horn","Levins","Morisita","Pian
 }
 
 #' @rdname dietOverlap
-#' @method print dietOverlap
 #' @export
 print.dietOverlap <- function(x,...) { print(x$doi,...) }
 

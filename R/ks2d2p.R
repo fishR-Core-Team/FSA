@@ -117,7 +117,6 @@ ks2d2p <- function(object,B=100,type=c("resample","randomize"),randtype=c("discr
 }
 
 #' @rdname ks2d2p
-#' @method print ks2d2p
 #' @export
 print.ks2d2p <- function(x,...) {
   cat("Two-Sample Two-Dimensional Kolmogorov-Smirnov Test p-value - THESE RESULTS ARE EXPERIMENTAL AT THIS POINT!!!\n")
