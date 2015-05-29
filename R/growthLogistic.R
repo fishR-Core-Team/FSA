@@ -1,14 +1,17 @@
-#' @title Creates a function for a specific logistic growth function parameterization.
+#' @name growthLogistic
+#' 
+#' @title Creates a function for a specific parameterization of the logistic growth function.
 #'
-#' @description Creates a function for a specific logristic growth function parameterization.
+#' @description Creates a function for a specific parameterization of the logistic growth function.  Use \code{logisticModels()} to see the equations for each model.
 #'
 #' @param type A string that indicates the parameterization of the logistic growth function.
 #' @param simple A logical that indicates whether the user should be allowed to send all parameter values in the first parameter argument (\code{=FALSE}; default) or whether all individual parameters must be specified (\code{=TRUE}).
 #' @param msg A logical that indicates whether a message about the model and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).
+#' @param \dots Not implemented.
 #' 
-#' @return A function that can be used to predict fish length or weight given a vector of ages and values for the function parameters.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).
-#'
-#'If \code{simple=FALSE}, then the values for all parameters may be included as a vector in the first parameter argument.  If \code{simple=TRUE}, then all parameters must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
+#' @return \code{logisticFuns} returns a function that can be used to predict fish length or weight given a vector of ages and values for the function parameters.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).  #'If \code{simple=FALSE}, then the values for all parameters may be included as a vector in the first parameter argument.  If \code{simple=TRUE}, then all parameters must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
+#' 
+#' \code{logisticModels} returns a graphic that uses \code{\link{plotmath}} to show the model formulae in a pretty format.
 #'
 #' @note Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, ti is the age at the inflection point, gninf is the instantaneous growth rate at negative infinity.
 #' 
@@ -16,7 +19,7 @@
 #'
 #' @section IFAR Chapter: None specifically, but \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth} is related.
 #'
-#' @seealso See \code{\link{logisticModels}} for a list of parameterizations used in \pkg{FSA}.
+#' @seealso See \code{\link{vbFuns}}, \code{\link{gompFuns}}, and \code{\link{schnute}} for similar functionality for other models.
 #'
 #' @references 
 #' Campana, S.E. and C.M. Jones.  1992.  Analysis of otolith microstructure data.  Pages 73-100 In D.K. Stevenson and S.E. Campana, editors.  Otolith microstructure examination and analysis.  Canadian Special Publication of Fisheries and Aquatic Sciences 117.
@@ -26,6 +29,10 @@
 #' @keywords manip
 #'
 #' @examples
+#' ## See the formulae
+#' \dontrun{windows(5,5)}
+#' logisticModels()
+#' 
 #' ## Simple Examples
 #' ( log1 <- logisticFuns() )               # First Campana-Jones parameterization
 #' ages <- 0:15
@@ -73,6 +80,9 @@
 #' curve(log3(x,Linf=coef(fit3)[1],L0=coef(fit3)[2],gninf=coef(fit3)[3]),
 #'       from=0,to=15,col="green",lwd=2,add=TRUE)
 #' 
+NULL
+
+#' @rdname growthLogistic
 #' @export
 logisticFuns <- function(type=c("CJ1","CJ2","Richards","LRichards"),simple=FALSE,msg=FALSE) {
   CJ1 <- function(t,Linf,gninf=NULL,ti=NULL) {
@@ -133,3 +143,16 @@ logisticFuns <- function(type=c("CJ1","CJ2","Richards","LRichards"),simple=FALSE
   if (simple) type <- paste("S",type,sep="")
   get(type)
 }
+
+#' @rdname growthLogistic
+#' @export
+logisticModels <- function(...) {
+  op <- par(mar=c(0,0,3,0),cex=1.25)
+  plot(1,type="n",ylim=c(0,3),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA Logistic Growth Parameterizations",...)
+  iGrowthModels("CJ1", 0.1,2.5)
+  iGrowthModels("CJ2", 0.1,1.5)
+  iGrowthModels("Richards", 0.1,0.5)
+  par(op)
+}
+
+## iGrowthModels internal function for plotting the different models is found in vbModels().

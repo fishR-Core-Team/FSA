@@ -1,6 +1,8 @@
+#' @name growthSchnute
+#' 
 #' @title The four-parameter growth function from Schnute (1981).
 #'
-#' @description The four-parameter growth function from Schnute (1981).
+#' @description The four-parameter growth function from Schnute (1981).  Use \code{schnuteModels()} to see the equations for each model.
 #'
 #' @param t A numeric vector of ages over which to model growth.
 #' @param case A string that indicates the case of the Schnute growth function to use.
@@ -10,19 +12,28 @@
 #' @param L3 The mean size/length at \code{t3}.
 #' @param a  A dimensionless parameter that is related to the time/age at the inflection point.
 #' @param b A dimensionless parameter that is related to size/length at the inflection point.
-#' @return A predicted size/length given the case of the function and the provided parameter values..
+#' @param \dots Not implemented.
+#' 
+#' @return \code{schnute} returns a predicted size/length given the case of the function and the provided parameter values.
+#' 
+#' \code{schnuteModels} returns a graphic that uses \code{\link{plotmath}} to show the model formulae in a pretty format.
 #' 
 #' @author Derek H. Ogle.
 #'
 #' @section IFAR Chapter: None specifically, but \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth} is related.
 #'
-#' @seealso See \code{\link{schnuteModels}} for equations for each case.
+#' @seealso See \code{\link{vbFuns}}, \code{\link{gompFuns}}, and \code{\link{logisticFuns}} for similar functionality for other models.
 #'
 #' @references Schnute, J.  1981.  A versatile growth model with statistical stable parameters.  Canadian Journal of Fisheris and Aquatic Sciences 38:1128-1140.
 #' 
 #' @keywords manip
 #'
 #' @examples
+#' ## See the formulae
+#' \dontrun{windows(5,5)}
+#' schnuteModels()
+#' 
+#' ## Simple examples
 #' ages <- 1:15
 #' s1 <- schnute(ages,case=1,L1=30,L3=400,a=0.3,b=1)
 #' s2 <- schnute(ages,case=2,L1=30,L3=400,a=0.3,b=1)
@@ -34,6 +45,9 @@
 #' lines(s3~ages,lwd=2,col="blue")
 #' lines(s4~ages,lwd=2,col="green")
 #' 
+NULL
+
+#' @rdname growthSchnute
 #' @export
 schnute <- function(t,case=1,t1=min(t),t3=max(t),L1=NULL,L3=NULL,a=NULL,b=NULL) {
   case <- as.character(case)
@@ -47,3 +61,17 @@ schnute <- function(t,case=1,t1=min(t),t3=max(t),L1=NULL,L3=NULL,a=NULL,b=NULL) 
   )
   val
 }
+
+#' @rdname growthSchnute
+#' @export
+schnuteModels <- function(...) {
+  op <- par(mar=c(0,0,3,0),cex=1.25)
+  plot(1,type="n",ylim=c(0,4),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA Schnute Growth Model Cases",...)
+  iGrowthModels("Schnute1", 0.1,3.5)
+  iGrowthModels("Schnute2", 0.1,2.5)
+  iGrowthModels("Schnute3", 0.1,1.5)
+  iGrowthModels("Schnute4", 0.1,0.5)
+  par(op)
+}
+
+## iGrowthModels internal function for plotting the different models is found in vbModels().

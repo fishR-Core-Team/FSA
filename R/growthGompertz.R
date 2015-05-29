@@ -1,14 +1,17 @@
-#' @title Creates a function for a specific Gompertz function parameterization.
+#' @name growthGompertz
+#' 
+#' @title Creates a function for a specific parameterization of the Gompertz growth function
 #'
-#' @description Creates a function for a specific Gompertz function parameterization.
+#' @description Creates a function for a specific parameterization of the Gompertz growth function.  Use \code{gompModels()} to see the equations for each model.
 #'
 #' @param type A string that indicates the parameterization of the Gompertz function.
 #' @param simple A logical that indicates whether the user should be allowed to send all parameter values in the first parameter argument (\code{=FALSE}; default) or whether all individual parameters must be specified (\code{=TRUE}).
 #' @param msg A logical that indicates whether a message about the model and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).
+#' @param \dots Not implemented.
 #' 
-#' @return A function that can be used to predict fish length or weight given a vector of ages and values for the function parameters.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).
-#'
-#'If \code{simple=FALSE}, then the values for all parameters may be included as a vector in the first parameter argument.  If \code{simple=TRUE}, then all parameters must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
+#' @return \code{gompFuns} returns a function that can be used to predict fish length or weight given a vector of ages and values for the function parameters.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).  If \code{simple=FALSE}, then the values for all parameters may be included as a vector in the first parameter argument.  If \code{simple=TRUE}, then all parameters must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
+#' 
+#' \code{gompModels} returns a graphic that uses \code{\link{plotmath}} to show the model formulae in a pretty format.
 #'
 #' @note The parameterizations and parameters for the Gompertz function are varied and confusing in the literature.  I have attempted to use a uniform set of paraemters in these functions but that makes a direct comparison to the literature difficult.  Common sources for Gompertz models are listed in the references below.  I make some comments here to aid the comparison.  It is likely worth your while to look at \code{\link{gompModels}} while you make these comparisons.
 #' 
@@ -30,7 +33,7 @@
 #'
 #' @section IFAR Chapter: None specifically, but \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth} is related.
 #'
-#' @seealso See \code{\link{gompModels}} for a list of parameterizations used in \pkg{FSA}.
+#' @seealso See \code{\link{vbFuns}}, \code{\link{logisticFuns}}, and \code{\link{schnute}} for similar functionality for other models.
 #'
 #' @references 
 #' Campana, S.E. and C.M. Jones.  1992.  Analysis of otolith microstructure data.  Pages 73-100 In D.K. Stevenson and S.E. Campana, editors.  Otolith microstructure examination and analysis.  Canadian Special Publication of Fisheries and Aquatic Sciences 117.
@@ -49,9 +52,13 @@
 #' 
 #' Winsor, C.P.  1932.  \href{http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1076153/pdf/pnas01729-0009.pdf}{The Gompertz curve as a growth curve}.  Proceedings of the National Academy of Sciences.  18:1-8.
 #' 
-#' @keywords manip
+#' @keywords manip hplot
 #'
 #' @examples
+#' ## See the formulae
+#' \dontrun{windows(5,5)}
+#' gompModels()
+#' 
 #' ## Simple Examples
 #' ( gomp1 <- gompFuns() )              # First Ricker parameterization
 #' ages <- 0:15
@@ -99,6 +106,9 @@
 #' curve(gomp3(x,Linf=coef(fit3)[1],gi=coef(fit3)[2],t0=coef(fit3)[3]),
 #'       from=0,to=15,col="green",lwd=2,add=TRUE)
 #' 
+NULL
+
+#' @rdname growthGompertz
 #' @export
 gompFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
                           "QD1","QD2","QD3","KM","AFS","original"),
@@ -193,3 +203,19 @@ gompFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
   if (simple) type <- paste("S",type,sep="")
   get(type)
 }
+
+
+#' @rdname growthGompertz
+#' @export
+gompModels <- function(...) {
+  op <- par(mar=c(0,0,3,0),cex=1.25)
+  plot(1,type="n",ylim=c(0,5),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA Gompertz Parameterizations",...)
+  iGrowthModels("gOriginal", 0.1,4.5)
+  iGrowthModels("gRicker1", 0.1,3.5)
+  iGrowthModels("gRicker2", 0.1,2.5)
+  iGrowthModels("gRicker3",     0.1,1.5)
+  iGrowthModels("gQD3",0.1,0.5)
+  par(op)
+}
+
+## iGrowthModels internal function for plotting the different models is found in vbModels().

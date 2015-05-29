@@ -1,14 +1,17 @@
+#' @name growthVonBertalanffy
+#' 
 #' @title Creates a function for a specific parameterizations of the von Bertalanffy growth function.
 #'
-#' @description Creates a function for a specific parameterizations of the von Bertalanffy growth function.
+#' @description Creates a function for a specific parameterizations of the von Bertalanffy growth function.  Use \code{vbModels()} to see the equations for each model.
 #'
 #' @param type A string that indicates the parameterization of the von Bertalanffy growth function.
 #' @param simple A logical that indicates whether the user should be allowed to send all parameter values in the first parameter argument (\code{=FALSE}; default) or whether all individual parameters must be specified (\code{=TRUE}).
 #' @param msg A logical that indicates whether a message about the function and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).
+#' @param \dots Not implemented.
 #' 
-#' @return A function that can be used to predict fish length given a vector of ages and values for the function parameters and, in some parameterizations, values for some constants.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).
-#'
-#'If \code{simple=FALSE} then the values for all parameters may be included as a vector in the first parameter argument.  Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE} then all parameters and constants must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
+#' @return \code{vbFuns} returns a function that can be used to predict fish length given a vector of ages and values for the function parameters and, in some parameterizations, values for some constants.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).  If \code{simple=FALSE} then the values for all parameters may be included as a vector in the first parameter argument.  Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE} then all parameters and constants must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
+#' 
+#' \code{vbModels} returns a graphic that uses \code{\link{plotmath}} to show the model formulae in a pretty format.
 #'
 #' @note The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} versions are synonymous.
 #'
@@ -16,7 +19,7 @@
 #'
 #' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth}.
 #'
-#' @seealso See \code{\link{vbModels}} for a list of models and parameterizations used in \pkg{FSA} and \code{\link{vbStarts}} for methods to find starting values.
+#' @seealso See \code{\link{gompFuns}}, \code{\link{logisticFuns}}, and \code{\link{schnute}} for similar functionality for other models.  See \code{\link{vbStarts}} for methods to find starting values.
 #'
 #' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
@@ -40,9 +43,13 @@
 #'
 #' Weisberg, S., G.R. Spangler, and L. S. Richmond. 2010. Mixed effects models for fish growth. Canadian Journal of Fisheries And Aquatic Sciences 67:269-277.
 #'
-#' @keywords manip
+#' @keywords manip hplot
 #'
 #' @examples
+#' ## See the formulae
+#' \dontrun{windows(8,5)}
+#' vbModels()
+#' 
 #' ## Simple Examples
 #' ( vb1 <- vbFuns() )              # typical parameterization
 #' ages <- 0:20
@@ -79,6 +86,9 @@
 #' summary(fit3,correlation=TRUE)
 #' curve(vb3(x,L1=coef(fit3),t1=c(0,4)),from=0,to=5,col="green",lwd=2,add=TRUE)
 #'
+NULL
+
+#' @rdname growthVonBertalanffy
 #' @export
 vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
                           "GQ","GallucciQuinn","Mooij","Weisberg",
@@ -336,35 +346,12 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
 }
 
 
-
-
-#' @title Show the von Vertalanffy model formulas implemented in the FSA package.
-#'
-#' @description Show the von Bertalanffy model formulas implemented in \code{\link{vbFuns}} and \code{\link{vbStarts}}.
-#'
-#' @param \dots Additional arguments for \code{\link{par}}.  Generally not needed
-#'
-#' @return A graphic that uses \code{\link{plotmath}} to show the model formulae in a pretty format.
-#'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
-#' 
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth}.
-#'
-#' @seealso See \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations and \code{\link{vbStarts}} for methods to find starting values.
-#' 
-#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
-#' 
-#'
-#' @keywords manip hplot
-#'
-#' @examples
-#' \dontrun{windows(8,5)}
-#' vbModels()
-#'
+#' @rdname growthVonBertalanffy
 #' @export
 vbModels <- function(...) {
   op <- par(mar=c(0,0,3,0),...)
-  plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA von Bertalanffy Parameterizations")
+  plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
+       main="FSA von Bertalanffy Parameterizations")
   iGrowthModels("vbOriginal",0,6.0)
   iGrowthModels("vbTypical", 0,4.0)
   iGrowthModels("vbGQ",      0,2.0)
