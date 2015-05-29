@@ -1,21 +1,24 @@
+#' @name stockRecruitment
+#' 
 #' @title Creates a function for a specific parameterization of a common stock-recruitment model .
 #'
-#' @description Creates a function for a specific parameterization of a \dQuote{Beverton-Holt}, \dQuote{Ricker},  \dQuote{Shepherd}, or \dQuote{Saila-Lorda} stock-recruitment model.  Type \code{srModels()} for the equations of each model.
+#' @description Creates a function for a specific parameterization of a \dQuote{Beverton-Holt}, \dQuote{Ricker},  \dQuote{Shepherd}, or \dQuote{Saila-Lorda} stock-recruitment model.  Use \code{srModels()} to see the equations of each model.
 #'
 #' @param type A string that indicates the type of stock-recruitment model.
 #' @param param A single numeric that indicates the parameterization of the stock-recruitment model type.
 #' @param simple A logical that indicates whether the user should be allowed to send all parameter values in the first parameter argument (\code{=FALSE}; default) or whether all individual parameters must be specified (\code{=TRUE}).
 #' @param msg A logical that indicates whether a message about the model and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).
+#' @param \dots Not implemented.
 #'
-#' @return A function that can be used to predict recruitment given a vector of stock sizes and values for the model parameters.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (assuming that \code{msg=TRUE}).  The values for both/all parameters can be included as a vector of length two/three in the first parameter argument.
-#'
-#'If \code{simple=FALSE} then the values for all parameters can be included as a vector in the first parameter argument.  If \code{simple=TRUE} then all parameters must be declared individually in each function.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
+#' @return \code{srFuns} returns a function that can be used to predict recruitment given a vector of stock sizes and values for the model parameters.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (assuming that \code{msg=TRUE}).  The values for both/all parameters can be included as a vector of length two/three in the first parameter argument.  If \code{simple=FALSE} then the values for all parameters can be included as a vector in the first parameter argument.  If \code{simple=TRUE} then all parameters must be declared individually in each function.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
+#' 
+#' \code{srModels} returns a graphic that uses \code{\link{plotmath}} to show the model formulae in a pretty format.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
 #' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{10-Recruitment}.
 #'
-#' @seealso See \code{\link{srStarts}} and \code{\link{srModels}} for related functionality.
+#' @seealso See \code{\link{srStarts}} for related functionality.
 #'
 #' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
@@ -34,6 +37,10 @@
 #' @keywords manip
 #' 
 #' @examples
+#' ## See the formulae
+#' \dontrun{windows(6,5)}
+#' srModels()
+#' 
 #' ## Simple Examples
 #' # create some dummy stock data
 #' stock <- seq(0.01,1000,length.out=199)
@@ -70,7 +77,10 @@
 #' fit2 <- nls(log(recruits)~log(r3(stock,a,Rp)),data=CodNorwegian,start=r3s)
 #' summary(fit2,correlation=TRUE)
 #' curve(r3(x,a=coef(fit2)[1],Rp=coef(fit2)[2]),from=0,to=200,col="blue",lwd=3,add=TRUE)
-#'
+#' 
+NULL
+
+#' @rdname stockRecruitment
 #' @export
 srFuns <- function(type=c("BevertonHolt","Ricker","Shepherd","SailaLorda","independence"),param=1,simple=FALSE,msg=FALSE) {
   ## Define functions (internal)
@@ -197,4 +207,38 @@ srFuns <- function(type=c("BevertonHolt","Ricker","Shepherd","SailaLorda","indep
   } # end if (msg)
   if (simple) type <- paste("S",type,sep="")
   get(type)
+}
+
+#' @rdname stockRecruitment
+#' @export
+srModels <- function(...) {
+  op <- par(mar=c(0,0,2,0))
+  plot(1,type="n",ylim=c(0,6),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
+       main="FSA Stock-Recruit Model Parametrizations",...)
+  iSRModels("BH1",0,5.5)
+  iSRModels("BH2",0,4.25)
+  iSRModels("BH3",0,3)
+  iSRModels("BH4",0,1.75)
+  
+  iSRModels("R1",0.55,5.5)
+  iSRModels("R2",0.55,4.25)
+  iSRModels("R3",0.55,3)
+  iSRModels("Shepherd",0.55,1.75)
+  iSRModels("SailaLorda",0.55,0.5)
+  par(op)
+}
+
+## Internal function for plotting the different models.  Send positions in xpos and ypos.
+iSRModels <- function(which,xpos,ypos) {
+  switch(which,
+         BH1={text(xpos,ypos,expression(plain("BevertonHolt #1: ")~~~R==frac(aS,1+bS)),pos=4)},
+         BH2={text(xpos,ypos,expression(plain("BevertonHolt #2: ")~~~R==frac(aS,1+a*~frac(S,R[p]))),pos=4)},
+         BH3={text(xpos,ypos,expression(plain("BevertonHolt #3: ")~~~R==frac(S,tilde(a)+tilde(b)*S)),pos=4)},
+         BH4={text(xpos,ypos,expression(plain("BevertonHolt #4: ")~~~R==frac(S,tilde(a)+frac(S,R[p]))),pos=4)},
+         R1 ={text(xpos,ypos,expression(plain("Ricker #1: ")~~~R==aSe^{-bS}),pos=4)},
+         R2 ={text(xpos,ypos,expression(plain("Ricker #2: ")~~~R==Se^{tilde(a)-bS}),pos=4)},
+         R3 ={text(xpos,ypos,expression(plain("Ricker #3: ")~~~R==aSe^{-a*~frac(S,R[p]*~e)}),pos=4)},
+         Shepherd={text(xpos,ypos,expression(plain("Shepherd: ")~~~R==frac(aS,1+(bS)^{c})),pos=4)},
+         SailaLorda={text(xpos,ypos,expression(plain("Saila-Lorda: ")~~~R==aS^{c}*e^{-bS}),pos=4)}
+  )
 }
