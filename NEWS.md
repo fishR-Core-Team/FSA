@@ -1,5 +1,6 @@
 # FSA 0.6.14 ongoing
 * Added travis-ci integration.
+* Added coveralls integration.
 
 # FSA 0.6.13 May15
 * Some miscellaneous reorganizations of files.
