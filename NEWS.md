@@ -1,4 +1,7 @@
-# FSA 0.6.13 ongoing
+# FSA 0.6.14 ongoing
+* Added travis-ci integration.
+
+# FSA 0.6.13 May15
 * Some miscellaneous reorganizations of files.
 * `ageBias()`: Modified.  Corrected bugs with `show.pts=TRUE` and "sunflower plot" that came from changes made in version 0.5.1.
 * `residPlot()`: Modified.  Deleted `student=`.  Added `resid.type=` which allows used of standardized (internally studentized) and (externally) studentized residuals for linear models (along with raw residuals).  Added code following `nlsResiduals()` from `nlstools` for standardized residuals for nonlinear models.

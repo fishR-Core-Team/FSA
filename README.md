@@ -17,3 +17,5 @@ Descriptions of recent changes can be found in the [News.md file](https://github
 ## Contact
 Contact me with questions by sending a friendly e-mail to <dogle@northland.edu>.
 
+## Travis-CI Build Results
+[![Travis-CI Build Status](https://travis-ci.org/droglenc/FSA.svg?branch=master)](https://travis-ci.org/droglenc/FSA)
