@@ -21,6 +21,7 @@ Imports:
     lmtest,
     multcomp,
     plotrix,
+    plyr,
     relax,
     sciplot
 Suggests:

@@ -30,5 +30,4 @@
 #' @importFrom plotrix plotCI stackpoly thigmophobe
 #' @importFrom relax gslider
 #' @importFrom sciplot lineplot.CI
-#' 
 NULL

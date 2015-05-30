@@ -2,43 +2,17 @@
 % Please edit documentation in R/mapvalues.R
 \name{mapvalues}
 \alias{mapvalues}
-\title{Replace specified values with new values, in a vector or factor.  EXACT SAME FUNCTION AS IN THE plyr PACKAGE.}
-\usage{
-mapvalues(x, from, to, warn_missing = TRUE)
-}
-\arguments{
-\item{x}{the factor or vector to modify}
-
-\item{from}{a vector of the items to replace}
-
-\item{to}{a vector of replacement values}
-
-\item{warn_missing}{print a message if any of the old values are not actually present in \code{x}}
-}
+\title{Replace specified values with new values, in a vector or factor.}
 \description{
-Item in \code{x} that match items \code{from} will be replaced by items in \code{to}, matched by position. For example, items in \code{x} that match the first element in \code{from} will be replaced by the first element of \code{to}.
+This is the exact same \code{\link[plyr]{mapvalues}} function from \pkg{plyr} but exported from \pkg{FSA} so as to minimize conflicts between same-named functions in \pkg{dplyr}.  In other words, this allows the user to load just \pkg{FSA} and \pkg{dplyr} and still have the functionality of \code{\link[plyr]{mapvalues}} from \pkg{plyr} without the hassles associated with having \pkg{dplyr} and \pkg{plyr} loaded at the same time.
 }
 \details{
-If \code{x} is a factor, the matching levels of the factor will be replaced with the new values.
-
-This is the EXACT SAME FUNCTION AS IN THE \pkg{plyr} PACKAGE.  I included it here to minimize conflicts between same-named functions in \pkg{dplyr} and \pkg{plyr}.
+The examples illustrate how the function could be used in a typical fisheries analysis.
 }
 \section{IFAR Chapter}{
  \href{https://fishr.wordpress.com/books/ifar/}{2-Basic Data Manipulations}.
 }
 \examples{
-## Examples from plyr
-x <- c("a", "b", "c")
-mapvalues(x, c("a", "c"), c("A", "C"))
-
-# Works on factors
-y <- factor(c("a", "b", "c", "a"))
-mapvalues(y, c("a", "c"), c("A", "C"))
-
-# Works on numeric vectors
-z <- c(1, 4, 5, 9)
-mapvalues(z, from = c(1, 5, 9), to = c(10, 50, 90))
-
 ## Examples of typical fisheries uses
 # only for repeatability
 set.seed(345234534)
@@ -54,6 +28,6 @@ df$species1 <- mapvalues(df$species,from=c("BLUEGILL","LMB"),to=c("Bluegill","La
 xtabs(~species+species1,data=df)
 }
 \seealso{
-See \code{\link[plyr]{mapvalues}} in \pkg{plyr} for the EXACT SAME FUNCTION.  See \code{\link[plyr]{revalue}} in \pkg{plyr} to do the same thing but with a single named vector instead of two separate vectors.
+See \code{\link[plyr]{revalue}} in \pkg{plyr} to do the same thing but with a single named vector instead of two separate vectors.
 }
 

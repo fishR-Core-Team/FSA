@@ -1,6 +1,9 @@
 # FSA 0.6.14 ongoing
 * Added travis-ci integration.
 * Added coveralls integration.
+* Added `importFrom` for `mapvalues()` from `plyr`.
+
+* `mapvalues()`: Deleted.  Deleted the function from `FSA` but imported it from `plyr` and then exported it from `FSA` so that it would be available to fisheries users without having to load `plyr`.
 
 # FSA 0.6.13 May15
 * Some miscellaneous reorganizations of files.
