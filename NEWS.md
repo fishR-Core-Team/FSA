@@ -2,7 +2,7 @@
 * Added travis-ci integration.
 * Added coveralls integration.
 * Added `importFrom` for `mapvalues()` from `plyr`.
-
+* `dunnTest()`: Modified.  Change class type from `DunnTest` to `dunnTest` to eliminate conflict with `DunnTest()` in `DescTools` package.  Thanks to Sal Mangiafico for pointing out this conflict.
 * `mapvalues()`: Deleted.  Deleted the function from `FSA` but imported it from `plyr` and then exported it from `FSA` so that it would be available to fisheries users without having to load `plyr`.
 
 # FSA 0.6.13 May15

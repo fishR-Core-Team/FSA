@@ -119,7 +119,7 @@ dunnTest.default <- function(x,g,method=p.adjust.methods[c(4,1:3,5:8)],...) {
   P.adjust <- p.adjust(P,method=method)
   # return a list
   tmp <- list(method=Name,res=data.frame(Comparison=lbls,Z=Z,P.unadj=P,P.adj=P.adjust))
-  class(tmp) <- "DunnTest"
+  class(tmp) <- "dunnTest"
   tmp
   }
 
@@ -146,7 +146,7 @@ dunnTest.formula <- function(x,data=NULL,method=p.adjust.methods[c(4,1:3,5:8)],.
 
 #' @rdname dunnTest
 #' @export
-print.DunnTest <- function(x,...) {
+print.dunnTest <- function(x,...) {
   message("Dunn (1964) Kruskal-Wallis multiple comparison")
   if (x$method=="No Adjustment") message("  with no adjustment for p-values.\n")
     else message("  p-values adjusted with the ",x$method," method.\n")

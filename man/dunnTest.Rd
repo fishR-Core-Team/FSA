@@ -4,7 +4,7 @@
 \alias{dunnTest}
 \alias{dunnTest.default}
 \alias{dunnTest.formula}
-\alias{print.DunnTest}
+\alias{print.dunnTest}
 \title{Dunn's Kruskal-Wallis Multiple Comparisons.}
 \usage{
 dunnTest(x, ...)
@@ -15,7 +15,7 @@ dunnTest(x, ...)
 \method{dunnTest}{formula}(x, data = NULL, method = p.adjust.methods[c(4,
   1:3, 5:8)], ...)
 
-\method{print}{DunnTest}(x, ...)
+\method{print}{dunnTest}(x, ...)
 }
 \arguments{
 \item{x}{A numeric vector of data values or a formula of the form x~g.}
