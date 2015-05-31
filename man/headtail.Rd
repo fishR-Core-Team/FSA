@@ -39,6 +39,16 @@ headtail(miris)
 headtail(miris,10)
 headtail(miris,addrownums=FALSE)
 headtail(miris,10,which=2:4)
+
+## Make a tbl_df type from dplyr ... note how headtail()
+## is not limited by the tbl_df restriction on number of
+## rows to show (but head() is).
+if (require(dplyr)) {
+  iris2 <- tbl_df(iris)
+  class(iris2)
+  headtail(iris2,n=15)
+  head(iris2,n=30)
+}
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

@@ -23,17 +23,30 @@
 #' headtail(iris,which=grep("Sepal",names(iris)))
 #' headtail(iris,n=200)
 #'
-#'## Make a matrix for demonstration purposes only
+#' ## Make a matrix for demonstration purposes only
 #' miris <- as.matrix(iris[,1:4])
 #' headtail(miris)
 #' headtail(miris,10)
 #' headtail(miris,addrownums=FALSE)
 #' headtail(miris,10,which=2:4)
 #'
+#' ## Make a tbl_df type from dplyr ... note how headtail()
+#' ## is not limited by the tbl_df restriction on number of
+#' ## rows to show (but head() is).
+#' if (require(dplyr)) {
+#'   iris2 <- tbl_df(iris)
+#'   class(iris2)
+#'   headtail(iris2,n=15)
+#'   head(iris2,n=30)
+#' }
 #' @export
 headtail <- function(x,n=3L,which=NULL,addrownums=TRUE,...) {
+  ## Some checks
   if (!(is.matrix(x) | is.data.frame(x))) stop("'x' must be a matrix or data.frame.",call.=FALSE)
   if (length(n)!=1L) stop("'n' must be a single number.",call.=FALSE)
+  ## Remove tbl_df class if it exists
+  if ("tbl_df" %in% class(x)) x <- as.data.frame(x)
+  ## Process data.frame
   N <- nrow(x)
   n <- ifelse(n<0L,max(N+n,0L),min(n,N))
   if (n>=N) tmp <- x

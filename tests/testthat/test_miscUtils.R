@@ -134,6 +134,13 @@ test_that("headtail() error messages and return values",{
   # check of addrownums
   tmp <- headtail(miris,addrownums=FALSE)
   expect_true(is.null(rownames(tmp)))
+  
+  ## check how it handles tbl_df object
+  if (require(dplyr)) {
+    iris2 <- tbl_df(iris)
+    tmp <- headtail(iris2,n=15)
+    expect_is(tmp,"data.frame")
+  }
 })
 
 
