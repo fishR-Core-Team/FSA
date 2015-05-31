@@ -11,6 +11,8 @@
 * `mapvalues()`: Deleted.  Deleted the function from `FSA` but imported it from `plyr` and then exported it from `FSA` so that it would be available to fisheries users without having to load `plyr`.
 * `oddeven()`: Modified.  Added some checks with error messages.  Added suite of tests.
 * `perc()`: Modified.  Added ability to use "and equals" or not to the items in `dir=` (i.e., there are now four items in `dir=`).  Fixed a bug related to using `na.rm=FALSE` and a "less than" situation.  Added some checks with error messages.  Added suite of tests.
+* `pcumsum()`: Modified.  Added some checks with error messages.  Added suite of tests.
+* `rcumsum()`: Modified.  Added some checks with error messages.  Added suite of tests.
 
 # FSA 0.6.13 May15
 * Some miscellaneous reorganizations of files.

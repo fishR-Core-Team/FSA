@@ -189,6 +189,7 @@ test_that("lagratio() calculations",{
   expect_equal(lagratio(1:10,3,2,direction="forward"),res3r)
 })
 
+
 # ############################################################
 # oddeven
 # ############################################################
@@ -207,6 +208,7 @@ test_that("oddeven() error messages and return values",{
   expect_equal(is.even(1:4),c(FALSE,TRUE,FALSE,TRUE))
   expect_is(is.odd(1:4),"logical")
 })
+
 
 # ############################################################
 # perc
@@ -240,3 +242,22 @@ test_that("perc() error messages and return values",{
   expect_equal(suppressWarnings(perc(tmp,5,"leq",na.rm=FALSE)),50)
   expect_equal(suppressWarnings(perc(tmp,5,"lt",na.rm=FALSE)),40)
 })
+
+
+# ############################################################
+# rcumsum / pcumsum
+# ############################################################
+test_that("pcumsum()/rcumsum() error messages and return values",{
+  ## check error messages
+  expect_error(pcumsum(letters),"numeric")
+  expect_error(rcumsum(letters),"numeric")
+  expect_error(pcumsum(data.frame(x=1:5)),"vector")
+  expect_error(rcumsum(data.frame(x=1:5)),"vector")
+  expect_error(pcumsum(matrix(1:6,ncol=2)),"vector")
+  expect_error(rcumsum(matrix(1:6,ncol=2)),"vector")
+  ## check results
+  tmp <- 1:3
+  expect_equal(pcumsum(tmp),c(0,1,3))
+  expect_equal(rcumsum(tmp),c(6,5,3))
+})
+
