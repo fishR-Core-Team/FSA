@@ -1,6 +1,8 @@
 context("Tests for miscellaneous utilities in FSA")
 
-
+# ############################################################
+# capFirst
+# ############################################################
 test_that("capFirst() capitalizations are correct",{
   ## simulate data set
   set.seed(345234534)
@@ -32,6 +34,49 @@ test_that("capFirst() returned classes are correct",{
   expect_equivalent(class(fvec1),"factor")
 })
 
+
+# ############################################################
+# chnagesPos
+# ############################################################
+test_that("changesPos() error messages",{
+  ## check error messages
+  expect_error(changesPos(numeric(0)),"length")
+  expect_error(changesPos(1,include.first=FALSE),"include.first")
+  expect_error(changesPos(matrix(1:4)),"vector")
+  expect_error(changesPos(data.frame(x=1:4)),"vector")
+})
+
+test_that("changesPos() calculations",{
+  expect_equal(changesPos(1:4),1:4)
+  expect_equal(changesPos(c(1:2,1:2)),1:4)
+  expect_equal(changesPos(c(1,2,2,1)),c(1,2,4))
+  expect_equal(changesPos(c(1,2,2,1),include.first=FALSE),c(2,4))
+  expect_equal(changesPos(c(1,1,1,1)),1)
+  expect_equal(changesPos(c(1,1,1,1),include.first=FALSE),numeric(0))
+})  
+
+
+# ############################################################
+# chooseColors
+# ############################################################
+test_that("chooseColors() error messages and return values",{
+  ## check error messages
+  expect_error(chooseColors("Derek"),"should be one of")
+  expect_error(chooseColors(num=0),"positive")
+  n <- 10
+  tmp <- chooseColors(num=n)
+  expect_equal(length(tmp),n)
+  expect_is(tmp,"character")
+  n <- 20
+  tmp <- chooseColors("gray",num=n)
+  expect_equal(length(tmp),n)
+  expect_is(tmp,"character")
+})
+
+
+# ############################################################
+# lagratio
+# ############################################################
 test_that("lagratio() error messages",{
   ## check error messages
   expect_error(lagratio(0:5),"zeroes")
@@ -71,21 +116,4 @@ test_that("lagratio() calculations",{
   expect_equal(lagratio(1:10,2,2,direction="forward"),res2r)
   expect_equal(lagratio(1:10,3,2,direction="forward"),res3r)
 })
-
-test_that("changesPos() error messages",{
-  ## check error messages
-  expect_error(changesPos(numeric(0)),"length")
-  expect_error(changesPos(1,include.first=FALSE),"include.first")
-  expect_error(changesPos(matrix(1:4)),"vector")
-  expect_error(changesPos(data.frame(x=1:4)),"vector")
-})
-
-test_that("changesPos() calculations",{
-  expect_equal(changesPos(1:4),1:4)
-  expect_equal(changesPos(c(1:2,1:2)),1:4)
-  expect_equal(changesPos(c(1,2,2,1)),c(1,2,4))
-  expect_equal(changesPos(c(1,2,2,1),include.first=FALSE),c(2,4))
-  expect_equal(changesPos(c(1,1,1,1)),1)
-  expect_equal(changesPos(c(1,1,1,1),include.first=FALSE),numeric(0))
-})  
   

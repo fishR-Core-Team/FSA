@@ -25,9 +25,14 @@
 #'
 #' @export
 chooseColors <- function(pal=paletteChoices(),num,...) {
+  ## Some checks
   pal <- match.arg(pal)
-  jet.colors <- colorRampPalette(c("#00007F", "blue", "#007FFF", "cyan","#7FFF7F", "yellow", "#FF7F00", "red", "#7F0000"))
+  if (!num>0) stop("'num' must be positive.",call.=FALSE)
+  ## Generate jet and grey colors
+  jet.colors <- colorRampPalette(c("#00007F", "blue", "#007FFF", "cyan","#7FFF7F", 
+                                   "yellow", "#FF7F00", "red", "#7F0000"))
   grey.colors <- colorRampPalette(c("grey20","grey80"))
+  ## Get the colors according to the palette
   switch(pal,
     rich={clrs <- rich.colors(num,...)},
     cm={clrs <- cm.colors(num,...)},
