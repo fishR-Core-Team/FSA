@@ -261,3 +261,19 @@ test_that("pcumsum()/rcumsum() error messages and return values",{
   expect_equal(rcumsum(tmp),c(6,5,3))
 })
 
+
+# ############################################################
+# se
+# ############################################################
+test_that("se error messages and return values",{
+  ## check error messages
+  expect_error(se(letters),"numeric")
+  expect_error(se(data.frame(x=1:5)),"vector")
+  expect_error(se(matrix(1:6,ncol=2)),"vector")
+  ## If an NA value occurs then return NA if na.rm=FALSE
+  expect_true(is.na(se(c(1,2,NA),na.rm=FALSE)))
+  ## check results
+  tmp <- c(1:10)
+  expect_equal(se(tmp),sd(tmp)/sqrt(length(tmp)))
+})
+

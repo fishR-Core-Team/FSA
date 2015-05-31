@@ -29,6 +29,8 @@
 #' 
 #' @export
 se <- function (x,na.rm=TRUE) {
+  if (!is.vector(x)) stop("'x' must be a vector.",call.=FALSE)
+  if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
   if (na.rm) x <- x[complete.cases(x)]
   sqrt(var(x)/length(x))
 }
