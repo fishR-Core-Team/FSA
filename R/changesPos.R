@@ -2,7 +2,7 @@
 #'
 #' @description Find positions in a vector that have a different value from the previous position.
 #'
-#' @param x A vector (generally) of sorted values.
+#' @param x A vector of sorted (generally) values.
 #' @param include.first A logical that indicates whether the returned vector of positions should have a ``1'' at the beginning (i.e., by definition the first position is the first position that is different than the previous value).
 #'
 #' @return A vector of positions in \code{x} where the value differs from the value in the previous position.
@@ -28,7 +28,13 @@
 #'
 #' @export
 changesPos <- function(x,include.first=TRUE) {
-  tmp <- which(x[1:(length(x)-1)]!=x[2:length(x)])+1
-  if (include.first) tmp <- c(1,tmp)
+  if (!is.vector(x)) stop("Only works if 'x' is a vector.",call.=FALSE)
+  if (length(x)==0) stop("Only works if length of 'x'>0.",call.=FALSE)
+  if (length(x)==1 & !include.first) stop("Only works if length of 'x'>1 when 'include.first=FALSE'.",call.=FALSE)
+  if (length(x)==1) tmp <- 1
+  else {
+    tmp <- which(x[1:(length(x)-1)]!=x[2:length(x)])+1
+    if (include.first) tmp <- c(1,tmp)
+  }
   tmp
 }
