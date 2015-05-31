@@ -1,6 +1,8 @@
-#' @title Determines if a number is odd or even.
+#' @name oddeven
 #' 
-#' @description Determines if a number is odd or even.
+#' @title Determine if a number is odd or even.
+#' 
+#' @description Determine if a number is odd or even.
 #' 
 #' @param x A numeric vector.
 #' 
@@ -11,14 +13,29 @@
 #' @keywords manip
 #' 
 #' @examples
-#' d <- 1:8
-#' is.odd(d)
-#' is.even(d)
+#' ## Individual values
+#' is.odd(1)
+#' is.odd(2)
+#' is.even(3)
+#' is.even(4)
 #' 
-#' @rdname oddeven
-#' @export
-is.odd <- function (x) x%%2 == 1
+#' ## Vector of values
+#' d <- 1:8
+#' data.frame(d,odd=is.odd(d),even=is.even(d))
+NULL
 
 #' @rdname oddeven
 #' @export
-is.even <- function(x) x%%2 == 0
+is.odd <- function (x) iOddEven(x,1)
+
+#' @rdname oddeven
+#' @export
+is.even <- function(x) iOddEven(x,0)
+
+
+## Internal function
+iOddEven <- function(x,checkval) {
+  if (!is.vector(x)) stop("'x' must be a vector.",call.=FALSE)
+  if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
+  x%%2 == checkval
+}

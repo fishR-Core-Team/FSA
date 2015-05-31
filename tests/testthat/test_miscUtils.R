@@ -63,6 +63,7 @@ test_that("chooseColors() error messages and return values",{
   ## check error messages
   expect_error(chooseColors("Derek"),"should be one of")
   expect_error(chooseColors(num=0),"positive")
+  ## check return values
   n <- 10
   tmp <- chooseColors(num=n)
   expect_equal(length(tmp),n)
@@ -187,4 +188,22 @@ test_that("lagratio() calculations",{
   expect_equal(lagratio(1:10,2,2,direction="forward"),res2r)
   expect_equal(lagratio(1:10,3,2,direction="forward"),res3r)
 })
-  
+
+# ############################################################
+# oddeven
+# ############################################################
+test_that("oddeven() error messages and return values",{
+  ## check error messages
+  expect_error(is.odd("A"),"numeric")
+  expect_error(is.even("A"),"numeric")
+  expect_error(is.odd(matrix(1:5)),"vector")
+  expect_error(is.even(matrix(1:5)),"vector")
+  ## check results
+  expect_true(is.odd(1))
+  expect_false(is.odd(2))
+  expect_true(is.even(2))
+  expect_false(is.even(1))
+  expect_equal(is.odd(1:4),c(TRUE,FALSE,TRUE,FALSE))
+  expect_equal(is.even(1:4),c(FALSE,TRUE,FALSE,TRUE))
+  expect_is(is.odd(1:4),"logical")
+})
