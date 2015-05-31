@@ -17,7 +17,6 @@
 #' @keywords manip
 #'
 #' @examples
-#' data(iris)
 #' headtail(iris)
 #' headtail(iris,10)
 #' headtail(iris,which=c("Sepal.Length","Sepal.Width","Species"))
@@ -34,7 +33,7 @@
 #' @export
 headtail <- function(x,n=3L,which=NULL,addrownums=TRUE,...) {
   if (!(is.matrix(x) | is.data.frame(x))) stop("'x' must be a matrix or data.frame.",call.=FALSE)
-  stopifnot(length(n) == 1L)
+  if (length(n)!=1L) stop("'n' must be a single number.",call.=FALSE)
   N <- nrow(x)
   n <- ifelse(n<0L,max(N+n,0L),min(n,N))
   if (n>=N) tmp <- x

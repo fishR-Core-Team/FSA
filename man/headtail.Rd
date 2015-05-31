@@ -27,7 +27,6 @@ Shows rows from the head and tail of a data frame or matrix.
 If \code{n} is larger than the number of rows in \code{x} then all of \code{x} is displayed.
 }
 \examples{
-data(iris)
 headtail(iris)
 headtail(iris,10)
 headtail(iris,which=c("Sepal.Length","Sepal.Width","Species"))

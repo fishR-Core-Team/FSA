@@ -88,6 +88,52 @@ test_that("fact2num() error messages and results",{
   expect_equal(tmp,nums)
   expect_is(tmp,"numeric")
   expect_true(is.vector(tmp))
+})  
+
+
+# ############################################################
+# headtail
+# ############################################################
+test_that("headtail() error messages and return values",{
+  ## check error messages
+  expect_error(headtail(1:10),"matrix")
+  expect_error(headtail(iris,n=c(1,2)),"single number")
+  ## check of default values
+  n <- 3
+  tmp <- headtail(iris)
+  expect_equal(nrow(tmp),2*n)
+  expect_equal(ncol(tmp),ncol(iris))
+  expect_equal(names(tmp),names(iris))
+  expect_is(tmp,"data.frame")
+  expect_equal(tmp,rbind(head(iris,n=n),tail(iris,n=n)))
+  ## check more rows
+  n <- 6
+  tmp <- headtail(iris,n=n)
+  expect_equal(nrow(tmp),2*n)
+  expect_equal(ncol(tmp),ncol(iris))
+  expect_equal(names(tmp),names(iris))
+  expect_is(tmp,"data.frame")
+  expect_equal(tmp,rbind(head(iris,n=n),tail(iris,n=n)))
+  ## check of restricted columns
+  n <- 3
+  cols <- 2:3
+  tmp <- headtail(iris,which=cols)
+  expect_equal(nrow(tmp),2*n)
+  expect_equal(ncol(tmp),length(cols))
+  expect_equal(names(tmp),names(iris)[cols])
+  expect_is(tmp,"data.frame")
+  
+  ## check for matrix
+  miris <- as.matrix(iris[,1:4])
+  tmp <- headtail(miris)
+  expect_equal(nrow(tmp),2*n)
+  expect_equal(ncol(tmp),ncol(miris))
+  expect_equal(names(tmp),names(miris))
+  expect_is(tmp,"matrix")
+  expect_equivalent(tmp,rbind(head(miris,n=n),tail(miris,n=n)))
+  # check of addrownums
+  tmp <- headtail(miris,addrownums=FALSE)
+  expect_true(is.null(rownames(tmp)))
 })
 
 
