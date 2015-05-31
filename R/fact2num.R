@@ -27,7 +27,12 @@
 #' 
 #' @export
 fact2num <- function(object) {
-  res <- as.numeric(as.character(object))
-  if (all(is.na(res))) stop("Conversion aborted because all levels in 'object' are not 'numbers.'\n\n",call.=FALSE)
+  ## Don't continue if object is not a factor or character 
+  ## i.e., does not fit the purpose of this function
+  if (!class(object) %in% c("factor","character")) stop("'object' is not a factor or character and does not fit the purpose of this function.",call.=FALSE)
+  ## Convert factor to character and then numeric
+  suppressWarnings(res <- as.numeric(as.character(object)))
+  ## If all na's then stop because values were not numeric-like, else return
+  if (all(is.na(res))) stop("Conversion aborted because all levels in 'object' are not 'numbers'.",call.=FALSE)
   else as.vector(res)
 }

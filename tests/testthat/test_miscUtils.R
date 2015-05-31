@@ -75,6 +75,24 @@ test_that("chooseColors() error messages and return values",{
 
 
 # ############################################################
+# fact2num
+# ############################################################
+test_that("fact2num() error messages and results",{
+  ## check error messages
+  expect_error(fact2num(0:5),"purpose")
+  expect_error(fact2num(data.frame(x=0:5)),"purpose")
+  expect_error(fact2num(factor(c("A","B","C"))),"aborted")
+  ## check results
+  nums <- c(1,2,6,9,3)
+  tmp <- fact2num(factor(nums))
+  expect_equal(tmp,nums)
+  expect_is(tmp,"numeric")
+  expect_true(is.vector(tmp))
+})
+
+
+
+# ############################################################
 # lagratio
 # ############################################################
 test_that("lagratio() error messages",{
