@@ -4,14 +4,19 @@
 \alias{lagratio}
 \title{Ratio of lagged observations.}
 \usage{
-lagratio(x, lag = 1L, differences = 1L, ...)
+lagratio(x, lag = 1L, recursion = 1L, differences = recursion,
+  direction = c("backward", "forward"), ...)
 }
 \arguments{
 \item{x}{A numeric vector or matrix.}
 
 \item{lag}{An integer representing the lag \sQuote{distance}.}
 
-\item{differences}{An integer describing the direction of calculation.  A \code{1} indicates that \sQuote{future} values are divided by \sQuote{past} values.  A \code{2} is the opposite; \sQuote{past} values are divided by \sQuote{future} values.  See examples.}
+\item{recursion}{An integeer that indicates the level of recursion for the calculations.  A \code{1} will simply compute the ratios.  A \code{2}, for example, will compute the ratios, save the result, and then compute the ratios of the results using the same \code{lag}.  See examples.}
+
+\item{differences}{Same as \code{recursion}.  Used for symmetry with \code{\link[base]{diff}}.}
+
+\item{direction}{A string that indicates the direction of calculation.  A \code{"backward"} induicates that \sQuote{latter} values are divided by \sQuote{former} values.  A \code{"forward"} induicates that \sQuote{former} values are divided by \sQuote{latter} values.  See examples.}
 
 \item{\dots}{Additional arguments to \code{diff()}.}
 }
@@ -25,20 +30,21 @@ Computes the ratio of lagged observations in a vector.
 This function behaves similarly to \code{diff()} except that it returns a vector or matrix of ratios rather than differences.
 }
 \examples{
-## same examples as in diff()
-lagratio(1:10, 2)
-lagratio(1:10, 2, 2)
-x <- cumsum(cumsum(1:10))
-lagratio(x, lag = 2)
-lagratio(x, differences = 2)
+## Backward lagged ratios
+# no recursion
+lagratio(1:10,1)
+lagratio(1:10,2)
+# with recursion
+lagratio(1:10,1,2)
+lagratio(1:10,2,2)
 
-## ONLY RUN IN INTERACTIVE MODE
-if (interactive()) {
-
-## This will result in an error, POSIXt objects don't support logs which lagratio uses
-lagratio(.leap.seconds)
-
-} ## END IF INTERACTIVE MODE
+## Forward lagged ratios
+# no recursion
+lagratio(10:1,1,direction="forward")
+lagratio(10:1,2,direction="forward")
+# with recursion
+lagratio(10:1,1,2,direction="forward")
+lagratio(10:1,2,2,direction="forward")
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
