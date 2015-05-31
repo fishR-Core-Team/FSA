@@ -207,3 +207,36 @@ test_that("oddeven() error messages and return values",{
   expect_equal(is.even(1:4),c(FALSE,TRUE,FALSE,TRUE))
   expect_is(is.odd(1:4),"logical")
 })
+
+# ############################################################
+# perc
+# ############################################################
+test_that("perc() error messages and return values",{
+  ## check error messages
+  expect_error(perc("A"),"numeric")
+  expect_warning(perc(1:4,c(1,2)),"first value")
+  ## check results
+  tmp <- c(1:8,NA,NA)
+  ## percentages excluding NA values
+  expect_equal(perc(tmp,5),50)
+  expect_equal(perc(tmp,5,"gt"),37.5)
+  expect_equal(perc(tmp,5,"leq"),62.5)
+  expect_equal(perc(tmp,5,"lt"),50)
+  ## percentages including NA values
+  expect_equal(suppressWarnings(perc(tmp,5,na.rm=FALSE)),40)
+  expect_equal(suppressWarnings(perc(tmp,5,"gt",na.rm=FALSE)),30)
+  expect_equal(suppressWarnings(perc(tmp,5,"leq",na.rm=FALSE)),50)
+  expect_equal(suppressWarnings(perc(tmp,5,"lt",na.rm=FALSE)),40)
+  ## double check if NAs are in different places in the vector
+  tmp <- c(1,NA,2:5,NA,6:8)
+  ## percentages excluding NA values
+  expect_equal(perc(tmp,5),50)
+  expect_equal(perc(tmp,5,"gt"),37.5)
+  expect_equal(perc(tmp,5,"leq"),62.5)
+  expect_equal(perc(tmp,5,"lt"),50)
+  ## percentages including NA values
+  expect_equal(suppressWarnings(perc(tmp,5,na.rm=FALSE)),40)
+  expect_equal(suppressWarnings(perc(tmp,5,"gt",na.rm=FALSE)),30)
+  expect_equal(suppressWarnings(perc(tmp,5,"leq",na.rm=FALSE)),50)
+  expect_equal(suppressWarnings(perc(tmp,5,"lt",na.rm=FALSE)),40)
+})

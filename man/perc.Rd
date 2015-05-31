@@ -4,7 +4,7 @@
 \alias{perc}
 \title{Computes the percentage of values in a vector less than or greater than (and equal to) some value.}
 \usage{
-perc(x, val, dir = c("greater", "less"), na.rm = TRUE,
+perc(x, val, dir = c("geq", "gt", "leq", "lt"), na.rm = TRUE,
   digits = getOption("digits"))
 }
 \arguments{
@@ -12,14 +12,14 @@ perc(x, val, dir = c("greater", "less"), na.rm = TRUE,
 
 \item{val}{A single numeric value.}
 
-\item{dir}{A string that indicates whether the percentage is for values in \code{x} that are \code{"greater"} or \code{"less"} than \code{val}.}
+\item{dir}{A string that indicates whether the percentage is for values in \code{x} that are \dQuote{greater than and equal} \code{"geq"}, \dQuote{greater than} \code{"gt"}, \dQuote{less than and equal} \code{"leq"}, \dQuote{less than} \code{"lt"} the value in \code{val}.}
 
 \item{na.rm}{A logical that indicates whether \code{NA} values should be removed (DEFAULT) from \code{x} or not.}
 
 \item{digits}{A single numeric that indicates the number of decimals the percentage should be rounded to.}
 }
 \value{
-A single numeric that is the percentage of values in \code{x} that are \code{"greater"} or \code{"less"} than (and equal to) \code{val}.
+A single numeric that is the percentage of values in \code{x} that meet the criterion in \code{dir} relative to \code{val}.
 }
 \description{
 Computes the percentage of values in a vector less than or greater than (and equal to) a user-supplied value.
@@ -28,11 +28,20 @@ Computes the percentage of values in a vector less than or greater than (and equ
 This function is most useful when used with an apply-type of function.
 }
 \examples{
-( tmp <- c(1:10,NA,NA) )
+## vector of values
+( tmp <- c(1:8,NA,NA) )
+
+## percentages excluding NA values
 perc(tmp,5)
-perc(tmp,5,"less")
+perc(tmp,5,"gt")
+perc(tmp,5,"leq")
+perc(tmp,5,"lt")
+
+## percentages including NA values
 perc(tmp,5,na.rm=FALSE)
-perc(tmp,c(5,7),"less")
+perc(tmp,5,"gt",na.rm=FALSE)
+perc(tmp,5,"leq",na.rm=FALSE)
+perc(tmp,5,"lt",na.rm=FALSE)
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
