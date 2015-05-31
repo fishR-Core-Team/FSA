@@ -1,8 +1,10 @@
+#' @name chooseColors
+#' 
 #' @title Create a list of colors from among a variety of color palettes.
 #'
 #' @description Create a list of colors from among a variety of color palettes.
 #'
-#' @param pal A character that is the name of a palette.  Must be one of \dQuote{rich}, \dQuote{cm}, \dQuote{default}, \dQuote{grey}, \dQuote{gray}, \dQuote{heat}, \dQuote{jet}, \dQuote{rainbow}, \dQuote{topo}, or \dQuote{terrain}.
+#' @param pal A character that is the name of a palette.  Must be one of \dQuote{rich}, \dQuote{cm}, \dQuote{default}, \dQuote{grey}, \dQuote{gray}, \dQuote{heat}, \dQuote{jet}, \dQuote{rainbow}, \dQuote{topo}, or \dQuote{terrain}, which are given in \code{paletteChoices}.
 #' @param num The number of colors to be returned.
 #' @param \dots Other arguments to the various palette functions.
 #'
@@ -23,6 +25,9 @@
 #' pie(rep(1,n), col=chooseColors("gray",n))
 #' pie(rep(1,n), col=chooseColors("jet",n))
 #'
+NULL
+
+#' @rdname chooseColors
 #' @export
 chooseColors <- function(pal=paletteChoices(),num,...) {
   ## Some checks
@@ -46,4 +51,7 @@ chooseColors <- function(pal=paletteChoices(),num,...) {
   )
   clrs
 }
-  
+
+#' @rdname chooseColors
+#' @export
+paletteChoices <- function() c("rich","cm","default","grey","gray","heat","jet","rainbow","topo","terrain")

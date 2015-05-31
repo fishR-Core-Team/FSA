@@ -2,12 +2,15 @@
 % Please edit documentation in R/chooseColors.R
 \name{chooseColors}
 \alias{chooseColors}
+\alias{paletteChoices}
 \title{Create a list of colors from among a variety of color palettes.}
 \usage{
 chooseColors(pal = paletteChoices(), num, ...)
+
+paletteChoices()
 }
 \arguments{
-\item{pal}{A character that is the name of a palette.  Must be one of \dQuote{rich}, \dQuote{cm}, \dQuote{default}, \dQuote{grey}, \dQuote{gray}, \dQuote{heat}, \dQuote{jet}, \dQuote{rainbow}, \dQuote{topo}, or \dQuote{terrain}.}
+\item{pal}{A character that is the name of a palette.  Must be one of \dQuote{rich}, \dQuote{cm}, \dQuote{default}, \dQuote{grey}, \dQuote{gray}, \dQuote{heat}, \dQuote{jet}, \dQuote{rainbow}, \dQuote{topo}, or \dQuote{terrain}, which are given in \code{paletteChoices}.}
 
 \item{num}{The number of colors to be returned.}
 
