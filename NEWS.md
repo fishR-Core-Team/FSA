@@ -4,6 +4,7 @@
 * Added `importFrom` for `mapvalues()` from `plyr`.
 * `changesPos()`: Modified.  Added some checks with error messages.  Added suite of tests.
 * `chooseColors()`: Modified.  Added some checks with error messages.  Added suite of tests.
+* `confint.nlsBoot()`:Modified.  Fixed bug if maximum number in `parm=` was greater than the number of parameters in the model.
 * `dunnTest()`: Modified.  Change class type from `DunnTest` to `dunnTest` to eliminate conflict with `DunnTest()` in `DescTools` package.  Thanks to Sal Mangiafico for pointing out this conflict.
 * `fact2num()`: Modified.  Added some checks with error messages.  Added suite of tests.
 * `filterD()`: Modified.  Changed to using `drop.levels` from `gdata` rather than `droplevels`.  Added a warning if the resultant data.frame has zero rows (same as in `Subset`).  Added some checks with error messages.  Added suite of tests.

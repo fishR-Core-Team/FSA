@@ -1,4 +1,4 @@
-context("Tests for miscellaneous utilities in FSA")
+context("Tests for FSA utilities")
 
 # ############################################################
 # capFirst

@@ -1,3 +1,5 @@
+#' @name extraTests
+#' 
 #' @title Likelihood ratio and extra sum-of-squares tests.
 #' 
 #' @description Likelihood ratio and extra sum-of-squares tests with multiple \code{lm} or \code{nls} models nested within one common model.  This function is most useful when the nested functions are all at the same level; otherise use \code{anova()} or \code{lrtest()} which are more flexible.
@@ -73,6 +75,8 @@
 #'   # extraSS(fit.0,fit.1, com=fit.2)
 #' }
 #' 
+NULL
+
 #' @rdname extraTests
 #' @export
 lrt <- function(sim,...,com) {
