@@ -439,7 +439,7 @@ fitPlot.logreg <- function(object,xlab=names(object$model)[2],ylab=names(object$
 ### internal functions used in fitPlot
 ##################################################################
 iCIfp1 <- function(x,conf.level) {
-  t <- qt((1-conf.level)/2,gdata::nobs(x)-1)
+  t <- qt((1-conf.level)/2,validn(x)-1)
   c(mean(x)-t*se(x),mean(x)+t*se(x))
 }
 

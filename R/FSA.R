@@ -21,7 +21,7 @@
 #' 
 #' @importFrom car bootCase outlierTest
 #' @importFrom dplyr filter
-#' @importFrom gdata drop.levels nobs
+#' @importFrom gdata drop.levels
 #' @importFrom gplots rich.colors
 #' @importFrom Hmisc binconf
 #' @importFrom knitr purl
