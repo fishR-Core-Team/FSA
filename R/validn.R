@@ -27,8 +27,14 @@
 #'  
 #' @export
 validn <- function(object) {
-  if (is.factor(object) & !is.null(dim(object))) stop("'object' must be a vector.",call.=FALSE)
+  ## Process easily if it is not a factor
+  if (!is.factor(object)) {
+    ## Check to make sure that it is a vector
+    if (!is.vector(object)) stop("'object' must be a vector.",call.=FALSE)
     else return(sum(!is.na(object)))
-  if (!is.vector(object)) stop("'object' must be a vector.",call.=FALSE)
+  } else { # is a factor
+    ## Make sure that it is a factor vector
+    if (!is.null(dim(object))) stop("'object' must be a vector.",call.=FALSE)
     else return(sum(!is.na(object)))
+  }
 }

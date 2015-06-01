@@ -14,6 +14,7 @@
 * `pcumsum()`: Modified.  Added some checks with error messages.  Added suite of tests.
 * `rcumsum()`: Modified.  Added some checks with error messages.  Added suite of tests.
 * `se()`: Modified.  Added some checks with error messages.  Added suite of tests.
+* `validn()`: Modified.  Added some checks with error messages.  Added suite of tests.
 
 # FSA 0.6.13 May15
 * Some miscellaneous reorganizations of files.

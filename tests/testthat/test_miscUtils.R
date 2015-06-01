@@ -265,7 +265,7 @@ test_that("pcumsum()/rcumsum() error messages and return values",{
 # ############################################################
 # se
 # ############################################################
-test_that("se error messages and return values",{
+test_that("se() error messages and return values",{
   ## check error messages
   expect_error(se(letters),"numeric")
   expect_error(se(data.frame(x=1:5)),"vector")
@@ -275,5 +275,20 @@ test_that("se error messages and return values",{
   ## check results
   tmp <- c(1:10)
   expect_equal(se(tmp),sd(tmp)/sqrt(length(tmp)))
+})
+
+
+# ############################################################
+# validn
+# ############################################################
+test_that("validn() error messages and return values",{
+  ## check error messages
+  expect_error(validn(data.frame(x=1:5)),"vector")
+  expect_error(validn(matrix(1:6,ncol=2)),"vector")
+  ## check results
+  expect_equal(validn(c(1,7,2,4,3,10,NA)),6)
+  expect_equal(validn(c("Derek","Hugh","Ogle","Santa","Claus","Nick",NA,NA)),6)
+  expect_equal(validn(factor(c("Derek","Hugh","Ogle","Santa","Claus","Nick",NA,NA))),6)
+  expect_equal(validn(c(TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,NA,NA)),6)
 })
 
