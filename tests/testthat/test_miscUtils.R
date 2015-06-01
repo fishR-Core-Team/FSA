@@ -89,7 +89,49 @@ test_that("fact2num() error messages and results",{
   expect_equal(tmp,nums)
   expect_is(tmp,"numeric")
   expect_true(is.vector(tmp))
-})  
+})
+
+
+# ############################################################
+# filterD
+# ############################################################
+test_that("filterD() and Subset() error messages and results",{
+  ## check error messages
+  expect_error(filterD(0:5))
+  expect_error(Subset(0:5),"with data.frames")
+  expect_error(filterD(matrix(0:5,ncol=2)))
+  expect_error(Subset(matrix(0:5,ncol=2)),"with data.frames")
+  expect_warning(Subset(iris,Species=="DEREK"),"resultant data.frame")
+  expect_warning(filterD(iris,Species=="DEREK"),"resultant data.frame")
+  
+  ## check results
+  # limit to two groups
+  grp <- c("setosa","versicolor")
+  tmp <- Subset(iris,Species %in% grp)
+  expect_equal(levels(tmp$Species),grp)
+  expect_equal(nrow(tmp),100)
+  tmp <- filterD(iris,Species %in% grp)
+  expect_equal(levels(tmp$Species),grp)
+  expect_equal(nrow(tmp),100)
+  # limit to one group
+  grp <- c("versicolor")
+  tmp <- Subset(iris,Species %in% grp)
+  expect_equal(levels(tmp$Species),grp)
+  expect_equal(nrow(tmp),50)
+  tmp <- filterD(iris,Species %in% grp)
+  expect_equal(levels(tmp$Species),grp)
+  expect_equal(nrow(tmp),50)
+  # does Subset still work if columns are selected
+  tmp <- Subset(iris,Species %in% grp,select=4:5)
+  expect_equal(levels(tmp$Species),grp)
+  expect_equal(nrow(tmp),50)
+  expect_equal(ncol(tmp),2)
+  # does Subset still work if rows are not renumbered
+  tmp <- Subset(iris,Species %in% grp,restRownames=FALSE)
+  expect_equal(levels(tmp$Species),grp)
+  expect_equal(nrow(tmp),50)
+  expect_equal(rownames(tmp),as.character(1:50))
+})
 
 
 # ############################################################

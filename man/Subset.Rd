@@ -2,13 +2,12 @@
 % Please edit documentation in R/Subset.R
 \name{Subset}
 \alias{Subset}
-\alias{Subset.data.frame}
-\title{Subsets a data frame and drops the unused levels.}
+\alias{filterD}
+\title{Subsets/filters a data frame and drops the unused levels.}
 \usage{
-Subset(x, ...)
+Subset(x, subset, select, drop = FALSE, resetRownames = TRUE, ...)
 
-\method{Subset}{data.frame}(x, subset, select, drop = FALSE,
-  resetRownames = TRUE, ...)
+filterD(x, ...)
 }
 \arguments{
 \item{x}{A data frame.}
@@ -27,33 +26,40 @@ Subset(x, ...)
 A data frame with the subsetted rows and selected variables.
 }
 \description{
-Subsets a data frame and drops the unused levels.
+Subsets/filters a data frame and drops the unused levels.
 }
 \details{
-This function is used only for data frames.  It is equivalent to the combined usage of \code{\link{subset}} and \code{\link{drop.levels}}.  Use \code{\link{subset}} for all other structures.
-}
-\note{
-Newbie students using R expect that when a factor variable is subsetted with \code{subset} that any original levels that are no longer used after the subsetting will be ignored.  This, however, is not the case and often results in tables with empty cells and figures with empty bars.  One remedy is to use \code{drop.levels} immediately following the \code{subset} call.  This generally becomes a repetitive sequence for most newbie students; thus, \code{Subset} incorporates these two functions into one function.
+Newbie students using R expect that when a factor variable is subsetted with \code{\link{subset}} or filtered with \code{\link[dplyr]{filter}} that any original levels that are no longer used after the subsetting or flitering will be ignored.  This, however, is not the case and often results in tables with empty cells and figures with empty bars.  One remedy is to use \code{\link[gdata]{drop.levels}} from \pkg{gdata} immediately following the \code{\link{subset}} or \code{\link[dplyr]{filter}} call.  This generally becomes a repetitive sequence for most newbie students; thus, \code{Subset} and \code{filterD} incorporate these two functions into one function.
 
-This is the code from \code{\link{subset}} with a catch for non-data.frames and a specific call to \code{drop.levels} just before the data.frame is returned.  I also added an argument to allow resetting the row names.  Otherwise, there is really no new code here.
+\code{Subset} is a wrapper to \code{\link{subset}} with a catch for non-data.frames and a specific call to \code{\link[gdata]{drop.levels}} just before the data.frame is returned.  I also added an argument to allow resetting the row names.  \code{filterD} is a wrapper for \code{\link[dplyr]{filter}} from \pkg{dplyr} followed by \code{\link[gdata]{drop.levels}} just before the data.frame is returned.  Otherwise, there is no new code here.
+
+These functions are used only for data frames.
+}
+\section{IFAR Chapter}{
+ \href{https://fishr.wordpress.com/books/ifar/}{2-Basic Data Manipulations}.
 }
 \examples{
 ## The problem -- note use of unused level in the final table.
 levels(iris$Species)
 iris.set1 <- subset(iris,Species=="setosa" | Species=="versicolor")
 levels(iris.set1$Species)
-table(iris.set1$Species)
+xtabs(~Species,data=iris)
 
 ## A simpler fix using Subset
 iris.set2 <- Subset(iris,Species=="setosa" | Species=="versicolor")
 levels(iris.set2$Species)
-table(iris.set2$Species)
+xtabs(~Species,data=iris.set2)
+
+## A simpler fix using filterD
+iris.set3 <- filterD(iris,Species=="setosa" | Species=="versicolor")
+levels(iris.set3$Species)
+xtabs(~Species,data=iris.set3)
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-See \code{subset}, \code{\link[dplyr]{filter}} from \pkg{dplyr}, and \code{\link{filterD}} for similar functionality.  See \code{\link[gdata]{drop.levels}} in \pkg{gdata} for related functionality.
+See \code{subset} and \code{\link[dplyr]{filter}} from \pkg{dplyr} for similar functionality.  See \code{\link[gdata]{drop.levels}} in \pkg{gdata} and \code{\link{droplevels}} for related functionality.
 }
 \keyword{misc}
 

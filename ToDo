@@ -1,5 +1,7 @@
 ToDo list
 
+o can you remove the dependency on drop.levels() from gdata (and use droplevels() from base).
+
 o bcFuns() -- need details in help file.
 
 o dietOverlap -- need details in help file.

@@ -6,6 +6,7 @@
 * `chooseColors()`: Modified.  Added some checks with error messages.  Added suite of tests.
 * `dunnTest()`: Modified.  Change class type from `DunnTest` to `dunnTest` to eliminate conflict with `DunnTest()` in `DescTools` package.  Thanks to Sal Mangiafico for pointing out this conflict.
 * `fact2num()`: Modified.  Added some checks with error messages.  Added suite of tests.
+* `filterD()`: Modified.  Changed to using `drop.levels` from `gdata` rather than `droplevels`.  Added a warning if the resultant data.frame has zero rows (same as in `Subset`).  Added some checks with error messages.  Added suite of tests.
 * `headtail()`: Modified.  Internally remove `tbl_df` class (from `dplyr`) if it exists.  Added some checks with error messages.  Added suite of tests.
 * `lagratio()`: Modified.  Corrected incorrect explanation of `differences=` in help file.  Added `recursion=` and `direction=`.  Added suite of tests.
 * `mapvalues()`: Deleted.  Deleted the function from `FSA` but imported it from `plyr` and then exported it from `FSA` so that it would be available to fisheries users without having to load `plyr`.
@@ -14,6 +15,7 @@
 * `pcumsum()`: Modified.  Added some checks with error messages.  Added suite of tests.
 * `rcumsum()`: Modified.  Added some checks with error messages.  Added suite of tests.
 * `se()`: Modified.  Added some checks with error messages.  Added suite of tests.
+* `Subset()`: Modified.  Added some checks with error messages.  Added suite of tests.
 * `validn()`: Modified.  Added some checks with error messages.  Added suite of tests.
 
 # FSA 0.6.13 May15
