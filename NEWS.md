@@ -1,4 +1,6 @@
-# FSA 0.6.14 ongoing
+# FSA 0.6.15 ongoing
+
+# FSA 0.6.14 May15
 * Added travis-ci integration.
 * Added coveralls integration.
 * Added `importFrom` for `mapvalues()` from `plyr`.
