@@ -20,6 +20,31 @@ test_that("psdVal() errors and warnings",{
   expect_warning(psdVal("Bluegill",addLens=150))
 })
 
+test_that("psdVal() returns",{
+  ## check values for yellow perch
+  tmp <- psdVal("Yellow Perch",incl.zero=FALSE)
+  expect_equivalent(tmp,c(130,200,250,300,380))
+  expect_equal(names(tmp),c("stock","quality","preferred","memorable","trophy" ))
+  tmp <- psdVal("Yellow Perch",incl.zero=FALSE,units="in")
+  expect_equivalent(tmp,c(5,8,10,12,15))
+  expect_equal(names(tmp),c("stock","quality","preferred","memorable","trophy" ))
+  tmp <- psdVal("Yellow Perch",units="in")
+  expect_equivalent(tmp,c(0,5,8,10,12,15))
+  expect_equal(names(tmp),c("substock","stock","quality","preferred","memorable","trophy" ))
+  tmp <- psdVal("Yellow Perch",units="in",addLens=c(7,9))
+  expect_equivalent(tmp,c(0,5,7,8,9,10,12,15))
+  expect_equal(names(tmp),c("substock","stock","7","quality","9","preferred","memorable","trophy" ))
+  tmp <- psdVal("Yellow Perch",units="in",addLens=c(7,9),addNames=c("minSlot","maxSlot"))
+  expect_equivalent(tmp,c(0,5,7,8,9,10,12,15))
+  expect_equal(names(tmp),c("substock","stock","minSlot","quality","maxSlot","preferred","memorable","trophy"))
+  tmp <- psdVal("Yellow Perch",units="in",addLens=c(minSlot=7,maxSlot=9),addNames=c("minSlot","maxSlot"))
+  expect_equivalent(tmp,c(0,5,7,8,9,10,12,15))
+  expect_equal(names(tmp),c("substock","stock","minSlot","quality","maxSlot","preferred","memorable","trophy"))
+  tmp <- psdVal("yellow perch")
+  expect_equivalent(tmp,c(0,130,200,250,300,380))
+  expect_equal(names(tmp),c("substock","stock","quality","preferred","memorable","trophy" ))
+})
+
 
 test_that("psdCI() errors and warnings",{
   ## problems with proportions table
@@ -50,7 +75,7 @@ test_that("psdCalc() errors and warnings",{
                               rnorm(50,mean=200,sd=25),
                               rnorm(20,mean=300,sd=40)),0),
                       species=rep("Yellow Perch",170))
-  ## get Gabelhous lengths for Yellow Perch
+  ## get Gabelhouse lengths for Yellow Perch
   ghl <- psdVal("Yellow perch")
   ## restrict data.frame to sub-stock-length fish
   tmp <- subset(df,tl<ghl["stock"])
@@ -75,7 +100,7 @@ test_that("psdPlot() errors and warnings",{
                               rnorm(50,mean=200,sd=25),
                               rnorm(20,mean=300,sd=40)),0),
                    species=rep("Yellow Perch",170))
-  ## get Gabelhous lengths for Yellow Perch
+  ## get Gabelhouse lengths for Yellow Perch
   ghl <- psdVal("Yellow perch")
 
   ## set minimum length higher than stock length
