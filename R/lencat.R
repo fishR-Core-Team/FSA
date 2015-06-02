@@ -34,19 +34,19 @@
 #'
 #' # Create length categories by 0.1 unit
 #' df1$LCat1 <- lencat(df1$len,w=0.1)
-#' table(df1$LCat1)
+#' xtabs(~LCat1,data=df1)
 #'
 #' # length categories by 0.2 units
 #' df1$LCat2 <- lencat(df1$len,w=0.2)
-#' table(df1$LCat2)
+#' xtabs(~LCat2,data=df1)
 #'
 #' # length categories by 0.2 units starting at 0.1
 #' df1$LCat3 <- lencat(df1$len,w=0.2,startcat=0.1)
-#' table(df1$LCat3)
+#' xtabs(~LCat3,data=df1)
 #'
 #' # length categories as set by breaks
 #' df1$LCat4 <- lencat(df1$len,breaks=c(0,2,4,7,10))
-#' table(df1$LCat4)
+#' xtabs(~LCat4,data=df1)
 #'
 #' ## A Second example
 #' # random lengths measured to nearest unit
@@ -54,23 +54,23 @@
 #'
 #' # length categories by 5 units
 #' df2$LCat1 <- lencat(df2$len,w=5)
-#' table(df2$LCat1)
+#' xtabs(~LCat1,data=df2)
 #'
 #' # length categories by 5 units starting at 7
 #' df2$LCat2 <- lencat(df2$len,w=5,startcat=7)
-#' table(df2$LCat2)
+#' xtabs(~LCat2,data=df2)
 #'
 #' # length categories by 10 units
 #' df2$LCat3 <- lencat(df2$len,w=10)
-#' table(df2$LCat3)
+#' xtabs(~LCat3,data=df2)
 #'
 #' # length categories by 10 units starting at 5
 #' df2$LCat4 <- lencat(df2$len,w=10,startcat=5)
-#' table(df2$LCat4)
+#' xtabs(~LCat4,data=df2)
 #'
 #' # length categories as set by breaks
 #' df2$LCat5 <- lencat(df2$len,breaks=c(5,50,75,150))
-#' table(df2$LCat5)
+#' xtabs(~LCat5,data=df2)
 #'
 #' ## A Third example
 #' # random lengths measured to nearest 0.1 unit
@@ -78,7 +78,7 @@
 #'
 #' # length categories by 5 units
 #' df3$LCat1 <- lencat(df3$len,w=5)
-#' table(df3$LCat1)
+#' xtabs(~LCat1,data=df3)
 #'
 #' ## A Fourth example
 #' # random lengths measured to nearest 0.01 unit
@@ -86,11 +86,15 @@
 #'
 #' # length categories by 0.1 unit
 #' df4$LCat1 <- lencat(df4$len,w=0.1)
-#' table(df4$LCat1)
+#' xtabs(~LCat1,data=df4)
+#'
+#' # length categories by 0.1 unit, but without missing categories
+#' df4$LCat2 <- lencat(df4$len,w=0.1,as.fact=TRUE)
+#' xtabs(~LCat2,data=df4)
 #'
 #' # length categories by 2 unit
-#' df4$LCat2 <- lencat(df4$len,w=2)
-#' table(df4$LCat2)
+#' df4$LCat3 <- lencat(df4$len,w=2)
+#' xtabs(~LCat3,data=df4)
 #'
 #' ## A Fifth example -- with real data
 #' data(SMBassWB)
@@ -100,38 +104,38 @@
 #' # 10 mm length classes - in default LCat variable
 #' smb1$LCat10 <- lencat(smb1$lencap,w=10)
 #' head(smb1)
-#' table(smb1$LCat10)
+#' xtabs(~LCat10,data=smb1)
 #'
 #' # Same as previous but returned as a factor so that levels with no fish are still seen
 #' smb1$LCat10A <- lencat(smb1$lencap,w=10,as.fact=TRUE)
 #' head(smb1)
-#' table(smb1$LCat10A)
+#' xtabs(~LCat10A,data=smb1)
 #'
 #' # Same as previous but returned as a factor with unused levels dropped
 #' smb1$LCat10B <- lencat(smb1$lencap,w=10,as.fact=TRUE,droplevels=TRUE)
 #' head(smb1)
-#' table(smb1$LCat10B)
+#' xtabs(~LCat10B,data=smb1)
 #'
 #' # 25 mm length classes - in custom variable name
 #' smb1$LCat25 <- lencat(smb1$lencap,w=25)
 #' head(smb1)
-#' table(smb1$LCat25)
+#' xtabs(~LCat25,data=smb1)
 #'
 #' # using values from psdVal for Smallmouth Bass
 #' smb1$PSDCat1 <- lencat(smb1$lencap,breaks=psdVal("Smallmouth Bass"))
 #' head(smb1)
-#' table(smb1$PSDCat1)
+#' xtabs(~PSDCat1,data=smb1)
 #'
 #' # add category names
 #' smb1$PSDCat2 <- lencat(smb1$lencap,breaks=psdVal("Smallmouth Bass"),use.names=TRUE)
 #' head(smb1)
-#' table(smb1$PSDCat2)
+#' xtabs(~PSDCat2,data=smb1)
 #'
 #' # same as above but drop the unused levels
 #' smb1$PSDCat2A <- lencat(smb1$lencap,breaks=psdVal("Smallmouth Bass"),
 #'                         use.names=TRUE,droplevels=TRUE)
 #' head(smb1)
-#' table(smb1$PSDCat2A)
+#' xtabs(~PSDCat2A,data=smb1)
 #' str(smb1)
 #'
 #' # same as above but not returned as a factor (returned as a character)
@@ -171,63 +175,87 @@ lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,
                            as.fact=use.names,
                            droplevels=drop.levels,drop.levels=FALSE,
                            ...) {
-  ## Some Checks
+  ## Notes
+  ##   lcatv = vector of numeric values for length categories
+  ##   lcatn = vector of names for length categories
+  
+  ## Some checks on the validity of the arguments
   if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
   if (length(w)>1) stop("'w' must be of length 1.",call.=FALSE)
   if (w<0) stop("'w' must be positive.",call.=FALSE)
   if (!is.null(startcat)) if (length(startcat)>1) stop("'startcat' must be of length 1.",call.=FALSE)
-  ## Check whether x is all NAs
+  ## Check whether x is all NAs.  If so then send a warning, put
+  ## NAs in lcat to return (i.e., if x are all missing then make
+  ## the length categories all missing)
   if (all(is.na(x))) {
-    ## If so, send a warning.
     warning("Note that all values in 'x' were missing.",call.=FALSE)
-    ## and put all NAs in lcat to return (i.e., if x are all
-    ## missing then make the length categories all missing)
-    lcat <- x
+    lcatv <- x
+    lcatn <- as.character(rep(NA,length(lcatv)))
   } else {
-    ## If not then create the length categories
-    ## find range of values in x
+  ## x is not all missing, thus create breaks.
+    ## Find range of values for x (to help with creating and
+    ## checking breaks)
     maxx <- max(x,na.rm=TRUE)
     minx <- min(x,na.rm=TRUE)
+    ## Initialize that an extra break above the maximum value
+    ## was NOT added ... if one is added this will allow it to
+    ## be removed at the end.
+    addedMaxBreak <- FALSE
+    ## Handle breaks ... process depends on whether breaks were
+    ## given by the user or not
     if (is.null(breaks)) {
-      ## If no breaks given then create them
+      ## No breaks were given, must create them
+      ## 1. create a default starting category if one not given
+      ## 2. Identify decimals in startcat and w
+      ## 3. Create breaks (one more than max so that max is
+      ##    included in a break)
       if (is.null(startcat)) startcat <- floor(minx/w)*w
-      # identify decimals in startcat and w
       decs <- iCheckStartcatW(startcat,w,x)
-      # Creates cut breaks (one more than max so that max is included in a break)
       breaks <- round(seq(startcat,maxx+w,w),decs$wdec)
+      addedMaxBreak <- TRUE
     } else {
-      ## breaks are given, check to see if they are useable
-      # remove NAs (if they exist)
+      ## Breaks are given, check if useable
+      ## 1. remove NAs (if they exist)
+      ## 2. stop if breaks don't go below minimum observed value
+      ## 3. make a break larger than maximum value if needed.
       breaks <- breaks[!is.na(breaks)]
-      # stop if breaks don't go below minimum observed value
-      if (minx < breaks[1]) stop("Lowest break (",breaks[1],") is larger than minimum observation (",minx,").",call.=FALSE)
-      # make a break larger than maximum value if needed
-      if (maxx >= max(breaks)) breaks <- c(breaks,1.1*maxx)
-    }
-    ## actually make the values
-    lcat <- breaks[cut(x,breaks,labels=FALSE,right=right,include.lowest=TRUE)]
-    ## convert numeric to factor if asked to do so (drop last break that is always empty)
-    if (as.fact) lcat <- factor(lcat,levels=breaks[-length(breaks)])
-    ## converts length categories to level names
-    if (!use.names) {
-      # remove names from variable if they exist and use.names=FALSE
-      if(!is.null(names(breaks))) names(lcat) <- NULL
-    } else {
-      if (is.null(names(breaks))) {
-        warning("'use.catnames=TRUE', but 'breaks' is not named.  Used default labels.",call.=FALSE)
-      } else {
-        # if breaks has names, add new var with those names by comparing to numeric breaks
-        lcat <- names(breaks)[match(lcat,breaks)]
-        # make sure the labels are ordered as ordered in breaks (drop last break that is always empty)
-        if (as.fact) lcat <- factor(lcat,levels=names(breaks))
-        #      lcat <- factor(lcat,levels=names(breaks)[-length(breaks)])
-        # change logical to note that it was a factor
-        #      as.fact <- TRUE
+      if (minx < breaks[1]) stop("Lowest break (",breaks[1],") is larger than minimum observation (",
+                                 minx,").",call.=FALSE)
+      if (maxx >= max(breaks)) {
+        breaks <- c(breaks,1.1*maxx)
+        addedMaxBreak <- TRUE
       }
     }
-    if (as.fact & droplevels) lcat <- droplevels(lcat)
+    ## Create the break VALUE for each individual in x
+    lcatv <- breaks[cut(x,breaks,labels=FALSE,right=right,include.lowest=TRUE)]
+    ## Create the break NAMES for each individual in x
+    ## Initialize with the numeric values (as characters), but
+    ## change to the names in the vectors if they exist.
+    lcatn <- as.character(lcatv)
+    if (use.names) {
+      if (is.null(names(breaks))) {
+        warning("'use.names=TRUE', but 'breaks' was not named.  Used default labels.",call.=FALSE)
+        use.names <- FALSE
+      } else lcatn <- names(breaks)[match(lcatv,breaks)]
+    }
   }
-  lcat
+  ## Convert the break NAME to a factor if asked to do so
+  if (as.fact) {
+    # Eliminate the name of the extra break if it was created
+    if (addedMaxBreak) breaks <- breaks[-length(breaks)]
+    # If names were used then make sure the labels are ordered
+    # as ordered in breaks, otherwise just create a factor.
+    # However, if a maximum break was added, remove it first
+    # (but check to make sure that it actually has no fish in it).
+    if (use.names) lcatn <- factor(lcatn,levels=names(breaks))
+    else lcatn <- factor(lcatn,levels=breaks)
+    # drop levels if asked to do so.
+    if (droplevels) lcatn <- droplevels(lcatn)
+  }
+  ## Return the vector of names if use names were asked for,
+  ## otherwise return the values
+  if (use.names | as.fact) return(lcatn)
+  else return(lcatv)
 }
 
 #' @rdname lencat
@@ -244,7 +272,7 @@ lencat.formula <- function(x,data,w=1,breaks=NULL,startcat=NULL,
   tmp <- lencat.default(data[,x$vname],w=w,breaks=breaks,startcat=startcat,right=right,
                         use.names=use.names,as.fact=as.fact,droplevels=droplevels)
   ## Append the new variable to the old data.frame
-  nd <- data.frame(data,tmp)
+  nd <- data.frame(data,tmp,stringsAsFactors=FALSE)
   ## Name the new variable
   names(nd)[ncol(nd)] <- iMakeVname(vname,data)
   ## Return the new data.frame

@@ -188,11 +188,12 @@ test_that("Does psdCI results match Brenden et al. (2008) results",{
   ## Get known PSD values
   psdXYs <- prop.table(freq[-1])*100
   psdXs <- rcumsum(psdXYs)[-1]
+  psdXYs <- psdXYs[-length(psdXYs)]
   ## Get psdCalc results
   suppressWarnings(resXY <- psdCalc(~tl,data=df,species="Yellow Perch",what="incremental",digits=getOption("digits")))
   suppressWarnings(resX <- psdCalc(~tl,data=df,species="Yellow Perch",what="traditional",digits=getOption("digits")))
   ## Are lengths what you would expect
-  expect_equal(nrow(resXY),5)
+  expect_equal(nrow(resXY),4)
   expect_equal(nrow(resX),4)
   ## Are values the same
   expect_true(all(round(resXY[,"Estimate"]-psdXYs,7)==0))
@@ -202,7 +203,7 @@ test_that("Does psdCI results match Brenden et al. (2008) results",{
   tmp <- Subset(df,tl>=brks["stock"])
   suppressWarnings(resXY <- psdCalc(~tl,data=tmp,species="Yellow Perch",what="incremental",digits=getOption("digits")))
   suppressWarnings(resX <- psdCalc(~tl,data=tmp,species="Yellow Perch",what="traditional",digits=getOption("digits")))
-  expect_equal(nrow(resXY),5)
+  expect_equal(nrow(resXY),4)
   expect_equal(nrow(resX),4)
   expect_true(all(round(resXY[,"Estimate"]-psdXYs,7)==0))
   expect_true(all(round(resX[,"Estimate"]-psdXs,7)==0))
@@ -210,11 +211,12 @@ test_that("Does psdCI results match Brenden et al. (2008) results",{
   ## Do things still work if all sub-stock and stock fish are removed  
   psdXYs <- prop.table(freq[-c(1:2)])*100
   psdXs <- rcumsum(psdXYs)[-1]
+  psdXYs <- psdXYs[-length(psdXYs)]
   
   tmp <- Subset(df,tl>=brks["quality"])
   suppressWarnings(resXY <- psdCalc(~tl,data=tmp,species="Yellow Perch",what="incremental",digits=getOption("digits")))
   suppressWarnings(resX <- psdCalc(~tl,data=tmp,species="Yellow Perch",what="traditional",digits=getOption("digits")))
-  expect_equal(nrow(resXY),4)  # no S-Q row
+  expect_equal(nrow(resXY),3)  # no S-Q row
   expect_equal(nrow(resX),4)   # all should be there
   expect_true(all(round(resXY[,"Estimate"]-psdXYs,7)==0))
   expect_true(all(round(resX[-1,"Estimate"]-psdXs,7)==0)) # psdXs does not have PSD-Q
@@ -274,7 +276,7 @@ test_that("Does psdAdd() create correct Gabelhouse categories?",{
 
 test_that("Does psdCalc() compute correct PSD values?",{
   suppressWarnings(bgres <- psdCalc(~tl,data=dfbg,species="Bluegill"))
-  expect_equivalent(bgres[,"Estimate"],c(80,60,40,20,20,20,20,20,20))
+  expect_equivalent(bgres[,"Estimate"],c(80,60,40,20,20,20,20,20))
   suppressWarnings(lmbres <- psdCalc(~tl,data=dflmb,species="Largemouth Bass"))
   expect_equivalent(lmbres[,"Estimate"],c(60,30,10,40,30,20,10))
 })

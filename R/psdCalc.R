@@ -195,7 +195,7 @@ iMakePSDIV <- function(ptbl) {
   tmp1[upper.tri(tmp1)] <- 1
   rownames(tmp1) <- paste("PSD",abb[-1],sep="-")
   ## make identify matrix for incremental PSD
-  tmp2 <- matrix(0,nrow=k-1,ncol=k)
+  tmp2 <- matrix(0,nrow=(k-1),ncol=k)
   diag(tmp2) <- 1
   rownames(tmp2) <- paste("PSD ",abb[1:(k-1)],"-",abb[2:k],sep="")
   ## put together and return
