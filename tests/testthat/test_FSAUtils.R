@@ -131,6 +131,30 @@ test_that("filterD() and Subset() error messages and results",{
   expect_equal(levels(tmp$Species),grp)
   expect_equal(nrow(tmp),50)
   expect_equal(rownames(tmp),as.character(1:50))
+})  
+
+
+# ############################################################
+# fishR
+# ############################################################
+test_that("fishR() error messages and return values",{
+  ## check error messages
+  expect_error(fishR("Derek"),"should be one of")
+  ## check return values
+  tmp <- fishR()
+  expect_equal(tmp,"http://fishr.wordpress.com")
+  tmp <- fishR("IFAR")
+  expect_equal(tmp,"http://fishr.wordpress.com/ifar/")
+  tmp <- fishR("general")
+  expect_equal(tmp,"http://fishr.wordpress.com/vignettes/")
+  tmp <- fishR("AIFFD")
+  expect_equal(tmp,"http://fishr.wordpress.com/books/aiffd/")
+  tmp <- fishR("posts")
+  expect_equal(tmp,"http://fishr.wordpress.com/news/")
+  tmp <- fishR("books")
+  expect_equal(tmp,"http://fishr.wordpress.com/books/")
+  tmp <- fishR("news")
+  expect_equal(tmp,"http://fishr.wordpress.com/news/")
 })
 
 
@@ -184,6 +208,38 @@ test_that("headtail() error messages and return values",{
     tmp <- headtail(iris2,n=15)
     expect_is(tmp,"data.frame")
   }
+})  
+
+
+# ############################################################
+# hoCoef
+# ############################################################
+test_that("hoCoef() error messages and return values",{
+  ## fit some linear regression results
+  data(Mirex)
+  lm1 <- lm(mirex~weight,data=Mirex)
+  lm2 <- lm(mirex~weight+year,data=Mirex)
+  ## check error messages
+  # bad alt=
+  expect_error(hoCoef(lm1,term=2,bo=0.1,alt="derek"),"should be one of")
+  # bad term
+  expect_error(hoCoef(lm1,term=-1,bo=0.1),"positive")
+  expect_error(hoCoef(lm1,term=5,bo=0.1),"greater")
+  expect_error(hoCoef(lm2,term=5,bo=0.1),"greater")
+  
+  ## fit some non-linear regression results
+  data(Ecoli)
+  fnx <- function(days,B1,B2,B3) {
+    if (length(B1) > 1) {
+      B2 <- B1[2]
+      B3 <- B1[3]
+      B1 <- B1[1]
+    }
+    B1/(1+exp(B2+B3*days))
+  }
+  nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,start=list(B1=6,B2=7.2,B3=-1.45))
+  # bad model type
+  expect_error(hoCoef(nl1,term=-1,bo=0.1),"lm")
 })
 
 

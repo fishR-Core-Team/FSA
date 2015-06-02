@@ -1,4 +1,6 @@
 # FSA 0.6.16 ongoing
+* `fishR()`: Modfiied.  Fixed bug with `where="news"`.  Added tests.
+* `hoCoef()`: Modified.  Changed `lmobj=` to `object=`, added degrees-of-freedom to the output matrix, streamlined the code, added some checks, and added some tests.
 
 # FSA 0.6.15 Jun15
 * `addZeroCatch()`: Modified.  Deleted extraneous `print()` statement.

@@ -215,6 +215,49 @@ fact2num <- function(object) {
 }
 
 
+#' @title Opens web pages associated with the fishR website.
+#'
+#' @description Opens web pages associated with the \href{http://fishr.wordpress.com"}{fishR website} in a browser.  The user can open the main page or choose a specific page to open.
+#'
+#' @param where A string that indicates a particular page on the fishR website to open.
+#' 
+#' @return None, but a webpage will be opened in the default browswer.
+#' 
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' 
+#' @keywords misc
+#' 
+#' @examples
+#' ## ONLY RUN IN INTERACTIVE MODE
+#' if (interactive()) {
+#' 
+#' fishR()            # home page
+#' fishR("IFAR")      # Introduction to Fisheries Analysis with R page
+#' fishR("general")   # general vignettes page
+#' fishR("books")     # books vignettes page
+#' fishR("AIFFD")     # Analysis & Interpretation of Freshwater Fisheries Data page
+#' fishR("posts")     # blog posts (some examples) page
+#' 
+#' } ## END IF INTERACTIVE MODE
+#' 
+#' @export
+fishR <- function(where=c("home","IFAR","general","books","AIFFD","posts","news")) {
+  where <- match.arg(where)
+  tmp <- "http://fishr.wordpress.com"
+  switch(where,
+         home=   { tmp <- tmp },
+         IFAR=   { tmp <- paste0(tmp,"/ifar/") },
+         general={ tmp <- paste0(tmp,"/vignettes/") },
+         books=  { tmp <- paste0(tmp,"/books/") },
+         AIFFD=  { tmp <- paste0(tmp,"/books/aiffd/") },
+         posts=,news=  { tmp <- paste0(tmp,"/news/") }
+  )
+  browseURL(tmp)
+  invisible(tmp)
+}
+
+
+
 #' Shows rows from the head and tail of a data frame or matrix.
 #'
 #' Shows rows from the head and tail of a data frame or matrix.
@@ -278,6 +321,57 @@ headtail <- function(x,n=3L,which=NULL,addrownums=TRUE,...) {
   if (!is.null(which)) tmp <- tmp[,which]
   tmp
 }
+
+
+#' @title Performs a hypothesis test that a linear model parameter is equal to a specific value.
+#'
+#' @description Performs a hypothesis test that a linear model parameter is equal to a specific value.  Useful for testing that a parameter is equal to a value other than 0.
+#'
+#' @details The \dQuote{direction} of the alternative hypothesis is identified by a string in the \code{alt} argument.  
+#'
+#' If the \code{lm} object is from a simple linear regression with an intercept then \code{term=1} will use the intercept and \code{term=2} will use the slope in the hypothesis test.
+#'
+#' @param object A \code{lm} object.
+#' @param term A single numeric that indicates which term in the model to use in the hypothesis test.
+#' @param bo The null hypothesized parameter value.
+#' @param alt A string that identifies the \dQuote{direction} of the alternative hypothesis.  The strings may be \code{"less"} for a \dQuote{less than} alternative, \code{"greater"} for a \dQuote{greater than} alternative, or \code{"two.sided"} (DEFAULT) for a \dQuote{not equals} alternative.
+#'
+#' @return A matrix that contains the term number, hypothesized value, parameter estimate, standard error of the parameter estimate, t test statistic, degrees-of-freedom, and corresponding p-value.
+#'
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
+#' @seealso \code{\link{htest.nlsBoot}}.
+#'
+#' @keywords htest
+#'
+#' @examples
+#' data(Mirex)
+#' # Simple linear regression test HA:slope!=0.1
+#' lm1 <- lm(mirex~weight, data=Mirex)
+#' hoCoef(lm1,2,0.1)
+#'
+#' @export
+hoCoef <- function(object,term=2,bo=0,alt=c("two.sided","less","greater")) {
+  alt <- match.arg(alt)
+  if (!"lm" %in% class(object)) stop("'object' must be from 'lm'.",call.=FALSE)
+  if (!term>0) stop("'term' must be a positive number.",call.=FALSE)
+  tmp <- summary(object)$coefficients
+  if (term>length(rownames(tmp))) stop("'term' is greater than number of terms in the model.",call.=FALSE)
+  est <- tmp[term,"Estimate"]
+  se <- tmp[term,"Std. Error"]
+  t <- (est-bo)/se
+  df <- object$df.residual
+  switch(alt,
+         less=     { p.value <- pt(t,df,lower.tail=TRUE) },
+         greater=  { p.value <- pt(t,df,lower.tail=FALSE) },
+         two.sided={ p.value <- 2*pt(abs(t),df,lower.tail=FALSE) }
+  )
+  res <- cbind(term,bo,est,se,t,df,p.value)
+  colnames(res) <- c("term","Ho Value","Estimate","Std. Error","T","df","p value")
+  rownames(res) <- ""
+  res
+}
+
 
 
 #' @title Ratio of lagged observations.
