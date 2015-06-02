@@ -90,7 +90,6 @@ test_that("ageBias symmetry tests match the results in Evans and Hoenig (2008)",
   Y.dat <- data.frame(ageR=c(1,1,1,2,2,2),
                       ageC=c(2,2,3,3,3,3))
   Y <- ageBias(ageR~ageC,data=Y.dat)
-  summary(Y,what="table",zero.print=0)
   Ysum <- summary(Y,what="symmetry")
   expect_equal(Ysum[Ysum$symTest=="McNemars","df"], 1)
   expect_equal(Ysum[Ysum$symTest=="McNemars","chi.sq"], 6)
