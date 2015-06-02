@@ -1,4 +1,6 @@
-# FSA 0.6.15 ongoing
+# FSA 0.6.16 ongoing
+
+# FSA 0.6.15 Jun15
 * `addZeroCatch()`: Modified.  Deleted extraneous `print()` statement.
 * `lencat()`: Modified.  Major re-write to make it easier to trouble-shoot.  Fixed bug related to empty category on end when `as.fact=TRUE` and `use.names=TRUE`.  Added more tests.
 * `psdCalc()`: Modified.  Removed extra open-ended category (e.g., PSD-T-) for PSD intervals.
