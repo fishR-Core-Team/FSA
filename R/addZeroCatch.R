@@ -161,7 +161,6 @@ addZeroCatch <- function(df,eventvar,specvar,zerovar,na.rm=TRUE) {
       # prepare an empty data frame to receive zeroes
       newdf <- df[FALSE,]
       for (i in 1:nrow(need0s)) {
-        print(need0s[i,eventvar])
         newrow <- data.frame(need0s[i,eventvar],need0s[i,specvar],
                              unique(df[df[,eventvar]==need0s[i,eventvar],idvar]),
                              zeroes)
