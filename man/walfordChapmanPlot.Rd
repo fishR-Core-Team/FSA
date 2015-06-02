@@ -71,6 +71,13 @@ chapmanPlot(lencap~agecap,data=SMBassWB)
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
 }
+\references{
+Chapman, D.G.  1981.  \href{http://digitalassets.lib.berkeley.edu/math/ucb/text/math_s4_v4_article-10.pdf}{Statistical problems in dynamics of exploited fisheries populations}.  Proceedings of the 4th Berkeley Symposium on Mathematics, Statistics and Probability 4:153-168.
+
+Ford, E.  1933.  \href{http://plymsea.ac.uk/819/}{An account of the herring investigations conducted at Plymouth during the years from 1924-1933}.  Journal of the Marine Biology Association (U.K.), 19:305-384.
+
+Walford, L.A.  1946.  \href{http://www.biolbull.org/content/90/2/141.full.pdf}{A new graphic method of describing the growth of animals}.  Biological Bulletin, 90:141-147.
+}
 \seealso{
 \code{\link{vbStarts}}
 }
