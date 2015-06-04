@@ -1,5 +1,6 @@
 # FSA 0.6.16 ongoing
 * `fishR()`: Modfiied.  Fixed bug with `where="news"`.  Added tests.
+* `fitPlot()`: Modified.  Added ability to modify y-axis limits for the nonlinear regression model.  Thanks to Gabriela N. for asking for this.
 * `hoCoef()`: Modified.  Changed `lmobj=` to `object=`, added degrees-of-freedom to the output matrix, streamlined the code, added some checks, and added some tests.
 
 # FSA 0.6.15 Jun15

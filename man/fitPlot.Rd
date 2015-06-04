@@ -44,9 +44,9 @@ fitPlot(object, ...)
 
 \method{fitPlot}{nls}(object, d, pch = c(19, 1), col.pt = c("black", "red"),
   col.mdl = col.pt, lwd = 2, lty = 1, plot.pts = TRUE,
-  jittered = FALSE, legend = FALSE, legend.lbls = c("Group 1", "Group 2"),
-  ylab = names(mdl$model)[1], xlab = names(mdl$model)[xpos], main = "",
-  ...)
+  jittered = FALSE, ylim = NULL, legend = FALSE,
+  legend.lbls = c("Group 1", "Group 2"), ylab = names(mdl$model)[1],
+  xlab = names(mdl$model)[xpos], main = "", ...)
 
 \method{fitPlot}{glm}(object, ...)
 
@@ -107,6 +107,8 @@ fitPlot(object, ...)
 \item{d}{A data frame that contains the variabls used in construction of the \code{nls} object.}
 
 \item{jittered}{A logical that indicates whether the points should be jittered horizontally.}
+
+\item{ylim}{A vector of length two to control the y-axis in the nonlinear regression plot.}
 
 \item{legend.lbls}{A vector of strings that will be the labels for the legend in an nls fitPlot graphic.}
 

@@ -46,6 +46,7 @@
 #' @param p.cex A character expansion factor for plotting the proportions.
 #' @param mdl.vals A numer representing the number of values to use for plotting the logistic regression.  A larger number means a smoother line.
 #' @param xlim A vector of length two to control the x-axis in the logistic regression plot.  If this is changed from the default then the domain over which the logistic regression model is plotted will change.
+#' @param ylim A vector of length two to control the y-axis in the nonlinear regression plot.
 #' @param yaxis1.ticks A numeric vector that indicates where tick marks should be placed on the left y-axis (for the proportion of \sQuote{successes}) for the logistic regression plot.
 #' @param yaxis1.lbls A numeric vector that indicates labels for the tick marks on the left y-axis (for the proportion of \sQuote{successes}) for the logistic regression plot.
 #' @param yaxis2.show A logical that indicates whether the right y-axis should be created (\code{=TRUE}; default) or not for the logistic regression plot.
@@ -340,7 +341,7 @@ fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
 #' @rdname fitPlot
 #' @export
 fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col.pt,
-                        lwd=2,lty=1,plot.pts=TRUE,jittered=FALSE,
+                        lwd=2,lty=1,plot.pts=TRUE,jittered=FALSE,ylim=NULL,
                         legend=FALSE,legend.lbls=c("Group 1","Group 2"),
                         ylab=names(mdl$model)[1],xlab=names(mdl$model)[xpos],main="", ...) {
   # add the model option to the NLS object so that data can be extracted
@@ -380,10 +381,10 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
     fits <- data.frame(x=fitx,y=predict(mdl,fitx))
     names(fits) <- c("x","y")
     # find limit for y-axis
-    ylmt <- range(c(y,fits$y))
+    if (is.null(ylim)) ylim <- range(c(y,fits$y))
     if (jittered) x <- jitter(x)    
-    if (plot.pts) plot(x,y,pch=pch[1],col=col.pt[1],ylim=ylmt,xlab=xlab,ylab=ylab,main=main,...)
-      else plot(x,y,type="n",ylim=ylmt,xlab=xlab,ylab=ylab,main=main,...)
+    if (plot.pts) plot(x,y,pch=pch[1],col=col.pt[1],ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
+      else plot(x,y,type="n",ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
     lines(fits$x,fits$y,lwd=lwd[1],lty=lty[1],col=col.mdl[1])
   } else {
     explg1 <- data.frame(x=fitx,g1=rep(1,length(fitx)),g2=rep(0,length(fitx)))
@@ -393,9 +394,9 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
     fitsg2 <- data.frame(x=fitx,y=predict(mdl,explg2))
     names(fitsg1) <- names(fitsg2) <- c("x","y")
     # find limit for y-axis
-    ylmt <- range(c(y,fitsg1$y,fitsg2$y))
+    if (is.null(ylim)) ylim <- range(c(y,fitsg1$y,fitsg2$y))
     if (jittered) x <- jitter(x)
-    plot(x,y,type="n",ylim=ylmt,xlab=xlab,ylab=ylab,main=main,...)
+    plot(x,y,type="n",ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
     if (plot.pts) {
       points(x[g1==1],y[g1==1],pch=pch[1],col=col.pt[1])
       points(x[g2==1],y[g2==1],pch=pch[2],col=col.pt[2])
