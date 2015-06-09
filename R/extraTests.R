@@ -11,8 +11,8 @@
 #' @param sim The results of one \code{lm} or \code{nls} model, for example, that is a nested subset of the model in \code{com=}.
 #' @param \dots More model results that are nested subsets of the model in \code{com=}.
 #' @param com The results of one \code{lm} or \code{nls} model, for example, that the models in \code{sim=} and \code{\dots} are a subset of.
-#' @param sim_names A string vector of \dQuote{names} for simple model in \code{sim=} and \code{\dots}.
-#' @param com_name A single \dQuote{name} string for the complex model in \code{com=}. 
+#' @param sim.names A string vector of \dQuote{names} for simple model in \code{sim=} and \code{\dots}.
+#' @param com.name A single \dQuote{name} string for the complex model in \code{com=}. 
 #' @param x An object from \code{lrt()} or \code{extraSS()}.
 #'
 #' @return The main function returns a matrix with as many rows as model comparisons and columns of the following types:
@@ -49,9 +49,9 @@
 #' 
 #' # ... show labels for models
 #' extraSS(fit.0,fit.1,com=fit.2,
-#'     sim_names=c("Null Model","Linear"),com_name="Quadratic")
+#'     sim.names=c("Null Model","Linear"),com.name="Quadratic")
 #' lrt(fit.0,fit.1,com=fit.2,
-#'     sim_names=c("Null Model","Linear"),com_name="Quadratic")
+#'     sim.names=c("Null Model","Linear"),com.name="Quadratic")
 #' 
 #' #  ... dummy variable regression
 #' fit.2b <- lm(y~x*z,data=df)
@@ -87,14 +87,14 @@ NULL
 
 #' @rdname extraTests
 #' @export
-lrt <- function(sim,...,com,sim_names=NULL,com_name=NULL) {
+lrt <- function(sim,...,com,sim.names=NULL,com.name=NULL) {
   ## Check if models are of the same class (if so, get class)
   mdl.class <- iSameModelClass(list(sim,...,com))
-  ## Check if complex model is actually more complex
-  iChkComplexModel(list(sim,...),com)
   ## Make a list of the simple models and determine how many
   sim <- list(sim,...)
   n.sim <- length(sim)
+  ## Check if complex model is actually more complex
+  iChkComplexModel(sim,com)
   ## run lrtest for each sim and com pair
   tmp <- lapply(sim,lmtest::lrtest.default,com)
   ## prepare a matrix to received the anova results  
@@ -119,7 +119,7 @@ lrt <- function(sim,...,com,sim_names=NULL,com_name=NULL) {
   colnames(res) <- c("DfO","logLikO","DfA","logLikA","Df","logLik","Chisq","Pr(>Chisq)")
   rownames(res) <- paste(1:n.sim,"vA",sep="")
   ## provide a heading and a class to use in the print method
-  attr(res,"heading") <- iMakeModelHeading(sim,com,sim_names,com_name)
+  attr(res,"heading") <- iMakeModelHeading(sim,com,sim.names,com.name)
   ## provide a heading and a class to use in the print method
   class(res) <- "extraTest"
   ## return the result
@@ -128,16 +128,16 @@ lrt <- function(sim,...,com,sim_names=NULL,com_name=NULL) {
 
 #' @rdname extraTests
 #' @export
-extraSS <- function(sim,...,com,sim_names=NULL,com_name=NULL) {
+extraSS <- function(sim,...,com,sim.names=NULL,com.name=NULL) {
   ## Check if models are of the same class (if so, get class)
   mdl.class <- iSameModelClass(list(sim,...,com))
   ## Send error if models are not lm() or nls()
   if (!mdl.class %in% c("lm","nls")) stop("'extraSS' only works with 'lm' or 'nls' models.",call.=FALSE)
-  ## Check if complex model is actually more complex
-  iChkComplexModel(list(sim,...),com)
   ## Make a list of the simple models and determine how many
   sim <- list(sim,...)
   n.sim <- length(sim)
+  ## Check if complex model is actually more complex
+  iChkComplexModel(sim,com)
   ## run anova for each sim and com pair
   tmp <- lapply(sim,anova,com)
   ## prepare a matrix to received the anova results
@@ -159,7 +159,7 @@ extraSS <- function(sim,...,com,sim_names=NULL,com_name=NULL) {
   colnames(res) <- c("DfO","RSSO","DfA","RSSA","Df","SS","F","Pr(>F)")
   rownames(res) <- paste(1:n.sim,"vA",sep="")
   ## provide a heading and a class to use in the print method
-  attr(res,"heading") <- iMakeModelHeading(sim,com,sim_names,com_name)
+  attr(res,"heading") <- iMakeModelHeading(sim,com,sim.names,com.name)
   class(res) <- "extraTest"
   ## return the result
   res
@@ -192,24 +192,24 @@ iSameModelClass <- function(mdllist) {
 # ============================================================
 # Internal fuction -- make heading of models to be above the
 #   results.  Will default to the model declaration unless
-#   something is sent in sim_names and com_name.
+#   something is sent in sim.names and com.name.
 # ============================================================
-iMakeModelHeading <- function(sim,com,sim_names,com_name) {
+iMakeModelHeading <- function(sim,com,sim.names,com.name) {
   ## Handle the simple model names ... if none are given (i.e.,
-  ## sim_names is NULL) then make from the formulae in sim
-  if (!is.null(sim_names)) {
-    if (length(sim_names)!=length(sim)) stop("'sim_names' is not the same length as simple models provided.",call.=FALSE)
-    sim_hdg <- paste("Model ",1:length(sim),": ",sim_names,sep="",collapse="\n")
+  ## sim.names is NULL) then make from the formulae in sim
+  if (!is.null(sim.names)) {
+    if (length(sim.names)!=length(sim)) stop("Length of 'sim.names' differs from number of simple models provided.",call.=FALSE)
+    sim_hdg <- paste("Model ",1:length(sim),": ",sim.names,sep="",collapse="\n")
   } else sim_hdg <- paste("Model ",1:length(sim),": ",lapply(sim,formula),sep="",collapse="\n")
   ## Handle the complex model names ... if none is given (i.e.,
-  ## com_name is NULL) then make from the formula of com
-  if (!is.null(com_name)) {
-    if (length(com_name)>1) {
-      warning("'com_name' included mmore than one name, only first was used.",call.=FALSE)
-      com_name <- com_name[1]
+  ## com.name is NULL) then make from the formula of com
+  if (!is.null(com.name)) {
+    if (length(com.name)>1) {
+      warning("'com.name' included more than one name, only first was used.",call.=FALSE)
+      com.name <- com.name[1]
     }
-    com_hdg <- paste0("Model A: ",com_name[1])
-  } else com_hdg <- paste("Model A: ",deparse(formula(com)),sep="")
+    com_hdg <- paste0("Model A: ",com.name[1])
+  } else com_hdg <- paste("Model A: ",deparse(formula(com),width.cutoff=200),sep="")
   ## provide a heading and a class to use in the print method
   paste(sim_hdg,com_hdg,sep="\n")
 }
@@ -217,7 +217,7 @@ iMakeModelHeading <- function(sim,com,sim_names,com_name) {
 # ============================================================
 # Internal fuction -- make heading of models to be above the
 #   results.  Will default to the model declaration unless
-#   something is sent in sim_names and com_name.
+#   something is sent in sim.names and com.name.
 # ============================================================
 iChkComplexModel <- function(sim,com) {
   simDF <- unlist(lapply(sim,df.residual))

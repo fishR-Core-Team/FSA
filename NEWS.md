@@ -1,4 +1,6 @@
 # FSA 0.6.17 ongoing
+* `extraSS()`: Modified.  Added more message tests and some calculational tests (compared to `anova()` results).
+* `lrt()`: Modified.  Added more message tests and some calculational tests (compared to `lrtest()` from `lmtest` package results).
 
 # FSA 0.6.16 Jun15
 * `extraSS()`: Modified.  Added `sim_names=` and `com_name=` so that simple descriptive names could be given to the model and printed in the heading of the output.  Added checks for whether the complex model appears more complex or not.  Added tests for warning and error messages.

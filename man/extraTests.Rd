@@ -7,9 +7,9 @@
 \alias{print.extraTest}
 \title{Likelihood ratio and extra sum-of-squares tests.}
 \usage{
-lrt(sim, ..., com, sim_names = NULL, com_name = NULL)
+lrt(sim, ..., com, sim.names = NULL, com.name = NULL)
 
-extraSS(sim, ..., com, sim_names = NULL, com_name = NULL)
+extraSS(sim, ..., com, sim.names = NULL, com.name = NULL)
 
 \method{print}{extraTest}(x, ...)
 }
@@ -18,9 +18,9 @@ extraSS(sim, ..., com, sim_names = NULL, com_name = NULL)
 
 \item{com}{The results of one \code{lm} or \code{nls} model, for example, that the models in \code{sim=} and \code{\dots} are a subset of.}
 
-\item{sim_names}{A string vector of \dQuote{names} for simple model in \code{sim=} and \code{\dots}.}
+\item{sim.names}{A string vector of \dQuote{names} for simple model in \code{sim=} and \code{\dots}.}
 
-\item{com_name}{A single \dQuote{name} string for the complex model in \code{com=}.}
+\item{com.name}{A single \dQuote{name} string for the complex model in \code{com=}.}
 
 \item{x}{An object from \code{lrt()} or \code{extraSS()}.}
 
@@ -66,9 +66,9 @@ lrt(fit.0,fit.1,com=fit.2)
 
 # ... show labels for models
 extraSS(fit.0,fit.1,com=fit.2,
-    sim_names=c("Null Model","Linear"),com_name="Quadratic")
+    sim.names=c("Null Model","Linear"),com.name="Quadratic")
 lrt(fit.0,fit.1,com=fit.2,
-    sim_names=c("Null Model","Linear"),com_name="Quadratic")
+    sim.names=c("Null Model","Linear"),com.name="Quadratic")
 
 #  ... dummy variable regression
 fit.2b <- lm(y~x*z,data=df)
