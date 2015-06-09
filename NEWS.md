@@ -1,4 +1,6 @@
-# FSA 0.6.16 ongoing
+# FSA 0.6.17 ongoing
+
+# FSA 0.6.16 Jun15
 * `extraSS()`: Modified.  Added `sim_names=` and `com_name=` so that simple descriptive names could be given to the model and printed in the heading of the output.  Added checks for whether the complex model appears more complex or not.  Added tests for warning and error messages.
 * `fishR()`: Modfiied.  Fixed bug with `where="news"`.  Added tests.
 * `fitPlot()`: Modified.  Added ability to modify y-axis limits for the nonlinear regression model.  Thanks to Gabriela N. for asking for this.
