@@ -51,26 +51,53 @@ test_that("extraSS() and lrt() messages",{
   expect_warning(lrt(lm.0,com=lm.2,sim.names="simple 1",com.name=c("Complex","Complex 2")),"more than one")
 })
 
+test_that("extraSS() and lrt() classes",{
+  # extraSS() returns a matrix of class extraTest
+  tmp1 <- extraSS(lm.0,com=lm.1)
+  expect_is(tmp1,"extraTest")
+  expect_true(is.matrix(tmp1))
+  expect_equal(nrow(tmp1),1)
+  tmp2 <- extraSS(lm.0,lm.1,com=lm.2)
+  expect_is(tmp2,"extraTest")
+  expect_true(is.matrix(tmp2))
+  expect_equal(nrow(tmp2),2)
+  # print() returns x
+  expect_equal(tmp1,print.extraTest(tmp1))
+  expect_equal(tmp2,print.extraTest(tmp2))
+  # lrt() returns a matrix of class extraTest
+  tmp1 <- lrt(lm.0,com=lm.1)
+  expect_is(tmp1,"extraTest")
+  expect_true(is.matrix(tmp1))
+  expect_equal(nrow(tmp1),1)
+  tmp2 <- lrt(lm.0,lm.1,com=lm.2)
+  expect_is(tmp2,"extraTest")
+  expect_true(is.matrix(tmp2))
+  expect_equal(nrow(tmp2),2)
+  # print() returns x
+  expect_equal(tmp1,print.extraTest(tmp1))
+  expect_equal(tmp2,print.extraTest(tmp2))
+})
+
 test_that("extraSS() computations",{
-  ## Two model lm comparions
+  ## Two model lm comparisons
   tmp1 <- extraSS(lm.0,com=lm.1)
   tmp2 <- anova(lm.0,lm.1)
   expect_equivalent(tmp1[1,"F"],tmp2[2,"F"])
   expect_equivalent(tmp1[1,"Df"],tmp2[2,"Df"])
   expect_equivalent(tmp1[1,"SS"],tmp2[2,"Sum of Sq"])
-  ## Three model lm comparions (only can compare to last)
+  ## Three model lm comparisons (only can compare to last)
   tmp1 <- extraSS(lm.0,lm.1,com=lm.2)
   tmp2 <- anova(lm.0,lm.1,lm.2)
   expect_equivalent(tmp1[2,"F"],tmp2[3,"F"])
   expect_equivalent(tmp1[2,"Df"],tmp2[3,"Df"])
   expect_equivalent(tmp1[2,"SS"],tmp2[3,"Sum of Sq"])
-  ## Two model nls comparions
+  ## Two model nls comparisons
   tmp1 <- extraSS(nls.0,com=nls.1)
   tmp2 <- anova(nls.0,nls.1)
   expect_equivalent(tmp1[1,"F"],tmp2[2,"F value"])
   expect_equivalent(tmp1[1,"Df"],tmp2[2,"Df"])
   expect_equivalent(tmp1[1,"SS"],tmp2[2,"Sum Sq"])
-  ## Three model nls comparions (only can compare to last)
+  ## Three model nls comparisons (only can compare to last)
   tmp1 <- extraSS(nls.0,nls.1,com=nls.2)
   tmp2 <- anova(nls.0,nls.1,nls.2)
   expect_equivalent(tmp1[2,"F"],tmp2[3,"F value"])
@@ -80,28 +107,28 @@ test_that("extraSS() computations",{
 
 test_that("lrt() computations",{
   require(lmtest)
-  ## Two model lm comparions
+  ## Two model lm comparisons
   tmp1 <- lrt(lm.0,com=lm.1)
   tmp2 <- lrtest(lm.0,lm.1)
   expect_equivalent(tmp1[1,"Chisq"],tmp2[2,"Chisq"])
   expect_equivalent(tmp1[1,"Df"],tmp2[2,"Df"])
   expect_equivalent(tmp1[1,"logLikO"],tmp2[1,"LogLik"])
   expect_equivalent(tmp1[1,"logLikA"],tmp2[2,"LogLik"])
-  ## Three model lm comparions (only can compare to last)
+  ## Three model lm comparisons (only can compare to last)
   tmp1 <- lrt(lm.0,lm.1,com=lm.2)
   tmp2 <- lrtest(lm.0,lm.1,lm.2)
   expect_equivalent(tmp1[2,"Chisq"],tmp2[3,"Chisq"])
   expect_equivalent(tmp1[2,"Df"],tmp2[3,"Df"])
   expect_equivalent(tmp1[2,"logLikO"],tmp2[2,"LogLik"])
   expect_equivalent(tmp1[2,"logLikA"],tmp2[3,"LogLik"])
-  ## Two model nls comparions
+  ## Two model nls comparisons
   tmp1 <- lrt(nls.0,com=nls.1)
   tmp2 <- lrtest(nls.0,nls.1)
   expect_equivalent(tmp1[1,"Chisq"],tmp2[2,"Chisq"])
   expect_equivalent(tmp1[1,"Df"],tmp2[2,"Df"])
   expect_equivalent(tmp1[1,"logLikO"],tmp2[1,"LogLik"])
   expect_equivalent(tmp1[1,"logLikA"],tmp2[2,"LogLik"])
-  ## Three model nls comparions (only can compare to last)
+  ## Three model nls comparisons (only can compare to last)
   tmp1 <- lrt(nls.0,nls.1,com=nls.2)
   tmp2 <- lrtest(nls.0,nls.1,nls.2)
   expect_equivalent(tmp1[2,"Chisq"],tmp2[3,"Chisq"])
