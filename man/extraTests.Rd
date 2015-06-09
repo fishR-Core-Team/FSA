@@ -7,9 +7,9 @@
 \alias{print.extraTest}
 \title{Likelihood ratio and extra sum-of-squares tests.}
 \usage{
-lrt(sim, ..., com)
+lrt(sim, ..., com, sim_names = NULL, com_name = NULL)
 
-extraSS(sim, ..., com)
+extraSS(sim, ..., com, sim_names = NULL, com_name = NULL)
 
 \method{print}{extraTest}(x, ...)
 }
@@ -17,6 +17,10 @@ extraSS(sim, ..., com)
 \item{sim}{The results of one \code{lm} or \code{nls} model, for example, that is a nested subset of the model in \code{com=}.}
 
 \item{com}{The results of one \code{lm} or \code{nls} model, for example, that the models in \code{sim=} and \code{\dots} are a subset of.}
+
+\item{sim_names}{A string vector of \dQuote{names} for simple model in \code{sim=} and \code{\dots}.}
+
+\item{com_name}{A single \dQuote{name} string for the complex model in \code{com=}.}
 
 \item{x}{An object from \code{lrt()} or \code{extraSS()}.}
 
@@ -57,27 +61,33 @@ df$x2 <- df$x^2
 fit.0 <- lm(y~1,data=df)
 fit.1 <- lm(y~x,data=df)
 fit.2 <- lm(y~x2+x,data=df)
-extraSS(fit.0,fit.1, com=fit.2)
-lrt(fit.0,fit.1, com=fit.2)
+extraSS(fit.0,fit.1,com=fit.2)
+lrt(fit.0,fit.1,com=fit.2)
+
+# ... show labels for models
+extraSS(fit.0,fit.1,com=fit.2,
+    sim_names=c("Null Model","Linear"),com_name="Quadratic")
+lrt(fit.0,fit.1,com=fit.2,
+    sim_names=c("Null Model","Linear"),com_name="Quadratic")
 
 #  ... dummy variable regression
 fit.2b <- lm(y~x*z,data=df)
-extraSS(fit.0,fit.1, com=fit.2b)
-lrt(fit.0,fit.1, com=fit.2b)
+extraSS(fit.0,fit.1,com=fit.2b)
+lrt(fit.0,fit.1,com=fit.2b)
 
 #  ... ANOVAs
 fit.1 <- lm(y~w,data=df)
 fit.2 <- lm(y~w*z,data=df)
-extraSS(fit.0,fit.1, com=fit.2)
-lrt(fit.0,fit.1, com=fit.2)
+extraSS(fit.0,fit.1,com=fit.2)
+lrt(fit.0,fit.1,com=fit.2)
 
 
 ## Non-linear (nls()) models
 fit.0 = nls(y~c,data=df,start=list(c=10))
 fit.1 = nls(y~a*x+c,data=df,start=list(a=1,c=1))
 fit.2 = nls(y~b*x2+a*x+c,data=df,start=list(a=-1,b=0.3,c=10))
-extraSS(fit.0,fit.1, com=fit.2)
-lrt(fit.0,fit.1, com=fit.2)
+extraSS(fit.0,fit.1,com=fit.2)
+lrt(fit.0,fit.1,com=fit.2)
 
 ## General least-squares (gls()) models
 \dontrun{
