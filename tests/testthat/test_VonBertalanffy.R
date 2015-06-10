@@ -2,16 +2,11 @@ context("Von Bertalanffy")
 
 # ############################################################
 # ============================================================
-# Messaging
+# Messaging (also see test_growthFuns)
 # ============================================================
 # ############################################################
 
-test_that("vbFuns errors and warnings",{
-  ## wrong types
-  expect_error(vbFuns(type="Derek"))
-})
-  
-test_that("vbStarts errors and warnings",{
+test_that("vbStarts() errors and warnings",{
   ## Get some data for the following attempts
   if (require(fishmethods)) {
     data(Kimura)
@@ -46,7 +41,7 @@ test_that("vbStarts errors and warnings",{
   }
 })
 
-test_that("walfordPlot and chapmanPlot errors and warnings",{
+test_that("walfordPlot() and chapmanPlot() errors and warnings",{
   ## Get some data for the following attempts
   if (require(fishmethods)) {
     data(Kimura)
@@ -73,7 +68,7 @@ test_that("walfordPlot and chapmanPlot errors and warnings",{
 # ============================================================
 # ############################################################
 
-test_that("vbFuns and vbStarts fit to Kimura match Haddon book (2nd ed, p237) results (Excel).",{
+test_that("vbFuns() and vbStarts() fit to Kimura match Haddon book (2nd ed, p237) results (Excel).",{
   if (require(fishmethods)) {
     data(Kimura)
     ## Get typical Von B function
@@ -98,7 +93,7 @@ test_that("vbFuns and vbStarts fit to Kimura match Haddon book (2nd ed, p237) re
   }
 })
 
-test_that("vbFuns and vbStarts fit to AIFFD book (Box 5.4) results (SAS).",{
+test_that("vbFuns() and vbStarts() fit to AIFFD book (Box 5.4) results (SAS).",{
   # This is a weak test because of the messiness of the data.
   if (require(FSAdata)) {
     data(SpottedSucker1)
@@ -115,7 +110,7 @@ test_that("vbFuns and vbStarts fit to AIFFD book (Box 5.4) results (SAS).",{
 })
 
 
-test_that("vbFuns and vbStarts fit to Kimura separated by sex match fishmethods (and Kimura) results.",{
+test_that("vbFuns() and vbStarts() fit to Kimura separated by sex match fishmethods (and Kimura) results.",{
   if (require(fishmethods) & require(lmtest)) {
     data(Kimura)
     

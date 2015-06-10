@@ -95,6 +95,7 @@ plot(catch~age,data=BrookTroutTH,pch=19)
 ## demonstration of formula notation
 cr1 <- chapmanRobson(catch~age,data=BrookTroutTH,ages2use=2:6)
 summary(cr1)
+summary(cr1,verbose=TRUE)
 confint(cr1)
 plot(cr1)
 

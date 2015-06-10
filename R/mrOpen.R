@@ -167,14 +167,12 @@ summary.mrOpen <- function(object,parm=c("N","phi","B","M"),verbose=FALSE,...) {
   parm <- match.arg(parm,several.ok=TRUE)
   ## Print the observables if asked to be verbose
   if (verbose) {
-    cat("Observables\n")
+    message("Observables:")
     print(object$df[,c("m","n","R","r","z")])
-    cat("\nEstimates\n")
     if ("phi" %in% parm) {
-      if (object$phi.full) cat("Standard error of phi includes sampling and individual variability.\n")
-      else cat("Standard error of phi includes only sampling variability.\n")
-    }
-    
+      if (object$phi.full) message("\nEstimates (phi.se includes sampling and individual variability):")
+      else message("\nEstimates (Standard error of phi includes only sampling variability):")
+    } else message("\nEstimates:")
   }
   ## Prepare the appropriate object
   # remove the observables and CI columns
@@ -192,15 +190,15 @@ summary.mrOpen <- function(object,parm=c("N","phi","B","M"),verbose=FALSE,...) {
 #' @export
 confint.mrOpen <- function(object,parm=c("N","phi","B"),level=NULL,conf.level=NULL,verbose=FALSE,...) {
   ## send a note that the CI level cannot be changed here
-  if(!is.null(conf.level)) cat("Confidence level was set at",conf.level,"in mrOpen function.  It cannot be changed here.\n")
+  if(!is.null(conf.level)) message("Confidence level was set at",conf.level,"in mrOpen().  It cannot be changed here.\n")
   ## get the parameters to return
   parm <- match.arg(parm,several.ok=TRUE)
   if (object$type=="Manly" & ("B" %in% parm)) {
-    cat("Manly did not provide a method for constructing confidence intervals for B.\n\n")
+    message("Manly did not provide a method for constructing confidence intervals for B.")
     parm <- parm[-which(parm=="B")]
   }
   ## Tell the method used if asked to be verbose
-  if (verbose) cat("The",object$type,"method was used to construct confidence intervals.\n\n")
+  if (verbose) message("The ",object$type," method was used to construct confidence intervals.")
   ## change parm to include .lci and .uci
   parm <- as.vector(rbind(paste0(parm,".lci"),paste0(parm,".uci")))
   ## get and return results to print and return

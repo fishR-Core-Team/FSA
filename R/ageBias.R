@@ -187,27 +187,28 @@ summary.ageBias <- function(object,
                    flip.table=FALSE,zero.print="-",digits=3,cont.corr=c("none","Yates","Edwards"),
                    ...) {
   what <- match.arg(what,several.ok=TRUE)
+  showmsg <- ifelse (length(what)>1,TRUE,FALSE)
   if ("n" %in% what) {
-    cat("Sample size in the age-agreement table is ",sum(object$agree),".\n",sep="")
+    message("Sample size in the age agreement table is ",sum(object$agree),".",sep="")
     what <- iHndlMultWhat(what,"n")
   }
   if ("bias" %in% what) {
-    cat("Summary of",object$nref.lab,"by",object$ref.lab,"\n")
+    if (showmsg) message("Summary of ",object$nref.lab," by ",object$ref.lab)
     print(object$bias[-ncol(object$bias)],row.names=FALSE,digits=digits)
     what <- iHndlMultWhat(what,"bias")
   }
   if ("diff.bias" %in% what) {
-    cat("Summary of",object$nref.lab,"-",object$ref.lab,"by",object$ref.lab,"\n")
+    if (showmsg) message("Summary of ",object$nref.lab,"-",object$ref.lab," by ",object$ref.lab)
     print(object$bias.diff[-ncol(object$bias.diff)],row.names=FALSE,digits=digits)
     what <- iHndlMultWhat(what,"diff.bias")
   }
   if ("table" %in% what) {
     # show the age-agreement table
     if (!flip.table) {
-      cat("Raw agreement table (square)\n")
+      if (showmsg) message("Raw agreement table (square)")
       print(object$agree,zero.print=zero.print)
     } else {
-      cat("Raw agreement table (square & flipped)\n")
+      if (showmsg) message("Raw agreement table (square & flipped)")
       # flip the rows
       tmp <- object$agree[nrow(object$agree):1,]
       # for printing purposes
@@ -217,12 +218,12 @@ summary.ageBias <- function(object,
     what <- iHndlMultWhat(what,"table")
   }
   if (any(c("symmetry","Bowkers","EvansHoenig","McNemars") %in% what)) {
-    symTest <- NULL # to avoide "global bindings" warning in rcmd check
+    symTest <- NULL # to avoid "global bindings" warning in rcmd check
     tmp <- iMcNemars(object,match.arg(cont.corr))
     tmp <- rbind(tmp,iEvansHoenig(object))
     tmp <- rbind(tmp,iBowkers(object))
     # if what="symmetry" print all results, otherwise only print what is asked for
-    cat("Agreement Table Symmetry Test Results\n")
+    if (showmsg) message("Age agreement table symmetry test results")
     if ("symmetry" %in% what) tmp
     else Subset(tmp,grepl(what,symTest))
   }

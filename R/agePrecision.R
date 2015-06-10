@@ -74,7 +74,6 @@
 #'
 #' barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
 #' summary(ap1,what="detail")
-#' summary
 #'
 #' ## Example with three age assignments
 #' ap2 <- agePrecision(~otolithC+finrayC+scaleC,data=WhitefishLC)
@@ -173,40 +172,41 @@ agePrecision <- function(formula,data) {
 summary.agePrec <- function(object,what=c("precision","difference","absolute difference","detail"),
                             percent=TRUE,digits=4,...) {
   what <- match.arg(what,several.ok=TRUE)
+  showmsg <- ifelse (length(what)>1,TRUE,FALSE)
   if ("precision" %in% what) {
-    cat("Precision summary statistics\n")
+    if (showmsg) message("Precision summary statistics")
     print(with(object,data.frame(n=n,R=R,ACV=ACV,APE=APE,PercAgree=PercAgree)),
           row.names=FALSE,digits=digits)
     what <- iHndlMultWhat(what,"precision")
   }
   if ("absolute difference" %in% what) {
     tmp <- object$absdiff
-    msg <- "of fish by absolute differences in ages\n between pairs of assignments\n"
+    msg <- "of fish by absolute differences in ages\n between pairs of assignments"
     if (percent) {
       msg <- paste("Percentage",msg)
       # need to check if 1-D, then handle as a vector
       if (length(dim(tmp))==1) tmp <- tmp/sum(tmp)*100 
       else tmp <- prop.table(tmp,margin=1)*100      
     } else msg <- paste("Frequency",msg)
-    cat(msg)
+    if (showmsg) message(msg)
     print(tmp,digits=digits)
     what <- iHndlMultWhat(what,"absolute difference")
   }  
   if ("difference" %in% what) {
     tmp <- object$rawdiff
-    msg <- "of fish by differences in ages\n between pairs of assignments\n"
+    msg <- "of fish by differences in ages\n between pairs of assignments"
     if (percent) {
       msg <- paste("Percentage",msg)
       # need to check if 1-D, then handle as a vector
       if (length(dim(tmp))==1) tmp <- tmp/sum(tmp)*100
       else tmp <- prop.table(tmp,margin=1)*100      
     } else msg <- paste("Frequency",msg)
-    cat(msg)
+    if (showmsg) message(msg)
     print(tmp,digits=digits)
     what <- iHndlMultWhat(what,"difference")
   }
   if ("detail" %in% what) {
-    cat("Intermediate calculations for each individual\n")
+    if (showmsg) message("Intermediate calculations for each individual")
     print(object$detail,digits=digits)
     what <- iHndlMultWhat(what,"detail")
   }

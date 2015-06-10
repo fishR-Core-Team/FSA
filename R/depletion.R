@@ -203,7 +203,7 @@ iCheckRegSig <- function(tmp) {
 #' @export
 summary.depletion <- function(object,type=c("params","lm"),verbose=FALSE,
                               digits=getOption("digits"),...) {
-  if (verbose) cat("The",object$method,"method was used.\n")
+  if (verbose) message("The ",object$method," method was used.")
   type <- match.arg(type)
   if(type=="lm") summary(object$lm,...)
     else round(object$est,digits)

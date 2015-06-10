@@ -66,6 +66,8 @@
 #' do1 <- dietOverlap(lmb,wae,names,type="Horn")
 #' summary(do1)
 #' summary(do1,digits=3)
+#' do2 <- dietOverlap(lmb,wae,names,type="Levin")
+#' summary(do2)
 #'
 #' # demonstrate using a single matrix rather than two separate vectors
 #' diet <- cbind(lmb,wae)
@@ -196,12 +198,14 @@ print.dietOverlap <- function(x,...) { print(x$doi,...) }
 #' @export
 summary.dietOverlap <- function(object,verbose=TRUE,digits=getOption("digits"),...) {
   if (verbose) {
-    if (object$type!="Levins") cat("The",object$type,"diet overlap index is",round(object$doi,digits),"\n")
-    else {
-      cat("The",object$type,"diet overlap is",round(object$doi[1],digits),"for predator 1 on predator 2\n")
-      cat("and",round(object$doi[2],digits),"for predator 2 on predator 1\n")
+    if (object$type=="Levins") {
+      message("The ",object$type," diet overlap is ",round(object$doi[1],digits),
+              " for predator 1 on predator 2\n",
+              " and ",round(object$doi[2],digits)," for predator 2 on predator 1.\n")
+    } else { message("The ",object$type," diet overlap index is ",
+                     round(object$doi,digits),".\n")
     }
-    cat("\nUsing the following observed proportional diets:\n")
+    message("The following observed proportional diets were used:")
     print(round(object$propdiet,digits))
   } else round(object$doi,digits)
 }

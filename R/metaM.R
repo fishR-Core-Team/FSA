@@ -110,6 +110,7 @@
 #' t50 <- t0-(1/K)*log(1-13.5/Linf)
 #' metaM("RikhterEfanov1",t50=t50)
 #' metaM("PaulyL",K=K,Linf=Linf,T=T)
+#' metaM("PaulyL",K=K,Linf=Linf,T=T,justM=FALSE)
 #' metaM("HoenigO",tmax=tmax)
 #' metaM("HewittHoenig",tmax=tmax)
 #' metaM("AlversonCarney",K=K,tmax=tmax)
@@ -339,10 +340,10 @@ metaM1 <- function(method,justM=TRUE,
 #' @rdname metaM
 #' @export
 print.metaM <- function(x,digits=4,...) {
-  cat("M=",round(x$M,digits)," as estimated with ",x$name,"\n",sep="")
-  tmp <- paste(names(x$givens),"=",x$givens,sep="")
+  message("M=",round(x$M,digits)," as estimated with ",x$name)
+  tmp <- paste0(names(x$givens),"=",x$givens)
   if (length(x$givens>1)) tmp <- paste(tmp,collapse=", ")
-  cat("  with givens:",tmp,"\n")
+  message("  with givens: ",tmp)
 }
 
 

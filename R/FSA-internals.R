@@ -226,7 +226,7 @@ iHndlMultWhat <- function(what,item) {
   ##   after the last one.
   ##################################################################
   if (length(what)>1) {
-    cat("\n")
+    message("\n")
     what[-pmatch(item, what)]
   }
 }
@@ -253,7 +253,7 @@ iLegendHelp <- function(legend) {
 
 
 iListSpecies <- function(d) {
-  cat("\nSpecies name must be one of following.  Be careful of spelling and capitalization.\n")
+  message("\nSpecies name must be one of following.  Be careful of spelling and capitalization.")
   print(levels(d$species))
   return(invisible())
 } # end internal function    

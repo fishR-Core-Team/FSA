@@ -68,6 +68,7 @@
 #' ## demonstration of formula notation
 #' cr1 <- chapmanRobson(catch~age,data=BrookTroutTH,ages2use=2:6)
 #' summary(cr1)
+#' summary(cr1,verbose=TRUE)
 #' confint(cr1)
 #' plot(cr1)
 #' 
@@ -175,9 +176,8 @@ chapmanRobson.formula <- function(x,data,ages2use=age,zmethod=c("Smithetal","Hoe
 #' @export
 summary.chapmanRobson <- function(object,verbose=FALSE,...) {
   if (verbose) {
-    cat("Intermediate Statistics\n")
-    cat("n=",object$n,"; T=",object$T,"\n\n",sep="")
-    cat("Estimates with Standard Errors\n")
+    message("Intermediate statistics: ",
+            "n=",object$n,"; T=",object$T)
   }
   object$est
 }

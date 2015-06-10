@@ -111,6 +111,7 @@ tmax <- t0+3/K
 t50 <- t0-(1/K)*log(1-13.5/Linf)
 metaM("RikhterEfanov1",t50=t50)
 metaM("PaulyL",K=K,Linf=Linf,T=T)
+metaM("PaulyL",K=K,Linf=Linf,T=T,justM=FALSE)
 metaM("HoenigO",tmax=tmax)
 metaM("HewittHoenig",tmax=tmax)
 metaM("AlversonCarney",K=K,tmax=tmax)

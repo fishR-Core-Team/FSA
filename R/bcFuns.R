@@ -83,57 +83,57 @@ bcFuns <- function(BCM=NULL,type=NULL,msg=FALSE) {
   }
   # identify the functions
   if (BCM==1) {
-      if (msg) cat("You have chosen the BCM1 or DALE back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM1 or DALE back-calculation model.\n\n")
       function(Lc,Ri,Rc) { (Ri/Rc)*Lc }
   } else if (BCM==2) {
-      if (msg) cat("You have chosen the BCM2 or FRALE back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM2 or FRALE back-calculation model.\n\n")
       function(Lc,Ri,Rc,a) { a+(Lc-a)*(Ri/Rc) }
   } else if (BCM==3) {
-      if (msg) cat("You have chosen the BCM3, BI, or LBI back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM3, BI, or LBI back-calculation model.\n\n")
       function(Lc,Ri,Rc,L0p,R0p) { Lc+(Ri-Rc)*(Lc-L0p)/(Rc-R0p) }
   } else if (BCM==4) {
-      if (msg) cat("You have chosen the BCM4 or LBPH back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM4 or LBPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,a,b) { (a+b*Ri)*Lc/(a+b*Rc) }
   } else if (BCM==5) {
       stop("The BCM5 (TVG) function is not yet implemented.",call.=FALSE)
   } else if (BCM==6) {
-      if (msg) cat("You have chosen the BCM6 or DALE back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM6 or DALE back-calculation model.\n\n")
       function(Lc,Ri,Rc,A,B) { (Ri/Rc*(A+B*Lc)-A)/B }
   } else if (BCM==7) {
-      if (msg) cat("You have chosen the BCM7, AE, or AESPH back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM7, AE, or AESPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,agei,agec,a,b,c) { -a/b+(Lc+a/b+c/b*agec)*Ri/Rc-c/b*agei }
   } else if (BCM==8) {
-      if (msg) cat("You have chosen the BCM8 or AEBPH back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM8 or AEBPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,agei,agec,A,B,C) { (A+B*Ri+C*agei)/(A+B*Rc+C*agec)*Lc }
   } else if (BCM==9) {
-      if (msg) cat("You have chosen the BCM9 or MONA back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM9 or MONA back-calculation model.\n\n")
       function(Lc,Ri,Rc,c) { Lc*((Ri/Rc)^c) }
   } else if (BCM==10) {
-      if (msg) cat("You have chosen the BCM10 or MONA-BPH back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM10 or MONA-BPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,c) { Lc*((Ri/Rc)^c) }    # Same as BCM9 but uses nls results to estimate c
   } else if (BCM==11) {
-      if (msg) cat("You have chosen the BCM11 or MONA-SPH back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM11 or MONA-SPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,C) { Lc*((Ri/Rc)^(1/C)) }
   } else if (BCM==12) {
-      if (msg) cat("You have chosen the BCM12 or WAKU back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM12 or WAKU back-calculation model.\n\n")
       function(Lc,Ri,Rc,L0p,R0) { exp(log(L0p) + ((log(Lc)-log(L0p))*(log(Ri)-log(R0)))/(log(Rc)-log(R0))) }
   } else if (BCM==13) {
-      if (msg) cat("You have chosen the BCM13 or FRY back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM13 or FRY back-calculation model.\n\n")
       function(Lc,Ri,Rc,L0,R0,a) { a + exp(log(L0-a) + ((log(Lc-a)-log(L0-a))*(log(Ri)-log(R0)))/(log(Rc)-log(R0))) }
   } else if (BCM==14) {
-      if (msg) cat("You have chosen the BCM14, MF, or ABI back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM14, MF, or ABI back-calculation model.\n\n")
       function(Lc,Ri,Rc,L0p,R0p,a) { a + exp(log(L0p-a) + ((log(Lc-a)-log(L0p-a))*(log(Ri)-log(R0p)))/(log(Rc)-log(R0p))) }
   } else if (BCM==15) {
-      if (msg) cat("You have chosen the BCM15, FRY-BPH, or ABPH back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM15, FRY-BPH, or ABPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,a,b,c) { (a+b*Ri^c)/(a+b*Rc^c)*Lc }
   } else if (BCM==16) {
-      if (msg) cat("You have chosen the BCM16, FRY-SPH, or ASPH back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM16, FRY-SPH, or ASPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,a,b,c) { a+(Lc-a)*((Ri/Rc)^c) }
   } else if (BCM==17) {
-      if (msg) cat("You have chosen the BCM17 or QBPH back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM17 or QBPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,a,b,c) { (a+b*Ri+c*(Ri^2))/(a+b*Rc+c*(Rc^2))*Lc }
   } else if (BCM==18) {
-      if (msg) cat("You have chosen the BCM18 or QSPH back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM18 or QSPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,a,b,c) { 
         cf1 <- b
         cf2 <- c
@@ -146,7 +146,7 @@ bcFuns <- function(BCM=NULL,type=NULL,msg=FALSE) {
         Li
       }
   } else if (BCM==19) {
-      if (msg) cat("You have chosen the BCM19 or PBPH back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM19 or PBPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,a) { # a must be a vector of coefficients from the polynomial regression
         exps <- 0:(length(a)-1)
         Li <- numeric(length(Lc))
@@ -158,7 +158,7 @@ bcFuns <- function(BCM=NULL,type=NULL,msg=FALSE) {
         Li
       }
   } else if (BCM==20) { 
-      if (msg) cat("You have chosen the BCM20 or PSPH back-calculation model.\n\n")  # Note that this is a function that should be used when finding a root, not to actually back-calculate
+      if (msg) message("You have chosen the BCM20 or PSPH back-calculation model.\n\n")  # Note that this is a function that should be used when finding a root, not to actually back-calculate
       function(Lc,Ri,Rc,a) { # a must be a vector of coefficients from the polynomial regression
         exps <- 0:(length(a)-1)
         Li <- numeric(length(Lc))
@@ -176,10 +176,10 @@ bcFuns <- function(BCM=NULL,type=NULL,msg=FALSE) {
         Li
       }      
   } else if (BCM==21) {
-      if (msg) cat("You have chosen the BCM21 or EBPH back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM21 or EBPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,a,b) { exp(a+b*Ri)/exp(a+b*Rc)*Lc }
   } else if (BCM==22) {
-      if (msg) cat("You have chosen the BCM22 or ESPH back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM22 or ESPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,a) { exp(a+(log(Lc)-a)*Ri/Rc) }
   } 
 }

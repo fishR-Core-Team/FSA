@@ -639,8 +639,8 @@ summary.removal <- function(object,parm=c("No","p","p1"),digits=getOption("digit
     parm <- parm[-which(parm=="p1")]
   }
   if (verbose) {
-    cat("The",object$lbl,"method was used.\n")
-    if (object$method %in% c("Moran","Schnute")) cat("SEs are not computed for this method.\n")
+    if (object$method %in% c("Moran","Schnute")) message("The ",object$lbl," method was used (SEs not computed).")
+    else message("The ",object$lbl," method was used.")
   }
   if (object$method %in% c("Zippin","CarleStrub","Seber3","Seber2","RobsonRegier2")) {
     res <- matrix(object$est[c("No","No.se","p","p.se")],nrow=2,byrow=TRUE)

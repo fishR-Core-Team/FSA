@@ -75,6 +75,8 @@ dietOverlap(lmb,wae,prey=names,type="Schoener")
 do1 <- dietOverlap(lmb,wae,names,type="Horn")
 summary(do1)
 summary(do1,digits=3)
+do2 <- dietOverlap(lmb,wae,names,type="Levin")
+summary(do2)
 
 # demonstrate using a single matrix rather than two separate vectors
 diet <- cbind(lmb,wae)

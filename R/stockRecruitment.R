@@ -42,6 +42,9 @@
 #' srModels()
 #' 
 #' ## Simple Examples
+#' # show what a message looks like with the function definition
+#' srFuns("Ricker",msg=TRUE)
+#' 
 #' # create some dummy stock data
 #' stock <- seq(0.01,1000,length.out=199)
 #' 
@@ -143,66 +146,69 @@ srFuns <- function(type=c("BevertonHolt","Ricker","Shepherd","SailaLorda","indep
   } else if (type=="Ricker") {
     if (!param %in% 1:3) stop("'param' must be in 1:3 when type='Ricker'.",call.=FALSE)
     type <- paste0(type,param)
+  } else {
+    if (param>1) warning("Only 'param=1' is used with '",type,"' model.",call.=FALSE)
+    param <- 1
   }
   
   ## Messages based on type
   if (msg) {
     switch(type,
       BevertonHolt1={
-        cat("You have chosen the first parameterization of the 'Beverton-Holt' stock-recruitment model.\n\n")
-        cat("  E[R|S] = a*S/(1+b*S)\n\n")
-        cat("where a = the density-independent slope near S=0.\n")
-        cat("      b = density-dependent parameter.\n\n")
+        message("You have chosen the first parameterization of the 'Beverton-Holt' S-R model.\n\n",
+                "  E[R|S] = a*S/(1+b*S)\n\n",
+                "  where a = the density-independent slope near S=0.\n",
+                "        b = density-dependent parameter.\n")
       },
       BevertonHolt2={
-        cat("You have chosen the second parameterization of the 'Beverton-Holt' stock-recruitment model.\n\n")
-        cat("  E[R|S] = a*S/(1+a*(S/Rp))\n\n")
-        cat("where a = the density-independent slope near S=0.\n")
-        cat("      Rp = peak recruitment at the asymptote.\n\n")
+        message("You have chosen the second parameterization of the 'Beverton-Holt' S-R model.\n\n",
+                "  E[R|S] = a*S/(1+a*(S/Rp))\n\n",
+                "  where a = the density-independent slope near S=0.\n",
+                "       Rp = peak recruitment at the asymptote.\n")
       },
       BevertonHolt3={
-        cat("You have chosen the third parameterization of the 'Beverton-Holt' stock-recruitment model.\n\n")
-        cat("  E[R|S] = S/(a+b*S)\n\n")
+        message("You have chosen the third parameterization of the 'Beverton-Holt' S-R model.\n\n",
+                "  E[R|S] = S/(a+b*S)\n")
       },
       BevertonHolt4={
-        cat("You have chosen the fourth parameterization of the 'Beverton-Holt' stock-recruitment model.\n\n")
-        cat("  E[R|S] = S/(a+S/Rp)\n\n")
-        cat("where Rp = peak recruitment at the asymptote.\n\n")
+        message("You have chosen the fourth parameterization of the 'Beverton-Holt' S-R model.\n\n",
+                "  E[R|S] = S/(a+S/Rp)\n\n",
+                "  where Rp = peak recruitment at the asymptote.\n")
       },
       Ricker1={
-        cat("You have chosen the first parameterization of the 'Ricker' stock-recruitment model.\n\n")
-        cat("  E[R|S] = a*S*exp(-b*S)\n\n")
-        cat("where a = the density-independent slope near S=0.\n")
-        cat("      b = density-dependent parameter.\n\n")
+        message("You have chosen the first parameterization of the 'Ricker' S-R model.\n\n",
+                "  E[R|S] = a*S*exp(-b*S)\n\n",
+                "  where a = the density-independent slope near S=0.\n",
+                "        b = density-dependent parameter.\n")
       },
       Ricker2={
-        cat("You have chosen the second parameterization of the 'Ricker' stock-recruitment model.\n\n")
-        cat("  E[R|S] = S*exp(a-b*S)\n\n")
-        cat("where b = density-dependent parameter.\n\n")
+        message("You have chosen the second parameterization of the 'Ricker' S-R model.\n\n",
+                "  E[R|S] = S*exp(a-b*S)\n\n",
+                "  where b = density-dependent parameter.\n")
       },
       Ricker3={
-        cat("You have chosen the third parameterization of the 'Ricker' stock-recruitment model.\n\n")
-        cat("  E[R|S] = a*S*exp(-a*S/(e*Rp))\n\n")
-        cat("where a = the density-independent slope near S=0.\n")
-        cat("      Rp = peak level of recruitment.\n\n")
+        message("You have chosen the third parameterization of the 'Ricker' S-R model.\n\n",
+                "  E[R|S] = a*S*exp(-a*S/(e*Rp))\n\n",
+                "  where a = the density-independent slope near S=0.\n",
+                "       Rp = peak level of recruitment.\n")
       },
       Shepherd={
-        cat("You have chosen the 'Shepherd' stock-recruitment model.\n\n")
-        cat("  E[R|S] = a*S/(1+(b*S)^c)\n\n")
-        cat("where a = the density-independent slope near S=0.\n")
-        cat("      b = density-dependent parameter.\n")
-        cat("      c = shape parameter.\n\n")
+        message("You have chosen the 'Shepherd' S-R model.\n\n",
+                "  E[R|S] = a*S/(1+(b*S)^c)\n\n",
+                "  where a = the density-independent slope near S=0.\n",
+                "        b = density-dependent parameter.\n",
+                "        c = shape parameter.\n")
       },
       SailaLorda={
-        cat("You have chosen the 'Saila-Lorda' stock-recruitment model.\n\n")
-        cat("  E[R|S] = a*(S^c)*exp(-b*S)\n\n")
-        cat("where a = the density-independent slope near S=0.\n")
-        cat("      b = density-dependent parameter.\n")
-        cat("      c = shape parameter.\n\n")      },
+        message("You have chosen the 'Saila-Lorda' S-R model.\n\n",
+                "  E[R|S] = a*(S^c)*exp(-b*S)\n\n",
+                "  where a = the density-independent slope near S=0.\n",
+                "        b = density-dependent parameter.\n",
+                "        c = shape parameter.\n")      },
       independence={
-        cat("You have chosen the 'density-independent' stock-recruitment model.\n\n")
-        cat("  E[R|S] = a*S\n\n")
-        cat("where a = the density-independent slope near S=0.\n\n")      }
+        message("You have chosen the 'density-independent' S-R model.\n\n",
+                "  E[R|S] = a*S\n\n",
+                "  where a = the density-independent slope near S=0.\n")      }
     )  # end type switch
   } # end if (msg)
   if (simple) type <- paste("S",type,sep="")

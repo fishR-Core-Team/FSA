@@ -39,6 +39,9 @@ Creates a function for a specific parameterization of a \dQuote{Beverton-Holt}, 
 srModels()
 
 ## Simple Examples
+# show what a message looks like with the function definition
+srFuns("Ricker",msg=TRUE)
+
 # create some dummy stock data
 stock <- seq(0.01,1000,length.out=199)
 

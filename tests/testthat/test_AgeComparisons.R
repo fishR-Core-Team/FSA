@@ -6,18 +6,37 @@ context("Age Comparisons (Precision and Bias)")
 # ============================================================
 # ############################################################
 
-test_that("agePrecision errors and warnings",{
+test_that("agePrecision() errors and warnings",{
   data(WhitefishLC)
   ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)
+  ## Bad choices for what= in summary
   expect_error(summary(ap1,what="agreement"))
+  ## Test that messages are printed
+  expect_message(summary(ap1),"Precision summary statistics")
+  expect_message(summary(ap1),"Percentage of fish by absolute differences in ages")
+  expect_message(summary(ap1),"Percentage of fish by differences in ages")
+  expect_message(summary(ap1),"Intermediate calculations for each individual")
 })
 
-test_that("ageBias errors and warnings",{
+test_that("ageBias() errors and warnings",{
   data(WhitefishLC)
   ## Two variables on LHS
   expect_error(ageBias(otolithC+scaleC~finrayC,data=WhitefishLC))
   ## Two variables on RHS
   expect_error(ageBias(otolithC~scaleC+finrayC,data=WhitefishLC))
+  ## Bad choices for what= in plot and summary
+  ab1 <- ageBias(scaleC~otolithC,data=WhitefishLC)
+  expect_error(summary(ab1,what="derek"),"should be one of")
+  expect_error(plot(ab1,what="derek"),"should be one of")
+  ## Bad choice for cont.corr
+  expect_error(summary(ab1,what="McNemars",cont.corr="derek"),"should be one of")
+  ## Test that messages are printed
+  expect_message(summary(ab1),"Sample size in the age agreement table")
+  expect_message(summary(ab1),"Summary of otolithC by scaleC")
+  expect_message(summary(ab1),"Summary of otolithC-scaleC by scaleC")
+  expect_message(summary(ab1),"square")
+  expect_message(summary(ab1,flip.table=TRUE),"flipped")
+  expect_message(summary(ab1),"Age agreement table symmetry test results")
 })
 
 
