@@ -1,6 +1,11 @@
 # FSA 0.6.17 ongoing
+
+# FSA 0.6.17 Jun15
 * `extraSS()`: Modified.  Added more message tests and some calculational tests (compared to `anova()` results).
+* `gompFuns()`: Modified.  Changed all `cat()`s to `message()`s and slightly modified the messages.  Fixed minor bugs in some created functions.  Created some tests.
+* `logisticFuns()`: Modified.  Changed all `cat()`s to `message()`s and slightly modified the messages.  Fixed minor bugs in some created functions.  Created some tests.
 * `lrt()`: Modified.  Added more message tests and some calculational tests (compared to `lrtest()` from `lmtest` package results).
+* `vbFuns()`: Modified.  Changed all `cat()`s to `message()`s and slightly modified the messages.  Fixed minor bugs in some created functions.  Created some tests.
 
 # FSA 0.6.16 Jun15
 * `extraSS()`: Modified.  Added `sim_names=` and `com_name=` so that simple descriptive names could be given to the model and printed in the heading of the output.  Added checks for whether the complex model appears more complex or not.  Added tests for warning and error messages.
