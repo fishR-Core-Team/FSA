@@ -84,7 +84,7 @@ NULL
 
 #' @rdname growthLogistic
 #' @export
-logisticFuns <- function(type=c("CJ1","CJ2","Richards","LRichards"),simple=FALSE,msg=FALSE) {
+logisticFuns <- function(type=c("CJ1","CJ2","Richards"),simple=FALSE,msg=FALSE) {
   CJ1 <- function(t,Linf,gninf=NULL,ti=NULL) {
     if (length(Linf)==3) { gninf <- Linf[[2]]
                            ti <- Linf[[3]]
@@ -103,13 +103,13 @@ logisticFuns <- function(type=c("CJ1","CJ2","Richards","LRichards"),simple=FALSE
   SCJ2<- function(t,Linf,gninf,a) {
     Linf/(1+a*exp(-gninf*t))
   }
-  Richards <- LRichards <- function(t,Linf,L0=NULL,gninf=NULL) {
+  Richards <- function(t,Linf,L0=NULL,gninf=NULL) {
     if (length(Linf)==3) { L0 <- Linf[[2]]
                            gninf <- Linf[[3]]
                            Linf <- Linf[[1]] }
     L0*Linf/(L0+(Linf-L0)*exp(-gninf*t))
   }
-  SRichards <- SLRichards <- function(t,Linf,L0,gninf) {
+  SRichards <- function(t,Linf,L0,gninf) {
     L0*Linf/(L0+(Linf-L0)*exp(-gninf*t))
   }
   ## Main function
@@ -118,25 +118,25 @@ logisticFuns <- function(type=c("CJ1","CJ2","Richards","LRichards"),simple=FALSE
   if (msg) {
     switch(type,
       CJ1= {
-        cat("You have chosen the 'CJ1'",comcat)
-        cat("  E[L|t] = Linf/(1+exp(-gninf*(t-ti)))\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      gninif = instantaneous growth rate at t=-infinity\n")
-        cat("      ti = time at the inflection point\n\n")
+        message("You have chosen the 'CJ1'",comcat,
+                "  E[L|t] = Linf/(1+exp(-gninf*(t-ti)))\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "      gninif = instantaneous growth rate at t=-infinity\n",
+                "          ti = time at the inflection point\n\n")
       },
       CJ2= {
-        cat("You have chosen the 'CJ2'",comcat)
-        cat("  E[L|t] = Linf/(1+a*exp(-gninf*t))\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      gi = instantaneous growth rate at the inflection point\n")
-        cat("      a = a dimensionless parameter related to growth\n\n")
+        message("You have chosen the 'CJ2'",comcat,
+                "  E[L|t] = Linf/(1+a*exp(-gninf*t))\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "          gi = instantaneous growth rate at the inflection point\n",
+                "           a = a dimensionless parameter related to growth\n\n")
       },
-      LRichards= {
-        cat("You have chosen the 'Richards'",comcat)
-        cat("  E[L|t] = L0*Linf/(L0+(Linf-L0)*exp(-gninf*t))\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      L0 = mean length at time/age 0\n")
-        cat("      gi = instantaneous growth rate at the inflection point\n\n")
+      Richards= {
+        message("You have chosen the 'Richards'",comcat,
+                "  E[L|t] = L0*Linf/(L0+(Linf-L0)*exp(-gninf*t))\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "          L0 = mean length at time/age 0\n",
+                "          gi = instantaneous growth rate at the inflection point\n\n")
       }
     )
   }

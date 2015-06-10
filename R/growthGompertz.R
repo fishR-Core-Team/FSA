@@ -111,8 +111,8 @@ NULL
 #' @rdname growthGompertz
 #' @export
 gompFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
-                          "QD1","QD2","QD3","KM","AFS","original"),
-                   simple=FALSE,msg=FALSE) {
+                            "QD1","QD2","QD3","KM","AFS","original"),
+                     simple=FALSE,msg=FALSE) {
   original <- function(t,Linf,a=NULL,gi=NULL) {
   if (length(Linf)==3) { a <- Linf[[2]]
                          gi <- Linf[[3]]
@@ -164,39 +164,39 @@ gompFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
   if (msg) {
     switch(type,
       original= {
-        cat("You have chosen the 'original'",comcat)
-        cat("  E[L|t] = Linf*exp(-exp(a-gi*t))\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      gi = decrease in growth rate at the inflection point\n")
-        cat("      a = an undefined parameter\n\n")
+        message("You have chosen the 'original'",comcat,
+               "  E[L|t] = Linf*exp(-exp(a-gi*t))\n\n",
+               "where Linf = asymptotic mean length\n",
+               "      gi = decrease in growth rate at the inflection point\n",
+               "      a = an undefined parameter\n\n")
       },
-      Ricker1,KM,AFS= {
-        cat("You have chosen the 'Ricker1'/'KM'/'AFS'",comcat)
-        cat("  E[L|t] = Linf*exp(-exp(-gi*(t-ti)))\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      gi = instantaneous growth rate at the inflection point\n")
-        cat("      ti = time at the inflection point\n\n")
+      Ricker1=,KM=,AFS= {
+        message("You have chosen the 'Ricker1'/'KM'/'AFS'",comcat,
+                "  E[L|t] = Linf*exp(-exp(-gi*(t-ti)))\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "          gi = instantaneous growth rate at the inflection point\n",
+                "          ti = time at the inflection point\n\n")
       },
-      Ricker2,QD1= {
-        cat("You have chosen the 'Ricker1'/'QD1'",comcat)
-        cat("  E[L|t] = L0*exp(a*(1-exp(-gi*t)))\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      gi = instantaneous growth rate at the inflection point\n")
-        cat("      a = dimenstionless parameter related to growth\n\n")
+      Ricker2=,QD1= {
+        message("You have chosen the 'Ricker2'/'QD1'",comcat,
+                "  E[L|t] = L0*exp(a*(1-exp(-gi*t)))\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "          gi = instantaneous growth rate at the inflection point\n",
+                "           a = dimenstionless parameter related to growth\n\n")
       },
-      Ricker3,QD2= {
-        cat("You have chosen the 'Ricker3' or 'QD2'",comcat)
-        cat("  E[L|t] = Linf*exp(-(a/gi)*exp(-gi*t))\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      gi = instantaneous growth rate at the inflection point\n")
-        cat("      a = dimenstionless parameter related to growth\n\n")
+      Ricker3=,QD2= {
+        message("You have chosen the 'Ricker3'/'QD2'",comcat,
+                "  E[L|t] = Linf*exp(-(a/gi)*exp(-gi*t))\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "          gi = instantaneous growth rate at the inflection point\n",
+                "           a = dimenstionless parameter related to growth\n\n")
       },
       QD3= {
-        cat("You have chosen the 'QD3",comcat)
-        cat("  E[L|t] = Linf*exp(-(1/gi)*exp(-gi*(t-t0)))\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      gi = instantaneous growth rate at the inflection point\n")
-        cat("      t0 = a dimensionless parameter related to time/age\n\n")
+        message("You have chosen the 'QD3",comcat,
+                "  E[L|t] = Linf*exp(-(1/gi)*exp(-gi*(t-t0)))\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "          gi = instantaneous growth rate at the inflection point\n",
+                "          t0 = a dimensionless parameter related to time/age\n\n")
       }
     )
   }

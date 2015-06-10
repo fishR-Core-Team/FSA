@@ -101,7 +101,7 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
                          Linf <- Linf[[1]] }
   Linf*(1-exp(-K*(t-t0)))
 }
-  Stypical <- sBevertonHolt <- function(t,Linf,K,t0) {
+  Stypical <- SBevertonHolt <- function(t,Linf,K,t0) {
     Linf*(1-exp(-K*(t-t0)))
   }
   original <- vonBertalanffy <- function(t,Linf,L0=NULL,K=NULL) {
@@ -222,122 +222,130 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
   if (msg) {
     switch(type,
       typical=,BevertonHolt= {
-        cat("You have chosen the 'traditional' or 'Beverton-Holt' von Bertalanffy parameterization.\n\n")
-        cat("  E[L|t] = Linf*(1-exp(-K*(t-t0)))\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      K = exponential rate of approach to Linf\n")
-        cat("      t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
+        message("You have chosen the 'typical' or 'BevertonHolt' parameterization.\n\n",
+                "  E[L|t] = Linf*(1-exp(-K*(t-t0)))\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "           K = exponential rate of approach to Linf\n",
+                "          t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
       },
       original=,vonBertalanffy={
-        cat("You have chosen the 'original' von Bertalanffy parameterization.\n\n")
-        cat("  E[L|t] = Linf-(Linf-L0)*exp(-K*t)\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      L0 = the mean length at age-0 (i.e., hatching or birth)\n")
-        cat("      K = exponential rate of approach to Linf\n\n")
+        message("You have chosen the 'original' or 'vonBertalanffy` parameterization.\n\n",
+                "  E[L|t] = Linf-(Linf-L0)*exp(-K*t)\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "          L0 = the mean length at age-0 (i.e., hatching or birth)\n",
+                "           K = exponential rate of approach to Linf\n\n")
       },
       Francis={
-        cat("You have chosen the 'Francis' von Bertalanffy parameterization.\n\n")
-        cat("  E[L|t] = L1+(L3-L1)*[(1-r^(2*[(t-t1)/(t3-t1)]))/(1-r^2)]\n\n")
-        cat("where r = [(L3-L2)/(L2-L1)] and\n\n")
-        cat("where L1 = the mean length at the first (small) reference age\n")
-        cat("      L2 = the mean length at the intermediate reference age\n")
-        cat("      L3 = the mean length at the third (large) reference age\n\n")
-        cat("You must also supply the constant values (i.e., they are NOT model parameters) for\n")
-        cat("      t1 = the first (usually a younger) reference age\n")
-        cat("      t3 = the third (usually an older) reference age\n\n")
+        message("You have chosen the 'Francis' parameterization.\n\n",
+                "  E[L|t] = L1+(L3-L1)*[(1-r^(2*[(t-t1)/(t3-t1)]))/(1-r^2)]\n\n",
+                "  where r = [(L3-L2)/(L2-L1)] and\n\n",
+                "       L1 = the mean length at the first (small) reference age\n",
+                "       L2 = the mean length at the intermediate reference age\n",
+                "       L3 = the mean length at the third (large) reference age\n\n",
+                "You must also supply the constant values (i.e., they are NOT model parameters) for\n",
+                "       t1 = the first (usually a younger) reference age\n",
+                "       t3 = the third (usually an older) reference age\n\n")
       },
       GQ=,GallucciQuinn={
-        cat("You have chosen the 'Gallucci and Quinn (1979)' von Bertalanffy parameterization.\n\n")
-        cat("  E[L|t] = [omega/K]*(1-exp(-K*(t-t0)))\n\n")
-        cat("where omega = growth rate near t0\n")
-        cat("      K = exponential rate of approach to Linf\n")
-        cat("      t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
+        message("You have chosen the 'GQ' or 'GallucciQuinn' parameterization.\n\n",
+                "  E[L|t] = [omega/K]*(1-exp(-K*(t-t0)))\n\n",
+                "  where omega = growth rate near t0\n",
+                "            K = exponential rate of approach to Linf\n",
+                "           t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
       },
       Mooij={
-        cat("You have chosen the 'Mooij et al. (1999)' von Bertalanffy parameterization.\n\n")
-        cat("  E[L|t] = Linf-(Linf-L0)*exp(-(omega/Linf)*t)\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      L0 = the mean length at age-0 (i.e., hatching or birth)\n")
-        cat("      omega = growth rate near L0\n\n")
+        message("You have chosen the 'Mooij' parameterization.\n\n",
+                "  E[L|t] = Linf-(Linf-L0)*exp(-(omega/Linf)*t)\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "          L0 = the mean length at age-0 (i.e., hatching or birth)\n",
+                "       omega = growth rate near L0\n\n")
       },
       Weisberg= {
-        cat("You have chosen the 'Weisberg et al. (2010)' von Bertalanffy parameterization.\n\n")
-        cat("  E[L|t] = Linf*(1-exp(-(log(2)/(t50-t0))*(t-t0)))\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      t50 = age when half of Linf is reached\n")
-        cat("      t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
+        message("You have chosen the 'Weisberg' parameterization.\n\n",
+                "  E[L|t] = Linf*(1-exp(-(log(2)/(t50-t0))*(t-t0)))\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "         t50 = age when half of Linf is reached\n",
+                "          t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
       },
       Schnute={
-        cat("You have chosen the 'Schnute (1981)' von Bertalanffy parameterization.\n\n")
-        cat("  E[L|t] = L1+(L2-L1)*[(1-exp(-K*(t-t1)))/(1-exp(-K*(t2-t1)))]\n\n")
-        cat("where L1 = the mean length at the youngest age in the sample\n")
-        cat("      L2 = the mean length at the oldest age in the sample\n")
-        cat("      K = exponential rate of approach to Linf\n\n")
-        cat("You must also supply the constant values (i.e., they are NOT model parameters) for\n")
-        cat("      t1 = the youngest age in the sample\n")
-        cat("      t2 = the oldest age in the sample\n\n")
+        message("You have chosen the 'Schnute' parameterization.\n\n",
+                "  E[L|t] = L1+(L2-L1)*[(1-exp(-K*(t-t1)))/(1-exp(-K*(t2-t1)))]\n\n",
+                "  where L1 = the mean length at the youngest age in the sample\n",
+                "        L2 = the mean length at the oldest age in the sample\n",
+                "         K = exponential rate of approach to Linf\n\n",
+                "  You must also supply the constant values (i.e., they are NOT model parameters) for\n",
+                "        t1 = the youngest age in the sample\n",
+                "        t2 = the oldest age in the sample\n\n")
       },
       Somers={
-        cat("You have chosen the 'Somers Seasonal' von Bertalanffy parameterization.\n\n")
-        cat("  E[L|t] = Linf*(1-exp(-K*(t-to)-St+St0))\n\n")
-        cat("where St = (CK/2*pi)*sin(2*pi*(t-ts)) and\n")
-        cat("where St0 = (CK/2*pi)*sin(2*pi*(t0-ts)) and\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      K = exponential rate of approach to Linf\n")
-        cat("      t0 = the theoretical age when length = 0 (a modeling artifact)\n")
-        cat("      C = proportional growth depression at 'winter peak'\n")
-        cat("      ts = time from t=0 until the first growth oscillation begins.\n\n")
+        message("You have chosen the 'Somers Seasonal' parameterization.\n\n",
+                "  E[L|t] = Linf*(1-exp(-K*(t-to)-St+St0))\n\n",
+                "  where St = (CK/2*pi)*sin(2*pi*(t-ts)) and\n",
+                "       St0 = (CK/2*pi)*sin(2*pi*(t0-ts)) and\n\n",
+                "  and Linf = asymptotic mean length\n",
+                "         K = exponential rate of approach to Linf\n",
+                "        t0 = the theoretical age when length = 0 (a modeling artifact)\n",
+                "         C = proportional growth depression at 'winter peak'\n",
+                "        ts = time from t=0 until the first growth oscillation begins.\n\n")
       },
       Somers2={
-        cat("You have chosen the 'Modified Somers Seasonal' von Bertalanffy parameterization.\n\n")
-        cat("  E[L|t] = Linf*(1-exp(-K*(t-to)-Rt+Rt0))\n\n")
-        cat("where Rt = (CK/2*pi)*sin(2*pi*(t-WP+0.5)) and\n")
-        cat("where Rt0 = (CK/2*pi)*sin(2*pi*(t0-WP+0.5)) and\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      K = exponential rate of approach to Linf\n")
-        cat("      t0 = the theoretical age when length = 0 (a modeling artifact)\n")
-        cat("      C = proportional growth depression at 'winter peak'\n")
-        cat("      WP = the 'winter peak' (point of slowest growth).\n\n")
+        message("You have chosen the modified 'Somers2 Seasonal' parameterization.\n\n",
+                "  E[L|t] = Linf*(1-exp(-K*(t-to)-Rt+Rt0))\n\n",
+                "  where Rt = (CK/2*pi)*sin(2*pi*(t-WP+0.5)) and\n",
+                "       Rt0 = (CK/2*pi)*sin(2*pi*(t0-WP+0.5)) and\n\n",
+                "  and Linf = asymptotic mean length\n",
+                "         K = exponential rate of approach to Linf\n",
+                "        t0 = the theoretical age when length = 0 (a modeling artifact)\n",
+                "         C = proportional growth depression at 'winter peak'\n",
+                "        WP = the 'winter peak' (point of slowest growth).\n\n")
       },
       Fabens={
-        cat("You have chosen the 'Fabens' von Bertalanffy parameterization for tag-return data.\n\n")
-        cat("  E[Lr|Lm,dt] = Lm + (Linf-Lm)*(1-exp(-K*dt))\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      K = exponential rate of approach to Linf\n\n")
-        cat("and the data are Lr = length at time of recapture\n")
-        cat("                 Lm = length at time of marking\n")
-        cat("                 dt = time between marking and recapture.\n\n")
+        message("You have chosen the 'Fabens' parameterization for tag-return data.\n\n",
+                "  E[Lr|Lm,dt] = Lm + (Linf-Lm)*(1-exp(-K*dt))\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "           K = exponential rate of approach to Linf\n\n",
+                "  and the data are Lr = length at time of recapture\n",
+                "                   Lm = length at time of marking\n",
+                "                   dt = time between marking and recapture.\n\n")
+      },
+      Fabens2={
+        message("You have chosen the 'Fabens2' parameterization for tag-return data.\n\n",
+                "  E[Lr|Lm,dt] = (Linf-Lm)*(1-exp(-K*dt))\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "           K = exponential rate of approach to Linf\n\n",
+                "  and the data are Lr = length at time of recapture\n",
+                "                   Lm = length at time of marking\n",
+                "                   dt = time between marking and recapture.\n\n")
       },
       Wang={
-        cat("You have chosen the 'Wang' von Bertalanffy parameterization for tag-return data.\n\n")
-        cat("  E[Lr-Lm|Lm,dt] = (Linf+b(Lm-E(Lm))-Lm)*(1-exp(-K*dt))\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      K = exponential rate of approach to Linf\n")
-        cat("      b = parameters\n\n")
-        cat("and the data are Lr = length at time of recapture\n")
-        cat("                 Lm = length at time of marking\n")
-        cat("                 dt = time between marking and recapture.\n\n")
-        cat("and with E(Lm) = expectation (i.e., mean) of Lm.\n\n")
+        message("You have chosen the 'Wang' parameterization for tag-return data.\n\n",
+                "  E[Lr-Lm|Lm,dt] = (Linf+b(Lm-E(Lm))-Lm)*(1-exp(-K*dt))\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "           K = exponential rate of approach to Linf\n",
+                "           b = parameters\n\n",
+                "  and the data are Lr = length at time of recapture\n",
+                "                   Lm = length at time of marking\n",
+                "                   dt = time between marking and recapture.\n\n",
+                "  and with E(Lm) = expectation (i.e., mean) of Lm.\n\n")
       },
       Wang2={
-        cat("You have chosen the 'Wang2' von Bertalanffy parameterization for tag-return data.\n\n")
-        cat("  E[Lr-Lm|Lm,dt] = (a+dLm)*(1-exp(-K*dt))\n\n")
-        cat("where K = exponential rate of approach to Linf\n")
-        cat("      a, b = parameters\n\n")
-        cat("and the data are Lr = length at time of recapture\n")
-        cat("                 Lm = length at time of marking\n")
-        cat("                 dt = time between marking and recapture.\n\n")
-        cat("and with E(Lm) = expectation (i.e., mean) of Lm.\n\n")
+        message("You have chosen the 'Wang2' parameterization for tag-return data.\n\n",
+                "  E[Lr-Lm|Lm,dt] = (a+dLm)*(1-exp(-K*dt))\n\n",
+                "  where K = exponential rate of approach to Linf\n",
+                "     a, b = parameters\n\n",
+                "  and the data are Lr = length at time of recapture\n",
+                "                   Lm = length at time of marking\n",
+                "                   dt = time between marking and recapture.\n\n")
       },
       Laslett={
-        cat("You have chosen the 'Laslett' 'double' von Bertalanffy parameterization.\n\n")
-        cat(" E[L|t] = Linf*[1-exp(-K2*(t-to))((1+exp(-b(t-t0-a)))/(1+exp(ab)))^(-(K2-K1)/b)]\n\n")
-        cat("where Linf = asymptotic mean length\n")
-        cat("      t0 = the theoretical age when length = 0 (a modeling artifact)\n")
-        cat("      K1 = the first (younger ages) exponential rate of approach to Linf\n")
-        cat("      K2 = the second (older ages) exponential rate of approach to Linf\n")
-        cat("      b = governs the rate of transition from K1 to K2\n")
-        cat("      a = the central age of the transition from K1 to K2\n\n")
+        message("You have chosen the 'Laslett' 'double' parameterization.\n\n",
+                "  E[L|t] = Linf*[1-exp(-K2*(t-to))((1+exp(-b(t-t0-a)))/(1+exp(ab)))^(-(K2-K1)/b)]\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "          t0 = the theoretical age when length = 0 (a modeling artifact)\n",
+                "          K1 = the first (younger ages) exponential rate of approach to Linf\n",
+                "          K2 = the second (older ages) exponential rate of approach to Linf\n",
+                "           b = governs the rate of transition from K1 to K2\n",
+                "           a = the central age of the transition from K1 to K2\n\n")
       }
     )
   }

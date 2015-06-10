@@ -6,8 +6,8 @@
 \alias{logisticModels}
 \title{Creates a function for a specific parameterization of the logistic growth function.}
 \usage{
-logisticFuns(type = c("CJ1", "CJ2", "Richards", "LRichards"),
-  simple = FALSE, msg = FALSE)
+logisticFuns(type = c("CJ1", "CJ2", "Richards"), simple = FALSE,
+  msg = FALSE)
 
 logisticModels(...)
 }

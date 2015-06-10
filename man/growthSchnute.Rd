@@ -6,7 +6,7 @@
 \alias{schnuteModels}
 \title{The four-parameter growth function from Schnute (1981).}
 \usage{
-schnute(t, case = 1, t1 = min(t), t3 = max(t), L1 = NULL, L3 = NULL,
+schnute(t, case = 1, t1 = NULL, t3 = NULL, L1 = NULL, L3 = NULL,
   a = NULL, b = NULL)
 
 schnuteModels(...)
@@ -48,10 +48,10 @@ schnuteModels()
 
 ## Simple examples
 ages <- 1:15
-s1 <- schnute(ages,case=1,L1=30,L3=400,a=0.3,b=1)
-s2 <- schnute(ages,case=2,L1=30,L3=400,a=0.3,b=1)
-s3 <- schnute(ages,case=3,L1=30,L3=400,a=0.3,b=1)
-s4 <- schnute(ages,case=4,L1=30,L3=400,a=0.3,b=1)
+s1 <- schnute(ages,case=1,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
+s2 <- schnute(ages,case=2,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
+s3 <- schnute(ages,case=3,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
+s4 <- schnute(ages,case=4,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
 
 plot(s1~ages,type="l",lwd=2)
 lines(s2~ages,lwd=2,col="red")
