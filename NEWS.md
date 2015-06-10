@@ -1,4 +1,6 @@
-# FSA 0.6.18 ongoing
+# FSA 0.6.19 ongoing
+
+# FSA 0.6.18 Jun15
 * Changed nearly all "messages" using `cat()` to using `message()` so that they can be suppressed with `suppressMessage()` or `message=FALSE` in knitr.  See  "One comment on messages" at http://yihui.name/knitr/demo/output/.  Specific functions modified are listed below.
 * `ageBias()`: Modified.  Changed all `cat()` to `message()`s.  Changed so that messages (result headers) are only printed if `what=` contains more than one item.
 * `agePrecision()`: Modified.  Changed all `cat()` to `message()`s.  Changed so that messages (result headers) are only printed if `what=` contains more than one item.
