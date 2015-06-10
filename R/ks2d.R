@@ -11,7 +11,7 @@
 #' @param x1 Vector of X values.
 #' @param y1 Vector of Y values.
 #' @param justD Logical that indicates whether just the D test statistic (\code{=TRUE}) or more information should be returned (default; see value section below).
-#' @param KSp Logical that indicates whether the approximate p-value from the Kolmogorov-Smirnov distribution should be returned.  NOT YET IMPLEMENTED.
+#' @param KSp Logical that indicates whether the approximate p-value from the Kolmogorov-Smirnov distribution should be returned.  HIGHLY EXPERIMENTAL (NOT YET TESTED).
 #' @param divbylen Logical that indicates whether the proportion of values in each quadrant is computed by dividing by the sample size (\code{=TRUE}, default) or by the number of points that could be assigned to quadrants.
 #' @param x An object returned from \code{d2ks1}.
 #' @param pch A numeric that indicates the character to be used when plotting the results.
@@ -24,7 +24,7 @@
 #' @return The main function returns a single numeric of the D test statistic if \code{justD=TRUE} or a list with the following items if \code{justD=FALSE}:
 #'  \itemize{
 #'    \item D The D test statistic.  See details.
-#'    \item pval The approximate p-value from the Kolmogorov-Smirnov distribution.  Returned only if \code{KSp=TRUE}.  NOT YET IMPLEMENTED.
+#'    \item pval The approximate p-value from the Kolmogorov-Smirnov distribution.  Returned only if \code{KSp=TRUE}.  HIGHLY EXPERIMENTAL (NOT YET TESTED).
 #'    \item n1 Sample size.
 #'    \item max1 Maximum D .
 #'    \item where1 Observation(s) where maximum D occurred.
@@ -58,7 +58,7 @@
 #' # same, but with modified computation of proportions
 #' ( res2 <- with(Garvey4a,ks2d1(shad,sunfish,divbylen=FALSE)) )
 #'
-#' # same, but compute large-sample p-value
+#' # same, but compute large-sample p-value -- HIGHLY EXPERIMENTAL (NOT TESTED)
 #' ( res3 <- with(Garvey4a,ks2d1(shad,sunfish,KSp=TRUE)) )
 #'
 #' # Example from Figure 1 in Garvey
@@ -107,11 +107,12 @@ ks2d1 <- function(x1,y1,justD=FALSE,KSp=FALSE,divbylen=TRUE) {
 #' @rdname ks2d1
 #' @export
 print.ks2d1 <- function(x,...) {
-  cat("1-Sample Two-Dimensional Kolmogorov-Smirnov Test -- THESE RESULTS ARE EXPERIMENTAL AT THIS POINT!!!\n\n")
-  cat("Maximum occurred for observation #",x[["where1"]],"\n",sep="")
-  txt <- paste("\nTest statistic (D) of",formatC(x[["D"]],format="f",digits=4))
-  if (x[["KSp"]]) txt <- paste(txt,", with a K-S p-value of ",formatC(x[["pval"]],format="f",digits=4),sep="")
-  cat(paste(txt,"\n"))
+  message("1-Sample Two-Dimensional Kolmogorov-Smirnov Test - THESE RESULTS ARE EXPERIMENTAL!!!")
+  vars <- c("where1","D")
+  tmp <- unlist(x[vars])
+  tmp <- matrix(c(x$x1[x$where1],tmp,ifelse(x[["KSp"]],x[["pval"]],NA)),nrow=1)
+  colnames(tmp) <- c("max1",vars,"pvalue")
+  printCoefmat(tmp,cs.ind=1,tst.ind=2,has.Pvalue=x[["KSp"]],...)
 }
 
 #' @rdname ks2d1
@@ -200,9 +201,11 @@ ks2d1p <- function(object,B=100) {
 #' @rdname ks2d1p
 #' @export
 print.ks2d1p <- function(x,...) {
-  cat("One-Sample Two-Dimensional Kolmogorov-Smirnov Test p-value - THESE RESULTS ARE EXPERIMENTAL AT THIS POINT!!!\n")
-  cat("  Used 'resample' method. B=",x[["B"]],"times\n")
-  cat("D=",formatC(x[["D"]],format="f",digits=4),", p-value =",formatC(x[["pval"]],format="g"),"\n")
+  message("One-Sample Two-Dimensional Kolmogorov-Smirnov Test p-value - THESE RESULTS ARE EXPERIMENTAL!!!\n",
+          "  Used 'resample' method B=",x[["B"]]," times.")
+  tmp <- matrix(unlist(x[c("D","pval")]),nrow=1)
+  colnames(tmp) <- c("D","pvalue")
+  printCoefmat(tmp,tst.ind=1,has.Pvalue=TRUE,...)
 }
 
 #' @rdname ks2d1p
@@ -231,7 +234,7 @@ plot.ks2d1p <- function(x,xlab="D Test Statistic",main="",...) {
 #' @param x2 Vector of X-coordinates for the second set of coordinates.
 #' @param y2 Vector of Y-coordinates for the second set of coordinates.
 #' @param justD Logical that indicates whether just the D test statistic (\code{=TRUE}) or more information should be returned (default; see value section below).
-#' @param KSp Logical that indicates whether the approximate p-value from the Kolmogorov-Smirnov distribution should be returned.  NOT YET IMPLEMENTED.
+#' @param KSp Logical that indicates whether the approximate p-value from the Kolmogorov-Smirnov distribution should be returned.  HIGHLY EXPERIMENTAL (NOT YET TESTED).
 #' @param divbylen Logical that indicates whether the proportion of values in each quadrant is computed by dividing by the sample size (\code{=TRUE}, default) or by the number of points that could be assigned to quadrants.
 #' @param x An object returned from \code{d2ks}.
 #' @param pchs A vector of length two plotting characters to be used when plotting the two sets of coordinates.
@@ -245,7 +248,7 @@ plot.ks2d1p <- function(x,xlab="D Test Statistic",main="",...) {
 #' @return The main function returns a single numeric of the D test statistic if \code{justD=TRUE} or a list with the following items if \code{justD=FALSE}:
 #'  \itemize{
 #'    \item D The D test statistic.  See details.
-#'    \item pval The approximate p-value from the Kolmogorov-Smirnov distribution.  Returned only if \code{KSp=TRUE}.  NOT YET IMPLEMENTED.
+#'    \item pval The approximate p-value from the Kolmogorov-Smirnov distribution.  Returned only if \code{KSp=TRUE}.  HIGHLY EXPERIMENTAL (NOT YET TESTED)
 #'    \item n1 Sample size of first set of coordinates.
 #'    \item n2 Sample size of second set of coordinates.
 #'    \item max1 Maximum D for first set of coordinates.
@@ -283,7 +286,9 @@ plot.ks2d1p <- function(x,xlab="D Test Statistic",main="",...) {
 #' # perform analysis
 #' ( res1 <- ks2d2(d1$x,d1$y,d2$x,d2$y) )
 #' plot(res1,xlim=c(-3,3),ylim=c(-3,3))
-#'
+#' # same but with large sample p-values --  HIGHLY EXPERIMENTAL (NOT YET TESTED)
+#' ( res1 <- ks2d2(d1$x,d1$y,d2$x,d2$y,KSp=TRUE) )
+#' 
 #' # perform same analysis with modified computation of proportions
 #' ( res2 <- ks2d2(d1$x,d1$y,d2$x,d2$y,divbylen=FALSE) )
 #'
@@ -328,12 +333,12 @@ ks2d2 <- function(x1,y1,x2,y2,justD=FALSE,KSp=FALSE,divbylen=TRUE) {
 #' @rdname ks2d2
 #' @export
 print.ks2d2 <- function(x,...) {
-  cat("Two Dimensional Kolmogorov-Smirnov Test - THESE RESULTS ARE EXPERIMENTAL AT THIS POINT!!!\n\n")
-  cat("Maximum for first coordinate set as origins was",formatC(x[["max1"]],format="f",digits=4),"for observation #",x[["where1"]],"\n")
-  cat("Maximum for second coordinate set as origins was",formatC(x[["max2"]],format="f",digits=4),"for observation #",x[["where2"]],"\n")
-  txt <- paste("\nResulting in a test statistic (D) of",formatC(x[["D"]],format="f",digits=4))
-  if (x[["KSp"]]) txt <- paste(txt,",with a K-S p-value of ",formatC(x[["pval"]],format="f",digits=4),sep="")
-  cat(paste(txt,"\n"))
+  message("Two-Sample Two-Dimensional Kolmogorov-Smirnov Test - THESE RESULTS ARE EXPERIMENTAL!!!")
+  vars <- c("max1","where1","max2","where2","D")
+  tmp <- unlist(x[vars])
+  tmp <- matrix(c(tmp,ifelse(x[["KSp"]],x[["pval"]],NA)),nrow=1)
+  colnames(tmp) <- c(vars,"pvalue")
+  printCoefmat(tmp,cs.ind=c(1,3),tst.ind=5,has.Pvalue=x[["KSp"]],...)
 }
 
 #' @rdname ks2d2
@@ -477,11 +482,12 @@ ks2d2p <- function(object,B=100,type=c("resample","randomize"),randtype=c("discr
 #' @rdname ks2d2p
 #' @export
 print.ks2d2p <- function(x,...) {
-  cat("Two-Sample Two-Dimensional Kolmogorov-Smirnov Test p-value - THESE RESULTS ARE EXPERIMENTAL AT THIS POINT!!!\n")
-  if (x[["type"]]=="resample") txt <- "  Used 'resample' method"
-  else txt <- paste("  Used",x[["randtype"]],"'randomization' method")
-  cat(txt,"B=",x[["B"]],"times\n")
-  cat("D=",formatC(x[["D"]],format="f",digits=4),", p-value =",formatC(x[["pval"]],format="g"),"\n")
+  message("Two-Sample Two-Dimensional Kolmogorov-Smirnov Test p-value - THESE RESULTS ARE EXPERIMENTAL!!!")
+  if (x[["type"]]=="resample") message("  Used 'resample' method")
+    else message("  Used ",x[["randtype"]]," 'randomization' method")
+  tmp <- matrix(unlist(x[c("D","pval")]),nrow=1)
+  colnames(tmp) <- c("D","pvalue")
+  printCoefmat(tmp,tst.ind=1,has.Pvalue=TRUE,...)
 }
 
 #' @rdname ks2d2p

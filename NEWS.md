@@ -1,4 +1,21 @@
-# FSA 0.6.17 ongoing
+# FSA 0.6.18 ongoing
+* Changed nearly all "messages" using `cat()` to using `message()` so that they can be suppressed with `suppressMessage()` or `message=FALSE` in knitr.  See  "One comment on messages" at http://yihui.name/knitr/demo/output/.  Specific functions modified are listed below.
+* `ageBias()`: Modified.  Changed all `cat()` to `message()`s.  Changed so that messages (result headers) are only printed if `what=` contains more than one item.
+* `agePrecision()`: Modified.  Changed all `cat()` to `message()`s.  Changed so that messages (result headers) are only printed if `what=` contains more than one item.
+* `bcFuns()`: Modified.  Changed all `cat()` to `message()`s.
+* `chapmanRobson()`: Modified.  Changed all `cat()` to `message()`s.  Deleted "Estimates with Standard Errors" message.
+* `depletion()`: Modified.  Changed all `cat()` to `message()`s.
+* `dietOverlap()`: Modified.  Changed all `cat()` to `message()`s.  Slightly modified messages.
+* `expandLenFreq()`: Modified.  Changed all `cat()` to `message()`s.  Fixed bug with one of the messages.
+* `ks2d1()`: Modified.  Rewrote the `print()` method.  This removed a number of `cat()`s.
+* `ks2d1p()`: Modified.  Rewrote the `print()` method.  This removed a number of `cat()`s.
+* `ks2d2()`: Modified.  Rewrote the `print()` method.  This removed a number of `cat()`s.
+* `ks2d2p()`: Modified.  Rewrote the `print()` method.  This removed a number of `cat()`s.
+* `metaM()`: Modified.  Changed all `cat()` to `message()`s.
+* `mrOpen()`: Modified.  Changed all `cat()` to `message()`s.
+* `removal()`: Modified.  Changed all `cat()` to `message()`s.
+* `srFuns()`: Modified.  Changed all `cat()` to `message()`s.  Created some tests.
+
 
 # FSA 0.6.17 Jun15
 * `extraSS()`: Modified.  Added more message tests and some calculational tests (compared to `anova()` results).

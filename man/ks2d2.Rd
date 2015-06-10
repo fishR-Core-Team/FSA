@@ -25,7 +25,7 @@ ks2d2(x1, y1, x2, y2, justD = FALSE, KSp = FALSE, divbylen = TRUE)
 
 \item{justD}{Logical that indicates whether just the D test statistic (\code{=TRUE}) or more information should be returned (default; see value section below).}
 
-\item{KSp}{Logical that indicates whether the approximate p-value from the Kolmogorov-Smirnov distribution should be returned.  NOT YET IMPLEMENTED.}
+\item{KSp}{Logical that indicates whether the approximate p-value from the Kolmogorov-Smirnov distribution should be returned.  HIGHLY EXPERIMENTAL (NOT YET TESTED).}
 
 \item{divbylen}{Logical that indicates whether the proportion of values in each quadrant is computed by dividing by the sample size (\code{=TRUE}, default) or by the number of points that could be assigned to quadrants.}
 
@@ -49,7 +49,7 @@ ks2d2(x1, y1, x2, y2, justD = FALSE, KSp = FALSE, divbylen = TRUE)
 The main function returns a single numeric of the D test statistic if \code{justD=TRUE} or a list with the following items if \code{justD=FALSE}:
  \itemize{
    \item D The D test statistic.  See details.
-   \item pval The approximate p-value from the Kolmogorov-Smirnov distribution.  Returned only if \code{KSp=TRUE}.  NOT YET IMPLEMENTED.
+   \item pval The approximate p-value from the Kolmogorov-Smirnov distribution.  Returned only if \code{KSp=TRUE}.  HIGHLY EXPERIMENTAL (NOT YET TESTED)
    \item n1 Sample size of first set of coordinates.
    \item n2 Sample size of second set of coordinates.
    \item max1 Maximum D for first set of coordinates.
@@ -85,6 +85,8 @@ d2 <- subset(KS2D_NR,group=="squares")
 # perform analysis
 ( res1 <- ks2d2(d1$x,d1$y,d2$x,d2$y) )
 plot(res1,xlim=c(-3,3),ylim=c(-3,3))
+# same but with large sample p-values --  HIGHLY EXPERIMENTAL (NOT YET TESTED)
+( res1 <- ks2d2(d1$x,d1$y,d2$x,d2$y,KSp=TRUE) )
 
 # perform same analysis with modified computation of proportions
 ( res2 <- ks2d2(d1$x,d1$y,d2$x,d2$y,divbylen=FALSE) )

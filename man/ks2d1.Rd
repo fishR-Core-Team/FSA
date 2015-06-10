@@ -20,7 +20,7 @@ ks2d1(x1, y1, justD = FALSE, KSp = FALSE, divbylen = TRUE)
 
 \item{justD}{Logical that indicates whether just the D test statistic (\code{=TRUE}) or more information should be returned (default; see value section below).}
 
-\item{KSp}{Logical that indicates whether the approximate p-value from the Kolmogorov-Smirnov distribution should be returned.  NOT YET IMPLEMENTED.}
+\item{KSp}{Logical that indicates whether the approximate p-value from the Kolmogorov-Smirnov distribution should be returned.  HIGHLY EXPERIMENTAL (NOT YET TESTED).}
 
 \item{divbylen}{Logical that indicates whether the proportion of values in each quadrant is computed by dividing by the sample size (\code{=TRUE}, default) or by the number of points that could be assigned to quadrants.}
 
@@ -42,7 +42,7 @@ ks2d1(x1, y1, justD = FALSE, KSp = FALSE, divbylen = TRUE)
 The main function returns a single numeric of the D test statistic if \code{justD=TRUE} or a list with the following items if \code{justD=FALSE}:
  \itemize{
    \item D The D test statistic.  See details.
-   \item pval The approximate p-value from the Kolmogorov-Smirnov distribution.  Returned only if \code{KSp=TRUE}.  NOT YET IMPLEMENTED.
+   \item pval The approximate p-value from the Kolmogorov-Smirnov distribution.  Returned only if \code{KSp=TRUE}.  HIGHLY EXPERIMENTAL (NOT YET TESTED).
    \item n1 Sample size.
    \item max1 Maximum D .
    \item where1 Observation(s) where maximum D occurred.
@@ -74,7 +74,7 @@ plot(res1,xlab="Shad Densitiy",ylab="Sunfish Density")
 # same, but with modified computation of proportions
 ( res2 <- with(Garvey4a,ks2d1(shad,sunfish,divbylen=FALSE)) )
 
-# same, but compute large-sample p-value
+# same, but compute large-sample p-value -- HIGHLY EXPERIMENTAL (NOT TESTED)
 ( res3 <- with(Garvey4a,ks2d1(shad,sunfish,KSp=TRUE)) )
 
 # Example from Figure 1 in Garvey
