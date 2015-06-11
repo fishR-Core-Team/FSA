@@ -1,4 +1,6 @@
-# FSA 0.6.19 ongoing
+# FSA 0.6.20 ongoing
+
+# FSA 0.6.19 Jun15
 * `RichardsFuns()`: Added.
 * `RichardsModels()`: Added.
 
