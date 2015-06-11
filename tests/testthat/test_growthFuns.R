@@ -56,6 +56,9 @@ test_that("logisticFuns() output",{
 
 test_that("schnute() output",{
   expect_is(schnute(3,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
+  expect_is(schnute(3,case=2,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
+  expect_is(schnute(3,case=3,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
+  expect_is(schnute(3,case=4,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
 })
 
 test_that("RichardsFuns() output",{
