@@ -1,4 +1,4 @@
-context("Tests of vbFuns(), gompFuns(), logisticFuns()")
+context("Tests of vbFuns(), gompFuns(), logisticFuns(), schnute(), RichardsFuns()")
 
 test_that("vbFuns(), gompFuns(), logisticFuns() messages",{
   ## wrong models
@@ -7,6 +7,8 @@ test_that("vbFuns(), gompFuns(), logisticFuns() messages",{
   expect_error(logisticFuns("Derek"),"should be one of")
   expect_error(schnute(case=0),"case")
   expect_error(schnute(case=5),"case")
+  expect_error(RichardsFuns(param=0),"param")
+  expect_error(RichardsFuns(param=5),"param")
   ## bad choices for parameters in schnute()
   # t1==t3
   expect_error(schnute(3,t1=1,t3=1,L1=30,L3=300,a=0.3,b=0.5),"cannot equal")
@@ -54,4 +56,14 @@ test_that("logisticFuns() output",{
 
 test_that("schnute() output",{
   expect_is(schnute(3,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
+})
+
+test_that("RichardsFuns() output",{
+  ## Do all choices return a function
+  for (i in 1:4) {
+    expect_is(RichardsFuns(i),"function")
+    expect_is(RichardsFuns(i,simple=TRUE),"function")
+  }
+  ## Do all choices return a message with the name of the function in it
+  for (i in 1:4) expect_message(RichardsFuns(i,msg=TRUE),paste0("Richards",i))
 })

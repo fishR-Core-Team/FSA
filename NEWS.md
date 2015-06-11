@@ -1,4 +1,6 @@
 # FSA 0.6.19 ongoing
+* `RichardsFuns()`: Added.
+* `RichardsModels()`: Added.
 
 # FSA 0.6.18 Jun15
 * Changed nearly all "messages" using `cat()` to using `message()` so that they can be suppressed with `suppressMessage()` or `message=FALSE` in knitr.  See  "One comment on messages" at http://yihui.name/knitr/demo/output/.  Specific functions modified are listed below.
