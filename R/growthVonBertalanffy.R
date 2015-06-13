@@ -38,6 +38,8 @@
 #' Schnute, J.  1981.  A versatile growth model with statistically stable parameters. Canadian Journal of Fisheries and Aquatic Sciences, 38:1128-1140.
 #'
 #' Somers, I. F. 1988. \href{http://www.worldfishcenter.org/Naga/na_2914.pdf}{On a seasonally oscillating growth function.} Fishbyte 6(1):8-11.
+#' 
+#' Vaughan, D. S. and T. E. Helser.  1990.  \href{http://docs.lib.noaa.gov/noaa_documents/NMFS/SEFSC/TM_NMFS_SEFSC/NMFS_SEFSC_TM_263.pdf}{Status of the red drum stock of the Atlantic coast: Stock assessment report for 1989}.  NOAA Technical Memorandum NMFS-SEFC-263, 117 p.
 #'
 #' Wang, Y.-G.  1998.  An improved Fabens method for estimation of growth parameters in the von Bertalanffy model with individual asymptotes.  Canadian Journal of Fisheries and Aquatic Sciences 55:397-400.
 #'
@@ -92,7 +94,7 @@ NULL
 #' @export
 vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
                           "GQ","GallucciQuinn","Mooij","Weisberg",
-                          "Schnute","Francis","Laslett",
+                          "Schnute","Francis","Laslett","Polacheck",
                           "Fabens","Fabens2","Somers","Somers2","Wang","Wang2"),
                    simple=FALSE,msg=FALSE) {
   typical <- BevertonHolt <- function(t,Linf,K=NULL,t0=NULL) {
@@ -209,13 +211,13 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
   SWang2 <- function(Lm,dt,K,a,d) {
     (a+d*Lm)*(1-exp(-K*dt))
   }
-  Laslett <- function(t,Linf,K1,K2,t0,a,b) {
+  Laslett <- Polacheck <- function(t,Linf,K1,K2,t0,a,b) {
   if (length(Linf)==6) { K1 <- Linf[[2]]; K2 <- Linf[[3]]
                          t0 <- Linf[[4]]; a <- Linf[[5]]
                          b <- Linf[[6]]; Linf <- Linf[[1]] }
     Linf*(1-exp(-K2*(t-t0))*((1+exp(-b*(t-t0-a)))/(1+exp(a*b)))^(-(K2-K1)/b))
   }
-  SLaslett <- function(t,Linf,K1,K2,t0,a,b) {
+  SLaslett <- SPolacheck <- function(t,Linf,K1,K2,t0,a,b) {
     Linf*(1-exp(-K2*(t-t0))*((1+exp(-b*(t-t0-a)))/(1+exp(a*b)))^(-(K2-K1)/b))
   }
   type <- match.arg(type)
@@ -337,8 +339,8 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
                 "                   Lm = length at time of marking\n",
                 "                   dt = time between marking and recapture.\n\n")
       },
-      Laslett={
-        message("You have chosen the 'Laslett' 'double' parameterization.\n\n",
+      Laslett=,Polacheck={
+        message("You have chosen the 'Laslett/Polacheck' 'double' parameterization.\n\n",
                 "  E[L|t] = Linf*[1-exp(-K2*(t-to))((1+exp(-b(t-t0-a)))/(1+exp(ab)))^(-(K2-K1)/b)]\n\n",
                 "  where Linf = asymptotic mean length\n",
                 "          t0 = the theoretical age when length = 0 (a modeling artifact)\n",

@@ -8,8 +8,8 @@
 \usage{
 vbFuns(type = c("typical", "BevertonHolt", "original", "vonBertalanffy", "GQ",
   "GallucciQuinn", "Mooij", "Weisberg", "Schnute", "Francis", "Laslett",
-  "Fabens", "Fabens2", "Somers", "Somers2", "Wang", "Wang2"), simple = FALSE,
-  msg = FALSE)
+  "Polacheck", "Fabens", "Fabens2", "Somers", "Somers2", "Wang", "Wang2"),
+  simple = FALSE, msg = FALSE)
 
 vbModels(...)
 }
@@ -98,6 +98,8 @@ Polacheck, T., J.P. Eveson, and G.M. Laslett.  2004.  Increase in growth rates o
 Schnute, J.  1981.  A versatile growth model with statistically stable parameters. Canadian Journal of Fisheries and Aquatic Sciences, 38:1128-1140.
 
 Somers, I. F. 1988. \href{http://www.worldfishcenter.org/Naga/na_2914.pdf}{On a seasonally oscillating growth function.} Fishbyte 6(1):8-11.
+
+Vaughan, D. S. and T. E. Helser.  1990.  \href{http://docs.lib.noaa.gov/noaa_documents/NMFS/SEFSC/TM_NMFS_SEFSC/NMFS_SEFSC_TM_263.pdf}{Status of the red drum stock of the Atlantic coast: Stock assessment report for 1989}.  NOAA Technical Memorandum NMFS-SEFC-263, 117 p.
 
 Wang, Y.-G.  1998.  An improved Fabens method for estimation of growth parameters in the von Bertalanffy model with individual asymptotes.  Canadian Journal of Fisheries and Aquatic Sciences 55:397-400.
 
