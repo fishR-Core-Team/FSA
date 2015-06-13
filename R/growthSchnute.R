@@ -50,9 +50,19 @@ NULL
 #' @rdname growthSchnute
 #' @export
 schnute <- function(t,case=1,t1=NULL,t3=NULL,L1=NULL,L3=NULL,a=NULL,b=NULL) {
+  ## check case
   case <- as.character(case)
   if (!case %in% c("1","2","3","4")) stop("'case' must be 1, 2, 3, or 4.",call.=FALSE)
+  ## needed to get around global binding issue
   b <- b
+  ## check t1 and t3
+  if (length(t)==1) {
+    if (is.null(t1)) stop("Must provide a 't1' if 't' is only one value.",call.=FALSE)
+    if (is.null(t3)) stop("Must provide a 't3' if 't' is only one value.",call.=FALSE)
+  } else {
+    if (is.null(t1)) t1 <- min(t,na.rm=TRUE)
+    if (is.null(t3)) t3 <- max(t,na.rm=TRUE)
+  }
   if (t1==t3) stop("'t1' cannot equal 't3'.",call.=FALSE)
   if (t1>t3) {
     warning("'t1' was greater than 't3'; values reversed.",call.=FALSE)
@@ -60,7 +70,9 @@ schnute <- function(t,case=1,t1=NULL,t3=NULL,L1=NULL,L3=NULL,a=NULL,b=NULL) {
     t3 <- t1
     t1 <- tmp
   }
+  ## check L1 and L3
   if (L1>L3) stop ("'L1' cannot be greater than 'L3'",call.=FALSE)
+  ## Compute values based on case
   switch(case,
          "1"={ val <- ((L1^b)+((L3^b)-(L1^b))*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1)))))^(1/b) },
          "2"={ val <- L1*exp(log(L3/L1)*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1))))) },

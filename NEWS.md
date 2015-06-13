@@ -1,4 +1,6 @@
 # FSA 0.6.20 ongoing
+* `schnute()`: Modified.  Fixed bugs with the way `t1=` and `t3=` are handled.
+* `vbFuns()`: Modified.  Added `type="Polacheck"` which is equivalent to `type="Laslett"`.  Added a new reference in the help file.
 
 # FSA 0.6.19 Jun15
 * `RichardsFuns()`: Added.
