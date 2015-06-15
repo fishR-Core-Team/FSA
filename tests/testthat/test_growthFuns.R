@@ -37,7 +37,7 @@ test_that("vbFuns() output",{
 
 test_that("gompFuns() output",{
   ## List all choices for gompFuns()
-  tmp <- c("Ricker1","Ricker2","Ricker3","QD1","QD2","QD3","KM","AFS","original")
+  tmp <- c("Ricker1","Ricker2","Ricker3","QD1","QD2","QD3","KM","AFS","original","Troynikov1","Troynikov2")
   ## Do all choices return a function
   for (i in tmp) {
     expect_is(gompFuns(i),"function")
@@ -49,7 +49,7 @@ test_that("gompFuns() output",{
 
 test_that("logisticFuns() output",{
   ## List all choices for logisticFuns()
-  tmp <- c("CJ1","CJ2","Richards")
+  tmp <- c("CJ1","CJ2","Karkach","Haddon")
   ## Do all choices return a function
   for (i in tmp) {
     expect_is(logisticFuns(i),"function")

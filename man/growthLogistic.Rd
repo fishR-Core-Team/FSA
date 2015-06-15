@@ -6,7 +6,7 @@
 \alias{logisticModels}
 \title{Creates a function for a specific parameterization of the logistic growth function.}
 \usage{
-logisticFuns(type = c("CJ1", "CJ2", "Richards"), simple = FALSE,
+logisticFuns(type = c("CJ1", "CJ2", "Karkach", "HaddonI"), simple = FALSE,
   msg = FALSE)
 
 logisticModels(...)
@@ -21,7 +21,7 @@ logisticModels(...)
 \item{\dots}{Not implemented.}
 }
 \value{
-\code{logisticFuns} returns a function that can be used to predict fish length or weight given a vector of ages and values for the function parameters.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).  #'If \code{simple=FALSE}, then the values for all parameters may be included as a vector in the first parameter argument.  If \code{simple=TRUE}, then all parameters must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
+\code{logisticFuns} returns a function that can be used to predict fish length or weight given a vector of ages and values for the function parameters.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).  If \code{simple=FALSE}, then the values for all parameters may be included as a vector in the first parameter argument.  If \code{simple=TRUE}, then all parameters must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
 
 \code{logisticModels} returns a graphic that uses \code{\link{plotmath}} to show the model formulae in a pretty format.
 }
@@ -48,6 +48,11 @@ plot(log1(ages,Linf=800,gninf=0.5,ti=5)~ages,type="b",pch=19)
 plot(log2(ages,Linf=800,gninf=0.5,a=10)~ages,type="b",pch=19)
 
 ( log2c <- logisticFuns("CJ2",simple=TRUE) ) # compare to log2
+
+( log3 <- logisticFuns("Karkach") )       # Karkach parametrization
+plot(log3(ages,L0=10,Linf=800,gninf=0.5)~ages,type="b",pch=19)
+
+( log4 <- logisticFuns("HaddonI") )       # Haddon's inverse logistic
 
 #######################################################################################
 ## Examples of fitting Logistic models
@@ -79,8 +84,8 @@ fit2 <- nls(len~log2(age,Linf,gninf,a),data=df,start=list(Linf=450,gninf=0.45,a=
 summary(fit2,correlation=TRUE)
 curve(log2(x,Linf=coef(fit2)),from=0,to=15,col="blue",lwd=5,add=TRUE)
 
-# Fit Richards-like parameterization (using simple=TRUE model)
-log3 <- logisticFuns("Richards",simple=TRUE)
+# Fit Karkach parameterization (using simple=TRUE model)
+log3 <- logisticFuns("Karkach",simple=TRUE)
 fit3 <- nls(len~log3(age,Linf,L0,gninf),data=df,start=list(Linf=450,L0=30,gninf=0.45))
 summary(fit3,correlation=TRUE)
 curve(log3(x,Linf=coef(fit3)[1],L0=coef(fit3)[2],gninf=coef(fit3)[3]),
@@ -90,12 +95,14 @@ curve(log3(x,Linf=coef(fit3)[1],L0=coef(fit3)[2],gninf=coef(fit3)[3]),
 Derek H. Ogle, \email{dogle@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 }
 \references{
-Campana, S.E. and C.M. Jones.  1992.  Analysis of otolith microstructure data.  Pages 73-100 In D.K. Stevenson and S.E. Campana, editors.  Otolith microstructure examination and analysis.  Canadian Special Publication of Fisheries and Aquatic Sciences 117.
+Campana, S.E. and C.M. Jones.  1992.  \href{http://www.dfo-mpo.gc.ca/Library/141734.pdf}{Analysis of otolith microstructure data}.  Pages 73-100 In D.K. Stevenson and S.E. Campana, editors.  Otolith microstructure examination and analysis.  Canadian Special Publication of Fisheries and Aquatic Sciences 117.
 
-Winsor, C.P.  1932.  \href{http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1076153/pdf/pnas01729-0009.pdf}{The Gompertz curve as a growth curve}.  Proceedings of the National Academy of Sciences.  18:1-8.
+Haddon, M., C. Mundy, and D. Tarbath. 2008.  \href{http://aquaticcommons.org/8857/1/haddon_Fish_Bull_2008.pdf}{Using an inverse-logistic model to describe growth increments of blacklip abalone (\emph{Haliotis rubra}) in Tasmania}.  Fishery Bulletin 106:58-71.
+
+Karkach, A. S.  2006.  \href{http://www.demographic-research.org/volumes/vol15/12/15-12.pdf}{Trajectories and models of individual growth}.  Demographic Research 15:347-400.
 }
 \seealso{
-See \code{\link{vbFuns}}, \code{\link{gompFuns}}, and \code{\link{schnute}} for similar functionality for other models.
+See \code{\link{vbFuns}}, \code{\link{gompFuns}}, \code{\link{logisticFuns}}, and \code{\link{schnute}} for similar functionality for other models.
 }
 \keyword{manip}
 

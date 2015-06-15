@@ -395,6 +395,7 @@ iGrowthModels <- function(which,xpos,ypos) {
          
          CJ1=  {text(xpos,ypos,expression(plain("CJ1: ")~~~E(L[t])==frac(L[infinity],1+g[-infinity]*(t-t[i]))),pos=4)},
          CJ2=  {text(xpos,ypos,expression(plain("CJ2: ")~~~E(L[t])==frac(L[infinity],1+~ae^{-g[-infinity]*t})),pos=4)},
+         Karkach= {text(xpos,ypos,expression(plain("Karkach: ")~~~E(L[t])==frac(L[0]*L[infinity],L[0]+(L[infinity]-L[0])*e^{-g[-infinity]*t})),pos=4)},
          
          Richards1=  {text(xpos,ypos,expression(plain("Richards1: ")~~~E(L[t])==L[infinity]*~bgroup("(",1-a*e^{-kt},")")^{b}),pos=4)},
          Richards2=  {text(xpos,ypos,expression(plain("Richards2: ")~~~E(L[t])==L[infinity]*~bgroup("(",1-frac(1,b)*~e^{-k*(t-t[i])},")")^{~b}),pos=4)},

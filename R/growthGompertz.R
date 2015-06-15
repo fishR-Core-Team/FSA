@@ -36,7 +36,7 @@
 #' @seealso See \code{\link{vbFuns}}, \code{\link{logisticFuns}}, and \code{\link{schnute}} for similar functionality for other models.
 #'
 #' @references 
-#' Campana, S.E. and C.M. Jones.  1992.  Analysis of otolith microstructure data.  Pages 73-100 In D.K. Stevenson and S.E. Campana, editors.  Otolith microstructure examination and analysis.  Canadian Special Publication of Fisheries and Aquatic Sciences 117.
+#' Campana, S.E. and C.M. Jones.  1992.  \href{http://www.dfo-mpo.gc.ca/Library/141734.pdf}{Analysis of otolith microstructure data}.  Pages 73-100 In D.K. Stevenson and S.E. Campana, editors.  Otolith microstructure examination and analysis.  Canadian Special Publication of Fisheries and Aquatic Sciences 117.
 #' 
 #' Gompertz, B.  1825.  On the nature of the function expressive of the law of human mortality, and on a new method of determining the value of life contingencies.  Philosophical Transactions of the Royal Society of London.  115:513-583. 
 #' 
@@ -49,6 +49,8 @@
 #' Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 #' 
 #' Ricker, W.E. 1979.  \href{https://books.google.com/books?id=CB1qu2VbKwQC&pg=PA705&lpg=PA705&dq=Gompertz+fish&source=bl&ots=y34lhFP4IU&sig=EM_DGEQMPGIn_DlgTcGIi_wbItE&hl=en&sa=X&ei=QmM4VZK6EpDAgwTt24CABw&ved=0CE8Q6AEwBw#v=onepage&q=Gompertz fish&f=false}{Growth rates and models}.  Pages 677-743 In W.S. Hoar, D.J. Randall, and J.R. Brett, editors.  Fish Physiology, Vol. 8: Bioenergetics and Growth.  Academic Press, NY, NY.
+#' 
+#' Troynikov, V. S., R. W. Day, and A. M. Leorke.  \href{https://www.researchgate.net/profile/Robert_Day2/publication/249340562_Estimation_of_seasonal_growth_parameters_using_a_stochastic_gompertz_model_for_tagging_data/links/54200fa30cf203f155c2a08a.pdf}{Estimation of seasonal growth parameters using a stochastic Gompertz model for tagging data}.  Journal of Shellfish Research 17:833-838.
 #' 
 #' Winsor, C.P.  1932.  \href{http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1076153/pdf/pnas01729-0009.pdf}{The Gompertz curve as a growth curve}.  Proceedings of the National Academy of Sciences.  18:1-8.
 #' 
@@ -68,6 +70,8 @@
 #' plot(gomp2(ages,L0=2,a=6,gi=0.5)~ages,type="b",pch=19)
 #'
 #' ( gomp2c <- gompFuns("Ricker2",simple=TRUE) )   # compare to gomp2
+#' 
+#' ( gompT <- gompFuns("Troynikov1"))
 #'
 #' #######################################################################################
 #' ## Examples of fitting Gompertz models
@@ -111,7 +115,8 @@ NULL
 #' @rdname growthGompertz
 #' @export
 gompFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
-                            "QD1","QD2","QD3","KM","AFS","original"),
+                            "QD1","QD2","QD3","KM","AFS","original",
+                            "Troynikov1","Troynikov2"),
                      simple=FALSE,msg=FALSE) {
   original <- function(t,Linf,a=NULL,gi=NULL) {
   if (length(Linf)==3) { a <- Linf[[2]]
@@ -158,6 +163,22 @@ gompFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
   SQD3 <- function(t,Linf,gi,t0) {
     Linf*exp(-(1/gi)*exp(-gi*(t-t0)))
   }
+  Troynikov1 <- function(Lm,dt,Linf,gi=NULL) {
+    if (length(Linf)==2) { gi=Linf[2]
+                           Linf=Linf[1] }
+    Linf*((Lm/Linf)^exp(-gi*dt))-Lm
+  }
+  STroynikov1 <- function(Lm,dt,Linf,gi) {
+    Linf*((Lm/Linf)^exp(-gi*dt))-Lm
+  }
+  Troynikov2 <- function(Lm,dt,Linf,gi=NULL) {
+    if (length(Linf)==2) { gi=Linf[2]
+                           Linf=Linf[1] }
+    Linf*((Lm/Linf)^exp(-gi*dt))
+  }
+  STroynikov2 <- function(Lm,dt,Linf,gi) {
+    Linf*((Lm/Linf)^exp(-gi*dt))
+  }
   ## Main function
   type <- match.arg(type)
   comcat <- "parameterization of the Gompertz function.\n\n"
@@ -192,11 +213,29 @@ gompFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
                 "           a = dimenstionless parameter related to growth\n\n")
       },
       QD3= {
-        message("You have chosen the 'QD3",comcat,
+        message("You have chosen the 'QD3'",comcat,
                 "  E[L|t] = Linf*exp(-(1/gi)*exp(-gi*(t-t0)))\n\n",
                 "  where Linf = asymptotic mean length\n",
                 "          gi = instantaneous growth rate at the inflection point\n",
                 "          t0 = a dimensionless parameter related to time/age\n\n")
+      },
+      Troynikov1= {
+        message("You have chosen the 'Troynikov1'",comcat,
+                "  E[Lr-Lm|dt] = Linf*((Lm/Linf)^exp(-gi*dt))-Lm\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "          gi = instantaneous growth rate at the inflection point\n\n",
+                "  and the data are Lr = length at time of recapture\n",
+                "                   Lm = length at time of marking\n",
+                "                   dt = time between marking and recapture.\n")
+      },
+      Troynikov2= {
+        message("You have chosen the 'Troynikov2'",comcat,
+                "  E[Lr|dt] = Linf*((Lm/Linf)^exp(-gi*dt))\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "          gi = instantaneous growth rate at the inflection point\n\n",
+                "  and the data are Lr = length at time of recapture\n",
+                "                   Lm = length at time of marking\n",
+                "                   dt = time between marking and recapture.\n")
       }
     )
   }

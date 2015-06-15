@@ -1,4 +1,7 @@
 # FSA 0.6.20 ongoing
+* `gompFuns()`: Modified.  Added `type="Troynikov1"` and  `type="Troynikov1"`.
+* `logisticFuns()`: Modified.  Changed `type="Richards"` to `type="Karkach"`.
+* `logisticModels()`: Modified.  Added "Karkach" model.
 * `schnute()`: Modified.  Fixed bugs with the way `t1=` and `t3=` are handled.
 * `vbFuns()`: Modified.  Added `type="Polacheck"` which is equivalent to `type="Laslett"`.  Added a new reference in the help file.
 
