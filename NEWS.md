@@ -1,4 +1,6 @@
-# FSA 0.6.20 ongoing
+# FSA 0.6.21 ongoing
+
+# FSA 0.6.20 Jun15
 * `gompFuns()`: Deleted.
 * `gompModels()`: Deleted.
 * `GompertzFuns()`: Added.  Replaced `gompFuns()`.  Added `type="Troynikov1"` and  `type="Troynikov1"`.
