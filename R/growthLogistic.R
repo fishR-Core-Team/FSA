@@ -7,6 +7,7 @@
 #' @param type A string that indicates the parameterization of the logistic growth function.
 #' @param simple A logical that indicates whether the user should be allowed to send all parameter values in the first parameter argument (\code{=FALSE}; default) or whether all individual parameters must be specified (\code{=TRUE}).
 #' @param msg A logical that indicates whether a message about the model and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).
+#' @param cex A single numeric expansion value for use with \code{logisticModels}.
 #' @param \dots Not implemented.
 #' 
 #' @return \code{logisticFuns} returns a function that can be used to predict fish length or weight given a vector of ages and values for the function parameters.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).  If \code{simple=FALSE}, then the values for all parameters may be included as a vector in the first parameter argument.  If \code{simple=TRUE}, then all parameters must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
@@ -19,7 +20,7 @@
 #'
 #' @section IFAR Chapter: None specifically, but \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth} is related.
 #'
-#' @seealso See \code{\link{vbFuns}}, \code{\link{gompFuns}}, \code{\link{logisticFuns}}, and \code{\link{schnute}} for similar functionality for other models.
+#' @seealso See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{logisticFuns}}, and \code{\link{Schnute}} for similar functionality for other models.
 #'
 #' @references 
 #' Campana, S.E. and C.M. Jones.  1992.  \href{http://www.dfo-mpo.gc.ca/Library/141734.pdf}{Analysis of otolith microstructure data}.  Pages 73-100 In D.K. Stevenson and S.E. Campana, editors.  Otolith microstructure examination and analysis.  Canadian Special Publication of Fisheries and Aquatic Sciences 117.
@@ -56,7 +57,7 @@
 #' ##   other illustrating that the parameterizations all produce the same fitted values.
 #' # Make some fake data using the original parameterization
 #' 
-#' gompO <- gompFuns("original")
+#' gompO <- GompertzFuns("original")
 #' # setup ages, sample sizes (general reduction in numbers with
 #' # increasing age), and additive SD to model
 #' t <- 1:15
@@ -171,12 +172,23 @@ logisticFuns <- function(type=c("CJ1","CJ2","Karkach","HaddonI"),simple=FALSE,ms
 
 #' @rdname growthLogistic
 #' @export
-logisticModels <- function(...) {
-  op <- par(mar=c(0,0,3,0),cex=1.25)
-  plot(1,type="n",ylim=c(0,3),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA Logistic Growth Parameterizations",...)
-  iGrowthModels("CJ1", 0.1,2.5)
-  iGrowthModels("CJ2", 0.1,1.5)
-  iGrowthModels("Karkach", 0.1,0.5)
+logisticModels <- function(type=c("size","tagging"),cex=1.25,...) {
+  ## Set some plotting parameters
+  op <- par(mar=c(0,0,3,0),cex=cex)
+  ## Check the type argument
+  type <- match.arg(type)
+  ## Show the models
+  if (type=="size") {
+    plot(1,type="n",ylim=c(0,3),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
+         main="FSA Logistic Growth Parameterizations",...)
+    iGrowthModels("CJ1", 0.1,2.5)
+    iGrowthModels("CJ2", 0.1,1.5)
+    iGrowthModels("Karkach", 0.1,0.5)
+  } else {
+    plot(1,type="n",ylim=c(0,3),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
+         main="FSA Logistic Growth Tagging Parameterizations",cex=cex,...)
+    iGrowthModels("HaddonI", 0.1,2.5)
+  }
   par(op)
 }
 

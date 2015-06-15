@@ -8,7 +8,7 @@
 \usage{
 RichardsFuns(param = 1, simple = FALSE, msg = FALSE)
 
-RichardsModels(...)
+RichardsModels(cex = 1, ...)
 }
 \arguments{
 \item{param}{A single numeric that indicates the parameterization of the Richards growth function.}
@@ -16,6 +16,8 @@ RichardsModels(...)
 \item{simple}{A logical that indicates whether the user should be allowed to send all parameter values in the first parameter argument (\code{=FALSE}; default) or whether all individual parameters must be specified (\code{=TRUE}).}
 
 \item{msg}{A logical that indicates whether a message about the model and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).}
+
+\item{cex}{A single numeric expansion value for use with \code{RichardsModels}.}
 
 \item{\dots}{Not implemented.}
 }
@@ -28,9 +30,9 @@ RichardsModels(...)
 Creates a function for a specific parameterization of the Richards growth function.  Use \code{RichardsModels()} to see the equations for each model.
 }
 \note{
-Within FSA, Linf is the mean asymptotic length, ti is the age at the inflection point, k is related to growth (slope at the inflection point), and b is related to the position of the inflection point.
+Within FSA, Linf is the mean asymptotic length, ti is the age at the inflection point, k is related to growth (slope at the inflection point), b is related to the vertical position of the inflection point, and L0 is the mean length at age-0.
 
-The parameterizations (1-4) corresponse to models/equations 1, 4, 5, and 6, respectively, in Tjorve and Tjorve (2010).  Note that their A, S, k, and d are Linf, a, k, and b here (in FSA).
+The parameterizations (1-6) corresponse to models/equations 1, 4, 5, 6, 7, and 8, respectively, in Tjorve and Tjorve (2010).  Note that their A, S, k, d, and B are Linf, a, k, b, and L0 here (in FSA).
 }
 \section{IFAR Chapter}{
  None specifically, but \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth} is related.
@@ -55,6 +57,12 @@ plot(rich3(ages,Linf=800,k=0.5,ti=3,b=0.15)~ages,type="b",pch=19)
 plot(rich4(ages,Linf=800,k=0.5,ti=3,b=0.95)~ages,type="b",pch=19)
 lines(rich4(ages,Linf=800,k=0.5,ti=3,b=1.5)~ages,type="b",pch=19,col="blue")
 
+( rich5 <- RichardsFuns(5) )
+plot(rich5(ages,Linf=800,k=0.5,L0=50,b=1.5)~ages,type="b",pch=19)
+
+( rich6 <- RichardsFuns(6) )
+plot(rich6(ages,Linf=800,k=0.5,ti=3,Lninf=50,b=1.5)~ages,type="b",pch=19)
+
 ( rich2c <- RichardsFuns(2,simple=TRUE) ) # compare to rich2
 
 #######################################################################################
@@ -63,7 +71,7 @@ lines(rich4(ages,Linf=800,k=0.5,ti=3,b=1.5)~ages,type="b",pch=19,col="blue")
 ##   other illustrating that the parameterizations all produce the same fitted values.
 # Make some fake data using the original parameterization
 
-gompO <- gompFuns("original")
+gompO <- GompertzFuns("original")
 # setup ages, sample sizes (general reduction in numbers with
 # increasing age), and additive SD to model
 t <- 1:15
@@ -107,7 +115,7 @@ Richards, F. J.  1959.  A flexible growth function for empirical use.  Journal o
 Tjorve, E. and K. M. C. Tjorve.  2010.  \href{https://www.researchgate.net/profile/Even_Tjorve/publication/46218377_A_unified_approach_to_the_Richards-model_family_for_use_in_growth_analyses_why_we_need_only_two_model_forms/links/54ba83b80cf29e0cb04bd24e.pdf}{A unified approach to the Richards-model family for use in growth analyses: Why we need only two model forms.}  Journal of Theoretical Biology 267:417-425.
 }
 \seealso{
-See \code{\link{vbFuns}}, \code{\link{gompFuns}}, \code{\link{logisticFuns}}, and \code{\link{schnute}} for similar functionality for other models.
+See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{logisticFuns}}, and \code{\link{Schnute}} for similar functionality for other models.
 }
 \keyword{manip}
 

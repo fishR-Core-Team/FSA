@@ -2,7 +2,7 @@
 #' 
 #' @title The four-parameter growth function from Schnute (1981).
 #'
-#' @description The four-parameter growth function from Schnute (1981).  Use \code{schnuteModels()} to see the equations for each model.
+#' @description The four-parameter growth function from Schnute (1981).  Use \code{SchnuteModels()} to see the equations for each model.
 #'
 #' @param t A numeric vector of ages over which to model growth.
 #' @param case A string that indicates the case of the Schnute growth function to use.
@@ -12,17 +12,18 @@
 #' @param L3 The mean size/length at \code{t3}.
 #' @param a  A dimensionless parameter that is related to the time/age at the inflection point.
 #' @param b A dimensionless parameter that is related to size/length at the inflection point.
+#' @param cex A single numeric expansion value for use with \code{SchnuteModels}.
 #' @param \dots Not implemented.
 #' 
-#' @return \code{schnute} returns a predicted size/length given the case of the function and the provided parameter values.
+#' @return \code{Schnute} returns a predicted size/length given the case of the function and the provided parameter values.
 #' 
-#' \code{schnuteModels} returns a graphic that uses \code{\link{plotmath}} to show the model formulae in a pretty format.
+#' \code{SchnuteModels} returns a graphic that uses \code{\link{plotmath}} to show the model formulae in a pretty format.
 #' 
 #' @author Derek H. Ogle.
 #'
 #' @section IFAR Chapter: None specifically, but \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth} is related.
 #'
-#' @seealso See \code{\link{vbFuns}}, \code{\link{gompFuns}}, and \code{\link{logisticFuns}} for similar functionality for other models.
+#' @seealso See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{RichardsFuns}}, and \code{\link{logisticFuns}} for similar functionality for other models.
 #'
 #' @references Schnute, J.  1981.  A versatile growth model with statistical stable parameters.  Canadian Journal of Fisheris and Aquatic Sciences 38:1128-1140.
 #' 
@@ -31,14 +32,14 @@
 #' @examples
 #' ## See the formulae
 #' \dontrun{windows(5,5)}
-#' schnuteModels()
+#' SchnuteModels()
 #' 
 #' ## Simple examples
 #' ages <- 1:15
-#' s1 <- schnute(ages,case=1,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
-#' s2 <- schnute(ages,case=2,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
-#' s3 <- schnute(ages,case=3,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
-#' s4 <- schnute(ages,case=4,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
+#' s1 <- Schnute(ages,case=1,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
+#' s2 <- Schnute(ages,case=2,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
+#' s3 <- Schnute(ages,case=3,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
+#' s4 <- Schnute(ages,case=4,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
 #'
 #' plot(s1~ages,type="l",lwd=2)
 #' lines(s2~ages,lwd=2,col="red")
@@ -49,7 +50,7 @@ NULL
 
 #' @rdname growthSchnute
 #' @export
-schnute <- function(t,case=1,t1=NULL,t3=NULL,L1=NULL,L3=NULL,a=NULL,b=NULL) {
+Schnute <- function(t,case=1,t1=NULL,t3=NULL,L1=NULL,L3=NULL,a=NULL,b=NULL) {
   ## check case
   case <- as.character(case)
   if (!case %in% c("1","2","3","4")) stop("'case' must be 1, 2, 3, or 4.",call.=FALSE)
@@ -84,8 +85,8 @@ schnute <- function(t,case=1,t1=NULL,t3=NULL,L1=NULL,L3=NULL,a=NULL,b=NULL) {
 
 #' @rdname growthSchnute
 #' @export
-schnuteModels <- function(...) {
-  op <- par(mar=c(0,0,3,0),cex=1.25)
+SchnuteModels <- function(cex=1.25,...) {
+  op <- par(mar=c(0,0,3,0),cex=cex)
   plot(1,type="n",ylim=c(0,4),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA Schnute Growth Model Cases",...)
   iGrowthModels("Schnute1", 0.1,3.5)
   iGrowthModels("Schnute2", 0.1,2.5)

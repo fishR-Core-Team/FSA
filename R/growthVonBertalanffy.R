@@ -7,6 +7,7 @@
 #' @param type A string that indicates the parameterization of the von Bertalanffy growth function.
 #' @param simple A logical that indicates whether the user should be allowed to send all parameter values in the first parameter argument (\code{=FALSE}; default) or whether all individual parameters must be specified (\code{=TRUE}).
 #' @param msg A logical that indicates whether a message about the function and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).
+#' @param cex A single numeric expansion value for use with \code{vbModels}.
 #' @param \dots Not implemented.
 #' 
 #' @return \code{vbFuns} returns a function that can be used to predict fish length given a vector of ages and values for the function parameters and, in some parameterizations, values for some constants.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).  If \code{simple=FALSE} then the values for all parameters may be included as a vector in the first parameter argument.  Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE} then all parameters and constants must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
@@ -19,7 +20,7 @@
 #'
 #' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth}.
 #'
-#' @seealso See \code{\link{gompFuns}}, \code{\link{logisticFuns}}, and \code{\link{schnute}} for similar functionality for other models.  See \code{\link{vbStarts}} for methods to find starting values.
+#' @seealso See \code{\link{GompertzFuns}}, \code{\link{logisticFuns}}, \code{\link{RichardsFuns}}, and \code{\link{Schnute}} for similar functionality for other models.  See \code{\link{vbStarts}} for methods to find starting values.
 #'
 #' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
@@ -378,15 +379,15 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
 
 #' @rdname growthVonBertalanffy
 #' @export
-vbModels <- function(type=c("size","seasonal","tagging"),...) {
+vbModels <- function(type=c("size","seasonal","tagging"),cex=1,...) {
   ## Set some plotting parameters
-  op <- par(mar=c(0,0,3,0),...)
+  op <- par(mar=c(0,0,3,0),cex=cex)
   ## Check the type argument
   type <- match.arg(type)
   ## Show the models
   if (type=="size") {
     plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
-         main="FSA von Bertalanffy Parameterizations")
+         main="FSA von Bertalanffy Parameterizations",...)
     iGrowthModels("vbOriginal",0,6.0)
     iGrowthModels("vbTypical", 0,4.0)
     iGrowthModels("vbGQ",      0,2.0)
@@ -398,14 +399,14 @@ vbModels <- function(type=c("size","seasonal","tagging"),...) {
     iGrowthModels("vbFrancis2",0.65,0.5)
   } else if (type=="seasonal") {
     plot(1,type="n",ylim=c(0,6),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
-         main="FSA von Bertalanffy Seasonal Parameterizations")
+         main="FSA von Bertalanffy Seasonal Parameterizations",...)
     iGrowthModels("vbSomers1", 0,5.5)
     iGrowthModels("vbSomers1a", 0.15,4.5)
     iGrowthModels("vbSomers2",  0,2.5)
     iGrowthModels("vbSomers2a", 0.15,1.5)
   } else {
     plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
-         main="FSA von Bertalanffy Tag-Recapture Parameterizations")
+         main="FSA von Bertalanffy Tag-Recapture Parameterizations",...)
     iGrowthModels("vbFabens1", 0,6.5)
     iGrowthModels("vbFabens2", 0,5)
     iGrowthModels("vbWang1",   0,3.5)
@@ -417,7 +418,7 @@ vbModels <- function(type=c("size","seasonal","tagging"),...) {
 }
 
 ## Internal function for plotting the different models.  Send positions in xpos and ypos.
-## Used in gompModels, logisticModels, RichardsModels, and SchnuteModels as well
+## Used in GompertzModels, logisticModels, RichardsModels, and SchnuteModels as well
 iGrowthModels <- function(which,xpos,ypos) {
   switch(which,
          vbOriginal= {text(xpos,ypos,expression(plain("Original: ")~~~E(L[t])==L[infinity]~-~(L[infinity]-L[0])*~e^{-Kt}),pos=4)},
@@ -448,15 +449,17 @@ iGrowthModels <- function(which,xpos,ypos) {
          gTroynikov1={text(xpos,ypos,expression(plain("Troynikov1: ")~~~E(L[r]-L[m])==L[infinity]*~bgroup("(",frac(L[m],L[infinity]),")")^{e^{-g[i]*Delta*t}}-L[m]),pos=4)},
          gTroynikov2={text(xpos,ypos,expression(plain("Troynikov2: ")~~~E(L[r])==L[infinity]*~bgroup("(",frac(L[m],L[infinity]),")")^{e^{-g[i]*Delta*t}}),pos=4)},
 
-         
          CJ1=  {text(xpos,ypos,expression(plain("CJ1: ")~~~E(L[t])==frac(L[infinity],1+g[-infinity]*(t-t[i]))),pos=4)},
          CJ2=  {text(xpos,ypos,expression(plain("CJ2: ")~~~E(L[t])==frac(L[infinity],1+~ae^{-g[-infinity]*t})),pos=4)},
          Karkach= {text(xpos,ypos,expression(plain("Karkach: ")~~~E(L[t])==frac(L[0]*L[infinity],L[0]+(L[infinity]-L[0])*e^{-g[-infinity]*t})),pos=4)},
-         
+         HaddonI={text(xpos,ypos,expression(plain("HaddonI: ")~~~E(L[r]-L[m])==frac(Delta*L[max],1+e^{log(19)*frac(L[m]~-~L[50],L[95]~-~L[50])})),pos=4)},
+
          Richards1=  {text(xpos,ypos,expression(plain("Richards1: ")~~~E(L[t])==L[infinity]*~bgroup("(",1-a*e^{-kt},")")^{b}),pos=4)},
          Richards2=  {text(xpos,ypos,expression(plain("Richards2: ")~~~E(L[t])==L[infinity]*~bgroup("(",1-frac(1,b)*~e^{-k*(t-t[i])},")")^{~b}),pos=4)},
          Richards3=  {text(xpos,ypos,expression(plain("Richards3: ")~~~E(L[t])==frac(L[infinity],bgroup("(",1+b*e^{-k*(t-t[i])},")")^{~frac(1,b)})),pos=4)},
          Richards4=  {text(xpos,ypos,expression(plain("Richards4: ")~~~E(L[t])==L[infinity]*~bgroup("(",1+(b-1)*~e^{-k*(t-t[i])},")")^{~frac(1,1-b)}),pos=4)},
+         Richards5=  {text(xpos,ypos,expression(plain("Richards5: ")~~~E(L[t])==L[infinity]*~bgroup("[",bgroup("(",1+bgroup("(",frac(L[0],L[infinity]),")")^{1-b}-1,")")*~e^{-k*t},"]")^{~frac(1,1-b)}),pos=4)},
+         Richards6=  {text(xpos,ypos,expression(plain("Richards6: ")~~~E(L[t])==L[-infinity]+(L[infinity]-L[-infinity])*~bgroup("(",1+(b-1)*~e^{-k*(t-t[i])},")")^{~frac(1,1-b)}),pos=4)},
          
          Schnute1=  {text(xpos,ypos,expression(plain("Case 1: ")~~~E(L[t])==bgroup("[",L[1]^{b}+(L[3]^{b}-L[1]^{b})*~frac(1-e^{-a*(~t~-~t[1])},1-e^{-a*(~t[3]~-~t[1])}),"]")^{~frac(1,b)}),pos=4)},
          Schnute2=  {text(xpos,ypos,expression(plain("Case 2: ")~~~E(L[t])==L[1]*e^{log~bgroup("(",frac(L[3],L[1]),")")*~frac(1-e^{-a*(~t~-~t[1])},1-e^{-a*(~t[3]~-~t[1])})}),pos=4)},

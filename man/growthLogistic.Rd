@@ -9,7 +9,7 @@
 logisticFuns(type = c("CJ1", "CJ2", "Karkach", "HaddonI"), simple = FALSE,
   msg = FALSE)
 
-logisticModels(...)
+logisticModels(type = c("size", "tagging"), cex = 1.25, ...)
 }
 \arguments{
 \item{type}{A string that indicates the parameterization of the logistic growth function.}
@@ -17,6 +17,8 @@ logisticModels(...)
 \item{simple}{A logical that indicates whether the user should be allowed to send all parameter values in the first parameter argument (\code{=FALSE}; default) or whether all individual parameters must be specified (\code{=TRUE}).}
 
 \item{msg}{A logical that indicates whether a message about the model and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).}
+
+\item{cex}{A single numeric expansion value for use with \code{logisticModels}.}
 
 \item{\dots}{Not implemented.}
 }
@@ -60,7 +62,7 @@ plot(log3(ages,L0=10,Linf=800,gninf=0.5)~ages,type="b",pch=19)
 ##   other illustrating that the parameterizations all produce the same fitted values.
 # Make some fake data using the original parameterization
 
-gompO <- gompFuns("original")
+gompO <- GompertzFuns("original")
 # setup ages, sample sizes (general reduction in numbers with
 # increasing age), and additive SD to model
 t <- 1:15
@@ -102,7 +104,7 @@ Haddon, M., C. Mundy, and D. Tarbath. 2008.  \href{http://aquaticcommons.org/885
 Karkach, A. S.  2006.  \href{http://www.demographic-research.org/volumes/vol15/12/15-12.pdf}{Trajectories and models of individual growth}.  Demographic Research 15:347-400.
 }
 \seealso{
-See \code{\link{vbFuns}}, \code{\link{gompFuns}}, \code{\link{logisticFuns}}, and \code{\link{schnute}} for similar functionality for other models.
+See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{logisticFuns}}, and \code{\link{Schnute}} for similar functionality for other models.
 }
 \keyword{manip}
 

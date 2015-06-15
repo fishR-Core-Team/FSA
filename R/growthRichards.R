@@ -7,21 +7,22 @@
 #' @param param A single numeric that indicates the parameterization of the Richards growth function.
 #' @param simple A logical that indicates whether the user should be allowed to send all parameter values in the first parameter argument (\code{=FALSE}; default) or whether all individual parameters must be specified (\code{=TRUE}).
 #' @param msg A logical that indicates whether a message about the model and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).
+#' @param cex A single numeric expansion value for use with \code{RichardsModels}.
 #' @param \dots Not implemented.
 #' 
 #' @return \code{RichardsFuns} returns a function that can be used to predict fish length or weight given a vector of ages and values for the function parameters.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).  If \code{simple=FALSE}, then the values for all parameters may be included as a vector in the first parameter argument.  If \code{simple=TRUE}, then all parameters must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
 #' 
 #' \code{RichardsModels} returns a graphic that uses \code{\link{plotmath}} to show the model formulae in a pretty format.
 #'
-#' @note Within FSA, Linf is the mean asymptotic length, ti is the age at the inflection point, k is related to growth (slope at the inflection point), and b is related to the position of the inflection point.
+#' @note Within FSA, Linf is the mean asymptotic length, ti is the age at the inflection point, k is related to growth (slope at the inflection point), b is related to the vertical position of the inflection point, and L0 is the mean length at age-0.
 #' 
-#' The parameterizations (1-4) corresponse to models/equations 1, 4, 5, and 6, respectively, in Tjorve and Tjorve (2010).  Note that their A, S, k, and d are Linf, a, k, and b here (in FSA).
+#' The parameterizations (1-6) corresponse to models/equations 1, 4, 5, 6, 7, and 8, respectively, in Tjorve and Tjorve (2010).  Note that their A, S, k, d, and B are Linf, a, k, b, and L0 here (in FSA).
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
 #' @section IFAR Chapter: None specifically, but \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth} is related.
 #'
-#' @seealso See \code{\link{vbFuns}}, \code{\link{gompFuns}}, \code{\link{logisticFuns}}, and \code{\link{schnute}} for similar functionality for other models.
+#' @seealso See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{logisticFuns}}, and \code{\link{Schnute}} for similar functionality for other models.
 #'
 #' @references 
 #' Richards, F. J.  1959.  A flexible growth function for empirical use.  Journal of Experimental Biology 10:290-300.
@@ -50,6 +51,12 @@
 #' plot(rich4(ages,Linf=800,k=0.5,ti=3,b=0.95)~ages,type="b",pch=19)
 #' lines(rich4(ages,Linf=800,k=0.5,ti=3,b=1.5)~ages,type="b",pch=19,col="blue")
 #' 
+#' ( rich5 <- RichardsFuns(5) )
+#' plot(rich5(ages,Linf=800,k=0.5,L0=50,b=1.5)~ages,type="b",pch=19)
+#' 
+#' ( rich6 <- RichardsFuns(6) )
+#' plot(rich6(ages,Linf=800,k=0.5,ti=3,Lninf=50,b=1.5)~ages,type="b",pch=19)
+#' 
 #' ( rich2c <- RichardsFuns(2,simple=TRUE) ) # compare to rich2
 #'
 #' #######################################################################################
@@ -58,7 +65,7 @@
 #' ##   other illustrating that the parameterizations all produce the same fitted values.
 #' # Make some fake data using the original parameterization
 #' 
-#' gompO <- gompFuns("original")
+#' gompO <- GompertzFuns("original")
 #' # setup ages, sample sizes (general reduction in numbers with
 #' # increasing age), and additive SD to model
 #' t <- 1:15
@@ -138,8 +145,29 @@ RichardsFuns <- function(param=1,simple=FALSE,msg=FALSE) {
   SRichards4 <- function(t,Linf,k,ti,b) {
     Linf*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))
   }
+  Richards5 <- function(t,Linf,k=NULL,L0=NULL,b=NULL) {
+    if (length(Linf)==4) { k <- Linf[[2]]
+                           L0 <- Linf[[3]]
+                           b <- Linf[[4]]
+                          Linf <- Linf[[1]] }
+    Linf*(1+(((L0/Linf)^(1-b))-1)*exp(-k*t))^(1/(1-b))
+  }
+  SRichards5 <- function(t,Linf,k,L0,b) {
+    Linf*(1+(((L0/Linf)^(1-b))-1)*exp(-k*t))^(1/(1-b))
+  }
+  Richards6 <- function(t,Linf,k=NULL,ti=NULL,Lninf=NULL,b=NULL) {
+    if (length(Linf)==5) { k <- Linf[[2]]
+                           ti <- Linf[[3]]
+                           Lninf <- Linf[[3]]
+                           b <- Linf[[4]]
+                           Linf <- Linf[[1]] }
+    Lninf+(Linf-Lninf)*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))
+  }
+  SRichards6 <- function(t,Linf,k,ti,Lninf,b) {
+    Lninf+(Linf-Lninf)*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))
+  }
   ## Main function
-  if (!param %in% 1:4) stop("'param' must be in 1:4.")
+  if (!param %in% 1:6) stop("'param' must be in 1:6.")
   type <- paste0("Richards",param)
   if (msg) {
     switch(type,
@@ -149,31 +177,48 @@ RichardsFuns <- function(param=1,simple=FALSE,msg=FALSE) {
                 "  where Linf = asymptotic mean length\n",
                 "           k = a constant that controls the slope at the inflection point\n",
                 "           a = a dimensionless shape parameter\n",
-                "           b = a constant the y- value of the inflection point\n\n")
+                "           b = a constant that controls the y- value of the inflection point\n\n")
       },
       Richards2= {
         message("You have chosen the '",type,"' parameterization.",
                 "  Linf*(1-(1/b)*exp(-k*(t-ti)))^b\n\n",
                 "  where Linf = asymptotic mean length\n",
                 "           k = a constant that controls the slope at the inflection point\n",
-                "           ti = time/age at the inflection point\n",
-                "           b = a constant the y- value of the inflection point\n\n")
+                "          ti = time/age at the inflection point\n",
+                "           b = a constant that controls the y- value of the inflection point\n\n")
       },
       Richards3= {
         message("You have chosen the '",type,"' parameterization.",
                 "  Linf/((1+b*exp(-k*(t-ti)))^(1/b))\n\n",
                 "  where Linf = asymptotic mean length\n",
                 "           k = a constant that controls the slope at the inflection point\n",
-                "           ti = time/age at the inflection point\n",
-                "           b = a constant the y- value of the inflection point\n\n")
+                "          ti = time/age at the inflection point\n",
+                "           b = a constant that controls the y- value of the inflection point\n\n")
       },
       Richards4= {
         message("You have chosen the '",type,"' parameterization.",
                 "  Linf*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))\n\n",
                 "  where Linf = asymptotic mean length\n",
                 "           k = a constant that controls the slope at the inflection point\n",
-                "           ti = time/age at the inflection point\n",
-                "           b = a constant the y- value of the inflection point\n\n")
+                "          ti = time/age at the inflection point\n",
+                "           b = a constant that controls the y- value of the inflection point\n\n")
+      },
+      Richards5= {
+        message("You have chosen the '",type,"' parameterization.",
+                "  Linf*(1+(((L0/Linf)^(1-b))-1)*exp(-k*t))^(1/(1-b))\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "           k = a constant that controls the slope at the inflection point\n",
+                "          L0 = mean length at t=0\n",
+                "           b = a constant that controls the y- value of the inflection point\n\n")
+      },
+      Richards6= {
+        message("You have chosen the '",type,"' parameterization.",
+                "  Lninf+(Linf-Lninf)*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))\n\n",
+                "  where Linf = upper asymptotic mean length\n",
+                "           k = a constant that controls the slope at the inflection point\n",
+                "       Lninf = lower asymptotic mean length\n",
+                "          ti = time/age at the inflection point\n",
+                "           b = a constant that controls the y- value of the inflection point\n\n")
       }
     )
   }
@@ -183,13 +228,15 @@ RichardsFuns <- function(param=1,simple=FALSE,msg=FALSE) {
 
 #' @rdname growthRichards
 #' @export
-RichardsModels <- function(...) {
-  op <- par(mar=c(0,0,3,0),cex=1.25)
-  plot(1,type="n",ylim=c(0,4),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA Richards Growth Model Cases",...)
-  iGrowthModels("Richards1", 0.1,3.5)
-  iGrowthModels("Richards2", 0.1,2.5)
-  iGrowthModels("Richards3", 0.1,1.5)
-  iGrowthModels("Richards4", 0.1,0.5)
+RichardsModels <- function(cex=1,...) {
+  op <- par(mar=c(0,0,3,0),cex=cex)
+  plot(1,type="n",ylim=c(0,9),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA Richards Growth Model Cases",...)
+  iGrowthModels("Richards1", 0.05,8.5)
+  iGrowthModels("Richards2", 0.05,7.1)
+  iGrowthModels("Richards3", 0.05,5.2)
+  iGrowthModels("Richards4", 0.05,3.75)
+  iGrowthModels("Richards5", 0.05,2)
+  iGrowthModels("Richards6", 0.05,0.25)
   par(op)
 }
 

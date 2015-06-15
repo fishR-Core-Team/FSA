@@ -11,7 +11,7 @@ vbFuns(type = c("typical", "BevertonHolt", "original", "vonBertalanffy", "GQ",
   "Polacheck", "Somers", "Somers2", "Fabens", "Fabens2", "Wang", "Wang2",
   "Wang3"), simple = FALSE, msg = FALSE)
 
-vbModels(type = c("size", "seasonal", "tagging"), ...)
+vbModels(type = c("size", "seasonal", "tagging"), cex = 1, ...)
 }
 \arguments{
 \item{type}{A string that indicates the parameterization of the von Bertalanffy growth function.}
@@ -19,6 +19,8 @@ vbModels(type = c("size", "seasonal", "tagging"), ...)
 \item{simple}{A logical that indicates whether the user should be allowed to send all parameter values in the first parameter argument (\code{=FALSE}; default) or whether all individual parameters must be specified (\code{=TRUE}).}
 
 \item{msg}{A logical that indicates whether a message about the function and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; default).}
+
+\item{cex}{A single numeric expansion value for use with \code{vbModels}.}
 
 \item{\dots}{Not implemented.}
 }
@@ -109,7 +111,7 @@ Wang, Y.-G.  1998.  An improved Fabens method for estimation of growth parameter
 Weisberg, S., G.R. Spangler, and L. S. Richmond. 2010. Mixed effects models for fish growth. Canadian Journal of Fisheries And Aquatic Sciences 67:269-277.
 }
 \seealso{
-See \code{\link{gompFuns}}, \code{\link{logisticFuns}}, and \code{\link{schnute}} for similar functionality for other models.  See \code{\link{vbStarts}} for methods to find starting values.
+See \code{\link{GompertzFuns}}, \code{\link{logisticFuns}}, \code{\link{RichardsFuns}}, and \code{\link{Schnute}} for similar functionality for other models.  See \code{\link{vbStarts}} for methods to find starting values.
 }
 \keyword{hplot}
 \keyword{manip}
