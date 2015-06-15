@@ -26,6 +26,8 @@ test_that("xxxFuns() & schnute() messages",{
 test_that("xxxModels() messages",{
   ## wrong types
   expect_error(vbModels(type="Derek"),"should be one of")
+  expect_error(gompModels(type="Derek"),"should be one of")
+  expect_error(logisticModels(type="Derek"),"should be one of")
 })  
 
 test_that("vbFuns() output",{
