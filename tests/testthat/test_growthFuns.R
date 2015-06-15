@@ -1,6 +1,6 @@
-context("Tests of vbFuns(), gompFuns(), logisticFuns(), schnute(), RichardsFuns()")
+context("Tests of Growth Functions")
 
-test_that("vbFuns(), gompFuns(), logisticFuns() messages",{
+test_that("xxxFuns() & schnute() messages",{
   ## wrong models
   expect_error(vbFuns("Derek"),"should be one of")
   expect_error(gompFuns("Derek"),"should be one of")
@@ -23,9 +23,14 @@ test_that("vbFuns(), gompFuns(), logisticFuns() messages",{
   expect_error(schnute(c(3,3,3),L1=30,L3=300,a=0.3,b=0.5),"cannot equal")
 })
 
+test_that("xxxModels() messages",{
+  ## wrong types
+  expect_error(vbModels(type="Derek"),"should be one of")
+})  
+
 test_that("vbFuns() output",{
   ## List all choices for vbFuns()
-  tmp <- c("typical","BevertonHolt","original","vonBertalanffy","GQ","GallucciQuinn","Mooij","Weisberg","Schnute","Francis","Laslett","Polacheck","Fabens","Fabens2","Somers","Somers2","Wang","Wang2")
+  tmp <- c("typical","BevertonHolt","original","vonBertalanffy","GQ","GallucciQuinn","Mooij","Weisberg","Schnute","Francis","Laslett","Polacheck","Fabens","Fabens2","Somers","Somers2","Wang","Wang2","Wang3")
   ## Do all choices return a function
   for (i in tmp) {
     expect_is(vbFuns(i),"function")

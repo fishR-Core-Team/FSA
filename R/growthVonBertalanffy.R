@@ -51,6 +51,9 @@
 #' ## See the formulae
 #' \dontrun{windows(8,5)}
 #' vbModels()
+#' \dontrun{windows(6,5)}
+#' vbModels("seasonal")
+#' vbModels("tagging")
 #' 
 #' ## Simple Examples
 #' ( vb1 <- vbFuns() )              # typical parameterization
@@ -95,7 +98,8 @@ NULL
 vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
                           "GQ","GallucciQuinn","Mooij","Weisberg",
                           "Schnute","Francis","Laslett","Polacheck",
-                          "Fabens","Fabens2","Somers","Somers2","Wang","Wang2"),
+                          "Somers","Somers2",
+                          "Fabens","Fabens2","Wang","Wang2","Wang3"),
                    simple=FALSE,msg=FALSE) {
   typical <- BevertonHolt <- function(t,Linf,K=NULL,t0=NULL) {
   if (length(Linf)==3) { K <- Linf[[2]]
@@ -160,6 +164,15 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
     r <- (L3-L2)/(L2-L1)
     L1+(L3-L1)*((1-r^(2*((t-t1)/(t3-t1))))/(1-r^2))
   }
+  Laslett <- Polacheck <- function(t,Linf,K1,K2,t0,a,b) {
+    if (length(Linf)==6) { K1 <- Linf[[2]]; K2 <- Linf[[3]]
+    t0 <- Linf[[4]]; a <- Linf[[5]]
+    b <- Linf[[6]]; Linf <- Linf[[1]] }
+    Linf*(1-exp(-K2*(t-t0))*((1+exp(-b*(t-t0-a)))/(1+exp(a*b)))^(-(K2-K1)/b))
+  }
+  SLaslett <- SPolacheck <- function(t,Linf,K1,K2,t0,a,b) {
+    Linf*(1-exp(-K2*(t-t0))*((1+exp(-b*(t-t0-a)))/(1+exp(a*b)))^(-(K2-K1)/b))
+  }
   Somers <- function(t,Linf,K,t0,C,ts) {
   if (length(Linf)==5) { K <- Linf[[2]]; t0 <- Linf[[3]]
                          C <- Linf[[4]]; ts <- Linf[[5]]
@@ -204,21 +217,19 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
   SWang <- function(Lm,dt,Linf,K,b) {
     (Linf+b*(Lm-mean(Lm))-Lm)*(1-exp(-K*dt))
   }
-  Wang2 <- function(Lm,dt,K,a,d) {
-  if (length(K)==3) { d <- K[[3]]; a <- K[[2]]; K <- K[[1]] }
-  (a+d*Lm)*(1-exp(-K*dt))
-}
-  SWang2 <- function(Lm,dt,K,a,d) {
-    (a+d*Lm)*(1-exp(-K*dt))
+  Wang2 <- function(Lm,dt,K,a,b) {
+    if (length(K)==3) { b <- K[[3]]; a <- K[[2]]; K <- K[[1]] }
+    (a+b*Lm)*(1-exp(-K*dt))
   }
-  Laslett <- Polacheck <- function(t,Linf,K1,K2,t0,a,b) {
-  if (length(Linf)==6) { K1 <- Linf[[2]]; K2 <- Linf[[3]]
-                         t0 <- Linf[[4]]; a <- Linf[[5]]
-                         b <- Linf[[6]]; Linf <- Linf[[1]] }
-    Linf*(1-exp(-K2*(t-t0))*((1+exp(-b*(t-t0-a)))/(1+exp(a*b)))^(-(K2-K1)/b))
+  SWang2 <- function(Lm,dt,K,a,b) {
+    (a+b*Lm)*(1-exp(-K*dt))
   }
-  SLaslett <- SPolacheck <- function(t,Linf,K1,K2,t0,a,b) {
-    Linf*(1-exp(-K2*(t-t0))*((1+exp(-b*(t-t0-a)))/(1+exp(a*b)))^(-(K2-K1)/b))
+  Wang3 <- function(Lm,dt,K,a,b) {
+    if (length(K)==3) { b <- K[[3]]; a <- K[[2]]; K <- K[[1]] }
+    Lm+(a+b*Lm)*(1-exp(-K*dt))
+  }
+  SWang3 <- function(Lm,dt,K,a,b) {
+    Lm+(a+b*Lm)*(1-exp(-K*dt))
   }
   type <- match.arg(type)
   if (msg) {
@@ -279,6 +290,16 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
                 "        t1 = the youngest age in the sample\n",
                 "        t2 = the oldest age in the sample\n\n")
       },
+      Laslett=,Polacheck={
+        message("You have chosen the 'Laslett/Polacheck' 'double' parameterization.\n\n",
+                "  E[L|t] = Linf*[1-exp(-K2*(t-to))((1+exp(-b(t-t0-a)))/(1+exp(ab)))^(-(K2-K1)/b)]\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "          t0 = the theoretical age when length = 0 (a modeling artifact)\n",
+                "          K1 = the first (younger ages) exponential rate of approach to Linf\n",
+                "          K2 = the second (older ages) exponential rate of approach to Linf\n",
+                "           b = governs the rate of transition from K1 to K2\n",
+                "           a = the central age of the transition from K1 to K2\n\n")
+      },
       Somers={
         message("You have chosen the 'Somers Seasonal' parameterization.\n\n",
                 "  E[L|t] = Linf*(1-exp(-K*(t-to)-St+St0))\n\n",
@@ -324,7 +345,7 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
                 "  E[Lr-Lm|Lm,dt] = (Linf+b(Lm-E(Lm))-Lm)*(1-exp(-K*dt))\n\n",
                 "  where Linf = asymptotic mean length\n",
                 "           K = exponential rate of approach to Linf\n",
-                "           b = parameters\n\n",
+                "           b = parameter\n\n",
                 "  and the data are Lr = length at time of recapture\n",
                 "                   Lm = length at time of marking\n",
                 "                   dt = time between marking and recapture.\n\n",
@@ -332,22 +353,21 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
       },
       Wang2={
         message("You have chosen the 'Wang2' parameterization for tag-return data.\n\n",
-                "  E[Lr-Lm|Lm,dt] = (a+dLm)*(1-exp(-K*dt))\n\n",
+                "  E[Lr-Lm|Lm,dt] = (a+bLm)*(1-exp(-K*dt))\n\n",
                 "  where K = exponential rate of approach to Linf\n",
                 "     a, b = parameters\n\n",
                 "  and the data are Lr = length at time of recapture\n",
                 "                   Lm = length at time of marking\n",
                 "                   dt = time between marking and recapture.\n\n")
       },
-      Laslett=,Polacheck={
-        message("You have chosen the 'Laslett/Polacheck' 'double' parameterization.\n\n",
-                "  E[L|t] = Linf*[1-exp(-K2*(t-to))((1+exp(-b(t-t0-a)))/(1+exp(ab)))^(-(K2-K1)/b)]\n\n",
-                "  where Linf = asymptotic mean length\n",
-                "          t0 = the theoretical age when length = 0 (a modeling artifact)\n",
-                "          K1 = the first (younger ages) exponential rate of approach to Linf\n",
-                "          K2 = the second (older ages) exponential rate of approach to Linf\n",
-                "           b = governs the rate of transition from K1 to K2\n",
-                "           a = the central age of the transition from K1 to K2\n\n")
+      Wang3={
+        message("You have chosen the 'Wang3' parameterization for tag-return data.\n\n",
+                "  E[Lr|Lm,dt] = Lm+(a+bLm)*(1-exp(-K*dt))\n\n",
+                "  where K = exponential rate of approach to Linf\n",
+                "     a, b = parameters\n\n",
+                "  and the data are Lr = length at time of recapture\n",
+                "                   Lm = length at time of marking\n",
+                "                   dt = time between marking and recapture.\n\n")
       }
     )
   }
@@ -358,24 +378,46 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
 
 #' @rdname growthVonBertalanffy
 #' @export
-vbModels <- function(...) {
+vbModels <- function(type=c("size","seasonal","tagging"),...) {
+  ## Set some plotting parameters
   op <- par(mar=c(0,0,3,0),...)
-  plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
-       main="FSA von Bertalanffy Parameterizations")
-  iGrowthModels("vbOriginal",0,6.0)
-  iGrowthModels("vbTypical", 0,4.0)
-  iGrowthModels("vbGQ",      0,2.0)
-  iGrowthModels("vbMooij",   0,0.5)
-  abline(v=0.5)
-  iGrowthModels("vbWeisberg",0.50,6.0)
-  iGrowthModels("vbSchnute", 0.50,4.0)
-  iGrowthModels("vbFrancis", 0.50,2.0)
-  iGrowthModels("vbFrancis2",0.65,0.5)
+  ## Check the type argument
+  type <- match.arg(type)
+  ## Show the models
+  if (type=="size") {
+    plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
+         main="FSA von Bertalanffy Parameterizations")
+    iGrowthModels("vbOriginal",0,6.0)
+    iGrowthModels("vbTypical", 0,4.0)
+    iGrowthModels("vbGQ",      0,2.0)
+    iGrowthModels("vbMooij",   0,0.5)
+    abline(v=0.5)
+    iGrowthModels("vbWeisberg",0.50,6.0)
+    iGrowthModels("vbSchnute", 0.50,4.0)
+    iGrowthModels("vbFrancis", 0.50,2.0)
+    iGrowthModels("vbFrancis2",0.65,0.5)
+  } else if (type=="seasonal") {
+    plot(1,type="n",ylim=c(0,6),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
+         main="FSA von Bertalanffy Seasonal Parameterizations")
+    iGrowthModels("vbSomers1", 0,5.5)
+    iGrowthModels("vbSomers1a", 0.15,4.5)
+    iGrowthModels("vbSomers2",  0,2.5)
+    iGrowthModels("vbSomers2a", 0.15,1.5)
+  } else {
+    plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
+         main="FSA von Bertalanffy Tag-Recapture Parameterizations")
+    iGrowthModels("vbFabens1", 0,6.5)
+    iGrowthModels("vbFabens2", 0,5)
+    iGrowthModels("vbWang1",   0,3.5)
+    iGrowthModels("vbWang2",   0,2.0)
+    iGrowthModels("vbWang3",   0,0.5)
+  }
+  ## Return to the default plotting parameters
   par(op)
 }
 
 ## Internal function for plotting the different models.  Send positions in xpos and ypos.
-## Used in gompModels as well
+## Used in gompModels, logisticModels, RichardsModels, and SchnuteModels as well
 iGrowthModels <- function(which,xpos,ypos) {
   switch(which,
          vbOriginal= {text(xpos,ypos,expression(plain("Original: ")~~~E(L[t])==L[infinity]~-~(L[infinity]-L[0])*~e^{-Kt}),pos=4)},
@@ -386,6 +428,17 @@ iGrowthModels <- function(which,xpos,ypos) {
          vbSchnute=  {text(xpos,ypos,expression(plain("Schnute: ")~~~E(L[t])==L[1]+(L[3]-L[1])*~frac(1-e^{-K*(~t~-~t[1])},1-e^{-K*(~t[3]~-~t[1])})),pos=4)},
          vbFrancis=  {text(xpos,ypos,expression(plain("Francis: ")~~~E(L[t])==L[1]+(L[3]-L[1])*~frac(1-r^{2*frac(t-t[1],t[3]-t[1])},1-r^{2})),pos=4)},
          vbFrancis2= {text(xpos,ypos,expression(plain("where" )~r==frac(L[3]-L[2],L[2]-L[1])),pos=4)},
+         
+         vbSomers1=  {text(xpos,ypos,expression(plain("Somers1: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])-S(t)+S(t[0])},")")),pos=4)},
+         vbSomers1a= {text(xpos,ypos,expression(plain("where" )~S(t)==bgroup("(",frac(C*K,2)*~pi,")")*~sin(2*pi*(t-t[s]))),pos=4)},
+         vbSomers2=  {text(xpos,ypos,expression(plain("Somers2: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])-R(t)+R(t[0])},")")),pos=4)},
+         vbSomers2a= {text(xpos,ypos,expression(plain("where" )~R(t)==bgroup("(",frac(C*K,2)*~pi,")")*~sin(2*pi*(t-WP+0.5))),pos=4)},
+         
+         vbFabens1=  {text(xpos,ypos,expression(plain("Fabens1: ")~~~E(L[r]-L[m])==(L[infinity]-L[m])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
+         vbFabens2=  {text(xpos,ypos,expression(plain("Fabens2: ")~~~E(L[r])==L[m]+(L[infinity]-L[m])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
+         vbWang1=  {text(xpos,ypos,expression(plain("Wang1: ")~~~E(L[r]-L[m])==(L[infinity]+beta*(L[t]-L[t])-L[m])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
+         vbWang2=  {text(xpos,ypos,expression(plain("Wang2: ")~~~E(L[r]-L[m])==(alpha+beta*L[t])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
+         vbWang3=  {text(xpos,ypos,expression(plain("Wang3: ")~~~E(L[r])==L[m]+(alpha+beta*L[t])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
          
          gOriginal=  {text(xpos,ypos,expression(plain("Original:         ")~~~E(L[t])==L[infinity]*~e^{-e^{a-g[i]*t}}),pos=4)},
          gRicker1=   {text(xpos,ypos,expression(plain("Ricker1:          ")~~~E(L[t])==L[infinity]*~e^{-e^{-g[i]*(t-t[i])}}),pos=4)},

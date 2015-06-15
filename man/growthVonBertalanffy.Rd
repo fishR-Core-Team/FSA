@@ -8,10 +8,10 @@
 \usage{
 vbFuns(type = c("typical", "BevertonHolt", "original", "vonBertalanffy", "GQ",
   "GallucciQuinn", "Mooij", "Weisberg", "Schnute", "Francis", "Laslett",
-  "Polacheck", "Fabens", "Fabens2", "Somers", "Somers2", "Wang", "Wang2"),
-  simple = FALSE, msg = FALSE)
+  "Polacheck", "Somers", "Somers2", "Fabens", "Fabens2", "Wang", "Wang2",
+  "Wang3"), simple = FALSE, msg = FALSE)
 
-vbModels(...)
+vbModels(type = c("size", "seasonal", "tagging"), ...)
 }
 \arguments{
 \item{type}{A string that indicates the parameterization of the von Bertalanffy growth function.}
@@ -40,6 +40,9 @@ The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \
 ## See the formulae
 \dontrun{windows(8,5)}
 vbModels()
+\dontrun{windows(6,5)}
+vbModels("seasonal")
+vbModels("tagging")
 
 ## Simple Examples
 ( vb1 <- vbFuns() )              # typical parameterization
