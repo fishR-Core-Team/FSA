@@ -30,8 +30,7 @@
 #' ESPH \tab 22 \tab Exponential Scale Proportional Hypothesis \cr
 #' }
 #'
-#' @param BCM A single numeric between 1 and 22 that indicates which back-calculation model to use (based on numbers in Vigliola and Meekan (2009)).
-#' @param type A string that indicates which back-calculation model to use (based on abbreviations in Vigliola and Meekan (2009)).
+#' @param BCM A single numeric between 1 and 22 or a string that indicates which back-calculation model to use (based on numbers and names in Vigliola and Meekan (2009)).
 #' @param msg A logical that indicates whether a message about the model and parameter definitions should be output.
 #'
 #' @return A function that can be used to predict length at previous age (Li) given length-at-capture (Lc), hard-part radius-at-age i (Ri), and hard-part radius-at-capture (Rc).  In addition, some functions/models may require the previous age (agei) and the age-at-capture (agec), certain parameters related to the biological intercept (R0p & L0p), or certain parameters estimated from various regression models (a,b,c,A,B,C).  See source for more information.
@@ -57,31 +56,33 @@
 #' rad    <- c( 5,10,15,15,25)
 #' bcm1(lencap,rad,radcap)
 #'
-#' ( bcm2 <- bcFuns(type="FRALE") )
+#' ( bcm2 <- bcFuns("FRALE") )
 #' bcm2(lencap,rad,radcap,2)  # demonstrated with a=2
 #'
 #' @export
-bcFuns <- function(BCM=NULL,type=NULL,msg=FALSE) {
-  # Do some checking for the model declarations.  1) Both BCM and type arguments
-  #   can not be NULL.  2) At least one of BCM and type arguments must be NULL
-  #   (i.e., can't supply both).  3) Model chosen must be one of the possible choices
-  if (is.null(BCM) & is.null(type))
-    stop("Either 'BCM' or 'type' argument must be given (i.e., non-null.",call.=FALSE)
-  if (!is.null(BCM) & !is.null(type))
-    stop("'BCM' and 'type' arguments cannot both be given (i.e., only use one).",call.=FALSE)
-  if (!is.null(BCM)) {
-    if (BCM<1 | BCM>22) stop("BCM number must be between 1 and 20 inclusive.",call.=FALSE)
+bcFuns <- function(BCM,msg=FALSE) {
+  ## Do some checking
+  if (missing(BCM)) stop("A back-calculation function must be chosen with 'BCM='",call.=FALSE)
+  if (length(BCM)>1) stop("Only one back-caculation funcation can be given to 'BCM='",call.=FALSE)
+  if (is.numeric(BCM)) {
+    ## Function declared numerically
+    if (BCM<1 | BCM>22) stop("BCM number must be between 1 and 22 inclusive.",call.=FALSE)
+  } else {
+    ## Function declared by name
+    BCM.nms <- c("DALE","FRALE","BI","LBI","BPH","LBPH","TVG","SPH","LSPH",
+               "AE","AESPH","AEBPH","MONA","MONA-BPH","MONA-SPH","WAKU",
+               "FRY","MF","ABI","FRY-BPH","ABPH","FRY-SPH","ASPH",
+               "QBPH","QSPH","PBPH","PSPH","EBPH","ESPH")
+    BCM.nums <- c(1,2,3,3,4,4,5,6,6,7,7,8,9,10,11,12,13,14,14,15,15,16,16,17,18,19,20,21,22)
+    BCM <- toupper(BCM)
+    if (!(BCM %in% BCM.nms)) {
+      msg <- paste(strwrap(paste("'type=' must be one of:",
+                                 paste(BCM.nms,collapse=", ")),width=62),collapse="\n")
+      stop(msg,call.=FALSE)
+    } else BCM <- BCM.nums[which(BCM.nms %in% BCM)] # All is good ... convert 'type' to a BCM
   }
-  if (!is.null(type)) {
-    types <- c("DALE","FRALE","BI","LBI","BPH","LBPH","TVG","SPH","LSPH","AE","AESPH","AEBPH","MONA","MONA-BPH","MONA-SPH","WAKU","FRY","MF","ABI","FRY-BPH","ABPH","FRY-SPH","ASPH","QBPH","QSPH","PBPH","PSPH","EBPH","ESPH")
-    BCMs <- c(1,2,3,3,4,4,5,6,6,7,7,8,9,10,11,12,13,14,14,15,15,16,16,17,18,19,20,21,22)
-    if (!(type %in% types)) {
-      message("Name in 'type' arguments must be one of the following:\n")
-      print(types)
-      stop(call.=FALSE)
-    } else BCM <- BCMs[which(types %in% type)] # All is good ... convert 'type' to a BCM
-  }
-  # identify the functions
+
+  ## identify the functions
   if (BCM==1) {
       if (msg) message("You have chosen the BCM1 or DALE back-calculation model.\n\n")
       function(Lc,Ri,Rc) { (Ri/Rc)*Lc }
@@ -97,7 +98,7 @@ bcFuns <- function(BCM=NULL,type=NULL,msg=FALSE) {
   } else if (BCM==5) {
       stop("The BCM5 (TVG) function is not yet implemented.",call.=FALSE)
   } else if (BCM==6) {
-      if (msg) message("You have chosen the BCM6 or DALE back-calculation model.\n\n")
+      if (msg) message("You have chosen the BCM6 or LSPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,A,B) { (Ri/Rc*(A+B*Lc)-A)/B }
   } else if (BCM==7) {
       if (msg) message("You have chosen the BCM7, AE, or AESPH back-calculation model.\n\n")
@@ -119,10 +120,14 @@ bcFuns <- function(BCM=NULL,type=NULL,msg=FALSE) {
       function(Lc,Ri,Rc,L0p,R0) { exp(log(L0p) + ((log(Lc)-log(L0p))*(log(Ri)-log(R0)))/(log(Rc)-log(R0))) }
   } else if (BCM==13) {
       if (msg) message("You have chosen the BCM13 or FRY back-calculation model.\n\n")
-      function(Lc,Ri,Rc,L0,R0,a) { a + exp(log(L0-a) + ((log(Lc-a)-log(L0-a))*(log(Ri)-log(R0)))/(log(Rc)-log(R0))) }
+      function(Lc,Ri,Rc,L0,R0,a) {
+        a + exp(log(L0-a) + ((log(Lc-a)-log(L0-a))*(log(Ri)-log(R0)))/(log(Rc)-log(R0))) 
+      }
   } else if (BCM==14) {
       if (msg) message("You have chosen the BCM14, MF, or ABI back-calculation model.\n\n")
-      function(Lc,Ri,Rc,L0p,R0p,a) { a + exp(log(L0p-a) + ((log(Lc-a)-log(L0p-a))*(log(Ri)-log(R0p)))/(log(Rc)-log(R0p))) }
+      function(Lc,Ri,Rc,L0p,R0p,a) {
+        a + exp(log(L0p-a) + ((log(Lc-a)-log(L0p-a))*(log(Ri)-log(R0p)))/(log(Rc)-log(R0p)))
+      }
   } else if (BCM==15) {
       if (msg) message("You have chosen the BCM15, FRY-BPH, or ABPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,a,b,c) { (a+b*Ri^c)/(a+b*Rc^c)*Lc }
@@ -158,7 +163,8 @@ bcFuns <- function(BCM=NULL,type=NULL,msg=FALSE) {
         Li
       }
   } else if (BCM==20) { 
-      if (msg) message("You have chosen the BCM20 or PSPH back-calculation model.\n\n")  # Note that this is a function that should be used when finding a root, not to actually back-calculate
+      # Note that this is a function that should be used when finding a root, not to actually back-calculate
+      if (msg) message("You have chosen the BCM20 or PSPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,a) { # a must be a vector of coefficients from the polynomial regression
         exps <- 0:(length(a)-1)
         Li <- numeric(length(Lc))

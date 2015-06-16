@@ -1,4 +1,8 @@
 # FSA 0.6.21 ongoing
+* `addRadCap()`: Modified.  Modified so that `in.pre=` string must be at the start of the variable names.  Added a check for when the `in.pre=` string does not exist at the start of any variable names.  Added a check for whether all `in.var=` variables exist.  Added some simple tests (need more).
+* `bcFuns()`: Modified.  Removed `type=`; `BCM=` can now be either numeric or a string.  Allowed string to be in any case (will be converted to the required all upper-case).  Corrected some errors for when `msg=TRUE`.  Added some simple tests.
+* `gConvert()`: Modified.  Modified so that `in.pre=` string must be at the start of the variable names.  Added a check for when the `in.pre=` string does not exist at the start of any variable names.  Added some simple tests (need more).
+* `gReshape()`: Modified.  Modified so that `in.pre=` string must be at the start of the variable names.  Added a check for when the `in.pre=` string does not exist at the start of any variable names.  Added some simple tests (need more).
 
 # FSA 0.6.20 Jun15
 * `gompFuns()`: Deleted.

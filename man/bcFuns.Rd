@@ -4,12 +4,10 @@
 \alias{bcFuns}
 \title{Creates a function for a specific back-calculation model.}
 \usage{
-bcFuns(BCM = NULL, type = NULL, msg = FALSE)
+bcFuns(BCM, msg = FALSE)
 }
 \arguments{
-\item{BCM}{A single numeric between 1 and 22 that indicates which back-calculation model to use (based on numbers in Vigliola and Meekan (2009)).}
-
-\item{type}{A string that indicates which back-calculation model to use (based on abbreviations in Vigliola and Meekan (2009)).}
+\item{BCM}{A single numeric between 1 and 22 or a string that indicates which back-calculation model to use (based on numbers and names in Vigliola and Meekan (2009)).}
 
 \item{msg}{A logical that indicates whether a message about the model and parameter definitions should be output.}
 }
@@ -63,7 +61,7 @@ radcap <- c(20,20,20,30,30)
 rad    <- c( 5,10,15,15,25)
 bcm1(lencap,rad,radcap)
 
-( bcm2 <- bcFuns(type="FRALE") )
+( bcm2 <- bcFuns("FRALE") )
 bcm2(lencap,rad,radcap,2)  # demonstrated with a=2
 }
 \author{
