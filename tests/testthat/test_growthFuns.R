@@ -75,10 +75,10 @@ test_that("Schnute() output",{
 
 test_that("RichardsFuns() output",{
   ## Do all choices return a function
-  for (i in 1:4) {
+  for (i in 1:6) {
     expect_is(RichardsFuns(i),"function")
     expect_is(RichardsFuns(i,simple=TRUE),"function")
   }
   ## Do all choices return a message with the name of the function in it
-  for (i in 1:4) expect_message(RichardsFuns(i,msg=TRUE),paste0("Richards",i))
+  for (i in 1:6) expect_message(RichardsFuns(i,msg=TRUE),paste0("Richards",i))
 })
