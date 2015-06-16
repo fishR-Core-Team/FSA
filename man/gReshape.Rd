@@ -10,7 +10,7 @@ gReshape(df, in.pre, id.var, var.name = "prvAge", val.name = in.pre,
 \arguments{
 \item{df}{A data frame that contains the growth measurement data in one-fish-per-line format with specifs as defined in the details.}
 
-\item{in.pre}{A string that represents the common part of the measurement variable names.  See details.}
+\item{in.pre}{A string that represents the common start to the measurement variable names.  See details.}
 
 \item{id.var}{A vector of variables in \code{df} that do not change.  See details.}
 
@@ -35,7 +35,7 @@ This function does NOT convert the data from radial to incremental or incrementa
 
 The input data frame in \code{df} must have the following specific formats.  First, the measurements of annular increments or radii must be in one-fish-per-line format.  The measurements must be contained in columns that are named with a common prefix (e.g., \dQuote{anu}, \dQuote{inc}, or \dQuote{rad}) followed by a number that represents the age of the fish when that portion of the structure formed.  This prefix must be the same for all columns that contains measurements and \bold{must not be found in any other variable (as a prefix or not)}.  For example, the first annular measurement should be in a variable named \dQuote{anu1}, the second annular measurement in \dQuote{anu2}, and so on.  The name of the prefix should be included in the \code{in.pre=} argument.
 
-If \code{id.var} is left blank then the vector of variables that will not be changed upon the reshaping will consist of all variables that do NOT contain the \code{in.pre} prefix.
+If \code{id.var} is left blank then the vector of variables that will not be changed upon the reshaping will consist of all variables that do NOT start with the \code{in.pre} prefix.
 
 Errors may occur if a particular variable in the original data frame, to be included in the \code{id.var=} list, is of POSIX type.  A workaround for this error is to include the name of that variable in \code{drop=}.
 

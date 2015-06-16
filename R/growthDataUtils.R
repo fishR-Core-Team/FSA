@@ -44,15 +44,18 @@ gConvert<-function(df,in.pre,in.var,type=c("inc","rad"),out.pre=type) {
    cadd <- function(x) Reduce("+",x,accumulate=TRUE)
   ## end of internal function
   
-  if (missing(in.pre) & missing(in.var)) stop("You must use one of the in.var or in.pre arguments.",call.=FALSE)
-  if (!missing(in.pre) & !missing(in.var)) warning("Both in.var and in.pre arguments were used.  Only the in.var argument will be used.",call.=FALSE)
+  ## Some checks
+  if (missing(in.pre) & missing(in.var)) stop("You must use one of 'in.var=' or 'in.pre='.",call.=FALSE)
+  if (!missing(in.pre) & !missing(in.var)) warning("Both 'in.var=' and 'in.pre=' were used;
+                                                   only 'in.var=' will be used.",call.=FALSE)
   type <- match.arg(type)
   # coerce df as a data frame
   df <- as.data.frame(df)
   # Find variable column numbers if prefix was used.
-  if (missing(in.var)) { in.var <- grep(in.pre,names(df)) }
-    else { 
-      # converts variable names to column numbers
+  if (missing(in.var)) {
+    in.var <- grep(paste0("^",in.pre),names(df))
+    if (length(in.var)==0) stop("No variables start with 'in.pre' string.",call.=FALSE)
+  } else { # converts variable names to column numbers
       if (is.character(in.var)) in.var <- match(in.var,names(df)) 
     }
   # check to make sure all variable names are good
@@ -82,14 +85,14 @@ gConvert<-function(df,in.pre,in.var,type=c("inc","rad"),out.pre=type) {
 #'
 #' The input data frame in \code{df} must have the following specific formats.  First, the measurements of annular increments or radii must be in one-fish-per-line format.  The measurements must be contained in columns that are named with a common prefix (e.g., \dQuote{anu}, \dQuote{inc}, or \dQuote{rad}) followed by a number that represents the age of the fish when that portion of the structure formed.  This prefix must be the same for all columns that contains measurements and \bold{must not be found in any other variable (as a prefix or not)}.  For example, the first annular measurement should be in a variable named \dQuote{anu1}, the second annular measurement in \dQuote{anu2}, and so on.  The name of the prefix should be included in the \code{in.pre=} argument.
 #'
-#' If \code{id.var} is left blank then the vector of variables that will not be changed upon the reshaping will consist of all variables that do NOT contain the \code{in.pre} prefix.
+#' If \code{id.var} is left blank then the vector of variables that will not be changed upon the reshaping will consist of all variables that do NOT start with the \code{in.pre} prefix.
 #'
 #' Errors may occur if a particular variable in the original data frame, to be included in the \code{id.var=} list, is of POSIX type.  A workaround for this error is to include the name of that variable in \code{drop=}.
 #'
 #' The name of the variable in the reshaped output data frame that contains the measurements will be called the same as \code{in.pre} by default.  This can be changed by including a new name as a string in \code{val.name}.
 #'
 #' @param df A data frame that contains the growth measurement data in one-fish-per-line format with specifs as defined in the details.
-#' @param in.pre A string that represents the common part of the measurement variable names.  See details.
+#' @param in.pre A string that represents the common start to the measurement variable names.  See details.
 #' @param id.var A vector of variables in \code{df} that do not change.  See details.
 #' @param var.name A string that indicates the name in the reshaped data frame that represents the level of the measurement variables in the original data frame.
 #' @param val.name A string that indicates the name in the reshaped data frame that represents the measurements in the orginal data frame.
@@ -127,15 +130,17 @@ gConvert<-function(df,in.pre,in.var,type=c("inc","rad"),out.pre=type) {
 #' @export
 gReshape <- function(df,in.pre,id.var,var.name="prvAge",val.name=in.pre,last.plus=NULL,
                      na.rm=TRUE,drop=NULL) {
-  if (missing(in.pre)) stop("\nYou must enter a prefix string in the in.pre argument.",call.=FALSE)
+  ## Some Checks
+  if (missing(in.pre)) stop("\nYou must have a prefix string in 'in.pre='.",call.=FALSE)
   # coerce df to be a data.frame
   df <- as.data.frame(df)
   # drop variables if given
   if (!is.null(drop)) df <- df[,-which(names(df) %in% drop)]
-  # find measure.var by matching prefixes
-  measure.var <- names(df)[grep(in.pre,names(df))]
+  # find measure.var by matching prefixes (the ^ makes sure it is a prefish)
+  measure.var <- names(df)[grepl(paste0("^",in.pre),names(df))]
+  if (length(measure.var)==0) stop("No variables start with 'in.pre' string.",call.=FALSE)
   # if no id.var, then id.var is all not in measure.var
-  if (missing(id.var)) id.var <- names(df)[-grep(in.pre,names(df))]
+  if (missing(id.var)) id.var <- names(df)[!grepl(paste0("^",in.pre),names(df))]
   # do the reshaping (new.row.names gets around error with duplicate rownames from reshape)
   ndf <- reshape(df,direction="long",idvar=id.var,varying=measure.var,
                  v.names=in.pre,timevar=var.name,new.row.names=1:100000)
@@ -145,7 +150,7 @@ gReshape <- function(df,in.pre,id.var,var.name="prvAge",val.name=in.pre,last.plu
   rownames(ndf) <- 1:nrow(ndf)
   # handle the last.plus issues
   if (!is.null(last.plus)) {
-    if(any(is.na(match(last.plus,names(df))))) stop("\nName in last.plus argument does not occur in the input data.frame.",call.=FALSE)
+    if(any(is.na(match(last.plus,names(df))))) stop("'last.plus=' variable not found.",call.=FALSE)
     # If last.plus not null then remove values where age exceeds age@cap (sent in last.plus)
     ndf <- ndf[(ndf[,var.name] <= ndf[,last.plus]),]
   }
@@ -190,9 +195,15 @@ gReshape <- function(df,in.pre,id.var,var.name="prvAge",val.name=in.pre,last.plu
 #'
 #' @export
 addRadCap <- function(df,in.pre="inc",in.var,var.name="radcap") {
-  if (missing(in.pre) & missing(in.var)) stop("You must use one of the in.pre or in.var arguments.",call.=FALSE)
-  if (!missing(in.pre) & !missing(in.var)) warning("Both in.var and cols arguments were used.  Only the in.var argument will be used.",call.=FALSE)
-  if (!missing(in.pre) & missing(in.var)) { in.var <- grep(in.pre,names(df)) }
+  if (missing(in.pre) & missing(in.var)) stop("You must use one of 'in.pre=' or 'in.var='.",call.=FALSE)
+  if (!missing(in.pre) & !missing(in.var)) warning("Both 'in.var=' and 'in.pre=' were used;
+                                                   only 'in.var=' will be used.",call.=FALSE)
+  if (!missing(in.var)) {
+    if (!all(in.var %in% names(df))) stop("Not all 'in.var=' variables found.",call.=FALSE)
+  } else {
+    in.var <- grep(paste0("^",in.pre),names(df)) 
+    if (length(in.var)==0) stop("No variables start with 'in.pre' string.",call.=FALSE)
+  }
   df1 <- df[,in.var]
   radcap <- apply(df1,MARGIN=1,FUN=sum,na.rm=TRUE)
   df <- data.frame(df,radcap)
