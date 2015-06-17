@@ -102,7 +102,11 @@ srStarts <- function(formula,data=NULL,type=c("BevertonHolt","Ricker","Shepherd"
   if (length(param)!=1) stop("Only one 'param' is allowed.",call.=FALSE)
   ## some checks on the formula
   tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
-  if (!tmp$metExpNumR) stop("'srStarts' must have only one LHS variable.",call.=FALSE)
+  if (tmp$vnum!=2) {
+    if (tmp$vnum==1) stop("'srstarts' must have a formula with both LHS and RHS.",call.=FALSE)
+    if (tmp$vnum>2) stop("'srstarts' must have only one LHS and only one RHS variable.",call.=FALSE)
+  }
+  if (!tmp$metExpNumR) stop("'srStarts' must have one and only one LHS variable.",call.=FALSE)
   if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
   if (!tmp$metExpNumE) stop("'srStarts' must have only one RHS variable.",call.=FALSE)
   if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable must be numeric.",call.=FALSE)
