@@ -1,4 +1,5 @@
 # FSA 0.6.22 ongoing
+* `logbtcf()`: Modified.  Slight change to handle a check of `lm` class.
 * `pcumsum()`: Modified.  Modified to handle `table`, `matrix`, and `data.frame` classes as long as they are 1-dimenstional.
 * `rcumsum()`: Modified.  Modified to handle `table`, `matrix`, and `data.frame` classes as long as they are 1-dimenstional.
 * `srStarts()`: Modified.  Corrected some bugs related to checks.  Added more tests.

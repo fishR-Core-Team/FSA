@@ -508,7 +508,7 @@ lagratio <- function(x,lag=1L,recursion=1L,differences=recursion,direction=c("ba
 #' @rdname logbtcf
 #' @export
 logbtcf <- function(obj,base=exp(1)) {
-  if (class(obj) != "lm") stop("'obj' must be from lm().",call.=FALSE)
+  if (!all(class(obj)=="lm")) stop("'obj' must be from lm().",call.=FALSE)
   exp(((log(base)*summary(obj)$sigma)^2)/2)
 }
 

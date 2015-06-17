@@ -318,6 +318,41 @@ test_that("lagratio() calculations",{
 
 
 # ############################################################
+# logbtcf
+# ############################################################
+test_that("logbtcf() errors and output",{
+  ## toy data
+  df <- data.frame(y=rlnorm(10),x=rlnorm(10))
+  df$logey <- log(df$y)
+  df$log10y <- log10(df$y)
+  df$logex <- log(df$x)
+  df$log10x <- log10(df$x)
+  
+  # model and predictions on loge scale
+  lme <- lm(logey~logex,data=df)
+  cfe <- logbtcf(lme)
+  cpe <- cfe*exp(ploge <- predict(lme,data.frame(logex=log(10))))
+   
+  # model and predictions on log10 scale
+  lm10 <- lm(log10y~log10x,data=df)
+  cf10 <- logbtcf(lm10,10)
+  cp10 <- cf10*(10^(predict(lm10,data.frame(log10x=log10(10)))))
+  
+  ## Check output type
+  expect_is(cfe,"numeric")
+  expect_is(cf10,"numeric")
+  
+  ## Results should be equal
+  expect_equal(cfe,cf10)
+  expect_equal(cpe,cp10)
+  
+  ## only works with lm
+  glme <- glm(logey~logex,data=df)
+  expect_error(logbtcf(glme),"must be from lm()")
+})
+
+
+# ############################################################
 # oddeven
 # ############################################################
 test_that("oddeven() error messages and return values",{
