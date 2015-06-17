@@ -375,13 +375,21 @@ test_that("perc() error messages and return values",{
 # rcumsum / pcumsum
 # ############################################################
 test_that("pcumsum()/rcumsum() error messages and return values",{
-  ## check error messages
+  ## check error messages -- wrong type
   expect_error(pcumsum(letters),"numeric")
   expect_error(rcumsum(letters),"numeric")
-  expect_error(pcumsum(data.frame(x=1:5)),"vector")
-  expect_error(rcumsum(data.frame(x=1:5)),"vector")
-  expect_error(pcumsum(matrix(1:6,ncol=2)),"vector")
-  expect_error(rcumsum(matrix(1:6,ncol=2)),"vector")
+  ## check error messages -- not 1-dimensional
+  tmp <- data.frame(x=sample(1:5,100,replace=TRUE),
+                    y=sample(1:5,100,replace=TRUE))
+  tbl <- table(tmp$x,tmp$y)
+  expect_error(pcumsum(tbl),"1-dimensional")
+  expect_error(rcumsum(tbl),"1-dimensional")
+  tbl <- as.data.frame(table(tmp$x))
+  expect_error(pcumsum(tbl),"1-dimensional")
+  expect_error(rcumsum(tbl),"1-dimensional")
+  mat <- matrix(1:6,nrow=2)
+  expect_error(pcumsum(mat),"1-dimensional")
+  expect_error(rcumsum(mat),"1-dimensional")
   ## check results
   tmp <- 1:3
   expect_equal(pcumsum(tmp),c(0,1,3))

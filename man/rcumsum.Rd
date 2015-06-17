@@ -16,7 +16,7 @@ pcumsum(x)
 A numeric vector that contains the prior-to or reverse cumulative sums.
 }
 \description{
-Computes the prior-to (i.e., the cumulative sum prior to but not including the current value) or the reverse (i.e., the number that large or larger) cumulative sum of a vector.
+Computes the prior-to (i.e., the cumulative sum prior to but not including the current value) or the reverse (i.e., the number that large or larger) cumulative sum of a vector.  Also works for 1-dimensional tables, matrices, and data.frames, though it is best used with vectors.
 }
 \note{
 An \code{NA} in the vector causes all returned values at and after the first \code{NA} for \code{pcumsum} and at and before the last \code{NA} for \code{rcumsum} to be \code{NA}.  See the examples.
@@ -41,6 +41,26 @@ cbind(vals,
       cum=cumsum(vals),
       pcum=pcumsum(vals),
       rcum=rcumsum(vals))
+
+## Example with a matrix
+mat <- matrix(c(1,2,3,4,5),nrow=1)
+cumsum(mat)
+pcumsum(mat)
+rcumsum(mat)
+
+## Example with a table (must be 1-d)
+df <- sample(1:10,100,replace=TRUE)
+tbl <- table(df)
+cumsum(tbl)
+pcumsum(tbl)
+rcumsum(tbl)
+
+## Example with a data.frame (must be 1-d)
+df <- sample(1:10,100,replace=TRUE)
+tbl <- as.data.frame(table(df))[,-1]
+cumsum(tbl)
+pcumsum(tbl)
+rcumsum(tbl)
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
