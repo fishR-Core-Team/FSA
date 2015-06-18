@@ -1,3 +1,5 @@
+# FSA 0.6.23 ongoing
+
 # FSA 0.6.22 ongoing
 * `extraSS()`: Modified.  Added `sim.name=` to allow for a common typing mistake.
 * `logbtcf()`: Modified.  Slight change to handle a check of `lm` class.
