@@ -7,9 +7,10 @@
 \alias{print.extraTest}
 \title{Likelihood ratio and extra sum-of-squares tests.}
 \usage{
-lrt(sim, ..., com, sim.names = NULL, com.name = NULL)
+lrt(sim, ..., com, sim.names = sim.name, sim.name = NULL, com.name = NULL)
 
-extraSS(sim, ..., com, sim.names = NULL, com.name = NULL)
+extraSS(sim, ..., com, sim.names = sim.name, sim.name = NULL,
+  com.name = NULL)
 
 \method{print}{extraTest}(x, ...)
 }
@@ -18,7 +19,7 @@ extraSS(sim, ..., com, sim.names = NULL, com.name = NULL)
 
 \item{com}{The results of one \code{lm} or \code{nls} model, for example, that the models in \code{sim=} and \code{\dots} are a subset of.}
 
-\item{sim.names}{A string vector of \dQuote{names} for simple model in \code{sim=} and \code{\dots}.}
+\item{sim.name,sim.names}{A string vector of \dQuote{names} for simple model in \code{sim=} and \code{\dots}.  \code{sim.names} is preferred but \code{sim.name} is allowed to allow for a common typing mistake.}
 
 \item{com.name}{A single \dQuote{name} string for the complex model in \code{com=}.}
 

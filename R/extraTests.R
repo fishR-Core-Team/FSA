@@ -11,7 +11,7 @@
 #' @param sim The results of one \code{lm} or \code{nls} model, for example, that is a nested subset of the model in \code{com=}.
 #' @param \dots More model results that are nested subsets of the model in \code{com=}.
 #' @param com The results of one \code{lm} or \code{nls} model, for example, that the models in \code{sim=} and \code{\dots} are a subset of.
-#' @param sim.names A string vector of \dQuote{names} for simple model in \code{sim=} and \code{\dots}.
+#' @param sim.name,sim.names A string vector of \dQuote{names} for simple model in \code{sim=} and \code{\dots}.  \code{sim.names} is preferred but \code{sim.name} is allowed to allow for a common typing mistake.
 #' @param com.name A single \dQuote{name} string for the complex model in \code{com=}. 
 #' @param x An object from \code{lrt()} or \code{extraSS()}.
 #'
@@ -87,7 +87,7 @@ NULL
 
 #' @rdname extraTests
 #' @export
-lrt <- function(sim,...,com,sim.names=NULL,com.name=NULL) {
+lrt <- function(sim,...,com,sim.names=sim.name,sim.name=NULL,com.name=NULL) {
   ## Check if models are of the same class (if so, get class)
   mdl.class <- iSameModelClass(list(sim,...,com))
   ## Make a list of the simple models and determine how many
@@ -128,7 +128,7 @@ lrt <- function(sim,...,com,sim.names=NULL,com.name=NULL) {
 
 #' @rdname extraTests
 #' @export
-extraSS <- function(sim,...,com,sim.names=NULL,com.name=NULL) {
+extraSS <- function(sim,...,com,sim.names=sim.name,sim.name=NULL,com.name=NULL) {
   ## Check if models are of the same class (if so, get class)
   mdl.class <- iSameModelClass(list(sim,...,com))
   ## Send error if models are not lm() or nls()
