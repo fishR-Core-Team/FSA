@@ -8,19 +8,19 @@
 #'
 #' Three statistical tests of symmetry for the age-agreement table can be computed with \code{what=} in \code{summary}.  The \dQuote{unpooled} or Bowker's test as described in Hoenig et al. (1995) is constructed with \code{what="Bowkers"}, the \dQuote{semi-pooled} or Evans-Hoenig test as described in Evans and Hoenig (1998) is constructed with \code{what="EvansHoenig"}, and the \dQuote{pooled} or McNemar's test as described in Evans and Hoenig (1998) is constructed with \code{what="McNemars"}.  All three tests are run simultaneously with \code{what="symmetry"}.
 #'
-#' An age-bias plot, as defined by Campana et al. (1995), is constructed with \code{what="bias"} (the default) in \code{plot}.  The reference variable from the \code{ageBias} call is plotted on the x-axis.  Confidence intervals plotted in red are computed for the mean of the non-reference ages at each age of the reference ages.  The level of confidence is controlled by \code{sig.level=} given in the original \code{ageBias} call (i.e., confidence level is 100*(1-\code{sig.level}).  Confidence intervals are only shown if the sample size is greater than the value in \code{min.n.CI=}.  Vertical lines that connect the minimum to the maximum observed value of the y-axis variable at each age of the x-axis variable are plotted in grey if \code{show.range=TRUE}.  The 1:1 (45 degree) agreement line is shown for comparative purposes.  The sample sizes at each age of the x-axis variable are shown if \code{show.n=TRUE} (the default).  The position of the sample sizes is controlled with \code{nYpos=}.
+#' An age-bias plot, as defined by Campana et al. (1995), is constructed with \code{what="bias"} (the default) in \code{plot}.  The reference variable from the \code{ageBias} call is plotted on the x-axis.  Plotted confidence intervals are computed for the mean of the non-reference ages at each age of the reference ages.  The level of confidence is controlled by \code{sig.level=} given in the original \code{ageBias} call (i.e., confidence level is 100*(1-\code{sig.level}).  Confidence intervals are only shown if the sample size is greater than the value in \code{min.n.CI=}.  Confidence intervals plotted in red do not contain the reference age (see discussion of t-tests below).  Vertical lines that connect the minimum to the maximum observed value of the y-axis variable at each age of the x-axis variable are plotted in grey if \code{show.range=TRUE}.  Individual points are plotted if \code{show.pts=TRUE}  The 1:1 (45 degree) agreement line is shown for comparative purposes.  The sample sizes at each age of the x-axis variable are shown if \code{show.n=TRUE} (the default).  The position of the sample sizes is controlled with \code{nYpos=}.
 #'
 #' An age-bias plot, as defined by Muir et al. (2008), is constructed as defined above but by also including \code{difference=TRUE} in \R{plot} so that the y-axis is the difference in the paired reference and non-reference ages from the \code{ageBias} call (specifically, non-reference-reference).
 #'
-#' The frequency of observations at each unique (x,y) coordinate are shown is constructed by using \code{what="numbers"} in \code{plot}.
+#' The frequency of observations at each unique (x,y) coordinate are shown by using \code{what="numbers"} in \code{plot}.
 #'
-#' A \dQuote{sunflower plot} which contains a symbol for each unique (x,y) coordinate with as many \dQuote{petals} as observations at that point is constructed with \code{what="sunflower"} in \code{plot}.  A sunflower plot with differences between the two structures can be constructed by also including \code{difference=TRUE}.
+#' A \dQuote{sunflower plot}, which contains a symbol for each unique (x,y) coordinate with as many \dQuote{petals} as observations at that point, is constructed with \code{what="sunflower"} in \code{plot}.  A sunflower plot with differences between the two structures can be constructed by also including \code{difference=TRUE}.
 #'
-#' Individual t-tests to determine if the mean age of the non-reference set at a particular age of the reference set is equal to the reference age (e.g., is the mean age of the non-reference at age-3 of the reference set statistically equal to 3?) are constructed with \code{what="bias"} in \code{summary}.  The results provide a column that indicates whether the difference is significant or not as determined by adjusted p-value from the t-test and using the signficance level provided in \code{sig.level} (defaults to 0.05).  Similar results for the difference in ages (e.g., is the mean row variable age minus column variable age at column variable age-3 equal to 0?) are constructed with \code{what="diff.bias"} in \code{summary}.
+#' Individual t-tests to determine if the mean age of the non-reference set at a particular age of the reference set is equal to the reference age (e.g., is the mean age of the non-reference at age-3 of the reference set statistically equal to 3?) are shown with \code{what="bias"} in \code{summary}.  The results provide a column that indicates whether the difference is significant or not as determined by adjusted p-values from the t-tests and using the signficance level provided in \code{sig.level} (defaults to 0.05).  Similar results for the difference in ages (e.g., is the mean row variable age minus column variable age at column variable age-3 equal to 0?) are constructed with \code{what="diff.bias"} in \code{summary}.
 #'
 #' The sample size present in the age-agreement table is found with \code{what="n"}.
 #'
-#' @param formula A formula of the form \code{nrefvar~refvar}, where \code{hrefvar} and \code{refvar} generically represent the variables that contain the \dQuote{nonreference} and \dQuote{reference} age assignments, respectively.  See details.
+#' @param formula A formula of the form \code{nrefvar~refvar}, where \code{nrefvar} and \code{refvar} generically represent the variables that contain the \dQuote{nonreference} and \dQuote{reference} age assignments, respectively.  See details.
 #' @param data A data.frame that minimally contains the paired age assignments given \code{formula}.
 #' @param ref.lab A string that contains a label for the reference age assignment.
 #' @param nref.lab A string that contains a label for the nonreference age assignments.
@@ -54,7 +54,7 @@
 #' @param col.CI A string or value that indicates the color to be used for confidence interval bars that are considered non-significant on an age bias plot.
 #' @param col.CIsig A string or value that indicates the color to be used for confidence interval bars that are considered significant on an age bias plot.
 #' @param lwd.CI A value that indicates the line width for the confidence interval bars on an age bias plot.
-#' @param sfrac A value that controls the size of the ends of the confidence interval bars.  See \code{sfrac} in \code{plotCI} of \pkg{plotrix}.
+#' @param sfrac A value that controls the size of the ends of the confidence interval bars.  See \code{sfrac} in \code{\link[plotrix]{plotCI}} of \pkg{plotrix}.
 #' @param col.agree A value or string that indicates the color for the 1:1 or zero (if difference) reference line on an age bias plot.
 #' @param lwd.agree A value that indicates the line width for the 1:1 or zero (if difference) reference line on an age bias plot.
 #' @param lty.agree A value that indicates the line type for the 1:1 or zero (if difference) reference line on an age bias plot.
@@ -117,8 +117,8 @@
 #'
 #' ## default plot
 #' plot(ab1)
-#' ## demonstrates controlling the y-axis limits
-#' plot(ab1,ylim=c(0,10))
+#' ## demonstrates squaring up the axes
+#' plot(ab1,ylim=c(-1,23),xlim=c(-1,23))
 #' ## plot with the data points shown
 #' plot(ab1,show.pts=TRUE,transparency=1/8)
 #' ## plot with the range shown
@@ -228,40 +228,6 @@ summary.ageBias <- function(object,
     else Subset(tmp,grepl(what,symTest))
   }
 }
-
-#' @rdname ageBias
-#' @export
-plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE,
-                         xlab=x$ref.lab,ylab=x$nref.lab,show.n=TRUE,nYpos=1.1,
-                         lwd=1,
-                         show.pts=FALSE,pch.pts=19,col.pts=rgb(0,0,0,transparency),transparency=1/10,
-                         pch.mean=175,cex.mean=lwd,
-                         col.CI="black",col.CIsig="red",lwd.CI=lwd,sfrac=0,
-                         show.range=FALSE,col.range="gray",lwd.range=lwd,
-                         col.agree="black",lwd.agree=lwd,lty.agree=2,
-                         cex.numbers=0.9,
-                         xlim=NULL,ylim=NULL,yaxt=par("yaxt"),xaxt=par("xaxt"),...) {
-  what <- match.arg(what)
-  switch(what,
-         bias={ iAgeBiasPlot(x,difference,
-                             xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
-                             show.n,nYpos,show.pts,pch.pts,col.pts,
-                             pch.mean,cex.mean,col.CI,col.CIsig,lwd.CI,sfrac,
-                             show.range,col.range,lwd.range,
-                             col.agree,lwd.agree,lty.agree,
-                             xlim,ylim,yaxt,...) },
-         sunflower={ iAgeBiasSunflowerPlot(x,difference,xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
-                                           xlim,ylim,lwd.agree,lty.agree,col.agree,...) },
-         numbers={ iAgeBiasNumPlot(x,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,
-                                   cex.numbers,yaxt,xaxt,...) }
-  ) # end switch
-}
-
-##############################################################
-##############################################################
-## Related INTERNAL functions
-##############################################################
-##############################################################
 
 #=============================================================
 # This internal function is used to created a data frame of
@@ -404,23 +370,36 @@ iEvansHoenig <- function(obj) {
 } ## End internal Evans Hoenig's Test function
 
 
-#=============================================================
-# This internal function is used to find appropriate axis
-# limits for the age-bias plot. 
-#=============================================================
-iabAxisLmts <- function(d,xlim,ylim,difference) {
-  if (!is.null(xlim)) xlmt <- xlim
-    else xlmt <- range(d[,1],na.rm=TRUE)
-  if (!is.null(ylim)) ylmt <- ylim
-    else {
-      if (!difference) ylmt <- c(floor(min(c(d$min,d$LCI,xlmt),na.rm=TRUE)),
-                                 ceiling(max(c(d$max,d$UCI,xlmt),na.rm=TRUE)))
-      else ylmt <- c(floor(min(c(d$min,d$LCI),na.rm=TRUE)),
-                     ceiling(max(c(d$max,d$UCI),na.rm=TRUE)))
-    }
-  # return values
-  list(xlim=xlmt,ylim=ylmt)
+
+#' @rdname ageBias
+#' @export
+plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE,
+                         xlab=x$ref.lab,ylab=x$nref.lab,show.n=TRUE,nYpos=1.1,
+                         lwd=1,
+                         show.pts=FALSE,pch.pts=19,col.pts=rgb(0,0,0,transparency),transparency=1/10,
+                         pch.mean=175,cex.mean=lwd,
+                         col.CI="black",col.CIsig="red",lwd.CI=lwd,sfrac=0,
+                         show.range=FALSE,col.range="gray",lwd.range=lwd,
+                         col.agree="black",lwd.agree=lwd,lty.agree=2,
+                         cex.numbers=0.9,
+                         xlim=NULL,ylim=NULL,yaxt=par("yaxt"),xaxt=par("xaxt"),...) {
+  what <- match.arg(what)
+  switch(what,
+         bias={ iAgeBiasPlot(x,difference,
+                             xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
+                             show.n,nYpos,show.pts,pch.pts,col.pts,
+                             pch.mean,cex.mean,col.CI,col.CIsig,lwd.CI,sfrac,
+                             show.range,col.range,lwd.range,
+                             col.agree,lwd.agree,lty.agree,
+                             xlim,ylim,yaxt,...) },
+         sunflower={ iAgeBiasSunflowerPlot(x,difference,
+                                           xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
+                                           xlim,ylim,lwd.agree,lty.agree,col.agree,yaxt=yaxt,...) },
+         numbers={ iAgeBiasNumPlot(x,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,
+                                   cex.numbers,yaxt,xaxt,...) }
+  ) # end switch
 }
+
 
 #=============================================================
 # This internal function is used to produce the age-bias plot.
@@ -435,7 +414,7 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,
   if (!difference) d <- obj$bias
     else d <- obj$bias.diff
   # Control the axis limits (especially if none are given)
-  axlmts <- iabAxisLmts(d,xlim,ylim,difference)  
+  axlmts <- iabAxisLmts(d,xlim,ylim,difference,show.range,show.pts)  
   # Plot more tick marks    
   par(lab=c(length(d[,1]),length(d$mean),7))    
   # Set base plot with Mean of 2nd vs. 1st age range
@@ -475,30 +454,11 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,
 }
 
 #=============================================================
-# Internal function used to produce the age-bias sunflower plot.
+# Internal function to produce the age-bias numbers plot.
 #=============================================================
-iAgeBiasSunflowerPlot <- function(obj,difference,xlab,ylab,xlim,ylim,
-                                  lwd.agree,lty.agree,col.agree,...) {
-  x <- obj$d[,2]
-  ifelse(difference,y <- obj$d[,3],y <- obj$d[,1])
-  if (!difference) {
-    if (is.null(ylim)) ylim <- range(x,y)
-    if (is.null(xlim)) xlim <- range(x,y)
-  } else {
-    if (is.null(ylim)) ylim <- range(y)
-    if (is.null(xlim)) xlim <- range(x)
-  }
-  sunflowerplot(x,y,seg.col="blue",size=1/10,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...)
-  # agreement line -- horizontal for difference and 45 degree for bias plot
-  if (difference) abline(h=0,lwd=lwd.agree,lty=lty.agree,col=col.agree)
-  else abline(a=0,b=1,lwd=lwd.agree,lty=lty.agree,col=col.agree)
-}
-
-#===============================================================================
-# This internal function is used to produce the age-bias numbers plot.  This
-#   is called by 
-#===============================================================================
-iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,cex.numbers,yaxt,xaxt,...) {
+iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,
+                            lwd.agree,lty.agree,col.agree,
+                            cex.numbers,yaxt,xaxt,...) {
   # convert age-agreement table into a data frame with all zeroes removed
   # y,x in d[,1] and d[,2], respectively
   # lables in d[,3]
@@ -506,12 +466,12 @@ iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agre
   d[,1] <- fact2num(d[,1])
   d[,2] <- fact2num(d[,2])
   d <- d[d[,3]>0,]
-  # isolate the x-, y- coordinates and number of values at each x,y (in lbls)
-  # Control the axis limits (especially if none are given)
-  axlmts <- iabAxisLmts(d,xlim,ylim,difference=FALSE)  
+  # Control the axis limits (especially if none are given) ...
+  # sent obj$bias so that axes would match the other plots
+  axlmts <- iabAxisLmts(obj$bias,xlim,ylim,difference=FALSE,show.range=FALSE,show.pts=TRUE,show.CIs=FALSE)  
   # make an empty plot
   plot(d[,2],d[,1],type="n",xlab=xlab,ylab=ylab,xlim=axlmts$xlim,ylim=axlmts$ylim,yaxt="n",xaxt="n",...)
-  # Helps keep y-axis as integers
+  # Helps keep axes as integers
   if (yaxt!="n") {axis(2,seq(axlmts$ylim[1],axlmts$ylim[2],1))}
   if (xaxt!="n") {axis(1,seq(axlmts$xlim[1],axlmts$xlim[2],1))}
   # add the one-to-one line
@@ -520,3 +480,59 @@ iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agre
   text(d[,2],d[,1],labels=d[,3],cex=cex.numbers)
 }
 
+#=============================================================
+# Internal function used to produce the age-bias sunflower plot.
+#=============================================================
+iAgeBiasSunflowerPlot <- function(obj,difference,xlab,ylab,xlim,ylim,
+                                  lwd.agree,lty.agree,col.agree,yaxt,...) {
+  x <- obj$d[,2]
+  ifelse(difference,y <- obj$d[,3],y <- obj$d[,1])
+  if (is.null(ylim)) ylim <- range(y)
+  if (is.null(xlim)) xlim <- range(x)
+  sunflowerplot(x,y,seg.col="blue",size=1/10,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,yaxt="n",...)
+  # Helps keep y-axis as integers
+  if (yaxt!="n") {axis(2,seq(ylim[1],ylim[2],1))}
+  # agreement line -- horizontal for difference and 45 degree for bias plot
+  if (difference) abline(h=0,lwd=lwd.agree,lty=lty.agree,col=col.agree)
+  else abline(a=0,b=1,lwd=lwd.agree,lty=lty.agree,col=col.agree)
+}
+
+
+#=============================================================
+# This internal function is used to find appropriate axis
+# limits for the age-bias plot. 
+#=============================================================
+iabAxisLmts <- function(d,xlim,ylim,difference,show.range,show.pts,show.CIs=TRUE) {
+  # If no xlim given then make xlim the range of x values
+  # which are given in the first position of d (note that
+  # d is the age-bias statistics)
+  if (!is.null(xlim)) xlmt <- xlim
+  else xlmt <- range(d[,1],na.rm=TRUE)
+  # If no ylim is given then make ylim.  Making ylim depends
+  # on whether differences are used and whether ranges are
+  # shown or not.
+  if (!is.null(ylim)) ylmt <- ylim
+  else {
+    # build up a vector that will ultimately find the range
+    # to form the axes.  Begin by filling with the means.
+    tmp.min <- tmp.max <- d$mean
+    # if show.cis then add in LCI and UCI.  CIs will be shown
+    # for all real age-bias plots.  This is primarily for use
+    # with the numbers plot
+    if (show.CIs) {
+      tmp.min <- c(tmp.min,d$LCI)
+      tmp.max <- c(tmp.max,d$UCI)
+    }
+    # if show.range or show.pts then add in min and max
+    if (show.range | show.pts) {
+      tmp.min <- c(tmp.min,d$min)
+      tmp.max <- c(tmp.max,d$max)
+    }
+    # if not differences then add in xlmts
+    tmp.min <- c(tmp.min,xlmt)
+    # Find floor of min and ceiling of max to make the limits
+    ylmt <- c(floor(min(tmp.min,na.rm=TRUE)),ceiling(max(tmp.max,na.rm=TRUE)))
+  }
+  # return values
+  list(xlim=xlmt,ylim=ylmt)
+}

@@ -25,7 +25,7 @@ ageBias(formula, data, ref.lab = tmp$Rname, nref.lab = tmp$Enames[1],
   xaxt = par("xaxt"), ...)
 }
 \arguments{
-\item{formula}{A formula of the form \code{nrefvar~refvar}, where \code{hrefvar} and \code{refvar} generically represent the variables that contain the \dQuote{nonreference} and \dQuote{reference} age assignments, respectively.  See details.}
+\item{formula}{A formula of the form \code{nrefvar~refvar}, where \code{nrefvar} and \code{refvar} generically represent the variables that contain the \dQuote{nonreference} and \dQuote{reference} age assignments, respectively.  See details.}
 
 \item{data}{A data.frame that minimally contains the paired age assignments given \code{formula}.}
 
@@ -81,7 +81,7 @@ ageBias(formula, data, ref.lab = tmp$Rname, nref.lab = tmp$Enames[1],
 
 \item{lwd.CI}{A value that indicates the line width for the confidence interval bars on an age bias plot.}
 
-\item{sfrac}{A value that controls the size of the ends of the confidence interval bars.  See \code{sfrac} in \code{plotCI} of \pkg{plotrix}.}
+\item{sfrac}{A value that controls the size of the ends of the confidence interval bars.  See \code{sfrac} in \code{\link[plotrix]{plotCI}} of \pkg{plotrix}.}
 
 \item{show.range}{A logical that indicates whether to show vertical bars that represent the range of the data points on an age bias plot.}
 
@@ -128,15 +128,15 @@ The age-agreement table is constructed with  \code{what="table"} in \code{summar
 
 Three statistical tests of symmetry for the age-agreement table can be computed with \code{what=} in \code{summary}.  The \dQuote{unpooled} or Bowker's test as described in Hoenig et al. (1995) is constructed with \code{what="Bowkers"}, the \dQuote{semi-pooled} or Evans-Hoenig test as described in Evans and Hoenig (1998) is constructed with \code{what="EvansHoenig"}, and the \dQuote{pooled} or McNemar's test as described in Evans and Hoenig (1998) is constructed with \code{what="McNemars"}.  All three tests are run simultaneously with \code{what="symmetry"}.
 
-An age-bias plot, as defined by Campana et al. (1995), is constructed with \code{what="bias"} (the default) in \code{plot}.  The reference variable from the \code{ageBias} call is plotted on the x-axis.  Confidence intervals plotted in red are computed for the mean of the non-reference ages at each age of the reference ages.  The level of confidence is controlled by \code{sig.level=} given in the original \code{ageBias} call (i.e., confidence level is 100*(1-\code{sig.level}).  Confidence intervals are only shown if the sample size is greater than the value in \code{min.n.CI=}.  Vertical lines that connect the minimum to the maximum observed value of the y-axis variable at each age of the x-axis variable are plotted in grey if \code{show.range=TRUE}.  The 1:1 (45 degree) agreement line is shown for comparative purposes.  The sample sizes at each age of the x-axis variable are shown if \code{show.n=TRUE} (the default).  The position of the sample sizes is controlled with \code{nYpos=}.
+An age-bias plot, as defined by Campana et al. (1995), is constructed with \code{what="bias"} (the default) in \code{plot}.  The reference variable from the \code{ageBias} call is plotted on the x-axis.  Plotted confidence intervals are computed for the mean of the non-reference ages at each age of the reference ages.  The level of confidence is controlled by \code{sig.level=} given in the original \code{ageBias} call (i.e., confidence level is 100*(1-\code{sig.level}).  Confidence intervals are only shown if the sample size is greater than the value in \code{min.n.CI=}.  Confidence intervals plotted in red do not contain the reference age (see discussion of t-tests below).  Vertical lines that connect the minimum to the maximum observed value of the y-axis variable at each age of the x-axis variable are plotted in grey if \code{show.range=TRUE}.  Individual points are plotted if \code{show.pts=TRUE}  The 1:1 (45 degree) agreement line is shown for comparative purposes.  The sample sizes at each age of the x-axis variable are shown if \code{show.n=TRUE} (the default).  The position of the sample sizes is controlled with \code{nYpos=}.
 
 An age-bias plot, as defined by Muir et al. (2008), is constructed as defined above but by also including \code{difference=TRUE} in \R{plot} so that the y-axis is the difference in the paired reference and non-reference ages from the \code{ageBias} call (specifically, non-reference-reference).
 
-The frequency of observations at each unique (x,y) coordinate are shown is constructed by using \code{what="numbers"} in \code{plot}.
+The frequency of observations at each unique (x,y) coordinate are shown by using \code{what="numbers"} in \code{plot}.
 
-A \dQuote{sunflower plot} which contains a symbol for each unique (x,y) coordinate with as many \dQuote{petals} as observations at that point is constructed with \code{what="sunflower"} in \code{plot}.  A sunflower plot with differences between the two structures can be constructed by also including \code{difference=TRUE}.
+A \dQuote{sunflower plot}, which contains a symbol for each unique (x,y) coordinate with as many \dQuote{petals} as observations at that point, is constructed with \code{what="sunflower"} in \code{plot}.  A sunflower plot with differences between the two structures can be constructed by also including \code{difference=TRUE}.
 
-Individual t-tests to determine if the mean age of the non-reference set at a particular age of the reference set is equal to the reference age (e.g., is the mean age of the non-reference at age-3 of the reference set statistically equal to 3?) are constructed with \code{what="bias"} in \code{summary}.  The results provide a column that indicates whether the difference is significant or not as determined by adjusted p-value from the t-test and using the signficance level provided in \code{sig.level} (defaults to 0.05).  Similar results for the difference in ages (e.g., is the mean row variable age minus column variable age at column variable age-3 equal to 0?) are constructed with \code{what="diff.bias"} in \code{summary}.
+Individual t-tests to determine if the mean age of the non-reference set at a particular age of the reference set is equal to the reference age (e.g., is the mean age of the non-reference at age-3 of the reference set statistically equal to 3?) are shown with \code{what="bias"} in \code{summary}.  The results provide a column that indicates whether the difference is significant or not as determined by adjusted p-values from the t-tests and using the signficance level provided in \code{sig.level} (defaults to 0.05).  Similar results for the difference in ages (e.g., is the mean row variable age minus column variable age at column variable age-3 equal to 0?) are constructed with \code{what="diff.bias"} in \code{summary}.
 
 The sample size present in the age-agreement table is found with \code{what="n"}.
 }
@@ -167,8 +167,8 @@ summary(ab1,what="table",flip.table=TRUE)
 
 ## default plot
 plot(ab1)
-## demonstrates controlling the y-axis limits
-plot(ab1,ylim=c(0,10))
+## demonstrates squaring up the axes
+plot(ab1,ylim=c(-1,23),xlim=c(-1,23))
 ## plot with the data points shown
 plot(ab1,show.pts=TRUE,transparency=1/8)
 ## plot with the range shown
