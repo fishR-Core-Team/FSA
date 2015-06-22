@@ -21,7 +21,8 @@ ageBias(formula, data, ref.lab = tmp$Rname, nref.lab = tmp$Enames[1],
   pch.mean = 175, cex.mean = lwd, col.CI = "black", col.CIsig = "red",
   lwd.CI = lwd, sfrac = 0, show.range = FALSE, col.range = "gray",
   lwd.range = lwd, col.agree = "black", lwd.agree = lwd, lty.agree = 2,
-  cex.numbers = 0.9, xlim = NULL, ylim = NULL, yaxt = par("yaxt"), ...)
+  cex.numbers = 0.9, xlim = NULL, ylim = NULL, yaxt = par("yaxt"),
+  xaxt = par("xaxt"), ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{nrefvar~refvar}, where \code{hrefvar} and \code{refvar} generically represent the variables that contain the \dQuote{nonreference} and \dQuote{reference} age assignments, respectively.  See details.}
@@ -100,7 +101,7 @@ ageBias(formula, data, ref.lab = tmp$Rname, nref.lab = tmp$Enames[1],
 
 \item{ylim}{A numeric vector of the limits of the y-axis.}
 
-\item{yaxt}{A string which specifies the x-axis type. Specifying \dQuote{n} suppresses plotting of the axis.  See \code{?par}.}
+\item{xaxt,yaxt}{A string which specifies the x- and y-axis types. Specifying \dQuote{n} suppresses plotting of the axis.  See \code{?par}.}
 
 \item{\dots}{Additional arguments for methods.}
 }

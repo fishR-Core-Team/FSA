@@ -1,11 +1,12 @@
 # FSA 0.6.23 ongoing
+* `ageBias()`: Modified.  Fixed bugs related to axes on numbers plot and sunflower plot.
 
 # FSA 0.6.22 ongoing
 * `extraSS()`: Modified.  Added `sim.name=` to allow for a common typing mistake.
 * `logbtcf()`: Modified.  Slight change to handle a check of `lm` class.
 * `lrt()`: Modified.  Added `sim.name=` to allow for a common typing mistake.
-* `pcumsum()`: Modified.  Modified to handle `table`, `matrix`, and `data.frame` classes as long as they are 1-dimenstional.
-* `rcumsum()`: Modified.  Modified to handle `table`, `matrix`, and `data.frame` classes as long as they are 1-dimenstional.
+* `pcumsum()`: Modified.  Modified to handle `table`, `matrix`, and `data.frame` classes as long as they are 1-dimensional.
+* `rcumsum()`: Modified.  Modified to handle `table`, `matrix`, and `data.frame` classes as long as they are 1-dimensional.
 * `srStarts()`: Modified.  Corrected some bugs related to checks.  Added more tests.
 
 # FSA 0.6.21 Jun15

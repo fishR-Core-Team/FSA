@@ -38,7 +38,7 @@
 #' @param ylab A string that contains a label for the y-axis age assignments.
 #' @param xlim A numeric vector of the limits of the x-axis.
 #' @param ylim A numeric vector of the limits of the y-axis.
-#' @param yaxt A string which specifies the x-axis type. Specifying \dQuote{n} suppresses plotting of the axis.  See \code{?par}. 
+#' @param xaxt,yaxt A string which specifies the x- and y-axis types. Specifying \dQuote{n} suppresses plotting of the axis.  See \code{?par}. 
 #' @param show.n A logical that indicates whether the sample sizes for each level of the x-axis variable is shown (\code{=TRUE}, default) or not (\code{=FALSE}).
 #' @param nYpos A numeric that indicates the relative Y position of the sample size values when \code{show.n=TRUE}.  For example, if \code{nYpos=1.1} then the sample size values will be 10 percent above the top end of the y-axis.
 #' @param lwd A single numeric that can be used to controll the separate \sQuote{lwd} argument (e.g., \code{lwd.CI}, \code{lwd.range}).
@@ -240,7 +240,7 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
                          show.range=FALSE,col.range="gray",lwd.range=lwd,
                          col.agree="black",lwd.agree=lwd,lty.agree=2,
                          cex.numbers=0.9,
-                         xlim=NULL,ylim=NULL,yaxt=par("yaxt"),...) {
+                         xlim=NULL,ylim=NULL,yaxt=par("yaxt"),xaxt=par("xaxt"),...) {
   what <- match.arg(what)
   switch(what,
          bias={ iAgeBiasPlot(x,difference,
@@ -252,33 +252,36 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
                              xlim,ylim,yaxt,...) },
          sunflower={ iAgeBiasSunflowerPlot(x,difference,xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
                                            xlim,ylim,lwd.agree,lty.agree,col.agree,...) },
-         numbers={ iAgeBiasNumPlot(x,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,cex.numbers,...) }
+         numbers={ iAgeBiasNumPlot(x,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,
+                                   cex.numbers,yaxt,xaxt,...) }
   ) # end switch
 }
 
-################################################################################
-################################################################################
+##############################################################
+##############################################################
 ## Related INTERNAL functions
-################################################################################
-################################################################################
+##############################################################
+##############################################################
 
-#===============================================================================
-# This internal function is used to created a data frame of summarized data
-#   for the ageBias() function.  
+#=============================================================
+# This internal function is used to created a data frame of
+#   summarized data for the ageBias() function.  
 #
-# tmp -- the results from Summarize of ages in a column variable by a row variable
+# tmp -- the results from Summarize of ages in a column
+#        variable by a row variable
 # cname -- the name of the column variable
 # diff -- a logical of whether differences are being used or not
 # min.n.CI -- the minimum n for which CIs should be computed
 #
 # returns a data.frame
-#===============================================================================
+#=============================================================
 iAgeBiasDF <- function(tmp,cname,diff,min.n.CI,sig.level) {
   # Ages of cdata strux
   x <- fact2num(tmp[,1])
   # Is it appropriate to compute a CI
   canCI <- tmp$n>=min.n.CI & tmp$sd>0
-  # Fill SEs, p-values calcs, and CIs with NA (will leave NA for those where CI was inappropriate)
+  # Fill SEs, p-values calcs, and CIs with NA (will leave NA
+  # for those where CI was inappropriate)
   tmp$SE <- tmp$t <- tmp$p.value <- tmp$LCI <- tmp$UCI <- NA
   # SE of 2nd strux
   tmp$SE[canCI] <- tmp$sd[canCI]/sqrt(tmp$n[canCI])
@@ -303,12 +306,13 @@ iAgeBiasDF <- function(tmp,cname,diff,min.n.CI,sig.level) {
   tmpdf
 } ## end iAgeBiasDF internal function
 
-#===============================================================================
-# This internal function is used to handle the age-agreement table for symmetry
-#    tests.  Specifically, it removes the main diagonal, finds the upper and lower
-#    triangles, and returns them all in a list.  It is called by the iBowkers,
-#    iMcNemars, and iEvansHoenig functions.
-#===============================================================================
+#=============================================================
+# This internal function is used to handle the age-agreement
+# table for symmetry tests.  Specifically, it removes the main
+# diagonal, finds the upper and lower triangles, and returns
+# them all in a list.  It is called by the iBowkers, iMcNemars,
+# and iEvansHoenig functions.
+#=============================================================
 iHandleAgreeTable <- function(obj) {
   # rename agreement table
   at <- obj$agree
@@ -322,9 +326,9 @@ iHandleAgreeTable <- function(obj) {
   list(at=at,lo=lo,up=up)
 }
 
-#===============================================================================
-# This internal function is used to compute Bowker's Test of Symmetry.
-#===============================================================================
+#=============================================================
+# Internal function to compute Bowker's Test of Symmetry.
+#=============================================================
 iBowkers <- function(obj) {
   AAT <- iHandleAgreeTable(obj)
   # Chi-sq parts (Evans and Hoenig's eq 1, Hoenig et al.'s eq 3)
@@ -339,9 +343,9 @@ iBowkers <- function(obj) {
   data.frame(symTest="Bowkers",df=df,chi.sq=chi.sq,p=p)
 } ## End internal Bowker's Test function
 
-#===============================================================================
-# This internal function is used to compute McNemar's Test of Symmetry.
-#===============================================================================
+#=============================================================
+# Internal function to compute McNemar's Test of Symmetry.
+#=============================================================
 iMcNemars <- function(obj,cont.cor) {
   # handle continuity correction
   if (cont.cor=="none") {
@@ -366,9 +370,9 @@ iMcNemars <- function(obj,cont.cor) {
   data.frame(symTest=title,df=df,chi.sq=chi.sq,p=p)
 } ## End internal McNemar's Test function
 
-#===============================================================================
-# This internal function is used to compute Evans and Hoenigs Test of Symmetry.
-#===============================================================================
+#=============================================================
+# Internal function to compute EvansHoenig Test of Symmetry.
+#=============================================================
 iEvansHoenig <- function(obj) {
   AAT <- iHandleAgreeTable(obj)
   # Create matrix of differences in potential ages
@@ -400,36 +404,38 @@ iEvansHoenig <- function(obj) {
 } ## End internal Evans Hoenig's Test function
 
 
-#===============================================================================
-# This internal function is used to find appropriate axis limits for the age-bias
-#   plot.  This is called by 
-#===============================================================================
-iabAxisLmts <- function(d,xlim,ylim,show.n,difference) {
+#=============================================================
+# This internal function is used to find appropriate axis
+# limits for the age-bias plot. 
+#=============================================================
+iabAxisLmts <- function(d,xlim,ylim,difference) {
   if (!is.null(xlim)) xlmt <- xlim
-  else xlmt <- range(d[,1],na.rm=TRUE)
+    else xlmt <- range(d[,1],na.rm=TRUE)
   if (!is.null(ylim)) ylmt <- ylim
-  else {
-    if (!difference) ylmt <- c(floor(min(c(d$min,d$LCI,xlmt),na.rm=TRUE)),
-                               ceiling(max(c(d$max,d$UCI,xlmt),na.rm=TRUE)))
-    else ylmt <- c(floor(min(c(d$min,d$LCI),na.rm=TRUE)),
-                   ceiling(max(c(d$max,d$UCI),na.rm=TRUE)))
-  }
+    else {
+      if (!difference) ylmt <- c(floor(min(c(d$min,d$LCI,xlmt),na.rm=TRUE)),
+                                 ceiling(max(c(d$max,d$UCI,xlmt),na.rm=TRUE)))
+      else ylmt <- c(floor(min(c(d$min,d$LCI),na.rm=TRUE)),
+                     ceiling(max(c(d$max,d$UCI),na.rm=TRUE)))
+    }
   # return values
   list(xlim=xlmt,ylim=ylmt)
 }
 
-#===============================================================================
-# This internal function is used to produce the age-bias plot.  This is called
-#   by ageBias().
-#===============================================================================
-iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,show.pts,pch.pts,col.pts,
-                         pch.mean,cex.mean,col.CI,col.CIsig,lwd.CI,sfrac,show.range,col.range,lwd.range,
+#=============================================================
+# This internal function is used to produce the age-bias plot.
+# This is called by ageBias().
+#=============================================================
+iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,
+                         show.pts,pch.pts,col.pts,
+                         pch.mean,cex.mean,col.CI,col.CIsig,lwd.CI,
+                         sfrac,show.range,col.range,lwd.range,
                          col.agree,lwd.agree,lty.agree,xlim,ylim,yaxt,...) {
   # identify whether difference data should be used or not, put in a tmp data frame
   if (!difference) d <- obj$bias
-  else d <- obj$bias.diff
+    else d <- obj$bias.diff
   # Control the axis limits (especially if none are given)
-  axlmts <- iabAxisLmts(d,xlim,ylim,show.n,difference)  
+  axlmts <- iabAxisLmts(d,xlim,ylim,difference)  
   # Plot more tick marks    
   par(lab=c(length(d[,1]),length(d$mean),7))    
   # Set base plot with Mean of 2nd vs. 1st age range
@@ -447,7 +453,9 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,show.pts,pch.pts,
   }
   # add range of individual points if asked for
   if (show.range) {
-    plotrix::plotCI(x=d[,1],y=d$mean,li=d$min,ui=d$max,add=TRUE,slty=1,scol=col.range,pch=pch.mean,lwd=lwd.range,gap=0,sfrac=0.005)
+    plotrix::plotCI(x=d[,1],y=d$mean,li=d$min,ui=d$max,add=TRUE,
+                    slty=1,scol=col.range,pch=pch.mean,
+                    lwd=lwd.range,gap=0,sfrac=0.005)
   }
   # add on CIs for mean
   #  for ages that are signficantly different
@@ -466,20 +474,19 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,show.pts,pch.pts,
   if (show.n) text(d[,1],grconvertY(nYpos,"npc"),d$n,cex=0.75,xpd=TRUE)
 }
 
-#===============================================================================
-# This internal function is used to produce the age-bias sunflower plot.  This
-#   is called by 
-#===============================================================================
-iAgeBiasSunflowerPlot <- function(obj,difference,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,...) {
+#=============================================================
+# Internal function used to produce the age-bias sunflower plot.
+#=============================================================
+iAgeBiasSunflowerPlot <- function(obj,difference,xlab,ylab,xlim,ylim,
+                                  lwd.agree,lty.agree,col.agree,...) {
   x <- obj$d[,2]
-  if (difference) {
-    y <- obj$d[,3]
-    if (is.null(ylim)) ylim <- range(y)
-    if (is.null(xlim)) xlim <- range(x)
-  } else {
-    y <- obj$d[,1]
+  ifelse(difference,y <- obj$d[,3],y <- obj$d[,1])
+  if (!difference) {
     if (is.null(ylim)) ylim <- range(x,y)
     if (is.null(xlim)) xlim <- range(x,y)
+  } else {
+    if (is.null(ylim)) ylim <- range(y)
+    if (is.null(xlim)) xlim <- range(x)
   }
   sunflowerplot(x,y,seg.col="blue",size=1/10,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...)
   # agreement line -- horizontal for difference and 45 degree for bias plot
@@ -491,24 +498,25 @@ iAgeBiasSunflowerPlot <- function(obj,difference,xlab,ylab,xlim,ylim,lwd.agree,l
 # This internal function is used to produce the age-bias numbers plot.  This
 #   is called by 
 #===============================================================================
-iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,cex.numbers,...) {
+iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,cex.numbers,yaxt,xaxt,...) {
   # convert age-agreement table into a data frame with all zeroes removed
+  # y,x in d[,1] and d[,2], respectively
+  # lables in d[,3]
   d <- as.data.frame(obj$agree)
   d[,1] <- fact2num(d[,1])
   d[,2] <- fact2num(d[,2])
   d <- d[d[,3]>0,]
   # isolate the x-, y- coordinates and number of values at each x,y (in lbls)
-  y <- d[,1]
-  x <- d[,2]
-  lbls <-d[,3]
-  # check for axis limits
-  if (is.null(ylim)) ylim <- range(x,y)
-  if (is.null(xlim)) xlim <- range(x,y)
+  # Control the axis limits (especially if none are given)
+  axlmts <- iabAxisLmts(d,xlim,ylim,difference=FALSE)  
   # make an empty plot
-  plot(x,y,type="n",xlab=xlab,ylab=ylab,xlim=xlim,ylim=ylim,...)
+  plot(d[,2],d[,1],type="n",xlab=xlab,ylab=ylab,xlim=axlmts$xlim,ylim=axlmts$ylim,yaxt="n",xaxt="n",...)
+  # Helps keep y-axis as integers
+  if (yaxt!="n") {axis(2,seq(axlmts$ylim[1],axlmts$ylim[2],1))}
+  if (xaxt!="n") {axis(1,seq(axlmts$xlim[1],axlmts$xlim[2],1))}
   # add the one-to-one line
-  lines(xlim,xlim,lwd=lwd.agree,lty=lty.agree,col=col.agree)
+  lines(axlmts$xlim,axlmts$xlim,lwd=lwd.agree,lty=lty.agree,col=col.agree)
   # add the numbers at each point
-  text(x,y,labels=lbls,cex=cex.numbers)
+  text(d[,2],d[,1],labels=d[,3],cex=cex.numbers)
 }
 
