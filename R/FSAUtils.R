@@ -871,7 +871,7 @@ Subset <- function(x,subset,select,drop=FALSE,resetRownames=TRUE,...) {
 #' @export
 filterD <- function(x,...) {
   res <- dplyr::filter(x,...)
-  res <- gdata::drop.levels(res)
+  res <- gdata::drop.levels(res,reorder=FALSE)
   if (nrow(res)==0) warning("The resultant data.frame has 0 rows.  Try str() on the result.\n",call.=FALSE)
   res
 }

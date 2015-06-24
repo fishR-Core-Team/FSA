@@ -1,5 +1,6 @@
 # FSA 0.6.23 ongoing
 * `ageBias()`: Modified.  Fixed bugs related to axes on numbers plot and sunflower plot.
+* `filterD()`: Modified.  Added `reorder=FALSE` to `drop.levels()` so that the order of levels is not changed when levels are dropped.
 
 # FSA 0.6.22 ongoing
 * `extraSS()`: Modified.  Added `sim.name=` to allow for a common typing mistake.

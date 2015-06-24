@@ -156,10 +156,17 @@ test_that("filterD() and Subset() error messages and results",{
   expect_equal(nrow(tmp),50)
   expect_equal(ncol(tmp),2)
   # does Subset still work if rows are not renumbered
-  tmp <- Subset(iris,Species %in% grp,restRownames=FALSE)
+  tmp <- Subset(iris,Species %in% grp,resetRownames=FALSE)
   expect_equal(levels(tmp$Species),grp)
   expect_equal(nrow(tmp),50)
-  expect_equal(rownames(tmp),as.character(1:50))
+  expect_equal(rownames(tmp),as.character(51:100))
+  # make sure that levels are not reordered
+  iris$Species1 <- factor(iris$Species,levels=c("virginica","versicolor","setosa"))
+  grp <- c("setosa","versicolor")
+  tmp <- Subset(iris,Species1 %in% grp)
+  expect_equal(levels(tmp$Species1),rev(grp))
+  tmp <- filterD(iris,Species1 %in% grp)
+  expect_equal(levels(tmp$Species1),rev(grp))
 })  
 
 
