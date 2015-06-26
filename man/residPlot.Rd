@@ -8,6 +8,7 @@
 \alias{residPlot.SLR}
 \alias{residPlot.TWOWAY}
 \alias{residPlot.lm}
+\alias{residPlot.nlme}
 \alias{residPlot.nls}
 \title{Construct a residual plot from lm or nls objects.}
 \usage{
@@ -46,6 +47,12 @@ residPlot(object, ...)
   col.loess = "black", trans.loess = 4, inclHist = TRUE, ...)
 
 \method{residPlot}{nls}(object, xlab = "Fitted Values", ylab = "Residuals",
+  main = "", pch = 16, col = "black", lty.ref = 3, lwd.ref = 1,
+  col.ref = "black", resid.type = c("raw", "standardized", "studentized"),
+  loess = TRUE, lty.loess = 2, lwd.loess = 1, col.loess = "black",
+  trans.loess = 4, inclHist = TRUE, ...)
+
+\method{residPlot}{nlme}(object, xlab = "Fitted Values", ylab = "Residuals",
   main = "", pch = 16, col = "black", lty.ref = 3, lwd.ref = 1,
   col.ref = "black", resid.type = c("raw", "standardized", "studentized"),
   loess = TRUE, lty.loess = 2, lwd.loess = 1, col.loess = "black",
@@ -104,6 +111,8 @@ Constructs a residual plot for \code{lm} or \code{nls} objects.  Different symbo
 If the user chooses to add a legend without identifying coordinates for the upper-left corner of the legend (i.e., \code{legend=TRUE}) then the R console is suspended until the user places the legend by clicking on the produced graphic at the point where the upper-left corner of the legend should appear.  A legend will only be placed if the \code{mdl} is an indicator variable regression, even if \code{legend=TRUE}.
 
 Three types of residuals are allowed for most model types.  Raw residuals are simply the difference between the observed response variable and the predicted/fitted value.  Standardized residuals are internally studentized residuals returned by \code{\link{rstandard}} for linear models and are the raw residual divided by the standard deviation of the residuals for nonlinear models (as is done by \code{\link[nlstools]{nlsResiduals}} from \pkg{nlstools}).  Studentized residuals are the externally studentized residuals returned by \code{\link{rstudent}} for linear models and are not available for nonlinear models.
+
+Externally Studentized residuals are not supported for \code{nls} or \code{nlme} objects.  The
 
 If \code{outlier.test=TRUE} then significant outliers are detected with \code{\link[car]{outlierTest}} from the \pkg{car} package.  See the help for this function for more details.
 }

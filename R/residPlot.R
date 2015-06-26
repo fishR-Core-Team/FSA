@@ -6,6 +6,8 @@
 #'
 #' Three types of residuals are allowed for most model types.  Raw residuals are simply the difference between the observed response variable and the predicted/fitted value.  Standardized residuals are internally studentized residuals returned by \code{\link{rstandard}} for linear models and are the raw residual divided by the standard deviation of the residuals for nonlinear models (as is done by \code{\link[nlstools]{nlsResiduals}} from \pkg{nlstools}).  Studentized residuals are the externally studentized residuals returned by \code{\link{rstudent}} for linear models and are not available for nonlinear models.
 #' 
+#' Externally Studentized residuals are not supported for \code{nls} or \code{nlme} objects.  The
+#' 
 #' If \code{outlier.test=TRUE} then significant outliers are detected with \code{\link[car]{outlierTest}} from the \pkg{car} package.  See the help for this function for more details.
 #'
 #' @note This function is meant to allow newbie students the ability to easily construct residual plots for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions.  The plots can be constructed by submitting a saved linear model to this function which allows students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
@@ -321,6 +323,31 @@ residPlot.nls<-function(object,xlab="Fitted Values",ylab="Residuals",main="",
 }
 
 
+
+#' @rdname residPlot
+#' @export
+residPlot.nlme<-function(object,xlab="Fitted Values",ylab="Residuals",main="",
+                         pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
+                         resid.type=c("raw","standardized","studentized"),
+                         loess=TRUE,lty.loess=2,lwd.loess=1,
+                         col.loess="black",trans.loess=4,inclHist=TRUE,...) {
+  opar <- par("mfrow")
+  fv <- fitted(object)
+  tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
+  r <- tmp$r
+  ylab <- tmp$ylab
+  if (inclHist) {
+    par(mfrow=c(1,2))
+    on.exit(par(mfrow=opar))
+  }
+  iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
+                     loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
+  points(r~fv,pch=pch,col=col) 
+  if (inclHist) iHistResids(r,ylab)
+}
+
+
+
 ##################################################################
 ### internal functions used in residPlot
 ##################################################################
@@ -379,21 +406,28 @@ iHistResids <- function(r,xlab) {
 }
 
 iHndlResidType <- function(object,resid.type,ylab) {
-  suppressWarnings(if (class(object)!="nls") {
+  suppressWarnings(if(!class(object)%in%c("nls","nlme")) {
     switch(resid.type,
            raw= { r <- object$mdl$residuals },
            standardized= { r <- rstandard(object$mdl) },
            studentized= { r <- rstudent(object$mdl) }
            )
-  } else {
+  } else if (class(object)=="nls") {
     r <- residuals(object)
     if (resid.type=="studentized") stop("resid.type= cannot be 'studentized' for NLS objects.  Try resid.type='standardized'.",call.=FALSE)
     else if (resid.type=="standardized") {
       # this follows nlsResiduals() from nlstools
       r <- (r-mean(r))/summary(object)$sigma
-      if (ylab=="Residuals") ylab <- "Studentized Residuals"
     }
-  })
+  } else {
+    if (resid.type=="studentized") stop("resid.type= cannot be 'studentized' for NLME objects.  Try resid.type='standardized'.",call.=FALSE)
+    else if (resid.type=="standardized") { 
+      r <- residuals(object,type="pearson")
+    } else {
+      r <- residuals(object,type="response")
+    }
+  }
+  )
   if (resid.type!="raw" & ylab=="Residuals") {
     if (resid.type=="standardized") ylab <- "Standardized Residuals"
     else ylab <- "Studentized Residuals"
