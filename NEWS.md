@@ -1,9 +1,11 @@
-# FSA 0.6.23 ongoing
+# FSA 0.6.24 ongoing
+
+# FSA 0.6.23 Jun15
 * `ageBias()`: Modified.  Fixed bugs related to axes on numbers plot and sunflower plot.
 * `filterD()`: Modified.  Added `reorder=FALSE` to `drop.levels()` so that the order of levels is not changed when levels are dropped.
 * `residPlot.nlme()`: Added.
 
-# FSA 0.6.22 ongoing
+# FSA 0.6.22 Jun15
 * `extraSS()`: Modified.  Added `sim.name=` to allow for a common typing mistake.
 * `logbtcf()`: Modified.  Slight change to handle a check of `lm` class.
 * `lrt()`: Modified.  Added `sim.name=` to allow for a common typing mistake.
