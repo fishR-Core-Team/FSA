@@ -58,7 +58,10 @@
 #'
 #' @rdname expandLenFreq
 #' @export
-lenFreqExpand <- function(...) expandLenFreq(...)
+lenFreqExpand <- function(...) {
+  warning("'lenFreqExpand' is deprecated and will be removed by v1.0.0.\n  Please use 'expandLenFreq' instead.",call.=FALSE)
+  expandLenFreq(...)
+}
 
 #' @rdname expandLenFreq
 #' @export
