@@ -133,3 +133,59 @@ test_that("iHndlCols2Use() messages and results",{
   expect_equivalent(tmp,df1[,ind,drop=FALSE])
   expect_equivalent(names(tmp),nms[ind])
 })
+
+
+test_that("iHndlMultWhat() messages and results",{
+  expect_message(tmp <- FSA:::iHndlMultWhat(letters,"a"))
+  expect_equal(length(tmp),25)
+  expect_equal(letters[-1],tmp)
+  expect_message(tmp <- FSA:::iHndlMultWhat(tmp,"z"))
+  expect_equal(length(tmp),24)
+  expect_equal(letters[-c(1,26)],tmp)
+})
+
+
+test_that("iHndlMultWhat() messages and results",{
+  data(PSDlit)
+  expect_message(FSA:::iListSpecies(PSDlit))
+})
+
+
+test_that("iMakeColor() messages and results",{
+  expect_error(FSA:::iMakeColor("black",-1),"must be greater than 0")
+  expect_error(FSA:::iMakeColor("black",0),"must be greater than 0")
+  expect_equal(FSA:::iMakeColor("black",10),rgb(0,0,0,1/10))
+  expect_equal(FSA:::iMakeColor("black",1/10),rgb(0,0,0,1/10))
+  expect_equal(FSA:::iMakeColor("red",10),rgb(1,0,0,1/10))
+  expect_equal(FSA:::iMakeColor("blue",1/10),rgb(0,0,1,1/10))
+  expect_equal(FSA:::iMakeColor("black",1),rgb(0,0,0,1))
+})
+
+
+test_that("iTypeoflm() messages and results",{
+  ## Get data
+  data(Mirex)
+  Mirex$year <- factor(Mirex$year)
+  ## Check return types
+  tmp <- lm(mirex~weight*year*species,data=Mirex)
+  expect_is(FSA:::iTypeoflm(tmp),c("IVR","list"))
+  tmp <- lm(mirex~weight*year,data=Mirex)
+  expect_is(FSA:::iTypeoflm(tmp),c("IVR","list"))
+  tmp <- lm(mirex~weight+year,data=Mirex)
+  expect_is(FSA:::iTypeoflm(tmp),c("IVR","list"))
+  tmp <- lm(mirex~weight,data=Mirex)
+  expect_is(FSA:::iTypeoflm(tmp),c("SLR","list"))
+  tmp <- lm(mirex~year,data=Mirex)
+  expect_is(FSA:::iTypeoflm(tmp),c("ONEWAY","list"))
+  tmp <- lm(mirex~year*species,data=Mirex)
+  expect_is(FSA:::iTypeoflm(tmp),c("TWOWAY","list"))
+  tmp  <- lm(mirex~weight+I(weight^2),data=Mirex)
+  expect_is(FSA:::iTypeoflm(tmp),c("POLY","list"))
+  tmp <- lm(mirex~weight+rnorm(nrow(Mirex)+rnorm(nrow(Mirex))),data=Mirex)
+  expect_is(FSA:::iTypeoflm(tmp),c("MLR","list"))
+  ## Check some errors
+  glm1 <- glm(year~weight,data=Mirex,family="binomial")
+  expect_error(FSA:::iTypeoflm(glm1),"only works with")
+  nl1 <- nls(mirex~B1/(1+exp(B2+B3*weight)),start=list(B1=0.4,B2=2,B3=-0.5),data=Mirex)
+  expect_error(FSA:::iTypeoflm(nl1),"only works with")
+})

@@ -33,15 +33,12 @@
 
 iAddLoessLine <- function(r,fv,lty.loess,lwd.loess,col.loess,trans.loess,span=0.75) {
   mdl <- loess(r~fv,span=span)
-  xrng <- range(fv)
-  xseq <- seq(from=xrng[1],to=xrng[2],length=80)
+  xseq <- seq(from=min(fv),to=max(fv),length=80)
   pred <- predict(mdl,newdata=data.frame(fv=xseq),se=TRUE)
-  y <- pred$fit
-  ci <- pred$se.fit*qt(0.95/2+.5,pred$df)
-  ymin <- y-ci
-  ymax <- y+ci
-  polygon(c(xseq,rev(xseq)),c(ymin,rev(ymax)),col=iMakeColor(col.loess,trans.loess),border=NA,xpd=FALSE)
-  lines(y~xseq,lwd=lwd.loess,lty=lty.loess,col=col.loess,xpd=FALSE)
+  polygon(c(xseq,rev(xseq)),
+          c(pred$fit-pred$se.fit*qt(0.975,pred$df),rev(pred$fit+pred$se.fit*qt(0.975,pred$df))),
+          col=iMakeColor(col.loess,trans.loess),border=NA,xpd=FALSE)
+  lines(pred$fit~xseq,lwd=lwd.loess,lty=lty.loess,col=col.loess,xpd=FALSE)
 }  # end iAddLoessLine internal function
 
 
@@ -266,7 +263,7 @@ iMakeColor <- function(clr,transvalue) {
   ##  as the number of points plotted on top of each other before the
   ##  transparency is lost and is, thus, transformed to 1/transvalue.
   ## The return value is an rgb() color.
-  if (transvalue < 0) stop("'transvalue' must be greater than 0.")
+  if (transvalue <= 0) stop("'transvalue' must be greater than 0.",call.=FALSE)
   if (transvalue > 1) transvalue <- 1/transvalue
   clrprts <- col2rgb(clr)/255
   rgb(clrprts[1,1],clrprts[2,1],clrprts[3,1],transvalue)
@@ -274,6 +271,7 @@ iMakeColor <- function(clr,transvalue) {
 
 
 iTypeoflm <- function(mdl) {
+  if (any(class(mdl)!="lm")) stop("'iTypeoflm' only works with objects from 'lm()'.",call.=FALSE)
   tmp <- iHndlFormula(formula(mdl),model.frame(mdl))
   if (tmp$Enum==0) stop("Object must have one response and at least one explanatory variable",call.=FALSE)
   if (!tmp$Rclass %in% c("numeric","integer")) stop("Response variable must be numeric",call.=FALSE)
