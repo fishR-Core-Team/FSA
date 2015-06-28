@@ -73,7 +73,7 @@
 #' @export ageKeyPrep
 #' @rdname alkPrep
 ageKeyPrep <- function(key,show.msgs=TRUE) {
-  warning("'ageKeyPrep' is deprecated and will be removed by v1.0.0.  Please use 'alkPrep' instead.",call.=FALSE)
+  warning("'ageKeyPrep' is deprecated and will be removed by v1.0.0.\n  Please use 'alkPrep' instead.",call.=FALSE)
   alkPrep(key,show.msgs)
 }
 

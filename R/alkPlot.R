@@ -78,7 +78,7 @@ ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
                        pal = paletteChoices(),
                        grid=TRUE,col="gray80",buf=0.45,add=FALSE,
                        ...) {
-  warning("'ageKeyPlot' is deprecated and will be removed by v1.0.0.  Please use 'alkPlot' instead.",call.=FALSE)
+  warning("'ageKeyPlot' is deprecated and will be removed by v1.0.0.\n  Please use 'alkPlot' instead.",call.=FALSE)
   alkPlot(key,type,xlab,ylab,xlim,ylim,showLegend,lbl.cex,leg.cex,
           lwd,span,pal,grid,col,buf,add,...)
 }
