@@ -83,7 +83,7 @@
 #' @export ageKey
 #' @rdname alkIndivAge
 ageKey <- function(key,formula,data,type=c("SR","CR"),breaks=NULL,seed=NULL) {
-  warning("'ageKey' is deprecated and will be removed by v1.0.0.  Please use 'alkIndivAge' instead.",call.=FALSE)
+  warning("'ageKey' is deprecated and will be removed by v1.0.0.\n  Please use 'alkIndivAge' instead.",call.=FALSE)
   alkIndivAge(key,formula,data,type,breaks,seed)
 }
 
@@ -93,12 +93,21 @@ alkIndivAge <- function(key,formula,data,type=c("SR","CR"),breaks=NULL,seed=NULL
   ## some checks
   type <- match.arg(type)
   key <- iCheckALK(key,only1=TRUE,remove0rows=TRUE)
-  cl <- iGetVarFromFormula(formula,data)
-  if (length(cl)==1) ca <- "age"
-    else {
-      ca <- cl[1]
-      cl <- cl[2]
-    }
+  
+  ## Perform some checks on the formula
+  tmp <- iHndlFormula(formula,data,expNumE=1,expNumR=1)
+  # handle differently depending on how many variables were in the formula
+  if (tmp$vnum==1) {
+    if (!tmp$vclass %in% c("numeric","integer")) stop("RHS ariable must be numeric.",call.=FALSE)
+    ca <- "age"
+    cl <- tmp$vname
+  } else if (tmp$vnum==2) {
+    if (!tmp$metExpNumE) stop("'alkIndivAge' must have only one RHS variable.",call.=FALSE)
+    if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable must be numeric.",call.=FALSE)
+    if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
+    cl <- tmp$Enames
+    ca <- tmp$Rname
+  } else stop("'formula' must have only one variable on LHS and RHS.",call.=FALSE)
   ## Set the random seed if asked to do so
   if (!is.null(seed)) set.seed(seed)
   ## Begin process
@@ -106,11 +115,10 @@ alkIndivAge <- function(key,formula,data,type=c("SR","CR"),breaks=NULL,seed=NULL
   da.len.cats <- as.numeric(rownames(key))
   # Check about min and max value in length sample relative to same on key
   if (min(data[,cl])<min(da.len.cats)) {
-    stop(paste("The minimum observed length in the length sample (",min(data[,cl]),
-               ")\n is less than the smallest length category in the age-length key (",
-               min(da.len.cats),").\n  You should include fish of these lengths in
-               your age sample or exclude fish of this length from your length sample.\n",
-               sep=""),call.=FALSE)
+    stop(paste0("The minimum observed length in the length sample (",min(data[,cl]),
+                ")\n is less than the smallest length category in the age-length key (",
+                min(da.len.cats),").\n You should include fish of these lengths in your age sample\n",
+                " or exclude fish of this length from your length sample.\n"),call.=FALSE)
   }
   # Find the minimum width of the length categories so that this can be used
   #   in the check for the maximum length without being too sensitive.  In other words
@@ -118,10 +126,9 @@ alkIndivAge <- function(key,formula,data,type=c("SR","CR"),breaks=NULL,seed=NULL
   #   the ALK PLUS the minimum width of length categories then don't send the message.
   min.w <- min(diff(da.len.cats))
   if (max(data[,cl])>(max(da.len.cats)+min.w)) {
-    warning(paste("The maximum observed length in the length sample (",max(data[,cl]),
-                  ")\n is greater than the largest length category in the age-length key (",
-                  max(da.len.cats),").\n The last length category will be treated as all-inclusive.\n",
-                  sep=""),call.=FALSE)
+    warning(paste0("The maximum observed length in the length sample (",max(data[,cl]),") is greater\n",
+                   " than the largest length category in the age-length key (",max(da.len.cats),").\n",
+                   " The last length category will be treated as all-inclusive."),call.=FALSE)
   }
   # Create length categories var (TMPLCAT) for L sample
   if (is.null(breaks)) breaks <- da.len.cats

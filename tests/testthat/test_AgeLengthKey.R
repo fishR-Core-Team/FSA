@@ -1,23 +1,23 @@
 context("age-length key related Messages")
 
-# ############################################################
-# ============================================================
-# Messaging
-# ============================================================
-# ############################################################
+## create a "good" small ALK matrix for testing
+alk <- matrix(c(0.4,0.3,0.3,0.0,
+                0.2,0.4,0.3,0.1,
+                0.1,0.2,0.4,0.3,
+                0.0,0.1,0.4,0.5,
+                0.0,0.0,0.2,0.8),
+              nrow=5,byrow=TRUE)
+rownames(alk) <- c(10,20,30,40,50)
+colnames(alk) <- c(2,3,4,5)
 
+## Get some real data
+data(WR79)
+
+
+##############################################################
+# internal function
+##############################################################
 test_that("iCheckALK() errors and warnings",{
-  ## create a "good" small ALK matrix
-  alk <- matrix(c(0.4,0.3,0.3,0.0,
-                 0.2,0.4,0.3,0.1,
-                 0.1,0.2,0.4,0.3,
-                 0.0,0.1,0.4,0.5,
-                 0.0,0.0,0.2,0.8),
-               nrow=5,byrow=TRUE)
-  rownames(alk) <- c(10,20,30,40,50)
-  colnames(alk) <- c(2,3,4,5)
-  addmargins(alk,margin=2)
-  
   ## one row does not sum to 1
   tmp <- alk
   tmp[2,2] <- 0.6  # sum >1
@@ -44,55 +44,60 @@ test_that("iCheckALK() errors and warnings",{
   expect_error(FSA:::iCheckALK(tmp))
 })  
 
-test_that("alkMeanVar() errors and warnings",{
-  data(WR79)
-  WR79$LCat <- lencat(WR79$len,w=5)
-  len.n <- xtabs(~LCat,data=WR79)
-  WR79.age <- Subset(WR79,!is.na(age))
-  alk <- prop.table(xtabs(~LCat+age,data=WR79.age),margin=1)
-  ## bad key
-  expect_warning(alkMeanVar(alk*10,len~LCat+age,WR79.age,len.n))
-  ## bad len.n
-  tmp <- len.n[-1]
-  expect_error(alkMeanVar(alk,len~LCat+age,WR79.age,tmp))
-  ## bad formulas
-  # no LHS
-  expect_error(alkMeanVar(alk,~LCat+age,WR79.age,len.n))
-  # factor on LHS
-  expect_error(alkMeanVar(alk,factor(len)~LCat+age,WR79.age,len.n))
-  # only one variable on RHS
-  expect_error(alkMeanVar(alk,len~LCat,WR79.age,len.n))
-  # three variables on RHS
-  expect_error(alkMeanVar(alk,len~LCat+age+ID,WR79.age,len.n))
-})
 
+##############################################################
+# alkPlot function
+##############################################################
 test_that("alkPlot() errors and warnings",{
-  ## create a "good" small ALK matrix
-  alk <- matrix(c(0.4,0.3,0.3,0.0,
-                  0.2,0.4,0.3,0.1,
-                  0.1,0.2,0.4,0.3,
-                  0.0,0.1,0.4,0.5,
-                  0.0,0.0,0.2,0.8),
-                nrow=5,byrow=TRUE)
-  rownames(alk) <- c(10,20,30,40,50)
-  colnames(alk) <- c(2,3,4,5)
-  addmargins(alk,margin=2)
-  
   ## one row is all zeroes
   tmp <- alk
   tmp[2,] <- 0
-  expect_warning(alkPlot(tmp))
-  expect_warning(alkPlot(tmp,type="area"))
+  expect_warning(alkPlot(tmp),"sum to 0")
+  expect_warning(alkPlot(tmp,type="area"),"sum to 0")
+  ## deprecation message
+  expect_warning(ageKeyPlot(alk),"deprecated")
 })
 
 
-# ############################################################
-# ============================================================
-# Analytical results
-# ============================================================
-# ############################################################
+##############################################################
+# alkIndivAge() also see below
+##############################################################
+test_that("alkIndivAge() errors and warnings",{
+  WR1 <- WR79
+  WR1$LCat <- lencat(WR1$len,w=5)
+  WR1.age <- subset(WR1,!is.na(age))
+  WR1.len <- subset(WR1,is.na(age))
+  WR1.key <- prop.table(xtabs(~LCat+age,data=WR1.age),margin=1)
+  ## bad types
+  expect_error(alkIndivAge(WR1.key,age~len,data=WR1.len,type="derek"),"should be one of")
+  ## bad formulae
+  expect_error(alkIndivAge(WR1.key,~age+len,data=WR1.len),"must have only one RHS variable")
+  expect_error(alkIndivAge(WR1.key,age~len+ID,data=WR1.len),"must have only one variable")
+  expect_error(alkIndivAge(WR1.key,age+ID~len,data=WR1.len),"more than one variable on the LHS")
+  expect_error(alkIndivAge(WR1.key,age~as.factor(len),data=WR1.len),"RHS variable must be numeric")
+  expect_error(alkIndivAge(WR1.key,as.factor(age)~len,data=WR1.len),"LHS variable must be numeric")
+  ## bad key
+  expect_warning(alkIndivAge(10*WR1.key,age~len,data=WR1.len),"contained values >1")
+  expect_warning(alkIndivAge(0.1*WR1.key,age~len,data=WR1.len),"does not sum to 1")
+  expect_warning(alkIndivAge(WR1.key[1:5,],age~len,data=WR1.len),"will be treated as all-inclusive")
+  expect_error(alkIndivAge(WR1.key[-c(1:5),],age~len,data=WR1.len),"minimum observed length in the length")
+})
+
+test_that("Does age variable get added with alkIndivAge()",{
+  WR1 <- WR79
+  WR1$LCat <- lencat(WR1$len,w=5)
+  WR1.age <- subset(WR1, !is.na(age))
+  WR1.len <- subset(WR1, is.na(age))
+  # remove age variable
+  WR1.len <- WR1.len[,-which(names(WR1.len)=="age")]
+  WR1.key <- prop.table(xtabs(~LCat+age,data=WR1.age),margin=1)
+  tmp <- alkIndivAge(WR1.key,~len,data=WR1.len)
+  expect_true(any(names(tmp)=="age"))
+  tmp <- alkIndivAge(WR1.key,~len,data=WR1.len,type="CR")
+  expect_true(any(names(tmp)=="age"))
+})
+
 test_that("Does 'seed=' work in alkIndivAge()",{
-  data(WR79)
   WR1 <- WR79
   WR1$LCat <- lencat(WR1$len,w=5)
   WR1.age <- subset(WR1, !is.na(age))
@@ -104,10 +109,78 @@ test_that("Does 'seed=' work in alkIndivAge()",{
   suppressWarnings(sum2 <- Summarize(len~age,data=WR1.comb))
   diff <- sum1[,-1]-sum2[,-1]
   expect_true(all(diff==0))
+  WR1.comb <- rbind(WR1.age, alkIndivAge(WR1.key,age~len,data=WR1.len,type="CR",seed=1234343))
+  WR1.comb2 <- rbind(WR1.age, alkIndivAge(WR1.key,age~len,data=WR1.len,type="CR",seed=1234343))
+  suppressWarnings(sum1 <- Summarize(len~age,data=WR1.comb))
+  suppressWarnings(sum2 <- Summarize(len~age,data=WR1.comb))
+  diff <- sum1[,-1]-sum2[,-1]
+  expect_true(all(diff==0))
 })
 
-test_that("Does same results are achieved when handling a missing row differently",{
-  data(WR79)
+
+##############################################################
+# alkMeanVar function also see below
+##############################################################
+test_that("alkMeanVar() errors and warnings",{
+  WR1 <- WR79
+  WR1$LCat <- lencat(WR1$len,w=5)
+  len.n <- xtabs(~LCat,data=WR1)
+  WR1.age <- Subset(WR1,!is.na(age))
+  alk <- prop.table(xtabs(~LCat+age,data=WR1.age),margin=1)
+  ## bad key
+  expect_warning(alkMeanVar(alk*10,len~LCat+age,WR1.age,len.n))
+  ## bad len.n
+  tmp <- len.n[-1]
+  expect_error(alkMeanVar(alk,len~LCat+age,WR1.age,tmp))
+  ## bad formulas
+  # no LHS
+  expect_error(alkMeanVar(alk,~LCat+age,WR1.age,len.n))
+  # factor on LHS
+  expect_error(alkMeanVar(alk,factor(len)~LCat+age,WR1.age,len.n))
+  # only one variable on RHS
+  expect_error(alkMeanVar(alk,len~LCat,WR1.age,len.n))
+  # three variables on RHS
+  expect_error(alkMeanVar(alk,len~LCat+age+ID,WR1.age,len.n))
+})
+
+
+##############################################################
+# alkAgeDist() also see below
+##############################################################
+test_that("alkAgeDist() reproduces results from Table 8.4 (left) of Quinn and Deriso (1999)",{
+  if (require(fishmethods)) {
+    ## Quinn and Deriso (1999) data are alkdata and alkprop reproduces
+    ##   Table 8.4 results
+    data(alkdata)
+    tmp1 <- alkprop(alkdata)$results
+  }
+  if (require(FSAdata)) {
+    ## Same data in SnapperHG2 in a different format
+    ## create ALK and intermediate results
+    data(SnapperHG2)
+    len.n <- xtabs(~len,data=SnapperHG2)
+    sn.age <- subset(SnapperHG2,!is.na(age))
+    agekey <- prop.table(xtabs(~len+age,data=sn.age),1)
+    lenA.n <- xtabs(~len,data=sn.age)
+    ## get ALKAgeDist results
+    tmp2 <- alkAgeDist(agekey,lenA.n,len.n)
+    
+    ## Find difference in results
+    diff <- tmp2[,-1]-tmp1[,-3]
+    expect_true(all(diff==0))
+    
+    ## enter Q&D results as a guard against fishmethods changing
+    props <- c(0.0003,0.0213,0.1624,0.0926,0.1533,0.1461,0.1260,0.0133,0.0277,0.0763,0.0298,0.0332,0.0162,0.1017)
+    ses <- c(0.0003,0.0056,0.0157,0.0158,0.0185,0.0182,0.0150,0.0050,0.0074,0.0083,0.0047,0.0050,0.0031,0.0063)
+    expect_true(all(round(tmp2$prop,4)-props==0))
+    expect_true(all(round(tmp2$se,4)-ses==0))
+  }
+})
+
+
+# ############################################################
+# ############################################################
+test_that("Are same results achieved when handling a missing row differently",{
   WR1 <- WR79
   ## Create a missing row in the ALK
   WR1 <- subset(WR1,len<100 | len>105)
@@ -169,36 +242,5 @@ test_that("Does same results are achieved when handling a missing row differentl
   diff23 <- sum2-sum3
   expect_true(all(diff12==0))
   expect_true(all(diff23==0))  
-})
-
-
-test_that("alkAgeDist() reproduces results from Table 8.4 (left) of Quinn and Deriso (1999)",{
-  if (require(fishmethods)) {
-    ## Quinn and Deriso (1999) data are alkdata and alkprop reproduces
-    ##   Table 8.4 results
-    data(alkdata)
-    tmp1 <- alkprop(alkdata)$results
-  }
-  if (require(FSAdata)) {
-    ## Same data in SnapperHG2 in a different format
-    ## create ALK and intermediate results
-    data(SnapperHG2)
-    len.n <- xtabs(~len,data=SnapperHG2)
-    sn.age <- subset(SnapperHG2,!is.na(age))
-    agekey <- prop.table(xtabs(~len+age,data=sn.age),1)
-    lenA.n <- xtabs(~len,data=sn.age)
-    ## get ALKAgeDist results
-    tmp2 <- alkAgeDist(agekey,lenA.n,len.n)
-    
-    ## Find difference in results
-    diff <- tmp2[,-1]-tmp1[,-3]
-    expect_true(all(diff==0))
-    
-    ## enter Q&D results as a guard against fishmethods changing
-    props <- c(0.0003,0.0213,0.1624,0.0926,0.1533,0.1461,0.1260,0.0133,0.0277,0.0763,0.0298,0.0332,0.0162,0.1017)
-    ses <- c(0.0003,0.0056,0.0157,0.0158,0.0185,0.0182,0.0150,0.0050,0.0074,0.0083,0.0047,0.0050,0.0031,0.0063)
-    expect_true(all(round(tmp2$prop,4)-props==0))
-    expect_true(all(round(tmp2$se,4)-ses==0))
-  }
 })
 
