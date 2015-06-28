@@ -65,13 +65,17 @@ lenFreqExpand <- function(...) expandLenFreq(...)
 expandLenFreq <- function(x,w,additional,
                           startcat=NULL,total=additional+length(x),
                           decimals=decs$wdec,show.summary=TRUE,...) {
+  ## Some checks
   if (!is.vector(x)) stop("'x' must be a vector.",call.=FALSE)
   if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
+  if (w<=0) stop("'w' must be positive",call.=FALSE)
+  if (!is.null(startcat)) if (startcat<=0) stop("'startcat' must be positive",call.=FALSE)
+  if (total<length(x)) stop("Total number to expand to must be greater than number in 'x'.",call.=FALSE)
+  ## Process
   # Find startcat if it is NULL
   if (is.null(startcat)) startcat <- floor(min(x,na.rm=TRUE)/w)*w
   # Find decimals in w and startcat, the decimals in w will be the default to round to
   decs <- iCheckStartcatW(startcat,w,x)
-  if (total<length(x)) stop("\n Total number to expand to must be greater than number in 'x'.",call.=FALSE)
   # number to allocate
   num <- total-length(x)
   # find the length frequency of measured fish
