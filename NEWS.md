@@ -1,5 +1,6 @@
 # FSA 0.6.24 ongoing
-
+* `expandLenFreq()`: Modified.  Added more checks.  Added some tests.
+* `wsVal()`: Modified.  Added more tests.
 
 # FSA 0.6.23 Jun15
 * `ageBias()`: Modified.  Fixed bugs related to axes on numbers plot and sunflower plot.
