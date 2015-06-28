@@ -1,6 +1,6 @@
 context("expandCounts() tests")
 
-test_that("addZeroCatch() errors",{
+test_that("expandCounts() errors",{
   d1 <- data.frame(name=c("A","A","A","B","B","C"),
                    lwr.bin=c(1  ,1.5,2  ,1  ,1.5,2),
                    upr.bin=c(1.5,2  ,2.5,1.5,2  ,2.5),
