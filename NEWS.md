@@ -1,4 +1,6 @@
-# FSA 0.6.24 ongoing
+# FSA 0.6.25 ongoing
+
+# FSA 0.6.24 Jun15
 * `alkIndivAge()`: Modified.  Switched to using `iHndlFormula()` at the beginning.  Added more checks and tests.
 * `expandLenFreq()`: Modified.  Added more checks.  Added some tests.
 * `wsVal()`: Modified.  Added more tests.
