@@ -105,7 +105,7 @@ Derek H. Ogle, \email{dogle@northland.edu}
 Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
-See \code{\link{alkIndivAge}} for using an age-length key to assign ages to individual fish and \code{\link{alkPrep}} to \dQuote{fix} ill-formed age-length keys.
+See \code{\link{alkIndivAge}} for using an age-length key to assign ages to individual fish.
 }
 \keyword{plot}
 

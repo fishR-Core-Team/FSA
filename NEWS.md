@@ -1,4 +1,21 @@
-# FSA 0.6.25 ongoing
+# FSA 0.7.0 ongoing
+
+# FSA 0.6.25 Jul15
+* `alkPrep()`: Deleted.  Moved to `FSAmisc` package (on GitHub).
+* `changesPos()`: Deleted.  Moved to `FSAmisc` package (on GitHub).
+* `chapmanPlot()`: Deleted.  Moved to `FSAmisc` package (on GitHub).
+* `dietOverlap()`: Deleted.  Moved to `FSAmisc` package (on GitHub).
+* `Garvey1`: Deleted.  Moved to `FSAmisc` package (on GitHub).
+* `Garvey4a`: Deleted.  Moved to `FSAmisc` package (on GitHub).
+* `KS2D_NR`: Deleted.  Moved to `FSAmisc` package (on GitHub).
+* `ks2d1()`: Deleted.  Moved to `FSAmisc` package (on GitHub).
+* `ks2d1p()`: Deleted.  Moved to `FSAmisc` package (on GitHub).
+* `ks2d2()`: Deleted.  Moved to `FSAmisc` package (on GitHub).
+* `ks2d2p()`: Deleted.  Moved to `FSAmisc` package (on GitHub).
+* `popSizesPlot()`: Deleted.  Moved to `FSAmisc` package (on GitHub).
+* `posadj()`: Deleted.  Moved to `FSAmisc` package (on GitHub).
+* `TroutDietSL`: Deleted.  Moved to `FSAmisc` package (on GitHub).
+* `walfordPlot()`: Deleted.  Moved to `FSAmisc` package (on GitHub).
 
 # FSA 0.6.24 Jun15
 * `alkIndivAge()`: Modified.  Switched to using `iHndlFormula()` at the beginning.  Added more checks and tests.

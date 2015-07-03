@@ -36,7 +36,7 @@
 #' 
 #' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{12-Age-Length Key}. 
 #' 
-#' @seealso See \code{\link{alkIndivAge}} for using an age-length key to assign ages to individual fish and \code{\link{alkPrep}} to \dQuote{fix} ill-formed age-length keys.
+#' @seealso See \code{\link{alkIndivAge}} for using an age-length key to assign ages to individual fish.
 #' 
 #' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 

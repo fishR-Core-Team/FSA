@@ -4,7 +4,7 @@
 #'
 #' @details The age-length key sent in \code{key} must be constructed with length intervals as rows and ages as columns.  The row names of \code{key} (i.e., \code{rownames(key)}) must contain the mininum values of each length interval (e.g., if an interval is 100-109 then the corresponding row name must be 100).  The column names of \code{key} (i.e., \code{colnames(key)}) must contain the age values (e.g., the columns can NOT be named with \dQuote{age.1}, for example).
 #'
-#' The length intervals in the rows of \code{key} must contain all of the length intervals present in the unaged sample to which the age-length key is to be applied (i.e., sent in the \dQuote{length} portion of the \code{formula}).  If this constraint is not met, then the function will stop with an error message.  See \code{\link{alkPrep}} for help preparing some ill-formed age-length keys for use with this function.
+#' The length intervals in the rows of \code{key} must contain all of the length intervals present in the unaged sample to which the age-length key is to be applied (i.e., sent in the \dQuote{length} portion of the \code{formula}).  If this constraint is not met, then the function will stop with an error message.
 #'
 #' If \code{breaks=NULL} then the length intervals for the unaged sample will be determined with a starting interval at the minimum value of the row names in \code{key} and a width of the length intervals as determined by the minimum difference in adjacent row names of \code{key}.  If length intervals of differing widths were used when constructing \code{key}, then those breaks should be supplied to \code{breaks=}.  Use of \code{breaks=} may be useful when \dQuote{uneven} length interval widths must be used because the lengths in the unaged sample are not fully represented in the aged sample.  See the examples.
 #'
@@ -23,7 +23,7 @@
 #'
 #' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{12-Age-Length Key}.  
 #'
-#' @seealso  See \code{\link{alkPlot}} for methods to visualize age-length keys and \code{\link{alkPrep}} for methods to prepare ill-formed age-length keys (e.g., length intervals with no aged fish) for this function.
+#' @seealso  See \code{\link{alkPlot}} for methods to visualize age-length keys.
 #' 
 #' See \code{\link[fishmethods]{alk}} and \code{\link[fishmethods]{alkprop}} in \pkg{fishmethods} and the entire \pkg{ALKr} package for functionality with a similar purpose but different methodology.
 #'

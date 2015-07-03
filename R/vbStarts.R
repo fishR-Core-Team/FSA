@@ -4,7 +4,7 @@
 #' 
 #' @details This function attempts to find reasonable starting values for a variety of parameterizations of the von Bertalanffy growth model.  There is no guarantee that these starting values are the \sQuote{best} starting values.  One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.
 #' 
-#' The Linf and K paramaters are estimated via the Ford-Walford plot (see \code{\link{walfordPlot}}.  The product of the starting values for Linf and K is used as a starting value for omega in the GallucciQuinn and Mooij parameterizations.  The result of log(2) divided by the starting value for K is used as the starting value for t50 in the Weisberg parameterization.
+#' The Linf and K paramaters are estimated via the Ford-Walford plot.  The product of the starting values for Linf and K is used as a starting value for omega in the GallucciQuinn and Mooij parameterizations.  The result of log(2) divided by the starting value for K is used as the starting value for t50 in the Weisberg parameterization.
 #' 
 #' If \code{meth0="yngAge"} then a starting value for t0 or L0 is found by algebraically solving the typical or original paramaterizations, respectively, for t0 or L0 using the first age with more than one data point.  If \code{meth0="poly"} then a second-degree polynomial model is fit to the mean length-at-age data.  The t0 starting value is set equal to the root of the polynomial that is closest to zero.  The L0 starting value is set equal to the mean length at age-0 predicted from the polynomial.
 #' 
@@ -33,7 +33,7 @@
 #' 
 #' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth}.
 #' 
-#' @seealso See \code{\link{vbModels}} for a list of models and parameterizations used in \pkg{FSA}, \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations, and \code{\link{walfordPlot}} for a common method to estimate Linf and K.
+#' @seealso See \code{\link{vbModels}} for a list of models and parameterizations used in \pkg{FSA} and \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations.
 #' 
 #' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
@@ -170,7 +170,7 @@ iCheckLinfK <- function(sLinf,sK,type,len) {
   if ((sLinf<0.5*max(len)) | sLinf>1.5*max(len)) {
     msg <- "Starting value for Linf is very different from the observed maximum length, "
     msg <- paste(msg,"which suggests a model fitting problem.\n",sep="")
-    msg <- paste(msg,"See a walfordPlot or chapmanPlot to examine the problem.\n",sep="")
+    msg <- paste(msg,"See a Walford or Chapman plot to examine the problem.\n",sep="")
     msg <- paste(msg,"Consider manually setting Linf to the maximum observed length\n",sep="")
     msg <- paste(msg,"in the starting value list.\n",sep="")
     warning(msg,call.=FALSE)    
@@ -182,7 +182,7 @@ iCheckLinfK <- function(sLinf,sK,type,len) {
       msg <- "One  suggested starting value is based on a negative K, "
     }
     msg <- paste(msg,"which suggests a model fitting problem.\n",sep="")
-    msg <- paste(msg,"See a walfordPlot or chapmanPlot to examine the problem.\n",sep="")
+    msg <- paste(msg,"See a Walford or Chapman Plot to examine the problem.\n",sep="")
     msg <- paste(msg,"Consider manually setting K=0.3 in the starting value list.\n",sep="")
     warning(msg,call.=FALSE)
   }
