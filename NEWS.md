@@ -1,4 +1,6 @@
-# FSA 0.7.0 ongoing
+# FSA 0.7.1 ongoing
+
+# FSA 0.7.0 Jul15
 * Fixed description to be in title case.
 * Fixed reference to fishR page in description file.
 * Fixed several URL references, deleted others that have changed and are no longer available.
