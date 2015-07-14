@@ -5,46 +5,46 @@
 \title{Creates separate histograms by levels.}
 \usage{
 \method{hist}{formula}(formula, data = NULL, main = "", right = FALSE,
-  pre.main = "", xlab = names(DF)[1], ylab = "Frequency",
-  same.breaks = TRUE, same.ylim = TRUE, ymax = NULL, col = "gray90",
+  pre.main = "", xlab = NULL, ylab = "Frequency", same.breaks = TRUE,
+  same.ylim = TRUE, ymax = NULL, col = "gray90",
   nrow = round(sqrt(num)), ncol = ceiling(sqrt(num)), byrow = TRUE,
   iaxs = TRUE, ...)
 }
 \arguments{
-\item{formula}{A formula of class(formula).  See details.}
+\item{formula}{A formula.  See details.}
 
 \item{data}{An optional data frame that contains the variables in the model.}
 
-\item{main}{A character string to be used as the main title only when a single histogram is produced.}
+\item{main}{A character string used as the main title for when a SINGLE histogram is produced.}
 
 \item{right}{A logical that indicates if the histogram bins are right-closed (left open) intervals (\code{=TRUE}) or not (\code{=FALSE}; default).}
 
-\item{pre.main}{A character string to be used as a prefix for the main title.  See details.}
+\item{pre.main}{A character string to be used as a prefix for the main title when multiplie histograms are produced.  See details.}
 
-\item{xlab}{A character label for the x-axis.  Defaults to name of quantitative variable in the formula.}
+\item{xlab}{A character label for the x-axis.  Defaults to name of quantitative variable in \code{formula}.}
 
 \item{ylab}{A character label for the y-axis.  Defaults to \dQuote{Frequency}.}
 
-\item{same.breaks}{A logical that indicates whether the same break positions should be used on each histogram.  Defaults to \code{TRUE}.}
+\item{same.breaks}{A logical that indicates whether the same break values (i.e., bins) should be used on each histogram.  Defaults to \code{TRUE}.}
 
-\item{same.ylim}{A logicial that indicates whether the same limits for the y-axis should be used on each histogram.  Defaults to \code{TRUE}.  Ignored if \code{ylmts} is non-null.}
+\item{same.ylim}{A logicial that indicates whether the same limits for the y-axis should be used on each histogram.  Defaults to \code{TRUE}.}
 
-\item{ymax}{A single value that sets the maximum y-axis limit for each histogram or a vector of length equal to the number of groups that sets the maximum y-axis limit for each histogram separately.}
+\item{ymax}{A single value that sets the maximum y-axis limit for each histogram or a vector of length equal to the number of groups that sets the maximum y-axis limit for each histogram separately.  If \code{NULL} (default), then a value will be found.}
 
 \item{col}{A string that indicates the color for the bars on the histogram.  Defaults to a light shade of gray (i.e., \code{"gray90"}).}
 
-\item{nrow}{A numeric that contains the number of rows to use on the graphic.}
+\item{nrow}{A single numeric that contains the number of rows to use on the graphic.}
 
-\item{ncol}{A numeric that contains the number of columns to use on the graphic.}
+\item{ncol}{A single numeric that contains the number of columns to use on the graphic.}
 
-\item{byrow}{A logical that indicates if the histograms should fill rows first (\code{=TRUE} or columns first (\code{=FALSE}).}
+\item{byrow}{A single logical that indicates if the histograms should fill rows first (\code{=TRUE} or columns first (\code{=FALSE}).}
 
-\item{iaxs}{A logical that indicates whether both axes should be plotted using \code{xaxs="i"} and \code{yaxs="i"} (the Default) or \code{xaxs="r"} and \code{yaxs="r"} (what R typically does).}
+\item{iaxs}{A single logical that indicates whether both axes should be plotted using \code{xaxs="i"} and \code{yaxs="i"} (the default) or \code{xaxs="r"} and \code{yaxs="r"} (what R typically does).}
 
 \item{\dots}{Other arguments to pass through to the default \code{hist()}.}
 }
 \value{
-Nothing is returned; however, a graphic is produced.
+A graphic is produced and nothing is returned unless \code{formula} results in only one histogram.  In that case, an object of class \code{"histogram"} is returned, which is described in \code{\link[graphics]{hist}}.
 }
 \description{
 Creates separate histograms of a quantitative variable by levels of a factor variable.
@@ -57,9 +57,9 @@ If the formula is of the form \code{~quantitative} or \code{quantitative~1} then
 The function produces a single (but see below) graphic that consists of a grid on which the separate histograms are printed.  The rows and columns of this grid are determined to construct a plot that is as square as possible.  However, the rows and columns can be set by the user with the \code{nrow=} and \code{ncol=} arguments.  If the product of the number of rows and number of columns set by the user is less than the total number of histograms to be constructed then multiple pages of histograms will be produced (each requiring the user to click on the graph to go to the next graph).  The x-axis of each separate histogram will be labeled identically.  The default x-axis label is the name of the quantitative variable.  This can be changed by the user with the \code{xlab=} argument.
 
 
-I changed the \code{right=} argument from that used in the base \code{hist()} so that right-open (left-closed) is the default.
+The default for \code{right=} is not the same as that used in \code{hist()} from \pkg{graphics}.  Thus, right-open (left-closed) bins are the default.
 
-I added the \code{iaxs=} argument and set the default to \code{TRUE} so that \code{xaxs="i"} and \code{yaxs="i"} are used when plotting both axes.  This removes the \dQuote{floating} x-axis that R typically plots for histograms.
+The \code{iaxs=} argument defaulats to \code{TRUE} so that \code{xaxs="i"} and \code{yaxs="i"} are used for both axes, which eliminates the \dQuote{floating} x-axis that R typically plots for histograms.
 }
 \note{
 Students often need to look at the distribution of a quantitative variable separated for different levels of a categorical variable.  One method for examining these distributions is with \code{boxplot(quantitative~factor)}.  Other methods use functions in \pkg{Lattice} and \pkg{ggplots2} but these packages have some learning \sQuote{overhead} for newbie students.  The formula notation, however, is a common way in R to tell R to separate a quantitative variable by the levels of a factor.  Thus, this function adds code for formulas to the generic \code{hist} function.  This allows newbie students to use a common notation (i.e., formula) to easily create multiple histograms of a quantitative variable separated by the levels of a factor.
@@ -87,7 +87,7 @@ hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",ymax=30)
 hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",nrow=1,ncol=3)
 
 ## Use right=FALSE & freq=FALSE arguments to demonstrate sending an argument used by base hist()
-hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",right=FALSE,freq=FALSE)
+hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",right=FALSE,freq=FALSE,ymax=2)
 
 ## Add a junk variable to the iris data set to show two factors on RHS
 iris$junk <- factor(sample(c("A","B"),nrow(iris),replace=TRUE))
@@ -109,7 +109,7 @@ Derek H. Ogle, \email{dogle@northland.edu}, but this implementation is largely a
 Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
-See base \code{\link{hist}} for related functionality and \code{\link[plotrix]{multhist}} in \pkg{plotrix} for similar functionality.
+See base \code{\link[graphics]{hist}} for related functionality and \code{\link[plotrix]{multhist}} in \pkg{plotrix} for similar functionality.
 }
 \keyword{hplot}
 

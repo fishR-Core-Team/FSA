@@ -1,4 +1,5 @@
 # FSA 0.7.0 ongoing
+* `hist.formula()`: Modified.  Rebuilt to use `iHndlFormula()`.  Modified how `xlab=` is used (result is the same).  Added some tests.
 
 # FSA 0.6.25 Jul15
 * `alkPrep()`: Deleted.  Moved to `FSAmisc` package (on GitHub).
@@ -235,7 +236,7 @@
 * `chapmanRobson()`: Modified.  Changed `plot()` to default to slighly lighter colored dots.  Changed to return `par()` options to what they were before the function was called.
 * `growthModelSim()`: Modified.  Changed to return `par()` options to what they were before the function was called.
 * `growthRadPlot()`: Modified.  Changed to return `par()` options to what they were before the function was called.
-* `hist()`: Modified.  Changed to return `par()` options to what they were before the function was called.
+* `hist.formula()`: Modified.  Changed to return `par()` options to what they were before the function was called.
 * `lwCompPreds()`: Modified.  Changed `quant.lens=` to `qlens=`.  Changed default `qlens=` to have the 5th and 95th percentiles rather than the minimum and maximum values.  Added `qpens.dec=` so that the user could control the number of decimals for the lengths derived from `qlens=`.
 * `srSim()`: Modified.  Changed to return `par()` options to what they were before the function was called.
 
@@ -334,7 +335,7 @@
 * `wrDataPrep()`: Deleted.  Functionality replaced by new `wrAdd()`.
 
 # FSA 0.4.27 Sep14
-* `hist()`: Modified.  Slight modifications to warning messages.
+* `hist.formula()`: Modified.  Slight modifications to warning messages.
 * `Summarize()`: Modified.  Slight modification to warning messages.
 * `tictactoe()`: Modified.  Changed `predbal=` to `predobj=`, `preybal=` to `predbal=`, `xlab=` to `predlab=`, `ylab=` to `preylab=`, `bal.col=` to `obj.col=`, and `bal.trans=` to `obj.trans=`.
 * `vbStarts()`: Modified.  Fixed a bug related to `plot=TRUE` when `type="Francis"` or `type="Schnute"`.

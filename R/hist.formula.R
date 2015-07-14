@@ -10,30 +10,30 @@
 #'
 # 'By default each histogram is labeled with a main title that consists of the levels formed by the right-hand-side of the formula.  If a string is given in \code{pre.main=} then that string will be appended with the names of the level formed by the right-hand-side of the formula.  If \code{pre.main=NULL} then NO main title will be printed.
 #'
-#' I changed the \code{right=} argument from that used in the base \code{hist()} so that right-open (left-closed) is the default.
+#' The default for \code{right=} is not the same as that used in \code{hist()} from \pkg{graphics}.  Thus, right-open (left-closed) bins are the default.
 #' 
-#' I added the \code{iaxs=} argument and set the default to \code{TRUE} so that \code{xaxs="i"} and \code{yaxs="i"} are used when plotting both axes.  This removes the \dQuote{floating} x-axis that R typically plots for histograms.
+#' The \code{iaxs=} argument defaulats to \code{TRUE} so that \code{xaxs="i"} and \code{yaxs="i"} are used for both axes, which eliminates the \dQuote{floating} x-axis that R typically plots for histograms.
 #'
 #' @note Students often need to look at the distribution of a quantitative variable separated for different levels of a categorical variable.  One method for examining these distributions is with \code{boxplot(quantitative~factor)}.  Other methods use functions in \pkg{Lattice} and \pkg{ggplots2} but these packages have some learning \sQuote{overhead} for newbie students.  The formula notation, however, is a common way in R to tell R to separate a quantitative variable by the levels of a factor.  Thus, this function adds code for formulas to the generic \code{hist} function.  This allows newbie students to use a common notation (i.e., formula) to easily create multiple histograms of a quantitative variable separated by the levels of a factor.
 #'
-#' @param formula A formula of class(formula).  See details.
+#' @param formula A formula.  See details.
 #' @param data An optional data frame that contains the variables in the model.
-#' @param main A character string to be used as the main title only when a single histogram is produced.
+#' @param main A character string used as the main title for when a SINGLE histogram is produced.
 #' @param right A logical that indicates if the histogram bins are right-closed (left open) intervals (\code{=TRUE}) or not (\code{=FALSE}; default).
-#' @param pre.main A character string to be used as a prefix for the main title.  See details.
-#' @param xlab A character label for the x-axis.  Defaults to name of quantitative variable in the formula.
+#' @param pre.main A character string to be used as a prefix for the main title when multiplie histograms are produced.  See details.
+#' @param xlab A character label for the x-axis.  Defaults to name of quantitative variable in \code{formula}.
 #' @param ylab A character label for the y-axis.  Defaults to \dQuote{Frequency}.
-#' @param same.breaks A logical that indicates whether the same break positions should be used on each histogram.  Defaults to \code{TRUE}.
-#' @param same.ylim A logicial that indicates whether the same limits for the y-axis should be used on each histogram.  Defaults to \code{TRUE}.  Ignored if \code{ylmts} is non-null.
-#' @param ymax A single value that sets the maximum y-axis limit for each histogram or a vector of length equal to the number of groups that sets the maximum y-axis limit for each histogram separately.
+#' @param same.breaks A logical that indicates whether the same break values (i.e., bins) should be used on each histogram.  Defaults to \code{TRUE}.
+#' @param same.ylim A logicial that indicates whether the same limits for the y-axis should be used on each histogram.  Defaults to \code{TRUE}.
+#' @param ymax A single value that sets the maximum y-axis limit for each histogram or a vector of length equal to the number of groups that sets the maximum y-axis limit for each histogram separately.  If \code{NULL} (default), then a value will be found.
 #' @param col A string that indicates the color for the bars on the histogram.  Defaults to a light shade of gray (i.e., \code{"gray90"}).
-#' @param nrow A numeric that contains the number of rows to use on the graphic.
-#' @param ncol A numeric that contains the number of columns to use on the graphic.
-#' @param byrow A logical that indicates if the histograms should fill rows first (\code{=TRUE} or columns first (\code{=FALSE}).
-#' @param iaxs A logical that indicates whether both axes should be plotted using \code{xaxs="i"} and \code{yaxs="i"} (the Default) or \code{xaxs="r"} and \code{yaxs="r"} (what R typically does).
+#' @param nrow A single numeric that contains the number of rows to use on the graphic.
+#' @param ncol A single numeric that contains the number of columns to use on the graphic.
+#' @param byrow A single logical that indicates if the histograms should fill rows first (\code{=TRUE} or columns first (\code{=FALSE}).
+#' @param iaxs A single logical that indicates whether both axes should be plotted using \code{xaxs="i"} and \code{yaxs="i"} (the default) or \code{xaxs="r"} and \code{yaxs="r"} (what R typically does).
 #' @param \dots Other arguments to pass through to the default \code{hist()}.
 #'
-#' @return Nothing is returned; however, a graphic is produced.
+#' @return A graphic is produced and nothing is returned unless \code{formula} results in only one histogram.  In that case, an object of class \code{"histogram"} is returned, which is described in \code{\link[graphics]{hist}}.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}, but this implementation is largely a modification of the code provided by Marc Schwartz on the R-help mailing list on 1Jun07.
 #'
@@ -41,7 +41,7 @@
 #'
 #' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #'
-#' @seealso See base \code{\link{hist}} for related functionality and \code{\link[plotrix]{multhist}} in \pkg{plotrix} for similar functionality.
+#' @seealso See base \code{\link[graphics]{hist}} for related functionality and \code{\link[plotrix]{multhist}} in \pkg{plotrix} for similar functionality.
 #'
 #' @keywords hplot
 #'
@@ -65,7 +65,7 @@
 #' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",nrow=1,ncol=3)
 #'
 #' ## Use right=FALSE & freq=FALSE arguments to demonstrate sending an argument used by base hist()
-#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",right=FALSE,freq=FALSE)
+#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",right=FALSE,freq=FALSE,ymax=2)
 #'
 #' ## Add a junk variable to the iris data set to show two factors on RHS
 #' iris$junk <- factor(sample(c("A","B"),nrow(iris),replace=TRUE))
@@ -83,36 +83,43 @@
 #' @rdname hist.formula
 #' @export
 hist.formula <- function(formula,data=NULL,main="",right=FALSE,
-                         pre.main="",xlab=names(DF)[1],ylab="Frequency",
+                         pre.main="",xlab=NULL,ylab="Frequency",
                          same.breaks=TRUE,same.ylim=TRUE,ymax=NULL,col="gray90",
                          nrow=round(sqrt(num)),ncol=ceiling(sqrt(num)),byrow=TRUE,
                          iaxs=TRUE,...) {
-  opar <- par("mfrow")
-  DF <- model.frame(formula,data=data)
-  if (dim(DF)[2]==1) {
-    h <- hist(DF[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,
+  ## Handle the formula
+  tmp <- iHndlFormula(formula,data)
+  if (tmp$vnum>3) stop("`hist.formula' only works with 1 response and 1 or 2 explanatory varibles.",call.=FALSE)
+  if (tmp$vnum==1){
+    ## Handle one variable formula
+    # Some checks
+    if (!tmp$vclass %in% c("numeric","integer")) stop("Variable must be numeric.",call.=FALSE)
+    # Pass through to hist()
+    if (is.null(xlab)) xlab <- tmp$vname
+    h <- hist(tmp$mf[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,
               xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
-    if (iaxs) abline(h=0,xpd=FALSE)  # will assure a line at y=0
+    # assure a line at y=0
+    if (iaxs) abline(h=0,xpd=FALSE)
     invisible(h)
   } else {
-    if (attr(attr(DF, "terms"),"dataClasses")[1]!="numeric") stop("Single variable in formula must be a numeric vector.",call.=FALSE)
-    if (dim(DF)[2]>3) stop("hist.formula only works with one quantitative variable on LHS\n and one or two factor variables on RHS of formula.",call.=FALSE)
-    if (attr(attr(DF, "terms"),"dataClasses")[2]!="factor") {
-      warning("Variable on RHS of formula must be a factor.  Will convert to factor\n and continue.  This may result in an error.",call.=FALSE)
-      DF[,2] <- factor(DF[,2])
-    }
-    if (dim(DF)[2]==2) {
-      DF.split <- split(DF[[1]],DF[[2]])
-    } else {
-      if (attr(attr(DF, "terms"),"dataClasses")[3]!="factor") {
-        warning("Variable on RHS of formula must be a factor.  Will convert to factor\n and continue.  This may result in an error.",call.=FALSE)
-        DF[,3] <- factor(DF[,3])
-      }
-      DF[,4] <- interaction(DF[,2],DF[,3])
-      DF.split <- split(DF[[1]],DF[[4]])
-    }
+    ## Multiple variables
+    # Perform some checks first
+    if (tmp$Rnum>1) stop("LHS may contain only one variable.",call.=FALSE)
+    if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
+    resp <- tmp$mf[,tmp$Rpos]
+    if (is.null(xlab)) xlab <- tmp$Rname
+    # Make sure RHS is all factors
+    if (tmp$EFactNum!=tmp$Enum) stop("RHS may contain only factor variables.",call.=FALSE)
+    # Find/make the explanatory variable
+    if (tmp$Enum==2) { expl <- interaction(tmp$mf[,tmp$EFactPos[1]],tmp$mf[,tmp$EFactPos[2]]) }
+      else { expl <- tmp$mf[,tmp$EFactPos] }
+    ## Split the data.frame for processing
+    DF.split <- split(resp,expl)
+    ## Make the histograms
+    # Save mfrow to revert back when finished
+    opar <- par("mfrow")
     num <- length(names(DF.split))
-    if (same.breaks) { breaks <- hist(DF[[1]],right=right,plot=FALSE,warn.unused=FALSE,...)$breaks }
+    if (same.breaks) { breaks <- hist(resp,right=right,plot=FALSE,warn.unused=FALSE,...)$breaks }
     if (is.null(ymax)) {
       for (i in 1:num) {  # used to find highest count on all histograms
         ymax[i] <- max(hist(DF.split[[i]],right=right,plot=FALSE,warn.unused=FALSE,...)$counts)
