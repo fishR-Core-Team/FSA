@@ -89,7 +89,7 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
                          iaxs=TRUE,...) {
   ## Handle the formula
   tmp <- iHndlFormula(formula,data)
-  if (tmp$vnum>3) stop("`hist.formula' only works with 1 response and 1 or 2 explanatory varibles.",call.=FALSE)
+  if (tmp$vnum>3) stop("`hist.formula' only works with 1 response and 1 or 2 explanatory variables.",call.=FALSE)
   if (tmp$vnum==1){
     ## Handle one variable formula
     # Some checks

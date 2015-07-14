@@ -17,39 +17,44 @@ ksTest(x, ...)
 \arguments{
 \item{x}{A numeric vector of data values or a formula (see details).}
 
-\item{y}{Either a numeric vector of data values, or a character string naming a cumulative distribution function or an actual cumulative distribution function.  See \code{?ks.test}.}
+\item{y}{A numeric vector of data values, a character string naming a cumulative distribution function, or an actual cumulative distribution function.  See \code{\link[stats]{ks.test}}.}
 
-\item{alternative}{A string that indicates the alternative hypothesis.  See \code{?ks.test}.}
+\item{alternative}{A string that indicates the alternative hypothesis.  See \code{\link[stats]{ks.test}}.}
 
-\item{exact}{\code{NULL} or a logical that indicates whether an exact p-value should be computed. See \code{?ks.test}.  Not available if ties are present, nor for the one-sided two-sample case.}
+\item{exact}{\code{NULL} or a logical that indicates whether an exact p-value should be computed. See \code{\link[stats]{ks.test}}.  Not available if ties are present, nor for the one-sided two-sample case.}
 
 \item{data}{A data frame that contains the variables in the formula for \code{x}.}
 
 \item{\dots}{Parameters of the distribution specified (as a character string) by \code{y}.}
 }
 \value{
-See \code{?ks.test}.
+See \code{\link[stats]{ks.test}}.
 }
 \description{
-Performs a one- or two-sample Kolmogorov-Smirnov test.  Includes the option to perform a two-sample test using the formula notation.
+Performs a one- or two-sample Kolmogorov-Smirnov test.  Includes the option to perform the two-sample test using the formula notation.
 }
 \details{
-This function was created to allow the use of a formula in the two-sample situation.  The default version is simply a pass through to \code{ks.test}.  Thus, see \code{?ks.test} for more details.
+This is exactly \code{\link[stats]{ks.test}} except that a formula may be used for the two-sample situation.  The default version is simply a pass through to \code{\link[stats]{ks.test}}.  See \code{\link[stats]{ks.test}} for more details.
 }
 \examples{
-## see ?ks.test for other examples
-## first two-sample example in ?ks.test
+## see ks.test for other examples
 x <- rnorm(50)
 y <- runif(30)
-ksTest(x,y)
-
-## same as above but using formulas
 df <- data.frame(dat=c(x,y),grp=rep(c("X","Y"),c(50,30)))
-str(df)
+
+## one-sample (from ks.test) still works
+ksTest(x+2, "pgamma", 3, 2)
+ks.test(x+2, "pgamma", 3, 2)
+
+## first two-sample example in ?ks.test
+ksTest(x,y)
+ks.test(x,y)
+
+## same as above but using data.frame and formula
 ksTest(dat~grp,data=df)
 }
 \seealso{
-\code{\link{ks.test}}.
+\code{\link[stats]{ks.test}}.
 }
 \keyword{htest}
 

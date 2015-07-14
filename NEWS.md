@@ -7,6 +7,7 @@
 * Updated CITATION file (to remove CRAN note).
 * Removed `FSAdata` from suggests list.
 * `hist.formula()`: Modified.  Rebuilt to use `iHndlFormula()`.  Modified how `xlab=` is used (result is the same).  Added some tests.
+* `ksTest()`: Modified.  Rebuilt to use `iHndlFormula()`.  Added some tests for messages and to make sure results matched `ks.test()`.
 
 # FSA 0.6.25 Jul15
 * `alkPrep()`: Deleted.  Moved to `FSAmisc` package (on GitHub).
