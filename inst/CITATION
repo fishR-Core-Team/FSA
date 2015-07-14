@@ -1,12 +1,11 @@
 citHeader("To cite package 'FSA' in publications use:")
 
-desc <- packageDescription("FSA")
-year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", desc$Date)
-vers <- paste("R package version", desc$Version)
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("R package version %s", meta$Version)
 citEntry(entry="Manual",
          title = "FSA: Fisheries Stock Analysis",
          author = personList(as.person("Derek H. Ogle")),
          year = year,
-         note = vers,
-         textVersion = paste0("Ogle, D.H. ",year,". FSA: Fisheries Stock Analysis. ",vers,".")
+         note = note,
+         textVersion = paste0("Ogle, D.H. ",year,". FSA: Fisheries Stock Analysis. ",note,".")
 )
