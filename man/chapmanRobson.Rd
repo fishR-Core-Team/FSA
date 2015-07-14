@@ -119,7 +119,7 @@ Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, 
 
 Chapman, D.G. and D.S. Robson. 1960. The analysis of a catch curve. Biometrics. 16:354-368.
 
-Hoenig, J.M. and W.D. Lawing, and N.A. Hoenig.  1983.  \href{http://www.fisheries.vims.edu/hoenig/pdfs/Hoenig_Lawing_Hoenig.pdf}{Using mean age, mean length and median length data to estimate the total mortality rate}.  International Council for the Exploration of the Sea, CM 1983/D:23, Copenhagen.
+Hoenig, J.M. and W.D. Lawing, and N.A. Hoenig.  1983.  Using mean age, mean length and median length data to estimate the total mortality rate.  International Council for the Exploration of the Sea, CM 1983/D:23, Copenhagen.
 
 Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 

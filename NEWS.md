@@ -1,4 +1,8 @@
 # FSA 0.7.0 ongoing
+* Fixed description to be in title case.
+* Fixed reference to fishR page in description file.
+* Fixed several URL references, deleted others that have changed and are no longer available.
+* Removed `FSAdata` from suggests list.
 * `hist.formula()`: Modified.  Rebuilt to use `iHndlFormula()`.  Modified how `xlab=` is used (result is the same).  Added some tests.
 
 # FSA 0.6.25 Jul15

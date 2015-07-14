@@ -21,7 +21,7 @@
    \item{comment}{Comments about use of equation.}
  }}
 \source{
-Most of these equations can be found in Neumann, R.M., C.S. Guy, and D.W. Willis.  2012.  \href{http://www.fisheriessociety.org/proofs/ft3/chapter 14.pdf}{Length, Weight, and Associated Indices}.  Chapter 14 in Zale, A.V., D.L. Parrish, and T.M. Sutton, editors.  Fisheries Techniques.  American Fisheries Society, Bethesda, MD.
+Most of these equations can be found in Neumann, R.M., C.S. Guy, and D.W. Willis.  2012.  Length, Weight, and Associated Indices.  Chapter 14 in Zale, A.V., D.L. Parrish, and T.M. Sutton, editors.  Fisheries Techniques.  American Fisheries Society, Bethesda, MD.
 
 Some species were not in Neumann et al (2012) and are noted as such in the \code{comments} variable.
 }

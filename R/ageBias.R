@@ -85,9 +85,9 @@
 #' 
 #' Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  \href{http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf}{Graphical and statistical methods for determining the consistency of age determinations.} Transactions of the American Fisheries Society 124:131-138.
 #'
-#' Evans, G.T. and J.M. Hoenig.  1998.  \href{http://www.fisheries.vims.edu/hoenig/pdfs/Viewing.pdf}{Testing and viewing symmetry in contingency tables, with application to readers of fish ages.}  Biometrics 54:620-629.
+#' Evans, G.T. and J.M. Hoenig.  1998.  Testing and viewing symmetry in contingency tables, with application to readers of fish ages.  Biometrics 54:620-629.
 #'
-#' Hoenig, J.M., M.J. Morgan, and C.A. Brown. 1995.  \href{http://www.fisheries.vims.edu/hoenig/pdfs/Hoenig_Morgan_Brown_AgeDeterminationSymmetry.pdf}{Analysing differences between two age determination methods by tests of symmetry.}  Canadian Journal of Fisheries And Aquatic Systems 52:364-368.
+#' Hoenig, J.M., M.J. Morgan, and C.A. Brown. 1995.  Analysing differences between two age determination methods by tests of symmetry.  Canadian Journal of Fisheries And Aquatic Systems 52:364-368.
 #' 
 #' McBride, R.S.  2015. Diagnosis of paired age agreement: A simulation approach of accuracy and precision effects. ICES Journal of Marine Science, XX:XXX-XXX.
 #'

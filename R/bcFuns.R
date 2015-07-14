@@ -41,7 +41,7 @@
 #'\url{https://sites.google.com/site/fishrfiles/gnrl/BackcalculationExtra.pdf}
 #'
 #' @references
-#' Vigliola, L. and M.G. Meekan.  2009.  The back-calculation of fish growth from otoliths.  pp. 174-211.  in B.S. Green et al. (editors).  \href{http://link.springer.com/chapter/10.1007\%2F978-1-4020-5775-5_6\#page-1}{Tropical Fish Otoliths: Information for Assessment, Management and Ecology.}  Review: Methods and Technologies in Fish Biology and Fisheries 11.  Springer.  
+#' Vigliola, L. and M.G. Meekan.  2009.  The back-calculation of fish growth from otoliths.  pp. 174-211.  in B.S. Green et al. (editors).  \href{https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths}{Tropical Fish Otoliths: Information for Assessment, Management and Ecology.}  Review: Methods and Technologies in Fish Biology and Fisheries 11.  Springer.  
 #'
 #' @keywords manip
 #'

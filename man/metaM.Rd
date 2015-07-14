@@ -134,7 +134,7 @@ Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, 
 
 Alverson, D.L. and M.J. Carney.  1975.  A graphic review of the growth and decay of population cohorts.  Journal du Conseil International pour l'Exploration de la Mer. 36:133-143.
 
-Charnov, E.L., H. Gislason, and J.G. Pope.  2013.  \href{http://www.sefsc.noaa.gov/sedar/download/S32_RD17_Charnov_etal _2012.pdf?id=DOCUMENT}{Evolutionary assembly rules for fish life histories}.  Fish and Fisheries.  14:213-224.
+Charnov, E.L., H. Gislason, and J.G. Pope.  2013.  Evolutionary assembly rules for fish life histories.  Fish and Fisheries.  14:213-224.
 
 Gislason, H., N. Daan, J.C. Rice, and J.G. Pope.  2010.  Size, growth, temperature and the natural mortality of marine fish.  Fish and Fisheries 11:149-158.
 
@@ -148,7 +148,7 @@ Jensen, A.L.  2001.  \href{http://deepblue.lib.umich.edu/bitstream/handle/2027.4
 
 Kenchington, T.J.  2014.  Natural mortality estimators for information-limited fisheries.  Fish and Fisheries.  14:533-562.
 
-Pauly, D.  1980.  \href{http://innri.unuftp.is/pauly/On the interrelationships betwe.pdf}{On the interrelationships between natural mortality, growth parameters, and mean environmental temperature in 175 fish stocks}.  Journal du Conseil International pour l'Exploration de la Mer. 39:175-192.
+Pauly, D.  1980.  \href{http://innri.unuftp.is/pauly/On\%20the\%20interrelationships\%20betwe.pdf}{On the interrelationships between natural mortality, growth parameters, and mean environmental temperature in 175 fish stocks}.  Journal du Conseil International pour l'Exploration de la Mer. 39:175-192.
 
 Rikhter, V.A., and V.N. Efanov.  1976.  On one of the approaches for estimating natural mortality in fish populations (in Russian). ICNAF Research Document 76/IV/8, 12pp.
 

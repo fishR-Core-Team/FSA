@@ -31,7 +31,7 @@
 #'
 #' @concept Age Precision Bias Error
 #'
-#' @source Data from Herbst, S.J. and J.E. Marsden.  2011.  \href{http://www.uvm.edu/rsenr/emarsden/Herbst\%20and\%20Marsden\%20whitefish\%20age\%20structure\%20comparison.pdf}{Comparison of precision and bias of scale, fin ray, and otolith age estimates for lake whitefish (\emph{Coregonus clupeaformis}) in Lake Champlain.}  Journal of Great Lakes Research.  37:386-389.  Contributed by Seth Herbst.  \bold{Do not use for other than educational purposes without permission from the author.}
+#' @source Data from Herbst, S.J. and J.E. Marsden.  2011.  \href{http://www.uvm.edu/rsenr/emarsden/documents/Herbst\%20and\%20Marsden\%20whitefish\%20age\%20structure\%20comparison.pdf}{Comparison of precision and bias of scale, fin ray, and otolith age estimates for lake whitefish (\emph{Coregonus clupeaformis}) in Lake Champlain.}  Journal of Great Lakes Research.  37:386-389.  Contributed by Seth Herbst.  \bold{Do not use for other than educational purposes without permission from the author.}
 #'
 #' @keywords datasets
 #'
