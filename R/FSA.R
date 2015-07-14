@@ -30,4 +30,6 @@
 #' @importFrom plotrix plotCI stackpoly thigmophobe
 #' @importFrom relax gslider
 #' @importFrom sciplot lineplot.CI
+#' @importFrom stats ks.test
+#' @importFrom graphics hist
 NULL
