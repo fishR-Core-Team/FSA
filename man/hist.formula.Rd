@@ -101,6 +101,7 @@ hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",iaxs=FALSE)
 
 ## Single histogram with "axis correction", testing xlim and ylim
 hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",xlim=c(3.8,8.2),ylim=c(0,35))
+hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",xlim=c(3.8,8.2),ymax=35)
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}, but this implementation is largely a modification of the code provided by Marc Schwartz on the R-help mailing list on 1Jun07.

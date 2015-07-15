@@ -1,4 +1,5 @@
 # FSA 0.7.1 ongoing
+* `hist.formula()`: Modified.  Fixed so that `ymax=` also sets the y-axis limit when only one histogram is made (it was previously ignored).
 
 # FSA 0.7.0 Jul15
 * Fixed description to be in title case.

@@ -79,6 +79,7 @@
 #' 
 #' ## Single histogram with "axis correction", testing xlim and ylim
 #' hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",xlim=c(3.8,8.2),ylim=c(0,35))
+#' hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",xlim=c(3.8,8.2),ymax=35)
 #'  
 #' @rdname hist.formula
 #' @export
@@ -96,8 +97,20 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
     if (!tmp$vclass %in% c("numeric","integer")) stop("Variable must be numeric.",call.=FALSE)
     # Pass through to hist()
     if (is.null(xlab)) xlab <- tmp$vname
-    h <- hist(tmp$mf[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,
-              xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
+    # Handle y-axis limits ... if ylim= in dots then just use
+    # that.  However, if not and ymax is given then set ylim
+    # to be c(0,ymax).  Otherwise leave as NULL and let hist()
+    # figure it out
+    if ("ylim" %in% names(list(...))) {
+      h <- hist(tmp$mf[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,
+                xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
+    } else {
+      if(!is.null(ymax)) ylim <- c(0,ymax)
+      else ylim <- NULL
+      h <- hist(tmp$mf[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,
+                xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),
+                ylim=ylim,...)
+    }
     # assure a line at y=0
     if (iaxs) abline(h=0,xpd=FALSE)
     invisible(h)
