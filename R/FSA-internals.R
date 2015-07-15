@@ -139,7 +139,7 @@ iHndlCols2use <- function(df,cols2use,cols2ignore) {
 
 iHndlFormula <- function(formula,data,expNumR=NULL,
                          expNumE=NULL,expNumENums=NULL,expNumEFacts=NULL) {
-  mf <- model.frame(formula,data=data)
+  mf <- model.frame(formula,data=data,na.action=NULL)
   if (ncol(mf)==1) {
     # Only one variable in the model frame.  Return only the model.frame, name of 
     #   that variable, and it's class.

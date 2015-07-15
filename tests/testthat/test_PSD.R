@@ -16,7 +16,7 @@ test_that("psdVal() errors and warnings",{
   ## addLens and addNames don't match up
   expect_error(psdVal("Bluegill",addLens=7,addNames=c("Derek","Ogle")))
   expect_error(psdVal("Bluegill",addLens=c(7,9),addNames="Derek"))
-  ## and addLens is also a Gabelhous length
+  ## and addLens is also a Gabelhouse length
   expect_warning(psdVal("Bluegill",addLens=150))
 })
 
@@ -142,6 +142,14 @@ test_that("psdAdd() errors and warnings",{
   expect_error(psdAdd(tl~wt,df),"only one factor")
   expect_error(psdAdd(df$species,df$tl),"numeric")
   expect_error(psdAdd(df$tl,df$wt),"factor")
+  
+  ## bad addSpec/addLens combination
+  expect_warning(psdAdd(tl~species,df,addSpec="Derek"),"is not NULL")
+  
+  ## One species had all missing lengths
+  df[df$species=="Bluegill","tl"] <- NA
+  df <- df[df$species!="Bluefin Tuna",]
+  expect_message(psdAdd(tl~species,df),"were missing for")
 })
 
 
