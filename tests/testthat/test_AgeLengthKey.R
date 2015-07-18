@@ -128,25 +128,40 @@ test_that("alkMeanVar() errors and warnings",{
   WR1.age <- Subset(WR1,!is.na(age))
   alk <- prop.table(xtabs(~LCat+age,data=WR1.age),margin=1)
   ## bad key
-  expect_warning(alkMeanVar(alk*10,len~LCat+age,WR1.age,len.n))
+  expect_warning(alkMeanVar(alk*10,len~LCat+age,WR1.age,len.n),"contained values >1")
   ## bad len.n
   tmp <- len.n[-1]
-  expect_error(alkMeanVar(alk,len~LCat+age,WR1.age,tmp))
+  expect_error(alkMeanVar(alk,len~LCat+age,WR1.age,tmp),"different numbers of length intervals")
   ## bad formulas
   # no LHS
-  expect_error(alkMeanVar(alk,~LCat+age,WR1.age,len.n))
+  expect_error(alkMeanVar(alk,~LCat+age,WR1.age,len.n),"must have a LHS")
   # factor on LHS
-  expect_error(alkMeanVar(alk,factor(len)~LCat+age,WR1.age,len.n))
+  expect_error(alkMeanVar(alk,factor(len)~LCat+age,WR1.age,len.n),"must be numeric")
   # only one variable on RHS
-  expect_error(alkMeanVar(alk,len~LCat,WR1.age,len.n))
+  expect_error(alkMeanVar(alk,len~LCat,WR1.age,len.n),"must have two and only two")
   # three variables on RHS
-  expect_error(alkMeanVar(alk,len~LCat+age+ID,WR1.age,len.n))
+  expect_error(alkMeanVar(alk,len~LCat+age+ID,WR1.age,len.n),"must have two and only two")
 })
 
 
 ##############################################################
 # alkAgeDist() also see below
 ##############################################################
+test_that("alkAgeDist() errors and warnings",{
+  WR1 <- WR79
+  WR1$LCat <- lencat(WR1$len,w=5)
+  len.n <- xtabs(~LCat,data=WR1)
+  WR1.age <- Subset(WR1,!is.na(age))
+  alk <- prop.table(xtabs(~LCat+age,data=WR1.age),margin=1)
+  lenA.n <- xtabs(~LCat,data=WR1.age)
+  ## bad key
+  expect_warning(alkAgeDist(alk*10,lenA.n,len.n),"contained values >1")
+  ## bad len.n
+  expect_error(alkAgeDist(alk,lenA.n,len.n[-1]),"different numbers of length intervals")
+  ## bad lenA.n
+  expect_error(alkAgeDist(alk,lenA.n[-1],len.n),"different numbers of length intervals")
+})
+
 test_that("alkAgeDist() reproduces results from Table 8.4 (left) of Quinn and Deriso (1999)",{
   if (require(fishmethods)) {
     ## Quinn and Deriso (1999) data are alkdata and alkprop reproduces
