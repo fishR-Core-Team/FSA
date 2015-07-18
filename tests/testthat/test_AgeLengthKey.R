@@ -49,6 +49,9 @@ test_that("iCheckALK() errors and warnings",{
 # alkPlot function
 ##############################################################
 test_that("alkPlot() errors and warnings",{
+  ## Bad argument choices
+  expect_error(alkPlot(alk,type="derek"),"should be one of")
+  expect_error(alkPlot(alk,pal="derek"),"should be one of")
   ## one row is all zeroes
   tmp <- alk
   tmp[2,] <- 0
