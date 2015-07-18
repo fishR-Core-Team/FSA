@@ -1,6 +1,6 @@
 #' @title Compute and view possible biases between paired sets of ages.
 #'
-#' @description Constructs age-agreement tables, statistical tests to detect bias, and plots to visualize potential bias in paired age assignments.  The age assignments may be from two readers of the same structure, one reader at two times, or two stuctures (e.g., scales, spines, otoliths).
+#' @description Constructs age-agreement tables, statistical tests to detect bias, and plots to visualize potential bias in paired age assignments.  Ages may be from, for example, two readers of the same structure, one reader at two times, two stuctures (e.g., scales, spines, otoliths), or a structure and known ages, or one structure and known ages.
 #'
 #' @details Generally, one of the two age assessments will be identified as the \dQuote{reference} set.  In some cases this may be the true ages, the ages from the more experience reader, the ages from the first reading, or the ages from the structure gnerally thought to provide the most accurate results.  In other cases, such as comparing two novice readers, the choice may be arbitrary.  The reference ages will form the columns of the age-agreement table and will be the \dQuote{constant} age used in the t-tests and age-bias plots (i.e., the x-axis).  See further details below.
 #' 
@@ -20,60 +20,58 @@
 #'
 #' The sample size present in the age-agreement table is found with \code{what="n"}.
 #'
-#' @param formula A formula of the form \code{nrefvar~refvar}, where \code{nrefvar} and \code{refvar} generically represent the variables that contain the \dQuote{nonreference} and \dQuote{reference} age assignments, respectively.  See details.
-#' @param data A data.frame that minimally contains the paired age assignments given \code{formula}.
-#' @param ref.lab A string that contains a label for the reference age assignment.
+#' @param formula A formula of the form \code{nrefvar~refvar}, where \code{nrefvar} and \code{refvar} generically represent the variables that contain the paired \dQuote{nonreference} and \dQuote{reference} age assignments, respectively.  See details.
+#' @param data A data.frame that minimally contains the paired age assignments given in \code{formula}.
+#' @param ref.lab A string that contains a label for the reference age assignments.
 #' @param nref.lab A string that contains a label for the nonreference age assignments.
-#' @param method A string that indicates which method to use when adjusting p-values for multiple comparisons.  See \code{?p.adjust.methods}.
-#' @param sig.level A value used to determine whether a p-value indicates a significant result.  The confidence level used in \code{plot} is 100*(1-\code{sig.level}).
-#' @param min.n.CI A value (default is 5) that indicates the smallest sample size for which a confidence interval should be computed.
-#' @param x,object An object of class \code{ageBias}, usuall a result from \code{ageBias}.
+#' @param method A string that indicates which method to use for adjusting p-values for multiple comparisons.  See \code{?p.adjust.methods}.
+#' @param sig.level A numeric value used to determine whether a p-value indicates a significant result.  The confidence level used in \code{plot} is 100*(1-\code{sig.level}).
+#' @param min.n.CI A numeric value (default is 3) that indicates the smallest sample size for which a confidence interval should be computed.
 #' @param what A string that indicates what type of summary to print or plot to construct.  See details.
-#' @param difference A logical that indicates whether or not the difference between the two age assignments should be used.  See details.
+#' @param flip.table A logical that indicates whether the age-agreement table should be \sQuote{flipped} (i.e., rows are reversed so that younger ages are at the bottom of the table).  This makes the table more directly comparable to the age-bias plot.
 #' @param zero.print A string that indicates what should be printed in place of the zeroes on an age-agreement table.  The default is to print a single dash.
-#' @param digits A value that indicates the minimum number of digits to print when showing \code{what="bias"} or \code{what="diff.bias"} in \code{summary}.
-#' @param flip.table A logical that indicates whether the age-agreement table should be \sQuote{flipped} (i.e., rows are reversed so that the younger ages are at the bottom of the table).  This makes the table more directly comparable to the age-bias plot.
-#' @param cont.corr A string that indicates the continuity correction method to be used with (only) McNemars test.  If \code{"none"} (default) then no continuity correction is used, if \code{"Yates"} then 0.5 is used, and if \code{"Edwards"} then 1 is used.
-#' @param xlab A string that contains a label for the x-axis age assignments.
-#' @param ylab A string that contains a label for the y-axis age assignments.
-#' @param xlim A numeric vector of the limits of the x-axis.
-#' @param ylim A numeric vector of the limits of the y-axis.
-#' @param xaxt,yaxt A string which specifies the x- and y-axis types. Specifying \dQuote{n} suppresses plotting of the axis.  See \code{?par}. 
+#' @param digits A numeric value that indicates the minimum number of digits to print when showing \code{what="bias"} or \code{what="diff.bias"} in \code{summary}.
+#' @param cont.corr A string that indicates the continuity correction method to be used with (only) McNemars test.  If \code{"none"} (default) then no continuity correction is used, if \code{"Yates"} then 0.5 is used, and if \code{"Edwards"} then 1 is used. 
+#' @param x,object An object of class \code{ageBias}, usually a result from \code{ageBias}.
+#' @param difference A logical that indicates whether or not the difference between the two age assignments should be used.  See details.
+#' @param xlab,ylab A string that contains a label for the x-axis (reference) or y-axis (non-reference) age assignments, respectively. 
 #' @param show.n A logical that indicates whether the sample sizes for each level of the x-axis variable is shown (\code{=TRUE}, default) or not (\code{=FALSE}).
-#' @param nYpos A numeric that indicates the relative Y position of the sample size values when \code{show.n=TRUE}.  For example, if \code{nYpos=1.1} then the sample size values will be 10 percent above the top end of the y-axis.
-#' @param lwd A single numeric that can be used to controll the separate \sQuote{lwd} argument (e.g., \code{lwd.CI}, \code{lwd.range}).
-#' @param show.pts A logical that indicates whether to show the raw data points on an age-bias plot.
-#' @param pch.pts A value that indicates the plotting character to be used when plotting the raw data points on an age bias plot.
-#' @param col.pts A string or value that indicates the color to be used for plotting the raw data points.  The default is to use black with a transparency found in \code{transparency} on an age bias plot.
-#' @param transparency A value (between 0 and 1) that indicates the level of transparency to use for plotting the raw data points on an age bias plot.  If expressed as a fraction of 1/x then x points plotted on top of each other will represent the color in \code{col.pts}.
-#' @param show.range A logical that indicates whether to show vertical bars that represent the range of the data points on an age bias plot.
-#' @param col.range A string or value that indicates the color to be used for the interval representing the range of the data on an age bias plot.
-#' @param lwd.range A value that indicates the line width for the interval representing the range of the data on an age bias plot.
-#' @param pch.mean A value that indicates the plotting character to be used for mean values (i.e., center of confidence interval bars) on an age bias plot.
-#' @param cex.mean A character expansion value for the size for plotting the mean symbol.
-#' @param col.CI A string or value that indicates the color to be used for confidence interval bars that are considered non-significant on an age bias plot.
-#' @param col.CIsig A string or value that indicates the color to be used for confidence interval bars that are considered significant on an age bias plot.
-#' @param lwd.CI A value that indicates the line width for the confidence interval bars on an age bias plot.
-#' @param sfrac A value that controls the size of the ends of the confidence interval bars.  See \code{sfrac} in \code{\link[plotrix]{plotCI}} of \pkg{plotrix}.
-#' @param col.agree A value or string that indicates the color for the 1:1 or zero (if difference) reference line on an age bias plot.
-#' @param lwd.agree A value that indicates the line width for the 1:1 or zero (if difference) reference line on an age bias plot.
-#' @param lty.agree A value that indicates the line type for the 1:1 or zero (if difference) reference line on an age bias plot.
-#' @param cex.numbers A character expansion value for the size of the numbers plotted when \code{what="numbers"} in \code{plot}.
+#' @param nYpos A numeric value that indicates the relative Y position of the sample size values when \code{show.n=TRUE}.  For example, if \code{nYpos=1.1} then the sample size values will be 10 percent above the top end of the y-axis.
+#' @param lwd A single numeric value that can be used to control the separate \sQuote{lwd} argument (e.g., \code{lwd.CI}, \code{lwd.range}).
+#' @param show.pts A logical that indicates whether to show the raw data points.
+#' @param pch.pts A numeric value that indicates the plotting character to be used when plotting the raw data points.
+#' @param col.pts A string or numeric value that indicates the color to be used for plotting the raw data points.  The default is to use black with the transparency found in \code{transparency}.
+#' @param transparency A numeric value (between 0 and 1) that indicates the level of transparency to use for plotting the raw data points.  If expressed as 1/x, then x points plotted on top of each other will represent the color in \code{col.pts}.
+#' @param pch.mean A numeric value that indicates the plotting character to be used for the mean values (i.e., center of confidence interval bars).
+#' @param cex.mean A character expansion value for the size of the mean symbol in \code{pch.mean}.
+#' @param col.CI A string or numeric value that indicates the color to be used for confidence interval bars that are considered non-significant.
+#' @param col.CIsig A string or numeric value that indicates the color to be used for confidence interval bars that are considered significant.
+#' @param lwd.CI A numeric value that indicates the line width for the confidence interval bars.
+#' @param sfrac A numeric value that controls the size of the ends of the confidence interval bars.  See \code{sfrac} in \code{\link[plotrix]{plotCI}} of \pkg{plotrix}.
+#' @param show.range A logical that indicates whether to show vertical bars that represent the range of the data points.
+#' @param col.range A string or numeric value that indicates the color to be used for the interval representing the range of the data.
+#' @param lwd.range A numeric value that indicates the line width for the interval representing the range of the data.
+#' @param col.agree A string or numeric value that indicates the color for the 1:1 or zero (if difference) reference line.
+#' @param lwd.agree A numeric value that indicates the line width for the 1:1 or zero (if difference) reference line.
+#' @param lty.agree A numeric value that indicates the line type for the 1:1 or zero (if difference) reference line.
+#' @param cex.numbers A character expansion value for the size of the numbers plotted when \code{what="numbers"} is used.
+#' @param xlim,ylim A numeric vector of length 2 that contains the limits of the x-axis (reference ages) or y-axis (non-reference ages), respectively.
+#' @param xaxt,yaxt A string which specifies the x- and y-axis types. Specifying \dQuote{n} suppresses plotting of the axis.  See \code{?par}.
 #' @param \dots Additional arguments for methods.
 #'
 #' @return \code{ageBias} returns a list with the following items:
 #' \itemize{
-#'   \item data A data frame with the original age assignments and the difference between those two age assignements.
+#'   \item data A data.frame with the original paired age assignments and the difference between those assignements.
 #'   \item agree The age-agreement table.
 #'   \item bias A data.frame that contains the bias statistics.
 #'   \item bias.diff A data.frame that contains the bias statistics for the differences.
-#'   \item ref.lab A string that contains an optional label for the column structure or readings.
-#'   \item nref.lab A string that contains an optional label for the row structure or readings.
+#'   \item ref.lab A string that contains an optional label for the age assignments in the columns (reference) of the age-agreement table.
+#'   \item nref.lab A string that contains an optional label for the age assignments in the rows (non-reference) of the age-agreement table.
 #'}
 #'
-#' A data frame that contains the symmetry test results if \code{summary} and \code{what="symmetry"}, \code{what="Bowkers"}, \code{what="McNemars"}, or \code{what="EvansHoenig"}; otherwise, nothing is returned by \code{summary}.  Nothing is returned by \code{plot}, but see details for a description of the plot that is produced.
+#' A data.frame that contains the symmetry test results if \code{summary} and \code{what="symmetry"}, \code{what="Bowkers"}, \code{what="McNemars"}, or \code{what="EvansHoenig"}; otherwise, nothing is returned by \code{summary}.  Nothing is returned by \code{plot}, but see details for a description of the plot that is produced.
 #' 
-#' @section Testing: Tested all symmetry test results against results in Evans and Hoenig (2008), the McNemar's and Evans-Hoenig results against results from \code{\link[fishmethods]{compare2}} in \pkg{fishmethods}, and the results for the \code{\link[FSAdata]{AlewifeLH}} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
+#' @section Testing: Tested all symmetry test results against results in Evans and Hoenig (2008), the McNemar's and Evans-Hoenig results against results from \code{\link[fishmethods]{compare2}} in \pkg{fishmethods}, and all results using the \code{\link[FSAdata]{AlewifeLH}} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
@@ -535,4 +533,223 @@ iabAxisLmts <- function(d,xlim,ylim,difference,show.range,show.pts,show.CIs=TRUE
   }
   # return values
   list(xlim=xlmt,ylim=ylmt)
+}
+
+
+
+
+
+#' @title Compute measures of precision among sets of ages.
+#'
+#' @description Computes overall measures of precision for multiple age assignments made on the same individuals.  Ages may be from two or more readers of the same structure, one reader at two or more times, or two or more stuctures (e.g., scales, spines, otoliths).  Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), and various percentage difference values.
+#'
+#' @details If \code{what="precision"} in \code{summary} then a summary table that contains the following items will be printed:
+#' \itemize{
+#'   \item n Number of fish in \code{data}.
+#'   \item R Number of age assessments given in \code{formula}.
+#'   \item ACV The mean coefficient of variation.  See the IFAR chapter for calculational details.
+#'   \item APE The mean average percent error.  See the IFAR chapter for calculational details.
+#'   \item PercAgree The percentage of fish for which all age assignments perfectly agree.
+#' }
+#'
+#' If \code{what="difference"} is used in \code{summary} then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the difference in paired age assignments.  This table has one row for each possible pair of age assignments.
+#'
+#' If \code{what="absolute difference"} is used in \code{summary} then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the absolute value of the difference in paired age assignments.  This table has one row for each possible pair of age assignments.  The \dQuote{1} column, for example, represents age assignments that disagree by one year (in either direction).
+#'
+#' If \code{what="detail"} is used in \code{summary} then a data frame of the original \code{data} along with the intermediate caculations of the average age, standard deviation of age, APE, and ACV for each individual will be printed.  These details are generally only used to check or to understand calculations.
+#' 
+#' @param formula A formula of the form \code{~var1+var2+var3+...} or, alternatively, \code{var1~var2+var3+...}, where the \code{varX} generically represent the variables that contain the age assignments.  The alternative formula allows for similar code as used in \code{\link{ageBias}} and can have only one variable on the left-hand side.
+#' @param data A data.frame that minimally contains the variables in \code{formula}.
+#' @param object An object of class \code{agePrec}, usually from \code{agePrecision}.
+#' @param what A string (or vector of strings) that indicates what type of summary to print.  See details.
+#' @param percent A logical that indicates whether the difference table (see details) should be represented as percentages (\code{TRUE}; default) or frequency (\code{FALSE}) of fish.
+#' @param digits A single numeric that indicates the minimum number of digits to print when using \code{summary}.
+#' @param \dots Additional arguments for methods.
+#' 
+#' @return The main function returns a list with the following items:
+#' \itemize{
+#'   \item detail A data.frame with all data given in \code{data} and intermediate calculations for each fish.  See details
+#'   \item rawdiff A frequency table of fish by differences for each pair of ages.
+#'   \item absdiff A frequency table of fish by absolute differences for each pair of ages.
+#'   \item APE The mean average percent error.
+#'   \item ACV The mean coefficient of variation.
+#'   \item n Number of fish in \code{data}.
+#'   \item R Number of age assessments for each fish given in \code{formula}.
+#' }
+#'
+#' Nothing is returned by \code{summary}, but see details for what is printed.
+#' 
+#' @section Testing: Tested all precision results against published results in Herbst and Marsden (2011) for the \code{\link{WhitefishLC}} data and the results for the \code{\link[FSAdata]{AlewifeLH}} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
+#'
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#'
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{11-Age Comparisons}. 
+#'
+#' @seealso See \code{\link{ageBias}} for computation of the full age agreement table, along with tests and plots of age bias.
+#' 
+#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
+#' Beamish, R.J. and D.A. Fournier.  1981.  \href{http://www.pac.dfo-mpo.gc.ca/science/people-gens/beamish/PDF_files/compareagecjfas1981.pdf}{A method for comparing the precision of a set of age determinations.}  Canadian Journal of Fisheries and Aquatic Sciences 38:982-983.
+#'
+#'Campana, S.E.  1982.  \href{http://www.denix.osd.mil/nr/crid/Coral_Reef_Iniative_Database/References_for_Reef_Assessment_files/Campana,\%202001.pdf}{Accuracy, precision and quality control in age determination, including a review of the use and abuse of age validation methods.} Journal of Fish Biology 59:197-242.
+#'
+#'Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  \href{http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf}{Graphical and statistical methods for determining the consistency of age determinations.} Transactions of the American Fisheries Society 124:131-138.
+#'
+#'Chang, W.Y.B. 1982.  \href{http://www.nrcresearchpress.com/doi/abs/10.1139/f82-158}{A statistical method for evaluating the reproducibility of age determination.}  Canadian Journal of Fisheries and Aquatic Sciences 39:1208-1210.
+#' 
+#' McBride, R.S.  2015. Diagnosis of paired age agreement: A simulation approach of accuracy and precision effects. ICES Journal of Marine Science, XX:XXX-XXX.
+#'
+#' @aliases agePrecision plot.agePrec summary.agePrec
+#'
+#' @keywords htest manip
+#' 
+#' @examples
+#' ## Example with just two age assignments
+#' data(WhitefishLC)
+#' ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)
+#' summary(ap1)
+#' summary(ap1,what="precision")
+#' summary(ap1,what="difference")
+#' summary(ap1,what="difference",percent=FALSE)
+#' summary(ap1,what="absolute",percent=FALSE)
+#' summary(ap1,what=c("precision","difference"))
+#'
+#' barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
+#' summary(ap1,what="detail")
+#'
+#' ## Example with three age assignments
+#' ap2 <- agePrecision(~otolithC+finrayC+scaleC,data=WhitefishLC)
+#' summary(ap2)
+#' summary(ap2,what="precision")
+#' summary(ap2,what="difference")
+#' summary(ap2,what="difference",percent=FALSE)
+#' summary(ap2,what="absolute",percent=FALSE)
+#' summary(ap2,what="detail")
+#'
+#' @rdname agePrecision
+#' @export
+agePrecision <- function(formula,data) {
+  # change formula to have only a RHS
+  tmp <- as.character(formula)[-1]
+  formula <- as.formula(paste("~",paste(tmp,collapse="+")))
+  tmp <- iHndlFormula(formula,data)
+  
+  if (!tmp$Etype=="numeric") stop("All variables must be numeric.",call.=FALSE)
+  # sample size & number of structures
+  n <- nrow(tmp$mf)
+  R <- ncol(tmp$mf)
+  # get dataframe of just ages (for simplicity)
+  d <- tmp$mf
+  
+  ## Precision alculations (APE and ACV) on each fish
+  # Mean, SD of assigned ages
+  age.avg <- apply(d,1,mean)
+  age.sd <- apply(d,1,sd)
+  # Summed absolute deviation
+  tmp.adevs <- abs(apply(d,2,'-',age.avg))
+  age.ad <- apply(tmp.adevs,1,sum)
+  # APE & ACV for each fish
+  APE.j <- ((age.ad/age.avg)/R)*100
+  ACV.j <- (age.sd/age.avg)*100
+  # Replaced NAs with 0 in APE.j and ACV.j for when age.avg==0
+  tmp <- which(age.avg==0)
+  APE.j[tmp] <- 0
+  ACV.j[tmp] <- 0
+  # Put results into a data.frame to return
+  detail.df <- data.frame(d,avg=age.avg,sd=age.sd,APE=APE.j,ACV=ACV.j)
+  ## Summary precision calculations (mean APE, ACV, total agreement) for all fish
+  APE <- mean(APE.j)
+  ACV <- mean(ACV.j)
+  # all ages agree if sd=0
+  all.agree <- length(detail.df$sd[detail.df$sd==0])/n*100
+  
+  ## Raw age agreement summaries
+  # find all pairs of comparisons
+  prs <- t(combn(names(d),2))
+  # maximum possible difference is max age - min age ... use this to set the levels
+  #   for the agreement table.
+  tmp <- max(d,na.rm=TRUE)-min(d,na.rm=TRUE)
+  poss.lvls <- seq(-tmp,tmp,1)
+  # create a matrix to contain the results of comparing each pair
+  ragree <- matrix(NA,ncol=length(poss.lvls),nrow=nrow(prs))
+  # cycle through each paired comparison putting results in agreement matrix
+  for (i in 1:nrow(prs)) {
+    tmp <- d[,prs[i,1]]-d[,prs[i,2]]
+    ragree[i,] <- table(factor(tmp,levels=poss.lvls))
+  }
+  # relabel rows and columns of agreement table
+  rownames(ragree) <- apply(prs,1,paste,collapse=" - ")
+  colnames(ragree) <- poss.lvls
+  # delete right- and left-most columns that contain all zeroes
+  tmp <- c(which(rcumsum(colSums(ragree))==0),which(cumsum(colSums(ragree))==0))
+  if (length(tmp>0)) ragree <- ragree[,-tmp]
+  
+  ## Absolute age agreement summaries
+  # maximum possible difference is max age - min age ... use this to set the levels
+  #   for the agreement table.
+  poss.lvls <- 0:(max(d,na.rm=TRUE)-min(d,na.rm=TRUE))
+  # create a matrix to contain the results of comparing each pair
+  aagree <- matrix(NA,ncol=length(poss.lvls),nrow=nrow(prs))
+  # cycle through each paired comparison putting results in agreement matrix
+  for (i in 1:nrow(prs)) {
+    tmp <- abs(d[,prs[i,1]]-d[,prs[i,2]])
+    aagree[i,] <- table(factor(tmp,levels=poss.lvls))
+  }
+  # relabel rows and columns of agreement table
+  rownames(aagree) <- apply(prs,1,paste,collapse=" v. ")
+  colnames(aagree) <- poss.lvls
+  # delete right-most columns that contain all zeroes
+  tmp <- which(rcumsum(colSums(aagree))==0)
+  if (length(tmp>0)) aagree <- aagree[,-tmp]
+  
+  ## Put together an output list
+  d <- list(detail=detail.df,rawdiff=as.table(ragree),absdiff=as.table(aagree),
+            APE=APE,ACV=ACV,PercAgree=all.agree,n=n,R=R)
+  class(d) <- "agePrec"
+  d 
+}
+
+#' @rdname agePrecision
+#' @export
+summary.agePrec <- function(object,what=c("precision","difference","absolute difference","detail"),
+                            percent=TRUE,digits=4,...) {
+  what <- match.arg(what,several.ok=TRUE)
+  showmsg <- ifelse (length(what)>1,TRUE,FALSE)
+  if ("precision" %in% what) {
+    if (showmsg) message("Precision summary statistics")
+    print(with(object,data.frame(n=n,R=R,ACV=ACV,APE=APE,PercAgree=PercAgree)),
+          row.names=FALSE,digits=digits)
+    what <- iHndlMultWhat(what,"precision")
+  }
+  if ("absolute difference" %in% what) {
+    tmp <- object$absdiff
+    msg <- "of fish by absolute differences in ages\n between pairs of assignments"
+    if (percent) {
+      msg <- paste("Percentage",msg)
+      # need to check if 1-D, then handle as a vector
+      if (length(dim(tmp))==1) tmp <- tmp/sum(tmp)*100 
+      else tmp <- prop.table(tmp,margin=1)*100      
+    } else msg <- paste("Frequency",msg)
+    if (showmsg) message(msg)
+    print(tmp,digits=digits)
+    what <- iHndlMultWhat(what,"absolute difference")
+  }  
+  if ("difference" %in% what) {
+    tmp <- object$rawdiff
+    msg <- "of fish by differences in ages\n between pairs of assignments"
+    if (percent) {
+      msg <- paste("Percentage",msg)
+      # need to check if 1-D, then handle as a vector
+      if (length(dim(tmp))==1) tmp <- tmp/sum(tmp)*100
+      else tmp <- prop.table(tmp,margin=1)*100      
+    } else msg <- paste("Frequency",msg)
+    if (showmsg) message(msg)
+    print(tmp,digits=digits)
+    what <- iHndlMultWhat(what,"difference")
+  }
+  if ("detail" %in% what) {
+    if (showmsg) message("Intermediate calculations for each individual")
+    print(object$detail,digits=digits)
+    what <- iHndlMultWhat(what,"detail")
+  }
 }
