@@ -230,10 +230,10 @@ iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
     if (is.numeric(parm)) {
       # check numeric parm
       if (max(parm)>ncol(object)) stop("Number in 'parm' exceeds number of columns.",call.=FALSE)
-      if (min(parm)<0) stop("Number in 'parm' can't be negative.",call.=FALSE)
+      if (min(parm)<=0) stop("Number in 'parm' must be positive.",call.=FALSE)
     } else {
       # check named parm
-      if (!parm %in% colnames(object)) stop("Name in 'parm' does not exist in object.",call.=FALSE)
+      if (!all(parm %in% colnames(object))) stop("Name in 'parm' does not exist in object.",call.=FALSE)
     }
   }
   ## Reduce object to have only the parm columns in it
@@ -296,17 +296,21 @@ iHTestBoot <- function(object,parm,bo,alt=c("two.sided","less","greater"),plot=F
   ## Multiple parm values in object, make sure a parm was selected
   ## if it was then reduce object to vector of that parm
   if (!is.null(dim(object))) {
-    if (is.null(parm)) stop("You must select a parameter number to test.\n",call.=FALSE)
+    if (is.null(parm)) stop("You must select a parameter number to test.",call.=FALSE)
     else {
       # check parm
-      if (is.numeric(parm)) {
-        # the column number was too big
-        if (parm>ncol(object)) stop("'parm' number greater than number of parameters.",call.=FALSE)
-      } else {
-        # column name does not exist in the matrix
-        if (!parm %in% colnames(object)) stop("'parm' name does not exist in object.",call.=FALSE)
+      if (length(parm)>1) stop("'parm' must be of length 1.",call.=FALSE)
+      else {
+        if (is.numeric(parm)) {
+          # the column number was too small or too big
+          if (parm>ncol(object)) stop("Number in 'parm' exceeds number of columns.",call.=FALSE)
+          if (parm<=0) stop("Number in 'parm' must be positive.",call.=FALSE)
+        } else {
+          # column name does not exist in the matrix
+          if (!parm %in% colnames(object)) stop("Name in 'parm' does not exist in object.",call.=FALSE)
+        }
+        object <- object[,parm]
       }
-      object <- object[,parm]
     }
   }
   ## Calculate one-sided p-values
