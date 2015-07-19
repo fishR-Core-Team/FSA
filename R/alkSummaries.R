@@ -23,11 +23,11 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{12-Age-Length Key}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{5-Age-Length Key}.
 #'
 #' @seealso  See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{\link[fishmethods]{alkprop}} from \pkg{fishmethods} for the exact same methodology but with a different format for the inputs.
 #'
-#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Lai, H.-L.  1987.  Optimum allocation for estimating age composition using age-length key. Fishery Bulletin, 85:179-185.
 #' 
@@ -124,7 +124,7 @@ iALKAgeProp <- function(p_jgi,l_i,n_i,N) {
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{12-Age-Length Key}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{5-Age-Length Key}.
 #'
 #' @seealso  See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{\link{alkAgeDist}} for a related method of determining the proportion of fish at each age.  See the \pkg{ALKr} package.
 #'

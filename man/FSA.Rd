@@ -21,6 +21,6 @@ Packages with related functionality by the same author are
 }
 }
 \references{
-Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 

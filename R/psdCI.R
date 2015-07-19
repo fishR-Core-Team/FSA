@@ -23,11 +23,11 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{4-Size Structure}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{6-Size Structure}.
 #'
 #' @seealso See \code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}} for related functionality.
 #'
-#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Brenden, T.O., T. Wagner, and B.R. Murphy.  2008.  \href{http://qfc.fw.msu.edu/Publications/Publication\%20List/2008/Novel\%20Tools\%20for\%20Analyzing\%20Proportional\%20Size\%20Distribution_Brenden.pdf}{Novel tools for analyzing proportional size distribution index data.}  North American Journal of Fisheries Management 28:1233-1242.
 #'

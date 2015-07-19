@@ -16,11 +16,11 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{10-Recruitment}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{13-Recruitment}.
 #'
 #' @seealso See \code{\link{srStarts}} for related functionality.
 #'
-#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19. United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
 #' 

@@ -44,7 +44,7 @@ Assigned ages will be stored in the column identified on the left-hand-side of \
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{12-Age-Length Key}.
+ \href{https://fishr.wordpress.com/books/ifar/}{5-Age-Length Key}.
 }
 \examples{
 ## Get data with length measurements and some assigned ages

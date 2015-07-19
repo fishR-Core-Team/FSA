@@ -57,11 +57,11 @@
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{8-Mortality}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{11-Mortality}.
 #' 
 #' @seealso See \code{\link[fishmethods]{M.empirical}} in \pkg{fishmethods} for similar functionality.
 #' 
-#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Alverson, D.L. and M.J. Carney.  1975.  A graphic review of the growth and decay of population cohorts.  Journal du Conseil International pour l'Exploration de la Mer. 36:133-143.
 #' 

@@ -77,7 +77,7 @@ For comparing to Jolly's data as presented in Tables 5.1 and 5.2 of Seber (2002)
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{7-Abundance}.
+ \href{https://fishr.wordpress.com/books/ifar/}{9-Abundance from Capture-Recapture Data}.
 }
 \examples{
 ## First example -- capture histories summarized with capHistSum()
@@ -130,7 +130,7 @@ ex3a <- jolly(jolly.top,jolly.bot)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 
 Jolly, G.M. 1965. Explicit estimates from capture-recapture data with both death and immigration -- stochastic model. Biometrika, 52:225-247.
 

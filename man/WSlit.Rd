@@ -41,7 +41,7 @@ The minimum TL for the English units were derived by rounding the converted mini
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{6-Condition}.
+ \href{https://fishr.wordpress.com/books/ifar/}{8-Condition}.
 }
 \examples{
 data(WSlit)
@@ -49,7 +49,7 @@ str(WSlit)
 head(WSlit)
 }
 \references{
-Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See \code{\link{wsVal}} and \code{\link{wrAdd}} for related functionality.

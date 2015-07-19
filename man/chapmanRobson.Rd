@@ -86,7 +86,7 @@ Tested the results against the results from \code{agesurv} in \pkg{fishmethods} 
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{8-Mortality}.
+ \href{https://fishr.wordpress.com/books/ifar/}{11-Mortality}.
 }
 \examples{
 data(BrookTroutTH)
@@ -115,7 +115,7 @@ plot(cr3)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 
 Chapman, D.G. and D.S. Robson. 1960. The analysis of a catch curve. Biometrics. 16:354-368.
 

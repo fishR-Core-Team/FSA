@@ -59,7 +59,7 @@ The \code{plot} function can be used to construct the two diagnostic plots descr
 This function assumes that all unmarked captured fish are marked and returned to the population (i.e., no losses at the time of marking are allowed).
 }
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{7-Abundance}.
+ \href{https://fishr.wordpress.com/books/ifar/}{9-Abundance from Capture-Recapture Data}.
 }
 \examples{
 # data.frame with IDs in the first column
@@ -83,7 +83,7 @@ plot(ch1,what="u")
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 
 Baillargeon, S. and Rivest, L.-P. (2007). Rcapture: Loglinear models for capture-recapture in R. Journal of Statistical Software, 19(5):1-31.
 }

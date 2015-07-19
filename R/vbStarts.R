@@ -31,11 +31,11 @@
 #' 
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{12-Individual Growth}.
 #' 
 #' @seealso See \code{\link{vbModels}} for a list of models and parameterizations used in \pkg{FSA} and \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations.
 #' 
-#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Francis, R.I.C.C.  1988.  Are growth parameters estimated from tagging and age-length data comparable?  Canadian Journal of Fisheries and Aquatic Sciences, 45:936-942.
 #' 

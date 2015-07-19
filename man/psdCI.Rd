@@ -43,7 +43,7 @@ A vector of length equal to the length of \code{ptbl} is given in \code{indvec} 
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{4-Size Structure}.
+ \href{https://fishr.wordpress.com/books/ifar/}{6-Size Structure}.
 }
 \examples{
 ## from Brenden et al. (2008)
@@ -82,7 +82,7 @@ bcis
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 
 Brenden, T.O., T. Wagner, and B.R. Murphy.  2008.  \href{http://qfc.fw.msu.edu/Publications/Publication\%20List/2008/Novel\%20Tools\%20for\%20Analyzing\%20Proportional\%20Size\%20Distribution_Brenden.pdf}{Novel tools for analyzing proportional size distribution index data.}  North American Journal of Fisheries Management 28:1233-1242.
 }

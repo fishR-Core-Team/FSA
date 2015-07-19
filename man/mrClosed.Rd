@@ -153,7 +153,7 @@ The results for the multiple census methods have had the following checks.  The 
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{7-Abundance}.
+ \href{https://fishr.wordpress.com/books/ifar/}{9-Abundance from Capture-Recapture Data}.
 }
 \examples{
 ### Single census with no sub-groups
@@ -228,7 +228,7 @@ confint(mr7)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 
 Krebs, C.J.  1989.  Ecological Methodology.  Addison-Welsey Educational Publishing.
 

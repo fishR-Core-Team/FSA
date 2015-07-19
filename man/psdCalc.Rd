@@ -53,7 +53,7 @@ Confidence intervals can be computed with either the multinomial (Default) or bi
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{4-Size Structure}.
+ \href{https://fishr.wordpress.com/books/ifar/}{6-Size Structure}.
 }
 \examples{
 ## Random length data
@@ -112,7 +112,7 @@ psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 
 Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  \href{http://pubstorage.sdstate.edu/wfs/415-F.pdf}{New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).}  Fisheries 31:86-87.
 

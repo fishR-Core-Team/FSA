@@ -118,7 +118,7 @@ This function also assumes that all unmarked captured fish are marked and return
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{7-Abundance}.
+ \href{https://fishr.wordpress.com/books/ifar/}{9-Abundance from Capture-Recapture Data}.
 }
 \examples{
 ## A small example of 'event' format
@@ -291,7 +291,7 @@ capHistConvert(df1,id="fish",in.type="event")
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See \code{\link{capHistSum}} to summarize \dQuote{individual} capture histories into a format useable in \code{\link{mrClosed}} and \code{\link{mrOpen}}.  Also see \code{\link[Rcapture:Rcapture-package]{Rcapture}}, \code{\link[RMark:ABeginnersGuide]{RMark}}, or \pkg{marked} packages for handling more complex analyses.

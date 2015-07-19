@@ -39,7 +39,7 @@
 #'
 #' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{3-Plotting Fundamentals}.
 #'
-#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #'
 #' @seealso See base \code{\link[graphics]{hist}} for related functionality and \code{\link[plotrix]{multhist}} in \pkg{plotrix} for similar functionality.
 #'

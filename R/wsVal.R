@@ -23,9 +23,9 @@
 #'
 #' @seealso See \code{\link{wrAdd}} and \code{\link{WSlit}} for related functionality.
 #'
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{6-Condition}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{8-Condition}.
 #'
-#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' @keywords manip
 #'

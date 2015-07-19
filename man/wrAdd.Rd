@@ -35,7 +35,7 @@ This computes a vector that contains the relative weight specific to each specie
 This computes a vector that contains the relative weight specific to each species for all individuals in an entire data frame.  The vector can be appended to an existing data.frame to create a variable that contains the relative weights for each individual.  The relative weight value will be \code{NA} for each individual for which a standard weight equation does not exist in \code{\link{WSlit}}, a standard weight equation for the units given in \code{units=} does not exist in \code{\link{WSlit}}, a standard weight equation for the 75th percentile does not exist in \code{\link{WSlit}}, or if the individual is shorter or longer than the lengths for which the standard weight equation should be applied.  Either the linear or quadratic equation has been listed as preferred for each species, so only that equation will be used.  The use of the 75th percentile is by far the most common and, because this function is designed for use on entire data frames, it will be the only percentile allowed.  Thus, to use equations for other percentiles, one will have to use \dQuote{manual} methods.  See \code{\link{WSlit}} and \code{\link{wsVal}} for more details about types of equations, percentiles, finding which species have published standard weight equations, etc.  See the examples for one method for changing species names to something that this function will recognize.
 }
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{6-Condition}.
+ \href{https://fishr.wordpress.com/books/ifar/}{8-Condition}.
 }
 \examples{
 ## Create random data for three species
@@ -69,7 +69,7 @@ bg$Wr4 <- wrAdd(wt~tl+species,data=bg)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See \code{\link{wsVal}}, \code{\link{WSlit}}, and \code{\link{psdAdd}} for related functionality.  See \code{\link{mapvalues}} for help in changing species names to match those in \code{\link{WSlit}}.

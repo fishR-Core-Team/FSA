@@ -31,11 +31,11 @@
 #'
 #' @concept 'Size Structure' PSD
 #' 
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{4-Size Structure}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{6-Size Structure}.
 #'
 #' @seealso See \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, and \code{\link{tictactoe}} for related functionality.
 #'
-#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' @source Original summary table from Dr. Michael Hansen, University of Wisconsin-Stevens Point.  Additional species have been added by the package author from the literature.
 #'

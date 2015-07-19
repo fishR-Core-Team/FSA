@@ -37,11 +37,11 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{7-Abundance}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{9-Abundance from Capture-Recapture Data}.
 #'
 #' @seealso See \code{\link[Rcapture]{descriptive}} in \pkg{Rcapture} for \code{m.array} and some of the same values in \code{sum}.  See \code{\link{capHistConvert}} for a descriptions of capture history data file formats and how to convert between them.  See \code{\link{mrClosed}} and \code{\link{mrOpen}} for how to estimate abundance from the summarized capture history information.
 #'
-#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Baillargeon, S. and Rivest, L.-P. (2007). Rcapture: Loglinear models for capture-recapture in R. Journal of Statistical Software, 19(5):1-31.
 #' 

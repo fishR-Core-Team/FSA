@@ -37,7 +37,7 @@ Construct a base tic-tac-toe plot for presenting predator-prey PSD values.  Pred
 This function simply creates a base tic-tac-toe plot.  Observed values, with confidence intervals, are added to this plot with \code{\link[plotrix]{plotCI}} from \pkg{plotrix}; see examples.
 }
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{4-Size Structure}.
+ \href{https://fishr.wordpress.com/books/ifar/}{6-Size Structure}.
 }
 \examples{
 ## Create hypothetical data for plotting one point .. similar to what might come from psdCalc()
@@ -76,7 +76,7 @@ text(prey[,1],pred[,1],labels=c(2010,2011,2012),adj=c(-0.5,-0.5))
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See \code{\link{psdVal}} and \code{\link{psdCalc}} for related functionality.

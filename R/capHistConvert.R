@@ -92,11 +92,11 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{7-Abundance}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{9-Abundance from Capture-Recapture Data}.
 #'
 #' @seealso See \code{\link{capHistSum}} to summarize \dQuote{individual} capture histories into a format useable in \code{\link{mrClosed}} and \code{\link{mrOpen}}.  Also see \code{\link[Rcapture:Rcapture-package]{Rcapture}}, \code{\link[RMark:ABeginnersGuide]{RMark}}, or \pkg{marked} packages for handling more complex analyses.
 #' 
-#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' @keywords manip
 #'

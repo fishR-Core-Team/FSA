@@ -77,9 +77,9 @@
 #'
 #' @seealso See \code{\link{agePrecision}} for measures of precision between pairs of age assignments.  See \code{\link[fishmethods]{compare2}} in \pkg{fishmethods} for similar functionality.
 #'
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{11-Age Comparisons}. 
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{4-Age Comparisons}. 
 #'
-#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  \href{http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf}{Graphical and statistical methods for determining the consistency of age determinations.} Transactions of the American Fisheries Society 124:131-138.
 #'
@@ -583,11 +583,11 @@ iabAxisLmts <- function(d,xlim,ylim,difference,show.range,show.pts,show.CIs=TRUE
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{11-Age Comparisons}. 
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{4-Age Comparisons}. 
 #'
 #' @seealso See \code{\link{ageBias}} for computation of the full age agreement table, along with tests and plots of age bias.
 #' 
-#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Beamish, R.J. and D.A. Fournier.  1981.  \href{http://www.pac.dfo-mpo.gc.ca/science/people-gens/beamish/PDF_files/compareagecjfas1981.pdf}{A method for comparing the precision of a set of age determinations.}  Canadian Journal of Fisheries and Aquatic Sciences 38:982-983.
 #'

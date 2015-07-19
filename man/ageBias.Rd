@@ -141,7 +141,7 @@ The sample size present in the age-agreement table is found with \code{what="n"}
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{11-Age Comparisons}.
+ \href{https://fishr.wordpress.com/books/ifar/}{4-Age Comparisons}.
 }
 \examples{
 data(WhitefishLC)
@@ -183,7 +183,7 @@ plot(ab1,what="number",col.agree="gray50")
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 
 Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  \href{http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf}{Graphical and statistical methods for determining the consistency of age determinations.} Transactions of the American Fisheries Society 124:131-138.
 

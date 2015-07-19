@@ -90,7 +90,7 @@ Results for the Rio Formosa Seahorse data were also tested against results from 
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{8-Mortality}.
+ \href{https://fishr.wordpress.com/books/ifar/}{11-Mortality}.
 }
 \examples{
 ## List names for available methods
@@ -130,7 +130,7 @@ metaM(Mmethods("Hoenig"),K=K,Linf=Linf,T=T,tmax=tmax,t50=t50)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 
 Alverson, D.L. and M.J. Carney.  1975.  A graphic review of the growth and decay of population cohorts.  Journal du Conseil International pour l'Exploration de la Mer. 36:133-143.
 

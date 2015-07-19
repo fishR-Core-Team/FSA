@@ -64,7 +64,7 @@ If \code{what="detail"} is used in \code{summary} then a data frame of the origi
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{11-Age Comparisons}.
+ \href{https://fishr.wordpress.com/books/ifar/}{4-Age Comparisons}.
 }
 \examples{
 ## Example with just two age assignments
@@ -93,7 +93,7 @@ summary(ap2,what="detail")
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \references{
-Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 
 Beamish, R.J. and D.A. Fournier.  1981.  \href{http://www.pac.dfo-mpo.gc.ca/science/people-gens/beamish/PDF_files/compareagecjfas1981.pdf}{A method for comparing the precision of a set of age determinations.}  Canadian Journal of Fisheries and Aquatic Sciences 38:982-983.
 

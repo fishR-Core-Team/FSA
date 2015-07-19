@@ -89,11 +89,11 @@
 #'  
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #' 
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{7-Abundance}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{9-Abundance from Capture-Recapture Data}.
 #' 
 #' @seealso See \code{\link{capHistSum}} for generating input data from capture histories.  See \code{\link{poiCI}}, \code{\link{binCI}}, and \code{\link{hyperCI}} for specifics on functions used in confidence interval constructuion.  See \code{\link{mrOpen}} for handling mark-recapture data in an open population.  See \code{\link[FSAdata]{SunfishIN}} in \pkg{FSAdata} for an example to test matching of results with Ricker (1975)'  See \code{\link[fishmethods]{mrN.single}} and \code{\link[fishmethods]{schnabel}} in \pkg{fishmethods} for similar functionality.
 #' 
-#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Krebs, C.J.  1989.  Ecological Methodology.  Addison-Welsey Educational Publishing.
 #'

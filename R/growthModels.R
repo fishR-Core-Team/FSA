@@ -49,7 +49,8 @@
 #'
 #' @seealso See \code{\link{Schnute}} for an implementation of the Schnute (1981) model.
 #'
-#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL. 
+#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' 
 #' Campana, S.E. and C.M. Jones.  1992.  \href{http://www.dfo-mpo.gc.ca/Library/141734.pdf}{Analysis of otolith microstructure data}.  Pages 73-100 In D.K. Stevenson and S.E. Campana, editors.  Otolith microstructure examination and analysis.  Canadian Special Publication of Fisheries and Aquatic Sciences 117.
 #' 
 #' Fabens, A. 1965. Properties and fitting of the von Bertalanffy growth curve. Growth 29:265-289.

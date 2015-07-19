@@ -27,9 +27,9 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{5-Weight-Length}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{7-Weight-Length}.
 #'
-#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #'
 #' @keywords manip
 #'

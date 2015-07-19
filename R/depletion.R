@@ -50,11 +50,11 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{7-Abundance}.
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{10-Abundance from Depletion Data}.
 #'
 #' @seealso See \code{\link{removal}} for related functionality and \code{\link[fishmethods]{deplet}} in \pkg{fishmethods} for similar functionality.
 #'
-#' @references Ogle, D.H.  2016.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
 #'

@@ -23,7 +23,7 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}.  This is largely an R version of the SAS code provided by Isermann and Knight (2005).
 #'
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{12-Age-Length Key}.  
+#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{5-Age-Length Key}.  
 #'
 #' @seealso  See \code{\link{alkAgeDist}} and \code{\link{alkMeanVar}} for alternative methods to derived age distributions and mean (and SD) values for each age.  See \code{\link{alkPlot}} for methods to visualize age-length keys.
 #'
