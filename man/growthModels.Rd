@@ -21,7 +21,7 @@ GompertzFuns(type = c("Ricker1", "Ricker2", "Ricker3", "QD1", "QD2", "QD3",
   "KM", "AFS", "original", "Troynikov1", "Troynikov2"), simple = FALSE,
   msg = FALSE)
 
-RichardsFuns(param = 1, simple = FALSE, msg = FALSE)
+RichardsFuns(type = 1, simple = FALSE, msg = FALSE)
 
 logisticFuns(type = c("CJ1", "CJ2", "Karkach", "HaddonI"), simple = FALSE,
   msg = FALSE)
@@ -35,13 +35,11 @@ RichardsModels(cex = 1, ...)
 logisticModels(family = c("size", "tagging"), cex = 1.25, ...)
 }
 \arguments{
-\item{type}{A string that indicates the specific parameterization of the growth function.}
+\item{type}{A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function.}
 
 \item{simple}{A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}).}
 
 \item{msg}{A logical that indicates whether a message about the growth function and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; DEFAULT).}
-
-\item{param}{A numeric that indicates the specific parameterizatio of the Richards growth function.}
 
 \item{family}{A string that indicates the family of growth functions to display.  Choices are \code{"size"} (DEFAULT), \code{"tagging"}, and \code{"seasonal"} (only for the von Bertalanffy models).}
 

@@ -4,8 +4,7 @@
 #'
 #' @description Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.  Use \code{vbModels()}, \code{GompertzModels()}, \code{RichardsModels()}, and \code{logisticModels()} to see the equations for each growth function.
 #'
-#' @param type A string that indicates the specific parameterization of the growth function.
-#' @param param A numeric that indicates the specific parameterizatio of the Richards growth function.
+#' @param type A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function.
 #' @param simple A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}).
 #' @param msg A logical that indicates whether a message about the growth function and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; DEFAULT).
 #' @param family A string that indicates the family of growth functions to display.  Choices are \code{"size"} (DEFAULT), \code{"tagging"}, and \code{"seasonal"} (only for the von Bertalanffy models).
@@ -684,7 +683,7 @@ GompertzFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
 
 #' @rdname growthModels
 #' @export
-RichardsFuns <- function(param=1,simple=FALSE,msg=FALSE) {
+RichardsFuns <- function(type=1,simple=FALSE,msg=FALSE) {
   Richards1 <- function(t,Linf,k=NULL,a=NULL,b=NULL) {
     if (length(Linf)==4) { k <- Linf[[2]]
     a <- Linf[[3]]
@@ -747,8 +746,8 @@ RichardsFuns <- function(param=1,simple=FALSE,msg=FALSE) {
     Lninf+(Linf-Lninf)*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))
   }
   ## Main function
-  if (!param %in% 1:6) stop("'param' must be in 1:6.")
-  type <- paste0("Richards",param)
+  if (!type %in% 1:6) stop("'type' must be in 1:6.")
+  type <- paste0("Richards",type)
   if (msg) {
     switch(type,
            Richards1= {
@@ -1048,3 +1047,100 @@ iGrowthModels <- function(which,xpos,ypos) {
          Schnute4=  {text(xpos,ypos,expression(plain("Case 4: ")~~~E(L[t])==L[1]*e^{log~bgroup("(",frac(L[3],L[1]),")")*~frac(~t~-~t[1],~t[3]~-~t[1])}),pos=4)}
   ) # end swich
 } ## end iGrowthModels internal function
+
+
+
+
+#' @title The four-parameter growth function from Schnute (1981).
+#'
+#' @description The four-parameter growth function from Schnute (1981).  Use \code{SchnuteModels()} to see the equations for each growth function.
+#'
+#' @param t A numeric vector of ages over which to model growth.
+#' @param case A string that indicates the case of the Schnute growth function to use.
+#' @param t1 The (young) age that corresponds to \code{L1}.  Set to minimum value in \code{t} by default.
+#' @param t3 The (old) age that corresponds to \code{L3}.  Set to maximum value in \code{t} by default.
+#' @param L1 The mean size/length at \code{t1}.
+#' @param L3 The mean size/length at \code{t3}.
+#' @param a  A dimensionless parameter that is related to the time/age at the inflection point.
+#' @param b A dimensionless parameter that is related to size/length at the inflection point.
+#' @param cex A single numeric expansion value for use with \code{SchnuteModels}.
+#' @param \dots Not implemented.
+#' 
+#' @return \code{Schnute} returns a predicted size given the case of the function and the provided parameter values.
+#' 
+#' \code{SchnuteModels} returns a graphic that uses \code{\link{plotmath}} to show the growth function equation in a pretty format.
+#' 
+#' @author Derek H. Ogle.
+#'
+#' @section IFAR Chapter: None specifically, but \href{https://fishr.wordpress.com/books/ifar/}{12-Individual Growth} is related.
+#'
+#' @seealso See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{RichardsFuns}}, and \code{\link{logisticFuns}} for similar functionality for other models.
+#'
+#' @references Schnute, J.  1981.  A versatile growth model with statistical stable parameters.  Canadian Journal of Fisheris and Aquatic Sciences 38:1128-1140.
+#' 
+#' @keywords manip
+#'
+#' @examples
+#' ## See the formulae
+#' \dontrun{windows(5,5)}
+#' SchnuteModels()
+#' 
+#' ## Simple examples
+#' ages <- 1:15
+#' s1 <- Schnute(ages,case=1,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
+#' s2 <- Schnute(ages,case=2,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
+#' s3 <- Schnute(ages,case=3,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
+#' s4 <- Schnute(ages,case=4,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1)
+#'
+#' plot(s1~ages,type="l",lwd=2)
+#' lines(s2~ages,lwd=2,col="red")
+#' lines(s3~ages,lwd=2,col="blue")
+#' lines(s4~ages,lwd=2,col="green")
+#' 
+#' @rdname Schnute
+#' @export
+Schnute <- function(t,case=1,t1=NULL,t3=NULL,L1=NULL,L3=NULL,a=NULL,b=NULL) {
+  ## check case
+  case <- as.character(case)
+  if (!case %in% c("1","2","3","4")) stop("'case' must be 1, 2, 3, or 4.",call.=FALSE)
+  ## needed to get around global binding issue
+  b <- b
+  ## check t1 and t3
+  if (length(t)==1) {
+    if (is.null(t1)) stop("Must provide a 't1' if 't' is only one value.",call.=FALSE)
+    if (is.null(t3)) stop("Must provide a 't3' if 't' is only one value.",call.=FALSE)
+  } else {
+    if (is.null(t1)) t1 <- min(t,na.rm=TRUE)
+    if (is.null(t3)) t3 <- max(t,na.rm=TRUE)
+  }
+  if (t1==t3) stop("'t1' cannot equal 't3'.",call.=FALSE)
+  if (t1>t3) {
+    warning("'t1' was greater than 't3'; values reversed.",call.=FALSE)
+    tmp <- t3
+    t3 <- t1
+    t1 <- tmp
+  }
+  ## check L1 and L3
+  if (L1>L3) stop ("'L1' cannot be greater than 'L3'",call.=FALSE)
+  ## Compute values based on case
+  switch(case,
+         "1"={ val <- ((L1^b)+((L3^b)-(L1^b))*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1)))))^(1/b) },
+         "2"={ val <- L1*exp(log(L3/L1)*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1))))) },
+         "3"={ val <- ((L1^b)+((L3^b)-(L1^b))*((t-t1)/(t3-t1)))^(1/b) },
+         "4"={ val <- L1*exp(log(L3/L1)*((t-t1)/(t3-t1))) }
+  )
+  val
+}
+
+
+#' @rdname Schnute
+#' @export
+SchnuteModels <- function(cex=1.25,...) {
+  op <- par(mar=c(0,0,3,0),cex=cex)
+  plot(1,type="n",ylim=c(0,4),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA Schnute Growth Model Cases",...)
+  iGrowthModels("Schnute1", 0.1,3.5)
+  iGrowthModels("Schnute2", 0.1,2.5)
+  iGrowthModels("Schnute3", 0.1,1.5)
+  iGrowthModels("Schnute4", 0.1,0.5)
+  par(op)
+}
