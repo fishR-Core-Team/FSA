@@ -2,7 +2,7 @@
 % Please edit documentation in R/vbStarts.R
 \name{vbStarts}
 \alias{vbStarts}
-\title{Find reasonable starting values for a von Bertalanffy model.}
+\title{Find reasonable starting values for a von Bertalanffy growth function.}
 \usage{
 vbStarts(formula, data = NULL, type = c("typical", "BevertonHolt",
   "original", "vonBertalanffy", "GQ", "GallucciQuinn", "Mooij", "Weisberg",
@@ -24,7 +24,7 @@ vbStarts(formula, data = NULL, type = c("typical", "BevertonHolt",
 
 \item{meth0}{A string that indicates how the t0 and L0 paramaters should be derived.  See details.}
 
-\item{plot}{A logical that indicates whether a plot of the data with the model fit at the starting values superimposed should be created.}
+\item{plot}{A logical that indicates whether a plot of the data with the superimposed model fit at the starting values should be created.}
 
 \item{col.mdl}{A color for the model when \code{plot=TRUE}.}
 
@@ -32,7 +32,7 @@ vbStarts(formula, data = NULL, type = c("typical", "BevertonHolt",
 
 \item{lty.mdl}{A line type for the model when \code{plot=TRUE}.}
 
-\item{dynamicPlot}{A logical that indicates where a plot with dynamically linked slider bars should be constructed for finding starting values.}
+\item{dynamicPlot}{A logical that indicates whether a plot with dynamically linked slider bars should be constructed for finding starting values.}
 
 \item{\dots}{Further arguments passed to the methods.}
 }
@@ -40,18 +40,18 @@ vbStarts(formula, data = NULL, type = c("typical", "BevertonHolt",
 A list that contains reasonable starting values.  Note that the parameters will be listed in the same order and with the same names as listed in \code{\link{vbFuns}}.
 }
 \description{
-Finds reasonable starting values for the parameters in a specific von Bertalanffy model parameterization.
+Finds reasonable starting values for the parameters in a specific parameterization of the von Bertalanffy growth function.
 }
 \details{
-This function attempts to find reasonable starting values for a variety of parameterizations of the von Bertalanffy growth model.  There is no guarantee that these starting values are the \sQuote{best} starting values.  One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.
+This function attempts to find reasonable starting values for a variety of parameterizations of the von Bertalanffy growth function.  There is no guarantee that these starting values are the \sQuote{best} starting values.  One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.
 
-The Linf and K paramaters are estimated via the Ford-Walford plot.  The product of the starting values for Linf and K is used as a starting value for omega in the GallucciQuinn and Mooij parameterizations.  The result of log(2) divided by the starting value for K is used as the starting value for t50 in the Weisberg parameterization.
+The Linf and K paramaters are estimated via the concept of the Ford-Walford plot.  The product of the starting values for Linf and K is used as a starting value for omega in the GallucciQuinn and Mooij parameterizations.  The result of log(2) divided by the starting value for K is used as the starting value for t50 in the Weisberg parameterization.
 
-If \code{meth0="yngAge"} then a starting value for t0 or L0 is found by algebraically solving the typical or original paramaterizations, respectively, for t0 or L0 using the first age with more than one data point.  If \code{meth0="poly"} then a second-degree polynomial model is fit to the mean length-at-age data.  The t0 starting value is set equal to the root of the polynomial that is closest to zero.  The L0 starting value is set equal to the mean length at age-0 predicted from the polynomial.
+If \code{meth0="yngAge"}, then a starting value for t0 or L0 is found by algebraically solving the typical or original paramaterization, respectively, for t0 or L0 using the mean length of the first age with more than one data point as a \dQuote{known} quantity.  If \code{meth0="poly"} then a second-degree polynomial model is fit to the mean length-at-age data.  The t0 starting value is set equal to the root of the polynomial that is closest to zero.  The L0 starting value is set equal to the mean length at age-0 predicted from the polynomial function.
 
-Starting values for the L1 and L3 parameters in the Schnute paramaterization and the L1, L2, and L3 parameters in the Francis parameterization can be found in two ways.  If \code{methEV="poly"} then the starting values are the predicted length-at-age from a second-degree polynomial fit to the mean length-at-age data.  If \code{methEV="means"} then the observed sample means at the corresponding ages are used.  In the case where one of the supplied ages is fractional then the value returned will be linearly interpolated between the mean lengths of the two closest ages.  The ages to be used for L1 and L3 in the Schnute and Francis parameterizations are supplied as a numeric vector of length 2 in \code{ages2use=}.  If \code{ages2use=NULL} then the minimum and maximum observed ages will be used.  In the Francis method, L2 will correspond to the age half-way between the two ages in \code{ages2use=}.  A warning will be given if L2<L1 for the Schnute method or if L2<L1 or L3<L2 for the Francis method.
+Starting values for the L1 and L3 parameters in the Schnute paramaterization and the L1, L2, and L3 parameters in the Francis parameterization may be found in two ways.  If \code{methEV="poly"}, then the starting values are the predicted length-at-age from a second-degree polynomial fit to the mean lengths-at-age data.  If \code{methEV="means"} then the observed sample means at the corresponding ages are used.  In the case where one of the supplied ages is fractional, then the value returned will be linearly interpolated between the mean lengths of the two closest ages.  The ages to be used for L1 and L3 in the Schnute and Francis parameterizations are supplied as a numeric vector of length 2 in \code{ages2use=}.  If \code{ages2use=NULL} then the minimum and maximum observed ages will be used.  In the Francis method, L2 will correspond to the age half-way between the two ages in \code{ages2use=}.  A warning will be given if L2<L1 for the Schnute method or if L2<L1 or L3<L2 for the Francis method.
 
-Starting values can also be obtained by plotting the data with the model superimposed but tied to slider bars for changing parameters.  One can change the parameters until a reasonable fit is observed and then use those valeus as starting values.  Such a plot can be constructed by including \code{dynamicPlot=TRUE}.  The initial parameters for the slider bars are the starting values constructed as described above.  It should be noted that the dynamic plot may show an error of \dQuote{[tcl] can't get device image} but the plot will correctly update if the slider bar is adjusted.
+Starting values can also be obtained by plotting the data with the model superimposed but tied to slider bars that allow the parameters to be interactively changed.  One can change the parameters until a reasonable fit is observed and then use those valeus as starting values.  Such a plot is constructed by including \code{dynamicPlot=TRUE}.  The initial parameters for the slider bars are the starting values constructed as described above.  It should be noted that the dynamic plot may show an error of \dQuote{[tcl] can't get device image}, but the plot will correctly update if the slider bar is adjusted.
 }
 \note{
 The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} parameterizations are synonymous.
@@ -110,19 +110,7 @@ Derek H. Ogle, \email{dogle@northland.edu}
 \references{
 Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
 
-Francis, R.I.C.C.  1988.  Are growth parameters estimated from tagging and age-length data comparable?  Canadian Journal of Fisheries and Aquatic Sciences, 45:936-942.
-
-Gallucci, V.F. and T.J. Quinn II. 1979.  Reparameterizing, fitting, and testing a simple growth model.  Transactions of the American Fisheries Society, 108:14-25.
-
-Garcia-Berthou, E., G. Carmona-Catot, R. Merciai, and D.H. Ogle.  \href{https://www.researchgate.net/publication/257658359_A_technical_note_on_seasonal_growth_models}{A technical note on seasonal growth models.}  Reviews in Fish Biology and Fisheries 22:635-640.
-
-Mooij, W.M., J.M. Van Rooij, and S. Wijnhoven.  1999.  Analysis and comparison of fish growth from small samples of length-at-age data: Detection of sexual dimorphism in Eurasian perch as an example.  Transactions of the American Fisheries Society 128:483-490.
-
-Schnute, J.  1981.  A versatile growth model with statistically stable parameters. Canadian Journal of Fisheries & Aquatic Sciences, 38:1128-1140.
-
-Somers, I. F. 1988. \href{http://www.worldfishcenter.org/Naga/na_2914.pdf}{On a seasonally oscillating growth function.} Fishbyte 6(1):8-11.
-
-Weisberg, S., G.R. Spangler, and L. S. Richmond. 2010. Mixed effects models for fish growth. Canadian Journal of Fisheries And Aquatic Sciences 67:269-277.
+See references in \code{\link{vbFuns}}.
 }
 \seealso{
 See \code{\link{vbModels}} for a list of models and parameterizations used in \pkg{FSA} and \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations.

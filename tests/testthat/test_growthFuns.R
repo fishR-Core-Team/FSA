@@ -9,7 +9,7 @@ test_that("xxxFuns() & Schnute() messages",{
   expect_error(Schnute(case=5),"case")
   expect_error(RichardsFuns(param=0),"param")
   expect_error(RichardsFuns(param=7),"param")
-  ## bad choices for parameters in schnute()
+  ## bad choices for parameters in Schnute()
   # L1>L3
   expect_error(Schnute(3,t1=1,t3=15,L1=300,L3=30,a=0.3,b=0.5),"greater than")
   ## bad choices or givens for t1 and t3
@@ -66,13 +66,6 @@ test_that("logisticFuns() output",{
   for (i in tmp) expect_message(logisticFuns(i,msg=TRUE),i)
 })
 
-test_that("Schnute() output",{
-  expect_is(Schnute(3,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
-  expect_is(Schnute(3,case=2,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
-  expect_is(Schnute(3,case=3,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
-  expect_is(Schnute(3,case=4,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
-})
-
 test_that("RichardsFuns() output",{
   ## Do all choices return a function
   for (i in 1:6) {
@@ -81,4 +74,11 @@ test_that("RichardsFuns() output",{
   }
   ## Do all choices return a message with the name of the function in it
   for (i in 1:6) expect_message(RichardsFuns(i,msg=TRUE),paste0("Richards",i))
+})
+
+test_that("Schnute() output",{
+  expect_is(Schnute(3,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
+  expect_is(Schnute(3,case=2,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
+  expect_is(Schnute(3,case=3,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
+  expect_is(Schnute(3,case=4,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
 })

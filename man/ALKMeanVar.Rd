@@ -41,7 +41,7 @@ Note that the function will stop with an error if the formula in \code{formula} 
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{12-Age-Length Key}.
+ \href{https://fishr.wordpress.com/books/ifar/}{5-Age-Length Key}.
 }
 \examples{
 ## Get data with length measurements and some assigned ages
