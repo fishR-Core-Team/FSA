@@ -8,47 +8,46 @@
 \alias{predict.nlsBoot}
 \title{Associated S3 methods for nlsBoot from nlstools.}
 \usage{
-\method{confint}{nlsBoot}(object, parm = NULL, level = 0.95,
-  conf.level = level, plot = FALSE, err.col = "black", err.lwd = 2,
-  rows = round(sqrt(ncol(object$coefboot))),
-  cols = ceiling(sqrt(ncol(object$coefboot))), ...)
+\method{confint}{nlsBoot}(object, parm = NULL, level = conf.level,
+  conf.level = 0.95, plot = FALSE, err.col = "black", err.lwd = 2,
+  rows = NULL, cols = NULL, ...)
+
+\method{predict}{nlsBoot}(object, FUN, MARGIN = 1, conf.level = 0.95,
+  digits = NULL, ...)
 
 htest(object, ...)
 
 \method{htest}{nlsBoot}(object, parm = NULL, bo = 0, alt = c("two.sided",
   "less", "greater"), plot = FALSE, ...)
-
-\method{predict}{nlsBoot}(object, FUN, MARGIN = 1, conf.level = 0.95,
-  digits = NULL, ...)
 }
 \arguments{
 \item{object}{An object saved from \code{nlsBoot()}.}
 
-\item{parm}{An integer that indicates which parameter to compute the confidence interval for.  Will compute for all parameters if \code{NULL}.}
+\item{parm}{An integer that indicates which parameter to compute the confidence interval or hypothesis test for.  The confidence interval Will be computed for all parameters if \code{NULL}.}
 
 \item{level}{Same as \code{conf.level}.  Used for compatability with the main \code{confint}.}
 
 \item{conf.level}{A level of confidence as a proportion.}
 
-\item{plot}{A logical that indicates whether a plot should be consturcted.  If \code{confint} then a histogram of the \code{parm} parameters from the bootstrap samples with error bars that illustrate the bootstrapped confidence intervals should be constructed.  If code{htest} then a histogram of the \code{parm} parameters with a vertical lines illustrating the \code{bo}value should be constructed.}
+\item{plot}{A logical that indicates whether a plot should be constructed.  If \code{confint}, then a histogram of the \code{parm} parameters from the bootstrap samples with error bars that illustrate the bootstrapped confidence intervals will be constructed.  If code{htest}, then a histogram of the \code{parm} parameters with a vertical lines illustrating the \code{bo}value will be constructed.}
 
-\item{err.col}{A single numeric or character that identifies the color for the error bar on the plot.}
+\item{err.col}{A single numeric or character that identifies the color for the error bars on the plot.}
 
-\item{err.lwd}{A single numeric that identifies the line width for the error bar on the plot.}
+\item{err.lwd}{A single numeric that identifies the line width for the error bars on the plot.}
 
 \item{rows}{A numeric that contains the number of rows to use on the graphic.}
 
 \item{cols}{A numeric that contains the number of columns to use on the graphic.}
 
+\item{FUN}{The function to be applied for the prediction.  See the examples.}
+
+\item{MARGIN}{A single numeric that indicates the margin over which \code{FUN} is applied.  \code{MARGIN=1} will apply to each row and is the default.}
+
+\item{digits}{A single numeric that indicates the number of digits for the result.}
+
 \item{bo}{The null hypothesized parameter value.}
 
 \item{alt}{A string that identifies the \dQuote{direction} of the alternative hypothesis.  See details.}
-
-\item{FUN}{The function to be applied.}
-
-\item{MARGIN}{A single numeric that indicates the margin over which to apply the function. \code{MARGIN=1} will apply to each row and is the default.}
-
-\item{digits}{A single numeric that indicates the number of digits for the result.}
 
 \item{\dots}{Additional arguments to functions.}
 }
@@ -57,12 +56,10 @@ htest(object, ...)
 
 \code{htest} returns a matrix with two columns.  The first column contains the hypothesized value sent to this function and the second column is the corresponding p-value.
 
-\code{predict} returns a matrix with one row and three columns with the first column holding the predicted value (i.e., the median prediction) and the last two columns holding the approximate confidence interval.
-
-\code{predict}
+\code{predict} returns a matrix with one row and three columns, with the first column holding the predicted value (i.e., the median prediction) and the last two columns holding the approximate confidence interval.
 }
 \description{
-Provides S3 methods to construct non-parametric bootstrap confidence intervals and hypothesis tests for parameter values and predicted values of the response variable for a \code{\link[nlstools]{nlsBoot}} object (from the \pkg{nlstools} package).
+Provides S3 methods to construct non-parametric bootstrap confidence intervals and hypothesis tests for parameter values and predicted values of the response variable for a \code{\link[nlstools]{nlsBoot}} object from the \pkg{nlstools} package.
 }
 \details{
 \code{confint} finds the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped parameter estimates below and above.  This is an approximate 100\code{conf.level}\% confidence interval.
@@ -87,8 +84,8 @@ if (require(nlstools)) {
   confint(nl1.boot,"B1")
   confint(nl1.boot,c(2,3))
   confint(nl1.boot,conf.level=0.90)
-  htest(nl1.boot,1,bo=6,alt="less")
   predict(nl1.boot,fnx,days=3)
+  htest(nl1.boot,1,bo=6,alt="less")
 }
 }
 \author{

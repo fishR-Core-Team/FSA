@@ -2,33 +2,36 @@
 #' 
 #' @title Associated S3 methods for bootCase from car.
 #'
-#' @description Provides S3 methods to construct non-parametric bootstrap confidence intervals, hypothesis tests, and plots of the parameter estimates for a \code{\link[car]{bootCase}} object (from the \pkg{car} package).
+#' @description Provides S3 methods to construct non-parametric bootstrap confidence intervals, hypothesis tests, and plots of the parameter estimates for \code{\link[car]{bootCase}} objects from the \pkg{car} package.
 #'
 #' @details \code{confint} finds the two quantiles that have the (1-\code{conf.level})/2 proportion of bootstrapped parameter estimates below and above.  This is an approximate 100\code{conf.level}\% confidence interval.
+#' 
+#' \code{predict} applies a user-supplied function to each row of \code{object} and then finds the median and the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped predictions below and above.  The median is returned as the predicted value and the quantiles are returned as an approximate 100\code{conf.level}\% confidence interval for that prediction.
 #'
-#' In the one-tailed alternatives, the p-value is the proportion of bootstrapped parameter estimates in that are extreme of the null hypothesized parameter value (\code{bo}).  In the two-tailed alternative, the p-value is twice the smallest of the proportion of bootstrapped parameter \code{bo}.
+#' In \code{htest} the \dQuote{direction} of the alternative hypothesis is identified by a string in the \code{alt=} argument.  The strings may be \code{"less"} for a \dQuote{less than} alternative, \code{"greater"} for a \dQuote{greater than} alternative, or \code{"two.sided"} for a \dQuote{not equals} alternative (the DEFAULT).  In the one-tailed alternatives the p-value is the proportion of bootstrapped parameter estimates in \code{object$coefboot} that are extreme of the null hypothesized parameter value in \code{bo}.  In the two-tailed alternative the p-value is twice the smallest of the proportion of bootstrapped parameter estimates above or below the null hypothesized parameter value in \code{bo}.
 #'
 #' @aliases confint.bootCase htest.bootCase hist.bootCase plot.bootCase predict.bootCase
 #'
-#' @param object A \code{bootCase} matrix object for \code{confint} or \code{htest}.
-#' @param x A \code{bootCase} object for \code{hist}, \code{plot} or \code{boxplot}.
-#' @param parm A number that indicates which column of \code{object} contains the parameter estimates to use in the hypothesis test.
+#' @param object,x A \code{bootCase} object.
+#' @param parm A number or string that indicates which column of \code{object} contains the parameter estimates to use for the confidence interval or hypothesis test.
 #' @param conf.level A level of confidence as a proportion.
 #' @param level Same as \code{conf.level}.
+#' @param plot A logical that indicates whether a plot should be constructed.  If \code{confint} then a histogram of the \code{parm} parameters from the bootstrap samples with error bars that illustrate the bootstrapped confidence intervals will be constructed.  If code{htest} then a histogram of the \code{parm} parameters with a vertical line illustrating the \code{bo} value will be constructed.
+#' @param err.col A single numeric or character that identifies the color for the error bars on the plot.
+#' @param err.lwd A single numeric that identifies the line width for the error bars on the plot.
+#' @param rows A single numeric that contains the number of rows to use on the graphic.
+#' @param cols A single numeric that contains the number of columns to use on the graphic.
+#' @param FUN The function to be applied for the prediction.  See the examples.
+#' @param MARGIN A single numeric that indicates the margin over which \code{FUN} is applied.  \code{MARGIN=1} will apply to each row and is the default.
+#' @param digits A single numeric that indicates the number of digits for the result.
 #' @param bo The null hypothesized parameter value.
 #' @param alt A string that indicates the \dQuote{direction} of the alternative hypothesis.  See details.
-#' @param same.ylim A logicial that indicates whether the same limits for the y-axis should be used on each histogram.  Defaults to \code{TRUE}.  Ignored if \code{ylmts} is non-null.
+#' @param same.ylim A logical that indicates whether the same limits for the y-axis should be used on each histogram.  Defaults to \code{TRUE}.  Ignored if \code{ylmts} is non-null.
 #' @param ymax A single value that sets the maximum y-axis limit for each histogram or a vector of length equal to the number of groups that sets the maximum y-axis limit for each histogram separately.
 #' @param col A named color for the histogram bars.
-#' @param nr A numeric that contains the number of rows to use on the graphic.
-#' @param nc A numeric that contains the number of columns to use on the graphic.
-#' @param right A logical that indicates if the histogram bins are right-closed (left open) intervals (\code{=TRUE}) or not (\code{=FALSE}; default).
-#' @param FUN The function to be applied.
-#' @param MARGIN A single numeric that indicates the margin over which to apply the function.  \code{MARGIN=1} will apply to each row and is the default.
-#' @param digits A single numeric that indicates the number of digits for the result.
 #' @param \dots Additional items to send to functions.
 #'
-#' @return \code{confint} will return a matrix with as many rows as columns (i.e., parameter estimates) in \code{object} and two columns of the quantiles that correspond to the approximate confidence interval if \code{object} is a matrix.  If \code{object} is a vector then \code{confint} will return a vector with the two quantiles that correspond to the approximate confidence interval.
+#' @return If \code{object} is a matrix, then \code{confint} returns a matrix with as many rows as columns (i.e., parameter estimates) in \code{object} and two columns of the quantiles that correspond to the approximate confidence interval.  If \code{object} is a vector, then \code{confint} returns a vector with the two quantiles that correspond to the approximate confidence interval.
 #'
 #' \code{htest} returns a two-column matrix with the first column containing the hypothesized value sent to this function and the second column containing the corresponding p-value.
 #'
@@ -36,7 +39,7 @@
 #'
 #' \code{plot} constructs scatterplots of all pairs of bootstrapped parameter estimates.
 #'
-#' \code{predict} applies a user-supplied function to each row of \code{object} and then finds the median and the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped predictions below and above.  The median is returned as the predicted value and the quantiles are returned as an approximate 100\code{conf.level}\% confidence interval for that prediction.
+#' \code{predict} returns a matrix with one row and three columns, with the first column holding the predicted value (i.e., the median prediction) and the last two columns holding the approximate confidence interval.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
@@ -62,6 +65,7 @@
 #'   confint(nl1.boot,"B1")
 #'   confint(nl1.boot,c(2,3))
 #'   confint(nl1.boot,conf.level=0.90)
+#'   predict(nl1.boot,fnx,days=3)
 #'   htest(nl1.boot,1,bo=6,alt="less")
 #'   hist(nl1.boot)
 #'   plot(nl1.boot)
@@ -70,86 +74,50 @@
 #'
 #' @rdname bootCase
 #' @export
-confint.bootCase <- function(object,parm=NULL,level=conf.level,conf.level=0.95,...) {
-  cl <- function(x) quantile(x,c((1-conf.level)/2,1-(1-conf.level)/2))
-  if (is.null(dim(object))) {             # if a vector, then only one parameter
-    res <- cl(object)
-    names(res) <- iCILabel(conf.level)
-  } else {
-    if (!is.null(parm)) object <- object[,parm]   # reduce to only parameters asked for
-    if (is.null(dim(object))) {                   # if a vector, then only one parameter
-      res <- cl(object)
-      names(res) <- iCILabel(conf.level)
-    } else {
-      res <- t(apply(object,2,cl))
-      colnames(res) <- iCILabel(conf.level)
-      rownames(res) <- colnames(object)
-    }
-  }
-  res
-}
-
-#' @rdname bootCase
-#' @export
-htest.bootCase <- function(object,parm=NULL,bo=0,alt=c("two.sided","less","greater"),...) {
-  alt <- match.arg(alt)
-  if (is.null(parm)) {
-    if (!is.null(dim(object))) { stop("You must select a parameter number to test.\n",call.=FALSE) }
-      else { obj.var <- object }
-  } else {
-    if (is.null(dim(object))) {
-        warning("You entered a parameter number to select but only a vector was sent.\n  The selected parameter number will be ignored.\n",call.=FALSE)
-        obj.var <- object
-    } else { obj.var <- object[,parm] }
-  }
-  p.lt <- length(obj.var[obj.var>bo])/length(obj.var)
-  p.gt <- length(obj.var[obj.var<bo])/length(obj.var)
-  switch(alt,
-    less=p.value <- p.lt,
-    greater=p.value <- p.gt,
-    two.sided=p.value <- 2*min(p.lt,p.gt)
-  )
-  res <- cbind(bo,p.value)
-  colnames(res) <- c("Ho Value","p value")
-  rownames(res) <- ""
-  res
-}
-
-#' @rdname bootCase
-#' @export
-hist.bootCase <- function(x,same.ylim=TRUE,ymax=NULL,col="gray90",nr=round(sqrt(ncol(x))),nc=ceiling(sqrt(ncol(x))),right=FALSE,...){
-	opar <- par(mfrow=c(nr,nc),mar=c(3.5,3.5,2,1),mgp=c(2,0.75,0))
-  if (is.null(ymax)) {
-    for (i in 1:ncol(x)) {  # used to find highest count on all histograms
-      ymax[i] <- max(hist(x[,i],right=right,plot=FALSE,warn.unused=FALSE,...)$counts)
-    }
-  }
-  if (same.ylim) { ymax <- rep(max(ymax),length(ymax)) }
-	for(i in 1:ncol(x)){ hist(x[,i],xlab=colnames(x)[i],col=col,main="",right=right,ylim=c(0,ymax[i]),...) }
-  par(opar)
-}
-
-#' @rdname bootCase
-#' @export
-plot.bootCase <- function(x,nr=round(sqrt(np)),nc=ceiling(sqrt(np)),...){
-	np <- ncol(x)
-	lay <- lower.tri(matrix(0,(np-1),(np-1)), TRUE)
-	lay[which(lay, TRUE)] <- 1:choose(np,2)
-	layout(lay)
-	opar <- par(mar=c(3.5,3.5,1,1),mgp=c(2,0.75,0))
-	for(i in 1:(np-1))
-		for(j in (i+1):np)
-			 plot(x[,i],x[,j],xlab=colnames(x)[i],ylab=colnames(x)[j],pch=20)
-	par(opar)
+confint.bootCase <- function(object,parm=NULL,level=conf.level,conf.level=0.95,plot=FALSE,
+                             err.col="black",err.lwd=2,rows=NULL,cols=NULL,...) {
+  iCIBoot(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...)
 }
 
 #' @rdname bootCase
 #' @export
 predict.bootCase <- function(object,FUN,MARGIN=1,conf.level=0.95,digits=NULL,...) {
-  res <- quantile(apply(object,MARGIN=MARGIN,FUN=FUN,...),c(0.5,(1-conf.level)/2,1-(1-conf.level)/2))
-  if (!is.null(digits)) res <- round(res,digits)
-  names(res) <- c("prediction",iCILabel(conf.level))
-  res
+  iPredictBoot(object,FUN=FUN,MARGIN=MARGIN,conf.level=conf.level,digits=digits,...)
+}
+
+#' @rdname bootCase
+#' @export
+htest.bootCase <- function(object,parm=NULL,bo=0,alt=c("two.sided","less","greater"),plot=FALSE,...) {
+  iHTestBoot(object,parm=parm,bo=bo,alt=alt,plot=plot)
+}
+
+#' @rdname bootCase
+#' @export
+hist.bootCase <- function(x,same.ylim=TRUE,ymax=NULL,
+                          rows=round(sqrt(ncol(x))),cols=ceiling(sqrt(ncol(x))),...){
+  ## Set parameters
+  op <- par("mfrow")
+	par(mfrow=c(rows,cols))
+	## If not given ymax, then find highest count on all histograms
+  if (is.null(ymax)) {
+    for (i in 1:ncol(x)) ymax[i] <- max(hist(~x[,i],plot=FALSE,warn.unused=FALSE,...)$counts)
+  }
+  if (same.ylim) ymax <- rep(max(ymax),length(ymax))
+	## Make the plots
+	for(i in 1:ncol(x)) hist(~x[,i],xlab=colnames(x)[i],ylim=c(0,ymax[i]),...)
+  par(mfrow=op)
+}
+
+#' @rdname bootCase
+#' @export
+plot.bootCase <- function(x,...){
+	np <- ncol(x)
+	lay <- lower.tri(matrix(0,(np-1),(np-1)), TRUE)
+	lay[which(lay, TRUE)] <- 1:choose(np,2)
+	layout(lay)
+	for(i in 1:(np-1))
+		for(j in (i+1):np)
+			 plot(x[,i],x[,j],xlab=colnames(x)[i],ylab=colnames(x)[j],pch=20)
 }
 
 
@@ -158,7 +126,7 @@ predict.bootCase <- function(object,FUN,MARGIN=1,conf.level=0.95,digits=NULL,...
 
 #' @title Associated S3 methods for nlsBoot from nlstools.
 #'
-#' @description Provides S3 methods to construct non-parametric bootstrap confidence intervals and hypothesis tests for parameter values and predicted values of the response variable for a \code{\link[nlstools]{nlsBoot}} object (from the \pkg{nlstools} package).
+#' @description Provides S3 methods to construct non-parametric bootstrap confidence intervals and hypothesis tests for parameter values and predicted values of the response variable for a \code{\link[nlstools]{nlsBoot}} object from the \pkg{nlstools} package.
 #'
 #' @details \code{confint} finds the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped parameter estimates below and above.  This is an approximate 100\code{conf.level}\% confidence interval.
 #' 
@@ -167,19 +135,19 @@ predict.bootCase <- function(object,FUN,MARGIN=1,conf.level=0.95,digits=NULL,...
 #' In \code{predict}, a user-supplied function is applied to each row of the \code{coefBoot} object in a \code{nlsBoot} object and then finds the median and the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped predictions below and above.  The median is returned as the predicted value and the quantiles are returned as an approximate 100\code{conf.level}\% confidence interval for that prediction.
 #'
 #' @param object An object saved from \code{nlsBoot()}.
-#' @param parm An integer that indicates which parameter to compute the confidence interval for.  Will compute for all parameters if \code{NULL}.
+#' @param parm An integer that indicates which parameter to compute the confidence interval or hypothesis test for.  The confidence interval Will be computed for all parameters if \code{NULL}.
 #' @param conf.level A level of confidence as a proportion. 
 #' @param level Same as \code{conf.level}.  Used for compatability with the main \code{confint}.
-#' @param plot A logical that indicates whether a plot should be consturcted.  If \code{confint} then a histogram of the \code{parm} parameters from the bootstrap samples with error bars that illustrate the bootstrapped confidence intervals should be constructed.  If code{htest} then a histogram of the \code{parm} parameters with a vertical lines illustrating the \code{bo}value should be constructed.
-#' @param err.col A single numeric or character that identifies the color for the error bar on the plot.
-#' @param err.lwd A single numeric that identifies the line width for the error bar on the plot.
+#' @param plot A logical that indicates whether a plot should be constructed.  If \code{confint}, then a histogram of the \code{parm} parameters from the bootstrap samples with error bars that illustrate the bootstrapped confidence intervals will be constructed.  If code{htest}, then a histogram of the \code{parm} parameters with a vertical lines illustrating the \code{bo}value will be constructed.
+#' @param err.col A single numeric or character that identifies the color for the error bars on the plot.
+#' @param err.lwd A single numeric that identifies the line width for the error bars on the plot.
 #' @param rows A numeric that contains the number of rows to use on the graphic.
 #' @param cols A numeric that contains the number of columns to use on the graphic.
+#' @param FUN The function to be applied for the prediction.  See the examples.
+#' @param MARGIN A single numeric that indicates the margin over which \code{FUN} is applied.  \code{MARGIN=1} will apply to each row and is the default.
+#' @param digits A single numeric that indicates the number of digits for the result.
 #' @param bo The null hypothesized parameter value.
 #' @param alt A string that identifies the \dQuote{direction} of the alternative hypothesis.  See details.
-#' @param FUN The function to be applied.
-#' @param MARGIN A single numeric that indicates the margin over which to apply the function. \code{MARGIN=1} will apply to each row and is the default.
-#' @param digits A single numeric that indicates the number of digits for the result.
 #' @param \dots Additional arguments to functions.
 #'
 #' @return
@@ -187,9 +155,7 @@ predict.bootCase <- function(object,FUN,MARGIN=1,conf.level=0.95,digits=NULL,...
 #' 
 #' \code{htest} returns a matrix with two columns.  The first column contains the hypothesized value sent to this function and the second column is the corresponding p-value.
 #' 
-#' \code{predict} returns a matrix with one row and three columns with the first column holding the predicted value (i.e., the median prediction) and the last two columns holding the approximate confidence interval.
-#' 
-#' \code{predict}
+#' \code{predict} returns a matrix with one row and three columns, with the first column holding the predicted value (i.e., the median prediction) and the last two columns holding the approximate confidence interval.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
@@ -215,64 +181,21 @@ predict.bootCase <- function(object,FUN,MARGIN=1,conf.level=0.95,digits=NULL,...
 #'   confint(nl1.boot,"B1")
 #'   confint(nl1.boot,c(2,3))
 #'   confint(nl1.boot,conf.level=0.90)
-#'   htest(nl1.boot,1,bo=6,alt="less")
 #'   predict(nl1.boot,fnx,days=3)
+#'   htest(nl1.boot,1,bo=6,alt="less")
 #' }
 #' 
 #' @rdname nlsBoot
 #' @export
-confint.nlsBoot <- function(object,parm=NULL,level=0.95,conf.level=level,
-                            plot=FALSE,err.col="black",err.lwd=2,
-                            rows=round(sqrt(ncol(object$coefboot))),cols=ceiling(sqrt(ncol(object$coefboot))),...) {
-  # internal function to find CIs
-  cl <- function(x) quantile(x,c((1-conf.level)/2,1-(1-conf.level)/2))
-  # end internal function
-  # begin main function
-  # determine if just a vector (one variable) was sent
-  if (is.null(dim(object$coefboot))) {
-    res <- cl(object$coefboot)
-    names(res) <- iCILabel(conf.level)
-  } else {
-    # if a matrix (>1 variable) was sent then find all CIs
-    res <- t(apply(object$coefboot,2,cl))
-    colnames(res) <- iCILabel(conf.level)
-  }
-  # perform some checks on parm argument
-  if (!is.null(parm)) {
-    # was a numeric column name given
-    if (is.numeric(parm)) {
-      # was that number too big
-      if (max(parm)>ncol(object$coefboot)) {
-        warning("A 'parm' number was greater than the number of parameters in the model.\n  That number was ignored to continue.",call.=FALSE)
-        # ignore what was sent if it is too big
-        parm <- parm[which(parm<=ncol(object$coefboot))]
-      }
-    } else { # a named variable was given
-      # does it exist in the matrix
-      if (!(parm %in% colnames(object$coefboot))) {
-        warning("Parameter name does not exist if nlsBoot results.  Parameter name ignored.",call.=FALSE)
-        # ignore what was sent if it does not
-        parm <- NULL
-      }
-    }
-    # reduce results to just parm if parm is legitimate
-    if (!is.null(parm)) res <- res[parm,]
-  }
-  
-  if (plot) {
-    if (is.null(parm)) {
-      op <- par(mfrow=c(rows,cols))
-      np <- ncol(object$coefboot)
-      for (i in 1:np) {
-        h <- hist(~object$coefboot[,i],xlab=colnames(object$coefboot)[i],...)
-        plotCI(object$bootCI[i,1],y=0.95*max(h$counts),li=res[i,1],ui=res[i,2],err="x",pch=19,col=err.col,lwd=err.lwd,add=TRUE)
-      }
-    } else {
-      h <- hist(~object$coefboot[,parm],xlab=parm,main="")
-      plotCI(object$bootCI[parm,1],y=0.95*max(h$counts),li=res[1],ui=res[2],err="x",pch=19,col=err.col,lwd=err.lwd,add=TRUE,...)
-    }
-  }
-  res
+confint.nlsBoot <- function(object,parm=NULL,level=conf.level,conf.level=0.95,plot=FALSE,
+                            err.col="black",err.lwd=2,rows=NULL,cols=NULL,...) {
+  iCIBoot(object$coefboot,parm,conf.level,plot,err.col,err.lwd,rows,cols,...)
+}
+
+#' @rdname nlsBoot
+#' @export
+predict.nlsBoot <- function(object,FUN,MARGIN=1,conf.level=0.95,digits=NULL,...) {
+  iPredictBoot(object$coefboot,FUN=FUN,MARGIN=MARGIN,conf.level=conf.level,digits=digits,...)
 }
 
 #' @rdname nlsBoot
@@ -284,54 +207,126 @@ htest <- function(object, ...) {
 #' @rdname nlsBoot
 #' @export
 htest.nlsBoot <- function(object,parm=NULL,bo=0,alt=c("two.sided","less","greater"),plot=FALSE,...) {
-  alt <- match.arg(alt)
-  # check if result is a vector -- i.e., only one parameter
-  if (class(object$coefboot) != "matrix") {
-    if (!is.null(parm)) warning("Results have only one dimension, value in 'parm' will be ignored.",call.=FALSE)
-    # set dat equal to that vector
-    dat <- object$coefboot
-  } else {
-    # check if more than one parm was sent
-    if (length(parm)>1) {
-      # only use first
-      parm <- parm[1]
-      warning("You can only test one paramater at a time.  Only the first will be used.",call.=FALSE)
-    }
-    # was a numeric column name given
+  iHTestBoot(object$coefboot,parm=parm,bo=bo,alt=alt,plot=plot)
+}
+
+
+##############################################################
+## INTERNAL FUNCTIONS
+##############################################################
+## ===========================================================
+## Confindence intervals from bootstrapped results
+##   should work for bootCase and nlsboot results
+## ===========================================================
+iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
+  #### internal function to find CIs
+  cl <- function(x) quantile(x,c((1-conf.level)/2,1-(1-conf.level)/2))
+  #### end internal function
+  #### Main function
+  ## Perform some checks on parm
+  # if parm=NULL then set to all paramaters
+  if (is.null(parm)) parm <- colnames(object)
+  else {
     if (is.numeric(parm)) {
-      # the column number was too big
-      if (parm>ncol(object$coefboot)) stop("'parm' number greater than number of parameters.",call.=FALSE)
-    } else { # a named variable was given
-      # column name does not exist in the matrix
-      if (!(parm %in% colnames(object$coefboot))) stop("'parm' name does not exist in nlsBoot results.",call.=FALSE)
+      # check numeric parm
+      if (max(parm)>ncol(object)) stop("Number in 'parm' exceeds number of columns.",call.=FALSE)
+      if (min(parm)<0) stop("Number in 'parm' can't be negative.",call.=FALSE)
+    } else {
+      # check named parm
+      if (!parm %in% colnames(object)) stop("Name in 'parm' does not exist in object.",call.=FALSE)
     }
-    # set dat equal to one column of matrix of results
-    dat <- object$coefboot[,parm]
   }
-  p.lt <- length(dat[dat>bo])/length(dat)
-  p.gt <- length(dat[dat<bo])/length(dat)
+  ## Reduce object to have only the parm columns in it
+  object <- object[,parm]
+  ## Compute CIs for each column, but handle differently if vector or matrix
+  if (is.null(dim(object))) {
+    # A vector, then only one parameter
+    res <- cl(object)
+    names(res) <- iCILabel(conf.level)
+  } else {
+    res <- t(apply(object,2,cl))
+    colnames(res) <- iCILabel(conf.level)
+    rownames(res) <- colnames(object)
+  }
+  ## Make plot if asked for
+  if (plot) {
+    ## Plotting depends on whether one vector or not
+    if (length(parm)==1) {
+      ## one histogram
+      h <- hist(~object,xlab=parm,main="")
+      plotCI(mean(object),y=0.95*max(h$counts),li=res[1],ui=res[2],err="x",
+             pch=19,col=err.col,lwd=err.lwd,add=TRUE,...)
+    } else {
+      ## multiple histograms
+      np <- ncol(object)
+      if (is.null(rows)) rows <- round(sqrt(np))
+      if (is.null(cols)) cols <- ceiling(sqrt(np))
+      op <- par("mfrow")
+      par(mfrow=c(rows,cols))
+      for (i in 1:np) {
+        h <- hist(~object[,i],xlab=colnames(object)[i],...)
+        plotCI(mean(object[,i]),y=0.95*max(h$counts),li=res[i,1],ui=res[i,2],err="x",
+               pch=19,col=err.col,lwd=err.lwd,add=TRUE)
+      }
+      par(mfrow=op)
+    }
+  }
+  ## Return CI result
+  res
+}
+
+## ===========================================================
+## Predictions, with intervals, from bootstrapped results
+##   should work for bootCase and nlsboot results
+## ===========================================================
+iPredictBoot <- function(object,FUN,MARGIN,conf.level,digits,...) {
+  res <- quantile(apply(object,MARGIN=MARGIN,FUN=FUN,...),c(0.5,0.5-conf.level/2,0.5+conf.level/2))
+  if (!is.null(digits)) res <- round(res,digits)
+  names(res) <- c("prediction",iCILabel(conf.level))
+  res
+}
+
+## ===========================================================
+## Hypothesis testing from bootstrapped results
+##   should work for bootCase and nlsboot results
+## ===========================================================
+iHTestBoot <- function(object,parm,bo,alt=c("two.sided","less","greater"),plot=FALSE) {
+  ## Some checks
+  alt <- match.arg(alt)
+  ## Multiple parm values in object, make sure a parm was selected
+  ## if it was then reduce object to vector of that parm
+  if (!is.null(dim(object))) {
+    if (is.null(parm)) stop("You must select a parameter number to test.\n",call.=FALSE)
+    else {
+      # check parm
+      if (is.numeric(parm)) {
+        # the column number was too big
+        if (parm>ncol(object)) stop("'parm' number greater than number of parameters.",call.=FALSE)
+      } else {
+        # column name does not exist in the matrix
+        if (!parm %in% colnames(object)) stop("'parm' name does not exist in object.",call.=FALSE)
+      }
+      object <- object[,parm]
+    }
+  }
+  ## Calculate one-sided p-values
+  p.lt <- length(object[object>bo])/length(object)
+  p.gt <- length(object[object<bo])/length(object)
+  ## Calculate p-value based on choice in alt
   switch(alt,
          less=p.value <- p.lt,
          greater=p.value <- p.gt,
          two.sided=p.value <- 2*min(p.lt,p.gt)
   )
+  ## Put together a result to return
   res <- cbind(bo,p.value)
   colnames(res) <- c("Ho Value","p value")
   rownames(res) <- ""
-  
+  ## Make a plot if asked for
   if (plot) {
-    op <- par(mar=c(3.5,3.5,1,1),mgp=c(2,0.75,0))
-    hist(object$coefboot[,parm],xlab=colnames(object$coefboot)[parm],main="")
+    hist(~object,xlab=colnames(object),main="")
     abline(v=bo,col="red",lwd=2,lty=2)
   }
-  res
-}  
-
-#' @rdname nlsBoot
-#' @export
-predict.nlsBoot <- function(object,FUN,MARGIN=1,conf.level=0.95,digits=NULL,...) {
-  res <- quantile(apply(object$coefboot,MARGIN=MARGIN,FUN=FUN,...),c(0.5,(1-conf.level)/2,1-(1-conf.level)/2))
-  if (!is.null(digits)) res <- round(res,digits)
-  names(res) <- c("prediction",iCILabel(conf.level))
+  ## Return the result
   res
 }

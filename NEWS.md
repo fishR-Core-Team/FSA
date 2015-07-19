@@ -4,9 +4,15 @@
 * `alkAgeDist()`: Modified.  Moved into a single file with `alkMeanVar()`.  Cleaned-up help file.  Added some error/warning tests.  No change in behavior.
 * `alkIndivAge()`: Modified.  Clean-up help file.  Added a stronger test for `type="SR"` method.  No change in behavior.
 * `alkMeanVar()`: Modified.  Moved into a single file with `alkAgeDist()`.  Cleaned-up help file.  No change in behavior.
-* `alkPlot()`:  Cleaed-up help file and tests.  No change in behavior.
+* `alkPlot()`:  Cleaned-up help file and tests.  No change in behavior.
+* `confint.bootCase()`: Modified.  Created a common internal function for use with `confint.nlsBoot()`.  Added the ability to plot histograms with confidence intervals superimposed (similar to what was in `confint.nlsBoot()`).
+* `confint.nlsBoot()`: Modified.  Created a common internal function for use with `confint.bootCase()`.
 * `hist.formula()`: Modified.  Fixed so that `ymax=` also sets the y-axis limit when only one histogram is made (it was previously ignored).
+* `htest.bootCase()`: Modified.  Created a common internal function for use with `htest.nlsBoot()`.
+* `htest.nlsBoot()`: Modified.  Created a common internal function for use with `htest.bootCase()`.
 * `iHndlFormula()`: Modified.  Added `na.action=NULL` to `model.frame()` so that NA values will not be omitted.
+* `predict.bootCase()`: Modified.  Created a common internal function for use with `predict.nlsBoot()`.
+* `predict.nlsBoot()`: Modified.  Created a common internal function for use with `predict.bootCase()`.
 * `psdAdd()`: Modified.  Fixed bug that never tested if all lengths were `NA`.  Required change to `iHndlFormula`.
 
 # FSA 0.7.0 Jul15
