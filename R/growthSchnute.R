@@ -2,7 +2,7 @@
 #' 
 #' @title The four-parameter growth function from Schnute (1981).
 #'
-#' @description The four-parameter growth function from Schnute (1981).  Use \code{SchnuteModels()} to see the equations for each model.
+#' @description The four-parameter growth function from Schnute (1981).  Use \code{SchnuteModels()} to see the equations for each growth function.
 #'
 #' @param t A numeric vector of ages over which to model growth.
 #' @param case A string that indicates the case of the Schnute growth function to use.

@@ -38,7 +38,7 @@ SchnuteModels(cex = 1.25, ...)
 \code{SchnuteModels} returns a graphic that uses \code{\link{plotmath}} to show the model formulae in a pretty format.
 }
 \description{
-The four-parameter growth function from Schnute (1981).  Use \code{SchnuteModels()} to see the equations for each model.
+The four-parameter growth function from Schnute (1981).  Use \code{SchnuteModels()} to see the equations for each growth function.
 }
 \section{IFAR Chapter}{
  None specifically, but \href{https://fishr.wordpress.com/books/ifar/}{9-Individual Growth} is related.

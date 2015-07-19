@@ -7,13 +7,22 @@
 * `alkPlot()`:  Cleaned-up help file and tests.  No change in behavior.
 * `confint.bootCase()`: Modified.  Created a common internal function for use with `confint.nlsBoot()`.  Added the ability to plot histograms with confidence intervals superimposed (similar to what was in `confint.nlsBoot()`).
 * `confint.nlsBoot()`: Modified.  Created a common internal function for use with `confint.bootCase()`.
+* `GompertzFuns()`:  Moved into `growthModels` file.  Did not change behavior.
+* `gompertzModels()`: Modified.  Changed `type=` to `family=` to avoid confusion in the help file with `type=` in `gompertzFuns()`.  Moved into `growthModels` file.
+* `growthRadPlot()`: Deleted.  Moved to `FSAmisc` package.
 * `hist.formula()`: Modified.  Fixed so that `ymax=` also sets the y-axis limit when only one histogram is made (it was previously ignored).
 * `htest.bootCase()`: Modified.  Created a common internal function for use with `htest.nlsBoot()`.
 * `htest.nlsBoot()`: Modified.  Created a common internal function for use with `htest.bootCase()`.
 * `iHndlFormula()`: Modified.  Added `na.action=NULL` to `model.frame()` so that NA values will not be omitted.
+* `logisticFuns()`:  Moved into `growthModels` file.  Did not change behavior.
+* `logisticModels()`: Modified.  Changed `type=` to `family=` to avoid confusion in the help file with `type=` in `logisticFuns()`.  Moved into `growthModels` file.
 * `predict.bootCase()`: Modified.  Created a common internal function for use with `predict.nlsBoot()`.
 * `predict.nlsBoot()`: Modified.  Created a common internal function for use with `predict.bootCase()`.
 * `psdAdd()`: Modified.  Fixed bug that never tested if all lengths were `NA`.  Required change to `iHndlFormula`.
+* `RichardsFuns()`:  Moved into `growthModels` file.  Did not change behavior.
+* `RichardsModels()`:  Moved into `growthModels` file.  Did not change behavior.
+* `vbFuns()`:  Moved into `growthModels` file.  Did not change behavior.
+* `vbModels()`: Modified.  Changed `type=` to `family=` to avoid confusion in the help file with `type=` in `vbFuns()`.  Moved into `growthModels` file.
 
 # FSA 0.7.0 Jul15
 * Fixed description to be in title case.
