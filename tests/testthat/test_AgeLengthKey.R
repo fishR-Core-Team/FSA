@@ -100,6 +100,31 @@ test_that("Does age variable get added with alkIndivAge()",{
   expect_true(any(names(tmp)=="age"))
 })
 
+test_that("Assigned ages are correct (within rounding) with semi-random alkIndivAge()",{
+  ## Make a simple age-sample for a simple ALK
+  tmp.age <- data.frame(len=c(10,10,10,10,20,20,20,20,30,30,30),
+                        age=c(1,1,2,2,1,2,2,3,2,3,3))
+  tmp.key <- prop.table(xtabs(~len+age,data=tmp.age),margin=1)
+  ## Make a simple length sample ... with simple assertions
+  ## -- for 10-cm fish ... one age-1 and one age-2
+  ## -- for 20-cm fish ... one or two age-1 and age-3
+  ##                   ... two or three age-2
+  ## -- for 30-cm fish ... zero or one age-2 fish
+  ## --                ... one or two age-3 fish
+  tmp.len <- data.frame(len=c(10,10,20,20,20,20,20,30,30))
+  new.age <- alkIndivAge(tmp.key,~len,data=tmp.len)
+  new.sum <- xtabs(~len+age,data=new.age)
+  ## do rowSums match un-aged lengths
+  expect_equal(as.numeric(rowSums(new.sum)),as.numeric(xtabs(~len,data=tmp.len)))
+  ## do rows match assertions from above
+  expect_true(all(as.numeric(new.sum[1,])==c(1,1,0)))
+  expect_true(all(as.numeric(new.sum[2,])==c(2,2,1))|
+              all(as.numeric(new.sum[2,])==c(1,3,1))|
+              all(as.numeric(new.sum[2,])==c(1,2,2)))
+  expect_true(all(as.numeric(new.sum[3,])==c(0,0,2))|
+              all(as.numeric(new.sum[3,])==c(0,1,1)))
+})
+
 test_that("Does 'seed=' work in alkIndivAge()",{
   WR1 <- WR79
   WR1$LCat <- lencat(WR1$len,w=5)
