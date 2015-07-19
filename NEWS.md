@@ -1,4 +1,6 @@
-# FSA 0.7.1 ongoing
+# FSA 0.7.2 ongoing
+
+# FSA 0.7.1 Jul15
 * `ageBias()`: Modified.  Moved into a single file with `agePrecision()`.  Cleaned-up help file.  No change in behavior.
 * `agePrecision()`: Modified.  Moved into a single file with `ageBias()`.  Cleaned-up help file.  No change in behavior.
 * `alkAgeDist()`: Modified.  Moved into a single file with `alkMeanVar()`.  Cleaned-up help file.  Added some error/warning tests.  No change in behavior.
@@ -19,8 +21,10 @@
 * `predict.bootCase()`: Modified.  Created a common internal function for use with `predict.nlsBoot()`.
 * `predict.nlsBoot()`: Modified.  Created a common internal function for use with `predict.bootCase()`.
 * `psdAdd()`: Modified.  Fixed bug that never tested if all lengths were `NA`.  Required change to `iHndlFormula`.
-* `RichardsFuns()`:  Moved into `growthModels` file.  Did not change behavior.
+* `RichardsFuns()`:  Moved into `growthModels` file.  Changed `param=` to `type=` to better match similar functions.
 * `RichardsModels()`:  Moved into `growthModels` file.  Did not change behavior.
+* `Schnute()`:  Moved into `growthModels` file.  Changed `param=` to `type=` to better match similar functions.
+* `SchnuteModels()`:  Moved into `growthModels` file.  Did not change behavior.
 * `vbFuns()`:  Moved into `growthModels` file.  Did not change behavior.
 * `vbModels()`: Modified.  Changed `type=` to `family=` to avoid confusion in the help file with `type=` in `vbFuns()`.  Moved into `growthModels` file.
 
