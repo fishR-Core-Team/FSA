@@ -6,7 +6,7 @@
 \alias{summary.ageBias}
 \title{Compute and view possible biases between paired sets of ages.}
 \usage{
-ageBias(formula, data, ref.lab = tmp$Rname, nref.lab = tmp$Enames[1],
+ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
   method = p.adjust.methods, sig.level = 0.05, min.n.CI = 3)
 
 \method{summary}{ageBias}(object, what = c("table", "symmetry", "Bowkers",

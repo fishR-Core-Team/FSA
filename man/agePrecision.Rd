@@ -9,7 +9,7 @@
 agePrecision(formula, data)
 
 \method{summary}{agePrec}(object, what = c("precision", "difference",
-  "absolute difference", "detail"), percent = TRUE, digits = 4, ...)
+  "absolute difference", "details"), percent = TRUE, digits = 4, ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{~var1+var2+var3+...} or, alternatively, \code{var1~var2+var3+...}, where the \code{varX} generically represent the variables that contain the age assignments.  The alternative formula allows for similar code as used in \code{\link{ageBias}} and can have only one variable on the left-hand side.}

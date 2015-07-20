@@ -20,8 +20,8 @@ test_that("ageBias() errors and warnings",{
   expect_error(summary(ab1,what="McNemars",cont.corr="derek"),"should be one of")
   ## Test that messages are printed
   expect_message(summary(ab1),"Sample size in the age agreement table")
-  expect_message(summary(ab1),"Summary of otolithC by scaleC")
-  expect_message(summary(ab1),"Summary of otolithC-scaleC by scaleC")
+  expect_message(summary(ab1),"Summary of scaleC by otolithC")
+  expect_message(summary(ab1),"Summary of scaleC-otolithC by otolithC")
   expect_message(summary(ab1),"square")
   expect_message(summary(ab1,flip.table=TRUE),"flipped")
   expect_message(summary(ab1),"Age agreement table symmetry test results")

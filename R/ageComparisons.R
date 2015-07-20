@@ -133,7 +133,7 @@
 #'
 #' @rdname ageBias
 #' @export
-ageBias <- function(formula,data,ref.lab=tmp$Rname,nref.lab=tmp$Enames[1],
+ageBias <- function(formula,data,ref.lab=tmp$Enames,nref.lab=tmp$Rname,
                     method=p.adjust.methods,sig.level=0.05,min.n.CI=3) {
   ## Perform some checks on the formula
   tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
@@ -711,7 +711,7 @@ agePrecision <- function(formula,data) {
 
 #' @rdname agePrecision
 #' @export
-summary.agePrec <- function(object,what=c("precision","difference","absolute difference","detail"),
+summary.agePrec <- function(object,what=c("precision","difference","absolute difference","details"),
                             percent=TRUE,digits=4,...) {
   what <- match.arg(what,several.ok=TRUE)
   showmsg <- ifelse (length(what)>1,TRUE,FALSE)
@@ -747,7 +747,7 @@ summary.agePrec <- function(object,what=c("precision","difference","absolute dif
     print(tmp,digits=digits)
     what <- iHndlMultWhat(what,"difference")
   }
-  if ("detail" %in% what) {
+  if ("details" %in% what) {
     if (showmsg) message("Intermediate calculations for each individual")
     print(object$detail,digits=digits)
     what <- iHndlMultWhat(what,"detail")
