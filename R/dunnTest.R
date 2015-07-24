@@ -6,7 +6,9 @@
 #' 
 #' Dunn's method can be described in the following way.  To compare groups i and j, the absolute value of the difference between the mean rank of group i and the mean rank of group j is found.  If there are no ties, this difference in mean ranks is divided by the square root of [(N*(N+1)/12)*((1/Ni)+(1/Nj))], where N is the total number of individuals in all groups, and ni and nj are the number of individuals in the groups i and j, respectively. If there are ties, the difference in mean ranks is divided by the square root of [(N*(N+1)-Sum((ti^3)-ti)/(N-1))/12*((1/ni)+(1/nj))], where ti is the number of ties in the ith group of ties.  These ratios are a Z test statistic and the two-sided p-value is computed as 2*Pr(Z>|z|).
 #' 
-#' @note There are a number of functions in other packages that purport to do similar analyses.
+#' @note The data.frame will be reduced to only those rows that are complete cases for \code{x} and \code{g}.  In other words, rows with missing data for either \code{x} or \code{g} are removed from the analysis.
+#' 
+#' There are a number of functions in other packages that purport to do similar analyses.
 #' 
 #' The \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test} performs the same calculations but does not use formula notation, does not produce two-sided p-values, and prints results automatically and in a format that I consider cumbersome.  It does, however, provide a few more methods for controlling the experimentwise error rate.  The results from \code{dunnTest} (here) match those from \code{\link[dunn.test]{dunn.test}} (if the p-values are adjusted to be two-sided) for the Bonferroni method and for some but not all p-values for the Holm, Hochberg, Benjamini-Hochberg, and Benjamini-Yekuteili methods.  Most differences are very slight.  The author of \code{\link[dunn.test]{dunn.test}} says that the difference is due to \code{\link[dunn.test]{dunn.test}} utilizing the order of the p-values where \code{\link[stats]{p.adjust}} (used in \code{dunnTest} (here)) does not.
 #' 
