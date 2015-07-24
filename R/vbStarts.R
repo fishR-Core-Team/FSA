@@ -188,7 +188,7 @@ iVBStarts.0 <- function(age,len,type,meth0) {
   ## find values depending on method
   if(meth0=="poly") {
     # fit polynomial regression
-    respoly <- lm(meanL~poly(ages,2))
+    respoly <- lm(meanL~poly(ages,2,raw=TRUE))
     # get real component of roots to polynomial equation
     resroots <- Re(polyroot(coef(respoly)))
     # find starting value for t0 as polynomial root closest to zero

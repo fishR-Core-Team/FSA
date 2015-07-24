@@ -1,6 +1,7 @@
 # FSA 0.7.2 ongoing
 * `ageBias()`: Modified.  Corrected bug with labeling of x-axis on age-bias plot when `ref.lab=` and `nref.lab=` were not given by the user.
 * `agePrecision()`: Modified.  Changed `what="detail"` to `what="details"`.  Note that `what="detail"` still works.
+* `vbStarts()`: Modified.  Added `raw=TRUE` to `poly()` which is used when `meth0="poly"`.
 
 # FSA 0.7.1 Jul15
 * `ageBias()`: Modified.  Moved into a single file with `agePrecision()`.  Cleaned-up help file.  No change in behavior.
