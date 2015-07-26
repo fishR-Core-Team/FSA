@@ -8,8 +8,8 @@ vbStarts(formula, data = NULL, type = c("typical", "BevertonHolt",
   "original", "vonBertalanffy", "GQ", "GallucciQuinn", "Mooij", "Weisberg",
   "Schnute", "Francis", "Somers", "Somers2"), ages2use = NULL,
   methEV = c("poly", "means"), meth0 = c("poly", "yngAge"), plot = FALSE,
-  col.mdl = "gray70", lwd.mdl = 3, lty.mdl = 1, dynamicPlot = FALSE,
-  ...)
+  col.mdl = "gray70", lwd.mdl = 3, lty.mdl = 1, cex.main = 0.75,
+  dynamicPlot = FALSE, ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{len~age}.}
@@ -31,6 +31,8 @@ vbStarts(formula, data = NULL, type = c("typical", "BevertonHolt",
 \item{lwd.mdl}{A line width for the model when \code{plot=TRUE}.}
 
 \item{lty.mdl}{A line type for the model when \code{plot=TRUE}.}
+
+\item{cex.main}{A character expansion value for the main title when \code{plot=TRUE}.}
 
 \item{dynamicPlot}{A logical that indicates whether a plot with dynamically linked slider bars should be constructed for finding starting values.}
 

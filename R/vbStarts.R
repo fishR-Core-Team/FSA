@@ -22,6 +22,7 @@
 #' @param col.mdl A color for the model when \code{plot=TRUE}.
 #' @param lwd.mdl A line width for the model when \code{plot=TRUE}.
 #' @param lty.mdl A line type for the model when \code{plot=TRUE}.
+#' @param cex.main A character expansion value for the main title when \code{plot=TRUE}.
 #' @param dynamicPlot A logical that indicates whether a plot with dynamically linked slider bars should be constructed for finding starting values.
 #' @param \dots Further arguments passed to the methods.
 #' 
@@ -91,7 +92,8 @@ vbStarts <- function(formula,data=NULL,
                             "GQ","GallucciQuinn","Mooij","Weisberg",
                             "Schnute","Francis","Somers","Somers2"),
                      ages2use=NULL,methEV=c("poly","means"),meth0=c("poly","yngAge"),
-                     plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,dynamicPlot=FALSE,...) {
+                     plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,cex.main=0.75,
+                     dynamicPlot=FALSE,...) {
   ## some checks of arguments
   type <- match.arg(type)
   methEV <- match.arg(methEV)
@@ -122,7 +124,7 @@ vbStarts <- function(formula,data=NULL,
     iVBStartsDynPlot(age,len,type,sv,ages2use)
   } else {
     # make the static plot if asked for
-    if (plot) iVBStartsPlot(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl)
+    if (plot) iVBStartsPlot(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl,cex.main)
     ## return starting values list
     sv
   }
@@ -327,19 +329,19 @@ iVBStarts.Somers2 <- function(age,len,type,meth0) {
 #=============================================================
 # Static plot of starting values
 #=============================================================
-iVBStartsPlot <- function(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl) {
+iVBStartsPlot <- function(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl,cex.main) {
   ## attempting to get by bindings warning in RCMD CHECK
   x <- NULL
   ## Make a title
-  ttl1 <- paste0("von B (",type,") fit")
+  ttl1 <- paste0("von B (",type,")")
   ttl2 <- paste(paste(names(sv),formatC(unlist(sv),format="f",digits=2),sep="="),collapse=", ")
-  ttl <- paste(ttl1,"at",ttl2)
+  ttl <- paste(ttl1,"with",ttl2)
   ## Plot the data
   # create a transparency value that is the max of 1/2th of the
   # maximum number at any length and age combination or 0.1
   clr <- rgb(0,0,0,max(2/max(table(age,len)),0.1))
   # Make the base plot
-  plot(age,len,pch=19,col=clr,xlab="Age",ylab="Length",main=ttl,cex.main=0.95)
+  plot(age,len,pch=19,col=clr,xlab="Age",ylab="Length",main=ttl,cex.main=cex.main)
   ## Plot the model
   mdl <- vbFuns(type)
   min.age <- min(age,na.rm=TRUE)
