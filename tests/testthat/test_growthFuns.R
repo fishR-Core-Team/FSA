@@ -42,6 +42,23 @@ test_that("vbFuns() output",{
   for (i in tmp) expect_message(vbFuns(i,msg=TRUE),i)
 })
 
+test_that("vbFuns() arguments are in same order as vbStarts() list",{
+  ## Get some data for vbStarts()
+  data(SpotVA1)
+  ## List all choices for vbFuns() that have vbStarts()
+  tmp <- c("Typical","typical","BevertonHolt","Original","original","vonBertalanffy",
+           "GQ","GallucciQuinn","Mooij","Weisberg","Schnute","Francis","Somers","Somers2")
+  ## Make sure the two names match ... delete the "t", "t1", and "t3"
+  ## arguments from vbFuns() result as these are variable names that
+  ## would not be returned by vbStarts()
+  for (i in tmp) {
+    fnms <- names(formals(vbFuns(i)))
+    fnms <- fnms[-which(fnms %in% c("t","t1","t3"))]
+    snms <- names(vbStarts(tl~age,data=SpotVA1,type=i))
+    expect_equal(fnms,snms)
+  }
+})
+
 test_that("GompertzFuns() output",{
   ## List all choices for GompertzFuns()
   tmp <- c("Ricker1","Ricker2","Ricker3","QD1","QD2","QD3","KM","AFS","original","Troynikov1","Troynikov2")

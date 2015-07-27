@@ -287,7 +287,7 @@ iVBStarts.GQ <- function(age,len,type,meth0) {
 #=============================================================
 iVBStarts.Mooij <- function(age,len,type,meth0) {
   tmp <- iVBStarts.original(age,len,type,meth0)
-  as.list(c(tmp["Linf"],omega=tmp[["Linf"]]*tmp[["K"]],tmp["L0"]))
+  as.list(c(tmp["Linf"],tmp["L0"],omega=tmp[["Linf"]]*tmp[["K"]]))
 }
 
 #=============================================================
