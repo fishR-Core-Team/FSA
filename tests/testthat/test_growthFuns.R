@@ -32,7 +32,7 @@ test_that("xxxModels() messages",{
 
 test_that("vbFuns() output",{
   ## List all choices for vbFuns()
-  tmp <- c("typical","BevertonHolt","original","vonBertalanffy","GQ","GallucciQuinn","Mooij","Weisberg","Schnute","Francis","Laslett","Polacheck","Fabens","Fabens2","Somers","Somers2","Wang","Wang2","Wang3")
+  tmp <- c("Typical","typical","BevertonHolt","Original","original","vonBertalanffy","GQ","GallucciQuinn","Mooij","Weisberg","Schnute","Francis","Laslett","Polacheck","Fabens","Fabens2","Somers","Somers2","Wang","Wang2","Wang3")
   ## Do all choices return a function
   for (i in tmp) {
     expect_is(vbFuns(i),"function")

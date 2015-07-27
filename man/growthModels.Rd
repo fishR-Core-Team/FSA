@@ -12,10 +12,10 @@
 \alias{vbModels}
 \title{Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.}
 \usage{
-vbFuns(type = c("typical", "BevertonHolt", "original", "vonBertalanffy", "GQ",
-  "GallucciQuinn", "Mooij", "Weisberg", "Schnute", "Francis", "Laslett",
-  "Polacheck", "Somers", "Somers2", "Fabens", "Fabens2", "Wang", "Wang2",
-  "Wang3"), simple = FALSE, msg = FALSE)
+vbFuns(type = c("Typical", "typical", "BevertonHolt", "Original", "original",
+  "vonBertalanffy", "GQ", "GallucciQuinn", "Mooij", "Weisberg", "Schnute",
+  "Francis", "Laslett", "Polacheck", "Somers", "Somers2", "Fabens", "Fabens2",
+  "Wang", "Wang2", "Wang3"), simple = FALSE, msg = FALSE)
 
 GompertzFuns(type = c("Ricker1", "Ricker2", "Ricker3", "QD1", "QD2", "QD3",
   "KM", "AFS", "original", "Troynikov1", "Troynikov2"), simple = FALSE,

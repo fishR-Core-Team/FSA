@@ -266,28 +266,29 @@ NULL
 
 #' @rdname growthModels
 #' @export
-vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
+vbFuns <- function(type=c("Typical","typical","BevertonHolt",
+                          "Original","original","vonBertalanffy",
                           "GQ","GallucciQuinn","Mooij","Weisberg",
                           "Schnute","Francis","Laslett","Polacheck",
                           "Somers","Somers2",
                           "Fabens","Fabens2","Wang","Wang2","Wang3"),
                    simple=FALSE,msg=FALSE) {
-  typical <- BevertonHolt <- function(t,Linf,K=NULL,t0=NULL) {
+  Typical <- typical <- BevertonHolt <- function(t,Linf,K=NULL,t0=NULL) {
   if (length(Linf)==3) { K <- Linf[[2]]
                          t0 <- Linf[[3]]
                          Linf <- Linf[[1]] }
   Linf*(1-exp(-K*(t-t0)))
 }
-  Stypical <- SBevertonHolt <- function(t,Linf,K,t0) {
+  STypical <- Stypical <- SBevertonHolt <- function(t,Linf,K,t0) {
     Linf*(1-exp(-K*(t-t0)))
   }
-  original <- vonBertalanffy <- function(t,Linf,L0=NULL,K=NULL) {
+  Original <- original <- vonBertalanffy <- function(t,Linf,L0=NULL,K=NULL) {
   if (length(Linf)==3) { L0 <- Linf[[2]]
                          K <- Linf[[3]]
                          Linf <- Linf[[1]] }
   Linf-(Linf-L0)*exp(-K*t)
 }
-  Soriginal <- SvonBertalanffy <- function(t,Linf,L0,K) {
+  SOriginal <- Soriginal <- SvonBertalanffy <- function(t,Linf,L0,K) {
     Linf-(Linf-L0)*exp(-K*t)
   }
   GQ <- GallucciQuinn <- function(t,omega,K=NULL,t0=NULL) {
@@ -405,15 +406,15 @@ vbFuns <- function(type=c("typical","BevertonHolt","original","vonBertalanffy",
   type <- match.arg(type)
   if (msg) {
     switch(type,
-      typical=,BevertonHolt= {
-        message("You have chosen the 'typical' or 'BevertonHolt' parameterization.\n\n",
+      Typical=,typical=,BevertonHolt= {
+        message("You have chosen the 'Typical'/'typical' or 'BevertonHolt' parameterization.\n\n",
                 "  E[L|t] = Linf*(1-exp(-K*(t-t0)))\n\n",
                 "  where Linf = asymptotic mean length\n",
                 "           K = exponential rate of approach to Linf\n",
                 "          t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
       },
-      original=,vonBertalanffy={
-        message("You have chosen the 'original' or 'vonBertalanffy` parameterization.\n\n",
+      Original=,original=,vonBertalanffy={
+        message("You have chosen the 'Original'/'original' or 'vonBertalanffy` parameterization.\n\n",
                 "  E[L|t] = Linf-(Linf-L0)*exp(-K*t)\n\n",
                 "  where Linf = asymptotic mean length\n",
                 "          L0 = the mean length at age-0 (i.e., hatching or birth)\n",
@@ -901,8 +902,8 @@ vbModels <- function(family=c("size","seasonal","tagging"),cex=1,...) {
   if (family=="size") {
     plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
          main="FSA von Bertalanffy Parameterizations",...)
-    iGrowthModels("vbOriginal",0,6.0)
-    iGrowthModels("vbTypical", 0,4.0)
+    iGrowthModels("vbTypical", 0,6.0)
+    iGrowthModels("vbOriginal",0,4.0)
     iGrowthModels("vbGQ",      0,2.0)
     iGrowthModels("vbMooij",   0,0.5)
     abline(v=0.5)
@@ -1006,7 +1007,7 @@ iGrowthModels <- function(which,xpos,ypos) {
          vbTypical=  {text(xpos,ypos,expression(plain("Typical: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])},")")),pos=4)},
          vbGQ=       {text(xpos,ypos,expression(plain("GQ: ")~~~E(L[t])==frac(omega,K)*~bgroup("(",1-e^{-K*(t~-~t[0])},")")),pos=4)},
          vbMooij=    {text(xpos,ypos,expression(plain("Mooij: ")~~~E(L[t])==L[infinity]~-~(L[infinity]-L[0])*~e^{-frac(omega,L[infinity])*~t}),pos=4)},
-         vbWeisberg= {text(xpos,ypos,expression(plain("Weisberg: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-frac(log(2),(K[0]~-~t[0]))*(t~-~t[0])},")")),pos=4)},
+         vbWeisberg= {text(xpos,ypos,expression(plain("Weisberg: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-frac(log(2),(t[50]~-~t[0]))*(t~-~t[0])},")")),pos=4)},
          vbSchnute=  {text(xpos,ypos,expression(plain("Schnute: ")~~~E(L[t])==L[1]+(L[3]-L[1])*~frac(1-e^{-K*(~t~-~t[1])},1-e^{-K*(~t[3]~-~t[1])})),pos=4)},
          vbFrancis=  {text(xpos,ypos,expression(plain("Francis: ")~~~E(L[t])==L[1]+(L[3]-L[1])*~frac(1-r^{2*frac(t-t[1],t[3]-t[1])},1-r^{2})),pos=4)},
          vbFrancis2= {text(xpos,ypos,expression(plain("where" )~r==frac(L[3]-L[2],L[2]-L[1])),pos=4)},

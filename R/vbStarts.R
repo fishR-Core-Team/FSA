@@ -45,7 +45,7 @@
 #' ## Examples
 #' data(SpotVA1)
 #' vbStarts(tl~age,data=SpotVA1)
-#' vbStarts(tl~age,data=SpotVA1,type="original")
+#' vbStarts(tl~age,data=SpotVA1,type="Original")
 #' vbStarts(tl~age,data=SpotVA1,type="GQ")
 #' vbStarts(tl~age,data=SpotVA1,type="Mooij")
 #' vbStarts(tl~age,data=SpotVA1,type="Weisberg")
@@ -88,7 +88,8 @@
 #' 
 #' @export vbStarts
 vbStarts <- function(formula,data=NULL,
-                     type=c("typical","BevertonHolt","original","vonBertalanffy",
+                     type=c("Typical","typical","BevertonHolt",
+                            "Original","original","vonBertalanffy",
                             "GQ","GallucciQuinn","Mooij","Weisberg",
                             "Schnute","Francis","Somers","Somers2"),
                      ages2use=NULL,methEV=c("poly","means"),meth0=c("poly","yngAge"),
@@ -109,8 +110,8 @@ vbStarts <- function(formula,data=NULL,
   age <- tmp$mf[,tmp$Enames[1]]
   ## get starting valeus depending on type
   switch(type,
-    typical=,BevertonHolt=   { sv <- iVBStarts.typical(age,len,type,meth0) },
-    original=,vonBertalanffy={ sv <- iVBStarts.original(age,len,type,meth0) },
+    Typical=,typical=,BevertonHolt=    { sv <- iVBStarts.typical(age,len,type,meth0) },
+    Original=,original=,vonBertalanffy={ sv <- iVBStarts.original(age,len,type,meth0) },
     GQ=,GallucciQuinn=       { sv <- iVBStarts.GQ(age,len,type,meth0) },
     Mooij=                   { sv <- iVBStarts.Mooij(age,len,type,meth0) },
     Weisberg=                { sv <- iVBStarts.Weisberg(age,len,type,meth0) },

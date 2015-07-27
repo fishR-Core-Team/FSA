@@ -4,12 +4,12 @@
 \alias{vbStarts}
 \title{Find reasonable starting values for a von Bertalanffy growth function.}
 \usage{
-vbStarts(formula, data = NULL, type = c("typical", "BevertonHolt",
-  "original", "vonBertalanffy", "GQ", "GallucciQuinn", "Mooij", "Weisberg",
-  "Schnute", "Francis", "Somers", "Somers2"), ages2use = NULL,
-  methEV = c("poly", "means"), meth0 = c("poly", "yngAge"), plot = FALSE,
-  col.mdl = "gray70", lwd.mdl = 3, lty.mdl = 1, cex.main = 0.75,
-  dynamicPlot = FALSE, ...)
+vbStarts(formula, data = NULL, type = c("Typical", "typical",
+  "BevertonHolt", "Original", "original", "vonBertalanffy", "GQ",
+  "GallucciQuinn", "Mooij", "Weisberg", "Schnute", "Francis", "Somers",
+  "Somers2"), ages2use = NULL, methEV = c("poly", "means"),
+  meth0 = c("poly", "yngAge"), plot = FALSE, col.mdl = "gray70",
+  lwd.mdl = 3, lty.mdl = 1, cex.main = 0.75, dynamicPlot = FALSE, ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{len~age}.}
@@ -65,7 +65,7 @@ The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \
 ## Examples
 data(SpotVA1)
 vbStarts(tl~age,data=SpotVA1)
-vbStarts(tl~age,data=SpotVA1,type="original")
+vbStarts(tl~age,data=SpotVA1,type="Original")
 vbStarts(tl~age,data=SpotVA1,type="GQ")
 vbStarts(tl~age,data=SpotVA1,type="Mooij")
 vbStarts(tl~age,data=SpotVA1,type="Weisberg")

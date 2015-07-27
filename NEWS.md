@@ -1,8 +1,10 @@
 # FSA 0.7.2 ongoing
-* `ageBias()`: Modified.  Corrected bug with labeling of x-axis on age-bias plot when `ref.lab=` and `nref.lab=` were not given by the user.
+* `ageBias()`: Modified.  Corrected bug with labeling of x-axis on age-bias plot when `ref.lab=` and `nref.lab=` were not given by the user.  Changed default for `nYpos=` from `1.1` to `1.03`.  Added `cex.n=` to allow control of the size of the sample size labels.
 * `agePrecision()`: Modified.  Changed `what="detail"` to `what="details"`.  Note that `what="detail"` still works.
 * `dunnTest()`: Modified.  Added a note to the help file about the use of complete cases.  Suggested from Paule Bodson-Clermont.
-* `vbStarts()`: Modified.  Added `cex.main=` as an argument and defaulted to `0.75`.  Added `raw=TRUE` to `poly()` which is used when `meth0="poly"`.
+* `vbFuns()`: Modified.  Added `Original` and `Typical` to the `type=` options.  This allows both a capitalized and uncapitalized version for these two parameterizations.
+* `vbModels()`: Modified.  Changed order of `Original` and `Typical` (`Typical` is now shown first).  Fixed in error in how the equation for the `Weisberg` parameterization was displayed.
+* `vbStarts()`: Modified.  Added `cex.main=` as an argument and defaulted to `0.75`.  Added `raw=TRUE` to `poly()` which is used when `meth0="poly"`.  Added `Original` and `Typical` to the `type=` options.  This allows both a capitalized and uncapitalized version for these two parameterizations.
 
 # FSA 0.7.1 Jul15
 * `ageBias()`: Modified.  Moved into a single file with `agePrecision()`.  Cleaned-up help file.  No change in behavior.
