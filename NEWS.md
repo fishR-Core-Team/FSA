@@ -1,4 +1,6 @@
-# FSA 0.7.2 ongoing
+# FSA 0.7.3 ongoing
+
+# FSA 0.7.2 Jul15
 * `ageBias()`: Modified.  Corrected bug with labeling of x-axis on age-bias plot when `ref.lab=` and `nref.lab=` were not given by the user.  Changed default for `nYpos=` from `1.1` to `1.03`.  Added `cex.n=` to allow control of the size of the sample size labels.
 * `agePrecision()`: Modified.  Changed `what="detail"` to `what="details"`.  Note that `what="detail"` still works.
 * `dunnTest()`: Modified.  Added a note to the help file about the use of complete cases.  Suggested from Paule Bodson-Clermont.
