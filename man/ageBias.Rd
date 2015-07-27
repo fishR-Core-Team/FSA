@@ -16,13 +16,13 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
 
 \method{plot}{ageBias}(x, what = c("bias", "sunflower", "numbers"),
   difference = FALSE, xlab = x$ref.lab, ylab = x$nref.lab,
-  show.n = TRUE, nYpos = 1.1, lwd = 1, show.pts = FALSE, pch.pts = 19,
-  col.pts = rgb(0, 0, 0, transparency), transparency = 1/10,
-  pch.mean = 175, cex.mean = lwd, col.CI = "black", col.CIsig = "red",
-  lwd.CI = lwd, sfrac = 0, show.range = FALSE, col.range = "gray",
-  lwd.range = lwd, col.agree = "black", lwd.agree = lwd, lty.agree = 2,
-  cex.numbers = 0.9, xlim = NULL, ylim = NULL, yaxt = par("yaxt"),
-  xaxt = par("xaxt"), ...)
+  show.n = TRUE, nYpos = 1.03, cex.n = 0.75, lwd = 1,
+  show.pts = FALSE, pch.pts = 19, col.pts = rgb(0, 0, 0, transparency),
+  transparency = 1/10, pch.mean = 175, cex.mean = lwd, col.CI = "black",
+  col.CIsig = "red", lwd.CI = lwd, sfrac = 0, show.range = FALSE,
+  col.range = "gray", lwd.range = lwd, col.agree = "black",
+  lwd.agree = lwd, lty.agree = 2, cex.numbers = 0.9, xlim = NULL,
+  ylim = NULL, yaxt = par("yaxt"), xaxt = par("xaxt"), ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{nrefvar~refvar}, where \code{nrefvar} and \code{refvar} generically represent the variables that contain the paired \dQuote{nonreference} and \dQuote{reference} age assignments, respectively.  See details.}
@@ -57,7 +57,9 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
 
 \item{show.n}{A logical that indicates whether the sample sizes for each level of the x-axis variable is shown (\code{=TRUE}, default) or not (\code{=FALSE}).}
 
-\item{nYpos}{A numeric value that indicates the relative Y position of the sample size values when \code{show.n=TRUE}.  For example, if \code{nYpos=1.1} then the sample size values will be 10 percent above the top end of the y-axis.}
+\item{nYpos}{A numeric value that indicates the relative Y position of the sample size values when \code{show.n=TRUE}.  For example, if \code{nYpos=1.03} then the sample size values will be centered at 3 percent above the top end of the y-axis.}
+
+\item{cex.n}{A character expansion value for the size of the sample size values.}
 
 \item{lwd}{A single numeric value that can be used to control the separate \sQuote{lwd} argument (e.g., \code{lwd.CI}, \code{lwd.range}).}
 

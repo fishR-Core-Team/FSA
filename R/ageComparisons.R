@@ -36,7 +36,8 @@
 #' @param difference A logical that indicates whether or not the difference between the two age assignments should be used.  See details.
 #' @param xlab,ylab A string that contains a label for the x-axis (reference) or y-axis (non-reference) age assignments, respectively. 
 #' @param show.n A logical that indicates whether the sample sizes for each level of the x-axis variable is shown (\code{=TRUE}, default) or not (\code{=FALSE}).
-#' @param nYpos A numeric value that indicates the relative Y position of the sample size values when \code{show.n=TRUE}.  For example, if \code{nYpos=1.1} then the sample size values will be 10 percent above the top end of the y-axis.
+#' @param nYpos A numeric value that indicates the relative Y position of the sample size values when \code{show.n=TRUE}.  For example, if \code{nYpos=1.03} then the sample size values will be centered at 3 percent above the top end of the y-axis.
+#' @param cex.n  A character expansion value for the size of the sample size values.
 #' @param lwd A single numeric value that can be used to control the separate \sQuote{lwd} argument (e.g., \code{lwd.CI}, \code{lwd.range}).
 #' @param show.pts A logical that indicates whether to show the raw data points.
 #' @param pch.pts A numeric value that indicates the plotting character to be used when plotting the raw data points.
@@ -372,7 +373,7 @@ iEvansHoenig <- function(obj) {
 #' @rdname ageBias
 #' @export
 plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE,
-                         xlab=x$ref.lab,ylab=x$nref.lab,show.n=TRUE,nYpos=1.1,
+                         xlab=x$ref.lab,ylab=x$nref.lab,show.n=TRUE,nYpos=1.03,cex.n=0.75,
                          lwd=1,
                          show.pts=FALSE,pch.pts=19,col.pts=rgb(0,0,0,transparency),transparency=1/10,
                          pch.mean=175,cex.mean=lwd,
@@ -385,7 +386,7 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
   switch(what,
          bias={ iAgeBiasPlot(x,difference,
                              xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
-                             show.n,nYpos,show.pts,pch.pts,col.pts,
+                             show.n,nYpos,cex.n,show.pts,pch.pts,col.pts,
                              pch.mean,cex.mean,col.CI,col.CIsig,lwd.CI,sfrac,
                              show.range,col.range,lwd.range,
                              col.agree,lwd.agree,lty.agree,
@@ -403,7 +404,7 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
 # This internal function is used to produce the age-bias plot.
 # This is called by ageBias().
 #=============================================================
-iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,
+iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,cex.n,
                          show.pts,pch.pts,col.pts,
                          pch.mean,cex.mean,col.CI,col.CIsig,lwd.CI,
                          sfrac,show.range,col.range,lwd.range,
@@ -448,7 +449,7 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,
     points(x=d[,1][!d$sig],y=d$mean[!d$sig],pch=pch.mean,cex=cex.mean)
   }
   # show the sample sizes at the top
-  if (show.n) text(d[,1],grconvertY(nYpos,"npc"),d$n,cex=0.75,xpd=TRUE)
+  if (show.n) text(d[,1],grconvertY(nYpos,"npc"),d$n,cex=cex.n,xpd=TRUE)
 }
 
 #=============================================================
