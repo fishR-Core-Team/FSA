@@ -1,5 +1,5 @@
 # FSA 0.7.3 ongoing
-* `vbStarts()`: Modified.  Changed order of starting values for `type="Mooij"` in order to match that from `vbFuns()`.  This also fixed a bug when `dynamicPlot=TRUE` was used with `type="Mooij"`.  Added tests to determine if parameter order is the same between `vbStarts()` and `vbFuns()` for all parameterizations.
+* `vbStarts()`: Modified. Changed default methos for `methEV=`.  Changed order of starting values for `type="Mooij"` in order to match that from `vbFuns()`.  This also fixed a bug when `dynamicPlot=TRUE` was used with `type="Mooij"`.  Added tests to determine if parameter order is the same between `vbStarts()` and `vbFuns()` for all parameterizations.
 
 # FSA 0.7.2 Jul15
 * `ageBias()`: Modified.  Corrected bug with labeling of x-axis on age-bias plot when `ref.lab=` and `nref.lab=` were not given by the user.  Changed default for `nYpos=` from `1.1` to `1.03`.  Added `cex.n=` to allow control of the size of the sample size labels.
