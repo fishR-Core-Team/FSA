@@ -4,6 +4,7 @@
 * `filterD()`: Modified.  Check for `dplyr` and `gdata` with `requireNamespaces()` before processing body of function.  This allowed moving `dplyr` and `gdata` into `Suggests` declarations rather than `Imports`.
 * `fitPlot()`: Modified.  Check for`sciplot` with `requireNamespaces()` before adding intervals tot he plot.  This allowed moving `sciplot` into `Suggests` declarations rather than `Imports`.
 * `lrt()`: Modified.  Check for`lmtest` with `requireNamespaces()` before processing body of function.  This allowed moving `lmtest` into `Suggests` declarations rather than `Imports`.
+* `mapvalues()`: Modified.  Changed so that it is a direct `importFrom` and `export` without creating a help file in `FSA.`
 * `purl2()`: Modified.  Check for`knitr` with `requireNamespaces()` before processing body of function.  This allowed moving `knitr` into `Suggests` declarations rather than `Imports`.
 * `residPlot()`: Modified.  Check for`car` with `requireNamespaces()` before highlighting outliers on the plot.  This allowed moving `sciplot` into `Suggests` declarations rather than `Imports`.
 * `srStarts()`: Modified.  Check for`relax` with `requireNamespaces()` before constructing the dynamic plot.  This allowed moving `relax` into `Suggests` declarations rather than `Imports`.
