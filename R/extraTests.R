@@ -88,42 +88,45 @@ NULL
 #' @rdname extraTests
 #' @export
 lrt <- function(sim,...,com,sim.names=sim.name,sim.name=NULL,com.name=NULL) {
-  ## Check if models are of the same class (if so, get class)
-  mdl.class <- iSameModelClass(list(sim,...,com))
-  ## Make a list of the simple models and determine how many
-  sim <- list(sim,...)
-  n.sim <- length(sim)
-  ## Check if complex model is actually more complex
-  iChkComplexModel(sim,com)
-  ## run lrtest for each sim and com pair
-  tmp <- lapply(sim,lmtest::lrtest.default,com)
-  ## prepare a matrix to received the anova results  
-  res <- matrix(NA,nrow=n.sim,ncol=5+2)
-  ## extract results from all lrtests and put in results matrix
-  for (i in 1:n.sim) {
-    res[i,] <- c(unlist(tmp[[i]][1,c("#Df","LogLik")]),
-                 unlist(tmp[[i]][2,c("#Df","LogLik")]),
-                 unlist(tmp[[i]][2,c("Df","Chisq","Pr(>Chisq)")]))
+  if (!requireNamespace("lmtest")) stop("'lrt' requires the 'lmtest' package to be installed.",call.=FALSE)
+  else {
+    ## Check if models are of the same class (if so, get class)
+    mdl.class <- iSameModelClass(list(sim,...,com))
+    ## Make a list of the simple models and determine how many
+    sim <- list(sim,...)
+    n.sim <- length(sim)
+    ## Check if complex model is actually more complex
+    iChkComplexModel(sim,com)
+    ## run lrtest for each sim and com pair
+    tmp <- lapply(sim,lmtest::lrtest.default,com)
+    ## prepare a matrix to received the anova results  
+    res <- matrix(NA,nrow=n.sim,ncol=5+2)
+    ## extract results from all lrtests and put in results matrix
+    for (i in 1:n.sim) {
+      res[i,] <- c(unlist(tmp[[i]][1,c("#Df","LogLik")]),
+                   unlist(tmp[[i]][2,c("#Df","LogLik")]),
+                   unlist(tmp[[i]][2,c("Df","Chisq","Pr(>Chisq)")]))
+    }
+    ## Df from lrtest are not error Df.  Thus, subtract each from n
+    # get n from number of residuals in a model
+    n <- length(stats::residuals(com))
+    res[,1] <- n-res[,1]+1
+    res[,3] <- n-res[,3]+1
+    ## Compute difference in log-likelihoods and shoehorn into the results matrix
+    tmp <- res[,2]-res[,4]
+    res <- cbind(matrix(res[,1:5],nrow=n.sim),
+                 matrix(tmp,nrow=n.sim),
+                 matrix(res[,6:7],nrow=n.sim))
+    ## give better names to the columns and rows of the results matrix  
+    colnames(res) <- c("DfO","logLikO","DfA","logLikA","Df","logLik","Chisq","Pr(>Chisq)")
+    rownames(res) <- paste(1:n.sim,"vA",sep="")
+    ## provide a heading and a class to use in the print method
+    attr(res,"heading") <- iMakeModelHeading(sim,com,sim.names,com.name)
+    ## provide a heading and a class to use in the print method
+    class(res) <- "extraTest"
+    ## return the result
+    res
   }
-  ## Df from lrtest are not error Df.  Thus, subtract each from n
-  # get n from number of residuals in a model
-  n <- length(stats::residuals(com))
-  res[,1] <- n-res[,1]+1
-  res[,3] <- n-res[,3]+1
-  ## Compute difference in log-likelihoods and shoehorn into the results matrix
-  tmp <- res[,2]-res[,4]
-  res <- cbind(matrix(res[,1:5],nrow=n.sim),
-               matrix(tmp,nrow=n.sim),
-               matrix(res[,6:7],nrow=n.sim))
-  ## give better names to the columns and rows of the results matrix  
-  colnames(res) <- c("DfO","logLikO","DfA","logLikA","Df","logLik","Chisq","Pr(>Chisq)")
-  rownames(res) <- paste(1:n.sim,"vA",sep="")
-  ## provide a heading and a class to use in the print method
-  attr(res,"heading") <- iMakeModelHeading(sim,com,sim.names,com.name)
-  ## provide a heading and a class to use in the print method
-  class(res) <- "extraTest"
-  ## return the result
-  res
 }
 
 #' @rdname extraTests

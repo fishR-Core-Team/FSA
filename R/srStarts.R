@@ -123,7 +123,8 @@ srStarts <- function(formula,data=NULL,type=c("BevertonHolt","Ricker","Shepherd"
   ) # end type switch
   ## Check if user wants to choose starting values from an interactive plot
   if (dynamicPlot) {
-    iSRStartsDynPlot(S,R,type,param,sv,min.prop,max.mult,delta.prop)
+    if (!requireNamespace("relax")) stop("'srStars' requires the 'relax' package to be installed to construct the dynamic plot.",call.=FALSE)
+    else iSRStartsDynPlot(S,R,type,param,sv,min.prop,max.mult,delta.prop)
   } else {
     # make the static plot if asked for
     if (plot) iSRStartsPlot(S,R,type,param,sv,col.mdl,lwd.mdl,lty.mdl)

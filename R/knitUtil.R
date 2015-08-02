@@ -95,54 +95,57 @@ kPvalue <- function(value,digits=4,include.p=TRUE,latex=TRUE) {
 purl2 <- function(file,out.dir=NULL,topnotes=NULL,
                   moreItems=NULL,blanks=c("extra","all","none"),
                   timestamp=TRUE,...) {
-  ## Some checks
-  blanks <- match.arg(blanks)
-  ## if no file is sent then stop
-  if (missing(file)) stop("Must given filename with extenstion.",call.=FALSE)
-  ## Get input directory (from filename) and potentially change the output directory
-  in.dir <- file.path(dirname(file))
-  if (is.null(out.dir)) out.dir <- in.dir
-  ## Get just the filename prefix (i.e., remove directory and .Rnw or .Rmd if it exists)
-  fn.pre <- unlist(strsplit(basename(file),"\\.Rnw|\\.rnw|\\.RNW|\\.rmd|\\.Rmd|\\.RMD"))
-  ## Make intermediate file for the tangled result (in in.dir)
-  fn.Ri <- iMakeFilename(fn.pre,".R",in.dir)
-  ## Make output file (in out.dir)
-  fn.Ro <- iMakeFilename(fn.pre,".R",out.dir)
-  ## Remove already existing .R files with the same name
-  # Delete the original tangled file
-  unlink(fn.Ri)
-  unlink(fn.Ro)
-  ## Purl the results and then read those results back into flines
-  # handle documentation (i.e., pure code)
-  knitr::purl(file,fn.Ri,documentation=1)
-  flines <- readLines(fn.Ri)
-  ## Expand itemsToRemove if something in moreItems
-  itemsToRemove <- iMakeItemsToRemove(moreItems)
-  ## Find the rows with the items to remove and then remove those items if they exist
-  for (i in 1:length(itemsToRemove)) {                            
-    RowsToRemove <- grep(itemsToRemove[i],flines)
-    if (length(RowsToRemove)>0) flines <- flines[-RowsToRemove]
-  }
-  ## Remove the blank lines as directed in blanks argument
-  if (blanks=="all") {
-    flines <- flines[-which(flines=="")]
-  } else {
-    if (blanks=="extra") {
-      blankLines <- which(flines=="")
-      extras <- which(c(2,diff(blankLines))==1)
-      if (length(extras)>0) flines <- flines[-blankLines[extras]]
+  if (!requireNamespace("knitr")) stop("'purl2' requires the 'knitr' package to be installed.",call.=FALSE)
+  else {
+    ## Some checks
+    blanks <- match.arg(blanks)
+    ## if no file is sent then stop
+    if (missing(file)) stop("Must given filename with extenstion.",call.=FALSE)
+    ## Get input directory (from filename) and potentially change the output directory
+    in.dir <- file.path(dirname(file))
+    if (is.null(out.dir)) out.dir <- in.dir
+    ## Get just the filename prefix (i.e., remove directory and .Rnw or .Rmd if it exists)
+    fn.pre <- unlist(strsplit(basename(file),"\\.Rnw|\\.rnw|\\.RNW|\\.rmd|\\.Rmd|\\.RMD"))
+    ## Make intermediate file for the tangled result (in in.dir)
+    fn.Ri <- iMakeFilename(fn.pre,".R",in.dir)
+    ## Make output file (in out.dir)
+    fn.Ro <- iMakeFilename(fn.pre,".R",out.dir)
+    ## Remove already existing .R files with the same name
+    # Delete the original tangled file
+    unlink(fn.Ri)
+    unlink(fn.Ro)
+    ## Purl the results and then read those results back into flines
+    # handle documentation (i.e., pure code)
+    knitr::purl(file,fn.Ri,documentation=1)
+    flines <- readLines(fn.Ri)
+    ## Expand itemsToRemove if something in moreItems
+    itemsToRemove <- iMakeItemsToRemove(moreItems)
+    ## Find the rows with the items to remove and then remove those items if they exist
+    for (i in 1:length(itemsToRemove)) {                            
+      RowsToRemove <- grep(itemsToRemove[i],flines)
+      if (length(RowsToRemove)>0) flines <- flines[-RowsToRemove]
     }
+    ## Remove the blank lines as directed in blanks argument
+    if (blanks=="all") {
+      flines <- flines[-which(flines=="")]
+    } else {
+      if (blanks=="extra") {
+        blankLines <- which(flines=="")
+        extras <- which(c(2,diff(blankLines))==1)
+        if (length(extras)>0) flines <- flines[-blankLines[extras]]
+      }
+    }
+    ## Add topnotes if any given
+    if (!is.null(topnotes)) flines <- c(paste("#",topnotes),flines)
+    ## Delete first line if it is blank (often the case after removeItems)
+    if (flines[1]=="") flines <- flines[-1]
+    ## Add timestampe if asked for
+    if (timestamp) flines <- c(flines,"",paste("# Script created at",Sys.time()))
+    ## Delete the original purled/stangled file
+    unlink(fn.Ri)
+    ## Write out a new purled/stangled file
+    write(flines,fn.Ro)
   }
-  ## Add topnotes if any given
-  if (!is.null(topnotes)) flines <- c(paste("#",topnotes),flines)
-  ## Delete first line if it is blank (often the case after removeItems)
-  if (flines[1]=="") flines <- flines[-1]
-  ## Add timestampe if asked for
-  if (timestamp) flines <- c(flines,"",paste("# Script created at",Sys.time()))
-  ## Delete the original purled/stangled file
-  unlink(fn.Ri)
-  ## Write out a new purled/stangled file
-  write(flines,fn.Ro)
 }
 
 #' @rdname knitUtil

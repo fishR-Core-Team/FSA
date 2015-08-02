@@ -1,4 +1,15 @@
 # FSA 0.7.4 ongoing
+* `binCI()`: Modified.  Check for`Hmisc` with `requireNamespaces()` before processing body of function.  This allowed moving `Hmisc` into `Suggests` declarations rather than `Imports`.
+* `chooseColors()`: Modified.  Check for`gplots` with `requireNamespaces()` before processing body of function.  This allowed moving `gplots` into `Suggests` declarations rather than `Imports`.
+* `filterD()`: Modified.  Check for `dplyr` and `gdata` with `requireNamespaces()` before processing body of function.  This allowed moving `dplyr` and `gdata` into `Suggests` declarations rather than `Imports`.
+* `fitPlot()`: Modified.  Check for`sciplot` with `requireNamespaces()` before adding intervals tot he plot.  This allowed moving `sciplot` into `Suggests` declarations rather than `Imports`.
+* `lrt()`: Modified.  Check for`lmtest` with `requireNamespaces()` before processing body of function.  This allowed moving `lmtest` into `Suggests` declarations rather than `Imports`.
+* `purl2()`: Modified.  Check for`knitr` with `requireNamespaces()` before processing body of function.  This allowed moving `knitr` into `Suggests` declarations rather than `Imports`.
+* `residPlot()`: Modified.  Check for`car` with `requireNamespaces()` before highlighting outliers on the plot.  This allowed moving `sciplot` into `Suggests` declarations rather than `Imports`.
+* `srStarts()`: Modified.  Check for`relax` with `requireNamespaces()` before constructing the dynamic plot.  This allowed moving `relax` into `Suggests` declarations rather than `Imports`.
+* `Subset()`: Modified.  Check for`gdata` with `requireNamespaces()` before processing body of function.  This allowed moving `gdata` into `Suggests` declarations rather than `Imports`.
+* `vbStarts()`: Modified.  Check for`relax` with `requireNamespaces()` before constructing the dynamic plot.  This allowed moving `relax` into `Suggests` declarations rather than `Imports`.
+
 
 # FSA 0.7.3 Aug15
 * Removed all `importFrom()` directives and went to hard-wiring to packages with `::`.  Added `imports()` directives for `stats`, `graphics`, `tools`, and `grDevices`.  Removed `imports()` directive for `multcomp()`.
