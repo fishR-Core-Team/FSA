@@ -1,4 +1,6 @@
-# FSA 0.7.3 ongoing
+# FSA 0.7.4 ongoing
+
+# FSA 0.7.3 Aug15
 * Removed all `importFrom()` directives and went to hard-wiring to packages with `::`.  Added `imports()` directives for `stats`, `graphics`, `tools`, and `grDevices`.  Removed `imports()` directive for `multcomp()`.
 * `vbStarts()`: Modified. Changed default methos for `methEV=`.  Changed order of starting values for `type="Mooij"` in order to match that from `vbFuns()`.  This also fixed a bug when `dynamicPlot=TRUE` was used with `type="Mooij"`.  Added tests to determine if parameter order is the same between `vbStarts()` and `vbFuns()` for all parameterizations.
 
