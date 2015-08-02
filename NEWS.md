@@ -1,4 +1,6 @@
-# FSA 0.7.4 ongoing
+# FSA 0.7.5 ongoing
+
+# FSA 0.7.4 Aug15
 * `binCI()`: Modified.  Check for`Hmisc` with `requireNamespaces()` before processing body of function.  This allowed moving `Hmisc` into `Suggests` declarations rather than `Imports`.
 * `chooseColors()`: Modified.  Check for`gplots` with `requireNamespaces()` before processing body of function.  This allowed moving `gplots` into `Suggests` declarations rather than `Imports`.
 * `filterD()`: Modified.  Check for `dplyr` and `gdata` with `requireNamespaces()` before processing body of function.  This allowed moving `dplyr` and `gdata` into `Suggests` declarations rather than `Imports`.

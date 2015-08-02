@@ -1,6 +1,6 @@
 Package: FSA
 Title: Functions for Simple Fisheries Stock Assessment Methods
-Version: 0.7.4
+Version: 0.7.5
 Date: 2015-08-02
 Description: Functions to peform a variety of simple fish stock assessment methods.
     Detailed vignettes are available on the fishR website listed below.
