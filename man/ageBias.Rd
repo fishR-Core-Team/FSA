@@ -7,7 +7,7 @@
 \title{Compute and view possible biases between paired sets of ages.}
 \usage{
 ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
-  method = p.adjust.methods, sig.level = 0.05, min.n.CI = 3)
+  method = stats::p.adjust.methods, sig.level = 0.05, min.n.CI = 3)
 
 \method{summary}{ageBias}(object, what = c("table", "symmetry", "Bowkers",
   "EvansHoenig", "McNemars", "bias", "diff.bias", "n"), flip.table = FALSE,
@@ -22,7 +22,8 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
   col.CIsig = "red", lwd.CI = lwd, sfrac = 0, show.range = FALSE,
   col.range = "gray", lwd.range = lwd, col.agree = "black",
   lwd.agree = lwd, lty.agree = 2, cex.numbers = 0.9, xlim = NULL,
-  ylim = NULL, yaxt = par("yaxt"), xaxt = par("xaxt"), ...)
+  ylim = NULL, yaxt = graphics::par("yaxt"), xaxt = graphics::par("xaxt"),
+  ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{nrefvar~refvar}, where \code{nrefvar} and \code{refvar} generically represent the variables that contain the paired \dQuote{nonreference} and \dQuote{reference} age assignments, respectively.  See details.}

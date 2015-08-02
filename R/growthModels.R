@@ -895,31 +895,31 @@ logisticFuns <- function(type=c("CJ1","CJ2","Karkach","HaddonI"),simple=FALSE,ms
 #' @export
 vbModels <- function(family=c("size","seasonal","tagging"),cex=1,...) {
   ## Set some plotting parameters
-  op <- par(mar=c(0,0,3,0),cex=cex)
+  op <- graphics::par(mar=c(0,0,3,0),cex=cex)
   ## Check the type argument
   family <- match.arg(family)
   ## Show the models
   if (family=="size") {
-    plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
+    graphics::plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
          main="FSA von Bertalanffy Parameterizations",...)
     iGrowthModels("vbTypical", 0,6.0)
     iGrowthModels("vbOriginal",0,4.0)
     iGrowthModels("vbGQ",      0,2.0)
     iGrowthModels("vbMooij",   0,0.5)
-    abline(v=0.5)
+    graphics::abline(v=0.5)
     iGrowthModels("vbWeisberg",0.50,6.0)
     iGrowthModels("vbSchnute", 0.50,4.0)
     iGrowthModels("vbFrancis", 0.50,2.0)
     iGrowthModels("vbFrancis2",0.65,0.5)
   } else if (family=="seasonal") {
-    plot(1,type="n",ylim=c(0,6),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
+    graphics::plot(1,type="n",ylim=c(0,6),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
          main="FSA von Bertalanffy Seasonal Parameterizations",...)
     iGrowthModels("vbSomers1", 0,5.5)
     iGrowthModels("vbSomers1a", 0.15,4.5)
     iGrowthModels("vbSomers2",  0,2.5)
     iGrowthModels("vbSomers2a", 0.15,1.5)
   } else {
-    plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
+    graphics::plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
          main="FSA von Bertalanffy Tag-Recapture Parameterizations",...)
     iGrowthModels("vbFabens1", 0,6.5)
     iGrowthModels("vbFabens2", 0,5)
@@ -928,7 +928,7 @@ vbModels <- function(family=c("size","seasonal","tagging"),cex=1,...) {
     iGrowthModels("vbWang3",   0,0.5)
   }
   ## Return to the default plotting parameters
-  par(op)
+  graphics::par(op)
 }
 
 
@@ -936,12 +936,12 @@ vbModels <- function(family=c("size","seasonal","tagging"),cex=1,...) {
 #' @export
 GompertzModels <- function(family=c("size","tagging"),cex=1.25,...) {
   ## Set some plotting parameters
-  op <- par(mar=c(0,0,3,0),cex=cex)
+  op <- graphics::par(mar=c(0,0,3,0),cex=cex)
   ## Check the family argument
   family <- match.arg(family)
   ## Show the models
   if (family=="size") {
-    plot(1,type="n",ylim=c(0,5),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
+    graphics::plot(1,type="n",ylim=c(0,5),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
          main="FSA Gompertz Parameterizations",...)
     iGrowthModels("gOriginal", 0.1,4.5)
     iGrowthModels("gRicker1",  0.1,3.5)
@@ -949,27 +949,28 @@ GompertzModels <- function(family=c("size","tagging"),cex=1.25,...) {
     iGrowthModels("gRicker3",  0.1,1.5)
     iGrowthModels("gQD3",      0.1,0.5)
   } else {
-    plot(1,type="n",ylim=c(0,3),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
+    graphics::plot(1,type="n",ylim=c(0,3),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
          main="FSA Gompertz Tagging Parameterizations",...)
     iGrowthModels("gTroynikov1", 0.1,2.5)
     iGrowthModels("gTroynikov2", 0.1,1.5)
   }
-  par(op)
+  graphics::par(op)
 }
 
 
 #' @rdname growthModels
 #' @export
 RichardsModels <- function(cex=1,...) {
-  op <- par(mar=c(0,0,3,0),cex=cex)
-  plot(1,type="n",ylim=c(0,9),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA Richards Growth Model Cases",...)
+  op <- graphics::par(mar=c(0,0,3,0),cex=cex)
+  graphics::plot(1,type="n",ylim=c(0,9),xlim=c(0,1),xaxt="n",yaxt="n",
+                 xlab="",ylab="",bty="n",main="FSA Richards Growth Model Cases",...)
   iGrowthModels("Richards1", 0.05,8.5)
   iGrowthModels("Richards2", 0.05,7.1)
   iGrowthModels("Richards3", 0.05,5.2)
   iGrowthModels("Richards4", 0.05,3.75)
   iGrowthModels("Richards5", 0.05,2)
   iGrowthModels("Richards6", 0.05,0.25)
-  par(op)
+  graphics::par(op)
 }
 
 
@@ -978,22 +979,22 @@ RichardsModels <- function(cex=1,...) {
 #' @export
 logisticModels <- function(family=c("size","tagging"),cex=1.25,...) {
   ## Set some plotting parameters
-  op <- par(mar=c(0,0,3,0),cex=cex)
+  op <- graphics::par(mar=c(0,0,3,0),cex=cex)
   ## Check the type argument
   family <- match.arg(family)
   ## Show the models
   if (family=="size") {
-    plot(1,type="n",ylim=c(0,3),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
+    graphics::plot(1,type="n",ylim=c(0,3),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
          main="FSA Logistic Growth Parameterizations",...)
     iGrowthModels("CJ1", 0.1,2.5)
     iGrowthModels("CJ2", 0.1,1.5)
     iGrowthModels("Karkach", 0.1,0.5)
   } else {
-    plot(1,type="n",ylim=c(0,3),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
+    graphics::plot(1,type="n",ylim=c(0,3),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
          main="FSA Logistic Growth Tagging Parameterizations",cex=cex,...)
     iGrowthModels("HaddonI", 0.1,2.5)
   }
-  par(op)
+  graphics::par(op)
 }
 
 
@@ -1003,50 +1004,50 @@ logisticModels <- function(family=c("size","tagging"),cex=1.25,...) {
 ##############################################################
 iGrowthModels <- function(which,xpos,ypos) {
   switch(which,
-         vbOriginal= {text(xpos,ypos,expression(plain("Original: ")~~~E(L[t])==L[infinity]~-~(L[infinity]-L[0])*~e^{-Kt}),pos=4)},
-         vbTypical=  {text(xpos,ypos,expression(plain("Typical: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])},")")),pos=4)},
-         vbGQ=       {text(xpos,ypos,expression(plain("GQ: ")~~~E(L[t])==frac(omega,K)*~bgroup("(",1-e^{-K*(t~-~t[0])},")")),pos=4)},
-         vbMooij=    {text(xpos,ypos,expression(plain("Mooij: ")~~~E(L[t])==L[infinity]~-~(L[infinity]-L[0])*~e^{-frac(omega,L[infinity])*~t}),pos=4)},
-         vbWeisberg= {text(xpos,ypos,expression(plain("Weisberg: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-frac(log(2),(t[50]~-~t[0]))*(t~-~t[0])},")")),pos=4)},
-         vbSchnute=  {text(xpos,ypos,expression(plain("Schnute: ")~~~E(L[t])==L[1]+(L[3]-L[1])*~frac(1-e^{-K*(~t~-~t[1])},1-e^{-K*(~t[3]~-~t[1])})),pos=4)},
-         vbFrancis=  {text(xpos,ypos,expression(plain("Francis: ")~~~E(L[t])==L[1]+(L[3]-L[1])*~frac(1-r^{2*frac(t-t[1],t[3]-t[1])},1-r^{2})),pos=4)},
-         vbFrancis2= {text(xpos,ypos,expression(plain("where" )~r==frac(L[3]-L[2],L[2]-L[1])),pos=4)},
+         vbOriginal= {graphics::text(xpos,ypos,expression(plain("Original: ")~~~E(L[t])==L[infinity]~-~(L[infinity]-L[0])*~e^{-Kt}),pos=4)},
+         vbTypical=  {graphics::text(xpos,ypos,expression(plain("Typical: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])},")")),pos=4)},
+         vbGQ=       {graphics::text(xpos,ypos,expression(plain("GQ: ")~~~E(L[t])==frac(omega,K)*~bgroup("(",1-e^{-K*(t~-~t[0])},")")),pos=4)},
+         vbMooij=    {graphics::text(xpos,ypos,expression(plain("Mooij: ")~~~E(L[t])==L[infinity]~-~(L[infinity]-L[0])*~e^{-frac(omega,L[infinity])*~t}),pos=4)},
+         vbWeisberg= {graphics::text(xpos,ypos,expression(plain("Weisberg: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-frac(log(2),(t[50]~-~t[0]))*(t~-~t[0])},")")),pos=4)},
+         vbSchnute=  {graphics::text(xpos,ypos,expression(plain("Schnute: ")~~~E(L[t])==L[1]+(L[3]-L[1])*~frac(1-e^{-K*(~t~-~t[1])},1-e^{-K*(~t[3]~-~t[1])})),pos=4)},
+         vbFrancis=  {graphics::text(xpos,ypos,expression(plain("Francis: ")~~~E(L[t])==L[1]+(L[3]-L[1])*~frac(1-r^{2*frac(t-t[1],t[3]-t[1])},1-r^{2})),pos=4)},
+         vbFrancis2= {graphics::text(xpos,ypos,expression(plain("where" )~r==frac(L[3]-L[2],L[2]-L[1])),pos=4)},
          
-         vbSomers1=  {text(xpos,ypos,expression(plain("Somers1: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])-S(t)+S(t[0])},")")),pos=4)},
-         vbSomers1a= {text(xpos,ypos,expression(plain("where" )~S(t)==bgroup("(",frac(C*K,2)*~pi,")")*~sin(2*pi*(t-t[s]))),pos=4)},
-         vbSomers2=  {text(xpos,ypos,expression(plain("Somers2: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])-R(t)+R(t[0])},")")),pos=4)},
-         vbSomers2a= {text(xpos,ypos,expression(plain("where" )~R(t)==bgroup("(",frac(C*K,2)*~pi,")")*~sin(2*pi*(t-WP+0.5))),pos=4)},
+         vbSomers1=  {graphics::text(xpos,ypos,expression(plain("Somers1: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])-S(t)+S(t[0])},")")),pos=4)},
+         vbSomers1a= {graphics::text(xpos,ypos,expression(plain("where" )~S(t)==bgroup("(",frac(C*K,2)*~pi,")")*~sin(2*pi*(t-t[s]))),pos=4)},
+         vbSomers2=  {graphics::text(xpos,ypos,expression(plain("Somers2: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])-R(t)+R(t[0])},")")),pos=4)},
+         vbSomers2a= {graphics::text(xpos,ypos,expression(plain("where" )~R(t)==bgroup("(",frac(C*K,2)*~pi,")")*~sin(2*pi*(t-WP+0.5))),pos=4)},
          
-         vbFabens1=  {text(xpos,ypos,expression(plain("Fabens1: ")~~~E(L[r]-L[m])==(L[infinity]-L[m])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
-         vbFabens2=  {text(xpos,ypos,expression(plain("Fabens2: ")~~~E(L[r])==L[m]+(L[infinity]-L[m])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
-         vbWang1=  {text(xpos,ypos,expression(plain("Wang1: ")~~~E(L[r]-L[m])==(L[infinity]+beta*(L[t]-L[t])-L[m])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
-         vbWang2=  {text(xpos,ypos,expression(plain("Wang2: ")~~~E(L[r]-L[m])==(alpha+beta*L[t])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
-         vbWang3=  {text(xpos,ypos,expression(plain("Wang3: ")~~~E(L[r])==L[m]+(alpha+beta*L[t])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
+         vbFabens1=  {graphics::text(xpos,ypos,expression(plain("Fabens1: ")~~~E(L[r]-L[m])==(L[infinity]-L[m])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
+         vbFabens2=  {graphics::text(xpos,ypos,expression(plain("Fabens2: ")~~~E(L[r])==L[m]+(L[infinity]-L[m])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
+         vbWang1=  {graphics::text(xpos,ypos,expression(plain("Wang1: ")~~~E(L[r]-L[m])==(L[infinity]+beta*(L[t]-L[t])-L[m])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
+         vbWang2=  {graphics::text(xpos,ypos,expression(plain("Wang2: ")~~~E(L[r]-L[m])==(alpha+beta*L[t])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
+         vbWang3=  {graphics::text(xpos,ypos,expression(plain("Wang3: ")~~~E(L[r])==L[m]+(alpha+beta*L[t])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
          
-         gOriginal=  {text(xpos,ypos,expression(plain("Original:         ")~~~E(L[t])==L[infinity]*~e^{-e^{a-g[i]*t}}),pos=4)},
-         gRicker1=   {text(xpos,ypos,expression(plain("Ricker1:          ")~~~E(L[t])==L[infinity]*~e^{-e^{-g[i]*(t-t[i])}}),pos=4)},
-         gRicker2=   {text(xpos,ypos,expression(plain("Ricker2, QD1: ")~~~E(L[t])==L[0]*~e^{a*bgroup("(",1-e^{-g[i]*t},")")}),pos=4)},
-         gRicker3=   {text(xpos,ypos,expression(plain("Ricker3, QD2: ")~~~E(L[t])==L[infinity]*~e^{-a*~e^{-g[i]*t}}),pos=4)},
-         gQD3=       {text(xpos,ypos,expression(plain("QD3:              ")~~~E(L[t])==L[infinity]*~e^{-~frac(1,g[i])*~e^{-g[i]*~(~t~-~t^{plain("*")})}}),pos=4)},
-         gTroynikov1={text(xpos,ypos,expression(plain("Troynikov1: ")~~~E(L[r]-L[m])==L[infinity]*~bgroup("(",frac(L[m],L[infinity]),")")^{e^{-g[i]*Delta*t}}-L[m]),pos=4)},
-         gTroynikov2={text(xpos,ypos,expression(plain("Troynikov2: ")~~~E(L[r])==L[infinity]*~bgroup("(",frac(L[m],L[infinity]),")")^{e^{-g[i]*Delta*t}}),pos=4)},
+         gOriginal=  {graphics::text(xpos,ypos,expression(plain("Original:         ")~~~E(L[t])==L[infinity]*~e^{-e^{a-g[i]*t}}),pos=4)},
+         gRicker1=   {graphics::text(xpos,ypos,expression(plain("Ricker1:          ")~~~E(L[t])==L[infinity]*~e^{-e^{-g[i]*(t-t[i])}}),pos=4)},
+         gRicker2=   {graphics::text(xpos,ypos,expression(plain("Ricker2, QD1: ")~~~E(L[t])==L[0]*~e^{a*bgroup("(",1-e^{-g[i]*t},")")}),pos=4)},
+         gRicker3=   {graphics::text(xpos,ypos,expression(plain("Ricker3, QD2: ")~~~E(L[t])==L[infinity]*~e^{-a*~e^{-g[i]*t}}),pos=4)},
+         gQD3=       {graphics::text(xpos,ypos,expression(plain("QD3:              ")~~~E(L[t])==L[infinity]*~e^{-~frac(1,g[i])*~e^{-g[i]*~(~t~-~t^{plain("*")})}}),pos=4)},
+         gTroynikov1={graphics::text(xpos,ypos,expression(plain("Troynikov1: ")~~~E(L[r]-L[m])==L[infinity]*~bgroup("(",frac(L[m],L[infinity]),")")^{e^{-g[i]*Delta*t}}-L[m]),pos=4)},
+         gTroynikov2={graphics::text(xpos,ypos,expression(plain("Troynikov2: ")~~~E(L[r])==L[infinity]*~bgroup("(",frac(L[m],L[infinity]),")")^{e^{-g[i]*Delta*t}}),pos=4)},
 
-         CJ1=  {text(xpos,ypos,expression(plain("CJ1: ")~~~E(L[t])==frac(L[infinity],1+g[-infinity]*(t-t[i]))),pos=4)},
-         CJ2=  {text(xpos,ypos,expression(plain("CJ2: ")~~~E(L[t])==frac(L[infinity],1+~ae^{-g[-infinity]*t})),pos=4)},
-         Karkach= {text(xpos,ypos,expression(plain("Karkach: ")~~~E(L[t])==frac(L[0]*L[infinity],L[0]+(L[infinity]-L[0])*e^{-g[-infinity]*t})),pos=4)},
-         HaddonI={text(xpos,ypos,expression(plain("HaddonI: ")~~~E(L[r]-L[m])==frac(Delta*L[max],1+e^{log(19)*frac(L[m]~-~L[50],L[95]~-~L[50])})),pos=4)},
+         CJ1=  {graphics::text(xpos,ypos,expression(plain("CJ1: ")~~~E(L[t])==frac(L[infinity],1+g[-infinity]*(t-t[i]))),pos=4)},
+         CJ2=  {graphics::text(xpos,ypos,expression(plain("CJ2: ")~~~E(L[t])==frac(L[infinity],1+~ae^{-g[-infinity]*t})),pos=4)},
+         Karkach= {graphics::text(xpos,ypos,expression(plain("Karkach: ")~~~E(L[t])==frac(L[0]*L[infinity],L[0]+(L[infinity]-L[0])*e^{-g[-infinity]*t})),pos=4)},
+         HaddonI={graphics::text(xpos,ypos,expression(plain("HaddonI: ")~~~E(L[r]-L[m])==frac(Delta*L[max],1+e^{log(19)*frac(L[m]~-~L[50],L[95]~-~L[50])})),pos=4)},
 
-         Richards1=  {text(xpos,ypos,expression(plain("Richards1: ")~~~E(L[t])==L[infinity]*~bgroup("(",1-a*e^{-kt},")")^{b}),pos=4)},
-         Richards2=  {text(xpos,ypos,expression(plain("Richards2: ")~~~E(L[t])==L[infinity]*~bgroup("(",1-frac(1,b)*~e^{-k*(t-t[i])},")")^{~b}),pos=4)},
-         Richards3=  {text(xpos,ypos,expression(plain("Richards3: ")~~~E(L[t])==frac(L[infinity],bgroup("(",1+b*e^{-k*(t-t[i])},")")^{~frac(1,b)})),pos=4)},
-         Richards4=  {text(xpos,ypos,expression(plain("Richards4: ")~~~E(L[t])==L[infinity]*~bgroup("(",1+(b-1)*~e^{-k*(t-t[i])},")")^{~frac(1,1-b)}),pos=4)},
-         Richards5=  {text(xpos,ypos,expression(plain("Richards5: ")~~~E(L[t])==L[infinity]*~bgroup("[",bgroup("(",1+bgroup("(",frac(L[0],L[infinity]),")")^{1-b}-1,")")*~e^{-k*t},"]")^{~frac(1,1-b)}),pos=4)},
-         Richards6=  {text(xpos,ypos,expression(plain("Richards6: ")~~~E(L[t])==L[-infinity]+(L[infinity]-L[-infinity])*~bgroup("(",1+(b-1)*~e^{-k*(t-t[i])},")")^{~frac(1,1-b)}),pos=4)},
+         Richards1=  {graphics::text(xpos,ypos,expression(plain("Richards1: ")~~~E(L[t])==L[infinity]*~bgroup("(",1-a*e^{-kt},")")^{b}),pos=4)},
+         Richards2=  {graphics::text(xpos,ypos,expression(plain("Richards2: ")~~~E(L[t])==L[infinity]*~bgroup("(",1-frac(1,b)*~e^{-k*(t-t[i])},")")^{~b}),pos=4)},
+         Richards3=  {graphics::text(xpos,ypos,expression(plain("Richards3: ")~~~E(L[t])==frac(L[infinity],bgroup("(",1+b*e^{-k*(t-t[i])},")")^{~frac(1,b)})),pos=4)},
+         Richards4=  {graphics::text(xpos,ypos,expression(plain("Richards4: ")~~~E(L[t])==L[infinity]*~bgroup("(",1+(b-1)*~e^{-k*(t-t[i])},")")^{~frac(1,1-b)}),pos=4)},
+         Richards5=  {graphics::text(xpos,ypos,expression(plain("Richards5: ")~~~E(L[t])==L[infinity]*~bgroup("[",bgroup("(",1+bgroup("(",frac(L[0],L[infinity]),")")^{1-b}-1,")")*~e^{-k*t},"]")^{~frac(1,1-b)}),pos=4)},
+         Richards6=  {graphics::text(xpos,ypos,expression(plain("Richards6: ")~~~E(L[t])==L[-infinity]+(L[infinity]-L[-infinity])*~bgroup("(",1+(b-1)*~e^{-k*(t-t[i])},")")^{~frac(1,1-b)}),pos=4)},
          
-         Schnute1=  {text(xpos,ypos,expression(plain("Case 1: ")~~~E(L[t])==bgroup("[",L[1]^{b}+(L[3]^{b}-L[1]^{b})*~frac(1-e^{-a*(~t~-~t[1])},1-e^{-a*(~t[3]~-~t[1])}),"]")^{~frac(1,b)}),pos=4)},
-         Schnute2=  {text(xpos,ypos,expression(plain("Case 2: ")~~~E(L[t])==L[1]*e^{log~bgroup("(",frac(L[3],L[1]),")")*~frac(1-e^{-a*(~t~-~t[1])},1-e^{-a*(~t[3]~-~t[1])})}),pos=4)},
-         Schnute3=  {text(xpos,ypos,expression(plain("Case 3: ")~~~E(L[t])==bgroup("[",L[1]^{b}+(L[3]^{b}-L[1]^{b})*~frac(~t~-~t[1],~t[3]~-~t[1]),"]")^{~frac(1,b)}),pos=4)},
-         Schnute4=  {text(xpos,ypos,expression(plain("Case 4: ")~~~E(L[t])==L[1]*e^{log~bgroup("(",frac(L[3],L[1]),")")*~frac(~t~-~t[1],~t[3]~-~t[1])}),pos=4)}
+         Schnute1=  {graphics::text(xpos,ypos,expression(plain("Case 1: ")~~~E(L[t])==bgroup("[",L[1]^{b}+(L[3]^{b}-L[1]^{b})*~frac(1-e^{-a*(~t~-~t[1])},1-e^{-a*(~t[3]~-~t[1])}),"]")^{~frac(1,b)}),pos=4)},
+         Schnute2=  {graphics::text(xpos,ypos,expression(plain("Case 2: ")~~~E(L[t])==L[1]*e^{log~bgroup("(",frac(L[3],L[1]),")")*~frac(1-e^{-a*(~t~-~t[1])},1-e^{-a*(~t[3]~-~t[1])})}),pos=4)},
+         Schnute3=  {graphics::text(xpos,ypos,expression(plain("Case 3: ")~~~E(L[t])==bgroup("[",L[1]^{b}+(L[3]^{b}-L[1]^{b})*~frac(~t~-~t[1],~t[3]~-~t[1]),"]")^{~frac(1,b)}),pos=4)},
+         Schnute4=  {graphics::text(xpos,ypos,expression(plain("Case 4: ")~~~E(L[t])==L[1]*e^{log~bgroup("(",frac(L[3],L[1]),")")*~frac(~t~-~t[1],~t[3]~-~t[1])}),pos=4)}
   ) # end swich
 } ## end iGrowthModels internal function
 
@@ -1138,11 +1139,12 @@ Schnute <- function(t,case=1,t1=NULL,t3=NULL,L1=NULL,L3=NULL,a=NULL,b=NULL) {
 #' @rdname Schnute
 #' @export
 SchnuteModels <- function(cex=1.25,...) {
-  op <- par(mar=c(0,0,3,0),cex=cex)
-  plot(1,type="n",ylim=c(0,4),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",main="FSA Schnute Growth Model Cases",...)
+  op <- graphics::par(mar=c(0,0,3,0),cex=cex)
+  graphics::plot(1,type="n",ylim=c(0,4),xlim=c(0,1),xaxt="n",yaxt="n",
+                 xlab="",ylab="",bty="n",main="FSA Schnute Growth Model Cases",...)
   iGrowthModels("Schnute1", 0.1,3.5)
   iGrowthModels("Schnute2", 0.1,2.5)
   iGrowthModels("Schnute3", 0.1,1.5)
   iGrowthModels("Schnute4", 0.1,0.5)
-  par(op)
+  graphics::par(op)
 }

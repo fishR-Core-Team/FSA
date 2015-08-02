@@ -333,7 +333,7 @@ confint.mrClosed1 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
     if (verbose) message("All - The normal distribution was used.")
     # get Ns and SEs from summary
     smry <- summary(object,incl.SE=TRUE,incl.all=TRUE)
-    zalpha <- c(-1,1)*qnorm(0.5+conf.level/2)
+    zalpha <- c(-1,1)*stats::qnorm(0.5+conf.level/2)
     ci.all <- smry["All","N"]+zalpha*smry["All","SE"] 
     ci <- rbind(ci,ci.all)
     rownames(ci)[nrow(ci)] <- "All"
@@ -393,7 +393,7 @@ iCI.MRCSingle <- function(object,conf.level,type,bin.type,verbose,...) {
          }, 
          normal={
            # Find +/- Z for normal CI
-           zalpha <- c(-1,1)*qnorm(0.5+conf.level/2)
+           zalpha <- c(-1,1)*stats::qnorm(0.5+conf.level/2)
            if (object$method=="Petersen") {
              ## Krebs eqn 2.4 (p.20), built in parts
              # Find phat
@@ -509,7 +509,7 @@ confint.mrClosed2 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
 
 iCIt <- function(est,SE,obsdf,conf.level) {
   ## Internal function for computing normal theory CIs -- from NCStats
-  hw <- qt(1-(1-conf.level)/2,obsdf)*SE
+  hw <- stats::qt(1-(1-conf.level)/2,obsdf)*SE
   res <- cbind(est-hw,est+hw)
   colnames(res) <- iCILabel(conf.level)
   res
@@ -569,7 +569,7 @@ plot.mrClosed2 <- function(x,pch=19,col.pt="black",
                            ylab="Prop. Recaptures in Sample",
                            loess=FALSE,lty.loess=2,lwd.loess=1,
                            col.loess="gray20",trans.loess=10,span=0.9,...) {
-  plot(x$M,x$m/x$n,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,...)
+  graphics::plot(x$M,x$m/x$n,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,...)
   # add loess line if asked for
   if (loess) iAddLoessLine(x$m/x$n,x$M,lty.loess,lwd.loess,col.loess,trans.loess,span=span)
 }

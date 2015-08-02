@@ -276,7 +276,7 @@ iRemovalKTX <- function(catch) {
 # INTERNAL -- Calculate CIs with normal theory
 #=============================================================
 iRemovalNCI <- function(est,se,conf.level) {
-  est+c(-1,1)*qnorm(0.5+conf.level/2)*se
+  est+c(-1,1)*stats::qnorm(0.5+conf.level/2)*se
 }
 
 #=============================================================
@@ -285,7 +285,7 @@ iRemovalNCI <- function(est,se,conf.level) {
 #=============================================================
 iRemovalLHCI <- function(method,catch,conf.level,k,T,X,min.nlogLH,Tmult){ 
   ## critical negative log-likelihood value
-  nlogLHcrit <- min.nlogLH+qchisq(conf.level,df=1)/2
+  nlogLHcrit <- min.nlogLH+stats::qchisq(conf.level,df=1)/2
   
   ## Determine if the upper limit is going to fail.
   if (method=="Moran") {

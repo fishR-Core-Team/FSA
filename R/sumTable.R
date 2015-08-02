@@ -49,7 +49,7 @@ sumTable <- function (formula, ...) {
 #' @rdname sumTable
 #' @export
 sumTable.formula <- function(formula,data=NULL,FUN=mean,digits=getOption("digits"),...) {
-  DF <- model.frame(formula,data=data)
+  DF <- stats::model.frame(formula,data=data)
   if (dim(DF)[2]>3) stop("sumTable.formula only works with one quantitative variable on LHS and one or two factor variables on RHS of formula.",call.=FALSE)
   if (attr(attr(DF, "terms"),"dataClasses")[1]!="numeric") stop("Left-hand-side of formula must be a numeric vector.",call.=FALSE)
   nv <- DF[,1]

@@ -142,7 +142,7 @@ gReshape <- function(df,in.pre,id.var,var.name="prvAge",val.name=in.pre,last.plu
   # if no id.var, then id.var is all not in measure.var
   if (missing(id.var)) id.var <- names(df)[!grepl(paste0("^",in.pre),names(df))]
   # do the reshaping (new.row.names gets around error with duplicate rownames from reshape)
-  ndf <- reshape(df,direction="long",idvar=id.var,varying=measure.var,
+  ndf <- stats::reshape(df,direction="long",idvar=id.var,varying=measure.var,
                  v.names=in.pre,timevar=var.name,new.row.names=1:100000)
   # remove all increments with NAs
   if (na.rm) ndf <- ndf[!is.na(ndf[,in.pre]),]

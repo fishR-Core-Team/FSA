@@ -102,17 +102,17 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
     # to be c(0,ymax).  Otherwise leave as NULL and let hist()
     # figure it out
     if ("ylim" %in% names(list(...))) {
-      h <- hist(tmp$mf[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,
+      h <- graphics::hist(tmp$mf[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,
                 xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
     } else {
       if(!is.null(ymax)) ylim <- c(0,ymax)
       else ylim <- NULL
-      h <- hist(tmp$mf[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,
+      h <- graphics::hist(tmp$mf[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,
                 xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),
                 ylim=ylim,...)
     }
     # assure a line at y=0
-    if (iaxs) abline(h=0,xpd=FALSE)
+    if (iaxs) graphics::abline(h=0,xpd=FALSE)
     invisible(h)
   } else {
     ## Multiple variables
@@ -130,12 +130,12 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
     DF.split <- split(resp,expl)
     ## Make the histograms
     # Save mfrow to revert back when finished
-    opar <- par("mfrow")
+    opar <- graphics::par("mfrow")
     num <- length(names(DF.split))
-    if (same.breaks) { breaks <- hist(resp,right=right,plot=FALSE,warn.unused=FALSE,...)$breaks }
+    if (same.breaks) { breaks <- graphics::hist(resp,right=right,plot=FALSE,warn.unused=FALSE,...)$breaks }
     if (is.null(ymax)) {
       for (i in 1:num) {  # used to find highest count on all histograms
-        ymax[i] <- max(hist(DF.split[[i]],right=right,plot=FALSE,warn.unused=FALSE,...)$counts)
+        ymax[i] <- max(graphics::hist(DF.split[[i]],right=right,plot=FALSE,warn.unused=FALSE,...)$counts)
       }
       if (same.ylim) { ymax <- rep(max(ymax),length(ymax)) }
     } else {
@@ -143,29 +143,30 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
       else if (length(ymax)!= num) stop("'ymax' argument must be 'NULL', a vector of length 1,\n or a vector of length equal to the number of groups.",call.=FALSE)
     }
     if (num <= (nrow*ncol)) {
-      if (byrow) par(mfrow=c(nrow,ncol))
-        else par(mfcol=c(nrow,ncol))
+      if (byrow) graphics::par(mfrow=c(nrow,ncol))
+        else graphics::par(mfcol=c(nrow,ncol))
       for (i in 1:num) {
         if (!is.null(pre.main)) main <- paste(pre.main,names(DF.split)[i],sep="")
-        hist(DF.split[[i]],main=main,xlab=xlab,ylab=ylab,right=right,ylim=c(0,ymax[i]),col=col,
+        graphics:: hist(DF.split[[i]],main=main,xlab=xlab,ylab=ylab,right=right,ylim=c(0,ymax[i]),col=col,
              xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
-        if (iaxs) abline(h=0,xpd=FALSE)  # will assure a line at y=0
+        if (iaxs) graphics::abline(h=0,xpd=FALSE)  # will assure a line at y=0
       }
     } else {
       max.per.page <- nrow*ncol
-      if (byrow) par(mfrow=c(nrow,ncol))
-        else par(mfcol=c(nrow,ncol))
+      if (byrow) graphics::par(mfrow=c(nrow,ncol))
+        else graphics::par(mfcol=c(nrow,ncol))
       for (i in 1:ceiling(num/max.per.page)) {
         ifelse((num-(i-1)*max.per.page)>=max.per.page,todo <- max.per.page,todo <- num-(i-1)*max.per.page)
         for (j in 1:todo) {
           pos <- (i-1)*max.per.page+j
           if (!is.null(pre.main)) main <- paste(pre.main,names(DF.split)[pos],sep="")
-          hist(DF.split[[pos]],main=main,xlab=xlab,ylab=ylab,right=right,ylim=c(0,ymax[pos]),col=col,
-               xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
-          if (iaxs) abline(h=0,xpd=FALSE)  # will assure a line at y=0
+          graphics::hist(DF.split[[pos]],main=main,xlab=xlab,ylab=ylab,right=right,
+                         ylim=c(0,ymax[pos]),col=col,
+                         xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
+          if (iaxs) graphics::abline(h=0,xpd=FALSE)  # will assure a line at y=0
         }  
       }
     }
-    par(mfrow=opar)
+    graphics::par(mfrow=opar)
   }
 }

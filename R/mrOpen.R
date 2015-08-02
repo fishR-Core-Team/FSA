@@ -281,7 +281,7 @@ iEstN <- function(df,type,conf.level) {
            # SE of N (eqn 4.11 in Pollock et al. (1990))
            df$N.se <- sqrt(df$N*(df$N-df$n)*((df$M-df$m+df$R)/df$M*((1/df$r)-(1/df$R))+((df$N-df$M)/(df$N*df$m))))
            # Normal theory CI
-           zstar <- qnorm(1-(1-conf.level)/2)
+           zstar <- stats::qnorm(1-(1-conf.level)/2)
            df$N.lci <- df$N-zstar*df$N.se
            df$N.uci <- df$N+zstar*df$N.se
          },
@@ -323,7 +323,7 @@ iEstPhi <- function(df,k,type,conf.level,phi.full) {
            if (phi.full) phi.var <- phi.var + ((phi*(1-phi))/(df1$M-df1$m+df1$R))
            phi.se <- sqrt(phi.var)
            # normal theory confidence interval
-           zstar <- qnorm(1-(1-conf.level)/2)
+           zstar <- stats::qnorm(1-(1-conf.level)/2)
            phi.lci <- phi-zstar*phi.se
            phi.uci <- phi+zstar*phi.se
            phi.se[k] <- phi[k] <- phi.lci[k] <- phi.uci[k] <- NA
@@ -373,7 +373,7 @@ iEstB <- function(df,k,type,conf.level) {
                         +(df2$N*(df2$N-df2$n)*(df2$N-df2$M)/(df2$N*df2$m))
                         +((df1$phi^2)*df1$N*(df1$N-df1$n)*(df1$N-df1$M)/(df1$N*df1$m)))
            # normal theory confidence interval
-           zstar <- qnorm(1-(1-conf.level)/2)
+           zstar <- stats::qnorm(1-(1-conf.level)/2)
            B.lci <- B-zstar*B.se
            B.uci <- B+zstar*B.se
            B[k] <- B.se[k] <- B.lci[k] <- B.uci[k] <- NA

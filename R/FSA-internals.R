@@ -32,13 +32,14 @@
 
 
 iAddLoessLine <- function(r,fv,lty.loess,lwd.loess,col.loess,trans.loess,span=0.75) {
-  mdl <- loess(r~fv,span=span)
+  mdl <- stats::loess(r~fv,span=span)
   xseq <- seq(from=min(fv),to=max(fv),length=80)
-  pred <- predict(mdl,newdata=data.frame(fv=xseq),se=TRUE)
-  polygon(c(xseq,rev(xseq)),
-          c(pred$fit-pred$se.fit*qt(0.975,pred$df),rev(pred$fit+pred$se.fit*qt(0.975,pred$df))),
+  pred <- stats::predict(mdl,newdata=data.frame(fv=xseq),se=TRUE)
+  graphics::polygon(c(xseq,rev(xseq)),
+          c(pred$fit-pred$se.fit*stats::qt(0.975,pred$df),
+            rev(pred$fit+pred$se.fit*stats::qt(0.975,pred$df))),
           col=iMakeColor(col.loess,trans.loess),border=NA,xpd=FALSE)
-  lines(pred$fit~xseq,lwd=lwd.loess,lty=lty.loess,col=col.loess,xpd=FALSE)
+  graphics::lines(pred$fit~xseq,lwd=lwd.loess,lty=lty.loess,col=col.loess,xpd=FALSE)
 }  # end iAddLoessLine internal function
 
 
@@ -101,7 +102,7 @@ iCILabel <- function(conf.level,digits=1) paste(paste(round(100*conf.level,digit
 
 
 iGetVarFromFormula <- function(formula,data,expNumVars=NULL) {
-  varNms <- names(model.frame(formula,data=data))
+  varNms <- names(stats::model.frame(formula,data=data))
   # don't "error" check the number of variables
   if (is.null(expNumVars)) varNms
   else if (length(varNms)!=expNumVars) stop("Function only works with formulas with ",expNumVars," variable",ifelse(expNumVars==1,".","s."))
@@ -139,7 +140,7 @@ iHndlCols2use <- function(df,cols2use,cols2ignore) {
 
 iHndlFormula <- function(formula,data,expNumR=NULL,
                          expNumE=NULL,expNumENums=NULL,expNumEFacts=NULL) {
-  mf <- model.frame(formula,data=data,na.action=NULL)
+  mf <- stats::model.frame(formula,data=data,na.action=NULL)
   if (ncol(mf)==1) {
     # Only one variable in the model frame.  Return only the model.frame, name of 
     #   that variable, and it's class.
@@ -235,7 +236,7 @@ iLegendHelp <- function(legend) {
   if (class(legend)=="logical") {
     if(legend) {
       do.legend <- TRUE
-      x <- locator(1)
+      x <- graphics::locator(1)
     }
   } else if (!is.null(legend)) {
     do.legend <- TRUE
@@ -265,14 +266,14 @@ iMakeColor <- function(clr,transvalue) {
   ## The return value is an rgb() color.
   if (transvalue <= 0) stop("'transvalue' must be greater than 0.",call.=FALSE)
   if (transvalue > 1) transvalue <- 1/transvalue
-  clrprts <- col2rgb(clr)/255
+  clrprts <- grDevices::col2rgb(clr)/255
   rgb(clrprts[1,1],clrprts[2,1],clrprts[3,1],transvalue)
 }
 
 
 iTypeoflm <- function(mdl) {
   if (any(class(mdl)!="lm")) stop("'iTypeoflm' only works with objects from 'lm()'.",call.=FALSE)
-  tmp <- iHndlFormula(formula(mdl),model.frame(mdl))
+  tmp <- iHndlFormula(formula(mdl),stats::model.frame(mdl))
   if (tmp$Enum==0) stop("Object must have one response and at least one explanatory variable",call.=FALSE)
   if (!tmp$Rclass %in% c("numeric","integer")) stop("Response variable must be numeric",call.=FALSE)
   if (tmp$Etype=="factor") { #ANOVA

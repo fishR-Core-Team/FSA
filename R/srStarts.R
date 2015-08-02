@@ -142,7 +142,7 @@ iSRStartsBH <- function(S,R,param) {
   ## some checks
   if (!param %in% 1:4) stop("'param' must be in 1:4 when type='BevertonHolt'.",call.=FALSE)
   ## Linearized B-H #1 model without lognormal errors for starting values
-  cfs <- coef(lm(I(1/R)~I(1/S)))
+  cfs <- stats::coef(stats::lm(I(1/R)~I(1/S)))
   ## Extract parameter values
   a <- 1/cfs[[2]]
   b <- cfs[[1]]/cfs[[2]]
@@ -166,7 +166,7 @@ iSRStartsR <- function(S,R,param) {
   ## some checks
   if (!param %in% 1:3) stop("'param' must be in 1:3 when type='Ricker'.",call.=FALSE)
   ## Linearized Ricker #1 model with lognormal errors for starting values
-  cfs <- coef(lm(log(R/S)~S))
+  cfs <- stats::coef(stats::lm(log(R/S)~S))
   ## Extract parameter values
   a <- exp(cfs[[1]])
   b <- -cfs[[2]]
@@ -194,7 +194,7 @@ iSRStartsSL <- function(S,R) c(iSRStartsR(S,R,param=1),c=1)
 #=============================================================
 # Find starting values for independence model
 #=============================================================
-iSRStartsI <- function(S,R) c(a=coef(lm(R~0+S))[[1]])
+iSRStartsI <- function(S,R) c(a=stats::coef(stats::lm(R~0+S))[[1]])
 
 
 #=============================================================
@@ -209,10 +209,10 @@ iSRStartsPlot <- function(S,R,type,param,sv,col.mdl,lwd.mdl,lty.mdl) {
   ttl <- paste(ttl1,"at",ttl2)
   ## Plot the data
   max.S <- max(S,na.rm=TRUE)
-  plot(S,R,pch=19,xlim=c(0,max.S),xlab="Stock Level",ylab="Recruitment Level",main=ttl)
+  graphics::plot(S,R,pch=19,xlim=c(0,max.S),xlab="Stock Level",ylab="Recruitment Level",main=ttl)
   ## Plot the model
   mdl <- srFuns(type,param)
-  curve(mdl(x,unlist(sv)),from=0,to=max.S,col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
+  graphics::curve(mdl(x,unlist(sv)),from=0,to=max.S,col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
 }
 
 
@@ -264,14 +264,14 @@ iSRDynPlot <- function(S,R,type,param,p1,p2=NULL,p3=NULL) {
   ## the model type and param
   y <- iSRDynPlot_makeR(x,type,param,p1,p2,p3)
   ## Construct the scatterplot with superimposed model
-  old.par <- par(mfrow=c(1,2), mar=c(3.5,3.5,1.25,1.25), mgp=c(2,0.4,0), tcl=-0.2, pch=19)
-  plot(S,R,xlab="Parental (Spawner) Stock",ylab="Recruits",
+  old.par <- graphics::par(mfrow=c(1,2), mar=c(3.5,3.5,1.25,1.25), mgp=c(2,0.4,0), tcl=-0.2, pch=19)
+  graphics::plot(S,R,xlab="Parental (Spawner) Stock",ylab="Recruits",
        ylim=c(0,max(R,na.rm=TRUE)),xlim=c(0,max(S,na.rm=TRUE)))
-  lines(x,y,lwd=2,lty=1,col="blue")
-  plot(S,R/S,xlab="Parental (Spawner) Stock",ylab="Recruits/Spawner",
+  graphics::lines(x,y,lwd=2,lty=1,col="blue")
+  graphics::plot(S,R/S,xlab="Parental (Spawner) Stock",ylab="Recruits/Spawner",
        ylim=c(0,max(R/S,na.rm=TRUE)),xlim=c(0,max(S,na.rm=TRUE)))
-  lines(x,y/x,lwd=2,lty=1,col="blue")
-  par(old.par)
+  graphics::lines(x,y/x,lwd=2,lty=1,col="blue")
+  graphics::par(old.par)
 }
 
 #=============================================================

@@ -126,11 +126,11 @@ catchCurve.default <- function(x,catch,ages2use=age,weighted=FALSE,...) {
   
   ## Fit the model to descending limb
   log.catch.e <- log(catch.e)
-  cclm <- lm(log.catch.e~age.e)
+  cclm <- stats::lm(log.catch.e~age.e)
   if (weighted) {
     # if asked to fit weighted regression then find weights as
     #   the predicted values from the raw regression
-    W <- predict(cclm)
+    W <- stats::predict(cclm)
     # if any weights are zero or negative then replace with the
     # minimum of positive weights.  Send a warning.
     if (any(W<=0)) {
@@ -138,7 +138,7 @@ catchCurve.default <- function(x,catch,ages2use=age,weighted=FALSE,...) {
       W[W<=0] <- min(W[W>0])
     } 
     # and then fit the weighted regression
-    cclm <- lm(log.catch.e~age.e,weights=W)
+    cclm <- stats::lm(log.catch.e~age.e,weights=W)
   } else {
     # if not asked to fit weighted regression then fill weights
     #   with NULL for return in the list below.
@@ -183,9 +183,9 @@ summary.catchCurve <- function(object,type=c("params","lm"),...) {
 #' @export
 coef.catchCurve <- function(object,type=c("params","lm"),...) {
   type <- match.arg(type)
-  if (type=="lm") coef(object$lm,...)
+  if (type=="lm") stats::coef(object$lm,...)
     else {
-      Z <- -coef(object$lm)[2]
+      Z <- -stats::coef(object$lm)[2]
       A <- 100*(1-exp(-Z))
       d <- cbind(Z,A)
       rownames(d) <- ""
@@ -196,7 +196,7 @@ coef.catchCurve <- function(object,type=c("params","lm"),...) {
 #' @rdname catchCurve
 #' @export
 anova.catchCurve <- function(object,...) {
-  anova(object$lm,...)
+  stats::anova(object$lm,...)
 }
 
 #' @rdname catchCurve
@@ -204,7 +204,7 @@ anova.catchCurve <- function(object,...) {
 confint.catchCurve <- function(object,parm=c("all","both","Z","A"),level=conf.level,conf.level=0.95,type=c("params","lm"),...) {
   type <- match.arg(type)
   parm <- match.arg(parm)
-  ci <- confint(object$lm,conf.level=level,...)
+  ci <- stats::confint(object$lm,conf.level=level,...)
   if (type=="lm") res <- ci
   else {
     Zres <- rbind(Z=-ci[2,2:1])
@@ -225,16 +225,16 @@ plot.catchCurve <- function(x,pos.est="topright",cex.est=0.95,
   # Find the range of the y-axis
   yrng <- c(min(0,min(log(x$catch),na.rm=TRUE)),max(log(x$catch),na.rm=TRUE))
   # Plot raw data
-  plot(log(x$catch)~x$age,col=col.pt,xlab=xlab,ylab=ylab,ylim=yrng,...)
+  graphics::plot(log(x$catch)~x$age,col=col.pt,xlab=xlab,ylab=ylab,ylim=yrng,...)
   # Highlight descending limb portion
-  points(x$age.e,x$log.catch.e,col=col.pt,pch=19)
+  graphics::points(x$age.e,x$log.catch.e,col=col.pt,pch=19)
   # Put model on descending limb
-  lines(x$age.e,predict(x$lm,data.frame(x$age.e)),lwd=lwd,lty=lty,col=col.mdl)
+  graphics::lines(x$age.e,predict(x$lm,data.frame(x$age.e)),lwd=lwd,lty=lty,col=col.mdl)
   # Put mortality values on the plot
   if (!is.null(pos.est)) {
-    Z <- -coef(x$lm)[2]
+    Z <- -stats::coef(x$lm)[2]
     A <- 100*(1-exp(-Z))
-    legend(pos.est,legend=paste("Z=",round(Z,3),"\nA=",round(A,1),"%",sep=""),bty="n",cex=cex.est)
+    graphics::legend(pos.est,legend=paste("Z=",round(Z,3),"\nA=",round(A,1),"%",sep=""),bty="n",cex=cex.est)
   }
 }
 

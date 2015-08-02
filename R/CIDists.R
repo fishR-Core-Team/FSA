@@ -87,9 +87,9 @@ binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic","all"
 #' @export
 hyperCI <- function(M,n,m,conf.level=0.95) {
   N.low <- (n+(M-m))
-  while (qhyper((1-conf.level)/2,n,N.low-n,M) > m) { N.low <- N.low + 1 }
+  while (stats::qhyper((1-conf.level)/2,n,N.low-n,M) > m) { N.low <- N.low + 1 }
   N.hi <- (n*M)/m
-  while (qhyper(1-((1-conf.level)/2),n,N.hi-n,M) >= m) { N.hi <- N.hi + 1 }
+  while (stats::qhyper(1-((1-conf.level)/2),n,N.hi-n,M) >= m) { N.hi <- N.hi + 1 }
   res <- round(cbind(N.low,N.hi),0)
   colnames(res) <- iCILabel(conf.level)
   res
@@ -128,8 +128,8 @@ hyperCI <- function(M,n,m,conf.level=0.95) {
 #'
 #' @export
 poiCI <- function(x,conf.level=0.95) {
-  LCI <- qchisq((1-conf.level)/2,2*x)/2
-  UCI <- qchisq(1-(1-conf.level)/2,2*(x+1))/2
+  LCI <- stats::qchisq((1-conf.level)/2,2*x)/2
+  UCI <- stats::qchisq(1-(1-conf.level)/2,2*(x+1))/2
   res <- cbind(LCI,UCI)
   colnames(res) <- iCILabel(conf.level)
   res

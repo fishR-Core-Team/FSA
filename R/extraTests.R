@@ -107,7 +107,7 @@ lrt <- function(sim,...,com,sim.names=sim.name,sim.name=NULL,com.name=NULL) {
   }
   ## Df from lrtest are not error Df.  Thus, subtract each from n
   # get n from number of residuals in a model
-  n <- length(residuals(com))
+  n <- length(stats::residuals(com))
   res[,1] <- n-res[,1]+1
   res[,3] <- n-res[,3]+1
   ## Compute difference in log-likelihoods and shoehorn into the results matrix
@@ -209,7 +209,7 @@ iMakeModelHeading <- function(sim,com,sim.names,com.name) {
       com.name <- com.name[1]
     }
     com_hdg <- paste0("Model A: ",com.name[1])
-  } else com_hdg <- paste("Model A: ",deparse(formula(com),width.cutoff=200),sep="")
+  } else com_hdg <- paste("Model A: ",deparse(stats::formula(com),width.cutoff=200),sep="")
   ## provide a heading and a class to use in the print method
   paste(sim_hdg,com_hdg,sep="\n")
 }

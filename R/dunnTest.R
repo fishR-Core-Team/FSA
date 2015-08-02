@@ -2,7 +2,7 @@
 #'
 #' @description Performs Dunn's (1964) test of multiple comparisons following a significant Kruskal-Wallis test, possibly with a correction to control the experimentwise error rate.
 #' 
-#' @details This function performs \dQuote{Dunn's} test of multiple comparisons following a Kruskal-Wallis test.  Unadjusted two-sided p-values for each pairwise comparison among groups are computed following Dunn's description.  These p-values may be adjusted with the methods of \code{p.adjust}.
+#' @details This function performs \dQuote{Dunn's} test of multiple comparisons following a Kruskal-Wallis test.  Unadjusted two-sided p-values for each pairwise comparison among groups are computed following Dunn's description.  These p-values may be adjusted with the methods of \code{\link[stats]{p.adjust}}.
 #' 
 #' Dunn's method can be described in the following way.  To compare groups i and j, the absolute value of the difference between the mean rank of group i and the mean rank of group j is found.  If there are no ties, this difference in mean ranks is divided by the square root of [(N*(N+1)/12)*((1/Ni)+(1/Nj))], where N is the total number of individuals in all groups, and ni and nj are the number of individuals in the groups i and j, respectively. If there are ties, the difference in mean ranks is divided by the square root of [(N*(N+1)-Sum((ti^3)-ti)/(N-1))/12*((1/ni)+(1/nj))], where ti is the number of ties in the ith group of ties.  These ratios are a Z test statistic and the two-sided p-value is computed as 2*Pr(Z>|z|).
 #' 
@@ -25,7 +25,7 @@
 #' @param x A numeric vector of data values or a formula of the form x~g.
 #' @param g A factor vector or a (non-numeric) vector that can be coerced to a factor vector.
 #' @param data A data.frame that minimally contains \code{x} and \code{g}.
-#' @param method A single string that identifies the method to use to control the experimentwise error rate.  See details in \code{p.adjust}.
+#' @param method A single string that identifies the method to use to control the experimentwise error rate.  See details in \code{\link[stats]{p.adjust}}.
 #' @param \dots Not yet used.
 #'
 #' @return A list with two items -- \code{method} is the long name of the method used to control the experimentwise error rate and a data.frame in \code{res} with the following variables:
@@ -71,11 +71,11 @@ dunnTest <- function (x,...) {
 
 #' @rdname dunnTest
 #' @export
-dunnTest.default <- function(x,g,method=p.adjust.methods[c(4,1:3,5:8)],...) {
+dunnTest.default <- function(x,g,method=stats::p.adjust.methods[c(4,1:3,5:8)],...) {
   ## check method type and get long name for the p-value adjustment method
   method <- match.arg(method)
   adjNAMES <- c("Holm","Hochberg","Hommel","Bonferroni","Benjamini-Hochberg","Benjamini-Yekuteili","False Discovery Rate","No Adjustment")
-  Name <- adjNAMES[which(p.adjust.methods==method)]
+  Name <- adjNAMES[which(stats::p.adjust.methods==method)]
 
   ## check variable types
   if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
@@ -85,7 +85,7 @@ dunnTest.default <- function(x,g,method=p.adjust.methods[c(4,1:3,5:8)],...) {
     warning("'g' variable was coerced to a factor.",call.=FALSE)
   }
   ## Find missing values in x and g, and remove
-  ok <- complete.cases(x,g)
+  ok <- stats::complete.cases(x,g)
   if (sum(!ok)>0) {
     warning("Some rows deleted from 'x' and 'g' because missing data.",call.=FALSE)
     x <- x[ok]
@@ -116,9 +116,9 @@ dunnTest.default <- function(x,g,method=p.adjust.methods[c(4,1:3,5:8)],...) {
     }
   }
   # Compute unadjusted p-values (note that 2* is different than in dunn.test)
-  P <- 2*pnorm(abs(Z),lower.tail=FALSE)
+  P <- 2*stats::pnorm(abs(Z),lower.tail=FALSE)
   # compute adjusted p-values
-  P.adjust <- p.adjust(P,method=method)
+  P.adjust <- stats::p.adjust(P,method=method)
   # return a list
   tmp <- list(method=Name,res=data.frame(Comparison=lbls,Z=Z,P.unadj=P,P.adj=P.adjust))
   class(tmp) <- "dunnTest"
@@ -127,7 +127,7 @@ dunnTest.default <- function(x,g,method=p.adjust.methods[c(4,1:3,5:8)],...) {
 
 #' @rdname dunnTest
 #' @export
-dunnTest.formula <- function(x,data=NULL,method=p.adjust.methods[c(4,1:3,5:8)],...) {
+dunnTest.formula <- function(x,data=NULL,method=stats::p.adjust.methods[c(4,1:3,5:8)],...) {
   ## match the arguments
   method <- match.arg(method)
   ## get the dataframe of just the two variables

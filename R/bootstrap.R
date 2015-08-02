@@ -61,7 +61,7 @@
 #' }
 #' nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,start=list(B1=6,B2=7.2,B3=-1.45))
 #' if (require(car)) {    # for bootCase()
-#'   nl1.boot <- bootCase(nl1,B=99)  # B=99 too small to be useful
+#'   nl1.boot <- car::bootCase(nl1,B=99)  # B=99 too small to be useful
 #'   confint(nl1.boot,"B1")
 #'   confint(nl1.boot,c(2,3))
 #'   confint(nl1.boot,conf.level=0.90)
@@ -96,8 +96,8 @@ htest.bootCase <- function(object,parm=NULL,bo=0,alt=c("two.sided","less","great
 hist.bootCase <- function(x,same.ylim=TRUE,ymax=NULL,
                           rows=round(sqrt(ncol(x))),cols=ceiling(sqrt(ncol(x))),...){
   ## Set parameters
-  op <- par("mfrow")
-	par(mfrow=c(rows,cols))
+  op <- graphics::par("mfrow")
+  graphics::par(mfrow=c(rows,cols))
 	## If not given ymax, then find highest count on all histograms
   if (is.null(ymax)) {
     for (i in 1:ncol(x)) ymax[i] <- max(hist(~x[,i],plot=FALSE,warn.unused=FALSE,...)$counts)
@@ -105,7 +105,7 @@ hist.bootCase <- function(x,same.ylim=TRUE,ymax=NULL,
   if (same.ylim) ymax <- rep(max(ymax),length(ymax))
 	## Make the plots
 	for(i in 1:ncol(x)) hist(~x[,i],xlab=colnames(x)[i],ylim=c(0,ymax[i]),...)
-  par(mfrow=op)
+  graphics::par(mfrow=op)
 }
 
 #' @rdname bootCase
@@ -114,10 +114,10 @@ plot.bootCase <- function(x,...){
 	np <- ncol(x)
 	lay <- lower.tri(matrix(0,(np-1),(np-1)), TRUE)
 	lay[which(lay, TRUE)] <- 1:choose(np,2)
-	layout(lay)
+	graphics::layout(lay)
 	for(i in 1:(np-1))
 		for(j in (i+1):np)
-			 plot(x[,i],x[,j],xlab=colnames(x)[i],ylab=colnames(x)[j],pch=20)
+		  graphics::plot(x[,i],x[,j],xlab=colnames(x)[i],ylab=colnames(x)[j],pch=20)
 }
 
 
@@ -177,7 +177,7 @@ plot.bootCase <- function(x,...){
 #' }
 #' nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,start=list(B1=6,B2=7.2,B3=-1.45))
 #' if (require(nlstools)) {
-#'   nl1.boot <- nlsBoot(nl1,niter=99)  # way too few
+#'   nl1.boot <-  nlstools::nlsBoot(nl1,niter=99)  # way too few
 #'   confint(nl1.boot,"B1")
 #'   confint(nl1.boot,c(2,3))
 #'   confint(nl1.boot,conf.level=0.90)
@@ -220,7 +220,7 @@ htest.nlsBoot <- function(object,parm=NULL,bo=0,alt=c("two.sided","less","greate
 ## ===========================================================
 iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
   #### internal function to find CIs
-  cl <- function(x) quantile(x,c((1-conf.level)/2,1-(1-conf.level)/2))
+  cl <- function(x) stats::quantile(x,c((1-conf.level)/2,1-(1-conf.level)/2))
   #### end internal function
   #### Main function
   ## Perform some checks on parm
@@ -254,21 +254,21 @@ iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
     if (length(parm)==1) {
       ## one histogram
       h <- hist(~object,xlab=parm,main="")
-      plotCI(mean(object),y=0.95*max(h$counts),li=res[1],ui=res[2],err="x",
+      plotrix::plotCI(mean(object),y=0.95*max(h$counts),li=res[1],ui=res[2],err="x",
              pch=19,col=err.col,lwd=err.lwd,add=TRUE,...)
     } else {
       ## multiple histograms
       np <- ncol(object)
       if (is.null(rows)) rows <- round(sqrt(np))
       if (is.null(cols)) cols <- ceiling(sqrt(np))
-      op <- par("mfrow")
-      par(mfrow=c(rows,cols))
+      op <- graphics::par("mfrow")
+      graphics::par(mfrow=c(rows,cols))
       for (i in 1:np) {
         h <- hist(~object[,i],xlab=colnames(object)[i],...)
-        plotCI(mean(object[,i]),y=0.95*max(h$counts),li=res[i,1],ui=res[i,2],err="x",
+        plotrix::plotCI(mean(object[,i]),y=0.95*max(h$counts),li=res[i,1],ui=res[i,2],err="x",
                pch=19,col=err.col,lwd=err.lwd,add=TRUE)
       }
-      par(mfrow=op)
+      graphics::par(mfrow=op)
     }
   }
   ## Return CI result
@@ -280,7 +280,7 @@ iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
 ##   should work for bootCase and nlsboot results
 ## ===========================================================
 iPredictBoot <- function(object,FUN,MARGIN,conf.level,digits,...) {
-  res <- quantile(apply(object,MARGIN=MARGIN,FUN=FUN,...),c(0.5,0.5-conf.level/2,0.5+conf.level/2))
+  res <- stats::quantile(apply(object,MARGIN=MARGIN,FUN=FUN,...),c(0.5,0.5-conf.level/2,0.5+conf.level/2))
   if (!is.null(digits)) res <- round(res,digits)
   names(res) <- c("prediction",iCILabel(conf.level))
   res
@@ -329,7 +329,7 @@ iHTestBoot <- function(object,parm,bo,alt=c("two.sided","less","greater"),plot=F
   ## Make a plot if asked for
   if (plot) {
     hist(~object,xlab=colnames(object),main="")
-    abline(v=bo,col="red",lwd=2,lty=2)
+    graphics::abline(v=bo,col="red",lwd=2,lty=2)
   }
   ## Return the result
   res

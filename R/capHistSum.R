@@ -286,7 +286,7 @@ iMarray <- function(mb,smry) {
 #' @rdname capHistSum
 #' @export
 plot.CapHist <- function(x,what=c("u","f"),pch=19,cex.pch=0.7,lwd=1,...) {
-  opar <- par()
+  opar <- graphics::par()
   what <- match.arg(what,several.ok=TRUE)
   tmp <- x$sum[,c("n","u","f")]
   t <- nrow(tmp)
@@ -298,22 +298,21 @@ plot.CapHist <- function(x,what=c("u","f"),pch=19,cex.pch=0.7,lwd=1,...) {
   tmp$su <- log(tmp$u)
   tmp$su[which(tmp$u==0)] <- NA
   # catch if two plots are being made
-  if (length(what)==2) opar <- par(mfrow=c(1,2))
+  if (length(what)==2) opar <- graphics::par(mfrow=c(1,2))
   # make the fi plot
   if ("f" %in% what) {
     tmp2 <- tmp[!is.na(tmp$sf),]
-    lbl <- 
-    plot(sf~i,data=tmp2,type="l",lwd=lwd,
+    graphics::plot(sf~i,data=tmp2,type="l",lwd=lwd,
          ylab=expression(paste("log(scaled",phantom(i),f[phantom(i)][j],phantom(i),")")),
          xlab="Times Captured (j)",...)
-    points(sf~i,data=tmp2,pch=pch,cex=cex.pch)
+    graphics::points(sf~i,data=tmp2,pch=pch,cex=cex.pch)
   }
   # make the ui plot
   if ("u" %in% what) {
-    plot(su~i,data=tmp,type="l",lwd=lwd,
+    graphics::plot(su~i,data=tmp,type="l",lwd=lwd,
          ylab=expression(paste("log(",phantom(i),u[phantom(i)][i],phantom(i),")")),
          xlab="Capture Event (i)",...)
-    points(su~i,data=tmp,pch=pch,cex=cex.pch)
+    graphics::points(su~i,data=tmp,pch=pch,cex=cex.pch)
   }
-  par(opar)
+  graphics::par(opar)
 }

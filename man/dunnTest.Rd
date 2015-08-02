@@ -9,11 +9,11 @@
 \usage{
 dunnTest(x, ...)
 
-\method{dunnTest}{default}(x, g, method = p.adjust.methods[c(4, 1:3, 5:8)],
-  ...)
+\method{dunnTest}{default}(x, g, method = stats::p.adjust.methods[c(4, 1:3,
+  5:8)], ...)
 
-\method{dunnTest}{formula}(x, data = NULL, method = p.adjust.methods[c(4,
-  1:3, 5:8)], ...)
+\method{dunnTest}{formula}(x, data = NULL,
+  method = stats::p.adjust.methods[c(4, 1:3, 5:8)], ...)
 
 \method{print}{dunnTest}(x, ...)
 }
@@ -22,7 +22,7 @@ dunnTest(x, ...)
 
 \item{g}{A factor vector or a (non-numeric) vector that can be coerced to a factor vector.}
 
-\item{method}{A single string that identifies the method to use to control the experimentwise error rate.  See details in \code{p.adjust}.}
+\item{method}{A single string that identifies the method to use to control the experimentwise error rate.  See details in \code{\link[stats]{p.adjust}}.}
 
 \item{data}{A data.frame that minimally contains \code{x} and \code{g}.}
 
@@ -41,7 +41,7 @@ A list with two items -- \code{method} is the long name of the method used to co
 Performs Dunn's (1964) test of multiple comparisons following a significant Kruskal-Wallis test, possibly with a correction to control the experimentwise error rate.
 }
 \details{
-This function performs \dQuote{Dunn's} test of multiple comparisons following a Kruskal-Wallis test.  Unadjusted two-sided p-values for each pairwise comparison among groups are computed following Dunn's description.  These p-values may be adjusted with the methods of \code{p.adjust}.
+This function performs \dQuote{Dunn's} test of multiple comparisons following a Kruskal-Wallis test.  Unadjusted two-sided p-values for each pairwise comparison among groups are computed following Dunn's description.  These p-values may be adjusted with the methods of \code{\link[stats]{p.adjust}}.
 
 Dunn's method can be described in the following way.  To compare groups i and j, the absolute value of the difference between the mean rank of group i and the mean rank of group j is found.  If there are no ties, this difference in mean ranks is divided by the square root of [(N*(N+1)/12)*((1/Ni)+(1/Nj))], where N is the total number of individuals in all groups, and ni and nj are the number of individuals in the groups i and j, respectively. If there are ties, the difference in mean ranks is divided by the square root of [(N*(N+1)-Sum((ti^3)-ti)/(N-1))/12*((1/ni)+(1/nj))], where ti is the number of ties in the ith group of ties.  These ratios are a Z test statistic and the two-sided p-value is computed as 2*Pr(Z>|z|).
 }

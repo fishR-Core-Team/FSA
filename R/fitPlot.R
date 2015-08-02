@@ -153,26 +153,26 @@ fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
   x <- object$mf[,object$Enames[1]]
   # plot points in white to "disappear" if asked for
   if (!plot.pts) col.pt="white"
-  plot(y~x,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,main=main,...)
+  graphics::plot(y~x,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,main=main,...)
   # create predictions to draw the line
   xvals <- seq(min(x),max(x),length.out=200)
   newdf <- data.frame(xvals)
   # sets name of variables so that predict() will work
   names(newdf) <- object$Enames[1]
   # computes predicted values (and CI for use later)
-  pred <- predict(object$mdl,newdf,interval="confidence")
+  pred <- stats::predict(object$mdl,newdf,interval="confidence")
   # plot fitted line over range of data
-  lines(xvals,pred[,"fit"],col=col.mdl,lwd=lwd,lty=lty)
+  graphics::lines(xvals,pred[,"fit"],col=col.mdl,lwd=lwd,lty=lty)
   # puts CI on graph if asked for
   if (interval %in% c("confidence","both")) {
-    lines(xvals,pred[,"upr"],col=col.mdl,lwd=1,lty=lty.ci)
-    lines(xvals,pred[,"lwr"],col=col.mdl,lwd=1,lty=lty.ci)
+    graphics::lines(xvals,pred[,"upr"],col=col.mdl,lwd=1,lty=lty.ci)
+    graphics::lines(xvals,pred[,"lwr"],col=col.mdl,lwd=1,lty=lty.ci)
   }
   # puts PI on graph if asked for
   if (interval %in% c("prediction","both")) {
-    pred <- predict(object$mdl,newdf,interval="prediction")
-    lines(xvals,pred[,"upr"],col=col.mdl,lwd=1,lty=lty.pi)
-    lines(xvals,pred[,"lwr"],col=col.mdl,lwd=1,lty=lty.pi)
+    pred <- stats::predict(object$mdl,newdf,interval="prediction")
+    graphics::lines(xvals,pred[,"upr"],col=col.mdl,lwd=1,lty=lty.pi)
+    graphics::lines(xvals,pred[,"lwr"],col=col.mdl,lwd=1,lty=lty.pi)
   }
 }
 
@@ -224,32 +224,32 @@ fitPlot.IVR <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   }
   ### Plot the points
   # Creates plot schematic -- no points or lines
-  plot(y~x,col="white",xlab=xlab,ylab=ylab,main=main,...)
+  graphics::plot(y~x,col="white",xlab=xlab,ylab=ylab,main=main,...)
   for (i in 1:num.f1) {
     for (j in 1:num.f2) {
       # Plots points w/ different colors & points
       x.obs <- x[f1==levels(f1)[i] & f2==levels(f2)[j]]
       y.obs <- y[f1==levels(f1)[i] & f2==levels(f2)[j]] 
-      if (plot.pts) points(x.obs,y.obs,col=col[i],pch=pch[j])
+      if (plot.pts) graphics::points(x.obs,y.obs,col=col[i],pch=pch[j])
       # Make the predictions at a bunch of values of x
       xvals <- seq(min(x.obs),max(x.obs),length.out=200)
       newdf <- data.frame(xvals,
                           as.factor(rep(levels(f1)[i],length(xvals))),
                           as.factor(rep(levels(f2)[j],length(xvals))))
       names(newdf) <- object$Enames      
-      pred <- predict(object$mdl,newdf,interval="confidence")
+      pred <- stats::predict(object$mdl,newdf,interval="confidence")
       # Plot just the line if no intervals called for
-      lines(xvals,pred[,"fit"],col=col[i],lwd=lwd,lty=lty[j])
+      graphics::lines(xvals,pred[,"fit"],col=col[i],lwd=lwd,lty=lty[j])
       # add CI if asked for
       if (interval %in% c("confidence","both")) {
-        lines(xvals,pred[,"upr"],col=col[i],lwd=1,lty=lty[j])
-        lines(xvals,pred[,"lwr"],col=col[i],lwd=1,lty=lty[j])     
+        graphics::lines(xvals,pred[,"upr"],col=col[i],lwd=1,lty=lty[j])
+        graphics::lines(xvals,pred[,"lwr"],col=col[i],lwd=1,lty=lty[j])     
       }
       # add PI if asked for
       if (interval %in% c("prediction","both")) {
-        pred <- predict(object$mdl,newdf,interval="prediction")
-        lines(xvals,pred[,"upr"],col=col[i],lwd=1,lty=lty[j])
-        lines(xvals,pred[,"lwr"],col=col[i],lwd=1,lty=lty[j])
+        pred <- stats::predict(object$mdl,newdf,interval="prediction")
+        graphics::lines(xvals,pred[,"upr"],col=col[i],lwd=1,lty=lty[j])
+        graphics::lines(xvals,pred[,"lwr"],col=col[i],lwd=1,lty=lty[j])
       }        
     } # end for j
   } # end for i
@@ -260,8 +260,8 @@ fitPlot.IVR <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
     lpch <- rep(pch,times=num.f1)
     llty <- rep(lty,times=num.f1)
     ifelse(num.f2>1,levs<-levels(f1:f2),levs<-levels(f1))
-    if (plot.pts) legend(x=leg$x,y=leg$y,legend=levs,col=lcol,pch=lpch,lty=llty)
-    else legend(x=leg$x,y=leg$y,legend=levs,col=lcol,lty=llty)
+    if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,pch=lpch,lty=llty)
+    else graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,lty=llty)
   }
 }
 
@@ -284,10 +284,10 @@ fitPlot.ONEWAY <- function (object,
   # extract x and y variables
   response <- object$mf[,object$Rname]
   x.factor <- object$mf[,object$Ename[1]]
-  if (interval) lineplot.CI(x.factor,response,main=main,xlab=xlab,ylab=ylab,
+  if (interval) sciplot::lineplot.CI(x.factor,response,main=main,xlab=xlab,ylab=ylab,
                             type=type,pch=pch,lty=lty,col=col,legend=FALSE,
                             ci.fun=ci.fun,err.col=col.ci,err.lty=lty.ci,...)
-  else interaction.plot(x.factor,rep(1,length(response)),response,
+  else stats::interaction.plot(x.factor,rep(1,length(response)),response,
                         main=main,xlab=xlab,ylab=ylab,type=type,
                         pch=pch,lty=lty,col=col,legend=FALSE,...) 
 }
@@ -325,15 +325,16 @@ fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
     warning("A two-way ANOVA result is to be plotted but only one color was supplied.  Default colors were used.",call.=FALSE)
     col <- chooseColors("default",ngrps)
   }
-  if (interval) lineplot.CI(x.factor,response,group,main=main,xlab=xlab,ylab=ylab,
+  if (interval) sciplot::lineplot.CI(x.factor,response,group,main=main,xlab=xlab,ylab=ylab,
                             type=type,pch=pch[1:ngrps],lty=lty[1:ngrps],col=col[1:ngrps],
                             legend=FALSE,ci.fun=ci.fun,err.lty=lty.ci,...)
-  else interaction.plot(x.factor,group,response,main=main,xlab=xlab,ylab=ylab,
+  else stats::interaction.plot(x.factor,group,response,main=main,xlab=xlab,ylab=ylab,
                         type=type,pch=pch[1:ngrps],lty=lty[1:ngrps],col=col[1:ngrps],
                         legend=FALSE,...) 
   if(ngrps>1) {
     leg <- iLegendHelp(legend)
-    legend(leg$x,leg$y,legend=levels(group),pch=pch[1:ngrps],lty=1:ngrps,col=col,cex=cex.leg,box.lty=box.lty.leg)
+    graphics::legend(leg$x,leg$y,legend=levels(group),pch=pch[1:ngrps],
+                     lty=1:ngrps,col=col,cex=cex.leg,box.lty=box.lty.leg)
   }
 }
 
@@ -345,7 +346,7 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
                         legend=FALSE,legend.lbls=c("Group 1","Group 2"),
                         ylab=names(mdl$model)[1],xlab=names(mdl$model)[xpos],main="", ...) {
   # add the model option to the NLS object so that data can be extracted
-  mdl <- update(object,model=TRUE)
+  mdl <- stats::update(object,model=TRUE)
   # finds number of variables in the model
   numvars <- length(names(mdl$model))
   if (missing(d)) { d <- mdl$data }
@@ -378,35 +379,35 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
     # change name of x to name of x in model so that predict will work
     names(fitx) <- names(mdl$model)[xpos]
     # data.frame of x values and predicted y values from model
-    fits <- data.frame(x=fitx,y=predict(mdl,fitx))
+    fits <- data.frame(x=fitx,y=stats::predict(mdl,fitx))
     names(fits) <- c("x","y")
     # find limit for y-axis
     if (is.null(ylim)) ylim <- range(c(y,fits$y))
     if (jittered) x <- jitter(x)    
-    if (plot.pts) plot(x,y,pch=pch[1],col=col.pt[1],ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
-      else plot(x,y,type="n",ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
-    lines(fits$x,fits$y,lwd=lwd[1],lty=lty[1],col=col.mdl[1])
+    if (plot.pts) graphics::plot(x,y,pch=pch[1],col=col.pt[1],ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
+      else graphics::plot(x,y,type="n",ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
+    graphics::lines(fits$x,fits$y,lwd=lwd[1],lty=lty[1],col=col.mdl[1])
   } else {
     explg1 <- data.frame(x=fitx,g1=rep(1,length(fitx)),g2=rep(0,length(fitx)))
     explg2 <- data.frame(x=fitx,g1=rep(0,length(fitx)),g2=rep(1,length(fitx)))
     names(explg1) <- names(explg2) <- names(mdl$model)[c(xpos,gpos[1],gpos[2])]
-    fitsg1 <- data.frame(x=fitx,y=predict(mdl,explg1))
-    fitsg2 <- data.frame(x=fitx,y=predict(mdl,explg2))
+    fitsg1 <- data.frame(x=fitx,y=stats::predict(mdl,explg1))
+    fitsg2 <- data.frame(x=fitx,y=stats::predict(mdl,explg2))
     names(fitsg1) <- names(fitsg2) <- c("x","y")
     # find limit for y-axis
     if (is.null(ylim)) ylim <- range(c(y,fitsg1$y,fitsg2$y))
     if (jittered) x <- jitter(x)
-    plot(x,y,type="n",ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
+    graphics::plot(x,y,type="n",ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
     if (plot.pts) {
-      points(x[g1==1],y[g1==1],pch=pch[1],col=col.pt[1])
-      points(x[g2==1],y[g2==1],pch=pch[2],col=col.pt[2])
+      graphics::points(x[g1==1],y[g1==1],pch=pch[1],col=col.pt[1])
+      graphics::points(x[g2==1],y[g2==1],pch=pch[2],col=col.pt[2])
     }
-    lines(fitsg1$x,fitsg1$y,lwd=lwd[1],lty=lty[1],col=col.mdl[1])
-    lines(fitsg2$x,fitsg2$y,lwd=lwd[2],lty=lty[2],col=col.mdl[2])
+    graphics::lines(fitsg1$x,fitsg1$y,lwd=lwd[1],lty=lty[1],col=col.mdl[1])
+    graphics::lines(fitsg2$x,fitsg2$y,lwd=lwd[2],lty=lty[2],col=col.mdl[2])
     leg <- iLegendHelp(legend)
     if (leg$do.legend) {
-      if (plot.pts) legend(x=leg$x,y=leg$y,legend=legend.lbls,col=col.pt,pch=pch,lty=lty)
-        else legend(x=leg$x,y=leg$y,legend=legend.lbls,col=col.mdl,lty=lty)
+      if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=legend.lbls,col=col.pt,pch=pch,lty=lty)
+        else graphics::legend(x=leg$x,y=leg$y,legend=legend.lbls,col=col.mdl,lty=lty)
     }
   }
 } 
@@ -432,7 +433,7 @@ fitPlot.logreg <- function(object,xlab=names(object$model)[2],ylab=names(object$
               main=main,xlim=xlim,...)
   nd <- data.frame(seq(min(xlim),max(xlim),length.out=mdl.vals))
   names(nd) <- names(object$model)[2]
-  lines(nd[,1],predict(object,nd,type="response"),col=col.mdl,lwd=lwd,lty=lty)
+  graphics::lines(nd[,1],stats::predict(object,nd,type="response"),col=col.mdl,lwd=lwd,lty=lty)
 }
 
 
@@ -440,7 +441,7 @@ fitPlot.logreg <- function(object,xlab=names(object$model)[2],ylab=names(object$
 ### internal functions used in fitPlot
 ##################################################################
 iCIfp1 <- function(x,conf.level) {
-  t <- qt((1-conf.level)/2,validn(x)-1)
+  t <- stats::qt((1-conf.level)/2,validn(x)-1)
   c(mean(x)-t*se(x),mean(x)+t*se(x))
 }
 

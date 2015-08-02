@@ -188,7 +188,7 @@ addZeroCatch <- function(df,eventvar,specvar,zerovar,na.rm=TRUE) {
 
     }
     ## remove NAs in specvar if they exist
-    if (na.rm) df <- df[complete.cases(df[,specvar]),]
+    if (na.rm) df <- df[stats::complete.cases(df[,specvar]),]
     ## puts the order of the variables back to the original order
     df[,dfnames]
   }

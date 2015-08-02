@@ -135,7 +135,7 @@
 #' @rdname ageBias
 #' @export
 ageBias <- function(formula,data,ref.lab=tmp$Enames,nref.lab=tmp$Rname,
-                    method=p.adjust.methods,sig.level=0.05,min.n.CI=3) {
+                    method=stats::p.adjust.methods,sig.level=0.05,min.n.CI=3) {
   ## Perform some checks on the formula
   tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
   if (!tmp$metExpNumR) stop("'ageBias' must have only one LHS variable.",call.=FALSE)
@@ -156,10 +156,10 @@ ageBias <- function(formula,data,ref.lab=tmp$Enames,nref.lab=tmp$Rname,
   # turn off warnings for not using factor data (turn back on below)
   options(warn=-1)
   # Summary stats of cdata by ages of rdata
-  bias.df <- iAgeBiasDF(Summarize(as.formula(paste(nref.name,"~",ref.name)),data=d),
+  bias.df <- iAgeBiasDF(Summarize(stats::as.formula(paste(nref.name,"~",ref.name)),data=d),
                         ref.name,FALSE,min.n.CI,sig.level)
   # Summary stats of diff by cdata
-  bias2.df <- iAgeBiasDF(Summarize(as.formula(paste("diff~",ref.name)),data=d),
+  bias2.df <- iAgeBiasDF(Summarize(stats::as.formula(paste("diff~",ref.name)),data=d),
                          ref.name,TRUE,min.n.CI,sig.level)
   options(warn=0)
   
@@ -254,14 +254,14 @@ iAgeBiasDF <- function(tmp,cname,diff,min.n.CI,sig.level) {
   if (!diff) tmp$t[canCI] <- (tmp$mean[canCI]-x[canCI])/tmp$SE[canCI]
   else tmp$t[canCI] <- tmp$mean[canCI]/tmp$SE[canCI]
   # two-tailed p-value (adjusted for multiple comparisons)
-  tmp$p.value <- pt(abs(tmp$t),df=tmp$n-1,lower.tail=FALSE)*2
-  tmp$adj.p <- round(p.adjust(tmp$p.value,method=p.adjust.methods),5)
+  tmp$p.value <- stats::pt(abs(tmp$t),df=tmp$n-1,lower.tail=FALSE)*2
+  tmp$adj.p <- round(stats::p.adjust(tmp$p.value,method=stats::p.adjust.methods),5)
   # Assign significant difference (fill with FALSE then change to TRUE if sig)
   tmp$sig <- rep(FALSE,nrow(tmp))
   tmp$sig[tmp$adj.p<sig.level] <- TRUE
   # CIs
-  tmp$LCI[canCI] <- tmp$mean[canCI]+qt(sig.level/2,tmp$n[canCI]-1)*tmp$SE[canCI]
-  tmp$UCI[canCI] <- tmp$mean[canCI]+qt(sig.level/2,tmp$n[canCI]-1,lower.tail=FALSE)*tmp$SE[canCI]
+  tmp$LCI[canCI] <- tmp$mean[canCI]+stats::qt(sig.level/2,tmp$n[canCI]-1)*tmp$SE[canCI]
+  tmp$UCI[canCI] <- tmp$mean[canCI]+stats::qt(sig.level/2,tmp$n[canCI]-1,lower.tail=FALSE)*tmp$SE[canCI]
   # put together as a dataframe
   tmpdf <- data.frame(age=x,n=tmp$n,min=tmp$min,max=tmp$max,mean=tmp$mean,SE=tmp$SE,
                       t=tmp$t,adj.p=tmp$adj.p,sig=tmp$sig,
@@ -303,7 +303,7 @@ iBowkers <- function(obj) {
   # Count number of chi-sq parts
   df <- sum(as.numeric(!is.na(rat)))
   # Find the p-value 
-  p <- pchisq(chi.sq,df,lower.tail=FALSE)
+  p <- stats::pchisq(chi.sq,df,lower.tail=FALSE)
   # Return dataframe
   data.frame(symTest="Bowkers",df=df,chi.sq=chi.sq,p=p)
 } ## End internal Bowker's Test function
@@ -330,7 +330,7 @@ iMcNemars <- function(obj,cont.cor) {
   chi.sq <- top/bot
   df <- 1
   # Find the p-value 
-  p <- pchisq(chi.sq,df,lower.tail=FALSE)
+  p <- stats::pchisq(chi.sq,df,lower.tail=FALSE)
   # Return list
   data.frame(symTest=title,df=df,chi.sq=chi.sq,p=p)
 } ## End internal McNemar's Test function
@@ -363,7 +363,7 @@ iEvansHoenig <- function(obj) {
   df <- length(rat)
   # sum the chi-square parts to get a full chi-square value
   chi.sq <- sum(rat)
-  p <- pchisq(chi.sq,df,lower.tail=FALSE)
+  p <- stats::pchisq(chi.sq,df,lower.tail=FALSE)
   # Return data.frame
   data.frame(symTest="EvansHoenig",df=df,chi.sq=chi.sq,p=p)
 } ## End internal Evans Hoenig's Test function
@@ -381,7 +381,7 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
                          show.range=FALSE,col.range="gray",lwd.range=lwd,
                          col.agree="black",lwd.agree=lwd,lty.agree=2,
                          cex.numbers=0.9,
-                         xlim=NULL,ylim=NULL,yaxt=par("yaxt"),xaxt=par("xaxt"),...) {
+                         xlim=NULL,ylim=NULL,yaxt=graphics::par("yaxt"),xaxt=graphics::par("xaxt"),...) {
   what <- match.arg(what)
   switch(what,
          bias={ iAgeBiasPlot(x,difference,
@@ -415,19 +415,19 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,cex.n,
   # Control the axis limits (especially if none are given)
   axlmts <- iabAxisLmts(d,xlim,ylim,difference,show.range,show.pts)  
   # Plot more tick marks    
-  par(lab=c(length(d[,1]),length(d$mean),7))    
+  graphics::par(lab=c(length(d[,1]),length(d$mean),7))    
   # Set base plot with Mean of 2nd vs. 1st age range
-  plot(d$mean~d[,1],xlim=axlmts$xlim,ylim=axlmts$ylim,xlab=xlab,ylab=ylab,
+  graphics::plot(d$mean~d[,1],xlim=axlmts$xlim,ylim=axlmts$ylim,xlab=xlab,ylab=ylab,
        col="white",yaxt="n",...)
   # Helps keep y-axis as integers (needed for difference plot)
-  if (yaxt!="n") {axis(2,seq(axlmts$ylim[1],axlmts$ylim[2],1))}
+  if (yaxt!="n") {graphics::axis(2,seq(axlmts$ylim[1],axlmts$ylim[2],1))}
   # agreement line -- horizontal for difference and 45 degree for bias plot
-  if (difference) abline(h=0,lwd=lwd.agree,lty=lty.agree,col=col.agree)
-  else abline(a=0,b=1,lwd=lwd.agree,lty=lty.agree,col=col.agree)
+  if (difference) graphics::abline(h=0,lwd=lwd.agree,lty=lty.agree,col=col.agree)
+  else graphics::abline(a=0,b=1,lwd=lwd.agree,lty=lty.agree,col=col.agree)
   # add individual points if asked for
   if (show.pts) {
-    if (difference) points(obj$d[,2],obj$d[,3],col=col.pts,pch=pch.pts)
-    else points(obj$d[,2],obj$d[,1],col=col.pts,pch=pch.pts)
+    if (difference) graphics::points(obj$d[,2],obj$d[,3],col=col.pts,pch=pch.pts)
+    else graphics::points(obj$d[,2],obj$d[,1],col=col.pts,pch=pch.pts)
   }
   # add range of individual points if asked for
   if (show.range) {
@@ -440,16 +440,16 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,cex.n,
   if (any(d$sig)) {
     plotrix::plotCI(x=d[,1][d$sig],y=d$mean[d$sig],li=d$LCI[d$sig],ui=d$UCI[d$sig],
                     add=TRUE,slty=1,scol=col.CIsig,pch=pch.mean,lwd=lwd.CI,gap=0,sfrac=sfrac)
-    points(x=d[,1][d$sig],y=d$mean[d$sig],pch=pch.mean,cex=cex.mean,col=col.CIsig)
+    graphics::points(x=d[,1][d$sig],y=d$mean[d$sig],pch=pch.mean,cex=cex.mean,col=col.CIsig)
   }
   #  for ages that are not significantly different
   if (any(!d$sig)) {
     plotrix::plotCI(x=d[,1][!d$sig],y=d$mean[!d$sig],li=d$LCI[!d$sig],ui=d$UCI[!d$sig],
                     add=TRUE,slty=1,scol=col.CI,pch=pch.mean,lwd=lwd.CI,gap=0,sfrac=sfrac)
-    points(x=d[,1][!d$sig],y=d$mean[!d$sig],pch=pch.mean,cex=cex.mean)
+    graphics::points(x=d[,1][!d$sig],y=d$mean[!d$sig],pch=pch.mean,cex=cex.mean)
   }
   # show the sample sizes at the top
-  if (show.n) text(d[,1],grconvertY(nYpos,"npc"),d$n,cex=cex.n,xpd=TRUE)
+  if (show.n) graphics::text(d[,1],grconvertY(nYpos,"npc"),d$n,cex=cex.n,xpd=TRUE)
 }
 
 #=============================================================
@@ -469,14 +469,14 @@ iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,
   # sent obj$bias so that axes would match the other plots
   axlmts <- iabAxisLmts(obj$bias,xlim,ylim,difference=FALSE,show.range=FALSE,show.pts=TRUE,show.CIs=FALSE)  
   # make an empty plot
-  plot(d[,2],d[,1],type="n",xlab=xlab,ylab=ylab,xlim=axlmts$xlim,ylim=axlmts$ylim,yaxt="n",xaxt="n",...)
+  graphics::plot(d[,2],d[,1],type="n",xlab=xlab,ylab=ylab,xlim=axlmts$xlim,ylim=axlmts$ylim,yaxt="n",xaxt="n",...)
   # Helps keep axes as integers
-  if (yaxt!="n") {axis(2,seq(axlmts$ylim[1],axlmts$ylim[2],1))}
-  if (xaxt!="n") {axis(1,seq(axlmts$xlim[1],axlmts$xlim[2],1))}
+  if (yaxt!="n") {graphics::axis(2,seq(axlmts$ylim[1],axlmts$ylim[2],1))}
+  if (xaxt!="n") {graphics::axis(1,seq(axlmts$xlim[1],axlmts$xlim[2],1))}
   # add the one-to-one line
-  lines(axlmts$xlim,axlmts$xlim,lwd=lwd.agree,lty=lty.agree,col=col.agree)
+  graphics::lines(axlmts$xlim,axlmts$xlim,lwd=lwd.agree,lty=lty.agree,col=col.agree)
   # add the numbers at each point
-  text(d[,2],d[,1],labels=d[,3],cex=cex.numbers)
+  graphics::text(d[,2],d[,1],labels=d[,3],cex=cex.numbers)
 }
 
 #=============================================================
@@ -488,12 +488,12 @@ iAgeBiasSunflowerPlot <- function(obj,difference,xlab,ylab,xlim,ylim,
   ifelse(difference,y <- obj$d[,3],y <- obj$d[,1])
   if (is.null(ylim)) ylim <- range(y)
   if (is.null(xlim)) xlim <- range(x)
-  sunflowerplot(x,y,seg.col="blue",size=1/10,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,yaxt="n",...)
+  graphics::sunflowerplot(x,y,seg.col="blue",size=1/10,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,yaxt="n",...)
   # Helps keep y-axis as integers
-  if (yaxt!="n") {axis(2,seq(ylim[1],ylim[2],1))}
+  if (yaxt!="n") {graphics::axis(2,seq(ylim[1],ylim[2],1))}
   # agreement line -- horizontal for difference and 45 degree for bias plot
-  if (difference) abline(h=0,lwd=lwd.agree,lty=lty.agree,col=col.agree)
-  else abline(a=0,b=1,lwd=lwd.agree,lty=lty.agree,col=col.agree)
+  if (difference) graphics::abline(h=0,lwd=lwd.agree,lty=lty.agree,col=col.agree)
+  else graphics::abline(a=0,b=1,lwd=lwd.agree,lty=lty.agree,col=col.agree)
 }
 
 
@@ -632,7 +632,7 @@ iabAxisLmts <- function(d,xlim,ylim,difference,show.range,show.pts,show.CIs=TRUE
 agePrecision <- function(formula,data) {
   # change formula to have only a RHS
   tmp <- as.character(formula)[-1]
-  formula <- as.formula(paste("~",paste(tmp,collapse="+")))
+  formula <- stats::as.formula(paste("~",paste(tmp,collapse="+")))
   tmp <- iHndlFormula(formula,data)
   
   if (!tmp$Etype=="numeric") stop("All variables must be numeric.",call.=FALSE)

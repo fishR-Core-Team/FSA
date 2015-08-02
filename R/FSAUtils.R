@@ -110,20 +110,20 @@ chooseColors <- function(pal=paletteChoices(),num,...) {
   pal <- match.arg(pal)
   if (!num>0) stop("'num' must be positive.",call.=FALSE)
   ## Generate jet and grey colors
-  jet.colors <- colorRampPalette(c("#00007F", "blue", "#007FFF", "cyan","#7FFF7F", 
-                                   "yellow", "#FF7F00", "red", "#7F0000"))
-  grey.colors <- colorRampPalette(c("grey20","grey80"))
+  jet.colors <- grDevices::colorRampPalette(c("#00007F", "blue", "#007FFF", "cyan",
+                                              "#7FFF7F","yellow", "#FF7F00", "red", "#7F0000"))
+  grey.colors <- grDevices::colorRampPalette(c("grey20","grey80"))
   ## Get the colors according to the palette
   switch(pal,
-         rich={clrs <- rich.colors(num,...)},
-         cm={clrs <- cm.colors(num,...)},
+         rich={clrs <- gplots::rich.colors(num,...)},
+         cm={clrs <- grDevices::cm.colors(num,...)},
          default={clrs <- 1:num},
          gray=,grey={clrs <- grey.colors(num)},
-         heat={clrs <- heat.colors(num,...)},
+         heat={clrs <- grDevices::heat.colors(num,...)},
          jet={clrs <- jet.colors(num)},
-         rainbow={clrs <- rainbow(num,...)},
-         topo={clrs <- topo.colors(num,...)},
-         terrain={clrs <- terrain.colors(num,...)}
+         rainbow={clrs <- grDevices::rainbow(num,...)},
+         topo={clrs <- grDevices::topo.colors(num,...)},
+         terrain={clrs <- grDevices::terrain.colors(num,...)}
   )
   clrs
 }
@@ -353,9 +353,9 @@ hoCoef <- function(object,term=2,bo=0,alt=c("two.sided","less","greater")) {
   t <- (est-bo)/se
   df <- object$df.residual
   switch(alt,
-         less=     { p.value <- pt(t,df,lower.tail=TRUE) },
-         greater=  { p.value <- pt(t,df,lower.tail=FALSE) },
-         two.sided={ p.value <- 2*pt(abs(t),df,lower.tail=FALSE) }
+         less=     { p.value <- stats::pt(t,df,lower.tail=TRUE) },
+         greater=  { p.value <- stats::pt(t,df,lower.tail=FALSE) },
+         two.sided={ p.value <- 2*stats::pt(abs(t),df,lower.tail=FALSE) }
   )
   res <- cbind(term,bo,est,se,t,df,p.value)
   colnames(res) <- c("term","Ho Value","Estimate","Std. Error","T","df","p value")
@@ -698,8 +698,8 @@ iChkCumSum <- function(x) {
 se <- function (x,na.rm=TRUE) {
   if (!is.vector(x)) stop("'x' must be a vector.",call.=FALSE)
   if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
-  if (na.rm) x <- x[complete.cases(x)]
-  sqrt(var(x)/length(x))
+  if (na.rm) x <- x[stats::complete.cases(x)]
+  sqrt(stats::var(x)/length(x))
 }
 
 

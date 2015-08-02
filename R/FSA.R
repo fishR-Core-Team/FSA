@@ -19,17 +19,4 @@
 #' 
 #' @name FSA
 #' 
-#' @importFrom car bootCase outlierTest
-#' @importFrom dplyr filter
-#' @importFrom gdata drop.levels
-#' @importFrom gplots rich.colors
-#' @importFrom Hmisc binconf
-#' @importFrom knitr purl
-#' @importFrom lmtest lrtest
-#' @importFrom multcomp cld
-#' @importFrom plotrix plotCI stackpoly thigmophobe
-#' @importFrom relax gslider
-#' @importFrom sciplot lineplot.CI
-#' @importFrom stats ks.test
-#' @importFrom graphics hist
 NULL

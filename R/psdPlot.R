@@ -115,17 +115,17 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
   ## make an initial histogram to get the breaks and counts
   min.brk <- min(c(data[,cl],brks),na.rm=TRUE)
   max.brk <- max(data[,cl],na.rm=TRUE)+w
-  h <- hist(data[,cl],right=FALSE,breaks=seq(min.brk,max.brk,w),plot=FALSE)
+  h <- graphics::hist(data[,cl],right=FALSE,breaks=seq(min.brk,max.brk,w),plot=FALSE)
   ## Create xlim values if none were given
   if (is.null(xlim)) xlim=range(h$breaks)
   ## Create colors for the bars
   clr <- ifelse(h$breaks<brks["stock"],substock.col,stock.col)
   ## Plot the histogram with the new colors
-  plot(h,col=clr,xlim=xlim,ylim=ylim,main=main,xlab=xlab,ylab=ylab,...)
-  box()
+  graphics::plot(h,col=clr,xlim=xlim,ylim=ylim,main=main,xlab=xlab,ylab=ylab,...)
+  graphics::box()
   ## add psd category lines
-  abline(v=brks[-1],col=psd.col,lty=psd.lty,lwd=psd.lwd)
-  if (show.abbrevs) axis(3,at=brks[-1],labels=toupper(substring(names(brks)[-1],1,1)))
+  graphics::abline(v=brks[-1],col=psd.col,lty=psd.lty,lwd=psd.lwd)
+  if (show.abbrevs) graphics::axis(3,at=brks[-1],labels=toupper(substring(names(brks)[-1],1,1)))
   ## add PSD calculations
   if (psd.add) iAddPSDLeg(formula,data,cl,brks,species,units,psd.pos,psd.cex)
 }
@@ -140,5 +140,5 @@ iAddPSDLeg <- function(formula,data,cl,brks,species,units,psd.pos,psd.cex) {
   n.stock <- nrow(Subset(data,data[,cl]>brks["stock"]))
   # put it all together
   psdleg <- paste(c("n","n[stock]",rownames(psds)),"=",formatC(c(n,n.stock,psds[,"Estimate"]),format="f",digits=0))
-  legend(psd.pos,psdleg,cex=psd.cex,box.col="white",bg="white",inset=0.002)
+  graphics::legend(psd.pos,psdleg,cex=psd.cex,box.col="white",bg="white",inset=0.002)
 }

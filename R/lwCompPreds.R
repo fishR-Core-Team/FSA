@@ -97,7 +97,8 @@ lwCompPreds <- function(object,lens=NULL,qlens=c(0.05,0.25,0.5,0.75,0.95),qlens.
   if (base<=0) stop("'base' must be a positive number.",call.=FALSE)
   ## check and extract information from the formula
   formula <- 
-  tmp <- iHndlFormula(formula(object),model.frame(object),expNumR=1,expNumE=2,expNumENums=1,expNumEFacts=1)
+  tmp <- iHndlFormula(stats::formula(object),stats::model.frame(object),
+                      expNumR=1,expNumE=2,expNumENums=1,expNumEFacts=1)
   if (!tmp$metExpNumR) stop("'object' formula must have only one variable on LHS.",call.=FALSE)
   if (!tmp$metExpNumE) stop("'object' formula must have two and only two variables on RHS.",call.=FALSE)
   if (!tmp$metExpNumENums) stop("'object' formula must have one and only one numeric variable on RHS.",call.=FALSE)
@@ -112,14 +113,14 @@ lwCompPreds <- function(object,lens=NULL,qlens=c(0.05,0.25,0.5,0.75,0.95),qlens.
 
   if (is.null(lens)) {
     # if no lens are provided then use provided quantile probabilities
-    lens <- round(quantile(base^(mf[,tmp$ENumPos]+center.value),qlens),qlens.dec)
+    lens <- round(stats::quantile(base^(mf[,tmp$ENumPos]+center.value),qlens),qlens.dec)
     # must unname the lens when quartiles are used to remove later warning
     lens <- unname(lens)
   }
   # number of plots to construct
   num <- length(lens)
   # reset par so as to make nice plots
-  opar <- par(mfrow=c(rows,cols))
+  opar <- graphics::par(mfrow=c(rows,cols))
   # cycle through the lengths
   for (i in 1:length(lens)) {
     # find results for each length
@@ -128,7 +129,7 @@ lwCompPreds <- function(object,lens=NULL,qlens=c(0.05,0.25,0.5,0.75,0.95),qlens.
     iPlotLWPred(res,grps,ylim,xlab,ylab,paste(main.pre,lens[i],sep=""),
                 cex.main,lwd,connect.preds,col.connect,interval,show.preds,yaxs)
   }
-  par(opar)
+  graphics::par(opar)
 }
 
 
@@ -139,12 +140,12 @@ iMakeLWPred <- function(object,lens,grps,vn,interval,center.value,base) {
   colnames(nd) <- vn
   if (interval=="both" | interval=="prediction") { #  If PI is asked for ...
     #  Predict (with PI) wt and put in a data frame
-    resp <- data.frame(base^(predict(object,nd,interval="prediction")))
+    resp <- data.frame(base^(stats::predict(object,nd,interval="prediction")))
     colnames(resp) <- c("pred","LPI","UPI")    
   }
   if (interval=="both" | interval=="confidence") { #  If CI is asked for ...
     #  Predict (with CI) wt and put in a data frame
-    resc <- data.frame(base^(predict(object,nd,interval="confidence")))
+    resc <- data.frame(base^(stats::predict(object,nd,interval="confidence")))
     colnames(resc) <- c("pred","LCI","UCI")    
   }
   #  Combine prediction, PI, and CI for wt into a results data.frame
@@ -163,19 +164,19 @@ iPlotLWPred <- function(res,grps,ylim,xlab,ylab,main,cex.main,lwd,connect.preds,
   #   find y-axis range if none was provided
   if (is.null(ylim)) ylim=range(res)
   # create a base plot
-  plot(0,xlab=xlab,ylab=ylab,col="white",xlim=c(0.5,x.num+0.5),ylim=ylim,xaxt="n",yaxs=yaxs)
-  mtext(main,cex=cex.main)
+  graphics::plot(0,xlab=xlab,ylab=ylab,col="white",xlim=c(0.5,x.num+0.5),ylim=ylim,xaxt="n",yaxs=yaxs)
+  graphics::mtext(main,cex=cex.main)
   #   label the axis with the group labels
-  axis(1,at=1:x.num,labels=grps)
+  graphics::axis(1,at=1:x.num,labels=grps)
   if (interval=="confidence") {# if just confidence, plot in lwd black line
-    with(res,plotCI(1:x.num,pred,ui=UCI,li=LCI,add=TRUE,pch=ifelse(show.preds,16,"."),lwd=lwd))
+    with(res,plotrix::plotCI(1:x.num,pred,ui=UCI,li=LCI,add=TRUE,pch=ifelse(show.preds,16,"."),lwd=lwd))
   } else if (interval=="prediction") {# if just prediction, plot in lwd black line
-    with(res,plotCI(1:x.num,pred,ui=UPI,li=LPI,add=TRUE,pch=ifelse(show.preds,16,"."),lwd=lwd))
+    with(res,plotrix::plotCI(1:x.num,pred,ui=UPI,li=LPI,add=TRUE,pch=ifelse(show.preds,16,"."),lwd=lwd))
   } else if (interval=="both") { # if both make PI thinner and blue
-    with(res,plotCI(1:x.num,pred,ui=UCI,li=LCI,add=TRUE,pch=ifelse(show.preds,16,"."),lwd=lwd))
-    with(res,plotCI(1:x.num,pred,ui=UPI,li=LPI,add=TRUE,pch=ifelse(show.preds,16,"."),lwd=ifelse(lwd>1,lwd-1,1),scol="blue"))
+    with(res,plotrix::plotCI(1:x.num,pred,ui=UCI,li=LCI,add=TRUE,pch=ifelse(show.preds,16,"."),lwd=lwd))
+    with(res,plotrix::plotCI(1:x.num,pred,ui=UPI,li=LPI,add=TRUE,pch=ifelse(show.preds,16,"."),lwd=ifelse(lwd>1,lwd-1,1),scol="blue"))
   }
   # connect the means if desired
-  if (connect.preds) lines(1:x.num,res$pred,lty=1,lwd=lwd,col=col.connect)
+  if (connect.preds) graphics::lines(1:x.num,res$pred,lty=1,lwd=lwd,col=col.connect)
 } # End of internal iPlotLWPred
 

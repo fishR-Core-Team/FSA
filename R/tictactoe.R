@@ -64,25 +64,27 @@ tictactoe <- function(predobj=c(30,70),preyobj=c(30,70),predlab="Predator PSD",p
                       obj.col="black",obj.trans=0.2,bnd.col="black",bnd.lwd=1,bnd.lty=2) {
   if (length(predobj)!=2) stop("Values for predator target objective must contain two numbers.\n",call.=FALSE)
   if (length(preyobj)!=2) stop("Values for prey target objective must contain two numbers.\n",call.=FALSE)
-  plot(NULL,xlim=c(0,100),ylim=c(0,100),xlab=predlab,ylab=preylab,xaxt="n",yaxt="n")
-  axis(1,seq(0,100,10))
-  axis(2,seq(0,100,10))
+  graphics::plot(NULL,xlim=c(0,100),ylim=c(0,100),xlab=predlab,ylab=preylab,xaxt="n",yaxt="n")
+  graphics::axis(1,seq(0,100,10))
+  graphics::axis(2,seq(0,100,10))
   ## Add the shaded objective regions
-  xmin <- ifelse(par("xaxs")=="r",-10,0)
-  xmax <- ifelse(par("xaxs")=="r",110,100)
-  ymin <- ifelse(par("yaxs")=="r",-10,0)
-  ymax <- ifelse(par("yaxs")=="r",110,100)
+  xmin <- ifelse(graphics::par("xaxs")=="r",-10,0)
+  xmax <- ifelse(graphics::par("xaxs")=="r",110,100)
+  ymin <- ifelse(graphics::par("yaxs")=="r",-10,0)
+  ymax <- ifelse(graphics::par("yaxs")=="r",110,100)
   if (!is.null(obj.col)) {
     x1 <- predobj[1]
     x2 <- predobj[2]
     y1 <- preyobj[1]
     y2 <- preyobj[2]
-    polygon(c(x1,x1,x2,x2,x1),c(ymin,ymax,ymax,ymin,ymin),col=iMakeColor(obj.col,1/obj.trans),border=NA)
-    polygon(c(xmin,xmax,xmax,xmin,xmin),c(y1,y1,y2,y2,y1),col=iMakeColor(obj.col,1/obj.trans),border=NA)
+    graphics::polygon(c(x1,x1,x2,x2,x1),c(ymin,ymax,ymax,ymin,ymin),
+                      col=iMakeColor(obj.col,1/obj.trans),border=NA)
+    graphics::polygon(c(xmin,xmax,xmax,xmin,xmin),c(y1,y1,y2,y2,y1),
+                      col=iMakeColor(obj.col,1/obj.trans),border=NA)
   }
   ## add borders to objective regions
   for (i in 1:2) {
-    lines(x=c(predobj[i],predobj[i]),y=c(ymin,ymax),col=bnd.col,lwd=bnd.lwd,lty=bnd.lty)
-    lines(x=c(xmin,xmax),y=c(preyobj[i],preyobj[i]),col=bnd.col,lwd=bnd.lwd,lty=bnd.lty)
+    graphics::lines(x=c(predobj[i],predobj[i]),y=c(ymin,ymax),col=bnd.col,lwd=bnd.lwd,lty=bnd.lty)
+    graphics::lines(x=c(xmin,xmax),y=c(preyobj[i],preyobj[i]),col=bnd.col,lwd=bnd.lwd,lty=bnd.lty)
   }
 }

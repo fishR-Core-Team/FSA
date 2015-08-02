@@ -159,7 +159,7 @@ iPSDCImultinom <- function(indvec,ptbl,n,conf.level) {
     ## get critical chi-square value
     # get number of non-zero values in ptbl for df
     df <- length(ptbl[ptbl>0])-1
-    cv <- sqrt(qchisq(conf.level,df))
+    cv <- sqrt(stats::qchisq(conf.level,df))
     ## put together
     res <- c(psd,psd + c(-1,1)*cv*se)
     ## replace negative numbers with 0, values >1 with 1

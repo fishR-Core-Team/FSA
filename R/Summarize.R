@@ -116,7 +116,7 @@ Summarize.default <- function(object,digits=getOption("digits"),
 Summarize.formula <- function(object,data=NULL,digits=getOption("digits"),percent=c("row","column","total","none"),percdigs=2,addtotal=TRUE,na.rm=TRUE,exclude="",...) {
    percent <- match.arg(percent)
    # get model frame
-   mf <- model.frame(object,data=data)
+   mf <- stats::model.frame(object,data=data)
    # start processing
    # handle case of simple formula with one variable first
    if (dim(mf)[2]==1) { Summarize(mf[,1],digits=digits,percent=ifelse(percent=="none",FALSE,TRUE),percdigs=percdigs,addtotal=addtotal,na.rm=na.rm,exclude=exclude,...) }
@@ -137,7 +137,7 @@ iSummarizeQ1 <- function(object,digits,na.rm,...) {
   n <- length(object)
   zrs <- length(object[object==0])
   mean <- mean(object,na.rm=na.rm,...)
-  sd <- sd(object,na.rm=na.rm,...)
+  sd <- stats::sd(object,na.rm=na.rm,...)
   s <- summary(object,na.rm=na.rm,...)[c("Min.","1st Qu.","Median","3rd Qu.","Max.")]   
   # count NAs and valid n if na.rm==FALSE
   if (!na.rm) {
@@ -175,7 +175,7 @@ iSummarizeC1 <- function(object,addtotal,percent,percdigs,exclude,...) {
     }
   }
   # Adds a total of each column to table
-  if (addtotal) res <- addmargins(res,margin=1,FUN=list(Total=sum),quiet=TRUE)
+  if (addtotal) res <- stats::addmargins(res,margin=1,FUN=list(Total=sum),quiet=TRUE)
   res                                                                            
 }
 
@@ -248,7 +248,7 @@ iSummarizeCf <- function(object,mf,percent,percdigs,addtotal,exclude,...) {
   if (addtotal) {
     if(percent %in% c("total","none")) mrgn <- 1:2
     else mrgn <- c(2,1)[which(percent==c("row","column"))]
-    res <- addmargins(res,margin=mrgn,FUN=list(Total=sum),quiet=TRUE)
+    res <- stats::addmargins(res,margin=mrgn,FUN=list(Total=sum),quiet=TRUE)
   }
   if (percent!="none") res <- formatC(res,digits=percdigs,format="f")                                                                            
   res

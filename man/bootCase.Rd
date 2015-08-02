@@ -94,7 +94,7 @@ fnx <- function(days,B1,B2,B3) {
 }
 nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,start=list(B1=6,B2=7.2,B3=-1.45))
 if (require(car)) {    # for bootCase()
-  nl1.boot <- bootCase(nl1,B=99)  # B=99 too small to be useful
+  nl1.boot <- car::bootCase(nl1,B=99)  # B=99 too small to be useful
   confint(nl1.boot,"B1")
   confint(nl1.boot,c(2,3))
   confint(nl1.boot,conf.level=0.90)

@@ -16,14 +16,17 @@ Imports:
     dplyr,
     gdata,
     gplots,
+    graphics,
+    grDevices,
     Hmisc,
     knitr,
     lmtest,
-    multcomp,
     plotrix,
     plyr,
     relax,
-    sciplot
+    sciplot,
+    stats,
+    tools
 Suggests:
     fishmethods,
     FSAdata,

@@ -144,7 +144,7 @@ iVBStarts.LinfK <- function(age,len,type) {
   meanL <- tapply(len,age,mean)
   ns <- tapply(len,age,length)
   ## fit Walford plot regression
-  cfs <- coef(lm(meanL[-1]~meanL[-length(meanL)]))
+  cfs <- stats::coef(stats::lm(meanL[-1]~meanL[-length(meanL)]))
   ## find starting values from Walford plot regression coefficients
   sLinf <- cfs[[1]]/(1-cfs[[2]])
   sK <- -log(cfs[[2]])
@@ -191,13 +191,13 @@ iVBStarts.0 <- function(age,len,type,meth0) {
   ## find values depending on method
   if(meth0=="poly") {
     # fit polynomial regression
-    respoly <- lm(meanL~poly(ages,2,raw=TRUE))
+    respoly <- stats::lm(meanL~stats::poly(ages,2,raw=TRUE))
     # get real component of roots to polynomial equation
-    resroots <- Re(polyroot(coef(respoly)))
+    resroots <- Re(polyroot(stats::coef(respoly)))
     # find starting value for t0 as polynomial root closest to zero
     st0 <- resroots[which(abs(resroots)==min(abs(resroots)))]
     # find starting value for L0 as predicted value from polynomial at age=0
-    sL0 <- predict(respoly,data.frame(ages=0))
+    sL0 <- stats::predict(respoly,data.frame(ages=0))
     # this removes the attributes and will return only the first
     # root if a "double root" was found
     st0 <- st0[[1]]
@@ -242,12 +242,12 @@ iVBStarts.Ls <- function(age,len,type,methEV,ages2use) {
   ## Find mean lengths at ages2use
   if (methEV=="poly") {
     # fit polynomial regression
-    respoly <- lm(meanL~poly(ages,2))
+    respoly <- stats::lm(meanL~stats::poly(ages,2))
     # predict length at ages2use
-    vals <- predict(respoly,data.frame(ages=ages2use))
+    vals <- stats::predict(respoly,data.frame(ages=ages2use))
   } else {
     # fit an interpolating functions
-    meanFnx <- approxfun(ages,meanL)
+    meanFnx <- stats::approxfun(ages,meanL)
     # find ages from that function
     vals <- meanFnx(ages2use)
   }
@@ -342,16 +342,18 @@ iVBStartsPlot <- function(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl,cex.m
   # maximum number at any length and age combination or 0.1
   clr <- rgb(0,0,0,max(2/max(table(age,len)),0.1))
   # Make the base plot
-  plot(age,len,pch=19,col=clr,xlab="Age",ylab="Length",main=ttl,cex.main=cex.main)
+  graphics::plot(age,len,pch=19,col=clr,xlab="Age",ylab="Length",main=ttl,cex.main=cex.main)
   ## Plot the model
   mdl <- vbFuns(type)
   min.age <- min(age,na.rm=TRUE)
   max.age <- max(age,na.rm=TRUE)
   if (!type %in% c("Schnute","Francis")) {
-    curve(mdl(x,unlist(sv)),from=min.age,to=max.age,col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
+    graphics::curve(mdl(x,unlist(sv)),from=min.age,to=max.age,
+                    col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
   } else {
     # Schnute/Francis requires t1 argument
-    curve(mdl(x,unlist(sv),t1=ages2use),from=min.age,to=max.age,col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
+    graphics::curve(mdl(x,unlist(sv),t1=ages2use),from=min.age,to=max.age,
+                    col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
   }
 }
 
@@ -456,10 +458,10 @@ iVBDynPlot <- function(age,len,type,p1,p2,p3,ages2use) {
   ## the model type and param
   y <- iVBDynPlot_makeL(x,type,p1,p2,p3,ages2use)
   ## Construct the scatterplot with superimposed model
-  opar <- par(mar=c(3.5,3.5,1.25,1.25), mgp=c(2,0.4,0), tcl=-0.2, pch=19)
-  plot(age,len,xlab="Age",ylab="Mean Length")
-  lines(x,y,lwd=2,lty=1,col="blue")
-  par(opar)
+  opar <- graphics::par(mar=c(3.5,3.5,1.25,1.25), mgp=c(2,0.4,0), tcl=-0.2, pch=19)
+  graphics::plot(age,len,xlab="Age",ylab="Mean Length")
+  graphics::lines(x,y,lwd=2,lty=1,col="blue")
+  graphics::par(opar)
 }
 
 #=============================================================

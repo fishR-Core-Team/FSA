@@ -93,12 +93,12 @@ plotBinResp.default <- function(x,y,
   # adjust for maximum allowable transparency
   if (transparency>500) transparency <- 500
   # plot raw data points
-  plot(yn~x,pch=16,col=iMakeColor(col.pt,transparency),yaxt="n",xlab=xlab,ylab=ylab,...)
+  graphics::plot(yn~x,pch=16,col=iMakeColor(col.pt,transparency),yaxt="n",xlab=xlab,ylab=ylab,...)
   # puts on ticks
-  axis(2,yaxis1.ticks,FALSE,cex.axis=par()$cex.axis)
+  graphics::axis(2,yaxis1.ticks,FALSE,cex.axis=graphics::par()$cex.axis)
   # only label a few
-  axis(2,yaxis1.lbls,cex.axis=par()$cex.axis)
-  if (yaxis2.show) axis(4,c(0,1),levels(y))
+  graphics::axis(2,yaxis1.lbls,cex.axis=graphics::par()$cex.axis)
+  if (yaxis2.show) graphics::axis(4,c(0,1),levels(y))
   # plot proportions points
   if (plot.p) {
     if (is.null(breaks)) {
@@ -117,14 +117,14 @@ plotBinResp.default <- function(x,y,
       xs <- as.numeric(names(p.i))
       xs <- xs + min(diff(xs))/2
     }
-    points(p.i~xs,pch=p.pch,col=p.col,cex=p.cex)
+    graphics::points(p.i~xs,pch=p.pch,col=p.col,cex=p.cex)
   }
 }
 
 #' @rdname plotBinResp
 #' @export
 plotBinResp.formula <- function(x,data=NULL,xlab=names(mf)[2],ylab=names(mf)[1],...) {
-  mf <- model.frame(x,data)
+  mf <- stats::model.frame(x,data)
   x <- mf[,2]
   y <- mf[,1]
   plotBinResp.default(x,y,xlab=xlab,ylab=ylab,...)

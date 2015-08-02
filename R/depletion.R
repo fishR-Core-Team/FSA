@@ -138,7 +138,7 @@ iLeslie <- function(catch,effort,Ricker.mod) {
   ifelse(!Ricker.mod,K <- cumsum(catch)-catch,K <- cumsum(catch)-(catch/2))
   n <- length(catch)
   # main regression
-  lm1 <- lm(cpe~K)
+  lm1 <- stats::lm(cpe~K)
   tmp <- summary(lm1)
   # extract results for calculations
   s <- tmp$sigma
@@ -147,7 +147,7 @@ iLeslie <- function(catch,effort,Ricker.mod) {
   N0 <- tmp$coef[1,"Estimate"]/q
   # This is Seber (2002) variance equation on page 298 where
   #    (Seber's symbol listed first) sigma=s, K=q, s=n, N=N0, and x=K
-  ss.K <- var(K)*(n-1)
+  ss.K <- stats::var(K)*(n-1)
   N0.SE <- s/q*sqrt(1/n + ((N0-mean(K))^2)/ss.K)    
   # Create matrix of parameter estimates
   mres <- cbind(c(N0,q),c(N0.SE,q.SE))
@@ -168,7 +168,7 @@ iDeLury <- function(catch,effort,Ricker.mod) {
   ifelse(!Ricker.mod,E <- cumsum(effort)-effort,E <- cumsum(effort)-(effort/2))
   n <- length(effort)
   # main regression
-  lm1 <- lm(log(cpe)~E)
+  lm1 <- stats::lm(log(cpe)~E)
   tmp <- summary(lm1)
   # extract results for caculations
   s <- tmp$sigma
@@ -177,7 +177,7 @@ iDeLury <- function(catch,effort,Ricker.mod) {
   N0 <- exp(tmp$coef[1,"Estimate"])/q
   # This is Seber (2002) variance equation on page 303 where
   #    (Seber's symbol listed first) sigma=s, k=q, s=n, N=N0, and x=E
-  ss.E <- var(E)*(n-1)
+  ss.E <- stats::var(E)*(n-1)
   N0.SE <- s*N0*sqrt(1/n + (((q*mean(E)-1)/q)^2)*(1/ss.E))  
   # Create matrix of parameter estimates
   mres <- cbind(c(N0,q),c(N0.SE,q.SE))
@@ -193,9 +193,9 @@ iDeLury <- function(catch,effort,Ricker.mod) {
 # INTERNAL function for compute the Leslie estimates
 ##############################################################
 iCheckRegSig <- function(tmp) {
-  tmp.slope <- coef(tmp)[2]
+  tmp.slope <- stats::coef(tmp)[2]
   if (tmp.slope>0) warning("Estimates are suspect as model did not exhibit a negative slope.",call.=FALSE)
-  tmp.slope.p <- anova(tmp)[1,"Pr(>F)"]
+  tmp.slope.p <- stats::anova(tmp)[1,"Pr(>F)"]
   if (tmp.slope.p>0.05 & tmp.slope<0) warning("Estimates are suspect as model did not exhibit a significantly (p>0.05) negative slope.", call.=FALSE)
 }
 
@@ -214,7 +214,7 @@ summary.depletion <- function(object,type=c("params","lm"),verbose=FALSE,
 coef.depletion <- function(object,type=c("params","lm"),
                            digits=getOption("digits"),...) {
   type <- match.arg(type)
-  if(type=="lm") coef(object$lm,...)
+  if(type=="lm") stats::coef(object$lm,...)
     else t(round(object$est[,"Estimate"],digits))
 }
 
@@ -225,11 +225,11 @@ confint.depletion <- function(object,parm=c("No","q","lm"),
                               digits=getOption("digits"),...) {
   parm <- match.arg(parm,several.ok=TRUE)
   ## only print lm confidence intervals if that is the only parm chosen
-  if (length(parm)==1 & "lm" %in% parm) confint(object$lm,level=conf.level)
+  if (length(parm)==1 & "lm" %in% parm) stats::confint(object$lm,level=conf.level)
   else {
     # remove "lm" if in parm with q or No
     parm <- parm[-which(parm=="lm")]
-    t <- c(-1,1)*qt(1-(1-conf.level)/2,summary(object$lm)$df[2])
+    t <- c(-1,1)*stats::qt(1-(1-conf.level)/2,summary(object$lm)$df[2])
     tmp <- summary(object,parm="params")
     t <- matrix(rep(t,nrow(tmp)),nrow=nrow(tmp),byrow=TRUE)
     res <- tmp[,"Estimate"]+t*tmp[,"Std. Err."]
@@ -242,7 +242,7 @@ confint.depletion <- function(object,parm=c("No","q","lm"),
 #' @rdname depletion
 #' @export
 anova.depletion <- function(object,...) {
-  anova(object$lm,...)
+  stats::anova(object$lm,...)
 }
 
 #' @rdname depletion
@@ -255,17 +255,17 @@ plot.depletion <- function(x,xlab=NULL,ylab=NULL,
   if (x$method=="Leslie") {
     if (is.null(xlab)) xlab <- "Cumulative Catch"
     if (is.null(ylab)) ylab <- "CPE"
-    plot(x$K,x$cpe,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,...)
+    graphics::plot(x$K,x$cpe,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,...)
   } else {
     if (is.null(xlab)) xlab <- "Cumulative Effort"
     if (is.null(ylab)) ylab <- "log(CPE)"
-    plot(x$E,log(x$cpe),pch=pch,col=col.pt,xlab=xlab,ylab=ylab,...)
+    graphics::plot(x$E,log(x$cpe),pch=pch,col=col.pt,xlab=xlab,ylab=ylab,...)
   }
   # add best-fit line
-  abline(x$lm,col=col.mdl,lwd=lwd,lty=lty)
+  graphics::abline(x$lm,col=col.mdl,lwd=lwd,lty=lty)
   # add values to plot
   if (!is.null(pos.est)) {
-    legend(pos.est,legend=paste("No=",round(x$est["No","Estimate"],0),
+    graphics::legend(pos.est,legend=paste("No=",round(x$est["No","Estimate"],0),
                                 "\nq=",round(x$est["q","Estimate"],4),sep=""),
            cex=cex.est,bty="n")
   }

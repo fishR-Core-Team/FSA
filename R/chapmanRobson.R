@@ -186,7 +186,7 @@ summary.chapmanRobson <- function(object,verbose=FALSE,...) {
 #' @export
 confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),level=conf.level,conf.level=0.95,...) {
   parm <- match.arg(parm)
-  z <- c(-1,1)*qnorm((1-(1-conf.level)/2))
+  z <- c(-1,1)*stats::qnorm((1-(1-conf.level)/2))
   # compute S results
   Sres <- rbind(S=object$est["S","Estimate"]+z*object$est["S","Std. Error"])
   # compute Z results
@@ -203,28 +203,29 @@ confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),level=conf
 #' @export
 plot.chapmanRobson <- function(x,pos.est="topright",cex.est=0.95,ylab="Catch",xlab="Age",col.pt="gray30",...) {
   # Need to make area below x-axis larger to hold re-coded ages scale
-  opar <- npar <- par("mar")
+  opar <- npar <- graphics::par("mar")
   npar[1] <- 6
-  par(mar=npar)
+  graphics::par(mar=npar)
   # Find range for y-axis
   yrng <- c(min(0,min(x$catch)),max(x$catch))
   # Plot raw data
-  plot(x$catch~x$age,col=col.pt,xlab="",ylab=ylab,ylim=yrng,xaxt="n",...)
+  graphics::plot(x$catch~x$age,col=col.pt,xlab="",ylab=ylab,ylim=yrng,xaxt="n",...)
   # Highlight descending limb portion
-  points(x$age.e,x$catch.e,col=col.pt,pch=19)
+  graphics::points(x$age.e,x$catch.e,col=col.pt,pch=19)
   # Put age (original) axis on plot
-  axis(1,at=x$age,labels=x$age,line=0)
-  mtext(xlab,side=1,line=1.5)
+  graphics::axis(1,at=x$age,labels=x$age,line=0)
+  graphics::mtext(xlab,side=1,line=1.5)
   # Put recoded age axis on plot
-  axis(1,at=x$age.e,labels=x$age.r,line=3)
-  mtext(paste("Recoded",xlab),side=1,line=4.5)
+  graphics::axis(1,at=x$age.e,labels=x$age.r,line=3)
+  graphics::mtext(paste("Recoded",xlab),side=1,line=4.5)
   # Put mortality values on plot
   if (!is.null(pos.est)) {
     Z <- x$est["Z","Estimate"]
     S <- x$est["S","Estimate"]
-    legend(pos.est,legend=paste("Z=",round(Z,3),"\nS=",round(S,1),"%",sep=""),bty="n",cex=cex.est)
+    graphics::legend(pos.est,legend=paste("Z=",round(Z,3),"\nS=",round(S,1),"%",sep=""),
+                     bty="n",cex=cex.est)
   }
-  par(mar=opar)
+  graphics::par(mar=opar)
 }
 
 ##############################################################

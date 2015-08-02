@@ -96,7 +96,7 @@ alkPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
   pal <- match.arg(pal)
   key <- iCheckALK(key)
   ## construct the plots (all internal functions)
-  op <- par(mar=c(3.25,3.25,0.7,0.7),mgp=c(1.7,0.5,0),tcl=-0.2)
+  op <- graphics::par(mar=c(3.25,3.25,0.7,0.7),mgp=c(1.7,0.5,0),tcl=-0.2)
   switch(type,
          area=    { iALKPlotArea(key,xlab,ylab,showLegend,leg.cex,pal) },
          barplot= { iALKPlotBar(key,xlab,ylab,lbl.cex,showLegend,leg.cex,pal,...) },
@@ -105,8 +105,8 @@ alkPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
          splines= { iALKPlotSplines(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,pal,showLegend,leg.cex,...) }
   )
   ## return to original graphing parameters
-  layout(1)
-  par(op)
+  graphics::layout(1)
+  graphics::par(op)
 }
 
 
@@ -126,19 +126,19 @@ iFindAgesAndLens <- function(key) {
 ## INTERNAL -- Add a legend
 ##############################################################
 iAddLegend <- function(alsum,leg.cex,col){
-  layout(matrix(c(1,2),nrow=2),heights=c(1,14))
-  tmp <- par("mar")
-  op <- par(mar=c(0.1,1.5*tmp[2],0.1,4*tmp[4]))
-  barplot(matrix(1,nrow=alsum$num.ages,ncol=1),col=col,horiz=TRUE,xaxt="n")
-  text(c(1,alsum$num.ages)-0.5,c(0.75,0.75),range(alsum$ages),col=c("white","black"),cex=leg.cex) 
-  par(op)
+  graphics::layout(matrix(c(1,2),nrow=2),heights=c(1,14))
+  tmp <- graphics::par("mar")
+  op <- graphics::par(mar=c(0.1,1.5*tmp[2],0.1,4*tmp[4]))
+  graphics::barplot(matrix(1,nrow=alsum$num.ages,ncol=1),col=col,horiz=TRUE,xaxt="n")
+  graphics::text(c(1,alsum$num.ages)-0.5,c(0.75,0.75),range(alsum$ages),col=c("white","black"),cex=leg.cex) 
+  graphics::par(op)
 }
 
 ##############################################################
 ## INTERNAL -- Add age labels to lines in line and spline plots
 ##############################################################
 iLinesAddLabelsToLines <- function(maxvals,lbl.cex) {
-  text(maxvals[,1],maxvals[,2],maxvals[,3],cex=lbl.cex)
+  graphics::text(maxvals[,1],maxvals[,2],maxvals[,3],cex=lbl.cex)
 }
 
 
@@ -154,7 +154,7 @@ iALKPlotArea <- function(key,xlab,ylab,showLegend,leg.cex,pal) {
   col <- chooseColors(pal,alsum$num.ages)
   if (showLegend) iAddLegend(alsum,leg.cex,col)
   plotrix::stackpoly(key,stack=TRUE,col=col,axis4=FALSE,xlab=xlab,ylab=ylab,xaxt="n",xat=0)
-  axis(1,1:alsum$num.lens,alsum$lens)
+  graphics::axis(1,1:alsum$num.lens,alsum$lens)
 }  
 
 ##############################################################
@@ -166,16 +166,16 @@ iALKPlotArea <- function(key,xlab,ylab,showLegend,leg.cex,pal) {
 iBarplotAddLabelsToBars <- function(key,alsum,lbl.cex,col,...) {
   # Make colors for the age labels inside the bars (dark on light, light on dark)
   age.clr <- rep("black",alsum$num.ages)
-  age.clr[which(colMeans(col2rgb(col))<120)] <- "white"
+  age.clr[which(colMeans(grDevices::col2rgb(col))<120)] <- "white"
   # Add the age labels inside the bars    
   for (i in 1:alsum$num.lens) {
     if (!all(is.na(key[i,]))) { # don't put labels if length is all NA
       j <- 1
-      if(key[i,j]>0) text(i-0.5,key[i,j]/2,alsum$ages[j],col=age.clr[j],cex=lbl.cex)
+      if(key[i,j]>0) graphics::text(i-0.5,key[i,j]/2,alsum$ages[j],col=age.clr[j],cex=lbl.cex)
       prv <- key[i,j]
       while(prv<1 & j<alsum$num.ages) {
         j <- j+1
-        if(key[i,j]>0) text(i-0.5,prv+key[i,j]/2,alsum$ages[j],col=age.clr[j],cex=lbl.cex)
+        if(key[i,j]>0) graphics::text(i-0.5,prv+key[i,j]/2,alsum$ages[j],col=age.clr[j],cex=lbl.cex)
         prv <- prv+key[i,j]
       }
     }
@@ -186,7 +186,7 @@ iALKPlotBar <- function(key,xlab,ylab,lbl.cex,showLegend,leg.cex,pal,...) {
   alsum <- iFindAgesAndLens(key)
   col <- chooseColors(pal,alsum$num.ages)
   if (showLegend) iAddLegend(alsum,leg.cex,col)
-  barplot(t(key),space=0,col=col,xlab=xlab,ylab=ylab,...)
+  graphics::barplot(t(key),space=0,col=col,xlab=xlab,ylab=ylab,...)
   if (!showLegend) iBarplotAddLabelsToBars(key,alsum,lbl.cex,col)
 }
 
@@ -199,10 +199,10 @@ iALKPlotLines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,pal,showLegend,leg
   if (showLegend) iAddLegend(alsum,leg.cex,col)
   if (is.null(xlim)) xlim <- range(alsum$lens)
   if (is.null(ylim)) ylim <- c(0,1)
-  plot(NA,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...)
+  graphics::plot(NA,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...)
   maxvals <- matrix(NA,nrow=alsum$num.ages,ncol=3)
   for(i in 1:alsum$num.ages) {
-    lines(alsum$lens,key[,i],col=col[i],lwd=lwd)
+    graphics::lines(alsum$lens,key[,i],col=col[i],lwd=lwd)
     tmp <- min(which(key[,i]==max(key[,i],na.rm=TRUE)))
     maxvals[i,] <- c(alsum$lens[tmp],key[tmp,i],alsum$ages[i])
   }
@@ -218,17 +218,17 @@ iALKPlotSplines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,pal,showLeg
   if (showLegend) iAddLegend(alsum,leg.cex,col)
   if (is.null(xlim)) xlim <- range(alsum$lens)
   if (is.null(ylim)) ylim <- c(0,1)
-  plot(NA,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...)
+  graphics::plot(NA,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...)
   plens <- seq(min(alsum$lens),max(alsum$lens),0.1)
   maxvals <- matrix(NA,nrow=alsum$num.ages,ncol=3)
   lens <- alsum$lens  # needed for making predictions below    
   for(i in 1:alsum$num.ages) {
     tmp <- key[,i]
     options(warn=-1)
-    tmp <- loess(tmp~lens,span=span)
+    tmp <- stats::loess(tmp~lens,span=span)
     options(warn=0)
-    pprob <- predict(tmp,data.frame(lens=plens))
-    lines(plens,pprob,col=col[i],lwd=lwd)
+    pprob <- stats::predict(tmp,data.frame(lens=plens))
+    graphics::lines(plens,pprob,col=col[i],lwd=lwd)
     tmp <- min(which(pprob==max(pprob)))
     maxvals[i,] <- c(plens[tmp],pprob[tmp],alsum$ages[i])
   }
@@ -253,8 +253,8 @@ iBubbleUnmatKey <- function(key,alsum) {
 ## ===========================================================
 iBubbleFindIn <- function(alsum,buf) {
   # find "inches" between concurrent values on the X,Y user scales
-  tmpX <- grconvertX(alsum$lens[1:2],"user","inches")
-  tmpY <- grconvertY(alsum$ages[1:2],"user","inches")
+  tmpX <- graphics::grconvertX(alsum$lens[1:2],"user","inches")
+  tmpY <- graphics::grconvertY(alsum$ages[1:2],"user","inches")
   # find minimum diff in X,Y inches per 1 concurrent set of values of user scale * the buffer
   min(diff(tmpX),diff(tmpY))*buf
 }
@@ -279,10 +279,10 @@ iALKPlotBubble <- function(key,xlab,ylab,xlim,ylim,grid,buf,col,add,...) {
     # not adding to an existing bubble plot, so make the base plot
     if (is.null(xlim)) xlim <- range(alsum$lens)+c(-1,1)*buf
     if (is.null(ylim)) ylim <- range(alsum$ages)+c(-1,1)*buf
-    plot(NA,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...)
+    graphics::plot(NA,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,...)
     if (!is.null(grid)) {
-      abline(h=alsum$ages,col=grid,lty=2)
-      abline(v=alsum$lens,col=grid,lty=2)
+      graphics::abline(h=alsum$ages,col=grid,lty=2)
+      graphics::abline(v=alsum$lens,col=grid,lty=2)
     }
   }
   iBubblesAdd(key,alsum,buf,col)
