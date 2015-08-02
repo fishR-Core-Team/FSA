@@ -38,7 +38,7 @@
 #'
 #' @seealso See \code{\link{kruskal.test}} and \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test}, \code{\link[PMCMR]{posthoc.kruskal.nemenyi.test}} in \pkg{PMCMR}, \code{\link[pgirmess]{kruskalmc}} in \pkg{pgirmess}, and \code{\link[agricolae]{kruskal}} in \pkg{agricolae}.
 #' 
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}, but learned a lot from \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test}.
+#' @author Derek H. Ogle, \email{dogle@@northland.edu}, but this is largely simple modifications (return result, two-sided p-values, and use of \code{\link[stats]{p.adjust}}) of \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test}.
 #'
 #' @references 
 #' Dunn, O.J. 1964. Multiple comparisons using rank sums. Technometrics 6:241-252.
@@ -117,7 +117,7 @@ dunnTest.default <- function(x,g,method=stats::p.adjust.methods[c(4,1:3,5:8)],..
   }
   # Compute unadjusted p-values (note that 2* is different than in dunn.test)
   P <- 2*stats::pnorm(abs(Z),lower.tail=FALSE)
-  # compute adjusted p-values
+  # compute adjusted p-values (note that this is different than in dunn.test)
   P.adjust <- stats::p.adjust(P,method=method)
   # return a list
   tmp <- list(method=Name,res=data.frame(Comparison=lbls,Z=Z,P.unadj=P,P.adj=P.adjust))

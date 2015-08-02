@@ -81,7 +81,7 @@ dunnTest(pH~pond,data=ponds,method="BH")
 dunnTest(pH~pond,data=ponds,method="none")
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}, but learned a lot from \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test}.
+Derek H. Ogle, \email{dogle@northland.edu}, but this is largely simple modifications (return result, two-sided p-values, and use of \code{\link[stats]{p.adjust}}) of \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test}.
 }
 \references{
 Dunn, O.J. 1964. Multiple comparisons using rank sums. Technometrics 6:241-252.
