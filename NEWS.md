@@ -1,4 +1,6 @@
 # FSA 0.7.5 ongoing
+* `BluegillLM`:  Removed.  Moved to `FSAdata`.
+* `gReshape()`: Removed.  Moved to `FSAmisc`.
 
 # FSA 0.7.4 Aug15
 * `binCI()`: Modified.  Check for`Hmisc` with `requireNamespaces()` before processing body of function.  This allowed moving `Hmisc` into `Suggests` declarations rather than `Imports`.

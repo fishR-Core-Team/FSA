@@ -15,22 +15,6 @@ test_that("gConvert() messages",{
   expect_error(gConvert(SMBassWB,in.pre="derek"),"No variables start with")
 })
 
-test_that("gReshape() messages",{
-  ## No in.pre= 
-  expect_error(gReshape(SMBassWB),"You must have a prefix string")
-  ## Variable does not exist
-  expect_error(gReshape(SMBassWB,in.pre="derek"),"No variables start with")
-  expect_error(gReshape(SMBassWB,in.pre="anu",last.plus="derek"),"'last.plus=' variable not found")
-})
-
-test_that("gReshape() output",{
-  ## Change "radcap" to "ttlanu" to make sure that it does not get treated with in.pre=
-  tmp <- SMBassWB
-  names(tmp)[which(names(tmp)=="radcap")] <- "ttlanu"
-  tmp <- gReshape(tmp,in.pre="anu")
-  expect_true(any(names(tmp)=="ttlanu"))
-})
-
 test_that("addRadCap() messages",{
   ## Neither or both of in.var= or in.pre= 
   expect_error(addRadCap(SMBassWB),"must use one of")
