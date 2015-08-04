@@ -4,7 +4,7 @@
 \alias{addRadCap}
 \title{Add a total radius-at-capture variable to a data frame that contains one-fish-per-line increments data.}
 \usage{
-addRadCap(df, in.pre = "inc", in.var, var.name = "radcap")
+addRadCap(df, in.pre = NULL, in.var = NULL, var.name = "radcap")
 }
 \arguments{
 \item{df}{A data frame that contains the growth increment data in one-fish-per-line (i.e., \dQuote{wide}) format.}
@@ -31,7 +31,7 @@ data(SMBassWB)
 head(SMBassWB)
 
 # convert radial measurements to increments
-SMBi1 <- gConvert(SMBassWB,in.pre="anu",type="inc")
+SMBi1 <- gConvert(SMBassWB,in.pre="anu",out.type="inc")
 head(SMBi1)
 
 # add the radius-at-capture measurement
@@ -42,7 +42,7 @@ head(SMBi1a)
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-\code{\link{gConvert}} and \code{\link{gReshape}}
+See \code{\link{gConvert}} for related functionality.
 }
 \keyword{manip}
 

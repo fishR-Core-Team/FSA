@@ -1,6 +1,9 @@
 # FSA 0.7.5 ongoing
-* `BluegillLM`:  Removed.  Moved to `FSAdata`.
+* `addRadCap()`: Modified.  Streamlined code.  Changed default `in.pre=` to `NULL` (from `inc`).  Added some tests for returned data.
+* `BluegillLM`: Removed.  Moved to `FSAdata`.
+* `gConvert()`: Modified.  Streamlined code.  Changed `type=` to `out.type=`.  Changed default `in.pre=` and `in.var=` to `NULL` (from missing).  Changed code to handle changes in `in.pre=` and `in.var=`.  Added some tests for returned data.
 * `gReshape()`: Removed.  Moved to `FSAmisc`.
+
 
 # FSA 0.7.4 Aug15
 * `binCI()`: Modified.  Check for`Hmisc` with `requireNamespaces()` before processing body of function.  This allowed moving `Hmisc` into `Suggests` declarations rather than `Imports`.
