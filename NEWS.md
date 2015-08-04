@@ -1,4 +1,6 @@
-# FSA 0.7.5 ongoing
+# FSA 0.7.6 ongoing
+
+# FSA 0.7.5 Aug15
 * `addRadCap()`: Modified.  Streamlined code.  Changed default `in.pre=` to `NULL` (from `inc`).  Added some tests for returned data.
 * `BluegillLM`: Removed.  Moved to `FSAdata`.
 * `gConvert()`: Modified.  Streamlined code.  Changed `type=` to `out.type=`.  Changed default `in.pre=` and `in.var=` to `NULL` (from missing).  Changed code to handle changes in `in.pre=` and `in.var=`.  Added some tests for returned data.

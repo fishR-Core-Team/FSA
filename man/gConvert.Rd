@@ -2,50 +2,57 @@
 % Please edit documentation in R/growthDataUtils.R
 \name{gConvert}
 \alias{gConvert}
-\title{Converts between growth measurement data types.}
+\title{Converts between types of measurements from calcified structures.}
 \usage{
 gConvert(df, in.pre = NULL, in.var = NULL, out.type = c("inc", "rad"),
   out.pre = out.type)
 }
 \arguments{
-\item{df}{A data frame that contain the growth measurement data in one-fish-per-line format.}
+\item{df}{A data.frame that contains the growth measurement data in wide or one-fish-per-line format.}
 
-\item{in.pre}{A string that indicates the prefix for all variable names that contain the growth measurement data in the input data frame.  See details.}
+\item{in.pre}{A string that indicates the prefix for all variable names in the input data frame that contain the measurements from the calcified structures.  See details.}
 
-\item{in.var}{A vector of column numbers or variable names that contain the growth measurement data in the input data frame.  See details.}
+\item{in.var}{A vector of column numbers or variable names in the input data frame that contain the measurements from the calcified structures.  See details.}
 
-\item{out.type}{A string that identifies the output format data type (i.e., the format to convert to).  If \code{"inc} (the default) the output data frame will be incremental measurements.  If \code{"rad} the output data frame will contain radial measurements.}
+\item{out.type}{A string that identifies the output format data type (i.e., the format to convert to).  If \code{"inc} (the default) the output data frame will be incremental measurements.  If \code{"rad} the output data frame will be radial measurements.}
 
 \item{out.pre}{A string that indicates the prefix to use for the newly computed measurements in the output data frame.  Defaults to the same string as \code{out.type}.}
 }
 \value{
-Returns a data frame with all columns, except for the \code{in.var} columns, from the input data frame retained as the left-most columns in the output data frame.  The original data in the \code{in.var} columns converted to data type \code{out.type} form the remaining columns in the output data frame and are labeled as described in the details.
+A data.frame with all columns, except for those defined by \code{in.pre} or \code{in.var}, from the \code{df} retained as the left-most columns and the original data in the \code{in.var} columns converted to the \code{out.type} type as the remaining columns.
 }
 \description{
-Converts one-fish-per-line format growth data from radial to incremental or incremental to radial measurements.
+Converts wide format growth data from radial to incremental or incremental to radial measurements.
 }
 \details{
-This function does NOT convert the data from one-fish-per-line to one-measurement-per-line format.  Furthermore, this function requires the data to be in one-fish-per-line format -- i.e., each lines contains all information and all of the growth measurements for an individual fish.
+The data must be in WIDE format where each row contains all information (including all measurements from the calcified structure) for an individual fish.  It is assumed that the input data.frame is of the opposite data type given in \code{out.type} (i.e., that a conversion is needed).  It does not check to see if this is true.
 
-This function assumes that the input data frame is of the opposite data type given in \code{out.type} (i.e., that a conversion is needed).  It does not check to see if this is true.
+The columns that contain the original measurement data can specified in a variety of ways.  First, if all columns begin with the same prefix (and no other columns contain that prefix), then the prefix string may be given to \code{in.pre=}.  Second, a sequence of column numbers may be given to \code{in.var=} with the \code{#:#} (if the columns are contiguous) or as a vector (if the columns are not contiguous).  Third, a vector of column names may be given to \code{in.var=}.  Note  that one, but not both, of \code{in.var=} or \code{in.pre=} must be specified by the user.
 
-The columns that contain the original measurement data can be entered in a variety of ways.  First, if all columns begin with the same prefix (and no other columns contain that prefix) then the prefix string can be entered into \code{in.pre=}.  Second, a general sequence of column numbers can be entered into \code{in.var=} with the \code{#:#} form (if the columns are contiguous) or as a concatenated vector form if the columns are not contiguous.  Third, a concatenated vector of column names can be entered into \code{in.var=}.  Note  that one of but not both of \code{in.var=} or \code{in.pre=} must be declared by the user.
-
-The newly computed data will be labeled with a prefix the same as \code{out.type=} (i.e., \code{"rad"} or \code{"inc"}) unless \code{out.pre=} is set by the user.  For example, if the data is convert to radial measurements then the output variables will be \dQuote{rad1}, \dQuote{rad2}, etc. unless \code{out.pre=} was changed from the default.  This function assumes that the measurements start with age-1.
+The newly computed data will be labeled with a prefix the same as \code{out.type=} (i.e., \code{"rad"} or \code{"inc"}) unless \code{out.pre=} is set by the user.  For example, if the data are converted to radial measurements, then the output variables will be \dQuote{rad1}, \dQuote{rad2}, etc. unless \code{out.pre=} was changed from the default.  This function assumes that the measurements start with age-1.
 }
 \examples{
+## Get data with radial measurements
 data(SMBassWB)
-head(SMBassWB)     # to see column names & some data
+headtail(SMBassWB)
+
+## Use in.pre= to convert to increments
 SMBi1 <- gConvert(SMBassWB,in.pre="anu",out.type="inc")
-head(SMBi1)
+headtail(SMBi1)
+
+## Use in.var= with column names to convert to increments
 SMBi2 <- gConvert(SMBassWB,in.var=c("anu1","anu2","anu3","anu4","anu5","anu6",
                                     "anu7","anu8","anu9","anu10","anu11","anu12"),
                            out.type="inc")
-head(SMBi2)
+headtail(SMBi2)
+
+## Use in.var with column numbers to convert to increments
 SMBi3 <- gConvert(SMBassWB,in.var=8:19,out.type="inc")
-head(SMBi3)
+headtail(SMBi3)
+
+## Convert back to radial measurements
 SMBr1 <- gConvert(SMBi1,in.pre="inc",out.type="rad")
-head(SMBr1)
+headtail(SMBr1)
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}

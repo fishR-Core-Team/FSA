@@ -2,41 +2,42 @@
 % Please edit documentation in R/growthDataUtils.R
 \name{addRadCap}
 \alias{addRadCap}
-\title{Add a total radius-at-capture variable to a data frame that contains one-fish-per-line increments data.}
+\title{Add a total radius-at-capture variable to a data.frame that contains one-fish-per-line increments data.}
 \usage{
 addRadCap(df, in.pre = NULL, in.var = NULL, var.name = "radcap")
 }
 \arguments{
-\item{df}{A data frame that contains the growth increment data in one-fish-per-line (i.e., \dQuote{wide}) format.}
+\item{df}{A data.frame that contains the growth increment data in one-fish-per-line (i.e., \dQuote{wide}) format.}
 
-\item{in.pre}{A string that represents the common part of the increment variable names.  Default is \code{"inc"}.  See details.}
+\item{in.pre}{A string that represents the common part of the increment variable names.  See details.}
 
-\item{in.var}{A vector of variables in \code{data} that do not change.  See details.}
+\item{in.var}{A vector of variables in \code{df} that do not change.  See details.}
 
-\item{var.name}{A string that indicates the name of the total radius-at-capture in the new data frame.}
+\item{var.name}{A string that indicates the name for the new total radius-at-capture variable in the new data.frame.}
 }
 \value{
-A data frame of increments in one-fish-per-line  (i.e., \dQuote{wide}) format with the total radius-at-capture appended in a variable named as given in \code{var.name} (defaults to \dQuote{radcap}).
+A data.frame of increments in one-fish-per-line  (i.e., \dQuote{wide}) format with the total radius-at-capture appended in a variable named as given in \code{var.name} (defaults to \dQuote{radcap}).
 }
 \description{
-Add a total radius-at-capture variable to a data frame that contains one-fish-per-line increments data (i.e., \dQuote{wide} format).
+Add a total radius-at-capture variable to a data.frame that contains one-fish-per-line increments data (i.e., \dQuote{wide} format).
 }
 \details{
-The columns that contains the original increment data can be entered in a variety of ways.  First, if all columns begin with the same prefix (and no other columns contain that prefix) then the prefix string can be entered into \code{in.pre}.  Second, a general sequence of column numbers can be entered into \code{in.var} with the \code{#:#} form (if the columns are contiguous) or as a concatenated vector if the columns are not contiguous.  Third, a concatenated vector of column names can be entered into \code{in.var}.  Note that one of but not both of \code{in.var} or \code{in.pre} must be declared by the user.
+#' The columns that contain the original measurement data can specified in a variety of ways.  First, if all columns begin with the same prefix (and no other columns contain that prefix), then the prefix string may be given to \code{in.pre=}.  Second, a sequence of column numbers may be given to \code{in.var=} with the \code{#:#} (if the columns are contiguous) or as a vector (if the columns are not contiguous).  Third, a vector of column names may be given to \code{in.var=}.  Note  that one, but not both, of \code{in.var=} or \code{in.pre=} must be specified by the user.
 
 Note that the computed total radius-at-capture will only be the actual total radius-at-capture if all growth, including plus-growth in the current season, is recorded in the input data frame.
 }
 \examples{
+## Get data with radial measurements
 data(SMBassWB)
-head(SMBassWB)
+headtail(SMBassWB)
 
-# convert radial measurements to increments
+## convert radial measurements to increments
 SMBi1 <- gConvert(SMBassWB,in.pre="anu",out.type="inc")
-head(SMBi1)
+headtail(SMBi1)
 
-# add the radius-at-capture measurement
+## add the radius-at-capture measurement
 SMBi1a <- addRadCap(SMBi1,in.pre="inc",var.name="radcap2")
-head(SMBi1a)
+headtail(SMBi1a)
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
