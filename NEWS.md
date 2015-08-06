@@ -1,13 +1,14 @@
-# FSA 0.7.6 ongoing
+# FSA 0.7.7 ongoing
+
+# FSA 0.7.6 Aug15
+* `Summarize()`: Modified. Converted to using `iHndlFormula()`.  Changed output for quantitative data (`validn` is always returned, `NAs` is never returned).  Changed output for two-way factor data (not returned as a character from `formatC()`).  Removed `...` from code in several places as it was buggy and not used.  Added more checks and modified check messages.  Fixed bug from when a 1-d matrix of characters was sent.  Added tests.
+* `sumTable()`: Modified.  Converted to using `iHndlFormula()`.  Added tests.
 
 # FSA 0.7.5 Aug15
 * `addRadCap()`: Modified.  Streamlined code.  Changed default `in.pre=` to `NULL` (from `inc`).  Added some tests for returned data.
 * `BluegillLM`: Removed.  Moved to `FSAdata`.
 * `gConvert()`: Modified.  Streamlined code.  Changed `type=` to `out.type=`.  Changed default `in.pre=` and `in.var=` to `NULL` (from missing).  Changed code to handle changes in `in.pre=` and `in.var=`.  Added some tests for returned data.
 * `gReshape()`: Removed.  Moved to `FSAmisc`.
-* `Summarize()`: Modified.  Converted to using `iHndlFormula()`.
-* `sumTable()`: Modified.  Converted to using `iHndlFormula()`.  Added tests.
-
 
 # FSA 0.7.4 Aug15
 * `binCI()`: Modified.  Check for`Hmisc` with `requireNamespaces()` before processing body of function.  This allowed moving `Hmisc` into `Suggests` declarations rather than `Imports`.
