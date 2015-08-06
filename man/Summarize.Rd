@@ -55,67 +55,62 @@ The \code{Summarize} function, when applied to a vector of quantitative data, pr
 Students often need to look at basic statistics of a quantitative variable separated for different levels of a categorical variable.  This type of analysis can be made with \code{tapply}, \code{by}, or \code{aggregate} (or a few other functions in other packages) but the use of these functions are not obvious to newbie students or return results in a format that is not obvious to newbie students.  Thus, the formula method to the \code{Summarize} generic function allows newbie students to use a common notation (i.e., formula) to easily compute summary statistics for a quantitative variable separated by the levels of a factor.
 }
 \examples{
-## Create a numeric vector
-y <- c(0,0,runif(98))
+## Create a numeric vector (with missing values)
+n <- 102
+y <- c(0,0,NA,NA,NA,runif(n-5))
+## Create a factor vector (with missing values)
+g1 <- factor(sample(c("A","B","C","NA"),n,replace=TRUE))
+## Create a factor vector with unknowns
+g2 <- factor(sample(c("male","female","UNKNOWN"),n,replace=TRUE))
+# Put into a data.frame (with some extra variables)
+d <- data.frame(dy=y,dg1=g1,dg2=g2,
+                dw=sample(1:3,n,replace=TRUE),
+                dv=sample(1:3,n,replace=TRUE))
 
-# typical output of summary()
+# typical output of summary() for a numeric variable
 summary(y)
 
 # this function
 Summarize(y)
-
-# this function, but controlling the number of digits
-Summarize(y,digits=3)
+Summarize(~dy,data=d)
+Summarize(dy~1,data=d)
+# control the number of digits
+Summarize(~dy,data=d,digits=3)
 
 ## Factor vector (excluding "NA"s in second call)
-x <- factor(sample(c("A","B","C","NA"),100,replace=TRUE))
-Summarize(x)
-Summarize(x,exclude="NA")
+Summarize(~dg1,data=d)
+Summarize(~dg1,data=d,exclude="NA")
 
 ## Factor vector with UNKNOWNs
-z <- factor(sample(c("male","female","UNKNOWN"),100,replace=TRUE))
-Summarize(z)
-Summarize(z,exclude="UNKNOWN")
+Summarize(~dg2,data=d)
+Summarize(~dg2,data=d,exclude="UNKNOWN")
 
 ## Numeric vector by levels of a factor variable
-Summarize(y~x,digits=3)
-Summarize(y~x,digits=3,exclude="NA")
-Summarize(y~z,digits=3)
-Summarize(y~z,digits=3,exclude="UNKNOWN")
-
-#### Using the data= argument
-## create a data.frame with two extra quantitative variables
-w <- sample(1:3,100,replace=TRUE)
-v <- sample(1:3,100,replace=TRUE)
-df <- data.frame(y,w,v,x,z)
-
-## Single variables using formula notation
-Summarize(y~1,data=df,digits=3)
-Summarize(x~1,data=df,exclude="NA")
-
-## Summarize quantitative by one or two factor variables
-Summarize(y~z,data=df,digits=3,exclude="UNKNOWN")
-Summarize(y~x*z,data=df,digits=3)
-Summarize(y~x*z,data=df,digits=3,exclude="NA")
-Summarize(y~x*z,data=df,digits=3,exclude=c("NA","UNKNOWN"))
+Summarize(dy~dg1,data=d,digits=3)
+Summarize(dy~dg1,data=d,digits=3,exclude="NA")
+Summarize(dy~dg2,data=d,digits=3)
+Summarize(dy~dg2,data=d,digits=3,exclude="UNKNOWN")
 
 ## What happens if RHS of formula is not a factor
-Summarize(y~w,data=df)
-Summarize(y~w*v,data=df)
+Summarize(dy~dw,data=d)
+Summarize(y~dw*dv,data=d)
 
 ## Summarize factor variable by a factor variable
-Summarize(x~z,data=df)
-Summarize(x~z,data=df,exclude="NA")
-Summarize(x~z,data=df,exclude=c("NA","UNKNOWN"))
+Summarize(dg1~dg2,data=d)
+Summarize(dg1~dg2,data=d,exclude="NA")
+Summarize(dg1~dg2,data=d,exclude=c("NA","UNKNOWN"))
+Summarize(dg1~dg2,data=d,percent="none")
+Summarize(dg1~dg2,data=d,percent="column")
+Summarize(dg1~dg2,data=d,percent="total")
 
 ## Summarizing all variables in a data frame
-lapply(as.list(df),Summarize,digits=4)
+lapply(as.list(d),Summarize,digits=4)
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
 }
 \seealso{
-See \code{\link{summary}}, \code{\link{table}}, and \code{\link{xtabs}} for related functionality.  See \code{\link{tapply}}, \code{\link[doBy]{summaryBy}} in \pkg{doBy}, \code{\link[psych]{describe}} in \pkg{psych}, \code{\link[prettyR]{describe}} in \pkg{prettyR}, and \code{\link[fBasics]{basicStats}} in \pkg{fBasics} for similar functionality.
+See \code{\link{summary}}, \code{\link{table}}, and \code{\link{xtabs}} for related one dimenstional functionality.  See \code{\link{tapply}}, \code{\link[doBy]{summaryBy}} in \pkg{doBy}, \code{\link[psych]{describe}} in \pkg{psych}, \code{\link[prettyR]{describe}} in \pkg{prettyR}, and \code{\link[fBasics]{basicStats}} in \pkg{fBasics} for similar \dQuote{by} functionality.
 }
 \keyword{misc}
 

@@ -28,66 +28,61 @@
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso See \code{\link{summary}}, \code{\link{table}}, and \code{\link{xtabs}} for related functionality.  See \code{\link{tapply}}, \code{\link[doBy]{summaryBy}} in \pkg{doBy}, \code{\link[psych]{describe}} in \pkg{psych}, \code{\link[prettyR]{describe}} in \pkg{prettyR}, and \code{\link[fBasics]{basicStats}} in \pkg{fBasics} for similar functionality.
+#' @seealso See \code{\link{summary}}, \code{\link{table}}, and \code{\link{xtabs}} for related one dimenstional functionality.  See \code{\link{tapply}}, \code{\link[doBy]{summaryBy}} in \pkg{doBy}, \code{\link[psych]{describe}} in \pkg{psych}, \code{\link[prettyR]{describe}} in \pkg{prettyR}, and \code{\link[fBasics]{basicStats}} in \pkg{fBasics} for similar \dQuote{by} functionality.
 #'
 #' @keywords misc
 #'
 #' @examples
-#' ## Create a numeric vector
-#' y <- c(0,0,runif(98))
-#'
-#' # typical output of summary()
+#' ## Create a numeric vector (with missing values)
+#' n <- 102
+#' y <- c(0,0,NA,NA,NA,runif(n-5))
+#' ## Create a factor vector (with missing values)
+#' g1 <- factor(sample(c("A","B","C","NA"),n,replace=TRUE))
+#' ## Create a factor vector with unknowns
+#' g2 <- factor(sample(c("male","female","UNKNOWN"),n,replace=TRUE))
+#' # Put into a data.frame (with some extra variables)
+#' d <- data.frame(dy=y,dg1=g1,dg2=g2,
+#'                 dw=sample(1:3,n,replace=TRUE),
+#'                 dv=sample(1:3,n,replace=TRUE))
+#' 
+#' # typical output of summary() for a numeric variable
 #' summary(y)   
 #'
 #' # this function           
 #' Summarize(y)
-#'
-#' # this function, but controlling the number of digits
-#' Summarize(y,digits=3)  
+#' Summarize(~dy,data=d)
+#' Summarize(dy~1,data=d)
+#' # control the number of digits
+#' Summarize(~dy,data=d,digits=3)  
 #'
 #' ## Factor vector (excluding "NA"s in second call)
-#' x <- factor(sample(c("A","B","C","NA"),100,replace=TRUE))
-#' Summarize(x)
-#' Summarize(x,exclude="NA")
+#' Summarize(~dg1,data=d)
+#' Summarize(~dg1,data=d,exclude="NA")
 #'
 #' ## Factor vector with UNKNOWNs
-#' z <- factor(sample(c("male","female","UNKNOWN"),100,replace=TRUE))
-#' Summarize(z)
-#' Summarize(z,exclude="UNKNOWN")
+#' Summarize(~dg2,data=d)
+#' Summarize(~dg2,data=d,exclude="UNKNOWN")
 #'
 #' ## Numeric vector by levels of a factor variable
-#' Summarize(y~x,digits=3)
-#' Summarize(y~x,digits=3,exclude="NA")
-#' Summarize(y~z,digits=3)
-#' Summarize(y~z,digits=3,exclude="UNKNOWN")
-#'
-#' #### Using the data= argument
-#' ## create a data.frame with two extra quantitative variables
-#' w <- sample(1:3,100,replace=TRUE)
-#' v <- sample(1:3,100,replace=TRUE)
-#' df <- data.frame(y,w,v,x,z)
-#'
-#' ## Single variables using formula notation
-#' Summarize(y~1,data=df,digits=3)
-#' Summarize(x~1,data=df,exclude="NA")
-#'
-#' ## Summarize quantitative by one or two factor variables
-#' Summarize(y~z,data=df,digits=3,exclude="UNKNOWN")
-#' Summarize(y~x*z,data=df,digits=3)
-#' Summarize(y~x*z,data=df,digits=3,exclude="NA")
-#' Summarize(y~x*z,data=df,digits=3,exclude=c("NA","UNKNOWN"))
+#' Summarize(dy~dg1,data=d,digits=3)
+#' Summarize(dy~dg1,data=d,digits=3,exclude="NA")
+#' Summarize(dy~dg2,data=d,digits=3)
+#' Summarize(dy~dg2,data=d,digits=3,exclude="UNKNOWN")
 #'
 #' ## What happens if RHS of formula is not a factor
-#' Summarize(y~w,data=df)
-#' Summarize(y~w*v,data=df)
+#' Summarize(dy~dw,data=d)
+#' Summarize(y~dw*dv,data=d)
 #'
 #' ## Summarize factor variable by a factor variable
-#' Summarize(x~z,data=df)
-#' Summarize(x~z,data=df,exclude="NA")
-#' Summarize(x~z,data=df,exclude=c("NA","UNKNOWN"))
+#' Summarize(dg1~dg2,data=d)
+#' Summarize(dg1~dg2,data=d,exclude="NA")
+#' Summarize(dg1~dg2,data=d,exclude=c("NA","UNKNOWN"))
+#' Summarize(dg1~dg2,data=d,percent="none")
+#' Summarize(dg1~dg2,data=d,percent="column")
+#' Summarize(dg1~dg2,data=d,percent="total")
 #'
 #' ## Summarizing all variables in a data frame
-#' lapply(as.list(df),Summarize,digits=4)
+#' lapply(as.list(d),Summarize,digits=4)
 #'
 #' @rdname Summarize
 #' @export
@@ -101,29 +96,45 @@ Summarize.default <- function(object,digits=getOption("digits"),
                               addtotal=TRUE,percent=TRUE,percdigs=2,
                               na.rm=TRUE,exclude="",...) {
   ## Do some checking on object type
-   if (is.data.frame(object)) stop("Summarize does not work on data.frames.  See ??Summarize or ??summary.",call.=FALSE)
-   if (is.matrix(object)) 
-     if (is.numeric(object) & ncol(object)>1) stop("Summarize does not work on matrices.  See ??summary.",call.=FALSE)
-       else object <- as.numeric(object[,1])  # convert 1-d numeric matrix to vector
-   # Start processing
-   if (is.numeric(object)) { iSummarizeQ1(object,digits,na.rm,...) }   # quantitative data
-     else if (is.factor(object)) { iSummarizeC1(object,addtotal,percent,percdigs,exclude,...) }   # Categorical data
-       else summary(object)                 # A pass-through to the original summary function
+  if (is.data.frame(object)) stop("'Summarize' does not work with a data.frame.",call.=FALSE)
+  if (is.matrix(object)) 
+   if (is.numeric(object) & ncol(object)>1) stop("Summarize does not work with matrices.",call.=FALSE)
+   else object <- as.numeric(object[,1])  # convert 1-d numeric matrix to vector
+  ## Start processing
+  if (is.numeric(object)) {
+   # quantitative data
+   iSummarizeQ1(object,digits,na.rm,...)
+  } else if (is.factor(object)) {
+    # Categorical data
+    iSummarizeC1(object,addtotal,percent,percdigs,exclude,...)
+  } else summary(object) # A pass-through to the original summary function
 }
 
 #' @rdname Summarize
 #' @export
-Summarize.formula <- function(object,data=NULL,digits=getOption("digits"),percent=c("row","column","total","none"),percdigs=2,addtotal=TRUE,na.rm=TRUE,exclude="",...) {
+Summarize.formula <- function(object,data=NULL,digits=getOption("digits"),
+                              percent=c("row","column","total","none"),percdigs=2,
+                              addtotal=TRUE,na.rm=TRUE,exclude="",...) {
    percent <- match.arg(percent)
-   # get model frame
-   mf <- stats::model.frame(object,data=data)
-   # start processing
-   # handle case of simple formula with one variable first
-   if (dim(mf)[2]==1) { Summarize(mf[,1],digits=digits,percent=ifelse(percent=="none",FALSE,TRUE),percdigs=percdigs,addtotal=addtotal,na.rm=na.rm,exclude=exclude,...) }
-   else { # more complex formulas with more than one variable
-    if (attr(attr(mf, "terms"), "dataClasses")[1]=="numeric") { iSummarizeQf(object,mf,digits,na.rm,exclude,...) }  # quantitative response variable
-    else { iSummarizeCf(object,mf,percent,percdigs,addtotal,exclude,...) }             # categorical response variable
-  }
+   ## Handle the formula
+   tmp <- iHndlFormula(object,data,expNumR=1)
+   ## Start Processing
+   if (tmp$vnum==1) {
+     ## Only one variable ... send first column of model.frame
+     ## to summarize.default
+     Summarize(tmp$mf[,1],digits=digits,percent=ifelse(percent=="none",FALSE,TRUE),
+               percdigs=percdigs,addtotal=addtotal,na.rm=na.rm,exclude=exclude,...)
+   } else {
+     ## More than one variable
+     if (!tmp$metExpNumR) stop("Must have one variable on RHS of formula with more than two variables",call.=FALSE)
+     if (tmp$Rclass %in% c("numeric","integer")) {
+       ## Quantitative response
+       iSummarizeQf(tmp,digits,na.rm,exclude,...)
+     } else {
+       ## Categorical response
+       iSummarizeCf(tmp,percent,percdigs,addtotal,exclude,...)
+     }
+   }
 }
 
 
@@ -180,38 +191,40 @@ iSummarizeC1 <- function(object,addtotal,percent,percdigs,exclude,...) {
 }
 
 ##############################################################
-## Internal function to check that a variable on RHS is a factor
-##############################################################
-iCheckRHSfactors <- function(mf) {
-  numvars <- ncol(mf)
-  if (any(attr(attr(mf, "terms"),"dataClasses")[2:numvars]!="factor")) {
-    warning("Variable(s) on RHS of 'formula' converted to a factor.\n",call.=FALSE)
-    for (i in 2:numvars) {
-      mf[,i] <- factor(mf[,i])
-    }
-  }
-  mf
-}
-
-##############################################################
 ## Internal function for formula with quantitative response
 ##############################################################
-iSummarizeQf <- function(object,mf,digits,na.rm,exclude,...) {
-  if (dim(mf)[2]>3) stop("With a quantitative response (LHS), the RHS\n must contain only one or two factors.",call.=FALSE)
-  mf <- iCheckRHSfactors(mf)
-  if (dim(mf)[2]==2) {
+iSummarizeQf <- function(tmp,digits,na.rm,exclude,...) {
+  ## Get the response variable
+  nv <- tmp$mf[,tmp$Rpos]
+  ## Make sure LHS is simple enough
+  if (tmp$Enum>2) stop("With a quantitative response (LHS), the RHS\n must contain only one or two factors.",call.=FALSE)
+  ## Handle the explanatory variables
+  if (tmp$Enum==1) { ## Only one explanatory variable
+    rv <- tmp$mf[,tmp$Enames]
+    if (tmp$Eclass!="factor") {
+      warning("RHS variable was converted to a factor.",call.=FALSE)
+      rv <- factor(rv)
+    }
     # Get results for quant variable by each level of a single factor variable
-    intres <- tapply(mf[,1],mf[,2],Summarize,na.rm=na.rm)
-    lvl.names <- names(mf)[2]
-  } else { 
-    mf[,4] <- interaction(mf[,2],mf[,3],sep=":")
+    intres <- tapply(nv,rv,Summarize,na.rm=na.rm)
+  } else { ## Two explanatory variables
+    rv <- tmp$mf[,tmp$Enames[1]]
+    if (tmp$Eclass[1]!="factor") {
+      warning("First RHS variable was converted to a factor.",call.=FALSE)
+      rv <- factor(rv)
+    }
+    cv <- tmp$mf[,tmp$Enames[2]]
+    if (tmp$Eclass[2]!="factor") {
+      warning("Second RHS variable was converted to a factor.",call.=FALSE)
+      cv <- factor(cv)
+    }
+    iv <- interaction(rv,cv,sep=":")
     # Get results for quant variable by each level of interaction variable.
-    intres <- tapply(mf[,1],mf[,4],Summarize,na.rm=na.rm)
-    lvl.names <- names(mf)[c(2,3)]
+    intres <- tapply(nv,iv,Summarize,na.rm=na.rm)
   }
   # Put together as a matrix
   res <- round(do.call(rbind,intres),digits)
-  # get colnames of tapply object
+  # get colnames of matrix version of tapply object
   res.names <- colnames(res)
   # split rownames of tapply object into component parts
   lvl.lbls <- t(data.frame(strsplit(rownames(res),"\\:")))
@@ -220,26 +233,34 @@ iSummarizeQf <- function(object,mf,digits,na.rm,exclude,...) {
   # put together as a data.frame
   res <- data.frame(lvl.lbls,res)
   # make sure colnames of new data.frame make sense
-  names(res) <- c(lvl.names,res.names)
+  # should be names of explanatory variables and the colnames
+  # from the tapply result
+  names(res) <- c(tmp$Enames,res.names)
   # eliminate row names
   rownames(res) <- NULL
   # eliminate rows that correspond to level in exclude
   if (!is.null(exclude)) {
     res <- res[!(res[,1] %in% exclude),]
-    if (dim(mf)[2]>2) res <- res[!(res[,2] %in% exclude),]
+    if (tmp$Enum>2) res <- res[!(res[,2] %in% exclude),]
   }
   res
 }
+
 ##############################################################
 ## Internal function for formula with categorical response
 ##############################################################
-iSummarizeCf <- function(object,mf,percent,percdigs,addtotal,exclude,...) {
-  if (dim(mf)[2]>2) stop("With a categorical response (LHS), the RHS\n must contain only one factor.",call.=FALSE)
-  if (attr(attr(mf, "terms"),"dataClasses")[2]!="factor") {
-    warning("Variable(s) on RHS of 'formula' converted to a factor.\n",call.=FALSE)
-    mf[,2] <- factor(mf[,2])
+iSummarizeCf <- function(tmp,percent,percdigs,addtotal,exclude,...) {
+  ## Get response variable
+  rv <- tmp$mf[,tmp$Rpos]
+  ## Check RHS has only one variable
+  if (tmp$Enum>1) stop("With a categorical response (LHS), the RHS\n must contain only one factor.",call.=FALSE)
+  ## Get explanatory variable, make sure it is a factor
+  ev <- tmp$mf[,tmp$Enames[1]]
+  if (tmp$Eclass!="factor") {
+    warning("Variable on RHS of 'formula' converted to a factor.\n",call.=FALSE)
+    ev <- as.factor(ev)
   }
-  res <- table(mf[,2],mf[,1],exclude=exclude)
+  res <- table(ev,rv,exclude=exclude)
   if (percent!="none") {
     if (percent=="total") mrgn=NULL
     else mrgn <- c(1,2)[which(percent==c("row","column"))]
@@ -250,6 +271,6 @@ iSummarizeCf <- function(object,mf,percent,percdigs,addtotal,exclude,...) {
     else mrgn <- c(2,1)[which(percent==c("row","column"))]
     res <- stats::addmargins(res,margin=mrgn,FUN=list(Total=sum),quiet=TRUE)
   }
-  if (percent!="none") res <- formatC(res,digits=percdigs,format="f")                                                                            
+  if (percent!="none") res <- round(res,digits=percdigs)                                                  
   res
 }

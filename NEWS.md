@@ -5,6 +5,7 @@
 * `BluegillLM`: Removed.  Moved to `FSAdata`.
 * `gConvert()`: Modified.  Streamlined code.  Changed `type=` to `out.type=`.  Changed default `in.pre=` and `in.var=` to `NULL` (from missing).  Changed code to handle changes in `in.pre=` and `in.var=`.  Added some tests for returned data.
 * `gReshape()`: Removed.  Moved to `FSAmisc`.
+* `Summarize()`: Modified.  Converted to using `iHndlFormula()`.
 * `sumTable()`: Modified.  Converted to using `iHndlFormula()`.  Added tests.
 
 
