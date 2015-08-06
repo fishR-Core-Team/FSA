@@ -1,34 +1,40 @@
 #' @title Summary statistics for a numeric or factor variable.
 #'
-#' @description Summary statistics for a single numeric or factor variable, possibly separated by the levels of a factor variable.  Very similar to \code{summary} for a numeric variables and \code{table} for factor variables.
+#' @description Summary statistics for a single numeric or factor variable, possibly separated by the levels of a factor variable.  This function is very similar to \code{\link[base]{summary}} for a numeric variables and \code{\link[base]{table}} for factor variables.
 #'
-#' @details For numeric data this is the same as \code{summary} except that \code{Summarize} includes the sample size, valid sample size (sample size minus number of \code{NA}s) and standard deviation (i.e., \code{sd}).  Also the output is ordered slightly differently.
+#' @details This function is primarily used with formulas.  Five general types of formulae may be used (where \code{quant} and \code{factor} generically represent quantitative/numeric and factor variables, respectively)
+#' \tabular{ll}{
+#'   Formula \tab Description of Summary \cr
+#'   \code{~quant} \tab Numerical summaries (see below) of \code{quant}.\cr
+#'   \code{~factor} \tab One-way frequency or percentage (see below) table of \code{factor}.\cr
+#'   \code{quant~factor} \tab Summaries of \code{quant} separated by levels in \code{factor}.\cr
+#'   \code{quant~factor1*factor2} \tab Summaries of \code{quant} separated by the combined levels in \code{factor1} and \code{factor2}.\cr
+#'   \code{factor1~factor2} \tab Two-way frequency or percentage table with levels of \code{factor2} as rows and \code{factor1} as columns.\cr
+#' }
+#' 
+#' Numerical summaries include all results from \code{\link[base]{summary}} (min, Q1, mean, median, Q3, and max) and the sample size, valid sample size (sample size minus number of \code{NA}s), and standard deviation (i.e., \code{sd}).  \code{NA} values are removed from the calculations with \code{na.rm=TRUE} (the DEFAULT).  The number of digits in the returned results are controlled with \code{digits=}.
+#' 
+#' Factor variables may be summarized as a frequency (if \code{percent="none"}) or percentages table (the DEFAULT).  For a single factor variable, the percentages table is returned if \code{percent="total"}.  For two factor variables, the percentage table may be returned as a row-, column-, or table-percent table with \code{percent="row"} (the DEFAULT), \code{percent="column"}, and \code{percent="total"}, respectively.   The number of digits in the returned table are controlled with \code{percdigs=}.  A marginal total, either for all margins if \code{percent="none"} or the appropriate margin otherwise, is added to the table if \code{addtotal=TRUE}.  The results for a factor are NOT meant to replace \code{\link[base]{table}} or \code{\link[stats]{xtabs}}.  This functionality is provided to make this function more complete.
 #'
-#'For a factor variable this function computes a frequency table, a percentage table (if \code{percent=TRUE}), and a valid percentage table (percentage if \dQuote{NA}s are excluded; if \code{percent=TRUE}).  The tables will contain a total row if \code{addtotal=TRUE}.
-#'
-#'The \code{object} argument can be a formula of form \code{y~x} where \code{y} can be either a numeric or factor variable and \code{x} can be only a factor variable or \code{y~x*z} where \code{z} is a second factor variable.  More complicated formulas are not supported.  When \code{y} is numeric then the summary statistics of \code{y} will be computed for each level in \code{x} or the combinations of the levels of \code{x} and \code{z}.  When \code{y} is a factor then a two-way table will be computed.  If \code{addtotal=TRUE} then row totals only will be added.  If \code{percent=TRUE} then a row percentages table will be computed such that the percentages represent the percent in the levels of \code{x} for each level of \code{y}.
-#'
-#' @note The \code{Summarize} function, when applied to a vector of quantitative data, produces results of basic statistics similar to that provided by \code{summary}.  The primary addition in the results of \code{Summarize} is the inclusion of the standard deviation and the (potential) calculation of a valid sample size.  When applied to a vector of categorical data, \code{Summarize} produces a frequency table with (by default) percentages and (perhaps) valid percentages.  The results for categorical data are NOT meant to replace the \code{table} function but to provide an alternative and to provide a useful result if the student provides it with categorical data.
-#'
-#' Students often need to look at basic statistics of a quantitative variable separated for different levels of a categorical variable.  This type of analysis can be made with \code{tapply}, \code{by}, or \code{aggregate} (or a few other functions in other packages) but the use of these functions are not obvious to newbie students or return results in a format that is not obvious to newbie students.  Thus, the formula method to the \code{Summarize} generic function allows newbie students to use a common notation (i.e., formula) to easily compute summary statistics for a quantitative variable separated by the levels of a factor.
+#' @note Students often need to examine basic statistics of a quantitative variable separated for different levels of a categorical variable.  These results may be obtained with \code{\link[base]{tapply}}, \code{\link[base]{by}}, or \code{\link[stats]{aggregate}} (or with functions in other packages), but the use of these functions is not obvious to newbie students or return results in a format that is not obvious to newbie students.  Thus, the formula method to \code{Summarize} allows newbie students to use a common notation (i.e., formula) to easily compute summary statistics for a quantitative variable separated by the levels of a factor.
 #'
 #' @aliases Summarize Summarize.default Summarize.formula
 #'
 #' @param object A vector of numeric or factor data.
-#' @param data An optional data frame that contains the variables in the model.
-#' @param digits A numeric that indicates the number of decimals to round the numeric summaries to.
-#' @param addtotal A logical that indicates whether totals should be added to tables (\code{=TRUE}, default) or not.
-#' @param percent A logical that indicates whether frequency tables should include percentages (\code{=TRUE}, default) or not for a single categorical variable or a string that indicates the type of percents to compute for a two-way table constructed wtih the formula.
-#' @param percdigs A numeric that indicates the number of decimals to round the percentage summaries to.
+#' @param digits A numeric that indicates the number of decimals to round the numeric summaries.
+#' @param addtotal A logical that indicates whether totals should be added to tables (\code{=TRUE}, default) or not.  See details.
+#' @param percent A string that indicates the type of percents to compute for tables from factor variables.  See details.
+#' @param percdigs A numeric that indicates the number of decimals to round the percentage summaries.
 #' @param na.rm A logical that indicates whether numeric missing values (\code{NA}) should be removed (\code{=TRUE}, default) or not.
-#' @param exclude A string that contains the code that should be excluded from the levels of the factor variable.
-#' @param \dots Other arguments to the generic \code{summary}, \code{sd}, or \code{table} functions.
+#' @param exclude A string that contains the level that should be excluded from a factor variable.
+#' @param data An optional data frame that contains the variables in \code{formula}.
+#' @param \dots Not implemented.
 #'
 #' @return A named vector or data frame (when a quantitative variable is separted by one or two factor variables) of summary statistics for numeric data and a matrix of frequencies and, possibly, percentages for factor variables.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
-#' @seealso See \code{\link{summary}}, \code{\link{table}}, and \code{\link{xtabs}} for related one dimenstional functionality.  See \code{\link{tapply}}, \code{\link[doBy]{summaryBy}} in \pkg{doBy}, \code{\link[psych]{describe}} in \pkg{psych}, \code{\link[prettyR]{describe}} in \pkg{prettyR}, and \code{\link[fBasics]{basicStats}} in \pkg{fBasics} for similar \dQuote{by} functionality.
+#' @seealso See \code{\link[base]{summary}}, \code{\link[base]{table}}, and \code{\link[stats]{xtabs}} for related one dimensional functionality.  See \code{\link[base]{tapply}}, \code{\link[doBy]{summaryBy}} in \pkg{doBy}, \code{\link[psych]{describe}} in \pkg{psych}, \code{\link[prettyR]{describe}} in \pkg{prettyR}, and \code{\link[fBasics]{basicStats}} in \pkg{fBasics} for similar \dQuote{by} functionality.
 #'
 #' @keywords misc
 #'
@@ -49,11 +55,9 @@
 #' summary(y)   
 #'
 #' # this function           
-#' Summarize(y)
-#' Summarize(~dy,data=d)
-#' Summarize(dy~1,data=d)
-#' # control the number of digits
-#' Summarize(~dy,data=d,digits=3)  
+#' Summarize(y,digits=3)
+#' Summarize(~dy,data=d,digits=3)
+#' Summarize(dy~1,data=d,digits=3)
 #'
 #' ## Factor vector (excluding "NA"s in second call)
 #' Summarize(~dg1,data=d)
@@ -70,8 +74,8 @@
 #' Summarize(dy~dg2,data=d,digits=3,exclude="UNKNOWN")
 #'
 #' ## What happens if RHS of formula is not a factor
-#' Summarize(dy~dw,data=d)
-#' Summarize(y~dw*dv,data=d)
+#' Summarize(dy~dw,data=d,digits=3)
+#' Summarize(y~dw*dv,data=d,digits=3)
 #'
 #' ## Summarize factor variable by a factor variable
 #' Summarize(dg1~dg2,data=d)
@@ -93,20 +97,25 @@ Summarize <- function(object, ...) {
 #' @rdname Summarize
 #' @export
 Summarize.default <- function(object,digits=getOption("digits"),
-                              addtotal=TRUE,percent=TRUE,percdigs=2,
+                              addtotal=TRUE,percent=c("total","none"),percdigs=2,
                               na.rm=TRUE,exclude="",...) {
   ## Do some checking on object type
   if (is.data.frame(object)) stop("'Summarize' does not work with a data.frame.",call.=FALSE)
-  if (is.matrix(object)) 
-   if (is.numeric(object) & ncol(object)>1) stop("Summarize does not work with matrices.",call.=FALSE)
-   else object <- as.numeric(object[,1])  # convert 1-d numeric matrix to vector
+  if (is.matrix(object)) {
+    if (ncol(object)>1) stop("'Summarize' does not work with matrices.",call.=FALSE)
+    else {
+      # convert 1-d matrices to vectors
+      if (is.numeric(object)) object <- as.numeric(object[,1])
+      else object <- as.factor(object[,1])
+    }
+  }
   ## Start processing
   if (is.numeric(object)) {
    # quantitative data
-   iSummarizeQ1(object,digits,na.rm,...)
+   iSummarizeQ1(object,digits,na.rm)
   } else if (is.factor(object)) {
     # Categorical data
-    iSummarizeC1(object,addtotal,percent,percdigs,exclude,...)
+    iSummarizeC1(object,addtotal,percent,percdigs,exclude)
   } else summary(object) # A pass-through to the original summary function
 }
 
@@ -122,17 +131,17 @@ Summarize.formula <- function(object,data=NULL,digits=getOption("digits"),
    if (tmp$vnum==1) {
      ## Only one variable ... send first column of model.frame
      ## to summarize.default
-     Summarize(tmp$mf[,1],digits=digits,percent=ifelse(percent=="none",FALSE,TRUE),
+     Summarize(tmp$mf[,1],digits=digits,percent=ifelse(percent=="none","none","total"),
                percdigs=percdigs,addtotal=addtotal,na.rm=na.rm,exclude=exclude,...)
    } else {
      ## More than one variable
-     if (!tmp$metExpNumR) stop("Must have one variable on RHS of formula with more than two variables",call.=FALSE)
+     if (!tmp$metExpNumR) stop("Must have one variable on LHS of formula with more than one variable",call.=FALSE)
      if (tmp$Rclass %in% c("numeric","integer")) {
        ## Quantitative response
-       iSummarizeQf(tmp,digits,na.rm,exclude,...)
+       iSummarizeQf(tmp,digits,na.rm,exclude)
      } else {
        ## Categorical response
-       iSummarizeCf(tmp,percent,percdigs,addtotal,exclude,...)
+       iSummarizeCf(tmp,percent,percdigs,addtotal,exclude)
      }
    }
 }
@@ -141,36 +150,34 @@ Summarize.formula <- function(object,data=NULL,digits=getOption("digits"),
 ##############################################################
 ## Internal function for vector of quantitative data
 ##############################################################
-iSummarizeQ1 <- function(object,digits,na.rm,...) {
-  # remove NAs if na.rm==TRUE
-  if (na.rm) object <- object[!is.na(object)]
-  # get overall sample size
+iSummarizeQ1 <- function(object,digits,na.rm) {
+  ## get overall sample size
   n <- length(object)
-  zrs <- length(object[object==0])
-  mean <- mean(object,na.rm=na.rm,...)
-  sd <- stats::sd(object,na.rm=na.rm,...)
-  s <- summary(object,na.rm=na.rm,...)[c("Min.","1st Qu.","Median","3rd Qu.","Max.")]   
-  # count NAs and valid n if na.rm==FALSE
-  if (!na.rm) {
-    nas <- length(which(is.na(object)))
-    valid.n <- n-nas
-    res <- c(n,nas,valid.n,mean,sd,s,zrs/valid.n*100)
-    names(res) <- c("n","NAs","nValid","mean","sd","min","Q1","median","Q3","max","percZero")
-  } else {
-    res <- c(n,mean,sd,s,zrs/n*100)
-    names(res) <- c("n","mean","sd","min","Q1","median","Q3","max","percZero")
-  }
+  ## get valid.n and number of NAs
+  valid.n <- validn(object)
+  ## count zeroes (must get rid of NAs first ... 
+  ##    otherwise counted as zeroes)
+  tmp <- object[!is.na(object)]
+  zrs <- length(tmp[tmp==0])
+  ## compute mean and sd
+  mean <- mean(object,na.rm=na.rm)
+  sd <- stats::sd(object,na.rm=na.rm)
+  ## get other summary values
+  tmp <- summary(object,na.rm=na.rm)[c("Min.","1st Qu.","Median","3rd Qu.","Max.")]   
+  ## put together to return
+  res <- c(n,valid.n,mean,sd,tmp,zrs/valid.n*100)
+  names(res) <- c("n","nvalid","mean","sd","min","Q1","median","Q3","max","percZero")
   round(res,digits)
 }
 
 ##############################################################
 ## Internal function for vector of categorical data
 ##############################################################
-iSummarizeC1 <- function(object,addtotal,percent,percdigs,exclude,...) {
+iSummarizeC1 <- function(object,addtotal,percent,percdigs,exclude) {
   # Summary table
-  res <- table(object,exclude=exclude,...)
+  res <- table(object,exclude=exclude)
   # Add percents to table if asked for
-  if (percent) {
+  if (percent!="none") {
     # Add percents, forms a 2-col matrix
     res <- cbind(res,round(prop.table(res)*100,percdigs))
     colnames(res) <- c("freq","perc")                                          
@@ -193,7 +200,7 @@ iSummarizeC1 <- function(object,addtotal,percent,percdigs,exclude,...) {
 ##############################################################
 ## Internal function for formula with quantitative response
 ##############################################################
-iSummarizeQf <- function(tmp,digits,na.rm,exclude,...) {
+iSummarizeQf <- function(tmp,digits,na.rm,exclude) {
   ## Get the response variable
   nv <- tmp$mf[,tmp$Rpos]
   ## Make sure LHS is simple enough
@@ -249,7 +256,7 @@ iSummarizeQf <- function(tmp,digits,na.rm,exclude,...) {
 ##############################################################
 ## Internal function for formula with categorical response
 ##############################################################
-iSummarizeCf <- function(tmp,percent,percdigs,addtotal,exclude,...) {
+iSummarizeCf <- function(tmp,percent,percdigs,addtotal,exclude) {
   ## Get response variable
   rv <- tmp$mf[,tmp$Rpos]
   ## Check RHS has only one variable
@@ -257,10 +264,10 @@ iSummarizeCf <- function(tmp,percent,percdigs,addtotal,exclude,...) {
   ## Get explanatory variable, make sure it is a factor
   ev <- tmp$mf[,tmp$Enames[1]]
   if (tmp$Eclass!="factor") {
-    warning("Variable on RHS of 'formula' converted to a factor.\n",call.=FALSE)
+    warning("RHS variable was converted to a factor.\n",call.=FALSE)
     ev <- as.factor(ev)
   }
-  res <- table(ev,rv,exclude=exclude)
+  res <- table(ev,rv,exclude=exclude,dnn=list(tmp$Enames,tmp$Rname))
   if (percent!="none") {
     if (percent=="total") mrgn=NULL
     else mrgn <- c(1,2)[which(percent==c("row","column"))]
