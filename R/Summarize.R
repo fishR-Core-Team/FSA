@@ -99,6 +99,7 @@ Summarize <- function(object, ...) {
 Summarize.default <- function(object,digits=getOption("digits"),
                               addtotal=TRUE,percent=c("total","none"),percdigs=2,
                               na.rm=TRUE,exclude="",...) {
+  percent <- match.arg(percent)
   ## Do some checking on object type
   if (is.data.frame(object)) stop("'Summarize' does not work with a data.frame.",call.=FALSE)
   if (is.matrix(object)) {

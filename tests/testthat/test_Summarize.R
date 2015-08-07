@@ -107,6 +107,7 @@ test_that("Summarize() Results with NAs",{
   d <- data.frame(g1=factor(c("A","A","A","B","B","B","C","C",NA)),
                   g2=factor(c("a","b","c","a","b","c","a","b","c")),
                   g3=factor(c("x","x","x","x","x","y","y","y","y")),
+                  g4=c("A","A","A","B","B","B","C","C","NA"),
                   dat=c(NA,1:8),junk=11:19)
   ## Single quantitative variable
   tmp <- Summarize(~dat,data=d)
@@ -136,9 +137,29 @@ test_that("Summarize() Results with NAs",{
   # with percents, without marginal totals
   exp <- cbind(freq=exp1,perc=round(prop.table(exp1)*100,2))
   tmp <- Summarize(~g1,data=d,addtotal=FALSE)  
+  expect_equivalent(tmp,exp)
   # with percents, with marginal totals
   exp <- addmargins(exp,margin=1)
   tmp <- Summarize(~g1,data=d)
+  expect_equivalent(tmp,exp)
+  
+  ## Single character variable
+  # not as percents, without marginal totals
+  exp1 <- table(d$g4)
+  tmp <- Summarize(~g4,data=d,percent="none",addtotal=FALSE)
+  expect_equivalent(tmp,exp1)
+  # not as percents, with marginal totals
+  exp <- addmargins(exp1,margin=1)
+  tmp <- Summarize(~g4,data=d,percent="none")
+  expect_equivalent(tmp,exp)
+  # with percents, without marginal totals
+  exp <- cbind(freq=exp1,perc=round(prop.table(exp1)*100,2),
+               validPerc=round(c(prop.table(exp1[1:3]),0)*100,1))
+  tmp <- Summarize(~g4,data=d,addtotal=FALSE)  
+  expect_equivalent(tmp,exp)
+  # with percents, with marginal totals
+  exp <- addmargins(exp,margin=1)
+  tmp <- Summarize(~g4,data=d)
   expect_equivalent(tmp,exp)
   
   ## Two factor variables
@@ -174,3 +195,20 @@ test_that("Summarize() Results with NAs",{
   tmp <- Summarize(g1~g2,data=d,percent="row")
   expect_equivalent(tmp,exp)
 })
+
+test_that("Summarize() Results from 1-d data.frames",{
+  ## Single quantitative variable
+  qnms <- c("n","nvalid","mean","sd","min","Q1","median","Q3","max","percZero")
+  d <- matrix(1:9,ncol=1)
+  tmp <- Summarize(d)
+  exp <- c(9,9,5,sd(d),1,3,5,7,9,0)
+  names(exp) <- qnms
+  expect_is(tmp,"numeric")
+  expect_equal(tmp,exp)
+  ## Single factor variable
+  d <- matrix(factor(c("A","A","A","B","B","B","C","C","C")),ncol=1)
+  tmp <- Summarize(d,percent="none",addtotal=FALSE)
+  exp1 <- table(d)
+  expect_equivalent(tmp,exp1)
+})
+  
