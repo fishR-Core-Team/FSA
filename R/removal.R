@@ -602,9 +602,9 @@ iSeber2 <- function(catch,conf.level) {
 #=============================================================
 iRobsonRegier2 <- function(catch,conf.level) {
   if (length(catch)!=2) {
-    stop("Robson-Regier (1968) 2-pass method can only be used two samples.",call.=FALSE)
+    stop("Robson & Regier (1968) 2-pass method can only be used two samples.",call.=FALSE)
   } else if (catch[2] >= catch[1]) {
-    warning("Catch data results in model failure for Robson-Regier (1968) 2-pass method.",call.=FALSE)
+    warning("Catch data results in model failure for Robson & Regier (1968) 2-pass method.",call.=FALSE)
     # return empty vector
     tmp <- rep(NA,8)
   } else {
@@ -621,7 +621,7 @@ iRobsonRegier2 <- function(catch,conf.level) {
   # names to vector of estimates
   names(tmp) <- c("No","No.se","No.LCI","No.UCI","p","p.se","p.LCI","p.UCI")
   # return list
-  list(est=tmp,catch=catch,lbl="Robson-Regier (1968) 2-Pass Removal Method")
+  list(est=tmp,catch=catch,lbl="Robson & Regier (1968) 2-Pass Removal Method")
 }
 
 

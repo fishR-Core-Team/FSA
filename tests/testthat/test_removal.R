@@ -5,7 +5,7 @@ context("removal Function Tests")
 # Messaging
 # ============================================================
 # ############################################################
-test_that("removal errors and warnings",{
+test_that("removal() errors and warnings",{
   ## wrong type
   expect_error(removal(c(346,184,49),method="Derek"))
   ## wrong type for CS.se
@@ -51,14 +51,21 @@ test_that("removal errors and warnings",{
   expect_warning(removal(c(45,11,NA,8))) 
 })  
 
+test_that("removal() verbose= messages",{
+  expect_message(summary(removal(c(38,26,12)),verbose=TRUE),"Carle & Strub")
+  expect_message(summary(removal(c(38,26,12),method="Moran"),verbose=TRUE),"Moran")
+  expect_message(summary(removal(c(38,26,12),method="Zippin"),verbose=TRUE),"Zippin")
+  expect_message(summary(removal(c(38,26,12),method="Schnute"),verbose=TRUE),"Schnute")
+  expect_message(summary(removal(c(38,26,12),method="Seber3"),verbose=TRUE),"Seber")
+  expect_message(summary(removal(c(38,26),method="Seber2"),verbose=TRUE),"Seber")
+  expect_message(summary(removal(c(38,26),method="RobsonRegier2"),verbose=TRUE),"Robson & Regier")
+})   
 
 # ############################################################
 # ============================================================
 # Analytical Results
 # ============================================================
 # ############################################################
-context("Verification of 'removal()' results. ")
-
 test_that("removal with 'CarleStrub' matches Carle-Strub (1978) examples",{
   tmp <- summary(removal(c(38,26,12)))
   expect_equal(round(tmp["No","Estimate"],0),91)

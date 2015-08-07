@@ -1,4 +1,5 @@
 # FSA 0.7.7 ongoing
+* `removal()`: Modified.  Minor edits to labels if `verbose=TRUE`.  Added some more tests.
 
 # FSA 0.7.6 Aug15
 * `Summarize()`: Modified. Converted to using `iHndlFormula()`.  Changed output for quantitative data (`validn` is always returned, `NAs` is never returned).  Changed output for two-way factor data (not returned as a character from `formatC()`).  Removed `...` from code in several places as it was buggy and not used.  Added more checks and modified check messages.  Fixed bug from when a 1-d matrix of characters was sent.  Added tests.
