@@ -1,5 +1,6 @@
 # FSA 0.7.7 ongoing
 * `ageBias()`: Modified.  Changed default for `pch.mean=` to 95 (from 175).
+* `mapvalues()`: Modified.  Corrected to export properly.
 * `removal()`: Modified.  Minor edits to labels if `verbose=TRUE`.  Added some more tests.
 
 # FSA 0.7.6 Aug15
