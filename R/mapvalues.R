@@ -1,3 +1,3 @@
 #' @importFrom plyr mapvalues
-#' @export
+#' @export mapvalues
 NULL
