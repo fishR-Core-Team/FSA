@@ -74,6 +74,7 @@ summary(ap1)
 summary(ap1,what="precision")
 summary(ap1,what="difference")
 summary(ap1,what="difference",percent=FALSE)
+summary(ap1,what="absolute")
 summary(ap1,what="absolute",percent=FALSE)
 summary(ap1,what=c("precision","difference"))
 
