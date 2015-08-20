@@ -564,6 +564,7 @@ iabAxisLmts <- function(d,xlim,ylim,difference,show.range,show.pts,show.CIs=TRUE
 #' @param object An object of class \code{agePrec}, usually from \code{agePrecision}.
 #' @param what A string (or vector of strings) that indicates what type of summary to print.  See details.
 #' @param percent A logical that indicates whether the difference table (see details) should be represented as percentages (\code{TRUE}; default) or frequency (\code{FALSE}) of fish.
+#' @param trunc.diff A single integer that identifies the age for which all values that age and greater are combined into one category.  See the examples.
 #' @param digits A single numeric that indicates the minimum number of digits to print when using \code{summary}.
 #' @param \dots Additional arguments for methods.
 #' 
@@ -614,6 +615,8 @@ iabAxisLmts <- function(d,xlim,ylim,difference,show.range,show.pts,show.CIs=TRUE
 #' summary(ap1,what="difference",percent=FALSE)
 #' summary(ap1,what="absolute")
 #' summary(ap1,what="absolute",percent=FALSE)
+#' summary(ap1,what="absolute",trunc.diff=4)
+#' summary(ap1,what="absolute",percent=FALSE)
 #' summary(ap1,what=c("precision","difference"))
 #'
 #' barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
@@ -625,7 +628,10 @@ iabAxisLmts <- function(d,xlim,ylim,difference,show.range,show.pts,show.CIs=TRUE
 #' summary(ap2,what="precision")
 #' summary(ap2,what="difference")
 #' summary(ap2,what="difference",percent=FALSE)
+#' summary(ap2,what="absolute")
 #' summary(ap2,what="absolute",percent=FALSE)
+#' summary(ap2,what="absolute",trunc.diff=4)
+#' summary(ap2,what="absolute",percent=FALSE,trunc.diff=4)
 #' summary(ap2,what="detail")
 #'
 #' @rdname agePrecision
@@ -714,7 +720,7 @@ agePrecision <- function(formula,data) {
 #' @rdname agePrecision
 #' @export
 summary.agePrec <- function(object,what=c("precision","difference","absolute difference","details"),
-                            percent=TRUE,digits=4,...) {
+                            percent=TRUE,trunc.diff=NULL,digits=4,...) {
   what <- match.arg(what,several.ok=TRUE)
   showmsg <- ifelse (length(what)>1,TRUE,FALSE)
   if ("precision" %in% what) {
@@ -725,6 +731,28 @@ summary.agePrec <- function(object,what=c("precision","difference","absolute dif
   }
   if ("absolute difference" %in% what) {
     tmp <- object$absdiff
+    ## potentially convert to truncated distribution
+    if (!is.null(trunc.diff)) {
+      if(trunc.diff<=0) stop("'trunc.diff' must be positive.",call.=FALSE)
+      if (length(dim(tmp))==1) {
+        # find positions in vector to be truncated
+        trpos <- as.numeric(names(tmp))>=trunc.diff
+        # find sum of truncated ages if there are any
+        tmp <- c(tmp[!trpos],sum(tmp[trpos]))
+        names(tmp)[length(tmp)] <- paste0(trunc.diff,"+")
+        tmp <- as.table(tmp)
+      } else {
+        # find positions in vector to be truncated
+        trpos <- as.numeric(colnames(tmp))>=trunc.diff
+        # find sum of truncated ages if there are any
+        tmp <- cbind(tmp[,!trpos],rowSums(tmp[,trpos]))
+        colnames(tmp)[ncol(tmp)] <- paste0(trunc.diff,"+")
+        # check if non-truncated was only one column so that
+        # the column names can be fixed
+        colnames(tmp)[1] <- colnames(object$absdiff)[1]
+        tmp <- as.table(tmp)
+      }
+    }
     msg <- "of fish by absolute differences in ages\n between pairs of assignments"
     if (percent) {
       msg <- paste("Percentage",msg)

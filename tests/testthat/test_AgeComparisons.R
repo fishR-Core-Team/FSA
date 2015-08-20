@@ -37,6 +37,8 @@ test_that("agePrecision() errors and warnings",{
   expect_message(summary(ap1),"Percentage of fish by absolute differences in ages")
   expect_message(summary(ap1),"Percentage of fish by differences in ages")
   expect_message(summary(ap1),"Intermediate calculations for each individual")
+  ## Test that trunc.age is OK
+  expect_error(summary(ap1,what="absolute",trunc.diff=0),"must be positive")
 })
 
 

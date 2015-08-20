@@ -9,7 +9,8 @@
 agePrecision(formula, data)
 
 \method{summary}{agePrec}(object, what = c("precision", "difference",
-  "absolute difference", "details"), percent = TRUE, digits = 4, ...)
+  "absolute difference", "details"), percent = TRUE, trunc.diff = NULL,
+  digits = 4, ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{~var1+var2+var3+...} or, alternatively, \code{var1~var2+var3+...}, where the \code{varX} generically represent the variables that contain the age assignments.  The alternative formula allows for similar code as used in \code{\link{ageBias}} and can have only one variable on the left-hand side.}
@@ -21,6 +22,8 @@ agePrecision(formula, data)
 \item{what}{A string (or vector of strings) that indicates what type of summary to print.  See details.}
 
 \item{percent}{A logical that indicates whether the difference table (see details) should be represented as percentages (\code{TRUE}; default) or frequency (\code{FALSE}) of fish.}
+
+\item{trunc.diff}{A single integer that identifies the age for which all values that age and greater are combined into one category.  See the examples.}
 
 \item{digits}{A single numeric that indicates the minimum number of digits to print when using \code{summary}.}
 
@@ -76,6 +79,8 @@ summary(ap1,what="difference")
 summary(ap1,what="difference",percent=FALSE)
 summary(ap1,what="absolute")
 summary(ap1,what="absolute",percent=FALSE)
+summary(ap1,what="absolute",trunc.diff=4)
+summary(ap1,what="absolute",percent=FALSE)
 summary(ap1,what=c("precision","difference"))
 
 barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
@@ -87,7 +92,10 @@ summary(ap2)
 summary(ap2,what="precision")
 summary(ap2,what="difference")
 summary(ap2,what="difference",percent=FALSE)
+summary(ap2,what="absolute")
 summary(ap2,what="absolute",percent=FALSE)
+summary(ap2,what="absolute",trunc.diff=4)
+summary(ap2,what="absolute",percent=FALSE,trunc.diff=4)
 summary(ap2,what="detail")
 }
 \author{
