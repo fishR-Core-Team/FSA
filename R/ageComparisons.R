@@ -70,7 +70,7 @@
 #'   \item nref.lab A string that contains an optional label for the age assignments in the rows (non-reference) of the age-agreement table.
 #'}
 #'
-#' A data.frame that contains the symmetry test results if \code{summary} and \code{what="symmetry"}, \code{what="Bowkers"}, \code{what="McNemars"}, or \code{what="EvansHoenig"}; otherwise, nothing is returned by \code{summary}.  Nothing is returned by \code{plot}, but see details for a description of the plot that is produced.
+#' The \code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing.  Nothing is returned by \code{plot}, but see details for a description of the plot that is produced.
 #' 
 #' @section Testing: Tested all symmetry test results against results in Evans and Hoenig (2008), the McNemar's and Evans-Hoenig results against results from \code{\link[fishmethods]{compare2}} in \pkg{fishmethods}, and all results using the \code{\link[FSAdata]{AlewifeLH}} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
 #'
@@ -186,46 +186,55 @@ summary.ageBias <- function(object,
                    flip.table=FALSE,zero.print="-",digits=3,cont.corr=c("none","Yates","Edwards"),
                    ...) {
   what <- match.arg(what,several.ok=TRUE)
+  retres <- ifelse(length(what)==1,TRUE,FALSE)
   showmsg <- ifelse (length(what)>1,TRUE,FALSE)
   if ("n" %in% what) {
-    message("Sample size in the age agreement table is ",sum(object$agree),".",sep="")
+    res <- sum(object$agree)
+    message("Sample size in the age agreement table is ",res,".",sep="")
     what <- iHndlMultWhat(what,"n")
   }
   if ("bias" %in% what) {
     if (showmsg) message("Summary of ",object$nref.lab," by ",object$ref.lab)
-    print(object$bias[-ncol(object$bias)],row.names=FALSE,digits=digits)
+    res <- object$bias[-ncol(object$bias)]
+    print(res,row.names=FALSE,digits=digits)
     what <- iHndlMultWhat(what,"bias")
   }
   if ("diff.bias" %in% what) {
     if (showmsg) message("Summary of ",object$nref.lab,"-",object$ref.lab," by ",object$ref.lab)
-    print(object$bias.diff[-ncol(object$bias.diff)],row.names=FALSE,digits=digits)
+    res <- object$bias.diff[-ncol(object$bias.diff)]
+    print(res,row.names=FALSE,digits=digits)
     what <- iHndlMultWhat(what,"diff.bias")
   }
   if ("table" %in% what) {
     # show the age-agreement table
     if (!flip.table) {
       if (showmsg) message("Raw agreement table (square)")
-      print(object$agree,zero.print=zero.print)
+      res <- object$agree
+      print(res,zero.print=zero.print)
     } else {
       if (showmsg) message("Raw agreement table (square & flipped)")
       # flip the rows
-      tmp <- object$agree[nrow(object$agree):1,]
+      res <- object$agree[nrow(object$agree):1,]
       # for printing purposes
-      class(tmp) <- "table"
-      print(tmp,zero.print=zero.print)
+      class(res) <- "table"
+      print(res,zero.print=zero.print)
     }
     what <- iHndlMultWhat(what,"table")
   }
   if (any(c("symmetry","Bowkers","EvansHoenig","McNemars") %in% what)) {
+    # always return the results
+    retres <- TRUE
     symTest <- NULL # to avoid "global bindings" warning in rcmd check
-    tmp <- iMcNemars(object,match.arg(cont.corr))
-    tmp <- rbind(tmp,iEvansHoenig(object))
-    tmp <- rbind(tmp,iBowkers(object))
+    res <- iMcNemars(object,match.arg(cont.corr))
+    res <- rbind(res,iEvansHoenig(object))
+    res <- rbind(res,iBowkers(object))
     # if what="symmetry" print all results, otherwise only print what is asked for
+    
     if (showmsg) message("Age agreement table symmetry test results")
-    if ("symmetry" %in% what) tmp
-    else Subset(tmp,grepl(what,symTest))
+    if (!"symmetry" %in% what) res <- Subset(res,grepl(what,symTest))
+    print(res)
   }
+  if (retres) invisible(res)
 }
 
 #=============================================================
@@ -579,7 +588,7 @@ iabAxisLmts <- function(d,xlim,ylim,difference,show.range,show.pts,show.CIs=TRUE
 #'   \item R Number of age assessments for each fish given in \code{formula}.
 #' }
 #'
-#' Nothing is returned by \code{summary}, but see details for what is printed.
+#' The \code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing.  See details for what is printed.
 #' 
 #' @section Testing: Tested all precision results against published results in Herbst and Marsden (2011) for the \code{\link{WhitefishLC}} data and the results for the \code{\link[FSAdata]{AlewifeLH}} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
 #'
@@ -722,11 +731,12 @@ agePrecision <- function(formula,data) {
 summary.agePrec <- function(object,what=c("precision","difference","absolute difference","details"),
                             percent=TRUE,trunc.diff=NULL,digits=4,...) {
   what <- match.arg(what,several.ok=TRUE)
+  retres <- ifelse(length(what)==1,TRUE,FALSE)
   showmsg <- ifelse (length(what)>1,TRUE,FALSE)
   if ("precision" %in% what) {
     if (showmsg) message("Precision summary statistics")
-    print(with(object,data.frame(n=n,R=R,ACV=ACV,APE=APE,PercAgree=PercAgree)),
-          row.names=FALSE,digits=digits)
+    tmp <- with(object,data.frame(n=n,R=R,ACV=ACV,APE=APE,PercAgree=PercAgree)) 
+    print(tmp,row.names=FALSE,digits=digits)
     what <- iHndlMultWhat(what,"precision")
   }
   if ("absolute difference" %in% what) {
@@ -779,7 +789,9 @@ summary.agePrec <- function(object,what=c("precision","difference","absolute dif
   }
   if ("details" %in% what) {
     if (showmsg) message("Intermediate calculations for each individual")
-    print(object$detail,digits=digits)
+    tmp <- object$detail 
+    print(tmp,digits=digits)
     what <- iHndlMultWhat(what,"detail")
   }
+  if (retres) invisible(tmp)
 }

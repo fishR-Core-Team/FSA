@@ -1,11 +1,5 @@
 context("Age Comparisons (Precision and Bias)")
 
-# ############################################################
-# ============================================================
-# Messaging
-# ============================================================
-# ############################################################
-
 test_that("ageBias() errors and warnings",{
   data(WhitefishLC)
   ## Two variables on LHS
@@ -37,16 +31,10 @@ test_that("agePrecision() errors and warnings",{
   expect_message(summary(ap1),"Percentage of fish by absolute differences in ages")
   expect_message(summary(ap1),"Percentage of fish by differences in ages")
   expect_message(summary(ap1),"Intermediate calculations for each individual")
-  ## Test that trunc.age is OK
+  ## Test that trunc.diff is OK
   expect_error(summary(ap1,what="absolute",trunc.diff=0),"must be positive")
 })
 
-
-# ############################################################
-# ============================================================
-# Analytical Results
-# ============================================================
-# ############################################################
 
 test_that("ageBias() symmetry tests match the results in Evans and Hoenig (2008)",{
   ######## Create Evans & Hoenig (2008) X, Y, and Z matrices and check
@@ -169,4 +157,16 @@ test_that("agePrecision() compared to http://www.nefsc.noaa.gov/fbp/age-prec/ ca
     expect_equal(round(ap3$ACV,2), 12.54)
     expect_equal(round(ap3$PercAgree,1), 58.7)
   }
+})
+
+test_that("agePrecision() differences for simple data",{
+  tmp <- data.frame(age1=c(1,1,1,1,2,2),
+                    age2=c(1,1,2,2,2,3))
+  ap4 <- agePrecision(~age1+age2,data=tmp)
+  expect_equal(ap4$n, 6)
+  expect_equal(ap4$R, 2)
+  expect_equal(names(ap4$rawdiff), c("-1","0"))
+  expect_equal(as.numeric(ap4$rawdiff), c(3,3))
+  expect_equal(names(ap4$absdiff), c("0","1"))
+  expect_equal(as.numeric(ap4$absdiff), c(3,3))
 })

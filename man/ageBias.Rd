@@ -115,7 +115,7 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
   \item nref.lab A string that contains an optional label for the age assignments in the rows (non-reference) of the age-agreement table.
 }
 
-A data.frame that contains the symmetry test results if \code{summary} and \code{what="symmetry"}, \code{what="Bowkers"}, \code{what="McNemars"}, or \code{what="EvansHoenig"}; otherwise, nothing is returned by \code{summary}.  Nothing is returned by \code{plot}, but see details for a description of the plot that is produced.
+The \code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing.  Nothing is returned by \code{plot}, but see details for a description of the plot that is produced.
 }
 \description{
 Constructs age-agreement tables, statistical tests to detect bias, and plots to visualize potential bias in paired age assignments.  Ages may be from, for example, two readers of the same structure, one reader at two times, two stuctures (e.g., scales, spines, otoliths), or a structure and known ages, or one structure and known ages.

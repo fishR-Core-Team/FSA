@@ -41,7 +41,7 @@ The main function returns a list with the following items:
   \item R Number of age assessments for each fish given in \code{formula}.
 }
 
-Nothing is returned by \code{summary}, but see details for what is printed.
+The \code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing.  See details for what is printed.
 }
 \description{
 Computes overall measures of precision for multiple age assignments made on the same individuals.  Ages may be from two or more readers of the same structure, one reader at two or more times, or two or more stuctures (e.g., scales, spines, otoliths).  Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), and various percentage difference values.
