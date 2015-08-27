@@ -8,7 +8,7 @@ vbStarts(formula, data = NULL, type = c("Typical", "typical",
   "BevertonHolt", "Original", "original", "vonBertalanffy", "GQ",
   "GallucciQuinn", "Mooij", "Weisberg", "Schnute", "Francis", "Somers",
   "Somers2"), ages2use = NULL, methEV = c("means", "poly"),
-  meth0 = c("poly", "yngAge"), plot = FALSE, col.mdl = "gray70",
+  meth0 = c("yngAge", "poly"), plot = FALSE, col.mdl = "gray70",
   lwd.mdl = 3, lty.mdl = 1, cex.main = 0.75, dynamicPlot = FALSE, ...)
 }
 \arguments{

@@ -3,6 +3,7 @@
 * `agePrecision()`: Modified.  Added `trunc.diff=`.  If `what=` has only one item, then results will now be invisibly returned so that results can be saved to an object.
 * `mapvalues()`: Modified.  Corrected to export properly.
 * `removal()`: Modified.  Minor edits to labels if `verbose=TRUE`.  Added some more tests.
+* `vbStarts()`: Modified.  Made `yngAge` the default for `meth0=`.  Fixed bug that occured when `meth0='yngAge'` and sample sizes at all ages were 1.
 
 # FSA 0.7.6 Aug15
 * `Summarize()`: Modified. Converted to using `iHndlFormula()`.  Changed output for quantitative data (`validn` is always returned, `NAs` is never returned).  Changed output for two-way factor data (not returned as a character from `formatC()`).  Removed `...` from code in several places as it was buggy and not used.  Added more checks and modified check messages.  Fixed bug from when a 1-d matrix of characters was sent.  Added tests.

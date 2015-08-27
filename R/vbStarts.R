@@ -92,7 +92,7 @@ vbStarts <- function(formula,data=NULL,
                             "Original","original","vonBertalanffy",
                             "GQ","GallucciQuinn","Mooij","Weisberg",
                             "Schnute","Francis","Somers","Somers2"),
-                     ages2use=NULL,methEV=c("means","poly"),meth0=c("poly","yngAge"),
+                     ages2use=NULL,methEV=c("means","poly"),meth0=c("yngAge","poly"),
                      plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,cex.main=0.75,
                      dynamicPlot=FALSE,...) {
   ## some checks of arguments
@@ -206,8 +206,9 @@ iVBStarts.0 <- function(age,len,type,meth0) {
   } else {
     # find starting values for Linf and K
     tmp <- iVBStarts.LinfK(age,len,type)
-    # find the youngest age with a n>1
-    yngAge <- min(ages[which(ns>1)])
+    # find the youngest age with a n>=1
+    if (all(ns==1)) yngAge <- min(ages)
+      else yngAge <- min(ages[which(ns>=1)])
     # find starting values for t0 from re-arrangement of typical VonB model and yngAge
     st0 <- yngAge+(1/tmp[["K"]])*log((tmp[["Linf"]]-meanL[[which(ages==yngAge)]])/tmp[["Linf"]])
     # find starting values for L0 from re-arrangement of original VonB model and yngAge
