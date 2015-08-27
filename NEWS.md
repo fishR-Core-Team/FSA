@@ -1,4 +1,6 @@
-# FSA 0.7.7 ongoing
+# FSA 0.7.8 ongoing
+
+# FSA 0.7.7 Aug15
 * `ageBias()`: Modified.  Changed default for `pch.mean=` to 95 (from 175).  If `what=` has only one item, then results will now be invisibly returned so that results can be saved to an object.
 * `agePrecision()`: Modified.  Added `trunc.diff=`.  If `what=` has only one item, then results will now be invisibly returned so that results can be saved to an object.
 * `mapvalues()`: Modified.  Corrected to export properly.
