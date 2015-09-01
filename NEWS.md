@@ -1,4 +1,5 @@
 # FSA 0.7.8 ongoing
+* `ageComparison()`: Modified.  Changed `what="McNemars"` and `what="Bowkers"` to `what="McNemar"` and `what="Bowker"`.
 
 # FSA 0.7.7 Aug15
 * `ageBias()`: Modified.  Changed default for `pch.mean=` to 95 (from 175).  If `what=` has only one item, then results will now be invisibly returned so that results can be saved to an object.

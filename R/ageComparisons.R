@@ -6,7 +6,7 @@
 #' 
 #' The age-agreement table is constructed with  \code{what="table"} in \code{summary}.  The agreement table can be \dQuote{flipped}, i.e., the rows in descending rather than ascending order, with \code{flip.table=TRUE}.  By default, the tables are shown with zeroes replaced by dashes.  This behavior can be changed with \code{zero.print}.
 #'
-#' Three statistical tests of symmetry for the age-agreement table can be computed with \code{what=} in \code{summary}.  The \dQuote{unpooled} or Bowker's test as described in Hoenig et al. (1995) is constructed with \code{what="Bowkers"}, the \dQuote{semi-pooled} or Evans-Hoenig test as described in Evans and Hoenig (1998) is constructed with \code{what="EvansHoenig"}, and the \dQuote{pooled} or McNemar's test as described in Evans and Hoenig (1998) is constructed with \code{what="McNemars"}.  All three tests are run simultaneously with \code{what="symmetry"}.
+#' Three statistical tests of symmetry for the age-agreement table can be computed with \code{what=} in \code{summary}.  The \dQuote{unpooled} or Bowker test as described in Hoenig et al. (1995) is constructed with \code{what="Bowker"}, the \dQuote{semi-pooled} or Evans-Hoenig test as described in Evans and Hoenig (1998) is constructed with \code{what="EvansHoenig"}, and the \dQuote{pooled} or McNemar test as described in Evans and Hoenig (1998) is constructed with \code{what="McNemar"}.  All three tests are run simultaneously with \code{what="symmetry"}.
 #'
 #' An age-bias plot, as defined by Campana et al. (1995), is constructed with \code{what="bias"} (the default) in \code{plot}.  The reference variable from the \code{ageBias} call is plotted on the x-axis.  Plotted confidence intervals are computed for the mean of the non-reference ages at each age of the reference ages.  The level of confidence is controlled by \code{sig.level=} given in the original \code{ageBias} call (i.e., confidence level is 100*(1-\code{sig.level}).  Confidence intervals are only shown if the sample size is greater than the value in \code{min.n.CI=}.  Confidence intervals plotted in red do not contain the reference age (see discussion of t-tests below).  Vertical lines that connect the minimum to the maximum observed value of the y-axis variable at each age of the x-axis variable are plotted in grey if \code{show.range=TRUE}.  Individual points are plotted if \code{show.pts=TRUE}  The 1:1 (45 degree) agreement line is shown for comparative purposes.  The sample sizes at each age of the x-axis variable are shown if \code{show.n=TRUE} (the default).  The position of the sample sizes is controlled with \code{nYpos=}.
 #'
@@ -31,7 +31,7 @@
 #' @param flip.table A logical that indicates whether the age-agreement table should be \sQuote{flipped} (i.e., rows are reversed so that younger ages are at the bottom of the table).  This makes the table more directly comparable to the age-bias plot.
 #' @param zero.print A string that indicates what should be printed in place of the zeroes on an age-agreement table.  The default is to print a single dash.
 #' @param digits A numeric value that indicates the minimum number of digits to print when showing \code{what="bias"} or \code{what="diff.bias"} in \code{summary}.
-#' @param cont.corr A string that indicates the continuity correction method to be used with (only) McNemars test.  If \code{"none"} (default) then no continuity correction is used, if \code{"Yates"} then 0.5 is used, and if \code{"Edwards"} then 1 is used. 
+#' @param cont.corr A string that indicates the continuity correction method to be used with (only) McNemar test.  If \code{"none"} (default) then no continuity correction is used, if \code{"Yates"} then 0.5 is used, and if \code{"Edwards"} then 1 is used. 
 #' @param x,object An object of class \code{ageBias}, usually a result from \code{ageBias}.
 #' @param difference A logical that indicates whether or not the difference between the two age assignments should be used.  See details.
 #' @param xlab,ylab A string that contains a label for the x-axis (reference) or y-axis (non-reference) age assignments, respectively. 
@@ -72,7 +72,7 @@
 #'
 #' The \code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing.  Nothing is returned by \code{plot}, but see details for a description of the plot that is produced.
 #' 
-#' @section Testing: Tested all symmetry test results against results in Evans and Hoenig (2008), the McNemar's and Evans-Hoenig results against results from \code{\link[fishmethods]{compare2}} in \pkg{fishmethods}, and all results using the \code{\link[FSAdata]{AlewifeLH}} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
+#' @section Testing: Tested all symmetry test results against results in Evans and Hoenig (2008), the McNemar and Evans-Hoenig results against results from \code{\link[fishmethods]{compare2}} in \pkg{fishmethods}, and all results using the \code{\link[FSAdata]{AlewifeLH}} data set from \pkg{FSAdata} against results from \url{http://www.nefsc.noaa.gov/fbp/age-prec/}.
 #'
 #' @author Derek H. Ogle, \email{dogle@@northland.edu}
 #'
@@ -101,10 +101,10 @@
 #' ab1 <- ageBias(scaleC~otolithC,data=WhitefishLC,ref.lab="Otolith Age",nref.lab="Scale Age")
 #' summary(ab1)
 #' summary(ab1,what="symmetry")
-#' summary(ab1,what="Bowkers")
+#' summary(ab1,what="Bowker")
 #' summary(ab1,what="EvansHoenig")
-#' summary(ab1,what="McNemars")
-#' summary(ab1,what="McNemars",cont.corr="Yates")
+#' summary(ab1,what="McNemar")
+#' summary(ab1,what="McNemar",cont.corr="Yates")
 #' summary(ab1,what="bias")
 #' summary(ab1,what="diff.bias")
 #' summary(ab1,what="n")
@@ -182,7 +182,7 @@ ageBias <- function(formula,data,ref.lab=tmp$Enames,nref.lab=tmp$Rname,
 #' @rdname ageBias
 #' @export
 summary.ageBias <- function(object,
-                   what=c("table","symmetry","Bowkers","EvansHoenig","McNemars","bias","diff.bias","n"),
+                   what=c("table","symmetry","Bowker","EvansHoenig","McNemar","bias","diff.bias","n"),
                    flip.table=FALSE,zero.print="-",digits=3,cont.corr=c("none","Yates","Edwards"),
                    ...) {
   what <- match.arg(what,several.ok=TRUE)
@@ -221,13 +221,13 @@ summary.ageBias <- function(object,
     }
     what <- iHndlMultWhat(what,"table")
   }
-  if (any(c("symmetry","Bowkers","EvansHoenig","McNemars") %in% what)) {
+  if (any(c("symmetry","Bowker","EvansHoenig","McNemar") %in% what)) {
     # always return the results
     retres <- TRUE
     symTest <- NULL # to avoid "global bindings" warning in rcmd check
-    res <- iMcNemars(object,match.arg(cont.corr))
+    res <- iMcNemar(object,match.arg(cont.corr))
     res <- rbind(res,iEvansHoenig(object))
-    res <- rbind(res,iBowkers(object))
+    res <- rbind(res,iBowker(object))
     # if what="symmetry" print all results, otherwise only print what is asked for
     
     if (showmsg) message("Age agreement table symmetry test results")
@@ -284,7 +284,7 @@ iAgeBiasDF <- function(tmp,cname,diff,min.n.CI,sig.level) {
 # This internal function is used to handle the age-agreement
 # table for symmetry tests.  Specifically, it removes the main
 # diagonal, finds the upper and lower triangles, and returns
-# them all in a list.  It is called by the iBowkers, iMcNemars,
+# them all in a list.  It is called by the iBowker, iMcNemar,
 # and iEvansHoenig functions.
 #=============================================================
 iHandleAgreeTable <- function(obj) {
@@ -301,9 +301,9 @@ iHandleAgreeTable <- function(obj) {
 }
 
 #=============================================================
-# Internal function to compute Bowker's Test of Symmetry.
+# Internal function to compute Bowker Test of Symmetry.
 #=============================================================
-iBowkers <- function(obj) {
+iBowker <- function(obj) {
   AAT <- iHandleAgreeTable(obj)
   # Chi-sq parts (Evans and Hoenig's eq 1, Hoenig et al.'s eq 3)
   rat <- ((AAT$lo-t(AAT$up))^2)/(AAT$lo+t(AAT$up))
@@ -314,22 +314,22 @@ iBowkers <- function(obj) {
   # Find the p-value 
   p <- stats::pchisq(chi.sq,df,lower.tail=FALSE)
   # Return dataframe
-  data.frame(symTest="Bowkers",df=df,chi.sq=chi.sq,p=p)
-} ## End internal Bowker's Test function
+  data.frame(symTest="Bowker",df=df,chi.sq=chi.sq,p=p)
+} ## End internal Bowker Test function
 
 #=============================================================
-# Internal function to compute McNemar's Test of Symmetry.
+# Internal function to compute McNemar Test of Symmetry.
 #=============================================================
-iMcNemars <- function(obj,cont.cor) {
+iMcNemar <- function(obj,cont.cor) {
   # handle continuity correction
   if (cont.cor=="none") {
-    title <- "McNemars"
+    title <- "McNemar"
     cc <- 0
   } else if (cont.cor=="Yates") {
-    title <- "McNemars (Yates Correction)"
+    title <- "McNemar (Yates Correction)"
     cc <- 0.5
   } else if (cont.cor== "Edwards") {
-    title <- "McNemars (Edwards Correction)"
+    title <- "McNemar (Edwards Correction)"
     cc <- 1
   } else stop("Continuity correction is incorrect",call.=FALSE)
   AAT <- iHandleAgreeTable(obj)
@@ -342,7 +342,7 @@ iMcNemars <- function(obj,cont.cor) {
   p <- stats::pchisq(chi.sq,df,lower.tail=FALSE)
   # Return list
   data.frame(symTest=title,df=df,chi.sq=chi.sq,p=p)
-} ## End internal McNemar's Test function
+} ## End internal McNemar Test function
 
 #=============================================================
 # Internal function to compute EvansHoenig Test of Symmetry.
