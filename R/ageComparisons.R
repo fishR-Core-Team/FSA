@@ -675,8 +675,8 @@ agePrecision <- function(formula,data) {
   # Put results into a data.frame to return
   detail.df <- data.frame(d,avg=age.avg,sd=age.sd,APE=APE.j,ACV=ACV.j)
   ## Summary precision calculations (mean APE, ACV, total agreement) for all fish
-  APE <- mean(APE.j)
-  ACV <- mean(ACV.j)
+  APE <- mean(APE.j,na.rm=TRUE)
+  ACV <- mean(ACV.j,na.rm=TRUE)
   # all ages agree if sd=0
   all.agree <- length(detail.df$sd[detail.df$sd==0])/n*100
   
