@@ -439,8 +439,8 @@ test_that("se() error messages and return values",{
 # ############################################################
 test_that("validn() error messages and return values",{
   ## check error messages
-  expect_error(validn(data.frame(x=1:5)),"vector")
-  expect_error(validn(matrix(1:6,ncol=2)),"vector")
+  expect_error(validn(data.frame(x=1:5,y=2:6)),"cannot be a data.frame")
+  expect_error(validn(matrix(1:6,ncol=2)),"cannot be a matrix")
   ## check results
   expect_equal(validn(c(1,7,2,4,3,10,NA)),6)
   expect_equal(validn(c("Derek","Hugh","Ogle","Santa","Claus","Nick",NA,NA)),6)

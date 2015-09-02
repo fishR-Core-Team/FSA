@@ -815,22 +815,27 @@ filterD <- function(x,...) {
 #' junk2 <- c("Derek","Hugh","Ogle","Santa","Claus","Nick",NA,NA)
 #' junk3 <- factor(junk2)
 #' junk4 <- c(TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,NA,NA)
+#' junk5 <- data.frame(junk1)
+#' junk6 <- data.frame(junk3)
 #' 
 #' validn(junk1)
 #' validn(junk2)
 #' validn(junk3)
 #' validn(junk4)
+#' validn(junk5)
+#' validn(junk6)
 #'  
 #' @export
 validn <- function(object) {
-  ## Process easily if it is not a factor
-  if (!is.factor(object)) {
-    ## Check to make sure that it is a vector
-    if (!is.vector(object)) stop("'object' must be a vector.",call.=FALSE)
-    else return(sum(!is.na(object)))
-  } else { # is a factor
-    ## Make sure that it is a factor vector
-    if (!is.null(dim(object))) stop("'object' must be a vector.",call.=FALSE)
-    else return(sum(!is.na(object)))
+  ## Handle data.frame
+  if (is.data.frame(object)) {
+    if (ncol(object)==1) object <- object[,1]
+    else stop("'object' cannot be a data.frame with more than one column.",call.=FALSE)
   }
+  ## Handle matrix
+  if (is.matrix(object)) {
+    if (ncol(object)==1) object <- object[,1]
+    else stop("'object' cannot be a matrix with more than one column.",call.=FALSE)
+  }
+  sum(!is.na(object))
 }

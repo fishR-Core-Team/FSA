@@ -23,11 +23,15 @@ junk1 <- c(1,7,2,4,3,10,NA)
 junk2 <- c("Derek","Hugh","Ogle","Santa","Claus","Nick",NA,NA)
 junk3 <- factor(junk2)
 junk4 <- c(TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,NA,NA)
+junk5 <- data.frame(junk1)
+junk6 <- data.frame(junk3)
 
 validn(junk1)
 validn(junk2)
 validn(junk3)
 validn(junk4)
+validn(junk5)
+validn(junk6)
 }
 \author{
 Derek H. Ogle, \email{dogle@northland.edu}
