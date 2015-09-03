@@ -113,11 +113,11 @@ chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Smithetal","Ho
   # Check to make sure enough ages and catches exist
   if (length(age.e)<2) stop("Fewer than 2 data points after applying 'ages2use'.",call.=FALSE)
   # Create re-coded ages
-  age.r <- age.e-min(age.e)
+  age.r <- age.e-min(age.e,na.rm=TRUE)
   
   ## Compute intermediate statistics
-  n <- sum(catch.e)
-  T <- sum(age.r*catch.e)
+  n <- sum(catch.e,na.rm=TRUE)
+  T <- sum(age.r*catch.e,na.rm=TRUE)
   ## Estimate S and SE (eqns 6.4 & 6.5 from Miranda & Bettoli (2007))
   S.est <- T/(n+T-1)
   S.SE <- sqrt(S.est*(S.est-((T-1)/(n+T-2))))
@@ -142,8 +142,8 @@ chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Smithetal","Ho
            # Create the VIF as the usual chi-square GOF test 
            #   statistics divided by number of age-groups-1
            exp <- catch.e[1]*S.est^age.r
-           chi <- sum(((catch.e-exp)^2)/exp)
-           VIF <- chi/(length(catch)-1)
+           chi <- sum(((catch.e-exp)^2)/exp,na.rm=TRUE)
+           VIF <- chi/(length(catch[!is.na(catch)])-1)
            # Adjust the Z SE by the square root of the VIF
            Z.SE <- Z.SE*sqrt(VIF) }
   ) # end switch

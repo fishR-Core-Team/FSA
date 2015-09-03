@@ -101,3 +101,35 @@ test_that("catchCurve and chapmanRobson match results from fishmethods package",
     #expect_equal(round(scr2["Z","Std. Error"],3),fm$SE[8])
   }  
 })
+
+test_that("catchCurve and ChaptmanRobson handle NA values properly.",{
+  ## matches for catchCurve
+  df <- data.frame(age=1:10,n=c(90,164,162,110,55,41,20,14,7,5))
+  cc1 <- catchCurve(n~age,data=df,ages2use=3:10)
+  scc1 <- summary(cc1)
+  cc2 <- catchCurve(n~age,data=df,ages2use=3:10,weighted=TRUE)
+  scc2 <- summary(cc2)  
+  
+  dfA <- data.frame(age=0:12,n=c(NA,90,164,162,110,55,41,20,14,7,5,NA,NA))
+  cc1A <- catchCurve(n~age,data=dfA,ages2use=3:12)
+  scc1A <- summary(cc1A)
+  cc2A <- catchCurve(n~age,data=dfA,ages2use=3:12,weighted=TRUE)
+  scc2A <- summary(cc2A) 
+  
+  expect_equal(scc1["Z","Estimate"],scc1A["Z","Estimate"])
+  expect_equal(scc1["Z","Std. Error"],scc1A["Z","Std. Error"])
+  expect_equal(scc2["Z","Estimate"],scc2A["Z","Estimate"])
+  expect_equal(scc2["Z","Std. Error"],scc2A["Z","Std. Error"])
+  
+  ## matches for chapmanRobson
+  cr1 <- chapmanRobson(n~age,data=df,ages2use=3:10)
+  scr1 <- summary(cr1)
+  
+  cr1A <- chapmanRobson(n~age,data=dfA,ages2use=3:12)
+  scr1A <- summary(cr1A)
+  
+  expect_equal(scr1["Z","Estimate"],scr1A["Z","Estimate"])
+  expect_equal(scr1["Z","Std. Error"],scr1A["Z","Std. Error"])
+  expect_equal(scr1["S","Estimate"],scr1A["S","Estimate"])
+  expect_equal(scr1["S","Std. Error"],scr1A["S","Std. Error"])
+})

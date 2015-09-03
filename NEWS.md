@@ -1,5 +1,7 @@
 # FSA 0.7.8 ongoing
 * `ageComparison()`: Modified.  Changed `what="McNemars"` and `what="Bowkers"` to `what="McNemar"` and `what="Bowker"`.  Fixed bug if all ages are `NA`.
+* `catchCurve()`: Modified.  Fixed bug related to `NA` values in the catch vector.
+* `chapmanRobson()`: Modified.  Fixed bug related to `NA` values in the catch vector.
 * `validn()`: Modified.  Fixed bug related to when a 1-dimensional numeric vector was not recognized as a vector.
 
 # FSA 0.7.7 Aug15

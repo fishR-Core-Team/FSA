@@ -111,7 +111,7 @@ catchCurve.default <- function(x,catch,ages2use=age,weighted=FALSE,...) {
   ## Some Checks
   if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
   if (!is.numeric(catch)) stop("'catch' must be numeric.",call.=FALSE)
-  if (length(age)!=length(catch)) stop("'age' and 'catch' have different lenghts.",call.=FALSE)
+  if (length(age)!=length(catch)) stop("'age' and 'catch' have different lengths.",call.=FALSE)
   # Check to make sure enough ages and catches exist
   if (length(age)<2) stop("Fewer than 2 data points.",call.=FALSE)
 
@@ -126,19 +126,20 @@ catchCurve.default <- function(x,catch,ages2use=age,weighted=FALSE,...) {
   
   ## Fit the model to descending limb
   log.catch.e <- log(catch.e)
-  cclm <- stats::lm(log.catch.e~age.e)
+  cclm <- stats::lm(log.catch.e~age.e,na.action=na.exclude)
   if (weighted) {
     # if asked to fit weighted regression then find weights as
     #   the predicted values from the raw regression
     W <- stats::predict(cclm)
     # if any weights are zero or negative then replace with the
     # minimum of positive weights.  Send a warning.
-    if (any(W<=0)) {
+    tmp <- which(W<=0)
+    if (length(tmp)>0) {
       warning("Some weights were non-positive and were changed to minimum of positive weights.",call.=TRUE)
-      W[W<=0] <- min(W[W>0])
+      W[tmp] <- min(W[which(W>0)])
     } 
     # and then fit the weighted regression
-    cclm <- stats::lm(log.catch.e~age.e,weights=W)
+    cclm <- stats::lm(log.catch.e~age.e,weights=W,na.action=na.exclude)
   } else {
     # if not asked to fit weighted regression then fill weights
     #   with NULL for return in the list below.
