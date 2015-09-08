@@ -7,17 +7,22 @@ FSA
 
 
 ## Introduction
-This is the github page for the FSA (Fisheries Stock Assessment) package for R developed by [Derek Ogle](http://droglenc.wordpress.com/) at [Northland College](http://www.northland.edu/).  Several vignettes depicting typical fisheries stock assessment analyses are available at the <a href="http://fishr.wordpress.com/vignettes/" target="_blank">vignettes</a> page of the the <a href="http://fishr.wordpress.com/" target="_blank">fishR</a> webpage.
+The **FSA** (Fisheries Stock Assessment) package provides R functions to conduct typical introductory fisheries analyses.  Example analyses that use **FSA** can be found on the *Examples* page of the [fishR website](derekogle.com/fishR).
+
+Recent changes are described in the [News file](https://github.com/droglenc/FSA/blob/master/NEWS.md)
 
 ## Installation
-This package can be installed from github to your R with the following code
+**FSA** has not yet been released on CRAN.  The latest version can be installed from GitHub (requires the **devtools** package) with ...
 
 ```r
 if (!require('devtools')) install.packages('devtools'); require('devtools')
 devtools::install_github('droglenc/FSA')
 ```
 
-Descriptions of recent changes can be found in the [News.md file](https://github.com/droglenc/FSA/blob/master/NEWS.md)
+Alternatively, **FSA** can be installed from **RForge.net** with ...
 
-## Contact
-Contact me with questions by sending a friendly e-mail to <dogle@northland.edu>.
+```r
+source("http://www.rforge.net/FSA/InstallFSA.R")
+```
+
+These installations are less than perfect.  [Send me an e-mail](mailto:fishr@derekogle.com?Subject=FSA%20Installation%20Question) if you experience difficulties.
