@@ -7,7 +7,7 @@ FSA
 
 
 ## Introduction
-The **FSA** (Fisheries Stock Assessment) package provides R functions to conduct typical introductory fisheries analyses.  Example analyses that use **FSA** can be found on the *Examples* page of the [fishR website](derekogle.com/fishR).
+The **FSA** (Fisheries Stock Assessment) package provides R functions to conduct typical introductory fisheries analyses.  Example analyses that use **FSA** can be found on the *Examples* page of the [fishR website](http://derekogle.com/fishR).
 
 Recent changes are described in the [News file](https://github.com/droglenc/FSA/blob/master/NEWS.md)
 
