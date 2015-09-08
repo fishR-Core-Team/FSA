@@ -1,4 +1,8 @@
-# FSA 0.7.8 ongoing
+# FSA 0.7.9 ongoing
+* updated `README.md` and `DESCRIPTION` for new websites.
+* `fishR()`: Modified.  Updated for the new websites.
+
+# FSA 0.7.8 Sep15
 * `ageComparison()`: Modified.  Changed `what="McNemars"` and `what="Bowkers"` to `what="McNemar"` and `what="Bowker"`.  Fixed bug if all ages are `NA`.
 * `catchCurve()`: Modified.  Fixed bug related to `NA` values in the catch vector.
 * `chapmanRobson()`: Modified.  Fixed bug related to `NA` values in the catch vector.
