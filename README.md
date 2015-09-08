@@ -25,4 +25,4 @@ Alternatively, **FSA** can be installed from **RForge.net** with ...
 source("http://www.rforge.net/FSA/InstallFSA.R")
 ```
 
-These installations fail in a few situations.  [Send me an e-mail](mailto:fishr@derekogle.com?Subject=FSAdata%20Installation%20Question) if you experience difficulties installing **FSAdata**.
+These installations fail in a few situations.  [Send me an e-mail](mailto:fishr@derekogle.com?Subject=FSA%20Installation%20Question) if you experience difficulties installing **FSA**.
