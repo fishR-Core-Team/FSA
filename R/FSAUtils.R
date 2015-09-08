@@ -206,12 +206,12 @@ fishR <- function(where=c("home","IFAR","general","books","AIFFD","posts","news"
   where <- match.arg(where)
   tmp <- "http://derekogle.com/"
   switch(where,
-         home=   { tmp <- tmp },
-         IFAR=   { tmp <- paste0(tmp,"/IFAR/") },
-         general={ tmp <- paste0(tmp,"fishR/examples/") },
-         books=  { tmp <- paste0(tmp,"fishR/examples/") },
-         AIFFD=  { tmp <- paste0(tmp,"/aiffd2007/") },
-         posts=,news=  { tmp <- paste0(tmp,"fishR/blog/") }
+         home=   { tmp <- paste0(tmp,"fishR") },
+         IFAR=   { tmp <- paste0(tmp,"IFAR") },
+         general={ tmp <- paste0(tmp,"fishR/examples") },
+         books=  { tmp <- paste0(tmp,"fishR/examples") },
+         AIFFD=  { tmp <- paste0(tmp,"aiffd2007") },
+         posts=,news=  { tmp <- paste0(tmp,"fishR/blog") }
   )
   browseURL(tmp)
   invisible(tmp)
