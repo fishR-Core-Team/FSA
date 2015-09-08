@@ -9,7 +9,7 @@
 #'
 #' @return A single string with the first letter of the first or all words capitalized.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @keywords manip
 #'
@@ -86,7 +86,7 @@ iCapFirst<- function(x,which=c("all","first")) {
 #'
 #' @return A vector of colors of length \code{num}.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @seealso See \code{\link[gplots]{rich.colors}} in \pkg{gplots}, \code{\link{cm.colors}}, \code{\link{heat.colors}}, \code{\link{topo.colors}}, \code{\link{terrain.colors}}, \code{\link{rainbow}}, \code{\link{colorRampPalette}}, and \code{\link{colors}}.
 #'
@@ -144,7 +144,7 @@ paletteChoices <- function() c("rich","cm","default","grey","gray","heat","jet",
 #'
 #' @return A numeric vector.
 #' 
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 
 #' @keywords manip
 #' 
@@ -184,7 +184,7 @@ fact2num <- function(object) {
 #' 
 #' @return None, but a webpage will be opened in the default browswer.
 #' 
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 
 #' @keywords misc
 #' 
@@ -226,7 +226,7 @@ fishR <- function(where=c("home","IFAR","general","books","AIFFD","posts","news"
 #' 
 #' @return None.
 #' 
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 
 #' @keywords manip
 #' 
@@ -264,7 +264,7 @@ FSANews <- function () {
 #'
 #' @return A matrix or data.frame with 2*n rows.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @note If \code{n} is larger than the number of rows in \code{x} then all of \code{x} is displayed.
 #'
@@ -332,7 +332,7 @@ headtail <- function(x,n=3L,which=NULL,addrownums=TRUE,...) {
 #'
 #' @return A matrix that contains the term number, hypothesized value, parameter estimate, standard error of the parameter estimate, t test statistic, degrees-of-freedom, and corresponding p-value.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @seealso \code{\link{htest.nlsBoot}}.
 #'
@@ -383,7 +383,7 @@ hoCoef <- function(object,term=2,bo=0,alt=c("two.sided","less","greater")) {
 #'
 #' @return A vector or matrix of lagged ratios.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @seealso \code{diff}
 #'
@@ -434,7 +434,7 @@ lagratio <- function(x,lag=1L,recursion=1L,differences=recursion,direction=c("ba
 #'
 #' @return A numeric value that is the correction factor according to Sprugel (1983).
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @references Sprugel, D.G. 1983.  Correcting for bias in log-transformed allometric equations. Ecology 64:209-210.
 #'
@@ -484,7 +484,7 @@ logbtcf <- function(obj,base=exp(1)) {
 #' 
 #' @return A logical vector of the same length as x.
 #' 
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 
 #' @keywords manip
 #' 
@@ -531,7 +531,7 @@ iOddEven <- function(x,checkval) {
 #'
 #' @return A single numeric that is the percentage of values in \code{x} that meet the criterion in \code{dir} relative to \code{val}.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @keywords misc
 #'
@@ -592,7 +592,7 @@ perc <- function(x,val,dir=c("geq","gt","leq","lt"),na.rm=TRUE,digits=getOption(
 #'
 #' @return A numeric vector that contains the prior-to or reverse cumulative sums.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @seealso \code{\link{cumsum}}.
 #'
@@ -677,7 +677,7 @@ iChkCumSum <- function(x) {
 #' 
 #' @return A single numeric that is the standard error of the mean of \code{x}.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @seealso See \code{\link[sciplot]{se}} in \pkg{sciplot} for similar functionality.
 #'
@@ -727,9 +727,9 @@ se <- function (x,na.rm=TRUE) {
 #'
 #' @return A data frame with the subsetted rows and selected variables.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{2-Basic Data Manipulations}.
+#' @section IFAR Chapter: Basic Data Manipulations.
 #'
 #' @seealso See \code{subset} and \code{\link[dplyr]{filter}} from \pkg{dplyr} for similar functionality.  See \code{\link[gdata]{drop.levels}} in \pkg{gdata} and \code{\link{droplevels}} for related functionality.
 #'
@@ -804,9 +804,9 @@ filterD <- function(x,...) {
 #' 
 #' @seealso See \code{\link[plotrix]{valid.n}} in \pkg{plotrix} and \code{\link[gdata]{nobs}} in \pkg{gdata} for similar functionality.  See \code{\link{is.na}} for finding the missing values.
 #' 
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{2-Basic Data Manipulations}.
+#' @section IFAR Chapter: 2-Basic Data Manipulations.
 #' 
 #' @keywords manip
 #' 

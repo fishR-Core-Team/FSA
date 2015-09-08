@@ -31,7 +31,7 @@ d <- 1:8
 data.frame(d,odd=is.odd(d),even=is.even(d))
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \keyword{manip}
 

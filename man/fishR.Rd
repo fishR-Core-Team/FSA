@@ -29,7 +29,7 @@ fishR("posts")     # blog posts (some examples) page
 } ## END IF INTERACTIVE MODE
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \keyword{misc}
 

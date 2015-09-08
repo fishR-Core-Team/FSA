@@ -14,6 +14,8 @@
 #' @param data A data frame that contains the variables in the formula for \code{x}.
 #'
 #' @return See \code{\link[stats]{ks.test}}.
+#' 
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @seealso \code{\link[stats]{ks.test}}.
 #'

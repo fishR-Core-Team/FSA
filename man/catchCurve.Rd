@@ -94,7 +94,7 @@ If \code{weighted=TRUE} then a weighted regression is used where the weights are
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{11-Mortality}.
+ 11-Mortality.
 }
 \examples{
 data(BrookTroutTH)
@@ -138,10 +138,10 @@ summary(cc5)
 plot(cc5)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \references{
-Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
 Maceina, M.J., and P.W. Bettoli.  1998.  Variation in largemouth bass recruitment in four mainstream impoundments on the Tennessee River. North American Journal of Fisheries Management 18:998-1003.
 

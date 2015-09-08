@@ -90,13 +90,13 @@
 #' 
 #' @section Warning: \code{capHistConvert} may give unwanted results if the data are \code{in.type="event"} but there are unused levels for the variable, as would result if the data.frame had been subsetted on the event variable.  The unwanted results can be corrected by using \code{droplevels} before \code{capHistConvert}.  See the last example for an example.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{9-Abundance from Capture-Recapture Data}.
+#' @section IFAR Chapter: 9-Abundance from Capture-Recapture Data.
 #'
 #' @seealso See \code{\link{capHistSum}} to summarize \dQuote{individual} capture histories into a format useable in \code{\link{mrClosed}} and \code{\link{mrOpen}}.  Also see \code{\link[Rcapture:Rcapture-package]{Rcapture}}, \code{\link[RMark:ABeginnersGuide]{RMark}}, or \pkg{marked} packages for handling more complex analyses.
 #' 
-#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' @keywords manip
 #'

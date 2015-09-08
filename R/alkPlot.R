@@ -30,13 +30,13 @@
 #' 
 #' @return None, but a plot is constructed.
 #' 
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{5-Age-Length Key}. 
+#' @section IFAR Chapter: 5-Age-Length Key.
 #' 
 #' @seealso See \code{\link{alkIndivAge}} for using an age-length key to assign ages to individual fish.
 #' 
-#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' @keywords plot
 #' 

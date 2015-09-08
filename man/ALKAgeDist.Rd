@@ -36,7 +36,7 @@ The values in \code{lenA.n} are equal to what the row sums of \code{key} would h
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{5-Age-Length Key}.
+ 5-Age-Length Key.
 }
 \examples{
 ## Get data with length measurements and some assigned ages
@@ -59,10 +59,10 @@ raw <- xtabs(~LCat+age,data=WR1.age)
 alkAgeDist(WR1.key,lenA.n,len.n)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \references{
-Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
 Lai, H.-L.  1987.  Optimum allocation for estimating age composition using age-length key. Fishery Bulletin, 85:179-185.
 

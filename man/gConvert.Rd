@@ -55,7 +55,7 @@ SMBr1 <- gConvert(SMBi1,in.pre="inc",out.type="rad")
 headtail(SMBr1)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \seealso{
 See \code{\link{addRadCap}} for related functionality.

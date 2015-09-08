@@ -60,7 +60,7 @@ None.  However, a plot is produced.
 Constructs plots of predicted weights at given lengths among different groups.  These plots allow the user to explore differences in predicted weights at a variety of lengths when the weight-length relationship is not the same across a variety of groups.
 }
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{7-Weight-Length}.
+ 7-Weight-Length.
 }
 \examples{
 # load weight-length data
@@ -112,10 +112,10 @@ if (interactive()) {
 }
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \references{
-Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \keyword{manip}
 

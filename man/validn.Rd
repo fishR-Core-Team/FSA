@@ -16,7 +16,7 @@ A single numeric value that is the number of non-\code{NA} values in a vector.
 Finds the number of valid (non-NA) values in a vector.
 }
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{2-Basic Data Manipulations}.
+ 2-Basic Data Manipulations.
 }
 \examples{
 junk1 <- c(1,7,2,4,3,10,NA)
@@ -34,7 +34,7 @@ validn(junk5)
 validn(junk6)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \seealso{
 See \code{\link[plotrix]{valid.n}} in \pkg{plotrix} and \code{\link[gdata]{nobs}} in \pkg{gdata} for similar functionality.  See \code{\link{is.na}} for finding the missing values.

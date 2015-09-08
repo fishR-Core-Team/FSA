@@ -111,7 +111,7 @@ Summarize(dg1~dg2,data=d,percent="total")
 lapply(as.list(d),Summarize,digits=4)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \seealso{
 See \code{\link[base]{summary}}, \code{\link[base]{table}}, and \code{\link[stats]{xtabs}} for related one dimensional functionality.  See \code{\link[base]{tapply}}, \code{\link[doBy]{summaryBy}} in \pkg{doBy}, \code{\link[psych]{describe}} in \pkg{psych}, \code{\link[prettyR]{describe}} in \pkg{prettyR}, and \code{\link[fBasics]{basicStats}} in \pkg{fBasics} for similar \dQuote{by} functionality.

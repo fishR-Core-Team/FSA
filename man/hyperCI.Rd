@@ -31,7 +31,7 @@ This algorithm is experimental at this point.
 hyperCI(50,25,10)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \keyword{htest}
 

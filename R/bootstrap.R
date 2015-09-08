@@ -41,7 +41,7 @@
 #'
 #' \code{predict} returns a matrix with one row and three columns, with the first column holding the predicted value (i.e., the median prediction) and the last two columns holding the approximate confidence interval.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @seealso \code{\link[car]{bootCase}} in \pkg{car}.
 #'
@@ -157,7 +157,7 @@ plot.bootCase <- function(x,...){
 #' 
 #' \code{predict} returns a matrix with one row and three columns, with the first column holding the predicted value (i.e., the median prediction) and the last two columns holding the approximate confidence interval.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @seealso See \code{\link[nlstools]{summary.nlsBoot}} in \pkg{nlstools}
 #'

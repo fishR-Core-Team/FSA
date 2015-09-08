@@ -31,7 +31,7 @@ srModels(...)
 Creates a function for a specific parameterization of a \dQuote{Beverton-Holt}, \dQuote{Ricker},  \dQuote{Shepherd}, or \dQuote{Saila-Lorda} stock-recruitment model.  Use \code{srModels()} to see the equations of each model.
 }
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{13-Recruitment}.
+ 13-Recruitment.
 }
 \examples{
 ## See the formulae
@@ -79,10 +79,10 @@ summary(fit2,correlation=TRUE)
 curve(r3(x,a=coef(fit2)[1],Rp=coef(fit2)[2]),from=0,to=200,col="blue",lwd=3,add=TRUE)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
+Derek H. Ogle, \email{derek@derekogle.com}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 }
 \references{
-Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
 Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19. United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
 

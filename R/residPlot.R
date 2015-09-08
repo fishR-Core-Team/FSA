@@ -38,7 +38,7 @@
 #'
 #' @return None.  However, a residual plot is produced.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @seealso See \code{\link[car]{residualPlots}} in \pkg{car} and \code{\link[nlstools]{nlsResiduals}} in \pkg{nlstools}) for similar functionality and \code{\link{fitPlot}} and \code{\link[car]{outlierTest}} in \pkg{car} for related methods.
 #'

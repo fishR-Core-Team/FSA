@@ -60,13 +60,13 @@
 #' 
 #' The Moran and Schnute methods match the examples in Schnute (1983) perfectly for all point estimates and within 0.1 units for all confidence intervals.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{10-Abundance from Depletion Data}.
+#' @section IFAR Chapter: 10-Abundance from Depletion Data.
 #'
 #' @seealso See \code{\link{depletion}} for related functionality.
 #' 
-#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Carle, F.L. and M.R. Strub. 1978. A new method for estimating population size from removal data.  Biometrics, 34:621-630.
 #'

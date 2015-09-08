@@ -16,7 +16,7 @@
 #'
 #' @return A data.frame with all columns, except for those defined by \code{in.pre} or \code{in.var}, from the \code{df} retained as the left-most columns and the original data in the \code{in.var} columns converted to the \code{out.type} type as the remaining columns.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @seealso See \code{\link{addRadCap}} for related functionality.
 #'
@@ -89,7 +89,7 @@ gConvert<-function(df,in.pre=NULL,in.var=NULL,out.type=c("inc","rad"),out.pre=ou
 #'
 #' @seealso See \code{\link{gConvert}} for related functionality.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @keywords manip
 #'

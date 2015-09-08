@@ -59,7 +59,7 @@ Starting values can also be obtained by plotting the data with the model superim
 The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} parameterizations are synonymous.
 }
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{12-Individual Growth}.
+ 12-Individual Growth.
 }
 \examples{
 ## Examples
@@ -107,10 +107,10 @@ if (interactive()) {
 ## See examples in vbFuns() for use of vbStarts() when fitting Von B models
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \references{
-Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
 See references in \code{\link{vbFuns}}.
 }

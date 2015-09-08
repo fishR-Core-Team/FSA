@@ -31,7 +31,7 @@ bad2 <- fact2num(bad)
 }  ## END IF INTERACTIVE MODE
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \keyword{manip}
 

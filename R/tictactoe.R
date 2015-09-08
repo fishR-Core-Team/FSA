@@ -15,14 +15,14 @@
 #' @param bnd.lty A numeric that indicates the line type for the boundaries of the target objective regions.
 #'
 #' @return None.  However, a graphic is produced.
+#' 
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
-#'
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{6-Size Structure}.
+#' @section IFAR Chapter: 6-Size Structure.
 #'
 #' @seealso See \code{\link{psdVal}} and \code{\link{psdCalc}} for related functionality.
 #' 
-#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #'
 #' @keywords hplot
 #'

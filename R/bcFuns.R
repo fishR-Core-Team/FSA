@@ -2,7 +2,7 @@
 #'
 #' @description Creates a function for a specific back-calculation model based on definitions in Vigloila and Meekan (2009).
 #'
-#' @details The following back-calculation models, based on definitions with abbreviations and model numbers from Vigloila and Meekan (2009), are supported.  Also see the \href{https://sites.google.com/site/fishrfiles/gnrl/BackcalculationExtra.pdf}{Backcalculation-Extra} vignette on the \href{http://fishr.wordpress.com}{fishR webpage} for more information about each model.
+#' @details The following back-calculation models, based on definitions with abbreviations and model numbers from Vigloila and Meekan (2009), are supported.
 #'
 #' \tabular{ccl}{
 #' \bold{Abbreviation} \tab \bold{Number} \tab \bold{Model} \cr
@@ -35,7 +35,7 @@
 #'
 #' @return A function that can be used to predict length at previous age (Li) given length-at-capture (Lc), hard-part radius-at-age i (Ri), and hard-part radius-at-capture (Rc).  In addition, some functions/models may require the previous age (agei) and the age-at-capture (agec), certain parameters related to the biological intercept (R0p & L0p), or certain parameters estimated from various regression models (a,b,c,A,B,C).  See source for more information.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @section fishR vignette: \url{https://sites.google.com/site/fishrfiles/gnrl/Backcalculation.pdf},
 #'\url{https://sites.google.com/site/fishrfiles/gnrl/BackcalculationExtra.pdf}

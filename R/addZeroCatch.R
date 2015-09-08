@@ -19,11 +19,11 @@
 #' @param na.rm A logicial that indicates if rows of df that are \code{NA} should be removed after adding the zeroes.  See details.
 #' @return A data frame with the same structure as \code{df} but with rows of zero observation data appended.
 #' 
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{2-Basic Data Manipulations}.
+#' @section IFAR Chapter: 2-Basic Data Manipulations
 #'
-#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' @keywords manip
 #'

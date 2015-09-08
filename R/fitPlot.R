@@ -54,7 +54,7 @@
 #'
 #' @return None.  However, a fitted-line plot is produced.
 #' 
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 
 #' @seealso See \code{\link{abline}}, \code{\link[car]{regLine}} in \pkg{car}, \code{\link[gplots]{plotmeans}} in \pkg{gplots}, \code{\link[psych]{error.bars}} in \pkg{psych}, \code{interaction.plot}, and \code{\link[sciplot]{lineplot.CI}} in \pkg{sciplot} for similar functionality. See \code{\link{residPlot}} for related functionality.
 #' 

@@ -51,8 +51,8 @@ If \code{what="precision"} in \code{summary} then a summary table that contains 
 \itemize{
   \item n Number of fish in \code{data}.
   \item R Number of age assessments given in \code{formula}.
-  \item ACV The mean coefficient of variation.  See the IFAR chapter for calculational details.
-  \item APE The mean average percent error.  See the IFAR chapter for calculational details.
+  \item ACV The mean coefficient of variation.  See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculational details.
+  \item APE The mean average percent error.  See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculational details.
   \item PercAgree The percentage of fish for which all age assignments perfectly agree.
 }
 
@@ -67,7 +67,7 @@ If \code{what="detail"} is used in \code{summary} then a data frame of the origi
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{4-Age Comparisons}.
+ 4-Age Comparisons.
 }
 \examples{
 ## Example with just two age assignments
@@ -99,10 +99,10 @@ summary(ap2,what="absolute",percent=FALSE,trunc.diff=4)
 summary(ap2,what="detail")
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \references{
-Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
 Beamish, R.J. and D.A. Fournier.  1981.  \href{http://www.pac.dfo-mpo.gc.ca/science/people-gens/beamish/PDF_files/compareagecjfas1981.pdf}{A method for comparing the precision of a set of age determinations.}  Canadian Journal of Fisheries and Aquatic Sciences 38:982-983.
 

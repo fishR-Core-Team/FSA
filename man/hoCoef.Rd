@@ -33,7 +33,7 @@ lm1 <- lm(mirex~weight, data=Mirex)
 hoCoef(lm1,2,0.1)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \seealso{
 \code{\link{htest.nlsBoot}}.

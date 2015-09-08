@@ -89,7 +89,7 @@ if (require(nlstools)) {
 }
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \seealso{
 See \code{\link[nlstools]{summary.nlsBoot}} in \pkg{nlstools}

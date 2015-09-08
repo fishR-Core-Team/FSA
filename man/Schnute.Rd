@@ -40,7 +40,7 @@ SchnuteModels(cex = 1.25, ...)
 The four-parameter growth function from Schnute (1981).  Use \code{SchnuteModels()} to see the equations for each growth function.
 }
 \section{IFAR Chapter}{
- None specifically, but \href{https://fishr.wordpress.com/books/ifar/}{12-Individual Growth} is related.
+ None specifically, but 12-Individual Growth is related.
 }
 \examples{
 ## See the formulae
@@ -60,7 +60,7 @@ lines(s3~ages,lwd=2,col="blue")
 lines(s4~ages,lwd=2,col="green")
 }
 \author{
-Derek H. Ogle.
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \references{
 Schnute, J.  1981.  A versatile growth model with statistical stable parameters.  Canadian Journal of Fisheris and Aquatic Sciences 38:1128-1140.

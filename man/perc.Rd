@@ -44,7 +44,7 @@ perc(tmp,5,"leq",na.rm=FALSE)
 perc(tmp,5,"lt",na.rm=FALSE)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \keyword{misc}
 

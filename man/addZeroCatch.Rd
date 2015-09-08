@@ -36,7 +36,7 @@ One should test the results of this function by creating a frequency table of th
 An error will be returned if either \code{specvar} or \code{eventvar} are factors with any \code{NA} levels.  This usually arises if the dataframe was subsetted/filtered prior to using \code{addZeroCatch}.  See \code{\link{filterD}} or \code{\link[base]{droplevels}} for descriptions of how to drop unused levels.
 }
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{2-Basic Data Manipulations}.
+ 2-Basic Data Manipulations
 }
 \examples{
 ## Example Data #1 (some nets missing some fish, ancillary net data)
@@ -107,10 +107,10 @@ df6mod1 <- addZeroCatch(df6,"net",c("species","sex","size"),zerovar="catch")
 df6mod1
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \references{
-Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \keyword{manip}
 

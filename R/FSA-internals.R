@@ -24,7 +24,7 @@
   msg <- paste(msg,"## Run citation('FSA') for citation ...   ##\n")
   msg <- paste(msg,"##   please cite if used in publication.  ##\n")
   msg <- paste(msg,"##                                        ##\n")
-  msg <- paste(msg,"## See fishR.wordpress.com for more       ##\n")    
+  msg <- paste(msg,"## See derekogle.com/fishR/ for more      ##\n")    
   msg <- paste(msg,"##   thorough analytical vignettes.       ##\n")
   msg <- paste(msg,"############################################\n\n")
   packageStartupMessage(msg)

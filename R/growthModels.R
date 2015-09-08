@@ -43,13 +43,13 @@
 #'   }
 #' }
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{12-Individual Growth}.
+#' @section IFAR Chapter: 12-Individual Growth.
 #'
 #' @seealso See \code{\link{Schnute}} for an implementation of the Schnute (1981) model.
 #'
-#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Campana, S.E. and C.M. Jones.  1992.  \href{http://www.dfo-mpo.gc.ca/Library/141734.pdf}{Analysis of otolith microstructure data}.  Pages 73-100 In D.K. Stevenson and S.E. Campana, editors.  Otolith microstructure examination and analysis.  Canadian Special Publication of Fisheries and Aquatic Sciences 117.
 #' 
@@ -1073,9 +1073,9 @@ iGrowthModels <- function(which,xpos,ypos) {
 #' 
 #' \code{SchnuteModels} returns a graphic that uses \code{\link{plotmath}} to show the growth function equation in a pretty format.
 #' 
-#' @author Derek H. Ogle.
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @section IFAR Chapter: None specifically, but \href{https://fishr.wordpress.com/books/ifar/}{12-Individual Growth} is related.
+#' @section IFAR Chapter: None specifically, but 12-Individual Growth is related.
 #'
 #' @seealso See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{RichardsFuns}}, and \code{\link{logisticFuns}} for similar functionality for other models.
 #'

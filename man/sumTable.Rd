@@ -55,7 +55,7 @@ sumTable(dat~g1,data=d,FUN=validn)  # note use of validn
 sumTable(dat~g1,data=d,FUN=mean,na.rm=TRUE)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \seealso{
 See \code{\link[base]{tapply}} for a more general implementation.  See \code{\link{Summarize}} for a similar computation when only one factor variable is given.

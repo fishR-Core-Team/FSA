@@ -28,9 +28,7 @@
 #'
 #' @return None.  However, a plot is produced.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
-#'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @seealso \code{\link{fitPlot}} and \code{\link{cdplot}}.
 #'

@@ -19,7 +19,7 @@
 #'
 #' @return Returns a vector that consists of measurements for the non-measured individuals in the entire sample.
 #' 
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 
 #' @seealso See \code{\link{expandCounts}} for expanding more than just lengths or expanding lengths when there is a known number in each length bin.  See \code{\link{lencat}} for creating length bins.
 #' 

@@ -85,7 +85,7 @@ Take note of the folling for each type of growth function:
 }
 }
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{12-Individual Growth}.
+ 12-Individual Growth.
 }
 \examples{
 ###########################################################
@@ -249,10 +249,10 @@ curve(log3(x,Linf=coef(fit3)[1],L0=coef(fit3)[2],gninf=coef(fit3)[3]),
       from=0,to=15,col="green",lwd=2,add=TRUE)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
+Derek H. Ogle, \email{derek@derekogle.com}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 }
 \references{
-Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
 Campana, S.E. and C.M. Jones.  1992.  \href{http://www.dfo-mpo.gc.ca/Library/141734.pdf}{Analysis of otolith microstructure data}.  Pages 73-100 In D.K. Stevenson and S.E. Campana, editors.  Otolith microstructure examination and analysis.  Canadian Special Publication of Fisheries and Aquatic Sciences 117.
 

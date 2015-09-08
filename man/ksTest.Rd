@@ -53,6 +53,9 @@ ks.test(x,y)
 ## same as above but using data.frame and formula
 ksTest(dat~grp,data=df)
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \seealso{
 \code{\link[stats]{ks.test}}.
 }

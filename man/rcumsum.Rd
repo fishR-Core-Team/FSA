@@ -63,7 +63,7 @@ pcumsum(tbl)
 rcumsum(tbl)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \seealso{
 \code{\link{cumsum}}.

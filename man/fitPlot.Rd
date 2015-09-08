@@ -218,7 +218,7 @@ par(cex.axis=1.5,cex.lab=1.5)
 fitPlot(glm1)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \seealso{
 See \code{\link{abline}}, \code{\link[car]{regLine}} in \pkg{car}, \code{\link[gplots]{plotmeans}} in \pkg{gplots}, \code{\link[psych]{error.bars}} in \pkg{psych}, \code{interaction.plot}, and \code{\link[sciplot]{lineplot.CI}} in \pkg{sciplot} for similar functionality. See \code{\link{residPlot}} for related functionality.

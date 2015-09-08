@@ -38,7 +38,7 @@
 #'
 #' @seealso See \code{\link{kruskal.test}} and \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test}, \code{\link[PMCMR]{posthoc.kruskal.nemenyi.test}} in \pkg{PMCMR}, \code{\link[pgirmess]{kruskalmc}} in \pkg{pgirmess}, and \code{\link[agricolae]{kruskal}} in \pkg{agricolae}.
 #' 
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}, but this is largely simple modifications (return result, two-sided p-values, and use of \code{\link[stats]{p.adjust}}) of \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test}.
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}, but this is largely simple modifications (return result, two-sided p-values, and use of \code{\link[stats]{p.adjust}}) of \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test}.
 #'
 #' @references 
 #' Dunn, O.J. 1964. Multiple comparisons using rank sums. Technometrics 6:241-252.

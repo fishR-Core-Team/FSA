@@ -18,7 +18,7 @@ alkIndivAge(key, formula, data, type = c("SR", "CR"), breaks = NULL,
 
 \item{data}{A data.frame that minimally contains the length measurements and possibly contains a variable that will receive the age assignments as given in \code{formula}.}
 
-\item{type}{A string that indicates whether to use the semi-random (\code{type="SR"}, default) or completely-random (\code{type="CR"}) methods for assigning ages to individual fish.  See the IFAR chapter for more details.}
+\item{type}{A string that indicates whether to use the semi-random (\code{type="SR"}, default) or completely-random (\code{type="CR"}) methods for assigning ages to individual fish.  See the \href{http://derekogle.com/IFAR}{IFAR chapter} for more details.}
 
 \item{breaks}{A numeric vector of lower values that define the length intervals.  See details.}
 
@@ -44,7 +44,7 @@ Assigned ages will be stored in the column identified on the left-hand-side of \
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{5-Age-Length Key}.
+ 5-Age-Length Key.
 }
 \examples{
 ## Get data with length measurements and some assigned ages
@@ -94,10 +94,10 @@ WR3.comb <- rbind(WR3.age, WR3.len)                  # combine orig age & new ag
 Summarize(len~age,data=WR3.comb,digits=2)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}.  This is largely an R version of the SAS code provided by Isermann and Knight (2005).
+Derek H. Ogle, \email{derek@derekogle.com}.  This is largely an R version of the SAS code provided by Isermann and Knight (2005).
 }
 \references{
-Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
 Isermann, D.A. and C.T. Knight.  2005.  \href{http://www.tandfonline.com/doi/abs/10.1577/M04-130.1}{A computer program for age-length keys incorporating age assignment to individual fish.}  North American Journal of Fisheries Management, 25:1153-1160.
 }

@@ -21,7 +21,7 @@
 #' 
 #' @return A #x2 matrix that contains the lower and upper confidence interval bounds as columns.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @seealso See \code{\link{binom.test}}, \code{\link[Hmisc]{binconf}} in \pkg{Hmisc}, \code{\link[epitools]{binom.conf.int}} in \pkg{epitools}, and functions in \pkg{binom}.
 #'
@@ -80,7 +80,7 @@ binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic","all"
 #'
 #' @return A 1x2 matrix that contains the lower and upper confidence interval bounds.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @keywords htest
 #'
@@ -112,7 +112,7 @@ hyperCI <- function(M,n,m,conf.level=0.95) {
 #'
 #' @return A 1x2 matrix that contains the lower and upper confidence interval bounds.
 #'
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @seealso See \code{\link[epitools]{pois.exact}} in \pkg{epitools} for similar functionality.
 #'

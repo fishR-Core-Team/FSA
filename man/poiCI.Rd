@@ -24,7 +24,7 @@ Computes a CI for the Poisson mean using the method described in Ulm (1990), tho
 poiCI(12)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \references{
 Garwood, F.  1936.  Fiducial limits for the Poisson distribution.  Biometrika.  28(3/4):437-442.

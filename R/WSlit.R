@@ -36,9 +36,9 @@
 #'
 #' @seealso See \code{\link{wsVal}} and \code{\link{wrAdd}} for related functionality.
 #'
-#' @section IFAR Chapter: \href{https://fishr.wordpress.com/books/ifar/}{8-Condition}.
+#' @section IFAR Chapter: 8-Condition.
 #'
-#' @references Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #'
 #' @source Most of these equations can be found in Neumann, R.M., C.S. Guy, and D.W. Willis.  2012.  Length, Weight, and Associated Indices.  Chapter 14 in Zale, A.V., D.L. Parrish, and T.M. Sutton, editors.  Fisheries Techniques.  American Fisheries Society, Bethesda, MD.
 #' 

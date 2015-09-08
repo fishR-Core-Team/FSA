@@ -54,6 +54,9 @@ One may want to convert apparent numeric values to factor values if some of the 
 
 The observed values in the \code{x} should be rounded to the appropriate number of decimals to avoid misplacement of individuals into incorrect length categories due to issues with machine-precision (see discussion in \code{all.equal}.)
 }
+\section{IFAR Chapter}{
+ 2-Data Manipulation.
+}
 \examples{
 # Create random lengths measured to nearest 0.1 unit
 df1 <- data.frame(len=round(runif(50,0.1,9.9),1))
@@ -189,7 +192,10 @@ head(smb2)
 str(smb2)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
+}
+\references{
+Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \keyword{manip}
 

@@ -42,7 +42,7 @@ fvec1 <- capFirst(fvec)
 class(fvec1)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \keyword{manip}
 

@@ -35,7 +35,7 @@ Cutoffs for the Gabelhouse five-cell length categories for a variety of species.
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{6-Size Structure}.
+ 6-Size Structure.
 }
 \examples{
 data(PSDlit)
@@ -43,7 +43,7 @@ str(PSDlit)
 head(PSDlit)
 }
 \references{
-Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, and \code{\link{tictactoe}} for related functionality.

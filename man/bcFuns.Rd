@@ -18,7 +18,7 @@ A function that can be used to predict length at previous age (Li) given length-
 Creates a function for a specific back-calculation model based on definitions in Vigloila and Meekan (2009).
 }
 \details{
-The following back-calculation models, based on definitions with abbreviations and model numbers from Vigloila and Meekan (2009), are supported.  Also see the \href{https://sites.google.com/site/fishrfiles/gnrl/BackcalculationExtra.pdf}{Backcalculation-Extra} vignette on the \href{http://fishr.wordpress.com}{fishR webpage} for more information about each model.
+The following back-calculation models, based on definitions with abbreviations and model numbers from Vigloila and Meekan (2009), are supported.
 
 \tabular{ccl}{
 \bold{Abbreviation} \tab \bold{Number} \tab \bold{Model} \cr
@@ -65,7 +65,7 @@ bcm1(lencap,rad,radcap)
 bcm2(lencap,rad,radcap,2)  # demonstrated with a=2
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \references{
 Vigliola, L. and M.G. Meekan.  2009.  The back-calculation of fish growth from otoliths.  pp. 174-211.  in B.S. Green et al. (editors).  \href{https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths}{Tropical Fish Otoliths: Information for Assessment, Management and Ecology.}  Review: Methods and Technologies in Fish Biology and Fisheries 11.  Springer.

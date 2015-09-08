@@ -97,7 +97,7 @@ The Moran and Schnute methods match the examples in Schnute (1983) perfectly for
 }
 
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{10-Abundance from Depletion Data}.
+ 10-Abundance from Depletion Data.
 }
 \examples{
 ## First example -- 3 passes
@@ -226,10 +226,10 @@ rownames(fnl2) <- NULL
 fnl2
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \references{
-Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
 Carle, F.L. and M.R. Strub. 1978. A new method for estimating population size from removal data.  Biometrics, 34:621-630.
 

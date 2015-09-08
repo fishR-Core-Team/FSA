@@ -24,7 +24,11 @@
 #'
 #' @return If the formula version of the function is used then a data frame will be returned with the a new variable, named as in \code{vname} or \code{LCat} if no name is given by the user, appended to the original data frame.  If the default version of the function is used then a single vector will be returned.  The returned values will be numeric unless \code{breaks} is named and \code{use.names=TRUE} or if  \code{as.fact=TRUE}.
 #' 
-#' @author Derek H. Ogle, \email{dogle@@northland.edu}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' 
+#' @section IFAR Chapter: 2-Data Manipulation.
+#' 
+#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #'
 #' @keywords manip
 #'

@@ -66,7 +66,7 @@ A variety of plots can be used to visualize the proportion of fish of certain ag
 Note that all plots are \dQuote{vertically conditional} -- i.e., each represents the proportional ages WITHIN each length interval.
 }
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{5-Age-Length Key}.
+ 5-Age-Length Key.
 }
 \examples{
 ## Make an example age-length key -- same as in ageKey()
@@ -95,10 +95,10 @@ alkPlot(WR.key,"bubble",grid="blue")
 alkPlot(WR.key,"bubble",grid=rgb(0,0,0,0.2),col=rgb(0,0,0,0.5))
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \references{
-Ogle, D.H.  2015.  Introductory Fisheries Analyses with R.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See \code{\link{alkIndivAge}} for using an age-length key to assign ages to individual fish.

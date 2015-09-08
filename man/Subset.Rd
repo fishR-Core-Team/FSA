@@ -36,7 +36,7 @@ Newbie students using R expect that when a factor variable is subsetted with \co
 These functions are used only for data frames.
 }
 \section{IFAR Chapter}{
- \href{https://fishr.wordpress.com/books/ifar/}{2-Basic Data Manipulations}.
+ Basic Data Manipulations.
 }
 \examples{
 ## The problem -- note use of unused level in the final table.
@@ -56,7 +56,7 @@ levels(iris.set3$Species)
 xtabs(~Species,data=iris.set3)
 }
 \author{
-Derek H. Ogle, \email{dogle@northland.edu}
+Derek H. Ogle, \email{derek@derekogle.com}
 }
 \seealso{
 See \code{subset} and \code{\link[dplyr]{filter}} from \pkg{dplyr} for similar functionality.  See \code{\link[gdata]{drop.levels}} in \pkg{gdata} and \code{\link{droplevels}} for related functionality.
