@@ -1,4 +1,7 @@
-# FSA 0.7.9 ongoing
+# FSA 0.7.10 ongoing
+
+
+# FSA 0.7.9 Sep15
 * Updated `README.md` and `DESCRIPTION` for new websites.
 * Changed all references to the WordPress site to the new website.  Removed links to specific IFAR chapters.  Changed my e-mail address.  Created link in references to IFAR book page.
 * `fishR()`: Modified.  Updated for the new websites.
