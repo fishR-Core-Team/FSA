@@ -17,18 +17,20 @@
 #' @param digits Number of decimal places to round the values to.
 #' @param include.p A logical that indicates whether the result should be a character string with \dQuote{p=} appended to the numerical result.
 #' @param latex A logical that indicates whether the resultant p-value string should be contained within dollar signs to form a latex formula.
-#' @param file A string that contains the root name of the .RNW file.  This will also be the name of the resultant Stangled file with .R appended, the resultant PDF file with .PDF appended, the resultant asciidoc file with .txt appended, and the defaul HTML file with .html appended.  If missing then will search for a .Rnw file in the current working directory.
+#' @param file A string that contains the root name of the .RNW file.  This will also be the name of the resultant purled file with .R appended.
 #' @param out.dir A string that indicates the directory structure in which the purled file should be located.  This should not have a forward slash at the end.
-#' @param moreItems A string that contains additional words that when found in the Stangled file will result in the entire line with those words to be deleted.
+#' @param newname A string for the output filename (without the extension) from \code{purl2}.
+#' @param moreItems A string that contains additional words that when found in the purled file will result in the entire line with those words to be deleted.
 #' @param blanks A string that indicates if blank lines should be removed.  If \code{blanks="all"} then all blank lines will be removed.  If \code{blanks="extra"} then only \dQuote{extra} blanks lines will be removed (i.e., one blank line will be left where there was originally more than one blank line).
-#' @param topnotes A character vector of lines to be added to the top of output file.  Each value in the vector will be placed on a single line at the top of the output file.
-#' @param timestamp A logical that indicates whether a timestampe comment should be appended to the bottom of the script created by \code{purl2}.
-#' @param out A string that indicates the type of output from \code{reproInfo} -- simple R code or LaTeX code.
+#' @param topnotes A character vector of lines to be added to the top of the output file.  Each value in the vector will be placed on a single line at the top of the output file.
+#' @param timestamp A logical that indicates whether a timestamp comment should be appended to the bottom of the script created by \code{purl2}.
+#' @param out A string that indicates the type of output from \code{reproInfo} -- Markdown, LaTeX, or simple R code.
 #' @param rqrdPkgs A string vector that contains packages that are required for the vignette and for which all dependencies should be found.
 #' @param elapsed A numeric, usually from \code{proc.time}, that is the time required to run the vignette.  If \code{NULL} then this output will not be used.  See the note below.
-#' @param width A numertic that indicates the width to use for wrapping the reproducibility information when \code{out="R"}.
-#' @param addTOC A logical that indicates whether or not a table of contents entry for the reproducibity section should be added to the LaTeX output.  Used only if \R{out="LaTeX"}
-#' @param newpage A logical that indicates whether or not the reproduciility information should begin on a new page.  Used only if \R{out="LaTeX"}
+#' @param width A numeric that indicates the width to use for wrapping the reproducibility information when \code{out="r"}.
+#' @param addTOC A logical that indicates whether or not a table of contents entry for the reproducibity section should be added to the LaTeX output.  Used only if \R{out="latex"}
+#' @param newpage A logical that indicates whether or not the reproduciility information should begin on a new page.  Used only if \R{out="latex"}
+#' @param links A named character vector that will add a links bullet to the reproducibility information.  The names will be shown and the values are the links.  Used only if \R{out="markdown}.
 #' @param closeGraphics A logical that indicates whether the graphics device should be closed or not.
 #' @param \dots Additional arguments for the original \code{purl}.
 #'
@@ -37,7 +39,7 @@
 #'    \item \code{kCounts} returns a numeric value if the count is less than zero or greater than ten and returns a character string of the number \sQuote{name}.  See the examples.
 #'    \item \code{kPvalue} returns a character string of the supplied p-value rounded to the requested number of digits or a character string that indicates what the p-value is less than the value with a \sQuote{5} in the \code{digits}+1 place.  See the examples. 
 #'    \item \code{purl2} is a modification of \code{\link[knitr]{purl}} from \pkg{knitr} that creates a file with the same name as \code{file} but with lines removed that contain certain words (those found in \code{ItemsToRemove} and \code{moreItems}). 
-#'    \item \code{reproInfo} returns LaTeX code that prints \dQuote{reproducibility information} at the bottom of the Sweaved/knitted document.
+#'    \item \code{reproInfo} returns Markdown, LaTeX, or R code that prints \dQuote{reproducibility information} at the bottom of the knitted document.
 #'  }
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
@@ -92,7 +94,7 @@ kPvalue <- function(value,digits=4,include.p=TRUE,latex=TRUE) {
 
 #' @rdname knitUtil
 #' @export
-purl2 <- function(file,out.dir=NULL,topnotes=NULL,
+purl2 <- function(file,out.dir=NULL,newname=NULL,topnotes=NULL,
                   moreItems=NULL,blanks=c("extra","all","none"),
                   timestamp=TRUE,...) {
   if (!requireNamespace("knitr")) stop("'purl2' requires the 'knitr' package to be installed.",call.=FALSE)
@@ -109,7 +111,8 @@ purl2 <- function(file,out.dir=NULL,topnotes=NULL,
     ## Make intermediate file for the tangled result (in in.dir)
     fn.Ri <- iMakeFilename(fn.pre,".R",in.dir)
     ## Make output file (in out.dir)
-    fn.Ro <- iMakeFilename(fn.pre,".R",out.dir)
+    if (is.null(newname)) fn.Ro <- iMakeFilename(fn.pre,".R",out.dir)
+    else fn.Ro <- iMakeFilename(newname,".R",out.dir)
     ## Remove already existing .R files with the same name
     # Delete the original tangled file
     unlink(fn.Ri)
@@ -150,9 +153,9 @@ purl2 <- function(file,out.dir=NULL,topnotes=NULL,
 
 #' @rdname knitUtil
 #' @export
-reproInfo <- function(out=c("R","r","LaTeX","latex","Latex"),rqrdPkgs=NULL,elapsed=NULL,
+reproInfo <- function(out=c("r","markdown","latex"),rqrdPkgs=NULL,elapsed=NULL,
                       width=0.95*getOption("width"),
-                      addTOC=TRUE,newpage=FALSE,closeGraphics=TRUE) {
+                      addTOC=TRUE,newpage=FALSE,links=NULL,closeGraphics=TRUE) {
   ## Process the session info
   ses <- iProcessSessionInfo()
   ## Handle the rqrdPkgs
@@ -171,7 +174,8 @@ reproInfo <- function(out=c("R","r","LaTeX","latex","Latex"),rqrdPkgs=NULL,elaps
   ## Prepare output depending on type of out
   out <- tolower(match.arg(out))
   if (out=="r") iReproInfoR(rqrdPkgs,ses,elapsed,compDate,compTime,width)
-  else iReproInfoLaTeX(rqrdPkgs,ses,elapsed,compDate,compTime,addTOC,newpage)
+  else if (out=="latex") iReproInfoLaTeX(rqrdPkgs,ses,elapsed,compDate,compTime,addTOC,newpage)
+  else iReproInfoMarkdown(rqrdPkgs,ses,elapsed,compDate,compTime,links)
   if (closeGraphics) graphics.off()
 }
 
@@ -280,4 +284,23 @@ iReproInfoR <- function(rqrdPkgs,ses,elapsed,compDate,compTime,width) {
   cat(unlist(strwrap(outp,indent=2,exdent=4,simplify=FALSE,width=width)),sep="\n")
   outp <- paste0("Loaded-Only Packages: ",ses$lpkgsP)
   cat(unlist(strwrap(outp,indent=2,exdent=4,simplify=FALSE,width=width)),sep="\n")
+}
+
+iReproInfoMarkdown <- function(rqrdPkgs,ses,elapsed,compDate,compTime,links) {
+  cat("## Reproducibility Information\n\n")
+  outp <- paste0("* **Compiled Date:** ",compDate,"\n")
+  outp <- paste0(outp,"* **Compiled Time:** ",compTime,"\n")
+  if (!is.null(elapsed)) outp <- paste0(outp,"* **Code Execution Time:** ",elapsed," s\n")
+  oupt <- paste0(outp,"\n")
+  outp <- paste0(outp,"* **R Version:** ",ses$vers)
+  outp <- paste0(outp,"* **System:** ",gsub("[_]","\\\\_",ses$sys))
+  outp <- paste0(outp,"* **Base Packages:** ",gsub("[_]","\\\\_",ses$bpkgsP))
+  outp <- paste0(outp,"* **Required Packages:** ",rqrdPkgs)
+  outp <- paste0(outp,"* **Other Packages:** ",gsub("[_]","\\\\_",ses$opkgsP))
+  outp <- paste0(outp,"* **Loaded-Only Packages:** ",gsub("[_]","\\\\_",ses$lpkgsP))
+  if (!is.null(links)) {
+    outp <- paste0(outp,"* **Links:** ")
+    outp <- paste0(outp,paste(paste0("[",names(links),"](",links,")"),collapse=" / "),"\n")
+  }
+  cat(outp)
 }

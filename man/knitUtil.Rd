@@ -11,12 +11,13 @@ kCounts(value, capitalize = FALSE)
 
 kPvalue(value, digits = 4, include.p = TRUE, latex = TRUE)
 
-purl2(file, out.dir = NULL, topnotes = NULL, moreItems = NULL,
-  blanks = c("extra", "all", "none"), timestamp = TRUE, ...)
+purl2(file, out.dir = NULL, newname = NULL, topnotes = NULL,
+  moreItems = NULL, blanks = c("extra", "all", "none"), timestamp = TRUE,
+  ...)
 
-reproInfo(out = c("R", "r", "LaTeX", "latex", "Latex"), rqrdPkgs = NULL,
+reproInfo(out = c("r", "markdown", "latex"), rqrdPkgs = NULL,
   elapsed = NULL, width = 0.95 * getOption("width"), addTOC = TRUE,
-  newpage = FALSE, closeGraphics = TRUE)
+  newpage = FALSE, links = NULL, closeGraphics = TRUE)
 }
 \arguments{
 \item{value}{A single numeric count or p-value.}
@@ -29,29 +30,33 @@ reproInfo(out = c("R", "r", "LaTeX", "latex", "Latex"), rqrdPkgs = NULL,
 
 \item{latex}{A logical that indicates whether the resultant p-value string should be contained within dollar signs to form a latex formula.}
 
-\item{file}{A string that contains the root name of the .RNW file.  This will also be the name of the resultant Stangled file with .R appended, the resultant PDF file with .PDF appended, the resultant asciidoc file with .txt appended, and the defaul HTML file with .html appended.  If missing then will search for a .Rnw file in the current working directory.}
+\item{file}{A string that contains the root name of the .RNW file.  This will also be the name of the resultant purled file with .R appended.}
 
 \item{out.dir}{A string that indicates the directory structure in which the purled file should be located.  This should not have a forward slash at the end.}
 
-\item{topnotes}{A character vector of lines to be added to the top of output file.  Each value in the vector will be placed on a single line at the top of the output file.}
+\item{newname}{A string for the output filename (without the extension) from \code{purl2}.}
 
-\item{moreItems}{A string that contains additional words that when found in the Stangled file will result in the entire line with those words to be deleted.}
+\item{topnotes}{A character vector of lines to be added to the top of the output file.  Each value in the vector will be placed on a single line at the top of the output file.}
+
+\item{moreItems}{A string that contains additional words that when found in the purled file will result in the entire line with those words to be deleted.}
 
 \item{blanks}{A string that indicates if blank lines should be removed.  If \code{blanks="all"} then all blank lines will be removed.  If \code{blanks="extra"} then only \dQuote{extra} blanks lines will be removed (i.e., one blank line will be left where there was originally more than one blank line).}
 
-\item{timestamp}{A logical that indicates whether a timestampe comment should be appended to the bottom of the script created by \code{purl2}.}
+\item{timestamp}{A logical that indicates whether a timestamp comment should be appended to the bottom of the script created by \code{purl2}.}
 
-\item{out}{A string that indicates the type of output from \code{reproInfo} -- simple R code or LaTeX code.}
+\item{out}{A string that indicates the type of output from \code{reproInfo} -- Markdown, LaTeX, or simple R code.}
 
 \item{rqrdPkgs}{A string vector that contains packages that are required for the vignette and for which all dependencies should be found.}
 
 \item{elapsed}{A numeric, usually from \code{proc.time}, that is the time required to run the vignette.  If \code{NULL} then this output will not be used.  See the note below.}
 
-\item{width}{A numertic that indicates the width to use for wrapping the reproducibility information when \code{out="R"}.}
+\item{width}{A numeric that indicates the width to use for wrapping the reproducibility information when \code{out="r"}.}
 
-\item{addTOC}{A logical that indicates whether or not a table of contents entry for the reproducibity section should be added to the LaTeX output.  Used only if \R{out="LaTeX"}}
+\item{addTOC}{A logical that indicates whether or not a table of contents entry for the reproducibity section should be added to the LaTeX output.  Used only if \R{out="latex"}}
 
-\item{newpage}{A logical that indicates whether or not the reproduciility information should begin on a new page.  Used only if \R{out="LaTeX"}}
+\item{newpage}{A logical that indicates whether or not the reproduciility information should begin on a new page.  Used only if \R{out="latex"}}
+
+\item{links}{A named character vector that will add a links bullet to the reproducibility information.  The names will be shown and the values are the links.  Used only if \R{out="markdown}.}
 
 \item{closeGraphics}{A logical that indicates whether the graphics device should be closed or not.}
 
@@ -62,7 +67,7 @@ reproInfo(out = c("R", "r", "LaTeX", "latex", "Latex"), rqrdPkgs = NULL,
    \item \code{kCounts} returns a numeric value if the count is less than zero or greater than ten and returns a character string of the number \sQuote{name}.  See the examples.
    \item \code{kPvalue} returns a character string of the supplied p-value rounded to the requested number of digits or a character string that indicates what the p-value is less than the value with a \sQuote{5} in the \code{digits}+1 place.  See the examples.
    \item \code{purl2} is a modification of \code{\link[knitr]{purl}} from \pkg{knitr} that creates a file with the same name as \code{file} but with lines removed that contain certain words (those found in \code{ItemsToRemove} and \code{moreItems}).
-   \item \code{reproInfo} returns LaTeX code that prints \dQuote{reproducibility information} at the bottom of the Sweaved/knitted document.
+   \item \code{reproInfo} returns Markdown, LaTeX, or R code that prints \dQuote{reproducibility information} at the bottom of the knitted document.
  }
 }
 \description{

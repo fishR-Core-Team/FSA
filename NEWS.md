@@ -1,5 +1,6 @@
 # FSA 0.7.10 ongoing
-
+* `purl2()`: Added `newname=` to allow the output file to have a name other than the same as the intput file.
+* `reproInfo()`: Added `markdown` to the `out=` types.
 
 # FSA 0.7.9 Sep15
 * Updated `README.md` and `DESCRIPTION` for new websites.
