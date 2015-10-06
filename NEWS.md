@@ -1,4 +1,6 @@
-# FSA 0.7.10 ongoing
+# FSA 0.7.11 ongoing
+
+# FSA 0.7.10 Oct15
 * `purl2()`: Added `newname=` to allow the output file to have a name other than the same as the intput file.
 * `reproInfo()`: Added `markdown` to the `out=` types.
 
