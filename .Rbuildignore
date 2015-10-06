@@ -1,8 +1,16 @@
+## Project files
 ^.*\.Rproj$
 ^\.Rproj\.user$
+
+## Raw data files
+^data-raw$
+
+## Miscellaneous webpage and package files
 License
 ToDo
+FileProgress.xlsx
 README.md
 NEWS.md
-FileProgress.xlsx
+.travis.yml
 ^\.travis\.yml$
+^cran-comments\.md$

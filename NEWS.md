@@ -1,4 +1,7 @@
-# FSA 0.7.11 ongoing
+# FSA 0.8.0 ongoing
+
+# FSA 0.7.11 Oct15
+* Converted all `.txt` files to `.Rda` files.  Original `.txt` files are in the `data-raw` directory which was added to `.Rbuildignore`.
 
 # FSA 0.7.10 Oct15
 * `purl2()`: Added `newname=` to allow the output file to have a name other than the same as the intput file.
