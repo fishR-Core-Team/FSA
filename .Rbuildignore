@@ -6,11 +6,11 @@
 ^data-raw$
 
 ## Miscellaneous webpage and package files
-License
 ToDo
 FileProgress.xlsx
 README.md
 NEWS.md
+LICENSE
 .travis.yml
 ^\.travis\.yml$
 ^cran-comments\.md$

@@ -1,4 +1,6 @@
 # FSA 0.8.0 ongoing
+* Added suggests for `dunn.test` for use in `dunnTest()` (see below).
+* `dunnTest()`: Modified.  Changed to more throughly use `dunn.test()` from `dunn.test`.  Added the `two.sided=` argument to `dunnTest()` and `dunn.test.results=` to `print.dunnTest()`.
 
 # FSA 0.7.11 Oct15
 * Converted all `.txt` files to `.Rda` files.  Original `.txt` files are in the `data-raw` directory which was added to `.Rbuildignore`.

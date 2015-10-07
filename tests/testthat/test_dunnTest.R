@@ -14,13 +14,13 @@ unistat <- data.frame(Comparison=c("2-1","3-1","3-2","4-1","4-2","4-3"),
                       P.adj=c(0.1956,0.0191,1,0.0166,1,1))
 
 test_that("dunnTest() error and warning messages",{
-  expect_error(dunnTest(ponds$pond,ponds$pH))
-  expect_warning(dunnTest(ponds$pH,ponds$pond))
-  expect_warning(dunnTest(ponds$pH,ponds$cpond))
-  expect_error(dunnTest(pond~pH,data=ponds))
-  expect_warning(dunnTest(pH~pond,data=ponds))
-  expect_warning(dunnTest(pH~cpond,data=ponds))
-  expect_error(dunnTest(pH~pond+cpond,data=ponds))
+  expect_error(dunnTest(ponds$pond,ponds$pH),"to a factor")
+  expect_warning(dunnTest(ponds$pH,ponds$pond),"to a factor")
+  expect_warning(dunnTest(ponds$pH,ponds$cpond),"to a factor")
+  expect_error(dunnTest(pond~pH,data=ponds),"must be a factor")
+  expect_warning(dunnTest(pH~pond,data=ponds),"to a factor")
+  expect_warning(dunnTest(pH~cpond,data=ponds),"to a factor")
+  expect_error(dunnTest(pH~pond+cpond,data=ponds),"only one RHS variable")
   expect_error(dunnTest(pH+cpond~pond,data=ponds))
 })
 
@@ -31,143 +31,36 @@ test_that("dunnTest matches UnitStat results",{
 
 test_that("dunnTest matches dunn.test results (within difference in two-sidedness) for ponds data",{
   if (require(dunn.test)) {
-    ## unadjusted p-values
-    tmp  <- dunnTest(pH~fpond,data=ponds,method="none")$res$P.adj
-    tmp2 <- dunn.test(ponds$pH,ponds$fpond,method="none")$P.adjusted*2
-    cbind(tmp,tmp2,tmp-tmp2)
-    expect_equivalent(tmp,tmp2)
-    ## Bonferroni method
-    tmp  <- dunnTest(pH~fpond,data=ponds,method="bonferroni")$res$P.adj
-    tmp2 <- dunn.test(ponds$pH,ponds$fpond,method="bonferroni")$P.adjusted
-    tmp2[tmp2<1] <- tmp2[tmp2<1]*2
-    tmp2[tmp2>1] <- 1
-    cbind(tmp,tmp2,tmp-tmp2)
-    expect_equivalent(tmp,tmp2)
-    ## Holm method
-    tmp  <- dunnTest(pH~fpond,data=ponds,method="holm")$res$P.adj
-    tmp2 <- dunn.test(ponds$pH,ponds$fpond,method="holm")$P.adjusted
-    tmp2[tmp2<1] <- tmp2[tmp2<1]*2
-    tmp2[tmp2>1] <- 1
-    cbind(tmp,tmp2,tmp-tmp2)
-    #expect_equivalent(tmp,tmp2) # only the same for the 1st, 3rd, & 4th values
-    ## Hochberg method
-    tmp  <- dunnTest(pH~fpond,data=ponds,method="hochberg")$res$P.adj
-    tmp2 <- dunn.test(ponds$pH,ponds$fpond,method="hochberg")$P.adjusted
-    tmp2[tmp2<1] <- tmp2[tmp2<1]*2
-    tmp2[tmp2>1] <- 1
-    cbind(tmp,tmp2,tmp-tmp2)
-    #expect_equivalent(tmp,tmp2) # not the same for the 3rd and 4th values
-    expect_equivalent(tmp[-c(3,4)],tmp2[-c(3,4)])
-    ## Benjamini-Hochberg method
-    tmp  <- dunnTest(pH~fpond,data=ponds,method="BH")$res$P.adj
-    tmp2 <- dunn.test(ponds$pH,ponds$fpond,method="bh")$P.adjusted
-    tmp2[tmp2<1] <- tmp2[tmp2<1]*2
-    tmp2[tmp2>1] <- 1
-    cbind(tmp,tmp2,tmp-tmp2)
-    #expect_equivalent(tmp,tmp2) # not the same for the 3rd and 4th values
-    expect_equivalent(tmp[-c(3,4)],tmp2[-c(3,4)])
-    ## Benjamini-Yuteli method
-    tmp  <- dunnTest(pH~fpond,data=ponds,method="BY")$res$P.adj
-    tmp2 <- dunn.test(ponds$pH,ponds$fpond,method="by")$P.adjusted
-    tmp2[tmp2<1] <- tmp2[tmp2<1]*2
-    tmp2[tmp2>1] <- 1
-    cbind(tmp,tmp2,tmp-tmp2)
-    #expect_equivalent(tmp,tmp2) # not the same for the 4th value
-    expect_equivalent(tmp[-c(4)],tmp2[-c(4)])
+    ## Loop through all methods in p.adjustment.methods
+    for (m in dunn.test::p.adjustment.methods) {
+      tmp  <- dunnTest(pH~fpond,data=ponds,method=m,two.sided=FALSE)$res$P.adj
+      junk <- utils::capture.output(tmp2 <- dunn.test(ponds$pH,ponds$fpond,method=m)$P.adjusted)
+      expect_equivalent(tmp,tmp2)
+    }
   } # end require()
 })
 
 test_that("dunnTest matches dunn.test results (within difference in two-sidedness) for homecare data",{
   if (require(dunn.test)) {
     data(homecare)
-    ## unadjusted p-values
-    tmp  <- dunnTest(occupation~eligibility,data=homecare,method="none")$res$P.adj
-    tmp2 <- dunn.test(homecare$occupation,homecare$eligibility,method="none")$P.adjusted*2
-    cbind(tmp,tmp2,tmp-tmp2)
-    expect_equivalent(tmp,tmp2)
-    ## Bonferroni method
-    tmp  <- dunnTest(occupation~eligibility,data=homecare,method="bonferroni")$res$P.adj
-    tmp2 <- dunn.test(homecare$occupation,homecare$eligibility,method="bonferroni")$P.adjusted
-    tmp2[tmp2<1] <- tmp2[tmp2<1]*2
-    tmp2[tmp2>1] <- 1
-    cbind(tmp,tmp2,tmp-tmp2)
-    expect_equivalent(tmp,tmp2)
-    ## Holm method
-    tmp  <- dunnTest(occupation~eligibility,data=homecare,method="holm")$res$P.adj
-    tmp2 <- dunn.test(homecare$occupation,homecare$eligibility,method="holm")$P.adjusted
-    tmp2[tmp2<1] <- tmp2[tmp2<1]*2
-    tmp2[tmp2>1] <- 1
-    cbind(tmp,tmp2,tmp-tmp2)
-    expect_equivalent(tmp,tmp2)
-    ## Hochberg method
-    tmp  <- dunnTest(occupation~eligibility,data=homecare,method="hochberg")$res$P.adj
-    tmp2 <- dunn.test(homecare$occupation,homecare$eligibility,method="hochberg")$P.adjusted
-    tmp2[tmp2<1] <- tmp2[tmp2<1]*2
-    tmp2[tmp2>1] <- 1
-    cbind(tmp,tmp2,tmp-tmp2)
-    expect_equivalent(tmp,tmp2)
-    ## Benjamini-Hochberg method
-    tmp  <- dunnTest(occupation~eligibility,data=homecare,method="BH")$res$P.adj
-    tmp2 <- dunn.test(homecare$occupation,homecare$eligibility,method="bh")$P.adjusted
-    tmp2[tmp2<1] <- tmp2[tmp2<1]*2
-    tmp2[tmp2>1] <- 1
-    cbind(tmp,tmp2,tmp-tmp2)
-    expect_equivalent(tmp,tmp2)
-    ## Benjamini-Yuteli method
-    tmp  <- dunnTest(occupation~eligibility,data=homecare,method="BY")$res$P.adj
-    tmp2 <- dunn.test(homecare$occupation,homecare$eligibility,method="by")$P.adjusted
-    tmp2[tmp2<1] <- tmp2[tmp2<1]*2
-    tmp2[tmp2>1] <- 1
-    cbind(tmp,tmp2,tmp-tmp2)
-    expect_equivalent(tmp,tmp2)
+    ## Loop through all methods in p.adjustment.methods
+    for (m in dunn.test::p.adjustment.methods) {
+      tmp  <- dunnTest(occupation~eligibility,data=homecare,method=m,two.sided=FALSE)$res$P.adj
+      junk <- utils::capture.output(tmp2 <- dunn.test(homecare$occupation,homecare$eligibility,method=m)$P.adjusted)
+      expect_equivalent(tmp,tmp2)
+    }
   } # end require()
 })
 
 test_that("dunnTest matches dunn.test results (within difference in two-sidedness) for airquality data",{
   if (require(dunn.test)) {
     data(airquality)
-    ## unadjusted p-values
-    tmp  <- dunnTest(Ozone~Month,data=airquality,method="none")$res$P.adj
-    tmp2 <- dunn.test(airquality$Ozone,airquality$Month,method="none")$P.adjusted*2
-    cbind(tmp,tmp2,tmp-tmp2)
-    expect_equivalent(tmp,tmp2)
-    ## Bonferroni method
-    tmp  <- dunnTest(Ozone~Month,data=airquality,method="bonferroni")$res$P.adj
-    tmp2 <- dunn.test(airquality$Ozone,airquality$Month,method="bonferroni")$P.adjusted
-    tmp2[tmp2<1] <- tmp2[tmp2<1]*2
-    tmp2[tmp2>1] <- 1
-    cbind(tmp,tmp2,tmp-tmp2)
-    expect_equivalent(tmp,tmp2)
-    ## Holm method
-    tmp  <- dunnTest(Ozone~Month,data=airquality,method="holm")$res$P.adj
-    tmp2 <- dunn.test(airquality$Ozone,airquality$Month,method="holm")$P.adjusted
-    tmp2[tmp2<1] <- tmp2[tmp2<1]*2
-    tmp2[tmp2>1] <- 1
-    cbind(tmp,tmp2,tmp-tmp2)
-    #expect_equivalent(tmp,tmp2) # all the same except for 8th value
-    expect_equivalent(tmp[-8],tmp2[-8])
-    ## Hochberg method
-    tmp  <- dunnTest(Ozone~Month,data=airquality,method="hochberg")$res$P.adj
-    tmp2 <- dunn.test(airquality$Ozone,airquality$Month,method="hochberg")$P.adjusted
-    tmp2[tmp2<1] <- tmp2[tmp2<1]*2
-    tmp2[tmp2>1] <- 1
-    cbind(tmp,tmp2,tmp-tmp2)
-    #expect_equivalent(tmp,tmp2) # not the same for the 1st and 6th values
-    expect_equivalent(tmp[-c(1,6)],tmp2[-c(1,6)])
-    ## Benjamini-Hochberg method
-    tmp  <- dunnTest(Ozone~Month,data=airquality,method="BH")$res$P.adj
-    tmp2 <- dunn.test(airquality$Ozone,airquality$Month,method="bh")$P.adjusted
-    tmp2[tmp2<1] <- tmp2[tmp2<1]*2
-    tmp2[tmp2>1] <- 1
-    cbind(tmp,tmp2,tmp-tmp2)
-    expect_equivalent(tmp,tmp2)
-    ## Benjamini-Yuteli method
-    tmp  <- dunnTest(Ozone~Month,data=airquality,method="BY")$res$P.adj
-    tmp2 <- dunn.test(airquality$Ozone,airquality$Month,method="by")$P.adjusted
-    tmp2[tmp2<1] <- tmp2[tmp2<1]*2
-    tmp2[tmp2>1] <- 1
-    cbind(tmp,tmp2,tmp-tmp2)
-    expect_equivalent(tmp,tmp2)
+    ## Loop through all methods in p.adjustment.methods
+    for (m in dunn.test::p.adjustment.methods) {
+      suppressWarnings(tmp  <- dunnTest(Ozone~Month,data=airquality,method=m,two.sided=FALSE)$res$P.adj)
+      junk <- utils::capture.output(tmp2 <- dunn.test(airquality$Ozone,airquality$Month,method=m)$P.adjusted)
+      expect_equivalent(tmp,tmp2)
+    }
   } # end require()
 })
 

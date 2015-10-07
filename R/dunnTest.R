@@ -2,15 +2,13 @@
 #'
 #' @description Performs Dunn's (1964) test of multiple comparisons following a significant Kruskal-Wallis test, possibly with a correction to control the experimentwise error rate.
 #' 
-#' @details This function performs \dQuote{Dunn's} test of multiple comparisons following a Kruskal-Wallis test.  Unadjusted two-sided p-values for each pairwise comparison among groups are computed following Dunn's description.  These p-values may be adjusted with the methods of \code{\link[stats]{p.adjust}}.
-#' 
-#' Dunn's method can be described in the following way.  To compare groups i and j, the absolute value of the difference between the mean rank of group i and the mean rank of group j is found.  If there are no ties, this difference in mean ranks is divided by the square root of [(N*(N+1)/12)*((1/Ni)+(1/Nj))], where N is the total number of individuals in all groups, and ni and nj are the number of individuals in the groups i and j, respectively. If there are ties, the difference in mean ranks is divided by the square root of [(N*(N+1)-Sum((ti^3)-ti)/(N-1))/12*((1/ni)+(1/nj))], where ti is the number of ties in the ith group of ties.  These ratios are a Z test statistic and the two-sided p-value is computed as 2*Pr(Z>|z|).
+#' @details This function performs \dQuote{Dunn's} test of multiple comparisons following a Kruskal-Wallis test.  Unadjusted two-sided p-values for each pairwise comparison among groups are computed following Dunn's description as implemented in the \code{\link[dunn.test]{dunn.test}} function from \pkg{dunn.test}.  These p-values may be adjusted using the methods in the \code{\link[dunn.test]{p.adjustment.methods}} function in \pkg{dunn.test} as implemented in the \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test}.
+#'
+#' This function is largely a wrapper for the \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test}.  Changes here are the possible use of formula notation, results that are not printed by the main function (but are printed in a more useful format (in my opinion) by the \code{print} function), the p-values are adjusted by default with the \dQuote{holm} method, and two-sided p-values (two times the p-value produced by the \code{\link[dunn.test]{dunn.test}} function) are returned with \code{two.sided=TRUE}.  This function returns the same results (in a different format) as the \code{\link[dunn.test]{dunn.test}} function from \pkg{dunn.test} when \code{two.sided=FALSE}.  See \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test} for a more details underlying these computations.
 #' 
 #' @note The data.frame will be reduced to only those rows that are complete cases for \code{x} and \code{g}.  In other words, rows with missing data for either \code{x} or \code{g} are removed from the analysis.
 #' 
 #' There are a number of functions in other packages that purport to do similar analyses.
-#' 
-#' The \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test} performs the same calculations but does not use formula notation, does not produce two-sided p-values, and prints results automatically and in a format that I consider cumbersome.  It does, however, provide a few more methods for controlling the experimentwise error rate.  The results from \code{dunnTest} (here) match those from \code{\link[dunn.test]{dunn.test}} (if the p-values are adjusted to be two-sided) for the Bonferroni method and for some but not all p-values for the Holm, Hochberg, Benjamini-Hochberg, and Benjamini-Yekuteili methods.  Most differences are very slight.  The author of \code{\link[dunn.test]{dunn.test}} says that the difference is due to \code{\link[dunn.test]{dunn.test}} utilizing the order of the p-values where \code{\link[stats]{p.adjust}} (used in \code{dunnTest} (here)) does not.
 #' 
 #' The \code{\link[asbio]{pairw.kw}} function from the \pkg{asbio} package performs the Dunn test with the Bonferroni correction.  The p-value results from \code{DunnTest} match the results from \code{\link[asbio]{pairw.kw}}.  The \code{\link[asbio]{pairw.kw}} also provides a confidence interval for the difference in mean ranks between pairs of groups.
 #' 
@@ -25,10 +23,12 @@
 #' @param x A numeric vector of data values or a formula of the form x~g.
 #' @param g A factor vector or a (non-numeric) vector that can be coerced to a factor vector.
 #' @param data A data.frame that minimally contains \code{x} and \code{g}.
-#' @param method A single string that identifies the method to use to control the experimentwise error rate.  See details in \code{\link[stats]{p.adjust}}.
+#' @param method A single string that identifies the method to use to control the experimentwise error rate.  See the list of methods in \code{\link[dunn.test]{p.adjustment.methods}}.
+#' @param two.sided A single logical that indicates whether a two-sided p-value should be returned (\code{TRUE}; default) or not.  See details.
+#' @param dunn.test.results A single logical that indicates whether the results that would have been printed by \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test} are shown.
 #' @param \dots Not yet used.
 #'
-#' @return A list with two items -- \code{method} is the long name of the method used to control the experimentwise error rate and a data.frame in \code{res} with the following variables:
+#' @return A list with three items -- \code{method} is the long name of the method used to control the experimentwise error rate, \code{dtres} is the strings that would have been printed by \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test}, and a data.frame in \code{res} with the following variables:
 #' \itemize{
 #'   \item Comparison Labels for each pairwise comparison.
 #'   \item Z Values for the Z test statistic for each comparison.
@@ -36,9 +36,9 @@
 #'   \item P.adj Adjusted p-values for each comparison.
 #' }
 #'
-#' @seealso See \code{\link{kruskal.test}} and \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test}, \code{\link[PMCMR]{posthoc.kruskal.nemenyi.test}} in \pkg{PMCMR}, \code{\link[pgirmess]{kruskalmc}} in \pkg{pgirmess}, and \code{\link[agricolae]{kruskal}} in \pkg{agricolae}.
+#' @seealso See \code{\link{kruskal.test}}, \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test}, \code{\link[PMCMR]{posthoc.kruskal.nemenyi.test}} in \pkg{PMCMR}, \code{\link[pgirmess]{kruskalmc}} in \pkg{pgirmess}, and \code{\link[agricolae]{kruskal}} in \pkg{agricolae}.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}, but this is largely simple modifications (return result, two-sided p-values, and use of \code{\link[stats]{p.adjust}}) of \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test}.
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}, but this is largely a wrapper (see details) for \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test} written by Alexis Dinno.
 #'
 #' @references 
 #' Dunn, O.J. 1964. Multiple comparisons using rank sums. Technometrics 6:241-252.
@@ -52,16 +52,20 @@
 #'                          7.71,7.71,7.74,7.79,7.81,7.85,7.87,7.91))
 #' ponds <- ponds[complete.cases(ponds),]
 #' 
-#' # non-formula usage (default "bonferroni" method)
+#' # non-formula usage (default "holm" method)
 #' dunnTest(ponds$pH,ponds$pond)
 #' 
-#' # formula usage (default "Bonferroni" method)
+#' # formula usage (default "holm" method)
 #' dunnTest(pH~pond,data=ponds)
 #' 
 #' # other methods
-#' dunnTest(pH~pond,data=ponds,method="holm")
-#' dunnTest(pH~pond,data=ponds,method="BH")
+#' dunnTest(pH~pond,data=ponds,method="bonferroni")
+#' dunnTest(pH~pond,data=ponds,method="bh")
 #' dunnTest(pH~pond,data=ponds,method="none")
+#' 
+#' # print dunn.test results
+#' tmp <- dunnTest(pH~pond,data=ponds)
+#' print(tmp,dunn.test.results=TRUE)
 #' 
 #' @rdname dunnTest
 #' @export
@@ -71,12 +75,14 @@ dunnTest <- function (x,...) {
 
 #' @rdname dunnTest
 #' @export
-dunnTest.default <- function(x,g,method=stats::p.adjust.methods[c(4,1:3,5:8)],...) {
+dunnTest.default <- function(x,g,
+                             method=dunn.test::p.adjustment.methods[c(4,2:3,5:8,1)],
+                             two.sided=TRUE,...) {
   ## check method type and get long name for the p-value adjustment method
   method <- match.arg(method)
-  adjNAMES <- c("Holm","Hochberg","Hommel","Bonferroni","Benjamini-Hochberg","Benjamini-Yekuteili","False Discovery Rate","No Adjustment")
-  Name <- adjNAMES[which(stats::p.adjust.methods==method)]
-
+  adjNAMES <- c("Holm","Bonferroni","Sidak","Holm-Sidak","Hochberg","Benjamini-Hochberg","Benjamini-Yekuteili","No Adjustment")
+  Name <- adjNAMES[which(dunn.test::p.adjustment.methods[c(4,2:3,5:8,1)]==method)]
+  
   ## check variable types
   if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
   if (!is.factor(g)) {
@@ -91,45 +97,32 @@ dunnTest.default <- function(x,g,method=stats::p.adjust.methods[c(4,1:3,5:8)],..
     x <- x[ok]
     g <- g[ok]
   }
+  
+  ## MAIN CALCULATIONS (using dunn.test() from dunn.test package)
+  # Result is in res, capture.output() is used to ignore the cat()ted
+  # output from dunn.test(), which is in dtres
+  if (!requireNamespace("dunn.test")) stop("'dunnTest' requires the 'dunn.test' package to be installed!",call.=FALSE)
+  else {
+    dtres <- utils::capture.output(res <- dunn.test::dunn.test(x,g,method,TRUE,...))
+    # return a list
+    tmp <- list(method=Name,
+                res=data.frame(Comparison=res$comparisons,Z=res$Z,
+                               P.unadj=ifelse(two.sided,2,1)*res$P,
+                               P.adj=ifelse(two.sided,2,1)*res$P.adjusted),
+                dtres=dtres)
+    pgt1 <- which(tmp$res$P.adj>1)
+    if (length(pgt1)>0) tmp$res$P.adj[pgt1] <- 1
+    class(tmp) <- "dunnTest"
+    tmp
+  }
+}
 
-  ## MAIN CALCULATIONS (largely borrowed from dunn.test() in dunn.test package)
-  # find some constants
-  N <- length(x)
-  lvls <- levels(g)
-  k <- length(lvls)
-  # make a data.frame
-  d <- data.frame(x=x,g=g,ranks=rank(x,ties.method="average",na.last=NA) )
-  Z <- lbls <- rep(NA,k*(k-1)/2)
-  # calculate ties adjustment to be used in pooled variance estimate later
-  tiesadj <- iTiesAdj(d$ranks)/(12*(N-1))
-  # Generate differences in mean ranks and z statistic
-  for (i in 2:k) {
-    for (j in 1:(i-1)) {
-      ni <- sum(d$g==lvls[i])
-      nj <- sum(d$g==lvls[j])
-      meanranki <- mean(d$ranks[d$g==lvls[i]])
-      meanrankj <- mean(d$ranks[d$g==lvls[j]])
-      z <- (meanranki - meanrankj) / sqrt( ((N*(N+1)/12) - tiesadj) * ((1/nj) + (1/ni)) )
-      index <- ((i-2)*(i-1)/2) + j
-      Z[index] <- z
-      lbls[index] <- paste0(lvls[i],"-",lvls[j],"=0")
-    }
-  }
-  # Compute unadjusted p-values (note that 2* is different than in dunn.test)
-  P <- 2*stats::pnorm(abs(Z),lower.tail=FALSE)
-  # compute adjusted p-values (note that this is different than in dunn.test)
-  P.adjust <- stats::p.adjust(P,method=method)
-  # return a list
-  tmp <- list(method=Name,res=data.frame(Comparison=lbls,Z=Z,P.unadj=P,P.adj=P.adjust))
-  class(tmp) <- "dunnTest"
-  tmp
-  }
 
 #' @rdname dunnTest
 #' @export
-dunnTest.formula <- function(x,data=NULL,method=stats::p.adjust.methods[c(4,1:3,5:8)],...) {
-  ## match the arguments
-  method <- match.arg(method)
+dunnTest.formula <- function(x,data=NULL,
+                             method=dunn.test::p.adjustment.methods[c(4,2:3,5:8,1)],
+                             two.sided=TRUE,...) {
   ## get the dataframe of just the two variables
   tmp <- iHndlFormula(x,data,expNumR=1,expNumE=1)
   d <- tmp$mf
@@ -143,33 +136,19 @@ dunnTest.formula <- function(x,data=NULL,method=stats::p.adjust.methods[c(4,1:3,
     warning(tmp$Enames," was coerced to a factor.",call.=FALSE)
   }
   ## send the two variables to dunnTest.default
-  dunnTest.default(d[,tmp$Rname],d[,tmp$Enames],method=method,...)
+  dunnTest.default(d[,tmp$Rname],d[,tmp$Enames],method=method,two.sided=two.sided,...)
 }
 
 #' @rdname dunnTest
 #' @export
-print.dunnTest <- function(x,...) {
-  message("Dunn (1964) Kruskal-Wallis multiple comparison")
-  if (x$method=="No Adjustment") message("  with no adjustment for p-values.\n")
+print.dunnTest <- function(x,dunn.test.results=FALSE,...) {
+  if (!dunn.test.results) {
+    message("Dunn (1964) Kruskal-Wallis multiple comparison")
+    if (x$method=="No Adjustment") message("  with no adjustment for p-values.\n")
     else message("  p-values adjusted with the ",x$method," method.\n")
-  print(x$res,...)
-}
-
-
-### INTERNAL FUNCTIONS
-iTiesAdj <- function(ranks) {## computes an adjustment for ties
-  # finds ranks that are tied and returns those ranks
-  tmp <- table(ranks)
-  ties <- as.numeric(names(tmp)[which(tmp>1)])
-  if (length(ties)==0) ties <- NULL
-  # find the adjustment
-  r <- length(ties)
-  tiesadj <- 0
-  if (r > 0) {
-    for (s in 1:r) {
-      tau <- sum(ranks==ties[s])
-      tiesadj <- tiesadj + (tau^{3} - tau)
-    }
+    print(x$res,...)
+  } else {
+    ## Prints the result as if it came from dunn.test() from dunn.test package
+    cat(paste(x$dtres,"\n"))
   }
-  tiesadj
 }

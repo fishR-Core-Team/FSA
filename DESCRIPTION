@@ -21,6 +21,7 @@ Imports:
 Suggests:
     car,
     dplyr,
+    dunn.test,
     fishmethods,
     FSAdata,
     gdata,
