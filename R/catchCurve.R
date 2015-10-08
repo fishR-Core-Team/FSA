@@ -126,7 +126,7 @@ catchCurve.default <- function(x,catch,ages2use=age,weighted=FALSE,...) {
   
   ## Fit the model to descending limb
   log.catch.e <- log(catch.e)
-  cclm <- stats::lm(log.catch.e~age.e,na.action=na.exclude)
+  cclm <- stats::lm(log.catch.e~age.e,na.action=stats::na.exclude)
   if (weighted) {
     # if asked to fit weighted regression then find weights as
     #   the predicted values from the raw regression
@@ -139,7 +139,7 @@ catchCurve.default <- function(x,catch,ages2use=age,weighted=FALSE,...) {
       W[tmp] <- min(W[which(W>0)])
     } 
     # and then fit the weighted regression
-    cclm <- stats::lm(log.catch.e~age.e,weights=W,na.action=na.exclude)
+    cclm <- stats::lm(log.catch.e~age.e,weights=W,na.action=stats::na.exclude)
   } else {
     # if not asked to fit weighted regression then fill weights
     #   with NULL for return in the list below.
@@ -230,7 +230,7 @@ plot.catchCurve <- function(x,pos.est="topright",cex.est=0.95,
   # Highlight descending limb portion
   graphics::points(x$age.e,x$log.catch.e,col=col.pt,pch=19)
   # Put model on descending limb
-  graphics::lines(x$age.e,predict(x$lm,data.frame(x$age.e)),lwd=lwd,lty=lty,col=col.mdl)
+  graphics::lines(x$age.e,stats::predict(x$lm,data.frame(x$age.e)),lwd=lwd,lty=lty,col=col.mdl)
   # Put mortality values on the plot
   if (!is.null(pos.est)) {
     Z <- -stats::coef(x$lm)[2]

@@ -374,7 +374,7 @@ iEvent2Indiv <- function(df,id,event.ord) {
   tmp <- as.data.frame(ch.tab)
   names(tmp) <- c("id","event","freq")
   # Unstack and add rownames to data.frame
-  tmp <- unstack(tmp,freq~event)
+  tmp <- utils::unstack(tmp,freq~event)
   tmp <- data.frame(rownames(ch.tab),tmp)
   names(tmp) <- c(ifelse(is.null(id),"id",id),levels(factor(df[,event])))
   # force id to be a character (rather than a factor as from as.data.frame)

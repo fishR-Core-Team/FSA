@@ -1,6 +1,42 @@
 # FSA 0.8.0 ongoing
+* Tried submitting to CRAN.
 * Added suggests for `dunn.test` for use in `dunnTest()` (see below).
+* `agePrecision()`:  Modified.  Changed `combn()` to `utils::combn()` and `sd()` to `utils::sd()` (within an `apply()`).
+* `catchCurve()`:  Modified.  Changed `na.exclude()` to `stats::na.exclude()`.
 * `dunnTest()`: Modified.  Changed to more throughly use `dunn.test()` from `dunn.test`.  Added the `two.sided=` argument to `dunnTest()` and `dunn.test.results=` to `print.dunnTest()`.
+* `expandLenFreq()`: Modified.  Changed `runif()` to `stats::runif()`.
+* `extraSS()`: Modified.  Changed `anova()` to `stats::anova()` in an `lapply()`.
+* `fishR()`:  Modified.  Changed `browseURL()` to `utils::browseURL()`.
+* `fsaNews()`:  Modified.  Changed `browseURL()` to `utils::browseURL()`.
+* `headtail()`:  Modified.  Changed `head()` to `utils::head()` and `tail()` to `utils::tail()`.
+* `hist.bootCase()`: Modified.  Changed `hist()` to `hist.formula()`.
+* `iAgeBiasPlot()`: Modified.  Changed `grconvertY()` to `graphics::grconvertY()`.
+* `iALKMean.QD()`: Modified.  Changed `var()` to `stats::var()` (within `sumTable()`).
+* `iBubblesAdd()`: Modified.  Changed `rgb()` to `grdevices::rgb()`.
+* `iChkComplexModel()`: Modified.  Changed `df.residual()` to `stats::df.residual()`.
+* `iCIboot()`: Modified.  Changed `hist()` to `hist.formula()`.
+* `iEvent2Indiv()`: Modified.  Changed `unstack()` to `utils::unstack()`.
+* `iGetAllDependencies()`: Modified.  Changed `installed.packages()` to `utils::installed.packages()`.
+* `iHistResids()`: Modified.  Removed `graphics::hist()` and changed to `hist.formula()`.
+* `iHndlFormula()`: Modified.  Changed `terms()` to `stats::terms()`.
+* `iHndlResidType()`: Modified.  Changed `rstandard()` to `stats::rstandard()` and `rstudent()` to `stats::rstudent()`.
+* `iHtestBoot()`: Modified.  Removed `graphics::hist()` and changed to `hist.formula()`.
+* `iMakeColor()`: Modified.  Changed `rgb()` to `grdevices::rgb()`.
+* `iMakeModelHeading()`: Modified.  Changed `formula()` to `stats::formula()` (within an `lapply()`).
+* `iMoran()`: Modified.  Changed `optimize()` to `grdevices::optimize()`.
+* `iProcessSessionInfo()`: Modified.  Changed `sessioninfo()` to `utils::sessioninfo()`.
+* `iSchnute()`: Modified.  Changed `optimize()` to `grdevices::optimize()`.
+* `iTypeoflm()`: Modified.  Changed `formula()` to `stats::formula()`.
+* `plot.AgeBias()`: Modified.  Changed `rgb()` to `grdevices::rgb()`.
+* `plot.CatchCurve()`: Modified.  Changed `predict()` to `stats::predict()`.
+* `print.extraTest()`: Modified.  Changed `printCoefMat()` to `stats::printCoefMat()`.
+* `psdAdd()`:  Modified.  Changed `data()` to `utils::data()`.
+* `psdVal()`:  Modified.  Changed `data()` to `utils::data()`.
+* `reproInfo()`: Modified.  Changed `graphics.off()` to `grdevices::graphics.off()`.
+* `removal()`: Modified.  Removed some of the examples from the help page to reduce the elapsed time for CRAN.
+* `vbStarts()`: Modified.  Changed `rgb()` to `grdevices::rgb()`.
+* `wrAdd()`:  Modified.  Changed `data()` to `utils::data()`.
+* `wsVal()`:  Modified.  Changed `data()` to `utils::data()`.
 
 # FSA 0.7.11 Oct15
 * Converted all `.txt` files to `.Rda` files.  Original `.txt` files are in the `data-raw` directory which was added to `.Rbuildignore`.

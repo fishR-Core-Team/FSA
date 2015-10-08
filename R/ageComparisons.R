@@ -384,7 +384,8 @@ iEvansHoenig <- function(obj) {
 plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE,
                          xlab=x$ref.lab,ylab=x$nref.lab,show.n=TRUE,nYpos=1.03,cex.n=0.75,
                          lwd=1,
-                         show.pts=FALSE,pch.pts=19,col.pts=rgb(0,0,0,transparency),transparency=1/10,
+                         show.pts=FALSE,pch.pts=19,
+                         col.pts=grDevices::rgb(0,0,0,transparency),transparency=1/10,
                          pch.mean=95,cex.mean=lwd,
                          col.CI="black",col.CIsig="red",lwd.CI=lwd,sfrac=0,
                          show.range=FALSE,col.range="gray",lwd.range=lwd,
@@ -458,7 +459,7 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,cex.n,
     graphics::points(x=d[,1][!d$sig],y=d$mean[!d$sig],pch=pch.mean,cex=cex.mean)
   }
   # show the sample sizes at the top
-  if (show.n) graphics::text(d[,1],grconvertY(nYpos,"npc"),d$n,cex=cex.n,xpd=TRUE)
+  if (show.n) graphics::text(d[,1],graphics::grconvertY(nYpos,"npc"),d$n,cex=cex.n,xpd=TRUE)
 }
 
 #=============================================================
@@ -661,7 +662,7 @@ agePrecision <- function(formula,data) {
   ## Precision alculations (APE and ACV) on each fish
   # Mean, SD of assigned ages
   age.avg <- apply(d,1,mean)
-  age.sd <- apply(d,1,sd)
+  age.sd <- apply(d,1,stats::sd)
   # Summed absolute deviation
   tmp.adevs <- abs(apply(d,2,'-',age.avg))
   age.ad <- apply(tmp.adevs,1,sum)
@@ -682,7 +683,7 @@ agePrecision <- function(formula,data) {
   
   ## Raw age agreement summaries
   # find all pairs of comparisons
-  prs <- t(combn(names(d),2))
+  prs <- t(utils::combn(names(d),2))
   # maximum possible difference is max age - min age ... use this to set the levels
   #   for the agreement table.
   tmp <- max(d,na.rm=TRUE)-min(d,na.rm=TRUE)

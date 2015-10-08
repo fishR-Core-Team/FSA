@@ -342,7 +342,7 @@ iVBStartsPlot <- function(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl,cex.m
   ## Plot the data
   # create a transparency value that is the max of 1/2th of the
   # maximum number at any length and age combination or 0.1
-  clr <- rgb(0,0,0,max(2/max(table(age,len)),0.1))
+  clr <- grDevices::rgb(0,0,0,max(2/max(table(age,len)),0.1))
   # Make the base plot
   graphics::plot(age,len,pch=19,col=clr,xlab="Age",ylab="Length",main=ttl,cex.main=cex.main)
   ## Plot the model

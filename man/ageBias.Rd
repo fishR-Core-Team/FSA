@@ -17,13 +17,13 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
 \method{plot}{ageBias}(x, what = c("bias", "sunflower", "numbers"),
   difference = FALSE, xlab = x$ref.lab, ylab = x$nref.lab,
   show.n = TRUE, nYpos = 1.03, cex.n = 0.75, lwd = 1,
-  show.pts = FALSE, pch.pts = 19, col.pts = rgb(0, 0, 0, transparency),
-  transparency = 1/10, pch.mean = 95, cex.mean = lwd, col.CI = "black",
-  col.CIsig = "red", lwd.CI = lwd, sfrac = 0, show.range = FALSE,
-  col.range = "gray", lwd.range = lwd, col.agree = "black",
-  lwd.agree = lwd, lty.agree = 2, cex.numbers = 0.9, xlim = NULL,
-  ylim = NULL, yaxt = graphics::par("yaxt"), xaxt = graphics::par("xaxt"),
-  ...)
+  show.pts = FALSE, pch.pts = 19, col.pts = grDevices::rgb(0, 0, 0,
+  transparency), transparency = 1/10, pch.mean = 95, cex.mean = lwd,
+  col.CI = "black", col.CIsig = "red", lwd.CI = lwd, sfrac = 0,
+  show.range = FALSE, col.range = "gray", lwd.range = lwd,
+  col.agree = "black", lwd.agree = lwd, lty.agree = 2,
+  cex.numbers = 0.9, xlim = NULL, ylim = NULL,
+  yaxt = graphics::par("yaxt"), xaxt = graphics::par("xaxt"), ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{nrefvar~refvar}, where \code{nrefvar} and \code{refvar} generically represent the variables that contain the paired \dQuote{nonreference} and \dQuote{reference} age assignments, respectively.  See details.}

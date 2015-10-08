@@ -148,7 +148,7 @@ iHndlFormula <- function(formula,data,expNumR=NULL,
   } else {
     # More than one variable in the formula.
     # Must identify if there is a LHS.
-    ifelse(attr(terms(formula),"response")==0,LHS <- FALSE, LHS <- TRUE)
+    ifelse(attr(stats::terms(formula),"response")==0,LHS <- FALSE, LHS <- TRUE)
     # See if more than one variable on LHS
     if (LHS) {
       fcLHS <- as.character(formula)[2]
@@ -267,13 +267,13 @@ iMakeColor <- function(clr,transvalue) {
   if (transvalue <= 0) stop("'transvalue' must be greater than 0.",call.=FALSE)
   if (transvalue > 1) transvalue <- 1/transvalue
   clrprts <- grDevices::col2rgb(clr)/255
-  rgb(clrprts[1,1],clrprts[2,1],clrprts[3,1],transvalue)
+  grDevices::rgb(clrprts[1,1],clrprts[2,1],clrprts[3,1],transvalue)
 }
 
 
 iTypeoflm <- function(mdl) {
   if (any(class(mdl)!="lm")) stop("'iTypeoflm' only works with objects from 'lm()'.",call.=FALSE)
-  tmp <- iHndlFormula(formula(mdl),stats::model.frame(mdl))
+  tmp <- iHndlFormula(stats::formula(mdl),stats::model.frame(mdl))
   if (tmp$Enum==0) stop("Object must have one response and at least one explanatory variable",call.=FALSE)
   if (!tmp$Rclass %in% c("numeric","integer")) stop("Response variable must be numeric",call.=FALSE)
   if (tmp$Etype=="factor") { #ANOVA

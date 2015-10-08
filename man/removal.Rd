@@ -113,64 +113,40 @@ confint(p1)
 confint(p1,parm="No")
 confint(p1,parm="p")
 
-# Carle-Strub but use alternative form of SE
-p1a <- removal(ct3,CS.se="alternative")
-summary(p1a)
-confint(p1a)
-
-# Carle-Strub but use alpha and beta
-p1b <- removal(ct3,alpha=2,beta=2)
-summary(p1b)
-confint(p1b)
-
-# Zippin method
-p2 <- removal(ct3,method="Zippin")
-summary(p2,verbose=TRUE)
-confint(p2)
-
 # Moran method
-p3 <- removal(ct3,method="Moran")
-summary(p3,verbose=TRUE)
-confint(p3,verbose=TRUE)
+p2 <- removal(ct3,method="Moran")
+summary(p2,verbose=TRUE)
+confint(p2,verbose=TRUE)
 #'
 # Schnute method
-p4 <- removal(ct3,method="Schnute")
-summary(p4,verbose=TRUE)
-confint(p4,verbose=TRUE)
+p3 <- removal(ct3,method="Schnute")
+summary(p3,verbose=TRUE)
+confint(p3,verbose=TRUE)
 
-# Seber method
-p5 <- removal(ct3,method="Seber3")
-summary(p5,verbose=TRUE)
-confint(p5)
 
 ## Second example -- 2 passes
 ct2 <- c(77,37)
 
 # Seber method
-p6 <- removal(ct2,method="Seber2")
-summary(p6,verbose=TRUE)
-confint(p6)
-
-# Robson-Regier method
-p7 <- removal(ct2,method="RobsonRegier2")
-summary(p7,verbose=TRUE)
-confint(p7)
+p4 <- removal(ct2,method="Seber2")
+summary(p4,verbose=TRUE)
+confint(p4)
 
 
 ### Test if catchability differs between first sample and the other samples
 # chi-square test statistic from  negative log-likelihoods
 #   from Moran and Schnute fits (from above)
-chi2.val <- 2*(p3$min.nlogLH-p4$min.nlogLH)
+chi2.val <- 2*(p2$min.nlogLH-p3$min.nlogLH)
 # p-value ... no significant difference
 pchisq(chi2.val,df=1,lower.tail=FALSE)
 
 # Another LRT example ... sample 1 from Schnute (1983)
 ct4 <- c(45,11,18,8)
-p3a <- removal(ct4,method="Moran")
-p4a <- removal(ct4,method="Schnute")
-chi2.val <- 2*(p3a$min.nlogLH-p4a$min.nlogLH)  # 4.74 in Schnute(1983)
+p2a <- removal(ct4,method="Moran")
+p3a <- removal(ct4,method="Schnute")
+chi2.val <- 2*(p2a$min.nlogLH-p3a$min.nlogLH)  # 4.74 in Schnute(1983)
 pchisq(chi2.val,df=1,lower.tail=FALSE)         # significant difference (catchability differs)
-summary(p4a)
+summary(p3a)
 
 
 ### Using lapply() to use removal() on many different groups
@@ -206,24 +182,13 @@ fnl
 ## an example; -5 to ignore the group variable from above)
 d1 <- reshape(d[,-5],timevar="pass",idvar=c("lake","year"),direction="wide")
 ## apply restore() to each row of only the catch data
-res1 <- apply(d1[,3:5],MARGIN=1,FUN=removal,just.ests=TRUE)
+res1 <- apply(d1[,3:5],MARGIN=1,FUN=removal,method="CarleStrub",just.ests=TRUE)
 res1 <- data.frame(t(data.frame(res1,check.names=FALSE)))
 ## add the grouping information to the results
 fnl1 <- data.frame(d1[,1:2],res1)
 ## put names together with values
 rownames(fnl1) <- NULL
 fnl1
-
-## Same as above but with the Schnute method
-# Schnute only works with 3 or more samples so remove those with 2
-d2 <- d1[!is.na(d1$catch.3),]
-res2 <- apply(d2[,3:5],MARGIN=1,FUN=removal,method="Schnute",just.ests=TRUE)
-res2 <- data.frame(t(data.frame(res2,check.names=FALSE)))
-## add the grouping information to the results
-fnl2 <- data.frame(d2[,1:2],res2)
-## put names together with values
-rownames(fnl2) <- NULL
-fnl2
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

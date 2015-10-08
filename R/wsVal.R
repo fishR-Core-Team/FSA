@@ -44,7 +44,7 @@ wsVal <- function(species="List",units=c("metric","English"),ref=75,simplify=FAL
   units <- match.arg(units)
   # load WSlit data frame into this functions environment
   # the data/get combination are used to avoide the "no global binding" note at CHECK
-  WSlit <- get(data("WSlit", envir = environment()), envir = environment())
+  WSlit <- get(utils::data("WSlit", envir = environment()), envir = environment())
   # isolate only those data for which those units and ref exist
   df <- droplevels(WSlit[WSlit$units==units & WSlit$ref==ref,])
   # check to make sure that that species exists for that subset

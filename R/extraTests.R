@@ -142,7 +142,7 @@ extraSS <- function(sim,...,com,sim.names=sim.name,sim.name=NULL,com.name=NULL) 
   ## Check if complex model is actually more complex
   iChkComplexModel(sim,com)
   ## run anova for each sim and com pair
-  tmp <- lapply(sim,anova,com)
+  tmp <- lapply(sim,stats::anova,com)
   ## prepare a matrix to received the anova results
   res <- matrix(NA,nrow=n.sim,ncol=6+2)
   ## extract results from all anovas and put in results matrix
@@ -173,7 +173,7 @@ extraSS <- function(sim,...,com,sim.names=sim.name,sim.name=NULL,com.name=NULL) 
 print.extraTest <- function(x,...) {
   cat(attr(x,"heading"),"\n\n")
   nms <- names(x)
-  printCoefmat(x,cs.ind=c(2,4,6),tst.ind=7,zap.ind=6,has.Pvalue=TRUE,...)
+  stats::printCoefmat(x,cs.ind=c(2,4,6),tst.ind=7,zap.ind=6,has.Pvalue=TRUE,...)
 }
 
 # ============================================================
@@ -203,7 +203,7 @@ iMakeModelHeading <- function(sim,com,sim.names,com.name) {
   if (!is.null(sim.names)) {
     if (length(sim.names)!=length(sim)) stop("Length of 'sim.names' differs from number of simple models provided.",call.=FALSE)
     sim_hdg <- paste("Model ",1:length(sim),": ",sim.names,sep="",collapse="\n")
-  } else sim_hdg <- paste("Model ",1:length(sim),": ",lapply(sim,formula),sep="",collapse="\n")
+  } else sim_hdg <- paste("Model ",1:length(sim),": ",lapply(sim,stats::formula),sep="",collapse="\n")
   ## Handle the complex model names ... if none is given (i.e.,
   ## com.name is NULL) then make from the formula of com
   if (!is.null(com.name)) {
@@ -223,7 +223,7 @@ iMakeModelHeading <- function(sim,com,sim.names,com.name) {
 #   something is sent in sim.names and com.name.
 # ============================================================
 iChkComplexModel <- function(sim,com) {
-  simDF <- unlist(lapply(sim,df.residual))
-  comDF <- df.residual(com)
+  simDF <- unlist(lapply(sim,stats::df.residual))
+  comDF <- stats::df.residual(com)
   if (!all(comDF<simDF)) warning("'com' model does not appear to be more complex than all models in 'sim'.\n  Check results carefully.",call.=FALSE)
 }

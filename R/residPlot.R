@@ -405,15 +405,15 @@ iGetMainTitle <- function(object,main) {
 }  # end iGetMainTitle internal function
 
 iHistResids <- function(r,xlab) {
-  graphics::hist(~r,xlab=xlab)
+  hist.formula(~r,xlab=xlab)
 }
 
 iHndlResidType <- function(object,resid.type,ylab) {
   suppressWarnings(if(!class(object)%in%c("nls","nlme")) {
     switch(resid.type,
            raw= { r <- object$mdl$residuals },
-           standardized= { r <- rstandard(object$mdl) },
-           studentized= { r <- rstudent(object$mdl) }
+           standardized= { r <- stats::rstandard(object$mdl) },
+           studentized= { r <- stats::rstudent(object$mdl) }
            )
   } else if (class(object)=="nls") {
     r <- stats::residuals(object)

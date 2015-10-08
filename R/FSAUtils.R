@@ -213,7 +213,7 @@ fishR <- function(where=c("home","IFAR","general","books","AIFFD","posts","news"
          AIFFD=  { tmp <- paste0(tmp,"aiffd2007") },
          posts=,news=  { tmp <- paste0(tmp,"fishR/blog") }
   )
-  browseURL(tmp)
+  utils::browseURL(tmp)
   invisible(tmp)
 }
 
@@ -242,7 +242,7 @@ fishR <- function(where=c("home","IFAR","general","books","AIFFD","posts","news"
 #' @rdname fsaNews
 #' @export
 fsaNews <- function () {
-  browseURL("https://github.com/droglenc/FSA/blob/master/NEWS.md")
+  utils::browseURL("https://github.com/droglenc/FSA/blob/master/NEWS.md")
 }
 
 #' @rdname fsaNews
@@ -305,11 +305,11 @@ headtail <- function(x,n=3L,which=NULL,addrownums=TRUE,...) {
   n <- ifelse(n<0L,max(N+n,0L),min(n,N))
   if (n>=N) tmp <- x
   else {
-    h <- head(x,n,...)
+    h <- utils::head(x,n,...)
     if (addrownums) {
       if (is.null(rownames(x))) rownames(h) <- paste0("[",1:n,",]")
     } else rownames(h) <- NULL
-    t <- tail(x,n,addrownums,...)
+    t <- utils::tail(x,n,addrownums,...)
     tmp <- rbind(h,t)
   }
   if (!is.null(which)) tmp <- tmp[,which]

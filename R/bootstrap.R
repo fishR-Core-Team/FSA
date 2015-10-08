@@ -100,11 +100,11 @@ hist.bootCase <- function(x,same.ylim=TRUE,ymax=NULL,
   graphics::par(mfrow=c(rows,cols))
 	## If not given ymax, then find highest count on all histograms
   if (is.null(ymax)) {
-    for (i in 1:ncol(x)) ymax[i] <- max(hist(~x[,i],plot=FALSE,warn.unused=FALSE,...)$counts)
+    for (i in 1:ncol(x)) ymax[i] <- max(hist.formula(~x[,i],plot=FALSE,warn.unused=FALSE,...)$counts)
   }
   if (same.ylim) ymax <- rep(max(ymax),length(ymax))
 	## Make the plots
-	for(i in 1:ncol(x)) hist(~x[,i],xlab=colnames(x)[i],ylim=c(0,ymax[i]),...)
+	for(i in 1:ncol(x)) hist.formula(~x[,i],xlab=colnames(x)[i],ylim=c(0,ymax[i]),...)
   graphics::par(mfrow=op)
 }
 
@@ -253,7 +253,7 @@ iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
     ## Plotting depends on whether one vector or not
     if (length(parm)==1) {
       ## one histogram
-      h <- hist(~object,xlab=parm,main="")
+      h <- hist.formula(~object,xlab=parm,main="")
       plotrix::plotCI(mean(object),y=0.95*max(h$counts),li=res[1],ui=res[2],err="x",
              pch=19,col=err.col,lwd=err.lwd,add=TRUE,...)
     } else {
@@ -264,7 +264,7 @@ iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
       op <- graphics::par("mfrow")
       graphics::par(mfrow=c(rows,cols))
       for (i in 1:np) {
-        h <- hist(~object[,i],xlab=colnames(object)[i],...)
+        h <- hist.formula(~object[,i],xlab=colnames(object)[i],...)
         plotrix::plotCI(mean(object[,i]),y=0.95*max(h$counts),li=res[i,1],ui=res[i,2],err="x",
                pch=19,col=err.col,lwd=err.lwd,add=TRUE)
       }
@@ -328,7 +328,7 @@ iHTestBoot <- function(object,parm,bo,alt=c("two.sided","less","greater"),plot=F
   rownames(res) <- ""
   ## Make a plot if asked for
   if (plot) {
-    hist(~object,xlab=colnames(object),main="")
+    hist.formula(~object,xlab=colnames(object),main="")
     graphics::abline(v=bo,col="red",lwd=2,lty=2)
   }
   ## Return the result

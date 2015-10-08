@@ -176,7 +176,7 @@ reproInfo <- function(out=c("r","markdown","latex"),rqrdPkgs=NULL,elapsed=NULL,
   if (out=="r") iReproInfoR(rqrdPkgs,ses,elapsed,compDate,compTime,width)
   else if (out=="latex") iReproInfoLaTeX(rqrdPkgs,ses,elapsed,compDate,compTime,addTOC,newpage)
   else iReproInfoMarkdown(rqrdPkgs,ses,elapsed,compDate,compTime,links)
-  if (closeGraphics) graphics.off()
+  if (closeGraphics) grDevices::graphics.off()
 }
 
 
@@ -196,7 +196,7 @@ iMakeFilename <- function(file,extension,directory=NULL) {
 
 iGetAllDependencies <- function(pkgs) {
   # get a list of available packages ... this is needed for package.dependencies below
-  inst <- installed.packages()
+  inst <- utils::installed.packages()
   #   isolate to the supplied packages
   inst <- inst[inst[,"Package"] %in% pkgs,]
   deps <- NULL
@@ -230,7 +230,7 @@ iProcessSessionInfo <- function() {
     pkg <- sapply(L[[n]], function(x) x[["Package"]])
     paste(pkg, vers, sep = "_")
   } # end internal mkLabel
-  ses <- sessionInfo()
+  ses <- utils::sessionInfo()
   sys <- paste(Sys.info()["sysname"],", ",ses$platform,"\n",sep="") 
   vers <- paste(ses$R.version$version.string,"\n",sep="")
   bpkgs <- sort(ses$basePkgs) 

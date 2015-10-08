@@ -265,7 +265,7 @@ iBubbleFindIn <- function(alsum,buf) {
 iBubblesAdd <- function(key,alsum,buf,col) {
   tmp <- iBubbleUnmatKey(key,alsum)
   with(tmp,symbols(len,age,circles=sqrt(tmp$prop),inches=iBubbleFindIn(alsum,buf),
-                   bg=col,fg=rgb(0,0,0,0.5),add=TRUE))
+                   bg=col,fg=grDevices::rgb(0,0,0,0.5),add=TRUE))
 }
 
 iALKPlotBubble <- function(key,xlab,ylab,xlim,ylim,grid,buf,col,add,...) {

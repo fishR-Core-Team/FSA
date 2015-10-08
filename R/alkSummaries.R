@@ -231,8 +231,8 @@ iALKMean.QD <- function(key,formula,data,N_i) {
   n_ij <- sumTable(formula,data,FUN=length)
   mn_ij <- sumTable(formula,data,FUN=mean)
   # Not sure from Q&D if this should be divided by sqrt(n) or not
-  var_ij <- sumTable(formula,data,FUN=var)/sqrt(sumTable(formula,data,FUN=length))
-  #var_ij <- sumTable(formula,data,FUN=var)/sqrt(sumTable(formula,data,FUN=length))
+  var_ij <- sumTable(formula,data,FUN=stats::var)/sqrt(sumTable(formula,data,FUN=length))
+  #var_ij <- sumTable(formula,data,FUN=stats::var)/sqrt(sumTable(formula,data,FUN=length))
   options(warn=0)
   ## See if key has a row that sums to zero, remove that row from
   ##   the key, N_i, n_ij, mn_ij, and var_ij

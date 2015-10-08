@@ -96,7 +96,7 @@ expandLenFreq <- function(x,w,additional,
   new.lens <- c(nrand.lens,rand.lens)
   # make sure that a length can't cross out of length category
   maxval <- w-1/(10^decimals)
-  if (maxval>0) new.lens <- new.lens + runif(length(new.lens),min=0,max=maxval)
+  if (maxval>0) new.lens <- new.lens + stats::runif(length(new.lens),min=0,max=maxval)
   new.lens <- round(new.lens,decimals)
   # if asked, print some summary values of what happened
   if (show.summary) {

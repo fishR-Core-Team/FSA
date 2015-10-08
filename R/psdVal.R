@@ -57,7 +57,7 @@ psdVal <- function(species="List",units=c("mm","cm","in"),incl.zero=TRUE,
   units <- match.arg(units)
   # load RSDlit data frame into this function's environment
   # the data/get combination are used to avoid the "no global binding" note at CHECK
-  PSDlit <- get(data("PSDlit", envir = environment()), envir = environment())
+  PSDlit <- get(utils::data("PSDlit", envir = environment()), envir = environment())
   # continue if species name is correct
   if (iPSDLitCheck(PSDlit,species <- capFirst(species))) {
     # identify columns based on units

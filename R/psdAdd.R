@@ -99,7 +99,7 @@ psdAdd.default <- function(len,spec,units=c("mm","cm","in"),use.names=TRUE,
   }
   ## Prepare the PSD literature values data frame
   # get is used to eliminate problem with rcmd check
-  PSDlit <- get(data("PSDlit", envir = environment()), envir = environment())
+  PSDlit <- get(utils::data("PSDlit", envir = environment()), envir = environment())
 
   ## Create data.frame with length, species, rownumbers, and PSD values (blank)
   data <- data.frame(len,spec,rownums=1:length(len),PSD=rep(NA,length(len)))
