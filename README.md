@@ -9,10 +9,12 @@ FSA
 ## Introduction
 The **FSA** (Fisheries Stock Assessment) package provides R functions to conduct typical introductory fisheries analyses.  Example analyses that use **FSA** can be found on the *Examples* page of the [fishR website](http://derekogle.com/fishR).
 
-You can [browse function help pages here](http://rforge.net/doc/packages/FSA/00Index.html).  Recent changes are described in the [News file](https://github.com/droglenc/FSA/blob/master/NEWS.md)
+You can [browse function help pages here](http://rforge.net/doc/packages/FSA/00Index.html).  Recent changes are described in this [News file](https://github.com/droglenc/FSA/blob/master/NEWS.md)
 
 ## Installation
-**FSA** has not yet been released on CRAN.  The latest version can be installed from GitHub (requires the **devtools** package) with ...
+**FSA** is available [on CRAN](https://cran.r-project.org/web/packages/FSA/index.html) and can be installed like any other package.
+
+The development version can be installed from GitHub (requires the **devtools** package) with ...
 
 ```r
 if (!require('devtools')) install.packages('devtools'); require('devtools')
@@ -25,7 +27,9 @@ Alternatively, **FSA** can be installed from **RForge.net** with ...
 source("http://www.rforge.net/FSA/InstallFSA.R")
 ```
 
-These installations fail in a few situations.  [Send me an e-mail](mailto:fishr@derekogle.com?Subject=FSA%20Installation%20Question) if you experience difficulties installing **FSA**.
+## Questions / Comments / Problems
+
+Report questions, comments, or bug reports on the [issues page](https://github.com/droglenc/FSA/issues).
 
 ## Note About Using Macs
 **FSA** uses **TCL/TK** for some interactive plots.  Some Mac users report problems with using **TCL/TK**.  I do not have access to a Mac to test these problems, some students have reported success installing the **TCL/TK** universal build [located here](http://cran.r-project.org/bin/macosx/tools/) (or [direct link to the file](http://cran.r-project.org/bin/macosx/tools/tcltk-8.5.5-x11.dmg)).  You may have to reinstall **FSA** after installing this file.
