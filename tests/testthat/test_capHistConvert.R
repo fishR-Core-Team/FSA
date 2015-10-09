@@ -1,13 +1,9 @@
 context("capHistConvert")
 
-# ############################################################
-# ============================================================
-# Messaging
-# ============================================================
-# ############################################################
 test_that("capHistConvert() errors and warnings",{
   ## A small example of 'event' format
-  ( ex1 <- data.frame(fish=c(17,18,21,17,21,18,19,20),yr=c(1987,1987,1987,1988,1988,1989,1989,1990)) )
+  ( ex1 <- data.frame(fish=c(17,18,21,17,21,18,19,20),
+                      yr=c(1987,1987,1987,1988,1988,1989,1989,1990)) )
   # convert to 'individual' format
   ( ex1.E2I <- capHistConvert(ex1,id="fish",in.type="event") )
   # convert to 'frequency' format
@@ -38,5 +34,4 @@ test_that("capHistConvert() errors and warnings",{
   expect_error(suppressWarnings(capHistConvert(ex1.E2R,in.type="RMark")))   # should give a warning as well
   expect_error(capHistConvert(ex1.E2R,in.type="RMark",id="fish",freq="fish"))
   expect_error(suppressWarnings(capHistConvert(ex1.E2M,in.type="MARK")))    # should give a warning as well
-  
 })
