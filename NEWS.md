@@ -41,6 +41,9 @@
 * `vbStarts()`: Modified.  Changed `rgb()` to `grdevices::rgb()`.
 * `wrAdd()`:  Modified.  Changed `data()` to `utils::data()`.
 * `wsVal()`:  Modified.  Changed `data()` to `utils::data()`.
+* `test_AgeLengthKey`: Modified.  Altered tests that had used `==` to use `expect_equivalent()` which uses `all.equal()` with `check.attributes=FALSE`.
+* `test_PSD`: Modified.  Altered tests that had used `==` to use `expect_equivalent()` which uses `all.equal()` with `check.attributes=FALSE`.
+
 
 # FSA 0.7.11 Oct15
 * Converted all `.txt` files to `.Rda` files.  Original `.txt` files are in the `data-raw` directory which was added to `.Rbuildignore`.
