@@ -135,14 +135,14 @@ test_that("Does 'seed=' work in alkIndivAge()",{
   WR1.comb2 <- rbind(WR1.age, alkIndivAge(WR1.key,age~len,data=WR1.len,seed=1234343))
   suppressWarnings(sum1 <- Summarize(len~age,data=WR1.comb))
   suppressWarnings(sum2 <- Summarize(len~age,data=WR1.comb))
-  diff <- sum1[,-1]-sum2[,-1]
-  expect_true(all(diff==0))
+  diff <- as.matrix(sum1[,-1]-sum2[,-1])
+  expect_equivalent(diff,matrix(0,nrow=nrow(diff),ncol=ncol(diff)))
   WR1.comb <- rbind(WR1.age, alkIndivAge(WR1.key,age~len,data=WR1.len,type="CR",seed=1234343))
   WR1.comb2 <- rbind(WR1.age, alkIndivAge(WR1.key,age~len,data=WR1.len,type="CR",seed=1234343))
   suppressWarnings(sum1 <- Summarize(len~age,data=WR1.comb))
   suppressWarnings(sum2 <- Summarize(len~age,data=WR1.comb))
-  diff <- sum1[,-1]-sum2[,-1]
-  expect_true(all(diff==0))
+  diff <- as.matrix(sum1[,-1]-sum2[,-1])
+  expect_equivalent(diff,matrix(0,nrow=nrow(diff),ncol=ncol(diff)))
 })
 
 
@@ -209,14 +209,14 @@ test_that("alkAgeDist() reproduces results from Table 8.4 (left) of Quinn and De
     tmp2 <- alkAgeDist(agekey,lenA.n,len.n)
     
     ## Find difference in results
-    diff <- tmp2[,-1]-tmp1[,-3]
-    expect_true(all(diff==0))
-    
+    diff <- as.matrix(tmp2[,-1]-tmp1[,-3])
+    expect_equivalent(diff,matrix(0,nrow=nrow(diff),ncol=ncol(diff)))
+
     ## enter Q&D results as a guard against fishmethods changing
     props <- c(0.0003,0.0213,0.1624,0.0926,0.1533,0.1461,0.1260,0.0133,0.0277,0.0763,0.0298,0.0332,0.0162,0.1017)
     ses <- c(0.0003,0.0056,0.0157,0.0158,0.0185,0.0182,0.0150,0.0050,0.0074,0.0083,0.0047,0.0050,0.0031,0.0063)
-    expect_true(all(round(tmp2$prop,4)-props==0))
-    expect_true(all(round(tmp2$se,4)-ses==0))
+    diff <- as.matrix(round(tmp2[,-1],4)-cbind(props,ses))
+    expect_equivalent(diff,matrix(0,nrow=nrow(diff),ncol=ncol(diff)))
   }
 })
 
@@ -246,10 +246,10 @@ test_that("Are same results achieved when handling a missing row differently",{
   suppressWarnings(sum2 <- Summarize(len~age,data=WR1.comb2))
   suppressWarnings(sum3 <- Summarize(len~age,data=WR1.comb3))
   ## Compare the different results
-  diff12 <- sum1[,-1]-sum2[,-1]
-  diff23 <- sum2[,-1]-sum3[,-1]
-  expect_true(all(diff12==0))
-  expect_true(all(diff23==0))  
+  diff12 <- as.matrix(sum1[,-1]-sum2[,-1])
+  expect_equivalent(diff12,matrix(0,nrow=nrow(diff12),ncol=ncol(diff12)))
+  diff23 <- as.matrix(sum2[,-1]-sum3[,-1])
+  expect_equivalent(diff23,matrix(0,nrow=nrow(diff23),ncol=ncol(diff23)))
   
   ## Apply the different ALKs with alkAgeDist
   len.n1 <- xtabs(~LCat1,data=WR1)
@@ -262,28 +262,27 @@ test_that("Are same results achieved when handling a missing row differently",{
   len.An3 <- xtabs(~LCat3,data=WR1.age)
   sum3 <- alkAgeDist(WR1.key3,len.An3,len.n3)
   ## Compare the different results
-  diff12 <- sum1-sum2
-  diff23 <- sum2-sum3
-  expect_true(all(diff12==0))
-  expect_true(all(diff23==0))  
+  diff12 <- as.matrix(sum1[,-1]-sum2[,-1])
+  expect_equivalent(diff12,matrix(0,nrow=nrow(diff12),ncol=ncol(diff12)))
+  diff23 <- as.matrix(sum2[,-1]-sum3[,-1])
+  expect_equivalent(diff23,matrix(0,nrow=nrow(diff23),ncol=ncol(diff23)))
   
   ## Apply the different ALKs with alkMeanVar
   sum1 <- alkMeanVar(WR1.key1,len~LCat1+age,WR1.age,len.n1)
   suppressWarnings(sum2 <- alkMeanVar(WR1.key2,len~LCat2+age,WR1.age,len.n2))
   sum3 <- alkMeanVar(WR1.key3,len~LCat3+age,WR1.age,len.n3)
   ## Compare the different results
-  diff12 <- sum1-sum2
-  diff23 <- sum2-sum3
-  expect_true(all(diff12==0))
-  expect_true(all(diff23==0))  
+  diff12 <- as.matrix(sum1[,-1]-sum2[,-1])
+  expect_equivalent(diff12,matrix(0,nrow=nrow(diff12),ncol=ncol(diff12)))
+  diff23 <- as.matrix(sum2[,-1]-sum3[,-1])
+  expect_equivalent(diff23,matrix(0,nrow=nrow(diff23),ncol=ncol(diff23)))
   
-  sum1 <- alkMeanVar(WR1.key1,len~LCat1+age,WR1.age,len.n1,method="QuinnDeriso")
-  suppressWarnings(sum2 <- alkMeanVar(WR1.key2,len~LCat2+age,WR1.age,len.n2,method="QuinnDeriso"))
-  sum3 <- alkMeanVar(WR1.key3,len~LCat3+age,WR1.age,len.n3,method="QuinnDeriso")
+  suppressMessages(sum1 <- alkMeanVar(WR1.key1,len~LCat1+age,WR1.age,len.n1,method="QuinnDeriso"))
+  suppressMessages(suppressWarnings(sum2 <- alkMeanVar(WR1.key2,len~LCat2+age,WR1.age,len.n2,method="QuinnDeriso")))
+  suppressMessages(sum3 <- alkMeanVar(WR1.key3,len~LCat3+age,WR1.age,len.n3,method="QuinnDeriso"))
   ## Compare the different results
-  diff12 <- sum1-sum2
-  diff23 <- sum2-sum3
-  expect_true(all(diff12==0))
-  expect_true(all(diff23==0))  
+  diff12 <- as.matrix(sum1[,-1]-sum2[,-1])
+  expect_equivalent(diff12,matrix(0,nrow=nrow(diff12),ncol=ncol(diff12)))
+  diff23 <- as.matrix(sum2[,-1]-sum3[,-1])
+  expect_equivalent(diff23,matrix(0,nrow=nrow(diff23),ncol=ncol(diff23)))
 })
-
