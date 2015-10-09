@@ -1,4 +1,6 @@
 # FSA 0.8.1 ongoing
+* `compIntercepts()`: Added.
+* `compSlopes()`: Added.
 
 ----
 
