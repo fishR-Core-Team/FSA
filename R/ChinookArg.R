@@ -1,6 +1,6 @@
-#' @title Lengths and weights of Chinook Salmon from three locations in Argentina.
+#' @title Lengths and weights for Chinook Salmon from three locations in Argentina.
 #'
-#' @description Lengths and weights of Chinook Salmon from three locations in Argentina.
+#' @description Lengths and weights for Chinook Salmon from three locations in Argentina.
 #'
 #' @name ChinookArg
 #' 
@@ -15,10 +15,10 @@
 #' 
 #' @section Topic(s):
 #'  \itemize{
-#'    \item Length-weight 
+#'    \item Weight-Length 
 #'  }
 #' 
-#' @concept 'Length-Weight'
+#' @concept 'Weight-Length'
 #' 
 #' @keywords datasets
 #' 
