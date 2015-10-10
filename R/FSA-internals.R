@@ -257,17 +257,17 @@ iListSpecies <- function(d) {
 } # end internal function    
 
 
-iMakeColor <- function(clr,transvalue) { 
+iMakeColor <- function(col,transp) { 
   ## Takes a color string and will make it transparent based on
-  ##  the value of transvalue.  The transvalue value must be greater
-  ##  than 0.  If transvalue is greater than 1 than it is interpreted
+  ##  the value of transp.  The transp value must be greater
+  ##  than 0.  If transp is greater than 1 than it is interpreted
   ##  as the number of points plotted on top of each other before the
-  ##  transparency is lost and is, thus, transformed to 1/transvalue.
+  ##  transparency is lost and is, thus, transformed to 1/transp.
   ## The return value is an rgb() color.
-  if (transvalue <= 0) stop("'transvalue' must be greater than 0.",call.=FALSE)
-  if (transvalue > 1) transvalue <- 1/transvalue
-  clrprts <- grDevices::col2rgb(clr)/255
-  grDevices::rgb(clrprts[1,1],clrprts[2,1],clrprts[3,1],transvalue)
+  if (transp <= 0) stop("'transp' must be greater than 0.",call.=FALSE)
+  if (transp > 1) transp <- 1/transp
+  colprts <- grDevices::col2rgb(col)/255
+  grDevices::rgb(colprts[1,1],colprts[2,1],colprts[3,1],transp)
 }
 
 

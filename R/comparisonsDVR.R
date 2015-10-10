@@ -84,9 +84,9 @@ compSlopes <- function(mdl,method=stats::p.adjust.methods,
   ## each slope and each comparison of slopes
   for (i in 1:num.lvls) {
     # fit model and get results
-    lm1 <- lm(y~x*g)
+    lm1 <- stats::lm(y~x*g)
     sum <- summary(lm1)
-    conf <- confint(lm1,level=conf.level)           
+    conf <- stats::confint(lm1,level=conf.level)           
     # get individual slopes information
     sdf <- iExtractSlopes(sum,conf,sdf,i,conf.level)
     if (i < num.lvls) {
@@ -104,7 +104,7 @@ compSlopes <- function(mdl,method=stats::p.adjust.methods,
   ## Rename the confidence interval columns
   names(cdf)[3:4] <- names(sdf)[3:4] <- iCILabel(conf.level)
   ## Create and return the results list
-  res <- list(method=method,comparisons=cdf,slopes=sdf,digits=digits)
+  res <- list(method=method,comparisons=cdf,slope=sdf,digits=digits)
   class(res) <- "compSlopes"
   res
 }
@@ -112,10 +112,10 @@ compSlopes <- function(mdl,method=stats::p.adjust.methods,
 #' @rdname compSlopes
 #' @export
 print.compSlopes <- function(x,...) {
-  message("Multiple Slope Comparisons (using '",x$method,"' adjustment)")
+  message("Multiple Slope Comparisons (using the '",x$method,"' adjustment)")
   print(x$comparisons,digits=x$digits)
-  message("\nSlope Information (using '",x$method,"' adjustment)")
-  print(x$slopes,digits=x$digits)
+  message("\nSlope Information (using the '",x$method,"' adjustment)")
+  print(x$slope,digits=x$digits)
 }
 
 
@@ -185,7 +185,7 @@ compIntercepts <- function(mdl,common.cov=mean(x),
   lmtype <- iTypeoflm(mdl)
   if (lmtype$type!="IVR") stop("Function only works for dummy variable regressions.",call.=FALSE)
   if (lmtype$Enum>2) stop("Function only works for dummy variable regressions\n with one factor and one covariate variable.",call.=FALSE)
-  if (length(attr(terms(mdl),"term.labels"))>2) warning("Removed an interaction term from 'mdl' (i.e., assumed\n parallel lines) to test intercepts.\n",call.=FALSE)
+  if (length(attr(stats::terms(mdl),"term.labels"))>2) warning("Removed an interaction term from 'mdl' (i.e., assumed\n parallel lines) to test intercepts.\n",call.=FALSE)
   ## isolate model information
   y <- lmtype$mf[,lmtype$Rpos]
   x <- lmtype$mf[,lmtype$ENumPos]
@@ -196,7 +196,7 @@ compIntercepts <- function(mdl,common.cov=mean(x),
   ## Construct the adjusted values
   adjvals <- stats::predict(lm1,data.frame(x=rep(common.cov,dim(lmtype$mf)[1]),g=g))+lm1$residuals
   ## Compure Tukey's adjustment on the adjusted values
-  thsd <- stats::TukeyHSD(aov(adjvals~g),...)
+  thsd <- stats::TukeyHSD(stats::aov(adjvals~g),...)
   ## Put results into a better data.frame
   cdf <- data.frame(comparison=rownames(thsd[[1]]),thsd[[1]])
   rownames(cdf) <- 1:dim(cdf)[1]
@@ -213,9 +213,9 @@ compIntercepts <- function(mdl,common.cov=mean(x),
 #' @rdname compIntercepts
 #' @export
 print.compIntercepts <- function(x,...) {
-  message("Tukey HSD on adjusted means assuming parallel lines")
+  message("Tukey HSD on means adjusted assuming parallel lines")
   print(x$comparisons,digits=x$digits)
-  message("\nMean adjusted ",x$rnm," when ",x$cnm,"=",formatC(x$common.cov,format="fg",digits=x$digits))
+  message("\nMean ",x$rnm," when ",x$cnm,"=",formatC(x$common.cov,format="fg",digits=x$digits))
   print(x$means,digits=x$digits)
 }
 

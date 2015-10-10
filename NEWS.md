@@ -1,11 +1,13 @@
 # FSA 0.8.1 ongoing
+* Submitted to CRAN.
+* `col2rgbt()`: Added.
 * `compIntercepts()`: Added.
 * `compSlopes()`: Added.
 
 ----
 
 # FSA 0.8.0 8-Oct-15
-* Submitted to CRAN.
+* Submitted to CRAN (had an error in the tests for Sparc-Solaris).
 * Added suggests for `dunn.test` for use in `dunnTest()` (see below).
 * `agePrecision()`:  Modified.  Changed `combn()` to `utils::combn()` and `sd()` to `utils::sd()` (within an `apply()`).
 * `catchCurve()`:  Modified.  Changed `na.exclude()` to `stats::na.exclude()`.

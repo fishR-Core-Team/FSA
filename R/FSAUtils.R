@@ -136,6 +136,39 @@ chooseColors <- function(pal=paletteChoices(),num,...) {
 paletteChoices <- function() c("rich","cm","default","grey","gray","heat","jet","rainbow","topo","terrain")
 
 
+#' @title Converts an R color to RGB (red/green/blue) including a transparency (alpha channel).
+#'
+#' @description Converts an R color to RGB (red/green/blue) including a transparency (alpha channel).  Similar to \code{\link[grDevices]{col2rgb}} except that a transparncy (alpha channel) can be included.
+#'
+#' @param col A vector of any of the three kinds of R color specifications (i.e., either a color name (as listed by \code{\link[grDevices]{colors}}()), a hexadecimal string of the form "#rrggbb" or "#rrggbbaa" (see \code{\link[grDevices]{rgb}}), or a positive integer i meaning \code{\link[grDevices]{palette}}()[i].
+#' @param transp A numeric vector that indicates the transparency level for the color.  The transpaency values must be greater than 0.  Transparency values greater than 1 are interpreted as the number of points plotted on top of each other before the transparency is lost and is, thus, transformed to the inverse of the transparency value provided.
+#' 
+#' @return A vector of hexadecimal strings of the form "#rrggbbaa" as would be returned by \code{\link[grDevices]{rgb}}.
+#'
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#'
+#' @seealso See \code{\link[grDevices]{col2rgb}} for similar functionality.
+#'
+#' @keywords manip
+#'
+#' @examples
+#' col2rgbt("black")
+#' col2rgbt("black",1/4)
+#' clrs <- c("black","blue","red","green")
+#' col2rgbt(clrs)
+#' col2rgbt(clrs,1/4)
+#' trans <- (1:4)/5
+#' col2rgbt(clrs,trans)
+#' 
+#' @export
+col2rgbt <- function(col,transp=1) {
+  if (length(transp)==1) transp <- rep(transp,length(col))
+  if (length(col)!=length(transp)) stop("Length of 'transp' must be 1 or same as length of 'col'.",call.=FALSE)
+  mapply(iMakeColor,col,transp,USE.NAMES=FALSE)
+}
+
+
+
 #' @title Converts "numeric" factor levels to numeric values.
 #'
 #' @description Converts \dQuote{numeric} factor levels to numeric values.
@@ -252,9 +285,9 @@ FSANews <- function () {
 }
 
 
-#' Shows rows from the head and tail of a data frame or matrix.
+#' @title Shows rows from the head and tail of a data frame or matrix.
 #'
-#' Shows rows from the head and tail of a data frame or matrix.
+#' @description Shows rows from the head and tail of a data frame or matrix.
 #'
 #' @param x A data frame or matrix.
 #' @param which A numeric or string vector that contains the column numbers or names to display.  Defaults to showing all columns.

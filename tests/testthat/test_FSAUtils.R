@@ -84,6 +84,21 @@ test_that("chooseColors() error messages and return values",{
 
 
 # ############################################################
+# col2rgbt
+# ############################################################
+test_that("col2rgbt() messages and results",{
+  expect_error(col2rgbt("black",-1),"must be greater than 0")
+  expect_error(col2rgbt("black",0),"must be greater than 0")
+  expect_error(col2rgbt(c("black","blue","red"),c(2,3)),"must be 1 or same as length")
+  expect_equal(col2rgbt("black",10),rgb(0,0,0,1/10))
+  expect_equal(col2rgbt("black",1/10),rgb(0,0,0,1/10))
+  expect_equal(col2rgbt("red",10),rgb(1,0,0,1/10))
+  expect_equal(col2rgbt("blue",1/10),rgb(0,0,1,1/10))
+  expect_equal(col2rgbt("black",1),rgb(0,0,0,1))
+})
+
+
+# ############################################################
 # fact2num
 # ############################################################
 test_that("fact2num() error messages and results",{
