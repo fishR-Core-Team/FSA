@@ -10,10 +10,10 @@
 #'
 #' @format A data frame with 122 observations on the following 4 variables.
 #'  \describe{ 
-#'    \item{year}{a numeric vector of capture years.}
-#'    \item{weight}{a numeric vector of salmon weights (kg).}
-#'    \item{mirex}{a numeric vector of mirex concentration in the salmon tissue (mg/kg).}
-#'    \item{species}{a factor with levels \code{chinook} and \code{coho}.} 
+#'    \item{year}{a numeric vector of capture years}
+#'    \item{weight}{a numeric vector of salmon weights (kg)}
+#'    \item{mirex}{a numeric vector of mirex concentration in the salmon tissue (mg/kg)}
+#'    \item{species}{a factor with levels \code{chinook} and \code{coho}}
 #'  }
 #'
 #' @concept 'Linear Models'

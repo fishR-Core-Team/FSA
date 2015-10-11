@@ -8,8 +8,8 @@
 #' 
 #' @format A data frame with 8 observations on the following 2 variables:
 #'  \describe{
-#'    \item{days}{Elapsed duration of the experiment.}
-#'    \item{cells}{Number of cells in the population.} 
+#'    \item{days}{Elapsed duration of the experiment}
+#'    \item{cells}{Number of cells in the population} 
 #'  }
 #' 
 #' @concept 'Nonlinear Model'

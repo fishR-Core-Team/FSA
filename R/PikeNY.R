@@ -1,4 +1,4 @@
-#' @title Summarized multiple mark-recapture data for all Northern Pike from Buckthorn Marsh.
+#' @title Summarized multiple mark-recapture data for all Northern Pike from Buckthorn Marsh, NY.
 #'
 #' @description Summary results of capture histories (number captured, number of recaptured fish, and number of unmarked fish that were marked) for all Buckthorn Marsh Northern Pike (\emph{Esox lucius}).
 #'

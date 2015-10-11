@@ -1,4 +1,7 @@
-# FSA 0.8.1 ongoing
+# FSA 0.8.2 ongoing
+* Added `datalist` vignette.
+
+# FSA 0.8.1 11-Oct-15
 * Submitted to CRAN.
 * `col2rgbt()`: Added.
 * `compIntercepts()`: Added.

@@ -8,14 +8,14 @@
 #' 
 #' @format A data frame with 7 observations on the following 2 variables.
 #'  \describe{
-#'    \item{age}{A numeric vector of assigned ages.}
-#'    \item{catch}{A numeric vector of number of Brook Trout caught.} 
+#'    \item{age}{A numeric vector of assigned ages}
+#'    \item{catch}{A numeric vector of number of Brook Trout caught}
 #'  }
 #' 
 #' @section Topic(s):
 #'  \itemize{
 #'    \item Mortality
-#'    \item Catch curve
+#'    \item Catch Curve
 #'    \item Chapman-Robson 
 #'  }
 #' 

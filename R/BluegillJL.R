@@ -1,4 +1,4 @@
-#' @title Capture histories (2 samples) of Bluegill from Jewett Lake.
+#' @title Capture histories (2 samples) of Bluegill from Jewett Lake, MI.
 #'
 #' @description Each line consists of the capture history over two samples of Bluegill (\emph{Lepomis macrochirus}) in Jewett Lake (MI).  This file contains the capture histories for only Bluegill larger thatn 6-in.
 #'

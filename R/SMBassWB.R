@@ -1,4 +1,4 @@
-#' @title Growth increment data for West Bearskin Lake Smallmouth Bass.
+#' @title Growth increment data for West Bearskin Lake, MN, Smallmouth Bass.
 #'
 #' @description Growth data from Smallmouth Bass (\emph{Micropterus dolomieu}) captured in West Bearksin Lake, MN.  Five samples were collected over three years (1988-1990) with two gears (fall -- trapnets, spring -- electrofishing).
 #'
@@ -8,26 +8,26 @@
 #'
 #' @format A data frame of 445 observations on the following 20 variables:
 #'  \describe{
-#'    \item{species}{Species of the fish (\code{SMB} for each fish in this file).} 
-#'    \item{lake}{Lake fish was captured in (\code{WB} for each fish in this file).} 
-#'    \item{gear}{Gear used to capture the fish (\code{T}=Trapnet and \code{E}=Electrofishing).} 
-#'    \item{yearcap}{Year fish was captured (\code{1988}, \code{1989}, or \code{1990}).} 
-#'    \item{fish}{A unique identifier for each fish.} 
-#'    \item{agecap}{Assigned age-at-capture for the fish (from scales).} 
-#'    \item{lencap}{Total length-at-capture for the fish (mm).}
-#'    \item{anu1}{Magnified scale radius (mm) to the 1st annulus.}
-#'    \item{anu2}{Magnified scale radius (mm) to the 2md annulus.}
-#'    \item{anu3}{Magnified scale radius (mm) to the 3rd annulus.}
-#'    \item{anu4}{Magnified scale radius (mm) to the 4th annulus.}
-#'    \item{anu5}{Magnified scale radius (mm) to the 5th annulus.}
-#'    \item{anu6}{Magnified scale radius (mm) to the 6th annulus.}
-#'    \item{anu7}{Magnified scale radius (mm) to the 7th annulus.}
-#'    \item{anu8}{Magnified scale radius (mm) to the 8th annulus.}
-#'    \item{anu9}{Magnified scale radius (mm) to the 9th annulus.}
-#'    \item{anu10}{Magnified scale radius (mm) to the 10th annulus.}
-#'    \item{anu11}{Magnified scale radius (mm) to the 11th annulus.}
-#'    \item{anu12}{Magnified scale radius (mm) to the 12th annulus.}
-#'    \item{radcap}{Total scale radius at time of capture.}
+#'    \item{species}{Species of the fish (\code{SMB} for each fish in this file)}
+#'    \item{lake}{Lake fish was captured in (\code{WB} for each fish in this file)}
+#'    \item{gear}{Gear used to capture the fish (\code{T}=Trapnet and \code{E}=Electrofishing)}
+#'    \item{yearcap}{Year fish was captured (\code{1988}, \code{1989}, or \code{1990})}
+#'    \item{fish}{A unique identifier for each fish}
+#'    \item{agecap}{Assigned age-at-capture for the fish (from scales)}
+#'    \item{lencap}{Total length-at-capture for the fish (mm)}
+#'    \item{anu1}{Magnified scale radius (mm) to the 1st annulus}
+#'    \item{anu2}{Magnified scale radius (mm) to the 2nd annulus}
+#'    \item{anu3}{Magnified scale radius (mm) to the 3rd annulus}
+#'    \item{anu4}{Magnified scale radius (mm) to the 4th annulus}
+#'    \item{anu5}{Magnified scale radius (mm) to the 5th annulus}
+#'    \item{anu6}{Magnified scale radius (mm) to the 6th annulus}
+#'    \item{anu7}{Magnified scale radius (mm) to the 7th annulus}
+#'    \item{anu8}{Magnified scale radius (mm) to the 8th annulus}
+#'    \item{anu9}{Magnified scale radius (mm) to the 9th annulus}
+#'    \item{anu10}{Magnified scale radius (mm) to the 10th annulus}
+#'    \item{anu11}{Magnified scale radius (mm) to the 11th annulus}
+#'    \item{anu12}{Magnified scale radius (mm) to the 12th annulus}
+#'    \item{radcap}{Total scale radius at time of capture}
 #'  }
 #'
 #' @note Data are in one-fish-per-line format.
@@ -35,10 +35,11 @@
 #' @section Topic(s):
 #'  \itemize{
 #'    \item Growth increment analysis
-#'    \item Weisberg linear growth model 
+#'    \item Weisberg linear growth model
+#'    \item Back-Calculation
 #'  }
 #'
-#' @concept Growth 'Increment Analysis' Weisberg LGM
+#' @concept Growth 'Increment Analysis' 'Weisberg LGM' 'Back-Calculation'
 #'
 #' @source Data from the linear growth modelling software distributed in support of Weisberg, S.  1993.  Using hard-part increment data to estimate age and environmental effects. Canadian Journal of Fisheries and Aquatic Sciences 50:1229-1237.
 #'

@@ -1,0 +1,51 @@
+---
+title: "Data.frames in FSA and FSAdata"
+author: "Derek H. Ogle"
+date: "`r format(Sys.Date(),format='%B %d, %Y')`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data.frames in FSA and FSAdata}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo=FALSE, results="hide", message=FALSE, warning=FALSE}
+library(FSA)
+library(FSAdata)
+library(knitr)
+opts_chunk$set(prompt=TRUE,comment='')
+```
+
+This vignette lists, by analytical concepts, fisheries-related data.frames that are available in the `FSA` (v`r packageVersion("FSA")`) and `FSAdata` (v`r packageVersion("FSAdata")`).  These data can be loaded by loading the appropriate package (e.g., `library(FSAdata)`) and then including the data.frame name within `data()` (e.g., `data(BluntnoseIL1)`).
+
+Below are quick links to the catgories.
+
+```{r echo=FALSE, results='asis'}
+topics <- c("Length Expansion","Length Conversion",
+            "Age Comparison","Age-Length Key","Back-Calculation",
+            "Weight-Length","Length Frequency","Size Structure",
+            "Capture-Recapture","Depletion","Removal",
+            "Mortality","Growth","Recruitment","Maturity")
+for (i in topics) {
+  cat("[",i,"](#",paste0(unlist(strsplit(tolower(i)," ")),collapse="-"),")",sep="")
+  if (i!=topics[length(topics)]) cat(" / ")
+}
+cat("\n")
+```
+
+----
+
+```{r echo=FALSE, results='asis'}
+for (i in topics) {
+  ## Make a heading
+  cat("##",i,"\n")
+  ## Fine all data.frames that meet the current topic
+  res <- help.search(i,package=c("FSA","FSAdata"),fields="concept")$matches[,c("Package","Topic","Title")]
+  ## Make an unordered list of those topics
+  for (j in 1:nrow(res)) {
+    cat("* ",res[j,"Package"],"::[",res[j,"Topic"],"](http://rforge.net/doc/packages/",res[j,"Package"],"/",res[j,"Topic"],".html) - *",res[j,"Title"],"*\n",sep="")
+  }
+  ## Add a space before the next heading
+  cat("\n")
+}
+```

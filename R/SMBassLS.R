@@ -1,6 +1,6 @@
-#' @title Catch-effort data for Little Silver Lake Smallmouth Bass.
+#' @title Catch-effort data for Little Silver Lake (Ont) Smallmouth Bass.
 #'
-#' @description Catch-effort data for Smallmouth Bass (\emph{Micropterus dolomieu}) in Little Silver Lake, ONT.
+#' @description Catch-effort data for Smallmouth Bass (\emph{Micropterus dolomieu}) in Little Silver Lake, Ont.
 #'
 #' @name SMBassLS
 #'
@@ -8,9 +8,9 @@
 #'
 #' @format A data frame with 10 observations on the following 3 variables:
 #'  \describe{
-#'    \item{day}{Day of the catch.} 
-#'    \item{catch}{Number of smallmouth bass caught.} 
-#'    \item{effort}{Number of traps set per day.} 
+#'    \item{day}{Day of the catch}
+#'    \item{catch}{Number of smallmouth bass caught}
+#'    \item{effort}{Number of traps set per day}
 #'  }
 #'
 #' @section Topic(s):

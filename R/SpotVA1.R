@@ -1,6 +1,6 @@
 #' @title Age and length of spot.
 #'
-#' @description Ages (from otoliths) and length of Virginia Spot (\emph{Leiostomus xanthurus}).
+#' @description Ages (from otoliths) and lengths of Virginia Spot (\emph{Leiostomus xanthurus}).
 #'
 #' @details Final length measurements were simulated by adding a uniform error to the value at the beginning of the length category.
 #'
@@ -10,8 +10,8 @@
 #'
 #' @format A data frame of 403 observations on the following 2 variables:
 #'  \describe{
-#'    \item{tl}{Measured total lengths (in inches).} 
-#'    \item{age}{Ages assigned from examination of otoliths.} 
+#'    \item{tl}{Measured total lengths (in inches)}
+#'    \item{age}{Ages assigned from examination of otoliths}
 #'  }
 #'
 #' @section Topic(s):

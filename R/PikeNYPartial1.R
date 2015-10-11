@@ -1,4 +1,4 @@
-#' @title Capture histories (4 samples), in capture history format, of a subset of Northern Pike from Buckthorn Marsh.
+#' @title Capture histories (4 samples), in capture history format, of a subset of Northern Pike from Buckthorn Marsh, NY.
 #'
 #' @description Each line consists of the capture history over four samples of Northern Pike (\emph{Esox lucius}) in Buckthorn Marsh.  This file contains the capture histories for only those pike captured from April 1-4.
 #'

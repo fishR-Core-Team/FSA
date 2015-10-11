@@ -3,14 +3,14 @@
 \docType{data}
 \name{PikeNYPartial1}
 \alias{PikeNYPartial1}
-\title{Capture histories (4 samples), in capture history format, of a subset of Northern Pike from Buckthorn Marsh.}
+\title{Capture histories (4 samples), in capture history format, of a subset of Northern Pike from Buckthorn Marsh, NY.}
 \format{A data frame with 57 observations on the following 4 variables.
  \describe{
-   \item{id}{A unique identification numbers.}
-   \item{first}{Indicator variable for the first sample (1=captured).}
-   \item{second}{Indicator variable for the second sample (1=captured).}
-   \item{third}{Indicator variable for the third sample (1=captured).}
-   \item{fourth}{Indicator variable for the fourth sample (1=captured).}
+   \item{id}{A unique identification numbers}
+   \item{first}{Indicator variable for the first sample (1=captured)}
+   \item{second}{Indicator variable for the second sample (1=captured)}
+   \item{third}{Indicator variable for the third sample (1=captured)}
+   \item{fourth}{Indicator variable for the fourth sample (1=captured)}
  }}
 \source{
 New York Power Authority.  2004.  Use of buckhorn marsh and grand island tributaries by northern pike for spawning and as a nursery. Technical report, New York Power Authority, January 2004. Niagara Power Project (FERC No. 2216).
@@ -21,12 +21,13 @@ Each line consists of the capture history over four samples of Northern Pike (\e
 \section{Topic(s)}{
 
  \itemize{
-   \item Population size
+   \item Population Size
    \item Abundance
-   \item Mark-recapture
-   \item Schnabel method
-   \item Schumacher-Eschmeyer method
-   \item Capture history
+   \item Mark-Recapture
+   \item Capture-Recapture
+   \item Schnabel
+   \item Schumacher-Eschmeyer
+   \item Capture History
  }
 }
 \examples{
@@ -35,7 +36,7 @@ str(PikeNYPartial1)
 head(PikeNYPartial1)
 }
 \concept{
-Abundance 'Population Size' 'Mark-Recapture' 'Schnabel' 'Capture History'
+Abundance 'Population Size' 'Mark-Recapture' 'Capture-Recapture' 'Schnabel' 'Capture History'
 }
 \keyword{datasets}
 

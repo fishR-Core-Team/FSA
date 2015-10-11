@@ -3,14 +3,12 @@
 
 # Example code in package build process
 *-Ex.R
-
 # R data files from past sessions
 .Rdata
 .Rproj.user
-
 # Compiled news file
 NEWS.html
-
 # Others
 FileProgress.xlsx
 ToDo
+inst/doc
