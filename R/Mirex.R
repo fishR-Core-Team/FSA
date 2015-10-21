@@ -16,7 +16,13 @@
 #'    \item{species}{a factor with levels \code{chinook} and \code{coho}}
 #'  }
 #'
-#' @concept 'Linear Models'
+#' @section Topic(s):
+#'  \itemize{
+#'    \item Linear models
+#'    \item Other
+#'  }
+#'  
+#'  @concept 'Linear Models'
 #'
 #' @source From (actual data) Makarewicz, J.C., E.Damaske, T.W. Lewis, and M. Merner.  2003.  Trend analysis reveals a recent reduction in mirex concentrations in coho (\emph{Oncorhynchus kistuch}) and chinook (\emph{O. tshawytscha}) salmon from Lake Ontario.  Environmental Science and Technology, 37:1521-1527.
 #'

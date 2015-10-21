@@ -15,6 +15,13 @@ McKendrick, A.G. and M. Kesava Pai. 1911. The Rate of Multiplication of Micro-Or
 \description{
 The number of \emph{Escherichia coli} cells versus time.
 }
+\section{Topic(s)}{
+
+ \itemize{
+   \item Nonlinear Model
+   \item Other
+ }
+}
 \concept{
 'Nonlinear Model'
 }

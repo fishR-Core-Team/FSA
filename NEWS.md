@@ -1,6 +1,8 @@
 # FSA 0.8.2 ongoing
 * Converted all files in `data-raw` to CSV files.
 * `ChinookArg`: Updated help documentation.
+* `Ecoli`: Added a Topics section.
+* `Mirex`: Added a Topics section.
 * `PikeNYPartial1`: Updated help documentation.
 * `SpotVA1`: Updated help documentation.
 

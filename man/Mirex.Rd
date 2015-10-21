@@ -20,6 +20,13 @@ Mirex concentration, weight, capture year, and species of Lake Ontario Coho and 
 \details{
 The \code{year} variable should be converted to a factor as shown in the example.
 }
+\section{Topic(s)}{
+
+ \itemize{
+   \item Linear models
+   \item Other
+ }
+}
 \examples{
 data(Mirex)
 Mirex$year <- factor(Mirex$year)
