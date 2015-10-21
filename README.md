@@ -8,21 +8,25 @@ FSA
 
 
 ## Introduction
-The **FSA** (Fisheries Stock Assessment) package provides R functions to conduct typical introductory fisheries analyses.  Example analyses that use **FSA** can be found on the *Examples* page of the [fishR website](http://derekogle.com/fishR).
+The **FSA** (Fisheries Stock Assessment) package provides R functions to conduct typical introductory fisheries analyses.  Example analyses that use **FSA** can be found on [the *Examples* page](http://derekogle.com/fishR/examples/) of the [fishR website](http://derekogle.com/fishR).
 
 You can [browse function help pages here](http://rforge.net/doc/packages/FSA/00Index.html).  Recent changes are described in this [News file](https://github.com/droglenc/FSA/blob/master/NEWS.md)
 
 ## Installation
-**FSA** is available [on CRAN](https://cran.r-project.org/web/packages/FSA/index.html) and can be installed like any other package.
+The [CRAN version](https://cran.r-project.org/web/packages/FSA/index.html) of **FSA** may be installed with
 
-The development version can be installed from GitHub (requires the **devtools** package) with ...
+```r
+install.packages("FSA")
+```
+
+The development version may be installed from GitHub (requires the **devtools** package) with
 
 ```r
 if (!require('devtools')) install.packages('devtools'); require('devtools')
 devtools::install_github('droglenc/FSA')
 ```
 
-Alternatively, **FSA** can be installed from **RForge.net** with ...
+or from **RForge.net** with
 
 ```r
 source("http://www.rforge.net/FSA/InstallFSA.R")
