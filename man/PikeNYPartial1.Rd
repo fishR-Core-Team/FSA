@@ -13,7 +13,7 @@
    \item{fourth}{Indicator variable for the fourth sample (1=captured)}
  }}
 \source{
-New York Power Authority.  2004.  Use of buckhorn marsh and grand island tributaries by northern pike for spawning and as a nursery. Technical report, New York Power Authority, January 2004. Niagara Power Project (FERC No. 2216).
+Summary values taken from Table C-1 of New York Power Authority.  2004.  Use of Buckhorn Marsh and Grand Island tributaries by northern pike for spawning and as a nursery. Technical report, New York Power Authority, January 2004. Niagara Power Project (FERC No. 2216).
 }
 \description{
 Each line consists of the capture history over four samples of Northern Pike (\emph{Esox lucius}) in Buckthorn Marsh.  This file contains the capture histories for only those pike captured from April 1-4.

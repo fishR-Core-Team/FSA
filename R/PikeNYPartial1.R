@@ -28,7 +28,7 @@
 #'
 #' @concept Abundance 'Population Size' 'Mark-Recapture' 'Capture-Recapture' 'Schnabel' 'Capture History'
 #'
-#' @source New York Power Authority.  2004.  Use of buckhorn marsh and grand island tributaries by northern pike for spawning and as a nursery. Technical report, New York Power Authority, January 2004. Niagara Power Project (FERC No. 2216).
+#' @source Summary values taken from Table C-1 of New York Power Authority.  2004.  Use of Buckhorn Marsh and Grand Island tributaries by northern pike for spawning and as a nursery. Technical report, New York Power Authority, January 2004. Niagara Power Project (FERC No. 2216).
 #'
 #' @keywords datasets
 #'
