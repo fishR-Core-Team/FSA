@@ -34,7 +34,7 @@ lm1 <- lm(mirex~weight*year*species,data=Mirex)
 anova(lm1)
 }
 \concept{
-'Linear Models'
+'Linear Models' Other
 }
 \keyword{datasets}
 

@@ -18,7 +18,7 @@
 #'    \item Other
 #'  }
 #'  
-#' @concept 'Nonlinear Model'
+#' @concept 'Nonlinear Model' Other
 #' 
 #' @source McKendrick, A.G. and M. Kesava Pai. 1911. The Rate of Multiplication of Micro-Organisms: a Mathematical Study. Proceedings of the Royal Society of Edinburgh. 31: 649-655.
 #' 
