@@ -37,7 +37,7 @@
 #' 20 \tab 4 \cr
 #'}
 #'
-#' \href{http://www.phidot.org/software/mark/index.html}{MARK} is the \dQuote{gold-standard} software for analyzing complex capture history information.  In the \dQuote{MARK} format the 0s and 1s of the capture histories are combined together as a string without any spaces.  Thus, the \dQuote{MARK} format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the capture history of that row.  The final column ends with a semi-colon.  The same data from above looks like:
+#' MARK (http://www.phidot.org/software/mark/index.html) is the \dQuote{gold-standard} software for analyzing complex capture history information.  In the \dQuote{MARK} format the 0s and 1s of the capture histories are combined together as a string without any spaces.  Thus, the \dQuote{MARK} format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the capture history of that row.  The final column ends with a semi-colon.  The same data from above looks like:
 #'
 #' \tabular{cc}{
 #' ch \tab freq \cr

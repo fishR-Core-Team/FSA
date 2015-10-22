@@ -46,9 +46,8 @@ EBPH \tab 21 \tab Exponential Body Proportional Hypothesis \cr
 ESPH \tab 22 \tab Exponential Scale Proportional Hypothesis \cr
 }
 }
-\section{fishR vignette}{
- \url{https://sites.google.com/site/fishrfiles/gnrl/Backcalculation.pdf},
-\url{https://sites.google.com/site/fishrfiles/gnrl/BackcalculationExtra.pdf}
+\section{IFAR Supplement}{
+ \url{http://derekogle.com/IFAR/supplements/backcalculation/}
 }
 \examples{
 ## Simple Examples
@@ -68,7 +67,7 @@ bcm2(lencap,rad,radcap,2)  # demonstrated with a=2
 Derek H. Ogle, \email{derek@derekogle.com}
 }
 \references{
-Vigliola, L. and M.G. Meekan.  2009.  The back-calculation of fish growth from otoliths.  pp. 174-211.  in B.S. Green et al. (editors).  \href{https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths}{Tropical Fish Otoliths: Information for Assessment, Management and Ecology.}  Review: Methods and Technologies in Fish Biology and Fisheries 11.  Springer.
+Vigliola, L. and M.G. Meekan.  2009.  The back-calculation of fish growth from otoliths.  pp. 174-211.  in B.S. Green et al. (editors).  Tropical Fish Otoliths: Information for Assessment, Management and Ecology.  Review: Methods and Technologies in Fish Biology and Fisheries 11.  Springer.  [Was (is?) available from https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths.]
 }
 \keyword{manip}
 

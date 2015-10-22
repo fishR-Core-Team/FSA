@@ -208,7 +208,7 @@ Schnute, J.  1983.  A new approach to estimating populations by the removal meth
 
 Seber, G.A.F. 2002. The Estimation of Animal Abundance. Edward Arnold, second edition (Reprint).
 
-van Dishoeck, P.  2009.  \href{http://rem-main.rem.sfu.ca/theses/vanDishoeckPier_2009_MRM483.pdf}{Effects of catchability variation on performance of depletion estimators: Application to an adaptive management experiment.}  Masters Thesis, Simon Fraser University.
+van Dishoeck, P.  2009.  Effects of catchability variation on performance of depletion estimators: Application to an adaptive management experiment.  Masters Thesis, Simon Fraser University.  [Was (is?) from http://rem-main.rem.sfu.ca/theses/vanDishoeckPier_2009_MRM483.pdf.]
 }
 \seealso{
 See \code{\link{depletion}} for related functionality.

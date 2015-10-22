@@ -24,7 +24,7 @@
 #' 
 #' @concept Abundance 'Population Size' 'Mark-Recapture' 'Capture-Recapture' Petersen 'Capture History'
 #' 
-#' @source From example 8.1 in Schneider, J.C. 1998. \href{http://www.michigandnr.com/publications/pdfs/IFR/manual/SMII\%20Chapter08.pdf}{Lake fish population estimates by mark-and-recapture methods.}  Chapter 8 in Schneider, J.C. (ed.) 2000. Manual of fisheries survey methods II: with periodic updates. Michigan Department of Natural Resources, Fisheries Special Report 25, Ann Arbor.
+#' @source From example 8.1 in Schneider, J.C. 1998.  Lake fish population estimates by mark-and-recapture methods.  Chapter 8 in Schneider, J.C. (ed.) 2000. Manual of fisheries survey methods II: with periodic updates. Michigan Department of Natural Resources, Fisheries Special Report 25, Ann Arbor.  [Was (is?) from http://www.michigandnr.com/publications/pdfs/IFR/manual/SMII\%20Chapter08.pdf.]
 #' 
 #' @keywords datasets
 #' 

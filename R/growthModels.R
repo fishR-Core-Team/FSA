@@ -51,7 +51,7 @@
 #'
 #' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
-#' Campana, S.E. and C.M. Jones.  1992.  \href{http://www.dfo-mpo.gc.ca/Library/141734.pdf}{Analysis of otolith microstructure data}.  Pages 73-100 In D.K. Stevenson and S.E. Campana, editors.  Otolith microstructure examination and analysis.  Canadian Special Publication of Fisheries and Aquatic Sciences 117.
+#' Campana, S.E. and C.M. Jones.  1992.  Analysis of otolith microstructure data.  Pages 73-100 In D.K. Stevenson and S.E. Campana, editors.  Otolith microstructure examination and analysis.  Canadian Special Publication of Fisheries and Aquatic Sciences 117.  [Was (is?) from http://www.dfo-mpo.gc.ca/Library/141734.pdf.]
 #' 
 #' Fabens, A. 1965. Properties and fitting of the von Bertalanffy growth curve. Growth 29:265-289.
 #'
@@ -59,13 +59,13 @@
 #'
 #' Gallucci, V.F. and T.J. Quinn II. 1979.  Reparameterizing, fitting, and testing a simple growth model.  Transactions of the American Fisheries Society, 108:14-25.
 #'
-#' Garcia-Berthou, E., G. Carmona-Catot, R. Merciai, and D.H. Ogle.  \href{https://www.researchgate.net/publication/257658359_A_technical_note_on_seasonal_growth_models}{A technical note on seasonal growth models.}  Reviews in Fish Biology and Fisheries 22:635-640.
+#' Garcia-Berthou, E., G. Carmona-Catot, R. Merciai, and D.H. Ogle.  A technical note on seasonal growth models.  Reviews in Fish Biology and Fisheries 22:635-640.  [Was (is?) from https://www.researchgate.net/publication/257658359_A_technical_note_on_seasonal_growth_models.]
 #' 
 #' Gompertz, B.  1825.  On the nature of the function expressive of the law of human mortality, and on a new method of determining the value of life contingencies.  Philosophical Transactions of the Royal Society of London.  115:513-583.
 #' 
-#' Haddon, M., C. Mundy, and D. Tarbath. 2008.  \href{http://aquaticcommons.org/8857/1/haddon_Fish_Bull_2008.pdf}{Using an inverse-logistic model to describe growth increments of blacklip abalone (\emph{Haliotis rubra}) in Tasmania}.  Fishery Bulletin 106:58-71. 
+#' Haddon, M., C. Mundy, and D. Tarbath. 2008.  Using an inverse-logistic model to describe growth increments of blacklip abalone (\emph{Haliotis rubra}) in Tasmania.  Fishery Bulletin 106:58-71.  [Was (is?) from http://aquaticcommons.org/8857/1/haddon_Fish_Bull_2008.pdf.]
 #'
-#' Karkach, A. S.  2006.  \href{http://www.demographic-research.org/volumes/vol15/12/15-12.pdf}{Trajectories and models of individual growth}.  Demographic Research 15:347-400.
+#' Karkach, A. S.  2006.  Trajectories and models of individual growth.  Demographic Research 15:347-400.  [Was (is?) from http://www.demographic-research.org/volumes/vol15/12/15-12.pdf.]
 #' 
 #' Katsanevakis, S. and C.D. Maravelias.  2008.  Modelling fish growth: multi-model inference as a better alternative to a priori using von Bertalanffy equation.  Fish and Fisheries 9:178-187.
 #'
@@ -79,25 +79,25 @@
 #' 
 #' Richards, F. J.  1959.  A flexible growth function for empirical use.  Journal of Experimental Biology 10:290-300.
 #' 
-#' Ricker, W.E. 1975. \href{http://www.dfo-mpo.gc.ca/Library/1485.pdf}{Computation and interpretation of biological statistics of fish populations}. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.
+#' Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.  [Was (is?) from http://www.dfo-mpo.gc.ca/Library/1485.pdf.]
 #' 
-#' Ricker, W.E. 1979.  \href{https://books.google.com/books?id=CB1qu2VbKwQC&pg=PA705&lpg=PA705&dq=Gompertz+fish&source=bl&ots=y34lhFP4IU&sig=EM_DGEQMPGIn_DlgTcGIi_wbItE&hl=en&sa=X&ei=QmM4VZK6EpDAgwTt24CABw&ved=0CE8Q6AEwBw#v=onepage&q=Gompertz\%20fish&f=false}{Growth rates and models}.  Pages 677-743 In W.S. Hoar, D.J. Randall, and J.R. Brett, editors.  Fish Physiology, Vol. 8: Bioenergetics and Growth.  Academic Press, NY, NY.
+#' Ricker, W.E. 1979.  Growth rates and models.  Pages 677-743 In W.S. Hoar, D.J. Randall, and J.R. Brett, editors.  Fish Physiology, Vol. 8: Bioenergetics and Growth.  Academic Press, NY, NY.  [Was (is?) from https://books.google.com/books?id=CB1qu2VbKwQC&pg=PA705&lpg=PA705&dq=Gompertz+fish&source=bl&ots=y34lhFP4IU&sig=EM_DGEQMPGIn_DlgTcGIi_wbItE&hl=en&sa=X&ei=QmM4VZK6EpDAgwTt24CABw&ved=0CE8Q6AEwBw#v=onepage&q=Gompertz\%20fish&f=false.]
 #'
 #' Schnute, J.  1981.  A versatile growth model with statistically stable parameters. Canadian Journal of Fisheries and Aquatic Sciences, 38:1128-1140.
 #'
-#' Somers, I. F. 1988. \href{http://www.worldfishcenter.org/Naga/na_2914.pdf}{On a seasonally oscillating growth function.} Fishbyte 6(1):8-11.
+#' Somers, I. F. 1988.  On a seasonally oscillating growth function. Fishbyte 6(1):8-11.  [Was (is?) from http://www.worldfishcenter.org/Naga/na_2914.pdf.]
 #' 
-#' Tjorve, E. and K. M. C. Tjorve.  2010.  \href{https://www.researchgate.net/profile/Even_Tjorve/publication/46218377_A_unified_approach_to_the_Richards-model_family_for_use_in_growth_analyses_why_we_need_only_two_model_forms/links/54ba83b80cf29e0cb04bd24e.pdf}{A unified approach to the Richards-model family for use in growth analyses: Why we need only two model forms.}  Journal of Theoretical Biology 267:417-425.
+#' Tjorve, E. and K. M. C. Tjorve.  2010.  A unified approach to the Richards-model family for use in growth analyses: Why we need only two model forms.  Journal of Theoretical Biology 267:417-425.  [Was (is?) from https://www.researchgate.net/profile/Even_Tjorve/publication/46218377_A_unified_approach_to_the_Richards-model_family_for_use_in_growth_analyses_why_we_need_only_two_model_forms/links/54ba83b80cf29e0cb04bd24e.pdf.]
 #' 
-#' Troynikov, V. S., R. W. Day, and A. M. Leorke.  \href{https://www.researchgate.net/profile/Robert_Day2/publication/249340562_Estimation_of_seasonal_growth_parameters_using_a_stochastic_gompertz_model_for_tagging_data/links/54200fa30cf203f155c2a08a.pdf}{Estimation of seasonal growth parameters using a stochastic Gompertz model for tagging data}.  Journal of Shellfish Research 17:833-838.
+#' Troynikov, V. S., R. W. Day, and A. M. Leorke.  Estimation of seasonal growth parameters using a stochastic Gompertz model for tagging data.  Journal of Shellfish Research 17:833-838.  [Was (is?) from https://www.researchgate.net/profile/Robert_Day2/publication/249340562_Estimation_of_seasonal_growth_parameters_using_a_stochastic_gompertz_model_for_tagging_data/links/54200fa30cf203f155c2a08a.pdf.]
 #' 
-#' Vaughan, D. S. and T. E. Helser.  1990.  \href{http://docs.lib.noaa.gov/noaa_documents/NMFS/SEFSC/TM_NMFS_SEFSC/NMFS_SEFSC_TM_263.pdf}{Status of the red drum stock of the Atlantic coast: Stock assessment report for 1989}.  NOAA Technical Memorandum NMFS-SEFC-263, 117 p.
+#' Vaughan, D. S. and T. E. Helser.  1990.  Status of the red drum stock of the Atlantic coast: Stock assessment report for 1989.  NOAA Technical Memorandum NMFS-SEFC-263, 117 p.  [Was (is?) from http://docs.lib.noaa.gov/noaa_documents/NMFS/SEFSC/TM_NMFS_SEFSC/NMFS_SEFSC_TM_263.pdf.]
 #'
 #' Wang, Y.-G.  1998.  An improved Fabens method for estimation of growth parameters in the von Bertalanffy model with individual asymptotes.  Canadian Journal of Fisheries and Aquatic Sciences 55:397-400.
 #'
 #' Weisberg, S., G.R. Spangler, and L. S. Richmond. 2010. Mixed effects models for fish growth. Canadian Journal of Fisheries And Aquatic Sciences 67:269-277.
 #' 
-#' Winsor, C.P.  1932.  \href{http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1076153/pdf/pnas01729-0009.pdf}{The Gompertz curve as a growth curve}.  Proceedings of the National Academy of Sciences.  18:1-8.
+#' Winsor, C.P.  1932.  The Gompertz curve as a growth curve.  Proceedings of the National Academy of Sciences.  18:1-8.  [Was (is?) from http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1076153/pdf/pnas01729-0009.pdf.]
 #'
 #' @keywords manip hplot
 #'

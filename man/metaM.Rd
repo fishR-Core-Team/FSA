@@ -138,23 +138,23 @@ Charnov, E.L., H. Gislason, and J.G. Pope.  2013.  Evolutionary assembly rules f
 
 Gislason, H., N. Daan, J.C. Rice, and J.G. Pope.  2010.  Size, growth, temperature and the natural mortality of marine fish.  Fish and Fisheries 11:149-158.
 
-Hewitt, D.A. and J.M. Hoenig.  2005.  \href{http://fishbull.noaa.gov/1032/hewitt.pdf}{Comparison of two approaches for estimating natural mortality based on longevity}.  Fishery Bulletin.  103:433-437.
+Hewitt, D.A. and J.M. Hoenig.  2005.  Comparison of two approaches for estimating natural mortality based on longevity.  Fishery Bulletin.  103:433-437.  [Was (is?) from http://fishbull.noaa.gov/1032/hewitt.pdf.]
 
-Hoenig, J.M.  1983.  \href{http://www.afsc.noaa.gov/REFM/age/Docs/Hoenig_EmpiricalUseOfLongevityData.pdf}{Empirical use of longevity data to estimate mortality rates}.  Fishery Bulletin. 82:898-903.
+Hoenig, J.M.  1983.  Empirical use of longevity data to estimate mortality rates.  Fishery Bulletin. 82:898-903.  [Was (is?) from http://www.afsc.noaa.gov/REFM/age/Docs/Hoenig_EmpiricalUseOfLongevityData.pdf.]
 
-Jensen, A.L.  1996.  Beverton and Holt life history invariants result from optimal trade-off of reproduction and survival.  Canadian Journal of Fisheries and Aquatic Sciences. 53:820-822.
+Jensen, A.L.  1996.  Beverton and Holt life history invariants result from optimal trade-off of reproduction and survival.  Canadian Journal of Fisheries and Aquatic Sciences. 53:820-822.  [Was (is?) from .]
 
-Jensen, A.L.  2001.  \href{http://deepblue.lib.umich.edu/bitstream/handle/2027.42/35236/487_ftp.pdf}{Comparison of theoretical derivations, simple linear regressions, multiple linear regression and principal components for analysis of fish mortality, growth and environmental temperature data}.  Environometrics.  12:591-598.
+Jensen, A.L.  2001.  Comparison of theoretical derivations, simple linear regressions, multiple linear regression and principal components for analysis of fish mortality, growth and environmental temperature data.  Environometrics.  12:591-598.  [Was (is?) from http://deepblue.lib.umich.edu/bitstream/handle/2027.42/35236/487_ftp.pdf.]
 
 Kenchington, T.J.  2014.  Natural mortality estimators for information-limited fisheries.  Fish and Fisheries.  14:533-562.
 
-Pauly, D.  1980.  \href{http://innri.unuftp.is/pauly/On\%20the\%20interrelationships\%20betwe.pdf}{On the interrelationships between natural mortality, growth parameters, and mean environmental temperature in 175 fish stocks}.  Journal du Conseil International pour l'Exploration de la Mer. 39:175-192.
+Pauly, D.  1980.  On the interrelationships between natural mortality, growth parameters, and mean environmental temperature in 175 fish stocks.  Journal du Conseil International pour l'Exploration de la Mer. 39:175-192.  [Was (is?) from http://innri.unuftp.is/pauly/On\%20the\%20interrelationships\%20betwe.pdf.]
 
 Rikhter, V.A., and V.N. Efanov.  1976.  On one of the approaches for estimating natural mortality in fish populations (in Russian). ICNAF Research Document 76/IV/8, 12pp.
 
 Then, A.Y., J.M. Hoenig, N.G. Hall, and D.A. Hewitt.  2015.  Evaluating the predictive performance of empirical estimators of natural mortality rate using informatno on over 200 fish species.  ICES Journal of Marine Science.  72:82-92.
 
-Zhang, C-I and B.A. Megrey.  2006.  \href{http://www.pmel.noaa.gov/foci/publications/2006/zhan0531.pdf}{A revised Alverson and Carney model for estimating the instantaneous rate of natural mortality}.  Transactions of the American Fisheries Socity.  135-620-633.
+Zhang, C-I and B.A. Megrey.  2006.  A revised Alverson and Carney model for estimating the instantaneous rate of natural mortality.  Transactions of the American Fisheries Socity.  135-620-633.  [Was (is?) from http://www.pmel.noaa.gov/foci/publications/2006/zhan0531.pdf.]
 }
 \seealso{
 See \code{\link[fishmethods]{M.empirical}} in \pkg{fishmethods} for similar functionality.
