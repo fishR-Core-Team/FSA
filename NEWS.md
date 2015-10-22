@@ -1,4 +1,7 @@
-# FSA 0.8.2 21-Oct-15
+# FSA 0.8.3 22-Oct-15
+* Removed vignetteBuilder from DESCRIPTION (remnant from a vignette I built and then removed) at request of CRAN.
+
+# FSA 0.8.2 22-Oct-15
 * Converted all files in `data-raw` to CSV files.
 * Removed all `\href{}{}` and `\url{}` codes to websites that I don't control.  The addresses are now "naked" such that the user will need to copy-and-paste them into a browser to view the web page rather than clicking on a hyper link.  Hopefully this will eliminate problems with R CMD CHECK.
 * `ChinookArg`: Updated help documentation.
