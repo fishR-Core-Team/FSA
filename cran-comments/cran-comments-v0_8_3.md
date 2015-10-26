@@ -1,5 +1,7 @@
 * This is a resubmission of the submission from earlier today.  This version has a remnant VignetteBuilder field in the DESCRIPTION file removed per your request.  Comments from the previous submission are below in case they are still relevant.
 
+----
+
 * This is an update to an existing package.
 
 * It passed the release and development versions on win-builder (checked again).

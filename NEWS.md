@@ -1,3 +1,6 @@
+# FSA 0.8.4 ongoing
+
+
 # FSA 0.8.3 22-Oct-15
 * Removed vignetteBuilder from DESCRIPTION (remnant from a vignette I built and then removed) at request of CRAN.
 
