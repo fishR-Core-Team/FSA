@@ -463,3 +463,50 @@ test_that("validn() error messages and return values",{
   expect_equal(validn(c(TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,NA,NA)),6)
 })
 
+
+# ############################################################
+# Geometric mean and standard devaition
+# ############################################################
+test_that("geomean() / geosd() error messages",{
+  ## Bad data types
+  expect_error(geomean(LETTERS),"must be a numeric vector")
+  expect_error(geosd(LETTERS),"must be a numeric vector")
+  expect_error(geomean(c(TRUE,FALSE)),"must be a numeric vector")
+  expect_error(geosd(c(TRUE,FALSE)),"must be a numeric vector")
+  expect_error(geomean(data.frame(x=1:3)),"must be a vector")
+  expect_error(geosd(data.frame(x=1:3)),"must be a vector")
+  ## Bad values
+  expect_error(geomean(c(-1,1:3)),"all positive values")
+  expect_error(geosd(c(-1,1:3)),"all positive values")
+  expect_error(geomean(c(0,1:3)),"all positive values")
+  expect_error(geosd(c(0,1:3)),"all positive values")
+  expect_error(geomean(c(NA,1:3)),"missing value")
+  expect_error(geosd(c(NA,1:3)),"missing value")
+  ## Handling Negatives or Zeroes
+  expect_warning(geomean(c(-1,1:3),zneg.rm=TRUE),"non-positive values were ignored")
+  expect_warning(geosd(c(-1,1:3),zneg.rm=TRUE),"non-positive values were ignored")
+  expect_warning(geomean(c(0,1:3),zneg.rm=TRUE),"non-positive values were ignored")
+  expect_warning(geosd(c(0,1:3),zneg.rm=TRUE),"non-positive values were ignored")
+})
+
+test_that("geomean() / geosd() results",{
+  ## Geometric mean
+  # match wikipedia example
+  expect_equivalent(geomean(c(1/32,1,4)),1/2)
+  # match http://www.thinkingapplied.com/means_folder/deceptive_means.htm
+  tmp <- c(1.0978,1.1174,1.1341,0.9712,1.1513,1.2286,1.0930,0.9915,1.0150)
+  tmp2 <- c(NA,tmp)
+  expect_equivalent(round(geomean(tmp),4),1.0861)
+  expect_equivalent(round(geosd(tmp),4),1.0795)
+  # match geometric.mean in psych package
+  if (require(psych)) {
+    expect_equivalent(geomean(tmp),psych::geometric.mean(tmp))
+    expect_equivalent(geomean(tmp2,na.rm=TRUE),psych::geometric.mean(tmp2))
+  }
+  if (require(DescTools)) {
+    expect_equivalent(geomean(tmp),DescTools::Gmean(tmp))
+    expect_equivalent(geomean(tmp2,na.rm=TRUE),DescTools::Gmean(tmp2,na.rm=TRUE))
+    expect_equivalent(geosd(tmp),DescTools::Gsd(tmp))
+    expect_equivalent(geosd(tmp2,na.rm=TRUE),DescTools::Gsd(tmp2,na.rm=TRUE))
+  }
+})
