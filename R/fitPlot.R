@@ -285,10 +285,9 @@ fitPlot.ONEWAY <- function (object,
   response <- object$mf[,object$Rname]
   x.factor <- object$mf[,object$Ename[1]]
   if (interval) {
-    if (!requireNamespace("sciplot")) stop("'fitPlot' requires the 'sciplot' package to be installed to plot intervals.",call.=FALSE)
-    else sciplot::lineplot.CI(x.factor,response,main=main,xlab=xlab,ylab=ylab,
-                              type=type,pch=pch,lty=lty,col=col,legend=FALSE,
-                              ci.fun=ci.fun,err.col=col.ci,err.lty=lty.ci,...)
+    sciplot::lineplot.CI(x.factor,response,main=main,xlab=xlab,ylab=ylab,
+                         type=type,pch=pch,lty=lty,col=col,legend=FALSE,
+                         ci.fun=ci.fun,err.col=col.ci,err.lty=lty.ci,...)
   } else stats::interaction.plot(x.factor,rep(1,length(response)),response,
                                  main=main,xlab=xlab,ylab=ylab,type=type,
                                  pch=pch,lty=lty,col=col,legend=FALSE,...) 
@@ -328,10 +327,9 @@ fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
     col <- chooseColors("default",ngrps)
   }
   if (interval) {
-    if (!requireNamespace("sciplot")) stop("'fitPlot' requires the 'sciplot' package to be installed to plot intervals.",call.=FALSE)
-    else sciplot::lineplot.CI(x.factor,response,group,main=main,xlab=xlab,ylab=ylab,
-                              type=type,pch=pch[1:ngrps],lty=lty[1:ngrps],col=col[1:ngrps],
-                              legend=FALSE,ci.fun=ci.fun,err.lty=lty.ci,...)
+    sciplot::lineplot.CI(x.factor,response,group,main=main,xlab=xlab,ylab=ylab,
+                         type=type,pch=pch[1:ngrps],lty=lty[1:ngrps],col=col[1:ngrps],
+                         legend=FALSE,ci.fun=ci.fun,err.lty=lty.ci,...)
   } else stats::interaction.plot(x.factor,group,response,main=main,xlab=xlab,ylab=ylab,
                         type=type,pch=pch[1:ngrps],lty=lty[1:ngrps],col=col[1:ngrps],
                         legend=FALSE,...) 

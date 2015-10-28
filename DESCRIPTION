@@ -17,23 +17,23 @@ Imports:
     stats,
     tools,
     utils,
-    plotrix,
-    plyr
-Suggests: 
     car,
     dplyr,
-    dunn.test,
-    fishmethods,
-    FSAdata,
     gdata,
     gplots,
     Hmisc,
+    plotrix,
+    plyr,
+    sciplot
+Suggests: 
+    dunn.test,
+    fishmethods,
+    FSAdata,
     knitr,
     lmtest,
     marked,
     nlstools,
     Rcapture,
     relax,
-    sciplot,
     testthat,
     rmarkdown

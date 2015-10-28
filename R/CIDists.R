@@ -42,24 +42,21 @@
 #'
 #' @export
 binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic","all")) {
-  if (!requireNamespace("Hmisc")) stop("'binCI' requires the 'Hmisc' package to be installed.",call.=FALSE)
-  else {
-    type <- match.arg(type)
-    if (!is.vector(x)) stop("'x' must be a single numeric or a vector of numerics.",call.=FALSE)
-    if (type=="all" & length(x)>1) {
-      warning("'type=all' will not work with vectors; 'type' re-set to 'wilson'.",call.=FALSE)
-      type <- "wilson"
-    }
-    # deletes point estimate value
-    res <- Hmisc::binconf(x,n,alpha=1-conf.level,method=type)[,-1]
-    if (is.vector(res)) {
-      # convert to 1x2 matrix if only one set of CIs
-      res <- rbind(res)
-      rownames(res) <- ""
-    }
-    colnames(res) <- iCILabel(conf.level)
-    res
+  type <- match.arg(type)
+  if (!is.vector(x)) stop("'x' must be a single numeric or a vector of numerics.",call.=FALSE)
+  if (type=="all" & length(x)>1) {
+    warning("'type=all' will not work with vectors; 'type' re-set to 'wilson'.",call.=FALSE)
+    type <- "wilson"
   }
+  # deletes point estimate value
+  res <- Hmisc::binconf(x,n,alpha=1-conf.level,method=type)[,-1]
+  if (is.vector(res)) {
+    # convert to 1x2 matrix if only one set of CIs
+    res <- rbind(res)
+    rownames(res) <- ""
+  }
+  colnames(res) <- iCILabel(conf.level)
+  res
 }
 
 

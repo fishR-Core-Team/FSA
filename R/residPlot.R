@@ -367,28 +367,25 @@ iMakeBaseResidPlot <- function(r,fv,xlab,ylab,main,
 }
 
 iAddOutlierTestResults <- function(object,fv,r,alpha) {
-  if (!requireNamespace("car")) warning("'residPlot' requires the 'car' package to be installed to highlight outliers.",call.=FALSE)
-  else {
-    # get results
-    out <- car::outlierTest(object$mdl,cutoff=alpha)
-    # number of points returned by outlierTest
-    num <- length(out$bonf.p)
-    # If only one point returned then ...
-    if (num==1) {
-      if (is.na(out$bonf.p)) num <- 0      # if it is NA then p>1 ... so not a significant point
-      else if (out$bonf.p>alpha) num <- 0  # if p>alpha then ... not a significant point
-    }
-    # If there are significant points to be highlighted then ...
-    if (num>0) {
-      # Determine which observation(s) is/are "significant" outlier(s)
-      obs <- as.numeric(names(out$bonf.p))
-      # Set text position based on sign of r if only one "outlier" is detected
-      if (num==1) ifelse(r[obs]<0,pos <- 3,pos <- 1)
-      # Use thigmophobe to find better text positions if more "outliers" are detected
-      else pos <- plotrix::thigmophobe(fv,r)[obs]
-      # place labels
-      graphics::text(fv[obs],r[obs],obs,cex=1.1,col="red",pos=pos,xpd=TRUE)
-    }
+  # get results
+  out <- car::outlierTest(object$mdl,cutoff=alpha)
+  # number of points returned by outlierTest
+  num <- length(out$bonf.p)
+  # If only one point returned then ...
+  if (num==1) {
+    if (is.na(out$bonf.p)) num <- 0      # if it is NA then p>1 ... so not a significant point
+    else if (out$bonf.p>alpha) num <- 0  # if p>alpha then ... not a significant point
+  }
+  # If there are significant points to be highlighted then ...
+  if (num>0) {
+    # Determine which observation(s) is/are "significant" outlier(s)
+    obs <- as.numeric(names(out$bonf.p))
+    # Set text position based on sign of r if only one "outlier" is detected
+    if (num==1) ifelse(r[obs]<0,pos <- 3,pos <- 1)
+    # Use thigmophobe to find better text positions if more "outliers" are detected
+    else pos <- plotrix::thigmophobe(fv,r)[obs]
+    # place labels
+    graphics::text(fv[obs],r[obs],obs,cex=1.1,col="red",pos=pos,xpd=TRUE)
   }
 }  # end iAddOutlierTestResults internal function
 
