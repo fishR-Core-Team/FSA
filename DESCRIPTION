@@ -2,16 +2,16 @@ Package: FSA
 Title: Functions for Simple Fisheries Stock Assessment Methods
 Version: 0.8.4
 Date: 2015-10-26
-Description: Functions to perform a variety of simple fish stock assessment methods.
-    Detailed vignettes are available on the fishR website listed below.
+Description: Functions to perform a variety of simple fish stock assessment
+    methods. Detailed vignettes are available on the fishR website listed below.
 Authors@R: person("Derek","Ogle",email="derek@derekogle.com",role=c("aut","cre"))
 URL: http://derekogle.com/fishR/, https://github.com/droglenc/FSA
 BugReports: https://github.com/droglenc/FSA/issues
 License: GPL (>= 2)
 LazyData: true
-Depends: 
+Depends:
     R (>= 3.0.0)
-Imports: 
+Imports:
     graphics,
     grDevices,
     stats,
@@ -25,7 +25,7 @@ Imports:
     plotrix,
     plyr,
     sciplot
-Suggests: 
+Suggests:
     dunn.test,
     fishmethods,
     FSAdata,
@@ -37,3 +37,4 @@ Suggests:
     relax,
     testthat,
     rmarkdown
+RoxygenNote: 5.0.0

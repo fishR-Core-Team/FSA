@@ -160,7 +160,6 @@ iALKAgeProp <- function(p_jgi,l_i,n_i,N) {
 #' alkMeanVar(WR1.key,len~LCat+age,WR1.age,len.n,method="QuinnDeriso")
 #' 
 #' @export
-#' 
 alkMeanVar <- function(key,formula,data,len.n,method=c("BettoliMiranda","QuinnDeriso")) {
   ## Some checks
   method <- match.arg(method)

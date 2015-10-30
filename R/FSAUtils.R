@@ -437,7 +437,6 @@ hoCoef <- function(object,term=2,bo=0,alt=c("two.sided","less","greater")) {
 #' lagratio(10:1,2,2,direction="forward")
 #'
 #' @export
-#'
 lagratio <- function(x,lag=1L,recursion=1L,differences=recursion,direction=c("backward","forward"),...) {
   ## Some checks
   direction <- match.arg(direction)
