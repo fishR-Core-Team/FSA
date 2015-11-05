@@ -184,6 +184,10 @@ lencat.default <- function(x,w=1,breaks=NULL,startcat=NULL,
   ##   lcatn = vector of names for length categories
   
   ## Some checks on the validity of the arguments
+  if (is.data.frame(x)) {
+    if (!ncol(x)==1) stop("'x' must be a vector or data.frame with one column",call.=FALSE)
+    x <- x[[1]]
+  }
   if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
   if (length(w)>1) stop("'w' must be of length 1.",call.=FALSE)
   if (w<0) stop("'w' must be positive.",call.=FALSE)

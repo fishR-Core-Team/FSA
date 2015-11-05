@@ -17,9 +17,11 @@ test_that("lencat() messages",{
   expect_warning(lencat(as.numeric(rep(NA,3))),"were missing")
   # use.names but not names given in breaks
   expect_warning(lencat(~len,data=df1,breaks=seq(0,10,1),use.names=TRUE),"Used default labels")
+  # data.frame with more than one variable
+  expect_error(lencat(df1),"data.frame with one column")
 })
 
-test_that("lencat() messages",{
+test_that("lencat() results",{
   ## simulate data set
   vals <- 1:5
   freq <- 11:15
