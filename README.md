@@ -26,11 +26,14 @@ if (!require('devtools')) install.packages('devtools'); require('devtools')
 devtools::install_github('droglenc/FSA')
 ```
 
-or from **RForge.net** with
+This installs the package from the source, so you will need to have R Tools installed on your system.  [R Tools for Windows](https://cran.r-project.org/bin/windows/Rtools/) takes you to the download page for Windows.  [R Tools for Mac OS X](https://cran.r-project.org/bin/macosx/tools/) has the required programs for Mac OS X.
+
+Alternatively, you may try to install from **RForge.net** with
 
 ```r
 source("http://www.rforge.net/FSA/InstallFSA.R")
 ```
+
 
 ## Questions / Comments / Problems
 
