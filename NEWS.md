@@ -1,9 +1,11 @@
 # FSA 0.8.4 ongoing
 * Now using Roxygen2 v5.0.1.
 * Removed some `requireNamespaces()` from some functions and moved those packages from `Suggests` to `Imports` so that those functions would work better with other packages.  The only `requireNamespaces()` that remain are related to functions that require the `relax` package (so tcltk is not installed until needed) and `knitr`, `dunn.test`, and `lmtest` as these are unlikedly to be used by other packages and will keep the packages that are loaded with `FSA` to a minimum.  Packages moved from `Suggests` to `Depends` are `Hmisc` (for use in `binCI`), `gdata` (for use in `filterD()` and `Subset()`), `dplyr` (for use in `filterD()`), `sciplot` (for use in `fitPlot()`), `car` (for use in `residPlot()`), and `gplots` (for use with colors).
+* `addZeroCatch()`: Modified tests (to reduce warnings that were not part of tests).
 * `geomean()`: Added.
 * `geosd()`: Added.
 * `lencat()`: Modified.  Fixed a bug related to using a `tbl_df` object.
+* `sumTable()`: Modified tests (but with `dimnames()`).
 
 
 # FSA 0.8.3 22-Oct-15

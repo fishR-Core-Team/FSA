@@ -37,7 +37,7 @@ test_that("addZeroCatch() messages and results",{
   tmp <- xtabs(~net+species,data=df1mod2)
   expect_true(all(tmp==1))
   
-  df3mod1 <- addZeroCatch(df3,"net","species",zerovar="catch")
+  df3mod1 <- suppressWarnings(addZeroCatch(df3,"net","species",zerovar="catch"))
   suppressWarnings(tmp <- xtabs(~net+species,data=df3mod1))
   expect_true(all(tmp==1))
   

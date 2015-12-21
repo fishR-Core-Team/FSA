@@ -98,11 +98,11 @@ test_that("iHndlCols2Use() messages and results",{
   expect_equivalent(names(tmp),nms[-ind])
   ## ignore three columns by number
   ind <- 1:4
-  tmp <- FSA:::iHndlCols2use(df1,NULL,ind)
+  tmp <- suppressWarnings(FSA:::iHndlCols2use(df1,NULL,ind))
   expect_equivalent(tmp,df1[,-ind,drop=FALSE])
   expect_equivalent(names(tmp),nms[-ind])
   ## ignore three columns by name
-  tmp <- FSA:::iHndlCols2use(df1,NULL,c("net","eff","species","catch"))
+  tmp <- suppressWarnings(FSA:::iHndlCols2use(df1,NULL,c("net","eff","species","catch")))
   expect_equivalent(tmp,df1[,-ind,drop=FALSE])
   expect_equivalent(names(tmp),nms[-ind])
   
@@ -129,7 +129,7 @@ test_that("iHndlCols2Use() messages and results",{
   expect_equivalent(names(tmp),nms[ind])
   ## ignore three columns by number
   ind <- -c(1:4)
-  tmp <- FSA:::iHndlCols2use(df1,NULL,ind)
+  tmp <- suppressWarnings(FSA:::iHndlCols2use(df1,NULL,ind))
   expect_equivalent(tmp,df1[,ind,drop=FALSE])
   expect_equivalent(names(tmp),nms[ind])
 })
