@@ -1,4 +1,8 @@
-# FSA 0.8.4 ongoing
+# FSA 0.8.5 ongoing
+* Added URL for fishR webpage in DESCRIPTION per CRAN request.  Removed it from the URL field in DESCRIPTION.
+
+
+# FSA 0.8.4 21-Dec-15
 * Now using Roxygen2 v5.0.1.
 * Removed some `requireNamespaces()` from some functions and moved those packages from `Suggests` to `Imports` so that those functions would work better with other packages.  The only `requireNamespaces()` that remain are related to functions that require the `relax` package (so tcltk is not installed until needed) and `knitr`, `dunn.test`, and `lmtest` as these are unlikedly to be used by other packages and will keep the packages that are loaded with `FSA` to a minimum.  Packages moved from `Suggests` to `Depends` are `Hmisc` (for use in `binCI`), `gdata` (for use in `filterD()` and `Subset()`), `dplyr` (for use in `filterD()`), `sciplot` (for use in `fitPlot()`), `car` (for use in `residPlot()`), and `gplots` (for use with colors).
 * `addZeroCatch()`: Modified tests (to reduce warnings that were not part of tests).
