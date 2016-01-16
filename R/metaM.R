@@ -4,15 +4,15 @@
 #'
 #' @details One of several methods is chosen with \code{method}.  The available methods can be seen with \code{Mmethods()} and are listed below with a brief description of where the equation came from.  The sources (listed below) should be consulted for more specific information.
 #'  \itemize{
-#'    \item \code{method="tmax1"}: The \dQuote{one-parameter tmax equation} from the first line of Table 3 in Then et al. (2015).  This method was the preferred method suggested by Then et al. (2015).  Requires only \code{tmax}.
+#'    \item \code{method="HoenigNLS"}:  The \dQuote{modified Hoenig equation derived with a non-linear model} as described in Then et al. (2015) on the third line of Table 3.  This method was the preferred method suggested by Then et al. (2015).  Requires only \code{tmax}.
 #'    \item \code{method="PaulyLNoT"}: The \dQuote{modified Pauly length equation} as described on the sixth line of Table 3 in Then et al. (2015).  Then et al. (2015) suggested that this is the preferred model if maximum age (tmax) information was not available.  Requires \code{K} and \code{Linf}.
 #'    \item \code{method="PaulyL"}: The \dQuote{Pauly (1980) equation using fish lengths} from his equation 11.  This is the most commonly used method in the literature.  Note that Pauly used common logarithms as used here but the model is often presented in other sources with natural logarithms.  Requires \code{K}, \code{Linf}, and \code{T}.
 #'    \item \code{method="PaulyW"}: The \dQuote{Pauly (1980) equation for weights} from his equation 10.  Requires \code{K}, \code{Winf}, and \code{T}.
 #'    \item \code{method="HoeingO"}, \code{method="HoeingOF"}, \code{method="HoeingOM"}, \code{method="HoeingOC"}: The original \dQuote{Hoenig (1983) composite}, \dQuote{fish}, \dQuote{mollusc}, and \dQuote{cetacean} (fit with OLS) equations from the second column on page 899 of Hoenig (1983).  Requires only \code{tmax}.
 #'    \item \code{method="HoeingO2"}, \code{method="HoeingO2F"}, \code{method="HoeingO2M"}, \code{method="HoeingO2C"}: The original \dQuote{Hoenig (1983) composite}, \dQuote{fish}, \dQuote{mollusc}, and \dQuote{cetacean} (fit with Geometric Mean Regression) equations from the second column on page 537 of Kenchington (2014).  Requires only \code{tmax}.
 #'    \item \code{method="HoenigLM"}:  The \dQuote{modified Hoenig equation derived with a linear model} as described in Then et al. (2015) on the second line of Table 3.  Requires only \code{tmax}.
-#'    \item \code{method="HoenigNLS"}:  The \dQuote{modified Hoenig equation derived with a non-linear model} as described in Then et al. (2015) on the third line of Table 3.  Requires only \code{tmax}.
 #'    \item \code{method="HewittHoenig"}:  The \dQuote{Hewitt and Hoenig (2005) equation} from their equation 8.  Requires only \code{tmax}.
+#'    \item \code{method="tmax1"}: The \dQuote{one-parameter tmax equation} from the first line of Table 3 in Then et al. (2015).  Requires only \code{tmax}.
 #'    \item \code{method="K1"}:  The \dQuote{one-parameter K equation} from the fourth line of Table 3 in Then et al. (2015).  Requires only \code{K}.
 #'    \item \code{method="K2"}: The \dQuote{two-parameter K equation} from the fifth line of Table 3 in Then et al. (2015).  Requires only \code{K}.
 #'    \item \code{method="JensenK1"}: The \dQuote{Jensen (1996) one-parameter K equation}.  Requires only \code{K}.
@@ -20,7 +20,7 @@
 #'    \item \code{method="Gislason"}: The \dQuote{Gislason et al. (2010) equation} from their equation 2.  Requires \code{K}, \code{Linf}, and \code{L}.
 #'    \item \code{method="AlversonCarney"}: The \dQuote{Alverson and Carney (1975) equation} as given in equation 10 of Zhang and Megrey (2006).  Requires \code{tmax} and \code{K}.
 #'    \item \code{method="Charnov"}: The \dQuote{Charnov et al. (2013) equation} as given in the second column of pge 545 of Kenchington (2014).  Requires \code{K}, \code{Linf}, and \code{L}.
-#'    \item \code{method="ZhangMegreyD"}, \code{method="ZhangMegreyP"}: The \dQuote{Zhang and Megrey (2006) equation} as given in their equation 8 but modified for demersal or pelagic fish.  Thus, the user must choose the fish type with \R{group}.  Requires \code{tmax}, \code{K}, \code{t0}, \code{t50}, and \code{b}.
+#'    \item \code{method="ZhangMegreyD"}, \code{method="ZhangMegreyP"}: The \dQuote{Zhang and Megrey (2006) equation} as given in their equation 8 but modified for demersal or pelagic fish.  Thus, the user must choose the fish type with \code{group}.  Requires \code{tmax}, \code{K}, \code{t0}, \code{t50}, and \code{b}.
 #'    \item \code{method="RikhterEfanov1"}: The \dQuote{Rikhter and Efanov (1976) equation (#2)} as given in the second column of pge 541 of Kenchington (2014) and in Table 6.4 of Miranda and Bettoli (2007).  Requires only \code{t50}.
 #'    \item \code{method="RikhterEfanov2"}: The \dQuote{Rikhter and Efanov (1976) equation (#1)} as given in the first column of pge 541 of Kenchington (2014).  Requires \code{t50}, \code{K}, \code{t0}, and \code{b}.
 #'  } 
@@ -49,7 +49,7 @@
 #'    \item \code{M}: The estimated natural mortality rate.
 #'  }
 #' 
-#' If multiple \code{method}s are chosen then a data.frame is returned with the method name abbreviation in the \code{method} variable and the associated estimated of M in the \code{M} variable.
+#' If multiple \code{method}s are chosen then a data.frame is returned with the method name abbreviation in the \code{method} variable and the associated estimated M in the \code{M} variable.
 #' 
 #' @section Testing: Kenchington (2014) provided life history parameters for several stocks and used many models to estimate M.  I checked the calculations for the \code{PaulyL}, \code{PaulyW}, \code{HoenigO} for \code{Hgroup="all"} and \code{Hgroup="fish"}, \code{HoenigO2} for \code{Hgroup="all"} and \code{Hgroup="fish"}, \code{"JensenK1"}, \code{"Gislason"}, \code{"AlversonCarney"}, \code{"Charnov"}, \code{"ZhangMegrey"}, \code{"RikhterEfanov1"}, and \code{"RikhterEfanov2"} methods for three stocks.  All results perfectly matched Kenchington's results for Chesapeake Bay Anchovy and Rio Formosa Seahorse.  For the Norwegian Fjord Lanternfish, all results perfectly matched Kenchington's results except for when \code{Hgroup="fish"} for both \code{HoenigO} and \code{HoenigO2}.
 #' 
@@ -61,7 +61,7 @@
 #' 
 #' @seealso See \code{\link[fishmethods]{M.empirical}} in \pkg{fishmethods} for similar functionality.
 #' 
-#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Alverson, D.L. and M.J. Carney.  1975.  A graphic review of the growth and decay of population cohorts.  Journal du Conseil International pour l'Exploration de la Mer. 36:133-143.
 #' 
@@ -99,6 +99,8 @@
 #' ## Simple Examples
 #' metaM("tmax",tmax=20)
 #' metaM("tmax",tmax=20,justM=FALSE)
+#' metaM("HoenigNLS",tmax=20)
+#' metaM("HoenigNLS",tmax=20,justM=FALSE)
 #'  
 #' ## Example Patagonian Sprat ... from Table 2 in Cerna et al. (2014)
 #' ## http://www.scielo.cl/pdf/lajar/v42n3/art15.pdf
@@ -111,6 +113,7 @@
 #' metaM("RikhterEfanov1",t50=t50)
 #' metaM("PaulyL",K=K,Linf=Linf,T=T)
 #' metaM("PaulyL",K=K,Linf=Linf,T=T,justM=FALSE)
+#' metaM("HoenigNLS",tmax=tmax)
 #' metaM("HoenigO",tmax=tmax)
 #' metaM("HewittHoenig",tmax=tmax)
 #' metaM("AlversonCarney",K=K,tmax=tmax)
@@ -121,7 +124,7 @@
 #'
 #' ## Example of multiple methods using Mmethods
 #' # select some methods
-#' metaM(Mmethods()[-c(4,20,22:24,26)],K=K,Linf=Linf,T=T,tmax=tmax,t50=t50)
+#' metaM(Mmethods()[-c(15,20,22:24,26)],K=K,Linf=Linf,T=T,tmax=tmax,t50=t50)
 #' # select just the Hoenig methods
 #' metaM(Mmethods("Hoenig"),K=K,Linf=Linf,T=T,tmax=tmax,t50=t50)
 #'  
@@ -129,10 +132,10 @@
 #' @export
 Mmethods <- function(what=c("all","tmax","K","Hoenig","Pauly")) {
   what <- match.arg(what)
-  all_meth <- c("tmax1","PaulyLNoT","PaulyL","PaulyW",
-                "HoenigO","HoenigOF","HoenigOM","HoenigOC",
+  all_meth <- c("HoenigNLS","HoenigO","HoenigOF","HoenigOM","HoenigOC",
                 "HoenigO2","HoenigO2F","HoenigO2M","HoenigO2C",
-                "HoenigLM","HoenigNLS","HewittHoenig",
+                "HoenigLM","HewittHoenig","tmax1",
+                "PaulyLNoT","PaulyL","PaulyW",
                 "K1","K2","JensenK1","JensenK2","Gislason",
                 "AlversonCarney","Charnov",
                 "ZhangMegreyD","ZhangMegreyP",
