@@ -108,7 +108,7 @@ hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",xlim=c(3.8,8.2),ymax=35)
 Derek H. Ogle, \email{derek@derekogle.com}, but this implementation is largely a modification of the code provided by Marc Schwartz on the R-help mailing list on 1Jun07.
 }
 \references{
-Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See base \code{\link[graphics]{hist}} for related functionality and \code{\link[plotrix]{multhist}} in \pkg{plotrix} for similar functionality.

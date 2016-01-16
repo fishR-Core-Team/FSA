@@ -77,7 +77,7 @@ text(prey[,1],pred[,1],labels=c(2010,2011,2012),adj=c(-0.5,-0.5))
 Derek H. Ogle, \email{derek@derekogle.com}
 }
 \references{
-Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See \code{\link{psdVal}} and \code{\link{psdCalc}} for related functionality.

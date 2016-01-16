@@ -1,5 +1,8 @@
 # FSA 0.8.5 ongoing
 * Added URL for fishR webpage in DESCRIPTION per CRAN request.  Removed it from the URL field in DESCRIPTION.
+* Updatd all references to Ogle (2016) in documentation.
+
+* `metaM()`: Changed order of methods in `methods=`.  Minor corrections and additions to documentation.
 
 
 # FSA 0.8.4 21-Dec-15

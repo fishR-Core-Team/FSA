@@ -80,7 +80,7 @@
 #'
 #' @section IFAR Chapter: 4-Age Comparisons.
 #'
-#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  Graphical and statistical methods for determining the consistency of age determinations. Transactions of the American Fisheries Society 124:131-138.  [Was (is?) available from http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf.]
 #'
@@ -599,7 +599,7 @@ iabAxisLmts <- function(d,xlim,ylim,difference,show.range,show.pts,show.CIs=TRUE
 #'
 #' @seealso See \code{\link{ageBias}} for computation of the full age agreement table, along with tests and plots of age bias.
 #' 
-#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Beamish, R.J. and D.A. Fournier.  1981.  A method for comparing the precision of a set of age determinations.  Canadian Journal of Fisheries and Aquatic Sciences 38:982-983.  [Was (is?) available from http://www.pac.dfo-mpo.gc.ca/science/people-gens/beamish/PDF_files/compareagecjfas1981.pdf.]
 #'

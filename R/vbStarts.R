@@ -36,7 +36,7 @@
 #' 
 #' @seealso See \code{\link{vbModels}} for a list of models and parameterizations used in \pkg{FSA} and \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations.
 #' 
-#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' See references in \code{\link{vbFuns}}.
 #' 

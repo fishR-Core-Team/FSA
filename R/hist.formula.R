@@ -39,7 +39,7 @@
 #'
 #' @section IFAR Chapter: 3-Plotting Fundamentals.
 #'
-#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #'
 #' @seealso See base \code{\link[graphics]{hist}} for related functionality and \code{\link[plotrix]{multhist}} in \pkg{plotrix} for similar functionality.
 #'

@@ -103,7 +103,7 @@ summary(ap2,what="detail")
 Derek H. Ogle, \email{derek@derekogle.com}
 }
 \references{
-Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
 Beamish, R.J. and D.A. Fournier.  1981.  A method for comparing the precision of a set of age determinations.  Canadian Journal of Fisheries and Aquatic Sciences 38:982-983.  [Was (is?) available from http://www.pac.dfo-mpo.gc.ca/science/people-gens/beamish/PDF_files/compareagecjfas1981.pdf.]
 

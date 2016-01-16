@@ -13,7 +13,7 @@
 #'   \item The \href{https://github.com/droglenc/FSAWs}{FSAWs package} contains functions for developing and validating standard weight equations.
 #' }
 #'
-#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' @docType package
 #' 

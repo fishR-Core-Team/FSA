@@ -27,7 +27,7 @@
 #'
 #' @seealso  See \code{\link{alkAgeDist}} and \code{\link{alkMeanVar}} for alternative methods to derived age distributions and mean (and SD) values for each age.  See \code{\link{alkPlot}} for methods to visualize age-length keys.
 #'
-#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Isermann, D.A. and C.T. Knight.  2005.  A computer program for age-length keys incorporating age assignment to individual fish.  North American Journal of Fisheries Management, 25:1153-1160.  [Was (is?) from http://www.tandfonline.com/doi/abs/10.1577/M04-130.1.]
 #'

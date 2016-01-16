@@ -35,7 +35,7 @@
 #'
 #' @seealso See \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, and \code{\link{tictactoe}} for related functionality.
 #'
-#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #'
 #' @source Original summary table from Dr. Michael Hansen, University of Wisconsin-Stevens Point.  Additional species have been added by the package author from the literature.
 #'

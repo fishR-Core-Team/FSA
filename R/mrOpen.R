@@ -49,7 +49,7 @@
 #'
 #' @seealso \code{\link{capHistSum}}, \code{\link{mrClosed}}
 #'
-#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Jolly, G.M. 1965. Explicit estimates from capture-recapture data with both death and immigration -- stochastic model. Biometrika, 52:225-247.
 #' 

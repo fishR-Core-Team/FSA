@@ -96,7 +96,7 @@
 #'
 #' @seealso See \code{\link{capHistSum}} to summarize \dQuote{individual} capture histories into a format useable in \code{\link{mrClosed}} and \code{\link{mrOpen}}.  Also see \code{\link[Rcapture:Rcapture-package]{Rcapture}}, \code{\link[RMark:ABeginnersGuide]{RMark}}, or \pkg{marked} packages for handling more complex analyses.
 #' 
-#' @references Ogle, D.H.  2015.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' @keywords manip
 #'
