@@ -23,7 +23,7 @@ psdAdd(len, ...)
 
 \item{use.names}{A logical that indicates whether the vector returned is numeric (\code{=FALSE}) or word (\code{=TRUE}; default) representations of the Gabelhouse lengths.  See details.}
 
-\item{addSpec}{A character vector of species names for whiach \code{addLens} will be provided.}
+\item{addSpec}{A character vector of species names for which \code{addLens} will be provided.}
 
 \item{addLens}{A numeric vector of lengths that should be used for the species in \code{addSpec} in addition to the Gabelhouse lengths.  See examples.}
 
@@ -42,7 +42,7 @@ Creates a vector of the Gabelhouse lengths specific to a species for all individ
 \details{
 This computes a vector that contains the Gabelhouse lengths specific to each species for all individuals in an entire data frame.  The vector can be appended to an existing data.frame to create a variable that contains the Gabelhous lengths for each individual.  The Gabelhouse length value will be \code{NA} for each individual for which a Gabelhouse length definitision do not exist in \code{\link{PSDlit}}.  Individuals shorter than \dQuote{stock} length will be listed as \code{zero} if \code{use.names=TRUE} or \code{0} if \code{use.names=FALSE}.  See the examples for one method for changing species names to something that this function will recognize.
 
-Additional lengths to be use for each species can be included by giving a vector of species names in \code{addSpec} and a corresponding vector of additional lengths in \code{addLens}.  Note, however, that \code{use.names} will be reset to \code{FALSE} if \code{addSpec} and \code{addLens} are specified as there is no way to order the names when additional lengths are used.
+Additional lengths to be used for each species can be included by giving a vector of species names in \code{addSpec} and a corresponding vector of additional lengths in \code{addLens}.  Note, however, that \code{use.names} will be reset to \code{FALSE} if \code{addSpec} and \code{addLens} are specified as there is no way to order the names when additional lengths are used.
 }
 \section{IFAR Chapter}{
  6-Size Structure.
