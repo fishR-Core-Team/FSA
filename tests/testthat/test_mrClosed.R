@@ -34,18 +34,25 @@ test_that("mrClosed Single Census errors and warnings",{
   
 test_that("mrClosed Multiple Census errors and warnings",{
   n1 <- c(20,18,14, 9,17)
-  m1 <- c( 2, 3, 4, 4,14)
+  m1 <- c( 0, 3, 4, 4,14)
   R1 <- c(20,18,14, 9, 0)
   M1 <- c( 0,20,35,45,50)
   ## missing numerical arguments
-  expect_error(mrClosed(n=n1,method="Schnabel"))
-  expect_error(mrClosed(n=n1,m=m1,method="Schnabel"))
-  expect_error(mrClosed(M=M1,method="Schnabel"))
-  expect_error(mrClosed(M=M1,n=n1,method="Schnabel"))
-  expect_error(mrClosed(R=R1,method="Schnabel"))
-  expect_error(mrClosed(R=R1,n=n1,method="Schnabel"))
+  expect_error(mrClosed(n=n1,method="Schnabel"),"must be supplied")
+  expect_error(mrClosed(n=n1,m=m1,method="Schnabel"),"must be supplied")
+  expect_error(mrClosed(M=M1,method="Schnabel"),"missing without 'M'")
+  expect_error(mrClosed(M=M1,n=n1,method="Schnabel"),"missing without 'M'")
+  expect_error(mrClosed(R=R1,method="Schnabel"),"One or both of")
+  expect_error(mrClosed(R=R1,n=n1,method="Schnabel"),"One or both of")
   expect_error(mrClosed(M=M1,R=R1,method="Schnabel"))
-  expect_warning(mrClosed(M=M1,n=n1,m=m1,R=R1,method="Schnabel"))
+  expect_warning(mrClosed(M=M1,n=n1,m=m1,R=R1,method="Schnabel"),"Only need one of")
+  ## NAs in some of the vectors
+  m1x <- c(NA, 3, 4, 4,14)
+  R1x <- c(20,18,14, 9,NA)
+  M1x <- c(NA,20,35,45,50)
+  expect_warning(mrClosed(n=n1,m=m1x,R=R1,method="Schnabel"),"'m' was ignored")
+  expect_warning(mrClosed(n=n1,m=m1,R=R1x,method="Schnabel"),"'R' was ignored")
+  expect_warning(mrClosed(n=n1,m=m1x,M=M1x,method="Schnabel"),"'M' was ignored")
 })
 
 # ############################################################
