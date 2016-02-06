@@ -170,3 +170,39 @@ test_that("agePrecision() differences for simple data",{
   expect_equal(names(ap4$absdiff), c("0","1"))
   expect_equal(as.numeric(ap4$absdiff), c(3,3))
 })
+
+test_that("agePrecision() differences for simple data with NA values",{
+  tmp <- data.frame(age1=c(1,1,1,1,2,2,2,2,3,3,3,3),
+                    age2=c(1,1,2,2,2,2,3,3,3,3,4,4),
+                    age3=c(1,1,2,NA,2,2,3,NA,3,3,4,NA),
+                    age4=c(1,1,2,NA,2,2,3,NA,3,3,4,NA),
+                    age5=c(NA,1,2,2,NA,2,3,3,NA,3,4,4))
+  ap12 <- agePrecision(~age1+age2,data=tmp)
+  expect_equal(ap12$PercAgree,50)
+  ap13 <- agePrecision(~age1+age3,data=tmp)
+  expect_equal(round(ap13$PercAgree,4),66.6667)
+  ap14 <- agePrecision(~age1+age4,data=tmp)
+  expect_equal(round(ap14$PercAgree,4),66.6667)
+  ap15 <- agePrecision(~age1+age5,data=tmp)
+  expect_equal(round(ap15$PercAgree,4),33.3333)
+  ap23 <- agePrecision(~age2+age3,data=tmp)
+  expect_equal(ap23$PercAgree,100)
+  ap24 <- agePrecision(~age2+age4,data=tmp)
+  expect_equal(ap24$PercAgree,100)
+  ap25 <- agePrecision(~age2+age5,data=tmp)
+  expect_equal(ap25$PercAgree,100)
+  ap34 <- agePrecision(~age3+age4,data=tmp)
+  expect_equal(ap34$PercAgree,100)
+  ap35 <- agePrecision(~age3+age5,data=tmp)
+  expect_equal(ap35$PercAgree,100)
+  ap45 <- agePrecision(~age4+age5,data=tmp)
+  expect_equal(ap45$PercAgree,100)
+  ap123 <- agePrecision(~age1+age2+age3,data=tmp)
+  expect_equal(round(ap123$PercAgree,4),66.6667)
+  ap125 <- agePrecision(~age1+age2+age5,data=tmp)
+  expect_equal(round(ap125$PercAgree,4),33.3333)
+  ap135 <- agePrecision(~age1+age3+age5,data=tmp)
+  expect_equal(round(ap135$PercAgree,4),50.0000)
+  
+  
+})

@@ -38,7 +38,8 @@ The main function returns a list with the following items:
   \item APE The mean average percent error.
   \item ACV The mean coefficient of variation.
   \item n Number of fish in \code{data}.
-  \item R Number of age assessments for each fish given in \code{formula}.
+  \item validn Number of fish in \code{data} that have non-\code{NA} data for all R age estimates.
+  \item R Number of age estimates for each fish given in \code{formula}.
 }
 
 The \code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing.  See details for what is printed.
@@ -50,17 +51,20 @@ Computes overall measures of precision for multiple age assignments made on the 
 If \code{what="precision"} in \code{summary} then a summary table that contains the following items will be printed:
 \itemize{
   \item n Number of fish in \code{data}.
-  \item R Number of age assessments given in \code{formula}.
+  \item validn Number of fish in \code{data} that have non-\code{NA} data for all R age estimates.
+  \item R Number of age estimates given in \code{formula}.
   \item ACV The mean coefficient of variation.  See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculational details.
   \item APE The mean average percent error.  See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculational details.
   \item PercAgree The percentage of fish for which all age assignments perfectly agree.
 }
 
-If \code{what="difference"} is used in \code{summary} then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the difference in paired age assignments.  This table has one row for each possible pair of age assignments.
+If \code{what="difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the difference in paired age assignments.  This table has one row for each possible pair of age assignments.
 
-If \code{what="absolute difference"} is used in \code{summary} then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the absolute value of the difference in paired age assignments.  This table has one row for each possible pair of age assignments.  The \dQuote{1} column, for example, represents age assignments that disagree by one year (in either direction).
+If \code{what="absolute difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the absolute value of the difference in paired age assignments.  This table has one row for each possible pair of age assignments.  The \dQuote{1} column, for example, represents age assignments that disagree by one year (in either direction).
 
-If \code{what="detail"} is used in \code{summary} then a data frame of the original \code{data} along with the intermediate caculations of the average age, standard deviation of age, APE, and ACV for each individual will be printed.  These details are generally only used to check or to understand calculations.
+If \code{what="detail"} is used in \code{summary}, then a data frame of the original \code{data} along with the intermediate caculations of the average age, standard deviation of age, APE, and ACV for each individual will be printed.  These details are generally only used to check or to understand calculations.
+
+All percentage calulations above use the \code{validn} value in the denominator.
 }
 \section{Testing}{
  Tested all precision results against published results in Herbst and Marsden (2011) for the \code{\link{WhitefishLC}} data and the results for the \code{\link[FSAdata]{AlewifeLH}} data set from \pkg{FSAdata} against results from the online resource at http://www.nefsc.noaa.gov/fbp/age-prec/.
@@ -113,7 +117,7 @@ Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  Graphical and statistical 
 
 Chang, W.Y.B. 1982.  A statistical method for evaluating the reproducibility of age determination.  Canadian Journal of Fisheries and Aquatic Sciences 39:1208-1210.  [Was (is?) available from http://www.nrcresearchpress.com/doi/abs/10.1139/f82-158.]
 
-McBride, R.S.  2015. Diagnosis of paired age agreement: A simulation approach of accuracy and precision effects. ICES Journal of Marine Science, XX:XXX-XXX.
+McBride, R.S.  2015. Diagnosis of paired age agreement: A simulation approach of accuracy and precision effects. ICES Journal of Marine Science, 72:2149-2167.
 }
 \seealso{
 See \code{\link{ageBias}} for computation of the full age agreement table, along with tests and plots of age bias.

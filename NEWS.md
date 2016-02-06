@@ -2,7 +2,9 @@
 * Added URL for fishR webpage in DESCRIPTION per CRAN request.  Removed it from the URL field in DESCRIPTION.
 * Updatd all references to Ogle (2016) in documentation.
 
-* `metaM()`: Changed order of methods in `methods=`.  Minor corrections and additions to documentation.
+* `ageBias()`: Modified.  Minor corrections to the documentation.
+* `agePrecision()`: Modified.  Fixed bug related to computations of percent agreement when `NA` values were present.  There was an inconsistency between when `what="precision"` and `what="difference"` was used in `summary()`.  The bug fix now properly divides by the "valid sample size" for `what="precision"`.  This fixes [#9](https://github.com/droglenc/FSA/issues/9) (Thanks to Joseph Feldhaus).  Now returns `validn`.  Modifications to the documentation.
+* `metaM()`: Modified.  Changed order of methods in `methods=`.  Minor corrections and additions to documentation.
 
 
 # FSA 0.8.4 21-Dec-15
