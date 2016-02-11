@@ -662,7 +662,7 @@ agePrecision <- function(formula,data) {
   # number of structures, complete sample size, and valid n (all non-NA values)
   R <- ncol(d)
   n <- nrow(d)
-  validn <- sum(complete.cases(d))
+  validn <- sum(stats::complete.cases(d))
   
   ## Precision alculations (APE and ACV) on each fish
   # Mean, SD of assigned ages

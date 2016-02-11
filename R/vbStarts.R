@@ -110,9 +110,15 @@ vbStarts <- function(formula,data=NULL,
   age <- tmp$mf[,tmp$Enames[1]]
   ## get starting valeus depending on type
   switch(type,
-    Typical=,typical=,BevertonHolt=    { sv <- iVBStarts.typical(age,len,type,meth0) },
-    Original=,original=,vonBertalanffy={ sv <- iVBStarts.original(age,len,type,meth0) },
-    GQ=,GallucciQuinn=       { sv <- iVBStarts.GQ(age,len,type,meth0) },
+    Typical=,typical=,BevertonHolt=    {
+      type <- "Typical"
+      sv <- iVBStarts.typical(age,len,type,meth0) },
+    Original=,original=,vonBertalanffy={
+      type <- "Original"
+      sv <- iVBStarts.original(age,len,type,meth0) },
+    GQ=,GallucciQuinn=       {
+      type <- "GQ"
+      sv <- iVBStarts.GQ(age,len,type,meth0) },
     Mooij=                   { sv <- iVBStarts.Mooij(age,len,type,meth0) },
     Weisberg=                { sv <- iVBStarts.Weisberg(age,len,type,meth0) },
     Francis=                 { sv <- iVBStarts.Francis(age,len,type,methEV,ages2use) },
@@ -168,7 +174,7 @@ iCheckLinfK <- function(sLinf,sK,type,len) {
     warning(msg,call.=FALSE)    
   } 
   if (sK<0) {
-    if (type %in% c("typical","original","BevertonHolt","vonBertalanffy","GQ","GallucciQuinn","Schnute")) {
+    if (type %in% c("Typical","typical","Original","original","BevertonHolt","vonBertalanffy","GQ","GallucciQuinn","Schnute")) {
       msg <- "The suggested starting value for K is negative, "
     } else {
       msg <- "One  suggested starting value is based on a negative K, "
@@ -401,7 +407,8 @@ iVBStartsDynPlot <- function(age,len,type,sv,ages2use) {
     if ("L0" %in% svnms) tmp["L0"] <- 2*sv[["L0"]]
     if ("omega" %in% svnms) tmp["omega"] <- 2*sv[["omega"]]
     if ("t50" %in% svnms) tmp["t50"] <- 0.6*max(age,na.rm=TRUE)
-    if ("L1" %in% svnms) tmp["L1"] <- ifelse("L2" %in% svnms,0.5*(sv[["L1"]]+sv[["L2"]]),0.5*(sv[["L1"]]+sv[["L3"]]))
+    if ("L1" %in% svnms) tmp["L1"] <- ifelse("L2" %in% svnms,0.5*(sv[["L1"]]+sv[["L2"]]),
+                                             0.5*(sv[["L1"]]+sv[["L3"]]))
     if ("L2" %in% svnms) tmp["L2"] <- 0.5*(sv[["L2"]]+sv[["L3"]])
     if ("L3" %in% svnms) tmp["L3"] <- 1.5*sv[["L3"]]
     # reduce to only those in sv
@@ -472,9 +479,9 @@ iVBDynPlot <- function(age,len,type,p1,p2,p3,ages2use) {
 #=============================================================
 iVBDynPlot_makeL <- function(x,type,p1,p2,p3,ages2use){
   switch(type,
-         typical=            { # p1=Linf, p2=K,  p3=to
+         Typical=            { # p1=Linf, p2=K,  p3=to
                                y <- p1*(1-exp(-p2*(x-p3))) },
-         original=           { # p1=Linf, p2=L0, p3=K
+         Original=           { # p1=Linf, p2=L0, p3=K
                                y <- (p1-(p1-p2)*exp(-p3*x)) },
          GQ=, GallucciQuinn= { # p1=omega,p2=K,  p3=t0
                                y <- (p1/p2)*(1-exp(-p2*(x-p3))) },

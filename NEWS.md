@@ -1,12 +1,13 @@
 # FSA 0.8.5 ongoing
 * Added URL for fishR webpage in DESCRIPTION per CRAN request.  Removed it from the URL field in DESCRIPTION.
-* Updatd all references to Ogle (2016) in documentation.
+* Updated all references to Ogle (2016) in documentation.
 
 * `ageBias()`: Modified.  Minor corrections to the documentation.
 * `agePrecision()`: Modified.  Fixed bug related to computations of percent agreement when `NA` values were present.  There was an inconsistency between when `what="precision"` and `what="difference"` was used in `summary()`.  The bug fix now properly divides by the "valid sample size" for `what="precision"`.  This fixes [#9](https://github.com/droglenc/FSA/issues/9) (Thanks to Joseph Feldhaus).  Now returns `validn`.  Modifications to the documentation.
 * `histFromSum()`: Added.  Addresses [#4](https://github.com/droglenc/FSA/issues/4).
 * `metaM()`: Modified.  Changed order of methods in `methods=`.  Minor corrections and additions to documentation.
-* `mrClosed()`: MOdified.  Now sends warning if an `NA` appears in the first position of `m`, the first position of `M`, or the last position of `R` and converts these to 0 so that the procedure can continue.  Each of these positions is ignored in the calculations.  This fixes [#8](https://github.com/droglenc/FSA/issues/8) (Thanks to Joe Mrnak).
+* `mrClosed()`: Modified.  Now sends warning if an `NA` appears in the first position of `m`, the first position of `M`, or the last position of `R` and converts these to 0 so that the procedure can continue.  Each of these positions is ignored in the calculations.  This fixes [#8](https://github.com/droglenc/FSA/issues/8) (Thanks to Joe Mrnak).
+* `vbStarts()`: Modified.  Fixed bug when `dynamicPlot=TRUE` was used.
 
 
 # FSA 0.8.4 21-Dec-15
