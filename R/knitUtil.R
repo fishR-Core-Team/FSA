@@ -195,30 +195,18 @@ iMakeFilename <- function(file,extension,directory=NULL) {
 }
 
 iGetAllDependencies <- function(pkgs) {
-  # get a list of available packages ... this is needed for package.dependencies below
-  inst <- utils::installed.packages()
-  #   isolate to the supplied packages
-  inst <- inst[inst[,"Package"] %in% pkgs,]
-  deps <- NULL
-  # a catch if there is only one package
-  if (is.vector(inst)) n <- 1
-  else n <- nrow(inst)
-  # must cycle through provided packages
-  for (i in 1:n) {
-    # get dependent packages for ith provided package
-    d <- tools::package.dependencies(inst,,"Depends")[[i]]
-    # handles those with no dependent packages
-    if (is.matrix(d)) deps <- c(deps,d[,1])
-    # ditto for imported paxckages
-    d <- tools::package.dependencies(inst,,"Imports")[[i]]
-    if (is.matrix(d)) deps <- c(deps,d[,1])
+  ## Check if repository has been set
+  if ("@CRAN@" %in% options("repos")$repos && interactive()) {
+    cat(gettext("--- Please select a CRAN mirror for this session ---"),"\n",sep="")
+    utils::flush.console()
+    utils::chooseCRANmirror()
   }
-  # remove "R" if it is listed as a dependent
-  deps <- deps[deps!="R"]
-  # remove names attribute
+  ## Get a list of packages that pkgs depends on
+  deps <- tools::package_dependencies(pkgs,utils::available.packages(),
+                                      which=c("Depends","Imports"))
+  ## remove list, sort, and remove names attribute
+  deps <- sort(unlist(deps))
   attr(deps,"names") <- NULL
-  # alphabetize
-  deps <- sort(deps)
   # return original list and dependents
   unique(c(pkgs,deps))
 }

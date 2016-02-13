@@ -7,6 +7,7 @@
 * `histFromSum()`: Added.  Addresses [#4](https://github.com/droglenc/FSA/issues/4).
 * `metaM()`: Modified.  Changed order of methods in `methods=`.  Minor corrections and additions to documentation.
 * `mrClosed()`: Modified.  Now sends warning if an `NA` appears in the first position of `m`, the first position of `M`, or the last position of `R` and converts these to 0 so that the procedure can continue.  Each of these positions is ignored in the calculations.  This fixes [#8](https://github.com/droglenc/FSA/issues/8) (Thanks to Joe Mrnak).
+* `reproInfo()`: Modified.  Made changes to `iGetAllDependencis()` based on forthcoming changes to `package.dependencies()` (as notified by CRAN).
 * `vbStarts()`: Modified.  Fixed bug when `dynamicPlot=TRUE` was used.
 
 
