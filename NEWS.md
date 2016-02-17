@@ -1,3 +1,5 @@
+# FSA 0.8.6 ongoing
+
 # FSA 0.8.5 13-Feb-16
 * Added URL for fishR webpage in DESCRIPTION per CRAN request.  Removed it from the URL field in DESCRIPTION.
 * Updated all references to Ogle (2016) in documentation.
