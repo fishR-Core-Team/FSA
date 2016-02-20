@@ -98,8 +98,8 @@ alkPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
   ## construct the plots (all internal functions)
   op <- graphics::par(mar=c(3.25,3.25,0.7,0.7),mgp=c(1.7,0.5,0),tcl=-0.2)
   switch(type,
-         area=    { iALKPlotArea(key,xlab,ylab,showLegend,leg.cex,pal) },
-         barplot= { iALKPlotBar(key,xlab,ylab,lbl.cex,showLegend,leg.cex,pal,...) },
+         area=    { iALKPlotArea(key,xlab,ylab,xlim,ylim,showLegend,leg.cex,pal) },
+         barplot= { iALKPlotBar(key,xlab,ylab,xlim,ylim,lbl.cex,showLegend,leg.cex,pal,...) },
          bubble=  { iALKPlotBubble(key,xlab,ylab,xlim,ylim,grid,buf,col,add,...) },
          lines=   { iALKPlotLines(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,pal,showLegend,leg.cex,...) },
          splines= { iALKPlotSplines(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,pal,showLegend,leg.cex,...) }
@@ -130,7 +130,8 @@ iAddLegend <- function(alsum,leg.cex,col){
   tmp <- graphics::par("mar")
   op <- graphics::par(mar=c(0.1,1.5*tmp[2],0.1,4*tmp[4]))
   graphics::barplot(matrix(1,nrow=alsum$num.ages,ncol=1),col=col,horiz=TRUE,xaxt="n")
-  graphics::text(c(1,alsum$num.ages)-0.5,c(0.75,0.75),range(alsum$ages),col=c("white","black"),cex=leg.cex) 
+  graphics::text(c(1,alsum$num.ages)-0.5,c(0.75,0.75),range(alsum$ages),
+                 col=c("white","black"),cex=leg.cex) 
   graphics::par(op)
 }
 
@@ -141,19 +142,40 @@ iLinesAddLabelsToLines <- function(maxvals,lbl.cex) {
   graphics::text(maxvals[,1],maxvals[,2],maxvals[,3],cex=lbl.cex)
 }
 
+##############################################################
+## INTERNAL -- Add age labels to lines in line and spline plots
+##############################################################
+iAdjKey4xlim <- function(key,xlim) {
+  if (!is.null(xlim)) {
+    # make sure values are in ascending order
+    xlim <- xlim[order(xlim)]
+    # reduce rows of keys down to values that are between xlim values
+    tmp <- as.numeric(row.names(key))
+    key <- key[which(tmp>=xlim[1] & tmp<=xlim[2]),]
+    # remove columns (ages) that don't have any values
+    key <- key[,which(colSums(key)!=0)]
+    if (!is.matrix(key)) stop("'xlim' is too restrictive (only one age).",call.=FALSE)
+  }
+  key
+}
 
 ##############################################################
 ## Internal function to make the area plot
 ##############################################################
-iALKPlotArea <- function(key,xlab,ylab,showLegend,leg.cex,pal) {
+iALKPlotArea <- function(key,xlab,ylab,xlim,ylim,showLegend,leg.cex,pal) {
   if (any(is.na(rowSums(key)))) {
     tmp <- which(is.na(rowSums(key)))
     key[tmp,] <- 0
-  } 
+  }
+  # adjust key for xlim values
+  key <- iAdjKey4xlim(key,xlim)
   alsum <- iFindAgesAndLens(key)
   col <- chooseColors(pal,alsum$num.ages)
   if (showLegend) iAddLegend(alsum,leg.cex,col)
-  plotrix::stackpoly(key,stack=TRUE,col=col,axis4=FALSE,xlab=xlab,ylab=ylab,xaxt="n",xat=0)
+  # convert NULL y-axis limits to NA for use with stackpoly
+  if (is.null(ylim)) ylim <- NA
+  plotrix::stackpoly(key,stack=TRUE,col=col,axis4=FALSE,
+                     xlab=xlab,ylab=ylab,xaxt="n",xat=0,ylim=ylim)
   graphics::axis(1,1:alsum$num.lens,alsum$lens)
 }  
 
@@ -182,11 +204,13 @@ iBarplotAddLabelsToBars <- function(key,alsum,lbl.cex,col,...) {
   }
 }
 
-iALKPlotBar <- function(key,xlab,ylab,lbl.cex,showLegend,leg.cex,pal,...) {
+iALKPlotBar <- function(key,xlab,ylab,xlim,ylim,lbl.cex,showLegend,leg.cex,pal,...) {
+  # adjust key for xlim values
+  key <- iAdjKey4xlim(key,xlim)
   alsum <- iFindAgesAndLens(key)
   col <- chooseColors(pal,alsum$num.ages)
   if (showLegend) iAddLegend(alsum,leg.cex,col)
-  graphics::barplot(t(key),space=0,col=col,xlab=xlab,ylab=ylab,...)
+  graphics::barplot(t(key),space=0,col=col,xlab=xlab,ylab=ylab,ylim=ylim,...)
   if (!showLegend) iBarplotAddLabelsToBars(key,alsum,lbl.cex,col)
 }
 

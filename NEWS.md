@@ -1,4 +1,6 @@
 # FSA 0.8.6 ongoing
+* `alkPlot()`: Modified.  Changed so that `xlim=` and `ylim=` would work when `type="area"` and `type="bar"`.  This fixes [#10](https://github.com/droglenc/FSA/issues/10) (Thanks to Joseph Feldhaus).
+
 
 # FSA 0.8.5 13-Feb-16
 * Added URL for fishR webpage in DESCRIPTION per CRAN request.  Removed it from the URL field in DESCRIPTION.
