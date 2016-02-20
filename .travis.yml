@@ -3,14 +3,13 @@ warnings_are_errors: false
 sudo: false
 cache: packages
 
-notifications:
-  email:
-    on_success: change
-    on_failure: always
+r_github_packages:
+  - jimhester/covr
 
 after_success:
   - Rscript -e 'library(covr);coveralls()'
 
-r_github_packages:
-  - jimhester/covr
-  
+notifications:
+  email:
+    on_success: change
+    on_failure: always
