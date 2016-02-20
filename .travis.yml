@@ -4,7 +4,7 @@ sudo: required
 
 env:
   global:
-    - CRAN: http://cran.rstudio.com
+    - CRAN: https://cran.rstudio.com
    
 notifications:
   email:
@@ -16,5 +16,4 @@ after_success:
 
 r_github_packages:
   - jimhester/covr
-  - droglenc/FSAdata
   
