@@ -1,4 +1,4 @@
-#' @title Length-frequency histogram with Gabelhouse lengthshighlighted.
+#' @title Length-frequency histogram with Gabelhouse lengths highlighted.
 #'
 #' @description Constructs a length-frequency histogram with Gabelhouse lengths highlighted.
 #'
@@ -8,11 +8,11 @@
 #'
 #' @param formula A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains length measurements.  Note that this formula can only contain one variable.
 #' @param data A data.frame that minimally contains the length measurements given in the variable in the \code{formula}.
-#' @param species A string that contains the species name for which five-cell length categories exist.  See \code{\link{psdVal}} for details.
+#' @param species A string that contains the species name for which Gabelhouse length categories exist.  See \code{\link{psdVal}} for details.
 #' @param units A string that indicates the type of units used for the length measurements.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
 #' @param startcat A number that indicates the beginning of the first length-class.
 #' @param w A number that indicates the width of length classes to create.
-#' @param justPSDQ A logical that indicates whether just stock and quality (for PSD-Q calculations) categories should be used.  If \code{FALSE} (default) then the five-cell categories of Gabelhouse will be used.
+#' @param justPSDQ A logical that indicates whether just stock and quality (for PSD-Q calculations) categories should be used.  If \code{FALSE} (default) then the five Gabelhouse categories will be used.
 #' @param main A string that serves as the main label for the histogram.
 #' @param xlab A string that serves as the label for the x-axis.
 #' @param ylab A string that serves as the label for the y-axis.
@@ -25,8 +25,8 @@
 #' @param psd.lwd A numeric that indicates the line width to use for the vertical lines at the PSD category values.
 #' @param show.abbrevs A logical that indicates if the abbreviations for the Gabelhouse length categories should be added to the top of the plot.
 #' @param psd.add A logical that indicates if the calculated PSD values should be added to the plot (Default is \code{TRUE}).
-#' @param psd.pos A string that indicates the position for the legend text.
-#' @param psd.cex A numeric value that indicates the character expansion for the legend text.
+#' @param psd.pos A string that indicates the position for the PSD values will be shown.  See details in \code{\link[graphics]{legend}}.
+#' @param psd.cex A numeric value that indicates the character expansion for the PSD values text.
 #' @param \dots Arguments to be passed to the low-level plotting functions.
 #'
 #' @return None.  However, a graphic is produced.
@@ -73,8 +73,6 @@
 #' # ... demonstrate use of xlim
 #' psdPlot(~mm,data=df,species="Yellow perch",w=10,xlim=c(100,300))
 #' 
-#' 
-#' 
 #' ## different subsets of fish
 #' # ... without any sub-stock fish
 #' brks <- psdVal("Yellow Perch")
@@ -83,11 +81,12 @@
 #' # ... without any sub-stock or stock fish
 #' tmp <- Subset(df,mm>brks["quality"])
 #' psdPlot(~mm,data=tmp,species="Yellow perch",w=10)
+#' # ... with only sub-stock, stock, and quality fish ... only PSD-Q
+#' tmp <- Subset(df,mm<brks["preferred"])
+#' psdPlot(~mm,data=tmp,species="Yellow perch",w=10)
 #' # ... with only sub-stock fish (don't run ... setup to give an error)
 #' tmp <- Subset(df,mm<brks["stock"])
 #' \dontrun{ psdPlot(~mm,data=tmp,species="Yellow perch",w=10) }
-#' 
-#' 
 #' par(op)
 #'
 #' @export psdPlot
@@ -121,18 +120,20 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
   ## Create colors for the bars
   clr <- ifelse(h$breaks<brks["stock"],substock.col,stock.col)
   ## Plot the histogram with the new colors
-  graphics::plot(h,col=clr,xlim=xlim,ylim=ylim,main=main,xlab=xlab,ylab=ylab,...)
-  graphics::box()
+  graphics::plot(h,col=clr,xlim=xlim,ylim=ylim,main=main,xlab=xlab,ylab=ylab,yaxs="i",...)
   ## add psd category lines
   graphics::abline(v=brks[-1],col=psd.col,lty=psd.lty,lwd=psd.lwd)
   if (show.abbrevs) graphics::axis(3,at=brks[-1],labels=toupper(substring(names(brks)[-1],1,1)))
   ## add PSD calculations
-  if (psd.add) iAddPSDLeg(formula,data,cl,brks,species,units,psd.pos,psd.cex)
+  if (psd.add) {
+    res <- iAddPSDLeg(formula,data,cl,brks,species,units,psd.pos,psd.cex)
+    graphics::box()
+  }
 }
 
 iAddPSDLeg <- function(formula,data,cl,brks,species,units,psd.pos,psd.cex) {
   # get PSDs
-  suppressWarnings(psds <- psdCalc(formula,data,species=species,units=units,method="multinomial",what="traditional"))
+  suppressWarnings(psds <- psdCalc(formula,data,species=species,units=units,method="multinomial",what="traditional",drop0Est=FALSE))
   # reduce to only those that are >0 (drop=FALSE is needed in case it reduces to only one)
   psds <- psds[psds[,"Estimate"]>0,,drop=FALSE]
   # get two sample sizes
@@ -141,4 +142,5 @@ iAddPSDLeg <- function(formula,data,cl,brks,species,units,psd.pos,psd.cex) {
   # put it all together
   psdleg <- paste(c("n","n[stock]",rownames(psds)),"=",formatC(c(n,n.stock,psds[,"Estimate"]),format="f",digits=0))
   graphics::legend(psd.pos,psdleg,cex=psd.cex,box.col="white",bg="white",inset=0.002)
+  return(psdleg)
 }

@@ -1,5 +1,6 @@
 # FSA 0.8.6 ongoing
 * `alkPlot()`: Modified.  Changed so that `xlim=` and `ylim=` would work when `type="area"` and `type="bar"`.  This fixes [#10](https://github.com/droglenc/FSA/issues/10) (Thanks to Joseph Feldhaus).
+* `psdPlot()`: Modified.  Fixed bug related to PSD values being printed when only PSD-Q existed (needed to add `drop0Est=FALSE` to the `psdCalc()` call; this fixes [#13](https://github.com/droglenc/FSA/issues/13)).  Made the histogram bars flush with the x-axis rather than hovering above it (added `yaxis="i"` to `hist()`; this fixes [#12](https://github.com/droglenc/FSA/issues/12)).  Minor changes to documentation.
 
 
 # FSA 0.8.5 13-Feb-16

@@ -2,7 +2,7 @@
 % Please edit documentation in R/psdPlot.R
 \name{psdPlot}
 \alias{psdPlot}
-\title{Length-frequency histogram with Gabelhouse lengthshighlighted.}
+\title{Length-frequency histogram with Gabelhouse lengths highlighted.}
 \usage{
 psdPlot(formula, data, species = "List", units = c("mm", "cm", "in"),
   startcat = 0, w = 1, justPSDQ = FALSE, main = "", xlab = "Length",
@@ -16,7 +16,7 @@ psdPlot(formula, data, species = "List", units = c("mm", "cm", "in"),
 
 \item{data}{A data.frame that minimally contains the length measurements given in the variable in the \code{formula}.}
 
-\item{species}{A string that contains the species name for which five-cell length categories exist.  See \code{\link{psdVal}} for details.}
+\item{species}{A string that contains the species name for which Gabelhouse length categories exist.  See \code{\link{psdVal}} for details.}
 
 \item{units}{A string that indicates the type of units used for the length measurements.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
 
@@ -24,7 +24,7 @@ psdPlot(formula, data, species = "List", units = c("mm", "cm", "in"),
 
 \item{w}{A number that indicates the width of length classes to create.}
 
-\item{justPSDQ}{A logical that indicates whether just stock and quality (for PSD-Q calculations) categories should be used.  If \code{FALSE} (default) then the five-cell categories of Gabelhouse will be used.}
+\item{justPSDQ}{A logical that indicates whether just stock and quality (for PSD-Q calculations) categories should be used.  If \code{FALSE} (default) then the five Gabelhouse categories will be used.}
 
 \item{main}{A string that serves as the main label for the histogram.}
 
@@ -50,9 +50,9 @@ psdPlot(formula, data, species = "List", units = c("mm", "cm", "in"),
 
 \item{psd.add}{A logical that indicates if the calculated PSD values should be added to the plot (Default is \code{TRUE}).}
 
-\item{psd.pos}{A string that indicates the position for the legend text.}
+\item{psd.pos}{A string that indicates the position for the PSD values will be shown.  See details in \code{\link[graphics]{legend}}.}
 
-\item{psd.cex}{A numeric value that indicates the character expansion for the legend text.}
+\item{psd.cex}{A numeric value that indicates the character expansion for the PSD values text.}
 
 \item{\dots}{Arguments to be passed to the low-level plotting functions.}
 }
@@ -96,8 +96,6 @@ psdPlot(~mm,data=df,species="Yellow perch",w=10,psd.add=FALSE)
 # ... demonstrate use of xlim
 psdPlot(~mm,data=df,species="Yellow perch",w=10,xlim=c(100,300))
 
-
-
 ## different subsets of fish
 # ... without any sub-stock fish
 brks <- psdVal("Yellow Perch")
@@ -106,11 +104,12 @@ psdPlot(~mm,data=tmp,species="Yellow perch",w=10)
 # ... without any sub-stock or stock fish
 tmp <- Subset(df,mm>brks["quality"])
 psdPlot(~mm,data=tmp,species="Yellow perch",w=10)
+# ... with only sub-stock, stock, and quality fish ... only PSD-Q
+tmp <- Subset(df,mm<brks["preferred"])
+psdPlot(~mm,data=tmp,species="Yellow perch",w=10)
 # ... with only sub-stock fish (don't run ... setup to give an error)
 tmp <- Subset(df,mm<brks["stock"])
 \dontrun{ psdPlot(~mm,data=tmp,species="Yellow perch",w=10) }
-
-
 par(op)
 
 }
