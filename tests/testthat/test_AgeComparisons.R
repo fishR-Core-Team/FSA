@@ -7,7 +7,7 @@ test_that("ageBias() errors and warnings",{
   ## Two variables on RHS
   expect_error(ageBias(otolithC~scaleC+finrayC,data=WhitefishLC),"must have only one RHS")
   ## Bad choices for what= in plot and summary
-  ab1 <- ageBias(scaleC~otolithC,data=WhitefishLC)
+  suppressWarnings(ab1 <- ageBias(scaleC~otolithC,data=WhitefishLC))
   expect_error(summary(ab1,what="derek"),"should be one of")
   expect_error(plot(ab1,what="derek"),"should be one of")
   ## Bad choice for cont.corr
@@ -41,7 +41,7 @@ test_that("ageBias() symmetry tests match the results in Evans and Hoenig (2008)
   ########   against the results in table 1.
   X.dat <- data.frame(ageR=c(2,2,2,2,2,2,2,2),
                       ageC=c(1,1,1,1,3,3,3,3))
-  X <- ageBias(ageR~ageC,data=X.dat)
+  suppressWarnings(X <- ageBias(ageR~ageC,data=X.dat))
   Xsum <- summary(X,what="symmetry")
   expect_equal(Xsum[Xsum$symTest=="McNemar","df"], 1)
   expect_equal(Xsum[Xsum$symTest=="McNemar","chi.sq"], 0)
@@ -58,7 +58,7 @@ test_that("ageBias() symmetry tests match the results in Evans and Hoenig (2008)
   
   Y.dat <- data.frame(ageR=c(1,1,1,2,2,2),
                       ageC=c(2,2,3,3,3,3))
-  Y <- ageBias(ageR~ageC,data=Y.dat)
+  suppressWarnings(Y <- ageBias(ageR~ageC,data=Y.dat))
   Ysum <- summary(Y,what="symmetry")
   expect_equal(Ysum[Ysum$symTest=="McNemar","df"], 1)
   expect_equal(Ysum[Ysum$symTest=="McNemar","chi.sq"], 6)
@@ -72,7 +72,7 @@ test_that("ageBias() symmetry tests match the results in Evans and Hoenig (2008)
   
   Z.dat <- data.frame(ageR=c(1,1,1,2,2,2,3),
                       ageC=c(2,2,2,3,3,3,1))
-  Z <- ageBias(ageR~ageC,data=Z.dat)
+  suppressWarnings(Z <- ageBias(ageR~ageC,data=Z.dat))
   Zsum <- summary(Z,what="symmetry")
   expect_equal(Zsum[Zsum$symTest=="McNemar","df"], 1)
   expect_equal(round(Zsum[Zsum$symTest=="McNemar","chi.sq"],2), 3.57)
@@ -90,7 +90,7 @@ test_that("test ageBias() against compare2() with AlewifeLH data",{
     data(AlewifeLH)
     ab2 <- compare2(AlewifeLH,barplot=FALSE)
     ## no continuity correction
-    ab1 <- ageBias(scales~otoliths,data=AlewifeLH,ref.lab="Otolith Age",nref.lab="Scale Age")
+    suppressWarnings(ab1 <- ageBias(scales~otoliths,data=AlewifeLH,ref.lab="Otolith Age",nref.lab="Scale Age"))
     ab1sum <- summary(ab1)
     expect_equal(ab1sum[ab1sum$symTest=="McNemar","chi.sq"], ab2$McNemar$Chisq)
     expect_equal(ab1sum[ab1sum$symTest=="McNemar","p"], ab2$McNemar$pvalue)
@@ -112,7 +112,7 @@ test_that("test ageBias() against compare2() with AlewifeLH data",{
 test_that("ageBias() compared to http://www.nefsc.noaa.gov/fbp/age-prec/ calculations for AlewifeLH data",{
   if (require(FSAdata)) {
     data(AlewifeLH)
-    ab1 <- ageBias(scales~otoliths,data=AlewifeLH,ref.lab="Otolith Age",nref.lab="Scale Age")
+    suppressWarnings(ab1 <- ageBias(scales~otoliths,data=AlewifeLH,ref.lab="Otolith Age",nref.lab="Scale Age"))
     expect_equal(ab1$bias$n, c(2,18,20,13,18,10,8,7,5,1,2))
     ## the fbp result is actually 4.62 for age-6
     expect_equal(round(ab1$bias$mean,2), c(0.00,1.11,2.20,2.85,3.78,4.20,4.62,5.00,4.80,6.00,6.00))

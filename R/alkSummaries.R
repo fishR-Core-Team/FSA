@@ -209,7 +209,7 @@ iALKMean.BM <- function(key,formula,data,N_i) {
     ## These are the formulas in Bettoli and Miranda (2001)
     mn_j[j] <- sum(N_ij[,j]*mn_ij[,j],na.rm=TRUE)/N_j[j] 
     var_j[j] <- sum(N_ij[,j]*((mn_ij[,j]-mn_j[j])^2),na.rm=TRUE)/(N_j[j]-1) 
-    ## These are the equivalent formulas in IFSWR (would need to
+    ## These are the equivalent formulas in IFAR (would need to
     ##   define N <- sum(N_i) and p_ij <- N_ij/N before loop.)  
     #mn_j[j] <- sum(p_ij[,j]*mn_ij[,j],na.rm=TRUE)/N_j[j]*N 
     #var_j[j] <- sum(p_ij[,j]*((mn_ij[,j]-mn_j[j])^2),na.rm=TRUE)/(N_j[j]-1)*N
@@ -231,7 +231,6 @@ iALKMean.QD <- function(key,formula,data,N_i) {
   mn_ij <- sumTable(formula,data,FUN=mean)
   # Not sure from Q&D if this should be divided by sqrt(n) or not
   var_ij <- sumTable(formula,data,FUN=stats::var)/sqrt(sumTable(formula,data,FUN=length))
-  #var_ij <- sumTable(formula,data,FUN=stats::var)/sqrt(sumTable(formula,data,FUN=length))
   options(warn=0)
   ## See if key has a row that sums to zero, remove that row from
   ##   the key, N_i, n_ij, mn_ij, and var_ij

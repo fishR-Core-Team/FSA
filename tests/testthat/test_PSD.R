@@ -6,16 +6,16 @@ context("PSD functions")
 
 test_that("psdVal() errors and warnings",{
   ## bad species name
-  expect_error(psdVal("Derek"))
+  expect_error(psdVal("Derek"),"The Gabelhouse lengths do not exist")
   ## bad units
-  expect_error(psdVal("Bluegill",units="inches"))
+  expect_error(psdVal("Bluegill",units="inches"),"should be one of")
   ## too many species name
-  expect_error(psdVal(c("Bluegill","Yellow Perch")))
+  expect_error(psdVal(c("Bluegill","Yellow Perch")),"can have only one name")
   ## addLens and addNames don't match up
-  expect_error(psdVal("Bluegill",addLens=7,addNames=c("Derek","Ogle")))
-  expect_error(psdVal("Bluegill",addLens=c(7,9),addNames="Derek"))
+  expect_error(psdVal("Bluegill",addLens=7,addNames=c("Derek","Ogle")),"have different lengths")
+  expect_error(psdVal("Bluegill",addLens=c(7,9),addNames="Derek"),"have different lengths")
   ## and addLens is also a Gabelhouse length
-  expect_warning(psdVal("Bluegill",addLens=150))
+  expect_warning(psdVal("Bluegill",addLens=150),"At least one Gabelhouse length that was in")
 })
 
 test_that("psdVal() returns",{
@@ -59,12 +59,12 @@ test_that("psdCI() errors and warnings",{
   ipsd <- c(0.130,0.491,0.253,0.123)
   n <- 445
   # all zeroes
-  expect_error(psdCI(c(0,0,0,0),ipsd,n))
+  expect_error(psdCI(c(0,0,0,0),ipsd,n),"cannot be all zeroes")
   # all ones
-  expect_error(psdCI(c(1,1,1,1),ipsd,n))
+  expect_error(psdCI(c(1,1,1,1),ipsd,n),"cannot be all ones")
   # wrong length of indvec
-  expect_error(psdCI(c(1,0,0),ipsd,n))
-  expect_error(psdCI(c(1,0,0,0,0),ipsd,n))
+  expect_error(psdCI(c(1,0,0),ipsd,n),"must be the same")
+  expect_error(psdCI(c(1,0,0,0,0),ipsd,n),"must be the same")
 })
 
 test_that("psdCalc() errors and warnings",{
@@ -77,19 +77,19 @@ test_that("psdCalc() errors and warnings",{
   ghl <- psdVal("Yellow perch")
   ## restrict data.frame to sub-stock-length fish
   tmp <- subset(df,tl<ghl["stock"])
-  expect_error(psdCalc(~tl,data=tmp,species="Yellow perch"))
+  expect_error(psdCalc(~tl,data=tmp,species="Yellow perch"),"no stock-length fish in the sample")
   ## restrict data.frame to no fish
   tmp <- subset(df,tl<ghl["substock"])
-  expect_error(psdCalc(~tl,data=tmp,species="Yellow perch"))
+  expect_error(psdCalc(~tl,data=tmp,species="Yellow perch"),"does not contain any rows")
   
   ## no species name given
-  expect_error(psdCalc(~tl,data=tmp))
+  expect_error(psdCalc(~tl,data=tmp),"Must include a species name in")
   
   ## bad formulae
-  expect_error(psdCalc(tl,data=df,species="Yellow perch"))
-  expect_error(psdCalc(tl~species,data=df,species="Yellow perch"))
-  expect_error(psdCalc(~tl+species,data=df,species="Yellow perch"))
-  expect_error(psdCalc(~species,data=df,species="Yellow perch"))
+  expect_error(psdCalc(tl,data=df,species="Yellow perch"),"not found")
+  expect_error(psdCalc(tl~species,data=df,species="Yellow perch"),"Function only works with formulas with 1 variable")
+  expect_error(psdCalc(~tl+species,data=df,species="Yellow perch"),"Function only works with formulas with 1 variable")
+  expect_error(psdCalc(~species,data=df,species="Yellow perch"),"must be numeric")
 })
 
 test_that("psdPlot() errors and warnings",{
@@ -102,33 +102,36 @@ test_that("psdPlot() errors and warnings",{
   ghl <- psdVal("Yellow perch")
 
   ## set minimum length higher than stock length
-  expect_error(psdPlot(~tl,data=df,species="Yellow perch",xlim=c(ghl["stock"]+10,300)))
+  expect_error(psdPlot(~tl,data=df,species="Yellow perch",xlim=c(ghl["stock"]+10,300)),"Minimum chosen length value in")
   
   ## restrict data.frame to no fish
   tmp <- subset(df,tl<ghl["substock"])
-  expect_error(psdPlot(~tl,data=tmp,species="Yellow perch"))
+  expect_error(psdPlot(~tl,data=tmp,species="Yellow perch"),"does not contain any rows")
   
   ## bad formulae
-  expect_error(psdPlot(tl,data=df,species="Yellow perch"))
-  expect_error(psdPlot(tl~species,data=df,species="Yellow perch"))
-  expect_error(psdPlot(~tl+species,data=df,species="Yellow perch"))
-  expect_error(psdPlot(~species,data=df,species="Yellow perch"))
+  expect_error(psdPlot(tl,data=df,species="Yellow perch"),"not found")
+  expect_error(psdPlot(tl~species,data=df,species="Yellow perch"),"Function only works with formulas with 1 variable.")
+  expect_error(psdPlot(~tl+species,data=df,species="Yellow perch"),"Function only works with formulas with 1 variable.")
+  expect_error(psdPlot(~species,data=df,species="Yellow perch"),"must be numeric")
 })
 
 test_that("psdAdd() errors and warnings",{
   ## simulate data set
   set.seed(345234534)
-  dbt <- data.frame(species=factor(rep(c("Bluefin Tuna"),30)),tl=round(rnorm(30,1900,300),0))
+  dbt <- data.frame(species=factor(rep(c("Bluefin Tuna"),30)),
+                    tl=round(rnorm(30,1900,300),0))
   dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
-  dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),tl=round(rnorm(30,130,50),0))
+  dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),
+                    tl=round(rnorm(30,130,50),0))
   dbg$wt <- round(4.23e-06*dbg$tl^3.316+rnorm(30,0,10),1)
-  dlb <- data.frame(species=factor(rep(c("Largemouth Bass"),30)),tl=round(rnorm(30,350,60),0))
+  dlb <- data.frame(species=factor(rep(c("Largemouth Bass"),30)),
+                    tl=round(rnorm(30,350,60),0))
   dlb$wt <- round(2.96e-06*dlb$tl^3.273+rnorm(30,0,60),1)
   df <- rbind(dbt,dbg,dlb)
   
   ## bad units
-  expect_error(psdAdd(tl~species,df,units="inches"),"units")
-  expect_error(psdAdd(df$tl,df$species,units="inches"),"units")
+  expect_error(psdAdd(tl~species,df,units="inches"),"should be one of")
+  expect_error(psdAdd(df$tl,df$species,units="inches"),"should be one of")
   
   ## bad formulae
   expect_error(psdAdd(~tl,df),"one variable")
@@ -142,7 +145,7 @@ test_that("psdAdd() errors and warnings",{
   expect_error(psdAdd(df$tl,df$wt),"factor")
   
   ## bad addSpec/addLens combination
-  expect_warning(psdAdd(tl~species,df,addSpec="Derek"),"is not NULL")
+  expect_warning(psdAdd(tl~species,df,addSpec="Derek",verbose=FALSE),"is not NULL")
   
   ## One species had all missing lengths
   df[df$species=="Bluegill","tl"] <- NA

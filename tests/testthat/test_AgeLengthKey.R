@@ -21,27 +21,27 @@ test_that("iCheckALK() errors and warnings",{
   ## one row does not sum to 1
   tmp <- alk
   tmp[2,2] <- 0.6  # sum >1
-  expect_warning(FSA:::iCheckALK(tmp))
+  expect_warning(FSA:::iCheckALK(tmp),"Key contained a row that does not sum to 1.")
   tmp[2,2] <- 0.1  # sum <1
-  expect_warning(FSA:::iCheckALK(tmp))
+  expect_warning(FSA:::iCheckALK(tmp),"Key contained a row that does not sum to 1.")
   ## table looks like frequencies, gives warning but converted to row proportions
   tmp <- 10*alk
-  expect_warning(FSA:::iCheckALK(tmp))
+  expect_warning(FSA:::iCheckALK(tmp),"'key' contained values >1")
   ## table contains a row that sums to 0
   tmp <- alk
   tmp[2,] <- 0
   # give warning of this
-  expect_warning(FSA:::iCheckALK(tmp))
+  expect_warning(FSA:::iCheckALK(tmp),"Key contained rows that sum to 0.")
   # give warning that the row was removed
-  expect_warning(FSA:::iCheckALK(tmp,remove0rows=TRUE))
+  expect_warning(FSA:::iCheckALK(tmp,remove0rows=TRUE),"these rows were removed from the table")
   ## bad row names
   tmp <- alk
   rownames(tmp) <- paste0("Len",rownames(alk))
-  expect_error(FSA:::iCheckALK(tmp))
+  suppressWarnings(expect_error(FSA:::iCheckALK(tmp),"The row names of 'key' must be numeric"))
   ## bad column names
   tmp <- alk
   colnames(tmp) <- paste0("Age",colnames(alk))
-  expect_error(FSA:::iCheckALK(tmp))
+  suppressWarnings(expect_error(FSA:::iCheckALK(tmp),"The column names of 'key' must be numeric"))
 })  
 
 
@@ -273,18 +273,18 @@ test_that("Are same results achieved when handling a missing row differently",{
   expect_equivalent(diff23,matrix(0,nrow=nrow(diff23),ncol=ncol(diff23)))
   
   ## Apply the different ALKs with alkMeanVar
-  sum1 <- alkMeanVar(WR1.key1,len~LCat1+age,WR1.age,len.n1)
-  suppressWarnings(sum2 <- alkMeanVar(WR1.key2,len~LCat2+age,WR1.age,len.n2))
-  sum3 <- alkMeanVar(WR1.key3,len~LCat3+age,WR1.age,len.n3)
+  suppressWarnings(suppressWarnings(sum1 <- alkMeanVar(WR1.key1,len~LCat1+age,WR1.age,len.n1)))
+  suppressWarnings(suppressWarnings(sum2 <- alkMeanVar(WR1.key2,len~LCat2+age,WR1.age,len.n2)))
+  suppressWarnings(suppressWarnings(sum3 <- alkMeanVar(WR1.key3,len~LCat3+age,WR1.age,len.n3)))
   ## Compare the different results
   diff12 <- as.matrix(sum1[,-1]-sum2[,-1])
   expect_equivalent(diff12,matrix(0,nrow=nrow(diff12),ncol=ncol(diff12)))
   diff23 <- as.matrix(sum2[,-1]-sum3[,-1])
   expect_equivalent(diff23,matrix(0,nrow=nrow(diff23),ncol=ncol(diff23)))
   
-  suppressMessages(sum1 <- alkMeanVar(WR1.key1,len~LCat1+age,WR1.age,len.n1,method="QuinnDeriso"))
+  suppressMessages(suppressWarnings(sum1 <- alkMeanVar(WR1.key1,len~LCat1+age,WR1.age,len.n1,method="QuinnDeriso")))
   suppressMessages(suppressWarnings(sum2 <- alkMeanVar(WR1.key2,len~LCat2+age,WR1.age,len.n2,method="QuinnDeriso")))
-  suppressMessages(sum3 <- alkMeanVar(WR1.key3,len~LCat3+age,WR1.age,len.n3,method="QuinnDeriso"))
+  suppressMessages(suppressWarnings(sum3 <- alkMeanVar(WR1.key3,len~LCat3+age,WR1.age,len.n3,method="QuinnDeriso")))
   ## Compare the different results
   diff12 <- as.matrix(sum1[,-1]-sum2[,-1])
   expect_equivalent(diff12,matrix(0,nrow=nrow(diff12),ncol=ncol(diff12)))

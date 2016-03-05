@@ -6,16 +6,16 @@ context("wsXXX and wrXXX function Tests")
 
 test_that("wsVal() errors and warnings",{
   ## bad species name
-  expect_error(wsVal("Derek"))
+  expect_error(wsVal("Derek"),"A Ws equation may not exist given your choices")
   ## too many species name
-  expect_error(wsVal(c("Bluegill","Yellow Perch")))
+  expect_error(wsVal(c("Bluegill","Yellow Perch")),"must contain only one name")
   ## bad units
   # typed wrong
-  expect_error(wsVal("Bluegill",units="inches"))
+  expect_error(wsVal("Bluegill",units="inches"),"should be one of")
   # don't exist for the species
-  expect_error(wsVal("Ruffe",units="English"))
+  expect_error(wsVal("Ruffe",units="English"),"A Ws equation may not exist given your choices")
   ## reference value does not exist
-  expect_error(wsVal("Bluegill",ref=50))
+  expect_error(wsVal("Bluegill",ref=50),"A Ws equation may not exist given your choices")
 })
 
 test_that("wsVal() results",{
@@ -46,18 +46,21 @@ test_that("wsVal() results",{
 test_that("wrAdd() errors and warnings",{
   ## simulate data set
   set.seed(345234534)
-  dbt <- data.frame(species=factor(rep(c("Bluefin Tuna"),30)),tl=round(rnorm(30,1900,300),0))
+  dbt <- data.frame(species=factor(rep(c("Bluefin Tuna"),30)),
+                    tl=round(rnorm(30,1900,300),0))
   dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
-  dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),tl=round(rnorm(30,130,50),0))
+  dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),
+                    tl=round(rnorm(30,130,50),0))
   dbg$wt <- round(4.23e-06*dbg$tl^3.316+rnorm(30,0,10),1)
-  dlb <- data.frame(species=factor(rep(c("Largemouth Bass"),30)),tl=round(rnorm(30,350,60),0))
+  dlb <- data.frame(species=factor(rep(c("Largemouth Bass"),30)),
+                    tl=round(rnorm(30,350,60),0))
   dlb$wt <- round(2.96e-06*dlb$tl^3.273+rnorm(30,0,60),1)
   df <- rbind(dbt,dbg,dlb)
   df$rnd <- runif(nrow(df))
   df$junk <- sample(c("Derek","Hugh","Ogle"),nrow(df),replace=TRUE)
   
   ## bad units
-  expect_error(wrAdd(wt~tl+species,df,units="inches"),"units")
+  expect_error(wrAdd(wt~tl+species,df,units="inches"),"should be one of")
   
   ## bad formulae
   expect_error(wrAdd(~tl,df),"one variable")

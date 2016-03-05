@@ -1,4 +1,5 @@
 # FSA 0.8.6 ongoing
+* Fixed problems with tests, and made the tests more explicit, related to PSD and Wr functions.  Suppressed some warnings related to `sumTable()` in ALK related tests and `Summarize()` in age comparisons tests.  Prompted by forthcoming changes to `testthat`.
 * `alkPlot()`: Modified.  Changed so that `xlim=` and `ylim=` would work when `type="area"` and `type="bar"`.  This fixes [#10](https://github.com/droglenc/FSA/issues/10) (Thanks to Joseph Feldhaus).
 * `psdPlot()`: Modified.  Fixed bug related to PSD values being printed when only PSD-Q existed (needed to add `drop0Est=FALSE` to the `psdCalc()` call; this fixes [#13](https://github.com/droglenc/FSA/issues/13)).  Made the histogram bars flush with the x-axis rather than hovering above it (added `yaxis="i"` to `hist()`; this fixes [#12](https://github.com/droglenc/FSA/issues/12)).  Minor changes to documentation.
 
