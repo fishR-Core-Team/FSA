@@ -4,7 +4,7 @@
 \alias{psdAdd}
 \alias{psdAdd.default}
 \alias{psdAdd.formula}
-\title{Create vector of Gabelhouse lengths for each species from an entire data frame.}
+\title{Creates a vector of Gabelhouse lengths for each species in an entire data frame.}
 \usage{
 psdAdd(len, ...)
 
@@ -17,15 +17,15 @@ psdAdd(len, ...)
 \arguments{
 \item{len}{A numeric vector that contains lengths measurements or a formula of the form \code{len~spec} where \dQuote{len} generically represents the length variable and \dQuote{spec} generically represents the species variable.  Note that this formula can only contain two variables and must have the length variable on the left-hand-side and the species variable on the right-hand-side.}
 
-\item{spec}{A character or factor vector that contains the specicas names.  Not used if \code{len} is a formula.}
+\item{spec}{A character or factor vector that contains the species names.  Ignored if \code{len} is a formula.}
 
 \item{units}{A string that indicates the type of units used for the lengths.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
 
-\item{use.names}{A logical that indicates whether the vector returned is numeric (\code{=FALSE}) or word (\code{=TRUE}; default) representations of the Gabelhouse lengths.  See details.}
+\item{use.names}{A logical that indicates whether the vector returned is numeric (\code{=FALSE}) or string (\code{=TRUE}; default) representations of the Gabelhouse lengths.  See details.}
 
 \item{addSpec}{A character vector of species names for which \code{addLens} will be provided.}
 
-\item{addLens}{A numeric vector of lengths that should be used for the species in \code{addSpec} in addition to the Gabelhouse lengths.  See examples.}
+\item{addLens}{A numeric vector of lengths that should be used in addition to the Gabelhouse lengths for the species in \code{addSpec}.  See examples.}
 
 \item{verbose}{A logical that indicates whether detailed messages about species without Gabelhouse lengths or with no recorded values should be printed or not.}
 
@@ -40,9 +40,11 @@ A numeric or factor vector that contains the Gabelhouse length categories.
 Creates a vector of the Gabelhouse lengths specific to a species for all individuals in an entire data frame.
 }
 \details{
-This computes a vector that contains the Gabelhouse lengths specific to each species for all individuals in an entire data frame.  The vector can be appended to an existing data.frame to create a variable that contains the Gabelhous lengths for each individual.  The Gabelhouse length value will be \code{NA} for each individual for which a Gabelhouse length definitision do not exist in \code{\link{PSDlit}}.  Individuals shorter than \dQuote{stock} length will be listed as \code{zero} if \code{use.names=TRUE} or \code{0} if \code{use.names=FALSE}.  See the examples for one method for changing species names to something that this function will recognize.
+This computes a vector that contains the Gabelhouse lengths specific to each species for all individuals in an entire data frame.  The vector can be appended to an existing data.frame to create a variable that contains the Gabelhouse lengths for each individual.  The Gabelhouse length value will be \code{NA} for each individual for which a Gabelhouse length definitions do not exist in \code{\link{PSDlit}}.  Species names in the data.frame must be the same as those used in \code{\link{PSDlit}}.  See the examples for one method for changing species names to something that this function will recognize.
 
-Additional lengths to be used for each species can be included by giving a vector of species names in \code{addSpec} and a corresponding vector of additional lengths in \code{addLens}.  Note, however, that \code{use.names} will be reset to \code{FALSE} if \code{addSpec} and \code{addLens} are specified as there is no way to order the names when additional lengths are used.
+Individuals shorter than \dQuote{stock} length will be listed as \code{substock} if \code{use.names=TRUE} or \code{0} if \code{use.names=FALSE}.
+
+Additional lengths to be used for a species may be included by giving a vector of species names in \code{addSpec} and a corresponding vector of additional lengths in \code{addLens}.  Note, however, that \code{use.names} will be reset to \code{FALSE} if \code{addSpec} and \code{addLens} are specified, as there is no way to order the names for all species when additional lengths are used.
 }
 \section{IFAR Chapter}{
  6-Size Structure.

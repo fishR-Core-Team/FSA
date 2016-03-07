@@ -2,17 +2,17 @@
 #'
 #' @description Returns a vector with the five Gabelhouse lengths for a chosen species.
 #'
-#' @details Finds the Gabelhouse lengths from the \code{data(PSDlit)} data frame for the species given in \code{species}.  The species name must be spelled exactly (within capitalization differences) as it appears in \code{data(PSDlit)} (type \code{psdVal()} to see the list of species and how they are spelled).
+#' @param species A string that contains the species name for which to find Gabelhouse lengths.  See details.
+#' @param units A string that indicates the units for the returned lengths.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
+#' @param incl.zero A logical that indicates if a zero is included in the first position of the returned vector (DEFAULT) or not.  This position will be named \dQuote{substock}.  See details.
+#' @param addLens A numeric vector that contains minimum length definitions for additional categories.  See details.
+#' @param addNames A string vector that contains names for the additional length categories added with \code{addLens}.  See details.
+#'
+#' @details Finds the Gabelhouse lengths from \code{data(PSDlit)} for the species given in \code{species}.  The species name must be spelled exactly (within capitalization differences) as it appears in \code{data(PSDlit)}.  Type \code{psdVal()} to see the list of species and how they are spelled.
 #'
 #' A zero is included in the first postion of the returned vector if \code{incl.zero=TRUE}.  This is useful when computing PSD values with a data.frame that contains fish smaller than the stock length.
 #'
-#' Additional lengths can be added to the returned vector with \code{addLens}.  Names for these lengths can be included in \code{addNames}.  If \code{addNames} is non-NULL then it must be of the same length as \code{addLens}.  If \code{addLens} is non-NULL but \code{addNames} is NULL then the default names will be the same as the lengths in \code{addLens}.  The \code{addLens} argument is useful for calculating PSD values that are different from the Gabelhouse lengths.
-#'
-#' @param species A string that contains the species name for which to find Gabelhous lengths.  See details.
-#' @param units A string that indicates the units for the returned lengths.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
-#' @param incl.zero A logical that indicates if a zero is included in the first position of the returned vector (DEFAULT) or not.  This position will be names as \dQuote{substock}.  See details.
-#' @param addLens A numeric vector that contains minimum length definitions for additional categories.  See details.
-#' @param addNames A string vector that contains names for the additional length categories added with \code{addLens}.  See details.
+#' Additional lengths may be added to the returned vector with \code{addLens}.  Names for these lengths can be included in \code{addNames}.  If \code{addNames} is non-NULL, then it must be of the same length as \code{addLens}.  If \code{addLens} is non-NULL but \code{addNames} is NULL, then the default names will be the same as the lengths in \code{addLens}.  The \code{addLens} argument is useful for calculating PSD values that are different from the Gabelhouse lengths.
 #'
 #' @return A vector of minimum values for length categories for the chosen species.
 #'

@@ -23,6 +23,7 @@
 #' @param moreItems A string that contains additional words that when found in the purled file will result in the entire line with those words to be deleted.
 #' @param blanks A string that indicates if blank lines should be removed.  If \code{blanks="all"} then all blank lines will be removed.  If \code{blanks="extra"} then only \dQuote{extra} blanks lines will be removed (i.e., one blank line will be left where there was originally more than one blank line).
 #' @param topnotes A character vector of lines to be added to the top of the output file.  Each value in the vector will be placed on a single line at the top of the output file.
+#' @param delHeader A single character that denotes the top and bottom of a block of lines that should be deleted from the script created by \code{purl2}.
 #' @param timestamp A logical that indicates whether a timestamp comment should be appended to the bottom of the script created by \code{purl2}.
 #' @param out A string that indicates the type of output from \code{reproInfo} -- Markdown, LaTeX, or simple R code.
 #' @param rqrdPkgs A string vector that contains packages that are required for the vignette and for which all dependencies should be found.
@@ -96,7 +97,7 @@ kPvalue <- function(value,digits=4,include.p=TRUE,latex=TRUE) {
 #' @export
 purl2 <- function(file,out.dir=NULL,newname=NULL,topnotes=NULL,
                   moreItems=NULL,blanks=c("extra","all","none"),
-                  timestamp=TRUE,...) {
+                  delHeader=NULL,timestamp=TRUE,...) {
   if (!requireNamespace("knitr")) stop("'purl2' requires the 'knitr' package to be installed.",call.=FALSE)
   else {
     ## Some checks
@@ -127,6 +128,21 @@ purl2 <- function(file,out.dir=NULL,newname=NULL,topnotes=NULL,
     for (i in 1:length(itemsToRemove)) {                            
       RowsToRemove <- grep(itemsToRemove[i],flines)
       if (length(RowsToRemove)>0) flines <- flines[-RowsToRemove]
+    }
+    ## Delete blocks if directed
+    if (!is.null(delHeader)) {
+      delLines <- grep(delHeader,flines)
+      ndel <- length(delLines)
+      if (ndel>0) {
+        if (is.odd(ndel))warning("Odd number of lines contain 'delHeader`, no blocks deleted",call.=FALSE)
+        else {
+          delLines1 <- delLines[is.odd(1:ndel)]
+          delLines2 <- delLines[is.even(1:ndel)]
+          delLines <- NULL
+          for (i in 1:(ndel/2)) delLines <- c(delLines,seq(delLines1[i],delLines2[i],1))
+          flines <- flines[-delLines]
+        }
+      }
     }
     ## Remove the blank lines as directed in blanks argument
     if (blanks=="all") {

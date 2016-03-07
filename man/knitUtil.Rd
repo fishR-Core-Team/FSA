@@ -12,8 +12,8 @@ kCounts(value, capitalize = FALSE)
 kPvalue(value, digits = 4, include.p = TRUE, latex = TRUE)
 
 purl2(file, out.dir = NULL, newname = NULL, topnotes = NULL,
-  moreItems = NULL, blanks = c("extra", "all", "none"), timestamp = TRUE,
-  ...)
+  moreItems = NULL, blanks = c("extra", "all", "none"), delHeader = NULL,
+  timestamp = TRUE, ...)
 
 reproInfo(out = c("r", "markdown", "latex"), rqrdPkgs = NULL,
   elapsed = NULL, width = 0.95 * getOption("width"), addTOC = TRUE,
@@ -41,6 +41,8 @@ reproInfo(out = c("r", "markdown", "latex"), rqrdPkgs = NULL,
 \item{moreItems}{A string that contains additional words that when found in the purled file will result in the entire line with those words to be deleted.}
 
 \item{blanks}{A string that indicates if blank lines should be removed.  If \code{blanks="all"} then all blank lines will be removed.  If \code{blanks="extra"} then only \dQuote{extra} blanks lines will be removed (i.e., one blank line will be left where there was originally more than one blank line).}
+
+\item{delHeader}{A single character that denotes the top and bottom of a block of lines that should be deleted from the script created by \code{purl2}.}
 
 \item{timestamp}{A logical that indicates whether a timestamp comment should be appended to the bottom of the script created by \code{purl2}.}
 
