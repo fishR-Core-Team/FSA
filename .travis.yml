@@ -4,7 +4,7 @@ cache: packages
 warnings_are_errors: false
 
 before_install:
-  - Rscript -e 'install.packages(c("nlme","car"))'
+  - Rscript -e 'install.packages(c("nlme","car","tcltk"))'
 
 r_github_packages:
   - cran/relax
