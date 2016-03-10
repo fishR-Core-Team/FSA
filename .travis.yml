@@ -4,12 +4,8 @@ cache: packages
 warnings_are_errors: false
 
 before_install:
-  - Rscript -e 'install.packages(c("nlme","car"))'
+  - Rscript -e 'install.packages(c("nlme"))'
 
-r_github_packages:
-  - cran/tcltk
-  - cran/relax
-  
 after_success:
   - Rscript -e 'covr::coveralls()'
 
