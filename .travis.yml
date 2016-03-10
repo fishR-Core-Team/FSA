@@ -4,7 +4,7 @@ cache: packages
 warnings_are_errors: false
 
 before_install:
-  - Rscript -e 'install.packages("nlme","relax","car")'
+  - Rscript -e 'install.packages(c("nlme","relax","car"))'
 
 after_success:
   - Rscript -e 'covr::coveralls()'
