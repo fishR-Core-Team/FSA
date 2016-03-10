@@ -4,8 +4,11 @@ cache: packages
 warnings_are_errors: false
 
 before_install:
-  - Rscript -e 'install.packages(c("nlme","relax","car"))'
+  - Rscript -e 'install.packages(c("nlme","car"))'
 
+r_github_packages:
+  - cran/relax
+  
 after_success:
   - Rscript -e 'covr::coveralls()'
 
