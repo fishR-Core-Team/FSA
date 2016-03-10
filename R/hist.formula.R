@@ -23,7 +23,9 @@
 #' @param pre.main A character string to be used as a prefix for the main title when multiplie histograms are produced.  See details.
 #' @param xlab A character label for the x-axis.  Defaults to name of quantitative variable in \code{formula}.
 #' @param ylab A character label for the y-axis.  Defaults to \dQuote{Frequency}.
-#' @param same.breaks A logical that indicates whether the same break values (i.e., bins) should be used on each histogram.  Defaults to \code{TRUE}.
+#' @param same.breaks A logical that indicates whether the same break values (i.e., bins) should be used on each histogram.  Ignored if \code{breaks} or \code{w} is provided by the user.  Defaults to \code{TRUE}.
+#' @param breaks A single numeric that indicates the number of bins or breaks or a vector that contains the lower values of the breaks.  Ignored if \code{w} is not \code{NULL}.  See \code{\link[graphics]{hist}} for more details.
+#' @param w A single numeric that indicates the width of the bins to use.  The bins will start at \dQuote{rounded} values depending on the value of \code{w}.  See \code{\link{lencat}} for more details.
 #' @param same.ylim A logicial that indicates whether the same limits for the y-axis should be used on each histogram.  Defaults to \code{TRUE}.
 #' @param ymax A single value that sets the maximum y-axis limit for each histogram or a vector of length equal to the number of groups that sets the maximum y-axis limit for each histogram separately.  If \code{NULL} (default), then a value will be found.
 #' @param col A string that indicates the color for the bars on the histogram.  Defaults to a light shade of gray (i.e., \code{"gray90"}).
@@ -80,75 +82,102 @@
 #' ## Single histogram with "axis correction", testing xlim and ylim
 #' hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",xlim=c(3.8,8.2),ylim=c(0,35))
 #' hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",xlim=c(3.8,8.2),ymax=35)
-#'  
+#'
+#' ## Using the bin width argument
+#' hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",w=1)
+#' hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",w=0.25)
+#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",w=1)
+#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",w=0.25)
+#' 
 #' @rdname hist.formula
 #' @export
 hist.formula <- function(formula,data=NULL,main="",right=FALSE,
                          pre.main="",xlab=NULL,ylab="Frequency",
-                         same.breaks=TRUE,same.ylim=TRUE,ymax=NULL,col="gray90",
+                         same.breaks=TRUE,breaks="Sturges",w=NULL,
+                         same.ylim=TRUE,ymax=NULL,col="gray90",
                          nrow=round(sqrt(num)),ncol=ceiling(sqrt(num)),byrow=TRUE,
                          iaxs=TRUE,...) {
   ## Handle the formula
   tmp <- iHndlFormula(formula,data)
   if (tmp$vnum>3) stop("`hist.formula' only works with 1 response and 1 or 2 explanatory variables.",call.=FALSE)
   if (tmp$vnum==1){
-    ## Handle one variable formula
-    # Some checks
+    ## Histogram from a single variable
     if (!tmp$vclass %in% c("numeric","integer")) stop("Variable must be numeric.",call.=FALSE)
-    # Pass through to hist()
     if (is.null(xlab)) xlab <- tmp$vname
-    # Handle y-axis limits ... if ylim= in dots then just use
-    # that.  However, if not and ymax is given then set ylim
-    # to be c(0,ymax).  Otherwise leave as NULL and let hist()
-    # figure it out
+    # Get the variable
+    resp <- tmp$mf[,1]
+    # Make breaks if w is not NULL (will over-ride breaks)
+    if (!is.null(w)) {
+      iCheckW(w)
+      startcat <- floor(min(resp,na.rm=TRUE)/w)*w
+      breaks <- seq(startcat,max(resp,na.rm=TRUE)+w,w)
+    }
+    # Handle y-axis limits ... if ylim= in dots then just use that.
+    # However, if not and ymax is given then set ylim to be c(0,ymax).
+    # Otherwise leave as NULL and let hist() figure it out
     if ("ylim" %in% names(list(...))) {
       h <- graphics::hist(tmp$mf[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,
-                xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
+                          xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),
+                          breaks=breaks,...)
     } else {
       if(!is.null(ymax)) ylim <- c(0,ymax)
       else ylim <- NULL
       h <- graphics::hist(tmp$mf[,1],xlab=xlab,ylab=ylab,main=main,right=right,col=col,
-                xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),
-                ylim=ylim,...)
+                          xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),
+                          breaks=breaks,ylim=ylim,...)
     }
     # assure a line at y=0
     if (iaxs) graphics::abline(h=0,xpd=FALSE)
     invisible(h)
   } else {
-    ## Multiple variables
-    # Perform some checks first
+    ## Multiple histograms
+    # Checks and work with response variable
     if (tmp$Rnum>1) stop("LHS may contain only one variable.",call.=FALSE)
     if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
     resp <- tmp$mf[,tmp$Rpos]
     if (is.null(xlab)) xlab <- tmp$Rname
-    # Make sure RHS is all factors
+    # Checks and work with explanatory variable(s)
     if (tmp$EFactNum!=tmp$Enum) stop("RHS may contain only factor variables.",call.=FALSE)
-    # Find/make the explanatory variable
-    if (tmp$Enum==2) { expl <- interaction(tmp$mf[,tmp$EFactPos[1]],tmp$mf[,tmp$EFactPos[2]]) }
-      else { expl <- tmp$mf[,tmp$EFactPos] }
-    ## Split the data.frame for processing
+    if (tmp$Enum==2) {
+      expl <- interaction(tmp$mf[,tmp$EFactPos[1]],tmp$mf[,tmp$EFactPos[2]])
+    } else {
+      expl <- tmp$mf[,tmp$EFactPos] 
+    }
+
+    ## Split the data.frame for processing and prepare to make the histograms
     DF.split <- split(resp,expl)
-    ## Make the histograms
-    # Save mfrow to revert back when finished
-    opar <- graphics::par("mfrow")
     num <- length(names(DF.split))
-    if (same.breaks) { breaks <- graphics::hist(resp,right=right,plot=FALSE,warn.unused=FALSE,...)$breaks }
+    ## Prepare to make the histograms
+    # Make breaks if w is not NULL (will over-ride breaks)
+    if (!is.null(w)) {
+      iCheckW(w)
+      startcat <- floor(min(resp,na.rm=TRUE)/w)*w
+      breaks <- seq(startcat,max(resp,na.rm=TRUE)+w,w)
+    } else if (same.breaks) {
+      breaks <- graphics::hist(resp,right=right,plot=FALSE,warn.unused=FALSE,
+                               breaks=breaks,...)$breaks 
+    }
+    # Handle ylims
     if (is.null(ymax)) {
       for (i in 1:num) {  # used to find highest count on all histograms
-        ymax[i] <- max(graphics::hist(DF.split[[i]],right=right,plot=FALSE,warn.unused=FALSE,...)$counts)
+        ymax[i] <- max(graphics::hist(DF.split[[i]],right=right,plot=FALSE,
+                                      warn.unused=FALSE,breaks=breaks,...)$counts)
       }
       if (same.ylim) { ymax <- rep(max(ymax),length(ymax)) }
     } else {
       if (length(ymax)==1) ymax <- rep(ymax,num)
       else if (length(ymax)!= num) stop("'ymax' argument must be 'NULL', a vector of length 1,\n or a vector of length equal to the number of groups.",call.=FALSE)
     }
+    ## Make the histograms
+    opar <- graphics::par("mfrow")
     if (num <= (nrow*ncol)) {
       if (byrow) graphics::par(mfrow=c(nrow,ncol))
         else graphics::par(mfcol=c(nrow,ncol))
       for (i in 1:num) {
         if (!is.null(pre.main)) main <- paste(pre.main,names(DF.split)[i],sep="")
-        graphics:: hist(DF.split[[i]],main=main,xlab=xlab,ylab=ylab,right=right,ylim=c(0,ymax[i]),col=col,
-             xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
+        graphics:: hist(DF.split[[i]],main=main,xlab=xlab,ylab=ylab,right=right,
+                        ylim=c(0,ymax[i]),col=col,xaxs=ifelse(iaxs,"i","r"),
+                        yaxs=ifelse(iaxs,"i","r"),breaks=breaks,...)
         if (iaxs) graphics::abline(h=0,xpd=FALSE)  # will assure a line at y=0
       }
     } else {
@@ -162,7 +191,8 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
           if (!is.null(pre.main)) main <- paste(pre.main,names(DF.split)[pos],sep="")
           graphics::hist(DF.split[[pos]],main=main,xlab=xlab,ylab=ylab,right=right,
                          ylim=c(0,ymax[pos]),col=col,
-                         xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),...)
+                         xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),
+                         breaks=breaks,...)
           if (iaxs) graphics::abline(h=0,xpd=FALSE)  # will assure a line at y=0
         }  
       }

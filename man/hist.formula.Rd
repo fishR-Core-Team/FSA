@@ -6,9 +6,9 @@
 \usage{
 \method{hist}{formula}(formula, data = NULL, main = "", right = FALSE,
   pre.main = "", xlab = NULL, ylab = "Frequency", same.breaks = TRUE,
-  same.ylim = TRUE, ymax = NULL, col = "gray90",
-  nrow = round(sqrt(num)), ncol = ceiling(sqrt(num)), byrow = TRUE,
-  iaxs = TRUE, ...)
+  breaks = "Sturges", w = NULL, same.ylim = TRUE, ymax = NULL,
+  col = "gray90", nrow = round(sqrt(num)), ncol = ceiling(sqrt(num)),
+  byrow = TRUE, iaxs = TRUE, ...)
 }
 \arguments{
 \item{formula}{A formula.  See details.}
@@ -25,7 +25,11 @@
 
 \item{ylab}{A character label for the y-axis.  Defaults to \dQuote{Frequency}.}
 
-\item{same.breaks}{A logical that indicates whether the same break values (i.e., bins) should be used on each histogram.  Defaults to \code{TRUE}.}
+\item{same.breaks}{A logical that indicates whether the same break values (i.e., bins) should be used on each histogram.  Ignored if \code{breaks} or \code{w} is provided by the user.  Defaults to \code{TRUE}.}
+
+\item{breaks}{A single numeric that indicates the number of bins or breaks or a vector that contains the lower values of the breaks.  Ignored if \code{w} is not \code{NULL}.  See \code{\link[graphics]{hist}} for more details.}
+
+\item{w}{A single numeric that indicates the width of the bins to use.  The bins will start at \dQuote{rounded} values depending on the value of \code{w}.  See \code{\link{lencat}} for more details.}
 
 \item{same.ylim}{A logicial that indicates whether the same limits for the y-axis should be used on each histogram.  Defaults to \code{TRUE}.}
 
@@ -102,7 +106,13 @@ hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",iaxs=FALSE)
 ## Single histogram with "axis correction", testing xlim and ylim
 hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",xlim=c(3.8,8.2),ylim=c(0,35))
 hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",xlim=c(3.8,8.2),ymax=35)
- 
+
+## Using the bin width argument
+hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",w=1)
+hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",w=0.25)
+hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",w=1)
+hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",w=0.25)
+
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}, but this implementation is largely a modification of the code provided by Marc Schwartz on the R-help mailing list on 1Jun07.

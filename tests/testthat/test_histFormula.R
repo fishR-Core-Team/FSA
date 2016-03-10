@@ -17,4 +17,8 @@ test_that("hist.formula() messages and results",{
   ## Problems with ymax
   expect_error(hist(Sepal.Length~Species,data=iris,ymax=c(20,20)),"length equal to the number of")
   expect_error(hist(Sepal.Length~Species,data=iris,ymax=c(20,20,20,20)),"length equal to the number of")
+  ## Problems with w
+  expect_error(hist(Sepal.Length~Species,data=iris,w=-1),"must be positive")
+  expect_error(hist(Sepal.Length~Species,data=iris,w=1:2),"must be a single value")
+  expect_error(hist(Sepal.Length~Species,data=iris,w="derek"),"must be numeric")
 })

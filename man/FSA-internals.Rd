@@ -6,6 +6,7 @@
 \alias{iCILabel}
 \alias{iCheckALK}
 \alias{iCheckStartcatW}
+\alias{iGetDecimals}
 \alias{iGetVarFromFormula}
 \alias{iHndlCols2use}
 \alias{iHndlFormula}

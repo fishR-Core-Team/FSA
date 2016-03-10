@@ -4,7 +4,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach iAddLoessLine iCheckALK iCheckStartcatW iCILabel iGetVarFromFormula iHndlCols2use iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iTypeoflm
+#' @aliases .onAttach iAddLoessLine iCheckALK iCheckStartcatW iCILabel iGetVarFromFormula iHndlCols2use iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iTypeoflm iGetDecimals
 
 
 ##################################################################
@@ -76,23 +76,29 @@ iCheckALK <- function(key,only1=FALSE,remove0rows=FALSE) {
 }
 
 
+iCheckW <- function(w) {
+  if (!is.numeric(w)) stop("'w' must be numeric.",call.=FALSE)
+  if (length(w)>1) stop("'w' must be a single value.",call.=FALSE)
+  if (w<=0) stop("'w' must be positive.",call.=FALSE)
+  # returns decimals of w
+  iGetDecimals(w)
+}
+
+iCheckStartcat <- function(startcat,w,d) {
+  if (!is.numeric(startcat)) stop("'startcat' must be numeric.",call.=FALSE)
+  if (length(startcat)>1) stop("'startcat' must be a single value.",call.=FALSE)
+  if (startcat<0) stop("'startcat' must be non-negative.",call.=FALSE)
+  if (round(min(d,na.rm=TRUE),w) < round(startcat,w)) stop("'startcat' is larger than the minimum observation.",call.=FALSE)
+  # return decimals of w
+  iGetDecimals(startcat)
+}
+
 iCheckStartcatW <- function(startcat,w,d) {
-  # is w positive?
-  if (w<=0) stop("\n Width value must be positive.",call.=FALSE)
-  # is startcat positive? 
-  if (startcat < 0) stop("\n Starting category values must be non-negative.",call.=FALSE)
-  # is startcat less than minimum observation
-  if (round(min(d,na.rm=TRUE),w) < round(startcat,w))
-    stop("\n Starting category is larger than minimum observation.  Adjust the startcat that you used.",call.=FALSE)
-  # get decimals for w and startcat
-  # Used in next line to find number of decimals to use
-  z <- c(1,0.1,0.01,0.001,0.0001,0.00001,0.000001,0.0000001)
-  # Determine number of decimals from width value
-  wdec <- which(w/z>=1)[1]-1
-  # Determine number of decimals from startcat value
-  ifelse(startcat>0,scdec <- which(startcat/z>=1)[1]-1,scdec <- 0)
+  wdec <- iCheckW(w)
+  scdec <- iCheckStartcat(startcat,w,d)
   # does w have more than (or equal) decimals as startcat 
-  if (scdec>wdec) stop("\n Starting category value should not have more decimals than width value",call.=FALSE)
+  if (scdec>wdec) stop("'startcat' should not have more decimals than 'w'.",
+                       call.=FALSE)
   # return decimals
   list(scdec=scdec,wdec=wdec)
 }
@@ -289,4 +295,17 @@ iTypeoflm <- function(mdl) {
   tmp <- c(list(type=lmtype,mdl=mdl),tmp)
   class(tmp) <- c(lmtype,"list")
   tmp
+}
+
+################################################################################
+## Returns number of decimal places in a number
+## 
+## Completely from Peter Savicky in http://r.789695.n4.nabble.com/number-of-decimal-places-in-a-number-td4635697.html
+################################################################################
+iGetDecimals <- function(x) {
+  if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
+  if (length(x)>1) stop("'x' must be a single value.",call.=FALSE)
+  tmp <- format.info(x,digits=10)
+  stopifnot(tmp[3]==0)
+  tmp[2]
 }
