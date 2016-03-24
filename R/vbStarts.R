@@ -128,7 +128,7 @@ vbStarts <- function(formula,data=NULL,
   ) # end 'type' switch
   ## Check if user wants to choose starting values from an interactive plot
   if (dynamicPlot) {
-    if (!requireNamespace("relax")) stop("'vbStars' requires the 'relax' package to be installed to construct the dynamic plot.",call.=FALSE)
+    if (!requireNamespace("relax")) stop("'vbStarts' requires the 'relax' package to be installed to construct the dynamic plot.",call.=FALSE)
     else iVBStartsDynPlot(age,len,type,sv,ages2use)
   } else {
     # make the static plot if asked for
@@ -497,6 +497,5 @@ iVBDynPlot_makeL <- function(x,type,p1,p2,p3,ages2use){
                                t <- ages2use
                                y <- p1+(p2-p1)*((1-exp(-p3*(x-t[1])))/(1-exp(-p3*(t[2]-t[1])))) }
   ) # end type switch
-  ## return the value of y
   y
 }

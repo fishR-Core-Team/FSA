@@ -13,4 +13,5 @@ NEWS.md
 LICENSE
 .travis.yml
 ^\.travis\.yml$
+cran-comments.md
 ^cran-comments
