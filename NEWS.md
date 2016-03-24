@@ -1,5 +1,6 @@
 # FSA 0.8.6 ongoing
 * Fixed problems with tests, and made the tests more explicit, related to PSD and Wr functions.  Suppressed some warnings related to `sumTable()` in ALK related tests and `Summarize()` in age comparisons tests.  Prompted by forthcoming changes to `testthat`.
+* Removed `News.md` from `.Rbuildignore` (apparently now supported by CRAN).
 * `alkPlot()`: Modified.  Changed so that `xlim=` and `ylim=` would work when `type="area"` and `type="bar"`.  This fixes [#10](https://github.com/droglenc/FSA/issues/10) (Thanks to Joseph Feldhaus).
 * `hist.formula()`: Modified.  Added the `breaks=` argument (mostly a pass-through) and the `w=` argument that allows the user to just set the width of the bins without having to set each `break` value.  This should complete [#15](https://github.com/droglenc/FSA/issues/15).
 * `iCheckStartCatW()`: Modified.  Now use `iGetDecimals()` to extract the number of decimals in `startcat` and `w`.
