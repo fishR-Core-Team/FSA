@@ -1,4 +1,7 @@
-# FSA 0.8.6 ongoing
+# FSA 0.8.7 Ongoing
+
+
+# FSA 0.8.6 24-Mar-16
 * Fixed problems with tests, and made the tests more explicit, related to PSD and Wr functions.  Suppressed some warnings related to `sumTable()` in ALK related tests and `Summarize()` in age comparisons tests.  Prompted by forthcoming changes to `testthat`.
 * Removed `News.md` from `.Rbuildignore` (apparently now supported by CRAN).
 * `alkPlot()`: Modified.  Changed so that `xlim=` and `ylim=` would work when `type="area"` and `type="bar"`.  This fixes [#10](https://github.com/droglenc/FSA/issues/10) (Thanks to Joseph Feldhaus).
