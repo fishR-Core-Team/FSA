@@ -41,7 +41,7 @@
 #' @keywords plot
 #' 
 #' @examples
-#' ## Make an example age-length key -- same as in ageKey()
+#' ## Make an example age-length key
 #' data(WR79)
 #' WR.age <- subset(WR79, !is.na(age))      # isolate the age sample
 #' WR.age$LCat <- lencat(WR.age$len,w=5)    # add length intervals (width=5)
@@ -66,21 +66,6 @@
 #' alkPlot(WR.key,"bubble",grid="blue")
 #' alkPlot(WR.key,"bubble",grid=rgb(0,0,0,0.2),col=rgb(0,0,0,0.5))
 #'
-#' @export ageKeyPlot
-#' @rdname alkPlot
-ageKeyPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
-                       xlab="Length",ylab=ifelse(type!="bubble","Proportion","Age"),
-                       xlim=NULL,ylim=NULL,
-                       showLegend=FALSE,lbl.cex=1.25,leg.cex=1,
-                       lwd=2,span=0.25,
-                       pal = paletteChoices(),
-                       grid=TRUE,col="gray80",buf=0.45,add=FALSE,
-                       ...) {
-  warning("'ageKeyPlot' is deprecated and will be removed by v1.0.0.\n  Please use 'alkPlot' instead.",call.=FALSE)
-  alkPlot(key,type,xlab,ylab,xlim,ylim,showLegend,lbl.cex,leg.cex,
-          lwd,span,pal,grid,col,buf,add,...)
-}
-
 #' @export alkPlot
 #' @rdname alkPlot
 alkPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
@@ -125,7 +110,7 @@ iFindAgesAndLens <- function(key) {
 ##############################################################
 ## INTERNAL -- Add a legend
 ##############################################################
-iAddLegend <- function(alsum,leg.cex,col){
+iAddLegend <- function(alsum,leg.cex,col){ # nocov start
   graphics::layout(matrix(c(1,2),nrow=2),heights=c(1,14))
   tmp <- graphics::par("mar")
   op <- graphics::par(mar=c(0.1,1.5*tmp[2],0.1,4*tmp[4]))
@@ -133,14 +118,14 @@ iAddLegend <- function(alsum,leg.cex,col){
   graphics::text(c(1,alsum$num.ages)-0.5,c(0.75,0.75),range(alsum$ages),
                  col=c("white","black"),cex=leg.cex) 
   graphics::par(op)
-}
+}  # nocov end
 
 ##############################################################
 ## INTERNAL -- Add age labels to lines in line and spline plots
 ##############################################################
-iLinesAddLabelsToLines <- function(maxvals,lbl.cex) {
+iLinesAddLabelsToLines <- function(maxvals,lbl.cex) { # nocov start
   graphics::text(maxvals[,1],maxvals[,2],maxvals[,3],cex=lbl.cex)
-}
+} # nocov end
 
 ##############################################################
 ## INTERNAL -- Add age labels to lines in line and spline plots

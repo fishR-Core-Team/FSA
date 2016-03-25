@@ -58,13 +58,6 @@
 #'
 #' @rdname expandLenFreq
 #' @export
-lenFreqExpand <- function(...) {
-  warning("'lenFreqExpand' is deprecated and will be removed by v1.0.0.\n  Please use 'expandLenFreq' instead.",call.=FALSE)
-  expandLenFreq(...)
-}
-
-#' @rdname expandLenFreq
-#' @export
 expandLenFreq <- function(x,w,additional,
                           startcat=NULL,total=additional+length(x),
                           decimals=decs$wdec,show.summary=TRUE,...) {

@@ -1,5 +1,8 @@
 # FSA 0.8.7 Ongoing
 * Removed `relax` from `Suggests`.  See `srStarts()` and `vbStarts()` notes below.  This addresses [#17](https://github.com/droglenc/FSA/issues/17).
+* `ageKey()`: Removed.  Deprecated several since 0.4.24.  Use `alkIndivAge()`.
+* `ageKeyPlot()`: Removed.  Deprecated several since 0.4.24.  Use `alkPlot()`.
+* `lenFreqExpand()`: Removed.  Deprecated several since 0.4.32.  Use `expandLenFreq()`.
 * `srStarts()`: Modified.  Removed `dynamicPlot=TRUE` option.  Moved it to `FSAsim` package.  Modified plot when `plot=TRUE` by adding "STARTING VALUES" to title and moving starting values to within the plot.  Added `cex.main=` and `col.main=`.
 * `vbStarts()`: Modified.  Removed `dynamicPlot=TRUE` option.  Moved it to `FSAsim` package.  Modified plot when `plot=TRUE` by adding "STARTING VALUES" to title and moving starting values to within the plot.  Added and `col.main=`.  Made warnings and error tests more explicit.
 

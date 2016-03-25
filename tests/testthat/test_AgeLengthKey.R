@@ -57,13 +57,13 @@ test_that("alkPlot() errors and warnings",{
   tmp[2,] <- 0
   expect_warning(alkPlot(tmp),"sum to 0")
   expect_warning(alkPlot(tmp,type="area"),"sum to 0")
+  expect_warning(alkPlot(tmp,type="line"),"sum to 0")
+  expect_warning(alkPlot(tmp,type="bubble"),"sum to 0")
   ## one column is all zeroes with restrictive xlim
   tmp <- alk
   tmp["40",] <- c(0,0,0,1)
   tmp["50",] <- c(0,0,0,1)
   expect_error(alkPlot(tmp,type="bar",xlim=c(40,50)),"too restrictive")
-  ## deprecation message
-  expect_warning(ageKeyPlot(alk),"deprecated")
 })
 
 

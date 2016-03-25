@@ -80,13 +80,6 @@
 #' WR3.comb <- rbind(WR3.age, WR3.len)                  # combine orig age & new ages
 #' Summarize(len~age,data=WR3.comb,digits=2)
 #'
-#' @export ageKey
-#' @rdname alkIndivAge
-ageKey <- function(key,formula,data,type=c("SR","CR"),breaks=NULL,seed=NULL) {
-  warning("'ageKey' is deprecated and will be removed by v1.0.0.\n  Please use 'alkIndivAge' instead.",call.=FALSE)
-  alkIndivAge(key,formula,data,type,breaks,seed)
-}
-
 #' @export alkIndivAge
 #' @rdname alkIndivAge
 alkIndivAge <- function(key,formula,data,type=c("SR","CR"),breaks=NULL,seed=NULL) {

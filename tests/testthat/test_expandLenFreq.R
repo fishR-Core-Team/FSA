@@ -12,8 +12,6 @@ test_that("expandLenFreq() errors",{
   expect_error(expandLenFreq(x,1,total=17),"Total number to expand")
   ## do you get a message
   expect_message(expandLenFreq(x,1,17),"Length Frequency Expansion using")
-  ## Check deprecation message
-  expect_warning(lenFreqExpand(x,1,17,show.summary=FALSE),"deprecated")
 })
 
 test_that("expandLenFreq() results",{
