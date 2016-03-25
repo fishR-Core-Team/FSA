@@ -34,7 +34,6 @@ Suggests:
     marked,
     nlstools,
     Rcapture,
-    relax,
     testthat,
     rmarkdown
 RoxygenNote: 5.0.1

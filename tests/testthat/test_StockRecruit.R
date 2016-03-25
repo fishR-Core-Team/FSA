@@ -57,6 +57,8 @@ data(CodNorwegian)
 CodNorwegian$fyear <- factor(CodNorwegian$year)
 
 test_that("srStarts() errors and warnings",{
+  ## Asked for a dynamicPlot, which now does not exist
+  expect_warning(srStarts(recruits~stock,data=CodNorwegian,dynamicPlot=TRUE),"functionality has been moved to")
   ## wrong type
   expect_error(srStarts(type="Derek"))
   ## wrong parameterization choices

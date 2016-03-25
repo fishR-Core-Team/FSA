@@ -8,28 +8,30 @@ test_that("vbStarts() errors and warnings",{
   ## Get some data for the following attempts
   if (require(fishmethods)) {
     data(Kimura)
+    ## Asked for a dynamicPlot, which now does not exist
+    expect_warning(vbStarts(length~age,data=Kimura,dynamicPlot=TRUE),"functionality has been moved to")
     ## wrong types
-    expect_error(vbStarts(length~age,data=Kimura,type="Derek"))
-    expect_error(vbStarts(length~age,data=Kimura,type="Francis",methEV="Derek"))
-    expect_error(vbStarts(length~age,data=Kimura,type="Schnute",methEV="Derek"))
-    expect_error(vbStarts(length~age,data=Kimura,type="typical",meth0="Derek"))
-    expect_error(vbStarts(length~age,data=Kimura,type="original",meth0="Derek"))
+    expect_error(vbStarts(length~age,data=Kimura,type="Derek"),"should be one of")
+    expect_error(vbStarts(length~age,data=Kimura,type="Francis",methEV="Derek"),"should be one of")
+    expect_error(vbStarts(length~age,data=Kimura,type="Schnute",methEV="Derek"),"should be one of")
+    expect_error(vbStarts(length~age,data=Kimura,type="typical",meth0="Derek"),"should be one of")
+    expect_error(vbStarts(length~age,data=Kimura,type="original",meth0="Derek"),"should be one of")
     ## Two variables on LHS
-    expect_error(vbStarts(length+age~age,data=Kimura,type="typical"))
+    expect_error(vbStarts(length+age~age,data=Kimura,type="typical"),"more than one variable on the LHS")
     ## Two variables on RHS
-    expect_error(vbStarts(length~age+sex,data=Kimura,type="typical"))
+    expect_error(vbStarts(length~age+sex,data=Kimura,type="typical"),"must have only one RHS variable")
     ## LHS is a factor
-    expect_error(vbStarts(sex~age,data=Kimura,type="typical"))
+    expect_error(vbStarts(sex~age,data=Kimura,type="typical"),"LHS variable must be numeric")
     ## RHS is a factor
-    expect_error(vbStarts(length~sex,data=Kimura,type="typical"))
+    expect_error(vbStarts(length~sex,data=Kimura,type="typical"),"RHS variable must be numeric")
     ## not two ages2use given
-    expect_error(vbStarts(length~age,data=Kimura,type="Francis",ages2use=2))
-    expect_error(vbStarts(length~age,data=Kimura,type="Francis",ages2use=c(2,5,10)))
-    expect_error(vbStarts(length~age,data=Kimura,type="Schnute",ages2use=2))
-    expect_error(vbStarts(length~age,data=Kimura,type="Schnute",ages2use=c(2,5,10)))
+    expect_error(vbStarts(length~age,data=Kimura,type="Francis",ages2use=2),"have only two ages")
+    expect_error(vbStarts(length~age,data=Kimura,type="Francis",ages2use=c(2,5,10)),"have only two ages")
+    expect_error(vbStarts(length~age,data=Kimura,type="Schnute",ages2use=2),"have only two ages")
+    expect_error(vbStarts(length~age,data=Kimura,type="Schnute",ages2use=c(2,5,10)),"have only two ages")
     ## ages2use in wrong order
-    expect_warning(vbStarts(length~age,data=Kimura,type="Francis",ages2use=c(10,2)))
-    expect_warning(vbStarts(length~age,data=Kimura,type="Schnute",ages2use=c(10,2)))
+    expect_warning(vbStarts(length~age,data=Kimura,type="Francis",ages2use=c(10,2)),"order reversed to continue")
+    expect_warning(vbStarts(length~age,data=Kimura,type="Schnute",ages2use=c(10,2)),"order reversed to continue")
   }
   ## gives warning about a poor estimate for K and Linf
   if (require(FSAdata)) {

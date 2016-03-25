@@ -1,5 +1,7 @@
 # FSA 0.8.7 Ongoing
-
+* Removed `relax` from `Suggests`.  See `srStarts()` and `vbStarts()` notes below.  This addresses [#17](https://github.com/droglenc/FSA/issues/17).
+* `srStarts()`: Modified.  Removed `dynamicPlot=TRUE` option.  Moved it to `FSAsim` package.  Modified plot when `plot=TRUE` by adding "STARTING VALUES" to title and moving starting values to within the plot.  Added `cex.main=` and `col.main=`.
+* `vbStarts()`: Modified.  Removed `dynamicPlot=TRUE` option.  Moved it to `FSAsim` package.  Modified plot when `plot=TRUE` by adding "STARTING VALUES" to title and moving starting values to within the plot.  Added and `col.main=`.  Made warnings and error tests more explicit.
 
 # FSA 0.8.6 24-Mar-16
 * Fixed problems with tests, and made the tests more explicit, related to PSD and Wr functions.  Suppressed some warnings related to `sumTable()` in ALK related tests and `Summarize()` in age comparisons tests.  Prompted by forthcoming changes to `testthat`.
