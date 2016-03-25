@@ -60,15 +60,18 @@
 #' text(prey[,1],pred[,1],labels=c(2010,2011,2012),adj=c(-0.5,-0.5))
 #' 
 #' @export
-tictactoe <- function(predobj=c(30,70),preyobj=c(30,70),predlab="Predator PSD",preylab="Prey PSD",
-                      obj.col="black",obj.trans=0.2,bnd.col="black",bnd.lwd=1,bnd.lty=2) {
+tictactoe <- function(predobj=c(30,70),preyobj=c(30,70),
+                      predlab="Predator PSD",preylab="Prey PSD",
+                      obj.col="black",obj.trans=0.2,
+                      bnd.col="black",bnd.lwd=1,bnd.lty=2) {
   ## Test values
   if (!is.numeric(predobj)) stop("Predator target objectives must be numeric.",call.=FALSE)
   if (length(predobj)!=2) stop("Predator target objective must contain two numbers.",call.=FALSE)
   if (any(predobj<0|predobj>100)) stop("Predator target objectives must be between 0 and 100.",call.=FALSE)
   if (!is.numeric(preyobj)) stop("Prey target objectives must be numeric.",call.=FALSE)
   if (length(preyobj)!=2) stop("Prey target objective must contain two numbers.",call.=FALSE)
-  if (any(preyobj<0|preyobj>100)) stop("Prey target objectives must be between 0 and 100.",call.=FALSE)  ## Base plot; nocov start
+  if (any(preyobj<0|preyobj>100)) stop("Prey target objectives must be between 0 and 100.",call.=FALSE)  ## Base plot
+  # nocov start
   graphics::plot(NULL,xlim=c(0,100),ylim=c(0,100),xlab=predlab,ylab=preylab,xaxt="n",yaxt="n")
   graphics::axis(1,seq(0,100,10))
   graphics::axis(2,seq(0,100,10))
@@ -88,7 +91,10 @@ tictactoe <- function(predobj=c(30,70),preyobj=c(30,70),predlab="Predator PSD",p
   }
   ## add borders to objective regions
   for (i in 1:2) {
-    graphics::lines(x=c(predobj[i],predobj[i]),y=c(ymin,ymax),col=bnd.col,lwd=bnd.lwd,lty=bnd.lty)
-    graphics::lines(x=c(xmin,xmax),y=c(preyobj[i],preyobj[i]),col=bnd.col,lwd=bnd.lwd,lty=bnd.lty)
-  } # nocov end
+    graphics::lines(x=c(predobj[i],predobj[i]),y=c(ymin,ymax),
+                    col=bnd.col,lwd=bnd.lwd,lty=bnd.lty)
+    graphics::lines(x=c(xmin,xmax),y=c(preyobj[i],preyobj[i]),
+                    col=bnd.col,lwd=bnd.lwd,lty=bnd.lty)
+  }
+  # nocov end
 }
