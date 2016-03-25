@@ -323,7 +323,8 @@ iVBStarts.Somers2 <- function(age,len,type,meth0) {
 #=============================================================
 # Static plot of starting values
 #=============================================================
-iVBStartsPlot <- function(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl,cex.main,col.main) {
+iVBStartsPlot <- function(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl,
+                          cex.main,col.main) { # nocov start
   ## attempting to get by bindings warning in RCMD CHECK
   x <- NULL
   ## Plot the data
@@ -348,4 +349,4 @@ iVBStartsPlot <- function(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl,cex.m
   }
   ## Put the starting values to put on the plot
   legend("bottomright",paste(names(sv),formatC(unlist(sv),format="f",digits=2),sep="="),bty="n")
-}
+} # nocov end

@@ -111,12 +111,12 @@ compSlopes <- function(mdl,method=stats::p.adjust.methods,
 
 #' @rdname compSlopes
 #' @export
-print.compSlopes <- function(x,...) {
+print.compSlopes <- function(x,...) { # nocov start
   message("Multiple Slope Comparisons (using the '",x$method,"' adjustment)")
   print(x$comparisons,digits=x$digits)
   message("\nSlope Information (using the '",x$method,"' adjustment)")
   print(x$slope,digits=x$digits)
-}
+} # nocov end
 
 
 #' @title Tests for significant differences among all pairs of intercepts in a dummy variable regression.
@@ -212,12 +212,12 @@ compIntercepts <- function(mdl,common.cov=mean(x),
 
 #' @rdname compIntercepts
 #' @export
-print.compIntercepts <- function(x,...) {
+print.compIntercepts <- function(x,...) { # nocov start
   message("Tukey HSD on means adjusted assuming parallel lines")
   print(x$comparisons,digits=x$digits)
   message("\nMean ",x$rnm," when ",x$cnm,"=",formatC(x$common.cov,format="fg",digits=x$digits))
   print(x$means,digits=x$digits)
-}
+} # nocov end
 
 
 # ============================================================

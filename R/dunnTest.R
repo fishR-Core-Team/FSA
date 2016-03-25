@@ -141,7 +141,7 @@ dunnTest.formula <- function(x,data=NULL,
 
 #' @rdname dunnTest
 #' @export
-print.dunnTest <- function(x,dunn.test.results=FALSE,...) {
+print.dunnTest <- function(x,dunn.test.results=FALSE,...) { # nocov start
   if (!dunn.test.results) {
     message("Dunn (1964) Kruskal-Wallis multiple comparison")
     if (x$method=="No Adjustment") message("  with no adjustment for p-values.\n")
@@ -151,4 +151,4 @@ print.dunnTest <- function(x,dunn.test.results=FALSE,...) {
     ## Prints the result as if it came from dunn.test() from dunn.test package
     cat(paste(x$dtres,"\n"))
   }
-}
+} # nocov end

@@ -250,7 +250,7 @@ anova.depletion <- function(object,...) {
 plot.depletion <- function(x,xlab=NULL,ylab=NULL,
                            pch=19,col.pt="black",
                            col.mdl="gray70",lwd=1,lty=1,
-                           pos.est="topright",cex.est=0.95,...) {
+                           pos.est="topright",cex.est=0.95,...) { # nocov start
   # make base plot
   if (x$method=="Leslie") {
     if (is.null(xlab)) xlab <- "Cumulative Catch"
@@ -269,4 +269,4 @@ plot.depletion <- function(x,xlab=NULL,ylab=NULL,
                                 "\nq=",round(x$est["q","Estimate"],4),sep=""),
            cex=cex.est,bty="n")
   }
-}
+} # nocov end

@@ -391,7 +391,7 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
                          show.range=FALSE,col.range="gray",lwd.range=lwd,
                          col.agree="black",lwd.agree=lwd,lty.agree=2,
                          cex.numbers=0.9,
-                         xlim=NULL,ylim=NULL,yaxt=graphics::par("yaxt"),xaxt=graphics::par("xaxt"),...) {
+                         xlim=NULL,ylim=NULL,yaxt=graphics::par("yaxt"),xaxt=graphics::par("xaxt"),...) { # nocov start
   what <- match.arg(what)
   switch(what,
          bias={ iAgeBiasPlot(x,difference,
@@ -407,7 +407,7 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
          numbers={ iAgeBiasNumPlot(x,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,
                                    cex.numbers,yaxt,xaxt,...) }
   ) # end switch
-}
+} # nocov end
 
 
 #=============================================================
@@ -418,7 +418,7 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,cex.n,
                          show.pts,pch.pts,col.pts,
                          pch.mean,cex.mean,col.CI,col.CIsig,lwd.CI,
                          sfrac,show.range,col.range,lwd.range,
-                         col.agree,lwd.agree,lty.agree,xlim,ylim,yaxt,...) {
+                         col.agree,lwd.agree,lty.agree,xlim,ylim,yaxt,...) { # nocov start
   # identify whether difference data should be used or not, put in a tmp data frame
   if (!difference) d <- obj$bias
     else d <- obj$bias.diff
@@ -460,14 +460,14 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,cex.n,
   }
   # show the sample sizes at the top
   if (show.n) graphics::text(d[,1],graphics::grconvertY(nYpos,"npc"),d$n,cex=cex.n,xpd=TRUE)
-}
+} # nocov end
 
 #=============================================================
 # Internal function to produce the age-bias numbers plot.
 #=============================================================
 iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,
                             lwd.agree,lty.agree,col.agree,
-                            cex.numbers,yaxt,xaxt,...) {
+                            cex.numbers,yaxt,xaxt,...) { # nocov start
   # convert age-agreement table into a data frame with all zeroes removed
   # y,x in d[,1] and d[,2], respectively
   # lables in d[,3]
@@ -487,13 +487,13 @@ iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,
   graphics::lines(axlmts$xlim,axlmts$xlim,lwd=lwd.agree,lty=lty.agree,col=col.agree)
   # add the numbers at each point
   graphics::text(d[,2],d[,1],labels=d[,3],cex=cex.numbers)
-}
+} # nocov end
 
 #=============================================================
 # Internal function used to produce the age-bias sunflower plot.
 #=============================================================
 iAgeBiasSunflowerPlot <- function(obj,difference,xlab,ylab,xlim,ylim,
-                                  lwd.agree,lty.agree,col.agree,yaxt,...) {
+                                  lwd.agree,lty.agree,col.agree,yaxt,...) { # nocov start
   x <- obj$d[,2]
   ifelse(difference,y <- obj$d[,3],y <- obj$d[,1])
   if (is.null(ylim)) ylim <- range(y)
@@ -504,14 +504,14 @@ iAgeBiasSunflowerPlot <- function(obj,difference,xlab,ylab,xlim,ylim,
   # agreement line -- horizontal for difference and 45 degree for bias plot
   if (difference) graphics::abline(h=0,lwd=lwd.agree,lty=lty.agree,col=col.agree)
   else graphics::abline(a=0,b=1,lwd=lwd.agree,lty=lty.agree,col=col.agree)
-}
+} # nocov end
 
 
 #=============================================================
 # This internal function is used to find appropriate axis
 # limits for the age-bias plot. 
 #=============================================================
-iabAxisLmts <- function(d,xlim,ylim,difference,show.range,show.pts,show.CIs=TRUE) {
+iabAxisLmts <- function(d,xlim,ylim,difference,show.range,show.pts,show.CIs=TRUE) { # nocov start
   # If no xlim given then make xlim the range of x values
   # which are given in the first position of d (note that
   # d is the age-bias statistics)
@@ -544,7 +544,7 @@ iabAxisLmts <- function(d,xlim,ylim,difference,show.range,show.pts,show.CIs=TRUE
   }
   # return values
   list(xlim=xlmt,ylim=ylmt)
-}
+} # nocov end
 
 
 

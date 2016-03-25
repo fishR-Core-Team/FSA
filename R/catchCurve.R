@@ -223,6 +223,7 @@ confint.catchCurve <- function(object,parm=c("all","both","Z","A"),level=conf.le
 plot.catchCurve <- function(x,pos.est="topright",cex.est=0.95,
                             ylab="log(Catch)",xlab="Age",
                             col.pt="gray30",col.mdl="black",lwd=2,lty=1,...) {
+# nocov start
   # Find the range of the y-axis
   yrng <- c(min(0,min(log(x$catch),na.rm=TRUE)),max(log(x$catch),na.rm=TRUE))
   # Plot raw data
@@ -237,7 +238,7 @@ plot.catchCurve <- function(x,pos.est="topright",cex.est=0.95,
     A <- 100*(1-exp(-Z))
     graphics::legend(pos.est,legend=paste("Z=",round(Z,3),"\nA=",round(A,1),"%",sep=""),bty="n",cex=cex.est)
   }
-}
+} # nocov end
 
 
 ##############################################################

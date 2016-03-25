@@ -201,7 +201,7 @@ confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),level=conf
 
 #' @rdname chapmanRobson
 #' @export
-plot.chapmanRobson <- function(x,pos.est="topright",cex.est=0.95,ylab="Catch",xlab="Age",col.pt="gray30",...) {
+plot.chapmanRobson <- function(x,pos.est="topright",cex.est=0.95,ylab="Catch",xlab="Age",col.pt="gray30",...) { # nocov start
   # Need to make area below x-axis larger to hold re-coded ages scale
   opar <- npar <- graphics::par("mar")
   npar[1] <- 6
@@ -226,7 +226,7 @@ plot.chapmanRobson <- function(x,pos.est="topright",cex.est=0.95,ylab="Catch",xl
                      bty="n",cex=cex.est)
   }
   graphics::par(mar=opar)
-}
+} # nocov end
 
 ##############################################################
 # INTERNAL FUNCTIONS

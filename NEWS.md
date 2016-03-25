@@ -1,5 +1,6 @@
 # FSA 0.8.7 Ongoing
 * Removed `relax` from `Suggests`.  See `srStarts()` and `vbStarts()` notes below.  This addresses [#17](https://github.com/droglenc/FSA/issues/17).
+* Added no coverage blocks to `ageKeyPlot()`, `GompertzModels()`, `hist.formula()`, `histFromSum()`, `logisticModels()`, `lwCompPreds()`, `plot.agebias()`, `plot.CatchCurve()`, `plot.ChapmanRobson()`, `plot.Depletion()`, `print.compSlopes()`, `print.compIntercepts()`, `print.metaM()`, `psdPlot()`, `RichardsModels()`, `SchnuteModel()`, `srModels()`, `srStarts()`, `vbModels()`, and `vbStarts()`.
 * `ageKey()`: Removed.  Deprecated several since 0.4.24.  Use `alkIndivAge()`.
 * `ageKeyPlot()`: Removed.  Deprecated several since 0.4.24.  Use `alkPlot()`.
 * `lenFreqExpand()`: Removed.  Deprecated several since 0.4.32.  Use `expandLenFreq()`.

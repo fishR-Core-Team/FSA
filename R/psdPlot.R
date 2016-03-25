@@ -112,6 +112,7 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
     data <- data[data[,cl]>=min(xlim) & data[,cl]<=max(xlim),] 
   } else data <- data
   ## make an initial histogram to get the breaks and counts
+  # nocov start
   min.brk <- min(c(data[,cl],brks),na.rm=TRUE)
   max.brk <- max(data[,cl],na.rm=TRUE)+w
   h <- graphics::hist(data[,cl],right=FALSE,breaks=seq(min.brk,max.brk,w),plot=FALSE)
@@ -129,9 +130,10 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
     res <- iAddPSDLeg(formula,data,cl,brks,species,units,psd.pos,psd.cex)
     graphics::box()
   }
+  # nocov end
 }
 
-iAddPSDLeg <- function(formula,data,cl,brks,species,units,psd.pos,psd.cex) {
+iAddPSDLeg <- function(formula,data,cl,brks,species,units,psd.pos,psd.cex) { # nocov start
   # get PSDs
   suppressWarnings(psds <- psdCalc(formula,data,species=species,units=units,method="multinomial",what="traditional",drop0Est=FALSE))
   # reduce to only those that are >0 (drop=FALSE is needed in case it reduces to only one)
@@ -142,5 +144,5 @@ iAddPSDLeg <- function(formula,data,cl,brks,species,units,psd.pos,psd.cex) {
   # put it all together
   psdleg <- paste(c("n","n[stock]",rownames(psds)),"=",formatC(c(n,n.stock,psds[,"Estimate"]),format="f",digits=0))
   graphics::legend(psd.pos,psdleg,cex=psd.cex,box.col="white",bg="white",inset=0.002)
-  return(psdleg)
-}
+  psdleg
+} # nocov end

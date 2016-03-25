@@ -158,7 +158,7 @@ iMakeLWPred <- function(object,lens,grps,vn,interval,center.value,base) {
 } # End internal iMakeLWPred()
 
 
-iPlotLWPred <- function(res,grps,ylim,xlab,ylab,main,cex.main,lwd,connect.preds,col.connect,interval,show.preds,yaxs) {
+iPlotLWPred <- function(res,grps,ylim,xlab,ylab,main,cex.main,lwd,connect.preds,col.connect,interval,show.preds,yaxs) {  # nocov start
   #   find number of groups to plot along x-axis
   x.num <- length(grps)
   #   find y-axis range if none was provided
@@ -178,5 +178,5 @@ iPlotLWPred <- function(res,grps,ylim,xlab,ylab,main,cex.main,lwd,connect.preds,
   }
   # connect the means if desired
   if (connect.preds) graphics::lines(1:x.num,res$pred,lty=1,lwd=lwd,col=col.connect)
-} # End of internal iPlotLWPred
+}  # nocov end
 

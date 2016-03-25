@@ -169,6 +169,7 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
       else if (length(ymax)!= num) stop("'ymax' argument must be 'NULL', a vector of length 1,\n or a vector of length equal to the number of groups.",call.=FALSE)
     }
     ## Make the histograms
+    # nocov start
     opar <- graphics::par("mfrow")
     if (num <= (nrow*ncol)) {
       if (byrow) graphics::par(mfrow=c(nrow,ncol))
@@ -198,5 +199,5 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
       }
     }
     graphics::par(mfrow=opar)
-  }
+  } # nocov end
 }

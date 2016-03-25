@@ -342,12 +342,12 @@ metaM1 <- function(method,justM=TRUE,
 
 #' @rdname metaM
 #' @export
-print.metaM <- function(x,digits=4,...) {
+print.metaM <- function(x,digits=4,...) { # nocov start
   message("M=",round(x$M,digits)," as estimated with ",x$name)
   tmp <- paste0(names(x$givens),"=",x$givens)
   if (length(x$givens>1)) tmp <- paste(tmp,collapse=", ")
   message("  with givens: ",tmp)
-}
+} # nocov end
 
 
 # ############################################################

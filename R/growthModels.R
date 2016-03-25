@@ -893,15 +893,15 @@ logisticFuns <- function(type=c("CJ1","CJ2","Karkach","HaddonI"),simple=FALSE,ms
 
 #' @rdname growthModels
 #' @export
-vbModels <- function(family=c("size","seasonal","tagging"),cex=1,...) {
+vbModels <- function(family=c("size","seasonal","tagging"),cex=1,...) { # nocov start
   ## Set some plotting parameters
   op <- graphics::par(mar=c(0,0,3,0),cex=cex)
   ## Check the type argument
   family <- match.arg(family)
   ## Show the models
   if (family=="size") {
-    graphics::plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
-         main="FSA von Bertalanffy Parameterizations",...)
+    graphics::plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",
+                   xlab="",ylab="",bty="n",main="FSA von Bertalanffy Parameterizations",...)
     iGrowthModels("vbTypical", 0,6.0)
     iGrowthModels("vbOriginal",0,4.0)
     iGrowthModels("vbGQ",      0,2.0)
@@ -929,20 +929,20 @@ vbModels <- function(family=c("size","seasonal","tagging"),cex=1,...) {
   }
   ## Return to the default plotting parameters
   graphics::par(op)
-}
+} # nocov end
 
 
 #' @rdname growthModels
 #' @export
-GompertzModels <- function(family=c("size","tagging"),cex=1.25,...) {
+GompertzModels <- function(family=c("size","tagging"),cex=1.25,...) { # nocov start
   ## Set some plotting parameters
   op <- graphics::par(mar=c(0,0,3,0),cex=cex)
   ## Check the family argument
   family <- match.arg(family)
   ## Show the models
   if (family=="size") {
-    graphics::plot(1,type="n",ylim=c(0,5),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
-         main="FSA Gompertz Parameterizations",...)
+    graphics::plot(1,type="n",ylim=c(0,5),xlim=c(0,1),xaxt="n",yaxt="n",
+                   xlab="",ylab="",bty="n",main="FSA Gompertz Parameterizations",...)
     iGrowthModels("gOriginal", 0.1,4.5)
     iGrowthModels("gRicker1",  0.1,3.5)
     iGrowthModels("gRicker2",  0.1,2.5)
@@ -955,12 +955,12 @@ GompertzModels <- function(family=c("size","tagging"),cex=1.25,...) {
     iGrowthModels("gTroynikov2", 0.1,1.5)
   }
   graphics::par(op)
-}
+} # nocov end
 
 
 #' @rdname growthModels
 #' @export
-RichardsModels <- function(cex=1,...) {
+RichardsModels <- function(cex=1,...) { # nocov start
   op <- graphics::par(mar=c(0,0,3,0),cex=cex)
   graphics::plot(1,type="n",ylim=c(0,9),xlim=c(0,1),xaxt="n",yaxt="n",
                  xlab="",ylab="",bty="n",main="FSA Richards Growth Model Cases",...)
@@ -971,13 +971,13 @@ RichardsModels <- function(cex=1,...) {
   iGrowthModels("Richards5", 0.05,2)
   iGrowthModels("Richards6", 0.05,0.25)
   graphics::par(op)
-}
+} # nocov end
 
 
 
 #' @rdname growthModels
 #' @export
-logisticModels <- function(family=c("size","tagging"),cex=1.25,...) {
+logisticModels <- function(family=c("size","tagging"),cex=1.25,...) { # nocov start
   ## Set some plotting parameters
   op <- graphics::par(mar=c(0,0,3,0),cex=cex)
   ## Check the type argument
@@ -995,14 +995,14 @@ logisticModels <- function(family=c("size","tagging"),cex=1.25,...) {
     iGrowthModels("HaddonI", 0.1,2.5)
   }
   graphics::par(op)
-}
+} # nocov end
 
 
 ##############################################################
 ## Internal function for plotting the different models.
 ## Send positions in xpos and ypos.
 ##############################################################
-iGrowthModels <- function(which,xpos,ypos) {
+iGrowthModels <- function(which,xpos,ypos) { # nocov start
   switch(which,
          vbOriginal= {graphics::text(xpos,ypos,expression(plain("Original: ")~~~E(L[t])==L[infinity]~-~(L[infinity]-L[0])*~e^{-Kt}),pos=4)},
          vbTypical=  {graphics::text(xpos,ypos,expression(plain("Typical: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])},")")),pos=4)},
@@ -1049,7 +1049,7 @@ iGrowthModels <- function(which,xpos,ypos) {
          Schnute3=  {graphics::text(xpos,ypos,expression(plain("Case 3: ")~~~E(L[t])==bgroup("[",L[1]^{b}+(L[3]^{b}-L[1]^{b})*~frac(~t~-~t[1],~t[3]~-~t[1]),"]")^{~frac(1,b)}),pos=4)},
          Schnute4=  {graphics::text(xpos,ypos,expression(plain("Case 4: ")~~~E(L[t])==L[1]*e^{log~bgroup("(",frac(L[3],L[1]),")")*~frac(~t~-~t[1],~t[3]~-~t[1])}),pos=4)}
   ) # end swich
-} ## end iGrowthModels internal function
+}  # nocov end
 
 
 
@@ -1138,7 +1138,7 @@ Schnute <- function(t,case=1,t1=NULL,t3=NULL,L1=NULL,L3=NULL,a=NULL,b=NULL) {
 
 #' @rdname Schnute
 #' @export
-SchnuteModels <- function(cex=1.25,...) {
+SchnuteModels <- function(cex=1.25,...) { # nocov start
   op <- graphics::par(mar=c(0,0,3,0),cex=cex)
   graphics::plot(1,type="n",ylim=c(0,4),xlim=c(0,1),xaxt="n",yaxt="n",
                  xlab="",ylab="",bty="n",main="FSA Schnute Growth Model Cases",...)
@@ -1147,4 +1147,4 @@ SchnuteModels <- function(cex=1.25,...) {
   iGrowthModels("Schnute3", 0.1,1.5)
   iGrowthModels("Schnute4", 0.1,0.5)
   graphics::par(op)
-}
+} # nocov end

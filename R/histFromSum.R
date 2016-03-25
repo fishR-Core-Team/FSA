@@ -71,7 +71,7 @@ histFromSum.default <- function(x,y,...) {
                            call.=FALSE)
   if (!is.vector(y)) stop("'y' (count/frequency values) must be a vector.",call.=FALSE)
   xs <- rep(x,y)
-  graphics::hist(~xs,...)
+  graphics::hist(~xs,...) # nocov
 }
 
 #' @rdname histFromSum
