@@ -4,7 +4,6 @@
 
 ## Raw data files
 ^data-raw$
-
 ## Miscellaneous webpage and package files
 ToDo
 FileProgress.xlsx
@@ -14,3 +13,4 @@ LICENSE
 ^\.travis\.yml$
 cran-comments.md
 ^cran-comments
+^appveyor\.yml$
