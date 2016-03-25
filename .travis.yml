@@ -3,6 +3,9 @@ sudo: false
 cache: packages
 warnings_are_errors: false
 
+env:
+  - _R_CHECK_FORCE_SUGGESTS_=FALSE
+
 before_install:
   - Rscript -e 'install.packages(c("nlme","tcltk","relax"),lib="/home/travis/R-bin/lib/R/library/")'
 
