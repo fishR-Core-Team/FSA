@@ -301,3 +301,24 @@ test_that("Does psdCalc() compute correct PSD values?",{
   suppressWarnings(lmbres <- psdCalc(~tl,data=dflmb,species="Largemouth Bass"))
   expect_equivalent(lmbres[,"Estimate"],c(60,30,10,40,30,20,10))
 })
+
+
+test_that("tictactoe() errors and warnings",{
+  ## objective values do not contain 2 values
+  expect_error(tictactoe(predobj=70),"must contain two numbers")
+  expect_error(tictactoe(predobj=71:75),"must contain two numbers")
+  expect_error(tictactoe(predobj=NULL),"must be numeric")
+  expect_error(tictactoe(predobj=NA),"must be numeric")
+  expect_error(tictactoe(predobj=c(-5,70)),"must be between 0 and 100")
+  expect_error(tictactoe(predobj=c(70,105)),"must be between 0 and 100")
+  expect_error(tictactoe(predobj=c(-5,105)),"must be between 0 and 100")
+  expect_error(tictactoe(predobj=c("A","B")),"must be numeric")
+  expect_error(tictactoe(preyobj=70),"must contain two numbers")
+  expect_error(tictactoe(preyobj=71:75),"must contain two numbers")
+  expect_error(tictactoe(preyobj=NULL),"must be numeric")
+  expect_error(tictactoe(preyobj=NA),"must be numeric")
+  expect_error(tictactoe(preyobj=c(-5,70)),"must be between 0 and 100")
+  expect_error(tictactoe(preyobj=c(70,105)),"must be between 0 and 100")
+  expect_error(tictactoe(preyobj=c(-5,105)),"must be between 0 and 100")
+  expect_error(tictactoe(preyobj=c("A","B")),"must be numeric")
+})

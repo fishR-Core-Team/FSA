@@ -62,29 +62,33 @@
 #' @export
 tictactoe <- function(predobj=c(30,70),preyobj=c(30,70),predlab="Predator PSD",preylab="Prey PSD",
                       obj.col="black",obj.trans=0.2,bnd.col="black",bnd.lwd=1,bnd.lty=2) {
-  if (length(predobj)!=2) stop("Values for predator target objective must contain two numbers.\n",call.=FALSE)
-  if (length(preyobj)!=2) stop("Values for prey target objective must contain two numbers.\n",call.=FALSE)
+  ## Test values
+  if (!is.numeric(predobj)) stop("Predator target objectives must be numeric.",call.=FALSE)
+  if (length(predobj)!=2) stop("Predator target objective must contain two numbers.",call.=FALSE)
+  if (any(predobj<0|predobj>100)) stop("Predator target objectives must be between 0 and 100.",call.=FALSE)
+  if (!is.numeric(preyobj)) stop("Prey target objectives must be numeric.",call.=FALSE)
+  if (length(preyobj)!=2) stop("Prey target objective must contain two numbers.",call.=FALSE)
+  if (any(preyobj<0|preyobj>100)) stop("Prey target objectives must be between 0 and 100.",call.=FALSE)  ## Base plot; nocov start
   graphics::plot(NULL,xlim=c(0,100),ylim=c(0,100),xlab=predlab,ylab=preylab,xaxt="n",yaxt="n")
   graphics::axis(1,seq(0,100,10))
   graphics::axis(2,seq(0,100,10))
-  ## Add the shaded objective regions
+  ## Get axis limits
   xmin <- ifelse(graphics::par("xaxs")=="r",-10,0)
   xmax <- ifelse(graphics::par("xaxs")=="r",110,100)
   ymin <- ifelse(graphics::par("yaxs")=="r",-10,0)
   ymax <- ifelse(graphics::par("yaxs")=="r",110,100)
+  ## Add the shaded objective regions if a color is given
   if (!is.null(obj.col)) {
-    x1 <- predobj[1]
-    x2 <- predobj[2]
-    y1 <- preyobj[1]
-    y2 <- preyobj[2]
-    graphics::polygon(c(x1,x1,x2,x2,x1),c(ymin,ymax,ymax,ymin,ymin),
+    graphics::polygon(c(rep(predobj,each=2),predobj[1]),
+                      c(ymin,ymax,ymax,ymin,ymin),
                       col=iMakeColor(obj.col,1/obj.trans),border=NA)
-    graphics::polygon(c(xmin,xmax,xmax,xmin,xmin),c(y1,y1,y2,y2,y1),
+    graphics::polygon(c(xmin,xmax,xmax,xmin,xmin),
+                      c(rep(preyobj,each=2),preyobj[1]),
                       col=iMakeColor(obj.col,1/obj.trans),border=NA)
   }
   ## add borders to objective regions
   for (i in 1:2) {
     graphics::lines(x=c(predobj[i],predobj[i]),y=c(ymin,ymax),col=bnd.col,lwd=bnd.lwd,lty=bnd.lty)
     graphics::lines(x=c(xmin,xmax),y=c(preyobj[i],preyobj[i]),col=bnd.col,lwd=bnd.lwd,lty=bnd.lty)
-  }
+  } # nocov end
 }
