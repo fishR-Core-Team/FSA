@@ -6,8 +6,11 @@ warnings_are_errors: false
 env:
   - _R_CHECK_FORCE_SUGGESTS_=FALSE
 
+r_github_packages:
+  - jimhester/covr
+  
 before_install:
-  - Rscript -e 'install.packages(c("nlme","tcltk","relax"),lib="/home/travis/R-bin/lib/R/library/")'
+  - Rscript -e 'install.packages(c("nlme"),lib="/home/travis/R-bin/lib/R/library/")'
 
 after_success:
   - Rscript -e 'covr::coveralls()'
