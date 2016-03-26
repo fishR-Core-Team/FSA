@@ -73,27 +73,31 @@
 #' # Indicator variable regression with one factor (also showing confidence bands)
 #' lm2 <- lm(mirex~weight*year,data=Mirex)
 #' fitPlot(lm2,legend="topleft")
-#' fitPlot(lm2,legend="topleft",interval="c")
+#' fitPlot(lm2,legend="topleft",interval="confidence")
+#' fitPlot(lm2,legend="topleft",col="rich",pch=18,lty=1)
 #'
 #' # Indicator variable regression with one factor (assuming parallel lines)
 #' lm3 <- lm(mirex~weight+year,data=Mirex)
 #' fitPlot(lm3,legend="topleft")
-#' fitPlot(lm3,legend="topleft",pch=5)
+#' fitPlot(lm3,legend="topleft",col="default")
 #'
 #' # Simple linear regression (showing color change and confidence and prediction bands)
 #' lm4 <- lm(mirex~weight,data=Mirex)
+#' fitPlot(lm4,pch=8,col.pt="red")
 #' fitPlot(lm4,col.mdl="blue")
 #' fitPlot(lm4,interval="both")
 #'
 #' # One-way ANOVA
 #' lm5 <- lm(mirex~year,data=Mirex)
 #' fitPlot(lm5)
+#' fitPlot(lm5,col="red")
+#' fitPlot(lm5,col.ci="red")
 #'
 #' # Two-way ANOVA (showing both interaction plots and a color change)
 #' lm6 <- lm(mirex~year*species,data=Mirex)
 #' fitPlot(lm6,legend="bottomleft")
 #' fitPlot(lm6,change.order=TRUE)
-#' fitPlot(lm6,change.order=TRUE,col="jet")
+#' fitPlot(lm6,col="jet")
 #'
 #' # Two-way ANOVA (showing main effects plots)
 #' fitPlot(lm6,which="species")
@@ -158,12 +162,10 @@ fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
     warning("Only first color used for the model in this SLR.",call.=FALSE)
     col.mdl <- col.mdl[1]
   }
+  ## Get data ready
   # extract x and y variables
   y <- object$mf[,object$Rname]
   x <- object$mf[,object$Enames[1]]
-  # plot points in white to "disappear" if asked for
-  if (!plot.pts) col.pt="white"
-  graphics::plot(y~x,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,main=main,...)
   # create predictions to draw the line
   xvals <- seq(min(x),max(x),length.out=200)
   newdf <- data.frame(xvals)
@@ -171,6 +173,11 @@ fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
   names(newdf) <- object$Enames[1]
   # computes predicted values (and CI for use later)
   pred <- stats::predict(object$mdl,newdf,interval="confidence")
+  ## Put plot together
+  # nocov start
+  # plot points in white to "disappear" if asked for
+  if (!plot.pts) col.pt="white"
+  graphics::plot(y~x,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,main=main,...)
   # plot fitted line over range of data
   graphics::lines(xvals,pred[,"fit"],col=col.mdl,lwd=lwd,lty=lty)
   # puts CI on graph if asked for
@@ -183,7 +190,7 @@ fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
     pred <- stats::predict(object$mdl,newdf,interval="prediction")
     graphics::lines(xvals,pred[,"upr"],col=col.mdl,lwd=1,lty=lty.pi)
     graphics::lines(xvals,pred[,"lwr"],col=col.mdl,lwd=1,lty=lty.pi)
-  }
+  } # nocov end
 }
 
 
@@ -213,24 +220,10 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   f1 <- object$mf[,object$Enames[2]]
   # find number of levels of each factor
   num.f1 <- length(levels(f1))
-  # Handle colors -- one for each level of f1 factor unless only one color is given
-  col <- iHndlColsIVR(object,col,num.f1)
-  # Handle pchs -- one for each level of f1 factor unless only one pch is given
-  if (length(pch)==1) pch <- rep(pch,num.f1)
-  else if (length(pch)>=num.f1) pch <- pch[1:num.f1]
-  else if (length(pch)<num.f1) {
-    warning(paste0("Fewer pchs sent then levels of ",object$Enames[1],
-                   ".  Changed to use default pchs."),call.=FALSE)
-    pch <- c(16,21,15,22,17,24,c(3:14))[1:num.f1]
-  }
-  # Handle ltys -- one for each level of f1 factor unless only one pch is given
-  if (length(lty)==1) lty <- rep(lty,num.f1)
-  else if (length(lty)>=num.f1) lty <- lty[1:num.f1]
-  else if (length(lty)<num.f1) {
-    warning(paste0("Fewer ltys sent then levels of ",object$Enames[1],
-                   ".  Changed to use default ltys."),call.=FALSE)
-    lty <- c(1:6,1:6)[1:num.f1]
-  }
+  # Handle colors, pchs, ltys -- one for each level of f1 factor unless only one color is given
+  col <- iFitPlotClrs2(f1,col,"rich")
+  pch <- iFitPlotPchs2(f1,pch)
+  lty <- iFitPlotLtys2(f1,lty)
   ## Check if groups will be able to be seen
     if (sum(c(length(unique(pch))==1,length(unique(lty))==1,length(unique(col))==1))>1)
     warning("Your choices for 'col', 'pch', and 'lty' will make it difficult to see groups.",call.=FALSE)
@@ -268,6 +261,7 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
     levs <- levels(f1)
     if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=levs,col=col,pch=pch,lty=lty)
     else graphics::legend(x=leg$x,y=leg$y,legend=levs,col=col,lty=lty)
+    box()
   }  # nocov end
 }
 
@@ -286,24 +280,10 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   # find number of levels of each factor
   num.f1 <- length(levels(f1))
   num.f2 <- length(levels(f2))
-  # Handle colors -- one for each level of f1 factor unless only one color is given
-  col <- iHndlColsIVR(object,col,num.f1)
-  # Handle pchs --  only different for levels of second factor
-  if (length(pch)>1 & num.f2 <= length(pch)) pch <- pch[1:num.f2]
-  else if (length(pch)==1 & num.f2>1) pch <- rep(pch,num.f2)
-  else if (length(pch)<num.f2) {
-    warning(paste0("Fewer pchs sent then levels of ",object$Enames[3],
-                   ".  Changed to default point types."),call.=FALSE)
-    pch <- c(16,21,15,22,17,24,c(3:14))[1:num.f2]
-  }
-  # Handle ltys -- one for each level of f2 factor unless only one lty is given
-  if (length(lty)>1 & num.f2 <= length(lty)) lty <- lty[1:num.f2]
-  else if (length(lty)==1& num.f2>1) lty <- rep(lty,num.f2)
-  else if (length(lty)<num.f2) {
-    warning(paste0("Fewer ltys sent then levels of ",object$Enames[3],
-                   ".  Changed to default line types."),call.=FALSE)
-    lty <- c(1:6,1:6)[1:num.f2]
-  }
+  # Handle cols, pchs, lty1 -- one for each level of f1 factor unless only one color is given
+  col <- iFitPlotClrs2(f1,col,"rich")
+  pch <- iFitPlotPchs2(f2,pch)
+  lty <- iFitPlotLtys2(f2,lty)
   ### Plot the points
   # Creates plot schematic -- no points or lines
   # nocov start
@@ -345,24 +325,9 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
     ifelse(num.f2>1,levs<-levels(f1:f2),levs<-levels(f1))
     if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,pch=lpch,lty=llty)
     else graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,lty=llty)
+    box()
   }  # nocov end
 }
-
-iHndlColsIVR <- function(object,col,num.f1) {
-  if (length(col)<num.f1) {
-    if (length(col)>1) {
-      warning(paste0("Fewer colors sent then levels of ",names(object$EFactPos)[1],
-                    ".  Changed to use rich colors.",sep=""),call.=FALSE)
-      col <- chooseColors("rich",num.f1)
-    } else {
-      # choose colors from given palette type
-      if (col %in% paletteChoices()) col <- chooseColors(col,num.f1)
-      # If one color given, repeat it so same color used for all levels
-      else col <- rep(col,num.f1)
-    }
-  }
-}
-
 
 #' @rdname fitPlot
 #' @export
@@ -374,22 +339,31 @@ fitPlot.POLY <- function(object,...) {
 #' @rdname fitPlot
 #' @export
 fitPlot.ONEWAY <- function (object,
-                             xlab=object$Enames[1],ylab=object$Rname,main="",
-                             type="b",pch=16,lty=1,col="black",
-                             interval=TRUE,conf.level=0.95,ci.fun=iCIfp(conf.level),
-                             col.ci=col,lty.ci=1,
-                             ...) {
+                            xlab=object$Enames[1],ylab=object$Rname,main="",
+                            type="b",pch=16,lty=1,col="black",
+                            interval=TRUE,conf.level=0.95,ci.fun=iCIfp(conf.level),
+                            col.ci=col,lty.ci=1,
+                            ...) {
+  if (length(col)>1) {
+    warning("Only first color used.",call.=FALSE)
+    col <- col[1]
+  }
+  if (length(col.ci)>1) {
+    warning("Only first color used for the CIs.",call.=FALSE)
+    col.ci <- col.ci[1]
+  }
   # extract x and y variables
-  response <- object$mf[,object$Rname]
-  x.factor <- object$mf[,object$Ename[1]]
+  y <- object$mf[,object$Rname]
+  f1 <- object$mf[,object$Ename[1]]
+  # nocov start
   if (interval) {
-    sciplot::lineplot.CI(x.factor,response,main=main,xlab=xlab,ylab=ylab,
+    sciplot::lineplot.CI(f1,y,main=main,xlab=xlab,ylab=ylab,
                          type=type,pch=pch,lty=lty,col=col,legend=FALSE,
                          ci.fun=ci.fun,err.col=col.ci,err.lty=lty.ci,...)
-  } else stats::interaction.plot(x.factor,rep(1,length(response)),response,
+  } else stats::interaction.plot(f1,rep(1,length(y)),y,
                                  main=main,xlab=xlab,ylab=ylab,type=type,
-                                 pch=pch,lty=lty,col=col,legend=FALSE,...) 
-}
+                                 pch=pch,lty=lty,col=col,legend=FALSE,...)
+} # nocov end
 
 
 #' @rdname fitPlot
@@ -401,7 +375,7 @@ fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
                             legend="topright",cex.leg=1,box.lty.leg=0,
                             ...) {
   # extract y variables
-  response <- object$mf[,object$Rname]
+  y <- object$mf[,object$Rname]
   # find the factor variables
   if (missing(which)) {
     # need both factors, check to see if order was changed from model fit
@@ -415,20 +389,18 @@ fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
     x.factor <- object$mf[,object$Enames[ord[1]]]
     # must handle "other" factor differently depending on if an interval is constructed
     if(interval) group <- NULL
-    else group <- rep(1,length(response))
+    else group <- rep(1,length(y))
     ngrps <- 1    
   }
-  if (col %in% paletteChoices()) col <- chooseColors(col,ngrps)
-  else if(ngrps==1 & length(col)>1) col <- "black"
-  else if(ngrps!=1 & length(col)<ngrps) {
-    warning("A two-way ANOVA result is to be plotted but only one color was supplied.  Default colors were used.",call.=FALSE)
-    col <- chooseColors("default",ngrps)
-  }
+  col <- iFitPlotClrs2(group,col,"default")
+  pch <- iFitPlotPchs2(group,pch)
+  lty <- iFitPlotLtys2(group,lty)
+  # nocov start
   if (interval) {
-    sciplot::lineplot.CI(x.factor,response,group,main=main,xlab=xlab,ylab=ylab,
+    sciplot::lineplot.CI(x.factor,y,group,main=main,xlab=xlab,ylab=ylab,
                          type=type,pch=pch[1:ngrps],lty=lty[1:ngrps],col=col[1:ngrps],
                          legend=FALSE,ci.fun=ci.fun,err.lty=lty.ci,...)
-  } else stats::interaction.plot(x.factor,group,response,main=main,xlab=xlab,ylab=ylab,
+  } else stats::interaction.plot(x.factor,group,y,main=main,xlab=xlab,ylab=ylab,
                         type=type,pch=pch[1:ngrps],lty=lty[1:ngrps],col=col[1:ngrps],
                         legend=FALSE,...) 
   if(ngrps>1) {
@@ -436,6 +408,7 @@ fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
     graphics::legend(leg$x,leg$y,legend=levels(group),pch=pch[1:ngrps],
                      lty=1:ngrps,col=col,cex=cex.leg,box.lty=box.lty.leg)
   }
+  box() # nocov end
 }
 
 
@@ -445,13 +418,13 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
                         lwd=2,lty=1,plot.pts=TRUE,jittered=FALSE,ylim=NULL,
                         legend=FALSE,legend.lbls=c("Group 1","Group 2"),
                         ylab=names(mdl$model)[1],xlab=names(mdl$model)[xpos],main="", ...) {
-  # add the model option to the NLS object so that data can be extracted
+  ## add the model option to the NLS object so that data can be extracted
   mdl <- stats::update(object,model=TRUE)
-  # finds number of variables in the model
+  ## finds number of variables in the model
   numvars <- length(names(mdl$model))
   if (missing(d)) { d <- mdl$data }
     else if (!is.data.frame(d)) d <- as.data.frame(d)  # make sure that the data is a data.frame
-  # find y variable from model
+  ## find y variable from model
   y <- mdl$model[[1]]
   if (numvars==2) {
     # find position of x-variable and groups
@@ -484,9 +457,11 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
     # find limit for y-axis
     if (is.null(ylim)) ylim <- range(c(y,fits$y))
     if (jittered) x <- jitter(x)    
+    # nocov start
     if (plot.pts) graphics::plot(x,y,pch=pch[1],col=col.pt[1],ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
       else graphics::plot(x,y,type="n",ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
     graphics::lines(fits$x,fits$y,lwd=lwd[1],lty=lty[1],col=col.mdl[1])
+    # nocov end
   } else {
     explg1 <- data.frame(x=fitx,g1=rep(1,length(fitx)),g2=rep(0,length(fitx)))
     explg2 <- data.frame(x=fitx,g1=rep(0,length(fitx)),g2=rep(1,length(fitx)))
@@ -496,7 +471,7 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
     names(fitsg1) <- names(fitsg2) <- c("x","y")
     # find limit for y-axis
     if (is.null(ylim)) ylim <- range(c(y,fitsg1$y,fitsg2$y))
-    if (jittered) x <- jitter(x)
+    if (jittered) x <- jitter(x) # nocov start
     graphics::plot(x,y,type="n",ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
     if (plot.pts) {
       graphics::points(x[g1==1],y[g1==1],pch=pch[1],col=col.pt[1])
@@ -509,7 +484,7 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
       if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=legend.lbls,col=col.pt,pch=pch,lty=lty)
         else graphics::legend(x=leg$x,y=leg$y,legend=legend.lbls,col=col.mdl,lty=lty)
     }
-  }
+  } # nocov end
 } 
 
 #' @rdname fitPlot
@@ -526,15 +501,19 @@ fitPlot.logreg <- function(object,xlab=names(object$model)[2],ylab=names(object$
     plot.p=TRUE,breaks=25,p.col="blue",p.pch=3,p.cex=1,
     yaxis1.ticks=seq(0,1,0.1),yaxis1.lbls=c(0,0.5,1),yaxis2.show=TRUE,
     col.mdl="red",lwd=2,lty=1,mdl.vals=50,xlim=range(x),...) {
+  ## Get data to plot
   yc <- object$model[,1]
   x <- object$model[,2]
+  ## Prepare values to plot the fitted line
+  nd <- data.frame(seq(min(xlim),max(xlim),length.out=mdl.vals))
+  names(nd) <- names(object$model)[2]
+  ## Make the plot
+  # nocov start
   plotBinResp(x,yc,xlab,ylab,plot.pts,col.pt,transparency,plot.p,breaks,p.col,p.pch,p.cex,
               yaxis1.ticks=yaxis1.ticks,yaxis1.lbls=yaxis1.lbls,yaxis2.show=yaxis2.show,
               main=main,xlim=xlim,...)
-  nd <- data.frame(seq(min(xlim),max(xlim),length.out=mdl.vals))
-  names(nd) <- names(object$model)[2]
   graphics::lines(nd[,1],stats::predict(object,nd,type="response"),col=col.mdl,lwd=lwd,lty=lty)
-}
+} # nocov end
 
 
 ##################################################################
@@ -546,3 +525,38 @@ iCIfp1 <- function(x,conf.level) {
 }
 
 iCIfp <- function(conf.level) function(x) iCIfp1(x,conf.level)
+
+iFitPlotClrs2 <- function(var,col,defpal) {
+  num.grps <- length(levels(var))
+  if (num.grps==0) num.grps <- 1   # a hack for when which= is used in two-way ANOVA
+  if (length(col)==1) {
+    if (col %in% paletteChoices()) col <- chooseColors(col,num.grps)
+    else col <- rep(col,num.grps)
+  } else if (length(col)<num.grps) {
+    warning("Fewer colors sent then levels.  Changed to default colors.",call.=FALSE)
+    col <- chooseColors(defpal,num.grps)
+  } else col <- col[1:num.grps]
+  col
+}
+
+iFitPlotPchs2 <- function(var,pch) {
+  num.grps <- length(levels(var))
+  if (length(pch)>1 & num.grps <= length(pch)) pch <- pch[1:num.grps]
+  else if (length(pch)==1 & num.grps>1) pch <- rep(pch,num.grps)
+  else if (length(pch)<num.grps) {
+    warning("Fewer pchs sent then levels.  Changed to default pchs.",call.=FALSE)
+    pch <- c(16,21,15,22,17,24,c(3:14))[1:num.grps]
+  }
+  pch
+}
+
+iFitPlotLtys2 <- function(var,lty) {
+  num.grps <- length(levels(var))
+  if (length(lty)>1 & num.grps <= length(lty)) lty <- lty[1:num.grps]
+  else if (length(lty)==1& num.grps>1) lty <- rep(lty,num.grps)
+  else if (length(lty)<num.grps) {
+    warning("Fewer ltys sent then levels.  Changed to default ltys.",call.=FALSE)
+    lty <- c(1:6,1:6)[1:num.grps]
+  }
+  lty
+}

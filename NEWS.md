@@ -3,6 +3,7 @@
 * Added no coverage blocks to `ageKeyPlot()`, `GompertzModels()`, `hist.formula()`, `histFromSum()`, `logisticModels()`, `lwCompPreds()`, `plot.agebias()`, `plot.CatchCurve()`, `plot.ChapmanRobson()`, `plot.Depletion()`, `print.compSlopes()`, `print.compIntercepts()`, `print.metaM()`, `psdPlot()`, `RichardsModels()`, `SchnuteModel()`, `srModels()`, `srStarts()`, `vbModels()`, and `vbStarts()`.
 * `ageKey()`: Removed.  Deprecated several since 0.4.24.  Use `alkIndivAge()`.
 * `ageKeyPlot()`: Removed.  Deprecated several since 0.4.24.  Use `alkPlot()`.
+* `fitPlot()`: Modified.  Changed the way colors, plotting characters, and line types were handled for most of the models.  Should make their use more flexible.  Started to add tests for error and warning messages.
 * `lenFreqExpand()`: Removed.  Deprecated several since 0.4.32.  Use `expandLenFreq()`.
 * `srStarts()`: Modified.  Removed `dynamicPlot=TRUE` option.  Moved it to `FSAsim` package.  Modified plot when `plot=TRUE` by adding "STARTING VALUES" to title and moving starting values to within the plot.  Added `cex.main=` and `col.main=`.
 * `vbStarts()`: Modified.  Removed `dynamicPlot=TRUE` option.  Moved it to `FSAsim` package.  Modified plot when `plot=TRUE` by adding "STARTING VALUES" to title and moving starting values to within the plot.  Added and `col.main=`.  Made warnings and error tests more explicit.
