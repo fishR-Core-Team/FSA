@@ -118,30 +118,49 @@ test_that("fact2num() error messages and results",{
 # ############################################################
 # filterD
 # ############################################################
-test_that("filterD() and Subset() error messages and results",{
+test_that("filterD() error messages and results",{
   ## check error messages
   expect_error(filterD(0:5))
-  expect_error(Subset(0:5),"with data.frames")
   expect_error(filterD(matrix(0:5,ncol=2)))
-  expect_error(Subset(matrix(0:5,ncol=2)),"with data.frames")
-  expect_warning(Subset(iris,Species=="DEREK"),"resultant data.frame")
   expect_warning(filterD(iris,Species=="DEREK"),"resultant data.frame")
   
+  ## check results
+  # limit to two groups
+  grp <- c("setosa","versicolor")
+  tmp <- filterD(iris,Species %in% grp)
+  expect_equal(levels(tmp$Species),grp)
+  expect_equal(nrow(tmp),100)
+  # limit to one group
+  grp <- c("versicolor")
+  tmp <- filterD(iris,Species %in% grp)
+  expect_equal(levels(tmp$Species),grp)
+  expect_equal(nrow(tmp),50)
+  # make sure that levels are not reordered
+  iris$Species1 <- factor(iris$Species,levels=c("virginica","versicolor","setosa"))
+  grp <- c("setosa","versicolor")
+  tmp <- filterD(iris,Species1 %in% grp)
+  expect_equal(levels(tmp$Species1),rev(grp))
+  # check usage of except
+  tmp <- filterD(iris,Species1 %in% grp,except="Species")
+  expect_equal(levels(tmp$Species1),rev(grp))
+  expect_equal(levels(tmp$Species),c("setosa","versicolor","virginica"))
+})  
+
+test_that("Subset() error messages and results",{
+  ## check error messages
+  expect_error(Subset(0:5),"with data.frames")
+  expect_error(Subset(matrix(0:5,ncol=2)),"with data.frames")
+  expect_warning(Subset(iris,Species=="DEREK"),"resultant data.frame")
+
   ## check results
   # limit to two groups
   grp <- c("setosa","versicolor")
   tmp <- Subset(iris,Species %in% grp)
   expect_equal(levels(tmp$Species),grp)
   expect_equal(nrow(tmp),100)
-  tmp <- filterD(iris,Species %in% grp)
-  expect_equal(levels(tmp$Species),grp)
-  expect_equal(nrow(tmp),100)
   # limit to one group
   grp <- c("versicolor")
   tmp <- Subset(iris,Species %in% grp)
-  expect_equal(levels(tmp$Species),grp)
-  expect_equal(nrow(tmp),50)
-  tmp <- filterD(iris,Species %in% grp)
   expect_equal(levels(tmp$Species),grp)
   expect_equal(nrow(tmp),50)
   # does Subset still work if columns are selected
@@ -158,8 +177,6 @@ test_that("filterD() and Subset() error messages and results",{
   iris$Species1 <- factor(iris$Species,levels=c("virginica","versicolor","setosa"))
   grp <- c("setosa","versicolor")
   tmp <- Subset(iris,Species1 %in% grp)
-  expect_equal(levels(tmp$Species1),rev(grp))
-  tmp <- filterD(iris,Species1 %in% grp)
   expect_equal(levels(tmp$Species1),rev(grp))
 })  
 

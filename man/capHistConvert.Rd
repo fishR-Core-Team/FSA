@@ -265,9 +265,10 @@ head(dipF.R2I)
 # convert males to 'individual' format
 dipM.R2I <- capHistConvert(dipperM,cols2ignore="sex",in.type="RMark")
 head(dipM.R2I)
-# combine back together using combine() from gdata
-require(gdata)   # for combine()
-dip.R2I <- combine(dipF.R2I,dipM.R2I,names=c("female","male"))
+# add sex variable to each data.frame and then combine
+dipF.R2I$sex <- "Female"
+dipM.R2I$sex <- "Male"
+dip.R2I <- rbind(dipF.R2I,dipM.R2I)
 head(dip.R2I)
 tail(dip.R2I)
 

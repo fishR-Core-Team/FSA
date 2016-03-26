@@ -752,6 +752,7 @@ se <- function (x,na.rm=TRUE) {
 #' @param select An expression, that indicates columns to select from a data frame.
 #' @param drop passed on to \code{[} indexing operator.
 #' @param resetRownames A logical that indicates if the rownames should be reset after the subsetting (\code{TRUE}; default).  Resetting rownames will simply number the rows from 1 to the number of rows in the result.
+#' @param except Indices of columns from which NOT to drop levels.
 #' @param \dots further arguments to be passed to or from other methods.
 #'
 #' @return A data frame with the subsetted rows and selected variables.
@@ -800,7 +801,7 @@ Subset <- function(x,subset,select,drop=FALSE,resetRownames=TRUE,...) {
     names(nl) <- names(x)
     vars <- eval(substitute(select),nl,parent.frame())
   }
-  res <- gdata::drop.levels(x[r,vars,drop = drop],reorder=FALSE)
+  res <- droplevels(x[r,vars,drop=drop])
   if (resetRownames) rownames(res) <- NULL
   if (nrow(res)==0) warning("The resultant data.frame has 0 rows.  Try str() on the result.\n",call.=FALSE)
   res
@@ -808,9 +809,9 @@ Subset <- function(x,subset,select,drop=FALSE,resetRownames=TRUE,...) {
 
 #' @rdname Subset
 #' @export
-filterD <- function(x,...) {
+filterD <- function(x,...,except=NULL) {
   res <- dplyr::filter(x,...)
-  res <- gdata::drop.levels(res,reorder=FALSE)
+  res <- droplevels(res,except)
   if (nrow(res)==0) warning("The resultant data.frame has 0 rows.  Try str() on the result.\n",call.=FALSE)
   res
 }
