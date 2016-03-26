@@ -135,6 +135,7 @@ fitPlot <- function (object, ...) {
 #' @export
 fitPlot.lm <- function(object, ...) {
   object <- iTypeoflm(object)
+  if (object$Rnum>1) stop("'fitPlot()' does not work with more than 1 LHS variable.",call.=FALSE)
   if (object$type=="MLR") stop("Multiple linear regression objects are not supported by fitPlot.",call.=FALSE)
   fitPlot(object,...)
 }
@@ -147,7 +148,16 @@ fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
                          conf.level=0.95,lty.ci=2,lty.pi=3,
                          xlab=object$Enames[1],ylab=object$Rname,main="",
                          ...) {
+  ## Some tests
   interval <- match.arg(interval)
+  if (length(col.pt)>1) {
+    warning("Only first color used for points in this SLR.",call.=FALSE)
+    col.pt <- col.pt[1]
+  }
+  if (length(col.mdl)>1) {
+    warning("Only first color used for the model in this SLR.",call.=FALSE)
+    col.mdl <- col.mdl[1]
+  }
   # extract x and y variables
   y <- object$mf[,object$Rname]
   x <- object$mf[,object$Enames[1]]
@@ -179,51 +189,124 @@ fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
 
 #' @rdname fitPlot
 #' @export
-fitPlot.IVR <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
-                         col="rich",lty=c(1:6,1:6),lwd=3,
+fitPlot.IVR <- function(object,...) {
+  ## Do some checks
+  if (object$ENumNum>1) stop("'fitPlot()' cannot handle >1 covariate in an IVR.",call.=FALSE)
+  if (object$EFactNum>2) stop("'fitPlot()' cannot handle >2 factors in an IVR.",call.=FALSE)
+  ## Decide if a one-way or two-way IVR
+  if (object$EFactNum==1) iFitPlotIVR1(object,...)
+    else iFitPlotIVR2(object,...)
+
+}
+
+iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
+                         col="black",lty=c(1:6,1:6),lwd=3,
                          interval=c("none","confidence","prediction","both"),conf.level=0.95,
                          xlab=object$Enames[1],ylab=object$Rname,main="",
-                         legend="topright", ...) {
+                         legend="topright",...) {
+  ## Some checks
   interval <- match.arg(interval)
-  if (object$Enum>3)
-    stop("fitPlot() cannot handle >1 covariate or >2 factors in an IVR.",call.=FALSE)
   # extract y and x quantitative variables
   y <- object$mf[,object$Rname]
   x <- object$mf[,object$Enames[1]]
   # extract the factor variable(s) from the 2nd and, possibly, 3rd positions
   f1 <- object$mf[,object$Enames[2]]
-  ifelse(object$EFactNum==2,f2 <- object$mf[,object$Enames[3]],f2 <- as.factor(rep(1,length(y))))
+  # find number of levels of each factor
+  num.f1 <- length(levels(f1))
+  # Handle colors -- one for each level of f1 factor unless only one color is given
+  col <- iHndlColsIVR(object,col,num.f1)
+  # Handle pchs -- one for each level of f1 factor unless only one pch is given
+  if (length(pch)==1) pch <- rep(pch,num.f1)
+  else if (length(pch)>=num.f1) pch <- pch[1:num.f1]
+  else if (length(pch)<num.f1) {
+    warning(paste0("Fewer pchs sent then levels of ",object$Enames[1],
+                   ".  Changed to use default pchs."),call.=FALSE)
+    pch <- c(16,21,15,22,17,24,c(3:14))[1:num.f1]
+  }
+  # Handle ltys -- one for each level of f1 factor unless only one pch is given
+  if (length(lty)==1) lty <- rep(lty,num.f1)
+  else if (length(lty)>=num.f1) lty <- lty[1:num.f1]
+  else if (length(lty)<num.f1) {
+    warning(paste0("Fewer ltys sent then levels of ",object$Enames[1],
+                   ".  Changed to use default ltys."),call.=FALSE)
+    lty <- c(1:6,1:6)[1:num.f1]
+  }
+  ## Check if groups will be able to be seen
+    if (sum(c(length(unique(pch))==1,length(unique(lty))==1,length(unique(col))==1))>1)
+    warning("Your choices for 'col', 'pch', and 'lty' will make it difficult to see groups.",call.=FALSE)
+  ### Plot the points
+  # Creates plot schematic -- no points or lines
+  # nocov start
+  graphics::plot(y~x,col="white",xlab=xlab,ylab=ylab,main=main,...)
+  for (i in 1:num.f1) {
+    # Plots points w/ different colors & points
+    x.obs <- x[f1==levels(f1)[i]]
+    y.obs <- y[f1==levels(f1)[i]] 
+    if (plot.pts) graphics::points(x.obs,y.obs,col=col[i],pch=pch[i])
+    # Make the predictions at a bunch of values of x
+    xvals <- seq(min(x.obs),max(x.obs),length.out=200)
+    newdf <- data.frame(xvals,as.factor(rep(levels(f1)[i],length(xvals))))
+    names(newdf) <- object$Enames      
+    pred <- stats::predict(object$mdl,newdf,interval="confidence")
+    # Plot just the line if no intervals called for
+    graphics::lines(xvals,pred[,"fit"],col=col[i],lwd=lwd,lty=lty[i])
+    # add CI if asked for
+    if (interval %in% c("confidence","both")) {
+      graphics::lines(xvals,pred[,"upr"],col=col[i],lwd=1,lty=lty[i])
+      graphics::lines(xvals,pred[,"lwr"],col=col[i],lwd=1,lty=lty[i])     
+    }
+    # add PI if asked for
+    if (interval %in% c("prediction","both")) {
+      pred <- stats::predict(object$mdl,newdf,interval="prediction")
+      graphics::lines(xvals,pred[,"upr"],col=col[i],lwd=1,lty=lty[i])
+      graphics::lines(xvals,pred[,"lwr"],col=col[i],lwd=1,lty=lty[i])
+    }        
+  } # end for i
+  # Prepare list of col,pch,lty for legend
+  leg <- iLegendHelp(legend)
+  if (leg$do.legend) {
+    levs <- levels(f1)
+    if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=levs,col=col,pch=pch,lty=lty)
+    else graphics::legend(x=leg$x,y=leg$y,legend=levs,col=col,lty=lty)
+  }  # nocov end
+}
+
+iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
+                         col="rich",lty=c(1:6,1:6),lwd=3,
+                         interval=c("none","confidence","prediction","both"),conf.level=0.95,
+                         xlab=object$Enames[1],ylab=object$Rname,main="",
+                         legend="topright",...) {
+  interval <- match.arg(interval)
+  # extract y and x quantitative variables
+  y <- object$mf[,object$Rname]
+  x <- object$mf[,object$Enames[1]]
+  # extract the factor variable(s) from the 2nd and 3rd positions
+  f1 <- object$mf[,object$Enames[2]]
+  f2 <- object$mf[,object$Enames[3]]
   # find number of levels of each factor
   num.f1 <- length(levels(f1))
   num.f2 <- length(levels(f2))
-  ### Handle colors -- one for each level of f1 factor unless only one color is given
-  if (length(col)<num.f1) {
-    if (length(col)>1) {
-      warning(paste("Fewer colors sent then levels of ",object$Enames[2],".  Changed to use rich colors.",sep=""),call.=FALSE)
-      col <- chooseColors("rich",num.f1)
-    } else {
-      # choose colors from given palette type
-      if (col %in% paletteChoices()) col <- chooseColors(col,num.f1)
-      # If one color given, repeat it so same color used for all levels
-      else col <- rep(col,num.f1)
-    }
-  }
-  ### Handle pchs -- one for each level of f2 factor unless only one pch is given
+  # Handle colors -- one for each level of f1 factor unless only one color is given
+  col <- iHndlColsIVR(object,col,num.f1)
+  # Handle pchs --  only different for levels of second factor
   if (length(pch)>1 & num.f2 <= length(pch)) pch <- pch[1:num.f2]
   else if (length(pch)==1 & num.f2>1) pch <- rep(pch,num.f2)
   else if (length(pch)<num.f2) {
-    warning(paste("Fewer point types sent then levels of",object$Enames[3],".  Changed to default point types."),call.=FALSE)
+    warning(paste0("Fewer pchs sent then levels of ",object$Enames[3],
+                   ".  Changed to default point types."),call.=FALSE)
     pch <- c(16,21,15,22,17,24,c(3:14))[1:num.f2]
   }
-  ### Handle ltys -- one for each level of f2 factor unless only one lty is given
+  # Handle ltys -- one for each level of f2 factor unless only one lty is given
   if (length(lty)>1 & num.f2 <= length(lty)) lty <- lty[1:num.f2]
-  else if (length(lty)==1 & num.f2>1) lty <- rep(lty,num.f2)
+  else if (length(lty)==1& num.f2>1) lty <- rep(lty,num.f2)
   else if (length(lty)<num.f2) {
-    warning(paste("Fewer line types sent then levels of",object$Enames[3],".  Changed to default line types."),call.=FALSE)
+    warning(paste0("Fewer ltys sent then levels of ",object$Enames[3],
+                   ".  Changed to default line types."),call.=FALSE)
     lty <- c(1:6,1:6)[1:num.f2]
   }
   ### Plot the points
   # Creates plot schematic -- no points or lines
+  # nocov start
   graphics::plot(y~x,col="white",xlab=xlab,ylab=ylab,main=main,...)
   for (i in 1:num.f1) {
     for (j in 1:num.f2) {
@@ -262,6 +345,21 @@ fitPlot.IVR <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
     ifelse(num.f2>1,levs<-levels(f1:f2),levs<-levels(f1))
     if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,pch=lpch,lty=llty)
     else graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,lty=llty)
+  }  # nocov end
+}
+
+iHndlColsIVR <- function(object,col,num.f1) {
+  if (length(col)<num.f1) {
+    if (length(col)>1) {
+      warning(paste0("Fewer colors sent then levels of ",names(object$EFactPos)[1],
+                    ".  Changed to use rich colors.",sep=""),call.=FALSE)
+      col <- chooseColors("rich",num.f1)
+    } else {
+      # choose colors from given palette type
+      if (col %in% paletteChoices()) col <- chooseColors(col,num.f1)
+      # If one color given, repeat it so same color used for all levels
+      else col <- rep(col,num.f1)
+    }
   }
 }
 

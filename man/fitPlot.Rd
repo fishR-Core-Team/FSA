@@ -22,11 +22,7 @@ fitPlot(object, ...)
   "prediction", "both"), conf.level = 0.95, lty.ci = 2, lty.pi = 3,
   xlab = object$Enames[1], ylab = object$Rname, main = "", ...)
 
-\method{fitPlot}{IVR}(object, plot.pts = TRUE, pch = c(16, 21, 15, 22, 17,
-  24, c(3:14)), col = "rich", lty = c(1:6, 1:6), lwd = 3,
-  interval = c("none", "confidence", "prediction", "both"),
-  conf.level = 0.95, xlab = object$Enames[1], ylab = object$Rname,
-  main = "", legend = "topright", ...)
+\method{fitPlot}{IVR}(object, ...)
 
 \method{fitPlot}{POLY}(object, ...)
 
@@ -86,11 +82,9 @@ fitPlot(object, ...)
 
 \item{main}{a string for the main label to the plot.  Defaults to the model call.}
 
-\item{col}{A vector of color names or numbers or the name of a paletted (see details) that indicates what color of points and lines to use for the levels of the first factor in an IVR or the second factor in a two-way ANOVA.}
-
-\item{legend}{Controls use and placement of the legend.  See details.}
-
 \item{type}{The type of graphic to construct in a one-way and two-way ANOVA.  If \code{"b"} then points are plotted and lines are used to connect points (DEFAULT).  If \code{"p"} then only points are used and if \code{"l"} then only lines are drawn.}
+
+\item{col}{A vector of color names or numbers or the name of a paletted (see details) that indicates what color of points and lines to use for the levels of the first factor in an IVR or the second factor in a two-way ANOVA.}
 
 \item{ci.fun}{A function used to put error bars on the one-way or two-way ANOVA graphs.  The default is to use the internal \code{iCIfp} function which will place t-distribution based confidence intervals on the graph.  The user can provide alternative functions that may plot other types of \sQuote{error bars}.  See examples in \code{\link[sciplot]{lineplot.CI}} function of \pkg{sciplot} package.}
 
@@ -99,6 +93,8 @@ fitPlot(object, ...)
 \item{which}{A character string listing the factor in the two-way ANOVA for which the means should be calculated and plotted.  This argument is used to indicate for which factor a main effects plot should be constructed.  If left missing then an interaction plot is constructed.}
 
 \item{change.order}{A logical that is used to change the order of the factors in the \code{lm} object.  This is used to change which factor is plotted on the x-axis and which is used to connect the means when constructing an interaction plot (ignored if \code{which} is used).}
+
+\item{legend}{Controls use and placement of the legend.  See details.}
 
 \item{cex.leg}{A single numeric values used to represent the character expansion value for the legend.  Ignored if \code{legend=FALSE}.}
 
