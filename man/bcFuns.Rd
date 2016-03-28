@@ -4,18 +4,18 @@
 \alias{bcFuns}
 \title{Creates a function for a specific back-calculation model.}
 \usage{
-bcFuns(BCM, msg = FALSE)
+bcFuns(BCM, verbose = FALSE)
 }
 \arguments{
 \item{BCM}{A single numeric between 1 and 22 or a string that indicates which back-calculation model to use (based on numbers and names in Vigliola and Meekan (2009)).}
 
-\item{msg}{A logical that indicates whether a message about the model and parameter definitions should be output.}
+\item{verbose}{A logical that indicates whether a message about the model and parameter definitions should be output.}
 }
 \value{
 A function that can be used to predict length at previous age (Li) given length-at-capture (Lc), hard-part radius-at-age i (Ri), and hard-part radius-at-capture (Rc).  In addition, some functions/models may require the previous age (agei) and the age-at-capture (agec), certain parameters related to the biological intercept (R0p & L0p), or certain parameters estimated from various regression models (a,b,c,A,B,C).  See source for more information.
 }
 \description{
-Creates a function for a specific back-calculation model based on definitions in Vigloila and Meekan (2009).
+Creates a function for a specific back-calculation model based on definitions in Vigliola and Meekan (2009).
 }
 \details{
 The following back-calculation models, based on definitions with abbreviations and model numbers from Vigloila and Meekan (2009), are supported.

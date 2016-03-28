@@ -20,5 +20,5 @@ test_that("bcFuns() output",{
   for (i in c(1:4,6:22)) expect_is(bcFuns(i),"function")
   for (i in tmp) expect_is(bcFuns(i),"function")
   ## Do all choices return a message with the name of the function in it
-  for (i in tmp) expect_message(bcFuns(i,msg=TRUE),i)
+  for (i in tmp) expect_message(bcFuns(i,verbose=TRUE),i)
 })
