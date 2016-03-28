@@ -285,7 +285,7 @@ iMarray <- function(mb,smry) {
 
 #' @rdname capHistSum
 #' @export
-plot.CapHist <- function(x,what=c("u","f"),pch=19,cex.pch=0.7,lwd=1,...) {
+plot.CapHist <- function(x,what=c("u","f"),pch=19,cex.pch=0.7,lwd=1,...) { # nocov start
   opar <- graphics::par()
   what <- match.arg(what,several.ok=TRUE)
   tmp <- x$sum[,c("n","u","f")]
@@ -315,4 +315,4 @@ plot.CapHist <- function(x,what=c("u","f"),pch=19,cex.pch=0.7,lwd=1,...) {
     graphics::points(su~i,data=tmp,pch=pch,cex=cex.pch)
   }
   graphics::par(opar)
-}
+} # nocov end

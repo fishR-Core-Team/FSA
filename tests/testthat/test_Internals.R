@@ -9,8 +9,8 @@ test_that("iHndlCols2Use() messages and results",{
   nms <- names(df1)
 
   #### Check warnings and errors
-  expect_error(FSA:::iHndlCols2use(df1,1,2))
-  expect_warning(FSA:::iHndlCols2use(df1,NULL,1:4))
+  expect_error(FSA:::iHndlCols2use(df1,1,2),"Cannot use both")
+  expect_warning(FSA:::iHndlCols2use(df1,NULL,1:4),"contains no columns")
     
   #### Check cols2use
   ## use one column by number
