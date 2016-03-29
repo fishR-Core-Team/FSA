@@ -80,7 +80,7 @@ plotBinResp.default <- function(x,y,
     xlab=paste(deparse(substitute(x))),ylab=paste(deparse(substitute(y))),
     plot.pts=TRUE,col.pt="black",transparency=NULL,
     plot.p=TRUE,breaks=25,p.col="blue",p.pch=3,p.cex=1.25,
-    yaxis1.ticks=seq(0,1,0.1),yaxis1.lbls=c(0,0.5,1),yaxis2.show=TRUE,...) {
+    yaxis1.ticks=seq(0,1,0.1),yaxis1.lbls=c(0,0.5,1),yaxis2.show=TRUE,...) { # nocov start
   # convert factor to 0s and 1s
   if (is.factor(y)) yn <- as.numeric(y)-1
     else yn <- y
@@ -117,13 +117,14 @@ plotBinResp.default <- function(x,y,
     }
     graphics::points(p.i~xs,pch=p.pch,col=p.col,cex=p.cex)
   }
-}
+} # nocov end
 
 #' @rdname plotBinResp
 #' @export
 plotBinResp.formula <- function(x,data=NULL,xlab=names(mf)[2],ylab=names(mf)[1],...) {
+  # nocov start
   mf <- stats::model.frame(x,data)
   x <- mf[,2]
   y <- mf[,1]
   plotBinResp.default(x,y,xlab=xlab,ylab=ylab,...)
-}
+} # nocov end
