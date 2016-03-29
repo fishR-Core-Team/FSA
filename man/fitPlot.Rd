@@ -153,8 +153,9 @@ This function is meant to allow newbie students the ability to visualize the mos
 data(Mirex)
 Mirex$year <- factor(Mirex$year)
 
-# Indicator variable regression with two factors
-lm1 <- lm(mirex~weight*year*species,data=Mirex)
+# Indicator variable regression with two factors (reduce # years for visual simplicity)
+Mirex2 <- filterD(Mirex,year \%in\% c(1977,1992))
+lm1 <- lm(mirex~weight*year*species,data=Mirex2)
 fitPlot(lm1)
 fitPlot(lm1,ylim=c(0,0.65),legend="topleft")
 

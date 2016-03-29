@@ -1,7 +1,7 @@
 # FSA 0.8.7 Ongoing
 * Removed `relax` from `Suggests`.  See `srStarts()` and `vbStarts()` notes below.  This addresses [#17](https://github.com/droglenc/FSA/issues/17).
 * Reoved `gdata` from `Imports`.  See `filterD()` and `Subset()` notes below.  This addresses [#5](https://github.com/droglenc/FSA/issues/5).
-* Added no coverage blocks to `ageKeyPlot()`, `capHistSum()`, `GompertzModels()`, `hist.formula()`, `histFromSum()`, `logisticModels()`, `lwCompPreds()`, `plot.agebias()`, `plot.CatchCurve()`, `plot.ChapmanRobson()`, `plot.Depletion()`, `print.compSlopes()`, `print.compIntercepts()`, `print.metaM()`, `psdPlot()`, `RichardsModels()`, `SchnuteModel()`, `srModels()`, `srStarts()`, `vbModels()`, and `vbStarts()`.
+* Added no coverage blocks to `ageKeyPlot()`, `capHistSum()`, `GompertzModels()`, `hist.formula()`, `histFromSum()`, `logisticModels()`, `lwCompPreds()`, `plot.agebias()`, `plot.CatchCurve()`, `plot.ChapmanRobson()`, `plot.Depletion()`, `plotBinResp()`, `print.compSlopes()`, `print.compIntercepts()`, `print.metaM()`, `psdPlot()`,`residPlot()`, `RichardsModels()`, `SchnuteModel()`, `srModels()`, `srStarts()`, `vbModels()`, and `vbStarts()`.
 * `ageKey()`: Removed.  Deprecated since 0.4.24.  Use `alkIndivAge()`.
 * `ageKeyPlot()`: Removed.  Deprecated since 0.4.24.  Use `alkPlot()`.
 * `bcFuns()`: Modified.  Changed `msg=` to `verbose=`.
@@ -9,6 +9,7 @@
 * `filterD()`: Modified.  Changed to use `droplevels()` from `base` rather than `drop.levels()` from `gdata`.  Added `except=`.
 * `fitPlot()`: Modified.  Changed the way colors, plotting characters, and line types were handled for most of the models.  Should make their use more flexible.  Started to add tests for error and warning messages.
 * `lenFreqExpand()`: Removed.  Deprecated since 0.4.32.  Use `expandLenFreq()`.
+* `residPlot()`: Modified.  Changed the way colors, plotting characters, and line types were handled for most of the models.  Should make their use more flexible.  Now matches coding in `fitPlot()`.  Fixed bug with main titling, but now asks user to decide if they want the model call or not.  Started to add tests for error and warning messages.
 * `srStarts()`: Modified.  Removed `dynamicPlot=TRUE` option.  Moved it to `FSAsim` package.  Modified plot when `plot=TRUE` by adding "STARTING VALUES" to title and moving starting values to within the plot.  Added `cex.main=` and `col.main=`.
 * `Subset()`: MOdified.  Changed to use `droplevels()` from `base` rather than `drop.levels()` from `gdata`.
 * `vbStarts()`: Modified.  Removed `dynamicPlot=TRUE` option.  Moved it to `FSAsim` package.  Modified plot when `plot=TRUE` by adding "STARTING VALUES" to title and moving starting values to within the plot.  Added and `col.main=`.  Made warnings and error tests more explicit.

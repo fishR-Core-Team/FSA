@@ -65,8 +65,9 @@
 #' data(Mirex)
 #' Mirex$year <- factor(Mirex$year)
 #'
-#' # Indicator variable regression with two factors
-#' lm1 <- lm(mirex~weight*year*species,data=Mirex)
+#' # Indicator variable regression with two factors (reduce # years for visual simplicity)
+#' Mirex2 <- filterD(Mirex,year %in% c(1977,1992))
+#' lm1 <- lm(mirex~weight*year*species,data=Mirex2)
 #' fitPlot(lm1)
 #' fitPlot(lm1,ylim=c(0,0.65),legend="topleft")
 #'
@@ -203,7 +204,6 @@ fitPlot.IVR <- function(object,...) {
   ## Decide if a one-way or two-way IVR
   if (object$EFactNum==1) iFitPlotIVR1(object,...)
     else iFitPlotIVR2(object,...)
-
 }
 
 iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
@@ -216,8 +216,8 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   # extract y and x quantitative variables
   y <- object$mf[,object$Rname]
   x <- object$mf[,object$Enames[1]]
-  # extract the factor variable(s) from the 2nd and, possibly, 3rd positions
-  f1 <- object$mf[,object$Enames[2]]
+  # extract the factor variable(s) from the 2nd position
+  f1 <- object$mf[,object$EFactPos[1]]
   # find number of levels of each factor
   num.f1 <- length(levels(f1))
   # Handle colors, pchs, ltys -- one for each level of f1 factor unless only one color is given
@@ -275,8 +275,8 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   y <- object$mf[,object$Rname]
   x <- object$mf[,object$Enames[1]]
   # extract the factor variable(s) from the 2nd and 3rd positions
-  f1 <- object$mf[,object$Enames[2]]
-  f2 <- object$mf[,object$Enames[3]]
+  f1 <- object$mf[,object$EFactPos[1]]
+  f2 <- object$mf[,object$EFactPos[2]]
   # find number of levels of each factor
   num.f1 <- length(levels(f1))
   num.f2 <- length(levels(f2))
@@ -322,7 +322,7 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
     lcol <- rep(col,each=num.f2)
     lpch <- rep(pch,times=num.f1)
     llty <- rep(lty,times=num.f1)
-    ifelse(num.f2>1,levs<-levels(f1:f2),levs<-levels(f1))
+    levs <- levels(f1:f2)
     if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,pch=lpch,lty=llty)
     else graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,lty=llty)
     box()
