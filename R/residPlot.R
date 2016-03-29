@@ -2,13 +2,15 @@
 #'
 #' @description Constructs a residual plot for \code{lm} or \code{nls} objects.  Different symbols for different groups can be added to the plot if an indicator variable regression is used.
 #'
-#' @details If the user chooses to add a legend without identifying coordinates for the upper-left corner of the legend (i.e., \code{legend=TRUE}) then the R console is suspended until the user places the legend by clicking on the produced graphic at the point where the upper-left corner of the legend should appear.  A legend will only be placed if the \code{mdl} is an indicator variable regression, even if \code{legend=TRUE}.
-#'
-#' Three types of residuals are allowed for most model types.  Raw residuals are simply the difference between the observed response variable and the predicted/fitted value.  Standardized residuals are internally studentized residuals returned by \code{\link{rstandard}} for linear models and are the raw residual divided by the standard deviation of the residuals for nonlinear models (as is done by \code{\link[nlstools]{nlsResiduals}} from \pkg{nlstools}).  Studentized residuals are the externally studentized residuals returned by \code{\link{rstudent}} for linear models and are not available for nonlinear models.
+#' @details Three types of residuals are allowed for most model types.  Raw residuals are simply the difference between the observed response variable and the predicted/fitted value.  Standardized residuals are internally studentized residuals returned by \code{\link{rstandard}} for linear models and are the raw residual divided by the standard deviation of the residuals for nonlinear models (as is done by \code{\link[nlstools]{nlsResiduals}} from \pkg{nlstools}).  Studentized residuals are the externally studentized residuals returned by \code{\link{rstudent}} for linear models and are not available for nonlinear models.
 #' 
 #' Externally Studentized residuals are not supported for \code{nls} or \code{nlme} objects.  The
 #' 
 #' If \code{outlier.test=TRUE} then significant outliers are detected with \code{\link[car]{outlierTest}} from the \pkg{car} package.  See the help for this function for more details.
+#'
+#' The user can include the model call as a title to the residual plot by using \code{main="MODEL"}.
+#' 
+#' If the user chooses to add a legend without identifying coordinates for the upper-left corner of the legend (i.e., \code{legend=TRUE}) then the R console is suspended until the user places the legend by clicking on the produced graphic at the point where the upper-left corner of the legend should appear.  A legend will only be placed if the \code{mdl} is an indicator variable regression, even if \code{legend=TRUE}.
 #'
 #' @note This function is meant to allow newbie students the ability to easily construct residual plots for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions.  The plots can be constructed by submitting a saved linear model to this function which allows students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
 #'
@@ -22,7 +24,7 @@
 #' @param alpha A numeric that indicates the alpha level to use for the outlier test (only used if \code{outlier.test=TRUE}).
 #' @param xlab A string for labelling the x-axis.
 #' @param ylab A string for labelling the y-axis.
-#' @param main A string for the main label to the plot.  Defaults to the model call.
+#' @param main A string for the main label to the plot.  See details.
 #' @param pch A numeric that indicates the plotting charachter to be used or a vector of numerics that indicates what plotting charachters codes to use for the levels of the second factor.  See \code{par}.
 #' @param col A vector of color names that indicates what color of points and lines to use for the levels of the first factor.  See \code{par}.
 #' @param lty.ref A numeric that indicates the line type to use for the reference line at residual=0.  See \code{par}.
@@ -48,8 +50,9 @@
 #' data(Mirex)
 #' Mirex$year <- factor(Mirex$year)
 #'
-#' ## Indicator variable regression with two factors
-#' lm1 <- lm(mirex~weight*year*species,data=Mirex)
+#' # Indicator variable regression with two factors (reduce # years for visual simplicity)
+#' Mirex2 <- filterD(Mirex,year %in% c(1977,1992))
+#' lm1 <- lm(mirex~weight*year*species,data=Mirex2)
 #' # defaults
 #' residPlot(lm1)
 #' # remove the histogram
@@ -66,6 +69,8 @@
 #' residPlot(lm1,legend=FALSE,inclHist=FALSE)
 #' # modify the reference line
 #' residPlot(lm1,col.ref="blue",lwd.ref=5,inclHist=FALSE)
+#' # include model in the title
+#' residPlot(lm1,main="MODEL")
 #' # use Studentized residuals
 #' residPlot(lm1,resid.type="studentized",inclHist=FALSE)
 #' # use Standardized residuals
@@ -73,12 +78,17 @@
 #'
 #' ## Indicator variable regression with same two factors but in different order
 #' ##   (notice use of colors and symbols)
-#' lm1a <- lm(mirex~weight*species*year,data=Mirex)
+#' lm1a <- lm(mirex~weight*species*year,data=Mirex2)
 #' residPlot(lm1a)
 #'
 #' ## Indicator variable regression with only one factor
 #' lm2 <- lm(mirex~weight*year,data=Mirex)
 #' residPlot(lm2)
+#' residPlot(lm2,inclHist=FALSE)
+#' residPlot(lm2,inclHist=FALSE,pch=19)
+#' residPlot(lm2,inclHist=FALSE,pch=19,col="black")
+#' residPlot(lm2,inclHist=FALSE,legend=FALSE)
+#' residPlot(lm2,inclHist=FALSE,pch=2,col="red",legend=FALSE)
 #'
 #' ## Indicator variable regression (assuming same slope)
 #' lm3 <- lm(mirex~weight+year,data=Mirex)
@@ -125,11 +135,11 @@ residPlot <- function (object,...) {
 
 #' @rdname residPlot
 #' @export
-residPlot.lm <- function(object,...) {   
+residPlot.lm <- function(object,...) { # nocov start
   object <- iTypeoflm(object)
   if (object$type=="MLR") stop("Multiple linear regression objects are not supported by residPlot.",call.=FALSE)
   residPlot(object,...)                          
-}                         
+}  # nocov end
 
 #' @rdname residPlot
 #' @export
@@ -138,9 +148,9 @@ residPlot.SLR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL
                           resid.type=c("raw","standardized","studentized"),
                           outlier.test=TRUE,alpha=0.05,
                           loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
-                          inclHist=TRUE,...) {
+                          inclHist=TRUE,...) { # nocov start
   opar <- graphics::par("mfrow")
-  iGetMainTitle(object,main)
+  main <- iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
   tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
   r <- tmp$r
@@ -154,85 +164,138 @@ residPlot.SLR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL
   graphics::points(r~fv,pch=pch,col=col)
   if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha) 
   if (inclHist) iHistResids(r,ylab)
-}
+} # nocov end
 
 #' @rdname residPlot
 #' @export
-residPlot.POLY <- function(object,...) {
+residPlot.POLY <- function(object,...) { # nocov start
   residPlot.SLR(object,...)
-}
+} # nocov end
 
 #' @rdname residPlot
 #' @export
-residPlot.IVR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
-                          pch=c(16,21,15,22,17,24,c(3:14)),col="rich",lty.ref=3,lwd.ref=1,col.ref="black",
-                          resid.type=c("raw","standardized","studentized"),
-                          outlier.test=TRUE,alpha=0.05,
-                          loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
-                          legend="topright",inclHist=TRUE,...) {
-  opar <- graphics::par("mfrow")
-  iGetMainTitle(object,main)
+residPlot.IVR <- function(object,legend="topright",...) {
+  ## Do some checks
+  if (object$ENumNum>1) stop("'residPlot()' cannot handle >1 covariate in an IVR.",call.=FALSE)
+  if (object$EFactNum>2) stop("'resodPlot()' cannot handle >2 factors in an IVR.",call.=FALSE)
+  ## Decide if a one-way or two-way IVR
+  if (object$EFactNum==1) iResidPlotIVR1(object,legend,...)
+  else iResidPlotIVR2(object,legend,...)
+}
+
+
+iResidPlotIVR1 <- function(object,legend,xlab="Fitted Values",ylab="Residuals",main=NULL,
+                           pch=c(16,21,15,22,17,24,c(3:14)),col="rich",
+                           lty.ref=3,lwd.ref=1,col.ref="black",
+                           resid.type=c("raw","standardized","studentized"),
+                           outlier.test=TRUE,alpha=0.05,
+                           loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
+                           inclHist=TRUE,...) { # nocov start
+  main <- iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
   tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
   r <- tmp$r
   ylab <- tmp$ylab
-  if (dim(object$mf)[2]>4) stop("Function does not handle models with more than two covariates or more than three factors.",call.=FALSE)
-    else {
-      if (inclHist) {
-        graphics::par(mfrow=c(1,2))
-        on.exit(graphics::par(mfrow=opar))
-      }
-      leg <- iLegendHelp(legend)   # will there be a legend
-      if (!leg$do.legend) {
-        iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
-                           loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
-        graphics::points(r~fv,pch=pch,col="black")
-        if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
-      } else {      
-        f1 <- object$mf[,3]
-        ifelse(dim(object$mf)[2]==4,f2 <- object$mf[,4],f2 <- as.factor(rep(1,length(r))))
-        num.f1 <- length(levels(f1))
-        num.f2 <- length(levels(f2))
-       ### Handle colors -- one for each level of f1 factor unless only one color is given
-        if (length(col)<num.f1) {
-          if (length(col)>1) {
-            warning(paste("Fewer colors sent then levels of ",names(object$mdl)[3],".  Changed to use rich colors.",sep=""),call.=FALSE)
-            col <- chooseColors("rich",num.f1)
-          } else if (col %in% paletteChoices()) col <- chooseColors(col,num.f1) # choose colors from given palette type
-              else col <- rep(col,num.f1)                                       # If one color given, repeat it so same color used for all levels    
-        }
-       ### Handle pchs -- one for each level of f2 factor unless only one pch is given
-        if (length(pch)>1 & num.f2 <= length(pch)) pch <- pch[1:num.f2]
-          else if (length(pch)==1 & num.f2>1) pch <- rep(pch,num.f2)
-            else if (length(pch)<num.f2) {
-              warning(paste("Fewer point types sent then levels of",names(object$mdl)[4],".  Changed to default point types."),call.=FALSE)
-              pch <- c(16,21,15,22,17,24,c(3:14))[1:num.f2]
-            }
-       ### Plot the points
-       # Makes room for legend
-       ifelse(leg$do.legend,xlim <- c(min(fv),max(fv)+0.3*(max(fv)-min(fv))), xlim <- range(fv)) 
-       # Creates plot schematic -- no points or lines
-       iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
-                          loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
-       for (i in 1:num.f1) {
-         for (j in 1:num.f2) {
-           # Plots points w/ different colors & points
-           fv.obs <- fv[unclass(f1)==i & unclass(f2)==j]
-           r.obs <- r[unclass(f1)==i & unclass(f2)==j]
-           graphics::points(fv.obs,r.obs,col=col[i],pch=pch[j])
-         }   # end for j
-       }     # end for i
-       ## add outlier test if asked for
-       if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
-       ### Prepare and place the legend
-       lcol <- rep(col,each=num.f2)
-       lpch <- rep(pch,times=num.f1)
-       ifelse(num.f2>1,levs <- levels(f1:f2),levs <- levels(f1))
-       if (leg$do.legend) graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,pch=lpch)    
-     } # end for no legend 
-     if (inclHist) iHistResids(r,ylab)
-   }
-}
+  opar <- graphics::par("mfrow")
+  if (inclHist) {
+    graphics::par(mfrow=c(1,2))
+    on.exit(graphics::par(mfrow=opar))
+  }
+  leg <- iLegendHelp(legend)   # will there be a legend
+  if (!leg$do.legend) {
+    iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
+                       loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
+    graphics::points(r~fv,pch=pch[1],col=iFitPlotClrs2(1,col,"rich"))
+    if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
+  } else {      
+    # extract the factor variable from the 2nd position
+    f1 <- object$mf[,object$EFactPos[1]]
+    # Handle colors, pchs, ltys -- one for each level of f1 factor unless only one color is given
+    col <- iFitPlotClrs2(f1,col,"rich")
+    pch <- iFitPlotPchs2(f1,pch)
+    ### Plot the points
+    # Makes room for legend
+    ifelse(leg$do.legend,xlim <- c(min(fv),max(fv)+0.3*(max(fv)-min(fv))), xlim <- range(fv)) 
+    # Creates plot schematic -- no points or lines
+    iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
+                       loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
+    # Plots points w/ different colors & points
+    for (i in 1:length(levels(f1))) {
+      fv.obs <- fv[unclass(f1)==i]
+      r.obs <- r[unclass(f1)==i]
+      graphics::points(fv.obs,r.obs,col=col[i],pch=pch[i])
+    }     # end for i
+    ## add outlier test if asked for
+    if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
+    ### Prepare and place the legend
+    if (leg$do.legend) {
+      graphics::legend(x=leg$x,y=leg$y,legend=levels(f1),col=col,pch=pch)
+      box()
+    }
+  }
+  if (inclHist) iHistResids(r,ylab)
+} # nocov end
+
+
+iResidPlotIVR2 <- function(object,legend,xlab="Fitted Values",ylab="Residuals",main=NULL,
+                           pch=c(16,21,15,22,17,24,c(3:14)),col="rich",
+                           lty.ref=3,lwd.ref=1,col.ref="black",
+                           resid.type=c("raw","standardized","studentized"),
+                           outlier.test=TRUE,alpha=0.05,
+                           loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
+                           inclHist=TRUE,...) { # nocov start
+  main <- iGetMainTitle(object,main)
+  fv <- object$mdl$fitted.values
+  tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
+  r <- tmp$r
+  ylab <- tmp$ylab
+  opar <- graphics::par("mfrow")
+  if (inclHist) {
+    graphics::par(mfrow=c(1,2))
+    on.exit(graphics::par(mfrow=opar))
+  }
+  leg <- iLegendHelp(legend)   # will there be a legend
+  if (!leg$do.legend) {
+    iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
+                       loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
+    graphics::points(r~fv,pch=pch[1],col="black")
+    if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
+  } else {
+    f1 <- object$mf[,object$EFactPos[1]]
+    f2 <- object$mf[,object$EFactPos[2]]
+    # find number of levels of each factor
+    num.f1 <- length(levels(f1))
+    num.f2 <- length(levels(f2))
+    # Handle colors, pchs, ltys -- one for each level of f1 factor unless only one color is given
+    col <- iFitPlotClrs2(f1,col,"rich")
+    pch <- iFitPlotPchs2(f2,pch)
+    ### Plot the points
+    # Makes room for legend
+    ifelse(leg$do.legend,xlim <- c(min(fv),max(fv)+0.3*(max(fv)-min(fv))), xlim <- range(fv)) 
+    # Creates plot schematic -- no points or lines
+    iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
+                       loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
+    for (i in 1:length(levels(f1))) {
+      for (j in 1:length(levels(f2))) {
+        # Plots points w/ different colors & points
+        fv.obs <- fv[unclass(f1)==i & unclass(f2)==j]
+        r.obs <- r[unclass(f1)==i & unclass(f2)==j]
+        graphics::points(fv.obs,r.obs,col=col[i],pch=pch[j])
+      }   # end for j
+    }     # end for i
+    ## add outlier test if asked for
+    if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
+    ### Prepare and place the legend
+    if (leg$do.legend) {
+      lcol <- rep(col,each=num.f2)
+      lpch <- rep(pch,times=num.f1)
+      levs <- levels(f1:f2)
+      graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,pch=lpch)
+      box()
+    }
+  }
+  if (inclHist) iHistResids(r,ylab)
+} # nocov end
 
 #' @rdname residPlot
 #' @export
@@ -241,15 +304,15 @@ residPlot.ONEWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
                              resid.type=c("raw","standardized","studentized"),
                              bp=TRUE,outlier.test=TRUE,alpha=0.05,
                              loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
-                             inclHist=TRUE,...) {
-  opar <- graphics::par("mfrow")
-  iGetMainTitle(object,main)
+                             inclHist=TRUE,...) { # nocov start
+  main <- iGetMainTitle(object,main)
   if (bp & xlab=="Fitted Values") xlab <- "Treatment Group"
   fv <- object$mdl$fitted.values
   tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
   r <- tmp$r
   ylab <- tmp$ylab
   gf <- object$mf[,2]
+  opar <- graphics::par("mfrow")
   if (inclHist) {
     graphics::par(mfrow=c(1,2))
     on.exit(graphics::par(mfrow=opar))
@@ -264,7 +327,7 @@ residPlot.ONEWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
       if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
   } 
   if (inclHist) iHistResids(r,ylab)
-}
+} # nocov end
 
 #' @rdname residPlot
 #' @export
@@ -273,9 +336,8 @@ residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
                              resid.type=c("raw","standardized","studentized"),
                              bp=TRUE,outlier.test=TRUE,alpha=0.05,
                              loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
-                             inclHist=TRUE,...) {
-  opar <- graphics::par("mfrow")
-  iGetMainTitle(object,main)
+                             inclHist=TRUE,...) { # nocov start
+  main <- iGetMainTitle(object,main)
   if (bp & xlab=="Fitted Values") xlab <- "Treatment Group"
   fv <- object$mdl$fitted.values
   tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
@@ -284,6 +346,7 @@ residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
   gf1 <- object$mf[,2]
   gf2 <- object$mf[,3]
   gf <- interaction(gf1,gf2)
+  opar <- graphics::par("mfrow")
   if (inclHist) {
     graphics::par(mfrow=c(1,2))
     on.exit(graphics::par(mfrow=opar))
@@ -298,7 +361,7 @@ residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
       if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
   } 
   if (inclHist) iHistResids(r,ylab) 
-}
+} # nocov end
 
 #' @rdname residPlot
 #' @export
@@ -306,12 +369,12 @@ residPlot.nls<-function(object,xlab="Fitted Values",ylab="Residuals",main="",
                         pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                         resid.type=c("raw","standardized","studentized"),
                         loess=TRUE,lty.loess=2,lwd.loess=1,
-                        col.loess="black",trans.loess=4,inclHist=TRUE,...) {
-  opar <- graphics::par("mfrow")
+                        col.loess="black",trans.loess=4,inclHist=TRUE,...) { # nocov start
   fv <- stats::fitted(object)
   tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
   r <- tmp$r
   ylab <- tmp$ylab
+  opar <- graphics::par("mfrow")
   if (inclHist) {
     graphics::par(mfrow=c(1,2))
     on.exit(graphics::par(mfrow=opar))
@@ -320,7 +383,7 @@ residPlot.nls<-function(object,xlab="Fitted Values",ylab="Residuals",main="",
                      loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
   graphics::points(r~fv,pch=pch,col=col) 
   if (inclHist) iHistResids(r,ylab)
-}
+} # nocov end
 
 
 
@@ -330,12 +393,12 @@ residPlot.nlme<-function(object,xlab="Fitted Values",ylab="Residuals",main="",
                          pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                          resid.type=c("raw","standardized","studentized"),
                          loess=TRUE,lty.loess=2,lwd.loess=1,
-                         col.loess="black",trans.loess=4,inclHist=TRUE,...) {
-  opar <- graphics::par("mfrow")
+                         col.loess="black",trans.loess=4,inclHist=TRUE,...) { # nocov start
   fv <- stats::fitted(object)
   tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
   r <- tmp$r
   ylab <- tmp$ylab
+  opar <- graphics::par("mfrow")
   if (inclHist) {
     graphics::par(mfrow=c(1,2))
     on.exit(graphics::par(mfrow=opar))
@@ -344,7 +407,7 @@ residPlot.nlme<-function(object,xlab="Fitted Values",ylab="Residuals",main="",
                      loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
   graphics::points(r~fv,pch=pch,col=col) 
   if (inclHist) iHistResids(r,ylab)
-}
+} # nocov end
 
 
 
@@ -390,14 +453,16 @@ iAddOutlierTestResults <- function(object,fv,r,alpha) {
 }  # end iAddOutlierTestResults internal function
 
 iGetMainTitle <- function(object,main) {
-  # if no main title was sent to function
-  if (is.null(main)) {
-    # get formula parts
-    frm.chr <- as.character(stats::formula(object$mdl))
-    # put together as a main title
-    main <- paste(frm.chr[2],frm.chr[1],frm.chr[3])
+  if (!is.null(main)) {
+    if (main=="MODEL") {
+      ## user asking to include the model
+      # get formula parts
+      frm.chr <- as.character(stats::formula(object$mdl))
+      # put together as a main title
+      main <- paste(frm.chr[2],frm.chr[1],frm.chr[3])
+    }
   }
-  # return the title (NULL if NULL was sent)
+  # return the title (will be original if not main="model")
   main
 }  # end iGetMainTitle internal function
 
