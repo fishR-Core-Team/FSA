@@ -8,6 +8,7 @@
 * `capHistSum()`: Added tests.
 * `filterD()`: Modified.  Changed to use `droplevels()` from `base` rather than `drop.levels()` from `gdata`.  Added `except=`.
 * `fitPlot()`: Modified.  Changed the way colors, plotting characters, and line types were handled for most of the models.  Should make their use more flexible.  Started to add tests for error and warning messages.
+* `iGetDecimals()`: Modified.  Fixed a bug that occured when an integer was provided.
 * `lenFreqExpand()`: Removed.  Deprecated since 0.4.32.  Use `expandLenFreq()`.
 * `residPlot()`: Modified.  Changed the way colors, plotting characters, and line types were handled for most of the models.  Should make their use more flexible.  Now matches coding in `fitPlot()`.  Fixed bug with main titling, but now asks user to decide if they want the model call or not.  Started to add tests for error and warning messages.
 * `srStarts()`: Modified.  Removed `dynamicPlot=TRUE` option.  Moved it to `FSAsim` package.  Modified plot when `plot=TRUE` by adding "STARTING VALUES" to title and moving starting values to within the plot.  Added `cex.main=` and `col.main=`.

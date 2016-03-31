@@ -305,7 +305,10 @@ iTypeoflm <- function(mdl) {
 iGetDecimals <- function(x) {
   if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
   if (length(x)>1) stop("'x' must be a single value.",call.=FALSE)
-  tmp <- format.info(x,digits=10)
-  stopifnot(tmp[3]==0)
-  tmp[2]
+  if (is.integer(x)) 0
+  else {
+    tmp <- format.info(x,digits=10)
+    stopifnot(tmp[3]==0)
+    tmp[2]
+  }
 }

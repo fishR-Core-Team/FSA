@@ -220,4 +220,9 @@ test_that("iGetDecimals() messages and results",{
   expect_equal(FSA:::iGetDecimals(10.1),1)
   expect_equal(FSA:::iGetDecimals(100.1),1)
   expect_equal(FSA:::iGetDecimals(pi),9)
+  ## Handle integers
+  expect_equal(FSA:::iGetDecimals(0L),0)
+  expect_equal(FSA:::iGetDecimals(1L),0)
+  expect_equal(FSA:::iGetDecimals(10L),0)
+  expect_equal(FSA:::iGetDecimals(175L),0)
 })
