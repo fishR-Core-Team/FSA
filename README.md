@@ -1,5 +1,7 @@
 FSA
 ===
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+
 [![CRAN Version](http://www.r-pkg.org/badges/version/FSA)](http://www.r-pkg.org/pkg/FSA)
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/droglenc/FSA?branch=master&svg=true)](https://ci.appveyor.com/project/droglenc/FSA)
