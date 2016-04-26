@@ -7,7 +7,7 @@
 * `bcFuns()`: Modified.  Changed `msg=` to `verbose=`.
 * `capHistSum()`: Added tests.
 * `filterD()`: Modified.  Changed to use `droplevels()` from `base` rather than `drop.levels()` from `gdata`.  Added `except=`.
-* `fitPlot()`: Modified.  Changed the way colors, plotting characters, and line types were handled for most of the models.  Should make their use more flexible.  Started to add tests for error and warning messages.
+* `fitPlot()`: Modified.  Changed the way colors, plotting characters, and line types were handled for most of the models.  Should make their use more flexible.  Fixed errors that occurred in IVR models when the factor variable preceded the covariate in the model (fixes [#18](https://github.com/droglenc/FSA/issues/18)).  Started to add tests for error and warning messages.
 * `GompertzModels()`: Removed.  Replaced with `showGrowthFuns()`.
 * `iGetDecimals()`: Modified.  Fixed a bug that occured when an integer was provided.
 * `lenFreqExpand()`: Removed.  Deprecated since 0.4.32.  Use `expandLenFreq()`.

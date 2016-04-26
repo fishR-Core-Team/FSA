@@ -71,7 +71,15 @@
 #' lm1 <- lm(mirex~weight*fyear*species,data=Mirex2)
 #' fitPlot(lm1)
 #' fitPlot(lm1,ylim=c(0,0.8),legend="topleft")
-#'
+#' 
+#' ## Indicator variable regression with two factors (but different orders)
+#' lm1r <- lm(mirex~fyear*weight*species,data=Mirex2)
+#' fitPlot(lm1r)
+#' lm1r2 <- lm(mirex~fyear*species*weight,data=Mirex2)
+#' fitPlot(lm1r2)
+#' lm1r3 <- lm(mirex~species*fyear*weight,data=Mirex2)
+#' fitPlot(lm1r3)
+#' 
 #' ## Indicator variable regression with one factor (also showing confidence bands)
 #' lm2 <- lm(mirex~weight*fyear,data=Mirex2)
 #' fitPlot(lm2,legend="topleft")
@@ -211,9 +219,9 @@ fitPlot.IVR <- function(object,...) {
 }
 
 iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
-                         col="black",lty=c(1:6,1:6),lwd=3,
+                         col="black",lty=rep(1:6,6),lwd=3,
                          interval=c("none","confidence","prediction","both"),conf.level=0.95,
-                         xlab=object$Enames[1],ylab=object$Rname,main="",
+                         xlab=names(object$mf[object$ENumPos]),ylab=object$Rname,main="",
                          legend="topright",...) {
   ## Some checks
   interval <- match.arg(interval)
@@ -270,15 +278,15 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
 }
 
 iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
-                         col="rich",lty=c(1:6,1:6),lwd=3,
+                         col="rich",lty=rep(1:6,6),lwd=3,
                          interval=c("none","confidence","prediction","both"),conf.level=0.95,
-                         xlab=object$Enames[1],ylab=object$Rname,main="",
+                         xlab=names(object$mf[object$ENumPos]),ylab=object$Rname,main="",
                          legend="topright",...) {
   interval <- match.arg(interval)
   # extract y and x quantitative variables
   y <- object$mf[,object$Rname]
-  x <- object$mf[,object$Enames[1]]
-  # extract the factor variable(s) from the 2nd and 3rd positions
+  x <- object$mf[,object$ENumPos[1]]
+  # extract the factor variable(s)
   f1 <- object$mf[,object$EFactPos[1]]
   f2 <- object$mf[,object$EFactPos[2]]
   # find number of levels of each factor
@@ -303,7 +311,7 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
       newdf <- data.frame(xvals,
                           as.factor(rep(levels(f1)[i],length(xvals))),
                           as.factor(rep(levels(f2)[j],length(xvals))))
-      names(newdf) <- object$Enames      
+      names(newdf) <- names(object$mf)[c(object$ENumPos,object$EFactPos)]
       pred <- stats::predict(object$mdl,newdf,interval="confidence")
       # Plot just the line if no intervals called for
       graphics::lines(xvals,pred[,"fit"],col=col[i],lwd=lwd,lty=lty[j])
