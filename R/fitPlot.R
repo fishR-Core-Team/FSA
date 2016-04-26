@@ -470,7 +470,8 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
     if (is.null(ylim)) ylim <- range(c(y,fits$y))
     if (jittered) x <- jitter(x)    
     # nocov start
-    if (plot.pts) graphics::plot(x,y,pch=pch[1],col=col.pt[1],ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
+    if (plot.pts) graphics::plot(x,y,pch=pch[1],col=col.pt[1],ylim=ylim,
+                                 xlab=xlab,ylab=ylab,main=main,...)
       else graphics::plot(x,y,type="n",ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
     graphics::lines(fits$x,fits$y,lwd=lwd[1],lty=lty[1],col=col.mdl[1])
     # nocov end
@@ -483,7 +484,8 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
     names(fitsg1) <- names(fitsg2) <- c("x","y")
     # find limit for y-axis
     if (is.null(ylim)) ylim <- range(c(y,fitsg1$y,fitsg2$y))
-    if (jittered) x <- jitter(x) # nocov start
+    if (jittered) x <- jitter(x)
+    # nocov start
     graphics::plot(x,y,type="n",ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
     if (plot.pts) {
       graphics::points(x[g1==1],y[g1==1],pch=pch[1],col=col.pt[1])
