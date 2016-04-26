@@ -2,13 +2,10 @@
 % Please edit documentation in R/growthModels.R
 \name{Schnute}
 \alias{Schnute}
-\alias{SchnuteModels}
 \title{The four-parameter growth function from Schnute (1981).}
 \usage{
 Schnute(t, case = 1, t1 = NULL, t3 = NULL, L1 = NULL, L3 = NULL,
   a = NULL, b = NULL)
-
-SchnuteModels(cex = 1.25, ...)
 }
 \arguments{
 \item{t}{A numeric vector of ages over which to model growth.}
@@ -26,10 +23,6 @@ SchnuteModels(cex = 1.25, ...)
 \item{a}{A dimensionless parameter that is related to the time/age at the inflection point.}
 
 \item{b}{A dimensionless parameter that is related to size/length at the inflection point.}
-
-\item{cex}{A single numeric expansion value for use with \code{SchnuteModels}.}
-
-\item{\dots}{Not implemented.}
 }
 \value{
 \code{Schnute} returns a predicted size given the case of the function and the provided parameter values.
@@ -44,8 +37,10 @@ The four-parameter growth function from Schnute (1981).  Use \code{SchnuteModels
 }
 \examples{
 ## See the formulae
-\dontrun{windows(5,5)}
-SchnuteModels()
+showGrowthFun("Schnute",1,plot=TRUE)
+showGrowthFun("Schnute",2,plot=TRUE)
+showGrowthFun("Schnute",3,plot=TRUE)
+showGrowthFun("Schnute",4,plot=TRUE)
 
 ## Simple examples
 ages <- 1:15

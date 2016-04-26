@@ -33,7 +33,7 @@
 #' 
 #' @section IFAR Chapter: 12-Individual Growth.
 #' 
-#' @seealso See \code{\link{vbModels}} for a list of models and parameterizations used in \pkg{FSA} and \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations.
+#' @seealso See \code{\link{showGrowthFun}} to display the equations for the parameterizations used in \pkg{FSA} and \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations.
 #' 
 #' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 
@@ -76,7 +76,7 @@
 #' 
 #' @export vbStarts
 vbStarts <- function(formula,data=NULL,
-                     type=c("Typical","typical","BevertonHolt",
+                     type=c("Typical","typical","Traditional","traditional","BevertonHolt",
                             "Original","original","vonBertalanffy",
                             "GQ","GallucciQuinn","Mooij","Weisberg",
                             "Schnute","Francis","Somers","Somers2"),
@@ -98,7 +98,7 @@ vbStarts <- function(formula,data=NULL,
   age <- tmp$mf[,tmp$Enames[1]]
   ## get starting valeus depending on type
   switch(type,
-    Typical=,typical=,BevertonHolt=    {
+    Typical=,typical=,Traditional=,traditional=,BevertonHolt=    {
       type <- "Typical"
       sv <- iVBStarts.typical(age,len,type,meth0) },
     Original=,original=,vonBertalanffy={

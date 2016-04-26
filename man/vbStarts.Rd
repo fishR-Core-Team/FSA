@@ -4,8 +4,8 @@
 \alias{vbStarts}
 \title{Find reasonable starting values for a von Bertalanffy growth function.}
 \usage{
-vbStarts(formula, data = NULL, type = c("Typical", "typical",
-  "BevertonHolt", "Original", "original", "vonBertalanffy", "GQ",
+vbStarts(formula, data = NULL, type = c("Typical", "typical", "Traditional",
+  "traditional", "BevertonHolt", "Original", "original", "vonBertalanffy", "GQ",
   "GallucciQuinn", "Mooij", "Weisberg", "Schnute", "Francis", "Somers",
   "Somers2"), ages2use = NULL, methEV = c("means", "poly"),
   meth0 = c("yngAge", "poly"), plot = FALSE, col.mdl = "gray70",
@@ -106,7 +106,7 @@ Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analy
 See references in \code{\link{vbFuns}}.
 }
 \seealso{
-See \code{\link{vbModels}} for a list of models and parameterizations used in \pkg{FSA} and \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations.
+See \code{\link{showGrowthFun}} to display the equations for the parameterizations used in \pkg{FSA} and \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations.
 }
 \keyword{manip}
 

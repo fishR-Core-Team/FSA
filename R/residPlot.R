@@ -48,11 +48,13 @@
 #'
 #' @examples
 #' data(Mirex)
-#' Mirex$year <- factor(Mirex$year)
-#'
-#' # Indicator variable regression with two factors (reduce # years for visual simplicity)
-#' Mirex2 <- filterD(Mirex,year %in% c(1977,1992))
-#' lm1 <- lm(mirex~weight*year*species,data=Mirex2)
+#' # create year as a factor variable
+#' Mirex$fyear <- factor(Mirex$year)
+#' # reduce number of years for visual simplicity
+#' Mirex2 <- filterD(Mirex,fyear %in% c(1977,1992))
+#' 
+#' ## Indicator variable regression with two factors
+#' lm1 <- lm(mirex~weight*fyear*species,data=Mirex2)
 #' # defaults
 #' residPlot(lm1)
 #' # remove the histogram
@@ -78,11 +80,11 @@
 #'
 #' ## Indicator variable regression with same two factors but in different order
 #' ##   (notice use of colors and symbols)
-#' lm1a <- lm(mirex~weight*species*year,data=Mirex2)
+#' lm1a <- lm(mirex~weight*species*fyear,data=Mirex2)
 #' residPlot(lm1a)
 #'
 #' ## Indicator variable regression with only one factor
-#' lm2 <- lm(mirex~weight*year,data=Mirex)
+#' lm2 <- lm(mirex~weight*fyear,data=Mirex)
 #' residPlot(lm2)
 #' residPlot(lm2,inclHist=FALSE)
 #' residPlot(lm2,inclHist=FALSE,pch=19)
@@ -91,7 +93,7 @@
 #' residPlot(lm2,inclHist=FALSE,pch=2,col="red",legend=FALSE)
 #'
 #' ## Indicator variable regression (assuming same slope)
-#' lm3 <- lm(mirex~weight+year,data=Mirex)
+#' lm3 <- lm(mirex~weight+fyear,data=Mirex)
 #' residPlot(lm3)
 #'
 #' ## Simple linear regression
@@ -99,14 +101,14 @@
 #' residPlot(lm4)
 #'
 #' ## One-way ANOVA
-#' lm5 <- lm(mirex~year,data=Mirex)
+#' lm5 <- lm(mirex~fyear,data=Mirex)
 #' # default (uses boxplots)
 #' residPlot(lm5)
 #' # use points rather than boxplot
 #' residPlot(lm5,bp=FALSE)
 #'
 #' ## Two-Way ANOVA
-#' lm6 <- lm(mirex~species*year,data=Mirex)
+#' lm6 <- lm(mirex~species*fyear,data=Mirex)
 #' # default (uses boxplots)
 #' residPlot(lm6)
 #' # No boxplots
@@ -118,7 +120,7 @@
 #' lma <- lm(y~x)
 #' residPlot(lma)
 #' # with studentized residuals
-#' residPlot(lm1,resid.type="studentized")
+#' residPlot(lma,resid.type="studentized")
 #' 
 #' ## Nonlinear regression
 #' # from first example in nls()

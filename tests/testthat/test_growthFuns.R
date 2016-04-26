@@ -1,14 +1,30 @@
 context("Tests of Growth Functions")
 
-test_that("xxxFuns() & Schnute() messages",{
+## List all parametrizations for the VB
+vbs <- c("Typical","typical","Traditional","traditional","BevertonHolt",
+         "Original","original","vonBertalanffy","GallucciQuinn","GQ",
+         "Mooij","Weisberg","Schnute","Francis","Laslett","Polacheck","Fabens","Fabens2",
+         "Somers","Somers2","Wang","Wang2","Wang3")
+gomps <- c("Original","Ricker1","Ricker2","Ricker3","QuinnDeriso1","QuinnDeriso2","QuinnDeriso3",
+           "QD1","QD2","QD3","Troynikov1","Troynikov2")
+logistics <- c("CJ1","CJ2","Karkach","Haddon","CampanaJones1","CampanaJones2")
+
+test_that("showGrowthFun() & Schnute() messages",{
   ## wrong models
-  expect_error(vbFuns("Derek"),"should be one of")
-  expect_error(GompertzFuns("Derek"),"should be one of")
-  expect_error(logisticFuns("Derek"),"should be one of")
-  expect_error(Schnute(case=0),"case")
-  expect_error(Schnute(case=5),"case")
-  expect_error(RichardsFuns(param=0),"param")
-  expect_error(RichardsFuns(param=7),"param")
+  expect_error(showGrowthFun("Derek",type="Original"),"should be one of")
+  expect_error(showGrowthFun("vonBertalanffy",type="Derek"),"should be one of")
+  expect_error(showGrowthFun("Gompertz",type="Derek"),"should be one of")
+  expect_error(showGrowthFun("Logistic",type="Derek"),"should be one of")
+  expect_error(showGrowthFun("vonBertalanffy",type=1),"must be a character string")
+  expect_error(showGrowthFun("Gompertz",type=1),"must be a character string")
+  expect_error(showGrowthFun("Logistic",type=1),"must be a character string")
+  expect_error(showGrowthFun("Richards",type="Derek"),"must be numeric when")
+  expect_error(showGrowthFun("Schnute",type="Derek"),"must be numeric when")
+  expect_error(showGrowthFun("Richards",type=0),"must be from")
+  expect_error(showGrowthFun("Richards",type=7),"must be from")
+  expect_error(showGrowthFun("Schnute",type=0),"must be from")
+  expect_error(showGrowthFun("Schnute",type=5),"must be from")
+
   ## bad choices for parameters in Schnute()
   # L1>L3
   expect_error(Schnute(3,t1=1,t3=15,L1=300,L3=30,a=0.3,b=0.5),"greater than")
@@ -23,34 +39,47 @@ test_that("xxxFuns() & Schnute() messages",{
   expect_error(Schnute(c(3,3,3),L1=30,L3=300,a=0.3,b=0.5),"cannot equal")
 })
 
-test_that("xxxModels() messages",{
-  ## wrong types
-  expect_error(vbModels(family="Derek"),"should be one of")
-  expect_error(GompertzModels(family="Derek"),"should be one of")
-  expect_error(logisticModels(family="Derek"),"should be one of")
-})  
+test_that("showGrowthFuns() results",{
+  for (i in vbs) {
+    expect_is(showGrowthFun("vonBertalanffy",type=i),"expression")
+    expect_is(showGrowthFun("vonBertalanffy",type=i,plot=TRUE),"expression")
+  }
+  for (i in gomps) {
+    expect_is(showGrowthFun("Gompertz",type=i),"expression")
+    expect_is(showGrowthFun("Gompertz",type=i,plot=TRUE),"expression")
+  }
+  for (i in logistics) {
+    expect_is(showGrowthFun("Logistic",type=i),"expression")
+    expect_is(showGrowthFun("Logistic",type=i,plot=TRUE),"expression")
+  }
+  for (i in 1:6) {
+    expect_is(showGrowthFun("Richards",type=i),"expression")
+    expect_is(showGrowthFun("Richards",type=i,plot=TRUE),"expression")
+  }
+  for (i in 1:4) {
+    expect_is(showGrowthFun("Schnute",type=i),"expression")
+    expect_is(showGrowthFun("Schnute",type=i,plot=TRUE),"expression")
+  }
+})
 
 test_that("vbFuns() output",{
-  ## List all choices for vbFuns()
-  tmp <- c("Typical","typical","BevertonHolt","Original","original","vonBertalanffy","GQ","GallucciQuinn","Mooij","Weisberg","Schnute","Francis","Laslett","Polacheck","Fabens","Fabens2","Somers","Somers2","Wang","Wang2","Wang3")
   ## Do all choices return a function
-  for (i in tmp) {
+  for (i in vbs) {
     expect_is(vbFuns(i),"function")
     expect_is(vbFuns(i,simple=TRUE),"function")
   }
   ## Do all choices return a message with the name of the function in it
-  for (i in tmp) expect_message(vbFuns(i,msg=TRUE),i)
+  for (i in vbs) expect_message(vbFuns(i,msg=TRUE),i)
 })
 
 test_that("vbFuns() arguments are in same order as vbStarts() list",{
   ## Get some data for vbStarts()
   data(SpotVA1)
-  ## List all choices for vbFuns() that have vbStarts()
-  tmp <- c("Typical","typical","BevertonHolt","Original","original","vonBertalanffy",
-           "GQ","GallucciQuinn","Mooij","Weisberg","Schnute","Francis","Somers","Somers2")
   ## Make sure the two names match ... delete the "t", "t1", and "t3"
-  ## arguments from vbFuns() result as these are variable names that
-  ## would not be returned by vbStarts()
+  ##   arguments from vbFuns() result as these are variable names that
+  ##   would not be returned by vbStarts()
+  ## Remove some VBGFs for which starting values don't exist
+  tmp <- vbs[-which(vbs %in% c("Laslett","Polacheck","Fabens","Fabens2","Wang","Wang2","Wang3"))]
   for (i in tmp) {
     fnms <- names(formals(vbFuns(i)))
     fnms <- fnms[-which(fnms %in% c("t","t1","t3"))]
@@ -60,27 +89,23 @@ test_that("vbFuns() arguments are in same order as vbStarts() list",{
 })
 
 test_that("GompertzFuns() output",{
-  ## List all choices for GompertzFuns()
-  tmp <- c("Ricker1","Ricker2","Ricker3","QD1","QD2","QD3","KM","AFS","original","Troynikov1","Troynikov2")
   ## Do all choices return a function
-  for (i in tmp) {
+  for (i in gomps) {
     expect_is(GompertzFuns(i),"function")
     expect_is(GompertzFuns(i,simple=TRUE),"function")
   }
   ## Do all choices return a message with the name of the function in it
-  for (i in tmp) expect_message(GompertzFuns(i,msg=TRUE),i)
+  for (i in gomps) expect_message(GompertzFuns(i,msg=TRUE),i)
 })
 
 test_that("logisticFuns() output",{
-  ## List all choices for logisticFuns()
-  tmp <- c("CJ1","CJ2","Karkach","Haddon")
   ## Do all choices return a function
-  for (i in tmp) {
+  for (i in logistics) {
     expect_is(logisticFuns(i),"function")
     expect_is(logisticFuns(i,simple=TRUE),"function")
   }
   ## Do all choices return a message with the name of the function in it
-  for (i in tmp) expect_message(logisticFuns(i,msg=TRUE),i)
+  for (i in logistics) expect_message(logisticFuns(i,msg=TRUE),i)
 })
 
 test_that("RichardsFuns() output",{

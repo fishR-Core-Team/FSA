@@ -2,81 +2,74 @@
 % Please edit documentation in R/growthModels.R
 \name{growthModels}
 \alias{GompertzFuns}
-\alias{GompertzModels}
 \alias{RichardsFuns}
-\alias{RichardsModels}
 \alias{growthModels}
 \alias{logisticFuns}
-\alias{logisticModels}
+\alias{showGrowthFun}
 \alias{vbFuns}
-\alias{vbModels}
 \title{Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.}
 \usage{
-vbFuns(type = c("Typical", "typical", "BevertonHolt", "Original", "original",
-  "vonBertalanffy", "GQ", "GallucciQuinn", "Mooij", "Weisberg", "Schnute",
-  "Francis", "Laslett", "Polacheck", "Somers", "Somers2", "Fabens", "Fabens2",
-  "Wang", "Wang2", "Wang3"), simple = FALSE, msg = FALSE)
+vbFuns(type = c("Typical", "typical", "Traditional", "traditional",
+  "BevertonHolt", "Original", "original", "vonBertalanffy", "GQ",
+  "GallucciQuinn", "Mooij", "Weisberg", "Schnute", "Francis", "Laslett",
+  "Polacheck", "Somers", "Somers2", "Fabens", "Fabens2", "Wang", "Wang2",
+  "Wang3"), simple = FALSE, msg = FALSE)
 
-GompertzFuns(type = c("Ricker1", "Ricker2", "Ricker3", "QD1", "QD2", "QD3",
-  "KM", "AFS", "original", "Troynikov1", "Troynikov2"), simple = FALSE,
-  msg = FALSE)
+GompertzFuns(type = c("Ricker1", "Ricker2", "Ricker3", "QuinnDeriso1",
+  "QuinnDeriso2", "QuinnDeriso3", "QD1", "QD2", "QD3", "Original", "original",
+  "Troynikov1", "Troynikov2"), simple = FALSE, msg = FALSE)
 
 RichardsFuns(type = 1, simple = FALSE, msg = FALSE)
 
-logisticFuns(type = c("CJ1", "CJ2", "Karkach", "HaddonI"), simple = FALSE,
-  msg = FALSE)
+logisticFuns(type = c("CJ1", "CJ2", "Karkach", "Haddon", "CampanaJones1",
+  "CampanaJones2"), simple = FALSE, msg = FALSE)
 
-vbModels(family = c("size", "seasonal", "tagging"), cex = 1, ...)
-
-GompertzModels(family = c("size", "tagging"), cex = 1.25, ...)
-
-RichardsModels(cex = 1, ...)
-
-logisticModels(family = c("size", "tagging"), cex = 1.25, ...)
+showGrowthFun(fun = c("vonBertalanffy", "Gompertz", "Richards", "Logistic",
+  "Schnute"), type = NULL, plot = FALSE, ...)
 }
 \arguments{
-\item{type}{A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function.}
+\item{type}{A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function See details.}
 
 \item{simple}{A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}).}
 
 \item{msg}{A logical that indicates whether a message about the growth function and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; DEFAULT).}
 
-\item{family}{A string that indicates the family of growth functions to display.  Choices are \code{"size"} (DEFAULT), \code{"tagging"}, and \code{"seasonal"} (only for the von Bertalanffy models).}
+\item{fun}{A string (in \code{showGrowthFun}) that indicates the type of growth function to show.}
 
-\item{cex}{A single numeric character expansion value.}
+\item{plot}{A logical that indicates whether the growth function expression should be shown as an equation in a simple plot.}
 
 \item{\dots}{Not implemented.}
 }
 \value{
-The functions ending in \code{Funs} return a function that can be used to predict fish size given a vector of ages and values for the growth function parameters and, in some parameterizations, values for some constants.  The result should be saved to an object that is then the function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).  If \code{simple=FALSE}, then the values for all parameters may be included as a vector in the first parameter argument.  Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE}, then all parameters and constants must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}, but is less general for some applications.
+The functions ending in \code{xxxFuns} return a function that can be used to predict fish size given a vector of ages and values for the growth function parameters and, in some parameterizations, values for constants.  The result should be saved to an object that is then the function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).  If \code{simple=FALSE} (DEFAULT), then the values for all parameters may be included as a vector in the first parameter argument (but in the same order).  Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE}, then all parameters and constants must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}, but is less general for some applications.
 
-The functions ending in \code{Models} return a graphic that uses \code{\link{plotmath}} to show the growth function equations in a pretty format.
+An expression of the equation for each growth function may be created with \code{showGrowthFun}.  In this function \code{fun=} is used to select the major function type (e.g., von Bertalanffy, Gompertz, Richards, Logistic, Schnute) and \code{type=} is used to select a specific parameterization of that growth function.  If \code{plot=TRUE}, then a simple graphic will be created with the equation using \code{\link{plotmath}} for a pretty format.
 }
 \description{
-Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.  Use \code{vbModels()}, \code{GompertzModels()}, \code{RichardsModels()}, and \code{logisticModels()} to see the equations for each growth function.
+Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.  Use \code{showGrowthFuns()} to see the equations for each growth function.
 }
 \note{
-Take note of the folling for each type of growth function:
+Take note of the following for parameterizations (i.e., \code{type}) of each growth function:
 \itemize{
   \item von Bertalanffy
   \itemize{
-    \item The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} parameterizations are synonymous.
+    \item The \sQuote{Original} and \sQuote{vonBertalanffy} are synonymous as are \sQuote{Typical}, \sQuote{Traditional}, and \sQuote{BevertonHolt}.
   }
   \item Gompertz
   \itemize{
-    \item The \sQuote{Ricker2} and \sQuote{QD1}; \sQuote{Ricker3} and \sQuote{QD2}; and \sQuote{Ricker1}, \sQuote{AFS}, and \sQuote{KM} parameterizations are synonymous in their usage here.
-    \item The parameterizations and parameters for the Gompertz function are varied and confusing in the literature.  I have attempted to use a uniform set of paraemters in these functions but that makes a direct comparison to the literature difficult.  Common sources for Gompertz models are listed in the references below.  I make some comments here to aid the comparison.  It is likely worth your while to look at \code{GompertzModels} while you make these comparisons.
+    \item The \sQuote{Ricker2} and \sQuote{QuinnDeriso1} are synonymous, as are \sQuote{Ricker3} and \sQuote{QuinnDeriso2}.
+    \item The parameterizations and parameters for the Gompertz function are varied and confusing in the literature.  I have attempted to use a uniform set of parameters in these functions, but that makes a direct comparison to the literature difficult.  Common sources for Gompertz models are listed in the references below.  I make some comments here to aid comparisons to the literature.
     \item Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, ti is the age at the inflection point, gi is the instantaneous growth rate at the inflection point, t* is a dimensionless parameter related to time/age, and a is a dimensionless parameter related to growth.
-    \item In the Quinn and Deriso (1999) models (the \sQuote{QD} models), the a parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there.  Also note that their Y is L here.
-    \item In the Ricker (1979)[p. 705] models (the \sQuote{Ricker} models), the a parameter here is equal to k there and the gi paramter here is equal to the g parameter there.  Also note that their w is L here.  In the Ricker (1979) models as presented in Campana and Jones (1992), the a parameter here is equal to k there and the gi paramter here is equal to the G parameter there.  Also note that their X is L here.
-    \item The model in Ricker (1975)[p. 232] is the same as \sQuote{Ricker2} where the a parameter here is qual to G there and the gi parameter here is equal to the g parameter there.  Also note that their w is L here.
-    \item The model in Quist et al. (2012)[p. 714] is the same as \sQuote{Ricker1} where the gi parameter here is equal to G there and the ti parameter here is equal to the t0 parameter there.  This parameterization can also be called with \code{type="AFS"}.
-    \item The model in Katsanevakis and Maravelias (2008) is the same as \sQuote{Ricker1} where the gi parameter here is equal to k2 there and the ti parameter here is equal to t2 there.  This parameterization can also be called with \code{type="KM"}.
+    \item In the Quinn and Deriso (1999) functions (the \sQuote{QuinnDerisoX} functions), the a parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there.  Also note that their Y is L here.
+    \item In the Ricker (1979)[p. 705] functions (the \sQuote{RickerX} functions), the a parameter here is equal to k there and the gi paramter here is equal to the g parameter there.  Also note that their w is L here.  In the Ricker (1979) functions as presented in Campana and Jones (1992), the a parameter here is equal to k parameter there and the gi paramter here is equal to the G parameter there.  Also note that their X is L here.
+    \item The function in Ricker (1975)[p. 232] is the same as \sQuote{Ricker2} where the a parameter here is qual to G there and the gi parameter here is equal to the g parameter there.  Also note that their w is L here.
+    \item The function in Quist et al. (2012)[p. 714] is the same as \sQuote{Ricker1} where the gi parameter here is equal to the G parameter there and the ti parameter here is equal to the t0 parameter there.
+    \item The function in Katsanevakis and Maravelias (2008) is the same as \sQuote{Ricker1} where the gi parameter here is equal to k2 parameter there and the ti parameter here is equal to the t2 parameter there.
   }
   \item Richards
   \itemize{
     \item Within FSA, Linf is the mean asymptotic length, ti is the age at the inflection point, k is related to growth (slope at the inflection point), b is related to the vertical position of the inflection point, and L0 is the mean length at age-0.
-    \item The parameterizations (1-6) correspond to models/equations 1, 4, 5, 6, 7, and 8, respectively, in Tjorve and Tjorve (2010).  Note that their A, S, k, d, and B are Linf, a, k, b, and L0 here (in FSA).
+    \item The parameterizations (1-6) correspond to functions/equations 1, 4, 5, 6, 7, and 8, respectively, in Tjorve and Tjorve (2010).  Note that their A, S, k, d, and B are Linf, a, k, b, and L0, respectively, here (in FSA).
   }
   \item logistic
   \itemize{
@@ -88,19 +81,6 @@ Take note of the folling for each type of growth function:
  12-Individual Growth.
 }
 \examples{
-###########################################################
-## See the equations
-\dontrun{windows(8,5)}
-vbModels()
-\dontrun{windows(6,5)}
-vbModels("seasonal")
-vbModels("tagging")
-\dontrun{windows(5,5)}
-GompertzModels()
-GompertzModels("tagging")
-RichardsModels()
-logisticModels()
-
 ###########################################################
 ## Simple Examples -- Von B
 ( vb1 <- vbFuns() )
@@ -142,7 +122,7 @@ plot(log2(ages,Linf=800,gninf=0.5,a=10)~ages,type="b",pch=19)
 ( log2c <- logisticFuns("CJ2",simple=TRUE) ) # compare to log2
 ( log3 <- logisticFuns("Karkach") )
 plot(log3(ages,L0=10,Linf=800,gninf=0.5)~ages,type="b",pch=19)
-( log4 <- logisticFuns("HaddonI") )
+( log4 <- logisticFuns("Haddon") )
 
 
 ###########################################################
@@ -247,7 +227,18 @@ fit3 <- nls(len~log3(age,Linf,L0,gninf),data=df,start=list(Linf=450,L0=30,gninf=
 summary(fit3,correlation=TRUE)
 curve(log3(x,Linf=coef(fit3)[1],L0=coef(fit3)[2],gninf=coef(fit3)[3]),
       from=0,to=15,col="green",lwd=2,add=TRUE)
-      
+
+#############################################################################
+## Create expressions of the models
+# Typical von Bertalanffy ... Show as a stand-alone plot
+showGrowthFun("vonBertalanffy","Typical",plot=TRUE)
+# Get and save the expression
+( tmp <- showGrowthFun("vonBertalanffy","Typical") )
+# Use expression as title on a plot
+lens <- vb1(ages,Linf=20,K=0.3,t0=-0.2)
+plot(lens~ages,type="b",pch=19,main=tmp)
+# Put expression in the main plot
+text(10,5,tmp)
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}, thanks to Gabor Grothendieck for a hint about using \code{get()}.

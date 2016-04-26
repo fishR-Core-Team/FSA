@@ -149,50 +149,51 @@ A legend can be added to the plot in three different ways.  First, if \code{lege
 This function is meant to allow newbie students the ability to visualize the most common linear models found in an introductory or intermediate level undergraduate statistics course without getting \dQuote{bogged-down} in the gritty details of a wide variety of functions.  This generic function and it's S3 functions allow the student to visualize the means plot of a one-way anova, the main effects and interaction plots of a two-way ANOVA, the fit of a simple linear regression, the fits of many lines in an indicator variable regression, and the fit of a non-linear model with a simple and mostly common set of arguments -- generally, all that is required is a fitted linear model of the type mentioned here as the first argument.  This function thus allows newbie students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.  THIS IS NOT A RESEARCH GRADE FUNCTION and the user should learn how to use the functions that this function is based on, build plots from \dQuote{scratch}, or use more sophisticated plotting packages (e.g., \pkg{ggplot2} or \pkg{lattice}).
 }
 \examples{
-## Linear models example
 data(Mirex)
-Mirex$year <- factor(Mirex$year)
+# create year as a factor variable
+Mirex$fyear <- factor(Mirex$year)
+# reduce number of years for visual simplicity
+Mirex2 <- filterD(Mirex,fyear \%in\% c(1977,1992))
 
-# Indicator variable regression with two factors (reduce # years for visual simplicity)
-Mirex2 <- filterD(Mirex,year \%in\% c(1977,1992))
-lm1 <- lm(mirex~weight*year*species,data=Mirex2)
+## Indicator variable regression with two factors
+lm1 <- lm(mirex~weight*fyear*species,data=Mirex2)
 fitPlot(lm1)
-fitPlot(lm1,ylim=c(0,0.65),legend="topleft")
+fitPlot(lm1,ylim=c(0,0.8),legend="topleft")
 
-# Indicator variable regression with one factor (also showing confidence bands)
-lm2 <- lm(mirex~weight*year,data=Mirex)
+## Indicator variable regression with one factor (also showing confidence bands)
+lm2 <- lm(mirex~weight*fyear,data=Mirex2)
 fitPlot(lm2,legend="topleft")
 fitPlot(lm2,legend="topleft",interval="confidence")
 fitPlot(lm2,legend="topleft",col="rich",pch=18,lty=1)
 
-# Indicator variable regression with one factor (assuming parallel lines)
-lm3 <- lm(mirex~weight+year,data=Mirex)
+## Indicator variable regression with one factor (assuming parallel lines)
+lm3 <- lm(mirex~weight+fyear,data=Mirex2)
 fitPlot(lm3,legend="topleft")
 fitPlot(lm3,legend="topleft",col="default")
 
-# Simple linear regression (showing color change and confidence and prediction bands)
+## Simple linear regression (showing color change and confidence and prediction bands)
 lm4 <- lm(mirex~weight,data=Mirex)
 fitPlot(lm4,pch=8,col.pt="red")
 fitPlot(lm4,col.mdl="blue")
 fitPlot(lm4,interval="both")
 
-# One-way ANOVA
-lm5 <- lm(mirex~year,data=Mirex)
+## One-way ANOVA
+lm5 <- lm(mirex~fyear,data=Mirex)
 fitPlot(lm5)
 fitPlot(lm5,col="red")
 fitPlot(lm5,col.ci="red")
 
-# Two-way ANOVA (showing both interaction plots and a color change)
-lm6 <- lm(mirex~year*species,data=Mirex)
+## Two-way ANOVA
+lm6 <- lm(mirex~fyear*species,data=Mirex)
+# interaction plots and a color change
 fitPlot(lm6,legend="bottomleft")
 fitPlot(lm6,change.order=TRUE)
 fitPlot(lm6,col="jet")
-
-# Two-way ANOVA (showing main effects plots)
+# main effects plots
 fitPlot(lm6,which="species")
-fitPlot(lm6,which="year")
+fitPlot(lm6,which="fyear")
 
-# Polynomial regression
+## Polynomial regression
 lm7 <- lm(mirex~weight+I(weight^2),data=Mirex)
 fitPlot(lm7,interval="both")
 
@@ -202,7 +203,6 @@ lr.sv <- list(B1=6,B2=7.2,B3=-1.5)
 nl1 <- nls(cells~B1/(1+exp(B2+B3*days)),start=lr.sv,data=Ecoli)
 fitPlot(nl1,Ecoli,cex.main=0.7,lwd=2)
 fitPlot(nl1,Ecoli,xlab="Day",ylab="Cellsx10^6/ml",plot.pts=FALSE)
-
 
 ## Logistic regression example
 ## NASA space shuttle o-ring failures -- from graphics package

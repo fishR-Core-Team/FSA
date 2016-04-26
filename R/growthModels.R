@@ -2,40 +2,40 @@
 #' 
 #' @title Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.
 #'
-#' @description Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.  Use \code{vbModels()}, \code{GompertzModels()}, \code{RichardsModels()}, and \code{logisticModels()} to see the equations for each growth function.
+#' @description Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.  Use \code{showGrowthFuns()} to see the equations for each growth function.
 #'
-#' @param type A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function.
+#' @param fun A string (in \code{showGrowthFun}) that indicates the type of growth function to show.
+#' @param type A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function See details.
 #' @param simple A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}).
 #' @param msg A logical that indicates whether a message about the growth function and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; DEFAULT).
-#' @param family A string that indicates the family of growth functions to display.  Choices are \code{"size"} (DEFAULT), \code{"tagging"}, and \code{"seasonal"} (only for the von Bertalanffy models).
-#' @param cex A single numeric character expansion value.
+#' @param plot A logical that indicates whether the growth function expression should be shown as an equation in a simple plot.
 #' @param \dots Not implemented.
 #' 
-#' @return The functions ending in \code{Funs} return a function that can be used to predict fish size given a vector of ages and values for the growth function parameters and, in some parameterizations, values for some constants.  The result should be saved to an object that is then the function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).  If \code{simple=FALSE}, then the values for all parameters may be included as a vector in the first parameter argument.  Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE}, then all parameters and constants must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}, but is less general for some applications.
+#' @return The functions ending in \code{xxxFuns} return a function that can be used to predict fish size given a vector of ages and values for the growth function parameters and, in some parameterizations, values for constants.  The result should be saved to an object that is then the function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).  If \code{simple=FALSE} (DEFAULT), then the values for all parameters may be included as a vector in the first parameter argument (but in the same order).  Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE}, then all parameters and constants must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}, but is less general for some applications.
 #' 
-#' The functions ending in \code{Models} return a graphic that uses \code{\link{plotmath}} to show the growth function equations in a pretty format.
+#' An expression of the equation for each growth function may be created with \code{showGrowthFun}.  In this function \code{fun=} is used to select the major function type (e.g., von Bertalanffy, Gompertz, Richards, Logistic, Schnute) and \code{type=} is used to select a specific parameterization of that growth function.  If \code{plot=TRUE}, then a simple graphic will be created with the equation using \code{\link{plotmath}} for a pretty format.
 #'
-#' @note Take note of the folling for each type of growth function:
+#' @note Take note of the following for parameterizations (i.e., \code{type}) of each growth function:
 #' \itemize{
 #'   \item von Bertalanffy
 #'   \itemize{
-#'     \item The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} parameterizations are synonymous.
+#'     \item The \sQuote{Original} and \sQuote{vonBertalanffy} are synonymous as are \sQuote{Typical}, \sQuote{Traditional}, and \sQuote{BevertonHolt}.
 #'   }
 #'   \item Gompertz
 #'   \itemize{
-#'     \item The \sQuote{Ricker2} and \sQuote{QD1}; \sQuote{Ricker3} and \sQuote{QD2}; and \sQuote{Ricker1}, \sQuote{AFS}, and \sQuote{KM} parameterizations are synonymous in their usage here.
-#'     \item The parameterizations and parameters for the Gompertz function are varied and confusing in the literature.  I have attempted to use a uniform set of paraemters in these functions but that makes a direct comparison to the literature difficult.  Common sources for Gompertz models are listed in the references below.  I make some comments here to aid the comparison.  It is likely worth your while to look at \code{GompertzModels} while you make these comparisons.
+#'     \item The \sQuote{Ricker2} and \sQuote{QuinnDeriso1} are synonymous, as are \sQuote{Ricker3} and \sQuote{QuinnDeriso2}.
+#'     \item The parameterizations and parameters for the Gompertz function are varied and confusing in the literature.  I have attempted to use a uniform set of parameters in these functions, but that makes a direct comparison to the literature difficult.  Common sources for Gompertz models are listed in the references below.  I make some comments here to aid comparisons to the literature.
 #'     \item Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, ti is the age at the inflection point, gi is the instantaneous growth rate at the inflection point, t* is a dimensionless parameter related to time/age, and a is a dimensionless parameter related to growth.
-#'     \item In the Quinn and Deriso (1999) models (the \sQuote{QD} models), the a parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there.  Also note that their Y is L here.
-#'     \item In the Ricker (1979)[p. 705] models (the \sQuote{Ricker} models), the a parameter here is equal to k there and the gi paramter here is equal to the g parameter there.  Also note that their w is L here.  In the Ricker (1979) models as presented in Campana and Jones (1992), the a parameter here is equal to k there and the gi paramter here is equal to the G parameter there.  Also note that their X is L here.
-#'     \item The model in Ricker (1975)[p. 232] is the same as \sQuote{Ricker2} where the a parameter here is qual to G there and the gi parameter here is equal to the g parameter there.  Also note that their w is L here.
-#'     \item The model in Quist et al. (2012)[p. 714] is the same as \sQuote{Ricker1} where the gi parameter here is equal to G there and the ti parameter here is equal to the t0 parameter there.  This parameterization can also be called with \code{type="AFS"}.
-#'     \item The model in Katsanevakis and Maravelias (2008) is the same as \sQuote{Ricker1} where the gi parameter here is equal to k2 there and the ti parameter here is equal to t2 there.  This parameterization can also be called with \code{type="KM"}.
+#'     \item In the Quinn and Deriso (1999) functions (the \sQuote{QuinnDerisoX} functions), the a parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there.  Also note that their Y is L here.
+#'     \item In the Ricker (1979)[p. 705] functions (the \sQuote{RickerX} functions), the a parameter here is equal to k there and the gi paramter here is equal to the g parameter there.  Also note that their w is L here.  In the Ricker (1979) functions as presented in Campana and Jones (1992), the a parameter here is equal to k parameter there and the gi paramter here is equal to the G parameter there.  Also note that their X is L here.
+#'     \item The function in Ricker (1975)[p. 232] is the same as \sQuote{Ricker2} where the a parameter here is qual to G there and the gi parameter here is equal to the g parameter there.  Also note that their w is L here.
+#'     \item The function in Quist et al. (2012)[p. 714] is the same as \sQuote{Ricker1} where the gi parameter here is equal to the G parameter there and the ti parameter here is equal to the t0 parameter there.
+#'     \item The function in Katsanevakis and Maravelias (2008) is the same as \sQuote{Ricker1} where the gi parameter here is equal to k2 parameter there and the ti parameter here is equal to the t2 parameter there.
 #'   }
 #'   \item Richards
 #'   \itemize{
 #'     \item Within FSA, Linf is the mean asymptotic length, ti is the age at the inflection point, k is related to growth (slope at the inflection point), b is related to the vertical position of the inflection point, and L0 is the mean length at age-0.
-#'     \item The parameterizations (1-6) correspond to models/equations 1, 4, 5, 6, 7, and 8, respectively, in Tjorve and Tjorve (2010).  Note that their A, S, k, d, and B are Linf, a, k, b, and L0 here (in FSA).
+#'     \item The parameterizations (1-6) correspond to functions/equations 1, 4, 5, 6, 7, and 8, respectively, in Tjorve and Tjorve (2010).  Note that their A, S, k, d, and B are Linf, a, k, b, and L0, respectively, here (in FSA).
 #'   }
 #'   \item logistic
 #'   \itemize{
@@ -103,19 +103,6 @@
 #'
 #' @examples 
 #' ###########################################################
-#' ## See the equations
-#' \dontrun{windows(8,5)}
-#' vbModels()
-#' \dontrun{windows(6,5)}
-#' vbModels("seasonal")
-#' vbModels("tagging")
-#' \dontrun{windows(5,5)}
-#' GompertzModels()
-#' GompertzModels("tagging")
-#' RichardsModels()
-#' logisticModels()
-#' 
-#' ###########################################################
 #' ## Simple Examples -- Von B
 #' ( vb1 <- vbFuns() )
 #' ages <- 0:20
@@ -156,7 +143,7 @@
 #' ( log2c <- logisticFuns("CJ2",simple=TRUE) ) # compare to log2
 #' ( log3 <- logisticFuns("Karkach") )
 #' plot(log3(ages,L0=10,Linf=800,gninf=0.5)~ages,type="b",pch=19)
-#' ( log4 <- logisticFuns("HaddonI") )
+#' ( log4 <- logisticFuns("Haddon") )
 #'
 #' 
 #' ###########################################################
@@ -261,25 +248,36 @@
 #' summary(fit3,correlation=TRUE)
 #' curve(log3(x,Linf=coef(fit3)[1],L0=coef(fit3)[2],gninf=coef(fit3)[3]),
 #'       from=0,to=15,col="green",lwd=2,add=TRUE)
-#'       
+#'
+#' #############################################################################
+#' ## Create expressions of the models
+#' # Typical von Bertalanffy ... Show as a stand-alone plot
+#' showGrowthFun("vonBertalanffy","Typical",plot=TRUE)
+#' # Get and save the expression
+#' ( tmp <- showGrowthFun("vonBertalanffy","Typical") )
+#' # Use expression as title on a plot
+#' lens <- vb1(ages,Linf=20,K=0.3,t0=-0.2)
+#' plot(lens~ages,type="b",pch=19,main=tmp)
+#' # Put expression in the main plot
+#' text(10,5,tmp)
 NULL
 
 #' @rdname growthModels
 #' @export
-vbFuns <- function(type=c("Typical","typical","BevertonHolt",
+vbFuns <- function(type=c("Typical","typical","Traditional","traditional","BevertonHolt",
                           "Original","original","vonBertalanffy",
                           "GQ","GallucciQuinn","Mooij","Weisberg",
                           "Schnute","Francis","Laslett","Polacheck",
                           "Somers","Somers2",
                           "Fabens","Fabens2","Wang","Wang2","Wang3"),
                    simple=FALSE,msg=FALSE) {
-  Typical <- typical <- BevertonHolt <- function(t,Linf,K=NULL,t0=NULL) {
+  Typical <- typical <- Traditional <- traditional <- BevertonHolt <- function(t,Linf,K=NULL,t0=NULL) {
   if (length(Linf)==3) { K <- Linf[[2]]
                          t0 <- Linf[[3]]
                          Linf <- Linf[[1]] }
   Linf*(1-exp(-K*(t-t0)))
 }
-  STypical <- Stypical <- SBevertonHolt <- function(t,Linf,K,t0) {
+  STypical <- Stypical <- STraditional <- Straditional <- SBevertonHolt <- function(t,Linf,K,t0) {
     Linf*(1-exp(-K*(t-t0)))
   }
   Original <- original <- vonBertalanffy <- function(t,Linf,L0=NULL,K=NULL) {
@@ -406,8 +404,8 @@ vbFuns <- function(type=c("Typical","typical","BevertonHolt",
   type <- match.arg(type)
   if (msg) {
     switch(type,
-      Typical=,typical=,BevertonHolt= {
-        message("You have chosen the 'Typical'/'typical' or 'BevertonHolt' parameterization.\n\n",
+      Typical=,typical=,Traditional=,traditional=,BevertonHolt= {
+        message("You have chosen the 'Typical'/'typical', 'Traditional'/'traditional', or 'BevertonHolt' parameterization.\n\n",
                 "  E[L|t] = Linf*(1-exp(-K*(t-t0)))\n\n",
                 "  where Linf = asymptotic mean length\n",
                 "           K = exponential rate of approach to Linf\n",
@@ -552,52 +550,54 @@ vbFuns <- function(type=c("Typical","typical","BevertonHolt",
 #' @rdname growthModels
 #' @export
 GompertzFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
-                                "QD1","QD2","QD3","KM","AFS","original",
+                                "QuinnDeriso1","QuinnDeriso2","QuinnDeriso3",
+                                "QD1","QD2","QD3",
+                                "Original","original",
                                 "Troynikov1","Troynikov2"),
                          simple=FALSE,msg=FALSE) {
-  original <- function(t,Linf,a=NULL,gi=NULL) {
+  Original <- original <- function(t,Linf,a=NULL,gi=NULL) {
     if (length(Linf)==3) { a <- Linf[[2]]
     gi <- Linf[[3]]
     Linf <- Linf[[1]] }
     Linf*exp(-exp(a-gi*t))
   }
-  Soriginal <-function(t,Linf,a,gi) {
+  SOriginal <- Soriginal <-function(t,Linf,a,gi) {
     Linf*exp(-exp(a-gi*t))
   }
-  Ricker1 <- KM <- AFS <- function(t,Linf,gi=NULL,ti=NULL) {
+  Ricker1 <- function(t,Linf,gi=NULL,ti=NULL) {
     if (length(Linf)==3) { gi <- Linf[[2]]
     ti <- Linf[[3]]
     Linf <- Linf[[1]] }
     Linf*exp(-exp(-gi*(t-ti)))
   }
-  SRicker1 <- SKM <- SAFS <- function(t,Linf,gi,ti) {
+  SRicker1 <- function(t,Linf,gi,ti) {
     Linf*exp(-exp(-gi*(t-ti)))
   }
-  QD1 <- Ricker2 <- function(t,L0,a=NULL,gi=NULL) {
+  QD1 <- QuinnDeriso1 <- Ricker2 <- function(t,L0,a=NULL,gi=NULL) {
     if (length(L0)==3) { a <- L0[[2]]
     gi <- L0[[3]]
     L0 <- L0[[1]] }
     L0*exp(a*(1-exp(-gi*t)))
   }
-  SQD1 <- SRicker2 <- function(t,L0,a,gi) {
+  SQD1 <- SQuinnDeriso1 <- SRicker2 <- function(t,L0,a,gi) {
     L0*exp(a*(1-exp(-gi*t)))
   }
-  QD2 <- Ricker3 <-  function(t,Linf,a=NULL,gi=NULL) {
+  QD2 <- QuinnDeriso2 <- Ricker3 <-  function(t,Linf,a=NULL,gi=NULL) {
     if (length(Linf)==3) { a <- Linf[[2]]
     gi <- Linf[[3]]
     Linf <- Linf[[1]] }
     Linf*exp(-a*exp(-gi*t))
   }
-  SQD2 <- SRicker3 <- function(t,Linf,a,gi) {
+  SQD2 <- SQuinnDeriso2 <- SRicker3 <- function(t,Linf,a,gi) {
     Linf*exp(-a*exp(-gi*t))
   }
-  QD3 <- function(t,Linf,gi=NULL,t0=NULL) {
+  QD3 <- QuinnDeriso3 <- function(t,Linf,gi=NULL,t0=NULL) {
     if (length(Linf)==3) { gi <- Linf[[2]]
     t0 <- Linf[[3]]
     Linf <- Linf[[1]] }
     Linf*exp(-(1/gi)*exp(-gi*(t-t0)))
   }
-  SQD3 <- function(t,Linf,gi,t0) {
+  SQD3 <- SQuinnDeriso3 <- function(t,Linf,gi,t0) {
     Linf*exp(-(1/gi)*exp(-gi*(t-t0)))
   }
   Troynikov1 <- function(Lm,dt,Linf,gi=NULL) {
@@ -621,36 +621,36 @@ GompertzFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
   comcat <- "parameterization of the Gompertz function.\n\n"
   if (msg) {
     switch(type,
-           original= {
-             message("You have chosen the 'original'",comcat,
+           Original=,original= {
+             message("You have chosen the 'Original'/'original'",comcat,
                      "  E[L|t] = Linf*exp(-exp(a-gi*t))\n\n",
                      "where Linf = asymptotic mean length\n",
                      "      gi = decrease in growth rate at the inflection point\n",
                      "      a = an undefined parameter\n\n")
            },
-           Ricker1=,KM=,AFS= {
-             message("You have chosen the 'Ricker1'/'KM'/'AFS'",comcat,
+           Ricker1= {
+             message("You have chosen the 'Ricker1'",comcat,
                      "  E[L|t] = Linf*exp(-exp(-gi*(t-ti)))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "          gi = instantaneous growth rate at the inflection point\n",
                      "          ti = time at the inflection point\n\n")
            },
-           Ricker2=,QD1= {
-             message("You have chosen the 'Ricker2'/'QD1'",comcat,
+           Ricker2=,QD1=,QuinnDeriso1= {
+             message("You have chosen the 'Ricker2'/'QuinnDeriso1'/'QD1'",comcat,
                      "  E[L|t] = L0*exp(a*(1-exp(-gi*t)))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "          gi = instantaneous growth rate at the inflection point\n",
                      "           a = dimenstionless parameter related to growth\n\n")
            },
-           Ricker3=,QD2= {
-             message("You have chosen the 'Ricker3'/'QD2'",comcat,
+           Ricker3=,QD2=,QuinnDeriso2= {
+             message("You have chosen the 'Ricker3'/'QuinnDeriso2'/'QD2'",comcat,
                      "  E[L|t] = Linf*exp(-(a/gi)*exp(-gi*t))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "          gi = instantaneous growth rate at the inflection point\n",
                      "           a = dimenstionless parameter related to growth\n\n")
            },
-           QD3= {
-             message("You have chosen the 'QD3'",comcat,
+           QD3=,QuinnDeriso3== {
+             message("You have chosen the 'QuinnDeriso3'/'QD3'",comcat,
                      "  E[L|t] = Linf*exp(-(1/gi)*exp(-gi*(t-t0)))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "          gi = instantaneous growth rate at the inflection point\n",
@@ -811,23 +811,24 @@ RichardsFuns <- function(type=1,simple=FALSE,msg=FALSE) {
 
 #' @rdname growthModels
 #' @export
-logisticFuns <- function(type=c("CJ1","CJ2","Karkach","HaddonI"),simple=FALSE,msg=FALSE) {
-  CJ1 <- function(t,Linf,gninf=NULL,ti=NULL) {
+logisticFuns <- function(type=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1","CampanaJones2"),
+                         simple=FALSE,msg=FALSE) {
+  CJ1 <- CampanaJones1 <- function(t,Linf,gninf=NULL,ti=NULL) {
     if (length(Linf)==3) { gninf <- Linf[[2]]
     ti <- Linf[[3]]
     Linf <- Linf[[1]] }
     Linf/(1+exp(-gninf*(t-ti)))
   }
-  SCJ1 <- function(t,Linf,gninf,ti) {
+  SCJ1 <- SCampanaJones1 <- function(t,Linf,gninf,ti) {
     Linf/(1+exp(-gninf*(t-ti)))
   }
-  CJ2<- function(t,Linf,gninf=NULL,a=NULL) {
+  CJ2 <- CampanaJones2 <- function(t,Linf,gninf=NULL,a=NULL) {
     if (length(Linf)==3) { gninf <- Linf[[2]]
     a <- Linf[[3]]
     Linf <- Linf[[1]] }
     Linf/(1+a*exp(-gninf*t))
   }
-  SCJ2<- function(t,Linf,gninf,a) {
+  SCJ2 <- SCampanaJones2 <- function(t,Linf,gninf,a) {
     Linf/(1+a*exp(-gninf*t))
   }
   Karkach <- function(t,Linf,L0=NULL,gninf=NULL) {
@@ -839,13 +840,13 @@ logisticFuns <- function(type=c("CJ1","CJ2","Karkach","HaddonI"),simple=FALSE,ms
   SKarkach <- function(t,Linf,L0,gninf) {
     L0*Linf/(L0+(Linf-L0)*exp(-gninf*t))
   }
-  HaddonI <- function(Lm,dLmax,L50=NULL,L95=NULL) {
+  Haddon <- function(Lm,dLmax,L50=NULL,L95=NULL) {
     if (length(dLmax)==3) { L50=dLmax[2]
     L95=dLmax[3]
     dLmax=dLmax[1] }
     dLmax/(1+exp(log(19)*((Lm-L50)/(L95-L50))))
   }
-  SHaddonI <- function(Lm,dLmax,L50,L95) {
+  SHaddon <- function(Lm,dLmax,L50,L95) {
     dLmax/(1+exp(log(19)*((Lm-L50)/(L95-L50))))
   }
   ## Main function
@@ -853,15 +854,15 @@ logisticFuns <- function(type=c("CJ1","CJ2","Karkach","HaddonI"),simple=FALSE,ms
   comcat <- "parameterization of the logistic growth function.\n\n"
   if (msg) {
     switch(type,
-           CJ1= {
-             message("You have chosen the 'CJ1'",comcat,
+           CJ1=,CampanaJones1= {
+             message("You have chosen the 'CampanaJones1'/'CJ1'",comcat,
                      "  E[L|t] = Linf/(1+exp(-gninf*(t-ti)))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "      gninif = instantaneous growth rate at t=-infinity\n",
                      "          ti = time at the inflection point\n\n")
            },
-           CJ2= {
-             message("You have chosen the 'CJ2'",comcat,
+           CJ2=,CampanaJones2= {
+             message("You have chosen the 'CampanaJones2'/'CJ2'",comcat,
                      "  E[L|t] = Linf/(1+a*exp(-gninf*t))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "          gi = instantaneous growth rate at the inflection point\n",
@@ -874,7 +875,7 @@ logisticFuns <- function(type=c("CJ1","CJ2","Karkach","HaddonI"),simple=FALSE,ms
                      "          L0 = mean length at time/age 0\n",
                      "          gi = instantaneous growth rate at the inflection point\n\n")
            },
-           HaddonI= {
+           Haddon= {
              message("You have chosen the 'Haddon Inverse'",comcat,
                      "  E[Lr-Lm|dt] = dLmax/(1+exp(log(19)*((Lm-L50)/(L95-L50))))\n\n",
                      "  where dLmax = maximum growth increment during the study\n",
@@ -890,170 +891,6 @@ logisticFuns <- function(type=c("CJ1","CJ2","Karkach","HaddonI"),simple=FALSE,ms
 }
 
 
-
-#' @rdname growthModels
-#' @export
-vbModels <- function(family=c("size","seasonal","tagging"),cex=1,...) { # nocov start
-  ## Set some plotting parameters
-  op <- graphics::par(mar=c(0,0,3,0),cex=cex)
-  ## Check the type argument
-  family <- match.arg(family)
-  ## Show the models
-  if (family=="size") {
-    graphics::plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",
-                   xlab="",ylab="",bty="n",main="FSA von Bertalanffy Parameterizations",...)
-    iGrowthModels("vbTypical", 0,6.0)
-    iGrowthModels("vbOriginal",0,4.0)
-    iGrowthModels("vbGQ",      0,2.0)
-    iGrowthModels("vbMooij",   0,0.5)
-    graphics::abline(v=0.5)
-    iGrowthModels("vbWeisberg",0.50,6.0)
-    iGrowthModels("vbSchnute", 0.50,4.0)
-    iGrowthModels("vbFrancis", 0.50,2.0)
-    iGrowthModels("vbFrancis2",0.65,0.5)
-  } else if (family=="seasonal") {
-    graphics::plot(1,type="n",ylim=c(0,6),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
-         main="FSA von Bertalanffy Seasonal Parameterizations",...)
-    iGrowthModels("vbSomers1", 0,5.5)
-    iGrowthModels("vbSomers1a", 0.15,4.5)
-    iGrowthModels("vbSomers2",  0,2.5)
-    iGrowthModels("vbSomers2a", 0.15,1.5)
-  } else {
-    graphics::plot(1,type="n",ylim=c(0,7),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
-         main="FSA von Bertalanffy Tag-Recapture Parameterizations",...)
-    iGrowthModels("vbFabens1", 0,6.5)
-    iGrowthModels("vbFabens2", 0,5)
-    iGrowthModels("vbWang1",   0,3.5)
-    iGrowthModels("vbWang2",   0,2.0)
-    iGrowthModels("vbWang3",   0,0.5)
-  }
-  ## Return to the default plotting parameters
-  graphics::par(op)
-} # nocov end
-
-
-#' @rdname growthModels
-#' @export
-GompertzModels <- function(family=c("size","tagging"),cex=1.25,...) { # nocov start
-  ## Set some plotting parameters
-  op <- graphics::par(mar=c(0,0,3,0),cex=cex)
-  ## Check the family argument
-  family <- match.arg(family)
-  ## Show the models
-  if (family=="size") {
-    graphics::plot(1,type="n",ylim=c(0,5),xlim=c(0,1),xaxt="n",yaxt="n",
-                   xlab="",ylab="",bty="n",main="FSA Gompertz Parameterizations",...)
-    iGrowthModels("gOriginal", 0.1,4.5)
-    iGrowthModels("gRicker1",  0.1,3.5)
-    iGrowthModels("gRicker2",  0.1,2.5)
-    iGrowthModels("gRicker3",  0.1,1.5)
-    iGrowthModels("gQD3",      0.1,0.5)
-  } else {
-    graphics::plot(1,type="n",ylim=c(0,3),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
-         main="FSA Gompertz Tagging Parameterizations",...)
-    iGrowthModels("gTroynikov1", 0.1,2.5)
-    iGrowthModels("gTroynikov2", 0.1,1.5)
-  }
-  graphics::par(op)
-} # nocov end
-
-
-#' @rdname growthModels
-#' @export
-RichardsModels <- function(cex=1,...) { # nocov start
-  op <- graphics::par(mar=c(0,0,3,0),cex=cex)
-  graphics::plot(1,type="n",ylim=c(0,9),xlim=c(0,1),xaxt="n",yaxt="n",
-                 xlab="",ylab="",bty="n",main="FSA Richards Growth Model Cases",...)
-  iGrowthModels("Richards1", 0.05,8.5)
-  iGrowthModels("Richards2", 0.05,7.1)
-  iGrowthModels("Richards3", 0.05,5.2)
-  iGrowthModels("Richards4", 0.05,3.75)
-  iGrowthModels("Richards5", 0.05,2)
-  iGrowthModels("Richards6", 0.05,0.25)
-  graphics::par(op)
-} # nocov end
-
-
-
-#' @rdname growthModels
-#' @export
-logisticModels <- function(family=c("size","tagging"),cex=1.25,...) { # nocov start
-  ## Set some plotting parameters
-  op <- graphics::par(mar=c(0,0,3,0),cex=cex)
-  ## Check the type argument
-  family <- match.arg(family)
-  ## Show the models
-  if (family=="size") {
-    graphics::plot(1,type="n",ylim=c(0,3),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
-         main="FSA Logistic Growth Parameterizations",...)
-    iGrowthModels("CJ1", 0.1,2.5)
-    iGrowthModels("CJ2", 0.1,1.5)
-    iGrowthModels("Karkach", 0.1,0.5)
-  } else {
-    graphics::plot(1,type="n",ylim=c(0,3),xlim=c(0,1),xaxt="n",yaxt="n",xlab="",ylab="",bty="n",
-         main="FSA Logistic Growth Tagging Parameterizations",cex=cex,...)
-    iGrowthModels("HaddonI", 0.1,2.5)
-  }
-  graphics::par(op)
-} # nocov end
-
-
-##############################################################
-## Internal function for plotting the different models.
-## Send positions in xpos and ypos.
-##############################################################
-iGrowthModels <- function(which,xpos,ypos) { # nocov start
-  switch(which,
-         vbOriginal= {graphics::text(xpos,ypos,expression(plain("Original: ")~~~E(L[t])==L[infinity]~-~(L[infinity]-L[0])*~e^{-Kt}),pos=4)},
-         vbTypical=  {graphics::text(xpos,ypos,expression(plain("Typical: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])},")")),pos=4)},
-         vbGQ=       {graphics::text(xpos,ypos,expression(plain("GQ: ")~~~E(L[t])==frac(omega,K)*~bgroup("(",1-e^{-K*(t~-~t[0])},")")),pos=4)},
-         vbMooij=    {graphics::text(xpos,ypos,expression(plain("Mooij: ")~~~E(L[t])==L[infinity]~-~(L[infinity]-L[0])*~e^{-frac(omega,L[infinity])*~t}),pos=4)},
-         vbWeisberg= {graphics::text(xpos,ypos,expression(plain("Weisberg: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-frac(log(2),(t[50]~-~t[0]))*(t~-~t[0])},")")),pos=4)},
-         vbSchnute=  {graphics::text(xpos,ypos,expression(plain("Schnute: ")~~~E(L[t])==L[1]+(L[3]-L[1])*~frac(1-e^{-K*(~t~-~t[1])},1-e^{-K*(~t[3]~-~t[1])})),pos=4)},
-         vbFrancis=  {graphics::text(xpos,ypos,expression(plain("Francis: ")~~~E(L[t])==L[1]+(L[3]-L[1])*~frac(1-r^{2*frac(t-t[1],t[3]-t[1])},1-r^{2})),pos=4)},
-         vbFrancis2= {graphics::text(xpos,ypos,expression(plain("where" )~r==frac(L[3]-L[2],L[2]-L[1])),pos=4)},
-         
-         vbSomers1=  {graphics::text(xpos,ypos,expression(plain("Somers1: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])-S(t)+S(t[0])},")")),pos=4)},
-         vbSomers1a= {graphics::text(xpos,ypos,expression(plain("where" )~S(t)==bgroup("(",frac(C*K,2)*~pi,")")*~sin(2*pi*(t-t[s]))),pos=4)},
-         vbSomers2=  {graphics::text(xpos,ypos,expression(plain("Somers2: ")~~~E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])-R(t)+R(t[0])},")")),pos=4)},
-         vbSomers2a= {graphics::text(xpos,ypos,expression(plain("where" )~R(t)==bgroup("(",frac(C*K,2)*~pi,")")*~sin(2*pi*(t-WP+0.5))),pos=4)},
-         
-         vbFabens1=  {graphics::text(xpos,ypos,expression(plain("Fabens1: ")~~~E(L[r]-L[m])==(L[infinity]-L[m])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
-         vbFabens2=  {graphics::text(xpos,ypos,expression(plain("Fabens2: ")~~~E(L[r])==L[m]+(L[infinity]-L[m])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
-         vbWang1=  {graphics::text(xpos,ypos,expression(plain("Wang1: ")~~~E(L[r]-L[m])==(L[infinity]+beta*(L[t]-L[t])-L[m])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
-         vbWang2=  {graphics::text(xpos,ypos,expression(plain("Wang2: ")~~~E(L[r]-L[m])==(alpha+beta*L[t])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
-         vbWang3=  {graphics::text(xpos,ypos,expression(plain("Wang3: ")~~~E(L[r])==L[m]+(alpha+beta*L[t])*bgroup("(",1-e^{-K*Delta*t},")")),pos=4)},
-         
-         gOriginal=  {graphics::text(xpos,ypos,expression(plain("Original:         ")~~~E(L[t])==L[infinity]*~e^{-e^{a-g[i]*t}}),pos=4)},
-         gRicker1=   {graphics::text(xpos,ypos,expression(plain("Ricker1:          ")~~~E(L[t])==L[infinity]*~e^{-e^{-g[i]*(t-t[i])}}),pos=4)},
-         gRicker2=   {graphics::text(xpos,ypos,expression(plain("Ricker2, QD1: ")~~~E(L[t])==L[0]*~e^{a*bgroup("(",1-e^{-g[i]*t},")")}),pos=4)},
-         gRicker3=   {graphics::text(xpos,ypos,expression(plain("Ricker3, QD2: ")~~~E(L[t])==L[infinity]*~e^{-a*~e^{-g[i]*t}}),pos=4)},
-         gQD3=       {graphics::text(xpos,ypos,expression(plain("QD3:              ")~~~E(L[t])==L[infinity]*~e^{-~frac(1,g[i])*~e^{-g[i]*~(~t~-~t^{plain("*")})}}),pos=4)},
-         gTroynikov1={graphics::text(xpos,ypos,expression(plain("Troynikov1: ")~~~E(L[r]-L[m])==L[infinity]*~bgroup("(",frac(L[m],L[infinity]),")")^{e^{-g[i]*Delta*t}}-L[m]),pos=4)},
-         gTroynikov2={graphics::text(xpos,ypos,expression(plain("Troynikov2: ")~~~E(L[r])==L[infinity]*~bgroup("(",frac(L[m],L[infinity]),")")^{e^{-g[i]*Delta*t}}),pos=4)},
-
-         CJ1=  {graphics::text(xpos,ypos,expression(plain("CJ1: ")~~~E(L[t])==frac(L[infinity],1+g[-infinity]*(t-t[i]))),pos=4)},
-         CJ2=  {graphics::text(xpos,ypos,expression(plain("CJ2: ")~~~E(L[t])==frac(L[infinity],1+~ae^{-g[-infinity]*t})),pos=4)},
-         Karkach= {graphics::text(xpos,ypos,expression(plain("Karkach: ")~~~E(L[t])==frac(L[0]*L[infinity],L[0]+(L[infinity]-L[0])*e^{-g[-infinity]*t})),pos=4)},
-         HaddonI={graphics::text(xpos,ypos,expression(plain("HaddonI: ")~~~E(L[r]-L[m])==frac(Delta*L[max],1+e^{log(19)*frac(L[m]~-~L[50],L[95]~-~L[50])})),pos=4)},
-
-         Richards1=  {graphics::text(xpos,ypos,expression(plain("Richards1: ")~~~E(L[t])==L[infinity]*~bgroup("(",1-a*e^{-kt},")")^{b}),pos=4)},
-         Richards2=  {graphics::text(xpos,ypos,expression(plain("Richards2: ")~~~E(L[t])==L[infinity]*~bgroup("(",1-frac(1,b)*~e^{-k*(t-t[i])},")")^{~b}),pos=4)},
-         Richards3=  {graphics::text(xpos,ypos,expression(plain("Richards3: ")~~~E(L[t])==frac(L[infinity],bgroup("(",1+b*e^{-k*(t-t[i])},")")^{~frac(1,b)})),pos=4)},
-         Richards4=  {graphics::text(xpos,ypos,expression(plain("Richards4: ")~~~E(L[t])==L[infinity]*~bgroup("(",1+(b-1)*~e^{-k*(t-t[i])},")")^{~frac(1,1-b)}),pos=4)},
-         Richards5=  {graphics::text(xpos,ypos,expression(plain("Richards5: ")~~~E(L[t])==L[infinity]*~bgroup("[",bgroup("(",1+bgroup("(",frac(L[0],L[infinity]),")")^{1-b}-1,")")*~e^{-k*t},"]")^{~frac(1,1-b)}),pos=4)},
-         Richards6=  {graphics::text(xpos,ypos,expression(plain("Richards6: ")~~~E(L[t])==L[-infinity]+(L[infinity]-L[-infinity])*~bgroup("(",1+(b-1)*~e^{-k*(t-t[i])},")")^{~frac(1,1-b)}),pos=4)},
-         
-         Schnute1=  {graphics::text(xpos,ypos,expression(plain("Case 1: ")~~~E(L[t])==bgroup("[",L[1]^{b}+(L[3]^{b}-L[1]^{b})*~frac(1-e^{-a*(~t~-~t[1])},1-e^{-a*(~t[3]~-~t[1])}),"]")^{~frac(1,b)}),pos=4)},
-         Schnute2=  {graphics::text(xpos,ypos,expression(plain("Case 2: ")~~~E(L[t])==L[1]*e^{log~bgroup("(",frac(L[3],L[1]),")")*~frac(1-e^{-a*(~t~-~t[1])},1-e^{-a*(~t[3]~-~t[1])})}),pos=4)},
-         Schnute3=  {graphics::text(xpos,ypos,expression(plain("Case 3: ")~~~E(L[t])==bgroup("[",L[1]^{b}+(L[3]^{b}-L[1]^{b})*~frac(~t~-~t[1],~t[3]~-~t[1]),"]")^{~frac(1,b)}),pos=4)},
-         Schnute4=  {graphics::text(xpos,ypos,expression(plain("Case 4: ")~~~E(L[t])==L[1]*e^{log~bgroup("(",frac(L[3],L[1]),")")*~frac(~t~-~t[1],~t[3]~-~t[1])}),pos=4)}
-  ) # end swich
-}  # nocov end
-
-
-
-
 #' @title The four-parameter growth function from Schnute (1981).
 #'
 #' @description The four-parameter growth function from Schnute (1981).  Use \code{SchnuteModels()} to see the equations for each growth function.
@@ -1066,8 +903,6 @@ iGrowthModels <- function(which,xpos,ypos) { # nocov start
 #' @param L3 The mean size/length at \code{t3}.
 #' @param a  A dimensionless parameter that is related to the time/age at the inflection point.
 #' @param b A dimensionless parameter that is related to size/length at the inflection point.
-#' @param cex A single numeric expansion value for use with \code{SchnuteModels}.
-#' @param \dots Not implemented.
 #' 
 #' @return \code{Schnute} returns a predicted size given the case of the function and the provided parameter values.
 #' 
@@ -1085,8 +920,10 @@ iGrowthModels <- function(which,xpos,ypos) { # nocov start
 #'
 #' @examples
 #' ## See the formulae
-#' \dontrun{windows(5,5)}
-#' SchnuteModels()
+#' showGrowthFun("Schnute",1,plot=TRUE)
+#' showGrowthFun("Schnute",2,plot=TRUE)
+#' showGrowthFun("Schnute",3,plot=TRUE)
+#' showGrowthFun("Schnute",4,plot=TRUE)
 #' 
 #' ## Simple examples
 #' ages <- 1:15
@@ -1136,15 +973,146 @@ Schnute <- function(t,case=1,t1=NULL,t3=NULL,L1=NULL,L3=NULL,a=NULL,b=NULL) {
 }
 
 
-#' @rdname Schnute
+#' @rdname growthModels
 #' @export
-SchnuteModels <- function(cex=1.25,...) { # nocov start
-  op <- graphics::par(mar=c(0,0,3,0),cex=cex)
-  graphics::plot(1,type="n",ylim=c(0,4),xlim=c(0,1),xaxt="n",yaxt="n",
-                 xlab="",ylab="",bty="n",main="FSA Schnute Growth Model Cases",...)
-  iGrowthModels("Schnute1", 0.1,3.5)
-  iGrowthModels("Schnute2", 0.1,2.5)
-  iGrowthModels("Schnute3", 0.1,1.5)
-  iGrowthModels("Schnute4", 0.1,0.5)
-  graphics::par(op)
-} # nocov end
+showGrowthFun <- function(fun=c("vonBertalanffy","Gompertz","Richards","Logistic","Schnute"),
+                        type=NULL,plot=FALSE,...) {
+  fun <- match.arg(fun)
+  switch(fun,
+         vonBertalanffy = { expr <- iSGF_VB(type) },
+         Gompertz = { expr <- iSGF_GOMP(type) },
+         Richards = { expr <- iSGF_RICHARDS(type) },
+         Logistic = { expr <- iSGF_LOGISTIC(type) },
+         Schnute = { expr <- iSGF_SCHNUTE(type) })
+  if (plot) {
+    op <- graphics::par(mar=c(0.1,0.1,0.1,0.1))
+    graphics::plot(0,type="n",ylim=c(0,1),xlim=c(0,1),xaxt="n",yaxt="n",
+                   xlab="",ylab="",bty="n",...)
+    graphics::text(0.5,0.5,expr,...)
+    graphics::par(op)
+  }
+  expr
+}
+
+################################################################################
+## Internal functions for growth model expressions
+################################################################################
+iSGF_VB <- function(type=c("Original","original","vonBertalanffy",
+                           "Typical","typical","Traditional","traditional","BevertonHolt",
+                           "GallucciQuinn","GQ","Mooij","Weisberg",
+                           "Schnute","Francis","Laslett","Polacheck",
+                           "Somers","Somers2",
+                           "Fabens","Fabens2","Wang","Wang2","Wang3")) {
+  if(!is.character(type)) stop("'type' must be a character string.",call.=FALSE)
+  type <- match.arg(type)
+  if (type %in% c("Typical","typical","Traditional","traditional","BevertonHolt")) {
+    expr <- expression(E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])},")"))
+  } else if (type %in% c("Original","original","vonBertalanffy")) {
+    expr <- expression(E(L[t])==L[infinity]~-~(L[infinity]-L[0])*~e^{-Kt})
+  } else if (type %in% c("GallucciQuinn","GQ")) {
+    expr <- expression(E(L[t])==frac(omega,K)*~bgroup("(",1-e^{-K*(t~-~t[0])},")"))
+  } else if (type=="Mooij") {
+    expr <- expression(E(L[t])==L[infinity]~-~(L[infinity]-L[0])*~e^{-frac(omega,L[infinity])*~t})
+  } else if (type=="Weisberg") {
+    expr <- expression(E(L[t])==L[infinity]*bgroup("(",1-e^{-frac(log(2),(t[50]~-~t[0]))*(t~-~t[0])},")"))
+  } else if (type=="Schnute") {
+    expr <- expression(E(L[t])==L[1]+(L[3]-L[1])*~frac(1-e^{-K*(~t~-~t[1])},1-e^{-K*(~t[3]~-~t[1])}))
+  } else if (type=="Francis") {
+    expr <- expression(atop(E(L[t])==L[1]+(L[3]-L[1])*~frac(1-r^{2*frac(t-t[1],t[3]-t[1])},1-r^{2}),
+                            plain("where" )~r==frac(L[3]-L[2],L[2]-L[1])))
+  } else if (type=="Laslett") {
+    expr <- expression(plain("Not Yet Implemented"))
+  } else if (type=="Polacheck") {
+    expr <- expression(plain("Not Yet Implemented"))
+  } else if (type=="Somers") {
+    expr <- expression(atop(E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])-S(t)+S(t[0])},")"),
+                            plain("where" )~S(t)==bgroup("(",frac(C*K,2*~pi),")")*~sin(2*pi*(t-t[s]))))
+  } else if (type=="Somers2") {
+    expr <- expression(atop(E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])-R(t)+R(t[0])},")"),
+                            plain("where" )~R(t)==bgroup("(",frac(C*K,2*~pi),")")*~sin(2*pi*(t-WP+0.5))))
+  } else if (type=="Fabens") {
+    expr <- expression(E(L[r]-L[m])==(L[infinity]-L[m])*bgroup("(",1-e^{-K*Delta*t},")"))
+  } else if (type=="Fabens2") {
+    expr <- expression(E(L[r])==L[m]+(L[infinity]-L[m])*bgroup("(",1-e^{-K*Delta*t},")"))
+  } else if (type=="Wang") {
+    expr <- expression(E(L[r]-L[m])==(L[infinity]+beta*(L[t]-L[t])-L[m])*bgroup("(",1-e^{-K*Delta*t},")"))
+  } else if (type=="Wang2") {
+    expr <- expression(E(L[r]-L[m])==(alpha+beta*L[t])*bgroup("(",1-e^{-K*Delta*t},")"))
+  } else if (type=="Wang3") {
+    expr <- expression(E(L[r])==L[m]+(alpha+beta*L[t])*bgroup("(",1-e^{-K*Delta*t},")"))
+  }
+  expr
+}
+
+iSGF_GOMP <- function(type=c("Original","original","Ricker1","Ricker2","Ricker3",
+                             "QuinnDeriso1","QuinnDeriso2","QuinnDeriso3","QD1","QD2","QD3",
+                             "Troynikov1","Troynikov2")) {
+  if(!is.character(type)) stop("'type' must be a character string.",call.=FALSE)
+  type <- match.arg(type)
+  if (type %in% c("Original","original")) {
+    expr <- expression(E(L[t])==L[infinity]*~e^{-e^{a-g[i]*t}})
+  } else if (type=="Ricker1") {
+    expr <- expression(E(L[t])==L[infinity]*~e^{-e^{-g[i]*(t-t[i])}})
+  } else if (type %in% c("Ricker2","QuinnDeriso1","QD1")) {
+    expr <- expression(E(L[t])==L[0]*~e^{a*bgroup("(",1-e^{-g[i]*t},")")})
+  } else if (type %in% c("Ricker3","QuinnDeriso2","QD2")) {
+    expr <- expression(E(L[t])==L[infinity]*~e^{-a*~e^{-g[i]*t}})
+  } else if (type %in% c("QuinnDeriso3","QD3")) {
+    expr <- expression(E(L[t])==L[infinity]*~e^{-~frac(1,g[i])*~e^{-g[i]*~(~t~-~t^{plain("*")})}})
+  } else if (type=="Troynikov1") {
+    expr <- expression(E(L[r]-L[m])==L[infinity]*~bgroup("(",frac(L[m],L[infinity]),")")^{e^{-g[i]*Delta*t}}-L[m])
+  } else if (type=="Troynikov2") {
+    expr <- expression(E(L[r])==L[infinity]*~bgroup("(",frac(L[m],L[infinity]),")")^{e^{-g[i]*Delta*t}})
+  }
+  expr
+}
+
+iSGF_RICHARDS <- function(type=1:6) {
+  if (!is.numeric(type)) stop("'type' must be numeric when fun='Richards'.",call.=FALSE)
+  if (!type %in% 1:6) stop("'type' must be from 1-6 when fun='Richards'.",call.=FALSE)
+  if(type==1){
+    expr <- expression(E(L[t])==L[infinity]*~bgroup("(",1-a*e^{-kt},")")^{b})
+  } else if (type==2) {
+    expr <- expression(E(L[t])==L[infinity]*~bgroup("(",1-frac(1,b)*~e^{-k*(t-t[i])},")")^{~b})
+  } else if (type==3) {
+    expr <- expression(E(L[t])==frac(L[infinity],bgroup("(",1+b*e^{-k*(t-t[i])},")")^{~frac(1,b)}))
+  } else if (type==4) {
+    expr <- expression(E(L[t])==L[infinity]*~bgroup("(",1+(b-1)*~e^{-k*(t-t[i])},")")^{~frac(1,1-b)})
+  } else if (type==5) {
+    expr <- expression(E(L[t])==L[infinity]*~bgroup("[",bgroup("(",1+bgroup("(",frac(L[0],L[infinity]),")")^{1-b}-1,")")*~e^{-k*t},"]")^{~frac(1,1-b)})
+  } else {
+    expr <- expression(E(L[t])==L[-infinity]+(L[infinity]-L[-infinity])*~bgroup("(",1+(b-1)*~e^{-k*(t-t[i])},")")^{~frac(1,1-b)})
+  }
+  expr
+}
+
+iSGF_LOGISTIC <- function(type=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1","CampanaJones2")) {
+  if(!is.character(type)) stop("'type' must be a character string.",call.=FALSE)
+  type <- match.arg(type)
+  if (type %in% c("CJ1","CampanaJones1")) {
+    expr <- expression(E(L[t])==frac(L[infinity],1+g[-infinity]*(t-t[i])))
+  } else if (type %in% c("CJ2","CampanaJones2")) {
+    expr <- expression(E(L[t])==frac(L[infinity],1+~ae^{-g[-infinity]*t}))
+  } else if (type=="Karkach") {
+    expr <- expression(E(L[t])==frac(L[0]*L[infinity],L[0]+(L[infinity]-L[0])*e^{-g[-infinity]*t}))
+  } else if (type=="Haddon") {
+    expr <- expression(E(L[r]-L[m])==frac(Delta*L[max],1+e^{log(19)*frac(L[m]~-~L[50],L[95]~-~L[50])}))
+  }
+  expr
+}
+
+iSGF_SCHNUTE <- function(type=1:4) {
+  if (!is.numeric(type)) stop("'type' must be numeric when fun='Schnute'.",call.=FALSE)
+  if (!type %in% 1:4) stop("'type' must be from 1-4 when fun='Schnute'.",call.=FALSE)
+  if(type==1){
+    expr <- expression(E(L[t])==bgroup("[",L[1]^{b}+(L[3]^{b}-L[1]^{b})*~frac(1-e^{-a*(~t~-~t[1])},1-e^{-a*(~t[3]~-~t[1])}),"]")^{~frac(1,b)})
+  } else if (type==2) {
+    expr <- expression(E(L[t])==L[1]*e^{log~bgroup("(",frac(L[3],L[1]),")")*~frac(1-e^{-a*(~t~-~t[1])},1-e^{-a*(~t[3]~-~t[1])})})
+  } else if (type==3) {
+    expr <- expression(E(L[t])==bgroup("[",L[1]^{b}+(L[3]^{b}-L[1]^{b})*~frac(~t~-~t[1],~t[3]~-~t[1]),"]")^{~frac(1,b)})
+  } else  {
+    expr <- expression(E(L[t])==L[1]*e^{log~bgroup("(",frac(L[3],L[1]),")")*~frac(~t~-~t[1],~t[3]~-~t[1])})
+  }
+  expr
+}
+
