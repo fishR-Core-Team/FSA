@@ -166,6 +166,10 @@ fitPlot(lm2,legend="topleft")
 fitPlot(lm2,legend="topleft",interval="confidence")
 fitPlot(lm2,legend="topleft",col="rich",pch=18,lty=1)
 
+## Indicator variable regression with one factor (as first variable)
+lm2r <- lm(mirex~fyear*weight,data=Mirex2)
+fitPlot(lm2r,legend="topleft",interval="both")
+
 ## Indicator variable regression with one factor (assuming parallel lines)
 lm3 <- lm(mirex~weight+fyear,data=Mirex2)
 fitPlot(lm3,legend="topleft")

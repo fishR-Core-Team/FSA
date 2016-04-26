@@ -77,7 +77,11 @@
 #' fitPlot(lm2,legend="topleft")
 #' fitPlot(lm2,legend="topleft",interval="confidence")
 #' fitPlot(lm2,legend="topleft",col="rich",pch=18,lty=1)
-#'
+#' 
+#' ## Indicator variable regression with one factor (as first variable)
+#' lm2r <- lm(mirex~fyear*weight,data=Mirex2)
+#' fitPlot(lm2r,legend="topleft",interval="both")
+#' 
 #' ## Indicator variable regression with one factor (assuming parallel lines)
 #' lm3 <- lm(mirex~weight+fyear,data=Mirex2)
 #' fitPlot(lm3,legend="topleft")
@@ -215,7 +219,7 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   interval <- match.arg(interval)
   # extract y and x quantitative variables
   y <- object$mf[,object$Rname]
-  x <- object$mf[,object$Enames[1]]
+  x <- object$mf[,object$ENumPos[1]]
   # extract the factor variable(s) from the 2nd position
   f1 <- object$mf[,object$EFactPos[1]]
   # find number of levels of each factor
@@ -239,7 +243,7 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
     # Make the predictions at a bunch of values of x
     xvals <- seq(min(x.obs),max(x.obs),length.out=200)
     newdf <- data.frame(xvals,as.factor(rep(levels(f1)[i],length(xvals))))
-    names(newdf) <- object$Enames      
+    names(newdf) <- names(object$mf)[c(object$ENumPos,object$EFactPos)]
     pred <- stats::predict(object$mdl,newdf,interval="confidence")
     # Plot just the line if no intervals called for
     graphics::lines(xvals,pred[,"fit"],col=col[i],lwd=lwd,lty=lty[i])
