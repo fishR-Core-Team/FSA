@@ -228,8 +228,10 @@ summary(fit3,correlation=TRUE)
 curve(log3(x,Linf=coef(fit3)[1],L0=coef(fit3)[2],gninf=coef(fit3)[3]),
       from=0,to=15,col="green",lwd=2,add=TRUE)
 
+
 #############################################################################
 ## Create expressions of the models
+#############################################################################
 # Typical von Bertalanffy ... Show as a stand-alone plot
 showGrowthFun("vonBertalanffy","Typical",plot=TRUE)
 # Get and save the expression
@@ -239,6 +241,16 @@ lens <- vb1(ages,Linf=20,K=0.3,t0=-0.2)
 plot(lens~ages,type="b",pch=19,main=tmp)
 # Put expression in the main plot
 text(10,5,tmp)
+# Put multiple expressions on a plot
+op <- par(mar=c(0.1,0.1,0.1,0.1))
+plot(0,type="n",xlab="",ylab="",xlim=c(0,1),ylim=c(0,3),xaxt="n",yaxt="n")
+text(0,2.5,"Original:",pos=4)
+text(0.5,2.5,showGrowthFun("vonBertalanffy","Original"))
+text(0,1.5,"Typical:",pos=4)
+text(0.5,1.5,showGrowthFun("vonBertalanffy","Typical"))
+text(0,0.5,"Francis:",pos=4)
+text(0.5,0.5,showGrowthFun("vonBertalanffy","Francis"))
+par(op)
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
