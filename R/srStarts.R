@@ -191,6 +191,6 @@ iSRStartsPlot <- function(S,R,type,param,sv,col.mdl,lwd.mdl,lty.mdl,
   ## Plot the model
   mdl <- srFuns(type,param)
   graphics::curve(mdl(x,unlist(sv)),from=0,to=max.S,col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
-  legend("topleft",paste(names(sv),formatC(unlist(sv),format="f",digits=3),sep="="),
+  graphics::legend("topleft",paste(names(sv),formatC(unlist(sv),format="f",digits=3),sep="="),
          bty="n",cex=cex.main)
 } # nocov end

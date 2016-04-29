@@ -351,5 +351,6 @@ iVBStartsPlot <- function(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl,
                     col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
   }
   ## Put the starting values to put on the plot
-  legend("bottomright",paste(names(sv),formatC(unlist(sv),format="f",digits=2),sep="="),bty="n")
+  graphics::legend("bottomright",paste(names(sv),formatC(unlist(sv),format="f",digits=2),
+                                       sep="="),bty="n")
 } # nocov end

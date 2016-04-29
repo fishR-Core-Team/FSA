@@ -273,7 +273,7 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
     levs <- levels(f1)
     if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=levs,col=col,pch=pch,lty=lty)
     else graphics::legend(x=leg$x,y=leg$y,legend=levs,col=col,lty=lty)
-    box()
+    graphics::box()
   }  # nocov end
 }
 
@@ -337,7 +337,7 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
     levs <- levels(f1:f2)
     if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,pch=lpch,lty=llty)
     else graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,lty=llty)
-    box()
+    graphics::box()
   }  # nocov end
 }
 
@@ -420,7 +420,7 @@ fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
     graphics::legend(leg$x,leg$y,legend=levels(group),pch=pch[1:ngrps],
                      lty=1:ngrps,col=col,cex=cex.leg,box.lty=box.lty.leg)
   }
-  box() # nocov end
+  graphics::box() # nocov end
 }
 
 

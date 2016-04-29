@@ -232,7 +232,7 @@ iResidPlotIVR1 <- function(object,legend,xlab="Fitted Values",ylab="Residuals",m
     ### Prepare and place the legend
     if (leg$do.legend) {
       graphics::legend(x=leg$x,y=leg$y,legend=levels(f1),col=col,pch=pch)
-      box()
+      graphics::box()
     }
   }
   if (inclHist) iHistResids(r,ylab)
@@ -293,7 +293,7 @@ iResidPlotIVR2 <- function(object,legend,xlab="Fitted Values",ylab="Residuals",m
       lpch <- rep(pch,times=num.f1)
       levs <- levels(f1:f2)
       graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,pch=lpch)
-      box()
+      graphics::box()
     }
   }
   if (inclHist) iHistResids(r,ylab)
