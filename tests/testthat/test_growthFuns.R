@@ -9,21 +9,21 @@ gomps <- c("Original","Ricker1","Ricker2","Ricker3","QuinnDeriso1","QuinnDeriso2
            "QD1","QD2","QD3","Troynikov1","Troynikov2")
 logistics <- c("CJ1","CJ2","Karkach","Haddon","CampanaJones1","CampanaJones2")
 
-test_that("showGrowthFun() & Schnute() messages",{
+test_that("growthFunShow() & Schnute() messages",{
   ## wrong models
-  expect_error(showGrowthFun("Derek",type="Original"),"should be one of")
-  expect_error(showGrowthFun("vonBertalanffy",type="Derek"),"should be one of")
-  expect_error(showGrowthFun("Gompertz",type="Derek"),"should be one of")
-  expect_error(showGrowthFun("Logistic",type="Derek"),"should be one of")
-  expect_error(showGrowthFun("vonBertalanffy",type=1),"must be a character string")
-  expect_error(showGrowthFun("Gompertz",type=1),"must be a character string")
-  expect_error(showGrowthFun("Logistic",type=1),"must be a character string")
-  expect_error(showGrowthFun("Richards",type="Derek"),"must be numeric when")
-  expect_error(showGrowthFun("Schnute",type="Derek"),"must be numeric when")
-  expect_error(showGrowthFun("Richards",type=0),"must be from")
-  expect_error(showGrowthFun("Richards",type=7),"must be from")
-  expect_error(showGrowthFun("Schnute",type=0),"must be from")
-  expect_error(showGrowthFun("Schnute",type=5),"must be from")
+  expect_error(growthFunShow("Derek",type="Original"),"should be one of")
+  expect_error(growthFunShow("vonBertalanffy",type="Derek"),"should be one of")
+  expect_error(growthFunShow("Gompertz",type="Derek"),"should be one of")
+  expect_error(growthFunShow("Logistic",type="Derek"),"should be one of")
+  expect_error(growthFunShow("vonBertalanffy",type=1),"must be a character string")
+  expect_error(growthFunShow("Gompertz",type=1),"must be a character string")
+  expect_error(growthFunShow("Logistic",type=1),"must be a character string")
+  expect_error(growthFunShow("Richards",type="Derek"),"must be numeric when")
+  expect_error(growthFunShow("Schnute",type="Derek"),"must be numeric when")
+  expect_error(growthFunShow("Richards",type=0),"must be from")
+  expect_error(growthFunShow("Richards",type=7),"must be from")
+  expect_error(growthFunShow("Schnute",type=0),"must be from")
+  expect_error(growthFunShow("Schnute",type=5),"must be from")
 
   ## bad choices for parameters in Schnute()
   # L1>L3
@@ -39,26 +39,26 @@ test_that("showGrowthFun() & Schnute() messages",{
   expect_error(Schnute(c(3,3,3),L1=30,L3=300,a=0.3,b=0.5),"cannot equal")
 })
 
-test_that("showGrowthFuns() results",{
+test_that("growthFunShow() results",{
   for (i in vbs) {
-    expect_is(showGrowthFun("vonBertalanffy",type=i),"expression")
-    expect_is(showGrowthFun("vonBertalanffy",type=i,plot=TRUE),"expression")
+    expect_is(growthFunShow("vonBertalanffy",type=i),"expression")
+    expect_is(growthFunShow("vonBertalanffy",type=i,plot=TRUE),"expression")
   }
   for (i in gomps) {
-    expect_is(showGrowthFun("Gompertz",type=i),"expression")
-    expect_is(showGrowthFun("Gompertz",type=i,plot=TRUE),"expression")
+    expect_is(growthFunShow("Gompertz",type=i),"expression")
+    expect_is(growthFunShow("Gompertz",type=i,plot=TRUE),"expression")
   }
   for (i in logistics) {
-    expect_is(showGrowthFun("Logistic",type=i),"expression")
-    expect_is(showGrowthFun("Logistic",type=i,plot=TRUE),"expression")
+    expect_is(growthFunShow("Logistic",type=i),"expression")
+    expect_is(growthFunShow("Logistic",type=i,plot=TRUE),"expression")
   }
   for (i in 1:6) {
-    expect_is(showGrowthFun("Richards",type=i),"expression")
-    expect_is(showGrowthFun("Richards",type=i,plot=TRUE),"expression")
+    expect_is(growthFunShow("Richards",type=i),"expression")
+    expect_is(growthFunShow("Richards",type=i,plot=TRUE),"expression")
   }
   for (i in 1:4) {
-    expect_is(showGrowthFun("Schnute",type=i),"expression")
-    expect_is(showGrowthFun("Schnute",type=i,plot=TRUE),"expression")
+    expect_is(growthFunShow("Schnute",type=i),"expression")
+    expect_is(growthFunShow("Schnute",type=i,plot=TRUE),"expression")
   }
 })
 

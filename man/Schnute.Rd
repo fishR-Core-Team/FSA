@@ -37,10 +37,10 @@ The four-parameter growth function from Schnute (1981).  Use \code{SchnuteModels
 }
 \examples{
 ## See the formulae
-showGrowthFun("Schnute",1,plot=TRUE)
-showGrowthFun("Schnute",2,plot=TRUE)
-showGrowthFun("Schnute",3,plot=TRUE)
-showGrowthFun("Schnute",4,plot=TRUE)
+growthFunShow("Schnute",1,plot=TRUE)
+growthFunShow("Schnute",2,plot=TRUE)
+growthFunShow("Schnute",3,plot=TRUE)
+growthFunShow("Schnute",4,plot=TRUE)
 
 ## Simple examples
 ages <- 1:15

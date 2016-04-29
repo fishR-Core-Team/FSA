@@ -3,9 +3,9 @@
 \name{growthModels}
 \alias{GompertzFuns}
 \alias{RichardsFuns}
+\alias{growthFunShow}
 \alias{growthModels}
 \alias{logisticFuns}
-\alias{showGrowthFun}
 \alias{vbFuns}
 \title{Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.}
 \usage{
@@ -24,7 +24,7 @@ RichardsFuns(type = 1, simple = FALSE, msg = FALSE)
 logisticFuns(type = c("CJ1", "CJ2", "Karkach", "Haddon", "CampanaJones1",
   "CampanaJones2"), simple = FALSE, msg = FALSE)
 
-showGrowthFun(fun = c("vonBertalanffy", "Gompertz", "Richards", "Logistic",
+growthFunShow(fun = c("vonBertalanffy", "Gompertz", "Richards", "Logistic",
   "Schnute"), type = NULL, plot = FALSE, ...)
 }
 \arguments{
@@ -34,7 +34,7 @@ showGrowthFun(fun = c("vonBertalanffy", "Gompertz", "Richards", "Logistic",
 
 \item{msg}{A logical that indicates whether a message about the growth function and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; DEFAULT).}
 
-\item{fun}{A string (in \code{showGrowthFun}) that indicates the type of growth function to show.}
+\item{fun}{A string (in \code{growthFunShow}) that indicates the type of growth function to show.}
 
 \item{plot}{A logical that indicates whether the growth function expression should be shown as an equation in a simple plot.}
 
@@ -43,10 +43,10 @@ showGrowthFun(fun = c("vonBertalanffy", "Gompertz", "Richards", "Logistic",
 \value{
 The functions ending in \code{xxxFuns} return a function that can be used to predict fish size given a vector of ages and values for the growth function parameters and, in some parameterizations, values for constants.  The result should be saved to an object that is then the function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).  If \code{simple=FALSE} (DEFAULT), then the values for all parameters may be included as a vector in the first parameter argument (but in the same order).  Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE}, then all parameters and constants must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}, but is less general for some applications.
 
-An expression of the equation for each growth function may be created with \code{showGrowthFun}.  In this function \code{fun=} is used to select the major function type (e.g., von Bertalanffy, Gompertz, Richards, Logistic, Schnute) and \code{type=} is used to select a specific parameterization of that growth function.  If \code{plot=TRUE}, then a simple graphic will be created with the equation using \code{\link{plotmath}} for a pretty format.
+An expression of the equation for each growth function may be created with \code{growthFunShow}.  In this function \code{fun=} is used to select the major function type (e.g., von Bertalanffy, Gompertz, Richards, Logistic, Schnute) and \code{type=} is used to select a specific parameterization of that growth function.  If \code{plot=TRUE}, then a simple graphic will be created with the equation using \code{\link{plotmath}} for a pretty format.
 }
 \description{
-Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.  Use \code{showGrowthFuns()} to see the equations for each growth function.
+Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.  Use \code{growthFunShow()} to see the equations for each growth function.
 }
 \note{
 Take note of the following for parameterizations (i.e., \code{type}) of each growth function:
@@ -233,9 +233,9 @@ curve(log3(x,Linf=coef(fit3)[1],L0=coef(fit3)[2],gninf=coef(fit3)[3]),
 ## Create expressions of the models
 #############################################################################
 # Typical von Bertalanffy ... Show as a stand-alone plot
-showGrowthFun("vonBertalanffy","Typical",plot=TRUE)
+growthFunShow("vonBertalanffy","Typical",plot=TRUE)
 # Get and save the expression
-( tmp <- showGrowthFun("vonBertalanffy","Typical") )
+( tmp <- growthFunShow("vonBertalanffy","Typical") )
 # Use expression as title on a plot
 lens <- vb1(ages,Linf=20,K=0.3,t0=-0.2)
 plot(lens~ages,type="b",pch=19,main=tmp)
@@ -245,11 +245,11 @@ text(10,5,tmp)
 op <- par(mar=c(0.1,0.1,0.1,0.1))
 plot(0,type="n",xlab="",ylab="",xlim=c(0,1),ylim=c(0,3),xaxt="n",yaxt="n")
 text(0,2.5,"Original:",pos=4)
-text(0.5,2.5,showGrowthFun("vonBertalanffy","Original"))
+text(0.5,2.5,growthFunShow("vonBertalanffy","Original"))
 text(0,1.5,"Typical:",pos=4)
-text(0.5,1.5,showGrowthFun("vonBertalanffy","Typical"))
+text(0.5,1.5,growthFunShow("vonBertalanffy","Typical"))
 text(0,0.5,"Francis:",pos=4)
-text(0.5,0.5,showGrowthFun("vonBertalanffy","Francis"))
+text(0.5,0.5,growthFunShow("vonBertalanffy","Francis"))
 par(op)
 }
 \author{
