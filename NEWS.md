@@ -8,19 +8,23 @@
 * `capHistSum()`: Added tests.
 * `filterD()`: Modified.  Changed to use `droplevels()` from `base` rather than `drop.levels()` from `gdata`.  Added `except=`.
 * `fitPlot()`: Modified.  Changed the way colors, plotting characters, and line types were handled for most of the models.  Should make their use more flexible.  Fixed errors that occurred in IVR models when the factor variable preceded the covariate in the model (fixes [#18](https://github.com/droglenc/FSA/issues/18)).  Started to add tests for error and warning messages.
+* `GompertzFuns()`: Modified.  Changed `type=` to `param=`.
 * `GompertzModels()`: Removed.  Replaced with `growthFunShow()`.
 * `iGetDecimals()`: Modified.  Fixed a bug that occured when an integer was provided.
 * `lenFreqExpand()`: Removed.  Deprecated since 0.4.32.  Use `expandLenFreq()`.
+* `logisticFuns()`: Modified.  Changed `type=` to `param=`.
 * `LogisticModels()`: Removed.  Replaced with `growthFunShow()`.
 * `residPlot()`: Modified.  Changed the way colors, plotting characters, and line types were handled for most of the models.  Should make their use more flexible.  Now matches coding in `fitPlot()`.  Fixed bug with main titling, but now asks user to decide if they want the model call or not.  Started to add tests for error and warning messages.
+* `RichardsFuns()`: Modified.  Changed `type=` to `param=`.
 * `RichardsModels()`: Removed.  Replaced with `growthFunShow()`.
 * `growthFunShow()`: Added.
 * `srFunShow()`: Added.
 * `srModels()`: Removed.  Replaced with `srFunShow()`.
 * `srStarts()`: Modified.  Removed `dynamicPlot=TRUE` option.  Moved it to `FSAsim` package.  Modified plot when `plot=TRUE` by adding "STARTING VALUES" to title and moving starting values to within the plot.  Added `cex.main=` and `col.main=`.
 * `Subset()`: MOdified.  Changed to use `droplevels()` from `base` rather than `drop.levels()` from `gdata`.
+* `vbFuns()`: Modified.  Changed `type=` to `param=`.
 * `vbModels()`: Removed.  Replaced with `growthFunShow()`.
-* `vbStarts()`: Modified.  Removed `dynamicPlot=TRUE` option.  Moved it to `FSAsim` package.  Modified plot when `plot=TRUE` by adding "STARTING VALUES" to title and moving starting values to within the plot.  Added and `col.main=`.  Made warnings and error tests more explicit.
+* `vbStarts()`: Modified.  Removed `dynamicPlot=TRUE` option.  Moved it to `FSAsim` package.  Added `param=` to match other `vbXXX()` (works as does `type=`).  Modified plot when `plot=TRUE` by adding "STARTING VALUES" to title and moving starting values to within the plot.  Added and `col.main=`.  Made warnings and error tests more explicit.
 
 # FSA 0.8.6 24-Mar-16
 * Fixed problems with tests, and made the tests more explicit, related to PSD and Wr functions.  Suppressed some warnings related to `sumTable()` in ALK related tests and `Summarize()` in age comparisons tests.  Prompted by forthcoming changes to `testthat`.

@@ -12,7 +12,7 @@
 #' 
 #' @param formula A formula of the form \code{len~age}.
 #' @param data A data frame that contains the variables in \code{formula}.
-#' @param type A string that indicates the parameterization of the von Bertalanffy model.
+#' @param type,param A string that indicates the parameterization of the von Bertalanffy model.
 #' @param ages2use A numerical vector of the two ages to be used in the Schnute or Francis paramaterizations.  See details.
 #' @param methEV A string that indicates how the lengths of the two ages in the Schnute paramaterization or the three ages in the Francis paramaterization should be derived.  See details.
 #' @param meth0 A string that indicates how the t0 and L0 paramaters should be derived.  See details.
@@ -76,15 +76,18 @@
 #' 
 #' @export vbStarts
 vbStarts <- function(formula,data=NULL,
-                     type=c("Typical","typical","Traditional","traditional","BevertonHolt",
-                            "Original","original","vonBertalanffy",
-                            "GQ","GallucciQuinn","Mooij","Weisberg",
-                            "Schnute","Francis","Somers","Somers2"),
+                     param=c("Typical","typical","Traditional","traditional","BevertonHolt",
+                             "Original","original","vonBertalanffy",
+                             "GQ","GallucciQuinn","Mooij","Weisberg",
+                             "Schnute","Francis","Somers","Somers2"),type=param,
                      ages2use=NULL,methEV=c("means","poly"),meth0=c("yngAge","poly"),
                      plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,
                      cex.main=0.9,col.main="red",dynamicPlot=FALSE,...) {
   ## some checks of arguments
-  type <- match.arg(type)
+  type <- match.arg(type,c("Typical","typical","Traditional","traditional","BevertonHolt",
+                           "Original","original","vonBertalanffy",
+                           "GQ","GallucciQuinn","Mooij","Weisberg",
+                           "Schnute","Francis","Somers","Somers2"))
   methEV <- match.arg(methEV)
   meth0 <- match.arg(meth0)
   ## handle the formula with some checkes

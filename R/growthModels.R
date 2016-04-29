@@ -4,8 +4,8 @@
 #'
 #' @description Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.  Use \code{growthFunShow()} to see the equations for each growth function.
 #'
-#' @param fun A string (in \code{growthFunShow}) that indicates the type of growth function to show.
-#' @param type A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function See details.
+#' @param type A string (in \code{growthFunShow}) that indicates the type of growth function to show.
+#' @param param A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function See details.
 #' @param simple A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}).
 #' @param msg A logical that indicates whether a message about the growth function and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; DEFAULT).
 #' @param plot A logical that indicates whether the growth function expression should be shown as an equation in a simple plot.
@@ -13,9 +13,9 @@
 #' 
 #' @return The functions ending in \code{xxxFuns} return a function that can be used to predict fish size given a vector of ages and values for the growth function parameters and, in some parameterizations, values for constants.  The result should be saved to an object that is then the function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).  If \code{simple=FALSE} (DEFAULT), then the values for all parameters may be included as a vector in the first parameter argument (but in the same order).  Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE}, then all parameters and constants must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}, but is less general for some applications.
 #' 
-#' An expression of the equation for each growth function may be created with \code{growthFunShow}.  In this function \code{fun=} is used to select the major function type (e.g., von Bertalanffy, Gompertz, Richards, Logistic, Schnute) and \code{type=} is used to select a specific parameterization of that growth function.  If \code{plot=TRUE}, then a simple graphic will be created with the equation using \code{\link{plotmath}} for a pretty format.
+#' An expression of the equation for each growth function may be created with \code{growthFunShow}.  In this function \code{type=} is used to select the major function type (e.g., von Bertalanffy, Gompertz, Richards, Logistic, Schnute) and \code{param=} is used to select a specific parameterization of that growth function.  If \code{plot=TRUE}, then a simple graphic will be created with the equation using \code{\link{plotmath}} for a pretty format.
 #'
-#' @note Take note of the following for parameterizations (i.e., \code{type}) of each growth function:
+#' @note Take note of the following for parameterizations (i.e., \code{param}) of each growth function:
 #' \itemize{
 #'   \item von Bertalanffy
 #'   \itemize{
@@ -276,7 +276,7 @@ NULL
 
 #' @rdname growthModels
 #' @export
-vbFuns <- function(type=c("Typical","typical","Traditional","traditional","BevertonHolt",
+vbFuns <- function(param=c("Typical","typical","Traditional","traditional","BevertonHolt",
                           "Original","original","vonBertalanffy",
                           "GQ","GallucciQuinn","Mooij","Weisberg",
                           "Schnute","Francis","Laslett","Polacheck",
@@ -413,9 +413,9 @@ vbFuns <- function(type=c("Typical","typical","Traditional","traditional","Bever
   SWang3 <- function(Lm,dt,K,a,b) {
     Lm+(a+b*Lm)*(1-exp(-K*dt))
   }
-  type <- match.arg(type)
+  param <- match.arg(param)
   if (msg) {
-    switch(type,
+    switch(param,
       Typical=,typical=,Traditional=,traditional=,BevertonHolt= {
         message("You have chosen the 'Typical'/'typical', 'Traditional'/'traditional', or 'BevertonHolt' parameterization.\n\n",
                 "  E[L|t] = Linf*(1-exp(-K*(t-t0)))\n\n",
@@ -553,15 +553,15 @@ vbFuns <- function(type=c("Typical","typical","Traditional","traditional","Bever
       }
     )
   }
-  if (simple) type <- paste("S",type,sep="")
-  get(type)
+  if (simple) param <- paste("S",param,sep="")
+  get(param)
 }
 
 
 
 #' @rdname growthModels
 #' @export
-GompertzFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
+GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
                                 "QuinnDeriso1","QuinnDeriso2","QuinnDeriso3",
                                 "QD1","QD2","QD3",
                                 "Original","original",
@@ -629,10 +629,10 @@ GompertzFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
     Linf*((Lm/Linf)^exp(-gi*dt))
   }
   ## Main function
-  type <- match.arg(type)
+  param <- match.arg(param)
   comcat <- "parameterization of the Gompertz function.\n\n"
   if (msg) {
-    switch(type,
+    switch(param,
            Original=,original= {
              message("You have chosen the 'Original'/'original'",comcat,
                      "  E[L|t] = Linf*exp(-exp(a-gi*t))\n\n",
@@ -688,8 +688,8 @@ GompertzFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
            }
     )
   }
-  if (simple) type <- paste("S",type,sep="")
-  get(type)
+  if (simple) param <- paste("S",param,sep="")
+  get(param)
 }
 
 
@@ -697,7 +697,7 @@ GompertzFuns <- function(type=c("Ricker1","Ricker2","Ricker3",
 
 #' @rdname growthModels
 #' @export
-RichardsFuns <- function(type=1,simple=FALSE,msg=FALSE) {
+RichardsFuns <- function(param=1,simple=FALSE,msg=FALSE) {
   Richards1 <- function(t,Linf,k=NULL,a=NULL,b=NULL) {
     if (length(Linf)==4) { k <- Linf[[2]]
     a <- Linf[[3]]
@@ -760,12 +760,12 @@ RichardsFuns <- function(type=1,simple=FALSE,msg=FALSE) {
     Lninf+(Linf-Lninf)*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))
   }
   ## Main function
-  if (!type %in% 1:6) stop("'type' must be in 1:6.")
-  type <- paste0("Richards",type)
+  if (!param %in% 1:6) stop("'param' must be in 1:6.")
+  param <- paste0("Richards",param)
   if (msg) {
-    switch(type,
+    switch(param,
            Richards1= {
-             message("You have chosen the '",type,"' parameterization.",
+             message("You have chosen the '",param,"' parameterization.",
                      "  E[L|t] = Linf*(1-a*exp(-k*t))^b\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "           k = a constant that controls the slope at the inflection point\n",
@@ -773,7 +773,7 @@ RichardsFuns <- function(type=1,simple=FALSE,msg=FALSE) {
                      "           b = a constant that controls the y- value of the inflection point\n\n")
            },
            Richards2= {
-             message("You have chosen the '",type,"' parameterization.",
+             message("You have chosen the '",param,"' parameterization.",
                      "  Linf*(1-(1/b)*exp(-k*(t-ti)))^b\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "           k = a constant that controls the slope at the inflection point\n",
@@ -781,7 +781,7 @@ RichardsFuns <- function(type=1,simple=FALSE,msg=FALSE) {
                      "           b = a constant that controls the y- value of the inflection point\n\n")
            },
            Richards3= {
-             message("You have chosen the '",type,"' parameterization.",
+             message("You have chosen the '",param,"' parameterization.",
                      "  Linf/((1+b*exp(-k*(t-ti)))^(1/b))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "           k = a constant that controls the slope at the inflection point\n",
@@ -789,7 +789,7 @@ RichardsFuns <- function(type=1,simple=FALSE,msg=FALSE) {
                      "           b = a constant that controls the y- value of the inflection point\n\n")
            },
            Richards4= {
-             message("You have chosen the '",type,"' parameterization.",
+             message("You have chosen the '",param,"' parameterization.",
                      "  Linf*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "           k = a constant that controls the slope at the inflection point\n",
@@ -797,7 +797,7 @@ RichardsFuns <- function(type=1,simple=FALSE,msg=FALSE) {
                      "           b = a constant that controls the y- value of the inflection point\n\n")
            },
            Richards5= {
-             message("You have chosen the '",type,"' parameterization.",
+             message("You have chosen the '",param,"' parameterization.",
                      "  Linf*(1+(((L0/Linf)^(1-b))-1)*exp(-k*t))^(1/(1-b))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "           k = a constant that controls the slope at the inflection point\n",
@@ -805,7 +805,7 @@ RichardsFuns <- function(type=1,simple=FALSE,msg=FALSE) {
                      "           b = a constant that controls the y- value of the inflection point\n\n")
            },
            Richards6= {
-             message("You have chosen the '",type,"' parameterization.",
+             message("You have chosen the '",param,"' parameterization.",
                      "  Lninf+(Linf-Lninf)*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))\n\n",
                      "  where Linf = upper asymptotic mean length\n",
                      "           k = a constant that controls the slope at the inflection point\n",
@@ -815,15 +815,15 @@ RichardsFuns <- function(type=1,simple=FALSE,msg=FALSE) {
            }
     )
   }
-  if (simple) type <- paste("S",type,sep="")
-  get(type)
+  if (simple) param <- paste("S",param,sep="")
+  get(param)
 }
 
 
 
 #' @rdname growthModels
 #' @export
-logisticFuns <- function(type=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1","CampanaJones2"),
+logisticFuns <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1","CampanaJones2"),
                          simple=FALSE,msg=FALSE) {
   CJ1 <- CampanaJones1 <- function(t,Linf,gninf=NULL,ti=NULL) {
     if (length(Linf)==3) { gninf <- Linf[[2]]
@@ -862,10 +862,10 @@ logisticFuns <- function(type=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1","
     dLmax/(1+exp(log(19)*((Lm-L50)/(L95-L50))))
   }
   ## Main function
-  type <- match.arg(type)
+  param <- match.arg(param)
   comcat <- "parameterization of the logistic growth function.\n\n"
   if (msg) {
-    switch(type,
+    switch(param,
            CJ1=,CampanaJones1= {
              message("You have chosen the 'CampanaJones1'/'CJ1'",comcat,
                      "  E[L|t] = Linf/(1+exp(-gninf*(t-ti)))\n\n",
@@ -898,8 +898,8 @@ logisticFuns <- function(type=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1","
            }
     )
   }
-  if (simple) type <- paste("S",type,sep="")
-  get(type)
+  if (simple) param <- paste("S",param,sep="")
+  get(param)
 }
 
 
@@ -987,15 +987,15 @@ Schnute <- function(t,case=1,t1=NULL,t3=NULL,L1=NULL,L3=NULL,a=NULL,b=NULL) {
 
 #' @rdname growthModels
 #' @export
-growthFunShow <- function(fun=c("vonBertalanffy","Gompertz","Richards","Logistic","Schnute"),
-                        type=NULL,plot=FALSE,...) {
-  fun <- match.arg(fun)
-  switch(fun,
-         vonBertalanffy = { expr <- iSGF_VB(type) },
-         Gompertz = { expr <- iSGF_GOMP(type) },
-         Richards = { expr <- iSGF_RICHARDS(type) },
-         Logistic = { expr <- iSGF_LOGISTIC(type) },
-         Schnute = { expr <- iSGF_SCHNUTE(type) })
+growthFunShow <- function(type=c("vonBertalanffy","Gompertz","Richards","Logistic","Schnute"),
+                        param=NULL,plot=FALSE,...) {
+  type <- match.arg(type)
+  switch(type,
+         vonBertalanffy = { expr <- iSGF_VB(param) },
+         Gompertz = { expr <- iSGF_GOMP(param) },
+         Richards = { expr <- iSGF_RICHARDS(param) },
+         Logistic = { expr <- iSGF_LOGISTIC(param) },
+         Schnute = { expr <- iSGF_SCHNUTE(param) })
   if (plot) {
     op <- graphics::par(mar=c(0.1,0.1,0.1,0.1))
     graphics::plot(0,type="n",ylim=c(0,1),xlim=c(0,1),xaxt="n",yaxt="n",
@@ -1009,15 +1009,15 @@ growthFunShow <- function(fun=c("vonBertalanffy","Gompertz","Richards","Logistic
 ################################################################################
 ## Internal functions for growth model expressions
 ################################################################################
-iSGF_VB <- function(type=c("Original","original","vonBertalanffy",
+iSGF_VB <- function(param=c("Original","original","vonBertalanffy",
                            "Typical","typical","Traditional","traditional","BevertonHolt",
                            "GallucciQuinn","GQ","Mooij","Weisberg",
                            "Schnute","Francis","Laslett","Polacheck",
                            "Somers","Somers2",
                            "Fabens","Fabens2","Wang","Wang2","Wang3")) {
-  if(!is.character(type)) stop("'type' must be a character string.",call.=FALSE)
-  type <- match.arg(type)
-  switch(type,
+  if(!is.character(param)) stop("'param' must be a character string.",call.=FALSE)
+  param <- match.arg(param)
+  switch(param,
     Typical=,typical=,Traditional=,traditional=,BevertonHolt= {
       expr <- expression(E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])},")"))
     },
@@ -1072,12 +1072,12 @@ iSGF_VB <- function(type=c("Original","original","vonBertalanffy",
   expr
 }
 
-iSGF_GOMP <- function(type=c("Original","original","Ricker1","Ricker2","Ricker3",
+iSGF_GOMP <- function(param=c("Original","original","Ricker1","Ricker2","Ricker3",
                              "QuinnDeriso1","QuinnDeriso2","QuinnDeriso3","QD1","QD2","QD3",
                              "Troynikov1","Troynikov2")) {
-  if(!is.character(type)) stop("'type' must be a character string.",call.=FALSE)
-  type <- match.arg(type)
-  switch(type,
+  if(!is.character(param)) stop("'param' must be a character string.",call.=FALSE)
+  param <- match.arg(param)
+  switch(param,
     Original=,original= {
       expr <- expression(E(L[t])==L[infinity]*~e^{-e^{a-g[i]*t}})
     },
@@ -1102,18 +1102,18 @@ iSGF_GOMP <- function(type=c("Original","original","Ricker1","Ricker2","Ricker3"
   expr
 }
 
-iSGF_RICHARDS <- function(type=1:6) {
-  if (!is.numeric(type)) stop("'type' must be numeric when fun='Richards'.",call.=FALSE)
-  if (!type %in% 1:6) stop("'type' must be from 1-6 when fun='Richards'.",call.=FALSE)
-  if(type==1){
+iSGF_RICHARDS <- function(param=1:6) {
+  if (!is.numeric(param)) stop("'param' must be numeric when type='Richards'.",call.=FALSE)
+  if (!param %in% 1:6) stop("'param' must be from 1-6 when type='Richards'.",call.=FALSE)
+  if(param==1){
     expr <- expression(E(L[t])==L[infinity]*~bgroup("(",1-a*e^{-kt},")")^{b})
-  } else if (type==2) {
+  } else if (param==2) {
     expr <- expression(E(L[t])==L[infinity]*~bgroup("(",1-frac(1,b)*~e^{-k*(t-t[i])},")")^{~b})
-  } else if (type==3) {
+  } else if (param==3) {
     expr <- expression(E(L[t])==frac(L[infinity],bgroup("(",1+b*e^{-k*(t-t[i])},")")^{~frac(1,b)}))
-  } else if (type==4) {
+  } else if (param==4) {
     expr <- expression(E(L[t])==L[infinity]*~bgroup("(",1+(b-1)*~e^{-k*(t-t[i])},")")^{~frac(1,1-b)})
-  } else if (type==5) {
+  } else if (param==5) {
     expr <- expression(E(L[t])==L[infinity]*~bgroup("[",bgroup("(",1+bgroup("(",frac(L[0],L[infinity]),")")^{1-b}-1,")")*~e^{-k*t},"]")^{~frac(1,1-b)})
   } else {
     expr <- expression(E(L[t])==L[-infinity]+(L[infinity]-L[-infinity])*~bgroup("(",1+(b-1)*~e^{-k*(t-t[i])},")")^{~frac(1,1-b)})
@@ -1121,10 +1121,10 @@ iSGF_RICHARDS <- function(type=1:6) {
   expr
 }
 
-iSGF_LOGISTIC <- function(type=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1","CampanaJones2")) {
-  if(!is.character(type)) stop("'type' must be a character string.",call.=FALSE)
-  type <- match.arg(type)
-  switch(type,
+iSGF_LOGISTIC <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1","CampanaJones2")) {
+  if(!is.character(param)) stop("'param' must be a character string.",call.=FALSE)
+  param <- match.arg(param)
+  switch(param,
     CJ1=,CampanaJones1= {
       expr <- expression(E(L[t])==frac(L[infinity],1+g[-infinity]*(t-t[i])))
     },
@@ -1140,14 +1140,14 @@ iSGF_LOGISTIC <- function(type=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1",
   expr
 }
 
-iSGF_SCHNUTE <- function(type=1:4) {
-  if (!is.numeric(type)) stop("'type' must be numeric when fun='Schnute'.",call.=FALSE)
-  if (!type %in% 1:4) stop("'type' must be from 1-4 when fun='Schnute'.",call.=FALSE)
-  if(type==1){
+iSGF_SCHNUTE <- function(case=1:4) {
+  if (!is.numeric(case)) stop("'case' must be numeric when type='Schnute'.",call.=FALSE)
+  if (!case %in% 1:4) stop("'case' must be from 1-4 when type='Schnute'.",call.=FALSE)
+  if(case==1){
     expr <- expression(E(L[t])==bgroup("[",L[1]^{b}+(L[3]^{b}-L[1]^{b})*~frac(1-e^{-a*(~t~-~t[1])},1-e^{-a*(~t[3]~-~t[1])}),"]")^{~frac(1,b)})
-  } else if (type==2) {
+  } else if (case==2) {
     expr <- expression(E(L[t])==L[1]*e^{log~bgroup("(",frac(L[3],L[1]),")")*~frac(1-e^{-a*(~t~-~t[1])},1-e^{-a*(~t[3]~-~t[1])})})
-  } else if (type==3) {
+  } else if (case==3) {
     expr <- expression(E(L[t])==bgroup("[",L[1]^{b}+(L[3]^{b}-L[1]^{b})*~frac(~t~-~t[1],~t[3]~-~t[1]),"]")^{~frac(1,b)})
   } else  {
     expr <- expression(E(L[t])==L[1]*e^{log~bgroup("(",frac(L[3],L[1]),")")*~frac(~t~-~t[1],~t[3]~-~t[1])})

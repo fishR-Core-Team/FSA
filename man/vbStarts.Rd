@@ -4,20 +4,20 @@
 \alias{vbStarts}
 \title{Find reasonable starting values for a von Bertalanffy growth function.}
 \usage{
-vbStarts(formula, data = NULL, type = c("Typical", "typical", "Traditional",
-  "traditional", "BevertonHolt", "Original", "original", "vonBertalanffy", "GQ",
-  "GallucciQuinn", "Mooij", "Weisberg", "Schnute", "Francis", "Somers",
-  "Somers2"), ages2use = NULL, methEV = c("means", "poly"),
-  meth0 = c("yngAge", "poly"), plot = FALSE, col.mdl = "gray70",
-  lwd.mdl = 3, lty.mdl = 1, cex.main = 0.9, col.main = "red",
-  dynamicPlot = FALSE, ...)
+vbStarts(formula, data = NULL, param = c("Typical", "typical",
+  "Traditional", "traditional", "BevertonHolt", "Original", "original",
+  "vonBertalanffy", "GQ", "GallucciQuinn", "Mooij", "Weisberg", "Schnute",
+  "Francis", "Somers", "Somers2"), type = param, ages2use = NULL,
+  methEV = c("means", "poly"), meth0 = c("yngAge", "poly"), plot = FALSE,
+  col.mdl = "gray70", lwd.mdl = 3, lty.mdl = 1, cex.main = 0.9,
+  col.main = "red", dynamicPlot = FALSE, ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{len~age}.}
 
 \item{data}{A data frame that contains the variables in \code{formula}.}
 
-\item{type}{A string that indicates the parameterization of the von Bertalanffy model.}
+\item{type, param}{A string that indicates the parameterization of the von Bertalanffy model.}
 
 \item{ages2use}{A numerical vector of the two ages to be used in the Schnute or Francis paramaterizations.  See details.}
 

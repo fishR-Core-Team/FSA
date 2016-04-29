@@ -9,32 +9,32 @@
 \alias{vbFuns}
 \title{Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.}
 \usage{
-vbFuns(type = c("Typical", "typical", "Traditional", "traditional",
+vbFuns(param = c("Typical", "typical", "Traditional", "traditional",
   "BevertonHolt", "Original", "original", "vonBertalanffy", "GQ",
   "GallucciQuinn", "Mooij", "Weisberg", "Schnute", "Francis", "Laslett",
   "Polacheck", "Somers", "Somers2", "Fabens", "Fabens2", "Wang", "Wang2",
   "Wang3"), simple = FALSE, msg = FALSE)
 
-GompertzFuns(type = c("Ricker1", "Ricker2", "Ricker3", "QuinnDeriso1",
+GompertzFuns(param = c("Ricker1", "Ricker2", "Ricker3", "QuinnDeriso1",
   "QuinnDeriso2", "QuinnDeriso3", "QD1", "QD2", "QD3", "Original", "original",
   "Troynikov1", "Troynikov2"), simple = FALSE, msg = FALSE)
 
-RichardsFuns(type = 1, simple = FALSE, msg = FALSE)
+RichardsFuns(param = 1, simple = FALSE, msg = FALSE)
 
-logisticFuns(type = c("CJ1", "CJ2", "Karkach", "Haddon", "CampanaJones1",
+logisticFuns(param = c("CJ1", "CJ2", "Karkach", "Haddon", "CampanaJones1",
   "CampanaJones2"), simple = FALSE, msg = FALSE)
 
-growthFunShow(fun = c("vonBertalanffy", "Gompertz", "Richards", "Logistic",
-  "Schnute"), type = NULL, plot = FALSE, ...)
+growthFunShow(type = c("vonBertalanffy", "Gompertz", "Richards", "Logistic",
+  "Schnute"), param = NULL, plot = FALSE, ...)
 }
 \arguments{
-\item{type}{A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function See details.}
+\item{param}{A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function See details.}
 
 \item{simple}{A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}).}
 
 \item{msg}{A logical that indicates whether a message about the growth function and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; DEFAULT).}
 
-\item{fun}{A string (in \code{growthFunShow}) that indicates the type of growth function to show.}
+\item{type}{A string (in \code{growthFunShow}) that indicates the type of growth function to show.}
 
 \item{plot}{A logical that indicates whether the growth function expression should be shown as an equation in a simple plot.}
 
@@ -43,13 +43,13 @@ growthFunShow(fun = c("vonBertalanffy", "Gompertz", "Richards", "Logistic",
 \value{
 The functions ending in \code{xxxFuns} return a function that can be used to predict fish size given a vector of ages and values for the growth function parameters and, in some parameterizations, values for constants.  The result should be saved to an object that is then the function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).  If \code{simple=FALSE} (DEFAULT), then the values for all parameters may be included as a vector in the first parameter argument (but in the same order).  Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE}, then all parameters and constants must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}, but is less general for some applications.
 
-An expression of the equation for each growth function may be created with \code{growthFunShow}.  In this function \code{fun=} is used to select the major function type (e.g., von Bertalanffy, Gompertz, Richards, Logistic, Schnute) and \code{type=} is used to select a specific parameterization of that growth function.  If \code{plot=TRUE}, then a simple graphic will be created with the equation using \code{\link{plotmath}} for a pretty format.
+An expression of the equation for each growth function may be created with \code{growthFunShow}.  In this function \code{type=} is used to select the major function type (e.g., von Bertalanffy, Gompertz, Richards, Logistic, Schnute) and \code{param=} is used to select a specific parameterization of that growth function.  If \code{plot=TRUE}, then a simple graphic will be created with the equation using \code{\link{plotmath}} for a pretty format.
 }
 \description{
 Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.  Use \code{growthFunShow()} to see the equations for each growth function.
 }
 \note{
-Take note of the following for parameterizations (i.e., \code{type}) of each growth function:
+Take note of the following for parameterizations (i.e., \code{param}) of each growth function:
 \itemize{
   \item von Bertalanffy
   \itemize{
