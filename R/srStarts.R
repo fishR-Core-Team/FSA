@@ -1,6 +1,6 @@
 #' @title Finds reasonable starting values for parameters in specific paramaterizations of common stock-recruitment models.
 #'
-#' @description Finds reasonable starting values for parameters in specific parameterizations of the \dQuote{Beverton-Holt}, \dQuote{Ricker},  \dQuote{Shepherd}, or \dQuote{Saila-Lorda} stock-recruitment models.  Type \code{srModels()} for the equations of each model.
+#' @description Finds reasonable starting values for parameters in specific parameterizations of the \dQuote{Beverton-Holt}, \dQuote{Ricker},  \dQuote{Shepherd}, or \dQuote{Saila-Lorda} stock-recruitment models.  Use \code{srFunShow()} to see the equations of each model.
 #'
 #' @details This function attempts to find reasonable starting values for a variety of parameterizations of the \dQuote{Beverton-Holt}, \dQuote{Ricker},  \dQuote{Shepherd}, or \dQuote{Saila-Lorda} stock-recruitment models.  There is no guarantee that these starting values are the \sQuote{best} starting values.  One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.
 #'
@@ -31,7 +31,7 @@
 #'
 #' @section IFAR Chapter: 13-Recruitment.
 #'
-#' @seealso See \code{\link{srModels}} and \code{\link{srFuns}} for related functionality.
+#' @seealso See \code{\link{srFunShow}} and \code{\link{srFuns}} for related functionality.
 #'
 #' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 

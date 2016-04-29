@@ -1,5 +1,13 @@
 context("Stock-Recruitment")
 
+test_that("srFunShow() messages",{
+  expect_error(srFunShow("Derek"),"should be one of")
+  expect_error(srFunShow(type="BevertonHolt",param=0),"must be from")
+  expect_error(srFunShow(type="BevertonHolt",param=5),"must be from")
+  expect_error(srFunShow(type="Ricker",param=0),"must be from")
+  expect_error(srFunShow(type="Ricker",param=4),"must be from")
+})
+
 test_that("srFuns() errors and warnings",{
   ## wrong type
   expect_error(srFuns(type="Derek"),"should be one")

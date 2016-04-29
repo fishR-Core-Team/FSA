@@ -8,16 +8,18 @@
 * `capHistSum()`: Added tests.
 * `filterD()`: Modified.  Changed to use `droplevels()` from `base` rather than `drop.levels()` from `gdata`.  Added `except=`.
 * `fitPlot()`: Modified.  Changed the way colors, plotting characters, and line types were handled for most of the models.  Should make their use more flexible.  Fixed errors that occurred in IVR models when the factor variable preceded the covariate in the model (fixes [#18](https://github.com/droglenc/FSA/issues/18)).  Started to add tests for error and warning messages.
-* `GompertzModels()`: Removed.  Replaced with `showGrowthFuns()`.
+* `GompertzModels()`: Removed.  Replaced with `growthFunShow()`.
 * `iGetDecimals()`: Modified.  Fixed a bug that occured when an integer was provided.
 * `lenFreqExpand()`: Removed.  Deprecated since 0.4.32.  Use `expandLenFreq()`.
-* `LogisticModels()`: Removed.  Replaced with `showGrowthFuns()`.
+* `LogisticModels()`: Removed.  Replaced with `growthFunShow()`.
 * `residPlot()`: Modified.  Changed the way colors, plotting characters, and line types were handled for most of the models.  Should make their use more flexible.  Now matches coding in `fitPlot()`.  Fixed bug with main titling, but now asks user to decide if they want the model call or not.  Started to add tests for error and warning messages.
-* `RichardsModels()`: Removed.  Replaced with `showGrowthFuns()`.
-* `showGrowthFuns()`: Added.
+* `RichardsModels()`: Removed.  Replaced with `growthFunShow()`.
+* `growthFunShow()`: Added.
+* `srFunShow()`: Added.
+* `srModels()`: Removed.  Replaced with `srFunShow()`.
 * `srStarts()`: Modified.  Removed `dynamicPlot=TRUE` option.  Moved it to `FSAsim` package.  Modified plot when `plot=TRUE` by adding "STARTING VALUES" to title and moving starting values to within the plot.  Added `cex.main=` and `col.main=`.
 * `Subset()`: MOdified.  Changed to use `droplevels()` from `base` rather than `drop.levels()` from `gdata`.
-* `vbModels()`: Removed.  Replaced with `showGrowthFuns()`.
+* `vbModels()`: Removed.  Replaced with `growthFunShow()`.
 * `vbStarts()`: Modified.  Removed `dynamicPlot=TRUE` option.  Moved it to `FSAsim` package.  Modified plot when `plot=TRUE` by adding "STARTING VALUES" to title and moving starting values to within the plot.  Added and `col.main=`.  Made warnings and error tests more explicit.
 
 # FSA 0.8.6 24-Mar-16

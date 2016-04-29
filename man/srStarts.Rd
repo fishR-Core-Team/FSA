@@ -38,7 +38,7 @@ srStarts(formula, data = NULL, type = c("BevertonHolt", "Ricker",
 A list that contains reasonable starting values.  Note that the parameters will be listed in the same order and with the same names as listed in \code{\link{srFuns}}.
 }
 \description{
-Finds reasonable starting values for parameters in specific parameterizations of the \dQuote{Beverton-Holt}, \dQuote{Ricker},  \dQuote{Shepherd}, or \dQuote{Saila-Lorda} stock-recruitment models.  Type \code{srModels()} for the equations of each model.
+Finds reasonable starting values for parameters in specific parameterizations of the \dQuote{Beverton-Holt}, \dQuote{Ricker},  \dQuote{Shepherd}, or \dQuote{Saila-Lorda} stock-recruitment models.  Use \code{srFunShow()} to see the equations of each model.
 }
 \details{
 This function attempts to find reasonable starting values for a variety of parameterizations of the \dQuote{Beverton-Holt}, \dQuote{Ricker},  \dQuote{Shepherd}, or \dQuote{Saila-Lorda} stock-recruitment models.  There is no guarantee that these starting values are the \sQuote{best} starting values.  One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.
@@ -97,7 +97,7 @@ Ricker, W.E. 1975. Computation and interpretation of biological statistics of fi
 Shepherd, J. 1982. A versatile new stock-recruitment relationship for fisheries and construction of sustainable yield curves. Journal du Conseil International pour l'Exploration de la Mar 40:67-75.
 }
 \seealso{
-See \code{\link{srModels}} and \code{\link{srFuns}} for related functionality.
+See \code{\link{srFunShow}} and \code{\link{srFuns}} for related functionality.
 }
 \keyword{manip}
 
