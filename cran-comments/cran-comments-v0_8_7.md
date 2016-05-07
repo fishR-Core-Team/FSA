@@ -7,5 +7,5 @@
 
 ## Testing Environments
 * My Windows machine.
-
 * Win Builder -- current and development.
+* Travis-CI.
