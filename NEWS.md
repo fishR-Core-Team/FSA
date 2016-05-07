@@ -1,6 +1,7 @@
 # FSA 0.8.7 Ongoing
+* Compiled under R v3.3.0.
 * Removed `relax` from `Suggests`.  See `srStarts()` and `vbStarts()` notes below.  This addresses [#17](https://github.com/droglenc/FSA/issues/17).
-* Reoved `gdata` from `Imports`.  See `filterD()` and `Subset()` notes below.  This addresses [#5](https://github.com/droglenc/FSA/issues/5).
+* Removed `gdata` from `Imports`.  See `filterD()` and `Subset()` notes below.  This addresses [#5](https://github.com/droglenc/FSA/issues/5).
 * Added no coverage blocks to `ageKeyPlot()`, `capHistSum()`, `hist.formula()`, `histFromSum()`, `lwCompPreds()`, `plot.agebias()`, `plot.CatchCurve()`, `plot.ChapmanRobson()`, `plot.Depletion()`, `plotBinResp()`, `print.compSlopes()`, `print.compIntercepts()`, `print.metaM()`, `psdPlot()`,`residPlot()`, `srModels()`, `srStarts()`, and `vbStarts()`.
 * `ageKey()`: Removed.  Deprecated since 0.4.24.  Use `alkIndivAge()`.
 * `ageKeyPlot()`: Removed.  Deprecated since 0.4.24.  Use `alkPlot()`.
