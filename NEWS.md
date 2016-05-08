@@ -1,3 +1,6 @@
+# FSA 0.8.8 ongoing
+
+
 # FSA 0.8.7 7-May-16
 * Compiled under R v3.3.0.
 * Removed `relax` from `Suggests`.  See `srStarts()` and `vbStarts()` notes below.  This addresses [#17](https://github.com/droglenc/FSA/issues/17).
