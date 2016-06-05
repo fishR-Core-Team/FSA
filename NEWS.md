@@ -1,5 +1,6 @@
 # FSA 0.8.8 ongoing
-
+* `growthFunShow()`: Modified.  Added Pauly et al. (1992) seasonal cessation function.
+* `vbFuns()`: Modified.  Added Pauly et al. (1992) seasonal cessation function.
 
 # FSA 0.8.7 7-May-16
 * Compiled under R v3.3.0.

@@ -280,7 +280,7 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
                           "Original","original","vonBertalanffy",
                           "GQ","GallucciQuinn","Mooij","Weisberg",
                           "Schnute","Francis","Laslett","Polacheck",
-                          "Somers","Somers2",
+                          "Somers","Somers2","Pauly",
                           "Fabens","Fabens2","Wang","Wang2","Wang3"),
                    simple=FALSE,msg=FALSE) {
   Typical <- typical <- Traditional <- traditional <- BevertonHolt <- function(t,Linf,K=NULL,t0=NULL) {
@@ -376,6 +376,23 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
 }
   SSomers2 <- function(t,Linf,K,t0,C,WP) {
     Linf*(1-exp(-K*(t-t0)-(C*K)/(2*pi)*sin(2*pi*(t-WP+0.5))+(C*K)/(2*pi)*sin(2*pi*(t0-WP+0.5))))
+  }
+  Pauly <- function(t,Linf,Kpr=NULL,t0=NULL,ts=NULL,NGT=NULL) {
+    if (length(Linf)==5) { Kpr <- Linf[[2]]; t0 <- Linf[[3]]
+    ts <- Linf[[4]]; NGT <- Linf[[5]]
+    Linf <- Linf[[1]] }
+    tpr <- iCalc_tpr(t,ts,NGT)
+    q <- Kpr*(tpr-t0) +
+      (Kpr*(1-NGT)/(2*pi))*sin((2*pi)/(1-NGT)*(tpr-ts)) -
+      (Kpr*(1-NGT)/(2*pi))*sin((2*pi)/(1-NGT)*(t0-ts))
+    Linf*(1-exp(-q))
+  }
+  SPauly <- function(t,Linf,Kpr,t0,ts,NGT) {
+    tpr <- iCalc_tpr(t,ts,NGT)
+    q <- Kpr*(tpr-t0) +
+      (Kpr*(1-NGT)/(2*pi))*sin((2*pi)/(1-NGT)*(tpr-ts)) -
+      (Kpr*(1-NGT)/(2*pi))*sin((2*pi)/(1-NGT)*(t0-ts))
+    Linf*(1-exp(-q))
   }
   Fabens <- function(Lm,dt,Linf,K) {
   if (length(Linf)==2) { K <- Linf[[2]]; Linf <- Linf[[1]] }
@@ -503,6 +520,17 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
                 "        t0 = the theoretical age when length = 0 (a modeling artifact)\n",
                 "         C = proportional growth depression at 'winter peak'\n",
                 "        WP = the 'winter peak' (point of slowest growth).\n\n")
+      },
+      Pauly={
+        message("You have chosen the 'Pauly Seasonal Cessation' parameterization.\n\n",
+                "  E[L|t] = Linf*(1-exp(-K'*(t'-to)-Vt'+St0))\n\n",
+                "  where vt' = (K'(1-NGT)/2*pi)*sin(2*pi*(t'-ts)/(1-NGT)) and\n",
+                "        vt0 = (K'(1-NGT)/2*pi)*sin(2*pi*(t0-ts)/(1-NGT)) and\n\n",
+                "  and Linf = asymptotic mean length\n",
+                "        K' = exponential rate of approach to Linf during growth period\n",
+                "        t0 = the theoretical age when length = 0 (a modeling artifact)\n",
+                "        ts = time from t=0 until the first growth oscillation begins\n",
+                "       NGT = length of no-growth period.\n\n")
       },
       Fabens={
         message("You have chosen the 'Fabens' parameterization for tag-return data.\n\n",
@@ -1013,7 +1041,7 @@ iSGF_VB <- function(param=c("Original","original","vonBertalanffy",
                            "Typical","typical","Traditional","traditional","BevertonHolt",
                            "GallucciQuinn","GQ","Mooij","Weisberg",
                            "Schnute","Francis","Laslett","Polacheck",
-                           "Somers","Somers2",
+                           "Somers","Somers2","Pauly",
                            "Fabens","Fabens2","Wang","Wang2","Wang3")) {
   if(!is.character(param)) stop("'param' must be a character string.",call.=FALSE)
   param <- match.arg(param)
@@ -1053,6 +1081,10 @@ iSGF_VB <- function(param=c("Original","original","vonBertalanffy",
     Somers2= {
       expr <- expression(atop(E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])-R(t)+R(t[0])},")"),
                               plain("where" )~R(t)==bgroup("(",frac(C*K,2*~pi),")")*~sin(2*pi*(t-WP+0.5))))
+    },
+    Pauly= {
+      expr <- expression(atop(E(L[t])==L[infinity]*bgroup("(",1-e^{-Kpr*(tpr~-~t[0])-V(tpr)+V(t[0])},")"),
+                              plain("where" )~V(t)==bgroup("(",frac(Kpr(1-NGT),2*~pi),")")*~sin(frac(2*pi,1-NGT)*(t-t[s]))))
     },
     Fabens= {
       expr <- expression(E(L[r]-L[m])==(L[infinity]-L[m])*bgroup("(",1-e^{-K*Delta*t},")"))
@@ -1154,3 +1186,19 @@ iSGF_SCHNUTE <- function(case=1:4) {
   }
   expr
 }
+
+################################################################################
+## internal function to compute t-prime
+################################################################################
+iCalc_tpr <- function(t,ts,NGT) {
+  ## Step 1
+  SNG <- ts+(1-NGT)/2
+  tmp.t <- t-SNG
+  ## Step 2 (in parentheses) and Step 3
+  tmp.t2 <- (tmp.t-floor(tmp.t))-NGT
+  ## Step 4
+  tmp.t2[tmp.t2<0] <- 0
+  ## Step 5 (in parentheses) and Step 6 (also returns value)
+  (floor(tmp.t)*(1-NGT)+tmp.t2) + SNG
+}
+

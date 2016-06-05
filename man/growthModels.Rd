@@ -12,8 +12,8 @@
 vbFuns(param = c("Typical", "typical", "Traditional", "traditional",
   "BevertonHolt", "Original", "original", "vonBertalanffy", "GQ",
   "GallucciQuinn", "Mooij", "Weisberg", "Schnute", "Francis", "Laslett",
-  "Polacheck", "Somers", "Somers2", "Fabens", "Fabens2", "Wang", "Wang2",
-  "Wang3"), simple = FALSE, msg = FALSE)
+  "Polacheck", "Somers", "Somers2", "Pauly", "Fabens", "Fabens2", "Wang",
+  "Wang2", "Wang3"), simple = FALSE, msg = FALSE)
 
 GompertzFuns(param = c("Ricker1", "Ricker2", "Ricker3", "QuinnDeriso1",
   "QuinnDeriso2", "QuinnDeriso3", "QD1", "QD2", "QD3", "Original", "original",
