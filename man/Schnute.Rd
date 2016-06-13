@@ -30,7 +30,7 @@ Schnute(t, case = 1, t1 = NULL, t3 = NULL, L1 = NULL, L3 = NULL,
 \code{SchnuteModels} returns a graphic that uses \code{\link{plotmath}} to show the growth function equation in a pretty format.
 }
 \description{
-The four-parameter growth function from Schnute (1981).  Use \code{SchnuteModels()} to see the equations for each growth function.
+The four-parameter growth function from Schnute (1981).
 }
 \section{IFAR Chapter}{
  None specifically, but 12-Individual Growth is related.

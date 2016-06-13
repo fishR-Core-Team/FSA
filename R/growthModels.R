@@ -5,7 +5,8 @@
 #' @description Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.  Use \code{growthFunShow()} to see the equations for each growth function.
 #'
 #' @param type A string (in \code{growthFunShow}) that indicates the type of growth function to show.
-#' @param param A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function See details.
+#' @param param A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function.  See details.
+#' @param case A numeric that indicates the specific case of the Schnute function to use.  See details.
 #' @param simple A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}).
 #' @param msg A logical that indicates whether a message about the growth function and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; DEFAULT).
 #' @param plot A logical that indicates whether the growth function expression should be shown as an equation in a simple plot.
@@ -933,7 +934,7 @@ logisticFuns <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1",
 
 #' @title The four-parameter growth function from Schnute (1981).
 #'
-#' @description The four-parameter growth function from Schnute (1981).  Use \code{SchnuteModels()} to see the equations for each growth function.
+#' @description The four-parameter growth function from Schnute (1981).
 #'
 #' @param t A numeric vector of ages over which to model growth.
 #' @param case A string that indicates the case of the Schnute growth function to use.
@@ -1016,14 +1017,14 @@ Schnute <- function(t,case=1,t1=NULL,t3=NULL,L1=NULL,L3=NULL,a=NULL,b=NULL) {
 #' @rdname growthModels
 #' @export
 growthFunShow <- function(type=c("vonBertalanffy","Gompertz","Richards","Logistic","Schnute"),
-                        param=NULL,plot=FALSE,...) {
+                        param=NULL,case=param,plot=FALSE,...) {
   type <- match.arg(type)
   switch(type,
          vonBertalanffy = { expr <- iSGF_VB(param) },
          Gompertz = { expr <- iSGF_GOMP(param) },
          Richards = { expr <- iSGF_RICHARDS(param) },
          Logistic = { expr <- iSGF_LOGISTIC(param) },
-         Schnute = { expr <- iSGF_SCHNUTE(param) })
+         Schnute = { expr <- iSGF_SCHNUTE(case) })
   if (plot) {
     op <- graphics::par(mar=c(0.1,0.1,0.1,0.1))
     graphics::plot(0,type="n",ylim=c(0,1),xlim=c(0,1),xaxt="n",yaxt="n",
