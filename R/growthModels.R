@@ -435,14 +435,14 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
   if (msg) {
     switch(param,
       Typical=,typical=,Traditional=,traditional=,BevertonHolt= {
-        message("You have chosen the 'Typical'/'typical', 'Traditional'/'traditional', or 'BevertonHolt' parameterization.\n\n",
+        message("You have chosen the 'Typical', 'Traditional', or 'BevertonHolt' parameterization.\n\n",
                 "  E[L|t] = Linf*(1-exp(-K*(t-t0)))\n\n",
                 "  where Linf = asymptotic mean length\n",
                 "           K = exponential rate of approach to Linf\n",
                 "          t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
       },
       Original=,original=,vonBertalanffy={
-        message("You have chosen the 'Original'/'original' or 'vonBertalanffy` parameterization.\n\n",
+        message("You have chosen the 'Original' or 'vonBertalanffy` parameterization.\n\n",
                 "  E[L|t] = Linf-(Linf-L0)*exp(-K*t)\n\n",
                 "  where Linf = asymptotic mean length\n",
                 "          L0 = the mean length at age-0 (i.e., hatching or birth)\n",
