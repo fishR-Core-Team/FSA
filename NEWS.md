@@ -1,4 +1,4 @@
-# FSA 0.8.8 ongoing
+# FSA 0.8.8 18-Jul-16
 * `growthFunShow()`: Modified.  Added Pauly et al. (1992) seasonal cessation function.  Added `case=` for use with Schnute model.
 * `vbFuns()`: Modified.  Added Pauly et al. (1992) seasonal cessation function.  Slightly modified messages for "Typical" and "Original" parameterizations.
 * `vbStarts()`: Modified.  Added `fixed=` so that the user can define some of the starting values.  Added Pauly et al. (1992) seasonal cessation function.  Added tests for `fixed=`.
