@@ -663,42 +663,42 @@ GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
   if (msg) {
     switch(param,
            Original=,original= {
-             message("You have chosen the 'Original'/'original'",comcat,
+             message("You have chosen the 'Original' ",comcat,
                      "  E[L|t] = Linf*exp(-exp(a-gi*t))\n\n",
                      "where Linf = asymptotic mean length\n",
                      "      gi = decrease in growth rate at the inflection point\n",
                      "      a = an undefined parameter\n\n")
            },
            Ricker1= {
-             message("You have chosen the 'Ricker1'",comcat,
+             message("You have chosen the 'Ricker1' ",comcat,
                      "  E[L|t] = Linf*exp(-exp(-gi*(t-ti)))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "          gi = instantaneous growth rate at the inflection point\n",
                      "          ti = time at the inflection point\n\n")
            },
            Ricker2=,QD1=,QuinnDeriso1= {
-             message("You have chosen the 'Ricker2'/'QuinnDeriso1'/'QD1'",comcat,
+             message("You have chosen the 'Ricker2'/'QuinnDeriso1' ",comcat,
                      "  E[L|t] = L0*exp(a*(1-exp(-gi*t)))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "          gi = instantaneous growth rate at the inflection point\n",
                      "           a = dimenstionless parameter related to growth\n\n")
            },
            Ricker3=,QD2=,QuinnDeriso2= {
-             message("You have chosen the 'Ricker3'/'QuinnDeriso2'/'QD2'",comcat,
+             message("You have chosen the 'Ricker3'/'QuinnDeriso2' ",comcat,
                      "  E[L|t] = Linf*exp(-(a/gi)*exp(-gi*t))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "          gi = instantaneous growth rate at the inflection point\n",
                      "           a = dimenstionless parameter related to growth\n\n")
            },
            QD3=,QuinnDeriso3== {
-             message("You have chosen the 'QuinnDeriso3'/'QD3'",comcat,
+             message("You have chosen the 'QuinnDeriso3' ",comcat,
                      "  E[L|t] = Linf*exp(-(1/gi)*exp(-gi*(t-t0)))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "          gi = instantaneous growth rate at the inflection point\n",
                      "          t0 = a dimensionless parameter related to time/age\n\n")
            },
            Troynikov1= {
-             message("You have chosen the 'Troynikov1'",comcat,
+             message("You have chosen the 'Troynikov1' ",comcat,
                      "  E[Lr-Lm|dt] = Linf*((Lm/Linf)^exp(-gi*dt))-Lm\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "          gi = instantaneous growth rate at the inflection point\n\n",
@@ -707,7 +707,7 @@ GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
                      "                   dt = time between marking and recapture.\n")
            },
            Troynikov2= {
-             message("You have chosen the 'Troynikov2'",comcat,
+             message("You have chosen the 'Troynikov2' ",comcat,
                      "  E[Lr|dt] = Linf*((Lm/Linf)^exp(-gi*dt))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "          gi = instantaneous growth rate at the inflection point\n\n",
@@ -896,28 +896,28 @@ logisticFuns <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1",
   if (msg) {
     switch(param,
            CJ1=,CampanaJones1= {
-             message("You have chosen the 'CampanaJones1'/'CJ1'",comcat,
+             message("You have chosen the 'CampanaJones1' ",comcat,
                      "  E[L|t] = Linf/(1+exp(-gninf*(t-ti)))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "      gninif = instantaneous growth rate at t=-infinity\n",
                      "          ti = time at the inflection point\n\n")
            },
            CJ2=,CampanaJones2= {
-             message("You have chosen the 'CampanaJones2'/'CJ2'",comcat,
+             message("You have chosen the 'CampanaJones2' ",comcat,
                      "  E[L|t] = Linf/(1+a*exp(-gninf*t))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "          gi = instantaneous growth rate at the inflection point\n",
                      "           a = a dimensionless parameter related to growth\n\n")
            },
            Karkach= {
-             message("You have chosen the 'Karkach'",comcat,
+             message("You have chosen the 'Karkach' ",comcat,
                      "  E[L|t] = L0*Linf/(L0+(Linf-L0)*exp(-gninf*t))\n\n",
                      "  where Linf = asymptotic mean length\n",
                      "          L0 = mean length at time/age 0\n",
                      "          gi = instantaneous growth rate at the inflection point\n\n")
            },
            Haddon= {
-             message("You have chosen the 'Haddon Inverse'",comcat,
+             message("You have chosen the 'Haddon Inverse' ",comcat,
                      "  E[Lr-Lm|dt] = dLmax/(1+exp(log(19)*((Lm-L50)/(L95-L50))))\n\n",
                      "  where dLmax = maximum growth increment during the study\n",
                      "          L50 = length at marking to produces a growth increment of 0.5*dLmax",

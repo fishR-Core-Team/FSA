@@ -1,4 +1,6 @@
 # FSA 0.8.9 ongoing
+* `gompertzFuns()`: Modified.  Fixed some spacing around the message when `msg=TRUE`.
+* `logisticFuns()`: Modified.  Fixed some spacing around the message when `msg=TRUE`.
 
 # FSA 0.8.8 18-Jul-16
 * `growthFunShow()`: Modified.  Added Pauly et al. (1992) seasonal cessation function.  Added `case=` for use with Schnute model.

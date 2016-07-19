@@ -6,8 +6,8 @@ vbs <- c("Typical","Traditional","BevertonHolt",
          "Mooij","Weisberg","Schnute","Francis","Laslett","Polacheck","Fabens","Fabens2",
          "Somers","Somers2","Wang","Wang2","Wang3")
 gomps <- c("Original","Ricker1","Ricker2","Ricker3","QuinnDeriso1","QuinnDeriso2","QuinnDeriso3",
-           "QD1","QD2","QD3","Troynikov1","Troynikov2")
-logistics <- c("CJ1","CJ2","Karkach","Haddon","CampanaJones1","CampanaJones2")
+           "Troynikov1","Troynikov2")
+logistics <- c("Karkach","Haddon","CampanaJones1","CampanaJones2")
 
 test_that("growthFunShow() & Schnute() messages",{
   ## wrong models
