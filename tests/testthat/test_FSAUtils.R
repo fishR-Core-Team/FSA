@@ -99,6 +99,118 @@ test_that("col2rgbt() messages and results",{
 
 
 # ############################################################
+# diags
+# ############################################################
+test_that("diags() error messages",{
+  mat1 <- matrix(1:16,nrow=4)
+  mat2 <- matrix(1:20,nrow=4)
+  ## check error messages
+  expect_error(diags(0:5),"only works with matrices")
+  expect_error(diags(matrix(0:5,nrow=6)),"more than 1 column")
+  expect_error(diags(matrix(0:5,ncol=6)),"more than 1 row")
+  expect_error(diags(mat1,which=-4),"diagonal does not exist")
+  expect_error(diags(mat1,which=4),"diagonal does not exist")
+  expect_error(diags(mat2,which=-5),"diagonal does not exist")
+  expect_error(diags(mat1,which=4),"diagonal does not exist")
+})
+
+test_that("diags() results",{
+  mat1 <- matrix(1:16,nrow=4)
+  colnames(mat1) <- LETTERS[1:ncol(mat1)]
+  rownames(mat1) <- 1:nrow(mat1)
+  mat2 <- matrix(1:20,nrow=4)
+  colnames(mat2) <- LETTERS[1:ncol(mat2)]
+  rownames(mat2) <- 1:nrow(mat2)
+  # main diagonal, no labels
+  tmp <- diags(mat1)
+  expect_is(tmp,"data.frame")
+  expect_equal(nrow(tmp),nrow(mat1))
+  expect_equal(ncol(tmp),1)
+  expect_equal(tmp$value,c(1,6,11,16))
+  tmp <- diags(mat2)
+  expect_is(tmp,"data.frame")
+  expect_equal(nrow(tmp),nrow(mat2))
+  expect_equal(ncol(tmp),1)
+  expect_equal(tmp$value,c(1,6,11,16))
+  # main diagonal, labels
+  tmp <- diags(mat1,incl.labels="row")
+  expect_is(tmp,"data.frame")
+  expect_equal(nrow(tmp),nrow(mat1))
+  expect_equal(ncol(tmp),2)
+  expect_equal(tmp$value,c(1,6,11,16))
+  expect_equal(tmp$label,1:4)
+  tmp <- diags(mat1,incl.labels="column")
+  expect_is(tmp,"data.frame")
+  expect_equal(nrow(tmp),nrow(mat1))
+  expect_equal(ncol(tmp),2)
+  expect_equal(tmp$value,c(1,6,11,16))
+  expect_equal(tmp$label,LETTERS[1:4])
+  tmp <- diags(mat2,incl.labels="row")
+  expect_is(tmp,"data.frame")
+  expect_equal(nrow(tmp),nrow(mat2))
+  expect_equal(ncol(tmp),2)
+  expect_equal(tmp$value,c(1,6,11,16))
+  expect_equal(tmp$label,1:4)
+  tmp <- diags(mat2,incl.labels="column")
+  expect_is(tmp,"data.frame")
+  expect_equal(nrow(tmp),nrow(mat2))
+  expect_equal(ncol(tmp),2)
+  expect_equal(tmp$value,c(1,6,11,16))
+  expect_equal(tmp$label,LETTERS[1:4])
+  ## Off diagonal, no labels
+  tmp <- diags(mat1,which=-1)
+  expect_is(tmp,"data.frame")
+  expect_equal(nrow(tmp),nrow(mat1)-1)
+  expect_equal(ncol(tmp),1)
+  expect_equal(tmp$value,c(5,10,15))
+  tmp <- diags(mat2,which=-1)
+  expect_is(tmp,"data.frame")
+  expect_equal(nrow(tmp),nrow(mat2))
+  expect_equal(ncol(tmp),1)
+  expect_equal(tmp$value,c(5,10,15,20))
+  tmp <- diags(mat1,which=3)
+  expect_is(tmp,"data.frame")
+  expect_equal(nrow(tmp),1)
+  expect_equal(ncol(tmp),1)
+  expect_equal(tmp$value,4)
+  tmp <- diags(mat2,which=-3)
+  expect_is(tmp,"data.frame")
+  expect_equal(nrow(tmp),2)
+  expect_equal(ncol(tmp),1)
+  expect_equal(tmp$value,c(13,18))
+  ## Off diagonal, with labels
+  tmp <- diags(mat1,which=1,incl.labels="row")
+  expect_is(tmp,"data.frame")
+  expect_equal(nrow(tmp),nrow(mat1)-1)
+  expect_equal(ncol(tmp),2)
+  expect_equal(tmp$value,c(2,7,12))
+  expect_equal(tmp$label,2:4)
+  tmp <- diags(mat2,which=-2,incl.labels="col")
+  expect_is(tmp,"data.frame")
+  expect_equal(nrow(tmp),3)
+  expect_equal(ncol(tmp),2)
+  expect_equal(tmp$value,c(9,14,19))
+  expect_equal(tmp$label,c("C","D","E"))
+  ## Make sure data types are OK
+  tmp <- diags(mat1,incl.labels="row")
+  expect_is(tmp$value,"integer")
+  expect_is(tmp$label,"numeric")
+  tmp <- diags(mat1,incl.labels="col")
+  expect_is(tmp$value,"integer")
+  expect_is(tmp$label,"character")
+  mat3 <- matrix(LETTERS[1:24],nrow=3)
+  rownames(mat3) <- letters[1:nrow(mat3)]
+  colnames(mat3) <- 1:ncol(mat3)
+  tmp <- diags(mat3,incl.labels="row")
+  expect_is(tmp$value,"character")
+  expect_is(tmp$label,"character")
+  tmp <- diags(mat3,incl.labels="col")
+  expect_is(tmp$value,"character")
+  expect_is(tmp$label,"numeric")
+})
+
+
+# ############################################################
 # fact2num
 # ############################################################
 test_that("fact2num() error messages and results",{

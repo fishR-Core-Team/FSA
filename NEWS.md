@@ -1,4 +1,5 @@
 # FSA 0.8.9 ongoing
+* `diags()`: Added.
 * `gompertzFuns()`: Modified.  Fixed some spacing around the message when `msg=TRUE`.
 * `logisticFuns()`: Modified.  Fixed some spacing around the message when `msg=TRUE`.
 
