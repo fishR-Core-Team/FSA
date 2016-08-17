@@ -115,7 +115,7 @@ test_that("Summarize() Results with NAs",{
   names(exp) <- qnms
   expect_is(tmp,"numeric")
   expect_equal(round(tmp,7),round(exp,7))  # minor difference in sd @ 8 decimals
-  
+ 
   ## Quantitative variables separated by one factor
   tmp <- Summarize(dat~g1,data=d)
   exp <- data.frame(g1=c("A","B","C"),n=c(3,3,2),nvalid=c(2,3,2),
@@ -124,7 +124,16 @@ test_that("Summarize() Results with NAs",{
                     max=c(2,5,7),percZero=rep(0,3))
   expect_is(tmp,"data.frame")
   expect_equal(tmp,exp)
-
+  
+  ## Quantitative variables separated by one factor (exclude NA)
+  tmp <- Summarize(dat~g4,data=d,exclude="NA")
+  exp <- data.frame(g4=c("A","B","C"),n=c(3,3,2),nvalid=c(2,3,2),
+                    mean=c(1.5,4,6.5),sd=c(0.7071068,1,0.7071068),min=c(1,3,6),
+                    Q1=c(1.25,3.5,6.25),median=c(1.5,4,6.5),Q3=c(1.75,4.5,6.75),
+                    max=c(2,5,7),percZero=rep(0,3))
+  expect_is(tmp,"data.frame")
+  expect_equal(tmp,exp)
+  
   ## Single factor variable
   # not as percents, without marginal totals
   exp1 <- table(d$g1)
@@ -161,6 +170,25 @@ test_that("Summarize() Results with NAs",{
   exp <- addmargins(exp,margin=1)
   tmp <- Summarize(~g4,data=d)
   expect_equivalent(tmp,exp)
+
+  ## Single character variable (exclude values)
+  # not as percents, without marginal totals
+  tmpd <- droplevels(d$g4[d$g4!="NA"])
+  exp1 <- table(tmpd)
+  tmp <- Summarize(~g4,data=d,percent="none",addtotal=FALSE,exclude="NA")
+  expect_equivalent(tmp,exp1)
+  # not as percents, with marginal totals
+  exp <- addmargins(exp1,margin=1)
+  tmp <- Summarize(~g4,data=d,percent="none",exclude="NA")
+  expect_equivalent(tmp,exp)
+  # with percents, without marginal totals
+  exp <- cbind(freq=exp1,perc=round(prop.table(exp1)*100,2))
+  tmp <- Summarize(~g4,data=d,addtotal=FALSE,exclude="NA")  
+  expect_equivalent(tmp,exp)
+  # with percents, with marginal totals
+  exp <- addmargins(exp,margin=1)
+  tmp <- Summarize(~g4,data=d,exclude="NA")
+  expect_equivalent(tmp,exp)
   
   ## Two factor variables
   # not as percents, without marginal totals
@@ -194,6 +222,40 @@ test_that("Summarize() Results with NAs",{
   exp <- round(addmargins(exp,margin=2),2)
   tmp <- Summarize(g1~g2,data=d,percent="row")
   expect_equivalent(tmp,exp)
+
+  ## Two factor variables (with exclusions)
+  # not as percents, without marginal totals
+  tmpd <- droplevels(d[d$g4!="NA",])
+  exp1 <- table(tmpd$g4,tmpd$g2)
+  tmp <- Summarize(g2~g4,data=d,percent="none",addtotal=FALSE,exclude="NA")
+  expect_equivalent(tmp,exp1)
+  # Table percents, without marginal totals
+  exp <- round(prop.table(exp1)*100,2)
+  tmp <- Summarize(g2~g4,data=d,percent="total",addtotal=FALSE,exclude="NA")
+  expect_equivalent(tmp,exp)
+  # Column percents, without marginal totals
+  exp <- round(prop.table(exp1,margin=2)*100,2)
+  tmp <- Summarize(g2~g4,data=d,percent="column",addtotal=FALSE,exclude="NA")
+  expect_equivalent(tmp,exp)
+  # Row percents, without marginal totals
+  exp <- round(prop.table(exp1,margin=1)*100,2)
+  tmp <- Summarize(g2~g4,data=d,percent="row",addtotal=FALSE,exclude="NA")
+  expect_equivalent(tmp,exp)
+  # Table percents, with marginal totals
+  exp <- prop.table(exp1)*100
+  exp <- round(addmargins(exp),2)
+  tmp <- Summarize(g2~g4,data=d,percent="total",exclude="NA")
+  expect_equivalent(tmp,exp)
+  # Column percents, without marginal totals
+  exp <- prop.table(exp1,margin=2)*100
+  exp <- round(addmargins(exp,margin=1),2)
+  tmp <- Summarize(g2~g4,data=d,percent="column",exclude="NA")
+  expect_equivalent(tmp,exp)
+  # Row percents, without marginal totals
+  exp <- prop.table(exp1,margin=1)*100
+  exp <- round(addmargins(exp,margin=2),2)
+  tmp <- Summarize(g2~g4,data=d,percent="row",exclude="NA")
+  expect_equivalent(tmp,exp)
 })
 
 test_that("Summarize() Results from 1-d data.frames",{
@@ -211,4 +273,3 @@ test_that("Summarize() Results from 1-d data.frames",{
   exp1 <- table(d)
   expect_equivalent(tmp,exp1)
 })
-  

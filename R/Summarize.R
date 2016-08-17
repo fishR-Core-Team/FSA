@@ -73,6 +73,12 @@
 #' Summarize(dy~dg2,data=d,digits=3)
 #' Summarize(dy~dg2,data=d,digits=3,exclude="UNKNOWN")
 #'
+#' ## Numeric vector by levels of two factor variables
+#' Summarize(dy~dg1+dg2,data=d,digits=3)
+#' Summarize(dy~dg1+dg2,data=d,digits=3,exclude="NA")
+#' Summarize(dy~dg1+dg2,data=d,digits=3,exclude="UNKNOWN")
+#' Summarize(dy~dg1+dg2,data=d,digits=3,exclude=c("NA","UNKNOWN"))
+#' 
 #' ## What happens if RHS of formula is not a factor
 #' Summarize(dy~dw,data=d,digits=3)
 #' Summarize(y~dw*dv,data=d,digits=3)
@@ -98,7 +104,7 @@ Summarize <- function(object, ...) {
 #' @export
 Summarize.default <- function(object,digits=getOption("digits"),
                               addtotal=TRUE,percent=c("total","none"),percdigs=2,
-                              na.rm=TRUE,exclude="",...) {
+                              na.rm=TRUE,exclude=NULL,...) {
   percent <- match.arg(percent)
   ## Do some checking on object type
   if (is.data.frame(object)) stop("'Summarize' does not work with a data.frame.",call.=FALSE)
@@ -124,7 +130,7 @@ Summarize.default <- function(object,digits=getOption("digits"),
 #' @export
 Summarize.formula <- function(object,data=NULL,digits=getOption("digits"),
                               percent=c("row","column","total","none"),percdigs=2,
-                              addtotal=TRUE,na.rm=TRUE,exclude="",...) {
+                              addtotal=TRUE,na.rm=TRUE,exclude=NULL,...) {
    percent <- match.arg(percent)
    ## Handle the formula
    tmp <- iHndlFormula(object,data,expNumR=1)
@@ -175,8 +181,10 @@ iSummarizeQ1 <- function(object,digits,na.rm) {
 ## Internal function for vector of categorical data
 ##############################################################
 iSummarizeC1 <- function(object,addtotal,percent,percdigs,exclude) {
+  # exclude values if asked to
+  if (!is.null(exclude)) object <- droplevels(object[object!=exclude])
   # Summary table
-  res <- table(object,exclude=exclude)
+  res <- table(object)
   # Add percents to table if asked for
   if (percent!="none") {
     # Add percents, forms a 2-col matrix
@@ -202,6 +210,12 @@ iSummarizeC1 <- function(object,addtotal,percent,percdigs,exclude) {
 ## Internal function for formula with quantitative response
 ##############################################################
 iSummarizeQf <- function(tmp,digits,na.rm,exclude) {
+  ## Exclude values from factor variables if asked to
+  if (!is.null(exclude)) {
+    for (i in 1:length(exclude)) {
+      tmp$mf <- droplevels(tmp$mf[apply(data.frame(tmp$mf[,-tmp$Rpos])!=exclude[i],1,all),])
+    }
+  }
   ## Get the response variable
   nv <- tmp$mf[,tmp$Rpos]
   ## Make sure LHS is simple enough
@@ -246,11 +260,6 @@ iSummarizeQf <- function(tmp,digits,na.rm,exclude) {
   names(res) <- c(tmp$Enames,res.names)
   # eliminate row names
   rownames(res) <- NULL
-  # eliminate rows that correspond to level in exclude
-  if (!is.null(exclude)) {
-    res <- res[!(res[,1] %in% exclude),]
-    if (tmp$Enum>2) res <- res[!(res[,2] %in% exclude),]
-  }
   res
 }
 
@@ -258,6 +267,10 @@ iSummarizeQf <- function(tmp,digits,na.rm,exclude) {
 ## Internal function for formula with categorical response
 ##############################################################
 iSummarizeCf <- function(tmp,percent,percdigs,addtotal,exclude) {
+  ## Exclude values if asked to
+  if (!is.null(exclude)) {
+    for (i in 1:length(exclude)) tmp$mf <- droplevels(tmp$mf[apply(tmp$mf!=exclude[i],1,all),])
+  }
   ## Get response variable
   rv <- tmp$mf[,tmp$Rpos]
   ## Check RHS has only one variable
@@ -268,7 +281,7 @@ iSummarizeCf <- function(tmp,percent,percdigs,addtotal,exclude) {
     warning("RHS variable was converted to a factor.\n",call.=FALSE)
     ev <- as.factor(ev)
   }
-  res <- table(ev,rv,exclude=exclude,dnn=list(tmp$Enames,tmp$Rname))
+  res <- table(ev,rv,dnn=list(tmp$Enames,tmp$Rname))
   if (percent!="none") {
     if (percent=="total") mrgn=NULL
     else mrgn <- c(1,2)[which(percent==c("row","column"))]

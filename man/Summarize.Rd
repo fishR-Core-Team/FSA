@@ -10,11 +10,11 @@ Summarize(object, ...)
 
 \method{Summarize}{default}(object, digits = getOption("digits"),
   addtotal = TRUE, percent = c("total", "none"), percdigs = 2,
-  na.rm = TRUE, exclude = "", ...)
+  na.rm = TRUE, exclude = NULL, ...)
 
 \method{Summarize}{formula}(object, data = NULL,
   digits = getOption("digits"), percent = c("row", "column", "total",
-  "none"), percdigs = 2, addtotal = TRUE, na.rm = TRUE, exclude = "",
+  "none"), percdigs = 2, addtotal = TRUE, na.rm = TRUE, exclude = NULL,
   ...)
 }
 \arguments{
@@ -94,6 +94,12 @@ Summarize(dy~dg1,data=d,digits=3)
 Summarize(dy~dg1,data=d,digits=3,exclude="NA")
 Summarize(dy~dg2,data=d,digits=3)
 Summarize(dy~dg2,data=d,digits=3,exclude="UNKNOWN")
+
+## Numeric vector by levels of two factor variables
+Summarize(dy~dg1+dg2,data=d,digits=3)
+Summarize(dy~dg1+dg2,data=d,digits=3,exclude="NA")
+Summarize(dy~dg1+dg2,data=d,digits=3,exclude="UNKNOWN")
+Summarize(dy~dg1+dg2,data=d,digits=3,exclude=c("NA","UNKNOWN"))
 
 ## What happens if RHS of formula is not a factor
 Summarize(dy~dw,data=d,digits=3)

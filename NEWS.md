@@ -2,6 +2,7 @@
 * `diags()`: Added.
 * `gompertzFuns()`: Modified.  Fixed some spacing around the message when `msg=TRUE`.
 * `logisticFuns()`: Modified.  Fixed some spacing around the message when `msg=TRUE`.
+* `Summarize()`: Modified.  Removed all `exclude=` arguments within calls to `table()` to address issues that will be created with forthcoming R v3.4.0 (per notice from CRAN).  Added more examples and tests.
 
 # FSA 0.8.8 18-Jul-16
 * `growthFunShow()`: Modified.  Added Pauly et al. (1992) seasonal cessation function.  Added `case=` for use with Schnute model.
