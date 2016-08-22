@@ -251,7 +251,7 @@ summary.ageBias <- function(object,
 #=============================================================
 iAgeBiasDF <- function(tmp,cname,diff,min.n.CI,sig.level) {
   # Ages of cdata strux
-  x <- fact2num(tmp[,1])
+  x <-tmp[,1]
   # Is it appropriate to compute a CI
   canCI <- tmp$n>=min.n.CI & tmp$sd>0
   # Fill SEs, p-values calcs, and CIs with NA (will leave NA

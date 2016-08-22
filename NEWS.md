@@ -1,8 +1,9 @@
 # FSA 0.8.9 ongoing
+* `ageComparison()`: Modified.  Removed an internal call to `fact2num()` because of changes to `Summarize()` below.  Should not impact user experience.
 * `diags()`: Added.
 * `gompertzFuns()`: Modified.  Fixed some spacing around the message when `msg=TRUE`.
 * `logisticFuns()`: Modified.  Fixed some spacing around the message when `msg=TRUE`.
-* `Summarize()`: Modified.  Removed all `exclude=` arguments within calls to `table()` to address issues that will be created with forthcoming R v3.4.0 (per notice from CRAN).  Added more examples and tests.
+* `Summarize()`: Modified.  Removed all uses where the main variable was a factor (this functionality was largely unneeded and unused, was inelegant and difficult to maintain).  Removed pass-through to `summary`.  Removed warnings about the RHS variables being converted to factors.  Columns for "levels" of the RHS variables are now returned in their original model (i.e., if the variable was numeric in the original data.frame it is now numeric in the data.frame returned from this function) -- this should reduce need for using `fact2num()` when using the results of this function for variables that were originally numeric.  Added more examples and tests for the numeric data.
 
 # FSA 0.8.8 18-Jul-16
 * `growthFunShow()`: Modified.  Added Pauly et al. (1992) seasonal cessation function.  Added `case=` for use with Schnute model.

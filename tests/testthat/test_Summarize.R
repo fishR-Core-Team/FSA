@@ -1,275 +1,123 @@
 context("Summmarize() tests")
 
 ## Create simple dummy data
-d <- data.frame(g1=factor(c("A","A","A","B","B","B","C","C","C")),
-                g2=factor(c("a","b","c","a","b","c","a","b","c")),
-                g3=factor(c("x","x","x","x","x","y","y","y","y")),
-                dat=1:9,junk=11:19)
+d1 <- data.frame(f1=factor(c("A","A","A","B","B","B","C","C","C")),
+                 f2=factor(c("a","b","c","a","b","c","a","b","c")),
+                 f3=factor(c("A","A","A","B","B","B","C","C",NA)),
+                 c1=c("x","x","x","x","x","y","y","y","y"),
+                 c2=c("A","A","A","B","B","B","C","C",NA),
+                 q1=1:9,q2=11:19,q3=c(1:3,1:3,1,2,2),q4=c(NA,1:8),
+                 stringsAsFactors=FALSE)
+
+## Result labels
+qnms <- c("n","nvalid","mean","sd","min","Q1","median","Q3","max","percZero")
 
 test_that("Summarize() messages",{
   ## From formula method
-  expect_error(Summarize(dat+junk~g1+g2,data=d),"more than one variable on the LHS")
-  expect_error(Summarize(dat~g1+g2+g3,data=d),"must contain only one or two factors")
-  expect_error(Summarize(dat~g1+g2+g3,data=d),"must contain only one or two factors")
-  expect_error(Summarize(~g1+g2,data=d),"Must have one variable on LHS of formula")
-  expect_error(Summarize(~dat+junk,data=d),"Must have one variable on LHS of formula")
-  expect_warning(Summarize(dat~junk,data=d),"RHS variable was converted to a factor")
-  expect_warning(Summarize(dat~junk*g1,data=d),"First RHS variable was converted to a factor")
-  expect_warning(Summarize(dat~g1*junk,data=d),"Second RHS variable was converted to a factor")
-  expect_warning(Summarize(g1~dat,data=d),"RHS variable was converted to a factor")
-  expect_error(Summarize(g1~g2,data=d,percent="derek"),"should be one of")
+  expect_error(Summarize(~f1,data=d1),"only works with a numeric variable")
+  expect_error(Summarize(~c1,data=d1),"only works with a numeric variable")
+  expect_error(Summarize(f1~1,data=d1),"only works with a numeric variable")
+  expect_error(Summarize(c1~1,data=d1),"only works with a numeric variable")
+  expect_error(Summarize(q1+q2~f1+f2,data=d1),"more than one variable on the LHS")
+  expect_error(Summarize(q1~f1+f2+c1,data=d1),"may contain only one or two factors")
+  expect_error(Summarize(q1~f1+f2+c1,data=d1),"may contain only one or two factors")
+  expect_error(Summarize(~f1+f2,data=d1),"Must have one variable on LHS of formula")
+  expect_error(Summarize(~q1+q2,data=d1),"Must have one variable on LHS of formula")
+  expect_error(Summarize(f1~f2,data=d1),"numeric variable on LHS")
+  expect_error(Summarize(c1~f2,data=d1),"numeric variable on LHS")
   
   ## From default method
-  expect_error(Summarize(d),"does not work with a data.frame")
-  expect_error(Summarize(as.matrix(d[,c("dat","junk")])),"does not work with matrices")
-  expect_error(Summarize(as.matrix(d[,c("g1","g2","g3")])),"does not work with matrices")
+  expect_error(Summarize(d1),"does not work with a data.frame")
+  expect_error(Summarize(as.matrix(d1[,c("q1","q2")])),"does not work with matrices")
+  expect_error(Summarize(as.matrix(d1[,c("f1","f2","c1")])),"does not work with matrices")
 })
 
-test_that("Summarize() Results without NAs",{
-  qnms <- c("n","nvalid","mean","sd","min","Q1","median","Q3","max","percZero")
+test_that("Summarize() results without NAs",{
   ## Single quantitative variable
-  tmp <- Summarize(~dat,data=d)
-  exp <- c(9,9,5,sd(d$dat),1,3,5,7,9,0)
-  names(exp) <- qnms
+  tmp <- Summarize(~q1,data=d1)
   expect_is(tmp,"numeric")
+  exp <- c(9,9,5,sd(d1$q1),1,3,5,7,9,0)
+  names(exp) <- qnms
   expect_equal(tmp,exp)
   
   ## Quantitative variables separated by one factor
-  tmp <- Summarize(dat~g1,data=d)
-  exp <- data.frame(g1=c("A","B","C"),n=rep(3,3),nvalid=rep(3,3),
+  tmp <- Summarize(q1~f1,data=d1)
+  expect_is(tmp,"data.frame")
+  exp <- data.frame(f1=c("A","B","C"),n=rep(3,3),nvalid=rep(3,3),
                     mean=c(2,5,8),sd=rep(1,3),min=c(1,4,7),
                     Q1=c(1,4,7)+0.5,median=c(2,5,8),Q3=c(2,5,8)+0.5,
                     max=c(3,6,9),percZero=rep(0,3))
-  expect_is(tmp,"data.frame")
   expect_equal(tmp,exp)
+
+  # assure that the "by" variable is of the expected mode/type  
+  expect_is(tmp$f1,"factor")
+  tmp <- Summarize(q1~c1,data=d1)
+  expect_is(tmp$c1,"character")
+  tmp <- Summarize(q1~q3,data=d1)
+  expect_is(tmp$q3,"numeric")
   
   ## Quantitative variables separated by two factors
-  tmp <- Summarize(dat~g2*g1,data=d)
-  exp <- data.frame(g2=rep(c("a","b","c"),3),g1=rep(c("A","B","C"),each=3),
+  tmp <- Summarize(q1~f2+f1,data=d1)
+  expect_is(tmp,"data.frame")
+  exp <- data.frame(f2=rep(c("a","b","c"),3),f1=rep(c("A","B","C"),each=3),
                     n=rep(1,9),nvalid=rep(1,9),mean=1:9,sd=as.numeric(rep(NA,9)),
                     min=1:9,Q1=1:9,median=1:9,Q3=1:9,max=1:9,percZero=rep(0,9))
-  expect_is(tmp,"data.frame")
   expect_equal(tmp,exp)
-  
-  ## Single factor variable
-  # not as percents, without marginal totals
-  exp1 <- table(d$g1)
-  tmp <- Summarize(~g1,data=d,percent="none",addtotal=FALSE)
-  expect_equivalent(tmp,exp1)
-  # not as percents, with marginal totals
-  exp <- addmargins(exp1,margin=1)
-  tmp <- Summarize(~g1,data=d,percent="none")
-  expect_equivalent(tmp,exp)
-  # with percents, without marginal totals
-  exp <- cbind(freq=exp1,perc=round(prop.table(exp1)*100,2))
-  tmp <- Summarize(~g1,data=d,addtotal=FALSE)  
-  # with percents, with marginal totals
-  exp <- addmargins(exp,margin=1)
-  tmp <- Summarize(~g1,data=d)
-  expect_equivalent(tmp,exp)
-  
-  ## Two factor variables
-  # not as percents, without marginal totals
-  exp1 <- table(d$g2,d$g1)  
-  tmp <- Summarize(g1~g2,data=d,percent="none",addtotal=FALSE)
-  expect_equivalent(tmp,exp1)
-  # Table percents, without marginal totals
-  exp <- round(prop.table(exp1)*100,2)
-  tmp <- Summarize(g1~g2,data=d,percent="total",addtotal=FALSE)
-  expect_equivalent(tmp,exp)
-  # Column percents, without marginal totals
-  exp <- round(prop.table(exp1,margin=2)*100,2)
-  tmp <- Summarize(g1~g2,data=d,percent="column",addtotal=FALSE)
-  expect_equivalent(tmp,exp)
-  # Row percents, without marginal totals
-  exp <- round(prop.table(exp1,margin=1)*100,2)
-  tmp <- Summarize(g1~g2,data=d,percent="row",addtotal=FALSE)
-  expect_equivalent(tmp,exp)
-  # Table percents, with marginal totals
-  exp <- prop.table(exp1)*100
-  exp <- round(addmargins(exp),2)
-  tmp <- Summarize(g1~g2,data=d,percent="total")
-  expect_equivalent(tmp,exp)
-  # Column percents, without marginal totals
-  exp <- prop.table(exp1,margin=2)*100
-  exp <- round(addmargins(exp,margin=1),2)
-  tmp <- Summarize(g1~g2,data=d,percent="column")
-  expect_equivalent(tmp,exp)
-  # Row percents, without marginal totals
-  exp <- prop.table(exp1,margin=1)*100
-  exp <- round(addmargins(exp,margin=2),2)
-  tmp <- Summarize(g1~g2,data=d,percent="row")
-  expect_equivalent(tmp,exp)
+ 
+  # assure that the "by" variables are of the expected mode/type  
+  expect_is(tmp$f1,"factor")
+  expect_is(tmp$f2,"factor")
+  tmp <- Summarize(q1~c1+f1,data=d1)
+  expect_is(tmp$c1,"character")
+  expect_is(tmp$f1,"factor")
+  tmp <- Summarize(q1~c1+q3,data=d1)
+  expect_is(tmp$c1,"character")
+  expect_is(tmp$q3,"numeric")
 })
 
-test_that("Summarize() Results with NAs",{
-  qnms <- c("n","nvalid","mean","sd","min","Q1","median","Q3","max","percZero")
-  d <- data.frame(g1=factor(c("A","A","A","B","B","B","C","C",NA)),
-                  g2=factor(c("a","b","c","a","b","c","a","b","c")),
-                  g3=factor(c("x","x","x","x","x","y","y","y","y")),
-                  g4=c("A","A","A","B","B","B","C","C","NA"),
-                  dat=c(NA,1:8),junk=11:19)
+test_that("Summarize() results with NAs",{
   ## Single quantitative variable
-  tmp <- Summarize(~dat,data=d)
-  exp <- c(9,8,4.5,sd(d$dat,na.rm=TRUE),1,2.75,4.5,6.25,8,0)
+  tmp <- Summarize(~q4,data=d1)
+  exp <- c(9,8,4.5,sd(d1$q4,na.rm=TRUE),1,2.75,4.5,6.25,8,0)
   names(exp) <- qnms
   expect_is(tmp,"numeric")
   expect_equal(round(tmp,7),round(exp,7))  # minor difference in sd @ 8 decimals
  
   ## Quantitative variables separated by one factor
-  tmp <- Summarize(dat~g1,data=d)
-  exp <- data.frame(g1=c("A","B","C"),n=c(3,3,2),nvalid=c(2,3,2),
-                    mean=c(1.5,4,6.5),sd=c(0.7071068,1,0.7071068),min=c(1,3,6),
-                    Q1=c(1.25,3.5,6.25),median=c(1.5,4,6.5),Q3=c(1.75,4.5,6.75),
-                    max=c(2,5,7),percZero=rep(0,3))
+  tmp <- Summarize(q4~f1,data=d1)
+  exp <- data.frame(f1=c("A","B","C"),n=c(3,3,3),nvalid=c(2,3,3),
+                    mean=c(1.5,4,7.0),sd=c(0.7071068,1,1),min=c(1,3,6),
+                    Q1=c(1.25,3.5,6.5),median=c(1.5,4,7),Q3=c(1.75,4.5,7.5),
+                    max=c(2,5,8),percZero=rep(0,3))
   expect_is(tmp,"data.frame")
   expect_equal(tmp,exp)
   
-  ## Quantitative variables separated by one factor (exclude NA)
-  tmp <- Summarize(dat~g4,data=d,exclude="NA")
-  exp <- data.frame(g4=c("A","B","C"),n=c(3,3,2),nvalid=c(2,3,2),
-                    mean=c(1.5,4,6.5),sd=c(0.7071068,1,0.7071068),min=c(1,3,6),
-                    Q1=c(1.25,3.5,6.25),median=c(1.5,4,6.5),Q3=c(1.75,4.5,6.75),
-                    max=c(2,5,7),percZero=rep(0,3))
-  expect_is(tmp,"data.frame")
-  expect_equal(tmp,exp)
-  
-  ## Single factor variable
-  # not as percents, without marginal totals
-  exp1 <- table(d$g1)
-  tmp <- Summarize(~g1,data=d,percent="none",addtotal=FALSE)
-  expect_equivalent(tmp,exp1)
-  # not as percents, with marginal totals
-  exp <- addmargins(exp1,margin=1)
-  tmp <- Summarize(~g1,data=d,percent="none")
-  expect_equivalent(tmp,exp)
-  # with percents, without marginal totals
-  exp <- cbind(freq=exp1,perc=round(prop.table(exp1)*100,2))
-  tmp <- Summarize(~g1,data=d,addtotal=FALSE)  
-  expect_equivalent(tmp,exp)
-  # with percents, with marginal totals
-  exp <- addmargins(exp,margin=1)
-  tmp <- Summarize(~g1,data=d)
-  expect_equivalent(tmp,exp)
-  
-  ## Single character variable
-  # not as percents, without marginal totals
-  exp1 <- table(d$g4)
-  tmp <- Summarize(~g4,data=d,percent="none",addtotal=FALSE)
-  expect_equivalent(tmp,exp1)
-  # not as percents, with marginal totals
-  exp <- addmargins(exp1,margin=1)
-  tmp <- Summarize(~g4,data=d,percent="none")
-  expect_equivalent(tmp,exp)
-  # with percents, without marginal totals
-  exp <- cbind(freq=exp1,perc=round(prop.table(exp1)*100,2),
-               validPerc=round(c(prop.table(exp1[1:3]),0)*100,1))
-  tmp <- Summarize(~g4,data=d,addtotal=FALSE)  
-  expect_equivalent(tmp,exp)
-  # with percents, with marginal totals
-  exp <- addmargins(exp,margin=1)
-  tmp <- Summarize(~g4,data=d)
-  expect_equivalent(tmp,exp)
-
-  ## Single character variable (exclude values)
-  # not as percents, without marginal totals
-  tmpd <- droplevels(d$g4[d$g4!="NA"])
-  exp1 <- table(tmpd)
-  tmp <- Summarize(~g4,data=d,percent="none",addtotal=FALSE,exclude="NA")
-  expect_equivalent(tmp,exp1)
-  # not as percents, with marginal totals
-  exp <- addmargins(exp1,margin=1)
-  tmp <- Summarize(~g4,data=d,percent="none",exclude="NA")
-  expect_equivalent(tmp,exp)
-  # with percents, without marginal totals
-  exp <- cbind(freq=exp1,perc=round(prop.table(exp1)*100,2))
-  tmp <- Summarize(~g4,data=d,addtotal=FALSE,exclude="NA")  
-  expect_equivalent(tmp,exp)
-  # with percents, with marginal totals
-  exp <- addmargins(exp,margin=1)
-  tmp <- Summarize(~g4,data=d,exclude="NA")
-  expect_equivalent(tmp,exp)
-  
-  ## Two factor variables
-  # not as percents, without marginal totals
-  exp1 <- table(d$g2,d$g1)  
-  tmp <- Summarize(g1~g2,data=d,percent="none",addtotal=FALSE)
-  expect_equivalent(tmp,exp1)
-  # Table percents, without marginal totals
-  exp <- round(prop.table(exp1)*100,2)
-  tmp <- Summarize(g1~g2,data=d,percent="total",addtotal=FALSE)
-  expect_equivalent(tmp,exp)
-  # Column percents, without marginal totals
-  exp <- round(prop.table(exp1,margin=2)*100,2)
-  tmp <- Summarize(g1~g2,data=d,percent="column",addtotal=FALSE)
-  expect_equivalent(tmp,exp)
-  # Row percents, without marginal totals
-  exp <- round(prop.table(exp1,margin=1)*100,2)
-  tmp <- Summarize(g1~g2,data=d,percent="row",addtotal=FALSE)
-  expect_equivalent(tmp,exp)
-  # Table percents, with marginal totals
-  exp <- prop.table(exp1)*100
-  exp <- round(addmargins(exp),2)
-  tmp <- Summarize(g1~g2,data=d,percent="total")
-  expect_equivalent(tmp,exp)
-  # Column percents, without marginal totals
-  exp <- prop.table(exp1,margin=2)*100
-  exp <- round(addmargins(exp,margin=1),2)
-  tmp <- Summarize(g1~g2,data=d,percent="column")
-  expect_equivalent(tmp,exp)
-  # Row percents, without marginal totals
-  exp <- prop.table(exp1,margin=1)*100
-  exp <- round(addmargins(exp,margin=2),2)
-  tmp <- Summarize(g1~g2,data=d,percent="row")
-  expect_equivalent(tmp,exp)
-
-  ## Two factor variables (with exclusions)
-  # not as percents, without marginal totals
-  tmpd <- droplevels(d[d$g4!="NA",])
-  exp1 <- table(tmpd$g4,tmpd$g2)
-  tmp <- Summarize(g2~g4,data=d,percent="none",addtotal=FALSE,exclude="NA")
-  expect_equivalent(tmp,exp1)
-  # Table percents, without marginal totals
-  exp <- round(prop.table(exp1)*100,2)
-  tmp <- Summarize(g2~g4,data=d,percent="total",addtotal=FALSE,exclude="NA")
-  expect_equivalent(tmp,exp)
-  # Column percents, without marginal totals
-  exp <- round(prop.table(exp1,margin=2)*100,2)
-  tmp <- Summarize(g2~g4,data=d,percent="column",addtotal=FALSE,exclude="NA")
-  expect_equivalent(tmp,exp)
-  # Row percents, without marginal totals
-  exp <- round(prop.table(exp1,margin=1)*100,2)
-  tmp <- Summarize(g2~g4,data=d,percent="row",addtotal=FALSE,exclude="NA")
-  expect_equivalent(tmp,exp)
-  # Table percents, with marginal totals
-  exp <- prop.table(exp1)*100
-  exp <- round(addmargins(exp),2)
-  tmp <- Summarize(g2~g4,data=d,percent="total",exclude="NA")
-  expect_equivalent(tmp,exp)
-  # Column percents, without marginal totals
-  exp <- prop.table(exp1,margin=2)*100
-  exp <- round(addmargins(exp,margin=1),2)
-  tmp <- Summarize(g2~g4,data=d,percent="column",exclude="NA")
-  expect_equivalent(tmp,exp)
-  # Row percents, without marginal totals
-  exp <- prop.table(exp1,margin=1)*100
-  exp <- round(addmargins(exp,margin=2),2)
-  tmp <- Summarize(g2~g4,data=d,percent="row",exclude="NA")
-  expect_equivalent(tmp,exp)
 })
 
-test_that("Summarize() Results from 1-d data.frames",{
-  ## Single quantitative variable
-  qnms <- c("n","nvalid","mean","sd","min","Q1","median","Q3","max","percZero")
+
+test_that("Summarize() results using exclude=",{
+  tmp <- Summarize(q4~f1,data=d1,exclude="A")
+  exp <- data.frame(f1=c("B","C"),n=c(3,3),nvalid=c(3,3),mean=c(4,7.0),sd=c(1,1),min=c(3,6),
+                    Q1=c(3.5,6.5),median=c(4,7),Q3=c(4.5,7.5),max=c(5,8),percZero=rep(0,2))
+  expect_is(tmp,"data.frame")
+  expect_equal(tmp,exp)
+})
+
+
+test_that("Summarize() Results from 1-d matrices and data.frames",{
+  ## Matrix
   d <- matrix(1:9,ncol=1)
   tmp <- Summarize(d)
   exp <- c(9,9,5,sd(d),1,3,5,7,9,0)
   names(exp) <- qnms
   expect_is(tmp,"numeric")
   expect_equal(tmp,exp)
-  ## Single factor variable
-  d <- matrix(factor(c("A","A","A","B","B","B","C","C","C")),ncol=1)
-  tmp <- Summarize(d,percent="none",addtotal=FALSE)
-  exp1 <- table(d)
-  expect_equivalent(tmp,exp1)
+
+  ## data.frame
+  d <- as.data.frame(matrix(1:9,ncol=1))
+  tmp <- Summarize(~V1,data=d)
+  exp <- c(9,9,5,sd(d$V1),1,3,5,7,9,0)
+  names(exp) <- qnms
+  expect_is(tmp,"numeric")
+  expect_equal(tmp,exp)
 })

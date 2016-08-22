@@ -4,124 +4,89 @@
 \alias{Summarize}
 \alias{Summarize.default}
 \alias{Summarize.formula}
-\title{Summary statistics for a numeric or factor variable.}
+\title{Summary statistics for a numeric variable.}
 \usage{
 Summarize(object, ...)
 
 \method{Summarize}{default}(object, digits = getOption("digits"),
-  addtotal = TRUE, percent = c("total", "none"), percdigs = 2,
   na.rm = TRUE, exclude = NULL, ...)
 
 \method{Summarize}{formula}(object, data = NULL,
-  digits = getOption("digits"), percent = c("row", "column", "total",
-  "none"), percdigs = 2, addtotal = TRUE, na.rm = TRUE, exclude = NULL,
-  ...)
+  digits = getOption("digits"), na.rm = TRUE, exclude = NULL, ...)
 }
 \arguments{
-\item{object}{A vector of numeric or factor data.}
+\item{object}{A vector of numeric data.}
 
-\item{digits}{A numeric that indicates the number of decimals to round the numeric summaries.}
-
-\item{addtotal}{A logical that indicates whether totals should be added to tables (\code{=TRUE}, default) or not.  See details.}
-
-\item{percent}{A string that indicates the type of percents to compute for tables from factor variables.  See details.}
-
-\item{percdigs}{A numeric that indicates the number of decimals to round the percentage summaries.}
+\item{digits}{A single numeric that indicates the number of decimals to round the numeric summaries.}
 
 \item{na.rm}{A logical that indicates whether numeric missing values (\code{NA}) should be removed (\code{=TRUE}, default) or not.}
 
 \item{exclude}{A string that contains the level that should be excluded from a factor variable.}
 
-\item{data}{An optional data frame that contains the variables in \code{formula}.}
+\item{data}{A data.frame that contains the variables in \code{formula}.}
 
 \item{\dots}{Not implemented.}
 }
 \value{
-A named vector or data frame (when a quantitative variable is separted by one or two factor variables) of summary statistics for numeric data and a matrix of frequencies and, possibly, percentages for factor variables.
+A named vector or data frame (when a quantitative variable is separted by one or two factor variables) of summary statistics for numeric data.
 }
 \description{
-Summary statistics for a single numeric or factor variable, possibly separated by the levels of a factor variable.  This function is very similar to \code{\link[base]{summary}} for a numeric variables and \code{\link[base]{table}} for factor variables.
+Summary statistics for a single numeric variable, possibly separated by the levels of a factor variable or variables.  This function is very similar to \code{\link[base]{summary}} for a numeric variable.
 }
 \details{
-This function is primarily used with formulas.  Five general types of formulae may be used (where \code{quant} and \code{factor} generically represent quantitative/numeric and factor variables, respectively)
+This function is primarily used with formulas of the following types (where \code{quant} and \code{factor} generically represent quantitative/numeric and factor variables, respectively):
 \tabular{ll}{
   Formula \tab Description of Summary \cr
   \code{~quant} \tab Numerical summaries (see below) of \code{quant}.\cr
-  \code{~factor} \tab One-way frequency or percentage (see below) table of \code{factor}.\cr
   \code{quant~factor} \tab Summaries of \code{quant} separated by levels in \code{factor}.\cr
   \code{quant~factor1*factor2} \tab Summaries of \code{quant} separated by the combined levels in \code{factor1} and \code{factor2}.\cr
-  \code{factor1~factor2} \tab Two-way frequency or percentage table with levels of \code{factor2} as rows and \code{factor1} as columns.\cr
 }
 
 Numerical summaries include all results from \code{\link[base]{summary}} (min, Q1, mean, median, Q3, and max) and the sample size, valid sample size (sample size minus number of \code{NA}s), and standard deviation (i.e., \code{sd}).  \code{NA} values are removed from the calculations with \code{na.rm=TRUE} (the DEFAULT).  The number of digits in the returned results are controlled with \code{digits=}.
-
-Factor variables may be summarized as a frequency (if \code{percent="none"}) or percentages table (the DEFAULT).  For a single factor variable, the percentages table is returned if \code{percent="total"}.  For two factor variables, the percentage table may be returned as a row-, column-, or table-percent table with \code{percent="row"} (the DEFAULT), \code{percent="column"}, and \code{percent="total"}, respectively.   The number of digits in the returned table are controlled with \code{percdigs=}.  A marginal total, either for all margins if \code{percent="none"} or the appropriate margin otherwise, is added to the table if \code{addtotal=TRUE}.  The results for a factor are NOT meant to replace \code{\link[base]{table}} or \code{\link[stats]{xtabs}}.  This functionality is provided to make this function more complete.
 }
 \note{
 Students often need to examine basic statistics of a quantitative variable separated for different levels of a categorical variable.  These results may be obtained with \code{\link[base]{tapply}}, \code{\link[base]{by}}, or \code{\link[stats]{aggregate}} (or with functions in other packages), but the use of these functions is not obvious to newbie students or return results in a format that is not obvious to newbie students.  Thus, the formula method to \code{Summarize} allows newbie students to use a common notation (i.e., formula) to easily compute summary statistics for a quantitative variable separated by the levels of a factor.
 }
 \examples{
-## Create a numeric vector (with missing values)
+## Create a data.frame of "data"
 n <- 102
-y <- c(0,0,NA,NA,NA,runif(n-5))
-## Create a factor vector (with missing values)
-g1 <- factor(sample(c("A","B","C","NA"),n,replace=TRUE))
-## Create a factor vector with unknowns
-g2 <- factor(sample(c("male","female","UNKNOWN"),n,replace=TRUE))
-# Put into a data.frame (with some extra variables)
-d <- data.frame(dy=y,dg1=g1,dg2=g2,
-                dw=sample(1:3,n,replace=TRUE),
-                dv=sample(1:3,n,replace=TRUE))
+d <- data.frame(y=c(0,0,NA,NA,NA,runif(n-5)),
+                w=sample(7:9,n,replace=TRUE),
+                v=sample(1:3,n,replace=TRUE),
+                g1=factor(sample(c("A","B","C",NA),n,replace=TRUE)),
+                g2=factor(sample(c("male","female","UNKNOWN"),n,replace=TRUE)),
+                g3=sample(c("a","b","c","d"),n,replace=TRUE),
+                stringsAsFactors=FALSE)
 
 # typical output of summary() for a numeric variable
-summary(y)   
+summary(d$y)   
 
 # this function           
-Summarize(y,digits=3)
-Summarize(~dy,data=d,digits=3)
-Summarize(dy~1,data=d,digits=3)
-
-## Factor vector (excluding "NA"s in second call)
-Summarize(~dg1,data=d)
-Summarize(~dg1,data=d,exclude="NA")
-
-## Factor vector with UNKNOWNs
-Summarize(~dg2,data=d)
-Summarize(~dg2,data=d,exclude="UNKNOWN")
+Summarize(d$y,digits=3)
+Summarize(~y,data=d,digits=3)
+Summarize(y~1,data=d,digits=3)
 
 ## Numeric vector by levels of a factor variable
-Summarize(dy~dg1,data=d,digits=3)
-Summarize(dy~dg1,data=d,digits=3,exclude="NA")
-Summarize(dy~dg2,data=d,digits=3)
-Summarize(dy~dg2,data=d,digits=3,exclude="UNKNOWN")
+Summarize(y~g1,data=d,digits=3)
+Summarize(y~g2,data=d,digits=3)
+Summarize(y~g2,data=d,digits=3,exclude="UNKNOWN")
 
 ## Numeric vector by levels of two factor variables
-Summarize(dy~dg1+dg2,data=d,digits=3)
-Summarize(dy~dg1+dg2,data=d,digits=3,exclude="NA")
-Summarize(dy~dg1+dg2,data=d,digits=3,exclude="UNKNOWN")
-Summarize(dy~dg1+dg2,data=d,digits=3,exclude=c("NA","UNKNOWN"))
+Summarize(y~g1+g2,data=d,digits=3)
+Summarize(y~g1+g2,data=d,digits=3,exclude="UNKNOWN")
 
 ## What happens if RHS of formula is not a factor
-Summarize(dy~dw,data=d,digits=3)
-Summarize(y~dw*dv,data=d,digits=3)
+Summarize(y~w,data=d,digits=3)
 
-## Summarize factor variable by a factor variable
-Summarize(dg1~dg2,data=d)
-Summarize(dg1~dg2,data=d,exclude="NA")
-Summarize(dg1~dg2,data=d,exclude=c("NA","UNKNOWN"))
-Summarize(dg1~dg2,data=d,percent="none")
-Summarize(dg1~dg2,data=d,percent="column")
-Summarize(dg1~dg2,data=d,percent="total")
-
-## Summarizing all variables in a data frame
-lapply(as.list(d),Summarize,digits=4)
+## Summarizing multiple variables in a data.frame (must reduce to numerics)
+lapply(as.list(d[,1:3]),Summarize,digits=4)
 
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}
 }
 \seealso{
-See \code{\link[base]{summary}}, \code{\link[base]{table}}, and \code{\link[stats]{xtabs}} for related one dimensional functionality.  See \code{\link[base]{tapply}}, \code{\link[doBy]{summaryBy}} in \pkg{doBy}, \code{\link[psych]{describe}} in \pkg{psych}, \code{\link[prettyR]{describe}} in \pkg{prettyR}, and \code{\link[fBasics]{basicStats}} in \pkg{fBasics} for similar \dQuote{by} functionality.
+See \code{\link[base]{summary}} for related one dimensional functionality.  See \code{\link[base]{tapply}}, \code{\link[doBy]{summaryBy}} in \pkg{doBy}, \code{\link[psych]{describe}} in \pkg{psych}, \code{\link[prettyR]{describe}} in \pkg{prettyR}, and \code{\link[fBasics]{basicStats}} in \pkg{fBasics} for similar \dQuote{by} functionality.
 }
 \keyword{misc}
 
