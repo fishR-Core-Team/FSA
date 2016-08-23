@@ -1,4 +1,4 @@
-# FSA 0.8.9 ongoing
+# FSA 0.8.9 22-Aug-16
 * `ageComparison()`: Modified.  Removed an internal call to `fact2num()` because of changes to `Summarize()` below.  Should not impact user experience.
 * `diags()`: Added.
 * `gompertzFuns()`: Modified.  Fixed some spacing around the message when `msg=TRUE`.
