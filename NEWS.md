@@ -1,4 +1,7 @@
 # FSA 0.8.10 ongoing
+* `alkIndivAge()`: Modified.  Added `na.rm=TRUE` to the checks on the minimum and maximum length data.
+* `chapmanRobson()`: Modified.  Added `na.rm=TRUE` to y-range calculation.
+* `vbStarts()`: Modified.  Added `na.rm=TRUE` to checking of Linf values.
 
 # FSA 0.8.9 22-Aug-16
 * `ageComparison()`: Modified.  Removed an internal call to `fact2num()` because of changes to `Summarize()` below.  Should not impact user experience.

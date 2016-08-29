@@ -107,8 +107,8 @@ alkIndivAge <- function(key,formula,data,type=c("SR","CR"),breaks=NULL,seed=NULL
   # Find the length categories that are present in the key
   da.len.cats <- as.numeric(rownames(key))
   # Check about min and max value in length sample relative to same on key
-  if (min(data[,cl])<min(da.len.cats)) {
-    stop(paste0("The minimum observed length in the length sample (",min(data[,cl]),
+  if (min(data[,cl],na.rm=TRUE)<min(da.len.cats)) {
+    stop(paste0("The minimum observed length in the length sample (",min(data[,cl],na.rm=TRUE),
                 ")\n is less than the smallest length category in the age-length key (",
                 min(da.len.cats),").\n You should include fish of these lengths in your age sample\n",
                 " or exclude fish of this length from your length sample.\n"),call.=FALSE)
@@ -118,8 +118,8 @@ alkIndivAge <- function(key,formula,data,type=c("SR","CR"),breaks=NULL,seed=NULL
   #   If the maximum observed length is greater than the maximum length category in
   #   the ALK PLUS the minimum width of length categories then don't send the message.
   min.w <- min(diff(da.len.cats))
-  if (max(data[,cl])>(max(da.len.cats)+min.w)) {
-    warning(paste0("The maximum observed length in the length sample (",max(data[,cl]),") is greater\n",
+  if (max(data[,cl],na.rm=TRUE)>(max(da.len.cats)+min.w)) {
+    warning(paste0("The maximum observed length in the length sample (",max(data[,cl],na.rm=TRUE),") is greater\n",
                    " than the largest length category in the age-length key (",max(da.len.cats),").\n",
                    " The last length category will be treated as all-inclusive."),call.=FALSE)
   }
