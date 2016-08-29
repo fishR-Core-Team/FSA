@@ -207,7 +207,7 @@ plot.chapmanRobson <- function(x,pos.est="topright",cex.est=0.95,ylab="Catch",xl
   npar[1] <- 6
   graphics::par(mar=npar)
   # Find range for y-axis
-  yrng <- c(min(0,min(x$catch)),max(x$catch))
+  yrng <- c(min(0,min(x$catch,na.rm=TRUE)),max(x$catch,na.rm=TRUE))
   # Plot raw data
   graphics::plot(x$catch~x$age,col=col.pt,xlab="",ylab=ylab,ylim=yrng,xaxt="n",...)
   # Highlight descending limb portion
