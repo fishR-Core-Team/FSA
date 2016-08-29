@@ -181,7 +181,7 @@ iVBStarts.LinfK <- function(age,len,type,fixed) {
 # Perform some checks for "bad" values of Linf and K
 #=============================================================
 iCheckLinf <- function(sLinf,len) {
-  if ((sLinf<0.5*max(len)) | sLinf>1.5*max(len)) {
+  if ((sLinf<0.5*max(len,na.rm=TRUE)) | sLinf>1.5*max(len,na.rm=TRUE)) {
     msg <- "Starting value for Linf is very different from the observed maximum length, "
     msg <- paste(msg,"which suggests a model fitting problem.\n",sep="")
     msg <- paste(msg,"See a Walford or Chapman plot to examine the problem.\n",sep="")
