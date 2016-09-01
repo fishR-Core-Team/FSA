@@ -120,6 +120,14 @@ test_that("nlsBoot methods results",{
   expect_equal(nrow(tmp),5)
   expect_equal(ncol(tmp),4)
   expect_equal(tmp[,"days"],1:5)
+  # get same output when digits are used?
+  tmp <- predict(nlsBoot1,fnx,days=1:5,digits=2)
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(colnames(tmp),c("days","Median","95% LCI","95% UCI"))
+  expect_equal(nrow(tmp),5)
+  expect_equal(ncol(tmp),4)
+  expect_equal(tmp[,"days"],1:5)
 })
 
 
@@ -170,6 +178,14 @@ test_that("bootCase methods results",{
   expect_equal(ncol(tmp),4)
   expect_equal(tmp[,"days"],c(days=3))
   tmp <- predict(bootCase1,fnx,days=1:5)
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(colnames(tmp),c("days","Median","95% LCI","95% UCI"))
+  expect_equal(nrow(tmp),5)
+  expect_equal(ncol(tmp),4)
+  expect_equal(tmp[,"days"],1:5)
+  # get same output when digits are used?
+  tmp <- predict(nlsBoot1,fnx,days=1:5,digits=2)
   expect_is(tmp,"matrix")
   expect_equal(mode(tmp),"numeric")
   expect_equal(colnames(tmp),c("days","Median","95% LCI","95% UCI"))
