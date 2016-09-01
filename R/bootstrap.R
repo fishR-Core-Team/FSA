@@ -22,7 +22,6 @@
 #' @param rows A single numeric that contains the number of rows to use on the graphic.
 #' @param cols A single numeric that contains the number of columns to use on the graphic.
 #' @param FUN The function to be applied for the prediction.  See the examples.
-#' @param MARGIN A single numeric that indicates the margin over which \code{FUN} is applied.  \code{MARGIN=1} will apply to each row and is the default.
 #' @param digits A single numeric that indicates the number of digits for the result.
 #' @param bo The null hypothesized parameter value.
 #' @param alt A string that indicates the \dQuote{direction} of the alternative hypothesis.  See details.
@@ -65,6 +64,7 @@
 #'   confint(nl1.boot,"B1")
 #'   confint(nl1.boot,c(2,3))
 #'   confint(nl1.boot,conf.level=0.90)
+#'   predict(nl1.boot,fnx,days=1:3)
 #'   predict(nl1.boot,fnx,days=3)
 #'   htest(nl1.boot,1,bo=6,alt="less")
 #'   hist(nl1.boot)
@@ -81,8 +81,8 @@ confint.bootCase <- function(object,parm=NULL,level=conf.level,conf.level=0.95,p
 
 #' @rdname bootCase
 #' @export
-predict.bootCase <- function(object,FUN,MARGIN=1,conf.level=0.95,digits=NULL,...) {
-  iPredictBoot(object,FUN=FUN,MARGIN=MARGIN,conf.level=conf.level,digits=digits,...)
+predict.bootCase <- function(object,FUN,conf.level=0.95,digits=NULL,...) {
+  iPredictBoot(object,FUN=FUN,MARGIN=1,conf.level=conf.level,digits=digits,...)
 }
 
 #' @rdname bootCase
@@ -94,7 +94,7 @@ htest.bootCase <- function(object,parm=NULL,bo=0,alt=c("two.sided","less","great
 #' @rdname bootCase
 #' @export
 hist.bootCase <- function(x,same.ylim=TRUE,ymax=NULL,
-                          rows=round(sqrt(ncol(x))),cols=ceiling(sqrt(ncol(x))),...){
+                          rows=round(sqrt(ncol(x))),cols=ceiling(sqrt(ncol(x))),...){ # nocov start
   ## Set parameters
   op <- graphics::par("mfrow")
   graphics::par(mfrow=c(rows,cols))
@@ -106,11 +106,11 @@ hist.bootCase <- function(x,same.ylim=TRUE,ymax=NULL,
 	## Make the plots
 	for(i in 1:ncol(x)) hist.formula(~x[,i],xlab=colnames(x)[i],ylim=c(0,ymax[i]),...)
   graphics::par(mfrow=op)
-}
+} # nocov end
 
 #' @rdname bootCase
 #' @export
-plot.bootCase <- function(x,...){
+plot.bootCase <- function(x,...){ #nocov start
 	np <- ncol(x)
 	lay <- lower.tri(matrix(0,(np-1),(np-1)), TRUE)
 	lay[which(lay, TRUE)] <- 1:choose(np,2)
@@ -118,7 +118,7 @@ plot.bootCase <- function(x,...){
 	for(i in 1:(np-1))
 		for(j in (i+1):np)
 		  graphics::plot(x[,i],x[,j],xlab=colnames(x)[i],ylab=colnames(x)[j],pch=20)
-}
+} #nocov end
 
 
 
@@ -144,7 +144,6 @@ plot.bootCase <- function(x,...){
 #' @param rows A numeric that contains the number of rows to use on the graphic.
 #' @param cols A numeric that contains the number of columns to use on the graphic.
 #' @param FUN The function to be applied for the prediction.  See the examples.
-#' @param MARGIN A single numeric that indicates the margin over which \code{FUN} is applied.  \code{MARGIN=1} will apply to each row and is the default.
 #' @param digits A single numeric that indicates the number of digits for the result.
 #' @param bo The null hypothesized parameter value.
 #' @param alt A string that identifies the \dQuote{direction} of the alternative hypothesis.  See details.
@@ -182,6 +181,7 @@ plot.bootCase <- function(x,...){
 #'   confint(nl1.boot,c(2,3))
 #'   confint(nl1.boot,conf.level=0.90)
 #'   predict(nl1.boot,fnx,days=3)
+#'   predict(nl1.boot,fnx,days=1:3)
 #'   htest(nl1.boot,1,bo=6,alt="less")
 #' }
 #' 
@@ -194,8 +194,8 @@ confint.nlsBoot <- function(object,parm=NULL,level=conf.level,conf.level=0.95,pl
 
 #' @rdname nlsBoot
 #' @export
-predict.nlsBoot <- function(object,FUN,MARGIN=1,conf.level=0.95,digits=NULL,...) {
-  iPredictBoot(object$coefboot,FUN=FUN,MARGIN=MARGIN,conf.level=conf.level,digits=digits,...)
+predict.nlsBoot <- function(object,FUN,conf.level=0.95,digits=NULL,...) {
+  iPredictBoot(object$coefboot,FUN=FUN,MARGIN=1,conf.level=conf.level,digits=digits,...)
 }
 
 #' @rdname nlsBoot
@@ -229,48 +229,36 @@ iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
   else {
     if (is.numeric(parm)) {
       # check numeric parm
-      if (max(parm)>ncol(object)) stop("Number in 'parm' exceeds number of columns.",call.=FALSE)
-      if (min(parm)<=0) stop("Number in 'parm' must be positive.",call.=FALSE)
+      if (any(parm<0) & any(parm>0)) stop("Numbers in 'parm' cannot be both positive and negative.",
+                                          call.=FALSE)
+      if (max(abs(parm))>ncol(object)) stop("Number in 'parm' exceeds number of columns.",call.=FALSE)
     } else {
       # check named parm
-      if (!all(parm %in% colnames(object))) stop("Name in 'parm' does not exist in object.",call.=FALSE)
+      if (!all(parm %in% colnames(object))) stop("Name in 'parm' does not exist in 'object'.",
+                                                 call.=FALSE)
     }
   }
   ## Reduce object to have only the parm columns in it
-  object <- object[,parm]
+  object <- object[,parm,drop=FALSE]
   ## Compute CIs for each column, but handle differently if vector or matrix
-  if (is.null(dim(object))) {
-    # A vector, then only one parameter
-    res <- cl(object)
-    names(res) <- iCILabel(conf.level)
-  } else {
-    res <- t(apply(object,2,cl))
-    colnames(res) <- iCILabel(conf.level)
-    rownames(res) <- colnames(object)
-  }
+  res <- t(apply(object,2,cl))
+  colnames(res) <- iCILabel(conf.level)
+  rownames(res) <- colnames(object)
   ## Make plot if asked for
+  # nocov start
   if (plot) {
-    ## Plotting depends on whether one vector or not
-    if (length(parm)==1) {
-      ## one histogram
-      h <- hist.formula(~object,xlab=parm,main="")
-      plotrix::plotCI(mean(object),y=0.95*max(h$counts),li=res[1],ui=res[2],err="x",
-             pch=19,col=err.col,lwd=err.lwd,add=TRUE,...)
-    } else {
-      ## multiple histograms
-      np <- ncol(object)
-      if (is.null(rows)) rows <- round(sqrt(np))
-      if (is.null(cols)) cols <- ceiling(sqrt(np))
-      op <- graphics::par("mfrow")
-      graphics::par(mfrow=c(rows,cols))
-      for (i in 1:np) {
-        h <- hist.formula(~object[,i],xlab=colnames(object)[i],...)
-        plotrix::plotCI(mean(object[,i]),y=0.95*max(h$counts),li=res[i,1],ui=res[i,2],err="x",
-               pch=19,col=err.col,lwd=err.lwd,add=TRUE)
-      }
-      graphics::par(mfrow=op)
+    np <- ncol(object)
+    if (is.null(rows)) rows <- round(sqrt(np))
+    if (is.null(cols)) cols <- ceiling(sqrt(np))
+    op <- graphics::par("mfrow")
+    graphics::par(mfrow=c(rows,cols))
+    for (i in 1:np) {
+      h <- hist.formula(~object[,i],xlab=colnames(object)[i],...)
+      plotrix::plotCI(mean(object[,i]),y=0.95*max(h$counts),li=res[i,1],ui=res[i,2],err="x",
+                      pch=19,col=err.col,lwd=err.lwd,add=TRUE)
     }
-  }
+    graphics::par(mfrow=op)
+  } # nocov end
   ## Return CI result
   res
 }
@@ -280,9 +268,31 @@ iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
 ##   should work for bootCase and nlsboot results
 ## ===========================================================
 iPredictBoot <- function(object,FUN,MARGIN,conf.level,digits,...) {
-  res <- stats::quantile(apply(object,MARGIN=MARGIN,FUN=FUN,...),c(0.5,0.5-conf.level/2,0.5+conf.level/2))
-  if (!is.null(digits)) res <- round(res,digits)
-  names(res) <- c("prediction",iCILabel(conf.level))
+  ## Some checks
+  if (class(FUN)!="function") stop("'FUN' is not a function.",call.=FALSE)
+  if (conf.level<=0 | conf.level>=1) stop("'conf.level' must be between 0 and 1",call.=FALSE)
+  ## Get items in the dots
+  tmp <- list(...)
+  ## Prep the results matrix
+  n <- length(tmp[[1]])
+  res <- matrix(NA,nrow=n,ncol=4)
+  ## Loop through the items in the dots variable
+  for (i in 1:n) {
+    # set arguments for apply
+    args <- list(object,MARGIN,FUN,tmp[[1]][i])
+    names(args) <- c("X","MARGIN","FUN",names(tmp)[1])
+    # get the bootstrap results for one set of values in the dots variable
+    tmpres <- do.call(apply,args)
+    # get median, LCI, and UCI and put in results matrix (with dots variable value)
+    res[i,] <- c(tmp[[1]][i],stats::quantile(tmpres,c(0.5,0.5-conf.level/2,0.5+conf.level/2)))
+  }
+  ## Potentially round the median and CI results
+  if (!is.null(digits)) {
+    if (digits<=0) stop("'digits' must be positive.",call.=FALSE)
+    res[,2:4] <- round(res[,2:4],digits)
+  }
+  colnames(res) <- c(names(tmp)[1],"Median",iCILabel(conf.level))
+  ## Return the matrix
   res
 }
 
@@ -290,13 +300,13 @@ iPredictBoot <- function(object,FUN,MARGIN,conf.level,digits,...) {
 ## Hypothesis testing from bootstrapped results
 ##   should work for bootCase and nlsboot results
 ## ===========================================================
-iHTestBoot <- function(object,parm,bo,alt=c("two.sided","less","greater"),plot=FALSE) {
+iHTestBoot <- function(object,parm,bo=0,alt=c("two.sided","less","greater"),plot=FALSE) {
   ## Some checks
   alt <- match.arg(alt)
   ## Multiple parm values in object, make sure a parm was selected
   ## if it was then reduce object to vector of that parm
   if (!is.null(dim(object))) {
-    if (is.null(parm)) stop("You must select a parameter number to test.",call.=FALSE)
+    if (is.null(parm)) stop("You must select a parameter to test with `parm`.",call.=FALSE)
     else {
       # check parm
       if (length(parm)>1) stop("'parm' must be of length 1.",call.=FALSE)
@@ -307,15 +317,16 @@ iHTestBoot <- function(object,parm,bo,alt=c("two.sided","less","greater"),plot=F
           if (parm<=0) stop("Number in 'parm' must be positive.",call.=FALSE)
         } else {
           # column name does not exist in the matrix
-          if (!parm %in% colnames(object)) stop("Name in 'parm' does not exist in object.",call.=FALSE)
+          if (!parm %in% colnames(object)) stop("Name in 'parm' does not exist in 'object'.",
+                                                call.=FALSE)
         }
-        object <- object[,parm]
       }
     }
   }
   ## Calculate one-sided p-values
-  p.lt <- length(object[object>bo])/length(object)
-  p.gt <- length(object[object<bo])/length(object)
+  tmp <- object[,parm]
+  p.lt <- length(tmp[tmp>bo])/length(tmp)
+  p.gt <- length(tmp[tmp<bo])/length(tmp)
   ## Calculate p-value based on choice in alt
   switch(alt,
          less=p.value <- p.lt,
@@ -325,12 +336,13 @@ iHTestBoot <- function(object,parm,bo,alt=c("two.sided","less","greater"),plot=F
   ## Put together a result to return
   res <- cbind(bo,p.value)
   colnames(res) <- c("Ho Value","p value")
-  rownames(res) <- ""
+  rownames(res) <- ifelse(is.character(parm),parm,colnames(object)[parm])
   ## Make a plot if asked for
+  # nocov start
   if (plot) {
-    hist.formula(~object,xlab=colnames(object),main="")
+    hist.formula(~object[,parm],xlab=rownames(res),main="")
     graphics::abline(v=bo,col="red",lwd=2,lty=2)
-  }
+  } # nocov end
   ## Return the result
   res
 }

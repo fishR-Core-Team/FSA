@@ -12,8 +12,8 @@
   conf.level = 0.95, plot = FALSE, err.col = "black", err.lwd = 2,
   rows = NULL, cols = NULL, ...)
 
-\method{predict}{nlsBoot}(object, FUN, MARGIN = 1, conf.level = 0.95,
-  digits = NULL, ...)
+\method{predict}{nlsBoot}(object, FUN, conf.level = 0.95, digits = NULL,
+  ...)
 
 htest(object, ...)
 
@@ -40,8 +40,6 @@ htest(object, ...)
 \item{cols}{A numeric that contains the number of columns to use on the graphic.}
 
 \item{FUN}{The function to be applied for the prediction.  See the examples.}
-
-\item{MARGIN}{A single numeric that indicates the margin over which \code{FUN} is applied.  \code{MARGIN=1} will apply to each row and is the default.}
 
 \item{digits}{A single numeric that indicates the number of digits for the result.}
 
@@ -85,6 +83,7 @@ if (require(nlstools)) {
   confint(nl1.boot,c(2,3))
   confint(nl1.boot,conf.level=0.90)
   predict(nl1.boot,fnx,days=3)
+  predict(nl1.boot,fnx,days=1:3)
   htest(nl1.boot,1,bo=6,alt="less")
 }
 
