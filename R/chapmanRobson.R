@@ -177,18 +177,29 @@ chapmanRobson.formula <- function(x,data,ages2use=age,zmethod=c("Smithetal","Hoe
 
 #' @rdname chapmanRobson
 #' @export
-summary.chapmanRobson <- function(object,verbose=FALSE,...) {
-  if (verbose) {
-    message("Intermediate statistics: ",
-            "n=",object$n,"; T=",object$T)
-  }
-  object$est
+summary.chapmanRobson <- function(object,parm=c("all","both","Z","S"),verbose=FALSE,...) {
+  parm <- match.arg(parm)
+  if (verbose) message("Intermediate statistics: ","n=",object$n,"; T=",object$T)
+  if (!parm %in% c("all","both")) object$est[which(rownames(object$est)==parm),,drop=FALSE]
+  else object$est
 }
 
 #' @rdname chapmanRobson
 #' @export
-confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),level=conf.level,conf.level=0.95,...) {
+coef.chapmanRobson <- function(object,parm=c("all","both","Z","S"),...) {
+  tmp <- summary(object,parm)
+  res <- tmp[,1]
+  names(res) <- rownames(tmp)
+  res
+}
+
+#' @rdname chapmanRobson
+#' @export
+confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),
+                                  level=conf.level,conf.level=0.95,...) {
   parm <- match.arg(parm)
+  if (conf.level<=0 | conf.level>=1) stop("'conf.level' must be between 0 and 1",call.=FALSE)
+  
   z <- c(-1,1)*stats::qnorm((1-(1-conf.level)/2))
   # compute S results
   Sres <- rbind(S=object$est["S","Estimate"]+z*object$est["S","Std. Error"])
