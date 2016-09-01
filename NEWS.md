@@ -1,6 +1,6 @@
 # FSA 0.8.10 ongoing
 * `alkIndivAge()`: Modified.  Added `na.rm=TRUE` to the checks on the minimum and maximum length data.
-* `chapmanRobson()`: Modified.  Added `axis.age=` argument that allows the user to choose which type of x-axis is displayed (see examples; this addresses [https://github.com/droglenc/FSA/issues/20](#20))  Also modified code that adds the axes so that they should "look better" in most instances.  Added `na.rm=TRUE` to y-range calculation.
+* `chapmanRobson()`: Modified.  Added `axis.age=` argument that allows the user to choose which type of x-axis is displayed (see examples; this addresses [#20](https://github.com/droglenc/FSA/issues/20))  Also modified code that adds the axes so that they should "look better" in most instances.  Added `na.rm=TRUE` to y-range calculation.
 * `vbStarts()`: Modified.  Added `na.rm=TRUE` to checking of Linf values.
 
 # FSA 0.8.9 22-Aug-16
