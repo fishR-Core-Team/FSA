@@ -20,8 +20,7 @@
 #' @param col.mdl A string that indicates the color of the fitted line.
 #' @param lwd A numeric that indicates the line width of the fitted line.
 #' @param lty A numeric that indicates the type of line used for the fitted line.
-#' @param type A string that indicates what type of summary should be returned.  If \code{type="lm"} then summaries of the underlying linear model are returned.  If \code{type="params"} then summaries of the Z and A parameters are returned.
-#' @param parm A numeric or string (of parameter names) vector that specifies which parameters are to be given confidence intervals  If missing, all parameters are considered.
+#' @param parm A numeric or string (of parameter names) vector that specifies which parameters are to be given confidence intervals.  If \code{parm="lm"} then confidence intervals for the underlying linear model are returned.
 #' @param conf.level A number representing the level of confidence to use for constructing confidence intervals.
 #' @param level Same as \code{conf.level}.  Used for compatability with the generic \code{confint} function.
 #' @param \dots Additional arguments for methods.
@@ -77,9 +76,9 @@
 #' plot(cc3)
 #'
 #' ## demonstration of returning the linear model results
-#' summary(cc3,type="lm")
-#' coef(cc3,type="lm")
-#' confint(cc3,type="lm")
+#' summary(cc3,parm="lm")
+#' coef(cc3,parm="lm")
+#' confint(cc3,parm="lm")
 #' 
 #' ## demonstration of ability to work with missing age classes
 #' df <- data.frame(age=c(  2, 3, 4, 5, 7, 9,12),
@@ -169,29 +168,34 @@ catchCurve.formula <- function(x,data,ages2use=age,weighted=FALSE,...) {
 
 #' @rdname catchCurve
 #' @export
-summary.catchCurve <- function(object,type=c("params","lm"),...) {
-  type <- match.arg(type)
-  if (type=="lm") summary(object$lm,...)
-    else {
-      Z <- summary(object$lm)$coef[2,]
-      Z[c(1,3)] <- -Z[c(1,3)]
-      A <- c(100*(1-exp(-Z[1])),NA,NA,NA)
-      rbind(Z,A)
-    }
+summary.catchCurve <- function(object,parm=c("both","all","Z","A","lm"),...) {
+  parm <- match.arg(parm)
+  tmp <- summary(object$lm,...)
+  if (parm!="lm") {
+    Z <- summary(object$lm)$coef[2,]
+    Z[c(1,3)] <- -Z[c(1,3)]
+    A <- c(100*(1-exp(-Z[1])),NA,NA,NA)
+    tmp <- rbind(Z,A)
+    if (parm=="Z") tmp <- tmp[1,,drop=FALSE]
+    else if (parm=="A") tmp <- tmp[2,drop=FALSE]
+  }
+  tmp
 }
 
 #' @rdname catchCurve
 #' @export
-coef.catchCurve <- function(object,type=c("params","lm"),...) {
-  type <- match.arg(type)
-  if (type=="lm") stats::coef(object$lm,...)
-    else {
-      Z <- -stats::coef(object$lm)[2]
-      A <- 100*(1-exp(-Z))
-      d <- cbind(Z,A)
-      rownames(d) <- ""
-      d
-    }
+coef.catchCurve <- function(object,parm=c("all","both","Z","A","lm"),...) {
+  parm <- match.arg(parm)
+  tmp <- stats::coef(object$lm,...)
+  if (parm!="lm") {
+    Z <- -tmp[2]
+    A <- 100*(1-exp(-Z))
+    tmp <- c(Z,A)
+    names(tmp) <- c("Z","A")
+    if (parm=="Z") tmp <- tmp[1]
+    else if (parm=="A") tmp <- tmp[2]
+  } 
+  tmp
 }
 
 #' @rdname catchCurve
@@ -202,19 +206,20 @@ anova.catchCurve <- function(object,...) {
 
 #' @rdname catchCurve
 #' @export
-confint.catchCurve <- function(object,parm=c("all","both","Z","A"),level=conf.level,conf.level=0.95,type=c("params","lm"),...) {
-  type <- match.arg(type)
+confint.catchCurve <- function(object,parm=c("all","both","Z","A","lm"),
+                               level=conf.level,conf.level=0.95,...) {
   parm <- match.arg(parm)
+  if (conf.level<=0 | conf.level>=1) stop("'conf.level' must be between 0 and 1",call.=FALSE)
   ci <- stats::confint(object$lm,conf.level=level,...)
-  if (type=="lm") res <- ci
+  if (parm=="lm") res <- ci
   else {
     Zres <- rbind(Z=-ci[2,2:1])
     Ares <- rbind(A=100*(1-exp(ci[2,2:1])))
-    if (parm=="all" | parm=="both") res <- rbind(Zres,Ares)
+    if (parm %in% c("all","both")) res <- rbind(Zres,Ares)
       else if (parm=="Z") res <- Zres
-        else res <- Zres
-    colnames(res) <- iCILabel(conf.level)
+        else res <- Ares
   }
+  colnames(res) <- iCILabel(conf.level)
   res
 }
 

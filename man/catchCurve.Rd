@@ -18,14 +18,16 @@ catchCurve(x, ...)
 
 \method{catchCurve}{formula}(x, data, ages2use = age, weighted = FALSE, ...)
 
-\method{summary}{catchCurve}(object, type = c("params", "lm"), ...)
+\method{summary}{catchCurve}(object, parm = c("both", "all", "Z", "A", "lm"),
+  ...)
 
-\method{coef}{catchCurve}(object, type = c("params", "lm"), ...)
+\method{coef}{catchCurve}(object, parm = c("all", "both", "Z", "A", "lm"),
+  ...)
 
 \method{anova}{catchCurve}(object, ...)
 
-\method{confint}{catchCurve}(object, parm = c("all", "both", "Z", "A"),
-  level = conf.level, conf.level = 0.95, type = c("params", "lm"), ...)
+\method{confint}{catchCurve}(object, parm = c("all", "both", "Z", "A", "lm"),
+  level = conf.level, conf.level = 0.95, ...)
 
 \method{plot}{catchCurve}(x, pos.est = "topright", cex.est = 0.95,
   ylab = "log(Catch)", xlab = "Age", col.pt = "gray30",
@@ -44,9 +46,7 @@ catchCurve(x, ...)
 
 \item{object}{An object saved from the \code{catchCurve} call (i.e., of class \code{catchCurve}).}
 
-\item{type}{A string that indicates what type of summary should be returned.  If \code{type="lm"} then summaries of the underlying linear model are returned.  If \code{type="params"} then summaries of the Z and A parameters are returned.}
-
-\item{parm}{A numeric or string (of parameter names) vector that specifies which parameters are to be given confidence intervals  If missing, all parameters are considered.}
+\item{parm}{A numeric or string (of parameter names) vector that specifies which parameters are to be given confidence intervals.  If \code{parm="lm"} then confidence intervals for the underlying linear model are returned.}
 
 \item{level}{Same as \code{conf.level}.  Used for compatability with the generic \code{confint} function.}
 
@@ -118,9 +118,9 @@ summary(cc3)
 plot(cc3)
 
 ## demonstration of returning the linear model results
-summary(cc3,type="lm")
-coef(cc3,type="lm")
-confint(cc3,type="lm")
+summary(cc3,parm="lm")
+coef(cc3,parm="lm")
+confint(cc3,parm="lm")
 
 ## demonstration of ability to work with missing age classes
 df <- data.frame(age=c(  2, 3, 4, 5, 7, 9,12),
