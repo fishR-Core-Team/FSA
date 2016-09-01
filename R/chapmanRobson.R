@@ -17,7 +17,8 @@
 #' @param cex.est A single numeric characther expansion value for the estimated mortaliry rates on the plot.
 #' @param ylab A label for the y-axis (\code{"Catch"} is the default).
 #' @param xlab A label for the x-axis (\code{"Age"} is the default).
-#' @param col.pt a string that indicates the color of the plotted points.
+#' @param col.pt A string that indicates the color of the plotted points.
+#' @param axis.age A string that indicates the type of x-axis to display.  The \code{age} will disply only the original ages, \code{recoded age} will display only the recoded ages, and \code{both} displays the original ages on the main axis and the recoded ages on the secondary axis.
 #' @param parm A numeric or string (of parameter names) vector that specifies which parameters are to be given confidence intervals  If missing, all parameters are considered.
 #' @param conf.level A number representing the level of confidence to use for constructing confidence intervals.
 #' @param level Same as \code{conf.level}.  Used for compatability with the generic \code{confint} function.
@@ -71,6 +72,8 @@
 #' summary(cr1,verbose=TRUE)
 #' confint(cr1)
 #' plot(cr1)
+#' plot(cr1,axis.age="age")
+#' plot(cr1,axis.age="recoded age")
 #' 
 #' ## demonstration of excluding ages2use
 #' cr2 <- chapmanRobson(catch~age,data=BrookTroutTH,ages2use=-c(0,1))
@@ -201,23 +204,37 @@ confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),level=conf
 
 #' @rdname chapmanRobson
 #' @export
-plot.chapmanRobson <- function(x,pos.est="topright",cex.est=0.95,ylab="Catch",xlab="Age",col.pt="gray30",...) { # nocov start
-  # Need to make area below x-axis larger to hold re-coded ages scale
-  opar <- npar <- graphics::par("mar")
-  npar[1] <- 6
-  graphics::par(mar=npar)
+plot.chapmanRobson <- function(x,pos.est="topright",cex.est=0.95,
+                               ylab="Catch",xlab="Age",col.pt="gray30",
+                               axis.age=c("both","age","recoded age"),...) {
+  # nocov start
+  # Get axis type
+  axis.age <- match.arg(axis.age)
+  # May need to make area below x-axis larger to hold both age scales
+  opar <- npar <- graphics::par(c("mar","mgp"))
+  if (axis.age=="both") {
+    npar$mar[1] <- 2.25*npar$mar[1]
+    graphics::par(mar=npar$mar)
+  }
   # Find range for y-axis
   yrng <- c(min(0,min(x$catch,na.rm=TRUE)),max(x$catch,na.rm=TRUE))
   # Plot raw data
   graphics::plot(x$catch~x$age,col=col.pt,xlab="",ylab=ylab,ylim=yrng,xaxt="n",...)
   # Highlight descending limb portion
   graphics::points(x$age.e,x$catch.e,col=col.pt,pch=19)
-  # Put age (original) axis on plot
-  graphics::axis(1,at=x$age,labels=x$age,line=0)
-  graphics::mtext(xlab,side=1,line=1.5)
-  # Put recoded age axis on plot
-  graphics::axis(1,at=x$age.e,labels=x$age.r,line=3)
-  graphics::mtext(paste("Recoded",xlab),side=1,line=4.5)
+  # Handle age-axis
+  if (axis.age %in% c("both","age")) {
+    # Put age (original) on main x-axis of plot 
+    graphics::axis(1,at=x$age,labels=x$age,line=npar$mgp[3])
+    graphics::mtext(xlab,side=1,line=npar$mgp[1])
+  }
+  if (axis.age %in% c("both","recoded age")) {
+    # Put recoded ages on secondary x-axis of plot
+    graphics::axis(1,at=x$age.e,labels=x$age.r,
+                   line=ifelse(axis.age=="both",npar$mgp[1]+1.5,npar$mgp[3]))
+    graphics::mtext(paste("Recoded",xlab),side=1,
+                    line=ifelse(axis.age=="both",2*npar$mgp[1]+1.5,npar$mgp[1]))
+  }
   # Put mortality values on plot
   if (!is.null(pos.est)) {
     Z <- x$est["Z","Estimate"]

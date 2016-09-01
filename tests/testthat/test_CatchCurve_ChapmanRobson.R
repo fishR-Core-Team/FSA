@@ -46,6 +46,9 @@ test_that("chapmanRobson errors and warnings",{
   # bad ages2use
   expect_warning(chapmanRobson(catch~age,data=d,ages2use=c(2:9)))
   expect_error(chapmanRobson(catch~age,data=d,ages2use=c(-1,2:6)))
+  # bad choice of axis types
+  tmp <- chapmanRobson(catch~age,data=d,ages2use=-(1:2))
+  expect_error(plot(tmp,axis.age="derek"),"should be one of")
 })
 
 test_that("catchCurve and chapmanRobson match Miranda & Bettoli (2007) boxes 6.3 and 6.4",{
