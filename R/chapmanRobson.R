@@ -18,7 +18,7 @@
 #' @param ylab A label for the y-axis (\code{"Catch"} is the default).
 #' @param xlab A label for the x-axis (\code{"Age"} is the default).
 #' @param col.pt A string that indicates the color of the plotted points.
-#' @param axis.age A string that indicates the type of x-axis to display.  The \code{age} will disply only the original ages, \code{recoded age} will display only the recoded ages, and \code{both} displays the original ages on the main axis and the recoded ages on the secondary axis.
+#' @param axis.age A string that indicates the type of x-axis to display.  The \code{age} will disply only the original ages, \code{recoded age} will display only the recoded ages, and \code{both} (DEFAULT) displays the original ages on the main axis and the recoded ages on the secondary axis.
 #' @param parm A numeric or string (of parameter names) vector that specifies which parameters are to be given confidence intervals  If missing, all parameters are considered.
 #' @param conf.level A number representing the level of confidence to use for constructing confidence intervals.
 #' @param level Same as \code{conf.level}.  Used for compatability with the generic \code{confint} function.
