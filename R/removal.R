@@ -328,7 +328,7 @@ iLHMoran <- function(N,catch,k,T,XX) {
   # negative log-likelihood (Schnute (1983) G(Z) and H(Z) (no K)
   #   from equation 2.6).  The [catch>0] solves issues with
   #   when a catch=0
-  N*log(N)-T*log(T)-(N-T)*log(N-T_hat)-log(choose(N,T))+sum(catch[catch>0]*log(catch[catch>0]/ct_hat[catch>0]))
+  N*log(N)-T*log(T)-(N-T)*log(N-T_hat)-lchoose(N,T)+sum(catch[catch>0]*log(catch[catch>0]/ct_hat[catch>0]))
 }
 
 iMoran <- function(catch,conf.level,Tmult) {
@@ -375,7 +375,7 @@ iLHSchnute <- function(N,catch,k,T,XX) {
   T_hat <- Ti_hat[k]
   # log-likelihood (Schnute (1983) G(Z) and H(Z) (no K) from equation 2.6)
   #   the [catch>0] solves issues with when a catch=0
-  N*log(N)-T*log(T)-(N-T)*log(N-T_hat)-log(choose(N,T))+sum(catch[catch>0]*log(catch[catch>0]/ct_hat[catch>0]))
+  N*log(N)-T*log(T)-(N-T)*log(N-T_hat)-lchoose(N,T)+sum(catch[catch>0]*log(catch[catch>0]/ct_hat[catch>0]))
 }
 
 iSchnute <- function(catch,conf.level,Tmult) {
