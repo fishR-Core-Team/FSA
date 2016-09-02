@@ -8,7 +8,7 @@
 * `mrClosed()`: Modified.  Checked for bad `conf.level=` in `confint()` method.
 * `mrOpen()`: Modified.  Checked for bad `conf.level=` in `confint()` method.
 * `predict.nlsBoot()`, `predict.bootCase()`.  Modified.  The `...` argument can now contain a vector of values such that predictions can be made for multiple values of the independent variable.  Modified the output matrix to handle this modification.  Removed `MARGIN` as it will always be `1` for `nlsBoot` and `bootCase` objects.  Added checks for `FUN=`, `conf.level=`, and `digits=`.  Added tests.
-* `removal()`: Modified.  Checked for bad `conf.level=` in `confint()` method.
+* `removal()`: Modified.  Checked for bad `conf.level=` in `confint()` method.  Changed internal functions from using a loop to using `apply()`.
 * `vbStarts()`: Modified.  Added `na.rm=TRUE` to checking of Linf values.
 
 # FSA 0.8.9 22-Aug-16

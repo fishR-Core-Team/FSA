@@ -279,7 +279,7 @@ iRemovalLHCI <- function(method,catch,conf.level,k,T,X,min.nlogLH,Tmult){
   ## Determine if the lower limit should be the total catch
   # find negative log LH at total catch (internal functions are further below)
   if (method=="Moran") {
-    tmp <- iLHMoran(T,catch,k=k,T=T,X=X)
+    tmp <- iLHMoran(T,catch,k=k,T=T,XX=X)
   } else {
     tmp <- iLHSchnute(T,catch,k=k,T=T,X=X)
   }
@@ -298,12 +298,8 @@ iRemovalLHCI <- function(method,catch,conf.level,k,T,X,min.nlogLH,Tmult){
     Ntrys <- matrix(seq(T,ceiling(Tmult*T),0.02),ncol=1)
     # compute the nlLH at all those values
     nlogLHvals <- numeric(nrow(Ntrys))
-    # I tried using apply() here but could not get it work
-    #      nlogLHvals <- apply(Ntrys,MARGIN=1,FUN=iLHMoran,catch=catch,k=k,T=T,X=X)    
-    for (i in 1:nrow(Ntrys)) {
-      if (method=="Moran") { nlogLHvals[i] <- iLHMoran(Ntrys[i],catch=catch,k=k,T=T,X=X) }
-      else { nlogLHvals[i] <- iLHSchnute(Ntrys[i],catch=catch,k=k,T=T,X=X) }
-    }
+    if (method=="Moran") { nlogLHvals <- apply(Ntrys,MARGIN=1,FUN=iLHMoran,catch=catch,k=k,T=T,XX=X) }
+      else { nlogLHvals <- apply(Ntrys,MARGIN=1,FUN=iLHSchnute,catch=catch,k=k,T=T,XX=X) }
     # find which values are less than the critical negative log LH
     #   value and then find the first and last position
     tmp <- range(which(nlogLHvals<=nlogLHcrit))
@@ -324,11 +320,11 @@ iRemovalLHCI <- function(method,catch,conf.level,k,T,X,min.nlogLH,Tmult){
 # INTERNAL -- Calculate Moran estimates
 #=============================================================
 ## Moran negative log-likelihood function
-iLHMoran <- function(N,catch,k,T,X) {
+iLHMoran <- function(N,catch,k,T,XX) {
   # Estimated q (Schnute (1983) equation 3.2)
-  #   Note sum(Ti[-k]) in Schnute is X here
+  #   Note sum(Ti[-k]) in Schnute is XX (to play well with apply()) here
   ##   Note q, Tk in Schnute are p, T here
-  p_hat <- T/(k*N-X)
+  p_hat <- T/(k*N-XX)
   # Predicted catches and total catches
   i <- seq(1,k)
   ct_hat <- N*p_hat*(1-p_hat)^(i-1)                 # Schnute (1983) equation 1.8
@@ -368,13 +364,13 @@ iMoran <- function(catch,conf.level,Tmult) {
 # INTERNAL -- Calculate Schnute estimates
 #=============================================================
 ## Schnute negative log-likelihood function
-iLHSchnute <- function(N,catch,k,T,X) {
-  ##   Note sum(Ti[-k]) in Schnute is X here
-  ##   Note sum(Ti[-k]-catch[1]) in Schnute is X-(k-1)*catch[1] here
+iLHSchnute <- function(N,catch,k,T,XX) {
+  ##   Note sum(Ti[-k]) in Schnute is XX (to play well with apply()) here
+  ##   Note sum(Ti[-k]-catch[1]) in Schnute is XX-(k-1)*catch[1] here
   ##   Note q, Tk in Schnute are p, T here
   # Estimated p's
   p1_hat <- catch[1]/N                                            # Schnute (1983) equation 3.7
-  p_hat <- (T-catch[1])/((k-1)*(N-catch[1])-(X-(k-1)*catch[1]))   # Schnute (1983) equation 3.8
+  p_hat <- (T-catch[1])/((k-1)*(N-catch[1])-(XX-(k-1)*catch[1]))  # Schnute (1983) equation 3.8
   # Predicted catches and total catches
   ct1_hat <- N*p1_hat                                             # Schnute (1983) equation 1.12
   i <- seq(2,k)
