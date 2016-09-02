@@ -186,6 +186,7 @@ removal <- function(catch,
                     conf.level=0.95,just.ests=FALSE,Tmult=3) {
   # some initial checks
   method <- match.arg(method)
+  if (conf.level<=0 | conf.level>=1) stop("'conf.level' must be between 0 and 1",call.=FALSE)
   if (!is.vector(catch)) {
     # if a one row or column matrix then convert to a vector
     if ((is.matrix(catch) | is.data.frame(catch)) & (nrow(catch)==1 | ncol(catch)==1)) {

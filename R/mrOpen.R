@@ -124,6 +124,7 @@ jolly <- function(...) { mrOpen(...) }
 #' @export
 mrOpen <- function(mb.top,mb.bot=NULL,type=c("Jolly","Manly"),conf.level=0.95,phi.full=TRUE) {
   type <- match.arg(type)
+  if (conf.level<=0 | conf.level>=1) stop("'conf.level' must be between 0 and 1",call.=FALSE)
   if (class(mb.top)=="CapHist") {
     mb.bot <- mb.top$methodB.bot
     mb.top <- mb.top$methodB.top
@@ -190,7 +191,7 @@ summary.mrOpen <- function(object,parm=c("N","phi","B","M"),verbose=FALSE,...) {
 #' @export
 confint.mrOpen <- function(object,parm=c("N","phi","B"),level=NULL,conf.level=NULL,verbose=FALSE,...) {
   ## send a note that the CI level cannot be changed here
-  if(!is.null(conf.level)) message("Confidence level was set at",conf.level,"in mrOpen().  It cannot be changed here.\n")
+  if(!is.null(conf.level)) warning("Confidence level was set at ",conf.level," in mrOpen().  It cannot be changed here.",call.=FALSE)
   ## get the parameters to return
   parm <- match.arg(parm,several.ok=TRUE)
   if (object$type=="Manly" & ("B" %in% parm)) {

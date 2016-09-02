@@ -31,9 +31,11 @@ test_that("depletion() errors and warnings",{
   
   suppressWarnings(ex1 <- depletion(c(346,184,49),rep(1,3)))
   ## wrong type in methods
-  expect_error(summary(ex5,type="Derek"))
-  expect_error(coef(ex5,type="Derek"))
-  expect_error(confint(ex5,parm="Derek"))
+  expect_error(summary(ex1,type="Derek"))
+  expect_error(coef(ex1,type="Derek"))
+  expect_error(confint(ex1,parm="Derek"))
+  expect_error(confint(ex1,conf.level=0),"must be between 0 and 1")
+  expect_error(confint(ex1,conf.level=1),"must be between 0 and 1")
 })
 
 

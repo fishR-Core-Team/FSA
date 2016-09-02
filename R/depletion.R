@@ -224,6 +224,7 @@ confint.depletion <- function(object,parm=c("No","q","lm"),
                               level=conf.level,conf.level=0.95,
                               digits=getOption("digits"),...) {
   parm <- match.arg(parm,several.ok=TRUE)
+  if (conf.level<=0 | conf.level>=1) stop("'conf.level' must be between 0 and 1",call.=FALSE)
   ## only print lm confidence intervals if that is the only parm chosen
   if (length(parm)==1 & "lm" %in% parm) stats::confint(object$lm,level=conf.level)
   else {

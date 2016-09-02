@@ -59,6 +59,14 @@ test_that("mrOpen errors and warnings",{
   ## a bottom with a NA
   bad.bot["m",1] <- NA
   expect_error(mrOpen(good.top,bad.bot))
+  ## Confint problems
+  data(CutthroatAL)
+  expect_error(cutt <- mrOpen(capHistSum(CutthroatAL,cols2use=-1),
+                              conf.level=0),"must be between 0 and 1")
+  expect_error(cutt <- mrOpen(capHistSum(CutthroatAL,cols2use=-1),
+                              conf.level=1),"must be between 0 and 1")
+  cutt <- mrOpen(capHistSum(CutthroatAL,cols2use=-1))
+  expect_warning(confint(cutt,conf.level=0.95),"It cannot be changed here")
 })
 
 

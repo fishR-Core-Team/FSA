@@ -33,6 +33,9 @@ test_that("removal() errors and warnings",{
   tmp <- removal(c(346,184,49))
   expect_error(summary(tmp,parm="Derek"))
   expect_error(confint(tmp,parm="Derek"))
+  expect_error(removal(c(346,184,49),conf.level=0),"must be between 0 and 1")
+  expect_error(removal(c(346,184,49),conf.level=1),"must be between 0 and 1")
+  
   ## Bad data leads to failure of Zippin (from Carle-Strub (1978) example 2)
   expect_warning(removal(c(5,7,8),method="Zippin"))
   ## Chose "p1" summary for other than Schnute method

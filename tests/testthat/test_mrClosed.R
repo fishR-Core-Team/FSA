@@ -30,6 +30,10 @@ test_that("mrClosed Single Census errors and warnings",{
   data(BluegillJL)
   ch1 <- capHistSum(BluegillJL)
   expect_warning(mrClosed(ch1,n=90))
+  ## confint problems
+  mr1 <- mrClosed(ch1)
+  expect_error(confint(mr1,conf.level=0),"must be between 0 and 1")
+  expect_error(confint(mr1,conf.level=1),"must be between 0 and 1")
 })
   
 test_that("mrClosed Multiple Census errors and warnings",{
@@ -53,6 +57,10 @@ test_that("mrClosed Multiple Census errors and warnings",{
   expect_warning(mrClosed(n=n1,m=m1x,R=R1,method="Schnabel"),"'m' was ignored")
   expect_warning(mrClosed(n=n1,m=m1,R=R1x,method="Schnabel"),"'R' was ignored")
   expect_warning(mrClosed(n=n1,m=m1x,M=M1x,method="Schnabel"),"'M' was ignored")
+  ## confint problems
+  mr1 <- mrClosed(M1,n1,m1)
+  expect_error(confint(mr1,conf.level=0),"must be between 0 and 1")
+  expect_error(confint(mr1,conf.level=1),"must be between 0 and 1")
 })
 
 # ############################################################

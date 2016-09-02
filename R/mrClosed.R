@@ -319,6 +319,7 @@ confint.mrClosed1 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
   type <- match.arg(type)
   bin.type <- match.arg(bin.type)
   parm <- iCI.CheckParm(parm)
+  if (conf.level<=0 | conf.level>=1) stop("'conf.level' must be between 0 and 1",call.=FALSE)
   # Construct the CIs, loop is for handling multiple groups
   ci <- NULL
   for (i in 1:length(object$N)) {
@@ -519,6 +520,7 @@ confint.mrClosed2 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
   if (type=="suggested") type <- iCI2.HandleSuggested(object)
   if (verbose) message("The ",type," distribution was used.")
   parm <- iCI.CheckParm(parm)
+  if (conf.level<=0 | conf.level>=1) stop("'conf.level' must be between 0 and 1",call.=FALSE)
   # Construct the confidence intervals
   switch(object$method,
          Schnabel= { ci <- iCI2.MRCSchnabel(object,conf.level,type,verbose,...) },

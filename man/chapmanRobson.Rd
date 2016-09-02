@@ -4,6 +4,7 @@
 \alias{chapmanRobson}
 \alias{chapmanRobson.default}
 \alias{chapmanRobson.formula}
+\alias{coef.chapmanRobson}
 \alias{confint.chapmanRobson}
 \alias{plot.chapmanRobson}
 \alias{summary.chapmanRobson}
@@ -17,7 +18,10 @@ chapmanRobson(x, ...)
 \method{chapmanRobson}{formula}(x, data, ages2use = age,
   zmethod = c("Smithetal", "Hoenigetal", "original"), ...)
 
-\method{summary}{chapmanRobson}(object, verbose = FALSE, ...)
+\method{summary}{chapmanRobson}(object, parm = c("all", "both", "Z", "S"),
+  verbose = FALSE, ...)
+
+\method{coef}{chapmanRobson}(object, parm = c("all", "both", "Z", "S"), ...)
 
 \method{confint}{chapmanRobson}(object, parm = c("all", "both", "S", "Z"),
   level = conf.level, conf.level = 0.95, ...)
@@ -39,9 +43,9 @@ chapmanRobson(x, ...)
 
 \item{object}{An object saved from the \code{chapmanRobson} call (i.e., of class \code{chapmanRobson}).}
 
-\item{verbose}{A logical that indicates whether the method should return just the estimate (\code{FALSE}; default) or a more verbose statement.}
-
 \item{parm}{A numeric or string (of parameter names) vector that specifies which parameters are to be given confidence intervals  If missing, all parameters are considered.}
+
+\item{verbose}{A logical that indicates whether the method should return just the estimate (\code{FALSE}; default) or a more verbose statement.}
 
 \item{level}{Same as \code{conf.level}.  Used for compatability with the generic \code{confint} function.}
 

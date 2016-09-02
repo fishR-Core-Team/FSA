@@ -238,6 +238,8 @@ iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
                                                  call.=FALSE)
     }
   }
+  ## Check on conf.level
+  if (conf.level<=0 | conf.level>=1) stop("'conf.level' must be between 0 and 1",call.=FALSE)
   ## Reduce object to have only the parm columns in it
   object <- object[,parm,drop=FALSE]
   ## Compute CIs for each column, but handle differently if vector or matrix
