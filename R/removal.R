@@ -254,6 +254,7 @@ iRemovalLHCI <- function(method,catch,conf.level,k,T,X,min.nlogLH,Tmult){
   nlogLHcrit <- min.nlogLH+stats::qchisq(conf.level,df=1)/2
   
   ## Determine if the upper limit is going to fail.
+  UCImsg <- LCImsg <- NA
   if (method=="Moran") {
     # Modified catches to eliminates zero catches -- required
     #   because formulas below uses log()s.
@@ -262,10 +263,10 @@ iRemovalLHCI <- function(method,catch,conf.level,k,T,X,min.nlogLH,Tmult){
     nlogLHfail <- lfactorial(T)-T*log(T)+T*sum(mod.catch*log(k*mod.catch/T))
   } else {
     # Modified catches to eliminates first catch (per Schnute)
-    #   and zero catches as descirbed above
+    #   and zero catches as described above
     mod.catch <- catch[-1]
     mod.catch <- mod.catch[mod.catch>0]
-    # This is (Schnute (1983) equation 3.11
+    # This is Schnute (1983) equation 3.11
     nlogLHfail <- lfactorial(T)-T*log(T)+T+sum(mod.catch*log(((k-1)*mod.catch)/(T-catch[1])))
   }
   # logical for whether the upper limit fails (TRUE) or not
@@ -274,27 +275,23 @@ iRemovalLHCI <- function(method,catch,conf.level,k,T,X,min.nlogLH,Tmult){
   if (UCIfail) {
     UCImsg <- "An upper confidence value for 'No' cannot be determined."
     UCI <- Inf
-  } else UCImsg=NA
+  }
   
   ## Determine if the lower limit should be the total catch
   # find negative log LH at total catch (internal functions are further below)
-  if (method=="Moran") {
-    tmp <- iLHMoran(T,catch,k=k,T=T,XX=X)
-  } else {
-    tmp <- iLHSchnute(T,catch,k=k,T=T,X=X)
-  }
+  if (method=="Moran") { tmp <- iLHMoran(T,catch,k=k,T=T,XX=X) }
+  else { tmp <- iLHSchnute(T,catch,k=k,T=T,XX=X) }
   # if nlLH is the less than critical value then fail (logical will be true)
   #   if it is then set LCI to total catch (per Schnute)
   LCIfail <- tmp<nlogLHcrit
   if (LCIfail) {
     LCImsg <- "The lower confidence value for 'No' has been set at the total catch."
     LCI <- T
-  } else LCImsg <- NA
+  }
   
   ## Find LCI or UCI if need be (i.e., at least one did not fail above) 
   if (!LCIfail | !UCIfail) {
-    # create a vector (made as a matrix to use apply() below)
-    #   of N values to compute the negative log likelihood at
+    # create a matrix of N values to compute the negative log likelihood at
     Ntrys <- matrix(seq(T,ceiling(Tmult*T),0.02),ncol=1)
     # compute the nlLH at all those values
     nlogLHvals <- numeric(nrow(Ntrys))
@@ -303,12 +300,10 @@ iRemovalLHCI <- function(method,catch,conf.level,k,T,X,min.nlogLH,Tmult){
     # find which values are less than the critical negative log LH
     #   value and then find the first and last position
     tmp <- range(which(nlogLHvals<=nlogLHcrit))
-    # If the last position in the last N tried then the Ns
-    #   tried were probably not adequate.  Tell the user to
-    #   up the Tmult value.
+    # If the last position in the last N tried then the Ns tried were
+    #   probably not adequate.  Tell the user to up the Tmult value.
     if (max(tmp)==length(Ntrys) & !UCIfail) warning("Upper confidence value is ill-formed; try increasing 'Tmult' in 'removal()'.",call.=FALSE)
-    # The LCI is the N at the lower position, UCI is the N at
-    #   the higher position.
+    # The LCI is N in the lower position, UCI is N in the higher position.
     if (!LCIfail) LCI <- Ntrys[tmp[1]]
     if (!UCIfail) UCI <- Ntrys[tmp[2]]
   }
@@ -348,7 +343,7 @@ iMoran <- function(catch,conf.level,Tmult) {
   # A check
   if (k<3) stop("The Moran method requires at least three samples.",call.=FALSE)
   # optimize for N
-  tmp <- stats::optimize(iLHMoran,c(T,ceiling(Tmult*T)),catch=catch,k=k,T=T,X=X)
+  tmp <- stats::optimize(iLHMoran,c(T,ceiling(Tmult*T)),catch=catch,k=k,T=T,XX=X)
   N0 <- tmp$minimum
   p <- T/(k*N0-X)
   # compute confidence intervals for No
@@ -396,7 +391,7 @@ iSchnute <- function(catch,conf.level,Tmult) {
   # A check
   if (k<3) stop("The Schnute method requires at least three samples.",call.=FALSE)
   # optimize for N
-  tmp <- stats::optimize(iLHSchnute,c(T,ceiling(Tmult*T)),catch=catch,k=k,T=T,X=X)
+  tmp <- stats::optimize(iLHSchnute,c(T,ceiling(Tmult*T)),catch=catch,k=k,T=T,XX=X)
   N0 <- tmp$minimum
   p1 <- catch[1]/N0
   p <- (T-catch[1])/((k-1)*(N0-catch[1])-(X-(k-1)*catch[1]))
