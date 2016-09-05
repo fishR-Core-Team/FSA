@@ -9,7 +9,7 @@
 removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
   "RobsonRegier2", "Moran", "Schnute"), alpha = 1, beta = 1,
   CS.se = c("Zippin", "alternative"), conf.level = 0.95,
-  just.ests = FALSE, Tmult = 2)
+  just.ests = FALSE, Tmult = 3)
 
 \method{summary}{removal}(object, parm = c("No", "p", "p1"),
   digits = getOption("digits"), verbose = FALSE, ...)

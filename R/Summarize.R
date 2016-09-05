@@ -21,6 +21,8 @@
 #' @param na.rm A logical that indicates whether numeric missing values (\code{NA}) should be removed (\code{=TRUE}, default) or not.
 #' @param exclude A string that contains the level that should be excluded from a factor variable.
 #' @param data A data.frame that contains the variables in \code{formula}.
+#' @param nvalid A string that indicates how the \dQuote{validn} result will be handled.  If \code{"always"} then \dQuote{validn} will always be shown and if \code{"never"} then \dQuote{validn} will never be shown.  However, if \code{"different"} (DEFAULT), then \dQuote{validn} will only be shown if it differs from \dQuote{n} (or if at least one group differs from \dQuote{n} when summarized by muliple groups).
+#' @param percZero A string that indicates how the \dQuote{percZero} result will be handled.  If \code{"always"} then \dQuote{percZero} will always be shown and if \code{"never"} then \dQuote{percZero} will never be shown.  However, if \code{"different"} (DEFAULT), then \dQuote{percZero} will only be shown if it is greater than zero (or if at least one group is greater than zero when summarized by muliple groups).
 #' @param \dots Not implemented.
 #'
 #' @return A named vector or data frame (when a quantitative variable is separted by one or two factor variables) of summary statistics for numeric data.
@@ -36,7 +38,7 @@
 #' n <- 102
 #' d <- data.frame(y=c(0,0,NA,NA,NA,runif(n-5)),
 #'                 w=sample(7:9,n,replace=TRUE),
-#'                 v=sample(1:3,n,replace=TRUE),
+#'                 v=sample(0:2,n,replace=TRUE),
 #'                 g1=factor(sample(c("A","B","C",NA),n,replace=TRUE)),
 #'                 g2=factor(sample(c("male","female","UNKNOWN"),n,replace=TRUE)),
 #'                 g3=sample(c("a","b","c","d"),n,replace=TRUE),
@@ -50,6 +52,14 @@
 #' Summarize(~y,data=d,digits=3)
 #' Summarize(y~1,data=d,digits=3)
 #'
+#' # note that nvalid is not shown if there are no NAs and
+#' #   percZero is not shown if there are no zeroes
+#' Summarize(~w,data=d,digits=3)
+#' Summarize(~v,data=d,digits=3)
+#' 
+#' # note that the nvalid and percZero results can be forced to be shown
+#' Summarize(~w,data=d,digits=3,nvalid="always",percZero="always")
+#' 
 #' ## Numeric vector by levels of a factor variable
 #' Summarize(y~g1,data=d,digits=3)
 #' Summarize(y~g2,data=d,digits=3)
@@ -74,7 +84,11 @@ Summarize <- function(object, ...) {
 #' @rdname Summarize
 #' @export
 Summarize.default <- function(object,digits=getOption("digits"),
-                              na.rm=TRUE,exclude=NULL,...) {
+                              na.rm=TRUE,exclude=NULL,
+                              nvalid=c("different","always","never"),
+                              percZero=c("different","always","never"),...) {
+  nvalid <- match.arg(nvalid)
+  percZero <- match.arg(percZero)
   ## Do some checking on object type
   if (is.data.frame(object)) stop("'Summarize' does not work with a data.frame.",call.=FALSE)
   if (is.matrix(object)) {
@@ -87,38 +101,42 @@ Summarize.default <- function(object,digits=getOption("digits"),
   }
   ## Start processing
   if (!is.numeric(object)) stop("'Summarize' only works with a numeric variable",call.=FALSE)
-  else iSummarizeQ1(object,digits,na.rm)
+  else iSummarizeQ1(object,digits,na.rm,nvalid,percZero)
 }
 
 #' @rdname Summarize
 #' @export
 Summarize.formula <- function(object,data=NULL,digits=getOption("digits"),
-                              na.rm=TRUE,exclude=NULL,...) {
-   ## Handle the formula
-   tmp <- iHndlFormula(object,data,expNumR=1)
-   ## Start Processing
-   if (tmp$vnum==1) {
-     ## Only one variable ... send first column of model.frame
-     ## to summarize.default
-     Summarize(tmp$mf[,1],digits=digits,na.rm=na.rm,exclude=exclude,...)
-   } else {
-     ## More than one variable
-     if (!tmp$metExpNumR) stop("Must have one variable on LHS of formula with more than one variable",call.=FALSE)
-     if (tmp$Rclass %in% c("numeric","integer")) {
-       iSummarizeQf(tmp,digits,na.rm,exclude)
-     } else stop("'Summarize' only works with a numeric variable on LHS.",call.=FALSE)
-   }
+                              na.rm=TRUE,exclude=NULL,
+                              nvalid=c("different","always","never"),
+                              percZero=c("different","always","never"),...) {
+  nvalid <- match.arg(nvalid)
+  percZero <- match.arg(percZero)
+  ## Handle the formula
+  tmp <- iHndlFormula(object,data,expNumR=1)
+  ## Start Processing
+  if (tmp$vnum==1) {
+    ## Only one variable ... send first column of model.frame
+    ## to summarize.default
+    Summarize(tmp$mf[,1],digits=digits,na.rm=na.rm,exclude=exclude,nvalid,percZero,...)
+  } else {
+    ## More than one variable
+    if (!tmp$metExpNumR) stop("Must have one variable on LHS of formula with more than one variable",call.=FALSE)
+    if (tmp$Rclass %in% c("numeric","integer")) {
+      iSummarizeQf(tmp,digits,na.rm,exclude,nvalid,percZero)
+    } else stop("'Summarize' only works with a numeric variable on LHS.",call.=FALSE)
+  }
 }
 
 
 ##############################################################
 ## Internal function for vector of quantitative data
 ##############################################################
-iSummarizeQ1 <- function(object,digits,na.rm) {
+iSummarizeQ1 <- function(object,digits,na.rm,nvalid,percZero) {
   ## get overall sample size
   n <- length(object)
-  ## get valid.n and number of NAs
-  valid.n <- validn(object)
+  ## get nvalid and number of NAs
+  n.valid <- validn(object)
   ## count zeroes (must get rid of NAs first ... 
   ##    otherwise counted as zeroes)
   tmp <- object[!is.na(object)]
@@ -127,17 +145,32 @@ iSummarizeQ1 <- function(object,digits,na.rm) {
   mean <- mean(object,na.rm=na.rm)
   sd <- stats::sd(object,na.rm=na.rm)
   ## get other summary values
-  tmp <- summary(object,na.rm=na.rm)[c("Min.","1st Qu.","Median","3rd Qu.","Max.")]   
-  ## put together to return
-  res <- c(n,valid.n,mean,sd,tmp,zrs/valid.n*100)
-  names(res) <- c("n","nvalid","mean","sd","min","Q1","median","Q3","max","percZero")
-  round(res,digits)
+  tmp <- summary(object,na.rm=na.rm)[c("Min.","1st Qu.","Median","3rd Qu.","Max.")]
+  res <- c(mean,sd,tmp)
+  names(res) <- c("mean","sd","min","Q1","median","Q3","max")
+  ## Add on percent that are zero???
+  if (percZero=="always" | (percZero=="different" & zrs>0)) {
+    res <- c(res,zrs/n.valid*100)
+    names(res)[length(res)] <- "percZero"
+  }
+  ## Round all results to this point
+  res <- round(res,digits)  
+  ## Add on valid n???
+  if (nvalid=="always" | (nvalid=="different" & n.valid!=n)) {
+    res <- c(n.valid,res)
+    names(res)[1] <- "nvalid"
+  }
+  ## Add on n
+  res <- c(n,res)
+  names(res)[1] <- "n"
+  ## Return the result
+  res
 }
 
 ##############################################################
 ## Internal function for formula with quantitative response
 ##############################################################
-iSummarizeQf <- function(tmp,digits,na.rm,exclude) {
+iSummarizeQf <- function(tmp,digits,na.rm,exclude,nvalid,percZero) {
   ## Set defaults for whether variables should be unfactored or not
   unfactor1 <- unfactor2 <- FALSE
   ## Exclude values from factor variables if asked to
@@ -153,12 +186,12 @@ iSummarizeQf <- function(tmp,digits,na.rm,exclude) {
   ## Get results for quant variable by each level of interaction variable.
   if (tmp$Enum==1) { ## Only one explanatory variable
     rv <- tmp$mf[,tmp$Enames]
-    intres <- tapply(nv,rv,Summarize,na.rm=na.rm)
+    intres <- tapply(nv,rv,Summarize,na.rm=na.rm,nvalid="always",percZero="always")
   } else { ## Two explanatory variables
     rv <- tmp$mf[,tmp$Enames[1]]
     cv <- tmp$mf[,tmp$Enames[2]]
     iv <- interaction(rv,cv,sep=":")
-    intres <- tapply(nv,iv,Summarize,na.rm=na.rm)
+    intres <- tapply(nv,iv,Summarize,na.rm=na.rm,nvalid="always",percZero="always")
   }
   # Put together as a matrix
   res <- round(do.call(rbind,intres),digits)
@@ -188,5 +221,14 @@ iSummarizeQf <- function(tmp,digits,na.rm,exclude) {
   names(res) <- c(tmp$Enames,res.names)
   # eliminate row names
   rownames(res) <- NULL
+  ## Remove validn column if asked to ("never") or not interesting (all = n)
+  if (nvalid=="never" | (nvalid=="different" & all(res$n==res$nvalid))) {
+    res <- res[,-which(names(res)=="nvalid")]
+  }
+  ## Remove percZero column if asked to ("never") or not interesting (none >0)
+  if (percZero=="never" | (percZero=="different" & !any(res$percZero>0))) {
+    res <- res[,-which(names(res)=="percZero")]
+  }
+  ## Return the result
   res
 }

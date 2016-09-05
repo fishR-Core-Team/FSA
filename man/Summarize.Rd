@@ -9,10 +9,13 @@
 Summarize(object, ...)
 
 \method{Summarize}{default}(object, digits = getOption("digits"),
-  na.rm = TRUE, exclude = NULL, ...)
+  na.rm = TRUE, exclude = NULL, nvalid = c("different", "always",
+  "never"), percZero = c("different", "always", "never"), ...)
 
 \method{Summarize}{formula}(object, data = NULL,
-  digits = getOption("digits"), na.rm = TRUE, exclude = NULL, ...)
+  digits = getOption("digits"), na.rm = TRUE, exclude = NULL,
+  nvalid = c("different", "always", "never"), percZero = c("different",
+  "always", "never"), ...)
 }
 \arguments{
 \item{object}{A vector of numeric data.}
@@ -22,6 +25,10 @@ Summarize(object, ...)
 \item{na.rm}{A logical that indicates whether numeric missing values (\code{NA}) should be removed (\code{=TRUE}, default) or not.}
 
 \item{exclude}{A string that contains the level that should be excluded from a factor variable.}
+
+\item{nvalid}{A string that indicates how the \dQuote{validn} result will be handled.  If \code{"always"} then \dQuote{validn} will always be shown and if \code{"never"} then \dQuote{validn} will never be shown.  However, if \code{"different"} (DEFAULT), then \dQuote{validn} will only be shown if it differs from \dQuote{n} (or if at least one group differs from \dQuote{n} when summarized by muliple groups).}
+
+\item{percZero}{A string that indicates how the \dQuote{percZero} result will be handled.  If \code{"always"} then \dQuote{percZero} will always be shown and if \code{"never"} then \dQuote{percZero} will never be shown.  However, if \code{"different"} (DEFAULT), then \dQuote{percZero} will only be shown if it is greater than zero (or if at least one group is greater than zero when summarized by muliple groups).}
 
 \item{data}{A data.frame that contains the variables in \code{formula}.}
 
@@ -52,7 +59,7 @@ Students often need to examine basic statistics of a quantitative variable separ
 n <- 102
 d <- data.frame(y=c(0,0,NA,NA,NA,runif(n-5)),
                 w=sample(7:9,n,replace=TRUE),
-                v=sample(1:3,n,replace=TRUE),
+                v=sample(0:2,n,replace=TRUE),
                 g1=factor(sample(c("A","B","C",NA),n,replace=TRUE)),
                 g2=factor(sample(c("male","female","UNKNOWN"),n,replace=TRUE)),
                 g3=sample(c("a","b","c","d"),n,replace=TRUE),
@@ -65,6 +72,14 @@ summary(d$y)
 Summarize(d$y,digits=3)
 Summarize(~y,data=d,digits=3)
 Summarize(y~1,data=d,digits=3)
+
+# note that nvalid is not shown if there are no NAs and
+#   percZero is not shown if there are no zeroes
+Summarize(~w,data=d,digits=3)
+Summarize(~v,data=d,digits=3)
+
+# note that the nvalid and percZero results can be forced to be shown
+Summarize(~w,data=d,digits=3,nvalid="always",percZero="always")
 
 ## Numeric vector by levels of a factor variable
 Summarize(y~g1,data=d,digits=3)
