@@ -2,7 +2,7 @@
 * `alkIndivAge()`: Modified.  Added `na.rm=TRUE` to the checks on the minimum and maximum length data.
 * `catchCurve()`: Modified.  Removed `type=` and blended that functionality into `parm=` for methods.  Made `parm=` consistent across methods.
 * `chapmanRobson()`: Modified.  Added `axis.age=` argument that allows the user to choose which type of x-axis is displayed (see examples; this addresses [#20](https://github.com/droglenc/FSA/issues/20))  Also modified code that adds the axes so that they should "look better" in more instances.  Added `na.rm=TRUE` to y-range calculation for the plot method.  Added a `coef()` method.  Added a `parm=` argument to the `confint()` and `summary()` methods.  Added tests.
-* `confint.nlsBoot()`,`confint.bootCase()`.  Modified.  Result is not a matrix even if only one parameter is chosen (previously it was an unnamed vector).  The `parm=` now properly handles negative values.  Streamlined plotting results.  Added tests.
+* `confint.nlsBoot()`,`confint.bootCase()`.  Modified.  Result is now a matrix even if only one parameter is chosen (previously it was an unnamed vector).  The `parm=` now properly handles negative values.  Streamlined plotting results.  Added tests.
 * `depletion()`: Modified.  Checked for bad `conf.level=` in `confint()` method.
 * `htest.nlsBoot()`,`htest.bootCase()`.  Modified.  The `b0` now defaults to 0.  Matrix of results now include the parameter as the rowname.  Modified the internals of how the data are handled.  Added tests.
 * `mrClosed()`: Modified.  Checked for bad `conf.level=` in `confint()` method.
