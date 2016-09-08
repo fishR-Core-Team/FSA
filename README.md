@@ -11,35 +11,26 @@ FSA
 [![CRAN RStudio mirror downloads rate](http://cranlogs.r-pkg.org/badges/FSA) ![CRAN RSTudio mirror downloads total](http://cranlogs.r-pkg.org/badges/grand-total/FSA)](http://www.r-pkg.org/pkg/FSA)
 
 ## Introduction
-The **FSA** (Fisheries Stock Assessment) package provides R functions to conduct typical introductory fisheries analyses.  Example analyses that use **FSA** can be found on [the *Examples* page](http://derekogle.com/fishR/examples/) of the [fishR website](http://derekogle.com/fishR).
-
-You can [browse function help pages here](http://rforge.net/doc/packages/FSA/00Index.html).  Recent changes are described in this [News file](https://github.com/droglenc/FSA/blob/master/NEWS.md)
+The **FSA** (Fisheries Stock Assessment) package provides R functions to conduct typical introductory fisheries analyses.  Example analyses that use **FSA** can be found on [the *Examples* page](http://derekogle.com/fishR/examples/) of the [fishR website](http://derekogle.com/fishR).  You can [browse help pages here](http://rforge.net/doc/packages/FSA/00Index.html).  Recent changes are described in this [News file](https://github.com/droglenc/FSA/blob/master/NEWS.md)
 
 ## Installation
-The [CRAN version](https://cran.r-project.org/web/packages/FSA/index.html) of **FSA** may be installed with
+The [most recent stable version (on CRAN)](https://cran.r-project.org/web/packages/FSA/index.html) of **FSA** may be installed with
 
 ```r
 install.packages("FSA")
 ```
 
-The development version may be installed from GitHub (requires the **devtools** package) with
+The most recent development version may be installed with
 
 ```r
 if (!require('devtools')) install.packages('devtools'); require('devtools')
 devtools::install_github('droglenc/FSA')
 ```
 
-This installs the package from the source, so you will need to have R Tools installed on your system ([R Tools for Windows](https://cran.r-project.org/bin/windows/Rtools/) or [R Tools for Mac OS X](https://cran.r-project.org/bin/macosx/tools/)).
-
-Alternatively, you may try to install from **RForge.net** with
-
-```r
-source("http://www.rforge.net/FSA/InstallFSA.R")
-```
+You may need to have R Tools installed on your system to use the two liens above.  See the instructions for ([R Tools for Windows](https://cran.r-project.org/bin/windows/Rtools/) or [R Tools for Mac OS X](https://cran.r-project.org/bin/macosx/tools/)).
 
 
 ## Questions / Comments / Problems
-
 Report questions, comments, or bug reports on the [issues page](https://github.com/droglenc/FSA/issues).
 
 <!---
@@ -48,3 +39,10 @@ Report questions, comments, or bug reports on the [issues page](https://github.c
 
 You should be able to use the vast majority of the functionality in **FSA** even if the problems with **TCL/TK** cannot be rectified.
 --->
+
+
+## Alternative Installation 
+The installation instructions above may not work if **devtools** will not install properly.  In these instances, the following code (run in R/RStudio) may properly install **FSA**.
+```r
+source("http://www.rforge.net/FSA/InstallFSA.R")
+```
