@@ -89,6 +89,10 @@
 #' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",w=1)
 #' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",w=0.25)
 #' 
+#' ## Using a vector (and not a data.frame
+#' vec <- 1:100
+#' hist(~vec)
+#' 
 #' @rdname hist.formula
 #' @export
 hist.formula <- function(formula,data=NULL,main="",right=FALSE,
