@@ -32,9 +32,11 @@
 
 
 iAddLoessLine <- function(r,fv,lty.loess,lwd.loess,col.loess,trans.loess,span=0.75) {
+  options(warn=-1)  # suppress warnings from loess
   mdl <- stats::loess(r~fv,span=span)
   xseq <- seq(from=min(fv),to=max(fv),length=80)
   pred <- stats::predict(mdl,newdata=data.frame(fv=xseq),se=TRUE)
+  options(warn=0)   # unsuppress warnings
   graphics::polygon(c(xseq,rev(xseq)),
           c(pred$fit-pred$se.fit*stats::qt(0.975,pred$df),
             rev(pred$fit+pred$se.fit*stats::qt(0.975,pred$df))),

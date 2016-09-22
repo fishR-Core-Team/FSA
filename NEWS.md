@@ -5,6 +5,7 @@
 * `confint.nlsBoot()`,`confint.bootCase()`.  Modified.  Result is now a matrix even if only one parameter is chosen (previously it was an unnamed vector).  The `parm=` now properly handles negative values.  Streamlined plotting results.  Added tests.
 * `depletion()`: Modified.  Checked for bad `conf.level=` in `confint()` method.
 * `htest.nlsBoot()`,`htest.bootCase()`.  Modified.  The `b0` now defaults to 0.  Matrix of results now include the parameter as the rowname.  Modified the internals of how the data are handled.  Added tests.
+* `iAddLoessLine()`: Modified.  Suppressed warnings related to the loess line predictions.
 * `mrClosed()`: Modified.  Checked for bad `conf.level=` in `confint()` method.
 * `mrOpen()`: Modified.  Checked for bad `conf.level=` in `confint()` method.
 * `predict.nlsBoot()`, `predict.bootCase()`.  Modified.  The `...` argument can now contain a vector of values such that predictions can be made for multiple values of the independent variable.  Modified the output matrix to handle this modification.  Removed `MARGIN` as it will always be `1` for `nlsBoot` and `bootCase` objects.  Added checks for `FUN=`, `conf.level=`, and `digits=`.  Added tests.
