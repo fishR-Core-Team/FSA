@@ -690,7 +690,7 @@ GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
                      "          gi = instantaneous growth rate at the inflection point\n",
                      "           a = dimenstionless parameter related to growth\n\n")
            },
-           QD3=,QuinnDeriso3== {
+           QD3=,QuinnDeriso3= {
              message("You have chosen the 'QuinnDeriso3' ",comcat,
                      "  E[L|t] = Linf*exp(-(1/gi)*exp(-gi*(t-t0)))\n\n",
                      "  where Linf = asymptotic mean length\n",
