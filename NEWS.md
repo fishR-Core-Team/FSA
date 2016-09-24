@@ -1,3 +1,5 @@
+# FSA 0.8.10 ongoing
+
 # FSA 0.8.10 24-Sep-16
 * `alkIndivAge()`: Modified.  Added `na.rm=TRUE` to the checks on the minimum and maximum length data.
 * `catchCurve()`: Modified.  Removed `type=` and blended that functionality into `parm=` for methods.  Made `parm=` consistent across methods.
