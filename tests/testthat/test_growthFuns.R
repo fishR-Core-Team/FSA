@@ -2,7 +2,7 @@ context("Tests of Growth Functions")
 
 ## List all parametrizations for the VB
 vbs <- c("Typical","Traditional","BevertonHolt",
-         "Original","vonBertalanffy","GallucciQuinn","GQ",
+         "Original","vonBertalanffy","GallucciQuinn","GQ","Ogle",
          "Mooij","Weisberg","Schnute","Francis","Laslett","Polacheck","Fabens","Fabens2",
          "Somers","Somers2","Wang","Wang2","Wang3")
 gomps <- c("Original","Ricker1","Ricker2","Ricker3","QuinnDeriso1","QuinnDeriso2","QuinnDeriso3",
