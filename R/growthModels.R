@@ -20,7 +20,7 @@
 #' \itemize{
 #'   \item von Bertalanffy
 #'   \itemize{
-#'     \item The \sQuote{Original} and \sQuote{vonBertalanffy} are synonymous as are \sQuote{Typical}, \sQuote{Traditional}, and \sQuote{BevertonHolt}.
+#'     \item The \sQuote{Original} and \sQuote{vonBertalanffy} are synonymous as are \sQuote{Typical}, \sQuote{Traditional}, and \sQuote{BevertonHolt}.  Further note that the \sQuote{Ogle} parameterization has the \sQuote{Original}/\sQuote{vonBertalanffy} and \sQuote{Typical}/\sQuote{Traditional}/\sQuote{BevertonHolt} parameterizations as special cases.
 #'   }
 #'   \item Gompertz
 #'   \itemize{
@@ -279,17 +279,29 @@ NULL
 #' @export
 vbFuns <- function(param=c("Typical","typical","Traditional","traditional","BevertonHolt",
                           "Original","original","vonBertalanffy",
-                          "GQ","GallucciQuinn","Mooij","Weisberg",
+                          "GQ","GallucciQuinn","Mooij","Weisberg","Ogle",
                           "Schnute","Francis","Laslett","Polacheck",
                           "Somers","Somers2","Pauly",
                           "Fabens","Fabens2","Wang","Wang2","Wang3"),
                    simple=FALSE,msg=FALSE) {
+  Ogle <- function(t,Linf,K=NULL,Lr=NULL,tr=NULL) {
+    if (is.null(Lr) & is.null(tr)) stop("One of Lr and tr must be non-NULL.",call.=FALSE)
+    if (length(Linf)==3) { 
+      if (is.null(Lr)) tr <- Linf[[3]]
+        else Lr <- Linf[[3]]
+    K <- Linf[[2]]
+    Linf <- Linf[[1]] }
+    (Linf-Lr)*(1-exp(-K*(t-tr)))
+  }
+  SOgle <- function(t,Linf,K,Lr,tr) {
+    (Linf-Lr)*(1-exp(-K*(t-tr)))
+  }
   Typical <- typical <- Traditional <- traditional <- BevertonHolt <- function(t,Linf,K=NULL,t0=NULL) {
   if (length(Linf)==3) { K <- Linf[[2]]
                          t0 <- Linf[[3]]
                          Linf <- Linf[[1]] }
   Linf*(1-exp(-K*(t-t0)))
-}
+  }
   STypical <- Stypical <- STraditional <- Straditional <- SBevertonHolt <- function(t,Linf,K,t0) {
     Linf*(1-exp(-K*(t-t0)))
   }
@@ -298,7 +310,7 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
                          K <- Linf[[3]]
                          Linf <- Linf[[1]] }
   Linf-(Linf-L0)*exp(-K*t)
-}
+  }
   SOriginal <- Soriginal <- SvonBertalanffy <- function(t,Linf,L0,K) {
     Linf-(Linf-L0)*exp(-K*t)
   }
@@ -307,7 +319,7 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
                           t0 <- omega[[3]]
                           omega <- omega[[1]] }
   (omega/K)*(1-exp(-K*(t-t0)))
-}
+  }
   SGQ <- SGallucciQuinn <- function(t,omega,K,t0) {
     (omega/K)*(1-exp(-K*(t-t0)))
   }
@@ -316,7 +328,7 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
                          omega <- Linf[[3]]
                          Linf <- Linf[[1]] }
   Linf-(Linf-L0)*exp(-(omega/Linf)*t)
-}
+  }
   SMooij <- function(t,Linf,L0,omega) {
     Linf-(Linf-L0)*exp(-(omega/Linf)*t)
   }
@@ -325,7 +337,7 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
                          t0 <- Linf[[3]]
                          Linf <- Linf[[1]] }
   Linf*(1-exp(-(log(2)/(t50-t0))*(t-t0)))
-}
+  }
   SWeisberg <- function(t,Linf,t50,t0) {
     Linf*(1-exp(-(log(2)/(t50-t0))*(t-t0)))
   } 
@@ -333,7 +345,7 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
   if (length(L1)==3) { L3 <- L1[[2]]; K <- L1[[3]]; L1 <- L1[[1]] }
   if (length(t1)==2) { t3 <- t1[[2]]; t1 <- t1[[1]] }
   L1+(L3-L1)*((1-exp(-K*(t-t1)))/(1-exp(-K*(t3-t1))))
-}
+  }
   SSchnute <- function(t,L1,L3,K,t1,t3) {
     L1+(L3-L1)*((1-exp(-K*(t-t1)))/(1-exp(-K*(t3-t1))))
   }
@@ -342,7 +354,7 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
   if (length(t1)==2) { t3 <- t1[[2]]; t1 <- t1[[1]] }
   r <- (L3-L2)/(L2-L1)
   L1+(L3-L1)*((1-r^(2*((t-t1)/(t3-t1))))/(1-r^2))
-}
+  }
   SFrancis <- function(t,L1,L2,L3,t1,t3) {
     r <- (L3-L2)/(L2-L1)
     L1+(L3-L1)*((1-r^(2*((t-t1)/(t3-t1))))/(1-r^2))
@@ -363,7 +375,7 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
   St <- (C*K)/(2*pi)*sin(2*pi*(t-ts))
   Sto <- (C*K)/(2*pi)*sin(2*pi*(t0-ts))
   Linf*(1-exp(-K*(t-t0)-St+Sto))
-}
+  }
   SSomers <- function(t,Linf,K,t0,C,ts) {
     Linf*(1-exp(-K*(t-t0)-(C*K)/(2*pi)*sin(2*pi*(t-ts))+(C*K)/(2*pi)*sin(2*pi*(t0-ts))))
   }
@@ -374,7 +386,7 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
   Rt <- (C*K)/(2*pi)*sin(2*pi*(t-WP+0.5))
   Rto <- (C*K)/(2*pi)*sin(2*pi*(t0-WP+0.5))
   Linf*(1-exp(-K*(t-t0)-Rt+Rto))
-}
+  }
   SSomers2 <- function(t,Linf,K,t0,C,WP) {
     Linf*(1-exp(-K*(t-t0)-(C*K)/(2*pi)*sin(2*pi*(t-WP+0.5))+(C*K)/(2*pi)*sin(2*pi*(t0-WP+0.5))))
   }
@@ -398,14 +410,14 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
   Fabens <- function(Lm,dt,Linf,K) {
   if (length(Linf)==2) { K <- Linf[[2]]; Linf <- Linf[[1]] }
   Lm+(Linf-Lm)*(1-exp(-K*dt))
-}
+  }
   SFabens <- function(Lm,dt,Linf,K) {
     Lm+(Linf-Lm)*(1-exp(-K*dt))
   }
   Fabens2 <- function(Lm,dt,Linf,K) {
   if (length(Linf)==2) { K <- Linf[[2]]; Linf <- Linf[[1]] }
   (Linf-Lm)*(1-exp(-K*dt))
-}
+  }
   SFabens2 <- function(Lm,dt,Linf,K) {
     (Linf-Lm)*(1-exp(-K*dt))
   }
@@ -413,7 +425,7 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
   if (length(Linf)==3) { b <- Linf[[3]]; K <- Linf[[2]]
                          Linf <- Linf[[1]] }
   (Linf+b*(Lm-mean(Lm))-Lm)*(1-exp(-K*dt))
-}
+  }
   SWang <- function(Lm,dt,Linf,K,b) {
     (Linf+b*(Lm-mean(Lm))-Lm)*(1-exp(-K*dt))
   }
@@ -434,6 +446,15 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
   param <- match.arg(param)
   if (msg) {
     switch(param,
+      Ogle= {
+        message("You have chosen the 'Ogle-Isermann' parameterization.\n\n",
+                "  E[L|t] = (Linf-Lr)*(1-exp(-K*(t-tr)))\n\n",
+                "  where Linf = asymptotic mean length\n",
+                "           K = exponential rate of approach to Linf\n",
+                "          tr = mean age at Lr\n",
+                "          Lr = mean length at tr\n\n",
+                "NOTE: either tr or Lr must be set by the user.\n\n")
+      },
       Typical=,typical=,Traditional=,traditional=,BevertonHolt= {
         message("You have chosen the 'Typical', 'Traditional', or 'BevertonHolt' parameterization.\n\n",
                 "  E[L|t] = Linf*(1-exp(-K*(t-t0)))\n\n",
@@ -1040,13 +1061,16 @@ growthFunShow <- function(type=c("vonBertalanffy","Gompertz","Richards","Logisti
 ################################################################################
 iSGF_VB <- function(param=c("Original","original","vonBertalanffy",
                            "Typical","typical","Traditional","traditional","BevertonHolt",
-                           "GallucciQuinn","GQ","Mooij","Weisberg",
+                           "GallucciQuinn","GQ","Mooij","Weisberg","Ogle",
                            "Schnute","Francis","Laslett","Polacheck",
                            "Somers","Somers2","Pauly",
                            "Fabens","Fabens2","Wang","Wang2","Wang3")) {
   if(!is.character(param)) stop("'param' must be a character string.",call.=FALSE)
   param <- match.arg(param)
   switch(param,
+    Ogle= {
+      expr <- expression(E(L[t])==L[infinity]~-~(L[infinity]-L[r])*~e^{-K(t~-~t[r])})
+    },
     Typical=,typical=,Traditional=,traditional=,BevertonHolt= {
       expr <- expression(E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])},")"))
     },
