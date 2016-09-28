@@ -79,7 +79,7 @@ test_that("vbFuns() arguments are in same order as vbStarts() list",{
   ##   arguments from vbFuns() result as these are variable names that
   ##   would not be returned by vbStarts()
   ## Remove some VBGFs for which starting values don't exist
-  tmp <- vbs[-which(vbs %in% c("Laslett","Polacheck","Fabens","Fabens2","Wang","Wang2","Wang3"))]
+  tmp <- vbs[-which(vbs %in% c("Laslett","Polacheck","Fabens","Fabens2","Wang","Wang2","Wang3","Ogle"))]
   for (i in tmp) {
     fnms <- names(formals(vbFuns(i)))
     fnms <- fnms[-which(fnms %in% c("t","t1","t3"))]

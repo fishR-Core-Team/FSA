@@ -284,17 +284,16 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
                           "Somers","Somers2","Pauly",
                           "Fabens","Fabens2","Wang","Wang2","Wang3"),
                    simple=FALSE,msg=FALSE) {
-  Ogle <- function(t,Linf,K=NULL,Lr=NULL,tr=NULL) {
-    if (is.null(Lr) & is.null(tr)) stop("One of Lr and tr must be non-NULL.",call.=FALSE)
-    if (length(Linf)==3) { 
-      if (is.null(Lr)) tr <- Linf[[3]]
-        else Lr <- Linf[[3]]
+  Ogle <- function(t,Linf,K=NULL,tr=NULL,Lr=NULL) {
+    if (length(Linf)==4) {
+    Lr <- Linf[[4]]
+    tr <- Linf[[3]]
     K <- Linf[[2]]
     Linf <- Linf[[1]] }
-    (Linf-Lr)*(1-exp(-K*(t-tr)))
+    Lr+(Linf-Lr)*(1-exp(-K*(t-tr)))
   }
-  SOgle <- function(t,Linf,K,Lr,tr) {
-    (Linf-Lr)*(1-exp(-K*(t-tr)))
+  SOgle <- function(t,Linf,K,tr,Lr) {
+    Lr+(Linf-Lr)*(1-exp(-K*(t-tr)))
   }
   Typical <- typical <- Traditional <- traditional <- BevertonHolt <- function(t,Linf,K=NULL,t0=NULL) {
   if (length(Linf)==3) { K <- Linf[[2]]

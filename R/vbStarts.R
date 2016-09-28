@@ -4,20 +4,25 @@
 #' 
 #' @details This function attempts to find reasonable starting values for a variety of parameterizations of the von Bertalanffy growth function.  There is no guarantee that these starting values are the \sQuote{best} starting values.  One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.
 #' 
-#' The Linf and K paramaters are estimated via the concept of the Ford-Walford plot.  The product of the starting values for Linf and K is used as a starting value for omega in the GallucciQuinn and Mooij parameterizations.  The result of log(2) divided by the starting value for K is used as the starting value for t50 in the Weisberg parameterization.
+#' If \code{methLinf="Walford"}, then the Linf and K paramaters are estimated via the concept of the Ford-Walford plot.  If \code{methLinf="oldAge"} then Linf is estimated as the mean length of the \code{num4Linf} longest observed lengths.
+#' 
+#' The product of the starting values for Linf and K is used as a starting value for omega in the GallucciQuinn and Mooij parameterizations.  The result of log(2) divided by the starting value for K is used as the starting value for t50 in the Weisberg parameterization.
 #' 
 #' If \code{meth0="yngAge"}, then a starting value for t0 or L0 is found by algebraically solving the typical or original paramaterization, respectively, for t0 or L0 using the mean length of the first age with more than one data point as a \dQuote{known} quantity.  If \code{meth0="poly"} then a second-degree polynomial model is fit to the mean length-at-age data.  The t0 starting value is set equal to the root of the polynomial that is closest to zero.  The L0 starting value is set equal to the mean length at age-0 predicted from the polynomial function.
 #' 
 #' Starting values for the L1 and L3 parameters in the Schnute paramaterization and the L1, L2, and L3 parameters in the Francis parameterization may be found in two ways.  If \code{methEV="poly"}, then the starting values are the predicted length-at-age from a second-degree polynomial fit to the mean lengths-at-age data.  If \code{methEV="means"} then the observed sample means at the corresponding ages are used.  In the case where one of the supplied ages is fractional, then the value returned will be linearly interpolated between the mean lengths of the two closest ages.  The ages to be used for L1 and L3 in the Schnute and Francis parameterizations are supplied as a numeric vector of length 2 in \code{ages2use=}.  If \code{ages2use=NULL} then the minimum and maximum observed ages will be used.  In the Francis method, L2 will correspond to the age half-way between the two ages in \code{ages2use=}.  A warning will be given if L2<L1 for the Schnute method or if L2<L1 or L3<L2 for the Francis method.
 #' 
-#' Startin value for the Somers and Pauly parameterizations are the same as the traditional parameterization for Linf, K, and t0.  However, for the Pauly parameterization the starting value for Kpr is the starting value for K divided by 1 minus the starting value of NGT.  The starting values of C, ts, WP, and NGT are set at constants that are unlikely to work for all species.  Thus, the user should use the \code{fixed} argument to fix starting values for these parameters that are more likely to result in a reliable fit.
+#' Starting values for the Somers and Pauly parameterizations are the same as the traditional parameterization for Linf, K, and t0.  However, for the Pauly parameterization the starting value for Kpr is the starting value for K divided by 1 minus the starting value of NGT.  The starting values of C, ts, WP, and NGT are set at constants that are unlikely to work for all species.  Thus, the user should use the \code{fixed} argument to fix starting values for these parameters that are more likely to result in a reliable fit.
 #' 
 #' @param formula A formula of the form \code{len~age}.
 #' @param data A data frame that contains the variables in \code{formula}.
 #' @param type,param A string that indicates the parameterization of the von Bertalanffy model.
 #' @param ages2use A numerical vector of the two ages to be used in the Schnute or Francis paramaterizations.  See details.
-#' @param methEV A string that indicates how the lengths of the two ages in the Schnute paramaterization or the three ages in the Francis paramaterization should be derived.  See details.
 #' @param meth0 A string that indicates how the t0 and L0 paramaters should be derived.  See details.
+#' @param methLinf A string that indicates how Linf should be derived.  See details.
+#' @param num4Linf A single numeric that indicates how many of the longest fish (if \code{methLinf="longFish"}) or how any of the oldest ages (if \code{methLinf="oldAge"}) should be averaged to estimate a starting value for Linf.
+#' @param methEV A string that indicates how the lengths of the two ages in the Schnute paramaterization or the three ages in the Francis paramaterization should be derived.  See details.
+#' @param valOgle A single named numeric that is the set Lr or tr value for use in \code{type="Ogle"}.  See details.
 #' @param fixed A named list that contains user-defined rather than automatically generated (i.e., fixed) starting values for one or more parameters.  See details.
 #' @param plot A logical that indicates whether a plot of the data with the superimposed model fit at the starting values should be created.
 #' @param col.mdl A color for the model when \code{plot=TRUE}.
@@ -56,6 +61,20 @@
 #' vbStarts(tl~age,data=SpotVA1,type="Somers")
 #' vbStarts(tl~age,data=SpotVA1,type="Somers2")
 #' vbStarts(tl~age,data=SpotVA1,type="Pauly")
+#' vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(tr=0))
+#' vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(Lr=8))
+#' 
+#' ## Using a different method to find Linf
+#' vbStarts(tl~age,data=SpotVA1,methLinf="oldAge")
+#' vbStarts(tl~age,data=SpotVA1,methLinf="oldAge",num4Linf=2)
+#' vbStarts(tl~age,data=SpotVA1,methLinf="longFish")
+#' vbStarts(tl~age,data=SpotVA1,methLinf="longFish",num4Linf=10)
+#' vbStarts(tl~age,data=SpotVA1,type="Original",methLinf="oldAge")
+#' vbStarts(tl~age,data=SpotVA1,type="Original",methLinf="oldAge",num4Linf=2)
+#' vbStarts(tl~age,data=SpotVA1,type="Original",methLinf="longFish")
+#' vbStarts(tl~age,data=SpotVA1,type="Original",methLinf="longFish",num4Linf=10)
+#' vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(tr=0),methLinf="oldAge",num4Linf=2)
+#' vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(Lr=8),methLinf="longFish",num4Linf=10)
 #' 
 #' ## Using a different method to find t0 and L0
 #' vbStarts(tl~age,data=SpotVA1,meth0="yngAge")
@@ -76,6 +95,8 @@
 #' vbStarts(tl~age,data=SpotVA1,type="Somers",plot=TRUE)
 #' vbStarts(tl~age,data=SpotVA1,type="Somers2",plot=TRUE)
 #' vbStarts(tl~age,data=SpotVA1,type="Pauly",plot=TRUE)
+#' vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(tr=0),plot=TRUE)
+#' vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(Lr=8),plot=TRUE)
 #' 
 #' ## Examples where some parameters are fixed by the user
 #' vbStarts(tl~age,data=SpotVA1,fixed=list(Linf=15))
@@ -83,6 +104,7 @@
 #' vbStarts(tl~age,data=SpotVA1,fixed=list(Linf=15,K=0.3,t0=-1))
 #' vbStarts(tl~age,data=SpotVA1,fixed=list(Linf=15,K=0.3,t0=-1),plot=TRUE)
 #' vbStarts(tl~age,data=SpotVA1,type="Pauly",fixed=list(t0=-1.5),plot=TRUE)
+#' vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(tr=2),fixed=list(Lr=10),plot=TRUE)
 #' 
 #' ## See examples in vbFuns() for use of vbStarts() when fitting Von B models
 #' 
@@ -90,21 +112,24 @@
 vbStarts <- function(formula,data=NULL,
                      param=c("Typical","typical","Traditional","traditional","BevertonHolt",
                              "Original","original","vonBertalanffy",
-                             "GQ","GallucciQuinn","Mooij","Weisberg",
+                             "GQ","GallucciQuinn","Mooij","Weisberg","Ogle",
                              "Schnute","Francis",
                              "Somers","Somers2","Pauly"),type=param,
                      fixed=NULL,
-                     ages2use=NULL,methEV=c("means","poly"),meth0=c("yngAge","poly"),
+                     meth0=c("yngAge","poly"),
+                     methLinf=c("Walford","oldAge","longFish"),num4Linf=1,
+                     ages2use=NULL,methEV=c("means","poly"),valOgle=NULL,
                      plot=FALSE,col.mdl="gray70",lwd.mdl=3,lty.mdl=1,
                      cex.main=0.9,col.main="red",dynamicPlot=FALSE,...) {
   ## some checks of arguments
   type <- match.arg(type,c("Typical","typical","Traditional","traditional","BevertonHolt",
                            "Original","original","vonBertalanffy",
-                           "GQ","GallucciQuinn","Mooij","Weisberg",
+                           "GQ","GallucciQuinn","Mooij","Weisberg","Ogle",
                            "Schnute","Francis",
                            "Somers","Somers2","Pauly"))
-  methEV <- match.arg(methEV)
   meth0 <- match.arg(meth0)
+  methLinf <- match.arg(methLinf)
+  methEV <- match.arg(methEV)
   if (!is.null(fixed)) {
     if(!is.list(fixed)) stop("'fixed' must be a list.",call.=FALSE)
     if (any(names(fixed)=="")) stop("Items in 'fixed' must be named.",call.=FALSE)
@@ -120,25 +145,26 @@ vbStarts <- function(formula,data=NULL,
   age <- tmp$mf[,tmp$Enames[1]]
   ## get starting values depending on type
   switch(type,
-    Typical=,typical=,Traditional=,traditional=,BevertonHolt=    {
+    Ogle={ sv <- iVBStarts.Ogle(age,len,type,meth0,methLinf,num4Linf,valOgle,fixed)},
+    Typical=,typical=,Traditional=,traditional=,BevertonHolt= {
       type <- "Typical"
-      sv <- iVBStarts.typical(age,len,type,meth0,fixed) },
+      sv <- iVBStarts.typical(age,len,type,meth0,methLinf,num4Linf,fixed) },
     Original=,original=,vonBertalanffy={
       type <- "Original"
-      sv <- iVBStarts.original(age,len,type,meth0,fixed) },
-    GQ=,GallucciQuinn=       {
+      sv <- iVBStarts.original(age,len,type,meth0,methLinf,num4Linf,fixed) },
+    GQ=,GallucciQuinn= {
       type <- "GQ"
-      sv <- iVBStarts.GQ(age,len,type,meth0,fixed) },
-    Mooij=                   { sv <- iVBStarts.Mooij(age,len,type,meth0,fixed) },
-    Weisberg=                { sv <- iVBStarts.Weisberg(age,len,type,meth0,fixed) },
-    Francis=                 { sv <- iVBStarts.Francis(age,len,type,methEV,ages2use,fixed) },
-    Schnute=                 { sv <- iVBStarts.Schnute(age,len,type,meth0,methEV,ages2use,fixed) },
-    Somers=                  { sv <- iVBStarts.Somers(age,len,type,meth0,fixed) },
-    Somers2=                 { sv <- iVBStarts.Somers2(age,len,type,meth0,fixed) },
-    Pauly=                   { sv <- iVBStarts.Pauly(age,len,type,meth0,fixed) }
+      sv <- iVBStarts.GQ(age,len,type,meth0,methLinf,num4Linf,fixed) },
+    Mooij= { sv <- iVBStarts.Mooij(age,len,type,meth0,methLinf,num4Linf,fixed) },
+    Weisberg= { sv <- iVBStarts.Weisberg(age,len,type,meth0,methLinf,num4Linf,fixed) },
+    Francis= { sv <- iVBStarts.Francis(age,len,type,methEV,ages2use,fixed) },
+    Schnute= { sv <- iVBStarts.Schnute(age,len,type,meth0,methLinf,num4Linf,methEV,ages2use,fixed) },
+    Somers= { sv <- iVBStarts.Somers(age,len,type,meth0,methLinf,num4Linf,fixed) },
+    Somers2= { sv <- iVBStarts.Somers2(age,len,type,meth0,methLinf,num4Linf,fixed) },
+    Pauly= { sv <- iVBStarts.Pauly(age,len,type,meth0,methLinf,num4Linf,fixed) }
   ) # end 'type' switch
   ## make the static plot if asked for
-  if (plot) iVBStartsPlot(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl,cex.main,col.main)
+  if (plot) iVBStartsPlot(age,len,type,sv,ages2use,valOgle,col.mdl,lwd.mdl,lty.mdl,cex.main,col.main)
   ## Check if user wants to choose starting values from an interactive plot
   if (dynamicPlot) warning("The 'dynamicPlot' functionality has been moved to 'vbStartsDP' in the 'FSASims' package.",call.=FALSE)
   ## return starting values list
@@ -153,18 +179,30 @@ vbStarts <- function(formula,data=NULL,
 #=============================================================
 # Find starting values for Linf and K from a Walford Plot
 #=============================================================
-iVBStarts.LinfK <- function(age,len,type,fixed) {
+iVBStarts.LinfK <- function(age,len,type,methLinf,num4Linf,fixed) {
   ## compute mean lengths-at-age and numbers-at-age
   meanL <- tapply(len,age,mean)
   ns <- tapply(len,age,length)
   ## fit Walford plot regression
   cfs <- stats::coef(stats::lm(meanL[-1]~meanL[-length(meanL)]))
   ## If a fixed value was sent then return it, else find starting values
-  ## from Walford plot regression coefficients (and check for reasonableness)
+  ## from either the Walford plot regression coefficients or mean length of
+  ## largest fish.  Then check for reasonableness)
   if ("Linf" %in% names(fixed)) {
     sLinf <- fixed[["Linf"]]
   } else {
-    sLinf <- cfs[[1]]/(1-cfs[[2]])
+    if (methLinf=="Walford") sLinf <- cfs[[1]]/(1-cfs[[2]])
+    else {
+      if (num4Linf<1) stop("'num4Linf' must be at least 1.",call.=FALSE)
+      if (methLinf=="longFish") {
+        if (num4Linf>length(len)) stop("'num4Linf' must be less than the number of recorded lengths.",call.=FALSE)
+        sLinf <- mean(len[rev(order(len))][1:num4Linf])
+      } else {
+        ages <- rev(unique(age))
+        if (num4Linf>length(ages)) stop("'num4Linf' must be less than the number of observed ages.",call.=FALSE)
+        sLinf <- mean(len[age %in% ages[1:num4Linf]])
+      }
+    }
     iCheckLinf(sLinf,len)
   }
   if ("K" %in% names(fixed)) {
@@ -183,10 +221,11 @@ iVBStarts.LinfK <- function(age,len,type,fixed) {
 iCheckLinf <- function(sLinf,len) {
   if ((sLinf<0.5*max(len,na.rm=TRUE)) | sLinf>1.5*max(len,na.rm=TRUE)) {
     msg <- "Starting value for Linf is very different from the observed maximum length, "
-    msg <- paste(msg,"which suggests a model fitting problem.\n",sep="")
-    msg <- paste(msg,"See a Walford or Chapman plot to examine the problem.\n",sep="")
-    msg <- paste(msg,"Consider manually setting Linf to the maximum observed length\n",sep="")
-    msg <- paste(msg,"in the starting value list.\n",sep="")
+    msg <- paste0(msg,"which suggests a model fitting problem.\n")
+    msg <- paste0(msg,"See a Walford or Chapman plot to examine the problem.  Consider\n")
+    msg <- paste0(msg,"either using the mean length for several of the largest fish\n")
+    msg <- paste0(msg,"(i.e., use 'oldAge' in 'methLinf=') or manually setting Linf\n")
+    msg <- paste0(msg,"to the maximum observed lengthin the starting value list.\n")
     warning(msg,call.=FALSE)    
   } 
 }
@@ -199,9 +238,9 @@ iCheckK <- function(sK,type,len) {
     } else {
       msg <- "One  suggested starting value is based on a negative K, "
     }
-    msg <- paste(msg,"which suggests a model fitting problem.\n",sep="")
-    msg <- paste(msg,"See a Walford or Chapman Plot to examine the problem.\n",sep="")
-    msg <- paste(msg,"Consider manually setting K=0.3 in the starting value list.\n",sep="")
+    msg <- paste0(msg,"which suggests a model fitting problem.\n")
+    msg <- paste0(msg,"See a Walford or Chapman Plot to examine the problem.\n")
+    msg <- paste0(msg,"Consider manually setting K=0.3 in the starting value list.\n")
     warning(msg,call.=FALSE)
   }
 }
@@ -209,7 +248,7 @@ iCheckK <- function(sK,type,len) {
 #=============================================================
 # Find starting values for t0 and L0
 #=============================================================
-iVBStarts.t0 <- function(age,len,type,meth0,fixed) {
+iVBStarts.t0 <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
   if ("t0" %in% names(fixed)) {
     st0 <- fixed[["t0"]]
   } else {
@@ -231,7 +270,7 @@ iVBStarts.t0 <- function(age,len,type,meth0,fixed) {
       st0 <- st0[[1]]
     } else {
       # find starting values for Linf and K
-      tmp <- iVBStarts.LinfK(age,len,type,fixed)
+      tmp <- iVBStarts.LinfK(age,len,type,methLinf,num4Linf,fixed)
       # find the youngest age with a n>=1
       if (all(ns==1)) yngAge <- min(ages)
       else yngAge <- min(ages[which(ns>=1)])
@@ -243,7 +282,7 @@ iVBStarts.t0 <- function(age,len,type,meth0,fixed) {
   st0
 }
 
-iVBStarts.L0 <- function(age,len,type,meth0,fixed) {
+iVBStarts.L0 <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
   if ("L0" %in% names(fixed)) {
     sL0 <- fixed[["L0"]]
   } else {
@@ -265,7 +304,7 @@ iVBStarts.L0 <- function(age,len,type,meth0,fixed) {
       sL0 <- sL0[[1]]
     } else {
       # find starting values for Linf and K
-      tmp <- iVBStarts.LinfK(age,len,type,fixed)
+      tmp <- iVBStarts.LinfK(age,len,type,methLinf,num4Linf,fixed)
       # find the youngest age with a n>=1
       if (all(ns==1)) yngAge <- min(ages)
       else yngAge <- min(ages[which(ns>=1)])
@@ -328,27 +367,69 @@ iVBStarts.Ls <- function(age,len,type,methEV,ages2use,fixed) {
 
 
 #=============================================================
+# Find starting values for the Ogle VB parameterization
+#=============================================================
+iVBStarts.Ogle <- function(age,len,type,meth0,methLinf,num4Linf,valOgle,fixed) {
+  if (is.null(valOgle)) stop("'valOgle' must contain a value for 'Lr' or 'tr'",call.=FALSE)
+  if (!is.numeric(valOgle)) stop("'valOgle' must be numeric",call.=FALSE)
+  if (!is.vector(valOgle)) stop("'valOgle' must be a named vector",call.=FALSE)
+  if (length(valOgle)!=1) stop("'valOgle' must contain only one value",call.=FALSE)
+  if (is.null(names(valOgle))) stop("'valOgle' must be a named vector",call.=FALSE)
+  setParam <- names(valOgle)
+  if (!setParam %in% c("Lr","tr")) stop("Name in 'valOgle' must be 'Lr' or 'tr'",call.=FALSE)
+  LK <- iVBStarts.LinfK(age,len,type,methLinf,num4Linf,fixed)
+  if (setParam=="tr") {
+    ## an age was given, fit polynomial and predict length at that age
+    if (valOgle<min(age) & is.null(fixed)) warning("'valAge' is less than minimum observed age.\nStarting value for Lr may be suspect; considering using 'fixed'.",call.=FALSE)
+    # fit polynomial regression
+    respoly <- stats::lm(len~stats::poly(age,2,raw=TRUE))
+    # find starting value for L0 as predicted value from polynomial at age in tr
+    sLr <- stats::predict(respoly,data.frame(age=valOgle))
+    # return starting values
+    if (!is.null(fixed)) {
+      if (names(fixed)!="Lr") warning("Name in 'fixed' must be 'Lr' if 'tr' is in 'valOgle'.\nValue in 'fixed' was ignored.",call.=FALSE)
+      else sLr <- fixed
+    }
+    as.list(c(LK,Lr=sLr[[1]]))
+  } else {
+    ## a length was given, fit polynomial and predict age at that length
+    if (valOgle<min(len) & is.null(fixed)) warning("'valAge' is less than minimum observed length.\nStarting value for tr may be suspect; considering using 'fixed'.",call.=FALSE)
+    # fit polynomial regression
+    respoly <- stats::lm(age~stats::poly(len,2,raw=TRUE))
+    # find starting value for L0 as predicted value from polynomial at age in tr
+    str <- stats::predict(respoly,data.frame(len=valOgle))
+    # return starting values
+    if (!is.null(fixed)) {
+      if (names(fixed)!="tr") warning("Name in 'fixed' must be 'tr' if 'Lr' is in 'valOgle'.\nValue in 'fixed' was ignored.",call.=FALSE)
+      else str <- fixed
+    }
+    as.list(c(LK,tr=str[[1]]))
+  }
+}
+
+
+#=============================================================
 # Find starting values the typical VB parameterization
 #=============================================================
-iVBStarts.typical <- function(age,len,type,meth0,fixed) {
-  LK <- iVBStarts.LinfK(age,len,type,fixed)
-  t0 <- iVBStarts.t0(age,len,type,meth0,fixed)
+iVBStarts.typical <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
+  LK <- iVBStarts.LinfK(age,len,type,methLinf,num4Linf,fixed)
+  t0 <- iVBStarts.t0(age,len,type,meth0,methLinf,num4Linf,fixed)
   as.list(c(LK,t0=t0))
 }
 
 #=============================================================
 # Find starting values the original VB parameterization
 #=============================================================
-iVBStarts.original <- function(age,len,type,meth0,fixed) {
-  tmp <- iVBStarts.LinfK(age,len,type,fixed)
-  as.list(c(tmp["Linf"],L0=iVBStarts.L0(age,len,type,meth0,fixed),tmp["K"]))
+iVBStarts.original <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
+  tmp <- iVBStarts.LinfK(age,len,type,methLinf,num4Linf,fixed)
+  as.list(c(tmp["Linf"],L0=iVBStarts.L0(age,len,type,meth0,methLinf,num4Linf,fixed),tmp["K"]))
 }
 
 #=============================================================
 # Find starting values the GQ VB parameterization
 #=============================================================
-iVBStarts.GQ <- function(age,len,type,meth0,fixed) {
-  tmp <- iVBStarts.typical(age,len,type,meth0,fixed)
+iVBStarts.GQ <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
+  tmp <- iVBStarts.typical(age,len,type,meth0,methLinf,num4Linf,fixed)
   omega <- ifelse("omega" %in% names(fixed),fixed[["omega"]],tmp[["Linf"]]*tmp[["K"]])
   as.list(c(omega=omega,tmp["K"],tmp["t0"]))
 }
@@ -356,8 +437,8 @@ iVBStarts.GQ <- function(age,len,type,meth0,fixed) {
 #=============================================================
 # Find starting values the Mooij VB parameterization
 #=============================================================
-iVBStarts.Mooij <- function(age,len,type,meth0,fixed) {
-  tmp <- iVBStarts.original(age,len,type,meth0,fixed)
+iVBStarts.Mooij <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
+  tmp <- iVBStarts.original(age,len,type,meth0,methLinf,num4Linf,fixed)
   omega <- ifelse("omega" %in% names(fixed),fixed[["omega"]],tmp[["Linf"]]*tmp[["K"]])
   as.list(c(tmp["Linf"],tmp["L0"],omega=omega))
 }
@@ -365,8 +446,8 @@ iVBStarts.Mooij <- function(age,len,type,meth0,fixed) {
 #=============================================================
 # Find starting values the Weisberg VB parameterization
 #=============================================================
-iVBStarts.Weisberg <- function(age,len,type,meth0,fixed) {
-  tmp <- iVBStarts.typical(age,len,type,meth0,fixed)
+iVBStarts.Weisberg <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
+  tmp <- iVBStarts.typical(age,len,type,meth0,methLinf,num4Linf,fixed)
   t50 <- ifelse("t50" %in% names(fixed),fixed[["t50"]],log(2)/tmp[["K"]]+tmp[["t0"]])
   as.list(c(Linf=tmp[["Linf"]],t50=t50,t0=tmp[["t0"]]))
 }
@@ -381,35 +462,36 @@ iVBStarts.Francis <- function(age,len,type,methEV,ages2use,fixed) {
 #=============================================================
 # Find starting values the Schnute VB parameterization
 #=============================================================
-iVBStarts.Schnute <- function(age,len,type,meth0,methEV,ages2use,fixed) {
-  as.list(c(iVBStarts.Ls(age,len,type,methEV,ages2use,fixed),iVBStarts.LinfK(age,len,type,fixed)["K"]))
+iVBStarts.Schnute <- function(age,len,type,meth0,methLinf,num4Linf,methEV,ages2use,fixed) {
+  as.list(c(iVBStarts.Ls(age,len,type,methEV,ages2use,fixed),
+            iVBStarts.LinfK(age,len,type,methLinf,num4Linf,fixed)["K"]))
 }
 
 #=============================================================
 # Find starting values the Somers VB parameterization
 #=============================================================
-iVBStarts.Somers <- function(age,len,type,meth0,fixed) {
+iVBStarts.Somers <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
   C <- ifelse("C" %in% names(fixed),fixed[["C"]],0.5)
   ts <- ifelse("ts" %in% names(fixed),fixed[["ts"]],0.3)
-  as.list(c(iVBStarts.typical(age,len,type,meth0,fixed),C=C,ts=ts))
+  as.list(c(iVBStarts.typical(age,len,type,meth0,methLinf,num4Linf,fixed),C=C,ts=ts))
 }
 
 #=============================================================
 # Find starting values the Somers2 VB parameterization
 #=============================================================
-iVBStarts.Somers2 <- function(age,len,type,meth0,fixed) {
+iVBStarts.Somers2 <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
   C <- ifelse("C" %in% names(fixed),fixed[["C"]],0.5)
   WP <- ifelse("WP" %in% names(fixed),fixed[["WP"]],0.8)
-  as.list(c(iVBStarts.typical(age,len,type,meth0,fixed),C=C,WP=WP))
+  as.list(c(iVBStarts.typical(age,len,type,meth0,methLinf,num4Linf,fixed),C=C,WP=WP))
 }
 
 #=============================================================
-# Find starting values the Somers VB parameterization
+# Find starting values the Pauly VB parameterization
 #=============================================================
-iVBStarts.Pauly <- function(age,len,type,meth0,fixed) {
+iVBStarts.Pauly <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
   NGT <- ifelse("NGT" %in% names(fixed),fixed[["NGT"]],0.3)
   ts <- ifelse("ts" %in% names(fixed),fixed[["ts"]],0.3)
-  tmp <- iVBStarts.typical(age,len,type,meth0,fixed)
+  tmp <- iVBStarts.typical(age,len,type,meth0,methLinf,num4Linf,fixed)
   Kpr <- ifelse("Kpr" %in% names(fixed),fixed[["Kpr"]],tmp[["K"]]/(1-NGT))
   as.list(c(Linf=tmp[["Linf"]],Kpr=Kpr,t0=tmp[["t0"]],ts=ts,NGT=NGT))
 }
@@ -418,7 +500,7 @@ iVBStarts.Pauly <- function(age,len,type,meth0,fixed) {
 #=============================================================
 # Static plot of starting values
 #=============================================================
-iVBStartsPlot <- function(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl,
+iVBStartsPlot <- function(age,len,type,sv,ages2use,valOgle,col.mdl,lwd.mdl,lty.mdl,
                           cex.main,col.main) { # nocov start
   ## attempting to get by bindings warning in RCMD CHECK
   x <- NULL
@@ -434,8 +516,13 @@ iVBStartsPlot <- function(age,len,type,sv,ages2use,col.mdl,lwd.mdl,lty.mdl,
   mdl <- vbFuns(type)
   min.age <- min(age,na.rm=TRUE)
   max.age <- max(age,na.rm=TRUE)
-  if (!type %in% c("Schnute","Francis")) {
+  if (!type %in% c("Schnute","Francis","Ogle")) {
     graphics::curve(mdl(x,unlist(sv)),from=min.age,to=max.age,
+                    col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
+  } else if (type=="Ogle") {
+    # Ogle requires valOgle
+    sv <- unlist(c(sv,valOgle))[c("Linf","K","tr","Lr")]
+    graphics::curve(mdl(x,sv),from=min.age,to=max.age,
                     col=col.mdl,lwd=lwd.mdl,lty=lty.mdl,add=TRUE)
   } else {
     # Schnute/Francis requires t1 argument

@@ -6,11 +6,13 @@
 \usage{
 vbStarts(formula, data = NULL, param = c("Typical", "typical",
   "Traditional", "traditional", "BevertonHolt", "Original", "original",
-  "vonBertalanffy", "GQ", "GallucciQuinn", "Mooij", "Weisberg", "Schnute",
-  "Francis", "Somers", "Somers2", "Pauly"), type = param, fixed = NULL,
-  ages2use = NULL, methEV = c("means", "poly"), meth0 = c("yngAge",
-  "poly"), plot = FALSE, col.mdl = "gray70", lwd.mdl = 3, lty.mdl = 1,
-  cex.main = 0.9, col.main = "red", dynamicPlot = FALSE, ...)
+  "vonBertalanffy", "GQ", "GallucciQuinn", "Mooij", "Weisberg", "Ogle",
+  "Schnute", "Francis", "Somers", "Somers2", "Pauly"), type = param,
+  fixed = NULL, meth0 = c("yngAge", "poly"), methLinf = c("Walford",
+  "oldAge", "longFish"), num4Linf = 1, ages2use = NULL,
+  methEV = c("means", "poly"), valOgle = NULL, plot = FALSE,
+  col.mdl = "gray70", lwd.mdl = 3, lty.mdl = 1, cex.main = 0.9,
+  col.main = "red", dynamicPlot = FALSE, ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{len~age}.}
@@ -21,11 +23,17 @@ vbStarts(formula, data = NULL, param = c("Typical", "typical",
 
 \item{fixed}{A named list that contains user-defined rather than automatically generated (i.e., fixed) starting values for one or more parameters.  See details.}
 
+\item{meth0}{A string that indicates how the t0 and L0 paramaters should be derived.  See details.}
+
+\item{methLinf}{A string that indicates how Linf should be derived.  See details.}
+
+\item{num4Linf}{A single numeric that indicates how many of the longest fish (if \code{methLinf="longFish"}) or how any of the oldest ages (if \code{methLinf="oldAge"}) should be averaged to estimate a starting value for Linf.}
+
 \item{ages2use}{A numerical vector of the two ages to be used in the Schnute or Francis paramaterizations.  See details.}
 
 \item{methEV}{A string that indicates how the lengths of the two ages in the Schnute paramaterization or the three ages in the Francis paramaterization should be derived.  See details.}
 
-\item{meth0}{A string that indicates how the t0 and L0 paramaters should be derived.  See details.}
+\item{valOgle}{A single named numeric that is the set Lr or tr value for use in \code{type="Ogle"}.  See details.}
 
 \item{plot}{A logical that indicates whether a plot of the data with the superimposed model fit at the starting values should be created.}
 
@@ -52,13 +60,15 @@ Finds reasonable starting values for the parameters in a specific parameterizati
 \details{
 This function attempts to find reasonable starting values for a variety of parameterizations of the von Bertalanffy growth function.  There is no guarantee that these starting values are the \sQuote{best} starting values.  One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.
 
-The Linf and K paramaters are estimated via the concept of the Ford-Walford plot.  The product of the starting values for Linf and K is used as a starting value for omega in the GallucciQuinn and Mooij parameterizations.  The result of log(2) divided by the starting value for K is used as the starting value for t50 in the Weisberg parameterization.
+If \code{methLinf="Walford"}, then the Linf and K paramaters are estimated via the concept of the Ford-Walford plot.  If \code{methLinf="oldAge"} then Linf is estimated as the mean length of the \code{num4Linf} longest observed lengths.
+
+The product of the starting values for Linf and K is used as a starting value for omega in the GallucciQuinn and Mooij parameterizations.  The result of log(2) divided by the starting value for K is used as the starting value for t50 in the Weisberg parameterization.
 
 If \code{meth0="yngAge"}, then a starting value for t0 or L0 is found by algebraically solving the typical or original paramaterization, respectively, for t0 or L0 using the mean length of the first age with more than one data point as a \dQuote{known} quantity.  If \code{meth0="poly"} then a second-degree polynomial model is fit to the mean length-at-age data.  The t0 starting value is set equal to the root of the polynomial that is closest to zero.  The L0 starting value is set equal to the mean length at age-0 predicted from the polynomial function.
 
 Starting values for the L1 and L3 parameters in the Schnute paramaterization and the L1, L2, and L3 parameters in the Francis parameterization may be found in two ways.  If \code{methEV="poly"}, then the starting values are the predicted length-at-age from a second-degree polynomial fit to the mean lengths-at-age data.  If \code{methEV="means"} then the observed sample means at the corresponding ages are used.  In the case where one of the supplied ages is fractional, then the value returned will be linearly interpolated between the mean lengths of the two closest ages.  The ages to be used for L1 and L3 in the Schnute and Francis parameterizations are supplied as a numeric vector of length 2 in \code{ages2use=}.  If \code{ages2use=NULL} then the minimum and maximum observed ages will be used.  In the Francis method, L2 will correspond to the age half-way between the two ages in \code{ages2use=}.  A warning will be given if L2<L1 for the Schnute method or if L2<L1 or L3<L2 for the Francis method.
 
-Startin value for the Somers and Pauly parameterizations are the same as the traditional parameterization for Linf, K, and t0.  However, for the Pauly parameterization the starting value for Kpr is the starting value for K divided by 1 minus the starting value of NGT.  The starting values of C, ts, WP, and NGT are set at constants that are unlikely to work for all species.  Thus, the user should use the \code{fixed} argument to fix starting values for these parameters that are more likely to result in a reliable fit.
+Starting values for the Somers and Pauly parameterizations are the same as the traditional parameterization for Linf, K, and t0.  However, for the Pauly parameterization the starting value for Kpr is the starting value for K divided by 1 minus the starting value of NGT.  The starting values of C, ts, WP, and NGT are set at constants that are unlikely to work for all species.  Thus, the user should use the \code{fixed} argument to fix starting values for these parameters that are more likely to result in a reliable fit.
 }
 \note{
 The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \sQuote{BevertonHolt} parameterizations are synonymous.
@@ -79,6 +89,20 @@ vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5))
 vbStarts(tl~age,data=SpotVA1,type="Somers")
 vbStarts(tl~age,data=SpotVA1,type="Somers2")
 vbStarts(tl~age,data=SpotVA1,type="Pauly")
+vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(tr=0))
+vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(Lr=8))
+
+## Using a different method to find Linf
+vbStarts(tl~age,data=SpotVA1,methLinf="oldAge")
+vbStarts(tl~age,data=SpotVA1,methLinf="oldAge",num4Linf=2)
+vbStarts(tl~age,data=SpotVA1,methLinf="longFish")
+vbStarts(tl~age,data=SpotVA1,methLinf="longFish",num4Linf=10)
+vbStarts(tl~age,data=SpotVA1,type="Original",methLinf="oldAge")
+vbStarts(tl~age,data=SpotVA1,type="Original",methLinf="oldAge",num4Linf=2)
+vbStarts(tl~age,data=SpotVA1,type="Original",methLinf="longFish")
+vbStarts(tl~age,data=SpotVA1,type="Original",methLinf="longFish",num4Linf=10)
+vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(tr=0),methLinf="oldAge",num4Linf=2)
+vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(Lr=8),methLinf="longFish",num4Linf=10)
 
 ## Using a different method to find t0 and L0
 vbStarts(tl~age,data=SpotVA1,meth0="yngAge")
@@ -99,6 +123,8 @@ vbStarts(tl~age,data=SpotVA1,type="Schnute",ages2use=c(0,5),plot=TRUE)
 vbStarts(tl~age,data=SpotVA1,type="Somers",plot=TRUE)
 vbStarts(tl~age,data=SpotVA1,type="Somers2",plot=TRUE)
 vbStarts(tl~age,data=SpotVA1,type="Pauly",plot=TRUE)
+vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(tr=0),plot=TRUE)
+vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(Lr=8),plot=TRUE)
 
 ## Examples where some parameters are fixed by the user
 vbStarts(tl~age,data=SpotVA1,fixed=list(Linf=15))
@@ -106,6 +132,7 @@ vbStarts(tl~age,data=SpotVA1,fixed=list(Linf=15,K=0.3))
 vbStarts(tl~age,data=SpotVA1,fixed=list(Linf=15,K=0.3,t0=-1))
 vbStarts(tl~age,data=SpotVA1,fixed=list(Linf=15,K=0.3,t0=-1),plot=TRUE)
 vbStarts(tl~age,data=SpotVA1,type="Pauly",fixed=list(t0=-1.5),plot=TRUE)
+vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(tr=2),fixed=list(Lr=10),plot=TRUE)
 
 ## See examples in vbFuns() for use of vbStarts() when fitting Von B models
 

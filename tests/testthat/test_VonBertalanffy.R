@@ -17,6 +17,11 @@ test_that("vbStarts() errors and warnings",{
     expect_error(vbStarts(length~age,data=Kimura,param="Schnute",methEV="Derek"),"should be one of")
     expect_error(vbStarts(length~age,data=Kimura,param="typical",meth0="Derek"),"should be one of")
     expect_error(vbStarts(length~age,data=Kimura,param="original",meth0="Derek"),"should be one of")
+    expect_error(vbStarts(length~age,data=Kimura,methLinf="Derek"),"should be one of")
+    expect_error(vbStarts(length~age,data=Kimura,methLinf="oldAge",num4Linf=-1),"must be at least 1")
+    expect_error(vbStarts(length~age,data=Kimura,methLinf="longFish",num4Linf=-1),"must be at least 1")
+    expect_error(vbStarts(length~age,data=Kimura,methLinf="oldAge",num4Linf=30),"less than the number of observed ages")
+    expect_error(vbStarts(length~age,data=Kimura,methLinf="longFish",num4Linf=500),"less than the number of recorded lengths")
     ## Two variables on LHS
     expect_error(vbStarts(length+age~age,data=Kimura,param="typical"),"more than one variable on the LHS")
     ## Two variables on RHS
@@ -36,6 +41,14 @@ test_that("vbStarts() errors and warnings",{
     ## problems with fixed argument
     expect_error(vbStarts(length~age,data=Kimura,fixed=c(Linf=3)),"must be a list")
     expect_error(vbStarts(length~age,data=Kimura,fixed=list(Linf=3,7)),"must be named")
+    ## problems with valOgle argument
+    expect_error(vbStarts(length~age,data=Kimura,param="Ogle"),"must contain a value for 'Lr' or 'tr'")
+    expect_error(vbStarts(length~age,data=Kimura,param="Ogle",valOgle=3),"must be a named vector")
+    expect_error(vbStarts(length~age,data=Kimura,param="Ogle",valOgle="3"),"must be numeric")
+    expect_error(vbStarts(length~age,data=Kimura,param="Ogle",valOgle=c(3,4)),"must contain only one value")
+    expect_error(vbStarts(length~age,data=Kimura,param="Ogle",valOgle=c(a=3)),"must be 'Lr' or 'tr'")
+    expect_warning(vbStarts(length~age,data=Kimura,param="Ogle",valOgle=c(tr=0)),"less than minimum observed age")
+    expect_warning(vbStarts(length~age,data=Kimura,param="Ogle",valOgle=c(Lr=0)),"less than minimum observed length")
   }
   ## gives warning about a poor estimate for K and Linf
   if (require(FSAdata)) {
