@@ -304,13 +304,13 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
   STypical <- Stypical <- STraditional <- Straditional <- SBevertonHolt <- function(t,Linf,K,t0) {
     Linf*(1-exp(-K*(t-t0)))
   }
-  Original <- original <- vonBertalanffy <- function(t,Linf,L0=NULL,K=NULL) {
-  if (length(Linf)==3) { L0 <- Linf[[2]]
-                         K <- Linf[[3]]
+  Original <- original <- vonBertalanffy <- function(t,Linf,K=NULL,L0=NULL) {
+  if (length(Linf)==3) { K <- Linf[[2]]
+                         L0 <- Linf[[3]]
                          Linf <- Linf[[1]] }
   Linf-(Linf-L0)*exp(-K*t)
   }
-  SOriginal <- Soriginal <- SvonBertalanffy <- function(t,Linf,L0,K) {
+  SOriginal <- Soriginal <- SvonBertalanffy <- function(t,Linf,K,L0) {
     Linf-(Linf-L0)*exp(-K*t)
   }
   GQ <- GallucciQuinn <- function(t,omega,K=NULL,t0=NULL) {

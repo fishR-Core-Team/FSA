@@ -422,7 +422,7 @@ iVBStarts.typical <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
 #=============================================================
 iVBStarts.original <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
   tmp <- iVBStarts.LinfK(age,len,type,methLinf,num4Linf,fixed)
-  as.list(c(tmp["Linf"],L0=iVBStarts.L0(age,len,type,meth0,methLinf,num4Linf,fixed),tmp["K"]))
+  as.list(c(tmp["Linf"],tmp["K"],L0=iVBStarts.L0(age,len,type,meth0,methLinf,num4Linf,fixed)))
 }
 
 #=============================================================
