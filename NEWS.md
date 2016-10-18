@@ -1,5 +1,7 @@
 # FSA 0.8.11 ongoing
-* `vbFuns()`: Modified.  Added `Ogle` to list of parameterizations.
+* `predict.bootCase()`: Modified. Modified so that situations where other than values of the dependent variable are in the dots argument (as would occur if making predictions for the Francis parameterization of the VBGF).
+* `predict.nlsBoot()`: Modified. See note for `predict.bootCase()`.
+* `vbFuns()`: Modified.  Added `Ogle` to list of parameterizations. Changed order of `L0` and `K` parameters in returned function when `param="Original"`.
 * `vbStarts()`: Modified.  Added the `methLinf=` argument that allows the user to choose if Linf is estimated from a Walford plot (`methLinf="Walford"`; the default and old functionality), as the mean of fish in a certain number of old ages (`methLinf="oldAge"`), or as the mean of a certain number of the longest fish (`methLinf="longFish"`).  The number of ages or long fish is given in `num4Linf=`.  Added methods for `type="Ogle"`.
 
 # FSA 0.8.10 24-Sep-16

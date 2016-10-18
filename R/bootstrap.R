@@ -6,7 +6,7 @@
 #'
 #' @details \code{confint} finds the two quantiles that have the (1-\code{conf.level})/2 proportion of bootstrapped parameter estimates below and above.  This is an approximate 100\code{conf.level}\% confidence interval.
 #' 
-#' \code{predict} applies a user-supplied function to each row of \code{object} and then finds the median and the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped predictions below and above.  The median is returned as the predicted value and the quantiles are returned as an approximate 100\code{conf.level}\% confidence interval for that prediction.
+#' \code{predict} applies a user-supplied function to each row of \code{object} and then finds the median and the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped predictions below and above.  The median is returned as the predicted value and the quantiles are returned as an approximate 100\code{conf.level}\% confidence interval for that prediction. Values for the independent variable in \code{FUN} must be a named argument sent in the \dots argument (see examples).  Note that if other arguments are needed in \code{FUN} besides values for the independent variable, then these are included in the \dots argument AFTER the values for the independent variable.
 #'
 #' In \code{htest} the \dQuote{direction} of the alternative hypothesis is identified by a string in the \code{alt=} argument.  The strings may be \code{"less"} for a \dQuote{less than} alternative, \code{"greater"} for a \dQuote{greater than} alternative, or \code{"two.sided"} for a \dQuote{not equals} alternative (the DEFAULT).  In the one-tailed alternatives the p-value is the proportion of bootstrapped parameter estimates in \code{object$coefboot} that are extreme of the null hypothesized parameter value in \code{bo}.  In the two-tailed alternative the p-value is twice the smallest of the proportion of bootstrapped parameter estimates above or below the null hypothesized parameter value in \code{bo}.
 #'
@@ -28,7 +28,7 @@
 #' @param same.ylim A logical that indicates whether the same limits for the y-axis should be used on each histogram.  Defaults to \code{TRUE}.  Ignored if \code{ylmts} is non-null.
 #' @param ymax A single value that sets the maximum y-axis limit for each histogram or a vector of length equal to the number of groups that sets the maximum y-axis limit for each histogram separately.
 #' @param col A named color for the histogram bars.
-#' @param \dots Additional items to send to functions.
+#' @param \dots Additional items to send to functions.  See details.
 #'
 #' @return If \code{object} is a matrix, then \code{confint} returns a matrix with as many rows as columns (i.e., parameter estimates) in \code{object} and two columns of the quantiles that correspond to the approximate confidence interval.  If \code{object} is a vector, then \code{confint} returns a vector with the two quantiles that correspond to the approximate confidence interval.
 #'
@@ -281,19 +281,20 @@ iPredictBoot <- function(object,FUN,MARGIN,conf.level,digits,...) {
   ## Loop through the items in the dots variable
   for (i in 1:n) {
     # set arguments for apply
-    args <- list(object,MARGIN,FUN,tmp[[1]][i])
-    names(args) <- c("X","MARGIN","FUN",names(tmp)[1])
+    tmp1 <- c(tmp[[1]][i],unlist(tmp[-1]))
+    names(tmp1) <- names(tmp)
+    args <- c(list(X=object,MARGIN=MARGIN,FUN=FUN),tmp1)
     # get the bootstrap results for one set of values in the dots variable
     tmpres <- do.call(apply,args)
     # get median, LCI, and UCI and put in results matrix (with dots variable value)
-    res[i,] <- c(tmp[[1]][i],stats::quantile(tmpres,c(0.5,0.5-conf.level/2,0.5+conf.level/2)))
+    res[i,] <- c(tmp1[[1]],stats::quantile(tmpres,c(0.5,0.5-conf.level/2,0.5+conf.level/2)))
   }
   ## Potentially round the median and CI results
   if (!is.null(digits)) {
     if (digits<=0) stop("'digits' must be positive.",call.=FALSE)
     res[,2:4] <- round(res[,2:4],digits)
   }
-  colnames(res) <- c(names(tmp)[1],"Median",iCILabel(conf.level))
+  colnames(res) <- c(names(tmp1)[1],"Median",iCILabel(conf.level))
   ## Return the matrix
   res
 }
