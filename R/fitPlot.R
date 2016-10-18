@@ -432,10 +432,11 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
                         ylab=names(mdl$model)[1],xlab=names(mdl$model)[xpos],main="", ...) {
   ## add the model option to the NLS object so that data can be extracted
   mdl <- stats::update(object,model=TRUE)
-  ## finds number of variables in the model
-  numvars <- length(names(mdl$model))
+  ## finds number of variables in the model (this is needed because for some
+  ##   models (e.g., Francis VBGF) the mdel might contain "other" data)
+  numvars <- length(attr(stats::terms(mdl$model),"term.labels"))
   if (missing(d)) { d <- mdl$data }
-    else if (!is.data.frame(d)) d <- as.data.frame(d)  # make sure that the data is a data.frame
+    else if (!is.data.frame(d)) d <- as.data.frame(d)  # make sure data is a data.frame
   ## find y variable from model
   y <- mdl$model[[1]]
   if (numvars==2) {
