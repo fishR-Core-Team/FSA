@@ -1,6 +1,6 @@
 #' @title Estimate initial population size for single or multiple census mark-recapture data.
 #'
-#' @description Estimates of the initial population size, along with associated confidence intervals, are constructed from single or multiple census mark-recapture data using a variety of methods.  For single census data, the initial population size (N) is estimated from the number of marked animals from a first sample (M), number of captured animals in a second sample (n), and the number of recaptured marked animals in the second sample (m) using either the \sQuote{naive} Petersen method or Chapman, Ricker, or Bailey modifications of the Petersen method.  Single census data can also be separated by group (e.g., size class) to estimate the initial population size by class and for the overall population size.  For multiple census data, the initial population size is estimated from the number of captured animals (n), number of recaptured marked animals (m), the number of marked animals that are marked and returned to the population (R), or the number of extant marked animals prior to the sapmle (M) on each of several samples using either the Schnabel (1938) or Schumacher-Eschmeyer (1943) method.
+#' @description Estimates of the initial population size, along with associated confidence intervals, are constructed from single or multiple census mark-recapture data using a variety of methods.  For single census data, the initial population size (N) is estimated from the number of marked animals from a first sample (M), number of captured animals in a second sample (n), and the number of recaptured marked animals in the second sample (m) using either the \sQuote{naive} Petersen method or Chapman, Ricker, or Bailey modifications of the Petersen method.  Single census data can also be separated by group (e.g., size class) to estimate the initial population size by class and for the overall population size.  For multiple census data, the initial population size is estimated from the number of captured animals (n), number of recaptured marked animals (m), the number of marked animals that are marked and returned to the population (R), or the number of extant marked animals prior to the sample (M) on each of several samples using either the Schnabel (1938) or Schumacher-Eschmeyer (1943) method.
 #'
 #' @details For single census data, the following methods can be used:
 #' \itemize{
@@ -188,7 +188,8 @@ mrClosed <- function(M=NULL,n=NULL,m=NULL,R=NULL,
     if (!is.null(R)) {
       ## R not used in single census methods.  If nothing else
       ##   is supplied then just throw an error
-      if (is.null(c(M,n,m))) stop("'R' not used in single census methods; must supply 'M', 'n', and 'm'.",
+      if (is.null(c(M,n,m))) stop("'R' not used in single census methods;
+                                  must supply 'M', 'n', and 'm'.",
                                   call.=FALSE)
       ## Otherwise warn that it will be ignored
       warning("'R' not used in single census methods; It will be ignored.",call.=FALSE)
@@ -438,6 +439,8 @@ iMRCMultiple <- function(M,n,m,R,method,chapman.mod) {
       M <- cumsum(R-m)-(R-m)
     } else {
       ## Results not from capHistSum and values of M provided.
+      # check if M is a vector
+      if (!is.vector(M)) stop("If given, 'M' must be a vector or from 'capHistSum()`.",call.=FALSE)
       # check if M has an NA in first position
       if (is.na(M[1])) {
         warning("NA for first sample of 'M' was ignored.",call.=FALSE)
@@ -452,6 +455,7 @@ iMRCMultiple <- function(M,n,m,R,method,chapman.mod) {
   } else {
     ## M not provided and results not from capHistSum
     if (is.null(R)) stop("One of 'M' or 'R' must be supplied by user",call.=FALSE)
+    if (!is.vector(R)) stop("If given, 'R' must be a vector.",call.=FALSE)
     if (is.null(n) | is.null(m)) stop("One or both of 'n' or 'm' is missing.",call.=FALSE)
     # check if R has NA in last position
     if (is.na(R[length(R)])) {

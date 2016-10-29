@@ -1,4 +1,5 @@
 # FSA 0.8.11 ongoing
+* `mrClosed()`: Modified. Added some checks for non-vector uses of `M=` and `R=` (partially addresses [#22](https://github.com/droglenc/FSA/issues/22)).
 * `predict.bootCase()`: Modified. Modified so that situations where other than values of the dependent variable are in the dots argument (as would occur if making predictions for the Francis parameterization of the VBGF).
 * `predict.nlsBoot()`: Modified. See note for `predict.bootCase()`.
 * `vbFuns()`: Modified.  Added `Ogle` to list of parameterizations. Changed order of `L0` and `K` parameters in returned function when `param="Original"`.
