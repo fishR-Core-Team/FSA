@@ -100,15 +100,15 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
                     psd.add=TRUE,psd.pos="topleft",psd.cex=0.75,...) {
   ## Get variable name that contains the lengths
   cl <- iGetVarFromFormula(formula,data,expNumVars=1)
-  if (!is.numeric(data[,cl])) stop("Variable in 'formula' must be numeric.",call.=FALSE)
+  if (!is.numeric(data[,cl])) STOP("Variable in 'formula' must be numeric.")
   ## make sure there is data 
-  if (nrow(data)==0) stop("'data' does not contain any rows.",call.=FALSE)
+  if (nrow(data)==0) STOP("'data' does not contain any rows.")
   ## get psd breaks for this species
   if (justPSDQ) brks <- psdVal(species,units=units)[1:3]
     else brks <- psdVal(species,units=units)  
   ## If xlim is provided then limit temporary df to fish in range of xlim
   if (!is.null(xlim)) {
-    if (min(xlim)>brks["stock"]) stop("Minimum chosen length value in 'xlim' is greater than 'stock' size.",call.=FALSE)
+    if (min(xlim)>brks["stock"]) STOP("Minimum chosen length value in 'xlim' is greater than 'stock' size.")
     data <- data[data[,cl]>=min(xlim) & data[,cl]<=max(xlim),] 
   } else data <- data
   ## make an initial histogram to get the breaks and counts

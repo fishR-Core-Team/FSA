@@ -70,10 +70,10 @@ wsVal <- function(species="List",units=c("metric","English"),ref=75,simplify=FAL
 
 iwsLitCheck <- function(data,species) {
   OK <- FALSE
-  if (length(species)>1) stop("'species' must contain only one name.",call.=FALSE)
+  if (length(species)>1) STOP("'species' must contain only one name.")
   if (species=="List") iListSpecies(data)
   else if (!any(levels(data$species)==species)) {
-    stop("A Ws equation may not exist given your choices of species, units, and ref.\n  Please look carefully inside the data(WSlit) data frame.\n\n",call.=FALSE)
+    STOP("A Ws equation may not exist given your choices of species, units, and ref.\n  Please look carefully inside the data(WSlit) data frame.\n\n")
   }
     else OK <- TRUE
   OK

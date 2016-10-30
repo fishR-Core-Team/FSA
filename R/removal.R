@@ -186,22 +186,22 @@ removal <- function(catch,
                     conf.level=0.95,just.ests=FALSE,Tmult=3) {
   # some initial checks
   method <- match.arg(method)
-  if (conf.level<=0 | conf.level>=1) stop("'conf.level' must be between 0 and 1",call.=FALSE)
+  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
   if (!is.vector(catch)) {
     # if a one row or column matrix then convert to a vector
     if ((is.matrix(catch) | is.data.frame(catch)) & (nrow(catch)==1 | ncol(catch)==1)) {
       catch <- as.numeric(catch)
     } else {
       # otherwise send an error
-      stop("'catch' must be a vector.",call.=FALSE)
+      STOP("'catch' must be a vector.")
     }
   } 
   if (any(is.na(catch))) {
-    warning("'NA's removed from 'catch' to continue.",call.=FALSE)
+    WARN("'NA's removed from 'catch' to continue.")
     catch <- catch[!is.na(catch)]
   }  
-  if (length(catch)<2) stop("Cannot perform calculations with one catch value.",call.=FALSE)
-  if (Tmult<1) stop("'Tmult' should be greater than 1.",call.=FALSE)
+  if (length(catch)<2) STOP("Cannot perform calculations with one catch value.")
+  if (Tmult<1) STOP("'Tmult' should be greater than 1.")
   # intermediate calculations
   # Different methods
   switch(method,
@@ -302,7 +302,7 @@ iRemovalLHCI <- function(method,catch,conf.level,k,T,X,min.nlogLH,Tmult){
     tmp <- range(which(nlogLHvals<=nlogLHcrit))
     # If the last position in the last N tried then the Ns tried were
     #   probably not adequate.  Tell the user to up the Tmult value.
-    if (max(tmp)==length(Ntrys) & !UCIfail) warning("Upper confidence value is ill-formed; try increasing 'Tmult' in 'removal()'.",call.=FALSE)
+    if (max(tmp)==length(Ntrys) & !UCIfail) WARN("Upper confidence value is ill-formed; try increasing 'Tmult' in 'removal()'.")
     # The LCI is N in the lower position, UCI is N in the higher position.
     if (!LCIfail) LCI <- Ntrys[tmp[1]]
     if (!UCIfail) UCI <- Ntrys[tmp[2]]
@@ -341,7 +341,7 @@ iMoran <- function(catch,conf.level,Tmult) {
   T <- int[["T"]]
   X <- int[["X"]]
   # A check
-  if (k<3) stop("The Moran method requires at least three samples.",call.=FALSE)
+  if (k<3) STOP("The Moran method requires at least three samples.")
   # optimize for N
   tmp <- stats::optimize(iLHMoran,c(T,ceiling(Tmult*T)),catch=catch,k=k,T=T,XX=X)
   N0 <- tmp$minimum
@@ -389,7 +389,7 @@ iSchnute <- function(catch,conf.level,Tmult) {
   T <- int[["T"]]
   X <- int[["X"]]
   # A check
-  if (k<3) stop("The Schnute method requires at least three samples.",call.=FALSE)
+  if (k<3) STOP("The Schnute method requires at least three samples.")
   # optimize for N
   tmp <- stats::optimize(iLHSchnute,c(T,ceiling(Tmult*T)),catch=catch,k=k,T=T,XX=X)
   N0 <- tmp$minimum
@@ -427,7 +427,7 @@ iZippin <- function(catch,conf.level) {
   X <- int[["X"]]
   # This condition is from equation 6 in Carle & Strub (1978)
   if (X <= (((T-1)*(k-1))/2)-1) {
-    warning("Catch data results in Zippin model failure.",call.=FALSE)
+    WARN("Catch data results in Zippin model failure.")
     # empty vector of estimates
     tmp <- rep(NA,8)
   } else {
@@ -457,7 +457,7 @@ iZippin <- function(catch,conf.level) {
 iCarleStrub <- function(catch,conf.level,alpha,beta,CS.se=c("Zippin","alternative")) {
   # Some checks
   CS.se <- match.arg(CS.se)
-  if (alpha<=0 | beta<=0) stop("'alpha' and 'beta' must be positive.",call.=FALSE)
+  if (alpha<=0 | beta<=0) STOP("'alpha' and 'beta' must be positive.")
   # Get intermediate calculations
   int <- iRemovalKTX(catch)
   k <- int[["k"]]
@@ -498,9 +498,9 @@ iSeber3 <- function(catch,conf.level) {
   X <- int[["X"]]
   # Some checks
   if (k!=3) {
-    stop("Seber (2002) 3-pass method can only be used with three samples.",call.=FALSE)
+    STOP("Seber (2002) 3-pass method can only be used with three samples.")
   } else if (catch[3] >= catch[1]) {
-    warning("Catch data results in model failure for Seber (2002) 3-pass method.",call.=FALSE)
+    WARN("Catch data results in model failure for Seber (2002) 3-pass method.")
     # empty vector of estimates
     tmp <- rep(NA,8)
   } else {
@@ -528,9 +528,9 @@ iSeber3 <- function(catch,conf.level) {
 #=============================================================
 iSeber2 <- function(catch,conf.level) {
   if (length(catch)!=2) {
-    stop("Seber (2002) 2-Pass method can only be used two samples.",call.=FALSE)
+    STOP("Seber (2002) 2-Pass method can only be used two samples.")
   } else if (catch[2] >= catch[1]) {
-    warning("Catch data results in model failure for Seber (2002) 2-Pass method.",call.=FALSE)
+    WARN("Catch data results in model failure for Seber (2002) 2-Pass method.")
     # empty vector of estimates
     tmp <- rep(NA,8)
   } else {
@@ -559,9 +559,9 @@ iSeber2 <- function(catch,conf.level) {
 #=============================================================
 iRobsonRegier2 <- function(catch,conf.level) {
   if (length(catch)!=2) {
-    stop("Robson & Regier (1968) 2-pass method can only be used two samples.",call.=FALSE)
+    STOP("Robson & Regier (1968) 2-pass method can only be used two samples.")
   } else if (catch[2] >= catch[1]) {
-    warning("Catch data results in model failure for Robson & Regier (1968) 2-pass method.",call.=FALSE)
+    WARN("Catch data results in model failure for Robson & Regier (1968) 2-pass method.")
     # return empty vector
     tmp <- rep(NA,8)
   } else {
@@ -591,8 +591,8 @@ summary.removal <- function(object,parm=c("No","p","p1"),digits=getOption("digit
   #   but stop if only p1 was chosen
   if (("p1" %in% parm) & object$method!="Schnute") {
     msg <- paste("'p1' parameter not relevant for the ",object$method," method.")
-    if (length(parm)==1) stop(msg,call.=FALSE)
-    if (length(parm)<3) warning(msg,call.=FALSE)
+    if (length(parm)==1) STOP(msg)
+    if (length(parm)<3) WARN(msg)
     parm <- parm[-which(parm=="p1")]
   }
   if (verbose) {
@@ -621,7 +621,7 @@ summary.removal <- function(object,parm=c("No","p","p1"),digits=getOption("digit
 confint.removal <- function(object,parm=c("No","p"),
                             level=conf.level,conf.level=NULL,
                             digits=getOption("digits"),verbose=FALSE,...) {
-  if (!is.null(level)) warning("The confidence level is not set here, it is set with 'conf.level=' in 'removal()'.",call.=FALSE)
+  if (!is.null(level)) WARN("The confidence level is not set here, it is set with 'conf.level=' in 'removal()'.")
   parm <- match.arg(parm,several.ok=TRUE)
   if (object$method %in% c("Zippin","CarleStrub","Seber3","Seber2","RobsonRegier2")) {
     res <- matrix(object$est[c("No.LCI","No.UCI","p.LCI","p.UCI")],nrow=2,byrow=TRUE)
@@ -631,7 +631,7 @@ confint.removal <- function(object,parm=c("No","p"),
     if (object$method %in% c("Moran","Schnute")) {
       # warn about no CIs for p with Moran and Schnute but only if p is the only parm chosen
       if ("p" %in% parm) {
-        if (length(parm)==1) stop("Confidence intervals for 'p' cannot be computed with ",object$method," method.",call.=FALSE)
+        if (length(parm)==1) STOP("Confidence intervals for 'p' cannot be computed with ",object$method," method.")
         parm <- "No"
       }
       # print messages about CI fails if they exist

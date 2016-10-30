@@ -64,15 +64,15 @@ compSlopes <- function(mdl,method=stats::p.adjust.methods,
   ## Perform some checks
   method <- match.arg(method)
   lmtype <- iTypeoflm(mdl)
-  if (lmtype$type!="IVR") stop("Function only works for dummy variable regressions.",call.=FALSE)
-  if (lmtype$Enum>2) stop("Function only works for dummy variable regressions\n with one factor and one covariate variable.",call.=FALSE)  ## isolate model information
+  if (lmtype$type!="IVR") STOP("Function only works for dummy variable regressions.")
+  if (lmtype$Enum>2) STOP("Function only works for dummy variable regressions\n with one factor and one covariate variable.")  ## isolate model information
   y <- lmtype$mf[,lmtype$Rpos]
   x <- lmtype$mf[,lmtype$ENumPos]
   g <- lmtype$mf[,lmtype$EFactPos]
   ## Handle level names and number and total number of comparisons
   lev.names <- levels(g)
   num.lvls <- length(levels(g))
-  if (num.lvls<3) warning("Function not needed with fewer than three levels.",call.=FALSE)
+  if (num.lvls<3) WARN("Function not needed with fewer than three levels.")
   num.comps <- choose(num.lvls,2)
   ## initiate results data.frames -- sdf=slopes, cdf=slope comparisons
   tmp <- rep(0,num.lvls)  # zeroes to initiate
@@ -183,14 +183,14 @@ compIntercepts <- function(mdl,common.cov=mean(x),
                            conf.level=0.95,digits=getOption("digits"),...) {
   ## Perform some checks
   lmtype <- iTypeoflm(mdl)
-  if (lmtype$type!="IVR") stop("Function only works for dummy variable regressions.",call.=FALSE)
-  if (lmtype$Enum>2) stop("Function only works for dummy variable regressions\n with one factor and one covariate variable.",call.=FALSE)
-  if (length(attr(stats::terms(mdl),"term.labels"))>2) warning("Removed an interaction term from 'mdl' (i.e., assumed\n parallel lines) to test intercepts.\n",call.=FALSE)
+  if (lmtype$type!="IVR") STOP("Function only works for dummy variable regressions.")
+  if (lmtype$Enum>2) STOP("Function only works for dummy variable regressions\n with one factor and one covariate variable.")
+  if (length(attr(stats::terms(mdl),"term.labels"))>2) WARN("Removed an interaction term from 'mdl' (i.e., assumed\n parallel lines) to test intercepts.\n")
   ## isolate model information
   y <- lmtype$mf[,lmtype$Rpos]
   x <- lmtype$mf[,lmtype$ENumPos]
   g <- lmtype$mf[,lmtype$EFactPos]
-  if (length(levels(g))<3) warning("Function not needed with fewer than three levels.",call.=FALSE)
+  if (length(levels(g))<3) WARN("Function not needed with fewer than three levels.")
   ## Fit model without an interaction term
   lm1 <- stats::lm(y~x+g)
   ## Construct the adjusted values
@@ -246,7 +246,7 @@ iExtractComparisons <- function(sum,conf,icdf,i,lev.names,num.lvls,conf.level) {
   pos <- ifelse(i==1,1,1+sum(comps[1:(i-1)]))
   for (j in (i+1):num.lvls) {
     # info on comparison of slopes w/ ref group
-    icdf$comparison[pos] <- paste(lev.names[j],"-",lev.names[i],sep="")
+    icdf$comparison[pos] <- paste0(lev.names[j],"-",lev.names[i])
     icdf$diff[pos] <- coeffs[(length(pvals)-num.lvls+j)]
     icdf$p.unadj[pos] <- pvals[(length(coeffs)-num.lvls+j)]
     icdf$lwr[pos] <- conf[(length(pvals)-num.lvls+j),1]

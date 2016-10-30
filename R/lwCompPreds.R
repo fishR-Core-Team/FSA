@@ -92,17 +92,17 @@ lwCompPreds <- function(object,lens=NULL,qlens=c(0.05,0.25,0.5,0.75,0.95),qlens.
   # check and get inerval type
   interval <- match.arg(interval)
   # check base type
-  if (!is.numeric(base)) stop("'base' must be a numeric.",call.=FALSE)
-  if (length(base)!=1) stop("'base' must be a single numeric value.",call.=FALSE)
-  if (base<=0) stop("'base' must be a positive number.",call.=FALSE)
+  if (!is.numeric(base)) STOP("'base' must be a numeric.")
+  if (length(base)!=1) STOP("'base' must be a single numeric value.")
+  if (base<=0) STOP("'base' must be a positive number.")
   ## check and extract information from the formula
   formula <- 
   tmp <- iHndlFormula(stats::formula(object),stats::model.frame(object),
                       expNumR=1,expNumE=2,expNumENums=1,expNumEFacts=1)
-  if (!tmp$metExpNumR) stop("'object' formula must have only one variable on LHS.",call.=FALSE)
-  if (!tmp$metExpNumE) stop("'object' formula must have two and only two variables on RHS.",call.=FALSE)
-  if (!tmp$metExpNumENums) stop("'object' formula must have one and only one numeric variable on RHS.",call.=FALSE)
-  if (!tmp$metExpNumEFacts) stop("'object' formula must have one and only one factor variable on RHS.",call.=FALSE)
+  if (!tmp$metExpNumR) STOP("'object' formula must have only one variable on LHS.")
+  if (!tmp$metExpNumE) STOP("'object' formula must have two and only two variables on RHS.")
+  if (!tmp$metExpNumENums) STOP("'object' formula must have one and only one numeric variable on RHS.")
+  if (!tmp$metExpNumEFacts) STOP("'object' formula must have one and only one factor variable on RHS.")
 
   # get the model.frame -- may not be needed
   mf <- tmp$mf                                                        
@@ -126,7 +126,7 @@ lwCompPreds <- function(object,lens=NULL,qlens=c(0.05,0.25,0.5,0.75,0.95),qlens.
     # find results for each length
     res <- iMakeLWPred(object,lens[i],grps,vn,interval,center.value,base)
     # make plot for each length
-    iPlotLWPred(res,grps,ylim,xlab,ylab,paste(main.pre,lens[i],sep=""),
+    iPlotLWPred(res,grps,ylim,xlab,ylab,paste0(main.pre,lens[i]),
                 cex.main,lwd,connect.preds,col.connect,interval,show.preds,yaxs)
   }
   graphics::par(opar)

@@ -55,12 +55,12 @@ ksTest.default <- function(x,y,...,alternative=c("two.sided","less","greater"),e
 ksTest.formula <- function(x,data=NULL,...,alternative=c("two.sided","less","greater"),exact=NULL) {
   ## Handle formula including checks
   tmp <- iHndlFormula(x,data,expNumR=1,expNumE=1,expNumEFacts=1)
-  if (tmp$vnum!=2) stop("Formula for `ksTest' must contain 1 response (LHS) and 1 explanatory (RHS) variable.",call.=FALSE)
-  if (!tmp$metExpNumR) stop("LHS of formula must contain only one variable.",call.=FALSE)
-  if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
-  if (!tmp$metExpNumE) stop("RHS of formula must contain only one variable.",call.=FALSE)
-  if (!tmp$metExpNumEFacts) stop("RHS Variable must be a factor.",call.=FALSE)
-  if (length(levels(tmp$mf[,tmp$EFactPos]))!=2) stop("`ksTest` only works if the RHS variable has two levels.",call.=FALSE)
+  if (tmp$vnum!=2) STOP("Formula for `ksTest' must contain 1 response (LHS) and 1 explanatory (RHS) variable.")
+  if (!tmp$metExpNumR) STOP("LHS of formula must contain only one variable.")
+  if (!tmp$Rclass %in% c("numeric","integer")) STOP("LHS variable must be numeric.")
+  if (!tmp$metExpNumE) STOP("RHS of formula must contain only one variable.")
+  if (!tmp$metExpNumEFacts) STOP("RHS Variable must be a factor.")
+  if (length(levels(tmp$mf[,tmp$EFactPos]))!=2) STOP("`ksTest` only works if the RHS variable has two levels.")
   ## Split the data into the two groups
   DF.split <- split(tmp$mf[,tmp$Rpos],tmp$mf[,tmp$EFactPos])
   ## Send to ksTest.default which ultimately goes to stats::ks.test

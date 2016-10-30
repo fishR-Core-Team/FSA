@@ -2,6 +2,7 @@
 % Please edit documentation in R/FSA-internals.R
 \name{.onAttach}
 \alias{.onAttach}
+\alias{STOP}
 \alias{iAddLoessLine}
 \alias{iCILabel}
 \alias{iCheckALK}

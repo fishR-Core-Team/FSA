@@ -90,11 +90,11 @@ psdAdd.default <- function(len,spec,units=c("mm","cm","in"),use.names=TRUE,
                            addSpec=NULL,addLens=NULL,verbose=TRUE,...) {
   ## Some checks
   units <- match.arg(units)
-  if (!is.numeric(len)) stop("'len' must be numeric.",call.=FALSE)
-  if (!(class(spec) %in% c("character","factor"))) stop("'spec' must be character or factor.",call.=FALSE)
+  if (!is.numeric(len)) STOP("'len' must be numeric.")
+  if (!(class(spec) %in% c("character","factor"))) STOP("'spec' must be character or factor.")
   if (!is.null(addSpec)) {
     if (is.null(addLens)) {
-      warning("'addSpec' is not NULL when 'addLens' is NULL; made 'addSpec' NULL.",call.=FALSE)
+      WARN("'addSpec' is not NULL when 'addLens' is NULL; made 'addSpec' NULL.")
       addSpec <- NULL
     }
     use.names <- FALSE
@@ -144,11 +144,11 @@ psdAdd.formula <- function(len,data=NULL,units=c("mm","cm","in"),use.names=TRUE,
                            addSpec=NULL,addLens=NULL,verbose=TRUE,...) {
   ## Perform some checks on the formula
   tmp <- iHndlFormula(len,data,expNumR=1,expNumE=1,expNumENums=0,expNumEFacts=1)
-  if (tmp$vnum!=2) stop("'len' must have one variable on the left-hand-side\n and one variable on the right-hand-side.",call.=FALSE)
-  if (!tmp$metExpNumR) stop("'len' must have a left-hand-side with one and only one variable.",call.=FALSE)
-  if (!(tmp$Rclass %in% c("numeric","integer"))) stop("Variable on left-hand-side of 'len' is not numeric (thus, not lengths).",call.=FALSE)
-  if (!tmp$metExpNumE) stop("'len' must have a right-hand-side with one and only one variable.",call.=FALSE)
-  if (!tmp$metExpNumEFacts) stop("'len' must have one and only one factor variable (species) on right-hand-side.",call.=FALSE)
+  if (tmp$vnum!=2) STOP("'len' must have one variable on the left-hand-side\n and one variable on the right-hand-side.")
+  if (!tmp$metExpNumR) STOP("'len' must have a left-hand-side with one and only one variable.")
+  if (!(tmp$Rclass %in% c("numeric","integer"))) STOP("Variable on left-hand-side of 'len' is not numeric (thus, not lengths).")
+  if (!tmp$metExpNumE) STOP("'len' must have a right-hand-side with one and only one variable.")
+  if (!tmp$metExpNumEFacts) STOP("'len' must have one and only one factor variable (species) on right-hand-side.")
   ## Send to default method
   psdAdd.default(tmp$mf[[tmp$Rpos]],tmp$mf[[tmp$EFactPos]],units,use.names,addSpec,addLens,verbose,...)
 }

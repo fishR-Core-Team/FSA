@@ -186,13 +186,11 @@ mrClosed <- function(M=NULL,n=NULL,m=NULL,R=NULL,
   method <- match.arg(method)
   if (method %in% c("Petersen","Chapman","Ricker","Bailey")) {
     if (!is.null(R)) {
-      ## R not used in single census methods.  If nothing else
-      ##   is supplied then just throw an error
-      if (is.null(c(M,n,m))) stop("'R' not used in single census methods;
-                                  must supply 'M', 'n', and 'm'.",
-                                  call.=FALSE)
+      ## R not in single methods.  If nothing else, throw error
+      if (is.null(c(M,n,m))) STOP("'R' not used in single census methods;
+                                  must supply 'M', 'n', and 'm'.")
       ## Otherwise warn that it will be ignored
-      warning("'R' not used in single census methods; It will be ignored.",call.=FALSE)
+      WARN("'R' not used in single census methods and will be ignored.")
     }
     iMRCSingle(M,n,m,method,labels)
   } else iMRCMultiple(M,n,m,R,method,chapman.mod)
@@ -206,29 +204,28 @@ mrClosed <- function(M=NULL,n=NULL,m=NULL,R=NULL,
 #===========================================================================
 iMRCSingle <- function(M,n,m,method,labels) {
   # initial checks
-  if (is.null(M)) stop("Missing 'M'.",call.=FALSE)
+  if (is.null(M)) STOP("'M' is missing; must be from 'capHistSum()' or value(s).")
   if (class(M)=="CapHist") {
-    if (!is.null(m) | !is.null(n)) warning("'m' and 'n' ignored when 'M' from capHistSum().",call.=FALSE)
+    if (!is.null(m) | !is.null(n)) WARN("'m' and 'n' ignored when 'M' from capHistSum().")
     m <- M$sum$m
     n <- M$sum$n
     M <- M$sum$M    
   } else {
-    if (is.null(n) | is.null(m)) stop("One or both of 'n' or 'm' is missing without 'M' from capHistSum().",
-                                      call.=FALSE)
+    if (is.null(n) | is.null(m)) STOP("One or both of 'n' or 'm' is missing without 'M' from capHistSum().")
     # Make sure that the vectors are of the same size
     lengths <- c(length(M),length(n),length(m))
-    if (any(diff(lengths)!=0)) stop("'M', 'n', or 'm' vectors must have same length.",call.=FALSE)
+    if (any(diff(lengths)!=0)) STOP("'M', 'n', or 'm' vectors must be same length.")
   }
   # Make sure that recapture number makes sense relative to sample size
   if (any((n-m)<0)) {
-    if (length(n)==1) stop ("Can't have more recaptures (m) then total individuals (n).",call.=FALSE)
-    else stop(paste("Row",which((n-m)<0),"has more recaptures (m) then total individuals (n)."),call.=FALSE)
+    if (length(n)==1) STOP("Can't have more recaptures (m) then total individuals (n).")
+    else STOP("Row ",which((n-m)<0)," has more recaptures (m) then total individuals (n).")
   } 
   # If no labels then assign letters, if labels then make sure size is correct
   if (is.null(labels)) {
     if (length(M)>1) labels=LETTERS[1:length(M)]
   } else {
-    if (length(M) != length(labels)) stop("'labels' must have same length as 'M', 'n', and 'm'.")
+    if (length(M) != length(labels)) STOP("'labels' must be same length as 'M', 'n', and 'm'.")
   }
   # handle modifications for simplicity of calculation below  
   switch(method,
@@ -256,11 +253,12 @@ iMRCSingle <- function(M,n,m,method,labels) {
 summary.mrClosed1 <- function(object,digits=0,incl.SE=FALSE,incl.all=TRUE,verbose=FALSE,...) {
   # Put descriptive label of input values at top of output if the user asked for it.
   if(verbose) {
-    if (is.null(object$labels)) message("Used ",object$methodLbl," with M=",object$M,", n=",object$n,
-                                        ", and m=",object$m,".\n",sep="")
+    if (is.null(object$labels)) message("Used ",object$methodLbl," with M=",
+                                        object$M,", n=",object$n,
+                                        ", and m=",object$m,".\n")
     else {
-      message("Used ",object$methodLbl," with observed inputs of:\n",sep="")
-      message(paste(object$labels,"- M=",object$M,", n=",object$n,", and m=",object$m,".\n",sep=""))
+      message("Used ",object$methodLbl," with observed inputs of:\n")
+      message(object$labels,"- M=",object$M,", n=",object$n,", and m=",object$m,".\n")
     }
   }
   # Put the PE into a vector to return
@@ -320,7 +318,7 @@ confint.mrClosed1 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
   type <- match.arg(type)
   bin.type <- match.arg(bin.type)
   parm <- iCI.CheckParm(parm)
-  if (conf.level<=0 | conf.level>=1) stop("'conf.level' must be between 0 and 1",call.=FALSE)
+  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
   # Construct the CIs, loop is for handling multiple groups
   ci <- NULL
   for (i in 1:length(object$N)) {
@@ -351,7 +349,7 @@ confint.mrClosed1 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
 #===========================================================================
 iCI.CheckParm <- function(parm) { # also used for multiple
   if(!is.null(parm)) {
-    warning("'parm' is meaningless for this class of object; reset to NULL.\n\n",call.=FALSE)
+    WARN("'parm' is meaningless for this class of object; reset to NULL.\n\n")
     parm <- NULL
   }
   parm
@@ -440,31 +438,30 @@ iMRCMultiple <- function(M,n,m,R,method,chapman.mod) {
     } else {
       ## Results not from capHistSum and values of M provided.
       # check if M is a vector
-      if (!is.vector(M)) stop("If given, 'M' must be a vector or from 'capHistSum()`.",call.=FALSE)
+      if (!is.vector(M)) STOP("If given, 'M' must be a vector or from 'capHistSum()`.")
       # check if M has an NA in first position
       if (is.na(M[1])) {
-        warning("NA for first sample of 'M' was ignored.",call.=FALSE)
+        WARN("NA for first sample of 'M' was ignored.")
         M[1] <- 0
       }
-      if (is.null(n) | is.null(m)) stop("One or both of 'n' or 'm' is missing without 'M' from capHistSum().",
-                                        call.=FALSE)
-      else if (!is.null(R)) warning("Only need one of 'M' or 'R'.  'R' is ignored.",call.=FALSE)
+      if (is.null(n) | is.null(m)) STOP("One or both of 'n' or 'm' is missing without 'M' from capHistSum().")
+      else if (!is.null(R)) WARN("Only need one of 'M' or 'R'.  'R' is ignored.")
       R <- n
       R[length(R)] <- 0
     }
   } else {
     ## M not provided and results not from capHistSum
-    if (is.null(R)) stop("One of 'M' or 'R' must be supplied by user",call.=FALSE)
-    if (!is.vector(R)) stop("If given, 'R' must be a vector.",call.=FALSE)
-    if (is.null(n) | is.null(m)) stop("One or both of 'n' or 'm' is missing.",call.=FALSE)
+    if (is.null(R)) STOP("One of 'M' or 'R' must be supplied by user")
+    if (!is.vector(R)) STOP("If given, 'R' must be a vector.")
+    if (is.null(n) | is.null(m)) STOP("One or both of 'n' or 'm' is missing.")
     # check if R has NA in last position
     if (is.na(R[length(R)])) {
-      warning("NA for last sample of 'R' was ignored.",call.=FALSE)
+      WARN("NA for last sample of 'R' was ignored.")
       R[length(R)] <- 0
     }
     # check if m has NA in first position
     if (is.na(m[1])) {
-      warning("NA for first sample of 'm' was ignored.",call.=FALSE)
+      WARN("NA for first sample of 'm' was ignored.")
       m[1] <- 0
     }
     # find M from R and m
@@ -502,8 +499,8 @@ iMRCMultiple <- function(M,n,m,R,method,chapman.mod) {
 summary.mrClosed2 <- function(object,digits=0,verbose=FALSE,...) {
   # Put descriptive label of input values at top of output if the user asked for it.
   if(verbose) {
-    msg <- paste("Used ",object$methodLbl,sep="")
-    ifelse(object$chapman.mod,msg <- paste(msg,"with Chapman modification.\n"),msg <- paste(msg,".\n",sep=""))
+    msg <- paste0("Used ",object$methodLbl)
+    ifelse(object$chapman.mod,msg <- paste(msg,"with Chapman modification.\n"),msg <- paste0(msg,".\n"))
     message(msg)
   }
   # Put the PE into a matrix to return
@@ -524,7 +521,7 @@ confint.mrClosed2 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
   if (type=="suggested") type <- iCI2.HandleSuggested(object)
   if (verbose) message("The ",type," distribution was used.")
   parm <- iCI.CheckParm(parm)
-  if (conf.level<=0 | conf.level>=1) stop("'conf.level' must be between 0 and 1",call.=FALSE)
+  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
   # Construct the confidence intervals
   switch(object$method,
          Schnabel= { ci <- iCI2.MRCSchnabel(object,conf.level,type,verbose,...) },
@@ -575,7 +572,7 @@ iCI2.MRCSchnabel <- function(object,conf.level,type,...) {
 iCI2.MRCSchumacher <- function(object,conf.level,type,...) {
   # check type
   if (object$method=="SchumacherEschmeyer" & type!="normal") {
-    warning("'type' changed to 'normal' for the Schumacher-Eschmeyer method.",call.=FALSE)
+    WARN("'type' changed to 'normal' for the Schumacher-Eschmeyer method.")
   }
   # Get df (from from Krebs p. 32)
   df <- length(object$n)-2

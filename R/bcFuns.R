@@ -60,11 +60,11 @@
 #' @export
 bcFuns <- function(BCM,verbose=FALSE) {
   ## Do some checking
-  if (missing(BCM)) stop("A back-calculation function must be chosen with 'BCM'",call.=FALSE)
-  if (length(BCM)>1) stop("Only one value can be given to 'BCM'",call.=FALSE)
+  if (missing(BCM)) STOP("A back-calculation function must be chosen with 'BCM'")
+  if (length(BCM)>1) STOP("Only one value can be given to 'BCM'")
   if (is.numeric(BCM)) {
     ## Function declared numerically
-    if (BCM<1 | BCM>22) stop("BCM number must be between 1 and 22 inclusive.",call.=FALSE)
+    if (BCM<1 | BCM>22) STOP("BCM number must be between 1 and 22 inclusive.")
   } else {
     ## Function declared by name
     BCM.nms <- c("DALE","FRALE","BI","LBI","BPH","LBPH","TVG","SPH","LSPH",
@@ -76,7 +76,7 @@ bcFuns <- function(BCM,verbose=FALSE) {
     if (!(BCM %in% BCM.nms)) {
       msg <- paste(strwrap(paste("'BCM' must be one of:",
                                  paste(BCM.nms,collapse=", ")),width=62),collapse="\n")
-      stop(msg,call.=FALSE)
+      STOP(msg)
     } else {
       # All is good ... convert string to numeric
       BCM <- BCM.nums[which(BCM.nms %in% BCM)]
@@ -97,7 +97,7 @@ bcFuns <- function(BCM,verbose=FALSE) {
       if (verbose) message("You have chosen the BCM4 or LBPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,a,b) { (a+b*Ri)*Lc/(a+b*Rc) }
   } else if (BCM==5) {
-      stop("The BCM5 (TVG) function is not yet implemented.",call.=FALSE)
+      STOP("The BCM5 (TVG) function is not yet implemented.")
   } else if (BCM==6) {
       if (verbose) message("You have chosen the BCM6 or LSPH back-calculation model.\n\n")
       function(Lc,Ri,Rc,A,B) { (Ri/Rc*(A+B*Lc)-A)/B }

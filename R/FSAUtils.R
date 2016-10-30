@@ -42,7 +42,7 @@ capFirst <- function(x,which=c("all","first")) {
   ## Get the class of the object
   cls <- class(x)
   ## Perform a check
-  if (!(cls %in% c("character","factor"))) stop("'capFirst' only works with 'character' or 'class' objects.",call.=FALSE)
+  if (!(cls %in% c("character","factor"))) STOP("'capFirst' only works with 'character' or 'class' objects.")
   ## Capitalize the one word or the words in the vector
   if (length(x)==1) x <- iCapFirst(x,which)
   else x <- apply(matrix(x),MARGIN=1,FUN=iCapFirst,which=which)
@@ -108,7 +108,7 @@ NULL
 chooseColors <- function(pal=paletteChoices(),num,...) {
   ## Some checks
   pal <- match.arg(pal)
-  if (!num>0) stop("'num' must be positive.",call.=FALSE)
+  if (!num>0) STOP("'num' must be positive.")
   ## Generate jet and grey colors
   jet.colors <- grDevices::colorRampPalette(c("#00007F", "blue", "#007FFF", "cyan",
                                               "#7FFF7F","yellow", "#FF7F00", "red", "#7F0000"))
@@ -160,7 +160,7 @@ paletteChoices <- function() c("rich","cm","default","grey","gray","heat","jet",
 #' @export
 col2rgbt <- function(col,transp=1) {
   if (length(transp)==1) transp <- rep(transp,length(col))
-  if (length(col)!=length(transp)) stop("Length of 'transp' must be 1 or same as length of 'col'.",call.=FALSE)
+  if (length(col)!=length(transp)) STOP("Length of 'transp' must be 1 or same as length of 'col'.")
   mapply(iMakeColor,col,transp,USE.NAMES=FALSE)
 }
 
@@ -221,8 +221,8 @@ col2rgbt <- function(col,transp=1) {
 diags <- function(x,which=0,incl.labels=c("none","row","column"),
                   val.name="value",label.name="label") {
   ## check if matrix
-  if (!is.matrix(x)) stop("'diags' only works with matrices.",call.=FALSE)
-  if (nrow(x)==1 | ncol(x)==1) stop("'x' must have more than 1 row and more than 1 column.",call.=FALSE)
+  if (!is.matrix(x)) STOP("'diags' only works with matrices.")
+  if (nrow(x)==1 | ncol(x)==1) STOP("'x' must have more than 1 row and more than 1 column.")
   ## find indices of diagonals for the matrix
   ## idea from http://stackoverflow.com/a/27935808/1123933
   ind <- row(x)-col(x)
@@ -235,7 +235,7 @@ diags <- function(x,which=0,incl.labels=c("none","row","column"),
     cat("\n")
   } else {
     ## extract diagonal from x according to which
-    if (which>max(ind) | which<min(ind)) stop("The 'which' diagonal does not exist in 'x'.",call.=FALSE)
+    if (which>max(ind) | which<min(ind)) STOP("The 'which' diagonal does not exist in 'x'.")
     res <- x[ind==which]
     ## handle adding names
     incl.labels <- match.arg(incl.labels)
@@ -287,11 +287,11 @@ diags <- function(x,which=0,incl.labels=c("none","row","column"),
 fact2num <- function(object) {
   ## Don't continue if object is not a factor or character 
   ## i.e., does not fit the purpose of this function
-  if (!class(object) %in% c("factor","character")) stop("'object' is not a factor or character and does not fit the purpose of this function.",call.=FALSE)
+  if (!class(object) %in% c("factor","character")) STOP("'object' is not a factor or character and does not fit the purpose of this function.")
   ## Convert factor to character and then numeric
   suppressWarnings(res <- as.numeric(as.character(object)))
   ## If all na's then stop because values were not numeric-like, else return
-  if (all(is.na(res))) stop("Conversion aborted because all levels in 'object' are not 'numbers'.",call.=FALSE)
+  if (all(is.na(res))) STOP("Conversion aborted because all levels in 'object' are not 'numbers'.")
   else as.vector(res)
 }
 
@@ -416,8 +416,8 @@ FSANews <- function () {
 #' @export
 headtail <- function(x,n=3L,which=NULL,addrownums=TRUE,...) {
   ## Some checks
-  if (!(is.matrix(x) | is.data.frame(x))) stop("'x' must be a matrix or data.frame.",call.=FALSE)
-  if (length(n)!=1L) stop("'n' must be a single number.",call.=FALSE)
+  if (!(is.matrix(x) | is.data.frame(x))) STOP("'x' must be a matrix or data.frame.")
+  if (length(n)!=1L) STOP("'n' must be a single number.")
   ## Remove tbl_df class if it exists
   if ("tbl_df" %in% class(x)) x <- as.data.frame(x)
   ## Process data.frame
@@ -467,10 +467,10 @@ headtail <- function(x,n=3L,which=NULL,addrownums=TRUE,...) {
 #' @export
 hoCoef <- function(object,term=2,bo=0,alt=c("two.sided","less","greater")) {
   alt <- match.arg(alt)
-  if (!"lm" %in% class(object)) stop("'object' must be from 'lm'.",call.=FALSE)
-  if (!term>0) stop("'term' must be a positive number.",call.=FALSE)
+  if (!"lm" %in% class(object)) STOP("'object' must be from 'lm'.")
+  if (!term>0) STOP("'term' must be a positive number.")
   tmp <- summary(object)$coefficients
-  if (term>length(rownames(tmp))) stop("'term' is greater than number of terms in the model.",call.=FALSE)
+  if (term>length(rownames(tmp))) STOP("'term' is greater than number of terms in the model.")
   est <- tmp[term,"Estimate"]
   se <- tmp[term,"Std. Error"]
   t <- (est-bo)/se
@@ -530,9 +530,9 @@ hoCoef <- function(object,term=2,bo=0,alt=c("two.sided","less","greater")) {
 lagratio <- function(x,lag=1L,recursion=1L,differences=recursion,direction=c("backward","forward"),...) {
   ## Some checks
   direction <- match.arg(direction)
-  if(any(x==0)) stop("Will not work with zeroes in 'x'.",call.=FALSE)
-  if(any(class(x) %in% c("POSIXt","POSIXct"))) stop("Function does not work for 'POSIXt' objects.",call.=FALSE)
-  if (!recursion>0) stop("'recursion' value must be >0.",call.=FALSE)
+  if(any(x==0)) STOP("Will not work with zeroes in 'x'.")
+  if(any(class(x) %in% c("POSIXt","POSIXct"))) STOP("Function does not work for 'POSIXt' objects.")
+  if (!recursion>0) STOP("'recursion' value must be >0.")
   ## Flip vector if ratio direction is forward
   if (direction=="forward") x <- rev(x)
   ## Compute lagged ratio
@@ -588,7 +588,7 @@ lagratio <- function(x,lag=1L,recursion=1L,differences=recursion,direction=c("ba
 #' @rdname logbtcf
 #' @export
 logbtcf <- function(obj,base=exp(1)) {
-  if (!all(class(obj)=="lm")) stop("'obj' must be from lm().",call.=FALSE)
+  if (!all(class(obj)=="lm")) STOP("'obj' must be from lm().")
   exp(((log(base)*summary(obj)$sigma)^2)/2)
 }
 
@@ -630,8 +630,8 @@ is.even <- function(x) iOddEven(x,0)
 
 ## Internal function
 iOddEven <- function(x,checkval) {
-  if (!is.vector(x)) stop("'x' must be a vector.",call.=FALSE)
-  if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
+  if (!is.vector(x)) STOP("'x' must be a vector.")
+  if (!is.numeric(x)) STOP("'x' must be numeric.")
   x%%2 == checkval
 }
 
@@ -674,8 +674,8 @@ iOddEven <- function(x,checkval) {
 perc <- function(x,val,dir=c("geq","gt","leq","lt"),na.rm=TRUE,digits=getOption("digits")) {
   ## Some checks
   dir <- match.arg(dir)
-  if (!class(x) %in% c("numeric","integer")) stop("'perc' only works for numeric vectors.",call.=FALSE)
-  if (length(val)>1) warning("Only the first value of 'val' was used.",call.=FALSE)
+  if (!class(x) %in% c("numeric","integer")) STOP("'perc' only works for numeric vectors.")
+  if (length(val)>1) WARN("Only the first value of 'val' was used.")
   ## Find sample size (don't or do include NA values)
   n <- ifelse(na.rm,length(x[!is.na(x)]),length(x))
   ## Compute percentage in dir(ection) of val(ue), but return
@@ -777,12 +777,12 @@ pcumsum <- function(x) {
 iChkCumSum <- function(x) {
   tmp <- class(x)
   if ("matrix" %in% tmp | "data.frame" %in% tmp) {
-    if (all(dim(x)!=1)) stop("'x' is not 1-dimensional.",call.=FALSE)
+    if (all(dim(x)!=1)) STOP("'x' is not 1-dimensional.")
   }
   if ("table" %in% tmp | "xtabs" %in% tmp) {
-    if (length(dim(x))>1) stop("'x' is not 1-dimensional.",call.=FALSE)
+    if (length(dim(x))>1) STOP("'x' is not 1-dimensional.")
   }
-  if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
+  if (!is.numeric(x)) STOP("'x' must be numeric.")
 }
 
 
@@ -818,8 +818,8 @@ iChkCumSum <- function(x) {
 #' 
 #' @export
 se <- function (x,na.rm=TRUE) {
-  if (!is.vector(x)) stop("'x' must be a vector.",call.=FALSE)
-  if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
+  if (!is.vector(x)) STOP("'x' must be a vector.")
+  if (!is.numeric(x)) STOP("'x' must be numeric.")
   if (na.rm) x <- x[stats::complete.cases(x)]
   sqrt(stats::var(x)/length(x))
 }
@@ -877,12 +877,12 @@ NULL
 #' @rdname Subset
 #' @export
 Subset <- function(x,subset,select,drop=FALSE,resetRownames=TRUE,...) {
-  if (!is.data.frame(x)) stop("Subset should only be used with data frames.  See ?subset for other structures.",call.=FALSE)
+  if (!is.data.frame(x)) STOP("Subset should only be used with data frames.  See ?subset for other structures.")
   if (missing(subset)) r <- TRUE
   else {
     e <- substitute(subset)
     r <- eval(e, x, parent.frame())
-    if (!is.logical(r)) stop("'subset' must evaluate to logical.",call.=FALSE)
+    if (!is.logical(r)) STOP("'subset' must evaluate to logical.")
     r <- r & !is.na(r)
   }
   if (missing(select)) vars <- TRUE
@@ -893,7 +893,7 @@ Subset <- function(x,subset,select,drop=FALSE,resetRownames=TRUE,...) {
   }
   res <- droplevels(x[r,vars,drop=drop])
   if (resetRownames) rownames(res) <- NULL
-  if (nrow(res)==0) warning("The resultant data.frame has 0 rows.  Try str() on the result.\n",call.=FALSE)
+  if (nrow(res)==0) WARN("The resultant data.frame has 0 rows.  Try str() on the result.\n")
   res
 }
 
@@ -902,7 +902,7 @@ Subset <- function(x,subset,select,drop=FALSE,resetRownames=TRUE,...) {
 filterD <- function(x,...,except=NULL) {
   res <- dplyr::filter(x,...)
   res <- droplevels(res,except)
-  if (nrow(res)==0) warning("The resultant data.frame has 0 rows.  Try str() on the result.\n",call.=FALSE)
+  if (nrow(res)==0) WARN("The resultant data.frame has 0 rows.  Try str() on the result.\n")
   res
 }
 
@@ -943,12 +943,12 @@ validn <- function(object) {
   ## Handle data.frame
   if (is.data.frame(object)) {
     if (ncol(object)==1) object <- object[,1]
-    else stop("'object' cannot be a data.frame with more than one column.",call.=FALSE)
+    else STOP("'object' cannot be a data.frame with more than one column.")
   }
   ## Handle matrix
   if (is.matrix(object)) {
     if (ncol(object)==1) object <- object[,1]
-    else stop("'object' cannot be a matrix with more than one column.",call.=FALSE)
+    else STOP("'object' cannot be a matrix with more than one column.")
   }
   sum(!is.na(object))
 }
@@ -1007,11 +1007,11 @@ geosd <- function(x,na.rm=FALSE,zneg.rm=FALSE) {
 
 
 iChk4Geos <- function(x,na.rm,zneg.rm) {
-  if (!is.vector(x)) stop("'x' must be a vector.",call.=FALSE)
-  if (!is.numeric(x)) stop("'x' must be a numeric vector.",call.=FALSE)
-  if (any(x<=0,na.rm=na.rm) & !zneg.rm) stop("'x' must contain all positive values.",call.=FALSE)
+  if (!is.vector(x)) STOP("'x' must be a vector.")
+  if (!is.numeric(x)) STOP("'x' must be a numeric vector.")
+  if (any(x<=0,na.rm=na.rm) & !zneg.rm) STOP("'x' must contain all positive values.")
   if (any(x<=0,na.rm=na.rm) & zneg.rm) {
-    warning("Some non-positive values were ignored/removed.",call.=FALSE)
+    WARN("Some non-positive values were ignored/removed.")
     # remove non-positive values
     x <- x[x>0]
   }

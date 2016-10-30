@@ -79,7 +79,7 @@ psdVal <- function(species="List",units=c("mm","cm","in"),incl.zero=TRUE,
       # handle duplicated values
       tmp <- which(PSDvec %in% addLens)
       if (length(tmp>0)) {
-        warning("At least one Gabelhouse length that was in 'addLens' has been removed.",call.=FALSE)
+        WARN("At least one Gabelhouse length that was in 'addLens' has been removed.")
         PSDvec <- PSDvec[-tmp]
       }
       # append the new lens to the Gabelhouse lengths
@@ -98,9 +98,9 @@ psdVal <- function(species="List",units=c("mm","cm","in"),incl.zero=TRUE,
 # ============================================================
 iPSDLitCheck <- function(data,species) {
   OK <- FALSE
-  if (length(species)!=1) stop("'species' can have only one name.",call.=FALSE)
+  if (length(species)!=1) STOP("'species' can have only one name.")
   else if (species=="List") iListSpecies(data)
-       else if (!any(levels(data$species)==species)) stop("The Gabelhouse lengths do not exist for ",species,".\n  Type psdVal() for a list of available species.\n\n",call.=FALSE)
+       else if (!any(levels(data$species)==species)) STOP("The Gabelhouse lengths do not exist for ",species,".\n  Type psdVal() for a list of available species.\n\n")
             else OK <- TRUE
   OK
 }
@@ -118,7 +118,7 @@ iHndlAddNames <- function(addLens,addNames) {
     else {
       ## Otherwise change the names to what is in addNames
       ##   but make sure they are the same length first
-      if (length(addLens)!=length(addNames)) stop("'addLens' and 'addNames' have different lengths.",call.=FALSE)
+      if (length(addLens)!=length(addNames)) STOP("'addLens' and 'addNames' have different lengths.")
       names(addLens) <- addNames
     }
   }

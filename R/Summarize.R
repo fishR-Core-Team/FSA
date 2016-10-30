@@ -90,9 +90,9 @@ Summarize.default <- function(object,digits=getOption("digits"),
   nvalid <- match.arg(nvalid)
   percZero <- match.arg(percZero)
   ## Do some checking on object type
-  if (is.data.frame(object)) stop("'Summarize' does not work with a data.frame.",call.=FALSE)
+  if (is.data.frame(object)) STOP("'Summarize' does not work with a data.frame.")
   if (is.matrix(object)) {
-    if (ncol(object)>1) stop("'Summarize' does not work with matrices.",call.=FALSE)
+    if (ncol(object)>1) STOP("'Summarize' does not work with matrices.")
     else {
       # convert 1-d matrices to vectors
       if (is.numeric(object)) object <- as.numeric(object[,1])
@@ -100,7 +100,7 @@ Summarize.default <- function(object,digits=getOption("digits"),
     }
   }
   ## Start processing
-  if (!is.numeric(object)) stop("'Summarize' only works with a numeric variable",call.=FALSE)
+  if (!is.numeric(object)) STOP("'Summarize' only works with a numeric variable")
   else iSummarizeQ1(object,digits,na.rm,nvalid,percZero)
 }
 
@@ -121,10 +121,10 @@ Summarize.formula <- function(object,data=NULL,digits=getOption("digits"),
     Summarize(tmp$mf[,1],digits=digits,na.rm=na.rm,exclude=exclude,nvalid,percZero,...)
   } else {
     ## More than one variable
-    if (!tmp$metExpNumR) stop("Must have one variable on LHS of formula with more than one variable",call.=FALSE)
+    if (!tmp$metExpNumR) STOP("Must have one variable on LHS of formula with more than one variable")
     if (tmp$Rclass %in% c("numeric","integer")) {
       iSummarizeQf(tmp,digits,na.rm,exclude,nvalid,percZero)
-    } else stop("'Summarize' only works with a numeric variable on LHS.",call.=FALSE)
+    } else STOP("'Summarize' only works with a numeric variable on LHS.")
   }
 }
 
@@ -182,7 +182,7 @@ iSummarizeQf <- function(tmp,digits,na.rm,exclude,nvalid,percZero) {
   ## Get the response variable
   nv <- tmp$mf[,tmp$Rpos]
   ## Make sure LHS is simple enough
-  if (tmp$Enum>2) stop("With a quantitative response (LHS), the RHS\n may contain only one or two factors.",call.=FALSE)
+  if (tmp$Enum>2) STOP("With a quantitative response (LHS), the RHS\n may contain only one or two factors.")
   ## Get results for quant variable by each level of interaction variable.
   if (tmp$Enum==1) { ## Only one explanatory variable
     rv <- tmp$mf[,tmp$Enames]

@@ -84,16 +84,16 @@ dunnTest.default <- function(x,g,
   Name <- adjNAMES[which(dunn.test::p.adjustment.methods[c(4,2:3,5:8,1)]==method)]
   
   ## check variable types
-  if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
+  if (!is.numeric(x)) STOP("'x' must be numeric.")
   if (!is.factor(g)) {
-    if (!(is.integer(g)|is.character(g))) stop("'g' must be coerceable to a factor.",call.=FALSE)
+    if (!(is.integer(g)|is.character(g))) STOP("'g' must be coerceable to a factor.")
     g <- as.factor(g)
-    warning("'g' variable was coerced to a factor.",call.=FALSE)
+    WARN("'g' variable was coerced to a factor.")
   }
   ## Find missing values in x and g, and remove
   ok <- stats::complete.cases(x,g)
   if (sum(!ok)>0) {
-    warning("Some rows deleted from 'x' and 'g' because missing data.",call.=FALSE)
+    WARN("Some rows deleted from 'x' and 'g' because missing data.")
     x <- x[ok]
     g <- g[ok]
   }
@@ -101,7 +101,7 @@ dunnTest.default <- function(x,g,
   ## MAIN CALCULATIONS (using dunn.test() from dunn.test package)
   # Result is in res, capture.output() is used to ignore the cat()ted
   # output from dunn.test(), which is in dtres
-  if (!requireNamespace("dunn.test")) stop("'dunnTest' requires the 'dunn.test' package to be installed!",call.=FALSE)
+  if (!requireNamespace("dunn.test")) STOP("'dunnTest' requires the 'dunn.test' package to be installed!")
   else {
     dtres <- utils::capture.output(res <- dunn.test::dunn.test(x,g,method,TRUE,...))
     # return a list
@@ -127,13 +127,13 @@ dunnTest.formula <- function(x,data=NULL,
   tmp <- iHndlFormula(x,data,expNumR=1,expNumE=1)
   d <- tmp$mf
   ## perform some simple checks on the formula and variables
-  if (!tmp$metExpNumR) stop("'dunnTest' must have only one LHS variable.",call.=FALSE)
-  if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
-  if (!tmp$metExpNumE) stop("'dunnTest' must have only one RHS variable.",call.=FALSE)
+  if (!tmp$metExpNumR) STOP("'dunnTest' must have only one LHS variable.")
+  if (!tmp$Rclass %in% c("numeric","integer")) STOP("LHS variable must be numeric.")
+  if (!tmp$metExpNumE) STOP("'dunnTest' must have only one RHS variable.")
   if (tmp$Eclass!="factor") {
-    if (tmp$Eclass=="numeric") stop("RHS variable must be a factor.",call.=FALSE)
+    if (tmp$Eclass=="numeric") STOP("RHS variable must be a factor.")
     d[,tmp$Enames] <- as.factor(d[,tmp$Enames])
-    warning(tmp$Enames," was coerced to a factor.",call.=FALSE)
+    WARN(tmp$Enames," was coerced to a factor.")
   }
   ## send the two variables to dunnTest.default
   dunnTest.default(d[,tmp$Rname],d[,tmp$Enames],method=method,two.sided=two.sided,...)

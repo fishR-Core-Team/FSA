@@ -4,7 +4,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach iAddLoessLine iCheckALK iCheckStartcatW iCILabel iGetVarFromFormula iHndlCols2use iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iTypeoflm iGetDecimals
+#' @aliases .onAttach iAddLoessLine iCheckALK iCheckStartcatW iCILabel iGetVarFromFormula iHndlCols2use iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iTypeoflm iGetDecimals STOP
 
 
 ##################################################################
@@ -53,44 +53,44 @@ iCheckALK <- function(key,only1=FALSE,remove0rows=FALSE) {
   options(warn=-1) ## turn off warnings
   tmp <- as.numeric(rownames(key))
   options(warn=0)
-  if (any(is.na(tmp))) stop("The row names of 'key' must be numeric (and\n contain the minimum value of the lenth intervals).",call.=FALSE)
+  if (any(is.na(tmp))) STOP("The row names of 'key' must be numeric (and\n contain the minimum value of the lenth intervals).")
   options(warn=-1) ## turn off warnings
   tmp <- as.numeric(colnames(key))
   options(warn=0)
-  if (any(is.na(tmp))) stop("The column names of 'key' must be numeric\n (and contain age values).",call.=FALSE)  
+  if (any(is.na(tmp))) STOP("The column names of 'key' must be numeric\n (and contain age values).")  
   ## Check if key is proportions, if not change to proportions
   if (any(key>1,na.rm=TRUE)) {
-    warning("'key' contained values >1; to continue, assumed\n values were frequencies and converted to row proportions.",call.=FALSE)
+    WARN("'key' contained values >1; to continue, assumed\n values were frequencies and converted to row proportions.")
     key <- prop.table(key,margin=1)
   }
   ## Remove rows that sum to 0 or NA (i.e., only keeps lens with data in key)
   key.rowSum <- rowSums(key,na.rm=TRUE)
   if (remove0rows & any(key.rowSum==0)) {
-    warning("'key' contained rows that sum to 0; as requested,\n these rows were removed from the table.",call.=FALSE)
+    WARN("'key' contained rows that sum to 0; as requested,\n these rows were removed from the table.")
     key <- key[!is.na(key.rowSum) & key.rowSum!=0,]
   }
   ## Check if rows sum to 1 (allow for some minimal rounding error and does not consider zeroes )
-  if (any(key.rowSum>0.01 & (key.rowSum<0.99 | key.rowSum>1.01))) warning("Key contained a row that does not sum to 1.",call.=FALSE)
+  if (any(key.rowSum>0.01 & (key.rowSum<0.99 | key.rowSum>1.01))) WARN("Key contained a row that does not sum to 1.")
   ## Check if rows sum to 0 (allow for some minimal rounding error)
-  if (!only1 & !remove0rows & any(key.rowSum==0)) warning("Key contained rows that sum to 0.",call.=FALSE)
+  if (!only1 & !remove0rows & any(key.rowSum==0)) WARN("Key contained rows that sum to 0.")
   ## Return the potentially modified key
   key
 }
 
 
 iCheckW <- function(w) {
-  if (!is.numeric(w)) stop("'w' must be numeric.",call.=FALSE)
-  if (length(w)>1) stop("'w' must be a single value.",call.=FALSE)
-  if (w<=0) stop("'w' must be positive.",call.=FALSE)
+  if (!is.numeric(w)) STOP("'w' must be numeric.")
+  if (length(w)>1) STOP("'w' must be a single value.")
+  if (w<=0) STOP("'w' must be positive.")
   # returns decimals of w
   iGetDecimals(w)
 }
 
 iCheckStartcat <- function(startcat,w,d) {
-  if (!is.numeric(startcat)) stop("'startcat' must be numeric.",call.=FALSE)
-  if (length(startcat)>1) stop("'startcat' must be a single value.",call.=FALSE)
-  if (startcat<0) stop("'startcat' must be non-negative.",call.=FALSE)
-  if (round(min(d,na.rm=TRUE),w) < round(startcat,w)) stop("'startcat' is larger than the minimum observation.",call.=FALSE)
+  if (!is.numeric(startcat)) STOP("'startcat' must be numeric.")
+  if (length(startcat)>1) STOP("'startcat' must be a single value.")
+  if (startcat<0) STOP("'startcat' must be non-negative.")
+  if (round(min(d,na.rm=TRUE),w) < round(startcat,w)) STOP("'startcat' is larger than the minimum observation.")
   # return decimals of w
   iGetDecimals(startcat)
 }
@@ -99,21 +99,22 @@ iCheckStartcatW <- function(startcat,w,d) {
   wdec <- iCheckW(w)
   scdec <- iCheckStartcat(startcat,w,d)
   # does w have more than (or equal) decimals as startcat 
-  if (scdec>wdec) stop("'startcat' should not have more decimals than 'w'.",
+  if (scdec>wdec) STOP("'startcat' should not have more decimals than 'w'.",
                        call.=FALSE)
   # return decimals
   list(scdec=scdec,wdec=wdec)
 }
 
 
-iCILabel <- function(conf.level,digits=1) paste(paste(round(100*conf.level,digits),"%",sep=""),c("LCI","UCI"))
+iCILabel <- function(conf.level,digits=1) paste(paste0(round(100*conf.level,digits),"%"),
+                                                c("LCI","UCI"))
 
 
 iGetVarFromFormula <- function(formula,data,expNumVars=NULL) {
   varNms <- names(stats::model.frame(formula,data=data))
   # don't "error" check the number of variables
   if (is.null(expNumVars)) varNms
-  else if (length(varNms)!=expNumVars) stop("Function only works with formulas with ",expNumVars," variable",ifelse(expNumVars==1,".","s."))
+  else if (length(varNms)!=expNumVars) STOP("Function only works with formulas with ",expNumVars," variable",ifelse(expNumVars==1,".","s."))
   else varNms
 }
 
@@ -124,7 +125,7 @@ iHndlCols2use <- function(df,cols2use,cols2ignore) {
     return(df)
   } else {
     ## Can't use both cols2use and cols2ignore
-    if (!is.null(cols2use) & !is.null(cols2ignore)) stop("Cannot use both 'cols2use' and 'cols2ignore'.",call.=FALSE)
+    if (!is.null(cols2use) & !is.null(cols2ignore)) STOP("Cannot use both 'cols2use' and 'cols2ignore'.")
     ## Handle cols2use
     if (!is.null(cols2use)) {
       ## Convert character column names to numeric
@@ -140,7 +141,7 @@ iHndlCols2use <- function(df,cols2use,cols2ignore) {
     }
     ## Return data.frame of only columns asked for
     res <- df[,cols2use,drop=FALSE]
-    if (ncol(res)==0) warning("Resultant data.frame contains no columns.",call.=FALSE)
+    if (ncol(res)==0) WARN("Resultant data.frame contains no columns.")
     return(res)
   }
 }
@@ -162,7 +163,7 @@ iHndlFormula <- function(formula,data,expNumR=NULL,
       fcLHS <- as.character(formula)[2]
       ifelse(any(c("*","+") %in% substring(fcLHS,1:nchar(fcLHS),1:nchar(fcLHS))),LHSgt1 <- TRUE, LHSgt1 <- FALSE)
       # STOP if there is more than one variable on LHS
-      if (LHSgt1) stop("Function does not work with more than one variable on the LHS.",call.=FALSE)
+      if (LHSgt1) STOP("Function does not work with more than one variable on the LHS.")
       else {
         # There is a LHS and it has only one variable.
         Rpos <- Rnum <- 1
@@ -272,7 +273,7 @@ iMakeColor <- function(col,transp) {
   ##  as the number of points plotted on top of each other before the
   ##  transparency is lost and is, thus, transformed to 1/transp.
   ## The return value is an rgb() color.
-  if (transp <= 0) stop("'transp' must be greater than 0.",call.=FALSE)
+  if (transp <= 0) STOP("'transp' must be greater than 0.")
   if (transp > 1) transp <- 1/transp
   colprts <- grDevices::col2rgb(col)/255
   grDevices::rgb(colprts[1,1],colprts[2,1],colprts[3,1],transp)
@@ -280,12 +281,12 @@ iMakeColor <- function(col,transp) {
 
 
 iTypeoflm <- function(mdl) {
-  if (any(class(mdl)!="lm")) stop("'iTypeoflm' only works with objects from 'lm()'.",call.=FALSE)
+  if (any(class(mdl)!="lm")) STOP("'iTypeoflm' only works with objects from 'lm()'.")
   tmp <- iHndlFormula(stats::formula(mdl),stats::model.frame(mdl))
-  if (tmp$Enum==0) stop("Object must have one response and at least one explanatory variable",call.=FALSE)
-  if (!tmp$Rclass %in% c("numeric","integer")) stop("Response variable must be numeric",call.=FALSE)
+  if (tmp$Enum==0) STOP("Object must have one response and at least one explanatory variable")
+  if (!tmp$Rclass %in% c("numeric","integer")) STOP("Response variable must be numeric")
   if (tmp$Etype=="factor") { #ANOVA
-    if (tmp$EFactNum>2) stop("Function only works for one- or two-way ANOVA.")
+    if (tmp$EFactNum>2) STOP("Function only works for one- or two-way ANOVA.")
     if (tmp$EFactNum==2) lmtype <- "TWOWAY"
     else lmtype <- "ONEWAY"
   } else { # not an anova
@@ -305,12 +306,18 @@ iTypeoflm <- function(mdl) {
 ## Completely from Peter Savicky in http://r.789695.n4.nabble.com/number-of-decimal-places-in-a-number-td4635697.html
 ################################################################################
 iGetDecimals <- function(x) {
-  if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
-  if (length(x)>1) stop("'x' must be a single value.",call.=FALSE)
+  if (!is.numeric(x)) STOP("'x' must be numeric.")
+  if (length(x)>1) STOP("'x' must be a single value.")
   if (is.integer(x)) 0
   else {
     tmp <- format.info(x,digits=10)
     stopifnot(tmp[3]==0)
     tmp[2]
   }
+}
+
+# same as stop() and warning() but with call.=FALSE as default
+STOP <- function(...,call.=FALSE,domain=NULL) stop(...,call.,domain)
+WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
+  warning(...,call.,immediate.,noBreaks.,domain)
 }

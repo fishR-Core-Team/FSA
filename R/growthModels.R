@@ -602,7 +602,7 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
       }
     )
   }
-  if (simple) param <- paste("S",param,sep="")
+  if (simple) param <- paste0("S",param)
   get(param)
 }
 
@@ -737,7 +737,7 @@ GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
            }
     )
   }
-  if (simple) param <- paste("S",param,sep="")
+  if (simple) param <- paste0("S",param)
   get(param)
 }
 
@@ -809,7 +809,7 @@ RichardsFuns <- function(param=1,simple=FALSE,msg=FALSE) {
     Lninf+(Linf-Lninf)*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))
   }
   ## Main function
-  if (!param %in% 1:6) stop("'param' must be in 1:6.")
+  if (!param %in% 1:6) STOP("'param' must be in 1:6.")
   param <- paste0("Richards",param)
   if (msg) {
     switch(param,
@@ -864,7 +864,7 @@ RichardsFuns <- function(param=1,simple=FALSE,msg=FALSE) {
            }
     )
   }
-  if (simple) param <- paste("S",param,sep="")
+  if (simple) param <- paste0("S",param)
   get(param)
 }
 
@@ -947,7 +947,7 @@ logisticFuns <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1",
            }
     )
   }
-  if (simple) param <- paste("S",param,sep="")
+  if (simple) param <- paste0("S",param)
   get(param)
 }
 
@@ -1003,26 +1003,26 @@ logisticFuns <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1",
 Schnute <- function(t,case=1,t1=NULL,t3=NULL,L1=NULL,L3=NULL,a=NULL,b=NULL) {
   ## check case
   case <- as.character(case)
-  if (!case %in% c("1","2","3","4")) stop("'case' must be 1, 2, 3, or 4.",call.=FALSE)
+  if (!case %in% c("1","2","3","4")) STOP("'case' must be 1, 2, 3, or 4.")
   ## needed to get around global binding issue
   b <- b
   ## check t1 and t3
   if (length(t)==1) {
-    if (is.null(t1)) stop("Must provide a 't1' if 't' is only one value.",call.=FALSE)
-    if (is.null(t3)) stop("Must provide a 't3' if 't' is only one value.",call.=FALSE)
+    if (is.null(t1)) STOP("Must provide a 't1' if 't' is only one value.")
+    if (is.null(t3)) STOP("Must provide a 't3' if 't' is only one value.")
   } else {
     if (is.null(t1)) t1 <- min(t,na.rm=TRUE)
     if (is.null(t3)) t3 <- max(t,na.rm=TRUE)
   }
-  if (t1==t3) stop("'t1' cannot equal 't3'.",call.=FALSE)
+  if (t1==t3) STOP("'t1' cannot equal 't3'.")
   if (t1>t3) {
-    warning("'t1' was greater than 't3'; values reversed.",call.=FALSE)
+    WARN("'t1' was greater than 't3'; values reversed.")
     tmp <- t3
     t3 <- t1
     t1 <- tmp
   }
   ## check L1 and L3
-  if (L1>L3) stop ("'L1' cannot be greater than 'L3'",call.=FALSE)
+  if (L1>L3) stop ("'L1' cannot be greater than 'L3'")
   ## Compute values based on case
   switch(case,
          "1"={ val <- ((L1^b)+((L3^b)-(L1^b))*((1-exp(-a*(t-t1)))/(1-exp(-a*(t3-t1)))))^(1/b) },
@@ -1064,7 +1064,7 @@ iSGF_VB <- function(param=c("Original","original","vonBertalanffy",
                            "Schnute","Francis","Laslett","Polacheck",
                            "Somers","Somers2","Pauly",
                            "Fabens","Fabens2","Wang","Wang2","Wang3")) {
-  if(!is.character(param)) stop("'param' must be a character string.",call.=FALSE)
+  if(!is.character(param)) STOP("'param' must be a character string.")
   param <- match.arg(param)
   switch(param,
     Ogle= {
@@ -1131,7 +1131,7 @@ iSGF_VB <- function(param=c("Original","original","vonBertalanffy",
 iSGF_GOMP <- function(param=c("Original","original","Ricker1","Ricker2","Ricker3",
                              "QuinnDeriso1","QuinnDeriso2","QuinnDeriso3","QD1","QD2","QD3",
                              "Troynikov1","Troynikov2")) {
-  if(!is.character(param)) stop("'param' must be a character string.",call.=FALSE)
+  if(!is.character(param)) STOP("'param' must be a character string.")
   param <- match.arg(param)
   switch(param,
     Original=,original= {
@@ -1159,8 +1159,8 @@ iSGF_GOMP <- function(param=c("Original","original","Ricker1","Ricker2","Ricker3
 }
 
 iSGF_RICHARDS <- function(param=1:6) {
-  if (!is.numeric(param)) stop("'param' must be numeric when type='Richards'.",call.=FALSE)
-  if (!param %in% 1:6) stop("'param' must be from 1-6 when type='Richards'.",call.=FALSE)
+  if (!is.numeric(param)) STOP("'param' must be numeric when type='Richards'.")
+  if (!param %in% 1:6) STOP("'param' must be from 1-6 when type='Richards'.")
   if(param==1){
     expr <- expression(E(L[t])==L[infinity]*~bgroup("(",1-a*e^{-kt},")")^{b})
   } else if (param==2) {
@@ -1178,7 +1178,7 @@ iSGF_RICHARDS <- function(param=1:6) {
 }
 
 iSGF_LOGISTIC <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1","CampanaJones2")) {
-  if(!is.character(param)) stop("'param' must be a character string.",call.=FALSE)
+  if(!is.character(param)) STOP("'param' must be a character string.")
   param <- match.arg(param)
   switch(param,
     CJ1=,CampanaJones1= {
@@ -1197,8 +1197,8 @@ iSGF_LOGISTIC <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1"
 }
 
 iSGF_SCHNUTE <- function(case=1:4) {
-  if (!is.numeric(case)) stop("'case' must be numeric when type='Schnute'.",call.=FALSE)
-  if (!case %in% 1:4) stop("'case' must be from 1-4 when type='Schnute'.",call.=FALSE)
+  if (!is.numeric(case)) STOP("'case' must be numeric when type='Schnute'.")
+  if (!case %in% 1:4) STOP("'case' must be from 1-4 when type='Schnute'.")
   if(case==1){
     expr <- expression(E(L[t])==bgroup("[",L[1]^{b}+(L[3]^{b}-L[1]^{b})*~frac(1-e^{-a*(~t~-~t[1])},1-e^{-a*(~t[3]~-~t[1])}),"]")^{~frac(1,b)})
   } else if (case==2) {

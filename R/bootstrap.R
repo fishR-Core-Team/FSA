@@ -229,17 +229,15 @@ iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
   else {
     if (is.numeric(parm)) {
       # check numeric parm
-      if (any(parm<0) & any(parm>0)) stop("Numbers in 'parm' cannot be both positive and negative.",
-                                          call.=FALSE)
-      if (max(abs(parm))>ncol(object)) stop("Number in 'parm' exceeds number of columns.",call.=FALSE)
+      if (any(parm<0) & any(parm>0)) STOP("Numbers in 'parm' cannot be both positive and negative.")
+      if (max(abs(parm))>ncol(object)) STOP("Number in 'parm' exceeds number of columns.")
     } else {
       # check named parm
-      if (!all(parm %in% colnames(object))) stop("Name in 'parm' does not exist in 'object'.",
-                                                 call.=FALSE)
+      if (!all(parm %in% colnames(object))) STOP("Name in 'parm' does not exist in 'object'.")
     }
   }
   ## Check on conf.level
-  if (conf.level<=0 | conf.level>=1) stop("'conf.level' must be between 0 and 1",call.=FALSE)
+  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
   ## Reduce object to have only the parm columns in it
   object <- object[,parm,drop=FALSE]
   ## Compute CIs for each column, but handle differently if vector or matrix
@@ -271,8 +269,8 @@ iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
 ## ===========================================================
 iPredictBoot <- function(object,FUN,MARGIN,conf.level,digits,...) {
   ## Some checks
-  if (class(FUN)!="function") stop("'FUN' is not a function.",call.=FALSE)
-  if (conf.level<=0 | conf.level>=1) stop("'conf.level' must be between 0 and 1",call.=FALSE)
+  if (class(FUN)!="function") STOP("'FUN' is not a function.")
+  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
   ## Get items in the dots
   tmp <- list(...)
   ## Prep the results matrix
@@ -291,7 +289,7 @@ iPredictBoot <- function(object,FUN,MARGIN,conf.level,digits,...) {
   }
   ## Potentially round the median and CI results
   if (!is.null(digits)) {
-    if (digits<=0) stop("'digits' must be positive.",call.=FALSE)
+    if (digits<=0) STOP("'digits' must be positive.")
     res[,2:4] <- round(res[,2:4],digits)
   }
   colnames(res) <- c(names(tmp1)[1],"Median",iCILabel(conf.level))
@@ -309,19 +307,18 @@ iHTestBoot <- function(object,parm,bo=0,alt=c("two.sided","less","greater"),plot
   ## Multiple parm values in object, make sure a parm was selected
   ## if it was then reduce object to vector of that parm
   if (!is.null(dim(object))) {
-    if (is.null(parm)) stop("You must select a parameter to test with `parm`.",call.=FALSE)
+    if (is.null(parm)) STOP("You must select a parameter to test with `parm`.")
     else {
       # check parm
-      if (length(parm)>1) stop("'parm' must be of length 1.",call.=FALSE)
+      if (length(parm)>1) STOP("'parm' must be of length 1.")
       else {
         if (is.numeric(parm)) {
           # the column number was too small or too big
-          if (parm>ncol(object)) stop("Number in 'parm' exceeds number of columns.",call.=FALSE)
-          if (parm<=0) stop("Number in 'parm' must be positive.",call.=FALSE)
+          if (parm>ncol(object)) STOP("Number in 'parm' exceeds number of columns.")
+          if (parm<=0) STOP("Number in 'parm' must be positive.")
         } else {
           # column name does not exist in the matrix
-          if (!parm %in% colnames(object)) stop("Name in 'parm' does not exist in 'object'.",
-                                                call.=FALSE)
+          if (!parm %in% colnames(object)) STOP("Name in 'parm' does not exist in 'object'.")
         }
       }
     }

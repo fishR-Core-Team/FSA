@@ -55,27 +55,27 @@ sumTable <- function (formula, ...) {
 sumTable.formula <- function(formula,data=NULL,FUN=mean,digits=getOption("digits"),...) {
   tmp <- iHndlFormula(formula,data,expNumR=1)
   ## Make sure that this function can handle the request
-  if (tmp$vnum<2 | tmp$vnum>3) stop("'sumTable' requires one quantitative variable on LHS and\n one or two factor variables on RHS of formula.",call.=FALSE)
+  if (tmp$vnum<2 | tmp$vnum>3) STOP("'sumTable' requires one quantitative variable on LHS and\n one or two factor variables on RHS of formula.")
   ## Handle the response variable
-  if (!tmp$metExpNumR) stop("'sumTable' only works with quantitative variable on LHS of formula",call.=FALSE)
+  if (!tmp$metExpNumR) STOP("'sumTable' only works with quantitative variable on LHS of formula")
   nv <- tmp$mf[,tmp$Rpos]
   ## Handle the explanatory variables
   if (tmp$Enum==1) { ## Only one explanatory variable
     rv <- tmp$mf[,tmp$Enames]
     if (tmp$Eclass!="factor") {
-      warning("RHS variable was converted to a factor.",call.=FALSE)
+      WARN("RHS variable was converted to a factor.")
       rv <- factor(rv)
     }
     res <- tapply(nv,rv,FUN=FUN,...)
   } else { ## Two explanatory variables
     rv <- tmp$mf[,tmp$Enames[1]]
     if (tmp$Eclass[1]!="factor") {
-      warning("First RHS variable was converted to a factor.",call.=FALSE)
+      WARN("First RHS variable was converted to a factor.")
       rv <- factor(rv)
     }
     cv <- tmp$mf[,tmp$Enames[2]]
     if (tmp$Eclass[2]!="factor") {
-      warning("Second RHS variable was converted to a factor.",call.=FALSE)
+      WARN("Second RHS variable was converted to a factor.")
       cv <- factor(cv)
     }
     res <- tapply(nv,list(rv,cv),FUN=FUN,...)

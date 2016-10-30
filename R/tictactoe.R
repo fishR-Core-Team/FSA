@@ -65,12 +65,12 @@ tictactoe <- function(predobj=c(30,70),preyobj=c(30,70),
                       obj.col="black",obj.trans=0.2,
                       bnd.col="black",bnd.lwd=1,bnd.lty=2) {
   ## Test values
-  if (!is.numeric(predobj)) stop("Predator target objectives must be numeric.",call.=FALSE)
-  if (length(predobj)!=2) stop("Predator target objective must contain two numbers.",call.=FALSE)
-  if (any(predobj<0|predobj>100)) stop("Predator target objectives must be between 0 and 100.",call.=FALSE)
-  if (!is.numeric(preyobj)) stop("Prey target objectives must be numeric.",call.=FALSE)
-  if (length(preyobj)!=2) stop("Prey target objective must contain two numbers.",call.=FALSE)
-  if (any(preyobj<0|preyobj>100)) stop("Prey target objectives must be between 0 and 100.",call.=FALSE)  ## Base plot
+  if (!is.numeric(predobj)) STOP("Predator target objectives must be numeric.")
+  if (length(predobj)!=2) STOP("Predator target objective must contain two numbers.")
+  if (any(predobj<0|predobj>100)) STOP("Predator target objectives must be between 0 and 100.")
+  if (!is.numeric(preyobj)) STOP("Prey target objectives must be numeric.")
+  if (length(preyobj)!=2) STOP("Prey target objective must contain two numbers.")
+  if (any(preyobj<0|preyobj>100)) STOP("Prey target objectives must be between 0 and 100.")  ## Base plot
   # nocov start
   graphics::plot(NULL,xlim=c(0,100),ylim=c(0,100),xlab=predlab,ylab=preylab,xaxt="n",yaxt="n")
   graphics::axis(1,seq(0,100,10))

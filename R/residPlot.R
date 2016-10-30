@@ -139,7 +139,7 @@ residPlot <- function (object,...) {
 #' @export
 residPlot.lm <- function(object,...) { # nocov start
   object <- iTypeoflm(object)
-  if (object$type=="MLR") stop("Multiple linear regression objects are not supported by residPlot.",call.=FALSE)
+  if (object$type=="MLR") STOP("Multiple linear regression objects are not supported by residPlot.")
   residPlot(object,...)                          
 }  # nocov end
 
@@ -178,8 +178,8 @@ residPlot.POLY <- function(object,...) { # nocov start
 #' @export
 residPlot.IVR <- function(object,legend="topright",...) {
   ## Do some checks
-  if (object$ENumNum>1) stop("'residPlot()' cannot handle >1 covariate in an IVR.",call.=FALSE)
-  if (object$EFactNum>2) stop("'resodPlot()' cannot handle >2 factors in an IVR.",call.=FALSE)
+  if (object$ENumNum>1) STOP("'residPlot()' cannot handle >1 covariate in an IVR.")
+  if (object$EFactNum>2) STOP("'resodPlot()' cannot handle >2 factors in an IVR.")
   ## Decide if a one-way or two-way IVR
   if (object$EFactNum==1) iResidPlotIVR1(object,legend,...)
   else iResidPlotIVR2(object,legend,...)
@@ -481,13 +481,13 @@ iHndlResidType <- function(object,resid.type,ylab) {
            )
   } else if (class(object)=="nls") {
     r <- stats::residuals(object)
-    if (resid.type=="studentized") stop("resid.type= cannot be 'studentized' for NLS objects.  Try resid.type='standardized'.",call.=FALSE)
+    if (resid.type=="studentized") STOP("resid.type= cannot be 'studentized' for NLS objects.  Try resid.type='standardized'.")
     else if (resid.type=="standardized") {
       # this follows nlsResiduals() from nlstools
       r <- (r-mean(r))/summary(object)$sigma
     }
   } else {
-    if (resid.type=="studentized") stop("resid.type= cannot be 'studentized' for NLME objects.  Try resid.type='standardized'.",call.=FALSE)
+    if (resid.type=="studentized") STOP("resid.type= cannot be 'studentized' for NLME objects.  Try resid.type='standardized'.")
     else if (resid.type=="standardized") { 
       r <- stats::residuals(object,type="pearson")
     } else {

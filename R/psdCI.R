@@ -97,11 +97,11 @@ psdCI <- function(indvec,ptbl,n,method=c("binomial","multinomial"),
 iCheckPtbl <- function(ptbl) {
   ## make sure table is proportions
   if (any(ptbl>1)) {
- #   warning("'ptbl' not a table of proportions; attempted to convert\n to proportions to continue.",call.=FALSE)
+ #   WARN("'ptbl' not a table of proportions; attempted to convert\n to proportions to continue.")
     ptbl <- ptbl/sum(ptbl)
   }
   ## make sure table sums to one (within rounding)
-  if (sum(ptbl)<0.99 | sum(ptbl)>1.01) stop("'ptbl' does not sum to 1 (within rounding)",call.=FALSE)
+  if (sum(ptbl)<0.99 | sum(ptbl)>1.01) STOP("'ptbl' does not sum to 1 (within rounding)")
   ptbl
 }
 
@@ -112,11 +112,11 @@ iCheckPtbl <- function(ptbl) {
 iCheckIndvec <- function(indvec,ptbl) {
   ## check that table and indvec are same size
   k <- length(ptbl)
-  if (length(indvec)!=k) stop("Length of 'ptbl' and 'indvec' must be the same.",call.=FALSE)
+  if (length(indvec)!=k) STOP("Length of 'ptbl' and 'indvec' must be the same.")
   ## make sure that indvec is not all zeroes or ones
   tmp <- sum(indvec)
-  if (tmp==0) stop("'indvec' cannot be all zeroes.",call.=FALSE)
-  if (tmp==k) stop("'indvec' cannot be all ones.",call.=FALSE)
+  if (tmp==0) STOP("'indvec' cannot be all zeroes.")
+  if (tmp==k) STOP("'indvec' cannot be all ones.")
   ## convert indvec to a column matrix for matrix multiplication below
   matrix(indvec,ncol=1)
 }
@@ -144,7 +144,7 @@ iPSDCIbinom <- function(indvec,ptbl,n,conf.level,type) {
 iPSDCImultinom <- function(indvec,ptbl,n,conf.level) {
   ## check if sample size is >20 (see Brenden et al. 2008), warn if not
   tmp <- drop(t(indvec) %*% (n*ptbl))
-  if (tmp<20 & tmp>0) warning("Category sample size (",tmp,") <20, CI coverage may be lower than ",100*conf.level,"%.",call.=FALSE)
+  if (tmp<20 & tmp>0) WARN("Category sample size (",tmp,") <20, CI coverage may be lower than ",100*conf.level,"%.")
   ## create covariance matrix ... from hints at
   ##    http://stackoverflow.com/questions/19960605/r-multinomial-distribution-variance
   cov <- -outer(ptbl,ptbl)

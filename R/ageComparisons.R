@@ -138,10 +138,10 @@ ageBias <- function(formula,data,ref.lab=tmp$Enames,nref.lab=tmp$Rname,
                     method=stats::p.adjust.methods,sig.level=0.05,min.n.CI=3) {
   ## Perform some checks on the formula
   tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
-  if (!tmp$metExpNumR) stop("'ageBias' must have only one LHS variable.",call.=FALSE)
-  if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
-  if (!tmp$metExpNumE) stop("'ageBias' must have only one RHS variable.",call.=FALSE)
-  if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable must be numeric.",call.=FALSE)
+  if (!tmp$metExpNumR) STOP("'ageBias' must have only one LHS variable.")
+  if (!tmp$Rclass %in% c("numeric","integer")) STOP("LHS variable must be numeric.")
+  if (!tmp$metExpNumE) STOP("'ageBias' must have only one RHS variable.")
+  if (!tmp$Eclass %in% c("numeric","integer")) STOP("RHS variable must be numeric.")
   ## get variable names separately (r=ref, nr=nonref)
   nref.name <- tmp$Rname
   ref.name <- tmp$Enames
@@ -190,7 +190,7 @@ summary.ageBias <- function(object,
   showmsg <- ifelse (length(what)>1,TRUE,FALSE)
   if ("n" %in% what) {
     res <- sum(object$agree)
-    message("Sample size in the age agreement table is ",res,".",sep="")
+    message("Sample size in the age agreement table is ",res,".")
     what <- iHndlMultWhat(what,"n")
   }
   if ("bias" %in% what) {
@@ -331,7 +331,7 @@ iMcNemar <- function(obj,cont.cor) {
   } else if (cont.cor== "Edwards") {
     title <- "McNemar (Edwards Correction)"
     cc <- 1
-  } else stop("Continuity correction is incorrect",call.=FALSE)
+  } else STOP("Continuity correction is incorrect")
   AAT <- iHandleAgreeTable(obj)
   # Chi-sq parts (Evans and Hoenig's eq 2, but include the correction factor)
   top <- (abs(sum((AAT$lo-t(AAT$up)),na.rm=TRUE))-cc)^2
@@ -656,7 +656,7 @@ agePrecision <- function(formula,data) {
   formula <- stats::as.formula(paste("~",paste(tmp,collapse="+")))
   tmp <- iHndlFormula(formula,data)
   
-  if (!tmp$Etype=="numeric") stop("All variables must be numeric.",call.=FALSE)
+  if (!tmp$Etype=="numeric") STOP("All variables must be numeric.")
   # get dataframe of just ages (for simplicity)
   d <- tmp$mf
   # number of structures, complete sample size, and valid n (all non-NA values)
@@ -749,7 +749,7 @@ summary.agePrec <- function(object,what=c("precision","difference","absolute dif
     tmp <- object$absdiff
     ## potentially convert to truncated distribution
     if (!is.null(trunc.diff)) {
-      if(trunc.diff<=0) stop("'trunc.diff' must be positive.",call.=FALSE)
+      if(trunc.diff<=0) STOP("'trunc.diff' must be positive.")
       if (length(dim(tmp))==1) {
         # find positions in vector to be truncated
         trpos <- as.numeric(names(tmp))>=trunc.diff

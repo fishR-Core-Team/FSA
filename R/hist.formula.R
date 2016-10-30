@@ -103,10 +103,10 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
                          iaxs=TRUE,...) {
   ## Handle the formula
   tmp <- iHndlFormula(formula,data)
-  if (tmp$vnum>3) stop("`hist.formula' only works with 1 response and 1 or 2 explanatory variables.",call.=FALSE)
+  if (tmp$vnum>3) STOP("`hist.formula' only works with 1 response and 1 or 2 explanatory variables.")
   if (tmp$vnum==1){
     ## Histogram from a single variable
-    if (!tmp$vclass %in% c("numeric","integer")) stop("Variable must be numeric.",call.=FALSE)
+    if (!tmp$vclass %in% c("numeric","integer")) STOP("Variable must be numeric.")
     if (is.null(xlab)) xlab <- tmp$vname
     # Get the variable
     resp <- tmp$mf[,1]
@@ -136,12 +136,12 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
   } else {
     ## Multiple histograms
     # Checks and work with response variable
-    if (tmp$Rnum>1) stop("LHS may contain only one variable.",call.=FALSE)
-    if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
+    if (tmp$Rnum>1) STOP("LHS may contain only one variable.")
+    if (!tmp$Rclass %in% c("numeric","integer")) STOP("LHS variable must be numeric.")
     resp <- tmp$mf[,tmp$Rpos]
     if (is.null(xlab)) xlab <- tmp$Rname
     # Checks and work with explanatory variable(s)
-    if (tmp$EFactNum!=tmp$Enum) stop("RHS may contain only factor variables.",call.=FALSE)
+    if (tmp$EFactNum!=tmp$Enum) STOP("RHS may contain only factor variables.")
     if (tmp$Enum==2) {
       expl <- interaction(tmp$mf[,tmp$EFactPos[1]],tmp$mf[,tmp$EFactPos[2]])
     } else {
@@ -170,7 +170,7 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
       if (same.ylim) { ymax <- rep(max(ymax),length(ymax)) }
     } else {
       if (length(ymax)==1) ymax <- rep(ymax,num)
-      else if (length(ymax)!= num) stop("'ymax' argument must be 'NULL', a vector of length 1,\n or a vector of length equal to the number of groups.",call.=FALSE)
+      else if (length(ymax)!= num) STOP("'ymax' argument must be 'NULL', a vector of length 1,\n or a vector of length equal to the number of groups.")
     }
     ## Make the histograms
     # nocov start
@@ -179,7 +179,7 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
       if (byrow) graphics::par(mfrow=c(nrow,ncol))
         else graphics::par(mfcol=c(nrow,ncol))
       for (i in 1:num) {
-        if (!is.null(pre.main)) main <- paste(pre.main,names(DF.split)[i],sep="")
+        if (!is.null(pre.main)) main <- paste0(pre.main,names(DF.split)[i])
         graphics:: hist(DF.split[[i]],main=main,xlab=xlab,ylab=ylab,right=right,
                         ylim=c(0,ymax[i]),col=col,xaxs=ifelse(iaxs,"i","r"),
                         yaxs=ifelse(iaxs,"i","r"),breaks=breaks,...)
@@ -193,7 +193,7 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
         ifelse((num-(i-1)*max.per.page)>=max.per.page,todo <- max.per.page,todo <- num-(i-1)*max.per.page)
         for (j in 1:todo) {
           pos <- (i-1)*max.per.page+j
-          if (!is.null(pre.main)) main <- paste(pre.main,names(DF.split)[pos],sep="")
+          if (!is.null(pre.main)) main <- paste0(pre.main,names(DF.split)[pos])
           graphics::hist(DF.split[[pos]],main=main,xlab=xlab,ylab=ylab,right=right,
                          ylim=c(0,ymax[pos]),col=col,
                          xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),

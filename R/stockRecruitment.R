@@ -163,15 +163,15 @@ srFuns <- function(type=c("BevertonHolt","Ricker","Shepherd","SailaLorda","indep
   ## START MAIN FUNCTION  
   ## Some checks
   type <- match.arg(type)
-  if (length(param)!=1) stop("Only one 'param' is allowed.",call.=FALSE)
+  if (length(param)!=1) STOP("Only one 'param' is allowed.")
   if (type=="BevertonHolt") {
-    if (!param %in% 1:4) stop("'param' must be in 1:4 when type='BevertonHolt'.",call.=FALSE)
+    if (!param %in% 1:4) STOP("'param' must be in 1:4 when type='BevertonHolt'.")
     type <- paste0(type,param)
   } else if (type=="Ricker") {
-    if (!param %in% 1:3) stop("'param' must be in 1:3 when type='Ricker'.",call.=FALSE)
+    if (!param %in% 1:3) STOP("'param' must be in 1:3 when type='Ricker'.")
     type <- paste0(type,param)
   } else {
-    if (param>1) warning("Only 'param=1' is used with '",type,"' function.",call.=FALSE)
+    if (param>1) WARN("Only 'param=1' is used with '",type,"' function.")
     param <- 1
   }
   
@@ -235,7 +235,7 @@ srFuns <- function(type=c("BevertonHolt","Ricker","Shepherd","SailaLorda","indep
                 "  where a = the density-independent slope near S=0.\n")      }
     )  # end type switch
   } # end if (msg)
-  if (simple) type <- paste("S",type,sep="")
+  if (simple) type <- paste0("S",type)
   get(type)
 }
 
@@ -244,7 +244,7 @@ srFuns <- function(type=c("BevertonHolt","Ricker","Shepherd","SailaLorda","indep
 srFunShow <- function(type=c("BevertonHolt","Ricker","Shepherd","SailaLorda"),
                       param=1,plot=FALSE,...) {
   type <- match.arg(type)
-  if (!is.numeric(param)) stop("'param' must be numeric.",call.=FALSE)
+  if (!is.numeric(param)) STOP("'param' must be numeric.")
   switch(type,
          BevertonHolt = { expr <- iSRS_BH(param) },
          Ricker = { expr <- iSRS_RICKER(param) },
@@ -264,7 +264,7 @@ srFunShow <- function(type=c("BevertonHolt","Ricker","Shepherd","SailaLorda"),
 ## Internal functions for growth function expressions
 ################################################################################
 iSRS_BH <- function(param) {
-  if (!param %in% 1:4) stop("'param' must be from 1-4 when fun='BevertonHolt'.",call.=FALSE)
+  if (!param %in% 1:4) STOP("'param' must be from 1-4 when fun='BevertonHolt'.")
   if(param==1){
     expr <- expression(R==frac(aS,1+bS))
   } else if (param==2) {
@@ -278,7 +278,7 @@ iSRS_BH <- function(param) {
 }
 
 iSRS_RICKER <- function(param) {
-  if (!param %in% 1:3) stop("'param' must be from 1-3 when fun='Ricker'.",call.=FALSE)
+  if (!param %in% 1:3) STOP("'param' must be from 1-3 when fun='Ricker'.")
   if(param==1){
     expr <- expression(R==aSe^{-bS})
   } else if (param==2) {

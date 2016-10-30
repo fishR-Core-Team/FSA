@@ -88,7 +88,7 @@ NULL
 #' @rdname extraTests
 #' @export
 lrt <- function(sim,...,com,sim.names=sim.name,sim.name=NULL,com.name=NULL) {
-  if (!requireNamespace("lmtest")) stop("'lrt' requires the 'lmtest' package to be installed.",call.=FALSE)
+  if (!requireNamespace("lmtest")) STOP("'lrt' requires the 'lmtest' package to be installed.")
   else {
     ## Check if models are of the same class (if so, get class)
     mdl.class <- iSameModelClass(list(sim,...,com))
@@ -119,7 +119,7 @@ lrt <- function(sim,...,com,sim.names=sim.name,sim.name=NULL,com.name=NULL) {
                  matrix(res[,6:7],nrow=n.sim))
     ## give better names to the columns and rows of the results matrix  
     colnames(res) <- c("DfO","logLikO","DfA","logLikA","Df","logLik","Chisq","Pr(>Chisq)")
-    rownames(res) <- paste(1:n.sim,"vA",sep="")
+    rownames(res) <- paste0(1:n.sim,"vA")
     ## provide a heading and a class to use in the print method
     attr(res,"heading") <- iMakeModelHeading(sim,com,sim.names,com.name)
     ## provide a heading and a class to use in the print method
@@ -135,7 +135,7 @@ extraSS <- function(sim,...,com,sim.names=sim.name,sim.name=NULL,com.name=NULL) 
   ## Check if models are of the same class (if so, get class)
   mdl.class <- iSameModelClass(list(sim,...,com))
   ## Send error if models are not lm() or nls()
-  if (!mdl.class %in% c("lm","nls")) stop("'extraSS' only works with 'lm' or 'nls' models.",call.=FALSE)
+  if (!mdl.class %in% c("lm","nls")) STOP("'extraSS' only works with 'lm' or 'nls' models.")
   ## Make a list of the simple models and determine how many
   sim <- list(sim,...)
   n.sim <- length(sim)
@@ -160,7 +160,7 @@ extraSS <- function(sim,...,com,sim.names=sim.name,sim.name=NULL,com.name=NULL) 
   }
   ## give better names to the columns and rows of the results matrix
   colnames(res) <- c("DfO","RSSO","DfA","RSSA","Df","SS","F","Pr(>F)")
-  rownames(res) <- paste(1:n.sim,"vA",sep="")
+  rownames(res) <- paste0(1:n.sim,"vA")
   ## provide a heading and a class to use in the print method
   attr(res,"heading") <- iMakeModelHeading(sim,com,sim.names,com.name)
   class(res) <- "extraTest"
@@ -188,7 +188,7 @@ iSameModelClass <- function(mdllist) {
   classp <- function(x) paste(class(x),collapse="")
   # end internal function, start of main function
   tmp <- unique(unlist(lapply(mdllist,classp)))
-  if (length(tmp)>1) stop("All supplied models are not of the same class.",call.=FALSE)
+  if (length(tmp)>1) STOP("All supplied models are not of the same class.")
   tmp
 }
 
@@ -201,18 +201,18 @@ iMakeModelHeading <- function(sim,com,sim.names,com.name) {
   ## Handle the simple model names ... if none are given (i.e.,
   ## sim.names is NULL) then make from the formulae in sim
   if (!is.null(sim.names)) {
-    if (length(sim.names)!=length(sim)) stop("Length of 'sim.names' differs from number of simple models provided.",call.=FALSE)
+    if (length(sim.names)!=length(sim)) STOP("Length of 'sim.names' differs from number of simple models provided.")
     sim_hdg <- paste("Model ",1:length(sim),": ",sim.names,sep="",collapse="\n")
   } else sim_hdg <- paste("Model ",1:length(sim),": ",lapply(sim,stats::formula),sep="",collapse="\n")
   ## Handle the complex model names ... if none is given (i.e.,
   ## com.name is NULL) then make from the formula of com
   if (!is.null(com.name)) {
     if (length(com.name)>1) {
-      warning("'com.name' included more than one name, only first was used.",call.=FALSE)
+      WARN("'com.name' included more than one name, only first was used.")
       com.name <- com.name[1]
     }
     com_hdg <- paste0("Model A: ",com.name[1])
-  } else com_hdg <- paste("Model A: ",deparse(stats::formula(com),width.cutoff=200),sep="")
+  } else com_hdg <- paste0("Model A: ",deparse(stats::formula(com),width.cutoff=200))
   ## provide a heading and a class to use in the print method
   paste(sim_hdg,com_hdg,sep="\n")
 }
@@ -225,5 +225,5 @@ iMakeModelHeading <- function(sim,com,sim.names,com.name) {
 iChkComplexModel <- function(sim,com) {
   simDF <- unlist(lapply(sim,stats::df.residual))
   comDF <- stats::df.residual(com)
-  if (!all(comDF<simDF)) warning("'com' model does not appear to be more complex than all models in 'sim'.\n  Check results carefully.",call.=FALSE)
+  if (!all(comDF<simDF)) WARN("'com' model does not appear to be more complex than all models in 'sim'.\n  Check results carefully.")
 }

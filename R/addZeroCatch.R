@@ -135,9 +135,9 @@ addZeroCatch <- function(df,eventvar,specvar,zerovar,na.rm=TRUE) {
   need0s <- tmp[which(!(all.combos %in% combos.in.df)),]
   ## Catch if there are no need for zeroes, send warning, return df
   if (nrow(need0s)==0) {
-    warning("All 'eventvar' have all species in 'specvar';\n
-            thus, there are no zeroes to add.  The original\n
-            data frame was returned.",call.=FALSE)
+    WARN("All 'eventvar' have all species in 'specvar';\n
+          thus, there are no zeroes to add.  The original\n
+          data frame was returned.")
     df
   } else { ## Process because some zeroes need to be added
     ## creates vector of names not in eventvar, specvar, or zerovar

@@ -79,17 +79,17 @@ srStarts <- function(formula,data=NULL,type=c("BevertonHolt","Ricker","Shepherd"
                      cex.main=0.9,col.main="red",dynamicPlot=FALSE,...) {
   ## some checks
   type <- match.arg(type)
-  if (length(param)!=1) stop("Only one 'param' is allowed.",call.=FALSE)
+  if (length(param)!=1) STOP("Only one 'param' is allowed.")
   ## some checks on the formula
   tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
   if (tmp$vnum!=2) {
-    if (tmp$vnum==1) stop("'srstarts' must have a formula with both LHS and RHS.",call.=FALSE)
-    if (tmp$vnum>2) stop("'srstarts' must have only one LHS and only one RHS variable.",call.=FALSE)
+    if (tmp$vnum==1) STOP("'srstarts' must have a formula with both LHS and RHS.")
+    if (tmp$vnum>2) STOP("'srstarts' must have only one LHS and only one RHS variable.")
   }
-  if (!tmp$metExpNumR) stop("'srStarts' must have one and only one LHS variable.",call.=FALSE)
-  if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
-  if (!tmp$metExpNumE) stop("'srStarts' must have only one RHS variable.",call.=FALSE)
-  if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable must be numeric.",call.=FALSE)
+  if (!tmp$metExpNumR) STOP("'srStarts' must have one and only one LHS variable.")
+  if (!tmp$Rclass %in% c("numeric","integer")) STOP("LHS variable must be numeric.")
+  if (!tmp$metExpNumE) STOP("'srStarts' must have only one RHS variable.")
+  if (!tmp$Eclass %in% c("numeric","integer")) STOP("RHS variable must be numeric.")
   ## get the R and S vectors
   R <- tmp$mf[,tmp$Rname[1]]
   S <- tmp$mf[,tmp$Enames[1]]
@@ -104,7 +104,7 @@ srStarts <- function(formula,data=NULL,type=c("BevertonHolt","Ricker","Shepherd"
   ## make the static plot if asked for
   if (plot) iSRStartsPlot(S,R,type,param,sv,col.mdl,lwd.mdl,lty.mdl,cex.main,col.main)
   ## Check if user wants to choose starting values from an interactive plot
-  if (dynamicPlot) warning("The 'dynamicPlot' functionality has been moved to 'srStartsDP' in the 'FSASims' package.",call.=FALSE)
+  if (dynamicPlot) WARN("The 'dynamicPlot' functionality has been moved to 'srStartsDP' in the 'FSASims' package.")
   ## return the list of starting values
   sv
 }
@@ -117,7 +117,7 @@ srStarts <- function(formula,data=NULL,type=c("BevertonHolt","Ricker","Shepherd"
 #=============================================================
 iSRStartsBH <- function(S,R,param) {
   ## some checks
-  if (!param %in% 1:4) stop("'param' must be in 1:4 when type='BevertonHolt'.",call.=FALSE)
+  if (!param %in% 1:4) STOP("'param' must be in 1:4 when type='BevertonHolt'.")
   ## Linearized B-H #1 model without lognormal errors for starting values
   cfs <- stats::coef(stats::lm(I(1/R)~I(1/S)))
   ## Extract parameter values
@@ -141,7 +141,7 @@ iSRStartsBH <- function(S,R,param) {
 #=============================================================
 iSRStartsR <- function(S,R,param) {
   ## some checks
-  if (!param %in% 1:3) stop("'param' must be in 1:3 when type='Ricker'.",call.=FALSE)
+  if (!param %in% 1:3) STOP("'param' must be in 1:3 when type='Ricker'.")
   ## Linearized Ricker #1 model with lognormal errors for starting values
   cfs <- stats::coef(stats::lm(log(R/S)~S))
   ## Extract parameter values

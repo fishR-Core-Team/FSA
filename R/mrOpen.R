@@ -124,16 +124,16 @@ jolly <- function(...) { mrOpen(...) }
 #' @export
 mrOpen <- function(mb.top,mb.bot=NULL,type=c("Jolly","Manly"),conf.level=0.95,phi.full=TRUE) {
   type <- match.arg(type)
-  if (conf.level<=0 | conf.level>=1) stop("'conf.level' must be between 0 and 1",call.=FALSE)
+  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
   if (class(mb.top)=="CapHist") {
     mb.bot <- mb.top$methodB.bot
     mb.top <- mb.top$methodB.top
-  } else if (is.null(mb.bot)) stop("Must have a 'mb.top' and a 'mb.bot'.",call.=FALSE)
+  } else if (is.null(mb.bot)) STOP("Must have a 'mb.top' and a 'mb.bot'.")
   iCheckMBtop(mb.top)
   iCheckMBbot(mb.bot)
   # Number of samples
   k <- ncol(mb.bot)
-  if (k<=2) stop("The Jolly-Seber method requires more than 2 samples.\n",call.=FALSE)
+  if (k<=2) STOP("The Jolly-Seber method requires more than 2 samples.\n")
   # Transpose method B bottom portion, delete u column, make a data.frame
   df <- data.frame(t(mb.bot))
   df <- df[,-which(names(df)=="u")]
@@ -191,7 +191,7 @@ summary.mrOpen <- function(object,parm=c("N","phi","B","M"),verbose=FALSE,...) {
 #' @export
 confint.mrOpen <- function(object,parm=c("N","phi","B"),level=NULL,conf.level=NULL,verbose=FALSE,...) {
   ## send a note that the CI level cannot be changed here
-  if(!is.null(conf.level)) warning("Confidence level was set at ",conf.level," in mrOpen().  It cannot be changed here.",call.=FALSE)
+  if(!is.null(conf.level)) WARN("Confidence level was set at ",conf.level," in mrOpen().  It cannot be changed here.")
   ## get the parameters to return
   parm <- match.arg(parm,several.ok=TRUE)
   if (object$type=="Manly" & ("B" %in% parm)) {
@@ -211,20 +211,20 @@ confint.mrOpen <- function(object,parm=c("N","phi","B"),level=NULL,conf.level=NU
 ##############################################################
 iCheckMBbot <- function(mb.bot) {
   nr <- nrow(mb.bot)
-  if (nr!=4) stop("'mb.bot' must contain four rows with 'm', 'u', 'n', and 'R'.",call.=FALSE)
-  if (any(!names(mb.bot) %in% c("m","u","n","R"))) stop("rownames of 'mb.bot' must be 'm', 'u', 'n', and 'R'.",call.=FALSE)
-  if (any(is.na(mb.bot))) stop("All values in 'mb.bot' must be non-NA.",call.=FALSE)
-  if (any(mb.bot<0)) stop("All values in 'mb.bot' must be non-negative.",call.=FALSE)
-  if (is.na(mb.bot["m",1]) | mb.bot["m",1]!=0) stop("First value of 'm' row in 'mb.bot' must be 0.",call.=FALSE)
+  if (nr!=4) STOP("'mb.bot' must contain four rows with 'm', 'u', 'n', and 'R'.")
+  if (any(!names(mb.bot) %in% c("m","u","n","R"))) STOP("rownames of 'mb.bot' must be 'm', 'u', 'n', and 'R'.")
+  if (any(is.na(mb.bot))) STOP("All values in 'mb.bot' must be non-NA.")
+  if (any(mb.bot<0)) STOP("All values in 'mb.bot' must be non-negative.")
+  if (is.na(mb.bot["m",1]) | mb.bot["m",1]!=0) STOP("First value of 'm' row in 'mb.bot' must be 0.")
 }
 
 iCheckMBtop <- function(mb.top) {
   nr <- nrow(mb.top)
   nc <- ncol(mb.top)
-  if (nr!=nc) stop("'mb.top' must be square.",call.=FALSE)
-  if (!all(is.na(mb.top[lower.tri(mb.top,diag=TRUE)]))) stop ("Lower triangle and diagonal of 'mb.top' must all be 'NA'.",call.=FALSE)
-  if (any(is.na(mb.top[upper.tri(mb.top)]))) stop("Upper triangle of 'mb.top' cannot contain any 'NA'.",call.=FALSE)
-  if (any(mb.top<0,na.rm=TRUE)) stop("All non-NA values in 'mb.top' must be non-negative.",call.=FALSE)
+  if (nr!=nc) STOP("'mb.top' must be square.")
+  if (!all(is.na(mb.top[lower.tri(mb.top,diag=TRUE)]))) stop ("Lower triangle and diagonal of 'mb.top' must all be 'NA'.")
+  if (any(is.na(mb.top[upper.tri(mb.top)]))) STOP("Upper triangle of 'mb.top' cannot contain any 'NA'.")
+  if (any(mb.top<0,na.rm=TRUE)) STOP("All non-NA values in 'mb.top' must be non-negative.")
 }
 
 ##############################################################
@@ -274,7 +274,7 @@ iEstN <- function(df,type,conf.level) {
   df$N <- (df$n+1)*df$M/(df$m+1)
   # make a correction if more fish were sampled then the PE
   if (any(df$N<df$n,na.rm=TRUE)) {
-    warning("At least one population estimate is less than the sample size at time t.\n  Population estimates were set equal to sample size for those times.\n",call.=FALSE)
+    WARN("At least one population estimate is less than the sample size at time t.\n  Population estimates were set equal to sample size for those times.\n")
     df$N[which(df$N<df$n)] <- df$n[which(df$N<df$n)]
   }
   switch(type,

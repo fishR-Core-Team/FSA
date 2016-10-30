@@ -64,12 +64,10 @@ histFromSum <- function (x,...) {
 #' @rdname histFromSum
 #' @export
 histFromSum.default <- function(x,y,...) {
-  if (!is.numeric(x)) stop("'x' (bin/category values) must be a numeric vector.",
-                           call.=FALSE)
-  if (!is.vector(x)) stop("'x' (bin/category values) must be a vector.",call.=FALSE)
-  if (!is.numeric(y)) stop("'y' (count/frequency values) must be a numeric vector.",
-                           call.=FALSE)
-  if (!is.vector(y)) stop("'y' (count/frequency values) must be a vector.",call.=FALSE)
+  if (!is.numeric(x)) STOP("'x' (bin/category values) must be a numeric vector.")
+  if (!is.vector(x)) STOP("'x' (bin/category values) must be a vector.")
+  if (!is.numeric(y)) STOP("'y' (count/frequency values) must be a numeric vector.")
+  if (!is.vector(y)) STOP("'y' (count/frequency values) must be a vector.")
   xs <- rep(x,y)
   graphics::hist(~xs,...) # nocov
 }
@@ -77,12 +75,12 @@ histFromSum.default <- function(x,y,...) {
 #' @rdname histFromSum
 #' @export
 histFromSum.table <- function(x,...) {
-  if (length(dim(x))>1) stop("'x' must be a 1-dimensional table.",call.=FALSE)
+  if (length(dim(x))>1) STOP("'x' must be a 1-dimensional table.")
   y <- x
   attributes(y) <- NULL
   names(y) <- "Freq"
   x <- suppressWarnings(as.numeric(names(x)))
-  if (any(is.na(x))) stop("Names in 'x' are not numeric.",call.=FALSE)
+  if (any(is.na(x))) STOP("Names in 'x' are not numeric.")
   names(x) <- names(dimnames(x))
   histFromSum.default(x,y,...)
 }
@@ -91,10 +89,10 @@ histFromSum.table <- function(x,...) {
 #' @export
 histFromSum.formula <- function(x,data=NULL,...) {
   tmp <- iHndlFormula(x,data,expNumR=1,expNumE=1)
-  if (tmp$vnum!=2) stop("'histFromSum' only works with 1 response and 1 explanatory variable.",call.=FALSE)
-  if (!tmp$metExpNumR) stop("'histFromSum' must have only 1 left-side variable in the formula.",call.=FALSE)
-  if (!tmp$Rclass %in% c("numeric","integer")) stop("The left-side variable in the formula must be numeric.",call.=FALSE)
-  if (!tmp$metExpNumE) stop("'histFromSum' must have only 1 right-side variable in the formula.",call.=FALSE)
-  if (!tmp$Eclass %in% c("numeric","integer")) stop("The right-side variable in the formula must be numeric.",call.=FALSE)
+  if (tmp$vnum!=2) STOP("'histFromSum' only works with 1 response and 1 explanatory variable.")
+  if (!tmp$metExpNumR) STOP("'histFromSum' must have only 1 left-side variable in the formula.")
+  if (!tmp$Rclass %in% c("numeric","integer")) STOP("The left-side variable in the formula must be numeric.")
+  if (!tmp$metExpNumE) STOP("'histFromSum' must have only 1 right-side variable in the formula.")
+  if (!tmp$Eclass %in% c("numeric","integer")) STOP("The right-side variable in the formula must be numeric.")
   histFromSum.default(tmp$mf[,tmp$Enames],tmp$mf[,tmp$Rname],...)
 }

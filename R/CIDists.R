@@ -43,9 +43,9 @@
 #' @export
 binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic","all")) {
   type <- match.arg(type)
-  if (!is.vector(x)) stop("'x' must be a single numeric or a vector of numerics.",call.=FALSE)
+  if (!is.vector(x)) STOP("'x' must be a single numeric or a vector of numerics.")
   if (type=="all" & length(x)>1) {
-    warning("'type=all' will not work with vectors; 'type' re-set to 'wilson'.",call.=FALSE)
+    WARN("'type=all' will not work with vectors; 'type' re-set to 'wilson'.")
     type <- "wilson"
   }
   # deletes point estimate value

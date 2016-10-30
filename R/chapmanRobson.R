@@ -101,11 +101,11 @@ chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Smithetal","Ho
   
   ## Some Checks
   zmethod <- match.arg(zmethod)
-  if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
-  if (!is.numeric(catch)) stop("'catch' must be numeric.",call.=FALSE)
-  if (length(age)!=length(catch)) stop("'age' and 'catch' have different lengths.",call.=FALSE)
+  if (!is.numeric(x)) STOP("'x' must be numeric.")
+  if (!is.numeric(catch)) STOP("'catch' must be numeric.")
+  if (length(age)!=length(catch)) STOP("'age' and 'catch' have different lengths.")
   # Check to make sure enough ages and catches exist
-  if (length(age)<2) stop("Fewer than 2 data points.",call.=FALSE)
+  if (length(age)<2) STOP("Fewer than 2 data points.")
 
   ## Isolate the ages and catches to be used
   # Find rows to use according to ages to use, adjust if missing values occur
@@ -114,7 +114,7 @@ chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Smithetal","Ho
   age.e <- age[rows2use]
   catch.e <- catch[rows2use]
   # Check to make sure enough ages and catches exist
-  if (length(age.e)<2) stop("Fewer than 2 data points after applying 'ages2use'.",call.=FALSE)
+  if (length(age.e)<2) STOP("Fewer than 2 data points after applying 'ages2use'.")
   # Create re-coded ages
   age.r <- age.e-min(age.e,na.rm=TRUE)
   
@@ -164,10 +164,10 @@ chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Smithetal","Ho
 chapmanRobson.formula <- function(x,data,ages2use=age,zmethod=c("Smithetal","Hoenigetal","original"),...) {
   ## Handle the formula and perform some checks
   tmp <- iHndlFormula(x,data,expNumR=1,expNumE=1)
-  if (!tmp$metExpNumR) stop("'chapmanRobson' must have only one LHS variable.",call.=FALSE)
-  if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
-  if (!tmp$metExpNumE) stop("'chapmanRobson' must have only one RHS variable.",call.=FALSE)
-  if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable must be numeric.",call.=FALSE)
+  if (!tmp$metExpNumR) STOP("'chapmanRobson' must have only one LHS variable.")
+  if (!tmp$Rclass %in% c("numeric","integer")) STOP("LHS variable must be numeric.")
+  if (!tmp$metExpNumE) STOP("'chapmanRobson' must have only one RHS variable.")
+  if (!tmp$Eclass %in% c("numeric","integer")) STOP("RHS variable must be numeric.")
   ## Get variables from model frame
   age <- tmp$mf[,tmp$Enames]
   catch <- tmp$mf[,tmp$Rname]
@@ -198,7 +198,7 @@ coef.chapmanRobson <- function(object,parm=c("all","both","Z","S"),...) {
 confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),
                                   level=conf.level,conf.level=0.95,...) {
   parm <- match.arg(parm)
-  if (conf.level<=0 | conf.level>=1) stop("'conf.level' must be between 0 and 1",call.=FALSE)
+  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
   
   z <- c(-1,1)*stats::qnorm((1-(1-conf.level)/2))
   # compute S results
@@ -250,7 +250,7 @@ plot.chapmanRobson <- function(x,pos.est="topright",cex.est=0.95,
   if (!is.null(pos.est)) {
     Z <- x$est["Z","Estimate"]
     S <- x$est["S","Estimate"]
-    graphics::legend(pos.est,legend=paste("Z=",round(Z,3),"\nS=",round(S,1),"%",sep=""),
+    graphics::legend(pos.est,legend=paste0("Z=",round(Z,3),"\nS=",round(S,1),"%"),
                      bty="n",cex=cex.est)
   }
   graphics::par(mar=opar)

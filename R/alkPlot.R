@@ -139,7 +139,7 @@ iAdjKey4xlim <- function(key,xlim) {
     key <- key[which(tmp>=xlim[1] & tmp<=xlim[2]),]
     # remove columns (ages) that don't have any values
     key <- key[,which(colSums(key)!=0)]
-    if (!is.matrix(key)) stop("'xlim' is too restrictive (only one age).",call.=FALSE)
+    if (!is.matrix(key)) STOP("'xlim' is too restrictive (only one age).")
   }
   key
 }

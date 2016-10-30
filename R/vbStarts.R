@@ -131,15 +131,15 @@ vbStarts <- function(formula,data=NULL,
   methLinf <- match.arg(methLinf)
   methEV <- match.arg(methEV)
   if (!is.null(fixed)) {
-    if(!is.list(fixed)) stop("'fixed' must be a list.",call.=FALSE)
-    if (any(names(fixed)=="")) stop("Items in 'fixed' must be named.",call.=FALSE)
+    if(!is.list(fixed)) STOP("'fixed' must be a list.")
+    if (any(names(fixed)=="")) STOP("Items in 'fixed' must be named.")
   }
   ## handle the formula with some checks
   tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
-  if (!tmp$metExpNumR) stop("'vbStarts' must have only one LHS variable.",call.=FALSE)
-  if (!tmp$Rclass %in% c("numeric","integer")) stop("LHS variable must be numeric.",call.=FALSE)
-  if (!tmp$metExpNumE) stop("'vbStarts' must have only one RHS variable.",call.=FALSE)
-  if (!tmp$Eclass %in% c("numeric","integer")) stop("RHS variable must be numeric.",call.=FALSE)
+  if (!tmp$metExpNumR) STOP("'vbStarts' must have only one LHS variable.")
+  if (!tmp$Rclass %in% c("numeric","integer")) STOP("LHS variable must be numeric.")
+  if (!tmp$metExpNumE) STOP("'vbStarts' must have only one RHS variable.")
+  if (!tmp$Eclass %in% c("numeric","integer")) STOP("RHS variable must be numeric.")
   ## get the length and age vectors
   len <- tmp$mf[,tmp$Rname[1]]
   age <- tmp$mf[,tmp$Enames[1]]
@@ -166,7 +166,7 @@ vbStarts <- function(formula,data=NULL,
   ## make the static plot if asked for
   if (plot) iVBStartsPlot(age,len,type,sv,ages2use,valOgle,col.mdl,lwd.mdl,lty.mdl,cex.main,col.main)
   ## Check if user wants to choose starting values from an interactive plot
-  if (dynamicPlot) warning("The 'dynamicPlot' functionality has been moved to 'vbStartsDP' in the 'FSASims' package.",call.=FALSE)
+  if (dynamicPlot) WARN("The 'dynamicPlot' functionality has been moved to 'vbStartsDP' in the 'FSASims' package.")
   ## return starting values list
   sv
 }
@@ -193,13 +193,13 @@ iVBStarts.LinfK <- function(age,len,type,methLinf,num4Linf,fixed) {
   } else {
     if (methLinf=="Walford") sLinf <- cfs[[1]]/(1-cfs[[2]])
     else {
-      if (num4Linf<1) stop("'num4Linf' must be at least 1.",call.=FALSE)
+      if (num4Linf<1) STOP("'num4Linf' must be at least 1.")
       if (methLinf=="longFish") {
-        if (num4Linf>length(len)) stop("'num4Linf' must be less than the number of recorded lengths.",call.=FALSE)
+        if (num4Linf>length(len)) STOP("'num4Linf' must be less than the number of recorded lengths.")
         sLinf <- mean(len[rev(order(len))][1:num4Linf])
       } else {
         ages <- rev(unique(age))
-        if (num4Linf>length(ages)) stop("'num4Linf' must be less than the number of observed ages.",call.=FALSE)
+        if (num4Linf>length(ages)) STOP("'num4Linf' must be less than the number of observed ages.")
         sLinf <- mean(len[age %in% ages[1:num4Linf]])
       }
     }
@@ -226,7 +226,7 @@ iCheckLinf <- function(sLinf,len) {
     msg <- paste0(msg,"either using the mean length for several of the largest fish\n")
     msg <- paste0(msg,"(i.e., use 'oldAge' in 'methLinf=') or manually setting Linf\n")
     msg <- paste0(msg,"to the maximum observed lengthin the starting value list.\n")
-    warning(msg,call.=FALSE)    
+    WARN(msg)    
   } 
 }
 
@@ -241,7 +241,7 @@ iCheckK <- function(sK,type,len) {
     msg <- paste0(msg,"which suggests a model fitting problem.\n")
     msg <- paste0(msg,"See a Walford or Chapman Plot to examine the problem.\n")
     msg <- paste0(msg,"Consider manually setting K=0.3 in the starting value list.\n")
-    warning(msg,call.=FALSE)
+    WARN(msg)
   }
 }
 
@@ -330,10 +330,10 @@ iVBStarts.Ls <- function(age,len,type,methEV,ages2use,fixed) {
   # if none given then use the min and max
   if (is.null(ages2use)) ages2use <- range(ages)
   # if too many given then send an error
-  if (length(ages2use)!=2) stop("'ages2use=' must be NULL or have only two ages.",call.=FALSE)
+  if (length(ages2use)!=2) STOP("'ages2use=' must be NULL or have only two ages.")
   # if order is backwards then warn and flip
   if (ages2use[2]<=ages2use[1]) {
-    warning("'ages2use' should be in ascending order; order reversed to continue.",call.=FALSE)
+    WARN("'ages2use' should be in ascending order; order reversed to continue.")
     ages2use <- rev(ages2use)
   }
   # if using the Francis parameterization then must find the intermediate age
@@ -354,13 +354,13 @@ iVBStarts.Ls <- function(age,len,type,methEV,ages2use,fixed) {
     if ("L1" %in% names(fixed)) vals[[1]] <- fixed[["L1"]]
     if ("L2" %in% names(fixed)) vals[[2]] <- fixed[["L2"]]
     if ("L3" %in% names(fixed)) vals[[3]] <- fixed[["L3"]]
-    if (any(diff(vals)<=0)) warning("At least one of the starting values for an older age\n  is smaller than the starting value for a younger age.",call.=FALSE)
+    if (any(diff(vals)<=0)) WARN("At least one of the starting values for an older age\n  is smaller than the starting value for a younger age.")
     ## Return the values
     list(L1=vals[[1]],L2=vals[[2]],L3=vals[[3]])
   } else { # Schnute
     if ("L1" %in% names(fixed)) vals[[1]] <- fixed[["L1"]]
     if ("L3" %in% names(fixed)) vals[[2]] <- fixed[["L3"]]    
-    if (any(diff(vals)<=0)) warning("At least one of the starting values for an older age\n  is smaller than the starting value for a younger age.",call.=FALSE)
+    if (any(diff(vals)<=0)) WARN("At least one of the starting values for an older age\n  is smaller than the starting value for a younger age.")
     list(L1=vals[[1]],L3=vals[[2]])
   }
 }
@@ -370,37 +370,37 @@ iVBStarts.Ls <- function(age,len,type,methEV,ages2use,fixed) {
 # Find starting values for the Ogle VB parameterization
 #=============================================================
 iVBStarts.Ogle <- function(age,len,type,meth0,methLinf,num4Linf,valOgle,fixed) {
-  if (is.null(valOgle)) stop("'valOgle' must contain a value for 'Lr' or 'tr'",call.=FALSE)
-  if (!is.numeric(valOgle)) stop("'valOgle' must be numeric",call.=FALSE)
-  if (!is.vector(valOgle)) stop("'valOgle' must be a named vector",call.=FALSE)
-  if (length(valOgle)!=1) stop("'valOgle' must contain only one value",call.=FALSE)
-  if (is.null(names(valOgle))) stop("'valOgle' must be a named vector",call.=FALSE)
+  if (is.null(valOgle)) STOP("'valOgle' must contain a value for 'Lr' or 'tr'")
+  if (!is.numeric(valOgle)) STOP("'valOgle' must be numeric")
+  if (!is.vector(valOgle)) STOP("'valOgle' must be a named vector")
+  if (length(valOgle)!=1) STOP("'valOgle' must contain only one value")
+  if (is.null(names(valOgle))) STOP("'valOgle' must be a named vector")
   setParam <- names(valOgle)
-  if (!setParam %in% c("Lr","tr")) stop("Name in 'valOgle' must be 'Lr' or 'tr'",call.=FALSE)
+  if (!setParam %in% c("Lr","tr")) STOP("Name in 'valOgle' must be 'Lr' or 'tr'")
   LK <- iVBStarts.LinfK(age,len,type,methLinf,num4Linf,fixed)
   if (setParam=="tr") {
     ## an age was given, fit polynomial and predict length at that age
-    if (valOgle<min(age) & is.null(fixed)) warning("'valAge' is less than minimum observed age.\nStarting value for Lr may be suspect; considering using 'fixed'.",call.=FALSE)
+    if (valOgle<min(age) & is.null(fixed)) WARN("'valAge' is less than minimum observed age.\nStarting value for Lr may be suspect; considering using 'fixed'.")
     # fit polynomial regression
     respoly <- stats::lm(len~stats::poly(age,2,raw=TRUE))
     # find starting value for L0 as predicted value from polynomial at age in tr
     sLr <- stats::predict(respoly,data.frame(age=valOgle))
     # return starting values
     if (!is.null(fixed)) {
-      if (names(fixed)!="Lr") warning("Name in 'fixed' must be 'Lr' if 'tr' is in 'valOgle'.\nValue in 'fixed' was ignored.",call.=FALSE)
+      if (names(fixed)!="Lr") WARN("Name in 'fixed' must be 'Lr' if 'tr' is in 'valOgle'.\nValue in 'fixed' was ignored.")
       else sLr <- fixed
     }
     as.list(c(LK,Lr=sLr[[1]]))
   } else {
     ## a length was given, fit polynomial and predict age at that length
-    if (valOgle<min(len) & is.null(fixed)) warning("'valAge' is less than minimum observed length.\nStarting value for tr may be suspect; considering using 'fixed'.",call.=FALSE)
+    if (valOgle<min(len) & is.null(fixed)) WARN("'valAge' is less than minimum observed length.\nStarting value for tr may be suspect; considering using 'fixed'.")
     # fit polynomial regression
     respoly <- stats::lm(age~stats::poly(len,2,raw=TRUE))
     # find starting value for L0 as predicted value from polynomial at age in tr
     str <- stats::predict(respoly,data.frame(len=valOgle))
     # return starting values
     if (!is.null(fixed)) {
-      if (names(fixed)!="tr") warning("Name in 'fixed' must be 'tr' if 'Lr' is in 'valOgle'.\nValue in 'fixed' was ignored.",call.=FALSE)
+      if (names(fixed)!="tr") WARN("Name in 'fixed' must be 'tr' if 'Lr' is in 'valOgle'.\nValue in 'fixed' was ignored.")
       else str <- fixed
     }
     as.list(c(LK,tr=str[[1]]))

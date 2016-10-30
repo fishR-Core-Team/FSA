@@ -105,8 +105,8 @@
 expandCounts <- function(data,cform,lform=NULL,removeCount=TRUE,lprec=0.1,new.name="newlen",cwid=0,verbose=TRUE,...) {
   ## do some error checking on cform (cform changes from a pure formula)
   cform <- iHndlFormula(cform,data)
-  if (cform$vnum>1) stop("'cform' must be only one variable.",call.=FALSE)
-  if (!cform$vclass %in% c("integer","numeric")) stop("'cform' must be a 'numeric' or 'integer' variable.",call.=FALSE)
+  if (cform$vnum>1) STOP("'cform' must be only one variable.")
+  if (!cform$vclass %in% c("integer","numeric")) STOP("'cform' must be a 'numeric' or 'integer' variable.")
   ## initialize the message
   msg <- "Results messages from expandCounts():\n"
   
@@ -144,10 +144,10 @@ expandCounts <- function(data,cform,lform=NULL,removeCount=TRUE,lprec=0.1,new.na
   if (!is.null(lform)) {
     ## do some error checking on lform (lform changes from a pure formula)
     lform <- iHndlFormula(lform,newdf,expNumR=0,expNumE=2,expNumENums=2)
-    if (lform$vnum!=2) stop("'lform' must have two variables on the right-hand-side",call.=FALSE)
-    if (!lform$metExpNumR) stop("'lform' must not have a left-hand-side",call.=FALSE)
-    if (!lform$metExpNumE) stop("'lform' must have two variables on the right-hand-side",call.=FALSE)
-    if (!lform$metExpNumENums) stop("'lform' must have two NUMERIC variables on the right-hand-side",call.=FALSE)
+    if (lform$vnum!=2) STOP("'lform' must have two variables on the right-hand-side")
+    if (!lform$metExpNumR) STOP("'lform' must not have a left-hand-side")
+    if (!lform$metExpNumE) STOP("'lform' must have two variables on the right-hand-side")
+    if (!lform$metExpNumENums) STOP("'lform' must have two NUMERIC variables on the right-hand-side")
 
     ## isolate the lower and upper length variable names (assumed
     ## to be put in formula in order)
@@ -155,7 +155,7 @@ expandCounts <- function(data,cform,lform=NULL,removeCount=TRUE,lprec=0.1,new.na
     upr <- lform$Enames[2]
     # error check that lwr>upr ... stop if so.
     tmp <- which(data[,lwr]>data[,upr])
-    if (length(tmp)>0) stop(paste0("Rows ",paste0(tmp,collapse=", ")," have '",lwr,"' greater than '",upr,"'."),call.=FALSE)
+    if (length(tmp)>0) STOP("Rows ",paste0(tmp,collapse=", ")," have '",lwr,"' greater than '",upr,"'.")
     
     ## error check if the rows with zero or missing counts in the
     ## original data.frame had non-missing lwr or upr values.  This
@@ -166,7 +166,7 @@ expandCounts <- function(data,cform,lform=NULL,removeCount=TRUE,lprec=0.1,new.na
         emsg <- paste0("Rows ",paste0(tmp,collapse=", ")," had zero or no ",cform$vname)
         emsg <- paste0(emsg," but had non-missing\n values for ",lwr," and ",upr,".")
         emsg <- paste0(emsg,"  This implies a data entry error.")
-        stop(emsg,call.=FALSE)
+        STOP(emsg)
       }
     }
 

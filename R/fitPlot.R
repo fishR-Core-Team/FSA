@@ -152,8 +152,8 @@ fitPlot <- function (object, ...) {
 #' @export
 fitPlot.lm <- function(object, ...) {
   object <- iTypeoflm(object)
-  if (object$Rnum>1) stop("'fitPlot()' does not work with more than 1 LHS variable.",call.=FALSE)
-  if (object$type=="MLR") stop("Multiple linear regression objects are not supported by fitPlot.",call.=FALSE)
+  if (object$Rnum>1) STOP("'fitPlot()' does not work with more than 1 LHS variable.")
+  if (object$type=="MLR") STOP("Multiple linear regression objects are not supported by fitPlot.")
   fitPlot(object,...)
 }
 
@@ -168,11 +168,11 @@ fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
   ## Some tests
   interval <- match.arg(interval)
   if (length(col.pt)>1) {
-    warning("Only first color used for points in this SLR.",call.=FALSE)
+    WARN("Only first color used for points in this SLR.")
     col.pt <- col.pt[1]
   }
   if (length(col.mdl)>1) {
-    warning("Only first color used for the model in this SLR.",call.=FALSE)
+    WARN("Only first color used for the model in this SLR.")
     col.mdl <- col.mdl[1]
   }
   ## Get data ready
@@ -211,8 +211,8 @@ fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
 #' @export
 fitPlot.IVR <- function(object,...) {
   ## Do some checks
-  if (object$ENumNum>1) stop("'fitPlot()' cannot handle >1 covariate in an IVR.",call.=FALSE)
-  if (object$EFactNum>2) stop("'fitPlot()' cannot handle >2 factors in an IVR.",call.=FALSE)
+  if (object$ENumNum>1) STOP("'fitPlot()' cannot handle >1 covariate in an IVR.")
+  if (object$EFactNum>2) STOP("'fitPlot()' cannot handle >2 factors in an IVR.")
   ## Decide if a one-way or two-way IVR
   if (object$EFactNum==1) iFitPlotIVR1(object,...)
     else iFitPlotIVR2(object,...)
@@ -238,7 +238,7 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   lty <- iFitPlotLtys2(f1,lty)
   ## Check if groups will be able to be seen
     if (sum(c(length(unique(pch))==1,length(unique(lty))==1,length(unique(col))==1))>1)
-    warning("Your choices for 'col', 'pch', and 'lty' will make it difficult to see groups.",call.=FALSE)
+    WARN("Your choices for 'col', 'pch', and 'lty' will make it difficult to see groups.")
   ### Plot the points
   # Creates plot schematic -- no points or lines
   # nocov start
@@ -357,11 +357,11 @@ fitPlot.ONEWAY <- function (object,
                             col.ci=col,lty.ci=1,
                             ...) {
   if (length(col)>1) {
-    warning("Only first color used.",call.=FALSE)
+    WARN("Only first color used.")
     col <- col[1]
   }
   if (length(col.ci)>1) {
-    warning("Only first color used for the CIs.",call.=FALSE)
+    WARN("Only first color used for the CIs.")
     col.ci <- col.ci[1]
   }
   # extract x and y variables
@@ -506,7 +506,7 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
 #' @export
 fitPlot.glm <- function(object, ...) {
   if (object$family$family=="binomial" & object$family$link=="logit") fitPlot.logreg(object,...)
-    else stop("Currently only logistic regression GLM models are supported by fitPlot.",call.=FALSE)
+    else STOP("Currently only logistic regression GLM models are supported by fitPlot.")
 }
 
 #' @rdname fitPlot
@@ -548,7 +548,7 @@ iFitPlotClrs2 <- function(var,col,defpal) {
     if (col %in% paletteChoices()) col <- chooseColors(col,num.grps)
     else col <- rep(col,num.grps)
   } else if (length(col)<num.grps) {
-    warning("Fewer colors sent then levels.  Changed to default colors.",call.=FALSE)
+    WARN("Fewer colors sent then levels.  Changed to default colors.")
     col <- chooseColors(defpal,num.grps)
   } else col <- col[1:num.grps]
   col
@@ -559,7 +559,7 @@ iFitPlotPchs2 <- function(var,pch) {
   if (length(pch)>1 & num.grps <= length(pch)) pch <- pch[1:num.grps]
   else if (length(pch)==1 & num.grps>1) pch <- rep(pch,num.grps)
   else if (length(pch)<num.grps) {
-    warning("Fewer pchs sent then levels.  Changed to default pchs.",call.=FALSE)
+    WARN("Fewer pchs sent then levels.  Changed to default pchs.")
     pch <- c(16,21,15,22,17,24,c(3:14))[1:num.grps]
   }
   pch
@@ -570,7 +570,7 @@ iFitPlotLtys2 <- function(var,lty) {
   if (length(lty)>1 & num.grps <= length(lty)) lty <- lty[1:num.grps]
   else if (length(lty)==1& num.grps>1) lty <- rep(lty,num.grps)
   else if (length(lty)<num.grps) {
-    warning("Fewer ltys sent then levels.  Changed to default ltys.",call.=FALSE)
+    WARN("Fewer ltys sent then levels.  Changed to default ltys.")
     lty <- c(1:6,1:6)[1:num.grps]
   }
   lty

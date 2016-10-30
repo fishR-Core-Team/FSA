@@ -187,18 +187,18 @@ lencat.default <- function(x,w=1,startcat=NULL,breaks=NULL,
   
   ## Some checks on the validity of the arguments
   if (is.data.frame(x)) {
-    if (!ncol(x)==1) stop("'x' must be a vector or data.frame with one column",call.=FALSE)
+    if (!ncol(x)==1) STOP("'x' must be a vector or data.frame with one column")
     x <- x[[1]]
   }
-  if (!is.numeric(x)) stop("'x' must be numeric.",call.=FALSE)
-  if (length(w)>1) stop("'w' must be of length 1.",call.=FALSE)
-  if (w<0) stop("'w' must be positive.",call.=FALSE)
-  if (!is.null(startcat)) if (length(startcat)>1) stop("'startcat' must be of length 1.",call.=FALSE)
+  if (!is.numeric(x)) STOP("'x' must be numeric.")
+  if (length(w)>1) STOP("'w' must be of length 1.")
+  if (w<0) STOP("'w' must be positive.")
+  if (!is.null(startcat)) if (length(startcat)>1) STOP("'startcat' must be of length 1.")
   ## Check whether x is all NAs.  If so then send a warning, put
   ## NAs in lcat to return (i.e., if x are all missing then make
   ## the length categories all missing)
   if (all(is.na(x))) {
-    warning("Note that all values in 'x' were missing.",call.=FALSE)
+    WARN("Note that all values in 'x' were missing.")
     lcatv <- x
     lcatn <- as.character(rep(NA,length(lcatv)))
   } else {
@@ -229,8 +229,8 @@ lencat.default <- function(x,w=1,startcat=NULL,breaks=NULL,
       ## 2. stop if breaks don't go below minimum observed value
       ## 3. make a break larger than maximum value if needed.
       breaks <- breaks[!is.na(breaks)]
-      if (minx < breaks[1]) stop("Lowest break (",breaks[1],") is larger than minimum observation (",
-                                 minx,").",call.=FALSE)
+      if (minx < breaks[1]) STOP("Lowest break (",breaks[1],") is larger than minimum observation (",
+                                 minx,").")
       if (maxx >= max(breaks)) {
         breaks <- c(breaks,1.1*maxx)
         addedMaxBreak <- TRUE
@@ -244,7 +244,7 @@ lencat.default <- function(x,w=1,startcat=NULL,breaks=NULL,
     lcatn <- as.character(lcatv)
     if (use.names) {
       if (is.null(names(breaks))) {
-        warning("'use.names=TRUE', but 'breaks' was not named.  Used default labels.",call.=FALSE)
+        WARN("'use.names=TRUE', but 'breaks' was not named.  Used default labels.")
         use.names <- FALSE
       } else lcatn <- names(breaks)[match(lcatv,breaks)]
     }
@@ -276,7 +276,7 @@ lencat.formula <- function(x,data,w=1,startcat=NULL,breaks=NULL,
                            vname=NULL,...) {
   ## Handle the formula with some checks
   x <- iHndlFormula(x,data)
-  if (x$vnum>1) stop("'x' must be only one variable.",call.=FALSE)
+  if (x$vnum>1) STOP("'x' must be only one variable.")
 
   ## Create the length category variable
   tmp <- lencat.default(data[,x$vname],w=w,breaks=breaks,startcat=startcat,right=right,
@@ -297,7 +297,7 @@ iMakeVname <- function(vname,data) {
   # if no name given then default to "LCat"
   if (is.null(vname)) vname <- "LCat"
   # create list of names that includes vname & vname with numbers appended 
-  vnames <- c(vname,paste(vname,seq(1:100),sep=""))
+  vnames <- c(vname,paste0(vname,seq(1:100)))
   # find first instance where names match
   ind <- which(vnames %in% names(data))
   # if no match then go with given vname

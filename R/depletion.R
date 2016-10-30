@@ -120,14 +120,14 @@ depletion <- function(catch,effort,method=c("Leslie","DeLury","Delury"),Ricker.m
 # INTERNAL function to check Catch and Effort vectors
 ##############################################################
 iCheckCatchEffort <- function(catch,effort) {
-  if (!is.numeric(catch)) stop("'catch' must be a numeric vector.",call.=FALSE)
-  if (!is.vector(catch)) stop("'catch' must be a vector.",call.=FALSE)
-  if (any(catch<0)) stop("All 'catch' must be non-negative.",call.=FALSE)
-  if (!is.numeric(effort)) stop("'effort' must be a numeric vector.",call.=FALSE)
-  if (!is.vector(effort)) stop("'effort' must be a vector.",call.=FALSE)
-  if (any(effort<=0)) stop("All 'effort' must be positive.",call.=FALSE)
-  if (length(catch)!=length(effort)) stop("'catch' and 'effort' must be same length.",call.=FALSE)
-  if (length(catch)<3) stop("Must have at least 3 values in 'catch'.",call.=FALSE)
+  if (!is.numeric(catch)) STOP("'catch' must be a numeric vector.")
+  if (!is.vector(catch)) STOP("'catch' must be a vector.")
+  if (any(catch<0)) STOP("All 'catch' must be non-negative.")
+  if (!is.numeric(effort)) STOP("'effort' must be a numeric vector.")
+  if (!is.vector(effort)) STOP("'effort' must be a vector.")
+  if (any(effort<=0)) STOP("All 'effort' must be positive.")
+  if (length(catch)!=length(effort)) STOP("'catch' and 'effort' must be same length.")
+  if (length(catch)<3) STOP("Must have at least 3 values in 'catch'.")
 }
 
 ##############################################################
@@ -163,7 +163,7 @@ iLeslie <- function(catch,effort,Ricker.mod) {
 # INTERNAL function for compute the DeLury estimates
 ##############################################################
 iDeLury <- function(catch,effort,Ricker.mod) {
-  if (any(catch==0)) stop("Can't have zero catches with 'DeLury' method.",call.=FALSE)
+  if (any(catch==0)) STOP("Can't have zero catches with 'DeLury' method.")
   cpe <- catch/effort
   ifelse(!Ricker.mod,E <- cumsum(effort)-effort,E <- cumsum(effort)-(effort/2))
   n <- length(effort)
@@ -194,9 +194,9 @@ iDeLury <- function(catch,effort,Ricker.mod) {
 ##############################################################
 iCheckRegSig <- function(tmp) {
   tmp.slope <- stats::coef(tmp)[2]
-  if (tmp.slope>0) warning("Estimates are suspect as model did not exhibit a negative slope.",call.=FALSE)
+  if (tmp.slope>0) WARN("Estimates are suspect as model did not exhibit a negative slope.")
   tmp.slope.p <- stats::anova(tmp)[1,"Pr(>F)"]
-  if (tmp.slope.p>0.05 & tmp.slope<0) warning("Estimates are suspect as model did not exhibit a significantly (p>0.05) negative slope.", call.=FALSE)
+  if (tmp.slope.p>0.05 & tmp.slope<0) WARN("Estimates are suspect as model did not exhibit a significantly (p>0.05) negative slope.")
 }
 
 #' @rdname depletion
@@ -224,7 +224,7 @@ confint.depletion <- function(object,parm=c("No","q","lm"),
                               level=conf.level,conf.level=0.95,
                               digits=getOption("digits"),...) {
   parm <- match.arg(parm,several.ok=TRUE)
-  if (conf.level<=0 | conf.level>=1) stop("'conf.level' must be between 0 and 1",call.=FALSE)
+  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
   ## only print lm confidence intervals if that is the only parm chosen
   if (length(parm)==1 & "lm" %in% parm) stats::confint(object$lm,level=conf.level)
   else {
@@ -266,8 +266,8 @@ plot.depletion <- function(x,xlab=NULL,ylab=NULL,
   graphics::abline(x$lm,col=col.mdl,lwd=lwd,lty=lty)
   # add values to plot
   if (!is.null(pos.est)) {
-    graphics::legend(pos.est,legend=paste("No=",round(x$est["No","Estimate"],0),
-                                "\nq=",round(x$est["q","Estimate"],4),sep=""),
-           cex=cex.est,bty="n")
+    graphics::legend(pos.est,legend=paste0("No=",round(x$est["No","Estimate"],0),
+                                           "\nq=",round(x$est["q","Estimate"],4)),
+                     cex=cex.est,bty="n")
   }
 } # nocov end

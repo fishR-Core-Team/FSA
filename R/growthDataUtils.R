@@ -65,7 +65,7 @@ gConvert<-function(df,in.pre=NULL,in.var=NULL,out.type=c("inc","rad"),out.pre=ou
     rad= { df.2 <- data.frame(t(apply(df.mv,1,cumsum))) }
   )
   # name the new colums
-  colnames(df.2) <- paste(rep(out.pre,num.mv),seq(1:num.mv),sep="") 
+  colnames(df.2) <- paste0(rep(out.pre,num.mv),seq(1:num.mv))
   # put parts together and return
   data.frame(df.1,df.2)
 }  
@@ -124,22 +124,21 @@ addRadCap <- function(df,in.pre=NULL,in.var=NULL,var.name="radcap") {
 ##############################################################
 bcUtilChecker <- function(df,in.pre,in.var) {
   ## Some checks
-  if (is.null(in.pre) & is.null(in.var)) stop("You must use one of 'in.pre=' or 'in.var='.",call.=FALSE)
-  if (!is.null(in.pre) & !is.null(in.var)) warning("Both 'in.var=' and 'in.pre=' were given;
-                                                    only 'in.var=' will be used.",call.=FALSE)
+  if (is.null(in.pre) & is.null(in.var)) STOP("You must use one of 'in.pre=' or 'in.var='.")
+  if (!is.null(in.pre) & !is.null(in.var)) WARN("Both 'in.var=' and 'in.pre=' were given; only 'in.var=' will be used.")
   ## Find variables with measurements
   if (!is.null(in.var)) {
     if (is.character(in.var)) {
-      if (!all(in.var %in% names(df))) stop("Not all 'in.var=' variables found.",call.=FALSE)
+      if (!all(in.var %in% names(df))) STOP("Not all 'in.var=' variables found.")
       # convert in.var names to column numbers
       in.var <- which(names(df) %in% in.var)
     } else {
-      if (max(in.var)>ncol(df)) stop("Column numbers exceed number of columns.",call.=FALSE)
-      if (min(in.var)<1) stop("Non-positive column number given.",call.=FALSE)
+      if (max(in.var)>ncol(df)) STOP("Column numbers exceed number of columns.")
+      if (min(in.var)<1) STOP("Non-positive column number given.")
     }
   } else {
     in.var <- grep(paste0("^",in.pre),names(df)) 
-    if (length(in.var)==0) stop("No variables start with 'in.pre' string.",call.=FALSE)
+    if (length(in.var)==0) STOP("No variables start with 'in.pre' string.")
   }
   ## Return in.var
   in.var

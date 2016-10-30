@@ -80,16 +80,16 @@ kCounts <- function(value,capitalize=FALSE) {
 #' @export
 kPvalue <- function(value,digits=4,include.p=TRUE,latex=TRUE) {
   if(round(value,digits) == 0) {
-    res <- paste("<",formatC(value,format="f",digits=digits),"5",sep="")
-    if(include.p) res <- paste("p",res,sep="")
+    res <- paste0("<",formatC(value,format="f",digits=digits),"5")
+    if(include.p) res <- paste0("p",res)
   } else if (value>1) {
     res <- ">1"
-    if(include.p) res <- paste("p",res,sep="")
+    if(include.p) res <- paste0("p",res)
   } else {
     res <- formatC(value,format="f",digits=digits)
-    if (include.p) res <- paste("p=",res,sep="")
+    if (include.p) res <- paste0("p=",res)
   }
-  if (latex) paste("$",res,"$",sep="")
+  if (latex) paste0("$",res,"$")
     else res
 }
 
@@ -98,12 +98,12 @@ kPvalue <- function(value,digits=4,include.p=TRUE,latex=TRUE) {
 purl2 <- function(file,out.dir=NULL,newname=NULL,topnotes=NULL,
                   moreItems=NULL,blanks=c("extra","all","none"),
                   delHeader=NULL,timestamp=TRUE,...) {
-  if (!requireNamespace("knitr")) stop("'purl2' requires the 'knitr' package to be installed.",call.=FALSE)
+  if (!requireNamespace("knitr")) STOP("'purl2' requires the 'knitr' package to be installed.")
   else {
     ## Some checks
     blanks <- match.arg(blanks)
     ## if no file is sent then stop
-    if (missing(file)) stop("Must given filename with extenstion.",call.=FALSE)
+    if (missing(file)) STOP("Must given filename with extenstion.")
     ## Get input directory (from filename) and potentially change the output directory
     in.dir <- file.path(dirname(file))
     if (is.null(out.dir)) out.dir <- in.dir
@@ -134,7 +134,7 @@ purl2 <- function(file,out.dir=NULL,newname=NULL,topnotes=NULL,
       delLines <- grep(delHeader,flines)
       ndel <- length(delLines)
       if (ndel>0) {
-        if (is.odd(ndel))warning("Odd number of lines contain 'delHeader`, no blocks deleted",call.=FALSE)
+        if (is.odd(ndel))WARN("Odd number of lines contain 'delHeader`, no blocks deleted")
         else {
           delLines1 <- delLines[is.odd(1:ndel)]
           delLines2 <- delLines[is.even(1:ndel)]
@@ -179,9 +179,9 @@ reproInfo <- function(out=c("r","markdown","latex"),rqrdPkgs=NULL,elapsed=NULL,
   else {
     deps <- iGetAllDependencies(rqrdPkgs)
     deps <- deps[!(deps %in% rqrdPkgs)]
-    rqrdPkgs <- paste(paste(rqrdPkgs,collapse=", ")," and ",
-                      ifelse(length(rqrdPkgs)>1,"their","its"),
-                      " dependencies (",paste(deps,collapse=", "),")\n",sep="")
+    rqrdPkgs <- paste0(paste(rqrdPkgs,collapse=", ")," and ",
+                       ifelse(length(rqrdPkgs)>1,"their","its"),
+                       " dependencies (",paste(deps,collapse=", "),")\n")
   }
   ## Get date and time
   compDate <- format(Sys.time(),'%a %b %d %Y') 
@@ -205,7 +205,7 @@ iMakeItemsToRemove <- function(moreItems) {
 }
 
 iMakeFilename <- function(file,extension,directory=NULL) {
-  res <- paste(file,extension,sep="")
+  res <- paste0(file,extension)
   if (!is.null(directory)) res <- paste(directory,res,sep="/")
   res
 }
@@ -235,14 +235,14 @@ iProcessSessionInfo <- function() {
     paste(pkg, vers, sep = "_")
   } # end internal mkLabel
   ses <- utils::sessionInfo()
-  sys <- paste(Sys.info()["sysname"],", ",ses$platform,"\n",sep="") 
-  vers <- paste(ses$R.version$version.string,"\n",sep="")
+  sys <- paste0(Sys.info()["sysname"],", ",ses$platform,"\n") 
+  vers <- paste0(ses$R.version$version.string,"\n")
   bpkgs <- sort(ses$basePkgs) 
-  bpkgsP <- paste(paste(sort(ses$basePkgs),collapse=", "),"\n",sep="")
+  bpkgsP <- paste0(paste(sort(ses$basePkgs),collapse=", "),"\n")
   opkgs <- names(ses$otherPkgs)
-  opkgsP <- paste(paste(sort(mkLabel(ses,"otherPkgs")),collapse=", "),"\n",sep="")
+  opkgsP <- paste0(paste(sort(mkLabel(ses,"otherPkgs")),collapse=", "),"\n")
   lpkgs <- names(ses$loadedOnly)
-  lpkgsP <- paste(paste(sort(mkLabel(ses,"loadedOnly")),collapse=", "),"\n",sep="")
+  lpkgsP <- paste0(paste(sort(mkLabel(ses,"loadedOnly")),collapse=", "),"\n")
   list(sys=sys,vers=vers,bpkgs=bpkgs,bpkgsP=bpkgsP,opkgs=opkgs,opkgsP=opkgsP,lpkgs=lpkgs,lpkgsP=lpkgsP)
 }
 

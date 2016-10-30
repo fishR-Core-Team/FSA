@@ -63,9 +63,9 @@ wrAdd <- function (wt,...) {
 wrAdd.default <- function(wt,len,spec,units=c("metric","English"),...) {
   ## Some checks
   units <- match.arg(units)
-  if (!is.numeric(wt)) stop("'wt' must be numeric.",call.=FALSE)
-  if (!is.numeric(len)) stop("'len' must be numeric.",call.=FALSE)
-  if (!(class(spec) %in% c("character","factor"))) stop("'spec' must be character or factor.",call.=FALSE)
+  if (!is.numeric(wt)) STOP("'wt' must be numeric.")
+  if (!is.numeric(len)) STOP("'len' must be numeric.")
+  if (!(class(spec) %in% c("character","factor"))) STOP("'spec' must be character or factor.")
   
   ## Prepare the Ws literature values data frame
   # get is used to eliminate problem with rcmd check
@@ -113,12 +113,12 @@ wrAdd.default <- function(wt,len,spec,units=c("metric","English"),...) {
 wrAdd.formula <- function(wt,data,units=c("metric","English"),...) {
   ## Perform some checks on the formula
   tmp <- iHndlFormula(wt,data,expNumR=1,expNumE=2,expNumENums=1,expNumEFacts=1)
-  if (tmp$vnum!=3) stop("'wt' must have one variable on the left-hand-side\n and two variables on the right-hand-side.",call.=FALSE)
-  if (!tmp$metExpNumR) stop("'wt' must have a left-hand-side.",call.=FALSE)
-  if (!(tmp$Rclass %in% c("numeric","integer"))) stop("Variable on left-hand-side of 'wt' is not numeric (thus, not weights).",call.=FALSE)
-  if (!tmp$metExpNumE) stop("'wt' must have a right-hand-side with two variables.",call.=FALSE)
-  if (!tmp$metExpNumENums) stop("'wt' must have one and only one numeric variable (lengths) on right-hand-side.",call.=FALSE)
-  if (!tmp$metExpNumEFacts) stop("'wt' must have one and only one factor variable (species) on right-hand-side.",call.=FALSE)
+  if (tmp$vnum!=3) STOP("'wt' must have one variable on the left-hand-side\n and two variables on the right-hand-side.")
+  if (!tmp$metExpNumR) STOP("'wt' must have a left-hand-side.")
+  if (!(tmp$Rclass %in% c("numeric","integer"))) STOP("Variable on left-hand-side of 'wt' is not numeric (thus, not weights).")
+  if (!tmp$metExpNumE) STOP("'wt' must have a right-hand-side with two variables.")
+  if (!tmp$metExpNumENums) STOP("'wt' must have one and only one numeric variable (lengths) on right-hand-side.")
+  if (!tmp$metExpNumEFacts) STOP("'wt' must have one and only one factor variable (species) on right-hand-side.")
   ## Call the wrAdd.default
   wrAdd.default(tmp$mf[,tmp$Rpos],tmp$mf[,tmp$ENumPos],tmp$mf[,tmp$EFactPos],units,...)
 }

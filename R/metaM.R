@@ -354,50 +354,50 @@ print.metaM <- function(x,digits=4,...) { # nocov start
 # Internal methods
 # ############################################################
 iCheck_tmax <- function(tmax) {
-  if (is.null(tmax)) stop("A value must be given to 'tmax'.",call.=FALSE)  
-  if (tmax <= 0) stop("'tmax' must be positive.",call.=FALSE)
-  if (tmax > 100) warning("'tmax' value seems unreasonable.",call.=FALSE)
+  if (is.null(tmax)) STOP("A value must be given to 'tmax'.")  
+  if (tmax <= 0) STOP("'tmax' must be positive.")
+  if (tmax > 100) WARN("'tmax' value seems unreasonable.")
 }
 
 iCheck_K <- function(K) {
-  if (is.null(K)) stop("A value must be given to 'K'.",call.=FALSE)  
-  if (K <= 0) stop("'K' must be positive.",call.=FALSE)
-  if (K > 3) warning("'K' value seems unreasonable.",call.=FALSE)
+  if (is.null(K)) STOP("A value must be given to 'K'.")  
+  if (K <= 0) STOP("'K' must be positive.")
+  if (K > 3) WARN("'K' value seems unreasonable.")
 }
 
 iCheck_Linf <- function(Linf) {
-  if (is.null(Linf)) stop("A value must be given to 'Linf'.",call.=FALSE)  
-  if (Linf <= 0) stop("'Linf' must be positive.",call.=FALSE)
-  if (Linf > 200) warning("'Linf' value seems unreasonable.  Make sure value is in centimeters.",call.=FALSE)
+  if (is.null(Linf)) STOP("A value must be given to 'Linf'.")  
+  if (Linf <= 0) STOP("'Linf' must be positive.")
+  if (Linf > 200) WARN("'Linf' value seems unreasonable.  Make sure value is in centimeters.")
 }
 
 iCheck_L <- function(L) {
-  if (is.null(L)) stop("A value must be given to 'L'.",call.=FALSE)  
-  if (L <= 0) stop("'L' must be positive.",call.=FALSE)
-  if (L > 200) warning("'L' value seems unreasonable.  Make sure value is in centimeters.",call.=FALSE)
+  if (is.null(L)) STOP("A value must be given to 'L'.")  
+  if (L <= 0) STOP("'L' must be positive.")
+  if (L > 200) WARN("'L' value seems unreasonable.  Make sure value is in centimeters.")
 }
 
 iCheck_Winf <- function(Winf) {
-  if (is.null(Winf)) stop("A value must be given to 'Winf'.",call.=FALSE)  
-  if (Winf <= 0) stop("'Winf' must be positive.",call.=FALSE)
+  if (is.null(Winf)) STOP("A value must be given to 'Winf'.")  
+  if (Winf <= 0) STOP("'Winf' must be positive.")
 }
 
 iCheck_t0 <- function(t0) {
-  if (is.null(t0)) stop("A value must be given to 't0'.",call.=FALSE)  
+  if (is.null(t0)) STOP("A value must be given to 't0'.")  
 }
 
 iCheck_T <- function(T) {
-  if (is.null(T)) stop("A value must be given to 'T'.",call.=FALSE)  
-  if (T < 0 || T > 30) warning("'T' value seems unreasonable.  Make sure value is in celsius.",call.=FALSE)
+  if (is.null(T)) STOP("A value must be given to 'T'.")  
+  if (T < 0 || T > 30) WARN("'T' value seems unreasonable.  Make sure value is in celsius.")
 }
 
 iCheck_t50 <- function(t50) {
-  if (is.null(t50)) stop("A value must be given to 't50'.",call.=FALSE)  
-  if (t50 <= 0) stop("'t50' must be positive.",call.=FALSE)
-  if (t50 > 100) warning("'t50' value seems unreasonable.",call.=FALSE)
+  if (is.null(t50)) STOP("A value must be given to 't50'.")  
+  if (t50 <= 0) STOP("'t50' must be positive.")
+  if (t50 > 100) WARN("'t50' value seems unreasonable.")
 }
 
 iCheck_b <- function(b) {
-  if (is.null(b)) stop("A value must be given to 'b'.",call.=FALSE)  
-  if (b<1 || b>5) warning("'b' value seems unreasonable.",call.=FALSE)
+  if (is.null(b)) STOP("A value must be given to 'b'.")  
+  if (b<1 || b>5) WARN("'b' value seems unreasonable.")
 }
