@@ -145,7 +145,7 @@ test_that("iHndlMultWhat() messages and results",{
 })
 
 
-test_that("iHndlMultWhat() messages and results",{
+test_that("iListSpecies() messages and results",{
   data(PSDlit)
   expect_message(FSA:::iListSpecies(PSDlit))
 })

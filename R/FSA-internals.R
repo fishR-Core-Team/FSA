@@ -151,9 +151,10 @@ iHndlFormula <- function(formula,data,expNumR=NULL,
                          expNumE=NULL,expNumENums=NULL,expNumEFacts=NULL) {
   mf <- stats::model.frame(formula,data=data,na.action=NULL)
   if (ncol(mf)==1) {
-    # Only one variable in the model frame.  Return only the model.frame, name of 
-    #   that variable, and it's class.
-    return(list(mf=mf,vnum=1,vname=names(mf),vclass=class(mf[,1])))
+    # One variable.  Return only model.frame, name of variable, and it's class.
+    #   but handle an odd case where the item is an array by returning the mode
+    return(list(mf=mf,vnum=1,vname=names(mf),
+                vclass=ifelse(is.array(mf[,1]),mode(mf[,1]),class(mf[,1]))))
   } else {
     # More than one variable in the formula.
     # Must identify if there is a LHS.
