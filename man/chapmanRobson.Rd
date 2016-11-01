@@ -103,10 +103,12 @@ plot(catch~age,data=BrookTroutTH,pch=19)
 cr1 <- chapmanRobson(catch~age,data=BrookTroutTH,ages2use=2:6)
 summary(cr1)
 summary(cr1,verbose=TRUE)
-confint(cr1)
+cbind(Est=coef(cr1),confint(cr1))
 plot(cr1)
 plot(cr1,axis.age="age")
 plot(cr1,axis.age="recoded age")
+summary(cr1,parm="Z")
+cbind(Est=coef(cr1,parm="Z"),confint(cr1,parm="Z"))
 
 ## demonstration of excluding ages2use
 cr2 <- chapmanRobson(catch~age,data=BrookTroutTH,ages2use=-c(0,1))

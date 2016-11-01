@@ -61,9 +61,10 @@
 #' ## demonstration of formula notation
 #' cc1 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6)
 #' summary(cc1)
+#' cbind(Est=coef(cc1),confint(cc1))
 #' plot(cc1)
-#' coef(cc1)
-#' confint(cc1)
+#' summary(cc1,parm="Z")
+#' cbind(Est=coef(cc1,parm="Z"),confint(cc1,parm="Z"))
 #' 
 #' ## demonstration of excluding ages2use
 #' cc2 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=-c(0,1))
@@ -77,8 +78,7 @@
 #'
 #' ## demonstration of returning the linear model results
 #' summary(cc3,parm="lm")
-#' coef(cc3,parm="lm")
-#' confint(cc3,parm="lm")
+#' cbind(Est=coef(cc3,parm="lm"),confint(cc3,parm="lm"))
 #' 
 #' ## demonstration of ability to work with missing age classes
 #' df <- data.frame(age=c(  2, 3, 4, 5, 7, 9,12),
@@ -176,8 +176,7 @@ summary.catchCurve <- function(object,parm=c("both","all","Z","A","lm"),...) {
     Z[c(1,3)] <- -Z[c(1,3)]
     A <- c(100*(1-exp(-Z[1])),NA,NA,NA)
     tmp <- rbind(Z,A)
-    if (parm=="Z") tmp <- tmp[1,,drop=FALSE]
-    else if (parm=="A") tmp <- tmp[2,drop=FALSE]
+    if (!parm %in% c("both","all")) tmp <- tmp[parm,,drop=FALSE]
   }
   tmp
 }
@@ -192,8 +191,7 @@ coef.catchCurve <- function(object,parm=c("all","both","Z","A","lm"),...) {
     A <- 100*(1-exp(-Z))
     tmp <- c(Z,A)
     names(tmp) <- c("Z","A")
-    if (parm=="Z") tmp <- tmp[1]
-    else if (parm=="A") tmp <- tmp[2]
+    if (!parm %in% c("both","all")) tmp <- tmp[parm]
   } 
   tmp
 }
@@ -213,11 +211,8 @@ confint.catchCurve <- function(object,parm=c("all","both","Z","A","lm"),
   ci <- stats::confint(object$lm,conf.level=level,...)
   if (parm=="lm") res <- ci
   else {
-    Zres <- rbind(Z=-ci[2,2:1])
-    Ares <- rbind(A=100*(1-exp(ci[2,2:1])))
-    if (parm %in% c("all","both")) res <- rbind(Zres,Ares)
-      else if (parm=="Z") res <- Zres
-        else res <- Ares
+    res <- rbind(Z=-ci[2,2:1],A=100*(1-exp(ci[2,2:1])))
+    if (!parm %in% c("all","both")) res <- res[parm,,drop=FALSE]
   }
   colnames(res) <- iCILabel(conf.level)
   res

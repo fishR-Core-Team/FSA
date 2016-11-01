@@ -3,6 +3,9 @@
 * Changed all `paste()` that used `sep=""` to `paste0()`s.
 * Removed several `sep=""`s from `message()`s.
 * `iHndlFormula()`: Modified. Added code to deal with a formula that is a single "variable" sent in an array.  Addresses [#21](https://github.com/droglenc/FSA/issues/21) for the simple situation of single "variable."
+* `catchCurve()`: Modified. Made sure that `coef()` method returned a vector (addresses [#19](https://github.com/droglenc/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned.
+* `chapmanRobson()`: Modified. Made sure that `coef()` method returned a vector (addresses [#19](https://github.com/droglenc/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned.
+* `depletion()`: Modified. Changed `coef()` method so that it returned a named vector (addresses [#19](https://github.com/droglenc/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned. Removed `type=` to match other functions (incorporated that functionality into `parm=`). Removed `digits=` to match other functions.
 * `mrClosed()`: Modified. Added some checks for non-vector uses of `M=` and `R=` (partially addresses [#22](https://github.com/droglenc/FSA/issues/22)).
 * `predict.bootCase()`: Modified. Modified so that situations where other than values of the dependent variable are in the dots argument (as would occur if making predictions for the Francis parameterization of the VBGF).
 * `predict.nlsBoot()`: Modified. See note for `predict.bootCase()`.

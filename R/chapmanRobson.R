@@ -70,10 +70,12 @@
 #' cr1 <- chapmanRobson(catch~age,data=BrookTroutTH,ages2use=2:6)
 #' summary(cr1)
 #' summary(cr1,verbose=TRUE)
-#' confint(cr1)
+#' cbind(Est=coef(cr1),confint(cr1))
 #' plot(cr1)
 #' plot(cr1,axis.age="age")
 #' plot(cr1,axis.age="recoded age")
+#' summary(cr1,parm="Z")
+#' cbind(Est=coef(cr1,parm="Z"),confint(cr1,parm="Z"))
 #' 
 #' ## demonstration of excluding ages2use
 #' cr2 <- chapmanRobson(catch~age,data=BrookTroutTH,ages2use=-c(0,1))
@@ -187,9 +189,11 @@ summary.chapmanRobson <- function(object,parm=c("all","both","Z","S"),verbose=FA
 #' @rdname chapmanRobson
 #' @export
 coef.chapmanRobson <- function(object,parm=c("all","both","Z","S"),...) {
+  parm <- match.arg(parm)
   tmp <- summary(object,parm)
   res <- tmp[,1]
   names(res) <- rownames(tmp)
+  if (!parm %in% c("all","both")) res <- res[parm]
   res
 }
 
@@ -199,17 +203,12 @@ confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),
                                   level=conf.level,conf.level=0.95,...) {
   parm <- match.arg(parm)
   if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
-  
   z <- c(-1,1)*stats::qnorm((1-(1-conf.level)/2))
-  # compute S results
-  Sres <- rbind(S=object$est["S","Estimate"]+z*object$est["S","Std. Error"])
-  # compute Z results
-  Zres <- rbind(Z=object$est["Z","Estimate"]+z*object$est["Z","Std. Error"])
-  # Create output matrix
-  if (parm=="all" | parm=="both") res <- rbind(Sres,Zres)
-    else if (parm=="S") res <- Sres
-      else res <- Zres
+  res <- rbind(S=object$est["S","Estimate"]+z*object$est["S","Std. Error"],
+               Z=object$est["Z","Estimate"]+z*object$est["Z","Std. Error"])
   colnames(res) <- iCILabel(conf.level)
+  # Create output matrix
+  if (!parm %in% c("all","both")) res <- res[parm,,drop=FALSE]
   res
 }
 

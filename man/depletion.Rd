@@ -12,15 +12,14 @@
 depletion(catch, effort, method = c("Leslie", "DeLury", "Delury"),
   Ricker.mod = FALSE)
 
-\method{summary}{depletion}(object, type = c("params", "lm"),
-  verbose = FALSE, digits = getOption("digits"), ...)
+\method{summary}{depletion}(object, parm = c("all", "both", "No", "q", "lm"),
+  verbose = FALSE, ...)
 
-\method{coef}{depletion}(object, type = c("params", "lm"),
-  digits = getOption("digits"), ...)
-
-\method{confint}{depletion}(object, parm = c("No", "q", "lm"),
-  level = conf.level, conf.level = 0.95, digits = getOption("digits"),
+\method{coef}{depletion}(object, parm = c("all", "both", "No", "q", "lm"),
   ...)
+
+\method{confint}{depletion}(object, parm = c("all", "both", "No", "q", "lm"),
+  level = conf.level, conf.level = 0.95, ...)
 
 \method{anova}{depletion}(object, ...)
 
@@ -39,13 +38,9 @@ depletion(catch, effort, method = c("Leslie", "DeLury", "Delury"),
 
 \item{object}{An object saved from the \code{removal} call (i.e., of class \code{depletion}).}
 
-\item{type}{A string that indicates the type of summary or coefficients to extract.  If \code{type="params"} (the default) then results for No and q are returned.  If \code{type="lm"} then results for the underlying linear model are returned.}
+\item{parm}{A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.}
 
 \item{verbose}{A logical that indicates whether a reminder of the method used should be printed with the summary results.}
-
-\item{digits}{A single numeric indicating the number of digits to round the output.}
-
-\item{parm}{A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.}
 
 \item{level}{Same as \code{conf.level} but used for compatability with generic \code{confint} function.}
 
@@ -112,33 +107,36 @@ data(SMBassLS)
 ## Leslie model examples
 # no Ricker modification
 l1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Leslie")
-coef(l1)
 summary(l1)
 summary(l1,verbose=TRUE)
-confint(l1)
-summary(l1,type="lm")
+summary(l1,parm="No")
+cbind(Est=coef(l1),confint(l1))
+cbind(Est=coef(l1,parm="No"),confint(l1,parm="No"))
+cbind(Est=coef(l1,parm="q"),confint(l1,parm="q"))
+summary(l1,parm="lm")
 plot(l1)
 
 # with Ricker modification
 l2 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Leslie",Ricker.mod=TRUE)
 summary(l2)
-confint(l2)
+cbind(Est=coef(l2),confint(l1))
 plot(l2)
 
 ## Delury model examples
 # no Ricker modification
 d1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Delury")
-coef(d1)
 summary(d1)
+summary(d1,parm="q")
 summary(d1,verbose=TRUE)
-confint(d1)
-summary(d1,type="lm")
+cbind(Est=coef(d1),confint(d1))
+summary(d1,parm="lm")
 plot(d1)
 
 # with Ricker modification
 d2 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Delury",Ricker.mod=TRUE)
 summary(d2)
-confint(d2)
+cbind(Est=coef(d2),confint(d2))
+cbind(Est=coef(d2,parm="q"),confint(d2,parm="q"))
 plot(d2)
 
 }

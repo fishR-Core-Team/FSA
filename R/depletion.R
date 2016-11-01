@@ -11,7 +11,6 @@
 #' @param catch A numeric vector of catches of fish at each time.
 #' @param effort A numeric vector of efforts expended at each time.
 #' @param method A single string that indicates which depletion method to use
-#' @param type A string that indicates the type of summary or coefficients to extract.  If \code{type="params"} (the default) then results for No and q are returned.  If \code{type="lm"} then results for the underlying linear model are returned.
 #' @param Ricker.mod A single logical that indicates whether to use the modification proposed by Ricker (=TRUE) or not (=FALSE, default).
 #' @param object An object saved from the \code{removal} call (i.e., of class \code{depletion}).
 #' @param x An object saved from the \code{depletion} call (i.e., of class \code{depletion}).
@@ -19,7 +18,6 @@
 #' @param parm A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.
 #' @param conf.level A single number that represents the level of confidence to use for constructing confidence intervals.
 #' @param level Same as \code{conf.level} but used for compatability with generic \code{confint} function.
-#' @param digits A single numeric indicating the number of digits to round the output.
 #' @param ylab A label for the y-axis.
 #' @param xlab A label for the x-axis.
 #' @param pch A numeric that indicates the type of plotting character.
@@ -70,33 +68,36 @@
 #' ## Leslie model examples
 #' # no Ricker modification
 #' l1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Leslie")
-#' coef(l1)
 #' summary(l1)
 #' summary(l1,verbose=TRUE)
-#' confint(l1)
-#' summary(l1,type="lm")
+#' summary(l1,parm="No")
+#' cbind(Est=coef(l1),confint(l1))
+#' cbind(Est=coef(l1,parm="No"),confint(l1,parm="No"))
+#' cbind(Est=coef(l1,parm="q"),confint(l1,parm="q"))
+#' summary(l1,parm="lm")
 #' plot(l1)
 #' 
 #' # with Ricker modification
 #' l2 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Leslie",Ricker.mod=TRUE)
 #' summary(l2)
-#' confint(l2)
+#' cbind(Est=coef(l2),confint(l1))
 #' plot(l2)
 #'
 #' ## Delury model examples
 #' # no Ricker modification
 #' d1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Delury")
-#' coef(d1)
 #' summary(d1)
+#' summary(d1,parm="q")
 #' summary(d1,verbose=TRUE)
-#' confint(d1)
-#' summary(d1,type="lm")
+#' cbind(Est=coef(d1),confint(d1))
+#' summary(d1,parm="lm")
 #' plot(d1)
 #' 
 #' # with Ricker modification
 #' d2 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Delury",Ricker.mod=TRUE)
 #' summary(d2)
-#' confint(d2)
+#' cbind(Est=coef(d2),confint(d2))
+#' cbind(Est=coef(d2,parm="q"),confint(d2,parm="q"))
 #' plot(d2)
 #'
 #' @rdname depletion
@@ -201,43 +202,47 @@ iCheckRegSig <- function(tmp) {
 
 #' @rdname depletion
 #' @export
-summary.depletion <- function(object,type=c("params","lm"),verbose=FALSE,
-                              digits=getOption("digits"),...) {
+summary.depletion <- function(object,parm=c("all","both","No","q","lm"),verbose=FALSE,...) {
   if (verbose) message("The ",object$method," method was used.")
-  type <- match.arg(type)
-  if(type=="lm") summary(object$lm,...)
-    else round(object$est,digits)
-}
-
-#' @rdname depletion
-#' @export
-coef.depletion <- function(object,type=c("params","lm"),
-                           digits=getOption("digits"),...) {
-  type <- match.arg(type)
-  if(type=="lm") stats::coef(object$lm,...)
-    else t(round(object$est[,"Estimate"],digits))
-}
-
-#' @rdname depletion
-#' @export
-confint.depletion <- function(object,parm=c("No","q","lm"),
-                              level=conf.level,conf.level=0.95,
-                              digits=getOption("digits"),...) {
-  parm <- match.arg(parm,several.ok=TRUE)
-  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
-  ## only print lm confidence intervals if that is the only parm chosen
-  if (length(parm)==1 & "lm" %in% parm) stats::confint(object$lm,level=conf.level)
-  else {
-    # remove "lm" if in parm with q or No
-    parm <- parm[-which(parm=="lm")]
-    t <- c(-1,1)*stats::qt(1-(1-conf.level)/2,summary(object$lm)$df[2])
-    tmp <- summary(object,parm="params")
-    t <- matrix(rep(t,nrow(tmp)),nrow=nrow(tmp),byrow=TRUE)
-    res <- tmp[,"Estimate"]+t*tmp[,"Std. Err."]
-    rownames(res) <- parm
-    colnames(res) <- iCILabel(conf.level)
-    round(res,digits)
+  parm <- match.arg(parm)
+  if(parm=="lm") {
+    tmp <- summary(object$lm,...)
+  } else {
+    tmp <- object$est
+    if (!parm %in% c("all","both")) tmp <- tmp[parm,,drop=FALSE]
   }
+  tmp
+}
+
+#' @rdname depletion
+#' @export
+coef.depletion <- function(object,parm=c("all","both","No","q","lm"),...) {
+  parm <- match.arg(parm)
+  if(parm=="lm") {
+    tmp <- stats::coef(object$lm,...)
+  } else {
+    tmp <- object$est[,"Estimate"]
+    if (!parm %in% c("all","both")) tmp <- tmp[parm]
+  }
+  tmp
+}
+
+#' @rdname depletion
+#' @export
+confint.depletion <- function(object,parm=c("all","both","No","q","lm"),
+                              level=conf.level,conf.level=0.95,...) {
+  parm <- match.arg(parm)
+  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
+  if (parm=="lm") res <- stats::confint(object$lm,level=conf.level)
+  else {
+    t <- stats::qt(1-(1-conf.level)/2,summary(object$lm)$df[2])
+    tmp <- summary(object)
+    res <- cbind(tmp[,"Estimate"]-t*tmp[,"Std. Err."],
+                 tmp[,"Estimate"]+t*tmp[,"Std. Err."])
+    if (!parm %in% c("all","both")) res <- res[parm,,drop=FALSE]
+  }
+  colnames(res) <- iCILabel(conf.level)
+  res
 }
 
 #' @rdname depletion

@@ -103,9 +103,10 @@ plot(catch~age,data=BrookTroutTH,pch=19)
 ## demonstration of formula notation
 cc1 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6)
 summary(cc1)
+cbind(Est=coef(cc1),confint(cc1))
 plot(cc1)
-coef(cc1)
-confint(cc1)
+summary(cc1,parm="Z")
+cbind(Est=coef(cc1,parm="Z"),confint(cc1,parm="Z"))
 
 ## demonstration of excluding ages2use
 cc2 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=-c(0,1))
@@ -119,8 +120,7 @@ plot(cc3)
 
 ## demonstration of returning the linear model results
 summary(cc3,parm="lm")
-coef(cc3,parm="lm")
-confint(cc3,parm="lm")
+cbind(Est=coef(cc3,parm="lm"),confint(cc3,parm="lm"))
 
 ## demonstration of ability to work with missing age classes
 df <- data.frame(age=c(  2, 3, 4, 5, 7, 9,12),
