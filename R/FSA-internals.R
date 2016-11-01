@@ -318,7 +318,7 @@ iGetDecimals <- function(x) {
 }
 
 # same as stop() and warning() but with call.=FALSE as default
-STOP <- function(...,call.=FALSE,domain=NULL) stop(...,call.,domain)
+STOP <- function(...,call.=FALSE,domain=NULL) stop(...,call.=call.,domain=domain)
 WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
-  warning(...,call.,immediate.,noBreaks.,domain)
+  warning(...,call.=call.,immediate.=immediate.,noBreaks.=noBreaks.,domain=domain)
 }
