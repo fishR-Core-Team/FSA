@@ -19,8 +19,8 @@ Imports:
     utils,
     car,
     dplyr,
+    epitools,
     gplots,
-    Hmisc,
     plotrix,
     plyr,
     sciplot

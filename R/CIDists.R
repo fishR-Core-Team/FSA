@@ -12,18 +12,19 @@
 #'
 #' Note that Agresti and Coull (2000) suggest that the Wilson interval is the preferred method and is, thus, the default \code{type}.
 #'
-#' @note This is primarily a wrapper function for \code{\link[Hmisc]{binconf}} in the \pkg{Hmisc} package (this implementation uses arguments, specificially \code{conf.level}, that more closely match other functions).
+#' @note This is primarily a wrapper function for \code{\link[epitools]{binom.exact}}, \code{\link[epitools]{binom.wilson}}, and \code{\link[epitools]{binom.approx}} from the \pkg{epitools} package.
 #'
 #' @param x A single or vector of numbers that contains the number of observed successes.
 #' @param n A single or vector of numbers that contains the sample size.
 #' @param conf.level A single number that indicates the level of confidence (default is \code{0.95}).
 #' @param type A string that identifies the type of method to use for the calculations.  See details.
+#' @param verbose A logical that indicates whether \code{x}, \code{n}, and \code{x/n} should be included in the returned matrix (\code{=TRUE}) or not (\code{=FALSE}; DEFAULT).
 #' 
-#' @return A #x2 matrix that contains the lower and upper confidence interval bounds as columns.
+#' @return A #x2 matrix that contains the lower and upper confidence interval bounds as columns and, if \code{verbose=TRUE} \code{x}, \code{n}, and \code{x/n} .
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @seealso See \code{\link{binom.test}}, \code{\link[Hmisc]{binconf}} in \pkg{Hmisc}, \code{\link[epitools]{binom.conf.int}} in \pkg{epitools}, and functions in \pkg{binom}.
+#' @seealso See \code{\link{binom.test}}; \code{\link[Hmisc]{binconf}} in \pkg{Hmisc}; \code{\link[epitools]{binom.exact}}, \code{\link[epitools]{binom.wilson}}, and \code{\link[epitools]{binom.approx}} in \pkg{epitools}, and functions in \pkg{binom}.
 #'
 #' @references Agresti, A. and B.A. Coull.  1998.  Approximate is better than \dQuote{exact} for interval estimation of binomial proportions.  American Statistician, 52:119-126.
 #'
@@ -33,29 +34,44 @@
 #' binCI(7,20,type="wilson")
 #' binCI(7,20,type="exact")
 #' binCI(7,20,type="asymptotic")
-#'
+#' binCI(7,20,type="asymptotic",verbose=TRUE)
+#' 
 #' ## Demonstrates using all types at once
 #' binCI(7,20,type="all")
-#'
+#' binCI(7,20,type="all",verbose=TRUE)
+#' 
 #' ## Demonstrates use with multiple inputs
 #' binCI(c(7,10),c(20,30))
+#' binCI(c(7,10),c(20,30),verbose=TRUE)
 #'
 #' @export
-binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic","all")) {
+binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic","all"),
+                  verbose=FALSE) {
   type <- match.arg(type)
   if (!is.vector(x)) STOP("'x' must be a single numeric or a vector of numerics.")
-  if (type=="all" & length(x)>1) {
-    WARN("'type=all' will not work with vectors; 'type' re-set to 'wilson'.")
-    type <- "wilson"
-  }
-  # deletes point estimate value
-  res <- Hmisc::binconf(x,n,alpha=1-conf.level,method=type)[,-1]
-  if (is.vector(res)) {
-    # convert to 1x2 matrix if only one set of CIs
-    res <- rbind(res)
-    rownames(res) <- ""
-  }
-  colnames(res) <- iCILabel(conf.level)
+  if (!is.numeric(x)) STOP("'x' must be numeric.")
+  if (!is.numeric(n)) STOP("'n' must be numeric.")
+  if (any(x<0)) STOP("'x' must be non-negative.")
+  if (any(n<0)) STOP("'n' must be non-negative.")
+  if (any(x>n)) STOP("'x' must not be greater than 'n'.")
+  switch(type,
+         all = {
+           if (length(x)>1) STOP("'type=all' does not work with vector inputs.")
+           res <- rbind(epitools::binom.exact(x,n,conf.level),
+                        epitools::binom.wilson(x,n,conf.level),
+                        epitools::binom.approx(x,n,conf.level))
+           rownames(res) <- c("Exact","Wilson","Asymptotic")
+           },
+         exact = { res <- epitools::binom.exact(x,n,conf.level) },
+         wilson = { res <- epitools::binom.wilson(x,n,conf.level) },
+         asymptotic = { res <- epitools::binom.approx(x,n,conf.level) })
+  # relabel CI columns, convert to matrix, drop "conf.level" column (6th)
+  names(res)[which(names(res) %in% c("lower","upper"))] <- iCILabel(conf.level)
+  res <- as.matrix(res[,-6])
+  # remove rownnames if not type="all"
+  if (type!="all") rownames(res) <- rep("",nrow(res))
+  # return everything if verbose=TRUE, otherwise just CI
+  if (!verbose) res <- res[,4:5,drop=FALSE]
   res
 }
 
@@ -86,6 +102,10 @@ binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic","all"
 #'
 #' @export
 hyperCI <- function(M,n,m,conf.level=0.95) {
+  if (!is.numeric(c(M,n,m))) STOP("'M', 'n', and 'm' must all be numeric.")
+  if (any(c(M,n,m)<1)) STOP("'M', 'n', and 'm' must all be non-negative.")
+  if (m>n) STOP("'m' must be less than 'n'.")
+  if (m>M) STOP("'m' must be less than 'M'.")
   N.low <- (n+(M-m))
   while (stats::qhyper((1-conf.level)/2,n,N.low-n,M) > m) { N.low <- N.low + 1 }
   N.hi <- (n*M)/m
@@ -128,6 +148,8 @@ hyperCI <- function(M,n,m,conf.level=0.95) {
 #'
 #' @export
 poiCI <- function(x,conf.level=0.95) {
+  if (!is.numeric(x)) STOP("'x' must be numeric.")
+  if (x<1) STOP("'x' must be non-negative.")
   LCI <- stats::qchisq((1-conf.level)/2,2*x)/2
   UCI <- stats::qchisq(1-(1-conf.level)/2,2*(x+1))/2
   res <- cbind(LCI,UCI)
