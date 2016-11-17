@@ -222,7 +222,7 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
                          col="black",lty=rep(1:6,6),lwd=3,
                          interval=c("none","confidence","prediction","both"),conf.level=0.95,
                          xlab=names(object$mf[object$ENumPos]),ylab=object$Rname,main="",
-                         legend="topright",...) {
+                         legend="topright",cex.leg=1,box.lty.leg=0,...) {
   ## Some checks
   interval <- match.arg(interval)
   # extract y and x quantitative variables
@@ -271,8 +271,10 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   leg <- iLegendHelp(legend)
   if (leg$do.legend) {
     levs <- levels(f1)
-    if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=levs,col=col,pch=pch,lty=lty)
-    else graphics::legend(x=leg$x,y=leg$y,legend=levs,col=col,lty=lty)
+    if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=levs,col=col,
+                                   pch=pch,lty=lty,cex=cex.leg,box.lty=box.lty.leg)
+    else graphics::legend(x=leg$x,y=leg$y,legend=levs,col=col,lty=lty,
+                          cex=cex.leg,box.lty=box.lty.leg)
     graphics::box()
   }  # nocov end
 }
@@ -281,7 +283,7 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
                          col="rich",lty=rep(1:6,6),lwd=3,
                          interval=c("none","confidence","prediction","both"),conf.level=0.95,
                          xlab=names(object$mf[object$ENumPos]),ylab=object$Rname,main="",
-                         legend="topright",...) {
+                         legend="topright",cex.leg=1,box.lty.leg=0,...) {
   interval <- match.arg(interval)
   # extract y and x quantitative variables
   y <- object$mf[,object$Rname]
@@ -335,8 +337,10 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
     lpch <- rep(pch,times=num.f1)
     llty <- rep(lty,times=num.f1)
     levs <- levels(f1:f2)
-    if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,pch=lpch,lty=llty)
-    else graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,lty=llty)
+    if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,
+                                   pch=lpch,lty=llty,cex=cex.leg,box.lty=box.lty.leg)
+    else graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,
+                          lty=llty,cex=cex.leg,box.lty=box.lty.leg)
     graphics::box()
   }  # nocov end
 }
