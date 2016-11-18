@@ -131,7 +131,7 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
                           breaks=breaks,ylim=ylim,...)
     }
     # assure a line at y=0
-    if (iaxs) graphics::abline(h=0,xpd=FALSE)
+    if (iaxs & iPlotExists()) graphics::abline(h=0,xpd=FALSE)
     invisible(h)
   } else {
     ## Multiple histograms
@@ -183,7 +183,8 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
         graphics:: hist(DF.split[[i]],main=main,xlab=xlab,ylab=ylab,right=right,
                         ylim=c(0,ymax[i]),col=col,xaxs=ifelse(iaxs,"i","r"),
                         yaxs=ifelse(iaxs,"i","r"),breaks=breaks,...)
-        if (iaxs) graphics::abline(h=0,xpd=FALSE)  # will assure a line at y=0
+        # assures a line at y=0
+        if (iaxs & iPlotExists()) graphics::abline(h=0,xpd=FALSE)
       }
     } else {
       max.per.page <- nrow*ncol
@@ -198,7 +199,8 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
                          ylim=c(0,ymax[pos]),col=col,
                          xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),
                          breaks=breaks,...)
-          if (iaxs) graphics::abline(h=0,xpd=FALSE)  # will assure a line at y=0
+          # assures a line at y=0
+          if (iaxs & iPlotExists()) graphics::abline(h=0,xpd=FALSE)
         }  
       }
     }

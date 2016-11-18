@@ -3,6 +3,7 @@
 \name{.onAttach}
 \alias{.onAttach}
 \alias{STOP}
+\alias{WARN}
 \alias{iAddLoessLine}
 \alias{iCILabel}
 \alias{iCheckALK}
@@ -15,6 +16,7 @@
 \alias{iLegendHelp}
 \alias{iListSpecies}
 \alias{iMakeColor}
+\alias{iPlotExists}
 \alias{iTypeoflm}
 \title{Internal functions.}
 \usage{

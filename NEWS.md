@@ -8,7 +8,9 @@
 * `chapmanRobson()`: Modified. Made sure that `coef()` method returned a vector (addresses [#19](https://github.com/droglenc/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned.
 * `depletion()`: Modified. Changed `coef()` method so that it returned a named vector (addresses [#19](https://github.com/droglenc/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned. Removed `type=` to match other functions (incorporated that functionality into `parm=`). Removed `digits=` to match other functions.
 * `fitPlot()`: Modified.  Added `cex.leg=` and `box.lty.leg=` to IVR plots.
+* `hist.formula()`: Modified.  Fixed a bug with adding the horizontal line at 0 when the user uses `plot=FALSE`, which occurs with `hist.bootCase()`.
 * `iHndlFormula()`: Modified. Added code to deal with a formula that is a single "variable" sent in an array.  Addresses [#21](https://github.com/droglenc/FSA/issues/21) for the simple situation of single "variable."
+* `iPlotExists()`: Added.  Helps with bug fix in `hist.formula()`.
 * `mrClosed()`: Modified. Added some checks for non-vector uses of `M=` and `R=` (partially addresses [#22](https://github.com/droglenc/FSA/issues/22)).
 * `predict.bootCase()`: Modified. Modified so that situations where other than values of the dependent variable are in the dots argument (as would occur if making predictions for the Francis parameterization of the VBGF).
 * `predict.nlsBoot()`: Modified. See note for `predict.bootCase()`.

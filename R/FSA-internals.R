@@ -4,7 +4,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach iAddLoessLine iCheckALK iCheckStartcatW iCILabel iGetVarFromFormula iHndlCols2use iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iTypeoflm iGetDecimals STOP
+#' @aliases .onAttach iAddLoessLine iCheckALK iCheckStartcatW iCILabel iGetVarFromFormula iHndlCols2use iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iTypeoflm iGetDecimals STOP WARN iPlotExists
 
 
 ##################################################################
@@ -317,8 +317,28 @@ iGetDecimals <- function(x) {
   }
 }
 
+################################################################################
 # same as stop() and warning() but with call.=FALSE as default
+################################################################################
 STOP <- function(...,call.=FALSE,domain=NULL) stop(...,call.=call.,domain=domain)
 WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
   warning(...,call.=call.,immediate.=immediate.,noBreaks.=noBreaks.,domain=domain)
 }
+
+################################################################################
+# Checks if a plot exists ... i.e., was there a plot.new
+################################################################################
+iPlotExists <- function() {
+  # set options so that warnings are errors
+  oldwarn <- options("warn")[[1]]
+  options(warn=2)
+  # if plot does not exist that par(new=TRUE) will error and then
+  #   try will return a class of "try-error"
+  res <- try(graphics::par(new=TRUE),silent=TRUE)
+  # if errored then say FALSE (i.e., plot does not exist)
+  res <- ifelse(class(res)=="try-error",FALSE,TRUE)
+  # return
+  options(warn=oldwarn)
+  res
+}
+
