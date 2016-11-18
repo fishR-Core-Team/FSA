@@ -25,7 +25,8 @@ residPlot(object, ...)
 
 \method{residPlot}{POLY}(object, ...)
 
-\method{residPlot}{IVR}(object, legend = "topright", ...)
+\method{residPlot}{IVR}(object, legend = "topright", cex.leg = 1,
+  box.lty.leg = 0, ...)
 
 \method{residPlot}{ONEWAY}(object, xlab = "Fitted Values",
   ylab = "Residuals", main = NULL, pch = 16, col = "black",
@@ -91,6 +92,10 @@ residPlot(object, ...)
 \item{inclHist}{A logical that indicates if a second pane that includes the histogram of residuals should be constructed.}
 
 \item{legend}{If \code{TRUE}, draw a legend and the user must click in the upper-left corner of where the legend should be placed; if \code{FALSE} do not draw a legend.  If a vector of length 2 then draw the upper left corner of the legend at the coordinates given in the vector of length 2.}
+
+\item{cex.leg}{A single numeric values used to represent the character expansion value for the legend.  Ignored if \code{legend=FALSE}.}
+
+\item{box.lty.leg}{A single numeric values used to indicate the type of line to use for the box around the legend.  The default is to not plot a box.}
 
 \item{bp}{A logical that indicates if the plot for the one-way and two-way ANOVA will be a boxplot (\code{TRUE}; default) or not.}
 

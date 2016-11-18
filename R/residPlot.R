@@ -35,6 +35,8 @@
 #' @param col.loess A numeric or character that indicates the line color to use for loess fit line.  See \code{par}.
 #' @param trans.loess A single numeric that indicates how transparent the loess band should be (larger numbers are more transparent).
 #' @param legend If \code{TRUE}, draw a legend and the user must click in the upper-left corner of where the legend should be placed; if \code{FALSE} do not draw a legend.  If a vector of length 2 then draw the upper left corner of the legend at the coordinates given in the vector of length 2.
+#' @param cex.leg A single numeric values used to represent the character expansion value for the legend.  Ignored if \code{legend=FALSE}.
+#' @param box.lty.leg A single numeric values used to indicate the type of line to use for the box around the legend.  The default is to not plot a box.
 #' @param inclHist A logical that indicates if a second pane that includes the histogram of residuals should be constructed.
 #' @param \dots Other arguments to the generic \code{plot} function.
 #'
@@ -176,17 +178,18 @@ residPlot.POLY <- function(object,...) { # nocov start
 
 #' @rdname residPlot
 #' @export
-residPlot.IVR <- function(object,legend="topright",...) {
+residPlot.IVR <- function(object,legend="topright",cex.leg=1,box.lty.leg=0,...) {
   ## Do some checks
   if (object$ENumNum>1) STOP("'residPlot()' cannot handle >1 covariate in an IVR.")
   if (object$EFactNum>2) STOP("'resodPlot()' cannot handle >2 factors in an IVR.")
   ## Decide if a one-way or two-way IVR
-  if (object$EFactNum==1) iResidPlotIVR1(object,legend,...)
-  else iResidPlotIVR2(object,legend,...)
+  if (object$EFactNum==1) iResidPlotIVR1(object,legend,cex.leg,box.lty.leg,...)
+  else iResidPlotIVR2(object,legend,cex.leg,box.lty.leg,...)
 }
 
 
-iResidPlotIVR1 <- function(object,legend,xlab="Fitted Values",ylab="Residuals",main=NULL,
+iResidPlotIVR1 <- function(object,legend,cex.leg,box.lty.leg,
+                           xlab="Fitted Values",ylab="Residuals",main=NULL,
                            pch=c(16,21,15,22,17,24,c(3:14)),col="rich",
                            lty.ref=3,lwd.ref=1,col.ref="black",
                            resid.type=c("raw","standardized","studentized"),
@@ -231,7 +234,8 @@ iResidPlotIVR1 <- function(object,legend,xlab="Fitted Values",ylab="Residuals",m
     if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
     ### Prepare and place the legend
     if (leg$do.legend) {
-      graphics::legend(x=leg$x,y=leg$y,legend=levels(f1),col=col,pch=pch)
+      graphics::legend(x=leg$x,y=leg$y,legend=levels(f1),col=col,pch=pch,
+                       cex=cex.leg,box.lty=box.lty.leg)
       graphics::box()
     }
   }
@@ -239,7 +243,8 @@ iResidPlotIVR1 <- function(object,legend,xlab="Fitted Values",ylab="Residuals",m
 } # nocov end
 
 
-iResidPlotIVR2 <- function(object,legend,xlab="Fitted Values",ylab="Residuals",main=NULL,
+iResidPlotIVR2 <- function(object,legend,cex.leg,box.lty.leg,
+                           xlab="Fitted Values",ylab="Residuals",main=NULL,
                            pch=c(16,21,15,22,17,24,c(3:14)),col="rich",
                            lty.ref=3,lwd.ref=1,col.ref="black",
                            resid.type=c("raw","standardized","studentized"),
@@ -292,7 +297,8 @@ iResidPlotIVR2 <- function(object,legend,xlab="Fitted Values",ylab="Residuals",m
       lcol <- rep(col,each=num.f2)
       lpch <- rep(pch,times=num.f1)
       levs <- levels(f1:f2)
-      graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,pch=lpch)
+      graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,pch=lpch,
+                       cex=cex.leg,box.lty=box.lty.leg)
       graphics::box()
     }
   }
