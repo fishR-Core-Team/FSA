@@ -189,8 +189,10 @@ removal <- function(catch,
   if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
   if (!is.vector(catch)) {
     # if a one row or column matrix then convert to a vector
-    if ((is.matrix(catch) | is.data.frame(catch)) & (nrow(catch)==1 | ncol(catch)==1)) {
+    if (is.matrix(catch) & (nrow(catch)==1 | ncol(catch)==1)) {
       catch <- as.numeric(catch)
+    } else if (is.data.frame(catch) & ncol(catch)==1) {
+      catch <- as.numeric(catch[,1])
     } else {
       # otherwise send an error
       STOP("'catch' must be a vector.")
@@ -528,7 +530,7 @@ iSeber3 <- function(catch,conf.level) {
 #=============================================================
 iSeber2 <- function(catch,conf.level) {
   if (length(catch)!=2) {
-    STOP("Seber (2002) 2-Pass method can only be used two samples.")
+    STOP("Seber (2002) 2-Pass method can only be used with two samples.")
   } else if (catch[2] >= catch[1]) {
     WARN("Catch data results in model failure for Seber (2002) 2-Pass method.")
     # empty vector of estimates
@@ -559,7 +561,7 @@ iSeber2 <- function(catch,conf.level) {
 #=============================================================
 iRobsonRegier2 <- function(catch,conf.level) {
   if (length(catch)!=2) {
-    STOP("Robson & Regier (1968) 2-pass method can only be used two samples.")
+    STOP("Robson & Regier (1968) 2-pass method can only be used with two samples.")
   } else if (catch[2] >= catch[1]) {
     WARN("Catch data results in model failure for Robson & Regier (1968) 2-pass method.")
     # return empty vector
@@ -626,6 +628,7 @@ confint.removal <- function(object,parm=c("No","p"),
   if (object$method %in% c("Zippin","CarleStrub","Seber3","Seber2","RobsonRegier2")) {
     res <- matrix(object$est[c("No.LCI","No.UCI","p.LCI","p.UCI")],nrow=2,byrow=TRUE)
     rownames(res) <- c("No","p")
+    res <- res[which(rownames(res) %in% parm),,drop=FALSE]
   } else {
     ## Handle some messaging
     if (object$method %in% c("Moran","Schnute")) {
