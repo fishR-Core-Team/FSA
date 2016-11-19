@@ -41,6 +41,8 @@ test_that("wsVal() results",{
   ruf2 <- WSlit[WSlit$species=="Ruffe" & WSlit$units=="metric" & WSlit$ref=="75",]
   ruf2 <- ruf2[,which(names(ruf2) %in% c("species","min.len","max.len","int","slope","quad"))]
   expect_equivalent(ruf1,ruf2)
+  ##
+  expect_message(wsVal("List"),"must be one of following")
 })
 
 test_that("wrAdd() errors and warnings",{

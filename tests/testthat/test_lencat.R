@@ -15,7 +15,7 @@ test_that("lencat() messages",{
   expect_error(lencat(~len,data=df1,startcat=c(0.5,1)),"of length 1")
   # all NA values in the vector
   expect_warning(lencat(as.numeric(rep(NA,3))),"were missing")
-  # use.names but not names given in breaks
+  # use.names but no names given in breaks
   expect_warning(lencat(~len,data=df1,breaks=seq(0,10,1),use.names=TRUE),"Used default labels")
   # data.frame with more than one variable
   expect_error(lencat(df1),"data.frame with one column")
@@ -45,6 +45,11 @@ test_that("lencat() results",{
   tmp <- lencat(~len10,data=df2,w=10)
   expect_is(tmp$LCat,"numeric")
   expect_equal(as.numeric(xtabs(~LCat,data=tmp)),freq)
+  ## Does it handle 1-column data.frame
+  tmp <- lencat(df2$len1,w=1)
+  expect_is(tmp,"numeric")
+  expect_equal(as.numeric(xtabs(~tmp)),freq)
+  
   ## Different widths (don't control startcat)
   freqtmp <- c(0,freq[c(2,4)])+freq[c(1,3,5)]
   tmp <- lencat(~len1,data=df2,w=2)

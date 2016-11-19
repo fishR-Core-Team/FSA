@@ -7,27 +7,29 @@ d <- BrookTroutTH
 cc <- catchCurve(catch~age,data=d,ages2use=2:6)
 cc2 <- catchCurve(catch~age,data=d,ages2use=2:6,weighted=TRUE)
 cr <- chapmanRobson(catch~age,data=d,ages2use=2:6)
+cr1 <- chapmanRobson(catch~age,data=d,ages2use=2:6,zmethod="Hoenigetal")
+cr2 <- chapmanRobson(catch~age,data=d,ages2use=2:6,zmethod="original")
 
 test_that("catchCurve errors and warnings",{
   # bad variables
-  expect_error(catchCurve(d$age,d$fact))
-  expect_error(catchCurve(d$fact,d$age))
-  expect_error(catchCurve(age~fact,data=d))
-  expect_error(catchCurve(fact~age,data=d))
+  expect_error(catchCurve(d$age,d$fact),"must be numeric")
+  expect_error(catchCurve(d$fact,d$age),"must be numeric")
+  expect_error(catchCurve(age~fact,data=d),"must be numeric")
+  expect_error(catchCurve(fact~age,data=d),"must be numeric")
   # bad formulas
-  expect_error(catchCurve(catch~age+fact,data=d))
-  expect_error(catchCurve(catch+age~fact,data=d))
+  expect_error(catchCurve(catch~age+fact,data=d),"only one RHS variable")
+  expect_error(catchCurve(catch+age~fact,data=d),"more than one variable on the LHS")
   # bad numbers of individuals
-  expect_error(catchCurve(catch~age[-1],data=d))
-  expect_error(catchCurve(catch[-1]~age,data=d))
-  expect_error(catchCurve(d$age,d$catch[-1]))
-  expect_error(catchCurve(d$age[-1],d$catch))
+  expect_error(catchCurve(catch~age[-1],data=d),"variable lengths differ")
+  expect_error(catchCurve(catch[-1]~age,data=d),"variable lengths differ")
+  expect_error(catchCurve(d$age,d$catch[-1]),"have different lengths")
+  expect_error(catchCurve(d$age[-1],d$catch),"have different lengths")
   # too few data
-  expect_error(catchCurve(d$age[1],d$catch[1]))
-  expect_error(catchCurve(d$age,d$catch,ages2use=3))
+  expect_error(catchCurve(d$age[1],d$catch[1]),"Fewer than 2 data points")
+  expect_error(catchCurve(d$age,d$catch,ages2use=3),"Fewer than 2 data points")
   # bad ages2use
-  expect_warning(catchCurve(catch~age,data=d,ages2use=c(2:9)))
-  expect_error(catchCurve(catch~age,data=d,ages2use=c(-1,2:6)))
+  expect_warning(catchCurve(catch~age,data=d,ages2use=c(2:9)),"not in observed ages")
+  expect_error(catchCurve(catch~age,data=d,ages2use=c(-1,2:6)),"all positive or negative")
   # bad args in coef
   expect_error(coef(cc,parm="derek"),"should be one of")
   # bad args in confint
@@ -39,25 +41,27 @@ test_that("catchCurve errors and warnings",{
 })
 
 test_that("chapmanRobson errors and warnings",{
+  # bad zmethod
+  expect_error(chapmanRobson(catch~age,data=d,ages2use=2:6,zmethod="Derek"),"should be one of")
   # bad variables
-  expect_error(chapmanRobson(d$age,d$fact))
-  expect_error(chapmanRobson(d$fact,d$age))
-  expect_error(chapmanRobson(age~fact,data=d))
-  expect_error(chapmanRobson(fact~age,data=d))
+  expect_error(chapmanRobson(d$age,d$fact),"must be numeric")
+  expect_error(chapmanRobson(d$fact,d$age),"must be numeric")
+  expect_error(chapmanRobson(age~fact,data=d),"must be numeric")
+  expect_error(chapmanRobson(fact~age,data=d),"must be numeric")
   # bad formulas
-  expect_error(chapmanRobson(catch~age+fact,data=d))
-  expect_error(chapmanRobson(catch+age~fact,data=d))
+  expect_error(chapmanRobson(catch~age+fact,data=d),"only one RHS variable")
+  expect_error(chapmanRobson(catch+age~fact,data=d),"more than one variable on the LHS")
   # bad numbers of individuals
-  expect_error(chapmanRobson(catch~age[-1],data=d))
-  expect_error(chapmanRobson(catch[-1]~age,data=d))
-  expect_error(chapmanRobson(d$age,d$catch[-1]))
-  expect_error(chapmanRobson(d$age[-1],d$catch))
+  expect_error(chapmanRobson(catch~age[-1],data=d),"variable lengths differ")
+  expect_error(chapmanRobson(catch[-1]~age,data=d),"variable lengths differ")
+  expect_error(chapmanRobson(d$age,d$catch[-1]),"have different lengths")
+  expect_error(chapmanRobson(d$age[-1],d$catch),"have different lengths")
   # too few data
-  expect_error(chapmanRobson(d$age[1],d$catch[1]))
-  expect_error(chapmanRobson(d$age,d$catch,ages2use=3))
+  expect_error(chapmanRobson(d$age[1],d$catch[1]),"Fewer than 2 data points")
+  expect_error(chapmanRobson(d$age,d$catch,ages2use=3),"Fewer than 2 data points")
   # bad ages2use
-  expect_warning(chapmanRobson(catch~age,data=d,ages2use=c(2:9)))
-  expect_error(chapmanRobson(catch~age,data=d,ages2use=c(-1,2:6)))
+  expect_warning(chapmanRobson(catch~age,data=d,ages2use=c(2:9)),"not in observed ages")
+  expect_error(chapmanRobson(catch~age,data=d,ages2use=c(-1,2:6)),"all positive or negative")
   # bad choice of axis types
   expect_error(plot(cr,axis.age="derek"),"should be one of")
   # bad args in summary and coef
@@ -76,27 +80,33 @@ test_that("catchCurve results types",{
   expect_true(is.vector(ccA))
   expect_is(ccA,"numeric")
   expect_equal(length(ccA),2)
+  expect_equal(names(ccA),c("Z","A"))
   ccA <- coef(cc,parm="Z")
   expect_true(is.vector(ccA))
   expect_is(ccA,"numeric")
   expect_equal(length(ccA),1)
+  expect_equal(names(ccA),c("Z"))
   ccA <- coef(cc,parm="lm")
   expect_true(is.vector(ccA))
   expect_is(ccA,"numeric")
   expect_equal(length(ccA),2)
+  expect_equal(names(ccA),c("(Intercept)","age.e"))
   # coef, weighted
   cc2A <- coef(cc2)
   expect_true(is.vector(cc2A))
   expect_is(cc2A,"numeric")
   expect_equal(length(cc2A),2)
+  expect_equal(names(cc2A),c("Z","A"))
   cc2A <- coef(cc2,parm="A")
   expect_true(is.vector(cc2A))
   expect_is(cc2A,"numeric")
   expect_equal(length(cc2A),1)
+  expect_equal(names(cc2A),c("A"))
   cc2A <- coef(cc2,parm="lm")
   expect_true(is.vector(cc2A))
   expect_is(cc2A,"numeric")
   expect_equal(length(cc2A),2)
+  expect_equal(names(cc2A),c("(Intercept)","age.e"))
   # confint, unweighted
   ccA <- confint(cc)
   expect_is(ccA,"matrix")
@@ -169,10 +179,12 @@ test_that("chapmanRobson results types",{
   expect_true(is.vector(crA))
   expect_is(crA,"numeric")
   expect_equal(length(crA),2)
+  expect_equal(names(crA),c("S","Z"))
   crA <- coef(cr,parm="S")
   expect_true(is.vector(crA))
   expect_is(crA,"numeric")
   expect_equal(length(crA),1)
+  expect_equal(names(crA),c("S"))
   # summary
   crA <- summary(cr)
   expect_is(crA,"matrix")
@@ -202,6 +214,54 @@ test_that("chapmanRobson results types",{
   expect_equal(nrow(crA),1)
   expect_equal(ncol(crA),2)
   expect_equal(rownames(crA),c("S"))
+  expect_equal(colnames(crA),c("95% LCI","95% UCI"))
+  
+  expect_is(cr1,"chapmanRobson")
+  # coef
+  crA <- coef(cr1)
+  expect_true(is.vector(crA))
+  expect_is(crA,"numeric")
+  expect_equal(length(crA),2)
+  expect_equal(names(crA),c("S","Z"))
+  # summary
+  crA <- summary(cr1)
+  expect_is(crA,"matrix")
+  expect_equal(mode(crA),"numeric")
+  expect_equal(nrow(crA),2)
+  expect_equal(ncol(crA),2)
+  expect_equal(rownames(crA),c("S","Z"))
+  expect_equal(colnames(crA),c("Estimate","Std. Error"))
+  # confint
+  crA <- confint(cr1)
+  expect_is(crA,"matrix")
+  expect_equal(mode(crA),"numeric")
+  expect_equal(nrow(crA),2)
+  expect_equal(ncol(crA),2)
+  expect_equal(rownames(crA),c("S","Z"))
+  expect_equal(colnames(crA),c("95% LCI","95% UCI"))
+  expect_is(cr1,"chapmanRobson")
+  
+  # coef
+  crA <- coef(cr2)
+  expect_true(is.vector(crA))
+  expect_is(crA,"numeric")
+  expect_equal(length(crA),2)
+  expect_equal(names(crA),c("S","Z"))
+  # summary
+  crA <- summary(cr2)
+  expect_is(crA,"matrix")
+  expect_equal(mode(crA),"numeric")
+  expect_equal(nrow(crA),2)
+  expect_equal(ncol(crA),2)
+  expect_equal(rownames(crA),c("S","Z"))
+  expect_equal(colnames(crA),c("Estimate","Std. Error"))
+  # confint
+  crA <- confint(cr2)
+  expect_is(crA,"matrix")
+  expect_equal(mode(crA),"numeric")
+  expect_equal(nrow(crA),2)
+  expect_equal(ncol(crA),2)
+  expect_equal(rownames(crA),c("S","Z"))
   expect_equal(colnames(crA),c("95% LCI","95% UCI"))
 })
 
@@ -285,3 +345,28 @@ test_that("catchCurve and ChaptmanRobson handle NA values properly.",{
   expect_equal(scr1["S","Estimate"],scr1A["S","Estimate"])
   expect_equal(scr1["S","Std. Error"],scr1A["S","Std. Error"])
 })
+
+test_that("catchCurve and ChaptmanRobson does negative ages2use properly.",{
+  ## matches for catchCurve
+  df <- data.frame(age=1:10,n=c(90,164,162,110,55,41,20,14,7,5))
+  cc1 <- catchCurve(n~age,data=df,ages2use=3:10)
+  scc1 <- summary(cc1)
+  cc2 <- catchCurve(n~age,data=df,ages2use=-(1:2))
+  scc2 <- summary(cc2)  
+  expect_equal(cc1,cc2)
+  expect_equal(scc1,scc2)
+  
+  cr1 <- chapmanRobson(n~age,data=df,ages2use=3:10)
+  scr1 <- summary(cr1)
+  cr2 <- chapmanRobson(n~age,data=df,ages2use=-(1:2))
+  scr2 <- summary(cr2)
+  expect_equal(cr1,cr2)
+  expect_equal(scr1,scr2)
+})
+
+test_that("How does catchCurve handle negative weights.",{
+  d <- data.frame(catch=c(10,5,3,1,1,1),age=1:6)
+  cc1 <- catchCurve(catch~age,data=d,weighted=TRUE)
+  expect_warning(catchCurve(catch~age,data=d,weighted=TRUE),"Some weights were non-positive")
+})
+

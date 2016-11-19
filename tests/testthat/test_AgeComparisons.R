@@ -33,6 +33,7 @@ test_that("agePrecision() errors and warnings",{
   expect_message(summary(ap1),"Intermediate calculations for each individual")
   ## Test that trunc.diff is OK
   expect_error(summary(ap1,what="absolute",trunc.diff=0),"must be positive")
+  expect_error(summary(ap1,what="absolute",trunc.diff=-2),"must be positive")
 })
 
 
@@ -146,6 +147,23 @@ test_that("agePrecision() gives correct precision values -- Second Example",{
   expect_equal(round(ap2$APE,5), 16.1851)
   expect_equal(round(ap2$ACV,5), 21.76877)
   expect_equal(round(ap2$PercAgree,5), 12.58278)
+  
+  ## testing truncation of absolute differences
+  # with multiple pairs of structures
+  sum1 <- summary(ap2,what="absolute")
+  expect_equal(dim(sum1), c(3,15))
+  sum2 <- summary(ap2,what="absolute",trunc.diff=4)
+  expect_equal(dim(sum2), c(3,5))
+  expect_equal(sum1[,1:4],sum2[,1:4])
+  expect_equal(rowSums(sum1[,5:15]),sum2[,5])
+  # with one pair of structures
+  ap2 <- agePrecision(~otolithC+finrayC,data=WhitefishLC)
+  sum1 <- summary(ap2,what="absolute")
+  expect_equal(dim(sum1),15)
+  sum2 <- summary(ap2,what="absolute",trunc.diff=4)
+  expect_equal(dim(sum2),5)
+  expect_equal(sum1[1:4],sum2[1:4])
+  expect_equivalent(sum(sum1[5:15]),sum2[5])
 })
 
 test_that("agePrecision() compared to http://www.nefsc.noaa.gov/fbp/age-prec/ calculations for AlewifeLH data",{
@@ -203,6 +221,4 @@ test_that("agePrecision() differences for simple data with NA values",{
   expect_equal(round(ap125$PercAgree,4),33.3333)
   ap135 <- agePrecision(~age1+age3+age5,data=tmp)
   expect_equal(round(ap135$PercAgree,4),50.0000)
-  
-  
 })
