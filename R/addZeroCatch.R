@@ -4,7 +4,7 @@
 #'
 #' @details The data frame in \code{df} must contain a column that identifies a unique capture event (given in \code{eventvar}), a column with the name for the species captured (given in \code{specvar}), and a column that contains the number of that species captured (potentially given to \code{zerovar}; see details).  All sampling event and species combinations where catch information does not exist is identified and a new data frame that contains a zero for the catch for all of these combinations is created.  This new data frame is appended to the original data frame to construct a data frame that contains complete catch information -- i.e., including zeroes for species in events where that species was not captured.
 #'
-#' The data frame may contain other information related to the catch, such as number of recaptured fish, number of fish released, etc.  These additional variables can be included in \code{zerovar} so that zeroes will be added to these variables as well (e.g., if the catch of the species is zero, then the number of recaptures must also be zero).  All variables not given in \code{eventvar}, \code{specvar}, or \code{zerovar} will be assumed to related to \code{eventvar} and \code{specvar} (e.g., date, gear type, and habitat) and, thus, will be repeated with these variables.
+#' The data frame may contain other information related to the catch, such as number of recaptured fish, number of fish released, etc.  These additional variables can be included in \code{zerovar} so that zeroes will be added to these variables as well (e.g., if the catch of the species is zero, then the number of recaptures must also be zero).  All variables not given in \code{eventvar}, \code{specvar}, or \code{zerovar} will be assumed to be related to \code{eventvar} and \code{specvar} (e.g., date, gear type, and habitat) and, thus, will be repeated with these variables.
 #' 
 #' In situations where no fish were captured in some events, the \code{df} may contain rows that have a value for \code{eventvar} but not for \code{specvar}.  These rows are important because zeroes need to be added for each observed species for these events.  However, in these situations, a \code{<NA>} species will appear in the resulting data.frame.  It is unlikely that these \dQuote{missing} species are needed so they will be removed if \code{na.rm=TRUE} (default) is used.
 #' 
@@ -98,10 +98,18 @@
 #' @export
 addZeroCatch <- function(df,eventvar,specvar,zerovar,na.rm=TRUE) {
   ## assure that df is a data.frame
-  df <- as.data.frame(df)
+  if (!is.data.frame(df)) STOP("'df' must be a data.frame.")
+  ## assure that xvar arguments are not missing
+  if (missing(eventvar)) STOP("'eventvar' cannot be missing.")
+  if (missing(specvar)) STOP("'specvar' cannot be missing.")
+  if (missing(zerovar)) STOP("'zerovar' cannot be missing.")
   ## get names of the variables in df, used at the end to make sure
   ##   that the df is returned with the same order of variables
   dfnames <- names(df)
+  ## assure that xvar variables are in the data.frame
+  if (!all(eventvar %in% dfnames)) STOP("Not all 'eventvar' found in 'df'.")
+  if (!all(specvar %in% dfnames)) STOP("Not all 'specvar' found in 'df'.")
+  if (!all(zerovar %in% dfnames)) STOP("Not all 'zerovar' found in 'df'.")
   ## Handle multiple specvar variables
   multSpec <- FALSE
   if (length(specvar)>1) {
@@ -135,9 +143,7 @@ addZeroCatch <- function(df,eventvar,specvar,zerovar,na.rm=TRUE) {
   need0s <- tmp[which(!(all.combos %in% combos.in.df)),]
   ## Catch if there are no need for zeroes, send warning, return df
   if (nrow(need0s)==0) {
-    WARN("All 'eventvar' have all species in 'specvar';\n
-          thus, there are no zeroes to add.  The original\n
-          data frame was returned.")
+    WARN("All 'eventvar' have all species in 'specvar'; thus, there are no\nzeroes to add.  The original data.frame was returned.")
     df
   } else { ## Process because some zeroes need to be added
     ## creates vector of names not in eventvar, specvar, or zerovar
