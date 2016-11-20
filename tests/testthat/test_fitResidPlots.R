@@ -68,6 +68,16 @@ test_that("fitPlot() errors and warnings",{
   expect_warning(fitPlot(tmp,col=c("orange","green")),"Fewer colors sent then levels")
   expect_warning(fitPlot(tmp,col="rich",pch=17:18),"Fewer pchs sent then levels")
   expect_warning(fitPlot(tmp,col="rich",lty=1:2),"Fewer ltys sent then levels")
+  
+  #### Non-logistic regression GLM
+  expect_error(fitPlot(glm(z1~x1,data=df,family=quasibinomial)),
+               "only logistic regression GLM")
+  expect_error(fitPlot(glm(x1~z1,data=df,family=gaussian)),
+               "only logistic regression GLM")
+  expect_error(fitPlot(glm(abs(x1)~z1,data=df,family=Gamma)),
+               "only logistic regression GLM")
+  expect_error(fitPlot(glm(round(10*abs(x1),0)~z1,data=df,family=poisson)),
+               "only logistic regression GLM")  
 })
 
 test_that("residPlot() errors and warnings",{
