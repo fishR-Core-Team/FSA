@@ -188,7 +188,7 @@ jolly <- mrOpen(jolly.top,jolly.bot)
 # ------------------------------------------------------------
 # Test returned object types
 # ------------------------------------------------------------
-text_that("mrOpen() returns",{
+test_that("mrOpen() returns",{
   expect_is(cutt,"mrOpen")
   expect_equal(mode(cutt),"list")
   tmp <- summary(cutt)
