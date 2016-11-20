@@ -46,7 +46,7 @@ test_that("lencat() results",{
   expect_is(tmp$LCat,"numeric")
   expect_equal(as.numeric(xtabs(~LCat,data=tmp)),freq)
   ## Does it handle 1-column data.frame
-  tmp <- lencat(df2$len1,w=1)
+  tmp <- lencat(data.frame(df2$len1),w=1)
   expect_is(tmp,"numeric")
   expect_equal(as.numeric(xtabs(~tmp)),freq)
   

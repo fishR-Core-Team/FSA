@@ -366,7 +366,6 @@ test_that("catchCurve and ChaptmanRobson does negative ages2use properly.",{
 
 test_that("How does catchCurve handle negative weights.",{
   d <- data.frame(catch=c(10,5,3,1,1,1),age=1:6)
-  cc1 <- catchCurve(catch~age,data=d,weighted=TRUE)
   expect_warning(catchCurve(catch~age,data=d,weighted=TRUE),"Some weights were non-positive")
 })
 

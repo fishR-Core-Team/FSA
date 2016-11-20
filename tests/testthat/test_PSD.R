@@ -40,7 +40,7 @@ test_that("psdVal() returns",{
   expect_equal(names(tmp),c("substock","stock","minSlot","quality","maxSlot","preferred","memorable","trophy"))
   tmp <- psdVal("yellow perch")
   expect_equivalent(tmp,c(0,130,200,250,300,380))
-  expect_equal(names(tmp),c("substock","stock","quality","preferred","memorable","trophy" ))
+  expect_equal(names(tmp),c("substock","stock","quality","preferred","memorable","trophy"))
 })
 
 
@@ -65,7 +65,53 @@ test_that("psdCI() errors and warnings",{
   # wrong length of indvec
   expect_error(psdCI(c(1,0,0),ipsd,n),"must be the same")
   expect_error(psdCI(c(1,0,0,0,0),ipsd,n),"must be the same")
+  
+  ## ptbl not proprtions
+  ipsd <- c(5,4,3,2)
+  n <- 445
+  expect_warning(psdCI(c(1,0,0,0),ipsd,n),"not a table of proportions")
 })
+
+test_that("psdCI() returns",{
+  ipsd <- c(0.130,0.491,0.253,0.123)
+  n <- 445
+  ## single binomial
+  tmp <- psdCI(c(0,0,1,1),ipsd,n=n)
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),1)
+  expect_equal(ncol(tmp),3)
+  expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
+  tmp <- psdCI(c(1,0,0,0),ipsd,n=n,label="PSD S-Q")
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),1)
+  expect_equal(ncol(tmp),3)
+  expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
+  expect_equal(rownames(tmp),"PSD S-Q")
+  ## single multinomial
+  tmp <- psdCI(c(0,0,1,1),ipsd,n=n,method="multinomial")
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),1)
+  expect_equal(ncol(tmp),3)
+  expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
+  tmp <- psdCI(c(1,0,0,0),ipsd,n=n,method="multinomial",label="PSD S-Q")
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),1)
+  expect_equal(ncol(tmp),3)
+  expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
+  expect_equal(rownames(tmp),"PSD S-Q")
+  ## Adjustment for not proportions works
+  ipsd <- c(130,491,253,123)
+  n <- sum(ipsd)
+  ipsd2 <- ipsd/n
+  ## single binomial
+  tmp <- suppressWarnings(psdCI(c(0,0,1,1),ipsd,n=n))
+  tmp2 <- psdCI(c(0,0,1,1),ipsd2,n=n)
+  expect_equal(tmp,tmp2)
+})  
 
 test_that("psdCalc() errors and warnings",{
   ## simulate data set
@@ -92,6 +138,101 @@ test_that("psdCalc() errors and warnings",{
   expect_error(psdCalc(~species,data=df,species="Yellow perch"),"must be numeric")
 })
 
+
+test_that("psdCalc() returns",{
+  ## simulate data set
+  set.seed(56768)
+  df <- data.frame(tl=round(c(rnorm(100,mean=125,sd=15),
+                              rnorm(50,mean=200,sd=25),
+                              rnorm(20,mean=300,sd=40)),0),
+                   species=rep("Yellow Perch",170))
+  ## All values
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch"))
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),8)
+  expect_equal(ncol(tmp),3)
+  expect_equal(rownames(tmp),c("PSD-Q","PSD-P","PSD-M","PSD-T","PSD S-Q","PSD Q-P","PSD P-M","PSD M-T"))
+  expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
+  ## Traditional values
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",what="traditional"))
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),4)
+  expect_equal(ncol(tmp),3)
+  expect_equal(rownames(tmp),c("PSD-Q","PSD-P","PSD-M","PSD-T"))
+  expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch"))
+  ## Incremental values
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",what="incremental"))
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),4)
+  expect_equal(ncol(tmp),3)
+  expect_equal(rownames(tmp),c("PSD S-Q","PSD Q-P","PSD P-M","PSD M-T"))
+  expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
+  ## All values, but don't drop 0s
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",drop0Est=FALSE))
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),8)
+  expect_equal(ncol(tmp),3)
+  expect_equal(rownames(tmp),c("PSD-Q","PSD-P","PSD-M","PSD-T","PSD S-Q","PSD Q-P","PSD P-M","PSD M-T"))
+  expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
+  ## All values, with some additional lengths
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",addLens=225,addNames="Derek"))
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),10)
+  expect_equal(ncol(tmp),3)
+  expect_equal(rownames(tmp),c("PSD-Q","PSD-Derek","PSD-P","PSD-M","PSD-T","PSD S-Q","PSD Q-Derek","PSD Derek-P","PSD P-M","PSD M-T"))
+  expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
+  ## All values, with some additional lengths but no names
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",addLens=c(225,245),drop0Est=FALSE))
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),12)
+  expect_equal(ncol(tmp),3)
+  expect_equal(rownames(tmp),c("PSD-Q","PSD-225","PSD-245","PSD-P","PSD-M","PSD-T","PSD S-Q","PSD Q-225","PSD 225-245","PSD 245-P","PSD P-M","PSD M-T"))
+  expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
+  ## Just the additional values
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",addLens=c(225,245),drop0Est=FALSE,justAdds=TRUE))
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),5)
+  expect_equal(ncol(tmp),3)
+  expect_equal(rownames(tmp),c("PSD-225","PSD-245","PSD Q-225","PSD 225-245","PSD 245-P"))
+  expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
+  ## All values, but df only has values greater than stock values
+  df1 <- filterD(df,tl>=130)
+  tmp <- suppressWarnings(psdCalc(~tl,data=df1,species="Yellow perch"))
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),8)
+  expect_equal(ncol(tmp),3)
+  expect_equal(rownames(tmp),c("PSD-Q","PSD-P","PSD-M","PSD-T","PSD S-Q","PSD Q-P","PSD P-M","PSD M-T"))
+  expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
+  ## All values, but df only has values greater than quality values
+  df1 <- filterD(df,tl>=200)
+  tmp <- suppressWarnings(psdCalc(~tl,data=df1,species="Yellow perch"))
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),7)
+  expect_equal(ncol(tmp),3)
+  expect_equal(rownames(tmp),c("PSD-Q","PSD-P","PSD-M","PSD-T","PSD Q-P","PSD P-M","PSD M-T"))
+  expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
+  ## All values, but df only has values greater than memorable value
+  df1 <- filterD(df,tl>=300)
+  tmp <- suppressWarnings(psdCalc(~tl,data=df1,species="Yellow perch"))
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),5)
+  expect_equal(ncol(tmp),3)
+  expect_equal(rownames(tmp),c("PSD-Q","PSD-P","PSD-M","PSD-T","PSD M-T"))
+  expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
+})
+
+
 test_that("psdPlot() errors and warnings",{
   ## simulate data set
   df <- data.frame(tl=round(c(rnorm(100,mean=125,sd=15),
@@ -115,20 +256,21 @@ test_that("psdPlot() errors and warnings",{
   expect_error(psdPlot(~species,data=df,species="Yellow perch"),"must be numeric")
 })
 
+
+## simulate data set for psdAdd() tests
+set.seed(345234534)
+dbt <- data.frame(species=factor(rep(c("Bluefin Tuna"),30)),
+                  tl=round(rnorm(30,1900,300),0))
+dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
+dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),
+                  tl=round(rnorm(30,130,50),0))
+dbg$wt <- round(4.23e-06*dbg$tl^3.316+rnorm(30,0,10),1)
+dlb <- data.frame(species=factor(rep(c("Largemouth Bass"),30)),
+                  tl=round(rnorm(30,350,60),0))
+dlb$wt <- round(2.96e-06*dlb$tl^3.273+rnorm(30,0,60),1)
+df <- rbind(dbt,dbg,dlb)
+
 test_that("psdAdd() errors and warnings",{
-  ## simulate data set
-  set.seed(345234534)
-  dbt <- data.frame(species=factor(rep(c("Bluefin Tuna"),30)),
-                    tl=round(rnorm(30,1900,300),0))
-  dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
-  dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),
-                    tl=round(rnorm(30,130,50),0))
-  dbg$wt <- round(4.23e-06*dbg$tl^3.316+rnorm(30,0,10),1)
-  dlb <- data.frame(species=factor(rep(c("Largemouth Bass"),30)),
-                    tl=round(rnorm(30,350,60),0))
-  dlb$wt <- round(2.96e-06*dlb$tl^3.273+rnorm(30,0,60),1)
-  df <- rbind(dbt,dbg,dlb)
-  
   ## bad units
   expect_error(psdAdd(tl~species,df,units="inches"),"should be one of")
   expect_error(psdAdd(df$tl,df$species,units="inches"),"should be one of")
@@ -151,6 +293,17 @@ test_that("psdAdd() errors and warnings",{
   df[df$species=="Bluegill","tl"] <- NA
   df <- df[df$species!="Bluefin Tuna",]
   expect_message(psdAdd(tl~species,df),"were missing for")
+})
+
+test_that("psdAdd() errors and warnings",{
+  tmp <- df
+  tmp$PSD <- suppressMessages(psdAdd(tl~species,data=tmp))
+  expect_equal(ncol(tmp),4)
+  expect_true(is.factor(tmp$PSD))
+  tmp$PSD <- suppressMessages(psdAdd(tl~species,data=tmp,use.names=FALSE))
+  expect_equal(ncol(tmp),4)
+  expect_true(is.numeric(tmp$PSD))
+  
 })
 
 
