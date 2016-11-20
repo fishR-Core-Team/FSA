@@ -1,9 +1,5 @@
 context("Mark-Recapture Open")
 
-# ############################################################
-# Messaging
-# ############################################################
-
 # ------------------------------------------------------------
 # Setup some matrices for the tests
 # ------------------------------------------------------------
@@ -20,60 +16,64 @@ good.bot <- matrix(c(
   25,23,21,16),nrow=4,byrow=TRUE,
   dimnames=list(c("m","u","n","R")))
 
-test_that("mrOpen errors and warnings",{
+test_that("mrOpen() errors and warnings",{
   ## a top but not a bottom, but with capHistSum
-  expect_error(mrOpen(good.top))
+  expect_error(mrOpen(good.top),"'mb.top' and a 'mb.bot'")
   ## a top that is not square
-  expect_error(mrOpen(good.top[,-1],good.bot))
-  expect_error(mrOpen(good.top[-1,],good.bot))
+  expect_error(mrOpen(good.top[,-1],good.bot),"'mb.top' must be square")
+  expect_error(mrOpen(good.top[-1,],good.bot),"'mb.top' must be square")
   ## a top without an NA on the diagonal or lower triangle
   bad.top <- good.top
   bad.top[2,2] <- 3
-  expect_error(mrOpen(bad.top,good.bot))
+  expect_error(mrOpen(bad.top,good.bot),"Lower triangle and diagonal of 'mb.top'")
   bad.top <- good.top
   bad.top[3,2] <- 3
-  expect_error(mrOpen(bad.top,good.bot))
+  expect_error(mrOpen(bad.top,good.bot),"Lower triangle and diagonal of 'mb.top'")
   ## a top with an NA in the upper triangle
   bad.top <- good.top
   bad.top[1,2] <- NA
-  expect_error(mrOpen(bad.top,good.bot))
+  expect_error(mrOpen(bad.top,good.bot),"Upper triangle of 'mb.top' cannot contain any 'NA'")
   ## a top with a negative value in the upper triangle
   bad.top <- good.top
   bad.top[1,2] <- -3
-  expect_error(mrOpen(bad.top,good.bot))
+  expect_error(mrOpen(bad.top,good.bot),"All non-NA values in 'mb.top' must be non-negative")
   
   ## bottom does not have enough rows
-  expect_error(mrOpen(good.top,good.bot[-1,]))
+  expect_error(mrOpen(good.top,good.bot[-1,]),"must contain four rows with")
   ## bottom has bad names
   bad.bot <- good.bot
   names(bad.bot)[1] <- "Derek"
-  expect_error(mrOpen(good.top,bad.bot))
+  expect_error(mrOpen(good.top,bad.bot),"rownames of 'mb.bot' must be")
   ## a bottom with a negative value
   bad.bot <- good.bot
   bad.bot[1,2] <- -3
-  expect_error(mrOpen(good.top,bad.bot))
+  expect_error(mrOpen(good.top,bad.bot),"'mb.bot' must be non-negative")
   ## a bottom with a non-zero first number of marked fish
   bad.bot <- good.bot
   bad.bot["m",1] <- 3
-  expect_error(mrOpen(good.top,bad.bot))
+  expect_error(mrOpen(good.top,bad.bot),"First value of 'm' row in 'mb.bot' must be 0")
   ## a bottom with a NA
   bad.bot["m",1] <- NA
-  expect_error(mrOpen(good.top,bad.bot))
-  ## Confint problems
+  expect_error(mrOpen(good.top,bad.bot),"All values in 'mb.bot' must be non-NA")
+  
+  ## Confint
   data(CutthroatAL)
-  expect_error(cutt <- mrOpen(capHistSum(CutthroatAL,cols2use=-1),
-                              conf.level=0),"must be between 0 and 1")
-  expect_error(cutt <- mrOpen(capHistSum(CutthroatAL,cols2use=-1),
-                              conf.level=1),"must be between 0 and 1")
+  expect_error(mrOpen(capHistSum(CutthroatAL,cols2use=-1),
+                      conf.level=0),"must be between 0 and 1")
+  expect_error(mrOpen(capHistSum(CutthroatAL,cols2use=-1),
+                      conf.level=1),"must be between 0 and 1")
   cutt <- mrOpen(capHistSum(CutthroatAL,cols2use=-1))
   expect_warning(confint(cutt,conf.level=0.95),"It cannot be changed here")
+  
+  ## Summary()
+  cutt <- suppressWarnings(mrOpen(capHistSum(CutthroatAL,cols2use=-1)))
+  expect_error(summary(cutt,parm="Derek"),"should be one of")
+  expect_message(summary(cutt,verbose=TRUE))
 })
-
 
 # ############################################################
 # Analytical Results
 # ############################################################
-
 # ------------------------------------------------------------
 # Set up some data
 # ------------------------------------------------------------
@@ -185,11 +185,48 @@ BJ <- c(NA,263.2,291.8,406.4,96.9,107.0,135.7,-13.8,49.0,84.1,74.5,NA,NA)
 jolly <- mrOpen(jolly.top,jolly.bot)
 
 
+# ------------------------------------------------------------
+# Test returned object types
+# ------------------------------------------------------------
+text_that("mrOpen() returns",{
+  expect_is(cutt,"mrOpen")
+  expect_equal(mode(cutt),"list")
+  tmp <- summary(cutt)
+  expect_is(tmp,"data.frame")
+  expect_equal(ncol(tmp),8)
+  expect_equal(names(tmp),c("M","M.se","N","N.se","phi","phi.se","B","B.se"))
+  tmp <- summary(cutt,parm="N")
+  expect_is(tmp,"data.frame")
+  expect_equal(ncol(tmp),2)
+  expect_equal(names(tmp),c("N","N.se"))
+  tmp <- summary(cutt,parm=c("N","phi"))
+  expect_is(tmp,"data.frame")
+  expect_equal(ncol(tmp),4)
+  expect_equal(names(tmp),c("N","N.se","phi","phi.se"))
+  tmp <- confint(cutt)
+  expect_is(tmp,"data.frame")
+  expect_equal(ncol(tmp),6)
+  expect_equal(names(tmp),c("N.lci","N.uci","phi.lci","phi.uci","B.lci","B.uci"))
+  tmp <- confint(cutt,parm="N")
+  expect_is(tmp,"data.frame")
+  expect_equal(ncol(tmp),2)
+  expect_equal(names(tmp),c("N.lci","N.uci"))
+  tmp <- confint(cutt,parm=c("N","phi"))
+  expect_is(tmp,"data.frame")
+  expect_equal(ncol(tmp),4)
+  expect_equal(names(tmp),c("N.lci","N.uci","phi.lci","phi.uci"))
+})
+
+
 
 # ------------------------------------------------------------
-# Set up some tests
+# Set up some tests of values returned
 # ------------------------------------------------------------
-test_that("Does mrOpen match the Jolly-Seber results from JOLLY for CutthroatAL",{
+test_that("Does mrOpen() match jolly()",{
+  expect_equal(jolly,jolly(jolly.top,jolly.bot))
+})
+
+test_that("Does mrOpen() match the Jolly-Seber results from JOLLY for CutthroatAL",{
   expect_equal(cutt$df$r,rC)
   expect_equal(cutt$df$z,zC)
   # all M match at one decimal
