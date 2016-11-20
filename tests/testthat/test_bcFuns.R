@@ -7,6 +7,8 @@ test_that("bcFuns() messages",{
   expect_error(bcFuns(0),"BCM number must be")
   expect_error(bcFuns(23),"BCM number must be")
   expect_error(bcFuns("Derek"),"must be one of")
+  expect_error(bcFuns("TVG"),"not yet implemented")
+  expect_error(bcFuns(5),"not yet implemented")
 })
 
 test_that("bcFuns() output",{
