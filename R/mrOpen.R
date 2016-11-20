@@ -222,7 +222,7 @@ iCheckMBtop <- function(mb.top) {
   nr <- nrow(mb.top)
   nc <- ncol(mb.top)
   if (nr!=nc) STOP("'mb.top' must be square.")
-  if (!all(is.na(mb.top[lower.tri(mb.top,diag=TRUE)]))) stop ("Lower triangle and diagonal of 'mb.top' must all be 'NA'.")
+  if (!all(is.na(mb.top[lower.tri(mb.top,diag=TRUE)]))) STOP("Lower triangle and diagonal of 'mb.top' must all be 'NA'.")
   if (any(is.na(mb.top[upper.tri(mb.top)]))) STOP("Upper triangle of 'mb.top' cannot contain any 'NA'.")
   if (any(mb.top<0,na.rm=TRUE)) STOP("All non-NA values in 'mb.top' must be non-negative.")
 }
