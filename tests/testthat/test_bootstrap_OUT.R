@@ -1,77 +1,7 @@
-context("Tests for bootstrap utilities")
+context("bootstrap utilities OUTPUT")
+source("EXS_bootstrap.R")
 
-## Get data
-data(Ecoli)
-## Create a nonlinear function
-fnx <- function(days,B1,B2,B3) {
-  if (length(B1) > 1) {
-     B2 <- B1[2]
-     B3 <- B1[3]
-     B1 <- B1[1]
-  }
-  B1/(1+exp(B2+B3*days))
-}
-## Fit the nonlinear model
-nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,start=list(B1=6,B2=7.2,B3=-1.45))
-## Get the bootstrap results saved previously because nlsBoot() and bootCase()
-##   will not run within a testing environment
-load(system.file("extdata", "nlsBoot1.RData", package="FSA"))
-load(system.file("extdata", "bootCase1.RData", package="FSA"))
-
-
-test_that("nlsBoot methods errors and warnings",{
-  # testing confint()
-  expect_error(confint(nlsBoot1,"derek"),"does not exist in")
-  expect_error(confint(nlsBoot1,c("B1","derek")),"does not exist in")
-  expect_error(confint(nlsBoot1,4),"exceeds number of columns")
-  expect_error(confint(nlsBoot1,-4),"exceeds number of columns")
-  expect_error(confint(nlsBoot1,c(1,4)),"exceeds number of columns")
-  expect_error(confint(nlsBoot1,-c(1,4)),"exceeds number of columns")
-  expect_error(confint(nlsBoot1,c(-1,2)),"cannot be both positive and negative")
-  expect_error(confint(nlsBoot1,conf.level=0),"must be between 0 and 1")
-  expect_error(confint(nlsBoot1,conf.level=1),"must be between 0 and 1")
-  # testing hotest()
-  expect_error(htest(nlsBoot1,"derek"),"does not exist in")
-  expect_error(htest(nlsBoot1,c("B1","derek")),"must be of length 1")
-  expect_error(htest(nlsBoot1,4),"exceeds number of columns")
-  expect_error(htest(nlsBoot1,-4),"must be positive")
-  expect_error(htest(nlsBoot1,c(1,4)),"must be of length 1")
-  expect_error(htest(nlsBoot1),"must select a parameter")
-  # testing predict()
-  expect_error(predict(nlsBoot1,1:7,days=2),"is not a function")
-  expect_error(predict(nlsBoot1,fnx,derek=2),"unused argument")
-  expect_error(predict(nlsBoot1,fnx,days=2,conf.level=0),"must be between 0 and 1")
-  expect_error(predict(nlsBoot1,fnx,days=2,conf.level=1),"must be between 0 and 1")
-  expect_error(predict(nlsBoot1,fnx,days=2,digits=0),"must be positive")
-})
-
-test_that("bootCase methods errors and warnings",{
-  # testing confint()
-  expect_error(confint(bootCase1,"derek"),"does not exist in")
-  expect_error(confint(bootCase1,c("B1","derek")),"does not exist in")
-  expect_error(confint(bootCase1,4),"exceeds number of columns")
-  expect_error(confint(bootCase1,-4),"exceeds number of columns")
-  expect_error(confint(bootCase1,c(1,4)),"exceeds number of columns")
-  expect_error(confint(bootCase1,-c(1,4)),"exceeds number of columns")
-  expect_error(confint(bootCase1,c(-1,2)),"cannot be both positive and negative")
-  expect_error(confint(bootCase1,conf.level=0),"must be between 0 and 1")
-  expect_error(confint(bootCase1,conf.level=1),"must be between 0 and 1")
-  # testing hotest()
-  expect_error(htest(bootCase1,"derek"),"does not exist in")
-  expect_error(htest(bootCase1,c("B1","derek")),"must be of length 1")
-  expect_error(htest(bootCase1,4),"exceeds number of columns")
-  expect_error(htest(bootCase1,-4),"must be positive")
-  expect_error(htest(bootCase1,c(1,4)),"must be of length 1")
-  expect_error(htest(bootCase1),"must select a parameter")
-  # testing predict()
-  expect_error(predict(bootCase1,1:7,days=2),"is not a function")
-  expect_error(predict(bootCase1,fnx,derek=2),"unused argument")
-  expect_error(predict(bootCase1,fnx,days=2,conf.level=0),"must be between 0 and 1")
-  expect_error(predict(bootCase1,fnx,days=2,conf.level=1),"must be between 0 and 1")
-  expect_error(predict(bootCase1,fnx,days=2,digits=0),"must be positive")
-})
-
-test_that("nlsBoot methods results",{
+test_that("nlsBoot() methods output types",{
   # testing confint()
   tmp <- confint(nlsBoot1)
   expect_is(tmp,"matrix")
@@ -134,8 +64,7 @@ test_that("nlsBoot methods results",{
   expect_equal(tmp[,"days"],1:5)
 })
 
-
-test_that("bootCase methods results",{
+test_that("bootCase() methods output types",{
   # testing confint()
   tmp <- confint(bootCase1)
   expect_is(tmp,"matrix")
