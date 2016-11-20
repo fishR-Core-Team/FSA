@@ -67,13 +67,13 @@
 #' @rdname knitUtil
 #' @export
 kCounts <- function(value,capitalize=FALSE) {    
-  numwords <- c("one","two","three","four","five","six","seven","eight","nine","ten")
-  if (value == 0) "zero"
-    else if (value <= 10 & value >= 1) {
-      value <- numwords[value]
-      if (capitalize) capFirst(value)
-        else value
-    } else value
+  if (value <= 10 & value >= 0) {
+    numwords <- c("zero","one","two","three","four","five",
+                  "six","seven","eight","nine","ten")
+    value <- numwords[value+1]
+    if (capitalize) value <- capFirst(value)
+  }
+  value
 }
 
 #' @rdname knitUtil
@@ -97,7 +97,7 @@ kPvalue <- function(value,digits=4,include.p=TRUE,latex=TRUE) {
 #' @export
 purl2 <- function(file,out.dir=NULL,newname=NULL,topnotes=NULL,
                   moreItems=NULL,blanks=c("extra","all","none"),
-                  delHeader=NULL,timestamp=TRUE,...) {
+                  delHeader=NULL,timestamp=TRUE,...) { # nocov start
   if (!requireNamespace("knitr")) STOP("'purl2' requires the 'knitr' package to be installed.")
   else {
     ## Some checks
@@ -165,13 +165,14 @@ purl2 <- function(file,out.dir=NULL,newname=NULL,topnotes=NULL,
     ## Write out a new purled/stangled file
     write(flines,fn.Ro)
   }
-}
+}  # nocov end
 
 #' @rdname knitUtil
 #' @export
 reproInfo <- function(out=c("r","markdown","latex"),rqrdPkgs=NULL,elapsed=NULL,
                       width=0.95*getOption("width"),
-                      addTOC=TRUE,newpage=FALSE,links=NULL,closeGraphics=TRUE) {
+                      addTOC=TRUE,newpage=FALSE,links=NULL,
+                      closeGraphics=TRUE) { # nocov start
   ## Process the session info
   ses <- iProcessSessionInfo()
   ## Handle the rqrdPkgs
@@ -193,14 +194,15 @@ reproInfo <- function(out=c("r","markdown","latex"),rqrdPkgs=NULL,elapsed=NULL,
   else if (out=="latex") iReproInfoLaTeX(rqrdPkgs,ses,elapsed,compDate,compTime,addTOC,newpage)
   else iReproInfoMarkdown(rqrdPkgs,ses,elapsed,compDate,compTime,links)
   if (closeGraphics) grDevices::graphics.off()
-}
+} # nocov end
 
 
 ##################################################################
 ## Internal files used in knitUtils functions                                      
 ##################################################################
 iMakeItemsToRemove <- function(moreItems) {
-  mainItems <- c("Stangle","SweaveHooks","purl2","reproInfo","#line","## ","graphics.off()","purl")
+  mainItems <- c("Stangle","SweaveHooks","purl2","reproInfo","#line",
+                 "## ","graphics.off()","purl")
   c(mainItems,moreItems)
 }
 
@@ -210,7 +212,7 @@ iMakeFilename <- function(file,extension,directory=NULL) {
   res
 }
 
-iGetAllDependencies <- function(pkgs) {
+iGetAllDependencies <- function(pkgs) { # nocov start
   ## Check if repository has been set
   if ("@CRAN@" %in% options("repos")$repos && interactive()) {
     cat(gettext("--- Please select a CRAN mirror for this session ---"),"\n",sep="")
@@ -225,9 +227,9 @@ iGetAllDependencies <- function(pkgs) {
   attr(deps,"names") <- NULL
   # return original list and dependents
   unique(c(pkgs,deps))
-}
+} # nocov end
 
-iProcessSessionInfo <- function() {
+iProcessSessionInfo <- function() { # nocov start
   mkLabel <- function(L, n) { 
     # this is from print.sessionInfo in utils package
     vers <- sapply(L[[n]], function(x) x[["Version"]])
@@ -244,10 +246,11 @@ iProcessSessionInfo <- function() {
   lpkgs <- names(ses$loadedOnly)
   lpkgsP <- paste0(paste(sort(mkLabel(ses,"loadedOnly")),collapse=", "),"\n")
   list(sys=sys,vers=vers,bpkgs=bpkgs,bpkgsP=bpkgsP,opkgs=opkgs,opkgsP=opkgsP,lpkgs=lpkgs,lpkgsP=lpkgsP)
-}
+} # nocov end
 
 
-iReproInfoLaTeX <- function(rqrdPkgs,ses,elapsed,compDate,compTime,addTOC,newPage) {
+iReproInfoLaTeX <- function(rqrdPkgs,ses,elapsed,compDate,compTime,
+                            addTOC,newPage) { # nocov start
   outp <- character()
   if (newPage) {
     if (addTOC) outp <- "\\cleardoublepage\n\\phantomsection\n"
@@ -268,9 +271,9 @@ iReproInfoLaTeX <- function(rqrdPkgs,ses,elapsed,compDate,compTime,addTOC,newPag
   outp <- paste0(outp,"  \\item \\textbf{Loaded-Only Packages:} ",gsub("[_]","\\\\_",ses$lpkgsP))
   outp <- paste0(outp,"\\end{Itemize}\n\n")
   cat(outp)
-}
+} # nocov end
 
-iReproInfoR <- function(rqrdPkgs,ses,elapsed,compDate,compTime,width) {
+iReproInfoR <- function(rqrdPkgs,ses,elapsed,compDate,compTime,width) { # nocov start
   outp <- cat("Reproducibility Information\n")
   outp <- paste0(outp,"  Compiled Date: ",compDate,"\n")
   outp <- paste0(outp,"  Compiled Time: ",compTime,"\n")
@@ -288,9 +291,10 @@ iReproInfoR <- function(rqrdPkgs,ses,elapsed,compDate,compTime,width) {
   cat(unlist(strwrap(outp,indent=2,exdent=4,simplify=FALSE,width=width)),sep="\n")
   outp <- paste0("Loaded-Only Packages: ",ses$lpkgsP)
   cat(unlist(strwrap(outp,indent=2,exdent=4,simplify=FALSE,width=width)),sep="\n")
-}
+} # nocov end
 
-iReproInfoMarkdown <- function(rqrdPkgs,ses,elapsed,compDate,compTime,links) {
+iReproInfoMarkdown <- function(rqrdPkgs,ses,elapsed,compDate,
+                               compTime,links) { # nocov start
   cat("## Reproducibility Information\n\n")
   outp <- paste0("* **Compiled Date:** ",compDate,"\n")
   outp <- paste0(outp,"* **Compiled Time:** ",compTime,"\n")
@@ -307,4 +311,4 @@ iReproInfoMarkdown <- function(rqrdPkgs,ses,elapsed,compDate,compTime,links) {
     outp <- paste0(outp,paste(paste0("[",names(links),"](",links,")"),collapse=" / "),"\n")
   }
   cat(outp)
-}
+} # nocov end
