@@ -3,6 +3,7 @@
 * Changed all `paste()` that used `sep=""` to `paste0()`s.
 * Removed several `sep=""`s from `message()`s.
 * Removed `Hmisc` from, but added `epitools` to, imports.
+* `addZeroCatch()`: Modified. Added more "catches" for bad data types or arguments.
 * `binCI()`: Modified. Changed from using `binconf()` in `Hmisc` to `binom.exact()`, `binom.wilson()`, and `binom.approx()` from `epitools` (this removes dependency on `Hmisc` which was causing me problems). Added `verbose=` so that the result can be include all of the information return from the `epitools` functions. Added some more tests.
 * `catchCurve()`: Modified. Made sure that `coef()` method returned a vector (addresses [#19](https://github.com/droglenc/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned.
 * `chapmanRobson()`: Modified. Made sure that `coef()` method returned a vector (addresses [#19](https://github.com/droglenc/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned.
