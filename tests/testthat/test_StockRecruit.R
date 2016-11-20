@@ -8,6 +8,18 @@ test_that("srFunShow() messages",{
   expect_error(srFunShow(type="Ricker",param=4),"must be from")
 })
 
+test_that("srFuns() output",{
+  expect_equal(mode(srFunShow(type="BevertonHolt",param=1)),"expression")
+  expect_equal(mode(srFunShow(type="BevertonHolt",param=2)),"expression")
+  expect_equal(mode(srFunShow(type="BevertonHolt",param=3)),"expression")
+  expect_equal(mode(srFunShow(type="BevertonHolt",param=4)),"expression")
+  expect_equal(mode(srFunShow(type="Ricker",param=1)),"expression")
+  expect_equal(mode(srFunShow(type="Ricker",param=2)),"expression")
+  expect_equal(mode(srFunShow(type="Ricker",param=3)),"expression")
+  expect_equal(mode(srFunShow(type="Shepherd")),"expression")
+  expect_equal(mode(srFunShow(type="SailaLorda")),"expression")
+})
+
 test_that("srFuns() errors and warnings",{
   ## wrong type
   expect_error(srFuns(type="Derek"),"should be one")
