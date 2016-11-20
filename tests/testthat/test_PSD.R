@@ -103,14 +103,25 @@ test_that("psdCI() returns",{
   expect_equal(ncol(tmp),3)
   expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
   expect_equal(rownames(tmp),"PSD S-Q")
-  ## Adjustment for not proportions works
+  ## Adjustment for not proportions
   ipsd <- c(130,491,253,123)
   n <- sum(ipsd)
   ipsd2 <- ipsd/n
-  ## single binomial
   tmp <- suppressWarnings(psdCI(c(0,0,1,1),ipsd,n=n))
   tmp2 <- psdCI(c(0,0,1,1),ipsd2,n=n)
   expect_equal(tmp,tmp2)
+  tmp <- suppressWarnings(psdCI(c(0,0,1,1),ipsd,n=n,method="multinomial"))
+  tmp2 <- psdCI(c(0,0,1,1),ipsd2,n=n,method="multinomial")
+  expect_equal(tmp,tmp2)
+  ## Adjustment for a PSD of 0 or 1
+  ipsd <- c(1,0,0,0)
+  n <- 455
+  tmp <- psdCI(c(1,1,0,0),ipsd,n=n)
+  expect_equivalent(tmp,matrix(c(100,NA,NA),nrow=1))
+  ipsd <- c(0,0,0,1)
+  n <- 455
+  tmp <- psdCI(c(1,1,0,0),ipsd,n=n)
+  expect_equivalent(tmp,matrix(c(0,NA,NA),nrow=1))
 })  
 
 test_that("psdCalc() errors and warnings",{
