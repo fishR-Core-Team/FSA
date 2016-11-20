@@ -70,9 +70,9 @@
 #'
 #' @rdname plotBinResp
 #' @export
-plotBinResp <- function(x,...) {
+plotBinResp <- function(x,...) { # nocov start
   UseMethod("plotBinResp") 
-}
+} # nocov end
 
 #' @rdname plotBinResp
 #' @export
