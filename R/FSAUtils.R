@@ -226,13 +226,13 @@ diags <- function(x,which=0,incl.labels=c("none","row","column"),
   ## find indices of diagonals for the matrix
   ## idea from http://stackoverflow.com/a/27935808/1123933
   ind <- row(x)-col(x)
-  if (is.null(which)) {
+  if (is.null(which)) { # nocov start
     ## Simply show the matrix of indices
     cat("Indices matrix corresponding to 'x'.\n")
     rownames(ind) <- rownames(x)
     colnames(ind) <- colnames(x)
     print(ind)
-    cat("\n")
+    cat("\n") # nocov end
   } else {
     ## extract diagonal from x according to which
     if (which>max(ind) | which<min(ind)) STOP("The 'which' diagonal does not exist in 'x'.")
