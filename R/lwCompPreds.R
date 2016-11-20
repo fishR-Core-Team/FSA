@@ -105,6 +105,7 @@ lwCompPreds <- function(object,lens=NULL,qlens=c(0.05,0.25,0.5,0.75,0.95),qlens.
   if (!tmp$metExpNumEFacts) STOP("'object' formula must have one and only one factor variable on RHS.")
 
   # get the model.frame -- may not be needed
+  # nocov start
   mf <- tmp$mf                                                        
   # get names of groups in last term of model (should be factor var)
   grps <- levels(mf[,tmp$EFactPos])                                                       
@@ -130,7 +131,7 @@ lwCompPreds <- function(object,lens=NULL,qlens=c(0.05,0.25,0.5,0.75,0.95),qlens.
                 cex.main,lwd,connect.preds,col.connect,interval,show.preds,yaxs)
   }
   graphics::par(opar)
-}
+} # nocov end
 
 
 iMakeLWPred <- function(object,lens,grps,vn,interval,center.value,base) {
