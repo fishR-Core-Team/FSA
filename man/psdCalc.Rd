@@ -64,19 +64,6 @@ yepdf <- data.frame(yepmm=round(c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1)
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1,drop0Est=TRUE)
 
-## all values above stock value (troubleshooting a problem)
-yepdf2 <- subset(yepdf,yepmm>=130)
-psdCalc(~yepmm,data=yepdf2,species="Yellow perch")
-
-## all values above quality value (troubleshooting a problem)
-yepdf3 <- subset(yepdf,yepmm>=200)
-psdCalc(~yepmm,data=yepdf3,species="Yellow perch")
-psdCalc(~yepmm,data=yepdf3,species="Yellow perch",drop0Est=TRUE)
-
-## all values below memorable value (troubleshooting a problem)
-yepdf4 <- subset(yepdf,yepmm<300)
-psdCalc(~yepmm,data=yepdf4,species="Yellow perch")
-
 ## add a length
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150)
 
@@ -90,10 +77,10 @@ psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150,"maxslot
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150),justAdds=TRUE)
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c("minLen"=150),justAdds=TRUE,
         what="traditional")
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),addNames=c("minSlot","maxSlot"),
-        justAdds=TRUE)
-psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),addNames=c("minSlot","maxSlot"),
-        justAdds=TRUE,what="traditional")
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),
+        addNames=c("minSlot","maxSlot"),justAdds=TRUE)
+psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=c(150,275),
+        addNames=c("minSlot","maxSlot"),justAdds=TRUE,what="traditional")
 
 ## different output types
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",addLens=150,what="traditional")
