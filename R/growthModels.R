@@ -544,9 +544,9 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
       },
       Pauly={
         message("You have chosen the 'Pauly Seasonal Cessation' parameterization.\n\n",
-                "  E[L|t] = Linf*(1-exp(-K'*(t'-to)-Vt'+St0))\n\n",
-                "  where vt' = (K'(1-NGT)/2*pi)*sin(2*pi*(t'-ts)/(1-NGT)) and\n",
-                "        vt0 = (K'(1-NGT)/2*pi)*sin(2*pi*(t0-ts)/(1-NGT)) and\n\n",
+                "  E[L|t] = Linf*(1-exp(-K'*(t'-to)-Vt'+Vt0))\n\n",
+                "  where Vt' = (K'(1-NGT)/2*pi)*sin(2*pi*(t'-ts)/(1-NGT)) and\n",
+                "        Vt0 = (K'(1-NGT)/2*pi)*sin(2*pi*(t0-ts)/(1-NGT)) and\n\n",
                 "  and Linf = asymptotic mean length\n",
                 "        K' = exponential rate of approach to Linf during growth period\n",
                 "        t0 = the theoretical age when length = 0 (a modeling artifact)\n",
