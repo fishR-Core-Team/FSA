@@ -8,7 +8,7 @@
 #' 
 #' If \code{outlier.test=TRUE} then significant outliers are detected with \code{\link[car]{outlierTest}} from the \pkg{car} package.  See the help for this function for more details.
 #'
-#' The user can include the model call as a title to the residual plot by using \code{main="MODEL"}.
+#' The user can include the model call as a title to the residual plot by using \code{main="MODEL"}.  This only works for models created wtih \code{lm()}.
 #' 
 #' If the user chooses to add a legend without identifying coordinates for the upper-left corner of the legend (i.e., \code{legend=TRUE}) then the R console is suspended until the user places the legend by clicking on the produced graphic at the point where the upper-left corner of the legend should appear.  A legend will only be placed if the \code{mdl} is an indicator variable regression, even if \code{legend=TRUE}.
 #'
@@ -147,7 +147,7 @@ residPlot.lm <- function(object,...) { # nocov start
 
 #' @rdname residPlot
 #' @export
-residPlot.SLR <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
+residPlot.SLR <- function(object,xlab="Fitted Values",ylab="Residuals",main="",
                           pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                           resid.type=c("raw","standardized","studentized"),
                           outlier.test=TRUE,alpha=0.05,
@@ -189,7 +189,7 @@ residPlot.IVR <- function(object,legend="topright",cex.leg=1,box.lty.leg=0,...) 
 
 
 iResidPlotIVR1 <- function(object,legend,cex.leg,box.lty.leg,
-                           xlab="Fitted Values",ylab="Residuals",main=NULL,
+                           xlab="Fitted Values",ylab="Residuals",main="",
                            pch=c(16,21,15,22,17,24,c(3:14)),col="rich",
                            lty.ref=3,lwd.ref=1,col.ref="black",
                            resid.type=c("raw","standardized","studentized"),
@@ -244,7 +244,7 @@ iResidPlotIVR1 <- function(object,legend,cex.leg,box.lty.leg,
 
 
 iResidPlotIVR2 <- function(object,legend,cex.leg,box.lty.leg,
-                           xlab="Fitted Values",ylab="Residuals",main=NULL,
+                           xlab="Fitted Values",ylab="Residuals",main="",
                            pch=c(16,21,15,22,17,24,c(3:14)),col="rich",
                            lty.ref=3,lwd.ref=1,col.ref="black",
                            resid.type=c("raw","standardized","studentized"),
@@ -307,7 +307,7 @@ iResidPlotIVR2 <- function(object,legend,cex.leg,box.lty.leg,
 
 #' @rdname residPlot
 #' @export
-residPlot.ONEWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
+residPlot.ONEWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main="",
                              pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                              resid.type=c("raw","standardized","studentized"),
                              bp=TRUE,outlier.test=TRUE,alpha=0.05,
@@ -339,7 +339,7 @@ residPlot.ONEWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=N
 
 #' @rdname residPlot
 #' @export
-residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main=NULL,
+residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main="",
                              pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                              resid.type=c("raw","standardized","studentized"),
                              bp=TRUE,outlier.test=TRUE,alpha=0.05,
@@ -448,7 +448,7 @@ iAddOutlierTestResults <- function(object,fv,r,alpha) {
     else if (out$bonf.p>alpha) num <- 0  # if p>alpha then ... not a significant point
   }
   # If there are significant points to be highlighted then ...
-  if (num>0) {
+  if (num>0) { # nocov start
     # Determine which observation(s) is/are "significant" outlier(s)
     obs <- as.numeric(names(out$bonf.p))
     # Set text position based on sign of r if only one "outlier" is detected
@@ -457,20 +457,18 @@ iAddOutlierTestResults <- function(object,fv,r,alpha) {
     else pos <- plotrix::thigmophobe(fv,r)[obs]
     # place labels
     graphics::text(fv[obs],r[obs],obs,cex=1.1,col="red",pos=pos,xpd=TRUE)
-  }
+  } # nocov end
 }  # end iAddOutlierTestResults internal function
 
 iGetMainTitle <- function(object,main) {
-  if (!is.null(main)) {
-    if (main=="MODEL") {
-      ## user asking to include the model
-      # get formula parts
-      frm.chr <- as.character(stats::formula(object$mdl))
-      # put together as a main title
-      main <- paste(frm.chr[2],frm.chr[1],frm.chr[3])
-    }
+  if (main=="MODEL") {
+    ## user asked to use model
+    # get formula parts (extra spaces are removed)
+    frm.chr <- gsub("\\s+","",as.character(stats::formula(object$mdl)))
+    # put together as a main title
+    main <- paste0(frm.chr[2],frm.chr[1],frm.chr[3])
   }
-  # return the title (will be original if not main="model")
+  # return the title (will be original if not main="MODEL")
   main
 }  # end iGetMainTitle internal function
 

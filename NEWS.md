@@ -17,7 +17,7 @@
 * `predict.nlsBoot()`: Modified. See note for `predict.bootCase()`.
 * `psdCalc()`: Modified. Fixed bug in output if more than two additional lengths were supplied.
 * `removal()`: Modified. Fixed bug related to sending catches in a one column data.frame. Fixed bug related to selecting only one `parm=` in `confint()`.  Added tests.
-* `residPlot()`: Modified.  Added `cex.leg=` and `box.lty.leg=` to IVR plots.
+* `residPlot()`: Modified.  Added `cex.leg=` and `box.lty.leg=` to IVR plots. Removed extra spaces in main title if `main="MODEL"`. Added some tests.
 * `vbFuns()`: Modified.  Added `Ogle` to list of parameterizations. Changed order of `L0` and `K` parameters in returned function when `param="Original"`.
 * `vbStarts()`: Modified.  Added the `methLinf=` argument that allows the user to choose if Linf is estimated from a Walford plot (`methLinf="Walford"`; the default and old functionality), as the mean of fish in a certain number of old ages (`methLinf="oldAge"`), or as the mean of a certain number of the longest fish (`methLinf="longFish"`).  The number of ages or long fish is given in `num4Linf=`.  Added methods for `type="Ogle"`.
 

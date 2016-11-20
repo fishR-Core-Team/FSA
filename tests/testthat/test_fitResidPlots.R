@@ -13,10 +13,8 @@ test_that("fitPlot() errors and warnings",{
   #expect_error(fitPlot(tmp),"Multiple linear regression")
   # does not err yet
   ## Tried to fit an MLR
-  tmp <- lm(y1~x1*x2,data=df)
-  expect_error(fitPlot(tmp),"Multiple linear regression")
-  tmp <- lm(y1~x1*x2*x3,data=df)
-  expect_error(fitPlot(tmp),"Multiple linear regression")
+  expect_error(fitPlot(lm(y1~x1*x2,data=df)),"Multiple linear regression")
+  expect_error(fitPlot(lm(y1~x1*x2*x3,data=df)),"Multiple linear regression")
   
   #### SLR
   ## bad intervals
@@ -36,14 +34,10 @@ test_that("fitPlot() errors and warnings",{
   
   #### IVR
   ## Tried to fit a non-conforming IVR
-  tmp <- lm(y1~x1*x2*z1*z2,data=df)
-  expect_error(fitPlot(tmp),"covariate in an IVR")
-  tmp <- lm(y1~x1*x2*x3*z1,data=df)
-  expect_error(fitPlot(tmp),"covariate in an IVR")
-  tmp <- lm(y1~x1*z1*z2*z3,data=df)
-  expect_error(fitPlot(tmp),"factors in an IVR")
-  tmp <- lm(y1~x1*x2*z1*z2*z3,data=df)
-  expect_error(fitPlot(tmp),"covariate in an IVR")
+  expect_error(fitPlot(lm(y1~x1*x2*z1*z2,data=df)),"covariate in an IVR")
+  expect_error(fitPlot(lm(y1~x1*x2*x3*z1,data=df)),"covariate in an IVR")
+  expect_error(fitPlot(lm(y1~x1*z1*z2*z3,data=df)),"factors in an IVR")
+  expect_error(fitPlot(lm(y1~x1*x2*z1*z2*z3,data=df)),"covariate in an IVR")
   ## Bad colors, points, or line types for one-way IVR
   tmp <- lm(y1~x1*z1,data=df)
   expect_warning(fitPlot(tmp,col=c("orange","green")),"Fewer colors sent then levels")
@@ -76,16 +70,12 @@ test_that("fitPlot() errors and warnings",{
   expect_warning(fitPlot(tmp,col="rich",lty=1:2),"Fewer ltys sent then levels")
 })
 
-test_that("fitPlot() errors and warnings",{
+test_that("residPlot() errors and warnings",{
   ## Tried to fit a non-conforming IVR
-  tmp <- lm(y1~x1*x2*z1*z2,data=df)
-  expect_error(residPlot(tmp),"covariate in an IVR")
-  tmp <- lm(y1~x1*x2*x3*z1,data=df)
-  expect_error(residPlot(tmp),"covariate in an IVR")
-  tmp <- lm(y1~x1*z1*z2*z3,data=df)
-  expect_error(residPlot(tmp),"factors in an IVR")
-  tmp <- lm(y1~x1*x2*z1*z2*z3,data=df)
-  expect_error(residPlot(tmp),"covariate in an IVR")
+  expect_error(residPlot(lm(y1~x1*x2*z1*z2,data=df)),"covariate in an IVR")
+  expect_error(residPlot(lm(y1~x1*x2*x3*z1,data=df)),"covariate in an IVR")
+  expect_error(residPlot(lm(y1~x1*z1*z2*z3,data=df)),"factors in an IVR")
+  expect_error(residPlot(lm(y1~x1*x2*z1*z2*z3,data=df)),"covariate in an IVR")
   ## Bad colors, points, or line types for one-way IVR
   tmp <- lm(y1~x1*z1,data=df)
   expect_warning(residPlot(tmp,col=c("orange","green")),"Fewer colors sent then levels")
@@ -94,4 +84,19 @@ test_that("fitPlot() errors and warnings",{
   tmp <- lm(y1~x1*z1*z3,data=df)
   expect_warning(residPlot(tmp,col=c("orange","green")),"Fewer colors sent then levels")
   expect_warning(residPlot(tmp,col="rich",pch=17:18),"Fewer pchs sent then levels")
+  
+  ## Wrong residual types for nls and nlme
+  tmp <- nls(y1~a*exp(b*x2),data=df,start=c(a=1,b=1))
+  expect_error(residPlot(tmp,resid.type="studentized"),"cannot be 'studentized'")
+})
+
+test_that("iGetMainTitle() returns",{
+  tmp <- FSA:::iTypeoflm(lm(y1~x2,data=df))
+  expect_equal(FSA:::iGetMainTitle(tmp,main=""),"")
+  expect_equal(FSA:::iGetMainTitle(tmp,main="Derek"),"Derek")
+  expect_equal(FSA:::iGetMainTitle(tmp,main="MODEL"),"y1~x2")
+  tmp <- FSA:::iTypeoflm(lm(y1~x2*x1,data=df))
+  expect_equal(FSA:::iGetMainTitle(tmp,main=""),"")
+  expect_equal(FSA:::iGetMainTitle(tmp,main="Derek"),"Derek")
+  expect_equal(FSA:::iGetMainTitle(tmp,main="MODEL"),"y1~x2*x1")
 })
