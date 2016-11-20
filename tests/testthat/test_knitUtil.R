@@ -46,3 +46,18 @@ test_that("kPvalue() tests",{
   expect_equal(kPvalue(tmp2,digits=2,include.p=FALSE,latex=FALSE),">1")
   expect_equal(kPvalue(tmp2,digits=9),"$p>1$")
 })
+
+# ############################################################
+# Internal Functions
+# ############################################################
+test_that("iMakeItemsToRemove() returns",{
+  tmp <- FSA:::iMakeItemsToRemove(c("Derek","Ogle"))
+  expect_true(any(grepl("Derek",tmp)))
+  expect_true(any(grepl("Ogle",tmp)))
+})
+
+test_that("iMakeFilename() returns",{
+  expect_equal(iMakeFilename("Derek",".Rmd"),"Derek.Rmd")
+  expect_equal(iMakeFilename("Derek",".Rmd","C:"),"C:/Derek.Rmd")
+  expect_equal(iMakeFilename("Derek",".Rmd","C:/Ogle"),"C:/Ogle/Derek.Rmd")
+})
