@@ -1,4 +1,4 @@
-context("age-length key related Messages")
+context("age-length key related VALIDATE")
 source("EXS_AgeLengthKey.R")
 
 test_that("Assigned ages are correct (within rounding) with semi-random alkIndivAge()",{

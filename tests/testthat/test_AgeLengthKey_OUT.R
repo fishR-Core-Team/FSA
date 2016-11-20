@@ -1,4 +1,4 @@
-context("age-length key related Messages")
+context("age-length key related OUTPUT")
 source("EXS_AgeLengthKey.R")
 
 test_that("Does age variable get added with alkIndivAge()",{
