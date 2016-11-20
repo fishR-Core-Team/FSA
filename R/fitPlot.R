@@ -399,7 +399,7 @@ fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
     x.factor <- object$mf[,object$Enames[ord[1]]]
     group <- object$mf[,object$Enames[ord[2]]]
     ngrps <- length(levels(group))
-  } else {
+  } else { # nocov start
     # one of the factors was chosen, pick just that variable
     ord <- match(which,object$Enames)
     x.factor <- object$mf[,object$Enames[ord[1]]]
@@ -411,7 +411,6 @@ fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
   col <- iFitPlotClrs2(group,col,"default")
   pch <- iFitPlotPchs2(group,pch)
   lty <- iFitPlotLtys2(group,lty)
-  # nocov start
   if (interval) {
     sciplot::lineplot.CI(x.factor,y,group,main=main,xlab=xlab,ylab=ylab,
                          type=type,pch=pch[1:ngrps],lty=lty[1:ngrps],col=col[1:ngrps],
@@ -433,7 +432,8 @@ fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
 fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col.pt,
                         lwd=2,lty=1,plot.pts=TRUE,jittered=FALSE,ylim=NULL,
                         legend=FALSE,legend.lbls=c("Group 1","Group 2"),
-                        ylab=names(mdl$model)[1],xlab=names(mdl$model)[xpos],main="", ...) {
+                        ylab=names(mdl$model)[1],xlab=names(mdl$model)[xpos],
+                        main="", ...) { # nocov start
   ## add the model option to the NLS object so that data can be extracted
   mdl <- stats::update(object,model=TRUE)
   ## finds number of variables in the model (this is needed because for some
@@ -474,12 +474,10 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
     # find limit for y-axis
     if (is.null(ylim)) ylim <- range(c(y,fits$y))
     if (jittered) x <- jitter(x)    
-    # nocov start
     if (plot.pts) graphics::plot(x,y,pch=pch[1],col=col.pt[1],ylim=ylim,
                                  xlab=xlab,ylab=ylab,main=main,...)
       else graphics::plot(x,y,type="n",ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
     graphics::lines(fits$x,fits$y,lwd=lwd[1],lty=lty[1],col=col.mdl[1])
-    # nocov end
   } else {
     explg1 <- data.frame(x=fitx,g1=rep(1,length(fitx)),g2=rep(0,length(fitx)))
     explg2 <- data.frame(x=fitx,g1=rep(0,length(fitx)),g2=rep(1,length(fitx)))
@@ -490,7 +488,6 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
     # find limit for y-axis
     if (is.null(ylim)) ylim <- range(c(y,fitsg1$y,fitsg2$y))
     if (jittered) x <- jitter(x)
-    # nocov start
     graphics::plot(x,y,type="n",ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
     if (plot.pts) {
       graphics::points(x[g1==1],y[g1==1],pch=pch[1],col=col.pt[1])
@@ -503,8 +500,8 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
       if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=legend.lbls,col=col.pt,pch=pch,lty=lty)
         else graphics::legend(x=leg$x,y=leg$y,legend=legend.lbls,col=col.mdl,lty=lty)
     }
-  } # nocov end
-} 
+  }
+}  # nocov end
 
 #' @rdname fitPlot
 #' @export
@@ -519,7 +516,7 @@ fitPlot.logreg <- function(object,xlab=names(object$model)[2],ylab=names(object$
     plot.pts=TRUE,col.pt="black",transparency=NULL,
     plot.p=TRUE,breaks=25,p.col="blue",p.pch=3,p.cex=1,
     yaxis1.ticks=seq(0,1,0.1),yaxis1.lbls=c(0,0.5,1),yaxis2.show=TRUE,
-    col.mdl="red",lwd=2,lty=1,mdl.vals=50,xlim=range(x),...) {
+    col.mdl="red",lwd=2,lty=1,mdl.vals=50,xlim=range(x),...) { # nocov start
   ## Get data to plot
   yc <- object$model[,1]
   x <- object$model[,2]
@@ -527,7 +524,6 @@ fitPlot.logreg <- function(object,xlab=names(object$model)[2],ylab=names(object$
   nd <- data.frame(seq(min(xlim),max(xlim),length.out=mdl.vals))
   names(nd) <- names(object$model)[2]
   ## Make the plot
-  # nocov start
   plotBinResp(x,yc,xlab,ylab,plot.pts,col.pt,transparency,plot.p,breaks,p.col,p.pch,p.cex,
               yaxis1.ticks=yaxis1.ticks,yaxis1.lbls=yaxis1.lbls,yaxis2.show=yaxis2.show,
               main=main,xlim=xlim,...)
