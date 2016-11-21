@@ -1,10 +1,7 @@
-context("DVR Model Comparisons (slopes and intercepts)")
+context("DVR Model Comparisons (slopes and intercepts) MESSAGES")
+source("EXS_comparisonsDVR.R")
 
-## Prepare some data for the tests below
-  data(Mirex)
-  Mirex$fyear <- factor(Mirex$year)
-
-test_that("compSlopes() & compIntercepts() errors and warnings",{
+test_that("compSlopes() & compIntercepts() mesages",{
   ## Model not a DVR/IVR
   # SLR
   tmp <- lm(mirex~weight,data=Mirex)
@@ -37,11 +34,3 @@ test_that("compSlopes() & compIntercepts() errors and warnings",{
   expect_warning(compSlopes(tmp),"Function not needed with fewer than three levels")
   expect_warning(compIntercepts(tmp),"Function not needed with fewer than three levels")
 })
-
-test_that("Same results with compSlopes() & compIntercepts() if variables are reversed",{
-  tmp1 <- lm(mirex~weight*fyear,data=Mirex)
-  tmp2 <- lm(mirex~fyear*weight,data=Mirex)
-  expect_identical(compSlopes(tmp1),compSlopes(tmp2))
-  expect_identical(suppressWarnings(compIntercepts(tmp1)),
-                   suppressWarnings(compIntercepts(tmp2)))
-})  
