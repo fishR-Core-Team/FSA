@@ -1,12 +1,10 @@
-context("Tests for FSA utilities")
+context("FSA utilities OUTPUT")
 
-# ############################################################
-# capFirst
-# ############################################################
-test_that("capFirst() capitalizations are correct",{
+test_that("capFirst() results",{
   ## simulate data set
   set.seed(345234534)
-  dbt <- data.frame(species=factor(rep(c("bluefin tuna"),30)),tl=round(rnorm(30,1900,300),0))
+  dbt <- data.frame(species=factor(rep(c("bluefin tuna"),30)),
+                    tl=round(rnorm(30,1900,300),0))
   dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
   dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),tl=round(rnorm(30,130,50),0))
   dbg$wt <- round(4.23e-06*dbg$tl^3.316+rnorm(30,0,10),1)
@@ -20,7 +18,7 @@ test_that("capFirst() capitalizations are correct",{
   expect_equivalent(levels(factor(capFirst(df$species,which="first"))),c("Bluefin tuna","Bluegill","Lmb"))
 })
 
-test_that("capFirst() returned classes are correct",{
+test_that("capFirst() returned classes",{
   ## simulate vector of names
   vec <- c("Derek Ogle","derek ogle","Derek ogle","derek Ogle","DEREK OGLE")
   fvec <- factor(vec)
@@ -34,14 +32,7 @@ test_that("capFirst() returned classes are correct",{
   expect_equivalent(class(fvec1),"factor")
 })
 
-
-# ############################################################
-# chooseColors
-# ############################################################
-test_that("chooseColors() error messages and return values",{
-  ## check error messages
-  expect_error(chooseColors("Derek"),"should be one of")
-  expect_error(chooseColors(num=0),"positive")
+test_that("chooseColors() return values",{
   ## check return values
   n <- 10
   tmp <- chooseColors(num=n)
@@ -82,36 +73,12 @@ test_that("chooseColors() error messages and return values",{
   expect_is(tmp,"integer")
 })
 
-
-# ############################################################
-# col2rgbt
-# ############################################################
-test_that("col2rgbt() messages and results",{
-  expect_error(col2rgbt("black",-1),"must be greater than 0")
-  expect_error(col2rgbt("black",0),"must be greater than 0")
-  expect_error(col2rgbt(c("black","blue","red"),c(2,3)),"must be 1 or same as length")
+test_that("col2rgbt() results",{
   expect_equal(col2rgbt("black",10),rgb(0,0,0,1/10))
   expect_equal(col2rgbt("black",1/10),rgb(0,0,0,1/10))
   expect_equal(col2rgbt("red",10),rgb(1,0,0,1/10))
   expect_equal(col2rgbt("blue",1/10),rgb(0,0,1,1/10))
   expect_equal(col2rgbt("black",1),rgb(0,0,0,1))
-})
-
-
-# ############################################################
-# diags
-# ############################################################
-test_that("diags() error messages",{
-  mat1 <- matrix(1:16,nrow=4)
-  mat2 <- matrix(1:20,nrow=4)
-  ## check error messages
-  expect_error(diags(0:5),"only works with matrices")
-  expect_error(diags(matrix(0:5,nrow=6)),"more than 1 column")
-  expect_error(diags(matrix(0:5,ncol=6)),"more than 1 row")
-  expect_error(diags(mat1,which=-4),"diagonal does not exist")
-  expect_error(diags(mat1,which=4),"diagonal does not exist")
-  expect_error(diags(mat2,which=-5),"diagonal does not exist")
-  expect_error(diags(mat1,which=4),"diagonal does not exist")
 })
 
 test_that("diags() results",{
@@ -209,16 +176,7 @@ test_that("diags() results",{
   expect_is(tmp$label,"numeric")
 })
 
-
-# ############################################################
-# fact2num
-# ############################################################
-test_that("fact2num() error messages and results",{
-  ## check error messages
-  expect_error(fact2num(0:5),"purpose")
-  expect_error(fact2num(data.frame(x=0:5)),"purpose")
-  expect_error(fact2num(factor(c("A","B","C"))),"aborted")
-  ## check results
+test_that("fact2num() results",{
   nums <- c(1,2,6,9,3)
   tmp <- fact2num(factor(nums))
   expect_equal(tmp,nums)
@@ -226,17 +184,7 @@ test_that("fact2num() error messages and results",{
   expect_true(is.vector(tmp))
 })
 
-
-# ############################################################
-# filterD
-# ############################################################
-test_that("filterD() error messages and results",{
-  ## check error messages
-  expect_error(filterD(0:5))
-  expect_error(filterD(matrix(0:5,ncol=2)))
-  expect_warning(filterD(iris,Species=="DEREK"),"resultant data.frame")
-  
-  ## check results
+test_that("filterD() results",{
   # limit to two groups
   grp <- c("setosa","versicolor")
   tmp <- filterD(iris,Species %in% grp)
@@ -258,13 +206,7 @@ test_that("filterD() error messages and results",{
   expect_equal(levels(tmp$Species),c("setosa","versicolor","virginica"))
 })  
 
-test_that("Subset() error messages and results",{
-  ## check error messages
-  expect_error(Subset(0:5),"with data.frames")
-  expect_error(Subset(matrix(0:5,ncol=2)),"with data.frames")
-  expect_warning(Subset(iris,Species=="DEREK"),"resultant data.frame")
-
-  ## check results
+test_that("Subset() results",{
   # limit to two groups
   grp <- c("setosa","versicolor")
   tmp <- Subset(iris,Species %in% grp)
@@ -292,39 +234,39 @@ test_that("Subset() error messages and results",{
   expect_equal(levels(tmp$Species1),rev(grp))
 })  
 
-
-# ############################################################
-# fishR
-# ############################################################
-test_that("fishR() error messages and return values",{
-  ## check error messages
-  expect_error(fishR("Derek"),"should be one of")
-  ## check return values
-  tmp <- fishR()
-  expect_equal(tmp,"http://derekogle.com/fishR")
-  tmp <- fishR("IFAR")
-  expect_equal(tmp,"http://derekogle.com/IFAR")
-  tmp <- fishR("general")
-  expect_equal(tmp,"http://derekogle.com/fishR/examples")
-  tmp <- fishR("AIFFD")
-  expect_equal(tmp,"http://derekogle.com/aiffd2007")
-  tmp <- fishR("posts")
-  expect_equal(tmp,"http://derekogle.com/fishR/blog")
-  tmp <- fishR("books")
-  expect_equal(tmp,"http://derekogle.com/fishR/examples")
-  tmp <- fishR("news")
-  expect_equal(tmp,"http://derekogle.com/fishR/blog")
+test_that("fishR() return values",{
+  expect_equal(fishR(),"http://derekogle.com/fishR")
+  expect_equal(fishR("IFAR"),"http://derekogle.com/IFAR")
+  expect_equal(fishR("general"),"http://derekogle.com/fishR/examples")
+  expect_equal(fishR("AIFFD"),"http://derekogle.com/aiffd2007")
+  expect_equal(fishR("posts"),"http://derekogle.com/fishR/blog")
+  expect_equal(fishR("books"),"http://derekogle.com/fishR/examples")
+  expect_equal(fishR("news"),"http://derekogle.com/fishR/blog")
 })
 
+test_that("geomean() / geosd() results",{
+  ## Geometric mean
+  # match wikipedia example
+  expect_equivalent(geomean(c(1/32,1,4)),1/2)
+  # match http://www.thinkingapplied.com/means_folder/deceptive_means.htm
+  tmp <- c(1.0978,1.1174,1.1341,0.9712,1.1513,1.2286,1.0930,0.9915,1.0150)
+  tmp2 <- c(NA,tmp)
+  expect_equivalent(round(geomean(tmp),4),1.0861)
+  expect_equivalent(round(geosd(tmp),4),1.0795)
+  # match geometric.mean in psych package
+  if (require(psych)) {
+    expect_equivalent(geomean(tmp),psych::geometric.mean(tmp))
+    expect_equivalent(geomean(tmp2,na.rm=TRUE),psych::geometric.mean(tmp2))
+  }
+  if (require(DescTools)) {
+    expect_equivalent(geomean(tmp),DescTools::Gmean(tmp))
+    expect_equivalent(geomean(tmp2,na.rm=TRUE),DescTools::Gmean(tmp2,na.rm=TRUE))
+    expect_equivalent(geosd(tmp),DescTools::Gsd(tmp))
+    expect_equivalent(geosd(tmp2,na.rm=TRUE),DescTools::Gsd(tmp2,na.rm=TRUE))
+  }
+})
 
-# ############################################################
-# headtail
-# ############################################################
-test_that("headtail() error messages and return values",{
-  ## check error messages
-  expect_error(headtail(1:10),"matrix")
-  expect_error(headtail(iris,n=c(1,2)),"single number")
-  ## check of default values
+test_that("headtail() return values",{
   n <- 3
   tmp <- headtail(iris)
   expect_equal(nrow(tmp),2*n)
@@ -367,51 +309,6 @@ test_that("headtail() error messages and return values",{
     tmp <- headtail(iris2,n=15)
     expect_is(tmp,"data.frame")
   }
-})  
-
-
-# ############################################################
-# hoCoef
-# ############################################################
-test_that("hoCoef() error messages and return values",{
-  ## fit some linear regression results
-  data(Mirex)
-  lm1 <- lm(mirex~weight,data=Mirex)
-  lm2 <- lm(mirex~weight+year,data=Mirex)
-  ## check error messages
-  # bad alt=
-  expect_error(hoCoef(lm1,term=2,bo=0.1,alt="derek"),"should be one of")
-  # bad term
-  expect_error(hoCoef(lm1,term=-1,bo=0.1),"positive")
-  expect_error(hoCoef(lm1,term=5,bo=0.1),"greater")
-  expect_error(hoCoef(lm2,term=5,bo=0.1),"greater")
-  
-  ## fit some non-linear regression results
-  data(Ecoli)
-  fnx <- function(days,B1,B2,B3) {
-    if (length(B1) > 1) {
-      B2 <- B1[2]
-      B3 <- B1[3]
-      B1 <- B1[1]
-    }
-    B1/(1+exp(B2+B3*days))
-  }
-  nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,start=list(B1=6,B2=7.2,B3=-1.45))
-  # bad model type
-  expect_error(hoCoef(nl1,term=-1,bo=0.1),"lm")
-})
-
-
-
-# ############################################################
-# lagratio
-# ############################################################
-test_that("lagratio() error messages",{
-  ## check error messages
-  expect_error(lagratio(0:5),"zeroes")
-  expect_error(lagratio(.leap.seconds),"POSIXt")
-  expect_error(lagratio(1:5,direction="derek"),"one of")
-  expect_error(lagratio(1:5,recursion=-1),"recursion")
 })
 
 test_that("lagratio() calculations",{
@@ -446,11 +343,7 @@ test_that("lagratio() calculations",{
   expect_equal(lagratio(1:10,3,2,direction="forward"),res3r)
 })
 
-
-# ############################################################
-# logbtcf
-# ############################################################
-test_that("logbtcf() errors and output",{
+test_that("logbtcf() output",{
   ## toy data
   df <- data.frame(y=rlnorm(10),x=rlnorm(10))
   df$logey <- log(df$y)
@@ -475,23 +368,9 @@ test_that("logbtcf() errors and output",{
   ## Results should be equal
   expect_equal(cfe,cf10)
   expect_equal(cpe,cp10)
-  
-  ## only works with lm
-  glme <- glm(logey~logex,data=df)
-  expect_error(logbtcf(glme),"must be from lm()")
 })
 
-
-# ############################################################
-# oddeven
-# ############################################################
-test_that("oddeven() error messages and return values",{
-  ## check error messages
-  expect_error(is.odd("A"),"numeric")
-  expect_error(is.even("A"),"numeric")
-  expect_error(is.odd(matrix(1:5)),"vector")
-  expect_error(is.even(matrix(1:5)),"vector")
-  ## check results
+test_that("oddeven() return values",{
   expect_true(is.odd(1))
   expect_false(is.odd(2))
   expect_true(is.even(2))
@@ -501,15 +380,7 @@ test_that("oddeven() error messages and return values",{
   expect_is(is.odd(1:4),"logical")
 })
 
-
-# ############################################################
-# perc
-# ############################################################
-test_that("perc() error messages and return values",{
-  ## check error messages
-  expect_error(perc("A"),"numeric")
-  expect_warning(perc(1:4,c(1,2)),"first value")
-  ## check results
+test_that("perc() return values",{
   tmp <- c(1:8,NA,NA)
   ## percentages excluding NA values
   expect_equal(perc(tmp,5),50)
@@ -535,41 +406,13 @@ test_that("perc() error messages and return values",{
   expect_equal(suppressWarnings(perc(tmp,5,"lt",na.rm=FALSE)),40)
 })
 
-
-# ############################################################
-# rcumsum / pcumsum
-# ############################################################
-test_that("pcumsum()/rcumsum() error messages and return values",{
-  ## check error messages -- wrong type
-  expect_error(pcumsum(letters),"numeric")
-  expect_error(rcumsum(letters),"numeric")
-  ## check error messages -- not 1-dimensional
-  tmp <- data.frame(x=sample(1:5,100,replace=TRUE),
-                    y=sample(1:5,100,replace=TRUE))
-  tbl <- table(tmp$x,tmp$y)
-  expect_error(pcumsum(tbl),"1-dimensional")
-  expect_error(rcumsum(tbl),"1-dimensional")
-  tbl <- as.data.frame(table(tmp$x))
-  expect_error(pcumsum(tbl),"1-dimensional")
-  expect_error(rcumsum(tbl),"1-dimensional")
-  mat <- matrix(1:6,nrow=2)
-  expect_error(pcumsum(mat),"1-dimensional")
-  expect_error(rcumsum(mat),"1-dimensional")
-  ## check results
+test_that("pcumsum()/rcumsum() return values",{
   tmp <- 1:3
   expect_equal(pcumsum(tmp),c(0,1,3))
   expect_equal(rcumsum(tmp),c(6,5,3))
 })
 
-
-# ############################################################
-# se
-# ############################################################
-test_that("se() error messages and return values",{
-  ## check error messages
-  expect_error(se(letters),"numeric")
-  expect_error(se(data.frame(x=1:5)),"vector")
-  expect_error(se(matrix(1:6,ncol=2)),"vector")
+test_that("se() return values",{
   ## If an NA value occurs then return NA if na.rm=FALSE
   expect_true(is.na(se(c(1,2,NA),na.rm=FALSE)))
   ## check results
@@ -577,65 +420,9 @@ test_that("se() error messages and return values",{
   expect_equal(se(tmp),sd(tmp)/sqrt(length(tmp)))
 })
 
-
-# ############################################################
-# validn
-# ############################################################
-test_that("validn() error messages and return values",{
-  ## check error messages
-  expect_error(validn(data.frame(x=1:5,y=2:6)),"cannot be a data.frame")
-  expect_error(validn(matrix(1:6,ncol=2)),"cannot be a matrix")
-  ## check results
+test_that("validn() return values",{
   expect_equal(validn(c(1,7,2,4,3,10,NA)),6)
   expect_equal(validn(c("Derek","Hugh","Ogle","Santa","Claus","Nick",NA,NA)),6)
   expect_equal(validn(factor(c("Derek","Hugh","Ogle","Santa","Claus","Nick",NA,NA))),6)
   expect_equal(validn(c(TRUE,TRUE,FALSE,FALSE,FALSE,TRUE,NA,NA)),6)
-})
-
-
-# ############################################################
-# Geometric mean and standard devaition
-# ############################################################
-test_that("geomean() / geosd() error messages",{
-  ## Bad data types
-  expect_error(geomean(LETTERS),"must be a numeric vector")
-  expect_error(geosd(LETTERS),"must be a numeric vector")
-  expect_error(geomean(c(TRUE,FALSE)),"must be a numeric vector")
-  expect_error(geosd(c(TRUE,FALSE)),"must be a numeric vector")
-  expect_error(geomean(data.frame(x=1:3)),"must be a vector")
-  expect_error(geosd(data.frame(x=1:3)),"must be a vector")
-  ## Bad values
-  expect_error(geomean(c(-1,1:3)),"all positive values")
-  expect_error(geosd(c(-1,1:3)),"all positive values")
-  expect_error(geomean(c(0,1:3)),"all positive values")
-  expect_error(geosd(c(0,1:3)),"all positive values")
-  expect_error(geomean(c(NA,1:3)),"missing value")
-  expect_error(geosd(c(NA,1:3)),"missing value")
-  ## Handling Negatives or Zeroes
-  expect_warning(geomean(c(-1,1:3),zneg.rm=TRUE),"non-positive values were ignored")
-  expect_warning(geosd(c(-1,1:3),zneg.rm=TRUE),"non-positive values were ignored")
-  expect_warning(geomean(c(0,1:3),zneg.rm=TRUE),"non-positive values were ignored")
-  expect_warning(geosd(c(0,1:3),zneg.rm=TRUE),"non-positive values were ignored")
-})
-
-test_that("geomean() / geosd() results",{
-  ## Geometric mean
-  # match wikipedia example
-  expect_equivalent(geomean(c(1/32,1,4)),1/2)
-  # match http://www.thinkingapplied.com/means_folder/deceptive_means.htm
-  tmp <- c(1.0978,1.1174,1.1341,0.9712,1.1513,1.2286,1.0930,0.9915,1.0150)
-  tmp2 <- c(NA,tmp)
-  expect_equivalent(round(geomean(tmp),4),1.0861)
-  expect_equivalent(round(geosd(tmp),4),1.0795)
-  # match geometric.mean in psych package
-  if (require(psych)) {
-    expect_equivalent(geomean(tmp),psych::geometric.mean(tmp))
-    expect_equivalent(geomean(tmp2,na.rm=TRUE),psych::geometric.mean(tmp2))
-  }
-  if (require(DescTools)) {
-    expect_equivalent(geomean(tmp),DescTools::Gmean(tmp))
-    expect_equivalent(geomean(tmp2,na.rm=TRUE),DescTools::Gmean(tmp2,na.rm=TRUE))
-    expect_equivalent(geosd(tmp),DescTools::Gsd(tmp))
-    expect_equivalent(geosd(tmp2,na.rm=TRUE),DescTools::Gsd(tmp2,na.rm=TRUE))
-  }
 })
