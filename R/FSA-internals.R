@@ -225,7 +225,7 @@ iHndlFormula <- function(formula,data,expNumR=NULL,
 }
 
 
-iHndlMultWhat <- function(what,item) {
+iHndlMultWhat <- function(what,item,type=c("message","cat")) {
   ##################################################################
   ## Internal functions used to handle multiple what= arguments
   ## If more than one item then print a line return and return
@@ -233,8 +233,10 @@ iHndlMultWhat <- function(what,item) {
   ##   to put space between multiple items without an extra space
   ##   after the last one.
   ##################################################################
+  type <- match.arg(type)
   if (length(what)>1) {
-    message("\n")
+    if (type=="message") message("\n")
+    else cat("\n")
     what[-pmatch(item, what)]
   }
 }

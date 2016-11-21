@@ -1,4 +1,4 @@
-context("Age Comparisons (Precision and Bias) VALIDATE")
+context("Age Precision and Bias VALIDATE")
 
 test_that("ageBias() symmetry tests match the results in Evans and Hoenig (2008)",{
   ######## Create Evans & Hoenig (2008) X, Y, and Z matrices and check
@@ -6,7 +6,7 @@ test_that("ageBias() symmetry tests match the results in Evans and Hoenig (2008)
   X.dat <- data.frame(ageR=c(2,2,2,2,2,2,2,2),
                       ageC=c(1,1,1,1,3,3,3,3))
   suppressWarnings(X <- ageBias(ageR~ageC,data=X.dat))
-  Xsum <- summary(X,what="symmetry")
+  junk <- capture.output( Xsum <- summary(X,what="symmetry") )
   expect_equal(Xsum[Xsum$symTest=="McNemar","df"], 1)
   expect_equal(Xsum[Xsum$symTest=="McNemar","chi.sq"], 0)
   expect_equal(round(Xsum[Xsum$symTest=="McNemar","p"],4), 1.0000)
@@ -23,7 +23,7 @@ test_that("ageBias() symmetry tests match the results in Evans and Hoenig (2008)
   Y.dat <- data.frame(ageR=c(1,1,1,2,2,2),
                       ageC=c(2,2,3,3,3,3))
   suppressWarnings(Y <- ageBias(ageR~ageC,data=Y.dat))
-  Ysum <- summary(Y,what="symmetry")
+  junk <- capture.output( Ysum <- summary(Y,what="symmetry") )
   expect_equal(Ysum[Ysum$symTest=="McNemar","df"], 1)
   expect_equal(Ysum[Ysum$symTest=="McNemar","chi.sq"], 6)
   expect_equal(round(Ysum[Ysum$symTest=="McNemar","p"],4), 0.0143)
@@ -37,7 +37,7 @@ test_that("ageBias() symmetry tests match the results in Evans and Hoenig (2008)
   Z.dat <- data.frame(ageR=c(1,1,1,2,2,2,3),
                       ageC=c(2,2,2,3,3,3,1))
   suppressWarnings(Z <- ageBias(ageR~ageC,data=Z.dat))
-  Zsum <- summary(Z,what="symmetry")
+  junk <- capture.output( Zsum <- summary(Z,what="symmetry") )
   expect_equal(Zsum[Zsum$symTest=="McNemar","df"], 1)
   expect_equal(round(Zsum[Zsum$symTest=="McNemar","chi.sq"],2), 3.57)
   expect_equal(round(Zsum[Zsum$symTest=="McNemar","p"],4), 0.0588)
@@ -55,19 +55,19 @@ test_that("test ageBias() against compare2() with AlewifeLH data",{
     ab2 <- compare2(AlewifeLH,barplot=FALSE)
     ## no continuity correction
     suppressWarnings(ab1 <- ageBias(scales~otoliths,data=AlewifeLH,ref.lab="Otolith Age",nref.lab="Scale Age"))
-    ab1sum <- summary(ab1)
+    junk <- capture.output( ab1sum <- summary(ab1) )
     expect_equal(ab1sum[ab1sum$symTest=="McNemar","chi.sq"], ab2$McNemar$Chisq)
     expect_equal(ab1sum[ab1sum$symTest=="McNemar","p"], ab2$McNemar$pvalue)
     expect_equal(ab1sum[ab1sum$symTest=="EvansHoenig","chi.sq"], ab2$Evans_Hoenig$Chisq)
     expect_equal(ab1sum[ab1sum$symTest=="EvansHoenig","p"], ab2$Evans_Hoenig$pvalue)
     expect_equal(ab1sum[ab1sum$symTest=="EvansHoenig","df"], ab2$Evans_Hoenig$df)
     ## Yates continuity correction
-    ab1sum2 <- summary(ab1,what="McNemar",cont.corr="Yates")
+    junk <- capture.output( ab1sum2 <- summary(ab1,what="McNemar",cont.corr="Yates") )
     expect_equal(ab1sum2[1,"chi.sq"], ab2$McNemar_continuity_correction$Chisq)
     expect_equal(ab1sum2[1,"p"], ab2$McNemar_continuity_correction$pvalue)
     ## Edwards continuity correction
     ab3 <- compare2(AlewifeLH,correct="Edwards",barplot=FALSE)
-    ab1sum3 <- summary(ab1,what="McNemar",cont.corr="Edwards")
+    junk <- capture.output( ab1sum3 <- summary(ab1,what="McNemar",cont.corr="Edwards") )
     expect_equal(ab1sum3[1,"chi.sq"], ab3$McNemar_continuity_correction$Chisq)
     expect_equal(ab1sum3[1,"p"], ab3$McNemar_continuity_correction$pvalue)
   }
@@ -113,17 +113,17 @@ test_that("agePrecision() gives correct precision values -- Second Example",{
   
   ## testing truncation of absolute differences
   # with multiple pairs of structures
-  sum1 <- summary(ap2,what="absolute")
+  junk <- capture.output( sum1 <- summary(ap2,what="absolute") )
   expect_equal(dim(sum1), c(3,15))
-  sum2 <- summary(ap2,what="absolute",trunc.diff=4)
+  junk <- capture.output( sum2 <- summary(ap2,what="absolute",trunc.diff=4) )
   expect_equal(dim(sum2), c(3,5))
   expect_equal(sum1[,1:4],sum2[,1:4])
   expect_equal(rowSums(sum1[,5:15]),sum2[,5])
   # with one pair of structures
   ap2 <- agePrecision(~otolithC+finrayC,data=WhitefishLC)
-  sum1 <- summary(ap2,what="absolute")
+  junk <- capture.output( sum1 <- summary(ap2,what="absolute") )
   expect_equal(dim(sum1),15)
-  sum2 <- summary(ap2,what="absolute",trunc.diff=4)
+  junk <- capture.output( sum2 <- summary(ap2,what="absolute",trunc.diff=4) )
   expect_equal(dim(sum2),5)
   expect_equal(sum1[1:4],sum2[1:4])
   expect_equivalent(sum(sum1[5:15]),sum2[5])
