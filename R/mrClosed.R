@@ -187,8 +187,7 @@ mrClosed <- function(M=NULL,n=NULL,m=NULL,R=NULL,
   if (method %in% c("Petersen","Chapman","Ricker","Bailey")) {
     if (!is.null(R)) {
       ## R not in single methods.  If nothing else, throw error
-      if (is.null(c(M,n,m))) STOP("'R' not used in single census methods;
-                                  must supply 'M', 'n', and 'm'.")
+      if (is.null(c(M,n,m))) STOP("'R' not used in single census methods;\n must supply 'M', 'n', and 'm'.")
       ## Otherwise warn that it will be ignored
       WARN("'R' not used in single census methods and will be ignored.")
     }
