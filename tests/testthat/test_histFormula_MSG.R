@@ -1,4 +1,4 @@
-context("hist.formula() tests")
+context("hist.formula() MESSAGES")
 
 test_that("hist.formula() messages",{
   ## Get data, make two more factor variables
@@ -26,22 +26,4 @@ test_that("hist.formula() messages",{
   expect_error(hist(Sepal.Length~Species,data=iris,w=-1),"must be positive")
   expect_error(hist(Sepal.Length~Species,data=iris,w=1:2),"must be a single value")
   expect_error(hist(Sepal.Length~Species,data=iris,w="derek"),"must be numeric")
-})
-
-test_that("hist.formula() results",{
-  ## Get data
-  data(iris)
-  ## Test use of w= vs using breaks=
-  tmp1 <- hist(~Sepal.Length,data=iris,breaks=seq(4,8,1))
-  tmp2 <- hist(~Sepal.Length,data=iris,w=1)
-  expect_identical(tmp1,tmp2)
-  tmp1 <- hist(~Sepal.Length,data=iris,breaks=seq(4,8,2))
-  tmp2 <- hist(~Sepal.Length,data=iris,w=2)
-  expect_identical(tmp1,tmp2)
-  tmp1 <- hist(~Sepal.Length,data=iris,breaks=seq(4,8,0.5))
-  tmp2 <- hist(~Sepal.Length,data=iris,w=0.5)
-  expect_identical(tmp1,tmp2)
-  tmp1 <- hist(~Sepal.Length,data=iris,breaks=seq(4.25,8,0.25))
-  tmp2 <- hist(~Sepal.Length,data=iris,w=0.25)
-  expect_identical(tmp1,tmp2)
 })

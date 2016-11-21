@@ -1,0 +1,17 @@
+context("hist.formula() OUTPUT")
+
+test_that("hist.formula() w= vs breaks=",{
+  data(iris)
+  tmp1 <- hist(~Sepal.Length,data=iris,breaks=seq(4,8,1))
+  tmp2 <- hist(~Sepal.Length,data=iris,w=1)
+  expect_identical(tmp1,tmp2)
+  tmp1 <- hist(~Sepal.Length,data=iris,breaks=seq(4,8,2))
+  tmp2 <- hist(~Sepal.Length,data=iris,w=2)
+  expect_identical(tmp1,tmp2)
+  tmp1 <- hist(~Sepal.Length,data=iris,breaks=seq(4,8,0.5))
+  tmp2 <- hist(~Sepal.Length,data=iris,w=0.5)
+  expect_identical(tmp1,tmp2)
+  tmp1 <- hist(~Sepal.Length,data=iris,breaks=seq(4.25,8,0.25))
+  tmp2 <- hist(~Sepal.Length,data=iris,w=0.25)
+  expect_identical(tmp1,tmp2)
+})
