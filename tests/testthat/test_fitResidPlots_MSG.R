@@ -1,11 +1,5 @@
-context("Tests for fit and residual plots")
-
-## Create some dummy data
-df <- data.frame(y1=runif(100),y2=runif(100),
-                 x1=rnorm(100),x2=rnorm(100),x3=rnorm(100),
-                 z1=as.factor(sample(letters[1:3],100,replace=TRUE)),
-                 z2=as.factor(sample(LETTERS[1:2],100,replace=TRUE)),
-                 z3=as.factor(sample(letters[23:26],100,replace=TRUE)))
+context("fit and residual plots MESSAGES")
+source("EXS_fitResidPlots.R")
 
 test_that("fitPlot() errors and warnings",{
   ## Tried to fit a model with more than 1 response
@@ -98,15 +92,4 @@ test_that("residPlot() errors and warnings",{
   ## Wrong residual types for nls and nlme
   tmp <- nls(y1~a*exp(b*x2),data=df,start=c(a=1,b=1))
   expect_error(residPlot(tmp,resid.type="studentized"),"cannot be 'studentized'")
-})
-
-test_that("iGetMainTitle() returns",{
-  tmp <- FSA:::iTypeoflm(lm(y1~x2,data=df))
-  expect_equal(FSA:::iGetMainTitle(tmp,main=""),"")
-  expect_equal(FSA:::iGetMainTitle(tmp,main="Derek"),"Derek")
-  expect_equal(FSA:::iGetMainTitle(tmp,main="MODEL"),"y1~x2")
-  tmp <- FSA:::iTypeoflm(lm(y1~x2*x1,data=df))
-  expect_equal(FSA:::iGetMainTitle(tmp,main=""),"")
-  expect_equal(FSA:::iGetMainTitle(tmp,main="Derek"),"Derek")
-  expect_equal(FSA:::iGetMainTitle(tmp,main="MODEL"),"y1~x2*x1")
 })
