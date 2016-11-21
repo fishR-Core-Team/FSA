@@ -1,10 +1,6 @@
-context("wsXXX and wrXXX function Tests")
+context("wsXXX and wrXXX functions MESSAGES")
 
-# ############################################################
-# Messaging
-# ############################################################
-
-test_that("wsVal() errors and warnings",{
+test_that("wsVal() messages",{
   ## bad species name
   expect_error(wsVal("Derek"),"A Ws equation may not exist given your choices")
   ## too many species name
@@ -18,34 +14,7 @@ test_that("wsVal() errors and warnings",{
   expect_error(wsVal("Bluegill",ref=50),"A Ws equation may not exist given your choices")
 })
 
-test_that("wsVal() results",{
-  data(WSlit)
-  ## Do Bluegill results match
-  bg1 <- wsVal("Bluegill")
-  bg2 <- WSlit[WSlit$species=="Bluegill" & WSlit$units=="metric",]
-  bg2 <- bg2[,-which(names(bg2) %in% c("max.len","quad","comment"))]
-  expect_equivalent(bg1,bg2)
-  bg1 <- wsVal("Bluegill",units="English")
-  bg2 <- WSlit[WSlit$species=="Bluegill" & WSlit$units=="English",]
-  bg2 <- bg2[,-which(names(bg2) %in% c("max.len","quad","comment"))]
-  expect_equivalent(bg1,bg2)
-  bg1 <- wsVal("Bluegill",units="English",simplify=TRUE)
-  bg2 <- WSlit[WSlit$species=="Bluegill" & WSlit$units=="English",]
-  bg2 <- bg2[,which(names(bg2) %in% c("species","min.len","int","slope"))]
-  expect_equivalent(bg1,bg2)
-  ## Do RUffe results match
-  ruf1 <- wsVal("Ruffe")
-  ruf2 <- WSlit[WSlit$species=="Ruffe" & WSlit$units=="metric" & WSlit$ref=="75",]
-  expect_equivalent(ruf1,ruf2)
-  ruf1 <- wsVal("Ruffe",simplify=TRUE)
-  ruf2 <- WSlit[WSlit$species=="Ruffe" & WSlit$units=="metric" & WSlit$ref=="75",]
-  ruf2 <- ruf2[,which(names(ruf2) %in% c("species","min.len","max.len","int","slope","quad"))]
-  expect_equivalent(ruf1,ruf2)
-  ##
-  expect_message(wsVal("List"),"must be one of following")
-})
-
-test_that("wrAdd() errors and warnings",{
+test_that("wrAdd() messages",{
   ## simulate data set
   set.seed(345234534)
   dbt <- data.frame(species=factor(rep(c("Bluefin Tuna"),30)),
@@ -81,19 +50,4 @@ test_that("wrAdd() errors and warnings",{
   expect_error(wrAdd(df$species,df$wt,df$tl),"numeric")
   expect_error(wrAdd(df$wt,df$species,df$tl),"numeric")
   expect_error(wrAdd(df$wt,df$tl,df$rnd),"factor")
-})
-
-
-# ############################################################
-# Analytical Results
-# ############################################################
-# ------------------------------------------------------------
-# read in external CSV file
-# ------------------------------------------------------------
-ftmp <- system.file("extdata", "PSDWR_testdata.csv", package="FSA")
-df <- read.csv(ftmp)
-
-test_that("wrAdd() matches values computed in Excel.",{
-  df$wr <- wrAdd(wt~tl+species,data=df)
-  expect_equivalent(df$wr,df$WR)
 })
