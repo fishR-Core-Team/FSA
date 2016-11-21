@@ -1,4 +1,4 @@
-test_that("hist.formula() messages and results",{
+test_that("hist.formula() MESSAGES",{
   ## Make some data
   set.seed(634434789)
   df <- data.frame(quant1=round(rnorm(100,100,20)),
