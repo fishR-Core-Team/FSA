@@ -1,4 +1,4 @@
-context("DVR Model Comparisons (slopes and intercepts) MESSAGES")
+context("DVR Model Comparisons MESSAGES")
 source("EXS_comparisonsDVR.R")
 
 test_that("compSlopes() & compIntercepts() mesages",{

@@ -1,4 +1,4 @@
-context("Tests of Back-Calculation Functions MESSAGES")
+context("bcFuns() MESSAGES")
 
 test_that("bcFuns() messages",{
   expect_error(bcFuns(),"must be chosen")

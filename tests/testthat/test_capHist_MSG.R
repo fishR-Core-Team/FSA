@@ -1,4 +1,4 @@
-context("Capture History Functions MESSAGES")
+context("capHistXXX() MESSAGES")
 source("EXS_capHist.R")
 
 test_that("capHistSum() messages",{

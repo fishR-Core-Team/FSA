@@ -1,4 +1,4 @@
-context("Capture History Functions VALIDATE")
+context("capHistXXX() VALIDATE")
 source("EXS_capHist.R")
 
 test_that("capHistSum() results",{

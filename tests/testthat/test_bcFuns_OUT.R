@@ -1,4 +1,4 @@
-context("Tests of bcFuns() OUTPUT")
+context("bcFuns() OUTPUT")
 
 test_that("bcFuns() output types",{
   ## List all choices for bcFuns() (TVG is not included because it is not yet implemented)

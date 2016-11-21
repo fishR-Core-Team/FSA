@@ -1,4 +1,4 @@
-context("DVR Model Comparisons (slopes and intercepts) OUTPUT")
+context("DVR Model Comparisons OUTPUT")
 source("EXS_comparisonsDVR.R")
 
 test_that("Same results with compSlopes() & compIntercepts() if variables are reversed",{
