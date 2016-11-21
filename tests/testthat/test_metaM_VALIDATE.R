@@ -1,36 +1,4 @@
-context("metaM() function Tests")
-
-test_that("Mmethods() error and warning messages",{
-  expect_error(Mmethods("Ogle"))
-})
-
-test_that("metaM() error and warning messages",{
-  ## bad method
-  expect_error(metaM("Ogle"))
-  
-  ## missing parameters
-  # default tmax method
-  expect_error(metaM("tmax"))
-  # Pauly L method
-  expect_error(metaM("PaulyL",Linf=200,K=0.3))
-  expect_error(metaM("PaulyL",Linf=200,T=10))
-  expect_error(metaM("PaulyL",K=0.3,T=10))
-  expect_error(metaM("PaulyL",K=0.3,a=3))
-  # Hoenig method
-  expect_error(metaM("HoenigO"))
-  expect_error(metaM("HoenigO",Linf=200))
-  
-  ## Bad parameter values
-  expect_warning(metaM("PaulyL",Linf=200,K=0.3,T=-3))
-  expect_warning(metaM("PaulyL",Linf=200,K=0.3,T=33))
-  expect_error(metaM("PaulyL",Linf=200,K=-0.3,T=13))
-  expect_error(metaM("PaulyL",Linf=0,K=0.3,T=13))
-  expect_warning(metaM("PaulyL",Linf=2000,K=0.3,T=13))
-  expect_error(metaM("HoenigO",tmax=0))
-  expect_warning(metaM("HoenigO",tmax=110))
-  expect_error(metaM("K1",K=0))
-  expect_warning(metaM("K1",K=5))
-})
+context("metaM() VALIDATE")
 
 test_that("metaM() matches results from Kenchington (2014)",{  
   ## Chesapeke Bay Anchovy
