@@ -1,0 +1,31 @@
+context("Confidence Interval functions MESSAGES")
+test_that("binCI() messages",{
+  expect_error(binCI(-1,10),"must be non-negative")
+  expect_error(binCI(1,-10),"must be non-negative")
+  expect_error(binCI(11,10),"must not be greater than")
+  expect_error(binCI("a",10),"must be numeric")
+  expect_error(binCI(1,"a"),"must be numeric")
+  expect_error(binCI(c(-1,2),10),"must be non-negative")
+  expect_error(binCI(1,c(-1,10)),"must be non-negative")
+  expect_error(binCI(c(1,10),5),"must not be greater than")
+  expect_error(binCI(c(1,10),c(5,9)),"must not be greater than")
+  expect_error(binCI(6,c(5,9)),"must not be greater than")
+  expect_error(binCI(6,10,type="derek"),"should be one of")
+  expect_error(binCI(6:9,10,type="all"),"does not work with vector inputs")
+})
+
+test_that("hyperCI() messages",{
+  expect_error(hyperCI(-1,10,5),"must all be non-negative")
+  expect_error(hyperCI(1,-10,5),"must all be non-negative")
+  expect_error(hyperCI(1,10,-5),"must all be non-negative")
+  expect_error(hyperCI(1,10,5),"'m' must be less than 'M'")
+  expect_error(hyperCI(15,5,10),"'m' must be less than 'n'")
+  expect_error(hyperCI("a",10,5),"must all be numeric")
+  expect_error(hyperCI(15,"a",5),"must all be numeric")
+  expect_error(hyperCI(15,10,"a"),"must all be numeric")
+})
+
+test_that("poiCI() messages",{
+  expect_error(poiCI(-1),"must be non-negative")
+  expect_error(poiCI("a"),"must be numeric")
+})

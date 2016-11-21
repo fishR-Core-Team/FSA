@@ -1,18 +1,4 @@
-context("Confidence Interval function Tests")
-test_that("binCI() error and warning messages",{
-  expect_error(binCI(-1,10),"must be non-negative")
-  expect_error(binCI(1,-10),"must be non-negative")
-  expect_error(binCI(11,10),"must not be greater than")
-  expect_error(binCI("a",10),"must be numeric")
-  expect_error(binCI(1,"a"),"must be numeric")
-  expect_error(binCI(c(-1,2),10),"must be non-negative")
-  expect_error(binCI(1,c(-1,10)),"must be non-negative")
-  expect_error(binCI(c(1,10),5),"must not be greater than")
-  expect_error(binCI(c(1,10),c(5,9)),"must not be greater than")
-  expect_error(binCI(6,c(5,9)),"must not be greater than")
-  expect_error(binCI(6,10,type="derek"),"should be one of")
-  expect_error(binCI(6:9,10,type="all"),"does not work with vector inputs")
-})
+context("Confidence Interval functions OUTPUT")
 
 test_that("binCI() output types",{
   res <- binCI(7,10)
@@ -77,20 +63,4 @@ test_that("binCI() output types",{
   expect_equal(ncol(res),5)  
   expect_equal(colnames(res),c("x","n","proportion","95% LCI","95% UCI"))
   expect_equal(rownames(res),c("Exact","Wilson","Asymptotic"))
-})
-
-test_that("hyperCI() error and warning messages",{
-  expect_error(hyperCI(-1,10,5),"must all be non-negative")
-  expect_error(hyperCI(1,-10,5),"must all be non-negative")
-  expect_error(hyperCI(1,10,-5),"must all be non-negative")
-  expect_error(hyperCI(1,10,5),"'m' must be less than 'M'")
-  expect_error(hyperCI(15,5,10),"'m' must be less than 'n'")
-  expect_error(hyperCI("a",10,5),"must all be numeric")
-  expect_error(hyperCI(15,"a",5),"must all be numeric")
-  expect_error(hyperCI(15,10,"a"),"must all be numeric")
-})
-
-test_that("poiCI() error and warning messages",{
-  expect_error(poiCI(-1),"must be non-negative")
-  expect_error(poiCI("a"),"must be numeric")
 })
