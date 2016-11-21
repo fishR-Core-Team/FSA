@@ -1,9 +1,6 @@
-context("Tests for knitr utilities")
+context("knitr utilities OUTPUT")
 
-# ############################################################
-# kCounts
-# ############################################################
-test_that("kCounts() tests",{
+test_that("kCounts() results",{
   expect_equal(kCounts(0),"zero")
   expect_equal(kCounts(1),"one")
   expect_equal(kCounts(10),"ten")
@@ -16,10 +13,7 @@ test_that("kCounts() tests",{
   expect_equal(kCounts(-1,capitalize=TRUE),-1)
 })
 
-# ############################################################
-# kPvalue
-# ############################################################
-test_that("kPvalue() tests",{
+test_that("kPvalue() results",{
   tmp <- 0.123456789
   expect_equal(kPvalue(tmp),"$p=0.1235$")
   expect_equal(kPvalue(tmp,digits=2),"$p=0.12$")
