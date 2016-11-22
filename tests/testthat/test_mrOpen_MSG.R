@@ -1,18 +1,5 @@
 context("mrOpen() MESSAGES")
-
-# Setup some matrices for the tests
-good.top <- matrix(c(
-  NA,15, 1, 0, 0,
-  NA,NA,13, 3, 0,
-  NA,NA,NA,10, 5,
-  NA,NA,NA,NA, 9,
-  NA,NA,NA,NA,NA),nrow=5,byrow=TRUE)
-good.bot <- matrix(c(
-  15,14,13, 5,
-  10, 9, 8,11,
-  25,23,21,16,
-  25,23,21,16),nrow=4,byrow=TRUE,
-  dimnames=list(c("m","u","n","R")))
+source("EXS_mrOpen.R")
 
 test_that("mrOpen() messages",{
   ## a top but not a bottom, but with capHistSum
@@ -55,16 +42,16 @@ test_that("mrOpen() messages",{
   expect_error(mrOpen(good.top,bad.bot),"All values in 'mb.bot' must be non-NA")
   
   ## Confint
-  data(CutthroatAL)
   expect_error(mrOpen(capHistSum(CutthroatAL,cols2use=-1),
                       conf.level=0),"must be between 0 and 1")
   expect_error(mrOpen(capHistSum(CutthroatAL,cols2use=-1),
                       conf.level=1),"must be between 0 and 1")
-  cutt <- mrOpen(capHistSum(CutthroatAL,cols2use=-1))
   expect_warning(confint(cutt,conf.level=0.95),"It cannot be changed here")
+  expect_warning(confint(cutt2,conf.level=0.95),"It cannot be changed here")
+  expect_message(suppressWarnings(confint(cutt2,conf.level=0.95)),
+                 "Manly did not provide a method for constructing")
   
   ## Summary()
-  cutt <- suppressWarnings(mrOpen(capHistSum(CutthroatAL,cols2use=-1)))
   expect_error(summary(cutt,parm="Derek"),"should be one of")
   tmp <- capture.output(summary(cutt,verbose=TRUE))
   expect_true(any(grepl("Observables",tmp)))

@@ -19,7 +19,7 @@
 * `iPlotExists()`: Added.  Helps with bug fix in `hist.formula()`.
 * `kCounts()`: Modified.  Fixed bug with `capitalize=` and `zero`. Streamlined code. Added tests.
 * `mrClosed()`: Modified. Added some checks for non-vector uses of `M=` and `R=` (partially addresses [#22](https://github.com/droglenc/FSA/issues/22)).
-* `mrOpen()`: Modified. Changed all `message()`s in `summary()` to `cat()`s.
+* `mrOpen()`: Modified. Changed all `message()`s in `summary()` to `cat()`s. Fixed bug where returned value from `summary()` was not a data.frame if only one parameter was selected.
 * `predict.bootCase()`: Modified. Modified so that situations where other than values of the dependent variable are in the dots argument (as would occur if making predictions for the Francis parameterization of the VBGF).
 * `predict.nlsBoot()`: Modified. See note for `predict.bootCase()`.
 * `psdCalc()`: Modified. Fixed bug in output if more than two additional lengths were supplied.

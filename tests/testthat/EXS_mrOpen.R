@@ -1,6 +1,21 @@
+# Setup some matrices for the tests
+good.top <- matrix(c(
+  NA,15, 1, 0, 0,
+  NA,NA,13, 3, 0,
+  NA,NA,NA,10, 5,
+  NA,NA,NA,NA, 9,
+  NA,NA,NA,NA,NA),nrow=5,byrow=TRUE)
+good.bot <- matrix(c(
+  15,14,13, 5,
+  10, 9, 8,11,
+  25,23,21,16,
+  25,23,21,16),nrow=4,byrow=TRUE,
+  dimnames=list(c("m","u","n","R")))
+
 ## CutthroatAL Example
 data(CutthroatAL)
 cutt <- mrOpen(capHistSum(CutthroatAL,cols2use=-1))
+cutt2 <- mrOpen(capHistSum(CutthroatAL,cols2use=-1),type="Manly")
 
 # expectations from running Jolly Model A (http://www.mbr-pwrc.usgs.gov/software/jolly.html)
 rC <- c(26,96,51,46,100,99,44,13,NA)

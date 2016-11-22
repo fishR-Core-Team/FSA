@@ -184,7 +184,7 @@ summary.mrOpen <- function(object,parm=c("N","phi","B","M"),verbose=FALSE,...) {
   # interleave the SE values so they appear next to the point estimate
   if (object$type=="Jolly") parm <- as.vector(rbind(parm,paste0(parm,".se")))
   # get and return the object with column names in parm
-  tmp[,which(names(tmp) %in% parm)]
+  tmp[,which(names(tmp) %in% parm),drop=FALSE]
 }
 
 #' @rdname mrOpen
