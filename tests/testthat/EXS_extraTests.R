@@ -17,8 +17,10 @@ nls.0 = nls(y~c,data=df,start=list(c=10))
 nls.1 = nls(y~a*x+c,data=df,start=list(a=1,c=1))
 nls.2 = nls(y~b*x2+a*x+c,data=df,start=list(a=-1,b=0.3,c=10))
 
-if (require(nlme)) {
+if (suppressMessages(require(nlme))) {
   gls.0 <- gls(y~1,data=df,method="ML")
   gls.1 <- gls(y~x,data=df,method="ML")
   gls.2 <- gls(y~x+x2,data=df,method="ML")  
 }
+
+suppressMessages(library(lmtest))

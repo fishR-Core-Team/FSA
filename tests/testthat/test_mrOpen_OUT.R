@@ -1,4 +1,4 @@
-context("Mark-Recapture Open")
+context("mrOpen() OUTPUT")
 source("EXS_mrOpen.R")
 
 test_that("mrOpen() returns",{

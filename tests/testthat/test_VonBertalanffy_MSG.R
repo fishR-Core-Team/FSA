@@ -1,4 +1,4 @@
-context("Von Bertalanffy")
+context("Von Bertalanffy MESSAGES")
 # also see test_growthFuns
 
 test_that("vbStarts() messages",{

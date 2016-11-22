@@ -24,5 +24,6 @@ test_that("wsVal() results",{
   ruf2 <- ruf2[,which(names(ruf2) %in% c("species","min.len","max.len","int","slope","quad"))]
   expect_equivalent(ruf1,ruf2)
   ##
-  expect_message(wsVal("List"),"must be one of following")
+  expect_message(capture.output(wsVal("List")),"must be one of following")
+  expect_output(suppressMessages(wsVal("List")))
 })

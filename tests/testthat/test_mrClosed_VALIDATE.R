@@ -1,4 +1,4 @@
-context("Mark-Recapture -- Closed VALIDATE")
+context("mrClosed() VALIDATE")
 
 # ------------------------------------------------------------
 # Mark-Recapture, Closed Populations, Single Census

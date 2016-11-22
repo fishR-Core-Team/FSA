@@ -147,7 +147,8 @@ test_that("iHndlMultWhat() messages and results",{
 
 test_that("iListSpecies() messages",{
   data(PSDlit)
-  expect_message(FSA:::iListSpecies(PSDlit))
+  expect_message(capture.output(FSA:::iListSpecies(PSDlit)))
+  expect_output(suppressMessages(FSA:::iListSpecies(PSDlit)))
 })
 
 

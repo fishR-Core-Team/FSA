@@ -1,5 +1,3 @@
-context("mrOpen() VALIDATE")
-
 ## CutthroatAL Example
 data(CutthroatAL)
 cutt <- mrOpen(capHistSum(CutthroatAL,cols2use=-1))

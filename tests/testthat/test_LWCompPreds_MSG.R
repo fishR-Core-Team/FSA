@@ -1,4 +1,4 @@
-context("lwCompPred Tests")
+context("lwCompPred() MESSAGES")
 
 test_that("lwCompPred() errors and warnings",{
   data(ChinookArg)

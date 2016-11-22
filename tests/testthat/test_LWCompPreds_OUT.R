@@ -1,4 +1,4 @@
-context("lwCompPred Tests")
+context("lwCompPred() OUTPUT")
 
 test_that("lwCompPred() returns",{
   # Fit a model

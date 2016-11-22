@@ -168,12 +168,12 @@ summary.mrOpen <- function(object,parm=c("N","phi","B","M"),verbose=FALSE,...) {
   parm <- match.arg(parm,several.ok=TRUE)
   ## Print the observables if asked to be verbose
   if (verbose) {
-    message("Observables:")
+    cat("Observables:\n")
     print(object$df[,c("m","n","R","r","z")])
     if ("phi" %in% parm) {
-      if (object$phi.full) message("\nEstimates (phi.se includes sampling and individual variability):")
-      else message("\nEstimates (Standard error of phi includes only sampling variability):")
-    } else message("\nEstimates:")
+      if (object$phi.full) cat("\nEstimates (phi.se includes sampling and individual variability):\n")
+      else cat("\nEstimates (Standard error of phi includes only sampling variability):\n")
+    } else cat("\nEstimates:\n")
   }
   ## Prepare the appropriate object
   # remove the observables and CI columns

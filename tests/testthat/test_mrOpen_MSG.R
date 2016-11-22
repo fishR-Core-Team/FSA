@@ -66,5 +66,7 @@ test_that("mrOpen() messages",{
   ## Summary()
   cutt <- suppressWarnings(mrOpen(capHistSum(CutthroatAL,cols2use=-1)))
   expect_error(summary(cutt,parm="Derek"),"should be one of")
-  expect_message(summary(cutt,verbose=TRUE))
+  tmp <- capture.output(summary(cutt,verbose=TRUE))
+  expect_true(any(grepl("Observables",tmp)))
+  expect_true(any(grepl("Estimates",tmp)))
 })

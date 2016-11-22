@@ -1,4 +1,6 @@
-test_that("hist.formula() MESSAGES",{
+context("histFromSum() MESSAGES")
+
+test_that("histFromSum() messages",{
   ## Make some data
   set.seed(634434789)
   df <- data.frame(quant1=round(rnorm(100,100,20)),
