@@ -80,7 +80,7 @@ alkPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
   type <- match.arg(type)
   pal <- match.arg(pal)
   key <- iCheckALK(key)
-  ## construct the plots (all internal functions)
+  ## construct the plots (all internal functions) # nocov start
   op <- graphics::par(mar=c(3.25,3.25,0.7,0.7),mgp=c(1.7,0.5,0),tcl=-0.2)
   switch(type,
          area=    { iALKPlotArea(key,xlab,ylab,xlim,ylim,showLegend,leg.cex,pal) },
@@ -91,7 +91,7 @@ alkPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
   )
   ## return to original graphing parameters
   graphics::layout(1)
-  graphics::par(op)
+  graphics::par(op) # nocov end
 }
 
 
@@ -147,7 +147,7 @@ iAdjKey4xlim <- function(key,xlim) {
 ##############################################################
 ## Internal function to make the area plot
 ##############################################################
-iALKPlotArea <- function(key,xlab,ylab,xlim,ylim,showLegend,leg.cex,pal) {
+iALKPlotArea <- function(key,xlab,ylab,xlim,ylim,showLegend,leg.cex,pal) { # nocov start
   if (any(is.na(rowSums(key)))) {
     tmp <- which(is.na(rowSums(key)))
     key[tmp,] <- 0
@@ -162,7 +162,7 @@ iALKPlotArea <- function(key,xlab,ylab,xlim,ylim,showLegend,leg.cex,pal) {
   plotrix::stackpoly(key,stack=TRUE,col=col,axis4=FALSE,
                      xlab=xlab,ylab=ylab,xaxt="n",xat=0,ylim=ylim)
   graphics::axis(1,1:alsum$num.lens,alsum$lens)
-}  
+}   # nocov send
 
 ##############################################################
 ## Internal function to make the bar plot
@@ -170,7 +170,7 @@ iALKPlotArea <- function(key,xlab,ylab,xlim,ylim,showLegend,leg.cex,pal) {
 ## ===========================================================
 ## INTERNAL -- Add age labels inside of bars on barplot
 ## ===========================================================
-iBarplotAddLabelsToBars <- function(key,alsum,lbl.cex,col,...) {
+iBarplotAddLabelsToBars <- function(key,alsum,lbl.cex,col,...) { # nocov start
   # Make colors for the age labels inside the bars (dark on light, light on dark)
   age.clr <- rep("black",alsum$num.ages)
   age.clr[which(colMeans(grDevices::col2rgb(col))<120)] <- "white"
@@ -187,9 +187,9 @@ iBarplotAddLabelsToBars <- function(key,alsum,lbl.cex,col,...) {
       }
     }
   }
-}
+} # nocov end
 
-iALKPlotBar <- function(key,xlab,ylab,xlim,ylim,lbl.cex,showLegend,leg.cex,pal,...) {
+iALKPlotBar <- function(key,xlab,ylab,xlim,ylim,lbl.cex,showLegend,leg.cex,pal,...) { # nocov start
   # adjust key for xlim values
   key <- iAdjKey4xlim(key,xlim)
   alsum <- iFindAgesAndLens(key)
@@ -197,12 +197,12 @@ iALKPlotBar <- function(key,xlab,ylab,xlim,ylim,lbl.cex,showLegend,leg.cex,pal,.
   if (showLegend) iAddLegend(alsum,leg.cex,col)
   graphics::barplot(t(key),space=0,col=col,xlab=xlab,ylab=ylab,ylim=ylim,...)
   if (!showLegend) iBarplotAddLabelsToBars(key,alsum,lbl.cex,col)
-}
+} # nocov end
 
 ##############################################################
 ## Internal function to make the lines plot
 ##############################################################
-iALKPlotLines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,pal,showLegend,leg.cex,...) {
+iALKPlotLines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,pal,showLegend,leg.cex,...) { # nocov start
   alsum <- iFindAgesAndLens(key)
   col <- chooseColors(pal,alsum$num.ages)
   if (showLegend) iAddLegend(alsum,leg.cex,col)
@@ -216,12 +216,12 @@ iALKPlotLines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,pal,showLegend,leg
     maxvals[i,] <- c(alsum$lens[tmp],key[tmp,i],alsum$ages[i])
   }
   if (!showLegend) iLinesAddLabelsToLines(maxvals,lbl.cex)  
-}
+} # nocov end
 
 ##############################################################
 ## Internal function to make the splines plot
 ##############################################################
-iALKPlotSplines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,pal,showLegend,leg.cex,...) {
+iALKPlotSplines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,pal,showLegend,leg.cex,...) { # nocov start
   alsum <- iFindAgesAndLens(key)
   col <- chooseColors(pal,alsum$num.ages)
   if (showLegend) iAddLegend(alsum,leg.cex,col)
@@ -242,7 +242,7 @@ iALKPlotSplines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,pal,showLeg
     maxvals[i,] <- c(plens[tmp],pprob[tmp],alsum$ages[i])
   }
   if (!showLegend) iLinesAddLabelsToLines(maxvals,lbl.cex)
-}
+} # nocov end
 
 ##############################################################
 ## Internal function to create the bubble plot
@@ -271,13 +271,13 @@ iBubbleFindIn <- function(alsum,buf) {
 ## ===========================================================
 ## INTERNAL -- add bubles to an existing plot
 ## ===========================================================
-iBubblesAdd <- function(key,alsum,buf,col) {
+iBubblesAdd <- function(key,alsum,buf,col) { # nocov start
   tmp <- iBubbleUnmatKey(key,alsum)
   with(tmp,symbols(len,age,circles=sqrt(tmp$prop),inches=iBubbleFindIn(alsum,buf),
                    bg=col,fg=grDevices::rgb(0,0,0,0.5),add=TRUE))
-}
+} # nocov end
 
-iALKPlotBubble <- function(key,xlab,ylab,xlim,ylim,grid,buf,col,add,...) {
+iALKPlotBubble <- function(key,xlab,ylab,xlim,ylim,grid,buf,col,add,...) { # nocov start
   # if grid is a logical and is TRUE then give default color, if FALSE then set to NULL
   if (is.logical(grid)) {
     if (grid) grid <- "gray80"
@@ -295,4 +295,4 @@ iALKPlotBubble <- function(key,xlab,ylab,xlim,ylim,grid,buf,col,add,...) {
     }
   }
   iBubblesAdd(key,alsum,buf,col)
-}
+} # nocov end

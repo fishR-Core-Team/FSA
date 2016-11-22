@@ -38,7 +38,7 @@ test_that("alkPlot() messages",{
   tmp[2,] <- 0
   expect_warning(alkPlot(tmp),"sum to 0")
   expect_warning(alkPlot(tmp,type="area"),"sum to 0")
-  expect_warning(alkPlot(tmp,type="line"),"sum to 0")
+  expect_warning(alkPlot(tmp,type="lines"),"sum to 0")
   expect_warning(alkPlot(tmp,type="bubble"),"sum to 0")
   ## one column is all zeroes with restrictive xlim
   tmp <- alk
