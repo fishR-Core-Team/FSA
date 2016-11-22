@@ -82,7 +82,7 @@ histFromSum.table <- function(x,...) {
   x <- suppressWarnings(as.numeric(names(x)))
   if (any(is.na(x))) STOP("Names in 'x' are not numeric.")
   names(x) <- names(dimnames(x))
-  histFromSum.default(x,y,...)
+  histFromSum.default(x,y,...) # nocov
 }
 
 #' @rdname histFromSum
@@ -94,5 +94,5 @@ histFromSum.formula <- function(x,data=NULL,...) {
   if (!tmp$Rclass %in% c("numeric","integer")) STOP("The left-side variable in the formula must be numeric.")
   if (!tmp$metExpNumE) STOP("'histFromSum' must have only 1 right-side variable in the formula.")
   if (!tmp$Eclass %in% c("numeric","integer")) STOP("The right-side variable in the formula must be numeric.")
-  histFromSum.default(tmp$mf[,tmp$Enames],tmp$mf[,tmp$Rname],...)
+  histFromSum.default(tmp$mf[,tmp$Enames],tmp$mf[,tmp$Rname],...) # nocov
 }
