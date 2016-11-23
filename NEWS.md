@@ -10,6 +10,7 @@
 * `binCI()`: Modified. Changed from using `binconf()` in `Hmisc` to `binom.exact()`, `binom.wilson()`, and `binom.approx()` from `epitools` (this removes dependency on `Hmisc` which was causing me problems). Added `verbose=` so that the result can be include all of the information return from the `epitools` functions. Added some more tests.
 * `catchCurve()`: Modified. Made sure that `coef()` method returned a vector (addresses [#19](https://github.com/droglenc/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned.
 * `chapmanRobson()`: Modified. Made sure that `coef()` method returned a vector (addresses [#19](https://github.com/droglenc/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned.
+* `chooseColors()`: Modified.  Added `rev=` for returned reverse ordered (from default) colors.
 * `depletion()`: Modified. Changed `coef()` method so that it returned a named vector (addresses [#19](https://github.com/droglenc/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned. Removed `type=` to match other functions (incorporated that functionality into `parm=`). Removed `digits=` to match other functions.
 * `expandLenFreq()`: Modified. Changed all `message()`s to `cat()`s. Removed "names" from printed items for a cleaner look.
 * `fitPlot()`: Modified.  Added `cex.leg=` and `box.lty.leg=` to IVR plots.
@@ -20,6 +21,7 @@
 * `kCounts()`: Modified.  Fixed bug with `capitalize=` and `zero`. Streamlined code. Added tests.
 * `mrClosed()`: Modified. Added some checks for non-vector uses of `M=` and `R=` (partially addresses [#22](https://github.com/droglenc/FSA/issues/22)).
 * `mrOpen()`: Modified. Changed all `message()`s in `summary()` to `cat()`s. Fixed bug where returned value from `summary()` was not a data.frame if only one parameter was selected.
+* `nlsTracePlot()`: Added.
 * `predict.bootCase()`: Modified. Modified so that situations where other than values of the dependent variable are in the dots argument (as would occur if making predictions for the Francis parameterization of the VBGF).
 * `predict.nlsBoot()`: Modified. See note for `predict.bootCase()`.
 * `psdCalc()`: Modified. Fixed bug in output if more than two additional lengths were supplied.
