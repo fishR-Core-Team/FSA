@@ -5,7 +5,7 @@
 \alias{paletteChoices}
 \title{Create a list of colors from among a variety of color palettes.}
 \usage{
-chooseColors(pal = paletteChoices(), num, ...)
+chooseColors(pal = paletteChoices(), num, rev = FALSE, ...)
 
 paletteChoices()
 }
@@ -13,6 +13,8 @@ paletteChoices()
 \item{pal}{A character that is the name of a palette.  Must be one of \dQuote{rich}, \dQuote{cm}, \dQuote{default}, \dQuote{grey}, \dQuote{gray}, \dQuote{heat}, \dQuote{jet}, \dQuote{rainbow}, \dQuote{topo}, or \dQuote{terrain}, which are given in \code{paletteChoices}.}
 
 \item{num}{The number of colors to be returned.}
+
+\item{rev}{A logical that indicates if the default order of colors should be reversed (\code{=TRUE}) or not (\code{=FALSE}).}
 
 \item{\dots}{Other arguments to the various palette functions.}
 }
@@ -30,6 +32,8 @@ pie(rep(1,n), col=chooseColors("rainbow",n))
 pie(rep(1,n), col=chooseColors("topo",n))
 pie(rep(1,n), col=chooseColors("gray",n))
 pie(rep(1,n), col=chooseColors("jet",n))
+# colors reversed order
+pie(rep(1,n), col=chooseColors("jet",n,rev=TRUE))
 
 }
 \author{

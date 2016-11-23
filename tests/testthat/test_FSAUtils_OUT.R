@@ -38,10 +38,18 @@ test_that("chooseColors() return values",{
   tmp <- chooseColors(num=n)
   expect_equal(length(tmp),n)
   expect_is(tmp,"character")
+  tmp2 <- chooseColors(num=n,rev=TRUE)
+  expect_equal(length(tmp2),n)
+  expect_is(tmp2,"character")
+  expect_equal(tmp2,rev(tmp))
   n <- 20
   tmp <- chooseColors("gray",num=n)
   expect_equal(length(tmp),n)
   expect_is(tmp,"character")
+  tmp2 <- chooseColors("gray",num=n,rev=TRUE)
+  expect_equal(length(tmp2),n)
+  expect_is(tmp2,"character")
+  expect_equal(tmp2,rev(tmp))
   ## check each
   n <- 10
   tmp <- chooseColors("gray",num=n)
