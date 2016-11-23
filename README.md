@@ -27,7 +27,7 @@ if (!require('devtools')) install.packages('devtools'); require('devtools')
 devtools::install_github('droglenc/FSA')
 ```
 
-You may need to have R Tools installed on your system to use the two liens above.  See the instructions for ([R Tools for Windows](https://cran.r-project.org/bin/windows/Rtools/) or [R Tools for Mac OS X](https://cran.r-project.org/bin/macosx/tools/)).
+You may need to have R Tools installed on your system to use the two lines above.  See the instructions for ([R Tools for Windows](https://cran.r-project.org/bin/windows/Rtools/) or [R Tools for Mac OS X](https://cran.r-project.org/bin/macosx/tools/)).
 
 
 ## Questions / Comments / Problems
