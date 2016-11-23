@@ -155,7 +155,7 @@
 #' ##   However, observe the correlations in the summary() results.
 #' 
 #' ## Von B
-#' data(SpotVA1) 
+#' data(SpotVA1)
 #' # Fitting the typical paramaterization of the von B function
 #' fit1 <- nls(tl~vb1(age,Linf,K,t0),data=SpotVA1,start=vbStarts(tl~age,data=SpotVA1))
 #' summary(fit1,correlation=TRUE)
