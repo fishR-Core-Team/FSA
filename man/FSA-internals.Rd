@@ -18,6 +18,7 @@
 \alias{iMakeColor}
 \alias{iPlotExists}
 \alias{iTypeoflm}
+\alias{is.wholenumber}
 \title{Internal functions.}
 \usage{
 .onAttach(lib, pkg, ...)

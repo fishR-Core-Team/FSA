@@ -4,7 +4,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach iAddLoessLine iCheckALK iCheckStartcatW iCILabel iGetVarFromFormula iHndlCols2use iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iTypeoflm iGetDecimals STOP WARN iPlotExists
+#' @aliases .onAttach iAddLoessLine iCheckALK iCheckStartcatW iCILabel iGetVarFromFormula iHndlCols2use iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iTypeoflm iGetDecimals STOP WARN iPlotExists is.wholenumber
 
 
 ##################################################################
@@ -344,3 +344,9 @@ iPlotExists <- function() {
   res
 }
 
+################################################################################
+# Checks if a value is a whole number
+################################################################################
+is.wholenumber <- function(x,tol=.Machine$double.eps^0.5) {
+  abs(x - round(x)) < tol 
+}
