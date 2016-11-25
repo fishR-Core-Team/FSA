@@ -162,7 +162,7 @@ iALKPlotArea <- function(key,xlab,ylab,xlim,ylim,showLegend,leg.cex,pal) { # noc
   plotrix::stackpoly(key,stack=TRUE,col=col,axis4=FALSE,
                      xlab=xlab,ylab=ylab,xaxt="n",xat=0,ylim=ylim)
   graphics::axis(1,1:alsum$num.lens,alsum$lens)
-}   # nocov send
+}   # nocov end
 
 ##############################################################
 ## Internal function to make the bar plot
