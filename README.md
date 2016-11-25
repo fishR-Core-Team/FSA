@@ -20,7 +20,7 @@ The [most recent stable version (on CRAN)](https://cran.r-project.org/web/packag
 install.packages("FSA")
 ```
 
-The most recent development version may be installed with
+The most recent development version (on GitHub) may be installed with
 
 ```r
 if (!require('devtools')) install.packages('devtools'); require('devtools')

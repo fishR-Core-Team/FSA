@@ -162,9 +162,14 @@ metaM <- function(method=Mmethods(),justM=TRUE,
   if (length(method)==1) res <- metaM1(method,justM,tmax,K,Linf,t0,b,L,T,t50,Winf)
   else {
   ## If multiple methods then use apply to run all at once
-    res <- apply(matrix(method),1,metaM1,justM,tmax,K,Linf,t0,b,L,T,t50,Winf)
-    ## put together as a data.frame to return
-    res <- data.frame(method,M=res)
+    if (justM) {
+      res <- apply(matrix(method),1,metaM1,justM,tmax,K,Linf,t0,b,L,T,t50,Winf)
+      ## put together as a data.frame to return
+      res <- data.frame(method,M=res,stringsAsFactors=FALSE)
+    } else {
+      for (i in method) print(metaM1(i,justM,tmax,K,Linf,t0,b,L,T,t50,Winf))
+      res <- NULL
+    }
   }
   ## Return the result
   res
