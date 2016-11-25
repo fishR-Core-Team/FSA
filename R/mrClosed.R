@@ -525,15 +525,21 @@ confint.mrClosed2 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
                               verbose=FALSE,...) {
   # Initial Checks
   type <- match.arg(type)
-  if (type=="suggested") type <- iCI2.HandleSuggested(object)
-  if (verbose) message("The ",type," distribution was used.")
   parm <- iCI.CheckParm(parm)
   if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
   # Construct the confidence intervals
   switch(object$method,
-         Schnabel= { ci <- iCI2.MRCSchnabel(object,conf.level,type,poi.type,verbose,...) },
-         SchumacherEschmeyer= { ci <- iCI2.MRCSchumacher(object,conf.level,type,verbose,...) }
+         Schnabel= {
+           if (type=="suggested") type <- iCI2.HandleSuggested(object)
+           ci <- iCI2.MRCSchnabel(object,conf.level,type,poi.type,verbose,...)
+         },
+         SchumacherEschmeyer= {
+           if (type=="Poisson") WARN("'type' changed to 'normal' for Schumacher-Eschmeyer method.")
+           type <- "normal"
+           ci <- iCI2.MRCSchumacher(object,conf.level,type,verbose,...)
+         }
          ) # end switch
+  if (verbose) message("The ",type," distribution was used.")
   # CI labels for the materix
   colnames(ci) <- iCILabel(conf.level)
   # print out the CIs
@@ -549,9 +555,8 @@ iCIt <- function(est,SE,obsdf,conf.level) {
 }
 
 iCI2.HandleSuggested <- function(object) {
-  if (object$sum.m < 50) type <- "Poisson"
-  else type <- "normal"
-  type
+  if (object$sum.m < 50) "Poisson"
+  else "normal"
 }
 
 iCI2.MRCSchnabel <- function(object,conf.level,type,poi.type,...) {
@@ -577,10 +582,6 @@ iCI2.MRCSchnabel <- function(object,conf.level,type,poi.type,...) {
 }
 
 iCI2.MRCSchumacher <- function(object,conf.level,type,...) {
-  # check type
-  if (object$method=="SchumacherEschmeyer" & type!="normal") {
-    WARN("'type' changed to 'normal' for the Schumacher-Eschmeyer method.")
-  }
   # Get df (from from Krebs p. 32)
   df <- length(object$n)-2
   # Compute SE for inverse of N (from Krebs 2.14)
@@ -601,8 +602,8 @@ plot.mrClosed2 <- function(x,pch=19,col.pt="black",
                            xlab="Marked in Population",
                            ylab="Prop. Recaptures in Sample",
                            loess=FALSE,lty.loess=2,lwd.loess=1,
-                           col.loess="gray20",trans.loess=10,span=0.9,...) {
+                           col.loess="gray20",trans.loess=10,span=0.9,...) { # nocov start
   graphics::plot(x$M,x$m/x$n,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,...)
   # add loess line if asked for
   if (loess) iAddLoessLine(x$m/x$n,x$M,lty.loess,lwd.loess,col.loess,trans.loess,span=span)
-}
+} # nocov end

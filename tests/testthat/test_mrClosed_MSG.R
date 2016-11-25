@@ -36,6 +36,7 @@ test_that("mrClosed() Single Census messages",{
   expect_error(confint(mr1,type="derek"),"should be one of")
   expect_error(confint(mr1,type="binomial",bin.type="derek"),"should be one of")
   expect_error(confint(mr1,type="poisson",poi.type="derek"),"should be one of")
+  expect_warning(confint(mr1,parm="N"),"is meaningless")
 })
   
 test_that("mrClosed Multiple Census errors and warnings",{
@@ -64,4 +65,9 @@ test_that("mrClosed Multiple Census errors and warnings",{
   expect_error(confint(mr1,conf.level=0),"must be between 0 and 1")
   expect_error(confint(mr1,conf.level=1),"must be between 0 and 1")
   expect_error(confint(mr1,poi.type="derek"),"should be one of")
+  mr1 <- mrClosed(M1,n1,m1,method="Schumacher")
+  expect_error(confint(mr1,conf.level=0),"must be between 0 and 1")
+  expect_error(confint(mr1,conf.level=1),"must be between 0 and 1")
+  expect_warning(confint(mr1,type="Poisson"),"changed to")
+  expect_warning(confint(mr1,parm="N"),"is meaningless")
 })
