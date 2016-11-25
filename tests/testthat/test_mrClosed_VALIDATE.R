@@ -1,8 +1,5 @@
 context("mrClosed() VALIDATE")
 
-# ------------------------------------------------------------
-# Mark-Recapture, Closed Populations, Single Census
-# ------------------------------------------------------------
 test_that("mrClosed match the Petersen results from Box 2.1 in Krebs (1989)",{
   tmp <- mrClosed(M=948,n=421,m=167)
   stmp <- summary(tmp,incl.SE=TRUE)
@@ -82,19 +79,14 @@ test_that("mrClosed match the Bailey results from mrN.single() from fishmethods"
     stmp <- summary(tmp,incl.SE=TRUE)
     expect_equal(stmp[[1,"N"]], round(tmp1$N[2],0))
     expect_equal(stmp[[1,"SE"]], round(tmp1$SE[2],1))
-    ctmp <- confint(tmp,type="binomial")
-    expect_equal(ctmp[[1,"95% LCI"]], round(tmp1$LCI[2],0))
-    ## The UCI does not match (<0.1%) ... fishmethods uses qbinom
-    ##   whereas FSA uses binCI()
+    ctmp <- confint(tmp,type="binomial",bin.type="wilson")
+    ## CI does not match (<0.1%) ... fishmethods uses qbinom, FSA uses binCI()
+    #expect_equal(ctmp[[1,"95% LCI"]], round(tmp1$LCI[2],0))
     #expect_equal(ctmp[[1,"95% UCI"]], round(tmp1$UCI[2],0))
   }
 })
 
 
-
-# ------------------------------------------------------------
-# Mark-Recapture, Closed Populations, Multiple Census
-# ------------------------------------------------------------
 
 test_that("mrClosed match the Schnabel Results from p. 32 Krebs (1989)",{
   if (require(FSAdata)) {

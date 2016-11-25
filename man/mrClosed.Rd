@@ -19,13 +19,15 @@ mrClosed(M = NULL, n = NULL, m = NULL, R = NULL,
 \method{confint}{mrClosed1}(object, parm = NULL, level = conf.level,
   conf.level = 0.95, digits = 0, type = c("suggested", "binomial",
   "hypergeometric", "normal", "Poisson"), bin.type = c("wilson", "exact",
-  "asymptotic"), incl.all = TRUE, verbose = FALSE, ...)
+  "asymptotic"), poi.type = c("exact", "daly", "byar", "asymptotic"),
+  incl.all = TRUE, verbose = FALSE, ...)
 
 \method{summary}{mrClosed2}(object, digits = 0, verbose = FALSE, ...)
 
 \method{confint}{mrClosed2}(object, parm = NULL, level = conf.level,
   conf.level = 0.95, digits = 0, type = c("suggested", "normal",
-  "Poisson"), verbose = FALSE, ...)
+  "Poisson"), poi.type = c("exact", "daly", "byar", "asymptotic"),
+  verbose = FALSE, ...)
 
 \method{plot}{mrClosed2}(x, pch = 19, col.pt = "black",
   xlab = "Marked in Population", ylab = "Prop. Recaptures in Sample",
@@ -65,7 +67,9 @@ mrClosed(M = NULL, n = NULL, m = NULL, R = NULL,
 
 \item{type}{A single string that identifies the distribution to use when constructing confidence intervals in \code{confint}. See details.}
 
-\item{bin.type}{A string that identifies the method used to construct binomial confidence intervals (default is \code{"wilson"}).  This is only used if \code{type="binomial"} in \code{confint}.  See details of \code{binCI}}
+\item{bin.type}{A string that identifies the method used to construct binomial confidence intervals (default is \code{"wilson"}).  This is only used if \code{type="binomial"} in \code{confint}.  See details of \code{\link{binCI}}.}
+
+\item{poi.type}{A string that identifies the method used to construct Poisson confidence intervals (default is \code{"exact"}).  This is only used if \code{type="Poisson"} in \code{confint}.  See details of \code{\link{poiCI}}.}
 
 \item{pch}{A numeric used to indicate the type of plotting character.}
 

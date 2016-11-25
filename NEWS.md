@@ -21,7 +21,7 @@
 * `iPlotExists()`: Added.  Helps with bug fix in `hist.formula()`.
 * `is.wholenumber()`: Added.  Needed for changes to `binCI()`, `hyperCI()`, and `poiCI()`.
 * `kCounts()`: Modified.  Fixed bug with `capitalize=` and `zero`. Streamlined code. Added tests.
-* `mrClosed()`: Modified. Added some checks for non-vector uses of `M=` and `R=` (partially addresses [#22](https://github.com/droglenc/FSA/issues/22)).
+* `mrClosed()`: Modified. Added `poi.type=` to handle new choices for Poisson confidence interals. Added some checks for non-vector uses of `M=` and `R=` (partially addresses [#22](https://github.com/droglenc/FSA/issues/22)). Fixed bug in how inputs for subgroups were output from `summary()` when `verbose=TRUE`.
 * `mrOpen()`: Modified. Changed all `message()`s in `summary()` to `cat()`s. Fixed bug where returned value from `summary()` was not a data.frame if only one parameter was selected.
 * `nlsTracePlot()`: Added.
 * `poiCI()`: Modified. Completely rebuilt to use the functions from `epitools`. Now only accepts whole numbers for `x`.

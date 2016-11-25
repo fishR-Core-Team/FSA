@@ -55,7 +55,8 @@
 #' @param parm Not used here (included in \code{confint} generic).
 #' @param level Same as \code{conf.level} but used for compatability with \code{confint} generic.
 #' @param conf.level A numeric representing the level of confidence to use for confidence intervals.
-#' @param bin.type A string that identifies the method used to construct binomial confidence intervals (default is \code{"wilson"}).  This is only used if \code{type="binomial"} in \code{confint}.  See details of \code{binCI}
+#' @param bin.type A string that identifies the method used to construct binomial confidence intervals (default is \code{"wilson"}).  This is only used if \code{type="binomial"} in \code{confint}.  See details of \code{\link{binCI}}.
+#' @param poi.type A string that identifies the method used to construct Poisson confidence intervals (default is \code{"exact"}).  This is only used if \code{type="Poisson"} in \code{confint}.  See details of \code{\link{poiCI}}.
 #' @param pch A numeric used to indicate the type of plotting character.
 #' @param col.pt a string used to indicate the color of the plotted points.
 #' @param xlab A label for the x-axis.
@@ -256,8 +257,9 @@ summary.mrClosed1 <- function(object,digits=0,incl.SE=FALSE,incl.all=TRUE,verbos
                                         object$M,", n=",object$n,
                                         ", and m=",object$m,".\n")
     else {
-      message("Used ",object$methodLbl," with observed inputs of:\n")
-      message(object$labels,"- M=",object$M,", n=",object$n,", and m=",object$m,".\n")
+      message("Used ",object$methodLbl," with observed inputs (by group) of:")
+      tmp <- paste0("  ",object$labels,": M=",object$M,", n=",object$n,", and m=",object$m)
+      for (i in tmp) message(i)
     }
   }
   # Put the PE into a vector to return
@@ -312,10 +314,12 @@ iMRCSingleVar <- function(object) {
 confint.mrClosed1 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,digits=0,
                               type=c("suggested","binomial","hypergeometric","normal","Poisson"),
                               bin.type=c("wilson","exact","asymptotic"),
+                              poi.type=c("exact","daly","byar","asymptotic"),
                               incl.all=TRUE,verbose=FALSE,...) {
   # Initial checks
   type <- match.arg(type)
   bin.type <- match.arg(bin.type)
+  poi.type <- match.arg(poi.type)
   parm <- iCI.CheckParm(parm)
   if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
   # Construct the CIs, loop is for handling multiple groups
@@ -325,7 +329,7 @@ confint.mrClosed1 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
                  list(M=M[i],n=n[i],m=m[i],M1=M1[i],n1=n1[i],m1=m1[i],cf=cf[i],
                       method=method,methodLbl=methodLbl,N=N[i],labels=labels[i])
     )
-    ci <- rbind(ci,iCI.MRCSingle(temp,conf.level,type,bin.type,verbose,...))
+    ci <- rbind(ci,iCI.MRCSingle(temp,conf.level,type,bin.type,poi.type,verbose,...))
   }
   # Add labels to the matrix
   rownames(ci) <- object$labels
@@ -361,17 +365,19 @@ iCI1.HandleSuggested <- function(object) {
   type
 }
 
-iCI1.HandleVerbose <- function(object,type) {
+iCI1.HandleVerbose <- function(object,type,bin.type,poi.type) {
+  if (type=="binomial") type <- paste0("binomial (",bin.type," method)")
+  if (type=="Poisson") type <- paste0("Poisson (",poi.type," method)")
   msg <- paste("The",type,"distribution was used.")
   if (!is.null(object$labels)) msg <- paste(object$labels,"-",msg)
   message(msg)  
 }
 
-iCI.MRCSingle <- function(object,conf.level,type,bin.type,verbose,...) {
+iCI.MRCSingle <- function(object,conf.level,type,bin.type,poi.type,verbose,...) {
   # Follow Sebers' suggestions if asked to
   if (type=="suggested") type <- iCI1.HandleSuggested(object)
   # Put message at top of output if asked for
-  if (verbose) iCI1.HandleVerbose(object,type)
+  if (verbose) iCI1.HandleVerbose(object,type,bin.type,poi.type)
   # Construct CIs according to type=
   switch(type,
          hypergeometric={
@@ -386,7 +392,7 @@ iCI.MRCSingle <- function(object,conf.level,type,bin.type,verbose,...) {
          },
          Poisson={
            # Poisson CI for m
-           m.ci <- poiCI(object$m,conf.level)
+           m.ci <- poiCI(object$m,conf.level,type=poi.type)
            # Convert to CI for m1
            if (object$method!="Petersen") m.ci <- m.ci+1
            # Put endpoints back in N formula to get CI for N
@@ -514,7 +520,9 @@ summary.mrClosed2 <- function(object,digits=0,verbose=FALSE,...) {
 #' @rdname mrClosed
 #' @export
 confint.mrClosed2 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,digits=0,
-                              type=c("suggested","normal","Poisson"),verbose=FALSE,...) {
+                              type=c("suggested","normal","Poisson"),
+                              poi.type=c("exact","daly","byar","asymptotic"),
+                              verbose=FALSE,...) {
   # Initial Checks
   type <- match.arg(type)
   if (type=="suggested") type <- iCI2.HandleSuggested(object)
@@ -523,7 +531,7 @@ confint.mrClosed2 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
   if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
   # Construct the confidence intervals
   switch(object$method,
-         Schnabel= { ci <- iCI2.MRCSchnabel(object,conf.level,type,verbose,...) },
+         Schnabel= { ci <- iCI2.MRCSchnabel(object,conf.level,type,poi.type,verbose,...) },
          SchumacherEschmeyer= { ci <- iCI2.MRCSchumacher(object,conf.level,type,verbose,...) }
          ) # end switch
   # CI labels for the materix
@@ -546,7 +554,7 @@ iCI2.HandleSuggested <- function(object) {
   type
 }
 
-iCI2.MRCSchnabel <- function(object,conf.level,type,...) {
+iCI2.MRCSchnabel <- function(object,conf.level,type,poi.type,...) {
   if (type=="normal") {
     # Get df (from Krebs p. 32)
     df <- length(object$n)-1
@@ -559,7 +567,7 @@ iCI2.MRCSchnabel <- function(object,conf.level,type,...) {
     ci <- rbind((1/invN.ci)[2:1])
   } else {
     # Get Poisson CI for sum m
-    ci1 <- poiCI(object$sum.m,conf.level)
+    ci1 <- poiCI(object$sum.m,conf.level,poi.type)
     # Change if chapman modification was used
     ifelse(object$chapman.mod,N.poi <- object$sum.nM/(ci1+1),
            N.poi <- object$sum.nM/ci1)
@@ -598,5 +606,3 @@ plot.mrClosed2 <- function(x,pch=19,col.pt="black",
   # add loess line if asked for
   if (loess) iAddLoessLine(x$m/x$n,x$M,lty.loess,lwd.loess,col.loess,trans.loess,span=span)
 }
-
-
