@@ -4,8 +4,8 @@
 \alias{binCI}
 \title{Confidence intervals for binomial probability of success.}
 \usage{
-binCI(x, n, conf.level = 0.95, type = c("wilson", "exact", "asymptotic",
-  "all"), verbose = FALSE)
+binCI(x, n, conf.level = 0.95, type = c("wilson", "exact", "asymptotic"),
+  verbose = FALSE)
 }
 \arguments{
 \item{x}{A single or vector of numbers that contains the number of observed successes.}
@@ -39,18 +39,22 @@ Note that Agresti and Coull (2000) suggest that the Wilson interval is the prefe
 This is primarily a wrapper function for \code{\link[epitools]{binom.exact}}, \code{\link[epitools]{binom.wilson}}, and \code{\link[epitools]{binom.approx}} from the \pkg{epitools} package.
 }
 \examples{
+## All types at once
+binCI(7,20)
+
+## Individual types
 binCI(7,20,type="wilson")
 binCI(7,20,type="exact")
 binCI(7,20,type="asymptotic")
 binCI(7,20,type="asymptotic",verbose=TRUE)
 
-## Demonstrates using all types at once
-binCI(7,20,type="all")
-binCI(7,20,type="all",verbose=TRUE)
+## Multiple types
+binCI(7,20,type=c("exact","asymptotic"))
+binCI(7,20,type=c("exact","asymptotic"),verbose=TRUE)
 
-## Demonstrates use with multiple inputs
-binCI(c(7,10),c(20,30))
-binCI(c(7,10),c(20,30),verbose=TRUE)
+## Use with multiple inputs
+binCI(c(7,10),c(20,30),type="wilson")
+binCI(c(7,10),c(20,30),type="wilson",verbose=TRUE)
 
 }
 \author{

@@ -2,42 +2,51 @@
 % Please edit documentation in R/CIDists.R
 \name{poiCI}
 \alias{poiCI}
-\title{Confidence interval for Poisson rate parameter.}
+\title{Confidence interval for Poisson counts.}
 \usage{
-poiCI(x, conf.level = 0.95)
+poiCI(x, conf.level = 0.95, type = c("exact", "daly", "byar", "asymptotic"),
+  verbose = FALSE)
 }
 \arguments{
-\item{x}{A number representing the number of observed successes.}
+\item{x}{A single number or vector that represents the number of observed successes.}
 
 \item{conf.level}{A number that indicates the level of confidence to use for constructing confidence intervals (default is \code{0.95}).}
+
+\item{type}{A string that identifies the type of method to use for the calculations.  See details.}
+
+\item{verbose}{A logical that indicates whether \code{x} should be included in the returned matrix (\code{=TRUE}) or not (\code{=FALSE}; DEFAULT).}
 }
 \value{
-A 1x2 matrix that contains the lower and upper confidence interval bounds.
+A #x2 matrix that contains the lower and upper confidence interval bounds as columns and, if \code{verbose=TRUE} \code{x}.
 }
 \description{
-Computes a confidence interval for the Poisson mean rate parameter.
+Computes a confidence interval for the Poisson counts.
 }
 \details{
-Computes a CI for the Poisson mean using the method described in Ulm (1990), though this method was earlier described by Liddell (1984) and possibly Garwood (1936) as noted in van der Gulden and Verbeck (1992).  Thank you to Jerry Lewis for clarifications to the historical citations of this method.
+Computes a CI for the Poisson counts using the \code{exact}, gamma distribution (\code{daly}`), Byar's (\code{byar}), or normal approximation (\code{asymptotic}) methods.  This is largely a wrapper to \code{\link[epitools]{pois.exact}}, \code{\link[epitools]{pois.daly}}, \code{\link[epitools]{pois.byar}}, and \code{\link[epitools]{pois.approx}} functions in \pkg{epitools}.
 }
 \examples{
+## Demonstrates using all types at once
 poiCI(12)
+
+## Selecting types
+poiCI(12,type="daly")
+poiCI(12,type="byar")
+poiCI(12,type="asymptotic")
+poiCI(12,type="asymptotic",verbose=TRUE)
+poiCI(12,type=c("exact","daly"))
+poiCI(12,type=c("exact","daly"),verbose=TRUE)
+
+## Demonstrates use with multiple inputs
+poiCI(c(7,10),type="exact")
+poiCI(c(7,10),type="exact",verbose=TRUE)
 
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}
 }
-\references{
-Garwood, F.  1936.  Fiducial limits for the Poisson distribution.  Biometrika.  28(3/4):437-442.
-
-Liddell, F.D.  1984.  Simple exact analysis of the standardised mortality ratio.  Journal of Epidemiology and Community Health. 38(1):85-88.
-
-Ulm, K.  1990.  A simple method to calculate the confidence interval of a standardized mortality ratio.  American Journal of Epidemiology 131(2):373-375.
-
-vand der Gulden, J.W.J. and A.L.M. Verbeck.  1992.  Re: \dQuote{A simple method to calculate the confidence interval of a standardized mortality ratio (SMR)}.  American Journal of Epidemiology 136(9):1170-1171.
-}
 \seealso{
-See \code{\link[epitools]{pois.exact}} in \pkg{epitools} for similar functionality.
+See \code{\link[epitools]{pois.exact}}, \code{\link[epitools]{pois.daly}}, \code{\link[epitools]{pois.byar}}, and \code{\link[epitools]{pois.approx}} in \pkg{epitools} for more description and references.
 }
 \keyword{htest}
 

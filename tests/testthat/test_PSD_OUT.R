@@ -27,8 +27,8 @@ test_that("psdVal() returns",{
 })
 
 test_that("psdCI() returns",{
-  ipsd <- c(0.130,0.491,0.253,0.123)
-  n <- 445
+  n <- 997
+  ipsd <- c(130,491,253,123)/n
   ## single binomial
   tmp <- psdCI(c(0,0,1,1),ipsd,n=n)
   expect_is(tmp,"matrix")

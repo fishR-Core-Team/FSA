@@ -46,9 +46,9 @@ A vector of length equal to the length of \code{ptbl} is given in \code{indvec} 
  6-Size Structure.
 }
 \examples{
-## from Brenden et al. (2008)
-ipsd <- c(0.130,0.491,0.253,0.123)
-n <- 445
+## similar to Brenden et al. (2008)
+n <- 997
+ipsd <- c(130,491,253,123)/n
 
 ## single binomial
 psdCI(c(0,0,1,1),ipsd,n=n)

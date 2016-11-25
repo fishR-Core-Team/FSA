@@ -7,7 +7,7 @@
 * `addZeroCatch()`: Modified. Added more "catches" for bad data types or arguments.
 * `ageBias()`: Modified. Changed all `message()`s in `summary()` to `cat()`s.
 * `agePrecision()`: Modified. Changed all `message()`s in `summary()` to `cat()`s.
-* `binCI()`: Modified. Changed from using `binconf()` in `Hmisc` to `binom.exact()`, `binom.wilson()`, and `binom.approx()` from `epitools` (this removes dependency on `Hmisc` which was causing me problems). Added `verbose=` so that the result can be include all of the information return from the `epitools` functions. Added some more tests.
+* `binCI()`: Modified. Changed from using `binconf()` in `Hmisc` to `binom.exact()`, `binom.wilson()`, and `binom.approx()` from `epitools` (this removes dependency on `Hmisc` which was causing me problems). Allowed multiple `type`s to be chosen. Now only accepts whole numbers for `x` and `n`. Added `verbose=` so that the result can be include all of the information return from the `epitools` functions. Added a catch for bad `conf.level`s. Added some more tests.
 * `catchCurve()`: Modified. Made sure that `coef()` method returned a vector (addresses [#19](https://github.com/droglenc/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned.
 * `chapmanRobson()`: Modified. Made sure that `coef()` method returned a vector (addresses [#19](https://github.com/droglenc/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned.
 * `chooseColors()`: Modified.  Added `rev=` for returned reverse ordered (from default) colors.
@@ -15,13 +15,16 @@
 * `expandLenFreq()`: Modified. Changed all `message()`s to `cat()`s. Removed "names" from printed items for a cleaner look.
 * `fitPlot()`: Modified.  Added `cex.leg=` and `box.lty.leg=` to IVR plots.
 * `hist.formula()`: Modified.  Fixed a bug with adding the horizontal line at 0 when the user uses `plot=FALSE`, which occurs with `hist.bootCase()`.
+* `hyperCI()`: Modified. Now only accepts whole numbers for `M`, `n`, or `m`. Added catch for bad `conf.level`s and multiple values of `M`, `n`, or `m`.
 * `iHndlFormula()`: Modified. Added code to deal with a formula that is a single "variable" sent in an array.  Addresses [#21](https://github.com/droglenc/FSA/issues/21) for the simple situation of single "variable."
 * `iHndlMultWhat()`: Modified. Added `type=` to allow use with `message()` or `cat()`.
 * `iPlotExists()`: Added.  Helps with bug fix in `hist.formula()`.
+* `is.wholenumber()`: Added.  Needed for changes to `binCI()`, `hyperCI()`, and `poiCI()`.
 * `kCounts()`: Modified.  Fixed bug with `capitalize=` and `zero`. Streamlined code. Added tests.
 * `mrClosed()`: Modified. Added some checks for non-vector uses of `M=` and `R=` (partially addresses [#22](https://github.com/droglenc/FSA/issues/22)).
 * `mrOpen()`: Modified. Changed all `message()`s in `summary()` to `cat()`s. Fixed bug where returned value from `summary()` was not a data.frame if only one parameter was selected.
 * `nlsTracePlot()`: Added.
+* `poiCI()`: Modified. Completely rebuilt to use the functions from `epitools`. Now only accepts whole numbers for `x`.
 * `predict.bootCase()`: Modified. Modified so that situations where other than values of the dependent variable are in the dots argument (as would occur if making predictions for the Francis parameterization of the VBGF).
 * `predict.nlsBoot()`: Modified. See note for `predict.bootCase()`.
 * `psdCalc()`: Modified. Fixed bug in output if more than two additional lengths were supplied.

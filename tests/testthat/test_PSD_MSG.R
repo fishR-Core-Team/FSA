@@ -23,10 +23,10 @@ test_that("psdCI() messages",{
 #  expect_warning(psdCI(c(1,0,0,0),c(0.5,0.3,0.2,10),11))
 #  expect_warning(psdCI(c(1,0,0,0),c(5,3,2,10),20))
   # looks like proportions, but doesn't sum to 1
-  expect_error(psdCI(c(1,0,0,0),c(0.5,0.3,0.1,0.08),20))
-  expect_error(psdCI(c(1,0,0,0),c(0.5,0.3,0.2,0.08),20))
+  expect_error(psdCI(c(1,0,0,0),c(0.5,0.3,0.1,0.08),20),"does not sum to 1")
+  expect_error(psdCI(c(1,0,0,0),c(0.5,0.3,0.2,0.08),20),"does not sum to 1")
   # small n for table using multinomial distribution
-  expect_warning(psdCI(c(0,0,0,1),c(0.5,0.3,0.1,0.1),20,method="multinomial"))
+  expect_warning(psdCI(c(0,0,0,1),c(0.5,0.3,0.1,0.1),20,method="multinomial"),"CI coverage may be lower than 95%")
   
   ## problems with indicator vector
   ipsd <- c(0.130,0.491,0.253,0.123)
@@ -40,8 +40,8 @@ test_that("psdCI() messages",{
   expect_error(psdCI(c(1,0,0,0,0),ipsd,n),"must be the same")
   
   ## ptbl not proportions
-  ipsd <- c(5,4,3,2)
-  n <- 445
+  ipsd <- c(5,4,3,3)
+  n <- 300
   expect_warning(psdCI(c(1,0,0,0),ipsd,n),"not a table of proportions")
 })
 
