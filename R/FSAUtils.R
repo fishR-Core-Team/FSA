@@ -141,7 +141,7 @@ paletteChoices <- function() c("rich","cm","default","grey","gray","heat","jet",
 #' @description Converts an R color to RGB (red/green/blue) including a transparency (alpha channel).  Similar to \code{\link[grDevices]{col2rgb}} except that a transparncy (alpha channel) can be included.
 #'
 #' @param col A vector of any of the three kinds of R color specifications (i.e., either a color name (as listed by \code{\link[grDevices]{colors}}()), a hexadecimal string of the form "#rrggbb" or "#rrggbbaa" (see \code{\link[grDevices]{rgb}}), or a positive integer i meaning \code{\link[grDevices]{palette}}()[i].
-#' @param transp A numeric vector that indicates the transparency level for the color.  The transpaency values must be greater than 0.  Transparency values greater than 1 are interpreted as the number of points plotted on top of each other before the transparency is lost and is, thus, transformed to the inverse of the transparency value provided.
+#' @param transp A numeric vector that indicates the transparency level for the color.  The transparency values must be greater than 0.  Transparency values greater than 1 are interpreted as the number of points plotted on top of each other before the transparency is lost and is, thus, transformed to the inverse of the transparency value provided.
 #' 
 #' @return A vector of hexadecimal strings of the form "#rrggbbaa" as would be returned by \code{\link[grDevices]{rgb}}.
 #'

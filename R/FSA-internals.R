@@ -40,7 +40,7 @@ iAddLoessLine <- function(r,fv,lty.loess,lwd.loess,col.loess,trans.loess,span=0.
   graphics::polygon(c(xseq,rev(xseq)),
           c(pred$fit-pred$se.fit*stats::qt(0.975,pred$df),
             rev(pred$fit+pred$se.fit*stats::qt(0.975,pred$df))),
-          col=iMakeColor(col.loess,trans.loess),border=NA,xpd=FALSE)
+          col=col2rgbt(col.loess,trans.loess),border=NA,xpd=FALSE)
   graphics::lines(pred$fit~xseq,lwd=lwd.loess,lty=lty.loess,col=col.loess,xpd=FALSE)
 }  # end iAddLoessLine internal function
 
@@ -278,19 +278,20 @@ iLegendHelp <- function(legend) {
   do.legend <- FALSE
   x <- y <- NULL
   if (class(legend)=="logical") {
-    if(legend) {
+    if(legend) { # nocov start
       do.legend <- TRUE
       x <- graphics::locator(1)
-    }
+    } # nocov end
   } else if (!is.null(legend)) {
     do.legend <- TRUE
     if (class(legend)=="character") {
       x <- legend
     } else {
-      x <- legend[1]; y <- legend[2]
+      x <- legend[1]
+      y <- legend[2]
     }
   }
-  list(do.legend = do.legend, x=x, y=y)
+  list(do.legend=do.legend,x=x,y=y)
 }
 
 

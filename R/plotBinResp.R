@@ -92,7 +92,7 @@ plotBinResp.default <- function(x,y,
   # adjust for maximum allowable transparency
   if (transparency>500) transparency <- 500
   # plot raw data points
-  graphics::plot(yn~x,pch=16,col=iMakeColor(col.pt,transparency),yaxt="n",xlab=xlab,ylab=ylab,...)
+  graphics::plot(yn~x,pch=16,col=col2rgbt(col.pt,1/transparency),yaxt="n",xlab=xlab,ylab=ylab,...)
   # puts on ticks
   graphics::axis(2,yaxis1.ticks,FALSE,cex.axis=graphics::par()$cex.axis)
   # only label a few

@@ -84,10 +84,10 @@ tictactoe <- function(predobj=c(30,70),preyobj=c(30,70),
   if (!is.null(obj.col)) {
     graphics::polygon(c(rep(predobj,each=2),predobj[1]),
                       c(ymin,ymax,ymax,ymin,ymin),
-                      col=iMakeColor(obj.col,1/obj.trans),border=NA)
+                      col=col2rgbt(obj.col,1/obj.trans),border=NA)
     graphics::polygon(c(xmin,xmax,xmax,xmin,xmin),
                       c(rep(preyobj,each=2),preyobj[1]),
-                      col=iMakeColor(obj.col,1/obj.trans),border=NA)
+                      col=col2rgbt(obj.col,1/obj.trans),border=NA)
   }
   ## add borders to objective regions
   for (i in 1:2) {
