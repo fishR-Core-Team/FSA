@@ -1,9 +1,9 @@
 # FSA 0.8.11 ongoing
 * Changed all `stop()`s to `STOP()`s and all `warning()`s to `WARN()`. This modified nearly all functions.
-* Changed all `paste()` that used `sep=""` to `paste0()`s.
+* Changed all `paste()`s that used `sep=""` to `paste0()`s.
 * Removed several `sep=""`s from `message()`s.
 * Removed `Hmisc` from, but added `epitools` to, imports.
-* Reorganized testing files.
+* Reorganized testing files. Added many tests.
 * `addZeroCatch()`: Modified. Added more "catches" for bad data types or arguments.
 * `ageBias()`: Modified. Changed all `message()`s in `summary()` to `cat()`s.
 * `agePrecision()`: Modified. Changed all `message()`s in `summary()` to `cat()`s.
