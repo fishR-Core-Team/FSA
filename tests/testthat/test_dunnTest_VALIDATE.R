@@ -23,7 +23,8 @@ test_that("dunnTest matches dunn.test results (within difference in two-sidednes
     ## Loop through all methods in p.adjustment.methods
     for (m in dunn.test::p.adjustment.methods) {
       tmp  <- dunnTest(occupation~eligibility,data=homecare,method=m,two.sided=FALSE)$res$P.adj
-      junk <- utils::capture.output(tmp2 <- dunn.test(homecare$occupation,homecare$eligibility,method=m)$P.adjusted)
+      junk <- utils::capture.output(
+        tmp2 <- dunn.test(homecare$occupation,homecare$eligibility,method=m)$P.adjusted)
       expect_equivalent(tmp,tmp2)
     }
   } # end require()
@@ -34,8 +35,10 @@ test_that("dunnTest matches dunn.test results (within difference in two-sidednes
     data(airquality)
     ## Loop through all methods in p.adjustment.methods
     for (m in dunn.test::p.adjustment.methods) {
-      suppressWarnings(tmp  <- dunnTest(Ozone~Month,data=airquality,method=m,two.sided=FALSE)$res$P.adj)
-      junk <- utils::capture.output(tmp2 <- dunn.test(airquality$Ozone,airquality$Month,method=m)$P.adjusted)
+      suppressWarnings(
+        tmp <- dunnTest(Ozone~Month,data=airquality,method=m,two.sided=FALSE)$res$P.adj)
+      junk <- utils::capture.output(
+        tmp2 <- dunn.test(airquality$Ozone,airquality$Month,method=m)$P.adjusted)
       expect_equivalent(tmp,tmp2)
     }
   } # end require()
