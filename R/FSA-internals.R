@@ -4,7 +4,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach iAddLoessLine iCheckALK iCheckStartcatW iCILabel iGetVarFromFormula iHndlCols2use iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iTypeoflm iGetDecimals STOP WARN iPlotExists is.wholenumber
+#' @aliases .onAttach iAddLoessLine iCheckALK iCheckStartcatW iCILabel iGetDecimals  iGetVarFromFormula iHndlCols2UseIgnore iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iPlotExists is.wholenumber iTypeoflm STOP WARN
 
 
 ##################################################################
@@ -110,6 +110,24 @@ iCILabel <- function(conf.level,digits=1) paste(paste0(round(100*conf.level,digi
                                                 c("LCI","UCI"))
 
 
+
+################################################################################
+## Returns number of decimal places in a number
+## 
+## Completely from Peter Savicky in http://r.789695.n4.nabble.com/number-of-decimal-places-in-a-number-td4635697.html
+################################################################################
+iGetDecimals <- function(x) {
+  if (!is.numeric(x)) STOP("'x' must be numeric.")
+  if (length(x)>1) STOP("'x' must be a single value.")
+  if (is.integer(x)) 0
+  else {
+    tmp <- format.info(x,digits=10)
+    stopifnot(tmp[3]==0)
+    tmp[2]
+  }
+}
+
+
 iGetVarFromFormula <- function(formula,data,expNumVars=NULL) {
   varNms <- names(stats::model.frame(formula,data=data))
   # don't "error" check the number of variables
@@ -119,31 +137,45 @@ iGetVarFromFormula <- function(formula,data,expNumVars=NULL) {
 }
 
 
-iHndlCols2use <- function(df,cols2use,cols2ignore) {
-  ## if both cols2use and cols2ignore are NULL then return the original df
-  if (is.null(cols2use) & is.null(cols2ignore)) {
-    return(df)
-  } else {
-    ## Can't use both cols2use and cols2ignore
-    if (!is.null(cols2use) & !is.null(cols2ignore)) STOP("Cannot use both 'cols2use' and 'cols2ignore'.")
-    ## Handle cols2use
-    if (!is.null(cols2use)) {
+iHndlCols2UseIgnore <- function(df,cols2use=NULL,cols2ignore=NULL) {
+  iHndlCols2Use <- function(df,cols2use) {
+    if (!class(cols2use) %in% c("integer","numeric","character"))
+      STOP("'cols2use' must be a numeric index or column name.")
+    if (is.character(cols2use)) {
       ## Convert character column names to numeric
-      if (is.character(cols2use)) cols2use <- which(names(df) %in% cols2use)
-    } else {
-      ## Handle col2ignore
-      ## convert character column names to numeric
-      if (is.character(cols2ignore)) cols2ignore <- which(names(df) %in% cols2ignore)
-      ## Convert numeric col2ignore to negative if all are positive
-      if (all(cols2ignore>0)) cols2ignore <- -cols2ignore
-      ## put negative cols2ignore into cols2use
-      cols2use <- cols2ignore
+      cols2use <- which(names(df) %in% cols2use)
+      if (length(cols2use)==0) STOP("None of columns in 'cols2use' exist in 'df'.")
+    } else { ## numeric column choices
+      if (any(cols2use<0) & any(cols2use>0)) STOP("'cols2use' must be all positive or all negative.")
+      if (any(abs(cols2use)>ncol(df))) STOP("Some 'cols2use' do not exist in 'df'.")
     }
-    ## Return data.frame of only columns asked for
-    res <- df[,cols2use,drop=FALSE]
-    if (ncol(res)==0) WARN("Resultant data.frame contains no columns.")
-    return(res)
+    cols2use
   }
+  iHndlCols2Ignore <- function(df,col2ignore) {
+    if (!class(cols2ignore) %in% c("integer","numeric","character"))
+      STOP("'cols2ignore' must be a numeric index or column name.")
+    if (is.character(cols2ignore)) {
+      ## Convert character column names to numeric
+      cols2ignore <- which(names(df) %in% cols2ignore)
+      if (length(cols2ignore)==0) STOP("None of columns in 'cols2ignore' exist in 'df'.")
+    } else {
+      if (any(cols2ignore<0) & any(cols2ignore>0)) STOP("'cols2ignore' must be all positive or all negative.")
+      cols2ignore <- abs(cols2ignore)
+      if (any(cols2ignore==0)) STOP("A 'cols2ignore' cannot be zero.")
+      if (any(cols2ignore>ncol(df))) STOP("Some 'cols2ignore' do not exist in 'df'.")
+    }    
+    -cols2ignore
+  }
+
+  ## if both cols2use and cols2ignore are NULL, return the original df
+  if (is.null(cols2use) & is.null(cols2ignore)) ind <- 1:ncol(df)
+  else if (!is.null(cols2use) & !is.null(cols2ignore)) STOP("Cannot use both 'cols2use' and 'cols2ignore'.")
+  else if (!is.null(cols2use)) ind <- iHndlCols2Use(df,cols2use)
+  else ind <- iHndlCols2Ignore(df,cols2ignore)
+  ## Return data.frame of only columns asked for
+  res <- df[,ind,drop=FALSE]
+  if (ncol(res)==0) WARN("Resultant data.frame contains no columns.")
+  res
 }
 
 
@@ -283,6 +315,33 @@ iMakeColor <- function(col,transp) {
 }
 
 
+
+################################################################################
+# Checks if a plot exists ... i.e., was there a plot.new
+################################################################################
+iPlotExists <- function() {
+  # set options so that warnings are errors
+  oldwarn <- options("warn")[[1]]
+  options(warn=2)
+  # if plot does not exist that par(new=TRUE) will error and then
+  #   try will return a class of "try-error"
+  res <- try(graphics::par(new=TRUE),silent=TRUE)
+  # if errored then say FALSE (i.e., plot does not exist)
+  res <- ifelse(class(res)=="try-error",FALSE,TRUE)
+  # return
+  options(warn=oldwarn)
+  res
+}
+
+
+################################################################################
+# Checks if a value is a whole number
+################################################################################
+is.wholenumber <- function(x,tol=.Machine$double.eps^0.5) {
+  abs(x - round(x)) < tol 
+}
+
+
 iTypeoflm <- function(mdl) {
   if (any(class(mdl)!="lm")) STOP("'iTypeoflm' only works with objects from 'lm()'.")
   tmp <- iHndlFormula(stats::formula(mdl),stats::model.frame(mdl))
@@ -304,49 +363,9 @@ iTypeoflm <- function(mdl) {
 }
 
 ################################################################################
-## Returns number of decimal places in a number
-## 
-## Completely from Peter Savicky in http://r.789695.n4.nabble.com/number-of-decimal-places-in-a-number-td4635697.html
-################################################################################
-iGetDecimals <- function(x) {
-  if (!is.numeric(x)) STOP("'x' must be numeric.")
-  if (length(x)>1) STOP("'x' must be a single value.")
-  if (is.integer(x)) 0
-  else {
-    tmp <- format.info(x,digits=10)
-    stopifnot(tmp[3]==0)
-    tmp[2]
-  }
-}
-
-################################################################################
 # same as stop() and warning() but with call.=FALSE as default
 ################################################################################
 STOP <- function(...,call.=FALSE,domain=NULL) stop(...,call.=call.,domain=domain)
 WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
   warning(...,call.=call.,immediate.=immediate.,noBreaks.=noBreaks.,domain=domain)
-}
-
-################################################################################
-# Checks if a plot exists ... i.e., was there a plot.new
-################################################################################
-iPlotExists <- function() {
-  # set options so that warnings are errors
-  oldwarn <- options("warn")[[1]]
-  options(warn=2)
-  # if plot does not exist that par(new=TRUE) will error and then
-  #   try will return a class of "try-error"
-  res <- try(graphics::par(new=TRUE),silent=TRUE)
-  # if errored then say FALSE (i.e., plot does not exist)
-  res <- ifelse(class(res)=="try-error",FALSE,TRUE)
-  # return
-  options(warn=oldwarn)
-  res
-}
-
-################################################################################
-# Checks if a value is a whole number
-################################################################################
-is.wholenumber <- function(x,tol=.Machine$double.eps^0.5) {
-  abs(x - round(x)) < tol 
 }

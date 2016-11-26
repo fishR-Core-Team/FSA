@@ -71,7 +71,7 @@
 #' @export
 capHistSum <- function(df,cols2use=NULL,cols2ignore=NULL) {
   # get ch data.frame based on cols2use or cols2ignore
-  ch <- iHndlCols2use(df,cols2use,cols2ignore)
+  ch <- iHndlCols2UseIgnore(df,cols2use,cols2ignore)
   # Number of samples
   k <- dim(ch)[2]
   # Capture history frequencies

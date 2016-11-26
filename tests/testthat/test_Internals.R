@@ -1,5 +1,44 @@
 context("FSA internals tests")
 
+test_that("iCheckStartcatW() messages",{
+  expect_error(FSA:::iCheckW(-1),"must be positive")
+  expect_error(FSA:::iCheckW(1:2),"must be a single value")
+  expect_error(FSA:::iCheckW("derek"),"must be numeric")
+  tmp <- 1:10
+  expect_error(FSA:::iCheckStartcat(-1,1,tmp),"must be non-negative")
+  expect_error(FSA:::iCheckStartcat(1:2,1,tmp),"must be a single value")
+  expect_error(FSA:::iCheckStartcat("derek",1,tmp),"must be numeric")
+  expect_error(FSA:::iCheckStartcatW(3,1,tmp),"larger than the minimum observation")
+  expect_error(FSA:::iCheckStartcatW(0.5,1,tmp),"should not have more decimals")
+})
+
+
+test_that("iGetDecimals() messages and results",{
+  expect_error(FSA:::iGetDecimals(1:2),"must be a single value")
+  expect_error(FSA:::iGetDecimals("derek"),"must be numeric")
+  expect_equal(FSA:::iGetDecimals(1),0)
+  expect_equal(FSA:::iGetDecimals(0.1),1)
+  expect_equal(FSA:::iGetDecimals(0.11),2)
+  expect_equal(FSA:::iGetDecimals(0.111),3)
+  expect_equal(FSA:::iGetDecimals(0.1111),4)
+  expect_equal(FSA:::iGetDecimals(0.11111),5)
+  expect_equal(FSA:::iGetDecimals(0.111111),6)
+  expect_equal(FSA:::iGetDecimals(0.1111111),7)
+  expect_equal(FSA:::iGetDecimals(0.11111111),8)
+  expect_equal(FSA:::iGetDecimals(0.111111111),9)
+  expect_equal(FSA:::iGetDecimals(0.1111111111),10)
+  expect_equal(FSA:::iGetDecimals(3.1),1)
+  expect_equal(FSA:::iGetDecimals(10.1),1)
+  expect_equal(FSA:::iGetDecimals(100.1),1)
+  expect_equal(FSA:::iGetDecimals(pi),9)
+  ## Handle integers
+  expect_equal(FSA:::iGetDecimals(0L),0)
+  expect_equal(FSA:::iGetDecimals(1L),0)
+  expect_equal(FSA:::iGetDecimals(10L),0)
+  expect_equal(FSA:::iGetDecimals(175L),0)
+})
+
+
 test_that("iHndlCols2Use() messages and results",{
   ## simulate data set
   df1 <- data.frame(net=c(1,1,1,2,2,3),
@@ -9,127 +48,141 @@ test_that("iHndlCols2Use() messages and results",{
   nms <- names(df1)
 
   #### Check warnings and errors
-  expect_error(FSA:::iHndlCols2use(df1,1,2),"Cannot use both")
-  expect_warning(FSA:::iHndlCols2use(df1,NULL,1:4),"contains no columns")
-    
-  #### Check cols2use
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,1,2),"Cannot use both")
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2use=FALSE),
+               "must be a numeric index or column name")
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2use=c(-1,2)),"must be all positive or all negative")
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2use=1:6),"do not exist in")
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2use=c("frank","derek")),
+               "None of columns in")
+  expect_warning(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=1:4),"contains no columns")
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=FALSE),
+               "must be a numeric index or column name")
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=c(-1,2)),"must be all positive or all negative")
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=1:5),"do not exist in")
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=-(1:5)),"do not exist in")
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=0:3),"cannot be zero")
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=c("frank","derek")),
+               "None of columns in")
+  
+  #### Check results using cols2use
   ## use one column by number
   ind <- 1
-  tmp <- FSA:::iHndlCols2use(df1,ind,NULL)
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=ind)
   expect_equivalent(tmp,df1[,ind,drop=FALSE])
   expect_equivalent(names(tmp),nms[ind])
   ## use one column by name
-  tmp <- FSA:::iHndlCols2use(df1,"net",NULL)
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use="net")
   expect_equivalent(tmp,df1[,ind,drop=FALSE])
   expect_equivalent(names(tmp),nms[ind])
   ## use two contiguous columns by number
   ind <- 1:2
-  tmp <- FSA:::iHndlCols2use(df1,ind,NULL)
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=ind)
   expect_equivalent(tmp,df1[,ind])
   expect_equivalent(names(tmp),nms[ind])
   ## use two contiguous columns by name
-  tmp <- FSA:::iHndlCols2use(df1,c("net","eff"),NULL)
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=c("net","eff"))
   expect_equivalent(tmp,df1[,ind])
   expect_equivalent(names(tmp),nms[ind])
   ## use two non-contiguous columns by number
   ind <- c(1,3)
-  tmp <- FSA:::iHndlCols2use(df1,ind,NULL)
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=ind)
   expect_equivalent(tmp,df1[,ind])
   expect_equivalent(names(tmp),nms[ind])
   ## use two non-contiguous columns by name
-  tmp <- FSA:::iHndlCols2use(df1,c("net","species"),NULL)
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=c("net","species"))
   expect_equivalent(tmp,df1[,ind])
   expect_equivalent(names(tmp),nms[ind])
   ## use three columns by number
   ind <- c(1,3,4)
-  tmp <- FSA:::iHndlCols2use(df1,ind,NULL)
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=ind)
   expect_equivalent(tmp,df1[,ind])
   expect_equivalent(names(tmp),nms[ind])
   ## use three columns by name
-  tmp <- FSA:::iHndlCols2use(df1,c("net","species","catch"),NULL)
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=c("net","species","catch"))
   expect_equivalent(tmp,df1[,ind])
   expect_equivalent(names(tmp),nms[ind])
-  ## use three columns by number
+  ## use four columns by number
   ind <- 1:4
-  tmp <- FSA:::iHndlCols2use(df1,ind,NULL)
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=ind)
   expect_equivalent(tmp,df1[,ind])
   expect_equivalent(names(tmp),nms[ind])
-  ## use three columns by name
-  tmp <- FSA:::iHndlCols2use(df1,c("net","eff","species","catch"),NULL)
+  ## use four columns by name
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=c("net","eff","species","catch"))
   expect_equivalent(tmp,df1[,ind])
   expect_equivalent(names(tmp),nms[ind])
 
-  #### Check cols2isnore
+  #### Check results using cols2isnore
   ## ignore one column by number
   ind <- 1
-  tmp <- FSA:::iHndlCols2use(df1,NULL,ind)
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind)
   expect_equivalent(tmp,df1[,-ind,drop=FALSE])
   expect_equivalent(names(tmp),nms[-ind])
   ## ignore one column by name
-  tmp <- FSA:::iHndlCols2use(df1,NULL,"net")
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore="net")
   expect_equivalent(tmp,df1[,-ind,drop=FALSE])
   expect_equivalent(names(tmp),nms[-ind])
   ## ignore two contiguous columns by number
   ind <- 1:2
-  tmp <- FSA:::iHndlCols2use(df1,NULL,ind)
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind)
   expect_equivalent(tmp,df1[,-ind])
   expect_equivalent(names(tmp),nms[-ind])
   ## ignore two contiguous columns by name
-  tmp <- FSA:::iHndlCols2use(df1,NULL,c("net","eff"))
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=c("net","eff"))
   expect_equivalent(tmp,df1[,-ind])
   expect_equivalent(names(tmp),nms[-ind])
   ## ignore two non-contiguous columns by number
   ind <- c(1,3)
-  tmp <- FSA:::iHndlCols2use(df1,NULL,ind)
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind)
   expect_equivalent(tmp,df1[,-ind])
   expect_equivalent(names(tmp),nms[-ind])
   ## ignore two non-contiguous columns by name
-  tmp <- FSA:::iHndlCols2use(df1,NULL,c("net","species"))
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=c("net","species"))
   expect_equivalent(tmp,df1[,-ind])
   expect_equivalent(names(tmp),nms[-ind])
   ## ignore three columns by number
   ind <- c(1,3,4)
-  tmp <- FSA:::iHndlCols2use(df1,NULL,ind)
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind)
   expect_equivalent(tmp,df1[,-ind,drop=FALSE])
   expect_equivalent(names(tmp),nms[-ind])
   ## ignore three columns by name
-  tmp <- FSA:::iHndlCols2use(df1,NULL,c("net","species","catch"))
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=c("net","species","catch"))
   expect_equivalent(tmp,df1[,-ind,drop=FALSE])
   expect_equivalent(names(tmp),nms[-ind])
-  ## ignore three columns by number
+  ## ignore four columns by number
   ind <- 1:4
-  tmp <- suppressWarnings(FSA:::iHndlCols2use(df1,NULL,ind))
+  tmp <- suppressWarnings(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind))
   expect_equivalent(tmp,df1[,-ind,drop=FALSE])
   expect_equivalent(names(tmp),nms[-ind])
-  ## ignore three columns by name
-  tmp <- suppressWarnings(FSA:::iHndlCols2use(df1,NULL,c("net","eff","species","catch")))
+  ## ignore four columns by name
+  tmp <- suppressWarnings(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=c("net","eff","species","catch")))
   expect_equivalent(tmp,df1[,-ind,drop=FALSE])
   expect_equivalent(names(tmp),nms[-ind])
   
-  #### Check cols2ignore with negative indices
+  #### Check results with cols2ignore using negative indices
   ## ignore one column by number
   ind <- -1
-  tmp <- FSA:::iHndlCols2use(df1,NULL,ind)
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind)
   expect_equivalent(tmp,df1[,ind,drop=FALSE])
   expect_equivalent(names(tmp),nms[ind])
   ## ignore two contiguous columns by number
   ind <- -c(1:2)
-  tmp <- FSA:::iHndlCols2use(df1,NULL,ind)
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind)
   expect_equivalent(tmp,df1[,ind])
   expect_equivalent(names(tmp),nms[ind])
   ## ignore two non-contiguous columns by number
   ind <- -c(1,3)
-  tmp <- FSA:::iHndlCols2use(df1,NULL,ind)
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind)
   expect_equivalent(tmp,df1[,ind])
   expect_equivalent(names(tmp),nms[ind])
   ## ignore three columns by number
   ind <- -c(1,3,4)
-  tmp <- FSA:::iHndlCols2use(df1,NULL,ind)
+  tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind)
   expect_equivalent(tmp,df1[,ind,drop=FALSE])
   expect_equivalent(names(tmp),nms[ind])
   ## ignore three columns by number
   ind <- -c(1:4)
-  tmp <- suppressWarnings(FSA:::iHndlCols2use(df1,NULL,ind))
+  tmp <- suppressWarnings(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind))
   expect_equivalent(tmp,df1[,ind,drop=FALSE])
   expect_equivalent(names(tmp),nms[ind])
 })
@@ -189,41 +242,4 @@ test_that("iTypeoflm() messages and results",{
   expect_error(FSA:::iTypeoflm(glm1),"only works with")
   nl1 <- nls(mirex~B1/(1+exp(B2+B3*weight)),start=list(B1=0.4,B2=2,B3=-0.5),data=Mirex)
   expect_error(FSA:::iTypeoflm(nl1),"only works with")
-})
-
-test_that("iCheckStartcatW() messages",{
-  expect_error(FSA:::iCheckW(-1),"must be positive")
-  expect_error(FSA:::iCheckW(1:2),"must be a single value")
-  expect_error(FSA:::iCheckW("derek"),"must be numeric")
-  tmp <- 1:10
-  expect_error(FSA:::iCheckStartcat(-1,1,tmp),"must be non-negative")
-  expect_error(FSA:::iCheckStartcat(1:2,1,tmp),"must be a single value")
-  expect_error(FSA:::iCheckStartcat("derek",1,tmp),"must be numeric")
-  expect_error(FSA:::iCheckStartcatW(3,1,tmp),"larger than the minimum observation")
-  expect_error(FSA:::iCheckStartcatW(0.5,1,tmp),"should not have more decimals")
-})
-
-test_that("iGetDecimals() messages and results",{
-  expect_error(FSA:::iGetDecimals(1:2),"must be a single value")
-  expect_error(FSA:::iGetDecimals("derek"),"must be numeric")
-  expect_equal(FSA:::iGetDecimals(1),0)
-  expect_equal(FSA:::iGetDecimals(0.1),1)
-  expect_equal(FSA:::iGetDecimals(0.11),2)
-  expect_equal(FSA:::iGetDecimals(0.111),3)
-  expect_equal(FSA:::iGetDecimals(0.1111),4)
-  expect_equal(FSA:::iGetDecimals(0.11111),5)
-  expect_equal(FSA:::iGetDecimals(0.111111),6)
-  expect_equal(FSA:::iGetDecimals(0.1111111),7)
-  expect_equal(FSA:::iGetDecimals(0.11111111),8)
-  expect_equal(FSA:::iGetDecimals(0.111111111),9)
-  expect_equal(FSA:::iGetDecimals(0.1111111111),10)
-  expect_equal(FSA:::iGetDecimals(3.1),1)
-  expect_equal(FSA:::iGetDecimals(10.1),1)
-  expect_equal(FSA:::iGetDecimals(100.1),1)
-  expect_equal(FSA:::iGetDecimals(pi),9)
-  ## Handle integers
-  expect_equal(FSA:::iGetDecimals(0L),0)
-  expect_equal(FSA:::iGetDecimals(1L),0)
-  expect_equal(FSA:::iGetDecimals(10L),0)
-  expect_equal(FSA:::iGetDecimals(175L),0)
 })

@@ -16,6 +16,8 @@
 * `fitPlot()`: Modified.  Added `cex.leg=` and `box.lty.leg=` to IVR plots.
 * `hist.formula()`: Modified.  Fixed a bug with adding the horizontal line at 0 when the user uses `plot=FALSE`, which occurs with `hist.bootCase()`.
 * `hyperCI()`: Modified. Now only accepts whole numbers for `M`, `n`, or `m`. Added catch for bad `conf.level`s and multiple values of `M`, `n`, or `m`.
+* `iHndlCols2use()`: Deleted. Changed to `iHndlCols2UseIgnore()`.
+* `iHndlCols2UseIgnore()`: Added.  Previously was `iHndlCols2use()`. Completely reworked to catch more problems including having both positive and negative indices (fixes [#24](https://github.com/droglenc/FSA/issues/24)) and choosing variable names that don't exist (fixes [#25](https://github.com/droglenc/FSA/issues/25)).
 * `iHndlFormula()`: Modified. Added code to deal with a formula that is a single "variable" sent in an array.  Addresses [#21](https://github.com/droglenc/FSA/issues/21) for the simple situation of single "variable."
 * `iHndlMultWhat()`: Modified. Added `type=` to allow use with `message()` or `cat()`.
 * `iPlotExists()`: Added.  Helps with bug fix in `hist.formula()`.

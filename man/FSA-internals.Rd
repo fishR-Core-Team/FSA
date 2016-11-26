@@ -10,7 +10,7 @@
 \alias{iCheckStartcatW}
 \alias{iGetDecimals}
 \alias{iGetVarFromFormula}
-\alias{iHndlCols2use}
+\alias{iHndlCols2UseIgnore}
 \alias{iHndlFormula}
 \alias{iHndlMultWhat}
 \alias{iLegendHelp}

@@ -282,7 +282,7 @@ capHistConvert <- function(df,cols2use=NULL,cols2ignore=NULL,
   # make sure df is a data.frame (could be sent as a matrix)
   df <- as.data.frame(df)
   # change data.frame based on cols2use or cols2ignore
-  df <- iHndlCols2use(df,cols2use,cols2ignore)
+  df <- iHndlCols2UseIgnore(df,cols2use,cols2ignore)
 
   ## Convert from other forms to individual form
   switch(in.type,
