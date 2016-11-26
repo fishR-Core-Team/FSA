@@ -10,8 +10,7 @@ test_that("Does ksTest() match ks.test()",{
   tmp2 <- ks.test(x+2, "pgamma", 3, 2)
   expect_equal(tmp1$statistic,tmp2$statistic)
   expect_equal(tmp1$p.value,tmp2$p.value)
-  expect_is(tmp1,"htest")
-  
+
   ## first two-sample example in ?ks.test
   tmp1 <- ksTest(x,y)
   tmp2 <- ks.test(x,y)
