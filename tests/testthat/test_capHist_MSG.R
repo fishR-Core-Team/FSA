@@ -36,4 +36,8 @@ test_that("capHistConvert() messages",{
   # should give a warning as well
   expect_error(suppressWarnings(capHistConvert(ex1.E2M,in.type="MARK")),
                "invalid 'times' argument")
+  # cols2XXX problems
+  expect_error(capHistConvert(ex1,cols2use=1,cols2ignore=4),"Cannot use both")
+  expect_error(suppressWarnings(capHistConvert(ex1,cols2ignore=1:5),
+                                "undefined columns selected"))
 })

@@ -523,7 +523,7 @@ iOutEvent <- function(ch.df,id) {
     v.ev <- c(v.ev,rep(events[i],length(tmp)))
   }
   # put ids and events together in a data.frame
-  tmp <- data.frame(v.id,v.ev)
+  tmp <- data.frame(v.id,v.ev,stringsAsFactors=FALSE)
   # and name the colums
   if (is.null(id)) names(tmp) <- c("id","event")
   else names(tmp) <- c(id,"event")
@@ -541,7 +541,7 @@ iOutFrequency <- function(ch.df) {
     ch1 <- as.numeric(noquote(unlist(strsplit(as.character(ch.df[i,1]),""))))
     ch.df1[i,] <- ch1
   }
-  ch.df <- data.frame(ch.df1,ch.df[,"freq"])
+  ch.df <- data.frame(ch.df1,ch.df[,"freq"],stringsAsFactors=FALSE)
   names(ch.df) <- var.lbls
   ch.df
 }
@@ -563,11 +563,11 @@ iOutRMark <- function(ch.df,include.id) {
   chtmp <- ch.df[-1]
   # combine the capture histories into a string
   ch <- apply(as.matrix(chtmp),1,paste,sep="",collapse="")
-  dftmp <- data.frame(ch=ch)
+  dftmp <- data.frame(ch=ch,stringsAsFactors=FALSE)
   dftmp$ch <- as.character(dftmp$ch)
   # add id variable back on if asked for
   if (include.id) {
-    dftmp <- data.frame(idtmp,dftmp)
+    dftmp <- data.frame(idtmp,dftmp,stringsAsFactors=FALSE)
     names(dftmp)[1] <- names(ch.df)[1]
   }
   # return the new data.frame
@@ -589,7 +589,7 @@ iPrepCapHistSum <- function(ch.df) {
   # get capture history summary without the id column
   chsum <- capHistSum(ch.df,cols2use=2:ncol(ch.df))
   # convert to a data.frame and re-label columns
-  ch.df <- as.data.frame(chsum$caphist)
+  ch.df <- as.data.frame(chsum$caphist,stringsAsFactors=FALSE)
   rownames(ch.df) <- 1:nrow(ch.df)
   colnames(ch.df) <- c("caphist","freq")
   # return the data.frame
