@@ -196,6 +196,12 @@ test_that("mrClosed() Schnabel output",{
   expect_equal(ncol(tmp),1)
   expect_equal(colnames(tmp),"N")
 
+  expect_message(tmp <- confint(mr1,verbose=TRUE),"normal")
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),1)
+  expect_equal(ncol(tmp),2)
+  expect_equal(colnames(tmp),c("95% LCI","95% UCI"))
   expect_message(tmp <- confint(mr1,verbose=TRUE,type="Poisson"),"Poisson")
   expect_is(tmp,"matrix")
   expect_equal(mode(tmp),"numeric")
