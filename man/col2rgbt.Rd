@@ -9,7 +9,7 @@ col2rgbt(col, transp = 1)
 \arguments{
 \item{col}{A vector of any of the three kinds of R color specifications (i.e., either a color name (as listed by \code{\link[grDevices]{colors}}()), a hexadecimal string of the form "#rrggbb" or "#rrggbbaa" (see \code{\link[grDevices]{rgb}}), or a positive integer i meaning \code{\link[grDevices]{palette}}()[i].}
 
-\item{transp}{A numeric vector that indicates the transparency level for the color.  The transpaency values must be greater than 0.  Transparency values greater than 1 are interpreted as the number of points plotted on top of each other before the transparency is lost and is, thus, transformed to the inverse of the transparency value provided.}
+\item{transp}{A numeric vector that indicates the transparency level for the color.  The transparency values must be greater than 0.  Transparency values greater than 1 are interpreted as the number of points plotted on top of each other before the transparency is lost and is, thus, transformed to the inverse of the transparency value provided.}
 }
 \value{
 A vector of hexadecimal strings of the form "#rrggbbaa" as would be returned by \code{\link[grDevices]{rgb}}.
