@@ -392,6 +392,7 @@ iSchnute <- function(catch,conf.level,Tmult) {
   X <- int[["X"]]
   # A check
   if (k<3) STOP("The Schnute method requires at least three samples.")
+  if (k==3 & catch[3]==0) STOP("The Schnute method will fail when the catch in the last of three samples is 0.")
   # optimize for N
   tmp <- stats::optimize(iLHSchnute,c(T,ceiling(Tmult*T)),catch=catch,k=k,T=T,XX=X)
   N0 <- tmp$minimum

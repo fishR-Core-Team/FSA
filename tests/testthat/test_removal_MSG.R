@@ -23,6 +23,9 @@ test_that("removal() messages",{
   ## Try using 2-pass method with not >2 catches
   expect_error(removal(c(346,184,49),method="Seber2"),"with two samples")
   expect_error(removal(c(346,184,49),method="RobsonRegier2"),"with two samples")
+  ## Schnute fails if last of three passes is 0
+  expect_error(removal(c(4,2,0),method="Schnute"),"last of three samples is 0")
+  expect_error(removal(c(400,200,0),method="Schnute"),"last of three samples is 0")
   ## Errors in 2- and 3-pass methods if last catch is greater than first catch
   expect_warning(removal(c(184,346),method="Seber2"),"results in model failure")
   expect_warning(removal(c(184,346),method="RobsonRegier2"),"results in model failure")
