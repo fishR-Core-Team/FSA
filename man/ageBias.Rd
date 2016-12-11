@@ -193,9 +193,9 @@ Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  Graphical and statistical 
 
 Evans, G.T. and J.M. Hoenig.  1998.  Testing and viewing symmetry in contingency tables, with application to readers of fish ages.  Biometrics 54:620-629.
 
-Hoenig, J.M., M.J. Morgan, and C.A. Brown. 1995.  Analysing differences between two age determination methods by tests of symmetry.  Canadian Journal of Fisheries And Aquatic Systems 52:364-368.
+Hoenig, J.M., M.J. Morgan, and C.A. Brown. 1995.  Analysing differences between two age determination methods by tests of symmetry.  Canadian Journal of Fisheries and Aquatic Sciences 52:364-368.
 
-McBride, R.S.  2015. Diagnosis of paired age agreement: A simulation approach of accuracy and precision effects. ICES Journal of Marine Science, 72:2149-2167.
+McBride, R.S.  2015. Diagnosis of paired age agreement: A simulation approach of accuracy and precision effects. ICES Journal of Marine Science 72:2149-2167.
 
 Muir, A.M., M.P. Ebener, J.X. He, and J.E. Johnson.  2008.  A comparison of the scale and otolith methods of age estimation for lake whitefish in Lake Huron.  North American Journal of Fisheries Management 28:625-635.  [Was (is?) available from http://www.tandfonline.com/doi/abs/10.1577/M06-160.1]
 }
