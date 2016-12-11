@@ -11,22 +11,9 @@
 ## Sends a start-up message to the console when the package is loaded.
 ##################################################################
 .onAttach <- function(lib,pkg,...) {
-  ## Get version number -- basically code from readPkgVersion in SweaveListingUtils
   vers <- read.dcf(system.file("DESCRIPTION",package=pkg,lib.loc=lib),fields="Version")
-  vers <- paste0(vers,"      ",ifelse(nchar(vers)==5," ",""))
-  ## Send message
-  msg <- paste("\n\n")
-  msg <- paste(msg,"############################################\n")
-  msg <- paste(msg,"##      FSA package, version",vers,"##\n")
-  msg <- paste(msg,"##    Derek H. Ogle, Northland College    ##\n")
-  msg <- paste(msg,"##                                        ##\n")
-  msg <- paste(msg,"## Run ?FSA for documentation.            ##\n")
-  msg <- paste(msg,"## Run citation('FSA') for citation ...   ##\n")
-  msg <- paste(msg,"##   please cite if used in publication.  ##\n")
-  msg <- paste(msg,"##                                        ##\n")
-  msg <- paste(msg,"## See derekogle.com/fishR/ for more      ##\n")    
-  msg <- paste(msg,"##   thorough analytical vignettes.       ##\n")
-  msg <- paste(msg,"############################################\n\n")
+  msg <- paste0("## FSA v",vers,". See citation('FSA') if used in publication.\n")
+  msg <- paste0(msg,"## Run fishR() for related website and fishR('IFAR') for related book.")    
   packageStartupMessage(msg)
 }
 

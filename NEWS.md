@@ -4,6 +4,7 @@
 * Removed several `sep=""`s from `message()`s.
 * Removed `Hmisc` from, but added `epitools` to, imports.
 * Reorganized testing files. Added many tests.
+* `.onAttach()`: Modified. Streamlined package startup message.
 * `addZeroCatch()`: Modified. Added more "catches" for bad data types or arguments.
 * `ageBias()`: Modified. Changed all `message()`s in `summary()` to `cat()`s.
 * `agePrecision()`: Modified. Changed all `message()`s in `summary()` to `cat()`s.
