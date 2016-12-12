@@ -5,8 +5,6 @@
 ## Raw data files
 ^data-raw$
 ## Miscellaneous webpage and package files
-ToDo
-FileProgress.xlsx
 README.md
 LICENSE
 .travis.yml
