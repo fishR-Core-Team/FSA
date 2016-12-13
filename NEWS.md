@@ -1,4 +1,7 @@
-# FSA 0.8.11 ongoing
+# FSA 0.8.12 ongoing
+
+
+# FSA 0.8.11 13-Dec-16
 * Changed all `stop()`s to `STOP()`s and all `warning()`s to `WARN()`. This modified nearly all functions.
 * Changed all `paste()`s that used `sep=""` to `paste0()`s.
 * Removed several `sep=""`s from `message()`s.
