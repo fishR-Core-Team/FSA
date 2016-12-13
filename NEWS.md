@@ -2,7 +2,7 @@
 * Changed all `stop()`s to `STOP()`s and all `warning()`s to `WARN()`. This modified nearly all functions.
 * Changed all `paste()`s that used `sep=""` to `paste0()`s.
 * Removed several `sep=""`s from `message()`s.
-* Removed `Hmisc` from, but added `epitools` to, imports.
+* Removed `Hmisc` from, but added `epitools` to, imports. Removed all links to `Hmisc` to remove CRAN check warnings.
 * Reorganized testing files. Added many tests.
 * `.onAttach()`: Modified. Streamlined package startup message.
 * `addZeroCatch()`: Modified. Added more "catches" for bad data types or arguments.
@@ -18,6 +18,7 @@
 * `hist.formula()`: Modified.  Fixed a bug with adding the horizontal line at 0 when the user uses `plot=FALSE`, which occurs with `hist.bootCase()`.
 * `hyperCI()`: Modified. Now only accepts whole numbers for `M`, `n`, or `m`. Added catch for bad `conf.level`s and multiple values of `M`, `n`, or `m`.
 * `iAddLoessLine()`: Modified. Changed used of `iMakeColor()` to `col2rgbt()`.
+* `iGetDecimals()`: Modified. Added warning for situations where `x` will be presented in exponential notation. Also returned a decimal of zero in this situation. Helps with a bug in `hist.formula()`.
 * `iHndlCols2use()`: Deleted. Changed to `iHndlCols2UseIgnore()`.
 * `iHndlCols2UseIgnore()`: Added.  Previously was `iHndlCols2use()`. Completely reworked to catch more problems including having both positive and negative indices (fixes [#24](https://github.com/droglenc/FSA/issues/24)) and choosing variable names that don't exist (fixes [#25](https://github.com/droglenc/FSA/issues/25)).
 * `iHndlFormula()`: Modified. Added code to deal with a formula that is a single "variable" sent in an array.  Addresses [#21](https://github.com/droglenc/FSA/issues/21) for the simple situation of single "variable."
