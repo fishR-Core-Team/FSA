@@ -109,7 +109,7 @@ iGetDecimals <- function(x) {
   if (is.integer(x)) 0
   else {
     tmp <- format.info(x,digits=10)
-    stopifnot(tmp[3]==0)
+    if (tmp[3]!=0) WARN("'x' will be presented in exponential notation.\nReturned decimals may not be what you expected.")
     tmp[2]
   }
 }
