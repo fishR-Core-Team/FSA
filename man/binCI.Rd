@@ -64,7 +64,7 @@ Derek H. Ogle, \email{derek@derekogle.com}
 Agresti, A. and B.A. Coull.  1998.  Approximate is better than \dQuote{exact} for interval estimation of binomial proportions.  American Statistician, 52:119-126.
 }
 \seealso{
-See \code{\link{binom.test}}; \code{\link[Hmisc]{binconf}} in \pkg{Hmisc}; \code{\link[epitools]{binom.exact}}, \code{\link[epitools]{binom.wilson}}, and \code{\link[epitools]{binom.approx}} in \pkg{epitools}, and functions in \pkg{binom}.
+See \code{\link{binom.test}}; \code{binconf} in \pkg{Hmisc}; \code{\link[epitools]{binom.exact}}, \code{\link[epitools]{binom.wilson}}, and \code{\link[epitools]{binom.approx}} in \pkg{epitools}, and functions in \pkg{binom}.
 }
 \keyword{htest}
 
