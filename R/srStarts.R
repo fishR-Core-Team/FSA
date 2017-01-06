@@ -104,7 +104,7 @@ srStarts <- function(formula,data=NULL,type=c("BevertonHolt","Ricker","Shepherd"
   ## make the static plot if asked for
   if (plot) iSRStartsPlot(S,R,type,param,sv,col.mdl,lwd.mdl,lty.mdl,cex.main,col.main)
   ## Check if user wants to choose starting values from an interactive plot
-  if (dynamicPlot) WARN("The 'dynamicPlot' functionality has been moved to 'srStartsDP' in the 'FSASims' package.")
+  if (dynamicPlot) WARN("The 'dynamicPlot' functionality has been moved to 'srStartsDP' in the 'FSAsim' package.")
   ## return the list of starting values
   sv
 }

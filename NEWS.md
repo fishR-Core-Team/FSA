@@ -1,5 +1,7 @@
 # FSA 0.8.12 ongoing
 * `reproInfo()`: Modified. Added `ind=` to select a CRAN mirror to help with a common problem I have when knitting.
+* `srStarts()`: Modified. Corrected mis-spelling in directive to `FSAsim` package.
+* `vbStarts()`: Modified. Corrected mis-spelling in directive to `FSAsim` package.
 
 # FSA 0.8.11 13-Dec-16
 * Changed all `stop()`s to `STOP()`s and all `warning()`s to `WARN()`. This modified nearly all functions.
@@ -486,10 +488,10 @@
 * `vbFuns()`: Modified.  Changed function returned when `simplify=FALSE` so that if the parameters are named that the name is dropped.  Thus, when the function is used, the returned result will not be annoyingly named as the first parameter.
 
 # FSA 0.5.3 Mar15
-* `growthModelSim()`: Deleted.  The simulation functionality was moved to the `FSAsims` package.  The functionality related to finding starting values for the von Bertalanffy modesl was moved to `vbStarts()`.
+* `growthModelSim()`: Deleted.  The simulation functionality was moved to the `FSAsim` package.  The functionality related to finding starting values for the von Bertalanffy modesl was moved to `vbStarts()`.
 * `srFuns()`: Modified.  A complete rebuild to make similar to `vbFuns()`.  Added `simple=`.  Added `type='Shepherd'` for the Shepherd (1982) three parameter model and `type='SailaLorda'` for the "Saila-Lorda" three parameter model from Iles (1994).  Added tests for error messages.
 * `srModels()`: Modified.  A complete rebuild to make similar to `growthModels()`.  Added "Shepherd" and "Saila-Lorda" models.
-* `srSims()`: Deleted.  The simulation functionality was moved to the `FSAsims` package.  The functionality related to finding starting values was moved to `srStarts()`.
+* `srSims()`: Deleted.  The simulation functionality was moved to the `FSAsim` package.  The functionality related to finding starting values was moved to `srStarts()`.
 * `srStarts()`: Modified.  A complete rebuild to streamline.  Removed default method (i.e., a formula must be used now).  Added "Shepherd" and "Saila-Lorda" models.  Modified plotting routine, including adding `col.mdl=`, `lwd.mdl=`, and `lty.mdl=`.  Moved the dynamic modeling aspects of `srSim()` into this function and is called with the new argument `dynamicPlot=TRUE`.  Also added `minmax.ratio=` and `delta.prop=` for use with the dynamic plots.
 * `vbStarts()`: Modified.  A complete rebuild to streamline and fix some bugs that had not been found.  Modified plotting routine, including adding `col.mdl=`, `lwd.mdl=`, and `lty.mdl=`.  Also added all of the von Bertalanffy parameterizations in `growthModelSim()` into this function and is called with the new argument `dynamicPlot=TRUE`.  Added dynamics plots for the "Francis" and "Schnute" parameterizations.
 

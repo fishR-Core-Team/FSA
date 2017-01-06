@@ -166,7 +166,7 @@ vbStarts <- function(formula,data=NULL,
   ## make the static plot if asked for
   if (plot) iVBStartsPlot(age,len,type,sv,ages2use,valOgle,col.mdl,lwd.mdl,lty.mdl,cex.main,col.main)
   ## Check if user wants to choose starting values from an interactive plot
-  if (dynamicPlot) WARN("The 'dynamicPlot' functionality has been moved to 'vbStartsDP' in the 'FSASims' package.")
+  if (dynamicPlot) WARN("The 'dynamicPlot' functionality has been moved to 'vbStartsDP' in the 'FSAsim' package.")
   ## return starting values list
   sv
 }
