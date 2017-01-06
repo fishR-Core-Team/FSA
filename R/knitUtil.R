@@ -33,6 +33,7 @@
 #' @param newpage A logical that indicates whether or not the reproduciility information should begin on a new page.  Used only if \R{out="latex"}
 #' @param links A named character vector that will add a links bullet to the reproducibility information.  The names will be shown and the values are the links.  Used only if \R{out="markdown}.
 #' @param closeGraphics A logical that indicates whether the graphics device should be closed or not.
+#' @param ind An integer that indicates the CRAN mirror to use. Defaults to 1.
 #' @param \dots Additional arguments for the original \code{purl}.
 #'
 #' @return
@@ -172,7 +173,9 @@ purl2 <- function(file,out.dir=NULL,newname=NULL,topnotes=NULL,
 reproInfo <- function(out=c("r","markdown","latex"),rqrdPkgs=NULL,elapsed=NULL,
                       width=0.95*getOption("width"),
                       addTOC=TRUE,newpage=FALSE,links=NULL,
-                      closeGraphics=TRUE) { # nocov start
+                      closeGraphics=TRUE,ind=1) { # nocov start
+  ## Set a standard mirror (helps avoid a common error when knitting)
+  utils::chooseCRANmirror(ind=ind)
   ## Process the session info
   ses <- iProcessSessionInfo()
   ## Handle the rqrdPkgs

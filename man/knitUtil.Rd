@@ -17,7 +17,7 @@ purl2(file, out.dir = NULL, newname = NULL, topnotes = NULL,
 
 reproInfo(out = c("r", "markdown", "latex"), rqrdPkgs = NULL,
   elapsed = NULL, width = 0.95 * getOption("width"), addTOC = TRUE,
-  newpage = FALSE, links = NULL, closeGraphics = TRUE)
+  newpage = FALSE, links = NULL, closeGraphics = TRUE, ind = 1)
 }
 \arguments{
 \item{value}{A single numeric count or p-value.}
@@ -61,6 +61,8 @@ reproInfo(out = c("r", "markdown", "latex"), rqrdPkgs = NULL,
 \item{links}{A named character vector that will add a links bullet to the reproducibility information.  The names will be shown and the values are the links.  Used only if \R{out="markdown}.}
 
 \item{closeGraphics}{A logical that indicates whether the graphics device should be closed or not.}
+
+\item{ind}{An integer that indicates the CRAN mirror to use. Defaults to 1.}
 
 \item{\dots}{Additional arguments for the original \code{purl}.}
 }

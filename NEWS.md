@@ -1,5 +1,5 @@
 # FSA 0.8.12 ongoing
-
+* `reproInfo()`: Modified. Added `ind=` to select a CRAN mirror to help with a common problem I have when knitting.
 
 # FSA 0.8.11 13-Dec-16
 * Changed all `stop()`s to `STOP()`s and all `warning()`s to `WARN()`. This modified nearly all functions.
