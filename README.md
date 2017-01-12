@@ -24,8 +24,8 @@ install.packages("FSA")
 The most recent development version (on GitHub) may be installed with
 
 ```r
-if (!require('ghit')) install.packages('ghit'); require('ghit')
-ghit::install_github('droglenc/FSA')
+if (!require('devtools')) install.packages('devtools'); require('devtools')
+devtools::install_github('droglenc/FSA')
 ```
 
 You may need to have R Tools installed on your system to use the two lines above.  See the instructions for ([R Tools for Windows](https://cran.r-project.org/bin/windows/Rtools/) or [R Tools for Mac OS X](https://cran.r-project.org/bin/macosx/tools/)).
