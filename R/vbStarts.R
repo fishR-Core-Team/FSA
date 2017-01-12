@@ -184,6 +184,7 @@ iVBStarts.LinfK <- function(age,len,type,methLinf,num4Linf,fixed) {
   meanL <- tapply(len,age,mean)
   ns <- tapply(len,age,length)
   ## fit Walford plot regression
+  if (length(meanL)<3) STOP("The 'Linf' parameter cannot be automatically determined with less than 3 observed ages.")
   cfs <- stats::coef(stats::lm(meanL[-1]~meanL[-length(meanL)]))
   ## If a fixed value was sent then return it, else find starting values
   ## from either the Walford plot regression coefficients or mean length of

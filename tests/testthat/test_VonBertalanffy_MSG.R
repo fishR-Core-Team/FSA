@@ -72,11 +72,17 @@ test_that("vbStarts() messages",{
                    "less than minimum observed age")
     expect_warning(vbStarts(length~age,data=Kimura,param="Ogle",valOgle=c(Lr=0)),
                    "less than minimum observed length")
+    ## too few ages to estimate Linf
+    expect_error(vbStarts(length~age,data=subset(Kimura,age<3)),
+                   "cannot be automatically determined")
   }
-  ## gives warning about a poor estimate for K and Linf
   if (require(FSAdata)) {
     data(SpottedSucker1)
+    ## gives warning about a poor estimate for K and Linf
     sv <- list(Linf=max(SpottedSucker1$tl),K=0.3,t0=0)
     expect_warning(vbStarts(tl~age,data=SpottedSucker1,param="typical"))
+    ## too few ages to estimate Linf
+    expect_error(vbStarts(tl~age,data=subset(SpottedSucker1,age<5)),
+                 "cannot be automatically determined")
   }
 })
