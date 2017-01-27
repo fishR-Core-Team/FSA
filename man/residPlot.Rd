@@ -57,13 +57,13 @@ residPlot(object, ...)
 \arguments{
 \item{object}{An \code{lm} or \code{nls} object (i.e., returned from fitting a model with either \code{lm} or \code{nls}).}
 
-\item{xlab}{A string for labelling the x-axis.}
+\item{xlab}{A string for labeling the x-axis.}
 
-\item{ylab}{A string for labelling the y-axis.}
+\item{ylab}{A string for labeling the y-axis.}
 
 \item{main}{A string for the main label to the plot.  See details.}
 
-\item{pch}{A numeric that indicates the plotting charachter to be used or a vector of numerics that indicates what plotting charachters codes to use for the levels of the second factor.  See \code{par}.}
+\item{pch}{A numeric that indicates the plotting character to be used or a vector of numerics that indicates what plotting character codes to use for the levels of the second factor.  See \code{par}.}
 
 \item{col}{A vector of color names that indicates what color of points and lines to use for the levels of the first factor.  See \code{par}.}
 
@@ -75,7 +75,7 @@ residPlot(object, ...)
 
 \item{resid.type}{The type of residual to use.  \sQuote{Raw} residuals are used by default.  See details.}
 
-\item{outlier.test}{A logical that indicates if an \code{outlierTest} will \code{TRUE} (default) be performed and if the indivdiual with the largest studentized residual is deemed to be a significant outlier it will be noted on the residual plot by its observation number.}
+\item{outlier.test}{A logical that indicates if an \code{outlierTest} will \code{TRUE} (default) be performed and if the individual with the largest studentized residual is deemed to be a significant outlier it will be noted on the residual plot by its observation number.}
 
 \item{alpha}{A numeric that indicates the alpha level to use for the outlier test (only used if \code{outlier.test=TRUE}).}
 
@@ -114,7 +114,7 @@ Externally Studentized residuals are not supported for \code{nls} or \code{nlme}
 
 If \code{outlier.test=TRUE} then significant outliers are detected with \code{\link[car]{outlierTest}} from the \pkg{car} package.  See the help for this function for more details.
 
-The user can include the model call as a title to the residual plot by using \code{main="MODEL"}.  This only works for models created wtih \code{lm()}.
+The user can include the model call as a title to the residual plot by using \code{main="MODEL"}.  This only works for models created with \code{lm()}.
 
 If the user chooses to add a legend without identifying coordinates for the upper-left corner of the legend (i.e., \code{legend=TRUE}) then the R console is suspended until the user places the legend by clicking on the produced graphic at the point where the upper-left corner of the legend should appear.  A legend will only be placed if the \code{mdl} is an indicator variable regression, even if \code{legend=TRUE}.
 }

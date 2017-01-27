@@ -26,16 +26,16 @@ Summarize(object, ...)
 
 \item{exclude}{A string that contains the level that should be excluded from a factor variable.}
 
-\item{nvalid}{A string that indicates how the \dQuote{validn} result will be handled.  If \code{"always"} then \dQuote{validn} will always be shown and if \code{"never"} then \dQuote{validn} will never be shown.  However, if \code{"different"} (DEFAULT), then \dQuote{validn} will only be shown if it differs from \dQuote{n} (or if at least one group differs from \dQuote{n} when summarized by muliple groups).}
+\item{nvalid}{A string that indicates how the \dQuote{validn} result will be handled.  If \code{"always"} then \dQuote{validn} will always be shown and if \code{"never"} then \dQuote{validn} will never be shown.  However, if \code{"different"} (DEFAULT), then \dQuote{validn} will only be shown if it differs from \dQuote{n} (or if at least one group differs from \dQuote{n} when summarized by multiple groups).}
 
-\item{percZero}{A string that indicates how the \dQuote{percZero} result will be handled.  If \code{"always"} then \dQuote{percZero} will always be shown and if \code{"never"} then \dQuote{percZero} will never be shown.  However, if \code{"different"} (DEFAULT), then \dQuote{percZero} will only be shown if it is greater than zero (or if at least one group is greater than zero when summarized by muliple groups).}
+\item{percZero}{A string that indicates how the \dQuote{percZero} result will be handled.  If \code{"always"} then \dQuote{percZero} will always be shown and if \code{"never"} then \dQuote{percZero} will never be shown.  However, if \code{"different"} (DEFAULT), then \dQuote{percZero} will only be shown if it is greater than zero (or if at least one group is greater than zero when summarized by multiple groups).}
 
 \item{data}{A data.frame that contains the variables in \code{formula}.}
 
 \item{\dots}{Not implemented.}
 }
 \value{
-A named vector or data frame (when a quantitative variable is separted by one or two factor variables) of summary statistics for numeric data.
+A named vector or data frame (when a quantitative variable is separated by one or two factor variables) of summary statistics for numeric data.
 }
 \description{
 Summary statistics for a single numeric variable, possibly separated by the levels of a factor variable or variables.  This function is very similar to \code{\link[base]{summary}} for a numeric variable.
@@ -74,7 +74,7 @@ Summarize(~y,data=d,digits=3)
 Summarize(y~1,data=d,digits=3)
 
 # note that nvalid is not shown if there are no NAs and
-#   percZero is not shown if there are no zeroes
+#   percZero is not shown if there are no zeros
 Summarize(~w,data=d,digits=3)
 Summarize(~v,data=d,digits=3)
 

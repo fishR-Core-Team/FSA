@@ -1,4 +1,4 @@
-#' @title Finds reasonable starting values for parameters in specific paramaterizations of common stock-recruitment models.
+#' @title Finds reasonable starting values for parameters in specific parameterizations of common stock-recruitment models.
 #'
 #' @description Finds reasonable starting values for parameters in specific parameterizations of the \dQuote{Beverton-Holt}, \dQuote{Ricker},  \dQuote{Shepherd}, or \dQuote{Saila-Lorda} stock-recruitment models.  Use \code{srFunShow()} to see the equations of each model.
 #'

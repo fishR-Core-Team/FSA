@@ -61,7 +61,7 @@ The \code{\link[PMCMR]{posthoc.kruskal.nemenyi.test}} function from the \pkg{PMC
 
 The \code{\link[pgirmess]{kruskalmc}} function from the \pkg{pgirmess} package uses the method described by Siegel and Castellan (1988).
 
-It is not clear which method the \code{\link[agricolae]{kruskal}} function from the \pkg{agricolae} package uses.  It does not seem to output p-values but it does allow for a wide variety of methods to control the experimentise error rate.
+It is not clear which method the \code{\link[agricolae]{kruskal}} function from the \pkg{agricolae} package uses.  It does not seem to output p-values but it does allow for a wide variety of methods to control the experimentwise error rate.
 }
 \examples{
 ## pH in four ponds data from Zar (2010)

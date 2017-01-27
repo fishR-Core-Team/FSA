@@ -23,7 +23,7 @@ capHistConvert(df, cols2use = NULL, cols2ignore = NULL,
 
 \item{id}{A string or numeric that indicates the column in \code{df} that contains the unique identifier for an individual fish.  This argument is only used if \code{in.type="event"}, \code{in.type="individual"}, or, possibly, \code{in.type="RMark"}.}
 
-\item{event.ord}{A string that contains a vector of ordered levels to be used when \code{in.type="event"}.  The default is to order alphabetically which may not be desirable if, for example, the events are labelled as \sQuote{first}, \sQuote{second}, \sQuote{third}, and \sQuote{fourth}.  In this case, use \code{event.ord=c("first","second","third","fourth")}.}
+\item{event.ord}{A string that contains a vector of ordered levels to be used when \code{in.type="event"}.  The default is to order alphabetically which may not be desirable if, for example, the events are labeled as \sQuote{first}, \sQuote{second}, \sQuote{third}, and \sQuote{fourth}.  In this case, use \code{event.ord=c("first","second","third","fourth")}.}
 
 \item{freq}{A string or numeric that indicates the column in \code{df} that contains the frequency of individual fish corresponding to a capture history.  This argument is only used if \code{in.type="MARK"}, \code{in.type="frequency"}, or, possibly, \code{in.type="RMark"}.}
 
@@ -85,7 +85,7 @@ ch \tab freq \cr
 1100 \tab 2; \cr
 }
 
-The \code{\link[RMark:ABeginnersGuide]{RMark}} and \pkg{marked} are packages used to replace some of the functionality of MARK or to interact with MARK.  The \dQuote{RMark} or \dQuote{marked} format requires the capture histories as one string (must be a character string and called \sQuote{ch}), as in the \dQuote{MARK} format, but without the semicolon.  The data.frame may be augmented with an indentifier for individual fish OR with a frequency variable.  If augmented with a unique fish identification variable then the same data from above looks like:
+The \code{\link[RMark:ABeginnersGuide]{RMark}} and \pkg{marked} are packages used to replace some of the functionality of MARK or to interact with MARK.  The \dQuote{RMark} or \dQuote{marked} format requires the capture histories as one string (must be a character string and called \sQuote{ch}), as in the \dQuote{MARK} format, but without the semicolon.  The data.frame may be augmented with an identifier for individual fish OR with a frequency variable.  If augmented with a unique fish identification variable then the same data from above looks like:
 
 \tabular{cc}{
 fish \tab ch \cr
@@ -296,7 +296,7 @@ Derek H. Ogle, \email{derek@derekogle.com}
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
-See \code{\link{capHistSum}} to summarize \dQuote{individual} capture histories into a format useable in \code{\link{mrClosed}} and \code{\link{mrOpen}}.  Also see \code{\link[Rcapture:Rcapture-package]{Rcapture}}, \code{\link[RMark:ABeginnersGuide]{RMark}}, or \pkg{marked} packages for handling more complex analyses.
+See \code{\link{capHistSum}} to summarize \dQuote{individual} capture histories into a format usable in \code{\link{mrClosed}} and \code{\link{mrOpen}}.  Also see \code{\link[Rcapture:Rcapture-package]{Rcapture}}, \code{\link[RMark:ABeginnersGuide]{RMark}}, or \pkg{marked} packages for handling more complex analyses.
 }
 \keyword{manip}
 

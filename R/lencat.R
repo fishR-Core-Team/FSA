@@ -20,7 +20,7 @@
 #' 
 #' The start of the length categories may also be set with \code{startcat}.  The number in the \code{startcat} argument should be less than the smallest value in \code{x}.  Additionally, the number of decimals in \code{startcat} should not be more than the number of decimals in \code{w} (e.g., \code{startcat=0.4} and \code{w=1} will result in an error).
 #'
-#' One may want to convert apparent numeric values to factor values if some of the length categories are missing (e.g., if factor values are used, for example, then tables of the length category values will have values for all length categories; i.e., it will have zeroes for the length categories that are missing).  The numeric values can be converted to factors by including \code{as.fact}.  See the \dQuote{real data} example.
+#' One may want to convert apparent numeric values to factor values if some of the length categories are missing (e.g., if factor values are used, for example, then tables of the length category values will have values for all length categories; i.e., it will have zeros for the length categories that are missing).  The numeric values can be converted to factors by including \code{as.fact}.  See the \dQuote{real data} example.
 #'
 #' The observed values in \code{x} should be rounded to the appropriate number of decimals to avoid misplacement of individuals into incorrect length categories due to issues with machine-precision (see discussion in \code{all.equal}.)
 #'
@@ -224,7 +224,7 @@ lencat.default <- function(x,w=1,startcat=NULL,breaks=NULL,
       breaks <- round(seq(startcat,maxx+w,w),decs$wdec)
       addedMaxBreak <- TRUE
     } else {
-      ## Breaks are given, check if useable
+      ## Breaks are given, check if useble
       ## 1. remove NAs (if they exist)
       ## 2. stop if breaks don't go below minimum observed value
       ## 3. make a break larger than maximum value if needed.

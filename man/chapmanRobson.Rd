@@ -47,13 +47,13 @@ chapmanRobson(x, ...)
 
 \item{verbose}{A logical that indicates whether the method should return just the estimate (\code{FALSE}; default) or a more verbose statement.}
 
-\item{level}{Same as \code{conf.level}.  Used for compatability with the generic \code{confint} function.}
+\item{level}{Same as \code{conf.level}.  Used for compatibility with the generic \code{confint} function.}
 
 \item{conf.level}{A number representing the level of confidence to use for constructing confidence intervals.}
 
 \item{pos.est}{A string to identify where to place the estimated mortality rates on the plot.  Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot.  Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements.  Set \code{pos.est} to \code{NULL} to remove the estimated mortality rates from the plot.}
 
-\item{cex.est}{A single numeric characther expansion value for the estimated mortaliry rates on the plot.}
+\item{cex.est}{A single numeric character expansion value for the estimated mortality rates on the plot.}
 
 \item{ylab}{A label for the y-axis (\code{"Catch"} is the default).}
 
@@ -61,7 +61,7 @@ chapmanRobson(x, ...)
 
 \item{col.pt}{A string that indicates the color of the plotted points.}
 
-\item{axis.age}{A string that indicates the type of x-axis to display.  The \code{age} will disply only the original ages, \code{recoded age} will display only the recoded ages, and \code{both} (DEFAULT) displays the original ages on the main axis and the recoded ages on the secondary axis.}
+\item{axis.age}{A string that indicates the type of x-axis to display.  The \code{age} will display only the original ages, \code{recoded age} will display only the recoded ages, and \code{both} (DEFAULT) displays the original ages on the main axis and the recoded ages on the secondary axis.}
 
 \item{\dots}{Additional arguments for methods.}
 }
@@ -73,8 +73,8 @@ A list with the following items:
    \item age.e a vector of assigned ages used to estimate mortalities.
    \item catch.e a vector of catches or CPUEs used to estimate mortalities.
    \item age.r a vector of recoded ages used to estimate mortalities.  See references.
-   \item n a numeric holding the intermediate calcualtion of n.  See references.
-   \item T a numeric holding the intermediate calcualtion of T.  See references.
+   \item n a numeric holding the intermediate calculation of n.  See references.
+   \item T a numeric holding the intermediate calculation of T.  See references.
    \item est A 2x2 matrix that contains the estimates and standard errors for S and Z.
  }
 }

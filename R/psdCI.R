@@ -6,7 +6,7 @@
 #' 
 #' A table of proportions within each length category is given in \code{ptbl}.  If \code{ptbl} has any values greater than 1 then it is assumed that a table of percentages was supplied and the entire table will be divided by 100 to continue.  The proportions must sum to 1 (with some allowance for rounding).
 #' 
-#' A vector of length equal to the length of \code{ptbl} is given in \code{indvec} which contains zeroes and ones to identify the linear combination of values in \code{ptbl} to use to construct the confidence intervals.  For example, if \code{ptbl} has four proportions then \code{indvec=c(1,0,0,0)} would be used to construct a confidence interval for the population proportion in the first category.  Alternatively, \code{indvec=c(0,0,1,1)} would be used to construct a confidence interval for the population proportion in the last two categories.  This vector must not contain all zeroes or all ones.
+#' A vector of length equal to the length of \code{ptbl} is given in \code{indvec} which contains zeros and ones to identify the linear combination of values in \code{ptbl} to use to construct the confidence intervals.  For example, if \code{ptbl} has four proportions then \code{indvec=c(1,0,0,0)} would be used to construct a confidence interval for the population proportion in the first category.  Alternatively, \code{indvec=c(0,0,1,1)} would be used to construct a confidence interval for the population proportion in the last two categories.  This vector must not contain all zeros or all ones.
 #'
 #' @param indvec A numeric vector of 0s and 1s that identify the linear combination of proportions from \code{ptbl} that the user is interested in.  See details.
 #' @param ptbl A numeric vector or array that contains the proportion or percentage of all individuals in each length category.  See details.
@@ -113,9 +113,9 @@ iCheckIndvec <- function(indvec,ptbl) {
   ## check that table and indvec are same size
   k <- length(ptbl)
   if (length(indvec)!=k) STOP("Length of 'ptbl' and 'indvec' must be the same.")
-  ## make sure that indvec is not all zeroes or ones
+  ## make sure that indvec is not all zeros or ones
   tmp <- sum(indvec)
-  if (tmp==0) STOP("'indvec' cannot be all zeroes.")
+  if (tmp==0) STOP("'indvec' cannot be all zeros.")
   if (tmp==k) STOP("'indvec' cannot be all ones.")
   ## convert indvec to a column matrix for matrix multiplication below
   matrix(indvec,ncol=1)

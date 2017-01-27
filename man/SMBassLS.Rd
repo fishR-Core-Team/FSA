@@ -34,7 +34,7 @@ head(SMBassLS)
 
 }
 \concept{
-Abundance 'Population Size' Depletion Leslie Delury Catchability
+Abundance 'Population Size' Depletion Leslie DeLury Catchability
 }
 \keyword{datasets}
 

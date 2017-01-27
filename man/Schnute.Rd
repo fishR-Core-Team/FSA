@@ -59,7 +59,7 @@ lines(s4~ages,lwd=2,col="green")
 Derek H. Ogle, \email{derek@derekogle.com}
 }
 \references{
-Schnute, J.  1981.  A versatile growth model with statistical stable parameters.  Canadian Journal of Fisheris and Aquatic Sciences 38:1128-1140.
+Schnute, J.  1981.  A versatile growth model with statistical stable parameters.  Canadian Journal of Fisheries and Aquatic Sciences 38:1128-1140.
 }
 \seealso{
 See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{RichardsFuns}}, and \code{\link{logisticFuns}} for similar functionality for other models.

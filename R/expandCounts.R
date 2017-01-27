@@ -59,7 +59,7 @@
 #' expandCounts(d4,~freq)
 #' expandCounts(d4,~freq,~lwr.bin+upr.bin)
 #' 
-#' # some need expansion but include zeroes and NAs for counts
+#' # some need expansion but include zeros and NAs for counts
 #' ( d2a <- data.frame(name=c("Johnson","Johnson","Jones","Frank","Frank","Max","Max","Max","Max"),
 #'                     lwr.bin=c(15,  15.5,16  ,16  ,17.1,17.3,NA,NA,NA),
 #'                     upr.bin=c(15.5,16  ,16.5,16.5,17.1,17.3,NA,NA,NA),

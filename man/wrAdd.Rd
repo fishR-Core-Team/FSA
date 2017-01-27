@@ -17,7 +17,7 @@ wrAdd(wt, ...)
 
 \item{len}{A numeric vector that contains length measurements.  Not used if \code{wt} is a formula.}
 
-\item{spec}{A character or factor vector that contains the specicas names.  Not used if \code{wt} is a formula.}
+\item{spec}{A character or factor vector that contains the species names.  Not used if \code{wt} is a formula.}
 
 \item{units}{A string that indicates whether the weight and length data in \code{formula} are in (\code{"metric"} (DEFAULT; mm and g) or \code{"English"} (in and lbs) units.}
 

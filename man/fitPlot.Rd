@@ -58,7 +58,7 @@ fitPlot(object, ...)
 
 \item{plot.pts}{A logical that indicates (\code{TRUE} (default)) whether the points are plotted along with the fitted lines.  Set to \code{FALSE} to plot just the fitted lines.}
 
-\item{pch}{A numeric or vector of numerics that indicates what plotting characther codes should be used.  In SLR this is the single value to be used for all points.  In IVR a vector is used to identify the characters for the levels of the second factor.}
+\item{pch}{A numeric or vector of numerics that indicates what plotting character codes should be used.  In SLR this is the single value to be used for all points.  In IVR a vector is used to identify the characters for the levels of the second factor.}
 
 \item{col.pt}{A string used to indicate the color of the plotted points.  Used only for SLR and logistic regression objects.}
 
@@ -76,15 +76,15 @@ fitPlot(object, ...)
 
 \item{lty.pi}{a numeric used to indicate the type of line used for the prediction band lines for SLR objects.  For IVR, the prediction band types are controlled by \code{lty}.  See \code{par}.}
 
-\item{xlab}{a string for labelling the x-axis.}
+\item{xlab}{a string for labeling the x-axis.}
 
-\item{ylab}{a string for labelling the y-axis.}
+\item{ylab}{a string for labeling the y-axis.}
 
 \item{main}{a string for the main label to the plot.  Defaults to the model call.}
 
 \item{type}{The type of graphic to construct in a one-way and two-way ANOVA.  If \code{"b"} then points are plotted and lines are used to connect points (DEFAULT).  If \code{"p"} then only points are used and if \code{"l"} then only lines are drawn.}
 
-\item{col}{A vector of color names or numbers or the name of a paletted (see details) that indicates what color of points and lines to use for the levels of the first factor in an IVR or the second factor in a two-way ANOVA.}
+\item{col}{A vector of color names or numbers or the name of a palette (see details) that indicates what color of points and lines to use for the levels of the first factor in an IVR or the second factor in a two-way ANOVA.}
 
 \item{ci.fun}{A function used to put error bars on the one-way or two-way ANOVA graphs.  The default is to use the internal \code{iCIfp} function which will place t-distribution based confidence intervals on the graph.  The user can provide alternative functions that may plot other types of \sQuote{error bars}.  See examples in \code{\link[sciplot]{lineplot.CI}} function of \pkg{sciplot} package.}
 
@@ -100,7 +100,7 @@ fitPlot(object, ...)
 
 \item{box.lty.leg}{A single numeric values used to indicate the type of line to use for the box around the legend.  The default is to not plot a box.}
 
-\item{d}{A data frame that contains the variabls used in construction of the \code{nls} object.}
+\item{d}{A data frame that contains the variables used in construction of the \code{nls} object.}
 
 \item{jittered}{A logical that indicates whether the points should be jittered horizontally.}
 
@@ -126,7 +126,7 @@ fitPlot(object, ...)
 
 \item{yaxis2.show}{A logical that indicates whether the right y-axis should be created (\code{=TRUE}; default) or not for the logistic regression plot.}
 
-\item{mdl.vals}{A numer representing the number of values to use for plotting the logistic regression.  A larger number means a smoother line.}
+\item{mdl.vals}{A numeric that represents the number of values to use for plotting the logistic regression.  A larger number means a smoother line.}
 
 \item{xlim}{A vector of length two to control the x-axis in the logistic regression plot.  If this is changed from the default then the domain over which the logistic regression model is plotted will change.}
 

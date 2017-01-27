@@ -33,14 +33,14 @@ test_that("alkPlot() messages",{
   ## Bad argument choices
   expect_error(alkPlot(alk,type="derek"),"should be one of")
   expect_error(alkPlot(alk,pal="derek"),"should be one of")
-  ## one row is all zeroes
+  ## one row is all zeros
   tmp <- alk
   tmp[2,] <- 0
   expect_warning(alkPlot(tmp),"sum to 0")
   expect_warning(alkPlot(tmp,type="area"),"sum to 0")
   expect_warning(alkPlot(tmp,type="lines"),"sum to 0")
   expect_warning(alkPlot(tmp,type="bubble"),"sum to 0")
-  ## one column is all zeroes with restrictive xlim
+  ## one column is all zeros with restrictive xlim
   tmp <- alk
   tmp["40",] <- c(0,0,0,1)
   tmp["50",] <- c(0,0,0,1)

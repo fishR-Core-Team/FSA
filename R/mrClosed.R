@@ -18,7 +18,7 @@
 #' 
 #' \itemize{
 ##'  \item{\code{type="hypergeometric"}.  Uses \code{\link{hyperCI}}.  This is experimental at this point.}
-##'  \item{\code{type="binomial"}.  Use \code{\link{binCI}} to construct a confidence interval for m/n (Petersen method) or (m+1)/(n+1) (Chapman, Bailey, Ricker methods), divides M or (M+1) by the CI endpoints, and substract 1 (for the Chapman method).}
+##'  \item{\code{type="binomial"}.  Use \code{\link{binCI}} to construct a confidence interval for m/n (Petersen method) or (m+1)/(n+1) (Chapman, Bailey, Ricker methods), divides M or (M+1) by the CI endpoints, and subtract 1 (for the Chapman method).}
 ##'  \item{\code{type="Poisson"}.  Use \code{\link{poiCI}} to construct a confidence interval for m (Petersen method) or (m+1) (Chapman, Bailey, Ricker methods), substitute the CI endpoints into the appropriate equation for estimating N, and subtract 1 (for the Chapman method).}
 ##'  \item{\code{type="normal"}.  Used equation 2.4 (p.20) from Krebs (2002) for the Petersen method.  For the other methods, used N+/- Z(0.975)*SE, where the SE was computed as noted above.}
 ##' }

@@ -7,7 +7,7 @@
 \alias{depletion}
 \alias{plot.depletion}
 \alias{summary.depletion}
-\title{Computes the Leslie or Delury population estimate from catch and effort data.}
+\title{Computes the Leslie or DeLury population estimate from catch and effort data.}
 \usage{
 depletion(catch, effort, method = c("Leslie", "DeLury", "Delury"),
   Ricker.mod = FALSE)
@@ -42,7 +42,7 @@ depletion(catch, effort, method = c("Leslie", "DeLury", "Delury"),
 
 \item{verbose}{A logical that indicates whether a reminder of the method used should be printed with the summary results.}
 
-\item{level}{Same as \code{conf.level} but used for compatability with generic \code{confint} function.}
+\item{level}{Same as \code{conf.level} but used for compatibility with generic \code{confint} function.}
 
 \item{conf.level}{A single number that represents the level of confidence to use for constructing confidence intervals.}
 
@@ -71,24 +71,24 @@ depletion(catch, effort, method = c("Leslie", "DeLury", "Delury"),
 \value{
 A list with the following items:
  \itemize{
-   \item method A string that indicates whether the \code{"Leslie"} or \code{"Delury"} model was used.
+   \item method A string that indicates whether the \code{"Leslie"} or \code{"DeLury"} model was used.
    \item catch The original vector of catches.
-   \item effort The orginal vector of efforts.
+   \item effort The original vector of efforts.
    \item cpe A computed vector of catch-per-unit-effort for each time.
-   \item KorE A computed vector of cumulative catch (K; Leslie method) or effort (E; Delury method).
-   \item lm The \code{lm} object from the fit of CPE on K (Leslie method) or log(CPE) on E (Delury method).
+   \item KorE A computed vector of cumulative catch (K; Leslie method) or effort (E; DeLury method).
+   \item lm The \code{lm} object from the fit of CPE on K (Leslie method) or log(CPE) on E (DeLury method).
    \item est A 2x2 matrix that contains the estimates and standard errors for No and q.
  }
 }
 \description{
-Computes the Leslie or Delury estimates of population size and catchability coefficient from paired catch and effort data.  The Ricker modification may also be used.
+Computes the Leslie or DeLury estimates of population size and catchability coefficient from paired catch and effort data.  The Ricker modification may also be used.
 }
 \details{
 For the Leslie method, a linear regression model of catch-per-unit-effort on cumulative catch prior to the sample is fit.  The catchability coefficient (q) is estimated from the negative of the slope and the initial population size (No) is estimated by dividing the intercept by the catchability coefficient.  If \code{Ricker.mod=TRUE} then the cumulative catch is modified to be the cumulative catch prior to the sample plus half of the catch of the current sample.
 
 For the DeLury method, a linear regression model of log (catch-per-unit-effort) on cumulative effort is fit.  The catchability coefficient (q) is estimated from the negative of the slope and the initial population size (No) is estimated by dividing the intercept as an exponent of e by the catchability coefficient.  If \code{Ricker.mod=TRUE} then the cumulative effort is modified to be the cumulative effort prior to the sample plus half of the effort of the current sample.
 
-Standard errors for the catchability and population size estimates are computed fronm formulas on page 298 (for Leslie) and 303 (for DeLury) from Seber (2002).  Confidence intervals are computed using standard large-sample normal distribution theory with the regression error df.
+Standard errors for the catchability and population size estimates are computed from formulas on page 298 (for Leslie) and 303 (for DeLury) from Seber (2002).  Confidence intervals are computed using standard large-sample normal distribution theory with the regression error df.
 }
 \section{testing}{
   The Leslie method without the Ricker modification and the DeLury method with the Ricker modification matches the results from \code{\link[fishmethods]{deplet}} in \pkg{fishmethods} for the \code{\link[fishmethods]{darter}} (from \pkg{fishmethods}), \code{\link[FSAdata]{LobsterPEI}} and \code{\link[FSAdata]{BlueCrab}} from \pkg{FSAdata}, and \code{\link{SMBassLS}} for N0 to whole numbers, the SE for No to one decimal, q to seven decimals, and the SE of q to at least five decimals.
@@ -122,9 +122,9 @@ summary(l2)
 cbind(Est=coef(l2),confint(l1))
 plot(l2)
 
-## Delury model examples
+## DeLury model examples
 # no Ricker modification
-d1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Delury")
+d1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="DeLury")
 summary(d1)
 summary(d1,parm="q")
 summary(d1,verbose=TRUE)
@@ -133,7 +133,7 @@ summary(d1,parm="lm")
 plot(d1)
 
 # with Ricker modification
-d2 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Delury",Ricker.mod=TRUE)
+d2 <- depletion(SMBassLS$catch,SMBassLS$effort,method="DeLury",Ricker.mod=TRUE)
 summary(d2)
 cbind(Est=coef(d2),confint(d2))
 cbind(Est=coef(d2,parm="q"),confint(d2,parm="q"))

@@ -25,7 +25,7 @@ htest(object, ...)
 
 \item{parm}{An integer that indicates which parameter to compute the confidence interval or hypothesis test for.  The confidence interval Will be computed for all parameters if \code{NULL}.}
 
-\item{level}{Same as \code{conf.level}.  Used for compatability with the main \code{confint}.}
+\item{level}{Same as \code{conf.level}.  Used for compatibility with the main \code{confint}.}
 
 \item{conf.level}{A level of confidence as a proportion.}
 

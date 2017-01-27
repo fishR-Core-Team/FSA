@@ -22,9 +22,9 @@ plotBinResp(x, ...)
 
 \item{y}{A binary response variable.}
 
-\item{xlab}{A string for labelling the x-axis.}
+\item{xlab}{A string for labeling the x-axis.}
 
-\item{ylab}{A string for labelling the y-axis.}
+\item{ylab}{A string for labeling the y-axis.}
 
 \item{plot.pts}{A logical that indicates (\code{TRUE} (default)) whether the points should be plotted (\code{TRUE}; default) or not (\code{FALSE}).}
 

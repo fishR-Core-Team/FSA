@@ -22,7 +22,7 @@
 #' @param exclude A string that contains the level that should be excluded from a factor variable.
 #' @param data A data.frame that contains the variables in \code{formula}.
 #' @param nvalid A string that indicates how the \dQuote{validn} result will be handled.  If \code{"always"} then \dQuote{validn} will always be shown and if \code{"never"} then \dQuote{validn} will never be shown.  However, if \code{"different"} (DEFAULT), then \dQuote{validn} will only be shown if it differs from \dQuote{n} (or if at least one group differs from \dQuote{n} when summarized by multiple groups).
-#' @param percZero A string that indicates how the \dQuote{percZero} result will be handled.  If \code{"always"} then \dQuote{percZero} will always be shown and if \code{"never"} then \dQuote{percZero} will never be shown.  However, if \code{"different"} (DEFAULT), then \dQuote{percZero} will only be shown if it is greater than zero (or if at least one group is greater than zero when summarized by muliple groups).
+#' @param percZero A string that indicates how the \dQuote{percZero} result will be handled.  If \code{"always"} then \dQuote{percZero} will always be shown and if \code{"never"} then \dQuote{percZero} will never be shown.  However, if \code{"different"} (DEFAULT), then \dQuote{percZero} will only be shown if it is greater than zero (or if at least one group is greater than zero when summarized by multiple groups).
 #' @param \dots Not implemented.
 #'
 #' @return A named vector or data frame (when a quantitative variable is separated by one or two factor variables) of summary statistics for numeric data.
@@ -53,7 +53,7 @@
 #' Summarize(y~1,data=d,digits=3)
 #'
 #' # note that nvalid is not shown if there are no NAs and
-#' #   percZero is not shown if there are no zeroes
+#' #   percZero is not shown if there are no zeros
 #' Summarize(~w,data=d,digits=3)
 #' Summarize(~v,data=d,digits=3)
 #' 
@@ -137,8 +137,8 @@ iSummarizeQ1 <- function(object,digits,na.rm,nvalid,percZero) {
   n <- length(object)
   ## get nvalid and number of NAs
   n.valid <- validn(object)
-  ## count zeroes (must get rid of NAs first ... 
-  ##    otherwise counted as zeroes)
+  ## count zeros (must get rid of NAs first ... 
+  ##    otherwise counted as zeros)
   tmp <- object[!is.na(object)]
   zrs <- length(tmp[tmp==0])
   ## compute mean and sd

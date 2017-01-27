@@ -16,7 +16,7 @@ diags(x, which = 0, incl.labels = c("none", "row", "column"),
 
 \item{val.name}{A single string to name the variable that contains the values from the diagonal in the returned data.frame.}
 
-\item{label.name}{A single string to name the variable that contains the lavels in the returned data.frame (see \code{incl.labels})}
+\item{label.name}{A single string to name the variable that contains the labels in the returned data.frame (see \code{incl.labels})}
 }
 \value{
 A data.frame with one variable that contains the values from the chosen diagonal of \code{x} and, optionally, a second variable that contains the chosen labels for those values.

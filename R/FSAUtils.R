@@ -499,7 +499,7 @@ hoCoef <- function(object,term=2,bo=0,alt=c("two.sided","less","greater")) {
 #'
 #' @param x A numeric vector or matrix.
 #' @param lag An integer representing the lag \sQuote{distance}.
-#' @param direction A string that indicates the direction of calculation.  A \code{"backward"} indicates that \sQuote{latter} values are divided by \sQuote{former} values.  A \code{"forward"} induicates that \sQuote{former} values are divided by \sQuote{latter} values.  See examples.
+#' @param direction A string that indicates the direction of calculation.  A \code{"backward"} indicates that \sQuote{latter} values are divided by \sQuote{former} values.  A \code{"forward"} indicates that \sQuote{former} values are divided by \sQuote{latter} values.  See examples.
 #' @param recursion An integer that indicates the level of recursion for the calculations.  A \code{1} will simply compute the ratios.  A \code{2}, for example, will compute the ratios, save the result, and then compute the ratios of the results using the same \code{lag}.  See examples.
 #' @param differences Same as \code{recursion}.  Used for symmetry with \code{\link[base]{diff}}.
 #' @param \dots Additional arguments to \code{diff()}.
@@ -533,7 +533,7 @@ hoCoef <- function(object,term=2,bo=0,alt=c("two.sided","less","greater")) {
 lagratio <- function(x,lag=1L,recursion=1L,differences=recursion,direction=c("backward","forward"),...) {
   ## Some checks
   direction <- match.arg(direction)
-  if(any(x==0)) STOP("Will not work with zeroes in 'x'.")
+  if(any(x==0)) STOP("Will not work with zeros in 'x'.")
   if(any(class(x) %in% c("POSIXt","POSIXct"))) STOP("Function does not work for 'POSIXt' objects.")
   if (!recursion>0) STOP("'recursion' value must be >0.")
   ## Flip vector if ratio direction is forward
@@ -987,7 +987,7 @@ validn <- function(object) {
 #' geomean(d)
 #' geosd(d)
 #' 
-#' ## Demonstrate handling of zeroes and negative values
+#' ## Demonstrate handling of zeros and negative values
 #' x <- seq(0,5)
 #' # this will given an error
 #' try(geomean(x))

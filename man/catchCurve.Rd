@@ -48,13 +48,13 @@ catchCurve(x, ...)
 
 \item{parm}{A numeric or string (of parameter names) vector that specifies which parameters are to be given confidence intervals.  If \code{parm="lm"} then confidence intervals for the underlying linear model are returned.}
 
-\item{level}{Same as \code{conf.level}.  Used for compatability with the generic \code{confint} function.}
+\item{level}{Same as \code{conf.level}.  Used for compatibility with the generic \code{confint} function.}
 
 \item{conf.level}{A number representing the level of confidence to use for constructing confidence intervals.}
 
 \item{pos.est}{A string to identify where to place the estimated mortality rates on the plot.  Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot.  Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements.  Set \code{pos.est} to \code{NULL} to remove the estimated mortality rates from the plot.}
 
-\item{cex.est}{A single numeric characther expansion value for the estimated mortaliry rates on the plot.}
+\item{cex.est}{A single numeric character expansion value for the estimated mortality rates on the plot.}
 
 \item{ylab}{A label for the y-axis (\code{"log(Catch)"} is the default).}
 

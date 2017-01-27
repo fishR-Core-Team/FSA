@@ -2,7 +2,7 @@ context("Summmarize() OUTPUT and VALIDATE")
 source("EXS_Summarize.R")
 
 test_that("Summarize() results, single quantitative variable",{
-  ## no NAs or zeroes
+  ## no NAs or zeros
   exp <- c(9,9,15,sd(d1$q2),11,13,15,17,19,0)  # all possible results
   names(exp) <- qnms1
   tmp <- Summarize(~q2,data=d1)
@@ -18,7 +18,7 @@ test_that("Summarize() results, single quantitative variable",{
   expect_is(tmp,"numeric")
   expect_equal(tmp,exp)
   
-  ## no NAs, but zeroes
+  ## no NAs, but zeros
   exp <- c(9,9,4,sd(d1$q1),0,2,4,6,8,1/9*100)  # all possible results
   names(exp) <- qnms1
   tmp <- Summarize(~q1,data=d1)
@@ -34,7 +34,7 @@ test_that("Summarize() results, single quantitative variable",{
   expect_is(tmp,"numeric")
   expect_equal(tmp,exp)
   
-  ## NAs and zeroes
+  ## NAs and zeros
   exp <- c(9,8,3.5,round(sd(d1$q4,na.rm=TRUE),getOption("digits"))
            ,0,1.75,3.5,5.25,7,1/8*100)  # all possible results
   names(exp) <- qnms1
@@ -53,7 +53,7 @@ test_that("Summarize() results, single quantitative variable",{
 })
 
 test_that("Summarize() results, quantitative variable by single factor",{
-  ## no NAs or zeroes
+  ## no NAs or zeros
   exp <- data.frame(f1=c("A","B","C"),n=rep(3,3),nvalid=rep(3,3),
                     mean=c(12,15,18),sd=rep(1,3),min=c(11,14,17),
                     Q1=c(11,14,17)+0.5,median=c(12,15,18),Q3=c(12,15,18)+0.5,
@@ -68,7 +68,7 @@ test_that("Summarize() results, quantitative variable by single factor",{
   tmp <- Summarize(q2~f1,data=d1,nvalid="always",percZero="always")
   expect_equal(tmp,exp)            # drop nvalid & percZero from expectations
   
-  ## no NAs, but zeroes
+  ## no NAs, but zeros
   exp <- data.frame(f1=c("A","B","C"),n=rep(3,3),nvalid=rep(3,3),
                     mean=c(1,4,7),sd=rep(1,3),min=c(0,3,6),
                     Q1=c(0,3,6)+0.5,median=c(1,4,7),Q3=c(1,4,7)+0.5,
@@ -83,7 +83,7 @@ test_that("Summarize() results, quantitative variable by single factor",{
   tmp <- Summarize(q1~f1,data=d1,nvalid="always")
   expect_equal(tmp,exp)
   
-  ## NAs and zeroes
+  ## NAs and zeros
   exp <- data.frame(f1=c("A","B","C"),n=rep(3,3),nvalid=c(2,3,3),
                     mean=c(0.5,3,6),sd=round(c(sqrt(2)/2,1,1),getOption("digits")),min=c(0,2,5),
                     Q1=c(0.25,2.5,5.5),median=c(0.5,3,6),Q3=c(0.75,3.5,6.5),

@@ -2,7 +2,7 @@
 % Please edit documentation in R/srStarts.R
 \name{srStarts}
 \alias{srStarts}
-\title{Finds reasonable starting values for parameters in specific paramaterizations of common stock-recruitment models.}
+\title{Finds reasonable starting values for parameters in specific parameterizations of common stock-recruitment models.}
 \usage{
 srStarts(formula, data = NULL, type = c("BevertonHolt", "Ricker",
   "Shepherd", "SailaLorda", "independence"), param = 1, plot = FALSE,

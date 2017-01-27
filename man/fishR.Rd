@@ -10,7 +10,7 @@ fishR(where = c("home", "IFAR", "general", "books", "AIFFD", "posts", "news"))
 \item{where}{A string that indicates a particular page on the fishR website to open.}
 }
 \value{
-None, but a webpage will be opened in the default browswer.
+None, but a webpage will be opened in the default browser.
 }
 \description{
 Opens web pages associated with the \href{http://derekogle.com/fishR/}{fishR website} in a browser.  The user can open the main page or choose a specific page to open.

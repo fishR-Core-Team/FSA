@@ -44,7 +44,7 @@
 #' @param p.col A color to plot the proportions.
 #' @param p.pch A plotting character for plotting the proportions.
 #' @param p.cex A character expansion factor for plotting the proportions.
-#' @param mdl.vals A numer representing the number of values to use for plotting the logistic regression.  A larger number means a smoother line.
+#' @param mdl.vals A numeric that represents the number of values to use for plotting the logistic regression.  A larger number means a smoother line.
 #' @param xlim A vector of length two to control the x-axis in the logistic regression plot.  If this is changed from the default then the domain over which the logistic regression model is plotted will change.
 #' @param ylim A vector of length two to control the y-axis in the nonlinear regression plot.
 #' @param yaxis1.ticks A numeric vector that indicates where tick marks should be placed on the left y-axis (for the proportion of \sQuote{successes}) for the logistic regression plot.

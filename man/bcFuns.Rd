@@ -18,7 +18,7 @@ A function that can be used to predict length at previous age (Li) given length-
 Creates a function for a specific back-calculation model based on definitions in Vigliola and Meekan (2009).
 }
 \details{
-The following back-calculation models, based on definitions with abbreviations and model numbers from Vigloila and Meekan (2009), are supported.
+The following back-calculation models, based on definitions with abbreviations and model numbers from Vigliola and Meekan (2009), are supported.
 
 \tabular{ccl}{
 \bold{Abbreviation} \tab \bold{Number} \tab \bold{Model} \cr

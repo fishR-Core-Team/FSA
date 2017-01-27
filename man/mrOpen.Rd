@@ -35,7 +35,7 @@ mrOpen(mb.top, mb.bot = NULL, type = c("Jolly", "Manly"),
 
 \item{verbose}{A logical that indicates if the observables and other notes should be printed in \code{summary} and if the type of confidence interval used should be printed in \code{confint}.  See details.}
 
-\item{level}{Same as \code{conf.level} but used for compatability with generic \code{confint} function.}
+\item{level}{Same as \code{conf.level} but used for compatibility with generic \code{confint} function.}
 
 \item{\dots}{Additional arguments for methods.}
 }

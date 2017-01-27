@@ -31,8 +31,8 @@ test_that("psdCI() messages",{
   ## problems with indicator vector
   ipsd <- c(0.130,0.491,0.253,0.123)
   n <- 445
-  # all zeroes
-  expect_error(psdCI(c(0,0,0,0),ipsd,n),"cannot be all zeroes")
+  # all zeros
+  expect_error(psdCI(c(0,0,0,0),ipsd,n),"cannot be all zeros")
   # all ones
   expect_error(psdCI(c(1,1,1,1),ipsd,n),"cannot be all ones")
   # wrong length of indvec

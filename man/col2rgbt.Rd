@@ -15,7 +15,7 @@ col2rgbt(col, transp = 1)
 A vector of hexadecimal strings of the form "#rrggbbaa" as would be returned by \code{\link[grDevices]{rgb}}.
 }
 \description{
-Converts an R color to RGB (red/green/blue) including a transparency (alpha channel).  Similar to \code{\link[grDevices]{col2rgb}} except that a transparncy (alpha channel) can be included.
+Converts an R color to RGB (red/green/blue) including a transparency (alpha channel).  Similar to \code{\link[grDevices]{col2rgb}} except that a transparency (alpha channel) can be included.
 }
 \examples{
 col2rgbt("black")

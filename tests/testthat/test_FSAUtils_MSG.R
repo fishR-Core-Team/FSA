@@ -62,7 +62,7 @@ test_that("geomean() / geosd() messages",{
   expect_error(geosd(c(0,1:3)),"all positive values")
   expect_error(geomean(c(NA,1:3)),"missing value")
   expect_error(geosd(c(NA,1:3)),"missing value")
-  ## Handling Negatives or Zeroes
+  ## Handling Negatives or Zeros
   expect_warning(geomean(c(-1,1:3),zneg.rm=TRUE),"non-positive values were ignored")
   expect_warning(geosd(c(-1,1:3),zneg.rm=TRUE),"non-positive values were ignored")
   expect_warning(geomean(c(0,1:3),zneg.rm=TRUE),"non-positive values were ignored")
@@ -103,7 +103,7 @@ test_that("hoCoef() messages",{
 
 test_that("lagratio() messages",{
   ## check error messages
-  expect_error(lagratio(0:5),"zeroes")
+  expect_error(lagratio(0:5),"zeros")
   expect_error(lagratio(.leap.seconds),"POSIXt")
   expect_error(lagratio(1:5,direction="derek"),"one of")
   expect_error(lagratio(1:5,recursion=-1),"recursion")

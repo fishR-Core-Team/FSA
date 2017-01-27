@@ -38,7 +38,7 @@ d <- rlnorm(500,meanlog=0,sdlog=1)
 geomean(d)
 geosd(d)
 
-## Demonstrate handling of zeroes and negative values
+## Demonstrate handling of zeros and negative values
 x <- seq(0,5)
 # this will given an error
 try(geomean(x))

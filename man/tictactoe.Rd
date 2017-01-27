@@ -23,7 +23,7 @@ tictactoe(predobj = c(30, 70), preyobj = c(30, 70),
 
 \item{bnd.col}{A string that indicates a color for the boundaries of the target objective regions.}
 
-\item{bnd.lwd}{A numeric that indicates the line width for the boundaries of the target objectve regions.}
+\item{bnd.lwd}{A numeric that indicates the line width for the boundaries of the target objective regions.}
 
 \item{bnd.lty}{A numeric that indicates the line type for the boundaries of the target objective regions.}
 }

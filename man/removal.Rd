@@ -42,7 +42,7 @@ removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
 
 \item{verbose}{A logical that indicates whether descriptive labels should be printed from \code{summary} and if certain warnings are shown with \code{confint}.}
 
-\item{level}{Note used, but her for compatability with generic \code{confint} function.}
+\item{level}{Note used, but her for compatibility with generic \code{confint} function.}
 
 \item{\dots}{Additional arguments for methods.}
 }
@@ -83,13 +83,13 @@ Confidence intervals for the last two methods use likelihood ratio theory as des
 In the Carle Strub method, if the resultant No estimate is equal to the sum of the catches (T) then the estimate of No that is returned will be the sum of the catches.  In this instance, and if the \dQuote{Seber} method of computing the standard error is used, then the SE will not be estimable and the confidence intervals can not be constructed.
 }
 \section{testing}{
- The Carle-Strub method matches the examples in Carle and Strub (1978) for No, p, and the variance of No.  The Carle-Strub estimates of No and p match the examples in Cowx (1983) but the SE of No does not.  The Carle-Strub estimates of No match the results (for estimates that they did not reject) from Jones and Stockwell (1995) to within 1 individual in most instances and within 1\% for all other instances (e.g., off by 3 individuals when the esitmate was 930 individuals).
+ The Carle-Strub method matches the examples in Carle and Strub (1978) for No, p, and the variance of No.  The Carle-Strub estimates of No and p match the examples in Cowx (1983) but the SE of No does not.  The Carle-Strub estimates of No match the results (for estimates that they did not reject) from Jones and Stockwell (1995) to within 1 individual in most instances and within 1\% for all other instances (e.g., off by 3 individuals when the estimate was 930 individuals).
 
 The Seber3 results for No match the results in Cowx (1983).
 
 The Seber2 results for No, p, and the SE of No match the results in example 7.4 of Seber (2002) and in Cowx (1983).
 
-The RobsonRegier2 results for No and the SE of NO match the resultsin Cowx (1983)
+The RobsonRegier2 results for No and the SE of NO match the results in Cowx (1983)
 
 The Zippin method results do not match the examples in Seber (2002) or Cowx (1983) because \code{removal} uses the bias-corrected version from Carle and Strub (1978) and does not use the tables in Zippin (1958).  The Zippin method is not yet trustworthy.
 

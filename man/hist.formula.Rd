@@ -19,7 +19,7 @@
 
 \item{right}{A logical that indicates if the histogram bins are right-closed (left open) intervals (\code{=TRUE}) or not (\code{=FALSE}; default).}
 
-\item{pre.main}{A character string to be used as a prefix for the main title when multiplie histograms are produced.  See details.}
+\item{pre.main}{A character string to be used as a prefix for the main title when multiple histograms are produced.  See details.}
 
 \item{xlab}{A character label for the x-axis.  Defaults to name of quantitative variable in \code{formula}.}
 
@@ -31,7 +31,7 @@
 
 \item{w}{A single numeric that indicates the width of the bins to use.  The bins will start at \dQuote{rounded} values depending on the value of \code{w}.  See \code{\link{lencat}} for more details.}
 
-\item{same.ylim}{A logicial that indicates whether the same limits for the y-axis should be used on each histogram.  Defaults to \code{TRUE}.}
+\item{same.ylim}{A logical that indicates whether the same limits for the y-axis should be used on each histogram.  Defaults to \code{TRUE}.}
 
 \item{ymax}{A single value that sets the maximum y-axis limit for each histogram or a vector of length equal to the number of groups that sets the maximum y-axis limit for each histogram separately.  If \code{NULL} (default), then a value will be found.}
 
@@ -63,7 +63,7 @@ The function produces a single (but see below) graphic that consists of a grid o
 
 The default for \code{right=} is not the same as that used in \code{hist()} from \pkg{graphics}.  Thus, right-open (left-closed) bins are the default.
 
-The \code{iaxs=} argument defaulats to \code{TRUE} so that \code{xaxs="i"} and \code{yaxs="i"} are used for both axes, which eliminates the \dQuote{floating} x-axis that R typically plots for histograms.
+The \code{iaxs=} argument defaults to \code{TRUE} so that \code{xaxs="i"} and \code{yaxs="i"} are used for both axes, which eliminates the \dQuote{floating} x-axis that R typically plots for histograms.
 }
 \note{
 Students often need to look at the distribution of a quantitative variable separated for different levels of a categorical variable.  One method for examining these distributions is with \code{boxplot(quantitative~factor)}.  Other methods use functions in \pkg{Lattice} and \pkg{ggplots2} but these packages have some learning \sQuote{overhead} for newbie students.  The formula notation, however, is a common way in R to tell R to separate a quantitative variable by the levels of a factor.  Thus, this function adds code for formulas to the generic \code{hist} function.  This allows newbie students to use a common notation (i.e., formula) to easily create multiple histograms of a quantitative variable separated by the levels of a factor.

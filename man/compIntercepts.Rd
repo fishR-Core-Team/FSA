@@ -28,7 +28,7 @@ A list with the following four components:
 \tabular{ll}{
 \code{comparison} \tab The comparison results as returned from \code{\link[stats]{TukeyHSD}}.\cr
 \code{common.cov} \tab The value of the common covariate sent in \code{common.cov}.\cr
-\code{adjvals} \tab A vector of values of the repsonse variable adjusted to the \code{common.cov} value of the covariate.  This vector can be appended to the original data frame to construct summary statistics for the adjusted values (e.g., mean adjusted value for each group).\cr 
+\code{adjvals} \tab A vector of values of the response variable adjusted to the \code{common.cov} value of the covariate.  This vector can be appended to the original data frame to construct summary statistics for the adjusted values (e.g., mean adjusted value for each group).\cr 
 \code{means} \tab A vector of mean adjusted values at the value of the common covariate.\cr 
 \code{digits} \tab The value sent in \code{digits}.\cr 
 \code{rnm} \tab The name of the response (LHS) variable.\cr
