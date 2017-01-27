@@ -2,7 +2,7 @@
 #'
 #' @description Ages and lengths for a hypothetical sample in Westerheim and Ricker (1979).
 #'
-#' @details Age-length data in 5-cm increments taken exactly from Table 2A of the source which was a sample from a hypothetical poplation in which year-class strength varied in the ratio 2:1 and the rate of increase in length decreased with age.  Actual lengths in each 5-cm interval were simulated with a uniform distribution.  The aged fish in this file were randomly selected and an assessed age was assigned according to the information in Table 2A.
+#' @details Age-length data in 5-cm increments taken exactly from Table 2A of the source which was a sample from a hypothetical population in which year-class strength varied in the ratio 2:1 and the rate of increase in length decreased with age.  Actual lengths in each 5-cm interval were simulated with a uniform distribution.  The aged fish in this file were randomly selected and an assessed age was assigned according to the information in Table 2A.
 #'
 #' @name WR79
 #'

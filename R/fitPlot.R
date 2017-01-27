@@ -16,16 +16,16 @@
 #' @param interval In SLR or IVR, a string that indicates whether to plot confidence (\code{="confidence"}) or prediction (\code{="prediction"}) intervals.  For a SLR object both can be plotted by using \code{="both"}.  In one-way or two-way ANOVA, a logical that indicates whether the confidence intervals should be plotted or not.
 #' @param conf.level A decimal numeric that indicates the level of confidence to use for confidence and prediction intervals.
 #' @param plot.pts A logical that indicates (\code{TRUE} (default)) whether the points are plotted along with the fitted lines.  Set to \code{FALSE} to plot just the fitted lines.
-#' @param pch A numeric or vector of numerics that indicates what plotting characther codes should be used.  In SLR this is the single value to be used for all points.  In IVR a vector is used to identify the characters for the levels of the second factor.
-#' @param col A vector of color names or numbers or the name of a paletted (see details) that indicates what color of points and lines to use for the levels of the first factor in an IVR or the second factor in a two-way ANOVA.
+#' @param pch A numeric or vector of numerics that indicates what plotting character codes should be used.  In SLR this is the single value to be used for all points.  In IVR a vector is used to identify the characters for the levels of the second factor.
+#' @param col A vector of color names or numbers or the name of a palette (see details) that indicates what color of points and lines to use for the levels of the first factor in an IVR or the second factor in a two-way ANOVA.
 #' @param col.pt A string used to indicate the color of the plotted points.  Used only for SLR and logistic regression objects.
 #' @param col.mdl A string used to indicate the color of the fitted line.  Used only for SLR and logistic regression objects.
 #' @param lwd A numeric used to indicate the line width of the fitted line.  
 #' @param lty A numeric or vector of numerics used to indicate the type of line used for the fitted line.  In SLR this is a single value to be used for the fitted line.  In IVR a vector is used to identify the line types for the levels of the second factor.  See \code{par}.
 #' @param lty.ci a numeric used to indicate the type of line used for the confidence band lines for SLR objects or interval lines for one-way and two-way ANOVA.  For IVR, the confidence band types are controlled by \code{lty}.
 #' @param lty.pi a numeric used to indicate the type of line used for the prediction band lines for SLR objects.  For IVR, the prediction band types are controlled by \code{lty}.  See \code{par}.
-#' @param xlab a string for labelling the x-axis.
-#' @param ylab a string for labelling the y-axis.
+#' @param xlab a string for labeling the x-axis.
+#' @param ylab a string for labeling the y-axis.
 #' @param main a string for the main label to the plot.  Defaults to the model call.
 #' @param legend Controls use and placement of the legend.  See details.
 #' @param type The type of graphic to construct in a one-way and two-way ANOVA.  If \code{"b"} then points are plotted and lines are used to connect points (DEFAULT).  If \code{"p"} then only points are used and if \code{"l"} then only lines are drawn.
@@ -35,7 +35,7 @@
 #' @param change.order A logical that is used to change the order of the factors in the \code{lm} object.  This is used to change which factor is plotted on the x-axis and which is used to connect the means when constructing an interaction plot (ignored if \code{which} is used).
 #' @param cex.leg A single numeric values used to represent the character expansion value for the legend.  Ignored if \code{legend=FALSE}.
 #' @param box.lty.leg A single numeric values used to indicate the type of line to use for the box around the legend.  The default is to not plot a box.
-#' @param d A data frame that contains the variabls used in construction of the \code{nls} object.
+#' @param d A data frame that contains the variables used in construction of the \code{nls} object.
 #' @param jittered A logical that indicates whether the points should be jittered horizontally.
 #' @param legend.lbls A vector of strings that will be the labels for the legend in an nls fitPlot graphic.
 #' @param transparency A numeric that indicates how many points would be plotted on top of each other in a logistic regression before the \sQuote{point} would have the full \code{pt.col} color.  The reciprocal of this value is the alpha transparency value.

@@ -47,7 +47,7 @@
 #' 1100 \tab 2; \cr
 #' }
 #'
-#' The \code{\link[RMark:ABeginnersGuide]{RMark}} and \pkg{marked} are packages used to replace some of the functionality of MARK or to interact with MARK.  The \dQuote{RMark} or \dQuote{marked} format requires the capture histories as one string (must be a character string and called \sQuote{ch}), as in the \dQuote{MARK} format, but without the semicolon.  The data.frame may be augmented with an indentifier for individual fish OR with a frequency variable.  If augmented with a unique fish identification variable then the same data from above looks like:
+#' The \code{\link[RMark:ABeginnersGuide]{RMark}} and \pkg{marked} are packages used to replace some of the functionality of MARK or to interact with MARK.  The \dQuote{RMark} or \dQuote{marked} format requires the capture histories as one string (must be a character string and called \sQuote{ch}), as in the \dQuote{MARK} format, but without the semicolon.  The data.frame may be augmented with an identifier for individual fish OR with a frequency variable.  If augmented with a unique fish identification variable then the same data from above looks like:
 #'
 #' \tabular{cc}{
 #' fish \tab ch \cr
@@ -77,7 +77,7 @@
 #' @param out.type A single string that indicates the type of capture history format to convert \bold{TO}.
 #' @param id A string or numeric that indicates the column in \code{df} that contains the unique identifier for an individual fish.  This argument is only used if \code{in.type="event"}, \code{in.type="individual"}, or, possibly, \code{in.type="RMark"}.
 #' @param freq A string or numeric that indicates the column in \code{df} that contains the frequency of individual fish corresponding to a capture history.  This argument is only used if \code{in.type="MARK"}, \code{in.type="frequency"}, or, possibly, \code{in.type="RMark"}.
-#' @param event.ord A string that contains a vector of ordered levels to be used when \code{in.type="event"}.  The default is to order alphabetically which may not be desirable if, for example, the events are labelled as \sQuote{first}, \sQuote{second}, \sQuote{third}, and \sQuote{fourth}.  In this case, use \code{event.ord=c("first","second","third","fourth")}.
+#' @param event.ord A string that contains a vector of ordered levels to be used when \code{in.type="event"}.  The default is to order alphabetically which may not be desirable if, for example, the events are labeled as \sQuote{first}, \sQuote{second}, \sQuote{third}, and \sQuote{fourth}.  In this case, use \code{event.ord=c("first","second","third","fourth")}.
 #' @param var.lbls A string vector of labels for the columns that contain the returned individual or frequency capture histories.  If \code{var.lbls=NULL} or the length is different then the number of events then default labels using \code{var.lbls.pre} will be used.  This argument is only used if \code{out.type="frequency"} or \code{out.type="individual"}.
 #' @param var.lbls.pre A single string used as a prefix for the labels of the columns that contain the returned individual or frequency capture histories.  This prefix will be appended with a number corresponding to the sample event.  This argument is only used if \code{out.type="frequency"} or \code{out.type="individual"} and will be ignored if a proper vector is given in \code{var.lbls}.
 #' @param include.id A logical that indicates whether a unique fish identifier variable/column should be included in the output data.frame.  This argument is only used if \code{out.type="individual"} or \code{out.type="RMark"}.

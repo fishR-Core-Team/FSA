@@ -138,7 +138,7 @@ paletteChoices <- function() c("rich","cm","default","grey","gray","heat","jet",
 
 #' @title Converts an R color to RGB (red/green/blue) including a transparency (alpha channel).
 #'
-#' @description Converts an R color to RGB (red/green/blue) including a transparency (alpha channel).  Similar to \code{\link[grDevices]{col2rgb}} except that a transparncy (alpha channel) can be included.
+#' @description Converts an R color to RGB (red/green/blue) including a transparency (alpha channel).  Similar to \code{\link[grDevices]{col2rgb}} except that a transparency (alpha channel) can be included.
 #'
 #' @param col A vector of any of the three kinds of R color specifications (i.e., either a color name (as listed by \code{\link[grDevices]{colors}}()), a hexadecimal string of the form "#rrggbb" or "#rrggbbaa" (see \code{\link[grDevices]{rgb}}), or a positive integer i meaning \code{\link[grDevices]{palette}}()[i].
 #' @param transp A numeric vector that indicates the transparency level for the color.  The transparency values must be greater than 0.  Transparency values greater than 1 are interpreted as the number of points plotted on top of each other before the transparency is lost and is, thus, transformed to the inverse of the transparency value provided.
@@ -176,7 +176,7 @@ col2rgbt <- function(col,transp=1) {
 #' @param which A single numeric that indicates which diagonal to extract.  A value of zero extracts the main diagonal, whereas negative values extract diagonals from the upper triangle and positive values extract diagonals from the lower triangle.  Diagonals further from the main diagonal have \code{which} values further from zero.  If \code{is.null(which)}, then a matrix of diagonal indices for \code{which} is shown.
 #' @param incl.labels A single string that indicates whether \code{"row"}, \code{"column"}, or no (\code{"none"}) labels from \code{x} should be returned with the values on the diagonal.  Will return numeric values if the labels are all diagonal, otherwise character labels are returned.
 #' @param val.name A single string to name the variable that contains the values from the diagonal in the returned data.frame.
-#' @param label.name A single string to name the variable that contains the lavels in the returned data.frame (see \code{incl.labels})
+#' @param label.name A single string to name the variable that contains the labels in the returned data.frame (see \code{incl.labels})
 #'
 #' @return A data.frame with one variable that contains the values from the chosen diagonal of \code{x} and, optionally, a second variable that contains the chosen labels for those values.
 #'
@@ -305,7 +305,7 @@ fact2num <- function(object) {
 #'
 #' @param where A string that indicates a particular page on the fishR website to open.
 #' 
-#' @return None, but a webpage will be opened in the default browswer.
+#' @return None, but a webpage will be opened in the default browser.
 #' 
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 
@@ -499,8 +499,8 @@ hoCoef <- function(object,term=2,bo=0,alt=c("two.sided","less","greater")) {
 #'
 #' @param x A numeric vector or matrix.
 #' @param lag An integer representing the lag \sQuote{distance}.
-#' @param direction A string that indicates the direction of calculation.  A \code{"backward"} induicates that \sQuote{latter} values are divided by \sQuote{former} values.  A \code{"forward"} induicates that \sQuote{former} values are divided by \sQuote{latter} values.  See examples.
-#' @param recursion An integeer that indicates the level of recursion for the calculations.  A \code{1} will simply compute the ratios.  A \code{2}, for example, will compute the ratios, save the result, and then compute the ratios of the results using the same \code{lag}.  See examples.
+#' @param direction A string that indicates the direction of calculation.  A \code{"backward"} indicates that \sQuote{latter} values are divided by \sQuote{former} values.  A \code{"forward"} induicates that \sQuote{former} values are divided by \sQuote{latter} values.  See examples.
+#' @param recursion An integer that indicates the level of recursion for the calculations.  A \code{1} will simply compute the ratios.  A \code{2}, for example, will compute the ratios, save the result, and then compute the ratios of the results using the same \code{lag}.  See examples.
 #' @param differences Same as \code{recursion}.  Used for symmetry with \code{\link[base]{diff}}.
 #' @param \dots Additional arguments to \code{diff()}.
 #'
@@ -552,7 +552,7 @@ lagratio <- function(x,lag=1L,recursion=1L,differences=recursion,direction=c("ba
 #' @description Constructs the correction-factor used when back-transforming log-transformed values according to the method in Sprugel (1983).  Sprugel's main formula -- exp((syx^2)/2) -- is used when syx is estimated for natural log transformed data.  He noted that a formula for any based could be constructed by multiplying the syx term by log_e(base) to give exp(((log_e(base)*syx)^2)/2).  This more general formula is implemented in this function (where, of course, if the base is exp(1) then the general formula reduces to the original specific formula.)
 #'
 #' @param obj An object from \code{lm}.
-#' @param base A single numerica value that indicates the base of the logarithm used.
+#' @param base A single numeric that indicates the base of the logarithm used.
 #'
 #' @return A numeric value that is the correction factor according to Sprugel (1983).
 #'
@@ -834,7 +834,7 @@ se <- function (x,na.rm=TRUE) {
 #'
 #' @description Subsets/filters a data frame and drops the unused levels.
 #'
-#' @details Newbie students using R expect that when a factor variable is subsetted with \code{\link{subset}} or filtered with \code{\link[dplyr]{filter}} that any original levels that are no longer used after the subsetting or flitering will be ignored.  This, however, is not the case and often results in tables with empty cells and figures with empty bars.  One remedy is to use \code{\link[gdata]{drop.levels}} from \pkg{gdata} immediately following the \code{\link{subset}} or \code{\link[dplyr]{filter}} call.  This generally becomes a repetitive sequence for most newbie students; thus, \code{Subset} and \code{filterD} incorporate these two functions into one function.
+#' @details Newbie students using R expect that when a factor variable is subsetted with \code{\link{subset}} or filtered with \code{\link[dplyr]{filter}} that any original levels that are no longer used after the subsetting or filtering will be ignored.  This, however, is not the case and often results in tables with empty cells and figures with empty bars.  One remedy is to use \code{\link[gdata]{drop.levels}} from \pkg{gdata} immediately following the \code{\link{subset}} or \code{\link[dplyr]{filter}} call.  This generally becomes a repetitive sequence for most newbie students; thus, \code{Subset} and \code{filterD} incorporate these two functions into one function.
 #' 
 #' \code{Subset} is a wrapper to \code{\link{subset}} with a catch for non-data.frames and a specific call to \code{\link[gdata]{drop.levels}} just before the data.frame is returned.  I also added an argument to allow resetting the row names.  \code{filterD} is a wrapper for \code{\link[dplyr]{filter}} from \pkg{dplyr} followed by \code{\link[gdata]{drop.levels}} just before the data.frame is returned.  Otherwise, there is no new code here.
 #' 

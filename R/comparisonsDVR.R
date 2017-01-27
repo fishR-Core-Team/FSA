@@ -2,7 +2,7 @@
 #'
 #' @description Tests for significant differences among all pairs of slopes in a dummy variable regression where the dummy variables all stem from one factor.
 #'
-#' @details In a dummy variable regression the coefficient for the interaction between the covariate (x) and a dummy variable tests for a difference in slopes between the level of the dummy variable and the reference level.  Thus, all dummy variables from a particular linear model fit only compare slopes with the reference level.  Other slope comparisons may be found by changing the reference level, which requires refitting the model.  This function automates this sequential process and produces a data.frame that shows the estimated difference, an unadjusted confidence interval for the difference, and the unadjusted and adjusted (for multiplce comparisons) p-values for testing that the difference in slopes is equal to zero for each pair of levels.  The adjusted p-values may be computed with any of the methods coded in \code{\link[stats]{p.adjust}} (see \code{\link[stats]{p.adjust.methods}}).
+#' @details In a dummy variable regression the coefficient for the interaction between the covariate (x) and a dummy variable tests for a difference in slopes between the level of the dummy variable and the reference level.  Thus, all dummy variables from a particular linear model fit only compare slopes with the reference level.  Other slope comparisons may be found by changing the reference level, which requires refitting the model.  This function automates this sequential process and produces a data.frame that shows the estimated difference, an unadjusted confidence interval for the difference, and the unadjusted and adjusted (for multiple comparisons) p-values for testing that the difference in slopes is equal to zero for each pair of levels.  The adjusted p-values may be computed with any of the methods coded in \code{\link[stats]{p.adjust}} (see \code{\link[stats]{p.adjust.methods}}).
 #' 
 #' @param mdl A \code{lm} object.
 #' @param method A string indicating the method of p-value adjustment to use.  See details and \code{\link[stats]{p.adjust.methods}}.
@@ -142,7 +142,7 @@ print.compSlopes <- function(x,...) { # nocov start
 #' \tabular{ll}{
 #' \code{comparison} \tab The comparison results as returned from \code{\link[stats]{TukeyHSD}}.\cr
 #' \code{common.cov} \tab The value of the common covariate sent in \code{common.cov}.\cr
-#' \code{adjvals} \tab A vector of values of the repsonse variable adjusted to the \code{common.cov} value of the covariate.  This vector can be appended to the original data frame to construct summary statistics for the adjusted values (e.g., mean adjusted value for each group).\cr 
+#' \code{adjvals} \tab A vector of values of the response variable adjusted to the \code{common.cov} value of the covariate.  This vector can be appended to the original data frame to construct summary statistics for the adjusted values (e.g., mean adjusted value for each group).\cr 
 #' \code{means} \tab A vector of mean adjusted values at the value of the common covariate.\cr 
 #' \code{digits} \tab The value sent in \code{digits}.\cr 
 #' \code{rnm} \tab The name of the response (LHS) variable.\cr

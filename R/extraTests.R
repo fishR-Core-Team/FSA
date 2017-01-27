@@ -2,7 +2,7 @@
 #' 
 #' @title Likelihood ratio and extra sum-of-squares tests.
 #' 
-#' @description Likelihood ratio and extra sum-of-squares tests with multiple \code{lm} or \code{nls} models nested within one common model.  This function is most useful when the nested functions are all at the same level; otherise use \code{anova()} or \code{lrtest()} which are more flexible.
+#' @description Likelihood ratio and extra sum-of-squares tests with multiple \code{lm} or \code{nls} models nested within one common model.  This function is most useful when the nested functions are all at the same level; otherwise use \code{anova()} or \code{lrtest()} which are more flexible.
 #' 
 #' @details \code{\link{anova}} and \code{\link[lmtest]{lrtest}} (from \pkg{lmtest}) provide simple methods for conducting extra sum-of-squares or likelihood ratio tests when one model is nested within another model or when there are several layers of simple models all sequentially nested within each other.  However, to compare several models that are nested at the same level with one common more complex model, then \code{anova()} and \code{lrtest()} must be repeated for each comparison.  This repetition can be eliminated with \code{lapply()} but then the output is voluminous.  This function is designed to remove the repetitiveness and to provide output that is compact and easy to read.
 #' 

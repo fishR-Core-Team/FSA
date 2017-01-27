@@ -16,7 +16,7 @@
 #' @param eventvar A string for the variable that identifies unique capture events.
 #' @param specvar A string for the variable that identifies the species captured.
 #' @param zerovar A string or vector of strings for the variable(s) that should be set equal to zero.  See details.
-#' @param na.rm A logicial that indicates if rows of df that are \code{NA} should be removed after adding the zeroes.  See details.
+#' @param na.rm A logical that indicates if rows of df that are \code{NA} should be removed after adding the zeroes.  See details.
 #' @return A data frame with the same structure as \code{df} but with rows of zero observation data appended.
 #' 
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}

@@ -8,8 +8,8 @@
 #' 
 #' A vector of length equal to the length of \code{ptbl} is given in \code{indvec} which contains zeroes and ones to identify the linear combination of values in \code{ptbl} to use to construct the confidence intervals.  For example, if \code{ptbl} has four proportions then \code{indvec=c(1,0,0,0)} would be used to construct a confidence interval for the population proportion in the first category.  Alternatively, \code{indvec=c(0,0,1,1)} would be used to construct a confidence interval for the population proportion in the last two categories.  This vector must not contain all zeroes or all ones.
 #'
-#' @param indvec A numeric vector of 0s and 1s that identify the linear combination of proprtions from \code{ptbl} that the user is interested in.  See details.
-#' @param ptbl A numeric vector or array that contains the proportion or precentage of all individuals in each length category.  See details.
+#' @param indvec A numeric vector of 0s and 1s that identify the linear combination of proportions from \code{ptbl} that the user is interested in.  See details.
+#' @param ptbl A numeric vector or array that contains the proportion or percentage of all individuals in each length category.  See details.
 #' @param n A single numeric of the number of fish used to construct \code{ptbl}.
 #' @param method A string that identifies the confidence interval method to use.  See details.
 #' @param bin.type A string that identifies the type of method to use for calculation of the confidence intervals when \R{method="binomial"}.  See details of \code{\link{binCI}}.

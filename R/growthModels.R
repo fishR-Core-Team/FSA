@@ -28,7 +28,7 @@
 #'     \item The parameterizations and parameters for the Gompertz function are varied and confusing in the literature.  I have attempted to use a uniform set of parameters in these functions, but that makes a direct comparison to the literature difficult.  Common sources for Gompertz models are listed in the references below.  I make some comments here to aid comparisons to the literature.
 #'     \item Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, ti is the age at the inflection point, gi is the instantaneous growth rate at the inflection point, t* is a dimensionless parameter related to time/age, and a is a dimensionless parameter related to growth.
 #'     \item In the Quinn and Deriso (1999) functions (the \sQuote{QuinnDerisoX} functions), the a parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there.  Also note that their Y is L here.
-#'     \item In the Ricker (1979)[p. 705] functions (the \sQuote{RickerX} functions), the a parameter here is equal to k there and the gi paramter here is equal to the g parameter there.  Also note that their w is L here.  In the Ricker (1979) functions as presented in Campana and Jones (1992), the a parameter here is equal to k parameter there and the gi paramter here is equal to the G parameter there.  Also note that their X is L here.
+#'     \item In the Ricker (1979)[p. 705] functions (the \sQuote{RickerX} functions), the a parameter here is equal to k there and the gi parameter here is equal to the g parameter there.  Also note that their w is L here.  In the Ricker (1979) functions as presented in Campana and Jones (1992), the a parameter here is equal to k parameter there and the gi paramter here is equal to the G parameter there.  Also note that their X is L here.
 #'     \item The function in Ricker (1975)[p. 232] is the same as \sQuote{Ricker2} where the a parameter here is qual to G there and the gi parameter here is equal to the g parameter there.  Also note that their w is L here.
 #'     \item The function in Quist et al. (2012)[p. 714] is the same as \sQuote{Ricker1} where the gi parameter here is equal to the G parameter there and the ti parameter here is equal to the t0 parameter there.
 #'     \item The function in Katsanevakis and Maravelias (2008) is the same as \sQuote{Ricker1} where the gi parameter here is equal to k2 parameter there and the ti parameter here is equal to the t2 parameter there.
@@ -68,7 +68,7 @@
 #'
 #' Karkach, A. S.  2006.  Trajectories and models of individual growth.  Demographic Research 15:347-400.  [Was (is?) from http://www.demographic-research.org/volumes/vol15/12/15-12.pdf.]
 #' 
-#' Katsanevakis, S. and C.D. Maravelias.  2008.  Modelling fish growth: multi-model inference as a better alternative to a priori using von Bertalanffy equation.  Fish and Fisheries 9:178-187.
+#' Katsanevakis, S. and C.D. Maravelias.  2008.  Modeling fish growth: multi-model inference as a better alternative to a priori using von Bertalanffy equation.  Fish and Fisheries 9:178-187.
 #'
 #' Mooij, W.M., J.M. Van Rooij, and S. Wijnhoven.  1999.  Analysis and comparison of fish growth from small samples of length-at-age data: Detection of sexual dimorphism in Eurasian perch as an example.  Transactions of the American Fisheries Society 128:483-490.
 #'
@@ -156,13 +156,13 @@
 #' 
 #' ## Von B
 #' data(SpotVA1)
-#' # Fitting the typical paramaterization of the von B function
+#' # Fitting the typical parameterization of the von B function
 #' fit1 <- nls(tl~vb1(age,Linf,K,t0),data=SpotVA1,start=vbStarts(tl~age,data=SpotVA1))
 #' summary(fit1,correlation=TRUE)
 #' plot(tl~age,data=SpotVA1,pch=19)
 #' curve(vb1(x,Linf=coef(fit1)),from=0,to=5,col="red",lwd=10,add=TRUE)
 #'
-#' # Fitting the Francis paramaterization of the von B function
+#' # Fitting the Francis parameterization of the von B function
 #' fit2 <- nls(tl~vb2c(age,L1,L2,L3,t1=0,t3=5),data=SpotVA1,
 #'             start=vbStarts(tl~age,data=SpotVA1,type="Francis",ages2use=c(0,5)))
 #' summary(fit2,correlation=TRUE)

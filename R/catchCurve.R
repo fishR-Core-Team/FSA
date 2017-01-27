@@ -13,7 +13,7 @@
 #' @param ages2use A numerical vector of the ages that define the descending limb of the catch curve.
 #' @param weighted A logical that indicates whether a weighted regression should be used.  See details.
 #' @param pos.est A string to identify where to place the estimated mortality rates on the plot.  Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot.  Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements.  Set \code{pos.est} to \code{NULL} to remove the estimated mortality rates from the plot.
-#' @param cex.est A single numeric characther expansion value for the estimated mortaliry rates on the plot.
+#' @param cex.est A single numeric character expansion value for the estimated mortality rates on the plot.
 #' @param ylab A label for the y-axis (\code{"log(Catch)"} is the default).
 #' @param xlab A label for the x-axis (\code{"Age"} is the default).
 #' @param col.pt A string that indicates the color of the plotted points.
@@ -22,7 +22,7 @@
 #' @param lty A numeric that indicates the type of line used for the fitted line.
 #' @param parm A numeric or string (of parameter names) vector that specifies which parameters are to be given confidence intervals.  If \code{parm="lm"} then confidence intervals for the underlying linear model are returned.
 #' @param conf.level A number representing the level of confidence to use for constructing confidence intervals.
-#' @param level Same as \code{conf.level}.  Used for compatability with the generic \code{confint} function.
+#' @param level Same as \code{conf.level}.  Used for compatibility with the generic \code{confint} function.
 #' @param \dots Additional arguments for methods.
 #'
 #' @return A list that contains the following items:

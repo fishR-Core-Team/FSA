@@ -7,7 +7,7 @@
 #' @param data A data.frame that contains the \code{freq} and \code{cat} variables if a formula is given in \code{x}.
 #' @param \dots Additional arguments for \code{\link[graphics]{hist}}.
 #'
-#' @details Creates a histogram fro values in a frequency table.  The frequency table may be constrcuted from \code{\link[stats]{xtabs}}, \code{\link{table}}, or be in the form of a matrix or a data.frame (as if read in from an external data file).
+#' @details Creates a histogram fro values in a frequency table.  The frequency table may be constructed from \code{\link[stats]{xtabs}}, \code{\link{table}}, or be in the form of a matrix or a data.frame (as if read in from an external data file).
 #'
 #' @return None, but a graphic is created.
 #'

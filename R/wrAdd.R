@@ -6,7 +6,7 @@
 #'
 #' @param wt A numeric vector that contains weight measurements or a formula of the form \code{wt~len+spec} where \dQuote{wt} generically represents the weight variable, \dQuote{len} generically represents the length variable, and \dQuote{spec} generically represents the species variable.  Note that this formula can only contain three variables and they must be in the order of weight first, length second, species third.
 #' @param len A numeric vector that contains length measurements.  Not used if \code{wt} is a formula.
-#' @param spec A character or factor vector that contains the specicas names.  Not used if \code{wt} is a formula.
+#' @param spec A character or factor vector that contains the species names.  Not used if \code{wt} is a formula.
 #' @param data A data.frame that minimally contains variables of the the observed lengths, observed weights, and the species names given in the \code{formula=}.
 #' @param units A string that indicates whether the weight and length data in \code{formula} are in (\code{"metric"} (DEFAULT; mm and g) or \code{"English"} (in and lbs) units.
 #' @param \dots Not used.

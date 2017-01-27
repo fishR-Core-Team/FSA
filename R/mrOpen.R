@@ -22,7 +22,7 @@
 #' @param object An object from \code{mrOpen} (i.e., of class \code{mrOpen}).
 #' @param verbose A logical that indicates if the observables and other notes should be printed in \code{summary} and if the type of confidence interval used should be printed in \code{confint}.  See details.
 #' @param parm A string that identifies the model parameters for which to return summaries or confidence intervals.  By default, all parameters are returned.
-#' @param level Same as \code{conf.level} but used for compatability with generic \code{confint} function.
+#' @param level Same as \code{conf.level} but used for compatibility with generic \code{confint} function.
 #' @param \dots Additional arguments for methods.
 #'
 #' @return A list with the following items:

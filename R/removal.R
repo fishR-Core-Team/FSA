@@ -26,7 +26,7 @@
 #' @param CS.se A single string that identifies whether the SE in the CarleStrub method should be computed according to Seber or Zippin.
 #' @param object An object saved from \code{removal()}.
 #' @param parm A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.
-#' @param level Note used, but her for compatability with generic \code{confint} function.
+#' @param level Note used, but her for compatibility with generic \code{confint} function.
 #' @param conf.level A single number representing the level of confidence to use for constructing confidence intervals.  This is sent in the main \code{removal} function rather than \code{confint}.
 #' @param just.ests A logical that indicates whether just the estimates (\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.
 #' @param verbose A logical that indicates whether descriptive labels should be printed from \code{summary} and if certain warnings are shown with \code{confint}.
@@ -48,13 +48,13 @@
 #'    \item Tmult The Tmult value sent by the user.
 #'  }
 #' 
-#' @section testing: The Carle-Strub method matches the examples in Carle and Strub (1978) for No, p, and the variance of No.  The Carle-Strub estimates of No and p match the examples in Cowx (1983) but the SE of No does not.  The Carle-Strub estimates of No match the results (for estimates that they did not reject) from Jones and Stockwell (1995) to within 1 individual in most instances and within 1\% for all other instances (e.g., off by 3 individuals when the esitmate was 930 individuals).
+#' @section testing: The Carle-Strub method matches the examples in Carle and Strub (1978) for No, p, and the variance of No.  The Carle-Strub estimates of No and p match the examples in Cowx (1983) but the SE of No does not.  The Carle-Strub estimates of No match the results (for estimates that they did not reject) from Jones and Stockwell (1995) to within 1 individual in most instances and within 1\% for all other instances (e.g., off by 3 individuals when the estimate was 930 individuals).
 #' 
 #' The Seber3 results for No match the results in Cowx (1983).
 #' 
 #' The Seber2 results for No, p, and the SE of No match the results in example 7.4 of Seber (2002) and in Cowx (1983).
 #' 
-#' The RobsonRegier2 results for No and the SE of NO match the resultsin Cowx (1983)
+#' The RobsonRegier2 results for No and the SE of NO match the results in Cowx (1983)
 #' 
 #' The Zippin method results do not match the examples in Seber (2002) or Cowx (1983) because \code{removal} uses the bias-corrected version from Carle and Strub (1978) and does not use the tables in Zippin (1958).  The Zippin method is not yet trustworthy.
 #' 

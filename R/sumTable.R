@@ -4,7 +4,7 @@
 #'
 #' @details The formula must be of the form \code{quantitative~factor} or \code{quantitative~factor*factor2} where \code{quantitative} is the quantitative variable to construct the summaries for and \code{factor} and \code{factor2} are factor variables that contain the levels for which separate summaries should be constructed.  If the variables on the right-hand-side are not factors, then they will be coerced to be factors and a warning will be issued.
 #'
-#' This function is largely a wrapper to \code{tapply()}, but only works for one quantitative variable on the left-hand-side and one or two factor variales on the right-hand-side.  Consider using \code{\link[base]{tapply}} for situations with more factors on the right-hand-side.
+#' This function is largely a wrapper to \code{tapply()}, but only works for one quantitative variable on the left-hand-side and one or two factor variables on the right-hand-side.  Consider using \code{\link[base]{tapply}} for situations with more factors on the right-hand-side.
 #'
 #' @aliases sumTable sumTable.formula
 #'

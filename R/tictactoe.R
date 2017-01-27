@@ -11,7 +11,7 @@
 #' @param obj.col A string designating a color to which the target objective regions should be shaded.
 #' @param obj.trans A numeric (decimal) that indicates the level of transparency for marking the target objective regions.
 #' @param bnd.col A string that indicates a color for the boundaries of the target objective regions.
-#' @param bnd.lwd A numeric that indicates the line width for the boundaries of the target objectve regions.
+#' @param bnd.lwd A numeric that indicates the line width for the boundaries of the target objective regions.
 #' @param bnd.lty A numeric that indicates the line type for the boundaries of the target objective regions.
 #'
 #' @return None.  However, a graphic is produced.

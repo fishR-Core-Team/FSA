@@ -29,7 +29,7 @@
 #' @param method A string that indicates which method or equation to use.  See details.
 #' @param justM A logical that indicates whether just the estimate of M (\code{TRUE}; Default) or a more descriptive list should be returned.
 #' @param tmax The maximum age for the population of fish.
-#' @param K The Brody growth coefficident from the fit of the von Bertalanffy growth function.
+#' @param K The Brody growth coefficient from the fit of the von Bertalanffy growth function.
 #' @param Linf The asymptotic mean length (cm) from the fit of the von Bertalanffy growth function.
 #' @param t0 The x-intercept from the fit of the von Bertalanffy growth function.
 #' @param b The exponent from the weight-length relationship (slope from the logW-logL relationship).
@@ -41,7 +41,7 @@
 #' @param digits A numeric that controls the number of digits printed for the estimate of M.
 #' @param \dots Additional arguments for methods.  Not implemented.
 #'
-#' @return \code{Mmethods} returns a charachter vector with a list of methods.  If only one \code{method} is chosen then \code{metaM} returns a single numeric if \code{justM=TRUE} or, otherwise, a \code{metaM} object that is a list with the following items:
+#' @return \code{Mmethods} returns a character vector with a list of methods.  If only one \code{method} is chosen then \code{metaM} returns a single numeric if \code{justM=TRUE} or, otherwise, a \code{metaM} object that is a list with the following items:
 #' \itemize{
 #'    \item \code{method}: The name for the method within the function (as given in \code{method}).
 #'    \item \code{name}: A more descriptive name for the method.
@@ -83,9 +83,9 @@
 #' 
 #' Rikhter, V.A., and V.N. Efanov.  1976.  On one of the approaches for estimating natural mortality in fish populations (in Russian). ICNAF Research Document 76/IV/8, 12pp. 
 #' 
-#' Then, A.Y., J.M. Hoenig, N.G. Hall, and D.A. Hewitt.  2015.  Evaluating the predictive performance of empirical estimators of natural mortality rate using informatno on over 200 fish species.  ICES Journal of Marine Science.  72:82-92.
+#' Then, A.Y., J.M. Hoenig, N.G. Hall, and D.A. Hewitt.  2015.  Evaluating the predictive performance of empirical estimators of natural mortality rate using information on over 200 fish species.  ICES Journal of Marine Science.  72:82-92.
 #' 
-#' Zhang, C-I and B.A. Megrey.  2006.  A revised Alverson and Carney model for estimating the instantaneous rate of natural mortality.  Transactions of the American Fisheries Socity.  135-620-633.  [Was (is?) from http://www.pmel.noaa.gov/foci/publications/2006/zhan0531.pdf.]
+#' Zhang, C-I and B.A. Megrey.  2006.  A revised Alverson and Carney model for estimating the instantaneous rate of natural mortality.  Transactions of the American Fisheries Society.  135-620-633.  [Was (is?) from http://www.pmel.noaa.gov/foci/publications/2006/zhan0531.pdf.]
 #' 
 #' @keywords manip 
 #'    

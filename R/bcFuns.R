@@ -5,7 +5,7 @@
 #' @param BCM A single numeric between 1 and 22 or a string that indicates which back-calculation model to use (based on numbers and names in Vigliola and Meekan (2009)).
 #' @param verbose A logical that indicates whether a message about the model and parameter definitions should be output.
 #'
-#' @details The following back-calculation models, based on definitions with abbreviations and model numbers from Vigloila and Meekan (2009), are supported.
+#' @details The following back-calculation models, based on definitions with abbreviations and model numbers from Vigliola and Meekan (2009), are supported.
 #'
 #' \tabular{ccl}{
 #' \bold{Abbreviation} \tab \bold{Number} \tab \bold{Model} \cr

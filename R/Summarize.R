@@ -21,11 +21,11 @@
 #' @param na.rm A logical that indicates whether numeric missing values (\code{NA}) should be removed (\code{=TRUE}, default) or not.
 #' @param exclude A string that contains the level that should be excluded from a factor variable.
 #' @param data A data.frame that contains the variables in \code{formula}.
-#' @param nvalid A string that indicates how the \dQuote{validn} result will be handled.  If \code{"always"} then \dQuote{validn} will always be shown and if \code{"never"} then \dQuote{validn} will never be shown.  However, if \code{"different"} (DEFAULT), then \dQuote{validn} will only be shown if it differs from \dQuote{n} (or if at least one group differs from \dQuote{n} when summarized by muliple groups).
+#' @param nvalid A string that indicates how the \dQuote{validn} result will be handled.  If \code{"always"} then \dQuote{validn} will always be shown and if \code{"never"} then \dQuote{validn} will never be shown.  However, if \code{"different"} (DEFAULT), then \dQuote{validn} will only be shown if it differs from \dQuote{n} (or if at least one group differs from \dQuote{n} when summarized by multiple groups).
 #' @param percZero A string that indicates how the \dQuote{percZero} result will be handled.  If \code{"always"} then \dQuote{percZero} will always be shown and if \code{"never"} then \dQuote{percZero} will never be shown.  However, if \code{"different"} (DEFAULT), then \dQuote{percZero} will only be shown if it is greater than zero (or if at least one group is greater than zero when summarized by muliple groups).
 #' @param \dots Not implemented.
 #'
-#' @return A named vector or data frame (when a quantitative variable is separted by one or two factor variables) of summary statistics for numeric data.
+#' @return A named vector or data frame (when a quantitative variable is separated by one or two factor variables) of summary statistics for numeric data.
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'

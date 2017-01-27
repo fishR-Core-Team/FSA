@@ -1,6 +1,6 @@
 #' @title Constructs length class/category variable.
 #'
-#' @description Constructs a vector that contains the length class or category to which an individual belongs.  Optionally, that vector can be appened to the original data frame.
+#' @description Constructs a vector that contains the length class or category to which an individual belongs.  Optionally, that vector can be appended to the original data frame.
 #'
 #' @param x A numeric vector that contains the length measurements or a formula of the form \code{~x} where \dQuote{x} generically represents a variable in \code{data} that contains length measurements.  This formula can only contain one variable.
 #' @param data A data.frame that minimally contains the length measurements given in the variable in the \code{formula}.

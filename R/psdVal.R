@@ -10,7 +10,7 @@
 #'
 #' @details Finds the Gabelhouse lengths from \code{data(PSDlit)} for the species given in \code{species}.  The species name must be spelled exactly (within capitalization differences) as it appears in \code{data(PSDlit)}.  Type \code{psdVal()} to see the list of species and how they are spelled.
 #'
-#' A zero is included in the first postion of the returned vector if \code{incl.zero=TRUE}.  This is useful when computing PSD values with a data.frame that contains fish smaller than the stock length.
+#' A zero is included in the first position of the returned vector if \code{incl.zero=TRUE}.  This is useful when computing PSD values with a data.frame that contains fish smaller than the stock length.
 #'
 #' Additional lengths may be added to the returned vector with \code{addLens}.  Names for these lengths can be included in \code{addNames}.  If \code{addNames} is non-NULL, then it must be of the same length as \code{addLens}.  If \code{addLens} is non-NULL but \code{addNames} is NULL, then the default names will be the same as the lengths in \code{addLens}.  The \code{addLens} argument is useful for calculating PSD values that are different from the Gabelhouse lengths.
 #'

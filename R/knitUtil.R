@@ -10,7 +10,7 @@
 #'    \item \code{reproInfo} is used to print \sQuote{reproducibility information} for the document.
 #'  }
 #'
-#' @note In \code{reproInfo}, \code{elapsed} can be used to print the time it took to process the document by sending the elasped time for processing to this argument.  The simplest way to get an approximate elapsed time is to put  \code{st <- proc.time()} very early (first line?) in your knitr code, put \code{et <- proc.time()-st} very late in your knitr code (i.e., just prior to \code{reproInfo}), and then used \code{elapsed=et["user.self"]+et["sys.self"]} in \code{reproInfo}.
+#' @note In \code{reproInfo}, \code{elapsed} can be used to print the time it took to process the document by sending the elapsed time for processing to this argument.  The simplest way to get an approximate elapsed time is to put  \code{st <- proc.time()} very early (first line?) in your knitr code, put \code{et <- proc.time()-st} very late in your knitr code (i.e., just prior to \code{reproInfo}), and then used \code{elapsed=et["user.self"]+et["sys.self"]} in \code{reproInfo}.
 #' 
 #' @param value A single numeric count or p-value.
 #' @param capitalize A logical that indicates if the returned words should be capitalized or not (the default).
@@ -29,8 +29,8 @@
 #' @param rqrdPkgs A string vector that contains packages that are required for the vignette and for which all dependencies should be found.
 #' @param elapsed A numeric, usually from \code{proc.time}, that is the time required to run the vignette.  If \code{NULL} then this output will not be used.  See the note below.
 #' @param width A numeric that indicates the width to use for wrapping the reproducibility information when \code{out="r"}.
-#' @param addTOC A logical that indicates whether or not a table of contents entry for the reproducibity section should be added to the LaTeX output.  Used only if \R{out="latex"}
-#' @param newpage A logical that indicates whether or not the reproduciility information should begin on a new page.  Used only if \R{out="latex"}
+#' @param addTOC A logical that indicates whether or not a table of contents entry for the reproducibility section should be added to the LaTeX output.  Used only if \R{out="latex"}
+#' @param newpage A logical that indicates whether or not the reproducibility information should begin on a new page.  Used only if \R{out="latex"}
 #' @param links A named character vector that will add a links bullet to the reproducibility information.  The names will be shown and the values are the links.  Used only if \R{out="markdown}.
 #' @param closeGraphics A logical that indicates whether the graphics device should be closed or not.
 #' @param ind An integer that indicates the CRAN mirror to use. Defaults to 1.

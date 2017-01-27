@@ -11,8 +11,8 @@
 #' @param x A quantitative explanatory variable or a formula of the form \code{factor~quant}.
 #' @param y A binary response variable.
 #' @param data The data frame from which the formula should be evaluated.
-#' @param xlab A string for labelling the x-axis.
-#' @param ylab A string for labelling the y-axis.
+#' @param xlab A string for labeling the x-axis.
+#' @param ylab A string for labeling the y-axis.
 #' @param plot.pts A logical that indicates (\code{TRUE} (default)) whether the points should be plotted (\code{TRUE}; default) or not (\code{FALSE}).
 #' @param col.pt A string used to indicate the color of the plotted points.  Will be transparent unless \code{transparency=1}.
 #' @param transparency A numeric that indicates how many points would be plotted on top of each other before the \sQuote{point} would have the full \code{col.pt} color.  The reciprocal of this value is the alpha transparency value.

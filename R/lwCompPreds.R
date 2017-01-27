@@ -16,8 +16,8 @@
 #' @param ylim A numeric vector of length two that indicates the limits of the y-axis to be used for each plot.  If null then limits will be chosen for each graph individually.
 #' @param main.pre A character string to be used as a prefix for the main title.  See details.
 #' @param cex.main A numeric value for the character expansion of the main title.  See details.
-#' @param xlab A single string for labelling the x-axis.
-#' @param ylab A single string for labelling the y-axis.
+#' @param xlab A single string for labeling the x-axis.
+#' @param ylab A single string for labeling the y-axis.
 #' @param yaxs A single string that indicates how the y-axis is formed.  See \code{par} for more details.
 #' @param rows A single numeric that contains the number of rows to use on the graphic.
 #' @param cols A single numeric that contains the number of columns to use on the graphic.
