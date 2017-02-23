@@ -9,7 +9,7 @@ FSA
 [![Travis-CI Build Status](https://travis-ci.org/droglenc/FSA.svg?branch=master)](https://travis-ci.org/droglenc/FSA)
 [![Coverage Status](https://img.shields.io/coveralls/droglenc/FSA.svg)](https://coveralls.io/r/droglenc/FSA?branch=master)
 
-[![CRAN RStudio mirror downloads rate](http://cranlogs.r-pkg.org/badges/FSA) ![CRAN RSTudio mirror downloads total](http://cranlogs.r-pkg.org/badges/grand-total/FSA)](http://www.r-pkg.org/pkg/FSA) [![Rdoc](http://www.rdocumentation.org/badges/version/FSA)](http://www.rdocumentation.org/packages/FSA)
+[![CRAN RStudio mirror downloads rate](http://cranlogs.r-pkg.org/badges/FSA) ![CRAN RSTudio mirror downloads total](http://cranlogs.r-pkg.org/badges/grand-total/FSA)](http://www.r-pkg.org/pkg/FSA) [![Research software impact](http://depsy.org/api/package/cran/FSA/badge.svg)](http://depsy.org/package/r/FSA) [![Rdoc](http://www.rdocumentation.org/badges/version/FSA)](http://www.rdocumentation.org/packages/FSA)
 
 ## Introduction
 The **FSA** (Fisheries Stock Assessment) package provides R functions to conduct typical introductory fisheries analyses.  Example analyses that use **FSA** can be found on [the *Examples* page](http://derekogle.com/fishR/examples/) of the [fishR website](http://derekogle.com/fishR).  You can [browse help pages here](http://finzi.psych.upenn.edu/library/FSA/html/00Index.html).  Recent changes are described in this [News file](https://github.com/droglenc/FSA/blob/master/NEWS.md)
