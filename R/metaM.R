@@ -34,7 +34,7 @@
 #' @param t0 The x-intercept from the fit of the von Bertalanffy growth function.
 #' @param b The exponent from the weight-length relationship (slope from the logW-logL relationship).
 #' @param L The body length of the fish (cm).
-#' @param T The temperature experienced by the fish (C).
+#' @param Temp The temperature experienced by the fish (C).
 #' @param t50 The age (time) when half the fish in the population are mature.
 #' @param Winf The asymptotic mean weight (g) from the fit of the von Bertalanffy growth function.
 #' @param x A \code{metaM} object returned from \code{metaM} when \code{justM=FALSE}.
@@ -104,15 +104,15 @@
 #'  
 #' ## Example Patagonian Sprat ... from Table 2 in Cerna et al. (2014)
 #' ## http://www.scielo.cl/pdf/lajar/v42n3/art15.pdf
-#' T <- 11
+#' Temp <- 11
 #' Linf <- 17.71
 #' K <- 0.78
 #' t0 <- -0.46
 #' tmax <- t0+3/K
 #' t50 <- t0-(1/K)*log(1-13.5/Linf)
 #' metaM("RikhterEfanov1",t50=t50)
-#' metaM("PaulyL",K=K,Linf=Linf,T=T)
-#' metaM("PaulyL",K=K,Linf=Linf,T=T,justM=FALSE)
+#' metaM("PaulyL",K=K,Linf=Linf,Temp=Temp)
+#' metaM("PaulyL",K=K,Linf=Linf,Temp=Temp,justM=FALSE)
 #' metaM("HoenigNLS",tmax=tmax)
 #' metaM("HoenigO",tmax=tmax)
 #' metaM("HewittHoenig",tmax=tmax)
@@ -120,13 +120,13 @@
 #' 
 #' ## Example of multiple calculations
 #' metaM(c("RikhterEfanov1","PaulyL","HoenigO","HewittHoenig","AlversonCarney"),
-#'      K=K,Linf=Linf,T=T,tmax=tmax,t50=t50)
+#'      K=K,Linf=Linf,Temp=Temp,tmax=tmax,t50=t50)
 #'
 #' ## Example of multiple methods using Mmethods
 #' # select some methods
-#' metaM(Mmethods()[-c(15,20,22:24,26)],K=K,Linf=Linf,T=T,tmax=tmax,t50=t50)
+#' metaM(Mmethods()[-c(15,20,22:24,26)],K=K,Linf=Linf,Temp=Temp,tmax=tmax,t50=t50)
 #' # select just the Hoenig methods
-#' metaM(Mmethods("Hoenig"),K=K,Linf=Linf,T=T,tmax=tmax,t50=t50)
+#' metaM(Mmethods("Hoenig"),K=K,Linf=Linf,Temp=Temp,tmax=tmax,t50=t50)
 #'  
 #' @rdname metaM
 #' @export
@@ -155,19 +155,19 @@ Mmethods <- function(what=c("all","tmax","K","Hoenig","Pauly")) {
 #' @export
 metaM <- function(method=Mmethods(),justM=TRUE,
                   tmax=NULL,K=NULL,Linf=NULL,t0=NULL,b=NULL,
-                  L=NULL,T=NULL,t50=NULL,Winf=NULL) {
+                  L=NULL,Temp=NULL,t50=NULL,Winf=NULL) {
   ## Get method or methods
   method <- match.arg(method,several.ok=TRUE)
   ## If only one method then one call to metaM1
-  if (length(method)==1) res <- metaM1(method,justM,tmax,K,Linf,t0,b,L,T,t50,Winf)
+  if (length(method)==1) res <- metaM1(method,justM,tmax,K,Linf,t0,b,L,Temp,t50,Winf)
   else {
   ## If multiple methods then use apply to run all at once
     if (justM) {
-      res <- apply(matrix(method),1,metaM1,justM,tmax,K,Linf,t0,b,L,T,t50,Winf)
+      res <- apply(matrix(method),1,metaM1,justM,tmax,K,Linf,t0,b,L,Temp,t50,Winf)
       ## put together as a data.frame to return
       res <- data.frame(method,M=res,stringsAsFactors=FALSE)
     } else {
-      for (i in method) print(metaM1(i,justM,tmax,K,Linf,t0,b,L,T,t50,Winf))
+      for (i in method) print(metaM1(i,justM,tmax,K,Linf,t0,b,L,Temp,t50,Winf))
       res <- NULL
     }
   }
@@ -175,9 +175,7 @@ metaM <- function(method=Mmethods(),justM=TRUE,
   res
 }
   
-metaM1 <- function(method,justM=TRUE,
-                  tmax=NULL,K=NULL,Linf=NULL,t0=NULL,b=NULL,
-                  L=NULL,T=NULL,t50=NULL,Winf=NULL,...) {
+metaM1 <- function(method,justM,tmax,K,Linf,t0,b,L,Temp,t50,Winf,...) {
   switch(method,
          tmax1 = { ## from Then et al. (2015), Table 3, 1st line
            name <- "Then et al. (2015) tmax equation"
@@ -194,16 +192,16 @@ metaM1 <- function(method,justM=TRUE,
            name <- "Pauly (1980) length equation"
            iCheck_K(K)
            iCheck_Linf(Linf)
-           iCheck_T(T)
-           givens <- c(K=K,Linf=Linf,T=T)
-           M <- 10^(-0.0066-0.279*log10(Linf)+0.6543*log10(K)+0.4634*log10(T)) },
+           iCheck_Temp(Temp)
+           givens <- c(K=K,Linf=Linf,Temp=Temp)
+           M <- 10^(-0.0066-0.279*log10(Linf)+0.6543*log10(K)+0.4634*log10(Temp)) },
          PaulyW         = { ## from Pauly (1980) Equation 10
            iCheck_K(K)
            iCheck_Winf(Winf)
-           iCheck_T(T)
+           iCheck_Temp(Temp)
            name <- "Pauly (1980) weight equation"
-           givens <- c(K=K,Winf=Winf,T=T)
-           M <- 10^(-0.2107-0.0824*log10(Winf)+0.6757*log10(K)+0.4627*log10(T)) },
+           givens <- c(K=K,Winf=Winf,Temp=Temp)
+           M <- 10^(-0.2107-0.0824*log10(Winf)+0.6757*log10(K)+0.4627*log10(Temp)) },
          HoenigO = { ## from Hoenig (1983), 4th line, 2nd column, page 899
            name <- "Hoenig (1983) combined equation (OLS)"
            iCheck_tmax(tmax)
@@ -286,13 +284,15 @@ metaM1 <- function(method,justM=TRUE,
            name <- "Gislason et al. (2010) equation"
            givens <- c(K=K,Linf=Linf,L=L)
            M <- exp(0.55-1.61*log(L)+1.44*log(Linf)+log(K)) },
-         AlversonCarney = { ## from Alverson and Carney (1975), equation 10 in Zhang & Megrey (2006)
+         AlversonCarney = {
+           ## from Alverson and Carney (1975), eqn 10 in Zhang & Megrey (2006)
            iCheck_K(K)
            iCheck_tmax(tmax)
            name <- "Alverson & Carney (1975) equation"
            givens <- c(tmax=tmax,K=K)
            M <- (3*K)/(exp(K*(0.38*tmax))-1)},
-         Charnov = { ## from Charnov et al. (2013) given on p. 545,
+         Charnov = {
+           ## from Charnov et al. (2013) given on p. 545,
            ##   2nd column of Kenchington (2014)
            iCheck_K(K)
            iCheck_Linf(Linf)
@@ -318,14 +318,16 @@ metaM1 <- function(method,justM=TRUE,
            Ci <- 0.44
            givens <- c(tmax=tmax,t0=t0,K=K,b=b,Ci=Ci)
            M <- (b*K)/(exp(K*(Ci*tmax-t0))-1)},
-         RikhterEfanov1 = { ## from Richter and Efanov (1976) as given on p. 541,
+         RikhterEfanov1 = {
+           ## from Richter and Efanov (1976) as given on p. 541,
            ##   2nd column of Kenchington (2014) and in Table 6.4
            ##   of Miranda and Bettoli (2007)
            iCheck_t50(t50)
            name <- "Richter & Evanov (1976) equation #1"
            givens <- c(t50=t50)
            M <- (1.521/(t50^0.720))-0.155 },
-         RikhterEfanov2 = { ## from Richter and Efanov (1976) as given on p. 541,
+         RikhterEfanov2 = {
+           ## from Richter and Efanov (1976) as given on p. 541,
            ##   1st column of Kenchington (2014)
            iCheck_K(K)
            iCheck_t50(t50)
@@ -391,9 +393,9 @@ iCheck_t0 <- function(t0) {
   if (is.null(t0)) STOP("A value must be given to 't0'.")  
 }
 
-iCheck_T <- function(T) {
-  if (is.null(T)) STOP("A value must be given to 'T'.")  
-  if (T < 0 || T > 30) WARN("'T' value seems unreasonable.  Make sure value is in celsius.")
+iCheck_Temp <- function(Temp) {
+  if (is.null(Temp)) STOP("A value must be given to 'Temp'.")  
+  if (Temp < 0 || Temp > 30) WARN("'Temp' value seems unreasonable.  Make sure value is in celsius.")
 }
 
 iCheck_t50 <- function(t50) {

@@ -1,5 +1,6 @@
 # FSA 0.8.12 ongoing
 * Lots of spelling corrections after running `devtools::spell_check()`.
+* `metaM()`: Modified. Changed `T=` to `Temp=` to reduce potential for conflicts with `TRUE` abbreviation.
 * `reproInfo()`: Modified. Added `ind=` to select a CRAN mirror to help with a common problem I have when knitting.
 * `srStarts()`: Modified. Corrected mis-spelling in directive to `FSAsim` package.
 * `vbStarts()`: Modified. Added a catch that Linf cannot be automatically estimated with fewer than three ages. Corrected mis-spelling in directive to `FSAsim` package.

@@ -149,7 +149,5 @@ test_that("capHistConvert() results",{
   expect_equal(nrow(ex1.M2R2),length(unique(ex1$fish)))
   expect_equal(ncol(ex1.M2R2),2)
   expect_equal(names(ex1.M2R2),c("id","ch"))
-  
-  
 })
   
