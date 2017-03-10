@@ -35,16 +35,21 @@ test_that("catchCurve() and chapmanRobson() match results from fishmethods packa
     cr2 <- chapmanRobson(Freq~age,data=df,zmethod="Smithetal")
     scr2 <- summary(cr2)    
     # catchCurve results match
-    expect_equal(round(scc1["Z","Estimate"],2),fm$Estimate[2])
-    expect_equal(round(scc1["Z","Std. Error"],3),fm$SE[2])
+    expect_equal(round(scc1["Z","Estimate"],2),
+                 fm$Estimate[fm$Method=="Linear Regression" & fm$Parameter=="Z"])
+    expect_equal(round(scc1["Z","Std. Error"],3),
+                 fm$SE[fm$Method=="Linear Regression" & fm$Parameter=="Z"])
     # chapmanRobson results match
-    expect_equal(round(scr1["Z","Estimate"],2),fm$Estimate[6])
-    expect_equal(round(scr1["Z","Std. Error"],3),fm$SE[6])
+    expect_equal(round(scr1["Z","Estimate"],2),
+                 fm$Estimate[fm$Method=="Chapman-Robson" & fm$Parameter=="Z"])
+    expect_equal(round(scr1["Z","Std. Error"],3),
+                 fm$SE[fm$Method=="Chapman-Robson" & fm$Parameter=="Z"])
     # chapmanRobson (with Smith et al. (2012) bias corrections)
     #   results match for the point estimaes but not the SE
-    #   fishmethos appears to use eqn 5 from smith et al. for
+    #   fishmethods appears to use eqn 5 from smith et al. for
     #   the uncorrected SE of Z, whereas FSA uses eqn 2
-    expect_equal(round(scr2["Z","Estimate"],2),fm$Estimate[8])
-    #expect_equal(round(scr2["Z","Std. Error"],3),fm$SE[8])
+    expect_equal(round(scr2["Z","Estimate"],2),
+                 fm$Estimate[fm$Method=="Chapman-Robson CB" & fm$Parameter=="Z"])
+    #expect_equal(round(scr2["Z","Std. Error"],3),fm$SE[fm$Method=="Chapman-Robson CB" & fm$Parameter=="Z"])
   }  
 })

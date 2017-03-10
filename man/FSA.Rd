@@ -23,4 +23,3 @@ Packages with related functionality by the same author are
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
-

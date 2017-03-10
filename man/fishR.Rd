@@ -33,4 +33,3 @@ fishR("posts")     # blog posts (some examples) page
 Derek H. Ogle, \email{derek@derekogle.com}
 }
 \keyword{misc}
-

@@ -15,6 +15,8 @@ wrAdd(wt, ...)
 \arguments{
 \item{wt}{A numeric vector that contains weight measurements or a formula of the form \code{wt~len+spec} where \dQuote{wt} generically represents the weight variable, \dQuote{len} generically represents the length variable, and \dQuote{spec} generically represents the species variable.  Note that this formula can only contain three variables and they must be in the order of weight first, length second, species third.}
 
+\item{\dots}{Not used.}
+
 \item{len}{A numeric vector that contains length measurements.  Not used if \code{wt} is a formula.}
 
 \item{spec}{A character or factor vector that contains the species names.  Not used if \code{wt} is a formula.}
@@ -22,8 +24,6 @@ wrAdd(wt, ...)
 \item{units}{A string that indicates whether the weight and length data in \code{formula} are in (\code{"metric"} (DEFAULT; mm and g) or \code{"English"} (in and lbs) units.}
 
 \item{data}{A data.frame that minimally contains variables of the the observed lengths, observed weights, and the species names given in the \code{formula=}.}
-
-\item{\dots}{Not used.}
 }
 \value{
 Returns A numeric vector that contains the computed relative weights, in the same order as in \code{data=}.
@@ -37,6 +37,7 @@ This computes a vector that contains the relative weight specific to each specie
 \section{IFAR Chapter}{
  8-Condition.
 }
+
 \examples{
 ## Create random data for three species
 # just to control the randomization
@@ -66,14 +67,13 @@ bg <- Subset(df,species=="Bluegill")
 bg$Wr4 <- wrAdd(wt~tl+species,data=bg)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See \code{\link{wsVal}}, \code{\link{WSlit}}, and \code{\link{psdAdd}} for related functionality.  See \code{\link{mapvalues}} for help in changing species names to match those in \code{\link{WSlit}}.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

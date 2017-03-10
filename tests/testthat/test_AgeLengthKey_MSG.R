@@ -1,4 +1,4 @@
-context("age-length key related Messages")
+context("age-length key related MESSAGES")
 source("EXS_AgeLengthKey.R")
 
 test_that("iCheckALK() messages",{

@@ -22,6 +22,7 @@ Lengths and weights for Chinook Salmon from three locations in Argentina.
    \item Weight-Length 
  }
 }
+
 \examples{
 data(ChinookArg)
 str(ChinookArg)
@@ -37,4 +38,3 @@ par(op)
 'Weight-Length'
 }
 \keyword{datasets}
-

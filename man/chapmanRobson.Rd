@@ -4,10 +4,15 @@
 \alias{chapmanRobson}
 \alias{chapmanRobson.default}
 \alias{chapmanRobson.formula}
+\alias{plot.chapmanRobson}
+\alias{summary.chapmanRobson}
+\alias{confint.chapmanRobson}
+\alias{chapmanRobson.default}
+\alias{chapmanRobson.formula}
+\alias{summary.chapmanRobson}
 \alias{coef.chapmanRobson}
 \alias{confint.chapmanRobson}
 \alias{plot.chapmanRobson}
-\alias{summary.chapmanRobson}
 \title{Computes Chapman-Robson estimates of S and Z.}
 \usage{
 chapmanRobson(x, ...)
@@ -32,6 +37,8 @@ chapmanRobson(x, ...)
 }
 \arguments{
 \item{x}{A numerical vector of the assigned ages in the catch curve or a formula of the form \code{catch~age} when used in \code{chapmanRobson}.  An object saved from \code{chapmanRobson} (i.e., of class \code{chapmanRobson}) when used in the methods.}
+
+\item{\dots}{Additional arguments for methods.}
 
 \item{catch}{A numerical vector of the catches or CPUEs for the ages in the catch curve.  Not used if \code{x} is a formula.}
 
@@ -62,8 +69,6 @@ chapmanRobson(x, ...)
 \item{col.pt}{A string that indicates the color of the plotted points.}
 
 \item{axis.age}{A string that indicates the type of x-axis to display.  The \code{age} will display only the original ages, \code{recoded age} will display only the recoded ages, and \code{both} (DEFAULT) displays the original ages on the main axis and the recoded ages on the secondary axis.}
-
-\item{\dots}{Additional arguments for methods.}
 }
 \value{
 A list with the following items:
@@ -95,6 +100,7 @@ Tested the results against the results from \code{agesurv} in \pkg{fishmethods} 
 \section{IFAR Chapter}{
  11-Mortality.
 }
+
 \examples{
 data(BrookTroutTH)
 plot(catch~age,data=BrookTroutTH,pch=19)
@@ -123,9 +129,6 @@ summary(cr3)
 plot(cr3)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
@@ -142,6 +145,8 @@ Smith, M.W., A.Y. Then, C. Wor, G. Ralph, K.H. Pollock, and J.M. Hoenig. 2012. R
 \seealso{
 See \code{\link[fishmethods]{agesurv}} in \pkg{fishmethods} for similar functionality.  See \code{\link{catchCurve}} and \code{\link[fishmethods]{agesurvcl}} in \pkg{fishmethods} for alternative methods.  See \code{\link{metaM}} for empirical methods to estimate natural mortality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{htest}
 \keyword{manip}
-

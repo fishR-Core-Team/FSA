@@ -2,14 +2,21 @@
 % Please edit documentation in R/residPlot.R
 \name{residPlot}
 \alias{residPlot}
+\alias{residPlot.lm}
+\alias{residPlot.SLR}
+\alias{residPlot.IVR}
+\alias{residPlot.POLY}
+\alias{residPlot.ONEWAY}
+\alias{residPlot.TWOWAY}
+\alias{residPlot.nls}
+\alias{residPlot.lm}
+\alias{residPlot.SLR}
+\alias{residPlot.POLY}
 \alias{residPlot.IVR}
 \alias{residPlot.ONEWAY}
-\alias{residPlot.POLY}
-\alias{residPlot.SLR}
 \alias{residPlot.TWOWAY}
-\alias{residPlot.lm}
-\alias{residPlot.nlme}
 \alias{residPlot.nls}
+\alias{residPlot.nlme}
 \title{Construct a residual plot from lm or nls objects.}
 \usage{
 residPlot(object, ...)
@@ -57,6 +64,8 @@ residPlot(object, ...)
 \arguments{
 \item{object}{An \code{lm} or \code{nls} object (i.e., returned from fitting a model with either \code{lm} or \code{nls}).}
 
+\item{\dots}{Other arguments to the generic \code{plot} function.}
+
 \item{xlab}{A string for labeling the x-axis.}
 
 \item{ylab}{A string for labeling the y-axis.}
@@ -98,8 +107,6 @@ residPlot(object, ...)
 \item{box.lty.leg}{A single numeric values used to indicate the type of line to use for the box around the legend.  The default is to not plot a box.}
 
 \item{bp}{A logical that indicates if the plot for the one-way and two-way ANOVA will be a boxplot (\code{TRUE}; default) or not.}
-
-\item{\dots}{Other arguments to the generic \code{plot} function.}
 }
 \value{
 None.  However, a residual plot is produced.
@@ -205,12 +212,11 @@ residPlot(fm1DNase1)
 residPlot(fm1DNase1,resid.type="standardized")
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 See \code{\link[car]{residualPlots}} in \pkg{car} and \code{\link[nlstools]{nlsResiduals}} in \pkg{nlstools}) for similar functionality and \code{\link{fitPlot}} and \code{\link[car]{outlierTest}} in \pkg{car} for related methods.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{hplot}
 \keyword{models}
-

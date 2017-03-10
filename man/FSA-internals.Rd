@@ -2,12 +2,10 @@
 % Please edit documentation in R/FSA-internals.R
 \name{.onAttach}
 \alias{.onAttach}
-\alias{STOP}
-\alias{WARN}
 \alias{iAddLoessLine}
-\alias{iCILabel}
 \alias{iCheckALK}
 \alias{iCheckStartcatW}
+\alias{iCILabel}
 \alias{iGetDecimals}
 \alias{iGetVarFromFormula}
 \alias{iHndlCols2UseIgnore}
@@ -17,8 +15,10 @@
 \alias{iListSpecies}
 \alias{iMakeColor}
 \alias{iPlotExists}
-\alias{iTypeoflm}
 \alias{is.wholenumber}
+\alias{iTypeoflm}
+\alias{STOP}
+\alias{WARN}
 \title{Internal functions.}
 \usage{
 .onAttach(lib, pkg, ...)
@@ -27,4 +27,3 @@
 Internal functions that are common to several functions in FSA.
 }
 \keyword{internal}
-

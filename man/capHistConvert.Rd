@@ -120,6 +120,7 @@ This function also assumes that all unmarked captured fish are marked and return
 \section{IFAR Chapter}{
  9-Abundance from Capture-Recapture Data.
 }
+
 \examples{
 ## A small example of 'event' format
 ( ex1 <- data.frame(fish=c(17,18,21,17,21,18,19,20),yr=c(1987,1987,1987,1988,1988,1989,1989,1990)) )
@@ -289,14 +290,13 @@ df1 <- droplevels(df1)
 capHistConvert(df1,id="fish",in.type="event")
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See \code{\link{capHistSum}} to summarize \dQuote{individual} capture histories into a format usable in \code{\link{mrClosed}} and \code{\link{mrOpen}}.  Also see \code{\link[Rcapture:Rcapture-package]{Rcapture}}, \code{\link[RMark:ABeginnersGuide]{RMark}}, or \pkg{marked} packages for handling more complex analyses.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

@@ -29,6 +29,7 @@ The \code{year} variable should be converted to a factor as shown in the example
  
  @concept 'Linear Models' Other
 }
+
 \examples{
 data(Mirex)
 Mirex$year <- factor(Mirex$year)
@@ -37,4 +38,3 @@ anova(lm1)
 
 }
 \keyword{datasets}
-

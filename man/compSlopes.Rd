@@ -3,6 +3,7 @@
 \name{compSlopes}
 \alias{compSlopes}
 \alias{print.compSlopes}
+\alias{print.compSlopes}
 \title{Tests for significant differences among all pairs of slopes in a dummy variable regression (DVR).}
 \usage{
 compSlopes(mdl, method = stats::p.adjust.methods, conf.level = 0.95,
@@ -71,11 +72,10 @@ compSlopes(lm1,method="fdr")
 fitPlot(lm1)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 \code{\link{compIntercepts}} in \pkg{FSA}.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{htest}
-

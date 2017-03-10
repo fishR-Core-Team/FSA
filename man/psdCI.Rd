@@ -45,6 +45,7 @@ A vector of length equal to the length of \code{ptbl} is given in \code{indvec} 
 \section{IFAR Chapter}{
  6-Size Structure.
 }
+
 \examples{
 ## similar to Brenden et al. (2008)
 n <- 997
@@ -79,9 +80,6 @@ colnames(bcis) <- c("Estimate","95\% LCI","95\% UCI")
 bcis
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
@@ -90,5 +88,7 @@ Brenden, T.O., T. Wagner, and B.R. Murphy.  2008.  Novel tools for analyzing pro
 \seealso{
 See \code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}} for related functionality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{hplot}
-

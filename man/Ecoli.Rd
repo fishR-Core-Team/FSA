@@ -22,8 +22,8 @@ The number of \emph{Escherichia coli} cells versus time.
    \item Other
  }
 }
+
 \concept{
 'Nonlinear Model' Other
 }
 \keyword{datasets}
-

@@ -49,6 +49,7 @@ ESPH \tab 22 \tab Exponential Scale Proportional Hypothesis \cr
 \section{IFAR Supplement}{
  \url{http://derekogle.com/IFAR/supplements/backcalculation/}
 }
+
 \examples{
 ## Simple Examples
 ( bcm1 <- bcFuns(1) )
@@ -64,11 +65,10 @@ bcm1(lencap,rad,radcap)
 bcm2(lencap,rad,radcap,2)  # demonstrated with a=2
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Vigliola, L. and M.G. Meekan.  2009.  The back-calculation of fish growth from otoliths.  pp. 174-211.  in B.S. Green et al. (editors).  Tropical Fish Otoliths: Information for Assessment, Management and Ecology.  Review: Methods and Technologies in Fish Biology and Fisheries 11.  Springer.  [Was (is?) available from https://www.researchgate.net/publication/226394736_The_Back-Calculation_of_Fish_Growth_From_Otoliths.]
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

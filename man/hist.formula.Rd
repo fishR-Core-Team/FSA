@@ -71,6 +71,7 @@ Students often need to look at the distribution of a quantitative variable separ
 \section{IFAR Chapter}{
  3-Plotting Fundamentals.
 }
+
 \examples{
 ## Using the defaults
 hist(Sepal.Length~Species,data=iris)
@@ -118,14 +119,13 @@ vec <- 1:100
 hist(~vec)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}, but this implementation is largely a modification of the code provided by Marc Schwartz on the R-help mailing list on 1Jun07.
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See base \code{\link[graphics]{hist}} for related functionality and \code{\link[plotrix]{multhist}} in \pkg{plotrix} for similar functionality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}, but this implementation is largely a modification of the code provided by Marc Schwartz on the R-help mailing list on 1Jun07.
+}
 \keyword{hplot}
-

@@ -47,11 +47,10 @@ lagratio(10:1,1,2,direction="forward")
 lagratio(10:1,2,2,direction="forward")
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 \code{diff}
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

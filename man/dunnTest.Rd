@@ -4,6 +4,8 @@
 \alias{dunnTest}
 \alias{dunnTest.default}
 \alias{dunnTest.formula}
+\alias{dunnTest.default}
+\alias{dunnTest.formula}
 \alias{print.dunnTest}
 \title{Dunn's Kruskal-Wallis Multiple Comparisons.}
 \usage{
@@ -21,6 +23,8 @@ dunnTest(x, ...)
 \arguments{
 \item{x}{A numeric vector of data values or a formula of the form x~g.}
 
+\item{\dots}{Not yet used.}
+
 \item{g}{A factor vector or a (non-numeric) vector that can be coerced to a factor vector.}
 
 \item{method}{A single string that identifies the method to use to control the experimentwise error rate.  See the list of methods in \code{\link[dunn.test]{p.adjustment.methods}}.}
@@ -30,8 +34,6 @@ dunnTest(x, ...)
 \item{data}{A data.frame that minimally contains \code{x} and \code{g}.}
 
 \item{dunn.test.results}{A single logical that indicates whether the results that would have been printed by \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test} are shown.}
-
-\item{\dots}{Not yet used.}
 }
 \value{
 A list with three items -- \code{method} is the long name of the method used to control the experimentwise error rate, \code{dtres} is the strings that would have been printed by \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test}, and a data.frame in \code{res} with the following variables:
@@ -88,13 +90,12 @@ tmp <- dunnTest(pH~pond,data=ponds)
 print(tmp,dunn.test.results=TRUE)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}, but this is largely a wrapper (see details) for \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test} written by Alexis Dinno.
-}
 \references{
 Dunn, O.J. 1964. Multiple comparisons using rank sums. Technometrics 6:241-252.
 }
 \seealso{
 See \code{\link{kruskal.test}}, \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test}, \code{\link[PMCMR]{posthoc.kruskal.nemenyi.test}} in \pkg{PMCMR}, \code{\link[pgirmess]{kruskalmc}} in \pkg{pgirmess}, and \code{\link[agricolae]{kruskal}} in \pkg{agricolae}.
 }
-
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}, but this is largely a wrapper (see details) for \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test} written by Alexis Dinno.
+}

@@ -18,6 +18,7 @@ Finds the number of valid (non-NA) values in a vector.
 \section{IFAR Chapter}{
  2-Basic Data Manipulations.
 }
+
 \examples{
 junk1 <- c(1,7,2,4,3,10,NA)
 junk2 <- c("Derek","Hugh","Ogle","Santa","Claus","Nick",NA,NA)
@@ -34,11 +35,10 @@ validn(junk5)
 validn(junk6)
  
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 See \code{\link[plotrix]{valid.n}} in \pkg{plotrix} and \code{\link[gdata]{nobs}} in \pkg{gdata} for similar functionality.  See \code{\link{is.na}} for finding the missing values.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

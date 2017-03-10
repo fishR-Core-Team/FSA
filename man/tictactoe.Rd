@@ -39,6 +39,7 @@ This function simply creates a base tic-tac-toe plot.  Observed values, with con
 \section{IFAR Chapter}{
  6-Size Structure.
 }
+
 \examples{
 ## Create hypothetical data for plotting one point .. similar to what might come from psdCalc()
 prey <- c(45.4,30.2,56.8)
@@ -73,14 +74,13 @@ lines(prey[,1],pred[,1])
 text(prey[,1],pred[,1],labels=c(2010,2011,2012),adj=c(-0.5,-0.5))
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See \code{\link{psdVal}} and \code{\link{psdCalc}} for related functionality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{hplot}
-

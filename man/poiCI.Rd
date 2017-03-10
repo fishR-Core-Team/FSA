@@ -42,11 +42,10 @@ poiCI(c(7,10),type="exact")
 poiCI(c(7,10),type="exact",verbose=TRUE)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 See \code{\link[epitools]{pois.exact}}, \code{\link[epitools]{pois.daly}}, \code{\link[epitools]{pois.byar}}, and \code{\link[epitools]{pois.approx}} in \pkg{epitools} for more description and references.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{htest}
-

@@ -4,6 +4,8 @@
 \alias{plotBinResp}
 \alias{plotBinResp.default}
 \alias{plotBinResp.formula}
+\alias{plotBinResp.default}
+\alias{plotBinResp.formula}
 \title{Plots a binary response variable versus a quantitative explanatory variable.}
 \usage{
 plotBinResp(x, ...)
@@ -19,6 +21,8 @@ plotBinResp(x, ...)
 }
 \arguments{
 \item{x}{A quantitative explanatory variable or a formula of the form \code{factor~quant}.}
+
+\item{\dots}{Other arguments to be passed to the plot functions.}
 
 \item{y}{A binary response variable.}
 
@@ -49,8 +53,6 @@ plotBinResp(x, ...)
 \item{yaxis2.show}{A logical that indicates whether the right y-axis should be created (\code{=TRUE}; default) or not.}
 
 \item{data}{The data frame from which the formula should be evaluated.}
-
-\item{\dots}{Other arguments to be passed to the plot functions.}
 }
 \value{
 None.  However, a plot is produced.
@@ -100,12 +102,11 @@ plotBinResp(fail~temperature,data=d,yaxis2.show=FALSE)
 plotBinResp(fail~temperature,data=d,yaxis1.ticks=c(0,1),yaxis1.lbls=c(0,1))
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 \code{\link{fitPlot}} and \code{\link{cdplot}}.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{hplot}
 \keyword{models}
-

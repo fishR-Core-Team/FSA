@@ -57,14 +57,13 @@ binCI(c(7,10),c(20,30),type="wilson")
 binCI(c(7,10),c(20,30),type="wilson",verbose=TRUE)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Agresti, A. and B.A. Coull.  1998.  Approximate is better than \dQuote{exact} for interval estimation of binomial proportions.  American Statistician, 52:119-126.
 }
 \seealso{
 See \code{\link{binom.test}}; \code{binconf} in \pkg{Hmisc}; \code{\link[epitools]{binom.exact}}, \code{\link[epitools]{binom.wilson}}, and \code{\link[epitools]{binom.approx}} in \pkg{epitools}, and functions in \pkg{binom}.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{htest}
-

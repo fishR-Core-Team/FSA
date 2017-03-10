@@ -61,6 +61,7 @@ Note that all plots are \dQuote{vertically conditional} -- i.e., each represents
 \section{IFAR Chapter}{
  5-Age-Length Key.
 }
+
 \examples{
 ## Make an example age-length key
 data(WR79)
@@ -88,14 +89,13 @@ alkPlot(WR.key,"bubble",grid="blue")
 alkPlot(WR.key,"bubble",grid=rgb(0,0,0,0.2),col=rgb(0,0,0,0.5))
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See \code{\link{alkIndivAge}} for using an age-length key to assign ages to individual fish.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{plot}
-

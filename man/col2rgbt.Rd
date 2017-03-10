@@ -27,11 +27,10 @@ trans <- (1:4)/5
 col2rgbt(clrs,trans)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 See \code{\link[grDevices]{col2rgb}} for similar functionality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

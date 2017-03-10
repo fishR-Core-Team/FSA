@@ -4,6 +4,7 @@
 \alias{agePrecision}
 \alias{plot.agePrec}
 \alias{summary.agePrec}
+\alias{summary.agePrec}
 \title{Compute measures of precision among sets of ages.}
 \usage{
 agePrecision(formula, data)
@@ -73,6 +74,7 @@ All percentage calculations above use the \code{validn} value in the denominator
 \section{IFAR Chapter}{
  4-Age Comparisons.
 }
+
 \examples{
 ## Example with just two age assignments
 data(WhitefishLC)
@@ -103,9 +105,6 @@ summary(ap2,what="absolute",percent=FALSE,trunc.diff=4)
 summary(ap2,what="detail")
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
@@ -122,6 +121,8 @@ McBride, R.S.  2015. Diagnosis of paired age agreement: A simulation approach of
 \seealso{
 See \code{\link{ageBias}} for computation of the full age agreement table, along with tests and plots of age bias.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{htest}
 \keyword{manip}
-

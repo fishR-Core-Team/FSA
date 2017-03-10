@@ -4,6 +4,8 @@
 \alias{ksTest}
 \alias{ksTest.default}
 \alias{ksTest.formula}
+\alias{ksTest.default}
+\alias{ksTest.formula}
 \title{Kolmogorov-Smirnov Tests.}
 \usage{
 ksTest(x, ...)
@@ -17,6 +19,8 @@ ksTest(x, ...)
 \arguments{
 \item{x}{A numeric vector of data values or a formula (see details).}
 
+\item{\dots}{Parameters of the distribution specified (as a character string) by \code{y}.}
+
 \item{y}{A numeric vector of data values, a character string naming a cumulative distribution function, or an actual cumulative distribution function.  See \code{\link[stats]{ks.test}}.}
 
 \item{alternative}{A string that indicates the alternative hypothesis.  See \code{\link[stats]{ks.test}}.}
@@ -24,8 +28,6 @@ ksTest(x, ...)
 \item{exact}{\code{NULL} or a logical that indicates whether an exact p-value should be computed. See \code{\link[stats]{ks.test}}.  Not available if ties are present, nor for the one-sided two-sample case.}
 
 \item{data}{A data frame that contains the variables in the formula for \code{x}.}
-
-\item{\dots}{Parameters of the distribution specified (as a character string) by \code{y}.}
 }
 \value{
 See \code{\link[stats]{ks.test}}.
@@ -54,11 +56,10 @@ ks.test(x,y)
 ksTest(dat~grp,data=df)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 \code{\link[stats]{ks.test}}.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{htest}
-

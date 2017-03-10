@@ -25,6 +25,7 @@ Age-length data in 5-cm increments taken exactly from Table 2A of the source whi
    \item Age-Length Key
  }
 }
+
 \examples{
 data(WR79)
 str(WR79)
@@ -43,4 +44,3 @@ str(WR79.length)
 'Age-Length Key'
 }
 \keyword{datasets}
-

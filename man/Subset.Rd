@@ -2,6 +2,7 @@
 % Please edit documentation in R/FSAUtils.R
 \name{Subset}
 \alias{Subset}
+\alias{Subset}
 \alias{filterD}
 \title{Subsets/filters a data frame and drops the unused levels.}
 \usage{
@@ -20,9 +21,9 @@ filterD(x, ..., except = NULL)
 
 \item{resetRownames}{A logical that indicates if the rownames should be reset after the subsetting (\code{TRUE}; default).  Resetting rownames will simply number the rows from 1 to the number of rows in the result.}
 
-\item{except}{Indices of columns from which NOT to drop levels.}
-
 \item{\dots}{further arguments to be passed to or from other methods.}
+
+\item{except}{Indices of columns from which NOT to drop levels.}
 }
 \value{
 A data frame with the subsetted rows and selected variables.
@@ -40,6 +41,7 @@ These functions are used only for data frames.
 \section{IFAR Chapter}{
  Basic Data Manipulations.
 }
+
 \examples{
 ## The problem -- note use of unused level in the final table.
 levels(iris$Species)
@@ -58,11 +60,10 @@ levels(iris.set3$Species)
 xtabs(~Species,data=iris.set3)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 See \code{subset} and \code{\link[dplyr]{filter}} from \pkg{dplyr} for similar functionality.  See \code{\link[gdata]{drop.levels}} in \pkg{gdata} and \code{\link{droplevels}} for related functionality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{misc}
-

@@ -90,4 +90,3 @@ if (require(FSAdata)) {
 Derek H. Ogle, \email{derek@derekogle.com}
 }
 \keyword{plot}
-

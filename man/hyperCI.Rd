@@ -35,4 +35,3 @@ hyperCI(50,25,10)
 Derek H. Ogle, \email{derek@derekogle.com}
 }
 \keyword{htest}
-

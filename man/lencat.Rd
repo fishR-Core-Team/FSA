@@ -19,6 +19,8 @@ lencat(x, ...)
 \arguments{
 \item{x}{A numeric vector that contains the length measurements or a formula of the form \code{~x} where \dQuote{x} generically represents a variable in \code{data} that contains length measurements.  This formula can only contain one variable.}
 
+\item{\dots}{Not implemented.}
+
 \item{w}{A single numeric that indicates the width of length categories to create.  Ignored if \code{breaks} is not \code{NULL}.}
 
 \item{startcat}{A single numeric that indicates the beginning of the first length category.  Only used with \code{w}.  See details for how this is handled when \code{NULL}.}
@@ -36,8 +38,6 @@ lencat(x, ...)
 \item{data}{A data.frame that minimally contains the length measurements given in the variable in the \code{formula}.}
 
 \item{vname}{A string that contains the name for the new length class variable.}
-
-\item{\dots}{Not implemented.}
 }
 \value{
 If the formula version of the function is used, then a data.frame is returned with the a new variable, named as in \code{vname} (defaults to \code{LCat}), appended to the original data.frame.  If the default version of the function is used, then a single vector is returned.  The returned values will be numeric unless \code{breaks} is named and \code{use.names=TRUE} or if \code{as.fact=TRUE}.
@@ -59,6 +59,7 @@ The observed values in \code{x} should be rounded to the appropriate number of d
 \section{IFAR Chapter}{
  2-Data Manipulation.
 }
+
 \examples{
 # Create random lengths measured to nearest 0.1 unit
 df1 <- data.frame(len=round(runif(50,0.1,9.9),1))
@@ -194,11 +195,10 @@ head(smb2)
 str(smb2)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

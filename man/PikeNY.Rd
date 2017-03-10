@@ -28,6 +28,7 @@ Summary results of capture histories (number captured, number of recaptured fish
    \item Schumacher-Eschmeyer
  }
 }
+
 \examples{
 data(PikeNY)
 str(PikeNY)
@@ -38,4 +39,3 @@ head(PikeNY)
 Abundance 'Population Size' 'Mark-Recapture' 'Capture-Recapture' 'Schnabel'
 }
 \keyword{datasets}
-

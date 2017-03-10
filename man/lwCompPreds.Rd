@@ -62,6 +62,7 @@ Constructs plots of predicted weights at given lengths among different groups.  
 \section{IFAR Chapter}{
  7-Weight-Length.
 }
+
 \examples{
 # load weight-length data
 data(ChinookArg)
@@ -112,11 +113,10 @@ if (interactive()) {
 }
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

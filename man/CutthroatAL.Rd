@@ -37,6 +37,7 @@ Entered into \dQuote{RMark} format (see \code{\link[FSAdata]{CutthroatALf}} in \
    \item Capture History 
  }
 }
+
 \examples{
 data(CutthroatAL)
 str(CutthroatAL)
@@ -50,4 +51,3 @@ See \code{\link{mrOpen}} for an example analysis.
 Abundance 'Population Size' 'Mark-Recapture' 'Capture-Recapture' 'Jolly-Seber' 'Capture History'
 }
 \keyword{datasets}
-

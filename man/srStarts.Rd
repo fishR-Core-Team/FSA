@@ -54,6 +54,7 @@ Starting values for the Saila-Lorda function were the same as those for the firs
 \section{IFAR Chapter}{
  13-Recruitment.
 }
+
 \examples{
 ## Simple Examples
 data(CodNorwegian)
@@ -78,9 +79,6 @@ srStarts(recruits~stock,data=CodNorwegian,type="independence",plot=TRUE)
 ## See examples in srFuns() for use of srStarts() when fitting stock-recruit models
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
@@ -99,5 +97,7 @@ Shepherd, J. 1982. A versatile new stock-recruitment relationship for fisheries 
 \seealso{
 See \code{\link{srFunShow}} and \code{\link{srFuns}} for related functionality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

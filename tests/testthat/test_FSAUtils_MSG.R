@@ -70,8 +70,8 @@ test_that("geomean() / geosd() messages",{
 })
 
 test_that("headtail() messages",{
-  expect_error(headtail(1:10),"matrix")
-  expect_error(headtail(iris,n=c(1,2)),"single number")
+  expect_error(FSA::headtail(1:10),"matrix")
+  expect_error(FSA::headtail(iris,n=c(1,2)),"single number")
 })  
 
 test_that("hoCoef() messages",{

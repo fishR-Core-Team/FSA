@@ -5,6 +5,9 @@
 \alias{kPvalue}
 \alias{purl2}
 \alias{reproInfo}
+\alias{kPvalue}
+\alias{purl2}
+\alias{reproInfo}
 \title{Specific utilities for use in a knitr document.}
 \usage{
 kCounts(value, capitalize = FALSE)
@@ -46,6 +49,8 @@ reproInfo(out = c("r", "markdown", "latex"), rqrdPkgs = NULL,
 
 \item{timestamp}{A logical that indicates whether a timestamp comment should be appended to the bottom of the script created by \code{purl2}.}
 
+\item{\dots}{Additional arguments for the original \code{purl}.}
+
 \item{out}{A string that indicates the type of output from \code{reproInfo} -- Markdown, LaTeX, or simple R code.}
 
 \item{rqrdPkgs}{A string vector that contains packages that are required for the vignette and for which all dependencies should be found.}
@@ -63,8 +68,6 @@ reproInfo(out = c("r", "markdown", "latex"), rqrdPkgs = NULL,
 \item{closeGraphics}{A logical that indicates whether the graphics device should be closed or not.}
 
 \item{ind}{An integer that indicates the CRAN mirror to use. Defaults to 1.}
-
-\item{\dots}{Additional arguments for the original \code{purl}.}
 }
 \value{
 \itemize{
@@ -102,11 +105,10 @@ kPvalue(0.000012345,include.p=FALSE)
 kPvalue(0.000012345,include.p=FALSE,latex=FALSE)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 See \code{\link{formatC}} for functionality similar to \code{kPvalue}.  See \code{\link[knitr]{purl}} and \code{\link[knitr]{knit}} in \pkg{knitr} for functionality similar to \code{purl2}.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

@@ -4,6 +4,8 @@
 \alias{Mmethods}
 \alias{metaM}
 \alias{print.metaM}
+\alias{metaM}
+\alias{print.metaM}
 \title{Estimate natural mortality from a variety of empirical methods.}
 \usage{
 Mmethods(what = c("all", "tmax", "K", "Hoenig", "Pauly"))
@@ -92,6 +94,7 @@ Results for the Rio Formosa Seahorse data were also tested against results from 
 \section{IFAR Chapter}{
  11-Mortality.
 }
+
 \examples{
 ## List names for available methods
 Mmethods()
@@ -130,9 +133,6 @@ metaM(Mmethods()[-c(15,20,22:24,26)],K=K,Linf=Linf,Temp=Temp,tmax=tmax,t50=t50)
 metaM(Mmethods("Hoenig"),K=K,Linf=Linf,Temp=Temp,tmax=tmax,t50=t50)
  
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
@@ -163,5 +163,7 @@ Zhang, C-I and B.A. Megrey.  2006.  A revised Alverson and Carney model for esti
 \seealso{
 See \code{\link[fishmethods]{M.empirical}} in \pkg{fishmethods} for similar functionality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

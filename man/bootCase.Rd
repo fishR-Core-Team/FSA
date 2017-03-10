@@ -3,10 +3,14 @@
 \name{bootstrap}
 \alias{bootstrap}
 \alias{confint.bootCase}
-\alias{hist.bootCase}
 \alias{htest.bootCase}
+\alias{hist.bootCase}
 \alias{plot.bootCase}
 \alias{predict.bootCase}
+\alias{predict.bootCase}
+\alias{htest.bootCase}
+\alias{hist.bootCase}
+\alias{plot.bootCase}
 \title{Associated S3 methods for bootCase from car.}
 \usage{
 \method{confint}{bootCase}(object, parm = NULL, level = conf.level,
@@ -43,6 +47,8 @@
 
 \item{cols}{A single numeric that contains the number of columns to use on the graphic.}
 
+\item{\dots}{Additional items to send to functions.  See details.}
+
 \item{FUN}{The function to be applied for the prediction.  See the examples.}
 
 \item{digits}{A single numeric that indicates the number of digits for the result.}
@@ -56,8 +62,6 @@
 \item{ymax}{A single value that sets the maximum y-axis limit for each histogram or a vector of length equal to the number of groups that sets the maximum y-axis limit for each histogram separately.}
 
 \item{col}{A named color for the histogram bars.}
-
-\item{\dots}{Additional items to send to functions.  See details.}
 }
 \value{
 If \code{object} is a matrix, then \code{confint} returns a matrix with as many rows as columns (i.e., parameter estimates) in \code{object} and two columns of the quantiles that correspond to the approximate confidence interval.  If \code{object} is a vector, then \code{confint} returns a vector with the two quantiles that correspond to the approximate confidence interval.
@@ -105,14 +109,13 @@ if (require(car)) {    # for bootCase()
 }
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 S. Weisberg (2005). \emph{Applied Linear Regression}, third edition.  New York: Wiley, Chapters 4 and 11.
 }
 \seealso{
 \code{\link[car]{bootCase}} in \pkg{car}.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{htest}
-

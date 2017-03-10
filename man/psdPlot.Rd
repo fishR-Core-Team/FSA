@@ -70,6 +70,7 @@ The length of fish plotted on the x-axis can be controlled with \code{xlim}, how
 \section{IFAR Chapter}{
  6-Size Structure.
 }
+
 \examples{
 ## Random length data
 # suppose this is yellow perch to the nearest mm
@@ -113,9 +114,6 @@ tmp <- Subset(df,mm<brks["stock"])
 par(op)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
@@ -128,5 +126,7 @@ Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  Stock density indices: developm
 \seealso{
 See \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{lencat}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}} for related functionality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{hplot}
-

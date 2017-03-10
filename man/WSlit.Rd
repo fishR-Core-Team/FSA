@@ -43,6 +43,7 @@ The minimum TL for the English units were derived by rounding the converted mini
 \section{IFAR Chapter}{
  8-Condition.
 }
+
 \examples{
 data(WSlit)
 str(WSlit)
@@ -59,4 +60,3 @@ See \code{\link{wsVal}} and \code{\link{wrAdd}} for related functionality.
 Condition 'Relative Weight' 'Standard Weight'
 }
 \keyword{datasets}
-

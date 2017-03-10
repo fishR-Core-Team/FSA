@@ -3,6 +3,7 @@
 \name{geomean}
 \alias{geomean}
 \alias{geosd}
+\alias{geosd}
 \title{Calculates the geometric mean or geometric standard deviation.}
 \usage{
 geomean(x, na.rm = FALSE, zneg.rm = FALSE)
@@ -50,4 +51,3 @@ geomean(x,zneg.rm=TRUE)
 See \code{\link[psych]{geometric.mean}} in \pkg{psych} and \code{\link[DescTools]{Gmean}} for geometric mean calculators.  See \code{\link[DescTools]{Gsd}} for geometric standard deviation calculators.
 }
 \keyword{misc}
-

@@ -48,4 +48,3 @@ perc(tmp,5,"lt",na.rm=FALSE)
 Derek H. Ogle, \email{derek@derekogle.com}
 }
 \keyword{misc}
-

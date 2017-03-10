@@ -42,6 +42,7 @@ Assigned ages will be stored in the column identified on the left-hand-side of \
 \section{IFAR Chapter}{
  5-Age-Length Key.
 }
+
 \examples{
 ## Get data with length measurements and some assigned ages
 data(WR79)
@@ -90,9 +91,6 @@ WR3.comb <- rbind(WR3.age, WR3.len)                  # combine orig age & new ag
 Summarize(len~age,data=WR3.comb,digits=2)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}.  This is largely an R version of the SAS code provided by Isermann and Knight (2005).
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
@@ -101,5 +99,7 @@ Isermann, D.A. and C.T. Knight.  2005.  A computer program for age-length keys i
 \seealso{
 See \code{\link{alkAgeDist}} and \code{\link{alkMeanVar}} for alternative methods to derived age distributions and mean (and SD) values for each age.  See \code{\link{alkPlot}} for methods to visualize age-length keys.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}.  This is largely an R version of the SAS code provided by Isermann and Knight (2005).
+}
 \keyword{manip}
-

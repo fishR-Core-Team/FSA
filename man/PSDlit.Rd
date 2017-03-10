@@ -37,6 +37,7 @@ Cutoffs for the Gabelhouse five-cell length categories for a variety of species.
 \section{IFAR Chapter}{
  6-Size Structure.
 }
+
 \examples{
 data(PSDlit)
 str(PSDlit)
@@ -53,4 +54,3 @@ See \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\l
 'Size Structure' PSD
 }
 \keyword{datasets}
-

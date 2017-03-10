@@ -36,6 +36,7 @@ Note from above that the coefficients are returned for the TRANSFORMED model.  T
 \section{IFAR Chapter}{
  8-Condition.
 }
+
 \examples{
 wsVal()
 wsVal("Bluegill")
@@ -46,14 +47,13 @@ wsVal("Ruffe",units="metric",simplify=TRUE)
 wsVal("Ruffe",units="metric",ref=50,simplify=TRUE)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See \code{\link{wrAdd}} and \code{\link{WSlit}} for related functionality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

@@ -35,4 +35,3 @@ bad2 <- fact2num(bad)
 Derek H. Ogle, \email{derek@derekogle.com}
 }
 \keyword{manip}
-

@@ -23,6 +23,7 @@ Norwegian cod (\emph{Gadus morhua}) stock and recruitment by year, 1937-1960.
    \item Recruitment
  }
 }
+
 \examples{
 data(CodNorwegian)
 str(CodNorwegian)
@@ -37,4 +38,3 @@ par(op)
 'Stock-Recruit' Recruitment
 }
 \keyword{datasets}
-

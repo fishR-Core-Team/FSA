@@ -3,6 +3,7 @@
 \name{compIntercepts}
 \alias{compIntercepts}
 \alias{print.compIntercepts}
+\alias{print.compIntercepts}
 \title{Tests for significant differences among all pairs of intercepts in a dummy variable regression.}
 \usage{
 compIntercepts(mdl, common.cov = mean(x), conf.level = 0.95,
@@ -19,9 +20,9 @@ compIntercepts(mdl, common.cov = mean(x), conf.level = 0.95,
 
 \item{digits}{A numeric that controls the number of digits to print.}
 
-\item{x}{A \code{compIntercepts} object (i.e., returned from \code{compIntercepts}).}
-
 \item{\dots}{Other arguments to be passed to the \code{TukeyHSD} or \code{print} functions.}
+
+\item{x}{A \code{compIntercepts} object (i.e., returned from \code{compIntercepts}).}
 }
 \value{
 A list with the following four components:
@@ -68,11 +69,10 @@ compIntercepts(lm2)
 fitPlot(lm1,legend="topleft")
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 \code{\link[stats]{TukeyHSD}} and \code{compSlopes} from \pkg{FSA}.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{htest}
-

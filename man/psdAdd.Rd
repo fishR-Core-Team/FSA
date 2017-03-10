@@ -17,6 +17,8 @@ psdAdd(len, ...)
 \arguments{
 \item{len}{A numeric vector that contains lengths measurements or a formula of the form \code{len~spec} where \dQuote{len} generically represents the length variable and \dQuote{spec} generically represents the species variable.  Note that this formula can only contain two variables and must have the length variable on the left-hand-side and the species variable on the right-hand-side.}
 
+\item{\dots}{Not used.}
+
 \item{spec}{A character or factor vector that contains the species names.  Ignored if \code{len} is a formula.}
 
 \item{units}{A string that indicates the type of units used for the lengths.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
@@ -30,8 +32,6 @@ psdAdd(len, ...)
 \item{verbose}{A logical that indicates whether detailed messages about species without Gabelhouse lengths or with no recorded values should be printed or not.}
 
 \item{data}{A data.frame that minimally contains the length measurements and species names if \code{len} is a formula.}
-
-\item{\dots}{Not used.}
 }
 \value{
 A numeric or factor vector that contains the Gabelhouse length categories.
@@ -49,6 +49,7 @@ Additional lengths to be used for a species may be included by giving a vector o
 \section{IFAR Chapter}{
  6-Size Structure.
 }
+
 \examples{
 ## Create random data for three species
 # only for repeatability
@@ -92,9 +93,6 @@ if (require(dplyr)) {
 df
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
@@ -107,5 +105,7 @@ Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  Stock density indices: developm
 \seealso{
 \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{PSDlit}}, and \code{\link{wrAdd}} for related functions.  See \code{\link{mapvalues}} for help in changing species names to match those in \code{\link{PSDlit}}.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

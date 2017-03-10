@@ -44,6 +44,7 @@ Data are in one-fish-per-line format.
    \item Back-Calculation
  }
 }
+
 \examples{
 data(SMBassWB)
 str(SMBassWB)
@@ -57,4 +58,3 @@ See \code{\link[alr3]{wblake2}} from \pkg{alr3} for the same dataset with only t
 Growth 'Increment Analysis' 'Weisberg LGM' 'Back-Calculation'
 }
 \keyword{datasets}
-

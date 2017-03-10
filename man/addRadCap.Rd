@@ -40,11 +40,10 @@ SMBi1a <- addRadCap(SMBi1,in.pre="inc",var.name="radcap2")
 headtail(SMBi1a)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 See \code{\link{gConvert}} for related functionality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

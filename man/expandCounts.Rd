@@ -115,11 +115,10 @@ df3 <- expandCounts(df1,~Number.of.Fish,~Length.or.Lower.Length.IN+Length.Upper.
 }
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 See \code{\link{expandLenFreq}} for expanding length frequencies where individual fish measurements were made on individual fish in a subsample and the remaining fish were simply counted.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

@@ -54,4 +54,3 @@ if (require(dplyr)) {
 Derek H. Ogle, \email{derek@derekogle.com}
 }
 \keyword{manip}
-

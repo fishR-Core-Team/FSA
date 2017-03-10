@@ -55,6 +55,7 @@ Confidence intervals can be computed with either the multinomial (Default) or bi
 \section{IFAR Chapter}{
  6-Size Structure.
 }
+
 \examples{
 ## Random length data
 # suppose this is yellow perch to the nearest mm
@@ -96,9 +97,6 @@ psdCalc(~yepmm,data=yepdf,species="Yellow perch",what="incremental",showInterm=T
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
@@ -113,5 +111,7 @@ Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  Stock density indices: developm
 \seealso{
 See \code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}} for related functionality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{hplot}
-

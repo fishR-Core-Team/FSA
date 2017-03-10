@@ -34,6 +34,7 @@ Additional lengths may be added to the returned vector with \code{addLens}.  Nam
 \section{IFAR Chapter}{
  6-Size Structure.
 }
+
 \examples{
 # List all of the species
 psdVal()
@@ -54,9 +55,6 @@ psdVal("Bluegill",units="in",addLens=c("MinLen"=7))
 psdVal("Bluegill",units="in",addLens=c("MinSlot"=7,"MaxSlot"=9))
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
@@ -69,5 +67,7 @@ Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  Stock density indices: developm
 \seealso{
 See \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}} for related functionality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

@@ -4,6 +4,8 @@
 \alias{ageBias}
 \alias{plot.ageBias}
 \alias{summary.ageBias}
+\alias{summary.ageBias}
+\alias{plot.ageBias}
 \title{Compute and view possible biases between paired sets of ages.}
 \usage{
 ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
@@ -49,6 +51,8 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
 \item{digits}{A numeric value that indicates the minimum number of digits to print when showing \code{what="bias"} or \code{what="diff.bias"} in \code{summary}.}
 
 \item{cont.corr}{A string that indicates the continuity correction method to be used with (only) McNemar test.  If \code{"none"} (default) then no continuity correction is used, if \code{"Yates"} then 0.5 is used, and if \code{"Edwards"} then 1 is used.}
+
+\item{\dots}{Additional arguments for methods.}
 
 \item{x, object}{An object of class \code{ageBias}, usually a result from \code{ageBias}.}
 
@@ -101,8 +105,6 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
 \item{xlim, ylim}{A numeric vector of length 2 that contains the limits of the x-axis (reference ages) or y-axis (non-reference ages), respectively.}
 
 \item{xaxt, yaxt}{A string which specifies the x- and y-axis types. Specifying \dQuote{n} suppresses plotting of the axis.  See \code{?par}.}
-
-\item{\dots}{Additional arguments for methods.}
 }
 \value{
 \code{ageBias} returns a list with the following items:
@@ -146,6 +148,7 @@ The sample size present in the age-agreement table is found with \code{what="n"}
 \section{IFAR Chapter}{
  4-Age Comparisons.
 }
+
 \examples{
 data(WhitefishLC)
 ab1 <- ageBias(scaleC~otolithC,data=WhitefishLC,ref.lab="Otolith Age",nref.lab="Scale Age")
@@ -183,9 +186,6 @@ plot(ab1,what="sunflower",difference=TRUE)
 plot(ab1,what="number",col.agree="gray50")
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
@@ -202,6 +202,8 @@ Muir, A.M., M.P. Ebener, J.X. He, and J.E. Johnson.  2008.  A comparison of the 
 \seealso{
 See \code{\link{agePrecision}} for measures of precision between pairs of age assignments.  See \code{\link[fishmethods]{compare2}} in \pkg{fishmethods} for similar functionality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{htest}
 \keyword{manip}
-

@@ -30,6 +30,7 @@ Each line consists of the capture history over four samples of Northern Pike (\e
    \item Capture History
  }
 }
+
 \examples{
 data(PikeNYPartial1)
 str(PikeNYPartial1)
@@ -40,4 +41,3 @@ head(PikeNYPartial1)
 Abundance 'Population Size' 'Mark-Recapture' 'Capture-Recapture' 'Schnabel' 'Capture History'
 }
 \keyword{datasets}
-

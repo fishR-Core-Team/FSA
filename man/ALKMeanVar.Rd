@@ -43,6 +43,7 @@ Note that the function will stop with an error if the formula in \code{formula} 
 \section{IFAR Chapter}{
  5-Age-Length Key.
 }
+
 \examples{
 ## Get data with length measurements and some assigned ages
 data(WR79)
@@ -67,9 +68,6 @@ alkMeanVar(WR1.key,len~LCat+age,WR1.age,len.n)
 alkMeanVar(WR1.key,len~LCat+age,WR1.age,len.n,method="QuinnDeriso")
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
@@ -80,5 +78,7 @@ Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford Universi
 \seealso{
 See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{\link{alkAgeDist}} for a related method of determining the proportion of fish at each age.  See the \pkg{ALKr} package.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

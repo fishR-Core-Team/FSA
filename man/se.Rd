@@ -32,11 +32,10 @@ sd(x2,na.rm=TRUE)/sqrt(length(x2[complete.cases(x2)]))
 se(x2)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 See \code{\link[sciplot]{se}} in \pkg{sciplot} for similar functionality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

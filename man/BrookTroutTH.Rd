@@ -23,6 +23,7 @@ Catch-at-age in fyke nets from 1996-1998 for \dQuote{Coaster} Brook Trout (\emph
    \item Chapman-Robson 
  }
 }
+
 \examples{
 data(BrookTroutTH)
 str(BrookTroutTH)
@@ -34,4 +35,3 @@ plot(log(catch)~age,data=BrookTroutTH)
 Mortality 'Catch Curve'
 }
 \keyword{datasets}
-

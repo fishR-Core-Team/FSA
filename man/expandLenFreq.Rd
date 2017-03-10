@@ -69,11 +69,10 @@ newlen2 <- expandLenFreq(len,w=0.5,startcat=6.2,total=30,decimals=1)
 newlen2
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 See \code{\link{expandCounts}} for expanding more than just lengths or expanding lengths when there is a known number in each length bin.  See \code{\link{lencat}} for creating length bins.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

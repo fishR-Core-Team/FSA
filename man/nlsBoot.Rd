@@ -3,9 +3,9 @@
 \name{confint.nlsBoot}
 \alias{confint.nlsBoot}
 \alias{confint.nlsboot}
+\alias{predict.nlsBoot}
 \alias{htest}
 \alias{htest.nlsBoot}
-\alias{predict.nlsBoot}
 \title{Associated S3 methods for nlsBoot from nlstools.}
 \usage{
 \method{confint}{nlsBoot}(object, parm = NULL, level = conf.level,
@@ -39,6 +39,8 @@ htest(object, ...)
 
 \item{cols}{A numeric that contains the number of columns to use on the graphic.}
 
+\item{\dots}{Additional arguments to functions.}
+
 \item{FUN}{The function to be applied for the prediction.  See the examples.}
 
 \item{digits}{A single numeric that indicates the number of digits for the result.}
@@ -46,8 +48,6 @@ htest(object, ...)
 \item{bo}{The null hypothesized parameter value.}
 
 \item{alt}{A string that identifies the \dQuote{direction} of the alternative hypothesis.  See details.}
-
-\item{\dots}{Additional arguments to functions.}
 }
 \value{
 \code{confint} returns a matrix with as many rows as columns (i.e., parameter estimates) in the \code{object$coefboot} data frame and two columns of the quantiles that correspond to the approximate confidence interval.
@@ -88,11 +88,10 @@ if (require(nlstools)) {
 }
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 See \code{\link[nlstools]{summary.nlsBoot}} in \pkg{nlstools}
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{htest}
-

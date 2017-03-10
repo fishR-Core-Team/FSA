@@ -46,4 +46,3 @@ class(fvec1)
 Derek H. Ogle, \email{derek@derekogle.com}
 }
 \keyword{manip}
-

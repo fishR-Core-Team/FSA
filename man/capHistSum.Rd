@@ -3,6 +3,7 @@
 \name{capHistSum}
 \alias{capHistSum}
 \alias{plot.CapHist}
+\alias{plot.CapHist}
 \title{Summarize capture histories in individual fish format.}
 \usage{
 capHistSum(df, cols2use = NULL, cols2ignore = NULL)
@@ -61,6 +62,7 @@ This function assumes that all unmarked captured fish are marked and returned to
 \section{IFAR Chapter}{
  9-Abundance from Capture-Recapture Data.
 }
+
 \examples{
 # data.frame with IDs in the first column
 data(PikeNYPartial1)
@@ -80,9 +82,6 @@ plot(ch1,what="u")
 ( ch2 <- capHistSum(PikeNYPartial1,cols2use=-c(1,4:5)) )
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
@@ -91,5 +90,7 @@ Baillargeon, S. and Rivest, L.-P. (2007). Rcapture: Loglinear models for capture
 \seealso{
 See \code{\link[Rcapture]{descriptive}} in \pkg{Rcapture} for \code{m.array} and some of the same values in \code{sum}.  See \code{\link{capHistConvert}} for a descriptions of capture history data file formats and how to convert between them.  See \code{\link{mrClosed}} and \code{\link{mrOpen}} for how to estimate abundance from the summarized capture history information.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

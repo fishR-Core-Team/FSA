@@ -5,6 +5,9 @@
 \alias{histFromSum.default}
 \alias{histFromSum.formula}
 \alias{histFromSum.table}
+\alias{histFromSum.default}
+\alias{histFromSum.table}
+\alias{histFromSum.formula}
 \title{Create a histogram from a frequency table.}
 \usage{
 histFromSum(x, ...)
@@ -18,11 +21,11 @@ histFromSum(x, ...)
 \arguments{
 \item{x}{A numeric vector of bin/category values, a formula of the form \code{freq~cat} where \code{freq} contains the count/frequency values and \code{cat} contains the bin/category values, an object of class \code{table} from \code{table()} or \code{xtabs()}.}
 
+\item{\dots}{Additional arguments for \code{\link[graphics]{hist}}.}
+
 \item{y}{A numeric vector of count/frequency values.}
 
 \item{data}{A data.frame that contains the \code{freq} and \code{cat} variables if a formula is given in \code{x}.}
-
-\item{\dots}{Additional arguments for \code{\link[graphics]{hist}}.}
 }
 \value{
 None, but a graphic is created.
@@ -70,11 +73,10 @@ histFromSum(mat1[,"lcat10"],mat1[,"freq"],breaks=brks,xlab=xlbl,col="gray60")
 histFromSum(Freq~lcat10,data=df2,breaks=brks,xlab=xlbl,col="gray55")
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 See \code{\link[graphics]{hist}} and \code{\link{hist.formula}} for related functionality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{hplot}
-

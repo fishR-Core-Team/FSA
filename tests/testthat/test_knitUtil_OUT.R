@@ -51,7 +51,7 @@ test_that("iMakeItemsToRemove() returns",{
 })
 
 test_that("iMakeFilename() returns",{
-  expect_equal(iMakeFilename("Derek",".Rmd"),"Derek.Rmd")
-  expect_equal(iMakeFilename("Derek",".Rmd","C:"),"C:/Derek.Rmd")
-  expect_equal(iMakeFilename("Derek",".Rmd","C:/Ogle"),"C:/Ogle/Derek.Rmd")
+  expect_equal(FSA:::iMakeFilename("Derek",".Rmd"),"Derek.Rmd")
+  expect_equal(FSA:::iMakeFilename("Derek",".Rmd","C:"),"C:/Derek.Rmd")
+  expect_equal(FSA:::iMakeFilename("Derek",".Rmd","C:/Ogle"),"C:/Ogle/Derek.Rmd")
 })

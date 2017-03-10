@@ -4,6 +4,8 @@
 \alias{Summarize}
 \alias{Summarize.default}
 \alias{Summarize.formula}
+\alias{Summarize.default}
+\alias{Summarize.formula}
 \title{Summary statistics for a numeric variable.}
 \usage{
 Summarize(object, ...)
@@ -20,6 +22,8 @@ Summarize(object, ...)
 \arguments{
 \item{object}{A vector of numeric data.}
 
+\item{\dots}{Not implemented.}
+
 \item{digits}{A single numeric that indicates the number of decimals to round the numeric summaries.}
 
 \item{na.rm}{A logical that indicates whether numeric missing values (\code{NA}) should be removed (\code{=TRUE}, default) or not.}
@@ -31,8 +35,6 @@ Summarize(object, ...)
 \item{percZero}{A string that indicates how the \dQuote{percZero} result will be handled.  If \code{"always"} then \dQuote{percZero} will always be shown and if \code{"never"} then \dQuote{percZero} will never be shown.  However, if \code{"different"} (DEFAULT), then \dQuote{percZero} will only be shown if it is greater than zero (or if at least one group is greater than zero when summarized by multiple groups).}
 
 \item{data}{A data.frame that contains the variables in \code{formula}.}
-
-\item{\dots}{Not implemented.}
 }
 \value{
 A named vector or data frame (when a quantitative variable is separated by one or two factor variables) of summary statistics for numeric data.
@@ -97,11 +99,10 @@ Summarize(y~w,data=d,digits=3)
 lapply(as.list(d[,1:3]),Summarize,digits=4)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 See \code{\link[base]{summary}} for related one dimensional functionality.  See \code{\link[base]{tapply}}, \code{\link[doBy]{summaryBy}} in \pkg{doBy}, \code{\link[psych]{describe}} in \pkg{psych}, \code{\link[prettyR]{describe}} in \pkg{prettyR}, and \code{\link[fBasics]{basicStats}} in \pkg{fBasics} for similar \dQuote{by} functionality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{misc}
-

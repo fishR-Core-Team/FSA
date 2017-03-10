@@ -34,6 +34,7 @@ Assigned ages from two readers on three structures for Lake Whitefish (\emph{Cor
    \item Age Comparisons
  }
 }
+
 \examples{
 data(WhitefishLC)
 str(WhitefishLC)
@@ -44,4 +45,3 @@ head(WhitefishLC)
 Age Precision Bias 'Ageing Error' 'Age Comparisons'
 }
 \keyword{datasets}
-

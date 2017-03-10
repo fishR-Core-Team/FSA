@@ -26,6 +26,7 @@ Each line consists of the capture history over two samples of Bluegill (\emph{Le
    \item Capture History
  }
 }
+
 \examples{
 data(BluegillJL)
 str(BluegillJL)
@@ -36,4 +37,3 @@ head(BluegillJL)
 Abundance 'Population Size' 'Mark-Recapture' 'Capture-Recapture' Petersen 'Capture History'
 }
 \keyword{datasets}
-

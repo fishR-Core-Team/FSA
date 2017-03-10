@@ -38,6 +38,7 @@ An error will be returned if either \code{specvar} or \code{eventvar} are factor
 \section{IFAR Chapter}{
  2-Basic Data Manipulations
 }
+
 \examples{
 ## Example Data #1 (some nets missing some fish, ancillary net data)
 df1 <- data.frame(net=c(1,1,1,2,2,3),
@@ -107,11 +108,10 @@ df6mod1 <- addZeroCatch(df6,"net",c("species","sex","size"),zerovar="catch")
 df6mod1
  
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

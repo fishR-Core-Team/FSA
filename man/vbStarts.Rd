@@ -76,6 +76,7 @@ The \sQuote{original} and \sQuote{vonBertalanffy} and the \sQuote{typical} and \
 \section{IFAR Chapter}{
  12-Individual Growth.
 }
+
 \examples{
 ## Simple examples of each parameterization
 data(SpotVA1)
@@ -137,9 +138,6 @@ vbStarts(tl~age,data=SpotVA1,type="Ogle",valOgle=c(tr=2),fixed=list(Lr=10),plot=
 ## See examples in vbFuns() for use of vbStarts() when fitting Von B models
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \references{
 Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 
@@ -148,5 +146,7 @@ See references in \code{\link{vbFuns}}.
 \seealso{
 See \code{\link{growthFunShow}} to display the equations for the parameterizations used in \pkg{FSA} and \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{manip}
-

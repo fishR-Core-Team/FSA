@@ -2,15 +2,24 @@
 % Please edit documentation in R/fitPlot.R
 \name{fitPlot}
 \alias{fitPlot}
-\alias{fitPlot.IVR}
-\alias{fitPlot.ONEWAY}
-\alias{fitPlot.POLY}
-\alias{fitPlot.SLR}
-\alias{fitPlot.TWOWAY}
-\alias{fitPlot.glm}
 \alias{fitPlot.lm}
-\alias{fitPlot.logreg}
+\alias{fitPlot.SLR}
+\alias{fitPlot.IVR}
+\alias{fitPlot.POLY}
+\alias{fitPlot.ONEWAY}
+\alias{fitPlot.TWOWAY}
 \alias{fitPlot.nls}
+\alias{fitPlot.glm}
+\alias{fitPlot.logreg}
+\alias{fitPlot.lm}
+\alias{fitPlot.SLR}
+\alias{fitPlot.IVR}
+\alias{fitPlot.POLY}
+\alias{fitPlot.ONEWAY}
+\alias{fitPlot.TWOWAY}
+\alias{fitPlot.nls}
+\alias{fitPlot.glm}
+\alias{fitPlot.logreg}
 \title{Fitted model plot for an lm, glm, or nls object.}
 \usage{
 fitPlot(object, ...)
@@ -55,6 +64,8 @@ fitPlot(object, ...)
 }
 \arguments{
 \item{object}{An \code{lm} or \code{nls} object (i.e., returned from fitting a model with either \code{lm} or \code{nls}).}
+
+\item{\dots}{Other arguments to be passed to the plot functions.}
 
 \item{plot.pts}{A logical that indicates (\code{TRUE} (default)) whether the points are plotted along with the fitted lines.  Set to \code{FALSE} to plot just the fitted lines.}
 
@@ -129,8 +140,6 @@ fitPlot(object, ...)
 \item{mdl.vals}{A numeric that represents the number of values to use for plotting the logistic regression.  A larger number means a smoother line.}
 
 \item{xlim}{A vector of length two to control the x-axis in the logistic regression plot.  If this is changed from the default then the domain over which the logistic regression model is plotted will change.}
-
-\item{\dots}{Other arguments to be passed to the plot functions.}
 }
 \value{
 None.  However, a fitted-line plot is produced.
@@ -231,12 +240,11 @@ par(cex.axis=1.5,cex.lab=1.5)
 fitPlot(glm1)
 
 }
-\author{
-Derek H. Ogle, \email{derek@derekogle.com}
-}
 \seealso{
 See \code{\link{abline}}, \code{\link[car]{regLine}} in \pkg{car}, \code{\link[gplots]{plotmeans}} in \pkg{gplots}, \code{\link[psych]{error.bars}} in \pkg{psych}, \code{interaction.plot}, and \code{\link[sciplot]{lineplot.CI}} in \pkg{sciplot} for similar functionality. See \code{\link{residPlot}} for related functionality.
 }
+\author{
+Derek H. Ogle, \email{derek@derekogle.com}
+}
 \keyword{hplot}
 \keyword{models}
-

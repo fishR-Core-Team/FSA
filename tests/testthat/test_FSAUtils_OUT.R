@@ -276,7 +276,7 @@ test_that("geomean() / geosd() results",{
 
 test_that("headtail() return values",{
   n <- 3
-  tmp <- headtail(iris)
+  tmp <- FSA::headtail(iris)
   expect_equal(nrow(tmp),2*n)
   expect_equal(ncol(tmp),ncol(iris))
   expect_equal(names(tmp),names(iris))
@@ -284,7 +284,7 @@ test_that("headtail() return values",{
   expect_equal(tmp,rbind(head(iris,n=n),tail(iris,n=n)))
   ## check more rows
   n <- 6
-  tmp <- headtail(iris,n=n)
+  tmp <- FSA::headtail(iris,n=n)
   expect_equal(nrow(tmp),2*n)
   expect_equal(ncol(tmp),ncol(iris))
   expect_equal(names(tmp),names(iris))
@@ -293,7 +293,7 @@ test_that("headtail() return values",{
   ## check of restricted columns
   n <- 3
   cols <- 2:3
-  tmp <- headtail(iris,which=cols)
+  tmp <- FSA::headtail(iris,which=cols)
   expect_equal(nrow(tmp),2*n)
   expect_equal(ncol(tmp),length(cols))
   expect_equal(names(tmp),names(iris)[cols])
@@ -301,20 +301,20 @@ test_that("headtail() return values",{
   
   ## check for matrix
   miris <- as.matrix(iris[,1:4])
-  tmp <- headtail(miris)
+  tmp <- FSA::headtail(miris)
   expect_equal(nrow(tmp),2*n)
   expect_equal(ncol(tmp),ncol(miris))
   expect_equal(names(tmp),names(miris))
   expect_is(tmp,"matrix")
   expect_equivalent(tmp,rbind(head(miris,n=n),tail(miris,n=n)))
   # check of addrownums
-  tmp <- headtail(miris,addrownums=FALSE)
+  tmp <- FSA::headtail(miris,addrownums=FALSE)
   expect_true(is.null(rownames(tmp)))
   
   ## check how it handles tbl_df object
   if (require(dplyr)) {
     iris2 <- tbl_df(iris)
-    tmp <- headtail(iris2,n=15)
+    tmp <- FSA::headtail(iris2,n=15)
     expect_is(tmp,"data.frame")
   }
 })

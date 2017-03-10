@@ -25,6 +25,7 @@ Final length measurements were simulated by adding a uniform error to the value 
    \item von Bertalanffy
  }
 }
+
 \examples{
 data(SpotVA1)
 str(SpotVA1)
@@ -39,4 +40,3 @@ See \code{\link[FSAdata]{SpotVA2}} in \pkg{FSAdata} for related data.
 Growth 'von Bertalanffy'
 }
 \keyword{datasets}
-
