@@ -13,9 +13,9 @@ lm.2b <- lm(y~x*z,data=df)
 lm.1a <- lm(y~w,data=df)
 lm.2c <- lm(y~w*z,data=df)
 
-nls.0 = nls(y~c,data=df,start=list(c=10))
-nls.1 = nls(y~a*x+c,data=df,start=list(a=1,c=1))
-nls.2 = nls(y~b*x2+a*x+c,data=df,start=list(a=-1,b=0.3,c=10))
+nls.0 <- nls(y~c,data=df,start=list(c=10))
+nls.1 <- nls(y~a*x+c,data=df,start=list(a=1,c=1))
+nls.2 <- nls(y~b*x2+a*x+c,data=df,start=list(a=-1,b=0.3,c=10))
 
 if (suppressMessages(require(nlme))) {
   gls.0 <- gls(y~1,data=df,method="ML")
