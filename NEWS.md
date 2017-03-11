@@ -1,4 +1,6 @@
-# FSA 0.8.12 ongoing
+# FSA 0.8.13 ongoing
+
+# FSA 0.8.12 12-Mar-17
 * Lots of spelling corrections after running `devtools::spell_check()`.
 * Cleaned up some issues in the testing files that were caused by a new version of `fishmethods` and changes to R v3.4.0.
 * `metaM()`: Modified. Changed `T=` to `Temp=` to reduce potential for conflicts with `TRUE` abbreviation.
