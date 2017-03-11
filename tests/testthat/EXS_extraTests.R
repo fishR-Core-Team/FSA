@@ -13,7 +13,9 @@ lm.2b <- lm(y~x*z,data=df)
 lm.1a <- lm(y~w,data=df)
 lm.2c <- lm(y~w*z,data=df)
 
-nls.0 <- nls(y~c,data=df,start=list(c=10))
+# note that the rep() in the first model is needed to eliminate a warning
+# that comes from nls().
+nls.0 <- nls(y~rep(c,length(df$y)),data=df,start=list(c=10))
 nls.1 <- nls(y~a*x+c,data=df,start=list(a=1,c=1))
 nls.2 <- nls(y~b*x2+a*x+c,data=df,start=list(a=-1,b=0.3,c=10))
 
@@ -24,3 +26,4 @@ if (suppressMessages(require(nlme))) {
 }
 
 suppressMessages(library(lmtest))
+
