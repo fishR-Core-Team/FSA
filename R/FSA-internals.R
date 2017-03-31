@@ -126,7 +126,7 @@ iGetVarFromFormula <- function(formula,data,expNumVars=NULL) {
 
 iHndlCols2UseIgnore <- function(df,cols2use=NULL,cols2ignore=NULL) {
   iHndlCols2Use <- function(df,cols2use) {
-    if (!class(cols2use) %in% c("integer","numeric","character"))
+    if (!inherits(cols2use,c("integer","numeric","character")))
       STOP("'cols2use' must be a numeric index or column name.")
     if (is.character(cols2use)) {
       ## Convert character column names to numeric
@@ -139,7 +139,7 @@ iHndlCols2UseIgnore <- function(df,cols2use=NULL,cols2ignore=NULL) {
     cols2use
   }
   iHndlCols2Ignore <- function(df,col2ignore) {
-    if (!class(cols2ignore) %in% c("integer","numeric","character"))
+    if (!inherits(cols2ignore,c("integer","numeric","character")))
       STOP("'cols2ignore' must be a numeric index or column name.")
     if (is.character(cols2ignore)) {
       ## Convert character column names to numeric
@@ -264,14 +264,14 @@ iHndlMultWhat <- function(what,item,type=c("message","cat")) {
 iLegendHelp <- function(legend) {
   do.legend <- FALSE
   x <- y <- NULL
-  if (class(legend)=="logical") {
+  if (inherits(legend,"logical")) {
     if(legend) { # nocov start
       do.legend <- TRUE
       x <- graphics::locator(1)
     } # nocov end
   } else if (!is.null(legend)) {
     do.legend <- TRUE
-    if (class(legend)=="character") {
+    if (inherits(legend,"character")) {
       x <- legend
     } else {
       x <- legend[1]
