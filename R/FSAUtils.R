@@ -42,7 +42,7 @@ capFirst <- function(x,which=c("all","first")) {
   ## Get the class of the object
   cls <- class(x)
   ## Perform a check
-  if (!(cls %in% c("character","factor"))) STOP("'capFirst' only works with 'character' or 'class' objects.")
+  if (!inherits(cls,c("character","factor"))) STOP("'capFirst' only works with 'character' or 'class' objects.")
   ## Capitalize the one word or the words in the vector
   if (length(x)==1) x <- iCapFirst(x,which)
   else x <- apply(matrix(x),MARGIN=1,FUN=iCapFirst,which=which)
@@ -290,7 +290,7 @@ diags <- function(x,which=0,incl.labels=c("none","row","column"),
 fact2num <- function(object) {
   ## Don't continue if object is not a factor or character 
   ## i.e., does not fit the purpose of this function
-  if (!class(object) %in% c("factor","character")) STOP("'object' is not a factor or character and does not fit the purpose of this function.")
+  if (!inherits(object,c("factor","character"))) STOP("'object' is not a factor or character and does not fit the purpose of this function.")
   ## Convert factor to character and then numeric
   suppressWarnings(res <- as.numeric(as.character(object)))
   ## If all na's then stop because values were not numeric-like, else return
@@ -534,7 +534,7 @@ lagratio <- function(x,lag=1L,recursion=1L,differences=recursion,direction=c("ba
   ## Some checks
   direction <- match.arg(direction)
   if(any(x==0)) STOP("Will not work with zeros in 'x'.")
-  if(any(class(x) %in% c("POSIXt","POSIXct"))) STOP("Function does not work for 'POSIXt' objects.")
+  if(inherits(x,c("POSIXt","POSIXct"))) STOP("Function does not work for 'POSIXt' objects.")
   if (!recursion>0) STOP("'recursion' value must be >0.")
   ## Flip vector if ratio direction is forward
   if (direction=="forward") x <- rev(x)
@@ -677,7 +677,7 @@ iOddEven <- function(x,checkval) {
 perc <- function(x,val,dir=c("geq","gt","leq","lt"),na.rm=TRUE,digits=getOption("digits")) {
   ## Some checks
   dir <- match.arg(dir)
-  if (!class(x) %in% c("numeric","integer")) STOP("'perc' only works for numeric vectors.")
+  if (!inherits(x,c("numeric","integer"))) STOP("'perc' only works for numeric vectors.")
   if (length(val)>1) WARN("Only the first value of 'val' was used.")
   ## Find sample size (don't or do include NA values)
   n <- ifelse(na.rm,length(x[!is.na(x)]),length(x))
