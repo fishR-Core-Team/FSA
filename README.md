@@ -39,7 +39,6 @@ Report questions, comments, or bug reports on the [issues page](https://github.c
 **FSA** uses **TCL/TK** for some interactive plots.  Some Mac users report problems with using **TCL/TK**.  I do not have access to a Mac to test these problems, some students have reported success installing the **TCL/TK** universal build [located here](http://cran.r-project.org/bin/macosx/tools/) (or [direct link to the file](http://cran.r-project.org/bin/macosx/tools/tcltk-8.5.5-x11.dmg)).  You may have to reinstall **FSA** after installing this file.
 
 You should be able to use the vast majority of the functionality in **FSA** even if the problems with **TCL/TK** cannot be rectified.
---->
 
 
 ## Alternative Installation 
@@ -47,3 +46,4 @@ The installation instructions above may not work if **devtools** will not instal
 ```r
 source("http://www.rforge.net/FSA/InstallFSA.R")
 ```
+--->
