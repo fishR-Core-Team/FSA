@@ -269,7 +269,7 @@ iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
 ## ===========================================================
 iPredictBoot <- function(object,FUN,MARGIN,conf.level,digits,...) {
   ## Some checks
-  if (class(FUN)!="function") STOP("'FUN' is not a function.")
+  if (!inherits(FUN,"function")) STOP("'FUN' is not a function.")
   if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
   ## Get items in the dots
   tmp <- list(...)
