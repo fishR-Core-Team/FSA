@@ -61,8 +61,8 @@
 #' residPlot(lm1)
 #' # remove the histogram
 #' residPlot(lm1,inclHist=FALSE)
-#' # remove the loess line
-#' residPlot(lm1,loess=FALSE,inclHist=FALSE)
+#' # add the loess line
+#' residPlot(lm1,loess=TRUE,inclHist=FALSE)
 #' # modify colors used
 #' residPlot(lm1,col="rainbow",inclHist=FALSE)
 #' # use only one point type -- notice that all points are of same type
@@ -151,7 +151,7 @@ residPlot.SLR <- function(object,xlab="Fitted Values",ylab="Residuals",main="",
                           pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                           resid.type=c("raw","standardized","studentized"),
                           outlier.test=TRUE,alpha=0.05,
-                          loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
+                          loess=FALSE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=8,
                           inclHist=TRUE,...) { # nocov start
   opar <- graphics::par("mfrow")
   main <- iGetMainTitle(object,main)
@@ -194,7 +194,7 @@ iResidPlotIVR1 <- function(object,legend,cex.leg,box.lty.leg,
                            lty.ref=3,lwd.ref=1,col.ref="black",
                            resid.type=c("raw","standardized","studentized"),
                            outlier.test=TRUE,alpha=0.05,
-                           loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
+                           loess=FALSE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=8,
                            inclHist=TRUE,...) { # nocov start
   main <- iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
@@ -249,7 +249,7 @@ iResidPlotIVR2 <- function(object,legend,cex.leg,box.lty.leg,
                            lty.ref=3,lwd.ref=1,col.ref="black",
                            resid.type=c("raw","standardized","studentized"),
                            outlier.test=TRUE,alpha=0.05,
-                           loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
+                           loess=FALSE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=8,
                            inclHist=TRUE,...) { # nocov start
   main <- iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
@@ -311,7 +311,7 @@ residPlot.ONEWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main="
                              pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                              resid.type=c("raw","standardized","studentized"),
                              bp=TRUE,outlier.test=TRUE,alpha=0.05,
-                             loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
+                             loess=FALSE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=8,
                              inclHist=TRUE,...) { # nocov start
   main <- iGetMainTitle(object,main)
   if (bp & xlab=="Fitted Values") xlab <- "Treatment Group"
@@ -343,7 +343,7 @@ residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main="
                              pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                              resid.type=c("raw","standardized","studentized"),
                              bp=TRUE,outlier.test=TRUE,alpha=0.05,
-                             loess=TRUE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=4,
+                             loess=FALSE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=8,
                              inclHist=TRUE,...) { # nocov start
   main <- iGetMainTitle(object,main)
   if (bp & xlab=="Fitted Values") xlab <- "Treatment Group"
@@ -376,8 +376,8 @@ residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main="
 residPlot.nls<-function(object,xlab="Fitted Values",ylab="Residuals",main="",
                         pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                         resid.type=c("raw","standardized","studentized"),
-                        loess=TRUE,lty.loess=2,lwd.loess=1,
-                        col.loess="black",trans.loess=4,inclHist=TRUE,...) { # nocov start
+                        loess=FALSE,lty.loess=2,lwd.loess=1,
+                        col.loess="black",trans.loess=8,inclHist=TRUE,...) { # nocov start
   fv <- stats::fitted(object)
   tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
   r <- tmp$r
@@ -400,8 +400,8 @@ residPlot.nls<-function(object,xlab="Fitted Values",ylab="Residuals",main="",
 residPlot.nlme<-function(object,xlab="Fitted Values",ylab="Residuals",main="",
                          pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                          resid.type=c("raw","standardized","studentized"),
-                         loess=TRUE,lty.loess=2,lwd.loess=1,
-                         col.loess="black",trans.loess=4,inclHist=TRUE,...) { # nocov start
+                         loess=FALSE,lty.loess=2,lwd.loess=1,
+                         col.loess="black",trans.loess=8,inclHist=TRUE,...) { # nocov start
   fv <- stats::fitted(object)
   tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
   r <- tmp$r
@@ -477,13 +477,13 @@ iHistResids <- function(r,xlab) {
 }
 
 iHndlResidType <- function(object,resid.type,ylab) {
-  suppressWarnings(if(!class(object)%in%c("nls","nlme")) {
+  suppressWarnings(if(!inherits(object,c("nls","nlme"))) {
     switch(resid.type,
            raw= { r <- object$mdl$residuals },
            standardized= { r <- stats::rstandard(object$mdl) },
            studentized= { r <- stats::rstudent(object$mdl) }
            )
-  } else if (class(object)=="nls") {
+  } else if (inherits(object,"nls")) {
     r <- stats::residuals(object)
     if (resid.type=="studentized") STOP("resid.type= cannot be 'studentized' for NLS objects.  Try resid.type='standardized'.")
     else if (resid.type=="standardized") {

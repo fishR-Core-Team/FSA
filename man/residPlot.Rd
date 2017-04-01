@@ -26,8 +26,8 @@ residPlot(object, ...)
 \method{residPlot}{SLR}(object, xlab = "Fitted Values", ylab = "Residuals",
   main = "", pch = 16, col = "black", lty.ref = 3, lwd.ref = 1,
   col.ref = "black", resid.type = c("raw", "standardized", "studentized"),
-  outlier.test = TRUE, alpha = 0.05, loess = TRUE, lty.loess = 2,
-  lwd.loess = 1, col.loess = "black", trans.loess = 4, inclHist = TRUE,
+  outlier.test = TRUE, alpha = 0.05, loess = FALSE, lty.loess = 2,
+  lwd.loess = 1, col.loess = "black", trans.loess = 8, inclHist = TRUE,
   ...)
 
 \method{residPlot}{POLY}(object, ...)
@@ -39,27 +39,27 @@ residPlot(object, ...)
   ylab = "Residuals", main = "", pch = 16, col = "black", lty.ref = 3,
   lwd.ref = 1, col.ref = "black", resid.type = c("raw", "standardized",
   "studentized"), bp = TRUE, outlier.test = TRUE, alpha = 0.05,
-  loess = TRUE, lty.loess = 2, lwd.loess = 1, col.loess = "black",
-  trans.loess = 4, inclHist = TRUE, ...)
+  loess = FALSE, lty.loess = 2, lwd.loess = 1, col.loess = "black",
+  trans.loess = 8, inclHist = TRUE, ...)
 
 \method{residPlot}{TWOWAY}(object, xlab = "Fitted Values",
   ylab = "Residuals", main = "", pch = 16, col = "black", lty.ref = 3,
   lwd.ref = 1, col.ref = "black", resid.type = c("raw", "standardized",
   "studentized"), bp = TRUE, outlier.test = TRUE, alpha = 0.05,
-  loess = TRUE, lty.loess = 2, lwd.loess = 1, col.loess = "black",
-  trans.loess = 4, inclHist = TRUE, ...)
+  loess = FALSE, lty.loess = 2, lwd.loess = 1, col.loess = "black",
+  trans.loess = 8, inclHist = TRUE, ...)
 
 \method{residPlot}{nls}(object, xlab = "Fitted Values", ylab = "Residuals",
   main = "", pch = 16, col = "black", lty.ref = 3, lwd.ref = 1,
   col.ref = "black", resid.type = c("raw", "standardized", "studentized"),
-  loess = TRUE, lty.loess = 2, lwd.loess = 1, col.loess = "black",
-  trans.loess = 4, inclHist = TRUE, ...)
+  loess = FALSE, lty.loess = 2, lwd.loess = 1, col.loess = "black",
+  trans.loess = 8, inclHist = TRUE, ...)
 
 \method{residPlot}{nlme}(object, xlab = "Fitted Values", ylab = "Residuals",
   main = "", pch = 16, col = "black", lty.ref = 3, lwd.ref = 1,
   col.ref = "black", resid.type = c("raw", "standardized", "studentized"),
-  loess = TRUE, lty.loess = 2, lwd.loess = 1, col.loess = "black",
-  trans.loess = 4, inclHist = TRUE, ...)
+  loess = FALSE, lty.loess = 2, lwd.loess = 1, col.loess = "black",
+  trans.loess = 8, inclHist = TRUE, ...)
 }
 \arguments{
 \item{object}{An \code{lm} or \code{nls} object (i.e., returned from fitting a model with either \code{lm} or \code{nls}).}
@@ -141,8 +141,8 @@ lm1 <- lm(mirex~weight*fyear*species,data=Mirex2)
 residPlot(lm1)
 # remove the histogram
 residPlot(lm1,inclHist=FALSE)
-# remove the loess line
-residPlot(lm1,loess=FALSE,inclHist=FALSE)
+# add the loess line
+residPlot(lm1,loess=TRUE,inclHist=FALSE)
 # modify colors used
 residPlot(lm1,col="rainbow",inclHist=FALSE)
 # use only one point type -- notice that all points are of same type

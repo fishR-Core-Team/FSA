@@ -1,4 +1,17 @@
 # FSA 0.8.13 ongoing
+* `capFirst()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
+* `fact2num()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
+* `lagration()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
+* `iHndlCols2UseIgnore()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
+* `iLegendHelp()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
+* `iPredictBoot()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.* `is.CapHist()`: Added.
+* `mrClosed()`: Modified. Changed some `if()`s with `class()`es to `is.CapHist()`.
+* `mrOpen()`: Modified. Changed some `if()`s with `class()`es to `is.CapHist()`.
+* `nlsTracePlot()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
+* `perc()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
+* `psdAdd()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
+* `residPlot()`: Modified. Changed default for `loess=` from `TRUE` to `FALSE`. Changed some `if()`s with `class()`es to `inherits()`.
+* `wrAdd()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 
 # FSA 0.8.12 12-Mar-17
 * Lots of spelling corrections after running `devtools::spell_check()`.
