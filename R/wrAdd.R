@@ -65,7 +65,7 @@ wrAdd.default <- function(wt,len,spec,units=c("metric","English"),...) {
   units <- match.arg(units)
   if (!is.numeric(wt)) STOP("'wt' must be numeric.")
   if (!is.numeric(len)) STOP("'len' must be numeric.")
-  if (!(class(spec) %in% c("character","factor"))) STOP("'spec' must be character or factor.")
+  if (!inherits(spec,c("character","factor"))) STOP("'spec' must be character or factor.")
   
   ## Prepare the Ws literature values data frame
   # get is used to eliminate problem with rcmd check

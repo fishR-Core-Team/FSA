@@ -91,7 +91,7 @@ psdAdd.default <- function(len,spec,units=c("mm","cm","in"),use.names=TRUE,
   ## Some checks
   units <- match.arg(units)
   if (!is.numeric(len)) STOP("'len' must be numeric.")
-  if (!(class(spec) %in% c("character","factor"))) STOP("'spec' must be character or factor.")
+  if (!inherits(spec,c("character","factor"))) STOP("'spec' must be character or factor.")
   if (!is.null(addSpec)) {
     if (is.null(addLens)) {
       WARN("'addSpec' is not NULL when 'addLens' is NULL; made 'addSpec' NULL.")
