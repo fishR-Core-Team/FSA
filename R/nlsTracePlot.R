@@ -72,13 +72,13 @@ nlsTracePlot <- function(object,fun,from=NULL,to=NULL,n=199,
                          legend="topright",cex.leg=0.9,box.lty.leg=0,
                          add=TRUE) {
   ## Checks
-  if (!class(object) %in% c("nls","character"))
+  if (!inherits(object,c("nls","character")))
     STOP("'object' must be from 'nls()' or from 'capture.output()'.")
   fun <- match.fun(fun)
   pal <- match.arg(pal)
   if (n<2) STOP("'n' must be greater than 2.")
   ## Determine if need to capture trace (if object is object from nls())
-  if (class(object)=="nls") {
+  if (inherits(object,"nls")) {
     object <- utils::capture.output( try(tmp <- stats::update(object,.~.,trace=TRUE),silent=TRUE) )
   }
   ## parse trace into a data.frame
