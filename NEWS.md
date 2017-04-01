@@ -1,5 +1,6 @@
 # FSA 0.8.13 ongoing
 * `capFirst()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
+* `compIntercepts()`: Modified. Replaced two `dim()` calls with `nrow()`.
 * `fact2num()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 * `lagration()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 * `iHndlCols2UseIgnore()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.

@@ -160,7 +160,7 @@ print.compSlopes <- function(x,...) { # nocov start
 #' @keywords htest
 #' 
 #' @examples
-#' ## Reduct Mirex data to years where slopes don't differ to
+#' ## Reduce Mirex data to years where slopes don't differ to
 #' ##   illustrate this function ... see compSlopes() for
 #' ##   analysis of full data set.
 #' data(Mirex)
@@ -194,12 +194,12 @@ compIntercepts <- function(mdl,common.cov=mean(x),
   ## Fit model without an interaction term
   lm1 <- stats::lm(y~x+g)
   ## Construct the adjusted values
-  adjvals <- stats::predict(lm1,data.frame(x=rep(common.cov,dim(lmtype$mf)[1]),g=g))+lm1$residuals
+  adjvals <- stats::predict(lm1,data.frame(x=rep(common.cov,nrow(lmtype$mf)),g=g))+lm1$residuals
   ## Compure Tukey's adjustment on the adjusted values
   thsd <- stats::TukeyHSD(stats::aov(adjvals~g),...)
   ## Put results into a better data.frame
   cdf <- data.frame(comparison=rownames(thsd[[1]]),thsd[[1]])
-  rownames(cdf) <- 1:dim(cdf)[1]
+  rownames(cdf) <- 1:nrow(cdf)
   # Rename the confidence interval columns
   names(cdf)[3:4] <- iCILabel(conf.level)
   ## Prepare results list to return
