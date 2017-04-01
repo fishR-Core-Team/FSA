@@ -205,7 +205,7 @@ mrClosed <- function(M=NULL,n=NULL,m=NULL,R=NULL,
 iMRCSingle <- function(M,n,m,method,labels) {
   # initial checks
   if (is.null(M)) STOP("'M' is missing; must be from 'capHistSum()' or value(s).")
-  if (class(M)=="CapHist") {
+  if (is.CapHist(M)) {
     if (!is.null(m) | !is.null(n)) WARN("'m' and 'n' ignored when 'M' from capHistSum().")
     m <- M$sum$m
     n <- M$sum$n
@@ -434,7 +434,7 @@ iCI.MRCSingle <- function(object,conf.level,type,bin.type,poi.type,verbose,...) 
 iMRCMultiple <- function(M,n,m,R,method,chapman.mod) {
   # Initial Checks
   if (!is.null(M)) {
-    if (class(M)=="CapHist") {
+    if (is.CapHist(M)) {
       ## Results come from capHistSum
       n <- M$sum$n
       m <- M$sum$m
