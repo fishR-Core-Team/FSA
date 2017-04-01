@@ -94,6 +94,9 @@ capHistSum <- function(df,cols2use=NULL,cols2ignore=NULL) {
   d
 }
 
+#' @rdname capHistSum
+#' @export
+is.CapHist <- function(x) inherits(x,"CapHist")
 
 ##############################################################
 ## INTERNAL - Frequency of fish by unique capture history

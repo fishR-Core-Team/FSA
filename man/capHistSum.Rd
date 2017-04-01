@@ -3,10 +3,13 @@
 \name{capHistSum}
 \alias{capHistSum}
 \alias{plot.CapHist}
+\alias{is.CapHist}
 \alias{plot.CapHist}
 \title{Summarize capture histories in individual fish format.}
 \usage{
 capHistSum(df, cols2use = NULL, cols2ignore = NULL)
+
+is.CapHist(x)
 
 \method{plot}{CapHist}(x, what = c("u", "f"), pch = 19, cex.pch = 0.7,
   lwd = 1, ...)
