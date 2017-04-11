@@ -10,6 +10,7 @@
 * `mrOpen()`: Modified. Changed some `if()`s with `class()`es to `is.CapHist()`.
 * `nlsTracePlot()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 * `perc()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
+* `plotBinResp()`: Modified. Changed how default transparency level is calculated and set the maximum transparency to 50 (changed from 500). Fixed bug in how the width of the proportions windows were calculated by default. These changes will affect `fitPlot()` for logistic regression models.
 * `psdAdd()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 * `residPlot()`: Modified. Changed default for `loess=` from `TRUE` to `FALSE`. Changed some `if()`s with `class()`es to `inherits()`.
 * `wrAdd()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.

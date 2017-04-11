@@ -81,18 +81,20 @@ plotBinResp.default <- function(x,y,
     xlab=paste(deparse(substitute(x))),ylab=paste(deparse(substitute(y))),
     plot.pts=TRUE,col.pt="black",transparency=NULL,
     plot.p=TRUE,breaks=25,p.col="blue",p.pch=3,p.cex=1.25,
-    yaxis1.ticks=seq(0,1,0.1),yaxis1.lbls=c(0,0.5,1),yaxis2.show=TRUE,...) { # nocov start
+    yaxis1.ticks=seq(0,1,0.1),yaxis1.lbls=c(0,0.5,1),
+    yaxis2.show=TRUE,...) { # nocov start
   # convert factor to 0s and 1s
   if (is.factor(y)) yn <- as.numeric(y)-1
     else yn <- y
   # will cause points not to be visible
   if (!plot.pts) col.pt="white"
   # make transparency value equal to max number of points that overlap
-  if (is.null(transparency)) transparency <- max(tapply(yn,x,length))
+  if (is.null(transparency)) transparency <- max(stats::xtabs(~yn+x))
   # adjust for maximum allowable transparency
-  if (transparency>500) transparency <- 500
+  if (transparency>50) transparency <- 50
   # plot raw data points
-  graphics::plot(yn~x,pch=16,col=col2rgbt(col.pt,1/transparency),yaxt="n",xlab=xlab,ylab=ylab,...)
+  graphics::plot(yn~x,pch=16,col=col2rgbt(col.pt,1/transparency),
+                 yaxt="n",xlab=xlab,ylab=ylab,...)
   # puts on ticks
   graphics::axis(2,yaxis1.ticks,FALSE,cex.axis=graphics::par()$cex.axis)
   # only label a few
@@ -107,7 +109,7 @@ plotBinResp.default <- function(x,y,
     } else {
       if (length(breaks)==1) {
         # handle if just a number of breaks is given
-        x.i <- lencat(x,startcat=min(x),w=round((max(x)-min(x))/breaks))
+        x.i <- lencat(x,startcat=min(x),w=(max(x)-min(x))/breaks)
       } else {
         # handle if actual breaks are given
         x.i <- lencat(x,breaks=breaks)
