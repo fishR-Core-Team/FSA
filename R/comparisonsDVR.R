@@ -162,7 +162,7 @@ print.compSlopes <- function(x,...) { # nocov start
 #' @examples
 #' ## Reduce Mirex data to years where slopes don't differ to
 #' ##   illustrate this function ... see compSlopes() for
-#' ##   analysis of full data set.
+#' ##   analysis of full data set. 
 #' data(Mirex)
 #' Mirex <- Mirex[Mirex$year!="1996" & Mirex$year!="1999",]
 #' Mirex$year <- factor(Mirex$year)
