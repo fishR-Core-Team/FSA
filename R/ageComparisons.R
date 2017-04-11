@@ -392,7 +392,9 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
                          show.range=FALSE,col.range="gray",lwd.range=lwd,
                          col.agree="black",lwd.agree=lwd,lty.agree=2,
                          cex.numbers=0.9,
-                         xlim=NULL,ylim=NULL,yaxt=graphics::par("yaxt"),xaxt=graphics::par("xaxt"),...) { # nocov start
+                         xlim=NULL,ylim=NULL,
+                         yaxt=graphics::par("yaxt"),
+                         xaxt=graphics::par("xaxt"),...) { # nocov start
   what <- match.arg(what)
   switch(what,
          bias={ iAgeBiasPlot(x,difference,
@@ -403,8 +405,8 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
                              col.agree,lwd.agree,lty.agree,
                              xlim,ylim,yaxt,...) },
          sunflower={ iAgeBiasSunflowerPlot(x,difference,
-                                           xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
-                                           xlim,ylim,lwd.agree,lty.agree,col.agree,yaxt=yaxt,...) },
+                             xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
+                             xlim,ylim,lwd.agree,lty.agree,col.agree,yaxt=yaxt,...) },
          numbers={ iAgeBiasNumPlot(x,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,
                                    cex.numbers,yaxt,xaxt,...) }
   ) # end switch
