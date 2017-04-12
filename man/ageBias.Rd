@@ -19,11 +19,11 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
 \method{plot}{ageBias}(x, what = c("bias", "sunflower", "numbers"),
   difference = FALSE, xlab = x$ref.lab, ylab = x$nref.lab,
   show.n = TRUE, nYpos = 1.03, cex.n = 0.75, lwd = 1,
-  show.pts = FALSE, pch.pts = 19, col.pts = grDevices::rgb(0, 0, 0,
-  transparency), transparency = 1/10, pch.mean = 95, cex.mean = lwd,
+  show.pts = FALSE, pch.pts = 20, col.pts = "black",
+  transparency = 1/10, pch.mean = 19, pch.mean.sig = 21, cex.mean = lwd,
   col.CI = "black", col.CIsig = "red", lwd.CI = lwd, sfrac = 0,
   show.range = FALSE, col.range = "gray", lwd.range = lwd,
-  col.agree = "black", lwd.agree = lwd, lty.agree = 2,
+  col.agree = "gray80", lwd.agree = lwd, lty.agree = 2,
   cex.numbers = 0.9, xlim = NULL, ylim = NULL,
   yaxt = graphics::par("yaxt"), xaxt = graphics::par("xaxt"), ...)
 }
@@ -78,6 +78,8 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
 
 \item{pch.mean}{A numeric value that indicates the plotting character to be used for the mean values (i.e., center of confidence interval bars).}
 
+\item{pch.mean.sig}{A numeric value that indicates the plotting character to be used for the mean values (i.e., center of confidence interval bars) when the means are considered significant.}
+
 \item{cex.mean}{A character expansion value for the size of the mean symbol in \code{pch.mean}.}
 
 \item{col.CI}{A string or numeric value that indicates the color to be used for confidence interval bars that are considered non-significant.}
@@ -129,9 +131,9 @@ The age-agreement table is constructed with  \code{what="table"} in \code{summar
 
 Three statistical tests of symmetry for the age-agreement table can be computed with \code{what=} in \code{summary}.  The \dQuote{unpooled} or Bowker test as described in Hoenig et al. (1995) is constructed with \code{what="Bowker"}, the \dQuote{semi-pooled} or Evans-Hoenig test as described in Evans and Hoenig (1998) is constructed with \code{what="EvansHoenig"}, and the \dQuote{pooled} or McNemar test as described in Evans and Hoenig (1998) is constructed with \code{what="McNemar"}.  All three tests are run simultaneously with \code{what="symmetry"}.
 
-An age-bias plot, as defined by Campana et al. (1995), is constructed with \code{what="bias"} (the default) in \code{plot}.  The reference variable from the \code{ageBias} call is plotted on the x-axis.  Plotted confidence intervals are computed for the mean of the non-reference ages at each of the reference ages.  The level of confidence is controlled by \code{sig.level=} given in the original \code{ageBias} call (i.e., confidence level is 100*(1-\code{sig.level})).  Confidence intervals are only shown if the sample size is greater than the value in \code{min.n.CI=}.  Confidence intervals plotted in red do not contain the reference age (see discussion of t-tests below).  Vertical lines that connect the minimum to the maximum observed value of the y-axis variable at each age of the x-axis variable are plotted in grey if \code{show.range=TRUE}.  Individual points are plotted if \code{show.pts=TRUE}.  The 1:1 (45 degree) agreement line is shown for comparative purposes.  The sample sizes at each age of the x-axis variable are shown if \code{show.n=TRUE} (the default).  The position of the sample sizes is controlled with \code{nYpos=}.
+An age-bias plot, as defined by Campana et al. (1995), is constructed with \code{what="bias"} (the default) in \code{plot}. The reference variable from the \code{ageBias} call is plotted on the x-axis. Plotted confidence intervals are computed for the mean of the non-reference ages at each of the reference ages. The level of confidence is controlled by \code{sig.level=} given in the original \code{ageBias} call (i.e., confidence level is 100*(1-\code{sig.level})). Confidence intervals are only shown if the sample size is greater than the value in \code{min.n.CI=}. Confidence intervals plotted in red with an open dot (by default; these can be changed with \code{col.CIsig} and \code{pch.mean.sig}, respectively) do not contain the reference age (see discussion of t-tests below). Vertical lines that connect the minimum to the maximum observed values of the y-axis variable at each age of the x-axis variable are plotted in grey if \code{show.range=TRUE}. Individual points are plotted if \code{show.pts=TRUE}. The 1:1 (45 degree) agreement line is shown for comparative purposes. The sample sizes at each age of the x-axis variable are shown if \code{show.n=TRUE} (the default). The position of the sample sizes is controlled with \code{nYpos=}.
 
-An age-bias plot, as defined by Muir et al. (2008), is constructed as defined above but by also including \code{difference=TRUE} in \code{plot} so that the y-axis is the difference in the paired reference and non-reference ages from the \code{ageBias} call (specifically, nonreference-reference).
+A modified age-bias plot, as defined by Muir et al. (2008), is constructed as defined above but by also including \code{difference=TRUE} in \code{plot} so that the y-axis is the difference in the paired reference and non-reference ages from the \code{ageBias} call (specifically, nonreference-reference).
 
 The frequency of observations at each unique (x,y) coordinate are shown by using \code{what="numbers"} in \code{plot}.
 
@@ -172,18 +174,37 @@ plot(ab1)
 ## demonstrates squaring up the axes
 plot(ab1,ylim=c(-1,23),xlim=c(-1,23))
 ## plot with the data points shown
-plot(ab1,show.pts=TRUE,transparency=1/8)
+plot(ab1,show.pts=TRUE)
 ## plot with the range shown
 plot(ab1,show.range=TRUE)
 ## plot with no difference in significance bar colors
 plot(ab1,col.CIsig="black")
-## plot of differences (note could use same modifications as shown above)
+## plot with no difference in points for significance ages
+plot(ab1,pch.mean.sig=19)
+plot(ab1,pch.mean=21)
+## plot with no difference in points or colors for significance ages
+plot(ab1,pch.mean.sig=19,col.CIsig="black")
+plot(ab1,pch.mean=21,col.CIsig="black")
+## Remove sample sizes
+plot(ab1,show.n=FALSE)
+## Move sample sizes (and change text size)
+plot(ab1,nYpos=0.02,cex.n=0.5)
+## Suppress confidence intervals for n < a certain value
+##   must set this in the original ageBias() call
+ab2 <- ageBias(scaleC~otolithC,data=WhitefishLC,min.n.CI=5,
+               ref.lab="Otolith Age",nref.lab="Scale Age")
+plot(ab2)
+
+## plot of differences
+##  (note could use all of the same modifications as demonstrated above)
 plot(ab1,difference=TRUE)
+
+## "Numbers" plot
+plot(ab1,what="number",col.agree="gray50")
+
 ## sunflower plot
 plot(ab1,what="sunflower")
 plot(ab1,what="sunflower",difference=TRUE)
-## "Numbers" plot
-plot(ab1,what="number",col.agree="gray50")
 
 }
 \references{

@@ -1,4 +1,5 @@
 # FSA 0.8.13 ongoing
+* `ageBias()`: Modified. Changed default pch for the points, default pch for the mean points, added `pch.mean.sig=` so that the mean points can be different for ages that show a significant difference, and color for the agreement line. Changed how `col.pts=` is handled.
 * `capFirst()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 * `compIntercepts()`: Modified. Replaced two `dim()` calls with `nrow()`.
 * `fact2num()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
