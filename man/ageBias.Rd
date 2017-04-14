@@ -16,9 +16,10 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
   zero.print = "-", digits = 3, cont.corr = c("none", "Yates", "Edwards"),
   ...)
 
-\method{plot}{ageBias}(x, what = c("bias", "sunflower", "numbers"),
-  difference = FALSE, xlab = x$ref.lab, ylab = x$nref.lab,
-  show.n = TRUE, nYpos = 1.03, cex.n = 0.75, lwd = 1,
+\method{plot}{ageBias}(x, what = c("bias", "numbers"), difference = FALSE,
+  yHist = FALSE, xHist = FALSE, hist.panel.size = 1/8,
+  col.hist = "gray90", xlab = x$ref.lab, ylab = x$nref.lab,
+  show.n = FALSE, nYpos = 1.03, cex.n = 0.75, lwd = 1,
   show.pts = FALSE, pch.pts = 20, col.pts = "black",
   transparency = 1/10, pch.mean = 19, pch.mean.sig = 21, cex.mean = lwd,
   col.CI = "black", col.CIsig = "red", lwd.CI = lwd, sfrac = 0,
@@ -57,6 +58,14 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
 \item{x, object}{An object of class \code{ageBias}, usually a result from \code{ageBias}.}
 
 \item{difference}{A logical that indicates whether or not the difference between the two age assignments should be used.  See details.}
+
+\item{yHist}{A logical that indicates whether a histogram of the y-axis variable should be added to the right margin of the age bias plot. See details.}
+
+\item{xHist}{A logical that indicates whether a histogram of the x-axis variable should be added to the top margin of the age bias plot. See details.}
+
+\item{hist.panel.size}{A single numeric between 0 and 1 that indicates the proportional size of histograms (relative to the entire plotting pane) in the plot margins (only used if \code{xHist=TRUE} or \code{yHist=TRUE}).}
+
+\item{col.hist}{A string that indicates the color of the bars in the marginal histograms (only used if \code{xHist=TRUE} or \code{yHist=TRUE}).}
 
 \item{xlab, ylab}{A string that contains a label for the x-axis (reference) or y-axis (non-reference) age assignments, respectively.}
 
@@ -199,12 +208,21 @@ plot(ab2)
 ##  (note could use all of the same modifications as demonstrated above)
 plot(ab1,difference=TRUE)
 
+## Add marginal histograms (can also use all modifications from above)
+# add both
+plot(ab1,difference=TRUE,xHist=TRUE,yHist=TRUE)
+# just for y-axis variable
+plot(ab1,difference=TRUE,yHist=TRUE)
+# just for x-axis variable
+plot(ab1,difference=TRUE,xHist=TRUE)
+# adjust the size of the panels for the histograms
+#   and adjust placement of the "n" label.
+plot(ab1,difference=TRUE,xHist=TRUE,yHist=TRUE,hist.panel.size=1/4)
+# also works without differences
+plot(ab1,xHist=TRUE,yHist=TRUE)
+
 ## "Numbers" plot
 plot(ab1,what="number",col.agree="gray50")
-
-## sunflower plot
-plot(ab1,what="sunflower")
-plot(ab1,what="sunflower",difference=TRUE)
 
 }
 \references{

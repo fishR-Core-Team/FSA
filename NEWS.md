@@ -1,5 +1,5 @@
 # FSA 0.8.13 ongoing
-* `ageBias()`: Modified. Changed default pch for the points, default pch for the mean points, added `pch.mean.sig=` so that the mean points can be different for ages that show a significant difference, and color for the agreement line. Changed how `col.pts=` is handled.
+* `ageBias()`: Modified. Changed default pch for the points, default pch for the mean points, added `pch.mean.sig=` so that the mean points can be different for ages that show a significant difference, and color for the agreement line. Changed how `col.pts=` is handled. Changed default for `show.n=` to `FALSE` (suggest that the user add the new marginal histograms). Removed `sunflower` as an option in `what=`. Added `xHist=`, `yHist=`, `col.hist=`, and `hist.panel.size=` to the `plot()` function which allows the user to add marginal histograms to the x- and y-axes of the age-bias plots.
 * `capFirst()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 * `compIntercepts()`: Modified. Replaced two `dim()` calls with `nrow()`.
 * `fact2num()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.

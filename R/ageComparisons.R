@@ -16,6 +16,10 @@
 #' @param cont.corr A string that indicates the continuity correction method to be used with (only) McNemar test.  If \code{"none"} (default) then no continuity correction is used, if \code{"Yates"} then 0.5 is used, and if \code{"Edwards"} then 1 is used. 
 #' @param x,object An object of class \code{ageBias}, usually a result from \code{ageBias}.
 #' @param difference A logical that indicates whether or not the difference between the two age assignments should be used.  See details.
+#' @param yHist A logical that indicates whether a histogram of the y-axis variable should be added to the right margin of the age bias plot. See details.
+#' @param xHist A logical that indicates whether a histogram of the x-axis variable should be added to the top margin of the age bias plot. See details.
+#' @param hist.panel.size A single numeric between 0 and 1 that indicates the proportional size of histograms (relative to the entire plotting pane) in the plot margins (only used if \code{xHist=TRUE} or \code{yHist=TRUE}).
+#' @param col.hist A string that indicates the color of the bars in the marginal histograms (only used if \code{xHist=TRUE} or \code{yHist=TRUE}).
 #' @param xlab,ylab A string that contains a label for the x-axis (reference) or y-axis (non-reference) age assignments, respectively. 
 #' @param show.n A logical that indicates whether the sample sizes for each level of the x-axis variable is shown (\code{=TRUE}, default) or not (\code{=FALSE}).
 #' @param nYpos A numeric value that indicates the relative Y position of the sample size values when \code{show.n=TRUE}.  For example, if \code{nYpos=1.03} then the sample size values will be centered at 3 percent above the top end of the y-axis.
@@ -145,12 +149,21 @@
 #' ##  (note could use all of the same modifications as demonstrated above)
 #' plot(ab1,difference=TRUE)
 #' 
+#' ## Add marginal histograms (can also use all modifications from above)
+#' # add both
+#' plot(ab1,difference=TRUE,xHist=TRUE,yHist=TRUE)
+#' # just for y-axis variable
+#' plot(ab1,difference=TRUE,yHist=TRUE)
+#' # just for x-axis variable
+#' plot(ab1,difference=TRUE,xHist=TRUE)
+#' # adjust the size of the panels for the histograms
+#' #   and adjust placement of the "n" label.
+#' plot(ab1,difference=TRUE,xHist=TRUE,yHist=TRUE,hist.panel.size=1/4)
+#' # also works without differences
+#' plot(ab1,xHist=TRUE,yHist=TRUE)
+#' 
 #' ## "Numbers" plot
 #' plot(ab1,what="number",col.agree="gray50")
-#' 
-#' ## sunflower plot
-#' plot(ab1,what="sunflower")
-#' plot(ab1,what="sunflower",difference=TRUE)
 #'
 #' @rdname ageBias
 #' @export
@@ -402,8 +415,9 @@ iEvansHoenig <- function(obj) {
 
 #' @rdname ageBias
 #' @export
-plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE,
-                         xlab=x$ref.lab,ylab=x$nref.lab,show.n=TRUE,nYpos=1.03,cex.n=0.75,
+plot.ageBias <- function(x,what=c("bias","numbers"),difference=FALSE,
+                         yHist=FALSE,xHist=FALSE,hist.panel.size=1/8,col.hist="gray90",
+                         xlab=x$ref.lab,ylab=x$nref.lab,show.n=FALSE,nYpos=1.03,cex.n=0.75,
                          lwd=1,show.pts=FALSE,pch.pts=20,
                          col.pts="black",transparency=1/10,
                          pch.mean=19,pch.mean.sig=21,cex.mean=lwd,
@@ -416,21 +430,33 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
                          xaxt=graphics::par("xaxt"),...) { # nocov start
   what <- match.arg(what)
   col.pts <- col2rgbt(col.pts,transparency)
+  op <- iABSetLayout(yHist,xHist,hist.panel.size)
   switch(what,
-         bias={ iAgeBiasPlot(x,difference,
-                             xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
-                             show.n,nYpos,cex.n,show.pts,pch.pts,col.pts,
-                             pch.mean,pch.mean.sig,cex.mean,
-                             col.CI,col.CIsig,lwd.CI,sfrac,
-                             show.range,col.range,lwd.range,
-                             col.agree,lwd.agree,lty.agree,
-                             xlim,ylim,yaxt,...) },
-         sunflower={ iAgeBiasSunflowerPlot(x,difference,
-                             xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
-                             xlim,ylim,lwd.agree,lty.agree,col.agree,yaxt=yaxt,...) },
-         numbers={ iAgeBiasNumPlot(x,xlab,ylab,xlim,ylim,lwd.agree,lty.agree,col.agree,
-                                   cex.numbers,yaxt,xaxt,...) }
+         bias={ 
+           axlmts <- iABAxisLmts(x,xlim,ylim,difference,show.range,show.pts)
+           iAgeBiasPlot(x,difference,xHist,yHist,
+                        xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
+                        show.n,nYpos,cex.n,show.pts,pch.pts,col.pts,
+                        pch.mean,pch.mean.sig,cex.mean,
+                        col.CI,col.CIsig,lwd.CI,sfrac,
+                        show.range,col.range,lwd.range,
+                        col.agree,lwd.agree,lty.agree,
+                        axlmts,yaxt,...)
+           },
+         numbers={
+           if (difference) {
+             WARN("'difference' not used with 'numbers' plot.")
+             difference <- FALSE
+           }
+           axlmts <- iABAxisLmts(x,xlim,ylim,difference,
+                                 show.range=FALSE,show.pts=TRUE,show.CIs=FALSE)  
+           iAgeBiasNumPlot(x,xlab,ylab,axlmts,lwd.agree,lty.agree,col.agree,
+                        cex.numbers,yaxt,xaxt,...) }
   ) # end switch
+  if (xHist) iABAddXHist(x,col.hist,axlmts,op,yHist)
+  if (yHist) iABAddYHist(x,difference,col.hist,axlmts,op,xHist)
+  graphics::layout(1,widths=1,heights=1)
+  graphics::par(op)
 } # nocov end
 
 
@@ -438,16 +464,14 @@ plot.ageBias <- function(x,what=c("bias","sunflower","numbers"),difference=FALSE
 # This internal function is used to produce the age-bias plot.
 # This is called by ageBias().
 #=============================================================
-iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,cex.n,
+iAgeBiasPlot <- function(obj,difference,xHist,yHist,xlab,ylab,show.n,nYpos,cex.n,
                          show.pts,pch.pts,col.pts,
                          pch.mean,pch.mean.sig,cex.mean,col.CI,col.CIsig,lwd.CI,
                          sfrac,show.range,col.range,lwd.range,
-                         col.agree,lwd.agree,lty.agree,xlim,ylim,yaxt,...) { # nocov start
+                         col.agree,lwd.agree,lty.agree,axlmts,yaxt,...) { # nocov start
   # identify whether difference data should be used or not, put in a tmp data frame
   if (!difference) d <- obj$bias
     else d <- obj$bias.diff
-  # Control the axis limits (especially if none are given)
-  axlmts <- iabAxisLmts(d,xlim,ylim,difference,show.range,show.pts)  
   # Plot more tick marks    
   graphics::par(lab=c(length(d[,1]),length(d$mean),7))    
   # Set base plot with Mean of 2nd vs. 1st age range
@@ -483,13 +507,14 @@ iAgeBiasPlot <- function(obj,difference,xlab,ylab,show.n,nYpos,cex.n,
     graphics::points(x=d[,1][!d$sig],y=d$mean[!d$sig],pch=pch.mean,cex=cex.mean)
   }
   # show the sample sizes at the top
-  if (show.n) graphics::text(d[,1],graphics::grconvertY(nYpos,"npc"),d$n,cex=cex.n,xpd=TRUE)
+  if (show.n & !xHist) graphics::text(d[,1],graphics::grconvertY(nYpos,"npc"),
+                                      d$n,cex=cex.n,xpd=TRUE)
 } # nocov end
 
 #=============================================================
 # Internal function to produce the age-bias numbers plot.
 #=============================================================
-iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,
+iAgeBiasNumPlot <- function(obj,xlab,ylab,axlmts,
                             lwd.agree,lty.agree,col.agree,
                             cex.numbers,yaxt,xaxt,...) { # nocov start
   # convert age-agreement table into a data frame with all zeros removed
@@ -499,11 +524,9 @@ iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,
   d[,1] <- fact2num(d[,1])
   d[,2] <- fact2num(d[,2])
   d <- d[d[,3]>0,]
-  # Control the axis limits (especially if none are given) ...
-  # sent obj$bias so that axes would match the other plots
-  axlmts <- iabAxisLmts(obj$bias,xlim,ylim,difference=FALSE,show.range=FALSE,show.pts=TRUE,show.CIs=FALSE)  
   # make an empty plot
-  graphics::plot(d[,2],d[,1],type="n",xlab=xlab,ylab=ylab,xlim=axlmts$xlim,ylim=axlmts$ylim,yaxt="n",xaxt="n",...)
+  graphics::plot(d[,2],d[,1],type="n",xlab=xlab,ylab=ylab,
+                 xlim=axlmts$xlim,ylim=axlmts$ylim,yaxt="n",xaxt="n",...)
   # Helps keep axes as integers
   if (yaxt!="n") {graphics::axis(2,seq(axlmts$ylim[1],axlmts$ylim[2],1))}
   if (xaxt!="n") {graphics::axis(1,seq(axlmts$xlim[1],axlmts$xlim[2],1))}
@@ -513,21 +536,103 @@ iAgeBiasNumPlot <- function(obj,xlab,ylab,xlim,ylim,
   graphics::text(d[,2],d[,1],labels=d[,3],cex=cex.numbers)
 } # nocov end
 
+
 #=============================================================
-# Internal function used to produce the age-bias sunflower plot.
+# This internal function is used to create an appropriate
+#   layout if yHist=TRUE or xHist=TRUE. 
 #=============================================================
-iAgeBiasSunflowerPlot <- function(obj,difference,xlab,ylab,xlim,ylim,
-                                  lwd.agree,lty.agree,col.agree,yaxt,...) { # nocov start
-  x <- obj$d[,2]
-  ifelse(difference,y <- obj$d[,3],y <- obj$d[,1])
-  if (is.null(ylim)) ylim <- range(y)
-  if (is.null(xlim)) xlim <- range(x)
-  graphics::sunflowerplot(x,y,seg.col="blue",size=1/10,xlim=xlim,ylim=ylim,xlab=xlab,ylab=ylab,yaxt="n",...)
-  # Helps keep y-axis as integers
-  if (yaxt!="n") {graphics::axis(2,seq(ylim[1],ylim[2],1))}
-  # agreement line -- horizontal for difference and 45 degree for bias plot
-  if (difference) graphics::abline(h=0,lwd=lwd.agree,lty=lty.agree,col=col.agree)
-  else graphics::abline(a=0,b=1,lwd=lwd.agree,lty=lty.agree,col=col.agree)
+iABSetLayout <- function(yHist,xHist,hist.size) { # nocov start
+  tmp <- graphics::par()$mar
+  if (yHist & xHist) { # Both marginal hists
+    graphics::layout(matrix(c(2,0,1,3),ncol=2,byrow=TRUE),
+           widths=c(1-hist.size,hist.size),
+           heights=c(hist.size,1-hist.size))
+    op <- graphics::par(mar=c(tmp[1],tmp[2],0,0))
+  } else if (yHist) {  # Only marginal hist on Y-axis
+    graphics::layout(matrix(c(1,2),ncol=2),widths=c(1-hist.size,hist.size),heights=1)
+    op <- graphics::par(mar=c(tmp[1],tmp[2],tmp[3],0))
+  } else if (xHist) {  # Only marginal hist on X-axis
+    graphics::layout(matrix(c(2,1),ncol=1),widths=1,heights=c(hist.size,1-hist.size))
+    op <- graphics::par(mar=c(tmp[1],tmp[2],0,tmp[4]))
+  } else {
+    graphics::layout(1,widths=1,heights=1) # no marginal hists (return normal layout)
+    op <- graphics::par(mar=tmp)
+  }
+  op  # return old pars
+} # nocov end
+
+
+#=============================================================
+# This internal function is used to create the histogram for
+#   the x-axis margin if xHist=TRUE. 
+#=============================================================
+iABAddXHist <- function(x,col.hist,axlmts,op,yHist) { # nocov start
+  # Get the data to plot ... in second column of x$data
+  xdat <- x$data[,2]
+  # Set graphing parameters for this panel
+  #   the bottom is set to zero to butt up against the age-bias plot,
+  #   the left and right are set to the same as the age-bias plot which
+  #   forces the width to be the same as the age-bias plot, and the top
+  #   is set to a small value (either 0.5 or what the user had it set at
+  #   if that was less than 1, values greater than 1 are ugly).
+  graphics::par(mar=c(0,op$mar[2],ifelse(op$mar[3]<1,op$mar[3],0.5),
+                      ifelse(yHist,0,op$mar[4])))
+  # Make a histogram (but don't plot) with breaks that are one unit wide
+  #   to find the breaks and counts data for use in rect below
+  startcat <- floor(min(xdat,na.rm=TRUE))
+  breaks <- seq(startcat,max(xdat,na.rm=TRUE)+1,1)
+  tmp <- graphics::hist(xdat,right=FALSE,plot=FALSE,
+                        warn.unused=FALSE,breaks=breaks)
+  # Find x and y-axis limits
+  ylmts <- c(0,max(tmp$counts))
+  xlmts <- axlmts$xlim
+  # Make a blank plot to which rectangles will be added
+  graphics::plot(NULL,type="n",yaxs="i",xaxt="n",yaxt="n",bty="n",
+                 xlab="",ylab="n",ylim=ylmts,xlim=xlmts)
+  # Put a y-axis on the right, with only two values marked
+  tcks <- tckslbl <- c(0,round(mean(ylmts),0),max(ylmts))
+  graphics::axis(2,at=tcks,labels=c(NA,tcks[-1]))
+  graphics::axis(2,at=0,labels=NA,tcl=-0.8*graphics::par()$mgp[1])
+  # Add the rectangles
+  graphics::rect(tmp$breaks[-length(tmp$breaks)]-0.5,0,
+            tmp$breaks[-1]-0.5,tmp$counts,col=col.hist)
+} # nocov end
+
+
+#=============================================================
+# This internal function is used to create the histogram for
+#   the y-axis margin if yHist=TRUE. 
+#=============================================================
+iABAddYHist <- function(x,difference,col.hist,axlmts,op,xHist) { # nocov start
+  # Get the data to plot
+  if (difference) { ydat <- x$data[,3] } else { ydat <- x$data[,1] }
+  # Set graphing parameters for this panel
+  #   the left is set to zero to butt up against the age-bias plot,
+  #   the bottom and top are set to the same as the age-bias plot which
+  #   forces the height to be the same as the age-bias plot, and the right
+  #   is set to a small value (either 0.5 or what the user had it set at
+  #   if that was less than 1, values greater than 1 are ugly).
+  graphics::par(mar=c(op$mar[1],0,ifelse(xHist,0,op$mar[3]),
+                      ifelse(op$mar[4]<1,op$mar[4],0.5)))
+  # Make a histogram (but don't plot) with breaks that are one unit wide
+  #   to find the breaks and counts data for use in rect below
+  startcat <- floor(min(ydat,na.rm=TRUE))
+  breaks <- seq(startcat,max(ydat,na.rm=TRUE)+1,1)
+  tmp <- graphics::hist(ydat,right=FALSE,plot=FALSE,
+                        warn.unused=FALSE,breaks=breaks)
+  # Find x and y-axis limits
+  xlmts <- c(0,max(tmp$counts))
+  ylmts <- axlmts$ylim
+  # Make a blank plot to which rectangles will be added
+  graphics::plot(NULL,type="n",xaxs="i",xaxt="n",yaxt="n",bty="n",
+                 xlab="n",ylab="",ylim=ylmts,xlim=xlmts)
+  # Put a y-axis on the right, with only two values marked
+  tcks <- tckslbl <- c(0,round(mean(xlmts),0),max(xlmts))
+  graphics::axis(1,at=tcks,labels=c(NA,tcks[-1]))
+  graphics::axis(1,at=0,labels=NA,tcl=-0.8*graphics::par()$mgp[1])
+  # Add the rectangles
+  graphics::rect(0,tmp$breaks[-length(tmp$breaks)]-0.5,
+                 tmp$counts,tmp$breaks[-1]-0.5,col=col.hist)
 } # nocov end
 
 
@@ -535,7 +640,9 @@ iAgeBiasSunflowerPlot <- function(obj,difference,xlab,ylab,xlim,ylim,
 # This internal function is used to find appropriate axis
 # limits for the age-bias plot. 
 #=============================================================
-iabAxisLmts <- function(d,xlim,ylim,difference,show.range,show.pts,show.CIs=TRUE) { # nocov start
+iABAxisLmts <- function(x,xlim,ylim,difference,show.range,show.pts,show.CIs=TRUE) { # nocov start
+  # identify whether difference data should be used or not, put in a tmp data frame
+  if (!difference) { d <- x$bias } else { d <- x$bias.diff }
   # If no xlim given then make xlim the range of x values
   # which are given in the first position of d (note that
   # d is the age-bias statistics)
@@ -569,7 +676,6 @@ iabAxisLmts <- function(d,xlim,ylim,difference,show.range,show.pts,show.CIs=TRUE
   # return values
   list(xlim=xlmt,ylim=ylmt)
 } # nocov end
-
 
 
 
