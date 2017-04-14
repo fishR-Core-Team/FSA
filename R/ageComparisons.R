@@ -589,13 +589,17 @@ iABAddXHist <- function(x,col.hist,axlmts,op,yHist) { # nocov start
   # Make a blank plot to which rectangles will be added
   graphics::plot(NULL,type="n",yaxs="i",xaxt="n",yaxt="n",bty="n",
                  xlab="",ylab="n",ylim=ylmts,xlim=xlmts)
+  # Add the rectangles
+  graphics::rect(tmp$breaks[-length(tmp$breaks)]-0.5,0,
+                 tmp$breaks[-1]-0.5,tmp$counts,col=col.hist)
   # Put a y-axis on the right, with only two values marked
   tcks <- tckslbl <- c(0,round(mean(ylmts),0),max(ylmts))
   graphics::axis(2,at=tcks,labels=c(NA,tcks[-1]))
   graphics::axis(2,at=0,labels=NA,tcl=-0.8*graphics::par()$mgp[1])
-  # Add the rectangles
-  graphics::rect(tmp$breaks[-length(tmp$breaks)]-0.5,0,
-            tmp$breaks[-1]-0.5,tmp$counts,col=col.hist)
+  # Add small (either 1/2 of default tcl or 0.2) x-axis ticks
+  tmp <- graphics::par()$tcl/2
+  graphics::axis(1,at=seq(xlmts[1],xlmts[2],1),labels=NA,
+                 tcl=ifelse(tmp<(-0.2),-0.2,tmp))
 } # nocov end
 
 
@@ -626,13 +630,17 @@ iABAddYHist <- function(x,difference,col.hist,axlmts,op,xHist) { # nocov start
   # Make a blank plot to which rectangles will be added
   graphics::plot(NULL,type="n",xaxs="i",xaxt="n",yaxt="n",bty="n",
                  xlab="n",ylab="",ylim=ylmts,xlim=xlmts)
+  # Add the rectangles
+  graphics::rect(0,tmp$breaks[-length(tmp$breaks)]-0.5,
+                 tmp$counts,tmp$breaks[-1]-0.5,col=col.hist)
   # Put a y-axis on the right, with only two values marked
   tcks <- tckslbl <- c(0,round(mean(xlmts),0),max(xlmts))
   graphics::axis(1,at=tcks,labels=c(NA,tcks[-1]))
   graphics::axis(1,at=0,labels=NA,tcl=-0.8*graphics::par()$mgp[1])
-  # Add the rectangles
-  graphics::rect(0,tmp$breaks[-length(tmp$breaks)]-0.5,
-                 tmp$counts,tmp$breaks[-1]-0.5,col=col.hist)
+  # Add small (either 1/2 of default tcl or 0.2) x-axis ticks
+  tmp <- graphics::par()$tcl/2
+  graphics::axis(2,at=seq(ylmts[1],ylmts[2],1),labels=NA,
+                 tcl=ifelse(tmp<(-0.2),-0.2,tmp))
 } # nocov end
 
 
