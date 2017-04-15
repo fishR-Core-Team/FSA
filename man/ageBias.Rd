@@ -18,14 +18,14 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
 
 \method{plot}{ageBias}(x, what = c("bias", "numbers"), difference = FALSE,
   yHist = FALSE, xHist = FALSE, hist.panel.size = 1/8,
-  col.hist = "gray90", xlab = x$ref.lab, ylab = x$nref.lab,
-  show.n = FALSE, nYpos = 1.03, cex.n = 0.75, lwd = 1,
-  show.pts = FALSE, pch.pts = 20, col.pts = "black",
-  transparency = 1/10, pch.mean = 19, pch.mean.sig = 21, cex.mean = lwd,
-  col.CI = "black", col.CIsig = "red", lwd.CI = lwd, sfrac = 0,
-  show.range = FALSE, col.range = "gray", lwd.range = lwd,
-  col.agree = "gray80", lwd.agree = lwd, lty.agree = 2,
-  cex.numbers = 0.9, xlim = NULL, ylim = NULL,
+  col.hist = "gray90", xlab = x$ref.lab, ylab = x$nref.lab, lwd = 1,
+  sfrac = 0, pch.mean = 19, pch.mean.sig = 21, cex.mean = lwd,
+  show.CI = TRUE, col.CI = "black", col.CIsig = "red", lwd.CI = lwd,
+  sfrac.CI = sfrac, show.range = FALSE, col.range = "gray70",
+  lwd.range = lwd, sfrac.range = sfrac, show.pts = FALSE, pch.pts = 20,
+  col.pts = "black", transparency = 1/10, col.agree = "gray80",
+  lwd.agree = lwd, lty.agree = 2, show.n = FALSE, nYpos = 1.03,
+  cex.n = 0.75, cex.numbers = 0.9, xlim = NULL, ylim = NULL,
   yaxt = graphics::par("yaxt"), xaxt = graphics::par("xaxt"), ...)
 }
 \arguments{
@@ -69,13 +69,33 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
 
 \item{xlab, ylab}{A string that contains a label for the x-axis (reference) or y-axis (non-reference) age assignments, respectively.}
 
-\item{show.n}{A logical that indicates whether the sample sizes for each level of the x-axis variable is shown (\code{=TRUE}, default) or not (\code{=FALSE}).}
+\item{lwd}{A single numeric value that can be used to control the separate \sQuote{lwd} argument (e.g., \code{lwd.CI} and \code{lwd.range}).}
 
-\item{nYpos}{A numeric value that indicates the relative Y position of the sample size values when \code{show.n=TRUE}.  For example, if \code{nYpos=1.03} then the sample size values will be centered at 3 percent above the top end of the y-axis.}
+\item{sfrac}{A single numeric value that can be used to control the separate \sQuote{sfrac} arguments (e.g., \code{sfrac.CI} and \code{sfrac.range}). See \code{sfrac} in \code{\link[plotrix]{plotCI}} of \pkg{plotrix}.}
 
-\item{cex.n}{A character expansion value for the size of the sample size values.}
+\item{pch.mean}{A numeric value that indicates the plotting character to be used for the mean values (i.e., center of confidence interval bars).}
 
-\item{lwd}{A single numeric value that can be used to control the separate \sQuote{lwd} argument (e.g., \code{lwd.CI}, \code{lwd.range}).}
+\item{pch.mean.sig}{A numeric value that indicates the plotting character to be used for the mean values (i.e., center of confidence interval bars) when the means are considered significant.}
+
+\item{cex.mean}{A character expansion value for the size of the mean symbol in \code{pch.mean}.}
+
+\item{show.CI}{A logical that indicates whether the confidence intervals should be plotted or not.}
+
+\item{col.CI}{A string or numeric that indicates the color to be used for confidence interval bars that are considered non-significant.}
+
+\item{col.CIsig}{A string or numeric that indicates the color to be used for confidence interval bars that are considered significant.}
+
+\item{lwd.CI}{A numeric that indicates the line width for the confidence interval bars.}
+
+\item{sfrac.CI}{A numeric that indicates the size of the ends of the confidence interval bars. See \code{sfrac} in \code{\link[plotrix]{plotCI}} of \pkg{plotrix}.}
+
+\item{show.range}{A logical that indicates whether to show vertical bars that represent the range of the data points.}
+
+\item{col.range}{A string or numeric value that indicates the color to be used for the interval representing the range of the data.}
+
+\item{lwd.range}{A numeric value that indicates the line width for the interval representing the range of the data.}
+
+\item{sfrac.range}{A numeric that indicates the size of the ends of the range bars. See \code{sfrac} in \code{\link[plotrix]{plotCI}} of \pkg{plotrix}.}
 
 \item{show.pts}{A logical that indicates whether to show the raw data points.}
 
@@ -85,31 +105,17 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
 
 \item{transparency}{A numeric value (between 0 and 1) that indicates the level of transparency to use for plotting the raw data points.  If expressed as 1/x, then x points plotted on top of each other will represent the color in \code{col.pts}.}
 
-\item{pch.mean}{A numeric value that indicates the plotting character to be used for the mean values (i.e., center of confidence interval bars).}
-
-\item{pch.mean.sig}{A numeric value that indicates the plotting character to be used for the mean values (i.e., center of confidence interval bars) when the means are considered significant.}
-
-\item{cex.mean}{A character expansion value for the size of the mean symbol in \code{pch.mean}.}
-
-\item{col.CI}{A string or numeric value that indicates the color to be used for confidence interval bars that are considered non-significant.}
-
-\item{col.CIsig}{A string or numeric value that indicates the color to be used for confidence interval bars that are considered significant.}
-
-\item{lwd.CI}{A numeric value that indicates the line width for the confidence interval bars.}
-
-\item{sfrac}{A numeric value that controls the size of the ends of the confidence interval bars.  See \code{sfrac} in \code{\link[plotrix]{plotCI}} of \pkg{plotrix}.}
-
-\item{show.range}{A logical that indicates whether to show vertical bars that represent the range of the data points.}
-
-\item{col.range}{A string or numeric value that indicates the color to be used for the interval representing the range of the data.}
-
-\item{lwd.range}{A numeric value that indicates the line width for the interval representing the range of the data.}
-
 \item{col.agree}{A string or numeric value that indicates the color for the 1:1 or zero (if difference) reference line.}
 
 \item{lwd.agree}{A numeric value that indicates the line width for the 1:1 or zero (if difference) reference line.}
 
 \item{lty.agree}{A numeric value that indicates the line type for the 1:1 or zero (if difference) reference line.}
+
+\item{show.n}{A logical that indicates whether the sample sizes for each level of the x-axis variable is shown (\code{=TRUE}, default) or not (\code{=FALSE}).}
+
+\item{nYpos}{A numeric value that indicates the relative Y position of the sample size values when \code{show.n=TRUE}.  For example, if \code{nYpos=1.03} then the sample size values will be centered at 3 percent above the top end of the y-axis.}
+
+\item{cex.n}{A character expansion value for the size of the sample size values.}
 
 \item{cex.numbers}{A character expansion value for the size of the numbers plotted when \code{what="numbers"} is used.}
 
@@ -145,8 +151,6 @@ An age-bias plot, as defined by Campana et al. (1995), is constructed with \code
 A modified age-bias plot, as defined by Muir et al. (2008), is constructed as defined above but by also including \code{difference=TRUE} in \code{plot} so that the y-axis is the difference in the paired reference and non-reference ages from the \code{ageBias} call (specifically, nonreference-reference).
 
 The frequency of observations at each unique (x,y) coordinate are shown by using \code{what="numbers"} in \code{plot}.
-
-A \dQuote{sunflower plot}, which contains a symbol for each unique (x,y) coordinate with as many \dQuote{petals} as observations at that point, is constructed with \code{what="sunflower"} in \code{plot}.  A sunflower plot with differences between the two structures can be constructed by also including \code{difference=TRUE}.
 
 Individual t-tests to determine if the mean age of the non-reference set at a particular age of the reference set is equal to the reference age (e.g., is the mean age of the non-reference set at age-3 of the reference set statistically equal to 3?) are shown with \code{what="bias"} in \code{summary}.  The results provide a column that indicates whether the difference is significant or not as determined by adjusted p-values from the t-tests and using the significance level provided in \code{sig.level} (defaults to 0.05).  Similar results for the difference in ages (e.g., is the mean row variable age minus column variable age at column variable age-3 equal to 0?) are constructed with \code{what="diff.bias"} in \code{summary}.
 
@@ -186,6 +190,12 @@ plot(ab1,ylim=c(-1,23),xlim=c(-1,23))
 plot(ab1,show.pts=TRUE)
 ## plot with the range shown
 plot(ab1,show.range=TRUE)
+## plot with just the range
+plot(ab1,show.range=TRUE,show.CI=FALSE)
+## plot with just the points shown
+plot(ab1,show.pts=TRUE,show.CI=FALSE)
+## plot just the means
+plot(ab1,show.CI=FALSE)
 ## plot with no difference in significance bar colors
 plot(ab1,col.CIsig="black")
 ## plot with no difference in points for significance ages
@@ -194,10 +204,10 @@ plot(ab1,pch.mean=21)
 ## plot with no difference in points or colors for significance ages
 plot(ab1,pch.mean.sig=19,col.CIsig="black")
 plot(ab1,pch.mean=21,col.CIsig="black")
-## Remove sample sizes
-plot(ab1,show.n=FALSE)
+## Show sample sizes
+plot(ab1,show.n=TRUE)
 ## Move sample sizes (and change text size)
-plot(ab1,nYpos=0.02,cex.n=0.5)
+plot(ab1,show.n=TRUE,nYpos=0.02,cex.n=0.5)
 ## Suppress confidence intervals for n < a certain value
 ##   must set this in the original ageBias() call
 ab2 <- ageBias(scaleC~otolithC,data=WhitefishLC,min.n.CI=5,

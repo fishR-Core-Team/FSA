@@ -21,28 +21,31 @@
 #' @param hist.panel.size A single numeric between 0 and 1 that indicates the proportional size of histograms (relative to the entire plotting pane) in the plot margins (only used if \code{xHist=TRUE} or \code{yHist=TRUE}).
 #' @param col.hist A string that indicates the color of the bars in the marginal histograms (only used if \code{xHist=TRUE} or \code{yHist=TRUE}).
 #' @param xlab,ylab A string that contains a label for the x-axis (reference) or y-axis (non-reference) age assignments, respectively. 
-#' @param show.n A logical that indicates whether the sample sizes for each level of the x-axis variable is shown (\code{=TRUE}, default) or not (\code{=FALSE}).
-#' @param nYpos A numeric value that indicates the relative Y position of the sample size values when \code{show.n=TRUE}.  For example, if \code{nYpos=1.03} then the sample size values will be centered at 3 percent above the top end of the y-axis.
-#' @param cex.n  A character expansion value for the size of the sample size values.
-#' @param lwd A single numeric value that can be used to control the separate \sQuote{lwd} argument (e.g., \code{lwd.CI}, \code{lwd.range}).
+#' @param lwd A single numeric value that can be used to control the separate \sQuote{lwd} argument (e.g., \code{lwd.CI} and \code{lwd.range}).
+#' @param sfrac A single numeric value that can be used to control the separate \sQuote{sfrac} arguments (e.g., \code{sfrac.CI} and \code{sfrac.range}). See \code{sfrac} in \code{\link[plotrix]{plotCI}} of \pkg{plotrix}.
+#' @param pch.mean A numeric value that indicates the plotting character to be used for the mean values (i.e., center of confidence interval bars).
+#' @param pch.mean.sig A numeric value that indicates the plotting character to be used for the mean values (i.e., center of confidence interval bars) when the means are considered significant.
+#' @param cex.mean A character expansion value for the size of the mean symbol in \code{pch.mean}.
+#' @param show.CI A logical that indicates whether the confidence intervals should be plotted or not.
+#' @param col.CI A string or numeric that indicates the color to be used for confidence interval bars that are considered non-significant.
+#' @param col.CIsig A string or numeric that indicates the color to be used for confidence interval bars that are considered significant.
+#' @param lwd.CI A numeric that indicates the line width for the confidence interval bars.
+#' @param sfrac.CI A numeric that indicates the size of the ends of the confidence interval bars. See \code{sfrac} in \code{\link[plotrix]{plotCI}} of \pkg{plotrix}.
+#' @param show.range A logical that indicates whether to show vertical bars that represent the range of the data points.
+#' @param col.range A string or numeric value that indicates the color to be used for the interval representing the range of the data.
+#' @param lwd.range A numeric value that indicates the line width for the interval representing the range of the data.
+#' @param sfrac.range A numeric that indicates the size of the ends of the range bars. See \code{sfrac} in \code{\link[plotrix]{plotCI}} of \pkg{plotrix}.
 #' @param show.pts A logical that indicates whether to show the raw data points.
 #' @param pch.pts A numeric value that indicates the plotting character to be used when plotting the raw data points.
 #' @param col.pts A string or numeric value that indicates the color to be used for plotting the raw data points.  The default is to use black with the transparency found in \code{transparency}.
 #' @param transparency A numeric value (between 0 and 1) that indicates the level of transparency to use for plotting the raw data points.  If expressed as 1/x, then x points plotted on top of each other will represent the color in \code{col.pts}.
-#' @param pch.mean A numeric value that indicates the plotting character to be used for the mean values (i.e., center of confidence interval bars).
-#' @param pch.mean.sig A numeric value that indicates the plotting character to be used for the mean values (i.e., center of confidence interval bars) when the means are considered significant.
-#' @param cex.mean A character expansion value for the size of the mean symbol in \code{pch.mean}.
-#' @param col.CI A string or numeric value that indicates the color to be used for confidence interval bars that are considered non-significant.
-#' @param col.CIsig A string or numeric value that indicates the color to be used for confidence interval bars that are considered significant.
-#' @param lwd.CI A numeric value that indicates the line width for the confidence interval bars.
-#' @param sfrac A numeric value that controls the size of the ends of the confidence interval bars.  See \code{sfrac} in \code{\link[plotrix]{plotCI}} of \pkg{plotrix}.
-#' @param show.range A logical that indicates whether to show vertical bars that represent the range of the data points.
-#' @param col.range A string or numeric value that indicates the color to be used for the interval representing the range of the data.
-#' @param lwd.range A numeric value that indicates the line width for the interval representing the range of the data.
 #' @param col.agree A string or numeric value that indicates the color for the 1:1 or zero (if difference) reference line.
 #' @param lwd.agree A numeric value that indicates the line width for the 1:1 or zero (if difference) reference line.
 #' @param lty.agree A numeric value that indicates the line type for the 1:1 or zero (if difference) reference line.
 #' @param cex.numbers A character expansion value for the size of the numbers plotted when \code{what="numbers"} is used.
+#' @param show.n A logical that indicates whether the sample sizes for each level of the x-axis variable is shown (\code{=TRUE}, default) or not (\code{=FALSE}).
+#' @param nYpos A numeric value that indicates the relative Y position of the sample size values when \code{show.n=TRUE}.  For example, if \code{nYpos=1.03} then the sample size values will be centered at 3 percent above the top end of the y-axis.
+#' @param cex.n  A character expansion value for the size of the sample size values.
 #' @param xlim,ylim A numeric vector of length 2 that contains the limits of the x-axis (reference ages) or y-axis (non-reference ages), respectively.
 #' @param xaxt,yaxt A string which specifies the x- and y-axis types. Specifying \dQuote{n} suppresses plotting of the axis.  See \code{?par}.
 #' @param \dots Additional arguments for methods.
@@ -58,8 +61,6 @@
 #' A modified age-bias plot, as defined by Muir et al. (2008), is constructed as defined above but by also including \code{difference=TRUE} in \code{plot} so that the y-axis is the difference in the paired reference and non-reference ages from the \code{ageBias} call (specifically, nonreference-reference).
 #'
 #' The frequency of observations at each unique (x,y) coordinate are shown by using \code{what="numbers"} in \code{plot}.
-#'
-#' A \dQuote{sunflower plot}, which contains a symbol for each unique (x,y) coordinate with as many \dQuote{petals} as observations at that point, is constructed with \code{what="sunflower"} in \code{plot}.  A sunflower plot with differences between the two structures can be constructed by also including \code{difference=TRUE}.
 #'
 #' Individual t-tests to determine if the mean age of the non-reference set at a particular age of the reference set is equal to the reference age (e.g., is the mean age of the non-reference set at age-3 of the reference set statistically equal to 3?) are shown with \code{what="bias"} in \code{summary}.  The results provide a column that indicates whether the difference is significant or not as determined by adjusted p-values from the t-tests and using the significance level provided in \code{sig.level} (defaults to 0.05).  Similar results for the difference in ages (e.g., is the mean row variable age minus column variable age at column variable age-3 equal to 0?) are constructed with \code{what="diff.bias"} in \code{summary}.
 #'
@@ -127,6 +128,12 @@
 #' plot(ab1,show.pts=TRUE)
 #' ## plot with the range shown
 #' plot(ab1,show.range=TRUE)
+#' ## plot with just the range
+#' plot(ab1,show.range=TRUE,show.CI=FALSE)
+#' ## plot with just the points shown
+#' plot(ab1,show.pts=TRUE,show.CI=FALSE)
+#' ## plot just the means
+#' plot(ab1,show.CI=FALSE)
 #' ## plot with no difference in significance bar colors
 #' plot(ab1,col.CIsig="black")
 #' ## plot with no difference in points for significance ages
@@ -135,10 +142,10 @@
 #' ## plot with no difference in points or colors for significance ages
 #' plot(ab1,pch.mean.sig=19,col.CIsig="black")
 #' plot(ab1,pch.mean=21,col.CIsig="black")
-#' ## Remove sample sizes
-#' plot(ab1,show.n=FALSE)
+#' ## Show sample sizes
+#' plot(ab1,show.n=TRUE)
 #' ## Move sample sizes (and change text size)
-#' plot(ab1,nYpos=0.02,cex.n=0.5)
+#' plot(ab1,show.n=TRUE,nYpos=0.02,cex.n=0.5)
 #' ## Suppress confidence intervals for n < a certain value
 #' ##   must set this in the original ageBias() call
 #' ab2 <- ageBias(scaleC~otolithC,data=WhitefishLC,min.n.CI=5,
@@ -417,14 +424,15 @@ iEvansHoenig <- function(obj) {
 #' @export
 plot.ageBias <- function(x,what=c("bias","numbers"),difference=FALSE,
                          yHist=FALSE,xHist=FALSE,hist.panel.size=1/8,col.hist="gray90",
-                         xlab=x$ref.lab,ylab=x$nref.lab,show.n=FALSE,nYpos=1.03,cex.n=0.75,
-                         lwd=1,show.pts=FALSE,pch.pts=20,
-                         col.pts="black",transparency=1/10,
+                         xlab=x$ref.lab,ylab=x$nref.lab,
+                         lwd=1,sfrac=0,
                          pch.mean=19,pch.mean.sig=21,cex.mean=lwd,
-                         col.CI="black",col.CIsig="red",lwd.CI=lwd,sfrac=0,
-                         show.range=FALSE,col.range="gray",lwd.range=lwd,
+                         show.CI=TRUE,col.CI="black",col.CIsig="red",
+                         lwd.CI=lwd,sfrac.CI=sfrac,
+                         show.range=FALSE,col.range="gray70",lwd.range=lwd,sfrac.range=sfrac,
+                         show.pts=FALSE,pch.pts=20,col.pts="black",transparency=1/10,
                          col.agree="gray80",lwd.agree=lwd,lty.agree=2,
-                         cex.numbers=0.9,
+                         show.n=FALSE,nYpos=1.03,cex.n=0.75,cex.numbers=0.9,
                          xlim=NULL,ylim=NULL,
                          yaxt=graphics::par("yaxt"),
                          xaxt=graphics::par("xaxt"),...) { # nocov start
@@ -433,14 +441,15 @@ plot.ageBias <- function(x,what=c("bias","numbers"),difference=FALSE,
   op <- iABSetLayout(yHist,xHist,hist.panel.size)
   switch(what,
          bias={ 
-           axlmts <- iABAxisLmts(x,xlim,ylim,difference,show.range,show.pts)
-           iAgeBiasPlot(x,difference,xHist,yHist,
-                        xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
-                        show.n,nYpos,cex.n,show.pts,pch.pts,col.pts,
+           axlmts <- iABAxisLmts(x,xlim,ylim,difference,show.range,show.pts,show.CI)
+           iAgeBiasPlot(x,difference,xlab,ifelse(!difference,ylab,paste(ylab,"-",xlab)),
+                        xHist,yHist,
                         pch.mean,pch.mean.sig,cex.mean,
-                        col.CI,col.CIsig,lwd.CI,sfrac,
-                        show.range,col.range,lwd.range,
+                        show.CI,col.CI,col.CIsig,lwd.CI,sfrac.CI,
+                        show.range,col.range,lwd.range,sfrac.range,
+                        show.pts,pch.pts,col.pts,
                         col.agree,lwd.agree,lty.agree,
+                        show.n,nYpos,cex.n,
                         axlmts,yaxt,...)
            },
          numbers={
@@ -449,7 +458,7 @@ plot.ageBias <- function(x,what=c("bias","numbers"),difference=FALSE,
              difference <- FALSE
            }
            axlmts <- iABAxisLmts(x,xlim,ylim,difference,
-                                 show.range=FALSE,show.pts=TRUE,show.CIs=FALSE)  
+                                 show.range=FALSE,show.pts=TRUE,show.CI=FALSE)  
            iAgeBiasNumPlot(x,xlab,ylab,axlmts,lwd.agree,lty.agree,col.agree,
                         cex.numbers,yaxt,xaxt,...) }
   ) # end switch
@@ -464,11 +473,13 @@ plot.ageBias <- function(x,what=c("bias","numbers"),difference=FALSE,
 # This internal function is used to produce the age-bias plot.
 # This is called by ageBias().
 #=============================================================
-iAgeBiasPlot <- function(obj,difference,xHist,yHist,xlab,ylab,show.n,nYpos,cex.n,
+iAgeBiasPlot <- function(obj,difference,xlab,ylab,xHist,yHist,
+                         pch.mean,pch.mean.sig,cex.mean,
+                         show.CI,col.CI,col.CIsig,lwd.CI,sfrac.CI,
+                         show.range,col.range,lwd.range,sfrac.range,
                          show.pts,pch.pts,col.pts,
-                         pch.mean,pch.mean.sig,cex.mean,col.CI,col.CIsig,lwd.CI,
-                         sfrac,show.range,col.range,lwd.range,
-                         col.agree,lwd.agree,lty.agree,axlmts,yaxt,...) { # nocov start
+                         col.agree,lwd.agree,lty.agree,show.n,nYpos,cex.n,
+                         axlmts,yaxt,...) { # nocov start
   # identify whether difference data should be used or not, put in a tmp data frame
   if (!difference) d <- obj$bias
     else d <- obj$bias.diff
@@ -490,23 +501,33 @@ iAgeBiasPlot <- function(obj,difference,xHist,yHist,xlab,ylab,show.n,nYpos,cex.n
   # add range of individual points if asked for
   if (show.range) {
     plotrix::plotCI(x=d[,1],y=d$mean,li=d$min,ui=d$max,add=TRUE,
-                    slty=1,scol=col.range,pch=pch.mean,
-                    lwd=lwd.range,gap=0,sfrac=0.005)
+                    slty=1,scol=col.range,pch=NULL,
+                    lwd=lwd.range,gap=0,sfrac=sfrac.range)
   }
-  # add on CIs for mean
-  #  for ages that are signficantly different
-  if (any(d$sig)) {
-    plotrix::plotCI(x=d[,1][d$sig],y=d$mean[d$sig],li=d$LCI[d$sig],ui=d$UCI[d$sig],
-                    add=TRUE,slty=1,scol=col.CIsig,pch=pch.mean.sig,lwd=lwd.CI,gap=0,sfrac=sfrac)
-    graphics::points(x=d[,1][d$sig],y=d$mean[d$sig],pch=pch.mean.sig,cex=cex.mean,col=col.CIsig)
+  # add CIs for mean if asked for
+  if (show.CI) {
+    if (any(d$sig)) {  #  for ages that are signficantly different
+      plotrix::plotCI(x=d[,1][d$sig],y=d$mean[d$sig],li=d$LCI[d$sig],ui=d$UCI[d$sig],
+                      add=TRUE,slty=1,scol=col.CIsig,pch=NULL,
+                      lwd=lwd.CI,gap=0,sfrac=sfrac.CI)
+    }
+    if (any(!d$sig)) {#  for ages that are not significantly different
+      plotrix::plotCI(x=d[,1][!d$sig],y=d$mean[!d$sig],
+                      li=d$LCI[!d$sig],ui=d$UCI[!d$sig],
+                      add=TRUE,slty=1,scol=col.CI,pch=NULL,
+                      lwd=lwd.CI,gap=0,sfrac=sfrac.CI)
+    }
   }
-  #  for ages that are not significantly different
-  if (any(!d$sig)) {
-    plotrix::plotCI(x=d[,1][!d$sig],y=d$mean[!d$sig],li=d$LCI[!d$sig],ui=d$UCI[!d$sig],
-                    add=TRUE,slty=1,scol=col.CI,pch=pch.mean,lwd=lwd.CI,gap=0,sfrac=sfrac)
-    graphics::points(x=d[,1][!d$sig],y=d$mean[!d$sig],pch=pch.mean,cex=cex.mean)
+  # Add means
+  if (any(d$sig)) {  #  for ages that are signficantly different
+    graphics::points(x=d[,1][d$sig],y=d$mean[d$sig],pch=pch.mean.sig,
+                     cex=cex.mean,col=ifelse(show.CI,col.CIsig,col.CI),bg="white")
   }
-  # show the sample sizes at the top
+  if (any(!d$sig)) {#  for ages that are not significantly different
+    graphics::points(x=d[,1][!d$sig],y=d$mean[!d$sig],pch=pch.mean,
+                     cex=cex.mean,col=col.CI,bg="white")
+  }
+  # show the sample sizes at the top if asked for
   if (show.n & !xHist) graphics::text(d[,1],graphics::grconvertY(nYpos,"npc"),
                                       d$n,cex=cex.n,xpd=TRUE)
 } # nocov end
@@ -648,7 +669,7 @@ iABAddYHist <- function(x,difference,col.hist,axlmts,op,xHist) { # nocov start
 # This internal function is used to find appropriate axis
 # limits for the age-bias plot. 
 #=============================================================
-iABAxisLmts <- function(x,xlim,ylim,difference,show.range,show.pts,show.CIs=TRUE) { # nocov start
+iABAxisLmts <- function(x,xlim,ylim,difference,show.range,show.pts,show.CI) { # nocov start
   # identify whether difference data should be used or not, put in a tmp data frame
   if (!difference) { d <- x$bias } else { d <- x$bias.diff }
   # If no xlim given then make xlim the range of x values
@@ -667,7 +688,7 @@ iABAxisLmts <- function(x,xlim,ylim,difference,show.range,show.pts,show.CIs=TRUE
     # if show.cis then add in LCI and UCI.  CIs will be shown
     # for all real age-bias plots.  This is primarily for use
     # with the numbers plot
-    if (show.CIs) {
+    if (show.CI) {
       tmp.min <- c(tmp.min,d$LCI)
       tmp.max <- c(tmp.max,d$UCI)
     }
