@@ -3,7 +3,7 @@
 * `capFirst()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 * `compIntercepts()`: Modified. Replaced two `dim()` calls with `nrow()`.
 * `fact2num()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
-* `lagration()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
+* `lagratio()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 * `iHndlCols2UseIgnore()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 * `iLegendHelp()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 * `iPredictBoot()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.

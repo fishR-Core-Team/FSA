@@ -14,7 +14,7 @@ agePrecision(formula, data)
   digits = 4, ...)
 }
 \arguments{
-\item{formula}{A formula of the form \code{~var1+var2+var3+...} or, alternatively, \code{var1~var2+var3+...}, where the \code{varX} generically represent the variables that contain the age assignments.  The alternative formula allows for similar code as used in \code{\link{ageBias}} and can have only one variable on the left-hand side.}
+\item{formula}{A formula of the form \code{~var1+var2+var3+...} or, alternatively, \code{var1~var2+var3+...}, where the \code{varX} generically represent the variables that contain the age estimates.  The alternative formula allows for similar code as used in \code{\link{ageBias}} and can have only one variable on the left-hand side.}
 
 \item{data}{A data.frame that minimally contains the variables in \code{formula}.}
 
@@ -46,7 +46,7 @@ The main function returns a list with the following items:
 The \code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing.  See details for what is printed.
 }
 \description{
-Computes overall measures of precision for multiple age assignments made on the same individuals.  Ages may be from two or more readers of the same structure, one reader at two or more times, or two or more structures (e.g., scales, spines, otoliths).  Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), and various percentage difference values.
+Computes overall measures of precision for multiple age estimates made on the same individuals.  Ages may be from two or more readers of the same structure, one reader at two or more times, or two or more structures (e.g., scales, spines, otoliths).  Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), and various percentage difference values.
 }
 \details{
 If \code{what="precision"} in \code{summary} then a summary table that contains the following items will be printed:
@@ -56,12 +56,12 @@ If \code{what="precision"} in \code{summary} then a summary table that contains 
   \item R Number of age estimates given in \code{formula}.
   \item ACV The mean coefficient of variation.  See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
   \item APE The mean average percent error.  See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
-  \item PercAgree The percentage of fish for which all age assignments perfectly agree.
+  \item PercAgree The percentage of fish for which all age estimates perfectly agree.
 }
 
-If \code{what="difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the difference in paired age assignments.  This table has one row for each possible pair of age assignments.
+If \code{what="difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the difference in paired age estimates.  This table has one row for each possible pair of age estimates.
 
-If \code{what="absolute difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the absolute value of the difference in paired age assignments.  This table has one row for each possible pair of age assignments.  The \dQuote{1} column, for example, represents age assignments that disagree by one year (in either direction).
+If \code{what="absolute difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the absolute value of the difference in paired age estimates.  This table has one row for each possible pair of age estimates.  The \dQuote{1} column, for example, represents age estimates that disagree by one year (in either direction).
 
 If \code{what="detail"} is used in \code{summary}, then a data frame of the original \code{data} along with the intermediate calculations of the average age, standard deviation of age, APE, and ACV for each individual will be printed.  These details are generally only used to check or to understand calculations.
 
@@ -76,7 +76,7 @@ All percentage calculations above use the \code{validn} value in the denominator
 }
 
 \examples{
-## Example with just two age assignments
+## Example with just two age estimates
 data(WhitefishLC)
 ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)
 summary(ap1)
@@ -92,7 +92,7 @@ summary(ap1,what=c("precision","difference"))
 barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
 summary(ap1,what="detail")
 
-## Example with three age assignments
+## Example with three age estimates
 ap2 <- agePrecision(~otolithC+finrayC+scaleC,data=WhitefishLC)
 summary(ap2)
 summary(ap2,what="precision")
