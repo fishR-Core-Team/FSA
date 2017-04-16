@@ -335,6 +335,7 @@ iTypeoflm <- function(mdl) {
   tmp <- iHndlFormula(stats::formula(mdl),stats::model.frame(mdl))
   if (tmp$Enum==0) STOP("Object must have one response and at least one explanatory variable")
   if (!tmp$Rclass %in% c("numeric","integer")) STOP("Response variable must be numeric")
+  if (any(tmp$Eclass=="character")) WARN("An explanatory variable is a 'character' class. If behavior is different\n than you expected you may want to change this to a 'factor' class.")
   if (tmp$Etype=="factor") { #ANOVA
     if (tmp$EFactNum>2) STOP("Function only works for one- or two-way ANOVA.")
     if (tmp$EFactNum==2) lmtype <- "TWOWAY"

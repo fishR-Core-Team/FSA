@@ -6,7 +6,9 @@
 * `lagration()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 * `iHndlCols2UseIgnore()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 * `iLegendHelp()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
-* `iPredictBoot()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.* `is.CapHist()`: Added.
+* `iPredictBoot()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
+* `is.CapHist()`: Added.
+* `iTypeoflm()`: Modified. Added a catch for a linear model that has a character variable (now alerts the user with a warning).
 * `mrClosed()`: Modified. Changed some `if()`s with `class()`es to `is.CapHist()`.
 * `mrOpen()`: Modified. Changed some `if()`s with `class()`es to `is.CapHist()`.
 * `nlsTracePlot()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
