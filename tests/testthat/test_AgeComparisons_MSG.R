@@ -9,7 +9,8 @@ test_that("ageBias() messages",{
   suppressWarnings(ab1 <- ageBias(scaleC~otolithC,data=WhitefishLC))
   expect_error(summary(ab1,what="derek"),"should be one of")
   expect_error(summary(ab1,what="McNemar",cont.corr="derek"),"should be one of")
-  expect_error(plot(ab1,what="derek"),"should be one of")
+  expect_error(plot(ab1,xvals="derek"),"should be one of")
+  expect_error(plotAB(ab1,what="derek"),"should be one of")
 })
 
 test_that("agePrecision() messages",{

@@ -6,6 +6,7 @@
 \alias{summary.ageBias}
 \alias{summary.ageBias}
 \alias{plot.ageBias}
+\alias{plotAB}
 \title{Compute and view possible differnces between paired sets of ages.}
 \usage{
 ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
@@ -16,17 +17,27 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
   zero.print = "-", digits = 3, cont.corr = c("none", "Yates", "Edwards"),
   ...)
 
-\method{plot}{ageBias}(x, what = c("bias", "numbers"), difference = FALSE,
-  yHist = FALSE, xHist = FALSE, hist.panel.size = 1/8,
-  col.hist = "gray90", xlab = x$ref.lab, ylab = x$nref.lab, lwd = 1,
+\method{plot}{ageBias}(x, xvals = c("reference", "mean"),
+  xlab = ifelse(xvals == "reference", x$ref.lab, "Mean Age"),
+  ylab = paste(x$nref.lab, "-", x$ref.lab), xlim = NULL, ylim = NULL,
+  yaxt = graphics::par("yaxt"), xaxt = graphics::par("xaxt"),
+  col.agree = "gray60", lwd.agree = lwd, lty.agree = 2, lwd = 1,
+  sfrac = 0, show.pts = NULL, pch.pts = 20, cex.pts = ifelse(xHist |
+  yHist, 1.5, 1), col.pts = "black", transparency = 1/10, show.CI = FALSE,
+  col.CI = "black", col.CIsig = "red", lwd.CI = lwd, sfrac.CI = sfrac,
+  show.range = NULL, col.range = ifelse(show.CI, "gray70", "black"),
+  lwd.range = lwd, sfrac.range = sfrac, pch.mean = 19,
+  pch.mean.sig = ifelse(show.CI | show.range, 21, 19), cex.mean = lwd,
+  yHist = TRUE, xHist = NULL, hist.panel.size = 1/8,
+  col.hist = "gray90", allowAdd = FALSE, ...)
+
+plotAB(x, what = c("bias", "Campana", "numbers"), xlab = x$ref.lab,
+  ylab = x$nref.lab, xlim = NULL, ylim = NULL,
+  yaxt = graphics::par("yaxt"), xaxt = graphics::par("xaxt"),
+  col.agree = "gray60", lwd.agree = lwd, lty.agree = 2, lwd = 1,
   sfrac = 0, pch.mean = 19, pch.mean.sig = 21, cex.mean = lwd,
-  show.CI = TRUE, col.CI = "black", col.CIsig = "red", lwd.CI = lwd,
-  sfrac.CI = sfrac, show.range = FALSE, col.range = "gray70",
-  lwd.range = lwd, sfrac.range = sfrac, show.pts = FALSE, pch.pts = 20,
-  col.pts = "black", transparency = 1/10, col.agree = "gray80",
-  lwd.agree = lwd, lty.agree = 2, show.n = FALSE, nYpos = 1.03,
-  cex.n = 0.75, cex.numbers = 0.9, xlim = NULL, ylim = NULL,
-  yaxt = graphics::par("yaxt"), xaxt = graphics::par("xaxt"), ...)
+  col.CI = "black", col.CIsig = "red", lwd.CI = lwd, sfrac.CI = sfrac,
+  show.n = FALSE, nYpos = 1.03, cex.n = 0.75, cex.numbers = 0.75, ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{nrefvar~refvar}, where \code{nrefvar} and \code{refvar} generically represent variables that contain the paired \dQuote{nonreference} and \dQuote{reference} age estimates, respectively. See details.}
@@ -57,27 +68,33 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
 
 \item{x, object}{An object of class \code{ageBias}, usually a result from \code{ageBias}.}
 
-\item{difference}{A logical for whether or not the difference between the two age estimates should be used.  See details.}
-
-\item{yHist}{A logical for whether a histogram of the y-axis variable should be added to the right margin of the age bias plot. See details.}
-
-\item{xHist}{A logical for whether a histogram of the x-axis variable should be added to the top margin of the age bias plot. See details.}
-
-\item{hist.panel.size}{A numeric between 0 and 1 that indicates the proportional size of histograms (relative to the entire plotting pane) in the plot margins (only used if \code{xHist=TRUE} or \code{yHist=TRUE}).}
-
-\item{col.hist}{A string for the color of the bars in the marginal histograms (only used if \code{xHist=TRUE} or \code{yHist=TRUE}).}
+\item{xvals}{A string for whether the x-axis values are reference ages or mean of the reference and nonreference ages.}
 
 \item{xlab, ylab}{A string label for the x-axis (reference) or y-axis (non-reference) age estimates, respectively.}
+
+\item{xlim, ylim}{A numeric vector of length 2 that contains the limits of the x-axis (reference ages) or y-axis (non-reference ages), respectively.}
+
+\item{xaxt, yaxt}{A string which specifies the x- and y-axis types. Specifying \dQuote{n} suppresses plotting of the axis. See \code{?par}.}
+
+\item{col.agree}{A string or numeric for the color of the 1:1 or zero (if \code{difference=TRUE}) reference line.}
+
+\item{lwd.agree}{A numeric for the line width of the 1:1 or zero (if \code{difference=TRUE}) reference line.}
+
+\item{lty.agree}{A numeric for the line type of the 1:1 or zero (if \code{difference=TRUE}) reference line.}
 
 \item{lwd}{A numeric that controls the separate \sQuote{lwd} argument (e.g., \code{lwd.CI} and \code{lwd.range}).}
 
 \item{sfrac}{A numeric that controls the separate \sQuote{sfrac} arguments (e.g., \code{sfrac.CI} and \code{sfrac.range}). See \code{sfrac} in \code{\link[plotrix]{plotCI}} of \pkg{plotrix}.}
 
-\item{pch.mean}{A numeric for the plotting character used for the mean values when the means are considered insignificant.}
+\item{show.pts}{A logical for whether or not the raw data points are plotted.}
 
-\item{pch.mean.sig}{A numeric for the plotting character for the mean values when the means are considered significant.}
+\item{pch.pts}{A numeric for the plotting character of the raw data points.}
 
-\item{cex.mean}{A character expansion value for the size of the mean symbol in \code{pch.mean} and \code{pch.mean.sig}.}
+\item{cex.pts}{A character expansion value for the size of the symbols for \code{pch.pts}.}
+
+\item{col.pts}{A string or numeric for the color of the raw data points. The default is to use black with the transparency found in \code{transparency}.}
+
+\item{transparency}{A numeric (between 0 and 1) for the level of transparency of the raw data points. This number of points plotted on top of each other will represent the color in \code{col.pts}.}
 
 \item{show.CI}{A logical for whether confidence intervals should be plotted or not.}
 
@@ -97,19 +114,21 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
 
 \item{sfrac.range}{A numeric for the size of the ends of the range intervals. See \code{sfrac} in \code{\link[plotrix]{plotCI}} of \pkg{plotrix}.}
 
-\item{show.pts}{A logical for whether or not the raw data points are plotted.}
+\item{pch.mean}{A numeric for the plotting character used for the mean values when the means are considered insignificant.}
 
-\item{pch.pts}{A numeric for the plotting character of the raw data points.}
+\item{pch.mean.sig}{A numeric for the plotting character for the mean values when the means are considered significant.}
 
-\item{col.pts}{A string or numeric for the color of the raw data points. The default is to use black with the transparency found in \code{transparency}.}
+\item{cex.mean}{A character expansion value for the size of the mean symbol in \code{pch.mean} and \code{pch.mean.sig}.}
 
-\item{transparency}{A numeric (between 0 and 1) for the level of transparency of the raw data points. This number of points plotted on top of each other will represent the color in \code{col.pts}.}
+\item{yHist}{A logical for whether a histogram of the y-axis variable should be added to the right margin of the age bias plot. See details.}
 
-\item{col.agree}{A string or numeric for the color of the 1:1 or zero (if \code{difference=TRUE}) reference line.}
+\item{xHist}{A logical for whether a histogram of the x-axis variable should be added to the top margin of the age bias plot. See details.}
 
-\item{lwd.agree}{A numeric for the line width of the 1:1 or zero (if \code{difference=TRUE}) reference line.}
+\item{hist.panel.size}{A numeric between 0 and 1 that indicates the proportional size of histograms (relative to the entire plotting pane) in the plot margins (only used if \code{xHist=TRUE} or \code{yHist=TRUE}).}
 
-\item{lty.agree}{A numeric for the line type of the 1:1 or zero (if \code{difference=TRUE}) reference line.}
+\item{col.hist}{A string for the color of the bars in the marginal histograms (only used if \code{xHist=TRUE} or \code{yHist=TRUE}).}
+
+\item{allowAdd}{A logical that will allow the user to add items to the main (i.e., not the marginal histograms) plot panel (if \code{TRUE}). Defaults to \code{FALSE}.}
 
 \item{show.n}{A logical for whether the sample sizes for each level of the x-axis variable is shown (\code{=TRUE}, default) or not (\code{=FALSE}).}
 
@@ -118,10 +137,6 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
 \item{cex.n}{A character expansion value for the size of the sample size values.}
 
 \item{cex.numbers}{A character expansion value for the size of the numbers plotted when \code{what="numbers"} is used.}
-
-\item{xlim, ylim}{A numeric vector of length 2 that contains the limits of the x-axis (reference ages) or y-axis (non-reference ages), respectively.}
-
-\item{xaxt, yaxt}{A string which specifies the x- and y-axis types. Specifying \dQuote{n} suppresses plotting of the axis. See \code{?par}.}
 }
 \value{
 \code{ageBias} returns a list with the following items:
@@ -134,7 +149,7 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
   \item nref.lab A string that contains an optional label for the age estimates in the rows (non-reference) of the age-agreement table.
 }
 
-\code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing.  Nothing is returned by \code{plot}, but see details for a description of the plot that is produced.
+\code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing.  Nothing is returned by \code{plot} or \code{plotAB}, but see details for a description of the plot that is produced.
 }
 \description{
 Constructs age-agreement tables, statistical tests to detect differences, and plots to visualize potential differences in paired age estimates. Ages may be from, for example, two readers of the same structure, one reader at two times, two structures (e.g., scales, spines, otoliths), or one structure and known ages.
@@ -146,13 +161,15 @@ The age-agreement table is constructed with  \code{what="table"} in \code{summar
 
 Three statistical tests of symmetry for the age-agreement table can be computed with \code{what=} in \code{summary}. The \dQuote{unpooled} or Bowker test as described in Hoenig et al. (1995) is constructed with \code{what="Bowker"}, the \dQuote{semi-pooled} or Evans-Hoenig test as described in Evans and Hoenig (1998) is constructed with \code{what="EvansHoenig"}, and the \dQuote{pooled} or McNemar test as described in Evans and Hoenig (1998) is constructed with \code{what="McNemar"}. All three tests are computed with \code{what="symmetry"}.
 
-An age bias plot, as originally defined by Campana et al. (1995) but somewhat modified here, is constructed with \code{what="bias"} (the default) in \code{plot}. The reference variable from the \code{ageBias} call is plotted on the x-axis. Plotted confidence intervals are computed for the mean of the nonreference ages at each of the reference ages. The level of confidence is controlled by \code{sig.level=} given in the original \code{ageBias} call (i.e., confidence level is 100*(1-\code{sig.level})). Confidence intervals are only shown if the sample size is greater than the value in \code{min.n.CI=}. Confidence intervals plotted in red with an open dot (by default; these can be changed with \code{col.CIsig} and \code{pch.mean.sig}, respectively) do not contain the reference age (see discussion of t-tests below). Vertical lines that connect the minimum to the maximum observed values of the y-axis variable at each age of the x-axis variable are plotted in grey if \code{show.range=TRUE}. Individual points are plotted if \code{show.pts=TRUE}. The 1:1 (45 degree) agreement line is shown for comparative purposes. The sample sizes at each age of the x-axis variable are shown if \code{show.n=TRUE}. The position of the sample sizes is controlled with \code{nYpos=}.
+Four types of plots for visualizing differences between sets of two age estimates may be created. Two of these plots may be constructed with \code{plotAB()}. In the \code{plotAB()} plots, the reference ages are plotted on the x-axis and the nonreference ages are on the y-axis. The 1:1 (45 degree) agreement line is shown for comparative purposes. The default \code{plotAB()} plot (using \code{what="bias"}) was inspired by the age bias plot introduced by Campana et al. (1995). The default settings for this age bias plot show the mean and confidence interval for the nonreference ages at each of the reference ages. The level of confidence is controlled by \code{sig.level=} given in the original \code{ageBias} call (i.e., confidence level is 100*(1-\code{sig.level})). Confidence intervals are only shown if the sample size is greater than the value in \code{min.n.CI=} (also from the original call to \code{ageBias}). Confidence intervals plotted in red with an open dot (by default; these can be changed with \code{col.CIsig} and \code{pch.mean.sig}, respectively) do not contain the reference age (see discussion of t-tests below). Sample sizes at each reference age are shown if \code{show.n=TRUE}. The position of the sample sizes is controlled with \code{nYpos=}, whereas their size is controlled with \code{cex.n}. Arguments may be used to nearly replicate the age bias plot as introduced by Campana et al. (1995) as shown in the examples.
 
-A modified age bias plot, nearly as defined by Muir et al. (2008), is constructed as defined above but by also including \code{difference=TRUE} in \code{plot} so that the y-axis is the difference in the paired reference and non-reference ages from the \code{ageBias} call (specifically, nonreference-reference).
+The frequency of observations at each unique (x,y) coordinate are shown by using \code{what="numbers"} in \code{plotAB}. The size of the numbers is controlled with \code{cex.numbers}.
 
-The frequency of observations at each unique (x,y) coordinate are shown by using \code{what="numbers"} in \code{plot}.
+Muir et al. (2008) modified the age bias plot by plotting the difference between the two ages on the y-axis (still against a reference age on the x-axis). McBride (2015) introduced the Bland-Altman plot for comparing fish ages where the difference in ages is plotted on the y-axis versus the mean of the ages on the x-axis. Modifications of these plots are created with \code{plot} (rather than \code{plotAB}) using \code{xvals=} to control what is plotted on the x-axis (i.e., \code{xvals="reference"} uses the reference ages, whereas \code{xvals="mean"} uses the mean of the two ages for the x-axis). In both plots, a horizontal agreement line at a difference of zero is shown for comparative purposes. In addition, a histogram of the differences is shown in the right margin (can be excluded with \code{yHist=FALSE}.) A histogram of the reference ages is shown by default in the top margin for the modified age bias plot, but not for the modified Bland-Altman-like plot (the presence of this histogram is controlled with \code{xHist=}).
 
-Histograms of the y- and x-axis variables may be added to the base age bias plot by including \code{yHist=TRUE} and \code{xHist=TRUE}, respectively.
+By default, the modified age bias plot shows the mean and range for the nonreference ages at each of the reference ages. Means shown with an open dot are mean age differences that are significantly different from zero. The ranges of differences in ages at each reference age can be removed with \code{show.range=FALSE}. A confidence interval for difference in ages can be added with \code{show.CI=FALSE}. The color and symbol coding for the means and CIs is the same as described above for \code{plotAB}. Individual points are plotted if \code{show.pts=TRUE}, where there color is controlled by \code{col.pts=} and \code{transparency=}. See examples for use of these arguments.
+
+Both the main (i.e., not the marginal histograms) can be "added to" after the plot is constructed if \code{allowAdd=TRUE} is used. For example, the Bland-Altman-like plot can be augmented with a horizonal line at the mean difference in ages, a line for the regression between the differences and the means, or a generalized additive model that describes the relationship betwen the diffrences and the means. See the examples for use of \code{allowAdd=TRUE}. It is recommended to save the plotting parameters (e.g., \code{op <- par(no.readonly=TRUE)}) before using \code{plot} with \code{allowAdd=TRUE} so that the original parameters can be reset (e.g., \code{par(op)}); see the examples.
 
 Individual t-tests to determine if the mean age of the nonreference set at a particular age of the reference set is equal to the reference age (e.g., is the mean age of the nonreference set at age-3 of the reference set statistically different from 3?) are shown with \code{what="bias"} in \code{summary}. The results provide a column that indicates whether the difference is significant or not as determined by adjusted p-values from the t-tests and using the significance level provided in \code{sig.level} (defaults to 0.05). Similar results for the difference in ages (e.g., is the mean reference age minus nonreference age at a nonreference age of 3 different from 0?) are constructed with \code{what="diff.bias"} in \code{summary}.
 
@@ -163,7 +180,7 @@ The sample size present in the age-agreement table is found with \code{what="n"}
 }
 
 \section{IFAR Chapter}{
- 4-Age Comparisons.
+ 4-Age Comparisons. \bold{Note that \code{plot} has changed since IFAR was published. Some of the original functionality is in \code{plotAB}. See examples.}
 }
 
 \examples{
@@ -184,57 +201,130 @@ summary(ab1,what="table",zero.print="0")
 # flip the table -- ease of comparison to age bias plot
 summary(ab1,what="table",flip.table=TRUE)
 
-## default plot
-plot(ab1)
-## demonstrates squaring up the axes
-plot(ab1,ylim=c(-1,23),xlim=c(-1,23))
-## plot with the data points shown
-plot(ab1,show.pts=TRUE)
-## plot with the range shown
-plot(ab1,show.range=TRUE)
-## plot with just the range
-plot(ab1,show.range=TRUE,show.CI=FALSE)
-## plot with just the points shown
-plot(ab1,show.pts=TRUE,show.CI=FALSE)
-## plot just the means
-plot(ab1,show.CI=FALSE)
-## plot with no difference in significance bar colors
-plot(ab1,col.CIsig="black")
-## plot with no difference in points for significance ages
-plot(ab1,pch.mean.sig=19)
-plot(ab1,pch.mean=21)
-## plot with no difference in points or colors for significance ages
-plot(ab1,pch.mean.sig=19,col.CIsig="black")
-plot(ab1,pch.mean=21,col.CIsig="black")
+#############################################################
+## Traditional Age-Bias Plot (from Campana et al. (1995))
+# Default
+plotAB(ab1)
+# very close to Campana et al. (2001)
+plotAB(ab1,pch.mean.sig=19,col.CIsig="black",sfrac=0.01)
+# Squared up the axes
+plotAB(ab1,pch.mean.sig=19,col.CIsig="black",ylim=c(-1,23),xlim=c(-1,23))
 ## Show sample sizes
-plot(ab1,show.n=TRUE)
+plotAB(ab1,show.n=TRUE)
 ## Move sample sizes (and change text size)
-plot(ab1,show.n=TRUE,nYpos=0.02,cex.n=0.5)
+plotAB(ab1,show.n=TRUE,nYpos=0.02,cex.n=0.5)
+
+## Traditional numbers plot
+plotAB(ab1,what="numbers") 
+
+#############################################################
+## Differences Plot (originally inspired by Muir et al. (2008))
+# Default (ranges, open circles for sig diffs, marginal hists)
+plot(ab1)
+# Show CIs for means (with and without ranges)
+plot(ab1,show.CI=TRUE)
+plot(ab1,show.CI=TRUE,show.range=FALSE)
+# show points (with and without CIs)
+plot(ab1,show.CI=TRUE,show.range=FALSE,show.pts=TRUE)
+plot(ab1,show.range=FALSE,show.pts=TRUE)
+# Use same symbols for all means (with ranges)
+plot(ab1,pch.mean.sig=19)
+# Use same symbols/colors for all means/CIs (without ranges)
+plot(ab1,show.range=FALSE,show.CI=TRUE,pch.mean.sig=19,col.CIsig="black")
+# Remove histograms
+plot(ab1,xHist=FALSE)
+plot(ab1,yHist=FALSE)
+plot(ab1,xHist=FALSE,yHist=FALSE)
 ## Suppress confidence intervals for n < a certain value
 ##   must set this in the original ageBias() call
-ab2 <- ageBias(scaleC~otolithC,data=WhitefishLC,min.n.CI=5,
+ab2 <- ageBias(scaleC~otolithC,data=WhitefishLC,min.n.CI=8,
                ref.lab="Otolith Age",nref.lab="Scale Age")
-plot(ab2)
+plot(ab2,show.CI=TRUE,show.range=FALSE)
 
-## plot of differences
-##  (note could use all of the same modifications as demonstrated above)
-plot(ab1,difference=TRUE)
+ 
+#############################################################
+## Differences Plot (originally inspired by Bland-Altman plots
+##   in McBride (2015))
+plot(ab1,xvals="mean")
+## Modify axis limits
+plot(ab1,xvals="mean",xlim=c(1,17))
+## Add and remove histograms
+plot(ab1,xvals="mean",xHist=TRUE)
+plot(ab1,xvals="mean",xHist=TRUE,yHist=FALSE)
+plot(ab1,xvals="mean",yHist=FALSE)
 
-## Add marginal histograms (can also use all modifications from above)
-# add both
-plot(ab1,difference=TRUE,xHist=TRUE,yHist=TRUE)
-# just for y-axis variable
-plot(ab1,difference=TRUE,yHist=TRUE)
-# just for x-axis variable
-plot(ab1,difference=TRUE,xHist=TRUE)
-# adjust the size of the panels for the histograms
-#   and adjust placement of the "n" label.
-plot(ab1,difference=TRUE,xHist=TRUE,yHist=TRUE,hist.panel.size=1/4)
-# also works without differences
-plot(ab1,xHist=TRUE,yHist=TRUE)
+#############################################################
+## Adding post hoc analyses to the main plot
+# get original graphing parameters to be reset at the end
+op <- par(no.readonly=TRUE)
 
-## "Numbers" plot
-plot(ab1,what="number",col.agree="gray50")
+# get raw data
+tmp <- ab1$d
+head(tmp)
+
+# Add mean difference (w/ approx. 95\% CI)
+bias <- mean(tmp$diff)+c(-1.96,0,1.96)*se(tmp$diff)
+plot(ab1,xvals="mean",xlim=c(1,17),allowAdd=TRUE)
+abline(h=bias,lty=2,col="red")
+par(op)
+
+# Same as above, but without margoinal histogram, and with
+#   95\% agreement lines as well (1.96SDs)
+#   (this is nearly a replicate of a Bland-Altman plot)
+bias <- mean(tmp$diff)+c(-1.96,0,1.96)*se(tmp$diff)
+agline <- mean(tmp$diff)+c(-1.96,1.96)*sd(tmp$diff)
+plot(ab1,xvals="mean",yHist=FALSE,allowAdd=TRUE)
+abline(h=bias,lty=2,col="red")
+abline(h=agline,lty=3,lwd=2,col="blue")
+par(op)
+
+# Add linear regression line of differences on means (w/ approx. 95\% CI)
+lm1 <- lm(diff~mean,data=tmp)
+xval <- seq(0,19,0.1)
+pred1 <- predict(lm1,data.frame(mean=xval),interval="confidence")
+bias1 <- data.frame(xval,pred1)
+head(bias1)
+plot(ab1,xvals="mean",xlim=c(1,17),allowAdd=TRUE)
+lines(lwr~xval,data=bias1,lty=2,col="red")
+lines(upr~xval,data=bias1,lty=2,col="red")
+lines(fit~xval,data=bias1,lty=2,col="red")
+par(op)
+
+# Add loess of differences on means (w/ approx. 95\% CI as a polygon)
+lo2 <- loess(diff~mean,data=tmp)
+xval <- seq(min(tmp$mean),max(tmp$mean),0.1)
+pred2 <- predict(lo2,data.frame(mean=xval),se=TRUE)
+bias2 <- data.frame(xval,pred2)
+bias2$lwr <- bias2$fit-1.96*bias2$se.fit
+bias2$upr <- bias2$fit+1.96*bias2$se.fit
+head(bias2)
+plot(ab1,xvals="mean",xlim=c(1,17),allowAdd=TRUE)
+with(bias2,polygon(c(xval,rev(xval)),c(lwr,rev(upr)),
+                   col=col2rgbt("red",1/10),border=NA))
+lines(fit~xval,data=bias2,lty=2,col="red")
+par(op)
+                  
+# Same as above, but polygon and line behind the points
+plot(ab1,xvals="mean",xlim=c(1,17),col.pts="white",allowAdd=TRUE)
+with(bias2,polygon(c(xval,rev(xval)),c(lwr,rev(upr)),
+                   col=col2rgbt("red",1/10),border=NA))
+lines(fit~xval,data=bias2,lty=2,col="red")
+points(diff~mean,data=tmp,pch=19,col=col2rgbt("black",1/8))
+par(op)
+
+# Can also be made with the reference ages on the x-axis
+lo3 <- loess(diff~otolithC,data=tmp)
+xval <- seq(min(tmp$otolithC),max(tmp$otolithC),0.1)
+pred3 <- predict(lo3,data.frame(otolithC=xval),se=TRUE)
+bias3 <- data.frame(xval,pred3)
+bias3$lwr <- bias3$fit-1.96*bias3$se.fit
+bias3$upr <- bias3$fit+1.96*bias3$se.fit
+plot(ab1,show.range=FALSE,show.pts=TRUE,col.pts="white",allowAdd=TRUE)
+with(bias3,polygon(c(xval,rev(xval)),c(lwr,rev(upr)),
+                   col=col2rgbt("red",1/10),border=NA))
+lines(fit~xval,data=bias3,lty=2,col="red")
+points(diff~otolithC,data=tmp,pch=19,col=col2rgbt("black",1/8))
+par(op)
 
 }
 \references{

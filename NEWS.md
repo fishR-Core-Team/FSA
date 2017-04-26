@@ -1,5 +1,5 @@
 # FSA 0.8.13 ongoing
-* `ageBias()`: Modified. Changed default pch for the points, default pch for the mean points, added `pch.mean.sig=` so that the mean points can be different for ages that show a significant difference, and color for the agreement line. Changed how `col.pts=` is handled. Changed default for `show.n=` to `FALSE` (suggest that the user add the new marginal histograms). Removed `sunflower` as an option in `what=`. Added `xHist=`, `yHist=`, `col.hist=`, and `hist.panel.size=` to the `plot()` function which allows the user to add marginal histograms to the x- and y-axes of the age-bias plots.
+* `ageBias()`: Modified. A complete rebuild of `plot`. Major changes are to add `plotAB()` which is primarily used to make the "legacy" age bias plots of Campana, removal of the "sunflower" plot option, new sets of defaults for many of the arguments that reflect my preferences for visualizing age comparisons (which includes defaulting to plotting differences in ages), addition of the ability to add marginal histograms (`xHist=`, `yHist=`, `col.hist=`, and `hist.panel.size=`), better handling of axis ticks and labels (primarily to show ticks at integers and make sure 0 is included for differences), and allowing the ability to add "summary layers" to the main plot (see `allowAdd=`). Many examples were added. Some functionality from previous versions will be broken.
 * `capFirst()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 * `compIntercepts()`: Modified. Replaced two `dim()` calls with `nrow()`.
 * `fact2num()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
@@ -13,6 +13,7 @@
 * `mrOpen()`: Modified. Changed some `if()`s with `class()`es to `is.CapHist()`.
 * `nlsTracePlot()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 * `perc()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
+* `plotAB()`: Added. See description above for `ageBias()`.
 * `plotBinResp()`: Modified. Changed how default transparency level is calculated and set the maximum transparency to 50 (changed from 500). Fixed bug in how the width of the proportions windows were calculated by default. These changes will affect `fitPlot()` for logistic regression models.
 * `psdAdd()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 * `residPlot()`: Modified. Changed default for `loess=` from `TRUE` to `FALSE`. Changed some `if()`s with `class()`es to `inherits()`.
