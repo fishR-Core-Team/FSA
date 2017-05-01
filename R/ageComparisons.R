@@ -518,7 +518,7 @@ plot.ageBias <- function(x,xvals=c("reference","mean"),
                          lwd.range=lwd,sfrac.range=sfrac,
                          pch.mean=19,pch.mean.sig=ifelse(show.CI|show.range,21,19),
                          cex.mean=lwd,
-                         yHist=TRUE,xHist=NULL,hist.panel.size=1/8,col.hist="gray90",
+                         yHist=TRUE,xHist=NULL,hist.panel.size=1/7,col.hist="gray90",
                          allowAdd=FALSE,...) { # nocov start
   ## Handle some defaults
   xvals <- match.arg(xvals)
@@ -643,7 +643,7 @@ iABAddXHist <- function(xdat,col.hist,axlmts,op,yHist) { # nocov start
   #   forces the width to be the same as the age bias plot, and the top
   #   is set to a small value (either 0.5 or what the user had it set at
   #   if that was less than 1, values greater than 1 are ugly).
-  graphics::par(mar=c(0,op$mar[2],ifelse(op$mar[3]<1,op$mar[3],0.5),
+  graphics::par(mar=c(0,op$mar[2],ifelse(op$mar[3]<1.25,op$mar[3],0.5),
                       ifelse(yHist,0,op$mar[4])))
   # Make a histogram (but don't plot) with breaks that are one unit wide
   #   to find the breaks and counts data for use in rect below
@@ -662,12 +662,14 @@ iABAddXHist <- function(xdat,col.hist,axlmts,op,yHist) { # nocov start
                  tmp$breaks[-1]-0.5,tmp$counts,col=col.hist)
   # Put a y-axis on the right, with only two values marked
   tcks <- tckslbl <- c(0,round(mean(ylmts),0),max(ylmts))
-  graphics::axis(2,at=tcks,labels=c(NA,tcks[-1]))
+  graphics::axis(2,at=tcks,labels=NA)
+  graphics::axis(2,at=tcks[2])
+  graphics::axis(2,at=tcks[3],xpd=TRUE)
+  # Extends line down from zero ...  looks like a break for labels
   graphics::axis(2,at=0,labels=NA,tcl=-0.8*graphics::par()$mgp[1])
   # Add small (either 1/2 of default tcl or 0.2) x-axis ticks
   tmp <- graphics::par()$tcl/2
-  graphics::axis(1,at=seq(xlmts[1],xlmts[2],1),labels=NA,
-                 tcl=ifelse(tmp<(-0.2),-0.2,tmp))
+  graphics::axis(1,at=axlmts$xticks,labels=NA,tcl=ifelse(tmp<(-0.2),-0.2,tmp))
 } # nocov end
 
 
@@ -683,7 +685,7 @@ iABAddYHist <- function(ydat,col.hist,axlmts,op,xHist) { # nocov start
   #   is set to a small value (either 0.5 or what the user had it set at
   #   if that was less than 1, values greater than 1 are ugly).
   graphics::par(mar=c(op$mar[1],0,ifelse(xHist,0,op$mar[3]),
-                      ifelse(op$mar[4]<1,op$mar[4],0.5)))
+                      ifelse(op$mar[4]<1.25,op$mar[4],0.5)))
   # Make a histogram (but don't plot) with breaks that are one unit wide
   #   to find the breaks and counts data for use in rect below
   startcat <- floor(min(ydat,na.rm=TRUE))
@@ -701,12 +703,14 @@ iABAddYHist <- function(ydat,col.hist,axlmts,op,xHist) { # nocov start
                  tmp$counts,tmp$breaks[-1]-0.5,col=col.hist)
   # Put a y-axis on the right, with only two values marked
   tcks <- tckslbl <- c(0,round(mean(xlmts),0),max(xlmts))
-  graphics::axis(1,at=tcks,labels=c(NA,tcks[-1]))
+  graphics::axis(1,at=tcks,labels=NA)
+  graphics::axis(1,at=tcks[2])
+  graphics::axis(1,at=tcks[3],xpd=TRUE)
+  # Extends line down from zero ...  looks like a break for labels
   graphics::axis(1,at=0,labels=NA,tcl=-0.8*graphics::par()$mgp[1])
   # Add small (either 1/2 of default tcl or 0.2) x-axis ticks
   tmp <- graphics::par()$tcl/2
-  graphics::axis(2,at=seq(ylmts[1],ylmts[2],1),labels=NA,
-                 tcl=ifelse(tmp<(-0.2),-0.2,tmp))
+  graphics::axis(2,at=axlmts$yticks,labels=NA,tcl=ifelse(tmp<(-0.2),-0.2,tmp))
 } # nocov end
 
 

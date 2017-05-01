@@ -28,7 +28,7 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
   show.range = NULL, col.range = ifelse(show.CI, "gray70", "black"),
   lwd.range = lwd, sfrac.range = sfrac, pch.mean = 19,
   pch.mean.sig = ifelse(show.CI | show.range, 21, 19), cex.mean = lwd,
-  yHist = TRUE, xHist = NULL, hist.panel.size = 1/8,
+  yHist = TRUE, xHist = NULL, hist.panel.size = 1/7,
   col.hist = "gray90", allowAdd = FALSE, ...)
 
 plotAB(x, what = c("bias", "Campana", "numbers"), xlab = x$ref.lab,
