@@ -95,7 +95,7 @@ Ricker, W.E. 1975. Computation and interpretation of biological statistics of fi
 Shepherd, J. 1982. A versatile new stock-recruitment relationship for fisheries and construction of sustainable yield curves. Journal du Conseil International pour l'Exploration de la Mar 40:67-75.
 }
 \seealso{
-See \code{\link{srFunShow}} and \code{\link{srFuns}} for related functionality.
+See \code{\link{srFunShow}} and \code{\link{srFuns}} for related functionality. See \code{\link{nlsTracePlot}} for help troubleshooting nonlinear models that don't converge.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

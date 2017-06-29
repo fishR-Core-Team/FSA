@@ -31,7 +31,7 @@
 #'
 #' @section IFAR Chapter: 13-Recruitment.
 #'
-#' @seealso See \code{\link{srFunShow}} and \code{\link{srFuns}} for related functionality.
+#' @seealso See \code{\link{srFunShow}} and \code{\link{srFuns}} for related functionality. See \code{\link{nlsTracePlot}} for help troubleshooting nonlinear models that don't converge.
 #'
 #' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
 #' 

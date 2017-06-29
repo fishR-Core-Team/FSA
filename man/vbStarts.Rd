@@ -144,7 +144,7 @@ Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analy
 See references in \code{\link{vbFuns}}.
 }
 \seealso{
-See \code{\link{growthFunShow}} to display the equations for the parameterizations used in \pkg{FSA} and \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations.
+See \code{\link{growthFunShow}} to display the equations for the parameterizations used in \pkg{FSA} and \code{\link{vbFuns}} for functions that represent the von Bertalanffy parameterizations. See \code{\link{nlsTracePlot}} for help troubleshooting nonlinear models that don't converge.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}
