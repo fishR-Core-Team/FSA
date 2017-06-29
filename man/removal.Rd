@@ -22,7 +22,7 @@ removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
 \arguments{
 \item{catch}{A numerical vector of catch at each pass.}
 
-\item{method}{A single string that identifies the removal method to use.  See details.}
+\item{method}{A single string that identifies the removal method to use. See details.}
 
 \item{alpha}{A single numeric value for the alpha parameter in the CarleStrub method (default is \code{1}).}
 
@@ -30,15 +30,15 @@ removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
 
 \item{CS.se}{A single string that identifies whether the SE in the CarleStrub method should be computed according to Seber or Zippin.}
 
-\item{conf.level}{A single number representing the level of confidence to use for constructing confidence intervals.  This is sent in the main \code{removal} function rather than \code{confint}.}
+\item{conf.level}{A single number representing the level of confidence to use for constructing confidence intervals. This is sent in the main \code{removal} function rather than \code{confint}.}
 
 \item{just.ests}{A logical that indicates whether just the estimates (\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.}
 
-\item{Tmult}{A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute method.  Large values are much slower to compute, but too low of a value can result in missing the best estimate.  A warning is issued if too low of a value is suspected.}
+\item{Tmult}{A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute method. Large values are much slower to compute, but too low of a value can result in missing the best estimate. A warning is issued if too low of a value is suspected.}
 
 \item{object}{An object saved from \code{removal()}.}
 
-\item{parm}{A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.}
+\item{parm}{A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considered.}
 
 \item{digits}{A single numeric that controls the number of decimals in the output from \code{summary} and \code{confint}.}
 
@@ -67,10 +67,10 @@ In addition, if the Moran or Schnute methods are used the list will also contain
 Computes estimates, with confidence intervals, of the population size and probability of capture from the number of fish removed in k-, 3-, or 2-passes in a closed population.
 }
 \details{
-The main function computes the estimates and associated standard errors, if possible, for the initial population size, No, and probability of capture, p, for seven methods chosen with \code{method=}.  The possible methods are:
+The main function computes the estimates and associated standard errors, if possible, for the initial population size, No, and probability of capture, p, for seven methods chosen with \code{method=}. The possible methods are:
  \itemize{
-   \item \code{method="CarleStrub"}: The general weighted k-pass estimator proposed by Carle and Strub (1978).  This function iteratively solves for No in equation 7 of Carle and Strub (1978).
-   \item \code{method="Zippin"}: The general k-pass estimator generally attributed to Zippin.  This function iteratively solves for No in bias corrected version of equation 3 (page 622) of Carle and Strub (1978).  These results are not yet trustworthy.
+   \item \code{method="CarleStrub"}: The general weighted k-pass estimator proposed by Carle and Strub (1978). This function iteratively solves for No in equation 7 of Carle and Strub (1978).
+   \item \code{method="Zippin"}: The general k-pass estimator generally attributed to Zippin. This function iteratively solves for No in bias corrected version of equation 3 (page 622) of Carle and Strub (1978). These results are not yet trustworthy (see Testing section below).
    \item \code{method="Seber3"}: The special case for k=3 estimator shown in equation 7.24 of Seber(2002).
    \item \code{method="Seber2"}: The special case for k=2 estimator shown on page 312 of Seber(2002).
    \item \code{method="RobsonRegier2"}: The special case for k=2 estimator shown by Robson and Regier (1968).
@@ -78,14 +78,14 @@ The main function computes the estimates and associated standard errors, if poss
    \item \code{method="Schnute"}: The likelihood method of Schnute (1983) for the model that has a different probability of capture for the first sample but a constant probability of capture for all ensuing samples..
  }
 
-Confidence intervals for the first five methods are computed using standard large-sample normal distribution theory.  Note that the confidence intervals for the 2- and 3-pass special cases are only approximately correct if the estimated population size is greater than 200.  If the estimated population size is between 50 and 200 then a 95\% CI behaves more like a 90\% CI.
+Confidence intervals for the first five methods are computed using standard large-sample normal distribution theory. Note that the confidence intervals for the 2- and 3-pass special cases are only approximately correct if the estimated population size is greater than 200. If the estimated population size is between 50 and 200 then a 95\% CI behaves more like a 90\% CI.
 
-Confidence intervals for the last two methods use likelihood ratio theory as described in Schnute (1983) and are only produced for the No parameter.  Standard errors are not produced with the Moran or Schnute methods..
+Confidence intervals for the last two methods use likelihood ratio theory as described in Schnute (1983) and are only produced for the No parameter. Standard errors are not produced with the Moran or Schnute methods..
 
-In the Carle Strub method, if the resultant No estimate is equal to the sum of the catches (T) then the estimate of No that is returned will be the sum of the catches.  In this instance, and if the \dQuote{Seber} method of computing the standard error is used, then the SE will not be estimable and the confidence intervals can not be constructed.
+In the Carle Strub method, if the resultant No estimate is equal to the sum of the catches (T) then the estimate of No that is returned will be the sum of the catches. In this instance, and if the \dQuote{Seber} method of computing the standard error is used, then the SE will not be estimable and the confidence intervals can not be constructed.
 }
 \section{testing}{
- The Carle-Strub method matches the examples in Carle and Strub (1978) for No, p, and the variance of No.  The Carle-Strub estimates of No and p match the examples in Cowx (1983) but the SE of No does not.  The Carle-Strub estimates of No match the results (for estimates that they did not reject) from Jones and Stockwell (1995) to within 1 individual in most instances and within 1\% for all other instances (e.g., off by 3 individuals when the estimate was 930 individuals).
+ The Carle-Strub method matches the examples in Carle and Strub (1978) for No, p, and the variance of No. The Carle-Strub estimates of No and p match the examples in Cowx (1983) but the SE of No does not. The Carle-Strub estimates of No match the results (for estimates that they did not reject) from Jones and Stockwell (1995) to within 1 individual in most instances and within 1\% for all other instances (e.g., off by 3 individuals when the estimate was 930 individuals).
 
 The Seber3 results for No match the results in Cowx (1983).
 
@@ -93,7 +93,7 @@ The Seber2 results for No, p, and the SE of No match the results in example 7.4 
 
 The RobsonRegier2 results for No and the SE of NO match the results in Cowx (1983)
 
-The Zippin method results do not match the examples in Seber (2002) or Cowx (1983) because \code{removal} uses the bias-corrected version from Carle and Strub (1978) and does not use the tables in Zippin (1958).  The Zippin method is not yet trustworthy.
+The Zippin method results do not match the examples in Seber (2002) or Cowx (1983) because \code{removal} uses the bias-corrected version from Carle and Strub (1978) and does not use the tables in Zippin (1958). The Zippin method is not yet trustworthy.
 
 The Moran and Schnute methods match the examples in Schnute (1983) perfectly for all point estimates and within 0.1 units for all confidence intervals.
 }
@@ -195,21 +195,21 @@ fnl1
 
 }
 \references{
-Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
-Carle, F.L. and M.R. Strub. 1978. A new method for estimating population size from removal data.  Biometrics, 34:621-630.
+Carle, F.L. and M.R. Strub. 1978. A new method for estimating population size from removal data. Biometrics, 34:621-630.
 
-Cowx, I.G.  1983.  Review of the methods for estimating fish population size from survey removal data.  Fisheries Management, 14:67-82.
+Cowx, I.G. 1983. Review of the methods for estimating fish population size from survey removal data. Fisheries Management, 14:67-82.
 
-Moran, P.A.P.  1951.  A mathematical theory of animal trapping.  Biometrika 38:307-311.
+Moran, P.A.P. 1951. A mathematical theory of animal trapping. Biometrika 38:307-311.
 
-Robson, D.S., and H.A. Regier.  1968.  Estimation of population number and mortality rates.  pp. 124-158 in Ricker, W.E. (editor) Methods for Assessment of Fish Production in Fresh Waters.  IBP Handbook NO. 3 Blackwell Scientific Publications, Oxford.
+Robson, D.S., and H.A. Regier. 1968. Estimation of population number and mortality rates. pp. 124-158 in Ricker, W.E. (editor) Methods for Assessment of Fish Production in Fresh Waters. IBP Handbook NO. 3 Blackwell Scientific Publications, Oxford.
 
-Schnute, J.  1983.  A new approach to estimating populations by the removal method.  Canadian Journal of Fisheries and Aquatic Sciences, 40:2153-2169.
+Schnute, J. 1983. A new approach to estimating populations by the removal method. Canadian Journal of Fisheries and Aquatic Sciences, 40:2153-2169.
 
 Seber, G.A.F. 2002. The Estimation of Animal Abundance. Edward Arnold, second edition (Reprint).
 
-van Dishoeck, P.  2009.  Effects of catchability variation on performance of depletion estimators: Application to an adaptive management experiment.  Masters Thesis, Simon Fraser University.  [Was (is?) from http://rem-main.rem.sfu.ca/theses/vanDishoeckPier_2009_MRM483.pdf.]
+van Dishoeck, P. 2009. Effects of catchability variation on performance of depletion estimators: Application to an adaptive management experiment. Masters Thesis, Simon Fraser University. [Was (is?) from http://rem-main.rem.sfu.ca/theses/vanDishoeckPier_2009_MRM483.pdf.]
 }
 \seealso{
 See \code{\link{depletion}} for related functionality.

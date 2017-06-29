@@ -112,4 +112,12 @@ test_that("removal() return types",{
   expect_equal(ncol(tmp2),2)
   expect_equal(rownames(tmp2),c("No"))
   expect_equal(colnames(tmp2),c("95% LCI","95% UCI"))
+  
+  ## What if catches are all zeroes
+  suppressWarnings(expect_true(all(is.na(removal(c(0,0,0),method="Zippin")$est))))
+  suppressWarnings(expect_true(all(is.na(removal(c(0,0,0),method="Schnute")$est))))
+  suppressWarnings(expect_true(all(is.na(removal(c(0,0,0),method="Moran")$est))))
+  suppressWarnings(expect_true(all(is.na(removal(c(0,0,0),method="Seber3")$est))))
+  suppressWarnings(expect_true(all(is.na(removal(c(0,0),method="Seber2")$est))))
+  suppressWarnings(expect_true(all(is.na(removal(c(0,0),method="RobsonRegier2")$est))))
 })
