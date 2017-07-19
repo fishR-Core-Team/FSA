@@ -226,7 +226,7 @@ iSummarizeQf <- function(tmp,digits,na.rm,exclude,nvalid,percZero) {
     res <- res[,-which(names(res)=="nvalid")]
   }
   ## Remove percZero column if asked to ("never") or not interesting (none >0)
-  if (percZero=="never" | (percZero=="different" & !any(res$percZero>0))) {
+  if (percZero=="never" | (percZero=="different" & !any(res$percZero>0,na.rm=TRUE))) {
     res <- res[,-which(names(res)=="percZero")]
   }
   ## Return the result
