@@ -1,4 +1,6 @@
-# FSA 0.8.14 ongoing
+# FSA 0.8.15 ongoing
+
+# FSA 0.8.14 7-Jul-17
 * Moved `dunn.test` and `lmtest` to `imports` to help with portability for workshops.
 * `ageBias()`: Modified. Fixed bug in `plot()` so that the tick marks on the marginal histograms match the tick marks on the main plot. Changed the default `hist.panel.size=` in `plot()` so that it more reliably prints the values on the axes of the marginal histograms.
 * `removal()`: Modified. Added "warnings" for when all catches are zeroes (an object is still returned with all `NA`s). Thanks to Daniel Hanks for pointing out this issue.
