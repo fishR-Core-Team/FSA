@@ -1,4 +1,5 @@
 # FSA 0.8.15 ongoing
+* `srStarts()`: Modified. Added `fixed=`. Added some catches for poor starting values. Added relevant tests. Addresses [#30](https://github.com/droglenc/FSA/issues/30).
 
 # FSA 0.8.14 7-Jul-17
 * Moved `dunn.test` and `lmtest` to `imports` to help with portability for workshops.

@@ -88,6 +88,6 @@ test_that("srStarts() output",{
   expect_is(tmp,"list")
   expect_equal(names(tmp),c("a","b","c"))
   tmp <- srStarts(recruits~stock,data=CodNorwegian,type="independence")
-  expect_is(tmp,"numeric")
+  expect_is(tmp,"list")
   expect_equal(names(tmp),"a")
 })

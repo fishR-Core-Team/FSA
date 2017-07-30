@@ -53,4 +53,69 @@ test_that("srStarts() messages",{
   expect_error(srStarts(fyear~recruits,data=CodNorwegian),"LHS variable must be numeric")
   expect_error(srStarts(stock~recruits+fyear,data=CodNorwegian),
                "only one LHS and only one RHS")
+  ## Issues with fixed=
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,fixed=list(c=1)),
+               "not named")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,fixed=list(a=3,c=1)),
+               "not named")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,fixed=list(a=3,b=0.1,c=1)),
+               "not named")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,param=2,fixed=list(b=1)),
+               "is not a parameter")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,param=4,fixed=list(b=1)),
+               "is not a parameter")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,param=1,fixed=list(Rp=1)),
+               "is not a parameter")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,param=3,fixed=list(Rp=1)),
+               "is not a parameter")
+  expect_warning(srStarts(recruits~stock,data=CodNorwegian,param=1,fixed=list(a=-1)),
+               "not positive")
+  expect_warning(srStarts(recruits~stock,data=CodNorwegian,param=1,fixed=list(b=-1)),
+                 "not positive")
+  expect_warning(srStarts(recruits~stock,data=CodNorwegian,param=2,fixed=list(Rp=-1)),
+                 "not positive")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,type="Ricker",
+                        fixed=list(c=1)),"not named")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,type="Ricker",
+                        fixed=list(a=3,c=1)),"not named")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,type="Ricker",
+                        fixed=list(a=3,b=0.1,c=1)),"not named")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=3,
+                        fixed=list(b=1)),"is not a parameter")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=1,
+                        fixed=list(Rp=1)),"is not a parameter")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=2,
+                        fixed=list(Rp=1)),"is not a parameter")
+  expect_warning(srStarts(recruits~stock,data=CodNorwegian,type="Ricker",
+                          fixed=list(a=-1)),"not positive")
+  expect_warning(srStarts(recruits~stock,data=CodNorwegian,type="Ricker",
+                          fixed=list(b=-1)),"not positive")
+  expect_warning(srStarts(recruits~stock,data=CodNorwegian,type="Ricker",param=3,
+                          fixed=list(Rp=-1)),"not positive")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",
+                        fixed=list(d=1)),"not named")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",
+                        fixed=list(a=3,d=1)),"not named")
+  expect_warning(srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",
+                          fixed=list(a=-1)),"not positive")
+  expect_warning(srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",
+                          fixed=list(b=-1)),"not positive")
+  expect_warning(srStarts(recruits~stock,data=CodNorwegian,type="Shepherd",
+                          fixed=list(c=-1)),"not positive")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,type="SailaLorda",
+                        fixed=list(d=1)),"not named")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,type="SailaLorda",
+                        fixed=list(a=3,d=1)),"not named")
+  expect_warning(srStarts(recruits~stock,data=CodNorwegian,type="SailaLorda",
+                          fixed=list(a=-1)),"not positive")
+  expect_warning(srStarts(recruits~stock,data=CodNorwegian,type="SailaLorda",
+                          fixed=list(b=-1)),"not positive")
+  expect_warning(srStarts(recruits~stock,data=CodNorwegian,type="SailaLorda",
+                          fixed=list(c=-1)),"not positive")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,type="independence",
+                        fixed=list(d=1)),"not named")
+  expect_error(srStarts(recruits~stock,data=CodNorwegian,type="independence",
+                        fixed=list(a=3,d=1)),"not named")
+  expect_warning(srStarts(recruits~stock,data=CodNorwegian,type="independence",
+                          fixed=list(a=-1)),"not positive")
 })
