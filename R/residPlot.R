@@ -116,13 +116,21 @@
 #' # No boxplots
 #' residPlot(lm6,bp=FALSE)
 #'
-#' ## Example showing outlier detection
+#' ## Examples showing outlier detection
 #' x <- c(runif(100))
 #' y <- c(7,runif(99))
 #' lma <- lm(y~x)
 #' residPlot(lma)
 #' # with studentized residuals
 #' residPlot(lma,resid.type="studentized")
+#' # multiple outliers
+#' y <- c(7,runif(98),-5)
+#' lmb <- lm(y~x)
+#' residPlot(lmb)
+#' # check that NAs are handled properly ... label should be 100
+#' y <- c(NA,NA,runif(97),7)
+#' lmc <- lm(y~x)
+#' residPlot(lmc)
 #' 
 #' ## Nonlinear regression
 #' # from first example in nls()
@@ -450,13 +458,14 @@ iAddOutlierTestResults <- function(object,fv,r,alpha) {
   # If there are significant points to be highlighted then ...
   if (num>0) { # nocov start
     # Determine which observation(s) is/are "significant" outlier(s)
-    obs <- as.numeric(names(out$bonf.p))
+    obs <- which(names(fv) %in% names(out$bonf.p))
     # Set text position based on sign of r if only one "outlier" is detected
     if (num==1) ifelse(r[obs]<0,pos <- 3,pos <- 1)
     # Use thigmophobe to find better text positions if more "outliers" are detected
     else pos <- plotrix::thigmophobe(fv,r)[obs]
     # place labels
-    graphics::text(fv[obs],r[obs],obs,cex=1.1,col="red",pos=pos,xpd=TRUE)
+    graphics::text(fv[obs],r[obs],names(fv)[obs],
+                   cex=1.1,col="red",pos=pos,xpd=TRUE)
   } # nocov end
 }  # end iAddOutlierTestResults internal function
 

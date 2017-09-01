@@ -196,13 +196,21 @@ residPlot(lm6)
 # No boxplots
 residPlot(lm6,bp=FALSE)
 
-## Example showing outlier detection
+## Examples showing outlier detection
 x <- c(runif(100))
 y <- c(7,runif(99))
 lma <- lm(y~x)
 residPlot(lma)
 # with studentized residuals
 residPlot(lma,resid.type="studentized")
+# multiple outliers
+y <- c(7,runif(98),-5)
+lmb <- lm(y~x)
+residPlot(lmb)
+# check that NAs are handled properly ... label should be 100
+y <- c(NA,NA,runif(97),7)
+lmc <- lm(y~x)
+residPlot(lmc)
 
 ## Nonlinear regression
 # from first example in nls()

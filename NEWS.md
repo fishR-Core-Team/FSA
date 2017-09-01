@@ -1,4 +1,5 @@
 # FSA 0.8.15 ongoing
+* `iAddOutlierTestResults()`: Modified. Fixed bug related to point labels in `residPlot()` when the data.frame for the original model had `NA` values.
 * `srStarts()`: Modified. Added `fixed=`. Added some catches for poor starting values. Added relevant tests. Addresses [#30](https://github.com/droglenc/FSA/issues/30).
 
 # FSA 0.8.14 7-Jul-17
