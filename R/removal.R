@@ -26,7 +26,7 @@
 #' @param CS.se A single string that identifies whether the SE in the CarleStrub method should be computed according to Seber or Zippin.
 #' @param object An object saved from \code{removal()}.
 #' @param parm A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considered.
-#' @param level Note used, but her for compatibility with generic \code{confint} function.
+#' @param level Not used, but here for compatibility with generic \code{confint} function.
 #' @param conf.level A single number representing the level of confidence to use for constructing confidence intervals. This is sent in the main \code{removal} function rather than \code{confint}.
 #' @param just.ests A logical that indicates whether just the estimates (\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.
 #' @param verbose A logical that indicates whether descriptive labels should be printed from \code{summary} and if certain warnings are shown with \code{confint}.
