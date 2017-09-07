@@ -1,4 +1,6 @@
-# FSA 0.8.15 ongoing
+# FSA 0.8.16 ongoing
+
+# FSA 0.8.15 6-Sep-17
 * Added a script to the `helpers` directory that will test that all required packages are installed.
 * `iAddOutlierTestResults()`: Modified. Fixed bug related to point labels in `residPlot()` when the data.frame for the original model had `NA` values.
 * `removal()`: Modified document by merging pull request [#33](https://github.com/droglenc/FSA/pull/33).
