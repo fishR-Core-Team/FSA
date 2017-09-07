@@ -1,4 +1,5 @@
 # FSA 0.8.16 ongoing
+* `growthFunShow()`: Modified. Fixed error in expression for `type="Logistic"` and `param="CampanaJones1"`.
 
 # FSA 0.8.15 6-Sep-17
 * Added a script to the `helpers` directory that will test that all required packages are installed.
