@@ -1036,8 +1036,9 @@ Schnute <- function(t,case=1,t1=NULL,t3=NULL,L1=NULL,L3=NULL,a=NULL,b=NULL) {
 
 #' @rdname growthModels
 #' @export
-growthFunShow <- function(type=c("vonBertalanffy","Gompertz","Richards","Logistic","Schnute"),
-                        param=NULL,case=param,plot=FALSE,...) {
+growthFunShow <- function(type=c("vonBertalanffy","Gompertz","Richards",
+                                 "Logistic","Schnute"),
+                          param=NULL,case=param,plot=FALSE,...) {
   type <- match.arg(type)
   switch(type,
          vonBertalanffy = { expr <- iSGF_VB(param) },
@@ -1182,7 +1183,7 @@ iSGF_LOGISTIC <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1"
   param <- match.arg(param)
   switch(param,
     CJ1=,CampanaJones1= {
-      expr <- expression(E(L[t])==frac(L[infinity],1+g[-infinity]*(t-t[i])))
+      expr <- expression(E(L[t])==frac(L[infinity],1+e^{-g[-infinity]*(t-t[i])}))
     },
     CJ2=,CampanaJones2= {
       expr <- expression(E(L[t])==frac(L[infinity],1+~ae^{-g[-infinity]*t}))
