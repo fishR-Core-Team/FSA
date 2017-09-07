@@ -1,4 +1,7 @@
-# FSA 0.8.16 ongoing
+# FSA 0.8.17 ongoing
+
+# FSA 0.8.16 7-Sep-17
+* Need to resubmit v0.8.15 to CRAN, so bumped the version.
 * `growthFunShow()`: Modified. Fixed error in expression for `type="Logistic"` and `param="CampanaJones1"`.
 
 # FSA 0.8.15 6-Sep-17
