@@ -46,7 +46,7 @@ removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
 
 \item{\dots}{Additional arguments for methods.}
 
-\item{level}{Note used, but her for compatibility with generic \code{confint} function.}
+\item{level}{Not used, but here for compatibility with generic \code{confint} function.}
 }
 \value{
 A vector that contains the estimates and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with at least the following items:
