@@ -699,9 +699,9 @@ GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
            Ricker2=,QD1=,QuinnDeriso1= {
              message("You have chosen the 'Ricker2'/'QuinnDeriso1' ",comcat,
                      "  E[L|t] = L0*exp(a*(1-exp(-gi*t)))\n\n",
-                     "  where Linf = asymptotic mean length\n",
-                     "          gi = instantaneous growth rate at the inflection point\n",
-                     "           a = dimenstionless parameter related to growth\n\n")
+                     "  where L0 = the mean length at age-0 (i.e., hatching or birth)\n",
+                     "        gi = instantaneous growth rate at the inflection point\n",
+                     "         a = dimenstionless parameter related to growth\n\n")
            },
            Ricker3=,QD2=,QuinnDeriso2= {
              message("You have chosen the 'Ricker3'/'QuinnDeriso2' ",comcat,
