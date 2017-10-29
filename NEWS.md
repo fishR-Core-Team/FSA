@@ -1,4 +1,6 @@
-# FSA 0.8.17 ongoing
+# FSA 0.8.18 ongoing
+
+# FSA 0.8.17 29-Oct-17
 * `dunnTest()`: Modified. Adjusted code to handle the addition of `altp=` to and modified output from `dunn.test()` in `dunn.test`. Added additional tests and corrected some issues in the documentation.
 * `GompertzFuns()`: Modified. Fixed error in message (i.e., `msg=TRUE`) for `param="Ricker2"`.
 
