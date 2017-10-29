@@ -12,11 +12,11 @@
 dunnTest(x, ...)
 
 \method{dunnTest}{default}(x, g, method = dunn.test::p.adjustment.methods[c(4,
-  2:3, 5:8, 1)], two.sided = TRUE, ...)
+  2:3, 5:8, 1)], two.sided = TRUE, altp = two.sided, ...)
 
 \method{dunnTest}{formula}(x, data = NULL,
   method = dunn.test::p.adjustment.methods[c(4, 2:3, 5:8, 1)],
-  two.sided = TRUE, ...)
+  two.sided = TRUE, altp = two.sided, ...)
 
 \method{print}{dunnTest}(x, dunn.test.results = FALSE, ...)
 }
@@ -27,43 +27,47 @@ dunnTest(x, ...)
 
 \item{g}{A factor vector or a (non-numeric) vector that can be coerced to a factor vector.}
 
-\item{method}{A single string that identifies the method to use to control the experimentwise error rate.  See the list of methods in \code{\link[dunn.test]{p.adjustment.methods}}.}
+\item{method}{A single string that identifies the method used to control the experimentwise error rate. See the list of methods in \code{\link[dunn.test]{p.adjustment.methods}} in \pkg{dunn.test}.}
 
-\item{two.sided}{A single logical that indicates whether a two-sided p-value should be returned (\code{TRUE}; default) or not.  See details.}
+\item{two.sided}{A single logical that indicates whether a two-sided p-value should be returned (\code{TRUE}; default) or not. See details.}
+
+\item{altp}{Same as \code{two.sided}. Allows similar code with the \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test}. \code{two.sided} is maintained because it pre-dates \code{altp}.}
 
 \item{data}{A data.frame that minimally contains \code{x} and \code{g}.}
 
 \item{dunn.test.results}{A single logical that indicates whether the results that would have been printed by \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test} are shown.}
 }
 \value{
-A list with three items -- \code{method} is the long name of the method used to control the experimentwise error rate, \code{dtres} is the strings that would have been printed by \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test}, and a data.frame in \code{res} with the following variables:
+A list with three items -- \code{method} is the long name of the method used to control the experimentwise error rate, \code{dtres} is the strings that would have been printed by the \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test}, and \code{res} is a data.frame with the following variables:
 \itemize{
-  \item Comparison Labels for each pairwise comparison.
-  \item Z Values for the Z test statistic for each comparison.
-  \item P.unadj Unadjusted p-values for each comparison.
-  \item P.adj Adjusted p-values for each comparison.
+  \item Comparison: Labels for each pairwise comparison.
+  \item Z: Values for the Z test statistic for each comparison.
+  \item P.unadj: Unadjusted p-values for each comparison.
+  \item P.adj: Adjusted p-values for each comparison.
 }
 }
 \description{
-Performs Dunn's (1964) test of multiple comparisons following a significant Kruskal-Wallis test, possibly with a correction to control the experimentwise error rate.
+Performs Dunn's (1964) test of multiple comparisons following a significant Kruskal-Wallis test, possibly with a correction to control the experimentwise error rate. This is largely a wrapper for the \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test}. Please see and cite that package.
 }
 \details{
-This function performs \dQuote{Dunn's} test of multiple comparisons following a Kruskal-Wallis test.  Unadjusted two-sided p-values for each pairwise comparison among groups are computed following Dunn's description as implemented in the \code{\link[dunn.test]{dunn.test}} function from \pkg{dunn.test}.  These p-values may be adjusted using the methods in the \code{\link[dunn.test]{p.adjustment.methods}} function in \pkg{dunn.test} as implemented in the \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test}.
+This function performs \dQuote{Dunn's} test of multiple comparisons following a Kruskal-Wallis test. Unadjusted one- or two-sided p-values for each pairwise comparison among groups are computed following Dunn's description as implemented in the \code{\link[dunn.test]{dunn.test}} function from \pkg{dunn.test}. These p-values may be adjusted using methods in the \code{\link[dunn.test]{p.adjustment.methods}} function in \pkg{dunn.test}.
 
-This function is largely a wrapper for the \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test}.  Changes here are the possible use of formula notation, results that are not printed by the main function (but are printed in a more useful format (in my opinion) by the \code{print} function), the p-values are adjusted by default with the \dQuote{holm} method, and two-sided p-values (two times the p-value produced by the \code{\link[dunn.test]{dunn.test}} function) are returned with \code{two.sided=TRUE}.  This function returns the same results (in a different format) as the \code{\link[dunn.test]{dunn.test}} function from \pkg{dunn.test} when \code{two.sided=FALSE}.  See \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test} for a more details underlying these computations.
+This function is largely a wrapper for the \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test}. Changes here are the possible use of formula notation, results not printed by the main function (but are printed in a more useful format (in my opinion) by the \code{print} function), the p-values are adjusted by default with the \dQuote{holm} method, and two-sided p-values are returned by default. See \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test} for a more details underlying these computations.
 }
 \note{
-The data.frame will be reduced to only those rows that are complete cases for \code{x} and \code{g}.  In other words, rows with missing data for either \code{x} or \code{g} are removed from the analysis.
+The data.frame will be reduced to only those rows that are complete cases for \code{x} and \code{g}. In other words, rows with missing data for either \code{x} or \code{g} are removed from the analysis.
 
-There are a number of functions in other packages that purport to do similar analyses.
+There are a number of functions in other packages that do similar analyses.
 
-The \code{\link[asbio]{pairw.kw}} function from the \pkg{asbio} package performs the Dunn test with the Bonferroni correction.  The p-value results from \code{DunnTest} match the results from \code{\link[asbio]{pairw.kw}}.  The \code{\link[asbio]{pairw.kw}} also provides a confidence interval for the difference in mean ranks between pairs of groups.
+The results from \code{DunnTest} match the results (in a different format) from the \code{\link[dunn.test]{dunn.test}} function from \pkg{dunn.test}.
+
+The \code{\link[asbio]{pairw.kw}} function from the \pkg{asbio} package performs the Dunn test with the Bonferroni correction. The \code{\link[asbio]{pairw.kw}} also provides a confidence interval for the difference in mean ranks between pairs of groups. The p-value results from \code{DunnTest} match the results from \code{\link[asbio]{pairw.kw}}.
 
 The \code{\link[PMCMR]{posthoc.kruskal.nemenyi.test}} function from the \pkg{PMCMR} package uses the \dQuote{Nemenyi} (1963) method of multiple comparisons.
 
 The \code{\link[pgirmess]{kruskalmc}} function from the \pkg{pgirmess} package uses the method described by Siegel and Castellan (1988).
 
-It is not clear which method the \code{\link[agricolae]{kruskal}} function from the \pkg{agricolae} package uses.  It does not seem to output p-values but it does allow for a wide variety of methods to control the experimentwise error rate.
+It is not clear which method the \code{\link[agricolae]{kruskal}} function from the \pkg{agricolae} package uses. It does not seem to output p-values but it does allow for a wide variety of methods to control the experimentwise error rate.
 }
 \examples{
 ## pH in four ponds data from Zar (2010)
@@ -72,21 +76,27 @@ ponds <- data.frame(pond=as.factor(rep(1:4,each=8)),
                          7.71,7.73,7.74,7.74,7.78,7.78,7.80,7.81,
                          7.74,7.75,7.77,7.78,7.80,7.81,7.84,NA,
                          7.71,7.71,7.74,7.79,7.81,7.85,7.87,7.91))
-ponds <- ponds[complete.cases(ponds),]
+ponds2 <- ponds[complete.cases(ponds),]
 
 # non-formula usage (default "holm" method)
-dunnTest(ponds$pH,ponds$pond)
+dunnTest(ponds2$pH,ponds2$pond)
 
 # formula usage (default "holm" method)
-dunnTest(pH~pond,data=ponds)
+dunnTest(pH~pond,data=ponds2)
 
 # other methods
-dunnTest(pH~pond,data=ponds,method="bonferroni")
-dunnTest(pH~pond,data=ponds,method="bh")
-dunnTest(pH~pond,data=ponds,method="none")
+dunnTest(pH~pond,data=ponds2,method="bonferroni")
+dunnTest(pH~pond,data=ponds2,method="bh")
+dunnTest(pH~pond,data=ponds2,method="none")
+
+# one-sided
+dunnTest(pH~pond,data=ponds2,two.sided=FALSE)
+
+# warning message if incomplete cases were removed
+dunnTest(pH~pond,data=ponds)
 
 # print dunn.test results
-tmp <- dunnTest(pH~pond,data=ponds)
+tmp <- dunnTest(pH~pond,data=ponds2)
 print(tmp,dunn.test.results=TRUE)
 
 }

@@ -10,4 +10,5 @@ test_that("dunnTest() error and warning messages",{
   expect_warning(dunnTest(pH~cpond,data=ponds),"to a factor")
   expect_error(dunnTest(pH~pond+cpond,data=ponds),"only one RHS variable")
   expect_error(dunnTest(pH+cpond~pond,data=ponds))
+  expect_warning(dunnTest(pH~fpond,data=ponds2),"Some rows deleted from")
 })

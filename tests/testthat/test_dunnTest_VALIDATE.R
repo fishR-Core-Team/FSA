@@ -6,39 +6,70 @@ test_that("dunnTest matches UnitStat results",{
   expect_equivalent(round(tmp$res$P.adj,4),unistat$P.adj)
 })
 
-test_that("dunnTest matches dunn.test results (within difference in two-sidedness) for ponds data",{
+test_that("dunnTest matches dunn.test results for ponds data",{
   if (require(dunn.test)) {
     ## Loop through all methods in p.adjustment.methods
-    for (m in dunn.test::p.adjustment.methods) {
+    for (m in dunn.test::p.adjustment.methods) { # for one-sided results
       tmp  <- dunnTest(pH~fpond,data=ponds,method=m,two.sided=FALSE)$res$P.adj
       junk <- utils::capture.output(tmp2 <- dunn.test(ponds$pH,ponds$fpond,method=m)$P.adjusted)
+      expect_equivalent(tmp,tmp2)
+    }
+    for (m in dunn.test::p.adjustment.methods) { # for two-sided results
+      tmp  <- dunnTest(pH~fpond,data=ponds,method=m,two.sided=TRUE)$res$P.adj
+      junk <- utils::capture.output(tmp2 <- dunn.test(ponds$pH,ponds$fpond,
+                                                      method=m,altp=TRUE)$altP.adjusted)
+      expect_equivalent(tmp,tmp2)
+    }
+    for (m in dunn.test::p.adjustment.methods) { # for one-sided results with missing data
+      suppressWarnings(tmp  <- dunnTest(pH~fpond,data=ponds2,method=m,two.sided=FALSE)$res$P.adj)
+      junk <- utils::capture.output(tmp2 <- dunn.test(ponds2$pH,ponds2$fpond,
+                                                      method=m)$P.adjusted)
+      expect_equivalent(tmp,tmp2)
+    }
+    for (m in dunn.test::p.adjustment.methods) { # for two-sided results with missing data
+      suppressWarnings(tmp  <- dunnTest(pH~fpond,data=ponds2,method=m,two.sided=TRUE)$res$P.adj)
+      junk <- utils::capture.output(tmp2 <- dunn.test(ponds2$pH,ponds2$fpond,
+                                                      method=m,altp=TRUE)$altP.adjusted)
       expect_equivalent(tmp,tmp2)
     }
   } # end require()
 })
 
-test_that("dunnTest matches dunn.test results (within difference in two-sidedness) for homecare data",{
+test_that("dunnTest matches dunn.test results for homecare data",{
   if (require(dunn.test)) {
     data(homecare)
     ## Loop through all methods in p.adjustment.methods
-    for (m in dunn.test::p.adjustment.methods) {
+    for (m in dunn.test::p.adjustment.methods) { # for one-sided results
       tmp  <- dunnTest(occupation~eligibility,data=homecare,method=m,two.sided=FALSE)$res$P.adj
       junk <- utils::capture.output(
         tmp2 <- dunn.test(homecare$occupation,homecare$eligibility,method=m)$P.adjusted)
       expect_equivalent(tmp,tmp2)
     }
+    for (m in dunn.test::p.adjustment.methods) { # for two-sided results
+      tmp  <- dunnTest(occupation~eligibility,data=homecare,method=m,two.sided=TRUE)$res$P.adj
+      junk <- utils::capture.output(
+        tmp2 <- dunn.test(homecare$occupation,homecare$eligibility,method=m,altp=TRUE)$altP.adjusted)
+      expect_equivalent(tmp,tmp2)
+    }
   } # end require()
 })
 
-test_that("dunnTest matches dunn.test results (within difference in two-sidedness) for airquality data",{
+test_that("dunnTest matches dunn.test results for airquality data",{
   if (require(dunn.test)) {
     data(airquality)
     ## Loop through all methods in p.adjustment.methods
-    for (m in dunn.test::p.adjustment.methods) {
-      suppressWarnings(
-        tmp <- dunnTest(Ozone~Month,data=airquality,method=m,two.sided=FALSE)$res$P.adj)
+    for (m in dunn.test::p.adjustment.methods) { # for one-sided results
+      suppressWarnings(tmp <- dunnTest(Ozone~Month,data=airquality,
+                                       method=m,two.sided=FALSE)$res$P.adj)
       junk <- utils::capture.output(
         tmp2 <- dunn.test(airquality$Ozone,airquality$Month,method=m)$P.adjusted)
+      expect_equivalent(tmp,tmp2)
+    }
+    for (m in dunn.test::p.adjustment.methods) { # for two-sided results
+      suppressWarnings(tmp <- dunnTest(Ozone~Month,data=airquality,
+                                       method=m,two.sided=TRUE)$res$P.adj)
+      junk <- utils::capture.output(
+        tmp2 <- dunn.test(airquality$Ozone,airquality$Month,method=m,altp=TRUE)$altP.adjusted)
       expect_equivalent(tmp,tmp2)
     }
   } # end require()
