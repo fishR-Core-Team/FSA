@@ -179,7 +179,7 @@ vbStarts <- function(formula,data=NULL,
 #=============================================================
 # Find starting values for Linf and K from a Walford Plot
 #=============================================================
-iVBStarts.LinfK <- function(age,len,type,methLinf,num4Linf,fixed) {
+iVBStarts.LinfK <- function(age,len,type,methLinf,num4Linf,fixed,check=TRUE) {
   ## compute mean lengths-at-age and numbers-at-age
   meanL <- tapply(len,age,mean)
   ns <- tapply(len,age,length)
@@ -204,13 +204,13 @@ iVBStarts.LinfK <- function(age,len,type,methLinf,num4Linf,fixed) {
         sLinf <- mean(len[age %in% ages[1:num4Linf]])
       }
     }
-    iCheckLinf(sLinf,len)
+    if (check) iCheckLinf(sLinf,len)
   }
   if ("K" %in% names(fixed)) {
     sK <- fixed[["K"]]
   } else {
     sK <- -log(cfs[[2]])
-    iCheckK(sK,type,len)
+    if (check) iCheckK(sK,type,len)
   }
   ## return the starting values
   c(Linf=sLinf,K=sK)
@@ -271,7 +271,7 @@ iVBStarts.t0 <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
       st0 <- st0[[1]]
     } else {
       # find starting values for Linf and K
-      tmp <- iVBStarts.LinfK(age,len,type,methLinf,num4Linf,fixed)
+      tmp <- iVBStarts.LinfK(age,len,type,methLinf,num4Linf,fixed,FALSE)
       # find the youngest age with a n>=1
       if (all(ns==1)) yngAge <- min(ages)
       else yngAge <- min(ages[which(ns>=1)])
@@ -305,7 +305,7 @@ iVBStarts.L0 <- function(age,len,type,meth0,methLinf,num4Linf,fixed) {
       sL0 <- sL0[[1]]
     } else {
       # find starting values for Linf and K
-      tmp <- iVBStarts.LinfK(age,len,type,methLinf,num4Linf,fixed)
+      tmp <- iVBStarts.LinfK(age,len,type,methLinf,num4Linf,fixed,FALSE)
       # find the youngest age with a n>=1
       if (all(ns==1)) yngAge <- min(ages)
       else yngAge <- min(ages[which(ns>=1)])
@@ -378,7 +378,7 @@ iVBStarts.Ogle <- function(age,len,type,meth0,methLinf,num4Linf,valOgle,fixed) {
   if (is.null(names(valOgle))) STOP("'valOgle' must be a named vector")
   setParam <- names(valOgle)
   if (!setParam %in% c("Lr","tr")) STOP("Name in 'valOgle' must be 'Lr' or 'tr'")
-  LK <- iVBStarts.LinfK(age,len,type,methLinf,num4Linf,fixed)
+  LK <- iVBStarts.LinfK(age,len,type,methLinf,num4Linf,fixed,FALSE)
   if (setParam=="tr") {
     ## an age was given, fit polynomial and predict length at that age
     if (valOgle<min(age) & is.null(fixed)) WARN("'valAge' is less than minimum observed age.\nStarting value for Lr may be suspect; considering using 'fixed'.")
