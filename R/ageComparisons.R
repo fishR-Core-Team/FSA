@@ -49,6 +49,7 @@
 #' @param nYpos A numeric for the relative Y position of the sample size values when \code{show.n=TRUE}. For example, if \code{nYpos=1.03} then the sample size values will be centered at 3 percent above the top end of the y-axis.
 #' @param cex.n A character expansion value for the size of the sample size values.
 #' @param cex.numbers A character expansion value for the size of the numbers plotted when \code{what="numbers"} is used.
+#' @param col.numbers A string for the color of the numbers plotted when \code{what="numbers"} is used.
 #' @param allowAdd A logical that will allow the user to add items to the main (i.e., not the marginal histograms) plot panel (if \code{TRUE}). Defaults to \code{FALSE}.
 #' @param \dots Additional arguments for methods.
 #'
@@ -839,7 +840,8 @@ plotAB <- function(x,what=c("bias","Campana","numbers"),
                    col.agree="gray60",lwd.agree=lwd,lty.agree=2,lwd=1,sfrac=0,
                    pch.mean=19,pch.mean.sig=21,cex.mean=lwd,
                    col.CI="black",col.CIsig="red",lwd.CI=lwd,sfrac.CI=sfrac,
-                   show.n=FALSE,nYpos=1.03,cex.n=0.75,cex.numbers=0.75,...) { # nocov start
+                   show.n=FALSE,nYpos=1.03,cex.n=0.75,
+                   cex.numbers=0.75,col.numbers="black",...) { # nocov start
   what <- match.arg(what)
   axlmts <- iABAxisLmts(x,xlim,ylim,difference=FALSE,show.range=FALSE,
                         show.pts=FALSE,show.CI=TRUE)
@@ -850,7 +852,7 @@ plotAB <- function(x,what=c("bias","Campana","numbers"),
                 col.CIsig,lwd.CI,sfrac.CI,show.n,nYpos,cex.n,...)
   } else {
     iPlotABNum(x,xlab,ylab,axlmts,yaxt,xaxt,
-               lwd.agree,lty.agree,col.agree,cex.numbers,...)
+               lwd.agree,lty.agree,col.agree,cex.numbers,col.numbers,...)
   } 
 } # nocov end
 
@@ -904,7 +906,8 @@ iPlotABCamp <- function(x,xlab,ylab,axlmts,yaxt,xaxt,
 # Internal function to produce the age bias numbers plot.
 #=============================================================
 iPlotABNum <- function(obj,xlab,ylab,axlmts,yaxt,xaxt,
-                       lwd.agree,lty.agree,col.agree,cex.numbers,...) { # nocov start
+                       lwd.agree,lty.agree,col.agree,
+                       cex.numbers,col.numbers,...) { # nocov start
   # convert age-agreement table into a data frame with all zeros removed
   # y,x in d[,1] and d[,2], respectively
   # lables in d[,3]
@@ -921,7 +924,7 @@ iPlotABNum <- function(obj,xlab,ylab,axlmts,yaxt,xaxt,
   # add the one-to-one line
   graphics::lines(axlmts$xlim,axlmts$xlim,lwd=lwd.agree,lty=lty.agree,col=col.agree)
   # add the numbers at each point
-  graphics::text(d[,2],d[,1],labels=d[,3],cex=cex.numbers)
+  graphics::text(d[,2],d[,1],labels=d[,3],cex=cex.numbers,col=col.numbers)
 } # nocov end
 
 
