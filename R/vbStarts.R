@@ -221,12 +221,12 @@ iVBStarts.LinfK <- function(age,len,type,methLinf,num4Linf,fixed) {
 #=============================================================
 iCheckLinf <- function(sLinf,len) {
   if ((sLinf<0.5*max(len,na.rm=TRUE)) | sLinf>1.5*max(len,na.rm=TRUE)) {
-    msg <- "Starting value for Linf is very different from the observed maximum length, "
-    msg <- paste0(msg,"which suggests a model fitting problem.\n")
-    msg <- paste0(msg,"See a Walford or Chapman plot to examine the problem.  Consider\n")
-    msg <- paste0(msg,"either using the mean length for several of the largest fish\n")
-    msg <- paste0(msg,"(i.e., use 'oldAge' in 'methLinf=') or manually setting Linf\n")
-    msg <- paste0(msg,"to the maximum observed lengthin the starting value list.\n")
+    msg <- "Starting value for Linf is very different from the observed maximum\n"
+    msg <- paste0(msg,"length, which suggests a model fitting problem. See a Walford or\n")
+    msg <- paste0(msg,"Chapman plot to examine the problem. Consider either using the mean\n")
+    msg <- paste0(msg,"length for several of the largest fish (i.e., use 'oldAge' in \n")
+    msg <- paste0(msg,"'methLinf=') or manually setting Linf in the starting value list\n")
+    msg <- paste0(msg,"to the maximum observed length.\n")
     WARN(msg)    
   } 
 }
@@ -237,7 +237,7 @@ iCheckK <- function(sK,type,len) {
                     "vonBertalanffy","GQ","GallucciQuinn","Schnute")) {
       msg <- "The suggested starting value for K is negative, "
     } else {
-      msg <- "One  suggested starting value is based on a negative K, "
+      msg <- "One suggested starting value is based on a negative K, "
     }
     msg <- paste0(msg,"which suggests a model fitting problem.\n")
     msg <- paste0(msg,"See a Walford or Chapman Plot to examine the problem.\n")

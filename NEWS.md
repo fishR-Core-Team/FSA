@@ -1,4 +1,6 @@
 # FSA 0.8.18 ongoing
+* `plotAB()`: Modified. Added `col.numbers=` to allow users to modify the color of the numbers when `what="numbers"` is used (addresses [#34](https://github.com/droglenc/FSA/issues/34)).
+* `vbStarts()`: Modified. Fixed some spacing issues with the warnings when starting values for Linf was poorly estimated.
 
 # FSA 0.8.17 29-Oct-17
 * `dunnTest()`: Modified. Adjusted code to handle the addition of `altp=` to and modified output from `dunn.test()` in `dunn.test`. Added additional tests and corrected some issues in the documentation.
