@@ -46,21 +46,21 @@ mrClosed(M = NULL, n = NULL, m = NULL, R = NULL,
 
 \item{m}{A numeric representing the number of recaptured (marked) fish in the second sample (single-census) or numeric vector of recaptured (marked) fish in ith sample (multiple-census).}
 
-\item{R}{A numeric vector representing the number of marked fish returned to the population (multiple-census).  Note that several references use the number of \dQuote{new} marks returned to the population rather than the \dQuote{total} number of marks returned to the population that is used here.}
+\item{R}{A numeric vector representing the number of marked fish returned to the population (multiple-census). Note that several references use the number of \dQuote{new} marks returned to the population rather than the \dQuote{total} number of marks returned to the population that is used here.}
 
 \item{method}{A single string that identifies the type of calculation method to use in the main function.}
 
-\item{labels}{A character or character vector used to label the rows of the resulting output matrix when using a single census method separated by groups.  Must be the same length as \code{M}, \code{n}, and \code{m}.  Defaults to upper-case letters if no values are given.}
+\item{labels}{A character or character vector used to label the rows of the resulting output matrix when using a single census method separated by groups. Must be the same length as \code{M}, \code{n}, and \code{m}. Defaults to upper-case letters if no values are given.}
 
 \item{chapman.mod}{A logical that represents whether the Chapman modification should be used (\code{=TRUE}, default) or not (\code{=FALSE}) when performing the Schnabel multiple census method.}
 
 \item{object, x}{An \code{mrClosed1} or \code{mrClosed2} object.}
 
-\item{digits}{The number of decimal digits to round the population estimates to.  If \code{incl.SE=TRUE} then SE will be rounded to one more decimal place then given in \code{digits}.}
+\item{digits}{The number of decimal digits to round the population estimates to. If \code{incl.SE=TRUE} then SE will be rounded to one more decimal place then given in \code{digits}.}
 
-\item{incl.SE}{A logical that indicates whether the results should include the calculated SE value.  See details.}
+\item{incl.SE}{A logical that indicates whether the results should include the calculated SE value. See details.}
 
-\item{incl.all}{A logical that indicates whether an overall population estimate should be computed when using a single census method that has been separated into sub-groups.  See details.}
+\item{incl.all}{A logical that indicates whether an overall population estimate should be computed when using a single census method that has been separated into sub-groups. See details.}
 
 \item{verbose}{A logical that indicates whether a reminder of the inputted values and what type of method was used should be printed with the summary and confidence interval results.}
 
@@ -74,9 +74,9 @@ mrClosed(M = NULL, n = NULL, m = NULL, R = NULL,
 
 \item{type}{A single string that identifies the distribution to use when constructing confidence intervals in \code{confint}. See details.}
 
-\item{bin.type}{A string that identifies the method used to construct binomial confidence intervals (default is \code{"wilson"}).  This is only used if \code{type="binomial"} in \code{confint}.  See details of \code{\link{binCI}}.}
+\item{bin.type}{A string that identifies the method used to construct binomial confidence intervals (default is \code{"wilson"}). This is only used if \code{type="binomial"} in \code{confint}. See details of \code{\link{binCI}}.}
 
-\item{poi.type}{A string that identifies the method used to construct Poisson confidence intervals (default is \code{"exact"}).  This is only used if \code{type="Poisson"} in \code{confint}.  See details of \code{\link{poiCI}}.}
+\item{poi.type}{A string that identifies the method used to construct Poisson confidence intervals (default is \code{"exact"}). This is only used if \code{type="Poisson"} in \code{confint}. See details of \code{\link{poiCI}}.}
 
 \item{pch}{A numeric used to indicate the type of plotting character.}
 
@@ -96,7 +96,7 @@ mrClosed(M = NULL, n = NULL, m = NULL, R = NULL,
 
 \item{trans.loess}{A single numeric that indicates how transparent the loess band should be (larger numbers are more transparent).}
 
-\item{span}{A single numeric that controls the degree of smoothing.  Values closer to 1 are more smooth.}
+\item{span}{A single numeric that controls the degree of smoothing. Values closer to 1 are more smooth.}
 }
 \value{
 A list with the following items
@@ -115,50 +115,50 @@ A list with the following items
  }
 }
 \description{
-Estimates of the initial population size, along with associated confidence intervals, are constructed from single or multiple census mark-recapture data using a variety of methods.  For single census data, the initial population size (N) is estimated from the number of marked animals from a first sample (M), number of captured animals in a second sample (n), and the number of recaptured marked animals in the second sample (m) using either the \sQuote{naive} Petersen method or Chapman, Ricker, or Bailey modifications of the Petersen method.  Single census data can also be separated by group (e.g., size class) to estimate the initial population size by class and for the overall population size.  For multiple census data, the initial population size is estimated from the number of captured animals (n), number of recaptured marked animals (m), the number of marked animals that are marked and returned to the population (R), or the number of extant marked animals prior to the sample (M) on each of several samples using either the Schnabel (1938) or Schumacher-Eschmeyer (1943) method.
+Estimates of the initial population size, along with associated confidence intervals, are constructed from single or multiple census mark-recapture data using a variety of methods. For single census data, the initial population size (N) is estimated from the number of marked animals from a first sample (M), number of captured animals in a second sample (n), and the number of recaptured marked animals in the second sample (m) using either the \sQuote{naive} Petersen method or Chapman, Ricker, or Bailey modifications of the Petersen method. Single census data can also be separated by group (e.g., size class) to estimate the initial population size by class and for the overall population size. For multiple census data, the initial population size is estimated from the number of captured animals (n), number of recaptured marked animals (m), the number of marked animals that are marked and returned to the population (R), or the number of extant marked animals prior to the sample (M) on each of several samples using either the Schnabel (1938) or Schumacher-Eschmeyer (1943) method.
 }
 \details{
 For single census data, the following methods can be used:
 \itemize{
-  \item{\code{method="Petersen"}.  The \sQuote{naive} Petersen as computed using equation 2.1 from Krebs (1989).}
-  \item{\code{method="Chapman"}.  The Chapman (1951) modification of the Petersen method as computed using equation 2.2 from Krebs (1989).}
-  \item{\code{method="Ricker"}.  The Ricker (1975) modification of the Petersen as computed using equation 3.7 from Ricker (1975).  This is basically the same \code{method="Chapman"} except that Ricker (1975) did NOT subtract a 1 from the answer in the final step.  Thus, the estimate from \code{method="Chapman"} will always be one less than the estimate from \code{method="Ricker"}.}
-  \item{\code{method="Bailey"}.  The Bailey (1951, 1952) modification of the Petersen as computed using equation 2.3 from Krebs (1989).}
+  \item{\code{method="Petersen"}. The \sQuote{naive} Petersen as computed using equation 2.1 from Krebs (1989).}
+  \item{\code{method="Chapman"}. The Chapman (1951) modification of the Petersen method as computed using equation 2.2 from Krebs (1989).}
+  \item{\code{method="Ricker"}. The Ricker (1975) modification of the Petersen as computed using equation 3.7 from Ricker (1975). This is basically the same \code{method="Chapman"} except that Ricker (1975) did NOT subtract a 1 from the answer in the final step. Thus, the estimate from \code{method="Chapman"} will always be one less than the estimate from \code{method="Ricker"}.}
+  \item{\code{method="Bailey"}. The Bailey (1951, 1952) modification of the Petersen as computed using equation 2.3 from Krebs (1989).}
 }
 
-If \code{M} contains an object from \code{\link{capHistSum}} and one of Petersen, Chapman, Ricker, or Bailey methods has been selected with \code{method=} then \code{n=} and \code{m=} can be left missing or will be ignored and the needed data will be extracted from the \code{sum} portion of the \code{CapHist} class object.  If the data were not summarized with \code{\link{capHistSum}} then all of \code{M=}, \code{n=}, and \code{m=} must be supplied by the user.
+If \code{M} contains an object from \code{\link{capHistSum}} and one of Petersen, Chapman, Ricker, or Bailey methods has been selected with \code{method=} then \code{n=} and \code{m=} can be left missing or will be ignored and the needed data will be extracted from the \code{sum} portion of the \code{CapHist} class object. If the data were not summarized with \code{\link{capHistSum}} then all of \code{M=}, \code{n=}, and \code{m=} must be supplied by the user.
 
-The population estimate (as computed with the formulas noted in the table above) is extracted with \code{summary}.  In addition, the standard error of the population estimate (SE) can be extracted by including \code{incl.SE=TRUE}.  The SE is from equation 3.6 (p. 78) in Ricker (1975) for the Petersen method, from p. 60 (near bottom) of Seber (2002) for the Chapman method, from p. 61 (middle) of Seber (2002) (and as noted on p. 79 of Ricker (1975)) for the Bailey method, and from equation 3.8 (p. 78) in Ricker (1975) for the Ricker method.
+The population estimate (as computed with the formulas noted in the table above) is extracted with \code{summary}. In addition, the standard error of the population estimate (SE) can be extracted by including \code{incl.SE=TRUE}. The SE is from equation 3.6 (p. 78) in Ricker (1975) for the Petersen method, from p. 60 (near bottom) of Seber (2002) for the Chapman method, from p. 61 (middle) of Seber (2002) (and as noted on p. 79 of Ricker (1975)) for the Bailey method, and from equation 3.8 (p. 78) in Ricker (1975) for the Ricker method.
 
-Confidence intervals for the initial population size from the single census methods can be constructed using four different distributions as chosen with \code{type=} in \code{confint}.  If \code{type="suggested"} then the type of confidence interval suggested by the rules on p. 18 in Krebs (1989) are used.  The general methods for constructing confidence intervals for N are described below
+Confidence intervals for the initial population size from the single census methods can be constructed using four different distributions as chosen with \code{type=} in \code{confint}. If \code{type="suggested"} then the type of confidence interval suggested by the rules on p. 18 in Krebs (1989) are used. The general methods for constructing confidence intervals for N are described below
 
 \itemize{
- \item{\code{type="hypergeometric"}.  Uses \code{\link{hyperCI}}.  This is experimental at this point.}
- \item{\code{type="binomial"}.  Use \code{\link{binCI}} to construct a confidence interval for m/n (Petersen method) or (m+1)/(n+1) (Chapman, Bailey, Ricker methods), divides M or (M+1) by the CI endpoints, and subtract 1 (for the Chapman method).}
- \item{\code{type="Poisson"}.  Use \code{\link{poiCI}} to construct a confidence interval for m (Petersen method) or (m+1) (Chapman, Bailey, Ricker methods), substitute the CI endpoints into the appropriate equation for estimating N, and subtract 1 (for the Chapman method).}
- \item{\code{type="normal"}.  Used equation 2.4 (p.20) from Krebs (2002) for the Petersen method.  For the other methods, used N+/- Z(0.975)*SE, where the SE was computed as noted above.}
+ \item{\code{type="hypergeometric"}. Uses \code{\link{hyperCI}}. This is experimental at this point.}
+ \item{\code{type="binomial"}. Use \code{\link{binCI}} to construct a confidence interval for m/n (Petersen method) or (m+1)/(n+1) (Chapman, Bailey, Ricker methods), divides M or (M+1) by the CI endpoints, and subtract 1 (for the Chapman method).}
+ \item{\code{type="Poisson"}. Use \code{\link{poiCI}} to construct a confidence interval for m (Petersen method) or (m+1) (Chapman, Bailey, Ricker methods), substitute the CI endpoints into the appropriate equation for estimating N, and subtract 1 (for the Chapman method).}
+ \item{\code{type="normal"}. Used equation 2.4 (p.20) from Krebs (2002) for the Petersen method. For the other methods, used N+/- Z(0.975)*SE, where the SE was computed as noted above.}
 }
 
-If \code{incl.all=TRUE} in \code{summary} and population estimates have been constructed for multiple sub-groups then an overall population estimate is included by summing the population estimates for the multiple sub-groups.  If \code{incl.SE=TRUE}, then an overall SE is computed by taking the square root of the summed VARIANCES for the multiple sub-groups.
+If \code{incl.all=TRUE} in \code{summary} and population estimates have been constructed for multiple sub-groups then an overall population estimate is included by summing the population estimates for the multiple sub-groups. If \code{incl.SE=TRUE}, then an overall SE is computed by taking the square root of the summed VARIANCES for the multiple sub-groups.
 
 For multiple census data, the following methods can be declared for use with the \code{method=} argument:
 \itemize{
-  \item{\code{method="Schnabel"}.  The Schnabel (1938) method as computed with equation 3.15 from Ricker (1975).}
-  \item{\code{method="SchumacherEschmeyer"}.  The Schumacher and Eschmeyer (1943) method as computed with equation 3.12 from Ricker (1975) eqn 3.12.}
+  \item{\code{method="Schnabel"}. The Schnabel (1938) method as computed with equation 3.15 from Ricker (1975).}
+  \item{\code{method="SchumacherEschmeyer"}. The Schumacher and Eschmeyer (1943) method as computed with equation 3.12 from Ricker (1975) eqn 3.12.}
 }
 
-If \code{M} contains an object from \code{\link{capHistSum}} and the Schnabel or Schumacher-Eschmeyer methods has been chosen then \code{n}, \code{m} and \code{R} can be left missing or will be ignored.  In this case, the needed data is extracted from the \code{sum} portion of the \code{CapHist} class object.  Otherwise, the user must supply vectors of results in \code{n}, \code{m}, and \code{R} or \code{M}.
+If \code{M} contains an object from \code{\link{capHistSum}} and the Schnabel or Schumacher-Eschmeyer methods has been chosen then \code{n}, \code{m} and \code{R} can be left missing or will be ignored. In this case, the needed data is extracted from the \code{sum} portion of the \code{CapHist} class object. Otherwise, the user must supply vectors of results in \code{n}, \code{m}, and \code{R} or \code{M}.
 
-The population estimate for each method is extracted with \code{summary}.  Standard errors for the population estimate can NOT be computed for the Schnabel or Schumacher-Eschmeyer methods (a warning will be produced if \code{incl.SE=TRUE} is used).
+The population estimate for each method is extracted with \code{summary}. Standard errors for the population estimate can NOT be computed for the Schnabel or Schumacher-Eschmeyer methods (a warning will be produced if \code{incl.SE=TRUE} is used).
 
-Confidence intervals for the initial population size using multiple census methods can be constructed using the normal or Poisson distributions for the Schnabel method or the normal distribution for the Schumacher-Eschmeyer method as chosen with \code{type=}.  If \code{type="suggested"} then the type of confidence interval suggested by the rule on p. 32 of Krebs (1989) is used (for the Schnabel method).  If \code{type="Poisson"} for the Schnabel method then a confidence interval for the sum of m is computed with \code{\link{poiCI}} and the end points are substituted into the Schnabel equation to produce a CI for the population size.  If \code{type="normal"} for the Schnabel method then the standard error for the \emph{inverse} of the population estimate is computed as the square root of equation 2.11 from Krebs (1989) or equation 3.16 from Ricker (1975).  The standard error for the Schumacher-Eschmeyer method is for the \emph{inverse} of the population estimate and is computed with equation 2.14 from Krebs (1989) [Note that the divisor in Krebs (1989) is different than the divisor in equation 3.12 in Ricker (1975), but is consistent with equation 4.17 in Seber (2002).]  The confidence interval for the \emph{inverse} population estimate is constructed from the inverse population estimate plus/minus a t critical value times the standard error for the inverse population estimate.  The t critical value uses the number of samples minus 1 for the Schnabel method and the number of samples minus 2 when for the Schumacher-Eschmeyer method according to p. 32 of Krebs (1989) (note that this is different than what Ricker (1975) does).  Finally, the confidence interval for the population estimate is obtained by inverting the confidence interval for the inverse population estimate.  Note that confidence intervals for the population size when \code{type="normal"} may contain negative values (for the upper value) when the population estimate is relatively large and the number of samples is small (say, three) because the intervals are originally constructed on the inverted population estimate and they use the t-distribution.
+Confidence intervals for the initial population size using multiple census methods can be constructed using the normal or Poisson distributions for the Schnabel method or the normal distribution for the Schumacher-Eschmeyer method as chosen with \code{type=}. If \code{type="suggested"} then the type of confidence interval suggested by the rule on p. 32 of Krebs (1989) is used (for the Schnabel method). If \code{type="Poisson"} for the Schnabel method then a confidence interval for the sum of m is computed with \code{\link{poiCI}} and the end points are substituted into the Schnabel equation to produce a CI for the population size. If \code{type="normal"} for the Schnabel method then the standard error for the \emph{inverse} of the population estimate is computed as the square root of equation 2.11 from Krebs (1989) or equation 3.16 from Ricker (1975). The standard error for the Schumacher-Eschmeyer method is for the \emph{inverse} of the population estimate and is computed with equation 2.14 from Krebs (1989) [Note that the divisor in Krebs (1989) is different than the divisor in equation 3.12 in Ricker (1975), but is consistent with equation 4.17 in Seber (2002).]  The confidence interval for the \emph{inverse} population estimate is constructed from the inverse population estimate plus/minus a t critical value times the standard error for the inverse population estimate. The t critical value uses the number of samples minus 1 for the Schnabel method and the number of samples minus 2 when for the Schumacher-Eschmeyer method according to p. 32 of Krebs (1989) (note that this is different than what Ricker (1975) does). Finally, the confidence interval for the population estimate is obtained by inverting the confidence interval for the inverse population estimate. Note that confidence intervals for the population size when \code{type="normal"} may contain negative values (for the upper value) when the population estimate is relatively large and the number of samples is small (say, three) because the intervals are originally constructed on the inverted population estimate and they use the t-distribution.
 
-The \code{plot} can be used to identify assumption violations in the Schnabel and Schumacher-Eschmeyer methods (an error will be returned if used with any of the other methods).  If the assumptions ARE met then the plot of the proportion of marked fish in a sample versus the cumulative number of marked fish should look linear.  A loess line (with approximate 95\% confidence bands) can be added to aid interpretation with \code{loess=TRUE}.  Note, however, that adding the loess line may return a number of warning or produce a non-informative if the number of samples is small (<8).
+The \code{plot} can be used to identify assumption violations in the Schnabel and Schumacher-Eschmeyer methods (an error will be returned if used with any of the other methods). If the assumptions ARE met then the plot of the proportion of marked fish in a sample versus the cumulative number of marked fish should look linear. A loess line (with approximate 95\% confidence bands) can be added to aid interpretation with \code{loess=TRUE}. Note, however, that adding the loess line may return a number of warning or produce a non-informative if the number of samples is small (<8).
 }
 \section{Testing}{
- The results from the single census methods have had the following checks.  The population estimates for all methods match reputable sources.  The SE for the Chapman and Bailey methods match the results from \code{\link[fishmethods]{mrN.single}} in \pkg{fishmethods},  The CI for the Petersen, Chapman, and Bailey methods partially match (are within 1% when they do not match) the CIs from reputable sources.
+ The results from the single census methods have had the following checks. The population estimates for all methods match reputable sources. The SE for the Chapman and Bailey methods match the results from \code{\link[fishmethods]{mrN.single}} in \pkg{fishmethods},  The CI for the Petersen, Chapman, and Bailey methods partially match (are within 1% when they do not match) the CIs from reputable sources.
 
-The results for the multiple census methods have had the following checks.  The population estimates for both methods match reputable sources.  The intermediate calculations for both methods match those in Krebs (1989).  The confidence interval for the Schnabel method using the Poisson distribution does NOT match Krebs (1989).  This appears to be a difference in the use \code{\link{poiCI}} here versus distributional tables in Krebs (i.e., the difference appears to be completely in the critical values from the Poisson distribution).  The confidence interval for the Schnabel method using the normal or the Poisson distribution do NOT match Ricker (1975), but there is not enough information in Ricker to determine why (it is likely due to numerical differences on the inverse scale).  The confidence interval for the Schumacher-Eschmeyer method do match Krebs (1989) but not Ricker (1975).  The Ricker result may be due to different df as noted above.
+The results for the multiple census methods have had the following checks. The population estimates for both methods match reputable sources. The intermediate calculations for both methods match those in Krebs (1989). The confidence interval for the Schnabel method using the Poisson distribution does NOT match Krebs (1989). This appears to be a difference in the use \code{\link{poiCI}} here versus distributional tables in Krebs (i.e., the difference appears to be completely in the critical values from the Poisson distribution). The confidence interval for the Schnabel method using the normal or the Poisson distribution do NOT match Ricker (1975), but there is not enough information in Ricker to determine why (it is likely due to numerical differences on the inverse scale). The confidence interval for the Schumacher-Eschmeyer method do match Krebs (1989) but not Ricker (1975). The Ricker result may be due to different df as noted above.
 }
 
 \section{IFAR Chapter}{
@@ -236,20 +236,20 @@ confint(mr7)
 
 }
 \references{
-Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
-Krebs, C.J.  1989.  Ecological Methodology.  Addison-Welsey Educational Publishing.
+Krebs, C.J. 1989. Ecological Methodology. Addison-Welsey Educational Publishing.
 
-Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.  [Was (is?) from http://www.dfo-mpo.gc.ca/Library/1485.pdf.]
+Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada. [Was (is?) from http://www.dfo-mpo.gc.ca/Library/1485.pdf.]
 
 Seber, G.A.F. 2002. The Estimation of Animal Abundance and Related Parameters. Edward Arnold, second edition.
 
-Schnabel, Z.E.  1938. The estimation of the total fish population of a lake. American Mathematician Monthly, 45:348-352.
+Schnabel, Z.E. 1938. The estimation of the total fish population of a lake. American Mathematician Monthly, 45:348-352.
 
-Schumacher, F.X. and R.W. Eschmeyer. 1943.  The estimation of fish populations in lakes and ponds.  Journal of the Tennessee Academy of Sciences, 18:228-249.
+Schumacher, F.X. and R.W. Eschmeyer. 1943. The estimation of fish populations in lakes and ponds. Journal of the Tennessee Academy of Sciences, 18:228-249.
 }
 \seealso{
-See \code{\link{capHistSum}} for generating input data from capture histories.  See \code{\link{poiCI}}, \code{\link{binCI}}, and \code{\link{hyperCI}} for specifics on functions used in confidence interval construction.  See \code{\link{mrOpen}} for handling mark-recapture data in an open population.  See \code{\link[FSAdata]{SunfishIN}} in \pkg{FSAdata} for an example to test matching of results with Ricker (1975)'  See \code{\link[fishmethods]{mrN.single}} and \code{\link[fishmethods]{schnabel}} in \pkg{fishmethods} for similar functionality.
+See \code{\link{capHistSum}} for generating input data from capture histories. See \code{\link{poiCI}}, \code{\link{binCI}}, and \code{\link{hyperCI}} for specifics on functions used in confidence interval construction. See \code{\link{mrOpen}} for handling mark-recapture data in an open population. See \code{\link[FSAdata]{SunfishIN}} in \pkg{FSAdata} for an example to test matching of results with Ricker (1975)'  See \code{\link[fishmethods]{mrN.single}} and \code{\link[fishmethods]{schnabel}} in \pkg{fishmethods} for similar functionality.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

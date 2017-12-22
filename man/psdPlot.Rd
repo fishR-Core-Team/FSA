@@ -12,19 +12,19 @@ psdPlot(formula, data, species = "List", units = c("mm", "cm", "in"),
   psd.pos = "topleft", psd.cex = 0.75, ...)
 }
 \arguments{
-\item{formula}{A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains length measurements.  Note that this formula can only contain one variable.}
+\item{formula}{A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains length measurements. Note that this formula can only contain one variable.}
 
 \item{data}{A data.frame that minimally contains the length measurements given in the variable in the \code{formula}.}
 
-\item{species}{A string that contains the species name for which Gabelhouse length categories exist.  See \code{\link{psdVal}} for details.}
+\item{species}{A string that contains the species name for which Gabelhouse length categories exist. See \code{\link{psdVal}} for details.}
 
-\item{units}{A string that indicates the type of units used for the length measurements.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
+\item{units}{A string that indicates the type of units used for the length measurements. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
 
 \item{startcat}{A number that indicates the beginning of the first length-class.}
 
 \item{w}{A number that indicates the width of length classes to create.}
 
-\item{justPSDQ}{A logical that indicates whether just stock and quality (for PSD-Q calculations) categories should be used.  If \code{FALSE} (default) then the five Gabelhouse categories will be used.}
+\item{justPSDQ}{A logical that indicates whether just stock and quality (for PSD-Q calculations) categories should be used. If \code{FALSE} (default) then the five Gabelhouse categories will be used.}
 
 \item{main}{A string that serves as the main label for the histogram.}
 
@@ -50,14 +50,14 @@ psdPlot(formula, data, species = "List", units = c("mm", "cm", "in"),
 
 \item{psd.add}{A logical that indicates if the calculated PSD values should be added to the plot (Default is \code{TRUE}).}
 
-\item{psd.pos}{A string that indicates the position for the PSD values will be shown.  See details in \code{\link[graphics]{legend}}.}
+\item{psd.pos}{A string that indicates the position for the PSD values will be shown. See details in \code{\link[graphics]{legend}}.}
 
 \item{psd.cex}{A numeric value that indicates the character expansion for the PSD values text.}
 
 \item{\dots}{Arguments to be passed to the low-level plotting functions.}
 }
 \value{
-None.  However, a graphic is produced.
+None. However, a graphic is produced.
 }
 \description{
 Constructs a length-frequency histogram with Gabelhouse lengths highlighted.
@@ -115,13 +115,13 @@ par(op)
 
 }
 \references{
-Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
-Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).  Fisheries 31:86-87.    [Was (is?) from http://pubstorage.sdstate.edu/wfs/415-F.pdf.]
+Guy, C.S., R.M. Neumann, and D.W. Willis. 2006. New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS). Fisheries 31:86-87.   [Was (is?) from http://pubstorage.sdstate.edu/wfs/415-F.pdf.]
 
-Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  Proportional size distribution (PSD): A further refinement of population size structure index terminology.  Fisheries 32:348.  [Was (is?) from http://pubstorage.sdstate.edu/wfs/450-F.pdf.]
+Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson. 2006. Proportional size distribution (PSD): A further refinement of population size structure index terminology. Fisheries 32:348. [Was (is?) from http://pubstorage.sdstate.edu/wfs/450-F.pdf.]
 
-Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  Stock density indices: development, use, and limitations.  Reviews in Fisheries Science 1:203-222.  [Was (is?) from http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf.]
+Willis, D.W., B.R. Murphy, and C.S. Guy. 1993. Stock density indices: development, use, and limitations. Reviews in Fisheries Science 1:203-222. [Was (is?) from http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf.]
 }
 \seealso{
 See \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{lencat}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}} for related functionality.

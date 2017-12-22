@@ -662,16 +662,16 @@ GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
     Linf*exp(-(1/gi)*exp(-gi*(t-t0)))
   }
   Troynikov1 <- function(Lm,dt,Linf,gi=NULL) {
-    if (length(Linf)==2) { gi=Linf[2]
-    Linf=Linf[1] }
+    if (length(Linf)==2) { gi <- Linf[2]
+    Linf <- Linf[1] }
     Linf*((Lm/Linf)^exp(-gi*dt))-Lm
   }
   STroynikov1 <- function(Lm,dt,Linf,gi) {
     Linf*((Lm/Linf)^exp(-gi*dt))-Lm
   }
   Troynikov2 <- function(Lm,dt,Linf,gi=NULL) {
-    if (length(Linf)==2) { gi=Linf[2]
-    Linf=Linf[1] }
+    if (length(Linf)==2) { gi <- Linf[2]
+    Linf <- Linf[1] }
     Linf*((Lm/Linf)^exp(-gi*dt))
   }
   STroynikov2 <- function(Lm,dt,Linf,gi) {
@@ -902,9 +902,9 @@ logisticFuns <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1",
     L0*Linf/(L0+(Linf-L0)*exp(-gninf*t))
   }
   Haddon <- function(Lm,dLmax,L50=NULL,L95=NULL) {
-    if (length(dLmax)==3) { L50=dLmax[2]
-    L95=dLmax[3]
-    dLmax=dLmax[1] }
+    if (length(dLmax)==3) { L50 <- dLmax[2]
+    L95 <- dLmax[3]
+    dLmax <- dLmax[1] }
     dLmax/(1+exp(log(19)*((Lm-L50)/(L95-L50))))
   }
   SHaddon <- function(Lm,dLmax,L50,L95) {

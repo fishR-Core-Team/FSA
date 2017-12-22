@@ -13,21 +13,21 @@ lwCompPreds(object, lens = NULL, qlens = c(0.05, 0.25, 0.5, 0.75, 0.95),
   cols = ceiling(sqrt(num)))
 }
 \arguments{
-\item{object}{An \code{lm} object (i.e., returned from fitting a model with \code{lm}).  This model should have log(weight) as the response and log(length) as the explanatory covariate and an explanatory factor variable that describes the different groups.}
+\item{object}{An \code{lm} object (i.e., returned from fitting a model with \code{lm}). This model should have log(weight) as the response and log(length) as the explanatory covariate and an explanatory factor variable that describes the different groups.}
 
 \item{lens}{A numeric vector that indicates the lengths at which the weights should be predicted.}
 
-\item{qlens}{A numeric vector that indicates the quantiles of lengths at which weights should be predicted.  This is ignored if \code{lens} is non-null.}
+\item{qlens}{A numeric vector that indicates the quantiles of lengths at which weights should be predicted. This is ignored if \code{lens} is non-null.}
 
 \item{qlens.dec}{A single numeric that identifies the decimal place that the lengths derived from \code{qlens} should be rounded to (Default is 1).}
 
-\item{base}{A single positive numeric value that indicates the base of the logarithm used in the \code{lm} object in \code{object}.  The default is \code{exp(1)}, or the value e.}
+\item{base}{A single positive numeric value that indicates the base of the logarithm used in the \code{lm} object in \code{object}. The default is \code{exp(1)}, or the value e.}
 
 \item{interval}{A single string that indicates whether to plot confidence (\code{="confidence"}), prediction (\code{="prediction"}), or both (\code{="both"}) intervals.}
 
 \item{center.value}{A single numeric value that indicates the log length used if the log length data was centered when constructing \code{object}.}
 
-\item{lwd}{A single numeric that indicates the line width to be used for the confidence and prediction interval lines (if not \code{interval="both"}) and the prediction connections line.  If \code{interval="both"} then the width of the prediction interval will be one less than this value so that the CI and PI appear different.}
+\item{lwd}{A single numeric that indicates the line width to be used for the confidence and prediction interval lines (if not \code{interval="both"}) and the prediction connections line. If \code{interval="both"} then the width of the prediction interval will be one less than this value so that the CI and PI appear different.}
 
 \item{connect.preds}{A logical that indicates whether the predicted values should be connected with a line across groups or not.}
 
@@ -35,17 +35,17 @@ lwCompPreds(object, lens = NULL, qlens = c(0.05, 0.25, 0.5, 0.75, 0.95),
 
 \item{col.connect}{A color to use for the line that connects the predicted values (if \code{connect.preds=TRUE}).}
 
-\item{ylim}{A numeric vector of length two that indicates the limits of the y-axis to be used for each plot.  If null then limits will be chosen for each graph individually.}
+\item{ylim}{A numeric vector of length two that indicates the limits of the y-axis to be used for each plot. If null then limits will be chosen for each graph individually.}
 
-\item{main.pre}{A character string to be used as a prefix for the main title.  See details.}
+\item{main.pre}{A character string to be used as a prefix for the main title. See details.}
 
-\item{cex.main}{A numeric value for the character expansion of the main title.  See details.}
+\item{cex.main}{A numeric value for the character expansion of the main title. See details.}
 
 \item{xlab}{A single string for labeling the x-axis.}
 
 \item{ylab}{A single string for labeling the y-axis.}
 
-\item{yaxs}{A single string that indicates how the y-axis is formed.  See \code{par} for more details.}
+\item{yaxs}{A single string that indicates how the y-axis is formed. See \code{par} for more details.}
 
 \item{rows}{A single numeric that contains the number of rows to use on the graphic.}
 
@@ -54,10 +54,10 @@ lwCompPreds(object, lens = NULL, qlens = c(0.05, 0.25, 0.5, 0.75, 0.95),
 \item{\dots}{Other arguments to pass through to the \code{plot} function.}
 }
 \value{
-None.  However, a plot is produced.
+None. However, a plot is produced.
 }
 \description{
-Constructs plots of predicted weights at given lengths among different groups.  These plots allow the user to explore differences in predicted weights at a variety of lengths when the weight-length relationship is not the same across a variety of groups.
+Constructs plots of predicted weights at given lengths among different groups. These plots allow the user to explore differences in predicted weights at a variety of lengths when the weight-length relationship is not the same across a variety of groups.
 }
 \section{IFAR Chapter}{
  7-Weight-Length.
@@ -114,7 +114,7 @@ if (interactive()) {
 
 }
 \references{
-Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

@@ -1,35 +1,35 @@
 #' @title Constructs plots of predicted weights at given lengths among different groups.
 #'
-#' @description Constructs plots of predicted weights at given lengths among different groups.  These plots allow the user to explore differences in predicted weights at a variety of lengths when the weight-length relationship is not the same across a variety of groups.
+#' @description Constructs plots of predicted weights at given lengths among different groups. These plots allow the user to explore differences in predicted weights at a variety of lengths when the weight-length relationship is not the same across a variety of groups.
 #'
-#' @param object An \code{lm} object (i.e., returned from fitting a model with \code{lm}).  This model should have log(weight) as the response and log(length) as the explanatory covariate and an explanatory factor variable that describes the different groups.
+#' @param object An \code{lm} object (i.e., returned from fitting a model with \code{lm}). This model should have log(weight) as the response and log(length) as the explanatory covariate and an explanatory factor variable that describes the different groups.
 #' @param lens A numeric vector that indicates the lengths at which the weights should be predicted.
-#' @param qlens A numeric vector that indicates the quantiles of lengths at which weights should be predicted.  This is ignored if \code{lens} is non-null.
+#' @param qlens A numeric vector that indicates the quantiles of lengths at which weights should be predicted. This is ignored if \code{lens} is non-null.
 #' @param qlens.dec A single numeric that identifies the decimal place that the lengths derived from \code{qlens} should be rounded to (Default is 1).
-#' @param base A single positive numeric value that indicates the base of the logarithm used in the \code{lm} object in \code{object}.  The default is \code{exp(1)}, or the value e.
+#' @param base A single positive numeric value that indicates the base of the logarithm used in the \code{lm} object in \code{object}. The default is \code{exp(1)}, or the value e.
 #' @param interval A single string that indicates whether to plot confidence (\code{="confidence"}), prediction (\code{="prediction"}), or both (\code{="both"}) intervals.
 #' @param center.value A single numeric value that indicates the log length used if the log length data was centered when constructing \code{object}.
-#' @param lwd A single numeric that indicates the line width to be used for the confidence and prediction interval lines (if not \code{interval="both"}) and the prediction connections line.  If \code{interval="both"} then the width of the prediction interval will be one less than this value so that the CI and PI appear different.
+#' @param lwd A single numeric that indicates the line width to be used for the confidence and prediction interval lines (if not \code{interval="both"}) and the prediction connections line. If \code{interval="both"} then the width of the prediction interval will be one less than this value so that the CI and PI appear different.
 #' @param connect.preds A logical that indicates whether the predicted values should be connected with a line across groups or not.
 #' @param show.preds A logical that indicates whether the predicted values should be plotted with a point for each group or not.
 #' @param col.connect A color to use for the line that connects the predicted values (if \code{connect.preds=TRUE}).
-#' @param ylim A numeric vector of length two that indicates the limits of the y-axis to be used for each plot.  If null then limits will be chosen for each graph individually.
-#' @param main.pre A character string to be used as a prefix for the main title.  See details.
-#' @param cex.main A numeric value for the character expansion of the main title.  See details.
+#' @param ylim A numeric vector of length two that indicates the limits of the y-axis to be used for each plot. If null then limits will be chosen for each graph individually.
+#' @param main.pre A character string to be used as a prefix for the main title. See details.
+#' @param cex.main A numeric value for the character expansion of the main title. See details.
 #' @param xlab A single string for labeling the x-axis.
 #' @param ylab A single string for labeling the y-axis.
-#' @param yaxs A single string that indicates how the y-axis is formed.  See \code{par} for more details.
+#' @param yaxs A single string that indicates how the y-axis is formed. See \code{par} for more details.
 #' @param rows A single numeric that contains the number of rows to use on the graphic.
 #' @param cols A single numeric that contains the number of columns to use on the graphic.
 #' @param \dots Other arguments to pass through to the \code{plot} function.
 #'
-#' @return None.  However, a plot is produced.
+#' @return None. However, a plot is produced.
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @section IFAR Chapter: 7-Weight-Length.
 #'
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #'
 #' @keywords manip
 #'
@@ -163,7 +163,7 @@ iPlotLWPred <- function(res,grps,ylim,xlab,ylab,main,cex.main,lwd,connect.preds,
   #   find number of groups to plot along x-axis
   x.num <- length(grps)
   #   find y-axis range if none was provided
-  if (is.null(ylim)) ylim=range(res)
+  if (is.null(ylim)) ylim <- range(res)
   # create a base plot
   graphics::plot(0,xlab=xlab,ylab=ylab,col="white",xlim=c(0.5,x.num+0.5),ylim=ylim,xaxt="n",yaxs=yaxs)
   graphics::mtext(main,cex=cex.main)

@@ -32,9 +32,9 @@ plotBinResp(x, ...)
 
 \item{plot.pts}{A logical that indicates (\code{TRUE} (default)) whether the points should be plotted (\code{TRUE}; default) or not (\code{FALSE}).}
 
-\item{col.pt}{A string used to indicate the color of the plotted points.  Will be transparent unless \code{transparency=1}.}
+\item{col.pt}{A string used to indicate the color of the plotted points. Will be transparent unless \code{transparency=1}.}
 
-\item{transparency}{A numeric that indicates how many points would be plotted on top of each other before the \sQuote{point} would have the full \code{col.pt} color.  The reciprocal of this value is the alpha transparency value.}
+\item{transparency}{A numeric that indicates how many points would be plotted on top of each other before the \sQuote{point} would have the full \code{col.pt} color. The reciprocal of this value is the alpha transparency value.}
 
 \item{plot.p}{A logical that indicates if the proportion for categorized values of X are plotted (\code{TRUE}; default).}
 
@@ -55,13 +55,13 @@ plotBinResp(x, ...)
 \item{data}{The data frame from which the formula should be evaluated.}
 }
 \value{
-None.  However, a plot is produced.
+None. However, a plot is produced.
 }
 \description{
 A function to plot a binary response variable versus a quantitative explanatory variable.
 }
 \details{
-This function produces a plot that can be used to visualize the density of points for a binary response variable as a function of a quantitative explanatory variable.  In addition, the proportion of \dQuote{1}s for the response variable at various \dQuote{levels} of the explanatory variable are shown.
+This function produces a plot that can be used to visualize the density of points for a binary response variable as a function of a quantitative explanatory variable. In addition, the proportion of \dQuote{1}s for the response variable at various \dQuote{levels} of the explanatory variable are shown.
 }
 \note{
 This function is meant to allow newbie students the ability to visualize the data corresponding to a binary logistic regression without getting \dQuote{bogged-down} in the gritty details of how to produce this plot.

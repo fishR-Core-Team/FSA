@@ -6,13 +6,13 @@
 #'
 #' The length of fish plotted on the x-axis can be controlled with \code{xlim}, however, the minimum value in \code{xlim} must be less than the stock length for that species.
 #'
-#' @param formula A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains length measurements.  Note that this formula can only contain one variable.
+#' @param formula A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains length measurements. Note that this formula can only contain one variable.
 #' @param data A data.frame that minimally contains the length measurements given in the variable in the \code{formula}.
-#' @param species A string that contains the species name for which Gabelhouse length categories exist.  See \code{\link{psdVal}} for details.
-#' @param units A string that indicates the type of units used for the length measurements.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
+#' @param species A string that contains the species name for which Gabelhouse length categories exist. See \code{\link{psdVal}} for details.
+#' @param units A string that indicates the type of units used for the length measurements. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
 #' @param startcat A number that indicates the beginning of the first length-class.
 #' @param w A number that indicates the width of length classes to create.
-#' @param justPSDQ A logical that indicates whether just stock and quality (for PSD-Q calculations) categories should be used.  If \code{FALSE} (default) then the five Gabelhouse categories will be used.
+#' @param justPSDQ A logical that indicates whether just stock and quality (for PSD-Q calculations) categories should be used. If \code{FALSE} (default) then the five Gabelhouse categories will be used.
 #' @param main A string that serves as the main label for the histogram.
 #' @param xlab A string that serves as the label for the x-axis.
 #' @param ylab A string that serves as the label for the y-axis.
@@ -25,11 +25,11 @@
 #' @param psd.lwd A numeric that indicates the line width to use for the vertical lines at the PSD category values.
 #' @param show.abbrevs A logical that indicates if the abbreviations for the Gabelhouse length categories should be added to the top of the plot.
 #' @param psd.add A logical that indicates if the calculated PSD values should be added to the plot (Default is \code{TRUE}).
-#' @param psd.pos A string that indicates the position for the PSD values will be shown.  See details in \code{\link[graphics]{legend}}.
+#' @param psd.pos A string that indicates the position for the PSD values will be shown. See details in \code{\link[graphics]{legend}}.
 #' @param psd.cex A numeric value that indicates the character expansion for the PSD values text.
 #' @param \dots Arguments to be passed to the low-level plotting functions.
 #'
-#' @return None.  However, a graphic is produced.
+#' @return None. However, a graphic is produced.
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
@@ -37,13 +37,13 @@
 #'
 #' @seealso See \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{lencat}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}} for related functionality.
 #'
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
-#' Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).  Fisheries 31:86-87.    [Was (is?) from http://pubstorage.sdstate.edu/wfs/415-F.pdf.]
+#' Guy, C.S., R.M. Neumann, and D.W. Willis. 2006. New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS). Fisheries 31:86-87.   [Was (is?) from http://pubstorage.sdstate.edu/wfs/415-F.pdf.]
 #'
-#' Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  Proportional size distribution (PSD): A further refinement of population size structure index terminology.  Fisheries 32:348.  [Was (is?) from http://pubstorage.sdstate.edu/wfs/450-F.pdf.]
+#' Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson. 2006. Proportional size distribution (PSD): A further refinement of population size structure index terminology. Fisheries 32:348. [Was (is?) from http://pubstorage.sdstate.edu/wfs/450-F.pdf.]
 #'
-#' Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  Stock density indices: development, use, and limitations.  Reviews in Fisheries Science 1:203-222.  [Was (is?) from http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf.]
+#' Willis, D.W., B.R. Murphy, and C.S. Guy. 1993. Stock density indices: development, use, and limitations. Reviews in Fisheries Science 1:203-222. [Was (is?) from http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf.]
 #'
 #' @keywords hplot
 #'
@@ -117,7 +117,7 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
   max.brk <- max(data[,cl],na.rm=TRUE)+w
   h <- graphics::hist(data[,cl],right=FALSE,breaks=seq(min.brk,max.brk,w),plot=FALSE)
   ## Create xlim values if none were given
-  if (is.null(xlim)) xlim=range(h$breaks)
+  if (is.null(xlim)) xlim <- range(h$breaks)
   ## Create colors for the bars
   clr <- ifelse(h$breaks<brks["stock"],substock.col,stock.col)
   ## Plot the histogram with the new colors

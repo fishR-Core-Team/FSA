@@ -2,7 +2,7 @@
 #'
 #' @description A function to plot a binary response variable versus a quantitative explanatory variable.
 #'
-#' @details This function produces a plot that can be used to visualize the density of points for a binary response variable as a function of a quantitative explanatory variable.  In addition, the proportion of \dQuote{1}s for the response variable at various \dQuote{levels} of the explanatory variable are shown.
+#' @details This function produces a plot that can be used to visualize the density of points for a binary response variable as a function of a quantitative explanatory variable. In addition, the proportion of \dQuote{1}s for the response variable at various \dQuote{levels} of the explanatory variable are shown.
 #'
 #' @note This function is meant to allow newbie students the ability to visualize the data corresponding to a binary logistic regression without getting \dQuote{bogged-down} in the gritty details of how to produce this plot.
 #'
@@ -14,8 +14,8 @@
 #' @param xlab A string for labeling the x-axis.
 #' @param ylab A string for labeling the y-axis.
 #' @param plot.pts A logical that indicates (\code{TRUE} (default)) whether the points should be plotted (\code{TRUE}; default) or not (\code{FALSE}).
-#' @param col.pt A string used to indicate the color of the plotted points.  Will be transparent unless \code{transparency=1}.
-#' @param transparency A numeric that indicates how many points would be plotted on top of each other before the \sQuote{point} would have the full \code{col.pt} color.  The reciprocal of this value is the alpha transparency value.
+#' @param col.pt A string used to indicate the color of the plotted points. Will be transparent unless \code{transparency=1}.
+#' @param transparency A numeric that indicates how many points would be plotted on top of each other before the \sQuote{point} would have the full \code{col.pt} color. The reciprocal of this value is the alpha transparency value.
 #' @param plot.p A logical that indicates if the proportion for categorized values of X are plotted (\code{TRUE}; default).
 #' @param breaks A number that indicates how many intervals over which to compute proportions or a numeric vector that contains the endpoints of the intervals over which to compute proportions if \code{plot.p=TRUE}.
 #' @param p.col A color to plot the proportions.
@@ -26,7 +26,7 @@
 #' @param yaxis2.show A logical that indicates whether the right y-axis should be created (\code{=TRUE}; default) or not.
 #' @param \dots Other arguments to be passed to the plot functions.
 #'
-#' @return None.  However, a plot is produced.
+#' @return None. However, a plot is produced.
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
@@ -87,7 +87,7 @@ plotBinResp.default <- function(x,y,
   if (is.factor(y)) yn <- as.numeric(y)-1
     else yn <- y
   # will cause points not to be visible
-  if (!plot.pts) col.pt="white"
+  if (!plot.pts) col.pt <- "white"
   # make transparency value equal to max number of points that overlap
   if (is.null(transparency)) transparency <- max(stats::xtabs(~yn+x))
   # adjust for maximum allowable transparency
