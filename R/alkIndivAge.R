@@ -8,7 +8,7 @@
 #'
 #' If \code{breaks=NULL}, then the length intervals for the unaged sample will be determined with a starting interval at the minimum value of the row names in \code{key} and a width of the length intervals as determined by the minimum difference in adjacent row names of \code{key}.  If length intervals of differing widths were used when constructing \code{key}, then those breaks should be supplied to \code{breaks=}.  Use of \code{breaks=} may be useful when \dQuote{uneven} length interval widths were used because the lengths in the unaged sample are not fully represented in the aged sample.  See the examples.
 #'
-#' Assigned ages will be stored in the column identified on the left-hand-side of \code{formula} (if the formula has both a left- and right-hand-side).  If this variable is missing in \code{formula}, then the new column wil be labeled with \code{age}.
+#' Assigned ages will be stored in the column identified on the left-hand-side of \code{formula} (if the formula has both a left- and right-hand-side).  If this variable is missing in \code{formula}, then the new column will be labeled with \code{age}.
 #'
 #' @param key A numeric matrix that contains the age-length key.  The format of this matrix is important.  See details.
 #' @param formula A formula of the form \code{age~length} where \code{age} generically represents the variable that will contain the estimated ages once the key is applied (i.e., should currently contain no values) and \code{length} generically represents the variable that contains the known length measurements.  If only \code{~length} is used, then a new variable called \dQuote{age} will be created in the resulting data frame.

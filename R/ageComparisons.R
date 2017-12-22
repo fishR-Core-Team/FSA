@@ -1,4 +1,4 @@
-#' @title Compute and view possible differnces between paired sets of ages.
+#' @title Compute and view possible differences between paired sets of ages.
 #'
 #' @description Constructs age-agreement tables, statistical tests to detect differences, and plots to visualize potential differences in paired age estimates. Ages may be from, for example, two readers of the same structure, one reader at two times, two structures (e.g., scales, spines, otoliths), or one structure and known ages.
 #'
@@ -6,10 +6,10 @@
 #' @param data A data.frame that minimally contains the paired age estimates given in \code{formula}.
 #' @param ref.lab A string label for the reference age estimates.
 #' @param nref.lab A string label for the nonreference age estimates.
-#' @param method A string for which method to use to adjust p-values for multiple comparisons.  See \code{?p.adjust.methods}.
+#' @param method A string for which method to use to adjust p-values for multiple comparisons. See \code{?p.adjust.methods}.
 #' @param sig.level A numeric value to determine whether a p-value indicates a significant result. The confidence level used in \code{plot} is 100*(1-\code{sig.level}).
 #' @param min.n.CI A numeric value (default is 3) that is the smallest sample size for which a confidence interval will be computed.
-#' @param what A string that indicates what type of summary to print or plot to construct.  See details.
+#' @param what A string that indicates what type of summary to print or plot to construct. See details.
 #' @param flip.table A logical that indicates whether the age-agreement table should be \sQuote{flipped} (i.e., rows are reversed so that younger ages are at the bottom of the table). This makes the table more directly comparable to the age bias plot.
 #' @param zero.print A string for what should be printed in place of the zeros on an age-agreement table. The default is to print a single dash.
 #' @param digits A numeric for the minimum number of digits to print when showing \code{what="bias"} or \code{what="diff.bias"} in \code{summary}.
@@ -67,7 +67,7 @@
 #' 
 #' By default, the modified age bias plot shows the mean and range for the nonreference ages at each of the reference ages. Means shown with an open dot are mean age differences that are significantly different from zero. The ranges of differences in ages at each reference age can be removed with \code{show.range=FALSE}. A confidence interval for difference in ages can be added with \code{show.CI=FALSE}. The color and symbol coding for the means and CIs is the same as described above for \code{plotAB}. Individual points are plotted if \code{show.pts=TRUE}, where there color is controlled by \code{col.pts=} and \code{transparency=}. See examples for use of these arguments.
 #' 
-#' Both the main (i.e., not the marginal histograms) can be "added to" after the plot is constructed if \code{allowAdd=TRUE} is used. For example, the Bland-Altman-like plot can be augmented with a horizonal line at the mean difference in ages, a line for the regression between the differences and the means, or a generalized additive model that describes the relationship betwen the diffrences and the means. See the examples for use of \code{allowAdd=TRUE}. It is recommended to save the plotting parameters (e.g., \code{op <- par(no.readonly=TRUE)}) before using \code{plot} with \code{allowAdd=TRUE} so that the original parameters can be reset (e.g., \code{par(op)}); see the examples.
+#' Both the main (i.e., not the marginal histograms) can be "added to" after the plot is constructed if \code{allowAdd=TRUE} is used. For example, the Bland-Altman-like plot can be augmented with a horizontal line at the mean difference in ages, a line for the regression between the differences and the means, or a generalized additive model that describes the relationship between the differences and the means. See the examples for use of \code{allowAdd=TRUE}. It is recommended to save the plotting parameters (e.g., \code{op <- par(no.readonly=TRUE)}) before using \code{plot} with \code{allowAdd=TRUE} so that the original parameters can be reset (e.g., \code{par(op)}); see the examples.
 #'
 #' Individual t-tests to determine if the mean age of the nonreference set at a particular age of the reference set is equal to the reference age (e.g., is the mean age of the nonreference set at age-3 of the reference set statistically different from 3?) are shown with \code{what="bias"} in \code{summary}. The results provide a column that indicates whether the difference is significant or not as determined by adjusted p-values from the t-tests and using the significance level provided in \code{sig.level} (defaults to 0.05). Similar results for the difference in ages (e.g., is the mean reference age minus nonreference age at a nonreference age of 3 different from 0?) are constructed with \code{what="diff.bias"} in \code{summary}.
 #'
@@ -83,7 +83,7 @@
 #'   \item nref.lab A string that contains an optional label for the age estimates in the rows (non-reference) of the age-agreement table.
 #'}
 #'
-#' \code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing.  Nothing is returned by \code{plot} or \code{plotAB}, but see details for a description of the plot that is produced.
+#' \code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing. Nothing is returned by \code{plot} or \code{plotAB}, but see details for a description of the plot that is produced.
 #' 
 #' @section Testing: Tested all symmetry test results against results in Evans and Hoenig (2008), the McNemar and Evans-Hoenig results against results from \code{\link[fishmethods]{compare2}} in \pkg{fishmethods}, and all results using the \code{\link[FSAdata]{AlewifeLH}} data set from \pkg{FSAdata} against results from the online resource at http://www.nefsc.noaa.gov/fbp/age-prec/.
 #'
@@ -93,17 +93,17 @@
 #'
 #' @section IFAR Chapter: 4-Age Comparisons. \bold{Note that \code{plot} has changed since IFAR was published. Some of the original functionality is in \code{plotAB}. See examples.}
 #'
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
-#' Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  Graphical and statistical methods for determining the consistency of age determinations. Transactions of the American Fisheries Society 124:131-138.  [Was (is?) available from http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf.]
+#' Campana, S.E., M.C. Annand, and J.I. McMillan. 1995. Graphical and statistical methods for determining the consistency of age determinations. Transactions of the American Fisheries Society 124:131-138. [Was (is?) available from http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf.]
 #'
-#' Evans, G.T. and J.M. Hoenig.  1998.  Testing and viewing symmetry in contingency tables, with application to readers of fish ages.  Biometrics 54:620-629.
+#' Evans, G.T. and J.M. Hoenig. 1998. Testing and viewing symmetry in contingency tables, with application to readers of fish ages. Biometrics 54:620-629.
 #'
-#' Hoenig, J.M., M.J. Morgan, and C.A. Brown. 1995.  Analysing differences between two age determination methods by tests of symmetry.  Canadian Journal of Fisheries and Aquatic Sciences 52:364-368.
+#' Hoenig, J.M., M.J. Morgan, and C.A. Brown. 1995. Analysing differences between two age determination methods by tests of symmetry. Canadian Journal of Fisheries and Aquatic Sciences 52:364-368.
 #' 
-#' McBride, R.S.  2015. Diagnosis of paired age agreement: A simulation approach of accuracy and precision effects. ICES Journal of Marine Science 72:2149-2167.
+#' McBride, R.S. 2015. Diagnosis of paired age agreement: A simulation approach of accuracy and precision effects. ICES Journal of Marine Science 72:2149-2167.
 #'
-#' Muir, A.M., M.P. Ebener, J.X. He, and J.E. Johnson.  2008.  A comparison of the scale and otolith methods of age estimation for lake whitefish in Lake Huron.  North American Journal of Fisheries Management 28:625-635.  [Was (is?) available from http://www.tandfonline.com/doi/abs/10.1577/M06-160.1]
+#' Muir, A.M., M.P. Ebener, J.X. He, and J.E. Johnson. 2008. A comparison of the scale and otolith methods of age estimation for lake whitefish in Lake Huron. North American Journal of Fisheries Management 28:625-635. [Was (is?) available from http://www.tandfonline.com/doi/abs/10.1577/M06-160.1]
 #'
 #' @aliases ageBias plot.ageBias summary.ageBias
 #'
@@ -363,7 +363,7 @@ summary.ageBias <- function(object,
 
 #=============================================================
 # This internal function is used to created a data frame of
-#   summarized data for the ageBias() function.  
+#   summarized data for the ageBias() function. 
 #
 # tmp -- the results from Summarize of ages in a column
 #        variable by a row variable
@@ -406,9 +406,9 @@ iAgeBiasDF <- function(tmp,cname,diff,min.n.CI,sig.level) {
 
 #=============================================================
 # This internal function is used to handle the age-agreement
-# table for symmetry tests.  Specifically, it removes the main
+# table for symmetry tests. Specifically, it removes the main
 # diagonal, finds the upper and lower triangles, and returns
-# them all in a list.  It is called by the iBowker, iMcNemar,
+# them all in a list. It is called by the iBowker, iMcNemar,
 # and iEvansHoenig functions.
 #=============================================================
 iHandleAgreeTable <- function(obj) {
@@ -563,16 +563,16 @@ iABAxisLmts <- function(x,xlim,ylim,difference,show.range,show.pts,show.CI) { # 
   # d is the age bias statistics)
   if (!is.null(xlim)) xlmt <- xlim
   else xlmt <- range(d[,1],na.rm=TRUE)
-  # If no ylim is given then make ylim.  Making ylim depends
+  # If no ylim is given then make ylim. Making ylim depends
   # on whether differences are used and whether ranges are
   # shown or not.
   if (!is.null(ylim)) ylmt <- ylim
   else {
     # build up a vector that will ultimately find the range
-    # to form the axes.  Begin by filling with the means.
+    # to form the axes. Begin by filling with the means.
     tmp.min <- tmp.max <- d$mean
-    # if show.cis then add in LCI and UCI.  CIs will be shown
-    # for all real age bias plots.  This is primarily for use
+    # if show.cis then add in LCI and UCI. CIs will be shown
+    # for all real age bias plots. This is primarily for use
     # with the numbers plot
     if (show.CI) {
       tmp.min <- c(tmp.min,d$LCI)
@@ -666,7 +666,7 @@ iABAddXHist <- function(xdat,col.hist,axlmts,op,yHist) { # nocov start
   graphics::axis(2,at=tcks,labels=NA)
   graphics::axis(2,at=tcks[2])
   graphics::axis(2,at=tcks[3],xpd=TRUE)
-  # Extends line down from zero ...  looks like a break for labels
+  # Extends line down from zero ... looks like a break for labels
   graphics::axis(2,at=0,labels=NA,tcl=-0.8*graphics::par()$mgp[1])
   # Add small (either 1/2 of default tcl or 0.2) x-axis ticks
   tmp <- graphics::par()$tcl/2
@@ -707,7 +707,7 @@ iABAddYHist <- function(ydat,col.hist,axlmts,op,xHist) { # nocov start
   graphics::axis(1,at=tcks,labels=NA)
   graphics::axis(1,at=tcks[2])
   graphics::axis(1,at=tcks[3],xpd=TRUE)
-  # Extends line down from zero ...  looks like a break for labels
+  # Extends line down from zero ... looks like a break for labels
   graphics::axis(1,at=0,labels=NA,tcl=-0.8*graphics::par()$mgp[1])
   # Add small (either 1/2 of default tcl or 0.2) x-axis ticks
   tmp <- graphics::par()$tcl/2
@@ -931,14 +931,14 @@ iPlotABNum <- function(obj,xlab,ylab,axlmts,yaxt,xaxt,
 
 #' @title Compute measures of precision among sets of ages.
 #'
-#' @description Computes overall measures of precision for multiple age estimates made on the same individuals.  Ages may be from two or more readers of the same structure, one reader at two or more times, or two or more structures (e.g., scales, spines, otoliths).  Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), and various percentage difference values.
+#' @description Computes overall measures of precision for multiple age estimates made on the same individuals. Ages may be from two or more readers of the same structure, one reader at two or more times, or two or more structures (e.g., scales, spines, otoliths). Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), and various percentage difference values.
 #'
-#' @param formula A formula of the form \code{~var1+var2+var3+...} or, alternatively, \code{var1~var2+var3+...}, where the \code{varX} generically represent the variables that contain the age estimates.  The alternative formula allows for similar code as used in \code{\link{ageBias}} and can have only one variable on the left-hand side.
+#' @param formula A formula of the form \code{~var1+var2+var3+...} or, alternatively, \code{var1~var2+var3+...}, where the \code{varX} generically represent the variables that contain the age estimates. The alternative formula allows for similar code as used in \code{\link{ageBias}} and can have only one variable on the left-hand side.
 #' @param data A data.frame that minimally contains the variables in \code{formula}.
 #' @param object An object of class \code{agePrec}, usually from \code{agePrecision}.
-#' @param what A string (or vector of strings) that indicates what type of summary to print.  See details.
+#' @param what A string (or vector of strings) that indicates what type of summary to print. See details.
 #' @param percent A logical that indicates whether the difference table (see details) should be represented as percentages (\code{TRUE}; default) or frequency (\code{FALSE}) of fish.
-#' @param trunc.diff A single integer that identifies the age for which all values that age and greater are combined into one category.  See the examples.
+#' @param trunc.diff A single integer that identifies the age for which all values that age and greater are combined into one category. See the examples.
 #' @param digits A single numeric that indicates the minimum number of digits to print when using \code{summary}.
 #' @param \dots Additional arguments for methods.
 #'
@@ -947,22 +947,22 @@ iPlotABNum <- function(obj,xlab,ylab,axlmts,yaxt,xaxt,
 #'   \item n Number of fish in \code{data}.
 #'   \item validn Number of fish in \code{data} that have non-\code{NA} data for all R age estimates.
 #'   \item R Number of age estimates given in \code{formula}.
-#'   \item ACV The mean coefficient of variation.  See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
-#'   \item APE The mean average percent error.  See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
+#'   \item ACV The mean coefficient of variation. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
+#'   \item APE The mean average percent error. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
 #'   \item PercAgree The percentage of fish for which all age estimates perfectly agree.
 #' }
 #'
-#' If \code{what="difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the difference in paired age estimates.  This table has one row for each possible pair of age estimates.
+#' If \code{what="difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the difference in paired age estimates. This table has one row for each possible pair of age estimates.
 #'
-#' If \code{what="absolute difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the absolute value of the difference in paired age estimates.  This table has one row for each possible pair of age estimates.  The \dQuote{1} column, for example, represents age estimates that disagree by one year (in either direction).
+#' If \code{what="absolute difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the absolute value of the difference in paired age estimates. This table has one row for each possible pair of age estimates. The \dQuote{1} column, for example, represents age estimates that disagree by one year (in either direction).
 #'
-#' If \code{what="detail"} is used in \code{summary}, then a data frame of the original \code{data} along with the intermediate calculations of the average age, standard deviation of age, APE, and ACV for each individual will be printed.  These details are generally only used to check or to understand calculations.
+#' If \code{what="detail"} is used in \code{summary}, then a data frame of the original \code{data} along with the intermediate calculations of the average age, standard deviation of age, APE, and ACV for each individual will be printed. These details are generally only used to check or to understand calculations.
 #' 
 #' All percentage calculations above use the \code{validn} value in the denominator.
 #' 
 #' @return The main function returns a list with the following items:
 #' \itemize{
-#'   \item detail A data.frame with all data given in \code{data} and intermediate calculations for each fish.  See details
+#'   \item detail A data.frame with all data given in \code{data} and intermediate calculations for each fish. See details
 #'   \item rawdiff A frequency table of fish by differences for each pair of ages.
 #'   \item absdiff A frequency table of fish by absolute differences for each pair of ages.
 #'   \item APE The mean average percent error.
@@ -972,7 +972,7 @@ iPlotABNum <- function(obj,xlab,ylab,axlmts,yaxt,xaxt,
 #'   \item R Number of age estimates for each fish given in \code{formula}.
 #' }
 #'
-#' The \code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing.  See details for what is printed.
+#' The \code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing. See details for what is printed.
 #' 
 #' @section Testing: Tested all precision results against published results in Herbst and Marsden (2011) for the \code{\link{WhitefishLC}} data and the results for the \code{\link[FSAdata]{AlewifeLH}} data set from \pkg{FSAdata} against results from the online resource at http://www.nefsc.noaa.gov/fbp/age-prec/.
 #'
@@ -982,17 +982,17 @@ iPlotABNum <- function(obj,xlab,ylab,axlmts,yaxt,xaxt,
 #'
 #' @seealso See \code{\link{ageBias}} for computation of the full age agreement table, along with tests and plots of age bias.
 #' 
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
-#' Beamish, R.J. and D.A. Fournier.  1981.  A method for comparing the precision of a set of age determinations.  Canadian Journal of Fisheries and Aquatic Sciences 38:982-983.  [Was (is?) available from http://www.pac.dfo-mpo.gc.ca/science/people-gens/beamish/PDF_files/compareagecjfas1981.pdf.]
+#' Beamish, R.J. and D.A. Fournier. 1981. A method for comparing the precision of a set of age determinations. Canadian Journal of Fisheries and Aquatic Sciences 38:982-983. [Was (is?) available from http://www.pac.dfo-mpo.gc.ca/science/people-gens/beamish/PDF_files/compareagecjfas1981.pdf.]
 #'
-#'Campana, S.E.  1982.  Accuracy, precision and quality control in age determination, including a review of the use and abuse of age validation methods.  Journal of Fish Biology 59:197-242.  [Was (is?) available from http://www.denix.osd.mil/nr/crid/Coral_Reef_Iniative_Database/References_for_Reef_Assessment_files/Campana,\%202001.pdf.]
+#'Campana, S.E. 1982. Accuracy, precision and quality control in age determination, including a review of the use and abuse of age validation methods. Journal of Fish Biology 59:197-242. [Was (is?) available from http://www.denix.osd.mil/nr/crid/Coral_Reef_Iniative_Database/References_for_Reef_Assessment_files/Campana,\%202001.pdf.]
 #'
-#'Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  Graphical and statistical methods for determining the consistency of age determinations. Transactions of the American Fisheries Society 124:131-138.  [Was (is?) available from http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf.]
+#'Campana, S.E., M.C. Annand, and J.I. McMillan. 1995. Graphical and statistical methods for determining the consistency of age determinations. Transactions of the American Fisheries Society 124:131-138. [Was (is?) available from http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf.]
 #'
-#'Chang, W.Y.B. 1982.  A statistical method for evaluating the reproducibility of age determination.  Canadian Journal of Fisheries and Aquatic Sciences 39:1208-1210.  [Was (is?) available from http://www.nrcresearchpress.com/doi/abs/10.1139/f82-158.]
+#'Chang, W.Y.B. 1982. A statistical method for evaluating the reproducibility of age determination. Canadian Journal of Fisheries and Aquatic Sciences 39:1208-1210. [Was (is?) available from http://www.nrcresearchpress.com/doi/abs/10.1139/f82-158.]
 #' 
-#' McBride, R.S.  2015. Diagnosis of paired age agreement: A simulation approach of accuracy and precision effects. ICES Journal of Marine Science, 72:2149-2167.
+#' McBride, R.S. 2015. Diagnosis of paired age agreement: A simulation approach of accuracy and precision effects. ICES Journal of Marine Science, 72:2149-2167.
 #'
 #' @aliases agePrecision plot.agePrec summary.agePrec
 #'

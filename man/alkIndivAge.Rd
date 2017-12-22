@@ -33,7 +33,7 @@ The length intervals in the rows of \code{key} must contain all of the length in
 
 If \code{breaks=NULL}, then the length intervals for the unaged sample will be determined with a starting interval at the minimum value of the row names in \code{key} and a width of the length intervals as determined by the minimum difference in adjacent row names of \code{key}.  If length intervals of differing widths were used when constructing \code{key}, then those breaks should be supplied to \code{breaks=}.  Use of \code{breaks=} may be useful when \dQuote{uneven} length interval widths were used because the lengths in the unaged sample are not fully represented in the aged sample.  See the examples.
 
-Assigned ages will be stored in the column identified on the left-hand-side of \code{formula} (if the formula has both a left- and right-hand-side).  If this variable is missing in \code{formula}, then the new column wil be labeled with \code{age}.
+Assigned ages will be stored in the column identified on the left-hand-side of \code{formula} (if the formula has both a left- and right-hand-side).  If this variable is missing in \code{formula}, then the new column will be labeled with \code{age}.
 }
 \section{Testing}{
  The \code{type="SR"} method worked perfectly on a small example.  The \code{type="SR"} method provides results that reasonably approximate the results from \code{\link{alkAgeDist}} and \code{\link{alkMeanVar}}, which suggests that the age assessments are reasonable.

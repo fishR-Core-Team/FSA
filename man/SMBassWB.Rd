@@ -28,10 +28,10 @@
    \item{radcap}{Total scale radius at time of capture}
  }}
 \source{
-Data from the linear growth modeling software distributed in support of Weisberg, S.  1993.  Using hard-part increment data to estimate age and environmental effects. Canadian Journal of Fisheries and Aquatic Sciences 50:1229-1237.
+Data from the linear growth modeling software distributed in support of Weisberg, S. 1993. Using hard-part increment data to estimate age and environmental effects. Canadian Journal of Fisheries and Aquatic Sciences 50:1229-1237.
 }
 \description{
-Growth data from Smallmouth Bass (\emph{Micropterus dolomieu}) captured in West Bearksin Lake, MN.  Five samples were collected over three years (1988-1990) with two gears (fall -- trapnets, spring -- electrofishing).
+Growth data from Smallmouth Bass (\emph{Micropterus dolomieu}) captured in West Bearskin Lake, MN. Five samples were collected over three years (1988-1990) with two gears (fall -- trapnets, spring -- electrofishing).
 }
 \note{
 Data are in one-fish-per-line format.

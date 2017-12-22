@@ -3,7 +3,7 @@
 \docType{data}
 \name{PikeNYPartial1}
 \alias{PikeNYPartial1}
-\title{Capture histories (4 samples), in capture history format, of a subset of Northern Pike from Buckthorn Marsh, NY.}
+\title{Capture histories (4 samples), in capture history format, of a subset of Northern Pike from Buckhorn Marsh, NY.}
 \format{A data frame with 57 observations on the following 4 variables.
  \describe{
    \item{id}{A unique identification numbers}
@@ -13,10 +13,10 @@
    \item{fourth}{Indicator variable for the fourth sample (1=captured)}
  }}
 \source{
-Summary values taken from Table C-1 of New York Power Authority.  2004.  Use of Buckhorn Marsh and Grand Island tributaries by northern pike for spawning and as a nursery. Technical report, New York Power Authority, January 2004. Niagara Power Project (FERC No. 2216).
+Summary values taken from Table C-1 of New York Power Authority. 2004. Use of Buckhorn Marsh and Grand Island tributaries by Northern Pike for spawning and as a nursery. Technical report, New York Power Authority, January 2004. Niagara Power Project (FERC No. 2216).
 }
 \description{
-Each line consists of the capture history over four samples of Northern Pike (\emph{Esox lucius}) in Buckthorn Marsh.  This file contains the capture histories for only those pike captured from April 1-4.
+Each line consists of the capture history over four samples of Northern Pike (\emph{Esox lucius}) in Buckhorn Marsh. This file contains the capture histories for only those pike captured from April 1-4.
 }
 \section{Topic(s)}{
 

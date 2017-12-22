@@ -7,7 +7,7 @@
 \alias{summary.ageBias}
 \alias{plot.ageBias}
 \alias{plotAB}
-\title{Compute and view possible differnces between paired sets of ages.}
+\title{Compute and view possible differences between paired sets of ages.}
 \usage{
 ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
   method = stats::p.adjust.methods, sig.level = 0.05, min.n.CI = 3)
@@ -49,13 +49,13 @@ plotAB(x, what = c("bias", "Campana", "numbers"), xlab = x$ref.lab,
 
 \item{nref.lab}{A string label for the nonreference age estimates.}
 
-\item{method}{A string for which method to use to adjust p-values for multiple comparisons.  See \code{?p.adjust.methods}.}
+\item{method}{A string for which method to use to adjust p-values for multiple comparisons. See \code{?p.adjust.methods}.}
 
 \item{sig.level}{A numeric value to determine whether a p-value indicates a significant result. The confidence level used in \code{plot} is 100*(1-\code{sig.level}).}
 
 \item{min.n.CI}{A numeric value (default is 3) that is the smallest sample size for which a confidence interval will be computed.}
 
-\item{what}{A string that indicates what type of summary to print or plot to construct.  See details.}
+\item{what}{A string that indicates what type of summary to print or plot to construct. See details.}
 
 \item{flip.table}{A logical that indicates whether the age-agreement table should be \sQuote{flipped} (i.e., rows are reversed so that younger ages are at the bottom of the table). This makes the table more directly comparable to the age bias plot.}
 
@@ -152,7 +152,7 @@ plotAB(x, what = c("bias", "Campana", "numbers"), xlab = x$ref.lab,
   \item nref.lab A string that contains an optional label for the age estimates in the rows (non-reference) of the age-agreement table.
 }
 
-\code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing.  Nothing is returned by \code{plot} or \code{plotAB}, but see details for a description of the plot that is produced.
+\code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing. Nothing is returned by \code{plot} or \code{plotAB}, but see details for a description of the plot that is produced.
 }
 \description{
 Constructs age-agreement tables, statistical tests to detect differences, and plots to visualize potential differences in paired age estimates. Ages may be from, for example, two readers of the same structure, one reader at two times, two structures (e.g., scales, spines, otoliths), or one structure and known ages.
@@ -172,7 +172,7 @@ Muir et al. (2008) modified the age bias plot by plotting the difference between
 
 By default, the modified age bias plot shows the mean and range for the nonreference ages at each of the reference ages. Means shown with an open dot are mean age differences that are significantly different from zero. The ranges of differences in ages at each reference age can be removed with \code{show.range=FALSE}. A confidence interval for difference in ages can be added with \code{show.CI=FALSE}. The color and symbol coding for the means and CIs is the same as described above for \code{plotAB}. Individual points are plotted if \code{show.pts=TRUE}, where there color is controlled by \code{col.pts=} and \code{transparency=}. See examples for use of these arguments.
 
-Both the main (i.e., not the marginal histograms) can be "added to" after the plot is constructed if \code{allowAdd=TRUE} is used. For example, the Bland-Altman-like plot can be augmented with a horizonal line at the mean difference in ages, a line for the regression between the differences and the means, or a generalized additive model that describes the relationship betwen the diffrences and the means. See the examples for use of \code{allowAdd=TRUE}. It is recommended to save the plotting parameters (e.g., \code{op <- par(no.readonly=TRUE)}) before using \code{plot} with \code{allowAdd=TRUE} so that the original parameters can be reset (e.g., \code{par(op)}); see the examples.
+Both the main (i.e., not the marginal histograms) can be "added to" after the plot is constructed if \code{allowAdd=TRUE} is used. For example, the Bland-Altman-like plot can be augmented with a horizontal line at the mean difference in ages, a line for the regression between the differences and the means, or a generalized additive model that describes the relationship between the differences and the means. See the examples for use of \code{allowAdd=TRUE}. It is recommended to save the plotting parameters (e.g., \code{op <- par(no.readonly=TRUE)}) before using \code{plot} with \code{allowAdd=TRUE} so that the original parameters can be reset (e.g., \code{par(op)}); see the examples.
 
 Individual t-tests to determine if the mean age of the nonreference set at a particular age of the reference set is equal to the reference age (e.g., is the mean age of the nonreference set at age-3 of the reference set statistically different from 3?) are shown with \code{what="bias"} in \code{summary}. The results provide a column that indicates whether the difference is significant or not as determined by adjusted p-values from the t-tests and using the significance level provided in \code{sig.level} (defaults to 0.05). Similar results for the difference in ages (e.g., is the mean reference age minus nonreference age at a nonreference age of 3 different from 0?) are constructed with \code{what="diff.bias"} in \code{summary}.
 
@@ -331,17 +331,17 @@ par(op)
 
 }
 \references{
-Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
-Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  Graphical and statistical methods for determining the consistency of age determinations. Transactions of the American Fisheries Society 124:131-138.  [Was (is?) available from http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf.]
+Campana, S.E., M.C. Annand, and J.I. McMillan. 1995. Graphical and statistical methods for determining the consistency of age determinations. Transactions of the American Fisheries Society 124:131-138. [Was (is?) available from http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf.]
 
-Evans, G.T. and J.M. Hoenig.  1998.  Testing and viewing symmetry in contingency tables, with application to readers of fish ages.  Biometrics 54:620-629.
+Evans, G.T. and J.M. Hoenig. 1998. Testing and viewing symmetry in contingency tables, with application to readers of fish ages. Biometrics 54:620-629.
 
-Hoenig, J.M., M.J. Morgan, and C.A. Brown. 1995.  Analysing differences between two age determination methods by tests of symmetry.  Canadian Journal of Fisheries and Aquatic Sciences 52:364-368.
+Hoenig, J.M., M.J. Morgan, and C.A. Brown. 1995. Analysing differences between two age determination methods by tests of symmetry. Canadian Journal of Fisheries and Aquatic Sciences 52:364-368.
 
-McBride, R.S.  2015. Diagnosis of paired age agreement: A simulation approach of accuracy and precision effects. ICES Journal of Marine Science 72:2149-2167.
+McBride, R.S. 2015. Diagnosis of paired age agreement: A simulation approach of accuracy and precision effects. ICES Journal of Marine Science 72:2149-2167.
 
-Muir, A.M., M.P. Ebener, J.X. He, and J.E. Johnson.  2008.  A comparison of the scale and otolith methods of age estimation for lake whitefish in Lake Huron.  North American Journal of Fisheries Management 28:625-635.  [Was (is?) available from http://www.tandfonline.com/doi/abs/10.1577/M06-160.1]
+Muir, A.M., M.P. Ebener, J.X. He, and J.E. Johnson. 2008. A comparison of the scale and otolith methods of age estimation for lake whitefish in Lake Huron. North American Journal of Fisheries Management 28:625-635. [Was (is?) available from http://www.tandfonline.com/doi/abs/10.1577/M06-160.1]
 }
 \seealso{
 See \code{\link{agePrecision}} for measures of precision between pairs of age estimates. See \code{\link[fishmethods]{compare2}} in \pkg{fishmethods} for similar functionality.

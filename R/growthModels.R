@@ -2,41 +2,41 @@
 #' 
 #' @title Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.
 #'
-#' @description Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.  Use \code{growthFunShow()} to see the equations for each growth function.
+#' @description Creates a function for a specific parameterizations of the von Bertalanffy, Gompertz, Richards, and logistic growth functions. Use \code{growthFunShow()} to see the equations for each growth function.
 #'
 #' @param type A string (in \code{growthFunShow}) that indicates the type of growth function to show.
-#' @param param A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function.  See details.
-#' @param case A numeric that indicates the specific case of the Schnute function to use.  See details.
+#' @param param A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function. See details.
+#' @param case A numeric that indicates the specific case of the Schnute function to use. See details.
 #' @param simple A logical that indicates whether the function will accept all parameter values in the first parameter argument (\code{=FALSE}; DEFAULT) or whether all individual parameters must be specified in separate arguments (\code{=TRUE}).
 #' @param msg A logical that indicates whether a message about the growth function and parameter definitions should be output (\code{=TRUE}) or not (\code{=FALSE}; DEFAULT).
 #' @param plot A logical that indicates whether the growth function expression should be shown as an equation in a simple plot.
 #' @param \dots Not implemented.
 #' 
-#' @return The functions ending in \code{xxxFuns} return a function that can be used to predict fish size given a vector of ages and values for the growth function parameters and, in some parameterizations, values for constants.  The result should be saved to an object that is then the function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}).  If \code{simple=FALSE} (DEFAULT), then the values for all parameters may be included as a vector in the first parameter argument (but in the same order).  Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}).  If \code{simple=TRUE}, then all parameters and constants must be declared individually.  The resulting function is somewhat easier to read when \code{simple=TRUE}, but is less general for some applications.
+#' @return The functions ending in \code{xxxFuns} return a function that can be used to predict fish size given a vector of ages and values for the growth function parameters and, in some parameterizations, values for constants. The result should be saved to an object that is then the function name. When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (if \code{msg=TRUE}). If \code{simple=FALSE} (DEFAULT), then the values for all parameters may be included as a vector in the first parameter argument (but in the same order). Similarly, the values for all constants may be included as a vector in the first constant argument (i.e., \code{t1}). If \code{simple=TRUE}, then all parameters and constants must be declared individually. The resulting function is somewhat easier to read when \code{simple=TRUE}, but is less general for some applications.
 #' 
-#' An expression of the equation for each growth function may be created with \code{growthFunShow}.  In this function \code{type=} is used to select the major function type (e.g., von Bertalanffy, Gompertz, Richards, Logistic, Schnute) and \code{param=} is used to select a specific parameterization of that growth function.  If \code{plot=TRUE}, then a simple graphic will be created with the equation using \code{\link{plotmath}} for a pretty format.
+#' An expression of the equation for each growth function may be created with \code{growthFunShow}. In this function \code{type=} is used to select the major function type (e.g., von Bertalanffy, Gompertz, Richards, Logistic, Schnute) and \code{param=} is used to select a specific parameterization of that growth function. If \code{plot=TRUE}, then a simple graphic will be created with the equation using \code{\link{plotmath}} for a pretty format.
 #'
 #' @note Take note of the following for parameterizations (i.e., \code{param}) of each growth function:
 #' \itemize{
 #'   \item von Bertalanffy
 #'   \itemize{
-#'     \item The \sQuote{Original} and \sQuote{vonBertalanffy} are synonymous as are \sQuote{Typical}, \sQuote{Traditional}, and \sQuote{BevertonHolt}.  Further note that the \sQuote{Ogle} parameterization has the \sQuote{Original}/\sQuote{vonBertalanffy} and \sQuote{Typical}/\sQuote{Traditional}/\sQuote{BevertonHolt} parameterizations as special cases.
+#'     \item The \sQuote{Original} and \sQuote{vonBertalanffy} are synonymous as are \sQuote{Typical}, \sQuote{Traditional}, and \sQuote{BevertonHolt}. Further note that the \sQuote{Ogle} parameterization has the \sQuote{Original}/\sQuote{vonBertalanffy} and \sQuote{Typical}/\sQuote{Traditional}/\sQuote{BevertonHolt} parameterizations as special cases.
 #'   }
 #'   \item Gompertz
 #'   \itemize{
 #'     \item The \sQuote{Ricker2} and \sQuote{QuinnDeriso1} are synonymous, as are \sQuote{Ricker3} and \sQuote{QuinnDeriso2}.
-#'     \item The parameterizations and parameters for the Gompertz function are varied and confusing in the literature.  I have attempted to use a uniform set of parameters in these functions, but that makes a direct comparison to the literature difficult.  Common sources for Gompertz models are listed in the references below.  I make some comments here to aid comparisons to the literature.
+#'     \item The parameterizations and parameters for the Gompertz function are varied and confusing in the literature. I have attempted to use a uniform set of parameters in these functions, but that makes a direct comparison to the literature difficult. Common sources for Gompertz models are listed in the references below. I make some comments here to aid comparisons to the literature.
 #'     \item Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, ti is the age at the inflection point, gi is the instantaneous growth rate at the inflection point, t* is a dimensionless parameter related to time/age, and a is a dimensionless parameter related to growth.
-#'     \item In the Quinn and Deriso (1999) functions (the \sQuote{QuinnDerisoX} functions), the a parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there.  Also note that their Y is L here.
-#'     \item In the Ricker (1979)[p. 705] functions (the \sQuote{RickerX} functions), the a parameter here is equal to k there and the gi parameter here is equal to the g parameter there.  Also note that their w is L here.  In the Ricker (1979) functions as presented in Campana and Jones (1992), the a parameter here is equal to k parameter there and the gi parameter here is equal to the G parameter there.  Also note that their X is L here.
-#'     \item The function in Ricker (1975)[p. 232] is the same as \sQuote{Ricker2} where the a parameter here is qual to G there and the gi parameter here is equal to the g parameter there.  Also note that their w is L here.
+#'     \item In the Quinn and Deriso (1999) functions (the \sQuote{QuinnDerisoX} functions), the a parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there. Also note that their Y is L here.
+#'     \item In the Ricker (1979)[p. 705] functions (the \sQuote{RickerX} functions), the a parameter here is equal to k there and the gi parameter here is equal to the g parameter there. Also note that their w is L here. In the Ricker (1979) functions as presented in Campana and Jones (1992), the a parameter here is equal to k parameter there and the gi parameter here is equal to the G parameter there. Also note that their X is L here.
+#'     \item The function in Ricker (1975)[p. 232] is the same as \sQuote{Ricker2} where the a parameter here is qual to G there and the gi parameter here is equal to the g parameter there. Also note that their w is L here.
 #'     \item The function in Quist et al. (2012)[p. 714] is the same as \sQuote{Ricker1} where the gi parameter here is equal to the G parameter there and the ti parameter here is equal to the t0 parameter there.
 #'     \item The function in Katsanevakis and Maravelias (2008) is the same as \sQuote{Ricker1} where the gi parameter here is equal to k2 parameter there and the ti parameter here is equal to the t2 parameter there.
 #'   }
 #'   \item Richards
 #'   \itemize{
 #'     \item Within FSA, Linf is the mean asymptotic length, ti is the age at the inflection point, k is related to growth (slope at the inflection point), b is related to the vertical position of the inflection point, and L0 is the mean length at age-0.
-#'     \item The parameterizations (1-6) correspond to functions/equations 1, 4, 5, 6, 7, and 8, respectively, in Tjorve and Tjorve (2010).  Note that their A, S, k, d, and B are Linf, a, k, b, and L0, respectively, here (in FSA).
+#'     \item The parameterizations (1-6) correspond to functions/equations 1, 4, 5, 6, 7, and 8, respectively, in Tjorve and Tjorve (2010). Note that their A, S, k, d, and B are Linf, a, k, b, and L0, respectively, here (in FSA).
 #'   }
 #'   \item logistic
 #'   \itemize{
@@ -50,55 +50,55 @@
 #'
 #' @seealso See \code{\link{Schnute}} for an implementation of the Schnute (1981) model.
 #'
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
-#' Campana, S.E. and C.M. Jones.  1992.  Analysis of otolith microstructure data.  Pages 73-100 In D.K. Stevenson and S.E. Campana, editors.  Otolith microstructure examination and analysis.  Canadian Special Publication of Fisheries and Aquatic Sciences 117.  [Was (is?) from http://www.dfo-mpo.gc.ca/Library/141734.pdf.]
+#' Campana, S.E. and C.M. Jones. 1992. Analysis of otolith microstructure data. Pages 73-100 In D.K. Stevenson and S.E. Campana, editors. Otolith microstructure examination and analysis. Canadian Special Publication of Fisheries and Aquatic Sciences 117. [Was (is?) from http://www.dfo-mpo.gc.ca/Library/141734.pdf.]
 #' 
 #' Fabens, A. 1965. Properties and fitting of the von Bertalanffy growth curve. Growth 29:265-289.
 #'
-#' Francis, R.I.C.C.  1988.  Are growth parameters estimated from tagging and age-length data comparable?  Canadian Journal of Fisheries and Aquatic Sciences, 45:936-942.
+#' Francis, R.I.C.C. 1988. Are growth parameters estimated from tagging and age-length data comparable?  Canadian Journal of Fisheries and Aquatic Sciences, 45:936-942.
 #'
-#' Gallucci, V.F. and T.J. Quinn II. 1979.  Reparameterizing, fitting, and testing a simple growth model.  Transactions of the American Fisheries Society, 108:14-25.
+#' Gallucci, V.F. and T.J. Quinn II. 1979. Reparameterizing, fitting, and testing a simple growth model. Transactions of the American Fisheries Society, 108:14-25.
 #'
-#' Garcia-Berthou, E., G. Carmona-Catot, R. Merciai, and D.H. Ogle.  A technical note on seasonal growth models.  Reviews in Fish Biology and Fisheries 22:635-640.  [Was (is?) from https://www.researchgate.net/publication/257658359_A_technical_note_on_seasonal_growth_models.]
+#' Garcia-Berthou, E., G. Carmona-Catot, R. Merciai, and D.H. Ogle. A technical note on seasonal growth models. Reviews in Fish Biology and Fisheries 22:635-640. [Was (is?) from https://www.researchgate.net/publication/257658359_A_technical_note_on_seasonal_growth_models.]
 #' 
-#' Gompertz, B.  1825.  On the nature of the function expressive of the law of human mortality, and on a new method of determining the value of life contingencies.  Philosophical Transactions of the Royal Society of London.  115:513-583.
+#' Gompertz, B. 1825. On the nature of the function expressive of the law of human mortality, and on a new method of determining the value of life contingencies. Philosophical Transactions of the Royal Society of London. 115:513-583.
 #' 
-#' Haddon, M., C. Mundy, and D. Tarbath. 2008.  Using an inverse-logistic model to describe growth increments of blacklip abalone (\emph{Haliotis rubra}) in Tasmania.  Fishery Bulletin 106:58-71.  [Was (is?) from http://aquaticcommons.org/8857/1/haddon_Fish_Bull_2008.pdf.]
+#' Haddon, M., C. Mundy, and D. Tarbath. 2008. Using an inverse-logistic model to describe growth increments of Blacklip Abalone (\emph{Haliotis rubra}) in Tasmania. Fishery Bulletin 106:58-71. [Was (is?) from http://aquaticcommons.org/8857/1/haddon_Fish_Bull_2008.pdf.]
 #'
-#' Karkach, A. S.  2006.  Trajectories and models of individual growth.  Demographic Research 15:347-400.  [Was (is?) from http://www.demographic-research.org/volumes/vol15/12/15-12.pdf.]
+#' Karkach, A. S. 2006. Trajectories and models of individual growth. Demographic Research 15:347-400. [Was (is?) from http://www.demographic-research.org/volumes/vol15/12/15-12.pdf.]
 #' 
-#' Katsanevakis, S. and C.D. Maravelias.  2008.  Modeling fish growth: multi-model inference as a better alternative to a priori using von Bertalanffy equation.  Fish and Fisheries 9:178-187.
+#' Katsanevakis, S. and C.D. Maravelias. 2008. Modeling fish growth: multi-model inference as a better alternative to a priori using von Bertalanffy equation. Fish and Fisheries 9:178-187.
 #'
-#' Mooij, W.M., J.M. Van Rooij, and S. Wijnhoven.  1999.  Analysis and comparison of fish growth from small samples of length-at-age data: Detection of sexual dimorphism in Eurasian perch as an example.  Transactions of the American Fisheries Society 128:483-490.
+#' Mooij, W.M., J.M. Van Rooij, and S. Wijnhoven. 1999. Analysis and comparison of fish growth from small samples of length-at-age data: Detection of sexual dimorphism in Eurasian Perch as an example. Transactions of the American Fisheries Society 128:483-490.
 #'
-#' Polacheck, T., J.P. Eveson, and G.M. Laslett.  2004.  Increase in growth rates of southern bluefin tuna (\emph{Thunnus maccoyii}) over four decades: 1960 to 2000.  Canadian Journal of Fisheries and Aquatic Sciences, 61:307-322.
+#' Polacheck, T., J.P. Eveson, and G.M. Laslett. 2004. Increase in growth rates of southern Bluefin Tuna (\emph{Thunnus maccoyii}) over four decades: 1960 to 2000. Canadian Journal of Fisheries and Aquatic Sciences, 61:307-322.
 #' 
 #' Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages.
 #' 
-#' Quist, M.C., M.A. Pegg, and D.R. DeVries.  2012.  Age and Growth.  Chapter 15 in A.V. Zale, D.L Parrish, and T.M. Sutton, Editors  Fisheries Techniques, Third Edition.  American Fisheries Society, Bethesda, MD.
+#' Quist, M.C., M.A. Pegg, and D.R. DeVries. 2012. Age and Growth. Chapter 15 in A.V. Zale, D.L Parrish, and T.M. Sutton, Editors  Fisheries Techniques, Third Edition. American Fisheries Society, Bethesda, MD.
 #' 
-#' Richards, F. J.  1959.  A flexible growth function for empirical use.  Journal of Experimental Biology 10:290-300.
+#' Richards, F. J. 1959. A flexible growth function for empirical use. Journal of Experimental Biology 10:290-300.
 #' 
-#' Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.  [Was (is?) from http://www.dfo-mpo.gc.ca/Library/1485.pdf.]
+#' Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada. [Was (is?) from http://www.dfo-mpo.gc.ca/Library/1485.pdf.]
 #' 
-#' Ricker, W.E. 1979.  Growth rates and models.  Pages 677-743 In W.S. Hoar, D.J. Randall, and J.R. Brett, editors.  Fish Physiology, Vol. 8: Bioenergetics and Growth.  Academic Press, NY, NY.  [Was (is?) from https://books.google.com/books?id=CB1qu2VbKwQC&pg=PA705&lpg=PA705&dq=Gompertz+fish&source=bl&ots=y34lhFP4IU&sig=EM_DGEQMPGIn_DlgTcGIi_wbItE&hl=en&sa=X&ei=QmM4VZK6EpDAgwTt24CABw&ved=0CE8Q6AEwBw#v=onepage&q=Gompertz\%20fish&f=false.]
+#' Ricker, W.E. 1979. Growth rates and models. Pages 677-743 In W.S. Hoar, D.J. Randall, and J.R. Brett, editors. Fish Physiology, Vol. 8: Bioenergetics and Growth. Academic Press, NY, NY. [Was (is?) from https://books.google.com/books?id=CB1qu2VbKwQC&pg=PA705&lpg=PA705&dq=Gompertz+fish&source=bl&ots=y34lhFP4IU&sig=EM_DGEQMPGIn_DlgTcGIi_wbItE&hl=en&sa=X&ei=QmM4VZK6EpDAgwTt24CABw&ved=0CE8Q6AEwBw#v=onepage&q=Gompertz\%20fish&f=false.]
 #'
-#' Schnute, J.  1981.  A versatile growth model with statistically stable parameters. Canadian Journal of Fisheries and Aquatic Sciences, 38:1128-1140.
+#' Schnute, J. 1981. A versatile growth model with statistically stable parameters. Canadian Journal of Fisheries and Aquatic Sciences, 38:1128-1140.
 #'
-#' Somers, I. F. 1988.  On a seasonally oscillating growth function. Fishbyte 6(1):8-11.  [Was (is?) from http://www.worldfishcenter.org/Naga/na_2914.pdf.]
+#' Somers, I. F. 1988. On a seasonally oscillating growth function. Fishbyte 6(1):8-11. [Was (is?) from http://www.worldfishcenter.org/Naga/na_2914.pdf.]
 #' 
-#' Tjorve, E. and K. M. C. Tjorve.  2010.  A unified approach to the Richards-model family for use in growth analyses: Why we need only two model forms.  Journal of Theoretical Biology 267:417-425.  [Was (is?) from https://www.researchgate.net/profile/Even_Tjorve/publication/46218377_A_unified_approach_to_the_Richards-model_family_for_use_in_growth_analyses_why_we_need_only_two_model_forms/links/54ba83b80cf29e0cb04bd24e.pdf.]
+#' Tjorve, E. and K. M. C. Tjorve. 2010. A unified approach to the Richards-model family for use in growth analyses: Why we need only two model forms. Journal of Theoretical Biology 267:417-425. [Was (is?) from https://www.researchgate.net/profile/Even_Tjorve/publication/46218377_A_unified_approach_to_the_Richards-model_family_for_use_in_growth_analyses_why_we_need_only_two_model_forms/links/54ba83b80cf29e0cb04bd24e.pdf.]
 #' 
-#' Troynikov, V. S., R. W. Day, and A. M. Leorke.  Estimation of seasonal growth parameters using a stochastic Gompertz model for tagging data.  Journal of Shellfish Research 17:833-838.  [Was (is?) from https://www.researchgate.net/profile/Robert_Day2/publication/249340562_Estimation_of_seasonal_growth_parameters_using_a_stochastic_gompertz_model_for_tagging_data/links/54200fa30cf203f155c2a08a.pdf.]
+#' Troynikov, V. S., R. W. Day, and A. M. Leorke. Estimation of seasonal growth parameters using a stochastic Gompertz model for tagging data. Journal of Shellfish Research 17:833-838. [Was (is?) from https://www.researchgate.net/profile/Robert_Day2/publication/249340562_Estimation_of_seasonal_growth_parameters_using_a_stochastic_gompertz_model_for_tagging_data/links/54200fa30cf203f155c2a08a.pdf.]
 #' 
-#' Vaughan, D. S. and T. E. Helser.  1990.  Status of the red drum stock of the Atlantic coast: Stock assessment report for 1989.  NOAA Technical Memorandum NMFS-SEFC-263, 117 p.  [Was (is?) from http://docs.lib.noaa.gov/noaa_documents/NMFS/SEFSC/TM_NMFS_SEFSC/NMFS_SEFSC_TM_263.pdf.]
+#' Vaughan, D. S. and T. E. Helser. 1990. Status of the Red Drum stock of the Atlantic coast: Stock assessment report for 1989. NOAA Technical Memorandum NMFS-SEFC-263, 117 p. [Was (is?) from http://docs.lib.noaa.gov/noaa_documents/NMFS/SEFSC/TM_NMFS_SEFSC/NMFS_SEFSC_TM_263.pdf.]
 #'
-#' Wang, Y.-G.  1998.  An improved Fabens method for estimation of growth parameters in the von Bertalanffy model with individual asymptotes.  Canadian Journal of Fisheries and Aquatic Sciences 55:397-400.
+#' Wang, Y.-G. 1998. An improved Fabens method for estimation of growth parameters in the von Bertalanffy model with individual asymptotes. Canadian Journal of Fisheries and Aquatic Sciences 55:397-400.
 #'
 #' Weisberg, S., G.R. Spangler, and L. S. Richmond. 2010. Mixed effects models for fish growth. Canadian Journal of Fisheries And Aquatic Sciences 67:269-277.
 #' 
-#' Winsor, C.P.  1932.  The Gompertz curve as a growth curve.  Proceedings of the National Academy of Sciences.  18:1-8.  [Was (is?) from http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1076153/pdf/pnas01729-0009.pdf.]
+#' Winsor, C.P. 1932. The Gompertz curve as a growth curve. Proceedings of the National Academy of Sciences. 18:1-8. [Was (is?) from http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1076153/pdf/pnas01729-0009.pdf.]
 #'
 #' @keywords manip hplot
 #'
@@ -958,8 +958,8 @@ logisticFuns <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1",
 #'
 #' @param t A numeric vector of ages over which to model growth.
 #' @param case A string that indicates the case of the Schnute growth function to use.
-#' @param t1 The (young) age that corresponds to \code{L1}.  Set to minimum value in \code{t} by default.
-#' @param t3 The (old) age that corresponds to \code{L3}.  Set to maximum value in \code{t} by default.
+#' @param t1 The (young) age that corresponds to \code{L1}. Set to minimum value in \code{t} by default.
+#' @param t3 The (old) age that corresponds to \code{L3}. Set to maximum value in \code{t} by default.
 #' @param L1 The mean size/length at \code{t1}.
 #' @param L3 The mean size/length at \code{t3}.
 #' @param a  A dimensionless parameter that is related to the time/age at the inflection point.
@@ -975,7 +975,7 @@ logisticFuns <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1",
 #'
 #' @seealso See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{RichardsFuns}}, and \code{\link{logisticFuns}} for similar functionality for other models.
 #'
-#' @references Schnute, J.  1981.  A versatile growth model with statistical stable parameters.  Canadian Journal of Fisheries and Aquatic Sciences 38:1128-1140.
+#' @references Schnute, J. 1981. A versatile growth model with statistical stable parameters. Canadian Journal of Fisheries and Aquatic Sciences 38:1128-1140.
 #' 
 #' @keywords manip
 #'

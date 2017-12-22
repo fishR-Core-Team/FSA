@@ -12,9 +12,9 @@ Schnute(t, case = 1, t1 = NULL, t3 = NULL, L1 = NULL, L3 = NULL,
 
 \item{case}{A string that indicates the case of the Schnute growth function to use.}
 
-\item{t1}{The (young) age that corresponds to \code{L1}.  Set to minimum value in \code{t} by default.}
+\item{t1}{The (young) age that corresponds to \code{L1}. Set to minimum value in \code{t} by default.}
 
-\item{t3}{The (old) age that corresponds to \code{L3}.  Set to maximum value in \code{t} by default.}
+\item{t3}{The (old) age that corresponds to \code{L3}. Set to maximum value in \code{t} by default.}
 
 \item{L1}{The mean size/length at \code{t1}.}
 
@@ -57,7 +57,7 @@ lines(s4~ages,lwd=2,col="green")
 
 }
 \references{
-Schnute, J.  1981.  A versatile growth model with statistical stable parameters.  Canadian Journal of Fisheries and Aquatic Sciences 38:1128-1140.
+Schnute, J. 1981. A versatile growth model with statistical stable parameters. Canadian Journal of Fisheries and Aquatic Sciences 38:1128-1140.
 }
 \seealso{
 See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{RichardsFuns}}, and \code{\link{logisticFuns}} for similar functionality for other models.

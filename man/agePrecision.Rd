@@ -14,17 +14,17 @@ agePrecision(formula, data)
   digits = 4, ...)
 }
 \arguments{
-\item{formula}{A formula of the form \code{~var1+var2+var3+...} or, alternatively, \code{var1~var2+var3+...}, where the \code{varX} generically represent the variables that contain the age estimates.  The alternative formula allows for similar code as used in \code{\link{ageBias}} and can have only one variable on the left-hand side.}
+\item{formula}{A formula of the form \code{~var1+var2+var3+...} or, alternatively, \code{var1~var2+var3+...}, where the \code{varX} generically represent the variables that contain the age estimates. The alternative formula allows for similar code as used in \code{\link{ageBias}} and can have only one variable on the left-hand side.}
 
 \item{data}{A data.frame that minimally contains the variables in \code{formula}.}
 
 \item{object}{An object of class \code{agePrec}, usually from \code{agePrecision}.}
 
-\item{what}{A string (or vector of strings) that indicates what type of summary to print.  See details.}
+\item{what}{A string (or vector of strings) that indicates what type of summary to print. See details.}
 
 \item{percent}{A logical that indicates whether the difference table (see details) should be represented as percentages (\code{TRUE}; default) or frequency (\code{FALSE}) of fish.}
 
-\item{trunc.diff}{A single integer that identifies the age for which all values that age and greater are combined into one category.  See the examples.}
+\item{trunc.diff}{A single integer that identifies the age for which all values that age and greater are combined into one category. See the examples.}
 
 \item{digits}{A single numeric that indicates the minimum number of digits to print when using \code{summary}.}
 
@@ -33,7 +33,7 @@ agePrecision(formula, data)
 \value{
 The main function returns a list with the following items:
 \itemize{
-  \item detail A data.frame with all data given in \code{data} and intermediate calculations for each fish.  See details
+  \item detail A data.frame with all data given in \code{data} and intermediate calculations for each fish. See details
   \item rawdiff A frequency table of fish by differences for each pair of ages.
   \item absdiff A frequency table of fish by absolute differences for each pair of ages.
   \item APE The mean average percent error.
@@ -43,10 +43,10 @@ The main function returns a list with the following items:
   \item R Number of age estimates for each fish given in \code{formula}.
 }
 
-The \code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing.  See details for what is printed.
+The \code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing. See details for what is printed.
 }
 \description{
-Computes overall measures of precision for multiple age estimates made on the same individuals.  Ages may be from two or more readers of the same structure, one reader at two or more times, or two or more structures (e.g., scales, spines, otoliths).  Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), and various percentage difference values.
+Computes overall measures of precision for multiple age estimates made on the same individuals. Ages may be from two or more readers of the same structure, one reader at two or more times, or two or more structures (e.g., scales, spines, otoliths). Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), and various percentage difference values.
 }
 \details{
 If \code{what="precision"} in \code{summary} then a summary table that contains the following items will be printed:
@@ -54,16 +54,16 @@ If \code{what="precision"} in \code{summary} then a summary table that contains 
   \item n Number of fish in \code{data}.
   \item validn Number of fish in \code{data} that have non-\code{NA} data for all R age estimates.
   \item R Number of age estimates given in \code{formula}.
-  \item ACV The mean coefficient of variation.  See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
-  \item APE The mean average percent error.  See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
+  \item ACV The mean coefficient of variation. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
+  \item APE The mean average percent error. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
   \item PercAgree The percentage of fish for which all age estimates perfectly agree.
 }
 
-If \code{what="difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the difference in paired age estimates.  This table has one row for each possible pair of age estimates.
+If \code{what="difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the difference in paired age estimates. This table has one row for each possible pair of age estimates.
 
-If \code{what="absolute difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the absolute value of the difference in paired age estimates.  This table has one row for each possible pair of age estimates.  The \dQuote{1} column, for example, represents age estimates that disagree by one year (in either direction).
+If \code{what="absolute difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the absolute value of the difference in paired age estimates. This table has one row for each possible pair of age estimates. The \dQuote{1} column, for example, represents age estimates that disagree by one year (in either direction).
 
-If \code{what="detail"} is used in \code{summary}, then a data frame of the original \code{data} along with the intermediate calculations of the average age, standard deviation of age, APE, and ACV for each individual will be printed.  These details are generally only used to check or to understand calculations.
+If \code{what="detail"} is used in \code{summary}, then a data frame of the original \code{data} along with the intermediate calculations of the average age, standard deviation of age, APE, and ACV for each individual will be printed. These details are generally only used to check or to understand calculations.
 
 All percentage calculations above use the \code{validn} value in the denominator.
 }
@@ -106,17 +106,17 @@ summary(ap2,what="detail")
 
 }
 \references{
-Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
-Beamish, R.J. and D.A. Fournier.  1981.  A method for comparing the precision of a set of age determinations.  Canadian Journal of Fisheries and Aquatic Sciences 38:982-983.  [Was (is?) available from http://www.pac.dfo-mpo.gc.ca/science/people-gens/beamish/PDF_files/compareagecjfas1981.pdf.]
+Beamish, R.J. and D.A. Fournier. 1981. A method for comparing the precision of a set of age determinations. Canadian Journal of Fisheries and Aquatic Sciences 38:982-983. [Was (is?) available from http://www.pac.dfo-mpo.gc.ca/science/people-gens/beamish/PDF_files/compareagecjfas1981.pdf.]
 
-Campana, S.E.  1982.  Accuracy, precision and quality control in age determination, including a review of the use and abuse of age validation methods.  Journal of Fish Biology 59:197-242.  [Was (is?) available from http://www.denix.osd.mil/nr/crid/Coral_Reef_Iniative_Database/References_for_Reef_Assessment_files/Campana,\%202001.pdf.]
+Campana, S.E. 1982. Accuracy, precision and quality control in age determination, including a review of the use and abuse of age validation methods. Journal of Fish Biology 59:197-242. [Was (is?) available from http://www.denix.osd.mil/nr/crid/Coral_Reef_Iniative_Database/References_for_Reef_Assessment_files/Campana,\%202001.pdf.]
 
-Campana, S.E., M.C. Annand, and J.I. McMillan. 1995.  Graphical and statistical methods for determining the consistency of age determinations. Transactions of the American Fisheries Society 124:131-138.  [Was (is?) available from http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf.]
+Campana, S.E., M.C. Annand, and J.I. McMillan. 1995. Graphical and statistical methods for determining the consistency of age determinations. Transactions of the American Fisheries Society 124:131-138. [Was (is?) available from http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf.]
 
-Chang, W.Y.B. 1982.  A statistical method for evaluating the reproducibility of age determination.  Canadian Journal of Fisheries and Aquatic Sciences 39:1208-1210.  [Was (is?) available from http://www.nrcresearchpress.com/doi/abs/10.1139/f82-158.]
+Chang, W.Y.B. 1982. A statistical method for evaluating the reproducibility of age determination. Canadian Journal of Fisheries and Aquatic Sciences 39:1208-1210. [Was (is?) available from http://www.nrcresearchpress.com/doi/abs/10.1139/f82-158.]
 
-McBride, R.S.  2015. Diagnosis of paired age agreement: A simulation approach of accuracy and precision effects. ICES Journal of Marine Science, 72:2149-2167.
+McBride, R.S. 2015. Diagnosis of paired age agreement: A simulation approach of accuracy and precision effects. ICES Journal of Marine Science, 72:2149-2167.
 }
 \seealso{
 See \code{\link{ageBias}} for computation of the full age agreement table, along with tests and plots of age bias.
