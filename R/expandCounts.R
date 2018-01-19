@@ -102,7 +102,8 @@
 #' }
 #' 
 #' @export
-expandCounts <- function(data,cform,lform=NULL,removeCount=TRUE,lprec=0.1,new.name="newlen",cwid=0,verbose=TRUE,...) {
+expandCounts <- function(data,cform,lform=NULL,removeCount=TRUE,lprec=0.1,
+                         new.name="newlen",cwid=0,verbose=TRUE,...) {
   ## do some error checking on cform (cform changes from a pure formula)
   cform <- iHndlFormula(cform,data)
   if (cform$vnum>1) STOP("'cform' must be only one variable.")
@@ -127,7 +128,8 @@ expandCounts <- function(data,cform,lform=NULL,removeCount=TRUE,lprec=0.1,new.na
   tmp <- length(morecounts)
   #  Third, Repeat the row numbers 'count' times for those rows with a count > 1
   morecounts <- rep(morecounts,data[morecounts,cform$vname])
-  msg <- paste0(msg,"  ",tmp," rows with multiple measurements were expanded to ",length(morecounts)," rows of individual measurements.\n")
+  msg <- paste0(msg,"  ",tmp," rows with multiple measurements were expanded to ",
+                length(morecounts)," rows of individual measurements.\n")
   # Fourth, create a new data.frame that combines the original rows
   # that had zero counts, the original rows that had one count, and
   # the original rows with more than one count but with each of these
@@ -155,11 +157,12 @@ expandCounts <- function(data,cform,lform=NULL,removeCount=TRUE,lprec=0.1,new.na
     upr <- lform$Enames[2]
     # error check that lwr>upr ... stop if so.
     tmp <- which(data[,lwr]>data[,upr])
-    if (length(tmp)>0) STOP("Rows ",paste0(tmp,collapse=", ")," have '",lwr,"' greater than '",upr,"'.")
+    if (length(tmp)>0) STOP("Rows ",paste0(tmp,collapse=", ")," have '",
+                            lwr,"' greater than '",upr,"'.")
     
     ## error check if the rows with zero or missing counts in the
-    ## original data.frame had non-missing lwr or upr values.  This
-    ## implies an odd data entry.  Send a warning.
+    ## original data.frame had non-missing lwr or upr values. This
+    ## implies an odd data entry. Send a warning.
     if (length(zerocounts)>0) {
       tmp <- zerocounts[which(!is.na(data[zerocounts,lwr]) | !is.na(data[zerocounts,upr]))]
       if (length(tmp)>0) {
@@ -200,7 +203,8 @@ expandCounts <- function(data,cform,lform=NULL,removeCount=TRUE,lprec=0.1,new.na
       else dfrand <- newdf
     if (nrow(dfrand)>0) {
       ## add uniform random number to fish that need it
-      dfrand[,new.name] <- apply(as.matrix(dfrand[,c(lwr,upr)]),1,function(x) sample(seq(x[1],x[2],lprec),1))
+      dfrand[,new.name] <- apply(as.matrix(dfrand[,c(lwr,upr)]),1,
+                                 function(x) sample(seq(x[1],x[2],lprec),1))
       dfrand[,"lennote"] <- "Expanded length"
     }
     newdf <- rbind(dfnorand,dfrand)
