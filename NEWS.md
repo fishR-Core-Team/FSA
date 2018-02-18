@@ -3,6 +3,7 @@
 * Using latest `testthat` package.
 * `expandCounts()`: Modified. Minor changes to documentation.
 * `plotAB()`: Modified. Added `col.numbers=` to allow users to modify the color of the numbers when `what="numbers"` is used (addresses [#34](https://github.com/droglenc/FSA/issues/34)).
+* `vbFuns()`: Modified. Switched `Fabens` and `Fabens2` parameterizations to better match `Wang` (i.e., increment model first). Added `Francis2` parameterization for tag-recapture data.
 * `vbStarts()`: Modified. Fixed some spacing issues with the warnings when starting values for Linf was poorly estimated. Added an argument to `ivbStarts.LinfK()` to suppress checking the value of Linf. This argument reduces the change of double-printing the warning message when there are bad estimates of starting values for Linf and K.
 
 # FSA 0.8.17 29-Oct-17

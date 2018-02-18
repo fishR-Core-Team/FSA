@@ -282,7 +282,7 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
                           "GQ","GallucciQuinn","Mooij","Weisberg","Ogle",
                           "Schnute","Francis","Laslett","Polacheck",
                           "Somers","Somers2","Pauly",
-                          "Fabens","Fabens2","Wang","Wang2","Wang3"),
+                          "Fabens","Fabens2","Wang","Wang2","Wang3","Francis2"),
                    simple=FALSE,msg=FALSE) {
   Ogle <- function(t,Linf,K=NULL,tr=NULL,Lr=NULL) {
     if (length(Linf)==4) {
@@ -406,42 +406,51 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
       (Kpr*(1-NGT)/(2*pi))*sin((2*pi)/(1-NGT)*(t0-ts))
     Linf*(1-exp(-q))
   }
-  Fabens <- function(Lm,dt,Linf,K) {
-  if (length(Linf)==2) { K <- Linf[[2]]; Linf <- Linf[[1]] }
-  Lm+(Linf-Lm)*(1-exp(-K*dt))
-  }
-  SFabens <- function(Lm,dt,Linf,K) {
-    Lm+(Linf-Lm)*(1-exp(-K*dt))
-  }
-  Fabens2 <- function(Lm,dt,Linf,K) {
-  if (length(Linf)==2) { K <- Linf[[2]]; Linf <- Linf[[1]] }
-  (Linf-Lm)*(1-exp(-K*dt))
-  }
-  SFabens2 <- function(Lm,dt,Linf,K) {
+  Fabens <- function(Lm,dt,Linf,K=NULL) {
+    if (length(Linf)==2) { K <- Linf[[2]]; Linf <- Linf[[1]] }
     (Linf-Lm)*(1-exp(-K*dt))
   }
-  Wang <- function(Lm,dt,Linf,K,b) {
-  if (length(Linf)==3) { b <- Linf[[3]]; K <- Linf[[2]]
-                         Linf <- Linf[[1]] }
-  (Linf+b*(Lm-mean(Lm))-Lm)*(1-exp(-K*dt))
+  SFabens <- function(Lm,dt,Linf,K) {
+    (Linf-Lm)*(1-exp(-K*dt))
+  }
+  Fabens2 <- function(Lm,dt,Linf,K=NULL) {
+    if (length(Linf)==2) { K <- Linf[[2]]; Linf <- Linf[[1]] }
+    Lm+(Linf-Lm)*(1-exp(-K*dt))
+  }
+  SFabens2 <- function(Lm,dt,Linf,K) {
+    Lm+(Linf-Lm)*(1-exp(-K*dt))
+  }
+  Wang <- function(Lm,dt,Linf,K=NULL,b=NULL) {
+    if (length(Linf)==3) { b <- Linf[[3]]; K <- Linf[[2]]
+                           Linf <- Linf[[1]] }
+    (Linf+b*(Lm-mean(Lm))-Lm)*(1-exp(-K*dt))
   }
   SWang <- function(Lm,dt,Linf,K,b) {
     (Linf+b*(Lm-mean(Lm))-Lm)*(1-exp(-K*dt))
   }
-  Wang2 <- function(Lm,dt,K,a,b) {
+  Wang2 <- function(Lm,dt,K,a=NULL,b=NULL) {
     if (length(K)==3) { b <- K[[3]]; a <- K[[2]]; K <- K[[1]] }
     (a+b*Lm)*(1-exp(-K*dt))
   }
   SWang2 <- function(Lm,dt,K,a,b) {
     (a+b*Lm)*(1-exp(-K*dt))
   }
-  Wang3 <- function(Lm,dt,K,a,b) {
+  Wang3 <- function(Lm,dt,K,a=NULL,b=NULL) {
     if (length(K)==3) { b <- K[[3]]; a <- K[[2]]; K <- K[[1]] }
     Lm+(a+b*Lm)*(1-exp(-K*dt))
   }
   SWang3 <- function(Lm,dt,K,a,b) {
     Lm+(a+b*Lm)*(1-exp(-K*dt))
   }
+  Francis2 <- function(Lm,dt,g1,g3=NULL,L1,L3=NULL) {
+    if (length(g1)==2) { g3 <- g1[[2]]; g1 <- g1[[1]] }
+    if (length(L1)==2) { L3 <- L1[[2]]; L1 <- L1[[1]] }
+    ((L3*g1-L1*g3)/(g1-g3)-Lm)*(1-(1+(g1-g3)/(L1-L3))^dt)
+  }
+  sFrancis2 <- function(Lm,dt,g1,g3,L1,L3) {
+    ((L3*g1-L1*g3)/(g1-g3)-Lm)*(1-(1+(g1-g3)/(L1-L3))^dt)
+  }
+  
   param <- match.arg(param)
   if (msg) {
     switch(param,
@@ -555,16 +564,16 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
       },
       Fabens={
         message("You have chosen the 'Fabens' parameterization for tag-return data.\n\n",
-                "  E[Lr|Lm,dt] = Lm + (Linf-Lm)*(1-exp(-K*dt))\n\n",
+                "  E[dL|Lm,dt] = (Linf-Lm)*(1-exp(-K*dt))\n\n",
                 "  where Linf = asymptotic mean length\n",
                 "           K = exponential rate of approach to Linf\n\n",
-                "  and the data are Lr = length at time of recapture\n",
+                "  and the data are dL = change in length (from mark to recapture)\n",
                 "                   Lm = length at time of marking\n",
                 "                   dt = time between marking and recapture.\n\n")
       },
       Fabens2={
         message("You have chosen the 'Fabens2' parameterization for tag-return data.\n\n",
-                "  E[Lr|Lm,dt] = (Linf-Lm)*(1-exp(-K*dt))\n\n",
+                "  E[Lr|Lm,dt] = Lm + (Linf-Lm)*(1-exp(-K*dt))\n\n",
                 "  where Linf = asymptotic mean length\n",
                 "           K = exponential rate of approach to Linf\n\n",
                 "  and the data are Lr = length at time of recapture\n",
@@ -573,21 +582,21 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
       },
       Wang={
         message("You have chosen the 'Wang' parameterization for tag-return data.\n\n",
-                "  E[Lr-Lm|Lm,dt] = (Linf+b(Lm-E(Lm))-Lm)*(1-exp(-K*dt))\n\n",
+                "  E[dL|Lm,dt] = (Linf+b(Lm-E(Lm))-Lm)*(1-exp(-K*dt))\n\n",
                 "  where Linf = asymptotic mean length\n",
                 "           K = exponential rate of approach to Linf\n",
                 "           b = parameter\n\n",
-                "  and the data are Lr = length at time of recapture\n",
+                "  and the data are dL = change in length (from mark to recapture)\n",
                 "                   Lm = length at time of marking\n",
                 "                   dt = time between marking and recapture.\n\n",
                 "  and with E(Lm) = expectation (i.e., mean) of Lm.\n\n")
       },
       Wang2={
         message("You have chosen the 'Wang2' parameterization for tag-return data.\n\n",
-                "  E[Lr-Lm|Lm,dt] = (a+bLm)*(1-exp(-K*dt))\n\n",
+                "  E[dL|Lm,dt] = (a+bLm)*(1-exp(-K*dt))\n\n",
                 "  where K = exponential rate of approach to Linf\n",
                 "     a, b = parameters\n\n",
-                "  and the data are Lr = length at time of recapture\n",
+                "  and the data are dL = change in length (from mark to recapture)\n",
                 "                   Lm = length at time of marking\n",
                 "                   dt = time between marking and recapture.\n\n")
       },
@@ -597,6 +606,15 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
                 "  where K = exponential rate of approach to Linf\n",
                 "     a, b = parameters\n\n",
                 "  and the data are Lr = length at time of recapture\n",
+                "                   Lm = length at time of marking\n",
+                "                   dt = time between marking and recapture.\n\n")
+      },
+      Francis2={
+        message("You have chosen the 'Francis2' parameterization for tag-return data.\n\n",
+                "  E[dL|Lm,dt] = ((L3g1-L1g3)/(g1-g3)-Lm)*(1-(1+(g1-g3)/(L1-L3))^dt)\n\n",
+                "  where g1 = mean growth rate at the first (small) reference length L1\n",
+                "        g3 = mean growth rate the second (large) reference length L3\n\n",
+                "  and the data are dL = change in length (from mark to recapture)\n",
                 "                   Lm = length at time of marking\n",
                 "                   dt = time between marking and recapture.\n\n")
       }
