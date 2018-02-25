@@ -1,6 +1,7 @@
 # FSA 0.8.18 ongoing
 * Changed to depending on `R >=3.2.0`, because that is the latest version required by a package (i.e., `car`) that FSA imports or suggests. Used [this shiny app](https://ateucher.shinyapps.io/check_r_versions_of_package_dependencies/) to help determine this.
 * Using latest `testthat` package.
+* `bootCase()`: Added. This was added because `bootCase()` will soon be removed from the `car` package. It was added so that the code in the Introductory Fisheries Analyses with R book will still work. It is largely a wrapper to `Boot()` in `car` with `method="case"`. The documentation was updated somewhat.
 * `expandCounts()`: Modified. Minor changes to documentation.
 * `plotAB()`: Modified. Added `col.numbers=` to allow users to modify the color of the numbers when `what="numbers"` is used (addresses [#34](https://github.com/droglenc/FSA/issues/34)).
 * `vbFuns()`: Modified. Switched `Fabens` and `Fabens2` parameterizations to better match `Wang` (i.e., increment model first). Added `Francis2` parameterization for tag-recapture data.
