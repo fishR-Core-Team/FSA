@@ -3,7 +3,10 @@
 * Using latest `testthat` package.
 * `bootCase()`: Added. This was added because `bootCase()` will soon be removed from the `car` package. It was added so that the code in the Introductory Fisheries Analyses with R book will still work. It is largely a wrapper to `Boot()` in `car` with `method="case"`. The documentation was updated somewhat.
 * `expandCounts()`: Modified. Minor changes to documentation.
+* `hTest.boot()`: Added.
+* `plot.boot()`: Added.
 * `plotAB()`: Modified. Added `col.numbers=` to allow users to modify the color of the numbers when `what="numbers"` is used (addresses [#34](https://github.com/droglenc/FSA/issues/34)).
+* `predict.boot()`: Added.
 * `vbFuns()`: Modified. Switched `Fabens` and `Fabens2` parameterizations to better match `Wang` (i.e., increment model first). Added `Francis2` parameterization for tag-recapture data.
 * `vbStarts()`: Modified. Fixed some spacing issues with the warnings when starting values for Linf was poorly estimated. Added an argument to `ivbStarts.LinfK()` to suppress checking the value of Linf. This argument reduces the change of double-printing the warning message when there are bad estimates of starting values for Linf and K.
 

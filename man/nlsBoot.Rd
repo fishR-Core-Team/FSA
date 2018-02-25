@@ -3,6 +3,8 @@
 \name{confint.nlsBoot}
 \alias{confint.nlsBoot}
 \alias{confint.nlsboot}
+\alias{htest.nlsboot}
+\alias{predict.nlsbooot}
 \alias{predict.nlsBoot}
 \alias{htest}
 \alias{htest.nlsBoot}
@@ -89,7 +91,7 @@ if (require(nlstools)) {
 
 }
 \seealso{
-See \code{\link[nlstools]{summary.nlsBoot}} in \pkg{nlstools}
+\code{\link[car]{Boot}} and related methods in \pkg{car} and \code{\link[nlstools]{summary.nlsBoot}} in \pkg{nlstools}.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}
