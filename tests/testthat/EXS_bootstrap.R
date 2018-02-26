@@ -15,3 +15,4 @@ nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,start=list(B1=6,B2=7.2,B3=-1.45))
 ##   will not run within a testing environment
 load(system.file("extdata", "nlsBoot1.RData", package="FSA"))
 load(system.file("extdata", "bootCase1.RData", package="FSA"))
+load(system.file("extdata", "carBoot1.RData", package="FSA"))

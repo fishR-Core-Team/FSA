@@ -62,7 +62,8 @@ fnx <- function(days,B1,B2,B3) {
   }
   B1/(1+exp(B2+B3*days))
 }
-nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,start=list(B1=6,B2=7.2,B3=-1.45))
+nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,
+           start=list(B1=6,B2=7.2,B3=-1.45))
 if (require(car)) {    # for Boot()
   nl1.boot <- car::Boot(nl1,R=99)  # B=99 too small to be useful
   confint(nl1.boot,"B1")

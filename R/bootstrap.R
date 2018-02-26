@@ -60,17 +60,18 @@
 #'   }
 #'   B1/(1+exp(B2+B3*days))
 #' }
-#' nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,start=list(B1=6,B2=7.2,B3=-1.45))
-#' nl1.boot <- bootCase(nl1,B=99)  # B=99 too small to be useful
-#' confint(nl1.boot,"B1")
-#' confint(nl1.boot,c(2,3))
-#' confint(nl1.boot,conf.level=0.90)
-#' predict(nl1.boot,fnx,days=1:3)
-#' predict(nl1.boot,fnx,days=3)
-#' htest(nl1.boot,1,bo=6,alt="less")
-#' hist(nl1.boot)
-#' plot(nl1.boot)
-#' cor(nl1.boot)
+#' nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,
+#'            start=list(B1=6,B2=7.2,B3=-1.45))
+#' nl1.bootc <- bootCase(nl1,B=99)  # B=99 too small to be useful
+#' confint(nl1.bootc,"B1")
+#' confint(nl1.bootc,c(2,3))
+#' confint(nl1.bootc,conf.level=0.90)
+#' predict(nl1.bootc,fnx,days=1:3)
+#' predict(nl1.bootc,fnx,days=3)
+#' htest(nl1.bootc,1,bo=6,alt="less")
+#' hist(nl1.bootc)
+#' plot(nl1.bootc)
+#' cor(nl1.bootc)
 #'
 #' @rdname bootCase
 #' @export
@@ -194,15 +195,16 @@ plot.bootCase <- function(x,...){ #nocov start
 #'   }
 #'   B1/(1+exp(B2+B3*days))
 #' }
-#' nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,start=list(B1=6,B2=7.2,B3=-1.45))
+#' nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,
+#'            start=list(B1=6,B2=7.2,B3=-1.45))
 #' if (require(nlstools)) {
-#'   nl1.boot <-  nlstools::nlsBoot(nl1,niter=99)  # way too few
-#'   confint(nl1.boot,"B1")
-#'   confint(nl1.boot,c(2,3))
-#'   confint(nl1.boot,conf.level=0.90)
-#'   predict(nl1.boot,fnx,days=3)
-#'   predict(nl1.boot,fnx,days=1:3)
-#'   htest(nl1.boot,1,bo=6,alt="less")
+#'   nl1.bootn <-  nlstools::nlsBoot(nl1,niter=99)  # way too few
+#'   confint(nl1.bootn,"B1")
+#'   confint(nl1.bootn,c(2,3))
+#'   confint(nl1.bootn,conf.level=0.90)
+#'   predict(nl1.bootn,fnx,days=3)
+#'   predict(nl1.bootn,fnx,days=1:3)
+#'   htest(nl1.bootn,1,bo=6,alt="less")
 #' }
 #' 
 #' @rdname nlsBoot
@@ -283,7 +285,8 @@ htest.nlsBoot <- function(object,parm=NULL,bo=0,
 #'   }
 #'   B1/(1+exp(B2+B3*days))
 #' }
-#' nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,start=list(B1=6,B2=7.2,B3=-1.45))
+#' nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,
+#'            start=list(B1=6,B2=7.2,B3=-1.45))
 #' if (require(car)) {    # for Boot()
 #'   nl1.boot <- car::Boot(nl1,R=99)  # B=99 too small to be useful
 #'   confint(nl1.boot,"B1")
