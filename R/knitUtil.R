@@ -194,14 +194,15 @@ reproInfo <- function(out=c("r","markdown","latex"),rqrdPkgs=NULL,elapsed=NULL,
   ## Prepare output depending on type of out
   out <- tolower(match.arg(out))
   if (out=="r") iReproInfoR(rqrdPkgs,ses,elapsed,compDate,compTime,width)
-  else if (out=="latex") iReproInfoLaTeX(rqrdPkgs,ses,elapsed,compDate,compTime,addTOC,newpage)
+  else if (out=="latex") iReproInfoLaTeX(rqrdPkgs,ses,elapsed,compDate,
+                                         compTime,addTOC,newpage)
   else iReproInfoMarkdown(rqrdPkgs,ses,elapsed,compDate,compTime,links)
   if (closeGraphics) grDevices::graphics.off()
 } # nocov end
 
 
 ##################################################################
-## Internal files used in knitUtils functions                                      
+## Internal files used in knitUtils functions
 ##################################################################
 iMakeItemsToRemove <- function(moreItems) {
   mainItems <- c("Stangle","SweaveHooks","purl2","reproInfo","#line",
