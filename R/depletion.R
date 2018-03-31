@@ -18,6 +18,8 @@
 #' @param parm A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.
 #' @param conf.level A single number that represents the level of confidence to use for constructing confidence intervals.
 #' @param level Same as \code{conf.level} but used for compatibility with generic \code{confint} function.
+#' @param digits The number of digits to round the \code{rSquared} result to.
+#' @param percent A logical that indicates if the \code{rSquared} result should be returned as a percentage (\code{=TRUE}) or as a proportion (\code{=FALSE}; default).
 #' @param ylab A label for the y-axis.
 #' @param xlab A label for the x-axis.
 #' @param pch A numeric that indicates the type of plotting character.
@@ -71,6 +73,8 @@
 #' summary(l1)
 #' summary(l1,verbose=TRUE)
 #' summary(l1,parm="No")
+#' rSquared(l1)
+#' rSquared(l1,digits=1,percent=TRUE)
 #' cbind(Est=coef(l1),confint(l1))
 #' cbind(Est=coef(l1,parm="No"),confint(l1,parm="No"))
 #' cbind(Est=coef(l1,parm="q"),confint(l1,parm="q"))
@@ -89,6 +93,7 @@
 #' summary(d1)
 #' summary(d1,parm="q")
 #' summary(d1,verbose=TRUE)
+#' rSquared(d1)
 #' cbind(Est=coef(d1),confint(d1))
 #' summary(d1,parm="lm")
 #' plot(d1)
@@ -102,7 +107,8 @@
 #'
 #' @rdname depletion
 #' @export
-depletion <- function(catch,effort,method=c("Leslie","DeLury","Delury"),Ricker.mod=FALSE) {
+depletion <- function(catch,effort,method=c("Leslie","DeLury","Delury"),
+                      Ricker.mod=FALSE) {
   # check method, change bad spelling of DeLury if necessary
   method <- match.arg(method)
   if (method=="Delury") method <- "DeLury"
@@ -249,6 +255,13 @@ confint.depletion <- function(object,parm=c("all","both","No","q","lm"),
 #' @export
 anova.depletion <- function(object,...) {
   stats::anova(object$lm,...)
+}
+
+#' @rdname depletion
+#' @export
+rSquared.depletion <- function(object,digits=getOption("digits"),
+                               percent=FALSE,...) {
+  rSquared(object$lm,digits=digits,percent=percent,...)
 }
 
 #' @rdname depletion

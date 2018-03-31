@@ -11,6 +11,7 @@
 \alias{coef.depletion}
 \alias{confint.depletion}
 \alias{anova.depletion}
+\alias{rSquared.depletion}
 \alias{plot.depletion}
 \title{Computes the Leslie or DeLury population estimate from catch and effort data.}
 \usage{
@@ -27,6 +28,9 @@ depletion(catch, effort, method = c("Leslie", "DeLury", "Delury"),
   level = conf.level, conf.level = 0.95, ...)
 
 \method{anova}{depletion}(object, ...)
+
+\method{rSquared}{depletion}(object, digits = getOption("digits"),
+  percent = FALSE, ...)
 
 \method{plot}{depletion}(x, xlab = NULL, ylab = NULL, pch = 19,
   col.pt = "black", col.mdl = "gray70", lwd = 1, lty = 1,
@@ -52,6 +56,10 @@ depletion(catch, effort, method = c("Leslie", "DeLury", "Delury"),
 \item{level}{Same as \code{conf.level} but used for compatibility with generic \code{confint} function.}
 
 \item{conf.level}{A single number that represents the level of confidence to use for constructing confidence intervals.}
+
+\item{digits}{The number of digits to round the \code{rSquared} result to.}
+
+\item{percent}{A logical that indicates if the \code{rSquared} result should be returned as a percentage (\code{=TRUE}) or as a proportion (\code{=FALSE}; default).}
 
 \item{x}{An object saved from the \code{depletion} call (i.e., of class \code{depletion}).}
 
@@ -116,6 +124,8 @@ l1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Leslie")
 summary(l1)
 summary(l1,verbose=TRUE)
 summary(l1,parm="No")
+rSquared(l1)
+rSquared(l1,digits=1,percent=TRUE)
 cbind(Est=coef(l1),confint(l1))
 cbind(Est=coef(l1,parm="No"),confint(l1,parm="No"))
 cbind(Est=coef(l1,parm="q"),confint(l1,parm="q"))
@@ -134,6 +144,7 @@ d1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="DeLury")
 summary(d1)
 summary(d1,parm="q")
 summary(d1,verbose=TRUE)
+rSquared(d1)
 cbind(Est=coef(d1),confint(d1))
 summary(d1,parm="lm")
 plot(d1)

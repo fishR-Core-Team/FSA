@@ -2,7 +2,8 @@
 * Changed to depending on `R >=3.2.0`, because that is the latest version required by a package (i.e., `car`) that FSA imports or suggests. Used [this shiny app](https://ateucher.shinyapps.io/check_r_versions_of_package_dependencies/) to help determine this.
 * Using latest `testthat` package.
 * `bootCase()`: Added. This was added because `bootCase()` will soon be removed from the `car` package. It was added so that the code in the Introductory Fisheries Analyses with R book will still work. It is largely a wrapper to `Boot()` in `car` with `method="case"`. The documentation was updated somewhat.
-* `catchCurve()`: Modified. Changed the weighted regression method so that negative weights are set to zero rather than the minimum of the positive values (brought to my attention by Vaskar Nepal KC). Also added a `rSquared()` method (per request by Vaskar Nepal KC).
+* `catchCurve()`: Modified. Changed the weighted regression method so that negative weights are set to zero rather than the minimum of the positive values (brought to my attention by Vaskar Nepal KC). Also added an `rSquared()` method (per request by Vaskar Nepal KC).
+* `depletion()`: Modified. Added an `rSquared()` method.
 * `expandCounts()`: Modified. Minor changes to documentation.
 * `hTest.boot()`: Added.
 * `plot.boot()`: Added.

@@ -64,7 +64,9 @@ test_that("depletion() output types",{
   l1A <- anova(l1)
   expect_equal(class(l1A),c("anova","data.frame"))
   expect_equal(mode(l1A),"list")
-  
+  # r-squared
+  expect_true(is.numeric(rSquared(l1)))
+
   d1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="DeLury")
   expect_is(d1,"depletion")
   # coef()s
@@ -124,4 +126,6 @@ test_that("depletion() output types",{
   d1A <- anova(d1)
   expect_equal(class(d1A),c("anova","data.frame"))
   expect_equal(mode(d1A),"list")
+  # r-squared
+  expect_true(is.numeric(rSquared(d1)))
 })
