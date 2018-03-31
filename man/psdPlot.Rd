@@ -32,7 +32,7 @@ psdPlot(formula, data, species = "List", units = c("mm", "cm", "in"),
 
 \item{ylab}{A string that serves as the label for the y-axis.}
 
-\item{xlim}{A numeric vector of length two that indicates the minimum and maximum values for the x-axis.}
+\item{xlim}{A numeric vector of length two that indicates the minimum and maximum values (i.e., fish lengths) for the x-axis.}
 
 \item{ylim}{A numeric vector of length two that indicates the minimum and maximum values for the y-axis.}
 
@@ -40,17 +40,17 @@ psdPlot(formula, data, species = "List", units = c("mm", "cm", "in"),
 
 \item{stock.col}{A string that indicates the color to use for the bars representing stock size fish.}
 
-\item{psd.col}{A string that indicates the color to use for the vertical lines at the PSD category values.}
+\item{psd.col}{A string that indicates the color to use for the vertical lines at the Gabelhouse length category values.}
 
-\item{psd.lty}{A numeric that indicates the line type to use for the vertical lines at the PSD category values.}
+\item{psd.lty}{A numeric that indicates the line type to use for the vertical lines at the Gabelhouse length category values.}
 
-\item{psd.lwd}{A numeric that indicates the line width to use for the vertical lines at the PSD category values.}
+\item{psd.lwd}{A numeric that indicates the line width to use for the vertical lines at the Gabelhouse length category values.}
 
 \item{show.abbrevs}{A logical that indicates if the abbreviations for the Gabelhouse length categories should be added to the top of the plot.}
 
-\item{psd.add}{A logical that indicates if the calculated PSD values should be added to the plot (Default is \code{TRUE}).}
+\item{psd.add}{A logical that indicates if the calculated PSD values should be added to the plot (default is \code{TRUE}).}
 
-\item{psd.pos}{A string that indicates the position for the PSD values will be shown. See details in \code{\link[graphics]{legend}}.}
+\item{psd.pos}{A string that indicates the position for where the PSD values will be shown. See details in \code{\link[graphics]{legend}}.}
 
 \item{psd.cex}{A numeric value that indicates the character expansion for the PSD values text.}
 
@@ -74,7 +74,8 @@ The length of fish plotted on the x-axis can be controlled with \code{xlim}, how
 \examples{
 ## Random length data
 # suppose this is yellow perch to the nearest mm
-mm <- c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),rnorm(20,mean=300,sd=40))
+mm <- c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),
+        rnorm(20,mean=300,sd=40))
 # same data to the nearest 0.1 cm
 cm <- mm/10
 # same data to the nearest 0.1 in
@@ -91,7 +92,8 @@ psdPlot(~cm,data=df,species="Yellow perch",units="cm",w=1)
 # inch data using 1-in increments
 psdPlot(~inch,data=df,species="Yellow perch",units="in",w=1)
 # same as first with some color changes
-psdPlot(~mm,data=df,species="Yellow perch",w=10,substock.col="gray90",stock.col="gray30")
+psdPlot(~mm,data=df,species="Yellow perch",w=10,substock.col="gray90",
+        stock.col="gray30")
 # ... but without the PSD values
 psdPlot(~mm,data=df,species="Yellow perch",w=10,psd.add=FALSE)
 # ... demonstrate use of xlim
@@ -117,7 +119,7 @@ par(op)
 \references{
 Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
-Guy, C.S., R.M. Neumann, and D.W. Willis. 2006. New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS). Fisheries 31:86-87.   [Was (is?) from http://pubstorage.sdstate.edu/wfs/415-F.pdf.]
+Guy, C.S., R.M. Neumann, and D.W. Willis. 2006. New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS). Fisheries 31:86-87. [Was (is?) from http://pubstorage.sdstate.edu/wfs/415-F.pdf.]
 
 Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson. 2006. Proportional size distribution (PSD): A further refinement of population size structure index terminology. Fisheries 32:348. [Was (is?) from http://pubstorage.sdstate.edu/wfs/450-F.pdf.]
 

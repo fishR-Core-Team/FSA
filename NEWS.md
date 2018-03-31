@@ -9,6 +9,7 @@
 * `plot.boot()`: Added.
 * `plotAB()`: Modified. Added `col.numbers=` to allow users to modify the color of the numbers when `what="numbers"` is used (addresses [#34](https://github.com/droglenc/FSA/issues/34)).
 * `predict.boot()`: Added.
+* `psdPlot()`: Modified. Minor changes to documentation and look of the function code.
 * `rSquared()`: Added from `NCStats`, but including a generic method so that it can be used for other models (e.g., `catchCurve()`).
 * `vbFuns()`: Modified. Switched `Fabens` and `Fabens2` parameterizations to better match `Wang` (i.e., increment model first). Added `Francis2` parameterization for tag-recapture data.
 * `vbStarts()`: Modified. Fixed some spacing issues with the warnings when starting values for Linf was poorly estimated. Added an argument to `ivbStarts.LinfK()` to suppress checking the value of Linf. This argument reduces the change of double-printing the warning message when there are bad estimates of starting values for Linf and K.

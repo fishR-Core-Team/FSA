@@ -16,16 +16,16 @@
 #' @param main A string that serves as the main label for the histogram.
 #' @param xlab A string that serves as the label for the x-axis.
 #' @param ylab A string that serves as the label for the y-axis.
-#' @param xlim A numeric vector of length two that indicates the minimum and maximum values for the x-axis.
+#' @param xlim A numeric vector of length two that indicates the minimum and maximum values (i.e., fish lengths) for the x-axis.
 #' @param ylim A numeric vector of length two that indicates the minimum and maximum values for the y-axis.
 #' @param substock.col A string that indicates the color to use for the bars representing under-stock size fish.
 #' @param stock.col A string that indicates the color to use for the bars representing stock size fish.
-#' @param psd.col A string that indicates the color to use for the vertical lines at the PSD category values.
-#' @param psd.lty A numeric that indicates the line type to use for the vertical lines at the PSD category values.
-#' @param psd.lwd A numeric that indicates the line width to use for the vertical lines at the PSD category values.
+#' @param psd.col A string that indicates the color to use for the vertical lines at the Gabelhouse length category values.
+#' @param psd.lty A numeric that indicates the line type to use for the vertical lines at the Gabelhouse length category values.
+#' @param psd.lwd A numeric that indicates the line width to use for the vertical lines at the Gabelhouse length category values.
 #' @param show.abbrevs A logical that indicates if the abbreviations for the Gabelhouse length categories should be added to the top of the plot.
-#' @param psd.add A logical that indicates if the calculated PSD values should be added to the plot (Default is \code{TRUE}).
-#' @param psd.pos A string that indicates the position for the PSD values will be shown. See details in \code{\link[graphics]{legend}}.
+#' @param psd.add A logical that indicates if the calculated PSD values should be added to the plot (default is \code{TRUE}).
+#' @param psd.pos A string that indicates the position for where the PSD values will be shown. See details in \code{\link[graphics]{legend}}.
 #' @param psd.cex A numeric value that indicates the character expansion for the PSD values text.
 #' @param \dots Arguments to be passed to the low-level plotting functions.
 #'
@@ -39,7 +39,7 @@
 #'
 #' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
-#' Guy, C.S., R.M. Neumann, and D.W. Willis. 2006. New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS). Fisheries 31:86-87.   [Was (is?) from http://pubstorage.sdstate.edu/wfs/415-F.pdf.]
+#' Guy, C.S., R.M. Neumann, and D.W. Willis. 2006. New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS). Fisheries 31:86-87. [Was (is?) from http://pubstorage.sdstate.edu/wfs/415-F.pdf.]
 #'
 #' Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson. 2006. Proportional size distribution (PSD): A further refinement of population size structure index terminology. Fisheries 32:348. [Was (is?) from http://pubstorage.sdstate.edu/wfs/450-F.pdf.]
 #'
@@ -50,7 +50,8 @@
 #' @examples
 #' ## Random length data
 #' # suppose this is yellow perch to the nearest mm
-#' mm <- c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),rnorm(20,mean=300,sd=40))
+#' mm <- c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),
+#'         rnorm(20,mean=300,sd=40))
 #' # same data to the nearest 0.1 cm
 #' cm <- mm/10
 #' # same data to the nearest 0.1 in
@@ -67,7 +68,8 @@
 #' # inch data using 1-in increments
 #' psdPlot(~inch,data=df,species="Yellow perch",units="in",w=1)
 #' # same as first with some color changes
-#' psdPlot(~mm,data=df,species="Yellow perch",w=10,substock.col="gray90",stock.col="gray30")
+#' psdPlot(~mm,data=df,species="Yellow perch",w=10,substock.col="gray90",
+#'         stock.col="gray30")
 #' # ... but without the PSD values
 #' psdPlot(~mm,data=df,species="Yellow perch",w=10,psd.add=FALSE)
 #' # ... demonstrate use of xlim
@@ -108,23 +110,26 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
     else brks <- psdVal(species,units=units)  
   ## If xlim is provided then limit temporary df to fish in range of xlim
   if (!is.null(xlim)) {
-    if (min(xlim)>brks["stock"]) STOP("Minimum chosen length value in 'xlim' is greater than 'stock' size.")
+    if (min(xlim)>brks["stock"]) STOP("Minimum length value in 'xlim' is greater than 'stock' size.")
     data <- data[data[,cl]>=min(xlim) & data[,cl]<=max(xlim),] 
   } else data <- data
   ## make an initial histogram to get the breaks and counts
   # nocov start
   min.brk <- min(c(data[,cl],brks),na.rm=TRUE)
   max.brk <- max(data[,cl],na.rm=TRUE)+w
-  h <- graphics::hist(data[,cl],right=FALSE,breaks=seq(min.brk,max.brk,w),plot=FALSE)
+  h <- graphics::hist(data[,cl],right=FALSE,breaks=seq(min.brk,max.brk,w),
+                      plot=FALSE)
   ## Create xlim values if none were given
   if (is.null(xlim)) xlim <- range(h$breaks)
   ## Create colors for the bars
   clr <- ifelse(h$breaks<brks["stock"],substock.col,stock.col)
   ## Plot the histogram with the new colors
-  graphics::plot(h,col=clr,xlim=xlim,ylim=ylim,main=main,xlab=xlab,ylab=ylab,yaxs="i",...)
+  graphics::plot(h,col=clr,xlim=xlim,ylim=ylim,main=main,
+                 xlab=xlab,ylab=ylab,yaxs="i",...)
   ## add psd category lines
   graphics::abline(v=brks[-1],col=psd.col,lty=psd.lty,lwd=psd.lwd)
-  if (show.abbrevs) graphics::axis(3,at=brks[-1],labels=toupper(substring(names(brks)[-1],1,1)))
+  if (show.abbrevs) graphics::axis(3,at=brks[-1],
+                    labels=toupper(substring(names(brks)[-1],1,1)))
   ## add PSD calculations
   if (psd.add) {
     res <- iAddPSDLeg(formula,data,cl,brks,species,units,psd.pos,psd.cex)
@@ -135,14 +140,20 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
 
 iAddPSDLeg <- function(formula,data,cl,brks,species,units,psd.pos,psd.cex) { # nocov start
   # get PSDs
-  suppressWarnings(psds <- psdCalc(formula,data,species=species,units=units,method="multinomial",what="traditional",drop0Est=FALSE))
-  # reduce to only those that are >0 (drop=FALSE is needed in case it reduces to only one)
+  suppressWarnings(psds <- psdCalc(formula,data,species=species,
+                                   units=units,method="multinomial",
+                                   what="traditional",drop0Est=FALSE))
+  # reduce to only those that are >0 (drop=FALSE is needed
+  #    in case it reduces to only one)
   psds <- psds[psds[,"Estimate"]>0,,drop=FALSE]
   # get two sample sizes
   n <- nrow(data)
   n.stock <- nrow(Subset(data,data[,cl]>brks["stock"]))
   # put it all together
-  psdleg <- paste(c("n","n[stock]",rownames(psds)),"=",formatC(c(n,n.stock,psds[,"Estimate"]),format="f",digits=0))
-  graphics::legend(psd.pos,psdleg,cex=psd.cex,box.col="white",bg="white",inset=0.002)
+  psdleg <- paste(c("n","n[stock]",rownames(psds)),"=",
+                  formatC(c(n,n.stock,psds[,"Estimate"]),
+                          format="f",digits=0))
+  graphics::legend(psd.pos,psdleg,cex=psd.cex,box.col="white",
+                   bg="white",inset=0.002)
   psdleg
 } # nocov end

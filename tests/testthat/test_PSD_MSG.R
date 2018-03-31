@@ -73,12 +73,14 @@ test_that("psdPlot() messages",{
   ghl <- psdVal("Yellow perch")
 
   ## set minimum length higher than stock length
-  expect_error(psdPlot(~tl,data=df,species="Yellow perch",xlim=c(ghl["stock"]+10,300)),
-               "Minimum chosen length value in")
+  expect_error(psdPlot(~tl,data=df,species="Yellow perch",
+                       xlim=c(ghl["stock"]+10,300)),
+               "Minimum length value in")
   
   ## restrict data.frame to no fish
   tmp <- subset(df,tl<ghl["substock"])
-  expect_error(psdPlot(~tl,data=tmp,species="Yellow perch"),"does not contain any rows")
+  expect_error(psdPlot(~tl,data=tmp,species="Yellow perch"),
+               "does not contain any rows")
   
   ## bad formulae
   expect_error(psdPlot(tl,data=df,species="Yellow perch"),"not found")
