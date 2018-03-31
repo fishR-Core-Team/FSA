@@ -475,8 +475,8 @@ iEvansHoenig <- function(obj) {
   AAT <- iHandleAgreeTable(obj)
   # Create matrix of differences in potential ages
   diffs <- AAT$at
-  for (i in 1:nrow(AAT$at)) {
-    for (j in 1:ncol(AAT$at)) {
+  for (i in seq_len(nrow(AAT$at))) {
+    for (j in seq_len(ncol(AAT$at))) {
       diffs[i,j] <- as.numeric(rownames(AAT$at)[j])-as.numeric(colnames(AAT$at)[i])
     }
   }
@@ -485,7 +485,7 @@ iEvansHoenig <- function(obj) {
   # Find parts of Evans Hoenig calcualtions -- finds individual off-diagonals
   #   and then computes the ratio that forms the chi-square parts
   rat <- numeric(nrow(AAT$at)-1)
-  for (i in 1:max.diff) {
+  for (i in seq_len(max.diff)) {
     above <- AAT$at[diffs==i]
     below <- AAT$at[diffs==-i]
     rat[i] <- (sum(above-below)^2)/sum(above+below)
@@ -1075,7 +1075,7 @@ agePrecision <- function(formula,data) {
   # create a matrix to contain the results of comparing each pair
   ragree <- matrix(NA,ncol=length(poss.lvls),nrow=nrow(prs))
   # cycle through each paired comparison putting results in agreement matrix
-  for (i in 1:nrow(prs)) {
+  for (i in seq_len(nrow(prs))) {
     tmp <- d[,prs[i,1]]-d[,prs[i,2]]
     ragree[i,] <- table(factor(tmp,levels=poss.lvls))
   }
@@ -1093,7 +1093,7 @@ agePrecision <- function(formula,data) {
   # create a matrix to contain the results of comparing each pair
   aagree <- matrix(NA,ncol=length(poss.lvls),nrow=nrow(prs))
   # cycle through each paired comparison putting results in agreement matrix
-  for (i in 1:nrow(prs)) {
+  for (i in seq_len(nrow(prs))) {
     tmp <- abs(d[,prs[i,1]]-d[,prs[i,2]])
     aagree[i,] <- table(factor(tmp,levels=poss.lvls))
   }

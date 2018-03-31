@@ -2,21 +2,21 @@
 #'
 #' @description Creates a vector of the Gabelhouse lengths specific to a species for all individuals in an entire data frame.
 #' 
-#' @param len A numeric vector that contains lengths measurements or a formula of the form \code{len~spec} where \dQuote{len} generically represents the length variable and \dQuote{spec} generically represents the species variable.  Note that this formula can only contain two variables and must have the length variable on the left-hand-side and the species variable on the right-hand-side.
-#' @param spec A character or factor vector that contains the species names.  Ignored if \code{len} is a formula.
+#' @param len A numeric vector that contains lengths measurements or a formula of the form \code{len~spec} where \dQuote{len} generically represents the length variable and \dQuote{spec} generically represents the species variable. Note that this formula can only contain two variables and must have the length variable on the left-hand-side and the species variable on the right-hand-side.
+#' @param spec A character or factor vector that contains the species names. Ignored if \code{len} is a formula.
 #' @param data A data.frame that minimally contains the length measurements and species names if \code{len} is a formula.
-#' @param units A string that indicates the type of units used for the lengths.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
-#' @param use.names A logical that indicates whether the vector returned is numeric (\code{=FALSE}) or string (\code{=TRUE}; default) representations of the Gabelhouse lengths.  See details.
+#' @param units A string that indicates the type of units used for the lengths. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
+#' @param use.names A logical that indicates whether the vector returned is numeric (\code{=FALSE}) or string (\code{=TRUE}; default) representations of the Gabelhouse lengths. See details.
 #' @param addSpec A character vector of species names for which \code{addLens} will be provided.
-#' @param addLens A numeric vector of lengths that should be used in addition to the Gabelhouse lengths for the species in \code{addSpec}.  See examples.
+#' @param addLens A numeric vector of lengths that should be used in addition to the Gabelhouse lengths for the species in \code{addSpec}. See examples.
 #' @param verbose A logical that indicates whether detailed messages about species without Gabelhouse lengths or with no recorded values should be printed or not.
 #' @param \dots Not used.
 #'
-#' @details This computes a vector that contains the Gabelhouse lengths specific to each species for all individuals in an entire data frame.  The vector can be appended to an existing data.frame to create a variable that contains the Gabelhouse lengths for each individual.  The Gabelhouse length value will be \code{NA} for each individual for which a Gabelhouse length definitions do not exist in \code{\link{PSDlit}}.  Species names in the data.frame must be the same as those used in \code{\link{PSDlit}}.  See the examples for one method for changing species names to something that this function will recognize.
+#' @details This computes a vector that contains the Gabelhouse lengths specific to each species for all individuals in an entire data frame. The vector can be appended to an existing data.frame to create a variable that contains the Gabelhouse lengths for each individual. The Gabelhouse length value will be \code{NA} for each individual for which a Gabelhouse length definitions do not exist in \code{\link{PSDlit}}. Species names in the data.frame must be the same as those used in \code{\link{PSDlit}}. See the examples for one method for changing species names to something that this function will recognize.
 #' 
 #' Individuals shorter than \dQuote{stock} length will be listed as \code{substock} if \code{use.names=TRUE} or \code{0} if \code{use.names=FALSE}.
 #' 
-#' Additional lengths to be used for a species may be included by giving a vector of species names in \code{addSpec} and a corresponding vector of additional lengths in \code{addLens}.  Note, however, that \code{use.names} will be reset to \code{FALSE} if \code{addSpec} and \code{addLens} are specified, as there is no way to order the names for all species when additional lengths are used.
+#' Additional lengths to be used for a species may be included by giving a vector of species names in \code{addSpec} and a corresponding vector of additional lengths in \code{addLens}. Note, however, that \code{use.names} will be reset to \code{FALSE} if \code{addSpec} and \code{addLens} are specified, as there is no way to order the names for all species when additional lengths are used.
 #'
 #' @return A numeric or factor vector that contains the Gabelhouse length categories.
 #' 
@@ -24,15 +24,15 @@
 #'
 #' @section IFAR Chapter: 6-Size Structure.
 #' 
-#' @seealso \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{PSDlit}}, and \code{\link{wrAdd}} for related functions.  See \code{\link{mapvalues}} for help in changing species names to match those in \code{\link{PSDlit}}.
+#' @seealso \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{PSDlit}}, and \code{\link{wrAdd}} for related functions. See \code{\link{mapvalues}} for help in changing species names to match those in \code{\link{PSDlit}}.
 #' 
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
-#' Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).  Fisheries 31:86-87.    [Was (is?) from http://pubstorage.sdstate.edu/wfs/415-F.pdf.]
+#' Guy, C.S., R.M. Neumann, and D.W. Willis. 2006. New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS). Fisheries 31:86-87.   [Was (is?) from http://pubstorage.sdstate.edu/wfs/415-F.pdf.]
 #'
-#' Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  Proportional size distribution (PSD): A further refinement of population size structure index terminology.  Fisheries 32:348.  [Was (is?) from http://pubstorage.sdstate.edu/wfs/450-F.pdf.]
+#' Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson. 2006. Proportional size distribution (PSD): A further refinement of population size structure index terminology. Fisheries 32:348. [Was (is?) from http://pubstorage.sdstate.edu/wfs/450-F.pdf.]
 #'
-#' Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  Stock density indices: development, use, and limitations.  Reviews in Fisheries Science 1:203-222.  [Was (is?) from http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf.]
+#' Willis, D.W., B.R. Murphy, and C.S. Guy. 1993. Stock density indices: development, use, and limitations. Reviews in Fisheries Science 1:203-222. [Was (is?) from http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf.]
 #'
 #' @keywords manip
 #' 
@@ -104,14 +104,14 @@ psdAdd.default <- function(len,spec,units=c("mm","cm","in"),use.names=TRUE,
   PSDlit <- get(utils::data("PSDlit", envir = environment()), envir = environment())
 
   ## Create data.frame with length, species, rownumbers, and PSD values (blank)
-  data <- data.frame(len,spec,rownums=1:length(len),PSD=rep(NA,length(len)))
+  data <- data.frame(len,spec,rownums=seq_along(len),PSD=rep(NA,length(len)))
   ## initiate a blank new data frame with same columns as old data frame
-  ndata <- data[-c(1:nrow(data)),]  
+  ndata <- data[-c(seq_len(nrow(data))),]  
   ## get list of species
   specs <- levels(factor(spec))
   
   ## cycle through each species where PSD values are known
-  for (i in 1:length(specs)) {
+  for (i in seq_along(specs)) {
     ## isolate the current species
     tmpdf <- data[data[,2]==specs[i],]
     ## compute PSD
@@ -150,5 +150,6 @@ psdAdd.formula <- function(len,data=NULL,units=c("mm","cm","in"),use.names=TRUE,
   if (!tmp$metExpNumE) STOP("'len' must have a right-hand-side with one and only one variable.")
   if (!tmp$metExpNumEFacts) STOP("'len' must have one and only one factor variable (species) on right-hand-side.")
   ## Send to default method
-  psdAdd.default(tmp$mf[[tmp$Rpos]],tmp$mf[[tmp$EFactPos]],units,use.names,addSpec,addLens,verbose,...)
+  psdAdd.default(tmp$mf[[tmp$Rpos]],tmp$mf[[tmp$EFactPos]],units,
+                 use.names,addSpec,addLens,verbose,...)
 }

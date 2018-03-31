@@ -70,19 +70,19 @@ residPlot(object, ...)
 
 \item{ylab}{A string for labeling the y-axis.}
 
-\item{main}{A string for the main label to the plot.  See details.}
+\item{main}{A string for the main label to the plot. See details.}
 
-\item{pch}{A numeric that indicates the plotting character to be used or a vector of numerics that indicates what plotting character codes to use for the levels of the second factor.  See \code{par}.}
+\item{pch}{A numeric that indicates the plotting character to be used or a vector of numerics that indicates what plotting character codes to use for the levels of the second factor. See \code{par}.}
 
-\item{col}{A vector of color names that indicates what color of points and lines to use for the levels of the first factor.  See \code{par}.}
+\item{col}{A vector of color names that indicates what color of points and lines to use for the levels of the first factor. See \code{par}.}
 
-\item{lty.ref}{A numeric that indicates the line type to use for the reference line at residual=0.  See \code{par}.}
+\item{lty.ref}{A numeric that indicates the line type to use for the reference line at residual=0. See \code{par}.}
 
-\item{lwd.ref}{A numeric that indicates the line width to use for the reference line at residual=0.  See \code{par}.}
+\item{lwd.ref}{A numeric that indicates the line width to use for the reference line at residual=0. See \code{par}.}
 
-\item{col.ref}{A numeric or character that indicates the line color to use for the reference line at residual=0.  See \code{par}.}
+\item{col.ref}{A numeric or character that indicates the line color to use for the reference line at residual=0. See \code{par}.}
 
-\item{resid.type}{The type of residual to use.  \sQuote{Raw} residuals are used by default.  See details.}
+\item{resid.type}{The type of residual to use. \sQuote{Raw} residuals are used by default. See details.}
 
 \item{outlier.test}{A logical that indicates if an \code{outlierTest} will \code{TRUE} (default) be performed and if the individual with the largest studentized residual is deemed to be a significant outlier it will be noted on the residual plot by its observation number.}
 
@@ -90,43 +90,43 @@ residPlot(object, ...)
 
 \item{loess}{A logical that indicates if a loess smoother line and approximate confidence interval band is fit to and shown on the residual plot (\code{TRUE}).}
 
-\item{lty.loess}{A numeric that indicates the line type to use for loess fit line.  See \code{par}.}
+\item{lty.loess}{A numeric that indicates the line type to use for loess fit line. See \code{par}.}
 
-\item{lwd.loess}{A numeric that indicates the line width to use for loess fit line.  See \code{par}.}
+\item{lwd.loess}{A numeric that indicates the line width to use for loess fit line. See \code{par}.}
 
-\item{col.loess}{A numeric or character that indicates the line color to use for loess fit line.  See \code{par}.}
+\item{col.loess}{A numeric or character that indicates the line color to use for loess fit line. See \code{par}.}
 
 \item{trans.loess}{A single numeric that indicates how transparent the loess band should be (larger numbers are more transparent).}
 
 \item{inclHist}{A logical that indicates if a second pane that includes the histogram of residuals should be constructed.}
 
-\item{legend}{If \code{TRUE}, draw a legend and the user must click in the upper-left corner of where the legend should be placed; if \code{FALSE} do not draw a legend.  If a vector of length 2 then draw the upper left corner of the legend at the coordinates given in the vector of length 2.}
+\item{legend}{If \code{TRUE}, draw a legend and the user must click in the upper-left corner of where the legend should be placed; if \code{FALSE} do not draw a legend. If a vector of length 2 then draw the upper left corner of the legend at the coordinates given in the vector of length 2.}
 
-\item{cex.leg}{A single numeric values used to represent the character expansion value for the legend.  Ignored if \code{legend=FALSE}.}
+\item{cex.leg}{A single numeric values used to represent the character expansion value for the legend. Ignored if \code{legend=FALSE}.}
 
-\item{box.lty.leg}{A single numeric values used to indicate the type of line to use for the box around the legend.  The default is to not plot a box.}
+\item{box.lty.leg}{A single numeric values used to indicate the type of line to use for the box around the legend. The default is to not plot a box.}
 
 \item{bp}{A logical that indicates if the plot for the one-way and two-way ANOVA will be a boxplot (\code{TRUE}; default) or not.}
 }
 \value{
-None.  However, a residual plot is produced.
+None. However, a residual plot is produced.
 }
 \description{
-Constructs a residual plot for \code{lm} or \code{nls} objects.  Different symbols for different groups can be added to the plot if an indicator variable regression is used.
+Constructs a residual plot for \code{lm} or \code{nls} objects. Different symbols for different groups can be added to the plot if an indicator variable regression is used.
 }
 \details{
-Three types of residuals are allowed for most model types.  Raw residuals are simply the difference between the observed response variable and the predicted/fitted value.  Standardized residuals are internally studentized residuals returned by \code{\link{rstandard}} for linear models and are the raw residual divided by the standard deviation of the residuals for nonlinear models (as is done by \code{\link[nlstools]{nlsResiduals}} from \pkg{nlstools}).  Studentized residuals are the externally studentized residuals returned by \code{\link{rstudent}} for linear models and are not available for nonlinear models.
+Three types of residuals are allowed for most model types. Raw residuals are simply the difference between the observed response variable and the predicted/fitted value. Standardized residuals are internally studentized residuals returned by \code{\link{rstandard}} for linear models and are the raw residual divided by the standard deviation of the residuals for nonlinear models (as is done by \code{\link[nlstools]{nlsResiduals}} from \pkg{nlstools}). Studentized residuals are the externally studentized residuals returned by \code{\link{rstudent}} for linear models and are not available for nonlinear models.
 
-Externally Studentized residuals are not supported for \code{nls} or \code{nlme} objects.  The
+Externally Studentized residuals are not supported for \code{nls} or \code{nlme} objects.
 
-If \code{outlier.test=TRUE} then significant outliers are detected with \code{\link[car]{outlierTest}} from the \pkg{car} package.  See the help for this function for more details.
+If \code{outlier.test=TRUE} then significant outliers are detected with \code{\link[car]{outlierTest}} from the \pkg{car} package. See the help for this function for more details.
 
-The user can include the model call as a title to the residual plot by using \code{main="MODEL"}.  This only works for models created with \code{lm()}.
+The user can include the model call as a title to the residual plot by using \code{main="MODEL"}. This only works for models created with \code{lm()}.
 
-If the user chooses to add a legend without identifying coordinates for the upper-left corner of the legend (i.e., \code{legend=TRUE}) then the R console is suspended until the user places the legend by clicking on the produced graphic at the point where the upper-left corner of the legend should appear.  A legend will only be placed if the \code{mdl} is an indicator variable regression, even if \code{legend=TRUE}.
+If the user chooses to add a legend without identifying coordinates for the upper-left corner of the legend (i.e., \code{legend=TRUE}) then the R console is suspended until the user places the legend by clicking on the produced graphic at the point where the upper-left corner of the legend should appear. A legend will only be placed if the \code{mdl} is an indicator variable regression, even if \code{legend=TRUE}.
 }
 \note{
-This function is meant to allow newbie students the ability to easily construct residual plots for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions.  The plots can be constructed by submitting a saved linear model to this function which allows students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
+This function is meant to allow newbie students the ability to easily construct residual plots for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions. The plots can be constructed by submitting a saved linear model to this function which allows students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
 }
 \examples{
 data(Mirex)

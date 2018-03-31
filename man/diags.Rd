@@ -10,9 +10,9 @@ diags(x, which = 0, incl.labels = c("none", "row", "column"),
 \arguments{
 \item{x}{A matrix with more than one row AND more than one column.}
 
-\item{which}{A single numeric that indicates which diagonal to extract.  A value of zero extracts the main diagonal, whereas negative values extract diagonals from the upper triangle and positive values extract diagonals from the lower triangle.  Diagonals further from the main diagonal have \code{which} values further from zero.  If \code{is.null(which)}, then a matrix of diagonal indices for \code{which} is shown.}
+\item{which}{A single numeric that indicates which diagonal to extract. A value of zero extracts the main diagonal, whereas negative values extract diagonals from the upper triangle and positive values extract diagonals from the lower triangle. Diagonals further from the main diagonal have \code{which} values further from zero. If \code{is.null(which)}, then a matrix of diagonal indices for \code{which} is shown.}
 
-\item{incl.labels}{A single string that indicates whether \code{"row"}, \code{"column"}, or no (\code{"none"}) labels from \code{x} should be returned with the values on the diagonal.  Will return numeric values if the labels are all diagonal, otherwise character labels are returned.}
+\item{incl.labels}{A single string that indicates whether \code{"row"}, \code{"column"}, or no (\code{"none"}) labels from \code{x} should be returned with the values on the diagonal. Will return numeric values if the labels are all diagonal, otherwise character labels are returned.}
 
 \item{val.name}{A single string to name the variable that contains the values from the diagonal in the returned data.frame.}
 

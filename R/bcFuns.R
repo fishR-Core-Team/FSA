@@ -147,7 +147,7 @@ bcFuns <- function(BCM,verbose=FALSE) {
         cf1 <- b
         cf2 <- c
         Li <- numeric(length(Lc))
-        for (i in 1:length(Li)) {
+        for (i in seq_along(Li)) {
           cf0 <- a-((Ri[i]/Rc[i])*(a+b*Lc[i]+c*Lc[i]^2))
           roots <- Re(polyroot(c(cf0,cf1,cf2)))
           Li[i] <- roots[which(sign(roots)==1)]
@@ -160,7 +160,7 @@ bcFuns <- function(BCM,verbose=FALSE) {
         # a must be a vector of coefficients from polynomial regression
         exps <- 0:(length(a)-1)
         Li <- numeric(length(Lc))
-        for (i in 1:length(Lc)) {
+        for (i in seq_along(Lc)) {
           num <- sum( a*Ri[i]^exps )
           denom <- sum( a*Rc[i]^exps )
           Li[i] <- num/denom*Lc[i]
@@ -175,7 +175,7 @@ bcFuns <- function(BCM,verbose=FALSE) {
         # a must be a vector of coefficients from polynomial regression
         exps <- 0:(length(a)-1)
         Li <- numeric(length(Lc))
-        for (i in 1:length(Li)) {
+        for (i in seq_along(Li)) {
           if (Ri[i]==Rc[i]) { Li[i] <- Lc[i] }
           else {
             cf <- a

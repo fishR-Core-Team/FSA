@@ -2,16 +2,16 @@
 #' 
 #' @title Likelihood ratio and extra sum-of-squares tests.
 #' 
-#' @description Likelihood ratio and extra sum-of-squares tests with multiple \code{lm} or \code{nls} models nested within one common model.  This function is most useful when the nested functions are all at the same level; otherwise use \code{anova()} or \code{lrtest()} which are more flexible.
+#' @description Likelihood ratio and extra sum-of-squares tests with multiple \code{lm} or \code{nls} models nested within one common model. This function is most useful when the nested functions are all at the same level; otherwise use \code{anova()} or \code{lrtest()} which are more flexible.
 #' 
-#' @details \code{\link{anova}} and \code{\link[lmtest]{lrtest}} (from \pkg{lmtest}) provide simple methods for conducting extra sum-of-squares or likelihood ratio tests when one model is nested within another model or when there are several layers of simple models all sequentially nested within each other.  However, to compare several models that are nested at the same level with one common more complex model, then \code{anova()} and \code{lrtest()} must be repeated for each comparison.  This repetition can be eliminated with \code{lapply()} but then the output is voluminous.  This function is designed to remove the repetitiveness and to provide output that is compact and easy to read.
+#' @details \code{\link{anova}} and \code{\link[lmtest]{lrtest}} (from \pkg{lmtest}) provide simple methods for conducting extra sum-of-squares or likelihood ratio tests when one model is nested within another model or when there are several layers of simple models all sequentially nested within each other. However, to compare several models that are nested at the same level with one common more complex model, then \code{anova()} and \code{lrtest()} must be repeated for each comparison. This repetition can be eliminated with \code{lapply()} but then the output is voluminous. This function is designed to remove the repetitiveness and to provide output that is compact and easy to read.
 #' 
-#' @note This function is experimental at this point.  It seems to work fine for \code{lm} and \code{nls} models.  An error will be thrown by \code{extraSS} for other model classes, but \code{lrt} will not (but it has not been thoroughly tests for other models).
+#' @note This function is experimental at this point. It seems to work fine for \code{lm} and \code{nls} models. An error will be thrown by \code{extraSS} for other model classes, but \code{lrt} will not (but it has not been thoroughly tests for other models).
 #' 
 #' @param sim The results of one \code{lm} or \code{nls} model, for example, that is a nested subset of the model in \code{com=}.
 #' @param \dots More model results that are nested subsets of the model in \code{com=}.
 #' @param com The results of one \code{lm} or \code{nls} model, for example, that the models in \code{sim=} and \code{\dots} are a subset of.
-#' @param sim.name,sim.names A string vector of \dQuote{names} for simple model in \code{sim=} and \code{\dots}.  \code{sim.names} is preferred but \code{sim.name} is allowed to allow for a common typing mistake.
+#' @param sim.name,sim.names A string vector of \dQuote{names} for simple model in \code{sim=} and \code{\dots}. \code{sim.names} is preferred but \code{sim.name} is allowed to allow for a common typing mistake.
 #' @param com.name A single \dQuote{name} string for the complex model in \code{com=}. 
 #' @param x An object from \code{lrt()} or \code{extraSS()}.
 #'
@@ -102,24 +102,24 @@ lrt <- function(sim,...,com,sim.names=sim.name,sim.name=NULL,com.name=NULL) {
     ## prepare a matrix to received the anova results  
     res <- matrix(NA,nrow=n.sim,ncol=5+2)
     ## extract results from all lrtests and put in results matrix
-    for (i in 1:n.sim) {
+    for (i in seq_len(n.sim)) {
       res[i,] <- c(unlist(tmp[[i]][1,c("#Df","LogLik")]),
                    unlist(tmp[[i]][2,c("#Df","LogLik")]),
                    unlist(tmp[[i]][2,c("Df","Chisq","Pr(>Chisq)")]))
     }
-    ## Df from lrtest are not error Df.  Thus, subtract each from n
+    ## Df from lrtest are not error Df. Thus, subtract each from n
     # get n from number of residuals in a model
     n <- length(stats::residuals(com))
     res[,1] <- n-res[,1]+1
     res[,3] <- n-res[,3]+1
-    ## Compute difference in log-likelihoods and shoehorn into the results matrix
+    ## Compute difference in log-likelihoods and shoehorn into results matrix
     tmp <- res[,2]-res[,4]
     res <- cbind(matrix(res[,1:5],nrow=n.sim),
                  matrix(tmp,nrow=n.sim),
                  matrix(res[,6:7],nrow=n.sim))
     ## give better names to the columns and rows of the results matrix  
     colnames(res) <- c("DfO","logLikO","DfA","logLikA","Df","logLik","Chisq","Pr(>Chisq)")
-    rownames(res) <- paste0(1:n.sim,"vA")
+    rownames(res) <- paste0(seq_len(n.sim),"vA")
     ## provide a heading and a class to use in the print method
     attr(res,"heading") <- iMakeModelHeading(sim,com,sim.names,com.name)
     ## provide a heading and a class to use in the print method
@@ -153,14 +153,14 @@ extraSS <- function(sim,...,com,sim.names=sim.name,sim.name=NULL,com.name=NULL) 
          nls={ lbls1 <- c("Res.Df","Res.Sum Sq")
                lbls2 <- c("Df","Sum Sq","F value","Pr(>F)") })
   # now extract the results 
-  for (i in 1:n.sim) {
+  for (i in seq_len(n.sim)) {
     res[i,] <- c(unlist(tmp[[i]][1,lbls1]),
                  unlist(tmp[[i]][2,lbls1]),
                  unlist(tmp[[i]][2,lbls2]))
   }
   ## give better names to the columns and rows of the results matrix
   colnames(res) <- c("DfO","RSSO","DfA","RSSA","Df","SS","F","Pr(>F)")
-  rownames(res) <- paste0(1:n.sim,"vA")
+  rownames(res) <- paste0(seq_len(n.sim),"vA")
   ## provide a heading and a class to use in the print method
   attr(res,"heading") <- iMakeModelHeading(sim,com,sim.names,com.name)
   class(res) <- "extraTest"
@@ -178,12 +178,12 @@ print.extraTest <- function(x,...) {
 
 # ============================================================
 # Internal fuction -- determine if all models are of the same
-#   class (or type) ... i.e., all lm, nls, etc.  If not then
-#   stop with an error.  If so, then return the class type.
+#   class (or type) ... i.e., all lm, nls, etc. If not then
+#   stop with an error. If so, then return the class type.
 # ============================================================
 iSameModelClass <- function(mdllist) {
   # an internal function that will collapse multiple classes
-  # into one string.  This allows this method to identify if
+  # into one string. This allows this method to identify if
   # models have the same class OR classes.
   classp <- function(x) paste(class(x),collapse="")
   # end internal function, start of main function
@@ -194,7 +194,7 @@ iSameModelClass <- function(mdllist) {
 
 # ============================================================
 # Internal fuction -- make heading of models to be above the
-#   results.  Will default to the model declaration unless
+#   results. Will default to the model declaration unless
 #   something is sent in sim.names and com.name.
 # ============================================================
 iMakeModelHeading <- function(sim,com,sim.names,com.name) {
@@ -202,8 +202,10 @@ iMakeModelHeading <- function(sim,com,sim.names,com.name) {
   ## sim.names is NULL) then make from the formulae in sim
   if (!is.null(sim.names)) {
     if (length(sim.names)!=length(sim)) STOP("Length of 'sim.names' differs from number of simple models provided.")
-    sim_hdg <- paste("Model ",1:length(sim),": ",sim.names,sep="",collapse="\n")
-  } else sim_hdg <- paste("Model ",1:length(sim),": ",lapply(sim,stats::formula),sep="",collapse="\n")
+    sim_hdg <- paste("Model ",seq_along(sim),": ",sim.names,
+                     sep="",collapse="\n")
+  } else sim_hdg <- paste("Model ",seq_along(sim),": ",
+                          lapply(sim,stats::formula),sep="",collapse="\n")
   ## Handle the complex model names ... if none is given (i.e.,
   ## com.name is NULL) then make from the formula of com
   if (!is.null(com.name)) {
@@ -219,7 +221,7 @@ iMakeModelHeading <- function(sim,com,sim.names,com.name) {
 
 # ============================================================
 # Internal fuction -- make heading of models to be above the
-#   results.  Will default to the model declaration unless
+#   results. Will default to the model declaration unless
 #   something is sent in sim.names and com.name.
 # ============================================================
 iChkComplexModel <- function(sim,com) {

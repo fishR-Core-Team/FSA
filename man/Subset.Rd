@@ -19,7 +19,7 @@ filterD(x, ..., except = NULL)
 
 \item{drop}{passed on to \code{[} indexing operator.}
 
-\item{resetRownames}{A logical that indicates if the rownames should be reset after the subsetting (\code{TRUE}; default).  Resetting rownames will simply number the rows from 1 to the number of rows in the result.}
+\item{resetRownames}{A logical that indicates if the rownames should be reset after the subsetting (\code{TRUE}; default). Resetting rownames will simply number the rows from 1 to the number of rows in the result.}
 
 \item{\dots}{further arguments to be passed to or from other methods.}
 
@@ -32,9 +32,9 @@ A data frame with the subsetted rows and selected variables.
 Subsets/filters a data frame and drops the unused levels.
 }
 \details{
-Newbie students using R expect that when a factor variable is subsetted with \code{\link{subset}} or filtered with \code{\link[dplyr]{filter}} that any original levels that are no longer used after the subsetting or filtering will be ignored.  This, however, is not the case and often results in tables with empty cells and figures with empty bars.  One remedy is to use \code{\link[gdata]{drop.levels}} from \pkg{gdata} immediately following the \code{\link{subset}} or \code{\link[dplyr]{filter}} call.  This generally becomes a repetitive sequence for most newbie students; thus, \code{Subset} and \code{filterD} incorporate these two functions into one function.
+Newbie students using R expect that when a factor variable is subsetted with \code{\link{subset}} or filtered with \code{\link[dplyr]{filter}} that any original levels that are no longer used after the subsetting or filtering will be ignored. This, however, is not the case and often results in tables with empty cells and figures with empty bars. One remedy is to use \code{\link[gdata]{drop.levels}} from \pkg{gdata} immediately following the \code{\link{subset}} or \code{\link[dplyr]{filter}} call. This generally becomes a repetitive sequence for most newbie students; thus, \code{Subset} and \code{filterD} incorporate these two functions into one function.
 
-\code{Subset} is a wrapper to \code{\link{subset}} with a catch for non-data.frames and a specific call to \code{\link[gdata]{drop.levels}} just before the data.frame is returned.  I also added an argument to allow resetting the row names.  \code{filterD} is a wrapper for \code{\link[dplyr]{filter}} from \pkg{dplyr} followed by \code{\link[gdata]{drop.levels}} just before the data.frame is returned.  Otherwise, there is no new code here.
+\code{Subset} is a wrapper to \code{\link{subset}} with a catch for non-data.frames and a specific call to \code{\link[gdata]{drop.levels}} just before the data.frame is returned. I also added an argument to allow resetting the row names. \code{filterD} is a wrapper for \code{\link[dplyr]{filter}} from \pkg{dplyr} followed by \code{\link[gdata]{drop.levels}} just before the data.frame is returned. Otherwise, there is no new code here.
 
 These functions are used only for data frames.
 }
@@ -61,7 +61,7 @@ xtabs(~Species,data=iris.set3)
 
 }
 \seealso{
-See \code{subset} and \code{\link[dplyr]{filter}} from \pkg{dplyr} for similar functionality.  See \code{\link[gdata]{drop.levels}} in \pkg{gdata} and \code{\link{droplevels}} for related functionality.
+See \code{subset} and \code{\link[dplyr]{filter}} from \pkg{dplyr} for similar functionality. See \code{\link[gdata]{drop.levels}} in \pkg{gdata} and \code{\link{droplevels}} for related functionality.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

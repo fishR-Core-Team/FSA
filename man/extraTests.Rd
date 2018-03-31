@@ -21,7 +21,7 @@ extraSS(sim, ..., com, sim.names = sim.name, sim.name = NULL,
 
 \item{com}{The results of one \code{lm} or \code{nls} model, for example, that the models in \code{sim=} and \code{\dots} are a subset of.}
 
-\item{sim.name, sim.names}{A string vector of \dQuote{names} for simple model in \code{sim=} and \code{\dots}.  \code{sim.names} is preferred but \code{sim.name} is allowed to allow for a common typing mistake.}
+\item{sim.name, sim.names}{A string vector of \dQuote{names} for simple model in \code{sim=} and \code{\dots}. \code{sim.names} is preferred but \code{sim.name} is allowed to allow for a common typing mistake.}
 
 \item{com.name}{A single \dQuote{name} string for the complex model in \code{com=}.}
 
@@ -41,13 +41,13 @@ The main function returns a matrix with as many rows as model comparisons and co
  }
 }
 \description{
-Likelihood ratio and extra sum-of-squares tests with multiple \code{lm} or \code{nls} models nested within one common model.  This function is most useful when the nested functions are all at the same level; otherwise use \code{anova()} or \code{lrtest()} which are more flexible.
+Likelihood ratio and extra sum-of-squares tests with multiple \code{lm} or \code{nls} models nested within one common model. This function is most useful when the nested functions are all at the same level; otherwise use \code{anova()} or \code{lrtest()} which are more flexible.
 }
 \details{
-\code{\link{anova}} and \code{\link[lmtest]{lrtest}} (from \pkg{lmtest}) provide simple methods for conducting extra sum-of-squares or likelihood ratio tests when one model is nested within another model or when there are several layers of simple models all sequentially nested within each other.  However, to compare several models that are nested at the same level with one common more complex model, then \code{anova()} and \code{lrtest()} must be repeated for each comparison.  This repetition can be eliminated with \code{lapply()} but then the output is voluminous.  This function is designed to remove the repetitiveness and to provide output that is compact and easy to read.
+\code{\link{anova}} and \code{\link[lmtest]{lrtest}} (from \pkg{lmtest}) provide simple methods for conducting extra sum-of-squares or likelihood ratio tests when one model is nested within another model or when there are several layers of simple models all sequentially nested within each other. However, to compare several models that are nested at the same level with one common more complex model, then \code{anova()} and \code{lrtest()} must be repeated for each comparison. This repetition can be eliminated with \code{lapply()} but then the output is voluminous. This function is designed to remove the repetitiveness and to provide output that is compact and easy to read.
 }
 \note{
-This function is experimental at this point.  It seems to work fine for \code{lm} and \code{nls} models.  An error will be thrown by \code{extraSS} for other model classes, but \code{lrt} will not (but it has not been thoroughly tests for other models).
+This function is experimental at this point. It seems to work fine for \code{lm} and \code{nls} models. An error will be thrown by \code{extraSS} for other model classes, but \code{lrt} will not (but it has not been thoroughly tests for other models).
 }
 \examples{
 ## Example data

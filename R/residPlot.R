@@ -1,46 +1,46 @@
 #' @title Construct a residual plot from lm or nls objects.
 #'
-#' @description Constructs a residual plot for \code{lm} or \code{nls} objects.  Different symbols for different groups can be added to the plot if an indicator variable regression is used.
+#' @description Constructs a residual plot for \code{lm} or \code{nls} objects. Different symbols for different groups can be added to the plot if an indicator variable regression is used.
 #'
-#' @details Three types of residuals are allowed for most model types.  Raw residuals are simply the difference between the observed response variable and the predicted/fitted value.  Standardized residuals are internally studentized residuals returned by \code{\link{rstandard}} for linear models and are the raw residual divided by the standard deviation of the residuals for nonlinear models (as is done by \code{\link[nlstools]{nlsResiduals}} from \pkg{nlstools}).  Studentized residuals are the externally studentized residuals returned by \code{\link{rstudent}} for linear models and are not available for nonlinear models.
+#' @details Three types of residuals are allowed for most model types. Raw residuals are simply the difference between the observed response variable and the predicted/fitted value. Standardized residuals are internally studentized residuals returned by \code{\link{rstandard}} for linear models and are the raw residual divided by the standard deviation of the residuals for nonlinear models (as is done by \code{\link[nlstools]{nlsResiduals}} from \pkg{nlstools}). Studentized residuals are the externally studentized residuals returned by \code{\link{rstudent}} for linear models and are not available for nonlinear models.
 #' 
-#' Externally Studentized residuals are not supported for \code{nls} or \code{nlme} objects.  The
+#' Externally Studentized residuals are not supported for \code{nls} or \code{nlme} objects.
 #' 
-#' If \code{outlier.test=TRUE} then significant outliers are detected with \code{\link[car]{outlierTest}} from the \pkg{car} package.  See the help for this function for more details.
+#' If \code{outlier.test=TRUE} then significant outliers are detected with \code{\link[car]{outlierTest}} from the \pkg{car} package. See the help for this function for more details.
 #'
-#' The user can include the model call as a title to the residual plot by using \code{main="MODEL"}.  This only works for models created with \code{lm()}.
+#' The user can include the model call as a title to the residual plot by using \code{main="MODEL"}. This only works for models created with \code{lm()}.
 #' 
-#' If the user chooses to add a legend without identifying coordinates for the upper-left corner of the legend (i.e., \code{legend=TRUE}) then the R console is suspended until the user places the legend by clicking on the produced graphic at the point where the upper-left corner of the legend should appear.  A legend will only be placed if the \code{mdl} is an indicator variable regression, even if \code{legend=TRUE}.
+#' If the user chooses to add a legend without identifying coordinates for the upper-left corner of the legend (i.e., \code{legend=TRUE}) then the R console is suspended until the user places the legend by clicking on the produced graphic at the point where the upper-left corner of the legend should appear. A legend will only be placed if the \code{mdl} is an indicator variable regression, even if \code{legend=TRUE}.
 #'
-#' @note This function is meant to allow newbie students the ability to easily construct residual plots for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions.  The plots can be constructed by submitting a saved linear model to this function which allows students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
+#' @note This function is meant to allow newbie students the ability to easily construct residual plots for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions. The plots can be constructed by submitting a saved linear model to this function which allows students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
 #'
 #' @aliases residPlot residPlot.lm residPlot.SLR residPlot.IVR residPlot.POLY residPlot.ONEWAY residPlot.TWOWAY residPlot.nls
 #'
 #' @param object An \code{lm} or \code{nls} object (i.e., returned from fitting a model with either \code{lm} or \code{nls}).
-#' @param resid.type  The type of residual to use.  \sQuote{Raw} residuals are used by default.  See details.
+#' @param resid.type  The type of residual to use. \sQuote{Raw} residuals are used by default. See details.
 #' @param outlier.test A logical that indicates if an \code{outlierTest} will \code{TRUE} (default) be performed and if the individual with the largest studentized residual is deemed to be a significant outlier it will be noted on the residual plot by its observation number.
 #' @param loess A logical that indicates if a loess smoother line and approximate confidence interval band is fit to and shown on the residual plot (\code{TRUE}).
 #' @param bp A logical that indicates if the plot for the one-way and two-way ANOVA will be a boxplot (\code{TRUE}; default) or not.
 #' @param alpha A numeric that indicates the alpha level to use for the outlier test (only used if \code{outlier.test=TRUE}).
 #' @param xlab A string for labeling the x-axis.
 #' @param ylab A string for labeling the y-axis.
-#' @param main A string for the main label to the plot.  See details.
-#' @param pch A numeric that indicates the plotting character to be used or a vector of numerics that indicates what plotting character codes to use for the levels of the second factor.  See \code{par}.
-#' @param col A vector of color names that indicates what color of points and lines to use for the levels of the first factor.  See \code{par}.
-#' @param lty.ref A numeric that indicates the line type to use for the reference line at residual=0.  See \code{par}.
-#' @param lwd.ref A numeric that indicates the line width to use for the reference line at residual=0.  See \code{par}.
-#' @param col.ref A numeric or character that indicates the line color to use for the reference line at residual=0.  See \code{par}.
-#' @param lty.loess A numeric that indicates the line type to use for loess fit line.  See \code{par}.
-#' @param lwd.loess A numeric that indicates the line width to use for loess fit line.  See \code{par}.
-#' @param col.loess A numeric or character that indicates the line color to use for loess fit line.  See \code{par}.
+#' @param main A string for the main label to the plot. See details.
+#' @param pch A numeric that indicates the plotting character to be used or a vector of numerics that indicates what plotting character codes to use for the levels of the second factor. See \code{par}.
+#' @param col A vector of color names that indicates what color of points and lines to use for the levels of the first factor. See \code{par}.
+#' @param lty.ref A numeric that indicates the line type to use for the reference line at residual=0. See \code{par}.
+#' @param lwd.ref A numeric that indicates the line width to use for the reference line at residual=0. See \code{par}.
+#' @param col.ref A numeric or character that indicates the line color to use for the reference line at residual=0. See \code{par}.
+#' @param lty.loess A numeric that indicates the line type to use for loess fit line. See \code{par}.
+#' @param lwd.loess A numeric that indicates the line width to use for loess fit line. See \code{par}.
+#' @param col.loess A numeric or character that indicates the line color to use for loess fit line. See \code{par}.
 #' @param trans.loess A single numeric that indicates how transparent the loess band should be (larger numbers are more transparent).
-#' @param legend If \code{TRUE}, draw a legend and the user must click in the upper-left corner of where the legend should be placed; if \code{FALSE} do not draw a legend.  If a vector of length 2 then draw the upper left corner of the legend at the coordinates given in the vector of length 2.
-#' @param cex.leg A single numeric values used to represent the character expansion value for the legend.  Ignored if \code{legend=FALSE}.
-#' @param box.lty.leg A single numeric values used to indicate the type of line to use for the box around the legend.  The default is to not plot a box.
+#' @param legend If \code{TRUE}, draw a legend and the user must click in the upper-left corner of where the legend should be placed; if \code{FALSE} do not draw a legend. If a vector of length 2 then draw the upper left corner of the legend at the coordinates given in the vector of length 2.
+#' @param cex.leg A single numeric values used to represent the character expansion value for the legend. Ignored if \code{legend=FALSE}.
+#' @param box.lty.leg A single numeric values used to indicate the type of line to use for the box around the legend. The default is to not plot a box.
 #' @param inclHist A logical that indicates if a second pane that includes the histogram of residuals should be constructed.
 #' @param \dots Other arguments to the generic \code{plot} function.
 #'
-#' @return None.  However, a residual plot is produced.
+#' @return None. However, a residual plot is produced.
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
@@ -233,7 +233,7 @@ iResidPlotIVR1 <- function(object,legend,cex.leg,box.lty.leg,
     iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
                        loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
     # Plots points w/ different colors & points
-    for (i in 1:length(levels(f1))) {
+    for (i in seq_along(levels(f1))) {
       fv.obs <- fv[unclass(f1)==i]
       r.obs <- r[unclass(f1)==i]
       graphics::points(fv.obs,r.obs,col=col[i],pch=pch[i])
@@ -290,8 +290,8 @@ iResidPlotIVR2 <- function(object,legend,cex.leg,box.lty.leg,
     # Creates plot schematic -- no points or lines
     iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
                        loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
-    for (i in 1:length(levels(f1))) {
-      for (j in 1:length(levels(f2))) {
+    for (i in seq_along(levels(f1))) {
+      for (j in seq_along(levels(f2))) {
         # Plots points w/ different colors & points
         fv.obs <- fv[unclass(f1)==i & unclass(f2)==j]
         r.obs <- r[unclass(f1)==i & unclass(f2)==j]
@@ -436,7 +436,7 @@ iMakeBaseResidPlot <- function(r,fv,xlab,ylab,main,
                                ...) {
   ## makes a base plot that has the axes with appropriate range
   ##  and labels, the horizontal reference line at 0, and, if
-  ##  asked for, a loess smoother for the points.  The functions
+  ##  asked for, a loess smoother for the points. The functions
   ##  that call this then just need to add the points.
   xrng <- range(fv)
   yrng <- range(r)
@@ -494,13 +494,13 @@ iHndlResidType <- function(object,resid.type,ylab) {
            )
   } else if (inherits(object,"nls")) {
     r <- stats::residuals(object)
-    if (resid.type=="studentized") STOP("resid.type= cannot be 'studentized' for NLS objects.  Try resid.type='standardized'.")
+    if (resid.type=="studentized") STOP("resid.type= cannot be 'studentized' for NLS objects. Try resid.type='standardized'.")
     else if (resid.type=="standardized") {
       # this follows nlsResiduals() from nlstools
       r <- (r-mean(r))/summary(object)$sigma
     }
   } else {
-    if (resid.type=="studentized") STOP("resid.type= cannot be 'studentized' for NLME objects.  Try resid.type='standardized'.")
+    if (resid.type=="studentized") STOP("resid.type= cannot be 'studentized' for NLME objects. Try resid.type='standardized'.")
     else if (resid.type=="standardized") { 
       r <- stats::residuals(object,type="pearson")
     } else {

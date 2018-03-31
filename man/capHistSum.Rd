@@ -15,19 +15,19 @@ is.CapHist(x)
   lwd = 1, ...)
 }
 \arguments{
-\item{df}{A data.frame that contains the capture histories (and, perhaps, other information) in \dQuote{individual} fish format.  See details.}
+\item{df}{A data.frame that contains the capture histories (and, perhaps, other information) in \dQuote{individual} fish format. See details.}
 
-\item{cols2use}{A string or numeric vector that indicates columns in \code{df} that contain the capture histories.  Negative numeric values will not use those columns.  Cannot use both \code{cols2use} and \code{col2ignore}.  See details.}
+\item{cols2use}{A string or numeric vector that indicates columns in \code{df} that contain the capture histories. Negative numeric values will not use those columns. Cannot use both \code{cols2use} and \code{col2ignore}. See details.}
 
-\item{cols2ignore}{A string or numeric vector that indicates columns in \code{df} that do not contain the capture histories and should be ignored.  Cannot use both \code{cols2use} and \code{col2ignore}.}
+\item{cols2ignore}{A string or numeric vector that indicates columns in \code{df} that do not contain the capture histories and should be ignored. Cannot use both \code{cols2use} and \code{col2ignore}.}
 
 \item{x}{An object from \code{capHistSum}.}
 
-\item{what}{A string that indicates what type of diagnostic plot to construct with \code{plot}.  See details.}
+\item{what}{A string that indicates what type of diagnostic plot to construct with \code{plot}. See details.}
 
 \item{pch}{A numeric that indicates the plotting character for the diagnostic plot.}
 
-\item{cex.pch}{A numeric that indicates the character expansion value for the plotting characters in the diagnostic plot.  The default is to be \dQuote{slightly smaller} (i.e., \code{cex.pch=0.7}).}
+\item{cex.pch}{A numeric that indicates the character expansion value for the plotting characters in the diagnostic plot. The default is to be \dQuote{slightly smaller} (i.e., \code{cex.pch=0.7}).}
 
 \item{lwd}{A numeric that indicates the line width in the diagnostic plot.}
 
@@ -46,18 +46,18 @@ If the capture history data file represents more than two samples, then a list w
    \item \code{sum} A data frame that contains the the number of captured fish in the ith sample (\code{n}), the number of recaptured (i.e. previously marked) fish in the ith sample (\code{m}), the number of marked fish returned to the population following the ith sample (\code{R}; this will equal \code{n} as the function currently does not handle mortalities); the number of marked fish in the population prior to the ith sample (\code{M}); the number of fish first seen in the ith sample (\code{u}); the number of fish last seen in the ith sample (\code{v}); and the number of fish seen i times (\code{f}).
    \item \code{methodB.top} A matrix that contains the top of the Method B table used for the Jolly-Seber method (i.e., a contingency table of capture sample (columns) and last seen sample (rows)).
    \item \code{methodB.bot} A data.frame that contains the bottom of the Method B table used for the Jolly-Seber method (i.e., the number of marked fish in the sample (\code{m}), the number of unmarked fish in the sample (\code{u}), the total number of fish in the sample (\code{n}), and the number of marked fish returned to the population following the sample (\code{R}).
-   \item \code{m.array} A matrix that contains the the so-called \dQuote{m-array}.  The first column contains the number of fish captured on the ith event.  The columns labeled with \dQuote{cX} prefix show the number of fish originally captured in the ith row that were captured in the Xth event.  The last column shows the number of fish originally captured in the ith row that were never recaptured.
+   \item \code{m.array} A matrix that contains the the so-called \dQuote{m-array}. The first column contains the number of fish captured on the ith event. The columns labeled with \dQuote{cX} prefix show the number of fish originally captured in the ith row that were captured in the Xth event. The last column shows the number of fish originally captured in the ith row that were never recaptured.
  }
 }
 \description{
-Use to summarize a capture history data file that is in the \dQuote{individual} fish format (see \code{\link{capHistConvert}} for a discussion of data file format types).  Summarized capture history results may be used in the Lincoln-Petersen, Schnabel, Schumacher-Eschmeyer, or Jolly-Seber methods for estimating population abundance (see \code{\link{mrClosed}} and \code{\link{mrOpen}}).
+Use to summarize a capture history data file that is in the \dQuote{individual} fish format (see \code{\link{capHistConvert}} for a discussion of data file format types). Summarized capture history results may be used in the Lincoln-Petersen, Schnabel, Schumacher-Eschmeyer, or Jolly-Seber methods for estimating population abundance (see \code{\link{mrClosed}} and \code{\link{mrOpen}}).
 }
 \details{
-This function requires the capture history data file to be in the \dQuote{individual} fish format.  See \code{\link{capHistConvert}} for a description of this (and other) formats and for methods to convert from other formats to the \dQuote{individual} fish format.  In addition, this function requires only the capture history portion of the data file.  Thus, if \code{df} contains columns with non-capture history information (e.g., fish ID, length, location, etc.) then use \code{cols2use=} to identify which columns contain only the capture history information.  Columns to use can be identified by listing the column numbers (e.g., columns 2 through 7 could be included with \code{cols2use=2:7}).  In many instances it may be easier to identify columns to \emph{exclude} which can be done by preceding the column number by a negative sign (e.g., columns 1 through 3 are excluded with \code{cols2use=-(1:3)}).
+This function requires the capture history data file to be in the \dQuote{individual} fish format. See \code{\link{capHistConvert}} for a description of this (and other) formats and for methods to convert from other formats to the \dQuote{individual} fish format. In addition, this function requires only the capture history portion of the data file. Thus, if \code{df} contains columns with non-capture history information (e.g., fish ID, length, location, etc.) then use \code{cols2use=} to identify which columns contain only the capture history information. Columns to use can be identified by listing the column numbers (e.g., columns 2 through 7 could be included with \code{cols2use=2:7}). In many instances it may be easier to identify columns to \emph{exclude} which can be done by preceding the column number by a negative sign (e.g., columns 1 through 3 are excluded with \code{cols2use=-(1:3)}).
 
-The object returned from this function can be used directly in \code{\link{mrClosed}} and \code{\link{mrOpen}}.  See examples of this functionality on the help pages for those functions.
+The object returned from this function can be used directly in \code{\link{mrClosed}} and \code{\link{mrOpen}}. See examples of this functionality on the help pages for those functions.
 
-The \code{plot} function can be used to construct the two diagnostic plots described by Baillargeon and Rivest (2007).  The \code{what="f"} plot will plot the log of the number of fish seen i times divided by \code{choose(t,i)} against i.  The \code{what="u"} plot will plot the log of the number of fish seen for the first time on event i against i.  Baillargeon and Rivest (2007) provide a table that can be used to diagnosed types of heterogeneities in capture probabilities from these plots.
+The \code{plot} function can be used to construct the two diagnostic plots described by Baillargeon and Rivest (2007). The \code{what="f"} plot will plot the log of the number of fish seen i times divided by \code{choose(t,i)} against i. The \code{what="u"} plot will plot the log of the number of fish seen for the first time on event i against i. Baillargeon and Rivest (2007) provide a table that can be used to diagnosed types of heterogeneities in capture probabilities from these plots.
 }
 \note{
 This function assumes that all unmarked captured fish are marked and returned to the population (i.e., no losses at the time of marking are allowed).
@@ -86,12 +86,12 @@ plot(ch1,what="u")
 
 }
 \references{
-Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
 Baillargeon, S. and Rivest, L.-P. (2007). Rcapture: Loglinear models for capture-recapture in R. Journal of Statistical Software, 19(5):1-31.
 }
 \seealso{
-See \code{\link[Rcapture]{descriptive}} in \pkg{Rcapture} for \code{m.array} and some of the same values in \code{sum}.  See \code{\link{capHistConvert}} for a descriptions of capture history data file formats and how to convert between them.  See \code{\link{mrClosed}} and \code{\link{mrOpen}} for how to estimate abundance from the summarized capture history information.
+See \code{\link[Rcapture]{descriptive}} in \pkg{Rcapture} for \code{m.array} and some of the same values in \code{sum}. See \code{\link{capHistConvert}} for a descriptions of capture history data file formats and how to convert between them. See \code{\link{mrClosed}} and \code{\link{mrOpen}} for how to estimate abundance from the summarized capture history information.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

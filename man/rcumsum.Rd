@@ -17,10 +17,10 @@ pcumsum(x)
 A numeric vector that contains the prior-to or reverse cumulative sums.
 }
 \description{
-Computes the prior-to (i.e., the cumulative sum prior to but not including the current value) or the reverse (i.e., the number that large or larger) cumulative sum of a vector.  Also works for 1-dimensional tables, matrices, and data.frames, though it is best used with vectors.
+Computes the prior-to (i.e., the cumulative sum prior to but not including the current value) or the reverse (i.e., the number that large or larger) cumulative sum of a vector. Also works for 1-dimensional tables, matrices, and data.frames, though it is best used with vectors.
 }
 \note{
-An \code{NA} in the vector causes all returned values at and after the first \code{NA} for \code{pcumsum} and at and before the last \code{NA} for \code{rcumsum} to be \code{NA}.  See the examples.
+An \code{NA} in the vector causes all returned values at and after the first \code{NA} for \code{pcumsum} and at and before the last \code{NA} for \code{rcumsum} to be \code{NA}. See the examples.
 }
 \examples{
 ## Simple example

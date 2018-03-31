@@ -80,7 +80,7 @@ iCapFirst<- function(x,which=c("all","first")) {
 #'
 #' @description Create a list of colors from among a variety of color palettes.
 #'
-#' @param pal A character that is the name of a palette.  Must be one of \dQuote{rich}, \dQuote{cm}, \dQuote{default}, \dQuote{grey}, \dQuote{gray}, \dQuote{heat}, \dQuote{jet}, \dQuote{rainbow}, \dQuote{topo}, or \dQuote{terrain}, which are given in \code{paletteChoices}.
+#' @param pal A character that is the name of a palette. Must be one of \dQuote{rich}, \dQuote{cm}, \dQuote{default}, \dQuote{grey}, \dQuote{gray}, \dQuote{heat}, \dQuote{jet}, \dQuote{rainbow}, \dQuote{topo}, or \dQuote{terrain}, which are given in \code{paletteChoices}.
 #' @param num The number of colors to be returned.
 #' @param rev A logical that indicates if the default order of colors should be reversed (\code{=TRUE}) or not (\code{=FALSE}).
 #' @param \dots Other arguments to the various palette functions.
@@ -119,7 +119,7 @@ chooseColors <- function(pal=paletteChoices(),num,rev=FALSE,...) {
   switch(pal,
          rich={clrs <- gplots::rich.colors(num,...)},
          cm={clrs <- grDevices::cm.colors(num,...)},
-         default={clrs <- 1:num},
+         default={clrs <- seq_len(num)},
          gray=,grey={clrs <- grey.colors(num)},
          heat={clrs <- grDevices::heat.colors(num,...)},
          jet={clrs <- jet.colors(num)},
@@ -138,10 +138,10 @@ paletteChoices <- function() c("rich","cm","default","grey","gray","heat","jet",
 
 #' @title Converts an R color to RGB (red/green/blue) including a transparency (alpha channel).
 #'
-#' @description Converts an R color to RGB (red/green/blue) including a transparency (alpha channel).  Similar to \code{\link[grDevices]{col2rgb}} except that a transparency (alpha channel) can be included.
+#' @description Converts an R color to RGB (red/green/blue) including a transparency (alpha channel). Similar to \code{\link[grDevices]{col2rgb}} except that a transparency (alpha channel) can be included.
 #'
 #' @param col A vector of any of the three kinds of R color specifications (i.e., either a color name (as listed by \code{\link[grDevices]{colors}}()), a hexadecimal string of the form "#rrggbb" or "#rrggbbaa" (see \code{\link[grDevices]{rgb}}), or a positive integer i meaning \code{\link[grDevices]{palette}}()[i].
-#' @param transp A numeric vector that indicates the transparency level for the color.  The transparency values must be greater than 0.  Transparency values greater than 1 are interpreted as the number of points plotted on top of each other before the transparency is lost and is, thus, transformed to the inverse of the transparency value provided.
+#' @param transp A numeric vector that indicates the transparency level for the color. The transparency values must be greater than 0. Transparency values greater than 1 are interpreted as the number of points plotted on top of each other before the transparency is lost and is, thus, transformed to the inverse of the transparency value provided.
 #' 
 #' @return A vector of hexadecimal strings of the form "#rrggbbaa" as would be returned by \code{\link[grDevices]{rgb}}.
 #'
@@ -173,8 +173,8 @@ col2rgbt <- function(col,transp=1) {
 #' @description Extract diagonals from a matrix.
 #' 
 #' @param x A matrix with more than one row AND more than one column.
-#' @param which A single numeric that indicates which diagonal to extract.  A value of zero extracts the main diagonal, whereas negative values extract diagonals from the upper triangle and positive values extract diagonals from the lower triangle.  Diagonals further from the main diagonal have \code{which} values further from zero.  If \code{is.null(which)}, then a matrix of diagonal indices for \code{which} is shown.
-#' @param incl.labels A single string that indicates whether \code{"row"}, \code{"column"}, or no (\code{"none"}) labels from \code{x} should be returned with the values on the diagonal.  Will return numeric values if the labels are all diagonal, otherwise character labels are returned.
+#' @param which A single numeric that indicates which diagonal to extract. A value of zero extracts the main diagonal, whereas negative values extract diagonals from the upper triangle and positive values extract diagonals from the lower triangle. Diagonals further from the main diagonal have \code{which} values further from zero. If \code{is.null(which)}, then a matrix of diagonal indices for \code{which} is shown.
+#' @param incl.labels A single string that indicates whether \code{"row"}, \code{"column"}, or no (\code{"none"}) labels from \code{x} should be returned with the values on the diagonal. Will return numeric values if the labels are all diagonal, otherwise character labels are returned.
 #' @param val.name A single string to name the variable that contains the values from the diagonal in the returned data.frame.
 #' @param label.name A single string to name the variable that contains the labels in the returned data.frame (see \code{incl.labels})
 #'
@@ -301,7 +301,7 @@ fact2num <- function(object) {
 
 #' @title Opens web pages associated with the fishR website.
 #'
-#' @description Opens web pages associated with the \href{http://derekogle.com/fishR/}{fishR website} in a browser.  The user can open the main page or choose a specific page to open.
+#' @description Opens web pages associated with the \href{http://derekogle.com/fishR/}{fishR website} in a browser. The user can open the main page or choose a specific page to open.
 #'
 #' @param where A string that indicates a particular page on the fishR website to open.
 #' 
@@ -380,7 +380,7 @@ FSANews <- function () {
 #' @description Shows rows from the head and tail of a data frame or matrix.
 #'
 #' @param x A data frame or matrix.
-#' @param which A numeric or string vector that contains the column numbers or names to display.  Defaults to showing all columns.
+#' @param which A numeric or string vector that contains the column numbers or names to display. Defaults to showing all columns.
 #' @param n A single numeric that indicates the number of rows to display from each of the head and tail of structure.
 #' @param addrownums If there are no row names for the MATRIX, then create them from the row numbers.
 #' @param \dots Arguments to be passed to or from other methods.
@@ -430,7 +430,7 @@ headtail <- function(x,n=3L,which=NULL,addrownums=TRUE,...) {
   else {
     h <- utils::head(x,n,...)
     if (addrownums) {
-      if (is.null(rownames(x))) rownames(h) <- paste0("[",1:n,",]")
+      if (is.null(rownames(x))) rownames(h) <- paste0("[",seq_len(n),",]")
     } else rownames(h) <- NULL
     t <- utils::tail(x,n,addrownums,...)
     tmp <- rbind(h,t)
@@ -442,16 +442,16 @@ headtail <- function(x,n=3L,which=NULL,addrownums=TRUE,...) {
 
 #' @title Performs a hypothesis test that a linear model parameter is equal to a specific value.
 #'
-#' @description Performs a hypothesis test that a linear model parameter is equal to a specific value.  Useful for testing that a parameter is equal to a value other than 0.
+#' @description Performs a hypothesis test that a linear model parameter is equal to a specific value. Useful for testing that a parameter is equal to a value other than 0.
 #'
-#' @details The \dQuote{direction} of the alternative hypothesis is identified by a string in the \code{alt} argument.  
+#' @details The \dQuote{direction} of the alternative hypothesis is identified by a string in the \code{alt} argument. 
 #'
 #' If the \code{lm} object is from a simple linear regression with an intercept then \code{term=1} will use the intercept and \code{term=2} will use the slope in the hypothesis test.
 #'
 #' @param object A \code{lm} object.
 #' @param term A single numeric that indicates which term in the model to use in the hypothesis test.
 #' @param bo The null hypothesized parameter value.
-#' @param alt A string that identifies the \dQuote{direction} of the alternative hypothesis.  The strings may be \code{"less"} for a \dQuote{less than} alternative, \code{"greater"} for a \dQuote{greater than} alternative, or \code{"two.sided"} (DEFAULT) for a \dQuote{not equals} alternative.
+#' @param alt A string that identifies the \dQuote{direction} of the alternative hypothesis. The strings may be \code{"less"} for a \dQuote{less than} alternative, \code{"greater"} for a \dQuote{greater than} alternative, or \code{"two.sided"} (DEFAULT) for a \dQuote{not equals} alternative.
 #'
 #' @return A matrix that contains the term number, hypothesized value, parameter estimate, standard error of the parameter estimate, t test statistic, degrees-of-freedom, and corresponding p-value.
 #'
@@ -499,9 +499,9 @@ hoCoef <- function(object,term=2,bo=0,alt=c("two.sided","less","greater")) {
 #'
 #' @param x A numeric vector or matrix.
 #' @param lag An integer representing the lag \sQuote{distance}.
-#' @param direction A string that indicates the direction of calculation.  A \code{"backward"} indicates that \sQuote{latter} values are divided by \sQuote{former} values.  A \code{"forward"} indicates that \sQuote{former} values are divided by \sQuote{latter} values.  See examples.
-#' @param recursion An integer that indicates the level of recursion for the calculations.  A \code{1} will simply compute the ratios.  A \code{2}, for example, will compute the ratios, save the result, and then compute the ratios of the results using the same \code{lag}.  See examples.
-#' @param differences Same as \code{recursion}.  Used for symmetry with \code{\link[base]{diff}}.
+#' @param direction A string that indicates the direction of calculation. A \code{"backward"} indicates that \sQuote{latter} values are divided by \sQuote{former} values. A \code{"forward"} indicates that \sQuote{former} values are divided by \sQuote{latter} values. See examples.
+#' @param recursion An integer that indicates the level of recursion for the calculations. A \code{1} will simply compute the ratios. A \code{2}, for example, will compute the ratios, save the result, and then compute the ratios of the results using the same \code{lag}. See examples.
+#' @param differences Same as \code{recursion}. Used for symmetry with \code{\link[base]{diff}}.
 #' @param \dots Additional arguments to \code{diff()}.
 #'
 #' @return A vector or matrix of lagged ratios.
@@ -549,7 +549,7 @@ lagratio <- function(x,lag=1L,recursion=1L,differences=recursion,direction=c("ba
 
 #' @title Constructs the correction-factor used when back-transforming log-transformed values.
 #'
-#' @description Constructs the correction-factor used when back-transforming log-transformed values according to the method in Sprugel (1983).  Sprugel's main formula -- exp((syx^2)/2) -- is used when syx is estimated for natural log transformed data.  He noted that a formula for any based could be constructed by multiplying the syx term by log_e(base) to give exp(((log_e(base)*syx)^2)/2).  This more general formula is implemented in this function (where, of course, if the base is exp(1) then the general formula reduces to the original specific formula.)
+#' @description Constructs the correction-factor used when back-transforming log-transformed values according to the method in Sprugel (1983). Sprugel's main formula -- exp((syx^2)/2) -- is used when syx is estimated for natural log transformed data. He noted that a formula for any based could be constructed by multiplying the syx term by log_e(base) to give exp(((log_e(base)*syx)^2)/2). This more general formula is implemented in this function (where, of course, if the base is exp(1) then the general formula reduces to the original specific formula.)
 #'
 #' @param obj An object from \code{lm}.
 #' @param base A single numeric that indicates the base of the logarithm used.
@@ -558,7 +558,7 @@ lagratio <- function(x,lag=1L,recursion=1L,differences=recursion,direction=c("ba
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @references Sprugel, D.G. 1983.  Correcting for bias in log-transformed allometric equations. Ecology 64:209-210.
+#' @references Sprugel, D.G. 1983. Correcting for bias in log-transformed allometric equations. Ecology 64:209-210.
 #'
 #' @keywords manip
 #'
@@ -706,9 +706,9 @@ perc <- function(x,val,dir=c("geq","gt","leq","lt"),na.rm=TRUE,digits=getOption(
 #' 
 #' @title Computes the prior to or reverse cumulative sum of a vector.
 #'
-#' @description Computes the prior-to (i.e., the cumulative sum prior to but not including the current value) or the reverse (i.e., the number that large or larger) cumulative sum of a vector.  Also works for 1-dimensional tables, matrices, and data.frames, though it is best used with vectors.
+#' @description Computes the prior-to (i.e., the cumulative sum prior to but not including the current value) or the reverse (i.e., the number that large or larger) cumulative sum of a vector. Also works for 1-dimensional tables, matrices, and data.frames, though it is best used with vectors.
 #'
-#' @note An \code{NA} in the vector causes all returned values at and after the first \code{NA} for \code{pcumsum} and at and before the last \code{NA} for \code{rcumsum} to be \code{NA}.  See the examples.
+#' @note An \code{NA} in the vector causes all returned values at and after the first \code{NA} for \code{pcumsum} and at and before the last \code{NA} for \code{rcumsum} to be \code{NA}. See the examples.
 #'
 #' @param x a numeric object.
 #'
@@ -885,9 +885,9 @@ se <- function (x,na.rm=TRUE) {
 #'
 #' @description Subsets/filters a data frame and drops the unused levels.
 #'
-#' @details Newbie students using R expect that when a factor variable is subsetted with \code{\link{subset}} or filtered with \code{\link[dplyr]{filter}} that any original levels that are no longer used after the subsetting or filtering will be ignored.  This, however, is not the case and often results in tables with empty cells and figures with empty bars.  One remedy is to use \code{\link[gdata]{drop.levels}} from \pkg{gdata} immediately following the \code{\link{subset}} or \code{\link[dplyr]{filter}} call.  This generally becomes a repetitive sequence for most newbie students; thus, \code{Subset} and \code{filterD} incorporate these two functions into one function.
+#' @details Newbie students using R expect that when a factor variable is subsetted with \code{\link{subset}} or filtered with \code{\link[dplyr]{filter}} that any original levels that are no longer used after the subsetting or filtering will be ignored. This, however, is not the case and often results in tables with empty cells and figures with empty bars. One remedy is to use \code{\link[gdata]{drop.levels}} from \pkg{gdata} immediately following the \code{\link{subset}} or \code{\link[dplyr]{filter}} call. This generally becomes a repetitive sequence for most newbie students; thus, \code{Subset} and \code{filterD} incorporate these two functions into one function.
 #' 
-#' \code{Subset} is a wrapper to \code{\link{subset}} with a catch for non-data.frames and a specific call to \code{\link[gdata]{drop.levels}} just before the data.frame is returned.  I also added an argument to allow resetting the row names.  \code{filterD} is a wrapper for \code{\link[dplyr]{filter}} from \pkg{dplyr} followed by \code{\link[gdata]{drop.levels}} just before the data.frame is returned.  Otherwise, there is no new code here.
+#' \code{Subset} is a wrapper to \code{\link{subset}} with a catch for non-data.frames and a specific call to \code{\link[gdata]{drop.levels}} just before the data.frame is returned. I also added an argument to allow resetting the row names. \code{filterD} is a wrapper for \code{\link[dplyr]{filter}} from \pkg{dplyr} followed by \code{\link[gdata]{drop.levels}} just before the data.frame is returned. Otherwise, there is no new code here.
 #' 
 #' These functions are used only for data frames.
 #' 
@@ -895,7 +895,7 @@ se <- function (x,na.rm=TRUE) {
 #' @param subset A logical expression that indicates elements or rows to keep: missing values are taken as false.
 #' @param select An expression, that indicates columns to select from a data frame.
 #' @param drop passed on to \code{[} indexing operator.
-#' @param resetRownames A logical that indicates if the rownames should be reset after the subsetting (\code{TRUE}; default).  Resetting rownames will simply number the rows from 1 to the number of rows in the result.
+#' @param resetRownames A logical that indicates if the rownames should be reset after the subsetting (\code{TRUE}; default). Resetting rownames will simply number the rows from 1 to the number of rows in the result.
 #' @param except Indices of columns from which NOT to drop levels.
 #' @param \dots further arguments to be passed to or from other methods.
 #'
@@ -905,7 +905,7 @@ se <- function (x,na.rm=TRUE) {
 #' 
 #' @section IFAR Chapter: Basic Data Manipulations.
 #'
-#' @seealso See \code{subset} and \code{\link[dplyr]{filter}} from \pkg{dplyr} for similar functionality.  See \code{\link[gdata]{drop.levels}} in \pkg{gdata} and \code{\link{droplevels}} for related functionality.
+#' @seealso See \code{subset} and \code{\link[dplyr]{filter}} from \pkg{dplyr} for similar functionality. See \code{\link[gdata]{drop.levels}} in \pkg{gdata} and \code{\link{droplevels}} for related functionality.
 #'
 #' @keywords misc
 #'
@@ -931,7 +931,7 @@ NULL
 #' @rdname Subset
 #' @export
 Subset <- function(x,subset,select,drop=FALSE,resetRownames=TRUE,...) {
-  if (!is.data.frame(x)) STOP("Subset should only be used with data frames.  See ?subset for other structures.")
+  if (!is.data.frame(x)) STOP("Subset should only be used with data frames. See ?subset for other structures.")
   if (missing(subset)) r <- TRUE
   else {
     e <- substitute(subset)
@@ -941,13 +941,13 @@ Subset <- function(x,subset,select,drop=FALSE,resetRownames=TRUE,...) {
   }
   if (missing(select)) vars <- TRUE
   else {
-    nl <- as.list(1:ncol(x))
+    nl <- as.list(seq_len(ncol(x)))
     names(nl) <- names(x)
     vars <- eval(substitute(select),nl,parent.frame())
   }
   res <- droplevels(x[r,vars,drop=drop])
   if (resetRownames) rownames(res) <- NULL
-  if (nrow(res)==0) WARN("The resultant data.frame has 0 rows.  Try str() on the result.\n")
+  if (nrow(res)==0) WARN("The resultant data.frame has 0 rows. Try str() on the result.\n")
   res
 }
 
@@ -956,7 +956,7 @@ Subset <- function(x,subset,select,drop=FALSE,resetRownames=TRUE,...) {
 filterD <- function(x,...,except=NULL) {
   res <- dplyr::filter(x,...)
   res <- droplevels(res,except)
-  if (nrow(res)==0) WARN("The resultant data.frame has 0 rows.  Try str() on the result.\n")
+  if (nrow(res)==0) WARN("The resultant data.frame has 0 rows. Try str() on the result.\n")
   res
 }
 
@@ -969,7 +969,7 @@ filterD <- function(x,...,except=NULL) {
 #'
 #' @return A single numeric value that is the number of non-\code{NA} values in a vector.
 #' 
-#' @seealso See \code{\link[plotrix]{valid.n}} in \pkg{plotrix} and \code{\link[gdata]{nobs}} in \pkg{gdata} for similar functionality.  See \code{\link{is.na}} for finding the missing values.
+#' @seealso See \code{\link[plotrix]{valid.n}} in \pkg{plotrix} and \code{\link[gdata]{nobs}} in \pkg{gdata} for similar functionality. See \code{\link{is.na}} for finding the missing values.
 #' 
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
@@ -1024,7 +1024,7 @@ validn <- function(object) {
 #' 
 #' @note This function is largely an implementation of the code suggested by Russell Senior on R-help in November, 1999.
 #' 
-#' @seealso See \code{\link[psych]{geometric.mean}} in \pkg{psych} and \code{\link[DescTools]{Gmean}} for geometric mean calculators.  See \code{\link[DescTools]{Gsd}} for geometric standard deviation calculators.
+#' @seealso See \code{\link[psych]{geometric.mean}} in \pkg{psych} and \code{\link[DescTools]{Gmean}} for geometric mean calculators. See \code{\link[DescTools]{Gsd}} for geometric standard deviation calculators.
 #' 
 #' @keywords misc
 #' 

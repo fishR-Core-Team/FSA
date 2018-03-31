@@ -1,6 +1,24 @@
 # FSA 0.8.19 ongoing
 * `addZeroCatch`: Modified. Changed two `1:nrow()` structures to `seq_len(nrow())` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-
+* `ageBias()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `agePrecision()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `bcFuns()`: Modified. Changed three `1:length()` structures to `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `bootCase()` methods: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `capHistConvert()`: Modified. Changed all `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `capHistSum()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `chooseColors()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `compSlopes()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `compIntercepts()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `extraSS()`: Modified. Changed all `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `headtail()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `lrt()`: Modified. Changed all `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `lwCompPreds()`: Modified. Changed all `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `mrClosed()`: Modified. Changed two `1:length()` structures to `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `nlsBoot()` methods: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `psdAdd()`: Modified. Changed three `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `residPlot()`: Modified. Changed three `1:length()` structures to `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `Summarize()`: Modified. Changed one `1:length()` structure to `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `wrAdd()`: Modified. Changed three `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
 
 # FSA 0.8.18 31-Mar-18
 * Changed to depending on `R >=3.2.0`, because that is the latest version required by a package (i.e., `car`) that FSA imports or suggests. Used [this shiny app](https://ateucher.shinyapps.io/check_r_versions_of_package_dependencies/) to help determine this.

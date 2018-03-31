@@ -1,22 +1,22 @@
 #' @title Summarize capture histories in individual fish format.
 #'
-#' @description Use to summarize a capture history data file that is in the \dQuote{individual} fish format (see \code{\link{capHistConvert}} for a discussion of data file format types).  Summarized capture history results may be used in the Lincoln-Petersen, Schnabel, Schumacher-Eschmeyer, or Jolly-Seber methods for estimating population abundance (see \code{\link{mrClosed}} and \code{\link{mrOpen}}).
+#' @description Use to summarize a capture history data file that is in the \dQuote{individual} fish format (see \code{\link{capHistConvert}} for a discussion of data file format types). Summarized capture history results may be used in the Lincoln-Petersen, Schnabel, Schumacher-Eschmeyer, or Jolly-Seber methods for estimating population abundance (see \code{\link{mrClosed}} and \code{\link{mrOpen}}).
 #'
-#' @details This function requires the capture history data file to be in the \dQuote{individual} fish format.  See \code{\link{capHistConvert}} for a description of this (and other) formats and for methods to convert from other formats to the \dQuote{individual} fish format.  In addition, this function requires only the capture history portion of the data file.  Thus, if \code{df} contains columns with non-capture history information (e.g., fish ID, length, location, etc.) then use \code{cols2use=} to identify which columns contain only the capture history information.  Columns to use can be identified by listing the column numbers (e.g., columns 2 through 7 could be included with \code{cols2use=2:7}).  In many instances it may be easier to identify columns to \emph{exclude} which can be done by preceding the column number by a negative sign (e.g., columns 1 through 3 are excluded with \code{cols2use=-(1:3)}).
+#' @details This function requires the capture history data file to be in the \dQuote{individual} fish format. See \code{\link{capHistConvert}} for a description of this (and other) formats and for methods to convert from other formats to the \dQuote{individual} fish format. In addition, this function requires only the capture history portion of the data file. Thus, if \code{df} contains columns with non-capture history information (e.g., fish ID, length, location, etc.) then use \code{cols2use=} to identify which columns contain only the capture history information. Columns to use can be identified by listing the column numbers (e.g., columns 2 through 7 could be included with \code{cols2use=2:7}). In many instances it may be easier to identify columns to \emph{exclude} which can be done by preceding the column number by a negative sign (e.g., columns 1 through 3 are excluded with \code{cols2use=-(1:3)}).
 #' 
-#' The object returned from this function can be used directly in \code{\link{mrClosed}} and \code{\link{mrOpen}}.  See examples of this functionality on the help pages for those functions.
+#' The object returned from this function can be used directly in \code{\link{mrClosed}} and \code{\link{mrOpen}}. See examples of this functionality on the help pages for those functions.
 #' 
-#' The \code{plot} function can be used to construct the two diagnostic plots described by Baillargeon and Rivest (2007).  The \code{what="f"} plot will plot the log of the number of fish seen i times divided by \code{choose(t,i)} against i.  The \code{what="u"} plot will plot the log of the number of fish seen for the first time on event i against i.  Baillargeon and Rivest (2007) provide a table that can be used to diagnosed types of heterogeneities in capture probabilities from these plots.
+#' The \code{plot} function can be used to construct the two diagnostic plots described by Baillargeon and Rivest (2007). The \code{what="f"} plot will plot the log of the number of fish seen i times divided by \code{choose(t,i)} against i. The \code{what="u"} plot will plot the log of the number of fish seen for the first time on event i against i. Baillargeon and Rivest (2007) provide a table that can be used to diagnosed types of heterogeneities in capture probabilities from these plots.
 #'
 #' @note This function assumes that all unmarked captured fish are marked and returned to the population (i.e., no losses at the time of marking are allowed).
 #' 
-#' @param df A data.frame that contains the capture histories (and, perhaps, other information) in \dQuote{individual} fish format.  See details.
-#' @param cols2use A string or numeric vector that indicates columns in \code{df} that contain the capture histories.  Negative numeric values will not use those columns.  Cannot use both \code{cols2use} and \code{col2ignore}.  See details.
-#' @param cols2ignore A string or numeric vector that indicates columns in \code{df} that do not contain the capture histories and should be ignored.  Cannot use both \code{cols2use} and \code{col2ignore}.
+#' @param df A data.frame that contains the capture histories (and, perhaps, other information) in \dQuote{individual} fish format. See details.
+#' @param cols2use A string or numeric vector that indicates columns in \code{df} that contain the capture histories. Negative numeric values will not use those columns. Cannot use both \code{cols2use} and \code{col2ignore}. See details.
+#' @param cols2ignore A string or numeric vector that indicates columns in \code{df} that do not contain the capture histories and should be ignored. Cannot use both \code{cols2use} and \code{col2ignore}.
 #' @param x An object from \code{capHistSum}.
-#' @param what A string that indicates what type of diagnostic plot to construct with \code{plot}.  See details.
+#' @param what A string that indicates what type of diagnostic plot to construct with \code{plot}. See details.
 #' @param pch A numeric that indicates the plotting character for the diagnostic plot.
-#' @param cex.pch A numeric that indicates the character expansion value for the plotting characters in the diagnostic plot.  The default is to be \dQuote{slightly smaller} (i.e., \code{cex.pch=0.7}).
+#' @param cex.pch A numeric that indicates the character expansion value for the plotting characters in the diagnostic plot. The default is to be \dQuote{slightly smaller} (i.e., \code{cex.pch=0.7}).
 #' @param lwd A numeric that indicates the line width in the diagnostic plot.
 #' @param \dots Optional arguments to send to \code{plot}.
 #'
@@ -32,16 +32,16 @@
 #'    \item \code{sum} A data frame that contains the the number of captured fish in the ith sample (\code{n}), the number of recaptured (i.e. previously marked) fish in the ith sample (\code{m}), the number of marked fish returned to the population following the ith sample (\code{R}; this will equal \code{n} as the function currently does not handle mortalities); the number of marked fish in the population prior to the ith sample (\code{M}); the number of fish first seen in the ith sample (\code{u}); the number of fish last seen in the ith sample (\code{v}); and the number of fish seen i times (\code{f}).
 #'    \item \code{methodB.top} A matrix that contains the top of the Method B table used for the Jolly-Seber method (i.e., a contingency table of capture sample (columns) and last seen sample (rows)).
 #'    \item \code{methodB.bot} A data.frame that contains the bottom of the Method B table used for the Jolly-Seber method (i.e., the number of marked fish in the sample (\code{m}), the number of unmarked fish in the sample (\code{u}), the total number of fish in the sample (\code{n}), and the number of marked fish returned to the population following the sample (\code{R}).
-#'    \item \code{m.array} A matrix that contains the the so-called \dQuote{m-array}.  The first column contains the number of fish captured on the ith event.  The columns labeled with \dQuote{cX} prefix show the number of fish originally captured in the ith row that were captured in the Xth event.  The last column shows the number of fish originally captured in the ith row that were never recaptured.
+#'    \item \code{m.array} A matrix that contains the the so-called \dQuote{m-array}. The first column contains the number of fish captured on the ith event. The columns labeled with \dQuote{cX} prefix show the number of fish originally captured in the ith row that were captured in the Xth event. The last column shows the number of fish originally captured in the ith row that were never recaptured.
 #'  }
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @section IFAR Chapter: 9-Abundance from Capture-Recapture Data.
 #'
-#' @seealso See \code{\link[Rcapture]{descriptive}} in \pkg{Rcapture} for \code{m.array} and some of the same values in \code{sum}.  See \code{\link{capHistConvert}} for a descriptions of capture history data file formats and how to convert between them.  See \code{\link{mrClosed}} and \code{\link{mrOpen}} for how to estimate abundance from the summarized capture history information.
+#' @seealso See \code{\link[Rcapture]{descriptive}} in \pkg{Rcapture} for \code{m.array} and some of the same values in \code{sum}. See \code{\link{capHistConvert}} for a descriptions of capture history data file formats and how to convert between them. See \code{\link{mrClosed}} and \code{\link{mrOpen}} for how to estimate abundance from the summarized capture history information.
 #'
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Baillargeon, S. and Rivest, L.-P. (2007). Rcapture: Loglinear models for capture-recapture in R. Journal of Statistical Software, 19(5):1-31.
 #' 
@@ -157,7 +157,7 @@ iSumCHnumSchnabel <- function(ch,k) {
   #   0 by default for last sample
   R[k] <- 0
   # Marked fish prior to sample
-  M <- c(0,cumsum(df$n-df$m)[1:(k-1)])
+  M <- c(0,cumsum(df$n-df$m)[seq_len(k-1)])
   # Number of fish seen for first time at i
   u <- iGetUi(ch)
   # Number of fish seen for lat time at i
@@ -171,13 +171,13 @@ iSumCHnumSchnabel <- function(ch,k) {
 
 iGetFi <- function(chdf) {
   # as.vector to strip attributes
-  as.vector(table(factor(rowSums(chdf),levels=1:ncol(chdf))) )
+  as.vector(table(factor(rowSums(chdf),levels=seq_len(ncol(chdf)))) )
 }
 
 iGetVi <- function(chdf) {
   events <- ncol(chdf)
   vi <- numeric(events)
-  for (i in 1:events) {
+  for (i in seq_len(events)) {
     if (i<(events-1)) {
       # captured in the ith event, get ch for all events after that
       tmp1 <- chdf[chdf[,i]==1,(i+1):events]
@@ -199,16 +199,16 @@ iGetVi <- function(chdf) {
 iGetUi <- function(chdf) {
   events <- ncol(chdf)
   ui <- numeric(events)
-  for (i in 1:events) {
+  for (i in seq_len(events)) {
     if (i==1) {
       # handle first event, ui=ni
       ui[i] <- sum(chdf[,i])
     } else if (i==2) {
-      tmp1 <- chdf[chdf[,i]==1,1:(i-1)]
+      tmp1 <- chdf[chdf[,i]==1,seq_len(i-1)]
       ui[i] <- length(tmp1)
     } else {
       # captured in ith event, get ch for all events before that
-      tmp1 <- chdf[chdf[,i]==1,1:(i-1)]
+      tmp1 <- chdf[chdf[,i]==1,seq_len(i-1)]
       # if rowSums==0 then it was not captured previously
       tmpu <- table(rowSums(tmp1))
       ui[i] <- ifelse(any(names(tmpu)=="0"),tmpu["0"],0)
@@ -232,7 +232,7 @@ iMethodBBot <- function(ch,k) {
   tmp <- rbind(df$m,df$u,df$n,R)
   # rename rows and columns
   rownames(tmp) <- c("m","u","n","R")
-  colnames(tmp) <- paste0("i=",1:ncol(tmp))
+  colnames(tmp) <- paste0("i=",seq_len(ncol(tmp)))
   # return matrix
   tmp
 }
@@ -261,8 +261,8 @@ iMethodBTop <- function(ch,k) {
     } # end j loop
   } # end i loop
   # relabel rows and columns
-  colnames(mb.top) <- paste0("i=",1:ncol(mb.top))
-  rownames(mb.top) <- paste0("j=",1:nrow(mb.top))
+  colnames(mb.top) <- paste0("i=",seq_len(ncol(mb.top)))
+  rownames(mb.top) <- paste0("j=",seq_len(nrow(mb.top)))
   # return matrix
   mb.top
 }
@@ -273,8 +273,8 @@ iMethodBTop <- function(ch,k) {
 iMarray <- function(mb,smry) {
   events <- ncol(mb)
   # label rows and columns of mb (follow strategy in Rcapture)
-  rownames(mb) <- paste0("i=",1:events)
-  colnames(mb) <- paste0("c",1:events)
+  rownames(mb) <- paste0("i=",seq_len(events))
+  colnames(mb) <- paste0("c",seq_len(events))
   # put ni in first column
   mb[,1] <- smry$n
   colnames(mb)[1] <- "ni"
@@ -293,7 +293,7 @@ plot.CapHist <- function(x,what=c("u","f"),pch=19,cex.pch=0.7,lwd=1,...) { # noc
   what <- match.arg(what,several.ok=TRUE)
   tmp <- x$sum[,c("n","u","f")]
   t <- nrow(tmp)
-  tmp$i <- 1:t
+  tmp$i <- seq_len(t)
   # scale the f variable
   tmp$sf <- log(tmp$f/choose(t,tmp$i))
   tmp$sf[which(tmp$f==0)] <- NA

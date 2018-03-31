@@ -1,6 +1,6 @@
 #' @title Summary statistics for a numeric variable.
 #'
-#' @description Summary statistics for a single numeric variable, possibly separated by the levels of a factor variable or variables.  This function is very similar to \code{\link[base]{summary}} for a numeric variable.
+#' @description Summary statistics for a single numeric variable, possibly separated by the levels of a factor variable or variables. This function is very similar to \code{\link[base]{summary}} for a numeric variable.
 #'
 #' @details This function is primarily used with formulas of the following types (where \code{quant} and \code{factor} generically represent quantitative/numeric and factor variables, respectively):
 #' \tabular{ll}{
@@ -10,9 +10,9 @@
 #'   \code{quant~factor1*factor2} \tab Summaries of \code{quant} separated by the combined levels in \code{factor1} and \code{factor2}.\cr
 #' }
 #' 
-#' Numerical summaries include all results from \code{\link[base]{summary}} (min, Q1, mean, median, Q3, and max) and the sample size, valid sample size (sample size minus number of \code{NA}s), and standard deviation (i.e., \code{sd}).  \code{NA} values are removed from the calculations with \code{na.rm=TRUE} (the DEFAULT).  The number of digits in the returned results are controlled with \code{digits=}.
+#' Numerical summaries include all results from \code{\link[base]{summary}} (min, Q1, mean, median, Q3, and max) and the sample size, valid sample size (sample size minus number of \code{NA}s), and standard deviation (i.e., \code{sd}). \code{NA} values are removed from the calculations with \code{na.rm=TRUE} (the DEFAULT). The number of digits in the returned results are controlled with \code{digits=}.
 #' 
-#' @note Students often need to examine basic statistics of a quantitative variable separated for different levels of a categorical variable.  These results may be obtained with \code{\link[base]{tapply}}, \code{\link[base]{by}}, or \code{\link[stats]{aggregate}} (or with functions in other packages), but the use of these functions is not obvious to newbie students or return results in a format that is not obvious to newbie students.  Thus, the formula method to \code{Summarize} allows newbie students to use a common notation (i.e., formula) to easily compute summary statistics for a quantitative variable separated by the levels of a factor.
+#' @note Students often need to examine basic statistics of a quantitative variable separated for different levels of a categorical variable. These results may be obtained with \code{\link[base]{tapply}}, \code{\link[base]{by}}, or \code{\link[stats]{aggregate}} (or with functions in other packages), but the use of these functions is not obvious to newbie students or return results in a format that is not obvious to newbie students. Thus, the formula method to \code{Summarize} allows newbie students to use a common notation (i.e., formula) to easily compute summary statistics for a quantitative variable separated by the levels of a factor.
 #'
 #' @aliases Summarize Summarize.default Summarize.formula
 #'
@@ -21,15 +21,15 @@
 #' @param na.rm A logical that indicates whether numeric missing values (\code{NA}) should be removed (\code{=TRUE}, default) or not.
 #' @param exclude A string that contains the level that should be excluded from a factor variable.
 #' @param data A data.frame that contains the variables in \code{formula}.
-#' @param nvalid A string that indicates how the \dQuote{validn} result will be handled.  If \code{"always"} then \dQuote{validn} will always be shown and if \code{"never"} then \dQuote{validn} will never be shown.  However, if \code{"different"} (DEFAULT), then \dQuote{validn} will only be shown if it differs from \dQuote{n} (or if at least one group differs from \dQuote{n} when summarized by multiple groups).
-#' @param percZero A string that indicates how the \dQuote{percZero} result will be handled.  If \code{"always"} then \dQuote{percZero} will always be shown and if \code{"never"} then \dQuote{percZero} will never be shown.  However, if \code{"different"} (DEFAULT), then \dQuote{percZero} will only be shown if it is greater than zero (or if at least one group is greater than zero when summarized by multiple groups).
+#' @param nvalid A string that indicates how the \dQuote{validn} result will be handled. If \code{"always"} then \dQuote{validn} will always be shown and if \code{"never"} then \dQuote{validn} will never be shown. However, if \code{"different"} (DEFAULT), then \dQuote{validn} will only be shown if it differs from \dQuote{n} (or if at least one group differs from \dQuote{n} when summarized by multiple groups).
+#' @param percZero A string that indicates how the \dQuote{percZero} result will be handled. If \code{"always"} then \dQuote{percZero} will always be shown and if \code{"never"} then \dQuote{percZero} will never be shown. However, if \code{"different"} (DEFAULT), then \dQuote{percZero} will only be shown if it is greater than zero (or if at least one group is greater than zero when summarized by multiple groups).
 #' @param \dots Not implemented.
 #'
 #' @return A named vector or data frame (when a quantitative variable is separated by one or two factor variables) of summary statistics for numeric data.
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @seealso See \code{\link[base]{summary}} for related one dimensional functionality.  See \code{\link[base]{tapply}}, \code{\link[doBy]{summaryBy}} in \pkg{doBy}, \code{\link[psych]{describe}} in \pkg{psych}, \code{\link[prettyR]{describe}} in \pkg{prettyR}, and \code{\link[fBasics]{basicStats}} in \pkg{fBasics} for similar \dQuote{by} functionality.
+#' @seealso See \code{\link[base]{summary}} for related one dimensional functionality. See \code{\link[base]{tapply}}, \code{\link[doBy]{summaryBy}} in \pkg{doBy}, \code{\link[psych]{describe}} in \pkg{psych}, \code{\link[prettyR]{describe}} in \pkg{prettyR}, and \code{\link[fBasics]{basicStats}} in \pkg{fBasics} for similar \dQuote{by} functionality.
 #'
 #' @keywords misc
 #'
@@ -175,7 +175,7 @@ iSummarizeQf <- function(tmp,digits,na.rm,exclude,nvalid,percZero) {
   unfactor1 <- unfactor2 <- FALSE
   ## Exclude values from factor variables if asked to
   if (!is.null(exclude)) {
-    for (i in 1:length(exclude)) {
+    for (i in seq_along(exclude)) {
       tmp$mf <- droplevels(tmp$mf[apply(data.frame(tmp$mf[,-tmp$Rpos])!=exclude[i],1,all),])
     }
   }

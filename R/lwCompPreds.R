@@ -123,7 +123,7 @@ lwCompPreds <- function(object,lens=NULL,qlens=c(0.05,0.25,0.5,0.75,0.95),qlens.
   # reset par so as to make nice plots
   opar <- graphics::par(mfrow=c(rows,cols))
   # cycle through the lengths
-  for (i in 1:length(lens)) {
+  for (i in seq_along(lens)) {
     # find results for each length
     res <- iMakeLWPred(object,lens[i],grps,vn,interval,center.value,base)
     # make plot for each length
@@ -165,19 +165,26 @@ iPlotLWPred <- function(res,grps,ylim,xlab,ylab,main,cex.main,lwd,connect.preds,
   #   find y-axis range if none was provided
   if (is.null(ylim)) ylim <- range(res)
   # create a base plot
-  graphics::plot(0,xlab=xlab,ylab=ylab,col="white",xlim=c(0.5,x.num+0.5),ylim=ylim,xaxt="n",yaxs=yaxs)
+  graphics::plot(0,xlab=xlab,ylab=ylab,col="white",xlim=c(0.5,x.num+0.5),
+                 ylim=ylim,xaxt="n",yaxs=yaxs)
   graphics::mtext(main,cex=cex.main)
   #   label the axis with the group labels
-  graphics::axis(1,at=1:x.num,labels=grps)
+  graphics::axis(1,at=seq_len(x.num),labels=grps)
   if (interval=="confidence") {# if just confidence, plot in lwd black line
-    with(res,plotrix::plotCI(1:x.num,pred,ui=UCI,li=LCI,add=TRUE,pch=ifelse(show.preds,16,"."),lwd=lwd))
+    with(res,plotrix::plotCI(seq_len(x.num),pred,ui=UCI,li=LCI,add=TRUE,
+                             pch=ifelse(show.preds,16,"."),lwd=lwd))
   } else if (interval=="prediction") {# if just prediction, plot in lwd black line
-    with(res,plotrix::plotCI(1:x.num,pred,ui=UPI,li=LPI,add=TRUE,pch=ifelse(show.preds,16,"."),lwd=lwd))
+    with(res,plotrix::plotCI(seq_len(x.num),pred,ui=UPI,li=LPI,add=TRUE,
+                             pch=ifelse(show.preds,16,"."),lwd=lwd))
   } else if (interval=="both") { # if both make PI thinner and blue
-    with(res,plotrix::plotCI(1:x.num,pred,ui=UCI,li=LCI,add=TRUE,pch=ifelse(show.preds,16,"."),lwd=lwd))
-    with(res,plotrix::plotCI(1:x.num,pred,ui=UPI,li=LPI,add=TRUE,pch=ifelse(show.preds,16,"."),lwd=ifelse(lwd>1,lwd-1,1),scol="blue"))
+    with(res,plotrix::plotCI(seq_len(x.num),pred,ui=UCI,li=LCI,add=TRUE,
+                             pch=ifelse(show.preds,16,"."),lwd=lwd))
+    with(res,plotrix::plotCI(seq_len(x.num),pred,ui=UPI,li=LPI,add=TRUE,
+                             pch=ifelse(show.preds,16,"."),
+                             lwd=ifelse(lwd>1,lwd-1,1),scol="blue"))
   }
   # connect the means if desired
-  if (connect.preds) graphics::lines(1:x.num,res$pred,lty=1,lwd=lwd,col=col.connect)
+  if (connect.preds) graphics::lines(seq_len(x.num),res$pred,lty=1,
+                                     lwd=lwd,col=col.connect)
 }  # nocov end
 

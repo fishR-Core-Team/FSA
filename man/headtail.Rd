@@ -11,7 +11,7 @@ headtail(x, n = 3L, which = NULL, addrownums = TRUE, ...)
 
 \item{n}{A single numeric that indicates the number of rows to display from each of the head and tail of structure.}
 
-\item{which}{A numeric or string vector that contains the column numbers or names to display.  Defaults to showing all columns.}
+\item{which}{A numeric or string vector that contains the column numbers or names to display. Defaults to showing all columns.}
 
 \item{addrownums}{If there are no row names for the MATRIX, then create them from the row numbers.}
 

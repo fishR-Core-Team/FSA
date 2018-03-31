@@ -10,43 +10,43 @@
 #'    \item \code{reproInfo} is used to print \sQuote{reproducibility information} for the document.
 #'  }
 #'
-#' @note In \code{reproInfo}, \code{elapsed} can be used to print the time it took to process the document by sending the elapsed time for processing to this argument.  The simplest way to get an approximate elapsed time is to put  \code{st <- proc.time()} very early (first line?) in your knitr code, put \code{et <- proc.time()-st} very late in your knitr code (i.e., just prior to \code{reproInfo}), and then used \code{elapsed=et["user.self"]+et["sys.self"]} in \code{reproInfo}.
+#' @note In \code{reproInfo}, \code{elapsed} can be used to print the time it took to process the document by sending the elapsed time for processing to this argument. The simplest way to get an approximate elapsed time is to put  \code{st <- proc.time()} very early (first line?) in your knitr code, put \code{et <- proc.time()-st} very late in your knitr code (i.e., just prior to \code{reproInfo}), and then used \code{elapsed=et["user.self"]+et["sys.self"]} in \code{reproInfo}.
 #' 
 #' @param value A single numeric count or p-value.
 #' @param capitalize A logical that indicates if the returned words should be capitalized or not (the default).
 #' @param digits Number of decimal places to round the values to.
 #' @param include.p A logical that indicates whether the result should be a character string with \dQuote{p=} appended to the numerical result.
 #' @param latex A logical that indicates whether the resultant p-value string should be contained within dollar signs to form a latex formula.
-#' @param file A string that contains the root name of the .RNW file.  This will also be the name of the resultant purled file with .R appended.
-#' @param out.dir A string that indicates the directory structure in which the purled file should be located.  This should not have a forward slash at the end.
+#' @param file A string that contains the root name of the .RNW file. This will also be the name of the resultant purled file with .R appended.
+#' @param out.dir A string that indicates the directory structure in which the purled file should be located. This should not have a forward slash at the end.
 #' @param newname A string for the output filename (without the extension) from \code{purl2}.
 #' @param moreItems A string that contains additional words that when found in the purled file will result in the entire line with those words to be deleted.
-#' @param blanks A string that indicates if blank lines should be removed.  If \code{blanks="all"} then all blank lines will be removed.  If \code{blanks="extra"} then only \dQuote{extra} blanks lines will be removed (i.e., one blank line will be left where there was originally more than one blank line).
-#' @param topnotes A character vector of lines to be added to the top of the output file.  Each value in the vector will be placed on a single line at the top of the output file.
+#' @param blanks A string that indicates if blank lines should be removed. If \code{blanks="all"} then all blank lines will be removed. If \code{blanks="extra"} then only \dQuote{extra} blanks lines will be removed (i.e., one blank line will be left where there was originally more than one blank line).
+#' @param topnotes A character vector of lines to be added to the top of the output file. Each value in the vector will be placed on a single line at the top of the output file.
 #' @param delHeader A single character that denotes the top and bottom of a block of lines that should be deleted from the script created by \code{purl2}.
 #' @param timestamp A logical that indicates whether a timestamp comment should be appended to the bottom of the script created by \code{purl2}.
 #' @param out A string that indicates the type of output from \code{reproInfo} -- Markdown, LaTeX, or simple R code.
 #' @param rqrdPkgs A string vector that contains packages that are required for the vignette and for which all dependencies should be found.
-#' @param elapsed A numeric, usually from \code{proc.time}, that is the time required to run the vignette.  If \code{NULL} then this output will not be used.  See the note below.
+#' @param elapsed A numeric, usually from \code{proc.time}, that is the time required to run the vignette. If \code{NULL} then this output will not be used. See the note below.
 #' @param width A numeric that indicates the width to use for wrapping the reproducibility information when \code{out="r"}.
-#' @param addTOC A logical that indicates whether or not a table of contents entry for the reproducibility section should be added to the LaTeX output.  Used only if \R{out="latex"}
-#' @param newpage A logical that indicates whether or not the reproducibility information should begin on a new page.  Used only if \R{out="latex"}
-#' @param links A named character vector that will add a links bullet to the reproducibility information.  The names will be shown and the values are the links.  Used only if \R{out="markdown}.
+#' @param addTOC A logical that indicates whether or not a table of contents entry for the reproducibility section should be added to the LaTeX output. Used only if \R{out="latex"}
+#' @param newpage A logical that indicates whether or not the reproducibility information should begin on a new page. Used only if \R{out="latex"}
+#' @param links A named character vector that will add a links bullet to the reproducibility information. The names will be shown and the values are the links. Used only if \R{out="markdown}.
 #' @param closeGraphics A logical that indicates whether the graphics device should be closed or not.
 #' @param ind An integer that indicates the CRAN mirror to use. Defaults to 1.
 #' @param \dots Additional arguments for the original \code{purl}.
 #'
 #' @return
 #'  \itemize{
-#'    \item \code{kCounts} returns a numeric value if the count is less than zero or greater than ten and returns a character string of the number \sQuote{name}.  See the examples.
-#'    \item \code{kPvalue} returns a character string of the supplied p-value rounded to the requested number of digits or a character string that indicates what the p-value is less than the value with a \sQuote{5} in the \code{digits}+1 place.  See the examples. 
+#'    \item \code{kCounts} returns a numeric value if the count is less than zero or greater than ten and returns a character string of the number \sQuote{name}. See the examples.
+#'    \item \code{kPvalue} returns a character string of the supplied p-value rounded to the requested number of digits or a character string that indicates what the p-value is less than the value with a \sQuote{5} in the \code{digits}+1 place. See the examples. 
 #'    \item \code{purl2} is a modification of \code{\link[knitr]{purl}} from \pkg{knitr} that creates a file with the same name as \code{file} but with lines removed that contain certain words (those found in \code{ItemsToRemove} and \code{moreItems}). 
 #'    \item \code{reproInfo} returns Markdown, LaTeX, or R code that prints \dQuote{reproducibility information} at the bottom of the knitted document.
 #'  }
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @seealso See \code{\link{formatC}} for functionality similar to \code{kPvalue}.  See \code{\link[knitr]{purl}} and \code{\link[knitr]{knit}} in \pkg{knitr} for functionality similar to \code{purl2}.
+#' @seealso See \code{\link{formatC}} for functionality similar to \code{kPvalue}. See \code{\link[knitr]{purl}} and \code{\link[knitr]{knit}} in \pkg{knitr} for functionality similar to \code{purl2}.
 #'
 #' @keywords manip
 #'
@@ -126,7 +126,7 @@ purl2 <- function(file,out.dir=NULL,newname=NULL,topnotes=NULL,
     ## Expand itemsToRemove if something in moreItems
     itemsToRemove <- iMakeItemsToRemove(moreItems)
     ## Find the rows with the items to remove and then remove those items if they exist
-    for (i in 1:length(itemsToRemove)) {                            
+    for (i in seq_along(itemsToRemove)) {                            
       RowsToRemove <- grep(itemsToRemove[i],flines)
       if (length(RowsToRemove)>0) flines <- flines[-RowsToRemove]
     }
@@ -137,10 +137,10 @@ purl2 <- function(file,out.dir=NULL,newname=NULL,topnotes=NULL,
       if (ndel>0) {
         if (is.odd(ndel))WARN("Odd number of lines contain 'delHeader`, no blocks deleted")
         else {
-          delLines1 <- delLines[is.odd(1:ndel)]
-          delLines2 <- delLines[is.even(1:ndel)]
+          delLines1 <- delLines[is.odd(seq_len(ndel))]
+          delLines2 <- delLines[is.even(seq_len(ndel))]
           delLines <- NULL
-          for (i in 1:(ndel/2)) delLines <- c(delLines,seq(delLines1[i],delLines2[i],1))
+          for (i in seq_len(ndel/2)) delLines <- c(delLines,seq(delLines1[i],delLines2[i],1))
           flines <- flines[-delLines]
         }
       }

@@ -223,7 +223,7 @@ iMRCSingle <- function(M,n,m,method,labels) {
   } 
   # If no labels then assign letters, if labels then make sure size is correct
   if (is.null(labels)) {
-    if (length(M)>1) labels <- LETTERS[1:length(M)]
+    if (length(M)>1) labels <- LETTERS[seq_along(M)]
   } else {
     if (length(M) != length(labels)) STOP("'labels' must be same length as 'M', 'n', and 'm'.")
   }
@@ -324,7 +324,7 @@ confint.mrClosed1 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
   if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
   # Construct the CIs, loop is for handling multiple groups
   ci <- NULL
-  for (i in 1:length(object$N)) {
+  for (i in seq_along(object$N)) {
     temp <- with(object,
                  list(M=M[i],n=n[i],m=m[i],M1=M1[i],n1=n1[i],m1=m1[i],cf=cf[i],
                       method=method,methodLbl=methodLbl,N=N[i],labels=labels[i])

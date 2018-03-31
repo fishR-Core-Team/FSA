@@ -33,17 +33,17 @@ reproInfo(out = c("r", "markdown", "latex"), rqrdPkgs = NULL,
 
 \item{latex}{A logical that indicates whether the resultant p-value string should be contained within dollar signs to form a latex formula.}
 
-\item{file}{A string that contains the root name of the .RNW file.  This will also be the name of the resultant purled file with .R appended.}
+\item{file}{A string that contains the root name of the .RNW file. This will also be the name of the resultant purled file with .R appended.}
 
-\item{out.dir}{A string that indicates the directory structure in which the purled file should be located.  This should not have a forward slash at the end.}
+\item{out.dir}{A string that indicates the directory structure in which the purled file should be located. This should not have a forward slash at the end.}
 
 \item{newname}{A string for the output filename (without the extension) from \code{purl2}.}
 
-\item{topnotes}{A character vector of lines to be added to the top of the output file.  Each value in the vector will be placed on a single line at the top of the output file.}
+\item{topnotes}{A character vector of lines to be added to the top of the output file. Each value in the vector will be placed on a single line at the top of the output file.}
 
 \item{moreItems}{A string that contains additional words that when found in the purled file will result in the entire line with those words to be deleted.}
 
-\item{blanks}{A string that indicates if blank lines should be removed.  If \code{blanks="all"} then all blank lines will be removed.  If \code{blanks="extra"} then only \dQuote{extra} blanks lines will be removed (i.e., one blank line will be left where there was originally more than one blank line).}
+\item{blanks}{A string that indicates if blank lines should be removed. If \code{blanks="all"} then all blank lines will be removed. If \code{blanks="extra"} then only \dQuote{extra} blanks lines will be removed (i.e., one blank line will be left where there was originally more than one blank line).}
 
 \item{delHeader}{A single character that denotes the top and bottom of a block of lines that should be deleted from the script created by \code{purl2}.}
 
@@ -55,15 +55,15 @@ reproInfo(out = c("r", "markdown", "latex"), rqrdPkgs = NULL,
 
 \item{rqrdPkgs}{A string vector that contains packages that are required for the vignette and for which all dependencies should be found.}
 
-\item{elapsed}{A numeric, usually from \code{proc.time}, that is the time required to run the vignette.  If \code{NULL} then this output will not be used.  See the note below.}
+\item{elapsed}{A numeric, usually from \code{proc.time}, that is the time required to run the vignette. If \code{NULL} then this output will not be used. See the note below.}
 
 \item{width}{A numeric that indicates the width to use for wrapping the reproducibility information when \code{out="r"}.}
 
-\item{addTOC}{A logical that indicates whether or not a table of contents entry for the reproducibility section should be added to the LaTeX output.  Used only if \R{out="latex"}}
+\item{addTOC}{A logical that indicates whether or not a table of contents entry for the reproducibility section should be added to the LaTeX output. Used only if \R{out="latex"}}
 
-\item{newpage}{A logical that indicates whether or not the reproducibility information should begin on a new page.  Used only if \R{out="latex"}}
+\item{newpage}{A logical that indicates whether or not the reproducibility information should begin on a new page. Used only if \R{out="latex"}}
 
-\item{links}{A named character vector that will add a links bullet to the reproducibility information.  The names will be shown and the values are the links.  Used only if \R{out="markdown}.}
+\item{links}{A named character vector that will add a links bullet to the reproducibility information. The names will be shown and the values are the links. Used only if \R{out="markdown}.}
 
 \item{closeGraphics}{A logical that indicates whether the graphics device should be closed or not.}
 
@@ -71,8 +71,8 @@ reproInfo(out = c("r", "markdown", "latex"), rqrdPkgs = NULL,
 }
 \value{
 \itemize{
-   \item \code{kCounts} returns a numeric value if the count is less than zero or greater than ten and returns a character string of the number \sQuote{name}.  See the examples.
-   \item \code{kPvalue} returns a character string of the supplied p-value rounded to the requested number of digits or a character string that indicates what the p-value is less than the value with a \sQuote{5} in the \code{digits}+1 place.  See the examples. 
+   \item \code{kCounts} returns a numeric value if the count is less than zero or greater than ten and returns a character string of the number \sQuote{name}. See the examples.
+   \item \code{kPvalue} returns a character string of the supplied p-value rounded to the requested number of digits or a character string that indicates what the p-value is less than the value with a \sQuote{5} in the \code{digits}+1 place. See the examples. 
    \item \code{purl2} is a modification of \code{\link[knitr]{purl}} from \pkg{knitr} that creates a file with the same name as \code{file} but with lines removed that contain certain words (those found in \code{ItemsToRemove} and \code{moreItems}). 
    \item \code{reproInfo} returns Markdown, LaTeX, or R code that prints \dQuote{reproducibility information} at the bottom of the knitted document.
  }
@@ -89,7 +89,7 @@ Specific utilities for pretty printing various items in a knitr document.
  }
 }
 \note{
-In \code{reproInfo}, \code{elapsed} can be used to print the time it took to process the document by sending the elapsed time for processing to this argument.  The simplest way to get an approximate elapsed time is to put  \code{st <- proc.time()} very early (first line?) in your knitr code, put \code{et <- proc.time()-st} very late in your knitr code (i.e., just prior to \code{reproInfo}), and then used \code{elapsed=et["user.self"]+et["sys.self"]} in \code{reproInfo}.
+In \code{reproInfo}, \code{elapsed} can be used to print the time it took to process the document by sending the elapsed time for processing to this argument. The simplest way to get an approximate elapsed time is to put  \code{st <- proc.time()} very early (first line?) in your knitr code, put \code{et <- proc.time()-st} very late in your knitr code (i.e., just prior to \code{reproInfo}), and then used \code{elapsed=et["user.self"]+et["sys.self"]} in \code{reproInfo}.
 }
 \examples{
 kCounts(7)
@@ -106,7 +106,7 @@ kPvalue(0.000012345,include.p=FALSE,latex=FALSE)
 
 }
 \seealso{
-See \code{\link{formatC}} for functionality similar to \code{kPvalue}.  See \code{\link[knitr]{purl}} and \code{\link[knitr]{knit}} in \pkg{knitr} for functionality similar to \code{purl2}.
+See \code{\link{formatC}} for functionality similar to \code{kPvalue}. See \code{\link[knitr]{purl}} and \code{\link[knitr]{knit}} in \pkg{knitr} for functionality similar to \code{purl2}.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

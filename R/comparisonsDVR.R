@@ -2,17 +2,17 @@
 #'
 #' @description Tests for significant differences among all pairs of slopes in a dummy variable regression where the dummy variables all stem from one factor.
 #'
-#' @details In a dummy variable regression the coefficient for the interaction between the covariate (x) and a dummy variable tests for a difference in slopes between the level of the dummy variable and the reference level.  Thus, all dummy variables from a particular linear model fit only compare slopes with the reference level.  Other slope comparisons may be found by changing the reference level, which requires refitting the model.  This function automates this sequential process and produces a data.frame that shows the estimated difference, an unadjusted confidence interval for the difference, and the unadjusted and adjusted (for multiple comparisons) p-values for testing that the difference in slopes is equal to zero for each pair of levels.  The adjusted p-values may be computed with any of the methods coded in \code{\link[stats]{p.adjust}} (see \code{\link[stats]{p.adjust.methods}}).
+#' @details In a dummy variable regression the coefficient for the interaction between the covariate (x) and a dummy variable tests for a difference in slopes between the level of the dummy variable and the reference level. Thus, all dummy variables from a particular linear model fit only compare slopes with the reference level. Other slope comparisons may be found by changing the reference level, which requires refitting the model. This function automates this sequential process and produces a data.frame that shows the estimated difference, an unadjusted confidence interval for the difference, and the unadjusted and adjusted (for multiple comparisons) p-values for testing that the difference in slopes is equal to zero for each pair of levels. The adjusted p-values may be computed with any of the methods coded in \code{\link[stats]{p.adjust}} (see \code{\link[stats]{p.adjust.methods}}).
 #' 
 #' @param mdl A \code{lm} object.
-#' @param method A string indicating the method of p-value adjustment to use.  See details and \code{\link[stats]{p.adjust.methods}}.
+#' @param method A string indicating the method of p-value adjustment to use. See details and \code{\link[stats]{p.adjust.methods}}.
 #' @param conf.level A single number that represents the level of confidence to use for constructing confidence intervals.
 #' @param x A \code{compSlopes} object (i.e., returned from \code{compSlopes}).
 #' @param order.slopes A logical indicating whether the slopes should be ordered from smallest to largest upon output.
 #' @param digits A numeric that controls the number of digits to print.
 #' @param \dots Other arguments sent to \code{print}.
 #' 
-#' @return A list with three components.  The first component contains the p-value adjustment method in \code{method}.  The second component, called \code{comparisons}, is a data.frame that contains the following:
+#' @return A list with three components. The first component contains the p-value adjustment method in \code{method}. The second component, called \code{comparisons}, is a data.frame that contains the following:
 #' \tabular{ll}{
 #' \code{comparison} \tab Description of how the difference in levels was computed.\cr
 #' \code{diff} \tab The estimated difference in slope values.\cr
@@ -82,7 +82,7 @@ compSlopes <- function(mdl,method=stats::p.adjust.methods,
   cdf$comparison <- toString(cdf$comparison)  # must convert to strings
   ## cycle through multiple models extracting information about
   ## each slope and each comparison of slopes
-  for (i in 1:num.lvls) {
+  for (i in seq_len(num.lvls)) {
     # fit model and get results
     lm1 <- stats::lm(y~x*g)
     sum <- summary(lm1)
@@ -123,16 +123,16 @@ print.compSlopes <- function(x,...) { # nocov start
 #'
 #' @description Tests for significant differences among all pairs of intercepts in a dummy variable regression where the dummy variables all stem from one factor.
 #'
-#' @details In a dummy variable regression without the interaction(s) between the covariate (x) and the dummy variable(s) (i.e., parallel lines) the coefficient for the dummy variables tests for a difference in intercepts between the level of the dummy variable and the reference level.  Thus, all dummy variables from a particular linear model fit only compare intercepts with the reference level.  Other intercept comparisons may be found by changing the reference level, which requires refitting the model.
+#' @details In a dummy variable regression without the interaction(s) between the covariate (x) and the dummy variable(s) (i.e., parallel lines) the coefficient for the dummy variables tests for a difference in intercepts between the level of the dummy variable and the reference level. Thus, all dummy variables from a particular linear model fit only compare intercepts with the reference level. Other intercept comparisons may be found by changing the reference level, which requires refitting the model.
 #' 
-#' Alternatively, Tukey's HSD method of multiple comparisons may be used, but this requires adjusting the original observations as if the original observations were all collected at the exact same value of the covariate (x).  Because of this required adjustment, the  \code{\link[stats]{TukeyHSD}} function is inappropriate for testing for difference in intercepts in a dummy variable regression.
+#' Alternatively, Tukey's HSD method of multiple comparisons may be used, but this requires adjusting the original observations as if the original observations were all collected at the exact same value of the covariate (x). Because of this required adjustment, the  \code{\link[stats]{TukeyHSD}} function is inappropriate for testing for difference in intercepts in a dummy variable regression.
 #'
-#'This function provides a statistical comparison of all pairs of intercepts by first adjusting the observed data to a common value of the covariate (\code{common.cov}), computing a one-way ANOVA to determine if the mean adjusted values differ by level of the group factor in the original dummy variable regression, and then submitting the one-way ANOVA results to the \code{\link[stats]{TukeyHSD}} function to determine for which levels the mean adjusted values differ.  The levels for which the mean adjusted values differ are also the levels for which the intercepts differ.
+#'This function provides a statistical comparison of all pairs of intercepts by first adjusting the observed data to a common value of the covariate (\code{common.cov}), computing a one-way ANOVA to determine if the mean adjusted values differ by level of the group factor in the original dummy variable regression, and then submitting the one-way ANOVA results to the \code{\link[stats]{TukeyHSD}} function to determine for which levels the mean adjusted values differ. The levels for which the mean adjusted values differ are also the levels for which the intercepts differ.
 #'
-#'The default is to compute the adjusted values at the mean value of the covariate (i.e., \code{common.cov=mean(x)}.  However, if interest is in the intercepts (i.e., at X=0) then \code{common.cov=0} should be used instead.
+#'The default is to compute the adjusted values at the mean value of the covariate (i.e., \code{common.cov=mean(x)}. However, if interest is in the intercepts (i.e., at X=0) then \code{common.cov=0} should be used instead.
 #'
 #' @param mdl A \code{lm} object.
-#' @param common.cov A value to be used as the common value of the covariate in the adjustment process.  See details.
+#' @param common.cov A value to be used as the common value of the covariate in the adjustment process. See details.
 #' @param conf.level A single number that represents the level of confidence to use for constructing confidence intervals.
 #' @param digits A numeric that controls the number of digits to print.
 #' @param x A \code{compIntercepts} object (i.e., returned from \code{compIntercepts}).
@@ -142,7 +142,7 @@ print.compSlopes <- function(x,...) { # nocov start
 #' \tabular{ll}{
 #' \code{comparison} \tab The comparison results as returned from \code{\link[stats]{TukeyHSD}}.\cr
 #' \code{common.cov} \tab The value of the common covariate sent in \code{common.cov}.\cr
-#' \code{adjvals} \tab A vector of values of the response variable adjusted to the \code{common.cov} value of the covariate.  This vector can be appended to the original data frame to construct summary statistics for the adjusted values (e.g., mean adjusted value for each group).\cr 
+#' \code{adjvals} \tab A vector of values of the response variable adjusted to the \code{common.cov} value of the covariate. This vector can be appended to the original data frame to construct summary statistics for the adjusted values (e.g., mean adjusted value for each group).\cr 
 #' \code{means} \tab A vector of mean adjusted values at the value of the common covariate.\cr 
 #' \code{digits} \tab The value sent in \code{digits}.\cr 
 #' \code{rnm} \tab The name of the response (LHS) variable.\cr
@@ -199,7 +199,7 @@ compIntercepts <- function(mdl,common.cov=mean(x),
   thsd <- stats::TukeyHSD(stats::aov(adjvals~g),...)
   ## Put results into a better data.frame
   cdf <- data.frame(comparison=rownames(thsd[[1]]),thsd[[1]])
-  rownames(cdf) <- 1:nrow(cdf)
+  rownames(cdf) <- seq_len(nrow(cdf))
   # Rename the confidence interval columns
   names(cdf)[3:4] <- iCILabel(conf.level)
   ## Prepare results list to return
@@ -243,7 +243,7 @@ iExtractComparisons <- function(sum,conf,icdf,i,lev.names,num.lvls,conf.level) {
   pvals <- sum$coefficients[,4]
   comps <- (num.lvls-1):1
   # find position to start replacements
-  pos <- ifelse(i==1,1,1+sum(comps[1:(i-1)]))
+  pos <- ifelse(i==1,1,1+sum(comps[seq_len(i-1)]))
   for (j in (i+1):num.lvls) {
     # info on comparison of slopes w/ ref group
     icdf$comparison[pos] <- paste0(lev.names[j],"-",lev.names[i])

@@ -14,7 +14,7 @@ compIntercepts(mdl, common.cov = mean(x), conf.level = 0.95,
 \arguments{
 \item{mdl}{A \code{lm} object.}
 
-\item{common.cov}{A value to be used as the common value of the covariate in the adjustment process.  See details.}
+\item{common.cov}{A value to be used as the common value of the covariate in the adjustment process. See details.}
 
 \item{conf.level}{A single number that represents the level of confidence to use for constructing confidence intervals.}
 
@@ -29,7 +29,7 @@ A list with the following four components:
 \tabular{ll}{
 \code{comparison} \tab The comparison results as returned from \code{\link[stats]{TukeyHSD}}.\cr
 \code{common.cov} \tab The value of the common covariate sent in \code{common.cov}.\cr
-\code{adjvals} \tab A vector of values of the response variable adjusted to the \code{common.cov} value of the covariate.  This vector can be appended to the original data frame to construct summary statistics for the adjusted values (e.g., mean adjusted value for each group).\cr 
+\code{adjvals} \tab A vector of values of the response variable adjusted to the \code{common.cov} value of the covariate. This vector can be appended to the original data frame to construct summary statistics for the adjusted values (e.g., mean adjusted value for each group).\cr 
 \code{means} \tab A vector of mean adjusted values at the value of the common covariate.\cr 
 \code{digits} \tab The value sent in \code{digits}.\cr 
 \code{rnm} \tab The name of the response (LHS) variable.\cr
@@ -42,13 +42,13 @@ The \code{print} function prints the comparison and adjusted means in a nice for
 Tests for significant differences among all pairs of intercepts in a dummy variable regression where the dummy variables all stem from one factor.
 }
 \details{
-In a dummy variable regression without the interaction(s) between the covariate (x) and the dummy variable(s) (i.e., parallel lines) the coefficient for the dummy variables tests for a difference in intercepts between the level of the dummy variable and the reference level.  Thus, all dummy variables from a particular linear model fit only compare intercepts with the reference level.  Other intercept comparisons may be found by changing the reference level, which requires refitting the model.
+In a dummy variable regression without the interaction(s) between the covariate (x) and the dummy variable(s) (i.e., parallel lines) the coefficient for the dummy variables tests for a difference in intercepts between the level of the dummy variable and the reference level. Thus, all dummy variables from a particular linear model fit only compare intercepts with the reference level. Other intercept comparisons may be found by changing the reference level, which requires refitting the model.
 
-Alternatively, Tukey's HSD method of multiple comparisons may be used, but this requires adjusting the original observations as if the original observations were all collected at the exact same value of the covariate (x).  Because of this required adjustment, the  \code{\link[stats]{TukeyHSD}} function is inappropriate for testing for difference in intercepts in a dummy variable regression.
+Alternatively, Tukey's HSD method of multiple comparisons may be used, but this requires adjusting the original observations as if the original observations were all collected at the exact same value of the covariate (x). Because of this required adjustment, the  \code{\link[stats]{TukeyHSD}} function is inappropriate for testing for difference in intercepts in a dummy variable regression.
 
-This function provides a statistical comparison of all pairs of intercepts by first adjusting the observed data to a common value of the covariate (\code{common.cov}), computing a one-way ANOVA to determine if the mean adjusted values differ by level of the group factor in the original dummy variable regression, and then submitting the one-way ANOVA results to the \code{\link[stats]{TukeyHSD}} function to determine for which levels the mean adjusted values differ.  The levels for which the mean adjusted values differ are also the levels for which the intercepts differ.
+This function provides a statistical comparison of all pairs of intercepts by first adjusting the observed data to a common value of the covariate (\code{common.cov}), computing a one-way ANOVA to determine if the mean adjusted values differ by level of the group factor in the original dummy variable regression, and then submitting the one-way ANOVA results to the \code{\link[stats]{TukeyHSD}} function to determine for which levels the mean adjusted values differ. The levels for which the mean adjusted values differ are also the levels for which the intercepts differ.
 
-The default is to compute the adjusted values at the mean value of the covariate (i.e., \code{common.cov=mean(x)}.  However, if interest is in the intercepts (i.e., at X=0) then \code{common.cov=0} should be used instead.
+The default is to compute the adjusted values at the mean value of the covariate (i.e., \code{common.cov=mean(x)}. However, if interest is in the intercepts (i.e., at X=0) then \code{common.cov=0} should be used instead.
 }
 \examples{
 ## Reduce Mirex data to years where slopes don't differ to

@@ -2,7 +2,7 @@
 #' 
 #' @title Case bootstrapping and associated S3 methods.
 #'
-#' @description The \code{bootCase} function was added to \pkg{FSA} to maintain backward compatability (because \code{bootCase} was removed from \pkg{car}), mostly for users of the Introductory Fisheries Analyses with R book. \code{bootCase} is largerly a wrapper to \code{\link[car]{Boot}} from \pkg{car} with \code{method="case"}. It is suggested that \code{\link[car]{Boot}} from \pkg{car} be used instead. S3 methods are also provided to construct non-parametric bootstrap confidence intervals, predictions with non-parametric confidence intervals, hypothesis tests, and plots of the parameter estimates for \code{bootCase} objects. 
+#' @description The \code{bootCase} function was added to \pkg{FSA} to maintain backward compatability (because \code{bootCase} was removed from \pkg{car}), mostly for users of the Introductory Fisheries Analyses with R book. \code{bootCase} is largerly a wrapper to \code{\link[car]{Boot}} from \pkg{car} with \code{method="case"}. It is suggested that \code{\link[car]{Boot}} from \pkg{car} be used instead. S3 methods are also provided to construct non-parametric bootstrap confidence intervals, predictions with non-parametric confidence intervals, hypothesis tests, and plots of the parameter estimates for \code{bootCase} objects.
 #'
 #' @details \code{confint} finds the two quantiles that have the (1-\code{conf.level})/2 proportion of bootstrapped parameter estimates below and above. This is an approximate 100\code{conf.level}\% confidence interval.
 #' 
@@ -77,7 +77,7 @@
 #' @export
 bootCase <- function(object,f.=stats::coef,B=R,R=999) {
   # Tell user to use Boot instead
-  message("'bootCase' is provided here only for bacward compatibility.\nConsider using 'Boot' from 'car' package instead.")
+  message("'bootCase' is provided here only for backward compatibility.\nConsider using 'Boot' from the 'car' package instead.")
   # Use Boot, making sure the case method is used
   tmp <- car::Boot(object,f=f.,R=B,method="case")
   # Return just the matrix of results (like bootCase used to)
@@ -121,11 +121,13 @@ hist.bootCase <- function(x,same.ylim=TRUE,ymax=NULL,
   graphics::par(mfrow=c(rows,cols))
 	## If not given ymax, then find highest count on all histograms
   if (is.null(ymax)) {
-    for (i in 1:ncol(x)) ymax[i] <- max(hist.formula(~x[,i],plot=FALSE,warn.unused=FALSE,...)$counts)
+    for (i in seq_len(ncol(x))) ymax[i] <- max(hist.formula(~x[,i],
+                              plot=FALSE,warn.unused=FALSE,...)$counts)
   }
   if (same.ylim) ymax <- rep(max(ymax),length(ymax))
 	## Make the plots
-	for(i in 1:ncol(x)) hist.formula(~x[,i],xlab=colnames(x)[i],ylim=c(0,ymax[i]),...)
+	for(i in seq_len(ncol(x))) hist.formula(~x[,i],xlab=colnames(x)[i],
+	                                        ylim=c(0,ymax[i]),...)
   graphics::par(mfrow=op)
 } # nocov end
 
@@ -134,11 +136,12 @@ hist.bootCase <- function(x,same.ylim=TRUE,ymax=NULL,
 plot.bootCase <- function(x,...){ #nocov start
 	np <- ncol(x)
 	lay <- lower.tri(matrix(0,(np-1),(np-1)), TRUE)
-	lay[which(lay, TRUE)] <- 1:choose(np,2)
+	lay[which(lay, TRUE)] <- seq_len(choose(np,2))
 	graphics::layout(lay)
-	for(i in 1:(np-1))
+	for(i in seq_len((np-1)))
 		for(j in (i+1):np)
-		  graphics::plot(x[,i],x[,j],xlab=colnames(x)[i],ylab=colnames(x)[j],pch=20)
+		  graphics::plot(x[,i],x[,j],xlab=colnames(x)[i],
+		                 ylab=colnames(x)[j],pch=20)
 } #nocov end
 
 
@@ -326,9 +329,9 @@ plot.boot <- function(x,...){ #nocov start
   x <- x$t[stats::complete.cases(x$t),]
   np <- ncol(x)
   lay <- lower.tri(matrix(0,(np-1),(np-1)), TRUE)
-  lay[which(lay, TRUE)] <- 1:choose(np,2)
+  lay[which(lay, TRUE)] <- seq_len(choose(np,2))
   graphics::layout(lay)
-  for(i in 1:(np-1))
+  for(i in seq_len((np-1)))
     for(j in (i+1):np)
       graphics::plot(x[,i],x[,j],xlab=colnames(x)[i],ylab=colnames(x)[j],pch=20)
 } #nocov end
@@ -376,7 +379,7 @@ iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
     if (is.null(cols)) cols <- ceiling(sqrt(np))
     op <- graphics::par("mfrow")
     graphics::par(mfrow=c(rows,cols))
-    for (i in 1:np) {
+    for (i in seq_len(np)) {
       h <- hist.formula(~object[,i],xlab=colnames(object)[i],...)
       plotrix::plotCI(mean(object[,i]),y=0.95*max(h$counts),
                       li=res[i,1],ui=res[i,2],err="x",
@@ -402,7 +405,7 @@ iPredictBoot <- function(object,FUN,MARGIN,conf.level,digits,...) {
   n <- length(tmp[[1]])
   res <- matrix(NA,nrow=n,ncol=4)
   ## Loop through the items in the dots variable
-  for (i in 1:n) {
+  for (i in seq_len(n)) {
     # set arguments for apply
     tmp1 <- c(tmp[[1]][i],unlist(tmp[-1]))
     names(tmp1) <- names(tmp)

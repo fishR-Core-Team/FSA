@@ -69,7 +69,7 @@ test_that("removal with 'Moran' matches Schnute (1983)",{
   if (require(FSAdata)) {
     data(BrookTroutNEWP1)
     Ns <- ps <- LHs <- NLCI <- NUCI <- numeric(nrow(BrookTroutNEWP1))
-    for (i in 1:nrow(BrookTroutNEWP1)) {
+    for (i in seq_len(nrow(BrookTroutNEWP1))) {
       tmp <- removal(as.numeric(BrookTroutNEWP1[i,c("first","second","third","fourth")]),method="Moran")
       Ns[i] <- round(tmp$est[["No"]],1)
       ps[i] <- round(tmp$est[["p"]],2)
@@ -79,13 +79,13 @@ test_that("removal with 'Moran' matches Schnute (1983)",{
       NUCI[i] <- tmp[2]
     }
     ## check point estimates
-    tmp <- cbind(sample=1:nrow(BrookTroutNEWP1),Ns,ps,LHs,BrookTroutNEWP1[,c("Moran.N","Moran.p","Moran.LH")])
+    tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),Ns,ps,LHs,BrookTroutNEWP1[,c("Moran.N","Moran.p","Moran.LH")])
     ## perfect matches
     expect_equal(tmp[,"Ns"],BrookTroutNEWP1$Moran.N[])
     expect_equal(tmp[,"ps"],BrookTroutNEWP1$Moran.p[])
     expect_equal(tmp[,"LHs"],BrookTroutNEWP1$Moran.LH[])
     ## Check CIs (off by no more than 0.1 in a small handful of the UCIs)
-    tmp <- cbind(sample=1:nrow(BrookTroutNEWP1),NLCI,NUCI,BrookTroutNEWP1[,c("Moran.NLCI","Moran.NUCI")])
+    tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),NLCI,NUCI,BrookTroutNEWP1[,c("Moran.NLCI","Moran.NUCI")])
     expect_true(all(abs(tmp[,2:3]-tmp[,4:5])<=0.1001))
   }
 })
@@ -94,7 +94,7 @@ test_that("removal with 'Schnute' matches Schnute (1983)",{
   if (require(FSAdata)) {
     data(BrookTroutNEWP1)
     Ns <- p1s <- ps <- LHs <- NLCI <- NUCI <- numeric(nrow(BrookTroutNEWP1))
-    for (i in 1:nrow(BrookTroutNEWP1)) {
+    for (i in seq_len(nrow(BrookTroutNEWP1))) {
       tmp <- removal(as.numeric(BrookTroutNEWP1[i,c("first","second","third","fourth")]),method="Schnute")
       Ns[i] <- round(tmp$est[["No"]],1)
       p1s[i] <- round(tmp$est[["p1"]],2)
@@ -105,14 +105,14 @@ test_that("removal with 'Schnute' matches Schnute (1983)",{
       NUCI[i] <- tmp[2]
     }
     ## check point estimates
-    tmp <- cbind(sample=1:nrow(BrookTroutNEWP1),Ns,p1s,ps,LHs,BrookTroutNEWP1[,c("Schnute.N","Schnute.p1","Schnute.p","Schnute.LH")])
+    tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),Ns,p1s,ps,LHs,BrookTroutNEWP1[,c("Schnute.N","Schnute.p1","Schnute.p","Schnute.LH")])
     ## perfect matches except sample 5 N is off by 0.1
     expect_equal(tmp[-5,"Ns"],BrookTroutNEWP1$Schnute.N[-5])
     expect_equal(tmp[,"p1s"],BrookTroutNEWP1$Schnute.p1[])
     expect_equal(tmp[,"ps"],BrookTroutNEWP1$Schnute.p[])
     expect_equal(tmp[,"LHs"],BrookTroutNEWP1$Schnute.LH[])
     ## Check CIs (off by no more than 0.1)
-    tmp <- cbind(sample=1:nrow(BrookTroutNEWP1),NLCI,NUCI,BrookTroutNEWP1[,c("Schnute.NLCI","Schnute.NUCI")])
+    tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),NLCI,NUCI,BrookTroutNEWP1[,c("Schnute.NLCI","Schnute.NUCI")])
     expect_true(all(abs(tmp[,2:3]-tmp[,4:5])<=0.1001,na.rm=TRUE))
   }
 })
