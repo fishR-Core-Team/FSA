@@ -157,7 +157,7 @@ addZeroCatch <- function(df,eventvar,specvar,zerovar,na.rm=TRUE) {
       df <- df[,c(eventvar,specvar,zerovar)]
       # prepare an empty data frame to receive zeros
       newdf <- df[FALSE,]
-      for (i in 1:nrow(need0s)) {
+      for (i in seq_len(nrow(need0s))) {
         newrow <- data.frame(need0s[i,eventvar],need0s[i,specvar],zeros)
         newdf <- rbind(newdf,newrow)
       }    
@@ -166,10 +166,10 @@ addZeroCatch <- function(df,eventvar,specvar,zerovar,na.rm=TRUE) {
       df <- df[,c(eventvar,specvar,idvar,zerovar)]
       # prepare an empty data frame to receive zeros
       newdf <- df[FALSE,]
-      for (i in 1:nrow(need0s)) {
+      for (i in seq_len(nrow(need0s))) {
         newrow <- data.frame(need0s[i,eventvar],need0s[i,specvar],
-                             unique(df[df[,eventvar]==need0s[i,eventvar],idvar]),
-                             zeros)
+                             unique(df[df[,eventvar]==need0s[i,eventvar],
+                                       idvar]),zeros)
         newdf <- rbind(newdf,newrow)
       }
     }
