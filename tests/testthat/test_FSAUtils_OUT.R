@@ -414,6 +414,12 @@ test_that("perc() return values",{
   expect_equal(suppressWarnings(perc(tmp,5,"lt",na.rm=FALSE)),40)
 })
 
+test_that("rSquared() return values",{
+  tmp <- lm(y~x,data=data.frame(x=0:5,y=c(0,1.5,3,5,9,15)))
+  expect_equal(round(summary(tmp)$r.squared,9),
+               rSquared(tmp,digits=9))
+})
+
 test_that("pcumsum()/rcumsum() return values",{
   tmp <- 1:3
   expect_equal(pcumsum(tmp),c(0,1,3))

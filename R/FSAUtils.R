@@ -789,6 +789,57 @@ iChkCumSum <- function(x) {
 }
 
 
+#' @title Extract the coefficient of determination from a linear model object.
+#' 
+#' @description Extracts the coefficient of determination (i.e., \dQuote{r-squared} from a linear model (i.e., \code{lm}) object.
+#' 
+#' @details This is a convenience function to extract the \code{r.squared} part from \code{summary(lm)}.
+#' 
+#' @param object An object saved from \code{lm}.
+#' @param digits A single number that is the number of digits to round the returned result to.
+#' @param percent A logical that indicates if the result should be returned as a percentage (\code{=TRUE}) or as a proportion (\code{=FALSE}; default).
+#' @param \dots Additional arguments for methods.
+#' 
+#' @return A numeric, as either a proportion or percentage, that is the coefficient of determination for a linear model.
+#' 
+#' @keywords misc
+#' 
+#' @aliases rSquared rSquared.default rSquared.lm
+#' 
+#' @examples
+#' data(Mirex)
+#' lm1 <- lm(mirex~weight, data=Mirex)
+#' rSquared(lm1)
+#' rSquared(lm1,digits=3)
+#' rSquared(lm1,digits=1,percent=TRUE)
+#' 
+#' ## rSquared only works with lm objects
+#' \dontrun{
+#' nls1 <- nls(mirex~a*weight^b,data=Mirex,start=list(a=1,b=1))
+#' rSquared(nls1)
+#' }
+#' 
+#' @rdname rSquared
+#' @export
+rSquared <- function(object, ...) {
+  UseMethod("rSquared")   
+}
+
+#' @rdname rSquared
+#' @export
+rSquared.default <- function(object, ...) {
+  stop(paste0("'rSquared' only works with 'lm', not '",class(object),"', objects"),
+       call.=FALSE)
+}
+
+#' @rdname rSquared
+#' @export
+rSquared.lm <- function(object,digits=getOption("digits"),
+                        percent=FALSE,...) {
+  r2 <- summary(object)$r.squared
+  ifelse(percent,round(r2*100,digits),round(r2,digits))
+}
+
 
 #' @title Computes standard error of the mean.
 #'

@@ -148,6 +148,12 @@ test_that("pcumsum()/rcumsum() messages",{
   expect_error(rcumsum(mat),"1-dimensional")
 })
 
+test_that("rSquared messages",{
+  tmp <- data.frame(x=0:5,y=c(0,1.5,3,5,9,15))
+  tmp <- nls(y~a*x^b,data=tmp,start=list(a=1,b=2))
+  expect_error(rSquared(tmp),"only works with 'lm'")
+})
+
 test_that("se() messages",{
   expect_error(se(letters),"numeric")
   expect_error(se(data.frame(x=1:5)),"vector")
