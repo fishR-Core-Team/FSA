@@ -105,7 +105,7 @@ chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Smithetal","Ho
   zmethod <- match.arg(zmethod)
   if (!is.numeric(x)) STOP("'x' must be numeric.")
   if (!is.numeric(catch)) STOP("'catch' must be numeric.")
-  if (length(age)!=length(catch)) STOP("'age' and 'catch' have different lengths.")
+  if (length(age)!=length(catch)) STOP("'age' and 'catch' are different lengths.")
   # Check to make sure enough ages and catches exist
   if (length(age)<2) STOP("Fewer than 2 data points.")
 
