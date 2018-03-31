@@ -13,8 +13,8 @@ test_that("catchCurve() messages",{
   # bad numbers of individuals
   expect_error(catchCurve(catch~age[-1],data=d),"variable lengths differ")
   expect_error(catchCurve(catch[-1]~age,data=d),"variable lengths differ")
-  expect_error(catchCurve(d$age,d$catch[-1]),"have different lengths")
-  expect_error(catchCurve(d$age[-1],d$catch),"have different lengths")
+  expect_error(catchCurve(d$age,d$catch[-1]),"are different lengths")
+  expect_error(catchCurve(d$age[-1],d$catch),"are different lengths")
   # too few data
   expect_error(catchCurve(d$age[1],d$catch[1]),"Fewer than 2 data points")
   expect_error(catchCurve(d$age,d$catch,ages2use=3),"Fewer than 2 data points")
@@ -33,7 +33,13 @@ test_that("catchCurve() messages",{
   # How does catchCurve() handle negative weights
   d <- data.frame(catch=c(10,5,3,1,1,1),age=1:6)
   expect_warning(catchCurve(catch~age,data=d,weighted=TRUE),
-                 "Some weights were non-positive")
+                 "Non-positive weights were set to 0")
+  expect_warning(catchCurve(catch~age,data=d,
+                            weighted=TRUE,negWeightReplace=3),
+                 "Non-positive weights were set to 3")
+  expect_error(catchCurve(catch~age,data=d,
+                          weighted=TRUE,negWeightReplace=-1),
+               "must be non-negative")
 })
 
 test_that("chapmanRobson errors and warnings",{
@@ -50,8 +56,8 @@ test_that("chapmanRobson errors and warnings",{
   # bad numbers of individuals
   expect_error(chapmanRobson(catch~age[-1],data=d),"variable lengths differ")
   expect_error(chapmanRobson(catch[-1]~age,data=d),"variable lengths differ")
-  expect_error(chapmanRobson(d$age,d$catch[-1]),"have different lengths")
-  expect_error(chapmanRobson(d$age[-1],d$catch),"have different lengths")
+  expect_error(chapmanRobson(d$age,d$catch[-1]),"are different lengths")
+  expect_error(chapmanRobson(d$age[-1],d$catch),"are different lengths")
   # too few data
   expect_error(chapmanRobson(d$age[1],d$catch[1]),"Fewer than 2 data points")
   expect_error(chapmanRobson(d$age,d$catch,ages2use=3),"Fewer than 2 data points")

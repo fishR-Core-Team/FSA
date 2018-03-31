@@ -9,21 +9,24 @@
 \alias{coef.catchCurve}
 \alias{anova.catchCurve}
 \alias{confint.catchCurve}
+\alias{rSquared.catchCurve}
 \alias{catchCurve.default}
 \alias{catchCurve.formula}
 \alias{summary.catchCurve}
 \alias{coef.catchCurve}
 \alias{anova.catchCurve}
 \alias{confint.catchCurve}
+\alias{rSquared.catchCurve}
 \alias{plot.catchCurve}
 \title{Mortality estimates from the descending limb of a catch curve.}
 \usage{
 catchCurve(x, ...)
 
 \method{catchCurve}{default}(x, catch, ages2use = age, weighted = FALSE,
-  ...)
+  negWeightReplace = 0, ...)
 
-\method{catchCurve}{formula}(x, data, ages2use = age, weighted = FALSE, ...)
+\method{catchCurve}{formula}(x, data, ages2use = age, weighted = FALSE,
+  negWeightReplace = 0, ...)
 
 \method{summary}{catchCurve}(object, parm = c("both", "all", "Z", "A", "lm"),
   ...)
@@ -36,22 +39,27 @@ catchCurve(x, ...)
 \method{confint}{catchCurve}(object, parm = c("all", "both", "Z", "A", "lm"),
   level = conf.level, conf.level = 0.95, ...)
 
+\method{rSquared}{catchCurve}(object, digits = getOption("digits"),
+  percent = FALSE, ...)
+
 \method{plot}{catchCurve}(x, pos.est = "topright", cex.est = 0.95,
   ylab = "log(Catch)", xlab = "Age", col.pt = "gray30",
   col.mdl = "black", lwd = 2, lty = 1, ...)
 }
 \arguments{
-\item{x}{A numerical vector of the assigned ages in the catch curve or a formula of the form \code{catch~age} when used in \code{catchCurve}. An object saved from \code{catchCurve} (i.e., of class \code{catchCurve}) when used in the methods.}
+\item{x}{A numerical vector of assigned ages in the catch curve or a formula of the form \code{catch~age} when used in \code{catchCurve}. An object saved from \code{catchCurve} (i.e., of class \code{catchCurve}) when used in the methods.}
 
 \item{\dots}{Additional arguments for methods.}
 
-\item{catch}{A numerical vector of the catches or CPUEs for the ages in the catch curve. Not used if \code{x} is a formula.}
+\item{catch}{A numerical vector of catches or CPUEs for the ages in the catch curve. Not used if \code{x} is a formula.}
 
-\item{ages2use}{A numerical vector of the ages that define the descending limb of the catch curve.}
+\item{ages2use}{A numerical vector of ages that define the descending limb of the catch curve.}
 
 \item{weighted}{A logical that indicates whether a weighted regression should be used. See details.}
 
-\item{data}{A data frame from which the variables in the \code{x} formula can be found. Not used if \code{x} is not a formula.}
+\item{negWeightReplace}{A single non-negative numeric that will replace negative weights (defaults to 0). Only used when \code{weighted=TRUE}. See details.}
+
+\item{data}{A data.frame from which the variables in the \code{x} formula can be found. Not used if \code{x} is not a formula.}
 
 \item{object}{An object saved from the \code{catchCurve} call (i.e., of class \code{catchCurve}).}
 
@@ -60,6 +68,10 @@ catchCurve(x, ...)
 \item{level}{Same as \code{conf.level}. Used for compatibility with the generic \code{confint} function.}
 
 \item{conf.level}{A number representing the level of confidence to use for constructing confidence intervals.}
+
+\item{digits}{The number of digits to round the \code{rSquared} result to.}
+
+\item{percent}{A logical that indicates if the \code{rSquared} result should be returned as a percentage (\code{=TRUE}) or as a proportion (\code{=FALSE}; default).}
 
 \item{pos.est}{A string to identify where to place the estimated mortality rates on the plot. Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot. Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements. Set \code{pos.est} to \code{NULL} to remove the estimated mortality rates from the plot.}
 
@@ -89,12 +101,12 @@ A list that contains the following items:
  }
 }
 \description{
-Fits a linear model to the user-defined descending limb of a catch curve. Method functions extract estimates of the instantaneous (Z) and total annual (A) mortality rates with associated standard errors and confidence intervals. A plot method highlights the descending-limb, shows the linear model on the descending limb, and, optionally, prints the estimated Z and A.
+Fits a linear model to the user-defined descending limb of a catch curve. Method functions extract estimates of the instantaneous (Z) and total annual (A) mortality rates with associated standard errors and confidence intervals. A plot method highlights the descending limb, shows the linear model on the descending limb, and, optionally, prints the estimated Z and A.
 }
 \details{
 The default is to use all ages in the age vector. This is appropriate only when the age and catch vectors contain only the ages and catches on the descending limb of the catch curve. Use \code{ages2use} to isolate only the catch and ages on the descending limb.
 
-If \code{weighted=TRUE} then a weighted regression is used where the weights are the log(number) at each age predicted from the unweighted regression of log(number) on age (as proposed by Maceina and Bettoli (1998)).
+If \code{weighted=TRUE} then a weighted regression is used where the weights are the log(number) at each age predicted from the unweighted regression of log(number) on age (as proposed by Maceina and Bettoli (1998)). If a negative weight is computed it will be changed to the value in \code{negWeightReplace} and a warning will be issued.
 }
 \section{Testing}{
  Tested the results of catch curve, both unweighted and weighted, against the results in Miranda and Bettoli (2007). Results for Z and the SE of Z matched perfectly. Tested the unweighted results against the results from \code{agesurv} in \pkg{fishmethods} using the \code{rockbass} data.frame in \pkg{fishmethods}. Results for Z and the SE of Z matched perfectly.
@@ -112,6 +124,7 @@ plot(catch~age,data=BrookTroutTH,pch=19)
 cc1 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6)
 summary(cc1)
 cbind(Est=coef(cc1),confint(cc1))
+rSquared(cc1)
 plot(cc1)
 summary(cc1,parm="Z")
 cbind(Est=coef(cc1,parm="Z"),confint(cc1,parm="Z"))

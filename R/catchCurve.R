@@ -1,17 +1,18 @@
 #' @title Mortality estimates from the descending limb of a catch curve.
 #'
-#' @description Fits a linear model to the user-defined descending limb of a catch curve. Method functions extract estimates of the instantaneous (Z) and total annual (A) mortality rates with associated standard errors and confidence intervals. A plot method highlights the descending-limb, shows the linear model on the descending limb, and, optionally, prints the estimated Z and A.
+#' @description Fits a linear model to the user-defined descending limb of a catch curve. Method functions extract estimates of the instantaneous (Z) and total annual (A) mortality rates with associated standard errors and confidence intervals. A plot method highlights the descending limb, shows the linear model on the descending limb, and, optionally, prints the estimated Z and A.
 #'
 #' @details The default is to use all ages in the age vector. This is appropriate only when the age and catch vectors contain only the ages and catches on the descending limb of the catch curve. Use \code{ages2use} to isolate only the catch and ages on the descending limb.
 #'
-#' If \code{weighted=TRUE} then a weighted regression is used where the weights are the log(number) at each age predicted from the unweighted regression of log(number) on age (as proposed by Maceina and Bettoli (1998)).
+#' If \code{weighted=TRUE} then a weighted regression is used where the weights are the log(number) at each age predicted from the unweighted regression of log(number) on age (as proposed by Maceina and Bettoli (1998)). If a negative weight is computed it will be changed to the value in \code{negWeightReplace} and a warning will be issued.
 #'
-#' @param x A numerical vector of the assigned ages in the catch curve or a formula of the form \code{catch~age} when used in \code{catchCurve}. An object saved from \code{catchCurve} (i.e., of class \code{catchCurve}) when used in the methods.
+#' @param x A numerical vector of assigned ages in the catch curve or a formula of the form \code{catch~age} when used in \code{catchCurve}. An object saved from \code{catchCurve} (i.e., of class \code{catchCurve}) when used in the methods.
 #' @param object An object saved from the \code{catchCurve} call (i.e., of class \code{catchCurve}).
-#' @param catch A numerical vector of the catches or CPUEs for the ages in the catch curve. Not used if \code{x} is a formula.
-#' @param data A data frame from which the variables in the \code{x} formula can be found. Not used if \code{x} is not a formula.
-#' @param ages2use A numerical vector of the ages that define the descending limb of the catch curve.
+#' @param catch A numerical vector of catches or CPUEs for the ages in the catch curve. Not used if \code{x} is a formula.
+#' @param data A data.frame from which the variables in the \code{x} formula can be found. Not used if \code{x} is not a formula.
+#' @param ages2use A numerical vector of ages that define the descending limb of the catch curve.
 #' @param weighted A logical that indicates whether a weighted regression should be used. See details.
+#' @param negWeightReplace A single non-negative numeric that will replace negative weights (defaults to 0). Only used when \code{weighted=TRUE}. See details.
 #' @param pos.est A string to identify where to place the estimated mortality rates on the plot. Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot. Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements. Set \code{pos.est} to \code{NULL} to remove the estimated mortality rates from the plot.
 #' @param cex.est A single numeric character expansion value for the estimated mortality rates on the plot.
 #' @param ylab A label for the y-axis (\code{"log(Catch)"} is the default).
@@ -23,6 +24,8 @@
 #' @param parm A numeric or string (of parameter names) vector that specifies which parameters are to be given confidence intervals. If \code{parm="lm"} then confidence intervals for the underlying linear model are returned.
 #' @param conf.level A number representing the level of confidence to use for constructing confidence intervals.
 #' @param level Same as \code{conf.level}. Used for compatibility with the generic \code{confint} function.
+#' @param digits The number of digits to round the \code{rSquared} result to.
+#' @param percent A logical that indicates if the \code{rSquared} result should be returned as a percentage (\code{=TRUE}) or as a proportion (\code{=FALSE}; default).
 #' @param \dots Additional arguments for methods.
 #'
 #' @return A list that contains the following items:
@@ -51,8 +54,9 @@
 #' 
 #' @keywords hplot htest manip
 #'
-#' @aliases catchCurve catchCurve.default catchCurve.formula plot.catchCurve summary.catchCurve
-#'coef.catchCurve anova.catchCurve confint.catchCurve
+#' @aliases catchCurve catchCurve.default catchCurve.formula
+#' plot.catchCurve summary.catchCurve coef.catchCurve anova.catchCurve
+#' confint.catchCurve rSquared.catchCurve
 #' 
 #' @examples
 #' data(BrookTroutTH)
@@ -62,6 +66,7 @@
 #' cc1 <- catchCurve(catch~age,data=BrookTroutTH,ages2use=2:6)
 #' summary(cc1)
 #' cbind(Est=coef(cc1),confint(cc1))
+#' rSquared(cc1)
 #' plot(cc1)
 #' summary(cc1,parm="Z")
 #' cbind(Est=coef(cc1,parm="Z"),confint(cc1,parm="Z"))
@@ -103,16 +108,19 @@ catchCurve <- function (x,...) {
 
 #' @rdname catchCurve
 #' @export
-catchCurve.default <- function(x,catch,ages2use=age,weighted=FALSE,...) {
+catchCurve.default <- function(x,catch,ages2use=age,
+                               weighted=FALSE,negWeightReplace=0,...) {
   ## Put x into age variable for rest of function
   age <- x
   
   ## Some Checks
   if (!is.numeric(x)) STOP("'x' must be numeric.")
   if (!is.numeric(catch)) STOP("'catch' must be numeric.")
-  if (length(age)!=length(catch)) STOP("'age' and 'catch' have different lengths.")
+  if (length(age)!=length(catch)) STOP("'age' and 'catch' are different lengths.")
   # Check to make sure enough ages and catches exist
   if (length(age)<2) STOP("Fewer than 2 data points.")
+  # Make sure negWeightReplace is non-negative
+  if (negWeightReplace<0) STOP("'negWeightReplace' must be non-negative.")
 
   ## Isolate the ages and catches to be used  
   # Find rows to use according to ages to use
@@ -130,12 +138,10 @@ catchCurve.default <- function(x,catch,ages2use=age,weighted=FALSE,...) {
     # if asked to fit weighted regression then find weights as
     #   the predicted values from the raw regression
     W <- stats::predict(cclm)
-    # if any weights are zero or negative then replace with the
-    # minimum of positive weights. Send a warning.
-    tmp <- which(W<=0)
-    if (length(tmp)>0) {
-      WARN("Some weights were non-positive and were changed to minimum of positive weights.")
-      W[tmp] <- min(W[which(W>0)])
+    # if any weights are negative then replace with zero. Send a warning.
+    if (any(W<0,na.rm=TRUE)) {
+      WARN(paste0("Non-positive weights were set to ",negWeightReplace,"."))
+      W[W<0] <- negWeightReplace
     } 
     # and then fit the weighted regression
     cclm <- stats::lm(log.catch.e~age.e,weights=W,na.action=stats::na.exclude)
@@ -145,14 +151,16 @@ catchCurve.default <- function(x,catch,ages2use=age,weighted=FALSE,...) {
     W <- NULL
   }
   ## Prepare the list of results to return
-  cc <- list(age=age,catch=catch,age.e=age.e,log.catch.e=log.catch.e,weights.e=W,lm=cclm)
+  cc <- list(age=age,catch=catch,age.e=age.e,log.catch.e=log.catch.e,
+             weights.e=W,lm=cclm)
   class(cc) <- "catchCurve"
   cc
 }
 
 #' @rdname catchCurve
 #' @export
-catchCurve.formula <- function(x,data,ages2use=age,weighted=FALSE,...) {
+catchCurve.formula <- function(x,data,ages2use=age,
+                               weighted=FALSE,negWeightReplace=0,...) {
   ## Handle the formula and perform some checks
   tmp <- iHndlFormula(x,data,expNumR=1,expNumE=1)
   if (!tmp$metExpNumR) STOP("'catchCurve' must have only one LHS variable.")
@@ -163,7 +171,9 @@ catchCurve.formula <- function(x,data,ages2use=age,weighted=FALSE,...) {
   age <- tmp$mf[,tmp$Enames]
   catch <- tmp$mf[,tmp$Rname]
   ## Call the default function
-  catchCurve.default(age,catch,ages2use=ages2use,weighted=weighted,...)
+  catchCurve.default(age,catch,ages2use=ages2use,
+                     weighted=weighted,negWeightReplace=negWeightReplace,
+                     ...)
 }
 
 #' @rdname catchCurve
@@ -216,6 +226,13 @@ confint.catchCurve <- function(object,parm=c("all","both","Z","A","lm"),
   }
   colnames(res) <- iCILabel(conf.level)
   res
+}
+
+#' @rdname catchCurve
+#' @export
+rSquared.catchCurve <- function(object,digits=getOption("digits"),
+                                percent=FALSE,...) {
+  rSquared(object$lm,digits=digits,percent=percent,...)
 }
 
 #' @rdname catchCurve

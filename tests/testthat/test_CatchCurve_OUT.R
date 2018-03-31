@@ -96,6 +96,11 @@ test_that("catchCurve() outpute types",{
   expect_equal(colnames(cc2A),c("Estimate","Std. Error","t value","Pr(>|t|)"))
   cc2A <- summary(cc2,parm="lm")
   expect_is(cc2A,"summary.lm")
+
+  # r-squared
+  expect_true(is.numeric(rSquared(cc)))
+  expect_true(is.numeric(rSquared(cc2)))
+  
   # anova
   expect_equal(anova(cc2),anova(cc2$lm))
 })
