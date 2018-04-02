@@ -11,10 +11,15 @@
 * `compIntercepts()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
 * `extraSS()`: Modified. Changed all `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
 * `headtail()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `hist.formula()` methods: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `htest.boot()`: Removed (added last version) until I can test more.
+* `iHndlFormula()`: Modified. Now categorizes a character variable as a factor variable. This addresses [#35](https://github.com/droglenc/FSA/issues/35)) for `hist.formula()` and `Summarize()`.
 * `lrt()`: Modified. Changed all `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
 * `lwCompPreds()`: Modified. Changed all `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
 * `mrClosed()`: Modified. Changed two `1:length()` structures to `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
 * `nlsBoot()` methods: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `plot.boot()`: Removed (added last version) until I can test more.
+* `predict.boot()`: Removed (added last version) until I can test more.
 * `psdAdd()`: Modified. Changed three `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
 * `residPlot()`: Modified. Changed three `1:length()` structures to `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
 * `Summarize()`: Modified. Changed one `1:length()` structure to `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
