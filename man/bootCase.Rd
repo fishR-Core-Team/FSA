@@ -93,6 +93,9 @@ The \code{bootCase} function was added to \pkg{FSA} to maintain backward compata
 In \code{htest} the \dQuote{direction} of the alternative hypothesis is identified by a string in the \code{alt=} argument. The strings may be \code{"less"} for a \dQuote{less than} alternative, \code{"greater"} for a \dQuote{greater than} alternative, or \code{"two.sided"} for a \dQuote{not equals} alternative (the DEFAULT). In the one-tailed alternatives the p-value is the proportion of bootstrapped parameter estimates in \code{object$coefboot} that are extreme of the null hypothesized parameter value in \code{bo}. In the two-tailed alternative the p-value is twice the smallest of the proportion of bootstrapped parameter estimates above or below the null hypothesized parameter value in \code{bo}.
 }
 \examples{
+\dontrun{
+#### This does not run with car v3.0.0, but the error will be fixed
+#### when car v3.0.1 is submitted to CRAN.
 data(Ecoli)
 fnx <- function(days,B1,B2,B3) {
   if (length(B1) > 1) {
@@ -104,7 +107,7 @@ fnx <- function(days,B1,B2,B3) {
 }
 nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,
            start=list(B1=6,B2=7.2,B3=-1.45))
-nl1.bootc <- bootCase(nl1,B=99)  # B=99 too small to be useful
+nl1.bootc <- bootCase(nl1,B=99)  # B=99 too few to be useful
 confint(nl1.bootc,"B1")
 confint(nl1.bootc,c(2,3))
 confint(nl1.bootc,conf.level=0.90)
@@ -114,6 +117,7 @@ htest(nl1.bootc,1,bo=6,alt="less")
 hist(nl1.bootc)
 plot(nl1.bootc)
 cor(nl1.bootc)
+}
 
 }
 \references{

@@ -51,6 +51,9 @@
 #' @keywords htest
 #' 
 #' @examples
+#' \dontrun{
+#' #### This does not run with car v3.0.0, but the error will be fixed
+#' #### when car v3.0.1 is submitted to CRAN.
 #' data(Ecoli)
 #' fnx <- function(days,B1,B2,B3) {
 #'   if (length(B1) > 1) {
@@ -62,7 +65,7 @@
 #' }
 #' nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,
 #'            start=list(B1=6,B2=7.2,B3=-1.45))
-#' nl1.bootc <- bootCase(nl1,B=99)  # B=99 too small to be useful
+#' nl1.bootc <- bootCase(nl1,B=99)  # B=99 too few to be useful
 #' confint(nl1.bootc,"B1")
 #' confint(nl1.bootc,c(2,3))
 #' confint(nl1.bootc,conf.level=0.90)
@@ -72,7 +75,8 @@
 #' hist(nl1.bootc)
 #' plot(nl1.bootc)
 #' cor(nl1.bootc)
-#'
+#' }
+#' 
 #' @rdname bootCase
 #' @export
 bootCase <- function(object,f.=stats::coef,B=R,R=999) {
@@ -80,8 +84,7 @@ bootCase <- function(object,f.=stats::coef,B=R,R=999) {
   message("'bootCase' is provided here only for backward compatibility.\nConsider using 'Boot' from the 'car' package instead.")
   # Use Boot, making sure the case method is used
   tmp <- car::Boot(object,f=f.,R=B,method="case")
-  # Return just the matrix of results (like bootCase
-  # used to) and remove the NA value
+  # Return matrix of results (like bootCase used to) and remove NAs
   tmp <- tmp$t[stats::complete.cases(tmp$t),]
   # Set the class to bootCase
   class(tmp) <- "bootCase"
@@ -202,7 +205,7 @@ plot.bootCase <- function(x,...){ #nocov start
 #' nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,
 #'            start=list(B1=6,B2=7.2,B3=-1.45))
 #' if (require(nlstools)) {
-#'   nl1.bootn <-  nlstools::nlsBoot(nl1,niter=99)  # way too few
+#'   nl1.bootn <-  nlstools::nlsBoot(nl1,niter=99) # too few to be useful
 #'   confint(nl1.bootn,"B1")
 #'   confint(nl1.bootn,c(2,3))
 #'   confint(nl1.bootn,conf.level=0.90)

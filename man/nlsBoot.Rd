@@ -81,7 +81,7 @@ fnx <- function(days,B1,B2,B3) {
 nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,
            start=list(B1=6,B2=7.2,B3=-1.45))
 if (require(nlstools)) {
-  nl1.bootn <-  nlstools::nlsBoot(nl1,niter=99)  # way too few
+  nl1.bootn <-  nlstools::nlsBoot(nl1,niter=99) # too few to be useful
   confint(nl1.bootn,"B1")
   confint(nl1.bootn,c(2,3))
   confint(nl1.bootn,conf.level=0.90)
