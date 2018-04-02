@@ -170,14 +170,16 @@ iHndlFormula <- function(formula,data,expNumR=NULL,
                          expNumE=NULL,expNumENums=NULL,expNumEFacts=NULL) {
   mf <- stats::model.frame(formula,data=data,na.action=NULL)
   if (ncol(mf)==1) {
-    # One variable. Return only model.frame, name of variable, and it's class.
-    #   but handle an odd case where the item is an array by returning the mode
+    # One variable. Return only model.frame, name of variable, and it's
+    # class; but handle an odd case where the item is an array by
+    # returning the mode
     return(list(mf=mf,vnum=1,vname=names(mf),
                 vclass=ifelse(is.array(mf[,1]),mode(mf[,1]),class(mf[,1]))))
   } else {
     # More than one variable in the formula.
     # Must identify if there is a LHS.
-    ifelse(attr(stats::terms(formula),"response")==0,LHS <- FALSE, LHS <- TRUE)
+    ifelse(attr(stats::terms(formula),"response")==0,
+           LHS <- FALSE,LHS <- TRUE)
     # See if more than one variable on LHS
     if (LHS) {
       fcLHS <- as.character(formula)[2]
@@ -208,10 +210,11 @@ iHndlFormula <- function(formula,data,expNumR=NULL,
       Epos <- seq_len(Enum)      
     }
     # find the class of each response and explanatory variable on the RHS
-    if (Enum>0) ifelse(Enum==1,Eclass <- class(Emf), Eclass <- unlist(lapply(Emf,class)))
+    if (Enum>0) ifelse(Enum==1,Eclass <- class(Emf),
+                       Eclass <- unlist(lapply(Emf,class)))
     # get positions of numeric and factor explanatory vars on RHS
     ENumPos <- which(Eclass %in% c("numeric","integer","AsIs"))
-    EFactPos <- which(Eclass=="factor")
+    EFactPos <- which(Eclass %in% c("factor","character"))
     # add one to positions if Rnum==1
     if (Rnum==1) {
       ENumPos <- ENumPos + 1
@@ -231,10 +234,16 @@ iHndlFormula <- function(formula,data,expNumR=NULL,
   names(df) <- c(Rname,Enames)
   # Check if the expected number of each type of variable was met
   metExpNumR <- metExpNumE <- metExpNumENums <- metExpNumEFacts <- NULL
-  if (!is.null(expNumR)) ifelse(Rnum==expNumR,metExpNumR <- TRUE,metExpNumR <- FALSE)
-  if (!is.null(expNumE)) ifelse(Enum==expNumE,metExpNumE <- TRUE,metExpNumE <- FALSE)
-  if (!is.null(expNumENums)) ifelse(ENumNum==expNumENums,metExpNumENums <- TRUE,metExpNumENums <- FALSE)
-  if (!is.null(expNumEFacts)) ifelse(EFactNum==expNumEFacts,metExpNumEFacts <- TRUE,metExpNumEFacts <- FALSE)
+  if (!is.null(expNumR)) ifelse(Rnum==expNumR,
+                                metExpNumR <- TRUE,metExpNumR <- FALSE)
+  if (!is.null(expNumE)) ifelse(Enum==expNumE,
+                                metExpNumE <- TRUE,metExpNumE <- FALSE)
+  if (!is.null(expNumENums)) ifelse(ENumNum==expNumENums,
+                                    metExpNumENums <- TRUE,
+                                    metExpNumENums <- FALSE)
+  if (!is.null(expNumEFacts)) ifelse(EFactNum==expNumEFacts,
+                                     metExpNumEFacts <- TRUE,
+                                     metExpNumEFacts <- FALSE)
   # put it all together to return
   list(formula=formula,mf=df,vnum=Rnum+Enum,
        Rnum=Rnum,Rname=Rname,Rclass=Rclass,Rpos=Rpos,

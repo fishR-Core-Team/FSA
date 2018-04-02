@@ -118,7 +118,8 @@ Summarize.formula <- function(object,data=NULL,digits=getOption("digits"),
   if (tmp$vnum==1) {
     ## Only one variable ... send first column of model.frame
     ## to summarize.default
-    Summarize(tmp$mf[,1],digits=digits,na.rm=na.rm,exclude=exclude,nvalid,percZero,...)
+    Summarize(tmp$mf[,1],digits=digits,na.rm=na.rm,
+              exclude=exclude,nvalid,percZero,...)
   } else {
     ## More than one variable
     if (!tmp$metExpNumR) STOP("Must have one variable on LHS of formula with more than one variable")
