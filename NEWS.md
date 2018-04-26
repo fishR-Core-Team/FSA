@@ -2,7 +2,7 @@
 * `addRadCap()`: Removed. Moved to `RFishBC` package.
 * `bcFuns()`: Removed. Moved to `RFishBC` package.
 * `gConvert()`: Removed. Moved to `RFishBC` package.
-* `SMBassWB`: Modified. Fixed minor data entry error in row 404.
+* `SMBassWB`: Modified. Fixed minor data entry error in row 404. Changed link in documentation from `alr3` to `alr4` package.
 
 
 # FSA 0.8.19 2-Apr-18
