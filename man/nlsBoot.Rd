@@ -92,7 +92,7 @@ if (require(nlstools)) {
 
 }
 \seealso{
-\code{\link[car]{Boot}} and related methods in \pkg{car} and \code{\link[nlstools]{summary.nlsBoot}} in \pkg{nlstools}.
+\code{\link[car]{Boot}} and related methods in \pkg{car} and \code{summary.\link[nlstools]{nlsBoot}} in \pkg{nlstools}.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

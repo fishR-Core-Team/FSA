@@ -40,13 +40,13 @@
 #'  \itemize{
 #'    \item \code{kCounts} returns a numeric value if the count is less than zero or greater than ten and returns a character string of the number \sQuote{name}. See the examples.
 #'    \item \code{kPvalue} returns a character string of the supplied p-value rounded to the requested number of digits or a character string that indicates what the p-value is less than the value with a \sQuote{5} in the \code{digits}+1 place. See the examples. 
-#'    \item \code{purl2} is a modification of \code{\link[knitr]{purl}} from \pkg{knitr} that creates a file with the same name as \code{file} but with lines removed that contain certain words (those found in \code{ItemsToRemove} and \code{moreItems}). 
+#'    \item \code{purl2} is a modification of \code{purl} from \pkg{knitr} that creates a file with the same name as \code{file} but with lines removed that contain certain words (those found in \code{ItemsToRemove} and \code{moreItems}). 
 #'    \item \code{reproInfo} returns Markdown, LaTeX, or R code that prints \dQuote{reproducibility information} at the bottom of the knitted document.
 #'  }
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @seealso See \code{\link{formatC}} for functionality similar to \code{kPvalue}. See \code{\link[knitr]{purl}} and \code{\link[knitr]{knit}} in \pkg{knitr} for functionality similar to \code{purl2}.
+#' @seealso See \code{\link{formatC}} for functionality similar to \code{kPvalue}. See \code{purl} and \code{\link[knitr]{knit}} in \pkg{knitr} for functionality similar to \code{purl2}.
 #'
 #' @keywords manip
 #'

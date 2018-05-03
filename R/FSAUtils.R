@@ -1024,7 +1024,7 @@ validn <- function(object) {
 #' 
 #' @note This function is largely an implementation of the code suggested by Russell Senior on R-help in November, 1999.
 #' 
-#' @seealso See \code{\link[psych]{geometric.mean}} in \pkg{psych} and \code{\link[DescTools]{Gmean}} for geometric mean calculators. See \code{\link[DescTools]{Gsd}} for geometric standard deviation calculators.
+#' @seealso See \code{\link[psych]{geometric.mean}} in \pkg{psych} and \code{\link[DescTools]{Gmean}} for geometric mean calculators. See \code{Gsd} (documented with \code{\link[DescTools]{Gmean}}) from \pkg{DescTools} for geometric standard deviation calculators.
 #' 
 #' @keywords misc
 #' 

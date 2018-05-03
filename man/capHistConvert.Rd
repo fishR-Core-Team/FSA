@@ -51,7 +51,7 @@ fish \tab event1 \tab event2 \tab event3 \tab event4 \cr
 21 \tab 1 \tab 1 \tab 0 \tab 0 \cr
 }
 
-The \dQuote{frequency} format data.frame (this format is used in \code{\link[Rcapture:Rcapture-package]{Rcapture}}) has unique capture histories in separate columns, as in the \dQuote{individual} format, but also includes a column with the frequency of individuals that had the capture history of that row. It will not contain a fish identifier variable. The same data from above looks like:
+The \dQuote{frequency} format data.frame (this format is used in \pkg{Rcapture}) has unique capture histories in separate columns, as in the \dQuote{individual} format, but also includes a column with the frequency of individuals that had the capture history of that row. It will not contain a fish identifier variable. The same data from above looks like:
 
 \tabular{ccccc}{
 event1 \tab event2 \tab event3 \tab event4 \tab freq \cr
@@ -109,7 +109,7 @@ ch \tab freq \cr
 Each of the formats can be used to convert from (i.e., in \code{in.type=}) or to convert to (i.e., in \code{out.type=}) with the exception that only the individual fish identifier version can be converted to when \code{out.type="RMark"}.
 }
 \note{
-The formats as used here are simple in the sense that one is only allowed to have the individual fish identifier or the frequency variable in addition to the capture history information. More complex analyses may use a number of covariates. For these more complex analyses, one should work directly with the \code{\link[Rcapture:Rcapture-package]{Rcapture}}, \code{\link[RMark:ABeginnersGuide]{RMark}}, or \pkg{marked} packages.
+The formats as used here are simple in the sense that one is only allowed to have the individual fish identifier or the frequency variable in addition to the capture history information. More complex analyses may use a number of covariates. For these more complex analyses, one should work directly with the \pkg{Rcapture}, \code{\link[RMark:ABeginnersGuide]{RMark}}, or \pkg{marked} packages.
 
 This function also assumes that all unmarked captured fish are marked and returned to the population (i.e., no losses at the time of marking are allowed).
 }
@@ -294,7 +294,7 @@ capHistConvert(df1,id="fish",in.type="event")
 Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
-See \code{\link{capHistSum}} to summarize \dQuote{individual} capture histories into a format usable in \code{\link{mrClosed}} and \code{\link{mrOpen}}. Also see \code{\link[Rcapture:Rcapture-package]{Rcapture}}, \code{\link[RMark:ABeginnersGuide]{RMark}}, or \pkg{marked} packages for handling more complex analyses.
+See \code{\link{capHistSum}} to summarize \dQuote{individual} capture histories into a format usable in \code{\link{mrClosed}} and \code{\link{mrOpen}}. Also see \pkg{Rcapture}, \code{\link[RMark:ABeginnersGuide]{RMark}}, or \pkg{marked} packages for handling more complex analyses.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

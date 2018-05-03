@@ -44,7 +44,7 @@
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @seealso \code{\link[car]{bootCase}} in \pkg{car}.
+#' @seealso \code{\link[car]{Boot}} in \pkg{car}.
 #'
 #' @references S. Weisberg (2005). \emph{Applied Linear Regression}, third edition. New York: Wiley, Chapters 4 and 11.
 #' 
@@ -186,7 +186,7 @@ plot.bootCase <- function(x,...){ #nocov start
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @seealso \code{\link[car]{Boot}} and related methods in \pkg{car} and \code{\link[nlstools]{summary.nlsBoot}} in \pkg{nlstools}.
+#' @seealso \code{\link[car]{Boot}} and related methods in \pkg{car} and \code{summary.\link[nlstools]{nlsBoot}} in \pkg{nlstools}.
 #'
 #' @aliases confint.nlsboot htest.nlsboot predict.nlsbooot
 #'

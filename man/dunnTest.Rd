@@ -27,7 +27,7 @@ dunnTest(x, ...)
 
 \item{g}{A factor vector or a (non-numeric) vector that can be coerced to a factor vector.}
 
-\item{method}{A single string that identifies the method used to control the experimentwise error rate. See the list of methods in \code{\link[dunn.test]{p.adjustment.methods}} in \pkg{dunn.test}.}
+\item{method}{A single string that identifies the method used to control the experimentwise error rate. See the list of methods in \code{p.adjustment.methods} (documented with \code{\link[dunn.test]{dunn.test}}) in \pkg{dunn.test}.}
 
 \item{two.sided}{A single logical that indicates whether a two-sided p-value should be returned (\code{TRUE}; default) or not. See details.}
 
@@ -50,7 +50,7 @@ A list with three items -- \code{method} is the long name of the method used to 
 Performs Dunn's (1964) test of multiple comparisons following a significant Kruskal-Wallis test, possibly with a correction to control the experimentwise error rate. This is largely a wrapper for the \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test}. Please see and cite that package.
 }
 \details{
-This function performs \dQuote{Dunn's} test of multiple comparisons following a Kruskal-Wallis test. Unadjusted one- or two-sided p-values for each pairwise comparison among groups are computed following Dunn's description as implemented in the \code{\link[dunn.test]{dunn.test}} function from \pkg{dunn.test}. These p-values may be adjusted using methods in the \code{\link[dunn.test]{p.adjustment.methods}} function in \pkg{dunn.test}.
+This function performs \dQuote{Dunn's} test of multiple comparisons following a Kruskal-Wallis test. Unadjusted one- or two-sided p-values for each pairwise comparison among groups are computed following Dunn's description as implemented in the \code{\link[dunn.test]{dunn.test}} function from \pkg{dunn.test}. These p-values may be adjusted using methods in the \code{p.adjustment.methods} function in \pkg{dunn.test}.
 
 This function is largely a wrapper for the \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test}. Changes here are the possible use of formula notation, results not printed by the main function (but are printed in a more useful format (in my opinion) by the \code{print} function), the p-values are adjusted by default with the \dQuote{holm} method, and two-sided p-values are returned by default. See \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test} for a more details underlying these computations.
 }

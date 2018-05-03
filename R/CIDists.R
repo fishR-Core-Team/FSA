@@ -12,7 +12,7 @@
 #'
 #' Note that Agresti and Coull (2000) suggest that the Wilson interval is the preferred method and is, thus, the default \code{type}.
 #'
-#' @note This is primarily a wrapper function for \code{\link[epitools]{binom.exact}}, \code{\link[epitools]{binom.wilson}}, and \code{\link[epitools]{binom.approx}} from the \pkg{epitools} package.
+#' @note This is primarily a wrapper function for \code{binom.exact}, \code{binom.wilson}, and \code{binom.approx} (documented in \code{\link[epitools]{binom.conf.int}}) from the \pkg{epitools} package.
 #'
 #' @param x A single or vector of numbers that contains the number of observed successes.
 #' @param n A single or vector of numbers that contains the sample size.
@@ -24,7 +24,7 @@
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @seealso See \code{\link{binom.test}}; \code{binconf} in \pkg{Hmisc}; \code{\link[epitools]{binom.exact}}, \code{\link[epitools]{binom.wilson}}, and \code{\link[epitools]{binom.approx}} in \pkg{epitools}, and functions in \pkg{binom}.
+#' @seealso See \code{\link{binom.test}}; \code{binconf} in \pkg{Hmisc}; \code{binom.exact}, \code{binom.wilson}, and \code{binom.approx} documented in \code{\link[epitools]{binom.conf.int}} in \pkg{epitools}, and functions in \pkg{binom}.
 #'
 #' @references Agresti, A. and B.A. Coull.  1998.  Approximate is better than \dQuote{exact} for interval estimation of binomial proportions.  American Statistician, 52:119-126.
 #'
@@ -100,7 +100,7 @@ binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic"),
 #'
 #' @description Computes a confidence interval for the Poisson counts.
 #'
-#' @details Computes a CI for the Poisson counts using the \code{exact}, gamma distribution (\code{daly}`), Byar's (\code{byar}), or normal approximation (\code{asymptotic}) methods.  This is largely a wrapper to \code{\link[epitools]{pois.exact}}, \code{\link[epitools]{pois.daly}}, \code{\link[epitools]{pois.byar}}, and \code{\link[epitools]{pois.approx}} functions in \pkg{epitools}.
+#' @details Computes a CI for the Poisson counts using the \code{exact}, gamma distribution (\code{daly}`), Byar's (\code{byar}), or normal approximation (\code{asymptotic}) methods.  This is largely a wrapper to \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} functions documented in \code{\link[epitools]{pois.conf.int}}in \pkg{epitools}.
 #'
 #' @param x A single number or vector that represents the number of observed successes.
 #' @param conf.level A number that indicates the level of confidence to use for constructing confidence intervals (default is \code{0.95}).
@@ -111,7 +111,7 @@ binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic"),
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @seealso See \code{\link[epitools]{pois.exact}}, \code{\link[epitools]{pois.daly}}, \code{\link[epitools]{pois.byar}}, and \code{\link[epitools]{pois.approx}} in \pkg{epitools} for more description and references.
+#' @seealso See \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} (documented in \code{\link[epitools]{pois.conf.int}) in \pkg{epitools} for more description and references.
 #'
 #' @keywords htest
 #'

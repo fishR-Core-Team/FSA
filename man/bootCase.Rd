@@ -124,7 +124,7 @@ cor(nl1.bootc)
 S. Weisberg (2005). \emph{Applied Linear Regression}, third edition. New York: Wiley, Chapters 4 and 11.
 }
 \seealso{
-\code{\link[car]{bootCase}} in \pkg{car}.
+\code{\link[car]{Boot}} in \pkg{car}.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

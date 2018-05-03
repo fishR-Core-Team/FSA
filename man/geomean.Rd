@@ -48,6 +48,6 @@ geomean(x,zneg.rm=TRUE)
 
 }
 \seealso{
-See \code{\link[psych]{geometric.mean}} in \pkg{psych} and \code{\link[DescTools]{Gmean}} for geometric mean calculators. See \code{\link[DescTools]{Gsd}} for geometric standard deviation calculators.
+See \code{\link[psych]{geometric.mean}} in \pkg{psych} and \code{\link[DescTools]{Gmean}} for geometric mean calculators. See \code{Gsd} (documented with \code{\link[DescTools]{Gmean}}) from \pkg{DescTools} for geometric standard deviation calculators.
 }
 \keyword{misc}

@@ -1,7 +1,9 @@
 # FSA 0.8.20 ongoing
+* Fixed a bunch of bad links to other packages in the documentation.
 * `addRadCap()`: Removed. Moved to `RFishBC` package.
 * `bcFuns()`: Removed. Moved to `RFishBC` package.
 * `gConvert()`: Removed. Moved to `RFishBC` package.
+* `mrClosed()`: Modified. Fixed a bug that was related to `poiCI()` returning results from all four types. Now `mrClosed()` will use only one type. Thanks to Timothy Spiers for pointing out this bug.
 * `SMBassWB`: Modified. Fixed minor data entry error in row 404. Changed link in documentation from `alr3` to `alr4` package.
 
 
