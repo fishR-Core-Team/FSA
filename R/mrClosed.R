@@ -182,13 +182,15 @@
 #' @rdname mrClosed
 #' @export
 mrClosed <- function(M=NULL,n=NULL,m=NULL,R=NULL,
-            method=c("Petersen","Chapman","Ricker","Bailey","Schnabel","SchumacherEschmeyer"),
+            method=c("Petersen","Chapman","Ricker","Bailey",
+                     "Schnabel","SchumacherEschmeyer"),
             labels=NULL,chapman.mod=TRUE) {
   method <- match.arg(method)
   if (method %in% c("Petersen","Chapman","Ricker","Bailey")) {
     if (!is.null(R)) {
       ## R not in single methods. If nothing else, throw error
-      if (is.null(c(M,n,m))) STOP("'R' not used in single census methods;\n must supply 'M', 'n', and 'm'.")
+      if (is.null(c(M,n,m)))
+        STOP("'R' not used in single census methods;\n must supply 'M', 'n', and 'm'.")
       ## Otherwise warn that it will be ignored
       WARN("'R' not used in single census methods and will be ignored.")
     }
@@ -206,12 +208,14 @@ iMRCSingle <- function(M,n,m,method,labels) {
   # initial checks
   if (is.null(M)) STOP("'M' is missing; must be from 'capHistSum()' or value(s).")
   if (is.CapHist(M)) {
-    if (!is.null(m) | !is.null(n)) WARN("'m' and 'n' ignored when 'M' from capHistSum().")
+    if (!is.null(m) | !is.null(n)) 
+      WARN("'m' and 'n' ignored when 'M' from capHistSum().")
     m <- M$sum$m
     n <- M$sum$n
     M <- M$sum$M    
   } else {
-    if (is.null(n) | is.null(m)) STOP("One or both of 'n' or 'm' is missing without 'M' from capHistSum().")
+    if (is.null(n) | is.null(m)) 
+      STOP("One or both of 'n' or 'm' is missing without 'M' from capHistSum().")
     # Make sure that the vectors are of the same size
     lengths <- c(length(M),length(n),length(m))
     if (any(diff(lengths)!=0)) STOP("'M', 'n', or 'm' vectors must be same length.")
@@ -219,13 +223,15 @@ iMRCSingle <- function(M,n,m,method,labels) {
   # Make sure that recapture number makes sense relative to sample size
   if (any((n-m)<0)) {
     if (length(n)==1) STOP("Can't have more recaptures (m) then total individuals (n).")
-    else STOP("Row ",which((n-m)<0)," has more recaptures (m) then total individuals (n).")
+    else STOP("Row ",which((n-m)<0),
+              " has more recaptures (m) then total individuals (n).")
   } 
   # If no labels then assign letters, if labels then make sure size is correct
   if (is.null(labels)) {
     if (length(M)>1) labels <- LETTERS[seq_along(M)]
   } else {
-    if (length(M) != length(labels)) STOP("'labels' must be same length as 'M', 'n', and 'm'.")
+    if (length(M) != length(labels)) 
+      STOP("'labels' must be same length as 'M', 'n', and 'm'.")
   }
   # handle modifications for simplicity of calculation below  
   switch(method,
@@ -250,7 +256,8 @@ iMRCSingle <- function(M,n,m,method,labels) {
 #===========================================================================
 #' @rdname mrClosed
 #' @export
-summary.mrClosed1 <- function(object,digits=0,incl.SE=FALSE,incl.all=TRUE,verbose=FALSE,...) {
+summary.mrClosed1 <- function(object,digits=0,incl.SE=FALSE,
+                              incl.all=TRUE,verbose=FALSE,...) {
   # Put descriptive label of input values at top of output if the user asked for it.
   if(verbose) {
     if (is.null(object$labels)) message("Used ",object$methodLbl," with M=",
@@ -258,7 +265,8 @@ summary.mrClosed1 <- function(object,digits=0,incl.SE=FALSE,incl.all=TRUE,verbos
                                         ", and m=",object$m,".\n")
     else {
       message("Used ",object$methodLbl," with observed inputs (by group) of:")
-      tmp <- paste0("  ",object$labels,": M=",object$M,", n=",object$n,", and m=",object$m)
+      tmp <- paste0("  ",object$labels,": M=",object$M,", n=",object$n,
+                    ", and m=",object$m)
       for (i in tmp) message(i)
     }
   }
@@ -311,8 +319,10 @@ iMRCSingleVar <- function(object) {
 #===========================================================================
 #' @rdname mrClosed
 #' @export
-confint.mrClosed1 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,digits=0,
-                              type=c("suggested","binomial","hypergeometric","normal","Poisson"),
+confint.mrClosed1 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
+                              digits=0,
+                              type=c("suggested","binomial","hypergeometric",
+                                     "normal","Poisson"),
                               bin.type=c("wilson","exact","asymptotic"),
                               poi.type=c("exact","daly","byar","asymptotic"),
                               incl.all=TRUE,verbose=FALSE,...) {
@@ -443,13 +453,15 @@ iMRCMultiple <- function(M,n,m,R,method,chapman.mod) {
     } else {
       ## Results not from capHistSum and values of M provided.
       # check if M is a vector
-      if (!is.vector(M)) STOP("If given, 'M' must be a vector or from 'capHistSum()`.")
+      if (!is.vector(M))
+        STOP("If given, 'M' must be a vector or from 'capHistSum()`.")
       # check if M has an NA in first position
       if (is.na(M[1])) {
         WARN("NA for first sample of 'M' was ignored.")
         M[1] <- 0
       }
-      if (is.null(n) | is.null(m)) STOP("One or both of 'n' or 'm' is missing without 'M' from capHistSum().")
+      if (is.null(n) | is.null(m))
+        STOP("One or both of 'n' or 'm' is missing without 'M' from capHistSum().")
       else if (!is.null(R)) WARN("Only need one of 'M' or 'R'. 'R' is ignored.")
       R <- n
       R[length(R)] <- 0
@@ -505,7 +517,8 @@ summary.mrClosed2 <- function(object,digits=0,verbose=FALSE,...) {
   # Put descriptive label of input values at top of output if the user asked for it.
   if(verbose) {
     msg <- paste0("Used ",object$methodLbl)
-    ifelse(object$chapman.mod,msg <- paste(msg,"with Chapman modification.\n"),msg <- paste0(msg,".\n"))
+    ifelse(object$chapman.mod,msg <- paste(msg,"with Chapman modification.\n"),
+           msg <- paste0(msg,".\n"))
     message(msg)
   }
   # Put the PE into a matrix to return
@@ -519,12 +532,15 @@ summary.mrClosed2 <- function(object,digits=0,verbose=FALSE,...) {
 #===========================================================================
 #' @rdname mrClosed
 #' @export
-confint.mrClosed2 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,digits=0,
+confint.mrClosed2 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
+                              digits=0,
                               type=c("suggested","normal","Poisson"),
                               poi.type=c("exact","daly","byar","asymptotic"),
                               verbose=FALSE,...) {
   # Initial Checks
   type <- match.arg(type)
+  ## This is needed so that only one poisson type is used
+  poi.type <- match.arg(poi.type)
   parm <- iCI.CheckParm(parm)
   if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
   # Construct the confidence intervals
@@ -534,7 +550,8 @@ confint.mrClosed2 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
            ci <- iCI2.MRCSchnabel(object,conf.level,type,poi.type,verbose,...)
          },
          SchumacherEschmeyer= {
-           if (type=="Poisson") WARN("'type' changed to 'normal' for Schumacher-Eschmeyer method.")
+           if (type=="Poisson") 
+             WARN("'type' changed to 'normal' for Schumacher-Eschmeyer method.")
            type <- "normal"
            ci <- iCI2.MRCSchumacher(object,conf.level,type,verbose,...)
          }
@@ -576,7 +593,8 @@ iCI2.MRCSchnabel <- function(object,conf.level,type,poi.type,...) {
     # Change if chapman modification was used
     ifelse(object$chapman.mod,N.poi <- object$sum.nM/(ci1+1),
            N.poi <- object$sum.nM/ci1)
-    ci <- rbind(N.poi[2:1])
+    # CIs come out backwards so switch them
+    ci <- rbind(N.poi[,2:1])
   }
   ci
 }
@@ -602,8 +620,10 @@ plot.mrClosed2 <- function(x,pch=19,col.pt="black",
                            xlab="Marked in Population",
                            ylab="Prop. Recaptures in Sample",
                            loess=FALSE,lty.loess=2,lwd.loess=1,
-                           col.loess="gray20",trans.loess=10,span=0.9,...) { # nocov start
+                           col.loess="gray20",trans.loess=10,span=0.9,...) {
+  # nocov start
   graphics::plot(x$M,x$m/x$n,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,...)
   # add loess line if asked for
-  if (loess) iAddLoessLine(x$m/x$n,x$M,lty.loess,lwd.loess,col.loess,trans.loess,span=span)
+  if (loess) iAddLoessLine(x$m/x$n,x$M,lty.loess,lwd.loess,col.loess,
+                           trans.loess,span=span)
 } # nocov end
