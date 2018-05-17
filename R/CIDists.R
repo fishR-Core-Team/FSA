@@ -111,7 +111,7 @@ binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic"),
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @seealso See \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} (documented in \code{\link[epitools]{pois.conf.int}) in \pkg{epitools} for more description and references.
+#' @seealso See \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} (documented in \code{\link[epitools]{pois.conf.int}}) in \pkg{epitools} for more description and references.
 #'
 #' @keywords htest
 #'

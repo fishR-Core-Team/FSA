@@ -1,5 +1,7 @@
-# FSA 0.8.20 ongoing
+# FSA 0.8.20 17-May-18
+* Added `asbio`, `DescTools`, `nlme`, and `psych` packages to Suggests because they are used in tests (and as will soon be required by CRAN ... per an e-mail from CRAN on 17-May-18).
 * Fixed a bunch of bad links to other packages in the documentation.
+* Removed the "Date" field from the Description file.
 * `addRadCap()`: Removed. Moved to `RFishBC` package.
 * `bcFuns()`: Removed. Moved to `RFishBC` package.
 * `gConvert()`: Removed. Moved to `RFishBC` package.
