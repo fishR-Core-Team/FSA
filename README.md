@@ -1,5 +1,3 @@
-FSA
-===
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![DOI](https://zenodo.org/badge/18348400.svg)](https://zenodo.org/badge/latestdoi/18348400)
 
@@ -11,7 +9,9 @@ FSA
 
 [![CRAN RStudio mirror downloads rate](http://cranlogs.r-pkg.org/badges/FSA) ![CRAN RSTudio mirror downloads total](http://cranlogs.r-pkg.org/badges/grand-total/FSA)](http://www.r-pkg.org/pkg/FSA) [![Research software impact](http://depsy.org/api/package/cran/FSA/badge.svg)](http://depsy.org/package/r/FSA) [![Rdoc](http://www.rdocumentation.org/badges/version/FSA)](http://www.rdocumentation.org/packages/FSA)
 
-## Introduction
+FSA  <img src="logo.png" align="right" height="200" />
+===
+
 The **FSA** (Fisheries Stock Assessment) package provides R functions to conduct typical introductory fisheries analyses.  Example analyses that use **FSA** can be found on [the *Examples* page](http://derekogle.com/fishR/examples/) of the [fishR website](http://derekogle.com/fishR).  You can [browse help pages here](http://finzi.psych.upenn.edu/library/FSA/html/00Index.html).  Recent changes are described in this [News file](https://github.com/droglenc/FSA/blob/master/NEWS.md)
 
 ## Installation
@@ -33,6 +33,7 @@ You may need to have R Tools installed on your system to use the two lines above
 
 ## Questions / Comments / Problems
 Report questions, comments, or bug reports on the [issues page](https://github.com/droglenc/FSA/issues).
+
 
 <!---
 ## Note About Using Macs
