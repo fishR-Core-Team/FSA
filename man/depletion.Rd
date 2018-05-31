@@ -116,8 +116,6 @@ The Leslie and DeLury methods match the results of Ricker (1975) for No and Q bu
 }
 
 \examples{
-data(SMBassLS)
-
 ## Leslie model examples
 # no Ricker modification
 l1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Leslie")

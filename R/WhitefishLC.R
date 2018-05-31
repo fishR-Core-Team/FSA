@@ -37,7 +37,6 @@
 #' @keywords datasets
 #'
 #' @examples
-#' data(WhitefishLC)
 #' str(WhitefishLC)
 #' head(WhitefishLC)
 #'

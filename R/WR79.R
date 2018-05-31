@@ -27,7 +27,6 @@
 #' @keywords datasets
 #'
 #' @examples
-#' data(WR79)
 #' str(WR79)
 #' head(WR79)
 #'

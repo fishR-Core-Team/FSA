@@ -26,7 +26,6 @@
 #' @keywords datasets
 #' 
 #' @examples
-#' data(CodNorwegian)
 #' str(CodNorwegian)
 #' head(CodNorwegian)
 #' op <- par(mfrow=c(1,2))

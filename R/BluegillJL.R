@@ -29,7 +29,6 @@
 #' @keywords datasets
 #' 
 #' @examples
-#' data(BluegillJL)
 #' str(BluegillJL)
 #' head(BluegillJL)
 #'

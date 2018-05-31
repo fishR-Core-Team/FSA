@@ -59,7 +59,6 @@
 #' confint.catchCurve rSquared.catchCurve
 #' 
 #' @examples
-#' data(BrookTroutTH)
 #' plot(catch~age,data=BrookTroutTH,pch=19)
 #' 
 #' ## demonstration of formula notation

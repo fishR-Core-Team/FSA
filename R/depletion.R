@@ -65,8 +65,6 @@
 #' @aliases depletion plot.depletion summary.depletion coef.depletion anova.depletion confint.depletion
 #'
 #' @examples
-#' data(SMBassLS)
-#'
 #' ## Leslie model examples
 #' # no Ricker modification
 #' l1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Leslie")

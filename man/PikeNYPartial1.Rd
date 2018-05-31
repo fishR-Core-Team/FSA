@@ -32,7 +32,6 @@ Each line consists of the capture history over four samples of Northern Pike (\e
 }
 
 \examples{
-data(PikeNYPartial1)
 str(PikeNYPartial1)
 head(PikeNYPartial1)
 

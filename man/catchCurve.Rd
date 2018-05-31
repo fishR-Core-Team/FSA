@@ -117,7 +117,6 @@ If \code{weighted=TRUE} then a weighted regression is used where the weights are
 }
 
 \examples{
-data(BrookTroutTH)
 plot(catch~age,data=BrookTroutTH,pch=19)
 
 ## demonstration of formula notation

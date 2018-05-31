@@ -54,7 +54,6 @@
 #' \dontrun{
 #' #### This does not run with car v3.0.0, but the error will be fixed
 #' #### when car v3.0.1 is submitted to CRAN.
-#' data(Ecoli)
 #' fnx <- function(days,B1,B2,B3) {
 #'   if (length(B1) > 1) {
 #'     B2 <- B1[2]
@@ -193,7 +192,6 @@ plot.bootCase <- function(x,...){ #nocov start
 #' @keywords htest
 #'
 #' @examples
-#' data(Ecoli)
 #' fnx <- function(days,B1,B2,B3) {
 #'   if (length(B1) > 1) {
 #'     B2 <- B1[2]
@@ -266,15 +264,19 @@ iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
   else {
     if (is.numeric(parm)) {
       # check numeric parm
-      if (any(parm<0) & any(parm>0)) STOP("Numbers in 'parm' cannot be both positive and negative.")
-      if (max(abs(parm))>ncol(object)) STOP("Number in 'parm' exceeds number of columns.")
+      if (any(parm<0) & any(parm>0))
+        STOP("Numbers in 'parm' cannot be both positive and negative.")
+      if (max(abs(parm))>ncol(object))
+        STOP("Number in 'parm' exceeds number of columns.")
     } else {
       # check named parm
-      if (!all(parm %in% colnames(object))) STOP("Name in 'parm' does not exist in 'object'.")
+      if (!all(parm %in% colnames(object)))
+        STOP("Name in 'parm' does not exist in 'object'.")
     }
   }
   ## Check on conf.level
-  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
+  if (conf.level<=0 | conf.level>=1)
+    STOP("'conf.level' must be between 0 and 1")
   ## Reduce object to have only the parm columns in it
   object <- object[,parm,drop=FALSE]
   ## Compute CIs for each column, but handle differently if vector or matrix
@@ -307,8 +309,10 @@ iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
 ## ===========================================================
 iPredictBoot <- function(object,FUN,MARGIN,conf.level,digits,...) {
   ## Some checks
-  if (!inherits(FUN,"function")) STOP("'FUN' is not a function.")
-  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
+  if (!inherits(FUN,"function"))
+    STOP("'FUN' is not a function.")
+  if (conf.level<=0 | conf.level>=1)
+    STOP("'conf.level' must be between 0 and 1")
   ## Get items in the dots
   tmp <- list(...)
   ## Prep the results matrix
@@ -355,11 +359,13 @@ iHTestBoot <- function(object,parm,bo=0,
       else {
         if (is.numeric(parm)) {
           # the column number was too small or too big
-          if (parm>ncol(object)) STOP("Number in 'parm' exceeds number of columns.")
+          if (parm>ncol(object))
+            STOP("Number in 'parm' exceeds number of columns.")
           if (parm<=0) STOP("Number in 'parm' must be positive.")
         } else {
           # column name does not exist in the matrix
-          if (!parm %in% colnames(object)) STOP("Name in 'parm' does not exist in 'object'.")
+          if (!parm %in% colnames(object))
+            STOP("Name in 'parm' does not exist in 'object'.")
         }
       }
     }

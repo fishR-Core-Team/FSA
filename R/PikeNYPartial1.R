@@ -33,7 +33,6 @@
 #' @keywords datasets
 #'
 #' @examples
-#' data(PikeNYPartial1)
 #' str(PikeNYPartial1)
 #' head(PikeNYPartial1)
 #'

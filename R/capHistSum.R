@@ -51,7 +51,6 @@
 #' 
 #' @examples
 #' # data.frame with IDs in the first column
-#' data(PikeNYPartial1)
 #' head(PikeNYPartial1)
 #' 
 #' # Three ways to ignore first column of ID numbers

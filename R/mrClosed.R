@@ -129,7 +129,6 @@
 #'
 #' ### Single census, using capHistSum() results
 #' ## data in capture history format
-#' data(BluegillJL)
 #' str(BluegillJL)
 #' ch1 <- capHistSum(BluegillJL)
 #' mr3 <- mrClosed(ch1)
@@ -151,10 +150,7 @@
 #' confint(mr4,incl.all=FALSE,verbose=TRUE)
 #'
 #' ### Multiple Census
-#' ## Data in summarized form
-#' data(PikeNY)
-#'
-#' ## Schnabel method
+#' ## Data in summarized form ... Schnabel method
 #' mr5 <- with(PikeNY,mrClosed(n=n,m=m,R=R,method="Schnabel"))
 #' plot(mr5)
 #' plot(mr5,loess=TRUE)
@@ -169,7 +165,6 @@
 #' confint(mr6)
 #'
 #' ### Capture history data summarized by capHistSum()
-#' data(PikeNYPartial1)
 #' # ignore first column of ID numbers
 #' ch2 <- capHistSum(PikeNYPartial1,cols2ignore="id")
 #'
@@ -542,7 +537,8 @@ confint.mrClosed2 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
   ## This is needed so that only one poisson type is used
   poi.type <- match.arg(poi.type)
   parm <- iCI.CheckParm(parm)
-  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
+  if (conf.level<=0 | conf.level>=1)
+    STOP("'conf.level' must be between 0 and 1")
   # Construct the confidence intervals
   switch(object$method,
          Schnabel= {

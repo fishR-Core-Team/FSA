@@ -63,7 +63,6 @@
 #' @aliases chapmanRobson chapmanRobson.default chapmanRobson.formula plot.chapmanRobson summary.chapmanRobson confint.chapmanRobson
 #'
 #' @examples
-#' data(BrookTroutTH)
 #' plot(catch~age,data=BrookTroutTH,pch=19)
 #' 
 #' ## demonstration of formula notation

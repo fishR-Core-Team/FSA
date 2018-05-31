@@ -129,7 +129,6 @@ If the user chooses to add a legend without identifying coordinates for the uppe
 This function is meant to allow newbie students the ability to easily construct residual plots for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions. The plots can be constructed by submitting a saved linear model to this function which allows students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
 }
 \examples{
-data(Mirex)
 # create year as a factor variable
 Mirex$fyear <- factor(Mirex$year)
 # reduce number of years for visual simplicity

@@ -30,7 +30,6 @@
 #' @keywords datasets
 #'
 #' @examples
-#' data(SMBassLS)
 #' str(SMBassLS)
 #' head(SMBassLS)
 #'

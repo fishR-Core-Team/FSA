@@ -31,7 +31,6 @@ The \code{year} variable should be converted to a factor as shown in the example
 }
 
 \examples{
-data(Mirex)
 Mirex$year <- factor(Mirex$year)
 lm1 <- lm(mirex~weight*year*species,data=Mirex)
 anova(lm1)

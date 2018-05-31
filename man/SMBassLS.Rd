@@ -29,7 +29,6 @@ Catch-effort data for Smallmouth Bass (\emph{Micropterus dolomieu}) in Little Si
 }
 
 \examples{
-data(SMBassLS)
 str(SMBassLS)
 head(SMBassLS)
 

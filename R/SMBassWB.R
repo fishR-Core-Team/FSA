@@ -47,7 +47,6 @@
 #' @keywords datasets
 #'
 #' @examples
-#' data(SMBassWB)
 #' str(SMBassWB)
 #' head(SMBassWB)
 #'

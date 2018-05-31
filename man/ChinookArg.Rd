@@ -24,7 +24,6 @@ Lengths and weights for Chinook Salmon from three locations in Argentina.
 }
 
 \examples{
-data(ChinookArg)
 str(ChinookArg)
 head(ChinookArg)
 op <- par(mfrow=c(2,2),pch=19)

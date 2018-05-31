@@ -69,7 +69,6 @@ In \code{htest} the \dQuote{direction} of the alternative hypothesis is identifi
 In \code{predict}, a user-supplied function is applied to each row of the \code{coefBoot} object in a \code{nlsBoot} object and then finds the median and the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped predictions below and above. The median is returned as the predicted value and the quantiles are returned as an approximate 100\code{conf.level}\% confidence interval for that prediction.
 }
 \examples{
-data(Ecoli)
 fnx <- function(days,B1,B2,B3) {
   if (length(B1) > 1) {
     B2 <- B1[2]

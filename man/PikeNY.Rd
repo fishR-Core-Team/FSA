@@ -30,7 +30,6 @@ Summary results of capture histories (number captured, number of recaptured fish
 }
 
 \examples{
-data(PikeNY)
 str(PikeNY)
 head(PikeNY)
 

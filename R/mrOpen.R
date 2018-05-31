@@ -71,7 +71,6 @@
 #'
 #' @examples
 #' ## First example -- capture histories summarized with capHistSum()
-#' data(CutthroatAL)
 #' ch1 <- capHistSum(CutthroatAL,cols2use=-1)  # ignore first column of fish ID
 #' ex1 <- mrOpen(ch1)
 #' summary(ex1)
@@ -122,9 +121,11 @@ jolly <- function(...) { mrOpen(...) }
  
 #' @rdname mrOpen
 #' @export
-mrOpen <- function(mb.top,mb.bot=NULL,type=c("Jolly","Manly"),conf.level=0.95,phi.full=TRUE) {
+mrOpen <- function(mb.top,mb.bot=NULL,type=c("Jolly","Manly"),
+                   conf.level=0.95,phi.full=TRUE) {
   type <- match.arg(type)
-  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
+  if (conf.level<=0 | conf.level>=1)
+    STOP("'conf.level' must be between 0 and 1")
   if (is.CapHist(mb.top)) {
     mb.bot <- mb.top$methodB.bot
     mb.top <- mb.top$methodB.top

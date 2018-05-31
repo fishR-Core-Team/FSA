@@ -25,7 +25,6 @@
 #' @keywords datasets
 #' 
 #' @examples
-#' data(ChinookArg)
 #' str(ChinookArg)
 #' head(ChinookArg)
 #' op <- par(mfrow=c(2,2),pch=19)

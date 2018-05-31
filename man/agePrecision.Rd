@@ -77,7 +77,6 @@ All percentage calculations above use the \code{validn} value in the denominator
 
 \examples{
 ## Example with just two age estimates
-data(WhitefishLC)
 ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)
 summary(ap1)
 summary(ap1,what="precision")

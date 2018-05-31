@@ -39,7 +39,6 @@ Cutoffs for the Gabelhouse five-cell length categories for a variety of species.
 }
 
 \examples{
-data(PSDlit)
 str(PSDlit)
 head(PSDlit)
 

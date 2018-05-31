@@ -85,7 +85,6 @@ For comparing to Jolly's data as presented in Tables 5.1 and 5.2 of Seber (2002)
 
 \examples{
 ## First example -- capture histories summarized with capHistSum()
-data(CutthroatAL)
 ch1 <- capHistSum(CutthroatAL,cols2use=-1)  # ignore first column of fish ID
 ex1 <- mrOpen(ch1)
 summary(ex1)

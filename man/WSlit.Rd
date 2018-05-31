@@ -45,7 +45,6 @@ The minimum TL for the English units were derived by rounding the converted mini
 }
 
 \examples{
-data(WSlit)
 str(WSlit)
 head(WSlit)
 

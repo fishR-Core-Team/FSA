@@ -27,7 +27,6 @@ The \dQuote{direction} of the alternative hypothesis is identified by a string i
 If the \code{lm} object is from a simple linear regression with an intercept then \code{term=1} will use the intercept and \code{term=2} will use the slope in the hypothesis test.
 }
 \examples{
-data(Mirex)
 # Simple linear regression test HA:slope!=0.1
 lm1 <- lm(mirex~weight, data=Mirex)
 hoCoef(lm1,2,0.1)

@@ -25,7 +25,6 @@ Catch-at-age in fyke nets from 1996-1998 for \dQuote{Coaster} Brook Trout (\emph
 }
 
 \examples{
-data(BrookTroutTH)
 str(BrookTroutTH)
 head(BrookTroutTH)
 plot(log(catch)~age,data=BrookTroutTH)

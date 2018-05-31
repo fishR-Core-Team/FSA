@@ -36,7 +36,6 @@ Assigned ages from two readers on three structures for Lake Whitefish (\emph{Cor
 }
 
 \examples{
-data(WhitefishLC)
 str(WhitefishLC)
 head(WhitefishLC)
 

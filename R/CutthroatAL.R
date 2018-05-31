@@ -41,7 +41,6 @@
 #' @keywords datasets
 #' 
 #' @examples
-#' data(CutthroatAL)
 #' str(CutthroatAL)
 #' head(CutthroatAL)
 #'

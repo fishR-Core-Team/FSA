@@ -47,7 +47,6 @@
 #' @keywords datasets
 #'
 #' @examples
-#' data(WSlit)
 #' str(WSlit)
 #' head(WSlit)
 #'

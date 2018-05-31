@@ -32,13 +32,11 @@
 #'
 #' @examples
 #' ## Examples following a successful fit
-#' data(SpotVA1)
 #' vb1 <- vbFuns()
 #' fit1 <- nls(tl~vb1(age,Linf,K,t0),data=SpotVA1,start=list(Linf=12,K=0.3,t0=0))
 #' plot(tl~age,data=SpotVA1,pch=21,bg="gray40")
 #' nlsTracePlot(fit1,vb1,legend="bottomright")
 #' 
-#' data(CodNorwegian)
 #' r1 <- srFuns("Ricker")
 #' fitSR1 <- nls(log(recruits)~log(r1(stock,a,b)),data=CodNorwegian,start=list(a=3,b=0.03))
 #' plot(recruits~stock,data=CodNorwegian,pch=21,bg="gray40",xlim=c(0,200))
@@ -49,7 +47,7 @@
 #' 
 #' \dontrun{
 #' if (require(FSAdata)) {
-#'   data(BSkateGB)
+#'   data(BSkateGB,package="FSAdata")
 #'   wtr <- filterD(BSkateGB,season=="winter")
 #'   bh1 <- srFuns()
 #'   trc <- capture.output(try(

@@ -31,7 +31,6 @@
 #' @keywords datasets
 #'
 #' @examples
-#' data(PikeNY)
 #' str(PikeNY)
 #' head(PikeNY)
 #'

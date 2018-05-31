@@ -27,7 +27,6 @@ Age-length data in 5-cm increments taken exactly from Table 2A of the source whi
 }
 
 \examples{
-data(WR79)
 str(WR79)
 head(WR79)
 

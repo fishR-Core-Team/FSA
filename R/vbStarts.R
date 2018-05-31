@@ -50,7 +50,6 @@
 #' @keywords manip
 #' @examples
 #' ## Simple examples of each parameterization
-#' data(SpotVA1)
 #' vbStarts(tl~age,data=SpotVA1)
 #' vbStarts(tl~age,data=SpotVA1,type="Original")
 #' vbStarts(tl~age,data=SpotVA1,type="GQ")

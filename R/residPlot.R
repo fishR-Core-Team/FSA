@@ -49,7 +49,6 @@
 #' @keywords hplot models
 #'
 #' @examples
-#' data(Mirex)
 #' # create year as a factor variable
 #' Mirex$fyear <- factor(Mirex$year)
 #' # reduce number of years for visual simplicity

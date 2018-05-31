@@ -46,7 +46,6 @@ Data are in one-fish-per-line format.
 }
 
 \examples{
-data(SMBassWB)
 str(SMBassWB)
 head(SMBassWB)
 

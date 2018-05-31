@@ -40,9 +40,6 @@ The values in \code{lenA.n} are equal to what the row sums of \code{key} would h
 }
 
 \examples{
-## Get data with length measurements and some assigned ages
-data(WR79)
-
 ## Example -- Even breaks for length categories
 WR1 <- WR79
 # add length intervals (width=5)

@@ -38,9 +38,6 @@
 #' @keywords manip
 #'
 #' @examples
-#' ## Get data with length measurements and some assigned ages
-#' data(WR79)
-#'
 #' ## Example -- Even breaks for length categories
 #' WR1 <- WR79
 #' # add length intervals (width=5)
@@ -62,8 +59,10 @@ alkAgeDist <- function(key,lenA.n,len.n) {
   ## Some checks
   key <- iCheckALK(key)
   L <- nrow(key)
-  if (length(lenA.n)!=L) STOP("'lenA.n' and the 'key' have different numbers of length intervals.")
-  if (length(len.n)!=L) STOP("'len.n' and the 'key' have different numbers of length intervals.")
+  if (length(lenA.n)!=L)
+    STOP("'lenA.n' and the 'key' have different numbers of length intervals.")
+  if (length(len.n)!=L)
+    STOP("'len.n' and the 'key' have different numbers of length intervals.")
   
   ## total number of fish sampled
   N <- sum(len.n)
@@ -137,9 +136,6 @@ iALKAgeProp <- function(p_jgi,l_i,n_i,N) {
 #' @keywords manip
 #'
 #' @examples
-#' ## Get data with length measurements and some assigned ages
-#' data(WR79)
-#'
 #' ## Example -- Even breaks for length categories
 #' WR1 <- WR79
 #' # add length intervals (width=5)
@@ -160,15 +156,20 @@ iALKAgeProp <- function(p_jgi,l_i,n_i,N) {
 #' alkMeanVar(WR1.key,len~LCat+age,WR1.age,len.n,method="QuinnDeriso")
 #' 
 #' @export
-alkMeanVar <- function(key,formula,data,len.n,method=c("BettoliMiranda","QuinnDeriso")) {
+alkMeanVar <- function(key,formula,data,len.n,
+                       method=c("BettoliMiranda","QuinnDeriso")) {
   ## Some checks
   method <- match.arg(method)
   key <- iCheckALK(key)
   tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=2)
-  if (!tmp$metExpNumR) STOP("'formula' must have a LHS with only one variable.")
-  if (!tmp$Rclass %in% c("numeric","integer")) stop ("LHS of 'formula' must be numeric.")
-  if (!tmp$metExpNumE) STOP("'formula' must have two and only two variables on the RHS.")
-  if (length(len.n)!=nrow(key)) STOP("'len.n' and the 'key' have different numbers of length intervals.")
+  if (!tmp$metExpNumR) 
+    STOP("'formula' must have a LHS with only one variable.")
+  if (!tmp$Rclass %in% c("numeric","integer")) 
+    STOP("LHS of 'formula' must be numeric.")
+  if (!tmp$metExpNumE) 
+    STOP("'formula' must have two and only two variables on the RHS.")
+  if (length(len.n)!=nrow(key)) 
+    STOP("'len.n' and the 'key' have different numbers of length intervals.")
   ## Main calculations (in internal functions)
   switch(method,
          BettoliMiranda= { res=iALKMean.BM(key,formula,data,N_i=len.n) },

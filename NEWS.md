@@ -1,4 +1,5 @@
 # FSA 0.8.21 ongoing
+* Removed all `data()` in examples that referred to data from this package. Included the `package=` argument in `data()` that loaded from other packages.
 * `SMBassWB`: Modified. Fixed minor data entry error in row 383.
 
 # FSA 0.8.20 17-May-18

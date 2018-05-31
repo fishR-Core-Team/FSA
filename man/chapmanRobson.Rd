@@ -102,7 +102,6 @@ Tested the results against the results from \code{agesurv} in \pkg{fishmethods} 
 }
 
 \examples{
-data(BrookTroutTH)
 plot(catch~age,data=BrookTroutTH,pch=19)
 
 ## demonstration of formula notation

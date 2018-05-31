@@ -462,7 +462,6 @@ headtail <- function(x,n=3L,which=NULL,addrownums=TRUE,...) {
 #' @keywords htest
 #'
 #' @examples
-#' data(Mirex)
 #' # Simple linear regression test HA:slope!=0.1
 #' lm1 <- lm(mirex~weight, data=Mirex)
 #' hoCoef(lm1,2,0.1)
@@ -473,7 +472,8 @@ hoCoef <- function(object,term=2,bo=0,alt=c("two.sided","less","greater")) {
   if (!"lm" %in% class(object)) STOP("'object' must be from 'lm'.")
   if (!term>0) STOP("'term' must be a positive number.")
   tmp <- summary(object)$coefficients
-  if (term>length(rownames(tmp))) STOP("'term' is greater than number of terms in the model.")
+  if (term>length(rownames(tmp)))
+    STOP("'term' is greater than number of terms in the model.")
   est <- tmp[term,"Estimate"]
   se <- tmp[term,"Std. Error"]
   t <- (est-bo)/se
@@ -534,7 +534,8 @@ lagratio <- function(x,lag=1L,recursion=1L,differences=recursion,direction=c("ba
   ## Some checks
   direction <- match.arg(direction)
   if(any(x==0)) STOP("Will not work with zeros in 'x'.")
-  if(inherits(x,c("POSIXt","POSIXct"))) STOP("Function does not work for 'POSIXt' objects.")
+  if(inherits(x,c("POSIXt","POSIXct")))
+    STOP("Function does not work for 'POSIXt' objects.")
   if (!recursion>0) STOP("'recursion' value must be >0.")
   ## Flip vector if ratio direction is forward
   if (direction=="forward") x <- rev(x)
@@ -677,7 +678,8 @@ iOddEven <- function(x,checkval) {
 perc <- function(x,val,dir=c("geq","gt","leq","lt"),na.rm=TRUE,digits=getOption("digits")) {
   ## Some checks
   dir <- match.arg(dir)
-  if (!inherits(x,c("numeric","integer"))) STOP("'perc' only works for numeric vectors.")
+  if (!inherits(x,c("numeric","integer")))
+    STOP("'perc' only works for numeric vectors.")
   if (length(val)>1) WARN("Only the first value of 'val' was used.")
   ## Find sample size (don't or do include NA values)
   n <- ifelse(na.rm,length(x[!is.na(x)]),length(x))
@@ -807,7 +809,6 @@ iChkCumSum <- function(x) {
 #' @aliases rSquared rSquared.default rSquared.lm
 #' 
 #' @examples
-#' data(Mirex)
 #' lm1 <- lm(mirex~weight, data=Mirex)
 #' rSquared(lm1)
 #' rSquared(lm1,digits=3)
@@ -828,8 +829,7 @@ rSquared <- function(object, ...) {
 #' @rdname rSquared
 #' @export
 rSquared.default <- function(object, ...) {
-  stop(paste0("'rSquared' only works with 'lm', not '",class(object),"', objects"),
-       call.=FALSE)
+  STOP(paste0("'rSquared' only works with 'lm', not '",class(object),"', objects"))
 }
 
 #' @rdname rSquared
@@ -931,7 +931,8 @@ NULL
 #' @rdname Subset
 #' @export
 Subset <- function(x,subset,select,drop=FALSE,resetRownames=TRUE,...) {
-  if (!is.data.frame(x)) STOP("Subset should only be used with data frames. See ?subset for other structures.")
+  if (!is.data.frame(x)) 
+    STOP("Subset should only be used with data frames. See ?subset for other structures.")
   if (missing(subset)) r <- TRUE
   else {
     e <- substitute(subset)
@@ -947,7 +948,8 @@ Subset <- function(x,subset,select,drop=FALSE,resetRownames=TRUE,...) {
   }
   res <- droplevels(x[r,vars,drop=drop])
   if (resetRownames) rownames(res) <- NULL
-  if (nrow(res)==0) WARN("The resultant data.frame has 0 rows. Try str() on the result.\n")
+  if (nrow(res)==0)
+    WARN("The resultant data.frame has 0 rows. Try str() on the result.\n")
   res
 }
 
@@ -956,7 +958,8 @@ Subset <- function(x,subset,select,drop=FALSE,resetRownames=TRUE,...) {
 filterD <- function(x,...,except=NULL) {
   res <- dplyr::filter(x,...)
   res <- droplevels(res,except)
-  if (nrow(res)==0) WARN("The resultant data.frame has 0 rows. Try str() on the result.\n")
+  if (nrow(res)==0)
+    WARN("The resultant data.frame has 0 rows. Try str() on the result.\n")
   res
 }
 

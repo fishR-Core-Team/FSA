@@ -64,8 +64,6 @@ Constructs plots of predicted weights at given lengths among different groups. T
 }
 
 \examples{
-# load weight-length data
-data(ChinookArg)
 # add log length and weight data
 ChinookArg$logtl <- log(ChinookArg$tl)
 ChinookArg$logwt <- log(ChinookArg$w)

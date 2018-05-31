@@ -26,7 +26,6 @@
 #' @keywords datasets
 #' 
 #' @examples
-#' data(BrookTroutTH)
 #' str(BrookTroutTH)
 #' head(BrookTroutTH)
 #' plot(log(catch)~age,data=BrookTroutTH)

@@ -34,7 +34,6 @@ Extracts the coefficient of determination (i.e., \dQuote{r-squared} from a linea
 This is a convenience function to extract the \code{r.squared} part from \code{summary(lm)}.
 }
 \examples{
-data(Mirex)
 lm1 <- lm(mirex~weight, data=Mirex)
 rSquared(lm1)
 rSquared(lm1,digits=3)

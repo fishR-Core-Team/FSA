@@ -45,9 +45,6 @@ Note that the function will stop with an error if the formula in \code{formula} 
 }
 
 \examples{
-## Get data with length measurements and some assigned ages
-data(WR79)
-
 ## Example -- Even breaks for length categories
 WR1 <- WR79
 # add length intervals (width=5)

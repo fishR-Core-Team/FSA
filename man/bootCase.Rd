@@ -96,7 +96,6 @@ In \code{htest} the \dQuote{direction} of the alternative hypothesis is identifi
 \dontrun{
 #### This does not run with car v3.0.0, but the error will be fixed
 #### when car v3.0.1 is submitted to CRAN.
-data(Ecoli)
 fnx <- function(days,B1,B2,B3) {
   if (length(B1) > 1) {
     B2 <- B1[2]

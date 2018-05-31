@@ -45,7 +45,6 @@
 #' @keywords htest
 #' 
 #' @examples
-#' data(Mirex)
 #' Mirex$year <- factor(Mirex$year)
 #' # fit a dummy variable regression, see that slopes differ
 #' lm1 <- lm(mirex~weight*year,data=Mirex)
@@ -64,8 +63,11 @@ compSlopes <- function(mdl,method=stats::p.adjust.methods,
   ## Perform some checks
   method <- match.arg(method)
   lmtype <- iTypeoflm(mdl)
-  if (lmtype$type!="IVR") STOP("Function only works for dummy variable regressions.")
-  if (lmtype$Enum>2) STOP("Function only works for dummy variable regressions\n with one factor and one covariate variable.")  ## isolate model information
+  if (lmtype$type!="IVR")
+    STOP("Function only works for dummy variable regressions.")
+  if (lmtype$Enum>2)
+    STOP("Function only works for dummy variable regressions\n with one factor and one covariate variable.")
+  ## isolate model information
   y <- lmtype$mf[,lmtype$Rpos]
   x <- lmtype$mf[,lmtype$ENumPos]
   g <- lmtype$mf[,lmtype$EFactPos]
@@ -160,10 +162,8 @@ print.compSlopes <- function(x,...) { # nocov start
 #' @keywords htest
 #' 
 #' @examples
-#' ## Reduce Mirex data to years where slopes don't differ to
-#' ##   illustrate this function ... see compSlopes() for
-#' ##   analysis of full data set. 
-#' data(Mirex)
+#' ## Reduce Mirex data to years where slopes don't differ to illustrate this
+#' ##   function ... see compSlopes() for analysis of full data set. 
 #' Mirex <- Mirex[Mirex$year!="1996" & Mirex$year!="1999",]
 #' Mirex$year <- factor(Mirex$year)
 #' ## Fit DVR, see that slopes don't differ, 

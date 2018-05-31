@@ -42,7 +42,6 @@
 #' @keywords datasets
 #'
 #' @examples
-#' data(PSDlit)
 #' str(PSDlit)
 #' head(PSDlit)
 #'

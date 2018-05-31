@@ -29,7 +29,6 @@
 #' @keywords datasets
 #'
 #' @examples
-#' data(Mirex)
 #' Mirex$year <- factor(Mirex$year)
 #' lm1 <- lm(mirex~weight*year*species,data=Mirex)
 #' anova(lm1)

@@ -187,8 +187,8 @@ The sample size present in the age-agreement table is found with \code{what="n"}
 }
 
 \examples{
-data(WhitefishLC)
-ab1 <- ageBias(scaleC~otolithC,data=WhitefishLC,ref.lab="Otolith Age",nref.lab="Scale Age")
+ab1 <- ageBias(scaleC~otolithC,data=WhitefishLC,
+               ref.lab="Otolith Age",nref.lab="Scale Age")
 summary(ab1)
 summary(ab1,what="symmetry")
 summary(ab1,what="Bowker")

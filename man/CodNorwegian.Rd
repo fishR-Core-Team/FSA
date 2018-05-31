@@ -25,7 +25,6 @@ Norwegian cod (\emph{Gadus morhua}) stock and recruitment by year, 1937-1960.
 }
 
 \examples{
-data(CodNorwegian)
 str(CodNorwegian)
 head(CodNorwegian)
 op <- par(mfrow=c(1,2))

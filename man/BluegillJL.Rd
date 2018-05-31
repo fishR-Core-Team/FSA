@@ -28,7 +28,6 @@ Each line consists of the capture history over two samples of Bluegill (\emph{Le
 }
 
 \examples{
-data(BluegillJL)
 str(BluegillJL)
 head(BluegillJL)
 

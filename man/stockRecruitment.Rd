@@ -63,8 +63,6 @@ lines(s1(stock,a=0.5,b=0.005,c=2.5)~stock,lwd=2,col="blue")
 lines(sl1(stock,a=0.5,b=0.005,c=1.05)~stock,lwd=2,col="salmon")
 
 ## Examples of fitting stock-recruitment functions
-data(CodNorwegian)
-
 # Fitting the Beverton-Holt #1 parameterization with multiplicative errors
 bh1s <- srStarts(recruits~stock,data=CodNorwegian)
 fit1 <- nls(log(recruits)~log(bh1(stock,a,b)),data=CodNorwegian,start=bh1s)

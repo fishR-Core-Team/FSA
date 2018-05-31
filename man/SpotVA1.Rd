@@ -27,7 +27,6 @@ Final length measurements were simulated by adding a uniform error to the value 
 }
 
 \examples{
-data(SpotVA1)
 str(SpotVA1)
 head(SpotVA1)
 plot(tl~age,data=SpotVA1)

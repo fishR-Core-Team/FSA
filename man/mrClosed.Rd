@@ -184,7 +184,6 @@ summary(mr2,incl.SE=TRUE,verbose=TRUE)
 
 ### Single census, using capHistSum() results
 ## data in capture history format
-data(BluegillJL)
 str(BluegillJL)
 ch1 <- capHistSum(BluegillJL)
 mr3 <- mrClosed(ch1)
@@ -206,10 +205,7 @@ confint(mr4,verbose=TRUE)
 confint(mr4,incl.all=FALSE,verbose=TRUE)
 
 ### Multiple Census
-## Data in summarized form
-data(PikeNY)
-
-## Schnabel method
+## Data in summarized form ... Schnabel method
 mr5 <- with(PikeNY,mrClosed(n=n,m=m,R=R,method="Schnabel"))
 plot(mr5)
 plot(mr5,loess=TRUE)
@@ -224,7 +220,6 @@ summary(mr6)
 confint(mr6)
 
 ### Capture history data summarized by capHistSum()
-data(PikeNYPartial1)
 # ignore first column of ID numbers
 ch2 <- capHistSum(PikeNYPartial1,cols2ignore="id")
 

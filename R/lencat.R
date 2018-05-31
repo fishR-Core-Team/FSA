@@ -103,7 +103,6 @@
 #' xtabs(~LCat3,data=df4)
 #'
 #' ## A Fifth example -- with real data
-#' data(SMBassWB)
 #' # remove variables with "anu" and "radcap" just for simplicity
 #' smb1 <- smb2 <- SMBassWB[,-c(8:20)]
 #'

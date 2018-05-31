@@ -110,8 +110,8 @@
 #' @keywords htest manip
 #'
 #' @examples
-#' data(WhitefishLC)
-#' ab1 <- ageBias(scaleC~otolithC,data=WhitefishLC,ref.lab="Otolith Age",nref.lab="Scale Age")
+#' ab1 <- ageBias(scaleC~otolithC,data=WhitefishLC,
+#'                ref.lab="Otolith Age",nref.lab="Scale Age")
 #' summary(ab1)
 #' summary(ab1,what="symmetry")
 #' summary(ab1,what="Bowker")
@@ -258,10 +258,13 @@ ageBias <- function(formula,data,ref.lab=tmp$Enames,nref.lab=tmp$Rname,
                     method=stats::p.adjust.methods,sig.level=0.05,min.n.CI=3) {
   ## Perform some checks on the formula
   tmp <- iHndlFormula(formula,data,expNumR=1,expNumE=1)
-  if (!tmp$metExpNumR) STOP("'ageBias' must have only one LHS variable.")
-  if (!tmp$Rclass %in% c("numeric","integer")) STOP("LHS variable must be numeric.")
+  if (!tmp$metExpNumR)
+    STOP("'ageBias' must have only one LHS variable.")
+  if (!tmp$Rclass %in% c("numeric","integer"))
+    STOP("LHS variable must be numeric.")
   if (!tmp$metExpNumE) STOP("'ageBias' must have only one RHS variable.")
-  if (!tmp$Eclass %in% c("numeric","integer")) STOP("RHS variable must be numeric.")
+  if (!tmp$Eclass %in% c("numeric","integer"))
+    STOP("RHS variable must be numeric.")
   ## get variable names separately
   nref.name <- tmp$Rname
   ref.name <- tmp$Enames
@@ -1000,7 +1003,6 @@ iPlotABNum <- function(obj,xlab,ylab,axlmts,yaxt,xaxt,
 #' 
 #' @examples
 #' ## Example with just two age estimates
-#' data(WhitefishLC)
 #' ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)
 #' summary(ap1)
 #' summary(ap1,what="precision")

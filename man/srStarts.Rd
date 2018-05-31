@@ -59,7 +59,6 @@ Starting values for the Saila-Lorda function were the same as those for the firs
 
 \examples{
 ## Simple Examples
-data(CodNorwegian)
 srStarts(recruits~stock,data=CodNorwegian)
 srStarts(recruits~stock,data=CodNorwegian,param=2)
 srStarts(recruits~stock,data=CodNorwegian,param=3)

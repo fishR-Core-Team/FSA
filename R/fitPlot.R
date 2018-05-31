@@ -61,7 +61,6 @@
 #' @keywords hplot models
 #' 
 #' @examples
-#' data(Mirex)
 #' # create year as a factor variable
 #' Mirex$fyear <- factor(Mirex$year)
 #' # reduce number of years for visual simplicity
@@ -122,7 +121,6 @@
 #' fitPlot(lm7,interval="both")
 #'
 #' ## Non-linear model example
-#' data(Ecoli)
 #' lr.sv <- list(B1=6,B2=7.2,B3=-1.5)
 #' nl1 <- nls(cells~B1/(1+exp(B2+B3*days)),start=lr.sv,data=Ecoli)
 #' fitPlot(nl1,Ecoli,cex.main=0.7,lwd=2)
