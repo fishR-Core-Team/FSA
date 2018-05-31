@@ -1,4 +1,5 @@
 # FSA 0.8.21 ongoing
+* Added a hex sticker logo.
 * Removed all `data()` in examples that referred to data from this package. Included the `package=` argument in `data()` that loaded from other packages.
 * `SMBassWB`: Modified. Fixed minor data entry error in row 383.
 
@@ -11,7 +12,6 @@
 * `gConvert()`: Removed. Moved to `RFishBC` package.
 * `mrClosed()`: Modified. Fixed a bug that was related to `poiCI()` returning results from all four types. Now `mrClosed()` will use only one type. Thanks to Timothy Spiers for pointing out this bug.
 * `SMBassWB`: Modified. Fixed minor data entry error in row 404. Changed link in documentation from `alr3` to `alr4` package.
-
 
 # FSA 0.8.19 2-Apr-18
 * `addZeroCatch()`: Modified. Changed two `1:nrow()` structures to `seq_len(nrow())` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
