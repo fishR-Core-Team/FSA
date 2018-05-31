@@ -10,7 +10,7 @@ p <- function() {
   SE <- 4*ages^(1/3)
   plot(NA,xlim=c(0,10),ylim=c(0,133),
        type="l",xlab="",ylab="",xaxt="n",yaxt="n")
-  for (i in seq_along(clrs)) {
+  for (i in seq_along(clrs1)) {
     p1 <- vb(ages,Linf=Linf[i],K=K[i],t0=t0[i])
     ages1 <- ages[p1>0]
     SE1 <- SE[p1>0]
