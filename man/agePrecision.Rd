@@ -36,17 +36,19 @@ The main function returns a list with the following items:
   \item detail A data.frame with all data given in \code{data} and intermediate calculations for each fish. See details
   \item rawdiff A frequency table of fish by differences for each pair of ages.
   \item absdiff A frequency table of fish by absolute differences for each pair of ages.
-  \item APE The mean average percent error.
-  \item ACV The mean coefficient of variation.
+  \item AMAD The average mean absolute deviation.
+  \item APE The average average percent error.
+  \item ASD The average standard deviation.
+  \item ACV The average coefficient of variation.
+  \item R The number of readings for each individual fish.
   \item n Number of fish in \code{data}.
   \item validn Number of fish in \code{data} that have non-\code{NA} data for all R age estimates.
-  \item R Number of age estimates for each fish given in \code{formula}.
 }
 
-The \code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing. See details for what is printed.
+The \code{summary} returns the result if \code{what=} contains only one item, otherwise it returns nothing. See details for what is printed.
 }
 \description{
-Computes overall measures of precision for multiple age estimates made on the same individuals. Ages may be from two or more readers of the same structure, one reader at two or more times, or two or more structures (e.g., scales, spines, otoliths). Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), and various percentage difference values.
+Computes overall measures of precision for multiple age estimates made on the same individuals. Ages may be from two or more readers of the same structure, one reader at two or more times, or two or more structures (e.g., scales, spines, otoliths). Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), AMAD (Average Mean Absolute Deviation), and ASD (Average Standard Devation), and various percentage difference values.
 }
 \details{
 If \code{what="precision"} in \code{summary} then a summary table that contains the following items will be printed:
@@ -54,16 +56,18 @@ If \code{what="precision"} in \code{summary} then a summary table that contains 
   \item n Number of fish in \code{data}.
   \item validn Number of fish in \code{data} that have non-\code{NA} data for all R age estimates.
   \item R Number of age estimates given in \code{formula}.
-  \item ACV The mean coefficient of variation. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
-  \item APE The mean average percent error. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
+  \item ACV The average (across all fish) coefficient of variation of ages within a fish. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
+  \item APE The average (across all fish) average percent error of ages within a fish. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
+  \item ASD The average (across all fish) standard deviation of ages within a fish.
+  \item AMAD The average (across all fish) mean absolute deviation of ages within a fish.
   \item PercAgree The percentage of fish for which all age estimates perfectly agree.
 }
 
-If \code{what="difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the difference in paired age estimates. This table has one row for each possible pair of age estimates.
+If \code{what="difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, DEFAULT) or frequency of fish by the difference in paired age estimates. This table has one row for each possible pair of age estimates.
 
-If \code{what="absolute difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the absolute value of the difference in paired age estimates. This table has one row for each possible pair of age estimates. The \dQuote{1} column, for example, represents age estimates that disagree by one year (in either direction).
+If \code{what="absolute difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, DEFAULT) or frequency of fish by the absolute value of the difference in paired age estimates. This table has one row for each possible pair of age estimates. The \dQuote{1} column, for example, represents age estimates that disagree by one year (in either direction).
 
-If \code{what="detail"} is used in \code{summary}, then a data frame of the original \code{data} along with the intermediate calculations of the average age, standard deviation of age, APE, and ACV for each individual will be printed. These details are generally only used to check or to understand calculations.
+If \code{what="detail"} is used in \code{summary}, then a data.frame of the original \code{data} along with the intermediate calculations of the average age (avg), standard deviation of age (SD), coefficient of variation (CV), mean absolute deviation (MAD), and average percent error (APE) for each individual will be printed. These details are generally only used to check or to understand calculations.
 
 All percentage calculations above use the \code{validn} value in the denominator.
 }
@@ -87,9 +91,17 @@ summary(ap1,what="absolute",percent=FALSE)
 summary(ap1,what="absolute",trunc.diff=4)
 summary(ap1,what="absolute",percent=FALSE)
 summary(ap1,what=c("precision","difference"))
+summary(ap1,what="detail")
 
 barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
-summary(ap1,what="detail")
+plot(mad~avg,data=ap1$detail,xlab="Mean Age",ylab="MAD Age",
+     pch=19,col=col2rgbt("black",1/5))
+plot(sd~avg,data=ap1$detail,xlab="Mean Age",ylab="SD Age",
+     pch=19,col=col2rgbt("black",1/5))
+plot(sd~mad,data=ap1$detail,xlab="MAD Age",ylab="SD Age",
+     pch=19,col=col2rgbt("black",1/5))
+plot(CV~PE,data=ap1$detail,xlab="PE Age",ylab="CV Age",
+     pch=19,col=col2rgbt("black",1/5))
 
 ## Example with three age estimates
 ap2 <- agePrecision(~otolithC+finrayC+scaleC,data=WhitefishLC)
@@ -102,6 +114,15 @@ summary(ap2,what="absolute",percent=FALSE)
 summary(ap2,what="absolute",trunc.diff=4)
 summary(ap2,what="absolute",percent=FALSE,trunc.diff=4)
 summary(ap2,what="detail")
+
+plot(mad~avg,data=ap2$detail,xlab="Mean Age",ylab="MAD Age",
+     pch=19,col=col2rgbt("black",1/5))
+plot(sd~avg,data=ap2$detail,xlab="Mean Age",ylab="SD Age",
+     pch=19,col=col2rgbt("black",1/5))
+plot(sd~mad,data=ap2$detail,xlab="MAD Age",ylab="SD Age",
+     pch=19,col=col2rgbt("black",1/5))
+plot(CV~PE,data=ap2$detail,xlab="PE Age",ylab="CV Age",
+     pch=19,col=col2rgbt("black",1/5))
 
 }
 \references{

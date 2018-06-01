@@ -281,16 +281,19 @@ ageBias <- function(formula,data,ref.lab=tmp$Enames,nref.lab=tmp$Rname,
   # turn off warnings for not using factor data (turn back on below)
   options(warn=-1)
   # Summary stats of cdata by ages of rdata
-  bias.df <- iAgeBiasDF(Summarize(stats::as.formula(paste(nref.name,"~",ref.name)),data=d),
+  bias.df <- iAgeBiasDF(Summarize(stats::as.formula(paste(nref.name,"~",
+                                                          ref.name)),data=d),
                         ref.name,FALSE,min.n.CI,sig.level)
   # Summary stats of diff by cdata
-  bias2.df <- iAgeBiasDF(Summarize(stats::as.formula(paste("diff~",ref.name)),data=d),
+  bias2.df <- iAgeBiasDF(Summarize(stats::as.formula(paste("diff~",
+                                                           ref.name)),data=d),
                          ref.name,TRUE,min.n.CI,sig.level)
   options(warn=0)
   
   ## Agreement contingency table adjusted to be square  
   # finds overall range of ages
-  ages <- min(d[,c(nref.name,ref.name)],na.rm=TRUE):max(d[,c(nref.name,ref.name)],na.rm=TRUE)
+  ages <- seq(min(d[,c(nref.name,ref.name)],na.rm=TRUE),
+              max(d[,c(nref.name,ref.name)],na.rm=TRUE),1)
   # converts nr and r data to factor with ages levels
   nref.fact <- factor(d[,nref.name],levels=ages)
   ref.fact <- factor(d[,ref.name],levels=ages)
@@ -308,9 +311,10 @@ ageBias <- function(formula,data,ref.lab=tmp$Enames,nref.lab=tmp$Rname,
 #' @rdname ageBias
 #' @export
 summary.ageBias <- function(object,
-                   what=c("table","symmetry","Bowker","EvansHoenig","McNemar","bias","diff.bias","n"),
-                   flip.table=FALSE,zero.print="-",digits=3,cont.corr=c("none","Yates","Edwards"),
-                   ...) {
+                   what=c("table","symmetry","Bowker","EvansHoenig",
+                          "McNemar","bias","diff.bias","n"),
+                   flip.table=FALSE,zero.print="-",digits=3,
+                   cont.corr=c("none","Yates","Edwards"),...) {
   what <- match.arg(what,several.ok=TRUE)
   retres <- ifelse(length(what)==1,TRUE,FALSE)
   showmsg <- ifelse (length(what)>1,TRUE,FALSE)
@@ -355,8 +359,7 @@ summary.ageBias <- function(object,
     res <- iMcNemar(object,match.arg(cont.corr))
     res <- rbind(res,iEvansHoenig(object))
     res <- rbind(res,iBowker(object))
-    # if what="symmetry" print all results, otherwise only print what is asked for
-    
+    # if what="symmetry" print all results, otherwise only what is asked for
     if (showmsg) cat("Age agreement table symmetry test results\n")
     if (!"symmetry" %in% what) res <- Subset(res,grepl(what,symTest))
     print(res)
@@ -364,18 +367,16 @@ summary.ageBias <- function(object,
   if (retres) invisible(res)
 }
 
-#=============================================================
-# This internal function is used to created a data frame of
-#   summarized data for the ageBias() function. 
+#===============================================================================
+# Internal function to create a data.frame of summarized data for ageBias()
 #
-# tmp -- the results from Summarize of ages in a column
-#        variable by a row variable
+# tmp -- results from Summarize of ages in a column variable by a row variable
 # cname -- the name of the column variable
 # diff -- a logical of whether differences are being used or not
 # min.n.CI -- the minimum n for which CIs should be computed
 #
 # returns a data.frame
-#=============================================================
+#===============================================================================
 iAgeBiasDF <- function(tmp,cname,diff,min.n.CI,sig.level) {
   # Ages of cdata strux
   x <-tmp[,1]
@@ -391,29 +392,30 @@ iAgeBiasDF <- function(tmp,cname,diff,min.n.CI,sig.level) {
   else tmp$t[canCI] <- tmp$mean[canCI]/tmp$SE[canCI]
   # two-tailed p-value (adjusted for multiple comparisons)
   tmp$p.value <- stats::pt(abs(tmp$t),df=tmp$n-1,lower.tail=FALSE)*2
-  tmp$adj.p <- round(stats::p.adjust(tmp$p.value,method=stats::p.adjust.methods),5)
+  tmp$adj.p <- round(stats::p.adjust(tmp$p.value,
+                                     method=stats::p.adjust.methods),5)
   # Assign significant difference (fill with FALSE then change to TRUE if sig)
   tmp$sig <- rep(FALSE,nrow(tmp))
   tmp$sig[tmp$adj.p<sig.level] <- TRUE
   # CIs
   tmp$LCI[canCI] <- tmp$mean[canCI]+stats::qt(sig.level/2,tmp$n[canCI]-1)*tmp$SE[canCI]
-  tmp$UCI[canCI] <- tmp$mean[canCI]+stats::qt(sig.level/2,tmp$n[canCI]-1,lower.tail=FALSE)*tmp$SE[canCI]
+  tmp$UCI[canCI] <- tmp$mean[canCI]+stats::qt(sig.level/2,tmp$n[canCI]-1,
+                                              lower.tail=FALSE)*tmp$SE[canCI]
   # put together as a dataframe
-  tmpdf <- data.frame(age=x,n=tmp$n,min=tmp$min,max=tmp$max,mean=tmp$mean,SE=tmp$SE,
-                      t=tmp$t,adj.p=tmp$adj.p,sig=tmp$sig,
+  tmpdf <- data.frame(age=x,n=tmp$n,min=tmp$min,max=tmp$max,mean=tmp$mean,
+                      SE=tmp$SE,t=tmp$t,adj.p=tmp$adj.p,sig=tmp$sig,
                       LCI=tmp$LCI,UCI=tmp$UCI,canCI=canCI)
   # label first column with col.data name
   names(tmpdf)[1] <- cname  
   tmpdf
 } ## end iAgeBiasDF internal function
 
-#=============================================================
-# This internal function is used to handle the age-agreement
-# table for symmetry tests. Specifically, it removes the main
-# diagonal, finds the upper and lower triangles, and returns
-# them all in a list. It is called by the iBowker, iMcNemar,
-# and iEvansHoenig functions.
-#=============================================================
+#===============================================================================
+# Internal function to handle the age-agreement table for symmetry tests.
+# Specifically, it removes the main diagonal, finds the upper and lower
+# triangles, and returns them all in a list. It is called by the iBowker,
+# iMcNemar, and iEvansHoenig functions.
+#===============================================================================
 iHandleAgreeTable <- function(obj) {
   # rename agreement table
   at <- obj$agree
@@ -427,9 +429,9 @@ iHandleAgreeTable <- function(obj) {
   list(at=at,lo=lo,up=up)
 }
 
-#=============================================================
+#===============================================================================
 # Internal function to compute Bowker Test of Symmetry.
-#=============================================================
+#===============================================================================
 iBowker <- function(obj) {
   AAT <- iHandleAgreeTable(obj)
   # Chi-sq parts (Evans and Hoenig's eq 1, Hoenig et al.'s eq 3)
@@ -444,9 +446,9 @@ iBowker <- function(obj) {
   data.frame(symTest="Bowker",df=df,chi.sq=chi.sq,p=p)
 } ## End internal Bowker Test function
 
-#=============================================================
+#===============================================================================
 # Internal function to compute McNemar Test of Symmetry.
-#=============================================================
+#===============================================================================
 iMcNemar <- function(obj,cont.cor) {
   # handle continuity correction
   if (cont.cor=="none") {
@@ -471,9 +473,9 @@ iMcNemar <- function(obj,cont.cor) {
   data.frame(symTest=title,df=df,chi.sq=chi.sq,p=p)
 } ## End internal McNemar Test function
 
-#=============================================================
+#===============================================================================
 # Internal function to compute EvansHoenig Test of Symmetry.
-#=============================================================
+#===============================================================================
 iEvansHoenig <- function(obj) {
   AAT <- iHandleAgreeTable(obj)
   # Create matrix of differences in potential ages
@@ -514,15 +516,19 @@ plot.ageBias <- function(x,xvals=c("reference","mean"),
                          yaxt=graphics::par("yaxt"),xaxt=graphics::par("xaxt"),
                          col.agree="gray60",lwd.agree=lwd,lty.agree=2,
                          lwd=1,sfrac=0,
-                         show.pts=NULL,pch.pts=20,cex.pts=ifelse(xHist|yHist,1.5,1),
+                         show.pts=NULL,pch.pts=20,
+                         cex.pts=ifelse(xHist|yHist,1.5,1),
                          col.pts="black",transparency=1/10,
                          show.CI=FALSE,col.CI="black",col.CIsig="red",
                          lwd.CI=lwd,sfrac.CI=sfrac,
-                         show.range=NULL,col.range=ifelse(show.CI,"gray70","black"),
+                         show.range=NULL,
+                         col.range=ifelse(show.CI,"gray70","black"),
                          lwd.range=lwd,sfrac.range=sfrac,
-                         pch.mean=19,pch.mean.sig=ifelse(show.CI|show.range,21,19),
+                         pch.mean=19,
+                         pch.mean.sig=ifelse(show.CI|show.range,21,19),
                          cex.mean=lwd,
-                         yHist=TRUE,xHist=NULL,hist.panel.size=1/7,col.hist="gray90",
+                         yHist=TRUE,xHist=NULL,hist.panel.size=1/7,
+                         col.hist="gray90",
                          allowAdd=FALSE,...) { # nocov start
   ## Handle some defaults
   xvals <- match.arg(xvals)
@@ -554,12 +560,11 @@ plot.ageBias <- function(x,xvals=c("reference","mean"),
 } # nocov end
 
 
-#=============================================================
-# This internal function is used to find appropriate axis
-# limits for the age bias plot. 
-#=============================================================
+#===============================================================================
+# Internal function to find appropriate axis limits for the age bias plot. 
+#===============================================================================
 iABAxisLmts <- function(x,xlim,ylim,difference,show.range,show.pts,show.CI) { # nocov start
-  # identify whether difference data should be used or not, put in a tmp data frame
+  # identify whether difference data should be used, put in a tmp data frame
   if (!difference) { d <- x$bias } else { d <- x$bias.diff }
   # If no xlim given then make xlim the range of x values
   # which are given in the first position of d (note that
@@ -595,10 +600,9 @@ iABAxisLmts <- function(x,xlim,ylim,difference,show.range,show.pts,show.CI) { # 
   list(xlim=xlmt,ylim=ylmt)
 } # nocov end
 
-#=============================================================
-# This internal function is used to find "pretty" ticks and 
-#   labels for the axes of age bias plots. 
-#=============================================================
+#===============================================================================
+# Internal function to find "pretty" ticks and labels for age bias plot axes.
+#===============================================================================
 iABAxisLbls <- function(x) { # nocov start
   xlmt <- x$xlim
   ylmt <- x$ylim
@@ -617,29 +621,29 @@ iABAxisLbls <- function(x) { # nocov start
 } # nocov end
 
 
-#=============================================================
-# This internal function is used to create an appropriate
-#   layout if yHist=TRUE or xHist=TRUE. 
-#=============================================================
+#===============================================================================
+# Internal function to create an appropriate layout if yHist=TRUE or xHist=TRUE.
+#===============================================================================
 iABSetLayout <- function(yHist,xHist,hist.size) { # nocov start
   if (yHist & xHist) { # Both marginal hists
     graphics::layout(matrix(c(1,0,3,2),ncol=2,byrow=TRUE),
                      widths=c(1-hist.size,hist.size),
                      heights=c(hist.size,1-hist.size))
   } else if (yHist) {  # Only marginal hist on Y-axis
-    graphics::layout(matrix(c(2,1),ncol=2),widths=c(1-hist.size,hist.size),heights=1)
+    graphics::layout(matrix(c(2,1),ncol=2),
+                     widths=c(1-hist.size,hist.size),heights=1)
   } else if (xHist) {  # Only marginal hist on X-axis
-    graphics::layout(matrix(c(1,2),ncol=1),widths=1,heights=c(hist.size,1-hist.size))
-  } else {
-    graphics::layout(1,widths=1,heights=1) # no marginal hists (return normal layout)
+    graphics::layout(matrix(c(1,2),ncol=1),
+                     widths=1,heights=c(hist.size,1-hist.size))
+  } else {# no marginal hists (return normal layout)
+    graphics::layout(1,widths=1,heights=1) 
   }
 } # nocov end
 
 
-#=============================================================
-# This internal function is used to create the histogram for
-#   the x-axis margin if xHist=TRUE. 
-#=============================================================
+#===============================================================================
+# Internal function to create the histogram for the x-axis margin if xHist=TRUE.
+#===============================================================================
 iABAddXHist <- function(xdat,col.hist,axlmts,op,yHist) { # nocov start
   # Set graphing parameters for this panel
   #   the bottom is set to zero to butt up against the age bias plot,
@@ -677,10 +681,9 @@ iABAddXHist <- function(xdat,col.hist,axlmts,op,yHist) { # nocov start
 } # nocov end
 
 
-#=============================================================
-# This internal function is used to create the histogram for
-#   the y-axis margin if yHist=TRUE. 
-#=============================================================
+#===============================================================================
+# Internal function to create the histogram for the y-axis margin if yHist=TRUE.
+#===============================================================================
 iABAddYHist <- function(ydat,col.hist,axlmts,op,xHist) { # nocov start
   # Set graphing parameters for this panel
   #   the left is set to zero to butt up against the age bias plot,
@@ -718,10 +721,10 @@ iABAddYHist <- function(ydat,col.hist,axlmts,op,xHist) { # nocov start
 } # nocov end
 
 
-#=============================================================
+#===============================================================================
 # Internal function to produce the age bias plot using differences.
 #   This was inspired by Muir et al. (2008)
-#=============================================================
+#===============================================================================
 iDiffAB <- function(x,xlab,ylab,xlim,ylim,yaxt,xaxt,
                     col.agree,lwd.agree,lty.agree,
                     show.pts,pch.pts,cex.pts,col.pts,
@@ -796,11 +799,10 @@ iDiffAB <- function(x,xlab,ylab,xlim,ylim,yaxt,xaxt,
 } # nocov end
 
 
-#=============================================================
-# Internal function to produce the age bias plot using differences
-#   but with mean ages on the x-axis. This was inspired by the
-#   Bland-Altman plots in McBride (2015).
-#=============================================================
+#===============================================================================
+# Internal function to produce the age bias plot using differences but with mean
+# ages on the x-axis. Inspired by the Bland-Altman plots in McBride (2015).
+#===============================================================================
 iDiffBA <- function(x,xlab,ylab,xlim,ylim,yaxt,xaxt,
                     col.agree,lwd.agree,lty.agree,
                     pch.pts,cex.pts,col.pts,
@@ -860,9 +862,9 @@ plotAB <- function(x,what=c("bias","Campana","numbers"),
 } # nocov end
 
 
-#=============================================================
+#===============================================================================
 # Internal function to produce the age bias plot (like Campana).
-#=============================================================
+#===============================================================================
 iPlotABCamp <- function(x,xlab,ylab,axlmts,yaxt,xaxt,
                         col.agree,lwd.agree,lty.agree,lwd,sfrac,
                         pch.mean,pch.mean.sig,cex.mean,col.CI,
@@ -905,9 +907,9 @@ iPlotABCamp <- function(x,xlab,ylab,axlmts,yaxt,xaxt,
                              sumd$n,cex=cex.n,xpd=TRUE)
 }  # nocov end
 
-#=============================================================
+#===============================================================================
 # Internal function to produce the age bias numbers plot.
-#=============================================================
+#===============================================================================
 iPlotABNum <- function(obj,xlab,ylab,axlmts,yaxt,xaxt,
                        lwd.agree,lty.agree,col.agree,
                        cex.numbers,col.numbers,...) { # nocov start
@@ -925,7 +927,8 @@ iPlotABNum <- function(obj,xlab,ylab,axlmts,yaxt,xaxt,
   if (yaxt!="n") {graphics::axis(2,seq(axlmts$ylim[1],axlmts$ylim[2],1))}
   if (xaxt!="n") {graphics::axis(1,seq(axlmts$xlim[1],axlmts$xlim[2],1))}
   # add the one-to-one line
-  graphics::lines(axlmts$xlim,axlmts$xlim,lwd=lwd.agree,lty=lty.agree,col=col.agree)
+  graphics::lines(axlmts$xlim,axlmts$xlim,lwd=lwd.agree,
+                  lty=lty.agree,col=col.agree)
   # add the numbers at each point
   graphics::text(d[,2],d[,1],labels=d[,3],cex=cex.numbers,col=col.numbers)
 } # nocov end
@@ -934,7 +937,7 @@ iPlotABNum <- function(obj,xlab,ylab,axlmts,yaxt,xaxt,
 
 #' @title Compute measures of precision among sets of ages.
 #'
-#' @description Computes overall measures of precision for multiple age estimates made on the same individuals. Ages may be from two or more readers of the same structure, one reader at two or more times, or two or more structures (e.g., scales, spines, otoliths). Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), and various percentage difference values.
+#' @description Computes overall measures of precision for multiple age estimates made on the same individuals. Ages may be from two or more readers of the same structure, one reader at two or more times, or two or more structures (e.g., scales, spines, otoliths). Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), AMAD (Average Mean Absolute Deviation), and ASD (Average Standard Devation), and various percentage difference values.
 #'
 #' @param formula A formula of the form \code{~var1+var2+var3+...} or, alternatively, \code{var1~var2+var3+...}, where the \code{varX} generically represent the variables that contain the age estimates. The alternative formula allows for similar code as used in \code{\link{ageBias}} and can have only one variable on the left-hand side.
 #' @param data A data.frame that minimally contains the variables in \code{formula}.
@@ -950,16 +953,18 @@ iPlotABNum <- function(obj,xlab,ylab,axlmts,yaxt,xaxt,
 #'   \item n Number of fish in \code{data}.
 #'   \item validn Number of fish in \code{data} that have non-\code{NA} data for all R age estimates.
 #'   \item R Number of age estimates given in \code{formula}.
-#'   \item ACV The mean coefficient of variation. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
-#'   \item APE The mean average percent error. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
+#'   \item ACV The average (across all fish) coefficient of variation of ages within a fish. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
+#'   \item APE The average (across all fish) average percent error of ages within a fish. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
+#'   \item ASD The average (across all fish) standard deviation of ages within a fish.
+#'   \item AMAD The average (across all fish) mean absolute deviation of ages within a fish.
 #'   \item PercAgree The percentage of fish for which all age estimates perfectly agree.
 #' }
 #'
-#' If \code{what="difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the difference in paired age estimates. This table has one row for each possible pair of age estimates.
+#' If \code{what="difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, DEFAULT) or frequency of fish by the difference in paired age estimates. This table has one row for each possible pair of age estimates.
 #'
-#' If \code{what="absolute difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, default) or frequency of fish by the absolute value of the difference in paired age estimates. This table has one row for each possible pair of age estimates. The \dQuote{1} column, for example, represents age estimates that disagree by one year (in either direction).
+#' If \code{what="absolute difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, DEFAULT) or frequency of fish by the absolute value of the difference in paired age estimates. This table has one row for each possible pair of age estimates. The \dQuote{1} column, for example, represents age estimates that disagree by one year (in either direction).
 #'
-#' If \code{what="detail"} is used in \code{summary}, then a data frame of the original \code{data} along with the intermediate calculations of the average age, standard deviation of age, APE, and ACV for each individual will be printed. These details are generally only used to check or to understand calculations.
+#' If \code{what="detail"} is used in \code{summary}, then a data.frame of the original \code{data} along with the intermediate calculations of the average age (avg), standard deviation of age (SD), coefficient of variation (CV), mean absolute deviation (MAD), and average percent error (APE) for each individual will be printed. These details are generally only used to check or to understand calculations.
 #' 
 #' All percentage calculations above use the \code{validn} value in the denominator.
 #' 
@@ -968,14 +973,16 @@ iPlotABNum <- function(obj,xlab,ylab,axlmts,yaxt,xaxt,
 #'   \item detail A data.frame with all data given in \code{data} and intermediate calculations for each fish. See details
 #'   \item rawdiff A frequency table of fish by differences for each pair of ages.
 #'   \item absdiff A frequency table of fish by absolute differences for each pair of ages.
-#'   \item APE The mean average percent error.
-#'   \item ACV The mean coefficient of variation.
+#'   \item AMAD The average mean absolute deviation.
+#'   \item APE The average average percent error.
+#'   \item ASD The average standard deviation.
+#'   \item ACV The average coefficient of variation.
+#'   \item R The number of readings for each individual fish.
 #'   \item n Number of fish in \code{data}.
 #'   \item validn Number of fish in \code{data} that have non-\code{NA} data for all R age estimates.
-#'   \item R Number of age estimates for each fish given in \code{formula}.
 #' }
 #'
-#' The \code{summary} returns the result if \code{what=} contains one item, otherwise it returns nothing. See details for what is printed.
+#' The \code{summary} returns the result if \code{what=} contains only one item, otherwise it returns nothing. See details for what is printed.
 #' 
 #' @section Testing: Tested all precision results against published results in Herbst and Marsden (2011) for the \code{\link{WhitefishLC}} data and the results for the \code{\link[FSAdata]{AlewifeLH}} data set from \pkg{FSAdata} against results from the online resource at http://www.nefsc.noaa.gov/fbp/age-prec/.
 #'
@@ -1013,9 +1020,17 @@ iPlotABNum <- function(obj,xlab,ylab,axlmts,yaxt,xaxt,
 #' summary(ap1,what="absolute",trunc.diff=4)
 #' summary(ap1,what="absolute",percent=FALSE)
 #' summary(ap1,what=c("precision","difference"))
+#' summary(ap1,what="detail")
 #'
 #' barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
-#' summary(ap1,what="detail")
+#' plot(mad~avg,data=ap1$detail,xlab="Mean Age",ylab="MAD Age",
+#'      pch=19,col=col2rgbt("black",1/5))
+#' plot(sd~avg,data=ap1$detail,xlab="Mean Age",ylab="SD Age",
+#'      pch=19,col=col2rgbt("black",1/5))
+#' plot(sd~mad,data=ap1$detail,xlab="MAD Age",ylab="SD Age",
+#'      pch=19,col=col2rgbt("black",1/5))
+#' plot(CV~PE,data=ap1$detail,xlab="PE Age",ylab="CV Age",
+#'      pch=19,col=col2rgbt("black",1/5))
 #'
 #' ## Example with three age estimates
 #' ap2 <- agePrecision(~otolithC+finrayC+scaleC,data=WhitefishLC)
@@ -1028,6 +1043,15 @@ iPlotABNum <- function(obj,xlab,ylab,axlmts,yaxt,xaxt,
 #' summary(ap2,what="absolute",trunc.diff=4)
 #' summary(ap2,what="absolute",percent=FALSE,trunc.diff=4)
 #' summary(ap2,what="detail")
+#' 
+#' plot(mad~avg,data=ap2$detail,xlab="Mean Age",ylab="MAD Age",
+#'      pch=19,col=col2rgbt("black",1/5))
+#' plot(sd~avg,data=ap2$detail,xlab="Mean Age",ylab="SD Age",
+#'      pch=19,col=col2rgbt("black",1/5))
+#' plot(sd~mad,data=ap2$detail,xlab="MAD Age",ylab="SD Age",
+#'      pch=19,col=col2rgbt("black",1/5))
+#' plot(CV~PE,data=ap2$detail,xlab="PE Age",ylab="CV Age",
+#'      pch=19,col=col2rgbt("black",1/5))
 #'
 #' @rdname agePrecision
 #' @export
@@ -1045,24 +1069,27 @@ agePrecision <- function(formula,data) {
   n <- nrow(d)
   validn <- sum(stats::complete.cases(d))
   
-  ## Precision alculations (APE and ACV) on each fish
+  ## Precision calculations (APE and ACV) on each fish
   # Mean, SD of assigned ages
   age.avg <- apply(d,1,mean)
   age.sd <- apply(d,1,stats::sd)
-  # Summed absolute deviation
+  # Meand and Summed absolute deviation
   tmp.adevs <- abs(apply(d,2,'-',age.avg))
-  age.ad <- apply(tmp.adevs,1,sum)
+  age.mad <- apply(tmp.adevs,1,mean)
+  age.sad <- apply(tmp.adevs,1,sum)
   # APE & ACV for each fish
-  APE.j <- ((age.ad/age.avg)/R)*100
+  APE.j <- (age.mad/age.avg)*100
   ACV.j <- (age.sd/age.avg)*100
   # Replaced NAs with 0 in APE.j and ACV.j for when age.avg==0
-  tmp <- which(age.avg==0)
-  APE.j[tmp] <- 0
-  ACV.j[tmp] <- 0
+  APE.j[age.avg==0] <- 0
+  ACV.j[age.avg==0] <- 0
   # Put results into a data.frame to return
-  detail.df <- data.frame(d,avg=age.avg,sd=age.sd,APE=APE.j,ACV=ACV.j)
-  ## Summary precision calculations (mean APE, ACV, total agreement) for all fish
+  detail.df <- data.frame(d,avg=age.avg,sd=age.sd,CV=ACV.j,
+                          mad=age.mad,PE=APE.j)
+  ## Summary precision calculations (APE, ACV, total agreement) for all fish
+  AMAD <- mean(age.mad,na.rm=TRUE)
   APE <- mean(APE.j,na.rm=TRUE)
+  ASD <- mean(age.sd,na.rm=TRUE)
   ACV <- mean(ACV.j,na.rm=TRUE)
   # all ages agree if sd=0 (use sum and na.rm to remove NAs)
   all.agree <- sum(detail.df$sd==0,na.rm=TRUE)/validn*100
@@ -1070,7 +1097,7 @@ agePrecision <- function(formula,data) {
   ## Raw age agreement summaries
   # find all pairs of comparisons
   prs <- t(utils::combn(names(d),2))
-  # maximum possible difference is max age - min age ... use this to set the levels
+  # maximum possible difference is max-min age ... use this to set the levels
   #   for the agreement table.
   tmp <- max(d,na.rm=TRUE)-min(d,na.rm=TRUE)
   poss.lvls <- seq(-tmp,tmp,1)
@@ -1089,7 +1116,7 @@ agePrecision <- function(formula,data) {
   if (length(tmp>0)) ragree <- ragree[,-tmp]
   
   ## Absolute age agreement summaries
-  # maximum possible difference is max age - min age ... use this to set the levels
+  # maximum possible difference is max-min age ... use this to set the levels
   #   for the agreement table.
   poss.lvls <- 0:(max(d,na.rm=TRUE)-min(d,na.rm=TRUE))
   # create a matrix to contain the results of comparing each pair
@@ -1108,21 +1135,25 @@ agePrecision <- function(formula,data) {
   
   ## Put together an output list
   d <- list(detail=detail.df,rawdiff=as.table(ragree),absdiff=as.table(aagree),
-            APE=APE,ACV=ACV,PercAgree=all.agree,R=R,n=n,validn=validn)
+            AMAD=AMAD,APE=APE,ASD=ASD,ACV=ACV,PercAgree=all.agree,
+            R=R,n=n,validn=validn)
   class(d) <- "agePrec"
   d 
 }
 
 #' @rdname agePrecision
 #' @export
-summary.agePrec <- function(object,what=c("precision","difference","absolute difference","details"),
+summary.agePrec <- function(object,what=c("precision","difference",
+                                          "absolute difference","details"),
                             percent=TRUE,trunc.diff=NULL,digits=4,...) {
   what <- match.arg(what,several.ok=TRUE)
   retres <- ifelse(length(what)==1,TRUE,FALSE)
   showmsg <- ifelse (length(what)>1,TRUE,FALSE)
   if ("precision" %in% what) {
     if (showmsg) cat("Precision summary statistics\n")
-    tmp <- with(object,data.frame(n=n,validn=validn,R=R,ACV=ACV,APE=APE,PercAgree=PercAgree)) 
+    tmp <- with(object,data.frame(n=n,validn=validn,R=R,
+                                  ACV=ACV,APE=APE,ASD=ASD,AMAD=AMAD,
+                                  PercAgree=PercAgree)) 
     print(tmp,row.names=FALSE,digits=digits)
     what <- iHndlMultWhat(what,"precision","cat")
   }
