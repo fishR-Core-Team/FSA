@@ -1,6 +1,6 @@
 context("Age Precision and Bias VALIDATE")
 
-test_that("ageBias() symmetry tests match the results in Evans and Hoenig (2008)",{
+test_that("ageBias() symmetry tests match results in Evans and Hoenig (2008)",{
   ######## Create Evans & Hoenig (2008) X, Y, and Z matrices and check
   ########   against the results in table 1.
   X.dat <- data.frame(ageR=c(2,2,2,2,2,2,2,2),
@@ -54,20 +54,26 @@ test_that("test ageBias() against compare2() with AlewifeLH data",{
     data(AlewifeLH)
     ab2 <- compare2(AlewifeLH,barplot=FALSE)
     ## no continuity correction
-    suppressWarnings(ab1 <- ageBias(scales~otoliths,data=AlewifeLH,ref.lab="Otolith Age",nref.lab="Scale Age"))
+    suppressWarnings(ab1 <- ageBias(scales~otoliths,data=AlewifeLH,
+                                    ref.lab="Otolith Age",nref.lab="Scale Age"))
     junk <- capture.output( ab1sum <- summary(ab1) )
     expect_equal(ab1sum[ab1sum$symTest=="McNemar","chi.sq"], ab2$McNemar$Chisq)
     expect_equal(ab1sum[ab1sum$symTest=="McNemar","p"], ab2$McNemar$pvalue)
-    expect_equal(ab1sum[ab1sum$symTest=="EvansHoenig","chi.sq"], ab2$Evans_Hoenig$Chisq)
-    expect_equal(ab1sum[ab1sum$symTest=="EvansHoenig","p"], ab2$Evans_Hoenig$pvalue)
-    expect_equal(ab1sum[ab1sum$symTest=="EvansHoenig","df"], ab2$Evans_Hoenig$df)
+    expect_equal(ab1sum[ab1sum$symTest=="EvansHoenig","chi.sq"],
+                 ab2$Evans_Hoenig$Chisq)
+    expect_equal(ab1sum[ab1sum$symTest=="EvansHoenig","p"],
+                 ab2$Evans_Hoenig$pvalue)
+    expect_equal(ab1sum[ab1sum$symTest=="EvansHoenig","df"],
+                 ab2$Evans_Hoenig$df)
     ## Yates continuity correction
-    junk <- capture.output( ab1sum2 <- summary(ab1,what="McNemar",cont.corr="Yates") )
+    junk <- capture.output( ab1sum2 <- summary(ab1,what="McNemar",
+                                               cont.corr="Yates") )
     expect_equal(ab1sum2[1,"chi.sq"], ab2$McNemar_continuity_correction$Chisq)
     expect_equal(ab1sum2[1,"p"], ab2$McNemar_continuity_correction$pvalue)
     ## Edwards continuity correction
     ab3 <- compare2(AlewifeLH,correct="Edwards",barplot=FALSE)
-    junk <- capture.output( ab1sum3 <- summary(ab1,what="McNemar",cont.corr="Edwards") )
+    junk <- capture.output( ab1sum3 <- summary(ab1,what="McNemar",
+                                               cont.corr="Edwards") )
     expect_equal(ab1sum3[1,"chi.sq"], ab3$McNemar_continuity_correction$Chisq)
     expect_equal(ab1sum3[1,"p"], ab3$McNemar_continuity_correction$pvalue)
   }
@@ -84,10 +90,7 @@ test_that("ageBias() compared to http://www.nefsc.noaa.gov/fbp/age-prec/ calcula
 })
 
 test_that("agePrecision() gives correct precision values -- First Example",{
-  data(WhitefishLC)
   ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)
-  expect_is(ap1,"agePrec")
-  expect_is(ap1$detail,"data.frame")
   expect_equal(ap1$n, 151)
   expect_equal(ap1$R, 2)
   expect_equal(length(ap1$rawdiff), 17)
@@ -98,13 +101,9 @@ test_that("agePrecision() gives correct precision values -- First Example",{
 })
 
 test_that("agePrecision() gives correct precision values -- Second Example",{
-  data(WhitefishLC)
   ap2 <- agePrecision(~otolithC+finrayC+scaleC,data=WhitefishLC)
-  expect_is(ap2,"agePrec")
-  expect_is(ap2$detail,"data.frame")
   expect_equal(ap2$n, 151)
   expect_equal(ap2$R, 3)
-  expect_is(ap2$absdiff,"table")
   expect_equal(dim(ap2$absdiff), c(3,15))
   expect_equal(dim(ap2$rawdiff), c(3,19))
   expect_equal(round(ap2$APE,5), 16.1851)

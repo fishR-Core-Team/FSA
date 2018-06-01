@@ -1,5 +1,4 @@
 context("Age Precision and Bias OUTPUT")
-data(WhitefishLC)
 
 test_that("ageBias() summary() output titles",{
   suppressWarnings(ab1 <- ageBias(scaleC~otolithC,data=WhitefishLC))
@@ -39,4 +38,26 @@ test_that("agePrecision() summary() output titles",{
   tmp <- capture.output( summary(ap1,what=c("precision","absolute")) )
   expect_true(any(grepl("Precision summary statistics",tmp)))
   expect_true(any(grepl("Percentage of fish by absolute differences in ages",tmp)))
+})
+
+test_that("agePrecision() types and specifics",{
+  ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)
+  expect_is(ap1,"agePrec")
+  expect_equal(names(ap1),c("detail","rawdiff","absdiff","AMAD","APE","ASD",
+                            "ACV","PercAgree","R","n","validn"))
+  expect_is(ap1$detail,"data.frame")
+  expect_equal(names(ap1$detail),
+               c("otolithC","scaleC","avg","SD","CV","MAD","APE"))
+  expect_is(ap1$rawdiff,"table")
+  expect_is(ap1$absdiff,"table")
+  
+  ap2 <- agePrecision(~otolithC+finrayC+scaleC,data=WhitefishLC)
+  expect_is(ap2,"agePrec")
+  expect_equal(names(ap2),c("detail","rawdiff","absdiff","AMAD","APE","ASD",
+                            "ACV","PercAgree","R","n","validn"))
+  expect_is(ap2$detail,"data.frame")
+  expect_equal(names(ap2$detail),
+               c("otolithC","finrayC","scaleC","avg","SD","CV","MAD","APE"))
+  expect_is(ap2$rawdiff,"table")
+  expect_is(ap2$absdiff,"table")
 })
