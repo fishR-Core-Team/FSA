@@ -94,13 +94,13 @@ summary(ap1,what=c("precision","difference"))
 summary(ap1,what="detail")
 
 barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
-plot(mad~avg,data=ap1$detail,xlab="Mean Age",ylab="MAD Age",
+plot(MAD~avg,data=ap1$detail,xlab="Mean Age",ylab="MAD Age",
      pch=19,col=col2rgbt("black",1/5))
-plot(sd~avg,data=ap1$detail,xlab="Mean Age",ylab="SD Age",
+plot(SD~avg,data=ap1$detail,xlab="Mean Age",ylab="SD Age",
      pch=19,col=col2rgbt("black",1/5))
-plot(sd~mad,data=ap1$detail,xlab="MAD Age",ylab="SD Age",
+plot(SD~MAD,data=ap1$detail,xlab="MAD Age",ylab="SD Age",
      pch=19,col=col2rgbt("black",1/5))
-plot(CV~PE,data=ap1$detail,xlab="PE Age",ylab="CV Age",
+plot(CV~APE,data=ap1$detail,xlab="PE Age",ylab="CV Age",
      pch=19,col=col2rgbt("black",1/5))
 
 ## Example with three age estimates
@@ -115,13 +115,13 @@ summary(ap2,what="absolute",trunc.diff=4)
 summary(ap2,what="absolute",percent=FALSE,trunc.diff=4)
 summary(ap2,what="detail")
 
-plot(mad~avg,data=ap2$detail,xlab="Mean Age",ylab="MAD Age",
+plot(MAD~avg,data=ap2$detail,xlab="Mean Age",ylab="MAD Age",
      pch=19,col=col2rgbt("black",1/5))
-plot(sd~avg,data=ap2$detail,xlab="Mean Age",ylab="SD Age",
+plot(SD~avg,data=ap2$detail,xlab="Mean Age",ylab="SD Age",
      pch=19,col=col2rgbt("black",1/5))
-plot(sd~mad,data=ap2$detail,xlab="MAD Age",ylab="SD Age",
+plot(SD~MAD,data=ap2$detail,xlab="MAD Age",ylab="SD Age",
      pch=19,col=col2rgbt("black",1/5))
-plot(CV~PE,data=ap2$detail,xlab="PE Age",ylab="CV Age",
+plot(CV~APE,data=ap2$detail,xlab="PE Age",ylab="CV Age",
      pch=19,col=col2rgbt("black",1/5))
 
 }

@@ -1023,13 +1023,13 @@ iPlotABNum <- function(obj,xlab,ylab,axlmts,yaxt,xaxt,
 #' summary(ap1,what="detail")
 #'
 #' barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
-#' plot(mad~avg,data=ap1$detail,xlab="Mean Age",ylab="MAD Age",
+#' plot(MAD~avg,data=ap1$detail,xlab="Mean Age",ylab="MAD Age",
 #'      pch=19,col=col2rgbt("black",1/5))
-#' plot(sd~avg,data=ap1$detail,xlab="Mean Age",ylab="SD Age",
+#' plot(SD~avg,data=ap1$detail,xlab="Mean Age",ylab="SD Age",
 #'      pch=19,col=col2rgbt("black",1/5))
-#' plot(sd~mad,data=ap1$detail,xlab="MAD Age",ylab="SD Age",
+#' plot(SD~MAD,data=ap1$detail,xlab="MAD Age",ylab="SD Age",
 #'      pch=19,col=col2rgbt("black",1/5))
-#' plot(CV~PE,data=ap1$detail,xlab="PE Age",ylab="CV Age",
+#' plot(CV~APE,data=ap1$detail,xlab="PE Age",ylab="CV Age",
 #'      pch=19,col=col2rgbt("black",1/5))
 #'
 #' ## Example with three age estimates
@@ -1044,13 +1044,13 @@ iPlotABNum <- function(obj,xlab,ylab,axlmts,yaxt,xaxt,
 #' summary(ap2,what="absolute",percent=FALSE,trunc.diff=4)
 #' summary(ap2,what="detail")
 #' 
-#' plot(mad~avg,data=ap2$detail,xlab="Mean Age",ylab="MAD Age",
+#' plot(MAD~avg,data=ap2$detail,xlab="Mean Age",ylab="MAD Age",
 #'      pch=19,col=col2rgbt("black",1/5))
-#' plot(sd~avg,data=ap2$detail,xlab="Mean Age",ylab="SD Age",
+#' plot(SD~avg,data=ap2$detail,xlab="Mean Age",ylab="SD Age",
 #'      pch=19,col=col2rgbt("black",1/5))
-#' plot(sd~mad,data=ap2$detail,xlab="MAD Age",ylab="SD Age",
+#' plot(SD~MAD,data=ap2$detail,xlab="MAD Age",ylab="SD Age",
 #'      pch=19,col=col2rgbt("black",1/5))
-#' plot(CV~PE,data=ap2$detail,xlab="PE Age",ylab="CV Age",
+#' plot(CV~APE,data=ap2$detail,xlab="PE Age",ylab="CV Age",
 #'      pch=19,col=col2rgbt("black",1/5))
 #'
 #' @rdname agePrecision
@@ -1084,15 +1084,15 @@ agePrecision <- function(formula,data) {
   APE.j[age.avg==0] <- 0
   ACV.j[age.avg==0] <- 0
   # Put results into a data.frame to return
-  detail.df <- data.frame(d,avg=age.avg,sd=age.sd,CV=ACV.j,
-                          mad=age.mad,PE=APE.j)
+  detail.df <- data.frame(d,avg=age.avg,SD=age.sd,CV=ACV.j,
+                          MAD=age.mad,APE=APE.j)
   ## Summary precision calculations (APE, ACV, total agreement) for all fish
   AMAD <- mean(age.mad,na.rm=TRUE)
   APE <- mean(APE.j,na.rm=TRUE)
   ASD <- mean(age.sd,na.rm=TRUE)
   ACV <- mean(ACV.j,na.rm=TRUE)
-  # all ages agree if sd=0 (use sum and na.rm to remove NAs)
-  all.agree <- sum(detail.df$sd==0,na.rm=TRUE)/validn*100
+  # all ages agree if SD=0 (use sum and na.rm to remove NAs)
+  all.agree <- sum(detail.df$SD==0,na.rm=TRUE)/validn*100
   
   ## Raw age agreement summaries
   # find all pairs of comparisons
