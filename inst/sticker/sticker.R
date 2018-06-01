@@ -28,4 +28,4 @@ hexSticker::sticker(package="FSA",
                     h_color="#00579E",h_size=1,h_fill="snow",
                     url="https://derekogle.com/FSA",
                     u_color="#00579E",u_size=5,
-                    filename="logo.png")
+                    filename="man/figures/logo.png")
