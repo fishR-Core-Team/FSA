@@ -1,5 +1,4 @@
 context("Age Precision and Bias MESSAGES")
-data(WhitefishLC)
 
 test_that("ageBias() messages",{
   expect_error(ageBias(otolithC+scaleC~finrayC,data=WhitefishLC),

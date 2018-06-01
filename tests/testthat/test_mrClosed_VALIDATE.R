@@ -90,9 +90,10 @@ test_that("mrClosed match the Bailey results from mrN.single() from fishmethods"
 
 test_that("mrClosed match the Schnabel Results from p. 32 Krebs (1989)",{
   if (require(FSAdata)) {
-    data(SunfishIN)
+    data(SunfishIN,package="FSAdata")
     
-    tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,method="Schnabel",chapman.mod=FALSE))
+    tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,
+                                   method="Schnabel",chapman.mod=FALSE))
     stmp <- summary(tmp)
     expect_equal(stmp[[1,"N"]], 448)
     ## See if intermediate calculations match Krebs
@@ -115,9 +116,10 @@ test_that("mrClosed match the Schnabel Results from p. 32 Krebs (1989)",{
 
 test_that("mrClosed match the Schnabel results from p. 99 Ricker (1975)",{
   if (require(FSAdata)) {
-    data(SunfishIN)
+    data(SunfishIN,package="FSAdata")
     
-    tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,method="Schnabel",chapman.mod=FALSE))
+    tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,
+                                   method="Schnabel",chapman.mod=FALSE))
     stmp <- summary(tmp)
     expect_equal(stmp[[1,"N"]], 448)
     ## See if intermediate calculations match Krebs
@@ -131,7 +133,8 @@ test_that("mrClosed match the Schnabel results from p. 99 Ricker (1975)",{
     #expect_equal(ctmp[[1,"95% LCI"]], 320)
     #expect_equal(ctmp[[1,"95% UCI"]], 746)
     
-    tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,method="Schnabel",chapman.mod=TRUE))
+    tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,
+                                   method="Schnabel",chapman.mod=TRUE))
     stmp <- summary(tmp)
     expect_equal(stmp[[1,"N"]], 430)
     ctmp <- confint(tmp,type="Poisson") 
@@ -144,9 +147,10 @@ test_that("mrClosed match the Schnabel results from p. 99 Ricker (1975)",{
 
 test_that("mrClosed match the Schumacher-Eschmeyer results from p. 33 Krebs (1989)",{
   if (require(FSAdata)) {
-    data(SunfishIN)
+    data(SunfishIN,package="FSAdata")
     
-    tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,method="Schumacher"))
+    tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,
+                                   method="Schumacher"))
     stmp <- summary(tmp)
     expect_equal(stmp[[1,"N"]], 423)
     ctmp <- confint(tmp,type="normal") 
@@ -158,9 +162,10 @@ test_that("mrClosed match the Schumacher-Eschmeyer results from p. 33 Krebs (198
 
 test_that("mrClosed match the Schumacher-Eschmeyer results from p. 99 Ricker (1975)",{
   if (require(FSAdata)) {
-    data(SunfishIN)
+    data(SunfishIN,package="FSAdata")
     
-    tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,method="Schumacher"))
+    tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,
+                                   method="Schumacher"))
     stmp <- summary(tmp)
     expect_equal(stmp[[1,"N"]], 423)
     ctmp <- confint(tmp,type="normal") 

@@ -13,7 +13,6 @@ good.bot <- matrix(c(
   dimnames=list(c("m","u","n","R")))
 
 ## CutthroatAL Example
-data(CutthroatAL)
 cutt <- mrOpen(capHistSum(CutthroatAL,cols2use=-1))
 cutt2 <- mrOpen(capHistSum(CutthroatAL,cols2use=-1),type="Manly")
 

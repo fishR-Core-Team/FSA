@@ -2,7 +2,6 @@ context("hist.formula() MESSAGES")
 
 test_that("hist.formula() messages",{
   ## Get data, make two more factor variables
-  data(iris)
   tmp <- rep(LETTERS[1:3],each=17)[-1]
   iris$fact1 <- factor(c(tmp,tmp,tmp))
   tmp <- c(rep(letters[1:6],each=8),"f","f")

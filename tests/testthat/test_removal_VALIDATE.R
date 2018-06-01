@@ -25,7 +25,7 @@ test_that("removal with 'CarleStrub' matches Cowx (1983) page 77",{
 
 test_that("removal with 'CarleStrub' match results from Jones & Stockwell (1995)",{
   if (require(FSAdata)) {
-    data(JonesStockwell)
+    data(JonesStockwell,package="FSAdata")
     # isolate captures and Carel-Strub estimates ... for non-rejected estimates
     JS.caps <- JonesStockwell[!JonesStockwell$rejected,4:6]
     JS.cs <- JonesStockwell[!JonesStockwell$rejected,7]
@@ -67,7 +67,7 @@ test_that("removal with 'RobsonRegier2' matches Cowx (1983) page 75",{
 
 test_that("removal with 'Moran' matches Schnute (1983)",{
   if (require(FSAdata)) {
-    data(BrookTroutNEWP1)
+    data(BrookTroutNEWP1,package="FSAdata")
     Ns <- ps <- LHs <- NLCI <- NUCI <- numeric(nrow(BrookTroutNEWP1))
     for (i in seq_len(nrow(BrookTroutNEWP1))) {
       tmp <- removal(as.numeric(BrookTroutNEWP1[i,c("first","second","third","fourth")]),method="Moran")
@@ -92,7 +92,7 @@ test_that("removal with 'Moran' matches Schnute (1983)",{
 
 test_that("removal with 'Schnute' matches Schnute (1983)",{
   if (require(FSAdata)) {
-    data(BrookTroutNEWP1)
+    data(BrookTroutNEWP1,package="FSAdata")
     Ns <- p1s <- ps <- LHs <- NLCI <- NUCI <- numeric(nrow(BrookTroutNEWP1))
     for (i in seq_len(nrow(BrookTroutNEWP1))) {
       tmp <- removal(as.numeric(BrookTroutNEWP1[i,c("first","second","third","fourth")]),method="Schnute")

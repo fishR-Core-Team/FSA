@@ -29,13 +29,13 @@ test_that("Assigned ages are correct (within rounding) with semi-random alkIndiv
 test_that("alkAgeDist() reproduces results from Table 8.4 (left) of Quinn and Deriso (1999)",{
   if (require(fishmethods)) {
     ## Quinn and Deriso (1999) data are alkdata and alkprop reproduces Table 8.4 results
-    data(alkdata)
+    data(alkdata,package="fishmethods")
     tmp1 <- alkprop(alkdata)$results
   }
   if (require(FSAdata)) {
     ## Same data in SnapperHG2 in a different format
     ## create ALK and intermediate results
-    data(SnapperHG2)
+    data(SnapperHG2,package="FSAdata")
     len.n <- xtabs(~len,data=SnapperHG2)
     sn.age <- subset(SnapperHG2,!is.na(age))
     agekey <- prop.table(xtabs(~len+age,data=sn.age),1)

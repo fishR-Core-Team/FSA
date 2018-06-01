@@ -1,7 +1,6 @@
 context("lwCompPred() MESSAGES")
 
 test_that("lwCompPred() errors and warnings",{
-  data(ChinookArg)
   ChinookArg$logtl <- log(ChinookArg$tl)
   ChinookArg$logwt <- log(ChinookArg$w)
   ChinookArg$loc2 <- rev(ChinookArg$loc)

@@ -2,7 +2,7 @@ context("depletion() VALIDATE")
 # Set up some results to test below
 # fishmethods's Darter data
 if (require(fishmethods)) {
-  data(darter)
+  data(darter,package="fishmethods")
   # fishmethod Leslie
   deplet(catch=darter$catch,effort=darter$effort,method="l")
   cf1fm <- l.out$results[,1:2]
@@ -17,14 +17,15 @@ if (require(fishmethods)) {
   cf2fm <- d.out$results[,1:2]
   ci2fm <- d.out$results[,3:4]
   # FSA Leslie
-  ex2 <- with(darter,depletion(darter$catch,darter$effort,method="DeLury",Ricker.mod=TRUE))
+  ex2 <- with(darter,depletion(darter$catch,darter$effort,
+                               method="DeLury",Ricker.mod=TRUE))
   cf2 <- summary(ex2)
   ci2 <- confint(ex2) 
 }
 
 # DeLury's Lobster Data
 if (require(FSAdata)) {
-  data(LobsterPEI)
+  data(LobsterPEI,package="FSAdata")
   df <- subset(LobsterPEI,day>16)
   # fishmethod Leslie
   deplet(catch=df$catch,effort=df$effort,method="l")
@@ -47,7 +48,7 @@ if (require(FSAdata)) {
 
 # Fischler's Blue Crab data
 if (require(FSAdata)) {
-  data(BlueCrab)
+  data(BlueCrab,package="FSAdata")
   # fishmethod Leslie
   deplet(catch=BlueCrab$catch,effort=BlueCrab$effort,method="l")
   cf5fm <- l.out$results[,1:2]
@@ -68,8 +69,7 @@ if (require(FSAdata)) {
 }
 
 # Omand's SMB data
-if (require(FSAdata)) {
-  data(SMBassLS)
+if (require(fishmethods)) {
   # fishmethod Leslie
   deplet(catch=SMBassLS$catch,effort=SMBassLS$effort,method="l")
   cf7fm <- l.out$results[,1:2]
@@ -187,15 +187,15 @@ test_that("depletion() with 'DeLury' and Ricker.mod matches fishmethod's 'deplet
   }
 })
 
-test_that("depletion() with 'DeLury' matches DeLury (1947) for lobster data",{
-  if (require(FSAdata)) {
+#test_that("depletion() with 'DeLury' matches DeLury (1947) for lobster data",{
+#  if (require(FSAdata)) {
     ## REGRESSION RESULTS WERE DIFFERENT
     ## off by 4%
     #expect_equal(round(cf4["No","Estimate"],1),116.33)
     ## off by 7.7% (but that is fourth decimal) 
     # expect_equal(round(cf4[[1,"q"]],7),0.0079835)
-  }
-})
+#  }
+#})
 
 test_that("depletion() with 'DeLury' and Ricker.mod matches fishmethod's 'deplet' for the blue crab data",{
   if (require(fishmethods)) {

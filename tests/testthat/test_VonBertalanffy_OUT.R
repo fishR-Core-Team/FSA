@@ -4,7 +4,7 @@ context("Von Bertalanffy OUTPUT")
 test_that("vbStarts() output",{
   ## Get some data for the following attempts
   if (require(fishmethods)) {
-    data(Kimura)
+    data(Kimura,package="fishmethods")
     ## Returns a list with proper names
     tmp <- vbStarts(length~age,data=Kimura,param="typical")
     expect_is(tmp,"list")

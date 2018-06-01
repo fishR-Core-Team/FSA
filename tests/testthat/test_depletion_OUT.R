@@ -1,7 +1,6 @@
 context("depletion() OUTPUT")
 
 test_that("depletion() output types",{
-  data(SMBassLS)
   l1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Leslie")
   expect_is(l1,"depletion")
   # coef()s

@@ -1,7 +1,6 @@
 context("wsXXX and wrXXX functions OUTPUT")
 
 test_that("wsVal() results",{
-  data(WSlit)
   ## Do Bluegill results match
   bg1 <- wsVal("Bluegill")
   bg2 <- WSlit[WSlit$species=="Bluegill" & WSlit$units=="metric",]

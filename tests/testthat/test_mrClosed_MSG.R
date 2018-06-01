@@ -9,7 +9,8 @@ test_that("mrClosed() Single Census messages",{
   ## multiple groups, missing arguments or different lengths
   expect_error(mrClosed(c(346,346)),"One or both of 'n' or 'm' is missing")
   expect_error(mrClosed(c(346,346),c(184,184),49),"vectors must be same length")
-  expect_error(mrClosed(c(346,346),c(184,184),c(49,49,49)),"vectors must be same length")
+  expect_error(mrClosed(c(346,346),c(184,184),c(49,49,49)),
+               "vectors must be same length")
   expect_error(mrClosed(c(346,346),c(184,184),c(49,49),labels="Derek"),
                "'labels' must be same length as")
   expect_error(mrClosed(c(346,346),c(184,184),c(49,49),labels=c("A","B","C")),
@@ -21,12 +22,12 @@ test_that("mrClosed() Single Census messages",{
   expect_error(mrClosed(m=200),"'M' is missing")
   ## give R
   expect_error(mrClosed(R=200),"'R' not used in single census methods")
-  expect_warning(mrClosed(M=346,n=184,m=49,R=200),"'R' not used in single census methods")
+  expect_warning(mrClosed(M=346,n=184,m=49,R=200),
+                 "'R' not used in single census methods")
   ## can't have more recaps (m) than number checked (n)
   expect_error(mrClosed(346,184,200),"Can't have more recaptures")
   expect_error(mrClosed(c(346,346),c(184,184),c(49,200)),"has more recaptures")
   ## using capHistSum() but trying to provide other values
-  data(BluegillJL)
   ch1 <- capHistSum(BluegillJL)
   expect_warning(mrClosed(ch1,n=90),"ignored when 'M' from")
   ## confint problems
@@ -52,7 +53,8 @@ test_that("mrClosed Multiple Census errors and warnings",{
   expect_error(mrClosed(R=R1,method="Schnabel"),"One or both of")
   expect_error(mrClosed(R=R1,n=n1,method="Schnabel"),"One or both of")
   expect_error(mrClosed(M=M1,R=R1,method="Schnabel"))
-  expect_warning(mrClosed(M=M1,n=n1,m=m1,R=R1,method="Schnabel"),"Only need one of")
+  expect_warning(mrClosed(M=M1,n=n1,m=m1,R=R1,method="Schnabel"),
+                 "Only need one of")
   ## NAs in some of the vectors
   m1x <- c(NA, 3, 4, 4,14)
   R1x <- c(20,18,14, 9,NA)

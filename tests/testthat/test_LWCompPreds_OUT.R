@@ -2,7 +2,6 @@ context("lwCompPred() OUTPUT")
 
 test_that("lwCompPred() returns",{
   # Fit a model
-  data(ChinookArg)
   ChinookArg$logtl <- log(ChinookArg$tl)
   ChinookArg$logwt <- log(ChinookArg$w)
   tmp <- lm(logwt~logtl*loc,data=ChinookArg)

@@ -22,7 +22,7 @@ test_that("catchCurve() and chapmanRobson() match Miranda & Bettoli (2007) boxes
 test_that("catchCurve() and chapmanRobson() match results from fishmethods package",{
   if (require(fishmethods)) {
     ## get data
-    data(rockbass)
+    data(rockbass,package="fishmethods")
     ## fishmethods results
     fm <- agesurv(age=rockbass$age,full=6)$results
     ## FSA results

@@ -8,7 +8,8 @@ test_that("iCheckStartcatW() messages",{
   expect_error(FSA:::iCheckStartcat(-1,1,tmp),"must be non-negative")
   expect_error(FSA:::iCheckStartcat(1:2,1,tmp),"must be a single value")
   expect_error(FSA:::iCheckStartcat("derek",1,tmp),"must be numeric")
-  expect_error(FSA:::iCheckStartcatW(3,1,tmp),"larger than the minimum observation")
+  expect_error(FSA:::iCheckStartcatW(3,1,tmp),
+               "larger than the minimum observation")
   expect_error(FSA:::iCheckStartcatW(0.5,1,tmp),"should not have more decimals")
 })
 
@@ -64,16 +65,21 @@ test_that("iHndlCols2Use() messages and results",{
   expect_error(FSA:::iHndlCols2UseIgnore(df1,1,2),"Cannot use both")
   expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2use=FALSE),
                "must be a numeric index or column name")
-  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2use=c(-1,2)),"must be all positive or all negative")
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2use=c(-1,2)),
+               "must be all positive or all negative")
   expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2use=1:6),"do not exist in")
   expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2use=c("frank","derek")),
                "None of columns in")
-  expect_warning(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=1:4),"contains no columns")
+  expect_warning(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=1:4),
+                 "contains no columns")
   expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=FALSE),
                "must be a numeric index or column name")
-  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=c(-1,2)),"must be all positive or all negative")
-  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=1:5),"do not exist in")
-  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=-(1:5)),"do not exist in")
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=c(-1,2)),
+               "must be all positive or all negative")
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=1:5),
+               "do not exist in")
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=-(1:5)),
+               "do not exist in")
   expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=0:3),"cannot be zero")
   expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=c("frank","derek")),
                "None of columns in")
@@ -212,7 +218,6 @@ test_that("iHndlMultWhat() messages and results",{
 
 
 test_that("iListSpecies() messages",{
-  data(PSDlit)
   expect_message(capture.output(FSA:::iListSpecies(PSDlit)))
   expect_output(suppressMessages(FSA:::iListSpecies(PSDlit)))
 })
@@ -231,7 +236,6 @@ test_that("iMakeColor() messages and results",{
 
 test_that("iTypeoflm() messages and results",{
   ## Get data
-  data(Mirex)
   Mirex$year <- factor(Mirex$year)
   ## Check return types
   tmp <- lm(mirex~weight*year*species,data=Mirex)

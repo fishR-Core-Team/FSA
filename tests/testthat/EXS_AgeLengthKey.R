@@ -9,7 +9,6 @@ rownames(alk) <- c(10,20,30,40,50)
 colnames(alk) <- c(2,3,4,5)
 
 ## Get some real data
-data(WR79)
 WR1 <- WR79
 WR1$LCat <- lencat(WR1$len,w=5)
 len.n <- xtabs(~LCat,data=WR1)

@@ -1,4 +1,3 @@
-data(BrookTroutTH)
 BrookTroutTH$fact <- as.factor(sample(c("A","B"),nrow(BrookTroutTH),replace=TRUE))
 d <- BrookTroutTH
 

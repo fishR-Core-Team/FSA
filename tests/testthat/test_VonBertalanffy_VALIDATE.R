@@ -2,7 +2,7 @@ context("Von Bertalanffy VALIDATE")
 
 test_that("vbFuns() and vbStarts() fit to Kimura match Haddon book (2nd ed, p237) results (Excel).",{
   if (require(fishmethods)) {
-    data(Kimura)
+    data(Kimura,package="fishmethods")
     ## Get typical Von B function
     vbT <- vbFuns("typical")
     ## Examine females
@@ -28,7 +28,7 @@ test_that("vbFuns() and vbStarts() fit to Kimura match Haddon book (2nd ed, p237
 test_that("vbFuns() and vbStarts() fit to AIFFD book (Box 5.4) results (SAS).",{
   # This is a weak test because of the messiness of the data.
   if (require(FSAdata)) {
-    data(SpottedSucker1)
+    data(SpottedSucker1,package="FSAdata")
     ## Get typical Von B function
     vbT <- vbFuns("typical")
     sv <- list(Linf=max(SpottedSucker1$tl),K=0.3,t0=0)
@@ -44,10 +44,11 @@ test_that("vbFuns() and vbStarts() fit to AIFFD book (Box 5.4) results (SAS).",{
 
 test_that("vbFuns() and vbStarts() fit to Kimura separated by sex match fishmethods (and Kimura) results.",{
   if (require(fishmethods) & require(lmtest)) {
-    data(Kimura)
+    data(Kimura,package="fishmethods")
     
     ### get fishmethods results (straight from example)
-    fm1 <- vblrt(len=Kimura$length,age=Kimura$age,group=Kimura$sex,error=2,select=1)
+    fm1 <- vblrt(len=Kimura$length,age=Kimura$age,group=Kimura$sex,
+                 error=2,select=1)
     fm1$results
     
     ### fit with my methods

@@ -35,8 +35,6 @@ test_that("vbFuns() output",{
 })
 
 test_that("vbFuns() arguments are in same order as vbStarts() list",{
-  ## Get some data for vbStarts()
-  data(SpotVA1)
   ## Make sure the two names match ... delete the "t", "t1", and "t3"
   ##   arguments from vbFuns() result as these are variable names that
   ##   would not be returned by vbStarts()

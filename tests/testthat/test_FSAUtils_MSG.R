@@ -1,6 +1,5 @@
 context("FSA utilities MESSAGES")
 
-
 test_that("chooseColors() messages",{
   ## check error messages
   expect_error(chooseColors("Derek"),"should be one of")
@@ -10,7 +9,8 @@ test_that("chooseColors() messages",{
 test_that("col2rgbt() messages",{
   expect_error(col2rgbt("black",-1),"must be greater than 0")
   expect_error(col2rgbt("black",0),"must be greater than 0")
-  expect_error(col2rgbt(c("black","blue","red"),c(2,3)),"must be 1 or same as length")
+  expect_error(col2rgbt(c("black","blue","red"),c(2,3)),
+               "must be 1 or same as length")
 })
 
 test_that("diags() messages",{
@@ -63,10 +63,14 @@ test_that("geomean() / geosd() messages",{
   expect_error(geomean(c(NA,1:3)),"missing value")
   expect_error(geosd(c(NA,1:3)),"missing value")
   ## Handling Negatives or Zeros
-  expect_warning(geomean(c(-1,1:3),zneg.rm=TRUE),"non-positive values were ignored")
-  expect_warning(geosd(c(-1,1:3),zneg.rm=TRUE),"non-positive values were ignored")
-  expect_warning(geomean(c(0,1:3),zneg.rm=TRUE),"non-positive values were ignored")
-  expect_warning(geosd(c(0,1:3),zneg.rm=TRUE),"non-positive values were ignored")
+  expect_warning(geomean(c(-1,1:3),zneg.rm=TRUE),
+                 "non-positive values were ignored")
+  expect_warning(geosd(c(-1,1:3),zneg.rm=TRUE),
+                 "non-positive values were ignored")
+  expect_warning(geomean(c(0,1:3),zneg.rm=TRUE),
+                 "non-positive values were ignored")
+  expect_warning(geosd(c(0,1:3),zneg.rm=TRUE),
+                 "non-positive values were ignored")
 })
 
 test_that("headtail() messages",{
@@ -76,7 +80,6 @@ test_that("headtail() messages",{
 
 test_that("hoCoef() messages",{
   ## fit some linear regression results
-  data(Mirex)
   lm1 <- lm(mirex~weight,data=Mirex)
   lm2 <- lm(mirex~weight+year,data=Mirex)
   # bad alt=
@@ -87,7 +90,6 @@ test_that("hoCoef() messages",{
   expect_error(hoCoef(lm2,term=5,bo=0.1),"greater")
   
   ## fit some non-linear regression results
-  data(Ecoli)
   fnx <- function(days,B1,B2,B3) {
     if (length(B1) > 1) {
       B2 <- B1[2]

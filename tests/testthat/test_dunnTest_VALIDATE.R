@@ -11,7 +11,8 @@ test_that("dunnTest matches dunn.test results for ponds data",{
     ## Loop through all methods in p.adjustment.methods
     for (m in dunn.test::p.adjustment.methods) { # for one-sided results
       tmp  <- dunnTest(pH~fpond,data=ponds,method=m,two.sided=FALSE)$res$P.adj
-      junk <- utils::capture.output(tmp2 <- dunn.test(ponds$pH,ponds$fpond,method=m)$P.adjusted)
+      junk <- utils::capture.output(tmp2 <- dunn.test(ponds$pH,ponds$fpond,
+                                                      method=m)$P.adjusted)
       expect_equivalent(tmp,tmp2)
     }
     for (m in dunn.test::p.adjustment.methods) { # for two-sided results
@@ -37,7 +38,7 @@ test_that("dunnTest matches dunn.test results for ponds data",{
 
 test_that("dunnTest matches dunn.test results for homecare data",{
   if (require(dunn.test)) {
-    data(homecare)
+    data(homecare,package="dunn.test")
     ## Loop through all methods in p.adjustment.methods
     for (m in dunn.test::p.adjustment.methods) { # for one-sided results
       tmp  <- dunnTest(occupation~eligibility,data=homecare,method=m,two.sided=FALSE)$res$P.adj
@@ -56,7 +57,7 @@ test_that("dunnTest matches dunn.test results for homecare data",{
 
 test_that("dunnTest matches dunn.test results for airquality data",{
   if (require(dunn.test)) {
-    data(airquality)
+    data(airquality,package="datasets")
     ## Loop through all methods in p.adjustment.methods
     for (m in dunn.test::p.adjustment.methods) { # for one-sided results
       suppressWarnings(tmp <- dunnTest(Ozone~Month,data=airquality,

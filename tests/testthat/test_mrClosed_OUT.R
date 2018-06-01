@@ -1,7 +1,6 @@
 context("mrClosed() OUTPUT")
 
 test_that("mrClosed() Single Census output",{
-  data(BluegillJL)
   ch1 <- capHistSum(BluegillJL)
   mr1 <- mrClosed(ch1)
   expect_is(mr1,"mrClosed1")
@@ -85,7 +84,8 @@ test_that("mrClosed() Single Census output",{
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),2)
   expect_equal(colnames(tmp),c("95% LCI","95% UCI"))
-  expect_message(tmp <- confint(mr1,verbose=TRUE,type="hypergeometric"),"hypergeometric")
+  expect_message(tmp <- confint(mr1,verbose=TRUE,type="hypergeometric"),
+                 "hypergeometric")
   expect_is(tmp,"matrix")
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
@@ -176,7 +176,6 @@ test_that("mrClosed() Single Census with subgroups output",{
 })
   
 test_that("mrClosed() Schnabel output",{
-  data(PikeNY)
   mr1 <- with(PikeNY,mrClosed(n=n,m=m,R=R,method="Schnabel"))
   mr2 <- with(PikeNY,mrClosed(n=n,m=m,R=R,method="Schnabel",chapman.mod=FALSE))
   
@@ -217,7 +216,6 @@ test_that("mrClosed() Schnabel output",{
 })
 
 test_that("mrClosed() Schnabel with capHistSum() output",{
-  data(PikeNYPartial1)
   ch <- capHistSum(PikeNYPartial1,cols2ignore="id")
   
   mr1 <- mrClosed(ch,method="Schnabel")
@@ -254,7 +252,6 @@ test_that("mrClosed() Schnabel with capHistSum() output",{
 })
 
 test_that("mrClosed() Schumacher-Eschmeyer output",{
-  data(PikeNY)
   mr1 <- with(PikeNY,mrClosed(n=n,m=m,R=R,method="Schumacher"))
   
   expect_is(mr1,"mrClosed2")
@@ -276,7 +273,6 @@ test_that("mrClosed() Schumacher-Eschmeyer output",{
 })
 
 test_that("mrClosed() Schumacher-Eschmeyer capHistSum() output",{
-  data(PikeNYPartial1)
   ch <- capHistSum(PikeNYPartial1,cols2ignore="id")
   mr1 <- mrClosed(ch,method="Schumacher")
   

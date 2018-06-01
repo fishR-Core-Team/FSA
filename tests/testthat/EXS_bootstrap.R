@@ -1,5 +1,3 @@
-## Get data
-data(Ecoli)
 ## Create a nonlinear function
 fnx <- function(days,B1,B2,B3) {
   if (length(B1) > 1) {

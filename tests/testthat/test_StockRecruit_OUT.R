@@ -57,7 +57,6 @@ test_that("srFuns() output",{
 })
 
 test_that("srStarts() output",{
-  data(CodNorwegian)
   CodNorwegian$fyear <- factor(CodNorwegian$year)
   ## Returns a list with proper names
   tmp <- srStarts(recruits~stock,data=CodNorwegian,type="BevertonHolt",param=1)

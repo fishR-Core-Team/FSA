@@ -4,7 +4,7 @@ context("Von Bertalanffy MESSAGES")
 test_that("vbStarts() messages",{
   ## Get some data for the following attempts
   if (require(fishmethods)) {
-    data(Kimura)
+    data(Kimura,package="fishmethods")
     ## Asked for a dynamicPlot, which now does not exist
     expect_warning(vbStarts(length~age,data=Kimura,dynamicPlot=TRUE),
                    "functionality has been moved to")
@@ -77,7 +77,7 @@ test_that("vbStarts() messages",{
                    "cannot be automatically determined")
   }
   if (require(FSAdata)) {
-    data(SpottedSucker1)
+    data(SpottedSucker1,package="FSAdata")
     ## gives warning about a poor estimate for K and Linf
     sv <- list(Linf=max(SpottedSucker1$tl),K=0.3,t0=0)
     expect_warning(vbStarts(tl~age,data=SpottedSucker1,param="typical"))

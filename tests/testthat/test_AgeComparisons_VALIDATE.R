@@ -51,7 +51,7 @@ test_that("ageBias() symmetry tests match results in Evans and Hoenig (2008)",{
 
 test_that("test ageBias() against compare2() with AlewifeLH data",{
   if (require(FSAdata) & require(fishmethods)) {
-    data(AlewifeLH)
+    data(AlewifeLH,package="FSAdata")
     ab2 <- compare2(AlewifeLH,barplot=FALSE)
     ## no continuity correction
     suppressWarnings(ab1 <- ageBias(scales~otoliths,data=AlewifeLH,
@@ -81,7 +81,7 @@ test_that("test ageBias() against compare2() with AlewifeLH data",{
 
 test_that("ageBias() compared to http://www.nefsc.noaa.gov/fbp/age-prec/ calculations for AlewifeLH data",{
   if (require(FSAdata)) {
-    data(AlewifeLH)
+    data(AlewifeLH,package="FSAdata")
     suppressWarnings(ab1 <- ageBias(scales~otoliths,data=AlewifeLH,ref.lab="Otolith Age",nref.lab="Scale Age"))
     expect_equal(ab1$bias$n, c(2,18,20,13,18,10,8,7,5,1,2))
     ## the fbp result is actually 4.62 for age-6
@@ -130,7 +130,7 @@ test_that("agePrecision() gives correct precision values -- Second Example",{
 
 test_that("agePrecision() compared to http://www.nefsc.noaa.gov/fbp/age-prec/ calculations for AlewifeLH data",{
   if (require(FSAdata)) {
-    data(AlewifeLH)
+    data(AlewifeLH,package="FSAdata")
     ap3 <- agePrecision(~otoliths+scales,data=AlewifeLH)
     expect_equal(ap3$n, 104)
     expect_equal(ap3$R, 2)
