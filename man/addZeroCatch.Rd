@@ -46,57 +46,73 @@ df1 <- data.frame(net=c(1,1,1,2,2,3),
                   species=c("BKT","LKT","RBT","BKT","LKT","RBT"),
                   catch=c(3,4,5,5,4,3))
 df1
-xtabs(~net+species,data=df1)                # not all 1s
+# not all 1s
+xtabs(~net+species,data=df1)
 
 df1mod1 <- addZeroCatch(df1,"net","species",zerovar="catch")
 df1mod1
-xtabs(~net,data=df1mod1)                    # check, should all be 3
-xtabs(~net+species,data=df1mod1)            # check, should all be 1
-Summarize(catch~species,data=df1mod1)       # correct mean/sd of catches
-Summarize(catch~species,data=df1)           # incorrect mean/sd of catches (no zeros)
+# check, should all be 3
+xtabs(~net,data=df1mod1)
+# check, should all be 1
+xtabs(~net+species,data=df1mod1)
+# correct mean/sd of catches
+Summarize(catch~species,data=df1mod1)
+# incorrect mean/sd of catches (no zeros)
+Summarize(catch~species,data=df1)
 
 # Same as example 1 but with no ancillary data specific to the net number
 df2 <- df1[,-2]
 df2
 df1mod2 <- addZeroCatch(df2,"net","species",zerovar="catch")
 df1mod2
-xtabs(~net+species,data=df1mod2)            # check, should all be 1
+# check, should all be 1
+xtabs(~net+species,data=df1mod2)
 
 ## Example Data #3 (All nets have same species ... no zeros needed)
 df3 <- data.frame(net=c(1,1,1,2,2,2,3,3,3),
                   eff=c(1,1,1,1,1,1,1,1,1),
-                  species=c("BKT","LKT","RBT","BKT","LKT","RBT","BKT","LKT","RBT"),
+                  species=c("BKT","LKT","RBT","BKT","LKT",
+                            "RBT","BKT","LKT","RBT"),
                   catch=c(3,4,5,5,4,3,3,2,7))
 df3
-xtabs(~net+species,data=df3)                # should all be 1 for this example
+# should all be 1 for this example
+xtabs(~net+species,data=df3)
 
 df3mod1 <- addZeroCatch(df3,"net","species",zerovar="catch")
 df3mod1
-xtabs(~net+species,data=df3mod1)            # check, should still all be 1
+# check, should still all be 1
+xtabs(~net+species,data=df3mod1)
 
 ## Example Data #4 (another variable that needs zeros)
 df4 <- df1
 df4$recaps <- c(0,0,0,1,2,1)
 df4
-xtabs(~net+species,data=df4)                # not all 1s
+# not all 1s
+xtabs(~net+species,data=df4)
 
 df4mod1 <- addZeroCatch(df4,"net","species",zerovar=c("catch","recaps"))
-df4mod1                                     # note zeros in both variables
-xtabs(~net+species,data=df4mod1)            # check, should all be 1
-Summarize(catch~species,data=df4)           # observe difference from next
+# note zeros in both variables
+df4mod1
+# check, should all be 1
+xtabs(~net+species,data=df4mod1)
+# observe difference from next
+Summarize(catch~species,data=df4)
 Summarize(catch~species,data=df4mod1)
-Summarize(recaps~species,data=df4)          # observe difference from next
+# observe difference from next
+Summarize(recaps~species,data=df4)
 Summarize(recaps~species,data=df4mod1)
 
 ## Example Data #5 (two "specvar"s)
 df5 <- df1
 df5$sex <- c("m","m","f","m","f","f")
 df5
-xtabs(~sex+species+net,data=df5)            # not all 1s
+# not all 1s
+xtabs(~sex+species+net,data=df5)
 
 df5mod1 <- addZeroCatch(df5,"net",c("species","sex"),zerovar="catch")
 df5mod1
-xtabs(~sex+species+net,data=df5mod1)        # all 1s
+# all 1s
+xtabs(~sex+species+net,data=df5mod1)
 str(df5mod1) 
 
 ## Example Data #6 (three "specvar"s)
