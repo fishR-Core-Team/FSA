@@ -7,33 +7,33 @@
 addZeroCatch(df, eventvar, specvar, zerovar, na.rm = TRUE)
 }
 \arguments{
-\item{df}{A data frame that contains the capture summary data as described in the details.}
+\item{df}{A data.frame that contains the capture summary data as described in the details.}
 
 \item{eventvar}{A string for the variable that identifies unique capture events.}
 
-\item{specvar}{A string for the variable that identifies the species captured.}
+\item{specvar}{A string or vector of strings for the variable(s) that identify the \dQuote{species} (if multiple variables, could be species, sex, and life stage, for example) captured. See examples.}
 
-\item{zerovar}{A string or vector of strings for the variable(s) that should be set equal to zero. See details.}
+\item{zerovar}{A string or vector of strings for the variable(s) that should be set equal to zero. See details and examples.}
 
-\item{na.rm}{A logical that indicates if rows of df that are \code{NA} should be removed after adding the zeros. See details.}
+\item{na.rm}{A logical that indicates if rows where \code{specvar} that are \code{NA} should be removed after adding the zeros. See details.}
 }
 \value{
-A data frame with the same structure as \code{df} but with rows of zero observation data appended.
+A data.frame with the same structure as \code{df} but with rows of zero observation data appended.
 }
 \description{
-Adds zeros for catches of species that were not captured in a sampling event but were captured in at least one other sampling event (i.e., adds zeros to the data frame for capture events where a species was not observed).
+Adds zeros for catches of species that were not captured in a sampling event but were captured in at least one other sampling event (i.e., adds zeros to the data.frame for capture events where a species was not observed).
 }
 \details{
-The data frame in \code{df} must contain a column that identifies a unique capture event (given in \code{eventvar}), a column with the name for the species captured (given in \code{specvar}), and a column that contains the number of that species captured (potentially given to \code{zerovar}; see details). All sampling event and species combinations where catch information does not exist is identified and a new data frame that contains a zero for the catch for all of these combinations is created. This new data frame is appended to the original data frame to construct a data frame that contains complete catch information -- i.e., including zeros for species in events where that species was not captured.
+The data.frame in \code{df} must contain a column that identifies a unique capture event (given in \code{eventvar}), a column with the name for the species captured (given in \code{specvar}), and a column that contains the number of that species captured (potentially given to \code{zerovar}; see details). All sampling event and species combinations where catch information does not exist is identified and a new data.frame that contains a zero for the catch for all of these combinations is created. This new data.frame is appended to the original data.frame to construct a data.frame that contains complete catch information -- i.e., including zeros for species in events where that species was not captured.
 
-The data frame may contain other information related to the catch, such as number of recaptured fish, number of fish released, etc. These additional variables can be included in \code{zerovar} so that zeros will be added to these variables as well (e.g., if the catch of the species is zero, then the number of recaptures must also be zero). All variables not given in \code{eventvar}, \code{specvar}, or \code{zerovar} will be assumed to be related to \code{eventvar} and \code{specvar} (e.g., date, gear type, and habitat) and, thus, will be repeated with these variables.
+The data.frame may contain other information related to the catch, such as number of recaptured fish, number of fish released, etc. These additional variables can be included in \code{zerovar} so that zeros will be added to these variables as well (e.g., if the catch of the species is zero, then the number of recaptures must also be zero). All variables not given in \code{eventvar}, \code{specvar}, or \code{zerovar} will be assumed to be related to \code{eventvar} and \code{specvar} (e.g., date, gear type, and habitat) and, thus, will be repeated with these variables.
 
-In situations where no fish were captured in some events, the \code{df} may contain rows that have a value for \code{eventvar} but not for \code{specvar}. These rows are important because zeros need to be added for each observed species for these events. However, in these situations, a \code{<NA>} species will appear in the resulting data.frame. It is unlikely that these \dQuote{missing} species are needed so they will be removed if \code{na.rm=TRUE} (default) is used.
+In situations where no fish were captured in some events, the \code{df} may contain rows that have a value for \code{eventvar} but not for \code{specvar}. These rows are important because zeros need to be added for each observed species for these events. However, in these situations, a \code{<NA>} species will appear in the resulting data.frame. It is unlikely that these \dQuote{missing} species are needed so they will be removed if \code{na.rm=TRUE} (DEFAULT) is used.
 
 One should test the results of this function by creating a frequency table of the \code{eventvar} or \code{specvar}. In either case, the table should contain the same value in each cell of the table. See the examples.
 }
 \note{
-An error will be returned if either \code{specvar} or \code{eventvar} are factors with any \code{NA} levels. This usually arises if the dataframe was subsetted/filtered prior to using \code{addZeroCatch}. See \code{\link{filterD}} or \code{\link[base]{droplevels}} for descriptions of how to drop unused levels.
+An error will be returned if either \code{specvar} or \code{eventvar} are factors with any \code{NA} levels. This usually arises if the data.frame was subsetted/filtered prior to using \code{addZeroCatch}. See \code{\link{filterD}} or \code{\link[base]{droplevels}} for descriptions of how to drop unused levels.
 }
 \section{IFAR Chapter}{
  2-Basic Data Manipulations
@@ -78,9 +78,8 @@ df3
 # should all be 1 for this example
 xtabs(~net+species,data=df3)
 
+# should receive a warning and table should still all be 1
 df3mod1 <- addZeroCatch(df3,"net","species",zerovar="catch")
-df3mod1
-# check, should still all be 1
 xtabs(~net+species,data=df3mod1)
 
 ## Example Data #4 (another variable that needs zeros)
@@ -126,6 +125,9 @@ df6mod1
 }
 \references{
 Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+}
+\seealso{
+\code{complete} in \pkg{tidyr} package.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

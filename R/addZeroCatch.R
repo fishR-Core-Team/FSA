@@ -22,6 +22,8 @@
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @section IFAR Chapter: 2-Basic Data Manipulations
+#' 
+#' @seealso \code{complete} in \pkg{tidyr} package.
 #'
 #' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
@@ -114,6 +116,8 @@
 addZeroCatch <- function(df,eventvar,specvar,zerovar,na.rm=TRUE) {
   ## assure that df is a data.frame
   if (!is.data.frame(df)) STOP("'df' must be a data.frame.")
+  ## remove "tibble" if it was (tibbles cause problems below)
+  if (inherits(df,"tbl_df")) df <- as.data.frame(df)
   ## assure that xvar arguments are not missing
   if (missing(eventvar)) STOP("'eventvar' cannot be missing.")
   if (missing(specvar)) STOP("'specvar' cannot be missing.")
