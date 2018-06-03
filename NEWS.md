@@ -5,7 +5,9 @@
 * `SMBassWB`: Modified. Fixed minor data entry error in row 383.
 * `addZeroCatch()`: Modified. Added a catch that turns a "tibble" into a regular data.frame (which obviates some errors that occur with tibbles). Minor changes to documentation and comments in the code.
 * `agePrecision()`: Modified. Added intermediate and summary calculations for mean absolute deviation and standard deviation. Updated tests and examples. Other minor modifications to the function code. Addresses [#41](https://github.com/droglenc/FSA/issues/41).
-* `alkPlot()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
+* `alkIndivAge()`: Modified. Replaced an `options(warn=-1)` with `suppressWarnings()`.
+* `alkPlot()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)). Replaced an `options(warn=-1)` with `suppressWarnings()`.
+* `alkSummaries()`: Modified. Replaced an `options(warn=-1)` with `suppressWarnings()`.
 * Bootstrapping functions: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
 * `capHistSum()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
 * `chapmanRobson()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).

@@ -234,9 +234,7 @@ iALKPlotSplines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,pal,showLeg
   lens <- alsum$lens  # needed for making predictions below    
   for(i in 1:alsum$num.ages) {
     tmp <- key[,i]
-    options(warn=-1)
-    tmp <- stats::loess(tmp~lens,span=span)
-    options(warn=0)
+    suppressWarnings(tmp <- stats::loess(tmp~lens,span=span))
     pprob <- stats::predict(tmp,data.frame(lens=plens))
     graphics::lines(plens,pprob,col=col[i],lwd=lwd)
     tmp <- min(which(pprob==max(pprob)))

@@ -185,9 +185,7 @@ alkMeanVar <- function(key,formula,data,len.n,
 ##############################################################
 iALKMean.BM <- function(key,formula,data,N_i) {
   ## Compute means by length and age (suppress warnings)
-  options(warn=-1)
-  mn_ij <- sumTable(formula,data,FUN=mean)
-  options(warn=0)
+  suppressWarnings(mn_ij <- sumTable(formula,data,FUN=mean))
   ## See if key has a row that sums to zero, remove that row from
   ##   the key, N_i, and mn_ij
   key.goodrows <- which(rowSums(key,na.rm=TRUE)!=0)
@@ -227,12 +225,11 @@ iALKMean.BM <- function(key,formula,data,N_i) {
 ##############################################################
 iALKMean.QD <- function(key,formula,data,N_i) {
   ## Compute ns, means, and variances by length and age (suppress warnings)
-  options(warn=-1)
-  n_ij <- sumTable(formula,data,FUN=length)
-  mn_ij <- sumTable(formula,data,FUN=mean)
+  suppressWarnings(n_ij <- sumTable(formula,data,FUN=length))
+  suppressWarnings(mn_ij <- sumTable(formula,data,FUN=mean))
   # Not sure from Q&D if this should be divided by sqrt(n) or not
-  var_ij <- sumTable(formula,data,FUN=stats::var)/sqrt(sumTable(formula,data,FUN=length))
-  options(warn=0)
+  suppressWarnings(var_ij <- sumTable(formula,data,FUN=stats::var)/
+                     sqrt(sumTable(formula,data,FUN=length)))
   ## See if key has a row that sums to zero, remove that row from
   ##   the key, N_i, n_ij, mn_ij, and var_ij
   key.goodrows <- which(rowSums(key,na.rm=TRUE)!=0)
