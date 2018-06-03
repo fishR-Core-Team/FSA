@@ -220,10 +220,10 @@ plot.chapmanRobson <- function(x,pos.est="topright",cex.est=0.95,
   # Get axis type
   axis.age <- match.arg(axis.age)
   # May need to make area below x-axis larger to hold both age scales
-  opar <- npar <- graphics::par(c("mar","mgp"))
+  npar <- graphics::par(c("mar","mgp"))
   if (axis.age=="both") {
     npar$mar[1] <- 2.25*npar$mar[1]
-    graphics::par(mar=npar$mar)
+    withr::local_par(list(mar=npar$mar))
   }
   # Find range for y-axis
   yrng <- c(min(0,min(x$catch,na.rm=TRUE)),max(x$catch,na.rm=TRUE))
@@ -251,7 +251,6 @@ plot.chapmanRobson <- function(x,pos.est="topright",cex.est=0.95,
     graphics::legend(pos.est,legend=paste0("Z=",round(Z,3),"\nS=",round(S,1),"%"),
                      bty="n",cex=cex.est)
   }
-  graphics::par(mar=opar)
 } # nocov end
 
 ##############################################################

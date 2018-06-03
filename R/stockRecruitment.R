@@ -250,11 +250,10 @@ srFunShow <- function(type=c("BevertonHolt","Ricker","Shepherd","SailaLorda"),
          SailaLorda = { expr <- iSRS_SL() })
   # nocov start
   if (plot) {
-    op <- graphics::par(mar=c(0.1,0.1,0.1,0.1))
+    withr::local_par(list(mar=c(0.1,0.1,0.1,0.1)))
     graphics::plot(0,type="n",ylim=c(0,1),xlim=c(0,1),xaxt="n",yaxt="n",
                    xlab="",ylab="",bty="n",...)
     graphics::text(0.5,0.5,expr,...)
-    graphics::par(op)
   } # nocov end
   expr
 }

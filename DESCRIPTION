@@ -24,7 +24,8 @@ Imports:
     lmtest,
     plotrix,
     plyr,
-    sciplot
+    sciplot,
+    withr
 Suggests:
     asbio,
     DescTools,

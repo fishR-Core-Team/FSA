@@ -271,7 +271,7 @@ plot(ab1,xvals="mean",xlim=c(1,17),allowAdd=TRUE)
 abline(h=bias,lty=2,col="red")
 par(op)
 
-# Same as above, but without margoinal histogram, and with
+# Same as above, but without marginal histogram, and with
 #   95\% agreement lines as well (1.96SDs)
 #   (this is nearly a replicate of a Bland-Altman plot)
 bias <- mean(tmp$diff)+c(-1.96,0,1.96)*se(tmp$diff)

@@ -82,6 +82,8 @@ plot(ch1,what="u")
 
 # An examle with only two sample events (for demonstration only)
 ( ch2 <- capHistSum(PikeNYPartial1,cols2use=-c(1,4:5)) )
+( ch2 <- capHistSum(PikeNYPartial1,cols2use=2:3) )
+( ch2 <- capHistSum(PikeNYPartial1,cols2ignore=c(1,4:5)) )
 
 }
 \references{

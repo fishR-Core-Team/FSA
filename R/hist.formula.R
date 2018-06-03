@@ -52,13 +52,16 @@
 #' hist(Sepal.Length~Species,data=iris)
 #'
 #' ## Add x-labels and use a pre-fix on the main labels
-#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",pre.main="Species==")
+#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",
+#'      pre.main="Species==")
 #'
 #' ## Use different breaks and different y-axis limits for each graph
-#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",same.breaks=FALSE,same.ylim=FALSE)
+#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",
+#'      same.breaks=FALSE,same.ylim=FALSE)
 #'
 #' ## Use same but user-controlled breaks for each graph
-#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",breaks=seq(4,8,1))
+#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",
+#'      breaks=seq(4,8,1))
 #'
 #' ## Use same but user-controlled maximum value for y-axis
 #' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",ymax=30)
@@ -66,8 +69,9 @@
 #' ## Control the organization of the 'grid' of histograms
 #' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",nrow=1,ncol=3)
 #'
-#' ## Use right=FALSE & freq=FALSE arguments to demonstrate sending an argument used by base hist()
-#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",right=FALSE,freq=FALSE,ymax=2)
+#' ## Use right=FALSE & freq=FALSE to demon sending an argument used by base hist()
+#' hist(Sepal.Length~Species,data=iris,xlab="Sepal Length (cm)",right=FALSE,
+#'      freq=FALSE,ymax=2)
 #'
 #' ## Add a junk variable to the iris data set to show two factors on RHS
 #' iris$junk <- factor(sample(c("A","B"),nrow(iris),replace=TRUE))
@@ -80,8 +84,10 @@
 #' hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",iaxs=FALSE)
 #' 
 #' ## Single histogram with "axis correction", testing xlim and ylim
-#' hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",xlim=c(3.8,8.2),ylim=c(0,35))
-#' hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",xlim=c(3.8,8.2),ymax=35)
+#' hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",
+#'      xlim=c(3.8,8.2),ylim=c(0,35))
+#' hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",
+#'      xlim=c(3.8,8.2),ymax=35)
 #'
 #' ## Using the bin width argument
 #' hist(~Sepal.Length,data=iris,xlab="Sepal Length (cm)",w=1)
@@ -103,7 +109,9 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
                          byrow=TRUE,iaxs=TRUE,...) {
   ## Handle the formula
   tmp <- iHndlFormula(formula,data)
-  if (tmp$vnum>3) STOP("`hist.formula' only works with 1 response and 1 or 2 explanatory variables.")
+  if (tmp$vnum>3) 
+    STOP("`hist.formula' only works with 1 response and",
+         " 1 or 2 explanatory variables.")
   if (tmp$vnum==1){
     ## Histogram from a single variable
     if (!tmp$vclass %in% c("numeric","integer")) STOP("Variable must be numeric.")
@@ -139,7 +147,8 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
     ## Multiple histograms
     # Checks and work with response variable
     if (tmp$Rnum>1) STOP("LHS may contain only one variable.")
-    if (!tmp$Rclass %in% c("numeric","integer")) STOP("LHS variable must be numeric.")
+    if (!tmp$Rclass %in% c("numeric","integer"))
+      STOP("LHS variable must be numeric.")
     resp <- tmp$mf[,tmp$Rpos]
     if (is.null(xlab)) xlab <- tmp$Rname
     # Checks and work with explanatory variable(s)
@@ -172,14 +181,15 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
       if (same.ylim) { ymax <- rep(max(ymax),length(ymax)) }
     } else {
       if (length(ymax)==1) ymax <- rep(ymax,num)
-      else if (length(ymax)!= num) STOP("'ymax' argument must be 'NULL', a vector of length 1,\n or a vector of length equal to the number of groups.")
+      else if (length(ymax)!= num)
+        STOP("'ymax' argument must be 'NULL', a vector of length 1,\n",
+             "or a vector of length equal to the number of groups.")
     }
     ## Make the histograms
     # nocov start
-    opar <- graphics::par("mfrow")
     if (num <= (nrow*ncol)) {
-      if (byrow) graphics::par(mfrow=c(nrow,ncol))
-        else graphics::par(mfcol=c(nrow,ncol))
+      if (byrow) withr::local_par(list(mfrow=c(nrow,ncol)))
+        else withr::local_par(list(mfcol=c(nrow,ncol)))
       for (i in seq_len(num)) {
         if (!is.null(pre.main)) main <- paste0(pre.main,names(DF.split)[i])
         graphics:: hist(DF.split[[i]],main=main,
@@ -191,8 +201,8 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
       }
     } else {
       max.per.page <- nrow*ncol
-      if (byrow) graphics::par(mfrow=c(nrow,ncol))
-        else graphics::par(mfcol=c(nrow,ncol))
+      if (byrow) withr::local_par(list(mfrow=c(nrow,ncol)))
+        else withr::local_par(list(mfcol=c(nrow,ncol)))
       for (i in seq_len(ceiling(num/max.per.page))) {
         ifelse((num-(i-1)*max.per.page)>=max.per.page,todo <- max.per.page,
                todo <- num-(i-1)*max.per.page)
@@ -209,6 +219,5 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
         }  
       }
     }
-    graphics::par(mfrow=opar)
   } # nocov end
 }

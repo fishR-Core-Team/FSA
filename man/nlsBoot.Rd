@@ -84,6 +84,7 @@ if (require(nlstools)) {
   confint(nl1.bootn,"B1")
   confint(nl1.bootn,c(2,3))
   confint(nl1.bootn,conf.level=0.90)
+  confint(nl1.bootn,plot=TRUE)
   predict(nl1.bootn,fnx,days=3)
   predict(nl1.bootn,fnx,days=1:3)
   htest(nl1.bootn,1,bo=6,alt="less")

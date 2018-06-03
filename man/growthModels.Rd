@@ -137,7 +137,8 @@ plot(log3(ages,L0=10,Linf=800,gninf=0.5)~ages,type="b",pch=19)
 
 ## Von B
 # Fitting the typical parameterization of the von B function
-fit1 <- nls(tl~vb1(age,Linf,K,t0),data=SpotVA1,start=vbStarts(tl~age,data=SpotVA1))
+fit1 <- nls(tl~vb1(age,Linf,K,t0),data=SpotVA1,
+            start=vbStarts(tl~age,data=SpotVA1))
 summary(fit1,correlation=TRUE)
 plot(tl~age,data=SpotVA1,pch=19)
 curve(vb1(x,Linf=coef(fit1)),from=0,to=5,col="red",lwd=10,add=TRUE)
@@ -191,41 +192,48 @@ curve(gomp3(x,Linf=coef(fit3)[1],gi=coef(fit3)[2],t0=coef(fit3)[3]),
 
 ## Richards
 # Fit first Richards parameterization
-fit1 <- nls(len~rich1(age,Linf,k,a,b),data=df,start=list(Linf=450,k=0.25,a=0.65,b=3))
+fit1 <- nls(len~rich1(age,Linf,k,a,b),data=df,
+            start=list(Linf=450,k=0.25,a=0.65,b=3))
 summary(fit1,correlation=TRUE)
 plot(len~age,data=df,pch=19,col=rgb(0,0,0,1/5))
 curve(rich1(x,Linf=coef(fit1)),from=0,to=15,col="red",lwd=10,add=TRUE)
 
 # Fit second Richards parameterization
-fit2 <- nls(len~rich2(age,Linf,k,ti,b),data=df,start=list(Linf=450,k=0.25,ti=3,b=3))
+fit2 <- nls(len~rich2(age,Linf,k,ti,b),data=df,
+            start=list(Linf=450,k=0.25,ti=3,b=3))
 summary(fit2,correlation=TRUE)
 curve(rich2(x,Linf=coef(fit2)),from=0,to=15,col="blue",lwd=7,add=TRUE)
 
 # Fit third Richards parameterization
-fit3 <- nls(len~rich3(age,Linf,k,ti,b),data=df,start=list(Linf=450,k=0.25,ti=3,b=-0.3))
+fit3 <- nls(len~rich3(age,Linf,k,ti,b),data=df,
+            start=list(Linf=450,k=0.25,ti=3,b=-0.3))
 summary(fit3,correlation=TRUE)
 curve(rich3(x,Linf=coef(fit3)),from=0,to=15,col="green",lwd=4,add=TRUE)
 
 # Fit fourth Richards parameterization
-fit4 <- nls(len~rich4(age,Linf,k,ti,b),data=df,start=list(Linf=450,k=0.25,ti=3,b=0.7))
+fit4 <- nls(len~rich4(age,Linf,k,ti,b),data=df,
+            start=list(Linf=450,k=0.25,ti=3,b=0.7))
 summary(fit4,correlation=TRUE)
 curve(rich4(x,Linf=coef(fit4)),from=0,to=15,col="black",lwd=1,add=TRUE)
 
 ## Logistic
 # Fit first Campana-Jones parameterization
-fit1 <- nls(len~log1(age,Linf,gninf,ti),data=df,start=list(Linf=450,gninf=0.45,ti=4))
+fit1 <- nls(len~log1(age,Linf,gninf,ti),data=df,
+            start=list(Linf=450,gninf=0.45,ti=4))
 summary(fit1,correlation=TRUE)
 plot(len~age,data=df,pch=19,col=rgb(0,0,0,1/5))
 curve(log1(x,Linf=coef(fit1)),from=0,to=15,col="red",lwd=10,add=TRUE)
 
 # Fit second Campana-Jones parameterization
-fit2 <- nls(len~log2(age,Linf,gninf,a),data=df,start=list(Linf=450,gninf=0.45,a=7))
+fit2 <- nls(len~log2(age,Linf,gninf,a),data=df,
+            start=list(Linf=450,gninf=0.45,a=7))
 summary(fit2,correlation=TRUE)
 curve(log2(x,Linf=coef(fit2)),from=0,to=15,col="blue",lwd=5,add=TRUE)
 
 # Fit Karkach parameterization (using simple=TRUE model)
 log3 <- logisticFuns("Karkach",simple=TRUE)
-fit3 <- nls(len~log3(age,Linf,L0,gninf),data=df,start=list(Linf=450,L0=30,gninf=0.45))
+fit3 <- nls(len~log3(age,Linf,L0,gninf),data=df,
+            start=list(Linf=450,L0=30,gninf=0.45))
 summary(fit3,correlation=TRUE)
 curve(log3(x,Linf=coef(fit3)[1],L0=coef(fit3)[2],gninf=coef(fit3)[3]),
       from=0,to=15,col="green",lwd=2,add=TRUE)
