@@ -64,11 +64,8 @@ Note that all plots are \dQuote{vertically conditional} -- i.e., each represents
 
 \examples{
 ## Make an example age-length key
-# isolate the age sample
 WR.age <- subset(WR79, !is.na(age))
-# add length intervals (width=5)
 WR.age$LCat <- lencat(WR.age$len,w=5)
-# create age-length key
 raw <- xtabs(~LCat+age,data=WR.age)
 ( WR.key <- prop.table(raw, margin=1) )
 

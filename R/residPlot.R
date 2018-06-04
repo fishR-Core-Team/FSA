@@ -49,9 +49,8 @@
 #' @keywords hplot models
 #'
 #' @examples
-#' # create year as a factor variable
+#' # create year factor variable & reduce number of years for visual simplicity
 #' Mirex$fyear <- factor(Mirex$year)
-#' # reduce number of years for visual simplicity
 #' Mirex2 <- filterD(Mirex,fyear %in% c(1977,1992))
 #' 
 #' ## Indicator variable regression with two factors
@@ -148,7 +147,8 @@ residPlot <- function (object,...) {
 #' @export
 residPlot.lm <- function(object,...) { # nocov start
   object <- iTypeoflm(object)
-  if (object$type=="MLR") STOP("Multiple linear regression objects are not supported by residPlot.")
+  if (object$type=="MLR")
+    STOP("Multiple linear regression objects are not supported by residPlot.")
   residPlot(object,...)                          
 }  # nocov end
 
@@ -158,18 +158,14 @@ residPlot.SLR <- function(object,xlab="Fitted Values",ylab="Residuals",main="",
                           pch=16,col="black",lty.ref=3,lwd.ref=1,col.ref="black",
                           resid.type=c("raw","standardized","studentized"),
                           outlier.test=TRUE,alpha=0.05,
-                          loess=FALSE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=8,
-                          inclHist=TRUE,...) { # nocov start
-  opar <- graphics::par("mfrow")
+                          loess=FALSE,lty.loess=2,lwd.loess=1,col.loess="black",
+                          trans.loess=8,inclHist=TRUE,...) { # nocov start
   main <- iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
   tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
   r <- tmp$r
   ylab <- tmp$ylab
-  if (inclHist) {
-    opar <- graphics::par(mfrow=c(1,2))
-    on.exit(graphics::par(mfrow=opar))
-  }
+  if (inclHist) withr::local_par(list(mfrow=c(1,2)))
   iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
                      loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
   graphics::points(r~fv,pch=pch,col=col)
@@ -201,18 +197,14 @@ iResidPlotIVR1 <- function(object,legend,cex.leg,box.lty.leg,
                            lty.ref=3,lwd.ref=1,col.ref="black",
                            resid.type=c("raw","standardized","studentized"),
                            outlier.test=TRUE,alpha=0.05,
-                           loess=FALSE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=8,
-                           inclHist=TRUE,...) { # nocov start
+                           loess=FALSE,lty.loess=2,lwd.loess=1,col.loess="black",
+                           trans.loess=8,inclHist=TRUE,...) { # nocov start
   main <- iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
   tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
   r <- tmp$r
   ylab <- tmp$ylab
-  opar <- graphics::par("mfrow")
-  if (inclHist) {
-    graphics::par(mfrow=c(1,2))
-    on.exit(graphics::par(mfrow=opar))
-  }
+  if (inclHist) withr::local_par(list(mfrow=c(1,2)))
   leg <- iLegendHelp(legend)   # will there be a legend
   if (!leg$do.legend) {
     iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
@@ -222,12 +214,14 @@ iResidPlotIVR1 <- function(object,legend,cex.leg,box.lty.leg,
   } else {      
     # extract the factor variable from the 2nd position
     f1 <- object$mf[,object$EFactPos[1]]
-    # Handle colors, pchs, ltys -- one for each level of f1 factor unless only one color is given
+    # Handle colors, pchs, ltys -- one for each level of f1 factor unless only
+    #   one color is given
     col <- iFitPlotClrs2(f1,col,"rich")
     pch <- iFitPlotPchs2(f1,pch)
     ### Plot the points
     # Makes room for legend
-    ifelse(leg$do.legend,xlim <- c(min(fv),max(fv)+0.3*(max(fv)-min(fv))), xlim <- range(fv)) 
+    ifelse(leg$do.legend,xlim <- c(min(fv),max(fv)+0.3*(max(fv)-min(fv))),
+                         xlim <- range(fv)) 
     # Creates plot schematic -- no points or lines
     iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
                        loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
@@ -256,18 +250,14 @@ iResidPlotIVR2 <- function(object,legend,cex.leg,box.lty.leg,
                            lty.ref=3,lwd.ref=1,col.ref="black",
                            resid.type=c("raw","standardized","studentized"),
                            outlier.test=TRUE,alpha=0.05,
-                           loess=FALSE,lty.loess=2,lwd.loess=1,col.loess="black",trans.loess=8,
-                           inclHist=TRUE,...) { # nocov start
+                           loess=FALSE,lty.loess=2,lwd.loess=1,col.loess="black",
+                           trans.loess=8,inclHist=TRUE,...) { # nocov start
   main <- iGetMainTitle(object,main)
   fv <- object$mdl$fitted.values
   tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
   r <- tmp$r
   ylab <- tmp$ylab
-  opar <- graphics::par("mfrow")
-  if (inclHist) {
-    graphics::par(mfrow=c(1,2))
-    on.exit(graphics::par(mfrow=opar))
-  }
+  if (inclHist) withr::local_par(list(mfrow=c(1,2)))
   leg <- iLegendHelp(legend)   # will there be a legend
   if (!leg$do.legend) {
     iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
@@ -327,11 +317,7 @@ residPlot.ONEWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main="
   r <- tmp$r
   ylab <- tmp$ylab
   gf <- object$mf[,2]
-  opar <- graphics::par("mfrow")
-  if (inclHist) {
-    graphics::par(mfrow=c(1,2))
-    on.exit(graphics::par(mfrow=opar))
-  }
+  if (inclHist) withr::local_par(list(mfrow=c(1,2)))
   if (bp) {
     graphics::boxplot(r~gf,xlab=xlab,ylab=ylab,main=main)
     graphics::abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref)
@@ -361,11 +347,7 @@ residPlot.TWOWAY <- function(object,xlab="Fitted Values",ylab="Residuals",main="
   gf1 <- object$mf[,2]
   gf2 <- object$mf[,3]
   gf <- interaction(gf1,gf2)
-  opar <- graphics::par("mfrow")
-  if (inclHist) {
-    graphics::par(mfrow=c(1,2))
-    on.exit(graphics::par(mfrow=opar))
-  }
+  if (inclHist) withr::local_par(list(mfrow=c(1,2)))
   if (bp) {
     graphics::boxplot(r~gf,xlab=xlab,ylab=ylab,main=main)
     graphics::abline(h=0,lty=lty.ref,lwd=lwd.ref,col=col.ref) 
@@ -389,11 +371,7 @@ residPlot.nls<-function(object,xlab="Fitted Values",ylab="Residuals",main="",
   tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
   r <- tmp$r
   ylab <- tmp$ylab
-  opar <- graphics::par("mfrow")
-  if (inclHist) {
-    graphics::par(mfrow=c(1,2))
-    on.exit(graphics::par(mfrow=opar))
-  }
+  if (inclHist) withr::local_par(list(mfrow=c(1,2)))
   iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
                      loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
   graphics::points(r~fv,pch=pch,col=col) 
@@ -413,11 +391,7 @@ residPlot.nlme<-function(object,xlab="Fitted Values",ylab="Residuals",main="",
   tmp <- iHndlResidType(object,match.arg(resid.type),ylab)
   r <- tmp$r
   ylab <- tmp$ylab
-  opar <- graphics::par("mfrow")
-  if (inclHist) {
-    graphics::par(mfrow=c(1,2))
-    on.exit(graphics::par(mfrow=opar))
-  }
+  if (inclHist) withr::local_par(list(mfrow=c(1,2)))
   iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
                      loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
   graphics::points(r~fv,pch=pch,col=col) 

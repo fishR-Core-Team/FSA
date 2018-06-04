@@ -18,12 +18,11 @@
 }
 
 
-iAddLoessLine <- function(r,fv,lty.loess,lwd.loess,col.loess,trans.loess,span=0.75) {
-  options(warn=-1)  # suppress warnings from loess
-  mdl <- stats::loess(r~fv,span=span)
+iAddLoessLine <- function(r,fv,lty.loess,lwd.loess,col.loess,
+                          trans.loess,span=0.75) {
+  suppressWarnings(mdl <- stats::loess(r~fv,span=span))
   xseq <- seq(from=min(fv),to=max(fv),length=80)
   pred <- stats::predict(mdl,newdata=data.frame(fv=xseq),se=TRUE)
-  options(warn=0)   # unsuppress warnings
   graphics::polygon(c(xseq,rev(xseq)),
           c(pred$fit-pred$se.fit*stats::qt(0.975,pred$df),
             rev(pred$fit+pred$se.fit*stats::qt(0.975,pred$df))),
@@ -37,29 +36,31 @@ iCheckALK <- function(key,only1=FALSE,remove0rows=FALSE) {
   #### remove0rows=TRUE ... remove the rows that sum to 0.
   
   ## Check that row names and column names can be considered as numeric
-  options(warn=-1) ## turn off warnings
-  tmp <- as.numeric(rownames(key))
-  options(warn=0)
-  if (any(is.na(tmp))) STOP("The row names of 'key' must be numeric (and\n contain the minimum value of the lenth intervals).")
-  options(warn=-1) ## turn off warnings
-  tmp <- as.numeric(colnames(key))
-  options(warn=0)
-  if (any(is.na(tmp))) STOP("The column names of 'key' must be numeric\n (and contain age values).")  
+  suppressWarnings(tmp <- as.numeric(rownames(key)))
+  if (any(is.na(tmp))) STOP("The row names of 'key' must be numeric (and\n",
+                            "contain the minimum value of the lenth intervals).")
+  suppressWarnings(tmp <- as.numeric(colnames(key)))
+  if (any(is.na(tmp))) STOP("The column names of 'key' must be numeric\n",
+                            "(and contain age values).")  
   ## Check if key is proportions, if not change to proportions
   if (any(key>1,na.rm=TRUE)) {
-    WARN("'key' contained values >1; to continue, assumed\n values were frequencies and converted to row proportions.")
+    WARN("'key' contained values >1; to continue, assumed\n",
+         "values were frequencies and converted to row proportions.")
     key <- prop.table(key,margin=1)
   }
   ## Remove rows that sum to 0 or NA (i.e., only keeps lens with data in key)
   key.rowSum <- rowSums(key,na.rm=TRUE)
   if (remove0rows & any(key.rowSum==0)) {
-    WARN("'key' contained rows that sum to 0; as requested,\n these rows were removed from the table.")
+    WARN("'key' contained rows that sum to 0; as requested,\n",
+         "these rows were removed from the table.")
     key <- key[!is.na(key.rowSum) & key.rowSum!=0,]
   }
   ## Check if rows sum to 1 (allow for some minimal rounding error and does not consider zeroes )
-  if (any(key.rowSum>0.01 & (key.rowSum<0.99 | key.rowSum>1.01))) WARN("Key contained a row that does not sum to 1.")
+  if (any(key.rowSum>0.01 & (key.rowSum<0.99 | key.rowSum>1.01)))
+    WARN("Key contained a row that does not sum to 1.")
   ## Check if rows sum to 0 (allow for some minimal rounding error)
-  if (!only1 & !remove0rows & any(key.rowSum==0)) WARN("Key contained rows that sum to 0.")
+  if (!only1 & !remove0rows & any(key.rowSum==0))
+    WARN("Key contained rows that sum to 0.")
   ## Return the potentially modified key
   key
 }
@@ -320,15 +321,13 @@ iMakeColor <- function(col,transp) {
 ################################################################################
 iPlotExists <- function() {
   # set options so that warnings are errors
-  oldwarn <- options("warn")[[1]]
-  options(warn=2)
+  withr::local_options(list(warn=2))
   # if plot does not exist that par(new=TRUE) will error and then
   #   try will return a class of "try-error"
   res <- try(graphics::par(new=TRUE),silent=TRUE)
   # if errored then say FALSE (i.e., plot does not exist)
   res <- ifelse(class(res)=="try-error",FALSE,TRUE)
   # return
-  options(warn=oldwarn)
   res
 }
 

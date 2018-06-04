@@ -151,10 +151,8 @@ alkIndivAge <- function(key,formula,data,type=c("SR","CR"),
   }
   # Create length categories var (TMPLCAT) for L sample
   if (is.null(breaks)) breaks <- da.len.cats
-  options(warn=-1)  # suppress warnings from lencat()
-  data <- lencat(stats::as.formula(paste("~",cl)),data=data,
-                 breaks=breaks,as.fact=FALSE,vname="TMPLCAT")
-  options(warn=1)
+  suppressWarnings(data <- lencat(stats::as.formula(paste("~",cl)),data=data,
+                                  breaks=breaks,as.fact=FALSE,vname="TMPLCAT"))
   # Find Vector of length cats present in L sample
   data.len.cats <- as.numeric(names(table(data$TMPLCAT)))                                  
   # Add variable for ages for L sample (initially NAs)

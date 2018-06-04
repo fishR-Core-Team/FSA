@@ -64,15 +64,15 @@ Constructs plots of predicted weights at given lengths among different groups. T
 }
 
 \examples{
-# add log length and weight data
+# add log length and weight data to ChinookArg data
 ChinookArg$logtl <- log(ChinookArg$tl)
 ChinookArg$logwt <- log(ChinookArg$w)
 # fit model to assess equality of slopes
 lm1 <- lm(logwt~logtl*loc,data=ChinookArg)
 anova(lm1)
 
-# set par so that the plots will look decent
-par(mar=c(3.5,3.5,1,1),mgp=c(1.8,0.4,0),tcl=-0.2)
+# set graphing parameters so that the plots will look decent
+op <- par(mar=c(3.5,3.5,1,1),mgp=c(1.8,0.4,0),tcl=-0.2)
 # show predicted weights (w/ CI) at the default quantile lengths for each year
 lwCompPreds(lm1,xlab="Location")
 # show predicted weights (w/ CI) at the quartile lengths for each year
@@ -109,6 +109,9 @@ if (interactive()) {
   lm3 <- lm(logwt~loc,data=ChinookArg)
   lwCompPreds(lm3)   
 }
+
+## return graphing parameters to original state
+par(op)
 
 }
 \references{

@@ -1,9 +1,21 @@
 # FSA 0.8.21 ongoing
 * Added a hex sticker logo.
+* Added `withr` to Imports (see usages below).
 * Removed all `data()` in examples that referred to data from this package. Included the `package=` argument in `data()` that loaded from other packages.
 * `SMBassWB`: Modified. Fixed minor data entry error in row 383.
 * `addZeroCatch()`: Modified. Added a catch that turns a "tibble" into a regular data.frame (which obviates some errors that occur with tibbles). Minor changes to documentation and comments in the code.
 * `agePrecision()`: Modified. Added intermediate and summary calculations for mean absolute deviation and standard deviation. Updated tests and examples. Other minor modifications to the function code. Addresses [#41](https://github.com/droglenc/FSA/issues/41).
+* `alkIndivAge()`: Modified. Replaced an `options(warn=-1)` with `suppressWarnings()`.
+* `alkPlot()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)). Replaced an `options(warn=-1)` with `suppressWarnings()`.
+* `alkSummaries()`: Modified. Replaced an `options(warn=-1)` with `suppressWarnings()`.
+* Bootstrapping functions: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
+* `capHistSum()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
+* `chapmanRobson()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
+* Growth models: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
+* `hist.formula()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
+* `lwCompPreds()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
+* `residPlot()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
+
 
 # FSA 0.8.20 17-May-18
 * Added `asbio`, `DescTools`, `nlme`, and `psych` packages to Suggests because they are used in tests (and as will soon be required by CRAN ... per an e-mail from CRAN on 17-May-18).

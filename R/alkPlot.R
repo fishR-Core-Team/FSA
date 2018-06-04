@@ -42,11 +42,8 @@
 #' 
 #' @examples
 #' ## Make an example age-length key
-#' # isolate the age sample
 #' WR.age <- subset(WR79, !is.na(age))
-#' # add length intervals (width=5)
 #' WR.age$LCat <- lencat(WR.age$len,w=5)
-#' # create age-length key
 #' raw <- xtabs(~LCat+age,data=WR.age)
 #' ( WR.key <- prop.table(raw, margin=1) )
 #'
@@ -83,17 +80,19 @@ alkPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
   pal <- match.arg(pal)
   key <- iCheckALK(key)
   ## construct the plots (all internal functions) # nocov start
-  op <- graphics::par(mar=c(3.25,3.25,0.7,0.7),mgp=c(1.7,0.5,0),tcl=-0.2)
+  withr::local_par(list(mar=c(3.25,3.25,0.7,0.7),mgp=c(1.7,0.5,0),tcl=-0.2))
   switch(type,
          area=    { iALKPlotArea(key,xlab,ylab,xlim,ylim,showLegend,leg.cex,pal) },
-         barplot= { iALKPlotBar(key,xlab,ylab,xlim,ylim,lbl.cex,showLegend,leg.cex,pal,...) },
+         barplot= { iALKPlotBar(key,xlab,ylab,xlim,ylim,lbl.cex,showLegend,
+                                leg.cex,pal,...) },
          bubble=  { iALKPlotBubble(key,xlab,ylab,xlim,ylim,grid,buf,col,add,...) },
-         lines=   { iALKPlotLines(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,pal,showLegend,leg.cex,...) },
-         splines= { iALKPlotSplines(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,pal,showLegend,leg.cex,...) }
+         lines=   { iALKPlotLines(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,pal,
+                                  showLegend,leg.cex,...) },
+         splines= { iALKPlotSplines(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,
+                                    pal,showLegend,leg.cex,...) }
   )
   ## return to original graphing parameters
-  graphics::layout(1)
-  graphics::par(op) # nocov end
+  graphics::layout(1) # nocov end
 }
 
 
@@ -115,11 +114,11 @@ iFindAgesAndLens <- function(key) {
 iAddLegend <- function(alsum,leg.cex,col){ # nocov start
   graphics::layout(matrix(c(1,2),nrow=2),heights=c(1,14))
   tmp <- graphics::par("mar")
-  op <- graphics::par(mar=c(0.1,1.5*tmp[2],0.1,4*tmp[4]))
-  graphics::barplot(matrix(1,nrow=alsum$num.ages,ncol=1),col=col,horiz=TRUE,xaxt="n")
+  withr::local_par(list(mar=c(0.1,1.5*tmp[2],0.1,4*tmp[4])))
+  graphics::barplot(matrix(1,nrow=alsum$num.ages,ncol=1),col=col,
+                    horiz=TRUE,xaxt="n")
   graphics::text(c(1,alsum$num.ages)-0.5,c(0.75,0.75),range(alsum$ages),
                  col=c("white","black"),cex=leg.cex) 
-  graphics::par(op)
 }  # nocov end
 
 ##############################################################
@@ -235,9 +234,7 @@ iALKPlotSplines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,pal,showLeg
   lens <- alsum$lens  # needed for making predictions below    
   for(i in 1:alsum$num.ages) {
     tmp <- key[,i]
-    options(warn=-1)
-    tmp <- stats::loess(tmp~lens,span=span)
-    options(warn=0)
+    suppressWarnings(tmp <- stats::loess(tmp~lens,span=span))
     pprob <- stats::predict(tmp,data.frame(lens=plens))
     graphics::lines(plens,pprob,col=col[i],lwd=lwd)
     tmp <- min(which(pprob==max(pprob)))

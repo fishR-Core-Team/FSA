@@ -64,10 +64,11 @@
 #' }
 #' nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,
 #'            start=list(B1=6,B2=7.2,B3=-1.45))
-#' nl1.bootc <- bootCase(nl1,B=99)  # B=99 too few to be useful
+#' nl1.bootc <- bootCase(nl1,coef,B=99)  # B=99 too few to be useful
 #' confint(nl1.bootc,"B1")
 #' confint(nl1.bootc,c(2,3))
 #' confint(nl1.bootc,conf.level=0.90)
+#' confint(nl1.bootc,plot=TRUE)
 #' predict(nl1.bootc,fnx,days=1:3)
 #' predict(nl1.bootc,fnx,days=3)
 #' htest(nl1.bootc,1,bo=6,alt="less")
@@ -80,7 +81,8 @@
 #' @export
 bootCase <- function(object,f.=stats::coef,B=R,R=999) {
   # Tell user to use Boot instead
-  message("'bootCase' is provided here only for backward compatibility.\nConsider using 'Boot' from the 'car' package instead.")
+  message("'bootCase' is provided here only for backward compatibility.\n",
+          "Consider using 'Boot' from the 'car' package instead.")
   # Use Boot, making sure the case method is used
   tmp <- car::Boot(object,f=f.,R=B,method="case")
   # Return matrix of results (like bootCase used to) and remove NAs
@@ -119,19 +121,17 @@ htest.bootCase <- function(object,parm=NULL,bo=0,
 hist.bootCase <- function(x,same.ylim=TRUE,ymax=NULL,
                           rows=round(sqrt(ncol(x))),
                           cols=ceiling(sqrt(ncol(x))),...){ # nocov start
-  ## Set parameters
-  op <- graphics::par("mfrow")
-  graphics::par(mfrow=c(rows,cols))
+  ## Set graphing parameters
+  withr::local_par(list(mfrow=c(rows,cols)))
 	## If not given ymax, then find highest count on all histograms
   if (is.null(ymax)) {
-    for (i in seq_len(ncol(x))) ymax[i] <- max(hist.formula(~x[,i],
-                              plot=FALSE,warn.unused=FALSE,...)$counts)
+    for (i in seq_len(ncol(x)))
+      ymax[i] <- max(hist.formula(~x[,i],plot=FALSE,warn.unused=FALSE,...)$counts)
   }
   if (same.ylim) ymax <- rep(max(ymax),length(ymax))
 	## Make the plots
-	for(i in seq_len(ncol(x))) hist.formula(~x[,i],xlab=colnames(x)[i],
-	                                        ylim=c(0,ymax[i]),...)
-  graphics::par(mfrow=op)
+	for(i in seq_len(ncol(x)))
+	  hist.formula(~x[,i],xlab=colnames(x)[i],ylim=c(0,ymax[i]),...)
 } # nocov end
 
 #' @rdname bootCase
@@ -207,6 +207,7 @@ plot.bootCase <- function(x,...){ #nocov start
 #'   confint(nl1.bootn,"B1")
 #'   confint(nl1.bootn,c(2,3))
 #'   confint(nl1.bootn,conf.level=0.90)
+#'   confint(nl1.bootn,plot=TRUE)
 #'   predict(nl1.bootn,fnx,days=3)
 #'   predict(nl1.bootn,fnx,days=1:3)
 #'   htest(nl1.bootn,1,bo=6,alt="less")
@@ -289,15 +290,13 @@ iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
     np <- ncol(object)
     if (is.null(rows)) rows <- round(sqrt(np))
     if (is.null(cols)) cols <- ceiling(sqrt(np))
-    op <- graphics::par("mfrow")
-    graphics::par(mfrow=c(rows,cols))
+    withr::local_par(list(mfrow=c(rows,cols)))
     for (i in seq_len(np)) {
       h <- hist.formula(~object[,i],xlab=colnames(object)[i],...)
       plotrix::plotCI(mean(object[,i]),y=0.95*max(h$counts),
                       li=res[i,1],ui=res[i,2],err="x",
                       pch=19,col=err.col,lwd=err.lwd,add=TRUE)
     }
-    graphics::par(mfrow=op)
   } # nocov end
   ## Return CI result
   res
