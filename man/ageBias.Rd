@@ -6,7 +6,6 @@
 \alias{summary.ageBias}
 \alias{summary.ageBias}
 \alias{plot.ageBias}
-\alias{plotAB}
 \title{Compute and view possible differences between paired sets of ages.}
 \usage{
 ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
@@ -30,15 +29,6 @@ ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
   pch.mean.sig = ifelse(show.CI | show.range, 21, 19), cex.mean = lwd,
   yHist = TRUE, xHist = NULL, hist.panel.size = 1/7,
   col.hist = "gray90", allowAdd = FALSE, ...)
-
-plotAB(x, what = c("bias", "Campana", "numbers"), xlab = x$ref.lab,
-  ylab = x$nref.lab, xlim = NULL, ylim = NULL,
-  yaxt = graphics::par("yaxt"), xaxt = graphics::par("xaxt"),
-  col.agree = "gray60", lwd.agree = lwd, lty.agree = 2, lwd = 1,
-  sfrac = 0, pch.mean = 19, pch.mean.sig = 21, cex.mean = lwd,
-  col.CI = "black", col.CIsig = "red", lwd.CI = lwd, sfrac.CI = sfrac,
-  show.n = FALSE, nYpos = 1.03, cex.n = 0.75, cex.numbers = 0.75,
-  col.numbers = "black", ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{nrefvar~refvar}, where \code{nrefvar} and \code{refvar} generically represent variables that contain the paired \dQuote{nonreference} and \dQuote{reference} age estimates, respectively. See details.}
@@ -130,16 +120,6 @@ plotAB(x, what = c("bias", "Campana", "numbers"), xlab = x$ref.lab,
 \item{col.hist}{A string for the color of the bars in the marginal histograms (only used if \code{xHist=TRUE} or \code{yHist=TRUE}).}
 
 \item{allowAdd}{A logical that will allow the user to add items to the main (i.e., not the marginal histograms) plot panel (if \code{TRUE}). Defaults to \code{FALSE}.}
-
-\item{show.n}{A logical for whether the sample sizes for each level of the x-axis variable is shown (\code{=TRUE}, default) or not (\code{=FALSE}).}
-
-\item{nYpos}{A numeric for the relative Y position of the sample size values when \code{show.n=TRUE}. For example, if \code{nYpos=1.03} then the sample size values will be centered at 3 percent above the top end of the y-axis.}
-
-\item{cex.n}{A character expansion value for the size of the sample size values.}
-
-\item{cex.numbers}{A character expansion value for the size of the numbers plotted when \code{what="numbers"} is used.}
-
-\item{col.numbers}{A string for the color of the numbers plotted when \code{what="numbers"} is used.}
 }
 \value{
 \code{ageBias} returns a list with the following items:
@@ -162,17 +142,13 @@ Generally, one of the two age estimates will be identified as the \dQuote{refere
 
 The age-agreement table is constructed with  \code{what="table"} in \code{summary}. The agreement table can be \dQuote{flipped} (i.e., the rows in descending rather than ascending order) with \code{flip.table=TRUE}. By default, the tables are shown with zeros replaced by dashes. This behavior can be changed with \code{zero.print}.
 
-Three statistical tests of symmetry for the age-agreement table can be computed with \code{what=} in \code{summary}. The \dQuote{unpooled} or Bowker test as described in Hoenig et al. (1995) is constructed with \code{what="Bowker"}, the \dQuote{semi-pooled} or Evans-Hoenig test as described in Evans and Hoenig (1998) is constructed with \code{what="EvansHoenig"}, and the \dQuote{pooled} or McNemar test as described in Evans and Hoenig (1998) is constructed with \code{what="McNemar"}. All three tests are computed with \code{what="symmetry"}.
+Three statistical tests of symmetry for the age-agreement table can be computed with \code{what=} in \code{summary}. The \dQuote{unpooled} or Bowker test as described in Hoenig \emph{et al.} (1995) is constructed with \code{what="Bowker"}, the \dQuote{semi-pooled} or Evans-Hoenig test as described in Evans and Hoenig (1998) is constructed with \code{what="EvansHoenig"}, and the \dQuote{pooled} or McNemar test as described in Evans and Hoenig (1998) is constructed with \code{what="McNemar"}. All three tests are computed with \code{what="symmetry"}.
 
-Four types of plots for visualizing differences between sets of two age estimates may be created. Two of these plots may be constructed with \code{plotAB()}. In the \code{plotAB()} plots, the reference ages are plotted on the x-axis and the nonreference ages are on the y-axis. The 1:1 (45 degree) agreement line is shown for comparative purposes. The default \code{plotAB()} plot (using \code{what="bias"}) was inspired by the age bias plot introduced by Campana et al. (1995). The default settings for this age bias plot show the mean and confidence interval for the nonreference ages at each of the reference ages. The level of confidence is controlled by \code{sig.level=} given in the original \code{ageBias} call (i.e., confidence level is 100*(1-\code{sig.level})). Confidence intervals are only shown if the sample size is greater than the value in \code{min.n.CI=} (also from the original call to \code{ageBias}). Confidence intervals plotted in red with an open dot (by default; these can be changed with \code{col.CIsig} and \code{pch.mean.sig}, respectively) do not contain the reference age (see discussion of t-tests below). Sample sizes at each reference age are shown if \code{show.n=TRUE}. The position of the sample sizes is controlled with \code{nYpos=}, whereas their size is controlled with \code{cex.n}. Arguments may be used to nearly replicate the age bias plot as introduced by Campana et al. (1995) as shown in the examples.
+The age bias plot introduced by Campana \emph{et al.} (1995) can be constructed with \code{\link{plotAB}}. Muir \emph{et al.} (2008) modified the original age bias plot by plotting the difference between the two ages on the y-axis (still against a reference age on the x-axis). McBride (2015) introduced the Bland-Altman plot for comparing fish ages where the difference in ages is plotted on the y-axis versus the mean of the ages on the x-axis. Modifications of these plots are created with \code{plot} (rather than \code{\link{plotAB}}) using \code{xvals=} to control what is plotted on the x-axis (i.e., \code{xvals="reference"} uses the reference ages, whereas \code{xvals="mean"} uses the mean of the two ages for the x-axis). In both plots, a horizontal agreement line at a difference of zero is shown for comparative purposes. In addition, a histogram of the differences is shown in the right margin (can be excluded with \code{yHist=FALSE}.) A histogram of the reference ages is shown by default in the top margin for the modified age bias plot, but not for the modified Bland-Altman-like plot (the presence of this histogram is controlled with \code{xHist=}).
 
-The frequency of observations at each unique (x,y) coordinate are shown by using \code{what="numbers"} in \code{plotAB}. The size of the numbers is controlled with \code{cex.numbers}.
+By default, the modified age bias plot shows the mean and range for the nonreference ages at each of the reference ages. Means shown with an open dot are mean age differences that are significantly different from zero. The ranges of differences in ages at each reference age can be removed with \code{show.range=FALSE}. A confidence interval for difference in ages can be added with \code{show.CI=FALSE}. Confidence intervals are only shown if the sample size is greater than the value in \code{min.n.CI=} (also from the original call to \code{\link{ageBias}}). Confidence intervals plotted in red with an open dot (by default; these can be changed with \code{col.CIsig} and \code{pch.mean.sig}, respectively) do not contain the reference age (see discussion of t-tests below). Individual points are plotted if \code{show.pts=TRUE}, where there color is controlled by \code{col.pts=} and \code{transparency=}. See examples for use of these arguments.
 
-Muir et al. (2008) modified the age bias plot by plotting the difference between the two ages on the y-axis (still against a reference age on the x-axis). McBride (2015) introduced the Bland-Altman plot for comparing fish ages where the difference in ages is plotted on the y-axis versus the mean of the ages on the x-axis. Modifications of these plots are created with \code{plot} (rather than \code{plotAB}) using \code{xvals=} to control what is plotted on the x-axis (i.e., \code{xvals="reference"} uses the reference ages, whereas \code{xvals="mean"} uses the mean of the two ages for the x-axis). In both plots, a horizontal agreement line at a difference of zero is shown for comparative purposes. In addition, a histogram of the differences is shown in the right margin (can be excluded with \code{yHist=FALSE}.) A histogram of the reference ages is shown by default in the top margin for the modified age bias plot, but not for the modified Bland-Altman-like plot (the presence of this histogram is controlled with \code{xHist=}).
-
-By default, the modified age bias plot shows the mean and range for the nonreference ages at each of the reference ages. Means shown with an open dot are mean age differences that are significantly different from zero. The ranges of differences in ages at each reference age can be removed with \code{show.range=FALSE}. A confidence interval for difference in ages can be added with \code{show.CI=FALSE}. The color and symbol coding for the means and CIs is the same as described above for \code{plotAB}. Individual points are plotted if \code{show.pts=TRUE}, where there color is controlled by \code{col.pts=} and \code{transparency=}. See examples for use of these arguments.
-
-Both the main (i.e., not the marginal histograms) can be "added to" after the plot is constructed if \code{allowAdd=TRUE} is used. For example, the Bland-Altman-like plot can be augmented with a horizontal line at the mean difference in ages, a line for the regression between the differences and the means, or a generalized additive model that describes the relationship between the differences and the means. See the examples for use of \code{allowAdd=TRUE}. It is recommended to save the plotting parameters (e.g., \code{op <- par(no.readonly=TRUE)}) before using \code{plot} with \code{allowAdd=TRUE} so that the original parameters can be reset (e.g., \code{par(op)}); see the examples.
+The main (i.e., not the marginal histograms) can be "added to" after the plot is constructed if \code{allowAdd=TRUE} is used. For example, the Bland-Altman-like plot can be augmented with a horizontal line at the mean difference in ages, a line for the regression between the differences and the means, or a generalized additive model that describes the relationship between the differences and the means. See the examples for use of \code{allowAdd=TRUE}. It is recommended to save the plotting parameters (e.g., \code{op <- par(no.readonly=TRUE)}) before using \code{plot} with \code{allowAdd=TRUE} so that the original parameters can be reset (e.g., \code{par(op)}); see the examples.
 
 Individual t-tests to determine if the mean age of the nonreference set at a particular age of the reference set is equal to the reference age (e.g., is the mean age of the nonreference set at age-3 of the reference set statistically different from 3?) are shown with \code{what="bias"} in \code{summary}. The results provide a column that indicates whether the difference is significant or not as determined by adjusted p-values from the t-tests and using the significance level provided in \code{sig.level} (defaults to 0.05). Similar results for the difference in ages (e.g., is the mean reference age minus nonreference age at a nonreference age of 3 different from 0?) are constructed with \code{what="diff.bias"} in \code{summary}.
 
@@ -183,7 +159,7 @@ The sample size present in the age-agreement table is found with \code{what="n"}
 }
 
 \section{IFAR Chapter}{
- 4-Age Comparisons. \bold{Note that \code{plot} has changed since IFAR was published. Some of the original functionality is in \code{plotAB}. See examples.}
+ 4-Age Comparisons. \bold{Note that \code{plot} has changed since IFAR was published. Some of the original functionality is in \code{\link{plotAB}}.}
 }
 
 \examples{
@@ -199,29 +175,12 @@ summary(ab1,what="bias")
 summary(ab1,what="diff.bias")
 summary(ab1,what="n")
 summary(ab1,what=c("n","symmetry","table"))
-# show the zeros (rather than dashes)
-summary(ab1,what="table",zero.print="0")
-# flip the table -- ease of comparison to age bias plot
-summary(ab1,what="table",flip.table=TRUE)
+# flip table (easy to compare to age bias plot) and show zeroes (not dashes)
+summary(ab1,what="table",flip.table=TRUE,zero.print="0")
+
 
 #############################################################
-## Traditional Age-Bias Plot (from Campana et al. (1995))
-# Default
-plotAB(ab1)
-# very close to Campana et al. (2001)
-plotAB(ab1,pch.mean.sig=19,col.CIsig="black",sfrac=0.01)
-# Squared up the axes
-plotAB(ab1,pch.mean.sig=19,col.CIsig="black",ylim=c(-1,23),xlim=c(-1,23))
-## Show sample sizes
-plotAB(ab1,show.n=TRUE)
-## Move sample sizes (and change text size)
-plotAB(ab1,show.n=TRUE,nYpos=0.02,cex.n=0.5)
-
-## Traditional numbers plot
-plotAB(ab1,what="numbers") 
-
-#############################################################
-## Differences Plot (originally inspired by Muir et al. (2008))
+## Differences Plot (inspired by Muir et al. (2008))
 # Default (ranges, open circles for sig diffs, marginal hists)
 plot(ab1)
 # Show CIs for means (with and without ranges)
@@ -246,8 +205,7 @@ plot(ab2,show.CI=TRUE,show.range=FALSE)
 
  
 #############################################################
-## Differences Plot (originally inspired by Bland-Altman plots
-##   in McBride (2015))
+## Differences Plot ( inspired by Bland-Altman plots in McBride (2015))
 plot(ab1,xvals="mean")
 ## Modify axis limits
 plot(ab1,xvals="mean",xlim=c(1,17))
@@ -344,7 +302,7 @@ McBride, R.S. 2015. Diagnosis of paired age agreement: A simulation approach of 
 Muir, A.M., M.P. Ebener, J.X. He, and J.E. Johnson. 2008. A comparison of the scale and otolith methods of age estimation for lake whitefish in Lake Huron. North American Journal of Fisheries Management 28:625-635. [Was (is?) available from http://www.tandfonline.com/doi/abs/10.1577/M06-160.1]
 }
 \seealso{
-See \code{\link{agePrecision}} for measures of precision between pairs of age estimates. See \code{\link[fishmethods]{compare2}} in \pkg{fishmethods} for similar functionality.
+See \code{\link{agePrecision}} for measures of precision between pairs of age estimates. See \code{\link[fishmethods]{compare2}} in \pkg{fishmethods} for similar functionality. See \code{\link{plotAB}} for a more traditional age-bias plot.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}
