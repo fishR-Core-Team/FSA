@@ -113,8 +113,6 @@
 <li>Removed all <code>data()</code> in examples that referred to data from this package. Included the <code>package=</code> argument in <code>data()</code> that loaded from other packages.</li>
 <li>Added <code>seealso</code>, with links to which functions use the data for examples, to docmentation for all data.frames.</li>
 <li>
-<code>SMBassWB</code>: Modified. Fixed minor data entry error in row 383.</li>
-<li>
 <code><a href="../reference/addZeroCatch.html">addZeroCatch()</a></code>: Modified. Added a catch that turns a “tibble” into a regular data.frame (which obviates some errors that occur with tibbles). Minor changes to documentation and comments in the code.</li>
 <li>
 <code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Added intermediate and summary calculations for mean absolute deviation and standard deviation. Updated tests and examples. Other minor modifications to the function code. Addresses <a href="https://github.com/droglenc/FSA/issues/41"><a href='https://github.com/droglenc/FSA/issues/41'>#41</a></a>.</li>
@@ -129,18 +127,26 @@
 <code><a href="../reference/capHistSum.html">capHistSum()</a></code>: Modified. Changed to using <code><a href="http://www.rdocumentation.org/packages/withr/topics/with_par">withr::local_par()</a></code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/38"><a href='https://github.com/droglenc/FSA/issues/38'>#38</a></a>).</li>
 <li>
 <code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Changed to using <code><a href="http://www.rdocumentation.org/packages/withr/topics/with_par">withr::local_par()</a></code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/38"><a href='https://github.com/droglenc/FSA/issues/38'>#38</a></a>).</li>
+<li>
+<code><a href="../reference/fishR.html">fishR()</a></code>: Modified. Changed examples in documentation to not be run (so as not to open an external webpage).</li>
+<li>
+<code>FSAnews()</code>: Modified. Changed examples in documentation to not be run (so as not to open an external webpage).</li>
 <li>Growth models: Modified. Changed to using <code><a href="http://www.rdocumentation.org/packages/withr/topics/with_par">withr::local_par()</a></code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/38"><a href='https://github.com/droglenc/FSA/issues/38'>#38</a></a>).</li>
 <li>
 <code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Changed to using <code><a href="http://www.rdocumentation.org/packages/withr/topics/with_par">withr::local_par()</a></code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/38"><a href='https://github.com/droglenc/FSA/issues/38'>#38</a></a>).</li>
 <li>
 <code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>: Modified. Changed to using <code><a href="http://www.rdocumentation.org/packages/withr/topics/with_par">withr::local_par()</a></code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/38"><a href='https://github.com/droglenc/FSA/issues/38'>#38</a></a>).</li>
 <li>
+<code><a href="../reference/plotAB.html">plotAB()</a></code>: Modified. Now in its own documentation file (rather than with <code><a href="../reference/ageBias.html">ageBias()</a></code>).</li>
+<li>
 <code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Changed to using <code><a href="http://www.rdocumentation.org/packages/withr/topics/with_par">withr::local_par()</a></code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/38"><a href='https://github.com/droglenc/FSA/issues/38'>#38</a></a>).</li>
+<li>
+<code>SMBassWB</code>: Modified. Fixed minor data entry error in row 383.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-20-17-may-18" class="section level1">
+    <div id="fsa-0-8-20-18-may-18" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-20-17-may-18" class="anchor"></a>FSA 0.8.20 17-May-18<small> 2018-05-18 </small>
+<a href="#fsa-0-8-20-18-may-18" class="anchor"></a>FSA 0.8.20 18-May-18<small> 2018-05-18 </small>
 </h1>
 <ul>
 <li>Added <code>asbio</code>, <code>DescTools</code>, <code>nlme</code>, and <code>psych</code> packages to Suggests because they are used in tests (and as will soon be required by CRAN … per an e-mail from CRAN on 17-May-18).</li>
@@ -158,9 +164,9 @@
 <code>SMBassWB</code>: Modified. Fixed minor data entry error in row 404. Changed link in documentation from <code>alr3</code> to <code>alr4</code> package.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-19-2-apr-18" class="section level1">
+    <div id="fsa-0-8-19-8-apr-18" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-19-2-apr-18" class="anchor"></a>FSA 0.8.19 2-Apr-18<small> 2018-04-08 </small>
+<a href="#fsa-0-8-19-8-apr-18" class="anchor"></a>FSA 0.8.19 8-Apr-18<small> 2018-04-08 </small>
 </h1>
 <ul>
 <li>
@@ -235,7 +241,7 @@
 <li>
 <code>plot.boot()</code>: Added.</li>
 <li>
-<code><a href="../reference/ageBias.html">plotAB()</a></code>: Modified. Added <code>col.numbers=</code> to allow users to modify the color of the numbers when <code>what="numbers"</code> is used (addresses <a href="https://github.com/droglenc/FSA/issues/34"><a href='https://github.com/droglenc/FSA/issues/34'>#34</a></a>).</li>
+<code><a href="../reference/plotAB.html">plotAB()</a></code>: Modified. Added <code>col.numbers=</code> to allow users to modify the color of the numbers when <code>what="numbers"</code> is used (addresses <a href="https://github.com/droglenc/FSA/issues/34"><a href='https://github.com/droglenc/FSA/issues/34'>#34</a></a>).</li>
 <li>
 <code>predict.boot()</code>: Added.</li>
 <li>
@@ -283,9 +289,9 @@
 <code><a href="../reference/srStarts.html">srStarts()</a></code>: Modified. Added <code>fixed=</code>. Added some catches for poor starting values. Added relevant tests. Addresses <a href="https://github.com/droglenc/FSA/issues/30"><a href='https://github.com/droglenc/FSA/issues/30'>#30</a></a>.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-14-7-jul-17" class="section level1">
+    <div id="fsa-0-8-14-27-jul-17" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-14-7-jul-17" class="anchor"></a>FSA 0.8.14 7-Jul-17<small> 2017-07-27 </small>
+<a href="#fsa-0-8-14-27-jul-17" class="anchor"></a>FSA 0.8.14 27-Jul-17<small> 2017-07-27 </small>
 </h1>
 <ul>
 <li>Moved <code>dunn.test</code> and <code>lmtest</code> to <code>imports</code> to help with portability for workshops.</li>
@@ -297,13 +303,13 @@
 <code><a href="../reference/Summarize.html">Summarize()</a></code>: Modified. Fixed bug when <code>percZero!="always"</code> and there are no valid values such that the calculated percent of zeroes is <code>NA</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-13-30-apr-17" class="section level1">
+    <div id="fsa-0-8-13-29-apr-17" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-13-30-apr-17" class="anchor"></a>FSA 0.8.13 30-Apr-17<small> 2017-04-29 </small>
+<a href="#fsa-0-8-13-29-apr-17" class="anchor"></a>FSA 0.8.13 29-Apr-17<small> 2017-04-29 </small>
 </h1>
 <ul>
 <li>
-<code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. A complete rebuild of <code>plot</code>. Major changes are to add <code><a href="../reference/ageBias.html">plotAB()</a></code> which is primarily used to make the “legacy” age bias plots of Campana, removal of the “sunflower” plot option, new sets of defaults for many of the arguments that reflect my preferences for visualizing age comparisons (which includes defaulting to plotting differences in ages), addition of the ability to add marginal histograms (<code>xHist=</code>, <code>yHist=</code>, <code>col.hist=</code>, and <code>hist.panel.size=</code>), better handling of axis ticks and labels (primarily to show ticks at integers and make sure 0 is included for differences), and allowing the ability to add “summary layers” to the main plot (see <code>allowAdd=</code>). Many examples were added. Some functionality from previous versions will be broken.</li>
+<code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. A complete rebuild of <code>plot</code>. Major changes are to add <code><a href="../reference/plotAB.html">plotAB()</a></code> which is primarily used to make the “legacy” age bias plots of Campana, removal of the “sunflower” plot option, new sets of defaults for many of the arguments that reflect my preferences for visualizing age comparisons (which includes defaulting to plotting differences in ages), addition of the ability to add marginal histograms (<code>xHist=</code>, <code>yHist=</code>, <code>col.hist=</code>, and <code>hist.panel.size=</code>), better handling of axis ticks and labels (primarily to show ticks at integers and make sure 0 is included for differences), and allowing the ability to add “summary layers” to the main plot (see <code>allowAdd=</code>). Many examples were added. Some functionality from previous versions will be broken.</li>
 <li>
 <code><a href="../reference/FSAUtils.html">capFirst()</a></code>: Modified. Changed some <code>if()</code>s with <code>class()</code>es to <code>inherits()</code>.</li>
 <li>
@@ -331,7 +337,7 @@
 <li>
 <code><a href="../reference/perc.html">perc()</a></code>: Modified. Changed some <code>if()</code>s with <code>class()</code>es to <code>inherits()</code>.</li>
 <li>
-<code><a href="../reference/ageBias.html">plotAB()</a></code>: Added. See description above for <code><a href="../reference/ageBias.html">ageBias()</a></code>.</li>
+<code><a href="../reference/plotAB.html">plotAB()</a></code>: Added. See description above for <code><a href="../reference/ageBias.html">ageBias()</a></code>.</li>
 <li>
 <code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>: Modified. Changed how default transparency level is calculated and set the maximum transparency to 50 (changed from 500). Fixed bug in how the width of the proportions windows were calculated by default. These changes will affect <code><a href="../reference/fitPlot.html">fitPlot()</a></code> for logistic regression models.</li>
 <li>
@@ -478,9 +484,9 @@
 <code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Added <code>na.rm=TRUE</code> to checking of Linf values.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-9-22-aug-16" class="section level1">
+    <div id="fsa-0-8-9-23-aug-16" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-9-22-aug-16" class="anchor"></a>FSA 0.8.9 22-Aug-16<small> 2016-08-23 </small>
+<a href="#fsa-0-8-9-23-aug-16" class="anchor"></a>FSA 0.8.9 23-Aug-16<small> 2016-08-23 </small>
 </h1>
 <ul>
 <li>
@@ -508,9 +514,9 @@
 <code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Added <code>fixed=</code> so that the user can define some of the starting values. Added Pauly et al. (1992) seasonal cessation function. Added tests for <code>fixed=</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-7-7-may-16" class="section level1">
+    <div id="fsa-0-8-7-8-may-16" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-7-7-may-16" class="anchor"></a>FSA 0.8.7 7-May-16<small> 2016-05-08 </small>
+<a href="#fsa-0-8-7-8-may-16" class="anchor"></a>FSA 0.8.7 8-May-16<small> 2016-05-08 </small>
 </h1>
 <ul>
 <li>Compiled under R v3.3.0.</li>
@@ -565,9 +571,9 @@
 <code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Removed <code>dynamicPlot=TRUE</code> option. Moved it to <code>FSAsim</code> package. Added <code>param=</code> to match other <code>vbXXX()</code> (works as does <code>type=</code>). Modified plot when <code>plot=TRUE</code> by adding “STARTING VALUES” to title and moving starting values to within the plot. Added and <code>col.main=</code>. Made warnings and error tests more explicit.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-6-24-mar-16" class="section level1">
+    <div id="fsa-0-8-6-25-mar-16" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-6-24-mar-16" class="anchor"></a>FSA 0.8.6 24-Mar-16<small> 2016-03-25 </small>
+<a href="#fsa-0-8-6-25-mar-16" class="anchor"></a>FSA 0.8.6 25-Mar-16<small> 2016-03-25 </small>
 </h1>
 <ul>
 <li>Fixed problems with tests, and made the tests more explicit, related to PSD and Wr functions. Suppressed some warnings related to <code><a href="../reference/sumTable.html">sumTable()</a></code> in ALK related tests and <code><a href="../reference/Summarize.html">Summarize()</a></code> in age comparisons tests. Prompted by forthcoming changes to <code>testthat</code>.</li>
@@ -596,9 +602,9 @@
 <code>purl2()</code>: Modified. Added <code>delHeader=</code> argument and functionality.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-5-13-feb-16" class="section level1">
+    <div id="fsa-0-8-5-14-feb-16" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-5-13-feb-16" class="anchor"></a>FSA 0.8.5 13-Feb-16<small> 2016-02-14 </small>
+<a href="#fsa-0-8-5-14-feb-16" class="anchor"></a>FSA 0.8.5 14-Feb-16<small> 2016-02-14 </small>
 </h1>
 <ul>
 <li>Added URL for fishR webpage in DESCRIPTION per CRAN request. Removed it from the URL field in DESCRIPTION.</li>
@@ -637,9 +643,9 @@
 <code><a href="../reference/sumTable.html">sumTable()</a></code>: Modified tests (but with <code>dimnames()</code>).</li>
 </ul>
 </div>
-    <div id="fsa-0-8-3-22-oct-15" class="section level1">
+    <div id="fsa-0-8-3-23-oct-15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-3-22-oct-15" class="anchor"></a>FSA 0.8.3 22-Oct-15<small> 2015-10-23 </small>
+<a href="#fsa-0-8-3-23-oct-15" class="anchor"></a>FSA 0.8.3 23-Oct-15<small> 2015-10-23 </small>
 </h1>
 <ul>
 <li>Removed vignetteBuilder from DESCRIPTION (remnant from a vignette I built and then removed) at request of CRAN.</li>
@@ -664,9 +670,9 @@
 <code>SpotVA1</code>: Updated help documentation.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-1-11-oct-15" class="section level1">
+    <div id="fsa-0-8-1-10-oct-15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-1-11-oct-15" class="anchor"></a>FSA 0.8.1 11-Oct-15<small> 2015-10-10 </small>
+<a href="#fsa-0-8-1-10-oct-15" class="anchor"></a>FSA 0.8.1 10-Oct-15<small> 2015-10-10 </small>
 </h1>
 <ul>
 <li><strong>Submitted to CRAN.</strong></li>
@@ -3307,26 +3313,26 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
         <li><a href="#fsa-0-8-21-ongoing">0.8.21</a></li>
-        <li><a href="#fsa-0-8-20-17-may-18">0.8.20</a></li>
-        <li><a href="#fsa-0-8-19-2-apr-18">0.8.19</a></li>
+        <li><a href="#fsa-0-8-20-18-may-18">0.8.20</a></li>
+        <li><a href="#fsa-0-8-19-8-apr-18">0.8.19</a></li>
         <li><a href="#fsa-0-8-18-31-mar-18">0.8.18</a></li>
         <li><a href="#fsa-0-8-17-29-oct-17">0.8.17</a></li>
         <li><a href="#fsa-0-8-16-7-sep-17">0.8.16</a></li>
         <li><a href="#fsa-0-8-15-6-sep-17">0.8.15</a></li>
-        <li><a href="#fsa-0-8-14-7-jul-17">0.8.14</a></li>
-        <li><a href="#fsa-0-8-13-30-apr-17">0.8.13</a></li>
+        <li><a href="#fsa-0-8-14-27-jul-17">0.8.14</a></li>
+        <li><a href="#fsa-0-8-13-29-apr-17">0.8.13</a></li>
         <li><a href="#fsa-0-8-12-12-mar-17">0.8.12</a></li>
         <li><a href="#fsa-0-8-11-13-dec-16">0.8.11</a></li>
         <li><a href="#fsa-0-8-10-24-sep-16">0.8.10</a></li>
-        <li><a href="#fsa-0-8-9-22-aug-16">0.8.9</a></li>
+        <li><a href="#fsa-0-8-9-23-aug-16">0.8.9</a></li>
         <li><a href="#fsa-0-8-8-18-jul-16">0.8.8</a></li>
-        <li><a href="#fsa-0-8-7-7-may-16">0.8.7</a></li>
-        <li><a href="#fsa-0-8-6-24-mar-16">0.8.6</a></li>
-        <li><a href="#fsa-0-8-5-13-feb-16">0.8.5</a></li>
+        <li><a href="#fsa-0-8-7-8-may-16">0.8.7</a></li>
+        <li><a href="#fsa-0-8-6-25-mar-16">0.8.6</a></li>
+        <li><a href="#fsa-0-8-5-14-feb-16">0.8.5</a></li>
         <li><a href="#fsa-0-8-4-21-dec-15">0.8.4</a></li>
-        <li><a href="#fsa-0-8-3-22-oct-15">0.8.3</a></li>
+        <li><a href="#fsa-0-8-3-23-oct-15">0.8.3</a></li>
         <li><a href="#fsa-0-8-2-22-oct-15">0.8.2</a></li>
-        <li><a href="#fsa-0-8-1-11-oct-15">0.8.1</a></li>
+        <li><a href="#fsa-0-8-1-10-oct-15">0.8.1</a></li>
         <li><a href="#fsa-0-8-0-8-oct-15">0.8.0</a></li>
         <li><a href="#fsa-0-7-11-oct15">0.7.11</a></li>
         <li><a href="#fsa-0-7-10-oct15">0.7.10</a></li>
