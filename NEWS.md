@@ -12,13 +12,15 @@
 * Bootstrapping functions: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
 * `capHistSum()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
 * `chapmanRobson()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
+* `fishR()`: Modified. Changed examples in documentation to not be run (so as not to open an external webpage).
+* `FSAnews()`: Modified. Changed examples in documentation to not be run (so as not to open an external webpage).
 * Growth models: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
 * `hist.formula()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
 * `lwCompPreds()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
 * `residPlot()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
 
 
-# FSA 0.8.20 17-May-18
+# FSA 0.8.20 18-May-18
 * Added `asbio`, `DescTools`, `nlme`, and `psych` packages to Suggests because they are used in tests (and as will soon be required by CRAN ... per an e-mail from CRAN on 17-May-18).
 * Fixed a bunch of bad links to other packages in the documentation.
 * Removed the "Date" field from the Description file.
@@ -28,7 +30,7 @@
 * `mrClosed()`: Modified. Fixed a bug that was related to `poiCI()` returning results from all four types. Now `mrClosed()` will use only one type. Thanks to Timothy Spiers for pointing out this bug.
 * `SMBassWB`: Modified. Fixed minor data entry error in row 404. Changed link in documentation from `alr3` to `alr4` package.
 
-# FSA 0.8.19 2-Apr-18
+# FSA 0.8.19 8-Apr-18
 * `addZeroCatch()`: Modified. Changed two `1:nrow()` structures to `seq_len(nrow())` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
 * `ageBias()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
 * `agePrecision()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
@@ -85,13 +87,13 @@
 * `removal()`: Modified document by merging pull request [#33](https://github.com/droglenc/FSA/pull/33).
 * `srStarts()`: Modified. Added `fixed=`. Added some catches for poor starting values. Added relevant tests. Addresses [#30](https://github.com/droglenc/FSA/issues/30).
 
-# FSA 0.8.14 7-Jul-17
+# FSA 0.8.14 27-Jul-17
 * Moved `dunn.test` and `lmtest` to `imports` to help with portability for workshops.
 * `ageBias()`: Modified. Fixed bug in `plot()` so that the tick marks on the marginal histograms match the tick marks on the main plot. Changed the default `hist.panel.size=` in `plot()` so that it more reliably prints the values on the axes of the marginal histograms.
 * `removal()`: Modified. Added "warnings" for when all catches are zeroes (an object is still returned with all `NA`s). Thanks to Daniel Hanks for pointing out this issue.
 * `Summarize()`: Modified. Fixed bug when `percZero!="always"` and there are no valid values such that the calculated percent of zeroes is `NA`.
 
-# FSA 0.8.13 30-Apr-17
+# FSA 0.8.13 29-Apr-17
 * `ageBias()`: Modified. A complete rebuild of `plot`. Major changes are to add `plotAB()` which is primarily used to make the "legacy" age bias plots of Campana, removal of the "sunflower" plot option, new sets of defaults for many of the arguments that reflect my preferences for visualizing age comparisons (which includes defaulting to plotting differences in ages), addition of the ability to add marginal histograms (`xHist=`, `yHist=`, `col.hist=`, and `hist.panel.size=`), better handling of axis ticks and labels (primarily to show ticks at integers and make sure 0 is included for differences), and allowing the ability to add "summary layers" to the main plot (see `allowAdd=`). Many examples were added. Some functionality from previous versions will be broken.
 * `capFirst()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 * `compIntercepts()`: Modified. Replaced two `dim()` calls with `nrow()`.
@@ -179,7 +181,7 @@
 * `Summarize()`: Modified.  Added `nvalid=` and `percZero` to only print the nvalid and percZero result if they are "interesting" (i.e., different than n or zero, respectively) by default (may be manually over-ridden).  Modified tests.
 * `vbStarts()`: Modified.  Added `na.rm=TRUE` to checking of Linf values.
 
-# FSA 0.8.9 22-Aug-16
+# FSA 0.8.9 23-Aug-16
 * `ageComparison()`: Modified.  Removed an internal call to `fact2num()` because of changes to `Summarize()` below.  Should not impact user experience.
 * `diags()`: Added.
 * `gompertzFuns()`: Modified.  Fixed some spacing around the message when `msg=TRUE`.
@@ -191,7 +193,7 @@
 * `vbFuns()`: Modified.  Added Pauly et al. (1992) seasonal cessation function.  Slightly modified messages for "Typical" and "Original" parameterizations.
 * `vbStarts()`: Modified.  Added `fixed=` so that the user can define some of the starting values.  Added Pauly et al. (1992) seasonal cessation function.  Added tests for `fixed=`.
 
-# FSA 0.8.7 7-May-16
+# FSA 0.8.7 8-May-16
 * Compiled under R v3.3.0.
 * Removed `relax` from `Suggests`.  See `srStarts()` and `vbStarts()` notes below.  This addresses [#17](https://github.com/droglenc/FSA/issues/17).
 * Removed `gdata` from `Imports`.  See `filterD()` and `Subset()` notes below.  This addresses [#5](https://github.com/droglenc/FSA/issues/5).
@@ -220,7 +222,7 @@
 * `vbModels()`: Removed.  Replaced with `growthFunShow()`.
 * `vbStarts()`: Modified.  Removed `dynamicPlot=TRUE` option.  Moved it to `FSAsim` package.  Added `param=` to match other `vbXXX()` (works as does `type=`).  Modified plot when `plot=TRUE` by adding "STARTING VALUES" to title and moving starting values to within the plot.  Added and `col.main=`.  Made warnings and error tests more explicit.
 
-# FSA 0.8.6 24-Mar-16
+# FSA 0.8.6 25-Mar-16
 * Fixed problems with tests, and made the tests more explicit, related to PSD and Wr functions.  Suppressed some warnings related to `sumTable()` in ALK related tests and `Summarize()` in age comparisons tests.  Prompted by forthcoming changes to `testthat`.
 * Removed `News.md` from `.Rbuildignore` (apparently now supported by CRAN).
 * `alkPlot()`: Modified.  Changed so that `xlim=` and `ylim=` would work when `type="area"` and `type="bar"`.  This fixes [#10](https://github.com/droglenc/FSA/issues/10) (Thanks to Joseph Feldhaus).
@@ -236,7 +238,7 @@
 * `purl2()`: Modified.  Added `delHeader=` argument and functionality.
 
 
-# FSA 0.8.5 13-Feb-16
+# FSA 0.8.5 14-Feb-16
 * Added URL for fishR webpage in DESCRIPTION per CRAN request.  Removed it from the URL field in DESCRIPTION.
 * Updated all references to Ogle (2016) in documentation.
 
@@ -259,7 +261,7 @@
 * `sumTable()`: Modified tests (but with `dimnames()`).
 
 
-# FSA 0.8.3 22-Oct-15
+# FSA 0.8.3 23-Oct-15
 * Removed vignetteBuilder from DESCRIPTION (remnant from a vignette I built and then removed) at request of CRAN.
 
 # FSA 0.8.2 22-Oct-15
@@ -271,7 +273,7 @@
 * `PikeNYPartial1`: Updated help documentation.
 * `SpotVA1`: Updated help documentation.
 
-# FSA 0.8.1 11-Oct-15
+# FSA 0.8.1 10-Oct-15
 * **Submitted to CRAN.**
 * `col2rgbt()`: Added.
 * `compIntercepts()`: Added.

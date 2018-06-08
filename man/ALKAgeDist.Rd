@@ -2,7 +2,7 @@
 % Please edit documentation in R/alkSummaries.R
 \name{alkAgeDist}
 \alias{alkAgeDist}
-\title{Proportions-at-age from an Age-Length Key}
+\title{Proportions-at-age from an age-length key}
 \usage{
 alkAgeDist(key, lenA.n, len.n)
 }
