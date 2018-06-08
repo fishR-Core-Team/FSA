@@ -22,6 +22,8 @@
 #' 
 #' @source From Figure 4 in Soto, D., I. Arismendi, C. Di Prinzio, and F. Jara.  2007.  Establishment of Chinook salmon (\emph{Oncorhynchus tshawytscha}) in Pacific basins of southern South America and its potential ecosystem implications.  Revista Chilena d Historia Natural, 80:81-98.  [Was (is?) from http://www.scielo.cl/pdf/rchnat/v80n1/art07.pdf.]
 #' 
+#' @seealso Used in \code{\link{lwCompPreds}} examples.
+#' 
 #' @keywords datasets
 #' 
 #' @examples

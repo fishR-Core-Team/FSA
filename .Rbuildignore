@@ -4,6 +4,7 @@
 
 ## Raw data files
 ^data-raw$
+
 ## Miscellaneous webpage and package files
 README.md
 LICENSE
@@ -12,3 +13,8 @@ LICENSE
 cran-comments.md
 ^cran-comments
 ^appveyor\.yml$
+^_pkgdown\.yml
+
+## Logo
+inst/sticker/
+man/figures/logo.png

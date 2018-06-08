@@ -22,5 +22,7 @@
 #' 
 #' @source McKendrick, A.G. and M. Kesava Pai. 1911. The Rate of Multiplication of Micro-Organisms: a Mathematical Study. Proceedings of the Royal Society of Edinburgh. 31: 649-655.
 #' 
+#' @seealso Used in \code{\link{bootCase}} and \code{\link{fitPlot}} examples.
+#' 
 #' @keywords datasets
 NULL

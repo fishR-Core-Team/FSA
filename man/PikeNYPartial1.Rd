@@ -36,6 +36,9 @@ str(PikeNYPartial1)
 head(PikeNYPartial1)
 
 }
+\seealso{
+Used in \code{\link{capHistSum}} and \code{\link{mrClosed}} examples. Also see \code{\link{PikeNY}}.
+}
 \concept{
 Abundance 'Population Size' 'Mark-Recapture' 'Capture-Recapture' 'Schnabel' 'Capture History'
 }

@@ -33,6 +33,9 @@ plot(w~tl,data=ChinookArg,subset=loc=="Puyehue")
 par(op)
 
 }
+\seealso{
+Used in \code{\link{lwCompPreds}} examples.
+}
 \concept{
 'Weight-Length'
 }

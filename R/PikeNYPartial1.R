@@ -30,6 +30,8 @@
 #'
 #' @source Summary values taken from Table C-1 of New York Power Authority. 2004. Use of Buckhorn Marsh and Grand Island tributaries by Northern Pike for spawning and as a nursery. Technical report, New York Power Authority, January 2004. Niagara Power Project (FERC No. 2216).
 #'
+#' @seealso Used in \code{\link{capHistSum}} and \code{\link{mrClosed}} examples. Also see \code{\link{PikeNY}}.
+#' 
 #' @keywords datasets
 #'
 #' @examples

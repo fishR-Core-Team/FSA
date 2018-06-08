@@ -34,6 +34,9 @@ str(PikeNY)
 head(PikeNY)
 
 }
+\seealso{
+Used in \code{\link{mrClosed}} examples. Also see \code{\link{PikeNYPartial1}}.
+}
 \concept{
 Abundance 'Population Size' 'Mark-Recapture' 'Capture-Recapture' 'Schnabel'
 }

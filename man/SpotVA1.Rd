@@ -33,7 +33,7 @@ plot(tl~age,data=SpotVA1)
 
 }
 \seealso{
-See \code{\link[FSAdata]{SpotVA2}} in \pkg{FSAdata} for related data.
+Used in \code{\link{vbFuns}}, \code{\link{vbStarts}}, and \code{\link{nlsTracePlot}} examples. Also see \code{\link[FSAdata]{SpotVA2}} in \pkg{FSAdata} for related data.
 }
 \concept{
 Growth 'von Bertalanffy'

@@ -27,6 +27,8 @@
 #'
 #' @source From Omand, D.N. 1951. A study of populations of fish based on catch-effort statistics. Journal of Wildlife Management, 15:88-98.
 #'
+#' @seealso Used in \code{\link{depletion}} examples.
+#' 
 #' @keywords datasets
 #'
 #' @examples
