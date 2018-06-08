@@ -1,0 +1,166 @@
+title: FSA
+
+url: http://derekogle.com/FSA
+
+authors:
+  Derek H. Ogle:
+    href: http://derekogle.com
+    
+template:
+  params:
+    bootswatch: spacelab
+  
+development:
+  mode: auto
+  
+reference:
+  - title: Age Comparisons
+    desc: Functions to summarize and visualize bias and precision among multiple estimates of age for individual fish.
+    contents:
+      - ageBias
+      - agePrecision
+      - plotAB
+  - title: Age-Length Keys
+    desc: XXX
+    contents:
+      - alkIndivAge
+      - alkPlot
+      - alkAgeDist
+      - alkPlot
+  - title: Size Structure
+    desc: XXX
+    contents:
+      - PSDlit
+      - psdVal
+      - psdPlot
+      - psdCalc
+      - psdCI
+      - psdADD
+      - tictactoe
+  - title: Condition and Weight-Length
+    desc: XXX
+    contents:
+      - WSlit
+      - wsVal
+      - wrAdd
+      - lwCompPreds
+  - title: Abundance (Capture-Recapture)
+    desc: XXX
+    contents:
+      - mrClosed
+      - mrOpen
+      - capHistConvert
+      - caphHistSum
+  - title: Abundance (Depletion)
+    desc: XXX
+    contents:
+      - depletion
+      - removal
+  - title: Individual Growth
+    desc: XXX
+    contents:
+      - vbFuns
+      - vbStarts
+      - GompertzFuns
+      - logristicFuns
+      - RichardsFuns
+      - Schnute
+      - growthFunShow
+  - title: Mortality Rates
+    desc: XXX
+    contents:
+      - catchCurve
+      - chapmanRobson
+      - metaM
+      - Mmethods
+  - title: Stock-Recruiment
+    desc: XXX
+    contents:
+      - srFuns
+      - srFunShow
+      - srStarts
+  - title: Utilities (Fisheries-Specific)
+    desc: XXX
+    contents:
+      - addZeroCatch
+      - expandCounts
+      - expandLenFreq
+      - lencat
+  - title: Utilities (General Statistics)
+    desc: XXX
+    contents:
+      - binCI
+      - hyperCI
+      - poiCI
+      - bootstrap
+      - compIntercepts
+      - compSlopes
+      - dunnTest
+      - extraSS
+      - fitPlot
+      - geomean
+      - geosd
+      - hist.formula
+      - histFromSum
+      - hoCoef
+      - htest
+      - ksTest
+      - logbtcf
+      - lrt
+      - nlsTracePlot
+      - pcumsum
+      - rcumsum
+      - plotBinResp
+      - residPlot
+      - se
+      - Summarize
+      - sumTable
+  - title: Utilities (Other)
+    desc: XXX
+    contents:
+      - capFirst
+      - chooseColors
+      - paletteChoices
+      - col2rgbt
+      - diags
+      - fact2num
+      - filterD
+      - headtail
+      - is.even
+      - is.odd
+      - lagratio
+      - mapvalues
+      - perc
+      - validn
+  - title: Data
+    desc: XXXData files.
+    contents:
+      - BluegillJL
+      - BrookTroutTH
+      - ChinookArg
+      - CodNorwegian
+      - CutthroatAL
+      - Ecoli
+      - Mirex
+      - PikeNY
+      - PikeNYPartial1
+      - PSDlit
+      - SMBassLS
+      - SMBassWB
+      - SpotVA1
+      - WhitefishLC
+      - WR79
+      - WSlit
+
+navbar:
+  type: inverse
+  left:
+    - text: Reference
+      href: reference/index.html
+    - text: News
+      href: news/index.html
+  right:
+    - icon: fa-home fa-2x
+      href: index.html
+    - icon: fa-github fa-2x
+      href: https://github.com/droglenc/FSA
