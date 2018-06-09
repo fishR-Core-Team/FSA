@@ -8,5 +8,3 @@
 .Rproj.user
 # Compiled news file
 NEWS.html
-# Others
-inst/doc

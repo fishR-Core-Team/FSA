@@ -11,7 +11,7 @@ template:
     bootswatch: spacelab
   
 development:
-  mode: auto
+  mode: release
   
 reference:
   - title: Age Comparisons
@@ -26,7 +26,7 @@ reference:
       - alkIndivAge
       - alkPlot
       - alkAgeDist
-      - alkPlot
+      - alkMeanVar
   - title: Size Structure
     desc: Efficiently calculate and summarize proportional size distribution (PSD) data.
     contents:
@@ -35,7 +35,7 @@ reference:
       - psdPlot
       - psdCalc
       - psdCI
-      - psdADD
+      - psdAdd
       - tictactoe
   - title: Condition and Weight-Length
     desc: Efficiently calculate and summarize relative weight and visualize weight-length data among groups with different slopes.
@@ -50,7 +50,7 @@ reference:
       - mrClosed
       - mrOpen
       - capHistConvert
-      - caphHistSum
+      - capHistSum
   - title: Abundance (Depletion)
     desc: Estimate abundance with depletion and removal data.
     contents:
@@ -104,6 +104,7 @@ reference:
       - pcumsum
       - plotBinResp
       - residPlot
+      - rSquared
       - se
       - Summarize
       - sumTable
