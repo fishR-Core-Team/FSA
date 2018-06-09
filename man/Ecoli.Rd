@@ -23,6 +23,9 @@ The number of \emph{Escherichia coli} cells versus time.
  }
 }
 
+\seealso{
+Used in \code{\link{bootCase}} and \code{\link{fitPlot}} examples.
+}
 \concept{
 'Nonlinear Model' Other
 }

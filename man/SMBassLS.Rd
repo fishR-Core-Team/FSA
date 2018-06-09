@@ -33,6 +33,9 @@ str(SMBassLS)
 head(SMBassLS)
 
 }
+\seealso{
+Used in \code{\link{depletion}} examples.
+}
 \concept{
 Abundance 'Population Size' Depletion Leslie DeLury Catchability
 }

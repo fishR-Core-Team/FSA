@@ -2,7 +2,7 @@
 % Please edit documentation in R/alkSummaries.R
 \name{alkMeanVar}
 \alias{alkMeanVar}
-\title{Mean Values-at-age from an Age-Length Key}
+\title{Mean Values-at-age from an age-length key}
 \usage{
 alkMeanVar(key, formula, data, len.n, method = c("BettoliMiranda",
   "QuinnDeriso"))

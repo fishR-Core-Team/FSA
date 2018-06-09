@@ -1,4 +1,4 @@
-#' @title Proportions-at-age from an Age-Length Key
+#' @title Proportions-at-age from an age-length key
 #' 
 #' @description Computes the proportions-at-age (with standard errors) in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design.  Follows the methods in Quinn and Deriso (1999).
 #' 
@@ -96,7 +96,7 @@ iALKAgeProp <- function(p_jgi,l_i,n_i,N) {
 
 
 
-#' @title Mean Values-at-age from an Age-Length Key
+#' @title Mean Values-at-age from an age-length key
 #' 
 #' @description Computes the mean value-at-age in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design.  The mean values could be mean length-, weight-, or fecundity-at-age, for example.  The methods of Bettoli and Miranda (2001) or Quinn and Deriso (1999) are used.  A standard deviation is computed for the Bettoli and Miranda (2001) method and standard error for the Quinn and Deriso (1999) method.  See the testing section notes.
 #' 

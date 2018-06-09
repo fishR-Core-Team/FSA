@@ -1,0 +1,156 @@
+title: FSA
+
+url: http://derekogle.com/FSA
+
+authors:
+  Derek H. Ogle:
+    href: http://derekogle.com
+    
+template:
+  params:
+    bootswatch: spacelab
+  
+development:
+  mode: auto
+  
+reference:
+  - title: Age Comparisons
+    desc: Summarize and visualize bias and precision among multiple estimates of age for individual fish.
+    contents:
+      - ageBias
+      - agePrecision
+      - plotAB
+  - title: Age-Length Keys
+    desc: Process age-length keys including assigning ages to indvidual fish and visualizing a key.
+    contents:
+      - alkIndivAge
+      - alkPlot
+      - alkAgeDist
+      - alkPlot
+  - title: Size Structure
+    desc: Efficiently calculate and summarize proportional size distribution (PSD) data.
+    contents:
+      - PSDlit
+      - psdVal
+      - psdPlot
+      - psdCalc
+      - psdCI
+      - psdADD
+      - tictactoe
+  - title: Condition and Weight-Length
+    desc: Efficiently calculate and summarize relative weight and visualize weight-length data among groups with different slopes.
+    contents:
+      - WSlit
+      - wsVal
+      - wrAdd
+      - lwCompPreds
+  - title: Abundance (Capture-Recapture)
+    desc: Estimate abundance with capture-recapture data, including handling and summarizing data in a capture history format.
+    contents:
+      - mrClosed
+      - mrOpen
+      - capHistConvert
+      - caphHistSum
+  - title: Abundance (Depletion)
+    desc: Estimate abundance with depletion and removal data.
+    contents:
+      - depletion
+      - removal
+  - title: Individual Growth
+    desc: Fit various growth models (von Bertalanffy, Gompertz, logistic, Richards, Schnute) to individual fish.
+    contents:
+      - vbFuns
+      - vbStarts
+      - Schnute
+  - title: Mortality Rates
+    desc: Estimate mortality rates from catch curve data and empirical models.
+    contents:
+      - catchCurve
+      - chapmanRobson
+      - metaM
+  - title: Stock-Recruiment
+    desc: Fit various (Beverton-Holt, Ricker, Shepherd) stock-recruitment functions.
+    contents:
+      - srFuns
+      - srStarts
+  - title: Utilities (Fisheries-Specific)
+    desc: Utilities that are likely useful only to fisheries scientists.
+    contents:
+      - addZeroCatch
+      - expandCounts
+      - expandLenFreq
+      - lencat
+  - title: Utilities (General Statistics)
+    desc: Utilities of a statistical nature that are likely to be useful to a fisheries scientist.
+    contents:
+      - binCI
+      - hyperCI
+      - poiCI
+      - bootstrap
+      - compIntercepts
+      - compSlopes
+      - dunnTest
+      - extraSS
+      - fitPlot
+      - geomean
+      - hist.formula
+      - histFromSum
+      - hoCoef
+      - htest
+      - ksTest
+      - logbtcf
+      - lrt
+      - nlsTracePlot
+      - pcumsum
+      - plotBinResp
+      - residPlot
+      - se
+      - Summarize
+      - sumTable
+  - title: Utilities (Other)
+    desc: Miscellaneous utilities.
+    contents:
+      - capFirst
+      - chooseColors
+      - col2rgbt
+      - diags
+      - fact2num
+      - filterD
+      - headtail
+      - is.even
+      - lagratio
+      - mapvalues
+      - perc
+      - validn
+  - title: Data
+    desc: Data files.
+    contents:
+      - BluegillJL
+      - BrookTroutTH
+      - ChinookArg
+      - CodNorwegian
+      - CutthroatAL
+      - Ecoli
+      - Mirex
+      - PikeNY
+      - PikeNYPartial1
+      - PSDlit
+      - SMBassLS
+      - SMBassWB
+      - SpotVA1
+      - WhitefishLC
+      - WR79
+      - WSlit
+
+navbar:
+  type: inverse
+  left:
+    - text: Reference
+      href: reference/index.html
+    - text: News
+      href: news/index.html
+  right:
+    - icon: fa-home fa-2x
+      href: index.html
+    - icon: fa-github fa-2x
+      href: https://github.com/droglenc/FSA

@@ -133,7 +133,8 @@ chooseColors <- function(pal=paletteChoices(),num,rev=FALSE,...) {
 
 #' @rdname chooseColors
 #' @export
-paletteChoices <- function() c("rich","cm","default","grey","gray","heat","jet","rainbow","topo","terrain")
+paletteChoices <- function() c("rich","cm","default","grey","gray","heat",
+                               "jet","rainbow","topo","terrain")
 
 
 #' @title Converts an R color to RGB (red/green/blue) including a transparency (alpha channel).
@@ -163,7 +164,8 @@ paletteChoices <- function() c("rich","cm","default","grey","gray","heat","jet",
 #' @export
 col2rgbt <- function(col,transp=1) {
   if (length(transp)==1) transp <- rep(transp,length(col))
-  if (length(col)!=length(transp)) STOP("Length of 'transp' must be 1 or same as length of 'col'.")
+  if (length(col)!=length(transp))
+    STOP("Length of 'transp' must be 1 or same as length of 'col'.")
   mapply(iMakeColor,col,transp,USE.NAMES=FALSE)
 }
 
@@ -224,8 +226,10 @@ col2rgbt <- function(col,transp=1) {
 diags <- function(x,which=0,incl.labels=c("none","row","column"),
                   val.name="value",label.name="label") {
   ## check if matrix
-  if (!is.matrix(x)) STOP("'diags' only works with matrices.")
-  if (nrow(x)==1 | ncol(x)==1) STOP("'x' must have more than 1 row and more than 1 column.")
+  if (!is.matrix(x))
+    STOP("'diags' only works with matrices.")
+  if (nrow(x)==1 | ncol(x)==1)
+    STOP("'x' must have more than 1 row and more than 1 column.")
   ## find indices of diagonals for the matrix
   ## idea from http://stackoverflow.com/a/27935808/1123933
   ind <- row(x)-col(x)
@@ -238,12 +242,15 @@ diags <- function(x,which=0,incl.labels=c("none","row","column"),
     cat("\n") # nocov end
   } else {
     ## extract diagonal from x according to which
-    if (which>max(ind) | which<min(ind)) STOP("The 'which' diagonal does not exist in 'x'.")
+    if (which>max(ind) | which<min(ind))
+      STOP("The 'which' diagonal does not exist in 'x'.")
     res <- x[ind==which]
     ## handle adding names
     incl.labels <- match.arg(incl.labels)
-    if (incl.labels=="row") res2 <- rownames(x)[apply(ind,MARGIN=1,FUN=function(x) any(x==which))]
-    else if (incl.labels=="column") res2 <- colnames(x)[apply(ind,MARGIN=2,FUN=function(x) any(x==which))]
+    if (incl.labels=="row")
+      res2 <- rownames(x)[apply(ind,MARGIN=1,FUN=function(x) any(x==which))]
+    else if (incl.labels=="column")
+      res2 <- colnames(x)[apply(ind,MARGIN=2,FUN=function(x) any(x==which))]
     else res2 <- NULL
     ## put together as data.frame and return
     if (!is.null(res2)) {
@@ -290,11 +297,14 @@ diags <- function(x,which=0,incl.labels=c("none","row","column"),
 fact2num <- function(object) {
   ## Don't continue if object is not a factor or character 
   ## i.e., does not fit the purpose of this function
-  if (!inherits(object,c("factor","character"))) STOP("'object' is not a factor or character and does not fit the purpose of this function.")
+  if (!inherits(object,c("factor","character")))
+    STOP("'object' is not a factor or character and",
+         "does not fit the purpose of this function.")
   ## Convert factor to character and then numeric
   suppressWarnings(res <- as.numeric(as.character(object)))
   ## If all na's then stop because values were not numeric-like, else return
-  if (all(is.na(res))) STOP("Conversion aborted because all levels in 'object' are not 'numbers'.")
+  if (all(is.na(res)))
+    STOP("Conversion aborted because all levels in 'object' are not 'numbers'.")
   else as.vector(res)
 }
 
@@ -312,20 +322,19 @@ fact2num <- function(object) {
 #' @keywords misc
 #' 
 #' @examples
-#' ## ONLY RUN IN INTERACTIVE MODE
-#' if (interactive()) {
-#' 
+#' \dontrun{
+#' ## Opens an external webpage ... only run interactively
 #' fishR()            # home page
 #' fishR("IFAR")      # Introduction to Fisheries Analysis with R page
-#' fishR("general")   # exapmles page
+#' fishR("general")   # examples page
 #' fishR("books")     # examples page
-#' fishR("AIFFD")     # Analysis & Interpretation of Freshwater Fisheries Data page
+#' fishR("AIFFD")     # Analysis & Interpretation of Freshw. Fisher. Data page
 #' fishR("posts")     # blog posts (some examples) page
-#' 
-#' } ## END IF INTERACTIVE MODE
+#' }
 #' 
 #' @export
-fishR <- function(where=c("home","IFAR","general","books","AIFFD","posts","news")) {
+fishR <- function(where=c("home","IFAR","general","books",
+                          "AIFFD","posts","news")) {
   where <- match.arg(where)
   tmp <- "http://derekogle.com/"
   switch(where,
@@ -354,13 +363,10 @@ fishR <- function(where=c("home","IFAR","general","books","AIFFD","posts","news"
 #' @keywords manip
 #' 
 #' @examples
-#' ## ONLY RUN IN INTERACTIVE MODE
-#' if (interactive()) {
-#' 
-#' fsaNews()
+#' \dontrun{
+#' ## Opens an external webpage ... only run interactively
 #' FSANews()
-#'
-#'}  ## END IF INTERACTIVE MODE
+#' }
 #' 
 #' @rdname fsaNews
 #' @export
@@ -419,8 +425,10 @@ FSANews <- function () {
 #' @export
 headtail <- function(x,n=3L,which=NULL,addrownums=TRUE,...) {
   ## Some checks
-  if (!(is.matrix(x) | is.data.frame(x))) STOP("'x' must be a matrix or data.frame.")
-  if (length(n)!=1L) STOP("'n' must be a single number.")
+  if (!(is.matrix(x) | is.data.frame(x)))
+    STOP("'x' must be a matrix or data.frame.")
+  if (length(n)!=1L)
+    STOP("'n' must be a single number.")
   ## Remove tbl_df class if it exists
   if ("tbl_df" %in% class(x)) x <- as.data.frame(x)
   ## Process data.frame
@@ -469,8 +477,10 @@ headtail <- function(x,n=3L,which=NULL,addrownums=TRUE,...) {
 #' @export
 hoCoef <- function(object,term=2,bo=0,alt=c("two.sided","less","greater")) {
   alt <- match.arg(alt)
-  if (!"lm" %in% class(object)) STOP("'object' must be from 'lm'.")
-  if (!term>0) STOP("'term' must be a positive number.")
+  if (!"lm" %in% class(object))
+    STOP("'object' must be from 'lm'.")
+  if (!term>0)
+    STOP("'term' must be a positive number.")
   tmp <- summary(object)$coefficients
   if (term>length(rownames(tmp)))
     STOP("'term' is greater than number of terms in the model.")
@@ -530,10 +540,12 @@ hoCoef <- function(object,term=2,bo=0,alt=c("two.sided","less","greater")) {
 #' lagratio(10:1,2,2,direction="forward")
 #'
 #' @export
-lagratio <- function(x,lag=1L,recursion=1L,differences=recursion,direction=c("backward","forward"),...) {
+lagratio <- function(x,lag=1L,recursion=1L,differences=recursion,
+                     direction=c("backward","forward"),...) {
   ## Some checks
   direction <- match.arg(direction)
-  if(any(x==0)) STOP("Will not work with zeros in 'x'.")
+  if(any(x==0))
+    STOP("Will not work with zeros in 'x'.")
   if(inherits(x,c("POSIXt","POSIXct")))
     STOP("Function does not work for 'POSIXt' objects.")
   if (!recursion>0) STOP("'recursion' value must be >0.")
@@ -675,12 +687,14 @@ iOddEven <- function(x,checkval) {
 #' perc(tmp,5,"lt",na.rm=FALSE)
 #' 
 #' @export
-perc <- function(x,val,dir=c("geq","gt","leq","lt"),na.rm=TRUE,digits=getOption("digits")) {
+perc <- function(x,val,dir=c("geq","gt","leq","lt"),na.rm=TRUE,
+                 digits=getOption("digits")) {
   ## Some checks
   dir <- match.arg(dir)
   if (!inherits(x,c("numeric","integer")))
     STOP("'perc' only works for numeric vectors.")
-  if (length(val)>1) WARN("Only the first value of 'val' was used.")
+  if (length(val)>1)
+    WARN("Only the first value of 'val' was used.")
   ## Find sample size (don't or do include NA values)
   n <- ifelse(na.rm,length(x[!is.na(x)]),length(x))
   ## Compute percentage in dir(ection) of val(ue), but return
@@ -829,7 +843,7 @@ rSquared <- function(object, ...) {
 #' @rdname rSquared
 #' @export
 rSquared.default <- function(object, ...) {
-  STOP(paste0("'rSquared' only works with 'lm', not '",class(object),"', objects"))
+  STOP("'rSquared' only works with 'lm', not '",class(object),"', objects")
 }
 
 #' @rdname rSquared
@@ -932,12 +946,14 @@ NULL
 #' @export
 Subset <- function(x,subset,select,drop=FALSE,resetRownames=TRUE,...) {
   if (!is.data.frame(x)) 
-    STOP("Subset should only be used with data frames. See ?subset for other structures.")
+    STOP("Subset should only be used with data frames. ",
+         "See ?subset for other structures.")
   if (missing(subset)) r <- TRUE
   else {
     e <- substitute(subset)
     r <- eval(e, x, parent.frame())
-    if (!is.logical(r)) STOP("'subset' must evaluate to logical.")
+    if (!is.logical(r))
+      STOP("'subset' must evaluate to logical.")
     r <- r & !is.na(r)
   }
   if (missing(select)) vars <- TRUE
@@ -1064,9 +1080,12 @@ geosd <- function(x,na.rm=FALSE,zneg.rm=FALSE) {
 
 
 iChk4Geos <- function(x,na.rm,zneg.rm) {
-  if (!is.vector(x)) STOP("'x' must be a vector.")
-  if (!is.numeric(x)) STOP("'x' must be a numeric vector.")
-  if (any(x<=0,na.rm=na.rm) & !zneg.rm) STOP("'x' must contain all positive values.")
+  if (!is.vector(x))
+    STOP("'x' must be a vector.")
+  if (!is.numeric(x))
+    STOP("'x' must be a numeric vector.")
+  if (any(x<=0,na.rm=na.rm) & !zneg.rm)
+    STOP("'x' must contain all positive values.")
   if (any(x<=0,na.rm=na.rm) & zneg.rm) {
     WARN("Some non-positive values were ignored/removed.")
     # remove non-positive values
