@@ -61,23 +61,17 @@ reference:
     contents:
       - vbFuns
       - vbStarts
-      - GompertzFuns
-      - logristicFuns
-      - RichardsFuns
       - Schnute
-      - growthFunShow
   - title: Mortality Rates
     desc: Estimate mortality rates from catch curve data and empirical models.
     contents:
       - catchCurve
       - chapmanRobson
       - metaM
-      - Mmethods
   - title: Stock-Recruiment
     desc: Fit various (Beverton-Holt, Ricker, Shepherd) stock-recruitment functions.
     contents:
       - srFuns
-      - srFunShow
       - srStarts
   - title: Utilities (Fisheries-Specific)
     desc: Utilities that are likely useful only to fisheries scientists.
@@ -99,7 +93,6 @@ reference:
       - extraSS
       - fitPlot
       - geomean
-      - geosd
       - hist.formula
       - histFromSum
       - hoCoef
@@ -109,7 +102,6 @@ reference:
       - lrt
       - nlsTracePlot
       - pcumsum
-      - rcumsum
       - plotBinResp
       - residPlot
       - se
@@ -120,14 +112,12 @@ reference:
     contents:
       - capFirst
       - chooseColors
-      - paletteChoices
       - col2rgbt
       - diags
       - fact2num
       - filterD
       - headtail
       - is.even
-      - is.odd
       - lagratio
       - mapvalues
       - perc

@@ -10,10 +10,10 @@
 FSA  <img src="man/figures/logo.png" align="right" height="200" />
 ===
 
-The **FSA** (Fisheries Stock Assessment) package provides R functions to conduct typical introductory fisheries analyses.  Example analyses that use **FSA** can be found on [the *Examples* page](http://derekogle.com/fishR/examples/) of the [fishR website](http://derekogle.com/fishR).  You can [browse help pages here](http://finzi.psych.upenn.edu/library/FSA/html/00Index.html).  Recent changes are described in this [News file](https://github.com/droglenc/FSA/blob/master/NEWS.md)
+The **FSA** (Fisheries Stock Assessment) package provides R functions to conduct typical introductory fisheries analyses. Example analyses that use **FSA** can be found in the *Vignettes* tab at the top of this page and on [the *Examples* page](http://derekogle.com/fishR/examples/) of the [fishR website](http://derekogle.com/fishR). You can browse documentation for functions in **FSA** under the *References* table and recent changes under the *News* tab at the top of this page. Please [cite **FSA**](docs/dev/authors.html) if you use it in a publication (and [send me a note](mailto:derek@derekogle.com)).
 
 ## Installation
-The [most recent stable version (on CRAN)](https://cran.r-project.org/web/packages/FSA/index.html) of **FSA** may be installed with
+The [most recent stable version (on CRAN)](https://cloud.r-project.org/package=FSA) of **FSA** may be installed with
 
 ```r
 install.packages("FSA")
@@ -26,7 +26,7 @@ if (!require('devtools')) install.packages('devtools'); require('devtools')
 devtools::install_github('droglenc/FSA')
 ```
 
-You may need to have R Tools installed on your system to use the two lines above.  See the instructions for ([R Tools for Windows](https://cran.r-project.org/bin/windows/Rtools/) or [R Tools for Mac OS X](https://cran.r-project.org/bin/macosx/tools/)).
+You may need to have R Tools installed on your system to install the development version from GitHub. See the instructions for ([R Tools for Windows](https://cran.r-project.org/bin/windows/Rtools/) or [R Tools for Mac OS X](https://cran.r-project.org/bin/macosx/tools/)).
 
 
 ## Questions / Comments / Problems
