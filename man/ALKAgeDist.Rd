@@ -7,7 +7,7 @@
 alkAgeDist(key, lenA.n, len.n)
 }
 \arguments{
-\item{key}{A numeric matrix that contains the age-length key.  See details.}
+\item{key}{A numeric matrix that contains the age-length key. See details.}
 
 \item{lenA.n}{A numeric vector of sample sizes for each length interval in the \emph{aged sample}.}
 
@@ -22,17 +22,17 @@ A data.frame with as many rows as ages (columns) present in \code{key} and the f
  }
 }
 \description{
-Computes the proportions-at-age (with standard errors) in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design.  Follows the methods in Quinn and Deriso (1999).
+Computes the proportions-at-age (with standard errors) in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design. Follows the methods in Quinn and Deriso (1999).
 }
 \details{
-The age-length key in \code{key} must have length intervals as rows and ages as columns.  The row names of \code{key} (i.e., \code{rownames(key)}) must contain the minimum values of each length interval (e.g., if an interval is 100-109 then the corresponding row name must be 100).  The column names of \code{key} (i.e., \code{colnames(key)}) must contain the age values (e.g., the columns can NOT be named with \dQuote{age.1}, for example).
+The age-length key in \code{key} must have length intervals as rows and ages as columns. The row names of \code{key} (i.e., \code{rownames(key)}) must contain the minimum values of each length interval (e.g., if an interval is 100-109 then the corresponding row name must be 100). The column names of \code{key} (i.e., \code{colnames(key)}) must contain the age values (e.g., the columns can NOT be named with \dQuote{age.1}, for example).
 
-The length intervals in the rows of \code{key} must contain all of the length intervals present in the larger sample.  Thus, the length of \code{len.n} must, at least, equal the number of rows in \code{key}.  If this constraint is not met, then the function will stop with an error message.
+The length intervals in the rows of \code{key} must contain all of the length intervals present in the larger sample. Thus, the length of \code{len.n} must, at least, equal the number of rows in \code{key}. If this constraint is not met, then the function will stop with an error message.
 
-The values in \code{lenA.n} are equal to what the row sums of \code{key} would have been before \code{key} was converted to a row proportions table.  Thus, the length of \code{lenA.n} must also be equal to the number of rows in \code{key}.  If this constraint is not met, then the function will stop with an error message.
+The values in \code{lenA.n} are equal to what the row sums of \code{key} would have been before \code{key} was converted to a row proportions table. Thus, the length of \code{lenA.n} must also be equal to the number of rows in \code{key}. If this constraint is not met, then the function will stop with an error message.
 }
 \section{Testing}{
- The results from this function perfectly match the results in Table 8.4 (left) of Quinn and Deriso (1999) using \code{\link[FSAdata]{SnapperHG2}} from \pkg{FSAdata}.  The results also perfectly match the results from using \code{\link[fishmethods]{alkprop}} in \pkg{fishmethods}.
+ The results from this function perfectly match the results in Table 8.4 (left) of Quinn and Deriso (1999) using \code{\link[FSAdata]{SnapperHG2}} from \pkg{FSAdata}. The results also perfectly match the results from using \code{\link[fishmethods]{alkprop}} in \pkg{fishmethods}.
 }
 
 \section{IFAR Chapter}{
@@ -58,16 +58,16 @@ alkAgeDist(WR1.key,lenA.n,len.n)
 
 }
 \references{
-Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
-Lai, H.-L.  1987.  Optimum allocation for estimating age composition using age-length key. Fishery Bulletin, 85:179-185.
+Lai, H.-L. 1987. Optimum allocation for estimating age composition using age-length key. Fishery Bulletin, 85:179-185.
 
-Lai, H.-L.  1993.  Optimum sampling design for using the age-length key to estimate age composition of a fish population. Fishery Bulletin, 92:382-388.
+Lai, H.-L. 1993. Optimum sampling design for using the age-length key to estimate age composition of a fish population. Fishery Bulletin, 92:382-388.
 
 Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages.
 }
 \seealso{
-See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{\link[fishmethods]{alkprop}} from \pkg{fishmethods} for the exact same methodology but with a different format for the inputs.
+See \code{\link{alkIndivAge}} and related functions for a completely different methodology. See \code{\link[fishmethods]{alkprop}} from \pkg{fishmethods} for the exact same methodology but with a different format for the inputs.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

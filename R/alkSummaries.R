@@ -1,14 +1,14 @@
 #' @title Proportions-at-age from an age-length key
 #' 
-#' @description Computes the proportions-at-age (with standard errors) in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design.  Follows the methods in Quinn and Deriso (1999).
+#' @description Computes the proportions-at-age (with standard errors) in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design. Follows the methods in Quinn and Deriso (1999).
 #' 
-#' @details The age-length key in \code{key} must have length intervals as rows and ages as columns.  The row names of \code{key} (i.e., \code{rownames(key)}) must contain the minimum values of each length interval (e.g., if an interval is 100-109 then the corresponding row name must be 100).  The column names of \code{key} (i.e., \code{colnames(key)}) must contain the age values (e.g., the columns can NOT be named with \dQuote{age.1}, for example).
+#' @details The age-length key in \code{key} must have length intervals as rows and ages as columns. The row names of \code{key} (i.e., \code{rownames(key)}) must contain the minimum values of each length interval (e.g., if an interval is 100-109 then the corresponding row name must be 100). The column names of \code{key} (i.e., \code{colnames(key)}) must contain the age values (e.g., the columns can NOT be named with \dQuote{age.1}, for example).
 #' 
-#' The length intervals in the rows of \code{key} must contain all of the length intervals present in the larger sample.  Thus, the length of \code{len.n} must, at least, equal the number of rows in \code{key}.  If this constraint is not met, then the function will stop with an error message.
+#' The length intervals in the rows of \code{key} must contain all of the length intervals present in the larger sample. Thus, the length of \code{len.n} must, at least, equal the number of rows in \code{key}. If this constraint is not met, then the function will stop with an error message.
 #' 
-#' The values in \code{lenA.n} are equal to what the row sums of \code{key} would have been before \code{key} was converted to a row proportions table.  Thus, the length of \code{lenA.n} must also be equal to the number of rows in \code{key}.  If this constraint is not met, then the function will stop with an error message.
+#' The values in \code{lenA.n} are equal to what the row sums of \code{key} would have been before \code{key} was converted to a row proportions table. Thus, the length of \code{lenA.n} must also be equal to the number of rows in \code{key}. If this constraint is not met, then the function will stop with an error message.
 #' 
-#' @param key A numeric matrix that contains the age-length key.  See details.
+#' @param key A numeric matrix that contains the age-length key. See details.
 #' @param lenA.n A numeric vector of sample sizes for each length interval in the \emph{aged sample}.
 #' @param len.n A numeric vector of sample sizes for each length interval in the \emph{complete sample} (i.e., all fish regardless of whether they were aged or not).
 #' 
@@ -19,19 +19,19 @@
 #'   \item se The SE for the proportion of fish at each age.
 #'  }
 #' 
-#' @section Testing: The results from this function perfectly match the results in Table 8.4 (left) of Quinn and Deriso (1999) using \code{\link[FSAdata]{SnapperHG2}} from \pkg{FSAdata}.  The results also perfectly match the results from using \code{\link[fishmethods]{alkprop}} in \pkg{fishmethods}.
+#' @section Testing: The results from this function perfectly match the results in Table 8.4 (left) of Quinn and Deriso (1999) using \code{\link[FSAdata]{SnapperHG2}} from \pkg{FSAdata}. The results also perfectly match the results from using \code{\link[fishmethods]{alkprop}} in \pkg{fishmethods}.
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 
 #' @section IFAR Chapter: 5-Age-Length Key.
 #'
-#' @seealso  See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{\link[fishmethods]{alkprop}} from \pkg{fishmethods} for the exact same methodology but with a different format for the inputs.
+#' @seealso  See \code{\link{alkIndivAge}} and related functions for a completely different methodology. See \code{\link[fishmethods]{alkprop}} from \pkg{fishmethods} for the exact same methodology but with a different format for the inputs.
 #'
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
-#' Lai, H.-L.  1987.  Optimum allocation for estimating age composition using age-length key. Fishery Bulletin, 85:179-185.
+#' Lai, H.-L. 1987. Optimum allocation for estimating age composition using age-length key. Fishery Bulletin, 85:179-185.
 #' 
-#' Lai, H.-L.  1993.  Optimum sampling design for using the age-length key to estimate age composition of a fish population. Fishery Bulletin, 92:382-388.
+#' Lai, H.-L. 1993. Optimum sampling design for using the age-length key to estimate age composition of a fish population. Fishery Bulletin, 92:382-388.
 #' 
 #' Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages.
 #'
@@ -79,7 +79,7 @@ alkAgeDist <- function(key,lenA.n,len.n) {
 
 ## ===========================================================
 ## An internal function that allows the use of apply()
-## in alkAgeDist() rather than using a for loop.  This computes
+## in alkAgeDist() rather than using a for loop. This computes
 ## the proportion at each age (p_j) using 8.14a and the SE
 ## (sqrt of var.p_j) of each proportion using 8.14b
 ## (note that only a single sum was used here) of Quinn and
@@ -98,19 +98,19 @@ iALKAgeProp <- function(p_jgi,l_i,n_i,N) {
 
 #' @title Mean Values-at-age from an age-length key
 #' 
-#' @description Computes the mean value-at-age in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design.  The mean values could be mean length-, weight-, or fecundity-at-age, for example.  The methods of Bettoli and Miranda (2001) or Quinn and Deriso (1999) are used.  A standard deviation is computed for the Bettoli and Miranda (2001) method and standard error for the Quinn and Deriso (1999) method.  See the testing section notes.
+#' @description Computes the mean value-at-age in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design. The mean values could be mean length-, weight-, or fecundity-at-age, for example. The methods of Bettoli and Miranda (2001) or Quinn and Deriso (1999) are used. A standard deviation is computed for the Bettoli and Miranda (2001) method and standard error for the Quinn and Deriso (1999) method. See the testing section notes.
 #' 
-#' @details The age-length key \code{key} must have length intervals as rows and ages as columns.  The row names of \code{key} (i.e., \code{rownames(key)}) must contain the minimum values of each length interval (e.g., if an interval is 100-109, then the corresponding row name must be 100).  The column names of \code{key} (i.e., \code{colnames(key)}) must contain the age values (e.g., the columns can NOT be named with \dQuote{age.1}, for example).
+#' @details The age-length key \code{key} must have length intervals as rows and ages as columns. The row names of \code{key} (i.e., \code{rownames(key)}) must contain the minimum values of each length interval (e.g., if an interval is 100-109, then the corresponding row name must be 100). The column names of \code{key} (i.e., \code{colnames(key)}) must contain the age values (e.g., the columns can NOT be named with \dQuote{age.1}, for example).
 #' 
-#' The length intervals in the rows of \code{key} must contain all of the length intervals present in the larger sample.  Thus, the length of \code{len.n} must, at least, equal the number of rows in \code{key}.  If this constraint is not met, then the function will stop with an error message.
+#' The length intervals in the rows of \code{key} must contain all of the length intervals present in the larger sample. Thus, the length of \code{len.n} must, at least, equal the number of rows in \code{key}. If this constraint is not met, then the function will stop with an error message.
 #' 
 #' Note that the function will stop with an error if the formula in \code{formula} does not meet the specific criteria outlined in the parameter list above.
 #' 
-#' @param key A numeric matrix that contains the age-length key.  See details.
+#' @param key A numeric matrix that contains the age-length key. See details.
 #' @param formula A formula of the form \code{var~lencat+age} where \code{var} generically represents the variable to be summarized (e.g., length, weight, fecundity), \code{lencat} generically represents the variable that contains the length intervals, and \code{age} generically represents the variable that contains the assigned ages.
 #' @param data A data.frame that minimally contains the length intervals, assessed ages, and the variable to be summarized (i.e., this should be the aged sample) as given in \code{formula}.
 #' @param len.n A vector of sample sizes for each length interval in the \emph{complete sample} (i.e., all fish regardless of whether they were aged or not).
-#' @param method A string that indicates which method of calculation should be used.  See details.
+#' @param method A string that indicates which method of calculation should be used. See details.
 #' 
 #' @return A data.frame with as many rows as ages (columns) present in \code{key} and the following three variables:
 #' \itemize{
@@ -119,17 +119,17 @@ iALKAgeProp <- function(p_jgi,l_i,n_i,N) {
 #'   \item sd,se The SD if \code{method="BettoliMiranda"} or SE of the mean if \code{method="QuinnDeriso"} for the value at each age.
 #'  }
 #'
-#' @section Testing: The results of these functions have not yet been rigorously tested.  The Bettoli and Miranda (2001) results appear, at least, approximately correct when compared to the results from \code{\link{alkIndivAge}}.  The Quinn and Deriso (1999) results appear at least approximately correct for the mean values, but do not appear to be correct for the SE values.  Thus, a note is returned with the Quinn and Deriso (1999) results that the SE should not be trusted.
+#' @section Testing: The results of these functions have not yet been rigorously tested. The Bettoli and Miranda (2001) results appear, at least, approximately correct when compared to the results from \code{\link{alkIndivAge}}. The Quinn and Deriso (1999) results appear at least approximately correct for the mean values, but do not appear to be correct for the SE values. Thus, a note is returned with the Quinn and Deriso (1999) results that the SE should not be trusted.
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 
 #' @section IFAR Chapter: 5-Age-Length Key.
 #'
-#' @seealso  See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{\link{alkAgeDist}} for a related method of determining the proportion of fish at each age.  See the \pkg{ALKr} package.
+#' @seealso  See \code{\link{alkIndivAge}} and related functions for a completely different methodology. See \code{\link{alkAgeDist}} for a related method of determining the proportion of fish at each age. See the \pkg{ALKr} package.
 #'
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
-#' Bettoli, P. W. and Miranda, L. E.  2001. A cautionary note about estimating mean length at age with subsampled data. North American Journal of Fisheries Management, 21:425-428.
+#' Bettoli, P. W. and Miranda, L. E. 2001. A cautionary note about estimating mean length at age with subsampled data. North American Journal of Fisheries Management, 21:425-428.
 #'  
 #' Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages
 #'

@@ -8,7 +8,7 @@ alkMeanVar(key, formula, data, len.n, method = c("BettoliMiranda",
   "QuinnDeriso"))
 }
 \arguments{
-\item{key}{A numeric matrix that contains the age-length key.  See details.}
+\item{key}{A numeric matrix that contains the age-length key. See details.}
 
 \item{formula}{A formula of the form \code{var~lencat+age} where \code{var} generically represents the variable to be summarized (e.g., length, weight, fecundity), \code{lencat} generically represents the variable that contains the length intervals, and \code{age} generically represents the variable that contains the assigned ages.}
 
@@ -16,7 +16,7 @@ alkMeanVar(key, formula, data, len.n, method = c("BettoliMiranda",
 
 \item{len.n}{A vector of sample sizes for each length interval in the \emph{complete sample} (i.e., all fish regardless of whether they were aged or not).}
 
-\item{method}{A string that indicates which method of calculation should be used.  See details.}
+\item{method}{A string that indicates which method of calculation should be used. See details.}
 }
 \value{
 A data.frame with as many rows as ages (columns) present in \code{key} and the following three variables:
@@ -27,17 +27,17 @@ A data.frame with as many rows as ages (columns) present in \code{key} and the f
  }
 }
 \description{
-Computes the mean value-at-age in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design.  The mean values could be mean length-, weight-, or fecundity-at-age, for example.  The methods of Bettoli and Miranda (2001) or Quinn and Deriso (1999) are used.  A standard deviation is computed for the Bettoli and Miranda (2001) method and standard error for the Quinn and Deriso (1999) method.  See the testing section notes.
+Computes the mean value-at-age in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design. The mean values could be mean length-, weight-, or fecundity-at-age, for example. The methods of Bettoli and Miranda (2001) or Quinn and Deriso (1999) are used. A standard deviation is computed for the Bettoli and Miranda (2001) method and standard error for the Quinn and Deriso (1999) method. See the testing section notes.
 }
 \details{
-The age-length key \code{key} must have length intervals as rows and ages as columns.  The row names of \code{key} (i.e., \code{rownames(key)}) must contain the minimum values of each length interval (e.g., if an interval is 100-109, then the corresponding row name must be 100).  The column names of \code{key} (i.e., \code{colnames(key)}) must contain the age values (e.g., the columns can NOT be named with \dQuote{age.1}, for example).
+The age-length key \code{key} must have length intervals as rows and ages as columns. The row names of \code{key} (i.e., \code{rownames(key)}) must contain the minimum values of each length interval (e.g., if an interval is 100-109, then the corresponding row name must be 100). The column names of \code{key} (i.e., \code{colnames(key)}) must contain the age values (e.g., the columns can NOT be named with \dQuote{age.1}, for example).
 
-The length intervals in the rows of \code{key} must contain all of the length intervals present in the larger sample.  Thus, the length of \code{len.n} must, at least, equal the number of rows in \code{key}.  If this constraint is not met, then the function will stop with an error message.
+The length intervals in the rows of \code{key} must contain all of the length intervals present in the larger sample. Thus, the length of \code{len.n} must, at least, equal the number of rows in \code{key}. If this constraint is not met, then the function will stop with an error message.
 
 Note that the function will stop with an error if the formula in \code{formula} does not meet the specific criteria outlined in the parameter list above.
 }
 \section{Testing}{
- The results of these functions have not yet been rigorously tested.  The Bettoli and Miranda (2001) results appear, at least, approximately correct when compared to the results from \code{\link{alkIndivAge}}.  The Quinn and Deriso (1999) results appear at least approximately correct for the mean values, but do not appear to be correct for the SE values.  Thus, a note is returned with the Quinn and Deriso (1999) results that the SE should not be trusted.
+ The results of these functions have not yet been rigorously tested. The Bettoli and Miranda (2001) results appear, at least, approximately correct when compared to the results from \code{\link{alkIndivAge}}. The Quinn and Deriso (1999) results appear at least approximately correct for the mean values, but do not appear to be correct for the SE values. Thus, a note is returned with the Quinn and Deriso (1999) results that the SE should not be trusted.
 }
 
 \section{IFAR Chapter}{
@@ -66,14 +66,14 @@ alkMeanVar(WR1.key,len~LCat+age,WR1.age,len.n,method="QuinnDeriso")
 
 }
 \references{
-Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
-Bettoli, P. W. and Miranda, L. E.  2001. A cautionary note about estimating mean length at age with subsampled data. North American Journal of Fisheries Management, 21:425-428.
+Bettoli, P. W. and Miranda, L. E. 2001. A cautionary note about estimating mean length at age with subsampled data. North American Journal of Fisheries Management, 21:425-428.
  
 Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages
 }
 \seealso{
-See \code{\link{alkIndivAge}} and related functions for a completely different methodology.  See \code{\link{alkAgeDist}} for a related method of determining the proportion of fish at each age.  See the \pkg{ALKr} package.
+See \code{\link{alkIndivAge}} and related functions for a completely different methodology. See \code{\link{alkAgeDist}} for a related method of determining the proportion of fish at each age. See the \pkg{ALKr} package.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}
