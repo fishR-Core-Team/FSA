@@ -103,7 +103,7 @@
     <div class="page-header">
     <h1>Mean Values-at-age from an age-length key</h1>
     <small class="dont-index">Source: <a href='https://github.com/droglenc/FSA/blob/master/R/alkSummaries.R'><code>R/alkSummaries.R</code></a></small>
-    <div class="hidden name"><code>alkMeanVar.Rd</code></div>
+    <div class="hidden name"><code>ALKMeanVar.Rd</code></div>
     </div>
 
     <div class="ref-description">
@@ -112,7 +112,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>alkMeanVar</span>(<span class='no'>key</span>, <span class='no'>formula</span>, <span class='no'>data</span>, <span class='no'>len.n</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"BettoliMiranda"</span>,
+    <pre class="usage"><span class='fu'><a href='alkMeanVar.html'>alkMeanVar</a></span>(<span class='no'>key</span>, <span class='no'>formula</span>, <span class='no'>data</span>, <span class='no'>len.n</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"BettoliMiranda"</span>,
   <span class='st'>"QuinnDeriso"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -225,7 +225,7 @@
 #&gt;   115 1.00000000 0.00000000</div><div class='input'>
 <span class='co'>## use age-length key to estimate mean length-at-age of all fish</span>
 <span class='co'># Bettoli-Miranda method</span>
-<span class='fu'>alkMeanVar</span>(<span class='no'>WR1.key</span>,<span class='no'>len</span>~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='no'>WR1.age</span>,<span class='no'>len.n</span>)</div><div class='output co'>#&gt;   age      mean       sd
+<span class='fu'><a href='alkMeanVar.html'>alkMeanVar</a></span>(<span class='no'>WR1.key</span>,<span class='no'>len</span>~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='no'>WR1.age</span>,<span class='no'>len.n</span>)</div><div class='output co'>#&gt;   age      mean       sd
 #&gt; 1   4  51.95492 5.050430
 #&gt; 2   5  72.01342 5.519135
 #&gt; 3   6  86.59311 4.714664
@@ -235,7 +235,7 @@
 #&gt; 7  10 104.86056 7.497515
 #&gt; 8  11 113.00000 0.000000</div><div class='input'>
 <span class='co'># Quinn-Deriso method</span>
-<span class='fu'>alkMeanVar</span>(<span class='no'>WR1.key</span>,<span class='no'>len</span>~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='no'>WR1.age</span>,<span class='no'>len.n</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"QuinnDeriso"</span>)</div><div class='output co'>#&gt; <span class='message'>The 'se' values should not be trusted!</span></div><div class='output co'>#&gt;   age      mean        se
+<span class='fu'><a href='alkMeanVar.html'>alkMeanVar</a></span>(<span class='no'>WR1.key</span>,<span class='no'>len</span>~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='no'>WR1.age</span>,<span class='no'>len.n</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"QuinnDeriso"</span>)</div><div class='output co'>#&gt; <span class='message'>The 'se' values should not be trusted!</span></div><div class='output co'>#&gt;   age      mean        se
 #&gt; 1   4  51.95492 0.3031374
 #&gt; 2   5  72.01342 0.5018225
 #&gt; 3   6  86.59311 0.5977608

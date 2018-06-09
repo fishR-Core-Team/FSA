@@ -1,4 +1,5 @@
 # FSA 0.8.21 ongoing
+* Added a webpage.
 * Added a hex sticker logo.
 * Added `withr` to Imports (see usages below).
 * Removed all `data()` in examples that referred to data from this package. Included the `package=` argument in `data()` that loaded from other packages.
