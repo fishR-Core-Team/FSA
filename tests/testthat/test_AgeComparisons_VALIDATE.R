@@ -82,7 +82,8 @@ test_that("test ageBias() against compare2() with AlewifeLH data",{
 test_that("ageBias() compared to http://www.nefsc.noaa.gov/fbp/age-prec/ calculations for AlewifeLH data",{
   if (require(FSAdata)) {
     data(AlewifeLH,package="FSAdata")
-    suppressWarnings(ab1 <- ageBias(scales~otoliths,data=AlewifeLH,ref.lab="Otolith Age",nref.lab="Scale Age"))
+    suppressWarnings(ab1 <- ageBias(scales~otoliths,data=AlewifeLH,
+                                    ref.lab="Otolith Age",nref.lab="Scale Age"))
     expect_equal(ab1$bias$n, c(2,18,20,13,18,10,8,7,5,1,2))
     ## the fbp result is actually 4.62 for age-6
     expect_equal(round(ab1$bias$mean,2), c(0.00,1.11,2.20,2.85,3.78,4.20,4.62,5.00,4.80,6.00,6.00))
@@ -149,6 +150,10 @@ test_that("agePrecision() differences for simple data",{
   expect_equal(as.numeric(ap4$rawdiff), c(3,3))
   expect_equal(names(ap4$absdiff), c("0","1"))
   expect_equal(as.numeric(ap4$absdiff), c(3,3))
+  tmp2 <- ap4$detail
+  expect_equal(tmp2$mode,c(1,1,NA,NA,2,NA))
+  expect_equal(tmp2$mean,as.vector(rowMeans(tmp[,1:2])))
+  expect_equal(tmp2$mean,tmp2$median)
 })
 
 test_that("agePrecision() differences for simple data with NA values",{
@@ -179,6 +184,7 @@ test_that("agePrecision() differences for simple data with NA values",{
   expect_equal(ap45$PercAgree,100)
   ap123 <- agePrecision(~age1+age2+age3,data=tmp)
   expect_equal(round(ap123$PercAgree,4),66.6667)
+  expect_equal(ap123$detail$mode,c(1,1,2,NA,2,2,3,NA,3,3,4,NA))
   ap125 <- agePrecision(~age1+age2+age5,data=tmp)
   expect_equal(round(ap125$PercAgree,4),33.3333)
   ap135 <- agePrecision(~age1+age3+age5,data=tmp)

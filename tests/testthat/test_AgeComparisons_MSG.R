@@ -3,7 +3,8 @@ context("Age Precision and Bias MESSAGES")
 test_that("ageBias() messages",{
   expect_error(ageBias(otolithC+scaleC~finrayC,data=WhitefishLC),
                "more than one variable on the LHS")
-  expect_error(ageBias(otolithC~scaleC+finrayC,data=WhitefishLC),"must have only one RHS")
+  expect_error(ageBias(otolithC~scaleC+finrayC,data=WhitefishLC),
+               "must have only one RHS")
   
   suppressWarnings(ab1 <- ageBias(scaleC~otolithC,data=WhitefishLC))
   expect_error(summary(ab1,what="derek"),"should be one of")

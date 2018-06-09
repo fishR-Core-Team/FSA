@@ -26,8 +26,6 @@ The \code{year} variable should be converted to a factor as shown in the example
    \item Linear models
    \item Other
  }
- 
- @concept 'Linear Models' Other
 }
 
 \examples{
