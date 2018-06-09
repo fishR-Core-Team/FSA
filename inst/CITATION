@@ -7,5 +7,7 @@ citEntry(entry="Manual",
          author = personList(as.person("Derek H. Ogle")),
          year = year,
          note = note,
-         textVersion = paste0("Ogle, D.H. ",year,". FSA: Fisheries Stock Analysis. ",note,".")
+         url = meta$URL,
+         textVersion = paste0("Ogle, D.H. ",year,
+         ". FSA: Fisheries Stock Analysis. ",note,", ",meta$URL,".")
 )
