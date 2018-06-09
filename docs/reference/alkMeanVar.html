@@ -30,7 +30,7 @@
 
 <meta property="og:title" content="Mean Values-at-age from an age-length key — alkMeanVar" />
 
-<meta property="og:description" content="Computes the mean value-at-age in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design.  The mean values could be mean length-, weight-, or fecundity-at-age, for example.  The methods of Bettoli and Miranda (2001) or Quinn and Deriso (1999) are used.  A standard deviation is computed for the Bettoli and Miranda (2001) method and standard error for the Quinn and Deriso (1999) method.  See the testing section notes." />
+<meta property="og:description" content="Computes the mean value-at-age in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design. The mean values could be mean length-, weight-, or fecundity-at-age, for example. The methods of Bettoli and Miranda (2001) or Quinn and Deriso (1999) are used. A standard deviation is computed for the Bettoli and Miranda (2001) method and standard error for the Quinn and Deriso (1999) method. See the testing section notes." />
 
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -101,16 +101,16 @@
     <div class="page-header">
     <h1>Mean Values-at-age from an age-length key</h1>
     <small class="dont-index">Source: <a href='https://github.com/droglenc/FSA/blob/master/R/alkSummaries.R'><code>R/alkSummaries.R</code></a></small>
-    <div class="hidden name"><code>ALKMeanVar.Rd</code></div>
+    <div class="hidden name"><code>alkMeanVar.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Computes the mean value-at-age in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design.  The mean values could be mean length-, weight-, or fecundity-at-age, for example.  The methods of Bettoli and Miranda (2001) or Quinn and Deriso (1999) are used.  A standard deviation is computed for the Bettoli and Miranda (2001) method and standard error for the Quinn and Deriso (1999) method.  See the testing section notes.</p>
+    <p>Computes the mean value-at-age in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design. The mean values could be mean length-, weight-, or fecundity-at-age, for example. The methods of Bettoli and Miranda (2001) or Quinn and Deriso (1999) are used. A standard deviation is computed for the Bettoli and Miranda (2001) method and standard error for the Quinn and Deriso (1999) method. See the testing section notes.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'><a href='alkMeanVar.html'>alkMeanVar</a></span>(<span class='no'>key</span>, <span class='no'>formula</span>, <span class='no'>data</span>, <span class='no'>len.n</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"BettoliMiranda"</span>,
+    <pre class="usage"><span class='fu'>alkMeanVar</span>(<span class='no'>key</span>, <span class='no'>formula</span>, <span class='no'>data</span>, <span class='no'>len.n</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"BettoliMiranda"</span>,
   <span class='st'>"QuinnDeriso"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -118,7 +118,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>key</th>
-      <td><p>A numeric matrix that contains the age-length key.  See details.</p></td>
+      <td><p>A numeric matrix that contains the age-length key. See details.</p></td>
     </tr>
     <tr>
       <th>formula</th>
@@ -134,7 +134,7 @@
     </tr>
     <tr>
       <th>method</th>
-      <td><p>A string that indicates which method of calculation should be used.  See details.</p></td>
+      <td><p>A string that indicates which method of calculation should be used. See details.</p></td>
     </tr>
     </table>
     
@@ -149,13 +149,13 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The age-length key <code>key</code> must have length intervals as rows and ages as columns.  The row names of <code>key</code> (i.e., <code>rownames(key)</code>) must contain the minimum values of each length interval (e.g., if an interval is 100-109, then the corresponding row name must be 100).  The column names of <code>key</code> (i.e., <code>colnames(key)</code>) must contain the age values (e.g., the columns can NOT be named with &#8220;age.1&#8221;, for example).</p>
-<p>The length intervals in the rows of <code>key</code> must contain all of the length intervals present in the larger sample.  Thus, the length of <code>len.n</code> must, at least, equal the number of rows in <code>key</code>.  If this constraint is not met, then the function will stop with an error message.</p>
+    <p>The age-length key <code>key</code> must have length intervals as rows and ages as columns. The row names of <code>key</code> (i.e., <code>rownames(key)</code>) must contain the minimum values of each length interval (e.g., if an interval is 100-109, then the corresponding row name must be 100). The column names of <code>key</code> (i.e., <code>colnames(key)</code>) must contain the age values (e.g., the columns can NOT be named with &#8220;age.1&#8221;, for example).</p>
+<p>The length intervals in the rows of <code>key</code> must contain all of the length intervals present in the larger sample. Thus, the length of <code>len.n</code> must, at least, equal the number of rows in <code>key</code>. If this constraint is not met, then the function will stop with an error message.</p>
 <p>Note that the function will stop with an error if the formula in <code>formula</code> does not meet the specific criteria outlined in the parameter list above.</p>
     
     <h2 class="hasAnchor" id="testing"><a class="anchor" href="#testing"></a>Testing</h2>
 
-    <p>The results of these functions have not yet been rigorously tested.  The Bettoli and Miranda (2001) results appear, at least, approximately correct when compared to the results from <code><a href='alkIndivAge.html'>alkIndivAge</a></code>.  The Quinn and Deriso (1999) results appear at least approximately correct for the mean values, but do not appear to be correct for the SE values.  Thus, a note is returned with the Quinn and Deriso (1999) results that the SE should not be trusted.</p>
+    <p>The results of these functions have not yet been rigorously tested. The Bettoli and Miranda (2001) results appear, at least, approximately correct when compared to the results from <code><a href='alkIndivAge.html'>alkIndivAge</a></code>. The Quinn and Deriso (1999) results appear at least approximately correct for the mean values, but do not appear to be correct for the SE values. Thus, a note is returned with the Quinn and Deriso (1999) results that the SE should not be trusted.</p>
     
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
@@ -163,13 +163,13 @@
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H.  2016.  <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>.  Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
-<p>Bettoli, P. W. and Miranda, L. E.  2001. A cautionary note about estimating mean length at age with subsampled data. North American Journal of Fisheries Management, 21:425-428.</p> 
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+<p>Bettoli, P. W. and Miranda, L. E. 2001. A cautionary note about estimating mean length at age with subsampled data. North American Journal of Fisheries Management, 21:425-428.</p> 
 <p>Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='alkIndivAge.html'>alkIndivAge</a></code> and related functions for a completely different methodology.  See <code><a href='alkAgeDist.html'>alkAgeDist</a></code> for a related method of determining the proportion of fish at each age.  See the <span class="pkg">ALKr</span> package.</p></div>
+    <div class='dont-index'><p>See <code><a href='alkIndivAge.html'>alkIndivAge</a></code> and related functions for a completely different methodology. See <code><a href='alkAgeDist.html'>alkAgeDist</a></code> for a related method of determining the proportion of fish at each age. See the <span class="pkg">ALKr</span> package.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -223,7 +223,7 @@
 #&gt;   115 1.00000000 0.00000000</div><div class='input'>
 <span class='co'>## use age-length key to estimate mean length-at-age of all fish</span>
 <span class='co'># Bettoli-Miranda method</span>
-<span class='fu'><a href='alkMeanVar.html'>alkMeanVar</a></span>(<span class='no'>WR1.key</span>,<span class='no'>len</span>~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='no'>WR1.age</span>,<span class='no'>len.n</span>)</div><div class='output co'>#&gt;   age      mean       sd
+<span class='fu'>alkMeanVar</span>(<span class='no'>WR1.key</span>,<span class='no'>len</span>~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='no'>WR1.age</span>,<span class='no'>len.n</span>)</div><div class='output co'>#&gt;   age      mean       sd
 #&gt; 1   4  51.95492 5.050430
 #&gt; 2   5  72.01342 5.519135
 #&gt; 3   6  86.59311 4.714664
@@ -233,7 +233,7 @@
 #&gt; 7  10 104.86056 7.497515
 #&gt; 8  11 113.00000 0.000000</div><div class='input'>
 <span class='co'># Quinn-Deriso method</span>
-<span class='fu'><a href='alkMeanVar.html'>alkMeanVar</a></span>(<span class='no'>WR1.key</span>,<span class='no'>len</span>~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='no'>WR1.age</span>,<span class='no'>len.n</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"QuinnDeriso"</span>)</div><div class='output co'>#&gt; <span class='message'>The 'se' values should not be trusted!</span></div><div class='output co'>#&gt;   age      mean        se
+<span class='fu'>alkMeanVar</span>(<span class='no'>WR1.key</span>,<span class='no'>len</span>~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='no'>WR1.age</span>,<span class='no'>len.n</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"QuinnDeriso"</span>)</div><div class='output co'>#&gt; <span class='message'>The 'se' values should not be trusted!</span></div><div class='output co'>#&gt;   age      mean        se
 #&gt; 1   4  51.95492 0.3031374
 #&gt; 2   5  72.01342 0.5018225
 #&gt; 3   6  86.59311 0.5977608

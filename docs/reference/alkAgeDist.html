@@ -30,7 +30,7 @@
 
 <meta property="og:title" content="Proportions-at-age from an age-length key — alkAgeDist" />
 
-<meta property="og:description" content="Computes the proportions-at-age (with standard errors) in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design.  Follows the methods in Quinn and Deriso (1999)." />
+<meta property="og:description" content="Computes the proportions-at-age (with standard errors) in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design. Follows the methods in Quinn and Deriso (1999)." />
 
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -101,23 +101,23 @@
     <div class="page-header">
     <h1>Proportions-at-age from an age-length key</h1>
     <small class="dont-index">Source: <a href='https://github.com/droglenc/FSA/blob/master/R/alkSummaries.R'><code>R/alkSummaries.R</code></a></small>
-    <div class="hidden name"><code>ALKAgeDist.Rd</code></div>
+    <div class="hidden name"><code>alkAgeDist.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Computes the proportions-at-age (with standard errors) in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design.  Follows the methods in Quinn and Deriso (1999).</p>
+    <p>Computes the proportions-at-age (with standard errors) in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design. Follows the methods in Quinn and Deriso (1999).</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'><a href='alkAgeDist.html'>alkAgeDist</a></span>(<span class='no'>key</span>, <span class='no'>lenA.n</span>, <span class='no'>len.n</span>)</pre>
+    <pre class="usage"><span class='fu'>alkAgeDist</span>(<span class='no'>key</span>, <span class='no'>lenA.n</span>, <span class='no'>len.n</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>key</th>
-      <td><p>A numeric matrix that contains the age-length key.  See details.</p></td>
+      <td><p>A numeric matrix that contains the age-length key. See details.</p></td>
     </tr>
     <tr>
       <th>lenA.n</th>
@@ -140,13 +140,13 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The age-length key in <code>key</code> must have length intervals as rows and ages as columns.  The row names of <code>key</code> (i.e., <code>rownames(key)</code>) must contain the minimum values of each length interval (e.g., if an interval is 100-109 then the corresponding row name must be 100).  The column names of <code>key</code> (i.e., <code>colnames(key)</code>) must contain the age values (e.g., the columns can NOT be named with &#8220;age.1&#8221;, for example).</p>
-<p>The length intervals in the rows of <code>key</code> must contain all of the length intervals present in the larger sample.  Thus, the length of <code>len.n</code> must, at least, equal the number of rows in <code>key</code>.  If this constraint is not met, then the function will stop with an error message.</p>
-<p>The values in <code>lenA.n</code> are equal to what the row sums of <code>key</code> would have been before <code>key</code> was converted to a row proportions table.  Thus, the length of <code>lenA.n</code> must also be equal to the number of rows in <code>key</code>.  If this constraint is not met, then the function will stop with an error message.</p>
+    <p>The age-length key in <code>key</code> must have length intervals as rows and ages as columns. The row names of <code>key</code> (i.e., <code>rownames(key)</code>) must contain the minimum values of each length interval (e.g., if an interval is 100-109 then the corresponding row name must be 100). The column names of <code>key</code> (i.e., <code>colnames(key)</code>) must contain the age values (e.g., the columns can NOT be named with &#8220;age.1&#8221;, for example).</p>
+<p>The length intervals in the rows of <code>key</code> must contain all of the length intervals present in the larger sample. Thus, the length of <code>len.n</code> must, at least, equal the number of rows in <code>key</code>. If this constraint is not met, then the function will stop with an error message.</p>
+<p>The values in <code>lenA.n</code> are equal to what the row sums of <code>key</code> would have been before <code>key</code> was converted to a row proportions table. Thus, the length of <code>lenA.n</code> must also be equal to the number of rows in <code>key</code>. If this constraint is not met, then the function will stop with an error message.</p>
     
     <h2 class="hasAnchor" id="testing"><a class="anchor" href="#testing"></a>Testing</h2>
 
-    <p>The results from this function perfectly match the results in Table 8.4 (left) of Quinn and Deriso (1999) using <code><a href='http://www.rdocumentation.org/packages/FSAdata/topics/SnapperHG2'>SnapperHG2</a></code> from <span class="pkg">FSAdata</span>.  The results also perfectly match the results from using <code><a href='http://www.rdocumentation.org/packages/fishmethods/topics/alkprop'>alkprop</a></code> in <span class="pkg">fishmethods</span>.</p>
+    <p>The results from this function perfectly match the results in Table 8.4 (left) of Quinn and Deriso (1999) using <code><a href='http://www.rdocumentation.org/packages/FSAdata/topics/SnapperHG2'>SnapperHG2</a></code> from <span class="pkg">FSAdata</span>. The results also perfectly match the results from using <code><a href='http://www.rdocumentation.org/packages/fishmethods/topics/alkprop'>alkprop</a></code> in <span class="pkg">fishmethods</span>.</p>
     
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
@@ -154,14 +154,14 @@
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H.  2016.  <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>.  Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
-<p>Lai, H.-L.  1987.  Optimum allocation for estimating age composition using age-length key. Fishery Bulletin, 85:179-185.</p>
-<p>Lai, H.-L.  1993.  Optimum sampling design for using the age-length key to estimate age composition of a fish population. Fishery Bulletin, 92:382-388.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+<p>Lai, H.-L. 1987. Optimum allocation for estimating age composition using age-length key. Fishery Bulletin, 85:179-185.</p>
+<p>Lai, H.-L. 1993. Optimum sampling design for using the age-length key to estimate age composition of a fish population. Fishery Bulletin, 92:382-388.</p>
 <p>Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='alkIndivAge.html'>alkIndivAge</a></code> and related functions for a completely different methodology.  See <code><a href='http://www.rdocumentation.org/packages/fishmethods/topics/alkprop'>alkprop</a></code> from <span class="pkg">fishmethods</span> for the exact same methodology but with a different format for the inputs.</p></div>
+    <div class='dont-index'><p>See <code><a href='alkIndivAge.html'>alkIndivAge</a></code> and related functions for a completely different methodology. See <code><a href='http://www.rdocumentation.org/packages/fishmethods/topics/alkprop'>alkprop</a></code> from <span class="pkg">fishmethods</span> for the exact same methodology but with a different format for the inputs.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -215,7 +215,7 @@
 #&gt;   110 0.20000000 0.20000000
 #&gt;   115 1.00000000 0.00000000</div><div class='input'>
 <span class='co'># use age-length key to estimate age distribution of all fish</span>
-<span class='fu'><a href='alkAgeDist.html'>alkAgeDist</a></span>(<span class='no'>WR1.key</span>,<span class='no'>lenA.n</span>,<span class='no'>len.n</span>)</div><div class='output co'>#&gt;   age        prop          se
+<span class='fu'>alkAgeDist</span>(<span class='no'>WR1.key</span>,<span class='no'>lenA.n</span>,<span class='no'>len.n</span>)</div><div class='output co'>#&gt;   age        prop          se
 #&gt; 1   4 0.416378219 0.013206893
 #&gt; 2   5 0.167201351 0.013907259
 #&gt; 3   6 0.113882857 0.014938965

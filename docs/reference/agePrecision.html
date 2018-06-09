@@ -161,9 +161,11 @@
 <li><p>rawdiff A frequency table of fish by differences for each pair of ages.</p></li>
 <li><p>absdiff A frequency table of fish by absolute differences for each pair of ages.</p></li>
 <li><p>AMAD The average mean absolute deviation.</p></li>
-<li><p>APE The average average percent error.</p></li>
+<li><p>APE The average average percent error (using the <b>mean</b> age as the divisor).</p></li>
+<li><p>APE2 The average average percent error (using the <b>median</b> age as the divisor).</p></li>
 <li><p>ASD The average standard deviation.</p></li>
-<li><p>ACV The average coefficient of variation.</p></li>
+<li><p>ACV The average coefficient of variation (using the <b>mean</b> age as the divisor).</p></li>
+<li><p>ACV2 The average coefficient of variation (using the <b>median</b> age as the divisor).</p></li>
 <li><p>R The number of readings for each individual fish.</p></li>
 <li><p>n Number of fish in <code>data</code>.</p></li>
 <li><p>validn Number of fish in <code>data</code> that have non-<code>NA</code> data for all R age estimates.</p></li>
@@ -177,15 +179,17 @@
 <li><p>n Number of fish in <code>data</code>.</p></li>
 <li><p>validn Number of fish in <code>data</code> that have non-<code>NA</code> data for all R age estimates.</p></li>
 <li><p>R Number of age estimates given in <code>formula</code>.</p></li>
-<li><p>ACV The average (across all fish) coefficient of variation of ages within a fish. See the <a href='http://derekogle.com/IFAR'>IFAR chapter</a> for calculation details.</p></li>
-<li><p>APE The average (across all fish) average percent error of ages within a fish. See the <a href='http://derekogle.com/IFAR'>IFAR chapter</a> for calculation details.</p></li>
-<li><p>ASD The average (across all fish) standard deviation of ages within a fish.</p></li>
-<li><p>AMAD The average (across all fish) mean absolute deviation of ages within a fish.</p></li>
 <li><p>PercAgree The percentage of fish for which all age estimates perfectly agree.</p></li>
+<li><p>ASD The average (across all fish) standard deviation of ages within a fish.</p></li>
+<li><p>ACV The average (across all fish) coefficient of variation of ages within a fish using the <b>mean</b> as the divisor. See the <a href='http://derekogle.com/IFAR'>IFAR chapter</a> for calculation details.</p></li>
+<li><p>ACV2 The average (across all fish) coefficient of variation of ages within a fish using the <b>median</b> as the divisor. This will only be shown if R&gt;2.</p></li>
+<li><p>AMAD The average (across all fish) mean absolute deviation of ages within a fish.</p></li>
+<li><p>APE The average (across all fish) average percent error of ages within a fish using the <b>mean</b> as the divisor. See the <a href='http://derekogle.com/IFAR'>IFAR chapter</a> for calculation details.</p></li>
+<li><p>APE2 The average (across all fish) average percent error of ages within a fish using the <b>median</b> as the divisor. This will only be shown if R&gt;2.</p></li>
 </ul>
     <p>If <code>what="difference"</code> is used in <code>summary</code>, then a table that describes either the percentage (if <code>percent=TRUE</code>, DEFAULT) or frequency of fish by the difference in paired age estimates. This table has one row for each possible pair of age estimates.</p>
 <p>If <code>what="absolute difference"</code> is used in <code>summary</code>, then a table that describes either the percentage (if <code>percent=TRUE</code>, DEFAULT) or frequency of fish by the absolute value of the difference in paired age estimates. This table has one row for each possible pair of age estimates. The &#8220;1&#8221; column, for example, represents age estimates that disagree by one year (in either direction).</p>
-<p>If <code>what="detail"</code> is used in <code>summary</code>, then a data.frame of the original <code>data</code> along with the intermediate calculations of the average age (avg), standard deviation of age (SD), coefficient of variation (CV), mean absolute deviation (MAD), and average percent error (APE) for each individual will be printed. These details are generally only used to check or to understand calculations.</p>
+<p>If <code>what="detail"</code> is used in <code>summary</code>, then a data.frame of the original <code>data</code> along with the intermediate calculations of the mean age, median age, modal age (will be <code>NA</code> if a mode does not exist (e.g., all different ages) or multiple modes exist), standard deviation of age (SD), coefficient of variation using the mean as the divisor (CV), coefficient of variation using the median as the divisor (CV2), mean absolute deviation using the mean as the divisor (MAD), mean absolute deviation using the median as the divisor (MAD2), and average percent error (APE) for each individual will be printed. These details are generally only used to check or to understand calculations.</p>
 <p>All percentage calculations above use the <code>validn</code> value in the denominator.</p>
     
     <h2 class="hasAnchor" id="testing"><a class="anchor" href="#testing"></a>Testing</h2>
@@ -214,8 +218,8 @@
     <pre class="examples"><div class='input'><span class='co'>## Example with just two age estimates</span>
 <span class='no'>ap1</span> <span class='kw'>&lt;-</span> <span class='fu'>agePrecision</span>(~<span class='no'>otolithC</span>+<span class='no'>scaleC</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WhitefishLC</span>)
 <span class='fu'>summary</span>(<span class='no'>ap1</span>)</div><div class='output co'>#&gt; Precision summary statistics
-#&gt;    n validn R   ACV   APE   ASD  AMAD PercAgree
-#&gt;  151    151 2 21.11 14.93 1.541 1.089     19.87
+#&gt;    n validn R PercAgree   ASD   ACV  AMAD   APE
+#&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93
 #&gt; 
 #&gt; Percentage of fish by absolute differences in ages
 #&gt;  between pairs of estimates
@@ -232,151 +236,99 @@
 #&gt;  1.9868  1.3245  0.0000  0.0000  0.6623  0.0000  0.6623 
 #&gt; 
 #&gt; Intermediate calculations for each individual
-#&gt;     otolithC scaleC  avg     SD     CV MAD    APE
-#&gt; 1          3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 2          3      4  3.5 0.7071 20.203 0.5 14.286
-#&gt; 3          3      6  4.5 2.1213 47.140 1.5 33.333
-#&gt; 4          3      4  3.5 0.7071 20.203 0.5 14.286
-#&gt; 5          3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 6          6      4  5.0 1.4142 28.284 1.0 20.000
-#&gt; 7         10      7  8.5 2.1213 24.957 1.5 17.647
-#&gt; 8         11      5  8.0 4.2426 53.033 3.0 37.500
-#&gt; 9          4      3  3.5 0.7071 20.203 0.5 14.286
-#&gt; 10         1      1  1.0 0.0000  0.000 0.0  0.000
-#&gt; 11         1      2  1.5 0.7071 47.140 0.5 33.333
-#&gt; 12         3      4  3.5 0.7071 20.203 0.5 14.286
-#&gt; 13         3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 14        11      6  8.5 3.5355 41.595 2.5 29.412
-#&gt; 15        10      6  8.0 2.8284 35.355 2.0 25.000
-#&gt; 16        10      6  8.0 2.8284 35.355 2.0 25.000
-#&gt; 17        14      6 10.0 5.6569 56.569 4.0 40.000
-#&gt; 18        13      6  9.5 4.9497 52.103 3.5 36.842
-#&gt; 19        13      7 10.0 4.2426 42.426 3.0 30.000
-#&gt; 20         7      6  6.5 0.7071 10.879 0.5  7.692
-#&gt; 21        14      7 10.5 4.9497 47.140 3.5 33.333
-#&gt; 22         9      7  8.0 1.4142 17.678 1.0 12.500
-#&gt; 23         7      5  6.0 1.4142 23.570 1.0 16.667
-#&gt; 24         6      5  5.5 0.7071 12.856 0.5  9.091
-#&gt; 25         6      3  4.5 2.1213 47.140 1.5 33.333
-#&gt; 26         3      4  3.5 0.7071 20.203 0.5 14.286
-#&gt; 27         3      4  3.5 0.7071 20.203 0.5 14.286
-#&gt; 28         6      5  5.5 0.7071 12.856 0.5  9.091
-#&gt; 29         4      6  5.0 1.4142 28.284 1.0 20.000
-#&gt; 30         3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 31         4      4  4.0 0.0000  0.000 0.0  0.000
-#&gt; 32         1      1  1.0 0.0000  0.000 0.0  0.000
-#&gt; 33         3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 34         4      4  4.0 0.0000  0.000 0.0  0.000
-#&gt; 35         4      2  3.0 1.4142 47.140 1.0 33.333
-#&gt; 36         4      3  3.5 0.7071 20.203 0.5 14.286
-#&gt; 37         3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 38         1      2  1.5 0.7071 47.140 0.5 33.333
-#&gt; 39         1      1  1.0 0.0000  0.000 0.0  0.000
-#&gt; 40         2      1  1.5 0.7071 47.140 0.5 33.333
-#&gt; 41         2      1  1.5 0.7071 47.140 0.5 33.333
-#&gt; 42         4      3  3.5 0.7071 20.203 0.5 14.286
-#&gt; 43         8      5  6.5 2.1213 32.636 1.5 23.077
-#&gt; 44         2      5  3.5 2.1213 60.609 1.5 42.857
-#&gt; 45         2      3  2.5 0.7071 28.284 0.5 20.000
-#&gt; 46         3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 47         1      2  1.5 0.7071 47.140 0.5 33.333
-#&gt; 48         3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 49         8      5  6.5 2.1213 32.636 1.5 23.077
-#&gt; 50         4      3  3.5 0.7071 20.203 0.5 14.286
-#&gt; 51         2      2  2.0 0.0000  0.000 0.0  0.000
-#&gt; 52         3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 53         3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 54         8      5  6.5 2.1213 32.636 1.5 23.077
-#&gt; 55         4      4  4.0 0.0000  0.000 0.0  0.000
-#&gt; 56         6      5  5.5 0.7071 12.856 0.5  9.091
-#&gt; 57         7      5  6.0 1.4142 23.570 1.0 16.667
-#&gt; 58         2      1  1.5 0.7071 47.140 0.5 33.333
-#&gt; 59         1      1  1.0 0.0000  0.000 0.0  0.000
-#&gt; 60         2      1  1.5 0.7071 47.140 0.5 33.333
-#&gt; 61         1      2  1.5 0.7071 47.140 0.5 33.333
-#&gt; 62         5      4  4.5 0.7071 15.713 0.5 11.111
-#&gt; 63         5      4  4.5 0.7071 15.713 0.5 11.111
-#&gt; 64         4      5  4.5 0.7071 15.713 0.5 11.111
-#&gt; 65         5      6  5.5 0.7071 12.856 0.5  9.091
-#&gt; 66        18      7 12.5 7.7782 62.225 5.5 44.000
-#&gt; 67         7      8  7.5 0.7071  9.428 0.5  6.667
-#&gt; 68         9      8  8.5 0.7071  8.319 0.5  5.882
-#&gt; 69         5      4  4.5 0.7071 15.713 0.5 11.111
-#&gt; 70        10      8  9.0 1.4142 15.713 1.0 11.111
-#&gt; 71        12      7  9.5 3.5355 37.216 2.5 26.316
-#&gt; 72         7      5  6.0 1.4142 23.570 1.0 16.667
-#&gt; 73        10      8  9.0 1.4142 15.713 1.0 11.111
-#&gt; 74         9      6  7.5 2.1213 28.284 1.5 20.000
-#&gt; 75        11      7  9.0 2.8284 31.427 2.0 22.222
-#&gt; 76         1      1  1.0 0.0000  0.000 0.0  0.000
-#&gt; 77         3      1  2.0 1.4142 70.711 1.0 50.000
-#&gt; 78        14     13 13.5 0.7071  5.238 0.5  3.704
-#&gt; 79         8      6  7.0 1.4142 20.203 1.0 14.286
-#&gt; 80        12      6  9.0 4.2426 47.140 3.0 33.333
-#&gt; 81        11      9 10.0 1.4142 14.142 1.0 10.000
-#&gt; 82         9      7  8.0 1.4142 17.678 1.0 12.500
-#&gt; 83         8      7  7.5 0.7071  9.428 0.5  6.667
-#&gt; 84         5      8  6.5 2.1213 32.636 1.5 23.077
-#&gt; 85         8      7  7.5 0.7071  9.428 0.5  6.667
-#&gt; 86        18     13 15.5 3.5355 22.810 2.5 16.129
-#&gt; 87        12     10 11.0 1.4142 12.856 1.0  9.091
-#&gt; 88        11      8  9.5 2.1213 22.330 1.5 15.789
-#&gt; 89         9      8  8.5 0.7071  8.319 0.5  5.882
-#&gt; 90        11      8  9.5 2.1213 22.330 1.5 15.789
-#&gt; 91        13      9 11.0 2.8284 25.713 2.0 18.182
-#&gt; 92         9      7  8.0 1.4142 17.678 1.0 12.500
-#&gt; 93        10      7  8.5 2.1213 24.957 1.5 17.647
-#&gt; 94         4      4  4.0 0.0000  0.000 0.0  0.000
-#&gt; 95         6      4  5.0 1.4142 28.284 1.0 20.000
-#&gt; 96         4      3  3.5 0.7071 20.203 0.5 14.286
-#&gt; 97         4      3  3.5 0.7071 20.203 0.5 14.286
-#&gt; 98         6      6  6.0 0.0000  0.000 0.0  0.000
-#&gt; 99        11      7  9.0 2.8284 31.427 2.0 22.222
-#&gt; 100        8      6  7.0 1.4142 20.203 1.0 14.286
-#&gt; 101        8      5  6.5 2.1213 32.636 1.5 23.077
-#&gt; 102        5      6  5.5 0.7071 12.856 0.5  9.091
-#&gt; 103        6      5  5.5 0.7071 12.856 0.5  9.091
-#&gt; 104        6      4  5.0 1.4142 28.284 1.0 20.000
-#&gt; 105        9      7  8.0 1.4142 17.678 1.0 12.500
-#&gt; 106       13     10 11.5 2.1213 18.446 1.5 13.043
-#&gt; 107        9      7  8.0 1.4142 17.678 1.0 12.500
-#&gt; 108       12      7  9.5 3.5355 37.216 2.5 26.316
-#&gt; 109        5      5  5.0 0.0000  0.000 0.0  0.000
-#&gt; 110        4      4  4.0 0.0000  0.000 0.0  0.000
-#&gt; 111        7      7  7.0 0.0000  0.000 0.0  0.000
-#&gt; 112        4      4  4.0 0.0000  0.000 0.0  0.000
-#&gt; 113        4      4  4.0 0.0000  0.000 0.0  0.000
-#&gt; 114       10      7  8.5 2.1213 24.957 1.5 17.647
-#&gt; 115        7      6  6.5 0.7071 10.879 0.5  7.692
-#&gt; 116        5      5  5.0 0.0000  0.000 0.0  0.000
-#&gt; 117       17      9 13.0 5.6569 43.514 4.0 30.769
-#&gt; 118        7      6  6.5 0.7071 10.879 0.5  7.692
-#&gt; 119       10      8  9.0 1.4142 15.713 1.0 11.111
-#&gt; 120       11      8  9.5 2.1213 22.330 1.5 15.789
-#&gt; 121       12      8 10.0 2.8284 28.284 2.0 20.000
-#&gt; 122        4      5  4.5 0.7071 15.713 0.5 11.111
-#&gt; 123        8      7  7.5 0.7071  9.428 0.5  6.667
-#&gt; 124       12      9 10.5 2.1213 20.203 1.5 14.286
-#&gt; 125       17     11 14.0 4.2426 30.305 3.0 21.429
-#&gt; 126       13     13 13.0 0.0000  0.000 0.0  0.000
-#&gt; 127       16     13 14.5 2.1213 14.630 1.5 10.345
-#&gt; 128       17     11 14.0 4.2426 30.305 3.0 21.429
-#&gt; 129       15     12 13.5 2.1213 15.713 1.5 11.111
-#&gt; 130        4      5  4.5 0.7071 15.713 0.5 11.111
-#&gt; 131       13     11 12.0 1.4142 11.785 1.0  8.333
-#&gt; 132       16     10 13.0 4.2426 32.636 3.0 23.077
-#&gt; 133        7     10  8.5 2.1213 24.957 1.5 17.647
-#&gt; 134        6      5  5.5 0.7071 12.856 0.5  9.091
-#&gt; 135       16     12 14.0 2.8284 20.203 2.0 14.286
-#&gt; 136       15     11 13.0 2.8284 21.757 2.0 15.385
-#&gt; 137       15     14 14.5 0.7071  4.877 0.5  3.448
-#&gt; 138        8      6  7.0 1.4142 20.203 1.0 14.286
-#&gt; 139       10      7  8.5 2.1213 24.957 1.5 17.647
-#&gt; 140        8      8  8.0 0.0000  0.000 0.0  0.000
-#&gt; 141       19     14 16.5 3.5355 21.427 2.5 15.152
-#&gt; 142        9      8  8.5 0.7071  8.319 0.5  5.882
-#&gt;  [ reached getOption("max.print") -- omitted 9 rows ]</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"precision"</span>)</div><div class='output co'>#&gt;    n validn R   ACV   APE   ASD  AMAD PercAgree
-#&gt;  151    151 2 21.11 14.93 1.541 1.089     19.87</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>)</div><div class='output co'>#&gt;      -3      -2      -1       0       1       2       3       4       5       6 
+#&gt;    otolithC scaleC mean median mode     SD     CV    CV2 MAD    APE   APE2
+#&gt; 1         3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 2         3      4  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 3         3      6  4.5    4.5   NA 2.1213 47.140 47.140 1.5 33.333 33.333
+#&gt; 4         3      4  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 5         3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 6         6      4  5.0    5.0   NA 1.4142 28.284 28.284 1.0 20.000 20.000
+#&gt; 7        10      7  8.5    8.5   NA 2.1213 24.957 24.957 1.5 17.647 17.647
+#&gt; 8        11      5  8.0    8.0   NA 4.2426 53.033 53.033 3.0 37.500 37.500
+#&gt; 9         4      3  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 10        1      1  1.0    1.0    1 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 11        1      2  1.5    1.5   NA 0.7071 47.140 47.140 0.5 33.333 33.333
+#&gt; 12        3      4  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 13        3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 14       11      6  8.5    8.5   NA 3.5355 41.595 41.595 2.5 29.412 29.412
+#&gt; 15       10      6  8.0    8.0   NA 2.8284 35.355 35.355 2.0 25.000 25.000
+#&gt; 16       10      6  8.0    8.0   NA 2.8284 35.355 35.355 2.0 25.000 25.000
+#&gt; 17       14      6 10.0   10.0   NA 5.6569 56.569 56.569 4.0 40.000 40.000
+#&gt; 18       13      6  9.5    9.5   NA 4.9497 52.103 52.103 3.5 36.842 36.842
+#&gt; 19       13      7 10.0   10.0   NA 4.2426 42.426 42.426 3.0 30.000 30.000
+#&gt; 20        7      6  6.5    6.5   NA 0.7071 10.879 10.879 0.5  7.692  7.692
+#&gt; 21       14      7 10.5   10.5   NA 4.9497 47.140 47.140 3.5 33.333 33.333
+#&gt; 22        9      7  8.0    8.0   NA 1.4142 17.678 17.678 1.0 12.500 12.500
+#&gt; 23        7      5  6.0    6.0   NA 1.4142 23.570 23.570 1.0 16.667 16.667
+#&gt; 24        6      5  5.5    5.5   NA 0.7071 12.856 12.856 0.5  9.091  9.091
+#&gt; 25        6      3  4.5    4.5   NA 2.1213 47.140 47.140 1.5 33.333 33.333
+#&gt; 26        3      4  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 27        3      4  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 28        6      5  5.5    5.5   NA 0.7071 12.856 12.856 0.5  9.091  9.091
+#&gt; 29        4      6  5.0    5.0   NA 1.4142 28.284 28.284 1.0 20.000 20.000
+#&gt; 30        3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 31        4      4  4.0    4.0    4 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 32        1      1  1.0    1.0    1 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 33        3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 34        4      4  4.0    4.0    4 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 35        4      2  3.0    3.0   NA 1.4142 47.140 47.140 1.0 33.333 33.333
+#&gt; 36        4      3  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 37        3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 38        1      2  1.5    1.5   NA 0.7071 47.140 47.140 0.5 33.333 33.333
+#&gt; 39        1      1  1.0    1.0    1 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 40        2      1  1.5    1.5   NA 0.7071 47.140 47.140 0.5 33.333 33.333
+#&gt; 41        2      1  1.5    1.5   NA 0.7071 47.140 47.140 0.5 33.333 33.333
+#&gt; 42        4      3  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 43        8      5  6.5    6.5   NA 2.1213 32.636 32.636 1.5 23.077 23.077
+#&gt; 44        2      5  3.5    3.5   NA 2.1213 60.609 60.609 1.5 42.857 42.857
+#&gt; 45        2      3  2.5    2.5   NA 0.7071 28.284 28.284 0.5 20.000 20.000
+#&gt; 46        3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 47        1      2  1.5    1.5   NA 0.7071 47.140 47.140 0.5 33.333 33.333
+#&gt; 48        3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 49        8      5  6.5    6.5   NA 2.1213 32.636 32.636 1.5 23.077 23.077
+#&gt; 50        4      3  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 51        2      2  2.0    2.0    2 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 52        3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 53        3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 54        8      5  6.5    6.5   NA 2.1213 32.636 32.636 1.5 23.077 23.077
+#&gt; 55        4      4  4.0    4.0    4 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 56        6      5  5.5    5.5   NA 0.7071 12.856 12.856 0.5  9.091  9.091
+#&gt; 57        7      5  6.0    6.0   NA 1.4142 23.570 23.570 1.0 16.667 16.667
+#&gt; 58        2      1  1.5    1.5   NA 0.7071 47.140 47.140 0.5 33.333 33.333
+#&gt; 59        1      1  1.0    1.0    1 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 60        2      1  1.5    1.5   NA 0.7071 47.140 47.140 0.5 33.333 33.333
+#&gt; 61        1      2  1.5    1.5   NA 0.7071 47.140 47.140 0.5 33.333 33.333
+#&gt; 62        5      4  4.5    4.5   NA 0.7071 15.713 15.713 0.5 11.111 11.111
+#&gt; 63        5      4  4.5    4.5   NA 0.7071 15.713 15.713 0.5 11.111 11.111
+#&gt; 64        4      5  4.5    4.5   NA 0.7071 15.713 15.713 0.5 11.111 11.111
+#&gt; 65        5      6  5.5    5.5   NA 0.7071 12.856 12.856 0.5  9.091  9.091
+#&gt; 66       18      7 12.5   12.5   NA 7.7782 62.225 62.225 5.5 44.000 44.000
+#&gt; 67        7      8  7.5    7.5   NA 0.7071  9.428  9.428 0.5  6.667  6.667
+#&gt; 68        9      8  8.5    8.5   NA 0.7071  8.319  8.319 0.5  5.882  5.882
+#&gt; 69        5      4  4.5    4.5   NA 0.7071 15.713 15.713 0.5 11.111 11.111
+#&gt; 70       10      8  9.0    9.0   NA 1.4142 15.713 15.713 1.0 11.111 11.111
+#&gt; 71       12      7  9.5    9.5   NA 3.5355 37.216 37.216 2.5 26.316 26.316
+#&gt; 72        7      5  6.0    6.0   NA 1.4142 23.570 23.570 1.0 16.667 16.667
+#&gt; 73       10      8  9.0    9.0   NA 1.4142 15.713 15.713 1.0 11.111 11.111
+#&gt; 74        9      6  7.5    7.5   NA 2.1213 28.284 28.284 1.5 20.000 20.000
+#&gt; 75       11      7  9.0    9.0   NA 2.8284 31.427 31.427 2.0 22.222 22.222
+#&gt; 76        1      1  1.0    1.0    1 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 77        3      1  2.0    2.0   NA 1.4142 70.711 70.711 1.0 50.000 50.000
+#&gt; 78       14     13 13.5   13.5   NA 0.7071  5.238  5.238 0.5  3.704  3.704
+#&gt; 79        8      6  7.0    7.0   NA 1.4142 20.203 20.203 1.0 14.286 14.286
+#&gt; 80       12      6  9.0    9.0   NA 4.2426 47.140 47.140 3.0 33.333 33.333
+#&gt; 81       11      9 10.0   10.0   NA 1.4142 14.142 14.142 1.0 10.000 10.000
+#&gt; 82        9      7  8.0    8.0   NA 1.4142 17.678 17.678 1.0 12.500 12.500
+#&gt; 83        8      7  7.5    7.5   NA 0.7071  9.428  9.428 0.5  6.667  6.667
+#&gt; 84        5      8  6.5    6.5   NA 2.1213 32.636 32.636 1.5 23.077 23.077
+#&gt; 85        8      7  7.5    7.5   NA 0.7071  9.428  9.428 0.5  6.667  6.667
+#&gt; 86       18     13 15.5   15.5   NA 3.5355 22.810 22.810 2.5 16.129 16.129
+#&gt; 87       12     10 11.0   11.0   NA 1.4142 12.856 12.856 1.0  9.091  9.091
+#&gt; 88       11      8  9.5    9.5   NA 2.1213 22.330 22.330 1.5 15.789 15.789
+#&gt; 89        9      8  8.5    8.5   NA 0.7071  8.319  8.319 0.5  5.882  5.882
+#&gt; 90       11      8  9.5    9.5   NA 2.1213 22.330 22.330 1.5 15.789 15.789</div><div class='output co'>#&gt; <span class='warning'>Warning: Some rows of details not shown because getOption('max.print') (=1000) was</span>
+#&gt; <span class='warning'> reached. Use at least options(max.print=1661) to see all details.</span></div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"precision"</span>)</div><div class='output co'>#&gt;    n validn R PercAgree   ASD   ACV  AMAD   APE
+#&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>)</div><div class='output co'>#&gt;      -3      -2      -1       0       1       2       3       4       5       6 
 #&gt;  2.6490  0.6623 10.5960 19.8675 19.8675 15.8940 11.2583  5.9603  3.3113  5.2980 
 #&gt;       7       8       9      10      11      12      13 
 #&gt;  1.9868  1.3245  0.0000  0.0000  0.6623  0.0000  0.6623 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>,<span class='kw'>percent</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; -3 -2 -1  0  1  2  3  4  5  6  7  8  9 10 11 12 13 
@@ -385,330 +337,315 @@
 #&gt;      10      11      12      13 
 #&gt;  0.0000  0.6623  0.0000  0.6623 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>,<span class='kw'>percent</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  0  1  2  3  4  5  6  7  8  9 10 11 12 13 
 #&gt; 30 46 25 21  9  5  8  3  2  0  0  1  0  1 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>,<span class='kw'>trunc.diff</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='output co'>#&gt;     0     1     2     3    4+ 
-#&gt; 19.87 30.46 16.56 13.91 19.21 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>,<span class='kw'>percent</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  0  1  2  3  4  5  6  7  8  9 10 11 12 13 
-#&gt; 30 46 25 21  9  5  8  3  2  0  0  1  0  1 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"precision"</span>,<span class='st'>"difference"</span>))</div><div class='output co'>#&gt; Precision summary statistics
-#&gt;    n validn R   ACV   APE   ASD  AMAD PercAgree
-#&gt;  151    151 2 21.11 14.93 1.541 1.089     19.87
+#&gt; 19.87 30.46 16.56 13.91 19.21 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"precision"</span>,<span class='st'>"difference"</span>))</div><div class='output co'>#&gt; Precision summary statistics
+#&gt;    n validn R PercAgree   ASD   ACV  AMAD   APE
+#&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93
 #&gt; 
 #&gt; Percentage of fish by differences in ages
 #&gt;  between pairs of estimates
 #&gt;      -3      -2      -1       0       1       2       3       4       5       6 
 #&gt;  2.6490  0.6623 10.5960 19.8675 19.8675 15.8940 11.2583  5.9603  3.3113  5.2980 
 #&gt;       7       8       9      10      11      12      13 
-#&gt;  1.9868  1.3245  0.0000  0.0000  0.6623  0.0000  0.6623 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"detail"</span>)</div><div class='output co'>#&gt;     otolithC scaleC  avg     SD     CV MAD    APE
-#&gt; 1          3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 2          3      4  3.5 0.7071 20.203 0.5 14.286
-#&gt; 3          3      6  4.5 2.1213 47.140 1.5 33.333
-#&gt; 4          3      4  3.5 0.7071 20.203 0.5 14.286
-#&gt; 5          3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 6          6      4  5.0 1.4142 28.284 1.0 20.000
-#&gt; 7         10      7  8.5 2.1213 24.957 1.5 17.647
-#&gt; 8         11      5  8.0 4.2426 53.033 3.0 37.500
-#&gt; 9          4      3  3.5 0.7071 20.203 0.5 14.286
-#&gt; 10         1      1  1.0 0.0000  0.000 0.0  0.000
-#&gt; 11         1      2  1.5 0.7071 47.140 0.5 33.333
-#&gt; 12         3      4  3.5 0.7071 20.203 0.5 14.286
-#&gt; 13         3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 14        11      6  8.5 3.5355 41.595 2.5 29.412
-#&gt; 15        10      6  8.0 2.8284 35.355 2.0 25.000
-#&gt; 16        10      6  8.0 2.8284 35.355 2.0 25.000
-#&gt; 17        14      6 10.0 5.6569 56.569 4.0 40.000
-#&gt; 18        13      6  9.5 4.9497 52.103 3.5 36.842
-#&gt; 19        13      7 10.0 4.2426 42.426 3.0 30.000
-#&gt; 20         7      6  6.5 0.7071 10.879 0.5  7.692
-#&gt; 21        14      7 10.5 4.9497 47.140 3.5 33.333
-#&gt; 22         9      7  8.0 1.4142 17.678 1.0 12.500
-#&gt; 23         7      5  6.0 1.4142 23.570 1.0 16.667
-#&gt; 24         6      5  5.5 0.7071 12.856 0.5  9.091
-#&gt; 25         6      3  4.5 2.1213 47.140 1.5 33.333
-#&gt; 26         3      4  3.5 0.7071 20.203 0.5 14.286
-#&gt; 27         3      4  3.5 0.7071 20.203 0.5 14.286
-#&gt; 28         6      5  5.5 0.7071 12.856 0.5  9.091
-#&gt; 29         4      6  5.0 1.4142 28.284 1.0 20.000
-#&gt; 30         3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 31         4      4  4.0 0.0000  0.000 0.0  0.000
-#&gt; 32         1      1  1.0 0.0000  0.000 0.0  0.000
-#&gt; 33         3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 34         4      4  4.0 0.0000  0.000 0.0  0.000
-#&gt; 35         4      2  3.0 1.4142 47.140 1.0 33.333
-#&gt; 36         4      3  3.5 0.7071 20.203 0.5 14.286
-#&gt; 37         3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 38         1      2  1.5 0.7071 47.140 0.5 33.333
-#&gt; 39         1      1  1.0 0.0000  0.000 0.0  0.000
-#&gt; 40         2      1  1.5 0.7071 47.140 0.5 33.333
-#&gt; 41         2      1  1.5 0.7071 47.140 0.5 33.333
-#&gt; 42         4      3  3.5 0.7071 20.203 0.5 14.286
-#&gt; 43         8      5  6.5 2.1213 32.636 1.5 23.077
-#&gt; 44         2      5  3.5 2.1213 60.609 1.5 42.857
-#&gt; 45         2      3  2.5 0.7071 28.284 0.5 20.000
-#&gt; 46         3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 47         1      2  1.5 0.7071 47.140 0.5 33.333
-#&gt; 48         3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 49         8      5  6.5 2.1213 32.636 1.5 23.077
-#&gt; 50         4      3  3.5 0.7071 20.203 0.5 14.286
-#&gt; 51         2      2  2.0 0.0000  0.000 0.0  0.000
-#&gt; 52         3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 53         3      3  3.0 0.0000  0.000 0.0  0.000
-#&gt; 54         8      5  6.5 2.1213 32.636 1.5 23.077
-#&gt; 55         4      4  4.0 0.0000  0.000 0.0  0.000
-#&gt; 56         6      5  5.5 0.7071 12.856 0.5  9.091
-#&gt; 57         7      5  6.0 1.4142 23.570 1.0 16.667
-#&gt; 58         2      1  1.5 0.7071 47.140 0.5 33.333
-#&gt; 59         1      1  1.0 0.0000  0.000 0.0  0.000
-#&gt; 60         2      1  1.5 0.7071 47.140 0.5 33.333
-#&gt; 61         1      2  1.5 0.7071 47.140 0.5 33.333
-#&gt; 62         5      4  4.5 0.7071 15.713 0.5 11.111
-#&gt; 63         5      4  4.5 0.7071 15.713 0.5 11.111
-#&gt; 64         4      5  4.5 0.7071 15.713 0.5 11.111
-#&gt; 65         5      6  5.5 0.7071 12.856 0.5  9.091
-#&gt; 66        18      7 12.5 7.7782 62.225 5.5 44.000
-#&gt; 67         7      8  7.5 0.7071  9.428 0.5  6.667
-#&gt; 68         9      8  8.5 0.7071  8.319 0.5  5.882
-#&gt; 69         5      4  4.5 0.7071 15.713 0.5 11.111
-#&gt; 70        10      8  9.0 1.4142 15.713 1.0 11.111
-#&gt; 71        12      7  9.5 3.5355 37.216 2.5 26.316
-#&gt; 72         7      5  6.0 1.4142 23.570 1.0 16.667
-#&gt; 73        10      8  9.0 1.4142 15.713 1.0 11.111
-#&gt; 74         9      6  7.5 2.1213 28.284 1.5 20.000
-#&gt; 75        11      7  9.0 2.8284 31.427 2.0 22.222
-#&gt; 76         1      1  1.0 0.0000  0.000 0.0  0.000
-#&gt; 77         3      1  2.0 1.4142 70.711 1.0 50.000
-#&gt; 78        14     13 13.5 0.7071  5.238 0.5  3.704
-#&gt; 79         8      6  7.0 1.4142 20.203 1.0 14.286
-#&gt; 80        12      6  9.0 4.2426 47.140 3.0 33.333
-#&gt; 81        11      9 10.0 1.4142 14.142 1.0 10.000
-#&gt; 82         9      7  8.0 1.4142 17.678 1.0 12.500
-#&gt; 83         8      7  7.5 0.7071  9.428 0.5  6.667
-#&gt; 84         5      8  6.5 2.1213 32.636 1.5 23.077
-#&gt; 85         8      7  7.5 0.7071  9.428 0.5  6.667
-#&gt; 86        18     13 15.5 3.5355 22.810 2.5 16.129
-#&gt; 87        12     10 11.0 1.4142 12.856 1.0  9.091
-#&gt; 88        11      8  9.5 2.1213 22.330 1.5 15.789
-#&gt; 89         9      8  8.5 0.7071  8.319 0.5  5.882
-#&gt; 90        11      8  9.5 2.1213 22.330 1.5 15.789
-#&gt; 91        13      9 11.0 2.8284 25.713 2.0 18.182
-#&gt; 92         9      7  8.0 1.4142 17.678 1.0 12.500
-#&gt; 93        10      7  8.5 2.1213 24.957 1.5 17.647
-#&gt; 94         4      4  4.0 0.0000  0.000 0.0  0.000
-#&gt; 95         6      4  5.0 1.4142 28.284 1.0 20.000
-#&gt; 96         4      3  3.5 0.7071 20.203 0.5 14.286
-#&gt; 97         4      3  3.5 0.7071 20.203 0.5 14.286
-#&gt; 98         6      6  6.0 0.0000  0.000 0.0  0.000
-#&gt; 99        11      7  9.0 2.8284 31.427 2.0 22.222
-#&gt; 100        8      6  7.0 1.4142 20.203 1.0 14.286
-#&gt; 101        8      5  6.5 2.1213 32.636 1.5 23.077
-#&gt; 102        5      6  5.5 0.7071 12.856 0.5  9.091
-#&gt; 103        6      5  5.5 0.7071 12.856 0.5  9.091
-#&gt; 104        6      4  5.0 1.4142 28.284 1.0 20.000
-#&gt; 105        9      7  8.0 1.4142 17.678 1.0 12.500
-#&gt; 106       13     10 11.5 2.1213 18.446 1.5 13.043
-#&gt; 107        9      7  8.0 1.4142 17.678 1.0 12.500
-#&gt; 108       12      7  9.5 3.5355 37.216 2.5 26.316
-#&gt; 109        5      5  5.0 0.0000  0.000 0.0  0.000
-#&gt; 110        4      4  4.0 0.0000  0.000 0.0  0.000
-#&gt; 111        7      7  7.0 0.0000  0.000 0.0  0.000
-#&gt; 112        4      4  4.0 0.0000  0.000 0.0  0.000
-#&gt; 113        4      4  4.0 0.0000  0.000 0.0  0.000
-#&gt; 114       10      7  8.5 2.1213 24.957 1.5 17.647
-#&gt; 115        7      6  6.5 0.7071 10.879 0.5  7.692
-#&gt; 116        5      5  5.0 0.0000  0.000 0.0  0.000
-#&gt; 117       17      9 13.0 5.6569 43.514 4.0 30.769
-#&gt; 118        7      6  6.5 0.7071 10.879 0.5  7.692
-#&gt; 119       10      8  9.0 1.4142 15.713 1.0 11.111
-#&gt; 120       11      8  9.5 2.1213 22.330 1.5 15.789
-#&gt; 121       12      8 10.0 2.8284 28.284 2.0 20.000
-#&gt; 122        4      5  4.5 0.7071 15.713 0.5 11.111
-#&gt; 123        8      7  7.5 0.7071  9.428 0.5  6.667
-#&gt; 124       12      9 10.5 2.1213 20.203 1.5 14.286
-#&gt; 125       17     11 14.0 4.2426 30.305 3.0 21.429
-#&gt; 126       13     13 13.0 0.0000  0.000 0.0  0.000
-#&gt; 127       16     13 14.5 2.1213 14.630 1.5 10.345
-#&gt; 128       17     11 14.0 4.2426 30.305 3.0 21.429
-#&gt; 129       15     12 13.5 2.1213 15.713 1.5 11.111
-#&gt; 130        4      5  4.5 0.7071 15.713 0.5 11.111
-#&gt; 131       13     11 12.0 1.4142 11.785 1.0  8.333
-#&gt; 132       16     10 13.0 4.2426 32.636 3.0 23.077
-#&gt; 133        7     10  8.5 2.1213 24.957 1.5 17.647
-#&gt; 134        6      5  5.5 0.7071 12.856 0.5  9.091
-#&gt; 135       16     12 14.0 2.8284 20.203 2.0 14.286
-#&gt; 136       15     11 13.0 2.8284 21.757 2.0 15.385
-#&gt; 137       15     14 14.5 0.7071  4.877 0.5  3.448
-#&gt; 138        8      6  7.0 1.4142 20.203 1.0 14.286
-#&gt; 139       10      7  8.5 2.1213 24.957 1.5 17.647
-#&gt; 140        8      8  8.0 0.0000  0.000 0.0  0.000
-#&gt; 141       19     14 16.5 3.5355 21.427 2.5 15.152
-#&gt; 142        9      8  8.5 0.7071  8.319 0.5  5.882
-#&gt;  [ reached getOption("max.print") -- omitted 9 rows ]</div><div class='input'>
-<span class='fu'>barplot</span>(<span class='no'>ap1</span>$<span class='no'>rawdiff</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Frequency"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Otolith - Scale Age"</span>)</div><div class='img'><img src='agePrecision-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>MAD</span>~<span class='no'>avg</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,
-     <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>SD</span>~<span class='no'>avg</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"SD Age"</span>,
+#&gt;  1.9868  1.3245  0.0000  0.0000  0.6623  0.0000  0.6623 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"detail"</span>)</div><div class='output co'>#&gt;    otolithC scaleC mean median mode     SD     CV    CV2 MAD    APE   APE2
+#&gt; 1         3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 2         3      4  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 3         3      6  4.5    4.5   NA 2.1213 47.140 47.140 1.5 33.333 33.333
+#&gt; 4         3      4  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 5         3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 6         6      4  5.0    5.0   NA 1.4142 28.284 28.284 1.0 20.000 20.000
+#&gt; 7        10      7  8.5    8.5   NA 2.1213 24.957 24.957 1.5 17.647 17.647
+#&gt; 8        11      5  8.0    8.0   NA 4.2426 53.033 53.033 3.0 37.500 37.500
+#&gt; 9         4      3  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 10        1      1  1.0    1.0    1 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 11        1      2  1.5    1.5   NA 0.7071 47.140 47.140 0.5 33.333 33.333
+#&gt; 12        3      4  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 13        3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 14       11      6  8.5    8.5   NA 3.5355 41.595 41.595 2.5 29.412 29.412
+#&gt; 15       10      6  8.0    8.0   NA 2.8284 35.355 35.355 2.0 25.000 25.000
+#&gt; 16       10      6  8.0    8.0   NA 2.8284 35.355 35.355 2.0 25.000 25.000
+#&gt; 17       14      6 10.0   10.0   NA 5.6569 56.569 56.569 4.0 40.000 40.000
+#&gt; 18       13      6  9.5    9.5   NA 4.9497 52.103 52.103 3.5 36.842 36.842
+#&gt; 19       13      7 10.0   10.0   NA 4.2426 42.426 42.426 3.0 30.000 30.000
+#&gt; 20        7      6  6.5    6.5   NA 0.7071 10.879 10.879 0.5  7.692  7.692
+#&gt; 21       14      7 10.5   10.5   NA 4.9497 47.140 47.140 3.5 33.333 33.333
+#&gt; 22        9      7  8.0    8.0   NA 1.4142 17.678 17.678 1.0 12.500 12.500
+#&gt; 23        7      5  6.0    6.0   NA 1.4142 23.570 23.570 1.0 16.667 16.667
+#&gt; 24        6      5  5.5    5.5   NA 0.7071 12.856 12.856 0.5  9.091  9.091
+#&gt; 25        6      3  4.5    4.5   NA 2.1213 47.140 47.140 1.5 33.333 33.333
+#&gt; 26        3      4  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 27        3      4  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 28        6      5  5.5    5.5   NA 0.7071 12.856 12.856 0.5  9.091  9.091
+#&gt; 29        4      6  5.0    5.0   NA 1.4142 28.284 28.284 1.0 20.000 20.000
+#&gt; 30        3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 31        4      4  4.0    4.0    4 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 32        1      1  1.0    1.0    1 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 33        3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 34        4      4  4.0    4.0    4 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 35        4      2  3.0    3.0   NA 1.4142 47.140 47.140 1.0 33.333 33.333
+#&gt; 36        4      3  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 37        3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 38        1      2  1.5    1.5   NA 0.7071 47.140 47.140 0.5 33.333 33.333
+#&gt; 39        1      1  1.0    1.0    1 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 40        2      1  1.5    1.5   NA 0.7071 47.140 47.140 0.5 33.333 33.333
+#&gt; 41        2      1  1.5    1.5   NA 0.7071 47.140 47.140 0.5 33.333 33.333
+#&gt; 42        4      3  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 43        8      5  6.5    6.5   NA 2.1213 32.636 32.636 1.5 23.077 23.077
+#&gt; 44        2      5  3.5    3.5   NA 2.1213 60.609 60.609 1.5 42.857 42.857
+#&gt; 45        2      3  2.5    2.5   NA 0.7071 28.284 28.284 0.5 20.000 20.000
+#&gt; 46        3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 47        1      2  1.5    1.5   NA 0.7071 47.140 47.140 0.5 33.333 33.333
+#&gt; 48        3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 49        8      5  6.5    6.5   NA 2.1213 32.636 32.636 1.5 23.077 23.077
+#&gt; 50        4      3  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
+#&gt; 51        2      2  2.0    2.0    2 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 52        3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 53        3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 54        8      5  6.5    6.5   NA 2.1213 32.636 32.636 1.5 23.077 23.077
+#&gt; 55        4      4  4.0    4.0    4 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 56        6      5  5.5    5.5   NA 0.7071 12.856 12.856 0.5  9.091  9.091
+#&gt; 57        7      5  6.0    6.0   NA 1.4142 23.570 23.570 1.0 16.667 16.667
+#&gt; 58        2      1  1.5    1.5   NA 0.7071 47.140 47.140 0.5 33.333 33.333
+#&gt; 59        1      1  1.0    1.0    1 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 60        2      1  1.5    1.5   NA 0.7071 47.140 47.140 0.5 33.333 33.333
+#&gt; 61        1      2  1.5    1.5   NA 0.7071 47.140 47.140 0.5 33.333 33.333
+#&gt; 62        5      4  4.5    4.5   NA 0.7071 15.713 15.713 0.5 11.111 11.111
+#&gt; 63        5      4  4.5    4.5   NA 0.7071 15.713 15.713 0.5 11.111 11.111
+#&gt; 64        4      5  4.5    4.5   NA 0.7071 15.713 15.713 0.5 11.111 11.111
+#&gt; 65        5      6  5.5    5.5   NA 0.7071 12.856 12.856 0.5  9.091  9.091
+#&gt; 66       18      7 12.5   12.5   NA 7.7782 62.225 62.225 5.5 44.000 44.000
+#&gt; 67        7      8  7.5    7.5   NA 0.7071  9.428  9.428 0.5  6.667  6.667
+#&gt; 68        9      8  8.5    8.5   NA 0.7071  8.319  8.319 0.5  5.882  5.882
+#&gt; 69        5      4  4.5    4.5   NA 0.7071 15.713 15.713 0.5 11.111 11.111
+#&gt; 70       10      8  9.0    9.0   NA 1.4142 15.713 15.713 1.0 11.111 11.111
+#&gt; 71       12      7  9.5    9.5   NA 3.5355 37.216 37.216 2.5 26.316 26.316
+#&gt; 72        7      5  6.0    6.0   NA 1.4142 23.570 23.570 1.0 16.667 16.667
+#&gt; 73       10      8  9.0    9.0   NA 1.4142 15.713 15.713 1.0 11.111 11.111
+#&gt; 74        9      6  7.5    7.5   NA 2.1213 28.284 28.284 1.5 20.000 20.000
+#&gt; 75       11      7  9.0    9.0   NA 2.8284 31.427 31.427 2.0 22.222 22.222
+#&gt; 76        1      1  1.0    1.0    1 0.0000  0.000  0.000 0.0  0.000  0.000
+#&gt; 77        3      1  2.0    2.0   NA 1.4142 70.711 70.711 1.0 50.000 50.000
+#&gt; 78       14     13 13.5   13.5   NA 0.7071  5.238  5.238 0.5  3.704  3.704
+#&gt; 79        8      6  7.0    7.0   NA 1.4142 20.203 20.203 1.0 14.286 14.286
+#&gt; 80       12      6  9.0    9.0   NA 4.2426 47.140 47.140 3.0 33.333 33.333
+#&gt; 81       11      9 10.0   10.0   NA 1.4142 14.142 14.142 1.0 10.000 10.000
+#&gt; 82        9      7  8.0    8.0   NA 1.4142 17.678 17.678 1.0 12.500 12.500
+#&gt; 83        8      7  7.5    7.5   NA 0.7071  9.428  9.428 0.5  6.667  6.667
+#&gt; 84        5      8  6.5    6.5   NA 2.1213 32.636 32.636 1.5 23.077 23.077
+#&gt; 85        8      7  7.5    7.5   NA 0.7071  9.428  9.428 0.5  6.667  6.667
+#&gt; 86       18     13 15.5   15.5   NA 3.5355 22.810 22.810 2.5 16.129 16.129
+#&gt; 87       12     10 11.0   11.0   NA 1.4142 12.856 12.856 1.0  9.091  9.091
+#&gt; 88       11      8  9.5    9.5   NA 2.1213 22.330 22.330 1.5 15.789 15.789
+#&gt; 89        9      8  8.5    8.5   NA 0.7071  8.319  8.319 0.5  5.882  5.882
+#&gt; 90       11      8  9.5    9.5   NA 2.1213 22.330 22.330 1.5 15.789 15.789</div><div class='output co'>#&gt; <span class='warning'>Warning: Some rows of details not shown because getOption('max.print') (=1000) was</span>
+#&gt; <span class='warning'> reached. Use at least options(max.print=1661) to see all details.</span></div><div class='input'>
+<span class='fu'>barplot</span>(<span class='no'>ap1</span>$<span class='no'>rawdiff</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Frequency"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Otolith - Scale Age"</span>)</div><div class='img'><img src='agePrecision-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>MAD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,
+     <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>SD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"SD Age"</span>,
      <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>SD</span>~<span class='no'>MAD</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"SD Age"</span>,
      <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>CV</span>~<span class='no'>APE</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"PE Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"CV Age"</span>,
      <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Example with three age estimates</span>
 <span class='no'>ap2</span> <span class='kw'>&lt;-</span> <span class='fu'>agePrecision</span>(~<span class='no'>otolithC</span>+<span class='no'>finrayC</span>+<span class='no'>scaleC</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WhitefishLC</span>)
-<span class='fu'>summary</span>(<span class='no'>ap2</span>)</div><div class='output co'>#&gt; Precision summary statistics
-#&gt;    n validn R   ACV   APE   ASD  AMAD PercAgree
-#&gt;  151    151 3 21.77 16.19 1.487 1.104     12.58
+<span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt; Precision summary statistics
+#&gt;    n validn R PercAgree  ASD  ACV ACV2 AMAD  APE APE2
+#&gt;  151    151 3      12.6 1.49 21.8 24.1  1.1 16.2   18
 #&gt; 
 #&gt; Percentage of fish by absolute differences in ages
 #&gt;  between pairs of estimates
-#&gt;                           0       1       2       3       4       5       6
-#&gt; otolithC v. finrayC 24.5033 21.1921 17.8808 11.9205  7.2848  7.9470  3.3113
-#&gt; otolithC v. scaleC  19.8675 30.4636 16.5563 13.9073  5.9603  3.3113  5.2980
-#&gt; finrayC v. scaleC   40.3974 34.4371 15.2318  5.2980  3.9735  0.0000  0.6623
-#&gt;                           7       8       9      10      11      12      13
-#&gt; otolithC v. finrayC  2.6490  0.6623  1.3245  0.0000  0.6623  0.0000  0.0000
-#&gt; otolithC v. scaleC   1.9868  1.3245  0.0000  0.0000  0.6623  0.0000  0.6623
-#&gt; finrayC v. scaleC    0.0000  0.0000  0.0000  0.0000  0.0000  0.0000  0.0000
-#&gt;                          14
-#&gt; otolithC v. finrayC  0.6623
-#&gt; otolithC v. scaleC   0.0000
-#&gt; finrayC v. scaleC    0.0000
+#&gt;                          0      1      2      3      4      5      6      7
+#&gt; otolithC v. finrayC 24.503 21.192 17.881 11.921  7.285  7.947  3.311  2.649
+#&gt; otolithC v. scaleC  19.868 30.464 16.556 13.907  5.960  3.311  5.298  1.987
+#&gt; finrayC v. scaleC   40.397 34.437 15.232  5.298  3.974  0.000  0.662  0.000
+#&gt;                          8      9     10     11     12     13     14
+#&gt; otolithC v. finrayC  0.662  1.325  0.000  0.662  0.000  0.000  0.662
+#&gt; otolithC v. scaleC   1.325  0.000  0.000  0.662  0.000  0.662  0.000
+#&gt; finrayC v. scaleC    0.000  0.000  0.000  0.000  0.000  0.000  0.000
 #&gt; 
 #&gt; Percentage of fish by differences in ages
 #&gt;  between pairs of estimates
-#&gt;                         -4      -3      -2      -1       0       1       2
-#&gt; otolithC - finrayC  0.0000  0.0000  1.3245  3.3113 24.5033 17.8808 16.5563
-#&gt; otolithC - scaleC   0.0000  2.6490  0.6623 10.5960 19.8675 19.8675 15.8940
-#&gt; finrayC - scaleC    3.3113  4.6358 12.5828 19.8675 40.3974 14.5695  2.6490
-#&gt;                          3       4       5       6       7       8       9
-#&gt; otolithC - finrayC 11.9205  7.2848  7.9470  3.3113  2.6490  0.6623  1.3245
-#&gt; otolithC - scaleC  11.2583  5.9603  3.3113  5.2980  1.9868  1.3245  0.0000
-#&gt; finrayC - scaleC    0.6623  0.6623  0.0000  0.6623  0.0000  0.0000  0.0000
-#&gt;                         10      11      12      13      14
-#&gt; otolithC - finrayC  0.0000  0.6623  0.0000  0.0000  0.6623
-#&gt; otolithC - scaleC   0.0000  0.6623  0.0000  0.6623  0.0000
-#&gt; finrayC - scaleC    0.0000  0.0000  0.0000  0.0000  0.0000
+#&gt;                        -4     -3     -2     -1      0      1      2      3
+#&gt; otolithC - finrayC  0.000  0.000  1.325  3.311 24.503 17.881 16.556 11.921
+#&gt; otolithC - scaleC   0.000  2.649  0.662 10.596 19.868 19.868 15.894 11.258
+#&gt; finrayC - scaleC    3.311  4.636 12.583 19.868 40.397 14.570  2.649  0.662
+#&gt;                         4      5      6      7      8      9     10     11
+#&gt; otolithC - finrayC  7.285  7.947  3.311  2.649  0.662  1.325  0.000  0.662
+#&gt; otolithC - scaleC   5.960  3.311  5.298  1.987  1.325  0.000  0.000  0.662
+#&gt; finrayC - scaleC    0.662  0.000  0.662  0.000  0.000  0.000  0.000  0.000
+#&gt;                        12     13     14
+#&gt; otolithC - finrayC  0.000  0.000  0.662
+#&gt; otolithC - scaleC   0.000  0.662  0.000
+#&gt; finrayC - scaleC    0.000  0.000  0.000
 #&gt; 
 #&gt; Intermediate calculations for each individual
-#&gt;     otolithC finrayC scaleC    avg     SD     CV    MAD    APE
-#&gt; 1          3       3      3  3.000 0.0000  0.000 0.0000  0.000
-#&gt; 2          3       3      4  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 3          3       3      6  4.000 1.7321 43.301 1.3333 33.333
-#&gt; 4          3       3      4  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 5          3       4      3  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 6          6       3      4  4.333 1.5275 35.251 1.1111 25.641
-#&gt; 7         10       6      7  7.667 2.0817 27.152 1.5556 20.290
-#&gt; 8         11       9      5  8.333 3.0551 36.661 2.2222 26.667
-#&gt; 9          4       3      3  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 10         1       1      1  1.000 0.0000  0.000 0.0000  0.000
-#&gt; 11         1       2      2  1.667 0.5774 34.641 0.4444 26.667
-#&gt; 12         3       3      4  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 13         3       3      3  3.000 0.0000  0.000 0.0000  0.000
-#&gt; 14        11       8      6  8.333 2.5166 30.199 1.7778 21.333
-#&gt; 15        10       7      6  7.667 2.0817 27.152 1.5556 20.290
-#&gt; 16        10       6      6  7.333 2.3094 31.492 1.7778 24.242
-#&gt; 17        14      12      6 10.667 4.1633 39.031 3.1111 29.167
-#&gt; 18        13       6      6  8.333 4.0415 48.497 3.1111 37.333
-#&gt; 19        13       8      7  9.333 3.2146 34.442 2.4444 26.190
-#&gt; 20         7       6      6  6.333 0.5774  9.116 0.4444  7.018
-#&gt; 21        14       7      7  9.333 4.0415 43.301 3.1111 33.333
-#&gt; 22         9       6      7  7.333 1.5275 20.830 1.1111 15.152
-#&gt; 23         7       4      5  5.333 1.5275 28.641 1.1111 20.833
-#&gt; 24         6       6      5  5.667 0.5774 10.189 0.4444  7.843
-#&gt; 25         6       6      3  5.000 1.7321 34.641 1.3333 26.667
-#&gt; 26         3       3      4  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 27         3       3      4  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 28         6       4      5  5.000 1.0000 20.000 0.6667 13.333
-#&gt; 29         4       4      6  4.667 1.1547 24.744 0.8889 19.048
-#&gt; 30         3       3      3  3.000 0.0000  0.000 0.0000  0.000
-#&gt; 31         4       3      4  3.667 0.5774 15.746 0.4444 12.121
-#&gt; 32         1       1      1  1.000 0.0000  0.000 0.0000  0.000
-#&gt; 33         3       3      3  3.000 0.0000  0.000 0.0000  0.000
-#&gt; 34         4       2      4  3.333 1.1547 34.641 0.8889 26.667
-#&gt; 35         4       3      2  3.000 1.0000 33.333 0.6667 22.222
-#&gt; 36         4       3      3  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 37         3       3      3  3.000 0.0000  0.000 0.0000  0.000
-#&gt; 38         1       3      2  2.000 1.0000 50.000 0.6667 33.333
-#&gt; 39         1       2      1  1.333 0.5774 43.301 0.4444 33.333
-#&gt; 40         2       1      1  1.333 0.5774 43.301 0.4444 33.333
-#&gt; 41         2       1      1  1.333 0.5774 43.301 0.4444 33.333
-#&gt; 42         4       3      3  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 43         8       6      5  6.333 1.5275 24.119 1.1111 17.544
-#&gt; 44         2       3      5  3.333 1.5275 45.826 1.1111 33.333
-#&gt; 45         2       4      3  3.000 1.0000 33.333 0.6667 22.222
-#&gt; 46         3       2      3  2.667 0.5774 21.651 0.4444 16.667
-#&gt; 47         1       1      2  1.333 0.5774 43.301 0.4444 33.333
-#&gt; 48         3       3      3  3.000 0.0000  0.000 0.0000  0.000
-#&gt; 49         8       7      5  6.667 1.5275 22.913 1.1111 16.667
-#&gt; 50         4       4      3  3.667 0.5774 15.746 0.4444 12.121
-#&gt; 51         2       2      2  2.000 0.0000  0.000 0.0000  0.000
-#&gt; 52         3       3      3  3.000 0.0000  0.000 0.0000  0.000
-#&gt; 53         3       3      3  3.000 0.0000  0.000 0.0000  0.000
-#&gt; 54         8       6      5  6.333 1.5275 24.119 1.1111 17.544
-#&gt; 55         4       4      4  4.000 0.0000  0.000 0.0000  0.000
-#&gt; 56         6       6      5  5.667 0.5774 10.189 0.4444  7.843
-#&gt; 57         7       5      5  5.667 1.1547 20.377 0.8889 15.686
-#&gt; 58         2       1      1  1.333 0.5774 43.301 0.4444 33.333
-#&gt; 59         1       1      1  1.000 0.0000  0.000 0.0000  0.000
-#&gt; 60         2       1      1  1.333 0.5774 43.301 0.4444 33.333
-#&gt; 61         1       1      2  1.333 0.5774 43.301 0.4444 33.333
-#&gt; 62         5       5      4  4.667 0.5774 12.372 0.4444  9.524
-#&gt; 63         5       4      4  4.333 0.5774 13.323 0.4444 10.256
-#&gt; 64         4       4      5  4.333 0.5774 13.323 0.4444 10.256
-#&gt; 65         5       3      6  4.667 1.5275 32.733 1.1111 23.810
-#&gt; 66        18       7      7 10.667 6.3509 59.539 4.8889 45.833
-#&gt; 67         7       5      8  6.667 1.5275 22.913 1.1111 16.667
-#&gt; 68         9       6      8  7.667 1.5275 19.924 1.1111 14.493
-#&gt; 69         5       4      4  4.333 0.5774 13.323 0.4444 10.256
-#&gt; 70        10       6      8  8.000 2.0000 25.000 1.3333 16.667
-#&gt; 71        12       7      7  8.667 2.8868 33.309 2.2222 25.641
-#&gt; 72         7       6      5  6.000 1.0000 16.667 0.6667 11.111
-#&gt; 73        10       7      8  8.333 1.5275 18.330 1.1111 13.333
-#&gt; 74         9       5      6  6.667 2.0817 31.225 1.5556 23.333
-#&gt; 75        11       7      7  8.333 2.3094 27.713 1.7778 21.333
-#&gt; 76         1       1      1  1.000 0.0000  0.000 0.0000  0.000
-#&gt; 77         3       2      1  2.000 1.0000 50.000 0.6667 33.333
-#&gt; 78        14       9     13 12.000 2.6458 22.048 2.0000 16.667
-#&gt; 79         8       6      6  6.667 1.1547 17.321 0.8889 13.333
-#&gt; 80        12       7      6  8.333 3.2146 38.575 2.4444 29.333
-#&gt; 81        11       7      9  9.000 2.0000 22.222 1.3333 14.815
-#&gt; 82         9       7      7  7.667 1.1547 15.061 0.8889 11.594
-#&gt; 83         8       6      7  7.000 1.0000 14.286 0.6667  9.524
-#&gt; 84         5       4      8  5.667 2.0817 36.735 1.5556 27.451
-#&gt; 85         8       6      7  7.000 1.0000 14.286 0.6667  9.524
-#&gt; 86        18       9     13 13.333 4.5092 33.819 3.1111 23.333
-#&gt; 87        12       8     10 10.000 2.0000 20.000 1.3333 13.333
-#&gt; 88        11       5      8  8.000 3.0000 37.500 2.0000 25.000
-#&gt; 89         9       6      8  7.667 1.5275 19.924 1.1111 14.493
-#&gt; 90        11       8      8  9.000 1.7321 19.245 1.3333 14.815
-#&gt; 91        13       7      9  9.667 3.0551 31.604 2.2222 22.989
-#&gt; 92         9       6      7  7.333 1.5275 20.830 1.1111 15.152
-#&gt; 93        10       7      7  8.000 1.7321 21.651 1.3333 16.667
-#&gt; 94         4       3      4  3.667 0.5774 15.746 0.4444 12.121
-#&gt; 95         6       4      4  4.667 1.1547 24.744 0.8889 19.048
-#&gt; 96         4       3      3  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 97         4       3      3  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 98         6       6      6  6.000 0.0000  0.000 0.0000  0.000
-#&gt; 99        11       7      7  8.333 2.3094 27.713 1.7778 21.333
-#&gt; 100        8       6      6  6.667 1.1547 17.321 0.8889 13.333
-#&gt; 101        8       5      5  6.000 1.7321 28.868 1.3333 22.222
-#&gt; 102        5       5      6  5.333 0.5774 10.825 0.4444  8.333
-#&gt; 103        6       4      5  5.000 1.0000 20.000 0.6667 13.333
-#&gt; 104        6       4      4  4.667 1.1547 24.744 0.8889 19.048
-#&gt; 105        9       7      7  7.667 1.1547 15.061 0.8889 11.594
-#&gt; 106       13      10     10 11.000 1.7321 15.746 1.3333 12.121
-#&gt; 107        9       8      7  8.000 1.0000 12.500 0.6667  8.333
-#&gt; 108       12       7      7  8.667 2.8868 33.309 2.2222 25.641
-#&gt; 109        5       5      5  5.000 0.0000  0.000 0.0000  0.000
-#&gt; 110        4       4      4  4.000 0.0000  0.000 0.0000  0.000
-#&gt; 111        7       5      7  6.333 1.1547 18.232 0.8889 14.035
-#&gt; 112        4       4      4  4.000 0.0000  0.000 0.0000  0.000
-#&gt; 113        4       4      4  4.000 0.0000  0.000 0.0000  0.000
-#&gt; 114       10       7      7  8.000 1.7321 21.651 1.3333 16.667
-#&gt; 115        7       6      6  6.333 0.5774  9.116 0.4444  7.018
-#&gt; 116        5       4      5  4.667 0.5774 12.372 0.4444  9.524
-#&gt; 117       17      10      9 12.000 4.3589 36.324 3.3333 27.778
-#&gt; 118        7       6      6  6.333 0.5774  9.116 0.4444  7.018
-#&gt; 119       10       8      8  8.667 1.1547 13.323 0.8889 10.256
-#&gt; 120       11       9      8  9.333 1.5275 16.366 1.1111 11.905
-#&gt; 121       12       7      8  9.000 2.6458 29.397 2.0000 22.222
-#&gt; 122        4       4      5  4.333 0.5774 13.323 0.4444 10.256
-#&gt; 123        8       7      7  7.333 0.5774  7.873 0.4444  6.061
-#&gt; 124       12       7      9  9.333 2.5166 26.964 1.7778 19.048
-#&gt; 125       17       9     11 12.333 4.1633 33.757 3.1111 25.225
-#&gt;  [ reached getOption("max.print") -- omitted 26 rows ]</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"precision"</span>)</div><div class='output co'>#&gt;    n validn R   ACV   APE   ASD  AMAD PercAgree
-#&gt;  151    151 3 21.77 16.19 1.487 1.104     12.58</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>)</div><div class='output co'>#&gt;                         -4      -3      -2      -1       0       1       2
+#&gt;    otolithC finrayC scaleC  mean median mode    SD    CV   CV2   MAD   APE
+#&gt; 1         3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
+#&gt; 2         3       3      4  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 3         3       3      6  4.00      3    3 1.732 43.30 57.74 1.333 33.33
+#&gt; 4         3       3      4  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 5         3       4      3  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 6         6       3      4  4.33      4   NA 1.528 35.25 38.19 1.111 25.64
+#&gt; 7        10       6      7  7.67      7   NA 2.082 27.15 29.74 1.556 20.29
+#&gt; 8        11       9      5  8.33      9   NA 3.055 36.66 33.95 2.222 26.67
+#&gt; 9         4       3      3  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 10        1       1      1  1.00      1    1 0.000  0.00  0.00 0.000  0.00
+#&gt; 11        1       2      2  1.67      2    2 0.577 34.64 28.87 0.444 26.67
+#&gt; 12        3       3      4  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 13        3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
+#&gt; 14       11       8      6  8.33      8   NA 2.517 30.20 31.46 1.778 21.33
+#&gt; 15       10       7      6  7.67      7   NA 2.082 27.15 29.74 1.556 20.29
+#&gt; 16       10       6      6  7.33      6    6 2.309 31.49 38.49 1.778 24.24
+#&gt; 17       14      12      6 10.67     12   NA 4.163 39.03 34.69 3.111 29.17
+#&gt; 18       13       6      6  8.33      6    6 4.041 48.50 67.36 3.111 37.33
+#&gt; 19       13       8      7  9.33      8   NA 3.215 34.44 40.18 2.444 26.19
+#&gt; 20        7       6      6  6.33      6    6 0.577  9.12  9.62 0.444  7.02
+#&gt; 21       14       7      7  9.33      7    7 4.041 43.30 57.74 3.111 33.33
+#&gt; 22        9       6      7  7.33      7   NA 1.528 20.83 21.82 1.111 15.15
+#&gt; 23        7       4      5  5.33      5   NA 1.528 28.64 30.55 1.111 20.83
+#&gt; 24        6       6      5  5.67      6    6 0.577 10.19  9.62 0.444  7.84
+#&gt; 25        6       6      3  5.00      6    6 1.732 34.64 28.87 1.333 26.67
+#&gt; 26        3       3      4  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 27        3       3      4  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 28        6       4      5  5.00      5   NA 1.000 20.00 20.00 0.667 13.33
+#&gt; 29        4       4      6  4.67      4    4 1.155 24.74 28.87 0.889 19.05
+#&gt; 30        3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
+#&gt; 31        4       3      4  3.67      4    4 0.577 15.75 14.43 0.444 12.12
+#&gt; 32        1       1      1  1.00      1    1 0.000  0.00  0.00 0.000  0.00
+#&gt; 33        3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
+#&gt; 34        4       2      4  3.33      4    4 1.155 34.64 28.87 0.889 26.67
+#&gt; 35        4       3      2  3.00      3   NA 1.000 33.33 33.33 0.667 22.22
+#&gt; 36        4       3      3  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 37        3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
+#&gt; 38        1       3      2  2.00      2   NA 1.000 50.00 50.00 0.667 33.33
+#&gt; 39        1       2      1  1.33      1    1 0.577 43.30 57.74 0.444 33.33
+#&gt; 40        2       1      1  1.33      1    1 0.577 43.30 57.74 0.444 33.33
+#&gt; 41        2       1      1  1.33      1    1 0.577 43.30 57.74 0.444 33.33
+#&gt; 42        4       3      3  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 43        8       6      5  6.33      6   NA 1.528 24.12 25.46 1.111 17.54
+#&gt; 44        2       3      5  3.33      3   NA 1.528 45.83 50.92 1.111 33.33
+#&gt; 45        2       4      3  3.00      3   NA 1.000 33.33 33.33 0.667 22.22
+#&gt; 46        3       2      3  2.67      3    3 0.577 21.65 19.25 0.444 16.67
+#&gt; 47        1       1      2  1.33      1    1 0.577 43.30 57.74 0.444 33.33
+#&gt; 48        3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
+#&gt; 49        8       7      5  6.67      7   NA 1.528 22.91 21.82 1.111 16.67
+#&gt; 50        4       4      3  3.67      4    4 0.577 15.75 14.43 0.444 12.12
+#&gt; 51        2       2      2  2.00      2    2 0.000  0.00  0.00 0.000  0.00
+#&gt; 52        3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
+#&gt; 53        3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
+#&gt; 54        8       6      5  6.33      6   NA 1.528 24.12 25.46 1.111 17.54
+#&gt; 55        4       4      4  4.00      4    4 0.000  0.00  0.00 0.000  0.00
+#&gt; 56        6       6      5  5.67      6    6 0.577 10.19  9.62 0.444  7.84
+#&gt; 57        7       5      5  5.67      5    5 1.155 20.38 23.09 0.889 15.69
+#&gt; 58        2       1      1  1.33      1    1 0.577 43.30 57.74 0.444 33.33
+#&gt; 59        1       1      1  1.00      1    1 0.000  0.00  0.00 0.000  0.00
+#&gt; 60        2       1      1  1.33      1    1 0.577 43.30 57.74 0.444 33.33
+#&gt; 61        1       1      2  1.33      1    1 0.577 43.30 57.74 0.444 33.33
+#&gt; 62        5       5      4  4.67      5    5 0.577 12.37 11.55 0.444  9.52
+#&gt; 63        5       4      4  4.33      4    4 0.577 13.32 14.43 0.444 10.26
+#&gt; 64        4       4      5  4.33      4    4 0.577 13.32 14.43 0.444 10.26
+#&gt; 65        5       3      6  4.67      5   NA 1.528 32.73 30.55 1.111 23.81
+#&gt; 66       18       7      7 10.67      7    7 6.351 59.54 90.73 4.889 45.83
+#&gt; 67        7       5      8  6.67      7   NA 1.528 22.91 21.82 1.111 16.67
+#&gt; 68        9       6      8  7.67      8   NA 1.528 19.92 19.09 1.111 14.49
+#&gt; 69        5       4      4  4.33      4    4 0.577 13.32 14.43 0.444 10.26
+#&gt; 70       10       6      8  8.00      8   NA 2.000 25.00 25.00 1.333 16.67
+#&gt; 71       12       7      7  8.67      7    7 2.887 33.31 41.24 2.222 25.64
+#&gt; 72        7       6      5  6.00      6   NA 1.000 16.67 16.67 0.667 11.11
+#&gt; 73       10       7      8  8.33      8   NA 1.528 18.33 19.09 1.111 13.33
+#&gt; 74        9       5      6  6.67      6   NA 2.082 31.22 34.69 1.556 23.33
+#&gt; 75       11       7      7  8.33      7    7 2.309 27.71 32.99 1.778 21.33
+#&gt; 76        1       1      1  1.00      1    1 0.000  0.00  0.00 0.000  0.00
+#&gt; 77        3       2      1  2.00      2   NA 1.000 50.00 50.00 0.667 33.33
+#&gt; 78       14       9     13 12.00     13   NA 2.646 22.05 20.35 2.000 16.67
+#&gt; 79        8       6      6  6.67      6    6 1.155 17.32 19.25 0.889 13.33
+#&gt; 80       12       7      6  8.33      7   NA 3.215 38.57 45.92 2.444 29.33
+#&gt; 81       11       7      9  9.00      9   NA 2.000 22.22 22.22 1.333 14.81
+#&gt; 82        9       7      7  7.67      7    7 1.155 15.06 16.50 0.889 11.59
+#&gt; 83        8       6      7  7.00      7   NA 1.000 14.29 14.29 0.667  9.52
+#&gt;     APE2
+#&gt; 1   0.00
+#&gt; 2  14.81
+#&gt; 3  44.44
+#&gt; 4  14.81
+#&gt; 5  14.81
+#&gt; 6  27.78
+#&gt; 7  22.22
+#&gt; 8  24.69
+#&gt; 9  14.81
+#&gt; 10  0.00
+#&gt; 11 22.22
+#&gt; 12 14.81
+#&gt; 13  0.00
+#&gt; 14 22.22
+#&gt; 15 22.22
+#&gt; 16 29.63
+#&gt; 17 25.93
+#&gt; 18 51.85
+#&gt; 19 30.56
+#&gt; 20  7.41
+#&gt; 21 44.44
+#&gt; 22 15.87
+#&gt; 23 22.22
+#&gt; 24  7.41
+#&gt; 25 22.22
+#&gt; 26 14.81
+#&gt; 27 14.81
+#&gt; 28 13.33
+#&gt; 29 22.22
+#&gt; 30  0.00
+#&gt; 31 11.11
+#&gt; 32  0.00
+#&gt; 33  0.00
+#&gt; 34 22.22
+#&gt; 35 22.22
+#&gt; 36 14.81
+#&gt; 37  0.00
+#&gt; 38 33.33
+#&gt; 39 44.44
+#&gt; 40 44.44
+#&gt; 41 44.44
+#&gt; 42 14.81
+#&gt; 43 18.52
+#&gt; 44 37.04
+#&gt; 45 22.22
+#&gt; 46 14.81
+#&gt; 47 44.44
+#&gt; 48  0.00
+#&gt; 49 15.87
+#&gt; 50 11.11
+#&gt; 51  0.00
+#&gt; 52  0.00
+#&gt; 53  0.00
+#&gt; 54 18.52
+#&gt; 55  0.00
+#&gt; 56  7.41
+#&gt; 57 17.78
+#&gt; 58 44.44
+#&gt; 59  0.00
+#&gt; 60 44.44
+#&gt; 61 44.44
+#&gt; 62  8.89
+#&gt; 63 11.11
+#&gt; 64 11.11
+#&gt; 65 22.22
+#&gt; 66 69.84
+#&gt; 67 15.87
+#&gt; 68 13.89
+#&gt; 69 11.11
+#&gt; 70 16.67
+#&gt; 71 31.75
+#&gt; 72 11.11
+#&gt; 73 13.89
+#&gt; 74 25.93
+#&gt; 75 25.40
+#&gt; 76  0.00
+#&gt; 77 33.33
+#&gt; 78 15.38
+#&gt; 79 14.81
+#&gt; 80 34.92
+#&gt; 81 14.81
+#&gt; 82 12.70
+#&gt; 83  9.52</div><div class='output co'>#&gt; <span class='warning'>Warning: Some rows of details not shown because getOption('max.print') (=1000) was</span>
+#&gt; <span class='warning'> reached. Use at least options(max.print=1812) to see all details.</span></div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"precision"</span>)</div><div class='output co'>#&gt;    n validn R PercAgree   ASD   ACV  ACV2  AMAD   APE  APE2
+#&gt;  151    151 3     12.58 1.487 21.77 24.13 1.104 16.19 17.99</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>)</div><div class='output co'>#&gt;                         -4      -3      -2      -1       0       1       2
 #&gt; otolithC - finrayC  0.0000  0.0000  1.3245  3.3113 24.5033 17.8808 16.5563
 #&gt; otolithC - scaleC   0.0000  2.6490  0.6623 10.5960 19.8675 19.8675 15.8940
 #&gt; finrayC - scaleC    3.3113  4.6358 12.5828 19.8675 40.3974 14.5695  2.6490
@@ -719,161 +656,184 @@
 #&gt;                         10      11      12      13      14
 #&gt; otolithC - finrayC  0.0000  0.6623  0.0000  0.0000  0.6623
 #&gt; otolithC - scaleC   0.0000  0.6623  0.0000  0.6623  0.0000
-#&gt; finrayC - scaleC    0.0000  0.0000  0.0000  0.0000  0.0000</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>,<span class='kw'>percent</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;                    -4 -3 -2 -1  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14
-#&gt; otolithC - finrayC  0  0  2  5 37 27 25 18 11 12  5  4  1  2  0  1  0  0  1
-#&gt; otolithC - scaleC   0  4  1 16 30 30 24 17  9  5  8  3  2  0  0  1  0  1  0
-#&gt; finrayC - scaleC    5  7 19 30 61 22  4  1  1  0  1  0  0  0  0  0  0  0  0</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>)</div><div class='output co'>#&gt;                           0       1       2       3       4       5       6
-#&gt; otolithC v. finrayC 24.5033 21.1921 17.8808 11.9205  7.2848  7.9470  3.3113
-#&gt; otolithC v. scaleC  19.8675 30.4636 16.5563 13.9073  5.9603  3.3113  5.2980
-#&gt; finrayC v. scaleC   40.3974 34.4371 15.2318  5.2980  3.9735  0.0000  0.6623
-#&gt;                           7       8       9      10      11      12      13
-#&gt; otolithC v. finrayC  2.6490  0.6623  1.3245  0.0000  0.6623  0.0000  0.0000
-#&gt; otolithC v. scaleC   1.9868  1.3245  0.0000  0.0000  0.6623  0.0000  0.6623
-#&gt; finrayC v. scaleC    0.0000  0.0000  0.0000  0.0000  0.0000  0.0000  0.0000
-#&gt;                          14
-#&gt; otolithC v. finrayC  0.6623
-#&gt; otolithC v. scaleC   0.0000
-#&gt; finrayC v. scaleC    0.0000</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>,<span class='kw'>percent</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;                      0  1  2  3  4  5  6  7  8  9 10 11 12 13 14
-#&gt; otolithC v. finrayC 37 32 27 18 11 12  5  4  1  2  0  1  0  0  1
-#&gt; otolithC v. scaleC  30 46 25 21  9  5  8  3  2  0  0  1  0  1  0
-#&gt; finrayC v. scaleC   61 52 23  8  6  0  1  0  0  0  0  0  0  0  0</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>,<span class='kw'>trunc.diff</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='output co'>#&gt;                          0      1      2      3     4+
-#&gt; otolithC v. finrayC 24.503 21.192 17.881 11.921 24.503
-#&gt; otolithC v. scaleC  19.868 30.464 16.556 13.907 19.205
-#&gt; finrayC v. scaleC   40.397 34.437 15.232  5.298  4.636</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>,<span class='kw'>percent</span><span class='kw'>=</span><span class='fl'>FALSE</span>,<span class='kw'>trunc.diff</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='output co'>#&gt;                      0  1  2  3 4+
+#&gt; finrayC - scaleC    0.0000  0.0000  0.0000  0.0000  0.0000</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>,<span class='kw'>percent</span><span class='kw'>=</span><span class='fl'>FALSE</span>,<span class='kw'>trunc.diff</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='output co'>#&gt;                      0  1  2  3 4+
 #&gt; otolithC v. finrayC 37 32 27 18 37
 #&gt; otolithC v. scaleC  30 46 25 21 29
-#&gt; finrayC v. scaleC   61 52 23  8  7</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"detail"</span>)</div><div class='output co'>#&gt;     otolithC finrayC scaleC    avg     SD     CV    MAD    APE
-#&gt; 1          3       3      3  3.000 0.0000  0.000 0.0000  0.000
-#&gt; 2          3       3      4  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 3          3       3      6  4.000 1.7321 43.301 1.3333 33.333
-#&gt; 4          3       3      4  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 5          3       4      3  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 6          6       3      4  4.333 1.5275 35.251 1.1111 25.641
-#&gt; 7         10       6      7  7.667 2.0817 27.152 1.5556 20.290
-#&gt; 8         11       9      5  8.333 3.0551 36.661 2.2222 26.667
-#&gt; 9          4       3      3  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 10         1       1      1  1.000 0.0000  0.000 0.0000  0.000
-#&gt; 11         1       2      2  1.667 0.5774 34.641 0.4444 26.667
-#&gt; 12         3       3      4  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 13         3       3      3  3.000 0.0000  0.000 0.0000  0.000
-#&gt; 14        11       8      6  8.333 2.5166 30.199 1.7778 21.333
-#&gt; 15        10       7      6  7.667 2.0817 27.152 1.5556 20.290
-#&gt; 16        10       6      6  7.333 2.3094 31.492 1.7778 24.242
-#&gt; 17        14      12      6 10.667 4.1633 39.031 3.1111 29.167
-#&gt; 18        13       6      6  8.333 4.0415 48.497 3.1111 37.333
-#&gt; 19        13       8      7  9.333 3.2146 34.442 2.4444 26.190
-#&gt; 20         7       6      6  6.333 0.5774  9.116 0.4444  7.018
-#&gt; 21        14       7      7  9.333 4.0415 43.301 3.1111 33.333
-#&gt; 22         9       6      7  7.333 1.5275 20.830 1.1111 15.152
-#&gt; 23         7       4      5  5.333 1.5275 28.641 1.1111 20.833
-#&gt; 24         6       6      5  5.667 0.5774 10.189 0.4444  7.843
-#&gt; 25         6       6      3  5.000 1.7321 34.641 1.3333 26.667
-#&gt; 26         3       3      4  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 27         3       3      4  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 28         6       4      5  5.000 1.0000 20.000 0.6667 13.333
-#&gt; 29         4       4      6  4.667 1.1547 24.744 0.8889 19.048
-#&gt; 30         3       3      3  3.000 0.0000  0.000 0.0000  0.000
-#&gt; 31         4       3      4  3.667 0.5774 15.746 0.4444 12.121
-#&gt; 32         1       1      1  1.000 0.0000  0.000 0.0000  0.000
-#&gt; 33         3       3      3  3.000 0.0000  0.000 0.0000  0.000
-#&gt; 34         4       2      4  3.333 1.1547 34.641 0.8889 26.667
-#&gt; 35         4       3      2  3.000 1.0000 33.333 0.6667 22.222
-#&gt; 36         4       3      3  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 37         3       3      3  3.000 0.0000  0.000 0.0000  0.000
-#&gt; 38         1       3      2  2.000 1.0000 50.000 0.6667 33.333
-#&gt; 39         1       2      1  1.333 0.5774 43.301 0.4444 33.333
-#&gt; 40         2       1      1  1.333 0.5774 43.301 0.4444 33.333
-#&gt; 41         2       1      1  1.333 0.5774 43.301 0.4444 33.333
-#&gt; 42         4       3      3  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 43         8       6      5  6.333 1.5275 24.119 1.1111 17.544
-#&gt; 44         2       3      5  3.333 1.5275 45.826 1.1111 33.333
-#&gt; 45         2       4      3  3.000 1.0000 33.333 0.6667 22.222
-#&gt; 46         3       2      3  2.667 0.5774 21.651 0.4444 16.667
-#&gt; 47         1       1      2  1.333 0.5774 43.301 0.4444 33.333
-#&gt; 48         3       3      3  3.000 0.0000  0.000 0.0000  0.000
-#&gt; 49         8       7      5  6.667 1.5275 22.913 1.1111 16.667
-#&gt; 50         4       4      3  3.667 0.5774 15.746 0.4444 12.121
-#&gt; 51         2       2      2  2.000 0.0000  0.000 0.0000  0.000
-#&gt; 52         3       3      3  3.000 0.0000  0.000 0.0000  0.000
-#&gt; 53         3       3      3  3.000 0.0000  0.000 0.0000  0.000
-#&gt; 54         8       6      5  6.333 1.5275 24.119 1.1111 17.544
-#&gt; 55         4       4      4  4.000 0.0000  0.000 0.0000  0.000
-#&gt; 56         6       6      5  5.667 0.5774 10.189 0.4444  7.843
-#&gt; 57         7       5      5  5.667 1.1547 20.377 0.8889 15.686
-#&gt; 58         2       1      1  1.333 0.5774 43.301 0.4444 33.333
-#&gt; 59         1       1      1  1.000 0.0000  0.000 0.0000  0.000
-#&gt; 60         2       1      1  1.333 0.5774 43.301 0.4444 33.333
-#&gt; 61         1       1      2  1.333 0.5774 43.301 0.4444 33.333
-#&gt; 62         5       5      4  4.667 0.5774 12.372 0.4444  9.524
-#&gt; 63         5       4      4  4.333 0.5774 13.323 0.4444 10.256
-#&gt; 64         4       4      5  4.333 0.5774 13.323 0.4444 10.256
-#&gt; 65         5       3      6  4.667 1.5275 32.733 1.1111 23.810
-#&gt; 66        18       7      7 10.667 6.3509 59.539 4.8889 45.833
-#&gt; 67         7       5      8  6.667 1.5275 22.913 1.1111 16.667
-#&gt; 68         9       6      8  7.667 1.5275 19.924 1.1111 14.493
-#&gt; 69         5       4      4  4.333 0.5774 13.323 0.4444 10.256
-#&gt; 70        10       6      8  8.000 2.0000 25.000 1.3333 16.667
-#&gt; 71        12       7      7  8.667 2.8868 33.309 2.2222 25.641
-#&gt; 72         7       6      5  6.000 1.0000 16.667 0.6667 11.111
-#&gt; 73        10       7      8  8.333 1.5275 18.330 1.1111 13.333
-#&gt; 74         9       5      6  6.667 2.0817 31.225 1.5556 23.333
-#&gt; 75        11       7      7  8.333 2.3094 27.713 1.7778 21.333
-#&gt; 76         1       1      1  1.000 0.0000  0.000 0.0000  0.000
-#&gt; 77         3       2      1  2.000 1.0000 50.000 0.6667 33.333
-#&gt; 78        14       9     13 12.000 2.6458 22.048 2.0000 16.667
-#&gt; 79         8       6      6  6.667 1.1547 17.321 0.8889 13.333
-#&gt; 80        12       7      6  8.333 3.2146 38.575 2.4444 29.333
-#&gt; 81        11       7      9  9.000 2.0000 22.222 1.3333 14.815
-#&gt; 82         9       7      7  7.667 1.1547 15.061 0.8889 11.594
-#&gt; 83         8       6      7  7.000 1.0000 14.286 0.6667  9.524
-#&gt; 84         5       4      8  5.667 2.0817 36.735 1.5556 27.451
-#&gt; 85         8       6      7  7.000 1.0000 14.286 0.6667  9.524
-#&gt; 86        18       9     13 13.333 4.5092 33.819 3.1111 23.333
-#&gt; 87        12       8     10 10.000 2.0000 20.000 1.3333 13.333
-#&gt; 88        11       5      8  8.000 3.0000 37.500 2.0000 25.000
-#&gt; 89         9       6      8  7.667 1.5275 19.924 1.1111 14.493
-#&gt; 90        11       8      8  9.000 1.7321 19.245 1.3333 14.815
-#&gt; 91        13       7      9  9.667 3.0551 31.604 2.2222 22.989
-#&gt; 92         9       6      7  7.333 1.5275 20.830 1.1111 15.152
-#&gt; 93        10       7      7  8.000 1.7321 21.651 1.3333 16.667
-#&gt; 94         4       3      4  3.667 0.5774 15.746 0.4444 12.121
-#&gt; 95         6       4      4  4.667 1.1547 24.744 0.8889 19.048
-#&gt; 96         4       3      3  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 97         4       3      3  3.333 0.5774 17.321 0.4444 13.333
-#&gt; 98         6       6      6  6.000 0.0000  0.000 0.0000  0.000
-#&gt; 99        11       7      7  8.333 2.3094 27.713 1.7778 21.333
-#&gt; 100        8       6      6  6.667 1.1547 17.321 0.8889 13.333
-#&gt; 101        8       5      5  6.000 1.7321 28.868 1.3333 22.222
-#&gt; 102        5       5      6  5.333 0.5774 10.825 0.4444  8.333
-#&gt; 103        6       4      5  5.000 1.0000 20.000 0.6667 13.333
-#&gt; 104        6       4      4  4.667 1.1547 24.744 0.8889 19.048
-#&gt; 105        9       7      7  7.667 1.1547 15.061 0.8889 11.594
-#&gt; 106       13      10     10 11.000 1.7321 15.746 1.3333 12.121
-#&gt; 107        9       8      7  8.000 1.0000 12.500 0.6667  8.333
-#&gt; 108       12       7      7  8.667 2.8868 33.309 2.2222 25.641
-#&gt; 109        5       5      5  5.000 0.0000  0.000 0.0000  0.000
-#&gt; 110        4       4      4  4.000 0.0000  0.000 0.0000  0.000
-#&gt; 111        7       5      7  6.333 1.1547 18.232 0.8889 14.035
-#&gt; 112        4       4      4  4.000 0.0000  0.000 0.0000  0.000
-#&gt; 113        4       4      4  4.000 0.0000  0.000 0.0000  0.000
-#&gt; 114       10       7      7  8.000 1.7321 21.651 1.3333 16.667
-#&gt; 115        7       6      6  6.333 0.5774  9.116 0.4444  7.018
-#&gt; 116        5       4      5  4.667 0.5774 12.372 0.4444  9.524
-#&gt; 117       17      10      9 12.000 4.3589 36.324 3.3333 27.778
-#&gt; 118        7       6      6  6.333 0.5774  9.116 0.4444  7.018
-#&gt; 119       10       8      8  8.667 1.1547 13.323 0.8889 10.256
-#&gt; 120       11       9      8  9.333 1.5275 16.366 1.1111 11.905
-#&gt; 121       12       7      8  9.000 2.6458 29.397 2.0000 22.222
-#&gt; 122        4       4      5  4.333 0.5774 13.323 0.4444 10.256
-#&gt; 123        8       7      7  7.333 0.5774  7.873 0.4444  6.061
-#&gt; 124       12       7      9  9.333 2.5166 26.964 1.7778 19.048
-#&gt; 125       17       9     11 12.333 4.1633 33.757 3.1111 25.225
-#&gt;  [ reached getOption("max.print") -- omitted 26 rows ]</div><div class='input'>
-<span class='fu'>plot</span>(<span class='no'>MAD</span>~<span class='no'>avg</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,
-     <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>SD</span>~<span class='no'>avg</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"SD Age"</span>,
+#&gt; finrayC v. scaleC   61 52 23  8  7</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"detail"</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;    otolithC finrayC scaleC  mean median mode    SD    CV   CV2   MAD   APE
+#&gt; 1         3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
+#&gt; 2         3       3      4  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 3         3       3      6  4.00      3    3 1.732 43.30 57.74 1.333 33.33
+#&gt; 4         3       3      4  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 5         3       4      3  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 6         6       3      4  4.33      4   NA 1.528 35.25 38.19 1.111 25.64
+#&gt; 7        10       6      7  7.67      7   NA 2.082 27.15 29.74 1.556 20.29
+#&gt; 8        11       9      5  8.33      9   NA 3.055 36.66 33.95 2.222 26.67
+#&gt; 9         4       3      3  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 10        1       1      1  1.00      1    1 0.000  0.00  0.00 0.000  0.00
+#&gt; 11        1       2      2  1.67      2    2 0.577 34.64 28.87 0.444 26.67
+#&gt; 12        3       3      4  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 13        3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
+#&gt; 14       11       8      6  8.33      8   NA 2.517 30.20 31.46 1.778 21.33
+#&gt; 15       10       7      6  7.67      7   NA 2.082 27.15 29.74 1.556 20.29
+#&gt; 16       10       6      6  7.33      6    6 2.309 31.49 38.49 1.778 24.24
+#&gt; 17       14      12      6 10.67     12   NA 4.163 39.03 34.69 3.111 29.17
+#&gt; 18       13       6      6  8.33      6    6 4.041 48.50 67.36 3.111 37.33
+#&gt; 19       13       8      7  9.33      8   NA 3.215 34.44 40.18 2.444 26.19
+#&gt; 20        7       6      6  6.33      6    6 0.577  9.12  9.62 0.444  7.02
+#&gt; 21       14       7      7  9.33      7    7 4.041 43.30 57.74 3.111 33.33
+#&gt; 22        9       6      7  7.33      7   NA 1.528 20.83 21.82 1.111 15.15
+#&gt; 23        7       4      5  5.33      5   NA 1.528 28.64 30.55 1.111 20.83
+#&gt; 24        6       6      5  5.67      6    6 0.577 10.19  9.62 0.444  7.84
+#&gt; 25        6       6      3  5.00      6    6 1.732 34.64 28.87 1.333 26.67
+#&gt; 26        3       3      4  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 27        3       3      4  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 28        6       4      5  5.00      5   NA 1.000 20.00 20.00 0.667 13.33
+#&gt; 29        4       4      6  4.67      4    4 1.155 24.74 28.87 0.889 19.05
+#&gt; 30        3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
+#&gt; 31        4       3      4  3.67      4    4 0.577 15.75 14.43 0.444 12.12
+#&gt; 32        1       1      1  1.00      1    1 0.000  0.00  0.00 0.000  0.00
+#&gt; 33        3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
+#&gt; 34        4       2      4  3.33      4    4 1.155 34.64 28.87 0.889 26.67
+#&gt; 35        4       3      2  3.00      3   NA 1.000 33.33 33.33 0.667 22.22
+#&gt; 36        4       3      3  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 37        3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
+#&gt; 38        1       3      2  2.00      2   NA 1.000 50.00 50.00 0.667 33.33
+#&gt; 39        1       2      1  1.33      1    1 0.577 43.30 57.74 0.444 33.33
+#&gt; 40        2       1      1  1.33      1    1 0.577 43.30 57.74 0.444 33.33
+#&gt; 41        2       1      1  1.33      1    1 0.577 43.30 57.74 0.444 33.33
+#&gt; 42        4       3      3  3.33      3    3 0.577 17.32 19.25 0.444 13.33
+#&gt; 43        8       6      5  6.33      6   NA 1.528 24.12 25.46 1.111 17.54
+#&gt; 44        2       3      5  3.33      3   NA 1.528 45.83 50.92 1.111 33.33
+#&gt; 45        2       4      3  3.00      3   NA 1.000 33.33 33.33 0.667 22.22
+#&gt; 46        3       2      3  2.67      3    3 0.577 21.65 19.25 0.444 16.67
+#&gt; 47        1       1      2  1.33      1    1 0.577 43.30 57.74 0.444 33.33
+#&gt; 48        3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
+#&gt; 49        8       7      5  6.67      7   NA 1.528 22.91 21.82 1.111 16.67
+#&gt; 50        4       4      3  3.67      4    4 0.577 15.75 14.43 0.444 12.12
+#&gt; 51        2       2      2  2.00      2    2 0.000  0.00  0.00 0.000  0.00
+#&gt; 52        3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
+#&gt; 53        3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
+#&gt; 54        8       6      5  6.33      6   NA 1.528 24.12 25.46 1.111 17.54
+#&gt; 55        4       4      4  4.00      4    4 0.000  0.00  0.00 0.000  0.00
+#&gt; 56        6       6      5  5.67      6    6 0.577 10.19  9.62 0.444  7.84
+#&gt; 57        7       5      5  5.67      5    5 1.155 20.38 23.09 0.889 15.69
+#&gt; 58        2       1      1  1.33      1    1 0.577 43.30 57.74 0.444 33.33
+#&gt; 59        1       1      1  1.00      1    1 0.000  0.00  0.00 0.000  0.00
+#&gt; 60        2       1      1  1.33      1    1 0.577 43.30 57.74 0.444 33.33
+#&gt; 61        1       1      2  1.33      1    1 0.577 43.30 57.74 0.444 33.33
+#&gt; 62        5       5      4  4.67      5    5 0.577 12.37 11.55 0.444  9.52
+#&gt; 63        5       4      4  4.33      4    4 0.577 13.32 14.43 0.444 10.26
+#&gt; 64        4       4      5  4.33      4    4 0.577 13.32 14.43 0.444 10.26
+#&gt; 65        5       3      6  4.67      5   NA 1.528 32.73 30.55 1.111 23.81
+#&gt; 66       18       7      7 10.67      7    7 6.351 59.54 90.73 4.889 45.83
+#&gt; 67        7       5      8  6.67      7   NA 1.528 22.91 21.82 1.111 16.67
+#&gt; 68        9       6      8  7.67      8   NA 1.528 19.92 19.09 1.111 14.49
+#&gt; 69        5       4      4  4.33      4    4 0.577 13.32 14.43 0.444 10.26
+#&gt; 70       10       6      8  8.00      8   NA 2.000 25.00 25.00 1.333 16.67
+#&gt; 71       12       7      7  8.67      7    7 2.887 33.31 41.24 2.222 25.64
+#&gt; 72        7       6      5  6.00      6   NA 1.000 16.67 16.67 0.667 11.11
+#&gt; 73       10       7      8  8.33      8   NA 1.528 18.33 19.09 1.111 13.33
+#&gt; 74        9       5      6  6.67      6   NA 2.082 31.22 34.69 1.556 23.33
+#&gt; 75       11       7      7  8.33      7    7 2.309 27.71 32.99 1.778 21.33
+#&gt; 76        1       1      1  1.00      1    1 0.000  0.00  0.00 0.000  0.00
+#&gt; 77        3       2      1  2.00      2   NA 1.000 50.00 50.00 0.667 33.33
+#&gt; 78       14       9     13 12.00     13   NA 2.646 22.05 20.35 2.000 16.67
+#&gt; 79        8       6      6  6.67      6    6 1.155 17.32 19.25 0.889 13.33
+#&gt; 80       12       7      6  8.33      7   NA 3.215 38.57 45.92 2.444 29.33
+#&gt; 81       11       7      9  9.00      9   NA 2.000 22.22 22.22 1.333 14.81
+#&gt; 82        9       7      7  7.67      7    7 1.155 15.06 16.50 0.889 11.59
+#&gt; 83        8       6      7  7.00      7   NA 1.000 14.29 14.29 0.667  9.52
+#&gt;     APE2
+#&gt; 1   0.00
+#&gt; 2  14.81
+#&gt; 3  44.44
+#&gt; 4  14.81
+#&gt; 5  14.81
+#&gt; 6  27.78
+#&gt; 7  22.22
+#&gt; 8  24.69
+#&gt; 9  14.81
+#&gt; 10  0.00
+#&gt; 11 22.22
+#&gt; 12 14.81
+#&gt; 13  0.00
+#&gt; 14 22.22
+#&gt; 15 22.22
+#&gt; 16 29.63
+#&gt; 17 25.93
+#&gt; 18 51.85
+#&gt; 19 30.56
+#&gt; 20  7.41
+#&gt; 21 44.44
+#&gt; 22 15.87
+#&gt; 23 22.22
+#&gt; 24  7.41
+#&gt; 25 22.22
+#&gt; 26 14.81
+#&gt; 27 14.81
+#&gt; 28 13.33
+#&gt; 29 22.22
+#&gt; 30  0.00
+#&gt; 31 11.11
+#&gt; 32  0.00
+#&gt; 33  0.00
+#&gt; 34 22.22
+#&gt; 35 22.22
+#&gt; 36 14.81
+#&gt; 37  0.00
+#&gt; 38 33.33
+#&gt; 39 44.44
+#&gt; 40 44.44
+#&gt; 41 44.44
+#&gt; 42 14.81
+#&gt; 43 18.52
+#&gt; 44 37.04
+#&gt; 45 22.22
+#&gt; 46 14.81
+#&gt; 47 44.44
+#&gt; 48  0.00
+#&gt; 49 15.87
+#&gt; 50 11.11
+#&gt; 51  0.00
+#&gt; 52  0.00
+#&gt; 53  0.00
+#&gt; 54 18.52
+#&gt; 55  0.00
+#&gt; 56  7.41
+#&gt; 57 17.78
+#&gt; 58 44.44
+#&gt; 59  0.00
+#&gt; 60 44.44
+#&gt; 61 44.44
+#&gt; 62  8.89
+#&gt; 63 11.11
+#&gt; 64 11.11
+#&gt; 65 22.22
+#&gt; 66 69.84
+#&gt; 67 15.87
+#&gt; 68 13.89
+#&gt; 69 11.11
+#&gt; 70 16.67
+#&gt; 71 31.75
+#&gt; 72 11.11
+#&gt; 73 13.89
+#&gt; 74 25.93
+#&gt; 75 25.40
+#&gt; 76  0.00
+#&gt; 77 33.33
+#&gt; 78 15.38
+#&gt; 79 14.81
+#&gt; 80 34.92
+#&gt; 81 14.81
+#&gt; 82 12.70
+#&gt; 83  9.52</div><div class='output co'>#&gt; <span class='warning'>Warning: Some rows of details not shown because getOption('max.print') (=1000) was</span>
+#&gt; <span class='warning'> reached. Use at least options(max.print=1812) to see all details.</span></div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>MAD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,
+     <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>SD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"SD Age"</span>,
      <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>SD</span>~<span class='no'>MAD</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"SD Age"</span>,
      <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>CV</span>~<span class='no'>APE</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"PE Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"CV Age"</span>,
-     <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-9.png' alt='' width='700' height='433' /></div><div class='input'>
+     <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>median</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Median Age"</span>,
+     <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-10.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
