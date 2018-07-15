@@ -87,15 +87,16 @@
 #' df <- read.csv("c:/aaawork/consulting/R_WiDNR/Statewide/Surveysummaries2010.csv")
 #' str(df) 
 #' ## narrow variables for simplicity
-#' df1 <- df[,c("County","Waterbody.Name","Survey.Year","Gear","Species","Number.of.Fish",
-#'              "Length.or.Lower.Length.IN","Length.Upper.IN","Weight.Pounds","Gender")]
+#' df1 <- df[,c("County","Waterbody.Name","Survey.Year","Gear","Species",
+#'              "Number.of.Fish","Length.or.Lower.Length.IN","Length.Upper.IN",
+#'              "Weight.Pounds","Gender")]
 #' ## Sum the count to see how many fish there should be after expansion
 #' sum(df1$Number.of.Fish)
 #' 
 #' ## Simple expansion
 #' df2 <- expandCounts(df1,~Number.of.Fish)
 #' 
-#' ## Same expansion but include random component to lengths (thus new length variable)
+#' ## Same expansion but include random component to lengths (thus new variable)
 #' ##   also note default lprec=0.1
 #' df3 <- expandCounts(df1,~Number.of.Fish,~Length.or.Lower.Length.IN+Length.Upper.IN)
 #' 

@@ -289,7 +289,8 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
                           "GQ","GallucciQuinn","Mooij","Weisberg","Ogle",
                           "Schnute","Francis","Laslett","Polacheck",
                           "Somers","Somers2","Pauly",
-                          "Fabens","Fabens2","Wang","Wang2","Wang3","Francis2"),
+                          "Fabens","Fabens2","Wang","Wang2","Wang3",
+                          "Francis2","Francis3"),
                    simple=FALSE,msg=FALSE) {
   Ogle <- function(t,Linf,K=NULL,tr=NULL,Lr=NULL) {
     if (length(Linf)==4) {
@@ -449,13 +450,25 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
   SWang3 <- function(Lm,dt,K,a,b) {
     Lm+(a+b*Lm)*(1-exp(-K*dt))
   }
-  Francis2 <- function(Lm,dt,g1,g3=NULL,L1,L3=NULL) {
-    if (length(g1)==2) { g3 <- g1[[2]]; g1 <- g1[[1]] }
-    if (length(L1)==2) { L3 <- L1[[2]]; L1 <- L1[[1]] }
-    ((L3*g1-L1*g3)/(g1-g3)-Lm)*(1-(1+(g1-g3)/(L1-L3))^dt)
+  Francis2 <- function(Lm,dt,g1,g2=NULL,L1,L2=NULL) {
+    if (length(g1)==2) { g2 <- g1[[2]]; g1 <- g1[[1]] }
+    if (length(L1)==2) { L2 <- L1[[2]]; L1 <- L1[[1]] }
+    ((L2*g1-L1*g2)/(g1-g2)-Lm)*(1-(1+(g1-g2)/(L1-L2))^dt)
   }
-  sFrancis2 <- function(Lm,dt,g1,g3,L1,L3) {
-    ((L3*g1-L1*g3)/(g1-g3)-Lm)*(1-(1+(g1-g3)/(L1-L3))^dt)
+  sFrancis2 <- function(Lm,dt,g1,g2,L1,L2) {
+    ((L2*g1-L1*g2)/(g1-g2)-Lm)*(1-(1+(g1-g2)/(L1-L2))^dt)
+  }
+  Francis3 <- function(Lm,t1,t2,g1,g2=NULL,w=NULL,u=NULL,L1,L2=NULL) {
+    if (length(g1)==2) { g2 <- g1[[2]]; g1 <- g1[[1]] }
+    if (length(L1)==2) { L2 <- L1[[2]]; L1 <- L1[[1]] }
+    S1 <- u*sin(2*pi*(t1-w))/(2*pi)
+    S2 <- u*sin(2*pi*(t2-w))/(2*pi)
+    ((L2*g1-L1*g2)/(g1-g2)-Lm)*(1-(1+(g1-g2)/(L1-L2))^((t2-t1)+S2-S1))
+  }
+  sFrancis3 <- function(Lm,t1,t2,g1,g2,w,u,L1,L2) {
+    S1 <- u*sin(2*pi*(t1-w))/(2*pi)
+    S2 <- u*sin(2*pi*(t2-w))/(2*pi)
+    ((L2*g1-L1*g2)/(g1-g2)-Lm)*(1-(1+(g1-g2)/(L1-L2))^((t2-t1)+S2-S1))
   }
   
   param <- match.arg(param)
@@ -491,7 +504,7 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
                 "       L1 = the mean length at the first (small) reference age\n",
                 "       L2 = the mean length at the intermediate reference age\n",
                 "       L3 = the mean length at the third (large) reference age\n\n",
-                "You must also supply the constant values (i.e., they are NOT model parameters) for\n",
+                "You must also give values (i.e., they are NOT model parameters) for\n",
                 "       t1 = the first (usually a younger) reference age\n",
                 "       t3 = the third (usually an older) reference age\n\n")
       },
@@ -522,7 +535,7 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
                 "  where L1 = the mean length at the youngest age in the sample\n",
                 "        L2 = the mean length at the oldest age in the sample\n",
                 "         K = exponential rate of approach to Linf\n\n",
-                "  You must also supply the constant values (i.e., they are NOT model parameters) for\n",
+                "  You must also give values (i.e., they are NOT model parameters) for\n",
                 "        t1 = the youngest age in the sample\n",
                 "        t2 = the oldest age in the sample\n\n")
       },
@@ -618,13 +631,35 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
       },
       Francis2={
         message("You have chosen the 'Francis2' parameterization for tag-return data.\n\n",
-                "  E[dL|Lm,dt] = ((L3g1-L1g3)/(g1-g3)-Lm)*(1-(1+(g1-g3)/(L1-L3))^dt)\n\n",
+                "  E[dL|Lm,dt] = ((L2g1-L1g2)/(g1-g2)-Lm)*(1-(1+(g1-g2)/(L1-L2))^dt)\n\n",
                 "  where g1 = mean growth rate at the first (small) reference length L1\n",
-                "        g3 = mean growth rate the second (large) reference length L3\n\n",
-                "  and the data are dL = change in length (from mark to recapture)\n",
+                "        g2 = mean growth rate at the second (large) reference length L2\n\n",
+                "You must also give values (i.e., they are NOT model parameters) for\n",
+                "       L1 = the first (usually a shorter) reference length\n",
+                "       L2 = the second (usually a longer) reference length\n",
+                "The data are dL = change in length (from mark to recapture)\n",
+                "             Lm = length at time of marking\n",
+                "             dt = time between marking and recapture.\n\n")
+      },
+      Francis3={
+        message("You have chosen the 'Francis3' parameterization for tag-return data\n",
+                "  with a seasonal component.\n\n",
+                "  E[dL|Lm,t1,t2] = ((L2g1-L1g2)/(g1-g2)-Lm)*(1-(1+(g1-g2)/(L1-L2))^((t2-t1)+S2-S1))\n\n",
+                "  where S1 = u*sin(2*pi*(t1-w))/(2*pi) and\n",
+                "        S2 = u*sin(2*pi*(t2-w))/(2*pi) and\n\n",
+                "  where g1 = mean growth rate at the first (small) reference length L1\n",
+                "        g2 = mean growth rate at the second (large) reference length L2\n",
+                "        w  = time of year when the growth rate is maximum\n",
+                "        u  = describes the extent of seasonality.\n\n",
+                "You must also give values (i.e., they are NOT model parameters) for\n",
+                "       L1 = the first (usually a shorter) reference length\n",
+                "       L2 = the second (usually a longer) reference length\n",
+                "The data are dL = change in length (from mark to recapture)\n",
                 "                   Lm = length at time of marking\n",
-                "                   dt = time between marking and recapture.\n\n")
+                "                   t1 = time at marking\n",
+                "                   t2 = time at recapture.\n\n")
       }
+      
     )
   }
   if (simple) param <- paste0("S",param)

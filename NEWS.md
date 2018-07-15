@@ -20,6 +20,7 @@
 * `plotAB()`: Modified. Now in its own documentation file (rather than with `ageBias()`).
 * `residPlot()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
 * `SMBassWB`: Modified. Fixed minor data entry error in row 383.
+* `vbFuns()`: Modified. Added `Francis3` to the list of models.
 
 
 # FSA 0.8.20 18-May-18
