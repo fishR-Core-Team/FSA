@@ -8,3 +8,5 @@
 .Rproj.user
 # Compiled news file
 NEWS.html
+# docs page for automatic webpage through Travis-CI
+docs/*

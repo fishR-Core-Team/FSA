@@ -1,5 +1,5 @@
 # FSA 0.8.21 ongoing
-* Added a webpage.
+* Added a webpage. Setup Travis-CI to handle updates ([See this](https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis)).
 * Added a hex sticker logo.
 * Added `withr` to Imports (see usages below).
 * Removed all `data()` in examples that referred to data from this package. Included the `package=` argument in `data()` that loaded from other packages.

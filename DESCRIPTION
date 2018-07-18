@@ -36,6 +36,7 @@ Suggests:
     marked,
     nlme,
     nlstools,
+    pkgdown,
     psych,
     Rcapture,
     testthat,
