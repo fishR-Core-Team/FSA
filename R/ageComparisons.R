@@ -20,11 +20,12 @@
 #'   \item ASD The average (across all fish) standard deviation of ages within a fish.
 #'   \item ACV The average (across all fish) coefficient of variation of ages within a fish using the \bold{mean} as the divisor. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
 #'   \item ACV2 The average (across all fish) coefficient of variation of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2.
-#'   \item AMAD The average (across all fish) mean absolute deviation of ages within a fish.
-#'   \item APE The average (across all fish) average percent error of ages within a fish using the \bold{mean} as the divisor. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
-#'   \item APE2 The average (across all fish) average percent error of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2.
+#'   \item AAAD The average (across all fish) average absolute deviation of ages within a fish.
+#'   \item AAPE The average (across all fish) average percent error of ages within a fish using the \bold{mean} as the divisor. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
+#'   \item AAPE2 The average (across all fish) average percent error of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2.
 #' }
 #'
+#' Note that ACV2 and AAPE2 will not be printed when \code{what="precision"} if only two sets of ages are given (because mean=median such that ACV=ACV2 and AAPE=AAPE2).
 #' If \code{what="difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, DEFAULT) or frequency of fish by the difference in paired age estimates. This table has one row for each possible pair of age estimates.
 #'
 #' If \code{what="absolute difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, DEFAULT) or frequency of fish by the absolute value of the difference in paired age estimates. This table has one row for each possible pair of age estimates. The \dQuote{1} column, for example, represents age estimates that disagree by one year (in either direction).
@@ -38,9 +39,9 @@
 #'   \item detail A data.frame with all data given in \code{data} and intermediate calculations for each fish. See details
 #'   \item rawdiff A frequency table of fish by differences for each pair of ages.
 #'   \item absdiff A frequency table of fish by absolute differences for each pair of ages.
-#'   \item AMAD The average mean absolute deviation.
-#'   \item APE The average average percent error (using the \bold{mean} age as the divisor).
-#'   \item APE2 The average average percent error (using the \bold{median} age as the divisor).
+#'   \item AAAD The average average absolute deviation.
+#'   \item AAPE The average average percent error (using the \bold{mean} age as the divisor).
+#'   \item AAPE2 The average average percent error (using the \bold{median} age as the divisor).
 #'   \item ASD The average standard deviation.
 #'   \item ACV The average coefficient of variation (using the \bold{mean} age as the divisor).
 #'   \item ACV2 The average coefficient of variation (using the \bold{median} age as the divisor).
@@ -89,11 +90,11 @@
 #' summary(ap1,what="detail")
 #'
 #' barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
-#' plot(MAD~mean,data=ap1$detail,xlab="Mean Age",ylab="MAD Age",
+#' plot(AAD~mean,data=ap1$detail,xlab="Mean Age",ylab="MAD Age",
 #'      pch=19,col=col2rgbt("black",1/5))
 #' plot(SD~mean,data=ap1$detail,xlab="Mean Age",ylab="SD Age",
 #'      pch=19,col=col2rgbt("black",1/5))
-#' plot(SD~MAD,data=ap1$detail,xlab="MAD Age",ylab="SD Age",
+#' plot(SD~AAD,data=ap1$detail,xlab="MAD Age",ylab="SD Age",
 #'      pch=19,col=col2rgbt("black",1/5))
 #' plot(CV~APE,data=ap1$detail,xlab="PE Age",ylab="CV Age",
 #'      pch=19,col=col2rgbt("black",1/5))
@@ -106,11 +107,11 @@
 #' summary(ap2,what="absolute",percent=FALSE,trunc.diff=4)
 #' summary(ap2,what="detail",digits=3)
 #' 
-#' plot(MAD~mean,data=ap2$detail,xlab="Mean Age",ylab="MAD Age",
+#' plot(AAD~mean,data=ap2$detail,xlab="Mean Age",ylab="MAD Age",
 #'      pch=19,col=col2rgbt("black",1/5))
 #' plot(SD~mean,data=ap2$detail,xlab="Mean Age",ylab="SD Age",
 #'      pch=19,col=col2rgbt("black",1/5))
-#' plot(SD~MAD,data=ap2$detail,xlab="MAD Age",ylab="SD Age",
+#' plot(SD~AAD,data=ap2$detail,xlab="MAD Age",ylab="SD Age",
 #'      pch=19,col=col2rgbt("black",1/5))
 #' plot(CV~APE,data=ap2$detail,xlab="PE Age",ylab="CV Age",
 #'      pch=19,col=col2rgbt("black",1/5))
@@ -141,13 +142,13 @@ agePrecision <- function(formula,data) {
   age.sd <- apply(d,1,stats::sd)
   # Mean and Summed absolute deviation
   tmp.adevs <- abs(apply(d,2,'-',age.avg))
-  age.mad <- apply(tmp.adevs,1,mean)
+  age.aad <- apply(tmp.adevs,1,mean)
   age.sad <- apply(tmp.adevs,1,sum)
   # APE & ACV for each fish (using the mean)
-  APE.j <- (age.mad/age.avg)*100
+  APE.j <- (age.aad/age.avg)*100
   ACV.j <- (age.sd/age.avg)*100
   # APE & ACV for each fish (using the median)
-  APE2.j <- (age.mad/age.mdn)*100
+  APE2.j <- (age.aad/age.mdn)*100
   ACV2.j <- (age.sd/age.mdn)*100
   # Replaced NAs with 0 in APE.j and ACV.j for when age.avg==0
   APE.j[age.avg==0] <- 0
@@ -158,11 +159,11 @@ agePrecision <- function(formula,data) {
   # Put results into a data.frame to return
   detail.df <- data.frame(d,mean=age.avg,median=age.mdn,mode=age.mode,
                           SD=age.sd,CV=ACV.j,CV2=ACV2.j,
-                          MAD=age.mad,APE=APE.j,APE2=APE2.j)
+                          AAD=age.aad,APE=APE.j,APE2=APE2.j)
   ## Summary precision calculations (APE, ACV, total agreement) for all fish
-  AMAD <- mean(age.mad,na.rm=TRUE)
-  APE <- mean(APE.j,na.rm=TRUE)
-  APE2 <- mean(APE2.j,na.rm=TRUE)
+  AAAD <- mean(age.aad,na.rm=TRUE)
+  AAPE <- mean(APE.j,na.rm=TRUE)
+  AAPE2 <- mean(APE2.j,na.rm=TRUE)
   ASD <- mean(age.sd,na.rm=TRUE)
   ACV <- mean(ACV.j,na.rm=TRUE)
   ACV2 <- mean(ACV2.j,na.rm=TRUE)
@@ -210,7 +211,7 @@ agePrecision <- function(formula,data) {
   
   ## Put together an output list
   d <- list(detail=detail.df,rawdiff=as.table(ragree),absdiff=as.table(aagree),
-            ASD=ASD,ACV=ACV,ACV2=ACV2,AMAD=AMAD,APE=APE,APE2=APE2,
+            ASD=ASD,ACV=ACV,ACV2=ACV2,AAAD=AAAD,AAPE=AAPE,AAPE2=AAPE2,
             PercAgree=all.agree,R=R,n=n,validn=validn)
   class(d) <- "agePrec"
   d 
@@ -243,14 +244,14 @@ summary.agePrec <- function(object,what=c("precision","difference",
   if ("precision" %in% what) {
     if (showmsg) cat("Precision summary statistics\n")
     if (object$R==2) {
-      ## if only two ages, then mean=median and don't need both ACV & ACV2
+      ## if two ages, then mean=median and don't need both ACV & ACV2 or APE & APE2
       tmp <- with(object,data.frame(n=n,validn=validn,R=R,PercAgree=PercAgree,
                                     ASD=ASD,ACV=ACV,
-                                    AMAD=AMAD,APE=APE))
+                                    AAAD=AAAD,AAPE=AAPE))
     } else {
       tmp <- with(object,data.frame(n=n,validn=validn,R=R,PercAgree=PercAgree,
                                     ASD=ASD,ACV=ACV,ACV2=ACV2,
-                                    AMAD=AMAD,APE=APE,APE2=APE2)) 
+                                    AAAD=AAAD,AAPE=AAPE,AAPE2=AAPE2)) 
     }
     print(tmp,row.names=FALSE,digits=digits)
     what <- iHndlMultWhat(what,"precision","cat")

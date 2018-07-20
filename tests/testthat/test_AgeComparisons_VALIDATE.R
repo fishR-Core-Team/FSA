@@ -96,7 +96,7 @@ test_that("agePrecision() gives correct precision values -- First Example",{
   expect_equal(ap1$R, 2)
   expect_equal(length(ap1$rawdiff), 17)
   expect_equal(length(ap1$absdiff), 14)
-  expect_equal(round(ap1$APE,5), 14.92923)
+  expect_equal(round(ap1$AAPE,5), 14.92923)
   expect_equal(round(ap1$ACV,5), 21.11312)
   expect_equal(round(ap1$PercAgree,5), 19.86755)
 })
@@ -107,7 +107,7 @@ test_that("agePrecision() gives correct precision values -- Second Example",{
   expect_equal(ap2$R, 3)
   expect_equal(dim(ap2$absdiff), c(3,15))
   expect_equal(dim(ap2$rawdiff), c(3,19))
-  expect_equal(round(ap2$APE,5), 16.1851)
+  expect_equal(round(ap2$AAPE,5), 16.1851)
   expect_equal(round(ap2$ACV,5), 21.76877)
   expect_equal(round(ap2$PercAgree,5), 12.58278)
   
