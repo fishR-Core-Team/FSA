@@ -163,9 +163,9 @@
 <li><p>detail A data.frame with all data given in <code>data</code> and intermediate calculations for each fish. See details</p></li>
 <li><p>rawdiff A frequency table of fish by differences for each pair of ages.</p></li>
 <li><p>absdiff A frequency table of fish by absolute differences for each pair of ages.</p></li>
-<li><p>AMAD The average mean absolute deviation.</p></li>
-<li><p>APE The average average percent error (using the <b>mean</b> age as the divisor).</p></li>
-<li><p>APE2 The average average percent error (using the <b>median</b> age as the divisor).</p></li>
+<li><p>AAAD The average average absolute deviation.</p></li>
+<li><p>AAPE The average average percent error (using the <b>mean</b> age as the divisor).</p></li>
+<li><p>AAPE2 The average average percent error (using the <b>median</b> age as the divisor).</p></li>
 <li><p>ASD The average standard deviation.</p></li>
 <li><p>ACV The average coefficient of variation (using the <b>mean</b> age as the divisor).</p></li>
 <li><p>ACV2 The average coefficient of variation (using the <b>median</b> age as the divisor).</p></li>
@@ -186,11 +186,12 @@
 <li><p>ASD The average (across all fish) standard deviation of ages within a fish.</p></li>
 <li><p>ACV The average (across all fish) coefficient of variation of ages within a fish using the <b>mean</b> as the divisor. See the <a href='http://derekogle.com/IFAR'>IFAR chapter</a> for calculation details.</p></li>
 <li><p>ACV2 The average (across all fish) coefficient of variation of ages within a fish using the <b>median</b> as the divisor. This will only be shown if R&gt;2.</p></li>
-<li><p>AMAD The average (across all fish) mean absolute deviation of ages within a fish.</p></li>
-<li><p>APE The average (across all fish) average percent error of ages within a fish using the <b>mean</b> as the divisor. See the <a href='http://derekogle.com/IFAR'>IFAR chapter</a> for calculation details.</p></li>
-<li><p>APE2 The average (across all fish) average percent error of ages within a fish using the <b>median</b> as the divisor. This will only be shown if R&gt;2.</p></li>
+<li><p>AAAD The average (across all fish) average absolute deviation of ages within a fish.</p></li>
+<li><p>AAPE The average (across all fish) average percent error of ages within a fish using the <b>mean</b> as the divisor. See the <a href='http://derekogle.com/IFAR'>IFAR chapter</a> for calculation details.</p></li>
+<li><p>AAPE2 The average (across all fish) average percent error of ages within a fish using the <b>median</b> as the divisor. This will only be shown if R&gt;2.</p></li>
 </ul>
-    <p>If <code>what="difference"</code> is used in <code>summary</code>, then a table that describes either the percentage (if <code>percent=TRUE</code>, DEFAULT) or frequency of fish by the difference in paired age estimates. This table has one row for each possible pair of age estimates.</p>
+    <p>Note that ACV2 and AAPE2 will not be printed when <code>what="precision"</code> if only two sets of ages are given (because mean=median such that ACV=ACV2 and AAPE=AAPE2).
+If <code>what="difference"</code> is used in <code>summary</code>, then a table that describes either the percentage (if <code>percent=TRUE</code>, DEFAULT) or frequency of fish by the difference in paired age estimates. This table has one row for each possible pair of age estimates.</p>
 <p>If <code>what="absolute difference"</code> is used in <code>summary</code>, then a table that describes either the percentage (if <code>percent=TRUE</code>, DEFAULT) or frequency of fish by the absolute value of the difference in paired age estimates. This table has one row for each possible pair of age estimates. The &#8220;1&#8221; column, for example, represents age estimates that disagree by one year (in either direction).</p>
 <p>If <code>what="detail"</code> is used in <code>summary</code>, then a data.frame of the original <code>data</code> along with the intermediate calculations of the mean age, median age, modal age (will be <code>NA</code> if a mode does not exist (e.g., all different ages) or multiple modes exist), standard deviation of age (SD), coefficient of variation using the mean as the divisor (CV), coefficient of variation using the median as the divisor (CV2), mean absolute deviation using the mean as the divisor (MAD), mean absolute deviation using the median as the divisor (MAD2), and average percent error (APE) for each individual will be printed. These details are generally only used to check or to understand calculations.</p>
 <p>All percentage calculations above use the <code>validn</code> value in the denominator.</p>
@@ -221,7 +222,7 @@
     <pre class="examples"><div class='input'><span class='co'>## Example with just two age estimates</span>
 <span class='no'>ap1</span> <span class='kw'>&lt;-</span> <span class='fu'>agePrecision</span>(~<span class='no'>otolithC</span>+<span class='no'>scaleC</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WhitefishLC</span>)
 <span class='fu'>summary</span>(<span class='no'>ap1</span>)</div><div class='output co'>#&gt; Precision summary statistics
-#&gt;    n validn R PercAgree   ASD   ACV  AMAD   APE
+#&gt;    n validn R PercAgree   ASD   ACV  AAAD  AAPE
 #&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93
 #&gt; 
 #&gt; Percentage of fish by absolute differences in ages
@@ -239,7 +240,7 @@
 #&gt;  1.9868  1.3245  0.0000  0.0000  0.6623  0.0000  0.6623 
 #&gt; 
 #&gt; Intermediate calculations for each individual
-#&gt;     otolithC scaleC mean median mode     SD     CV    CV2 MAD    APE   APE2
+#&gt;     otolithC scaleC mean median mode     SD     CV    CV2 AAD    APE   APE2
 #&gt; 1          3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
 #&gt; 2          3      4  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
 #&gt; 3          3      6  4.5    4.5   NA 2.1213 47.140 47.140 1.5 33.333 33.333
@@ -390,7 +391,7 @@
 #&gt; 148       23     10 16.5   16.5   NA 9.1924 55.711 55.711 6.5 39.394 39.394
 #&gt; 149       16     15 15.5   15.5   NA 0.7071  4.562  4.562 0.5  3.226  3.226
 #&gt; 150       15      9 12.0   12.0   NA 4.2426 35.355 35.355 3.0 25.000 25.000
-#&gt; 151       13      6  9.5    9.5   NA 4.9497 52.103 52.103 3.5 36.842 36.842</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"precision"</span>)</div><div class='output co'>#&gt;    n validn R PercAgree   ASD   ACV  AMAD   APE
+#&gt; 151       13      6  9.5    9.5   NA 4.9497 52.103 52.103 3.5 36.842 36.842</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"precision"</span>)</div><div class='output co'>#&gt;    n validn R PercAgree   ASD   ACV  AAAD  AAPE
 #&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>)</div><div class='output co'>#&gt;      -3      -2      -1       0       1       2       3       4       5       6 
 #&gt;  2.6490  0.6623 10.5960 19.8675 19.8675 15.8940 11.2583  5.9603  3.3113  5.2980 
 #&gt;       7       8       9      10      11      12      13 
@@ -401,7 +402,7 @@
 #&gt;  0.0000  0.6623  0.0000  0.6623 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>,<span class='kw'>percent</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  0  1  2  3  4  5  6  7  8  9 10 11 12 13 
 #&gt; 30 46 25 21  9  5  8  3  2  0  0  1  0  1 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>,<span class='kw'>trunc.diff</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='output co'>#&gt;     0     1     2     3    4+ 
 #&gt; 19.87 30.46 16.56 13.91 19.21 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"precision"</span>,<span class='st'>"difference"</span>))</div><div class='output co'>#&gt; Precision summary statistics
-#&gt;    n validn R PercAgree   ASD   ACV  AMAD   APE
+#&gt;    n validn R PercAgree   ASD   ACV  AAAD  AAPE
 #&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93
 #&gt; 
 #&gt; Percentage of fish by differences in ages
@@ -409,7 +410,7 @@
 #&gt;      -3      -2      -1       0       1       2       3       4       5       6 
 #&gt;  2.6490  0.6623 10.5960 19.8675 19.8675 15.8940 11.2583  5.9603  3.3113  5.2980 
 #&gt;       7       8       9      10      11      12      13 
-#&gt;  1.9868  1.3245  0.0000  0.0000  0.6623  0.0000  0.6623 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"detail"</span>)</div><div class='output co'>#&gt;     otolithC scaleC mean median mode     SD     CV    CV2 MAD    APE   APE2
+#&gt;  1.9868  1.3245  0.0000  0.0000  0.6623  0.0000  0.6623 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"detail"</span>)</div><div class='output co'>#&gt;     otolithC scaleC mean median mode     SD     CV    CV2 AAD    APE   APE2
 #&gt; 1          3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
 #&gt; 2          3      4  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
 #&gt; 3          3      6  4.5    4.5   NA 2.1213 47.140 47.140 1.5 33.333 33.333
@@ -561,16 +562,16 @@
 #&gt; 149       16     15 15.5   15.5   NA 0.7071  4.562  4.562 0.5  3.226  3.226
 #&gt; 150       15      9 12.0   12.0   NA 4.2426 35.355 35.355 3.0 25.000 25.000
 #&gt; 151       13      6  9.5    9.5   NA 4.9497 52.103 52.103 3.5 36.842 36.842</div><div class='input'>
-<span class='fu'>barplot</span>(<span class='no'>ap1</span>$<span class='no'>rawdiff</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Frequency"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Otolith - Scale Age"</span>)</div><div class='img'><img src='agePrecision-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>MAD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,
+<span class='fu'>barplot</span>(<span class='no'>ap1</span>$<span class='no'>rawdiff</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Frequency"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Otolith - Scale Age"</span>)</div><div class='img'><img src='agePrecision-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>AAD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,
      <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>col2rgbt</span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>SD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"SD Age"</span>,
-     <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>col2rgbt</span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>SD</span>~<span class='no'>MAD</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"SD Age"</span>,
+     <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>col2rgbt</span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>SD</span>~<span class='no'>AAD</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"SD Age"</span>,
      <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>col2rgbt</span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>CV</span>~<span class='no'>APE</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"PE Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"CV Age"</span>,
      <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>col2rgbt</span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Example with three age estimates</span>
 <span class='no'>ap2</span> <span class='kw'>&lt;-</span> <span class='fu'>agePrecision</span>(~<span class='no'>otolithC</span>+<span class='no'>finrayC</span>+<span class='no'>scaleC</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WhitefishLC</span>)
 <span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt; Precision summary statistics
-#&gt;    n validn R PercAgree  ASD  ACV ACV2 AMAD  APE APE2
-#&gt;  151    151 3      12.6 1.49 21.8 24.1  1.1 16.2   18
+#&gt;    n validn R PercAgree  ASD  ACV ACV2 AAAD AAPE AAPE2
+#&gt;  151    151 3      12.6 1.49 21.8 24.1  1.1 16.2    18
 #&gt; 
 #&gt; Percentage of fish by absolute differences in ages
 #&gt;  between pairs of estimates
@@ -599,7 +600,7 @@
 #&gt; finrayC - scaleC    0.000  0.000  0.000
 #&gt; 
 #&gt; Intermediate calculations for each individual
-#&gt;     otolithC finrayC scaleC  mean median mode    SD    CV   CV2   MAD   APE
+#&gt;     otolithC finrayC scaleC  mean median mode    SD    CV   CV2   AAD   APE
 #&gt; 1          3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
 #&gt; 2          3       3      4  3.33      3    3 0.577 17.32 19.25 0.444 13.33
 #&gt; 3          3       3      6  4.00      3    3 1.732 43.30 57.74 1.333 33.33
@@ -902,7 +903,7 @@
 #&gt; 148 60.00
 #&gt; 149  4.44
 #&gt; 150 24.44
-#&gt; 151 33.33</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"precision"</span>)</div><div class='output co'>#&gt;    n validn R PercAgree   ASD   ACV  ACV2  AMAD   APE  APE2
+#&gt; 151 33.33</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"precision"</span>)</div><div class='output co'>#&gt;    n validn R PercAgree   ASD   ACV  ACV2  AAAD  AAPE AAPE2
 #&gt;  151    151 3     12.58 1.487 21.77 24.13 1.104 16.19 17.99</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>)</div><div class='output co'>#&gt;                         -4      -3      -2      -1       0       1       2
 #&gt; otolithC - finrayC  0.0000  0.0000  1.3245  3.3113 24.5033 17.8808 16.5563
 #&gt; otolithC - scaleC   0.0000  2.6490  0.6623 10.5960 19.8675 19.8675 15.8940
@@ -917,7 +918,7 @@
 #&gt; finrayC - scaleC    0.0000  0.0000  0.0000  0.0000  0.0000</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>,<span class='kw'>percent</span><span class='kw'>=</span><span class='fl'>FALSE</span>,<span class='kw'>trunc.diff</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='output co'>#&gt;                      0  1  2  3 4+
 #&gt; otolithC v. finrayC 37 32 27 18 37
 #&gt; otolithC v. scaleC  30 46 25 21 29
-#&gt; finrayC v. scaleC   61 52 23  8  7</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"detail"</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;     otolithC finrayC scaleC  mean median mode    SD    CV   CV2   MAD   APE
+#&gt; finrayC v. scaleC   61 52 23  8  7</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"detail"</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;     otolithC finrayC scaleC  mean median mode    SD    CV   CV2   AAD   APE
 #&gt; 1          3       3      3  3.00      3    3 0.000  0.00  0.00 0.000  0.00
 #&gt; 2          3       3      4  3.33      3    3 0.577 17.32 19.25 0.444 13.33
 #&gt; 3          3       3      6  4.00      3    3 1.732 43.30 57.74 1.333 33.33
@@ -1221,9 +1222,9 @@
 #&gt; 149  4.44
 #&gt; 150 24.44
 #&gt; 151 33.33</div><div class='input'>
-<span class='fu'>plot</span>(<span class='no'>MAD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,
+<span class='fu'>plot</span>(<span class='no'>AAD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,
      <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>col2rgbt</span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>SD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"SD Age"</span>,
-     <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>col2rgbt</span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>SD</span>~<span class='no'>MAD</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"SD Age"</span>,
+     <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>col2rgbt</span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>SD</span>~<span class='no'>AAD</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"SD Age"</span>,
      <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>col2rgbt</span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>CV</span>~<span class='no'>APE</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"PE Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"CV Age"</span>,
      <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>col2rgbt</span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>median</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Median Age"</span>,
      <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>col2rgbt</span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-10.png' alt='' width='700' height='433' /></div><div class='input'>
