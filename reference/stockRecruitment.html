@@ -185,8 +185,8 @@
 #&gt;     if (length(a)&gt;1) { b &lt;- a[[2]]; a &lt;- a[[1]] }
 #&gt;     a*S*exp(-b*S)
 #&gt;   }
-#&gt; &lt;bytecode: 0x921fbe8&gt;
-#&gt; &lt;environment: 0x52f8d38&gt;</div><div class='input'>
+#&gt; &lt;bytecode: 0x4dc5100&gt;
+#&gt; &lt;environment: 0x6f4ece0&gt;</div><div class='input'>
 <span class='co'># create some dummy stock data</span>
 <span class='no'>stock</span> <span class='kw'>&lt;-</span> <span class='fu'>seq</span>(<span class='fl'>0.01</span>,<span class='fl'>1000</span>,<span class='kw'>length.out</span><span class='kw'>=</span><span class='fl'>199</span>)
 
@@ -195,29 +195,29 @@
 #&gt;     if (length(a)&gt;1) { b &lt;- a[[2]]; a &lt;- a[[1]] }
 #&gt;     a*S/(1+b*S)
 #&gt;   }
-#&gt; &lt;bytecode: 0xb857150&gt;
-#&gt; &lt;environment: 0x50f0338&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>bh1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.01</span>)~<span class='no'>stock</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Recruits"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Spawners"</span>,<span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>50</span>))</div><div class='input'>
+#&gt; &lt;bytecode: 0x99663d8&gt;
+#&gt; &lt;environment: 0xa53e0f8&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>bh1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.01</span>)~<span class='no'>stock</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Recruits"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Spawners"</span>,<span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>50</span>))</div><div class='input'>
 <span class='co'># Ricker #1 parameterization</span>
 ( <span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"Ricker"</span>) )</div><div class='output co'>#&gt; function(S,a,b=NULL) {
 #&gt;     if (length(a)&gt;1) { b &lt;- a[[2]]; a &lt;- a[[1]] }
 #&gt;     a*S*exp(-b*S)
 #&gt;   }
-#&gt; &lt;bytecode: 0x921fbe8&gt;
-#&gt; &lt;environment: 0x4ed7870&gt;</div><div class='input'><span class='fu'>lines</span>(<span class='fu'>r1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>)</div><div class='input'>
+#&gt; &lt;bytecode: 0x4dc5100&gt;
+#&gt; &lt;environment: 0x8a18260&gt;</div><div class='input'><span class='fu'>lines</span>(<span class='fu'>r1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>)</div><div class='input'>
 <span class='co'># Shephered parameterization</span>
 ( <span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"Shepherd"</span>) )</div><div class='output co'>#&gt; function(S,a,b=NULL,c=NULL) {
 #&gt;     if (length(a)&gt;1) { c &lt;- a[[3]]; b &lt;- a[[2]]; a &lt;- a[[1]] }
 #&gt;     a*S/(1+(b*S)^c)
 #&gt;   }
-#&gt; &lt;bytecode: 0x5082b78&gt;
-#&gt; &lt;environment: 0x4d282d0&gt;</div><div class='input'><span class='fu'>lines</span>(<span class='fu'>s1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>2.5</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>)</div><div class='input'>
+#&gt; &lt;bytecode: 0x212ba38&gt;
+#&gt; &lt;environment: 0x713a830&gt;</div><div class='input'><span class='fu'>lines</span>(<span class='fu'>s1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>2.5</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>)</div><div class='input'>
 <span class='co'># Saila-Lorda parameterization</span>
 ( <span class='no'>sl1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"SailaLorda"</span>) )</div><div class='output co'>#&gt; function(S,a,b=NULL,c=NULL) {
 #&gt;     if (length(a)&gt;1) { c &lt;- a[[3]]; b &lt;- a[[2]]; a &lt;- a[[1]] }
 #&gt;     a*(S^c)*exp(-b*S)
 #&gt;   }
-#&gt; &lt;bytecode: 0x4505fa8&gt;
-#&gt; &lt;environment: 0x4757668&gt;</div><div class='input'><span class='fu'>lines</span>(<span class='fu'>sl1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>1.05</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"salmon"</span>)</div><div class='img'><img src='stockRecruitment-1.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt; &lt;bytecode: 0xb0ab490&gt;
+#&gt; &lt;environment: 0x7ea3698&gt;</div><div class='input'><span class='fu'>lines</span>(<span class='fu'>sl1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>1.05</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"salmon"</span>)</div><div class='img'><img src='stockRecruitment-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Examples of fitting stock-recruitment functions</span>
 <span class='co'># Fitting the Beverton-Holt #1 parameterization with multiplicative errors</span>
 <span class='no'>bh1s</span> <span class='kw'>&lt;-</span> <span class='fu'>srStarts</span>(<span class='no'>recruits</span>~<span class='no'>stock</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>CodNorwegian</span>)

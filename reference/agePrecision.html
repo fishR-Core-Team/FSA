@@ -118,7 +118,7 @@
 <span class='co'># S3 method for agePrec</span>
 <span class='fu'>summary</span>(<span class='no'>object</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"precision"</span>, <span class='st'>"difference"</span>,
   <span class='st'>"absolute difference"</span>, <span class='st'>"details"</span>), <span class='kw'>percent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>trunc.diff</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>show.prec2</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,6 +152,10 @@
       <td><p>A single numeric that indicates the minimum number of digits to print when using <code>summary</code>.</p></td>
     </tr>
     <tr>
+      <th>show.prec2</th>
+      <td><p>A logical that indicates whether the precision metrics that use the median (i.e., ACV2 and APE2) should be shown when only two age estimates were made (in this instance they will be exactly equal to ACV and APE). Default is to not show these values in this situation.</p></td>
+    </tr>
+    <tr>
       <th>&#8230;</th>
       <td><p>Additional arguments for methods.</p></td>
     </tr>
@@ -169,6 +173,7 @@
 <li><p>ASD The average standard deviation.</p></li>
 <li><p>ACV The average coefficient of variation (using the <b>mean</b> age as the divisor).</p></li>
 <li><p>ACV2 The average coefficient of variation (using the <b>median</b> age as the divisor).</p></li>
+<li><p>AD The average index of precision.</p></li>
 <li><p>R The number of readings for each individual fish.</p></li>
 <li><p>n Number of fish in <code>data</code>.</p></li>
 <li><p>validn Number of fish in <code>data</code> that have non-<code>NA</code> data for all R age estimates.</p></li>
@@ -185,15 +190,16 @@
 <li><p>PercAgree The percentage of fish for which all age estimates perfectly agree.</p></li>
 <li><p>ASD The average (across all fish) standard deviation of ages within a fish.</p></li>
 <li><p>ACV The average (across all fish) coefficient of variation of ages within a fish using the <b>mean</b> as the divisor. See the <a href='http://derekogle.com/IFAR'>IFAR chapter</a> for calculation details.</p></li>
-<li><p>ACV2 The average (across all fish) coefficient of variation of ages within a fish using the <b>median</b> as the divisor. This will only be shown if R&gt;2.</p></li>
+<li><p>ACV2 The average (across all fish) coefficient of variation of ages within a fish using the <b>median</b> as the divisor. This will only be shown if R&gt;2 or <code>show.prec2=TRUE</code>.</p></li>
 <li><p>AAAD The average (across all fish) average absolute deviation of ages within a fish.</p></li>
 <li><p>AAPE The average (across all fish) average percent error of ages within a fish using the <b>mean</b> as the divisor. See the <a href='http://derekogle.com/IFAR'>IFAR chapter</a> for calculation details.</p></li>
-<li><p>AAPE2 The average (across all fish) average percent error of ages within a fish using the <b>median</b> as the divisor. This will only be shown if R&gt;2.</p></li>
+<li><p>AAPE2 The average (across all fish) average percent error of ages within a fish using the <b>median</b> as the divisor. This will only be shown if R&gt;2 or <code>show.prec2=TRUE</code>.</p></li>
+<li><p>AD The average (across all fish) index of precision (D).</p></li>
 </ul>
     <p>Note that ACV2 and AAPE2 will not be printed when <code>what="precision"</code> if only two sets of ages are given (because mean=median such that ACV=ACV2 and AAPE=AAPE2).
 If <code>what="difference"</code> is used in <code>summary</code>, then a table that describes either the percentage (if <code>percent=TRUE</code>, DEFAULT) or frequency of fish by the difference in paired age estimates. This table has one row for each possible pair of age estimates.</p>
 <p>If <code>what="absolute difference"</code> is used in <code>summary</code>, then a table that describes either the percentage (if <code>percent=TRUE</code>, DEFAULT) or frequency of fish by the absolute value of the difference in paired age estimates. This table has one row for each possible pair of age estimates. The &#8220;1&#8221; column, for example, represents age estimates that disagree by one year (in either direction).</p>
-<p>If <code>what="detail"</code> is used in <code>summary</code>, then a data.frame of the original <code>data</code> along with the intermediate calculations of the mean age, median age, modal age (will be <code>NA</code> if a mode does not exist (e.g., all different ages) or multiple modes exist), standard deviation of age (SD), coefficient of variation using the mean as the divisor (CV), coefficient of variation using the median as the divisor (CV2), mean absolute deviation using the mean as the divisor (MAD), mean absolute deviation using the median as the divisor (MAD2), and average percent error (APE) for each individual will be printed. These details are generally only used to check or to understand calculations.</p>
+<p>If <code>what="detail"</code> is used in <code>summary</code>, then a data.frame of the original <code>data</code> along with the intermediate calculations of the mean age, median age, modal age (will be <code>NA</code> if a mode does not exist (e.g., all different ages) or multiple modes exist), standard deviation of age (SD), coefficient of variation using the mean as the divisor (CV), coefficient of variation using the median as the divisor (CV2), average absolute deviation using the mean as the divisor (AAD), average absolute deviation using the median as the divisor (AAD2), average percent error (APE), and index of precision (D) for each individual will be printed.</p>
 <p>All percentage calculations above use the <code>validn</code> value in the denominator.</p>
     
     <h2 class="hasAnchor" id="testing"><a class="anchor" href="#testing"></a>Testing</h2>
@@ -222,8 +228,8 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
     <pre class="examples"><div class='input'><span class='co'>## Example with just two age estimates</span>
 <span class='no'>ap1</span> <span class='kw'>&lt;-</span> <span class='fu'>agePrecision</span>(~<span class='no'>otolithC</span>+<span class='no'>scaleC</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WhitefishLC</span>)
 <span class='fu'>summary</span>(<span class='no'>ap1</span>)</div><div class='output co'>#&gt; Precision summary statistics
-#&gt;    n validn R PercAgree   ASD   ACV  AAAD  AAPE
-#&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93
+#&gt;    n validn R PercAgree   ASD   ACV  AAAD  AAPE    AD
+#&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93 14.93
 #&gt; 
 #&gt; Percentage of fish by absolute differences in ages
 #&gt;  between pairs of estimates
@@ -391,8 +397,160 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
 #&gt; 148       23     10 16.5   16.5   NA 9.1924 55.711 55.711 6.5 39.394 39.394
 #&gt; 149       16     15 15.5   15.5   NA 0.7071  4.562  4.562 0.5  3.226  3.226
 #&gt; 150       15      9 12.0   12.0   NA 4.2426 35.355 35.355 3.0 25.000 25.000
-#&gt; 151       13      6  9.5    9.5   NA 4.9497 52.103 52.103 3.5 36.842 36.842</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"precision"</span>)</div><div class='output co'>#&gt;    n validn R PercAgree   ASD   ACV  AAAD  AAPE
-#&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>)</div><div class='output co'>#&gt;      -3      -2      -1       0       1       2       3       4       5       6 
+#&gt; 151       13      6  9.5    9.5   NA 4.9497 52.103 52.103 3.5 36.842 36.842
+#&gt;         AD
+#&gt; 1    0.000
+#&gt; 2   14.286
+#&gt; 3   33.333
+#&gt; 4   14.286
+#&gt; 5    0.000
+#&gt; 6   20.000
+#&gt; 7   17.647
+#&gt; 8   37.500
+#&gt; 9   14.286
+#&gt; 10   0.000
+#&gt; 11  33.333
+#&gt; 12  14.286
+#&gt; 13   0.000
+#&gt; 14  29.412
+#&gt; 15  25.000
+#&gt; 16  25.000
+#&gt; 17  40.000
+#&gt; 18  36.842
+#&gt; 19  30.000
+#&gt; 20   7.692
+#&gt; 21  33.333
+#&gt; 22  12.500
+#&gt; 23  16.667
+#&gt; 24   9.091
+#&gt; 25  33.333
+#&gt; 26  14.286
+#&gt; 27  14.286
+#&gt; 28   9.091
+#&gt; 29  20.000
+#&gt; 30   0.000
+#&gt; 31   0.000
+#&gt; 32   0.000
+#&gt; 33   0.000
+#&gt; 34   0.000
+#&gt; 35  33.333
+#&gt; 36  14.286
+#&gt; 37   0.000
+#&gt; 38  33.333
+#&gt; 39   0.000
+#&gt; 40  33.333
+#&gt; 41  33.333
+#&gt; 42  14.286
+#&gt; 43  23.077
+#&gt; 44  42.857
+#&gt; 45  20.000
+#&gt; 46   0.000
+#&gt; 47  33.333
+#&gt; 48   0.000
+#&gt; 49  23.077
+#&gt; 50  14.286
+#&gt; 51   0.000
+#&gt; 52   0.000
+#&gt; 53   0.000
+#&gt; 54  23.077
+#&gt; 55   0.000
+#&gt; 56   9.091
+#&gt; 57  16.667
+#&gt; 58  33.333
+#&gt; 59   0.000
+#&gt; 60  33.333
+#&gt; 61  33.333
+#&gt; 62  11.111
+#&gt; 63  11.111
+#&gt; 64  11.111
+#&gt; 65   9.091
+#&gt; 66  44.000
+#&gt; 67   6.667
+#&gt; 68   5.882
+#&gt; 69  11.111
+#&gt; 70  11.111
+#&gt; 71  26.316
+#&gt; 72  16.667
+#&gt; 73  11.111
+#&gt; 74  20.000
+#&gt; 75  22.222
+#&gt; 76   0.000
+#&gt; 77  50.000
+#&gt; 78   3.704
+#&gt; 79  14.286
+#&gt; 80  33.333
+#&gt; 81  10.000
+#&gt; 82  12.500
+#&gt; 83   6.667
+#&gt; 84  23.077
+#&gt; 85   6.667
+#&gt; 86  16.129
+#&gt; 87   9.091
+#&gt; 88  15.789
+#&gt; 89   5.882
+#&gt; 90  15.789
+#&gt; 91  18.182
+#&gt; 92  12.500
+#&gt; 93  17.647
+#&gt; 94   0.000
+#&gt; 95  20.000
+#&gt; 96  14.286
+#&gt; 97  14.286
+#&gt; 98   0.000
+#&gt; 99  22.222
+#&gt; 100 14.286
+#&gt; 101 23.077
+#&gt; 102  9.091
+#&gt; 103  9.091
+#&gt; 104 20.000
+#&gt; 105 12.500
+#&gt; 106 13.043
+#&gt; 107 12.500
+#&gt; 108 26.316
+#&gt; 109  0.000
+#&gt; 110  0.000
+#&gt; 111  0.000
+#&gt; 112  0.000
+#&gt; 113  0.000
+#&gt; 114 17.647
+#&gt; 115  7.692
+#&gt; 116  0.000
+#&gt; 117 30.769
+#&gt; 118  7.692
+#&gt; 119 11.111
+#&gt; 120 15.789
+#&gt; 121 20.000
+#&gt; 122 11.111
+#&gt; 123  6.667
+#&gt; 124 14.286
+#&gt; 125 21.429
+#&gt; 126  0.000
+#&gt; 127 10.345
+#&gt; 128 21.429
+#&gt; 129 11.111
+#&gt; 130 11.111
+#&gt; 131  8.333
+#&gt; 132 23.077
+#&gt; 133 17.647
+#&gt; 134  9.091
+#&gt; 135 14.286
+#&gt; 136 15.385
+#&gt; 137  3.448
+#&gt; 138 14.286
+#&gt; 139 17.647
+#&gt; 140  0.000
+#&gt; 141 15.152
+#&gt; 142  5.882
+#&gt; 143  0.000
+#&gt; 144 14.286
+#&gt; 145 25.000
+#&gt; 146 12.500
+#&gt; 147 13.333
+#&gt; 148 39.394
+#&gt; 149  3.226
+#&gt; 150 25.000
+#&gt; 151 36.842</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"precision"</span>)</div><div class='output co'>#&gt;    n validn R PercAgree   ASD   ACV  AAAD  AAPE    AD
+#&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93 14.93</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>)</div><div class='output co'>#&gt;      -3      -2      -1       0       1       2       3       4       5       6 
 #&gt;  2.6490  0.6623 10.5960 19.8675 19.8675 15.8940 11.2583  5.9603  3.3113  5.2980 
 #&gt;       7       8       9      10      11      12      13 
 #&gt;  1.9868  1.3245  0.0000  0.0000  0.6623  0.0000  0.6623 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>,<span class='kw'>percent</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; -3 -2 -1  0  1  2  3  4  5  6  7  8  9 10 11 12 13 
@@ -402,8 +560,8 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
 #&gt;  0.0000  0.6623  0.0000  0.6623 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>,<span class='kw'>percent</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  0  1  2  3  4  5  6  7  8  9 10 11 12 13 
 #&gt; 30 46 25 21  9  5  8  3  2  0  0  1  0  1 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>,<span class='kw'>trunc.diff</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='output co'>#&gt;     0     1     2     3    4+ 
 #&gt; 19.87 30.46 16.56 13.91 19.21 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"precision"</span>,<span class='st'>"difference"</span>))</div><div class='output co'>#&gt; Precision summary statistics
-#&gt;    n validn R PercAgree   ASD   ACV  AAAD  AAPE
-#&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93
+#&gt;    n validn R PercAgree   ASD   ACV  AAAD  AAPE    AD
+#&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93 14.93
 #&gt; 
 #&gt; Percentage of fish by differences in ages
 #&gt;  between pairs of estimates
@@ -561,7 +719,159 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
 #&gt; 148       23     10 16.5   16.5   NA 9.1924 55.711 55.711 6.5 39.394 39.394
 #&gt; 149       16     15 15.5   15.5   NA 0.7071  4.562  4.562 0.5  3.226  3.226
 #&gt; 150       15      9 12.0   12.0   NA 4.2426 35.355 35.355 3.0 25.000 25.000
-#&gt; 151       13      6  9.5    9.5   NA 4.9497 52.103 52.103 3.5 36.842 36.842</div><div class='input'>
+#&gt; 151       13      6  9.5    9.5   NA 4.9497 52.103 52.103 3.5 36.842 36.842
+#&gt;         AD
+#&gt; 1    0.000
+#&gt; 2   14.286
+#&gt; 3   33.333
+#&gt; 4   14.286
+#&gt; 5    0.000
+#&gt; 6   20.000
+#&gt; 7   17.647
+#&gt; 8   37.500
+#&gt; 9   14.286
+#&gt; 10   0.000
+#&gt; 11  33.333
+#&gt; 12  14.286
+#&gt; 13   0.000
+#&gt; 14  29.412
+#&gt; 15  25.000
+#&gt; 16  25.000
+#&gt; 17  40.000
+#&gt; 18  36.842
+#&gt; 19  30.000
+#&gt; 20   7.692
+#&gt; 21  33.333
+#&gt; 22  12.500
+#&gt; 23  16.667
+#&gt; 24   9.091
+#&gt; 25  33.333
+#&gt; 26  14.286
+#&gt; 27  14.286
+#&gt; 28   9.091
+#&gt; 29  20.000
+#&gt; 30   0.000
+#&gt; 31   0.000
+#&gt; 32   0.000
+#&gt; 33   0.000
+#&gt; 34   0.000
+#&gt; 35  33.333
+#&gt; 36  14.286
+#&gt; 37   0.000
+#&gt; 38  33.333
+#&gt; 39   0.000
+#&gt; 40  33.333
+#&gt; 41  33.333
+#&gt; 42  14.286
+#&gt; 43  23.077
+#&gt; 44  42.857
+#&gt; 45  20.000
+#&gt; 46   0.000
+#&gt; 47  33.333
+#&gt; 48   0.000
+#&gt; 49  23.077
+#&gt; 50  14.286
+#&gt; 51   0.000
+#&gt; 52   0.000
+#&gt; 53   0.000
+#&gt; 54  23.077
+#&gt; 55   0.000
+#&gt; 56   9.091
+#&gt; 57  16.667
+#&gt; 58  33.333
+#&gt; 59   0.000
+#&gt; 60  33.333
+#&gt; 61  33.333
+#&gt; 62  11.111
+#&gt; 63  11.111
+#&gt; 64  11.111
+#&gt; 65   9.091
+#&gt; 66  44.000
+#&gt; 67   6.667
+#&gt; 68   5.882
+#&gt; 69  11.111
+#&gt; 70  11.111
+#&gt; 71  26.316
+#&gt; 72  16.667
+#&gt; 73  11.111
+#&gt; 74  20.000
+#&gt; 75  22.222
+#&gt; 76   0.000
+#&gt; 77  50.000
+#&gt; 78   3.704
+#&gt; 79  14.286
+#&gt; 80  33.333
+#&gt; 81  10.000
+#&gt; 82  12.500
+#&gt; 83   6.667
+#&gt; 84  23.077
+#&gt; 85   6.667
+#&gt; 86  16.129
+#&gt; 87   9.091
+#&gt; 88  15.789
+#&gt; 89   5.882
+#&gt; 90  15.789
+#&gt; 91  18.182
+#&gt; 92  12.500
+#&gt; 93  17.647
+#&gt; 94   0.000
+#&gt; 95  20.000
+#&gt; 96  14.286
+#&gt; 97  14.286
+#&gt; 98   0.000
+#&gt; 99  22.222
+#&gt; 100 14.286
+#&gt; 101 23.077
+#&gt; 102  9.091
+#&gt; 103  9.091
+#&gt; 104 20.000
+#&gt; 105 12.500
+#&gt; 106 13.043
+#&gt; 107 12.500
+#&gt; 108 26.316
+#&gt; 109  0.000
+#&gt; 110  0.000
+#&gt; 111  0.000
+#&gt; 112  0.000
+#&gt; 113  0.000
+#&gt; 114 17.647
+#&gt; 115  7.692
+#&gt; 116  0.000
+#&gt; 117 30.769
+#&gt; 118  7.692
+#&gt; 119 11.111
+#&gt; 120 15.789
+#&gt; 121 20.000
+#&gt; 122 11.111
+#&gt; 123  6.667
+#&gt; 124 14.286
+#&gt; 125 21.429
+#&gt; 126  0.000
+#&gt; 127 10.345
+#&gt; 128 21.429
+#&gt; 129 11.111
+#&gt; 130 11.111
+#&gt; 131  8.333
+#&gt; 132 23.077
+#&gt; 133 17.647
+#&gt; 134  9.091
+#&gt; 135 14.286
+#&gt; 136 15.385
+#&gt; 137  3.448
+#&gt; 138 14.286
+#&gt; 139 17.647
+#&gt; 140  0.000
+#&gt; 141 15.152
+#&gt; 142  5.882
+#&gt; 143  0.000
+#&gt; 144 14.286
+#&gt; 145 25.000
+#&gt; 146 12.500
+#&gt; 147 13.333
+#&gt; 148 39.394
+#&gt; 149  3.226
+#&gt; 150 25.000
+#&gt; 151 36.842</div><div class='input'>
 <span class='fu'>barplot</span>(<span class='no'>ap1</span>$<span class='no'>rawdiff</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Frequency"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Otolith - Scale Age"</span>)</div><div class='img'><img src='agePrecision-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>AAD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,
      <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>col2rgbt</span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>SD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"SD Age"</span>,
      <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>col2rgbt</span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>SD</span>~<span class='no'>AAD</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"SD Age"</span>,
@@ -570,8 +880,8 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
 <span class='co'>## Example with three age estimates</span>
 <span class='no'>ap2</span> <span class='kw'>&lt;-</span> <span class='fu'>agePrecision</span>(~<span class='no'>otolithC</span>+<span class='no'>finrayC</span>+<span class='no'>scaleC</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WhitefishLC</span>)
 <span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt; Precision summary statistics
-#&gt;    n validn R PercAgree  ASD  ACV ACV2 AAAD AAPE AAPE2
-#&gt;  151    151 3      12.6 1.49 21.8 24.1  1.1 16.2    18
+#&gt;    n validn R PercAgree  ASD  ACV ACV2 AAAD AAPE AAPE2   AD
+#&gt;  151    151 3      12.6 1.49 21.8 24.1  1.1 16.2    18 12.6
 #&gt; 
 #&gt; Percentage of fish by absolute differences in ages
 #&gt;  between pairs of estimates
@@ -752,159 +1062,159 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
 #&gt; 149       16      14     15 15.00     15   NA 1.000  6.67  6.67 0.667  4.44
 #&gt; 150       15      10      9 11.33     10   NA 3.215 28.36 32.15 2.444 21.57
 #&gt; 151       13       8      6  9.00      8   NA 3.606 40.06 45.07 2.667 29.63
-#&gt;      APE2
-#&gt; 1    0.00
-#&gt; 2   14.81
-#&gt; 3   44.44
-#&gt; 4   14.81
-#&gt; 5   14.81
-#&gt; 6   27.78
-#&gt; 7   22.22
-#&gt; 8   24.69
-#&gt; 9   14.81
-#&gt; 10   0.00
-#&gt; 11  22.22
-#&gt; 12  14.81
-#&gt; 13   0.00
-#&gt; 14  22.22
-#&gt; 15  22.22
-#&gt; 16  29.63
-#&gt; 17  25.93
-#&gt; 18  51.85
-#&gt; 19  30.56
-#&gt; 20   7.41
-#&gt; 21  44.44
-#&gt; 22  15.87
-#&gt; 23  22.22
-#&gt; 24   7.41
-#&gt; 25  22.22
-#&gt; 26  14.81
-#&gt; 27  14.81
-#&gt; 28  13.33
-#&gt; 29  22.22
-#&gt; 30   0.00
-#&gt; 31  11.11
-#&gt; 32   0.00
-#&gt; 33   0.00
-#&gt; 34  22.22
-#&gt; 35  22.22
-#&gt; 36  14.81
-#&gt; 37   0.00
-#&gt; 38  33.33
-#&gt; 39  44.44
-#&gt; 40  44.44
-#&gt; 41  44.44
-#&gt; 42  14.81
-#&gt; 43  18.52
-#&gt; 44  37.04
-#&gt; 45  22.22
-#&gt; 46  14.81
-#&gt; 47  44.44
-#&gt; 48   0.00
-#&gt; 49  15.87
-#&gt; 50  11.11
-#&gt; 51   0.00
-#&gt; 52   0.00
-#&gt; 53   0.00
-#&gt; 54  18.52
-#&gt; 55   0.00
-#&gt; 56   7.41
-#&gt; 57  17.78
-#&gt; 58  44.44
-#&gt; 59   0.00
-#&gt; 60  44.44
-#&gt; 61  44.44
-#&gt; 62   8.89
-#&gt; 63  11.11
-#&gt; 64  11.11
-#&gt; 65  22.22
-#&gt; 66  69.84
-#&gt; 67  15.87
-#&gt; 68  13.89
-#&gt; 69  11.11
-#&gt; 70  16.67
-#&gt; 71  31.75
-#&gt; 72  11.11
-#&gt; 73  13.89
-#&gt; 74  25.93
-#&gt; 75  25.40
-#&gt; 76   0.00
-#&gt; 77  33.33
-#&gt; 78  15.38
-#&gt; 79  14.81
-#&gt; 80  34.92
-#&gt; 81  14.81
-#&gt; 82  12.70
-#&gt; 83   9.52
-#&gt; 84  31.11
-#&gt; 85   9.52
-#&gt; 86  23.93
-#&gt; 87  13.33
-#&gt; 88  25.00
-#&gt; 89  13.89
-#&gt; 90  16.67
-#&gt; 91  24.69
-#&gt; 92  15.87
-#&gt; 93  19.05
-#&gt; 94  11.11
-#&gt; 95  22.22
-#&gt; 96  14.81
-#&gt; 97  14.81
-#&gt; 98   0.00
-#&gt; 99  25.40
-#&gt; 100 14.81
-#&gt; 101 26.67
-#&gt; 102  8.89
-#&gt; 103 13.33
-#&gt; 104 22.22
-#&gt; 105 12.70
-#&gt; 106 13.33
-#&gt; 107  8.33
-#&gt; 108 31.75
-#&gt; 109  0.00
-#&gt; 110  0.00
-#&gt; 111 12.70
-#&gt; 112  0.00
-#&gt; 113  0.00
-#&gt; 114 19.05
-#&gt; 115  7.41
-#&gt; 116  8.89
-#&gt; 117 33.33
-#&gt; 118  7.41
-#&gt; 119 11.11
-#&gt; 120 12.35
-#&gt; 121 25.00
-#&gt; 122 11.11
-#&gt; 123  6.35
-#&gt; 124 19.75
-#&gt; 125 28.28
-#&gt; 126  6.84
-#&gt; 127 13.68
-#&gt; 128 24.24
-#&gt; 129 11.11
-#&gt; 130 16.67
-#&gt; 131 12.12
-#&gt; 132 22.22
-#&gt; 133 19.05
-#&gt; 134  8.89
-#&gt; 135 18.52
-#&gt; 136 12.96
-#&gt; 137 14.29
-#&gt; 138 14.81
-#&gt; 139 22.22
-#&gt; 140 16.67
-#&gt; 141 22.22
-#&gt; 142  7.41
-#&gt; 143 11.11
-#&gt; 144 14.81
-#&gt; 145 32.10
-#&gt; 146 19.05
-#&gt; 147 17.09
-#&gt; 148 60.00
-#&gt; 149  4.44
-#&gt; 150 24.44
-#&gt; 151 33.33</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"precision"</span>)</div><div class='output co'>#&gt;    n validn R PercAgree   ASD   ACV  ACV2  AAAD  AAPE AAPE2
-#&gt;  151    151 3     12.58 1.487 21.77 24.13 1.104 16.19 17.99</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>)</div><div class='output co'>#&gt;                         -4      -3      -2      -1       0       1       2
+#&gt;      APE2    AD
+#&gt; 1    0.00  0.00
+#&gt; 2   14.81 10.00
+#&gt; 3   44.44 25.00
+#&gt; 4   14.81 10.00
+#&gt; 5   14.81 10.00
+#&gt; 6   27.78 20.35
+#&gt; 7   22.22 15.68
+#&gt; 8   24.69 21.17
+#&gt; 9   14.81 10.00
+#&gt; 10   0.00  0.00
+#&gt; 11  22.22 20.00
+#&gt; 12  14.81 10.00
+#&gt; 13   0.00  0.00
+#&gt; 14  22.22 17.44
+#&gt; 15  22.22 15.68
+#&gt; 16  29.63 18.18
+#&gt; 17  25.93 22.53
+#&gt; 18  51.85 28.00
+#&gt; 19  30.56 19.88
+#&gt; 20   7.41  5.26
+#&gt; 21  44.44 25.00
+#&gt; 22  15.87 12.03
+#&gt; 23  22.22 16.54
+#&gt; 24   7.41  5.88
+#&gt; 25  22.22 20.00
+#&gt; 26  14.81 10.00
+#&gt; 27  14.81 10.00
+#&gt; 28  13.33 11.55
+#&gt; 29  22.22 14.29
+#&gt; 30   0.00  0.00
+#&gt; 31  11.11  9.09
+#&gt; 32   0.00  0.00
+#&gt; 33   0.00  0.00
+#&gt; 34  22.22 20.00
+#&gt; 35  22.22 19.25
+#&gt; 36  14.81 10.00
+#&gt; 37   0.00  0.00
+#&gt; 38  33.33 28.87
+#&gt; 39  44.44 25.00
+#&gt; 40  44.44 25.00
+#&gt; 41  44.44 25.00
+#&gt; 42  14.81 10.00
+#&gt; 43  18.52 13.93
+#&gt; 44  37.04 26.46
+#&gt; 45  22.22 19.25
+#&gt; 46  14.81 12.50
+#&gt; 47  44.44 25.00
+#&gt; 48   0.00  0.00
+#&gt; 49  15.87 13.23
+#&gt; 50  11.11  9.09
+#&gt; 51   0.00  0.00
+#&gt; 52   0.00  0.00
+#&gt; 53   0.00  0.00
+#&gt; 54  18.52 13.93
+#&gt; 55   0.00  0.00
+#&gt; 56   7.41  5.88
+#&gt; 57  17.78 11.76
+#&gt; 58  44.44 25.00
+#&gt; 59   0.00  0.00
+#&gt; 60  44.44 25.00
+#&gt; 61  44.44 25.00
+#&gt; 62   8.89  7.14
+#&gt; 63  11.11  7.69
+#&gt; 64  11.11  7.69
+#&gt; 65  22.22 18.90
+#&gt; 66  69.84 34.38
+#&gt; 67  15.87 13.23
+#&gt; 68  13.89 11.50
+#&gt; 69  11.11  7.69
+#&gt; 70  16.67 14.43
+#&gt; 71  31.75 19.23
+#&gt; 72  11.11  9.62
+#&gt; 73  13.89 10.58
+#&gt; 74  25.93 18.03
+#&gt; 75  25.40 16.00
+#&gt; 76   0.00  0.00
+#&gt; 77  33.33 28.87
+#&gt; 78  15.38 12.73
+#&gt; 79  14.81 10.00
+#&gt; 80  34.92 22.27
+#&gt; 81  14.81 12.83
+#&gt; 82  12.70  8.70
+#&gt; 83   9.52  8.25
+#&gt; 84  31.11 21.21
+#&gt; 85   9.52  8.25
+#&gt; 86  23.93 19.53
+#&gt; 87  13.33 11.55
+#&gt; 88  25.00 21.65
+#&gt; 89  13.89 11.50
+#&gt; 90  16.67 11.11
+#&gt; 91  24.69 18.25
+#&gt; 92  15.87 12.03
+#&gt; 93  19.05 12.50
+#&gt; 94  11.11  9.09
+#&gt; 95  22.22 14.29
+#&gt; 96  14.81 10.00
+#&gt; 97  14.81 10.00
+#&gt; 98   0.00  0.00
+#&gt; 99  25.40 16.00
+#&gt; 100 14.81 10.00
+#&gt; 101 26.67 16.67
+#&gt; 102  8.89  6.25
+#&gt; 103 13.33 11.55
+#&gt; 104 22.22 14.29
+#&gt; 105 12.70  8.70
+#&gt; 106 13.33  9.09
+#&gt; 107  8.33  7.22
+#&gt; 108 31.75 19.23
+#&gt; 109  0.00  0.00
+#&gt; 110  0.00  0.00
+#&gt; 111 12.70 10.53
+#&gt; 112  0.00  0.00
+#&gt; 113  0.00  0.00
+#&gt; 114 19.05 12.50
+#&gt; 115  7.41  5.26
+#&gt; 116  8.89  7.14
+#&gt; 117 33.33 20.97
+#&gt; 118  7.41  5.26
+#&gt; 119 11.11  7.69
+#&gt; 120 12.35  9.45
+#&gt; 121 25.00 16.97
+#&gt; 122 11.11  7.69
+#&gt; 123  6.35  4.55
+#&gt; 124 19.75 15.57
+#&gt; 125 28.28 19.49
+#&gt; 126  6.84  5.41
+#&gt; 127 13.68 10.90
+#&gt; 128 24.24 15.38
+#&gt; 129 11.11  7.69
+#&gt; 130 16.67 14.43
+#&gt; 131 12.12 10.50
+#&gt; 132 22.22 15.05
+#&gt; 133 19.05 12.50
+#&gt; 134  8.89  6.25
+#&gt; 135 18.52 13.93
+#&gt; 136 12.96  9.49
+#&gt; 137 14.29 11.75
+#&gt; 138 14.81 10.00
+#&gt; 139 22.22 15.68
+#&gt; 140 16.67 14.29
+#&gt; 141 22.22 18.16
+#&gt; 142  7.41  6.42
+#&gt; 143 11.11  9.09
+#&gt; 144 14.81 10.00
+#&gt; 145 32.10 20.49
+#&gt; 146 19.05 16.50
+#&gt; 147 17.09 12.91
+#&gt; 148 60.00 32.21
+#&gt; 149  4.44  3.85
+#&gt; 150 24.44 16.38
+#&gt; 151 33.33 23.13</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"precision"</span>)</div><div class='output co'>#&gt;    n validn R PercAgree   ASD   ACV  ACV2  AAAD  AAPE AAPE2    AD
+#&gt;  151    151 3     12.58 1.487 21.77 24.13 1.104 16.19 17.99 12.57</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>)</div><div class='output co'>#&gt;                         -4      -3      -2      -1       0       1       2
 #&gt; otolithC - finrayC  0.0000  0.0000  1.3245  3.3113 24.5033 17.8808 16.5563
 #&gt; otolithC - scaleC   0.0000  2.6490  0.6623 10.5960 19.8675 19.8675 15.8940
 #&gt; finrayC - scaleC    3.3113  4.6358 12.5828 19.8675 40.3974 14.5695  2.6490
@@ -1070,158 +1380,158 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
 #&gt; 149       16      14     15 15.00     15   NA 1.000  6.67  6.67 0.667  4.44
 #&gt; 150       15      10      9 11.33     10   NA 3.215 28.36 32.15 2.444 21.57
 #&gt; 151       13       8      6  9.00      8   NA 3.606 40.06 45.07 2.667 29.63
-#&gt;      APE2
-#&gt; 1    0.00
-#&gt; 2   14.81
-#&gt; 3   44.44
-#&gt; 4   14.81
-#&gt; 5   14.81
-#&gt; 6   27.78
-#&gt; 7   22.22
-#&gt; 8   24.69
-#&gt; 9   14.81
-#&gt; 10   0.00
-#&gt; 11  22.22
-#&gt; 12  14.81
-#&gt; 13   0.00
-#&gt; 14  22.22
-#&gt; 15  22.22
-#&gt; 16  29.63
-#&gt; 17  25.93
-#&gt; 18  51.85
-#&gt; 19  30.56
-#&gt; 20   7.41
-#&gt; 21  44.44
-#&gt; 22  15.87
-#&gt; 23  22.22
-#&gt; 24   7.41
-#&gt; 25  22.22
-#&gt; 26  14.81
-#&gt; 27  14.81
-#&gt; 28  13.33
-#&gt; 29  22.22
-#&gt; 30   0.00
-#&gt; 31  11.11
-#&gt; 32   0.00
-#&gt; 33   0.00
-#&gt; 34  22.22
-#&gt; 35  22.22
-#&gt; 36  14.81
-#&gt; 37   0.00
-#&gt; 38  33.33
-#&gt; 39  44.44
-#&gt; 40  44.44
-#&gt; 41  44.44
-#&gt; 42  14.81
-#&gt; 43  18.52
-#&gt; 44  37.04
-#&gt; 45  22.22
-#&gt; 46  14.81
-#&gt; 47  44.44
-#&gt; 48   0.00
-#&gt; 49  15.87
-#&gt; 50  11.11
-#&gt; 51   0.00
-#&gt; 52   0.00
-#&gt; 53   0.00
-#&gt; 54  18.52
-#&gt; 55   0.00
-#&gt; 56   7.41
-#&gt; 57  17.78
-#&gt; 58  44.44
-#&gt; 59   0.00
-#&gt; 60  44.44
-#&gt; 61  44.44
-#&gt; 62   8.89
-#&gt; 63  11.11
-#&gt; 64  11.11
-#&gt; 65  22.22
-#&gt; 66  69.84
-#&gt; 67  15.87
-#&gt; 68  13.89
-#&gt; 69  11.11
-#&gt; 70  16.67
-#&gt; 71  31.75
-#&gt; 72  11.11
-#&gt; 73  13.89
-#&gt; 74  25.93
-#&gt; 75  25.40
-#&gt; 76   0.00
-#&gt; 77  33.33
-#&gt; 78  15.38
-#&gt; 79  14.81
-#&gt; 80  34.92
-#&gt; 81  14.81
-#&gt; 82  12.70
-#&gt; 83   9.52
-#&gt; 84  31.11
-#&gt; 85   9.52
-#&gt; 86  23.93
-#&gt; 87  13.33
-#&gt; 88  25.00
-#&gt; 89  13.89
-#&gt; 90  16.67
-#&gt; 91  24.69
-#&gt; 92  15.87
-#&gt; 93  19.05
-#&gt; 94  11.11
-#&gt; 95  22.22
-#&gt; 96  14.81
-#&gt; 97  14.81
-#&gt; 98   0.00
-#&gt; 99  25.40
-#&gt; 100 14.81
-#&gt; 101 26.67
-#&gt; 102  8.89
-#&gt; 103 13.33
-#&gt; 104 22.22
-#&gt; 105 12.70
-#&gt; 106 13.33
-#&gt; 107  8.33
-#&gt; 108 31.75
-#&gt; 109  0.00
-#&gt; 110  0.00
-#&gt; 111 12.70
-#&gt; 112  0.00
-#&gt; 113  0.00
-#&gt; 114 19.05
-#&gt; 115  7.41
-#&gt; 116  8.89
-#&gt; 117 33.33
-#&gt; 118  7.41
-#&gt; 119 11.11
-#&gt; 120 12.35
-#&gt; 121 25.00
-#&gt; 122 11.11
-#&gt; 123  6.35
-#&gt; 124 19.75
-#&gt; 125 28.28
-#&gt; 126  6.84
-#&gt; 127 13.68
-#&gt; 128 24.24
-#&gt; 129 11.11
-#&gt; 130 16.67
-#&gt; 131 12.12
-#&gt; 132 22.22
-#&gt; 133 19.05
-#&gt; 134  8.89
-#&gt; 135 18.52
-#&gt; 136 12.96
-#&gt; 137 14.29
-#&gt; 138 14.81
-#&gt; 139 22.22
-#&gt; 140 16.67
-#&gt; 141 22.22
-#&gt; 142  7.41
-#&gt; 143 11.11
-#&gt; 144 14.81
-#&gt; 145 32.10
-#&gt; 146 19.05
-#&gt; 147 17.09
-#&gt; 148 60.00
-#&gt; 149  4.44
-#&gt; 150 24.44
-#&gt; 151 33.33</div><div class='input'>
+#&gt;      APE2    AD
+#&gt; 1    0.00  0.00
+#&gt; 2   14.81 10.00
+#&gt; 3   44.44 25.00
+#&gt; 4   14.81 10.00
+#&gt; 5   14.81 10.00
+#&gt; 6   27.78 20.35
+#&gt; 7   22.22 15.68
+#&gt; 8   24.69 21.17
+#&gt; 9   14.81 10.00
+#&gt; 10   0.00  0.00
+#&gt; 11  22.22 20.00
+#&gt; 12  14.81 10.00
+#&gt; 13   0.00  0.00
+#&gt; 14  22.22 17.44
+#&gt; 15  22.22 15.68
+#&gt; 16  29.63 18.18
+#&gt; 17  25.93 22.53
+#&gt; 18  51.85 28.00
+#&gt; 19  30.56 19.88
+#&gt; 20   7.41  5.26
+#&gt; 21  44.44 25.00
+#&gt; 22  15.87 12.03
+#&gt; 23  22.22 16.54
+#&gt; 24   7.41  5.88
+#&gt; 25  22.22 20.00
+#&gt; 26  14.81 10.00
+#&gt; 27  14.81 10.00
+#&gt; 28  13.33 11.55
+#&gt; 29  22.22 14.29
+#&gt; 30   0.00  0.00
+#&gt; 31  11.11  9.09
+#&gt; 32   0.00  0.00
+#&gt; 33   0.00  0.00
+#&gt; 34  22.22 20.00
+#&gt; 35  22.22 19.25
+#&gt; 36  14.81 10.00
+#&gt; 37   0.00  0.00
+#&gt; 38  33.33 28.87
+#&gt; 39  44.44 25.00
+#&gt; 40  44.44 25.00
+#&gt; 41  44.44 25.00
+#&gt; 42  14.81 10.00
+#&gt; 43  18.52 13.93
+#&gt; 44  37.04 26.46
+#&gt; 45  22.22 19.25
+#&gt; 46  14.81 12.50
+#&gt; 47  44.44 25.00
+#&gt; 48   0.00  0.00
+#&gt; 49  15.87 13.23
+#&gt; 50  11.11  9.09
+#&gt; 51   0.00  0.00
+#&gt; 52   0.00  0.00
+#&gt; 53   0.00  0.00
+#&gt; 54  18.52 13.93
+#&gt; 55   0.00  0.00
+#&gt; 56   7.41  5.88
+#&gt; 57  17.78 11.76
+#&gt; 58  44.44 25.00
+#&gt; 59   0.00  0.00
+#&gt; 60  44.44 25.00
+#&gt; 61  44.44 25.00
+#&gt; 62   8.89  7.14
+#&gt; 63  11.11  7.69
+#&gt; 64  11.11  7.69
+#&gt; 65  22.22 18.90
+#&gt; 66  69.84 34.38
+#&gt; 67  15.87 13.23
+#&gt; 68  13.89 11.50
+#&gt; 69  11.11  7.69
+#&gt; 70  16.67 14.43
+#&gt; 71  31.75 19.23
+#&gt; 72  11.11  9.62
+#&gt; 73  13.89 10.58
+#&gt; 74  25.93 18.03
+#&gt; 75  25.40 16.00
+#&gt; 76   0.00  0.00
+#&gt; 77  33.33 28.87
+#&gt; 78  15.38 12.73
+#&gt; 79  14.81 10.00
+#&gt; 80  34.92 22.27
+#&gt; 81  14.81 12.83
+#&gt; 82  12.70  8.70
+#&gt; 83   9.52  8.25
+#&gt; 84  31.11 21.21
+#&gt; 85   9.52  8.25
+#&gt; 86  23.93 19.53
+#&gt; 87  13.33 11.55
+#&gt; 88  25.00 21.65
+#&gt; 89  13.89 11.50
+#&gt; 90  16.67 11.11
+#&gt; 91  24.69 18.25
+#&gt; 92  15.87 12.03
+#&gt; 93  19.05 12.50
+#&gt; 94  11.11  9.09
+#&gt; 95  22.22 14.29
+#&gt; 96  14.81 10.00
+#&gt; 97  14.81 10.00
+#&gt; 98   0.00  0.00
+#&gt; 99  25.40 16.00
+#&gt; 100 14.81 10.00
+#&gt; 101 26.67 16.67
+#&gt; 102  8.89  6.25
+#&gt; 103 13.33 11.55
+#&gt; 104 22.22 14.29
+#&gt; 105 12.70  8.70
+#&gt; 106 13.33  9.09
+#&gt; 107  8.33  7.22
+#&gt; 108 31.75 19.23
+#&gt; 109  0.00  0.00
+#&gt; 110  0.00  0.00
+#&gt; 111 12.70 10.53
+#&gt; 112  0.00  0.00
+#&gt; 113  0.00  0.00
+#&gt; 114 19.05 12.50
+#&gt; 115  7.41  5.26
+#&gt; 116  8.89  7.14
+#&gt; 117 33.33 20.97
+#&gt; 118  7.41  5.26
+#&gt; 119 11.11  7.69
+#&gt; 120 12.35  9.45
+#&gt; 121 25.00 16.97
+#&gt; 122 11.11  7.69
+#&gt; 123  6.35  4.55
+#&gt; 124 19.75 15.57
+#&gt; 125 28.28 19.49
+#&gt; 126  6.84  5.41
+#&gt; 127 13.68 10.90
+#&gt; 128 24.24 15.38
+#&gt; 129 11.11  7.69
+#&gt; 130 16.67 14.43
+#&gt; 131 12.12 10.50
+#&gt; 132 22.22 15.05
+#&gt; 133 19.05 12.50
+#&gt; 134  8.89  6.25
+#&gt; 135 18.52 13.93
+#&gt; 136 12.96  9.49
+#&gt; 137 14.29 11.75
+#&gt; 138 14.81 10.00
+#&gt; 139 22.22 15.68
+#&gt; 140 16.67 14.29
+#&gt; 141 22.22 18.16
+#&gt; 142  7.41  6.42
+#&gt; 143 11.11  9.09
+#&gt; 144 14.81 10.00
+#&gt; 145 32.10 20.49
+#&gt; 146 19.05 16.50
+#&gt; 147 17.09 12.91
+#&gt; 148 60.00 32.21
+#&gt; 149  4.44  3.85
+#&gt; 150 24.44 16.38
+#&gt; 151 33.33 23.13</div><div class='input'>
 <span class='fu'>plot</span>(<span class='no'>AAD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,
      <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>col2rgbt</span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>SD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"SD Age"</span>,
      <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>col2rgbt</span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='img'><img src='agePrecision-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plot</span>(<span class='no'>SD</span>~<span class='no'>AAD</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"MAD Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"SD Age"</span>,
