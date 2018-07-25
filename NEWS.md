@@ -5,7 +5,7 @@
 * Removed all `data()` in examples that referred to data from this package. Included the `package=` argument in `data()` that loaded from other packages.
 * Added `seealso`, with links to which functions use the data for examples, to docmentation for all data.frames.
 * `addZeroCatch()`: Modified. Added a catch that turns a "tibble" into a regular data.frame (which obviates some errors that occur with tibbles). Minor changes to documentation and comments in the code.
-* `agePrecision()`: Modified. Added intermediate and summary calculations for median and modal age; average absolute deviation and standard deviation; and APE and CV with the median rather than the mean as the divisor. Updated tests and examples. Other minor modifications to the function code. Addresses [#41](https://github.com/droglenc/FSA/issues/41) and [#49](https://github.com/droglenc/FSA/issues/49).
+* `agePrecision()`: Modified. Added intermediate and summary calculations for median and modal age; average absolute deviation and standard deviation; APE and CV with the median rather than the mean as the divisor; and index of precision (D). Added `show.prec2=`. Updated tests and examples. Other minor modifications to the function code. Addresses [#41](https://github.com/droglenc/FSA/issues/41) and [#49](https://github.com/droglenc/FSA/issues/49).
 * `alkIndivAge()`: Modified. Replaced an `options(warn=-1)` with `suppressWarnings()`.
 * `alkPlot()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)). Replaced an `options(warn=-1)` with `suppressWarnings()`.
 * `alkSummaries()`: Modified. Replaced an `options(warn=-1)` with `suppressWarnings()`.

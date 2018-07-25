@@ -9,6 +9,7 @@
 #' @param percent A logical that indicates whether the difference table (see details) should be represented as percentages (\code{TRUE}; default) or frequency (\code{FALSE}) of fish.
 #' @param trunc.diff A single integer that identifies the age for which all values that age and greater are combined into one category. See the examples.
 #' @param digits A single numeric that indicates the minimum number of digits to print when using \code{summary}.
+#' @param show.prec2 A logical that indicates whether the precision metrics that use the median (i.e., ACV2 and APE2) should be shown when only two age estimates were made (in this instance they will be exactly equal to ACV and APE). Default is to not show these values in this situation.
 #' @param \dots Additional arguments for methods.
 #'
 #' @details If \code{what="precision"} in \code{summary} then a summary table that contains the following items will be printed:
@@ -19,10 +20,11 @@
 #'   \item PercAgree The percentage of fish for which all age estimates perfectly agree.
 #'   \item ASD The average (across all fish) standard deviation of ages within a fish.
 #'   \item ACV The average (across all fish) coefficient of variation of ages within a fish using the \bold{mean} as the divisor. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
-#'   \item ACV2 The average (across all fish) coefficient of variation of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2.
+#'   \item ACV2 The average (across all fish) coefficient of variation of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2 or \code{show.prec2=TRUE}.
 #'   \item AAAD The average (across all fish) average absolute deviation of ages within a fish.
 #'   \item AAPE The average (across all fish) average percent error of ages within a fish using the \bold{mean} as the divisor. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
-#'   \item AAPE2 The average (across all fish) average percent error of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2.
+#'   \item AAPE2 The average (across all fish) average percent error of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2 or \code{show.prec2=TRUE}.
+#'   \item AD The average (across all fish) index of precision (D).
 #' }
 #'
 #' Note that ACV2 and AAPE2 will not be printed when \code{what="precision"} if only two sets of ages are given (because mean=median such that ACV=ACV2 and AAPE=AAPE2).
@@ -30,7 +32,7 @@
 #'
 #' If \code{what="absolute difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, DEFAULT) or frequency of fish by the absolute value of the difference in paired age estimates. This table has one row for each possible pair of age estimates. The \dQuote{1} column, for example, represents age estimates that disagree by one year (in either direction).
 #'
-#' If \code{what="detail"} is used in \code{summary}, then a data.frame of the original \code{data} along with the intermediate calculations of the mean age, median age, modal age (will be \code{NA} if a mode does not exist (e.g., all different ages) or multiple modes exist), standard deviation of age (SD), coefficient of variation using the mean as the divisor (CV), coefficient of variation using the median as the divisor (CV2), mean absolute deviation using the mean as the divisor (MAD), mean absolute deviation using the median as the divisor (MAD2), and average percent error (APE) for each individual will be printed. These details are generally only used to check or to understand calculations.
+#' If \code{what="detail"} is used in \code{summary}, then a data.frame of the original \code{data} along with the intermediate calculations of the mean age, median age, modal age (will be \code{NA} if a mode does not exist (e.g., all different ages) or multiple modes exist), standard deviation of age (SD), coefficient of variation using the mean as the divisor (CV), coefficient of variation using the median as the divisor (CV2), average absolute deviation using the mean as the divisor (AAD), average absolute deviation using the median as the divisor (AAD2), average percent error (APE), and index of precision (D) for each individual will be printed.
 #' 
 #' All percentage calculations above use the \code{validn} value in the denominator.
 #' 
@@ -45,6 +47,7 @@
 #'   \item ASD The average standard deviation.
 #'   \item ACV The average coefficient of variation (using the \bold{mean} age as the divisor).
 #'   \item ACV2 The average coefficient of variation (using the \bold{median} age as the divisor).
+#'   \item AD The average index of precision.
 #'   \item R The number of readings for each individual fish.
 #'   \item n Number of fish in \code{data}.
 #'   \item validn Number of fish in \code{data} that have non-\code{NA} data for all R age estimates.
@@ -134,7 +137,7 @@ agePrecision <- function(formula,data) {
   n <- nrow(d)
   validn <- sum(stats::complete.cases(d))
   
-  ## Precision calculations (APE and ACV) on each fish
+  ## Precision calculations on each fish
   # Mean, median, mode, SD of assigned ages
   age.avg <- apply(d,1,mean)
   age.mdn <- apply(d,1,stats::median)
@@ -150,16 +153,19 @@ agePrecision <- function(formula,data) {
   # APE & ACV for each fish (using the median)
   APE2.j <- (age.aad/age.mdn)*100
   ACV2.j <- (age.sd/age.mdn)*100
+  # Index of precision
+  D.j <- ACV.j/sqrt(R)
   # Replaced NAs with 0 in APE.j and ACV.j for when age.avg==0
   APE.j[age.avg==0] <- 0
   ACV.j[age.avg==0] <- 0
+  D.j[age.avg==0] <- 0
   # Replaced NAs with 0 in APE2.j and ACV2.j for when age.mdn==0
   APE2.j[age.mdn==0] <- 0
   ACV2.j[age.mdn==0] <- 0
   # Put results into a data.frame to return
   detail.df <- data.frame(d,mean=age.avg,median=age.mdn,mode=age.mode,
                           SD=age.sd,CV=ACV.j,CV2=ACV2.j,
-                          AAD=age.aad,APE=APE.j,APE2=APE2.j)
+                          AAD=age.aad,APE=APE.j,APE2=APE2.j,AD=D.j)
   ## Summary precision calculations (APE, ACV, total agreement) for all fish
   AAAD <- mean(age.aad,na.rm=TRUE)
   AAPE <- mean(APE.j,na.rm=TRUE)
@@ -167,6 +173,7 @@ agePrecision <- function(formula,data) {
   ASD <- mean(age.sd,na.rm=TRUE)
   ACV <- mean(ACV.j,na.rm=TRUE)
   ACV2 <- mean(ACV2.j,na.rm=TRUE)
+  AD <- mean(D.j,na.rm=TRUE)
   # all ages agree if SD=0 (use sum and na.rm to remove NAs)
   all.agree <- sum(detail.df$SD==0,na.rm=TRUE)/validn*100
   
@@ -211,7 +218,7 @@ agePrecision <- function(formula,data) {
   
   ## Put together an output list
   d <- list(detail=detail.df,rawdiff=as.table(ragree),absdiff=as.table(aagree),
-            ASD=ASD,ACV=ACV,ACV2=ACV2,AAAD=AAAD,AAPE=AAPE,AAPE2=AAPE2,
+            ASD=ASD,ACV=ACV,ACV2=ACV2,AAAD=AAAD,AAPE=AAPE,AAPE2=AAPE2,AD=AD,
             PercAgree=all.agree,R=R,n=n,validn=validn)
   class(d) <- "agePrec"
   d 
@@ -237,21 +244,22 @@ iMode <- function(x) {
 #' @export
 summary.agePrec <- function(object,what=c("precision","difference",
                                           "absolute difference","details"),
-                            percent=TRUE,trunc.diff=NULL,digits=4,...) {
+                            percent=TRUE,trunc.diff=NULL,digits=4,
+                            show.prec2=FALSE,...) {
   what <- match.arg(what,several.ok=TRUE)
   retres <- ifelse(length(what)==1,TRUE,FALSE)
   showmsg <- ifelse (length(what)>1,TRUE,FALSE)
   if ("precision" %in% what) {
     if (showmsg) cat("Precision summary statistics\n")
-    if (object$R==2) {
+    if (object$R==2 & !show.prec2) {
       ## if two ages, then mean=median and don't need both ACV & ACV2 or APE & APE2
       tmp <- with(object,data.frame(n=n,validn=validn,R=R,PercAgree=PercAgree,
                                     ASD=ASD,ACV=ACV,
-                                    AAAD=AAAD,AAPE=AAPE))
+                                    AAAD=AAAD,AAPE=AAPE,AD=AD))
     } else {
       tmp <- with(object,data.frame(n=n,validn=validn,R=R,PercAgree=PercAgree,
                                     ASD=ASD,ACV=ACV,ACV2=ACV2,
-                                    AAAD=AAAD,AAPE=AAPE,AAPE2=AAPE2)) 
+                                    AAAD=AAAD,AAPE=AAPE,AAPE2=AAPE2,AD=AD)) 
     }
     print(tmp,row.names=FALSE,digits=digits)
     what <- iHndlMultWhat(what,"precision","cat")

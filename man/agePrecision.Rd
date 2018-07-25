@@ -11,7 +11,7 @@ agePrecision(formula, data)
 
 \method{summary}{agePrec}(object, what = c("precision", "difference",
   "absolute difference", "details"), percent = TRUE, trunc.diff = NULL,
-  digits = 4, ...)
+  digits = 4, show.prec2 = FALSE, ...)
 }
 \arguments{
 \item{formula}{A formula of the form \code{~var1+var2+var3+...} or, alternatively, \code{var1~var2+var3+...}, where the \code{varX} generically represent the variables that contain the age estimates. The alternative formula allows for similar code as used in \code{\link{ageBias}} and can have only one variable on the left-hand side.}
@@ -28,6 +28,8 @@ agePrecision(formula, data)
 
 \item{digits}{A single numeric that indicates the minimum number of digits to print when using \code{summary}.}
 
+\item{show.prec2}{A logical that indicates whether the precision metrics that use the median (i.e., ACV2 and APE2) should be shown when only two age estimates were made (in this instance they will be exactly equal to ACV and APE). Default is to not show these values in this situation.}
+
 \item{\dots}{Additional arguments for methods.}
 }
 \value{
@@ -42,6 +44,7 @@ The main function returns a list with the following items:
   \item ASD The average standard deviation.
   \item ACV The average coefficient of variation (using the \bold{mean} age as the divisor).
   \item ACV2 The average coefficient of variation (using the \bold{median} age as the divisor).
+  \item AD The average index of precision.
   \item R The number of readings for each individual fish.
   \item n Number of fish in \code{data}.
   \item validn Number of fish in \code{data} that have non-\code{NA} data for all R age estimates.
@@ -61,10 +64,11 @@ If \code{what="precision"} in \code{summary} then a summary table that contains 
   \item PercAgree The percentage of fish for which all age estimates perfectly agree.
   \item ASD The average (across all fish) standard deviation of ages within a fish.
   \item ACV The average (across all fish) coefficient of variation of ages within a fish using the \bold{mean} as the divisor. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
-  \item ACV2 The average (across all fish) coefficient of variation of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2.
+  \item ACV2 The average (across all fish) coefficient of variation of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2 or \code{show.prec2=TRUE}.
   \item AAAD The average (across all fish) average absolute deviation of ages within a fish.
   \item AAPE The average (across all fish) average percent error of ages within a fish using the \bold{mean} as the divisor. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
-  \item AAPE2 The average (across all fish) average percent error of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2.
+  \item AAPE2 The average (across all fish) average percent error of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2 or \code{show.prec2=TRUE}.
+  \item AD The average (across all fish) index of precision (D).
 }
 
 Note that ACV2 and AAPE2 will not be printed when \code{what="precision"} if only two sets of ages are given (because mean=median such that ACV=ACV2 and AAPE=AAPE2).
@@ -72,7 +76,7 @@ If \code{what="difference"} is used in \code{summary}, then a table that describ
 
 If \code{what="absolute difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, DEFAULT) or frequency of fish by the absolute value of the difference in paired age estimates. This table has one row for each possible pair of age estimates. The \dQuote{1} column, for example, represents age estimates that disagree by one year (in either direction).
 
-If \code{what="detail"} is used in \code{summary}, then a data.frame of the original \code{data} along with the intermediate calculations of the mean age, median age, modal age (will be \code{NA} if a mode does not exist (e.g., all different ages) or multiple modes exist), standard deviation of age (SD), coefficient of variation using the mean as the divisor (CV), coefficient of variation using the median as the divisor (CV2), mean absolute deviation using the mean as the divisor (MAD), mean absolute deviation using the median as the divisor (MAD2), and average percent error (APE) for each individual will be printed. These details are generally only used to check or to understand calculations.
+If \code{what="detail"} is used in \code{summary}, then a data.frame of the original \code{data} along with the intermediate calculations of the mean age, median age, modal age (will be \code{NA} if a mode does not exist (e.g., all different ages) or multiple modes exist), standard deviation of age (SD), coefficient of variation using the mean as the divisor (CV), coefficient of variation using the median as the divisor (CV2), average absolute deviation using the mean as the divisor (AAD), average absolute deviation using the median as the divisor (AAD2), average percent error (APE), and index of precision (D) for each individual will be printed.
 
 All percentage calculations above use the \code{validn} value in the denominator.
 }
