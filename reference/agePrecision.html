@@ -228,8 +228,8 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
     <pre class="examples"><div class='input'><span class='co'>## Example with just two age estimates</span>
 <span class='no'>ap1</span> <span class='kw'>&lt;-</span> <span class='fu'>agePrecision</span>(~<span class='no'>otolithC</span>+<span class='no'>scaleC</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WhitefishLC</span>)
 <span class='fu'>summary</span>(<span class='no'>ap1</span>)</div><div class='output co'>#&gt; Precision summary statistics
-#&gt;    n validn R PercAgree   ASD   ACV  AAAD  AAPE    AD
-#&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93 14.93
+#&gt;    n validn R PercAgree   ASD   ACV  AAAD  AAPE
+#&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93
 #&gt; 
 #&gt; Percentage of fish by absolute differences in ages
 #&gt;  between pairs of estimates
@@ -549,8 +549,8 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
 #&gt; 148 39.394
 #&gt; 149  3.226
 #&gt; 150 25.000
-#&gt; 151 36.842</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"precision"</span>)</div><div class='output co'>#&gt;    n validn R PercAgree   ASD   ACV  AAAD  AAPE    AD
-#&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93 14.93</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>)</div><div class='output co'>#&gt;      -3      -2      -1       0       1       2       3       4       5       6 
+#&gt; 151 36.842</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"precision"</span>)</div><div class='output co'>#&gt;    n validn R PercAgree   ASD   ACV  AAAD  AAPE
+#&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93</div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>)</div><div class='output co'>#&gt;      -3      -2      -1       0       1       2       3       4       5       6 
 #&gt;  2.6490  0.6623 10.5960 19.8675 19.8675 15.8940 11.2583  5.9603  3.3113  5.2980 
 #&gt;       7       8       9      10      11      12      13 
 #&gt;  1.9868  1.3245  0.0000  0.0000  0.6623  0.0000  0.6623 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>,<span class='kw'>percent</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; -3 -2 -1  0  1  2  3  4  5  6  7  8  9 10 11 12 13 
@@ -560,8 +560,8 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
 #&gt;  0.0000  0.6623  0.0000  0.6623 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>,<span class='kw'>percent</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  0  1  2  3  4  5  6  7  8  9 10 11 12 13 
 #&gt; 30 46 25 21  9  5  8  3  2  0  0  1  0  1 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>,<span class='kw'>trunc.diff</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='output co'>#&gt;     0     1     2     3    4+ 
 #&gt; 19.87 30.46 16.56 13.91 19.21 </div><div class='input'><span class='fu'>summary</span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"precision"</span>,<span class='st'>"difference"</span>))</div><div class='output co'>#&gt; Precision summary statistics
-#&gt;    n validn R PercAgree   ASD   ACV  AAAD  AAPE    AD
-#&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93 14.93
+#&gt;    n validn R PercAgree   ASD   ACV  AAAD  AAPE
+#&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93
 #&gt; 
 #&gt; Percentage of fish by differences in ages
 #&gt;  between pairs of estimates
