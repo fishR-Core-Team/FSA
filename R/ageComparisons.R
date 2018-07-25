@@ -252,10 +252,11 @@ summary.agePrec <- function(object,what=c("precision","difference",
   if ("precision" %in% what) {
     if (showmsg) cat("Precision summary statistics\n")
     if (object$R==2 & !show.prec2) {
-      ## if two ages, then mean=median and don't need both ACV & ACV2 or APE & APE2
+      ## if two ages, then mean=median and don't need both ACV & ACV2
+      ## or APE & APE2 and also AD=APE=APE2
       tmp <- with(object,data.frame(n=n,validn=validn,R=R,PercAgree=PercAgree,
                                     ASD=ASD,ACV=ACV,
-                                    AAAD=AAAD,AAPE=AAPE,AD=AD))
+                                    AAAD=AAAD,AAPE=AAPE))
     } else {
       tmp <- with(object,data.frame(n=n,validn=validn,R=R,PercAgree=PercAgree,
                                     ASD=ASD,ACV=ACV,ACV2=ACV2,
