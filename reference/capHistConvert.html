@@ -114,10 +114,11 @@
     </div>
 
     <pre class="usage"><span class='fu'>capHistConvert</span>(<span class='no'>df</span>, <span class='kw'>cols2use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cols2ignore</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>in.type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"frequency"</span>, <span class='st'>"event"</span>, <span class='st'>"individual"</span>, <span class='st'>"MARK"</span>, <span class='st'>"marked"</span>, <span class='st'>"RMark"</span>),
-  <span class='kw'>out.type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"individual"</span>, <span class='st'>"event"</span>, <span class='st'>"frequency"</span>, <span class='st'>"MARK"</span>, <span class='st'>"marked"</span>, <span class='st'>"RMark"</span>),
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>event.ord</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>freq</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>var.lbls</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>var.lbls.pre</span> <span class='kw'>=</span> <span class='st'>"event"</span>, <span class='kw'>include.id</span> <span class='kw'>=</span> <span class='fu'>ifelse</span>(<span class='fu'>is.null</span>(<span class='no'>id</span>), <span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>))</pre>
+  <span class='kw'>in.type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"frequency"</span>, <span class='st'>"event"</span>, <span class='st'>"individual"</span>, <span class='st'>"MARK"</span>, <span class='st'>"marked"</span>,
+  <span class='st'>"RMark"</span>), <span class='kw'>out.type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"individual"</span>, <span class='st'>"event"</span>, <span class='st'>"frequency"</span>, <span class='st'>"MARK"</span>,
+  <span class='st'>"marked"</span>, <span class='st'>"RMark"</span>), <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>event.ord</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>freq</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>var.lbls</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>var.lbls.pre</span> <span class='kw'>=</span> <span class='st'>"event"</span>,
+  <span class='kw'>include.id</span> <span class='kw'>=</span> <span class='fu'>ifelse</span>(<span class='fu'>is.null</span>(<span class='no'>id</span>), <span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
