@@ -26,7 +26,7 @@ rSquared(object, ...)
 A numeric, as either a proportion or percentage, that is the coefficient of determination for a linear model.
 }
 \description{
-Extracts the coefficient of determination (i.e., \dQuote{r-squared} from a linear model (i.e., \code{lm}) object.
+Extracts the coefficient of determination (i.e., \dQuote{r-squared}) from a linear model (i.e., \code{lm}) object.
 }
 \details{
 This is a convenience function to extract the \code{r.squared} part from \code{summary(lm)}.

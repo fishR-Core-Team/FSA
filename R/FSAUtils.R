@@ -562,7 +562,7 @@ lagratio <- function(x,lag=1L,recursion=1L,differences=recursion,
 
 #' @title Constructs the correction-factor used when back-transforming log-transformed values.
 #'
-#' @description Constructs the correction-factor used when back-transforming log-transformed values according to the method in Sprugel (1983). Sprugel's main formula -- exp((syx^2)/2) -- is used when syx is estimated for natural log transformed data. He noted that a formula for any based could be constructed by multiplying the syx term by log_e(base) to give exp(((log_e(base)*syx)^2)/2). This more general formula is implemented in this function (where, of course, if the base is exp(1) then the general formula reduces to the original specific formula.)
+#' @description Constructs the correction-factor used when back-transforming log-transformed values according to Sprugel (1983). Sprugel's main formula -- exp((syx^2)/2) -- is used when syx is estimated for natural log transformed data. A correction for any base is obtained by multiplying the syx term by log_e(base) to give exp(((log_e(base)*syx)^2)/2). This more general formula is implemented here (if, of course, the base is exp(1) then the general formula reduces to the original specific formula).
 #'
 #' @param obj An object from \code{lm}.
 #' @param base A single numeric that indicates the base of the logarithm used.
@@ -807,7 +807,7 @@ iChkCumSum <- function(x) {
 
 #' @title Extract the coefficient of determination from a linear model object.
 #' 
-#' @description Extracts the coefficient of determination (i.e., \dQuote{r-squared} from a linear model (i.e., \code{lm}) object.
+#' @description Extracts the coefficient of determination (i.e., \dQuote{r-squared}) from a linear model (i.e., \code{lm}) object.
 #' 
 #' @details This is a convenience function to extract the \code{r.squared} part from \code{summary(lm)}.
 #' 
