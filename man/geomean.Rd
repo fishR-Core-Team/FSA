@@ -3,7 +3,6 @@
 \name{geomean}
 \alias{geomean}
 \alias{geosd}
-\alias{geosd}
 \title{Calculates the geometric mean or geometric standard deviation.}
 \usage{
 geomean(x, na.rm = FALSE, zneg.rm = FALSE)

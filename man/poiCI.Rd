@@ -4,8 +4,8 @@
 \alias{poiCI}
 \title{Confidence interval for Poisson counts.}
 \usage{
-poiCI(x, conf.level = 0.95, type = c("exact", "daly", "byar", "asymptotic"),
-  verbose = FALSE)
+poiCI(x, conf.level = 0.95, type = c("exact", "daly", "byar",
+  "asymptotic"), verbose = FALSE)
 }
 \arguments{
 \item{x}{A single number or vector that represents the number of observed successes.}

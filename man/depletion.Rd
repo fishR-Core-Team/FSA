@@ -7,25 +7,20 @@
 \alias{coef.depletion}
 \alias{anova.depletion}
 \alias{confint.depletion}
-\alias{summary.depletion}
-\alias{coef.depletion}
-\alias{confint.depletion}
-\alias{anova.depletion}
 \alias{rSquared.depletion}
-\alias{plot.depletion}
 \title{Computes the Leslie or DeLury population estimate from catch and effort data.}
 \usage{
 depletion(catch, effort, method = c("Leslie", "DeLury", "Delury"),
   Ricker.mod = FALSE)
 
-\method{summary}{depletion}(object, parm = c("all", "both", "No", "q", "lm"),
-  verbose = FALSE, ...)
+\method{summary}{depletion}(object, parm = c("all", "both", "No", "q",
+  "lm"), verbose = FALSE, ...)
 
-\method{coef}{depletion}(object, parm = c("all", "both", "No", "q", "lm"),
-  ...)
+\method{coef}{depletion}(object, parm = c("all", "both", "No", "q",
+  "lm"), ...)
 
-\method{confint}{depletion}(object, parm = c("all", "both", "No", "q", "lm"),
-  level = conf.level, conf.level = 0.95, ...)
+\method{confint}{depletion}(object, parm = c("all", "both", "No", "q",
+  "lm"), level = conf.level, conf.level = 0.95, ...)
 
 \method{anova}{depletion}(object, ...)
 

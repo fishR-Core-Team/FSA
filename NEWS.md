@@ -2,6 +2,7 @@
 * Added a webpage. Setup Travis-CI to handle updates ([See this](https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis)).
 * Added a hex sticker logo.
 * Added `withr` to Imports (see usages below).
+* Added `Encoding: UTF-8` to DESCRIPTION.
 * Removed all `data()` in examples that referred to data from this package. Included the `package=` argument in `data()` that loaded from other packages.
 * Added `seealso`, with links to which functions use the data for examples, to docmentation for all data.frames.
 * `addZeroCatch()`: Modified. Added a catch that turns a "tibble" into a regular data.frame (which obviates some errors that occur with tibbles). Minor changes to documentation and comments in the code.

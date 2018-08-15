@@ -10,34 +10,26 @@
 \alias{anova.catchCurve}
 \alias{confint.catchCurve}
 \alias{rSquared.catchCurve}
-\alias{catchCurve.default}
-\alias{catchCurve.formula}
-\alias{summary.catchCurve}
-\alias{coef.catchCurve}
-\alias{anova.catchCurve}
-\alias{confint.catchCurve}
-\alias{rSquared.catchCurve}
-\alias{plot.catchCurve}
 \title{Mortality estimates from the descending limb of a catch curve.}
 \usage{
 catchCurve(x, ...)
 
-\method{catchCurve}{default}(x, catch, ages2use = age, weighted = FALSE,
-  negWeightReplace = 0, ...)
+\method{catchCurve}{default}(x, catch, ages2use = age,
+  weighted = FALSE, negWeightReplace = 0, ...)
 
 \method{catchCurve}{formula}(x, data, ages2use = age, weighted = FALSE,
   negWeightReplace = 0, ...)
 
-\method{summary}{catchCurve}(object, parm = c("both", "all", "Z", "A", "lm"),
-  ...)
+\method{summary}{catchCurve}(object, parm = c("both", "all", "Z", "A",
+  "lm"), ...)
 
-\method{coef}{catchCurve}(object, parm = c("all", "both", "Z", "A", "lm"),
-  ...)
+\method{coef}{catchCurve}(object, parm = c("all", "both", "Z", "A",
+  "lm"), ...)
 
 \method{anova}{catchCurve}(object, ...)
 
-\method{confint}{catchCurve}(object, parm = c("all", "both", "Z", "A", "lm"),
-  level = conf.level, conf.level = 0.95, ...)
+\method{confint}{catchCurve}(object, parm = c("all", "both", "Z", "A",
+  "lm"), level = conf.level, conf.level = 0.95, ...)
 
 \method{rSquared}{catchCurve}(object, digits = getOption("digits"),
   percent = FALSE, ...)

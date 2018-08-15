@@ -3,7 +3,6 @@
 \name{sumTable}
 \alias{sumTable}
 \alias{sumTable.formula}
-\alias{sumTable.formula}
 \title{Creates a one- or two-way table of summary statistics.}
 \usage{
 sumTable(formula, ...)

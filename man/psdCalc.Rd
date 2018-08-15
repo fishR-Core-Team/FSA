@@ -6,9 +6,9 @@
 \usage{
 psdCalc(formula, data, species, units = c("mm", "cm", "in"),
   method = c("multinomial", "binomial"), conf.level = 0.95,
-  addLens = NULL, addNames = NULL, justAdds = FALSE, what = c("all",
-  "traditional", "incremental", "none"), drop0Est = TRUE,
-  showIntermediate = FALSE, digits = 0)
+  addLens = NULL, addNames = NULL, justAdds = FALSE,
+  what = c("all", "traditional", "incremental", "none"),
+  drop0Est = TRUE, showIntermediate = FALSE, digits = 0)
 }
 \arguments{
 \item{formula}{A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains the observed lengths.  Note that this formula may only contain one variable and it must be numeric.}

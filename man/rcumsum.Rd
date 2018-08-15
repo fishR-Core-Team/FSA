@@ -2,7 +2,6 @@
 % Please edit documentation in R/FSAUtils.R
 \name{rcumsum}
 \alias{rcumsum}
-\alias{rcumsum}
 \alias{pcumsum}
 \title{Computes the prior to or reverse cumulative sum of a vector.}
 \usage{

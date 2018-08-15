@@ -4,13 +4,13 @@
 \alias{lwCompPreds}
 \title{Constructs plots of predicted weights at given lengths among different groups.}
 \usage{
-lwCompPreds(object, lens = NULL, qlens = c(0.05, 0.25, 0.5, 0.75, 0.95),
-  qlens.dec = 1, base = exp(1), interval = c("confidence", "prediction",
-  "both"), center.value = 0, lwd = 1, connect.preds = TRUE,
-  show.preds = FALSE, col.connect = "gray50", ylim = NULL,
-  main.pre = "Length==", cex.main = 0.8, xlab = "Groups",
-  ylab = "Predicted Weight", yaxs = "r", rows = round(sqrt(num)),
-  cols = ceiling(sqrt(num)))
+lwCompPreds(object, lens = NULL, qlens = c(0.05, 0.25, 0.5, 0.75,
+  0.95), qlens.dec = 1, base = exp(1), interval = c("confidence",
+  "prediction", "both"), center.value = 0, lwd = 1,
+  connect.preds = TRUE, show.preds = FALSE, col.connect = "gray50",
+  ylim = NULL, main.pre = "Length==", cex.main = 0.8,
+  xlab = "Groups", ylab = "Predicted Weight", yaxs = "r",
+  rows = round(sqrt(num)), cols = ceiling(sqrt(num)))
 }
 \arguments{
 \item{object}{An \code{lm} object (i.e., returned from fitting a model with \code{lm}). This model should have log(weight) as the response and log(length) as the explanatory covariate and an explanatory factor variable that describes the different groups.}

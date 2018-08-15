@@ -4,17 +4,16 @@
 \alias{plotBinResp}
 \alias{plotBinResp.default}
 \alias{plotBinResp.formula}
-\alias{plotBinResp.default}
-\alias{plotBinResp.formula}
 \title{Plots a binary response variable versus a quantitative explanatory variable.}
 \usage{
 plotBinResp(x, ...)
 
 \method{plotBinResp}{default}(x, y, xlab = paste(deparse(substitute(x))),
-  ylab = paste(deparse(substitute(y))), plot.pts = TRUE, col.pt = "black",
-  transparency = NULL, plot.p = TRUE, breaks = 25, p.col = "blue",
-  p.pch = 3, p.cex = 1.25, yaxis1.ticks = seq(0, 1, 0.1),
-  yaxis1.lbls = c(0, 0.5, 1), yaxis2.show = TRUE, ...)
+  ylab = paste(deparse(substitute(y))), plot.pts = TRUE,
+  col.pt = "black", transparency = NULL, plot.p = TRUE,
+  breaks = 25, p.col = "blue", p.pch = 3, p.cex = 1.25,
+  yaxis1.ticks = seq(0, 1, 0.1), yaxis1.lbls = c(0, 0.5, 1),
+  yaxis2.show = TRUE, ...)
 
 \method{plotBinResp}{formula}(x, data = NULL, xlab = names(mf)[2],
   ylab = names(mf)[1], ...)

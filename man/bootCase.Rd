@@ -8,11 +8,6 @@
 \alias{hist.bootCase}
 \alias{plot.bootCase}
 \alias{predict.bootCase}
-\alias{confint.bootCase}
-\alias{predict.bootCase}
-\alias{htest.bootCase}
-\alias{hist.bootCase}
-\alias{plot.bootCase}
 \title{Case bootstrapping and associated S3 methods.}
 \usage{
 bootCase(object, f. = stats::coef, B = R, R = 999)
@@ -21,11 +16,11 @@ bootCase(object, f. = stats::coef, B = R, R = 999)
   conf.level = 0.95, plot = FALSE, err.col = "black", err.lwd = 2,
   rows = NULL, cols = NULL, ...)
 
-\method{predict}{bootCase}(object, FUN, conf.level = 0.95, digits = NULL,
-  ...)
+\method{predict}{bootCase}(object, FUN, conf.level = 0.95,
+  digits = NULL, ...)
 
-\method{htest}{bootCase}(object, parm = NULL, bo = 0, alt = c("two.sided",
-  "less", "greater"), plot = FALSE, ...)
+\method{htest}{bootCase}(object, parm = NULL, bo = 0,
+  alt = c("two.sided", "less", "greater"), plot = FALSE, ...)
 
 \method{hist}{bootCase}(x, same.ylim = TRUE, ymax = NULL,
   rows = round(sqrt(ncol(x))), cols = ceiling(sqrt(ncol(x))), ...)

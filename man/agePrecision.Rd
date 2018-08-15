@@ -4,7 +4,6 @@
 \alias{agePrecision}
 \alias{plot.agePrec}
 \alias{summary.agePrec}
-\alias{summary.agePrec}
 \title{Compute measures of precision among sets of ages.}
 \usage{
 agePrecision(formula, data)

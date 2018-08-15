@@ -14,13 +14,13 @@
   conf.level = 0.95, plot = FALSE, err.col = "black", err.lwd = 2,
   rows = NULL, cols = NULL, ...)
 
-\method{predict}{nlsBoot}(object, FUN, conf.level = 0.95, digits = NULL,
-  ...)
+\method{predict}{nlsBoot}(object, FUN, conf.level = 0.95,
+  digits = NULL, ...)
 
 htest(object, ...)
 
-\method{htest}{nlsBoot}(object, parm = NULL, bo = 0, alt = c("two.sided",
-  "less", "greater"), plot = FALSE, ...)
+\method{htest}{nlsBoot}(object, parm = NULL, bo = 0,
+  alt = c("two.sided", "less", "greater"), plot = FALSE, ...)
 }
 \arguments{
 \item{object}{An object saved from \code{nlsBoot()}.}

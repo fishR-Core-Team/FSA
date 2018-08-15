@@ -4,8 +4,6 @@
 \alias{Mmethods}
 \alias{metaM}
 \alias{print.metaM}
-\alias{metaM}
-\alias{print.metaM}
 \title{Estimate natural mortality from a variety of empirical methods.}
 \usage{
 Mmethods(what = c("all", "tmax", "K", "Hoenig", "Pauly"))

@@ -3,7 +3,6 @@
 \name{fsaNews}
 \alias{fsaNews}
 \alias{FSANews}
-\alias{FSANews}
 \title{Read news and changes for the 'FSA' package.}
 \usage{
 fsaNews()

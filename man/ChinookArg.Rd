@@ -36,7 +36,5 @@ par(op)
 \seealso{
 Used in \code{\link{lwCompPreds}} examples.
 }
-\concept{
-'Weight-Length'
-}
+\concept{'Weight-Length'}
 \keyword{datasets}

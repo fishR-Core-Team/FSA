@@ -9,13 +9,6 @@
 \alias{residPlot.ONEWAY}
 \alias{residPlot.TWOWAY}
 \alias{residPlot.nls}
-\alias{residPlot.lm}
-\alias{residPlot.SLR}
-\alias{residPlot.POLY}
-\alias{residPlot.IVR}
-\alias{residPlot.ONEWAY}
-\alias{residPlot.TWOWAY}
-\alias{residPlot.nls}
 \alias{residPlot.nlme}
 \title{Construct a residual plot from lm or nls objects.}
 \usage{
@@ -23,12 +16,13 @@ residPlot(object, ...)
 
 \method{residPlot}{lm}(object, ...)
 
-\method{residPlot}{SLR}(object, xlab = "Fitted Values", ylab = "Residuals",
-  main = "", pch = 16, col = "black", lty.ref = 3, lwd.ref = 1,
-  col.ref = "black", resid.type = c("raw", "standardized", "studentized"),
+\method{residPlot}{SLR}(object, xlab = "Fitted Values",
+  ylab = "Residuals", main = "", pch = 16, col = "black",
+  lty.ref = 3, lwd.ref = 1, col.ref = "black",
+  resid.type = c("raw", "standardized", "studentized"),
   outlier.test = TRUE, alpha = 0.05, loess = FALSE, lty.loess = 2,
-  lwd.loess = 1, col.loess = "black", trans.loess = 8, inclHist = TRUE,
-  ...)
+  lwd.loess = 1, col.loess = "black", trans.loess = 8,
+  inclHist = TRUE, ...)
 
 \method{residPlot}{POLY}(object, ...)
 
@@ -36,29 +30,33 @@ residPlot(object, ...)
   box.lty.leg = 0, ...)
 
 \method{residPlot}{ONEWAY}(object, xlab = "Fitted Values",
-  ylab = "Residuals", main = "", pch = 16, col = "black", lty.ref = 3,
-  lwd.ref = 1, col.ref = "black", resid.type = c("raw", "standardized",
-  "studentized"), bp = TRUE, outlier.test = TRUE, alpha = 0.05,
-  loess = FALSE, lty.loess = 2, lwd.loess = 1, col.loess = "black",
-  trans.loess = 8, inclHist = TRUE, ...)
+  ylab = "Residuals", main = "", pch = 16, col = "black",
+  lty.ref = 3, lwd.ref = 1, col.ref = "black",
+  resid.type = c("raw", "standardized", "studentized"), bp = TRUE,
+  outlier.test = TRUE, alpha = 0.05, loess = FALSE, lty.loess = 2,
+  lwd.loess = 1, col.loess = "black", trans.loess = 8,
+  inclHist = TRUE, ...)
 
 \method{residPlot}{TWOWAY}(object, xlab = "Fitted Values",
-  ylab = "Residuals", main = "", pch = 16, col = "black", lty.ref = 3,
-  lwd.ref = 1, col.ref = "black", resid.type = c("raw", "standardized",
-  "studentized"), bp = TRUE, outlier.test = TRUE, alpha = 0.05,
-  loess = FALSE, lty.loess = 2, lwd.loess = 1, col.loess = "black",
+  ylab = "Residuals", main = "", pch = 16, col = "black",
+  lty.ref = 3, lwd.ref = 1, col.ref = "black",
+  resid.type = c("raw", "standardized", "studentized"), bp = TRUE,
+  outlier.test = TRUE, alpha = 0.05, loess = FALSE, lty.loess = 2,
+  lwd.loess = 1, col.loess = "black", trans.loess = 8,
+  inclHist = TRUE, ...)
+
+\method{residPlot}{nls}(object, xlab = "Fitted Values",
+  ylab = "Residuals", main = "", pch = 16, col = "black",
+  lty.ref = 3, lwd.ref = 1, col.ref = "black",
+  resid.type = c("raw", "standardized", "studentized"), loess = FALSE,
+  lty.loess = 2, lwd.loess = 1, col.loess = "black",
   trans.loess = 8, inclHist = TRUE, ...)
 
-\method{residPlot}{nls}(object, xlab = "Fitted Values", ylab = "Residuals",
-  main = "", pch = 16, col = "black", lty.ref = 3, lwd.ref = 1,
-  col.ref = "black", resid.type = c("raw", "standardized", "studentized"),
-  loess = FALSE, lty.loess = 2, lwd.loess = 1, col.loess = "black",
-  trans.loess = 8, inclHist = TRUE, ...)
-
-\method{residPlot}{nlme}(object, xlab = "Fitted Values", ylab = "Residuals",
-  main = "", pch = 16, col = "black", lty.ref = 3, lwd.ref = 1,
-  col.ref = "black", resid.type = c("raw", "standardized", "studentized"),
-  loess = FALSE, lty.loess = 2, lwd.loess = 1, col.loess = "black",
+\method{residPlot}{nlme}(object, xlab = "Fitted Values",
+  ylab = "Residuals", main = "", pch = 16, col = "black",
+  lty.ref = 3, lwd.ref = 1, col.ref = "black",
+  resid.type = c("raw", "standardized", "studentized"), loess = FALSE,
+  lty.loess = 2, lwd.loess = 1, col.loess = "black",
   trans.loess = 8, inclHist = TRUE, ...)
 }
 \arguments{

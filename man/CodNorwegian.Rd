@@ -36,7 +36,5 @@ par(op)
 \seealso{
 Used in \code{\link{srStarts}}, \code{\link{srFuns}}, and \code{\link{nlsTracePlot}} examples.
 }
-\concept{
-'Stock-Recruit' Recruitment
-}
+\concept{'Stock-Recruit' Recruitment}
 \keyword{datasets}

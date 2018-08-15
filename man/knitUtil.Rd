@@ -5,9 +5,6 @@
 \alias{kPvalue}
 \alias{purl2}
 \alias{reproInfo}
-\alias{kPvalue}
-\alias{purl2}
-\alias{reproInfo}
 \title{Specific utilities for use in a knitr document.}
 \usage{
 kCounts(value, capitalize = FALSE)
@@ -15,8 +12,8 @@ kCounts(value, capitalize = FALSE)
 kPvalue(value, digits = 4, include.p = TRUE, latex = TRUE)
 
 purl2(file, out.dir = NULL, newname = NULL, topnotes = NULL,
-  moreItems = NULL, blanks = c("extra", "all", "none"), delHeader = NULL,
-  timestamp = TRUE, ...)
+  moreItems = NULL, blanks = c("extra", "all", "none"),
+  delHeader = NULL, timestamp = TRUE, ...)
 
 reproInfo(out = c("r", "markdown", "latex"), rqrdPkgs = NULL,
   elapsed = NULL, width = 0.95 * getOption("width"), addTOC = TRUE,

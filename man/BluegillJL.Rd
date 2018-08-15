@@ -35,7 +35,5 @@ head(BluegillJL)
 \seealso{
 Used in \code{\link{mrClosed}} examples.
 }
-\concept{
-Abundance 'Population Size' 'Mark-Recapture' 'Capture-Recapture' Petersen 'Capture History'
-}
+\concept{Abundance 'Population Size' 'Mark-Recapture' 'Capture-Recapture' Petersen 'Capture History'}
 \keyword{datasets}

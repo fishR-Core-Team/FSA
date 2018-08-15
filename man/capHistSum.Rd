@@ -4,15 +4,14 @@
 \alias{capHistSum}
 \alias{plot.CapHist}
 \alias{is.CapHist}
-\alias{plot.CapHist}
 \title{Summarize capture histories in individual fish format.}
 \usage{
 capHistSum(df, cols2use = NULL, cols2ignore = NULL)
 
 is.CapHist(x)
 
-\method{plot}{CapHist}(x, what = c("u", "f"), pch = 19, cex.pch = 0.7,
-  lwd = 1, ...)
+\method{plot}{CapHist}(x, what = c("u", "f"), pch = 19,
+  cex.pch = 0.7, lwd = 1, ...)
 }
 \arguments{
 \item{df}{A data.frame that contains the capture histories (and, perhaps, other information) in \dQuote{individual} fish format. See details.}

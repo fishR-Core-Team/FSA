@@ -4,8 +4,6 @@
 \alias{ksTest}
 \alias{ksTest.default}
 \alias{ksTest.formula}
-\alias{ksTest.default}
-\alias{ksTest.formula}
 \title{Kolmogorov-Smirnov Tests.}
 \usage{
 ksTest(x, ...)
@@ -13,8 +11,8 @@ ksTest(x, ...)
 \method{ksTest}{default}(x, y, ..., alternative = c("two.sided", "less",
   "greater"), exact = NULL)
 
-\method{ksTest}{formula}(x, data = NULL, ..., alternative = c("two.sided",
-  "less", "greater"), exact = NULL)
+\method{ksTest}{formula}(x, data = NULL, ...,
+  alternative = c("two.sided", "less", "greater"), exact = NULL)
 }
 \arguments{
 \item{x}{A numeric vector of data values or a formula (see details).}

@@ -4,8 +4,8 @@
 \alias{binCI}
 \title{Confidence intervals for binomial probability of success.}
 \usage{
-binCI(x, n, conf.level = 0.95, type = c("wilson", "exact", "asymptotic"),
-  verbose = FALSE)
+binCI(x, n, conf.level = 0.95, type = c("wilson", "exact",
+  "asymptotic"), verbose = FALSE)
 }
 \arguments{
 \item{x}{A single or vector of numbers that contains the number of observed successes.}

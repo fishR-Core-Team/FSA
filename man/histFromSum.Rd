@@ -5,9 +5,6 @@
 \alias{histFromSum.default}
 \alias{histFromSum.formula}
 \alias{histFromSum.table}
-\alias{histFromSum.default}
-\alias{histFromSum.table}
-\alias{histFromSum.formula}
 \title{Create a histogram from a frequency table.}
 \usage{
 histFromSum(x, ...)

@@ -11,24 +11,16 @@
 \alias{fitPlot.nls}
 \alias{fitPlot.glm}
 \alias{fitPlot.logreg}
-\alias{fitPlot.lm}
-\alias{fitPlot.SLR}
-\alias{fitPlot.IVR}
-\alias{fitPlot.POLY}
-\alias{fitPlot.ONEWAY}
-\alias{fitPlot.TWOWAY}
-\alias{fitPlot.nls}
-\alias{fitPlot.glm}
-\alias{fitPlot.logreg}
 \title{Fitted model plot for an lm, glm, or nls object.}
 \usage{
 fitPlot(object, ...)
 
 \method{fitPlot}{lm}(object, ...)
 
-\method{fitPlot}{SLR}(object, plot.pts = TRUE, pch = 16, col.pt = "black",
-  col.mdl = "red", lwd = 3, lty = 1, interval = c("none", "confidence",
-  "prediction", "both"), conf.level = 0.95, lty.ci = 2, lty.pi = 3,
+\method{fitPlot}{SLR}(object, plot.pts = TRUE, pch = 16,
+  col.pt = "black", col.mdl = "red", lwd = 3, lty = 1,
+  interval = c("none", "confidence", "prediction", "both"),
+  conf.level = 0.95, lty.ci = 2, lty.pi = 3,
   xlab = object$Enames[1], ylab = object$Rname, main = "", ...)
 
 \method{fitPlot}{IVR}(object, ...)
@@ -42,13 +34,13 @@ fitPlot(object, ...)
 
 \method{fitPlot}{TWOWAY}(object, which, change.order = FALSE,
   xlab = object$Enames[ord[1]], ylab = object$Rname, main = "",
-  type = "b", pch = c(16, 21, 15, 22, 17, 24, c(3:14)), lty = c(1:6, 1:6,
-  1:6), col = "default", interval = TRUE, conf.level = 0.95,
+  type = "b", pch = c(16, 21, 15, 22, 17, 24, c(3:14)), lty = c(1:6,
+  1:6, 1:6), col = "default", interval = TRUE, conf.level = 0.95,
   ci.fun = iCIfp(conf.level), lty.ci = 1, legend = "topright",
   cex.leg = 1, box.lty.leg = 0, ...)
 
-\method{fitPlot}{nls}(object, d, pch = c(19, 1), col.pt = c("black", "red"),
-  col.mdl = col.pt, lwd = 2, lty = 1, plot.pts = TRUE,
+\method{fitPlot}{nls}(object, d, pch = c(19, 1), col.pt = c("black",
+  "red"), col.mdl = col.pt, lwd = 2, lty = 1, plot.pts = TRUE,
   jittered = FALSE, ylim = NULL, legend = FALSE,
   legend.lbls = c("Group 1", "Group 2"), ylab = names(mdl$model)[1],
   xlab = names(mdl$model)[xpos], main = "", ...)
@@ -57,10 +49,11 @@ fitPlot(object, ...)
 
 \method{fitPlot}{logreg}(object, xlab = names(object$model)[2],
   ylab = names(object$model)[1], main = "", plot.pts = TRUE,
-  col.pt = "black", transparency = NULL, plot.p = TRUE, breaks = 25,
-  p.col = "blue", p.pch = 3, p.cex = 1, yaxis1.ticks = seq(0, 1, 0.1),
-  yaxis1.lbls = c(0, 0.5, 1), yaxis2.show = TRUE, col.mdl = "red",
-  lwd = 2, lty = 1, mdl.vals = 50, xlim = range(x), ...)
+  col.pt = "black", transparency = NULL, plot.p = TRUE,
+  breaks = 25, p.col = "blue", p.pch = 3, p.cex = 1,
+  yaxis1.ticks = seq(0, 1, 0.1), yaxis1.lbls = c(0, 0.5, 1),
+  yaxis2.show = TRUE, col.mdl = "red", lwd = 2, lty = 1,
+  mdl.vals = 50, xlim = range(x), ...)
 }
 \arguments{
 \item{object}{An \code{lm} or \code{nls} object (i.e., returned from fitting a model with either \code{lm} or \code{nls}).}

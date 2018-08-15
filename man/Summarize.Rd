@@ -4,8 +4,6 @@
 \alias{Summarize}
 \alias{Summarize.default}
 \alias{Summarize.formula}
-\alias{Summarize.default}
-\alias{Summarize.formula}
 \title{Summary statistics for a numeric variable.}
 \usage{
 Summarize(object, ...)

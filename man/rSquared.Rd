@@ -4,16 +4,14 @@
 \alias{rSquared}
 \alias{rSquared.default}
 \alias{rSquared.lm}
-\alias{rSquared.default}
-\alias{rSquared.lm}
 \title{Extract the coefficient of determination from a linear model object.}
 \usage{
 rSquared(object, ...)
 
 \method{rSquared}{default}(object, ...)
 
-\method{rSquared}{lm}(object, digits = getOption("digits"), percent = FALSE,
-  ...)
+\method{rSquared}{lm}(object, digits = getOption("digits"),
+  percent = FALSE, ...)
 }
 \arguments{
 \item{object}{An object saved from \code{lm}.}

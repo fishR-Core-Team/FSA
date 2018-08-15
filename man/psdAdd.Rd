@@ -9,10 +9,12 @@
 psdAdd(len, ...)
 
 \method{psdAdd}{default}(len, spec, units = c("mm", "cm", "in"),
-  use.names = TRUE, addSpec = NULL, addLens = NULL, verbose = TRUE, ...)
+  use.names = TRUE, addSpec = NULL, addLens = NULL, verbose = TRUE,
+  ...)
 
 \method{psdAdd}{formula}(len, data = NULL, units = c("mm", "cm", "in"),
-  use.names = TRUE, addSpec = NULL, addLens = NULL, verbose = TRUE, ...)
+  use.names = TRUE, addSpec = NULL, addLens = NULL, verbose = TRUE,
+  ...)
 }
 \arguments{
 \item{len}{A numeric vector that contains lengths measurements or a formula of the form \code{len~spec} where \dQuote{len} generically represents the length variable and \dQuote{spec} generically represents the species variable. Note that this formula can only contain two variables and must have the length variable on the left-hand-side and the species variable on the right-hand-side.}

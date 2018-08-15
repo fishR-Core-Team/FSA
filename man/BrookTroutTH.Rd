@@ -33,7 +33,5 @@ plot(log(catch)~age,data=BrookTroutTH)
 \seealso{
 Used in \code{\link{catchCurve}} and \code{\link{chapmanRobson}} examples.
 }
-\concept{
-Mortality 'Catch Curve'
-}
+\concept{Mortality 'Catch Curve'}
 \keyword{datasets}

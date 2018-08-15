@@ -4,8 +4,8 @@
 \alias{psdVal}
 \title{Finds Gabelhouse lengths (for PSD calculations) for a species.}
 \usage{
-psdVal(species = "List", units = c("mm", "cm", "in"), incl.zero = TRUE,
-  addLens = NULL, addNames = NULL)
+psdVal(species = "List", units = c("mm", "cm", "in"),
+  incl.zero = TRUE, addLens = NULL, addNames = NULL)
 }
 \arguments{
 \item{species}{A string that contains the species name for which to find Gabelhouse lengths.  See details.}

@@ -2,7 +2,6 @@
 % Please edit documentation in R/FSAUtils.R
 \name{Subset}
 \alias{Subset}
-\alias{Subset}
 \alias{filterD}
 \title{Subsets/filters a data frame and drops the unused levels.}
 \usage{

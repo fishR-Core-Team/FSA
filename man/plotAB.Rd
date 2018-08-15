@@ -9,9 +9,9 @@ plotAB(x, what = c("bias", "Campana", "numbers"), xlab = x$ref.lab,
   yaxt = graphics::par("yaxt"), xaxt = graphics::par("xaxt"),
   col.agree = "gray60", lwd.agree = lwd, lty.agree = 2, lwd = 1,
   sfrac = 0, pch.mean = 19, pch.mean.sig = 21, cex.mean = lwd,
-  col.CI = "black", col.CIsig = "red", lwd.CI = lwd, sfrac.CI = sfrac,
-  show.n = FALSE, nYpos = 1.03, cex.n = 0.75, cex.numbers = 0.75,
-  col.numbers = "black", ...)
+  col.CI = "black", col.CIsig = "red", lwd.CI = lwd,
+  sfrac.CI = sfrac, show.n = FALSE, nYpos = 1.03, cex.n = 0.75,
+  cex.numbers = 0.75, col.numbers = "black", ...)
 }
 \arguments{
 \item{x}{An object of class \code{ageBias}, usually a result from \code{ageBias}.}

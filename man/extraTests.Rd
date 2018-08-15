@@ -7,7 +7,8 @@
 \alias{print.extraTest}
 \title{Likelihood ratio and extra sum-of-squares tests.}
 \usage{
-lrt(sim, ..., com, sim.names = sim.name, sim.name = NULL, com.name = NULL)
+lrt(sim, ..., com, sim.names = sim.name, sim.name = NULL,
+  com.name = NULL)
 
 extraSS(sim, ..., com, sim.names = sim.name, sim.name = NULL,
   com.name = NULL)

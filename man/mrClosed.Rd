@@ -7,11 +7,6 @@
 \alias{summary.mrClosed2}
 \alias{confint.mrClosed2}
 \alias{plot.mrClosed2}
-\alias{summary.mrClosed1}
-\alias{confint.mrClosed1}
-\alias{summary.mrClosed2}
-\alias{confint.mrClosed2}
-\alias{plot.mrClosed2}
 \title{Estimate initial population size for single or multiple census mark-recapture data.}
 \usage{
 mrClosed(M = NULL, n = NULL, m = NULL, R = NULL,
@@ -36,8 +31,8 @@ mrClosed(M = NULL, n = NULL, m = NULL, R = NULL,
 
 \method{plot}{mrClosed2}(x, pch = 19, col.pt = "black",
   xlab = "Marked in Population", ylab = "Prop. Recaptures in Sample",
-  loess = FALSE, lty.loess = 2, lwd.loess = 1, col.loess = "gray20",
-  trans.loess = 10, span = 0.9, ...)
+  loess = FALSE, lty.loess = 2, lwd.loess = 1,
+  col.loess = "gray20", trans.loess = 10, span = 0.9, ...)
 }
 \arguments{
 \item{M}{A numeric representing the number of marked fish from the first sample (single-census), an object from \code{capHistSum()} (single- or multiple-census), or numeric vector of marked fish prior to ith samples (multiple-census).}

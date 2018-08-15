@@ -3,7 +3,6 @@
 \name{compIntercepts}
 \alias{compIntercepts}
 \alias{print.compIntercepts}
-\alias{print.compIntercepts}
 \title{Tests for significant differences among all pairs of intercepts in a dummy variable regression.}
 \usage{
 compIntercepts(mdl, common.cov = mean(x), conf.level = 0.95,
