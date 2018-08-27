@@ -37,9 +37,9 @@ The main function returns a list with the following items:
   \item detail A data.frame with all data given in \code{data} and intermediate calculations for each fish. See details
   \item rawdiff A frequency table of fish by differences for each pair of ages.
   \item absdiff A frequency table of fish by absolute differences for each pair of ages.
-  \item AAAD The average average absolute deviation.
-  \item AAPE The average average percent error (using the \bold{mean} age as the divisor).
-  \item AAPE2 The average average percent error (using the \bold{median} age as the divisor).
+  \item AAD The average absolute deviation.
+  \item APE The average percent error (using the \bold{mean} age as the divisor).
+  \item APE2 The average percent error (using the \bold{median} age as the divisor).
   \item ASD The average standard deviation.
   \item ACV The average coefficient of variation (using the \bold{mean} age as the divisor).
   \item ACV2 The average coefficient of variation (using the \bold{median} age as the divisor).
@@ -52,7 +52,7 @@ The main function returns a list with the following items:
 The \code{summary} returns the result if \code{what=} contains only one item, otherwise it returns nothing. See details for what is printed.
 }
 \description{
-Computes overall measures of precision for multiple age estimates made on the same individuals. Ages may be from two or more readers of the same structure, one reader at two or more times, or two or more structures (e.g., scales, spines, otoliths). Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), AMAD (Average Mean Absolute Deviation), and ASD (Average Standard Devation), and various percentage difference values.
+Computes overall measures of precision for multiple age estimates made on the same individuals. Ages may be from two or more readers of the same structure, one reader at two or more times, or two or more structures (e.g., scales, spines, otoliths). Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), AAD (Average Absolute Deviation), and ASD (Average Standard Devation), and various percentage difference values.
 }
 \details{
 If \code{what="precision"} in \code{summary} then a summary table that contains the following items will be printed:
@@ -64,18 +64,18 @@ If \code{what="precision"} in \code{summary} then a summary table that contains 
   \item ASD The average (across all fish) standard deviation of ages within a fish.
   \item ACV The average (across all fish) coefficient of variation of ages within a fish using the \bold{mean} as the divisor. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
   \item ACV2 The average (across all fish) coefficient of variation of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2 or \code{show.prec2=TRUE}.
-  \item AAAD The average (across all fish) average absolute deviation of ages within a fish.
-  \item AAPE The average (across all fish) average percent error of ages within a fish using the \bold{mean} as the divisor. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
-  \item AAPE2 The average (across all fish) average percent error of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2 or \code{show.prec2=TRUE}.
+  \item AAD The average (across all fish) absolute deviation of ages within a fish.
+  \item APE The average (across all fish) percent error of ages within a fish using the \bold{mean} as the divisor. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
+  \item APE2 The average (across all fish) percent error of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2 or \code{show.prec2=TRUE}.
   \item AD The average (across all fish) index of precision (D).
 }
 
-Note that ACV2 and AAPE2 will not be printed when \code{what="precision"} if only two sets of ages are given (because mean=median such that ACV=ACV2 and AAPE=AAPE2).
+Note that ACV2 and APE2 will not be printed when \code{what="precision"} if only two sets of ages are given (because mean=median such that ACV=ACV2 and APE=APE2).
 If \code{what="difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, DEFAULT) or frequency of fish by the difference in paired age estimates. This table has one row for each possible pair of age estimates.
 
 If \code{what="absolute difference"} is used in \code{summary}, then a table that describes either the percentage (if \code{percent=TRUE}, DEFAULT) or frequency of fish by the absolute value of the difference in paired age estimates. This table has one row for each possible pair of age estimates. The \dQuote{1} column, for example, represents age estimates that disagree by one year (in either direction).
 
-If \code{what="detail"} is used in \code{summary}, then a data.frame of the original \code{data} along with the intermediate calculations of the mean age, median age, modal age (will be \code{NA} if a mode does not exist (e.g., all different ages) or multiple modes exist), standard deviation of age (SD), coefficient of variation using the mean as the divisor (CV), coefficient of variation using the median as the divisor (CV2), average absolute deviation using the mean as the divisor (AAD), average absolute deviation using the median as the divisor (AAD2), average percent error (APE), and index of precision (D) for each individual will be printed.
+If \code{what="detail"} is used in \code{summary}, then a data.frame of the original \code{data} along with the intermediate calculations of the mean age, median age, modal age (will be \code{NA} if a mode does not exist (e.g., all different ages) or multiple modes exist), standard deviation of age (SD), coefficient of variation using the mean as the divisor (CV), coefficient of variation using the median as the divisor (CV2), absolute deviation using the mean as the divisor (AD), absolute deviation using the median as the divisor (AD2), average percent error (PE), and index of precision (D) for each individual will be printed.
 
 All percentage calculations above use the \code{validn} value in the denominator.
 }
@@ -101,14 +101,14 @@ summary(ap1,what=c("precision","difference"))
 summary(ap1,what="detail")
 
 barplot(ap1$rawdiff,ylab="Frequency",xlab="Otolith - Scale Age")
-plot(AAD~mean,data=ap1$detail,xlab="Mean Age",ylab="MAD Age",
-     pch=19,col=col2rgbt("black",1/5))
-plot(SD~mean,data=ap1$detail,xlab="Mean Age",ylab="SD Age",
-     pch=19,col=col2rgbt("black",1/5))
-plot(SD~AAD,data=ap1$detail,xlab="MAD Age",ylab="SD Age",
-     pch=19,col=col2rgbt("black",1/5))
-plot(CV~APE,data=ap1$detail,xlab="PE Age",ylab="CV Age",
-     pch=19,col=col2rgbt("black",1/5))
+plot(AD~mean,data=ap1$detail,pch=19,col=col2rgbt("black",1/5),
+     xlab="Mean Age",ylab="Absolute Deviation Age")
+plot(SD~mean,data=ap1$detail,pch=19,col=col2rgbt("black",1/5),
+     xlab="Mean Age",ylab="Standard deviation Age")
+plot(SD~AD,data=ap1$detail,pch=19,col=col2rgbt("black",1/5),
+     xlab="Absolute Deviation Age",ylab="Standard deviation Age")
+plot(CV~PE,data=ap1$detail,pch=19,col=col2rgbt("black",1/5),
+     xlab="Percent Error Age",ylab="Coefficient of Variation Age")
 
 ## Example with three age estimates
 ap2 <- agePrecision(~otolithC+finrayC+scaleC,data=WhitefishLC)
@@ -118,16 +118,16 @@ summary(ap2,what="difference")
 summary(ap2,what="absolute",percent=FALSE,trunc.diff=4)
 summary(ap2,what="detail",digits=3)
 
-plot(AAD~mean,data=ap2$detail,xlab="Mean Age",ylab="MAD Age",
-     pch=19,col=col2rgbt("black",1/5))
-plot(SD~mean,data=ap2$detail,xlab="Mean Age",ylab="SD Age",
-     pch=19,col=col2rgbt("black",1/5))
-plot(SD~AAD,data=ap2$detail,xlab="MAD Age",ylab="SD Age",
-     pch=19,col=col2rgbt("black",1/5))
-plot(CV~APE,data=ap2$detail,xlab="PE Age",ylab="CV Age",
-     pch=19,col=col2rgbt("black",1/5))
-plot(median~mean,data=ap2$detail,xlab="Mean Age",ylab="Median Age",
-     pch=19,col=col2rgbt("black",1/5))
+plot(AD~mean,data=ap2$detail,pch=19,col=col2rgbt("black",1/5),
+     xlab="Mean Age",ylab="Absolute Deviation Age")
+plot(SD~mean,data=ap2$detail,pch=19,col=col2rgbt("black",1/5),
+     xlab="Mean Age",ylab="Standard Deviation Age")
+plot(SD~AD,data=ap2$detail,pch=19,col=col2rgbt("black",1/5),
+     xlab="Absolute Deviation Age",ylab="Standard Deviation Age")
+plot(CV~PE,data=ap2$detail,pch=19,col=col2rgbt("black",1/5),
+     xlab="Percent Error Age",ylab="Coefficient of Variation Age")
+plot(median~mean,data=ap2$detail,pch=19,col=col2rgbt("black",1/5),
+     xlab="Mean Age",ylab="Median Age")
 
 }
 \references{
