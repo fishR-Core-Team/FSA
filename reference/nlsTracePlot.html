@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -34,6 +36,7 @@
 
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -111,7 +114,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>nlsTracePlot</span>(<span class='no'>object</span>, <span class='no'>fun</span>, <span class='kw'>from</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>199</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'><a href='chooseColors.html'>paletteChoices</a></span>(), <span class='kw'>rev.col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>legend</span> <span class='kw'>=</span> <span class='st'>"topright"</span>,
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'>paletteChoices</span>(), <span class='kw'>rev.col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>legend</span> <span class='kw'>=</span> <span class='st'>"topright"</span>,
   <span class='kw'>cex.leg</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>box.lty.leg</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -172,7 +175,7 @@
     <p>Nonlinear models fit with the <code><a href='http://www.rdocumentation.org/packages/stats/topics/nls'>nls</a></code> function start with starting values for model parameters and iteratively search for other model parameters that continuously reduce the residual sum-of-squares (RSS) until some pre-determined criterion suggest that the RSS cannot be (substantially) further reduced. With good starting values and well-behaved data, the minimum RSS may be found in a few (&lt;10) iterations. However, poor starting values or poorly behaved data may lead to a prolonged and possibly failed search. An understanding of the iterations in a prolonged or failed search may help identify the failure and lead to choices that may result in a successful search. The <code>trace=TRUE</code> argument of <code><a href='http://www.rdocumentation.org/packages/stats/topics/nls'>nls</a></code> allows one to see the values at each iterative step. The function documented here plots the &#8220;trace&#8221; results at each iteration on a previously existing plot of the data. This creates a visual of the iterative process.</p>
 <p>The <code>object</code> argument may be an object saved from a successful run of <code><a href='http://www.rdocumentation.org/packages/stats/topics/nls'>nls</a></code>. See the examples with <code>SpotVA1</code> and <code>CodNorwegion</code>.</p>
 <p>However, if <code><a href='http://www.rdocumentation.org/packages/stats/topics/nls'>nls</a></code> fails to converge to a solution then no useful object is returned. In this case, <code>trace=TRUE</code> must be added to the failed <code><a href='http://www.rdocumentation.org/packages/stats/topics/nls'>nls</a></code> call. The call is then wrapped in <code>try</code> to work-around the failed convergence error. This is also wrapped in <code><a href='http://www.rdocumentation.org/packages/utils/topics/capture.output'>capture.output</a></code> to capture the &#8220;trace&#8221; results. This is then saved to an object that which can then be the <code>object</code> of the function documented here. This process is illustrated with the example using <code>BSkateGB</code>.</p>
-<p>The function in <code>fun</code> is used to make predictions given the model parameter values at each step of the iteration. This function must accept the explanatory/independent variable as its first argument and values for all model parameters in a vector as its second argument. These types of functions are returned by <code><a href='growthModels.html'>vbFuns</a></code>, <code><a href='growthModels.html'>GompertzFuns</a></code>, <code><a href='growthModels.html'>logisticFuns</a></code>, and <code><a href='growthModels.html'>RichardsFuns</a></code> for common growth models and <code><a href='stockRecruitment.html'>srFuns</a></code> for common stock-recruitment models. See the examples.</p>
+<p>The function in <code>fun</code> is used to make predictions given the model parameter values at each step of the iteration. This function must accept the explanatory/independent variable as its first argument and values for all model parameters in a vector as its second argument. These types of functions are returned by <code>vbFuns</code>, <code>GompertzFuns</code>, <code>logisticFuns</code>, and <code>RichardsFuns</code> for common growth models and <code>srFuns</code> for common stock-recruitment models. See the examples.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
@@ -181,27 +184,27 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Examples following a successful fit</span>
-<span class='no'>vb1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='growthModels.html'>vbFuns</a></span>()
+<span class='no'>vb1</span> <span class='kw'>&lt;-</span> <span class='fu'>vbFuns</span>()
 <span class='no'>fit1</span> <span class='kw'>&lt;-</span> <span class='fu'>nls</span>(<span class='no'>tl</span>~<span class='fu'>vb1</span>(<span class='no'>age</span>,<span class='no'>Linf</span>,<span class='no'>K</span>,<span class='no'>t0</span>),<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>start</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>12</span>,<span class='kw'>K</span><span class='kw'>=</span><span class='fl'>0.3</span>,<span class='kw'>t0</span><span class='kw'>=</span><span class='fl'>0</span>))
 <span class='fu'>plot</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>21</span>,<span class='kw'>bg</span><span class='kw'>=</span><span class='st'>"gray40"</span>)</div><div class='input'><span class='fu'>nlsTracePlot</span>(<span class='no'>fit1</span>,<span class='no'>vb1</span>,<span class='kw'>legend</span><span class='kw'>=</span><span class='st'>"bottomright"</span>)</div><div class='img'><img src='nlsTracePlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='stockRecruitment.html'>srFuns</a></span>(<span class='st'>"Ricker"</span>)
+<span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"Ricker"</span>)
 <span class='no'>fitSR1</span> <span class='kw'>&lt;-</span> <span class='fu'>nls</span>(<span class='fu'>log</span>(<span class='no'>recruits</span>)~<span class='fu'>log</span>(<span class='fu'>r1</span>(<span class='no'>stock</span>,<span class='no'>a</span>,<span class='no'>b</span>)),<span class='kw'>data</span><span class='kw'>=</span><span class='no'>CodNorwegian</span>,<span class='kw'>start</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.03</span>))
 <span class='fu'>plot</span>(<span class='no'>recruits</span>~<span class='no'>stock</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>CodNorwegian</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>21</span>,<span class='kw'>bg</span><span class='kw'>=</span><span class='st'>"gray40"</span>,<span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>200</span>))</div><div class='input'><span class='fu'>nlsTracePlot</span>(<span class='no'>fitSR1</span>,<span class='no'>r1</span>)</div><div class='img'><img src='nlsTracePlot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># no plot, but returns trace results as a matrix</span>
 ( <span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>nlsTracePlot</span>(<span class='no'>fitSR1</span>,<span class='no'>r1</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>FALSE</span>) )</div><div class='output co'>#&gt;           [,1]     [,2]       [,3]
 #&gt; [1,] 87.357930 3.000000 0.03000000
 #&gt; [2,]  8.192055 5.038795 0.01836117
-#&gt; [3,]  7.572912 5.850262 0.01836117
+#&gt; [3,]  7.572912 5.850261 0.01836117
 #&gt; [4,]  7.569613 5.918852 0.01836117
 #&gt; [5,]  7.569613 5.919256 0.01836117</div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
 <span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>FSAdata</span>)) {
   <span class='fu'>data</span>(<span class='no'>BSkateGB</span>,<span class='kw'>package</span><span class='kw'>=</span><span class='st'>"FSAdata"</span>)
-  <span class='no'>wtr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Subset.html'>filterD</a></span>(<span class='no'>BSkateGB</span>,<span class='no'>season</span><span class='kw'>==</span><span class='st'>"winter"</span>)
-  <span class='no'>bh1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='stockRecruitment.html'>srFuns</a></span>()
+  <span class='no'>wtr</span> <span class='kw'>&lt;-</span> <span class='fu'>filterD</span>(<span class='no'>BSkateGB</span>,<span class='no'>season</span><span class='kw'>==</span><span class='st'>"winter"</span>)
+  <span class='no'>bh1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>()
   <span class='no'>trc</span> <span class='kw'>&lt;-</span> <span class='fu'>capture.output</span>(<span class='fu'>try</span>(
   <span class='no'>fitSR1</span> <span class='kw'>&lt;-</span> <span class='fu'>nls</span>(<span class='no'>recruits</span>~<span class='fu'>bh1</span>(<span class='no'>spawners</span>,<span class='no'>a</span>,<span class='no'>b</span>),<span class='no'>wtr</span>,
-                <span class='kw'>start</span><span class='kw'>=</span><span class='fu'><a href='srStarts.html'>srStarts</a></span>(<span class='no'>recruits</span>~<span class='no'>spawners</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>wtr</span>),<span class='kw'>trace</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+                <span class='kw'>start</span><span class='kw'>=</span><span class='fu'>srStarts</span>(<span class='no'>recruits</span>~<span class='no'>spawners</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>wtr</span>),<span class='kw'>trace</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
   ))
   <span class='fu'>plot</span>(<span class='no'>recruits</span>~<span class='no'>spawners</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>wtr</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>21</span>,<span class='kw'>bg</span><span class='kw'>=</span><span class='st'>"gray40"</span>)
   <span class='fu'>nlsTracePlot</span>(<span class='no'>trc</span>,<span class='no'>bh1</span>)

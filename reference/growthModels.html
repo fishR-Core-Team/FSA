@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -34,6 +36,7 @@
 
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -112,21 +115,23 @@
 
     <pre class="usage"><span class='fu'>vbFuns</span>(<span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Typical"</span>, <span class='st'>"typical"</span>, <span class='st'>"Traditional"</span>, <span class='st'>"traditional"</span>,
   <span class='st'>"BevertonHolt"</span>, <span class='st'>"Original"</span>, <span class='st'>"original"</span>, <span class='st'>"vonBertalanffy"</span>, <span class='st'>"GQ"</span>,
-  <span class='st'>"GallucciQuinn"</span>, <span class='st'>"Mooij"</span>, <span class='st'>"Weisberg"</span>, <span class='st'>"Ogle"</span>, <span class='st'>"Schnute"</span>, <span class='st'>"Francis"</span>, <span class='st'>"Laslett"</span>,
-  <span class='st'>"Polacheck"</span>, <span class='st'>"Somers"</span>, <span class='st'>"Somers2"</span>, <span class='st'>"Pauly"</span>, <span class='st'>"Fabens"</span>, <span class='st'>"Fabens2"</span>, <span class='st'>"Wang"</span>,
-  <span class='st'>"Wang2"</span>, <span class='st'>"Wang3"</span>, <span class='st'>"Francis2"</span>), <span class='kw'>simple</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>msg</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='st'>"GallucciQuinn"</span>, <span class='st'>"Mooij"</span>, <span class='st'>"Weisberg"</span>, <span class='st'>"Ogle"</span>, <span class='st'>"Schnute"</span>, <span class='st'>"Francis"</span>,
+  <span class='st'>"Laslett"</span>, <span class='st'>"Polacheck"</span>, <span class='st'>"Somers"</span>, <span class='st'>"Somers2"</span>, <span class='st'>"Pauly"</span>, <span class='st'>"Fabens"</span>,
+  <span class='st'>"Fabens2"</span>, <span class='st'>"Wang"</span>, <span class='st'>"Wang2"</span>, <span class='st'>"Wang3"</span>, <span class='st'>"Francis2"</span>, <span class='st'>"Francis3"</span>),
+  <span class='kw'>simple</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>msg</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>GompertzFuns</span>(<span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Ricker1"</span>, <span class='st'>"Ricker2"</span>, <span class='st'>"Ricker3"</span>, <span class='st'>"QuinnDeriso1"</span>,
-  <span class='st'>"QuinnDeriso2"</span>, <span class='st'>"QuinnDeriso3"</span>, <span class='st'>"QD1"</span>, <span class='st'>"QD2"</span>, <span class='st'>"QD3"</span>, <span class='st'>"Original"</span>, <span class='st'>"original"</span>,
-  <span class='st'>"Troynikov1"</span>, <span class='st'>"Troynikov2"</span>), <span class='kw'>simple</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>msg</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='st'>"QuinnDeriso2"</span>, <span class='st'>"QuinnDeriso3"</span>, <span class='st'>"QD1"</span>, <span class='st'>"QD2"</span>, <span class='st'>"QD3"</span>, <span class='st'>"Original"</span>,
+  <span class='st'>"original"</span>, <span class='st'>"Troynikov1"</span>, <span class='st'>"Troynikov2"</span>), <span class='kw'>simple</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>msg</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>RichardsFuns</span>(<span class='kw'>param</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>simple</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>msg</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>logisticFuns</span>(<span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"CJ1"</span>, <span class='st'>"CJ2"</span>, <span class='st'>"Karkach"</span>, <span class='st'>"Haddon"</span>, <span class='st'>"CampanaJones1"</span>,
-  <span class='st'>"CampanaJones2"</span>), <span class='kw'>simple</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>msg</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>logisticFuns</span>(<span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"CJ1"</span>, <span class='st'>"CJ2"</span>, <span class='st'>"Karkach"</span>, <span class='st'>"Haddon"</span>,
+  <span class='st'>"CampanaJones1"</span>, <span class='st'>"CampanaJones2"</span>), <span class='kw'>simple</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>msg</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>growthFunShow</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vonBertalanffy"</span>, <span class='st'>"Gompertz"</span>, <span class='st'>"Richards"</span>, <span class='st'>"Logistic"</span>,
-  <span class='st'>"Schnute"</span>), <span class='kw'>param</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>case</span> <span class='kw'>=</span> <span class='no'>param</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>growthFunShow</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"vonBertalanffy"</span>, <span class='st'>"Gompertz"</span>, <span class='st'>"Richards"</span>,
+  <span class='st'>"Logistic"</span>, <span class='st'>"Schnute"</span>), <span class='kw'>param</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>case</span> <span class='kw'>=</span> <span class='no'>param</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -225,7 +230,7 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='Schnute.html'>Schnute</a></code> for an implementation of the Schnute (1981) model.</p></div>
+    <div class='dont-index'><p>See <code>Schnute</code> for an implementation of the Schnute (1981) model.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -237,20 +242,20 @@
 #&gt;                          Linf &lt;- Linf[[1]] }
 #&gt;   Linf*(1-exp(-K*(t-t0)))
 #&gt;   }
-#&gt; &lt;environment: 0x13013990&gt;</div><div class='input'><span class='no'>ages</span> <span class='kw'>&lt;-</span> <span class='fl'>0</span>:<span class='fl'>20</span>
+#&gt; &lt;environment: 0xc878338&gt;</div><div class='input'><span class='no'>ages</span> <span class='kw'>&lt;-</span> <span class='fl'>0</span>:<span class='fl'>20</span>
 <span class='fu'>plot</span>(<span class='fu'>vb1</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>20</span>,<span class='kw'>K</span><span class='kw'>=</span><span class='fl'>0.3</span>,<span class='kw'>t0</span><span class='kw'>=</span>-<span class='fl'>0.2</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-1.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>vb2</span> <span class='kw'>&lt;-</span> <span class='fu'>vbFuns</span>(<span class='st'>"Francis"</span>) )</div><div class='output co'>#&gt; function(t,L1,L2=NULL,L3=NULL,t1,t3=NULL) {
 #&gt;   if (length(L1)==3) { L2 &lt;- L1[[2]]; L3 &lt;- L1[[3]]; L1 &lt;- L1[[1]] }
 #&gt;   if (length(t1)==2) { t3 &lt;- t1[[2]]; t1 &lt;- t1[[1]] }
 #&gt;   r &lt;- (L3-L2)/(L2-L1)
 #&gt;   L1+(L3-L1)*((1-r^(2*((t-t1)/(t3-t1))))/(1-r^2))
 #&gt;   }
-#&gt; &lt;bytecode: 0x12b1cba8&gt;
-#&gt; &lt;environment: 0x12e26288&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>vb2</span>(<span class='no'>ages</span>,<span class='kw'>L1</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>L2</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>L3</span><span class='kw'>=</span><span class='fl'>20</span>,<span class='kw'>t1</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>t3</span><span class='kw'>=</span><span class='fl'>18</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-2.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>vb2c</span> <span class='kw'>&lt;-</span> <span class='fu'>vbFuns</span>(<span class='st'>"Francis"</span>,<span class='kw'>simple</span><span class='kw'>=</span><span class='fl'>TRUE</span>) )   <span class='co'># compare to vb2</span></div><div class='output co'>#&gt; function(t,L1,L2,L3,t1,t3) {
+#&gt; &lt;bytecode: 0x9d8f7a8&gt;
+#&gt; &lt;environment: 0xbd19060&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>vb2</span>(<span class='no'>ages</span>,<span class='kw'>L1</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>L2</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>L3</span><span class='kw'>=</span><span class='fl'>20</span>,<span class='kw'>t1</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>t3</span><span class='kw'>=</span><span class='fl'>18</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-2.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>vb2c</span> <span class='kw'>&lt;-</span> <span class='fu'>vbFuns</span>(<span class='st'>"Francis"</span>,<span class='kw'>simple</span><span class='kw'>=</span><span class='fl'>TRUE</span>) )   <span class='co'># compare to vb2</span></div><div class='output co'>#&gt; function(t,L1,L2,L3,t1,t3) {
 #&gt;     r &lt;- (L3-L2)/(L2-L1)
 #&gt;     L1+(L3-L1)*((1-r^(2*((t-t1)/(t3-t1))))/(1-r^2))
 #&gt;   }
-#&gt; &lt;bytecode: 0x1d856308&gt;
-#&gt; &lt;environment: 0x130227f0&gt;</div><div class='input'>
+#&gt; &lt;bytecode: 0xa14b480&gt;
+#&gt; &lt;environment: 0x826b5c0&gt;</div><div class='input'>
 <span class='co'>## Simple Examples -- Gompertz</span>
 ( <span class='no'>gomp1</span> <span class='kw'>&lt;-</span> <span class='fu'>GompertzFuns</span>() )</div><div class='output co'>#&gt; function(t,Linf,gi=NULL,ti=NULL) {
 #&gt;     if (length(Linf)==3) { gi &lt;- Linf[[2]]
@@ -258,24 +263,24 @@
 #&gt;     Linf &lt;- Linf[[1]] }
 #&gt;     Linf*exp(-exp(-gi*(t-ti)))
 #&gt;   }
-#&gt; &lt;environment: 0x12f79660&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>gomp1</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>gi</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>ti</span><span class='kw'>=</span><span class='fl'>5</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-3.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>gomp2</span> <span class='kw'>&lt;-</span> <span class='fu'>GompertzFuns</span>(<span class='st'>"Ricker2"</span>) )</div><div class='output co'>#&gt; function(t,L0,a=NULL,gi=NULL) {
+#&gt; &lt;environment: 0x6cc3120&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>gomp1</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>gi</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>ti</span><span class='kw'>=</span><span class='fl'>5</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-3.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>gomp2</span> <span class='kw'>&lt;-</span> <span class='fu'>GompertzFuns</span>(<span class='st'>"Ricker2"</span>) )</div><div class='output co'>#&gt; function(t,L0,a=NULL,gi=NULL) {
 #&gt;     if (length(L0)==3) { a &lt;- L0[[2]]
 #&gt;     gi &lt;- L0[[3]]
 #&gt;     L0 &lt;- L0[[1]] }
 #&gt;     L0*exp(a*(1-exp(-gi*t)))
 #&gt;   }
-#&gt; &lt;bytecode: 0x1eaba4b8&gt;
-#&gt; &lt;environment: 0x12e029a8&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>gomp2</span>(<span class='no'>ages</span>,<span class='kw'>L0</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>6</span>,<span class='kw'>gi</span><span class='kw'>=</span><span class='fl'>0.5</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-4.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>gomp2c</span> <span class='kw'>&lt;-</span> <span class='fu'>GompertzFuns</span>(<span class='st'>"Ricker2"</span>,<span class='kw'>simple</span><span class='kw'>=</span><span class='fl'>TRUE</span>) )   <span class='co'># compare to gomp2</span></div><div class='output co'>#&gt; function(t,L0,a,gi) {
+#&gt; &lt;bytecode: 0x6ed21c0&gt;
+#&gt; &lt;environment: 0x6a7add8&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>gomp2</span>(<span class='no'>ages</span>,<span class='kw'>L0</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>6</span>,<span class='kw'>gi</span><span class='kw'>=</span><span class='fl'>0.5</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-4.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>gomp2c</span> <span class='kw'>&lt;-</span> <span class='fu'>GompertzFuns</span>(<span class='st'>"Ricker2"</span>,<span class='kw'>simple</span><span class='kw'>=</span><span class='fl'>TRUE</span>) )   <span class='co'># compare to gomp2</span></div><div class='output co'>#&gt; function(t,L0,a,gi) {
 #&gt;     L0*exp(a*(1-exp(-gi*t)))
 #&gt;   }
-#&gt; &lt;bytecode: 0x1bd072c0&gt;
-#&gt; &lt;environment: 0x1ae53d80&gt;</div><div class='input'>( <span class='no'>gompT</span> <span class='kw'>&lt;-</span> <span class='fu'>GompertzFuns</span>(<span class='st'>"Troynikov1"</span>))</div><div class='output co'>#&gt; function(Lm,dt,Linf,gi=NULL) {
+#&gt; &lt;bytecode: 0xa724058&gt;
+#&gt; &lt;environment: 0xc1514b0&gt;</div><div class='input'>( <span class='no'>gompT</span> <span class='kw'>&lt;-</span> <span class='fu'>GompertzFuns</span>(<span class='st'>"Troynikov1"</span>))</div><div class='output co'>#&gt; function(Lm,dt,Linf,gi=NULL) {
 #&gt;     if (length(Linf)==2) { gi &lt;- Linf[2]
 #&gt;     Linf &lt;- Linf[1] }
 #&gt;     Linf*((Lm/Linf)^exp(-gi*dt))-Lm
 #&gt;   }
-#&gt; &lt;bytecode: 0x1da27120&gt;
-#&gt; &lt;environment: 0x1adc20f0&gt;</div><div class='input'>
+#&gt; &lt;bytecode: 0x996a078&gt;
+#&gt; &lt;environment: 0xbd735e8&gt;</div><div class='input'>
 <span class='co'>## Simple Examples -- Richards</span>
 ( <span class='no'>rich1</span> <span class='kw'>&lt;-</span> <span class='fu'>RichardsFuns</span>() )</div><div class='output co'>#&gt; function(t,Linf,k=NULL,a=NULL,b=NULL) {
 #&gt;     if (length(Linf)==4) { k &lt;- Linf[[2]]
@@ -284,39 +289,39 @@
 #&gt;     Linf &lt;- Linf[[1]] }
 #&gt;     Linf*(1-a*exp(-k*t))^b
 #&gt;   }
-#&gt; &lt;environment: 0x1ad25700&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>rich1</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>6</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-5.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>rich2</span> <span class='kw'>&lt;-</span> <span class='fu'>RichardsFuns</span>(<span class='fl'>2</span>) )</div><div class='output co'>#&gt; function(t,Linf,k=NULL,ti=NULL,b=NULL) {
+#&gt; &lt;environment: 0xbeab040&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>rich1</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>6</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-5.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>rich2</span> <span class='kw'>&lt;-</span> <span class='fu'>RichardsFuns</span>(<span class='fl'>2</span>) )</div><div class='output co'>#&gt; function(t,Linf,k=NULL,ti=NULL,b=NULL) {
 #&gt;     if (length(Linf)==4) { k &lt;- Linf[[2]]
 #&gt;     ti &lt;- Linf[[3]]
 #&gt;     b &lt;- Linf[[4]]
 #&gt;     Linf &lt;- Linf[[1]] }
 #&gt;     Linf*(1-(1/b)*exp(-k*(t-ti)))^b
 #&gt;   }
-#&gt; &lt;bytecode: 0x133a19f8&gt;
-#&gt; &lt;environment: 0x1abb7570&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>rich2</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>ti</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>6</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-6.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>rich3</span> <span class='kw'>&lt;-</span> <span class='fu'>RichardsFuns</span>(<span class='fl'>3</span>) )</div><div class='output co'>#&gt; function(t,Linf,k=NULL,ti=NULL,b=NULL) {
+#&gt; &lt;bytecode: 0x6cdd248&gt;
+#&gt; &lt;environment: 0xa7d1780&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>rich2</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>ti</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>6</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-6.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>rich3</span> <span class='kw'>&lt;-</span> <span class='fu'>RichardsFuns</span>(<span class='fl'>3</span>) )</div><div class='output co'>#&gt; function(t,Linf,k=NULL,ti=NULL,b=NULL) {
 #&gt;     if (length(Linf)==4) { k &lt;- Linf[[2]]
 #&gt;     ti &lt;- Linf[[3]]
 #&gt;     b &lt;- Linf[[4]]
 #&gt;     Linf &lt;- Linf[[1]] }
 #&gt;     Linf/((1+b*exp(-k*(t-ti)))^(1/b))
 #&gt;   }
-#&gt; &lt;bytecode: 0x0a83ab20&gt;
-#&gt; &lt;environment: 0x1b679680&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>rich3</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>ti</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.15</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-7.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>rich4</span> <span class='kw'>&lt;-</span> <span class='fu'>RichardsFuns</span>(<span class='fl'>4</span>) )</div><div class='output co'>#&gt; function(t,Linf,k=NULL,ti=NULL,b=NULL) {
+#&gt; &lt;bytecode: 0x5bd1310&gt;
+#&gt; &lt;environment: 0xa552448&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>rich3</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>ti</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.15</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-7.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>rich4</span> <span class='kw'>&lt;-</span> <span class='fu'>RichardsFuns</span>(<span class='fl'>4</span>) )</div><div class='output co'>#&gt; function(t,Linf,k=NULL,ti=NULL,b=NULL) {
 #&gt;     if (length(Linf)==4) { k &lt;- Linf[[2]]
 #&gt;     ti &lt;- Linf[[3]]
 #&gt;     b &lt;- Linf[[4]]
 #&gt;     Linf &lt;- Linf[[1]] }
 #&gt;     Linf*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))
 #&gt;   }
-#&gt; &lt;bytecode: 0x1b452c88&gt;
-#&gt; &lt;environment: 0x1afc8ef0&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>rich4</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>ti</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.95</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='input'><span class='fu'>lines</span>(<span class='fu'>rich4</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>ti</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>1.5</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>)</div><div class='img'><img src='growthModels-8.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>rich5</span> <span class='kw'>&lt;-</span> <span class='fu'>RichardsFuns</span>(<span class='fl'>5</span>) )</div><div class='output co'>#&gt; function(t,Linf,k=NULL,L0=NULL,b=NULL) {
+#&gt; &lt;bytecode: 0x241b380&gt;
+#&gt; &lt;environment: 0xafb6340&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>rich4</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>ti</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.95</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='input'><span class='fu'>lines</span>(<span class='fu'>rich4</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>ti</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>1.5</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>)</div><div class='img'><img src='growthModels-8.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>rich5</span> <span class='kw'>&lt;-</span> <span class='fu'>RichardsFuns</span>(<span class='fl'>5</span>) )</div><div class='output co'>#&gt; function(t,Linf,k=NULL,L0=NULL,b=NULL) {
 #&gt;     if (length(Linf)==4) { k &lt;- Linf[[2]]
 #&gt;     L0 &lt;- Linf[[3]]
 #&gt;     b &lt;- Linf[[4]]
 #&gt;     Linf &lt;- Linf[[1]] }
 #&gt;     Linf*(1+(((L0/Linf)^(1-b))-1)*exp(-k*t))^(1/(1-b))
 #&gt;   }
-#&gt; &lt;bytecode: 0x1e690090&gt;
-#&gt; &lt;environment: 0x1adaf7b0&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>rich5</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>L0</span><span class='kw'>=</span><span class='fl'>50</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>1.5</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-9.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>rich6</span> <span class='kw'>&lt;-</span> <span class='fu'>RichardsFuns</span>(<span class='fl'>6</span>) )</div><div class='output co'>#&gt; function(t,Linf,k=NULL,ti=NULL,Lninf=NULL,b=NULL) {
+#&gt; &lt;bytecode: 0xdbcb658&gt;
+#&gt; &lt;environment: 0xac17550&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>rich5</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>L0</span><span class='kw'>=</span><span class='fl'>50</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>1.5</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-9.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>rich6</span> <span class='kw'>&lt;-</span> <span class='fu'>RichardsFuns</span>(<span class='fl'>6</span>) )</div><div class='output co'>#&gt; function(t,Linf,k=NULL,ti=NULL,Lninf=NULL,b=NULL) {
 #&gt;     if (length(Linf)==5) { k &lt;- Linf[[2]]
 #&gt;     ti &lt;- Linf[[3]]
 #&gt;     Lninf &lt;- Linf[[3]]
@@ -324,12 +329,12 @@
 #&gt;     Linf &lt;- Linf[[1]] }
 #&gt;     Lninf+(Linf-Lninf)*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))
 #&gt;   }
-#&gt; &lt;bytecode: 0x1ff94be8&gt;
-#&gt; &lt;environment: 0x1ac4a5a0&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>rich6</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>ti</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>Lninf</span><span class='kw'>=</span><span class='fl'>50</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>1.5</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-10.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>rich2c</span> <span class='kw'>&lt;-</span> <span class='fu'>RichardsFuns</span>(<span class='fl'>2</span>,<span class='kw'>simple</span><span class='kw'>=</span><span class='fl'>TRUE</span>) ) <span class='co'># compare to rich2</span></div><div class='output co'>#&gt; function(t,Linf,k,ti,b) {
+#&gt; &lt;bytecode: 0xb01d860&gt;
+#&gt; &lt;environment: 0x9e66fe8&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>rich6</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>ti</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>Lninf</span><span class='kw'>=</span><span class='fl'>50</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>1.5</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-10.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>rich2c</span> <span class='kw'>&lt;-</span> <span class='fu'>RichardsFuns</span>(<span class='fl'>2</span>,<span class='kw'>simple</span><span class='kw'>=</span><span class='fl'>TRUE</span>) ) <span class='co'># compare to rich2</span></div><div class='output co'>#&gt; function(t,Linf,k,ti,b) {
 #&gt;     Linf*(1-(1/b)*exp(-k*(t-ti)))^b
 #&gt;   }
-#&gt; &lt;bytecode: 0x12f666a0&gt;
-#&gt; &lt;environment: 0x1aaa6350&gt;</div><div class='input'>
+#&gt; &lt;bytecode: 0x649f9d8&gt;
+#&gt; &lt;environment: 0x8a92118&gt;</div><div class='input'>
 <span class='co'>## Simple Examples -- Logistic</span>
 ( <span class='no'>log1</span> <span class='kw'>&lt;-</span> <span class='fu'>logisticFuns</span>() )</div><div class='output co'>#&gt; function(t,Linf,gninf=NULL,ti=NULL) {
 #&gt;     if (length(Linf)==3) { gninf &lt;- Linf[[2]]
@@ -337,32 +342,32 @@
 #&gt;     Linf &lt;- Linf[[1]] }
 #&gt;     Linf/(1+exp(-gninf*(t-ti)))
 #&gt;   }
-#&gt; &lt;environment: 0x1aa38c10&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>log1</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>gninf</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>ti</span><span class='kw'>=</span><span class='fl'>5</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-11.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>log2</span> <span class='kw'>&lt;-</span> <span class='fu'>logisticFuns</span>(<span class='st'>"CJ2"</span>) )</div><div class='output co'>#&gt; function(t,Linf,gninf=NULL,a=NULL) {
+#&gt; &lt;environment: 0x89bb4a8&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>log1</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>gninf</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>ti</span><span class='kw'>=</span><span class='fl'>5</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-11.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>log2</span> <span class='kw'>&lt;-</span> <span class='fu'>logisticFuns</span>(<span class='st'>"CJ2"</span>) )</div><div class='output co'>#&gt; function(t,Linf,gninf=NULL,a=NULL) {
 #&gt;     if (length(Linf)==3) { gninf &lt;- Linf[[2]]
 #&gt;     a &lt;- Linf[[3]]
 #&gt;     Linf &lt;- Linf[[1]] }
 #&gt;     Linf/(1+a*exp(-gninf*t))
 #&gt;   }
-#&gt; &lt;bytecode: 0x132be100&gt;
-#&gt; &lt;environment: 0x1a874490&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>log2</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>gninf</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>10</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-12.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>log2c</span> <span class='kw'>&lt;-</span> <span class='fu'>logisticFuns</span>(<span class='st'>"CJ2"</span>,<span class='kw'>simple</span><span class='kw'>=</span><span class='fl'>TRUE</span>) ) <span class='co'># compare to log2</span></div><div class='output co'>#&gt; function(t,Linf,gninf,a) {
+#&gt; &lt;bytecode: 0x60891b8&gt;
+#&gt; &lt;environment: 0x87c2830&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>log2</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>gninf</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>10</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-12.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>log2c</span> <span class='kw'>&lt;-</span> <span class='fu'>logisticFuns</span>(<span class='st'>"CJ2"</span>,<span class='kw'>simple</span><span class='kw'>=</span><span class='fl'>TRUE</span>) ) <span class='co'># compare to log2</span></div><div class='output co'>#&gt; function(t,Linf,gninf,a) {
 #&gt;     Linf/(1+a*exp(-gninf*t))
 #&gt;   }
-#&gt; &lt;bytecode: 0x1305a138&gt;
-#&gt; &lt;environment: 0x1b283e80&gt;</div><div class='input'>( <span class='no'>log3</span> <span class='kw'>&lt;-</span> <span class='fu'>logisticFuns</span>(<span class='st'>"Karkach"</span>) )</div><div class='output co'>#&gt; function(t,Linf,L0=NULL,gninf=NULL) {
+#&gt; &lt;bytecode: 0x5cf2a80&gt;
+#&gt; &lt;environment: 0xc8ab5e8&gt;</div><div class='input'>( <span class='no'>log3</span> <span class='kw'>&lt;-</span> <span class='fu'>logisticFuns</span>(<span class='st'>"Karkach"</span>) )</div><div class='output co'>#&gt; function(t,Linf,L0=NULL,gninf=NULL) {
 #&gt;     if (length(Linf)==3) { L0 &lt;- Linf[[2]]
 #&gt;     gninf &lt;- Linf[[3]]
 #&gt;     Linf &lt;- Linf[[1]] }
 #&gt;     L0*Linf/(L0+(Linf-L0)*exp(-gninf*t))
 #&gt;   }
-#&gt; &lt;bytecode: 0x12bb3e68&gt;
-#&gt; &lt;environment: 0x1b6108b0&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>log3</span>(<span class='no'>ages</span>,<span class='kw'>L0</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>gninf</span><span class='kw'>=</span><span class='fl'>0.5</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-13.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>log4</span> <span class='kw'>&lt;-</span> <span class='fu'>logisticFuns</span>(<span class='st'>"Haddon"</span>) )</div><div class='output co'>#&gt; function(Lm,dLmax,L50=NULL,L95=NULL) {
+#&gt; &lt;bytecode: 0x57573b8&gt;
+#&gt; &lt;environment: 0xd783810&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>log3</span>(<span class='no'>ages</span>,<span class='kw'>L0</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>800</span>,<span class='kw'>gninf</span><span class='kw'>=</span><span class='fl'>0.5</span>)~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='growthModels-13.png' alt='' width='700' height='433' /></div><div class='input'>( <span class='no'>log4</span> <span class='kw'>&lt;-</span> <span class='fu'>logisticFuns</span>(<span class='st'>"Haddon"</span>) )</div><div class='output co'>#&gt; function(Lm,dLmax,L50=NULL,L95=NULL) {
 #&gt;     if (length(dLmax)==3) { L50 &lt;- dLmax[2]
 #&gt;     L95 &lt;- dLmax[3]
 #&gt;     dLmax &lt;- dLmax[1] }
 #&gt;     dLmax/(1+exp(log(19)*((Lm-L50)/(L95-L50))))
 #&gt;   }
-#&gt; &lt;bytecode: 0x1da16300&gt;
-#&gt; &lt;environment: 0x1d5d1748&gt;</div><div class='input'>
+#&gt; &lt;bytecode: 0x7c5bf20&gt;
+#&gt; &lt;environment: 0xdc3ee80&gt;</div><div class='input'>
 
 <span class='co'>###########################################################</span>
 <span class='co'>## Examples of fitting</span>
@@ -374,13 +379,13 @@
 <span class='co'>## Von B</span>
 <span class='co'># Fitting the typical parameterization of the von B function</span>
 <span class='no'>fit1</span> <span class='kw'>&lt;-</span> <span class='fu'>nls</span>(<span class='no'>tl</span>~<span class='fu'>vb1</span>(<span class='no'>age</span>,<span class='no'>Linf</span>,<span class='no'>K</span>,<span class='no'>t0</span>),<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,
-            <span class='kw'>start</span><span class='kw'>=</span><span class='fu'><a href='vbStarts.html'>vbStarts</a></span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>))
+            <span class='kw'>start</span><span class='kw'>=</span><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>))
 <span class='fu'>summary</span>(<span class='no'>fit1</span>,<span class='kw'>correlation</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
 #&gt; Formula: tl ~ vb1(age, Linf, K, t0)
 #&gt; 
 #&gt; Parameters:
 #&gt;      Estimate Std. Error t value Pr(&gt;|t|)    
-#&gt; Linf 16.79817    1.93455   8.683  &lt; 2e-16 ***
+#&gt; Linf 16.79818    1.93455   8.683  &lt; 2e-16 ***
 #&gt; K     0.22493    0.06922   3.250  0.00125 ** 
 #&gt; t0   -2.55738    0.47496  -5.384 1.24e-07 ***
 #&gt; ---
@@ -394,11 +399,11 @@
 #&gt; t0 -0.94  0.98
 #&gt; 
 #&gt; Number of iterations to convergence: 10 
-#&gt; Achieved convergence tolerance: 5.715e-06
+#&gt; Achieved convergence tolerance: 5.49e-06
 #&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='input'><span class='fu'>curve</span>(<span class='fu'>vb1</span>(<span class='no'>x</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit1</span>)),<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>to</span><span class='kw'>=</span><span class='fl'>5</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='input'>
 <span class='co'># Fitting the Francis parameterization of the von B function</span>
 <span class='no'>fit2</span> <span class='kw'>&lt;-</span> <span class='fu'>nls</span>(<span class='no'>tl</span>~<span class='fu'>vb2c</span>(<span class='no'>age</span>,<span class='no'>L1</span>,<span class='no'>L2</span>,<span class='no'>L3</span>,<span class='kw'>t1</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>t3</span><span class='kw'>=</span><span class='fl'>5</span>),<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,
-            <span class='kw'>start</span><span class='kw'>=</span><span class='fu'><a href='vbStarts.html'>vbStarts</a></span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Francis"</span>,<span class='kw'>ages2use</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>5</span>)))
+            <span class='kw'>start</span><span class='kw'>=</span><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Francis"</span>,<span class='kw'>ages2use</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>5</span>)))
 <span class='fu'>summary</span>(<span class='no'>fit2</span>,<span class='kw'>correlation</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
 #&gt; Formula: tl ~ vb2c(age, L1, L2, L3, t1 = 0, t3 = 5)
 #&gt; 
@@ -418,13 +423,13 @@
 #&gt; L3  0.48  0.20
 #&gt; 
 #&gt; Number of iterations to convergence: 7 
-#&gt; Achieved convergence tolerance: 9.445e-06
+#&gt; Achieved convergence tolerance: 9.455e-06
 #&gt; </div><div class='input'><span class='fu'>curve</span>(<span class='fu'>vb2c</span>(<span class='no'>x</span>,<span class='kw'>L1</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit2</span>)[<span class='fl'>1</span>],<span class='kw'>L2</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit2</span>)[<span class='fl'>2</span>],<span class='kw'>L3</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit2</span>)[<span class='fl'>3</span>],<span class='kw'>t1</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>t3</span><span class='kw'>=</span><span class='fl'>5</span>),
       <span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>to</span><span class='kw'>=</span><span class='fl'>5</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>5</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='input'>
 <span class='co'># Fitting the Schnute parameterization of the von B function</span>
 <span class='no'>vb3</span> <span class='kw'>&lt;-</span> <span class='fu'>vbFuns</span>(<span class='st'>"Schnute"</span>)
 <span class='no'>fit3</span> <span class='kw'>&lt;-</span> <span class='fu'>nls</span>(<span class='no'>tl</span>~<span class='fu'>vb3</span>(<span class='no'>age</span>,<span class='no'>L1</span>,<span class='no'>L3</span>,<span class='no'>K</span>,<span class='kw'>t1</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>t3</span><span class='kw'>=</span><span class='fl'>4</span>),<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,
-            <span class='kw'>start</span><span class='kw'>=</span><span class='fu'><a href='vbStarts.html'>vbStarts</a></span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Schnute"</span>,<span class='kw'>ages2use</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>4</span>)))
+            <span class='kw'>start</span><span class='kw'>=</span><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Schnute"</span>,<span class='kw'>ages2use</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>4</span>)))
 <span class='fu'>summary</span>(<span class='no'>fit3</span>,<span class='kw'>correlation</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
 #&gt; Formula: tl ~ vb3(age, L1, L3, K, t1 = 0, t3 = 4)
 #&gt; 
@@ -444,7 +449,7 @@
 #&gt; K  -0.80 -0.71
 #&gt; 
 #&gt; Number of iterations to convergence: 8 
-#&gt; Achieved convergence tolerance: 8.255e-06
+#&gt; Achieved convergence tolerance: 8.156e-06
 #&gt; </div><div class='input'><span class='fu'>curve</span>(<span class='fu'>vb3</span>(<span class='no'>x</span>,<span class='kw'>L1</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit3</span>),<span class='kw'>t1</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>4</span>)),<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>to</span><span class='kw'>=</span><span class='fl'>5</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"green"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='growthModels-14.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Gompertz</span>
 <span class='co'># Make some fake data using the original parameterization</span>
@@ -482,7 +487,7 @@
 #&gt; ti  0.88 -0.73
 #&gt; 
 #&gt; Number of iterations to convergence: 3 
-#&gt; Achieved convergence tolerance: 5.575e-07
+#&gt; Achieved convergence tolerance: 5.463e-07
 #&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>len</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>rgb</span>(<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='input'><span class='fu'>curve</span>(<span class='fu'>gomp1</span>(<span class='no'>x</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit1</span>)),<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>to</span><span class='kw'>=</span><span class='fl'>15</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='input'>
 <span class='co'># Fit third Ricker parameterization</span>
 <span class='no'>fit2</span> <span class='kw'>&lt;-</span> <span class='fu'>nls</span>(<span class='no'>len</span>~<span class='fu'>gomp2</span>(<span class='no'>age</span>,<span class='no'>L0</span>,<span class='no'>a</span>,<span class='no'>gi</span>),<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>start</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>L0</span><span class='kw'>=</span><span class='fl'>30</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>gi</span><span class='kw'>=</span><span class='fl'>0.3</span>))
@@ -505,7 +510,7 @@
 #&gt; gi -0.90  0.82
 #&gt; 
 #&gt; Number of iterations to convergence: 3 
-#&gt; Achieved convergence tolerance: 9.391e-06
+#&gt; Achieved convergence tolerance: 9.415e-06
 #&gt; </div><div class='input'><span class='fu'>curve</span>(<span class='fu'>gomp2</span>(<span class='no'>x</span>,<span class='kw'>L0</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit2</span>)),<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>to</span><span class='kw'>=</span><span class='fl'>15</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>5</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='input'>
 <span class='co'># Fit third Quinn and Deriso parameterization (using simple=TRUE model)</span>
 <span class='no'>gomp3</span> <span class='kw'>&lt;-</span> <span class='fu'>GompertzFuns</span>(<span class='st'>"QD3"</span>,<span class='kw'>simple</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
@@ -515,7 +520,7 @@
 #&gt; 
 #&gt; Parameters:
 #&gt;        Estimate Std. Error t value Pr(&gt;|t|)    
-#&gt; Linf 456.313770   6.231062  73.232  &lt; 2e-16 ***
+#&gt; Linf 456.313767   6.231063  73.232  &lt; 2e-16 ***
 #&gt; gi     0.299776   0.009123  32.858  &lt; 2e-16 ***
 #&gt; t0    -0.595395   0.184092  -3.234  0.00146 ** 
 #&gt; ---
@@ -529,7 +534,7 @@
 #&gt; t0 -0.74  0.97
 #&gt; 
 #&gt; Number of iterations to convergence: 4 
-#&gt; Achieved convergence tolerance: 4.72e-07
+#&gt; Achieved convergence tolerance: 4.607e-07
 #&gt; </div><div class='input'><span class='fu'>curve</span>(<span class='fu'>gomp3</span>(<span class='no'>x</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit3</span>)[<span class='fl'>1</span>],<span class='kw'>gi</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit3</span>)[<span class='fl'>2</span>],<span class='kw'>t0</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit3</span>)[<span class='fl'>3</span>]),
       <span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>to</span><span class='kw'>=</span><span class='fl'>15</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"green"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='growthModels-15.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Richards</span>
@@ -554,7 +559,7 @@
 #&gt; ti  0.88 -0.73
 #&gt; 
 #&gt; Number of iterations to convergence: 3 
-#&gt; Achieved convergence tolerance: 5.575e-07
+#&gt; Achieved convergence tolerance: 5.463e-07
 #&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>len</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>rgb</span>(<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='input'><span class='fu'>curve</span>(<span class='fu'>rich1</span>(<span class='no'>x</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit1</span>)),<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>to</span><span class='kw'>=</span><span class='fl'>15</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in -k: invalid argument to unary operator</span></div><div class='input'>
 <span class='co'># Fit second Richards parameterization</span>
 <span class='no'>fit2</span> <span class='kw'>&lt;-</span> <span class='fu'>nls</span>(<span class='no'>len</span>~<span class='fu'>rich2</span>(<span class='no'>age</span>,<span class='no'>Linf</span>,<span class='no'>k</span>,<span class='no'>ti</span>,<span class='no'>b</span>),<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,
@@ -577,7 +582,7 @@
 #&gt; gi -0.90  0.82
 #&gt; 
 #&gt; Number of iterations to convergence: 3 
-#&gt; Achieved convergence tolerance: 9.391e-06
+#&gt; Achieved convergence tolerance: 9.415e-06
 #&gt; </div><div class='input'><span class='fu'>curve</span>(<span class='fu'>rich2</span>(<span class='no'>x</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit2</span>)),<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>to</span><span class='kw'>=</span><span class='fl'>15</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>7</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in -k: invalid argument to unary operator</span></div><div class='input'>
 <span class='co'># Fit third Richards parameterization</span>
 <span class='no'>fit3</span> <span class='kw'>&lt;-</span> <span class='fu'>nls</span>(<span class='no'>len</span>~<span class='fu'>rich3</span>(<span class='no'>age</span>,<span class='no'>Linf</span>,<span class='no'>k</span>,<span class='no'>ti</span>,<span class='no'>b</span>),<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,
@@ -587,9 +592,9 @@
 #&gt; 
 #&gt; Parameters:
 #&gt;       Estimate Std. Error t value Pr(&gt;|t|)    
-#&gt; Linf 450.93715    8.80980  51.186   &lt;2e-16 ***
+#&gt; Linf 450.93720    8.80980  51.186   &lt;2e-16 ***
 #&gt; k      0.32411    0.03314   9.781   &lt;2e-16 ***
-#&gt; ti     3.62653    0.25312  14.328   &lt;2e-16 ***
+#&gt; ti     3.62652    0.25312  14.328   &lt;2e-16 ***
 #&gt; b      0.14401    0.18597   0.774     0.44    
 #&gt; ---
 #&gt; Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -603,7 +608,7 @@
 #&gt; b  -0.75  0.96  0.97
 #&gt; 
 #&gt; Number of iterations to convergence: 4 
-#&gt; Achieved convergence tolerance: 3.726e-06
+#&gt; Achieved convergence tolerance: 1.8e-06
 #&gt; </div><div class='input'><span class='fu'>curve</span>(<span class='fu'>rich3</span>(<span class='no'>x</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit3</span>)),<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>to</span><span class='kw'>=</span><span class='fl'>15</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"green"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>4</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='input'>
 <span class='co'># Fit fourth Richards parameterization</span>
 <span class='no'>fit4</span> <span class='kw'>&lt;-</span> <span class='fu'>nls</span>(<span class='no'>len</span>~<span class='fu'>rich4</span>(<span class='no'>age</span>,<span class='no'>Linf</span>,<span class='no'>k</span>,<span class='no'>ti</span>,<span class='no'>b</span>),<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,
@@ -613,7 +618,7 @@
 #&gt; 
 #&gt; Parameters:
 #&gt;       Estimate Std. Error t value Pr(&gt;|t|)    
-#&gt; Linf 450.93723    8.80980  51.186  &lt; 2e-16 ***
+#&gt; Linf 450.93724    8.80980  51.186  &lt; 2e-16 ***
 #&gt; k      0.32411    0.03314   9.781  &lt; 2e-16 ***
 #&gt; ti     3.62652    0.25312  14.328  &lt; 2e-16 ***
 #&gt; b      1.14401    0.18597   6.151 5.33e-09 ***
@@ -629,7 +634,7 @@
 #&gt; b  -0.75  0.96  0.97
 #&gt; 
 #&gt; Number of iterations to convergence: 4 
-#&gt; Achieved convergence tolerance: 2.803e-06
+#&gt; Achieved convergence tolerance: 2.301e-06
 #&gt; </div><div class='input'><span class='fu'>curve</span>(<span class='fu'>rich4</span>(<span class='no'>x</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit4</span>)),<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>to</span><span class='kw'>=</span><span class='fl'>15</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"black"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='growthModels-16.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Logistic</span>
 <span class='co'># Fit first Campana-Jones parameterization</span>
@@ -654,7 +659,7 @@
 #&gt; ti     0.88 -0.74
 #&gt; 
 #&gt; Number of iterations to convergence: 4 
-#&gt; Achieved convergence tolerance: 7.692e-07
+#&gt; Achieved convergence tolerance: 7.635e-07
 #&gt; </div><div class='input'><span class='fu'>plot</span>(<span class='no'>len</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'>rgb</span>(<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>/<span class='fl'>5</span>))</div><div class='input'><span class='fu'>curve</span>(<span class='fu'>log1</span>(<span class='no'>x</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit1</span>)),<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>to</span><span class='kw'>=</span><span class='fl'>15</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='input'>
 <span class='co'># Fit second Campana-Jones parameterization</span>
 <span class='no'>fit2</span> <span class='kw'>&lt;-</span> <span class='fu'>nls</span>(<span class='no'>len</span>~<span class='fu'>log2</span>(<span class='no'>age</span>,<span class='no'>Linf</span>,<span class='no'>gninf</span>,<span class='no'>a</span>),<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,
@@ -678,7 +683,7 @@
 #&gt; a     -0.26  0.81
 #&gt; 
 #&gt; Number of iterations to convergence: 4 
-#&gt; Achieved convergence tolerance: 8.445e-06
+#&gt; Achieved convergence tolerance: 8.456e-06
 #&gt; </div><div class='input'><span class='fu'>curve</span>(<span class='fu'>log2</span>(<span class='no'>x</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit2</span>)),<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>to</span><span class='kw'>=</span><span class='fl'>15</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>5</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='input'>
 <span class='co'># Fit Karkach parameterization (using simple=TRUE model)</span>
 <span class='no'>log3</span> <span class='kw'>&lt;-</span> <span class='fu'>logisticFuns</span>(<span class='st'>"Karkach"</span>,<span class='kw'>simple</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
@@ -703,7 +708,7 @@
 #&gt; gninf -0.71 -0.92
 #&gt; 
 #&gt; Number of iterations to convergence: 5 
-#&gt; Achieved convergence tolerance: 6.735e-06
+#&gt; Achieved convergence tolerance: 6.738e-06
 #&gt; </div><div class='input'><span class='fu'>curve</span>(<span class='fu'>log3</span>(<span class='no'>x</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit3</span>)[<span class='fl'>1</span>],<span class='kw'>L0</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit3</span>)[<span class='fl'>2</span>],<span class='kw'>gninf</span><span class='kw'>=</span><span class='fu'>coef</span>(<span class='no'>fit3</span>)[<span class='fl'>3</span>]),
       <span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>to</span><span class='kw'>=</span><span class='fl'>15</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"green"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='growthModels-17.png' alt='' width='700' height='433' /></div><div class='input'>
 

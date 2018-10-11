@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -34,6 +36,7 @@
 
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -113,7 +116,8 @@
     <pre class="usage"><span class='fu'>wrAdd</span>(<span class='no'>wt</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>wrAdd</span>(<span class='no'>wt</span>, <span class='no'>len</span>, <span class='no'>spec</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"metric"</span>, <span class='st'>"English"</span>), <span class='no'>...</span>)
+<span class='fu'>wrAdd</span>(<span class='no'>wt</span>, <span class='no'>len</span>, <span class='no'>spec</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"metric"</span>, <span class='st'>"English"</span>),
+  <span class='no'>...</span>)
 
 <span class='co'># S3 method for formula</span>
 <span class='fu'>wrAdd</span>(<span class='no'>wt</span>, <span class='no'>data</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"metric"</span>, <span class='st'>"English"</span>), <span class='no'>...</span>)</pre>
@@ -153,7 +157,7 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This computes a vector that contains the relative weight specific to each species for all individuals in an entire data frame. The vector can be appended to an existing data.frame to create a variable that contains the relative weights for each individual. The relative weight value will be <code>NA</code> for each individual for which a standard weight equation does not exist in <code><a href='WSlit.html'>WSlit</a></code>, a standard weight equation for the units given in <code>units=</code> does not exist in <code><a href='WSlit.html'>WSlit</a></code>, a standard weight equation for the 75th percentile does not exist in <code><a href='WSlit.html'>WSlit</a></code>, or if the individual is shorter or longer than the lengths for which the standard weight equation should be applied. Either the linear or quadratic equation has been listed as preferred for each species, so only that equation will be used. The use of the 75th percentile is by far the most common and, because this function is designed for use on entire data frames, it will be the only percentile allowed. Thus, to use equations for other percentiles, one will have to use &#8220;manual&#8221; methods. See <code><a href='WSlit.html'>WSlit</a></code> and <code><a href='wsVal.html'>wsVal</a></code> for more details about types of equations, percentiles, finding which species have published standard weight equations, etc. See the examples for one method for changing species names to something that this function will recognize.</p>
+    <p>This computes a vector that contains the relative weight specific to each species for all individuals in an entire data frame. The vector can be appended to an existing data.frame to create a variable that contains the relative weights for each individual. The relative weight value will be <code>NA</code> for each individual for which a standard weight equation does not exist in <code>WSlit</code>, a standard weight equation for the units given in <code>units=</code> does not exist in <code>WSlit</code>, a standard weight equation for the 75th percentile does not exist in <code>WSlit</code>, or if the individual is shorter or longer than the lengths for which the standard weight equation should be applied. Either the linear or quadratic equation has been listed as preferred for each species, so only that equation will be used. The use of the 75th percentile is by far the most common and, because this function is designed for use on entire data frames, it will be the only percentile allowed. Thus, to use equations for other percentiles, one will have to use &#8220;manual&#8221; methods. See <code>WSlit</code> and <code>wsVal</code> for more details about types of equations, percentiles, finding which species have published standard weight equations, etc. See the examples for one method for changing species names to something that this function will recognize.</p>
     
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
@@ -165,7 +169,7 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='wsVal.html'>wsVal</a></code>, <code><a href='WSlit.html'>WSlit</a></code>, and <code><a href='psdAdd.html'>psdAdd</a></code> for related functionality. See <code><a href='mapvalues.html'>mapvalues</a></code> for help in changing species names to match those in <code><a href='WSlit.html'>WSlit</a></code>.</p></div>
+    <div class='dont-index'><p>See <code>wsVal</code>, <code>WSlit</code>, and <code>psdAdd</code> for related functionality. See <code>mapvalues</code> for help in changing species names to match those in <code>WSlit</code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
