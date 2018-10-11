@@ -21,11 +21,9 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
-
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -36,7 +34,6 @@
 
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 <!-- mathjax -->
@@ -118,9 +115,9 @@
   <span class='kw'>yaxt</span> <span class='kw'>=</span> <span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='st'>"yaxt"</span>), <span class='kw'>xaxt</span> <span class='kw'>=</span> <span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='st'>"xaxt"</span>),
   <span class='kw'>col.agree</span> <span class='kw'>=</span> <span class='st'>"gray60"</span>, <span class='kw'>lwd.agree</span> <span class='kw'>=</span> <span class='no'>lwd</span>, <span class='kw'>lty.agree</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>sfrac</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>pch.mean</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>pch.mean.sig</span> <span class='kw'>=</span> <span class='fl'>21</span>, <span class='kw'>cex.mean</span> <span class='kw'>=</span> <span class='no'>lwd</span>,
-  <span class='kw'>col.CI</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>col.CIsig</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>lwd.CI</span> <span class='kw'>=</span> <span class='no'>lwd</span>,
-  <span class='kw'>sfrac.CI</span> <span class='kw'>=</span> <span class='no'>sfrac</span>, <span class='kw'>show.n</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nYpos</span> <span class='kw'>=</span> <span class='fl'>1.03</span>, <span class='kw'>cex.n</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
-  <span class='kw'>cex.numbers</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>col.numbers</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>col.CI</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>col.CIsig</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>lwd.CI</span> <span class='kw'>=</span> <span class='no'>lwd</span>, <span class='kw'>sfrac.CI</span> <span class='kw'>=</span> <span class='no'>sfrac</span>,
+  <span class='kw'>show.n</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nYpos</span> <span class='kw'>=</span> <span class='fl'>1.03</span>, <span class='kw'>cex.n</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>cex.numbers</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
+  <span class='kw'>col.numbers</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -225,7 +222,7 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Two types of plots for visualizing differences between sets of two age estimates may be created. The reference ages are plotted on the x-axis and the nonreference ages are on the y-axis. The 1:1 (45 degree) agreement line is shown for comparative purposes. The default plot (using <code>what="bias"</code>) was inspired by the age bias plot introduced by Campana <em>et al.</em> (1995). The default settings for this age bias plot show the mean and confidence interval for the nonreference ages at each of the reference ages. The level of confidence is controlled by <code>sig.level=</code> given in the original <code>ageBias</code> call (i.e., confidence level is 100*(1-<code>sig.level</code>)). Confidence intervals are only shown if the sample size is greater than the value in <code>min.n.CI=</code> (also from the original call to <code>ageBias</code>). Confidence intervals plotted in red with an open dot (by default; these can be changed with <code>col.CIsig</code> and <code>pch.mean.sig</code>, respectively) do not contain the reference age (see discussion of t-tests in <code>ageBias</code>). Sample sizes at each reference age are shown if <code>show.n=TRUE</code>. The position of the sample sizes is controlled with <code>nYpos=</code>, whereas their size is controlled with <code>cex.n</code>. Arguments may be used to nearly replicate the age bias plot as introduced by Campana <em>et al.</em> (1995) as shown in the examples.</p>
+    <p>Two types of plots for visualizing differences between sets of two age estimates may be created. The reference ages are plotted on the x-axis and the nonreference ages are on the y-axis. The 1:1 (45 degree) agreement line is shown for comparative purposes. The default plot (using <code>what="bias"</code>) was inspired by the age bias plot introduced by Campana <em>et al.</em> (1995). The default settings for this age bias plot show the mean and confidence interval for the nonreference ages at each of the reference ages. The level of confidence is controlled by <code>sig.level=</code> given in the original <code><a href='ageBias.html'>ageBias</a></code> call (i.e., confidence level is 100*(1-<code>sig.level</code>)). Confidence intervals are only shown if the sample size is greater than the value in <code>min.n.CI=</code> (also from the original call to <code><a href='ageBias.html'>ageBias</a></code>). Confidence intervals plotted in red with an open dot (by default; these can be changed with <code>col.CIsig</code> and <code>pch.mean.sig</code>, respectively) do not contain the reference age (see discussion of t-tests in <code><a href='ageBias.html'>ageBias</a></code>). Sample sizes at each reference age are shown if <code>show.n=TRUE</code>. The position of the sample sizes is controlled with <code>nYpos=</code>, whereas their size is controlled with <code>cex.n</code>. Arguments may be used to nearly replicate the age bias plot as introduced by Campana <em>et al.</em> (1995) as shown in the examples.</p>
 <p>The frequency of observations at each unique (x,y) coordinate are shown by using <code>what="numbers"</code> in <code>plotAB</code>. The size of the numbers is controlled with <code>cex.numbers</code>.</p>
     
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
@@ -238,12 +235,12 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code>ageBias</code> and its plot method for what I consider a better age-bias plot; <code>agePrecision</code> for measures of precision between pairs of age estimates; and <code><a href='http://www.rdocumentation.org/packages/fishmethods/topics/compare2'>compare2</a></code> in <span class="pkg">fishmethods</span> for similar functionality.</p></div>
+    <div class='dont-index'><p>See <code><a href='ageBias.html'>ageBias</a></code> and its plot method for what I consider a better age-bias plot; <code><a href='agePrecision.html'>agePrecision</a></code> for measures of precision between pairs of age estimates; and <code><a href='http://www.rdocumentation.org/packages/fishmethods/topics/compare2'>compare2</a></code> in <span class="pkg">fishmethods</span> for similar functionality.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Must create ageBias object first</span>
-<span class='no'>ab1</span> <span class='kw'>&lt;-</span> <span class='fu'>ageBias</span>(<span class='no'>scaleC</span>~<span class='no'>otolithC</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WhitefishLC</span>,
+<span class='no'>ab1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ageBias.html'>ageBias</a></span>(<span class='no'>scaleC</span>~<span class='no'>otolithC</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WhitefishLC</span>,
                <span class='kw'>ref.lab</span><span class='kw'>=</span><span class='st'>"Otolith Age"</span>,<span class='kw'>nref.lab</span><span class='kw'>=</span><span class='st'>"Scale Age"</span>)
 
 <span class='co'># Default plot</span>

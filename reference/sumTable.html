@@ -21,11 +21,9 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
-
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -36,7 +34,6 @@
 
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 <!-- mathjax -->
@@ -155,7 +152,7 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='http://www.rdocumentation.org/packages/base/topics/tapply'>tapply</a></code> for a more general implementation.  See <code>Summarize</code> for a similar computation when only one factor variable is given.</p></div>
+    <div class='dont-index'><p>See <code><a href='http://www.rdocumentation.org/packages/base/topics/tapply'>tapply</a></code> for a more general implementation.  See <code><a href='Summarize.html'>Summarize</a></code> for a similar computation when only one factor variable is given.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -166,40 +163,40 @@
                 <span class='kw'>dat</span><span class='kw'>=</span><span class='fu'>rnorm</span>(<span class='fl'>1000</span>))
 
 <span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>length</span>)       <span class='co'># get sample size</span></div><div class='output co'>#&gt;    A  B  C
-#&gt; a 70 69 76
-#&gt; b 63 62 75
-#&gt; c 55 75 60
-#&gt; d 74 81 77
-#&gt; e 69 41 53</div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>validn</span>)       <span class='co'># get sample size (better way)</span></div><div class='output co'>#&gt;    A  B  C
-#&gt; a 70 69 76
-#&gt; b 63 62 75
-#&gt; c 55 75 60
-#&gt; d 74 81 77
-#&gt; e 69 41 53</div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>mean</span>)         <span class='co'># get mean</span></div><div class='output co'>#&gt;            A          B          C
-#&gt; a -0.0072019 -0.0532666  0.0030068
-#&gt; b -0.1359371 -0.0796800 -0.1447992
-#&gt; c  0.0143723 -0.0740245 -0.1740726
-#&gt; d -0.0747419 -0.0920961  0.1173423
-#&gt; e  0.0824972  0.2652187  0.1835084</div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>sd</span>)           <span class='co'># get sd</span></div><div class='output co'>#&gt;           A         B         C
-#&gt; a 1.0505666 0.9207278 1.0166821
-#&gt; b 1.0493635 0.9655138 0.9868420
-#&gt; c 1.0115367 1.0200775 1.0550774
-#&gt; d 0.8633723 1.0313599 1.0002891
-#&gt; e 1.0517470 1.1070658 0.9213085</div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>sd</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>1</span>)  <span class='co'># show digits= argument</span></div><div class='output co'>#&gt;     A   B   C
-#&gt; a 1.1 0.9 1.0
-#&gt; b 1.0 1.0 1.0
-#&gt; c 1.0 1.0 1.1
-#&gt; d 0.9 1.0 1.0
-#&gt; e 1.1 1.1 0.9</div><div class='input'>
+#&gt; a 84 56 60
+#&gt; b 75 60 71
+#&gt; c 69 56 56
+#&gt; d 78 78 79
+#&gt; e 61 65 52</div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>validn</span>)       <span class='co'># get sample size (better way)</span></div><div class='output co'>#&gt;    A  B  C
+#&gt; a 84 56 60
+#&gt; b 75 60 71
+#&gt; c 69 56 56
+#&gt; d 78 78 79
+#&gt; e 61 65 52</div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>mean</span>)         <span class='co'># get mean</span></div><div class='output co'>#&gt;            A          B          C
+#&gt; a  0.1126078  0.1104719 -0.0323233
+#&gt; b -0.0763126 -0.2186929 -0.1571394
+#&gt; c -0.0538398 -0.2484204  0.0367466
+#&gt; d -0.1316036 -0.0664656 -0.1657082
+#&gt; e -0.1688461 -0.0524580  0.0632421</div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>sd</span>)           <span class='co'># get sd</span></div><div class='output co'>#&gt;           A         B         C
+#&gt; a 0.9878631 0.9576607 0.9450613
+#&gt; b 0.9710036 0.8910580 1.1345842
+#&gt; c 0.8540721 1.1362100 0.9886621
+#&gt; d 0.9527661 0.9255552 1.0899983
+#&gt; e 1.0912230 1.1070992 1.0004277</div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>sd</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>1</span>)  <span class='co'># show digits= argument</span></div><div class='output co'>#&gt;     A   B   C
+#&gt; a 1.0 1.0 0.9
+#&gt; b 1.0 0.9 1.1
+#&gt; c 0.9 1.1 1.0
+#&gt; d 1.0 0.9 1.1
+#&gt; e 1.1 1.1 1.0</div><div class='input'>
 <span class='co'>## Also demonstrate use in the 1-way example -- but see Summarize() in FSA package</span>
 <span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>validn</span>)</div><div class='output co'>#&gt;   a   b   c   d   e 
-#&gt; 215 200 190 232 163 </div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>mean</span>)</div><div class='output co'>#&gt;          a          b          c          d          e 
-#&gt; -0.0183768 -0.1218207 -0.0800301 -0.0170488  0.1613019 </div><div class='input'>
+#&gt; 200 206 181 235 178 </div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>mean</span>)</div><div class='output co'>#&gt;          a          b          c          d          e 
+#&gt;  0.0685304 -0.1456404 -0.0860148 -0.1214483 -0.0585438 </div><div class='input'>
 <span class='co'>## Example with a missing value (compare to above)</span>
 <span class='no'>d</span>$<span class='no'>dat</span>[<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
 <span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>validn</span>)  <span class='co'># note use of validn</span></div><div class='output co'>#&gt;   a   b   c   d   e 
-#&gt; 215 199 190 232 163 </div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>mean</span>,<span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;          a          b          c          d          e 
-#&gt; -0.0183768 -0.1315083 -0.0800301 -0.0170488  0.1613019 </div><div class='input'>
+#&gt; 199 206 181 235 178 </div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>mean</span>,<span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;          a          b          c          d          e 
+#&gt;  0.0702299 -0.1456404 -0.0860148 -0.1214483 -0.0585438 </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

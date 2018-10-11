@@ -21,11 +21,9 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
-
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -36,7 +34,6 @@
 
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 <!-- mathjax -->
@@ -123,8 +120,8 @@
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for mrOpen</span>
-<span class='fu'>confint</span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"N"</span>, <span class='st'>"phi"</span>, <span class='st'>"B"</span>),
-  <span class='kw'>level</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>confint</span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"N"</span>, <span class='st'>"phi"</span>, <span class='st'>"B"</span>), <span class='kw'>level</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -135,7 +132,7 @@
     </tr>
     <tr>
       <th>mb.top</th>
-      <td><p>A matrix that contains the &#8220;top&#8221; of the Method B table (i.e., a contingency table of capture sample (columns) and last seen sample (rows)) or an object of class <code>CapHist</code> from <code>capHistSum</code>.  See details.</p></td>
+      <td><p>A matrix that contains the &#8220;top&#8221; of the Method B table (i.e., a contingency table of capture sample (columns) and last seen sample (rows)) or an object of class <code>CapHist</code> from <code><a href='capHistSum.html'>capHistSum</a></code>.  See details.</p></td>
     </tr>
     <tr>
       <th>mb.bot</th>
@@ -184,8 +181,8 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>jolly</code> is just a convenience wrapper that produces the exact same results as <code>mrOpen</code>.</p>
-<p>If <code>mb.top</code> contains an object from the <code>capHistSum</code> function then <code>mb.bot</code> can be left missing.  In this case, the function will extract the needed data from the <code>methodB.top</code> and <code>methodB.bot</code> portions of the <code>CapHist</code> class object.</p>
-<p>If <code>mb.top</code> is a matrix then it must be square, must have non-negative and no NA values in the upper triangle, and all NA values on the lower triangle and diagonal.  If <code>mb.bot</code> is a matrix then it must have four rows named <code>m</code>, <code>u</code>, <code>n</code>, and <code>R</code> (see <code>capHistSum</code> for definitions), all values must be non-NA, and the first value of <code>m</code> must be 0.  The last value of <code>R</code> can either be 0 or some positive number (it is ultimately ignored in all calculations).</p>
+<p>If <code>mb.top</code> contains an object from the <code><a href='capHistSum.html'>capHistSum</a></code> function then <code>mb.bot</code> can be left missing.  In this case, the function will extract the needed data from the <code>methodB.top</code> and <code>methodB.bot</code> portions of the <code>CapHist</code> class object.</p>
+<p>If <code>mb.top</code> is a matrix then it must be square, must have non-negative and no NA values in the upper triangle, and all NA values on the lower triangle and diagonal.  If <code>mb.bot</code> is a matrix then it must have four rows named <code>m</code>, <code>u</code>, <code>n</code>, and <code>R</code> (see <code><a href='capHistSum.html'>capHistSum</a></code> for definitions), all values must be non-NA, and the first value of <code>m</code> must be 0.  The last value of <code>R</code> can either be 0 or some positive number (it is ultimately ignored in all calculations).</p>
 <p>All parameter estimates are performed using equations 4.6-4.9 from Pollock et al (1990) and from page 204 in Seber 2002.  If <code>type="Jolly"</code> then all standard errors (square root of the variances) are from equations 4.11, 4.12, and 4.14 in Pollock et al. (1990) (these are different than those in Seber (2002) ... see Pollock et al.'s note on page 21).  If <code>type="Jolly"</code> and <code>phi.full=TRUE</code> then the full variance for the phi parameter is given as in eqn 4.18 in Pollock et al. (1990), otherwise eqn 4.13 from Pollock et al. (1990) is used.  When <code>type="Jolly"</code> the confidence interval are produced using normal theory (i.e., estimate +/- z*SE).  If <code>type="Manly"</code> then the confidence intervals for N and phi (none will be produced for B) are constructed using the methods of Manly (1984) and as described in 2.24-2.33 of Krebs (1989).  No standard errors are returned when <code>type="Manly"</code>.</p>
 <p>The <code>summary</code> function returns estimates of M, N, phi, B, and their associated standard errors and, if <code>verbose=TRUE</code> the intermediate calculations of &#8220;observables&#8221; from the data -- n, m, R, r, and z.</p>
 <p>The level of confidence is not set in the <code>confint</code> function, in contrast to most <code>confint</code> functions.  Rather the confidence level is set in the main <code>mrOpen</code> function.</p>
@@ -193,7 +190,7 @@
     <h2 class="hasAnchor" id="testing"><a class="anchor" href="#testing"></a>Testing</h2>
 
     <p>The formulas have been triple-checked against formulas in Pollock et al. (1990), Manly (1984), and Seber (2002).</p>
-<p>The results for the <code>CutthroatAL</code> data file (as analyzed in the example) was compared to results from the JOLLY program available at http://www.mbr-pwrc.usgs.gov/software/jolly.html.  The r and z values matched, all M and N estimates match at one decimal place, all phi are within 0.001, and all B are within 0.7.  The SE match for M except for two estimates that are within 0.1, match for N except for one estimate that is within 0.1, are within 0.001 for phi, and are within 1.3 for B (except for for the first estimate which is dramatically off).</p>
+<p>The results for the <code><a href='CutthroatAL.html'>CutthroatAL</a></code> data file (as analyzed in the example) was compared to results from the JOLLY program available at http://www.mbr-pwrc.usgs.gov/software/jolly.html.  The r and z values matched, all M and N estimates match at one decimal place, all phi are within 0.001, and all B are within 0.7.  The SE match for M except for two estimates that are within 0.1, match for N except for one estimate that is within 0.1, are within 0.001 for phi, and are within 1.3 for B (except for for the first estimate which is dramatically off).</p>
 <p>The results of <code>mrOpen</code> related to Table 4.4 of Pollock et al. (1990) match (to one decimal place) except for three estimates that are within 0.1% for N, match (to two decimal places) for phi except for where Pollock set phi&gt;1 to phi=1, match for B except for Pollock set B&lt;0 to B=0. The SE match (to two decimal places) for N except for N15 (which is within 0.5, &lt;5%), match (to three decimal places) for phi except for phi15 (which is within 0.001, &lt;0.5%), match (to two decimal places) for B except for B17 and B20 which are within 0.2 (&lt;0.2%)</p>
 <p>All point estimates of M, N, phi, and B and the SE of phi match the results in Table 2.3 of Krebs (1989) (within minimal rounding error for a very small number of results).  The SE of N results are not close to those of Krebs (1989) (who does not provide a formula for SE so the discrepancy cannot be explored).  The SE of B results match those of Krebs (1989) for 5 of the 8 values and are within 5% for 2 of the other 3 values (the last estimate is off by 27%).</p>
 <p>For comparing to Jolly's data as presented in Tables 5.1 and 5.2 of Seber (2002), M was within 4 (less than 1.5%), N was within 3% (except N2 which was within 9%), phi was within 0.01 (less than 1.5<!-- %), and B was within 7 (less than 5\%) except for B2 and B8. --></p>
@@ -215,12 +212,12 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>capHistSum</code>, <code>mrClosed</code></p></div>
+    <div class='dont-index'><p><code><a href='capHistSum.html'>capHistSum</a></code>, <code><a href='mrClosed.html'>mrClosed</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## First example -- capture histories summarized with capHistSum()</span>
-<span class='no'>ch1</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistSum</span>(<span class='no'>CutthroatAL</span>,<span class='kw'>cols2use</span><span class='kw'>=</span>-<span class='fl'>1</span>)  <span class='co'># ignore first column of fish ID</span>
+<span class='no'>ch1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='capHistSum.html'>capHistSum</a></span>(<span class='no'>CutthroatAL</span>,<span class='kw'>cols2use</span><span class='kw'>=</span>-<span class='fl'>1</span>)  <span class='co'># ignore first column of fish ID</span>
 <span class='no'>ex1</span> <span class='kw'>&lt;-</span> <span class='fu'>mrOpen</span>(<span class='no'>ch1</span>)
 <span class='fu'>summary</span>(<span class='no'>ex1</span>)</div><div class='output co'>#&gt;         M M.se     N  N.se   phi phi.se     B  B.se
 #&gt; i=1    NA   NA    NA    NA 0.411  0.088    NA    NA
