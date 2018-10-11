@@ -94,18 +94,22 @@ psdCalc <- function(formula,data,species,units=c("mm","cm","in"),
   ## make sure species is not missing
   if (missing(species)) STOP("Must include a species name in 'species'.")
   ## find psd lengths for this species
-  brks <- psdVal(species,units=units,incl.zero=FALSE,addLens=addLens,addNames=addNames)
+  brks <- psdVal(species,units=units,incl.zero=FALSE,
+                 addLens=addLens,addNames=addNames)
   ## perform checks and initial preparation of the data.frame
   dftemp <- iPrepData4PSD(formula,data,brks["stock"],units)
   ## add the length categorization variable, don't drop unused levels
-  dftemp <- lencat(formula,data=dftemp,breaks=brks,vname="lcatr",use.names=TRUE,droplevels=FALSE)
+  dftemp <- lencat(formula,data=dftemp,breaks=brks,vname="lcatr",
+                   use.names=TRUE,droplevels=FALSE)
   ## get sample size (number of stock-length fish)
   n <- nrow(dftemp)
   ## make the proportions table
   ptbl <- prop.table(table(dftemp$lcatr))
+  ## check to see if some fish are more than quality-sized
+  if (!cumsum(ptbl)[["quality"]]<1) WARN("No 'quality' or larger fish in sample.")
   ## compute all traditional and interval PSD values
   res <- iGetAllPSD(ptbl,n=n,method=method,conf.level=conf.level,digits=digits)
-  ## decided to keep intermediate calculation columns or not (in first two columns)
+  ## decide to keep intermediate calculation columns or not (in first two columns)
   if (!showIntermediate) res <- res[,-c(1:2)]
   ## return result
   k <- length(ptbl)
@@ -115,7 +119,7 @@ psdCalc <- function(formula,data,species,units=c("mm","cm","in"),
          incremental= { res <- res[k:nrow(res),] }
          )
   ## Drop estimates that are zero if requested to do so
-  if (drop0Est) res <- res[res[,"Estimate"]>0,]
+  if (drop0Est) res <- res[res[,"Estimate"]>0,,drop=FALSE]
   ## Return just the additional lengths if requested to do so
   if (justAdds & !is.null(addLens)) {
     # add names to the additional lengths

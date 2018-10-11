@@ -48,13 +48,18 @@ test_that("psdCI() messages",{
 test_that("psdCalc() messages",{
   ## get Gabelhouse lengths for Yellow Perch
   ghl <- psdVal("Yellow perch")
+  ## restrict data.frame to no fish
+  tmp <- subset(df,tl<ghl["substock"])
+  expect_error(psdCalc(~tl,data=tmp,species="Yellow perch"),
+               "does not contain any rows")
   ## restrict data.frame to sub-stock-length fish
   tmp <- subset(df,tl<ghl["stock"])
   expect_error(psdCalc(~tl,data=tmp,species="Yellow perch"),
                "no stock-length fish in the sample")
-  ## restrict data.frame to no fish
-  tmp <- subset(df,tl<ghl["substock"])
-  expect_error(psdCalc(~tl,data=tmp,species="Yellow perch"),"does not contain any rows")
+  ## restrict data.frame to no >=quality fish
+  tmp <- subset(df,tl<ghl["quality"])
+  expect_warning(psdCalc(~tl,data=tmp,species="Yellow perch"),
+                 "No 'quality' or larger fish in sample")
   
   ## no species name given
   expect_error(psdCalc(~tl,data=tmp),"Must include a species name in")
@@ -72,15 +77,16 @@ test_that("psdPlot() messages",{
   ## get Gabelhouse lengths for Yellow Perch
   ghl <- psdVal("Yellow perch")
 
-  ## set minimum length higher than stock length
-  expect_error(psdPlot(~tl,data=df,species="Yellow perch",
-                       xlim=c(ghl["stock"]+10,300)),
-               "Minimum length value in")
-  
   ## restrict data.frame to no fish
   tmp <- subset(df,tl<ghl["substock"])
   expect_error(psdPlot(~tl,data=tmp,species="Yellow perch"),
                "does not contain any rows")
+  ## restrict data.frame to no >=quality fish
+  tmp <- subset(df,tl<ghl["quality"])
+  ## set minimum length higher than stock length
+  expect_error(psdPlot(~tl,data=df,species="Yellow perch",
+                       xlim=c(ghl["stock"]+10,300)),
+               "Minimum length value in")
   
   ## bad formulae
   expect_error(psdPlot(tl,data=df,species="Yellow perch"),"not found")

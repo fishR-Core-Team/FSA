@@ -110,7 +110,8 @@ psdPlot <- function(formula,data,species="List",units=c("mm","cm","in"),
     else brks <- psdVal(species,units=units)  
   ## If xlim is provided then limit temporary df to fish in range of xlim
   if (!is.null(xlim)) {
-    if (min(xlim)>brks["stock"]) STOP("Minimum length value in 'xlim' is greater than 'stock' size.")
+    if (min(xlim)>brks["stock"])
+      STOP("Minimum length value in 'xlim' is greater than 'stock' size.")
     data <- data[data[,cl]>=min(xlim) & data[,cl]<=max(xlim),] 
   } else data <- data
   ## make an initial histogram to get the breaks and counts
