@@ -88,9 +88,6 @@ The \code{bootCase} function was added to \pkg{FSA} to maintain backward compata
 In \code{htest} the \dQuote{direction} of the alternative hypothesis is identified by a string in the \code{alt=} argument. The strings may be \code{"less"} for a \dQuote{less than} alternative, \code{"greater"} for a \dQuote{greater than} alternative, or \code{"two.sided"} for a \dQuote{not equals} alternative (the DEFAULT). In the one-tailed alternatives the p-value is the proportion of bootstrapped parameter estimates in \code{object$coefboot} that are extreme of the null hypothesized parameter value in \code{bo}. In the two-tailed alternative the p-value is twice the smallest of the proportion of bootstrapped parameter estimates above or below the null hypothesized parameter value in \code{bo}.
 }
 \examples{
-\dontrun{
-#### This does not run with car v3.0.0, but the error will be fixed
-#### when car v3.0.1 is submitted to CRAN.
 fnx <- function(days,B1,B2,B3) {
   if (length(B1) > 1) {
     B2 <- B1[2]
@@ -112,7 +109,6 @@ htest(nl1.bootc,1,bo=6,alt="less")
 hist(nl1.bootc)
 plot(nl1.bootc)
 cor(nl1.bootc)
-}
 
 }
 \references{

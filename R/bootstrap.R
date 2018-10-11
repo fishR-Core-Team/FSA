@@ -51,9 +51,6 @@
 #' @keywords htest
 #' 
 #' @examples
-#' \dontrun{
-#' #### This does not run with car v3.0.0, but the error will be fixed
-#' #### when car v3.0.1 is submitted to CRAN.
 #' fnx <- function(days,B1,B2,B3) {
 #'   if (length(B1) > 1) {
 #'     B2 <- B1[2]
@@ -75,7 +72,6 @@
 #' hist(nl1.bootc)
 #' plot(nl1.bootc)
 #' cor(nl1.bootc)
-#' }
 #' 
 #' @rdname bootCase
 #' @export
