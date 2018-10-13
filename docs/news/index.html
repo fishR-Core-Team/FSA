@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -32,6 +34,7 @@
 
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -106,15 +109,17 @@
 <a href="#fsa-0-8-21-ongoing" class="anchor"></a>FSA 0.8.21 ongoing<small> Unreleased </small>
 </h1>
 <ul>
-<li>Added a webpage.</li>
+<li>Added a webpage. Setup Travis-CI to handle updates (<a href="https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis">See this</a>).</li>
 <li>Added a hex sticker logo.</li>
 <li>Added <code>withr</code> to Imports (see usages below).</li>
+<li>Added <code>Encoding: UTF-8</code> to DESCRIPTION.</li>
 <li>Removed all <code>data()</code> in examples that referred to data from this package. Included the <code>package=</code> argument in <code>data()</code> that loaded from other packages.</li>
 <li>Added <code>seealso</code>, with links to which functions use the data for examples, to docmentation for all data.frames.</li>
+<li>Removed <code>\dontrun()</code>s from the <code>bootCase</code> related examples now that <code>car</code> package is updated. This addresses <a href="https://github.com/droglenc/FSA/issues/45"><a href='https://github.com/droglenc/FSA/issues/45'>#45</a></a>.</li>
 <li>
 <code><a href="../reference/addZeroCatch.html">addZeroCatch()</a></code>: Modified. Added a catch that turns a “tibble” into a regular data.frame (which obviates some errors that occur with tibbles). Minor changes to documentation and comments in the code.</li>
 <li>
-<code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Added intermediate and summary calculations for median and modal age; mean absolute deviation and standard deviation; and APE and CV with the median rather than the mean as the divisor. Updated tests and examples. Other minor modifications to the function code. Addresses <a href="https://github.com/droglenc/FSA/issues/41"><a href='https://github.com/droglenc/FSA/issues/41'>#41</a></a> and <a href="https://github.com/droglenc/FSA/issues/49"><a href='https://github.com/droglenc/FSA/issues/49'>#49</a></a>.</li>
+<code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Added intermediate and summary calculations for median and modal age; average absolute deviation and standard deviation; APE and CV with the median rather than the mean as the divisor; and index of precision (D). Added <code>show.prec2=</code>. Updated tests and examples. Other minor modifications to the function code. Addresses <a href="https://github.com/droglenc/FSA/issues/41"><a href='https://github.com/droglenc/FSA/issues/41'>#41</a></a> and <a href="https://github.com/droglenc/FSA/issues/49"><a href='https://github.com/droglenc/FSA/issues/49'>#49</a></a>.</li>
 <li>
 <code><a href="../reference/alkIndivAge.html">alkIndivAge()</a></code>: Modified. Replaced an <code>options(warn=-1)</code> with <code>suppressWarnings()</code>.</li>
 <li>
@@ -138,9 +143,13 @@
 <li>
 <code><a href="../reference/plotAB.html">plotAB()</a></code>: Modified. Now in its own documentation file (rather than with <code><a href="../reference/ageBias.html">ageBias()</a></code>).</li>
 <li>
+<code><a href="../reference/psdCalc.html">psdCalc()</a></code>: Modified. Better handled the situation where the user asks for summaries with some fish greater than stock size but no fish greater than quality size (addresses <a href="https://github.com/droglenc/FSA/issues/50"><a href='https://github.com/droglenc/FSA/issues/50'>#50</a></a>; thanks to Timothy Spier for the bug report).</li>
+<li>
 <code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Changed to using <code><a href="http://www.rdocumentation.org/packages/withr/topics/with_par">withr::local_par()</a></code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/38"><a href='https://github.com/droglenc/FSA/issues/38'>#38</a></a>).</li>
 <li>
 <code>SMBassWB</code>: Modified. Fixed minor data entry error in row 383.</li>
+<li>
+<code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified. Added <code>Francis3</code> to the list of models.</li>
 </ul>
 </div>
     <div id="fsa-0-8-20-18-may-18" class="section level1">
@@ -330,7 +339,7 @@
 <li>
 <code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Changed some <code>if()</code>s with <code>class()</code>es to <code><a href="../reference/capHistSum.html">is.CapHist()</a></code>.</li>
 <li>
-<code>mrOpen()</code>: Modified. Changed some <code>if()</code>s with <code>class()</code>es to <code><a href="../reference/capHistSum.html">is.CapHist()</a></code>.</li>
+<code><a href="../reference/mrOpen.html">mrOpen()</a></code>: Modified. Changed some <code>if()</code>s with <code>class()</code>es to <code><a href="../reference/capHistSum.html">is.CapHist()</a></code>.</li>
 <li>
 <code><a href="../reference/nlsTracePlot.html">nlsTracePlot()</a></code>: Modified. Changed some <code>if()</code>s with <code>class()</code>es to <code>inherits()</code>.</li>
 <li>
@@ -355,9 +364,9 @@
 <li>Lots of spelling corrections after running <code><a href="http://www.rdocumentation.org/packages/devtools/topics/spell_check">devtools::spell_check()</a></code>.</li>
 <li>Cleaned up some issues in the testing files that were caused by a new version of <code>fishmethods</code> and changes to R v3.4.0.</li>
 <li>
-<code>metaM()</code>: Modified. Changed <code>T=</code> to <code>Temp=</code> to reduce potential for conflicts with <code>TRUE</code> abbreviation.</li>
+<code><a href="../reference/metaM.html">metaM()</a></code>: Modified. Changed <code>T=</code> to <code>Temp=</code> to reduce potential for conflicts with <code>TRUE</code> abbreviation.</li>
 <li>
-<code>reproInfo()</code>: Modified. Added <code>ind=</code> to select a CRAN mirror to help with a common problem I have when knitting.</li>
+<code><a href="../reference/knitUtil.html">reproInfo()</a></code>: Modified. Added <code>ind=</code> to select a CRAN mirror to help with a common problem I have when knitting.</li>
 <li>
 <code><a href="../reference/srStarts.html">srStarts()</a></code>: Modified. Corrected mis-spelling in directive to <code>FSAsim</code> package.</li>
 <li>
@@ -397,7 +406,7 @@
 <li>
 <code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Added <code>cex.leg=</code> and <code>box.lty.leg=</code> to IVR plots.</li>
 <li>
-<code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Fixed a bug with adding the horizontal line at 0 when the user uses <code>plot=FALSE</code>, which occurs with <code>hist.bootCase()</code>.</li>
+<code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Fixed a bug with adding the horizontal line at 0 when the user uses <code>plot=FALSE</code>, which occurs with <code><a href="../reference/bootCase.html">hist.bootCase()</a></code>.</li>
 <li>
 <code><a href="../reference/hyperCI.html">hyperCI()</a></code>: Modified. Now only accepts whole numbers for <code>M</code>, <code>n</code>, or <code>m</code>. Added catch for bad <code>conf.level</code>s and multiple values of <code>M</code>, <code>n</code>, or <code>m</code>.</li>
 <li>
@@ -419,11 +428,11 @@
 <li>
 <code><a href="../reference/knitUtil.html">kCounts()</a></code>: Modified. Fixed bug with <code>capitalize=</code> and <code>zero</code>. Streamlined code. Added tests.</li>
 <li>
-<code>metaM()</code>: Modified. Fixed bug with the way messages were output when multiple <code>methods</code> were provided and <code>justM=FALSE</code>. Added more tests.</li>
+<code><a href="../reference/metaM.html">metaM()</a></code>: Modified. Fixed bug with the way messages were output when multiple <code>methods</code> were provided and <code>justM=FALSE</code>. Added more tests.</li>
 <li>
 <code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Added <code>poi.type=</code> to handle new choices for Poisson confidence interals. Added some checks for non-vector uses of <code>M=</code> and <code>R=</code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/22"><a href='https://github.com/droglenc/FSA/issues/22'>#22</a></a>). Fixed bug in how inputs for subgroups were output from <code>summary()</code> when <code>verbose=TRUE</code>.</li>
 <li>
-<code>mrOpen()</code>: Modified. Changed all <code>message()</code>s in <code>summary()</code> to <code>cat()</code>s. Fixed bug where returned value from <code>summary()</code> was not a data.frame if only one parameter was selected.</li>
+<code><a href="../reference/mrOpen.html">mrOpen()</a></code>: Modified. Changed all <code>message()</code>s in <code>summary()</code> to <code>cat()</code>s. Fixed bug where returned value from <code>summary()</code> was not a data.frame if only one parameter was selected.</li>
 <li>
 <code><a href="../reference/nlsTracePlot.html">nlsTracePlot()</a></code>: Added.</li>
 <li>
@@ -431,9 +440,9 @@
 <li>
 <code><a href="../reference/poiCI.html">poiCI()</a></code>: Modified. Completely rebuilt to use the functions from <code>epitools</code>. Now only accepts whole numbers for <code>x</code>.</li>
 <li>
-<code>predict.bootCase()</code>: Modified. Modified so that situations where other than values of the dependent variable are in the dots argument (as would occur if making predictions for the Francis parameterization of the VBGF).</li>
+<code><a href="../reference/bootCase.html">predict.bootCase()</a></code>: Modified. Modified so that situations where other than values of the dependent variable are in the dots argument (as would occur if making predictions for the Francis parameterization of the VBGF).</li>
 <li>
-<code><a href="../reference/nlsBoot.html">predict.nlsBoot()</a></code>: Modified. See note for <code>predict.bootCase()</code>.</li>
+<code><a href="../reference/nlsBoot.html">predict.nlsBoot()</a></code>: Modified. See note for <code><a href="../reference/bootCase.html">predict.bootCase()</a></code>.</li>
 <li>
 <code><a href="../reference/psdCalc.html">psdCalc()</a></code>: Modified. Fixed bug in output if more than two additional lengths were supplied.</li>
 <li>
@@ -460,21 +469,21 @@
 <li>
 <code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Added <code>axis.age=</code> argument that allows the user to choose which type of x-axis is displayed (see examples; this addresses <a href="https://github.com/droglenc/FSA/issues/20"><a href='https://github.com/droglenc/FSA/issues/20'>#20</a></a>) Also modified code that adds the axes so that they should “look better” in more instances. Added <code>na.rm=TRUE</code> to y-range calculation for the plot method. Added a <code>coef()</code> method. Added a <code>parm=</code> argument to the <code>confint()</code> and <code>summary()</code> methods. Added tests.</li>
 <li>
-<code><a href="../reference/nlsBoot.html">confint.nlsBoot()</a></code>,<code>confint.bootCase()</code>. Modified. Result is now a matrix even if only one parameter is chosen (previously it was an unnamed vector). The <code>parm=</code> now properly handles negative values. Streamlined plotting results. Added tests.</li>
+<code><a href="../reference/nlsBoot.html">confint.nlsBoot()</a></code>,<code><a href="../reference/bootCase.html">confint.bootCase()</a></code>. Modified. Result is now a matrix even if only one parameter is chosen (previously it was an unnamed vector). The <code>parm=</code> now properly handles negative values. Streamlined plotting results. Added tests.</li>
 <li>
 <code><a href="../reference/depletion.html">depletion()</a></code>: Modified. Checked for bad <code>conf.level=</code> in <code>confint()</code> method.</li>
 <li>
 <code><a href="../reference/growthModels.html">GompertzFuns()</a></code>: Modified. Fixed bug related to selecting <code>QuinnDeriso3</code>.</li>
 <li>
-<code><a href="../reference/nlsBoot.html">htest.nlsBoot()</a></code>,<code>htest.bootCase()</code>. Modified. The <code>b0</code> now defaults to 0. Matrix of results now include the parameter as the rowname. Modified the internals of how the data are handled. Added tests.</li>
+<code><a href="../reference/nlsBoot.html">htest.nlsBoot()</a></code>,<code><a href="../reference/bootCase.html">htest.bootCase()</a></code>. Modified. The <code>b0</code> now defaults to 0. Matrix of results now include the parameter as the rowname. Modified the internals of how the data are handled. Added tests.</li>
 <li>
 <code><a href="../reference/FSA-internals.html">iAddLoessLine()</a></code>: Modified. Suppressed warnings related to the loess line predictions.</li>
 <li>
 <code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Checked for bad <code>conf.level=</code> in <code>confint()</code> method.</li>
 <li>
-<code>mrOpen()</code>: Modified. Checked for bad <code>conf.level=</code> in <code>confint()</code> method.</li>
+<code><a href="../reference/mrOpen.html">mrOpen()</a></code>: Modified. Checked for bad <code>conf.level=</code> in <code>confint()</code> method.</li>
 <li>
-<code><a href="../reference/nlsBoot.html">predict.nlsBoot()</a></code>, <code>predict.bootCase()</code>. Modified. The <code>...</code> argument can now contain a vector of values such that predictions can be made for multiple values of the independent variable. Modified the output matrix to handle this modification. Removed <code>MARGIN</code> as it will always be <code>1</code> for <code>nlsBoot</code> and <code>bootCase</code> objects. Added checks for <code>FUN=</code>, <code>conf.level=</code>, and <code>digits=</code>. Added tests.</li>
+<code><a href="../reference/nlsBoot.html">predict.nlsBoot()</a></code>, <code><a href="../reference/bootCase.html">predict.bootCase()</a></code>. Modified. The <code>...</code> argument can now contain a vector of values such that predictions can be made for multiple values of the independent variable. Modified the output matrix to handle this modification. Removed <code>MARGIN</code> as it will always be <code>1</code> for <code>nlsBoot</code> and <code>bootCase</code> objects. Added checks for <code>FUN=</code>, <code>conf.level=</code>, and <code>digits=</code>. Added tests.</li>
 <li>
 <code><a href="../reference/removal.html">removal()</a></code>: Modified. Checked for bad <code>conf.level=</code> in <code>confint()</code> method. Changed internal functions from using a loop to using <code>apply()</code>. Changed internal functions from using <code>log()</code> and <code>choose()</code> to using <code>lchoose()</code>.</li>
 <li>
@@ -520,8 +529,8 @@
 <ul>
 <li>Compiled under R v3.3.0.</li>
 <li>Removed <code>relax</code> from <code>Suggests</code>. See <code><a href="../reference/srStarts.html">srStarts()</a></code> and <code><a href="../reference/vbStarts.html">vbStarts()</a></code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/17"><a href='https://github.com/droglenc/FSA/issues/17'>#17</a></a>.</li>
-<li>Removed <code>gdata</code> from <code>Imports</code>. See <code><a href="../reference/Subset.html">filterD()</a></code> and <code>Subset()</code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/5"><a href='https://github.com/droglenc/FSA/issues/5'>#5</a></a>.</li>
-<li>Added no coverage blocks to <code>ageKeyPlot()</code>, <code><a href="../reference/capHistSum.html">capHistSum()</a></code>, <code><a href="../reference/hist.formula.html">hist.formula()</a></code>, <code><a href="../reference/histFromSum.html">histFromSum()</a></code>, <code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>, <code>plot.agebias()</code>, <code>plot.CatchCurve()</code>, <code>plot.ChapmanRobson()</code>, <code>plot.Depletion()</code>, <code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>, <code>print.compSlopes()</code>, <code>print.compIntercepts()</code>, <code>print.metaM()</code>, <code><a href="../reference/psdPlot.html">psdPlot()</a></code>,<code><a href="../reference/residPlot.html">residPlot()</a></code>, <code>srModels()</code>, <code><a href="../reference/srStarts.html">srStarts()</a></code>, and <code><a href="../reference/vbStarts.html">vbStarts()</a></code>.</li>
+<li>Removed <code>gdata</code> from <code>Imports</code>. See <code><a href="../reference/Subset.html">filterD()</a></code> and <code><a href="../reference/Subset.html">Subset()</a></code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/5"><a href='https://github.com/droglenc/FSA/issues/5'>#5</a></a>.</li>
+<li>Added no coverage blocks to <code>ageKeyPlot()</code>, <code><a href="../reference/capHistSum.html">capHistSum()</a></code>, <code><a href="../reference/hist.formula.html">hist.formula()</a></code>, <code><a href="../reference/histFromSum.html">histFromSum()</a></code>, <code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>, <code>plot.agebias()</code>, <code>plot.CatchCurve()</code>, <code>plot.ChapmanRobson()</code>, <code>plot.Depletion()</code>, <code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>, <code><a href="../reference/compSlopes.html">print.compSlopes()</a></code>, <code><a href="../reference/compIntercepts.html">print.compIntercepts()</a></code>, <code><a href="../reference/metaM.html">print.metaM()</a></code>, <code><a href="../reference/psdPlot.html">psdPlot()</a></code>,<code><a href="../reference/residPlot.html">residPlot()</a></code>, <code>srModels()</code>, <code><a href="../reference/srStarts.html">srStarts()</a></code>, and <code><a href="../reference/vbStarts.html">vbStarts()</a></code>.</li>
 <li>
 <code>ageKey()</code>: Removed. Deprecated since 0.4.24. Use <code><a href="../reference/alkIndivAge.html">alkIndivAge()</a></code>.</li>
 <li>
@@ -561,7 +570,7 @@
 <li>
 <code><a href="../reference/srStarts.html">srStarts()</a></code>: Modified. Removed <code>dynamicPlot=TRUE</code> option. Moved it to <code>FSAsim</code> package. Modified plot when <code>plot=TRUE</code> by adding “STARTING VALUES” to title and moving starting values to within the plot. Added <code>cex.main=</code> and <code>col.main=</code>.</li>
 <li>
-<code>Subset()</code>: MOdified. Changed to use <code>droplevels()</code> from <code>base</code> rather than <code>drop.levels()</code> from <code>gdata</code>.</li>
+<code><a href="../reference/Subset.html">Subset()</a></code>: MOdified. Changed to use <code>droplevels()</code> from <code>base</code> rather than <code>drop.levels()</code> from <code>gdata</code>.</li>
 <li>
 <code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified. Changed <code>type=</code> to <code>param=</code>.</li>
 <li>
@@ -598,7 +607,7 @@
 <li>
 <code><a href="../reference/psdVal.html">psdVal()</a></code>: Modified. Minor changes to documentation.</li>
 <li>
-<code>purl2()</code>: Modified. Added <code>delHeader=</code> argument and functionality.</li>
+<code><a href="../reference/knitUtil.html">purl2()</a></code>: Modified. Added <code>delHeader=</code> argument and functionality.</li>
 </ul>
 </div>
     <div id="fsa-0-8-5-14-feb-16" class="section level1">
@@ -615,11 +624,11 @@
 <li>
 <code><a href="../reference/histFromSum.html">histFromSum()</a></code>: Added. Addresses <a href="https://github.com/droglenc/FSA/issues/4"><a href='https://github.com/droglenc/FSA/issues/4'>#4</a></a>.</li>
 <li>
-<code>metaM()</code>: Modified. Changed order of methods in <code>methods=</code>. Minor corrections and additions to documentation.</li>
+<code><a href="../reference/metaM.html">metaM()</a></code>: Modified. Changed order of methods in <code>methods=</code>. Minor corrections and additions to documentation.</li>
 <li>
 <code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Now sends warning if an <code>NA</code> appears in the first position of <code>m</code>, the first position of <code>M</code>, or the last position of <code>R</code> and converts these to 0 so that the procedure can continue. Each of these positions is ignored in the calculations. This fixes <a href="https://github.com/droglenc/FSA/issues/8"><a href='https://github.com/droglenc/FSA/issues/8'>#8</a></a> (Thanks to Joe Mrnak).</li>
 <li>
-<code>reproInfo()</code>: Modified. Made changes to <code>iGetAllDependencis()</code> based on forthcoming changes to <code>package.dependencies()</code> (as notified by CRAN).</li>
+<code><a href="../reference/knitUtil.html">reproInfo()</a></code>: Modified. Made changes to <code>iGetAllDependencis()</code> based on forthcoming changes to <code>package.dependencies()</code> (as notified by CRAN).</li>
 <li><p><code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Fixed bug when <code>dynamicPlot=TRUE</code> was used.</p></li>
 </ul>
 </div>
@@ -629,13 +638,13 @@
 </h1>
 <ul>
 <li>Now using Roxygen2 v5.0.1.</li>
-<li>Removed some <code>requireNamespaces()</code> from some functions and moved those packages from <code>Suggests</code> to <code>Imports</code> so that those functions would work better with other packages. The only <code>requireNamespaces()</code> that remain are related to functions that require the <code>relax</code> package (so tcltk is not installed until needed) and <code>knitr</code>, <code>dunn.test</code>, and <code>lmtest</code> as these are unlikely to be used by other packages and will keep the packages that are loaded with <code>FSA</code> to a minimum. Packages moved from <code>Suggests</code> to <code>Depends</code> are <code>Hmisc</code> (for use in <code>binCI</code>), <code>gdata</code> (for use in <code><a href="../reference/Subset.html">filterD()</a></code> and <code>Subset()</code>), <code>dplyr</code> (for use in <code><a href="../reference/Subset.html">filterD()</a></code>), <code>sciplot</code> (for use in <code><a href="../reference/fitPlot.html">fitPlot()</a></code>), <code>car</code> (for use in <code><a href="../reference/residPlot.html">residPlot()</a></code>), and <code>gplots</code> (for use with colors).</li>
+<li>Removed some <code>requireNamespaces()</code> from some functions and moved those packages from <code>Suggests</code> to <code>Imports</code> so that those functions would work better with other packages. The only <code>requireNamespaces()</code> that remain are related to functions that require the <code>relax</code> package (so tcltk is not installed until needed) and <code>knitr</code>, <code>dunn.test</code>, and <code>lmtest</code> as these are unlikely to be used by other packages and will keep the packages that are loaded with <code>FSA</code> to a minimum. Packages moved from <code>Suggests</code> to <code>Depends</code> are <code>Hmisc</code> (for use in <code>binCI</code>), <code>gdata</code> (for use in <code><a href="../reference/Subset.html">filterD()</a></code> and <code><a href="../reference/Subset.html">Subset()</a></code>), <code>dplyr</code> (for use in <code><a href="../reference/Subset.html">filterD()</a></code>), <code>sciplot</code> (for use in <code><a href="../reference/fitPlot.html">fitPlot()</a></code>), <code>car</code> (for use in <code><a href="../reference/residPlot.html">residPlot()</a></code>), and <code>gplots</code> (for use with colors).</li>
 <li>
 <code><a href="../reference/addZeroCatch.html">addZeroCatch()</a></code>: Modified tests (to reduce warnings that were not part of tests).</li>
 <li>
 <code><a href="../reference/geomean.html">geomean()</a></code>: Added.</li>
 <li>
-<code>geosd()</code>: Added.</li>
+<code><a href="../reference/geomean.html">geosd()</a></code>: Added.</li>
 <li>
 <code><a href="../reference/lencat.html">lencat()</a></code>: Modified. Fixed a bug related to using a <code>tbl_df</code> object.</li>
 <li>
@@ -709,7 +718,7 @@
 <li>
 <code><a href="../reference/headtail.html">headtail()</a></code>: Modified. Changed <code>head()</code> to <code><a href="http://www.rdocumentation.org/packages/utils/topics/head">utils::head()</a></code> and <code>tail()</code> to <code><a href="http://www.rdocumentation.org/packages/utils/topics/head">utils::tail()</a></code>.</li>
 <li>
-<code>hist.bootCase()</code>: Modified. Changed <code>hist()</code> to <code><a href="../reference/hist.formula.html">hist.formula()</a></code>.</li>
+<code><a href="../reference/bootCase.html">hist.bootCase()</a></code>: Modified. Changed <code>hist()</code> to <code><a href="../reference/hist.formula.html">hist.formula()</a></code>.</li>
 <li>
 <code>iAgeBiasPlot()</code>: Modified. Changed <code>grconvertY()</code> to <code><a href="http://www.rdocumentation.org/packages/graphics/topics/convertXY">graphics::grconvertY()</a></code>.</li>
 <li>
@@ -755,7 +764,7 @@
 <li>
 <code><a href="../reference/psdVal.html">psdVal()</a></code>: Modified. Changed <code>data()</code> to <code><a href="http://www.rdocumentation.org/packages/utils/topics/data">utils::data()</a></code>.</li>
 <li>
-<code>reproInfo()</code>: Modified. Changed <code>graphics.off()</code> to <code>grdevices::graphics.off()</code>.</li>
+<code><a href="../reference/knitUtil.html">reproInfo()</a></code>: Modified. Changed <code>graphics.off()</code> to <code>grdevices::graphics.off()</code>.</li>
 <li>
 <code><a href="../reference/removal.html">removal()</a></code>: Modified. Removed some of the examples from the help page to reduce the elapsed time for CRAN.</li>
 <li>
@@ -784,9 +793,9 @@
 </h1>
 <ul>
 <li>
-<code>purl2()</code>: Added <code>newname=</code> to allow the output file to have a name other than the same as the intput file.</li>
+<code><a href="../reference/knitUtil.html">purl2()</a></code>: Added <code>newname=</code> to allow the output file to have a name other than the same as the intput file.</li>
 <li>
-<code>reproInfo()</code>: Added <code>markdown</code> to the <code>out=</code> types.</li>
+<code><a href="../reference/knitUtil.html">reproInfo()</a></code>: Added <code>markdown</code> to the <code>out=</code> types.</li>
 </ul>
 </div>
     <div id="fsa-0-7-9-sep15" class="section level1">
@@ -877,13 +886,13 @@
 <code><a href="../reference/mapvalues.html">mapvalues()</a></code>: Modified. Changed so that it is a direct <code>importFrom</code> and <code>export</code> without creating a help file in <code>FSA.</code>
 </li>
 <li>
-<code>purl2()</code>: Modified. Check for<code>knitr</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>knitr</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
+<code><a href="../reference/knitUtil.html">purl2()</a></code>: Modified. Check for<code>knitr</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>knitr</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
 <code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Check for<code>car</code> with <code>requireNamespaces()</code> before highlighting outliers on the plot. This allowed moving <code>sciplot</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
 <code><a href="../reference/srStarts.html">srStarts()</a></code>: Modified. Check for<code>relax</code> with <code>requireNamespaces()</code> before constructing the dynamic plot. This allowed moving <code>relax</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
-<code>Subset()</code>: Modified. Check for<code>gdata</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>gdata</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
+<code><a href="../reference/Subset.html">Subset()</a></code>: Modified. Check for<code>gdata</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>gdata</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
 <code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Check for<code>relax</code> with <code>requireNamespaces()</code> before constructing the dynamic plot. This allowed moving <code>relax</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 </ul>
@@ -935,9 +944,9 @@
 <li>
 <code><a href="../reference/alkPlot.html">alkPlot()</a></code>: Cleaned-up help file and tests. No change in behavior.</li>
 <li>
-<code>confint.bootCase()</code>: Modified. Created a common internal function for use with <code><a href="../reference/nlsBoot.html">confint.nlsBoot()</a></code>. Added the ability to plot histograms with confidence intervals superimposed (similar to what was in <code><a href="../reference/nlsBoot.html">confint.nlsBoot()</a></code>).</li>
+<code><a href="../reference/bootCase.html">confint.bootCase()</a></code>: Modified. Created a common internal function for use with <code><a href="../reference/nlsBoot.html">confint.nlsBoot()</a></code>. Added the ability to plot histograms with confidence intervals superimposed (similar to what was in <code><a href="../reference/nlsBoot.html">confint.nlsBoot()</a></code>).</li>
 <li>
-<code><a href="../reference/nlsBoot.html">confint.nlsBoot()</a></code>: Modified. Created a common internal function for use with <code>confint.bootCase()</code>.</li>
+<code><a href="../reference/nlsBoot.html">confint.nlsBoot()</a></code>: Modified. Created a common internal function for use with <code><a href="../reference/bootCase.html">confint.bootCase()</a></code>.</li>
 <li>
 <code><a href="../reference/growthModels.html">GompertzFuns()</a></code>: Moved into <code>growthModels</code> file. Did not change behavior.</li>
 <li>
@@ -947,9 +956,9 @@
 <li>
 <code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Fixed so that <code>ymax=</code> also sets the y-axis limit when only one histogram is made (it was previously ignored).</li>
 <li>
-<code>htest.bootCase()</code>: Modified. Created a common internal function for use with <code><a href="../reference/nlsBoot.html">htest.nlsBoot()</a></code>.</li>
+<code><a href="../reference/bootCase.html">htest.bootCase()</a></code>: Modified. Created a common internal function for use with <code><a href="../reference/nlsBoot.html">htest.nlsBoot()</a></code>.</li>
 <li>
-<code><a href="../reference/nlsBoot.html">htest.nlsBoot()</a></code>: Modified. Created a common internal function for use with <code>htest.bootCase()</code>.</li>
+<code><a href="../reference/nlsBoot.html">htest.nlsBoot()</a></code>: Modified. Created a common internal function for use with <code><a href="../reference/bootCase.html">htest.bootCase()</a></code>.</li>
 <li>
 <code><a href="../reference/FSA-internals.html">iHndlFormula()</a></code>: Modified. Added <code>na.action=NULL</code> to <code>model.frame()</code> so that NA values will not be omitted.</li>
 <li>
@@ -957,9 +966,9 @@
 <li>
 <code>logisticModels()</code>: Modified. Changed <code>type=</code> to <code>family=</code> to avoid confusion in the help file with <code>type=</code> in <code><a href="../reference/growthModels.html">logisticFuns()</a></code>. Moved into <code>growthModels</code> file.</li>
 <li>
-<code>predict.bootCase()</code>: Modified. Created a common internal function for use with <code><a href="../reference/nlsBoot.html">predict.nlsBoot()</a></code>.</li>
+<code><a href="../reference/bootCase.html">predict.bootCase()</a></code>: Modified. Created a common internal function for use with <code><a href="../reference/nlsBoot.html">predict.nlsBoot()</a></code>.</li>
 <li>
-<code><a href="../reference/nlsBoot.html">predict.nlsBoot()</a></code>: Modified. Created a common internal function for use with <code>predict.bootCase()</code>.</li>
+<code><a href="../reference/nlsBoot.html">predict.nlsBoot()</a></code>: Modified. Created a common internal function for use with <code><a href="../reference/bootCase.html">predict.bootCase()</a></code>.</li>
 <li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Fixed bug that never tested if all lengths were <code>NA</code>. Required change to <code>iHndlFormula</code>.</li>
 <li>
@@ -1068,7 +1077,7 @@
 <li>
 <code><a href="../reference/rcumsum.html">pcumsum()</a></code>: Modified. Modified to handle <code>table</code>, <code>matrix</code>, and <code>data.frame</code> classes as long as they are 1-dimensional.</li>
 <li>
-<code>rcumsum()</code>: Modified. Modified to handle <code>table</code>, <code>matrix</code>, and <code>data.frame</code> classes as long as they are 1-dimensional.</li>
+<code><a href="../reference/rcumsum.html">rcumsum()</a></code>: Modified. Modified to handle <code>table</code>, <code>matrix</code>, and <code>data.frame</code> classes as long as they are 1-dimensional.</li>
 <li>
 <code><a href="../reference/srStarts.html">srStarts()</a></code>: Modified. Corrected some bugs related to checks. Added more tests.</li>
 </ul>
@@ -1162,9 +1171,9 @@
 <li>
 <code>ks2d2p()</code>: Modified. Rewrote the <code>print()</code> method. This removed a number of <code>cat()</code>s.</li>
 <li>
-<code>metaM()</code>: Modified. Changed all <code>cat()</code> to <code>message()</code>s.</li>
+<code><a href="../reference/metaM.html">metaM()</a></code>: Modified. Changed all <code>cat()</code> to <code>message()</code>s.</li>
 <li>
-<code>mrOpen()</code>: Modified. Changed all <code>cat()</code> to <code>message()</code>s.</li>
+<code><a href="../reference/mrOpen.html">mrOpen()</a></code>: Modified. Changed all <code>cat()</code> to <code>message()</code>s.</li>
 <li>
 <code><a href="../reference/removal.html">removal()</a></code>: Modified. Changed all <code>cat()</code> to <code>message()</code>s.</li>
 <li>
@@ -1253,11 +1262,11 @@
 <li>
 <code><a href="../reference/rcumsum.html">pcumsum()</a></code>: Modified. Added some checks with error messages. Added suite of tests.</li>
 <li>
-<code>rcumsum()</code>: Modified. Added some checks with error messages. Added suite of tests.</li>
+<code><a href="../reference/rcumsum.html">rcumsum()</a></code>: Modified. Added some checks with error messages. Added suite of tests.</li>
 <li>
 <code><a href="../reference/se.html">se()</a></code>: Modified. Added some checks with error messages. Added suite of tests.</li>
 <li>
-<code>Subset()</code>: Modified. Added some checks with error messages. Added suite of tests.</li>
+<code><a href="../reference/Subset.html">Subset()</a></code>: Modified. Added some checks with error messages. Added suite of tests.</li>
 <li>
 <code><a href="../reference/validn.html">validn()</a></code>: Modified. Added some checks with error messages. Added suite of tests.</li>
 </ul>
@@ -1288,7 +1297,7 @@
 <li>
 <code>logisticModels()</code>: Added.</li>
 <li>
-<code>reproInfo()</code>: Modified. Added the <code>out=</code> argument to allow the output to be straight R or LaTeX. Removed the <code>listFiles=</code> argument. Changed the output to be more succinct. Streamlined the code.</li>
+<code><a href="../reference/knitUtil.html">reproInfo()</a></code>: Modified. Added the <code>out=</code> argument to allow the output to be straight R or LaTeX. Removed the <code>listFiles=</code> argument. Changed the output to be more succinct. Streamlined the code.</li>
 <li>
 <code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified. Fixed a bug with the Laslett model.</li>
 </ul>
@@ -1301,25 +1310,25 @@
 <li>
 <code><a href="../reference/knitUtil.html">kCounts()</a></code>: Added. Was <code>swvCounts()</code>.</li>
 <li>
-<code>kPvalue()</code>: Added. Was <code>swvPvalue()</code>.</li>
+<code><a href="../reference/knitUtil.html">kPvalue()</a></code>: Added. Was <code>swvPvalue()</code>.</li>
 <li>
-<code>purl2()</code>: Added. Was <code>swvCode()</code>. Added <code>timestamp=</code> argument for adding a timestamp to the created script.</li>
+<code><a href="../reference/knitUtil.html">purl2()</a></code>: Added. Was <code>swvCode()</code>. Added <code>timestamp=</code> argument for adding a timestamp to the created script.</li>
 <li>
-<code>reproInfo()</code>: Added. Was <code>swvFinish()</code>.</li>
+<code><a href="../reference/knitUtil.html">reproInfo()</a></code>: Added. Was <code>swvFinish()</code>.</li>
 <li>
 <code>swvANOVA()</code>: Deleted. Moved to <code>NCStats</code>.</li>
 <li>
-<code>swvCode()</code>: Deleted. Changed to <code>purl2()</code>.</li>
+<code>swvCode()</code>: Deleted. Changed to <code><a href="../reference/knitUtil.html">purl2()</a></code>.</li>
 <li>
 <code>swvCounts()</code>: Deleted. Changed to <code><a href="../reference/knitUtil.html">kCounts()</a></code>.</li>
 <li>
-<code>swvFinish()</code>: Deleted. Changed to <code>reproInfo()</code>.</li>
+<code>swvFinish()</code>: Deleted. Changed to <code><a href="../reference/knitUtil.html">reproInfo()</a></code>.</li>
 <li>
 <code>swvGLHT()</code>: Deleted. Moved to <code>NCStats</code>.</li>
 <li>
 <code>swvHtest()</code>: Deleted. Moved to <code>NCStats</code>.</li>
 <li>
-<code>swvPvalue()</code>: Deleted. Changed to <code>kPvalue()</code>.</li>
+<code>swvPvalue()</code>: Deleted. Changed to <code><a href="../reference/knitUtil.html">kPvalue()</a></code>.</li>
 <li>
 <code>swvREG()</code>: Deleted. Moved to <code>NCStats</code>.</li>
 </ul>
@@ -1525,7 +1534,7 @@
 <li>
 <code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Changed use of <code>par()</code> to eliminate modifications to the gridding of plots after the function is complete. Also removed the setting of <code>mar=</code> and <code>mgp=</code> in <code>par()</code>.</li>
 <li>
-<code>mrOpen()</code>: Modified. Removed pretty printing for <code>summary()</code> and <code>confint()</code> methods. These got in the way of being able to <code>cbind()</code> the results together for a succinct display.</li>
+<code><a href="../reference/mrOpen.html">mrOpen()</a></code>: Modified. Removed pretty printing for <code>summary()</code> and <code>confint()</code> methods. These got in the way of being able to <code>cbind()</code> the results together for a succinct display.</li>
 <li>
 <code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Changed use of <code>par()</code> to eliminate modifications to the gridding of plots after the function is complete.</li>
 </ul>
@@ -1563,7 +1572,7 @@
 </h1>
 <ul>
 <li>
-<code>mrOpen()</code>: Modified. Changed <code>summary()</code> and <code>confint()</code> methods to allow single, multiple, or all choices of parameters to return results for. Also added code to print the results more prettily.</li>
+<code><a href="../reference/mrOpen.html">mrOpen()</a></code>: Modified. Changed <code>summary()</code> and <code>confint()</code> methods to allow single, multiple, or all choices of parameters to return results for. Also added code to print the results more prettily.</li>
 <li>
 <code>swvCode()</code>: Modified. Fixed bug related to <code>blanks='extra'</code>.</li>
 </ul>
@@ -1587,7 +1596,7 @@
 <li>
 <code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Removed the use of larger points in the <code>plot()</code>.</li>
 <li>
-<code>metaM()</code>: Modified. Deleted <code>group=</code> (and created <code>method="ZhangMegreyD"</code> and <code>method="ZhangMegreyP"</code>). Added geometric mean regresson methods for Hoenig. Changed default for <code>justM=</code> to <code>TRUE</code>. Fixed several minor bugs from the original implementation. Added some checks for reasonableness of some arguments. Created tests for several methods to see if the results matched those from Kenchington (2014). Added code to compute with several methods at once.</li>
+<code><a href="../reference/metaM.html">metaM()</a></code>: Modified. Deleted <code>group=</code> (and created <code>method="ZhangMegreyD"</code> and <code>method="ZhangMegreyP"</code>). Added geometric mean regresson methods for Hoenig. Changed default for <code>justM=</code> to <code>TRUE</code>. Fixed several minor bugs from the original implementation. Added some checks for reasonableness of some arguments. Created tests for several methods to see if the results matched those from Kenchington (2014). Added code to compute with several methods at once.</li>
 <li>
 <code><a href="../reference/metaM.html">Mmethods()</a></code>: Added. Added as a function and removed as a vector.</li>
 </ul>
@@ -1620,7 +1629,7 @@
 <li>
 <code><a href="../reference/alkPlot.html">alkPlot()</a></code>: Modified. Changed behavior for adding a legend to alleviate a bug.</li>
 <li>
-<code>metaM()</code>: Added.</li>
+<code><a href="../reference/metaM.html">metaM()</a></code>: Added.</li>
 </ul>
 </div>
     <div id="fsa-0-4-37-jan15" class="section level1">
@@ -1706,7 +1715,7 @@
 <li>
 <code><a href="../reference/rcumsum.html">pcumsum()</a></code>: Added.</li>
 <li>
-<code>rcumsum()</code>: Modified. Completely new code (much simpler).</li>
+<code><a href="../reference/rcumsum.html">rcumsum()</a></code>: Modified. Completely new code (much simpler).</li>
 <li>
 <code><a href="../reference/validn.html">validn()</a></code>: Added.</li>
 </ul>
@@ -1879,7 +1888,7 @@
 <li>
 <code>iCheck ALK()</code>: Added as an internal function (used to test the structure of the age-length keys in several other functions).</li>
 <li>
-<code>summary.mrOpen()</code>: Modified. Removed “Estimates” heading if <code>verbose=FALSE</code>.</li>
+<code><a href="../reference/mrOpen.html">summary.mrOpen()</a></code>: Modified. Removed “Estimates” heading if <code>verbose=FALSE</code>.</li>
 <li>
 <code><a href="../reference/Summarize.html">Summarize()</a></code>: Modified. Moved all internal functions outside of <code><a href="../reference/Summarize.html">Summarize()</a></code> environment (and renamed them).</li>
 </ul>
@@ -1914,13 +1923,13 @@
 <li>
 <code><a href="../reference/depletion.html">depletion()</a></code>: Modified. Changed <code>type=</code> to <code>method=</code> and added <code>DeLury</code> as an option to <code>method=</code> (and left <code>Delury</code>). Changed <code>ricker.mod=</code> to <code>Ricker.mod=</code>. Added some checking for bad arguments. Created internal functions specific to the Leslie and DeLury methods (for isolation). Modified some clunky code. Added references to specific sections in Seber (2002) for SE equations. Updated examples. Added tests and error checking.</li>
 <li>
-<code>coef.depletion()</code>: Modified. Added <code>digits=</code>.</li>
+<code><a href="../reference/depletion.html">coef.depletion()</a></code>: Modified. Added <code>digits=</code>.</li>
 <li>
-<code>confint.depletion()</code>: Modified. Added <code>digits=</code>. Modified the <code>parm=</code> list to be more efficient.</li>
+<code><a href="../reference/depletion.html">confint.depletion()</a></code>: Modified. Added <code>digits=</code>. Modified the <code>parm=</code> list to be more efficient.</li>
 <li>
-<code>plot.depletion()</code>: Modified. Removed internal <code>par()</code> settings.</li>
+<code><a href="../reference/depletion.html">plot.depletion()</a></code>: Modified. Removed internal <code>par()</code> settings.</li>
 <li>
-<code>summary.depletion()</code>: Modified. Added <code>verbose=</code> and <code>digits=</code>.</li>
+<code><a href="../reference/depletion.html">summary.depletion()</a></code>: Modified. Added <code>verbose=</code> and <code>digits=</code>.</li>
 </ul>
 </div>
     <div id="fsa-0-4-20-jul14" class="section level1">
@@ -1929,7 +1938,7 @@
 </h1>
 <ul>
 <li>
-<code><a href="../reference/removal.html">removal()</a></code>: Modified. Made <code>"CarleStrub"</code> the default method. Changed <code>type=</code> to <code>method=</code>. Changed internal <code>meth</code> object to <code>lbl</code>. Moved all internal functions outside of <code>mrOpen()</code> environment and added other internal functions to isolate all intermediate calculations. Added a <code>verbose=</code> and <code>parm=</code> to <code>summary()</code>. Streamlined clunky code in <code>confint()</code> including removing the <code>all</code> and <code>both</code> options from <code>parm=</code>. Added more checks for abd inputs, notes in the code as to sources for the fomulae, and tests.</li>
+<code><a href="../reference/removal.html">removal()</a></code>: Modified. Made <code>"CarleStrub"</code> the default method. Changed <code>type=</code> to <code>method=</code>. Changed internal <code>meth</code> object to <code>lbl</code>. Moved all internal functions outside of <code><a href="../reference/mrOpen.html">mrOpen()</a></code> environment and added other internal functions to isolate all intermediate calculations. Added a <code>verbose=</code> and <code>parm=</code> to <code>summary()</code>. Streamlined clunky code in <code>confint()</code> including removing the <code>all</code> and <code>both</code> options from <code>parm=</code>. Added more checks for abd inputs, notes in the code as to sources for the fomulae, and tests.</li>
 </ul>
 </div>
     <div id="fsa-0-4-19-jul14" class="section level1">
@@ -1941,11 +1950,11 @@
 <li>
 <code><a href="../reference/capHistSum.html">capHistSum()</a></code>: Modified. Changed column and row labels for <code>$methodB.top</code> and column labels for <code>$methodB.bot</code>. Added a m-array object for when more than two sampling events are present. Added calculations for the number of fish first seen on event i (ui), the number of fish last seen on event i (vi), and the number of fish seen i times (fi) to <code>$sum</code>.</li>
 <li>
-<code><a href="../reference/mrOpen.html">jolly()</a></code>: Added. Same as <code>mrOpen()</code>, added only for convenience.</li>
+<code><a href="../reference/mrOpen.html">jolly()</a></code>: Added. Same as <code><a href="../reference/mrOpen.html">mrOpen()</a></code>, added only for convenience.</li>
 <li>
 <code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Fixed bugs around printing of CI type with Schnabel and the ignoring of <code>conf.level=</code> with Schnabel.</li>
 <li>
-<code>mrOpen</code>: Modified. Changed <code>ci.type=</code> to <code>type=</code> and <code>phi.type=</code> to <code>phi.full=</code>. Removed <code>type=</code> from <code>summary()</code> and added a <code>verbose=</code> which will print only the estimates if <code>FALSE</code> or both observables and estimates if <code>TRUE</code>. Added a <code>verbose=</code> to <code>confint()</code> to control whether the message about the type of confidence interval is printed or not. Moved all internal functions outside of <code>mrOpen()</code> environment and added other internal functions to isolate all intermediate calculations. Changes to row and column labels in <code><a href="../reference/capHistSum.html">capHistSum()</a></code> resulted in changes to row lables for <code>summary()</code> and <code>confint()</code> results. Streamlined some clunky code. Added checks for misformed <code>mb.top=</code> and <code>mb.bot=</code>. Added tests and notes in the code as to sources for the fomulae.</li>
+<code>mrOpen</code>: Modified. Changed <code>ci.type=</code> to <code>type=</code> and <code>phi.type=</code> to <code>phi.full=</code>. Removed <code>type=</code> from <code>summary()</code> and added a <code>verbose=</code> which will print only the estimates if <code>FALSE</code> or both observables and estimates if <code>TRUE</code>. Added a <code>verbose=</code> to <code>confint()</code> to control whether the message about the type of confidence interval is printed or not. Moved all internal functions outside of <code><a href="../reference/mrOpen.html">mrOpen()</a></code> environment and added other internal functions to isolate all intermediate calculations. Changes to row and column labels in <code><a href="../reference/capHistSum.html">capHistSum()</a></code> resulted in changes to row lables for <code>summary()</code> and <code>confint()</code> results. Streamlined some clunky code. Added checks for misformed <code>mb.top=</code> and <code>mb.bot=</code>. Added tests and notes in the code as to sources for the fomulae.</li>
 <li>
 <code>plot.CapHistSum()</code>: Added.</li>
 <li>
@@ -2215,7 +2224,7 @@
 <li>
 <code><a href="../reference/FSA.html">FSA()</a></code>: Modified. Cleaned up the Rd file.</li>
 <li>
-<code>FSANews()</code>, <code><a href="../reference/fsaNews.html">fsaNews()</a></code>: Modified. Cleaned up and fixed the Usage section in the Rd file. Changed example from “dont run” to “interactive.”</li>
+<code><a href="../reference/fsaNews.html">FSANews()</a></code>, <code><a href="../reference/fsaNews.html">fsaNews()</a></code>: Modified. Cleaned up and fixed the Usage section in the Rd file. Changed example from “dont run” to “interactive.”</li>
 <li>
 <code>growthRadPlot()</code>: Modified. Changed example from “dont run” to “interactive.”</li>
 <li>
@@ -2253,7 +2262,7 @@
 <code>lenFreqExpand()</code>: Modified. Slightly changed the examples in the help file.</li>
 <li>
 <code>lwPredsComp()</code>: Modified. Streamlined the code (no changes to functionality).</li>
-<li><p><code>mrOpen()</code>: Modified. Streamlined the code (no changes to functionality). Removed all explicity partial matching options in <code>switch()</code>es as these were already caught with previous <code>match.arg()</code>s.</p></li>
+<li><p><code><a href="../reference/mrOpen.html">mrOpen()</a></code>: Modified. Streamlined the code (no changes to functionality). Removed all explicity partial matching options in <code>switch()</code>es as these were already caught with previous <code>match.arg()</code>s.</p></li>
 </ul>
 </div>
     <div id="fsa-0-4-10-may14" class="section level1">
@@ -2451,17 +2460,17 @@
 <li>
 <code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified Rd. Added two polynomial regression examples.</li>
 <li>
-<code>fitPlot.IVR()</code>: Modified. Changed to use new <code>typeoflm()</code>, changed <code>interval=</code> argument, removed automatic main title, removed a bunch of unneeded code.</li>
+<code><a href="../reference/fitPlot.html">fitPlot.IVR()</a></code>: Modified. Changed to use new <code>typeoflm()</code>, changed <code>interval=</code> argument, removed automatic main title, removed a bunch of unneeded code.</li>
 <li>
-<code>fitPlot.logreg()</code>: Modified. Removed automatic main title.</li>
+<code><a href="../reference/fitPlot.html">fitPlot.logreg()</a></code>: Modified. Removed automatic main title.</li>
 <li>
-<code>fitPlot.nls()</code>: Modified. Removed automatic main title.</li>
+<code><a href="../reference/fitPlot.html">fitPlot.nls()</a></code>: Modified. Removed automatic main title.</li>
 <li>
-<code>fitPlot.ONEWAY()</code>: Modified. Changed to use new <code>typeoflm()</code>, removed automatic main title, removed one line of unneeded code.</li>
+<code><a href="../reference/fitPlot.html">fitPlot.ONEWAY()</a></code>: Modified. Changed to use new <code>typeoflm()</code>, removed automatic main title, removed one line of unneeded code.</li>
 <li>
-<code>fitPlot.SLR()</code>: Modified. Changed to use new <code>typeoflm()</code>, changed <code>interval=</code> argument, removed automatic main title.</li>
+<code><a href="../reference/fitPlot.html">fitPlot.SLR()</a></code>: Modified. Changed to use new <code>typeoflm()</code>, changed <code>interval=</code> argument, removed automatic main title.</li>
 <li>
-<code>fitPlot.TWOWAY()</code>: Modified. Changed to use new <code>typeoflm()</code> and removed automatic main title</li>
+<code><a href="../reference/fitPlot.html">fitPlot.TWOWAY()</a></code>: Modified. Changed to use new <code>typeoflm()</code> and removed automatic main title</li>
 <li>
 <code>gReshape()</code>: Modified. Added a <code>drop=</code> argument so that the user can drop some variables before reshaping. Also, added <code>new.row.names=1:100000</code> to the <code>reshape()</code> call to work-around issues with duplicate row names (which were particularly problematic if any of the <code>id.vars=</code> had missing values.)</li>
 <li>
@@ -2499,7 +2508,7 @@
 <li>
 <code>StripedBass1</code>: Deleted. Moved to FSAdata as no longer needed because some examples were changed to use <code>WhitefishLC</code>.</li>
 <li>
-<code>Subset()</code>: Modified. Added a <code>resetRownames=</code> argument.</li>
+<code><a href="../reference/Subset.html">Subset()</a></code>: Modified. Added a <code>resetRownames=</code> argument.</li>
 <li>
 <code>swvCode()</code>: Modified. Added an <code>out.dir=</code> argument.</li>
 <li>
@@ -2658,7 +2667,7 @@
 <li>
 <code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>: Modified by moving <code>makeColor()</code> internal function to FSA-internals so that it can also be used by <code><a href="../reference/tictactoe.html">tictactoe()</a></code>.</li>
 <li>
-<code>predict.bootCase()</code>: Added.</li>
+<code><a href="../reference/bootCase.html">predict.bootCase()</a></code>: Added.</li>
 <li>
 <code>PSSLit</code>: added from RSDLit. Added from Ogle and Winfield (2009) for ruffe, Bonvechio et al. (2010) for Suwannee bass, and from Phelps and Willis (2013) for several “carp” species.</li>
 <li>

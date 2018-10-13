@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -34,6 +36,7 @@
 
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -110,8 +113,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>binCI</span>(<span class='no'>x</span>, <span class='no'>n</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"wilson"</span>, <span class='st'>"exact"</span>, <span class='st'>"asymptotic"</span>),
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>binCI</span>(<span class='no'>x</span>, <span class='no'>n</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"wilson"</span>, <span class='st'>"exact"</span>,
+  <span class='st'>"asymptotic"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,6 +152,7 @@
 <tr><td><code>type="wilson"</code></td><td>Wilson's (Journal of the American Statistical Association, 1927) confidence interval for a proportion.  This is the score CI, based on inverting the asymptotic normal test using the null standard error.</td></tr>
 <tr><td><code>type="exact"</code></td><td>Computes the Clopper/Pearson exact CI for a binomial success probability.</td></tr>
 <tr><td><code>type="asymptotic"</code></td><td>This uses the normal distribution approximation.</td></tr>
+<tr><td></td><td><code>type="wilson"</code></td></tr>
 </table>
     <p>Note that Agresti and Coull (2000) suggest that the Wilson interval is the preferred method and is, thus, the default <code>type</code>.</p>
     

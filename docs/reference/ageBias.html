@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -34,6 +36,7 @@
 
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -115,9 +118,9 @@
 
 <span class='co'># S3 method for ageBias</span>
 <span class='fu'>summary</span>(<span class='no'>object</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"table"</span>, <span class='st'>"symmetry"</span>, <span class='st'>"Bowker"</span>,
-  <span class='st'>"EvansHoenig"</span>, <span class='st'>"McNemar"</span>, <span class='st'>"bias"</span>, <span class='st'>"diff.bias"</span>, <span class='st'>"n"</span>), <span class='kw'>flip.table</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>zero.print</span> <span class='kw'>=</span> <span class='st'>"-"</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>cont.corr</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"none"</span>, <span class='st'>"Yates"</span>, <span class='st'>"Edwards"</span>),
-  <span class='no'>...</span>)
+  <span class='st'>"EvansHoenig"</span>, <span class='st'>"McNemar"</span>, <span class='st'>"bias"</span>, <span class='st'>"diff.bias"</span>, <span class='st'>"n"</span>),
+  <span class='kw'>flip.table</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>zero.print</span> <span class='kw'>=</span> <span class='st'>"-"</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>cont.corr</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"none"</span>, <span class='st'>"Yates"</span>, <span class='st'>"Edwards"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for ageBias</span>
 <span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>xvals</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"reference"</span>, <span class='st'>"mean"</span>),
@@ -125,14 +128,14 @@
   <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'>paste</span>(<span class='no'>x</span>$<span class='no'>nref.lab</span>, <span class='st'>"-"</span>, <span class='no'>x</span>$<span class='no'>ref.lab</span>), <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>yaxt</span> <span class='kw'>=</span> <span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='st'>"yaxt"</span>), <span class='kw'>xaxt</span> <span class='kw'>=</span> <span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='st'>"xaxt"</span>),
   <span class='kw'>col.agree</span> <span class='kw'>=</span> <span class='st'>"gray60"</span>, <span class='kw'>lwd.agree</span> <span class='kw'>=</span> <span class='no'>lwd</span>, <span class='kw'>lty.agree</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>sfrac</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>show.pts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pch.pts</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>cex.pts</span> <span class='kw'>=</span> <span class='fu'>ifelse</span>(<span class='no'>xHist</span> <span class='kw'>|</span>
-  <span class='no'>yHist</span>, <span class='fl'>1.5</span>, <span class='fl'>1</span>), <span class='kw'>col.pts</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>transparency</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>10</span>, <span class='kw'>show.CI</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>col.CI</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>col.CIsig</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>lwd.CI</span> <span class='kw'>=</span> <span class='no'>lwd</span>, <span class='kw'>sfrac.CI</span> <span class='kw'>=</span> <span class='no'>sfrac</span>,
-  <span class='kw'>show.range</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>col.range</span> <span class='kw'>=</span> <span class='fu'>ifelse</span>(<span class='no'>show.CI</span>, <span class='st'>"gray70"</span>, <span class='st'>"black"</span>),
-  <span class='kw'>lwd.range</span> <span class='kw'>=</span> <span class='no'>lwd</span>, <span class='kw'>sfrac.range</span> <span class='kw'>=</span> <span class='no'>sfrac</span>, <span class='kw'>pch.mean</span> <span class='kw'>=</span> <span class='fl'>19</span>,
-  <span class='kw'>pch.mean.sig</span> <span class='kw'>=</span> <span class='fu'>ifelse</span>(<span class='no'>show.CI</span> <span class='kw'>|</span> <span class='no'>show.range</span>, <span class='fl'>21</span>, <span class='fl'>19</span>), <span class='kw'>cex.mean</span> <span class='kw'>=</span> <span class='no'>lwd</span>,
-  <span class='kw'>yHist</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>xHist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>hist.panel.size</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>7</span>,
-  <span class='kw'>col.hist</span> <span class='kw'>=</span> <span class='st'>"gray90"</span>, <span class='kw'>allowAdd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>sfrac</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>show.pts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pch.pts</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>cex.pts</span> <span class='kw'>=</span> <span class='fu'>ifelse</span>(<span class='no'>xHist</span>
+  <span class='kw'>|</span> <span class='no'>yHist</span>, <span class='fl'>1.5</span>, <span class='fl'>1</span>), <span class='kw'>col.pts</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>transparency</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>10</span>,
+  <span class='kw'>show.CI</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col.CI</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>col.CIsig</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
+  <span class='kw'>lwd.CI</span> <span class='kw'>=</span> <span class='no'>lwd</span>, <span class='kw'>sfrac.CI</span> <span class='kw'>=</span> <span class='no'>sfrac</span>, <span class='kw'>show.range</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col.range</span> <span class='kw'>=</span> <span class='fu'>ifelse</span>(<span class='no'>show.CI</span>, <span class='st'>"gray70"</span>, <span class='st'>"black"</span>), <span class='kw'>lwd.range</span> <span class='kw'>=</span> <span class='no'>lwd</span>,
+  <span class='kw'>sfrac.range</span> <span class='kw'>=</span> <span class='no'>sfrac</span>, <span class='kw'>pch.mean</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>pch.mean.sig</span> <span class='kw'>=</span> <span class='fu'>ifelse</span>(<span class='no'>show.CI</span> <span class='kw'>|</span>
+  <span class='no'>show.range</span>, <span class='fl'>21</span>, <span class='fl'>19</span>), <span class='kw'>cex.mean</span> <span class='kw'>=</span> <span class='no'>lwd</span>, <span class='kw'>yHist</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>xHist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>hist.panel.size</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>7</span>, <span class='kw'>col.hist</span> <span class='kw'>=</span> <span class='st'>"gray90"</span>, <span class='kw'>allowAdd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

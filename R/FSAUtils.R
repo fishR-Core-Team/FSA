@@ -1057,12 +1057,14 @@ validn <- function(object) {
 #' geomean(d)
 #' geosd(d)
 #' 
+#' \dontrun{
 #' ## Demonstrate handling of zeros and negative values
-#' x <- seq(0,5)
+#' x <- seq(-1,5)
 #' # this will given an error
-#' try(geomean(x))
+#' geomean(x)
 #' # this will only give a warning, but might not be what you want
 #' geomean(x,zneg.rm=TRUE)
+#' }
 #' 
 #' @rdname geomean
 #' @export

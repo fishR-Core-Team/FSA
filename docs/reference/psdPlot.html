@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -34,6 +36,7 @@
 
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -111,11 +114,11 @@
     </div>
 
     <pre class="usage"><span class='fu'>psdPlot</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='kw'>species</span> <span class='kw'>=</span> <span class='st'>"List"</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"mm"</span>, <span class='st'>"cm"</span>, <span class='st'>"in"</span>),
-  <span class='kw'>startcat</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>justPSDQ</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Length"</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Number"</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fu'>max</span>(<span class='no'>h</span>$<span class='no'>counts</span>)),
-  <span class='kw'>substock.col</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>stock.col</span> <span class='kw'>=</span> <span class='st'>"gray90"</span>, <span class='kw'>psd.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>psd.lty</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>psd.lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>show.abbrevs</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>psd.add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>psd.pos</span> <span class='kw'>=</span> <span class='st'>"topleft"</span>, <span class='kw'>psd.cex</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>startcat</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>justPSDQ</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Length"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Number"</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>,
+  <span class='fu'>max</span>(<span class='no'>h</span>$<span class='no'>counts</span>)), <span class='kw'>substock.col</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>stock.col</span> <span class='kw'>=</span> <span class='st'>"gray90"</span>,
+  <span class='kw'>psd.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>psd.lty</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>psd.lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>show.abbrevs</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>psd.add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>psd.pos</span> <span class='kw'>=</span> <span class='st'>"topleft"</span>, <span class='kw'>psd.cex</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -232,7 +235,7 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='psdVal.html'>psdVal</a></code>, <code><a href='psdCalc.html'>psdCalc</a></code>, <code><a href='psdAdd.html'>psdAdd</a></code>, <code><a href='PSDlit.html'>PSDlit</a></code>, <code><a href='lencat.html'>lencat</a></code>, <code><a href='tictactoe.html'>tictactoe</a></code>, <code><a href='lencat.html'>lencat</a></code>, and <code>rcumsum</code> for related functionality.</p></div>
+    <div class='dont-index'><p>See <code><a href='psdVal.html'>psdVal</a></code>, <code><a href='psdCalc.html'>psdCalc</a></code>, <code><a href='psdAdd.html'>psdAdd</a></code>, <code><a href='PSDlit.html'>PSDlit</a></code>, <code><a href='lencat.html'>lencat</a></code>, <code><a href='tictactoe.html'>tictactoe</a></code>, <code><a href='lencat.html'>lencat</a></code>, and <code><a href='rcumsum.html'>rcumsum</a></code> for related functionality.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -260,13 +263,13 @@
 <span class='co'>## different subsets of fish</span>
 <span class='co'># ... without any sub-stock fish</span>
 <span class='no'>brks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='psdVal.html'>psdVal</a></span>(<span class='st'>"Yellow Perch"</span>)
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>Subset</span>(<span class='no'>df</span>,<span class='no'>mm</span><span class='kw'>&gt;</span><span class='no'>brks</span>[<span class='st'>"stock"</span>])
+<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Subset.html'>Subset</a></span>(<span class='no'>df</span>,<span class='no'>mm</span><span class='kw'>&gt;</span><span class='no'>brks</span>[<span class='st'>"stock"</span>])
 <span class='fu'>psdPlot</span>(~<span class='no'>mm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>tmp</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>10</span>)</div><div class='img'><img src='psdPlot-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># ... without any sub-stock or stock fish</span>
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>Subset</span>(<span class='no'>df</span>,<span class='no'>mm</span><span class='kw'>&gt;</span><span class='no'>brks</span>[<span class='st'>"quality"</span>])
+<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Subset.html'>Subset</a></span>(<span class='no'>df</span>,<span class='no'>mm</span><span class='kw'>&gt;</span><span class='no'>brks</span>[<span class='st'>"quality"</span>])
 <span class='fu'>psdPlot</span>(~<span class='no'>mm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>tmp</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>10</span>)</div><div class='img'><img src='psdPlot-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># ... with only sub-stock, stock, and quality fish ... only PSD-Q</span>
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>Subset</span>(<span class='no'>df</span>,<span class='no'>mm</span><span class='kw'>&lt;</span><span class='no'>brks</span>[<span class='st'>"preferred"</span>])
+<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Subset.html'>Subset</a></span>(<span class='no'>df</span>,<span class='no'>mm</span><span class='kw'>&lt;</span><span class='no'>brks</span>[<span class='st'>"preferred"</span>])
 <span class='fu'>psdPlot</span>(~<span class='no'>mm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>tmp</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>10</span>)</div><div class='img'><img src='psdPlot-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># ... with only sub-stock fish (don't run ... setup to give an error)</span>
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>Subset</span>(<span class='no'>df</span>,<span class='no'>mm</span><span class='kw'>&lt;</span><span class='no'>brks</span>[<span class='st'>"stock"</span>])</div><span class='co'># NOT RUN {</span>
+<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Subset.html'>Subset</a></span>(<span class='no'>df</span>,<span class='no'>mm</span><span class='kw'>&lt;</span><span class='no'>brks</span>[<span class='st'>"stock"</span>])</div><span class='co'># NOT RUN {</span>
  <span class='fu'>psdPlot</span>(~<span class='no'>mm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>tmp</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>10</span>)
 <span class='co'># }</span><div class='input'><span class='fu'>par</span>(<span class='no'>op</span>)</div></pre>
   </div>

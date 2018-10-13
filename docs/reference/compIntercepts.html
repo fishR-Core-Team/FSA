@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -34,6 +36,7 @@
 
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -155,6 +158,7 @@
 <tr><td><code>digits</code></td><td>The value sent in <code>digits</code>.</td></tr>
 <tr><td><code>rnm</code></td><td>The name of the response (LHS) variable.</td></tr>
 <tr><td><code>cnm</code></td><td>The name of the covariate variable.</td></tr>
+<tr><td></td><td><code>comparison</code></td></tr>
 </table>
 
 
@@ -189,7 +193,7 @@
 #&gt; weight:year  3 0.00089 0.00030   0.0704  0.975568    
 #&gt; Residuals   76 0.32155 0.00423                       
 #&gt; ---
-#&gt; Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</div><div class='input'><span class='fu'>compIntercepts</span>(<span class='no'>lm1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed an interaction term from 'mdl' (i.e., assumed</span>
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'><span class='fu'>compIntercepts</span>(<span class='no'>lm1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed an interaction term from 'mdl' (i.e., assumed</span>
 #&gt; <span class='warning'> parallel lines) to test intercepts.</span></div><div class='output co'>#&gt; <span class='message'>Tukey HSD on means adjusted assuming parallel lines</span></div><div class='output co'>#&gt;   comparison        diff     95% LCI      95% UCI        p.adj
 #&gt; 1  1982-1977 -0.05416588 -0.10225344 -0.006078329 0.0209412606
 #&gt; 2  1986-1977 -0.06545122 -0.11353877 -0.017363664 0.0033259143

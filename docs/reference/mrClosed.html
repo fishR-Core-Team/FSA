@@ -21,19 +21,22 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
 
 <meta property="og:title" content="Estimate initial population size for single or multiple census mark-recapture data. — mrClosed" />
 
-<meta property="og:description" content="Estimates of the initial population size, along with associated confidence intervals, are constructed from single or multiple census mark-recapture data using a variety of methods. For single census data, the initial population size (N) is estimated from the number of marked animals from a first sample (M), number of captured animals in a second sample (n), and the number of recaptured marked animals in the second sample (m) using either the &#8216;naive&#8217; Petersen method or Chapman, Ricker, or Bailey modifications of the Petersen method. Single census data can also be separated by group (e.g., size class) to estimate the initial population size by class and for the overall population size. For multiple census data, the initial population size is estimated from the number of captured animals (n), number of recaptured marked animals (m), the number of marked animals that are marked and returned to the population (R), or the number of extant marked animals prior to the sample (M) on each of several samples using either the Schnabel (1938) or Schumacher-Eschmeyer (1943) method." />
+<meta property="og:description" content="Estimates of the initial population size, along with associated confidence intervals, are constructed from single or multiple census mark-recapture data using a variety of methods. For single census data, the initial population size (N) is estimated from the number of marked animals from a first sample (M), number of captured animals in a second sample (n), and the number of recaptured marked animals in the second sample (m) using either the &amp;#8216;naive&amp;#8217; Petersen method or Chapman, Ricker, or Bailey modifications of the Petersen method. Single census data can also be separated by group (e.g., size class) to estimate the initial population size by class and for the overall population size. For multiple census data, the initial population size is estimated from the number of captured animals (n), number of recaptured marked animals (m), the number of marked animals that are marked and returned to the population (R), or the number of extant marked animals prior to the sample (M) on each of several samples using either the Schnabel (1938) or Schumacher-Eschmeyer (1943) method." />
 
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -137,8 +140,8 @@
 <span class='co'># S3 method for mrClosed2</span>
 <span class='fu'>plot</span>(<span class='no'>x</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>col.pt</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
   <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Marked in Population"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Prop. Recaptures in Sample"</span>,
-  <span class='kw'>loess</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>lty.loess</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>lwd.loess</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>col.loess</span> <span class='kw'>=</span> <span class='st'>"gray20"</span>,
-  <span class='kw'>trans.loess</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>loess</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>lty.loess</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>lwd.loess</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>col.loess</span> <span class='kw'>=</span> <span class='st'>"gray20"</span>, <span class='kw'>trans.loess</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -325,7 +328,7 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='capHistSum.html'>capHistSum</a></code> for generating input data from capture histories. See <code><a href='poiCI.html'>poiCI</a></code>, <code><a href='binCI.html'>binCI</a></code>, and <code><a href='hyperCI.html'>hyperCI</a></code> for specifics on functions used in confidence interval construction. See <code>mrOpen</code> for handling mark-recapture data in an open population. See <code><a href='http://www.rdocumentation.org/packages/FSAdata/topics/SunfishIN'>SunfishIN</a></code> in <span class="pkg">FSAdata</span> for an example to test matching of results with Ricker (1975)'  See <code><a href='http://www.rdocumentation.org/packages/fishmethods/topics/mrN.single'>mrN.single</a></code> and <code><a href='http://www.rdocumentation.org/packages/fishmethods/topics/schnabel'>schnabel</a></code> in <span class="pkg">fishmethods</span> for similar functionality.</p></div>
+    <div class='dont-index'><p>See <code><a href='capHistSum.html'>capHistSum</a></code> for generating input data from capture histories. See <code><a href='poiCI.html'>poiCI</a></code>, <code><a href='binCI.html'>binCI</a></code>, and <code><a href='hyperCI.html'>hyperCI</a></code> for specifics on functions used in confidence interval construction. See <code><a href='mrOpen.html'>mrOpen</a></code> for handling mark-recapture data in an open population. See <code><a href='http://www.rdocumentation.org/packages/FSAdata/topics/SunfishIN'>SunfishIN</a></code> in <span class="pkg">FSAdata</span> for an example to test matching of results with Ricker (1975)'  See <code><a href='http://www.rdocumentation.org/packages/fishmethods/topics/mrN.single'>mrN.single</a></code> and <code><a href='http://www.rdocumentation.org/packages/fishmethods/topics/schnabel'>schnabel</a></code> in <span class="pkg">fishmethods</span> for similar functionality.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

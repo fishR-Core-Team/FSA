@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -34,6 +36,7 @@
 
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -110,7 +113,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>lrt</span>(<span class='no'>sim</span>, <span class='no'>...</span>, <span class='no'>com</span>, <span class='kw'>sim.names</span> <span class='kw'>=</span> <span class='no'>sim.name</span>, <span class='kw'>sim.name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>com.name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>lrt</span>(<span class='no'>sim</span>, <span class='no'>...</span>, <span class='no'>com</span>, <span class='kw'>sim.names</span> <span class='kw'>=</span> <span class='no'>sim.name</span>, <span class='kw'>sim.name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>com.name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='fu'>extraSS</span>(<span class='no'>sim</span>, <span class='no'>...</span>, <span class='no'>com</span>, <span class='kw'>sim.names</span> <span class='kw'>=</span> <span class='no'>sim.name</span>, <span class='kw'>sim.name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>com.name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
@@ -191,7 +195,7 @@
 #&gt; 1vA   9 282.400   7  27.617  2 254.783 32.290 0.0002925 ***
 #&gt; 2vA   8  67.988   7  27.617  1  40.371 10.233 0.0150891 *  
 #&gt; ---
-#&gt; Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</div><div class='input'><span class='fu'>lrt</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2</span>)</div><div class='output co'>#&gt; Model 1: y ~ 1
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'><span class='fu'>lrt</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2</span>)</div><div class='output co'>#&gt; Model 1: y ~ 1
 #&gt; Model 2: y ~ x
 #&gt; Model A: y ~ x2 + x 
 #&gt; 
@@ -199,7 +203,7 @@
 #&gt; 1vA   9 -30.8931   7 -19.2686  2 -11.6245 23.2491  8.944e-06 ***
 #&gt; 2vA   8 -23.7731   7 -19.2686  1  -4.5045  9.0091   0.002686 ** 
 #&gt; ---
-#&gt; Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</div><div class='input'>
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'>
 <span class='co'># ... show labels for models</span>
 <span class='fu'>extraSS</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2</span>,
     <span class='kw'>sim.names</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"Null Model"</span>,<span class='st'>"Linear"</span>),<span class='kw'>com.name</span><span class='kw'>=</span><span class='st'>"Quadratic"</span>)</div><div class='output co'>#&gt; Model 1: Null Model
@@ -210,7 +214,7 @@
 #&gt; 1vA   9 282.400   7  27.617  2 254.783 32.290 0.0002925 ***
 #&gt; 2vA   8  67.988   7  27.617  1  40.371 10.233 0.0150891 *  
 #&gt; ---
-#&gt; Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</div><div class='input'><span class='fu'>lrt</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2</span>,
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'><span class='fu'>lrt</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2</span>,
     <span class='kw'>sim.names</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"Null Model"</span>,<span class='st'>"Linear"</span>),<span class='kw'>com.name</span><span class='kw'>=</span><span class='st'>"Quadratic"</span>)</div><div class='output co'>#&gt; Model 1: Null Model
 #&gt; Model 2: Linear
 #&gt; Model A: Quadratic 
@@ -219,7 +223,7 @@
 #&gt; 1vA   9 -30.8931   7 -19.2686  2 -11.6245 23.2491  8.944e-06 ***
 #&gt; 2vA   8 -23.7731   7 -19.2686  1  -4.5045  9.0091   0.002686 ** 
 #&gt; ---
-#&gt; Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</div><div class='input'>
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'>
 <span class='co'>#  ... dummy variable regression</span>
 <span class='no'>fit.2b</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>y</span>~<span class='no'>x</span>*<span class='no'>z</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
 <span class='fu'>extraSS</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2b</span>)</div><div class='output co'>#&gt; Model 1: y ~ 1
@@ -230,7 +234,7 @@
 #&gt; 1vA   9 282.400   6  17.800  3 264.600 29.7303 0.0005347 ***
 #&gt; 2vA   8  67.988   6  17.800  2  50.188  8.4586 0.0179459 *  
 #&gt; ---
-#&gt; Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</div><div class='input'><span class='fu'>lrt</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2b</span>)</div><div class='output co'>#&gt; Model 1: y ~ 1
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'><span class='fu'>lrt</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2b</span>)</div><div class='output co'>#&gt; Model 1: y ~ 1
 #&gt; Model 2: y ~ x
 #&gt; Model A: y ~ x * z 
 #&gt; 
@@ -238,7 +242,7 @@
 #&gt; 1vA   9 -30.8931   6 -17.0725  3 -13.8206 27.641  4.319e-06 ***
 #&gt; 2vA   8 -23.7731   6 -17.0725  2  -6.7007 13.401    0.00123 ** 
 #&gt; ---
-#&gt; Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</div><div class='input'>
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'>
 <span class='co'>#  ... ANOVAs</span>
 <span class='no'>fit.1</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>y</span>~<span class='no'>w</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
 <span class='no'>fit.2</span> <span class='kw'>&lt;-</span> <span class='fu'>lm</span>(<span class='no'>y</span>~<span class='no'>w</span>*<span class='no'>z</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
@@ -256,7 +260,7 @@
 #&gt; 1vA   9 -30.8931   6 -28.0210  3  -2.8721 5.7442    0.12474  
 #&gt; 2vA   8 -30.5334   6 -28.0210  2  -2.5124 5.0249    0.08107 .
 #&gt; ---
-#&gt; Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</div><div class='input'>
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'>
 
 <span class='co'>## Non-linear (nls()) models</span>
 <span class='no'>fit.0</span> <span class='kw'>=</span> <span class='fu'>nls</span>(<span class='no'>y</span>~<span class='no'>c</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>start</span><span class='kw'>=</span><span class='fu'>list</span>(<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>10</span>))
@@ -270,7 +274,7 @@
 #&gt; 1vA   9 282.400   7  27.617  2 254.783 32.290 0.0002925 ***
 #&gt; 2vA   8  67.988   7  27.617  1  40.371 10.233 0.0150891 *  
 #&gt; ---
-#&gt; Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</div><div class='input'><span class='fu'>lrt</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2</span>)</div><div class='output co'>#&gt; Model 1: y ~ c
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'><span class='fu'>lrt</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2</span>)</div><div class='output co'>#&gt; Model 1: y ~ c
 #&gt; Model 2: y ~ a * x + c
 #&gt; Model A: y ~ b * x2 + a * x + c 
 #&gt; 
@@ -278,7 +282,7 @@
 #&gt; 1vA   9 -30.8931   7 -19.2686  2 -11.6245 23.2491  8.944e-06 ***
 #&gt; 2vA   8 -23.7731   7 -19.2686  1  -4.5045  9.0091   0.002686 ** 
 #&gt; ---
-#&gt; Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</div><div class='input'>
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'>
 ## General least-squares (gls()) models
 </div><span class='co'># NOT RUN {</span>
   <span class='fu'>require</span>(<span class='no'>nlme</span>)

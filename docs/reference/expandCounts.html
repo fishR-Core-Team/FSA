@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -34,6 +36,7 @@
 
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -110,8 +113,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>expandCounts</span>(<span class='no'>data</span>, <span class='no'>cform</span>, <span class='kw'>lform</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>removeCount</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>lprec</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-  <span class='kw'>new.name</span> <span class='kw'>=</span> <span class='st'>"newlen"</span>, <span class='kw'>cwid</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>expandCounts</span>(<span class='no'>data</span>, <span class='no'>cform</span>, <span class='kw'>lform</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>removeCount</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>lprec</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>new.name</span> <span class='kw'>=</span> <span class='st'>"newlen"</span>, <span class='kw'>cwid</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -470,15 +473,16 @@
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>read.csv</span>(<span class='st'>"c:/aaawork/consulting/R_WiDNR/Statewide/Surveysummaries2010.csv"</span>)
 <span class='fu'>str</span>(<span class='no'>df</span>)
 <span class='co'>## narrow variables for simplicity</span>
-<span class='no'>df1</span> <span class='kw'>&lt;-</span> <span class='no'>df</span>[,<span class='fu'>c</span>(<span class='st'>"County"</span>,<span class='st'>"Waterbody.Name"</span>,<span class='st'>"Survey.Year"</span>,<span class='st'>"Gear"</span>,<span class='st'>"Species"</span>,<span class='st'>"Number.of.Fish"</span>,
-             <span class='st'>"Length.or.Lower.Length.IN"</span>,<span class='st'>"Length.Upper.IN"</span>,<span class='st'>"Weight.Pounds"</span>,<span class='st'>"Gender"</span>)]
+<span class='no'>df1</span> <span class='kw'>&lt;-</span> <span class='no'>df</span>[,<span class='fu'>c</span>(<span class='st'>"County"</span>,<span class='st'>"Waterbody.Name"</span>,<span class='st'>"Survey.Year"</span>,<span class='st'>"Gear"</span>,<span class='st'>"Species"</span>,
+             <span class='st'>"Number.of.Fish"</span>,<span class='st'>"Length.or.Lower.Length.IN"</span>,<span class='st'>"Length.Upper.IN"</span>,
+             <span class='st'>"Weight.Pounds"</span>,<span class='st'>"Gender"</span>)]
 <span class='co'>## Sum the count to see how many fish there should be after expansion</span>
 <span class='fu'>sum</span>(<span class='no'>df1</span>$<span class='no'>Number.of.Fish</span>)
 
 <span class='co'>## Simple expansion</span>
 <span class='no'>df2</span> <span class='kw'>&lt;-</span> <span class='fu'>expandCounts</span>(<span class='no'>df1</span>,~<span class='no'>Number.of.Fish</span>)
 
-<span class='co'>## Same expansion but include random component to lengths (thus new length variable)</span>
+<span class='co'>## Same expansion but include random component to lengths (thus new variable)</span>
 <span class='co'>##   also note default lprec=0.1</span>
 <span class='no'>df3</span> <span class='kw'>&lt;-</span> <span class='fu'>expandCounts</span>(<span class='no'>df1</span>,~<span class='no'>Number.of.Fish</span>,~<span class='no'>Length.or.Lower.Length.IN</span>+<span class='no'>Length.Upper.IN</span>)
 

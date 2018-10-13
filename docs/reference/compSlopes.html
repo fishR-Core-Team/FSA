@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -34,6 +36,7 @@
 
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -158,6 +161,7 @@
 <tr><td><code>upr</code></td><td>Upper confidence bound for difference in slope values.</td></tr>
 <tr><td><code>p.unadj</code></td><td>Unadjusted p-value for testing the difference in slopes is zero.</td></tr>
 <tr><td><code>p.adj</code></td><td>Adjusted p-value for testing the difference in slopes is zero.</td></tr>
+<tr><td></td><td><code>comparison</code></td></tr>
 </table>
 
 
@@ -168,6 +172,7 @@
 <tr><td><code>XX UCI</code></td><td>Upper confidence bound for difference in slope values.</td></tr>
 <tr><td><code>p.unadj</code></td><td>Unadjusted p-value for testing the slope is zero.</td></tr>
 <tr><td><code>p.adj</code></td><td>Adjusted p-value for testing the slope is zero.</td></tr>
+<tr><td></td><td><code>level</code></td></tr>
 </table>
 
 
@@ -199,7 +204,7 @@
 #&gt; weight:year   5 0.09351 0.018703  5.0499 0.0003326 ***
 #&gt; Residuals   110 0.40740 0.003704                      
 #&gt; ---
-#&gt; Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</div><div class='input'><span class='co'># compare all pairs of slopes using default Holm control</span>
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'><span class='co'># compare all pairs of slopes using default Holm control</span>
 <span class='fu'>compSlopes</span>(<span class='no'>lm1</span>)</div><div class='output co'>#&gt; <span class='message'>Multiple Slope Comparisons (using the 'holm' adjustment)</span></div><div class='output co'>#&gt;    comparison     diff  95% LCI  95% UCI p.unadj   p.adj
 #&gt; 1   1982-1977 -0.00202 -0.01678  0.01273 0.78627 1.00000
 #&gt; 2   1986-1977 -0.00331 -0.01670  0.01008 0.62556 1.00000

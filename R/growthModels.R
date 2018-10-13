@@ -155,11 +155,12 @@
 #' ##   However, observe the correlations in the summary() results.
 #' 
 #' ## Von B
+#' plot(tl~age,data=SpotVA1,pch=19)
+#' 
 #' # Fitting the typical parameterization of the von B function
 #' fit1 <- nls(tl~vb1(age,Linf,K,t0),data=SpotVA1,
 #'             start=vbStarts(tl~age,data=SpotVA1))
 #' summary(fit1,correlation=TRUE)
-#' plot(tl~age,data=SpotVA1,pch=19)
 #' curve(vb1(x,Linf=coef(fit1)),from=0,to=5,col="red",lwd=10,add=TRUE)
 #'
 #' # Fitting the Francis parameterization of the von B function
@@ -190,11 +191,12 @@
 #' lens <- gompO(ages,Linf=450,a=1,gi=0.3)+rnorm(length(ages),0,sd)
 #' # put together as a data.frame
 #' df <- data.frame(age=ages,len=round(lens,0))
-#' 
+#'
+#' plot(len~age,data=df,pch=19,col=rgb(0,0,0,1/5))
+#'   
 #' # Fit first Ricker parameterization
 #' fit1 <- nls(len~gomp1(age,Linf,gi,ti),data=df,start=list(Linf=500,gi=0.3,ti=3))
 #' summary(fit1,correlation=TRUE)
-#' plot(len~age,data=df,pch=19,col=rgb(0,0,0,1/5))
 #' curve(gomp1(x,Linf=coef(fit1)),from=0,to=15,col="red",lwd=10,add=TRUE)
 #'
 #' # Fit third Ricker parameterization
@@ -210,22 +212,26 @@
 #'       from=0,to=15,col="green",lwd=2,add=TRUE)
 #' 
 #' ## Richards
-#' # Fit first Richards parameterization
+#' 
+#' \dontrun{
+#' # Fit first Richards parameterization ... DOES NOT CONVERGE
 #' fit1 <- nls(len~rich1(age,Linf,k,a,b),data=df,
-#'             start=list(Linf=450,k=0.25,a=0.65,b=3))
+#'             start=list(Linf=450,k=0.3,a=0.2,b=3))
 #' summary(fit1,correlation=TRUE)
-#' plot(len~age,data=df,pch=19,col=rgb(0,0,0,1/5))
 #' curve(rich1(x,Linf=coef(fit1)),from=0,to=15,col="red",lwd=10,add=TRUE)
 #'
-#' # Fit second Richards parameterization
+#' # Fit second Richards parameterization ... DOES NOT CONVERGE
 #' fit2 <- nls(len~rich2(age,Linf,k,ti,b),data=df,
 #'             start=list(Linf=450,k=0.25,ti=3,b=3))
 #' summary(fit2,correlation=TRUE)
 #' curve(rich2(x,Linf=coef(fit2)),from=0,to=15,col="blue",lwd=7,add=TRUE)
+#' }
+#'
+#' plot(len~age,data=df,pch=19,col=rgb(0,0,0,1/5))
 #' 
 #' # Fit third Richards parameterization
 #' fit3 <- nls(len~rich3(age,Linf,k,ti,b),data=df,
-#'             start=list(Linf=450,k=0.25,ti=3,b=-0.3))
+#'             start=list(Linf=450,k=0.25,ti=3,b=-0.1))
 #' summary(fit3,correlation=TRUE)
 #' curve(rich3(x,Linf=coef(fit3)),from=0,to=15,col="green",lwd=4,add=TRUE)
 #' 
@@ -236,11 +242,12 @@
 #' curve(rich4(x,Linf=coef(fit4)),from=0,to=15,col="black",lwd=1,add=TRUE)
 #' 
 #' ## Logistic
+#' plot(len~age,data=df,pch=19,col=rgb(0,0,0,1/5))
+#' 
 #' # Fit first Campana-Jones parameterization
 #' fit1 <- nls(len~log1(age,Linf,gninf,ti),data=df,
 #'             start=list(Linf=450,gninf=0.45,ti=4))
 #' summary(fit1,correlation=TRUE)
-#' plot(len~age,data=df,pch=19,col=rgb(0,0,0,1/5))
 #' curve(log1(x,Linf=coef(fit1)),from=0,to=15,col="red",lwd=10,add=TRUE)
 #'
 #' # Fit second Campana-Jones parameterization
