@@ -115,6 +115,7 @@
 <li>Added <code>Encoding: UTF-8</code> to DESCRIPTION.</li>
 <li>Removed all <code>data()</code> in examples that referred to data from this package. Included the <code>package=</code> argument in <code>data()</code> that loaded from other packages.</li>
 <li>Added <code>seealso</code>, with links to which functions use the data for examples, to docmentation for all data.frames.</li>
+<li>Removed <code>\dontrun()</code>s from the <code>bootCase</code> related examples now that <code>car</code> package is updated. This addresses <a href="https://github.com/droglenc/FSA/issues/45"><a href='https://github.com/droglenc/FSA/issues/45'>#45</a></a>.</li>
 <li>
 <code>addZeroCatch()</code>: Modified. Added a catch that turns a “tibble” into a regular data.frame (which obviates some errors that occur with tibbles). Minor changes to documentation and comments in the code.</li>
 <li>
