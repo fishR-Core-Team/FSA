@@ -8,11 +8,12 @@ test_that("removal() return types",{
   expect_equal(class(removal(c(38,26,12),method="Seber3")),"removal")
   expect_equal(class(removal(c(38,26),method="Seber2")),"removal")
   expect_equal(class(removal(c(38,26),method="RobsonRegier2")),"removal")
+  expect_equal(class(removal(c(38,26,12),method="Burnham")),"removal")
   # do one-dimensional data.frames and matrices work?
   expect_equal(class(removal(data.frame(c(38,26,12)))),"removal")
   expect_equal(class(removal(matrix(c(38,26,12),nrow=1))),"removal")
   expect_equal(class(removal(matrix(c(38,26,12),ncol=1))),"removal")
-  
+
   # summary() results
   tmp <- removal(c(38,26,12))
   tmp2 <- summary(tmp)
@@ -112,7 +113,7 @@ test_that("removal() return types",{
   expect_equal(ncol(tmp2),2)
   expect_equal(rownames(tmp2),c("No"))
   expect_equal(colnames(tmp2),c("95% LCI","95% UCI"))
-  
+
   ## What if catches are all zeroes
   suppressWarnings(expect_true(all(is.na(removal(c(0,0,0),method="Zippin")$est))))
   suppressWarnings(expect_true(all(is.na(removal(c(0,0,0),method="Schnute")$est))))
@@ -120,4 +121,5 @@ test_that("removal() return types",{
   suppressWarnings(expect_true(all(is.na(removal(c(0,0,0),method="Seber3")$est))))
   suppressWarnings(expect_true(all(is.na(removal(c(0,0),method="Seber2")$est))))
   suppressWarnings(expect_true(all(is.na(removal(c(0,0),method="RobsonRegier2")$est))))
+  suppressWarnings(expect_true(all(is.na(removal(c(0,0),method="Burnham")$est))))
 })

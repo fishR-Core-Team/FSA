@@ -5,7 +5,7 @@ test_that("removal with 'CarleStrub' matches Carle-Strub (1978) examples",{
   expect_equal(round(tmp["No","Estimate"],0),91)
   expect_equal(round(tmp["No","Std. Error"],1),9.7)
   expect_equal(round(tmp["p","Estimate"],3),0.444)
-  
+
   tmp <- summary(removal(c(5,7,8)))
   expect_equal(round(tmp["No","Estimate"],0),44)
   expect_equal(round(tmp["p","Estimate"],3),0.174)
@@ -17,7 +17,7 @@ test_that("removal with 'CarleStrub' matches Cowx (1983) page 77",{
   expect_equal(round(tmp["p","Estimate"],3),0.250)
   # SE does not match
   #expect_equal(round(tmp["No","Std. Error"],1),23.62)
-  
+
   tmp <- summary(removal(c(8,23,17,8,6)))
   expect_equal(round(tmp["No","Estimate"],0),95)
   expect_equal(round(tmp["p","Estimate"],3),0.187)
@@ -26,7 +26,7 @@ test_that("removal with 'CarleStrub' matches Cowx (1983) page 77",{
 test_that("removal with 'CarleStrub' match results from Jones & Stockwell (1995)",{
   if (require(FSAdata)) {
     data(JonesStockwell,package="FSAdata")
-    # isolate captures and Carel-Strub estimates ... for non-rejected estimates
+    # isolate captures and Carle-Strub estimates ... for non-rejected estimates
     JS.caps <- JonesStockwell[!JonesStockwell$rejected,4:6]
     JS.cs <- JonesStockwell[!JonesStockwell$rejected,7]
     # compute Carle-Strub estimates for all data in JS.caps
@@ -115,4 +115,13 @@ test_that("removal with 'Schnute' matches Schnute (1983)",{
     tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),NLCI,NUCI,BrookTroutNEWP1[,c("Schnute.NLCI","Schnute.NUCI")])
     expect_true(all(abs(tmp[,2:3]-tmp[,4:5])<=0.1001,na.rm=TRUE))
   }
+
+})
+test_that("removal with 'Burnham' match results from (Van Deventer 1989) page 13",{
+  tmp <- summary(removal(c(124,61,35,14),method="Burnham"))
+  expect_equal(round(tmp["No","Estimate"],0),249)
+  expect_equal(round(tmp["No","Std. Error"],3),6.164)
+  expect_equal(round(tmp["p","Estimate"],3),0.501)
+  expect_equal(round(tmp["p","Std. Error"],3),0.035)
+
 })
