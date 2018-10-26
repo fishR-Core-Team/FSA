@@ -51,10 +51,10 @@ Performs Dunn's (1964) test of multiple comparisons following a significant Krus
 \details{
 This function performs \dQuote{Dunn's} test of multiple comparisons following a Kruskal-Wallis test. Unadjusted one- or two-sided p-values for each pairwise comparison among groups are computed following Dunn's description as implemented in the \code{\link[dunn.test]{dunn.test}} function from \pkg{dunn.test}. These p-values may be adjusted using methods in the \code{p.adjustment.methods} function in \pkg{dunn.test}.
 
-This function is largely a wrapper for the \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test}. Changes here are the possible use of formula notation, results not printed by the main function (but are printed in a more useful format (in my opinion) by the \code{print} function), the p-values are adjusted by default with the \dQuote{holm} method, and two-sided p-values are returned by default. See \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test} for a more details underlying these computations.
+This function is largely a wrapper for the \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test}. Changes here are the possible use of formula notation, results not printed by the main function (but are printed in a more useful format (in my opinion) by the \code{print} function), the p-values are adjusted by default with the \dQuote{holm} method, and two-sided p-values are returned by default. See \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test} for more details underlying these computations.
 }
 \note{
-The data.frame will be reduced to only those rows that are complete cases for \code{x} and \code{g}. In other words, rows with missing data for either \code{x} or \code{g} are removed from the analysis.
+The data.frame will be reduced to only those rows that are complete cases for \code{x} and \code{g}. In other words, rows with missing data for either \code{x} or \code{g} are removed from the analysis and a warning will be issued.
 
 There are a number of functions in other packages that do similar analyses.
 

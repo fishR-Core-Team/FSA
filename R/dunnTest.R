@@ -4,9 +4,9 @@
 #' 
 #' @details This function performs \dQuote{Dunn's} test of multiple comparisons following a Kruskal-Wallis test. Unadjusted one- or two-sided p-values for each pairwise comparison among groups are computed following Dunn's description as implemented in the \code{\link[dunn.test]{dunn.test}} function from \pkg{dunn.test}. These p-values may be adjusted using methods in the \code{p.adjustment.methods} function in \pkg{dunn.test}.
 #'
-#' This function is largely a wrapper for the \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test}. Changes here are the possible use of formula notation, results not printed by the main function (but are printed in a more useful format (in my opinion) by the \code{print} function), the p-values are adjusted by default with the \dQuote{holm} method, and two-sided p-values are returned by default. See \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test} for a more details underlying these computations.
+#' This function is largely a wrapper for the \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test}. Changes here are the possible use of formula notation, results not printed by the main function (but are printed in a more useful format (in my opinion) by the \code{print} function), the p-values are adjusted by default with the \dQuote{holm} method, and two-sided p-values are returned by default. See \code{\link[dunn.test]{dunn.test}} function in \pkg{dunn.test} for more details underlying these computations.
 #' 
-#' @note The data.frame will be reduced to only those rows that are complete cases for \code{x} and \code{g}. In other words, rows with missing data for either \code{x} or \code{g} are removed from the analysis.
+#' @note The data.frame will be reduced to only those rows that are complete cases for \code{x} and \code{g}. In other words, rows with missing data for either \code{x} or \code{g} are removed from the analysis and a warning will be issued.
 #' 
 #' There are a number of functions in other packages that do similar analyses.
 #' 
@@ -89,13 +89,15 @@ dunnTest.default <- function(x,g,
                              two.sided=TRUE,altp=two.sided,...) {
   ## check method type and get long name for the p-value adjustment method
   method <- match.arg(method)
-  adjNAMES <- c("Holm","Bonferroni","Sidak","Holm-Sidak","Hochberg","Benjamini-Hochberg","Benjamini-Yekuteili","No Adjustment")
+  adjNAMES <- c("Holm","Bonferroni","Sidak","Holm-Sidak","Hochberg",
+                "Benjamini-Hochberg","Benjamini-Yekuteili","No Adjustment")
   Name <- adjNAMES[which(dunn.test::p.adjustment.methods[c(4,2:3,5:8,1)]==method)]
   
   ## check variable types
   if (!is.numeric(x)) STOP("'x' must be numeric.")
   if (!is.factor(g)) {
-    if (!(is.integer(g)|is.character(g))) STOP("'g' must be coerceable to a factor.")
+    if (!(is.integer(g)|is.character(g)))
+      STOP("'g' must be coerceable to a factor.")
     g <- as.factor(g)
     WARN("'g' variable was coerced to a factor.")
   }
@@ -110,7 +112,8 @@ dunnTest.default <- function(x,g,
   ## MAIN CALCULATIONS (using dunn.test() from dunn.test package)
   # Result is in res, capture.output() is used to ignore the cat()ted
   # output from dunn.test(), which is in dtres
-  if (!requireNamespace("dunn.test")) STOP("'dunnTest' requires the 'dunn.test' package to be installed!")
+  if (!requireNamespace("dunn.test"))
+    STOP("'dunnTest' requires the 'dunn.test' package to be installed!")
   else {
     dtres <- utils::capture.output(res <- dunn.test::dunn.test(x,g,method,TRUE,
                                                                altp=altp,...))
