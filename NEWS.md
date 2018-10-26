@@ -21,6 +21,7 @@
 * `lwCompPreds()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
 * `plotAB()`: Modified. Now in its own documentation file (rather than with `ageBias()`).
 * `psdCalc()`: Modified. Better handled the situation where the user asks for summaries with some fish greater than stock size but no fish greater than quality size (addresses [#50](https://github.com/droglenc/FSA/issues/50); thanks to Timothy Spier for the bug report).
+* `removal()`: Modified. Added `method="Burhnam"` via the [#51](https://github.com/droglenc/FSA/pull/51) from Powell Wheeler.
 * `residPlot()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
 * `SMBassWB`: Modified. Fixed minor data entry error in row 383.
 * `vbFuns()`: Modified. Added `Francis3` to the list of models.

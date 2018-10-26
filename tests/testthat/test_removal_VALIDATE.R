@@ -79,13 +79,15 @@ test_that("removal with 'Moran' matches Schnute (1983)",{
       NUCI[i] <- tmp[2]
     }
     ## check point estimates
-    tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),Ns,ps,LHs,BrookTroutNEWP1[,c("Moran.N","Moran.p","Moran.LH")])
+    tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),Ns,ps,LHs,
+                 BrookTroutNEWP1[,c("Moran.N","Moran.p","Moran.LH")])
     ## perfect matches
     expect_equal(tmp[,"Ns"],BrookTroutNEWP1$Moran.N[])
     expect_equal(tmp[,"ps"],BrookTroutNEWP1$Moran.p[])
     expect_equal(tmp[,"LHs"],BrookTroutNEWP1$Moran.LH[])
     ## Check CIs (off by no more than 0.1 in a small handful of the UCIs)
-    tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),NLCI,NUCI,BrookTroutNEWP1[,c("Moran.NLCI","Moran.NUCI")])
+    tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),NLCI,NUCI,
+                 BrookTroutNEWP1[,c("Moran.NLCI","Moran.NUCI")])
     expect_true(all(abs(tmp[,2:3]-tmp[,4:5])<=0.1001))
   }
 })
@@ -105,23 +107,30 @@ test_that("removal with 'Schnute' matches Schnute (1983)",{
       NUCI[i] <- tmp[2]
     }
     ## check point estimates
-    tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),Ns,p1s,ps,LHs,BrookTroutNEWP1[,c("Schnute.N","Schnute.p1","Schnute.p","Schnute.LH")])
+    tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),Ns,p1s,ps,LHs,
+                 BrookTroutNEWP1[,c("Schnute.N","Schnute.p1","Schnute.p","Schnute.LH")])
     ## perfect matches except sample 5 N is off by 0.1
     expect_equal(tmp[-5,"Ns"],BrookTroutNEWP1$Schnute.N[-5])
     expect_equal(tmp[,"p1s"],BrookTroutNEWP1$Schnute.p1[])
     expect_equal(tmp[,"ps"],BrookTroutNEWP1$Schnute.p[])
     expect_equal(tmp[,"LHs"],BrookTroutNEWP1$Schnute.LH[])
     ## Check CIs (off by no more than 0.1)
-    tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),NLCI,NUCI,BrookTroutNEWP1[,c("Schnute.NLCI","Schnute.NUCI")])
+    tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),NLCI,NUCI,
+                 BrookTroutNEWP1[,c("Schnute.NLCI","Schnute.NUCI")])
     expect_true(all(abs(tmp[,2:3]-tmp[,4:5])<=0.1001,na.rm=TRUE))
   }
 
 })
 test_that("removal with 'Burnham' match results from (Van Deventer 1989) page 13",{
-  tmp <- summary(removal(c(124,61,35,14),method="Burnham"))
-  expect_equal(round(tmp["No","Estimate"],0),249)
-  expect_equal(round(tmp["No","Std. Error"],3),6.164)
-  expect_equal(round(tmp["p","Estimate"],3),0.501)
-  expect_equal(round(tmp["p","Std. Error"],3),0.035)
-
+  tmp <- removal(c(124,61,35,14),method="Burnham",roundt4CI=TRUE)
+  ## check point estimates
+  tmp2 <- summary(tmp)
+  expect_equal(round(tmp2["No","Estimate"],0),249)
+  expect_equal(round(tmp2["No","Std. Error"],3),6.164)
+  expect_equal(round(tmp2["p","Estimate"],3),0.501)
+  expect_equal(round(tmp2["p","Std. Error"],3),0.035)
+  ## check CIs
+  tmp2 <- confint(tmp)
+  expect_equal(round(as.numeric(tmp2["No",]),3),c(236.858,261.142))
+  expect_equal(round(as.numeric(tmp2["p",]),3),c(0.432,0.570))
 })

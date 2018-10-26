@@ -16,7 +16,7 @@
 #'
 #' Confidence intervals for the first five methods are computed using standard large-sample normal distribution theory. Note that the confidence intervals for the 2- and 3-pass special cases are only approximately correct if the estimated population size is greater than 200. If the estimated population size is between 50 and 200 then a 95\% CI behaves more like a 90\% CI.
 #'
-#' Confidence intervals for the next two methods use likelihood ratio theory as described in Schnute (1983) and are only produced for the No parameter. Standard errors are not produced with the Moran or Schnute methods..
+#' Confidence intervals for the next two methods use likelihood ratio theory as described in Schnute (1983) and are only produced for the No parameter. Standard errors are not produced with the Moran or Schnute methods.
 #'
 #' Confidence intervals for the last method are computed as per Ken Burnham's instructions for the Burnham Method (Jack Van Deventer, personal communication).
 #'
@@ -34,7 +34,8 @@
 #' @param just.ests A logical that indicates whether just the estimates (\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.
 #' @param verbose A logical that indicates whether descriptive labels should be printed from \code{summary} and if certain warnings are shown with \code{confint}.
 #' @param digits A single numeric that controls the number of decimals in the output from \code{summary} and \code{confint}.
-#' @param Tmult A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute method. Large values are much slower to compute, but too low of a value can result in missing the best estimate. A warning is issued if too low of a value is suspected.
+#' @param Tmult A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute methods. Large values are much slower to compute, but values that are too low may result in missing the best estimate. A warning is issued if too low of a value is suspected.
+#' @param roundt4CI A logical that indicates whether the t value used to calculate confidence intervals when \code{method="Burnham"} should be rounded to two decimals as done in MicroFish 3.0. The default is to not round the t values (\code{=FALSE}). This option is provided only so that results will exactly match MicroFish results (see testing).
 #' @param \dots Additional arguments for methods.
 #'
 #' @return A vector that contains the estimates and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with at least the following items:
@@ -63,7 +64,7 @@
 #'
 #' The Moran and Schnute methods match the examples in Schnute (1983) perfectly for all point estimates and within 0.1 units for all confidence intervals.
 #'
-#' The Brunham Method was tested against the free (gratis) Demo Version of MicroFish 3.0. Powell Wheeler used R to simulate 100, three-pass removal samples with capture probabilities between 0 and 1 and population sizes <= 1000. The FSA::removal Burnahm Method exactly matched MicroFish in all 100 trials for No and p. The confidence intervals about No exactly matched in 90 cases. When they did not match the difference was always one fish on either side of the Confidence Interval. The CIs matched the 100 simulations exactly, if this program were to round the t-statistic as MicroFish does (Van Deventer 1989).
+#' The Burnham method was tested against the free (gratis) Demo Version of MicroFish 3.0. Powell Wheeler used R to simulate 100, three-pass removal samples with capture probabilities between 0 and 1 and population sizes <= 1000. The Burnahm method implemented here exactly matched MicroFish in all 100 trials for No and p. The confidence intervals for No exactly matched in 90 cases. When they did not match the difference was always one fish on either side of the confidence interval. The CIs exactly matched for all 100 simulations if \code{roundt4CI=TRUE}.
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
@@ -89,7 +90,7 @@
 #'
 #' van Dishoeck, P. 2009. Effects of catchability variation on performance of depletion estimators: Application to an adaptive management experiment. Masters Thesis, Simon Fraser University. [Was (is?) from http://rem-main.rem.sfu.ca/theses/vanDishoeckPier_2009_MRM483.pdf.]
 #'
-#' Van Deventer, J.S. 1989. Microcomputer Software System for Generating Population Statistics from Electrofishing Data--User's Guide for MicroFish 3.0. USDA Forest Service, General Technical Report INT-254.  29 p.
+#' Van Deventer, J.S. 1989. Microcomputer Software System for Generating Population Statistics from Electrofishing Data--User's Guide for MicroFish 3.0. USDA Forest Service, General Technical Report INT-254. 29 p.
 #'
 #' Van Deventer, J.S., and W.S. Platts. 1983. Sampling and estimating fish populations from streams. Transactions of the 48th North American Wildlife and Natural Resource Conference. pp. 349-354.
 #'
@@ -203,7 +204,7 @@ removal <- function(catch,
                     method=c("CarleStrub","Zippin","Seber3","Seber2",
                              "RobsonRegier2","Moran","Schnute","Burnham"),
                     alpha=1,beta=1,CS.se=c("Zippin","alternative"),
-                    conf.level=0.95,just.ests=FALSE,Tmult=3) {
+                    conf.level=0.95,just.ests=FALSE,Tmult=3,roundt4CI=FALSE) {
   # some initial checks
   method <- match.arg(method)
   if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
@@ -234,7 +235,7 @@ removal <- function(catch,
     RobsonRegier2= { tmp <- iRobsonRegier2(catch,conf.level) },
     Moran=         { tmp <- iMoran(catch,conf.level,Tmult) },
     Schnute=       { tmp <- iSchnute(catch,conf.level,Tmult) },
-    Burnham=       { tmp <- iBurnham(catch,conf.level,Tmult) }
+    Burnham=       { tmp <- iBurnham(catch,conf.level,Tmult,roundt4CI) }
   )
   if (just.ests) { tmp <- tmp$est }
   else {
@@ -325,7 +326,8 @@ iRemovalLHCI <- function(method,catch,conf.level,k,T,X,min.nlogLH,Tmult){
     tmp <- range(which(nlogLHvals<=nlogLHcrit))
     # If the last position in the last N tried then the Ns tried were
     #   probably not adequate. Tell the user to up the Tmult value.
-    if (max(tmp)==length(Ntrys) & !UCIfail) WARN("Upper confidence value is ill-formed; try increasing 'Tmult' in 'removal()'.")
+    if (max(tmp)==length(Ntrys) & !UCIfail)
+      WARN("Upper confidence value is ill-formed; try increasing 'Tmult' in 'removal()'.")
     # The LCI is N in the lower position, UCI is N in the higher position.
     if (!LCIfail) LCI <- Ntrys[tmp[1]]
     if (!UCIfail) UCI <- Ntrys[tmp[2]]
@@ -626,66 +628,76 @@ iRobsonRegier2 <- function(catch,conf.level) {
 
 #=============================================================
 # INTERNAL -- Calculate Burnham k-pass estimates
+#
+# Note in notes below that V&P refers to Van Deventer and Platts (1983)
 #=============================================================
-# there are four scenarios that break Burnham 1)total catch =1, all fish caught on first pass, severely non descending removal pattern, or zero fish collected.
-# I need to check for all of these upfront.  However the non descending removal pattern has to be checked for last.
-#Also I need to modify the CI formulas to keep up with less decimal places as per the microfish program.
-
-iBurnham <- function(catch,conf.level=0.95, Tmult){
+iBurnham <- function(catch,conf.level,Tmult,roundt4CI){
   # Get intermediate calculations
   int <- iRemovalKTX(catch)
-  k <- int[["k"]] #Van Deventer and Platts (1983) refer to this value as 'T'
-  T <- int[["T"]] #Van Deventer and Platts (1983) refer to this value as 'S'
+  k <- int[["k"]] # T in V&P
+  T <- int[["T"]] # S in V&P
   i <- 1:k
-  C <- sum(catch*i) #An additional intermediate value from the equation in step 2 from page 352 in Van Deventer and Platts (1983)
-  #Create a data.frame to perform the iterative search that finds the population estimate and capture probability
-
+  # An additional intermediate value from step 2 equation (page 352 in V&P)
+  C <- sum(catch*i)
+  
+  # Create data.frame for iterative search that finds the No and p
+  #   First, check that Burnham is not going to break
+  #     the non descending removal pattern must be checked for last.
   if (T==0) {
-    warning("No catches on any pass results in Burnham model (Van Deventer and Platts 1983) failure.")
+    WARN("No catches on any pass results in model failure for Burnham method.")
     tmp <- rep(NA,8)
   } else if (T==1) {
-    warning("Total catch of one fish results in Burnham model (Van Deventer and Platts 1983) failure.")
+    WARN("Total catch of one fish results in model failure for Burnham method.")
     tmp <- rep(NA,8)
   } else if (T==catch[1]) {
-    warning("All fish captured on the first pass results in Burnham model (Van Deventer and Platts 1983) failure.")
+    WARN("All fish captured on first pass results in model failure for Burnham method.")
     tmp <- rep(NA,8)
   } else {
-  search.df <- data.frame (I=0:(((T*Tmult)-T)+1)) #Note: MicroFish Software uses Tmult=5 (Van Deventer 1989), whereas FSA::removal defaults to Tmult=3. This formula is a little convoluted but it forces the iteration to stop on Tmult+1. We have to explore through Tmult+1 to discover if Tmult is the population estimate.
-  search.df$N <- T+search.df$I #Equation in step 3a from page 352 in Van Deventer and Platts (1983)
-  search.df$P <-T/(C+k*search.df$I) #Equation in step 3b from page 352 in Van Deventer and Platts (1983)
-  for (i in 1:length(search.df[,1])) {
-    if (i==1) search.df$H[i] <- 0+log(1+T/(search.df$I[i]+1)) #An exception to the equation in step 3c for the initial row in search.df from page 352 in Van Deventer and Platts (1983). Note that search.df$I=0 when the loop counter 'i'=1.
-    if (i>1) search.df$H[i] <- search.df$H[i-1]+log(1+T/(search.df$I[i-1]+1)) #Equivalent to the equation in step 3c from page 352 in Van Deventer and Platts (1983).
-  }
-  search.df$L <- search.df$H+T*log(search.df$P)+(C-T+(k*search.df$I))*log(1-search.df$P) #The likelihood function: Equation 3d from page 352 in Van Deventer and Platts (1983).
-  max.like <- grep(max(search.df$L),search.df$L) #Finds the iteration (row) that has the maximum likelihood
-  N0 <- T+search.df$I[max.like] #The population estimate
-  p <- search.df$P[max.like] #The estimated capture probability
-  N0.var <- ((N0*(1-p)^k)*(1-(1-p)^k))/(((1-(1-p)^k)^2)-((k*p)^2)*((1-p)^(k-1))) #Variance of the population estimate
-  p.var <- ((p/N0)^2)*((N0.var)/((1-p)^(k-1))) #Variance of the estimated capture probability
-  N0.ci <- N0+c(1,-1)*sqrt(N0.var)*stats::qt((1-conf.level)/2,N0-1) #(N0-1) is how Ken Burnham recommends calculating the degrees of freedom. (Jack Van Deventer, personal correspondance)
-  p.ci <- p+c(1,-1)*sqrt(p.var)*stats::qt((1-conf.level)/2,N0-1) #(N0-1) is how Ken Burnham recommends calculating the degrees of freedom. (Jack Van Deventer, personal correspondance)
-
-  #MicroFish calculates confidence intervals by rounding off the t-statistic (Van Deventer 1989). If you need the CIs to match MicroFish, unremark the following 6 lines.
-  #  if (N0 <= 100) {t.statistic <- round(qt((1-conf.level)/2,N0-1),digits=3)
-  #    } else {
-  #   t.statistic <- round(qt((1-conf.level)/2,N0-1),digits=2)
-  #    }
-  #  N0.ci <- N0+c(1,-1)*sqrt(N0.var)*t.statistic
-  #  p.ci <- p+c(1,-1)*sqrt(p.var)*t.statistic
-
-  #Organize the results into a vector
-  tmp <- c(N0,sqrt(N0.var),N0.ci,p,sqrt(p.var),p.ci)
-  #Check if N0=Tmult+1. If so, the Burnham approach searched from T to Tmult without finding a population estimate.
-  if (N0==(Tmult*T)+1) {
-      warning("The Burnham method failed to find estimates for population size and capture probability. It may help to increase the Tmult option to a value greater than the default (3), but it's unlikely to make a difference. This problem is characteristic of a non-depleting catch pattern.")
+    # Note: MicroFish uses Tmult=5 (Van Deventer 1989), whereas FSA::removal defaults
+    #       to Tmult=3. This formula is a little convoluted but it forces the iteration
+    #       to stop on Tmult+1. We have to explore through Tmult+1 to discover if
+    #       Tmult is the population estimate.
+    search.df <- data.frame(I=0:(((T*Tmult)-T)+1))
+    search.df$N <- T+search.df$I        # Equation in step 3a (page 352 in V&P)
+    search.df$P <-T/(C+k*search.df$I)   # Equation in step 3b (page 352 in V&P)
+    for (i in 1:length(search.df[,1])) {
+      # An exception to the equation in step 3c for the initial row in search.df
+      #   from page 352 in V&P. Note that search.df$I=0 when the loop counter 'i'=1.
+      if (i==1) search.df$H[i] <- 0+log(1+T/(search.df$I[i]+1))
+      # Equivalent to the equation in step 3c from page 352 in V&P
+      if (i>1) search.df$H[i] <- search.df$H[i-1]+log(1+T/(search.df$I[i-1]+1))
+    }
+    # The likelihood function: Equation 3d from page 352 in V&P
+    search.df$L <- search.df$H+T*log(search.df$P)+(C-T+(k*search.df$I))*log(1-search.df$P)
+    # Find the iteration (row) that has the maximum likelihood
+    max.like <- grep(max(search.df$L),search.df$L)
+    N0 <- T+search.df$I[max.like]
+    p <- search.df$P[max.like]
+    N0.var <- ((N0*(1-p)^k)*(1-(1-p)^k))/(((1-(1-p)^k)^2)-((k*p)^2)*((1-p)^(k-1)))
+    p.var <- ((p/N0)^2)*((N0.var)/((1-p)^(k-1)))
+    # Compute CIs ... Note that (N0-1) is how Ken Burnham recommends calculating
+    #   df (Jack Van Deventer, personal correspondance)
+    t.statistic <- stats::qt((1-conf.level)/2,N0-1)
+    # If asked round t for CI calcs according to MicroFish way
+    if (roundt4CI) t.statistic <- round(t.statistic,digits=ifelse(N0<=100,3,2))
+    N0.ci <- N0+c(1,-1)*sqrt(N0.var)*t.statistic
+    p.ci <- p+c(1,-1)*sqrt(p.var)*t.statistic
+    # Organize the results into a vector
+    tmp <- c(N0,sqrt(N0.var),N0.ci,p,sqrt(p.var),p.ci)
+    # Check if N0=Tmult+1. If so, the Burnham approach searched from T to Tmult
+    #   without finding a population estimate.
+    if (N0==(Tmult*T)+1) {
+      WARN("The Burnham method failed to find estimates for population size and capture\n",
+           " probability. It may help to increase the Tmult option to a value greater\n",
+           " than the default (3), but that is unlikely to make a difference. This problem\n",
+           " is characteristic of a non-depleting catch pattern.")
       tmp <- rep(NA,8)   # empty the vector of estimates
     }
   }
-  # Name the values in the results vector
+  # Name the values in the results vector and return them
   names(tmp) <- c("No","No.se","No.LCI","No.UCI","p","p.se","p.LCI","p.UCI")
-  #return(list)
-  list(est=tmp, int=c(int,C=C), catch=catch, lbl="Burnham K-Pass Removal Method (Van Deventer and Platts 1983)")
+  list(est=tmp,int=c(int,C=C),catch=catch,
+       lbl="Burnham K-Pass Removal Method (Van Deventer and Platts 1983)")
 }
 
 #' @rdname removal

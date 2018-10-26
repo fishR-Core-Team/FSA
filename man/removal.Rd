@@ -9,7 +9,7 @@
 removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
   "RobsonRegier2", "Moran", "Schnute", "Burnham"), alpha = 1, beta = 1,
   CS.se = c("Zippin", "alternative"), conf.level = 0.95,
-  just.ests = FALSE, Tmult = 3)
+  just.ests = FALSE, Tmult = 3, roundt4CI = FALSE)
 
 \method{summary}{removal}(object, parm = c("No", "p", "p1"),
   digits = getOption("digits"), verbose = FALSE, ...)
@@ -33,7 +33,9 @@ removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
 
 \item{just.ests}{A logical that indicates whether just the estimates (\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.}
 
-\item{Tmult}{A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute method. Large values are much slower to compute, but too low of a value can result in missing the best estimate. A warning is issued if too low of a value is suspected.}
+\item{Tmult}{A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute methods. Large values are much slower to compute, but values that are too low may result in missing the best estimate. A warning is issued if too low of a value is suspected.}
+
+\item{roundt4CI}{A logical that indicates whether the t value used to calculate confidence intervals when \code{method="Burnham"} should be rounded to two decimals as done in MicroFish 3.0. The default is to not round the t values (\code{=FALSE}). This option is provided only so that results will exactly match MicroFish results (see testing).}
 
 \item{object}{An object saved from \code{removal()}.}
 
@@ -80,7 +82,7 @@ The main function computes the estimates and associated standard errors, if poss
 
 Confidence intervals for the first five methods are computed using standard large-sample normal distribution theory. Note that the confidence intervals for the 2- and 3-pass special cases are only approximately correct if the estimated population size is greater than 200. If the estimated population size is between 50 and 200 then a 95\% CI behaves more like a 90\% CI.
 
-Confidence intervals for the next two methods use likelihood ratio theory as described in Schnute (1983) and are only produced for the No parameter. Standard errors are not produced with the Moran or Schnute methods..
+Confidence intervals for the next two methods use likelihood ratio theory as described in Schnute (1983) and are only produced for the No parameter. Standard errors are not produced with the Moran or Schnute methods.
 
 Confidence intervals for the last method are computed as per Ken Burnham's instructions for the Burnham Method (Jack Van Deventer, personal communication).
 
@@ -99,7 +101,7 @@ The Zippin method results do not match the examples in Seber (2002) or Cowx (198
 
 The Moran and Schnute methods match the examples in Schnute (1983) perfectly for all point estimates and within 0.1 units for all confidence intervals.
 
-The Brunham Method was tested against the free (gratis) Demo Version of MicroFish 3.0. Powell Wheeler used R to simulate 100, three-pass removal samples with capture probabilities between 0 and 1 and population sizes <= 1000. The FSA::removal Burnahm Method exactly matched MicroFish in all 100 trials for No and p. The confidence intervals about No exactly matched in 90 cases. When they did not match the difference was always one fish on either side of the Confidence Interval. Interestingly, the confidence intervals only differed at relatively low estimated capture probabilities (<= 0.242). In addition, the following three inestimable catch scenarios were checked to verify that they produced appropriate error messages: (10,20,10), (10,0,0), and (0,1,0).
+The Burnham method was tested against the free (gratis) Demo Version of MicroFish 3.0. Powell Wheeler used R to simulate 100, three-pass removal samples with capture probabilities between 0 and 1 and population sizes <= 1000. The Burnahm method implemented here exactly matched MicroFish in all 100 trials for No and p. The confidence intervals for No exactly matched in 90 cases. When they did not match the difference was always one fish on either side of the confidence interval. The CIs exactly matched for all 100 simulations if \code{roundt4CI=TRUE}.
 }
 
 \section{IFAR Chapter}{
@@ -223,7 +225,7 @@ Seber, G.A.F. 2002. The Estimation of Animal Abundance. Edward Arnold, second ed
 
 van Dishoeck, P. 2009. Effects of catchability variation on performance of depletion estimators: Application to an adaptive management experiment. Masters Thesis, Simon Fraser University. [Was (is?) from http://rem-main.rem.sfu.ca/theses/vanDishoeckPier_2009_MRM483.pdf.]
 
-Van Deventer, J.S. 1989. Microcomputer Software System for Generating Population Statistics from Electrofishing Data--User's Guide for MicroFish 3.0. USDA Forest Service, General Technical Report INT-254.  29 p.
+Van Deventer, J.S. 1989. Microcomputer Software System for Generating Population Statistics from Electrofishing Data--User's Guide for MicroFish 3.0. USDA Forest Service, General Technical Report INT-254. 29 p.
 
 Van Deventer, J.S., and W.S. Platts. 1983. Sampling and estimating fish populations from streams. Transactions of the 48th North American Wildlife and Natural Resource Conference. pp. 349-354.
 }

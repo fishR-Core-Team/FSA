@@ -26,6 +26,13 @@ test_that("removal() messages",{
   ## Schnute warns if last of three passes is 0
   expect_warning(removal(c(4,2,0),method="Schnute"),"last of three samples is 0")
   expect_warning(removal(c(400,200,0),method="Schnute"),"last of three samples is 0")
+  ## Burnham warns if only one fish caught, all fish caught on first pass, can't estimate
+  expect_warning(removal(c(1,0,0),method="Burnham"),"Total catch of one fish")
+  expect_warning(removal(c(0,1,0),method="Burnham"),"Total catch of one fish")
+  expect_warning(removal(c(0,0,1),method="Burnham"),"Total catch of one fish")
+  expect_warning(removal(c(38,0,0),method="Burnham"),"All fish captured on first pass")
+  expect_warning(removal(c(38,38,38),method="Burnham"),"failed to find")
+  
   ## Errors in 2- and 3-pass methods if last catch is greater than first catch
   expect_warning(removal(c(184,346),method="Seber2"),"results in model failure")
   expect_warning(removal(c(184,346),method="RobsonRegier2"),"results in model failure")
@@ -35,6 +42,7 @@ test_that("removal() messages",{
   expect_warning(removal(c(0,0,0),method="Schnute"),"will fail")
   expect_warning(removal(c(0,0,0),method="Moran"),"will fail")
   expect_warning(removal(c(0,0,0),method="Seber3"),"model failure")
+  expect_warning(removal(c(0,0,0),method="Burnham"),"model failure")
   expect_warning(removal(c(0,0),method="Seber2"),"model failure")
   expect_warning(removal(c(0,0),method="RobsonRegier2"),"model failure")
   ## wrong parm in summary and confint
@@ -66,6 +74,7 @@ test_that("removal() verbose= messages",{
   expect_message(summary(removal(c(38,26,12),method="Zippin"),verbose=TRUE),"Zippin")
   expect_message(summary(removal(c(38,26,12),method="Schnute"),verbose=TRUE),"Schnute")
   expect_message(summary(removal(c(38,26,12),method="Seber3"),verbose=TRUE),"Seber")
+  expect_message(summary(removal(c(38,26,12),method="Burnham"),verbose=TRUE),"Burnham")
   expect_message(summary(removal(c(38,26),method="Seber2"),verbose=TRUE),"Seber")
   expect_message(summary(removal(c(38,26),method="RobsonRegier2"),verbose=TRUE),"Robson & Regier")
 })   

@@ -121,5 +121,5 @@ test_that("removal() return types",{
   suppressWarnings(expect_true(all(is.na(removal(c(0,0,0),method="Seber3")$est))))
   suppressWarnings(expect_true(all(is.na(removal(c(0,0),method="Seber2")$est))))
   suppressWarnings(expect_true(all(is.na(removal(c(0,0),method="RobsonRegier2")$est))))
-  suppressWarnings(expect_true(all(is.na(removal(c(0,0),method="Burnham")$est))))
+  suppressWarnings(expect_true(all(is.na(removal(c(0,0,0),method="Burnham")$est))))
 })
