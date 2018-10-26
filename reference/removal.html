@@ -114,7 +114,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>removal</span>(<span class='no'>catch</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"CarleStrub"</span>, <span class='st'>"Zippin"</span>, <span class='st'>"Seber3"</span>, <span class='st'>"Seber2"</span>,
-  <span class='st'>"RobsonRegier2"</span>, <span class='st'>"Moran"</span>, <span class='st'>"Schnute"</span>), <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='st'>"RobsonRegier2"</span>, <span class='st'>"Moran"</span>, <span class='st'>"Schnute"</span>, <span class='st'>"Burnham"</span>), <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>CS.se</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Zippin"</span>, <span class='st'>"alternative"</span>), <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
   <span class='kw'>just.ests</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>Tmult</span> <span class='kw'>=</span> <span class='fl'>3</span>)
 
@@ -196,7 +196,7 @@
 <li><p>lbl A descriptive label for the method used.</p></li>
 <li><p>est A matrix that contains the estimates and standard errors for No and p.</p></li>
 </ul>
- 
+
 <p>In addition, if the Moran or Schnute methods are used the list will also contain</p><ul>
 <li><p>min.nlogLH The minimum value of the negative log-likelihood function.</p></li>
 <li><p>Tmult The Tmult value sent by the user.</p></li>
@@ -205,7 +205,7 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The main function computes the estimates and associated standard errors, if possible, for the initial population size, No, and probability of capture, p, for seven methods chosen with <code>method=</code>. The possible methods are:</p><ul>
+    <p>The main function computes the estimates and associated standard errors, if possible, for the initial population size, No, and probability of capture, p, for eight methods chosen with <code>method=</code>. The possible methods are:</p><ul>
 <li><p><code>method="CarleStrub"</code>: The general weighted k-pass estimator proposed by Carle and Strub (1978). This function iteratively solves for No in equation 7 of Carle and Strub (1978).</p></li>
 <li><p><code>method="Zippin"</code>: The general k-pass estimator generally attributed to Zippin. This function iteratively solves for No in bias corrected version of equation 3 (page 622) of Carle and Strub (1978). These results are not yet trustworthy (see Testing section below).</p></li>
 <li><p><code>method="Seber3"</code>: The special case for k=3 estimator shown in equation 7.24 of Seber(2002).</p></li>
@@ -213,10 +213,12 @@
 <li><p><code>method="RobsonRegier2"</code>: The special case for k=2 estimator shown by Robson and Regier (1968).</p></li>
 <li><p><code>method="Moran"</code>: The likelihood method of Moran (1951) as implemented by Schnute (1983).</p></li>
 <li><p><code>method="Schnute"</code>: The likelihood method of Schnute (1983) for the model that has a different probability of capture for the first sample but a constant probability of capture for all ensuing samples..</p></li>
+<li><p><code>method="Burnham"</code>: The general k-pass estimator likelihood method created by Ken Burnham and presented by Van Deventer and Platts (1983). This method is used in the Microfish software (Van Deventer 1989).</p></li>
 </ul>
     <p>Confidence intervals for the first five methods are computed using standard large-sample normal distribution theory. Note that the confidence intervals for the 2- and 3-pass special cases are only approximately correct if the estimated population size is greater than 200. If the estimated population size is between 50 and 200 then a 95% CI behaves more like a 90% CI.</p>
-<p>Confidence intervals for the last two methods use likelihood ratio theory as described in Schnute (1983) and are only produced for the No parameter. Standard errors are not produced with the Moran or Schnute methods..</p>
-<p>In the Carle Strub method, if the resultant No estimate is equal to the sum of the catches (T) then the estimate of No that is returned will be the sum of the catches. In this instance, and if the &#8220;Seber&#8221; method of computing the standard error is used, then the SE will not be estimable and the confidence intervals can not be constructed.</p>
+<p>Confidence intervals for the next two methods use likelihood ratio theory as described in Schnute (1983) and are only produced for the No parameter. Standard errors are not produced with the Moran or Schnute methods..</p>
+<p>Confidence intervals for the last method are computed as per Ken Burnham's instructions for the Burnham Method (Jack Van Deventer, personal communication).</p>
+<p>In the Carle-Strub method, if the resultant No estimate is equal to the sum of the catches (T) then the estimate of No that is returned will be the sum of the catches. In this instance, and if the &#8220;Seber&#8221; method of computing the standard error is used, then the SE will not be estimable and the confidence intervals can not be constructed.</p>
     
     <h2 class="hasAnchor" id="testing"><a class="anchor" href="#testing"></a>testing</h2>
 
@@ -226,6 +228,7 @@
 <p>The RobsonRegier2 results for No and the SE of NO match the results in Cowx (1983)</p>
 <p>The Zippin method results do not match the examples in Seber (2002) or Cowx (1983) because <code>removal</code> uses the bias-corrected version from Carle and Strub (1978) and does not use the tables in Zippin (1958). The Zippin method is not yet trustworthy.</p>
 <p>The Moran and Schnute methods match the examples in Schnute (1983) perfectly for all point estimates and within 0.1 units for all confidence intervals.</p>
+<p>The Brunham Method was tested against the free (gratis) Demo Version of MicroFish 3.0. Powell Wheeler used R to simulate 100, three-pass removal samples with capture probabilities between 0 and 1 and population sizes &lt;= 1000. The FSA::removal Burnahm Method exactly matched MicroFish in all 100 trials for No and p. The confidence intervals about No exactly matched in 90 cases. When they did not match the difference was always one fish on either side of the Confidence Interval. Interestingly, the confidence intervals only differed at relatively low estimated capture probabilities (&lt;= 0.242). In addition, the following three inestimable catch scenarios were checked to verify that they produced appropriate error messages: (10,20,10), (10,0,0), and (0,1,0).</p>
     
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
@@ -241,6 +244,8 @@
 <p>Schnute, J. 1983. A new approach to estimating populations by the removal method. Canadian Journal of Fisheries and Aquatic Sciences, 40:2153-2169.</p>
 <p>Seber, G.A.F. 2002. The Estimation of Animal Abundance. Edward Arnold, second edition (Reprint).</p>
 <p>van Dishoeck, P. 2009. Effects of catchability variation on performance of depletion estimators: Application to an adaptive management experiment. Masters Thesis, Simon Fraser University. [Was (is?) from http://rem-main.rem.sfu.ca/theses/vanDishoeckPier_2009_MRM483.pdf.]</p>
+<p>Van Deventer, J.S. 1989. Microcomputer Software System for Generating Population Statistics from Electrofishing Data--User's Guide for MicroFish 3.0. USDA Forest Service, General Technical Report INT-254.  29 p.</p>
+<p>Van Deventer, J.S., and W.S. Platts. 1983. Sampling and estimating fish populations from streams. Transactions of the 48th North American Wildlife and Natural Resource Conference. pp. 349-354.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -255,7 +260,7 @@
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>removal</span>(<span class='no'>ct3</span>)
 <span class='fu'>summary</span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt;       Estimate Std. Error
 #&gt; No 233.0000000 31.3578504
-#&gt; p    0.3313131  0.0666816</div><div class='input'><span class='fu'>summary</span>(<span class='no'>p1</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The Carle &amp; Strub (1978) K-Pass Removal Method method was used.</span></div><div class='output co'>#&gt;       Estimate Std. Error
+#&gt; p    0.3313131  0.0666816</div><div class='input'><span class='fu'>summary</span>(<span class='no'>p1</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The Carle &amp; Strub (1978) K-Pass Removal Method was used.</span></div><div class='output co'>#&gt;       Estimate Std. Error
 #&gt; No 233.0000000 31.3578504
 #&gt; p    0.3313131  0.0666816</div><div class='input'><span class='fu'>summary</span>(<span class='no'>p1</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"No"</span>)</div><div class='output co'>#&gt;    Estimate Std. Error
 #&gt; No      233   31.35785</div><div class='input'><span class='fu'>summary</span>(<span class='no'>p1</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"p"</span>)</div><div class='output co'>#&gt;    Estimate Std. Error
@@ -266,24 +271,35 @@
 #&gt; p 0.2006195 0.4620067</div><div class='input'>
 <span class='co'># Moran method</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'>removal</span>(<span class='no'>ct3</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"Moran"</span>)
-<span class='fu'>summary</span>(<span class='no'>p2</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The Moran (1951) K-Pass Removal Method method was used (SEs not computed).</span></div><div class='output co'>#&gt;       Estimate
+<span class='fu'>summary</span>(<span class='no'>p2</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The Moran (1951) K-Pass Removal Method was used (SEs not computed).</span></div><div class='output co'>#&gt;       Estimate
 #&gt; No 237.5965440
 #&gt; p    0.3223336</div><div class='input'><span class='fu'>confint</span>(<span class='no'>p2</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;    95% LCI 95% UCI
 #&gt; No   194.7   370.9</div><div class='input'><span class='co'>#'</span>
 <span class='co'># Schnute method</span>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'>removal</span>(<span class='no'>ct3</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"Schnute"</span>)
-<span class='fu'>summary</span>(<span class='no'>p3</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The Schnute (1983) K-Pass Removal Method w/ Non-constant Initial Catchability method was used (SEs not computed).</span></div><div class='output co'>#&gt;       Estimate
+<span class='fu'>summary</span>(<span class='no'>p3</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The Schnute (1983) K-Pass Removal Method w/ Non-constant Initial Catchability was used (SEs not computed).</span></div><div class='output co'>#&gt;       Estimate
 #&gt; No 245.0955993
 #&gt; p    0.3039926
 #&gt; p1   0.3141631</div><div class='input'><span class='fu'>confint</span>(<span class='no'>p3</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>An upper confidence value for 'No' cannot be determined.</span></div><div class='output co'>#&gt;    95% LCI 95% UCI
 #&gt; No   183.9     Inf</div><div class='input'>
-
-<span class='co'>## Second example -- 2 passes</span>
+<span class='co'># Burnham method</span>
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'>removal</span>(<span class='no'>ct3</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"Burnham"</span>)
+<span class='fu'>summary</span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt;       Estimate Std. Error
+#&gt; No 238.0000000 33.8404319
+#&gt; p    0.3215686  0.0673948</div><div class='input'><span class='fu'>summary</span>(<span class='no'>p4</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The Burnham K-Pass Removal Method (Van Deventer and Platts 1983) was used.</span></div><div class='output co'>#&gt;       Estimate Std. Error
+#&gt; No 238.0000000 33.8404319
+#&gt; p    0.3215686  0.0673948</div><div class='input'><span class='fu'>summary</span>(<span class='no'>p4</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"No"</span>)</div><div class='output co'>#&gt;    Estimate Std. Error
+#&gt; No      238   33.84043</div><div class='input'><span class='fu'>summary</span>(<span class='no'>p4</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"p"</span>)</div><div class='output co'>#&gt;    Estimate Std. Error
+#&gt; p 0.3215686  0.0673948</div><div class='input'><span class='fu'>confint</span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt;        95% LCI     95% UCI
+#&gt; No 171.3335366 304.6664634
+#&gt; p    0.1887992   0.4543381</div><div class='input'><span class='fu'>confint</span>(<span class='no'>p4</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"No"</span>)</div><div class='output co'>#&gt;     95% LCI  95% UCI
+#&gt; No 171.3335 304.6665</div><div class='input'><span class='fu'>confint</span>(<span class='no'>p4</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"p"</span>)</div><div class='output co'>#&gt;     95% LCI   95% UCI
+#&gt; p 0.1887992 0.4543381</div><div class='input'><span class='co'>## Second example -- 2 passes</span>
 <span class='no'>ct2</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>77</span>,<span class='fl'>37</span>)
 
 <span class='co'># Seber method</span>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'>removal</span>(<span class='no'>ct2</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"Seber2"</span>)
-<span class='fu'>summary</span>(<span class='no'>p4</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The Seber (2002) 2-Pass Removal Method method was used.</span></div><div class='output co'>#&gt;       Estimate Std. Error
+<span class='fu'>summary</span>(<span class='no'>p4</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The Seber (2002) 2-Pass Removal Method was used.</span></div><div class='output co'>#&gt;       Estimate Std. Error
 #&gt; No 148.2250000 19.0118725
 #&gt; p    0.5194805  0.0961208</div><div class='input'><span class='fu'>confint</span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt;        95% LCI     95% UCI
 #&gt; No 110.9624147 185.4875853
@@ -409,12 +425,14 @@
     
 Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a>
 
+A. Powell Wheeler, <a href='mailto:powell.wheeler@gmail.com'>powell.wheeler@gmail.com</a>
+
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Derek Ogle.</p>
+  <p>Developed by Derek Ogle, Wheeler Powell.</p>
 </div>
 
 <div class="pkgdown">
