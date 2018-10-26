@@ -90,7 +90,7 @@
 #'
 #' van Dishoeck, P. 2009. Effects of catchability variation on performance of depletion estimators: Application to an adaptive management experiment. Masters Thesis, Simon Fraser University. [Was (is?) from http://rem-main.rem.sfu.ca/theses/vanDishoeckPier_2009_MRM483.pdf.]
 #'
-#' Van Deventer, J.S. 1989. Microcomputer Software System for Generating Population Statistics from Electrofishing Data--User's Guide for MicroFish 3.0. USDA Forest Service, General Technical Report INT-254. 29 p.
+#' Van Deventer, J.S. 1989. Microcomputer Software System for Generating Population Statistics from Electrofishing Data--User's Guide for MicroFish 3.0. USDA Forest Service, General Technical Report INT-254. 29 p. [Was (is?) from https://relicensing.pcwa.net/documents/Library/PCWA-L%20460.pdf].
 #'
 #' Van Deventer, J.S., and W.S. Platts. 1983. Sampling and estimating fish populations from streams. Transactions of the 48th North American Wildlife and Natural Resource Conference. pp. 349-354.
 #'
