@@ -131,6 +131,7 @@ test_that("removal with 'Burnham' match results from (Van Deventer 1989) page 13
   expect_equal(round(tmp2["p","Std. Error"],3),0.035)
   ## check CIs
   tmp2 <- confint(tmp)
-  expect_equal(round(as.numeric(tmp2["No",]),3),c(236.858,261.142))
+  expect_equal(round(as.numeric(tmp2["No",]),3),c(237,261))
   expect_equal(round(as.numeric(tmp2["p",]),3),c(0.432,0.570))
+  
 })

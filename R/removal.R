@@ -33,7 +33,7 @@
 #' @param verbose A logical that indicates whether descriptive labels should be printed from \code{summary} and if certain warnings are shown with \code{confint}.
 #' @param digits A single numeric that controls the number of decimals in the output from \code{summary} and \code{confint}.
 #' @param Tmult A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute methods. Large values are much slower to compute, but values that are too low may result in missing the best estimate. A warning is issued if too low of a value is suspected.
-#' @param CIMicroFish A logical that indicates whether the t value used to calculate confidence intervals when \code{method="Burnham"} should be rounded to two or three decimals as done in MicroFish 3.0. The default is to not round the t values (\code{=FALSE}). This option is provided only so that results will exactly match MicroFish results (see testing).
+#' @param CIMicroFish A logical that indicates whether the t value used to calculate confidence intervals when \code{method="Burnham"} should be rounded to two or three decimals and whether the confidence intervals for No should be rounded to whole numbers as done in MicroFish 3.0. The default (\code{=FALSE}) is to NOT round the t values or No confidence interval. This option is provided only so that results will exactly match MicroFish results (see testing).
 #' @param \dots Additional arguments for methods.
 #'
 #' @return A vector that contains the estimates and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with at least the following items:
@@ -679,8 +679,8 @@ iBurnham <- function(catch,conf.level,Tmult,CIMicroFish){
     # If asked round t for CI calcs according to MicroFish way
     if (CIMicroFish) t.statistic <- round(t.statistic,digits=ifelse(N0<=100,3,2))
     N0.ci <- N0+c(1,-1)*sqrt(N0.var)*t.statistic
-    # If asked for MicroFish confidence intervals,round N0.ci to avoid fractional fish
-    if (CIMicroFish) N0.ci <- round(N0.ci,digits=0)  #
+    # If asked for MicroFish confidence intervals, round N0.ci to avoid fractional fish
+    if (CIMicroFish) N0.ci <- round(N0.ci,digits=0)
     p.ci <- p+c(1,-1)*sqrt(p.var)*t.statistic
     # Organize the results into a vector
     tmp <- c(N0,sqrt(N0.var),N0.ci,p,sqrt(p.var),p.ci)

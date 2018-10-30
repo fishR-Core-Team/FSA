@@ -35,7 +35,7 @@ removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
 
 \item{Tmult}{A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute methods. Large values are much slower to compute, but values that are too low may result in missing the best estimate. A warning is issued if too low of a value is suspected.}
 
-\item{CIMicroFish}{A logical that indicates whether the t value used to calculate confidence intervals when \code{method="Burnham"} should be rounded to two decimals as done in MicroFish 3.0. The default is to not round the t values (\code{=FALSE}). This option is provided only so that results will exactly match MicroFish results (see testing).}
+\item{CIMicroFish}{A logical that indicates whether the t value used to calculate confidence intervals when \code{method="Burnham"} should be rounded to two or three decimals and whether the confidence intervals for No should be rounded to whole numbers as done in MicroFish 3.0. The default (\code{=FALSE}) is to NOT round the t values or No confidence interval. This option is provided only so that results will exactly match MicroFish results (see testing).}
 
 \item{object}{An object saved from \code{removal()}.}
 
@@ -76,7 +76,7 @@ The main function computes the estimates and associated standard errors, if poss
    \item \code{method="Seber2"}: The special case for k=2 estimator shown on page 312 of Seber(2002).
    \item \code{method="RobsonRegier2"}: The special case for k=2 estimator shown by Robson and Regier (1968).
    \item \code{method="Moran"}: The likelihood method of Moran (1951) as implemented by Schnute (1983).
-   \item \code{method="Schnute"}: The likelihood method of Schnute (1983) for the model that has a different probability of capture for the first sample but a constant probability of capture for all ensuing samples..
+   \item \code{method="Schnute"}: The likelihood method of Schnute (1983) for the model that has a different probability of capture for the first sample but a constant probability of capture for all ensuing samples.
    \item \code{method="Burnham"}: The general k-pass estimator likelihood method created by Ken Burnham and presented by Van Deventer and Platts (1983). This method is used in the Microfish software (Van Deventer 1989).
  }
 
@@ -84,9 +84,7 @@ Confidence intervals for the first five methods are computed using standard larg
 
 Confidence intervals for the next two methods use likelihood ratio theory as described in Schnute (1983) and are only produced for the No parameter. Standard errors are not produced with the Moran or Schnute methods.
 
-Confidence intervals for the last method are computed as per Ken Burnham's instructions for the Burnham Method (Jack Van Deventer, personal communication).
-
-In the Carle-Strub method, if the resultant No estimate is equal to the sum of the catches (T) then the estimate of No that is returned will be the sum of the catches. In this instance, and if the \dQuote{Seber} method of computing the standard error is used, then the SE will not be estimable and the confidence intervals can not be constructed.
+Confidence intervals for the last method are computed as per Ken Burnham's instructions for the Burnham Method (Jack Van Deventer, personal communication). Specifically, they are calculated with the t-statistic and No-1 degrees of freedom. Please note that the MicroFish software rounds the t-statistic before it calculates the confidence intervals about No and p. If you need the confidence interals produced by FSA::removal to duplicate MicroFish, please use CIMicroFish=TRUE.
 }
 \section{testing}{
  The Carle-Strub method matches the examples in Carle and Strub (1978) for No, p, and the variance of No. The Carle-Strub estimates of No and p match the examples in Cowx (1983) but the SE of No does not. The Carle-Strub estimates of No match the results (for estimates that they did not reject) from Jones and Stockwell (1995) to within 1 individual in most instances and within 1\% for all other instances (e.g., off by 3 individuals when the estimate was 930 individuals).
@@ -101,7 +99,7 @@ The Zippin method results do not match the examples in Seber (2002) or Cowx (198
 
 The Moran and Schnute methods match the examples in Schnute (1983) perfectly for all point estimates and within 0.1 units for all confidence intervals.
 
-The Burnham method was tested against the free (gratis) Demo Version of MicroFish 3.0. Powell Wheeler used R to simulate 100, three-pass removal samples with capture probabilities between 0 and 1 and population sizes <= 1000. The Burnahm method implemented here exactly matched MicroFish in all 100 trials for No and p. The confidence intervals for No exactly matched in 90 cases. When they did not match the difference was always one fish on either side of the confidence interval. The CIs exactly matched for all 100 simulations if \code{CIMicroFish=TRUE}.
+The Burnham method was tested against the free (gratis) Demo Version of MicroFish 3.0. Powell Wheeler used R to simulate 100, three-pass removal samples with capture probabilities between 0 and 1 and population sizes <= 1000. The Burnham method implemented here exactly matched MicroFish in all 100 trials for No and p. In addition, the CIs for No exactly matched all 100 trials when CIMicroFish=TRUE. Powell was not able to check the CIs for p because the MicroFish 'Quick Population Estimate' does not report them.
 }
 
 \section{IFAR Chapter}{
