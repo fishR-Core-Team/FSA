@@ -10,7 +10,7 @@
 #'    \item \code{method="Seber2"}: The special case for k=2 estimator shown on page 312 of Seber(2002).
 #'    \item \code{method="RobsonRegier2"}: The special case for k=2 estimator shown by Robson and Regier (1968).
 #'    \item \code{method="Moran"}: The likelihood method of Moran (1951) as implemented by Schnute (1983).
-#'    \item \code{method="Schnute"}: The likelihood method of Schnute (1983) for the model that has a different probability of capture for the first sample but a constant probability of capture for all ensuing samples..
+#'    \item \code{method="Schnute"}: The likelihood method of Schnute (1983) for the model that has a different probability of capture for the first sample but a constant probability of capture for all ensuing samples.
 #'    \item \code{method="Burnham"}: The general k-pass estimator likelihood method created by Ken Burnham and presented by Van Deventer and Platts (1983). This method is used in the Microfish software (Van Deventer 1989).
 #'  }
 #'
@@ -18,9 +18,7 @@
 #'
 #' Confidence intervals for the next two methods use likelihood ratio theory as described in Schnute (1983) and are only produced for the No parameter. Standard errors are not produced with the Moran or Schnute methods.
 #'
-#' Confidence intervals for the last method are computed as per Ken Burnham's instructions for the Burnham Method (Jack Van Deventer, personal communication).
-#'
-#' In the Carle-Strub method, if the resultant No estimate is equal to the sum of the catches (T) then the estimate of No that is returned will be the sum of the catches. In this instance, and if the \dQuote{Seber} method of computing the standard error is used, then the SE will not be estimable and the confidence intervals can not be constructed.
+#' Confidence intervals for the last method are computed as per Ken Burnham's instructions for the Burnham Method (Jack Van Deventer, personal communication). Specifically, they are calculated with the t-statistic and No-1 degrees of freedom. Please note that the MicroFish software rounds the t-statistic before it calculates the confidence intervals about No and p. If you need the confidence interals produced by FSA::removal to duplicate MicroFish, please use CIMicroFish=TRUE.
 #'
 #' @param catch A numerical vector of catch at each pass.
 #' @param method A single string that identifies the removal method to use. See details.
@@ -35,7 +33,7 @@
 #' @param verbose A logical that indicates whether descriptive labels should be printed from \code{summary} and if certain warnings are shown with \code{confint}.
 #' @param digits A single numeric that controls the number of decimals in the output from \code{summary} and \code{confint}.
 #' @param Tmult A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute methods. Large values are much slower to compute, but values that are too low may result in missing the best estimate. A warning is issued if too low of a value is suspected.
-#' @param CIMicroFish A logical that indicates whether the t value used to calculate confidence intervals when \code{method="Burnham"} should be rounded to two decimals as done in MicroFish 3.0. The default is to not round the t values (\code{=FALSE}). This option is provided only so that results will exactly match MicroFish results (see testing).
+#' @param CIMicroFish A logical that indicates whether the t value used to calculate confidence intervals when \code{method="Burnham"} should be rounded to two or three decimals as done in MicroFish 3.0. The default is to not round the t values (\code{=FALSE}). This option is provided only so that results will exactly match MicroFish results (see testing).
 #' @param \dots Additional arguments for methods.
 #'
 #' @return A vector that contains the estimates and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with at least the following items:
@@ -64,7 +62,7 @@
 #'
 #' The Moran and Schnute methods match the examples in Schnute (1983) perfectly for all point estimates and within 0.1 units for all confidence intervals.
 #'
-#' The Burnham method was tested against the free (gratis) Demo Version of MicroFish 3.0. Powell Wheeler used R to simulate 100, three-pass removal samples with capture probabilities between 0 and 1 and population sizes <= 1000. The Burnahm method implemented here exactly matched MicroFish in all 100 trials for No and p. The confidence intervals for No exactly matched in 90 cases. When they did not match the difference was always one fish on either side of the confidence interval. The CIs exactly matched for all 100 simulations if \code{CIMicroFish=TRUE}.
+#' The Burnham method was tested against the free (gratis) Demo Version of MicroFish 3.0. Powell Wheeler used R to simulate 100, three-pass removal samples with capture probabilities between 0 and 1 and population sizes <= 1000. The Burnham method implemented here exactly matched MicroFish in all 100 trials for No and p. In addition, the CIs for No exactly matched all 100 trials when CIMicroFish=TRUE. Powell was not able to check the CIs for p because the MicroFish 'Quick Population Estimate' does not report them. 
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
@@ -639,7 +637,7 @@ iBurnham <- function(catch,conf.level,Tmult,CIMicroFish){
   i <- 1:k
   # An additional intermediate value from step 2 equation (page 352 in V&P)
   C <- sum(catch*i)
-  
+
   # Create data.frame for iterative search that finds the No and p
   #   First, check that Burnham is not going to break
   #     the non descending removal pattern must be checked for last.
@@ -681,6 +679,8 @@ iBurnham <- function(catch,conf.level,Tmult,CIMicroFish){
     # If asked round t for CI calcs according to MicroFish way
     if (CIMicroFish) t.statistic <- round(t.statistic,digits=ifelse(N0<=100,3,2))
     N0.ci <- N0+c(1,-1)*sqrt(N0.var)*t.statistic
+    # If asked for MicroFish confidence intervals,round N0.ci to avoid fractional fish
+    if (CIMicroFish) N0.ci <- round(N0.ci,digits=0)  #
     p.ci <- p+c(1,-1)*sqrt(p.var)*t.statistic
     # Organize the results into a vector
     tmp <- c(N0,sqrt(N0.var),N0.ci,p,sqrt(p.var),p.ci)
