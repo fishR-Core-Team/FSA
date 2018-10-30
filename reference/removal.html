@@ -116,7 +116,7 @@
     <pre class="usage"><span class='fu'>removal</span>(<span class='no'>catch</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"CarleStrub"</span>, <span class='st'>"Zippin"</span>, <span class='st'>"Seber3"</span>, <span class='st'>"Seber2"</span>,
   <span class='st'>"RobsonRegier2"</span>, <span class='st'>"Moran"</span>, <span class='st'>"Schnute"</span>, <span class='st'>"Burnham"</span>), <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>CS.se</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"Zippin"</span>, <span class='st'>"alternative"</span>), <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>just.ests</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>Tmult</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>roundt4CI</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='kw'>just.ests</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>Tmult</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>CIMicroFish</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S3 method for removal</span>
 <span class='fu'>summary</span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"No"</span>, <span class='st'>"p"</span>, <span class='st'>"p1"</span>),
@@ -163,7 +163,7 @@
       <td><p>A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute methods. Large values are much slower to compute, but values that are too low may result in missing the best estimate. A warning is issued if too low of a value is suspected.</p></td>
     </tr>
     <tr>
-      <th>roundt4CI</th>
+      <th>CIMicroFish</th>
       <td><p>A logical that indicates whether the t value used to calculate confidence intervals when <code>method="Burnham"</code> should be rounded to two decimals as done in MicroFish 3.0. The default is to not round the t values (<code>=FALSE</code>). This option is provided only so that results will exactly match MicroFish results (see testing).</p></td>
     </tr>
     <tr>
@@ -232,7 +232,7 @@
 <p>The RobsonRegier2 results for No and the SE of NO match the results in Cowx (1983)</p>
 <p>The Zippin method results do not match the examples in Seber (2002) or Cowx (1983) because <code>removal</code> uses the bias-corrected version from Carle and Strub (1978) and does not use the tables in Zippin (1958). The Zippin method is not yet trustworthy.</p>
 <p>The Moran and Schnute methods match the examples in Schnute (1983) perfectly for all point estimates and within 0.1 units for all confidence intervals.</p>
-<p>The Burnham method was tested against the free (gratis) Demo Version of MicroFish 3.0. Powell Wheeler used R to simulate 100, three-pass removal samples with capture probabilities between 0 and 1 and population sizes &lt;= 1000. The Burnahm method implemented here exactly matched MicroFish in all 100 trials for No and p. The confidence intervals for No exactly matched in 90 cases. When they did not match the difference was always one fish on either side of the confidence interval. The CIs exactly matched for all 100 simulations if <code>roundt4CI=TRUE</code>.</p>
+<p>The Burnham method was tested against the free (gratis) Demo Version of MicroFish 3.0. Powell Wheeler used R to simulate 100, three-pass removal samples with capture probabilities between 0 and 1 and population sizes &lt;= 1000. The Burnahm method implemented here exactly matched MicroFish in all 100 trials for No and p. The confidence intervals for No exactly matched in 90 cases. When they did not match the difference was always one fish on either side of the confidence interval. The CIs exactly matched for all 100 simulations if <code>CIMicroFish=TRUE</code>.</p>
     
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
