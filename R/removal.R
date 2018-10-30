@@ -35,7 +35,7 @@
 #' @param verbose A logical that indicates whether descriptive labels should be printed from \code{summary} and if certain warnings are shown with \code{confint}.
 #' @param digits A single numeric that controls the number of decimals in the output from \code{summary} and \code{confint}.
 #' @param Tmult A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute methods. Large values are much slower to compute, but values that are too low may result in missing the best estimate. A warning is issued if too low of a value is suspected.
-#' @param roundt4CI A logical that indicates whether the t value used to calculate confidence intervals when \code{method="Burnham"} should be rounded to two decimals as done in MicroFish 3.0. The default is to not round the t values (\code{=FALSE}). This option is provided only so that results will exactly match MicroFish results (see testing).
+#' @param CIMicroFish A logical that indicates whether the t value used to calculate confidence intervals when \code{method="Burnham"} should be rounded to two decimals as done in MicroFish 3.0. The default is to not round the t values (\code{=FALSE}). This option is provided only so that results will exactly match MicroFish results (see testing).
 #' @param \dots Additional arguments for methods.
 #'
 #' @return A vector that contains the estimates and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with at least the following items:
@@ -64,7 +64,7 @@
 #'
 #' The Moran and Schnute methods match the examples in Schnute (1983) perfectly for all point estimates and within 0.1 units for all confidence intervals.
 #'
-#' The Burnham method was tested against the free (gratis) Demo Version of MicroFish 3.0. Powell Wheeler used R to simulate 100, three-pass removal samples with capture probabilities between 0 and 1 and population sizes <= 1000. The Burnahm method implemented here exactly matched MicroFish in all 100 trials for No and p. The confidence intervals for No exactly matched in 90 cases. When they did not match the difference was always one fish on either side of the confidence interval. The CIs exactly matched for all 100 simulations if \code{roundt4CI=TRUE}.
+#' The Burnham method was tested against the free (gratis) Demo Version of MicroFish 3.0. Powell Wheeler used R to simulate 100, three-pass removal samples with capture probabilities between 0 and 1 and population sizes <= 1000. The Burnahm method implemented here exactly matched MicroFish in all 100 trials for No and p. The confidence intervals for No exactly matched in 90 cases. When they did not match the difference was always one fish on either side of the confidence interval. The CIs exactly matched for all 100 simulations if \code{CIMicroFish=TRUE}.
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
@@ -204,7 +204,7 @@ removal <- function(catch,
                     method=c("CarleStrub","Zippin","Seber3","Seber2",
                              "RobsonRegier2","Moran","Schnute","Burnham"),
                     alpha=1,beta=1,CS.se=c("Zippin","alternative"),
-                    conf.level=0.95,just.ests=FALSE,Tmult=3,roundt4CI=FALSE) {
+                    conf.level=0.95,just.ests=FALSE,Tmult=3,CIMicroFish=FALSE) {
   # some initial checks
   method <- match.arg(method)
   if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
@@ -235,7 +235,7 @@ removal <- function(catch,
     RobsonRegier2= { tmp <- iRobsonRegier2(catch,conf.level) },
     Moran=         { tmp <- iMoran(catch,conf.level,Tmult) },
     Schnute=       { tmp <- iSchnute(catch,conf.level,Tmult) },
-    Burnham=       { tmp <- iBurnham(catch,conf.level,Tmult,roundt4CI) }
+    Burnham=       { tmp <- iBurnham(catch,conf.level,Tmult,CIMicroFish) }
   )
   if (just.ests) { tmp <- tmp$est }
   else {
@@ -631,7 +631,7 @@ iRobsonRegier2 <- function(catch,conf.level) {
 #
 # Note in notes below that V&P refers to Van Deventer and Platts (1983)
 #=============================================================
-iBurnham <- function(catch,conf.level,Tmult,roundt4CI){
+iBurnham <- function(catch,conf.level,Tmult,CIMicroFish){
   # Get intermediate calculations
   int <- iRemovalKTX(catch)
   k <- int[["k"]] # T in V&P
@@ -679,7 +679,7 @@ iBurnham <- function(catch,conf.level,Tmult,roundt4CI){
     #   df (Jack Van Deventer, personal correspondance)
     t.statistic <- stats::qt((1-conf.level)/2,N0-1)
     # If asked round t for CI calcs according to MicroFish way
-    if (roundt4CI) t.statistic <- round(t.statistic,digits=ifelse(N0<=100,3,2))
+    if (CIMicroFish) t.statistic <- round(t.statistic,digits=ifelse(N0<=100,3,2))
     N0.ci <- N0+c(1,-1)*sqrt(N0.var)*t.statistic
     p.ci <- p+c(1,-1)*sqrt(p.var)*t.statistic
     # Organize the results into a vector

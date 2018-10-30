@@ -122,7 +122,7 @@ test_that("removal with 'Schnute' matches Schnute (1983)",{
 
 })
 test_that("removal with 'Burnham' match results from (Van Deventer 1989) page 13",{
-  tmp <- removal(c(124,61,35,14),method="Burnham",roundt4CI=TRUE)
+  tmp <- removal(c(124,61,35,14),method="Burnham",CIMicroFish=TRUE)
   ## check point estimates
   tmp2 <- summary(tmp)
   expect_equal(round(tmp2["No","Estimate"],0),249)

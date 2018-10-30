@@ -9,7 +9,7 @@
 removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
   "RobsonRegier2", "Moran", "Schnute", "Burnham"), alpha = 1, beta = 1,
   CS.se = c("Zippin", "alternative"), conf.level = 0.95,
-  just.ests = FALSE, Tmult = 3, roundt4CI = FALSE)
+  just.ests = FALSE, Tmult = 3, CIMicroFish = FALSE)
 
 \method{summary}{removal}(object, parm = c("No", "p", "p1"),
   digits = getOption("digits"), verbose = FALSE, ...)
@@ -35,7 +35,7 @@ removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
 
 \item{Tmult}{A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute methods. Large values are much slower to compute, but values that are too low may result in missing the best estimate. A warning is issued if too low of a value is suspected.}
 
-\item{roundt4CI}{A logical that indicates whether the t value used to calculate confidence intervals when \code{method="Burnham"} should be rounded to two decimals as done in MicroFish 3.0. The default is to not round the t values (\code{=FALSE}). This option is provided only so that results will exactly match MicroFish results (see testing).}
+\item{CIMicroFish}{A logical that indicates whether the t value used to calculate confidence intervals when \code{method="Burnham"} should be rounded to two decimals as done in MicroFish 3.0. The default is to not round the t values (\code{=FALSE}). This option is provided only so that results will exactly match MicroFish results (see testing).}
 
 \item{object}{An object saved from \code{removal()}.}
 
@@ -101,7 +101,7 @@ The Zippin method results do not match the examples in Seber (2002) or Cowx (198
 
 The Moran and Schnute methods match the examples in Schnute (1983) perfectly for all point estimates and within 0.1 units for all confidence intervals.
 
-The Burnham method was tested against the free (gratis) Demo Version of MicroFish 3.0. Powell Wheeler used R to simulate 100, three-pass removal samples with capture probabilities between 0 and 1 and population sizes <= 1000. The Burnahm method implemented here exactly matched MicroFish in all 100 trials for No and p. The confidence intervals for No exactly matched in 90 cases. When they did not match the difference was always one fish on either side of the confidence interval. The CIs exactly matched for all 100 simulations if \code{roundt4CI=TRUE}.
+The Burnham method was tested against the free (gratis) Demo Version of MicroFish 3.0. Powell Wheeler used R to simulate 100, three-pass removal samples with capture probabilities between 0 and 1 and population sizes <= 1000. The Burnahm method implemented here exactly matched MicroFish in all 100 trials for No and p. The confidence intervals for No exactly matched in 90 cases. When they did not match the difference was always one fish on either side of the confidence interval. The CIs exactly matched for all 100 simulations if \code{CIMicroFish=TRUE}.
 }
 
 \section{IFAR Chapter}{
