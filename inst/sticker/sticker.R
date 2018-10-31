@@ -1,7 +1,7 @@
 
 p <- function() {
   vb <- FSA::vbFuns("Typical")
-  ages <- seq(0.1,10,length.out=199)
+  ages <- seq(0.1,10,length.out=999)
   clrs1 <- scico::scico(4,palette="roma")
   clrs2 <- FSA::col2rgbt(clrs1,0.5)
   Linf <- c(90,130,60,120)
@@ -26,6 +26,6 @@ hexSticker::sticker(package="FSA",
                     subplot=expression(p()),
                     s_x=0.75,s_y=0.67,s_width=1.6,s_height=1.6,
                     h_color="#00579E",h_size=1,h_fill="snow",
-                    url="https://derekogle.com/FSA",
-                    u_color="#00579E",u_size=5,
+                    url="derekogle.com/FSA",
+                    u_color="#00579E",u_size=8,
                     filename="man/figures/logo.png")
