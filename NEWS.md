@@ -3,7 +3,8 @@
 * Added a hex sticker logo.
 * Added `withr` to Imports (see usages below).
 * Added `Encoding: UTF-8` to DESCRIPTION.
-* Added Powell Wheeler as an author for his work adding `method="Burnham"` to `removal()`.
+* Added Powell Wheeler as an author for their work adding `method="Burnham"` to `removal()`.
+* Added Alexis Dinno as an author for their providing the base functionality of `dunnTest()`. Should have done this long ago.
 * Removed all `data()` in examples that referred to data from this package. Included the `package=` argument in `data()` that loaded from other packages.
 * Added `seealso`, with links to which functions use the data for examples, to docmentation for all data.frames.
 * Removed `\dontrun()`s from the `bootCase` related examples now that `car` package is updated. This addresses [#45](https://github.com/droglenc/FSA/issues/45).
