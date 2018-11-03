@@ -1,4 +1,4 @@
-# FSA 0.8.21 ongoing
+# FSA 0.8.21 2-Nov-18
 * Added a webpage. Setup Travis-CI to handle updates ([See this](https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis)).
 * Added a hex sticker logo.
 * Added `withr` to Imports (see usages below).
