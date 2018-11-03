@@ -1,5 +1,5 @@
 # FSA 0.8.22 ongoing
-
+* Corrected CITATION file.
 
 # FSA 0.8.21 2-Nov-18
 * Added a webpage. Setup Travis-CI to handle updates ([See this](https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis)).
