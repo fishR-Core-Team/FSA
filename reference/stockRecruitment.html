@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.8.21</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.8.21.9000</span>
       </span>
     </div>
 
@@ -185,8 +185,8 @@
 #&gt;     if (length(a)&gt;1) { b &lt;- a[[2]]; a &lt;- a[[1]] }
 #&gt;     a*S*exp(-b*S)
 #&gt;   }
-#&gt; &lt;bytecode: 0x4604620&gt;
-#&gt; &lt;environment: 0x466da60&gt;</div><div class='input'>
+#&gt; &lt;bytecode: 0xd703fd8&gt;
+#&gt; &lt;environment: 0xc702ff8&gt;</div><div class='input'>
 <span class='co'># create some dummy stock data</span>
 <span class='no'>stock</span> <span class='kw'>&lt;-</span> <span class='fu'>seq</span>(<span class='fl'>0.01</span>,<span class='fl'>1000</span>,<span class='kw'>length.out</span><span class='kw'>=</span><span class='fl'>199</span>)
 
@@ -195,29 +195,29 @@
 #&gt;     if (length(a)&gt;1) { b &lt;- a[[2]]; a &lt;- a[[1]] }
 #&gt;     a*S/(1+b*S)
 #&gt;   }
-#&gt; &lt;bytecode: 0x8495630&gt;
-#&gt; &lt;environment: 0x2b871e8&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>bh1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.01</span>)~<span class='no'>stock</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Recruits"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Spawners"</span>,<span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>50</span>))</div><div class='input'>
+#&gt; &lt;bytecode: 0xbdde3c8&gt;
+#&gt; &lt;environment: 0xc9c16a8&gt;</div><div class='input'><span class='fu'>plot</span>(<span class='fu'>bh1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.01</span>)~<span class='no'>stock</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Recruits"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Spawners"</span>,<span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>50</span>))</div><div class='input'>
 <span class='co'># Ricker #1 parameterization</span>
 ( <span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"Ricker"</span>) )</div><div class='output co'>#&gt; function(S,a,b=NULL) {
 #&gt;     if (length(a)&gt;1) { b &lt;- a[[2]]; a &lt;- a[[1]] }
 #&gt;     a*S*exp(-b*S)
 #&gt;   }
-#&gt; &lt;bytecode: 0x4604620&gt;
-#&gt; &lt;environment: 0x2d19980&gt;</div><div class='input'><span class='fu'>lines</span>(<span class='fu'>r1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>)</div><div class='input'>
+#&gt; &lt;bytecode: 0xd703fd8&gt;
+#&gt; &lt;environment: 0xce70468&gt;</div><div class='input'><span class='fu'>lines</span>(<span class='fu'>r1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>)</div><div class='input'>
 <span class='co'># Shephered parameterization</span>
 ( <span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"Shepherd"</span>) )</div><div class='output co'>#&gt; function(S,a,b=NULL,c=NULL) {
 #&gt;     if (length(a)&gt;1) { c &lt;- a[[3]]; b &lt;- a[[2]]; a &lt;- a[[1]] }
 #&gt;     a*S/(1+(b*S)^c)
 #&gt;   }
-#&gt; &lt;bytecode: 0xca309b8&gt;
-#&gt; &lt;environment: 0x9c15388&gt;</div><div class='input'><span class='fu'>lines</span>(<span class='fu'>s1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>2.5</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>)</div><div class='input'>
+#&gt; &lt;bytecode: 0x7d022f8&gt;
+#&gt; &lt;environment: 0xd149520&gt;</div><div class='input'><span class='fu'>lines</span>(<span class='fu'>s1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>2.5</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>)</div><div class='input'>
 <span class='co'># Saila-Lorda parameterization</span>
 ( <span class='no'>sl1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"SailaLorda"</span>) )</div><div class='output co'>#&gt; function(S,a,b=NULL,c=NULL) {
 #&gt;     if (length(a)&gt;1) { c &lt;- a[[3]]; b &lt;- a[[2]]; a &lt;- a[[1]] }
 #&gt;     a*(S^c)*exp(-b*S)
 #&gt;   }
-#&gt; &lt;bytecode: 0xb5640f0&gt;
-#&gt; &lt;environment: 0xb649578&gt;</div><div class='input'><span class='fu'>lines</span>(<span class='fu'>sl1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>1.05</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"salmon"</span>)</div><div class='img'><img src='stockRecruitment-1.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt; &lt;bytecode: 0xba6b4e8&gt;
+#&gt; &lt;environment: 0xd3584f0&gt;</div><div class='input'><span class='fu'>lines</span>(<span class='fu'>sl1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>1.05</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"salmon"</span>)</div><div class='img'><img src='stockRecruitment-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Examples of fitting stock-recruitment functions</span>
 <span class='co'># Fitting the Beverton-Holt #1 parameterization with multiplicative errors</span>
 <span class='no'>bh1s</span> <span class='kw'>&lt;-</span> <span class='fu'>srStarts</span>(<span class='no'>recruits</span>~<span class='no'>stock</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>CodNorwegian</span>)
