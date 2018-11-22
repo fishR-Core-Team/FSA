@@ -1,3 +1,5 @@
+# FSA 0.8.23 ongoing
+
 # FSA 0.8.22 22-Nov-18
 * Corrected CITATION file.
 * Updated tests for changes in the `fishmethods` package (`vblrt()` replaced with `growthlrt()` and `T=` replaced with `TC=` in `M.empirical()`) per CRAN request.
