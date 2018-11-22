@@ -1,5 +1,6 @@
-# FSA 0.8.22 ongoing
+# FSA 0.8.22 22-Nov-18
 * Corrected CITATION file.
+* Updated tests for changes in the `fishmethods` package (`vblrt()` replaced with `growthlrt()` and `T=` replaced with `TC=` in `M.empirical()`) per CRAN request.
 
 # FSA 0.8.21 2-Nov-18
 * Added a webpage. Setup Travis-CI to handle updates ([See this](https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis)).

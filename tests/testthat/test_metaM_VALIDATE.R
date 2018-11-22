@@ -27,7 +27,7 @@ test_that("metaM() matches M.empirical() from fishmethods for Rio Formosa Seahor
   if (require(fishmethods)) {
     meths <- c("PaulyL","PaulyW","HoenigO","HoenigOF","AlversonCarney","Gislason")
     tmp <- metaM(meths,tmax=5.5,Linf=19.76,Winf=17.3,K=0.571,t0=-0.91,b=3.276,t50=0.49,T=19,L=10)
-    tmp2 <- M.empirical(Linf=19.76,Winf=17.3,Kl=0.571,Kw=0.571,T=19,Bl=10,tmax=5.5,method=c(1:4,9))
+    tmp2 <- M.empirical(Linf=19.76,Winf=17.3,Kl=0.571,Kw=0.571,TC=19,Bl=10,tmax=5.5,method=c(1:4,9))
     tmp <- data.frame(tmp,tmp2)
     expect_equivalent(round(tmp$M,3),tmp$M.1)
   }

@@ -47,8 +47,8 @@ test_that("vbFuns() and vbStarts() fit to Kimura separated by sex match fishmeth
     data(Kimura,package="fishmethods")
     
     ### get fishmethods results (straight from example)
-    fm1 <- vblrt(len=Kimura$length,age=Kimura$age,group=Kimura$sex,
-                 error=2,select=1)
+    fm1 <- growthlrt(len=Kimura$length,age=Kimura$age,group=Kimura$sex,
+                     error=2,select=1)
     fm1$results
     
     ### fit with my methods
