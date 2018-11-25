@@ -5,12 +5,14 @@ warnings_are_errors: false
 
 r_github_packages:
   - jimhester/covr
+  - yonicd/covrpage
   
 before_install:
   - Rscript -e 'install.packages(c("nlme"),lib="/home/travis/R-bin/lib/R/library/")'
 
 after_success:
   - Rscript -e 'covr::coveralls()'
+  - Rscript -e 'devtools::install(); covrpage::covrpage_ci()'
   - Rscript -e 'pkgdown::build_site()'
 
 notifications:
