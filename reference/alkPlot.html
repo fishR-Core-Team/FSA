@@ -119,7 +119,7 @@
   <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Length"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ifelse'>ifelse</a></span>(<span class='no'>type</span> <span class='kw'>!=</span> <span class='st'>"bubble"</span>, <span class='st'>"Proportion"</span>,
   <span class='st'>"Age"</span>), <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>showLegend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>lbl.cex</span> <span class='kw'>=</span> <span class='fl'>1.25</span>, <span class='kw'>leg.cex</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'>paletteChoices</span>(), <span class='kw'>grid</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"gray80"</span>, <span class='kw'>buf</span> <span class='kw'>=</span> <span class='fl'>0.45</span>,
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'><a href='chooseColors.html'>paletteChoices</a></span>(), <span class='kw'>grid</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"gray80"</span>, <span class='kw'>buf</span> <span class='kw'>=</span> <span class='fl'>0.45</span>,
   <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -163,7 +163,7 @@
     </tr>
     <tr>
       <th>pal</th>
-      <td><p>A string that indicates the palette to generate colors for the bars, areas, lines, or spline lines.  The name of a palette must be one of &#8220;rich&#8221;, &#8220;cm&#8221;, &#8220;default&#8221;, &#8220;grey&#8221;, &#8220;gray&#8221;, &#8220;heat&#8221;, &#8220;jet&#8221;, &#8220;rainbow&#8221;, &#8220;topo&#8221;, or &#8220;terrain&#8221;.  See <code>chooseColors</code>.</p></td>
+      <td><p>A string that indicates the palette to generate colors for the bars, areas, lines, or spline lines.  The name of a palette must be one of &#8220;rich&#8221;, &#8220;cm&#8221;, &#8220;default&#8221;, &#8220;grey&#8221;, &#8220;gray&#8221;, &#8220;heat&#8221;, &#8220;jet&#8221;, &#8220;rainbow&#8221;, &#8220;topo&#8221;, or &#8220;terrain&#8221;.  See <code><a href='chooseColors.html'>chooseColors</a></code>.</p></td>
     </tr>
     <tr>
       <th>grid</th>
@@ -211,13 +211,13 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code>alkIndivAge</code> for using an age-length key to assign ages to individual fish.</p></div>
+    <div class='dont-index'><p>See <code><a href='alkIndivAge.html'>alkIndivAge</a></code> for using an age-length key to assign ages to individual fish.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Make an example age-length key</span>
 <span class='no'>WR.age</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>WR79</span>, !<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/NA'>is.na</a></span>(<span class='no'>age</span>))
-<span class='no'>WR.age</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>WR.age</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>5</span>)
+<span class='no'>WR.age</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span>(<span class='no'>WR.age</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>5</span>)
 <span class='no'>raw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/xtabs'>xtabs</a></span>(~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR.age</span>)
 ( <span class='no'>WR.key</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/prop.table'>prop.table</a></span>(<span class='no'>raw</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>1</span>) )</div><div class='output co'>#&gt;      age
 #&gt; LCat           4          5          6          7          8          9

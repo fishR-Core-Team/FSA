@@ -352,7 +352,7 @@
 #&gt;  50  75 100 125 150 175 200 225 250 275 300 325 350 425 
 #&gt;  12  14  52  58  60  37  51  45  48  50   9   6   2   1 </div><div class='input'>
 <span class='co'># using values from psdVal for Smallmouth Bass</span>
-<span class='no'>smb1</span>$<span class='no'>PSDCat1</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>smb1</span>$<span class='no'>lencap</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='fu'>psdVal</span>(<span class='st'>"Smallmouth Bass"</span>))
+<span class='no'>smb1</span>$<span class='no'>PSDCat1</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>smb1</span>$<span class='no'>lencap</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='fu'><a href='psdVal.html'>psdVal</a></span>(<span class='st'>"Smallmouth Bass"</span>))
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>smb1</span>)</div><div class='output co'>#&gt;   species lake gear yearcap fish agecap lencap LCat10 LCat10A LCat10B LCat25
 #&gt; 1     SMB   WB    E    1988    5      1     71     70      70      70     50
 #&gt; 2     SMB   WB    E    1988    3      1     64     60      60      60     50
@@ -370,7 +370,7 @@
 #&gt;   0 180 280 350 430 
 #&gt; 200 188  54   2   1 </div><div class='input'>
 <span class='co'># add category names</span>
-<span class='no'>smb1</span>$<span class='no'>PSDCat2</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>smb1</span>$<span class='no'>lencap</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='fu'>psdVal</span>(<span class='st'>"Smallmouth Bass"</span>),<span class='kw'>use.names</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='no'>smb1</span>$<span class='no'>PSDCat2</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>smb1</span>$<span class='no'>lencap</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='fu'><a href='psdVal.html'>psdVal</a></span>(<span class='st'>"Smallmouth Bass"</span>),<span class='kw'>use.names</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>smb1</span>)</div><div class='output co'>#&gt;   species lake gear yearcap fish agecap lencap LCat10 LCat10A LCat10B LCat25
 #&gt; 1     SMB   WB    E    1988    5      1     71     70      70      70     50
 #&gt; 2     SMB   WB    E    1988    3      1     64     60      60      60     50
@@ -388,7 +388,7 @@
 #&gt;  substock     stock   quality preferred memorable    trophy 
 #&gt;       200       188        54         2         1         0 </div><div class='input'>
 <span class='co'># same as above but drop the unused levels</span>
-<span class='no'>smb1</span>$<span class='no'>PSDCat2A</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>smb1</span>$<span class='no'>lencap</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='fu'>psdVal</span>(<span class='st'>"Smallmouth Bass"</span>),
+<span class='no'>smb1</span>$<span class='no'>PSDCat2A</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>smb1</span>$<span class='no'>lencap</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='fu'><a href='psdVal.html'>psdVal</a></span>(<span class='st'>"Smallmouth Bass"</span>),
                         <span class='kw'>use.names</span><span class='kw'>=</span><span class='fl'>TRUE</span>,<span class='kw'>droplevels</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>smb1</span>)</div><div class='output co'>#&gt;   species lake gear yearcap fish agecap lencap LCat10 LCat10A LCat10B LCat25
 #&gt; 1     SMB   WB    E    1988    5      1     71     70      70      70     50
@@ -421,7 +421,7 @@
 #&gt;  $ PSDCat2 : Factor w/ 6 levels "substock","stock",..: 1 1 1 1 1 1 1 1 1 1 ...
 #&gt;  $ PSDCat2A: Factor w/ 5 levels "substock","stock",..: 1 1 1 1 1 1 1 1 1 1 ...</div><div class='input'>
 <span class='co'># same as above but not returned as a factor (returned as a character)</span>
-<span class='no'>smb1</span>$<span class='no'>PSDcat2B</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>smb1</span>$<span class='no'>lencap</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='fu'>psdVal</span>(<span class='st'>"Smallmouth Bass"</span>),
+<span class='no'>smb1</span>$<span class='no'>PSDcat2B</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>smb1</span>$<span class='no'>lencap</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='fu'><a href='psdVal.html'>psdVal</a></span>(<span class='st'>"Smallmouth Bass"</span>),
                         <span class='kw'>use.names</span><span class='kw'>=</span><span class='fl'>TRUE</span>,<span class='kw'>as.fact</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>smb1</span>)</div><div class='output co'>#&gt; 'data.frame':	445 obs. of  15 variables:
 #&gt;  $ species : Factor w/ 1 level "SMB": 1 1 1 1 1 1 1 1 1 1 ...
@@ -459,7 +459,7 @@
 #&gt; 5     SMB   WB    E    1988    6      1     72   70       50
 #&gt; 6     SMB   WB    E    1988    7      1     80   80       75</div><div class='input'>
 <span class='co'># using values from psdVal for Smallmouth Bass</span>
-<span class='no'>smb2</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(~<span class='no'>lencap</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>smb2</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='fu'>psdVal</span>(<span class='st'>"Smallmouth Bass"</span>),<span class='kw'>vname</span><span class='kw'>=</span><span class='st'>"LenPsd"</span>)
+<span class='no'>smb2</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(~<span class='no'>lencap</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>smb2</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='fu'><a href='psdVal.html'>psdVal</a></span>(<span class='st'>"Smallmouth Bass"</span>),<span class='kw'>vname</span><span class='kw'>=</span><span class='st'>"LenPsd"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>smb2</span>)</div><div class='output co'>#&gt;   species lake gear yearcap fish agecap lencap LCat LenCat25 LenPsd
 #&gt; 1     SMB   WB    E    1988    5      1     71   70       50      0
 #&gt; 2     SMB   WB    E    1988    3      1     64   60       50      0
@@ -468,7 +468,7 @@
 #&gt; 5     SMB   WB    E    1988    6      1     72   70       50      0
 #&gt; 6     SMB   WB    E    1988    7      1     80   80       75      0</div><div class='input'>
 <span class='co'># add category names</span>
-<span class='no'>smb2</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(~<span class='no'>lencap</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>smb2</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='fu'>psdVal</span>(<span class='st'>"Smallmouth Bass"</span>),<span class='kw'>vname</span><span class='kw'>=</span><span class='st'>"LenPsd2"</span>,
+<span class='no'>smb2</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(~<span class='no'>lencap</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>smb2</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='fu'><a href='psdVal.html'>psdVal</a></span>(<span class='st'>"Smallmouth Bass"</span>),<span class='kw'>vname</span><span class='kw'>=</span><span class='st'>"LenPsd2"</span>,
                <span class='kw'>use.names</span><span class='kw'>=</span><span class='fl'>TRUE</span>,<span class='kw'>droplevels</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>smb2</span>)</div><div class='output co'>#&gt;   species lake gear yearcap fish agecap lencap LCat LenCat25 LenPsd  LenPsd2
 #&gt; 1     SMB   WB    E    1988    5      1     71   70       50      0 substock
