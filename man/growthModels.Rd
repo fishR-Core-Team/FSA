@@ -26,8 +26,8 @@ logisticFuns(param = c("CJ1", "CJ2", "Karkach", "Haddon",
   "CampanaJones1", "CampanaJones2"), simple = FALSE, msg = FALSE)
 
 growthFunShow(type = c("vonBertalanffy", "Gompertz", "Richards",
-  "Logistic", "Schnute"), param = NULL, case = param, plot = FALSE,
-  ...)
+  "Logistic", "Schnute", "SchnuteRichards"), param = NULL,
+  case = param, plot = FALSE, ...)
 }
 \arguments{
 \item{param}{A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function. See details.}

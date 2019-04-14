@@ -1034,13 +1034,11 @@ logisticFuns <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1",
 #' 
 #' @return \code{Schnute} returns a predicted size given the case of the function and the provided parameter values.
 #' 
-#' \code{SchnuteModels} returns a graphic that uses \code{\link{plotmath}} to show the growth function equation in a pretty format.
-#' 
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @section IFAR Chapter: None specifically, but 12-Individual Growth is related.
 #'
-#' @seealso See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{RichardsFuns}}, and \code{\link{logisticFuns}} for similar functionality for other models.
+#' @seealso See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{RichardsFuns}}, \code{\link{logisticFuns}}, and \code{\link{SchnuteRichards}} for similar functionality for other models.
 #'
 #' @references Schnute, J. 1981. A versatile growth model with statistical stable parameters. Canadian Journal of Fisheries and Aquatic Sciences 38:1128-1140.
 #' 
@@ -1101,10 +1099,56 @@ Schnute <- function(t,case=1,t1=NULL,t3=NULL,L1=NULL,L3=NULL,a=NULL,b=NULL) {
 }
 
 
+#' @title The five-parameter growth function from Schnute and Richards (1990).
+#'
+#' @description The five-parameter growth function from Schnute and Richards (1990). Note that this function is slightly modified (a \sQuote{+} was changed to a \sQuote{-} so that the \sQuote{a} parameter will be positive) from the original in Schnute and Richards (1990)
+#'
+#' @param t A numeric vector of ages over which to model growth.
+#' @param Linf Mean asymptotic length.
+#' @param k The "growth coefficient" with units of (year^(-c)).
+#' @param a A dimensionless parameter
+#' @param b A dimensionless parameter.
+#' @param c A dimensionless parameter.
+#' 
+#' @return \code{SchnuteRichards} returns a predicted size given the provided parameter values.
+#' 
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#'
+#' @section IFAR Chapter: None specifically, but 12-Individual Growth is related.
+#'
+#' @seealso See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{RichardsFuns}}, \code{\link{logisticFuns}}, and \code{\link{Schnute}} for similar functionality for other models.
+#'
+#' @references Schnute, J.T. and L.J. Richards. 1990. A unified approach to the analysis of fish growth, maturity, and survivorship data. Canadian Journal of Fisheries and Aquatic Sciences. 47:24-40.
+#' 
+#' @keywords manip
+#'
+#' @examples
+#' ## See the formulae
+#' growthFunShow("SchnuteRichards",plot=TRUE)
+#' 
+#' ## Simple examples
+#' ages <- 1:15
+#' s1 <- SchnuteRichards(ages,Linf=100,k=0.03,a=0.01,b=0.005,c=2)
+#' plot(s1~ages,type="l",lwd=2)
+#' 
+#' @rdname SchnuteRichards
+#' @export
+SchnuteRichards <- function(t,Linf=NULL,k=NULL,a=NULL,b=NULL,c=NULL) {
+  if (length(Linf)==5) {
+    k <- Linf[[2]]
+    a <- Linf[[3]]
+    b <- Linf[[4]]
+    c <- Linf[[5]]
+    Linf <- Linf[[1]]
+  }
+  Linf*(1-a*exp(-k*t^c))^(1/b)
+}
+
+
 #' @rdname growthModels
 #' @export
 growthFunShow <- function(type=c("vonBertalanffy","Gompertz","Richards",
-                                 "Logistic","Schnute"),
+                                 "Logistic","Schnute","SchnuteRichards"),
                           param=NULL,case=param,plot=FALSE,...) {
   type <- match.arg(type)
   switch(type,
@@ -1112,7 +1156,8 @@ growthFunShow <- function(type=c("vonBertalanffy","Gompertz","Richards",
          Gompertz = { expr <- iSGF_GOMP(param) },
          Richards = { expr <- iSGF_RICHARDS(param) },
          Logistic = { expr <- iSGF_LOGISTIC(param) },
-         Schnute = { expr <- iSGF_SCHNUTE(case) })
+         Schnute = { expr <- iSGF_SCHNUTE(case) },
+         SchnuteRichards = { expr <- iSGF_SCHNUTERICHARDS()})
   if (plot) {
     withr::local_par(list(mar=c(0.1,0.1,0.1,0.1)))
     graphics::plot(0,type="n",ylim=c(0,1),xlim=c(0,1),xaxt="n",yaxt="n",
@@ -1276,6 +1321,10 @@ iSGF_SCHNUTE <- function(case=1:4) {
     expr <- expression(E(L[t])==L[1]*e^{log~bgroup("(",frac(L[3],L[1]),")")*~frac(~t~-~t[1],~t[3]~-~t[1])})
   }
   expr
+}
+
+iSGF_SCHNUTERICHARDS <- function() {
+  expression(E(L[t])==L[infinity]*~bgroup("(",1-a*e^{-kt^{c}},")")^{frac(1,b)})
 }
 
 ################################################################################

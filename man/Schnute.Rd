@@ -26,8 +26,6 @@ Schnute(t, case = 1, t1 = NULL, t3 = NULL, L1 = NULL, L3 = NULL,
 }
 \value{
 \code{Schnute} returns a predicted size given the case of the function and the provided parameter values.
-
-\code{SchnuteModels} returns a graphic that uses \code{\link{plotmath}} to show the growth function equation in a pretty format.
 }
 \description{
 The four-parameter growth function from Schnute (1981).
@@ -60,7 +58,7 @@ lines(s4~ages,lwd=2,col="green")
 Schnute, J. 1981. A versatile growth model with statistical stable parameters. Canadian Journal of Fisheries and Aquatic Sciences 38:1128-1140.
 }
 \seealso{
-See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{RichardsFuns}}, and \code{\link{logisticFuns}} for similar functionality for other models.
+See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{RichardsFuns}}, \code{\link{logisticFuns}}, and \code{\link{SchnuteRichards}} for similar functionality for other models.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

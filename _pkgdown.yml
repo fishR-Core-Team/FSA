@@ -62,6 +62,7 @@ reference:
       - vbFuns
       - vbStarts
       - Schnute
+      - SchnuteRichards
   - title: Mortality Rates
     desc: Estimate mortality rates from catch curve data and empirical models.
     contents:
