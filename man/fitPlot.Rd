@@ -21,7 +21,8 @@ fitPlot(object, ...)
   col.pt = "black", col.mdl = "red", lwd = 3, lty = 1,
   interval = c("none", "confidence", "prediction", "both"),
   conf.level = 0.95, lty.ci = 2, lty.pi = 3,
-  xlab = object$Enames[1], ylab = object$Rname, main = "", ...)
+  xlab = object$Enames[1], ylab = object$Rname, main = "",
+  ylim = NULL, ...)
 
 \method{fitPlot}{IVR}(object, ...)
 
@@ -86,6 +87,8 @@ fitPlot(object, ...)
 
 \item{main}{a string for the main label to the plot. Defaults to the model call.}
 
+\item{ylim}{A vector of length two to control the y-axis in the nonlinear regression plot.}
+
 \item{type}{The type of graphic to construct in a one-way and two-way ANOVA. If \code{"b"} then points are plotted and lines are used to connect points (DEFAULT). If \code{"p"} then only points are used and if \code{"l"} then only lines are drawn.}
 
 \item{col}{A vector of color names or numbers or the name of a palette (see details) that indicates what color of points and lines to use for the levels of the first factor in an IVR or the second factor in a two-way ANOVA.}
@@ -107,8 +110,6 @@ fitPlot(object, ...)
 \item{d}{A data frame that contains the variables used in construction of the \code{nls} object.}
 
 \item{jittered}{A logical that indicates whether the points should be jittered horizontally.}
-
-\item{ylim}{A vector of length two to control the y-axis in the nonlinear regression plot.}
 
 \item{legend.lbls}{A vector of strings that will be the labels for the legend in an nls fitPlot graphic.}
 

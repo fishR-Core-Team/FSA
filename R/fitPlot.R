@@ -158,11 +158,11 @@ fitPlot.lm <- function(object, ...) {
 #' @rdname fitPlot
 #' @export
 fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
-                         col.mdl="red",lwd=3,lty=1,
-                         interval=c("none","confidence","prediction","both"),
-                         conf.level=0.95,lty.ci=2,lty.pi=3,
-                         xlab=object$Enames[1],ylab=object$Rname,main="",
-                         ...) {
+                        col.mdl="red",lwd=3,lty=1,
+                        interval=c("none","confidence","prediction","both"),
+                        conf.level=0.95,lty.ci=2,lty.pi=3,
+                        xlab=object$Enames[1],ylab=object$Rname,main="",
+                        ylim=NULL,...) {
   ## Some tests
   interval <- match.arg(interval)
   if (length(col.pt)>1) {
@@ -183,24 +183,29 @@ fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
   # sets name of variables so that predict() will work
   names(newdf) <- object$Enames[1]
   # computes predicted values (and CI for use later)
-  pred <- stats::predict(object$mdl,newdf,interval="confidence")
-  ## Put plot together
-  # nocov start
+  predC <- stats::predict(object$mdl,newdf,interval="confidence")
+  predP <- stats::predict(object$mdl,newdf,interval="prediction")
+  ## Put plot together                                             # nocov start
+  # Find y-axis range
+  if (is.null(ylim)) {
+    if (interval %in% c("prediction","both")) ylim <- range(predP)
+    else ylim <- range(predC)
+  }
   # plot points in white to "disappear" if asked for
   if (!plot.pts) col.pt <- "white"
-  graphics::plot(y~x,pch=pch,col=col.pt,xlab=xlab,ylab=ylab,main=main,...)
+  graphics::plot(y~x,pch=pch,col=col.pt,ylim=ylim,
+                 xlab=xlab,ylab=ylab,main=main,...)
   # plot fitted line over range of data
-  graphics::lines(xvals,pred[,"fit"],col=col.mdl,lwd=lwd,lty=lty)
+  graphics::lines(xvals,predC[,"fit"],col=col.mdl,lwd=lwd,lty=lty)
   # puts CI on graph if asked for
   if (interval %in% c("confidence","both")) {
-    graphics::lines(xvals,pred[,"upr"],col=col.mdl,lwd=1,lty=lty.ci)
-    graphics::lines(xvals,pred[,"lwr"],col=col.mdl,lwd=1,lty=lty.ci)
+    graphics::lines(xvals,predC[,"upr"],col=col.mdl,lwd=1,lty=lty.ci)
+    graphics::lines(xvals,predC[,"lwr"],col=col.mdl,lwd=1,lty=lty.ci)
   }
   # puts PI on graph if asked for
   if (interval %in% c("prediction","both")) {
-    pred <- stats::predict(object$mdl,newdf,interval="prediction")
-    graphics::lines(xvals,pred[,"upr"],col=col.mdl,lwd=1,lty=lty.pi)
-    graphics::lines(xvals,pred[,"lwr"],col=col.mdl,lwd=1,lty=lty.pi)
+    graphics::lines(xvals,predP[,"upr"],col=col.mdl,lwd=1,lty=lty.pi)
+    graphics::lines(xvals,predP[,"lwr"],col=col.mdl,lwd=1,lty=lty.pi)
   } # nocov end
 }
 
@@ -238,8 +243,7 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
     if (sum(c(length(unique(pch))==1,length(unique(lty))==1,length(unique(col))==1))>1)
     WARN("Your choices for 'col', 'pch', and 'lty' will make it difficult to see groups.")
   ### Plot the points
-  # Creates plot schematic -- no points or lines
-  # nocov start
+  # Creates plot schematic -- no points or lines                   # nocov start
   graphics::plot(y~x,col="white",xlab=xlab,ylab=ylab,main=main,...)
   for (i in 1:num.f1) {
     # Plots points w/ different colors & points
@@ -250,19 +254,19 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
     xvals <- seq(min(x.obs),max(x.obs),length.out=200)
     newdf <- data.frame(xvals,as.factor(rep(levels(f1)[i],length(xvals))))
     names(newdf) <- names(object$mf)[c(object$ENumPos,object$EFactPos)]
-    pred <- stats::predict(object$mdl,newdf,interval="confidence")
+    predC <- stats::predict(object$mdl,newdf,interval="confidence")
     # Plot just the line if no intervals called for
-    graphics::lines(xvals,pred[,"fit"],col=col[i],lwd=lwd,lty=lty[i])
+    graphics::lines(xvals,predC[,"fit"],col=col[i],lwd=lwd,lty=lty[i])
     # add CI if asked for
     if (interval %in% c("confidence","both")) {
-      graphics::lines(xvals,pred[,"upr"],col=col[i],lwd=1,lty=lty[i])
-      graphics::lines(xvals,pred[,"lwr"],col=col[i],lwd=1,lty=lty[i])     
+      graphics::lines(xvals,predC[,"upr"],col=col[i],lwd=1,lty=lty[i])
+      graphics::lines(xvals,predC[,"lwr"],col=col[i],lwd=1,lty=lty[i])     
     }
     # add PI if asked for
     if (interval %in% c("prediction","both")) {
-      pred <- stats::predict(object$mdl,newdf,interval="prediction")
-      graphics::lines(xvals,pred[,"upr"],col=col[i],lwd=1,lty=lty[i])
-      graphics::lines(xvals,pred[,"lwr"],col=col[i],lwd=1,lty=lty[i])
+      predP <- stats::predict(object$mdl,newdf,interval="prediction")
+      graphics::lines(xvals,predP[,"upr"],col=col[i],lwd=1,lty=lty[i])
+      graphics::lines(xvals,predP[,"lwr"],col=col[i],lwd=1,lty=lty[i])
     }        
   } # end for i
   # Prepare list of col,pch,lty for legend
