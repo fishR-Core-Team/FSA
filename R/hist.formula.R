@@ -128,6 +128,7 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
     # However, if not and ymax is given then set ylim to be c(0,ymax).
     # Otherwise leave as NULL and let hist() figure it out
     if ("ylim" %in% names(list(...))) {
+      withr::local_par(list(new=FALSE)) # hack to fix #46
       h <- graphics::hist(tmp$mf[,1],xlab=xlab,ylab=ylab,
                           main=main,right=right,col=col,
                           xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),
@@ -135,6 +136,7 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
     } else {
       if(!is.null(ymax)) ylim <- c(0,ymax)
       else ylim <- NULL
+      withr::local_par(list(new=FALSE)) # hack to fix #46
       h <- graphics::hist(tmp$mf[,1],xlab=xlab,ylab=ylab,
                           main=main,right=right,col=col,
                           xaxs=ifelse(iaxs,"i","r"),yaxs=ifelse(iaxs,"i","r"),

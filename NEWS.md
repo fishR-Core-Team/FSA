@@ -1,4 +1,6 @@
 # FSA 0.8.23 ongoing
+* `fitPlot()`: Modified. Fixed bug related to y-axis limits not extending to contain the data, confidence bands, or prediction bands (in `fitPlot.slr()`). This addresses [#3](https://github.com/droglenc/NCStats/issues/3) listed for `NCStats`).
+* `hist.formula()`: Modified. Fixed bug related to subsequent calls after a call that used `iaxs=FALSE`. This addresses [#46](https://github.com/droglenc/FSA/issues/46).
 
 # FSA 0.8.22 22-Nov-18
 * Corrected CITATION file.

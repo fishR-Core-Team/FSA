@@ -1,6 +1,6 @@
 Package: FSA
 Version: 0.8.22.9000
-Date: 2018-11-22
+Date: 2019-4-13
 Title: Simple Fisheries Stock Assessment Methods
 Description: A variety of simple fish stock assessment methods.
     Detailed vignettes are available on the fishR website <http://derekogle.com/fishR/>.
