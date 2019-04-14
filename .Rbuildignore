@@ -16,6 +16,7 @@ cran-comments.md
 ^_pkgdown\.yml
 ^vignettes
 ^docs
+^pkgdown
 
 ## Logo
 inst/sticker/
