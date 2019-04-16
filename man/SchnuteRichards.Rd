@@ -12,7 +12,7 @@ SchnuteRichards(t, Linf = NULL, k = NULL, a = NULL, b = NULL,
 
 \item{Linf}{Mean asymptotic length.}
 
-\item{k}{The "growth coefficient" with units of (year^(c)).}
+\item{k}{The "growth coefficient" with units of (year^(-c)).}
 
 \item{a}{A dimensionless parameter}
 
