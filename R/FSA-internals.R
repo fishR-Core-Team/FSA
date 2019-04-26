@@ -284,6 +284,9 @@ iLegendHelp <- function(legend) {
   } else if (!is.null(legend)) {
     do.legend <- TRUE
     if (inherits(legend,"character")) {
+      if (!(legend %in% c("bottomright","bottom","bottomleft","left",
+                          "topleft","top","topright","right","center")))
+        STOP("Must use proper keyword for 'legend'.")
       x <- legend
     } else {
       x <- legend[1]

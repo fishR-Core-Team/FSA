@@ -1,5 +1,103 @@
-context("Age Precision and Bias VALIDATE")
 
+## Test Messages ----
+test_that("ageBias() messages",{
+  expect_error(ageBias(otolithC+scaleC~finrayC,data=WhitefishLC),
+               "more than one variable on the LHS")
+  expect_error(ageBias(otolithC~scaleC+finrayC,data=WhitefishLC),
+               "must have only one RHS")
+  
+  suppressWarnings(ab1 <- ageBias(scaleC~otolithC,data=WhitefishLC))
+  expect_error(summary(ab1,what="derek"),
+               "should be one of")
+  expect_error(summary(ab1,what="McNemar",cont.corr="derek"),
+               "should be one of")
+  expect_error(plot(ab1,xvals="derek"),
+               "should be one of")
+  expect_error(plotAB(ab1,what="derek"),
+               "should be one of")
+})
+
+test_that("agePrecision() messages",{
+  expect_error(agePrecision(~otolithC,data=WhitefishLC),
+               "compare at least two sets of ages")
+  expect_error(agePrecision(~otolithC+as.character(scaleC),data=WhitefishLC),
+               "must be numeric")
+  ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)
+  expect_error(summary(ap1,what="agreement"),
+               "should be one of")
+  expect_error(summary(ap1,what="absolute",trunc.diff=0),
+               "must be positive")
+  expect_error(summary(ap1,what="absolute",trunc.diff=-2),
+               "must be positive")
+})
+
+
+## Test Output Types ----
+test_that("ageBias() summary() output titles",{
+  suppressWarnings(ab1 <- ageBias(scaleC~otolithC,data=WhitefishLC))
+  tmp <- capture.output( summary(ab1) )
+  expect_true(any(grepl("Sample size in the age agreement table",tmp)))
+  expect_true(any(grepl("Summary of scaleC by otolithC",tmp)))
+  expect_true(any(grepl("Summary of scaleC-otolithC by otolithC",tmp)))
+  expect_true(any(grepl("Raw agreement table",tmp)))
+  expect_true(any(grepl("(square)",tmp)))
+  expect_true(any(grepl("Age agreement table symmetry test results",tmp)))
+  tmp <- capture.output( summary(ab1,flip.table=TRUE) )
+  expect_true(any(grepl("Sample size in the age agreement table",tmp)))
+  expect_true(any(grepl("Summary of scaleC by otolithC",tmp)))
+  expect_true(any(grepl("Summary of scaleC-otolithC by otolithC",tmp)))
+  expect_true(any(grepl("Raw agreement table",tmp)))
+  expect_true(any(grepl("flipped",tmp)))
+  expect_true(any(grepl("Age agreement table symmetry test results",tmp)))
+  tmp <- capture.output( summary(ab1,what="n") )
+  expect_true(any(grepl("Sample size in the age agreement table",tmp)))
+  tmp <- capture.output( summary(ab1,what=c("n","bias")) )
+  expect_true(any(grepl("Sample size in the age agreement table",tmp)))
+  expect_true(any(grepl("Summary of scaleC by otolithC",tmp)))
+})
+
+test_that("agePrecision() summary() output titles",{
+  ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)
+  tmp <- capture.output( summary(ap1) )
+  expect_true(any(grepl("Precision summary statistics",tmp)))
+  expect_true(any(grepl("Percentage of fish by absolute differences in ages",tmp)))
+  expect_true(any(grepl("Percentage of fish by differences in ages",tmp)))
+  expect_true(any(grepl("Intermediate calculations for each individual",tmp)))
+  tmp <- capture.output( summary(ap1,percent=FALSE) )
+  expect_true(any(grepl("Precision summary statistics",tmp)))
+  expect_true(any(grepl("Frequency of fish by absolute differences in ages",tmp)))
+  expect_true(any(grepl("Frequency of fish by differences in ages",tmp)))
+  expect_true(any(grepl("Intermediate calculations for each individual",tmp)))
+  tmp <- capture.output( summary(ap1,what=c("precision","absolute")) )
+  expect_true(any(grepl("Precision summary statistics",tmp)))
+  expect_true(any(grepl("Percentage of fish by absolute differences in ages",tmp)))
+})
+
+test_that("agePrecision() types and specifics",{
+  ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)
+  expect_is(ap1,"agePrec")
+  expect_equal(names(ap1),c("detail","rawdiff","absdiff","ASD","ACV","ACV2",
+                            "AAD","APE","APE2","AD","PercAgree","R","n","validn"))
+  expect_is(ap1$detail,"data.frame")
+  expect_equal(names(ap1$detail),
+               c("otolithC","scaleC","mean","median","mode",
+                 "SD","CV","CV2","AD","PE","PE2","D"))
+  expect_is(ap1$rawdiff,"table")
+  expect_is(ap1$absdiff,"table")
+  
+  ap2 <- agePrecision(~otolithC+finrayC+scaleC,data=WhitefishLC)
+  expect_is(ap2,"agePrec")
+  expect_equal(names(ap2),c("detail","rawdiff","absdiff","ASD","ACV","ACV2",
+                            "AAD","APE","APE2","AD","PercAgree","R","n","validn"))
+  expect_is(ap2$detail,"data.frame")
+  expect_equal(names(ap2$detail),
+               c("otolithC","finrayC","scaleC","mean","median","mode",
+                 "SD","CV","CV2","AD","PE","PE2","D"))
+  expect_is(ap2$rawdiff,"table")
+  expect_is(ap2$absdiff,"table")
+})
+
+## Validate Results ----
 test_that("ageBias() symmetry tests match results in Evans and Hoenig (2008)",{
   ######## Create Evans & Hoenig (2008) X, Y, and Z matrices and check
   ########   against the results in table 1.
@@ -86,7 +184,8 @@ test_that("ageBias() compared to http://www.nefsc.noaa.gov/fbp/age-prec/ calcula
                                     ref.lab="Otolith Age",nref.lab="Scale Age"))
     expect_equal(ab1$bias$n, c(2,18,20,13,18,10,8,7,5,1,2))
     ## the fbp result is actually 4.62 for age-6
-    expect_equal(round(ab1$bias$mean,2), c(0.00,1.11,2.20,2.85,3.78,4.20,4.62,5.00,4.80,6.00,6.00))
+    expect_equal(round(ab1$bias$mean,2), c(0.00,1.11,2.20,2.85,3.78,4.20,
+                                           4.62,5.00,4.80,6.00,6.00))
   }
 })
 
@@ -190,3 +289,4 @@ test_that("agePrecision() differences for simple data with NA values",{
   ap135 <- agePrecision(~age1+age3+age5,data=tmp)
   expect_equal(round(ap135$PercAgree,4),50.0000)
 })
+

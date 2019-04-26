@@ -1,6 +1,64 @@
-context("Summmarize() OUTPUT and VALIDATE")
-source("EXS_Summarize.R")
+## Create simple dummy data ----
+d1 <- data.frame(f1=factor(c("A","A","A","B","B","B","C","C","C")),
+                 f2=factor(c("a","b","c","a","b","c","a","b","c")),
+                 f3=factor(c("A","A","A","B","B","B","C","C",NA)),
+                 c1=c("A","A","A","B","B","B","C","C","C"),
+                 c2=c("A","A","A","B","B","B","C","C",NA),
+                 q1=0:8,q2=11:19,q3=c(1:3,1:3,1,2,2),q4=c(NA,0:7),
+                 stringsAsFactors=FALSE)
 
+# Result labels
+qnms1 <- c("n","nvalid","mean","sd","min","Q1","median","Q3","max","percZero")
+
+
+## Test Messages ----
+test_that("Summarize(), formula method messages",{
+  expect_error(Summarize(~f1,data=d1),
+               "only works with a numeric variable")
+  expect_error(Summarize(~c1,data=d1),
+               "only works with a numeric variable")
+  expect_error(Summarize(f1~1,data=d1),
+               "only works with a numeric variable")
+  expect_error(Summarize(c1~1,data=d1),
+               "only works with a numeric variable")
+  expect_error(Summarize(q1+q2~f1+f2,data=d1),
+               "more than one variable on the LHS")
+  expect_error(Summarize(q1~f1+f2+c1,data=d1),
+               "may contain only one or two factors")
+  expect_error(Summarize(q1~f1+f2+c1,data=d1),
+               "may contain only one or two factors")
+  expect_error(Summarize(~f1+f2,data=d1),
+               "Must have one variable on LHS of formula")
+  expect_error(Summarize(~q1+q2,data=d1),
+               "Must have one variable on LHS of formula")
+  expect_error(Summarize(f1~f2,data=d1),
+               "numeric variable on LHS")
+  expect_error(Summarize(c1~f2,data=d1),
+               "numeric variable on LHS")
+  expect_error(Summarize(~q1,data=d1,nvalid="derek"),
+               "should be one of")
+  expect_error(Summarize(~q1,data=d1,percZero="derek"),
+               "should be one of")
+})
+
+test_that("Summarize(), default method, messages",{
+  expect_error(Summarize(d1),
+               "does not work with a data.frame")
+  expect_error(Summarize(as.matrix(d1[,c("q1","q2")])),
+               "does not work with matrices")
+  expect_error(Summarize(as.matrix(d1[,c("f1","f2","c1")])),
+               "does not work with matrices")
+  expect_error(Summarize(d1$q1,nvalid="derek"),
+               "should be one of")
+  expect_error(Summarize(d1$q1,percZero="derek"),
+               "should be one of")
+})
+
+
+## Test Output Types ----
+
+
+## Validate Results ----
 test_that("Summarize() results, single quantitative variable",{
   ## no NAs or zeros
   exp <- c(9,9,15,sd(d1$q2),11,13,15,17,19,0)  # all possible results
@@ -85,7 +143,8 @@ test_that("Summarize() results, quantitative variable by single factor",{
   
   ## NAs and zeros
   exp <- data.frame(f1=c("A","B","C"),n=rep(3,3),nvalid=c(2,3,3),
-                    mean=c(0.5,3,6),sd=round(c(sqrt(2)/2,1,1),getOption("digits")),min=c(0,2,5),
+                    mean=c(0.5,3,6),sd=round(c(sqrt(2)/2,1,1),
+                                             getOption("digits")),min=c(0,2,5),
                     Q1=c(0.25,2.5,5.5),median=c(0.5,3,6),Q3=c(0.75,3.5,6.5),
                     max=c(1,4,7),percZero=c(50,0,0))
   tmp <- Summarize(q4~f1,data=d1)
@@ -114,11 +173,12 @@ test_that("Summarize() results, quantitative variable by single character",{
   tmp <- Summarize(q2~c1,data=d1,nvalid="always",percZero="always")
   expect_equal(tmp,exp)            # drop nvalid & percZero from expectations
 })
-  
+
 test_that("Summarize() results, quantitative variable by two factors",{
   exp <- data.frame(f2=rep(c("a","b","c"),3),f1=rep(c("A","B","C"),each=3),
-                    n=rep(1,9),nvalid=rep(1,9),mean=11:19,sd=as.numeric(rep(NA,9)),
-                    min=11:19,Q1=11:19,median=11:19,Q3=11:19,max=11:19,percZero=rep(0,9))
+                    n=rep(1,9),nvalid=rep(1,9),mean=11:19,
+                    sd=as.numeric(rep(NA,9)),min=11:19,Q1=11:19,median=11:19,
+                    Q3=11:19,max=11:19,percZero=rep(0,9))
   tmp <- Summarize(q2~f2+f1,data=d1)
   expect_is(tmp,"data.frame")
   expect_equal(tmp,exp[,-c(4,12)])  # drop nvalid & percZero from expectations
@@ -131,8 +191,10 @@ test_that("Summarize() results, quantitative variable by two factors",{
 })
 
 test_that("Summarize() results using exclude=",{
-  exp <- data.frame(f1=c("B","C"),n=c(3,3),nvalid=c(3,3),mean=c(3,6),sd=c(1,1),min=c(2,5),
-                    Q1=c(2.5,5.5),median=c(3,6),Q3=c(3.5,6.5),max=c(4,7),percZero=rep(0,2))
+  exp <- data.frame(f1=c("B","C"),n=c(3,3),nvalid=c(3,3),
+                    mean=c(3,6),sd=c(1,1),min=c(2,5),
+                    Q1=c(2.5,5.5),median=c(3,6),Q3=c(3.5,6.5),
+                    max=c(4,7),percZero=rep(0,2))
   tmp <- Summarize(q4~f1,data=d1,exclude="A")
   expect_is(tmp,"data.frame")
   expect_equal(tmp,exp[,-c(3,11)])  # drop nvalid & percZero from expectations
@@ -178,3 +240,4 @@ test_that("Summarize() results, assure 'by' variable is the expected mode/type",
   expect_is(tmp$f1,"factor")
   expect_is(tmp$q3,"numeric")
 })
+

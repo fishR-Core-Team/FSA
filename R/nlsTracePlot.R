@@ -85,6 +85,8 @@ nlsTracePlot <- function(object,fun,from=NULL,to=NULL,n=199,
   trcDF <- matrix(trcDF,nrow=length(object),byrow=TRUE)
   ## plot each iteration onto existing plot
   if (add) {
+    ## process legend
+    leg <- iLegendHelp(legend)
     if (!iPlotExists()) STOP("An active plot does not exist.")
     niter <- nrow(trcDF)
     clrs <- chooseColors(pal,niter,rev.col)
@@ -96,7 +98,6 @@ nlsTracePlot <- function(object,fun,from=NULL,to=NULL,n=199,
       graphics::lines(xs,ys,lwd=lwd,col=clrs[i])
     }
     ## add legend if asked for
-    leg <- iLegendHelp(legend)
     if (leg$do.legend) {
       lbls <- c("start",paste0("end (",niter,")"))
       graphics::legend(x=leg$x,y=leg$y,legend=lbls,

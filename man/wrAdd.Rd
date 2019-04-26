@@ -64,7 +64,7 @@ if (require(dplyr)) {
 df
  
 ## Example with only one species in the data.frame
-bg <- Subset(df,species=="Bluegill")
+bg <- filterD(df,species=="Bluegill")
 bg$Wr4 <- wrAdd(wt~tl+species,data=bg)
 
 }

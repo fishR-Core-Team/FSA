@@ -1,5 +1,3 @@
-context("knitr utilities OUTPUT")
-
 test_that("kCounts() results",{
   expect_equal(kCounts(0),"zero")
   expect_equal(kCounts(1),"one")

@@ -1,5 +1,3 @@
-context("FSA internals tests")
-
 test_that("iCheckStartcatW() messages",{
   expect_error(FSA:::iCheckW(-1),"must be positive")
   expect_error(FSA:::iCheckW(1:2),"must be a single value")
@@ -174,7 +172,8 @@ test_that("iHndlCols2Use() messages and results",{
   expect_equivalent(tmp,df1[,-ind,drop=FALSE])
   expect_equivalent(names(tmp),nms[-ind])
   ## ignore four columns by name
-  tmp <- suppressWarnings(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=c("net","eff","species","catch")))
+  tmp <- suppressWarnings(
+    FSA:::iHndlCols2UseIgnore(df1,cols2ignore=c("net","eff","species","catch")))
   expect_equivalent(tmp,df1[,-ind,drop=FALSE])
   expect_equivalent(names(tmp),nms[-ind])
   
@@ -217,6 +216,23 @@ test_that("iHndlMultWhat() messages and results",{
 })
 
 
+test_that("iLegendHel() messages and results",{
+  expect_error(iLegendHelp("Derek"),"Must use proper keyword")
+  tmp <- FSA:::iLegendHelp("topright")
+  expect_true(tmp$do.legend)
+  expect_equal(tmp$x,"topright")
+  expect_null(tmp$y)
+  tmp <- FSA:::iLegendHelp(FALSE)
+  expect_false(tmp$do.legend)
+  expect_null(tmp$x)
+  expect_null(tmp$y)
+  tmp <- FSA:::iLegendHelp(c(1,1))
+  expect_true(tmp$do.legend)
+  expect_equal(tmp$x,1)
+  expect_equal(tmp$y,1)
+  
+})
+
 test_that("iListSpecies() messages",{
   expect_message(capture.output(FSA:::iListSpecies(PSDlit)))
   expect_output(suppressMessages(FSA:::iListSpecies(PSDlit)))
@@ -257,7 +273,8 @@ test_that("iTypeoflm() messages and results",{
   ## Check some errors
   glm1 <- glm(year~weight,data=Mirex,family="binomial")
   expect_error(FSA:::iTypeoflm(glm1),"only works with")
-  nl1 <- nls(mirex~B1/(1+exp(B2+B3*weight)),start=list(B1=0.4,B2=2,B3=-0.5),data=Mirex)
+  nl1 <- nls(mirex~B1/(1+exp(B2+B3*weight)),start=list(B1=0.4,B2=2,B3=-0.5),
+             data=Mirex)
   expect_error(FSA:::iTypeoflm(nl1),"only works with")
   Mirex$speciesZ <- as.character(Mirex$species)
   Mirex$yearZ <- as.character(Mirex$year)

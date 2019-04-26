@@ -102,16 +102,16 @@ psdPlot(~mm,data=df,species="Yellow perch",w=10,xlim=c(100,300))
 ## different subsets of fish
 # ... without any sub-stock fish
 brks <- psdVal("Yellow Perch")
-tmp <- Subset(df,mm>brks["stock"])
+tmp <- filterD(df,mm>brks["stock"])
 psdPlot(~mm,data=tmp,species="Yellow perch",w=10)
 # ... without any sub-stock or stock fish
-tmp <- Subset(df,mm>brks["quality"])
+tmp <- filterD(df,mm>brks["quality"])
 psdPlot(~mm,data=tmp,species="Yellow perch",w=10)
 # ... with only sub-stock, stock, and quality fish ... only PSD-Q
-tmp <- Subset(df,mm<brks["preferred"])
+tmp <- filterD(df,mm<brks["preferred"])
 psdPlot(~mm,data=tmp,species="Yellow perch",w=10)
 # ... with only sub-stock fish (don't run ... setup to give an error)
-tmp <- Subset(df,mm<brks["stock"])
+tmp <- filterD(df,mm<brks["stock"])
 \dontrun{ psdPlot(~mm,data=tmp,species="Yellow perch",w=10) }
 par(op)
 
