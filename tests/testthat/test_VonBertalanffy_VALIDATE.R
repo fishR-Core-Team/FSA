@@ -6,7 +6,7 @@ test_that("vbFuns() and vbStarts() fit to Kimura match Haddon book (2nd ed, p237
     ## Get typical Von B function
     vbT <- vbFuns("typical")
     ## Examine females
-    KimuraF <- Subset(Kimura,sex=="F")
+    KimuraF <- filterD(Kimura,sex=="F")
     svF <- vbStarts(length~age,data=KimuraF,param="typical")
     fitF <- nls(length~vbT(age,Linf,K,t0),data=KimuraF,start=svF)
     cfF <- coef(fitF)
@@ -15,7 +15,7 @@ test_that("vbFuns() and vbStarts() fit to Kimura match Haddon book (2nd ed, p237
     expect_equal(round(cfF[["K"]],4),0.2963)
     expect_equal(round(cfF[["t0"]],4),-0.0573)
     ## Examine males
-    KimuraM <- Subset(Kimura,sex=="M")
+    KimuraM <- filterD(Kimura,sex=="M")
     svM <- vbStarts(length~age,data=KimuraM,param="typical")
     fitM <- nls(length~vbT(age,Linf,K,t0),data=KimuraM,start=svM)
     cfM <- coef(fitM)

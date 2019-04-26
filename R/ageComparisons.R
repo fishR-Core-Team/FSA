@@ -670,7 +670,7 @@ summary.ageBias <- function(object,
     res <- rbind(res,iBowker(object))
     # if what="symmetry" print all results, otherwise only what is asked for
     if (showmsg) cat("Age agreement table symmetry test results\n")
-    if (!"symmetry" %in% what) res <- Subset(res,grepl(what,symTest))
+    if (!"symmetry" %in% what) res <- filterD(res,grepl(what,symTest))
     print(res)
   }
   if (retres) invisible(res)

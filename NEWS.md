@@ -1,4 +1,6 @@
 # FSA 0.8.23 ongoing
+* Reorganized `testthat` folder as suggested in `testthat` release notes.
+* Removed all uses of `Subset()` (replaced with `filterD()`).
 * `fitPlot()`: Modified. Fixed bug related to y-axis limits not extending to contain the data, confidence bands, or prediction bands (in `fitPlot.slr()`). This addresses [#3](https://github.com/droglenc/NCStats/issues/3) listed for `NCStats`).
 * `hist.formula()`: Modified. Fixed bug related to subsequent calls after a call that used `iaxs=FALSE`. This addresses [#46](https://github.com/droglenc/FSA/issues/46).
 * `SchnuteRichards()`: Added. This addresses [#54](https://github.com/droglenc/FSA/issues/54).

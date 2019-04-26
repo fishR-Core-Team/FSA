@@ -1,6 +1,65 @@
-context("Growth Functions OUTPUT")
-source("EXS_growthFuns.R")
+## List all parametrizations for the different functions ----
+vbs <- c("Typical","Traditional","BevertonHolt",
+         "Original","vonBertalanffy","GallucciQuinn","GQ","Ogle","Pauly",
+         "Mooij","Weisberg","Schnute","Francis","Laslett","Polacheck",
+         "Fabens","Fabens2","Somers","Somers2","Wang","Wang2","Wang3")
+gomps <- c("Original","Ricker1","Ricker2","Ricker3",
+           "QuinnDeriso1","QuinnDeriso2","QuinnDeriso3",
+           "Troynikov1","Troynikov2")
+logistics <- c("Karkach","Haddon","CampanaJones1","CampanaJones2")
 
+
+## Test Messages ----
+test_that("growthFunShow() & Schnute() messages",{
+  ## wrong models
+  expect_error(growthFunShow("Derek",param="Original"),
+               "should be one of")
+  expect_error(growthFunShow("vonBertalanffy",param="Derek"),
+               "should be one of")
+  expect_error(growthFunShow("Gompertz",param="Derek"),
+               "should be one of")
+  expect_error(growthFunShow("Logistic",param="Derek"),
+               "should be one of")
+  expect_error(growthFunShow("vonBertalanffy",param=1),
+               "must be a character string")
+  expect_error(growthFunShow("Gompertz",param=1),
+               "must be a character string")
+  expect_error(growthFunShow("Logistic",param=1),
+               "must be a character string")
+  expect_error(growthFunShow("Richards",param="Derek"),
+               "must be numeric when")
+  expect_error(growthFunShow("Schnute",param="Derek"),
+               "must be numeric when")
+  expect_error(growthFunShow("Richards",param=0),
+               "must be from")
+  expect_error(growthFunShow("Richards",param=7),
+               "must be from")
+  expect_error(growthFunShow("Schnute",param=0),
+               "must be from")
+  expect_error(growthFunShow("Schnute",param=5),
+               "must be from")
+  
+  ## bad choices for parameters in Schnute()
+  # L1>L3
+  expect_error(Schnute(3,t1=1,t3=15,L1=300,L3=30,a=0.3,b=0.5),
+               "greater than")
+  ## bad choices or givens for t1 and t3
+  # t1==t3
+  expect_error(Schnute(3,t1=1,t3=1,L1=30,L3=300,a=0.3,b=0.5),
+               "cannot equal")
+  # t1>t3
+  expect_warning(Schnute(3,t1=15,t3=1,L1=30,L3=300,a=0.3,b=0.5),
+                 "greater than")
+  # did not provide t1 and t3 when just a single value of t
+  expect_error(Schnute(3,L1=30,L3=300,a=0.3,b=0.5),
+               "Must provide")
+  # t1 and t3 computed from t but came out to same value
+  expect_error(Schnute(c(3,3,3),L1=30,L3=300,a=0.3,b=0.5),
+               "cannot equal")
+})
+
+
+## Test Output Types ----
 test_that("growthFunShow() results",{
   for (i in vbs) {
     expect_is(growthFunShow("vonBertalanffy",param=i),"expression")
@@ -84,3 +143,7 @@ test_that("Schnute() output",{
   expect_is(Schnute(3,case=3,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
   expect_is(Schnute(3,case=4,t1=1,t3=15,L1=30,L3=400,a=0.3,b=1),"numeric")
 })
+
+
+## Validate Results ----
+
