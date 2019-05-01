@@ -1,4 +1,4 @@
-# FSA 0.8.23 ongoing
+# FSA 0.8.23 1-May-19
 * Reorganized `testthat` folder as suggested in `testthat` release notes.
 * Removed all uses of `Subset()` (replaced with `filterD()`).
 * `fitPlot()`: Modified. Fixed bug related to y-axis limits not extending to contain the data, confidence bands, or prediction bands (in `fitPlot.slr()`). This addresses [#3](https://github.com/droglenc/NCStats/issues/3) listed for `NCStats`).

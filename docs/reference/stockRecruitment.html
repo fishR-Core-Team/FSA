@@ -8,6 +8,13 @@
 
 <title>Creates a function for a specific parameterization of a common stock-recruitment function . — stockRecruitment • FSA</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -65,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.22</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.23</span>
       </span>
     </div>
 
@@ -187,8 +194,8 @@
 #&gt;     if (length(a)&gt;1) { b &lt;- a[[2]]; a &lt;- a[[1]] }
 #&gt;     a*S*exp(-b*S)
 #&gt;   }
-#&gt; &lt;bytecode: 0x12ea8e70&gt;
-#&gt; &lt;environment: 0x101529f0&gt;</div><div class='input'>
+#&gt; &lt;bytecode: 0x00000000194fb058&gt;
+#&gt; &lt;environment: 0x00000000152e4c38&gt;</div><div class='input'>
 <span class='co'># create some dummy stock data</span>
 <span class='no'>stock</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0.01</span>,<span class='fl'>1000</span>,<span class='kw'>length.out</span><span class='kw'>=</span><span class='fl'>199</span>)
 
@@ -197,29 +204,29 @@
 #&gt;     if (length(a)&gt;1) { b &lt;- a[[2]]; a &lt;- a[[1]] }
 #&gt;     a*S/(1+b*S)
 #&gt;   }
-#&gt; &lt;bytecode: 0x079118e0&gt;
-#&gt; &lt;environment: 0x1092b828&gt;</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>bh1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.01</span>)~<span class='no'>stock</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Recruits"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Spawners"</span>,<span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>50</span>))</div><div class='input'>
+#&gt; &lt;bytecode: 0x0000000019009070&gt;
+#&gt; &lt;environment: 0x00000000151a2018&gt;</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>bh1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.01</span>)~<span class='no'>stock</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Recruits"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Spawners"</span>,<span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>50</span>))</div><div class='input'>
 <span class='co'># Ricker #1 parameterization</span>
 ( <span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"Ricker"</span>) )</div><div class='output co'>#&gt; function(S,a,b=NULL) {
 #&gt;     if (length(a)&gt;1) { b &lt;- a[[2]]; a &lt;- a[[1]] }
 #&gt;     a*S*exp(-b*S)
 #&gt;   }
-#&gt; &lt;bytecode: 0x12ea8e70&gt;
-#&gt; &lt;environment: 0x0d875ee0&gt;</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/lines'>lines</a></span>(<span class='fu'>r1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>)</div><div class='input'>
+#&gt; &lt;bytecode: 0x00000000194fb058&gt;
+#&gt; &lt;environment: 0x0000000014f4e230&gt;</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/lines'>lines</a></span>(<span class='fu'>r1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>)</div><div class='input'>
 <span class='co'># Shephered parameterization</span>
 ( <span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"Shepherd"</span>) )</div><div class='output co'>#&gt; function(S,a,b=NULL,c=NULL) {
 #&gt;     if (length(a)&gt;1) { c &lt;- a[[3]]; b &lt;- a[[2]]; a &lt;- a[[1]] }
 #&gt;     a*S/(1+(b*S)^c)
 #&gt;   }
-#&gt; &lt;bytecode: 0x0f479370&gt;
-#&gt; &lt;environment: 0x11f706f0&gt;</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/lines'>lines</a></span>(<span class='fu'>s1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>2.5</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>)</div><div class='input'>
+#&gt; &lt;bytecode: 0x0000000015781598&gt;
+#&gt; &lt;environment: 0x0000000014d6bc10&gt;</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/lines'>lines</a></span>(<span class='fu'>s1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>2.5</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>)</div><div class='input'>
 <span class='co'># Saila-Lorda parameterization</span>
 ( <span class='no'>sl1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"SailaLorda"</span>) )</div><div class='output co'>#&gt; function(S,a,b=NULL,c=NULL) {
 #&gt;     if (length(a)&gt;1) { c &lt;- a[[3]]; b &lt;- a[[2]]; a &lt;- a[[1]] }
 #&gt;     a*(S^c)*exp(-b*S)
 #&gt;   }
-#&gt; &lt;bytecode: 0x129a29a0&gt;
-#&gt; &lt;environment: 0x05914a48&gt;</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/lines'>lines</a></span>(<span class='fu'>sl1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>1.05</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"salmon"</span>)</div><div class='img'><img src='stockRecruitment-1.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt; &lt;bytecode: 0x0000000014fc15e8&gt;
+#&gt; &lt;environment: 0x0000000014ad3f88&gt;</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/lines'>lines</a></span>(<span class='fu'>sl1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>1.05</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"salmon"</span>)</div><div class='img'><img src='stockRecruitment-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Examples of fitting stock-recruitment functions</span>
 <span class='co'># Fitting the Beverton-Holt #1 parameterization with multiplicative errors</span>
 <span class='no'>bh1s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='srStarts.html'>srStarts</a></span>(<span class='no'>recruits</span>~<span class='no'>stock</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>CodNorwegian</span>)
@@ -229,7 +236,7 @@
 #&gt; 
 #&gt; Parameters:
 #&gt;   Estimate Std. Error t value Pr(&gt;|t|)
-#&gt; a  37.3342   132.0155   0.283     0.78
+#&gt; a  37.3342   132.0150   0.283     0.78
 #&gt; b   0.4876     1.8099   0.269     0.79
 #&gt; 
 #&gt; Residual standard error: 0.7486 on 22 degrees of freedom
@@ -239,7 +246,7 @@
 #&gt; b 1.00
 #&gt; 
 #&gt; Number of iterations to convergence: 6 
-#&gt; Achieved convergence tolerance: 7.334e-06
+#&gt; Achieved convergence tolerance: 7.103e-06
 #&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>recruits</span>~<span class='no'>stock</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>CodNorwegian</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>200</span>))</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/curve'>curve</a></span>(<span class='fu'>bh1</span>(<span class='no'>x</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>fit1</span>)[<span class='fl'>1</span>],<span class='kw'>b</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>fit1</span>)[<span class='fl'>2</span>]),<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>to</span><span class='kw'>=</span><span class='fl'>200</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='input'>
 <span class='co'># Fitting the Ricker #3 parameterization with multiplicative errors</span>
 <span class='no'>r3</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"Ricker"</span>,<span class='kw'>param</span><span class='kw'>=</span><span class='fl'>3</span>)
@@ -262,7 +269,7 @@
 #&gt; Rp 0.89
 #&gt; 
 #&gt; Number of iterations to convergence: 0 
-#&gt; Achieved convergence tolerance: 1.922e-10
+#&gt; Achieved convergence tolerance: 1.391e-08
 #&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/curve'>curve</a></span>(<span class='fu'>r3</span>(<span class='no'>x</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>fit2</span>)[<span class='fl'>1</span>],<span class='kw'>Rp</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>fit2</span>)[<span class='fl'>2</span>]),<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>to</span><span class='kw'>=</span><span class='fl'>200</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='stockRecruitment-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>#############################################################################</span>
 <span class='co'>## Create expressions of the functions</span>
@@ -304,7 +311,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>

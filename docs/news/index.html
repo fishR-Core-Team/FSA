@@ -8,6 +8,13 @@
 
 <title>Changelog • FSA</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -63,7 +70,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.22</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.23</span>
       </span>
     </div>
 
@@ -106,18 +113,37 @@
       <small>Source: <a href='https://github.com/droglenc/FSA/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="fsa-0-8-22-22-nov-18" class="section level1">
+    <div id="fsa-0823-1-may-19" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-22-22-nov-18" class="anchor"></a>FSA 0.8.22 22-Nov-18<small> Unreleased </small>
+<a href="#fsa-0823-1-may-19" class="anchor"></a>FSA 0.8.23 1-May-19<small> Unreleased </small>
+</h1>
+<ul>
+<li>Reorganized <code>testthat</code> folder as suggested in <code>testthat</code> release notes.</li>
+<li>Removed all uses of <code><a href="../reference/Subset.html">Subset()</a></code> (replaced with <code><a href="../reference/Subset.html">filterD()</a></code>).</li>
+<li>
+<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Fixed bug related to y-axis limits not extending to contain the data, confidence bands, or prediction bands (in <code>fitPlot.slr()</code>). This addresses <a href="https://github.com/droglenc/NCStats/issues/3"><a href='https://github.com/droglenc/FSA/issues/3'>#3</a></a> listed for <code>NCStats</code>).</li>
+<li>
+<code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Fixed bug related to subsequent calls after a call that used <code>iaxs=FALSE</code>. This addresses <a href="https://github.com/droglenc/FSA/issues/46"><a href='https://github.com/droglenc/FSA/issues/46'>#46</a></a>.</li>
+<li>
+<code><a href="../reference/FSA-internals.html">iLegendHelp()</a></code>: Modified. Added a catch if a proper keyword is not supplied.</li>
+<li>
+<code><a href="../reference/nlsTracePlot.html">nlsTracePlot()</a></code>: Modified. Moved error catching for improper keyword for legend placement forward.</li>
+<li>
+<code><a href="../reference/SchnuteRichards.html">SchnuteRichards()</a></code>: Added. This addresses <a href="https://github.com/droglenc/FSA/issues/54"><a href='https://github.com/droglenc/FSA/issues/54'>#54</a></a>.</li>
+</ul>
+</div>
+    <div id="fsa-0822-22-nov-18" class="section level1">
+<h1 class="page-header">
+<a href="#fsa-0822-22-nov-18" class="anchor"></a>FSA 0.8.22 22-Nov-18<small> 2018-11-22 </small>
 </h1>
 <ul>
 <li>Corrected CITATION file.</li>
 <li>Updated tests for changes in the <code>fishmethods</code> package (<code>vblrt()</code> replaced with <code>growthlrt()</code> and <code>T=</code> replaced with <code>TC=</code> in <code>M.empirical()</code>) per CRAN request.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-21-2-nov-18" class="section level1">
+    <div id="fsa-0821-2-nov-18" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-21-2-nov-18" class="anchor"></a>FSA 0.8.21 2-Nov-18<small> 2018-11-03 </small>
+<a href="#fsa-0821-2-nov-18" class="anchor"></a>FSA 0.8.21 2-Nov-18<small> 2018-11-03 </small>
 </h1>
 <ul>
 <li>Added a webpage. Setup Travis-CI to handle updates (<a href="https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis">See this</a>).</li>
@@ -167,9 +193,9 @@
 <code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified. Added <code>Francis3</code> to the list of models.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-20-18-may-18" class="section level1">
+    <div id="fsa-0820-18-may-18" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-20-18-may-18" class="anchor"></a>FSA 0.8.20 18-May-18<small> 2018-05-18 </small>
+<a href="#fsa-0820-18-may-18" class="anchor"></a>FSA 0.8.20 18-May-18<small> 2018-05-18 </small>
 </h1>
 <ul>
 <li>Added <code>asbio</code>, <code>DescTools</code>, <code>nlme</code>, and <code>psych</code> packages to Suggests because they are used in tests (and as will soon be required by CRAN … per an e-mail from CRAN on 17-May-18).</li>
@@ -187,9 +213,9 @@
 <code>SMBassWB</code>: Modified. Fixed minor data entry error in row 404. Changed link in documentation from <code>alr3</code> to <code>alr4</code> package.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-19-8-apr-18" class="section level1">
+    <div id="fsa-0819-8-apr-18" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-19-8-apr-18" class="anchor"></a>FSA 0.8.19 8-Apr-18<small> 2018-04-08 </small>
+<a href="#fsa-0819-8-apr-18" class="anchor"></a>FSA 0.8.19 8-Apr-18<small> 2018-04-08 </small>
 </h1>
 <ul>
 <li>
@@ -244,9 +270,9 @@
 <code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Changed three <code>1:</code> structures to <code><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq_len()</a></code> or <code><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq_along()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36"><a href='https://github.com/droglenc/FSA/issues/36'>#36</a></a>).</li>
 </ul>
 </div>
-    <div id="fsa-0-8-18-31-mar-18" class="section level1">
+    <div id="fsa-0818-31-mar-18" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-18-31-mar-18" class="anchor"></a>FSA 0.8.18 31-Mar-18<small> Unreleased </small>
+<a href="#fsa-0818-31-mar-18" class="anchor"></a>FSA 0.8.18 31-Mar-18<small> Unreleased </small>
 </h1>
 <ul>
 <li>Changed to depending on <code>R &gt;=3.2.0</code>, because that is the latest version required by a package (i.e., <code>car</code>) that FSA imports or suggests. Used <a href="https://ateucher.shinyapps.io/check_r_versions_of_package_dependencies/">this shiny app</a> to help determine this.</li>
@@ -277,9 +303,9 @@
 <code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Fixed some spacing issues with the warnings when starting values for Linf was poorly estimated. Added an argument to <code>ivbStarts.LinfK()</code> to suppress checking the value of Linf. This argument reduces the change of double-printing the warning message when there are bad estimates of starting values for Linf and K.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-17-29-oct-17" class="section level1">
+    <div id="fsa-0817-29-oct-17" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-17-29-oct-17" class="anchor"></a>FSA 0.8.17 29-Oct-17<small> 2017-10-29 </small>
+<a href="#fsa-0817-29-oct-17" class="anchor"></a>FSA 0.8.17 29-Oct-17<small> 2017-10-29 </small>
 </h1>
 <ul>
 <li>
@@ -288,9 +314,9 @@
 <code><a href="../reference/growthModels.html">GompertzFuns()</a></code>: Modified. Fixed error in message (i.e., <code>msg=TRUE</code>) for <code>param="Ricker2"</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-16-7-sep-17" class="section level1">
+    <div id="fsa-0816-7-sep-17" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-16-7-sep-17" class="anchor"></a>FSA 0.8.16 7-Sep-17<small> 2017-09-07 </small>
+<a href="#fsa-0816-7-sep-17" class="anchor"></a>FSA 0.8.16 7-Sep-17<small> 2017-09-07 </small>
 </h1>
 <ul>
 <li>Need to resubmit v0.8.15 to CRAN, so bumped the version.</li>
@@ -298,9 +324,9 @@
 <code><a href="../reference/growthModels.html">growthFunShow()</a></code>: Modified. Fixed error in expression for <code>type="Logistic"</code> and <code>param="CampanaJones1"</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-15-6-sep-17" class="section level1">
+    <div id="fsa-0815-6-sep-17" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-15-6-sep-17" class="anchor"></a>FSA 0.8.15 6-Sep-17<small> Unreleased </small>
+<a href="#fsa-0815-6-sep-17" class="anchor"></a>FSA 0.8.15 6-Sep-17<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added a script to the <code>helpers</code> directory that will test that all required packages are installed.</li>
@@ -312,9 +338,9 @@
 <code><a href="../reference/srStarts.html">srStarts()</a></code>: Modified. Added <code>fixed=</code>. Added some catches for poor starting values. Added relevant tests. Addresses <a href="https://github.com/droglenc/FSA/issues/30"><a href='https://github.com/droglenc/FSA/issues/30'>#30</a></a>.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-14-27-jul-17" class="section level1">
+    <div id="fsa-0814-27-jul-17" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-14-27-jul-17" class="anchor"></a>FSA 0.8.14 27-Jul-17<small> 2017-07-27 </small>
+<a href="#fsa-0814-27-jul-17" class="anchor"></a>FSA 0.8.14 27-Jul-17<small> 2017-07-27 </small>
 </h1>
 <ul>
 <li>Moved <code>dunn.test</code> and <code>lmtest</code> to <code>imports</code> to help with portability for workshops.</li>
@@ -326,9 +352,9 @@
 <code><a href="../reference/Summarize.html">Summarize()</a></code>: Modified. Fixed bug when <code>percZero!="always"</code> and there are no valid values such that the calculated percent of zeroes is <code>NA</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-13-29-apr-17" class="section level1">
+    <div id="fsa-0813-29-apr-17" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-13-29-apr-17" class="anchor"></a>FSA 0.8.13 29-Apr-17<small> 2017-04-29 </small>
+<a href="#fsa-0813-29-apr-17" class="anchor"></a>FSA 0.8.13 29-Apr-17<small> 2017-04-29 </small>
 </h1>
 <ul>
 <li>
@@ -371,9 +397,9 @@
 <code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Changed some <code>if()</code>s with <code><a href="https://www.rdocumentation.org/packages/base/topics/class">class()</a></code>es to <code><a href="https://www.rdocumentation.org/packages/base/topics/class">inherits()</a></code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-12-12-mar-17" class="section level1">
+    <div id="fsa-0812-12-mar-17" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-12-12-mar-17" class="anchor"></a>FSA 0.8.12 12-Mar-17<small> 2017-03-12 </small>
+<a href="#fsa-0812-12-mar-17" class="anchor"></a>FSA 0.8.12 12-Mar-17<small> 2017-03-12 </small>
 </h1>
 <ul>
 <li>Lots of spelling corrections after running <code><a href="https://www.rdocumentation.org/packages/devtools/topics/spell_check">devtools::spell_check()</a></code>.</li>
@@ -388,9 +414,9 @@
 <code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Added a catch that Linf cannot be automatically estimated with fewer than three ages. Corrected mis-spelling in directive to <code>FSAsim</code> package.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-11-13-dec-16" class="section level1">
+    <div id="fsa-0811-13-dec-16" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-11-13-dec-16" class="anchor"></a>FSA 0.8.11 13-Dec-16<small> 2016-12-13 </small>
+<a href="#fsa-0811-13-dec-16" class="anchor"></a>FSA 0.8.11 13-Dec-16<small> 2016-12-13 </small>
 </h1>
 <ul>
 <li>Changed all <code><a href="https://www.rdocumentation.org/packages/base/topics/stop">stop()</a></code>s to <code><a href="../reference/FSA-internals.html">STOP()</a></code>s and all <code><a href="https://www.rdocumentation.org/packages/base/topics/warning">warning()</a></code>s to <code><a href="../reference/FSA-internals.html">WARN()</a></code>. This modified nearly all functions.</li>
@@ -472,9 +498,9 @@
 <code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Added the <code>methLinf=</code> argument that allows the user to choose if Linf is estimated from a Walford plot (<code>methLinf="Walford"</code>; the default and old functionality), as the mean of fish in a certain number of old ages (<code>methLinf="oldAge"</code>), or as the mean of a certain number of the longest fish (<code>methLinf="longFish"</code>). The number of ages or long fish is given in <code>num4Linf=</code>. Added methods for <code>type="Ogle"</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-10-24-sep-16" class="section level1">
+    <div id="fsa-0810-24-sep-16" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-10-24-sep-16" class="anchor"></a>FSA 0.8.10 24-Sep-16<small> 2016-09-24 </small>
+<a href="#fsa-0810-24-sep-16" class="anchor"></a>FSA 0.8.10 24-Sep-16<small> 2016-09-24 </small>
 </h1>
 <ul>
 <li>
@@ -507,9 +533,9 @@
 <code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Added <code>na.rm=TRUE</code> to checking of Linf values.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-9-23-aug-16" class="section level1">
+    <div id="fsa-089-23-aug-16" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-9-23-aug-16" class="anchor"></a>FSA 0.8.9 23-Aug-16<small> 2016-08-23 </small>
+<a href="#fsa-089-23-aug-16" class="anchor"></a>FSA 0.8.9 23-Aug-16<small> 2016-08-23 </small>
 </h1>
 <ul>
 <li>
@@ -524,22 +550,22 @@
 <code><a href="../reference/Summarize.html">Summarize()</a></code>: Modified. Removed all uses where the main variable was a factor (this functionality was largely unneeded and unused, was inelegant and difficult to maintain). Removed pass-through to <code>summary</code>. Removed warnings about the RHS variables being converted to factors. Columns for “levels” of the RHS variables are now returned in their original model (i.e., if the variable was numeric in the original data.frame it is now numeric in the data.frame returned from this function) – this should reduce need for using <code><a href="../reference/fact2num.html">fact2num()</a></code> when using the results of this function for variables that were originally numeric. Added more examples and tests for the numeric data.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-8-18-jul-16" class="section level1">
+    <div id="fsa-088-18-jul-16" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-8-18-jul-16" class="anchor"></a>FSA 0.8.8 18-Jul-16<small> 2016-07-18 </small>
+<a href="#fsa-088-18-jul-16" class="anchor"></a>FSA 0.8.8 18-Jul-16<small> 2016-07-18 </small>
 </h1>
 <ul>
 <li>
-<code><a href="../reference/growthModels.html">growthFunShow()</a></code>: Modified. Added Pauly et al. (1992) seasonal cessation function. Added <code>case=</code> for use with Schnute model.</li>
+<code><a href="../reference/growthModels.html">growthFunShow()</a></code>: Modified. Added Pauly et al. (1992) seasonal cessation function. Added <code>case=</code> for use with Schnute model.</li>
 <li>
-<code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified. Added Pauly et al. (1992) seasonal cessation function. Slightly modified messages for “Typical” and “Original” parameterizations.</li>
+<code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified. Added Pauly et al. (1992) seasonal cessation function. Slightly modified messages for “Typical” and “Original” parameterizations.</li>
 <li>
-<code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Added <code>fixed=</code> so that the user can define some of the starting values. Added Pauly et al. (1992) seasonal cessation function. Added tests for <code>fixed=</code>.</li>
+<code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Added <code>fixed=</code> so that the user can define some of the starting values. Added Pauly et al. (1992) seasonal cessation function. Added tests for <code>fixed=</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-7-8-may-16" class="section level1">
+    <div id="fsa-087-8-may-16" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-7-8-may-16" class="anchor"></a>FSA 0.8.7 8-May-16<small> 2016-05-08 </small>
+<a href="#fsa-087-8-may-16" class="anchor"></a>FSA 0.8.7 8-May-16<small> 2016-05-08 </small>
 </h1>
 <ul>
 <li>Compiled under R v3.3.0.</li>
@@ -594,9 +620,9 @@
 <code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Removed <code>dynamicPlot=TRUE</code> option. Moved it to <code>FSAsim</code> package. Added <code>param=</code> to match other <code>vbXXX()</code> (works as does <code>type=</code>). Modified plot when <code>plot=TRUE</code> by adding “STARTING VALUES” to title and moving starting values to within the plot. Added and <code>col.main=</code>. Made warnings and error tests more explicit.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-6-25-mar-16" class="section level1">
+    <div id="fsa-086-25-mar-16" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-6-25-mar-16" class="anchor"></a>FSA 0.8.6 25-Mar-16<small> 2016-03-25 </small>
+<a href="#fsa-086-25-mar-16" class="anchor"></a>FSA 0.8.6 25-Mar-16<small> 2016-03-25 </small>
 </h1>
 <ul>
 <li>Fixed problems with tests, and made the tests more explicit, related to PSD and Wr functions. Suppressed some warnings related to <code><a href="../reference/sumTable.html">sumTable()</a></code> in ALK related tests and <code><a href="../reference/Summarize.html">Summarize()</a></code> in age comparisons tests. Prompted by forthcoming changes to <code>testthat</code>.</li>
@@ -625,9 +651,9 @@
 <code><a href="../reference/knitUtil.html">purl2()</a></code>: Modified. Added <code>delHeader=</code> argument and functionality.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-5-14-feb-16" class="section level1">
+    <div id="fsa-085-14-feb-16" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-5-14-feb-16" class="anchor"></a>FSA 0.8.5 14-Feb-16<small> 2016-02-14 </small>
+<a href="#fsa-085-14-feb-16" class="anchor"></a>FSA 0.8.5 14-Feb-16<small> 2016-02-14 </small>
 </h1>
 <ul>
 <li>Added URL for fishR webpage in DESCRIPTION per CRAN request. Removed it from the URL field in DESCRIPTION.</li>
@@ -647,9 +673,9 @@
 <li><p><code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Fixed bug when <code>dynamicPlot=TRUE</code> was used.</p></li>
 </ul>
 </div>
-    <div id="fsa-0-8-4-21-dec-15" class="section level1">
+    <div id="fsa-084-21-dec-15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-4-21-dec-15" class="anchor"></a>FSA 0.8.4 21-Dec-15<small> 2015-12-21 </small>
+<a href="#fsa-084-21-dec-15" class="anchor"></a>FSA 0.8.4 21-Dec-15<small> 2015-12-21 </small>
 </h1>
 <ul>
 <li>Now using Roxygen2 v5.0.1.</li>
@@ -666,17 +692,17 @@
 <code><a href="../reference/sumTable.html">sumTable()</a></code>: Modified tests (but with <code><a href="https://www.rdocumentation.org/packages/base/topics/dimnames">dimnames()</a></code>).</li>
 </ul>
 </div>
-    <div id="fsa-0-8-3-23-oct-15" class="section level1">
+    <div id="fsa-083-23-oct-15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-3-23-oct-15" class="anchor"></a>FSA 0.8.3 23-Oct-15<small> 2015-10-23 </small>
+<a href="#fsa-083-23-oct-15" class="anchor"></a>FSA 0.8.3 23-Oct-15<small> 2015-10-23 </small>
 </h1>
 <ul>
 <li>Removed vignetteBuilder from DESCRIPTION (remnant from a vignette I built and then removed) at request of CRAN.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-2-22-oct-15" class="section level1">
+    <div id="fsa-082-22-oct-15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-2-22-oct-15" class="anchor"></a>FSA 0.8.2 22-Oct-15<small> Unreleased </small>
+<a href="#fsa-082-22-oct-15" class="anchor"></a>FSA 0.8.2 22-Oct-15<small> Unreleased </small>
 </h1>
 <ul>
 <li>Converted all files in <code>data-raw</code> to CSV files.</li>
@@ -693,9 +719,9 @@
 <code>SpotVA1</code>: Updated help documentation.</li>
 </ul>
 </div>
-    <div id="fsa-0-8-1-10-oct-15" class="section level1">
+    <div id="fsa-081-10-oct-15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-1-10-oct-15" class="anchor"></a>FSA 0.8.1 10-Oct-15<small> 2015-10-10 </small>
+<a href="#fsa-081-10-oct-15" class="anchor"></a>FSA 0.8.1 10-Oct-15<small> 2015-10-10 </small>
 </h1>
 <ul>
 <li><strong>Submitted to CRAN.</strong></li>
@@ -708,9 +734,9 @@
 </ul>
 <hr>
 </div>
-    <div id="fsa-0-8-0-8-oct-15" class="section level1">
+    <div id="fsa-080-8-oct-15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-0-8-oct-15" class="anchor"></a>FSA 0.8.0 8-Oct-15<small> 2015-10-08 </small>
+<a href="#fsa-080-8-oct-15" class="anchor"></a>FSA 0.8.0 8-Oct-15<small> 2015-10-08 </small>
 </h1>
 <ul>
 <li>
@@ -794,17 +820,17 @@
 <code>test_PSD</code>: Modified. Altered tests that had used <code>==</code> to use <code>expect_equivalent()</code> which uses <code><a href="https://www.rdocumentation.org/packages/base/topics/all.equal">all.equal()</a></code> with <code>check.attributes=FALSE</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-7-11-oct15" class="section level1">
+    <div id="fsa-0711-oct15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-7-11-oct15" class="anchor"></a>FSA 0.7.11 Oct15<small> Unreleased </small>
+<a href="#fsa-0711-oct15" class="anchor"></a>FSA 0.7.11 Oct15<small> Unreleased </small>
 </h1>
 <ul>
 <li>Converted all <code>.txt</code> files to <code>.Rda</code> files. Original <code>.txt</code> files are in the <code>data-raw</code> directory which was added to <code>.Rbuildignore</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-7-10-oct15" class="section level1">
+    <div id="fsa-0710-oct15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-7-10-oct15" class="anchor"></a>FSA 0.7.10 Oct15<small> Unreleased </small>
+<a href="#fsa-0710-oct15" class="anchor"></a>FSA 0.7.10 Oct15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -813,9 +839,9 @@
 <code><a href="../reference/knitUtil.html">reproInfo()</a></code>: Added <code>markdown</code> to the <code>out=</code> types.</li>
 </ul>
 </div>
-    <div id="fsa-0-7-9-sep15" class="section level1">
+    <div id="fsa-079-sep15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-7-9-sep15" class="anchor"></a>FSA 0.7.9 Sep15<small> Unreleased </small>
+<a href="#fsa-079-sep15" class="anchor"></a>FSA 0.7.9 Sep15<small> Unreleased </small>
 </h1>
 <ul>
 <li>Updated <code>README.md</code> and <code>DESCRIPTION</code> for new websites.</li>
@@ -824,9 +850,9 @@
 <code><a href="../reference/fishR.html">fishR()</a></code>: Modified. Updated for the new websites.</li>
 </ul>
 </div>
-    <div id="fsa-0-7-8-sep15" class="section level1">
+    <div id="fsa-078-sep15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-7-8-sep15" class="anchor"></a>FSA 0.7.8 Sep15<small> Unreleased </small>
+<a href="#fsa-078-sep15" class="anchor"></a>FSA 0.7.8 Sep15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -839,9 +865,9 @@
 <code><a href="../reference/validn.html">validn()</a></code>: Modified. Fixed bug related to when a 1-dimensional numeric vector was not recognized as a vector.</li>
 </ul>
 </div>
-    <div id="fsa-0-7-7-aug15" class="section level1">
+    <div id="fsa-077-aug15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-7-7-aug15" class="anchor"></a>FSA 0.7.7 Aug15<small> Unreleased </small>
+<a href="#fsa-077-aug15" class="anchor"></a>FSA 0.7.7 Aug15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -856,9 +882,9 @@
 <code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Made <code>yngAge</code> the default for <code>meth0=</code>. Fixed bug that occured when <code>meth0='yngAge'</code> and sample sizes at all ages were 1.</li>
 </ul>
 </div>
-    <div id="fsa-0-7-6-aug15" class="section level1">
+    <div id="fsa-076-aug15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-7-6-aug15" class="anchor"></a>FSA 0.7.6 Aug15<small> Unreleased </small>
+<a href="#fsa-076-aug15" class="anchor"></a>FSA 0.7.6 Aug15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -867,9 +893,9 @@
 <code><a href="../reference/sumTable.html">sumTable()</a></code>: Modified. Converted to using <code><a href="../reference/FSA-internals.html">iHndlFormula()</a></code>. Added tests.</li>
 </ul>
 </div>
-    <div id="fsa-0-7-5-aug15" class="section level1">
+    <div id="fsa-075-aug15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-7-5-aug15" class="anchor"></a>FSA 0.7.5 Aug15<small> Unreleased </small>
+<a href="#fsa-075-aug15" class="anchor"></a>FSA 0.7.5 Aug15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -882,9 +908,9 @@
 <code>gReshape()</code>: Removed. Moved to <code>FSAmisc</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-7-4-aug15" class="section level1">
+    <div id="fsa-074-aug15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-7-4-aug15" class="anchor"></a>FSA 0.7.4 Aug15<small> Unreleased </small>
+<a href="#fsa-074-aug15" class="anchor"></a>FSA 0.7.4 Aug15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -912,9 +938,9 @@
 <code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Check for<code>relax</code> with <code>requireNamespaces()</code> before constructing the dynamic plot. This allowed moving <code>relax</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-7-3-aug15" class="section level1">
+    <div id="fsa-073-aug15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-7-3-aug15" class="anchor"></a>FSA 0.7.3 Aug15<small> Unreleased </small>
+<a href="#fsa-073-aug15" class="anchor"></a>FSA 0.7.3 Aug15<small> Unreleased </small>
 </h1>
 <ul>
 <li>Removed all <code>importFrom()</code> directives and went to hard-wiring to packages with <code>::</code>. Added <code>imports()</code> directives for <code>stats</code>, <code>graphics</code>, <code>tools</code>, and <code>grDevices</code>. Removed <code>imports()</code> directive for <code>multcomp()</code>.</li>
@@ -922,9 +948,9 @@
 <code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Changed default methos for <code>methEV=</code>. Changed order of starting values for <code>type="Mooij"</code> in order to match that from <code><a href="../reference/growthModels.html">vbFuns()</a></code>. This also fixed a bug when <code>dynamicPlot=TRUE</code> was used with <code>type="Mooij"</code>. Added tests to determine if parameter order is the same between <code><a href="../reference/vbStarts.html">vbStarts()</a></code> and <code><a href="../reference/growthModels.html">vbFuns()</a></code> for all parameterizations.</li>
 </ul>
 </div>
-    <div id="fsa-0-7-2-jul15" class="section level1">
+    <div id="fsa-072-jul15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-7-2-jul15" class="anchor"></a>FSA 0.7.2 Jul15<small> Unreleased </small>
+<a href="#fsa-072-jul15" class="anchor"></a>FSA 0.7.2 Jul15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -941,9 +967,9 @@
 <code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Added <code>cex.main=</code> as an argument and defaulted to <code>0.75</code>. Added <code>raw=TRUE</code> to <code><a href="https://www.rdocumentation.org/packages/stats/topics/poly">poly()</a></code> which is used when <code>meth0="poly"</code>. Added <code>Original</code> and <code>Typical</code> to the <code>type=</code> options. This allows both a capitalized and uncapitalized version for these two parameterizations.</li>
 </ul>
 </div>
-    <div id="fsa-0-7-1-jul15" class="section level1">
+    <div id="fsa-071-jul15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-7-1-jul15" class="anchor"></a>FSA 0.7.1 Jul15<small> Unreleased </small>
+<a href="#fsa-071-jul15" class="anchor"></a>FSA 0.7.1 Jul15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1000,9 +1026,9 @@
 <code>vbModels()</code>: Modified. Changed <code>type=</code> to <code>family=</code> to avoid confusion in the help file with <code>type=</code> in <code><a href="../reference/growthModels.html">vbFuns()</a></code>. Moved into <code>growthModels</code> file.</li>
 </ul>
 </div>
-    <div id="fsa-0-7-0-jul15" class="section level1">
+    <div id="fsa-070-jul15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-7-0-jul15" class="anchor"></a>FSA 0.7.0 Jul15<small> Unreleased </small>
+<a href="#fsa-070-jul15" class="anchor"></a>FSA 0.7.0 Jul15<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fixed description to be in title case.</li>
@@ -1015,9 +1041,9 @@
 <code><a href="../reference/ksTest.html">ksTest()</a></code>: Modified. Rebuilt to use <code><a href="../reference/FSA-internals.html">iHndlFormula()</a></code>. Added some tests for messages and to make sure results matched <code><a href="https://www.rdocumentation.org/packages/stats/topics/ks.test">ks.test()</a></code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-25-jul15" class="section level1">
+    <div id="fsa-0625-jul15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-25-jul15" class="anchor"></a>FSA 0.6.25 Jul15<small> Unreleased </small>
+<a href="#fsa-0625-jul15" class="anchor"></a>FSA 0.6.25 Jul15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1052,9 +1078,9 @@
 <code>walfordPlot()</code>: Deleted. Moved to <code>FSAmisc</code> package (on GitHub).</li>
 </ul>
 </div>
-    <div id="fsa-0-6-24-jun15" class="section level1">
+    <div id="fsa-0624-jun15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-24-jun15" class="anchor"></a>FSA 0.6.24 Jun15<small> Unreleased </small>
+<a href="#fsa-0624-jun15" class="anchor"></a>FSA 0.6.24 Jun15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1065,9 +1091,9 @@
 <code><a href="../reference/wsVal.html">wsVal()</a></code>: Modified. Added more tests.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-23-jun15" class="section level1">
+    <div id="fsa-0623-jun15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-23-jun15" class="anchor"></a>FSA 0.6.23 Jun15<small> Unreleased </small>
+<a href="#fsa-0623-jun15" class="anchor"></a>FSA 0.6.23 Jun15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1078,9 +1104,9 @@
 <code><a href="../reference/residPlot.html">residPlot.nlme()</a></code>: Added.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-22-jun15" class="section level1">
+    <div id="fsa-0622-jun15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-22-jun15" class="anchor"></a>FSA 0.6.22 Jun15<small> Unreleased </small>
+<a href="#fsa-0622-jun15" class="anchor"></a>FSA 0.6.22 Jun15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1097,9 +1123,9 @@
 <code><a href="../reference/srStarts.html">srStarts()</a></code>: Modified. Corrected some bugs related to checks. Added more tests.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-21-jun15" class="section level1">
+    <div id="fsa-0621-jun15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-21-jun15" class="anchor"></a>FSA 0.6.21 Jun15<small> Unreleased </small>
+<a href="#fsa-0621-jun15" class="anchor"></a>FSA 0.6.21 Jun15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1112,9 +1138,9 @@
 <code>gReshape()</code>: Modified. Modified so that <code>in.pre=</code> string must be at the start of the variable names. Added a check for when the <code>in.pre=</code> string does not exist at the start of any variable names. Added some simple tests (need more).</li>
 </ul>
 </div>
-    <div id="fsa-0-6-20-jun15" class="section level1">
+    <div id="fsa-0620-jun15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-20-jun15" class="anchor"></a>FSA 0.6.20 Jun15<small> Unreleased </small>
+<a href="#fsa-0620-jun15" class="anchor"></a>FSA 0.6.20 Jun15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1146,9 +1172,9 @@
 <code>vbModels()</code>: Modified. Added <code>cex=</code> and <code>type=</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-19-jun15" class="section level1">
+    <div id="fsa-0619-jun15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-19-jun15" class="anchor"></a>FSA 0.6.19 Jun15<small> Unreleased </small>
+<a href="#fsa-0619-jun15" class="anchor"></a>FSA 0.6.19 Jun15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1157,9 +1183,9 @@
 <code>RichardsModels()</code>: Added.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-18-jun15" class="section level1">
+    <div id="fsa-0618-jun15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-18-jun15" class="anchor"></a>FSA 0.6.18 Jun15<small> Unreleased </small>
+<a href="#fsa-0618-jun15" class="anchor"></a>FSA 0.6.18 Jun15<small> Unreleased </small>
 </h1>
 <ul>
 <li>Changed nearly all “messages” using <code><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat()</a></code> to using <code><a href="https://www.rdocumentation.org/packages/base/topics/message">message()</a></code> so that they can be suppressed with <code>suppressMessage()</code> or <code>message=FALSE</code> in knitr. See “One comment on messages” at <a href="http://yihui.name/knitr/demo/output/" class="uri">http://yihui.name/knitr/demo/output/</a>. Specific functions modified are listed below.</li>
@@ -1195,9 +1221,9 @@
 <code><a href="../reference/stockRecruitment.html">srFuns()</a></code>: Modified. Changed all <code><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat()</a></code> to <code><a href="https://www.rdocumentation.org/packages/base/topics/message">message()</a></code>s. Created some tests.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-17-jun15" class="section level1">
+    <div id="fsa-0617-jun15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-17-jun15" class="anchor"></a>FSA 0.6.17 Jun15<small> Unreleased </small>
+<a href="#fsa-0617-jun15" class="anchor"></a>FSA 0.6.17 Jun15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1212,9 +1238,9 @@
 <code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified. Changed all <code><a href="https://www.rdocumentation.org/packages/base/topics/cat">cat()</a></code>s to <code><a href="https://www.rdocumentation.org/packages/base/topics/message">message()</a></code>s and slightly modified the messages. Fixed minor bugs in some created functions. Created some tests.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-16-jun15" class="section level1">
+    <div id="fsa-0616-jun15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-16-jun15" class="anchor"></a>FSA 0.6.16 Jun15<small> Unreleased </small>
+<a href="#fsa-0616-jun15" class="anchor"></a>FSA 0.6.16 Jun15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1229,9 +1255,9 @@
 <code><a href="../reference/extraTests.html">lrt()</a></code>: Modified. Added <code>sim_names=</code> and <code>com_name=</code> so that simple descriptive names could be given to the model and printed in the heading of the output. Added checks for whether the complex model appears more complex or not. Added tests for warning and error messages.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-15-jun15" class="section level1">
+    <div id="fsa-0615-jun15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-15-jun15" class="anchor"></a>FSA 0.6.15 Jun15<small> Unreleased </small>
+<a href="#fsa-0615-jun15" class="anchor"></a>FSA 0.6.15 Jun15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1242,9 +1268,9 @@
 <code><a href="../reference/psdCalc.html">psdCalc()</a></code>: Modified. Removed extra open-ended category (e.g., PSD-T-) for PSD intervals.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-14-may15" class="section level1">
+    <div id="fsa-0614-may15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-14-may15" class="anchor"></a>FSA 0.6.14 May15<small> Unreleased </small>
+<a href="#fsa-0614-may15" class="anchor"></a>FSA 0.6.14 May15<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added travis-ci integration.</li>
@@ -1286,9 +1312,9 @@
 <code><a href="../reference/validn.html">validn()</a></code>: Modified. Added some checks with error messages. Added suite of tests.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-13-may15" class="section level1">
+    <div id="fsa-0613-may15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-13-may15" class="anchor"></a>FSA 0.6.13 May15<small> Unreleased </small>
+<a href="#fsa-0613-may15" class="anchor"></a>FSA 0.6.13 May15<small> Unreleased </small>
 </h1>
 <ul>
 <li>Some miscellaneous reorganizations of files.</li>
@@ -1298,9 +1324,9 @@
 <code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Deleted <code>student=</code>. Added <code>resid.type=</code> which allows used of standardized (internally studentized) and (externally) studentized residuals for linear models (along with raw residuals). Added code following <code>nlsResiduals()</code> from <code>nlstools</code> for standardized residuals for nonlinear models.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-12-may15" class="section level1">
+    <div id="fsa-0612-may15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-12-may15" class="anchor"></a>FSA 0.6.12 May15<small> Unreleased </small>
+<a href="#fsa-0612-may15" class="anchor"></a>FSA 0.6.12 May15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1317,9 +1343,9 @@
 <code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified. Fixed a bug with the Laslett model.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-11-apr15" class="section level1">
+    <div id="fsa-0611-apr15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-11-apr15" class="anchor"></a>FSA 0.6.11 Apr15<small> Unreleased </small>
+<a href="#fsa-0611-apr15" class="anchor"></a>FSA 0.6.11 Apr15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1348,9 +1374,9 @@
 <code>swvREG()</code>: Deleted. Moved to <code>NCStats</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-10-apr15" class="section level1">
+    <div id="fsa-0610-apr15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-10-apr15" class="anchor"></a>FSA 0.6.10 Apr15<small> Unreleased </small>
+<a href="#fsa-0610-apr15" class="anchor"></a>FSA 0.6.10 Apr15<small> Unreleased </small>
 </h1>
 <ul>
 <li>Compiling under R 3.2.0.</li>
@@ -1360,9 +1386,9 @@
 <code><a href="../reference/fishR.html">fishR()</a></code>: Modified. Added <code>IFAR</code> as an option. Updated code to be more simple.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-5-apr15" class="section level1">
+    <div id="fsa-065-apr15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-5-apr15" class="anchor"></a>FSA 0.6.5 Apr15<small> Unreleased </small>
+<a href="#fsa-065-apr15" class="anchor"></a>FSA 0.6.5 Apr15<small> Unreleased </small>
 </h1>
 <ul>
 <li>Last version for submission of first draft of Introductory Fisheries Analyses with R.</li>
@@ -1376,9 +1402,9 @@
 <code><a href="../reference/extraTests.html">lrt()</a></code>: Modified. Changed algorithm to determine if the models were of the same class or not. The modification allows a model to have multiple classes.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-4-apr15" class="section level1">
+    <div id="fsa-064-apr15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-4-apr15" class="anchor"></a>FSA 0.6.4 Apr15<small> Unreleased </small>
+<a href="#fsa-064-apr15" class="anchor"></a>FSA 0.6.4 Apr15<small> Unreleased </small>
 </h1>
 <ul>
 <li>Changed to using <code>LazyData: true</code>.</li>
@@ -1386,9 +1412,9 @@
 <code><a href="../reference/se.html">se()</a></code>: Added. Removed <code>importFrom</code> of <code><a href="../reference/se.html">se()</a></code> from <code>sciplot</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-3-apr15" class="section level1">
+    <div id="fsa-063-apr15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-3-apr15" class="anchor"></a>FSA 0.6.3 Apr15<small> Unreleased </small>
+<a href="#fsa-063-apr15" class="anchor"></a>FSA 0.6.3 Apr15<small> Unreleased </small>
 </h1>
 <ul>
 <li>Some modifications to tests.</li>
@@ -1396,9 +1422,9 @@
 <code>plot.capHist()</code>: Modified. Changed default plot look which can now be controlled with <code>pch=</code>, <code>cex.pch=</code>, and <code>lwd=</code>. Modified the two y-axis scales to use <code>plotmath</code> characters.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-2-mar15" class="section level1">
+    <div id="fsa-062-mar15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-2-mar15" class="anchor"></a>FSA 0.6.2 Mar15<small> Unreleased </small>
+<a href="#fsa-062-mar15" class="anchor"></a>FSA 0.6.2 Mar15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1410,9 +1436,9 @@
 <code>iHndlCol2use()</code>: Added. Added this internal function to handle <code>cols2use=</code> and <code>cols2ignore=</code> in <code><a href="../reference/capHistConvert.html">capHistConvert()</a></code> and <code><a href="../reference/capHistSum.html">capHistSum()</a></code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-6-1-mar15" class="section level1">
+    <div id="fsa-061-mar15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-1-mar15" class="anchor"></a>FSA 0.6.1 Mar15<small> Unreleased </small>
+<a href="#fsa-061-mar15" class="anchor"></a>FSA 0.6.1 Mar15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1425,9 +1451,9 @@
 <code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>: Modified. Changed the way the breaks were calculated (uses <code><a href="../reference/lencat.html">lencat()</a></code> now).</li>
 </ul>
 </div>
-    <div id="fsa-0-6-0-mar15" class="section level1">
+    <div id="fsa-060-mar15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-6-0-mar15" class="anchor"></a>FSA 0.6.0 Mar15<small> Unreleased </small>
+<a href="#fsa-060-mar15" class="anchor"></a>FSA 0.6.0 Mar15<small> Unreleased </small>
 </h1>
 <ul>
 <li>updated DESCRIPTION file (following this – <a href="http://r-pkgs.had.co.nz/description.html" class="uri">http://r-pkgs.had.co.nz/description.html</a>
@@ -1440,9 +1466,9 @@
 <code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified. Changed function returned when <code>simplify=FALSE</code> so that if the parameters are named that the name is dropped. Thus, when the function is used, the returned result will not be annoyingly named as the first parameter.</li>
 </ul>
 </div>
-    <div id="fsa-0-5-3-mar15" class="section level1">
+    <div id="fsa-053-mar15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-5-3-mar15" class="anchor"></a>FSA 0.5.3 Mar15<small> Unreleased </small>
+<a href="#fsa-053-mar15" class="anchor"></a>FSA 0.5.3 Mar15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1459,18 +1485,18 @@
 <code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. A complete rebuild to streamline and fix some bugs that had not been found. Modified plotting routine, including adding <code>col.mdl=</code>, <code>lwd.mdl=</code>, and <code>lty.mdl=</code>. Also added all of the von Bertalanffy parameterizations in <code>growthModelSim()</code> into this function and is called with the new argument <code>dynamicPlot=TRUE</code>. Added dynamics plots for the “Francis” and “Schnute” parameterizations.</li>
 </ul>
 </div>
-    <div id="fsa-0-5-2-mar15" class="section level1">
+    <div id="fsa-052-mar15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-5-2-mar15" class="anchor"></a>FSA 0.5.2 Mar15<small> Unreleased </small>
+<a href="#fsa-052-mar15" class="anchor"></a>FSA 0.5.2 Mar15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
 <code><a href="../reference/psdPlot.html">psdPlot()</a></code>: Modified. Fixed bug related to <code>NA</code>s in <code>max.brks</code> variable.</li>
 </ul>
 </div>
-    <div id="fsa-0-5-1-mar15" class="section level1">
+    <div id="fsa-051-mar15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-5-1-mar15" class="anchor"></a>FSA 0.5.1 Mar15<small> Unreleased </small>
+<a href="#fsa-051-mar15" class="anchor"></a>FSA 0.5.1 Mar15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1479,18 +1505,18 @@
 <code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Changed all “CV” results to “ACV”.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-51-mar15" class="section level1">
+    <div id="fsa-0451-mar15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-51-mar15" class="anchor"></a>FSA 0.4.51 Mar15<small> Unreleased </small>
+<a href="#fsa-0451-mar15" class="anchor"></a>FSA 0.4.51 Mar15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
 <code><a href="../reference/catchCurve.html">catchCurve()</a></code>: Modified. Updated the help file regarding <code>zmethod="Smithetal"</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-50-mar15" class="section level1">
+    <div id="fsa-0450-mar15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-50-mar15" class="anchor"></a>FSA 0.4.50 Mar15<small> Unreleased </small>
+<a href="#fsa-0450-mar15" class="anchor"></a>FSA 0.4.50 Mar15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1503,36 +1529,36 @@
 <code>PSDlit</code>: Modified. Fixed the trophy length for White Bass (from 15 to 18). This solved a bug related to non-unique breaks.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-49-mar15" class="section level1">
+    <div id="fsa-0449-mar15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-49-mar15" class="anchor"></a>FSA 0.4.49 Mar15<small> Unreleased </small>
+<a href="#fsa-0449-mar15" class="anchor"></a>FSA 0.4.49 Mar15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
 <code><a href="../reference/expandCounts.html">expandCounts()</a></code>: Modified. Made message regarding rows with zero counts more useful. Added missing counts to the catch of zero counts. Made changes to handle more “odd” data entries (see “details” in the help file). Made some tests. Added some tests.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-48-mar15" class="section level1">
+    <div id="fsa-0448-mar15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-48-mar15" class="anchor"></a>FSA 0.4.48 Mar15<small> Unreleased </small>
+<a href="#fsa-0448-mar15" class="anchor"></a>FSA 0.4.48 Mar15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
 <code><a href="../reference/psdCalc.html">psdCalc()</a></code>: Modified. Corrected “bug” with <code>units=</code>. Also modified warning message when no “stock” fish were present in the data.frame to further note what <code>units=</code> were used (i.e., this problem is likely to happen if the data is inches but the user uses the default <code>units='mm'</code>). Thanks to S. Mather for inspring this fix.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-47-feb15" class="section level1">
+    <div id="fsa-0447-feb15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-47-feb15" class="anchor"></a>FSA 0.4.47 Feb15<small> Unreleased </small>
+<a href="#fsa-0447-feb15" class="anchor"></a>FSA 0.4.47 Feb15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
 <code><a href="../reference/dunnTest.html">dunnTest()</a></code>: Modified. Corrected “bug” in the order that the groups are subtracted (i.e., they were flipped).</li>
 </ul>
 </div>
-    <div id="fsa-0-4-46-feb15" class="section level1">
+    <div id="fsa-0446-feb15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-46-feb15" class="anchor"></a>FSA 0.4.46 Feb15<small> Unreleased </small>
+<a href="#fsa-0446-feb15" class="anchor"></a>FSA 0.4.46 Feb15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1541,9 +1567,9 @@
 <code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Changed default for <code>pos.est=</code> to <code>topright</code>. Added <code>cex.pos=</code> (and set default to slightly smaller value).</li>
 </ul>
 </div>
-    <div id="fsa-0-4-45-feb15" class="section level1">
+    <div id="fsa-0445-feb15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-45-feb15" class="anchor"></a>FSA 0.4.45 Feb15<small> Unreleased </small>
+<a href="#fsa-0445-feb15" class="anchor"></a>FSA 0.4.45 Feb15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1554,9 +1580,9 @@
 <code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Changed use of <code><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par()</a></code> to eliminate modifications to the gridding of plots after the function is complete.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-44-feb15" class="section level1">
+    <div id="fsa-0444-feb15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-44-feb15" class="anchor"></a>FSA 0.4.44 Feb15<small> Unreleased </small>
+<a href="#fsa-0444-feb15" class="anchor"></a>FSA 0.4.44 Feb15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1581,9 +1607,9 @@
 <code>srSim()</code>: Modified. Changed to return <code><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par()</a></code> options to what they were before the function was called.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-43-feb15" class="section level1">
+    <div id="fsa-0443-feb15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-43-feb15" class="anchor"></a>FSA 0.4.43 Feb15<small> Unreleased </small>
+<a href="#fsa-0443-feb15" class="anchor"></a>FSA 0.4.43 Feb15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1592,18 +1618,18 @@
 <code>swvCode()</code>: Modified. Fixed bug related to <code>blanks='extra'</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-42-feb15" class="section level1">
+    <div id="fsa-0442-feb15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-42-feb15" class="anchor"></a>FSA 0.4.42 Feb15<small> Unreleased </small>
+<a href="#fsa-0442-feb15" class="anchor"></a>FSA 0.4.42 Feb15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
 <code><a href="../reference/Subset.html">filterD()</a></code>: Added.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-41-jan15" class="section level1">
+    <div id="fsa-0441-jan15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-41-jan15" class="anchor"></a>FSA 0.4.41 Jan15<small> Unreleased </small>
+<a href="#fsa-0441-jan15" class="anchor"></a>FSA 0.4.41 Jan15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1616,18 +1642,18 @@
 <code><a href="../reference/metaM.html">Mmethods()</a></code>: Added. Added as a function and removed as a vector.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-40-jan15" class="section level1">
+    <div id="fsa-0440-jan15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-40-jan15" class="anchor"></a>FSA 0.4.40 Jan15<small> Unreleased </small>
+<a href="#fsa-0440-jan15" class="anchor"></a>FSA 0.4.40 Jan15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
 <code><a href="../reference/lencat.html">lencat()</a></code>: Modified. Fixed a bug that occurred if <code>breaks=</code> were given but the vector contained <code>NA</code>s. Thanks to Ben Neely for pointing this out.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-39-jan15" class="section level1">
+    <div id="fsa-0439-jan15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-39-jan15" class="anchor"></a>FSA 0.4.39 Jan15<small> Unreleased </small>
+<a href="#fsa-0439-jan15" class="anchor"></a>FSA 0.4.39 Jan15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1636,9 +1662,9 @@
 <code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Added the <code>method="Smithetal"</code> methodology for estimating the SE of Z (and made it the default). Added some checks for the formula in the formula version and for the variables in the default version. Added <code>verbose=</code> to <code><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary()</a></code>. Add unit tests for warnings and errors and two tests for values.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-38-jan15" class="section level1">
+    <div id="fsa-0438-jan15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-38-jan15" class="anchor"></a>FSA 0.4.38 Jan15<small> Unreleased </small>
+<a href="#fsa-0438-jan15" class="anchor"></a>FSA 0.4.38 Jan15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1647,9 +1673,9 @@
 <code><a href="../reference/metaM.html">metaM()</a></code>: Added.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-37-jan15" class="section level1">
+    <div id="fsa-0437-jan15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-37-jan15" class="anchor"></a>FSA 0.4.37 Jan15<small> Unreleased </small>
+<a href="#fsa-0437-jan15" class="anchor"></a>FSA 0.4.37 Jan15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1662,9 +1688,9 @@
 <code><a href="../reference/extraTests.html">lrt()</a></code>: Modified. Changed call to <code>lrtest()</code> to a call to <code>lrtest.default()</code>. Added a catch to make sure all models are of the same type. Note that degrees-of-freedom from <code>lrtest()</code> are not error df; thus, modified to report error df to match <code><a href="../reference/extraTests.html">extraSS()</a></code>. Added some examples.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-36-jan15" class="section level1">
+    <div id="fsa-0436-jan15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-36-jan15" class="anchor"></a>FSA 0.4.36 Jan15<small> Unreleased </small>
+<a href="#fsa-0436-jan15" class="anchor"></a>FSA 0.4.36 Jan15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1681,27 +1707,27 @@
 <code><a href="../reference/tictactoe.html">tictactoe()</a></code>: Modified. Add the ability to handle differences between when <code>xaxs="r"</code> and <code>yaxs="r"</code> are used and when <code>xaxs="i"</code> and <code>yaxs="i"</code> are used.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-35-jan15" class="section level1">
+    <div id="fsa-0435-jan15" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-35-jan15" class="anchor"></a>FSA 0.4.35 Jan15<small> Unreleased </small>
+<a href="#fsa-0435-jan15" class="anchor"></a>FSA 0.4.35 Jan15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
 <code><a href="../reference/dunnTest.html">dunnTest()</a></code>: Added.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-34-dec14" class="section level1">
+    <div id="fsa-0434-dec14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-34-dec14" class="anchor"></a>FSA 0.4.34 Dec14<small> Unreleased </small>
+<a href="#fsa-0434-dec14" class="anchor"></a>FSA 0.4.34 Dec14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
 <code><a href="../reference/addZeroCatch.html">addZeroCatch()</a></code>: Modified. Removed <code>idvar=</code>, forced the <code>eventvar=</code> and <code>speciesvar=</code> variables in the returned data.frame to be numeric if they were numeric in the original data.frame, allowed <code>speciesvar=</code> to have more than one variable, and added <code>na.rm=</code>. Multiple values for <code>specvar=</code> will allow the user to add zeros based on a combination of variables (e.g., species and size category). The <code>na.rm=</code> argument allows the user to remove “missing” species, which are common if some sampling events did not capture any fish.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-33-dec14" class="section level1">
+    <div id="fsa-0433-dec14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-33-dec14" class="anchor"></a>FSA 0.4.33 Dec14<small> Unreleased </small>
+<a href="#fsa-0433-dec14" class="anchor"></a>FSA 0.4.33 Dec14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1718,9 +1744,9 @@
 <code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Changed all “K0” objects to “t50”.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-32-nov14" class="section level1">
+    <div id="fsa-0432-nov14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-32-nov14" class="anchor"></a>FSA 0.4.32 Nov14<small> Unreleased </small>
+<a href="#fsa-0432-nov14" class="anchor"></a>FSA 0.4.32 Nov14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1735,9 +1761,9 @@
 <code><a href="../reference/validn.html">validn()</a></code>: Added.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-31-nov14" class="section level1">
+    <div id="fsa-0431-nov14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-31-nov14" class="anchor"></a>FSA 0.4.31 Nov14<small> Unreleased </small>
+<a href="#fsa-0431-nov14" class="anchor"></a>FSA 0.4.31 Nov14<small> Unreleased </small>
 </h1>
 <ul>
 <li>Removed the suggests for <code>plyr</code>.</li>
@@ -1757,9 +1783,9 @@
 <code>swvCode()</code>: Modified. Removed ability to Stangle the code and thus removed <code>method=</code>. Modified code to allow usage of .Rmd files in addition to .Rnw files.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-30-oct14" class="section level1">
+    <div id="fsa-0430-oct14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-30-oct14" class="anchor"></a>FSA 0.4.30 Oct14<small> Unreleased </small>
+<a href="#fsa-0430-oct14" class="anchor"></a>FSA 0.4.30 Oct14<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added a suggests for <code>plyr</code>, for examples using <code><a href="../reference/mapvalues.html">mapvalues()</a></code>.</li>
@@ -1773,9 +1799,9 @@
 <code>recodeF()</code>: Deleted. Functionality is in <code><a href="../reference/mapvalues.html">mapvalues()</a></code> from <code>plyr</code>. Ease come easy go (i.e., added in last version).</li>
 </ul>
 </div>
-    <div id="fsa-0-4-29-oct14" class="section level1">
+    <div id="fsa-0429-oct14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-29-oct14" class="anchor"></a>FSA 0.4.29 Oct14<small> Unreleased </small>
+<a href="#fsa-0429-oct14" class="anchor"></a>FSA 0.4.29 Oct14<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added a suggests for <code>dplyr</code>.</li>
@@ -1794,9 +1820,9 @@
 <code>WSlit</code>: Modified. Added results for Sardine.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-28-sep14" class="section level1">
+    <div id="fsa-0428-sep14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-28-sep14" class="anchor"></a>FSA 0.4.28 Sep14<small> Unreleased </small>
+<a href="#fsa-0428-sep14" class="anchor"></a>FSA 0.4.28 Sep14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1811,9 +1837,9 @@
 <code>wrDataPrep()</code>: Deleted. Functionality replaced by new <code><a href="../reference/wrAdd.html">wrAdd()</a></code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-27-sep14" class="section level1">
+    <div id="fsa-0427-sep14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-27-sep14" class="anchor"></a>FSA 0.4.27 Sep14<small> Unreleased </small>
+<a href="#fsa-0427-sep14" class="anchor"></a>FSA 0.4.27 Sep14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1827,14 +1853,14 @@
 <li>
 <code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Modified how quadratic functions and the handling of fish less than the minimum applicable length were handled because of changes to <code><a href="../reference/wsVal.html">wsVal()</a></code>.</li>
 <li>
-<code>wsLit</code>: Modified. Changed order of variables, changed hybrid species names to match that of Neumann et al. (2012), update comments to related to Neumman et al. (2012) rather than Blackwell et al. (2012), and added information for the Riffle Dace.</li>
+<code>wsLit</code>: Modified. Changed order of variables, changed hybrid species names to match that of Neumann et al. (2012), update comments to related to Neumman et al. (2012) rather than Blackwell et al. (2012), and added information for the Riffle Dace.</li>
 <li>
 <code><a href="../reference/wsVal.html">wsVal()</a></code>: Modified. Changed the names of the <code>min.len</code> and <code>max.len</code> variables to be either <code>min.TL</code> and <code>max.TL</code> or <code>min.FL</code> and <code>max.TL</code> as appropriate. Suppressed the return of <code>max.len</code> and <code>quad</code> if they did not exist and suppressed return of <code>comment</code> if it was <code>none</code>. Added a catch if more than one species was given in <code>species=</code>. Created some tests.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-26-sep14" class="section level1">
+    <div id="fsa-0426-sep14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-26-sep14" class="anchor"></a>FSA 0.4.26 Sep14<small> Unreleased </small>
+<a href="#fsa-0426-sep14" class="anchor"></a>FSA 0.4.26 Sep14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1860,9 +1886,9 @@
 <code>tictactoeAdd()</code>: Removed. Directed user to use <code>plotCI()</code> from <code>plotrix</code> instead.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-25-sep14" class="section level1">
+    <div id="fsa-0425-sep14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-25-sep14" class="anchor"></a>FSA 0.4.25 Sep14<small> Unreleased </small>
+<a href="#fsa-0425-sep14" class="anchor"></a>FSA 0.4.25 Sep14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1879,9 +1905,9 @@
 <code>swvFinish()</code>: Modified. Updated code because <code>iGetFilePrefix()</code> was deleted.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-24-aug14" class="section level1">
+    <div id="fsa-0424-aug14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-24-aug14" class="anchor"></a>FSA 0.4.24 Aug14<small> Unreleased </small>
+<a href="#fsa-0424-aug14" class="anchor"></a>FSA 0.4.24 Aug14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1908,18 +1934,18 @@
 <code><a href="../reference/Summarize.html">Summarize()</a></code>: Modified. Moved all internal functions outside of <code><a href="../reference/Summarize.html">Summarize()</a></code> environment (and renamed them).</li>
 </ul>
 </div>
-    <div id="fsa-0-4-23-aug14" class="section level1">
+    <div id="fsa-0423-aug14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-23-aug14" class="anchor"></a>FSA 0.4.23 Aug14<small> Unreleased </small>
+<a href="#fsa-0423-aug14" class="anchor"></a>FSA 0.4.23 Aug14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
 <code><a href="../reference/removal.html">removal()</a></code>: Modified. Completely modified the code so that the examples with <code><a href="https://www.rdocumentation.org/packages/base/topics/apply">apply()</a></code> and <code><a href="https://www.rdocumentation.org/packages/base/topics/lapply">lapply()</a></code> would also provide confidence intervals. Also changed the code to reflect that $\sum_{i=1}^{k-1}T_{i}$ from Schnute (1983) is the same as $X$ from Carle and Strub (1978), the $\sum_{i=1}^{k-1}T_{i}-C_{1}$ in Schnute (1983) is the same as $X-(k-1)C_{1}$, and $q$ in Schnute (1983) is $p$ in most other resources. These changes allowed some efficiencies and connected the theory behind the methods more firmly. Removed the check for character data. Kept the check for whether catch was a vector or not but if catch is a one row or one column matrix or data.frame then it will be converted to a vector to continue. The latter change allows one to extract one row from a data.frame to send to <code><a href="../reference/removal.html">removal()</a></code> without having to use <code><a href="https://www.rdocumentation.org/packages/base/topics/numeric">as.numeric()</a></code>. Modified and added examples of the use of <code><a href="https://www.rdocumentation.org/packages/base/topics/apply">apply()</a></code> and <code><a href="https://www.rdocumentation.org/packages/base/topics/lapply">lapply()</a></code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-22-aug14" class="section level1">
+    <div id="fsa-0422-aug14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-22-aug14" class="anchor"></a>FSA 0.4.22 Aug14<small> Unreleased </small>
+<a href="#fsa-0422-aug14" class="anchor"></a>FSA 0.4.22 Aug14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1930,9 +1956,9 @@
 <code><a href="../reference/removal.html">removal()</a></code>: Modified. Added options to perform Moran (1951) and Schnute (1983) removal methods. Added examples of the new functionality. Updated the tests for the new functionality.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-21-jul14" class="section level1">
+    <div id="fsa-0421-jul14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-21-jul14" class="anchor"></a>FSA 0.4.21 Jul14<small> Unreleased </small>
+<a href="#fsa-0421-jul14" class="anchor"></a>FSA 0.4.21 Jul14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -1947,18 +1973,18 @@
 <code><a href="../reference/depletion.html">summary.depletion()</a></code>: Modified. Added <code>verbose=</code> and <code>digits=</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-20-jul14" class="section level1">
+    <div id="fsa-0420-jul14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-20-jul14" class="anchor"></a>FSA 0.4.20 Jul14<small> Unreleased </small>
+<a href="#fsa-0420-jul14" class="anchor"></a>FSA 0.4.20 Jul14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
 <code><a href="../reference/removal.html">removal()</a></code>: Modified. Made <code>"CarleStrub"</code> the default method. Changed <code>type=</code> to <code>method=</code>. Changed internal <code>meth</code> object to <code>lbl</code>. Moved all internal functions outside of <code><a href="../reference/mrOpen.html">mrOpen()</a></code> environment and added other internal functions to isolate all intermediate calculations. Added a <code>verbose=</code> and <code>parm=</code> to <code><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary()</a></code>. Streamlined clunky code in <code><a href="https://www.rdocumentation.org/packages/stats/topics/confint">confint()</a></code> including removing the <code>all</code> and <code>both</code> options from <code>parm=</code>. Added more checks for abd inputs, notes in the code as to sources for the fomulae, and tests.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-19-jul14" class="section level1">
+    <div id="fsa-0419-jul14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-19-jul14" class="anchor"></a>FSA 0.4.19 Jul14<small> Unreleased </small>
+<a href="#fsa-0419-jul14" class="anchor"></a>FSA 0.4.19 Jul14<small> Unreleased </small>
 </h1>
 <ul>
 <li>Modified some tests to check whether the suggested package was installed.</li>
@@ -1976,9 +2002,9 @@
 <code>plot.mrClosed()</code>: Modified. Changed axis labels as the expressions did not print with some fonts and devices.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-18-jul14" class="section level1">
+    <div id="fsa-0418-jul14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-18-jul14" class="anchor"></a>FSA 0.4.18 Jul14<small> Unreleased </small>
+<a href="#fsa-0418-jul14" class="anchor"></a>FSA 0.4.18 Jul14<small> Unreleased </small>
 </h1>
 <ul>
 <li>Moved to compiling under R 3.1.1.</li>
@@ -2003,9 +2029,9 @@
 <code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>: Modified. Changed <code>trans.pt=</code> to <code>transparency=</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-17-jul14" class="section level1">
+    <div id="fsa-0417-jul14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-17-jul14" class="anchor"></a>FSA 0.4.17 Jul14<small> Unreleased </small>
+<a href="#fsa-0417-jul14" class="anchor"></a>FSA 0.4.17 Jul14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -2028,9 +2054,9 @@
 <code>summary.mrClosed()</code>: Modified. Moved SE calculations into an internal function (see <code>iMRCSingleSE()</code>).</li>
 </ul>
 </div>
-    <div id="fsa-0-4-16-jul14" class="section level1">
+    <div id="fsa-0416-jul14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-16-jul14" class="anchor"></a>FSA 0.4.16 Jul14<small> Unreleased </small>
+<a href="#fsa-0416-jul14" class="anchor"></a>FSA 0.4.16 Jul14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -2053,9 +2079,9 @@
 <code>SMBassWB</code>: Modified. Added a seealso.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-15-jun14" class="section level1">
+    <div id="fsa-0415-jun14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-15-jun14" class="anchor"></a>FSA 0.4.15 Jun14<small> Unreleased </small>
+<a href="#fsa-0415-jun14" class="anchor"></a>FSA 0.4.15 Jun14<small> Unreleased </small>
 </h1>
 <ul>
 <li>lots of roxygen2 Rd cleaning.</li>
@@ -2164,9 +2190,9 @@
 <code>wsLitCheck()</code>: Deleted. Moved functionality to <code>iwsLitCheck()</code> and moved code to <code>wsVals()</code> file.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-14-jun14" class="section level1">
+    <div id="fsa-0414-jun14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-14-jun14" class="anchor"></a>FSA 0.4.14 Jun14<small> Unreleased </small>
+<a href="#fsa-0414-jun14" class="anchor"></a>FSA 0.4.14 Jun14<small> Unreleased </small>
 </h1>
 <ul>
 <li>added tests (in <code>test_VonB2b.R</code>) to assure that group comparisons of von Bertalanffy parameters equal those in Kimura (1980) and <code>vblrt()</code> in <code>fishmethods</code>.</li>
@@ -2189,9 +2215,9 @@
 <code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Added Weisberg parameterization. Added <code>vbGQ</code> abbreviation (synonymous with <code>vbGallucciQuinn</code>). Added an internal function for checking whther the starting values for K and Linf made sense.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-13-jun14" class="section level1">
+    <div id="fsa-0413-jun14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-13-jun14" class="anchor"></a>FSA 0.4.13 Jun14<small> Unreleased </small>
+<a href="#fsa-0413-jun14" class="anchor"></a>FSA 0.4.13 Jun14<small> Unreleased </small>
 </h1>
 <ul>
 <li>added testthat files for error checking of <code>chapmanPlot()</code>, <code><a href="../reference/growthModels.html">vbFuns()</a></code>, <code><a href="../reference/vbStarts.html">vbStarts()</a></code>, and <code>walfordPlot()</code>. Added a testthat file for checking that the von Bertalanffy fitting using <code><a href="../reference/growthModels.html">vbFuns()</a></code> and <code><a href="../reference/vbStarts.html">vbStarts()</a></code> matches other sources.</li>
@@ -2219,9 +2245,9 @@
 <code>walfordPlot()</code>: Modified. Removed S3 functions so that <code><a href="../reference/vbStarts.html">vbStarts()</a></code> has to use a formula. Added some checking related to the formula.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-12-may14" class="section level1">
+    <div id="fsa-0412-may14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-12-may14" class="anchor"></a>FSA 0.4.12 May14<small> Unreleased </small>
+<a href="#fsa-0412-may14" class="anchor"></a>FSA 0.4.12 May14<small> Unreleased </small>
 </h1>
 <ul>
 <li>added Suggests for <code>testthat</code>, <code>fishmethods</code>, <code>FSAdata</code> for testing and <code>popbio</code> for an example that was made “interactive” from “dont run”(see below).</li>
@@ -2258,9 +2284,9 @@
 <code>wrDataPrep()</code>: Modified. Changed Rd file for deletion of <code>view()</code>.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-11-may14" class="section level1">
+    <div id="fsa-0411-may14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-11-may14" class="anchor"></a>FSA 0.4.11 May14<small> Unreleased </small>
+<a href="#fsa-0411-may14" class="anchor"></a>FSA 0.4.11 May14<small> Unreleased </small>
 </h1>
 <ul>
 <li>Removed Roxygen directives in DESCRIPTION (with changes to roxygen2 4.0.1).</li>
@@ -2280,9 +2306,9 @@
 <li><p><code><a href="../reference/mrOpen.html">mrOpen()</a></code>: Modified. Streamlined the code (no changes to functionality). Removed all explicity partial matching options in <code><a href="https://www.rdocumentation.org/packages/base/topics/switch">switch()</a></code>es as these were already caught with previous <code><a href="https://www.rdocumentation.org/packages/base/topics/match.arg">match.arg()</a></code>s.</p></li>
 </ul>
 </div>
-    <div id="fsa-0-4-10-may14" class="section level1">
+    <div id="fsa-0410-may14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-10-may14" class="anchor"></a>FSA 0.4.10 May14<small> Unreleased </small>
+<a href="#fsa-0410-may14" class="anchor"></a>FSA 0.4.10 May14<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added Roxygen directives to DESCRIPTION.</li>
@@ -2309,9 +2335,9 @@
 <code>swvCounts()</code>: Modified. Fixed error in output.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-9-may14" class="section level1">
+    <div id="fsa-049-may14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-9-may14" class="anchor"></a>FSA 0.4.9 May14<small> Unreleased </small>
+<a href="#fsa-049-may14" class="anchor"></a>FSA 0.4.9 May14<small> Unreleased </small>
 </h1>
 <ul>
 <li>Removed nlme dependencies (with removal of <code>vbDataGen()</code>).</li>
@@ -2343,9 +2369,9 @@
 <code>VBGMlit()</code>: Deleted. Moved to FSAsim package.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-8-may14" class="section level1">
+    <div id="fsa-048-may14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-8-may14" class="anchor"></a>FSA 0.4.8 May14<small> Unreleased </small>
+<a href="#fsa-048-may14" class="anchor"></a>FSA 0.4.8 May14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -2356,9 +2382,9 @@
 <code>hndlMultWhat()</code>: Added. An internal file to help <code><a href="../reference/ageBias.html">ageBias()</a></code> and <code>agePrecision</code> handle multiple <code>what=</code> arguments.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-7-apr14" class="section level1">
+    <div id="fsa-047-apr14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-7-apr14" class="anchor"></a>FSA 0.4.7 Apr14<small> Unreleased </small>
+<a href="#fsa-047-apr14" class="anchor"></a>FSA 0.4.7 Apr14<small> Unreleased </small>
 </h1>
 <ul>
 <li>Removed all of the functions related to constructing and validating standard weight equations. These are now in the <a href="https://github.com/droglenc/FSAWs">FSAWs package</a>. This is the start of an effort to streamline the FSA package.</li>
@@ -2386,9 +2412,9 @@
 <li><p><code>WalleyeGerowLW</code>: Removed.</p></li>
 </ul>
 </div>
-    <div id="fsa-0-4-6-apr14" class="section level1">
+    <div id="fsa-046-apr14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-6-apr14" class="anchor"></a>FSA 0.4.6 Apr14<small> Unreleased </small>
+<a href="#fsa-046-apr14" class="anchor"></a>FSA 0.4.6 Apr14<small> Unreleased </small>
 </h1>
 <ul>
 <li>Changed to compiling under R 3.1.0</li>
@@ -2405,9 +2431,9 @@
 <code>lenFreqExpand()</code>: Modified. Removed the <code>df=</code> and <code>cl=</code> arguments and replaced with <code>x=</code>, which is simply a vector of length measurements. Changed to <code>startcat=NULL</code> so that that the starting category value can be determined automatically (or can still be set by the user).</li>
 </ul>
 </div>
-    <div id="fsa-0-4-5-apr14" class="section level1">
+    <div id="fsa-045-apr14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-5-apr14" class="anchor"></a>FSA 0.4.5 Apr14<small> Unreleased </small>
+<a href="#fsa-045-apr14" class="anchor"></a>FSA 0.4.5 Apr14<small> Unreleased </small>
 </h1>
 <ul>
 <li>Converted to using github as a repository.</li>
@@ -2441,9 +2467,9 @@
 <code>srSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</li>
 </ul>
 </div>
-    <div id="fsa-0-4-4-apr14" class="section level1">
+    <div id="fsa-044-apr14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-4-apr14" class="anchor"></a>FSA 0.4.4 Apr14<small> Unreleased </small>
+<a href="#fsa-044-apr14" class="anchor"></a>FSA 0.4.4 Apr14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -2451,12 +2477,12 @@
 <li>
 <code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Fixed the bug where the APE and CV were over-estimated in situations where the multiple ages agreed at an age=0 (thanks to Richard McBride for pointing out this error).</li>
 <li>
-<code>wsLit</code>: Modified. Added Pursak chub information from Sulun et al. (2014).</li>
+<code>wsLit</code>: Modified. Added Pursak chub information from Sulun et al. (2014).</li>
 </ul>
 </div>
-    <div id="fsa-0-4-3-mar14" class="section level1">
+    <div id="fsa-043-mar14" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-3-mar14" class="anchor"></a>FSA 0.4.3 Mar14<small> Unreleased </small>
+<a href="#fsa-043-mar14" class="anchor"></a>FSA 0.4.3 Mar14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -2540,9 +2566,9 @@
 <code>wsLit</code>: Modified. Changed all species names to have both words capitalized so as to follow the latest AFS guidelines.</li>
 </ul>
 </div>
-    <div id="fsa-0-4-2-dec13" class="section level1">
+    <div id="fsa-042-dec13" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-2-dec13" class="anchor"></a>FSA 0.4.2 Dec13<small> Unreleased </small>
+<a href="#fsa-042-dec13" class="anchor"></a>FSA 0.4.2 Dec13<small> Unreleased </small>
 </h1>
 <ul>
 <li>Changed to compiling under R 3.0.2.</li>
@@ -2593,9 +2619,9 @@
 <li><p><code>wsValidate()</code>: Modified. Replaced use of <code>cast()</code> with <code><a href="https://www.rdocumentation.org/packages/stats/topics/aggregate">aggregate()</a></code>.</p></li>
 </ul>
 </div>
-    <div id="fsa-0-4-1-oct13" class="section level1">
+    <div id="fsa-041-oct13" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-1-oct13" class="anchor"></a>FSA 0.4.1 Oct13<small> Unreleased </small>
+<a href="#fsa-041-oct13" class="anchor"></a>FSA 0.4.1 Oct13<small> Unreleased </small>
 </h1>
 <ul>
 <li>Changed R dependency to &gt;3.0.0 (because gplots package has that dependency).</li>
@@ -2631,9 +2657,9 @@
 <li><p><code>quad_dens()</code>: Added to FSAinternals (from <code>ks2d()</code>).</p></li>
 </ul>
 </div>
-    <div id="fsa-0-4-0-jun13" class="section level1">
+    <div id="fsa-040-jun13" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-4-0-jun13" class="anchor"></a>FSA 0.4.0 Jun13<small> Unreleased </small>
+<a href="#fsa-040-jun13" class="anchor"></a>FSA 0.4.0 Jun13<small> Unreleased </small>
 </h1>
 <ul>
 <li>Corrected all pointers to fishR vignettes (because of new webpage).</li>
@@ -2660,7 +2686,7 @@
 <li>
 <code><a href="../reference/capHistSum.html">capHistSum()</a></code>: Modified to correct an error that occurred when computing the Method B table when a capture history occurred only once or not at all.</li>
 <li>
-<code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified by adding the Hoenig et al. (1983) bias correction formula for the estimate of Z as the default option.</li>
+<code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified by adding the Hoenig et al. (1983) bias correction formula for the estimate of Z as the default option.</li>
 <li>
 <code><a href="../reference/nlsBoot.html">confint.nlsBoot()</a></code>: Removed use of %nin%.</li>
 <li>
@@ -2684,7 +2710,7 @@
 <li>
 <code><a href="../reference/bootCase.html">predict.bootCase()</a></code>: Added.</li>
 <li>
-<code>PSSLit</code>: added from RSDLit. Added from Ogle and Winfield (2009) for ruffe, Bonvechio et al. (2010) for Suwannee bass, and from Phelps and Willis (2013) for several “carp” species.</li>
+<code>PSSLit</code>: added from RSDLit. Added from Ogle and Winfield (2009) for ruffe, Bonvechio et al. (2010) for Suwannee bass, and from Phelps and Willis (2013) for several “carp” species.</li>
 <li>
 <code>PSSLitCheck()</code>: Added this internal file. Modified <code>pssVal()</code>, <code>pssCalc()</code>, and <code>pssPlot()</code> accordingly.</li>
 <li>
@@ -2736,9 +2762,9 @@
 <li><p><code>wsValidate()</code>: Removed use of %nin%.</p></li>
 </ul>
 </div>
-    <div id="fsa-0-3-4-jan13" class="section level1">
+    <div id="fsa-034-jan13" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-3-4-jan13" class="anchor"></a>FSA 0.3.4 Jan13<small> Unreleased </small>
+<a href="#fsa-034-jan13" class="anchor"></a>FSA 0.3.4 Jan13<small> Unreleased </small>
 </h1>
 <ul>
 <li><p>added special “fishR Vignette” sections with links to several help files.</p></li>
@@ -2759,9 +2785,9 @@
 <li><p>view(): Modified to remove the ability to print to a window (use method built into RStudio instead). Also generalized to use for both a matrix or a data.frame (eliminates some warning messages).</p></li>
 </ul>
 </div>
-    <div id="fsa-0-3-3-21dec12" class="section level1">
+    <div id="fsa-033-21dec12" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-3-3-21dec12" class="anchor"></a>FSA 0.3.3 21Dec12<small> Unreleased </small>
+<a href="#fsa-033-21dec12" class="anchor"></a>FSA 0.3.3 21Dec12<small> Unreleased </small>
 </h1>
 <ul>
 <li>Added ImportFrom for slider() and gslider() from the relax package. Deleted the ImportFrom for slider() from the TeachingDemos package. These functions were the same but it was being deprecated from TeachingDemos.</li>
@@ -2801,9 +2827,9 @@
 <li><p>vbStarts(): Modified by including a catch for negative starting values of K or starting values of Linf that are 50% smallr or larger than the observed maximum length in the data set.</p></li>
 </ul>
 </div>
-    <div id="fsa-0-3-2-1dec12" class="section level1">
+    <div id="fsa-032-1dec12" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-3-2-1dec12" class="anchor"></a>FSA 0.3.2 1Dec12<small> Unreleased </small>
+<a href="#fsa-032-1dec12" class="anchor"></a>FSA 0.3.2 1Dec12<small> Unreleased </small>
 </h1>
 <ul>
 <li>Changed R dependency to &gt;2.14.0.</li>
@@ -2827,9 +2853,9 @@
 <li><p>wsVal(), wrAdd(): added code to eliminate “global bindings” note when performing RCMD Check. Solutions came from Adrian Alexa’s response to this question: <a href="https://groups.google.com/forum/?fromgroups=#!topic/cambridge-r-user-group/c7vf8o3QwDo" class="uri">https://groups.google.com/forum/?fromgroups=#!topic/cambridge-r-user-group/c7vf8o3QwDo</a></p></li>
 </ul>
 </div>
-    <div id="fsa-0-3-1-25nov12" class="section level1">
+    <div id="fsa-031-25nov12" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-3-1-25nov12" class="anchor"></a>FSA 0.3.1 25Nov12<small> Unreleased </small>
+<a href="#fsa-031-25nov12" class="anchor"></a>FSA 0.3.1 25Nov12<small> Unreleased </small>
 </h1>
 <ul>
 <li>Switched to using the Project mode in RStudio.</li>
@@ -2878,9 +2904,9 @@
 <li><p>ycPlot(): deleted (Weisberg’s LGM is now out-dated).</p></li>
 </ul>
 </div>
-    <div id="fsa-0-3-0-8-nov-12" class="section level1">
+    <div id="fsa-03-0-8-nov-12" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-3-0-8-nov-12" class="anchor"></a>FSA 0.3-0 8-Nov-12<small> Unreleased </small>
+<a href="#fsa-03-0-8-nov-12" class="anchor"></a>FSA 0.3-0 8-Nov-12<small> Unreleased </small>
 </h1>
 <ul>
 <li>Moved several functions from NCStats that are used quite often for fisheries analyses. Ultimately, I want to remove the dependency to NCStats.</li>
@@ -2910,9 +2936,9 @@
 <li><p>Subset(): copied from NCStats (i.e., same function still in NCStats).</p></li>
 </ul>
 </div>
-    <div id="fsa-0-2-8-21jun12" class="section level1">
+    <div id="fsa-02-8-21jun12" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-2-8-21jun12" class="anchor"></a>FSA 0.2-8 21Jun12<small> Unreleased </small>
+<a href="#fsa-02-8-21jun12" class="anchor"></a>FSA 0.2-8 21Jun12<small> Unreleased </small>
 </h1>
 <ul>
 <li>Switched to compiling under R version 2.14.1 (64-bit).</li>
@@ -2924,9 +2950,9 @@
 <li><p>simLenSelectM(): changed width to widths in layout() to avoid warning on check.</p></li>
 </ul>
 </div>
-    <div id="fsa-0-2-7-2mar12" class="section level1">
+    <div id="fsa-02-7-2mar12" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-2-7-2mar12" class="anchor"></a>FSA 0.2-7 2Mar12<small> Unreleased </small>
+<a href="#fsa-02-7-2mar12" class="anchor"></a>FSA 0.2-7 2Mar12<small> Unreleased </small>
 </h1>
 <ul>
 <li>.onLoad(): Modified. Moved the startup message into packageStartupMessage() in hopes of eliminating the warning when checking the package.</li>
@@ -2941,9 +2967,9 @@
 <li>wsVal(): Modified. Removed the justcoef= argument. Added the ab= and comment= arguments. Also, removed the appended units names from the names attribute – i.e., “int” rather than “int.E” or “int.mm”.</li>
 </ul>
 </div>
-    <div id="fsa-0-2-6-1oct11" class="section level1">
+    <div id="fsa-02-6-1oct11" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-2-6-1oct11" class="anchor"></a>FSA 0.2-6 1Oct11<small> Unreleased </small>
+<a href="#fsa-02-6-1oct11" class="anchor"></a>FSA 0.2-6 1Oct11<small> Unreleased </small>
 </h1>
 <ul>
 <li>Switched to compiling under R version 2.13.1 (32-bit).</li>
@@ -2958,9 +2984,9 @@
 <li><p>vbStarts(): Modified. Added ‘Somers2’ option to type= argument.</p></li>
 </ul>
 </div>
-    <div id="fsa-0-2-5-19aug11" class="section level1">
+    <div id="fsa-02-5-19aug11" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-2-5-19aug11" class="anchor"></a>FSA 0.2-5 19Aug11<small> Unreleased </small>
+<a href="#fsa-02-5-19aug11" class="anchor"></a>FSA 0.2-5 19Aug11<small> Unreleased </small>
 </h1>
 <ul>
 <li>Modified description file to show my e-mail address.</li>
@@ -2981,18 +3007,18 @@
 <li><p>vbComp(): Modified. Streamlined the code. Changed the t= argument to ages= to remove any possible confusion with t(). Removed the option to model over ages provided in the (previous) t= argument. Instead the ages= argument can be used to represent the maximum age to model to. The ages= argument can be a vector such that each simulation can have a different set of ages over which the model is evaluated. This allows for more realistinc modeling.</p></li>
 </ul>
 </div>
-    <div id="fsa-0-2-4-15jun11" class="section level1">
+    <div id="fsa-02-4-15jun11" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-2-4-15jun11" class="anchor"></a>FSA 0.2-4 15Jun11<small> Unreleased </small>
+<a href="#fsa-02-4-15jun11" class="anchor"></a>FSA 0.2-4 15Jun11<small> Unreleased </small>
 </h1>
 <ul>
 <li><p>Switched to compiling under R version 2.13.0.</p></li>
 <li><p>vbFuns(): Modified. Modified Wang’s formulas to be for length increments. Added a length increments version to Faben’s method (“Fabens2”).</p></li>
 </ul>
 </div>
-    <div id="fsa-0-2-3-18apr11" class="section level1">
+    <div id="fsa-02-3-18apr11" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-2-3-18apr11" class="anchor"></a>FSA 0.2-3 18Apr11<small> Unreleased </small>
+<a href="#fsa-02-3-18apr11" class="anchor"></a>FSA 0.2-3 18Apr11<small> Unreleased </small>
 </h1>
 <ul>
 <li>Updated citation file.</li>
@@ -3008,9 +3034,9 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <li><p>vbFuns(): Modified. Added Wang and Wang2 functions.</p></li>
 </ul>
 </div>
-    <div id="fsa-0-2-2-3mar11" class="section level1">
+    <div id="fsa-02-2-3mar11" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-2-2-3mar11" class="anchor"></a>FSA 0.2-2 3Mar11<small> Unreleased </small>
+<a href="#fsa-02-2-3mar11" class="anchor"></a>FSA 0.2-2 3Mar11<small> Unreleased </small>
 </h1>
 <ul>
 <li>moved to compling under 2.12.1 (32-bit)</li>
@@ -3020,9 +3046,9 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <li><p>removal(): added just.ests= argument and changed the ests part of the returned value to be a vector rather than a matrix. Both changes allowed for better use of lapply() for computing the removal estimates on more than one group. Changed from an error to a warning for situations where the method could not compute population estimates (i.e., because the population was not depleted). In addition, NAs are returned in situations where population estimates can not be made. An example of computing the removal estimate for more than one group was added to the .rd file. Thanks to Jon Bolland for asking the question that motivated these changes.</p></li>
 </ul>
 </div>
-    <div id="fsa-0-2-1-31-jan-11" class="section level1">
+    <div id="fsa-02-1-31-jan-11" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-2-1-31-jan-11" class="anchor"></a>FSA 0.2-1 31-Jan-11<small> Unreleased </small>
+<a href="#fsa-02-1-31-jan-11" class="anchor"></a>FSA 0.2-1 31-Jan-11<small> Unreleased </small>
 </h1>
 <ul>
 <li>catchCurve(): Modified by adding a formula method. This required moving the original code into a default method and changing the age= argument to x=.</li>
@@ -3032,9 +3058,9 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <li>vbStarts(): Modified by setting a catch to return a single root for st0 or sL0 if the polynomial root found a double root. Thanks to Giacom* Tavecchia for identifying this error. Added a ‘Somers’ seasonal growth oscillations model.</li>
 </ul>
 </div>
-    <div id="fsa-0-2-0-23-sep-10" class="section level1">
+    <div id="fsa-02-0-23-sep-10" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-2-0-23-sep-10" class="anchor"></a>FSA 0.2-0 23-Sep-10<small> Unreleased </small>
+<a href="#fsa-02-0-23-sep-10" class="anchor"></a>FSA 0.2-0 23-Sep-10<small> Unreleased </small>
 </h1>
 <ul>
 <li>bcFuns(): Added. Still needs to be thoroughly proofed.</li>
@@ -3046,9 +3072,9 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <li>vbModels(): Added.</li>
 </ul>
 </div>
-    <div id="fsa-0-1-6-23-aug-10" class="section level1">
+    <div id="fsa-01-6-23-aug-10" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-1-6-23-aug-10" class="anchor"></a>FSA 0.1-6 23-Aug-10<small> Unreleased </small>
+<a href="#fsa-01-6-23-aug-10" class="anchor"></a>FSA 0.1-6 23-Aug-10<small> Unreleased </small>
 </h1>
 <ul>
 <li><p>completed changing naming convention to “camel” type – e.g., stockRecruitModels() rather than stock.recruit.models().</p></li>
@@ -3091,9 +3117,9 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <li><p>ycPlot(): renamed from ycplot().</p></li>
 </ul>
 </div>
-    <div id="fsa-0-1-5-20aug10" class="section level1">
+    <div id="fsa-01-5-20aug10" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-1-5-20aug10" class="anchor"></a>FSA 0.1-5 20Aug10<small> Unreleased </small>
+<a href="#fsa-01-5-20aug10" class="anchor"></a>FSA 0.1-5 20Aug10<small> Unreleased </small>
 </h1>
 <ul>
 <li>moved to compiling under 2.11.1.</li>
@@ -3101,7 +3127,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <li><p>added an importFrom for nlme as groupedData() was needed for vbDataGen().</p></li>
 <li>age.key(): Modified the way that the length categories in the age-length key is determined. Previously I just used the rownames found in the key, but this allows lengths with a row of all NA or zeros to be considered as a length found in the age length key. Now the row sums are found and the sums with NaN or 0 are removed. In addition, I added a warning message if the row sums d* not sum to 1.</li>
 <li>caphist.convert(): Modified such that an “RMark” type can be output. 0 chapmanPlot(): Added.</li>
-<li>growmodel.sim(): Deleted. Changed to growthModelSim(). See below. 0 growthModelSim(): Added. Initially a renaming of growmodel.sim(). However, the model names were changed to be more consistent with other functions and a method for the Mooij et al. paramaterization was added.</li>
+<li>growmodel.sim(): Deleted. Changed to growthModelSim(). See below. 0 growthModelSim(): Added. Initially a renaming of growmodel.sim(). However, the model names were changed to be more consistent with other functions and a method for the Mooij et al. paramaterization was added.</li>
 <li>growthModels(): Added.</li>
 <li>srFuns(): Added.</li>
 <li>srStarts(): Added.</li>
@@ -3117,17 +3143,17 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <li><p>walfordPlot(): Added.</p></li>
 </ul>
 </div>
-    <div id="fsa-0-1-4-6jun10" class="section level1">
+    <div id="fsa-01-4-6jun10" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-1-4-6jun10" class="anchor"></a>FSA 0.1-4 6Jun10<small> Unreleased </small>
+<a href="#fsa-01-4-6jun10" class="anchor"></a>FSA 0.1-4 6Jun10<small> Unreleased </small>
 </h1>
 <ul>
 <li>growmodel.sim(): added an option to fit the “original” von Bertalanffy function. also added more “mis-spelling” options to the other model names.</li>
 </ul>
 </div>
-    <div id="fsa-0-1-2-17dec09" class="section level1">
+    <div id="fsa-01-2-17dec09" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-1-2-17dec09" class="anchor"></a>FSA 0.1-2 17Dec09<small> Unreleased </small>
+<a href="#fsa-01-2-17dec09" class="anchor"></a>FSA 0.1-2 17Dec09<small> Unreleased </small>
 </h1>
 <ul>
 <li><p>moved to compiling under 2.10.1.</p></li>
@@ -3144,9 +3170,9 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <li><p>tictactoe.add(): added to the namespace export list. Changed order of items listed in the ci.type= argument to match that of bin.ci() from NCStats.</p></li>
 </ul>
 </div>
-    <div id="fsa-0-1-1-15apr09" class="section level1">
+    <div id="fsa-01-1-15apr09" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-1-1-15apr09" class="anchor"></a>FSA 0.1-1 15Apr09<small> Unreleased </small>
+<a href="#fsa-01-1-15apr09" class="anchor"></a>FSA 0.1-1 15Apr09<small> Unreleased </small>
 </h1>
 <ul>
 <li>added a namespace</li>
@@ -3163,23 +3189,23 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <li><p>wlgm.rd: fixed the summarization example (cast() did not work with Summarize().</p></li>
 </ul>
 </div>
-    <div id="fsa-0-0-14-20dec08" class="section level1">
+    <div id="fsa-00-14-20dec08" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-0-14-20dec08" class="anchor"></a>FSA 0.0-14 20Dec08<small> Unreleased </small>
+<a href="#fsa-00-14-20dec08" class="anchor"></a>FSA 0.0-14 20Dec08<small> Unreleased </small>
 </h1>
 <ul>
 <li>age.comp(): streamlined code (put bias and difference plots in same function, used grconvertY for show.n, used plotCI for range intervals, caught and corrected CI problems when n=1 or SD=0). N* functionality difference, just improved code.</li>
 <li>growmodel.sim(): modified by determining some of the slider values from the data when x= and y= arguments are not null. This makes the graph more useful for determining starting values in nls() modeling.</li>
 </ul>
 </div>
-    <div id="fsa-0-0-13-6dec08" class="section level1">
+    <div id="fsa-00-13-6dec08" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-0-13-6dec08" class="anchor"></a>FSA 0.0-13 6Dec08<small> Unreleased </small>
+<a href="#fsa-00-13-6dec08" class="anchor"></a>FSA 0.0-13 6Dec08<small> Unreleased </small>
 </h1>
 <ul>
 <li>added a dependency to quantreg (for rq() in emp()).</li>
 <li><p>added CITATION file.</p></li>
-<li>age.comp(): modified the plot() function by adding a ‘difference’ method to the what= argument. This allows creation of an “age-difference” plot as used in Muir et al. (2008).</li>
+<li>age.comp(): modified the plot() function by adding a ‘difference’ method to the what= argument. This allows creation of an “age-difference” plot as used in Muir et al. (2008).</li>
 <li>caphist.convert(): modified by adding an event.ord= argument to allow the user to identify the order of the event names when converting from a capture-by-event type. This is particulary useful if the event names are things like ‘first’, ‘second’, ‘third’, ‘fourth’ because R orders these alphabetically which adversely effects the correctness of the capture histories.</li>
 <li>compute.Ws(): moved this internal function out of validateWs() to be a stand-alone internal function. This allows usage with animation routines.</li>
 <li>discharge(), summary.StrmDschrg(), plot.StrmDschrg(): added.</li>
@@ -3193,9 +3219,9 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <li><p>WSval(),WRval(): added a check for missing species name so that the user can just type WSval() to get the list of possible species names. Also added a check to see if WSlit was already loaded.</p></li>
 </ul>
 </div>
-    <div id="fsa-0-0-12-15jul08" class="section level1">
+    <div id="fsa-00-12-15jul08" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-0-12-15jul08" class="anchor"></a>FSA 0.0-12 15Jul08<small> Unreleased </small>
+<a href="#fsa-00-12-15jul08" class="anchor"></a>FSA 0.0-12 15Jul08<small> Unreleased </small>
 </h1>
 <ul>
 <li>.First.lib: Added</li>
@@ -3207,9 +3233,9 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <li>validateWs(): added this function, and its generics, to perform the Willis and EmpQ methods for assessing length bias in the standard weight equations. Added a probs= argument to allow other than 75th percentile calculations. Added a mean= argument to allow use of means rather than quantiles. Modified to accept an object of class FROESE.</li>
 </ul>
 </div>
-    <div id="fsa-0-0-11-15may08" class="section level1">
+    <div id="fsa-00-11-15may08" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-0-11-15may08" class="anchor"></a>FSA 0.0-11 15May08<small> Unreleased </small>
+<a href="#fsa-00-11-15may08" class="anchor"></a>FSA 0.0-11 15May08<small> Unreleased </small>
 </h1>
 <ul>
 <li>Moved to RForge.net.</li>
@@ -3224,9 +3250,9 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <li><p>rlp(): modified function so that the user can choose to use any-mm length intervals rather than having 10-mm hardwired. Modified output in list somewhat to more closely match the output of emp().</p></li>
 </ul>
 </div>
-    <div id="fsa-0-0-10-1may08" class="section level1">
+    <div id="fsa-00-10-1may08" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-0-10-1may08" class="anchor"></a>FSA 0.0-10 1May08<small> Unreleased </small>
+<a href="#fsa-00-10-1may08" class="anchor"></a>FSA 0.0-10 1May08<small> Unreleased </small>
 </h1>
 <ul>
 <li>lencat(): Modified by adding an as.fact= argument that allows the user to decide if the resulting variable should be returned as a factor variable or not. The default is set to return as a factor variable. This allows tables of the new variable to include zeros for levels of the new variable that contain no individuals. This makes some RSD/PSD (and likely age-length key) calculations simpler. Also added a drop.levels= argument to allow the user to drop unused levels if so desired.</li>
@@ -3238,9 +3264,9 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <li>RSDval(): See PSDval description.</li>
 </ul>
 </div>
-    <div id="fsa-0-0-9-unknown" class="section level1">
+    <div id="fsa-00-9-unknown" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-0-9-unknown" class="anchor"></a>FSA 0.0-9 unknown<small> Unreleased </small>
+<a href="#fsa-00-9-unknown" class="anchor"></a>FSA 0.0-9 unknown<small> Unreleased </small>
 </h1>
 <ul>
 <li>age.comp(): Corrected SE calculation used to construct the CIs. Changed the CI plotting routine to use plotCI in plotrix package – this puts lines rather than points on the ends of the CIs. Added a check for computing SDs and CIs for when n=1 or when all measurements are the same. This reduces (eliminates?) the number of warnings that are given.</li>
@@ -3255,9 +3281,9 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <li>summary.MRC1(): Modified output so that (1) the given information is a little easier to read, (2) the population estimate is returned in a matrix, (3) the SE from Ricker(1975) can be included in the outputm, and (4) a label can be placed on row for the matrix output. The purpose of these changes was to allow the SE to be computed and to allow future functions to more flexibly use the output.</li>
 </ul>
 </div>
-    <div id="fsa-0-0-8-unknown" class="section level1">
+    <div id="fsa-00-8-unknown" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-0-8-unknown" class="anchor"></a>FSA 0.0-8 unknown<small> Unreleased </small>
+<a href="#fsa-00-8-unknown" class="anchor"></a>FSA 0.0-8 unknown<small> Unreleased </small>
 </h1>
 <ul>
 <li><p>changed some \items to \tabular in RD files. Changed most hard-wired quotes to \sQuote or \dQuote in RD files. Changed some text-based equations to more latex-based equations in \eqn or \deqn markups. This fixed the Latex compilation problems that I was having when using RCMD check.</p></li>
@@ -3271,16 +3297,16 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <li>mr.open(): Added match.arg functionality to the ci.type and phi.type arguments.</li>
 <li>plot.RLP(): Added “object &lt;- x” to allow x to be used inside the curve() function without confusion.</li>
 <li>removal(): Removed abbreviated values from the type= argument. Will rely on partial matching.</li>
-<li>rlp(): Added examples from Murphy et al. (1990)</li>
+<li>rlp(): Added examples from Murphy et al. (1990)</li>
 <li>stock.recruit(): Removed abbreviated values from the type= argument – will rely on partial matching. Changed sumtype argument to what.</li>
 <li>stock.recruit.sim(): Changed model argument to type and added param argument (to make compatible with stock.recruit). Moved R and S arguments to beginning of argument string (more compatible with stock.recruit). STILL NEED to ADD SECOND RICKER MODEL.</li>
 <li>vb.comp(): Changed d argument to df.</li>
 <li><p>wlgm.RD(): Added example code. Added some details.</p></li>
 </ul>
 </div>
-    <div id="fsa-0-0-7-unknown" class="section level1">
+    <div id="fsa-00-7-unknown" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-0-7-unknown" class="anchor"></a>FSA 0.0-7 unknown<small> Unreleased </small>
+<a href="#fsa-00-7-unknown" class="anchor"></a>FSA 0.0-7 unknown<small> Unreleased </small>
 </h1>
 <ul>
 <li>changed to compiling under R 2.6.1.</li>
@@ -3304,9 +3330,9 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <li><p>ycplot(): A new generic function for creating a year-class plot for the Weisberg Linear Growth Model analysis.</p></li>
 </ul>
 </div>
-    <div id="fsa-0-0-6-unknown" class="section level1">
+    <div id="fsa-00-6-unknown" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-0-6-unknown" class="anchor"></a>FSA 0.0-6 unknown<small> Unreleased </small>
+<a href="#fsa-00-6-unknown" class="anchor"></a>FSA 0.0-6 unknown<small> Unreleased </small>
 </h1>
 <ul>
 <li>agebias.plot(): deleted and replaced with agecomp and plot.AgeComp functions.</li>
@@ -3335,146 +3361,147 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#fsa-0-8-22-22-nov-18">0.8.22</a></li>
-        <li><a href="#fsa-0-8-21-2-nov-18">0.8.21</a></li>
-        <li><a href="#fsa-0-8-20-18-may-18">0.8.20</a></li>
-        <li><a href="#fsa-0-8-19-8-apr-18">0.8.19</a></li>
-        <li><a href="#fsa-0-8-18-31-mar-18">0.8.18</a></li>
-        <li><a href="#fsa-0-8-17-29-oct-17">0.8.17</a></li>
-        <li><a href="#fsa-0-8-16-7-sep-17">0.8.16</a></li>
-        <li><a href="#fsa-0-8-15-6-sep-17">0.8.15</a></li>
-        <li><a href="#fsa-0-8-14-27-jul-17">0.8.14</a></li>
-        <li><a href="#fsa-0-8-13-29-apr-17">0.8.13</a></li>
-        <li><a href="#fsa-0-8-12-12-mar-17">0.8.12</a></li>
-        <li><a href="#fsa-0-8-11-13-dec-16">0.8.11</a></li>
-        <li><a href="#fsa-0-8-10-24-sep-16">0.8.10</a></li>
-        <li><a href="#fsa-0-8-9-23-aug-16">0.8.9</a></li>
-        <li><a href="#fsa-0-8-8-18-jul-16">0.8.8</a></li>
-        <li><a href="#fsa-0-8-7-8-may-16">0.8.7</a></li>
-        <li><a href="#fsa-0-8-6-25-mar-16">0.8.6</a></li>
-        <li><a href="#fsa-0-8-5-14-feb-16">0.8.5</a></li>
-        <li><a href="#fsa-0-8-4-21-dec-15">0.8.4</a></li>
-        <li><a href="#fsa-0-8-3-23-oct-15">0.8.3</a></li>
-        <li><a href="#fsa-0-8-2-22-oct-15">0.8.2</a></li>
-        <li><a href="#fsa-0-8-1-10-oct-15">0.8.1</a></li>
-        <li><a href="#fsa-0-8-0-8-oct-15">0.8.0</a></li>
-        <li><a href="#fsa-0-7-11-oct15">0.7.11</a></li>
-        <li><a href="#fsa-0-7-10-oct15">0.7.10</a></li>
-        <li><a href="#fsa-0-7-9-sep15">0.7.9</a></li>
-        <li><a href="#fsa-0-7-8-sep15">0.7.8</a></li>
-        <li><a href="#fsa-0-7-7-aug15">0.7.7</a></li>
-        <li><a href="#fsa-0-7-6-aug15">0.7.6</a></li>
-        <li><a href="#fsa-0-7-5-aug15">0.7.5</a></li>
-        <li><a href="#fsa-0-7-4-aug15">0.7.4</a></li>
-        <li><a href="#fsa-0-7-3-aug15">0.7.3</a></li>
-        <li><a href="#fsa-0-7-2-jul15">0.7.2</a></li>
-        <li><a href="#fsa-0-7-1-jul15">0.7.1</a></li>
-        <li><a href="#fsa-0-7-0-jul15">0.7.0</a></li>
-        <li><a href="#fsa-0-6-25-jul15">0.6.25</a></li>
-        <li><a href="#fsa-0-6-24-jun15">0.6.24</a></li>
-        <li><a href="#fsa-0-6-23-jun15">0.6.23</a></li>
-        <li><a href="#fsa-0-6-22-jun15">0.6.22</a></li>
-        <li><a href="#fsa-0-6-21-jun15">0.6.21</a></li>
-        <li><a href="#fsa-0-6-20-jun15">0.6.20</a></li>
-        <li><a href="#fsa-0-6-19-jun15">0.6.19</a></li>
-        <li><a href="#fsa-0-6-18-jun15">0.6.18</a></li>
-        <li><a href="#fsa-0-6-17-jun15">0.6.17</a></li>
-        <li><a href="#fsa-0-6-16-jun15">0.6.16</a></li>
-        <li><a href="#fsa-0-6-15-jun15">0.6.15</a></li>
-        <li><a href="#fsa-0-6-14-may15">0.6.14</a></li>
-        <li><a href="#fsa-0-6-13-may15">0.6.13</a></li>
-        <li><a href="#fsa-0-6-12-may15">0.6.12</a></li>
-        <li><a href="#fsa-0-6-11-apr15">0.6.11</a></li>
-        <li><a href="#fsa-0-6-10-apr15">0.6.10</a></li>
-        <li><a href="#fsa-0-6-5-apr15">0.6.5</a></li>
-        <li><a href="#fsa-0-6-4-apr15">0.6.4</a></li>
-        <li><a href="#fsa-0-6-3-apr15">0.6.3</a></li>
-        <li><a href="#fsa-0-6-2-mar15">0.6.2</a></li>
-        <li><a href="#fsa-0-6-1-mar15">0.6.1</a></li>
-        <li><a href="#fsa-0-6-0-mar15">0.6.0</a></li>
-        <li><a href="#fsa-0-5-3-mar15">0.5.3</a></li>
-        <li><a href="#fsa-0-5-2-mar15">0.5.2</a></li>
-        <li><a href="#fsa-0-5-1-mar15">0.5.1</a></li>
-        <li><a href="#fsa-0-4-51-mar15">0.4.51</a></li>
-        <li><a href="#fsa-0-4-50-mar15">0.4.50</a></li>
-        <li><a href="#fsa-0-4-49-mar15">0.4.49</a></li>
-        <li><a href="#fsa-0-4-48-mar15">0.4.48</a></li>
-        <li><a href="#fsa-0-4-47-feb15">0.4.47</a></li>
-        <li><a href="#fsa-0-4-46-feb15">0.4.46</a></li>
-        <li><a href="#fsa-0-4-45-feb15">0.4.45</a></li>
-        <li><a href="#fsa-0-4-44-feb15">0.4.44</a></li>
-        <li><a href="#fsa-0-4-43-feb15">0.4.43</a></li>
-        <li><a href="#fsa-0-4-42-feb15">0.4.42</a></li>
-        <li><a href="#fsa-0-4-41-jan15">0.4.41</a></li>
-        <li><a href="#fsa-0-4-40-jan15">0.4.40</a></li>
-        <li><a href="#fsa-0-4-39-jan15">0.4.39</a></li>
-        <li><a href="#fsa-0-4-38-jan15">0.4.38</a></li>
-        <li><a href="#fsa-0-4-37-jan15">0.4.37</a></li>
-        <li><a href="#fsa-0-4-36-jan15">0.4.36</a></li>
-        <li><a href="#fsa-0-4-35-jan15">0.4.35</a></li>
-        <li><a href="#fsa-0-4-34-dec14">0.4.34</a></li>
-        <li><a href="#fsa-0-4-33-dec14">0.4.33</a></li>
-        <li><a href="#fsa-0-4-32-nov14">0.4.32</a></li>
-        <li><a href="#fsa-0-4-31-nov14">0.4.31</a></li>
-        <li><a href="#fsa-0-4-30-oct14">0.4.30</a></li>
-        <li><a href="#fsa-0-4-29-oct14">0.4.29</a></li>
-        <li><a href="#fsa-0-4-28-sep14">0.4.28</a></li>
-        <li><a href="#fsa-0-4-27-sep14">0.4.27</a></li>
-        <li><a href="#fsa-0-4-26-sep14">0.4.26</a></li>
-        <li><a href="#fsa-0-4-25-sep14">0.4.25</a></li>
-        <li><a href="#fsa-0-4-24-aug14">0.4.24</a></li>
-        <li><a href="#fsa-0-4-23-aug14">0.4.23</a></li>
-        <li><a href="#fsa-0-4-22-aug14">0.4.22</a></li>
-        <li><a href="#fsa-0-4-21-jul14">0.4.21</a></li>
-        <li><a href="#fsa-0-4-20-jul14">0.4.20</a></li>
-        <li><a href="#fsa-0-4-19-jul14">0.4.19</a></li>
-        <li><a href="#fsa-0-4-18-jul14">0.4.18</a></li>
-        <li><a href="#fsa-0-4-17-jul14">0.4.17</a></li>
-        <li><a href="#fsa-0-4-16-jul14">0.4.16</a></li>
-        <li><a href="#fsa-0-4-15-jun14">0.4.15</a></li>
-        <li><a href="#fsa-0-4-14-jun14">0.4.14</a></li>
-        <li><a href="#fsa-0-4-13-jun14">0.4.13</a></li>
-        <li><a href="#fsa-0-4-12-may14">0.4.12</a></li>
-        <li><a href="#fsa-0-4-11-may14">0.4.11</a></li>
-        <li><a href="#fsa-0-4-10-may14">0.4.10</a></li>
-        <li><a href="#fsa-0-4-9-may14">0.4.9</a></li>
-        <li><a href="#fsa-0-4-8-may14">0.4.8</a></li>
-        <li><a href="#fsa-0-4-7-apr14">0.4.7</a></li>
-        <li><a href="#fsa-0-4-6-apr14">0.4.6</a></li>
-        <li><a href="#fsa-0-4-5-apr14">0.4.5</a></li>
-        <li><a href="#fsa-0-4-4-apr14">0.4.4</a></li>
-        <li><a href="#fsa-0-4-3-mar14">0.4.3</a></li>
-        <li><a href="#fsa-0-4-2-dec13">0.4.2</a></li>
-        <li><a href="#fsa-0-4-1-oct13">0.4.1</a></li>
-        <li><a href="#fsa-0-4-0-jun13">0.4.0</a></li>
-        <li><a href="#fsa-0-3-4-jan13">0.3.4</a></li>
-        <li><a href="#fsa-0-3-3-21dec12">0.3.3</a></li>
-        <li><a href="#fsa-0-3-2-1dec12">0.3.2</a></li>
-        <li><a href="#fsa-0-3-1-25nov12">0.3.1</a></li>
-        <li><a href="#fsa-0-3-0-8-nov-12">0.3-0</a></li>
-        <li><a href="#fsa-0-2-8-21jun12">0.2-8</a></li>
-        <li><a href="#fsa-0-2-7-2mar12">0.2-7</a></li>
-        <li><a href="#fsa-0-2-6-1oct11">0.2-6</a></li>
-        <li><a href="#fsa-0-2-5-19aug11">0.2-5</a></li>
-        <li><a href="#fsa-0-2-4-15jun11">0.2-4</a></li>
-        <li><a href="#fsa-0-2-3-18apr11">0.2-3</a></li>
-        <li><a href="#fsa-0-2-2-3mar11">0.2-2</a></li>
-        <li><a href="#fsa-0-2-1-31-jan-11">0.2-1</a></li>
-        <li><a href="#fsa-0-2-0-23-sep-10">0.2-0</a></li>
-        <li><a href="#fsa-0-1-6-23-aug-10">0.1-6</a></li>
-        <li><a href="#fsa-0-1-5-20aug10">0.1-5</a></li>
-        <li><a href="#fsa-0-1-4-6jun10">0.1-4</a></li>
-        <li><a href="#fsa-0-1-2-17dec09">0.1-2</a></li>
-        <li><a href="#fsa-0-1-1-15apr09">0.1-1</a></li>
-        <li><a href="#fsa-0-0-14-20dec08">0.0-14</a></li>
-        <li><a href="#fsa-0-0-13-6dec08">0.0-13</a></li>
-        <li><a href="#fsa-0-0-12-15jul08">0.0-12</a></li>
-        <li><a href="#fsa-0-0-11-15may08">0.0-11</a></li>
-        <li><a href="#fsa-0-0-10-1may08">0.0-10</a></li>
-        <li><a href="#fsa-0-0-9-unknown">0.0-9</a></li>
-        <li><a href="#fsa-0-0-8-unknown">0.0-8</a></li>
-        <li><a href="#fsa-0-0-7-unknown">0.0-7</a></li>
-        <li><a href="#fsa-0-0-6-unknown">0.0-6</a></li>
+        <li><a href="#fsa-0823-1-may-19">0.8.23</a></li>
+        <li><a href="#fsa-0822-22-nov-18">0.8.22</a></li>
+        <li><a href="#fsa-0821-2-nov-18">0.8.21</a></li>
+        <li><a href="#fsa-0820-18-may-18">0.8.20</a></li>
+        <li><a href="#fsa-0819-8-apr-18">0.8.19</a></li>
+        <li><a href="#fsa-0818-31-mar-18">0.8.18</a></li>
+        <li><a href="#fsa-0817-29-oct-17">0.8.17</a></li>
+        <li><a href="#fsa-0816-7-sep-17">0.8.16</a></li>
+        <li><a href="#fsa-0815-6-sep-17">0.8.15</a></li>
+        <li><a href="#fsa-0814-27-jul-17">0.8.14</a></li>
+        <li><a href="#fsa-0813-29-apr-17">0.8.13</a></li>
+        <li><a href="#fsa-0812-12-mar-17">0.8.12</a></li>
+        <li><a href="#fsa-0811-13-dec-16">0.8.11</a></li>
+        <li><a href="#fsa-0810-24-sep-16">0.8.10</a></li>
+        <li><a href="#fsa-089-23-aug-16">0.8.9</a></li>
+        <li><a href="#fsa-088-18-jul-16">0.8.8</a></li>
+        <li><a href="#fsa-087-8-may-16">0.8.7</a></li>
+        <li><a href="#fsa-086-25-mar-16">0.8.6</a></li>
+        <li><a href="#fsa-085-14-feb-16">0.8.5</a></li>
+        <li><a href="#fsa-084-21-dec-15">0.8.4</a></li>
+        <li><a href="#fsa-083-23-oct-15">0.8.3</a></li>
+        <li><a href="#fsa-082-22-oct-15">0.8.2</a></li>
+        <li><a href="#fsa-081-10-oct-15">0.8.1</a></li>
+        <li><a href="#fsa-080-8-oct-15">0.8.0</a></li>
+        <li><a href="#fsa-0711-oct15">0.7.11</a></li>
+        <li><a href="#fsa-0710-oct15">0.7.10</a></li>
+        <li><a href="#fsa-079-sep15">0.7.9</a></li>
+        <li><a href="#fsa-078-sep15">0.7.8</a></li>
+        <li><a href="#fsa-077-aug15">0.7.7</a></li>
+        <li><a href="#fsa-076-aug15">0.7.6</a></li>
+        <li><a href="#fsa-075-aug15">0.7.5</a></li>
+        <li><a href="#fsa-074-aug15">0.7.4</a></li>
+        <li><a href="#fsa-073-aug15">0.7.3</a></li>
+        <li><a href="#fsa-072-jul15">0.7.2</a></li>
+        <li><a href="#fsa-071-jul15">0.7.1</a></li>
+        <li><a href="#fsa-070-jul15">0.7.0</a></li>
+        <li><a href="#fsa-0625-jul15">0.6.25</a></li>
+        <li><a href="#fsa-0624-jun15">0.6.24</a></li>
+        <li><a href="#fsa-0623-jun15">0.6.23</a></li>
+        <li><a href="#fsa-0622-jun15">0.6.22</a></li>
+        <li><a href="#fsa-0621-jun15">0.6.21</a></li>
+        <li><a href="#fsa-0620-jun15">0.6.20</a></li>
+        <li><a href="#fsa-0619-jun15">0.6.19</a></li>
+        <li><a href="#fsa-0618-jun15">0.6.18</a></li>
+        <li><a href="#fsa-0617-jun15">0.6.17</a></li>
+        <li><a href="#fsa-0616-jun15">0.6.16</a></li>
+        <li><a href="#fsa-0615-jun15">0.6.15</a></li>
+        <li><a href="#fsa-0614-may15">0.6.14</a></li>
+        <li><a href="#fsa-0613-may15">0.6.13</a></li>
+        <li><a href="#fsa-0612-may15">0.6.12</a></li>
+        <li><a href="#fsa-0611-apr15">0.6.11</a></li>
+        <li><a href="#fsa-0610-apr15">0.6.10</a></li>
+        <li><a href="#fsa-065-apr15">0.6.5</a></li>
+        <li><a href="#fsa-064-apr15">0.6.4</a></li>
+        <li><a href="#fsa-063-apr15">0.6.3</a></li>
+        <li><a href="#fsa-062-mar15">0.6.2</a></li>
+        <li><a href="#fsa-061-mar15">0.6.1</a></li>
+        <li><a href="#fsa-060-mar15">0.6.0</a></li>
+        <li><a href="#fsa-053-mar15">0.5.3</a></li>
+        <li><a href="#fsa-052-mar15">0.5.2</a></li>
+        <li><a href="#fsa-051-mar15">0.5.1</a></li>
+        <li><a href="#fsa-0451-mar15">0.4.51</a></li>
+        <li><a href="#fsa-0450-mar15">0.4.50</a></li>
+        <li><a href="#fsa-0449-mar15">0.4.49</a></li>
+        <li><a href="#fsa-0448-mar15">0.4.48</a></li>
+        <li><a href="#fsa-0447-feb15">0.4.47</a></li>
+        <li><a href="#fsa-0446-feb15">0.4.46</a></li>
+        <li><a href="#fsa-0445-feb15">0.4.45</a></li>
+        <li><a href="#fsa-0444-feb15">0.4.44</a></li>
+        <li><a href="#fsa-0443-feb15">0.4.43</a></li>
+        <li><a href="#fsa-0442-feb15">0.4.42</a></li>
+        <li><a href="#fsa-0441-jan15">0.4.41</a></li>
+        <li><a href="#fsa-0440-jan15">0.4.40</a></li>
+        <li><a href="#fsa-0439-jan15">0.4.39</a></li>
+        <li><a href="#fsa-0438-jan15">0.4.38</a></li>
+        <li><a href="#fsa-0437-jan15">0.4.37</a></li>
+        <li><a href="#fsa-0436-jan15">0.4.36</a></li>
+        <li><a href="#fsa-0435-jan15">0.4.35</a></li>
+        <li><a href="#fsa-0434-dec14">0.4.34</a></li>
+        <li><a href="#fsa-0433-dec14">0.4.33</a></li>
+        <li><a href="#fsa-0432-nov14">0.4.32</a></li>
+        <li><a href="#fsa-0431-nov14">0.4.31</a></li>
+        <li><a href="#fsa-0430-oct14">0.4.30</a></li>
+        <li><a href="#fsa-0429-oct14">0.4.29</a></li>
+        <li><a href="#fsa-0428-sep14">0.4.28</a></li>
+        <li><a href="#fsa-0427-sep14">0.4.27</a></li>
+        <li><a href="#fsa-0426-sep14">0.4.26</a></li>
+        <li><a href="#fsa-0425-sep14">0.4.25</a></li>
+        <li><a href="#fsa-0424-aug14">0.4.24</a></li>
+        <li><a href="#fsa-0423-aug14">0.4.23</a></li>
+        <li><a href="#fsa-0422-aug14">0.4.22</a></li>
+        <li><a href="#fsa-0421-jul14">0.4.21</a></li>
+        <li><a href="#fsa-0420-jul14">0.4.20</a></li>
+        <li><a href="#fsa-0419-jul14">0.4.19</a></li>
+        <li><a href="#fsa-0418-jul14">0.4.18</a></li>
+        <li><a href="#fsa-0417-jul14">0.4.17</a></li>
+        <li><a href="#fsa-0416-jul14">0.4.16</a></li>
+        <li><a href="#fsa-0415-jun14">0.4.15</a></li>
+        <li><a href="#fsa-0414-jun14">0.4.14</a></li>
+        <li><a href="#fsa-0413-jun14">0.4.13</a></li>
+        <li><a href="#fsa-0412-may14">0.4.12</a></li>
+        <li><a href="#fsa-0411-may14">0.4.11</a></li>
+        <li><a href="#fsa-0410-may14">0.4.10</a></li>
+        <li><a href="#fsa-049-may14">0.4.9</a></li>
+        <li><a href="#fsa-048-may14">0.4.8</a></li>
+        <li><a href="#fsa-047-apr14">0.4.7</a></li>
+        <li><a href="#fsa-046-apr14">0.4.6</a></li>
+        <li><a href="#fsa-045-apr14">0.4.5</a></li>
+        <li><a href="#fsa-044-apr14">0.4.4</a></li>
+        <li><a href="#fsa-043-mar14">0.4.3</a></li>
+        <li><a href="#fsa-042-dec13">0.4.2</a></li>
+        <li><a href="#fsa-041-oct13">0.4.1</a></li>
+        <li><a href="#fsa-040-jun13">0.4.0</a></li>
+        <li><a href="#fsa-034-jan13">0.3.4</a></li>
+        <li><a href="#fsa-033-21dec12">0.3.3</a></li>
+        <li><a href="#fsa-032-1dec12">0.3.2</a></li>
+        <li><a href="#fsa-031-25nov12">0.3.1</a></li>
+        <li><a href="#fsa-03-0-8-nov-12">0.3-0</a></li>
+        <li><a href="#fsa-02-8-21jun12">0.2-8</a></li>
+        <li><a href="#fsa-02-7-2mar12">0.2-7</a></li>
+        <li><a href="#fsa-02-6-1oct11">0.2-6</a></li>
+        <li><a href="#fsa-02-5-19aug11">0.2-5</a></li>
+        <li><a href="#fsa-02-4-15jun11">0.2-4</a></li>
+        <li><a href="#fsa-02-3-18apr11">0.2-3</a></li>
+        <li><a href="#fsa-02-2-3mar11">0.2-2</a></li>
+        <li><a href="#fsa-02-1-31-jan-11">0.2-1</a></li>
+        <li><a href="#fsa-02-0-23-sep-10">0.2-0</a></li>
+        <li><a href="#fsa-01-6-23-aug-10">0.1-6</a></li>
+        <li><a href="#fsa-01-5-20aug10">0.1-5</a></li>
+        <li><a href="#fsa-01-4-6jun10">0.1-4</a></li>
+        <li><a href="#fsa-01-2-17dec09">0.1-2</a></li>
+        <li><a href="#fsa-01-1-15apr09">0.1-1</a></li>
+        <li><a href="#fsa-00-14-20dec08">0.0-14</a></li>
+        <li><a href="#fsa-00-13-6dec08">0.0-13</a></li>
+        <li><a href="#fsa-00-12-15jul08">0.0-12</a></li>
+        <li><a href="#fsa-00-11-15may08">0.0-11</a></li>
+        <li><a href="#fsa-00-10-1may08">0.0-10</a></li>
+        <li><a href="#fsa-00-9-unknown">0.0-9</a></li>
+        <li><a href="#fsa-00-8-unknown">0.0-8</a></li>
+        <li><a href="#fsa-00-7-unknown">0.0-7</a></li>
+        <li><a href="#fsa-00-6-unknown">0.0-6</a></li>
       </ul>
     </div>
   </div>
@@ -3487,7 +3514,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>
