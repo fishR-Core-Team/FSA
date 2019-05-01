@@ -1,3 +1,5 @@
+# FSA 0.8.24 ongoing
+
 # FSA 0.8.23 1-May-19
 * Reorganized `testthat` folder as suggested in `testthat` release notes.
 * Removed all uses of `Subset()` (replaced with `filterD()`).
