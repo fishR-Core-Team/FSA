@@ -39,7 +39,10 @@
 #'    \item Back-Calculation
 #'  }
 #'
-#' @concept Growth 'Increment Analysis' 'Weisberg LGM' 'Back-Calculation'
+#' @concept Growth
+#' @concept Increment Analysis
+#' @concept Weisberg LGM
+#' @concept Back-Calculation
 #'
 #' @source Data from the linear growth modeling software distributed in support of Weisberg, S. 1993. Using hard-part increment data to estimate age and environmental effects. Canadian Journal of Fisheries and Aquatic Sciences 50:1229-1237.
 #'

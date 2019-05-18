@@ -11,7 +11,7 @@
    \item{stock}{Spawning stock index}
  }}
 \source{
-From Garrod, D.J. 1967.  Population dynamics of the Arcto-Norwegian cod.  Journal of the Fisheries Research Board of Canada, 24:145-190.
+From Garrod, D.J. 1967. Population dynamics of the Arcto-Norwegian Cod. Journal of the Fisheries Research Board of Canada, 24:145-190.
 }
 \description{
 Norwegian cod (\emph{Gadus morhua}) stock and recruitment by year, 1937-1960.
@@ -36,5 +36,6 @@ par(op)
 \seealso{
 Used in \code{\link{srStarts}}, \code{\link{srFuns}}, and \code{\link{nlsTracePlot}} examples.
 }
-\concept{'Stock-Recruit' Recruitment}
+\concept{Recruitment}
+\concept{Stock-Recruit}
 \keyword{datasets}

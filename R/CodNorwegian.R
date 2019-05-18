@@ -19,9 +19,10 @@
 #'    \item Recruitment
 #'  }
 #' 
-#' @concept 'Stock-Recruit' Recruitment
+#' @concept Stock-Recruit
+#' @concept Recruitment
 #' 
-#' @source From Garrod, D.J. 1967.  Population dynamics of the Arcto-Norwegian cod.  Journal of the Fisheries Research Board of Canada, 24:145-190.
+#' @source From Garrod, D.J. 1967. Population dynamics of the Arcto-Norwegian Cod. Journal of the Fisheries Research Board of Canada, 24:145-190.
 #' 
 #' @seealso Used in \code{\link{srStarts}}, \code{\link{srFuns}}, and \code{\link{nlsTracePlot}} examples.
 #' 

@@ -10,7 +10,7 @@
    \item{catch}{A numeric vector of number of Brook Trout caught}
  }}
 \source{
-Quinlan, H.R. 1999. Biological Characteristics of Coaster Brook Trout at Isle Royale National Park, Michigan, 1996-98. U.S. Fish and Wildlife Service Ashland Fishery Resources Office report. November 1999.  [Was (is?) from http://www.fws.gov/midwest/ashland/brook/biochar/biolchar.html.]
+Quinlan, H.R. 1999. Biological Characteristics of Coaster Brook Trout at Isle Royale National Park, Michigan, 1996-98. U.S. Fish and Wildlife Service Ashland Fishery Resources Office report. November 1999. [Was (is?) from http://www.fws.gov/midwest/ashland/brook/biochar/biolchar.html.]
 }
 \description{
 Catch-at-age in fyke nets from 1996-1998 for \dQuote{Coaster} Brook Trout (\emph{Salvelinus fontinalis}) in Tobin Harbor, Isle Royale, Lake Superior.
@@ -33,5 +33,6 @@ plot(log(catch)~age,data=BrookTroutTH)
 \seealso{
 Used in \code{\link{catchCurve}} and \code{\link{chapmanRobson}} examples.
 }
-\concept{Mortality 'Catch Curve'}
+\concept{Catch Curve}
+\concept{Mortality}
 \keyword{datasets}

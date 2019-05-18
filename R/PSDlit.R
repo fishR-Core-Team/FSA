@@ -29,7 +29,8 @@
 #'    \item Proportional stock density
 #'  }
 #'
-#' @concept 'Size Structure' PSD
+#' @concept Size Structure
+#' @concept PSD
 #' 
 #' @section IFAR Chapter: 6-Size Structure.
 #'

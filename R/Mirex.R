@@ -22,9 +22,10 @@
 #'    \item Other
 #'  }
 #'  
-#' @concept 'Linear Models' Other
+#' @concept Linear Models
+#' @concept Other
 #'
-#' @source From (actual data) Makarewicz, J.C., E.Damaske, T.W. Lewis, and M. Merner.  2003.  Trend analysis reveals a recent reduction in mirex concentrations in coho (\emph{Oncorhynchus kisutch}) and chinook (\emph{O. tshawytscha}) salmon from Lake Ontario.  Environmental Science and Technology, 37:1521-1527.
+#' @source From (actual data) Makarewicz, J.C., E.Damaske, T.W. Lewis, and M. Merner. 2003. Trend analysis reveals a recent reduction in mirex concentrations in Coho (\emph{Oncorhynchus kisutch}) and Chinook (\emph{O. tshawytscha}) Salmon from Lake Ontario. Environmental Science and Technology, 37:1521-1527.
 #'
 #' @seealso Used in \code{\link{fitPlot}}, \code{\link{residPlot}}, \code{\link{compSlopes}}, \code{\link{compIntercepts}}, \code{\link{hoCoef}}, and \code{\link{rSquared}} examples.
 #' 

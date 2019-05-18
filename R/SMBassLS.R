@@ -23,7 +23,12 @@
 #'    \item Catchability
 #'  }
 #'
-#' @concept Abundance 'Population Size' Depletion Leslie DeLury Catchability
+#' @concept Abundance
+#' @concept Population Size
+#' @concept Depletion
+#' @concept Leslie
+#' @concept DeLury
+#' @concept Catchability
 #'
 #' @source From Omand, D.N. 1951. A study of populations of fish based on catch-effort statistics. Journal of Wildlife Management, 15:88-98.
 #'

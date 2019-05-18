@@ -43,5 +43,8 @@ head(WhitefishLC)
 \seealso{
 Used in \code{\link{ageBias}} and \code{\link{agePrecision}} examples.
 }
-\concept{Age Precision Bias 'Ageing Error' 'Age Comparisons'}
+\concept{Age Bias}
+\concept{Age Comparisons}
+\concept{Age Precision}
+\concept{Ageing Error}
 \keyword{datasets}

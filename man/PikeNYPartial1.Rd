@@ -39,5 +39,10 @@ head(PikeNYPartial1)
 \seealso{
 Used in \code{\link{capHistSum}} and \code{\link{mrClosed}} examples. Also see \code{\link{PikeNY}}.
 }
-\concept{Abundance 'Population Size' 'Mark-Recapture' 'Capture-Recapture' 'Schnabel' 'Capture History'}
+\concept{Abundance}
+\concept{Capture History}
+\concept{Capture-Recapture}
+\concept{Mark-Recapture}
+\concept{Population Size}
+\concept{Schnabel}
 \keyword{datasets}

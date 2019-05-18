@@ -20,7 +20,7 @@
 #'    \item Age-Length Key
 #'  }
 #'
-#' @concept 'Age-Length Key'
+#' @concept Age-Length Key
 #'
 #' @source Simulated from Table 2A in Westerheim, S.J. and W.E. Ricker. 1979. Bias in using age-length key to estimate age-frequency distributions. Journal of the Fisheries Research Board of Canada. 35:184-189.
 #'

@@ -49,5 +49,6 @@ Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analy
 \seealso{
 See \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, and \code{\link{tictactoe}} for related functionality.
 }
-\concept{'Size Structure' PSD}
+\concept{PSD}
+\concept{Size Structure}
 \keyword{datasets}

@@ -19,9 +19,10 @@
 #'    \item Chapman-Robson 
 #'  }
 #' 
-#' @concept Mortality 'Catch Curve'
+#' @concept Mortality
+#' @concept Catch Curve
 #' 
-#' @source Quinlan, H.R. 1999. Biological Characteristics of Coaster Brook Trout at Isle Royale National Park, Michigan, 1996-98. U.S. Fish and Wildlife Service Ashland Fishery Resources Office report. November 1999.  [Was (is?) from http://www.fws.gov/midwest/ashland/brook/biochar/biolchar.html.]
+#' @source Quinlan, H.R. 1999. Biological Characteristics of Coaster Brook Trout at Isle Royale National Park, Michigan, 1996-98. U.S. Fish and Wildlife Service Ashland Fishery Resources Office report. November 1999. [Was (is?) from http://www.fws.gov/midwest/ashland/brook/biochar/biolchar.html.]
 #'  
 #' @seealso Used in \code{\link{catchCurve}} and \code{\link{chapmanRobson}} examples.
 #' 

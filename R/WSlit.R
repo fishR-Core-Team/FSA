@@ -32,15 +32,17 @@
 #'    \item Condition
 #'  }
 #'
-#' @concept Condition 'Relative Weight' 'Standard Weight'
+#' @concept Condition
+#' @concept Relative Weight
+#' @concept Standard Weight
 #'
 #' @seealso See \code{\link{wsVal}} and \code{\link{wrAdd}} for related functionality.
 #'
 #' @section IFAR Chapter: 8-Condition.
 #'
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #'
-#' @source Most of these equations can be found in Neumann, R.M., C.S. Guy, and D.W. Willis.  2012.  Length, Weight, and Associated Indices.  Chapter 14 in Zale, A.V., D.L. Parrish, and T.M. Sutton, editors.  Fisheries Techniques.  American Fisheries Society, Bethesda, MD.
+#' @source Most of these equations can be found in Neumann, R.M., C.S. Guy, and D.W. Willis. 2012. Length, Weight, and Associated Indices. Chapter 14 in Zale, A.V., D.L. Parrish, and T.M. Sutton, editors. Fisheries Techniques. American Fisheries Society, Bethesda, MD.
 #' 
 #' Some species were not in Neumann et al (2012) and are noted as such in the \code{comments} variable.
 #'

@@ -20,7 +20,8 @@
 #'    \item von Bertalanffy
 #'  }
 #'
-#' @concept Growth 'von Bertalanffy'
+#' @concept Growth
+#' @concept von Bertalanffy
 #'
 #' @seealso Used in \code{\link{vbFuns}}, \code{\link{vbStarts}}, and \code{\link{nlsTracePlot}} examples. Also see \code{\link[FSAdata]{SpotVA2}} in \pkg{FSAdata} for related data.
 #'

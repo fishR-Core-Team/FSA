@@ -36,5 +36,10 @@ head(SMBassLS)
 \seealso{
 Used in \code{\link{depletion}} examples.
 }
-\concept{Abundance 'Population Size' Depletion Leslie DeLury Catchability}
+\concept{Abundance}
+\concept{Catchability}
+\concept{DeLury}
+\concept{Depletion}
+\concept{Leslie}
+\concept{Population Size}
 \keyword{datasets}
