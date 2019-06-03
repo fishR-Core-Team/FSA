@@ -109,6 +109,7 @@ test_that("lagratio() messages",{
   expect_error(lagratio(1:5,direction="derek"),"one of")
   expect_error(lagratio(1:5,recursion=-1),"recursion")
 })
+
 test_that("logbtcf() messages",{
   ## toy data
   df <- data.frame(y=rlnorm(10),x=rlnorm(10))
@@ -153,6 +154,15 @@ test_that("rSquared messages",{
   tmp <- data.frame(x=0:5,y=c(0,1.5,3,5,9,15))
   tmp <- nls(y~a*x^b,data=tmp,start=list(a=1,b=2))
   expect_error(rSquared(tmp),"only works with 'lm'")
+})
+
+test_that("repeatedRows2Keep() messages",{
+  tmp <- data.frame(x=0:5,y=c(0,1.5,3,5,9,15))
+  expect_error(repeatedRows2Keep(tmp,keep="derek"),"should be one of")
+  expect_error(repeatedRows2Keep(tmp,cols2use="derek"),"None of columns")
+  expect_error(repeatedRows2Keep(tmp,cols2ignore="derek"),"None of columns")
+  expect_error(repeatedRows2Keep(tmp,cols2use="V1",cols2ignore="V2"),
+               "Cannot use both")
 })
 
 test_that("se() messages",{
@@ -596,6 +606,95 @@ test_that("pcumsum()/rcumsum() return values",{
   tmp <- 1:3
   expect_equal(pcumsum(tmp),c(0,1,3))
   expect_equal(rcumsum(tmp),c(6,5,3))
+})
+
+test_that("repeatedRows2Keep() return values",{
+  test1 <- data.frame(ID=1:10,
+                      KEEP=c("First","Last","Both","Both","Both",
+                             "Both","First","Neither","Last","Both"),
+                      V1=c("a","a","a","B","b","B","A","A","A","a"),
+                      V2=c("a","a","A","B","B","b","A","A","A","a"),
+                      stringsAsFactors=FALSE)
+  keepFirst <- repeatedRows2Keep(test1,cols2ignore=1:2)
+  keepLast <- repeatedRows2Keep(test1,cols2use=3:4,keep="last")
+  expect_is(keepFirst,"logical")
+  expect_is(keepLast,"logical")
+  tmp <- filterD(test1,keepFirst)
+  expect_equal(tmp$ID,c(1,3:7,10))
+  expect_true(all(tmp$KEEP %in% c("First","Both")))
+  tmp <- filterD(test1,keepLast)
+  expect_equal(tmp$ID,c(2:6,9,10))
+  expect_true(all(tmp$KEEP %in% c("Last","Both")))
+  
+  test2 <- data.frame(ID=1:10,
+                      KEEP=c("Both","Both","Both","Both","Both",
+                             "Both","First","Neither","Neither","Last"),
+                      V1=c("a","b","a","B","b","B","A","A","A","A"),
+                      V2=c("a","b","A","B","B","b","A","A","A","A"),
+                      stringsAsFactors=FALSE)
+  keepFirst <- repeatedRows2Keep(test2,cols2ignore=1:2)
+  keepLast <- repeatedRows2Keep(test2,cols2use=3:4,keep="last")
+  tmp <- filterD(test2,keepFirst)
+  expect_equal(tmp$ID,c(1:7))
+  expect_true(all(tmp$KEEP %in% c("First","Both")))
+  tmp <- filterD(test2,keepLast)
+  expect_equal(tmp$ID,c(1:6,10))
+  expect_true(all(tmp$KEEP %in% c("Last","Both")))
+  
+  test3 <- data.frame(ID=1:10,
+                      KEEP=c("First","Neither","Last","First","Neither",
+                             "Last","First","Neither","Neither","Last"),
+                      V1=c("a","a","a","B","B","B","A","A","A","A"),
+                      V2=c("a","a","a","B","B","B","A","A","A","A"),
+                      stringsAsFactors=FALSE)
+  keepFirst <- repeatedRows2Keep(test3,cols2ignore=1:2)
+  keepLast <- repeatedRows2Keep(test3,cols2use=3:4,keep="last")
+  tmp <- filterD(test3,keepFirst)
+  expect_equal(tmp$ID,c(1,4,7))
+  expect_true(all(tmp$KEEP %in% c("First","Both")))
+  tmp <- filterD(test3,keepLast)
+  expect_equal(tmp$ID,c(3,6,10))
+  expect_true(all(tmp$KEEP %in% c("Last","Both")))
+  
+  ## Use just one column
+  keepFirst <- repeatedRows2Keep(test3,cols2ignore=1:3)
+  keepLast <- repeatedRows2Keep(test3,cols2use=3:4,keep="last")
+  tmp <- filterD(test3,keepFirst)
+  expect_equal(tmp$ID,c(1,4,7))
+  expect_true(all(tmp$KEEP %in% c("First","Both")))
+  tmp <- filterD(test3,keepLast)
+  expect_equal(tmp$ID,c(3,6,10))
+  expect_true(all(tmp$KEEP %in% c("Last","Both")))
+  
+  ## None to remove
+  test4 <- data.frame(ID=1:10,KEEP=rep("Both",10),
+                      V1=LETTERS[1:10],V2=LETTERS[2:11],
+                      stringsAsFactors=FALSE)
+  keepFirst <- repeatedRows2Keep(test4,cols2ignore=1:2)
+  keepLast <- repeatedRows2Keep(test4,cols2use=3:4,keep="last")
+  tmp <- filterD(test4,keepFirst)
+  expect_equal(tmp$ID,1:10)
+  expect_true(all(tmp$KEEP %in% c("First","Both")))
+  tmp <- filterD(test4,keepLast)
+  expect_equal(tmp$ID,1:10)
+  expect_true(all(tmp$KEEP %in% c("Last","Both")))
+  
+  ## Factor variables
+  test5 <- data.frame(ID=1:10,
+                      KEEP=c("Both","Both","Both","Both","Both",
+                             "Both","First","Neither","Neither","Last"),
+                      V1=c("a","b","a","B","b","B","A","A","A","A"),
+                      V2=c("a","b","A","B","B","b","A","A","A","A"),
+                      stringsAsFactors=FALSE)
+  test5$V2 <- factor(test5$V2)
+  keepFirst <- repeatedRows2Keep(test5,cols2ignore=1:2)
+  keepLast <- repeatedRows2Keep(test5,cols2use=3:4,keep="last")
+  tmp <- filterD(test5,keepFirst)
+  expect_equal(tmp$ID,c(1:7))
+  expect_true(all(tmp$KEEP %in% c("First","Both")))
+  tmp <- filterD(test5,keepLast)
+  expect_equal(tmp$ID,c(1:6,10))
+  expect_true(all(tmp$KEEP %in% c("Last","Both")))
 })
 
 test_that("se() return values",{

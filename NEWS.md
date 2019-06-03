@@ -1,4 +1,6 @@
 # FSA 0.8.25 ongoing
+* `iHndlColsUseIgnore()`: Modified. Changed so that a 0 indice returns an error.
+* `repeatedRows2Keep()`: Added.
 
 # FSA 0.8.24 17-May-19
 * Corrected misues of `\concept` in Rd files per CRAN request.

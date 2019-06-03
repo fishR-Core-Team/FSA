@@ -78,7 +78,8 @@ iCheckStartcat <- function(startcat,w,d) {
   if (!is.numeric(startcat)) STOP("'startcat' must be numeric.")
   if (length(startcat)>1) STOP("'startcat' must be a single value.")
   if (startcat<0) STOP("'startcat' must be non-negative.")
-  if (round(min(d,na.rm=TRUE),w) < round(startcat,w)) STOP("'startcat' is larger than the minimum observation.")
+  if (round(min(d,na.rm=TRUE),w) < round(startcat,w))
+    STOP("'startcat' is larger than the minimum observation.")
   # return decimals of w
   iGetDecimals(startcat)
 }
@@ -110,7 +111,8 @@ iGetDecimals <- function(x) {
   if (is.integer(x)) 0
   else {
     tmp <- format.info(x,digits=10)
-    if (tmp[3]!=0) WARN("'x' will be presented in exponential notation.\nReturned decimals may not be what you expected.")
+    if (tmp[3]!=0)
+      WARN("'x' will be presented in exponential notation.\nReturned decimals may not be what you expected.")
     tmp[2]
   }
 }
@@ -120,7 +122,9 @@ iGetVarFromFormula <- function(formula,data,expNumVars=NULL) {
   varNms <- names(stats::model.frame(formula,data=data))
   # don't "error" check the number of variables
   if (is.null(expNumVars)) varNms
-  else if (length(varNms)!=expNumVars) STOP("Function only works with formulas with ",expNumVars," variable",ifelse(expNumVars==1,".","s."))
+  else if (length(varNms)!=expNumVars)
+    STOP("Function only works with formulas with ",expNumVars," variable",
+         ifelse(expNumVars==1,".","s."))
   else varNms
 }
 
@@ -132,10 +136,13 @@ iHndlCols2UseIgnore <- function(df,cols2use=NULL,cols2ignore=NULL) {
     if (is.character(cols2use)) {
       ## Convert character column names to numeric
       cols2use <- which(names(df) %in% cols2use)
-      if (length(cols2use)==0) STOP("None of columns in 'cols2use' exist in 'df'.")
+      if (length(cols2use)==0)
+        STOP("None of columns in 'cols2use' exist in 'df'.")
     } else { ## numeric column choices
-      if (any(cols2use<0) & any(cols2use>0)) STOP("'cols2use' must be all positive or all negative.")
-      if (any(abs(cols2use)>ncol(df))) STOP("Some 'cols2use' do not exist in 'df'.")
+      if (any(cols2use<=0) & any(cols2use>=0))
+        STOP("'cols2use' must be all positive or all negative.")
+      if (any(abs(cols2use)>ncol(df)))
+        STOP("Some 'cols2use' do not exist in 'df'.")
     }
     cols2use
   }
@@ -145,12 +152,14 @@ iHndlCols2UseIgnore <- function(df,cols2use=NULL,cols2ignore=NULL) {
     if (is.character(cols2ignore)) {
       ## Convert character column names to numeric
       cols2ignore <- which(names(df) %in% cols2ignore)
-      if (length(cols2ignore)==0) STOP("None of columns in 'cols2ignore' exist in 'df'.")
+      if (length(cols2ignore)==0)
+        STOP("None of columns in 'cols2ignore' exist in 'df'.")
     } else {
-      if (any(cols2ignore<0) & any(cols2ignore>0)) STOP("'cols2ignore' must be all positive or all negative.")
+      if (any(cols2ignore<=0) & any(cols2ignore>=0))
+        STOP("'cols2ignore' must be all positive or all negative.")
       cols2ignore <- abs(cols2ignore)
-      if (any(cols2ignore==0)) STOP("A 'cols2ignore' cannot be zero.")
-      if (any(cols2ignore>ncol(df))) STOP("Some 'cols2ignore' do not exist in 'df'.")
+      if (any(cols2ignore>ncol(df)))
+        STOP("Some 'cols2ignore' do not exist in 'df'.")
     }    
     -cols2ignore
   }

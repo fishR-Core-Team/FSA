@@ -65,6 +65,8 @@ test_that("iHndlCols2Use() messages and results",{
                "must be a numeric index or column name")
   expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2use=c(-1,2)),
                "must be all positive or all negative")
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2use=0),
+               "must be all positive or all negative")
   expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2use=1:6),"do not exist in")
   expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2use=c("frank","derek")),
                "None of columns in")
@@ -74,11 +76,14 @@ test_that("iHndlCols2Use() messages and results",{
                "must be a numeric index or column name")
   expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=c(-1,2)),
                "must be all positive or all negative")
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=0),
+               "must be all positive or all negative")
   expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=1:5),
                "do not exist in")
   expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=-(1:5)),
                "do not exist in")
-  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=0:3),"cannot be zero")
+  expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=0:3),
+               "must be all positive or all negative")
   expect_error(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=c("frank","derek")),
                "None of columns in")
   

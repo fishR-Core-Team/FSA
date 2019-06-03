@@ -855,6 +855,68 @@ rSquared.lm <- function(object,digits=getOption("digits"),
 }
 
 
+#' @title Find non-repeated consecutive rows in a data.frame.
+#'
+#' @description Finds the rows in a data.frame that are not repeats of the row immediately above or below it.
+#'
+#' @param df A data.frame.
+#' @param cols2use A string or numeric vector that indicates columns in \code{df} to use. Negative numeric values will not use those columns. Cannot use both \code{cols2use} and \code{col2ignore}.
+#' @param cols2ignore A string or numeric vector that indicates columns in \code{df} to ignore. Cannot use both \code{cols2use} and \code{col2ignore}.
+#' @param keep A string that indicates whether the \code{first} (DEFAULT) or \code{last} row of consecutive repeated rows should be kept.
+#' 
+#' @return A single logical that indicates which rows of \code{df} to keep such that no consecutive rows (for the columns used) will be repeated.
+#'
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#'
+#' @keywords manip
+#'
+#' @examples
+#' test1 <- data.frame(ID=1:10,
+#'                     KEEP=c("First","Last","Both","Both","Both",
+#'                            "Both","First","Neither","Last","Both"),
+#'                     V1=c("a","a","a","B","b","B","A","A","A","a"),
+#'                     V2=c("a","a","A","B","B","b","A","A","A","a"))
+#' keepFirst <- repeatedRows2Keep(test1,cols2ignore=1:2)
+#' keepLast <- repeatedRows2Keep(test1,cols2use=3:4,keep="last")
+#' data.frame(test1,keepFirst,keepLast)
+#' 
+#' filterD(test1,keepFirst)  # should be all "First" or "Both" (7 items)
+#' filterD(test1,keepLast)   # should be all "Last" or "Both" (7 items)
+#' 
+#' @export
+repeatedRows2Keep <- function(df,cols2use=NULL,cols2ignore=NULL,
+                              keep=c("first","last")) {
+  keep <- match.arg(keep)
+  # make sure df is a data.frame (could be sent as a matrix)
+  df <- as.data.frame(df)
+  # change data.frame based on cols2use or cols2ignore
+  df <- iHndlCols2UseIgnore(df,cols2use,cols2ignore)
+  ## get data.frames offset by 1 indice for comparisons
+  df1 <- df[1:(nrow(df)-1),]
+  df2 <- df[2:nrow(df),]
+  ## compare data.frames
+  if (keep=="first") { # returns first of the repeats
+    # find rows where all are TRUE (consecutive rows repeat)
+    # first row cannot be a repeat so put FALSE in its place
+    res <- df1==df2
+    if (is.matrix(res)) res <- apply(res,MARGIN=1,FUN=all)
+    res <- c(FALSE,res)
+  } else { # returns last of the repeats
+    # reverse the order of the data.frames
+    df1a <- df1[nrow(df1):1,]
+    df2a <- df2[nrow(df2):1,]
+    # find rows where all are TRUE (consecutive row repeats), but reverse the
+    # order to return; last row can't be a repeat so put FALSE in its place
+    res <- df2a==df1a
+    if (is.matrix(res)) res <- apply(res,MARGIN=1,FUN=all)
+    res <- c(rev(res),FALSE)
+  }
+  # remove names attribute
+  names(res) <- NULL
+  # reverse the TRUE/FALSEs so that TRUE means rows to keep (not rows repeated)
+  !res
+}
+
 #' @title Computes standard error of the mean.
 #'
 #' @description Computes the standard error of the mean (i.e., standard deviation divided by the square root of the sample size).
