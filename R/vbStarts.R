@@ -505,13 +505,13 @@ iVBStartsPlot <- function(age,len,type,sv,ages2use,valOgle,col.mdl,lwd.mdl,lty.m
   ## attempting to get by bindings warning in RCMD CHECK
   x <- NULL
   ## Plot the data
-  # create a transparency value that is the max of 1/2th of the
-  # maximum number at any length and age combination or 0.1
-  clr <- grDevices::rgb(0,0,0,max(2/max(table(age,len)),0.1))
+  # create a transparency value that attempts to not be too transparent
+  tmp <- max(table(age,len))
+  clr <- grDevices::rgb(0,0,0,ifelse(tmp>2 & tmp<20,2/tmp,0.1))
   # Make the base plot
   graphics::plot(age,len,pch=19,col=clr,xlab="Age",ylab="Length",
                  main=paste0("von B (",type,") STARTING VALUES"),
-                 cex.main=cex.main,col.main="red")
+                 cex.main=cex.main,col.main=col.main)
   ## Plot the model
   mdl <- vbFuns(type)
   min.age <- min(age,na.rm=TRUE)
