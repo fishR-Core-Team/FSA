@@ -1,4 +1,5 @@
 # FSA 0.8.25 ongoing
+* `agePrecision()`: Modified. Changed so that PE2 and CV2 use the median in the entire calculation rather than just in the denominator.
 * `iHndlColsUseIgnore()`: Modified. Changed so that a 0 indice returns an error.
 * `repeatedRows2Keep()`: Added.
 * `vbStarts()`: Modified. Corrected bug related to point transparenty when `plot=TRUE` and there is no age/length combination repeats (i.e., all age/length combinations are unique). Corrected bug of `col.main=` being ignored when `plot=TRUE`.

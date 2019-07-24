@@ -144,16 +144,18 @@ agePrecision <- function(formula,data) {
   age.mdn <- apply(d,1,stats::median)
   age.mode <- apply(d,1,iMode)
   age.sd <- apply(d,1,stats::sd)
-  # Mean and Summed absolute deviation
+  # Mean absolute deviation (from the mean)
   tmp.adevs <- abs(apply(d,2,'-',age.avg))
   age.aad <- apply(tmp.adevs,1,mean)
-  age.sad <- apply(tmp.adevs,1,sum)
   # APE & ACV for each fish (using the mean)
   PE.j <- (age.aad/age.avg)*100
   CV.j <- (age.sd/age.avg)*100
   # APE & ACV for each fish (using the median)
-  PE2.j <- (age.aad/age.mdn)*100
-  CV2.j <- (age.sd/age.mdn)*100
+  age.sd2 <- apply(d,1,function(x) sqrt(sum((x-stats::median(x))^2)/(length(x)-1)))
+  tmp.adevs2 <- abs(apply(d,2,'-',age.mdn))
+  age.aad2 <- apply(tmp.adevs2,1,mean)
+  PE2.j <- (age.aad2/age.mdn)*100
+  CV2.j <- (age.sd2/age.mdn)*100
   # Index of precision
   D.j <- CV.j/sqrt(R)
   # Replaced NAs with 0 in PE.j and CV.j for when age.avg==0
