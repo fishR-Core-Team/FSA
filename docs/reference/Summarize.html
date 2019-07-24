@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.23</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25</span>
       </span>
     </div>
 
@@ -220,78 +220,78 @@
 
 <span class='co'># typical output of summary() for a numeric variable</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>d</span>$<span class='no'>y</span>)</div><div class='output co'>#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-#&gt;  0.0000  0.2042  0.5666  0.4697  0.6899  0.9571       3 </div><div class='input'>
+#&gt;  0.0000  0.2477  0.4228  0.4500  0.6762  0.9953       3 </div><div class='input'>
 <span class='co'># this function           </span>
 <span class='fu'>Summarize</span>(<span class='no'>d</span>$<span class='no'>y</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;        n   nvalid     mean       sd      min       Q1   median       Q3 
-#&gt;  102.000   99.000    0.470    0.287    0.000    0.204    0.567    0.690 
+#&gt;  102.000   99.000    0.450    0.282    0.000    0.248    0.423    0.676 
 #&gt;      max percZero 
-#&gt;    0.957    2.020 </div><div class='input'><span class='fu'>Summarize</span>(~<span class='no'>y</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;        n   nvalid     mean       sd      min       Q1   median       Q3 
-#&gt;  102.000   99.000    0.470    0.287    0.000    0.204    0.567    0.690 
+#&gt;    0.995    2.020 </div><div class='input'><span class='fu'>Summarize</span>(~<span class='no'>y</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;        n   nvalid     mean       sd      min       Q1   median       Q3 
+#&gt;  102.000   99.000    0.450    0.282    0.000    0.248    0.423    0.676 
 #&gt;      max percZero 
-#&gt;    0.957    2.020 </div><div class='input'><span class='fu'>Summarize</span>(<span class='no'>y</span>~<span class='fl'>1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;        n   nvalid     mean       sd      min       Q1   median       Q3 
-#&gt;  102.000   99.000    0.470    0.287    0.000    0.204    0.567    0.690 
+#&gt;    0.995    2.020 </div><div class='input'><span class='fu'>Summarize</span>(<span class='no'>y</span>~<span class='fl'>1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;        n   nvalid     mean       sd      min       Q1   median       Q3 
+#&gt;  102.000   99.000    0.450    0.282    0.000    0.248    0.423    0.676 
 #&gt;      max percZero 
-#&gt;    0.957    2.020 </div><div class='input'>
+#&gt;    0.995    2.020 </div><div class='input'>
 <span class='co'># note that nvalid is not shown if there are no NAs and</span>
 <span class='co'>#   percZero is not shown if there are no zeros</span>
 <span class='fu'>Summarize</span>(~<span class='no'>w</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;       n    mean      sd     min      Q1  median      Q3     max 
-#&gt; 102.000   7.912   0.785   7.000   7.000   8.000   9.000   9.000 </div><div class='input'><span class='fu'>Summarize</span>(~<span class='no'>v</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;        n     mean       sd      min       Q1   median       Q3      max 
-#&gt;  102.000    0.882    0.800    0.000    0.000    1.000    2.000    2.000 
+#&gt; 102.000   8.000   0.833   7.000   7.000   8.000   9.000   9.000 </div><div class='input'><span class='fu'>Summarize</span>(~<span class='no'>v</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;        n     mean       sd      min       Q1   median       Q3      max 
+#&gt;  102.000    1.069    0.836    0.000    0.000    1.000    2.000    2.000 
 #&gt; percZero 
-#&gt;   38.235 </div><div class='input'>
+#&gt;   31.373 </div><div class='input'>
 <span class='co'># note that the nvalid and percZero results can be forced to be shown</span>
 <span class='fu'>Summarize</span>(~<span class='no'>w</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>nvalid</span><span class='kw'>=</span><span class='st'>"always"</span>,<span class='kw'>percZero</span><span class='kw'>=</span><span class='st'>"always"</span>)</div><div class='output co'>#&gt;        n   nvalid     mean       sd      min       Q1   median       Q3 
-#&gt;  102.000  102.000    7.912    0.785    7.000    7.000    8.000    9.000 
+#&gt;  102.000  102.000    8.000    0.833    7.000    7.000    8.000    9.000 
 #&gt;      max percZero 
 #&gt;    9.000    0.000 </div><div class='input'>
 <span class='co'>## Numeric vector by levels of a factor variable</span>
 <span class='fu'>Summarize</span>(<span class='no'>y</span>~<span class='no'>g1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;   g1  n nvalid  mean    sd   min    Q1 median    Q3   max percZero
-#&gt; 1  A 26     24 0.469 0.281 0.002 0.285  0.493 0.728 0.919    0.000
-#&gt; 2  B 23     23 0.475 0.319 0.000 0.214  0.575 0.693 0.948    4.348
-#&gt; 3  C 24     24 0.461 0.302 0.009 0.193  0.558 0.668 0.957    0.000</div><div class='input'><span class='fu'>Summarize</span>(<span class='no'>y</span>~<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;        g2  n nvalid  mean    sd   min    Q1 median    Q3   max percZero
-#&gt; 1  female 37     36 0.406 0.267 0.002 0.198  0.339 0.608 0.957     0.00
-#&gt; 2    male 33     32 0.533 0.312 0.000 0.247  0.618 0.769 0.934     6.25
-#&gt; 3 UNKNOWN 32     31 0.479 0.276 0.021 0.308  0.586 0.690 0.948     0.00</div><div class='input'><span class='fu'>Summarize</span>(<span class='no'>y</span>~<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>exclude</span><span class='kw'>=</span><span class='st'>"UNKNOWN"</span>)</div><div class='output co'>#&gt;       g2  n nvalid  mean    sd   min    Q1 median    Q3   max percZero
-#&gt; 1 female 37     36 0.406 0.267 0.002 0.198  0.339 0.608 0.957     0.00
-#&gt; 2   male 33     32 0.533 0.312 0.000 0.247  0.618 0.769 0.934     6.25</div><div class='input'>
+#&gt; 1  A 18     17 0.455 0.245 0.062 0.332  0.448 0.537 0.995    0.000
+#&gt; 2  B 29     28 0.509 0.312 0.000 0.235  0.585 0.743 0.971    3.571
+#&gt; 3  C 27     27 0.441 0.283 0.000 0.265  0.413 0.583 0.975    3.704</div><div class='input'><span class='fu'>Summarize</span>(<span class='no'>y</span>~<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;        g2  n nvalid  mean    sd   min    Q1 median    Q3   max percZero
+#&gt; 1  female 30     30 0.432 0.219 0.000 0.282  0.436 0.517 0.971    3.333
+#&gt; 2    male 35     35 0.430 0.313 0.000 0.161  0.362 0.709 0.975    2.857
+#&gt; 3 UNKNOWN 37     34 0.486 0.301 0.028 0.259  0.501 0.701 0.995    0.000</div><div class='input'><span class='fu'>Summarize</span>(<span class='no'>y</span>~<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>exclude</span><span class='kw'>=</span><span class='st'>"UNKNOWN"</span>)</div><div class='output co'>#&gt;       g2  n  mean    sd min    Q1 median    Q3   max percZero
+#&gt; 1 female 30 0.432 0.219   0 0.282  0.436 0.517 0.971    3.333
+#&gt; 2   male 35 0.430 0.313   0 0.161  0.362 0.709 0.975    2.857</div><div class='input'>
 <span class='co'>## Numeric vector by levels of two factor variables</span>
 <span class='fu'>Summarize</span>(<span class='no'>y</span>~<span class='no'>g1</span>+<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;   g1      g2  n nvalid  mean    sd   min    Q1 median    Q3   max percZero
-#&gt; 1  A  female  8      8 0.372 0.232 0.002 0.236  0.409 0.560 0.627    0.000
-#&gt; 2  B  female  7      7 0.366 0.262 0.012 0.214  0.295 0.528 0.775    0.000
-#&gt; 3  C  female 11     11 0.438 0.311 0.076 0.205  0.303 0.622 0.957    0.000
-#&gt; 4  A    male  9      8 0.570 0.306 0.061 0.344  0.651 0.783 0.919    0.000
-#&gt; 5  B    male  7      7 0.653 0.320 0.000 0.601  0.684 0.874 0.934   14.286
-#&gt; 6  C    male  6      6 0.466 0.368 0.009 0.189  0.458 0.797 0.862    0.000
-#&gt; 7  A UNKNOWN  9      8 0.464 0.297 0.026 0.266  0.516 0.729 0.778    0.000
-#&gt; 8  B UNKNOWN  9      9 0.420 0.332 0.021 0.085  0.445 0.642 0.948    0.000
-#&gt; 9  C UNKNOWN  7      7 0.493 0.274 0.052 0.358  0.607 0.642 0.790    0.000</div><div class='input'><span class='fu'>Summarize</span>(<span class='no'>y</span>~<span class='no'>g1</span>+<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>exclude</span><span class='kw'>=</span><span class='st'>"UNKNOWN"</span>)</div><div class='output co'>#&gt;   g1     g2  n nvalid  mean    sd   min    Q1 median    Q3   max percZero
-#&gt; 1  A female  8      8 0.372 0.232 0.002 0.236  0.409 0.560 0.627    0.000
-#&gt; 2  B female  7      7 0.366 0.262 0.012 0.214  0.295 0.528 0.775    0.000
-#&gt; 3  C female 11     11 0.438 0.311 0.076 0.205  0.303 0.622 0.957    0.000
-#&gt; 4  A   male  9      8 0.570 0.306 0.061 0.344  0.651 0.783 0.919    0.000
-#&gt; 5  B   male  7      7 0.653 0.320 0.000 0.601  0.684 0.874 0.934   14.286
-#&gt; 6  C   male  6      6 0.466 0.368 0.009 0.189  0.458 0.797 0.862    0.000</div><div class='input'>
+#&gt; 1  A  female  8      8 0.452 0.152 0.180 0.394  0.475 0.512 0.695      0.0
+#&gt; 2  B  female  8      8 0.644 0.207 0.370 0.490  0.647 0.786 0.971      0.0
+#&gt; 3  C  female  8      8 0.329 0.173 0.000 0.247  0.345 0.468 0.519     12.5
+#&gt; 4  A    male  3      3 0.256 0.168 0.062 0.203  0.343 0.353 0.362      0.0
+#&gt; 5  B    male  8      8 0.406 0.394 0.000 0.028  0.366 0.754 0.892     12.5
+#&gt; 6  C    male 10     10 0.511 0.331 0.008 0.284  0.465 0.774 0.975      0.0
+#&gt; 7  A UNKNOWN  7      6 0.560 0.335 0.113 0.327  0.582 0.781 0.995      0.0
+#&gt; 8  B UNKNOWN 13     12 0.488 0.303 0.120 0.232  0.475 0.712 0.971      0.0
+#&gt; 9  C UNKNOWN  9      9 0.463 0.303 0.028 0.278  0.462 0.618 0.922      0.0</div><div class='input'><span class='fu'>Summarize</span>(<span class='no'>y</span>~<span class='no'>g1</span>+<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>exclude</span><span class='kw'>=</span><span class='st'>"UNKNOWN"</span>)</div><div class='output co'>#&gt;   g1     g2  n  mean    sd   min    Q1 median    Q3   max percZero
+#&gt; 1  A female  8 0.452 0.152 0.180 0.394  0.475 0.512 0.695      0.0
+#&gt; 2  B female  8 0.644 0.207 0.370 0.490  0.647 0.786 0.971      0.0
+#&gt; 3  C female  8 0.329 0.173 0.000 0.247  0.345 0.468 0.519     12.5
+#&gt; 4  A   male  3 0.256 0.168 0.062 0.203  0.343 0.353 0.362      0.0
+#&gt; 5  B   male  8 0.406 0.394 0.000 0.028  0.366 0.754 0.892     12.5
+#&gt; 6  C   male 10 0.511 0.331 0.008 0.284  0.465 0.774 0.975      0.0</div><div class='input'>
 <span class='co'>## What happens if RHS of formula is not a factor</span>
 <span class='fu'>Summarize</span>(<span class='no'>y</span>~<span class='no'>w</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;   w  n nvalid  mean    sd   min    Q1 median    Q3   max percZero
-#&gt; 1 7 36     36 0.438 0.293 0.012 0.149  0.470 0.644 0.957    0.000
-#&gt; 2 8 39     38 0.488 0.282 0.000 0.238  0.581 0.683 0.934    2.632
-#&gt; 3 9 27     25 0.487 0.294 0.000 0.201  0.606 0.727 0.948    4.000</div><div class='input'>
+#&gt; 1 7 35     35 0.450 0.280 0.029 0.254  0.413 0.624 0.971    0.000
+#&gt; 2 8 32     29 0.395 0.256 0.000 0.243  0.362 0.548 0.907    3.448
+#&gt; 3 9 35     35 0.495 0.303 0.000 0.277  0.463 0.769 0.995    2.857</div><div class='input'>
 <span class='co'>## Summarizing multiple variables in a data.frame (must reduce to numerics)</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>as.list</a></span>(<span class='no'>d</span>[,<span class='fl'>1</span>:<span class='fl'>3</span>]),<span class='no'>Summarize</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='output co'>#&gt; $y
 #&gt;        n   nvalid     mean       sd      min       Q1   median       Q3 
-#&gt; 102.0000  99.0000   0.4697   0.2871   0.0000   0.2042   0.5666   0.6899 
+#&gt; 102.0000  99.0000   0.4500   0.2817   0.0000   0.2477   0.4228   0.6762 
 #&gt;      max percZero 
-#&gt;   0.9571   2.0202 
+#&gt;   0.9953   2.0202 
 #&gt; 
 #&gt; $w
 #&gt;        n     mean       sd      min       Q1   median       Q3      max 
-#&gt; 102.0000   7.9118   0.7848   7.0000   7.0000   8.0000   9.0000   9.0000 
+#&gt; 102.0000   8.0000   0.8325   7.0000   7.0000   8.0000   9.0000   9.0000 
 #&gt; 
 #&gt; $v
 #&gt;        n     mean       sd      min       Q1   median       Q3      max 
-#&gt; 102.0000   0.8824   0.7997   0.0000   0.0000   1.0000   2.0000   2.0000 
+#&gt; 102.0000   1.0686   0.8356   0.0000   0.0000   1.0000   2.0000   2.0000 
 #&gt; percZero 
-#&gt;  38.2353 
+#&gt;  31.3725 
 #&gt; </div><div class='input'>
 </div></pre>
   </div>

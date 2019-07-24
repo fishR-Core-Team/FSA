@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.23</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25</span>
       </span>
     </div>
 
@@ -214,23 +214,23 @@
 #&gt; 17   Frank    16.0    16.5</div><div class='input'><span class='fu'>expandCounts</span>(<span class='no'>d1</span>,~<span class='no'>freq</span>,~<span class='no'>lwr.bin</span>+<span class='no'>upr.bin</span>)</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
 #&gt; <span class='message'>  2 rows had an individual measurement.</span>
 #&gt; <span class='message'>  4 rows with multiple measurements were expanded to 15 rows of individual measurements.</span></div><div class='output co'>#&gt;       name lwr.bin upr.bin newlen         lennote
-#&gt; 1    Frank    17.0    17.5   17.5 Expanded length
-#&gt; 2      Max    17.0    17.5   17.0 Expanded length
-#&gt; 3  Johnson    15.0    15.5   15.0 Expanded length
-#&gt; 4  Johnson    15.0    15.5   15.2 Expanded length
-#&gt; 5  Johnson    15.0    15.5   15.4 Expanded length
-#&gt; 6  Johnson    15.0    15.5   15.3 Expanded length
-#&gt; 7  Johnson    15.0    15.5   15.3 Expanded length
-#&gt; 8  Johnson    15.0    15.5   15.3 Expanded length
-#&gt; 9  Johnson    15.5    16.0   15.6 Expanded length
-#&gt; 10 Johnson    15.5    16.0   15.9 Expanded length
-#&gt; 11 Johnson    15.5    16.0   15.6 Expanded length
+#&gt; 1    Frank    17.0    17.5   17.2 Expanded length
+#&gt; 2      Max    17.0    17.5   17.2 Expanded length
+#&gt; 3  Johnson    15.0    15.5   15.5 Expanded length
+#&gt; 4  Johnson    15.0    15.5   15.0 Expanded length
+#&gt; 5  Johnson    15.0    15.5   15.0 Expanded length
+#&gt; 6  Johnson    15.0    15.5   15.5 Expanded length
+#&gt; 7  Johnson    15.0    15.5   15.2 Expanded length
+#&gt; 8  Johnson    15.0    15.5   15.4 Expanded length
+#&gt; 9  Johnson    15.5    16.0   15.5 Expanded length
+#&gt; 10 Johnson    15.5    16.0   15.8 Expanded length
+#&gt; 11 Johnson    15.5    16.0   15.7 Expanded length
 #&gt; 12 Johnson    15.5    16.0   15.9 Expanded length
-#&gt; 13   Jones    16.0    16.5   16.0 Expanded length
-#&gt; 14   Jones    16.0    16.5   16.1 Expanded length
-#&gt; 15   Frank    16.0    16.5   16.5 Expanded length
-#&gt; 16   Frank    16.0    16.5   16.1 Expanded length
-#&gt; 17   Frank    16.0    16.5   16.5 Expanded length</div><div class='input'>
+#&gt; 13   Jones    16.0    16.5   16.1 Expanded length
+#&gt; 14   Jones    16.0    16.5   16.2 Expanded length
+#&gt; 15   Frank    16.0    16.5   16.4 Expanded length
+#&gt; 16   Frank    16.0    16.5   16.5 Expanded length
+#&gt; 17   Frank    16.0    16.5   16.2 Expanded length</div><div class='input'>
 <span class='co'># some need expansion</span>
 ( <span class='no'>d2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span>),
                    <span class='kw'>lwr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>15</span>,<span class='fl'>15.5</span>,<span class='fl'>16</span>,<span class='fl'>16</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>),
@@ -265,21 +265,21 @@
 #&gt; <span class='message'>  4 rows with multiple measurements were expanded to 15 rows of individual measurements.</span></div><div class='output co'>#&gt;       name lwr.bin upr.bin newlen         lennote
 #&gt; 1    Frank    17.1    17.1   17.1 Observed length
 #&gt; 2      Max    17.3    17.3   17.3 Observed length
-#&gt; 3  Johnson    15.0    15.5   15.3 Expanded length
-#&gt; 4  Johnson    15.0    15.5   15.4 Expanded length
-#&gt; 5  Johnson    15.0    15.5   15.2 Expanded length
-#&gt; 6  Johnson    15.0    15.5   15.2 Expanded length
-#&gt; 7  Johnson    15.0    15.5   15.1 Expanded length
-#&gt; 8  Johnson    15.0    15.5   15.3 Expanded length
+#&gt; 3  Johnson    15.0    15.5   15.2 Expanded length
+#&gt; 4  Johnson    15.0    15.5   15.1 Expanded length
+#&gt; 5  Johnson    15.0    15.5   15.0 Expanded length
+#&gt; 6  Johnson    15.0    15.5   15.5 Expanded length
+#&gt; 7  Johnson    15.0    15.5   15.5 Expanded length
+#&gt; 8  Johnson    15.0    15.5   15.0 Expanded length
 #&gt; 9  Johnson    15.5    16.0   15.8 Expanded length
-#&gt; 10 Johnson    15.5    16.0   15.6 Expanded length
+#&gt; 10 Johnson    15.5    16.0   16.0 Expanded length
 #&gt; 11 Johnson    15.5    16.0   15.6 Expanded length
-#&gt; 12 Johnson    15.5    16.0   15.6 Expanded length
+#&gt; 12 Johnson    15.5    16.0   15.5 Expanded length
 #&gt; 13   Jones    16.0    16.5   16.3 Expanded length
-#&gt; 14   Jones    16.0    16.5   16.0 Expanded length
-#&gt; 15   Frank    16.0    16.5   16.4 Expanded length
-#&gt; 16   Frank    16.0    16.5   16.5 Expanded length
-#&gt; 17   Frank    16.0    16.5   16.3 Expanded length</div><div class='input'>
+#&gt; 14   Jones    16.0    16.5   16.5 Expanded length
+#&gt; 15   Frank    16.0    16.5   16.0 Expanded length
+#&gt; 16   Frank    16.0    16.5   16.4 Expanded length
+#&gt; 17   Frank    16.0    16.5   16.5 Expanded length</div><div class='input'>
 <span class='co'># none need expansion</span>
 ( <span class='no'>d3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span>),
                    <span class='kw'>lwr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>15</span>,<span class='fl'>15.5</span>,<span class='fl'>16</span>,<span class='fl'>16</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>),
@@ -364,20 +364,20 @@
 #&gt; 1    Frank    17.1    17.1   17.1 Observed length
 #&gt; 2      Max    17.3    17.3   17.3 Observed length
 #&gt; 3  Johnson    15.0    15.5   15.1 Expanded length
-#&gt; 4  Johnson    15.0    15.5   15.2 Expanded length
-#&gt; 5  Johnson    15.0    15.5   15.3 Expanded length
+#&gt; 4  Johnson    15.0    15.5   15.4 Expanded length
+#&gt; 5  Johnson    15.0    15.5   15.2 Expanded length
 #&gt; 6  Johnson    15.0    15.5   15.5 Expanded length
-#&gt; 7  Johnson    15.0    15.5   15.5 Expanded length
-#&gt; 8  Johnson    15.0    15.5   15.3 Expanded length
-#&gt; 9  Johnson    15.0    15.9   15.6 Expanded length
+#&gt; 7  Johnson    15.0    15.5   15.4 Expanded length
+#&gt; 8  Johnson    15.0    15.5   15.4 Expanded length
+#&gt; 9  Johnson    15.0    15.9   15.4 Expanded length
 #&gt; 10 Johnson    15.0    15.9   15.8 Expanded length
-#&gt; 11 Johnson    15.0    15.9   15.7 Expanded length
-#&gt; 12 Johnson    15.0    15.9   15.6 Expanded length
-#&gt; 13   Jones    16.0    16.5   16.5 Expanded length
-#&gt; 14   Jones    16.0    16.5   16.0 Expanded length
-#&gt; 15   Frank    16.0    16.9   16.8 Expanded length
-#&gt; 16   Frank    16.0    16.9   16.2 Expanded length
-#&gt; 17   Frank    16.0    16.9   16.6 Expanded length</div><div class='input'>
+#&gt; 11 Johnson    15.0    15.9   15.2 Expanded length
+#&gt; 12 Johnson    15.0    15.9   15.2 Expanded length
+#&gt; 13   Jones    16.0    16.5   16.2 Expanded length
+#&gt; 14   Jones    16.0    16.5   16.4 Expanded length
+#&gt; 15   Frank    16.0    16.9   16.0 Expanded length
+#&gt; 16   Frank    16.0    16.9   16.4 Expanded length
+#&gt; 17   Frank    16.0    16.9   16.4 Expanded length</div><div class='input'>
 <span class='co'># some need expansion but include zeros and NAs for counts</span>
 ( <span class='no'>d2a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span>,<span class='st'>"Max"</span>,<span class='st'>"Max"</span>,<span class='st'>"Max"</span>),
                     <span class='kw'>lwr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>15</span>,  <span class='fl'>15.5</span>,<span class='fl'>16</span>  ,<span class='fl'>16</span>  ,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>,<span class='fl'>NA</span>,<span class='fl'>NA</span>,<span class='fl'>NA</span>),
@@ -400,21 +400,21 @@
 #&gt; 3      Max      NA      NA     NA Observed length
 #&gt; 4    Frank    17.1    17.1   17.1 Observed length
 #&gt; 5      Max    17.3    17.3   17.3 Observed length
-#&gt; 6  Johnson    15.0    15.5   15.1 Expanded length
-#&gt; 7  Johnson    15.0    15.5   15.3 Expanded length
-#&gt; 8  Johnson    15.0    15.5   15.2 Expanded length
-#&gt; 9  Johnson    15.0    15.5   15.1 Expanded length
-#&gt; 10 Johnson    15.0    15.5   15.3 Expanded length
-#&gt; 11 Johnson    15.0    15.5   15.5 Expanded length
-#&gt; 12 Johnson    15.5    16.0   15.7 Expanded length
-#&gt; 13 Johnson    15.5    16.0   15.8 Expanded length
-#&gt; 14 Johnson    15.5    16.0   15.8 Expanded length
-#&gt; 15 Johnson    15.5    16.0   15.9 Expanded length
-#&gt; 16   Jones    16.0    16.5   16.2 Expanded length
+#&gt; 6  Johnson    15.0    15.5   15.5 Expanded length
+#&gt; 7  Johnson    15.0    15.5   15.0 Expanded length
+#&gt; 8  Johnson    15.0    15.5   15.4 Expanded length
+#&gt; 9  Johnson    15.0    15.5   15.4 Expanded length
+#&gt; 10 Johnson    15.0    15.5   15.5 Expanded length
+#&gt; 11 Johnson    15.0    15.5   15.3 Expanded length
+#&gt; 12 Johnson    15.5    16.0   16.0 Expanded length
+#&gt; 13 Johnson    15.5    16.0   15.6 Expanded length
+#&gt; 14 Johnson    15.5    16.0   15.6 Expanded length
+#&gt; 15 Johnson    15.5    16.0   15.6 Expanded length
+#&gt; 16   Jones    16.0    16.5   16.5 Expanded length
 #&gt; 17   Jones    16.0    16.5   16.5 Expanded length
-#&gt; 18   Frank    16.0    16.5   16.3 Expanded length
+#&gt; 18   Frank    16.0    16.5   16.0 Expanded length
 #&gt; 19   Frank    16.0    16.5   16.0 Expanded length
-#&gt; 20   Frank    16.0    16.5   16.1 Expanded length</div><div class='input'>
+#&gt; 20   Frank    16.0    16.5   16.4 Expanded length</div><div class='input'>
 <span class='co'># some need expansion but include NAs for upper values</span>
 ( <span class='no'>d2b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span>),
                     <span class='kw'>lwr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>15</span>,  <span class='fl'>15.5</span>,<span class='fl'>16</span>  ,<span class='fl'>16</span>  ,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>),
@@ -440,11 +440,11 @@
 #&gt; 10 Johnson    15.5    15.5   15.5 Observed length
 #&gt; 11 Johnson    15.5    15.5   15.5 Observed length
 #&gt; 12 Johnson    15.5    15.5   15.5 Observed length
-#&gt; 13   Jones    16.0    16.5   16.5 Expanded length
-#&gt; 14   Jones    16.0    16.5   16.4 Expanded length
-#&gt; 15   Frank    16.0    16.5   16.3 Expanded length
-#&gt; 16   Frank    16.0    16.5   16.4 Expanded length
-#&gt; 17   Frank    16.0    16.5   16.2 Expanded length</div><div class='input'>
+#&gt; 13   Jones    16.0    16.5   16.0 Expanded length
+#&gt; 14   Jones    16.0    16.5   16.1 Expanded length
+#&gt; 15   Frank    16.0    16.5   16.1 Expanded length
+#&gt; 16   Frank    16.0    16.5   16.3 Expanded length
+#&gt; 17   Frank    16.0    16.5   16.1 Expanded length</div><div class='input'>
 <span class='co'># some need expansion but include NAs for upper values</span>
 ( <span class='no'>d2c</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span>),
                     <span class='kw'>lwr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>NA</span>,<span class='fl'>NA</span>,  <span class='fl'>16</span>  ,<span class='fl'>16</span>  ,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>),
@@ -471,10 +471,10 @@
 #&gt; 11 Johnson    15.5    15.5   15.5 Observed length
 #&gt; 12 Johnson    15.5    15.5   15.5 Observed length
 #&gt; 13   Jones    16.0    16.5   16.3 Expanded length
-#&gt; 14   Jones    16.0    16.5   16.0 Expanded length
+#&gt; 14   Jones    16.0    16.5   16.4 Expanded length
 #&gt; 15   Frank    16.0    16.5   16.2 Expanded length
-#&gt; 16   Frank    16.0    16.5   16.3 Expanded length
-#&gt; 17   Frank    16.0    16.5   16.4 Expanded length</div><div class='input'>
+#&gt; 16   Frank    16.0    16.5   16.5 Expanded length
+#&gt; 17   Frank    16.0    16.5   16.5 Expanded length</div><div class='input'>
 </div><span class='co'># NOT RUN {</span>
 <span class='co'>##!!##!!## Change path to where example file is and then run to demo</span>
 

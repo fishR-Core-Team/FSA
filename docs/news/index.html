@@ -70,7 +70,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.23</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25</span>
       </span>
     </div>
 
@@ -113,9 +113,32 @@
       <small>Source: <a href='https://github.com/droglenc/FSA/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="fsa-0825-24-jul-19" class="section level1">
+<h1 class="page-header">
+<a href="#fsa-0825-24-jul-19" class="anchor"></a>FSA 0.8.25 24-Jul-19<small> Unreleased </small>
+</h1>
+<ul>
+<li>
+<code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Changed so that PE2 and CV2 use the median in the entire calculation rather than just in the denominator.</li>
+<li>
+<code>iHndlColsUseIgnore()</code>: Modified. Changed so that a 0 indice returns an error.</li>
+<li>
+<code><a href="../reference/repeatedRows2Keep.html">repeatedRows2Keep()</a></code>: Added.</li>
+<li>
+<code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Corrected bug related to point transparenty when <code>plot=TRUE</code> and there is no age/length combination repeats (i.e., all age/length combinations are unique). Corrected bug of <code>col.main=</code> being ignored when <code>plot=TRUE</code>.</li>
+</ul>
+</div>
+    <div id="fsa-0824-17-may-19" class="section level1">
+<h1 class="page-header">
+<a href="#fsa-0824-17-may-19" class="anchor"></a>FSA 0.8.24 17-May-19<small> 2019-05-21 </small>
+</h1>
+<ul>
+<li>Corrected misues of <code>\concept</code> in Rd files per CRAN request.</li>
+</ul>
+</div>
     <div id="fsa-0823-1-may-19" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0823-1-may-19" class="anchor"></a>FSA 0.8.23 1-May-19<small> Unreleased </small>
+<a href="#fsa-0823-1-may-19" class="anchor"></a>FSA 0.8.23 1-May-19<small> 2019-05-02 </small>
 </h1>
 <ul>
 <li>Reorganized <code>testthat</code> folder as suggested in <code>testthat</code> release notes.</li>
@@ -3361,6 +3384,8 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#fsa-0825-24-jul-19">0.8.25</a></li>
+        <li><a href="#fsa-0824-17-may-19">0.8.24</a></li>
         <li><a href="#fsa-0823-1-may-19">0.8.23</a></li>
         <li><a href="#fsa-0822-22-nov-18">0.8.22</a></li>
         <li><a href="#fsa-0821-2-nov-18">0.8.21</a></li>
