@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.22.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25</span>
       </span>
     </div>
 
@@ -118,7 +118,7 @@
 
     <div class="ref-description">
     
-    <p>Use to convert between simple versions of several capture history data.frame formats -- &#8220;individual&#8221;, &#8220;frequency&#8221;, &#8220;event&#8221;, &#8220;MARK&#8221;, and &#8220;RMark&#8221;. The primary use is to convert to the &#8220;individual&#8221; format for use in <code><a href='capHistSum.html'>capHistSum</a></code>.</p>
+    <p>Use to convert between simple versions of several capture history data.frame formats -- &#8220;individual&#8221;, &#8220;frequency&#8221;, &#8220;event&#8221;, &#8220;MARK&#8221;, and &#8220;RMark&#8221;. The primary use is to convert to the &#8220;individual&#8221; format for use in <code>capHistSum</code>.</p>
     
     </div>
 
@@ -184,7 +184,7 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code><a href='capHistSum.html'>capHistSum</a></code> requires capture histories to be recorded in the &#8220;individual&#8221; format. In this format, the data frame contains (at least) as many columns as sample events and as many rows as individually tagged fish. Optionally, the data.frame may also contain a column with unique fish identifiers (e.g., tag numbers). Each cell in the capture history portion of the data.frame contains a &#8216;0&#8217; if the fish of that row was NOT seen in the event of that column and a &#8216;1&#8217; if the fish of that row WAS seen in the event of that column. For example, suppose that five fish were marked on four sampling events; fish &#8216;17&#8217; was captured on the first two events; fish &#8216;18&#8217; was captured on the first and third events; fish &#8216;19&#8217; was captured on only the third event; fish &#8216;20&#8217; was captured on only the fourth event; and fish &#8216;21&#8217; was captured on the first and second events. The &#8220;individual&#8221; capture history date.frame for these data looks like:</p>
+    <p><code>capHistSum</code> requires capture histories to be recorded in the &#8220;individual&#8221; format. In this format, the data frame contains (at least) as many columns as sample events and as many rows as individually tagged fish. Optionally, the data.frame may also contain a column with unique fish identifiers (e.g., tag numbers). Each cell in the capture history portion of the data.frame contains a &#8216;0&#8217; if the fish of that row was NOT seen in the event of that column and a &#8216;1&#8217; if the fish of that row WAS seen in the event of that column. For example, suppose that five fish were marked on four sampling events; fish &#8216;17&#8217; was captured on the first two events; fish &#8216;18&#8217; was captured on the first and third events; fish &#8216;19&#8217; was captured on only the third event; fish &#8216;20&#8217; was captured on only the fourth event; and fish &#8216;21&#8217; was captured on the first and second events. The &#8220;individual&#8221; capture history date.frame for these data looks like:</p>
 <table class='table'>
 <tr><td></td><td>fish</td><td>event1</td><td>event2</td><td>event3</td></tr>
 <tr><td>event4</td><td></td><td>17</td><td>1</td><td>1</td></tr>
@@ -278,7 +278,7 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='capHistSum.html'>capHistSum</a></code> to summarize &#8220;individual&#8221; capture histories into a format usable in <code><a href='mrClosed.html'>mrClosed</a></code> and <code><a href='mrOpen.html'>mrOpen</a></code>. Also see <span class="pkg">Rcapture</span>, <code>RMark</code>, or <span class="pkg">marked</span> packages for handling more complex analyses.</p></div>
+    <div class='dont-index'><p>See <code>capHistSum</code> to summarize &#8220;individual&#8221; capture histories into a format usable in <code>mrClosed</code> and <code>mrOpen</code>. Also see <span class="pkg">Rcapture</span>, <code>RMark</code>, or <span class="pkg">marked</span> packages for handling more complex analyses.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

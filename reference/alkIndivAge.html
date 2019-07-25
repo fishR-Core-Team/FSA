@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.22.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25</span>
       </span>
     </div>
 
@@ -167,7 +167,7 @@
     
     <h2 class="hasAnchor" id="testing"><a class="anchor" href="#testing"></a>Testing</h2>
 
-    <p>The <code>type="SR"</code> method worked perfectly on a small example.  The <code>type="SR"</code> method provides results that reasonably approximate the results from <code><a href='ALKAgeDist.html'>alkAgeDist</a></code> and <code><a href='ALKMeanVar.html'>alkMeanVar</a></code>, which suggests that the age assessments are reasonable.</p>
+    <p>The <code>type="SR"</code> method worked perfectly on a small example.  The <code>type="SR"</code> method provides results that reasonably approximate the results from <code>alkAgeDist</code> and <code>alkMeanVar</code>, which suggests that the age assessments are reasonable.</p>
     
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
@@ -180,14 +180,14 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='ALKAgeDist.html'>alkAgeDist</a></code> and <code><a href='ALKMeanVar.html'>alkMeanVar</a></code> for alternative methods to derived age distributions and mean (and SD) values for each age.  See <code><a href='alkPlot.html'>alkPlot</a></code> for methods to visualize age-length keys.</p></div>
+    <div class='dont-index'><p>See <code>alkAgeDist</code> and <code>alkMeanVar</code> for alternative methods to derived age distributions and mean (and SD) values for each age.  See <code>alkPlot</code> for methods to visualize age-length keys.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## First Example -- Even breaks for length categories</span>
 <span class='no'>WR1</span> <span class='kw'>&lt;-</span> <span class='no'>WR79</span>
 <span class='co'># add length categories (width=5)</span>
-<span class='no'>WR1</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span>(<span class='no'>WR1</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>5</span>)
+<span class='no'>WR1</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>WR1</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>5</span>)
 <span class='co'># isolate aged and unaged samples</span>
 <span class='no'>WR1.age</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>WR1</span>, !<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/NA'>is.na</a></span>(<span class='no'>age</span>))
 <span class='no'>WR1.len</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>WR1</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/NA'>is.na</a></span>(<span class='no'>age</span>))
@@ -249,21 +249,21 @@
 #&gt; 8  8  42   4   40</div><div class='input'><span class='co'># combine orig age &amp; new ages</span>
 <span class='no'>WR1.comb</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cbind'>rbind</a></span>(<span class='no'>WR1.age</span>, <span class='no'>WR1.len</span>)
 <span class='co'># mean length-at-age</span>
-<span class='fu'><a href='Summarize.html'>Summarize</a></span>(<span class='no'>len</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR1.comb</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt;   age   n   mean   sd min     Q1 median     Q3 max
-#&gt; 1   4 987  51.86 5.14  35  48.00     52  56.00  64
-#&gt; 2   5 395  71.76 5.27  60  68.00     72  76.00  84
-#&gt; 3   6 270  86.71 4.61  75  83.00     87  89.00  99
-#&gt; 4   7 451  97.57 5.17  85  93.00     97 101.00 113
-#&gt; 5   8 145 101.18 5.70  90  97.00    101 106.00 113
-#&gt; 6   9  77 103.87 3.34 100 102.00    103 105.00 113
-#&gt; 7  10  38 105.13 7.13  95  98.00    107 109.75 119
-#&gt; 8  11   6 112.67 1.03 111 112.25    113 113.00 114</div><div class='input'><span class='co'># age frequency distribution</span>
+<span class='fu'>Summarize</span>(<span class='no'>len</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR1.comb</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt;   age   n   mean   sd min     Q1 median     Q3 max
+#&gt; 1   4 987  51.86 5.13  35  48.00   52.0  56.00  64
+#&gt; 2   5 395  71.78 5.26  60  68.00   72.0  76.00  84
+#&gt; 3   6 272  86.79 4.76  75  83.00   87.0  89.00  99
+#&gt; 4   7 447  97.56 5.17  85  93.00   97.0 102.00 113
+#&gt; 5   8 146 101.19 5.81  90  96.00  101.0 106.75 113
+#&gt; 6   9  78 103.83 3.15 100 102.00  103.0 105.50 113
+#&gt; 7  10  38 105.03 7.30  95  97.25  106.0 109.75 119
+#&gt; 8  11   6 112.17 0.98 111 111.25  112.5 113.00 113</div><div class='input'><span class='co'># age frequency distribution</span>
 ( <span class='no'>af</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/xtabs'>xtabs</a></span>(~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR1.comb</span>) )</div><div class='output co'>#&gt; age
 #&gt;   4   5   6   7   8   9  10  11 
-#&gt; 987 395 270 451 145  77  38   6 </div><div class='input'><span class='co'># proportional age distribution</span>
+#&gt; 987 395 272 447 146  78  38   6 </div><div class='input'><span class='co'># proportional age distribution</span>
 ( <span class='no'>ap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/prop.table'>prop.table</a></span>(<span class='no'>af</span>) )</div><div class='output co'>#&gt; age
 #&gt;           4           5           6           7           8           9 
-#&gt; 0.416631490 0.166737020 0.113972140 0.190375686 0.061207260 0.032503166 
+#&gt; 0.416631490 0.166737020 0.114816378 0.188687210 0.061629379 0.032925285 
 #&gt;          10          11 
 #&gt; 0.016040523 0.002532714 </div><div class='input'>
 <span class='co'>## Second Example -- length sample does not have an age variable</span>
@@ -274,7 +274,7 @@
 <span class='co'># remove age variable (for demo only)</span>
 <span class='no'>WR2.len</span> <span class='kw'>&lt;-</span> <span class='no'>WR2.len</span>[,-<span class='fl'>3</span>]
 <span class='co'># add length categories to aged sample</span>
-<span class='no'>WR2.age</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span>(<span class='no'>WR2.age</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>5</span>)
+<span class='no'>WR2.age</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>WR2.age</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>5</span>)
 <span class='co'># create age-length key</span>
 <span class='no'>raw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/xtabs'>xtabs</a></span>(~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR2.age</span>)
 ( <span class='no'>WR2.key</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/prop.table'>prop.table</a></span>(<span class='no'>raw</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>1</span>) )</div><div class='output co'>#&gt;      age
@@ -317,7 +317,7 @@
 #&gt;   115 1.00000000 0.00000000</div><div class='input'><span class='co'># apply the age-length key</span>
 <span class='no'>WR2.len</span> <span class='kw'>&lt;-</span> <span class='fu'>alkIndivAge</span>(<span class='no'>WR2.key</span>,~<span class='no'>len</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR2.len</span>)
 <span class='co'># add length cat to length sample</span>
-<span class='no'>WR2.len</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span>(<span class='no'>WR2.len</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>5</span>)
+<span class='no'>WR2.len</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>WR2.len</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>5</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>WR2.len</span>)</div><div class='output co'>#&gt;   ID len age LCat
 #&gt; 1  1  37   4   35
 #&gt; 2  2  37   4   35
@@ -326,20 +326,20 @@
 #&gt; 7  7  42   4   40
 #&gt; 8  8  42   4   40</div><div class='input'><span class='co'># combine orig age &amp; new ages</span>
 <span class='no'>WR2.comb</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cbind'>rbind</a></span>(<span class='no'>WR2.age</span>, <span class='no'>WR2.len</span>)
-<span class='fu'><a href='Summarize.html'>Summarize</a></span>(<span class='no'>len</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR2.comb</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt;   age   n   mean   sd min     Q1 median     Q3 max
-#&gt; 1   4 986  51.85 5.13  35  48.00   52.0  56.00  64
-#&gt; 2   5 397  71.77 5.32  60  68.00   72.0  76.00  84
-#&gt; 3   6 269  86.73 4.66  75  83.00   87.0  89.00  98
-#&gt; 4   7 448  97.58 5.15  86  93.00   97.0 102.00 112
-#&gt; 5   8 147 101.15 5.85  90  96.50  101.0 107.00 113
-#&gt; 6   9  78 103.82 3.28 100 102.00  103.0 104.75 113
-#&gt; 7  10  38 104.97 7.31  95  97.00  106.0 109.75 119
-#&gt; 8  11   6 112.17 0.98 111 111.25  112.5 113.00 113</div><div class='input'>
+<span class='fu'>Summarize</span>(<span class='no'>len</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR2.comb</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt;   age   n   mean   sd min  Q1 median     Q3 max
+#&gt; 1   4 986  51.85 5.12  35  48   52.0  56.00  64
+#&gt; 2   5 397  71.79 5.33  60  68   72.0  76.00  84
+#&gt; 3   6 269  86.74 4.70  75  83   87.0  89.00  99
+#&gt; 4   7 448  97.53 5.24  85  93   97.0 102.00 113
+#&gt; 5   8 146 101.19 5.68  90  97  102.0 106.00 113
+#&gt; 6   9  78 103.77 3.25 100 101  103.0 105.75 114
+#&gt; 7  10  39 105.13 6.81  96  98  106.0 109.00 119
+#&gt; 8  11   6 112.50 0.55 112 112  112.5 113.00 113</div><div class='input'>
 <span class='co'>## Third Example -- Uneven breaks for length categories</span>
 <span class='no'>WR3</span> <span class='kw'>&lt;-</span> <span class='no'>WR79</span>
 <span class='co'># set up uneven breaks</span>
 <span class='no'>brks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>35</span>,<span class='fl'>100</span>,<span class='fl'>5</span>),<span class='fl'>110</span>,<span class='fl'>130</span>)
-<span class='no'>WR3</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span>(<span class='no'>WR3</span>$<span class='no'>len</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='no'>brks</span>)
+<span class='no'>WR3</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>WR3</span>$<span class='no'>len</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='no'>brks</span>)
 <span class='no'>WR3.age</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>WR3</span>, !<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/NA'>is.na</a></span>(<span class='no'>age</span>))
 <span class='no'>WR3.len</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>WR3</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/NA'>is.na</a></span>(<span class='no'>age</span>))
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>WR3.len</span>)</div><div class='output co'>#&gt;   ID len age LCat
@@ -391,15 +391,15 @@
 #&gt; 4  4  37   4   35
 #&gt; 7  7  42   4   40
 #&gt; 8  8  42   4   40</div><div class='input'><span class='no'>WR3.comb</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cbind'>rbind</a></span>(<span class='no'>WR3.age</span>, <span class='no'>WR3.len</span>)
-<span class='fu'><a href='Summarize.html'>Summarize</a></span>(<span class='no'>len</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR3.comb</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt;   age   n   mean   sd min    Q1 median     Q3 max
-#&gt; 1   4 987  51.86 5.14  35  48.0     52  56.00  64
-#&gt; 2   5 395  71.77 5.31  60  68.0     72  76.00  84
-#&gt; 3   6 271  86.73 4.72  75  83.0     87  89.00  99
-#&gt; 4   7 452  97.79 5.44  86  93.0     97 102.00 113
-#&gt; 5   8 139 100.26 5.14  90  97.0    100 104.00 113
-#&gt; 6   9  78 104.40 3.27 100 102.0    103 106.75 117
-#&gt; 7  10  43 105.09 7.11  95  98.0    103 111.00 119
-#&gt; 8  11   4 112.50 1.00 111 112.5    113 113.00 113</div><div class='input'>
+<span class='fu'>Summarize</span>(<span class='no'>len</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR3.comb</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt;   age   n   mean   sd min  Q1 median     Q3 max
+#&gt; 1   4 987  51.87 5.15  35  48     52  56.00  64
+#&gt; 2   5 395  71.78 5.35  60  68     72  76.00  84
+#&gt; 3   6 270  86.71 4.79  75  83     87  89.00  99
+#&gt; 4   7 453  97.78 5.46  85  93     97 102.00 117
+#&gt; 5   8 140 100.39 5.39  90  96    101 104.00 113
+#&gt; 6   9  78 104.06 3.06 100 102    103 106.75 111
+#&gt; 7  10  41 104.93 7.12  95  98    104 112.00 119
+#&gt; 8  11   5 112.60 1.14 111 112    113 113.00 114</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

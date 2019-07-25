@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.22.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25</span>
       </span>
     </div>
 
@@ -132,7 +132,8 @@
   <span class='kw'>col.pt</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>col.mdl</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"confidence"</span>, <span class='st'>"prediction"</span>, <span class='st'>"both"</span>),
   <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>lty.ci</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>lty.pi</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>Enames</span>[<span class='fl'>1</span>], <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>Rname</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='no'>...</span>)
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>Enames</span>[<span class='fl'>1</span>], <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>Rname</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for IVR</span>
 <span class='fu'>fitPlot</span>(<span class='no'>object</span>, <span class='no'>...</span>)
@@ -237,6 +238,10 @@
       <td><p>a string for the main label to the plot. Defaults to the model call.</p></td>
     </tr>
     <tr>
+      <th>ylim</th>
+      <td><p>A vector of length two to control the y-axis in the nonlinear regression plot.</p></td>
+    </tr>
+    <tr>
       <th>type</th>
       <td><p>The type of graphic to construct in a one-way and two-way ANOVA. If <code>"b"</code> then points are plotted and lines are used to connect points (DEFAULT). If <code>"p"</code> then only points are used and if <code>"l"</code> then only lines are drawn.</p></td>
     </tr>
@@ -279,10 +284,6 @@
     <tr>
       <th>jittered</th>
       <td><p>A logical that indicates whether the points should be jittered horizontally.</p></td>
-    </tr>
-    <tr>
-      <th>ylim</th>
-      <td><p>A vector of length two to control the y-axis in the nonlinear regression plot.</p></td>
     </tr>
     <tr>
       <th>legend.lbls</th>
@@ -350,14 +351,14 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='https://www.rdocumentation.org/packages/graphics/topics/abline'>abline</a></code>, <code><a href='https://www.rdocumentation.org/packages/car/topics/regLine'>regLine</a></code> in <span class="pkg">car</span>, <code><a href='https://www.rdocumentation.org/packages/gplots/topics/plotmeans'>plotmeans</a></code> in <span class="pkg">gplots</span>, <code><a href='https://www.rdocumentation.org/packages/psych/topics/error.bars'>error.bars</a></code> in <span class="pkg">psych</span>, <code>interaction.plot</code>, and <code><a href='https://www.rdocumentation.org/packages/sciplot/topics/lineplot.CI'>lineplot.CI</a></code> in <span class="pkg">sciplot</span> for similar functionality. See <code><a href='residPlot.html'>residPlot</a></code> for related functionality.</p></div>
+    <div class='dont-index'><p>See <code><a href='https://www.rdocumentation.org/packages/graphics/topics/abline'>abline</a></code>, <code><a href='https://www.rdocumentation.org/packages/car/topics/regLine'>regLine</a></code> in <span class="pkg">car</span>, <code><a href='https://www.rdocumentation.org/packages/gplots/topics/plotmeans'>plotmeans</a></code> in <span class="pkg">gplots</span>, <code><a href='https://www.rdocumentation.org/packages/psych/topics/error.bars'>error.bars</a></code> in <span class="pkg">psych</span>, <code>interaction.plot</code>, and <code><a href='https://www.rdocumentation.org/packages/sciplot/topics/lineplot.CI'>lineplot.CI</a></code> in <span class="pkg">sciplot</span> for similar functionality. See <code>residPlot</code> for related functionality.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create year as a factor variable</span>
 <span class='no'>Mirex</span>$<span class='no'>fyear</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>Mirex</span>$<span class='no'>year</span>)
 <span class='co'># reduce number of years for visual simplicity</span>
-<span class='no'>Mirex2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Subset.html'>filterD</a></span>(<span class='no'>Mirex</span>,<span class='no'>fyear</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1977</span>,<span class='fl'>1992</span>))
+<span class='no'>Mirex2</span> <span class='kw'>&lt;-</span> <span class='fu'>filterD</span>(<span class='no'>Mirex</span>,<span class='no'>fyear</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1977</span>,<span class='fl'>1992</span>))
 
 <span class='co'>## Indicator variable regression with two factors</span>
 <span class='no'>lm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>weight</span>*<span class='no'>fyear</span>*<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex2</span>)

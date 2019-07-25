@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.22.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25</span>
       </span>
     </div>
 
@@ -162,7 +162,7 @@
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>An error will be returned if either <code>specvar</code> or <code>eventvar</code> are factors with any <code>NA</code> levels. This usually arises if the data.frame was subsetted/filtered prior to using <code>addZeroCatch</code>. See <code><a href='Subset.html'>filterD</a></code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/droplevels'>droplevels</a></code> for descriptions of how to drop unused levels.</p>
+    <p>An error will be returned if either <code>specvar</code> or <code>eventvar</code> are factors with any <code>NA</code> levels. This usually arises if the data.frame was subsetted/filtered prior to using <code>addZeroCatch</code>. See <code>filterD</code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/droplevels'>droplevels</a></code> for descriptions of how to drop unused levels.</p>
     
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
@@ -214,11 +214,11 @@
 #&gt;   1   1   1   1
 #&gt;   2   1   1   1
 #&gt;   3   1   1   1</div><div class='input'><span class='co'># correct mean/sd of catches</span>
-<span class='fu'><a href='Summarize.html'>Summarize</a></span>(<span class='no'>catch</span>~<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df1mod1</span>)</div><div class='output co'>#&gt;   species n     mean       sd min  Q1 median Q3 max percZero
+<span class='fu'>Summarize</span>(<span class='no'>catch</span>~<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df1mod1</span>)</div><div class='output co'>#&gt;   species n     mean       sd min  Q1 median Q3 max percZero
 #&gt; 1     BKT 3 2.666667 2.516611   0 1.5      3  4   5 33.33333
 #&gt; 2     LKT 3 2.666667 2.309401   0 2.0      4  4   4 33.33333
 #&gt; 3     RBT 3 2.666667 2.516611   0 1.5      3  4   5 33.33333</div><div class='input'><span class='co'># incorrect mean/sd of catches (no zeros)</span>
-<span class='fu'><a href='Summarize.html'>Summarize</a></span>(<span class='no'>catch</span>~<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df1</span>)</div><div class='output co'>#&gt;   species n mean       sd min  Q1 median  Q3 max
+<span class='fu'>Summarize</span>(<span class='no'>catch</span>~<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df1</span>)</div><div class='output co'>#&gt;   species n mean       sd min  Q1 median  Q3 max
 #&gt; 1     BKT 2    4 1.414214   3 3.5      4 4.5   5
 #&gt; 2     LKT 2    4 0.000000   4 4.0      4 4.0   4
 #&gt; 3     RBT 2    4 1.414214   3 3.5      4 4.5   5</div><div class='input'>
@@ -306,17 +306,17 @@
 #&gt;   1   1   1   1
 #&gt;   2   1   1   1
 #&gt;   3   1   1   1</div><div class='input'><span class='co'># observe difference from next</span>
-<span class='fu'><a href='Summarize.html'>Summarize</a></span>(<span class='no'>catch</span>~<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df4</span>)</div><div class='output co'>#&gt;   species n mean       sd min  Q1 median  Q3 max
+<span class='fu'>Summarize</span>(<span class='no'>catch</span>~<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df4</span>)</div><div class='output co'>#&gt;   species n mean       sd min  Q1 median  Q3 max
 #&gt; 1     BKT 2    4 1.414214   3 3.5      4 4.5   5
 #&gt; 2     LKT 2    4 0.000000   4 4.0      4 4.0   4
-#&gt; 3     RBT 2    4 1.414214   3 3.5      4 4.5   5</div><div class='input'><span class='fu'><a href='Summarize.html'>Summarize</a></span>(<span class='no'>catch</span>~<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df4mod1</span>)</div><div class='output co'>#&gt;   species n     mean       sd min  Q1 median Q3 max percZero
+#&gt; 3     RBT 2    4 1.414214   3 3.5      4 4.5   5</div><div class='input'><span class='fu'>Summarize</span>(<span class='no'>catch</span>~<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df4mod1</span>)</div><div class='output co'>#&gt;   species n     mean       sd min  Q1 median Q3 max percZero
 #&gt; 1     BKT 3 2.666667 2.516611   0 1.5      3  4   5 33.33333
 #&gt; 2     LKT 3 2.666667 2.309401   0 2.0      4  4   4 33.33333
 #&gt; 3     RBT 3 2.666667 2.516611   0 1.5      3  4   5 33.33333</div><div class='input'><span class='co'># observe difference from next</span>
-<span class='fu'><a href='Summarize.html'>Summarize</a></span>(<span class='no'>recaps</span>~<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df4</span>)</div><div class='output co'>#&gt;   species n mean        sd min   Q1 median   Q3 max percZero
+<span class='fu'>Summarize</span>(<span class='no'>recaps</span>~<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df4</span>)</div><div class='output co'>#&gt;   species n mean        sd min   Q1 median   Q3 max percZero
 #&gt; 1     BKT 2  0.5 0.7071068   0 0.25    0.5 0.75   1       50
 #&gt; 2     LKT 2  1.0 1.4142136   0 0.50    1.0 1.50   2       50
-#&gt; 3     RBT 2  0.5 0.7071068   0 0.25    0.5 0.75   1       50</div><div class='input'><span class='fu'><a href='Summarize.html'>Summarize</a></span>(<span class='no'>recaps</span>~<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df4mod1</span>)</div><div class='output co'>#&gt;   species n      mean        sd min Q1 median  Q3 max percZero
+#&gt; 3     RBT 2  0.5 0.7071068   0 0.25    0.5 0.75   1       50</div><div class='input'><span class='fu'>Summarize</span>(<span class='no'>recaps</span>~<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df4mod1</span>)</div><div class='output co'>#&gt;   species n      mean        sd min Q1 median  Q3 max percZero
 #&gt; 1     BKT 3 0.3333333 0.5773503   0  0      0 0.5   1 66.66667
 #&gt; 2     LKT 3 0.6666667 1.1547005   0  0      0 1.0   2 66.66667
 #&gt; 3     RBT 3 0.3333333 0.5773503   0  0      0 0.5   1 66.66667</div><div class='input'>

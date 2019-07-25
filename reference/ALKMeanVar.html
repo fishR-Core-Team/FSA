@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.22.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25</span>
       </span>
     </div>
 
@@ -167,7 +167,7 @@
     
     <h2 class="hasAnchor" id="testing"><a class="anchor" href="#testing"></a>Testing</h2>
 
-    <p>The results of these functions have not yet been rigorously tested. The Bettoli and Miranda (2001) results appear, at least, approximately correct when compared to the results from <code><a href='alkIndivAge.html'>alkIndivAge</a></code>. The Quinn and Deriso (1999) results appear at least approximately correct for the mean values, but do not appear to be correct for the SE values. Thus, a note is returned with the Quinn and Deriso (1999) results that the SE should not be trusted.</p>
+    <p>The results of these functions have not yet been rigorously tested. The Bettoli and Miranda (2001) results appear, at least, approximately correct when compared to the results from <code>alkIndivAge</code>. The Quinn and Deriso (1999) results appear at least approximately correct for the mean values, but do not appear to be correct for the SE values. Thus, a note is returned with the Quinn and Deriso (1999) results that the SE should not be trusted.</p>
     
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
@@ -181,14 +181,14 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='alkIndivAge.html'>alkIndivAge</a></code> and related functions for a completely different methodology. See <code><a href='ALKAgeDist.html'>alkAgeDist</a></code> for a related method of determining the proportion of fish at each age. See the <span class="pkg">ALKr</span> package.</p></div>
+    <div class='dont-index'><p>See <code>alkIndivAge</code> and related functions for a completely different methodology. See <code>alkAgeDist</code> for a related method of determining the proportion of fish at each age. See the <span class="pkg">ALKr</span> package.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Example -- Even breaks for length categories</span>
 <span class='no'>WR1</span> <span class='kw'>&lt;-</span> <span class='no'>WR79</span>
 <span class='co'># add length intervals (width=5)</span>
-<span class='no'>WR1</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span>(<span class='no'>WR1</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>5</span>)
+<span class='no'>WR1</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>WR1</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>5</span>)
 <span class='co'># get number of fish in each length interval in the entire sample</span>
 <span class='no'>len.n</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/xtabs'>xtabs</a></span>(~<span class='no'>LCat</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR1</span>)
 <span class='co'># isolate aged sample</span>

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.22.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25</span>
       </span>
     </div>
 
@@ -164,14 +164,14 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='https://www.rdocumentation.org/packages/graphics/topics/hist'>hist</a></code> and <code><a href='hist.formula.html'>hist.formula</a></code> for related functionality.</p></div>
+    <div class='dont-index'><p>See <code><a href='https://www.rdocumentation.org/packages/graphics/topics/hist'>hist</a></code> and <code>hist.formula</code> for related functionality.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Make some dummy data with a length category variable</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>634434789</span>)
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>tl</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>round</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>20</span>)))
-<span class='no'>df</span>$<span class='no'>lcat10</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span>(<span class='no'>df</span>$<span class='no'>tl</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>10</span>)
+<span class='no'>df</span>$<span class='no'>lcat10</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>df</span>$<span class='no'>tl</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>10</span>)
 
 <span class='co'>## Summarize as tables</span>
 ( <span class='no'>tbl1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/xtabs'>xtabs</a></span>(~<span class='no'>lcat10</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>) )</div><div class='output co'>#&gt; lcat10
@@ -182,7 +182,7 @@
 <span class='co'>## Turn the tables into a data.frame for testing (convert</span>
 <span class='co'>## the categories variables to numeric with fact2num())</span>
 <span class='no'>df2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='no'>tbl1</span>)
-<span class='no'>df2</span>$<span class='no'>lcat10</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fact2num.html'>fact2num</a></span>(<span class='no'>df2</span>$<span class='no'>lcat10</span>)
+<span class='no'>df2</span>$<span class='no'>lcat10</span> <span class='kw'>&lt;-</span> <span class='fu'>fact2num</span>(<span class='no'>df2</span>$<span class='no'>lcat10</span>)
 
 <span class='co'>## Turn the table into a matrix for testing</span>
 ( <span class='no'>mat1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cbind'>cbind</a></span>(<span class='kw'>lcat10</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>as.numeric</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/colnames'>rownames</a></span>(<span class='no'>tbl1</span>)),<span class='kw'>freq</span><span class='kw'>=</span><span class='no'>tbl1</span>) )</div><div class='output co'>#&gt;     lcat10 freq

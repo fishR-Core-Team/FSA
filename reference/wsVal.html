@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.22.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25</span>
       </span>
     </div>
 
@@ -148,14 +148,14 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A one row data frame from <code><a href='WSlit.html'>WSlit</a></code> that contains all known information about the standard weight equation for a given species, type of measurement units, and reference percentile if <code>simplify=FALSE</code>.  If <code>simplify=TRUE</code> then only the species; minimum and maximum length for which the standard equation should be applied; and intercept, slope, and quadratic  coefficients for the standard weight equation.  Note that the maximum length and the quadratic coefficient will not be returned if they do not exist in <code><a href='WSlit.html'>WSlit</a></code>.</p>
-<p>If no arguments are given to this function, a species name is mis-spelled, or if a standard weight equation does not exist (in <code><a href='WSlit.html'>WSlit</a></code>) for a particular species, then a warning will be issued and a list of species names will be printed.</p>
+    <p>A one row data frame from <code>WSlit</code> that contains all known information about the standard weight equation for a given species, type of measurement units, and reference percentile if <code>simplify=FALSE</code>.  If <code>simplify=TRUE</code> then only the species; minimum and maximum length for which the standard equation should be applied; and intercept, slope, and quadratic  coefficients for the standard weight equation.  Note that the maximum length and the quadratic coefficient will not be returned if they do not exist in <code>WSlit</code>.</p>
+<p>If no arguments are given to this function, a species name is mis-spelled, or if a standard weight equation does not exist (in <code>WSlit</code>) for a particular species, then a warning will be issued and a list of species names will be printed.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function extract all known information from <code><a href='WSlit.html'>WSlit</a></code> about the following standard weight equation,</p>
+    <p>This function extract all known information from <code>WSlit</code> about the following standard weight equation,</p>
 <p>$$log_{10}(Ws) = log_{10}(a) + blog_{10}(L) + blog_{10}(L)^{2}$$</p>
-<p>See <code><a href='WSlit.html'>WSlit</a></code> for more information about the meaning of each value returned.</p>
+<p>See <code>WSlit</code> for more information about the meaning of each value returned.</p>
 <p>Note from above that the coefficients are returned for the TRANSFORMED model.  Thus, to obtain the standard weight (Ws), the returned coefficients are used to compute the common log of Ws which must then bed raised to the power of 10 to compute the Ws.</p>
     
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
@@ -168,7 +168,7 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='wrAdd.html'>wrAdd</a></code> and <code><a href='WSlit.html'>WSlit</a></code> for related functionality.</p></div>
+    <div class='dont-index'><p>See <code>wrAdd</code> and <code>WSlit</code> for related functionality.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

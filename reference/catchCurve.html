@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.22.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25</span>
       </span>
     </div>
 
@@ -148,7 +148,7 @@
   <span class='st'>"lm"</span>), <span class='kw'>level</span> <span class='kw'>=</span> <span class='no'>conf.level</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for catchCurve</span>
-<span class='fu'><a href='rSquared.html'>rSquared</a></span>(<span class='no'>object</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"digits"</span>),
+<span class='fu'>rSquared</span>(<span class='no'>object</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"digits"</span>),
   <span class='kw'>percent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for catchCurve</span>
@@ -278,7 +278,7 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='https://www.rdocumentation.org/packages/fishmethods/topics/agesurv'>agesurv</a></code> in <span class="pkg">fishmethods</span> for similar functionality. See <code><a href='chapmanRobson.html'>chapmanRobson</a></code> and <code><a href='https://www.rdocumentation.org/packages/fishmethods/topics/agesurvcl'>agesurvcl</a></code> in <span class="pkg">fishmethods</span> for alternative methods to estimate mortality rates. See <code><a href='metaM.html'>metaM</a></code> for empirical methods to estimate natural mortality.</p></div>
+    <div class='dont-index'><p>See <code><a href='https://www.rdocumentation.org/packages/fishmethods/topics/agesurv'>agesurv</a></code> in <span class="pkg">fishmethods</span> for similar functionality. See <code>chapmanRobson</code> and <code><a href='https://www.rdocumentation.org/packages/fishmethods/topics/agesurvcl'>agesurvcl</a></code> in <span class="pkg">fishmethods</span> for alternative methods to estimate mortality rates. See <code>metaM</code> for empirical methods to estimate natural mortality.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -289,7 +289,7 @@
 #&gt; Z  0.659987   0.136741 4.826549 0.01695159
 #&gt; A 48.314197         NA       NA         NA</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cbind'>cbind</a></span>(<span class='kw'>Est</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>cc1</span>),<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/confint'>confint</a></span>(<span class='no'>cc1</span>))</div><div class='output co'>#&gt;         Est    95% LCI   95% UCI
 #&gt; Z  0.659987  0.2248162  1.095158
-#&gt; A 48.314197 20.1337012 66.551321</div><div class='input'><span class='fu'><a href='rSquared.html'>rSquared</a></span>(<span class='no'>cc1</span>)</div><div class='output co'>#&gt; [1] 0.8859124</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>cc1</span>)</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>cc1</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"Z"</span>)</div><div class='output co'>#&gt;   Estimate Std. Error  t value   Pr(&gt;|t|)
+#&gt; A 48.314197 20.1337012 66.551321</div><div class='input'><span class='fu'>rSquared</span>(<span class='no'>cc1</span>)</div><div class='output co'>#&gt; [1] 0.8859124</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>cc1</span>)</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>cc1</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"Z"</span>)</div><div class='output co'>#&gt;   Estimate Std. Error  t value   Pr(&gt;|t|)
 #&gt; Z 0.659987   0.136741 4.826549 0.01695159</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cbind'>cbind</a></span>(<span class='kw'>Est</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/coef'>coef</a></span>(<span class='no'>cc1</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"Z"</span>),<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/confint'>confint</a></span>(<span class='no'>cc1</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"Z"</span>))</div><div class='output co'>#&gt;        Est   95% LCI  95% UCI
 #&gt; Z 0.659987 0.2248162 1.095158</div><div class='input'>
 <span class='co'>## demonstration of excluding ages2use</span>

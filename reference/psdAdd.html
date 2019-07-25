@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.22.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25</span>
       </span>
     </div>
 
@@ -181,7 +181,7 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This computes a vector that contains the Gabelhouse lengths specific to each species for all individuals in an entire data frame. The vector can be appended to an existing data.frame to create a variable that contains the Gabelhouse lengths for each individual. The Gabelhouse length value will be <code>NA</code> for each individual for which a Gabelhouse length definitions do not exist in <code><a href='PSDlit.html'>PSDlit</a></code>. Species names in the data.frame must be the same as those used in <code><a href='PSDlit.html'>PSDlit</a></code>. See the examples for one method for changing species names to something that this function will recognize.</p>
+    <p>This computes a vector that contains the Gabelhouse lengths specific to each species for all individuals in an entire data frame. The vector can be appended to an existing data.frame to create a variable that contains the Gabelhouse lengths for each individual. The Gabelhouse length value will be <code>NA</code> for each individual for which a Gabelhouse length definitions do not exist in <code>PSDlit</code>. Species names in the data.frame must be the same as those used in <code>PSDlit</code>. See the examples for one method for changing species names to something that this function will recognize.</p>
 <p>Individuals shorter than &#8220;stock&#8221; length will be listed as <code>substock</code> if <code>use.names=TRUE</code> or <code>0</code> if <code>use.names=FALSE</code>.</p>
 <p>Additional lengths to be used for a species may be included by giving a vector of species names in <code>addSpec</code> and a corresponding vector of additional lengths in <code>addLens</code>. Note, however, that <code>use.names</code> will be reset to <code>FALSE</code> if <code>addSpec</code> and <code>addLens</code> are specified, as there is no way to order the names for all species when additional lengths are used.</p>
     
@@ -198,7 +198,7 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='psdVal.html'>psdVal</a></code>, <code><a href='psdCalc.html'>psdCalc</a></code>, <code><a href='psdPlot.html'>psdPlot</a></code>, <code><a href='PSDlit.html'>PSDlit</a></code>, and <code><a href='wrAdd.html'>wrAdd</a></code> for related functions. See <code><a href='mapvalues.html'>mapvalues</a></code> for help in changing species names to match those in <code><a href='PSDlit.html'>PSDlit</a></code>.</p></div>
+    <div class='dont-index'><p><code>psdVal</code>, <code>psdCalc</code>, <code>psdPlot</code>, <code>PSDlit</code>, and <code>wrAdd</code> for related functions. See <code>mapvalues</code> for help in changing species names to match those in <code>PSDlit</code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -258,10 +258,10 @@
 <span class='co'>## All of the above but using dplyr</span>
 <span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>dplyr</span>)) {
   <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='no'>df</span> <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>PSD1A</span><span class='kw'>=</span><span class='fu'>psdAdd</span>(<span class='no'>tl</span>,<span class='no'>species</span>)) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>PSD2A</span><span class='kw'>=</span><span class='fu'>psdAdd</span>(<span class='no'>tl</span>,<span class='no'>species</span>,<span class='kw'>use.names</span><span class='kw'>=</span><span class='fl'>FALSE</span>)) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>psd3a</span><span class='kw'>=</span><span class='fu'>psdAdd</span>(<span class='no'>tl</span>,<span class='no'>species</span>,<span class='kw'>addSpec</span><span class='kw'>=</span><span class='st'>"Bluegill"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fl'>175</span>)) <span class='kw'>%&gt;%</span>
-    <span class='fu'><a href='http://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>psd4a</span><span class='kw'>=</span><span class='fu'>psdAdd</span>(<span class='no'>tl</span>,<span class='no'>species</span>,<span class='kw'>addSpec</span><span class='kw'>=</span><span class='no'>addls</span>$<span class='no'>species</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='no'>addls</span>$<span class='no'>lens</span>))
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>PSD1A</span><span class='kw'>=</span><span class='fu'>psdAdd</span>(<span class='no'>tl</span>,<span class='no'>species</span>)) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>PSD2A</span><span class='kw'>=</span><span class='fu'>psdAdd</span>(<span class='no'>tl</span>,<span class='no'>species</span>,<span class='kw'>use.names</span><span class='kw'>=</span><span class='fl'>FALSE</span>)) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>psd3a</span><span class='kw'>=</span><span class='fu'>psdAdd</span>(<span class='no'>tl</span>,<span class='no'>species</span>,<span class='kw'>addSpec</span><span class='kw'>=</span><span class='st'>"Bluegill"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fl'>175</span>)) <span class='kw'>%&gt;%</span>
+    <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>psd4a</span><span class='kw'>=</span><span class='fu'>psdAdd</span>(<span class='no'>tl</span>,<span class='no'>species</span>,<span class='kw'>addSpec</span><span class='kw'>=</span><span class='no'>addls</span>$<span class='no'>species</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='no'>addls</span>$<span class='no'>lens</span>))
 }</div><div class='output co'>#&gt; <span class='message'>No known Gabelhouse (PSD) lengths for Bluefin Tuna</span></div><div class='output co'>#&gt; <span class='message'>No known Gabelhouse (PSD) lengths for Bluefin Tuna</span></div><div class='output co'>#&gt; <span class='message'>No known Gabelhouse (PSD) lengths for Bluefin Tuna</span></div><div class='output co'>#&gt; <span class='message'>No known Gabelhouse (PSD) lengths for Bluefin Tuna</span></div><div class='input'><span class='no'>df</span></div><div class='output co'>#&gt;            species   tl       wt       PSD      PSD1 PSD2 PSD3 psd4     PSD1A
 #&gt; 1         Bluegill   42    -12.5  substock  substock    0    0    0  substock
 #&gt; 2         Bluegill   73      4.8  substock  substock    0    0    0  substock

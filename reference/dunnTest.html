@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.22.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25</span>
       </span>
     </div>
 
@@ -194,7 +194,7 @@
     <p>The data.frame will be reduced to only those rows that are complete cases for <code>x</code> and <code>g</code>. In other words, rows with missing data for either <code>x</code> or <code>g</code> are removed from the analysis and a warning will be issued.</p>
 <p>There are a number of functions in other packages that do similar analyses.</p>
 <p>The results from <code>DunnTest</code> match the results (in a different format) from the <code><a href='https://www.rdocumentation.org/packages/dunn.test/topics/dunn.test'>dunn.test</a></code> function from <span class="pkg">dunn.test</span>.</p>
-<p>The <code><a href='https://www.rdocumentation.org/packages/asbio/topics/pairw.kw'>pairw.kw</a></code> function from the <span class="pkg">asbio</span> package performs the Dunn test with the Bonferroni correction. The <code><a href='https://www.rdocumentation.org/packages/asbio/topics/pairw.kw'>pairw.kw</a></code> also provides a confidence interval for the difference in mean ranks between pairs of groups. The p-value results from <code>DunnTest</code> match the results from <code><a href='https://www.rdocumentation.org/packages/asbio/topics/pairw.kw'>pairw.kw</a></code>.</p>
+<p>The <code>pairw.kw</code> function from the <span class="pkg">asbio</span> package performs the Dunn test with the Bonferroni correction. The <code>pairw.kw</code> also provides a confidence interval for the difference in mean ranks between pairs of groups. The p-value results from <code>DunnTest</code> match the results from <code>pairw.kw</code>.</p>
 <p>The <code>posthoc.kruskal.nemenyi.test</code> function from the <span class="pkg">PMCMR</span> package uses the &#8220;Nemenyi&#8221; (1963) method of multiple comparisons.</p>
 <p>The <code>kruskalmc</code> function from the <span class="pkg">pgirmess</span> package uses the method described by Siegel and Castellan (1988).</p>
 <p>It is not clear which method the <code>kruskal</code> function from the <span class="pkg">agricolae</span> package uses. It does not seem to output p-values but it does allow for a wide variety of methods to control the experimentwise error rate.</p>

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.22.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25</span>
       </span>
     </div>
 
@@ -194,14 +194,14 @@
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>,<span class='fl'>100</span>,<span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
 <span class='no'>tbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/table'>table</a></span>(<span class='no'>df</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cumsum'>cumsum</a></span>(<span class='no'>tbl</span>)</div><div class='output co'>#&gt;   1   2   3   4   5   6   7   8   9  10 
-#&gt;  17  31  42  51  61  66  71  76  86 100 </div><div class='input'><span class='fu'>pcumsum</span>(<span class='no'>tbl</span>)</div><div class='output co'>#&gt; df
+#&gt;  12  23  34  43  51  59  65  78  87 100 </div><div class='input'><span class='fu'>pcumsum</span>(<span class='no'>tbl</span>)</div><div class='output co'>#&gt; df
 #&gt;  1  2  3  4  5  6  7  8  9 10 
-#&gt;  0 17 31 42 51 61 66 71 76 86 </div><div class='input'><span class='fu'>rcumsum</span>(<span class='no'>tbl</span>)</div><div class='output co'>#&gt;   1   2   3   4   5   6   7   8   9  10 
-#&gt; 100  83  69  58  49  39  34  29  24  14 </div><div class='input'>
+#&gt;  0 12 23 34 43 51 59 65 78 87 </div><div class='input'><span class='fu'>rcumsum</span>(<span class='no'>tbl</span>)</div><div class='output co'>#&gt;   1   2   3   4   5   6   7   8   9  10 
+#&gt; 100  88  77  66  57  49  41  35  22  13 </div><div class='input'>
 <span class='co'>## Example with a data.frame (must be 1-d)</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>,<span class='fl'>100</span>,<span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
 <span class='no'>tbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/as.data.frame'>as.data.frame</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/table'>table</a></span>(<span class='no'>df</span>))[,-<span class='fl'>1</span>]
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cumsum'>cumsum</a></span>(<span class='no'>tbl</span>)</div><div class='output co'>#&gt;  [1]   6  19  26  33  42  51  67  82  91 100</div><div class='input'><span class='fu'>pcumsum</span>(<span class='no'>tbl</span>)</div><div class='output co'>#&gt;  [1]  0  6 19 26 33 42 51 67 82 91</div><div class='input'><span class='fu'>rcumsum</span>(<span class='no'>tbl</span>)</div><div class='output co'>#&gt;  [1] 100  94  81  74  67  58  49  33  18   9</div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cumsum'>cumsum</a></span>(<span class='no'>tbl</span>)</div><div class='output co'>#&gt;  [1]   4  17  26  38  47  54  73  82  93 100</div><div class='input'><span class='fu'>pcumsum</span>(<span class='no'>tbl</span>)</div><div class='output co'>#&gt;  [1]  0  4 17 26 38 47 54 73 82 93</div><div class='input'><span class='fu'>rcumsum</span>(<span class='no'>tbl</span>)</div><div class='output co'>#&gt;  [1] 100  96  83  74  62  53  46  27  18   7</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

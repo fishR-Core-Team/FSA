@@ -1,7 +1,7 @@
 pandoc: '2.2'
 pkgdown: 1.3.0
 pkgdown_sha: ~
-articles: {}
+articles: []
 urls:
   reference: http://derekogle.com/FSA/reference
   article: http://derekogle.com/FSA/articles
