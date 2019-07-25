@@ -152,12 +152,3 @@ test_that("dunnTest matches dunn.test results for airquality data",{
     }
   } # end require()
 })
-
-test_that("dunnTest matches pairw.kw results",{
-  if (require(asbio)) {
-    ## unadjusted p-values
-    tmp  <- dunnTest(pH~fpond,data=ponds,method="bonferroni")$res$P.adj
-    tmp2 <- fact2num(pairw.kw(ponds$pH,ponds$fpond)$summary$'Adj. P-value')
-    expect_equivalent(round(tmp,6),tmp2)    
-  } # end require()
-})

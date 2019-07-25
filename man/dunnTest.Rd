@@ -60,7 +60,7 @@ There are a number of functions in other packages that do similar analyses.
 
 The results from \code{DunnTest} match the results (in a different format) from the \code{\link[dunn.test]{dunn.test}} function from \pkg{dunn.test}.
 
-The \code{\link[asbio]{pairw.kw}} function from the \pkg{asbio} package performs the Dunn test with the Bonferroni correction. The \code{\link[asbio]{pairw.kw}} also provides a confidence interval for the difference in mean ranks between pairs of groups. The p-value results from \code{DunnTest} match the results from \code{\link[asbio]{pairw.kw}}.
+The \code{pairw.kw} function from the \pkg{asbio} package performs the Dunn test with the Bonferroni correction. The \code{pairw.kw} also provides a confidence interval for the difference in mean ranks between pairs of groups. The p-value results from \code{DunnTest} match the results from \code{pairw.kw}.
 
 The \code{\link[PMCMR]{posthoc.kruskal.nemenyi.test}} function from the \pkg{PMCMR} package uses the \dQuote{Nemenyi} (1963) method of multiple comparisons.
 

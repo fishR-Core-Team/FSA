@@ -35,7 +35,6 @@ Imports:
     sciplot,
     withr
 Suggests:
-    asbio,
     DescTools,
     fishmethods,
     FSAdata,
