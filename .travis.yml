@@ -3,6 +3,12 @@ sudo: false
 cache: packages
 warnings_are_errors: false
 
+addons:
+  apt:
+    packages:
+      - tcl8.5-dev
+      - tk8.5-dev
+      
 r_github_packages:
   - jimhester/covr
   - yonicd/covrpage
