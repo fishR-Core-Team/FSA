@@ -1,3 +1,6 @@
+# FSA 0.8.26 ongoing
+* Removed `asbio` package from suggests as it hung up Travis-CI build (because of the need for the TCLTK package).
+
 # FSA 0.8.25 24-Jul-19
 * `agePrecision()`: Modified. Changed so that PE2 and CV2 use the median in the entire calculation rather than just in the denominator.
 * `iHndlColsUseIgnore()`: Modified. Changed so that a 0 indice returns an error.
