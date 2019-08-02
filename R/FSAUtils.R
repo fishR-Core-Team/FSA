@@ -42,11 +42,11 @@ capFirst <- function(x,which=c("all","first")) {
   ## Get the class of the object
   cls <- class(x)
   ## Perform a check
-  if (!inherits(cls,c("character","factor"))) STOP("'capFirst' only works with 'character' or 'class' objects.")
+  if (!inherits(cls,c("character","factor"))) STOP("'capFirst' only works with 'character' or 'factor' objects.")
   ## Capitalize the one word or the words in the vector
   if (length(x)==1) x <- iCapFirst(x,which)
   else x <- apply(matrix(x),MARGIN=1,FUN=iCapFirst,which=which)
-  ## Change the case to what the original was
+  ## Change the class to what the original was
   if (cls=="factor") x <- as.factor(x)
   ## Return the object
   x
@@ -56,21 +56,25 @@ capFirst <- function(x,which=c("all","first")) {
 iCapFirst<- function(x,which=c("all","first")) {
   # See whether all or just the first word should have the first letter capitalized
   which <- match.arg(which)
-  # convert entire string to lower case ...
-  x <- tolower(x)
-  # then split on space if more than one word
-  s <- strsplit(x, " ")[[1]]
-  if (which=="first") {
-    # convert first letters of first word to upper-case    
-    s1 <- toupper(substring(s, 1,1)[1])
-    # attach capitalized first letter to rest of lower-cased original string
-    paste(s1,substring(x,2),sep="",collapse=" ")
-  } else {
-    # convert first letters of all words to upper-case
-    s1 <- toupper(substring(s, 1,1))
-    # attach capitalized first letter to rest of lower-cased separated strings
-    paste(s1,substring(s,2),sep="",collapse=" ")
+  # Only process if not NA
+  if (!is.na(x)) {
+    # convert entire string to lower case ...
+    x <- tolower(x)
+    # then split on space if more than one word
+    s <- strsplit(x, " ")[[1]]
+    if (which=="first") {
+      # convert first letters of first word to upper-case    
+      s1 <- toupper(substring(s, 1,1)[1])
+      # attach capitalized first letter to rest of lower-cased original string
+      x <- paste(s1,substring(x,2),sep="",collapse=" ")
+    } else {
+      # convert first letters of all words to upper-case
+      s1 <- toupper(substring(s, 1,1))
+      # attach capitalized first letter to rest of lower-cased separated strings
+      x <- paste(s1,substring(s,2),sep="",collapse=" ")
+    }
   }
+  x
 }
 
 

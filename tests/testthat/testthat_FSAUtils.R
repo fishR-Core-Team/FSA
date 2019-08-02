@@ -202,7 +202,7 @@ test_that("capFirst() results",{
 
 test_that("capFirst() returned classes",{
   ## simulate vector of names
-  vec <- c("Derek Ogle","derek ogle","Derek ogle","derek Ogle","DEREK OGLE")
+  vec <- c("Derek Ogle","derek ogle","Derek ogle","derek Ogle","DEREK OGLE",NA)
   fvec <- factor(vec)
   ## first example of non-factor vector
   vec1 <- capFirst(vec)
