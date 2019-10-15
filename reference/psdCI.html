@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,12 +41,12 @@
 
 
 
+
 <meta property="og:title" content="Compute confidence intervals for PSD-X and PSD X-Y values. — psdCI" />
-
 <meta property="og:description" content="Compute confidence intervals for (traditional) PSD-X and (incremental) PSD X-Y values as requested by the user." />
-
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -54,6 +58,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -85,7 +90,6 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
@@ -106,6 +110,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -117,15 +122,13 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Compute confidence intervals for (traditional) PSD-X and (incremental) PSD X-Y values as requested by the user.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>psdCI</span>(<span class='no'>indvec</span>, <span class='no'>ptbl</span>, <span class='no'>n</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"binomial"</span>, <span class='st'>"multinomial"</span>),
-  <span class='kw'>bin.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"wilson"</span>, <span class='st'>"exact"</span>, <span class='st'>"asymptotic"</span>), <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+    <pre class="usage"><span class='fu'>psdCI</span>(<span class='no'>indvec</span>, <span class='no'>ptbl</span>, <span class='no'>n</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"binomial"</span>, <span class='st'>"multinomial"</span>),
+  <span class='kw'>bin.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"wilson"</span>, <span class='st'>"exact"</span>, <span class='st'>"asymptotic"</span>), <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
   <span class='kw'>label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -162,57 +165,51 @@
       <td><p>A numeric that indicates the number of decimals to round the result to.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A matrix with columns that contain the computed PSD-X or PSD X-Y value and the associated confidence interval.  The confidence interval values were set to zero or 100 if the computed value was negative or greater than 100, respectively.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Computes confidence intervals for (traditional) PSD-X and (incremental) PSD X-Y values.  Two methods can be used as chosen with <code>method=</code>.  If <code>method="binomial"</code> then the binomial distribution (via <code>binCI()</code>) is used.  If <code>method="multinomial"</code> then the multinomial method described by Brenden et al. (2008) is used.  This function is defined to compute one confidence interval so <code>method="binomial"</code> is the default.  See examples and <code>psdCalc</code> for computing several simultaneous confidence intervals.</p>
 <p>A table of proportions within each length category is given in <code>ptbl</code>.  If <code>ptbl</code> has any values greater than 1 then it is assumed that a table of percentages was supplied and the entire table will be divided by 100 to continue.  The proportions must sum to 1 (with some allowance for rounding).</p>
 <p>A vector of length equal to the length of <code>ptbl</code> is given in <code>indvec</code> which contains zeros and ones to identify the linear combination of values in <code>ptbl</code> to use to construct the confidence intervals.  For example, if <code>ptbl</code> has four proportions then <code>indvec=c(1,0,0,0)</code> would be used to construct a confidence interval for the population proportion in the first category.  Alternatively, <code>indvec=c(0,0,1,1)</code> would be used to construct a confidence interval for the population proportion in the last two categories.  This vector must not contain all zeros or all ones.</p>
-    
     <h2 class="hasAnchor" id="testing"><a class="anchor" href="#testing"></a>Testing</h2>
 
     <p>The multinomial results match the results given in Brendent et al. (2008).</p>
-    
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
     <p>6-Size Structure.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Ogle, D.H.  2016.  <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>.  Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
 <p>Brenden, T.O., T. Wagner, and B.R. Murphy.  2008.  Novel tools for analyzing proportional size distribution index data.  North American Journal of Fisheries Management 28:1233-1242.  [Was (is?) from http://qfc.fw.msu.edu/Publications/Publication%20List/2008/Novel%20Tools%20for%20Analyzing%20Proportional%20Size%20Distribution_Brenden.pdf.]</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code>psdVal</code>, <code>psdPlot</code>, <code>psdAdd</code>, <code>PSDlit</code>, <code>tictactoe</code>, <code>lencat</code>, and <code>rcumsum</code> for related functionality.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## similar to Brenden et al. (2008)</span>
 <span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>997</span>
-<span class='no'>ipsd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>130</span>,<span class='fl'>491</span>,<span class='fl'>253</span>,<span class='fl'>123</span>)/<span class='no'>n</span>
+<span class='no'>ipsd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>130</span>,<span class='fl'>491</span>,<span class='fl'>253</span>,<span class='fl'>123</span>)/<span class='no'>n</span>
 
 <span class='co'>## single binomial</span>
-<span class='fu'>psdCI</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>),<span class='no'>ipsd</span>,<span class='kw'>n</span><span class='kw'>=</span><span class='no'>n</span>)</div><div class='output co'>#&gt;      Estimate 95% LCI 95% UCI
-#&gt; [1,]     37.7    34.8    40.8</div><div class='input'><span class='fu'>psdCI</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>),<span class='no'>ipsd</span>,<span class='kw'>n</span><span class='kw'>=</span><span class='no'>n</span>,<span class='kw'>label</span><span class='kw'>=</span><span class='st'>"PSD S-Q"</span>)</div><div class='output co'>#&gt;         Estimate 95% LCI 95% UCI
+<span class='fu'>psdCI</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>),<span class='no'>ipsd</span>,<span class='kw'>n</span><span class='kw'>=</span><span class='no'>n</span>)</div><div class='output co'>#&gt;      Estimate 95% LCI 95% UCI
+#&gt; [1,]     37.7    34.8    40.8</div><div class='input'><span class='fu'>psdCI</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>),<span class='no'>ipsd</span>,<span class='kw'>n</span><span class='kw'>=</span><span class='no'>n</span>,<span class='kw'>label</span><span class='kw'>=</span><span class='st'>"PSD S-Q"</span>)</div><div class='output co'>#&gt;         Estimate 95% LCI 95% UCI
 #&gt; PSD S-Q       13    11.1    15.3</div><div class='input'>
 <span class='co'>## single multinomial</span>
-<span class='fu'>psdCI</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>),<span class='no'>ipsd</span>,<span class='kw'>n</span><span class='kw'>=</span><span class='no'>n</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"multinomial"</span>)</div><div class='output co'>#&gt;      Estimate 95% LCI 95% UCI
-#&gt; [1,]     37.7    33.4      42</div><div class='input'><span class='fu'>psdCI</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>),<span class='no'>ipsd</span>,<span class='kw'>n</span><span class='kw'>=</span><span class='no'>n</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"multinomial"</span>,<span class='kw'>label</span><span class='kw'>=</span><span class='st'>"PSD S-Q"</span>)</div><div class='output co'>#&gt;         Estimate 95% LCI 95% UCI
+<span class='fu'>psdCI</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>),<span class='no'>ipsd</span>,<span class='kw'>n</span><span class='kw'>=</span><span class='no'>n</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"multinomial"</span>)</div><div class='output co'>#&gt;      Estimate 95% LCI 95% UCI
+#&gt; [1,]     37.7    33.4      42</div><div class='input'><span class='fu'>psdCI</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>),<span class='no'>ipsd</span>,<span class='kw'>n</span><span class='kw'>=</span><span class='no'>n</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"multinomial"</span>,<span class='kw'>label</span><span class='kw'>=</span><span class='st'>"PSD S-Q"</span>)</div><div class='output co'>#&gt;         Estimate 95% LCI 95% UCI
 #&gt; PSD S-Q       13    10.1      16</div><div class='input'>
 <span class='co'>## multiple multinomials (but see psdCalc())</span>
-<span class='no'>lbls</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"PSD S-Q"</span>,<span class='st'>"PSD Q-P"</span>,<span class='st'>"PSD P-M"</span>,<span class='st'>"PSD M-T"</span>,<span class='st'>"PSD"</span>,<span class='st'>"PSD-P"</span>)
-<span class='no'>imat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
+<span class='no'>lbls</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"PSD S-Q"</span>,<span class='st'>"PSD Q-P"</span>,<span class='st'>"PSD P-M"</span>,<span class='st'>"PSD M-T"</span>,<span class='st'>"PSD"</span>,<span class='st'>"PSD-P"</span>)
+<span class='no'>imat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
                  <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,
                  <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,
                  <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,
                  <span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,
                  <span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>1</span>),<span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>6</span>,<span class='kw'>byrow</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/colnames'>rownames</a></span>(<span class='no'>imat</span>) <span class='kw'>&lt;-</span> <span class='no'>lbls</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>imat</span>) <span class='kw'>&lt;-</span> <span class='no'>lbls</span>
 <span class='no'>imat</span></div><div class='output co'>#&gt;         [,1] [,2] [,3] [,4]
 #&gt; PSD S-Q    1    0    0    0
 #&gt; PSD Q-P    0    1    0    0
@@ -220,8 +217,8 @@
 #&gt; PSD M-T    0    0    0    1
 #&gt; PSD        0    1    1    1
 #&gt; PSD-P      0    0    1    1</div><div class='input'>
-<span class='no'>mcis</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/t'>t</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/apply'>apply</a></span>(<span class='no'>imat</span>,<span class='kw'>MARGIN</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>psdCI</span>,<span class='kw'>ptbl</span><span class='kw'>=</span><span class='no'>ipsd</span>,<span class='kw'>n</span><span class='kw'>=</span><span class='no'>n</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"multinomial"</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/colnames'>colnames</a></span>(<span class='no'>mcis</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Estimate"</span>,<span class='st'>"95% LCI"</span>,<span class='st'>"95% UCI"</span>)
+<span class='no'>mcis</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>imat</span>,<span class='kw'>MARGIN</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>psdCI</span>,<span class='kw'>ptbl</span><span class='kw'>=</span><span class='no'>ipsd</span>,<span class='kw'>n</span><span class='kw'>=</span><span class='no'>n</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"multinomial"</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>mcis</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Estimate"</span>,<span class='st'>"95% LCI"</span>,<span class='st'>"95% UCI"</span>)
 <span class='no'>mcis</span></div><div class='output co'>#&gt;         Estimate 95% LCI 95% UCI
 #&gt; PSD S-Q     13.0    10.1    16.0
 #&gt; PSD Q-P     49.2    44.8    53.7
@@ -230,8 +227,8 @@
 #&gt; PSD         87.0    84.0    89.9
 #&gt; PSD-P       37.7    33.4    42.0</div><div class='input'>
 <span class='co'>## Multiple "Bonferroni-corrected" (for six comparisons) binomial method</span>
-<span class='no'>bcis</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/t'>t</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/apply'>apply</a></span>(<span class='no'>imat</span>,<span class='kw'>MARGIN</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>psdCI</span>,<span class='kw'>ptbl</span><span class='kw'>=</span><span class='no'>ipsd</span>,<span class='kw'>n</span><span class='kw'>=</span><span class='no'>n</span>,<span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>1</span>-<span class='fl'>0.05</span>/<span class='fl'>6</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/colnames'>colnames</a></span>(<span class='no'>bcis</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Estimate"</span>,<span class='st'>"95% LCI"</span>,<span class='st'>"95% UCI"</span>)
+<span class='no'>bcis</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>imat</span>,<span class='kw'>MARGIN</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>psdCI</span>,<span class='kw'>ptbl</span><span class='kw'>=</span><span class='no'>ipsd</span>,<span class='kw'>n</span><span class='kw'>=</span><span class='no'>n</span>,<span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>1</span>-<span class='fl'>0.05</span>/<span class='fl'>6</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>bcis</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Estimate"</span>,<span class='st'>"95% LCI"</span>,<span class='st'>"95% UCI"</span>)
 <span class='no'>bcis</span></div><div class='output co'>#&gt;         Estimate 95% LCI 95% UCI
 #&gt; PSD S-Q     13.0    10.5    16.1
 #&gt; PSD Q-P     49.2    45.1    53.4
@@ -245,19 +242,12 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#testing">Testing</a></li>
-
       <li><a href="#ifar-chapter">IFAR Chapter</a></li>
-
       <li><a href="#references">References</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -266,19 +256,23 @@
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Derek Ogle, Powell Wheeler, Alexis Dinno.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

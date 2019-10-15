@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,12 +41,12 @@
 
 
 
+
 <meta property="og:title" content="Tests for significant differences among all pairs of slopes in a dummy variable regression (DVR). — compSlopes" />
-
 <meta property="og:description" content="Tests for significant differences among all pairs of slopes in a dummy variable regression where the dummy variables all stem from one factor." />
-
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -54,6 +58,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -85,7 +90,6 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
@@ -106,6 +110,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -117,17 +122,15 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Tests for significant differences among all pairs of slopes in a dummy variable regression where the dummy variables all stem from one factor.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>compSlopes</span>(<span class='no'>mdl</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/stats/topics/p.adjust'>p.adjust.methods</a></span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>order.slopes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"digits"</span>))
+    <pre class="usage"><span class='fu'>compSlopes</span>(<span class='no'>mdl</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/r/stats/p.adjust.html'>p.adjust.methods</a></span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>order.slopes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>))
 
 <span class='co'># S3 method for compSlopes</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
-    
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -137,7 +140,7 @@
     </tr>
     <tr>
       <th>method</th>
-      <td><p>A string indicating the method of p-value adjustment to use. See details and <code>p.adjust.methods</code> (documented in <code><a href='https://www.rdocumentation.org/packages/stats/topics/p.adjust'>p.adjust</a></code>.</p></td>
+      <td><p>A string indicating the method of p-value adjustment to use. See details and <code>p.adjust.methods</code> (documented in <code><a href='https://rdrr.io/r/stats/p.adjust.html'>p.adjust</a></code>.</p></td>
     </tr>
     <tr>
       <th>conf.level</th>
@@ -156,67 +159,49 @@
       <td><p>A <code>compSlopes</code> object (i.e., returned from <code>compSlopes</code>).</p></td>
     </tr>
     <tr>
-      <th>&#8230;</th>
+      <th>...</th>
       <td><p>Other arguments sent to <code>print</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list with three components. The first component contains the p-value adjustment method in <code>method</code>. The second component, called <code>comparisons</code>, is a data.frame that contains the following:</p><table class='table'>
-<tr><td></td><td><code>comparison</code></td></tr>
-<tr><td></td><td>Description of how the difference in levels was computed.</td></tr>
-<tr><td></td><td><code>diff</code></td></tr>
-<tr><td></td><td>The estimated difference in slope values.</td></tr>
-<tr><td></td><td><code>lwr</code></td></tr>
-<tr><td></td><td>Lower confidence bound for difference in slope values.</td></tr>
-<tr><td></td><td><code>upr</code></td></tr>
-<tr><td></td><td>Upper confidence bound for difference in slope values.</td></tr>
-<tr><td></td><td><code>p.unadj</code></td></tr>
-<tr><td></td><td>Unadjusted p-value for testing the difference in slopes is zero.</td></tr>
-<tr><td></td><td><code>p.adj</code></td></tr>
-<tr><td></td><td>Adjusted p-value for testing the difference in slopes is zero.</td></tr>
-<tr><td></td><td></td></tr>
+<tr><td><code>comparison</code></td><td>Description of how the difference in levels was computed.</td></tr>
+<tr><td><code>diff</code></td><td>The estimated difference in slope values.</td></tr>
+<tr><td><code>lwr</code></td><td>Lower confidence bound for difference in slope values.</td></tr>
+<tr><td><code>upr</code></td><td>Upper confidence bound for difference in slope values.</td></tr>
+<tr><td><code>p.unadj</code></td><td>Unadjusted p-value for testing the difference in slopes is zero.</td></tr>
+<tr><td><code>p.adj</code></td><td>Adjusted p-value for testing the difference in slopes is zero.</td></tr>
 </table>
 
 
 <p>The third component, called <code>slopes</code>, is a data.frame that contains the following:</p><table class='table'>
-<tr><td></td><td><code>level</code></td></tr>
-<tr><td></td><td>A level name.</td></tr>
-<tr><td></td><td><code>slope</code></td></tr>
-<tr><td></td><td>The estimated slope value for the given level.</td></tr>
-<tr><td></td><td><code>XX LCI</code></td></tr>
-<tr><td></td><td>Lower confidence bound for difference in slope values.</td></tr>
-<tr><td></td><td><code>XX UCI</code></td></tr>
-<tr><td></td><td>Upper confidence bound for difference in slope values.</td></tr>
-<tr><td></td><td><code>p.unadj</code></td></tr>
-<tr><td></td><td>Unadjusted p-value for testing the slope is zero.</td></tr>
-<tr><td></td><td><code>p.adj</code></td></tr>
-<tr><td></td><td>Adjusted p-value for testing the slope is zero.</td></tr>
-<tr><td></td><td></td></tr>
+<tr><td><code>level</code></td><td>A level name.</td></tr>
+<tr><td><code>slope</code></td><td>The estimated slope value for the given level.</td></tr>
+<tr><td><code>XX LCI</code></td><td>Lower confidence bound for difference in slope values.</td></tr>
+<tr><td><code>XX UCI</code></td><td>Upper confidence bound for difference in slope values.</td></tr>
+<tr><td><code>p.unadj</code></td><td>Unadjusted p-value for testing the slope is zero.</td></tr>
+<tr><td><code>p.adj</code></td><td>Adjusted p-value for testing the slope is zero.</td></tr>
 </table>
 
 
 <p>The <code>print</code> function prints the results nicely.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>In a dummy variable regression the coefficient for the interaction between the covariate (x) and a dummy variable tests for a difference in slopes between the level of the dummy variable and the reference level. Thus, all dummy variables from a particular linear model fit only compare slopes with the reference level. Other slope comparisons may be found by changing the reference level, which requires refitting the model. This function automates this sequential process and produces a data.frame that shows the estimated difference, an unadjusted confidence interval for the difference, and the unadjusted and adjusted (for multiple comparisons) p-values for testing that the difference in slopes is equal to zero for each pair of levels. The adjusted p-values may be computed with any of the methods coded in <code><a href='https://www.rdocumentation.org/packages/stats/topics/p.adjust'>p.adjust</a></code> (see <code>p.adjust.methods</code> there).</p>
-    
+    <p>In a dummy variable regression the coefficient for the interaction between the covariate (x) and a dummy variable tests for a difference in slopes between the level of the dummy variable and the reference level. Thus, all dummy variables from a particular linear model fit only compare slopes with the reference level. Other slope comparisons may be found by changing the reference level, which requires refitting the model. This function automates this sequential process and produces a data.frame that shows the estimated difference, an unadjusted confidence interval for the difference, and the unadjusted and adjusted (for multiple comparisons) p-values for testing that the difference in slopes is equal to zero for each pair of levels. The adjusted p-values may be computed with any of the methods coded in <code><a href='https://rdrr.io/r/stats/p.adjust.html'>p.adjust</a></code> (see <code>p.adjust.methods</code> there).</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>This function only works for linear models with one factor variable.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code>compIntercepts</code> in <span class="pkg">FSA</span>.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>Mirex</span>$<span class='no'>year</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>Mirex</span>$<span class='no'>year</span>)
+    <pre class="examples"><div class='input'><span class='no'>Mirex</span>$<span class='no'>year</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>Mirex</span>$<span class='no'>year</span>)
 <span class='co'># fit a dummy variable regression, see that slopes differ</span>
-<span class='no'>lm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>weight</span>*<span class='no'>year</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/anova'>anova</a></span>(<span class='no'>lm1</span>)</div><div class='output co'>#&gt; Analysis of Variance Table
+<span class='no'>lm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>weight</span>*<span class='no'>year</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>(<span class='no'>lm1</span>)</div><div class='output co'>#&gt; Analysis of Variance Table
 #&gt; 
 #&gt; Response: mirex
 #&gt;              Df  Sum Sq  Mean Sq F value    Pr(&gt;F)    
@@ -279,15 +264,10 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#note">Note</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -296,19 +276,23 @@
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Derek Ogle, Powell Wheeler, Alexis Dinno.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,12 +41,12 @@
 
 
 
+
 <meta property="og:title" content="Tests for significant differences among all pairs of intercepts in a dummy variable regression. — compIntercepts" />
-
 <meta property="og:description" content="Tests for significant differences among all pairs of intercepts in a dummy variable regression where the dummy variables all stem from one factor." />
-
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -54,6 +58,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -85,7 +90,6 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
@@ -106,6 +110,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -117,17 +122,15 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Tests for significant differences among all pairs of intercepts in a dummy variable regression where the dummy variables all stem from one factor.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>compIntercepts</span>(<span class='no'>mdl</span>, <span class='kw'>common.cov</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>x</span>), <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span>(<span class='st'>"digits"</span>), <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>compIntercepts</span>(<span class='no'>mdl</span>, <span class='kw'>common.cov</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>x</span>), <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for compIntercepts</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
-    
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -148,7 +151,7 @@
       <td><p>A numeric that controls the number of digits to print.</p></td>
     </tr>
     <tr>
-      <th>&#8230;</th>
+      <th>...</th>
       <td><p>Other arguments to be passed to the <code>TukeyHSD</code> or <code>print</code> functions.</p></td>
     </tr>
     <tr>
@@ -156,55 +159,40 @@
       <td><p>A <code>compIntercepts</code> object (i.e., returned from <code>compIntercepts</code>).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list with the following four components:</p><table class='table'>
-<tr><td></td><td><code>comparison</code></td></tr>
-<tr><td></td><td>The comparison results as returned from</td></tr>
-<tr><td><code><a href='https://www.rdocumentation.org/packages/stats/topics/TukeyHSD'>TukeyHSD</a></code></td><td>.</td></tr>
-<tr><td></td><td><code>common.cov</code></td></tr>
-<tr><td></td><td>The value of the common covariate sent in</td></tr>
-<tr><td><code>common.cov</code></td><td>.</td></tr>
-<tr><td></td><td><code>adjvals</code></td></tr>
-<tr><td></td><td>A vector of values of the response variable adjusted to the</td></tr>
-<tr><td><code>common.cov</code></td><td>value of the covariate. This vector can be appended to the original data frame to construct summary statistics for the adjusted values (e.g., mean adjusted value for each group).</td></tr>
-<tr><td></td><td><code>means</code></td></tr>
-<tr><td></td><td>A vector of mean adjusted values at the value of the common covariate.</td></tr>
-<tr><td></td><td><code>digits</code></td></tr>
-<tr><td></td><td>The value sent in</td></tr>
-<tr><td><code>digits</code></td><td>.</td></tr>
-<tr><td></td><td><code>rnm</code></td></tr>
-<tr><td></td><td>The name of the response (LHS) variable.</td></tr>
-<tr><td></td><td><code>cnm</code></td></tr>
-<tr><td></td><td>The name of the covariate variable.</td></tr>
-<tr><td></td><td></td></tr>
+<tr><td><code>comparison</code></td><td>The comparison results as returned from <code><a href='https://rdrr.io/r/stats/TukeyHSD.html'>TukeyHSD</a></code>.</td></tr>
+<tr><td><code>common.cov</code></td><td>The value of the common covariate sent in <code>common.cov</code>.</td></tr>
+<tr><td><code>adjvals</code></td><td>A vector of values of the response variable adjusted to the <code>common.cov</code> value of the covariate. This vector can be appended to the original data frame to construct summary statistics for the adjusted values (e.g., mean adjusted value for each group).</td></tr>
+<tr><td><code>means</code></td><td>A vector of mean adjusted values at the value of the common covariate.</td></tr>
+<tr><td><code>digits</code></td><td>The value sent in <code>digits</code>.</td></tr>
+<tr><td><code>rnm</code></td><td>The name of the response (LHS) variable.</td></tr>
+<tr><td><code>cnm</code></td><td>The name of the covariate variable.</td></tr>
 </table>
 
 
 <p>The <code>print</code> function prints the comparison and adjusted means in a nice format.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>In a dummy variable regression without the interaction(s) between the covariate (x) and the dummy variable(s) (i.e., parallel lines) the coefficient for the dummy variables tests for a difference in intercepts between the level of the dummy variable and the reference level. Thus, all dummy variables from a particular linear model fit only compare intercepts with the reference level. Other intercept comparisons may be found by changing the reference level, which requires refitting the model.</p>
-<p>Alternatively, Tukey's HSD method of multiple comparisons may be used, but this requires adjusting the original observations as if the original observations were all collected at the exact same value of the covariate (x). Because of this required adjustment, the  <code><a href='https://www.rdocumentation.org/packages/stats/topics/TukeyHSD'>TukeyHSD</a></code> function is inappropriate for testing for difference in intercepts in a dummy variable regression.</p>
-<p>This function provides a statistical comparison of all pairs of intercepts by first adjusting the observed data to a common value of the covariate (<code>common.cov</code>), computing a one-way ANOVA to determine if the mean adjusted values differ by level of the group factor in the original dummy variable regression, and then submitting the one-way ANOVA results to the <code><a href='https://www.rdocumentation.org/packages/stats/topics/TukeyHSD'>TukeyHSD</a></code> function to determine for which levels the mean adjusted values differ. The levels for which the mean adjusted values differ are also the levels for which the intercepts differ.</p>
+<p>Alternatively, Tukey's HSD method of multiple comparisons may be used, but this requires adjusting the original observations as if the original observations were all collected at the exact same value of the covariate (x). Because of this required adjustment, the  <code><a href='https://rdrr.io/r/stats/TukeyHSD.html'>TukeyHSD</a></code> function is inappropriate for testing for difference in intercepts in a dummy variable regression.</p>
+<p>This function provides a statistical comparison of all pairs of intercepts by first adjusting the observed data to a common value of the covariate (<code>common.cov</code>), computing a one-way ANOVA to determine if the mean adjusted values differ by level of the group factor in the original dummy variable regression, and then submitting the one-way ANOVA results to the <code><a href='https://rdrr.io/r/stats/TukeyHSD.html'>TukeyHSD</a></code> function to determine for which levels the mean adjusted values differ. The levels for which the mean adjusted values differ are also the levels for which the intercepts differ.</p>
 <p>The default is to compute the adjusted values at the mean value of the covariate (i.e., <code>common.cov=mean(x)</code>. However, if interest is in the intercepts (i.e., at X=0) then <code>common.cov=0</code> should be used instead.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/stats/topics/TukeyHSD'>TukeyHSD</a></code> and <code>compSlopes</code> from <span class="pkg">FSA</span>.</p></div>
-    
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/stats/TukeyHSD.html'>TukeyHSD</a></code> and <code>compSlopes</code> from <span class="pkg">FSA</span>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Reduce Mirex data to years where slopes don't differ to illustrate this</span>
 <span class='co'>##   function ... see compSlopes() for analysis of full data set. </span>
 <span class='no'>Mirex</span> <span class='kw'>&lt;-</span> <span class='no'>Mirex</span>[<span class='no'>Mirex</span>$<span class='no'>year</span><span class='kw'>!=</span><span class='st'>"1996"</span> <span class='kw'>&amp;</span> <span class='no'>Mirex</span>$<span class='no'>year</span><span class='kw'>!=</span><span class='st'>"1999"</span>,]
-<span class='no'>Mirex</span>$<span class='no'>year</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>Mirex</span>$<span class='no'>year</span>)
+<span class='no'>Mirex</span>$<span class='no'>year</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>Mirex</span>$<span class='no'>year</span>)
 <span class='co'>## Fit DVR, see that slopes don't differ, </span>
 <span class='co'>##   compare intercepts, visualize results</span>
-<span class='no'>lm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>weight</span>*<span class='no'>year</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/anova'>anova</a></span>(<span class='no'>lm1</span>)</div><div class='output co'>#&gt; Analysis of Variance Table
+<span class='no'>lm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>weight</span>*<span class='no'>year</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>(<span class='no'>lm1</span>)</div><div class='output co'>#&gt; Analysis of Variance Table
 #&gt; 
 #&gt; Response: mirex
 #&gt;             Df  Sum Sq Mean Sq  F value    Pr(&gt;F)    
@@ -224,7 +212,7 @@
 #&gt; <span class='message'>Mean mirex when weight=4.258452</span></div><div class='output co'>#&gt;      1977      1982      1986      1992 
 #&gt; 0.2506358 0.1964699 0.1851846 0.1604194 </div><div class='input'><span class='co'>## Fit model without interaction to avoid warning, but</span>
 <span class='co'>##   note that the compIntercepts() results are the same</span>
-<span class='no'>lm2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>weight</span>+<span class='no'>year</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex</span>)
+<span class='no'>lm2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>weight</span>+<span class='no'>year</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex</span>)
 <span class='fu'>compIntercepts</span>(<span class='no'>lm2</span>)</div><div class='output co'>#&gt; <span class='message'>Tukey HSD on means adjusted assuming parallel lines</span></div><div class='output co'>#&gt;   comparison        diff     95% LCI      95% UCI        p.adj
 #&gt; 1  1982-1977 -0.05416588 -0.10225344 -0.006078329 0.0209412606
 #&gt; 2  1986-1977 -0.06545122 -0.11353877 -0.017363664 0.0033259143
@@ -240,13 +228,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -255,19 +239,23 @@
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Derek Ogle, Powell Wheeler, Alexis Dinno.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

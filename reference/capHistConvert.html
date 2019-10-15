@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,12 +41,12 @@
 
 
 
+
 <meta property="og:title" content="Convert between capture history data.frame formats. — capHistConvert" />
-
 <meta property="og:description" content="Use to convert between simple versions of several capture history data.frame formats -- &amp;#8220;individual&amp;#8221;, &amp;#8220;frequency&amp;#8221;, &amp;#8220;event&amp;#8221;, &amp;#8220;MARK&amp;#8221;, and &amp;#8220;RMark&amp;#8221;. The primary use is to convert to the &amp;#8220;individual&amp;#8221; format for use in capHistSum." />
-
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -54,6 +58,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -85,7 +90,6 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
@@ -106,6 +110,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -117,18 +122,16 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Use to convert between simple versions of several capture history data.frame formats -- &#8220;individual&#8221;, &#8220;frequency&#8221;, &#8220;event&#8221;, &#8220;MARK&#8221;, and &#8220;RMark&#8221;. The primary use is to convert to the &#8220;individual&#8221; format for use in <code>capHistSum</code>.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>capHistConvert</span>(<span class='no'>df</span>, <span class='kw'>cols2use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cols2ignore</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>in.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"frequency"</span>, <span class='st'>"event"</span>, <span class='st'>"individual"</span>, <span class='st'>"MARK"</span>, <span class='st'>"marked"</span>,
-  <span class='st'>"RMark"</span>), <span class='kw'>out.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"individual"</span>, <span class='st'>"event"</span>, <span class='st'>"frequency"</span>, <span class='st'>"MARK"</span>,
+  <span class='kw'>in.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"frequency"</span>, <span class='st'>"event"</span>, <span class='st'>"individual"</span>, <span class='st'>"MARK"</span>, <span class='st'>"marked"</span>,
+  <span class='st'>"RMark"</span>), <span class='kw'>out.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"individual"</span>, <span class='st'>"event"</span>, <span class='st'>"frequency"</span>, <span class='st'>"MARK"</span>,
   <span class='st'>"marked"</span>, <span class='st'>"RMark"</span>), <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>event.ord</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>freq</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>var.lbls</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>var.lbls.pre</span> <span class='kw'>=</span> <span class='st'>"event"</span>,
-  <span class='kw'>include.id</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ifelse'>ifelse</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/NULL'>is.null</a></span>(<span class='no'>id</span>), <span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>))</pre>
-    
+  <span class='kw'>include.id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span>(<span class='no'>id</span>), <span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>))</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -177,113 +180,99 @@
       <td><p>A logical that indicates whether a unique fish identifier variable/column should be included in the output data.frame. This argument is only used if <code>out.type="individual"</code> or <code>out.type="RMark"</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A data frame of the proper type given in <code>out.type</code> is returned. See details.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>capHistSum</code> requires capture histories to be recorded in the &#8220;individual&#8221; format. In this format, the data frame contains (at least) as many columns as sample events and as many rows as individually tagged fish. Optionally, the data.frame may also contain a column with unique fish identifiers (e.g., tag numbers). Each cell in the capture history portion of the data.frame contains a &#8216;0&#8217; if the fish of that row was NOT seen in the event of that column and a &#8216;1&#8217; if the fish of that row WAS seen in the event of that column. For example, suppose that five fish were marked on four sampling events; fish &#8216;17&#8217; was captured on the first two events; fish &#8216;18&#8217; was captured on the first and third events; fish &#8216;19&#8217; was captured on only the third event; fish &#8216;20&#8217; was captured on only the fourth event; and fish &#8216;21&#8217; was captured on the first and second events. The &#8220;individual&#8221; capture history date.frame for these data looks like:</p>
 <table class='table'>
-<tr><td></td><td>fish</td><td>event1</td><td>event2</td><td>event3</td></tr>
-<tr><td>event4</td><td></td><td>17</td><td>1</td><td>1</td></tr>
-<tr><td>0</td><td>0</td><td></td><td>18</td><td>1</td></tr>
-<tr><td>0</td><td>1</td><td>0</td><td></td><td>19</td></tr>
-<tr><td>0</td><td>0</td><td>1</td><td>0</td><td></td></tr>
+<tr><td>fish</td><td>event1</td><td>event2</td><td>event3</td><td>event4</td></tr>
+<tr><td>17</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+<tr><td>18</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>19</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
 <tr><td>20</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
-<tr><td></td><td>21</td><td>1</td><td>1</td><td>0</td></tr>
-<tr><td>0</td><td></td><td></td><td>fish</td><td>event1</td></tr>
+<tr><td>21</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
 </table>
-    <p>The &#8220;frequency&#8221; format data.frame (this format is used in <span class="pkg">Rcapture</span>) has unique capture histories in separate columns, as in the &#8220;individual&#8221; format, but also includes a column with the frequency of individuals that had the capture history of that row. It will not contain a fish identifier variable. The same data from above looks like:</p>
+
+
+<p>The &#8220;frequency&#8221; format data.frame (this format is used in <span class="pkg">Rcapture</span>) has unique capture histories in separate columns, as in the &#8220;individual&#8221; format, but also includes a column with the frequency of individuals that had the capture history of that row. It will not contain a fish identifier variable. The same data from above looks like:</p>
 <table class='table'>
-<tr><td></td><td>event1</td><td>event2</td><td>event3</td><td>event4</td></tr>
-<tr><td>freq</td><td></td><td>1</td><td>1</td><td>0</td></tr>
-<tr><td>0</td><td>2</td><td></td><td>1</td><td>0</td></tr>
-<tr><td>1</td><td>0</td><td>1</td><td></td><td>0</td></tr>
-<tr><td>0</td><td>1</td><td>0</td><td>1</td><td></td></tr>
+<tr><td>event1</td><td>event2</td><td>event3</td><td>event4</td><td>freq</td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>0</td><td>2</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
 <tr><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
-<tr><td></td><td></td><td>event1</td><td>event2</td><td>event3</td></tr>
 </table>
-    <p>The &#8220;event&#8221; format data.frame has a column with the unique fish identifier and a column with the event in which the fish of that row was observed. The same data from above looks like:</p>
+
+
+<p>The &#8220;event&#8221; format data.frame has a column with the unique fish identifier and a column with the event in which the fish of that row was observed. The same data from above looks like:</p>
 <table class='table'>
-<tr><td></td><td>fish</td></tr>
-<tr><td>event</td><td></td></tr>
+<tr><td>fish</td><td>event</td></tr>
 <tr><td>17</td><td>1</td></tr>
-<tr><td></td><td>18</td></tr>
-<tr><td>1</td><td></td></tr>
+<tr><td>18</td><td>1</td></tr>
 <tr><td>21</td><td>1</td></tr>
-<tr><td></td><td>17</td></tr>
-<tr><td>2</td><td></td></tr>
+<tr><td>17</td><td>2</td></tr>
 <tr><td>21</td><td>2</td></tr>
-<tr><td></td><td>18</td></tr>
-<tr><td>3</td><td></td></tr>
+<tr><td>18</td><td>3</td></tr>
 <tr><td>19</td><td>3</td></tr>
-<tr><td></td><td>20</td></tr>
-<tr><td>4</td><td></td></tr>
+<tr><td>20</td><td>4</td></tr>
 </table>
-    <p>MARK (http://www.phidot.org/software/mark/index.html) is the &#8220;gold-standard&#8221; software for analyzing complex capture history information. In the &#8220;MARK&#8221; format the 0s and 1s of the capture histories are combined together as a string without any spaces. Thus, the &#8220;MARK&#8221; format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the capture history of that row. The final column ends with a semi-colon. The same data from above looks like:</p>
+
+
+<p>MARK (http://www.phidot.org/software/mark/index.html) is the &#8220;gold-standard&#8221; software for analyzing complex capture history information. In the &#8220;MARK&#8221; format the 0s and 1s of the capture histories are combined together as a string without any spaces. Thus, the &#8220;MARK&#8221; format has the capture history strings in one column with an additional column that contains the frequency of individuals that exhibited the capture history of that row. The final column ends with a semi-colon. The same data from above looks like:</p>
 <table class='table'>
-<tr><td></td><td>ch</td></tr>
-<tr><td>freq</td><td></td></tr>
+<tr><td>ch</td><td>freq</td></tr>
 <tr><td>0001</td><td>1;</td></tr>
-<tr><td></td><td>0010</td></tr>
-<tr><td>1;</td><td></td></tr>
+<tr><td>0010</td><td>1;</td></tr>
 <tr><td>1010</td><td>1;</td></tr>
-<tr><td></td><td>1100</td></tr>
-<tr><td>2;</td><td></td></tr>
+<tr><td>1100</td><td>2;</td></tr>
 </table>
-    <p>The <code>RMark</code> and <span class="pkg">marked</span> are packages used to replace some of the functionality of MARK or to interact with MARK. The &#8220;RMark&#8221; or &#8220;marked&#8221; format requires the capture histories as one string (must be a character string and called &#8216;ch&#8217;), as in the &#8220;MARK&#8221; format, but without the semicolon. The data.frame may be augmented with an identifier for individual fish OR with a frequency variable. If augmented with a unique fish identification variable then the same data from above looks like:</p>
+
+
+<p>The <code>RMark</code> and <span class="pkg">marked</span> are packages used to replace some of the functionality of MARK or to interact with MARK. The &#8220;RMark&#8221; or &#8220;marked&#8221; format requires the capture histories as one string (must be a character string and called &#8216;ch&#8217;), as in the &#8220;MARK&#8221; format, but without the semicolon. The data.frame may be augmented with an identifier for individual fish OR with a frequency variable. If augmented with a unique fish identification variable then the same data from above looks like:</p>
 <table class='table'>
-<tr><td></td><td>fish</td></tr>
-<tr><td>ch</td><td></td></tr>
+<tr><td>fish</td><td>ch</td></tr>
 <tr><td>17</td><td>1100</td></tr>
-<tr><td></td><td>18</td></tr>
-<tr><td>1010</td><td></td></tr>
+<tr><td>18</td><td>1010</td></tr>
 <tr><td>19</td><td>0010</td></tr>
-<tr><td></td><td>20</td></tr>
-<tr><td>0001</td><td></td></tr>
+<tr><td>20</td><td>0001</td></tr>
 <tr><td>21</td><td>1100</td></tr>
-<tr><td></td><td></td></tr>
 </table>
-    <p>However, if augmented with a frequency variable then the same data from above looks like:</p>
+
+
+<p>However, if augmented with a frequency variable then the same data from above looks like:</p>
 <table class='table'>
-<tr><td></td><td>ch</td></tr>
-<tr><td>freq</td><td></td></tr>
+<tr><td>ch</td><td>freq</td></tr>
 <tr><td>0001</td><td>1</td></tr>
-<tr><td></td><td>0010</td></tr>
-<tr><td>1</td><td></td></tr>
+<tr><td>0010</td><td>1</td></tr>
 <tr><td>1010</td><td>1</td></tr>
-<tr><td></td><td>1100</td></tr>
-<tr><td>2</td><td></td></tr>
+<tr><td>1100</td><td>2</td></tr>
 </table>
-    <p>Each of the formats can be used to convert from (i.e., in <code>in.type=</code>) or to convert to (i.e., in <code>out.type=</code>) with the exception that only the individual fish identifier version can be converted to when <code>out.type="RMark"</code>.</p>
-    
+
+
+<p>Each of the formats can be used to convert from (i.e., in <code>in.type=</code>) or to convert to (i.e., in <code>out.type=</code>) with the exception that only the individual fish identifier version can be converted to when <code>out.type="RMark"</code>.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The formats as used here are simple in the sense that one is only allowed to have the individual fish identifier or the frequency variable in addition to the capture history information. More complex analyses may use a number of covariates. For these more complex analyses, one should work directly with the <span class="pkg">Rcapture</span>, <code>RMark</code>, or <span class="pkg">marked</span> packages.</p>
 <p>This function also assumes that all unmarked captured fish are marked and returned to the population (i.e., no losses at the time of marking are allowed).</p>
-    
     <h2 class="hasAnchor" id="warning"><a class="anchor" href="#warning"></a>Warning</h2>
 
     <p><code>capHistConvert</code> may give unwanted results if the data are <code>in.type="event"</code> but there are unused levels for the variable, as would result if the data.frame had been subsetted on the event variable. The unwanted results can be corrected by using <code>droplevels</code> before <code>capHistConvert</code>. See the last example for an example.</p>
-    
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
     <p>9-Abundance from Capture-Recapture Data.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code>capHistSum</code> to summarize &#8220;individual&#8221; capture histories into a format usable in <code>mrClosed</code> and <code>mrOpen</code>. Also see <span class="pkg">Rcapture</span>, <code>RMark</code>, or <span class="pkg">marked</span> packages for handling more complex analyses.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## A small example of 'event' format</span>
-( <span class='no'>ex1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>fish</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>17</span>,<span class='fl'>18</span>,<span class='fl'>21</span>,<span class='fl'>17</span>,<span class='fl'>21</span>,<span class='fl'>18</span>,<span class='fl'>19</span>,<span class='fl'>20</span>),<span class='kw'>yr</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1987</span>,<span class='fl'>1987</span>,<span class='fl'>1987</span>,<span class='fl'>1988</span>,<span class='fl'>1988</span>,<span class='fl'>1989</span>,<span class='fl'>1989</span>,<span class='fl'>1990</span>)) )</div><div class='output co'>#&gt;   fish   yr
+( <span class='no'>ex1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>fish</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>17</span>,<span class='fl'>18</span>,<span class='fl'>21</span>,<span class='fl'>17</span>,<span class='fl'>21</span>,<span class='fl'>18</span>,<span class='fl'>19</span>,<span class='fl'>20</span>),<span class='kw'>yr</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1987</span>,<span class='fl'>1987</span>,<span class='fl'>1987</span>,<span class='fl'>1988</span>,<span class='fl'>1988</span>,<span class='fl'>1989</span>,<span class='fl'>1989</span>,<span class='fl'>1990</span>)) )</div><div class='output co'>#&gt;   fish   yr
 #&gt; 1   17 1987
 #&gt; 2   18 1987
 #&gt; 3   21 1987
@@ -450,7 +439,7 @@
 #&gt; 8    4 event4</div><div class='input'>
 <span class='co'>## Remove semi-colon from MARK format to make a RMark 'frequency' format</span>
 <span class='no'>ex1.E2R1</span> <span class='kw'>&lt;-</span> <span class='no'>ex1.E2M</span>
-<span class='no'>ex1.E2R1</span>$<span class='no'>freq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>as.numeric</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/grep'>sub</a></span>(<span class='st'>";"</span>,<span class='st'>""</span>,<span class='no'>ex1.E2R1</span>$<span class='no'>freq</span>))
+<span class='no'>ex1.E2R1</span>$<span class='no'>freq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span>(<span class='st'>";"</span>,<span class='st'>""</span>,<span class='no'>ex1.E2R1</span>$<span class='no'>freq</span>))
 <span class='no'>ex1.E2R1</span></div><div class='output co'>#&gt;     ch freq
 #&gt; 1 0001    1
 #&gt; 2 0010    1
@@ -489,8 +478,8 @@
 
 <span class='co'>########################################################################</span>
 <span class='co'>## A small example using character ids</span>
-( <span class='no'>ex2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>fish</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"id17"</span>,<span class='st'>"id18"</span>,<span class='st'>"id21"</span>,<span class='st'>"id17"</span>,<span class='st'>"id21"</span>,<span class='st'>"id18"</span>,<span class='st'>"id19"</span>,<span class='st'>"id20"</span>),
-                    <span class='kw'>yr</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1987</span>,<span class='fl'>1987</span>,<span class='fl'>1987</span>,<span class='fl'>1988</span>,<span class='fl'>1988</span>,<span class='fl'>1989</span>,<span class='fl'>1989</span>,<span class='fl'>1990</span>)) )</div><div class='output co'>#&gt;   fish   yr
+( <span class='no'>ex2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>fish</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"id17"</span>,<span class='st'>"id18"</span>,<span class='st'>"id21"</span>,<span class='st'>"id17"</span>,<span class='st'>"id21"</span>,<span class='st'>"id18"</span>,<span class='st'>"id19"</span>,<span class='st'>"id20"</span>),
+                    <span class='kw'>yr</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1987</span>,<span class='fl'>1987</span>,<span class='fl'>1987</span>,<span class='fl'>1988</span>,<span class='fl'>1988</span>,<span class='fl'>1989</span>,<span class='fl'>1989</span>,<span class='fl'>1990</span>)) )</div><div class='output co'>#&gt;   fish   yr
 #&gt; 1 id17 1987
 #&gt; 2 id18 1987
 #&gt; 3 id21 1987
@@ -555,7 +544,7 @@
 #&gt; 3 id19    0    0    1    0
 #&gt; 4 id20    0    0    0    1
 #&gt; 5 id21    1    1    0    0</div><div class='input'>( <span class='no'>ex2.E2Ib</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex2</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"event"</span>,
-              <span class='kw'>var.lbls</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"first"</span>,<span class='st'>"second"</span>,<span class='st'>"third"</span>,<span class='st'>"fourth"</span>)) )</div><div class='output co'>#&gt;   fish first second third fourth
+              <span class='kw'>var.lbls</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"first"</span>,<span class='st'>"second"</span>,<span class='st'>"third"</span>,<span class='st'>"fourth"</span>)) )</div><div class='output co'>#&gt;   fish first second third fourth
 #&gt; 1 id17     1      1     0      0
 #&gt; 2 id18     1      0     1      0
 #&gt; 3 id19     0      0     1      0
@@ -576,63 +565,63 @@
 #&gt; 3 id19     0      0      0     1
 #&gt; 4 id20     0      1      0     0
 #&gt; 5 id21     1      0      1     0</div><div class='input'>( <span class='no'>ex2.E2Igood</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex2.I2Ea</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"event"</span>,
-                 <span class='kw'>event.ord</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"first"</span>,<span class='st'>"second"</span>,<span class='st'>"third"</span>,<span class='st'>"fourth"</span>)) )</div><div class='output co'>#&gt;   fish first second third fourth
+                 <span class='kw'>event.ord</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"first"</span>,<span class='st'>"second"</span>,<span class='st'>"third"</span>,<span class='st'>"fourth"</span>)) )</div><div class='output co'>#&gt;   fish first second third fourth
 #&gt; 1 id17     1      1     0      0
 #&gt; 2 id18     1      0     1      0
 #&gt; 3 id19     0      0     1      0
 #&gt; 4 id20     0      0     0      1
 #&gt; 5 id21     1      1     0      0</div><div class='input'>
 <span class='co'>## ONLY RUN IN INTERACTIVE MODE</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span>()) {
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()) {
 
 <span class='co'>########################################################################</span>
 <span class='co'>## A larger example of 'frequency' format (data from Rcapture package)</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>bunting</span>,<span class='kw'>package</span><span class='kw'>=</span><span class='st'>"Rcapture"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>bunting</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bunting</span>,<span class='kw'>package</span><span class='kw'>=</span><span class='st'>"Rcapture"</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>bunting</span>)
 <span class='co'># convert to 'individual' format</span>
 <span class='no'>bun.F2I</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>bunting</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>bun.F2I</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>bun.F2I</span>)
 <span class='co'># convert to 'MARK' format</span>
 <span class='no'>bun.F2M</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>bunting</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"id"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"MARK"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>bun.F2M</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>bun.F2M</span>)
 <span class='co'># convert converted 'individual' back to 'MARK' format</span>
 <span class='no'>bun.I2M</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>bun.F2I</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"id"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"individual"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"MARK"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>bun.I2M</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>bun.I2M</span>)
 <span class='co'># convert converted 'individual' back to 'frequency' format</span>
 <span class='no'>bun.I2F</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>bun.F2I</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"id"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"individual"</span>,
            <span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>,<span class='kw'>var.lbls.pre</span><span class='kw'>=</span><span class='st'>"Sample"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>bun.I2F</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>bun.I2F</span>)
 
 
 <span class='co'>########################################################################</span>
 <span class='co'>## A larger example of 'marked' or 'RMark' format, but with a covariate</span>
 <span class='co'>##   and when the covariate is removed there is no frequency or individual</span>
 <span class='co'>##   fish identifier.</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>dipper</span>,<span class='kw'>package</span><span class='kw'>=</span><span class='st'>"marked"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>dipper</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>dipper</span>,<span class='kw'>package</span><span class='kw'>=</span><span class='st'>"marked"</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>dipper</span>)
 <span class='co'># isolate males and females</span>
-<span class='no'>dipperF</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>dipper</span>,<span class='no'>sex</span><span class='kw'>==</span><span class='st'>"Female"</span>)
-<span class='no'>dipperM</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>dipper</span>,<span class='no'>sex</span><span class='kw'>==</span><span class='st'>"Male"</span>)
+<span class='no'>dipperF</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>dipper</span>,<span class='no'>sex</span><span class='kw'>==</span><span class='st'>"Female"</span>)
+<span class='no'>dipperM</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>dipper</span>,<span class='no'>sex</span><span class='kw'>==</span><span class='st'>"Male"</span>)
 <span class='co'># convert females to 'individual' format</span>
 <span class='no'>dipF.R2I</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>dipperF</span>,<span class='kw'>cols2ignore</span><span class='kw'>=</span><span class='st'>"sex"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>dipF.R2I</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>dipF.R2I</span>)
 <span class='co'># convert males to 'individual' format</span>
 <span class='no'>dipM.R2I</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>dipperM</span>,<span class='kw'>cols2ignore</span><span class='kw'>=</span><span class='st'>"sex"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>dipM.R2I</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>dipM.R2I</span>)
 <span class='co'># add sex variable to each data.frame and then combine</span>
 <span class='no'>dipF.R2I</span>$<span class='no'>sex</span> <span class='kw'>&lt;-</span> <span class='st'>"Female"</span>
 <span class='no'>dipM.R2I</span>$<span class='no'>sex</span> <span class='kw'>&lt;-</span> <span class='st'>"Male"</span>
-<span class='no'>dip.R2I</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cbind'>rbind</a></span>(<span class='no'>dipF.R2I</span>,<span class='no'>dipM.R2I</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>dip.R2I</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>tail</a></span>(<span class='no'>dip.R2I</span>)
+<span class='no'>dip.R2I</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='no'>dipF.R2I</span>,<span class='no'>dipM.R2I</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>dip.R2I</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='no'>dip.R2I</span>)
 
 } <span class='co'># end interactive</span>
 
 
 <span class='co'>## An example of problem with unused levels</span>
 <span class='co'>## Create a set of test data with several groups</span>
-( <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>fish</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"id17"</span>,<span class='st'>"id18"</span>,<span class='st'>"id21"</span>,<span class='st'>"id17"</span>,<span class='st'>"id21"</span>,<span class='st'>"id18"</span>,<span class='st'>"id19"</span>,<span class='st'>"id20"</span>,<span class='st'>"id17"</span>),
-                   <span class='kw'>group</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"B1"</span>,<span class='st'>"B1"</span>,<span class='st'>"B1"</span>,<span class='st'>"B2"</span>,<span class='st'>"B2"</span>,<span class='st'>"B3"</span>,<span class='st'>"B4"</span>,<span class='st'>"C1"</span>,<span class='st'>"C1"</span>)) )</div><div class='output co'>#&gt;   fish group
+( <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>fish</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"id17"</span>,<span class='st'>"id18"</span>,<span class='st'>"id21"</span>,<span class='st'>"id17"</span>,<span class='st'>"id21"</span>,<span class='st'>"id18"</span>,<span class='st'>"id19"</span>,<span class='st'>"id20"</span>,<span class='st'>"id17"</span>),
+                   <span class='kw'>group</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"B1"</span>,<span class='st'>"B1"</span>,<span class='st'>"B1"</span>,<span class='st'>"B2"</span>,<span class='st'>"B2"</span>,<span class='st'>"B3"</span>,<span class='st'>"B4"</span>,<span class='st'>"C1"</span>,<span class='st'>"C1"</span>)) )</div><div class='output co'>#&gt;   fish group
 #&gt; 1 id17    B1
 #&gt; 2 id18    B1
 #&gt; 3 id21    B1
@@ -642,7 +631,7 @@
 #&gt; 7 id19    B4
 #&gt; 8 id20    C1
 #&gt; 9 id17    C1</div><div class='input'><span class='co'>#  Let's assume the user wants to subset the data from the "B" group</span>
-( <span class='no'>df1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>df</span>,<span class='no'>group</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"B1"</span>,<span class='st'>"B2"</span>,<span class='st'>"B3"</span>,<span class='st'>"B4"</span>)) )</div><div class='output co'>#&gt;   fish group
+( <span class='no'>df1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>df</span>,<span class='no'>group</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"B1"</span>,<span class='st'>"B2"</span>,<span class='st'>"B3"</span>,<span class='st'>"B4"</span>)) )</div><div class='output co'>#&gt;   fish group
 #&gt; 1 id17    B1
 #&gt; 2 id18    B1
 #&gt; 3 id21    B1
@@ -657,7 +646,7 @@
 #&gt; 3 id19  0  0  0  1  0
 #&gt; 4 id20  0  0  0  0  0
 #&gt; 5 id21  1  1  0  0  0</div><div class='input'><span class='co'># use droplevels() to remove the unused groups and no problem</span>
-<span class='no'>df1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/droplevels'>droplevels</a></span>(<span class='no'>df1</span>)
+<span class='no'>df1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/droplevels.html'>droplevels</a></span>(<span class='no'>df1</span>)
 <span class='fu'>capHistConvert</span>(<span class='no'>df1</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"event"</span>)</div><div class='output co'>#&gt;   fish B1 B2 B3 B4
 #&gt; 1 id17  1  1  0  0
 #&gt; 2 id18  1  0  1  0
@@ -669,21 +658,13 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#note">Note</a></li>
-
       <li><a href="#warning">Warning</a></li>
-
       <li><a href="#ifar-chapter">IFAR Chapter</a></li>
-
       <li><a href="#references">References</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -692,19 +673,23 @@
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Derek Ogle, Powell Wheeler, Alexis Dinno.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

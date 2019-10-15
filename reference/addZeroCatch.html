@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,12 +41,12 @@
 
 
 
+
 <meta property="og:title" content="Adds zeros for catches of species not collected in some sampling events. — addZeroCatch" />
-
 <meta property="og:description" content="Adds zeros for catches of species that were not captured in a sampling event but were captured in at least one other sampling event (i.e., adds zeros to the data.frame for capture events where a species was not observed)." />
-
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -54,6 +58,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -85,7 +90,6 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
@@ -106,6 +110,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -117,13 +122,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Adds zeros for catches of species that were not captured in a sampling event but were captured in at least one other sampling event (i.e., adds zeros to the data.frame for capture events where a species was not observed).</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>addZeroCatch</span>(<span class='no'>df</span>, <span class='no'>eventvar</span>, <span class='no'>specvar</span>, <span class='no'>zerovar</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -148,41 +151,35 @@
       <td><p>A logical that indicates if rows where <code>specvar</code> that are <code>NA</code> should be removed after adding the zeros. See details.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A data.frame with the same structure as <code>df</code> but with rows of zero observation data appended.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The data.frame in <code>df</code> must contain a column that identifies a unique capture event (given in <code>eventvar</code>), a column with the name for the species captured (given in <code>specvar</code>), and a column that contains the number of that species captured (potentially given to <code>zerovar</code>; see details). All sampling event and species combinations where catch information does not exist is identified and a new data.frame that contains a zero for the catch for all of these combinations is created. This new data.frame is appended to the original data.frame to construct a data.frame that contains complete catch information -- i.e., including zeros for species in events where that species was not captured.</p>
 <p>The data.frame may contain other information related to the catch, such as number of recaptured fish, number of fish released, etc. These additional variables can be included in <code>zerovar</code> so that zeros will be added to these variables as well (e.g., if the catch of the species is zero, then the number of recaptures must also be zero). All variables not given in <code>eventvar</code>, <code>specvar</code>, or <code>zerovar</code> will be assumed to be related to <code>eventvar</code> and <code>specvar</code> (e.g., date, gear type, and habitat) and, thus, will be repeated with these variables.</p>
 <p>In situations where no fish were captured in some events, the <code>df</code> may contain rows that have a value for <code>eventvar</code> but not for <code>specvar</code>. These rows are important because zeros need to be added for each observed species for these events. However, in these situations, a <code>&lt;NA&gt;</code> species will appear in the resulting data.frame. It is unlikely that these &#8220;missing&#8221; species are needed so they will be removed if <code>na.rm=TRUE</code> (DEFAULT) is used.</p>
 <p>One should test the results of this function by creating a frequency table of the <code>eventvar</code> or <code>specvar</code>. In either case, the table should contain the same value in each cell of the table. See the examples.</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>An error will be returned if either <code>specvar</code> or <code>eventvar</code> are factors with any <code>NA</code> levels. This usually arises if the data.frame was subsetted/filtered prior to using <code>addZeroCatch</code>. See <code>filterD</code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/droplevels'>droplevels</a></code> for descriptions of how to drop unused levels.</p>
-    
+    <p>An error will be returned if either <code>specvar</code> or <code>eventvar</code> are factors with any <code>NA</code> levels. This usually arises if the data.frame was subsetted/filtered prior to using <code>addZeroCatch</code>. See <code>filterD</code> or <code><a href='https://rdrr.io/r/base/droplevels.html'>droplevels</a></code> for descriptions of how to drop unused levels.</p>
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
     <p>2-Basic Data Manipulations</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code>complete</code> in <span class="pkg">tidyr</span> package.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Example Data #1 (some nets missing some fish, ancillary net data)</span>
-<span class='no'>df1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>net</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span>),
-                  <span class='kw'>eff</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>),
-                  <span class='kw'>species</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"BKT"</span>,<span class='st'>"LKT"</span>,<span class='st'>"RBT"</span>,<span class='st'>"BKT"</span>,<span class='st'>"LKT"</span>,<span class='st'>"RBT"</span>),
-                  <span class='kw'>catch</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>))
+<span class='no'>df1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>net</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span>),
+                  <span class='kw'>eff</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>),
+                  <span class='kw'>species</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"BKT"</span>,<span class='st'>"LKT"</span>,<span class='st'>"RBT"</span>,<span class='st'>"BKT"</span>,<span class='st'>"LKT"</span>,<span class='st'>"RBT"</span>),
+                  <span class='kw'>catch</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>))
 <span class='no'>df1</span></div><div class='output co'>#&gt;   net eff species catch
 #&gt; 1   1   1     BKT     3
 #&gt; 2   1   1     LKT     4
@@ -190,7 +187,7 @@
 #&gt; 4   2   1     BKT     5
 #&gt; 5   2   1     LKT     4
 #&gt; 6   3   1     RBT     3</div><div class='input'><span class='co'># not all 1s</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/xtabs'>xtabs</a></span>(~<span class='no'>net</span>+<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df1</span>)</div><div class='output co'>#&gt;    species
+<span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>net</span>+<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df1</span>)</div><div class='output co'>#&gt;    species
 #&gt; net BKT LKT RBT
 #&gt;   1   1   1   1
 #&gt;   2   1   1   0
@@ -206,10 +203,10 @@
 #&gt; 7   3   1     BKT     0
 #&gt; 8   3   1     LKT     0
 #&gt; 9   2   1     RBT     0</div><div class='input'><span class='co'># check, should all be 3</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/xtabs'>xtabs</a></span>(~<span class='no'>net</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df1mod1</span>)</div><div class='output co'>#&gt; net
+<span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>net</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df1mod1</span>)</div><div class='output co'>#&gt; net
 #&gt; 1 2 3 
 #&gt; 3 3 3 </div><div class='input'><span class='co'># check, should all be 1</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/xtabs'>xtabs</a></span>(~<span class='no'>net</span>+<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df1mod1</span>)</div><div class='output co'>#&gt;    species
+<span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>net</span>+<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df1mod1</span>)</div><div class='output co'>#&gt;    species
 #&gt; net BKT LKT RBT
 #&gt;   1   1   1   1
 #&gt;   2   1   1   1
@@ -241,17 +238,17 @@
 #&gt; 7   3     BKT     0
 #&gt; 8   3     LKT     0
 #&gt; 9   2     RBT     0</div><div class='input'><span class='co'># check, should all be 1</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/xtabs'>xtabs</a></span>(~<span class='no'>net</span>+<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df1mod2</span>)</div><div class='output co'>#&gt;    species
+<span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>net</span>+<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df1mod2</span>)</div><div class='output co'>#&gt;    species
 #&gt; net BKT LKT RBT
 #&gt;   1   1   1   1
 #&gt;   2   1   1   1
 #&gt;   3   1   1   1</div><div class='input'>
 <span class='co'>## Example Data #3 (All nets have same species ... no zeros needed)</span>
-<span class='no'>df3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>net</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>),
-                  <span class='kw'>eff</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>),
-                  <span class='kw'>species</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"BKT"</span>,<span class='st'>"LKT"</span>,<span class='st'>"RBT"</span>,<span class='st'>"BKT"</span>,<span class='st'>"LKT"</span>,
+<span class='no'>df3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>net</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>3</span>),
+                  <span class='kw'>eff</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>),
+                  <span class='kw'>species</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"BKT"</span>,<span class='st'>"LKT"</span>,<span class='st'>"RBT"</span>,<span class='st'>"BKT"</span>,<span class='st'>"LKT"</span>,
                             <span class='st'>"RBT"</span>,<span class='st'>"BKT"</span>,<span class='st'>"LKT"</span>,<span class='st'>"RBT"</span>),
-                  <span class='kw'>catch</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>7</span>))
+                  <span class='kw'>catch</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>7</span>))
 <span class='no'>df3</span></div><div class='output co'>#&gt;   net eff species catch
 #&gt; 1   1   1     BKT     3
 #&gt; 2   1   1     LKT     4
@@ -262,21 +259,21 @@
 #&gt; 7   3   1     BKT     3
 #&gt; 8   3   1     LKT     2
 #&gt; 9   3   1     RBT     7</div><div class='input'><span class='co'># should all be 1 for this example</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/xtabs'>xtabs</a></span>(~<span class='no'>net</span>+<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df3</span>)</div><div class='output co'>#&gt;    species
+<span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>net</span>+<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df3</span>)</div><div class='output co'>#&gt;    species
 #&gt; net BKT LKT RBT
 #&gt;   1   1   1   1
 #&gt;   2   1   1   1
 #&gt;   3   1   1   1</div><div class='input'>
 <span class='co'># should receive a warning and table should still all be 1</span>
 <span class='no'>df3mod1</span> <span class='kw'>&lt;-</span> <span class='fu'>addZeroCatch</span>(<span class='no'>df3</span>,<span class='st'>"net"</span>,<span class='st'>"species"</span>,<span class='kw'>zerovar</span><span class='kw'>=</span><span class='st'>"catch"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: All 'eventvar' have all species in 'specvar'; thus, there are no</span>
-#&gt; <span class='warning'>zeros to add. The original data.frame was returned.</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/xtabs'>xtabs</a></span>(~<span class='no'>net</span>+<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df3mod1</span>)</div><div class='output co'>#&gt;    species
+#&gt; <span class='warning'>zeros to add. The original data.frame was returned.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>net</span>+<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df3mod1</span>)</div><div class='output co'>#&gt;    species
 #&gt; net BKT LKT RBT
 #&gt;   1   1   1   1
 #&gt;   2   1   1   1
 #&gt;   3   1   1   1</div><div class='input'>
 <span class='co'>## Example Data #4 (another variable that needs zeros)</span>
 <span class='no'>df4</span> <span class='kw'>&lt;-</span> <span class='no'>df1</span>
-<span class='no'>df4</span>$<span class='no'>recaps</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>)
+<span class='no'>df4</span>$<span class='no'>recaps</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>)
 <span class='no'>df4</span></div><div class='output co'>#&gt;   net eff species catch recaps
 #&gt; 1   1   1     BKT     3      0
 #&gt; 2   1   1     LKT     4      0
@@ -284,12 +281,12 @@
 #&gt; 4   2   1     BKT     5      1
 #&gt; 5   2   1     LKT     4      2
 #&gt; 6   3   1     RBT     3      1</div><div class='input'><span class='co'># not all 1s</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/xtabs'>xtabs</a></span>(~<span class='no'>net</span>+<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df4</span>)</div><div class='output co'>#&gt;    species
+<span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>net</span>+<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df4</span>)</div><div class='output co'>#&gt;    species
 #&gt; net BKT LKT RBT
 #&gt;   1   1   1   1
 #&gt;   2   1   1   0
 #&gt;   3   0   0   1</div><div class='input'>
-<span class='no'>df4mod1</span> <span class='kw'>&lt;-</span> <span class='fu'>addZeroCatch</span>(<span class='no'>df4</span>,<span class='st'>"net"</span>,<span class='st'>"species"</span>,<span class='kw'>zerovar</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"catch"</span>,<span class='st'>"recaps"</span>))
+<span class='no'>df4mod1</span> <span class='kw'>&lt;-</span> <span class='fu'>addZeroCatch</span>(<span class='no'>df4</span>,<span class='st'>"net"</span>,<span class='st'>"species"</span>,<span class='kw'>zerovar</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"catch"</span>,<span class='st'>"recaps"</span>))
 <span class='co'># note zeros in both variables</span>
 <span class='no'>df4mod1</span></div><div class='output co'>#&gt;   net eff species catch recaps
 #&gt; 1   1   1     BKT     3      0
@@ -301,7 +298,7 @@
 #&gt; 7   3   1     BKT     0      0
 #&gt; 8   3   1     LKT     0      0
 #&gt; 9   2   1     RBT     0      0</div><div class='input'><span class='co'># check, should all be 1</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/xtabs'>xtabs</a></span>(~<span class='no'>net</span>+<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df4mod1</span>)</div><div class='output co'>#&gt;    species
+<span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>net</span>+<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df4mod1</span>)</div><div class='output co'>#&gt;    species
 #&gt; net BKT LKT RBT
 #&gt;   1   1   1   1
 #&gt;   2   1   1   1
@@ -322,7 +319,7 @@
 #&gt; 3     RBT 3 0.3333333 0.5773503   0  0      0 0.5   1 66.66667</div><div class='input'>
 <span class='co'>## Example Data #5 (two "specvar"s)</span>
 <span class='no'>df5</span> <span class='kw'>&lt;-</span> <span class='no'>df1</span>
-<span class='no'>df5</span>$<span class='no'>sex</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"m"</span>,<span class='st'>"m"</span>,<span class='st'>"f"</span>,<span class='st'>"m"</span>,<span class='st'>"f"</span>,<span class='st'>"f"</span>)
+<span class='no'>df5</span>$<span class='no'>sex</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"m"</span>,<span class='st'>"m"</span>,<span class='st'>"f"</span>,<span class='st'>"m"</span>,<span class='st'>"f"</span>,<span class='st'>"f"</span>)
 <span class='no'>df5</span></div><div class='output co'>#&gt;   net eff species catch sex
 #&gt; 1   1   1     BKT     3   m
 #&gt; 2   1   1     LKT     4   m
@@ -330,7 +327,7 @@
 #&gt; 4   2   1     BKT     5   m
 #&gt; 5   2   1     LKT     4   f
 #&gt; 6   3   1     RBT     3   f</div><div class='input'><span class='co'># not all 1s</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/xtabs'>xtabs</a></span>(~<span class='no'>sex</span>+<span class='no'>species</span>+<span class='no'>net</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df5</span>)</div><div class='output co'>#&gt; , , net = 1
+<span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>sex</span>+<span class='no'>species</span>+<span class='no'>net</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df5</span>)</div><div class='output co'>#&gt; , , net = 1
 #&gt; 
 #&gt;    species
 #&gt; sex BKT LKT RBT
@@ -351,7 +348,7 @@
 #&gt;   f   0   0   1
 #&gt;   m   0   0   0
 #&gt; </div><div class='input'>
-<span class='no'>df5mod1</span> <span class='kw'>&lt;-</span> <span class='fu'>addZeroCatch</span>(<span class='no'>df5</span>,<span class='st'>"net"</span>,<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"species"</span>,<span class='st'>"sex"</span>),<span class='kw'>zerovar</span><span class='kw'>=</span><span class='st'>"catch"</span>)
+<span class='no'>df5mod1</span> <span class='kw'>&lt;-</span> <span class='fu'>addZeroCatch</span>(<span class='no'>df5</span>,<span class='st'>"net"</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"species"</span>,<span class='st'>"sex"</span>),<span class='kw'>zerovar</span><span class='kw'>=</span><span class='st'>"catch"</span>)
 <span class='no'>df5mod1</span></div><div class='output co'>#&gt;    net eff species catch sex
 #&gt; 1    1   1     BKT     3   m
 #&gt; 2    1   1     LKT     4   m
@@ -371,7 +368,7 @@
 #&gt; 16   1   1     RBT     0   m
 #&gt; 17   2   1     RBT     0   m
 #&gt; 18   3   1     RBT     0   m</div><div class='input'><span class='co'># all 1s</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/xtabs'>xtabs</a></span>(~<span class='no'>sex</span>+<span class='no'>species</span>+<span class='no'>net</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df5mod1</span>)</div><div class='output co'>#&gt; , , net = 1
+<span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>sex</span>+<span class='no'>species</span>+<span class='no'>net</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df5mod1</span>)</div><div class='output co'>#&gt; , , net = 1
 #&gt; 
 #&gt;    species
 #&gt; sex BKT LKT RBT
@@ -391,7 +388,7 @@
 #&gt; sex BKT LKT RBT
 #&gt;   f   1   1   1
 #&gt;   m   1   1   1
-#&gt; </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>df5mod1</span>)</div><div class='output co'>#&gt; 'data.frame':	18 obs. of  5 variables:
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>df5mod1</span>)</div><div class='output co'>#&gt; 'data.frame':	18 obs. of  5 variables:
 #&gt;  $ net    : num  1 1 1 2 2 3 1 2 3 1 ...
 #&gt;  $ eff    : num  1 1 1 1 1 1 1 1 1 1 ...
 #&gt;  $ species: Factor w/ 3 levels "BKT","LKT","RBT": 1 2 3 1 2 3 1 1 1 2 ...
@@ -399,7 +396,7 @@
 #&gt;  $ sex    : Factor w/ 2 levels "f","m": 2 2 1 2 1 1 1 1 1 1 ...</div><div class='input'>
 <span class='co'>## Example Data #6 (three "specvar"s)</span>
 <span class='no'>df6</span> <span class='kw'>&lt;-</span> <span class='no'>df5</span>
-<span class='no'>df6</span>$<span class='no'>size</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"lrg"</span>,<span class='st'>"lrg"</span>,<span class='st'>"lrg"</span>,<span class='st'>"sm"</span>,<span class='st'>"lrg"</span>,<span class='st'>"sm"</span>)
+<span class='no'>df6</span>$<span class='no'>size</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lrg"</span>,<span class='st'>"lrg"</span>,<span class='st'>"lrg"</span>,<span class='st'>"sm"</span>,<span class='st'>"lrg"</span>,<span class='st'>"sm"</span>)
 <span class='no'>df6</span></div><div class='output co'>#&gt;   net eff species catch sex size
 #&gt; 1   1   1     BKT     3   m  lrg
 #&gt; 2   1   1     LKT     4   m  lrg
@@ -407,7 +404,7 @@
 #&gt; 4   2   1     BKT     5   m   sm
 #&gt; 5   2   1     LKT     4   f  lrg
 #&gt; 6   3   1     RBT     3   f   sm</div><div class='input'>
-<span class='no'>df6mod1</span> <span class='kw'>&lt;-</span> <span class='fu'>addZeroCatch</span>(<span class='no'>df6</span>,<span class='st'>"net"</span>,<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"species"</span>,<span class='st'>"sex"</span>,<span class='st'>"size"</span>),<span class='kw'>zerovar</span><span class='kw'>=</span><span class='st'>"catch"</span>)
+<span class='no'>df6mod1</span> <span class='kw'>&lt;-</span> <span class='fu'>addZeroCatch</span>(<span class='no'>df6</span>,<span class='st'>"net"</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"species"</span>,<span class='st'>"sex"</span>,<span class='st'>"size"</span>),<span class='kw'>zerovar</span><span class='kw'>=</span><span class='st'>"catch"</span>)
 <span class='no'>df6mod1</span></div><div class='output co'>#&gt;    net eff species catch sex size
 #&gt; 1    1   1     BKT     3   m  lrg
 #&gt; 2    1   1     LKT     4   m  lrg
@@ -451,19 +448,12 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#note">Note</a></li>
-
       <li><a href="#ifar-chapter">IFAR Chapter</a></li>
-
       <li><a href="#references">References</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -472,19 +462,23 @@
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Derek Ogle, Powell Wheeler, Alexis Dinno.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
