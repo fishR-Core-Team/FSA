@@ -1,6 +1,7 @@
 # FSA 0.8.26 ongoing
 * Removed `asbio` package from suggests as it hung up Travis-CI build (because of the need for the TCLTK package).
 * `capFirst()`: Modified. Fixed bug related to an `NA` item.
+* `repeatedRows2Keep()`: Modified. Added a catch if the data.frame only contains one row (it then returns `TRUE` so that that row is kept).
 
 # FSA 0.8.25 24-Jul-19
 * `agePrecision()`: Modified. Changed so that PE2 and CV2 use the median in the entire calculation rather than just in the denominator.

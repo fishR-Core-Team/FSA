@@ -893,30 +893,33 @@ repeatedRows2Keep <- function(df,cols2use=NULL,cols2ignore=NULL,
   keep <- match.arg(keep)
   # make sure df is a data.frame (could be sent as a matrix)
   df <- as.data.frame(df)
-  # change data.frame based on cols2use or cols2ignore
-  df <- iHndlCols2UseIgnore(df,cols2use,cols2ignore)
-  ## get data.frames offset by 1 indice for comparisons
-  df1 <- df[1:(nrow(df)-1),]
-  df2 <- df[2:nrow(df),]
-  ## compare data.frames
-  if (keep=="first") { # returns first of the repeats
-    # find rows where all are TRUE (consecutive rows repeat)
-    # first row cannot be a repeat so put FALSE in its place
-    res <- df1==df2
-    if (is.matrix(res)) res <- apply(res,MARGIN=1,FUN=all)
-    res <- c(FALSE,res)
-  } else { # returns last of the repeats
-    # reverse the order of the data.frames
-    df1a <- df1[nrow(df1):1,]
-    df2a <- df2[nrow(df2):1,]
-    # find rows where all are TRUE (consecutive row repeats), but reverse the
-    # order to return; last row can't be a repeat so put FALSE in its place
-    res <- df2a==df1a
-    if (is.matrix(res)) res <- apply(res,MARGIN=1,FUN=all)
-    res <- c(rev(res),FALSE)
+  if (nrow(df)==1) res <- FALSE
+  else {
+    # change data.frame based on cols2use or cols2ignore
+    df <- iHndlCols2UseIgnore(df,cols2use,cols2ignore)
+    ## get data.frames offset by 1 indice for comparisons
+    df1 <- df[1:(nrow(df)-1),]
+    df2 <- df[2:nrow(df),]
+    ## compare data.frames
+    if (keep=="first") { # returns first of the repeats
+      # find rows where all are TRUE (consecutive rows repeat)
+      # first row cannot be a repeat so put FALSE in its place
+      res <- df1==df2
+      if (is.matrix(res)) res <- apply(res,MARGIN=1,FUN=all)
+      res <- c(FALSE,res)
+    } else { # returns last of the repeats
+      # reverse the order of the data.frames
+      df1a <- df1[nrow(df1):1,]
+      df2a <- df2[nrow(df2):1,]
+      # find rows where all are TRUE (consecutive row repeats), but reverse the
+      # order to return; last row can't be a repeat so put FALSE in its place
+      res <- df2a==df1a
+      if (is.matrix(res)) res <- apply(res,MARGIN=1,FUN=all)
+      res <- c(rev(res),FALSE)
+    }
+    # remove names attribute
+    names(res) <- NULL    
   }
-  # remove names attribute
-  names(res) <- NULL
   # reverse the TRUE/FALSEs so that TRUE means rows to keep (not rows repeated)
   !res
 }
