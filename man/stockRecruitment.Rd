@@ -26,12 +26,12 @@ srFunShow(type = c("BevertonHolt", "Ricker", "Shepherd", "SailaLorda"),
 \item{\dots}{Not implemented.}
 }
 \value{
-\code{srFuns} returns a function that can be used to predict recruitment given a vector of stock sizes and values for the function parameters.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (assuming that \code{msg=TRUE}).  The values for both/all parameters can be included as a vector of length two/three in the first parameter argument.  If \code{simple=FALSE} then the values for all parameters can be included as a vector in the first parameter argument.  If \code{simple=TRUE} then all parameters must be declared individually in each function.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
+\code{srFuns} returns a function that can be used to predict recruitment given a vector of stock sizes and values for the function parameters. The result should be saved to an object that can then be used as a function name. When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (assuming that \code{msg=TRUE}). The values for both/all parameters can be included as a vector of length two/three in the first parameter argument. If \code{simple=FALSE} then the values for all parameters can be included as a vector in the first parameter argument. If \code{simple=TRUE} then all parameters must be declared individually in each function. The resulting function is somewhat easier to read when \code{simple=TRUE}.
 
-\code{srFunShow} returns an expression that can be use with \code{\link{plotmath}} to show the function equation in a pretty format.  See examples.
+\code{srFunShow} returns an expression that can be use with \code{\link{plotmath}} to show the function equation in a pretty format. See examples.
 }
 \description{
-Creates a function for a specific parameterization of a \dQuote{Beverton-Holt}, \dQuote{Ricker},  \dQuote{Shepherd}, or \dQuote{Saila-Lorda} stock-recruitment function.  Use \code{srFunShow()} to see the equations of each function.
+Creates a function for a specific parameterization of a \dQuote{Beverton-Holt}, \dQuote{Ricker},  \dQuote{Shepherd}, or \dQuote{Saila-Lorda} stock-recruitment function. Use \code{srFunShow()} to see the equations of each function.
 }
 \section{IFAR Chapter}{
  13-Recruitment.
@@ -104,17 +104,17 @@ text(0.5,0.5,srFunShow("Shepherd"))
 par(op)
 }
 \references{
-Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
  
-Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19. United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
+Beverton, R.J.H. and S.J. Holt. 1957. On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19. United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
 
-Iles, T.C.  1994.  A review of stock-recruitment relationships with reference to flatfish populations.  Netherlands Journal of Sea Research 32:399-420.
+Iles, T.C. 1994. A review of stock-recruitment relationships with reference to flatfish populations. Netherlands Journal of Sea Research 32:399-420.
 
 Quinn II, T.J. and R.B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press.
 
 Ricker, W.E. 1954. Stock and recruitment. Journal of the Fisheries Research Board of Canada 11:559-623.
 
-Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.  [Was (is?) from http://www.dfo-mpo.gc.ca/Library/1485.pdf.]
+Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada. [Was (is?) from http://www.dfo-mpo.gc.ca/Library/1485.pdf.]
 
 Shepherd, J. 1982. A versatile new stock-recruitment relationship for fisheries and construction of sustainable yield curves. Journal du Conseil International pour l'Exploration de la Mar 40:67-75.
 }

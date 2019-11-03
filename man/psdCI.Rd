@@ -9,15 +9,15 @@ psdCI(indvec, ptbl, n, method = c("binomial", "multinomial"),
   label = NULL, digits = 1)
 }
 \arguments{
-\item{indvec}{A numeric vector of 0s and 1s that identify the linear combination of proportions from \code{ptbl} that the user is interested in.  See details.}
+\item{indvec}{A numeric vector of 0s and 1s that identify the linear combination of proportions from \code{ptbl} that the user is interested in. See details.}
 
-\item{ptbl}{A numeric vector or array that contains the proportion or percentage of all individuals in each length category.  See details.}
+\item{ptbl}{A numeric vector or array that contains the proportion or percentage of all individuals in each length category. See details.}
 
 \item{n}{A single numeric of the number of fish used to construct \code{ptbl}.}
 
-\item{method}{A string that identifies the confidence interval method to use.  See details.}
+\item{method}{A string that identifies the confidence interval method to use. See details.}
 
-\item{bin.type}{A string that identifies the type of method to use for calculation of the confidence intervals when \R{method="binomial"}.  See details of \code{\link{binCI}}.}
+\item{bin.type}{A string that identifies the type of method to use for calculation of the confidence intervals when \R{method="binomial"}. See details of \code{\link{binCI}}.}
 
 \item{conf.level}{A number that indicates the level of confidence to use for constructing confidence intervals (default is \code{0.95}).}
 
@@ -26,17 +26,17 @@ psdCI(indvec, ptbl, n, method = c("binomial", "multinomial"),
 \item{digits}{A numeric that indicates the number of decimals to round the result to.}
 }
 \value{
-A matrix with columns that contain the computed PSD-X or PSD X-Y value and the associated confidence interval.  The confidence interval values were set to zero or 100 if the computed value was negative or greater than 100, respectively.
+A matrix with columns that contain the computed PSD-X or PSD X-Y value and the associated confidence interval. The confidence interval values were set to zero or 100 if the computed value was negative or greater than 100, respectively.
 }
 \description{
 Compute confidence intervals for (traditional) PSD-X and (incremental) PSD X-Y values as requested by the user.
 }
 \details{
-Computes confidence intervals for (traditional) PSD-X and (incremental) PSD X-Y values.  Two methods can be used as chosen with \code{method=}.  If \code{method="binomial"} then the binomial distribution (via \code{binCI()}) is used.  If \code{method="multinomial"} then the multinomial method described by Brenden et al. (2008) is used.  This function is defined to compute one confidence interval so \code{method="binomial"} is the default.  See examples and \code{\link{psdCalc}} for computing several simultaneous confidence intervals.
+Computes confidence intervals for (traditional) PSD-X and (incremental) PSD X-Y values. Two methods can be used as chosen with \code{method=}. If \code{method="binomial"} then the binomial distribution (via \code{binCI()}) is used. If \code{method="multinomial"} then the multinomial method described by Brenden et al. (2008) is used. This function is defined to compute one confidence interval so \code{method="binomial"} is the default. See examples and \code{\link{psdCalc}} for computing several simultaneous confidence intervals.
 
-A table of proportions within each length category is given in \code{ptbl}.  If \code{ptbl} has any values greater than 1 then it is assumed that a table of percentages was supplied and the entire table will be divided by 100 to continue.  The proportions must sum to 1 (with some allowance for rounding).
+A table of proportions within each length category is given in \code{ptbl}. If \code{ptbl} has any values greater than 1 then it is assumed that a table of percentages was supplied and the entire table will be divided by 100 to continue. The proportions must sum to 1 (with some allowance for rounding).
 
-A vector of length equal to the length of \code{ptbl} is given in \code{indvec} which contains zeros and ones to identify the linear combination of values in \code{ptbl} to use to construct the confidence intervals.  For example, if \code{ptbl} has four proportions then \code{indvec=c(1,0,0,0)} would be used to construct a confidence interval for the population proportion in the first category.  Alternatively, \code{indvec=c(0,0,1,1)} would be used to construct a confidence interval for the population proportion in the last two categories.  This vector must not contain all zeros or all ones.
+A vector of length equal to the length of \code{ptbl} is given in \code{indvec} which contains zeros and ones to identify the linear combination of values in \code{ptbl} to use to construct the confidence intervals. For example, if \code{ptbl} has four proportions then \code{indvec=c(1,0,0,0)} would be used to construct a confidence interval for the population proportion in the first category. Alternatively, \code{indvec=c(0,0,1,1)} would be used to construct a confidence interval for the population proportion in the last two categories. This vector must not contain all zeros or all ones.
 }
 \section{Testing}{
  The multinomial results match the results given in Brendent et al. (2008).
@@ -81,9 +81,9 @@ bcis
 
 }
 \references{
-Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
-Brenden, T.O., T. Wagner, and B.R. Murphy.  2008.  Novel tools for analyzing proportional size distribution index data.  North American Journal of Fisheries Management 28:1233-1242.  [Was (is?) from http://qfc.fw.msu.edu/Publications/Publication\%20List/2008/Novel\%20Tools\%20for\%20Analyzing\%20Proportional\%20Size\%20Distribution_Brenden.pdf.]
+Brenden, T.O., T. Wagner, and B.R. Murphy. 2008. Novel tools for analyzing proportional size distribution index data. North American Journal of Fisheries Management 28:1233-1242. [Was (is?) from http://qfc.fw.msu.edu/Publications/Publication\%20List/2008/Novel\%20Tools\%20for\%20Analyzing\%20Proportional\%20Size\%20Distribution_Brenden.pdf.]
 }
 \seealso{
 See \code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}} for related functionality.

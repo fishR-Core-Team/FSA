@@ -19,11 +19,11 @@ ksTest(x, ...)
 
 \item{\dots}{Parameters of the distribution specified (as a character string) by \code{y}.}
 
-\item{y}{A numeric vector of data values, a character string naming a cumulative distribution function, or an actual cumulative distribution function.  See \code{\link[stats]{ks.test}}.}
+\item{y}{A numeric vector of data values, a character string naming a cumulative distribution function, or an actual cumulative distribution function. See \code{\link[stats]{ks.test}}.}
 
-\item{alternative}{A string that indicates the alternative hypothesis.  See \code{\link[stats]{ks.test}}.}
+\item{alternative}{A string that indicates the alternative hypothesis. See \code{\link[stats]{ks.test}}.}
 
-\item{exact}{\code{NULL} or a logical that indicates whether an exact p-value should be computed. See \code{\link[stats]{ks.test}}.  Not available if ties are present, nor for the one-sided two-sample case.}
+\item{exact}{\code{NULL} or a logical that indicates whether an exact p-value should be computed. See \code{\link[stats]{ks.test}}. Not available if ties are present, nor for the one-sided two-sample case.}
 
 \item{data}{A data frame that contains the variables in the formula for \code{x}.}
 }
@@ -31,10 +31,10 @@ ksTest(x, ...)
 See \code{\link[stats]{ks.test}}.
 }
 \description{
-Performs a one- or two-sample Kolmogorov-Smirnov test.  Includes the option to perform the two-sample test using the formula notation.
+Performs a one- or two-sample Kolmogorov-Smirnov test. Includes the option to perform the two-sample test using the formula notation.
 }
 \details{
-This is exactly \code{\link[stats]{ks.test}} except that a formula may be used for the two-sample situation.  The default version is simply a pass through to \code{\link[stats]{ks.test}}.  See \code{\link[stats]{ks.test}} for more details.
+This is exactly \code{\link[stats]{ks.test}} except that a formula may be used for the two-sample situation. The default version is simply a pass through to \code{\link[stats]{ks.test}}. See \code{\link[stats]{ks.test}} for more details.
 }
 \examples{
 ## see ks.test for other examples

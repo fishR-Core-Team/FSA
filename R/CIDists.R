@@ -5,7 +5,7 @@
 #' @details This function will compute confidence interval for three possible methods chosen with the \code{type} argument.
 #'
 #' \tabular{ll}{
-#'  \code{type="wilson"} \tab Wilson's (Journal of the American Statistical Association, 1927) confidence interval for a proportion.  This is the score CI, based on inverting the asymptotic normal test using the null standard error. \cr
+#'  \code{type="wilson"} \tab Wilson's (Journal of the American Statistical Association, 1927) confidence interval for a proportion. This is the score CI, based on inverting the asymptotic normal test using the null standard error. \cr
 #'  \code{type="exact"} \tab Computes the Clopper/Pearson exact CI for a binomial success probability. \cr
 #'  \code{type="asymptotic"} \tab This uses the normal distribution approximation. \cr
 #' }
@@ -17,7 +17,7 @@
 #' @param x A single or vector of numbers that contains the number of observed successes.
 #' @param n A single or vector of numbers that contains the sample size.
 #' @param conf.level A single number that indicates the level of confidence (default is \code{0.95}).
-#' @param type A string that identifies the type of method to use for the calculations.  See details.
+#' @param type A string that identifies the type of method to use for the calculations. See details.
 #' @param verbose A logical that indicates whether \code{x}, \code{n}, and \code{x/n} should be included in the returned matrix (\code{=TRUE}) or not (\code{=FALSE}; DEFAULT).
 #' 
 #' @return A #x2 matrix that contains the lower and upper confidence interval bounds as columns and, if \code{verbose=TRUE} \code{x}, \code{n}, and \code{x/n} .
@@ -26,7 +26,7 @@
 #'
 #' @seealso See \code{\link{binom.test}}; \code{binconf} in \pkg{Hmisc}; \code{binom.exact}, \code{binom.wilson}, and \code{binom.approx} documented in \code{\link[epitools]{binom.conf.int}} in \pkg{epitools}, and functions in \pkg{binom}.
 #'
-#' @references Agresti, A. and B.A. Coull.  1998.  Approximate is better than \dQuote{exact} for interval estimation of binomial proportions.  American Statistician, 52:119-126.
+#' @references Agresti, A. and B.A. Coull. 1998. Approximate is better than \dQuote{exact} for interval estimation of binomial proportions. American Statistician, 52:119-126.
 #'
 #' @keywords htest
 #'
@@ -100,11 +100,11 @@ binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic"),
 #'
 #' @description Computes a confidence interval for the Poisson counts.
 #'
-#' @details Computes a CI for the Poisson counts using the \code{exact}, gamma distribution (\code{daly}`), Byar's (\code{byar}), or normal approximation (\code{asymptotic}) methods.  This is largely a wrapper to \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} functions documented in \code{\link[epitools]{pois.conf.int}}in \pkg{epitools}.
+#' @details Computes a CI for the Poisson counts using the \code{exact}, gamma distribution (\code{daly}`), Byar's (\code{byar}), or normal approximation (\code{asymptotic}) methods. This is largely a wrapper to \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} functions documented in \code{\link[epitools]{pois.conf.int}}in \pkg{epitools}.
 #'
 #' @param x A single number or vector that represents the number of observed successes.
 #' @param conf.level A number that indicates the level of confidence to use for constructing confidence intervals (default is \code{0.95}).
-#' @param type A string that identifies the type of method to use for the calculations.  See details.
+#' @param type A string that identifies the type of method to use for the calculations. See details.
 #' @param verbose A logical that indicates whether \code{x} should be included in the returned matrix (\code{=TRUE}) or not (\code{=FALSE}; DEFAULT).
 #'
 #' @return A #x2 matrix that contains the lower and upper confidence interval bounds as columns and, if \code{verbose=TRUE} \code{x}.
@@ -179,7 +179,7 @@ poiCI <- function(x,conf.level=0.95,type=c("exact","daly","byar","asymptotic"),
 #'
 #' @description Computes a confidence interval for population size (N) in hypergeometric distribution.
 #'
-#' @details This is an inefficient brute-force algorithm.  The algorithm computes the \code{conf.level} range of possible values for \code{m}, as if it was unknown, for a large range of values of N.  It then finds all possible values of N for which \code{m} was in the \code{conf.level} range.  The smallest and largest values of N for which \code{m} was in the \code{conf.level} range are the CI endpoints.
+#' @details This is an inefficient brute-force algorithm. The algorithm computes the \code{conf.level} range of possible values for \code{m}, as if it was unknown, for a large range of values of N. It then finds all possible values of N for which \code{m} was in the \code{conf.level} range. The smallest and largest values of N for which \code{m} was in the \code{conf.level} range are the CI endpoints.
 #'
 #' @note This algorithm is experimental at this point.
 #'

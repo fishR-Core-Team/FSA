@@ -8,35 +8,35 @@ alkIndivAge(key, formula, data, type = c("SR", "CR"), breaks = NULL,
   seed = NULL)
 }
 \arguments{
-\item{key}{A numeric matrix that contains the age-length key.  The format of this matrix is important.  See details.}
+\item{key}{A numeric matrix that contains the age-length key. The format of this matrix is important. See details.}
 
-\item{formula}{A formula of the form \code{age~length} where \code{age} generically represents the variable that will contain the estimated ages once the key is applied (i.e., should currently contain no values) and \code{length} generically represents the variable that contains the known length measurements.  If only \code{~length} is used, then a new variable called \dQuote{age} will be created in the resulting data frame.}
+\item{formula}{A formula of the form \code{age~length} where \code{age} generically represents the variable that will contain the estimated ages once the key is applied (i.e., should currently contain no values) and \code{length} generically represents the variable that contains the known length measurements. If only \code{~length} is used, then a new variable called \dQuote{age} will be created in the resulting data frame.}
 
 \item{data}{A data.frame that minimally contains the length measurements and possibly contains a variable that will receive the age assignments as given in \code{formula}.}
 
-\item{type}{A string that indicates whether to use the semi-random (\code{type="SR"}, default) or completely-random (\code{type="CR"}) methods for assigning ages to individual fish.  See the \href{http://derekogle.com/IFAR}{IFAR chapter} for more details.}
+\item{type}{A string that indicates whether to use the semi-random (\code{type="SR"}, default) or completely-random (\code{type="CR"}) methods for assigning ages to individual fish. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for more details.}
 
-\item{breaks}{A numeric vector of lower values that define the length intervals.  See details.}
+\item{breaks}{A numeric vector of lower values that define the length intervals. See details.}
 
-\item{seed}{A single numeric that is given to \code{set.seed} to set the random seed.  This allows repeatability of results.}
+\item{seed}{A single numeric that is given to \code{set.seed} to set the random seed. This allows repeatability of results.}
 }
 \value{
-The original data.frame in \code{data} with assigned ages added to the column supplied in \code{formula} or in an additional column labeled as \code{age}.  See details.
+The original data.frame in \code{data} with assigned ages added to the column supplied in \code{formula} or in an additional column labeled as \code{age}. See details.
 }
 \description{
 Use either the semi- or completely-random methods from Isermann and Knight (2005) to assign ages to individual fish in the unaged sample according to the information in an age-length key supplied by the user.
 }
 \details{
-The age-length key in \code{key} must have length intervals as rows and ages as columns.  The row names of \code{key} (i.e., \code{rownames(key)}) must contain the minimum values of each length interval (e.g., if an interval is 100-109, then the corresponding row name must be 100).  The column names of \code{key} (i.e., \code{colnames(key)}) must contain the age values (e.g., the columns can NOT be named with \dQuote{age.1}, for example).
+The age-length key in \code{key} must have length intervals as rows and ages as columns. The row names of \code{key} (i.e., \code{rownames(key)}) must contain the minimum values of each length interval (e.g., if an interval is 100-109, then the corresponding row name must be 100). The column names of \code{key} (i.e., \code{colnames(key)}) must contain the age values (e.g., the columns can NOT be named with \dQuote{age.1}, for example).
 
-The length intervals in the rows of \code{key} must contain all of the length intervals present in the unaged sample to which the age-length key is to be applied (i.e., sent in the \code{length} portion of the \code{formula}).  If this constraint is not met, then the function will stop with an error message.
+The length intervals in the rows of \code{key} must contain all of the length intervals present in the unaged sample to which the age-length key is to be applied (i.e., sent in the \code{length} portion of the \code{formula}). If this constraint is not met, then the function will stop with an error message.
 
-If \code{breaks=NULL}, then the length intervals for the unaged sample will be determined with a starting interval at the minimum value of the row names in \code{key} and a width of the length intervals as determined by the minimum difference in adjacent row names of \code{key}.  If length intervals of differing widths were used when constructing \code{key}, then those breaks should be supplied to \code{breaks=}.  Use of \code{breaks=} may be useful when \dQuote{uneven} length interval widths were used because the lengths in the unaged sample are not fully represented in the aged sample.  See the examples.
+If \code{breaks=NULL}, then the length intervals for the unaged sample will be determined with a starting interval at the minimum value of the row names in \code{key} and a width of the length intervals as determined by the minimum difference in adjacent row names of \code{key}. If length intervals of differing widths were used when constructing \code{key}, then those breaks should be supplied to \code{breaks=}. Use of \code{breaks=} may be useful when \dQuote{uneven} length interval widths were used because the lengths in the unaged sample are not fully represented in the aged sample. See the examples.
 
-Assigned ages will be stored in the column identified on the left-hand-side of \code{formula} (if the formula has both a left- and right-hand-side).  If this variable is missing in \code{formula}, then the new column will be labeled with \code{age}.
+Assigned ages will be stored in the column identified on the left-hand-side of \code{formula} (if the formula has both a left- and right-hand-side). If this variable is missing in \code{formula}, then the new column will be labeled with \code{age}.
 }
 \section{Testing}{
- The \code{type="SR"} method worked perfectly on a small example.  The \code{type="SR"} method provides results that reasonably approximate the results from \code{\link{alkAgeDist}} and \code{\link{alkMeanVar}}, which suggests that the age assessments are reasonable.
+ The \code{type="SR"} method worked perfectly on a small example. The \code{type="SR"} method provides results that reasonably approximate the results from \code{\link{alkAgeDist}} and \code{\link{alkMeanVar}}, which suggests that the age assessments are reasonable.
 }
 
 \section{IFAR Chapter}{
@@ -107,14 +107,14 @@ Summarize(len~age,data=WR3.comb,digits=2)
 
 }
 \references{
-Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
-Isermann, D.A. and C.T. Knight.  2005.  A computer program for age-length keys incorporating age assignment to individual fish.  North American Journal of Fisheries Management, 25:1153-1160.  [Was (is?) from http://www.tandfonline.com/doi/abs/10.1577/M04-130.1.]
+Isermann, D.A. and C.T. Knight. 2005. A computer program for age-length keys incorporating age assignment to individual fish. North American Journal of Fisheries Management, 25:1153-1160. [Was (is?) from http://www.tandfonline.com/doi/abs/10.1577/M04-130.1.]
 }
 \seealso{
-See \code{\link{alkAgeDist}} and \code{\link{alkMeanVar}} for alternative methods to derived age distributions and mean (and SD) values for each age.  See \code{\link{alkPlot}} for methods to visualize age-length keys.
+See \code{\link{alkAgeDist}} and \code{\link{alkMeanVar}} for alternative methods to derived age distributions and mean (and SD) values for each age. See \code{\link{alkPlot}} for methods to visualize age-length keys.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}.  This is largely an R version of the SAS code provided by Isermann and Knight (2005).
+Derek H. Ogle, \email{derek@derekogle.com}. This is largely an R version of the SAS code provided by Isermann and Knight (2005).
 }
 \keyword{manip}

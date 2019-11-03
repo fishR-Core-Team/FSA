@@ -1,12 +1,9 @@
-##############################################################
-##                                                          ##
-## Use this to convert comma separated values files (*.csv) ##
-##   in the data-raw directory of the FSA package to        ##
-##   R data files (.rdata) in the data directory of the     ##
-##   FSA package.  Note, there should be no .txt files      ##
-##   in data-raw ... run aaaConvertTab2CSV.R if there is.   ##
-##                                                          ##
-##############################################################
+################################################################################
+## Use this to convert comma separated values files (*.csv) in the data-raw
+##  directory of the FSA package to R data files (.rdata) in the data directory
+##  of the FSA package. Note, there should be no .txt files in data-raw ... run
+##  aaaConvertTab2CSV.R if there is.
+################################################################################
 
 library(tools)
 

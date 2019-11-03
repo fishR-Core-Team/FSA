@@ -22,7 +22,7 @@ A 1x2 matrix that contains the lower and upper confidence interval bounds.
 Computes a confidence interval for population size (N) in hypergeometric distribution.
 }
 \details{
-This is an inefficient brute-force algorithm.  The algorithm computes the \code{conf.level} range of possible values for \code{m}, as if it was unknown, for a large range of values of N.  It then finds all possible values of N for which \code{m} was in the \code{conf.level} range.  The smallest and largest values of N for which \code{m} was in the \code{conf.level} range are the CI endpoints.
+This is an inefficient brute-force algorithm. The algorithm computes the \code{conf.level} range of possible values for \code{m}, as if it was unknown, for a large range of values of N. It then finds all possible values of N for which \code{m} was in the \code{conf.level} range. The smallest and largest values of N for which \code{m} was in the \code{conf.level} range are the CI endpoints.
 }
 \note{
 This algorithm is experimental at this point.

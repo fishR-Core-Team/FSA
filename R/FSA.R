@@ -2,7 +2,7 @@
 #' 
 #' @description Functions to support basic fisheries stock assessment methods.
 #'
-#' @details Functions from this package can be used to perform a variety of basic fisheries stock assessment methods.  Detailed descriptions for most functions are available in the \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analysis with R} book (Ogle 2016).  Vignettes for the boxed examples in the \dQuote{Analysis and Interpretation of Freshwater Fisheries Data} book can be viewed with \code{fishR("AIFFD")}.
+#' @details Functions from this package can be used to perform a variety of basic fisheries stock assessment methods. Detailed descriptions for most functions are available in the \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analysis with R} book (Ogle 2016). Vignettes for the boxed examples in the \dQuote{Analysis and Interpretation of Freshwater Fisheries Data} book can be viewed with \code{fishR("AIFFD")}.
 #' 
 #' Questions, comments, or suggestions should be given on the \href{https://github.com/droglenc/FSA/issues}{GitHub FSA Issues page}.
 #' 
@@ -13,7 +13,7 @@
 #'   \item The \href{https://github.com/droglenc/FSAWs}{FSAWs package} contains functions for developing and validating standard weight equations.
 #' }
 #'
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' @docType package
 #' 

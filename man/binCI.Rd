@@ -14,7 +14,7 @@ binCI(x, n, conf.level = 0.95, type = c("wilson", "exact",
 
 \item{conf.level}{A single number that indicates the level of confidence (default is \code{0.95}).}
 
-\item{type}{A string that identifies the type of method to use for the calculations.  See details.}
+\item{type}{A string that identifies the type of method to use for the calculations. See details.}
 
 \item{verbose}{A logical that indicates whether \code{x}, \code{n}, and \code{x/n} should be included in the returned matrix (\code{=TRUE}) or not (\code{=FALSE}; DEFAULT).}
 }
@@ -28,7 +28,7 @@ Uses one of three methods to compute a confidence interval for the probability o
 This function will compute confidence interval for three possible methods chosen with the \code{type} argument.
 
 \tabular{ll}{
- \code{type="wilson"} \tab Wilson's (Journal of the American Statistical Association, 1927) confidence interval for a proportion.  This is the score CI, based on inverting the asymptotic normal test using the null standard error. \cr
+ \code{type="wilson"} \tab Wilson's (Journal of the American Statistical Association, 1927) confidence interval for a proportion. This is the score CI, based on inverting the asymptotic normal test using the null standard error. \cr
  \code{type="exact"} \tab Computes the Clopper/Pearson exact CI for a binomial success probability. \cr
  \code{type="asymptotic"} \tab This uses the normal distribution approximation. \cr
 }
@@ -58,7 +58,7 @@ binCI(c(7,10),c(20,30),type="wilson",verbose=TRUE)
 
 }
 \references{
-Agresti, A. and B.A. Coull.  1998.  Approximate is better than \dQuote{exact} for interval estimation of binomial proportions.  American Statistician, 52:119-126.
+Agresti, A. and B.A. Coull. 1998. Approximate is better than \dQuote{exact} for interval estimation of binomial proportions. American Statistician, 52:119-126.
 }
 \seealso{
 See \code{\link{binom.test}}; \code{binconf} in \pkg{Hmisc}; \code{binom.exact}, \code{binom.wilson}, and \code{binom.approx} documented in \code{\link[epitools]{binom.conf.int}} in \pkg{epitools}, and functions in \pkg{binom}.

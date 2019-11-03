@@ -11,42 +11,42 @@ psdCalc(formula, data, species, units = c("mm", "cm", "in"),
   drop0Est = TRUE, showIntermediate = FALSE, digits = 0)
 }
 \arguments{
-\item{formula}{A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains the observed lengths.  Note that this formula may only contain one variable and it must be numeric.}
+\item{formula}{A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains the observed lengthsNote that this formula may only contain one variable and it must be numeric.}
 
 \item{data}{A data.frame that minimally contains the observed lengths given in the variable in \code{formula}.}
 
-\item{species}{A string that contains the species name for which Gabelhouse lengths exist.  See \code{\link{psdVal}} for details.}
+\item{species}{A string that contains the species name for which Gabelhouse lengths existSee \code{\link{psdVal}} for details.}
 
-\item{units}{A string that indicates the type of units used for the lengths.  Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
+\item{units}{A string that indicates the type of units used for the lengthsChoices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
 
-\item{method}{A character that identifies the confidence interval method to use.  See details in \code{\link{psdCI}}.}
+\item{method}{A character that identifies the confidence interval method to useSee details in \code{\link{psdCI}}.}
 
 \item{conf.level}{A number that indicates the level of confidence to use for constructing confidence intervals (default is \code{0.95}).}
 
-\item{addLens}{A numeric vector that contains minimum lengths for additional categories.  See \code{\link{psdVal}} for details.}
+\item{addLens}{A numeric vector that contains minimum lengths for additional categoriesSee \code{\link{psdVal}} for details.}
 
-\item{addNames}{A string vector that contains names for the additional lengths added with \code{addLens}.  See \code{\link{psdVal}} for details.}
+\item{addNames}{A string vector that contains names for the additional lengths added with \code{addLens}See \code{\link{psdVal}} for details.}
 
 \item{justAdds}{A logical that indicates whether just the values related to the length sin \code{addLens} should be returned.}
 
-\item{what}{A string that indicates the type of PSD values that will be printed.  See details.}
+\item{what}{A string that indicates the type of PSD values that will be printedSee details.}
 
 \item{drop0Est}{A logical that indicates whether the PSD values that are zero should be dropped from the output.}
 
-\item{showIntermediate}{A logical that indicates whether the number of fish in the category and the number of stock fish (i.e., \dQuote{intermediate} values) should be included in the returned matrix.  Default is to not include these values.}
+\item{showIntermediate}{A logical that indicates whether the number of fish in the category and the number of stock fish (i.e., \dQuote{intermediate} values) should be included in the returned matrixDefault is to not include these values.}
 
-\item{digits}{A numeric that indicates the number of decimals to round the result to.  Default is zero digits following the recommendation of Neumann and Allen (2007).}
+\item{digits}{A numeric that indicates the number of decimals to round the result toDefault is zero digits following the recommendation of Neumann and Allen (2007).}
 }
 \value{
-A matrix with columns that contain the computed PSD-X or PSD X-Y values and associated confidence intervals.  If \code{showIntermediate=TRUE} then the number of fish in the category and the number of stock fish will also be shown.
+A matrix with columns that contain the computed PSD-X or PSD X-Y values and associated confidence intervalsIf \code{showIntermediate=TRUE} then the number of fish in the category and the number of stock fish will also be shown.
 }
 \description{
 Convenience function for calculating (traditional) PSD-X and (incremental) PSD X-Y values for all Gabelhouse lengths and increments thereof.
 }
 \details{
-Computes the (traditional) PSD-X and (incremental) PSD X-Y values, with associated confidence intervals, for each Gabelhouse length.  All PSD-X and PSD X-Y values are printed if \code{what="all"} (DEFAULT), only PSD-X values are printed if \code{what="traditional"}, only PSD X-Y values are printed if \code{what="incremental"}, and nothing is printed (but the matrix is still returned) if \code{what="none"}.
+Computes the (traditional) PSD-X and (incremental) PSD X-Y values, with associated confidence intervals, for each Gabelhouse lengthAll PSD-X and PSD X-Y values are printed if \code{what="all"} (DEFAULT), only PSD-X values are printed if \code{what="traditional"}, only PSD X-Y values are printed if \code{what="incremental"}, and nothing is printed (but the matrix is still returned) if \code{what="none"}.
 
-Confidence intervals can be computed with either the multinomial (Default) or binomial distribution as set in \code{method}.  See details in \code{\link{psdCI}} for more information.
+Confidence intervals can be computed with either the multinomial (Default) or binomial distribution as set in \code{method}See details in \code{\link{psdCI}} for more information.
 }
 \section{Testing}{
  Point estimate calculations match those constructed "by hand."
@@ -59,8 +59,9 @@ Confidence intervals can be computed with either the multinomial (Default) or bi
 \examples{
 ## Random length data
 # suppose this is yellow perch to the nearest mm
-yepdf <- data.frame(yepmm=round(c(rnorm(100,mean=125,sd=15),rnorm(50,mean=200,sd=25),
-                    rnorm(20,mean=300,sd=40)),0),
+yepdf <- data.frame(yepmm=round(c(rnorm(100,mean=125,sd=15),
+                      rnorm(50,mean=200,sd=25),
+                      rnorm(20,mean=300,sd=40)),0),
                     species=rep("Yellow Perch",170))
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1)
 psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1,drop0Est=TRUE)
@@ -98,15 +99,15 @@ psdCalc(~yepmm,data=yepdf,species="Yellow perch",digits=1)
 
 }
 \references{
-Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H2016\href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}Chapman & Hall/CRC, Boca Raton, FL.
 
-Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).  Fisheries 31:86-87.    [Was (is?) from http://pubstorage.sdstate.edu/wfs/415-F.pdf.]
+Guy, C.S., R.M. Neumann, and D.W. Willis2006New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS)Fisheries 31:86-87  [Was (is?) from http://pubstorage.sdstate.edu/wfs/415-F.pdf.]
 
-Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  Proportional size distribution (PSD): A further refinement of population size structure index terminology.  Fisheries 32:348.  [Was (is?) from http://pubstorage.sdstate.edu/wfs/450-F.pdf.]
+Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson2006Proportional size distribution (PSD): A further refinement of population size structure index terminologyFisheries 32:348[Was (is?) from http://pubstorage.sdstate.edu/wfs/450-F.pdf.]
 
-Neumann, R. M. and Allen, M. S.  2007.  Size structure. In Guy, C. S. and Brown, M. L., editors, Analysis and Interpretation of Freshwater Fisheries Data, Chapter 9, pages 375-421. American Fisheries Society, Bethesda, MD.
+Neumann, R. M. and Allen, M. S2007Size structure. In Guy, C. S. and Brown, M. L., editors, Analysis and Interpretation of Freshwater Fisheries Data, Chapter 9, pages 375-421. American Fisheries Society, Bethesda, MD.
 
-Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  Stock density indices: development, use, and limitations.  Reviews in Fisheries Science 1:203-222.  [Was (is?) from http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf.]
+Willis, D.W., B.R. Murphy, and C.S. Guy1993Stock density indices: development, use, and limitationsReviews in Fisheries Science 1:203-222[Was (is?) from http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf.]
 }
 \seealso{
 See \code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}} for related functionality.

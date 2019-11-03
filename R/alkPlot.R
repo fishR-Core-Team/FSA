@@ -2,30 +2,30 @@
 #' 
 #' @description Various plots to visualize the proportion of fish of certain ages within length intervals in an age-length key.
 #' 
-#' @details A variety of plots can be used to visualize the proportion of fish of certain ages within length intervals of an age-length key.  The types of plots are described below and illustrated in the examples.
+#' @details A variety of plots can be used to visualize the proportion of fish of certain ages within length intervals of an age-length key. The types of plots are described below and illustrated in the examples.
 #' \itemize{
-#'   \item A \dQuote{stacked} bar chart where vertical bars over length intervals sum to 1 but are segmented by the proportion of each age in that length interval is constructed with \code{type="barplot"}.  The ages will be labeled in the bar segments unless \code{showLegend=TRUE} is used.
+#'   \item A \dQuote{stacked} bar chart where vertical bars over length intervals sum to 1 but are segmented by the proportion of each age in that length interval is constructed with \code{type="barplot"}. The ages will be labeled in the bar segments unless \code{showLegend=TRUE} is used.
 #'   \item A \dQuote{stacked} area chart similar to the bar chart described above is constructed with \code{type="area"}.
 #'   \item A plot with (differently colored) lines that connect the proportions of ages within each length interval is constructed with \code{type="lines"}.
 #'   \item A plot with (differently colored) lines, as estimated by loess splines, that connect the proportions of ages within each length interval is constructed with \code{type="splines"}.
-#'   \item A \dQuote{bubble} plot where circles whose size is proportional to the proportion of fish of each age in each length interval is constructed with \code{type="bubble"}.  The color of the bubbles can be controlled with \code{col=} and an underlying grid for ease of seeing the age and length interval for each bubble can be controlled with \code{grid=}.  Bubbles from a second age-length key can be overlaid on an already constructed bubble plot by using \code{add=TRUE} in a second call to \code{alkPlot}.
+#'   \item A \dQuote{bubble} plot where circles whose size is proportional to the proportion of fish of each age in each length interval is constructed with \code{type="bubble"}. The color of the bubbles can be controlled with \code{col=} and an underlying grid for ease of seeing the age and length interval for each bubble can be controlled with \code{grid=}. Bubbles from a second age-length key can be overlaid on an already constructed bubble plot by using \code{add=TRUE} in a second call to \code{alkPlot}.
 #' }
 #' Note that all plots are \dQuote{vertically conditional} -- i.e., each represents the proportional ages WITHIN each length interval.
 #' 
 #' @param key A numeric matrix that contains the age-length key.
-#' @param type A string that indicates the type of plot to construct.  See details.
+#' @param type A string that indicates the type of plot to construct. See details.
 #' @param xlab,ylab A string that contains the label for the x- or y-axis.
 #' @param xlim,ylim A numeric of length 2 that provide the limits for the x-axis or y-axis.
-#' @param showLegend A logical that indicates whether a legend should be displayed (not implemented for \code{type="bubble"}).  See examples.
-#' @param lbl.cex A numeric character expansion value for labels inside the bars when \code{type="barplot"} or on the lines when \code{type="lines"} or \code{type="splines"}.  Only used if \code{showLegend=FALSE}.
+#' @param showLegend A logical that indicates whether a legend should be displayed (not implemented for \code{type="bubble"}). See examples.
+#' @param lbl.cex A numeric character expansion value for labels inside the bars when \code{type="barplot"} or on the lines when \code{type="lines"} or \code{type="splines"}. Only used if \code{showLegend=FALSE}.
 #' @param leg.cex A numeric character expansion value for labels on the legend when \code{showLegend=TRUE}.
 #' @param lwd A numeric that indicates the line width when \code{type="lines"} or \code{type="splines"}.
 #' @param span A numeric that indicates the span value to use in \code{loess} when \code{type="splines"}.
-#' @param pal A string that indicates the palette to generate colors for the bars, areas, lines, or spline lines.  The name of a palette must be one of \dQuote{rich}, \dQuote{cm}, \dQuote{default}, \dQuote{grey}, \dQuote{gray}, \dQuote{heat}, \dQuote{jet}, \dQuote{rainbow}, \dQuote{topo}, or \dQuote{terrain}.  See \code{\link{chooseColors}}.
-#' @param grid A logical that indicates whether a grid should be placed under the bubbles when \code{type="bubble"} or a character or appropriate vector that identifies a color for the grid.  See examples.
+#' @param pal A string that indicates the palette to generate colors for the bars, areas, lines, or spline lines. The name of a palette must be one of \dQuote{rich}, \dQuote{cm}, \dQuote{default}, \dQuote{grey}, \dQuote{gray}, \dQuote{heat}, \dQuote{jet}, \dQuote{rainbow}, \dQuote{topo}, or \dQuote{terrain}. See \code{\link{chooseColors}}.
+#' @param grid A logical that indicates whether a grid should be placed under the bubbles when \code{type="bubble"} or a character or appropriate vector that identifies a color for the grid. See examples.
 #' @param col A string that indicates the color of the bubbles when \code{type="bubble"}.
-#' @param buf A single numeric that indicates the relative width of the bubbles when \code{type="bubble"}.  A value of 0.5 means that two full-width bubbles would touch each other either in the x- or y-direction (i.e., this would represent half of the minimum of the physical distance between values one-unit apart on the x- and y-axes).  Set this to a value less than 0.5 so that the bubbles will not touch (the default is 0.45).
-#' @param add A logical that indicates whether the data should be added to an already existing plot.  May be useful for visually comparing age-length keys.  Only implemented when \code{type="bubble"}.
+#' @param buf A single numeric that indicates the relative width of the bubbles when \code{type="bubble"}. A value of 0.5 means that two full-width bubbles would touch each other either in the x- or y-direction (i.e., this would represent half of the minimum of the physical distance between values one-unit apart on the x- and y-axes). Set this to a value less than 0.5 so that the bubbles will not touch (the default is 0.45).
+#' @param add A logical that indicates whether the data should be added to an already existing plot. May be useful for visually comparing age-length keys. Only implemented when \code{type="bubble"}.
 #' @param \dots Additional arguments to pass to \code{plot} or \code{barplot}.
 #' 
 #' @return None, but a plot is constructed.
@@ -36,7 +36,7 @@
 #' 
 #' @seealso See \code{\link{alkIndivAge}} for using an age-length key to assign ages to individual fish.
 #' 
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' @keywords plot
 #' 

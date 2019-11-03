@@ -7,7 +7,7 @@
 \format{A data frame with observations on the following 13 variables:
  \describe{
    \item{species}{Species name.}
-   \item{units}{Units of measurements.  \code{Metric} uses lengths in mm and weight in grams.  \code{English} uses lengths in inches and weight in pounds.}
+   \item{units}{Units of measurements. \code{Metric} uses lengths in mm and weight in grams. \code{English} uses lengths in inches and weight in pounds.}
    \item{type}{Type of equation (\code{linear} or \code{quadratic}).}
    \item{ref}{Reference quartile (\code{75}, \code{50}, or \code{25}).}
    \item{measure}{The type of length measurement used -- total length (\code{TL}) or fork length (\code{FL}).}
@@ -17,7 +17,7 @@
    \item{int}{The intercept for the model.}
    \item{slope}{The slope for the linear models or the linear coefficient for the quadratic equation.}
    \item{quad}{The quadratic coefficient in the quadratic equations.}
-   \item{source}{Source of the equation.  These match the sources given in Neumann et al. 2012.}
+   \item{source}{Source of the equation. These match the sources given in Neumann et al. 2012.}
    \item{comment}{Comments about use of equation.}
  }}
 \source{

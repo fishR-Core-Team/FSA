@@ -1,10 +1,7 @@
-##############################################################
-##                                                          ##
-## Use this to convert tab-delimited text files (*.txt) to  ##
-##   comma separated values files (*.csv) in the data-raw   ##
-##   directory of the FSA package.                          ##
-##                                                          ##
-##############################################################
+################################################################################
+## Use this to convert tab-delimited text files (*.txt) to comma separated
+##  values files (*.csv) in the data-raw irectory of the FSA package.
+################################################################################
 
 library(tools)
 

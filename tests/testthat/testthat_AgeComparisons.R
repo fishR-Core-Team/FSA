@@ -109,7 +109,7 @@ test_that("ageBias() symmetry tests match results in Evans and Hoenig (2008)",{
   expect_equal(Xsum[Xsum$symTest=="McNemar","chi.sq"], 0)
   expect_equal(round(Xsum[Xsum$symTest=="McNemar","p"],4), 1.0000)
   ## note that Evans & Hoenigs (2008) show a df=2 for this case, but compare2()
-  ##   in the fishmethods package, which was written by Hoenig, shows df=1.  I,
+  ##   in the fishmethods package, which was written by Hoenig, shows df=1. I,
   ##   therefore, tested against df=1.
   expect_equal(Xsum[Xsum$symTest=="EvansHoenig","df"], 1)
   expect_equal(Xsum[Xsum$symTest=="EvansHoenig","chi.sq"], 0)

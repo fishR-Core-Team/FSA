@@ -1,8 +1,8 @@
 #' @title Construct a base tic-tac-toe plot for presenting predator-prey PSD values.
 #'
-#' @description Construct a base tic-tac-toe plot for presenting predator-prey PSD values.  Predator-prey PSD values are added with \code{\link[plotrix]{plotCI}} from \pkg{plotrix}.
+#' @description Construct a base tic-tac-toe plot for presenting predator-prey PSD values. Predator-prey PSD values are added with \code{\link[plotrix]{plotCI}} from \pkg{plotrix}.
 #'
-#' @details This function simply creates a base tic-tac-toe plot.  Observed values, with confidence intervals, are added to this plot with \code{\link[plotrix]{plotCI}} from \pkg{plotrix}; see examples.
+#' @details This function simply creates a base tic-tac-toe plot. Observed values, with confidence intervals, are added to this plot with \code{\link[plotrix]{plotCI}} from \pkg{plotrix}; see examples.
 #'
 #' @param predobj A vector of length 2 that contains the target objective range for the predator.
 #' @param preyobj A vector of length 2 that contains the target objective range for the prey.
@@ -14,7 +14,7 @@
 #' @param bnd.lwd A numeric that indicates the line width for the boundaries of the target objective regions.
 #' @param bnd.lty A numeric that indicates the line type for the boundaries of the target objective regions.
 #'
-#' @return None.  However, a graphic is produced.
+#' @return None. However, a graphic is produced.
 #' 
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
@@ -22,7 +22,7 @@
 #'
 #' @seealso See \code{\link{psdVal}} and \code{\link{psdCalc}} for related functionality.
 #' 
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #'
 #' @keywords hplot
 #'
@@ -40,7 +40,7 @@
 #'   plotCI(prey[1],pred[1],li=pred[2],ui=pred[3],err="y",pch=16,add=TRUE) 
 #' }
 #' 
-#' ## Create hypothetical data for plotting three points .. similar to what might come from psdCalc()
+#' ## Create hypothetical data for plotting three points ... similar to what might come from psdCalc()
 #' prey <- rbind(c(45.4,30.2,56.8),
 #'               c(68.2,56.7,79.4),
 #'               c(17.1, 9.5,26.3))
@@ -66,13 +66,18 @@ tictactoe <- function(predobj=c(30,70),preyobj=c(30,70),
                       bnd.col="black",bnd.lwd=1,bnd.lty=2) {
   ## Test values
   if (!is.numeric(predobj)) STOP("Predator target objectives must be numeric.")
-  if (length(predobj)!=2) STOP("Predator target objective must contain two numbers.")
-  if (any(predobj<0|predobj>100)) STOP("Predator target objectives must be between 0 and 100.")
+  if (length(predobj)!=2)
+    STOP("Predator target objective must contain two numbers.")
+  if (any(predobj<0|predobj>100))
+    STOP("Predator target objectives must be between 0 and 100.")
   if (!is.numeric(preyobj)) STOP("Prey target objectives must be numeric.")
-  if (length(preyobj)!=2) STOP("Prey target objective must contain two numbers.")
-  if (any(preyobj<0|preyobj>100)) STOP("Prey target objectives must be between 0 and 100.")  ## Base plot
+  if (length(preyobj)!=2)
+    STOP("Prey target objective must contain two numbers.")
+  if (any(preyobj<0|preyobj>100))
+    STOP("Prey target objectives must be between 0 and 100.")  ## Base plot
   # nocov start
-  graphics::plot(NULL,xlim=c(0,100),ylim=c(0,100),xlab=predlab,ylab=preylab,xaxt="n",yaxt="n")
+  graphics::plot(NULL,xlim=c(0,100),ylim=c(0,100),
+                 xlab=predlab,ylab=preylab,xaxt="n",yaxt="n")
   graphics::axis(1,seq(0,100,10))
   graphics::axis(2,seq(0,100,10))
   ## Get axis limits

@@ -28,13 +28,13 @@ tictactoe(predobj = c(30, 70), preyobj = c(30, 70),
 \item{bnd.lty}{A numeric that indicates the line type for the boundaries of the target objective regions.}
 }
 \value{
-None.  However, a graphic is produced.
+None. However, a graphic is produced.
 }
 \description{
-Construct a base tic-tac-toe plot for presenting predator-prey PSD values.  Predator-prey PSD values are added with \code{\link[plotrix]{plotCI}} from \pkg{plotrix}.
+Construct a base tic-tac-toe plot for presenting predator-prey PSD values. Predator-prey PSD values are added with \code{\link[plotrix]{plotCI}} from \pkg{plotrix}.
 }
 \details{
-This function simply creates a base tic-tac-toe plot.  Observed values, with confidence intervals, are added to this plot with \code{\link[plotrix]{plotCI}} from \pkg{plotrix}; see examples.
+This function simply creates a base tic-tac-toe plot. Observed values, with confidence intervals, are added to this plot with \code{\link[plotrix]{plotCI}} from \pkg{plotrix}; see examples.
 }
 \section{IFAR Chapter}{
  6-Size Structure.
@@ -54,7 +54,7 @@ if (require(plotrix)) {
   plotCI(prey[1],pred[1],li=pred[2],ui=pred[3],err="y",pch=16,add=TRUE) 
 }
 
-## Create hypothetical data for plotting three points .. similar to what might come from psdCalc()
+## Create hypothetical data for plotting three points ... similar to what might come from psdCalc()
 prey <- rbind(c(45.4,30.2,56.8),
               c(68.2,56.7,79.4),
               c(17.1, 9.5,26.3))
@@ -75,7 +75,7 @@ text(prey[,1],pred[,1],labels=c(2010,2011,2012),adj=c(-0.5,-0.5))
 
 }
 \references{
-Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See \code{\link{psdVal}} and \code{\link{psdCalc}} for related functionality.

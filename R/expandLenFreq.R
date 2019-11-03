@@ -2,11 +2,11 @@
 #'
 #' @description Creates a vector of lengths for the individuals not measured based on the lengths measured in a subsample of individuals.
 #'
-#' @details Creates a vector of lengths for the individuals not measured based on the lengths measured in a subsample of individuals.  Length categories are created first that begin with the value in \code{startcat} (or the minimum observed value by default) and continue by values of \code{w} until a category value greater than the largest observed length in \code{x}.  Categories of different widths are not allowed.
+#' @details Creates a vector of lengths for the individuals not measured based on the lengths measured in a subsample of individuals. Length categories are created first that begin with the value in \code{startcat} (or the minimum observed value by default) and continue by values of \code{w} until a category value greater than the largest observed length in \code{x}. Categories of different widths are not allowed.
 #'
-#' The resulting \dQuote{expanded} lengths are created by allocating individuals to each length class based on the proportion of measured individuals in the subsample in that length class.  Individuals within a length class are then assigned a specific length within that length class based on a uniform distribution.  Because the expanded number of individuals in a length class is rounded down based on the measured number per length class, not all individuals will initially be assigned a length value.  The remaining individuals are assigned to a length class randomly according to weights based on the proportion of individuals in the measured length classes.  Finally, these individuals are randomly assigned a specific length within the respective length class from a uniform distribution, same as above.
+#' The resulting \dQuote{expanded} lengths are created by allocating individuals to each length class based on the proportion of measured individuals in the subsample in that length class. Individuals within a length class are then assigned a specific length within that length class based on a uniform distribution. Because the expanded number of individuals in a length class is rounded down based on the measured number per length class, not all individuals will initially be assigned a length value. The remaining individuals are assigned to a length class randomly according to weights based on the proportion of individuals in the measured length classes. Finally, these individuals are randomly assigned a specific length within the respective length class from a uniform distribution, same as above.
 #'
-#' The resulting length assignments are rounded to the number of decimals shown in \code{decimal}.  If \code{decimals} is not set by the user then it will default to the same number of decimals shown in the \code{w} value.  Care is taken to make sure that the rounded result will not pass out of the given length category (i.e., will not be allowed to round up to the next length category).  Generally speaking, one will want to use more decimals then is shown in \code{w}.  For example, one may want to create length categories with a width of 1 inch (i.e., \code{w=1}) but have the results recorded as if measured to within 0.1 inch (i.e., \code{decimals=1}).
+#' The resulting length assignments are rounded to the number of decimals shown in \code{decimal}. If \code{decimals} is not set by the user then it will default to the same number of decimals shown in the \code{w} value. Care is taken to make sure that the rounded result will not pass out of the given length category (i.e., will not be allowed to round up to the next length category). Generally speaking, one will want to use more decimals then is shown in \code{w}. For example, one may want to create length categories with a width of 1 inch (i.e., \code{w=1}) but have the results recorded as if measured to within 0.1 inch (i.e., \code{decimals=1}).
 #'
 #' @param x A numeric vector of length measurements.
 #' @param startcat A number that indicates the beginning of the first length-class.
@@ -21,7 +21,7 @@
 #' 
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 
-#' @seealso See \code{\link{expandCounts}} for expanding more than just lengths or expanding lengths when there is a known number in each length bin.  See \code{\link{lencat}} for creating length bins.
+#' @seealso See \code{\link{expandCounts}} for expanding more than just lengths or expanding lengths when there is a known number in each length bin. See \code{\link{lencat}} for creating length bins.
 #' 
 #' @keywords manip
 #' 
@@ -66,11 +66,12 @@ expandLenFreq <- function(x,w,additional,
   if (!is.numeric(x)) STOP("'x' must be numeric.")
   if (w<=0) STOP("'w' must be positive")
   if (!is.null(startcat)) if (startcat<=0) STOP("'startcat' must be positive")
-  if (total<length(x)) STOP("Total number to expand to must be greater than number in 'x'.")
+  if (total<length(x)) 
+    STOP("Total number to expand to must be greater than number in 'x'.")
   ## Process
   # Find startcat if it is NULL
   if (is.null(startcat)) startcat <- floor(min(x,na.rm=TRUE)/w)*w
-  # Find decimals in w and startcat, the decimals in w will be the default to round to
+  # Find decimals in w and startcat, decimals in w will be default to round to
   decs <- iCheckStartcatW(startcat,w,x)
   # number to allocate
   num <- total-length(x)
@@ -93,13 +94,15 @@ expandLenFreq <- function(x,w,additional,
   new.lens <- round(new.lens,decimals)
   # if asked, print some summary values of what happened
   if (show.summary) {
-    cat("Length Frequency Expansion using:\n","Measured length frequency of",length(x),"individuals:\n")
+    cat("Length Frequency Expansion using:\n","Measured length frequency of",
+        length(x),"individuals:\n")
     print(round(lenfreq,4))
     cat("\nNon-random allocations of",length(nrand.lens),"individuals by length category.\n")
     tmp <- reps
     names(tmp) <- NULL
     print(tmp)
-    cat("\nRandom allocations of",length(rand.lens),"individuals\n","With final length frequency table of:\n")
+    cat("\nRandom allocations of",length(rand.lens),"individuals\n",
+        "With final length frequency table of:\n")
     final.lens <- lencat(new.lens,w=w,startcat=startcat,...)
     print(table(final.lens,dnn=NULL))
   }

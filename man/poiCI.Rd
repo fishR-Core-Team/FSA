@@ -12,7 +12,7 @@ poiCI(x, conf.level = 0.95, type = c("exact", "daly", "byar",
 
 \item{conf.level}{A number that indicates the level of confidence to use for constructing confidence intervals (default is \code{0.95}).}
 
-\item{type}{A string that identifies the type of method to use for the calculations.  See details.}
+\item{type}{A string that identifies the type of method to use for the calculations. See details.}
 
 \item{verbose}{A logical that indicates whether \code{x} should be included in the returned matrix (\code{=TRUE}) or not (\code{=FALSE}; DEFAULT).}
 }
@@ -23,7 +23,7 @@ A #x2 matrix that contains the lower and upper confidence interval bounds as col
 Computes a confidence interval for the Poisson counts.
 }
 \details{
-Computes a CI for the Poisson counts using the \code{exact}, gamma distribution (\code{daly}`), Byar's (\code{byar}), or normal approximation (\code{asymptotic}) methods.  This is largely a wrapper to \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} functions documented in \code{\link[epitools]{pois.conf.int}}in \pkg{epitools}.
+Computes a CI for the Poisson counts using the \code{exact}, gamma distribution (\code{daly}`), Byar's (\code{byar}), or normal approximation (\code{asymptotic}) methods. This is largely a wrapper to \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} functions documented in \code{\link[epitools]{pois.conf.int}}in \pkg{epitools}.
 }
 \examples{
 ## Demonstrates using all types at once

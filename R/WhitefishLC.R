@@ -35,7 +35,7 @@
 #' @concept Ageing Error
 #' @concept Age Comparisons
 #'
-#' @source Data from Herbst, S.J. and J.E. Marsden.  2011.  Comparison of precision and bias of scale, fin ray, and otolith age estimates for lake whitefish (\emph{Coregonus clupeaformis}) in Lake Champlain.  Journal of Great Lakes Research.  37:386-389.  Contributed by Seth Herbst.  \bold{Do not use for other than educational purposes without permission from the author.}  [Was (is?) from http://www.uvm.edu/rsenr/emarsden/documents/Herbst\%20and\%20Marsden\%20whitefish\%20age\%20structure\%20comparison.pdf.]
+#' @source Data from Herbst, S.J. and J.E. Marsden. 2011. Comparison of precision and bias of scale, fin ray, and otolith age estimates for lake whitefish (\emph{Coregonus clupeaformis}) in Lake Champlain. Journal of Great Lakes Research. 37:386-389. Contributed by Seth Herbst. \bold{Do not use for other than educational purposes without permission from the author.} [Was (is?) from http://www.uvm.edu/rsenr/emarsden/documents/Herbst\%20and\%20Marsden\%20whitefish\%20age\%20structure\%20comparison.pdf.]
 #'
 #' @seealso Used in \code{\link{ageBias}} and \code{\link{agePrecision}} examples.
 #' 

@@ -1,12 +1,12 @@
 #' @title Computes the Leslie or DeLury population estimate from catch and effort data.
 #'
-#' @description Computes the Leslie or DeLury estimates of population size and catchability coefficient from paired catch and effort data.  The Ricker modification may also be used.
+#' @description Computes the Leslie or DeLury estimates of population size and catchability coefficient from paired catch and effort data. The Ricker modification may also be used.
 #'
-#' @details For the Leslie method, a linear regression model of catch-per-unit-effort on cumulative catch prior to the sample is fit.  The catchability coefficient (q) is estimated from the negative of the slope and the initial population size (No) is estimated by dividing the intercept by the catchability coefficient.  If \code{Ricker.mod=TRUE} then the cumulative catch is modified to be the cumulative catch prior to the sample plus half of the catch of the current sample.
+#' @details For the Leslie method, a linear regression model of catch-per-unit-effort on cumulative catch prior to the sample is fit. The catchability coefficient (q) is estimated from the negative of the slope and the initial population size (No) is estimated by dividing the intercept by the catchability coefficient. If \code{Ricker.mod=TRUE} then the cumulative catch is modified to be the cumulative catch prior to the sample plus half of the catch of the current sample.
 #' 
-#' For the DeLury method, a linear regression model of log (catch-per-unit-effort) on cumulative effort is fit.  The catchability coefficient (q) is estimated from the negative of the slope and the initial population size (No) is estimated by dividing the intercept as an exponent of e by the catchability coefficient.  If \code{Ricker.mod=TRUE} then the cumulative effort is modified to be the cumulative effort prior to the sample plus half of the effort of the current sample.
+#' For the DeLury method, a linear regression model of log (catch-per-unit-effort) on cumulative effort is fit. The catchability coefficient (q) is estimated from the negative of the slope and the initial population size (No) is estimated by dividing the intercept as an exponent of e by the catchability coefficient. If \code{Ricker.mod=TRUE} then the cumulative effort is modified to be the cumulative effort prior to the sample plus half of the effort of the current sample.
 #'
-#' Standard errors for the catchability and population size estimates are computed from formulas on page 298 (for Leslie) and 303 (for DeLury) from Seber (2002).  Confidence intervals are computed using standard large-sample normal distribution theory with the regression error df.
+#' Standard errors for the catchability and population size estimates are computed from formulas on page 298 (for Leslie) and 303 (for DeLury) from Seber (2002). Confidence intervals are computed using standard large-sample normal distribution theory with the regression error df.
 #' 
 #' @param catch A numeric vector of catches of fish at each time.
 #' @param effort A numeric vector of efforts expended at each time.
@@ -15,7 +15,7 @@
 #' @param object An object saved from the \code{removal} call (i.e., of class \code{depletion}).
 #' @param x An object saved from the \code{depletion} call (i.e., of class \code{depletion}).
 #' @param verbose A logical that indicates whether a reminder of the method used should be printed with the summary results.
-#' @param parm A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names.  If missing, all parameters are considered.
+#' @param parm A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considered.
 #' @param conf.level A single number that represents the level of confidence to use for constructing confidence intervals.
 #' @param level Same as \code{conf.level} but used for compatibility with generic \code{confint} function.
 #' @param digits The number of digits to round the \code{rSquared} result to.
@@ -27,7 +27,7 @@
 #' @param col.mdl A string that indicates the color of the fitted line.
 #' @param lwd A numeric that indicates the line width of the fitted line.
 #' @param lty A numeric that indicates the type of line used for the fitted line.
-#' @param pos.est A single string to identify where to place the estimated population estimate and catchability on the plot.  Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot.  Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements.  Set \code{pos.est} to \code{NULL} to remove the estimated population size and catchability coefficient from the plot.
+#' @param pos.est A single string to identify where to place the estimated population estimate and catchability on the plot. Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot. Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements. Set \code{pos.est} to \code{NULL} to remove the estimated population size and catchability coefficient from the plot.
 #' @param cex.est A single numeric that identifies the character expansion value for the estimated population estimate and catchability placed on the plot.
 #' @param \dots Additional arguments for methods.
 #'
@@ -54,9 +54,9 @@
 #'
 #' @seealso See \code{\link{removal}} for related functionality and \code{\link[fishmethods]{deplet}} in \pkg{fishmethods} for similar functionality.
 #'
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
-#' Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.  [Was (is?) from http://www.dfo-mpo.gc.ca/Library/1485.pdf.]
+#' Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada. [Was (is?) from http://www.dfo-mpo.gc.ca/Library/1485.pdf.]
 #'
 #' Seber, G.A.F. 2002. The Estimation of Animal Abundance. Edward Arnold, Second edition (reprinted).
 #'

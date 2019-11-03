@@ -1,16 +1,16 @@
 #' @title Kolmogorov-Smirnov Tests.
 #'
-#' @description Performs a one- or two-sample Kolmogorov-Smirnov test.  Includes the option to perform the two-sample test using the formula notation.
+#' @description Performs a one- or two-sample Kolmogorov-Smirnov test. Includes the option to perform the two-sample test using the formula notation.
 #'
-#' @details This is exactly \code{\link[stats]{ks.test}} except that a formula may be used for the two-sample situation.  The default version is simply a pass through to \code{\link[stats]{ks.test}}.  See \code{\link[stats]{ks.test}} for more details.
+#' @details This is exactly \code{\link[stats]{ks.test}} except that a formula may be used for the two-sample situation. The default version is simply a pass through to \code{\link[stats]{ks.test}}. See \code{\link[stats]{ks.test}} for more details.
 #'
 #' @aliases ksTest ksTest.default ksTest.formula
 #'
 #' @param x A numeric vector of data values or a formula (see details).
-#' @param y A numeric vector of data values, a character string naming a cumulative distribution function, or an actual cumulative distribution function.  See \code{\link[stats]{ks.test}}.
+#' @param y A numeric vector of data values, a character string naming a cumulative distribution function, or an actual cumulative distribution function. See \code{\link[stats]{ks.test}}.
 #' @param \dots Parameters of the distribution specified (as a character string) by \code{y}.
-#' @param alternative A string that indicates the alternative hypothesis.  See \code{\link[stats]{ks.test}}.
-#' @param exact \code{NULL} or a logical that indicates whether an exact p-value should be computed. See \code{\link[stats]{ks.test}}.  Not available if ties are present, nor for the one-sided two-sample case.
+#' @param alternative A string that indicates the alternative hypothesis. See \code{\link[stats]{ks.test}}.
+#' @param exact \code{NULL} or a logical that indicates whether an exact p-value should be computed. See \code{\link[stats]{ks.test}}. Not available if ties are present, nor for the one-sided two-sample case.
 #' @param data A data frame that contains the variables in the formula for \code{x}.
 #'
 #' @return See \code{\link[stats]{ks.test}}.
@@ -46,7 +46,8 @@ ksTest <- function (x, ...) {
 
 #' @rdname ksTest
 #' @export
-ksTest.default <- function(x,y,...,alternative=c("two.sided","less","greater"),exact=NULL) {
+ksTest.default <- function(x,y,...,alternative=c("two.sided","less","greater"),
+                           exact=NULL) {
   stats::ks.test(x,y,...,alternative=alternative,exact=exact)
 }
 

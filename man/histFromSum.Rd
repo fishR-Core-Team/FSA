@@ -28,10 +28,10 @@ histFromSum(x, ...)
 None, but a graphic is created.
 }
 \description{
-Creates a histogram from values in a frequency table.  Primarily used with already summarized length frequency data.
+Creates a histogram from values in a frequency table. Primarily used with already summarized length frequency data.
 }
 \details{
-Creates a histogram fro values in a frequency table.  The frequency table may be constructed from \code{\link[stats]{xtabs}}, \code{\link{table}}, or be in the form of a matrix or a data.frame (as if read in from an external data file).
+Creates a histogram fro values in a frequency table. The frequency table may be constructed from \code{\link[stats]{xtabs}}, \code{\link{table}}, or be in the form of a matrix or a data.frame (as if read in from an external data file).
 }
 \examples{
 ## Make some dummy data with a length category variable

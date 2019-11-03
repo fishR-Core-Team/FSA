@@ -1,13 +1,13 @@
 #' @title Create a histogram from a frequency table.
 #'
-#' @description Creates a histogram from values in a frequency table.  Primarily used with already summarized length frequency data.
+#' @description Creates a histogram from values in a frequency table. Primarily used with already summarized length frequency data.
 #'
 #' @param x A numeric vector of bin/category values, a formula of the form \code{freq~cat} where \code{freq} contains the count/frequency values and \code{cat} contains the bin/category values, an object of class \code{table} from \code{table()} or \code{xtabs()}.
 #' @param y A numeric vector of count/frequency values.
 #' @param data A data.frame that contains the \code{freq} and \code{cat} variables if a formula is given in \code{x}.
 #' @param \dots Additional arguments for \code{\link[graphics]{hist}}.
 #'
-#' @details Creates a histogram fro values in a frequency table.  The frequency table may be constructed from \code{\link[stats]{xtabs}}, \code{\link{table}}, or be in the form of a matrix or a data.frame (as if read in from an external data file).
+#' @details Creates a histogram fro values in a frequency table. The frequency table may be constructed from \code{\link[stats]{xtabs}}, \code{\link{table}}, or be in the form of a matrix or a data.frame (as if read in from an external data file).
 #'
 #' @return None, but a graphic is created.
 #'
@@ -89,10 +89,15 @@ histFromSum.table <- function(x,...) {
 #' @export
 histFromSum.formula <- function(x,data=NULL,...) {
   tmp <- iHndlFormula(x,data,expNumR=1,expNumE=1)
-  if (tmp$vnum!=2) STOP("'histFromSum' only works with 1 response and 1 explanatory variable.")
-  if (!tmp$metExpNumR) STOP("'histFromSum' must have only 1 left-side variable in the formula.")
-  if (!tmp$Rclass %in% c("numeric","integer")) STOP("The left-side variable in the formula must be numeric.")
-  if (!tmp$metExpNumE) STOP("'histFromSum' must have only 1 right-side variable in the formula.")
-  if (!tmp$Eclass %in% c("numeric","integer")) STOP("The right-side variable in the formula must be numeric.")
+  if (tmp$vnum!=2)
+    STOP("'histFromSum' only works with 1 response and 1 explanatory variable.")
+  if (!tmp$metExpNumR)
+    STOP("'histFromSum' must have only 1 left-side variable in the formula.")
+  if (!tmp$Rclass %in% c("numeric","integer"))
+    STOP("The left-side variable in the formula must be numeric.")
+  if (!tmp$metExpNumE)
+    STOP("'histFromSum' must have only 1 right-side variable in the formula.")
+  if (!tmp$Eclass %in% c("numeric","integer"))
+    STOP("The right-side variable in the formula must be numeric.")
   histFromSum.default(tmp$mf[,tmp$Enames],tmp$mf[,tmp$Rname],...) # nocov
 }

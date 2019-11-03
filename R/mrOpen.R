@@ -1,33 +1,33 @@
 #' @title Jolly-Seber analysis from multiple mark-recapture events from an open population.
 #'
-#' @description This function takes the two parts of a Method B table and uses the Jolly-Seber method to estimate the population size at each possible sample period and the apparent survival rate and number of additional individuals added to the population between possible sample periods.  This method assumes that the population is open.
+#' @description This function takes the two parts of a Method B table and uses the Jolly-Seber method to estimate the population size at each possible sample period and the apparent survival rate and number of additional individuals added to the population between possible sample periods. This method assumes that the population is open.
 #'
 #' @details \code{jolly} is just a convenience wrapper that produces the exact same results as \code{mrOpen}.
 #' 
-#' If \code{mb.top} contains an object from the \code{\link{capHistSum}} function then \code{mb.bot} can be left missing.  In this case, the function will extract the needed data from the \code{methodB.top} and \code{methodB.bot} portions of the \code{CapHist} class object.
+#' If \code{mb.top} contains an object from the \code{\link{capHistSum}} function then \code{mb.bot} can be left missing. In this case, the function will extract the needed data from the \code{methodB.top} and \code{methodB.bot} portions of the \code{CapHist} class object.
 #' 
-#' If \code{mb.top} is a matrix then it must be square, must have non-negative and no NA values in the upper triangle, and all NA values on the lower triangle and diagonal.  If \code{mb.bot} is a matrix then it must have four rows named \code{m}, \code{u}, \code{n}, and \code{R} (see \code{\link{capHistSum}} for definitions), all values must be non-NA, and the first value of \code{m} must be 0.  The last value of \code{R} can either be 0 or some positive number (it is ultimately ignored in all calculations).
+#' If \code{mb.top} is a matrix then it must be square, must have non-negative and no NA values in the upper triangle, and all NA values on the lower triangle and diagonal. If \code{mb.bot} is a matrix then it must have four rows named \code{m}, \code{u}, \code{n}, and \code{R} (see \code{\link{capHistSum}} for definitions), all values must be non-NA, and the first value of \code{m} must be 0. The last value of \code{R} can either be 0 or some positive number (it is ultimately ignored in all calculations).
 #' 
-#' All parameter estimates are performed using equations 4.6-4.9 from Pollock et al (1990) and from page 204 in Seber 2002.  If \code{type="Jolly"} then all standard errors (square root of the variances) are from equations 4.11, 4.12, and 4.14 in Pollock et al. (1990) (these are different than those in Seber (2002) ... see Pollock et al.'s note on page 21).  If \code{type="Jolly"} and \code{phi.full=TRUE} then the full variance for the phi parameter is given as in eqn 4.18 in Pollock et al. (1990), otherwise eqn 4.13 from Pollock et al. (1990) is used.  When \code{type="Jolly"} the confidence interval are produced using normal theory (i.e., estimate +/- z*SE).  If \code{type="Manly"} then the confidence intervals for N and phi (none will be produced for B) are constructed using the methods of Manly (1984) and as described in 2.24-2.33 of Krebs (1989).  No standard errors are returned when \code{type="Manly"}.
+#' All parameter estimates are performed using equations 4.6-4.9 from Pollock et al (1990) and from page 204 in Seber 2002. If \code{type="Jolly"} then all standard errors (square root of the variances) are from equations 4.11, 4.12, and 4.14 in Pollock et al. (1990) (these are different than those in Seber (2002) ... see Pollock et al.'s note on page 21). If \code{type="Jolly"} and \code{phi.full=TRUE} then the full variance for the phi parameter is given as in eqn 4.18 in Pollock et al. (1990), otherwise eqn 4.13 from Pollock et al. (1990) is used. When \code{type="Jolly"} the confidence interval are produced using normal theory (i.e., estimate +/- z*SE). If \code{type="Manly"} then the confidence intervals for N and phi (none will be produced for B) are constructed using the methods of Manly (1984) and as described in 2.24-2.33 of Krebs (1989). No standard errors are returned when \code{type="Manly"}.
 #'
 #' The \code{summary} function returns estimates of M, N, phi, B, and their associated standard errors and, if \code{verbose=TRUE} the intermediate calculations of \dQuote{observables} from the data -- n, m, R, r, and z.
 #'
-#' The level of confidence is not set in the \code{confint} function, in contrast to most \code{confint} functions.  Rather the confidence level is set in the main \code{mrOpen} function.
+#' The level of confidence is not set in the \code{confint} function, in contrast to most \code{confint} functions. Rather the confidence level is set in the main \code{mrOpen} function.
 #'
-#' @param mb.top A matrix that contains the \dQuote{top} of the Method B table (i.e., a contingency table of capture sample (columns) and last seen sample (rows)) or an object of class \code{CapHist} from \code{\link{capHistSum}}.  See details.
+#' @param mb.top A matrix that contains the \dQuote{top} of the Method B table (i.e., a contingency table of capture sample (columns) and last seen sample (rows)) or an object of class \code{CapHist} from \code{\link{capHistSum}}. See details.
 #' @param mb.bot A data frame that contains the \dQuote{bottom} of the Method B table (i.e., the number of marked fish in the sample (\code{m}), the number of unmarked fish in the sample (\code{u}), the total number of fish in the sample (\code{n}), and the number of marked fish returned to the population following the sample (\code{R})).
 #' @param type A string that indicates whether the large sample (normal theory) method of Jolly (\code{type="Jolly"}) or the \dQuote{arbitrary} method of Manly (\code{type="Manly"}) should be used to construct confidence intervals.
-#' @param conf.level A single numeric that indicates the level of confidence to use for constructing confidence intervals (default is 0.95).  See details.
+#' @param conf.level A single numeric that indicates the level of confidence to use for constructing confidence intervals (default is 0.95). See details.
 #' @param phi.full A logical that indicates whether the standard error for phi should include only sampling variability (\code{phi.full=FALSE}) or sampling and individual variability (\code{phi.full=TRUE},default).
 #' @param object An object from \code{mrOpen} (i.e., of class \code{mrOpen}).
-#' @param verbose A logical that indicates if the observables and other notes should be printed in \code{summary} and if the type of confidence interval used should be printed in \code{confint}.  See details.
-#' @param parm A string that identifies the model parameters for which to return summaries or confidence intervals.  By default, all parameters are returned.
+#' @param verbose A logical that indicates if the observables and other notes should be printed in \code{summary} and if the type of confidence interval used should be printed in \code{confint}. See details.
+#' @param parm A string that identifies the model parameters for which to return summaries or confidence intervals. By default, all parameters are returned.
 #' @param level Same as \code{conf.level} but used for compatibility with generic \code{confint} function.
 #' @param \dots Additional arguments for methods.
 #'
 #' @return A list with the following items:
 #'  \itemize{
-#'    \item df A data frame that contains observable summaries from the data and estimates of the number of extant marked fish  (M), population size for each possible sample period (N), apparent survival rate between each possible pair of sample periods (phi), and the number of additional individuals added to the population between each possible pair of sample periods (B).  In addition to the estimates, values of the standard errors and the lower and upper confidence interval bounds for each parameter are provided (however, see the details above).
+#'    \item df A data frame that contains observable summaries from the data and estimates of the number of extant marked fish  (M), population size for each possible sample period (N), apparent survival rate between each possible pair of sample periods (phi), and the number of additional individuals added to the population between each possible pair of sample periods (B). In addition to the estimates, values of the standard errors and the lower and upper confidence interval bounds for each parameter are provided (however, see the details above).
 #'    \item type The provided type of confidence intervals that was used.
 #'    \item phi.full The provided logical that indicates the type of standard error for phi that was used.
 #'    \item conf.level The provided level of confidence that was used.
@@ -35,11 +35,11 @@
 #'  
 #' @section Testing:  The formulas have been triple-checked against formulas in Pollock et al. (1990), Manly (1984), and Seber (2002).
 #' 
-#' The results for the \code{\link{CutthroatAL}} data file (as analyzed in the example) was compared to results from the JOLLY program available at http://www.mbr-pwrc.usgs.gov/software/jolly.html.  The r and z values matched, all M and N estimates match at one decimal place, all phi are within 0.001, and all B are within 0.7.  The SE match for M except for two estimates that are within 0.1, match for N except for one estimate that is within 0.1, are within 0.001 for phi, and are within 1.3 for B (except for for the first estimate which is dramatically off).
+#' The results for the \code{\link{CutthroatAL}} data file (as analyzed in the example) was compared to results from the JOLLY program available at http://www.mbr-pwrc.usgs.gov/software/jolly.html. The r and z values matched, all M and N estimates match at one decimal place, all phi are within 0.001, and all B are within 0.7. The SE match for M except for two estimates that are within 0.1, match for N except for one estimate that is within 0.1, are within 0.001 for phi, and are within 1.3 for B (except for for the first estimate which is dramatically off).
 #' 
 #' The results of \code{mrOpen} related to Table 4.4 of Pollock et al. (1990) match (to one decimal place) except for three estimates that are within 0.1\% for N, match (to two decimal places) for phi except for where Pollock set phi>1 to phi=1, match for B except for Pollock set B<0 to B=0. The SE match (to two decimal places) for N except for N15 (which is within 0.5, <5\%), match (to three decimal places) for phi except for phi15 (which is within 0.001, <0.5\%), match (to two decimal places) for B except for B17 and B20 which are within 0.2 (<0.2\%)
 #' 
-#' All point estimates of M, N, phi, and B and the SE of phi match the results in Table 2.3 of Krebs (1989) (within minimal rounding error for a very small number of results).  The SE of N results are not close to those of Krebs (1989) (who does not provide a formula for SE so the discrepancy cannot be explored).  The SE of B results match those of Krebs (1989) for 5 of the 8 values and are within 5\% for 2 of the other 3 values (the last estimate is off by 27\%).
+#' All point estimates of M, N, phi, and B and the SE of phi match the results in Table 2.3 of Krebs (1989) (within minimal rounding error for a very small number of results). The SE of N results are not close to those of Krebs (1989) (who does not provide a formula for SE so the discrepancy cannot be explored). The SE of B results match those of Krebs (1989) for 5 of the 8 values and are within 5\% for 2 of the other 3 values (the last estimate is off by 27\%).
 #' 
 #' For comparing to Jolly's data as presented in Tables 5.1 and 5.2 of Seber (2002), M was within 4 (less than 1.5\%), N was within 3\% (except N2 which was within 9\%), phi was within 0.01 (less than 1.5%), and B was within 7 (less than 5\%) except for B2 and B8.
 #'
@@ -49,15 +49,15 @@
 #'
 #' @seealso \code{\link{capHistSum}}, \code{\link{mrClosed}}
 #'
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Jolly, G.M. 1965. Explicit estimates from capture-recapture data with both death and immigration -- stochastic model. Biometrika, 52:225-247.
 #' 
-#' Krebs, C.J.  1989.  Ecological Methodology.  Harper & Row Publishers, New York.
+#' Krebs, C.J. 1989. Ecological Methodology. Harper & Row Publishers, New York.
 #'
 #' Leslie, P.H. and D. Chitty. 1951. The estimation of population parameters from data obtained by means of the capture-recapture method. I. The maximum likelihood equations for estimating the death-rate. Biometrika, 38:269-292.
 #'
-#' Manly, B.F.J. 1984.  Obtaining confidence limits on parameters of the Jolly-Seber model for capture-recapture data. Biometrics, 40:749-758.
+#' Manly, B.F.J. 1984. Obtaining confidence limits on parameters of the Jolly-Seber model for capture-recapture data. Biometrics, 40:749-758.
 #'
 #' Pollock, K.H., J.D. Nichols, C. Brownie, and J.E. Hines. 1991. Statistical inference for capture-recapture experiments. Wildlife Monographs, 107:1-97.
 #'
@@ -190,9 +190,12 @@ summary.mrOpen <- function(object,parm=c("N","phi","B","M"),verbose=FALSE,...) {
 
 #' @rdname mrOpen
 #' @export
-confint.mrOpen <- function(object,parm=c("N","phi","B"),level=NULL,conf.level=NULL,verbose=FALSE,...) {
+confint.mrOpen <- function(object,parm=c("N","phi","B"),level=NULL,
+                           conf.level=NULL,verbose=FALSE,...) {
   ## send a note that the CI level cannot be changed here
-  if(!is.null(conf.level)) WARN("Confidence level was set at ",conf.level," in mrOpen().  It cannot be changed here.")
+  if(!is.null(conf.level)) 
+    WARN("Confidence level was set at ",conf.level,
+         " in mrOpen(). It cannot be changed here.")
   ## get the parameters to return
   parm <- match.arg(parm,several.ok=TRUE)
   if (object$type=="Manly" & ("B" %in% parm)) {
@@ -200,38 +203,42 @@ confint.mrOpen <- function(object,parm=c("N","phi","B"),level=NULL,conf.level=NU
     parm <- parm[-which(parm=="B")]
   }
   ## Tell the method used if asked to be verbose
-  if (verbose) message("The ",object$type," method was used to construct confidence intervals.")
+  if (verbose) message("The ",object$type,
+                       " method was used to construct confidence intervals.")
   ## change parm to include .lci and .uci
   parm <- as.vector(rbind(paste0(parm,".lci"),paste0(parm,".uci")))
   ## get and return results to print and return
   object$df[,which(names(object$df) %in% parm)]
 }
 
-##############################################################
+################################################################################
 ## INTERNAL -- functions to check aspects of the Metod B table parts
-##############################################################
+################################################################################
 iCheckMBbot <- function(mb.bot) {
   nr <- nrow(mb.bot)
   if (nr!=4) STOP("'mb.bot' must contain four rows with 'm', 'u', 'n', and 'R'.")
-  if (any(!names(mb.bot) %in% c("m","u","n","R"))) STOP("rownames of 'mb.bot' must be 'm', 'u', 'n', and 'R'.")
+  if (any(!names(mb.bot) %in% c("m","u","n","R"))) 
+    STOP("rownames of 'mb.bot' must be 'm', 'u', 'n', and 'R'.")
   if (any(is.na(mb.bot))) STOP("All values in 'mb.bot' must be non-NA.")
   if (any(mb.bot<0)) STOP("All values in 'mb.bot' must be non-negative.")
-  if (is.na(mb.bot["m",1]) | mb.bot["m",1]!=0) STOP("First value of 'm' row in 'mb.bot' must be 0.")
+  if (is.na(mb.bot["m",1]) | mb.bot["m",1]!=0) 
+    STOP("First value of 'm' row in 'mb.bot' must be 0.")
 }
 
 iCheckMBtop <- function(mb.top) {
   nr <- nrow(mb.top)
   nc <- ncol(mb.top)
   if (nr!=nc) STOP("'mb.top' must be square.")
-  if (!all(is.na(mb.top[lower.tri(mb.top,diag=TRUE)]))) STOP("Lower triangle and diagonal of 'mb.top' must all be 'NA'.")
-  if (any(is.na(mb.top[upper.tri(mb.top)]))) STOP("Upper triangle of 'mb.top' cannot contain any 'NA'.")
+  if (!all(is.na(mb.top[lower.tri(mb.top,diag=TRUE)]))) 
+    STOP("Lower triangle and diagonal of 'mb.top' must all be 'NA'.")
+  if (any(is.na(mb.top[upper.tri(mb.top)]))) 
+    STOP("Upper triangle of 'mb.top' cannot contain any 'NA'.")
   if (any(mb.top<0,na.rm=TRUE)) STOP("All non-NA values in 'mb.top' must be non-negative.")
 }
 
-##############################################################
-## INTERNAL -- function to calculate r (future catches of fish
-##   released in i)
-##############################################################
+################################################################################
+## INTERNAL -- function to calculate r (future catches of fish released in i)
+################################################################################
 iCalcr <- function(mb.top,k) {
   tmp <- apply(mb.top,1,sum,na.rm=TRUE)
   # make last value NA
@@ -240,10 +247,9 @@ iCalcr <- function(mb.top,k) {
   tmp
 }
 
-##############################################################
-## INTERNAL -- function to calculate z (number caught before i,
-##   but not in i, but later as well)
-##############################################################
+################################################################################
+## INTERNAL -- calc z (number caught before i, but not in i, but later as well)
+################################################################################
 iCalcz <- function(mb.top,k) {
   # Loop through 2nd to penultimate sample, but initialize vector for results first
   #   Initialization will put NA in first and last samples
@@ -256,9 +262,9 @@ iCalcz <- function(mb.top,k) {
   tmp
 }
 
-##############################################################
-## INTERNAL -- function to estimate N
-##############################################################
+################################################################################
+## INTERNAL -- function to estimate M
+################################################################################
 iEstM <- function(df) {
   # Estimate marked fish (eqn 4.6 in Pollock et al. (1990), eqn 5.22 in Seber (2002))
   df$M <- df$m+(df$R+1)*df$z/(df$r+1)
@@ -267,9 +273,9 @@ iEstM <- function(df) {
   df
 }
 
-##############################################################
+################################################################################
 ## INTERNAL -- function to estimate N
-##############################################################
+################################################################################
 iEstN <- function(df,type,conf.level) {
   # Estimate population (eqn 4.7 in Pollock et al. (1990), p. 204 in Seber (2002))
   df$N <- (df$n+1)*df$M/(df$m+1)
@@ -304,9 +310,9 @@ iEstN <- function(df,type,conf.level) {
   df
 }
 
-##############################################################
+################################################################################
 ## INTERNAL -- estimate phi
-##############################################################
+################################################################################
 iEstPhi <- function(df,k,type,conf.level,phi.full) {
   # By definition, allows estimate of first sample survival
   df$M[1] <- 0
@@ -356,9 +362,9 @@ iEstPhi <- function(df,k,type,conf.level,phi.full) {
   ) # end switch
 }
 
-##############################################################
+################################################################################
 ## INTERNAL -- estimate B
-##############################################################
+################################################################################
 iEstB <- function(df,k,type,conf.level) {
   # Current time vector w/o last row to match size of future time vector
   df1 <- df[-k,]

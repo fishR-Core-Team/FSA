@@ -1,36 +1,36 @@
 #' @title Constructs length class/category variable.
 #'
-#' @description Constructs a vector that contains the length class or category to which an individual belongs.  Optionally, that vector can be appended to the original data frame.
+#' @description Constructs a vector that contains the length class or category to which an individual belongs. Optionally, that vector can be appended to the original data frame.
 #'
-#' @param x A numeric vector that contains the length measurements or a formula of the form \code{~x} where \dQuote{x} generically represents a variable in \code{data} that contains length measurements.  This formula can only contain one variable.
+#' @param x A numeric vector that contains the length measurements or a formula of the form \code{~x} where \dQuote{x} generically represents a variable in \code{data} that contains length measurements. This formula can only contain one variable.
 #' @param data A data.frame that minimally contains the length measurements given in the variable in the \code{formula}.
-#' @param w A single numeric that indicates the width of length categories to create.  Ignored if \code{breaks} is not \code{NULL}.
-#' @param startcat A single numeric that indicates the beginning of the first length category.  Only used with \code{w}.  See details for how this is handled when \code{NULL}.
+#' @param w A single numeric that indicates the width of length categories to create. Ignored if \code{breaks} is not \code{NULL}.
+#' @param startcat A single numeric that indicates the beginning of the first length category. Only used with \code{w}. See details for how this is handled when \code{NULL}.
 #' @param breaks A numeric vector of lower values for the break points of the length categories.
 #' @param right A logical that indicates if the intervals should be closed on the right (and open on the left) or vice versa.
-#' @param use.names A logical that indicates whether the names for the values in \code{breaks} should be used for the levels in the new variable.  Will throw a warning and then use default levels if \code{TRUE} but \code{names(breaks)} is \code{NULL}.
+#' @param use.names A logical that indicates whether the names for the values in \code{breaks} should be used for the levels in the new variable. Will throw a warning and then use default levels if \code{TRUE} but \code{names(breaks)} is \code{NULL}.
 #' @param as.fact A logical that indicates that the new variable should be returned as a factor (\code{=TRUE}) or not (\code{=FALSE}; default).
-#' @param droplevels,drop.levels A logical that indicates that the new variable should retain all levels indicated in \code{breaks} (\code{=FALSE}; default) or not.  Ignored if \code{as.fact=FALSE}.
+#' @param droplevels,drop.levels A logical that indicates that the new variable should retain all levels indicated in \code{breaks} (\code{=FALSE}; default) or not. Ignored if \code{as.fact=FALSE}.
 #' @param vname A string that contains the name for the new length class variable.
 #' @param \dots Not implemented.
 #'
-#' @details If \code{breaks} is non-NULL, then \code{w} and \code{startcat} will be ignored. The vector of values in \code{breaks} should begin with a value smaller than the minimum observed value and end with a value larger than the maximum observed value.  If the lowest break value is larger than the minimum observed value, then an error will occur.  If the largest break value is smaller than the maximum observed value, then an additional break value larger than the maximum observed value will be added to \code{breaks} (and a warning will be sent).  The values in \code{breaks} do not have to be equally spaced.
+#' @details If \code{breaks} is non-NULL, then \code{w} and \code{startcat} will be ignored. The vector of values in \code{breaks} should begin with a value smaller than the minimum observed value and end with a value larger than the maximum observed value. If the lowest break value is larger than the minimum observed value, then an error will occur. If the largest break value is smaller than the maximum observed value, then an additional break value larger than the maximum observed value will be added to \code{breaks} (and a warning will be sent). The values in \code{breaks} do not have to be equally spaced.
 #'
-#' If \code{breaks=NULL} (the default), then the value in \code{w} is used to create equally spaced categories.  If \code{startcat=NULL} (the default), then the length categories will begin with the first value less than the minimum observed value \dQuote{rounded} by \code{w}.  For example, if the minimum observed value is 67, then the first length category will be 65 if \code{w=5}, 60 if \code{w=10}, 50 if \code{w=25}, and 50 if \code{w=50}.  The length categories will continue from this starting value by values of \code{w} until a value greater than the largest observed value in \code{x}.  The length categories are left-inclusive and right-exclusive by default (i.e., \code{right=FALSE}).
+#' If \code{breaks=NULL} (the default), then the value in \code{w} is used to create equally spaced categories. If \code{startcat=NULL} (the default), then the length categories will begin with the first value less than the minimum observed value \dQuote{rounded} by \code{w}. For example, if the minimum observed value is 67, then the first length category will be 65 if \code{w=5}, 60 if \code{w=10}, 50 if \code{w=25}, and 50 if \code{w=50}. The length categories will continue from this starting value by values of \code{w} until a value greater than the largest observed value in \code{x}. The length categories are left-inclusive and right-exclusive by default (i.e., \code{right=FALSE}).
 #' 
-#' The start of the length categories may also be set with \code{startcat}.  The number in the \code{startcat} argument should be less than the smallest value in \code{x}.  Additionally, the number of decimals in \code{startcat} should not be more than the number of decimals in \code{w} (e.g., \code{startcat=0.4} and \code{w=1} will result in an error).
+#' The start of the length categories may also be set with \code{startcat}. The number in the \code{startcat} argument should be less than the smallest value in \code{x}. Additionally, the number of decimals in \code{startcat} should not be more than the number of decimals in \code{w} (e.g., \code{startcat=0.4} and \code{w=1} will result in an error).
 #'
-#' One may want to convert apparent numeric values to factor values if some of the length categories are missing (e.g., if factor values are used, for example, then tables of the length category values will have values for all length categories; i.e., it will have zeros for the length categories that are missing).  The numeric values can be converted to factors by including \code{as.fact}.  See the \dQuote{real data} example.
+#' One may want to convert apparent numeric values to factor values if some of the length categories are missing (e.g., if factor values are used, for example, then tables of the length category values will have values for all length categories; i.e., it will have zeros for the length categories that are missing). The numeric values can be converted to factors by including \code{as.fact}. See the \dQuote{real data} example.
 #'
 #' The observed values in \code{x} should be rounded to the appropriate number of decimals to avoid misplacement of individuals into incorrect length categories due to issues with machine-precision (see discussion in \code{all.equal}.)
 #'
-#' @return If the formula version of the function is used, then a data.frame is returned with the a new variable, named as in \code{vname} (defaults to \code{LCat}), appended to the original data.frame.  If the default version of the function is used, then a single vector is returned.  The returned values will be numeric unless \code{breaks} is named and \code{use.names=TRUE} or if \code{as.fact=TRUE}.
+#' @return If the formula version of the function is used, then a data.frame is returned with the a new variable, named as in \code{vname} (defaults to \code{LCat}), appended to the original data.frame. If the default version of the function is used, then a single vector is returned. The returned values will be numeric unless \code{breaks} is named and \code{use.names=TRUE} or if \code{as.fact=TRUE}.
 #' 
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 
 #' @section IFAR Chapter: 2-Data Manipulation.
 #' 
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #'
 #' @keywords manip
 #'
@@ -111,7 +111,7 @@
 #' head(smb1)
 #' xtabs(~LCat10,data=smb1)
 #'
-#' # Same as previous but returned as a factor so that levels with no fish are still seen
+#' # Same as previous but returned as factor so levels with no fish still seen
 #' smb1$LCat10A <- lencat(smb1$lencap,w=10,as.fact=TRUE)
 #' head(smb1)
 #' xtabs(~LCat10A,data=smb1)
@@ -148,7 +148,7 @@
 #'                         use.names=TRUE,as.fact=FALSE)
 #' str(smb1)
 #' 
-#' ## A Sixth example -- similar to the fifth example but using the formula notation
+#' ## A Sixth example -- similar to fifth example but using the formula notation
 #' # 10 mm length classes - in default LCat variable
 #' smb2 <- lencat(~lencap,data=smb2,w=10)
 #' head(smb2)
@@ -192,8 +192,9 @@ lencat.default <- function(x,w=1,startcat=NULL,breaks=NULL,
   if (!is.numeric(x)) STOP("'x' must be numeric.")
   if (length(w)>1) STOP("'w' must be of length 1.")
   if (w<0) STOP("'w' must be positive.")
-  if (!is.null(startcat)) if (length(startcat)>1) STOP("'startcat' must be of length 1.")
-  ## Check whether x is all NAs.  If so then send a warning, put
+  if (!is.null(startcat)) if (length(startcat)>1)
+    STOP("'startcat' must be of length 1.")
+  ## Check whether x is all NAs. If so then send a warning, put
   ## NAs in lcat to return (i.e., if x are all missing then make
   ## the length categories all missing)
   if (all(is.na(x))) {
@@ -228,8 +229,9 @@ lencat.default <- function(x,w=1,startcat=NULL,breaks=NULL,
       ## 2. stop if breaks don't go below minimum observed value
       ## 3. make a break larger than maximum value if needed.
       breaks <- breaks[!is.na(breaks)]
-      if (minx < breaks[1]) STOP("Lowest break (",breaks[1],") is larger than minimum observation (",
-                                 minx,").")
+      if (minx < breaks[1]) 
+        STOP("Lowest break (",breaks[1],") is larger than minimum observation (",
+             minx,").")
       if (maxx >= max(breaks)) {
         breaks <- c(breaks,1.1*maxx)
         addedMaxBreak <- TRUE
@@ -243,7 +245,7 @@ lencat.default <- function(x,w=1,startcat=NULL,breaks=NULL,
     lcatn <- as.character(lcatv)
     if (use.names) {
       if (is.null(names(breaks))) {
-        WARN("'use.names=TRUE', but 'breaks' was not named.  Used default labels.")
+        WARN("'use.names=TRUE', but 'breaks' was not named. Used default labels.")
         use.names <- FALSE
       } else lcatn <- names(breaks)[match(lcatv,breaks)]
     }
@@ -271,15 +273,16 @@ lencat.default <- function(x,w=1,startcat=NULL,breaks=NULL,
 #' @export
 lencat.formula <- function(x,data,w=1,startcat=NULL,breaks=NULL,
                            right=FALSE,use.names=FALSE,
-                           as.fact=use.names,droplevels=drop.levels,drop.levels=FALSE,
-                           vname=NULL,...) {
+                           as.fact=use.names,droplevels=drop.levels,
+                           drop.levels=FALSE,vname=NULL,...) {
   ## Handle the formula with some checks
   x <- iHndlFormula(x,data)
   if (x$vnum>1) STOP("'x' must be only one variable.")
 
   ## Create the length category variable
-  tmp <- lencat.default(data[,x$vname],w=w,breaks=breaks,startcat=startcat,right=right,
-                        use.names=use.names,as.fact=as.fact,droplevels=droplevels)
+  tmp <- lencat.default(data[,x$vname],w=w,breaks=breaks,startcat=startcat,
+                        right=right,use.names=use.names,as.fact=as.fact,
+                        droplevels=droplevels)
   ## Append the new variable to the old data.frame
   nd <- data.frame(data,tmp,stringsAsFactors=FALSE)
   ## Name the new variable
@@ -288,10 +291,9 @@ lencat.formula <- function(x,data,w=1,startcat=NULL,breaks=NULL,
   nd
 }
 
-##############################################################
-## Internal function to create a name for the variable if
-##   none was given in vname
-##############################################################
+################################################################################
+## Internal function to create name for the variable if none was given in vname
+################################################################################
 iMakeVname <- function(vname,data) {
   # if no name given then default to "LCat"
   if (is.null(vname)) vname <- "LCat"

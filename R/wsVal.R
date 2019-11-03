@@ -8,14 +8,14 @@
 #'
 #' See \code{\link{WSlit}} for more information about the meaning of each value returned.
 #' 
-#' Note from above that the coefficients are returned for the TRANSFORMED model.  Thus, to obtain the standard weight (Ws), the returned coefficients are used to compute the common log of Ws which must then bed raised to the power of 10 to compute the Ws.
+#' Note from above that the coefficients are returned for the TRANSFORMED model. Thus, to obtain the standard weight (Ws), the returned coefficients are used to compute the common log of Ws which must then bed raised to the power of 10 to compute the Ws.
 #'
-#' @param species A string that contains the species name for which to find coefficients.  See details.
+#' @param species A string that contains the species name for which to find coefficients. See details.
 #' @param units A string that indicates whether the coefficients for the standard weight equation to be returned are in (\code{"metric"} (DEFAULT; mm and g) or \code{"English"} (in and lbs) units.
-#' @param ref A numeric that indicates which percentile the equation should be returned for.  Note that the vast majority of equations only exist for the \code{75}th percentile (DEFAULT).
-#' @param simplify A logical that indicates whether the \sQuote{units}, \sQuote{ref}, \sQuote{measure}, \sQuote{method}, \sQuote{comments}, and \sQuote{source} fields should be included (\code{=FALSE}) or not (\code{=TRUE}; DEFAULT).  See details.
+#' @param ref A numeric that indicates which percentile the equation should be returned for. Note that the vast majority of equations only exist for the \code{75}th percentile (DEFAULT).
+#' @param simplify A logical that indicates whether the \sQuote{units}, \sQuote{ref}, \sQuote{measure}, \sQuote{method}, \sQuote{comments}, and \sQuote{source} fields should be included (\code{=FALSE}) or not (\code{=TRUE}; DEFAULT). See details.
 #'
-#' @return A one row data frame from \code{\link{WSlit}} that contains all known information about the standard weight equation for a given species, type of measurement units, and reference percentile if \code{simplify=FALSE}.  If \code{simplify=TRUE} then only the species; minimum and maximum length for which the standard equation should be applied; and intercept, slope, and quadratic  coefficients for the standard weight equation.  Note that the maximum length and the quadratic coefficient will not be returned if they do not exist in \code{\link{WSlit}}.
+#' @return A one row data frame from \code{\link{WSlit}} that contains all known information about the standard weight equation for a given species, type of measurement units, and reference percentile if \code{simplify=FALSE}. If \code{simplify=TRUE} then only the species; minimum and maximum length for which the standard equation should be applied; and intercept, slope, and quadratic  coefficients for the standard weight equation. Note that the maximum length and the quadratic coefficient will not be returned if they do not exist in \code{\link{WSlit}}.
 #'
 #' If no arguments are given to this function, a species name is mis-spelled, or if a standard weight equation does not exist (in \code{\link{WSlit}}) for a particular species, then a warning will be issued and a list of species names will be printed.
 #' 
@@ -25,7 +25,7 @@
 #'
 #' @section IFAR Chapter: 8-Condition.
 #'
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' @keywords manip
 #'

@@ -2,7 +2,7 @@
 #' 
 #' @title Creates a function for a specific parameterization of a common stock-recruitment function .
 #'
-#' @description Creates a function for a specific parameterization of a \dQuote{Beverton-Holt}, \dQuote{Ricker},  \dQuote{Shepherd}, or \dQuote{Saila-Lorda} stock-recruitment function.  Use \code{srFunShow()} to see the equations of each function.
+#' @description Creates a function for a specific parameterization of a \dQuote{Beverton-Holt}, \dQuote{Ricker},  \dQuote{Shepherd}, or \dQuote{Saila-Lorda} stock-recruitment function. Use \code{srFunShow()} to see the equations of each function.
 #'
 #' @param type A string that indicates the type of stock-recruitment function.
 #' @param param A single numeric that indicates the parameterization of the stock-recruitment function.
@@ -11,9 +11,9 @@
 #' @param plot A logical that indicates whether the growth function expression should be shown as an equation in a simple plot.
 #' @param \dots Not implemented.
 #'
-#' @return \code{srFuns} returns a function that can be used to predict recruitment given a vector of stock sizes and values for the function parameters.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (assuming that \code{msg=TRUE}).  The values for both/all parameters can be included as a vector of length two/three in the first parameter argument.  If \code{simple=FALSE} then the values for all parameters can be included as a vector in the first parameter argument.  If \code{simple=TRUE} then all parameters must be declared individually in each function.  The resulting function is somewhat easier to read when \code{simple=TRUE}.
+#' @return \code{srFuns} returns a function that can be used to predict recruitment given a vector of stock sizes and values for the function parameters. The result should be saved to an object that can then be used as a function name. When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (assuming that \code{msg=TRUE}). The values for both/all parameters can be included as a vector of length two/three in the first parameter argument. If \code{simple=FALSE} then the values for all parameters can be included as a vector in the first parameter argument. If \code{simple=TRUE} then all parameters must be declared individually in each function. The resulting function is somewhat easier to read when \code{simple=TRUE}.
 #' 
-#' \code{srFunShow} returns an expression that can be use with \code{\link{plotmath}} to show the function equation in a pretty format.  See examples.
+#' \code{srFunShow} returns an expression that can be use with \code{\link{plotmath}} to show the function equation in a pretty format. See examples.
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
@@ -21,17 +21,17 @@
 #'
 #' @seealso See \code{\link{srStarts}} for related functionality.
 #'
-#' @references Ogle, D.H.  2016.  \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}.  Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #'  
-#' Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19. United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
+#' Beverton, R.J.H. and S.J. Holt. 1957. On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19. United Kingdom Ministry of Agriculture and Fisheries, 533 pp.
 #' 
-#' Iles, T.C.  1994.  A review of stock-recruitment relationships with reference to flatfish populations.  Netherlands Journal of Sea Research 32:399-420.
+#' Iles, T.C. 1994. A review of stock-recruitment relationships with reference to flatfish populations. Netherlands Journal of Sea Research 32:399-420.
 #'
 #' Quinn II, T.J. and R.B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press.
 #'
 #' Ricker, W.E. 1954. Stock and recruitment. Journal of the Fisheries Research Board of Canada 11:559-623.
 #'
-#' Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.  [Was (is?) from http://www.dfo-mpo.gc.ca/Library/1485.pdf.]
+#' Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada. [Was (is?) from http://www.dfo-mpo.gc.ca/Library/1485.pdf.]
 #' 
 #' Shepherd, J. 1982. A versatile new stock-recruitment relationship for fisheries and construction of sustainable yield curves. Journal du Conseil International pour l'Exploration de la Mar 40:67-75. 
 #' 
@@ -107,7 +107,9 @@ NULL
 
 #' @rdname stockRecruitment
 #' @export
-srFuns <- function(type=c("BevertonHolt","Ricker","Shepherd","SailaLorda","independence"),param=1,simple=FALSE,msg=FALSE) {
+srFuns <- function(type=c("BevertonHolt","Ricker","Shepherd",
+                          "SailaLorda","independence"),
+                   param=1,simple=FALSE,msg=FALSE) {
   ## Define functions (internal)
   BevertonHolt1 <- function(S,a,b=NULL) {
     if (length(a)>1) { b <- a[[2]]; a <- a[[1]] }
@@ -259,7 +261,7 @@ srFunShow <- function(type=c("BevertonHolt","Ricker","Shepherd","SailaLorda"),
 }
 
 ################################################################################
-## Internal functions for growth function expressions
+## Internal functions for stock-recruit function expressions
 ################################################################################
 iSRS_BH <- function(param) {
   if (!param %in% 1:4) STOP("'param' must be from 1-4 when fun='BevertonHolt'.")
