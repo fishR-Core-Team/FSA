@@ -43,7 +43,7 @@
 
 
 <meta property="og:title" content="Repeat individual fish data (including lengths) from tallied counts. — expandCounts" />
-<meta property="og:description" content="Repeat individual fish data, including lengths, from tallied counts and, optionally, add a random digit to length measurements to simulate actual length of fish in the bin.  This is useful as a precursor to summaries that require information, e.g., lengths, of individual fish (e.g., length frequency histograms, means lengths)." />
+<meta property="og:description" content="Repeat individual fish data, including lengths, from tallied counts and, optionally, add a random digit to length measurements to simulate actual length of fish in the bin. This is useful as a precursor to summaries that require information, e.g., lengths, of individual fish (e.g., length frequency histograms, means lengths)." />
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -122,7 +122,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Repeat individual fish data, including lengths, from tallied counts and, optionally, add a random digit to length measurements to simulate actual length of fish in the bin.  This is useful as a precursor to summaries that require information, e.g., lengths, of individual fish (e.g., length frequency histograms, means lengths).</p>
+    <p>Repeat individual fish data, including lengths, from tallied counts and, optionally, add a random digit to length measurements to simulate actual length of fish in the bin. This is useful as a precursor to summaries that require information, e.g., lengths, of individual fish (e.g., length frequency histograms, means lengths).</p>
     </div>
 
     <pre class="usage"><span class='fu'>expandCounts</span>(<span class='no'>data</span>, <span class='no'>cform</span>, <span class='kw'>lform</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>removeCount</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -137,19 +137,19 @@
     </tr>
     <tr>
       <th>cform</th>
-      <td><p>A formula of the form <code>~countvar</code> where <code>countvar</code> generically represents the variable in <code>data</code> that contains the counts of individuals.  See details.</p></td>
+      <td><p>A formula of the form <code>~countvar</code> where <code>countvar</code> generically represents the variable in <code>data</code> that contains the counts of individuals. See details.</p></td>
     </tr>
     <tr>
       <th>lform</th>
-      <td><p>An optional formula of the form <code>~lowerbin+upperbin</code> where <code>lowerbin</code> and <code>upperbin</code> generically represent the variables in <code>data</code> that identify the lower- and upper-values of the length bins.  See details.</p></td>
+      <td><p>An optional formula of the form <code>~lowerbin+upperbin</code> where <code>lowerbin</code> and <code>upperbin</code> generically represent the variables in <code>data</code> that identify the lower- and upper-values of the length bins. See details.</p></td>
     </tr>
     <tr>
       <th>removeCount</th>
-      <td><p>A single logical that indicates if the variable that contains the counts of individuals (as given in <code>cform</code>) should be removed form the returned data.frame.  The default is <code>TRUE</code> such that the variable will be removed as the returned data.frame contains individuals and the counts of individuals in tallied bins is not relevant to an individual.</p></td>
+      <td><p>A single logical that indicates if the variable that contains the counts of individuals (as given in <code>cform</code>) should be removed form the returned data.frame. The default is <code>TRUE</code> such that the variable will be removed as the returned data.frame contains individuals and the counts of individuals in tallied bins is not relevant to an individual.</p></td>
     </tr>
     <tr>
       <th>lprec</th>
-      <td><p>A single numeric that controls the precision to which the random lengths are recorded.  See details.</p></td>
+      <td><p>A single numeric that controls the precision to which the random lengths are recorded. See details.</p></td>
     </tr>
     <tr>
       <th>new.name</th>
@@ -157,7 +157,7 @@
     </tr>
     <tr>
       <th>cwid</th>
-      <td><p>A single positive numeric that will be added to the lower length bin value in instances where the count exceeds one but only a lower (and not an upper) length were recorded.  See details.</p></td>
+      <td><p>A single positive numeric that will be added to the lower length bin value in instances where the count exceeds one but only a lower (and not an upper) length were recorded. See details.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -171,12 +171,12 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data.frame of the same structure as <code>data</code> except that the variable in <code>cform</code> may be deleted and the variable in <code>new.name</code> may be added.  The returned data.frame will have more rows than <code>data</code> because of the potential addition of new individuals expanded from the counts in <code>cform</code>.</p>
+    <p>A data.frame of the same structure as <code>data</code> except that the variable in <code>cform</code> may be deleted and the variable in <code>new.name</code> may be added. The returned data.frame will have more rows than <code>data</code> because of the potential addition of new individuals expanded from the counts in <code>cform</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Fisheries data may be recorded as tallied counts in the field.  For example, field biologists may have simply recorded that there were 10 fish in one group, 15 in another, etc.  More specifically, the biologist may have recorded that there were 10 male Bluegill from the first sampling event between 100 and 124 mm, 15 male Bluegill from the first sampling event between 125 and 149 mm, and so on.  At times, it may be necessary to expand these counts such that the repeated information appears in individual rows in a new data.frame.  In this specific example, the tallied counts would be repeated such that the male, Bluegill, first sampling event, 100-124 mm information would be repeated 10 times; the male, Bluegill, first sampling event, 125-149 mm information would be repeated 15 times, and so on.  This function facilitates this type of expansion.</p>
-<p>Length data has often been collected in a &#8220;binned-and-tallied&#8221; format (e.g., 10 fish in the 100-124 mm group, 15 in the 125-149 mm group, etc.).  This type of data collection does not facilitate easy or precise calculations of summary statistics of length (i.e., mean and standard deviations of length).  Expanding the data as described above does not solve this problem because the length data are still essentially categorical (i.e., which group the fish belongs to rather than what it's actual length is).  To facilitate computation of summary statistics, the data can be expanded as described above and then a length can be randomly selected from within the recorded length bin to serve as a &#8220;measured&#8221; length for that fish.  This function performs this type of expansion by randomly selecting the length from a uniform distribution within the length bin (e.g., each value between 100 and 124 mm has the same probability of being selected).</p>
-<p>This function makes some assumptions for some coding situations.  First, it assumes that all <code>lowerbin</code> values are actually lower than all <code>upperbin</code> values.  The function will throw an error if this is not true.  Second, it assumes that if a <code>lowerbin</code> but no <code>upperbin</code> value is given then the <code>lowerbin</code> value is the exact measurement for those fish.  Third, it assumes that if an <code>upperbin</code> but no <code>lowerbin</code> value is given that this is a data entry error and that the <code>upperbin</code> value should be the <code>lowerbin</code> value.  Fourth, it assumes that it is a data entry error if <code>varcount</code> is zero or <code>NA</code> and <code>lowerbin</code> or <code>upperbin</code> contains values (i.e., why would there be lengths if no fish were captured?).</p>
+    <p>Fisheries data may be recorded as tallied counts in the field. For example, field biologists may have simply recorded that there were 10 fish in one group, 15 in another, etc. More specifically, the biologist may have recorded that there were 10 male Bluegill from the first sampling event between 100 and 124 mm, 15 male Bluegill from the first sampling event between 125 and 149 mm, and so on. At times, it may be necessary to expand these counts such that the repeated information appears in individual rows in a new data.frame. In this specific example, the tallied counts would be repeated such that the male, Bluegill, first sampling event, 100-124 mm information would be repeated 10 times; the male, Bluegill, first sampling event, 125-149 mm information would be repeated 15 times, and so on. This function facilitates this type of expansion.</p>
+<p>Length data has often been collected in a &#8220;binned-and-tallied&#8221; format (e.g., 10 fish in the 100-124 mm group, 15 in the 125-149 mm group, etc.). This type of data collection does not facilitate easy or precise calculations of summary statistics of length (i.e., mean and standard deviations of length). Expanding the data as described above does not solve this problem because the length data are still essentially categorical (i.e., which group the fish belongs to rather than what it's actual length is). To facilitate computation of summary statistics, the data can be expanded as described above and then a length can be randomly selected from within the recorded length bin to serve as a &#8220;measured&#8221; length for that fish. This function performs this type of expansion by randomly selecting the length from a uniform distribution within the length bin (e.g., each value between 100 and 124 mm has the same probability of being selected).</p>
+<p>This function makes some assumptions for some coding situations. First, it assumes that all <code>lowerbin</code> values are actually lower than all <code>upperbin</code> values. The function will throw an error if this is not true. Second, it assumes that if a <code>lowerbin</code> but no <code>upperbin</code> value is given then the <code>lowerbin</code> value is the exact measurement for those fish. Third, it assumes that if an <code>upperbin</code> but no <code>lowerbin</code> value is given that this is a data entry error and that the <code>upperbin</code> value should be the <code>lowerbin</code> value. Fourth, it assumes that it is a data entry error if <code>varcount</code> is zero or <code>NA</code> and <code>lowerbin</code> or <code>upperbin</code> contains values (i.e., why would there be lengths if no fish were captured?).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code>expandLenFreq</code> for expanding length frequencies where individual fish measurements were made on individual fish in a subsample and the remaining fish were simply counted.</p></div>

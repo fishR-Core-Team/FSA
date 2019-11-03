@@ -152,15 +152,15 @@
     </tr>
     <tr>
       <th>fixed</th>
-      <td><p>A named list that contains user-defined rather than automatically generated (i.e., fixed) starting values for one or more parameters.  See details.</p></td>
+      <td><p>A named list that contains user-defined rather than automatically generated (i.e., fixed) starting values for one or more parameters. See details.</p></td>
     </tr>
     <tr>
       <th>meth0</th>
-      <td><p>A string that indicates how the t0 and L0 parameters should be derived.  See details.</p></td>
+      <td><p>A string that indicates how the t0 and L0 parameters should be derived. See details.</p></td>
     </tr>
     <tr>
       <th>methLinf</th>
-      <td><p>A string that indicates how Linf should be derived.  See details.</p></td>
+      <td><p>A string that indicates how Linf should be derived. See details.</p></td>
     </tr>
     <tr>
       <th>num4Linf</th>
@@ -168,15 +168,15 @@
     </tr>
     <tr>
       <th>ages2use</th>
-      <td><p>A numerical vector of the two ages to be used in the Schnute or Francis parameterizations.  See details.</p></td>
+      <td><p>A numerical vector of the two ages to be used in the Schnute or Francis parameterizations. See details.</p></td>
     </tr>
     <tr>
       <th>methEV</th>
-      <td><p>A string that indicates how the lengths of the two ages in the Schnute parameterization or the three ages in the Francis parameterization should be derived.  See details.</p></td>
+      <td><p>A string that indicates how the lengths of the two ages in the Schnute parameterization or the three ages in the Francis parameterization should be derived. See details.</p></td>
     </tr>
     <tr>
       <th>valOgle</th>
-      <td><p>A single named numeric that is the set Lr or tr value for use in <code>type="Ogle"</code>.  See details.</p></td>
+      <td><p>A single named numeric that is the set Lr or tr value for use in <code>type="Ogle"</code>. See details.</p></td>
     </tr>
     <tr>
       <th>plot</th>
@@ -214,15 +214,15 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list that contains reasonable starting values.  Note that the parameters will be listed in the same order and with the same names as listed in <code>vbFuns</code>.</p>
+    <p>A list that contains reasonable starting values. Note that the parameters will be listed in the same order and with the same names as listed in <code>vbFuns</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function attempts to find reasonable starting values for a variety of parameterizations of the von Bertalanffy growth function.  There is no guarantee that these starting values are the &#8216;best&#8217; starting values.  One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.</p>
-<p>If <code>methLinf="Walford"</code>, then the Linf and K parameters are estimated via the concept of the Ford-Walford plot.  If <code>methLinf="oldAge"</code> then Linf is estimated as the mean length of the <code>num4Linf</code> longest observed lengths.</p>
-<p>The product of the starting values for Linf and K is used as a starting value for omega in the GallucciQuinn and Mooij parameterizations.  The result of log(2) divided by the starting value for K is used as the starting value for t50 in the Weisberg parameterization.</p>
-<p>If <code>meth0="yngAge"</code>, then a starting value for t0 or L0 is found by algebraically solving the typical or original parameterization, respectively, for t0 or L0 using the mean length of the first age with more than one data point as a &#8220;known&#8221; quantity.  If <code>meth0="poly"</code> then a second-degree polynomial model is fit to the mean length-at-age data.  The t0 starting value is set equal to the root of the polynomial that is closest to zero.  The L0 starting value is set equal to the mean length at age-0 predicted from the polynomial function.</p>
-<p>Starting values for the L1 and L3 parameters in the Schnute parameterization and the L1, L2, and L3 parameters in the Francis parameterization may be found in two ways.  If <code>methEV="poly"</code>, then the starting values are the predicted length-at-age from a second-degree polynomial fit to the mean lengths-at-age data.  If <code>methEV="means"</code> then the observed sample means at the corresponding ages are used.  In the case where one of the supplied ages is fractional, then the value returned will be linearly interpolated between the mean lengths of the two closest ages.  The ages to be used for L1 and L3 in the Schnute and Francis parameterizations are supplied as a numeric vector of length 2 in <code>ages2use=</code>.  If <code>ages2use=NULL</code> then the minimum and maximum observed ages will be used.  In the Francis method, L2 will correspond to the age half-way between the two ages in <code>ages2use=</code>.  A warning will be given if L2&lt;L1 for the Schnute method or if L2&lt;L1 or L3&lt;L2 for the Francis method.</p>
-<p>Starting values for the Somers and Pauly parameterizations are the same as the traditional parameterization for Linf, K, and t0.  However, for the Pauly parameterization the starting value for Kpr is the starting value for K divided by 1 minus the starting value of NGT.  The starting values of C, ts, WP, and NGT are set at constants that are unlikely to work for all species.  Thus, the user should use the <code>fixed</code> argument to fix starting values for these parameters that are more likely to result in a reliable fit.</p>
+    <p>This function attempts to find reasonable starting values for a variety of parameterizations of the von Bertalanffy growth function. There is no guarantee that these starting values are the &#8216;best&#8217; starting values. One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.</p>
+<p>If <code>methLinf="Walford"</code>, then the Linf and K parameters are estimated via the concept of the Ford-Walford plot. If <code>methLinf="oldAge"</code> then Linf is estimated as the mean length of the <code>num4Linf</code> longest observed lengths.</p>
+<p>The product of the starting values for Linf and K is used as a starting value for omega in the GallucciQuinn and Mooij parameterizations. The result of log(2) divided by the starting value for K is used as the starting value for t50 in the Weisberg parameterization.</p>
+<p>If <code>meth0="yngAge"</code>, then a starting value for t0 or L0 is found by algebraically solving the typical or original parameterization, respectively, for t0 or L0 using the mean length of the first age with more than one data point as a &#8220;known&#8221; quantity. If <code>meth0="poly"</code> then a second-degree polynomial model is fit to the mean length-at-age data. The t0 starting value is set equal to the root of the polynomial that is closest to zero. The L0 starting value is set equal to the mean length at age-0 predicted from the polynomial function.</p>
+<p>Starting values for the L1 and L3 parameters in the Schnute parameterization and the L1, L2, and L3 parameters in the Francis parameterization may be found in two ways. If <code>methEV="poly"</code>, then the starting values are the predicted length-at-age from a second-degree polynomial fit to the mean lengths-at-age data. If <code>methEV="means"</code> then the observed sample means at the corresponding ages are used. In the case where one of the supplied ages is fractional, then the value returned will be linearly interpolated between the mean lengths of the two closest ages. The ages to be used for L1 and L3 in the Schnute and Francis parameterizations are supplied as a numeric vector of length 2 in <code>ages2use=</code>. If <code>ages2use=NULL</code> then the minimum and maximum observed ages will be used. In the Francis method, L2 will correspond to the age half-way between the two ages in <code>ages2use=</code>. A warning will be given if L2&lt;L1 for the Schnute method or if L2&lt;L1 or L3&lt;L2 for the Francis method.</p>
+<p>Starting values for the Somers and Pauly parameterizations are the same as the traditional parameterization for Linf, K, and t0. However, for the Pauly parameterization the starting value for Kpr is the starting value for K divided by 1 minus the starting value of NGT. The starting values of C, ts, WP, and NGT are set at constants that are unlikely to work for all species. Thus, the user should use the <code>fixed</code> argument to fix starting values for these parameters that are more likely to result in a reliable fit.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The &#8216;original&#8217; and &#8216;vonBertalanffy&#8217; and the &#8216;typical&#8217; and &#8216;BevertonHolt&#8217; parameterizations are synonymous.</p>
@@ -231,7 +231,7 @@
     <p>12-Individual Growth.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H.  2016.  <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>.  Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
 <p>See references in <code>vbFuns</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

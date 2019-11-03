@@ -43,7 +43,7 @@
 
 
 <meta property="og:title" content="Creates a function for a specific parameterization of a common stock-recruitment function . — stockRecruitment" />
-<meta property="og:description" content="Creates a function for a specific parameterization of a &amp;#8220;Beverton-Holt&amp;#8221;, &amp;#8220;Ricker&amp;#8221;,  &amp;#8220;Shepherd&amp;#8221;, or &amp;#8220;Saila-Lorda&amp;#8221; stock-recruitment function.  Use srFunShow() to see the equations of each function." />
+<meta property="og:description" content="Creates a function for a specific parameterization of a &amp;#8220;Beverton-Holt&amp;#8221;, &amp;#8220;Ricker&amp;#8221;,  &amp;#8220;Shepherd&amp;#8221;, or &amp;#8220;Saila-Lorda&amp;#8221; stock-recruitment function. Use srFunShow() to see the equations of each function." />
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -122,7 +122,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Creates a function for a specific parameterization of a &#8220;Beverton-Holt&#8221;, &#8220;Ricker&#8221;,  &#8220;Shepherd&#8221;, or &#8220;Saila-Lorda&#8221; stock-recruitment function.  Use <code>srFunShow()</code> to see the equations of each function.</p>
+    <p>Creates a function for a specific parameterization of a &#8220;Beverton-Holt&#8221;, &#8220;Ricker&#8221;,  &#8220;Shepherd&#8221;, or &#8220;Saila-Lorda&#8221; stock-recruitment function. Use <code>srFunShow()</code> to see the equations of each function.</p>
     </div>
 
     <pre class="usage"><span class='fu'>srFuns</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"BevertonHolt"</span>, <span class='st'>"Ricker"</span>, <span class='st'>"Shepherd"</span>, <span class='st'>"SailaLorda"</span>,
@@ -162,19 +162,19 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>srFuns</code> returns a function that can be used to predict recruitment given a vector of stock sizes and values for the function parameters.  The result should be saved to an object that can then be used as a function name.  When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (assuming that <code>msg=TRUE</code>).  The values for both/all parameters can be included as a vector of length two/three in the first parameter argument.  If <code>simple=FALSE</code> then the values for all parameters can be included as a vector in the first parameter argument.  If <code>simple=TRUE</code> then all parameters must be declared individually in each function.  The resulting function is somewhat easier to read when <code>simple=TRUE</code>.</p>
-<p><code>srFunShow</code> returns an expression that can be use with <code><a href='https://rdrr.io/r/grDevices/plotmath.html'>plotmath</a></code> to show the function equation in a pretty format.  See examples.</p>
+    <p><code>srFuns</code> returns a function that can be used to predict recruitment given a vector of stock sizes and values for the function parameters. The result should be saved to an object that can then be used as a function name. When the resulting function is used, the parameters are ordered as shown when the definitions of the parameters are printed after the function is called (assuming that <code>msg=TRUE</code>). The values for both/all parameters can be included as a vector of length two/three in the first parameter argument. If <code>simple=FALSE</code> then the values for all parameters can be included as a vector in the first parameter argument. If <code>simple=TRUE</code> then all parameters must be declared individually in each function. The resulting function is somewhat easier to read when <code>simple=TRUE</code>.</p>
+<p><code>srFunShow</code> returns an expression that can be use with <code><a href='https://rdrr.io/r/grDevices/plotmath.html'>plotmath</a></code> to show the function equation in a pretty format. See examples.</p>
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
     <p>13-Recruitment.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H.  2016.  <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>.  Chapman &amp; Hall/CRC, Boca Raton, FL.</p> 
-<p>Beverton, R.J.H. and S.J. Holt.  1957.  On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19. United Kingdom Ministry of Agriculture and Fisheries, 533 pp.</p>
-<p>Iles, T.C.  1994.  A review of stock-recruitment relationships with reference to flatfish populations.  Netherlands Journal of Sea Research 32:399-420.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p> 
+<p>Beverton, R.J.H. and S.J. Holt. 1957. On the dynamics of exploited fish populations, Fisheries Investigations (Series 2), volume 19. United Kingdom Ministry of Agriculture and Fisheries, 533 pp.</p>
+<p>Iles, T.C. 1994. A review of stock-recruitment relationships with reference to flatfish populations. Netherlands Journal of Sea Research 32:399-420.</p>
 <p>Quinn II, T.J. and R.B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press.</p>
 <p>Ricker, W.E. 1954. Stock and recruitment. Journal of the Fisheries Research Board of Canada 11:559-623.</p>
-<p>Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada.  [Was (is?) from http://www.dfo-mpo.gc.ca/Library/1485.pdf.]</p>
+<p>Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada. [Was (is?) from http://www.dfo-mpo.gc.ca/Library/1485.pdf.]</p>
 <p>Shepherd, J. 1982. A versatile new stock-recruitment relationship for fisheries and construction of sustainable yield curves. Journal du Conseil International pour l'Exploration de la Mar 40:67-75.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -197,8 +197,8 @@
 #&gt;     }
 #&gt;     a * S * exp(-b * S)
 #&gt; }
-#&gt; &lt;bytecode: 0x9c002d8&gt;
-#&gt; &lt;environment: 0x73f41d0&gt;</div><div class='input'>
+#&gt; &lt;bytecode: 0x960e438&gt;
+#&gt; &lt;environment: 0x55ebaf8&gt;</div><div class='input'>
 <span class='co'># create some dummy stock data</span>
 <span class='no'>stock</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0.01</span>,<span class='fl'>1000</span>,<span class='kw'>length.out</span><span class='kw'>=</span><span class='fl'>199</span>)
 
@@ -211,8 +211,8 @@
 #&gt;     }
 #&gt;     a * S/(1 + b * S)
 #&gt; }
-#&gt; &lt;bytecode: 0x9bf6738&gt;
-#&gt; &lt;environment: 0x6221570&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>bh1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.01</span>)~<span class='no'>stock</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Recruits"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Spawners"</span>,<span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>50</span>))</div><div class='input'>
+#&gt; &lt;bytecode: 0x976b5d8&gt;
+#&gt; &lt;environment: 0x53f1ee8&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>bh1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.01</span>)~<span class='no'>stock</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Recruits"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Spawners"</span>,<span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>50</span>))</div><div class='input'>
 <span class='co'># Ricker #1 parameterization</span>
 ( <span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"Ricker"</span>) )</div><div class='output co'>#&gt; function (S, a, b = NULL) 
 #&gt; {
@@ -222,8 +222,8 @@
 #&gt;     }
 #&gt;     a * S * exp(-b * S)
 #&gt; }
-#&gt; &lt;bytecode: 0x9c002d8&gt;
-#&gt; &lt;environment: 0x9e24cf8&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='fu'>r1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>)</div><div class='input'>
+#&gt; &lt;bytecode: 0x960e438&gt;
+#&gt; &lt;environment: 0x5124a18&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='fu'>r1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>)</div><div class='input'>
 <span class='co'># Shephered parameterization</span>
 ( <span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"Shepherd"</span>) )</div><div class='output co'>#&gt; function (S, a, b = NULL, c = NULL) 
 #&gt; {
@@ -234,8 +234,8 @@
 #&gt;     }
 #&gt;     a * S/(1 + (b * S)^c)
 #&gt; }
-#&gt; &lt;bytecode: 0x9c04f60&gt;
-#&gt; &lt;environment: 0x99fd358&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='fu'>s1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>2.5</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>)</div><div class='input'>
+#&gt; &lt;bytecode: 0x9612b38&gt;
+#&gt; &lt;environment: 0x4e2fe78&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='fu'>s1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>2.5</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>)</div><div class='input'>
 <span class='co'># Saila-Lorda parameterization</span>
 ( <span class='no'>sl1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"SailaLorda"</span>) )</div><div class='output co'>#&gt; function (S, a, b = NULL, c = NULL) 
 #&gt; {
@@ -246,8 +246,8 @@
 #&gt;     }
 #&gt;     a * (S^c) * exp(-b * S)
 #&gt; }
-#&gt; &lt;bytecode: 0x9c0da78&gt;
-#&gt; &lt;environment: 0x9704c00&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='fu'>sl1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>1.05</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"salmon"</span>)</div><div class='img'><img src='stockRecruitment-1.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt; &lt;bytecode: 0x957d988&gt;
+#&gt; &lt;environment: 0x41f2b20&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='fu'>sl1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>1.05</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"salmon"</span>)</div><div class='img'><img src='stockRecruitment-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Examples of fitting stock-recruitment functions</span>
 <span class='co'># Fitting the Beverton-Holt #1 parameterization with multiplicative errors</span>
 <span class='no'>bh1s</span> <span class='kw'>&lt;-</span> <span class='fu'>srStarts</span>(<span class='no'>recruits</span>~<span class='no'>stock</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>CodNorwegian</span>)

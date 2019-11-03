@@ -134,11 +134,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>indvec</th>
-      <td><p>A numeric vector of 0s and 1s that identify the linear combination of proportions from <code>ptbl</code> that the user is interested in.  See details.</p></td>
+      <td><p>A numeric vector of 0s and 1s that identify the linear combination of proportions from <code>ptbl</code> that the user is interested in. See details.</p></td>
     </tr>
     <tr>
       <th>ptbl</th>
-      <td><p>A numeric vector or array that contains the proportion or percentage of all individuals in each length category.  See details.</p></td>
+      <td><p>A numeric vector or array that contains the proportion or percentage of all individuals in each length category. See details.</p></td>
     </tr>
     <tr>
       <th>n</th>
@@ -146,11 +146,11 @@
     </tr>
     <tr>
       <th>method</th>
-      <td><p>A string that identifies the confidence interval method to use.  See details.</p></td>
+      <td><p>A string that identifies the confidence interval method to use. See details.</p></td>
     </tr>
     <tr>
       <th>bin.type</th>
-      <td><p>A string that identifies the type of method to use for calculation of the confidence intervals when <span style="R">R</span>method="binomial".  See details of <code>binCI</code>.</p></td>
+      <td><p>A string that identifies the type of method to use for calculation of the confidence intervals when <span style="R">R</span>method="binomial". See details of <code>binCI</code>.</p></td>
     </tr>
     <tr>
       <th>conf.level</th>
@@ -168,12 +168,12 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A matrix with columns that contain the computed PSD-X or PSD X-Y value and the associated confidence interval.  The confidence interval values were set to zero or 100 if the computed value was negative or greater than 100, respectively.</p>
+    <p>A matrix with columns that contain the computed PSD-X or PSD X-Y value and the associated confidence interval. The confidence interval values were set to zero or 100 if the computed value was negative or greater than 100, respectively.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Computes confidence intervals for (traditional) PSD-X and (incremental) PSD X-Y values.  Two methods can be used as chosen with <code>method=</code>.  If <code>method="binomial"</code> then the binomial distribution (via <code>binCI()</code>) is used.  If <code>method="multinomial"</code> then the multinomial method described by Brenden et al. (2008) is used.  This function is defined to compute one confidence interval so <code>method="binomial"</code> is the default.  See examples and <code>psdCalc</code> for computing several simultaneous confidence intervals.</p>
-<p>A table of proportions within each length category is given in <code>ptbl</code>.  If <code>ptbl</code> has any values greater than 1 then it is assumed that a table of percentages was supplied and the entire table will be divided by 100 to continue.  The proportions must sum to 1 (with some allowance for rounding).</p>
-<p>A vector of length equal to the length of <code>ptbl</code> is given in <code>indvec</code> which contains zeros and ones to identify the linear combination of values in <code>ptbl</code> to use to construct the confidence intervals.  For example, if <code>ptbl</code> has four proportions then <code>indvec=c(1,0,0,0)</code> would be used to construct a confidence interval for the population proportion in the first category.  Alternatively, <code>indvec=c(0,0,1,1)</code> would be used to construct a confidence interval for the population proportion in the last two categories.  This vector must not contain all zeros or all ones.</p>
+    <p>Computes confidence intervals for (traditional) PSD-X and (incremental) PSD X-Y values. Two methods can be used as chosen with <code>method=</code>. If <code>method="binomial"</code> then the binomial distribution (via <code>binCI()</code>) is used. If <code>method="multinomial"</code> then the multinomial method described by Brenden et al. (2008) is used. This function is defined to compute one confidence interval so <code>method="binomial"</code> is the default. See examples and <code>psdCalc</code> for computing several simultaneous confidence intervals.</p>
+<p>A table of proportions within each length category is given in <code>ptbl</code>. If <code>ptbl</code> has any values greater than 1 then it is assumed that a table of percentages was supplied and the entire table will be divided by 100 to continue. The proportions must sum to 1 (with some allowance for rounding).</p>
+<p>A vector of length equal to the length of <code>ptbl</code> is given in <code>indvec</code> which contains zeros and ones to identify the linear combination of values in <code>ptbl</code> to use to construct the confidence intervals. For example, if <code>ptbl</code> has four proportions then <code>indvec=c(1,0,0,0)</code> would be used to construct a confidence interval for the population proportion in the first category. Alternatively, <code>indvec=c(0,0,1,1)</code> would be used to construct a confidence interval for the population proportion in the last two categories. This vector must not contain all zeros or all ones.</p>
     <h2 class="hasAnchor" id="testing"><a class="anchor" href="#testing"></a>Testing</h2>
 
     <p>The multinomial results match the results given in Brendent et al. (2008).</p>
@@ -182,8 +182,8 @@
     <p>6-Size Structure.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H.  2016.  <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>.  Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
-<p>Brenden, T.O., T. Wagner, and B.R. Murphy.  2008.  Novel tools for analyzing proportional size distribution index data.  North American Journal of Fisheries Management 28:1233-1242.  [Was (is?) from http://qfc.fw.msu.edu/Publications/Publication%20List/2008/Novel%20Tools%20for%20Analyzing%20Proportional%20Size%20Distribution_Brenden.pdf.]</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+<p>Brenden, T.O., T. Wagner, and B.R. Murphy. 2008. Novel tools for analyzing proportional size distribution index data. North American Journal of Fisheries Management 28:1233-1242. [Was (is?) from http://qfc.fw.msu.edu/Publications/Publication%20List/2008/Novel%20Tools%20for%20Analyzing%20Proportional%20Size%20Distribution_Brenden.pdf.]</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code>psdVal</code>, <code>psdPlot</code>, <code>psdAdd</code>, <code>PSDlit</code>, <code>tictactoe</code>, <code>lencat</code>, and <code>rcumsum</code> for related functionality.</p></div>

@@ -141,7 +141,7 @@
     </tr>
     <tr>
       <th>type</th>
-      <td><p>A string that indicates the type of plot to construct.  See details.</p></td>
+      <td><p>A string that indicates the type of plot to construct. See details.</p></td>
     </tr>
     <tr>
       <th>xlab, ylab</th>
@@ -153,11 +153,11 @@
     </tr>
     <tr>
       <th>showLegend</th>
-      <td><p>A logical that indicates whether a legend should be displayed (not implemented for <code>type="bubble"</code>).  See examples.</p></td>
+      <td><p>A logical that indicates whether a legend should be displayed (not implemented for <code>type="bubble"</code>). See examples.</p></td>
     </tr>
     <tr>
       <th>lbl.cex</th>
-      <td><p>A numeric character expansion value for labels inside the bars when <code>type="barplot"</code> or on the lines when <code>type="lines"</code> or <code>type="splines"</code>.  Only used if <code>showLegend=FALSE</code>.</p></td>
+      <td><p>A numeric character expansion value for labels inside the bars when <code>type="barplot"</code> or on the lines when <code>type="lines"</code> or <code>type="splines"</code>. Only used if <code>showLegend=FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>leg.cex</th>
@@ -173,11 +173,11 @@
     </tr>
     <tr>
       <th>pal</th>
-      <td><p>A string that indicates the palette to generate colors for the bars, areas, lines, or spline lines.  The name of a palette must be one of &#8220;rich&#8221;, &#8220;cm&#8221;, &#8220;default&#8221;, &#8220;grey&#8221;, &#8220;gray&#8221;, &#8220;heat&#8221;, &#8220;jet&#8221;, &#8220;rainbow&#8221;, &#8220;topo&#8221;, or &#8220;terrain&#8221;.  See <code>chooseColors</code>.</p></td>
+      <td><p>A string that indicates the palette to generate colors for the bars, areas, lines, or spline lines. The name of a palette must be one of &#8220;rich&#8221;, &#8220;cm&#8221;, &#8220;default&#8221;, &#8220;grey&#8221;, &#8220;gray&#8221;, &#8220;heat&#8221;, &#8220;jet&#8221;, &#8220;rainbow&#8221;, &#8220;topo&#8221;, or &#8220;terrain&#8221;. See <code>chooseColors</code>.</p></td>
     </tr>
     <tr>
       <th>grid</th>
-      <td><p>A logical that indicates whether a grid should be placed under the bubbles when <code>type="bubble"</code> or a character or appropriate vector that identifies a color for the grid.  See examples.</p></td>
+      <td><p>A logical that indicates whether a grid should be placed under the bubbles when <code>type="bubble"</code> or a character or appropriate vector that identifies a color for the grid. See examples.</p></td>
     </tr>
     <tr>
       <th>col</th>
@@ -185,11 +185,11 @@
     </tr>
     <tr>
       <th>buf</th>
-      <td><p>A single numeric that indicates the relative width of the bubbles when <code>type="bubble"</code>.  A value of 0.5 means that two full-width bubbles would touch each other either in the x- or y-direction (i.e., this would represent half of the minimum of the physical distance between values one-unit apart on the x- and y-axes).  Set this to a value less than 0.5 so that the bubbles will not touch (the default is 0.45).</p></td>
+      <td><p>A single numeric that indicates the relative width of the bubbles when <code>type="bubble"</code>. A value of 0.5 means that two full-width bubbles would touch each other either in the x- or y-direction (i.e., this would represent half of the minimum of the physical distance between values one-unit apart on the x- and y-axes). Set this to a value less than 0.5 so that the bubbles will not touch (the default is 0.45).</p></td>
     </tr>
     <tr>
       <th>add</th>
-      <td><p>A logical that indicates whether the data should be added to an already existing plot.  May be useful for visually comparing age-length keys.  Only implemented when <code>type="bubble"</code>.</p></td>
+      <td><p>A logical that indicates whether the data should be added to an already existing plot. May be useful for visually comparing age-length keys. Only implemented when <code>type="bubble"</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -202,19 +202,19 @@
     <p>None, but a plot is constructed.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A variety of plots can be used to visualize the proportion of fish of certain ages within length intervals of an age-length key.  The types of plots are described below and illustrated in the examples.</p><ul>
-<li><p>A &#8220;stacked&#8221; bar chart where vertical bars over length intervals sum to 1 but are segmented by the proportion of each age in that length interval is constructed with <code>type="barplot"</code>.  The ages will be labeled in the bar segments unless <code>showLegend=TRUE</code> is used.</p></li>
+    <p>A variety of plots can be used to visualize the proportion of fish of certain ages within length intervals of an age-length key. The types of plots are described below and illustrated in the examples.</p><ul>
+<li><p>A &#8220;stacked&#8221; bar chart where vertical bars over length intervals sum to 1 but are segmented by the proportion of each age in that length interval is constructed with <code>type="barplot"</code>. The ages will be labeled in the bar segments unless <code>showLegend=TRUE</code> is used.</p></li>
 <li><p>A &#8220;stacked&#8221; area chart similar to the bar chart described above is constructed with <code>type="area"</code>.</p></li>
 <li><p>A plot with (differently colored) lines that connect the proportions of ages within each length interval is constructed with <code>type="lines"</code>.</p></li>
 <li><p>A plot with (differently colored) lines, as estimated by loess splines, that connect the proportions of ages within each length interval is constructed with <code>type="splines"</code>.</p></li>
-<li><p>A &#8220;bubble&#8221; plot where circles whose size is proportional to the proportion of fish of each age in each length interval is constructed with <code>type="bubble"</code>.  The color of the bubbles can be controlled with <code>col=</code> and an underlying grid for ease of seeing the age and length interval for each bubble can be controlled with <code>grid=</code>.  Bubbles from a second age-length key can be overlaid on an already constructed bubble plot by using <code>add=TRUE</code> in a second call to <code>alkPlot</code>.</p></li>
+<li><p>A &#8220;bubble&#8221; plot where circles whose size is proportional to the proportion of fish of each age in each length interval is constructed with <code>type="bubble"</code>. The color of the bubbles can be controlled with <code>col=</code> and an underlying grid for ease of seeing the age and length interval for each bubble can be controlled with <code>grid=</code>. Bubbles from a second age-length key can be overlaid on an already constructed bubble plot by using <code>add=TRUE</code> in a second call to <code>alkPlot</code>.</p></li>
 </ul><p>Note that all plots are &#8220;vertically conditional&#8221; -- i.e., each represents the proportional ages WITHIN each length interval.</p>
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
     <p>5-Age-Length Key.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H.  2016.  <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>.  Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code>alkIndivAge</code> for using an age-length key to assign ages to individual fish.</p></div>

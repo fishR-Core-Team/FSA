@@ -145,7 +145,7 @@
     </tr>
     <tr>
       <th>type</th>
-      <td><p>A string that identifies the type of method to use for the calculations.  See details.</p></td>
+      <td><p>A string that identifies the type of method to use for the calculations. See details.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -160,7 +160,7 @@
 
     <p>This function will compute confidence interval for three possible methods chosen with the <code>type</code> argument.</p>
 <table class='table'>
-<tr><td><code>type="wilson"</code></td><td>Wilson's (Journal of the American Statistical Association, 1927) confidence interval for a proportion.  This is the score CI, based on inverting the asymptotic normal test using the null standard error.</td></tr>
+<tr><td><code>type="wilson"</code></td><td>Wilson's (Journal of the American Statistical Association, 1927) confidence interval for a proportion. This is the score CI, based on inverting the asymptotic normal test using the null standard error.</td></tr>
 <tr><td><code>type="exact"</code></td><td>Computes the Clopper/Pearson exact CI for a binomial success probability.</td></tr>
 <tr><td><code>type="asymptotic"</code></td><td>This uses the normal distribution approximation.</td></tr>
 </table>
@@ -172,7 +172,7 @@
     <p>This is primarily a wrapper function for <code>binom.exact</code>, <code>binom.wilson</code>, and <code>binom.approx</code> (documented in <code>binom.conf.int</code>) from the <span class="pkg">epitools</span> package.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Agresti, A. and B.A. Coull.  1998.  Approximate is better than &#8220;exact&#8221; for interval estimation of binomial proportions.  American Statistician, 52:119-126.</p>
+    <p>Agresti, A. and B.A. Coull. 1998. Approximate is better than &#8220;exact&#8221; for interval estimation of binomial proportions. American Statistician, 52:119-126.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code><a href='https://rdrr.io/r/stats/binom.test.html'>binom.test</a></code>; <code>binconf</code> in <span class="pkg">Hmisc</span>; <code>binom.exact</code>, <code>binom.wilson</code>, and <code>binom.approx</code> documented in <code>binom.conf.int</code> in <span class="pkg">epitools</span>, and functions in <span class="pkg">binom</span>.</p></div>

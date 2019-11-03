@@ -133,11 +133,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>key</th>
-      <td><p>A numeric matrix that contains the age-length key.  The format of this matrix is important.  See details.</p></td>
+      <td><p>A numeric matrix that contains the age-length key. The format of this matrix is important. See details.</p></td>
     </tr>
     <tr>
       <th>formula</th>
-      <td><p>A formula of the form <code>age~length</code> where <code>age</code> generically represents the variable that will contain the estimated ages once the key is applied (i.e., should currently contain no values) and <code>length</code> generically represents the variable that contains the known length measurements.  If only <code>~length</code> is used, then a new variable called &#8220;age&#8221; will be created in the resulting data frame.</p></td>
+      <td><p>A formula of the form <code>age~length</code> where <code>age</code> generically represents the variable that will contain the estimated ages once the key is applied (i.e., should currently contain no values) and <code>length</code> generically represents the variable that contains the known length measurements. If only <code>~length</code> is used, then a new variable called &#8220;age&#8221; will be created in the resulting data frame.</p></td>
     </tr>
     <tr>
       <th>data</th>
@@ -145,40 +145,40 @@
     </tr>
     <tr>
       <th>type</th>
-      <td><p>A string that indicates whether to use the semi-random (<code>type="SR"</code>, default) or completely-random (<code>type="CR"</code>) methods for assigning ages to individual fish.  See the <a href='http://derekogle.com/IFAR'>IFAR chapter</a> for more details.</p></td>
+      <td><p>A string that indicates whether to use the semi-random (<code>type="SR"</code>, default) or completely-random (<code>type="CR"</code>) methods for assigning ages to individual fish. See the <a href='http://derekogle.com/IFAR'>IFAR chapter</a> for more details.</p></td>
     </tr>
     <tr>
       <th>breaks</th>
-      <td><p>A numeric vector of lower values that define the length intervals.  See details.</p></td>
+      <td><p>A numeric vector of lower values that define the length intervals. See details.</p></td>
     </tr>
     <tr>
       <th>seed</th>
-      <td><p>A single numeric that is given to <code>set.seed</code> to set the random seed.  This allows repeatability of results.</p></td>
+      <td><p>A single numeric that is given to <code>set.seed</code> to set the random seed. This allows repeatability of results.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The original data.frame in <code>data</code> with assigned ages added to the column supplied in <code>formula</code> or in an additional column labeled as <code>age</code>.  See details.</p>
+    <p>The original data.frame in <code>data</code> with assigned ages added to the column supplied in <code>formula</code> or in an additional column labeled as <code>age</code>. See details.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The age-length key in <code>key</code> must have length intervals as rows and ages as columns.  The row names of <code>key</code> (i.e., <code><a href='https://rdrr.io/r/base/colnames.html'>rownames(key)</a></code>) must contain the minimum values of each length interval (e.g., if an interval is 100-109, then the corresponding row name must be 100).  The column names of <code>key</code> (i.e., <code><a href='https://rdrr.io/r/base/colnames.html'>colnames(key)</a></code>) must contain the age values (e.g., the columns can NOT be named with &#8220;age.1&#8221;, for example).</p>
-<p>The length intervals in the rows of <code>key</code> must contain all of the length intervals present in the unaged sample to which the age-length key is to be applied (i.e., sent in the <code>length</code> portion of the <code>formula</code>).  If this constraint is not met, then the function will stop with an error message.</p>
-<p>If <code>breaks=NULL</code>, then the length intervals for the unaged sample will be determined with a starting interval at the minimum value of the row names in <code>key</code> and a width of the length intervals as determined by the minimum difference in adjacent row names of <code>key</code>.  If length intervals of differing widths were used when constructing <code>key</code>, then those breaks should be supplied to <code>breaks=</code>.  Use of <code>breaks=</code> may be useful when &#8220;uneven&#8221; length interval widths were used because the lengths in the unaged sample are not fully represented in the aged sample.  See the examples.</p>
-<p>Assigned ages will be stored in the column identified on the left-hand-side of <code>formula</code> (if the formula has both a left- and right-hand-side).  If this variable is missing in <code>formula</code>, then the new column will be labeled with <code>age</code>.</p>
+    <p>The age-length key in <code>key</code> must have length intervals as rows and ages as columns. The row names of <code>key</code> (i.e., <code><a href='https://rdrr.io/r/base/colnames.html'>rownames(key)</a></code>) must contain the minimum values of each length interval (e.g., if an interval is 100-109, then the corresponding row name must be 100). The column names of <code>key</code> (i.e., <code><a href='https://rdrr.io/r/base/colnames.html'>colnames(key)</a></code>) must contain the age values (e.g., the columns can NOT be named with &#8220;age.1&#8221;, for example).</p>
+<p>The length intervals in the rows of <code>key</code> must contain all of the length intervals present in the unaged sample to which the age-length key is to be applied (i.e., sent in the <code>length</code> portion of the <code>formula</code>). If this constraint is not met, then the function will stop with an error message.</p>
+<p>If <code>breaks=NULL</code>, then the length intervals for the unaged sample will be determined with a starting interval at the minimum value of the row names in <code>key</code> and a width of the length intervals as determined by the minimum difference in adjacent row names of <code>key</code>. If length intervals of differing widths were used when constructing <code>key</code>, then those breaks should be supplied to <code>breaks=</code>. Use of <code>breaks=</code> may be useful when &#8220;uneven&#8221; length interval widths were used because the lengths in the unaged sample are not fully represented in the aged sample. See the examples.</p>
+<p>Assigned ages will be stored in the column identified on the left-hand-side of <code>formula</code> (if the formula has both a left- and right-hand-side). If this variable is missing in <code>formula</code>, then the new column will be labeled with <code>age</code>.</p>
     <h2 class="hasAnchor" id="testing"><a class="anchor" href="#testing"></a>Testing</h2>
 
-    <p>The <code>type="SR"</code> method worked perfectly on a small example.  The <code>type="SR"</code> method provides results that reasonably approximate the results from <code>alkAgeDist</code> and <code>alkMeanVar</code>, which suggests that the age assessments are reasonable.</p>
+    <p>The <code>type="SR"</code> method worked perfectly on a small example. The <code>type="SR"</code> method provides results that reasonably approximate the results from <code>alkAgeDist</code> and <code>alkMeanVar</code>, which suggests that the age assessments are reasonable.</p>
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
     <p>5-Age-Length Key.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H.  2016.  <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>.  Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
-<p>Isermann, D.A. and C.T. Knight.  2005.  A computer program for age-length keys incorporating age assignment to individual fish.  North American Journal of Fisheries Management, 25:1153-1160.  [Was (is?) from http://www.tandfonline.com/doi/abs/10.1577/M04-130.1.]</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+<p>Isermann, D.A. and C.T. Knight. 2005. A computer program for age-length keys incorporating age assignment to individual fish. North American Journal of Fisheries Management, 25:1153-1160. [Was (is?) from http://www.tandfonline.com/doi/abs/10.1577/M04-130.1.]</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code>alkAgeDist</code> and <code>alkMeanVar</code> for alternative methods to derived age distributions and mean (and SD) values for each age.  See <code>alkPlot</code> for methods to visualize age-length keys.</p></div>
+    <div class='dont-index'><p>See <code>alkAgeDist</code> and <code>alkMeanVar</code> for alternative methods to derived age distributions and mean (and SD) values for each age. See <code>alkPlot</code> for methods to visualize age-length keys.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## First Example -- Even breaks for length categories</span>
@@ -413,7 +413,7 @@
     </ul>
 
     <h2>Author</h2>
-    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a>.  This is largely an R version of the SAS code provided by Isermann and Knight (2005).</p>
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a>. This is largely an R version of the SAS code provided by Isermann and Knight (2005).</p>
   </div>
 </div>
 

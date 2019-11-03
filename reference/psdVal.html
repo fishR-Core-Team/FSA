@@ -133,23 +133,23 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>species</th>
-      <td><p>A string that contains the species name for which to find Gabelhouse lengths.  See details.</p></td>
+      <td><p>A string that contains the species name for which to find Gabelhouse lengths. See details.</p></td>
     </tr>
     <tr>
       <th>units</th>
-      <td><p>A string that indicates the units for the returned lengths.  Choices are <code>mm</code> for millimeters (DEFAULT), <code>cm</code> for centimeters, and <code>in</code> for inches.</p></td>
+      <td><p>A string that indicates the units for the returned lengths. Choices are <code>mm</code> for millimeters (DEFAULT), <code>cm</code> for centimeters, and <code>in</code> for inches.</p></td>
     </tr>
     <tr>
       <th>incl.zero</th>
-      <td><p>A logical that indicates if a zero is included in the first position of the returned vector (DEFAULT) or not.  This position will be named &#8220;substock&#8221;.  See details.</p></td>
+      <td><p>A logical that indicates if a zero is included in the first position of the returned vector (DEFAULT) or not. This position will be named &#8220;substock&#8221;. See details.</p></td>
     </tr>
     <tr>
       <th>addLens</th>
-      <td><p>A numeric vector that contains minimum length definitions for additional categories.  See details.</p></td>
+      <td><p>A numeric vector that contains minimum length definitions for additional categories. See details.</p></td>
     </tr>
     <tr>
       <th>addNames</th>
-      <td><p>A string vector that contains names for the additional length categories added with <code>addLens</code>.  See details.</p></td>
+      <td><p>A string vector that contains names for the additional length categories added with <code>addLens</code>. See details.</p></td>
     </tr>
     </table>
 
@@ -158,18 +158,18 @@
     <p>A vector of minimum values for length categories for the chosen species.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Finds the Gabelhouse lengths from <code><a href='https://rdrr.io/r/utils/data.html'>data(PSDlit)</a></code> for the species given in <code>species</code>.  The species name must be spelled exactly (within capitalization differences) as it appears in <code><a href='https://rdrr.io/r/utils/data.html'>data(PSDlit)</a></code>.  Type <code>psdVal()</code> to see the list of species and how they are spelled.</p>
-<p>A zero is included in the first position of the returned vector if <code>incl.zero=TRUE</code>.  This is useful when computing PSD values with a data.frame that contains fish smaller than the stock length.</p>
-<p>Additional lengths may be added to the returned vector with <code>addLens</code>.  Names for these lengths can be included in <code>addNames</code>.  If <code>addNames</code> is non-NULL, then it must be of the same length as <code>addLens</code>.  If <code>addLens</code> is non-NULL but <code>addNames</code> is NULL, then the default names will be the same as the lengths in <code>addLens</code>.  The <code>addLens</code> argument is useful for calculating PSD values that are different from the Gabelhouse lengths.</p>
+    <p>Finds the Gabelhouse lengths from <code><a href='https://rdrr.io/r/utils/data.html'>data(PSDlit)</a></code> for the species given in <code>species</code>. The species name must be spelled exactly (within capitalization differences) as it appears in <code><a href='https://rdrr.io/r/utils/data.html'>data(PSDlit)</a></code>. Type <code>psdVal()</code> to see the list of species and how they are spelled.</p>
+<p>A zero is included in the first position of the returned vector if <code>incl.zero=TRUE</code>. This is useful when computing PSD values with a data.frame that contains fish smaller than the stock length.</p>
+<p>Additional lengths may be added to the returned vector with <code>addLens</code>. Names for these lengths can be included in <code>addNames</code>. If <code>addNames</code> is non-NULL, then it must be of the same length as <code>addLens</code>. If <code>addLens</code> is non-NULL but <code>addNames</code> is NULL, then the default names will be the same as the lengths in <code>addLens</code>. The <code>addLens</code> argument is useful for calculating PSD values that are different from the Gabelhouse lengths.</p>
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
     <p>6-Size Structure.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H.  2016.  <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>.  Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
-<p>Guy, C.S., R.M. Neumann, and D.W. Willis.  2006.  New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS).  Fisheries 31:86-87.    [Was (is?) from http://pubstorage.sdstate.edu/wfs/415-F.pdf.]</p>
-<p>Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson.  2006.  Proportional size distribution (PSD): A further refinement of population size structure index terminology.  Fisheries 32:348.  [Was (is?) from http://pubstorage.sdstate.edu/wfs/450-F.pdf.]</p>
-<p>Willis, D.W., B.R. Murphy, and C.S. Guy.  1993.  Stock density indices: development, use, and limitations.  Reviews in Fisheries Science 1:203-222.  [Was (is?) from http://web1.cnre.vt.edu/murphybr/web/Readings/Willis%20et%20al.pdf.]</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+<p>Guy, C.S., R.M. Neumann, and D.W. Willis. 2006. New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS). Fisheries 31:86-87. [Was (is?) from http://pubstorage.sdstate.edu/wfs/415-F.pdf.]</p>
+<p>Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson. 2006. Proportional size distribution (PSD): A further refinement of population size structure index terminology. Fisheries 32:348. [Was (is?) from http://pubstorage.sdstate.edu/wfs/450-F.pdf.]</p>
+<p>Willis, D.W., B.R. Murphy, and C.S. Guy. 1993. Stock density indices: development, use, and limitations. Reviews in Fisheries Science 1:203-222. [Was (is?) from http://web1.cnre.vt.edu/murphybr/web/Readings/Willis%20et%20al.pdf.]</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code>psdCalc</code>, <code>psdPlot</code>, <code>psdAdd</code>, <code>PSDlit</code>, <code>tictactoe</code>, <code>lencat</code>, and <code>rcumsum</code> for related functionality.</p></div>
