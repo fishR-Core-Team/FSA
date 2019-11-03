@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,12 +41,12 @@
 
 
 
+
 <meta property="og:title" content="Likelihood ratio and extra sum-of-squares tests. — extraTests" />
-
 <meta property="og:description" content="Likelihood ratio and extra sum-of-squares tests with multiple lm or nls models nested within one common model. This function is most useful when the nested functions are all at the same level; otherwise use anova() or lrtest() which are more flexible." />
-
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -54,6 +58,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -72,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25.9000</span>
       </span>
     </div>
 
@@ -85,7 +90,6 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
@@ -106,6 +110,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -117,9 +122,7 @@
     </div>
 
     <div class="ref-description">
-    
-    <p>Likelihood ratio and extra sum-of-squares tests with multiple <code>lm</code> or <code>nls</code> models nested within one common model. This function is most useful when the nested functions are all at the same level; otherwise use <code><a href='https://www.rdocumentation.org/packages/stats/topics/anova'>anova()</a></code> or <code>lrtest()</code> which are more flexible.</p>
-    
+    <p>Likelihood ratio and extra sum-of-squares tests with multiple <code>lm</code> or <code>nls</code> models nested within one common model. This function is most useful when the nested functions are all at the same level; otherwise use <code><a href='https://rdrr.io/r/stats/anova.html'>anova()</a></code> or <code>lrtest()</code> which are more flexible.</p>
     </div>
 
     <pre class="usage"><span class='fu'>lrt</span>(<span class='no'>sim</span>, <span class='no'>...</span>, <span class='no'>com</span>, <span class='kw'>sim.names</span> <span class='kw'>=</span> <span class='no'>sim.name</span>, <span class='kw'>sim.name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -129,8 +132,8 @@
   <span class='kw'>com.name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
 <span class='co'># S3 method for extraTest</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
-    
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -139,16 +142,16 @@
       <td><p>The results of one <code>lm</code> or <code>nls</code> model, for example, that is a nested subset of the model in <code>com=</code>.</p></td>
     </tr>
     <tr>
-      <th>&#8230;</th>
+      <th>...</th>
       <td><p>More model results that are nested subsets of the model in <code>com=</code>.</p></td>
     </tr>
     <tr>
       <th>com</th>
-      <td><p>The results of one <code>lm</code> or <code>nls</code> model, for example, that the models in <code>sim=</code> and <code>&#8230;</code> are a subset of.</p></td>
+      <td><p>The results of one <code>lm</code> or <code>nls</code> model, for example, that the models in <code>sim=</code> and <code>...</code> are a subset of.</p></td>
     </tr>
     <tr>
       <th>sim.name, sim.names</th>
-      <td><p>A string vector of &#8220;names&#8221; for simple model in <code>sim=</code> and <code>&#8230;</code>. <code>sim.names</code> is preferred but <code>sim.name</code> is allowed to allow for a common typing mistake.</p></td>
+      <td><p>A string vector of &#8220;names&#8221; for simple model in <code>sim=</code> and <code>...</code>. <code>sim.names</code> is preferred but <code>sim.name</code> is allowed to allow for a common typing mistake.</p></td>
     </tr>
     <tr>
       <th>com.name</th>
@@ -159,7 +162,7 @@
       <td><p>An object from <code>lrt()</code> or <code>extraSS()</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>The main function returns a matrix with as many rows as model comparisons and columns of the following types:</p><ul>
@@ -173,29 +176,26 @@
 <li><p><code>Pr(&gt;F)</code>, <code>Pr(&gt;Chisq)</code> The corresponding p-value.</p></li>
 </ul>
 
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code><a href='https://www.rdocumentation.org/packages/stats/topics/anova'>anova</a></code> and <code><a href='https://www.rdocumentation.org/packages/lmtest/topics/lrtest'>lrtest</a></code> (from <span class="pkg">lmtest</span>) provide simple methods for conducting extra sum-of-squares or likelihood ratio tests when one model is nested within another model or when there are several layers of simple models all sequentially nested within each other. However, to compare several models that are nested at the same level with one common more complex model, then <code><a href='https://www.rdocumentation.org/packages/stats/topics/anova'>anova()</a></code> and <code>lrtest()</code> must be repeated for each comparison. This repetition can be eliminated with <code><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply()</a></code> but then the output is voluminous. This function is designed to remove the repetitiveness and to provide output that is compact and easy to read.</p>
-    
+    <p><code><a href='https://rdrr.io/r/stats/anova.html'>anova</a></code> and <code><a href='https://rdrr.io/pkg/lmtest/man/lrtest.html'>lrtest</a></code> (from <span class="pkg">lmtest</span>) provide simple methods for conducting extra sum-of-squares or likelihood ratio tests when one model is nested within another model or when there are several layers of simple models all sequentially nested within each other. However, to compare several models that are nested at the same level with one common more complex model, then <code><a href='https://rdrr.io/r/stats/anova.html'>anova()</a></code> and <code>lrtest()</code> must be repeated for each comparison. This repetition can be eliminated with <code><a href='https://rdrr.io/r/base/lapply.html'>lapply()</a></code> but then the output is voluminous. This function is designed to remove the repetitiveness and to provide output that is compact and easy to read.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>This function is experimental at this point. It seems to work fine for <code>lm</code> and <code>nls</code> models. An error will be thrown by <code>extraSS</code> for other model classes, but <code>lrt</code> will not (but it has not been thoroughly tests for other models).</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Example data</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>6</span>,<span class='fl'>7</span>,<span class='fl'>8</span>,<span class='fl'>9</span>,<span class='fl'>10</span>),
-                 <span class='kw'>y</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>6</span>,<span class='fl'>5</span>,<span class='fl'>7</span>,<span class='fl'>9</span>,<span class='fl'>8</span>,<span class='fl'>7</span>,<span class='fl'>12</span>,<span class='fl'>16</span>,<span class='fl'>22</span>),
-                 <span class='kw'>z</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>as.factor</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"A"</span>,<span class='st'>"B"</span>),<span class='kw'>each</span><span class='kw'>=</span><span class='fl'>5</span>)),
-                 <span class='kw'>w</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>as.factor</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"A"</span>,<span class='st'>"B"</span>),<span class='kw'>times</span><span class='kw'>=</span><span class='fl'>5</span>)))
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>,<span class='fl'>6</span>,<span class='fl'>7</span>,<span class='fl'>8</span>,<span class='fl'>9</span>,<span class='fl'>10</span>),
+                 <span class='kw'>y</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>6</span>,<span class='fl'>5</span>,<span class='fl'>7</span>,<span class='fl'>9</span>,<span class='fl'>8</span>,<span class='fl'>7</span>,<span class='fl'>12</span>,<span class='fl'>16</span>,<span class='fl'>22</span>),
+                 <span class='kw'>z</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>,<span class='st'>"B"</span>),<span class='kw'>each</span><span class='kw'>=</span><span class='fl'>5</span>)),
+                 <span class='kw'>w</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>,<span class='st'>"B"</span>),<span class='kw'>times</span><span class='kw'>=</span><span class='fl'>5</span>)))
 <span class='no'>df</span>$<span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='no'>df</span>$<span class='no'>x</span>^<span class='fl'>2</span>
 
 <span class='co'>## Linear (lm()) models</span>
 <span class='co'>#  ... regression</span>
-<span class='no'>fit.0</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>y</span>~<span class='fl'>1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
-<span class='no'>fit.1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>y</span>~<span class='no'>x</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
-<span class='no'>fit.2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>y</span>~<span class='no'>x2</span>+<span class='no'>x</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
+<span class='no'>fit.0</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>y</span>~<span class='fl'>1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
+<span class='no'>fit.1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>y</span>~<span class='no'>x</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
+<span class='no'>fit.2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>y</span>~<span class='no'>x2</span>+<span class='no'>x</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
 <span class='fu'>extraSS</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2</span>)</div><div class='output co'>#&gt; Model 1: y ~ 1
 #&gt; Model 2: y ~ x
 #&gt; Model A: y ~ x2 + x 
@@ -204,7 +204,7 @@
 #&gt; 1vA   9 282.400   7  27.617  2 254.783 32.290 0.0002925 ***
 #&gt; 2vA   8  67.988   7  27.617  1  40.371 10.233 0.0150891 *  
 #&gt; ---
-#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'><span class='fu'>lrt</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2</span>)</div><div class='output co'>#&gt; Model 1: y ~ 1
+#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'><span class='fu'>lrt</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: lmtest</span></div><div class='output co'>#&gt; Model 1: y ~ 1
 #&gt; Model 2: y ~ x
 #&gt; Model A: y ~ x2 + x 
 #&gt; 
@@ -215,7 +215,7 @@
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'>
 <span class='co'># ... show labels for models</span>
 <span class='fu'>extraSS</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2</span>,
-    <span class='kw'>sim.names</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Null Model"</span>,<span class='st'>"Linear"</span>),<span class='kw'>com.name</span><span class='kw'>=</span><span class='st'>"Quadratic"</span>)</div><div class='output co'>#&gt; Model 1: Null Model
+    <span class='kw'>sim.names</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Null Model"</span>,<span class='st'>"Linear"</span>),<span class='kw'>com.name</span><span class='kw'>=</span><span class='st'>"Quadratic"</span>)</div><div class='output co'>#&gt; Model 1: Null Model
 #&gt; Model 2: Linear
 #&gt; Model A: Quadratic 
 #&gt; 
@@ -224,7 +224,7 @@
 #&gt; 2vA   8  67.988   7  27.617  1  40.371 10.233 0.0150891 *  
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'><span class='fu'>lrt</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2</span>,
-    <span class='kw'>sim.names</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Null Model"</span>,<span class='st'>"Linear"</span>),<span class='kw'>com.name</span><span class='kw'>=</span><span class='st'>"Quadratic"</span>)</div><div class='output co'>#&gt; Model 1: Null Model
+    <span class='kw'>sim.names</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Null Model"</span>,<span class='st'>"Linear"</span>),<span class='kw'>com.name</span><span class='kw'>=</span><span class='st'>"Quadratic"</span>)</div><div class='output co'>#&gt; Model 1: Null Model
 #&gt; Model 2: Linear
 #&gt; Model A: Quadratic 
 #&gt; 
@@ -234,7 +234,7 @@
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'>
 <span class='co'>#  ... dummy variable regression</span>
-<span class='no'>fit.2b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>y</span>~<span class='no'>x</span>*<span class='no'>z</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
+<span class='no'>fit.2b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>y</span>~<span class='no'>x</span>*<span class='no'>z</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
 <span class='fu'>extraSS</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2b</span>)</div><div class='output co'>#&gt; Model 1: y ~ 1
 #&gt; Model 2: y ~ x
 #&gt; Model A: y ~ x * z 
@@ -253,8 +253,8 @@
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'>
 <span class='co'>#  ... ANOVAs</span>
-<span class='no'>fit.1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>y</span>~<span class='no'>w</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
-<span class='no'>fit.2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm</a></span>(<span class='no'>y</span>~<span class='no'>w</span>*<span class='no'>z</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
+<span class='no'>fit.1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>y</span>~<span class='no'>w</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
+<span class='no'>fit.2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>y</span>~<span class='no'>w</span>*<span class='no'>z</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
 <span class='fu'>extraSS</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2</span>)</div><div class='output co'>#&gt; Model 1: y ~ 1
 #&gt; Model 2: y ~ w
 #&gt; Model A: y ~ w * z 
@@ -272,9 +272,9 @@
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'>
 
 <span class='co'>## Non-linear (nls()) models</span>
-<span class='no'>fit.0</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/nls'>nls</a></span>(<span class='no'>y</span>~<span class='no'>c</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>start</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>10</span>))
-<span class='no'>fit.1</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/nls'>nls</a></span>(<span class='no'>y</span>~<span class='no'>a</span>*<span class='no'>x</span>+<span class='no'>c</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>start</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>1</span>))
-<span class='no'>fit.2</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/nls'>nls</a></span>(<span class='no'>y</span>~<span class='no'>b</span>*<span class='no'>x2</span>+<span class='no'>a</span>*<span class='no'>x</span>+<span class='no'>c</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>start</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>a</span><span class='kw'>=</span>-<span class='fl'>1</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.3</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>10</span>))
+<span class='no'>fit.0</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/nls.html'>nls</a></span>(<span class='no'>y</span>~<span class='no'>c</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>start</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>10</span>))
+<span class='no'>fit.1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/nls.html'>nls</a></span>(<span class='no'>y</span>~<span class='no'>a</span>*<span class='no'>x</span>+<span class='no'>c</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>start</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>1</span>))
+<span class='no'>fit.2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/nls.html'>nls</a></span>(<span class='no'>y</span>~<span class='no'>b</span>*<span class='no'>x2</span>+<span class='no'>a</span>*<span class='no'>x</span>+<span class='no'>c</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>start</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>a</span><span class='kw'>=</span>-<span class='fl'>1</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.3</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>10</span>))
 <span class='fu'>extraSS</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>,<span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2</span>)</div><div class='output co'>#&gt; Model 1: y ~ c
 #&gt; Model 2: y ~ a * x + c
 #&gt; Model A: y ~ b * x2 + a * x + c 
@@ -292,29 +292,24 @@
 #&gt; 2vA   8 -23.7731   7 -19.2686  1  -4.5045  9.0091   0.002686 ** 
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'>
-## General least-squares (gls()) models
-</div><span class='co'># NOT RUN {</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>nlme</span>)
-  <span class='no'>fit.0</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/nlme/topics/gls'>gls</a></span>(<span class='no'>y</span>~<span class='fl'>1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"ML"</span>)
-  <span class='no'>fit.1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/nlme/topics/gls'>gls</a></span>(<span class='no'>y</span>~<span class='no'>x</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"ML"</span>)
-  <span class='no'>fit.2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/nlme/topics/gls'>gls</a></span>(<span class='no'>y</span>~<span class='no'>x2</span>+<span class='no'>x</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"ML"</span>)
+<span class='co'>## General least-squares (gls()) models</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+  <span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>nlme</span>)
+  <span class='no'>fit.0</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/nlme/man/gls.html'>gls</a></span>(<span class='no'>y</span>~<span class='fl'>1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"ML"</span>)
+  <span class='no'>fit.1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/nlme/man/gls.html'>gls</a></span>(<span class='no'>y</span>~<span class='no'>x</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"ML"</span>)
+  <span class='no'>fit.2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/nlme/man/gls.html'>gls</a></span>(<span class='no'>y</span>~<span class='no'>x2</span>+<span class='no'>x</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"ML"</span>)
   <span class='fu'>lrt</span>(<span class='no'>fit.0</span>,<span class='no'>fit.1</span>, <span class='kw'>com</span><span class='kw'>=</span><span class='no'>fit.2</span>)
   <span class='co'>## will return an error ... does not work with gls() models</span>
   <span class='co'># extraSS(fit.0,fit.1, com=fit.2)</span>
-<span class='co'># }</span><div class='input'>
-</div></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#note">Note</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -323,19 +318,23 @@
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Derek Ogle, Powell Wheeler, Alexis Dinno.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

@@ -10,7 +10,7 @@
 * `vbStarts()`: Modified. Corrected bug related to point transparenty when `plot=TRUE` and there is no age/length combination repeats (i.e., all age/length combinations are unique). Corrected bug of `col.main=` being ignored when `plot=TRUE`.
 
 # FSA 0.8.24 17-May-19
-* Corrected misues of `\concept` in Rd files per CRAN request.
+* Corrected misuses of `\concept` in Rd files per CRAN request.
 
 # FSA 0.8.23 1-May-19
 * Reorganized `testthat` folder as suggested in `testthat` release notes.

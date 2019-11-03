@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,12 +41,12 @@
 
 
 
+
 <meta property="og:title" content="Confidence intervals for binomial probability of success. — binCI" />
-
 <meta property="og:description" content="Uses one of three methods to compute a confidence interval for the probability of success (p) in a binomial distribution." />
-
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -54,6 +58,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -72,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25.9000</span>
       </span>
     </div>
 
@@ -85,7 +90,6 @@
   <a href="../news/index.html">News</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
@@ -106,6 +110,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -117,14 +122,12 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Uses one of three methods to compute a confidence interval for the probability of success (p) in a binomial distribution.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>binCI</span>(<span class='no'>x</span>, <span class='no'>n</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"wilson"</span>, <span class='st'>"exact"</span>,
+    <pre class="usage"><span class='fu'>binCI</span>(<span class='no'>x</span>, <span class='no'>n</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"wilson"</span>, <span class='st'>"exact"</span>,
   <span class='st'>"asymptotic"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -142,45 +145,37 @@
     </tr>
     <tr>
       <th>type</th>
-      <td><p>A string that identifies the type of method to use for the calculations.  See details.</p></td>
+      <td><p>A string that identifies the type of method to use for the calculations. See details.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
       <td><p>A logical that indicates whether <code>x</code>, <code>n</code>, and <code>x/n</code> should be included in the returned matrix (<code>=TRUE</code>) or not (<code>=FALSE</code>; DEFAULT).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A #x2 matrix that contains the lower and upper confidence interval bounds as columns and, if <code>verbose=TRUE</code> <code>x</code>, <code>n</code>, and <code>x/n</code> .</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function will compute confidence interval for three possible methods chosen with the <code>type</code> argument.</p>
 <table class='table'>
-<tr><td></td><td></td></tr>
-<tr><td><code>type="wilson"</code></td><td></td></tr>
-<tr><td>Wilson's (Journal of the American Statistical Association, 1927) confidence interval for a proportion.  This is the score CI, based on inverting the asymptotic normal test using the null standard error.</td><td></td></tr>
-<tr><td></td><td><code>type="exact"</code></td></tr>
-<tr><td></td><td>Computes the Clopper/Pearson exact CI for a binomial success probability.</td></tr>
-<tr><td></td><td></td></tr>
-<tr><td><code>type="asymptotic"</code></td><td></td></tr>
-<tr><td>This uses the normal distribution approximation.</td><td></td></tr>
+<tr><td><code>type="wilson"</code></td><td>Wilson's (Journal of the American Statistical Association, 1927) confidence interval for a proportion. This is the score CI, based on inverting the asymptotic normal test using the null standard error.</td></tr>
+<tr><td><code>type="exact"</code></td><td>Computes the Clopper/Pearson exact CI for a binomial success probability.</td></tr>
+<tr><td><code>type="asymptotic"</code></td><td>This uses the normal distribution approximation.</td></tr>
 </table>
-    <p>Note that Agresti and Coull (2000) suggest that the Wilson interval is the preferred method and is, thus, the default <code>type</code>.</p>
-    
+
+
+<p>Note that Agresti and Coull (2000) suggest that the Wilson interval is the preferred method and is, thus, the default <code>type</code>.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>This is primarily a wrapper function for <code>binom.exact</code>, <code>binom.wilson</code>, and <code>binom.approx</code> (documented in <code>binom.conf.int</code>) from the <span class="pkg">epitools</span> package.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Agresti, A. and B.A. Coull.  1998.  Approximate is better than &#8220;exact&#8221; for interval estimation of binomial proportions.  American Statistician, 52:119-126.</p>
-    
+    <p>Agresti, A. and B.A. Coull. 1998. Approximate is better than &#8220;exact&#8221; for interval estimation of binomial proportions. American Statistician, 52:119-126.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='https://www.rdocumentation.org/packages/stats/topics/binom.test'>binom.test</a></code>; <code>binconf</code> in <span class="pkg">Hmisc</span>; <code>binom.exact</code>, <code>binom.wilson</code>, and <code>binom.approx</code> documented in <code>binom.conf.int</code> in <span class="pkg">epitools</span>, and functions in <span class="pkg">binom</span>.</p></div>
-    
+    <div class='dont-index'><p>See <code><a href='https://rdrr.io/r/stats/binom.test.html'>binom.test</a></code>; <code>binconf</code> in <span class="pkg">Hmisc</span>; <code>binom.exact</code>, <code>binom.wilson</code>, and <code>binom.approx</code> documented in <code>binom.conf.int</code> in <span class="pkg">epitools</span>, and functions in <span class="pkg">binom</span>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## All types at once</span>
@@ -195,15 +190,15 @@
 #&gt;  0.1409627 0.5590373</div><div class='input'><span class='fu'>binCI</span>(<span class='fl'>7</span>,<span class='fl'>20</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"asymptotic"</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;            x  n proportion   95% LCI   95% UCI
 #&gt; Asymptotic 7 20       0.35 0.1409627 0.5590373</div><div class='input'>
 <span class='co'>## Multiple types</span>
-<span class='fu'>binCI</span>(<span class='fl'>7</span>,<span class='fl'>20</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"exact"</span>,<span class='st'>"asymptotic"</span>))</div><div class='output co'>#&gt;              95% LCI   95% UCI
+<span class='fu'>binCI</span>(<span class='fl'>7</span>,<span class='fl'>20</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"exact"</span>,<span class='st'>"asymptotic"</span>))</div><div class='output co'>#&gt;              95% LCI   95% UCI
 #&gt; Exact      0.1539092 0.5921885
-#&gt; Asymptotic 0.1409627 0.5590373</div><div class='input'><span class='fu'>binCI</span>(<span class='fl'>7</span>,<span class='fl'>20</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"exact"</span>,<span class='st'>"asymptotic"</span>),<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;            x  n proportion   95% LCI   95% UCI
+#&gt; Asymptotic 0.1409627 0.5590373</div><div class='input'><span class='fu'>binCI</span>(<span class='fl'>7</span>,<span class='fl'>20</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"exact"</span>,<span class='st'>"asymptotic"</span>),<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;            x  n proportion   95% LCI   95% UCI
 #&gt; Exact      7 20       0.35 0.1539092 0.5921885
 #&gt; Asymptotic 7 20       0.35 0.1409627 0.5590373</div><div class='input'>
 <span class='co'>## Use with multiple inputs</span>
-<span class='fu'>binCI</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>7</span>,<span class='fl'>10</span>),<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>20</span>,<span class='fl'>30</span>),<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"wilson"</span>)</div><div class='output co'>#&gt;    95% LCI   95% UCI
+<span class='fu'>binCI</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7</span>,<span class='fl'>10</span>),<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>,<span class='fl'>30</span>),<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"wilson"</span>)</div><div class='output co'>#&gt;    95% LCI   95% UCI
 #&gt;  0.1811918 0.5671457
-#&gt;  0.1923050 0.5121995</div><div class='input'><span class='fu'>binCI</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>7</span>,<span class='fl'>10</span>),<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>20</span>,<span class='fl'>30</span>),<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"wilson"</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;       x  n proportion   95% LCI   95% UCI
+#&gt;  0.1923050 0.5121995</div><div class='input'><span class='fu'>binCI</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7</span>,<span class='fl'>10</span>),<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>,<span class='fl'>30</span>),<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"wilson"</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;       x  n proportion   95% LCI   95% UCI
 #&gt; [1,]  7 20  0.3500000 0.1811918 0.5671457
 #&gt; [2,] 10 30  0.3333333 0.1923050 0.5121995</div><div class='input'>
 </div></pre>
@@ -212,17 +207,11 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#note">Note</a></li>
-
       <li><a href="#references">References</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
@@ -231,19 +220,23 @@
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Derek Ogle, Powell Wheeler, Alexis Dinno.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

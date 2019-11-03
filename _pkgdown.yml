@@ -123,6 +123,7 @@ reference:
       - lagratio
       - mapvalues
       - perc
+      - repeatedRows2Keep
       - validn
   - title: Data
     desc: Data files.
