@@ -3,7 +3,7 @@
 #' @description Creates a vector of the Gabelhouse lengths specific to a species for all individuals in an entire data frame.
 #' 
 #' @param len A numeric vector that contains lengths measurements or a formula of the form \code{len~spec} where \dQuote{len} generically represents the length variable and \dQuote{spec} generically represents the species variable. Note that this formula can only contain two variables and must have the length variable on the left-hand-side and the species variable on the right-hand-side.
-#' @param spec A character or factor vector that contains the species names. Ignored if \code{len} is a formula.
+#' @param species A character or factor vector that contains the species names. Ignored if \code{len} is a formula.
 #' @param data A data.frame that minimally contains the length measurements and species names if \code{len} is a formula.
 #' @param units A string that indicates the type of units used for the lengths. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.
 #' @param use.names A logical that indicates whether the vector returned is numeric (\code{=FALSE}) or string (\code{=TRUE}; default) representations of the Gabelhouse lengths. See details.
@@ -86,12 +86,13 @@ psdAdd <- function (len,...) {
 
 #' @rdname psdAdd
 #' @export
-psdAdd.default <- function(len,spec,units=c("mm","cm","in"),use.names=TRUE,
+psdAdd.default <- function(len,species,units=c("mm","cm","in"),use.names=TRUE,
                            addSpec=NULL,addLens=NULL,verbose=TRUE,...) {
   ## Some checks
   units <- match.arg(units)
   if (!is.numeric(len)) STOP("'len' must be numeric.")
-  if (!inherits(spec,c("character","factor"))) STOP("'spec' must be character or factor.")
+  if (!inherits(species,c("character","factor")))
+    STOP("'species' must be character or factor.")
   if (!is.null(addSpec)) {
     if (is.null(addLens)) {
       WARN("'addSpec' is not NULL when 'addLens' is NULL; made 'addSpec' NULL.")
@@ -104,11 +105,11 @@ psdAdd.default <- function(len,spec,units=c("mm","cm","in"),use.names=TRUE,
   PSDlit <- get(utils::data("PSDlit", envir = environment()), envir = environment())
 
   ## Create data.frame with length, species, rownumbers, and PSD values (blank)
-  data <- data.frame(len,spec,rownums=seq_along(len),PSD=rep(NA,length(len)))
+  data <- data.frame(len,species,rownums=seq_along(len),PSD=rep(NA,length(len)))
   ## initiate a blank new data frame with same columns as old data frame
   ndata <- data[-c(seq_len(nrow(data))),]  
   ## get list of species
-  specs <- levels(factor(spec))
+  specs <- levels(factor(species))
   
   ## cycle through each species where PSD values are known
   for (i in seq_along(specs)) {
@@ -144,11 +145,19 @@ psdAdd.formula <- function(len,data=NULL,units=c("mm","cm","in"),use.names=TRUE,
                            addSpec=NULL,addLens=NULL,verbose=TRUE,...) {
   ## Perform some checks on the formula
   tmp <- iHndlFormula(len,data,expNumR=1,expNumE=1,expNumENums=0,expNumEFacts=1)
-  if (tmp$vnum!=2) STOP("'len' must have one variable on the left-hand-side\n and one variable on the right-hand-side.")
-  if (!tmp$metExpNumR) STOP("'len' must have a left-hand-side with one and only one variable.")
-  if (!(tmp$Rclass %in% c("numeric","integer"))) STOP("Variable on left-hand-side of 'len' is not numeric (thus, not lengths).")
-  if (!tmp$metExpNumE) STOP("'len' must have a right-hand-side with one and only one variable.")
-  if (!tmp$metExpNumEFacts) STOP("'len' must have one and only one factor variable (species) on right-hand-side.")
+  if (tmp$vnum!=2)
+    STOP("'len' must have one variable on the left-hand-side\n",
+         "and one variable on the right-hand-side.")
+  if (!tmp$metExpNumR)
+    STOP("'len' must have a left-hand-side with one and only one variable.")
+  if (!(tmp$Rclass %in% c("numeric","integer")))
+    STOP("Variable on left-hand-side of 'len' is not numeric",
+         " (thus, not lengths).")
+  if (!tmp$metExpNumE)
+    STOP("'len' must have a right-hand-side with one and only one variable.")
+  if (!tmp$metExpNumEFacts)
+    STOP("'len' must have one and only one factor variable (species)",
+         " on right-hand-side.")
   ## Send to default method
   psdAdd.default(tmp$mf[[tmp$Rpos]],tmp$mf[[tmp$EFactPos]],units,
                  use.names,addSpec,addLens,verbose,...)

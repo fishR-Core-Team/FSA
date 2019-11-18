@@ -8,7 +8,7 @@
 \usage{
 psdAdd(len, ...)
 
-\method{psdAdd}{default}(len, spec, units = c("mm", "cm", "in"),
+\method{psdAdd}{default}(len, species, units = c("mm", "cm", "in"),
   use.names = TRUE, addSpec = NULL, addLens = NULL, verbose = TRUE,
   ...)
 
@@ -21,7 +21,7 @@ psdAdd(len, ...)
 
 \item{\dots}{Not used.}
 
-\item{spec}{A character or factor vector that contains the species names. Ignored if \code{len} is a formula.}
+\item{species}{A character or factor vector that contains the species names. Ignored if \code{len} is a formula.}
 
 \item{units}{A string that indicates the type of units used for the lengths. Choices are \code{mm} for millimeters (DEFAULT), \code{cm} for centimeters, and \code{in} for inches.}
 
