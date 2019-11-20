@@ -123,6 +123,7 @@ reference:
       - lagratio
       - mapvalues
       - perc
+      - peek
       - repeatedRows2Keep
       - validn
   - title: Data
