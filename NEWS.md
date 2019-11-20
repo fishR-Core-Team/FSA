@@ -2,6 +2,7 @@
 * Removed `asbio` package from suggests as it hung up Travis-CI build (because of the need for the TCLTK package).
 * `capFirst()`: Modified. Fixed bug related to an `NA` item.
 * `psdAdd()`: Modified. Changed `spec=` to `species=` to be consistent with `psdCalc()` and `psdPlot()`.
+* `peek()`: Added.
 * `repeatedRows2Keep()`: Modified. Added a catch if the data.frame only contains one row (it then returns `TRUE` so that that row is kept).
 
 # FSA 0.8.25 24-Jul-19

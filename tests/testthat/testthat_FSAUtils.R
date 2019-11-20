@@ -495,8 +495,50 @@ test_that("headtail() return values",{
   
   ## check how it handles tbl_df object
   if (require(dplyr)) {
-    iris2 <- tbl_df(iris)
+    iris2 <- dplyr::tbl_df(iris)
     tmp <- FSA::headtail(iris2,n=15)
+    expect_is(tmp,"data.frame")
+  }
+})
+
+test_that("peek() return values",{
+  n <- 20
+  tmp <- FSA::peek(iris)
+  expect_equal(nrow(tmp),n)
+  expect_equal(ncol(tmp),ncol(iris))
+  expect_equal(names(tmp),names(iris))
+  expect_is(tmp,"data.frame")
+  ## check more rows
+  n <- 10
+  tmp <- FSA::peek(iris,n=n)
+  expect_equal(nrow(tmp),n)
+  expect_equal(ncol(tmp),ncol(iris))
+  expect_equal(names(tmp),names(iris))
+  expect_is(tmp,"data.frame")
+  ## check of restricted columns
+  n <- 20
+  cols <- 2:3
+  tmp <- FSA::peek(iris,which=cols)
+  expect_equal(nrow(tmp),n)
+  expect_equal(ncol(tmp),length(cols))
+  expect_equal(names(tmp),names(iris)[cols])
+  expect_is(tmp,"data.frame")
+  
+  ## check for matrix
+  miris <- as.matrix(iris[,seq_len(4)])
+  tmp <- FSA::peek(miris)
+  expect_equal(nrow(tmp),n)
+  expect_equal(ncol(tmp),ncol(miris))
+  expect_equal(names(tmp),names(miris))
+  expect_is(tmp,"matrix")
+  # check of addrownums
+  tmp <- FSA::peek(miris,addrownums=FALSE)
+  expect_true(is.null(rownames(tmp)))
+  
+  ## check how it handles tbl_df object
+  if (require(dplyr)) {
+    iris2 <- dplyr::tbl_df(iris)
+    tmp <- FSA::peek(iris2,n=15)
     expect_is(tmp,"data.frame")
   }
 })

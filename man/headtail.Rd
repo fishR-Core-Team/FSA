@@ -50,6 +50,9 @@ if (require(dplyr)) {
   head(iris2,n=30)
 }
 }
+\seealso{
+\code{peek}
+}
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}
 }

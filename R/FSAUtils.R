@@ -390,8 +390,8 @@ FSANews <- function () {
 #' @description Shows rows from the head and tail of a data frame or matrix.
 #'
 #' @param x A data frame or matrix.
-#' @param which A numeric or string vector that contains the column numbers or names to display. Defaults to showing all columns.
 #' @param n A single numeric that indicates the number of rows to display from each of the head and tail of structure.
+#' @param which A numeric or string vector that contains the column numbers or names to display. Defaults to showing all columns.
 #' @param addrownums If there are no row names for the MATRIX, then create them from the row numbers.
 #' @param \dots Arguments to be passed to or from other methods.
 #'
@@ -400,6 +400,8 @@ FSANews <- function () {
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
 #' @note If \code{n} is larger than the number of rows in \code{x} then all of \code{x} is displayed.
+#'
+#' @seealso \code{peek}
 #'
 #' @keywords manip
 #'
@@ -437,7 +439,6 @@ headtail <- function(x,n=3L,which=NULL,addrownums=TRUE,...) {
   if ("tbl_df" %in% class(x)) x <- as.data.frame(x)
   ## Process data.frame
   N <- nrow(x)
-  n <- ifelse(n<0L,max(N+n,0L),min(n,N))
   if (n>=N) tmp <- x
   else {
     h <- utils::head(x,n,...)
@@ -719,6 +720,74 @@ perc <- function(x,val,dir=c("geq","gt","leq","lt"),na.rm=TRUE,
     tmp <- length(tmp[!is.na(tmp)])
   }
   round(tmp/n*100,digits)
+}
+
+
+#' @title Peek into (show a subset of) a data frame or matrix.
+#'
+#' @description Shows the first, last, and approximately evenly spaced rows from a data frame or matrix.
+#'
+#' @param x A data frame or matrix.
+#' @param n A single numeric that indicates the number of rows to display.
+#' @param which A numeric or string vector that contains the column numbers or names to display. Defaults to showing all columns.
+#' @param addrownums If there are no row names for the MATRIX, then create them from the row numbers.
+#'
+#' @return A matrix or data.frame with n rows.
+#'
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#'
+#' @author A. Powell Wheeler, \email{powell.wheeler@@gmail.com}
+#'
+#' @seealso \code{headtail}
+#' 
+#' @note If \code{n} is larger than the number of rows in \code{x} then all of \code{x} is displayed.
+#'
+#' @keywords manip
+#'
+#' @examples
+#' peek(iris)
+#' peek(iris,n=6)
+#' peek(iris,n=6,which=c("Sepal.Length","Sepal.Width","Species"))
+#' peek(iris,n=6,which=grep("Sepal",names(iris)))
+#' peek(iris,n=200)
+#'
+#' ## Make a matrix for demonstration purposes only
+#' miris <- as.matrix(iris[,1:4])
+#' peek(miris)
+#' peek(miris,n=6)
+#' peek(miris,n=6,addrownums=FALSE)
+#' peek(miris,n=6,which=2:4)
+#'
+#' ## Make a tbl_df type from dplyr ... note how peek() is not limited by
+#' ## the tbl_df restriction on number of rows to show (but head() is).
+#' if (require(dplyr)) {
+#'   iris2 <- tbl_df(iris)
+#'   class(iris2)
+#'   peek(iris2,n=6)
+#'   head(iris2,n=15)
+#' }
+#' @export
+peek <- function(x,n=20L,which=NULL,addrownums=TRUE) {
+  ## Some checks
+  if (!(is.matrix(x) | is.data.frame(x))) 
+    STOP("'x' must be a matrix or data.frame.")
+  if (length(n)!=1L) STOP("'n' must be a single number.")
+  if (n<1L) STOP("'n' must be greater than 0.")
+  ## Remove tbl_df class if it exists
+  if ("tbl_df" %in% class(x)) x <- as.data.frame(x)
+  ## Get number of rows in x
+  N <- nrow(x)
+  ## If asked for is greater than size then just return x
+  if (n>=N) tmp <- x
+  else {
+    rows <- c(1,round((1:(n-2))*(N/(n-1)),0),N)
+    tmp <- x[rows,]
+    if (addrownums) {
+      if (is.null(rownames(tmp))) rownames(tmp) <- rows
+    } else rownames(tmp) <- NULL
+  }
+  if (!is.null(which)) tmp <- tmp[,which]
+  tmp
 }
 
 
