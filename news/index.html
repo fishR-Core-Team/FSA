@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.25.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.26</span>
       </span>
     </div>
 
@@ -119,11 +119,12 @@
       <small>Source: <a href='https://github.com/droglenc/FSA/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="fsa-0-8-26-ongoing" class="section level1">
+    <div id="fsa-0-8-26-22-nov-19" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0-8-26-ongoing" class="anchor"></a>FSA 0.8.26 ongoing<small> Unreleased </small>
+<a href="#fsa-0-8-26-22-nov-19" class="anchor"></a>FSA 0.8.26 22-Nov-19<small> Unreleased </small>
 </h1>
 <ul>
+<li>Changed to depending on <code>R &gt;=3.5.0</code>, because that is the latest version required by a package (i.e., <code>car</code>) that FSA imports or suggests. Used the “check_r_versions_of_package_dependencies” shiny app by “ateucher” (on Github) to help determine this.</li>
 <li>Removed <code>asbio</code> package from suggests as it hung up Travis-CI build (because of the need for the TCLTK package).</li>
 <li>
 <code>capFirst()</code>: Modified. Fixed bug related to an <code>NA</code> item.</li>
@@ -320,7 +321,7 @@
 <a href="#fsa-0-8-18-31-mar-18" class="anchor"></a>FSA 0.8.18 31-Mar-18<small> Unreleased </small>
 </h1>
 <ul>
-<li>Changed to depending on <code>R &gt;=3.2.0</code>, because that is the latest version required by a package (i.e., <code>car</code>) that FSA imports or suggests. Used <a href="https://ateucher.shinyapps.io/check_r_versions_of_package_dependencies/">this shiny app</a> to help determine this.</li>
+<li>Changed to depending on <code>R &gt;=3.2.0</code>, because that is the latest version required by a package (i.e., <code>car</code>) that FSA imports or suggests. Used the “check_r_versions_of_package_dependencies” shiny app by “ateucher” (on Github) to help determine this.</li>
 <li>Using latest <code>testthat</code> package.</li>
 <li>
 <code>bootCase()</code>: Added. This was added because <code>bootCase()</code> will soon be removed from the <code>car</code> package. It was added so that the code in the Introductory Fisheries Analyses with R book will still work. It is largely a wrapper to <code>Boot()</code> in <code>car</code> with <code>method="case"</code>. The documentation was updated somewhat.</li>
@@ -3406,7 +3407,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#fsa-0-8-26-ongoing">0.8.26</a></li>
+        <li><a href="#fsa-0-8-26-22-nov-19">0.8.26</a></li>
         <li><a href="#fsa-0-8-25-24-jul-19">0.8.25</a></li>
         <li><a href="#fsa-0-8-24-17-may-19">0.8.24</a></li>
         <li><a href="#fsa-0-8-23-1-may-19">0.8.23</a></li>
