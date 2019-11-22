@@ -1,3 +1,6 @@
+# FSA 0.8.27 ongoing
+
+
 # FSA 0.8.26 22-Nov-19
 * Changed to depending on `R >=3.5.0`, because that is the latest version required by a package (i.e., `car`) that FSA imports or suggests. Used the "check_r_versions_of_package_dependencies" shiny app by "ateucher" (on Github) to help determine this.
 * Removed `asbio` package from suggests as it hung up Travis-CI build (because of the need for the TCLTK package).
