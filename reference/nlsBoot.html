@@ -126,19 +126,33 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for nlsBoot</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='no'>conf.level</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>err.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>err.lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>rows</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(
+  <span class='no'>object</span>,
+  <span class='kw'>parm</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>level</span> <span class='kw'>=</span> <span class='no'>conf.level</span>,
+  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>err.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>err.lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>rows</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for nlsBoot</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>object</span>, <span class='no'>FUN</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>object</span>, <span class='no'>FUN</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='fu'>htest</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for nlsBoot</span>
-<span class='fu'>htest</span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bo</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>alt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>, <span class='st'>"less"</span>, <span class='st'>"greater"</span>), <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>htest</span>(
+  <span class='no'>object</span>,
+  <span class='kw'>parm</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>bo</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>alt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>, <span class='st'>"less"</span>, <span class='st'>"greater"</span>),
+  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

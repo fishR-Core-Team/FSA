@@ -125,10 +125,21 @@
     <p>Finds reasonable starting values for parameters in specific parameterizations of the &#8220;Beverton-Holt&#8221;, &#8220;Ricker&#8221;,  &#8220;Shepherd&#8221;, or &#8220;Saila-Lorda&#8221; stock-recruitment models. Use <code>srFunShow()</code> to see the equations of each model.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>srStarts</span>(<span class='no'>formula</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"BevertonHolt"</span>, <span class='st'>"Ricker"</span>,
-  <span class='st'>"Shepherd"</span>, <span class='st'>"SailaLorda"</span>, <span class='st'>"independence"</span>), <span class='kw'>param</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>fixed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col.mdl</span> <span class='kw'>=</span> <span class='st'>"gray70"</span>, <span class='kw'>lwd.mdl</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>lty.mdl</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>cex.main</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>col.main</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>dynamicPlot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>srStarts</span>(
+  <span class='no'>formula</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"BevertonHolt"</span>, <span class='st'>"Ricker"</span>, <span class='st'>"Shepherd"</span>, <span class='st'>"SailaLorda"</span>, <span class='st'>"independence"</span>),
+  <span class='kw'>param</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>fixed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>col.mdl</span> <span class='kw'>=</span> <span class='st'>"gray70"</span>,
+  <span class='kw'>lwd.mdl</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>lty.mdl</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>cex.main</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
+  <span class='kw'>col.main</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
+  <span class='kw'>dynamicPlot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

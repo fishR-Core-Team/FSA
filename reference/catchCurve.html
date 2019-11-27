@@ -128,36 +128,59 @@
     <pre class="usage"><span class='fu'>catchCurve</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>catchCurve</span>(<span class='no'>x</span>, <span class='no'>catch</span>, <span class='kw'>ages2use</span> <span class='kw'>=</span> <span class='no'>age</span>,
-  <span class='kw'>weighted</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>negWeightReplace</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)
+<span class='fu'>catchCurve</span>(
+  <span class='no'>x</span>,
+  <span class='no'>catch</span>,
+  <span class='kw'>ages2use</span> <span class='kw'>=</span> <span class='no'>age</span>,
+  <span class='kw'>weighted</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>negWeightReplace</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>catchCurve</span>(<span class='no'>x</span>, <span class='no'>data</span>, <span class='kw'>ages2use</span> <span class='kw'>=</span> <span class='no'>age</span>, <span class='kw'>weighted</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>negWeightReplace</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)
+<span class='fu'>catchCurve</span>(
+  <span class='no'>x</span>,
+  <span class='no'>data</span>,
+  <span class='kw'>ages2use</span> <span class='kw'>=</span> <span class='no'>age</span>,
+  <span class='kw'>weighted</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>negWeightReplace</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for catchCurve</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"both"</span>, <span class='st'>"all"</span>, <span class='st'>"Z"</span>, <span class='st'>"A"</span>,
-  <span class='st'>"lm"</span>), <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"both"</span>, <span class='st'>"all"</span>, <span class='st'>"Z"</span>, <span class='st'>"A"</span>, <span class='st'>"lm"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for catchCurve</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"Z"</span>, <span class='st'>"A"</span>,
-  <span class='st'>"lm"</span>), <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"Z"</span>, <span class='st'>"A"</span>, <span class='st'>"lm"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for catchCurve</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for catchCurve</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"Z"</span>, <span class='st'>"A"</span>,
-  <span class='st'>"lm"</span>), <span class='kw'>level</span> <span class='kw'>=</span> <span class='no'>conf.level</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(
+  <span class='no'>object</span>,
+  <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"Z"</span>, <span class='st'>"A"</span>, <span class='st'>"lm"</span>),
+  <span class='kw'>level</span> <span class='kw'>=</span> <span class='no'>conf.level</span>,
+  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for catchCurve</span>
-<span class='fu'>rSquared</span>(<span class='no'>object</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>),
-  <span class='kw'>percent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>rSquared</span>(<span class='no'>object</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>), <span class='kw'>percent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for catchCurve</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>pos.est</span> <span class='kw'>=</span> <span class='st'>"topright"</span>, <span class='kw'>cex.est</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"log(Catch)"</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Age"</span>, <span class='kw'>col.pt</span> <span class='kw'>=</span> <span class='st'>"gray30"</span>,
-  <span class='kw'>col.mdl</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(
+  <span class='no'>x</span>,
+  <span class='kw'>pos.est</span> <span class='kw'>=</span> <span class='st'>"topright"</span>,
+  <span class='kw'>cex.est</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"log(Catch)"</span>,
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Age"</span>,
+  <span class='kw'>col.pt</span> <span class='kw'>=</span> <span class='st'>"gray30"</span>,
+  <span class='kw'>col.mdl</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

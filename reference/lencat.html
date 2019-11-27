@@ -128,15 +128,34 @@
     <pre class="usage"><span class='fu'>lencat</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>lencat</span>(<span class='no'>x</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>startcat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>right</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>use.names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>as.fact</span> <span class='kw'>=</span> <span class='no'>use.names</span>,
-  <span class='kw'>droplevels</span> <span class='kw'>=</span> <span class='no'>drop.levels</span>, <span class='kw'>drop.levels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>lencat</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>startcat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>right</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>use.names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>as.fact</span> <span class='kw'>=</span> <span class='no'>use.names</span>,
+  <span class='kw'>droplevels</span> <span class='kw'>=</span> <span class='no'>drop.levels</span>,
+  <span class='kw'>drop.levels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>lencat</span>(<span class='no'>x</span>, <span class='no'>data</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>startcat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>right</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>use.names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>as.fact</span> <span class='kw'>=</span> <span class='no'>use.names</span>, <span class='kw'>droplevels</span> <span class='kw'>=</span> <span class='no'>drop.levels</span>, <span class='kw'>drop.levels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>vname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>lencat</span>(
+  <span class='no'>x</span>,
+  <span class='no'>data</span>,
+  <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>startcat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>right</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>use.names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>as.fact</span> <span class='kw'>=</span> <span class='no'>use.names</span>,
+  <span class='kw'>droplevels</span> <span class='kw'>=</span> <span class='no'>drop.levels</span>,
+  <span class='kw'>drop.levels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>vname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

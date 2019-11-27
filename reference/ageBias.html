@@ -125,29 +125,67 @@
     <p>Constructs age-agreement tables, statistical tests to detect differences, and plots to visualize potential differences in paired age estimates. Ages may be from, for example, two readers of the same structure, one reader at two times, two structures (e.g., scales, spines, otoliths), or one structure and known ages.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ageBias</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='kw'>ref.lab</span> <span class='kw'>=</span> <span class='no'>tmp</span>$<span class='no'>Enames</span>, <span class='kw'>nref.lab</span> <span class='kw'>=</span> <span class='no'>tmp</span>$<span class='no'>Rname</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/r/stats/p.adjust.html'>p.adjust.methods</a></span>, <span class='kw'>sig.level</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>min.n.CI</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+    <pre class="usage"><span class='fu'>ageBias</span>(
+  <span class='no'>formula</span>,
+  <span class='no'>data</span>,
+  <span class='kw'>ref.lab</span> <span class='kw'>=</span> <span class='no'>tmp</span>$<span class='no'>Enames</span>,
+  <span class='kw'>nref.lab</span> <span class='kw'>=</span> <span class='no'>tmp</span>$<span class='no'>Rname</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/r/stats/p.adjust.html'>p.adjust.methods</a></span>,
+  <span class='kw'>sig.level</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
+  <span class='kw'>min.n.CI</span> <span class='kw'>=</span> <span class='fl'>3</span>
+)
 
 <span class='co'># S3 method for ageBias</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"table"</span>, <span class='st'>"symmetry"</span>, <span class='st'>"Bowker"</span>,
-  <span class='st'>"EvansHoenig"</span>, <span class='st'>"McNemar"</span>, <span class='st'>"bias"</span>, <span class='st'>"diff.bias"</span>, <span class='st'>"n"</span>),
-  <span class='kw'>flip.table</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>zero.print</span> <span class='kw'>=</span> <span class='st'>"-"</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>cont.corr</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"Yates"</span>, <span class='st'>"Edwards"</span>), <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(
+  <span class='no'>object</span>,
+  <span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"table"</span>, <span class='st'>"symmetry"</span>, <span class='st'>"Bowker"</span>, <span class='st'>"EvansHoenig"</span>, <span class='st'>"McNemar"</span>, <span class='st'>"bias"</span>, <span class='st'>"diff.bias"</span>,
+    <span class='st'>"n"</span>),
+  <span class='kw'>flip.table</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>zero.print</span> <span class='kw'>=</span> <span class='st'>"-"</span>,
+  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>cont.corr</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"Yates"</span>, <span class='st'>"Edwards"</span>),
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for ageBias</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>xvals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"reference"</span>, <span class='st'>"mean"</span>),
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(
+  <span class='no'>x</span>,
+  <span class='kw'>xvals</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"reference"</span>, <span class='st'>"mean"</span>),
   <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>xvals</span> <span class='kw'>==</span> <span class='st'>"reference"</span>, <span class='no'>x</span>$<span class='no'>ref.lab</span>, <span class='st'>"Mean Age"</span>),
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>x</span>$<span class='no'>nref.lab</span>, <span class='st'>"-"</span>, <span class='no'>x</span>$<span class='no'>ref.lab</span>), <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>yaxt</span> <span class='kw'>=</span> <span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"yaxt"</span>), <span class='kw'>xaxt</span> <span class='kw'>=</span> <span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"xaxt"</span>),
-  <span class='kw'>col.agree</span> <span class='kw'>=</span> <span class='st'>"gray60"</span>, <span class='kw'>lwd.agree</span> <span class='kw'>=</span> <span class='no'>lwd</span>, <span class='kw'>lty.agree</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>sfrac</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>show.pts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pch.pts</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>cex.pts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>xHist</span>
-  <span class='kw'>|</span> <span class='no'>yHist</span>, <span class='fl'>1.5</span>, <span class='fl'>1</span>), <span class='kw'>col.pts</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>transparency</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>10</span>,
-  <span class='kw'>show.CI</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>col.CI</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>col.CIsig</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
-  <span class='kw'>lwd.CI</span> <span class='kw'>=</span> <span class='no'>lwd</span>, <span class='kw'>sfrac.CI</span> <span class='kw'>=</span> <span class='no'>sfrac</span>, <span class='kw'>show.range</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col.range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>show.CI</span>, <span class='st'>"gray70"</span>, <span class='st'>"black"</span>), <span class='kw'>lwd.range</span> <span class='kw'>=</span> <span class='no'>lwd</span>,
-  <span class='kw'>sfrac.range</span> <span class='kw'>=</span> <span class='no'>sfrac</span>, <span class='kw'>pch.mean</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>pch.mean.sig</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>show.CI</span> <span class='kw'>|</span>
-  <span class='no'>show.range</span>, <span class='fl'>21</span>, <span class='fl'>19</span>), <span class='kw'>cex.mean</span> <span class='kw'>=</span> <span class='no'>lwd</span>, <span class='kw'>yHist</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>xHist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>hist.panel.size</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>7</span>, <span class='kw'>col.hist</span> <span class='kw'>=</span> <span class='st'>"gray90"</span>, <span class='kw'>allowAdd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>x</span>$<span class='no'>nref.lab</span>, <span class='st'>"-"</span>, <span class='no'>x</span>$<span class='no'>ref.lab</span>),
+  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>yaxt</span> <span class='kw'>=</span> <span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"yaxt"</span>),
+  <span class='kw'>xaxt</span> <span class='kw'>=</span> <span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"xaxt"</span>),
+  <span class='kw'>col.agree</span> <span class='kw'>=</span> <span class='st'>"gray60"</span>,
+  <span class='kw'>lwd.agree</span> <span class='kw'>=</span> <span class='no'>lwd</span>,
+  <span class='kw'>lty.agree</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>sfrac</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>show.pts</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>pch.pts</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>cex.pts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>xHist</span> <span class='kw'>|</span> <span class='no'>yHist</span>, <span class='fl'>1.5</span>, <span class='fl'>1</span>),
+  <span class='kw'>col.pts</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>transparency</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>10</span>,
+  <span class='kw'>show.CI</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>col.CI</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>col.CIsig</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
+  <span class='kw'>lwd.CI</span> <span class='kw'>=</span> <span class='no'>lwd</span>,
+  <span class='kw'>sfrac.CI</span> <span class='kw'>=</span> <span class='no'>sfrac</span>,
+  <span class='kw'>show.range</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>col.range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>show.CI</span>, <span class='st'>"gray70"</span>, <span class='st'>"black"</span>),
+  <span class='kw'>lwd.range</span> <span class='kw'>=</span> <span class='no'>lwd</span>,
+  <span class='kw'>sfrac.range</span> <span class='kw'>=</span> <span class='no'>sfrac</span>,
+  <span class='kw'>pch.mean</span> <span class='kw'>=</span> <span class='fl'>19</span>,
+  <span class='kw'>pch.mean.sig</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>show.CI</span> <span class='kw'>|</span> <span class='no'>show.range</span>, <span class='fl'>21</span>, <span class='fl'>19</span>),
+  <span class='kw'>cex.mean</span> <span class='kw'>=</span> <span class='no'>lwd</span>,
+  <span class='kw'>yHist</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>xHist</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>hist.panel.size</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>7</span>,
+  <span class='kw'>col.hist</span> <span class='kw'>=</span> <span class='st'>"gray90"</span>,
+  <span class='kw'>allowAdd</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

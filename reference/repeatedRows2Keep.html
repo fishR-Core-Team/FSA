@@ -125,8 +125,12 @@
     <p>Finds the rows in a data.frame that are not repeats of the row immediately above or below it.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>repeatedRows2Keep</span>(<span class='no'>df</span>, <span class='kw'>cols2use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cols2ignore</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>keep</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"first"</span>, <span class='st'>"last"</span>))</pre>
+    <pre class="usage"><span class='fu'>repeatedRows2Keep</span>(
+  <span class='no'>df</span>,
+  <span class='kw'>cols2use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cols2ignore</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>keep</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"first"</span>, <span class='st'>"last"</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

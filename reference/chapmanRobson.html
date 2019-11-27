@@ -128,29 +128,49 @@
     <pre class="usage"><span class='fu'>chapmanRobson</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>chapmanRobson</span>(<span class='no'>x</span>, <span class='no'>catch</span>, <span class='kw'>ages2use</span> <span class='kw'>=</span> <span class='no'>age</span>,
-  <span class='kw'>zmethod</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Smithetal"</span>, <span class='st'>"Hoenigetal"</span>, <span class='st'>"original"</span>), <span class='no'>...</span>)
+<span class='fu'>chapmanRobson</span>(
+  <span class='no'>x</span>,
+  <span class='no'>catch</span>,
+  <span class='kw'>ages2use</span> <span class='kw'>=</span> <span class='no'>age</span>,
+  <span class='kw'>zmethod</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Smithetal"</span>, <span class='st'>"Hoenigetal"</span>, <span class='st'>"original"</span>),
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>chapmanRobson</span>(<span class='no'>x</span>, <span class='no'>data</span>, <span class='kw'>ages2use</span> <span class='kw'>=</span> <span class='no'>age</span>,
-  <span class='kw'>zmethod</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Smithetal"</span>, <span class='st'>"Hoenigetal"</span>, <span class='st'>"original"</span>), <span class='no'>...</span>)
+<span class='fu'>chapmanRobson</span>(
+  <span class='no'>x</span>,
+  <span class='no'>data</span>,
+  <span class='kw'>ages2use</span> <span class='kw'>=</span> <span class='no'>age</span>,
+  <span class='kw'>zmethod</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Smithetal"</span>, <span class='st'>"Hoenigetal"</span>, <span class='st'>"original"</span>),
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for chapmanRobson</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"Z"</span>,
-  <span class='st'>"S"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"Z"</span>, <span class='st'>"S"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for chapmanRobson</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"Z"</span>, <span class='st'>"S"</span>),
-  <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"Z"</span>, <span class='st'>"S"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for chapmanRobson</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"S"</span>,
-  <span class='st'>"Z"</span>), <span class='kw'>level</span> <span class='kw'>=</span> <span class='no'>conf.level</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(
+  <span class='no'>object</span>,
+  <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"S"</span>, <span class='st'>"Z"</span>),
+  <span class='kw'>level</span> <span class='kw'>=</span> <span class='no'>conf.level</span>,
+  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for chapmanRobson</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>pos.est</span> <span class='kw'>=</span> <span class='st'>"topright"</span>, <span class='kw'>cex.est</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Catch"</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Age"</span>, <span class='kw'>col.pt</span> <span class='kw'>=</span> <span class='st'>"gray30"</span>,
-  <span class='kw'>axis.age</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"both"</span>, <span class='st'>"age"</span>, <span class='st'>"recoded age"</span>), <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(
+  <span class='no'>x</span>,
+  <span class='kw'>pos.est</span> <span class='kw'>=</span> <span class='st'>"topright"</span>,
+  <span class='kw'>cex.est</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Catch"</span>,
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Age"</span>,
+  <span class='kw'>col.pt</span> <span class='kw'>=</span> <span class='st'>"gray30"</span>,
+  <span class='kw'>axis.age</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"both"</span>, <span class='st'>"age"</span>, <span class='st'>"recoded age"</span>),
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

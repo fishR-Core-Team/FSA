@@ -125,8 +125,13 @@
     <p>Tests for significant differences among all pairs of slopes in a dummy variable regression where the dummy variables all stem from one factor.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>compSlopes</span>(<span class='no'>mdl</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/r/stats/p.adjust.html'>p.adjust.methods</a></span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>order.slopes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>))
+    <pre class="usage"><span class='fu'>compSlopes</span>(
+  <span class='no'>mdl</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/r/stats/p.adjust.html'>p.adjust.methods</a></span>,
+  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>order.slopes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>)
+)
 
 <span class='co'># S3 method for compSlopes</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>

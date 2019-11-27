@@ -125,32 +125,48 @@
     <p>Computes the Leslie or DeLury estimates of population size and catchability coefficient from paired catch and effort data. The Ricker modification may also be used.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>depletion</span>(<span class='no'>catch</span>, <span class='no'>effort</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Leslie"</span>, <span class='st'>"DeLury"</span>, <span class='st'>"Delury"</span>),
-  <span class='kw'>Ricker.mod</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>depletion</span>(
+  <span class='no'>catch</span>,
+  <span class='no'>effort</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Leslie"</span>, <span class='st'>"DeLury"</span>, <span class='st'>"Delury"</span>),
+  <span class='kw'>Ricker.mod</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
 <span class='co'># S3 method for depletion</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"No"</span>, <span class='st'>"q"</span>,
-  <span class='st'>"lm"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"No"</span>, <span class='st'>"q"</span>, <span class='st'>"lm"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for depletion</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"No"</span>, <span class='st'>"q"</span>,
-  <span class='st'>"lm"</span>), <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"No"</span>, <span class='st'>"q"</span>, <span class='st'>"lm"</span>), <span class='no'>...</span>)
 
 <span class='co'># S3 method for depletion</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"No"</span>, <span class='st'>"q"</span>,
-  <span class='st'>"lm"</span>), <span class='kw'>level</span> <span class='kw'>=</span> <span class='no'>conf.level</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(
+  <span class='no'>object</span>,
+  <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"No"</span>, <span class='st'>"q"</span>, <span class='st'>"lm"</span>),
+  <span class='kw'>level</span> <span class='kw'>=</span> <span class='no'>conf.level</span>,
+  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for depletion</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for depletion</span>
-<span class='fu'>rSquared</span>(<span class='no'>object</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>),
-  <span class='kw'>percent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>rSquared</span>(<span class='no'>object</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>), <span class='kw'>percent</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for depletion</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>,
-  <span class='kw'>col.pt</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>col.mdl</span> <span class='kw'>=</span> <span class='st'>"gray70"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>pos.est</span> <span class='kw'>=</span> <span class='st'>"topright"</span>, <span class='kw'>cex.est</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(
+  <span class='no'>x</span>,
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>,
+  <span class='kw'>col.pt</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>col.mdl</span> <span class='kw'>=</span> <span class='st'>"gray70"</span>,
+  <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>pos.est</span> <span class='kw'>=</span> <span class='st'>"topright"</span>,
+  <span class='kw'>cex.est</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

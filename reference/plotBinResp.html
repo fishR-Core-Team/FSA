@@ -128,16 +128,27 @@
     <pre class="usage"><span class='fu'>plotBinResp</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>plotBinResp</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/deparse.html'>deparse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>substitute</a></span>(<span class='no'>x</span>))),
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/deparse.html'>deparse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>substitute</a></span>(<span class='no'>y</span>))), <span class='kw'>plot.pts</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>col.pt</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>transparency</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>plot.p</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fl'>25</span>, <span class='kw'>p.col</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>p.pch</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>p.cex</span> <span class='kw'>=</span> <span class='fl'>1.25</span>,
-  <span class='kw'>yaxis1.ticks</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.1</span>), <span class='kw'>yaxis1.lbls</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>),
-  <span class='kw'>yaxis2.show</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+<span class='fu'>plotBinResp</span>(
+  <span class='no'>x</span>,
+  <span class='no'>y</span>,
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/deparse.html'>deparse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>substitute</a></span>(<span class='no'>x</span>))),
+  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/deparse.html'>deparse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>substitute</a></span>(<span class='no'>y</span>))),
+  <span class='kw'>plot.pts</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>col.pt</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>transparency</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>plot.p</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fl'>25</span>,
+  <span class='kw'>p.col</span> <span class='kw'>=</span> <span class='st'>"blue"</span>,
+  <span class='kw'>p.pch</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>p.cex</span> <span class='kw'>=</span> <span class='fl'>1.25</span>,
+  <span class='kw'>yaxis1.ticks</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.1</span>),
+  <span class='kw'>yaxis1.lbls</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>),
+  <span class='kw'>yaxis2.show</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>plotBinResp</span>(<span class='no'>x</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>mf</span>)[<span class='fl'>2</span>],
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>mf</span>)[<span class='fl'>1</span>], <span class='no'>...</span>)</pre>
+<span class='fu'>plotBinResp</span>(<span class='no'>x</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>mf</span>)[<span class='fl'>2</span>], <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>mf</span>)[<span class='fl'>1</span>], <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
