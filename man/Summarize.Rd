@@ -8,14 +8,26 @@
 \usage{
 Summarize(object, ...)
 
-\method{Summarize}{default}(object, digits = getOption("digits"),
-  na.rm = TRUE, exclude = NULL, nvalid = c("different", "always",
-  "never"), percZero = c("different", "always", "never"), ...)
+\method{Summarize}{default}(
+  object,
+  digits = getOption("digits"),
+  na.rm = TRUE,
+  exclude = NULL,
+  nvalid = c("different", "always", "never"),
+  percZero = c("different", "always", "never"),
+  ...
+)
 
-\method{Summarize}{formula}(object, data = NULL,
-  digits = getOption("digits"), na.rm = TRUE, exclude = NULL,
-  nvalid = c("different", "always", "never"), percZero = c("different",
-  "always", "never"), ...)
+\method{Summarize}{formula}(
+  object,
+  data = NULL,
+  digits = getOption("digits"),
+  na.rm = TRUE,
+  exclude = NULL,
+  nvalid = c("different", "always", "never"),
+  percZero = c("different", "always", "never"),
+  ...
+)
 }
 \arguments{
 \item{object}{A vector of numeric data.}

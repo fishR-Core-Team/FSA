@@ -4,8 +4,12 @@
 \alias{repeatedRows2Keep}
 \title{Find non-repeated consecutive rows in a data.frame.}
 \usage{
-repeatedRows2Keep(df, cols2use = NULL, cols2ignore = NULL,
-  keep = c("first", "last"))
+repeatedRows2Keep(
+  df,
+  cols2use = NULL,
+  cols2ignore = NULL,
+  keep = c("first", "last")
+)
 }
 \arguments{
 \item{df}{A data.frame.}

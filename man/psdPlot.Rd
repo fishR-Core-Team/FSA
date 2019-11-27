@@ -4,12 +4,30 @@
 \alias{psdPlot}
 \title{Length-frequency histogram with Gabelhouse lengths highlighted.}
 \usage{
-psdPlot(formula, data, species = "List", units = c("mm", "cm", "in"),
-  startcat = 0, w = 1, justPSDQ = FALSE, main = "",
-  xlab = "Length", ylab = "Number", xlim = NULL, ylim = c(0,
-  max(h$counts)), substock.col = "white", stock.col = "gray90",
-  psd.col = "black", psd.lty = 2, psd.lwd = 1, show.abbrevs = TRUE,
-  psd.add = TRUE, psd.pos = "topleft", psd.cex = 0.75, ...)
+psdPlot(
+  formula,
+  data,
+  species = "List",
+  units = c("mm", "cm", "in"),
+  startcat = 0,
+  w = 1,
+  justPSDQ = FALSE,
+  main = "",
+  xlab = "Length",
+  ylab = "Number",
+  xlim = NULL,
+  ylim = c(0, max(h$counts)),
+  substock.col = "white",
+  stock.col = "gray90",
+  psd.col = "black",
+  psd.lty = 2,
+  psd.lwd = 1,
+  show.abbrevs = TRUE,
+  psd.add = TRUE,
+  psd.pos = "topleft",
+  psd.cex = 0.75,
+  ...
+)
 }
 \arguments{
 \item{formula}{A formula of the form \code{~length} where \dQuote{length} generically represents a variable in \code{data} that contains length measurements. Note that this formula can only contain one variable.}

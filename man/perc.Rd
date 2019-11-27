@@ -4,8 +4,13 @@
 \alias{perc}
 \title{Computes the percentage of values in a vector less than or greater than (and equal to) some value.}
 \usage{
-perc(x, val, dir = c("geq", "gt", "leq", "lt"), na.rm = TRUE,
-  digits = getOption("digits"))
+perc(
+  x,
+  val,
+  dir = c("geq", "gt", "leq", "lt"),
+  na.rm = TRUE,
+  digits = getOption("digits")
+)
 }
 \arguments{
 \item{x}{A numeric vector.}

@@ -4,8 +4,7 @@
 \alias{hoCoef}
 \title{Performs a hypothesis test that a linear model parameter is equal to a specific value.}
 \usage{
-hoCoef(object, term = 2, bo = 0, alt = c("two.sided", "less",
-  "greater"))
+hoCoef(object, term = 2, bo = 0, alt = c("two.sided", "less", "greater"))
 }
 \arguments{
 \item{object}{A \code{lm} object.}

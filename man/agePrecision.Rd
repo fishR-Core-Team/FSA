@@ -8,9 +8,15 @@
 \usage{
 agePrecision(formula, data)
 
-\method{summary}{agePrec}(object, what = c("precision", "difference",
-  "absolute difference", "details"), percent = TRUE, trunc.diff = NULL,
-  digits = 4, show.prec2 = FALSE, ...)
+\method{summary}{agePrec}(
+  object,
+  what = c("precision", "difference", "absolute difference", "details"),
+  percent = TRUE,
+  trunc.diff = NULL,
+  digits = 4,
+  show.prec2 = FALSE,
+  ...
+)
 }
 \arguments{
 \item{formula}{A formula of the form \code{~var1+var2+var3+...} or, alternatively, \code{var1~var2+var3+...}, where the \code{varX} generically represent the variables that contain the age estimates. The alternative formula allows for similar code as used in \code{\link{ageBias}} and can have only one variable on the left-hand side.}

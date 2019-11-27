@@ -3,7 +3,6 @@
 \docType{package}
 \name{FSA}
 \alias{FSA}
-\alias{FSA-package}
 \title{Fisheries stock assessment methods and data.}
 \description{
 Functions to support basic fisheries stock assessment methods.

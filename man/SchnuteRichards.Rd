@@ -4,8 +4,7 @@
 \alias{SchnuteRichards}
 \title{The five-parameter growth function from Schnute and Richards (1990).}
 \usage{
-SchnuteRichards(t, Linf = NULL, k = NULL, a = NULL, b = NULL,
-  c = NULL)
+SchnuteRichards(t, Linf = NULL, k = NULL, a = NULL, b = NULL, c = NULL)
 }
 \arguments{
 \item{t}{A numeric vector of ages over which to model growth.}

@@ -16,48 +16,117 @@ residPlot(object, ...)
 
 \method{residPlot}{lm}(object, ...)
 
-\method{residPlot}{SLR}(object, xlab = "Fitted Values",
-  ylab = "Residuals", main = "", pch = 16, col = "black",
-  lty.ref = 3, lwd.ref = 1, col.ref = "black",
+\method{residPlot}{SLR}(
+  object,
+  xlab = "Fitted Values",
+  ylab = "Residuals",
+  main = "",
+  pch = 16,
+  col = "black",
+  lty.ref = 3,
+  lwd.ref = 1,
+  col.ref = "black",
   resid.type = c("raw", "standardized", "studentized"),
-  outlier.test = TRUE, alpha = 0.05, loess = FALSE, lty.loess = 2,
-  lwd.loess = 1, col.loess = "black", trans.loess = 8,
-  inclHist = TRUE, ...)
+  outlier.test = TRUE,
+  alpha = 0.05,
+  loess = FALSE,
+  lty.loess = 2,
+  lwd.loess = 1,
+  col.loess = "black",
+  trans.loess = 8,
+  inclHist = TRUE,
+  ...
+)
 
 \method{residPlot}{POLY}(object, ...)
 
-\method{residPlot}{IVR}(object, legend = "topright", cex.leg = 1,
-  box.lty.leg = 0, ...)
+\method{residPlot}{IVR}(object, legend = "topright", cex.leg = 1, box.lty.leg = 0, ...)
 
-\method{residPlot}{ONEWAY}(object, xlab = "Fitted Values",
-  ylab = "Residuals", main = "", pch = 16, col = "black",
-  lty.ref = 3, lwd.ref = 1, col.ref = "black",
-  resid.type = c("raw", "standardized", "studentized"), bp = TRUE,
-  outlier.test = TRUE, alpha = 0.05, loess = FALSE, lty.loess = 2,
-  lwd.loess = 1, col.loess = "black", trans.loess = 8,
-  inclHist = TRUE, ...)
+\method{residPlot}{ONEWAY}(
+  object,
+  xlab = "Fitted Values",
+  ylab = "Residuals",
+  main = "",
+  pch = 16,
+  col = "black",
+  lty.ref = 3,
+  lwd.ref = 1,
+  col.ref = "black",
+  resid.type = c("raw", "standardized", "studentized"),
+  bp = TRUE,
+  outlier.test = TRUE,
+  alpha = 0.05,
+  loess = FALSE,
+  lty.loess = 2,
+  lwd.loess = 1,
+  col.loess = "black",
+  trans.loess = 8,
+  inclHist = TRUE,
+  ...
+)
 
-\method{residPlot}{TWOWAY}(object, xlab = "Fitted Values",
-  ylab = "Residuals", main = "", pch = 16, col = "black",
-  lty.ref = 3, lwd.ref = 1, col.ref = "black",
-  resid.type = c("raw", "standardized", "studentized"), bp = TRUE,
-  outlier.test = TRUE, alpha = 0.05, loess = FALSE, lty.loess = 2,
-  lwd.loess = 1, col.loess = "black", trans.loess = 8,
-  inclHist = TRUE, ...)
+\method{residPlot}{TWOWAY}(
+  object,
+  xlab = "Fitted Values",
+  ylab = "Residuals",
+  main = "",
+  pch = 16,
+  col = "black",
+  lty.ref = 3,
+  lwd.ref = 1,
+  col.ref = "black",
+  resid.type = c("raw", "standardized", "studentized"),
+  bp = TRUE,
+  outlier.test = TRUE,
+  alpha = 0.05,
+  loess = FALSE,
+  lty.loess = 2,
+  lwd.loess = 1,
+  col.loess = "black",
+  trans.loess = 8,
+  inclHist = TRUE,
+  ...
+)
 
-\method{residPlot}{nls}(object, xlab = "Fitted Values",
-  ylab = "Residuals", main = "", pch = 16, col = "black",
-  lty.ref = 3, lwd.ref = 1, col.ref = "black",
-  resid.type = c("raw", "standardized", "studentized"), loess = FALSE,
-  lty.loess = 2, lwd.loess = 1, col.loess = "black",
-  trans.loess = 8, inclHist = TRUE, ...)
+\method{residPlot}{nls}(
+  object,
+  xlab = "Fitted Values",
+  ylab = "Residuals",
+  main = "",
+  pch = 16,
+  col = "black",
+  lty.ref = 3,
+  lwd.ref = 1,
+  col.ref = "black",
+  resid.type = c("raw", "standardized", "studentized"),
+  loess = FALSE,
+  lty.loess = 2,
+  lwd.loess = 1,
+  col.loess = "black",
+  trans.loess = 8,
+  inclHist = TRUE,
+  ...
+)
 
-\method{residPlot}{nlme}(object, xlab = "Fitted Values",
-  ylab = "Residuals", main = "", pch = 16, col = "black",
-  lty.ref = 3, lwd.ref = 1, col.ref = "black",
-  resid.type = c("raw", "standardized", "studentized"), loess = FALSE,
-  lty.loess = 2, lwd.loess = 1, col.loess = "black",
-  trans.loess = 8, inclHist = TRUE, ...)
+\method{residPlot}{nlme}(
+  object,
+  xlab = "Fitted Values",
+  ylab = "Residuals",
+  main = "",
+  pch = 16,
+  col = "black",
+  lty.ref = 3,
+  lwd.ref = 1,
+  col.ref = "black",
+  resid.type = c("raw", "standardized", "studentized"),
+  loess = FALSE,
+  lty.loess = 2,
+  lwd.loess = 1,
+  col.loess = "black",
+  trans.loess = 8,
+  inclHist = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{An \code{lm} or \code{nls} object (i.e., returned from fitting a model with either \code{lm} or \code{nls}).}

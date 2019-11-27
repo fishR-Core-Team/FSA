@@ -12,24 +12,44 @@
 \usage{
 chapmanRobson(x, ...)
 
-\method{chapmanRobson}{default}(x, catch, ages2use = age,
-  zmethod = c("Smithetal", "Hoenigetal", "original"), ...)
+\method{chapmanRobson}{default}(
+  x,
+  catch,
+  ages2use = age,
+  zmethod = c("Smithetal", "Hoenigetal", "original"),
+  ...
+)
 
-\method{chapmanRobson}{formula}(x, data, ages2use = age,
-  zmethod = c("Smithetal", "Hoenigetal", "original"), ...)
+\method{chapmanRobson}{formula}(
+  x,
+  data,
+  ages2use = age,
+  zmethod = c("Smithetal", "Hoenigetal", "original"),
+  ...
+)
 
-\method{summary}{chapmanRobson}(object, parm = c("all", "both", "Z",
-  "S"), verbose = FALSE, ...)
+\method{summary}{chapmanRobson}(object, parm = c("all", "both", "Z", "S"), verbose = FALSE, ...)
 
-\method{coef}{chapmanRobson}(object, parm = c("all", "both", "Z", "S"),
-  ...)
+\method{coef}{chapmanRobson}(object, parm = c("all", "both", "Z", "S"), ...)
 
-\method{confint}{chapmanRobson}(object, parm = c("all", "both", "S",
-  "Z"), level = conf.level, conf.level = 0.95, ...)
+\method{confint}{chapmanRobson}(
+  object,
+  parm = c("all", "both", "S", "Z"),
+  level = conf.level,
+  conf.level = 0.95,
+  ...
+)
 
-\method{plot}{chapmanRobson}(x, pos.est = "topright", cex.est = 0.95,
-  ylab = "Catch", xlab = "Age", col.pt = "gray30",
-  axis.age = c("both", "age", "recoded age"), ...)
+\method{plot}{chapmanRobson}(
+  x,
+  pos.est = "topright",
+  cex.est = 0.95,
+  ylab = "Catch",
+  xlab = "Age",
+  col.pt = "gray30",
+  axis.age = c("both", "age", "recoded age"),
+  ...
+)
 }
 \arguments{
 \item{x}{A numerical vector of the assigned ages in the catch curve or a formula of the form \code{catch~age} when used in \code{chapmanRobson}. An object saved from \code{chapmanRobson} (i.e., of class \code{chapmanRobson}) when used in the methods.}

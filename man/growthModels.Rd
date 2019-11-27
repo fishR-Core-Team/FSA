@@ -9,25 +9,39 @@
 \alias{growthFunShow}
 \title{Creates a function for a specific parameterization of the von Bertalanffy, Gompertz, Richards, and logistic growth functions.}
 \usage{
-vbFuns(param = c("Typical", "typical", "Traditional", "traditional",
-  "BevertonHolt", "Original", "original", "vonBertalanffy", "GQ",
-  "GallucciQuinn", "Mooij", "Weisberg", "Ogle", "Schnute", "Francis",
-  "Laslett", "Polacheck", "Somers", "Somers2", "Pauly", "Fabens",
-  "Fabens2", "Wang", "Wang2", "Wang3", "Francis2", "Francis3"),
-  simple = FALSE, msg = FALSE)
+vbFuns(
+  param = c("Typical", "typical", "Traditional", "traditional", "BevertonHolt",
+    "Original", "original", "vonBertalanffy", "GQ", "GallucciQuinn", "Mooij", "Weisberg",
+    "Ogle", "Schnute", "Francis", "Laslett", "Polacheck", "Somers", "Somers2", "Pauly",
+    "Fabens", "Fabens2", "Wang", "Wang2", "Wang3", "Francis2", "Francis3"),
+  simple = FALSE,
+  msg = FALSE
+)
 
-GompertzFuns(param = c("Ricker1", "Ricker2", "Ricker3", "QuinnDeriso1",
-  "QuinnDeriso2", "QuinnDeriso3", "QD1", "QD2", "QD3", "Original",
-  "original", "Troynikov1", "Troynikov2"), simple = FALSE, msg = FALSE)
+GompertzFuns(
+  param = c("Ricker1", "Ricker2", "Ricker3", "QuinnDeriso1", "QuinnDeriso2",
+    "QuinnDeriso3", "QD1", "QD2", "QD3", "Original", "original", "Troynikov1",
+    "Troynikov2"),
+  simple = FALSE,
+  msg = FALSE
+)
 
 RichardsFuns(param = 1, simple = FALSE, msg = FALSE)
 
-logisticFuns(param = c("CJ1", "CJ2", "Karkach", "Haddon",
-  "CampanaJones1", "CampanaJones2"), simple = FALSE, msg = FALSE)
+logisticFuns(
+  param = c("CJ1", "CJ2", "Karkach", "Haddon", "CampanaJones1", "CampanaJones2"),
+  simple = FALSE,
+  msg = FALSE
+)
 
-growthFunShow(type = c("vonBertalanffy", "Gompertz", "Richards",
-  "Logistic", "Schnute", "SchnuteRichards"), param = NULL,
-  case = param, plot = FALSE, ...)
+growthFunShow(
+  type = c("vonBertalanffy", "Gompertz", "Richards", "Logistic", "Schnute",
+    "SchnuteRichards"),
+  param = NULL,
+  case = param,
+  plot = FALSE,
+  ...
+)
 }
 \arguments{
 \item{param}{A string (for von Bertalanffy, Gompertz, and logistic) or numeric (for Richards) that indicates the specific parameterization of the growth function. See details.}

@@ -4,8 +4,7 @@
 \alias{fishR}
 \title{Opens web pages associated with the fishR website.}
 \usage{
-fishR(where = c("home", "IFAR", "general", "books", "AIFFD", "posts",
-  "news"))
+fishR(where = c("home", "IFAR", "general", "books", "AIFFD", "posts", "news"))
 }
 \arguments{
 \item{where}{A string that indicates a particular page on the fishR website to open.}

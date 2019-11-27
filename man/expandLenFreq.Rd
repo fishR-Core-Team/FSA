@@ -4,8 +4,16 @@
 \alias{expandLenFreq}
 \title{Expands a length frequency based on a subsample.}
 \usage{
-expandLenFreq(x, w, additional, startcat = NULL, total = additional +
-  length(x), decimals = decs$wdec, show.summary = TRUE, ...)
+expandLenFreq(
+  x,
+  w,
+  additional,
+  startcat = NULL,
+  total = additional + length(x),
+  decimals = decs$wdec,
+  show.summary = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{A numeric vector of length measurements.}

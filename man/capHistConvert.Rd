@@ -4,12 +4,19 @@
 \alias{capHistConvert}
 \title{Convert between capture history data.frame formats.}
 \usage{
-capHistConvert(df, cols2use = NULL, cols2ignore = NULL,
-  in.type = c("frequency", "event", "individual", "MARK", "marked",
-  "RMark"), out.type = c("individual", "event", "frequency", "MARK",
-  "marked", "RMark"), id = NULL, event.ord = NULL, freq = NULL,
-  var.lbls = NULL, var.lbls.pre = "event",
-  include.id = ifelse(is.null(id), FALSE, TRUE))
+capHistConvert(
+  df,
+  cols2use = NULL,
+  cols2ignore = NULL,
+  in.type = c("frequency", "event", "individual", "MARK", "marked", "RMark"),
+  out.type = c("individual", "event", "frequency", "MARK", "marked", "RMark"),
+  id = NULL,
+  event.ord = NULL,
+  freq = NULL,
+  var.lbls = NULL,
+  var.lbls.pre = "event",
+  include.id = ifelse(is.null(id), FALSE, TRUE)
+)
 }
 \arguments{
 \item{df}{A data.frame that contains the capture histories and, perhaps, a unique fish identifier or frequency variable. See details.}

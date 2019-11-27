@@ -4,10 +4,21 @@
 \alias{srStarts}
 \title{Finds reasonable starting values for parameters in specific parameterizations of common stock-recruitment models.}
 \usage{
-srStarts(formula, data = NULL, type = c("BevertonHolt", "Ricker",
-  "Shepherd", "SailaLorda", "independence"), param = 1, fixed = NULL,
-  plot = FALSE, col.mdl = "gray70", lwd.mdl = 3, lty.mdl = 1,
-  cex.main = 0.9, col.main = "red", dynamicPlot = FALSE, ...)
+srStarts(
+  formula,
+  data = NULL,
+  type = c("BevertonHolt", "Ricker", "Shepherd", "SailaLorda", "independence"),
+  param = 1,
+  fixed = NULL,
+  plot = FALSE,
+  col.mdl = "gray70",
+  lwd.mdl = 3,
+  lty.mdl = 1,
+  cex.main = 0.9,
+  col.main = "red",
+  dynamicPlot = FALSE,
+  ...
+)
 }
 \arguments{
 \item{formula}{A formula of the form \code{Recruits~Stock}.}

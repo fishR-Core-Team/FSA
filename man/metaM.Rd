@@ -8,9 +8,19 @@
 \usage{
 Mmethods(what = c("all", "tmax", "K", "Hoenig", "Pauly"))
 
-metaM(method = Mmethods(), justM = TRUE, tmax = NULL, K = NULL,
-  Linf = NULL, t0 = NULL, b = NULL, L = NULL, Temp = NULL,
-  t50 = NULL, Winf = NULL)
+metaM(
+  method = Mmethods(),
+  justM = TRUE,
+  tmax = NULL,
+  K = NULL,
+  Linf = NULL,
+  t0 = NULL,
+  b = NULL,
+  L = NULL,
+  Temp = NULL,
+  t50 = NULL,
+  Winf = NULL
+)
 
 \method{print}{metaM}(x, digits = 4, ...)
 }

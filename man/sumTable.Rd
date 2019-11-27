@@ -7,8 +7,7 @@
 \usage{
 sumTable(formula, ...)
 
-\method{sumTable}{formula}(formula, data = NULL, FUN = mean,
-  digits = getOption("digits"), ...)
+\method{sumTable}{formula}(formula, data = NULL, FUN = mean, digits = getOption("digits"), ...)
 }
 \arguments{
 \item{formula}{A formula with a quantitative variable on the left-hand-side and one or two factor variables on the right-hand-side. See details.}

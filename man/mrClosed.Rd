@@ -9,30 +9,68 @@
 \alias{plot.mrClosed2}
 \title{Estimate initial population size for single or multiple census mark-recapture data.}
 \usage{
-mrClosed(M = NULL, n = NULL, m = NULL, R = NULL,
+mrClosed(
+  M = NULL,
+  n = NULL,
+  m = NULL,
+  R = NULL,
   method = c("Petersen", "Chapman", "Ricker", "Bailey", "Schnabel",
-  "SchumacherEschmeyer"), labels = NULL, chapman.mod = TRUE)
+    "SchumacherEschmeyer"),
+  labels = NULL,
+  chapman.mod = TRUE
+)
 
-\method{summary}{mrClosed1}(object, digits = 0, incl.SE = FALSE,
-  incl.all = TRUE, verbose = FALSE, ...)
+\method{summary}{mrClosed1}(
+  object,
+  digits = 0,
+  incl.SE = FALSE,
+  incl.all = TRUE,
+  verbose = FALSE,
+  ...
+)
 
-\method{confint}{mrClosed1}(object, parm = NULL, level = conf.level,
-  conf.level = 0.95, digits = 0, type = c("suggested", "binomial",
-  "hypergeometric", "normal", "Poisson"), bin.type = c("wilson", "exact",
-  "asymptotic"), poi.type = c("exact", "daly", "byar", "asymptotic"),
-  incl.all = TRUE, verbose = FALSE, ...)
+\method{confint}{mrClosed1}(
+  object,
+  parm = NULL,
+  level = conf.level,
+  conf.level = 0.95,
+  digits = 0,
+  type = c("suggested", "binomial", "hypergeometric", "normal", "Poisson"),
+  bin.type = c("wilson", "exact", "asymptotic"),
+  poi.type = c("exact", "daly", "byar", "asymptotic"),
+  incl.all = TRUE,
+  verbose = FALSE,
+  ...
+)
 
 \method{summary}{mrClosed2}(object, digits = 0, verbose = FALSE, ...)
 
-\method{confint}{mrClosed2}(object, parm = NULL, level = conf.level,
-  conf.level = 0.95, digits = 0, type = c("suggested", "normal",
-  "Poisson"), poi.type = c("exact", "daly", "byar", "asymptotic"),
-  verbose = FALSE, ...)
+\method{confint}{mrClosed2}(
+  object,
+  parm = NULL,
+  level = conf.level,
+  conf.level = 0.95,
+  digits = 0,
+  type = c("suggested", "normal", "Poisson"),
+  poi.type = c("exact", "daly", "byar", "asymptotic"),
+  verbose = FALSE,
+  ...
+)
 
-\method{plot}{mrClosed2}(x, pch = 19, col.pt = "black",
-  xlab = "Marked in Population", ylab = "Prop. Recaptures in Sample",
-  loess = FALSE, lty.loess = 2, lwd.loess = 1,
-  col.loess = "gray20", trans.loess = 10, span = 0.9, ...)
+\method{plot}{mrClosed2}(
+  x,
+  pch = 19,
+  col.pt = "black",
+  xlab = "Marked in Population",
+  ylab = "Prop. Recaptures in Sample",
+  loess = FALSE,
+  lty.loess = 2,
+  lwd.loess = 1,
+  col.loess = "gray20",
+  trans.loess = 10,
+  span = 0.9,
+  ...
+)
 }
 \arguments{
 \item{M}{A numeric representing the number of marked fish from the first sample (single-census), an object from \code{capHistSum()} (single- or multiple-census), or numeric vector of marked fish prior to ith samples (multiple-census).}

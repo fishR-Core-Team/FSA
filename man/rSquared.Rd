@@ -10,8 +10,7 @@ rSquared(object, ...)
 
 \method{rSquared}{default}(object, ...)
 
-\method{rSquared}{lm}(object, digits = getOption("digits"),
-  percent = FALSE, ...)
+\method{rSquared}{lm}(object, digits = getOption("digits"), percent = FALSE, ...)
 }
 \arguments{
 \item{object}{An object saved from \code{lm}.}

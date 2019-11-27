@@ -5,8 +5,13 @@
 \alias{print.compSlopes}
 \title{Tests for significant differences among all pairs of slopes in a dummy variable regression (DVR).}
 \usage{
-compSlopes(mdl, method = stats::p.adjust.methods, conf.level = 0.95,
-  order.slopes = TRUE, digits = getOption("digits"))
+compSlopes(
+  mdl,
+  method = stats::p.adjust.methods,
+  conf.level = 0.95,
+  order.slopes = TRUE,
+  digits = getOption("digits")
+)
 
 \method{print}{compSlopes}(x, ...)
 }

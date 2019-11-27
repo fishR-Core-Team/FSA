@@ -4,12 +4,25 @@
 \alias{alkPlot}
 \title{Plots to visualize age-length keys.}
 \usage{
-alkPlot(key, type = c("barplot", "area", "lines", "splines", "bubble"),
-  xlab = "Length", ylab = ifelse(type != "bubble", "Proportion",
-  "Age"), xlim = NULL, ylim = NULL, showLegend = FALSE,
-  lbl.cex = 1.25, leg.cex = 1, lwd = 2, span = 0.25,
-  pal = paletteChoices(), grid = TRUE, col = "gray80", buf = 0.45,
-  add = FALSE, ...)
+alkPlot(
+  key,
+  type = c("barplot", "area", "lines", "splines", "bubble"),
+  xlab = "Length",
+  ylab = ifelse(type != "bubble", "Proportion", "Age"),
+  xlim = NULL,
+  ylim = NULL,
+  showLegend = FALSE,
+  lbl.cex = 1.25,
+  leg.cex = 1,
+  lwd = 2,
+  span = 0.25,
+  pal = paletteChoices(),
+  grid = TRUE,
+  col = "gray80",
+  buf = 0.45,
+  add = FALSE,
+  ...
+)
 }
 \arguments{
 \item{key}{A numeric matrix that contains the age-length key.}

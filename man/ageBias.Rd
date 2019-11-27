@@ -6,27 +6,65 @@
 \alias{summary.ageBias}
 \title{Compute and view possible differences between paired sets of ages.}
 \usage{
-ageBias(formula, data, ref.lab = tmp$Enames, nref.lab = tmp$Rname,
-  method = stats::p.adjust.methods, sig.level = 0.05, min.n.CI = 3)
+ageBias(
+  formula,
+  data,
+  ref.lab = tmp$Enames,
+  nref.lab = tmp$Rname,
+  method = stats::p.adjust.methods,
+  sig.level = 0.05,
+  min.n.CI = 3
+)
 
-\method{summary}{ageBias}(object, what = c("table", "symmetry", "Bowker",
-  "EvansHoenig", "McNemar", "bias", "diff.bias", "n"),
-  flip.table = FALSE, zero.print = "-", digits = 3,
-  cont.corr = c("none", "Yates", "Edwards"), ...)
+\method{summary}{ageBias}(
+  object,
+  what = c("table", "symmetry", "Bowker", "EvansHoenig", "McNemar", "bias", "diff.bias",
+    "n"),
+  flip.table = FALSE,
+  zero.print = "-",
+  digits = 3,
+  cont.corr = c("none", "Yates", "Edwards"),
+  ...
+)
 
-\method{plot}{ageBias}(x, xvals = c("reference", "mean"),
+\method{plot}{ageBias}(
+  x,
+  xvals = c("reference", "mean"),
   xlab = ifelse(xvals == "reference", x$ref.lab, "Mean Age"),
-  ylab = paste(x$nref.lab, "-", x$ref.lab), xlim = NULL, ylim = NULL,
-  yaxt = graphics::par("yaxt"), xaxt = graphics::par("xaxt"),
-  col.agree = "gray60", lwd.agree = lwd, lty.agree = 2, lwd = 1,
-  sfrac = 0, show.pts = NULL, pch.pts = 20, cex.pts = ifelse(xHist
-  | yHist, 1.5, 1), col.pts = "black", transparency = 1/10,
-  show.CI = FALSE, col.CI = "black", col.CIsig = "red",
-  lwd.CI = lwd, sfrac.CI = sfrac, show.range = NULL,
-  col.range = ifelse(show.CI, "gray70", "black"), lwd.range = lwd,
-  sfrac.range = sfrac, pch.mean = 19, pch.mean.sig = ifelse(show.CI |
-  show.range, 21, 19), cex.mean = lwd, yHist = TRUE, xHist = NULL,
-  hist.panel.size = 1/7, col.hist = "gray90", allowAdd = FALSE, ...)
+  ylab = paste(x$nref.lab, "-", x$ref.lab),
+  xlim = NULL,
+  ylim = NULL,
+  yaxt = graphics::par("yaxt"),
+  xaxt = graphics::par("xaxt"),
+  col.agree = "gray60",
+  lwd.agree = lwd,
+  lty.agree = 2,
+  lwd = 1,
+  sfrac = 0,
+  show.pts = NULL,
+  pch.pts = 20,
+  cex.pts = ifelse(xHist | yHist, 1.5, 1),
+  col.pts = "black",
+  transparency = 1/10,
+  show.CI = FALSE,
+  col.CI = "black",
+  col.CIsig = "red",
+  lwd.CI = lwd,
+  sfrac.CI = sfrac,
+  show.range = NULL,
+  col.range = ifelse(show.CI, "gray70", "black"),
+  lwd.range = lwd,
+  sfrac.range = sfrac,
+  pch.mean = 19,
+  pch.mean.sig = ifelse(show.CI | show.range, 21, 19),
+  cex.mean = lwd,
+  yHist = TRUE,
+  xHist = NULL,
+  hist.panel.size = 1/7,
+  col.hist = "gray90",
+  allowAdd = FALSE,
+  ...
+)
 }
 \arguments{
 \item{formula}{A formula of the form \code{nrefvar~refvar}, where \code{nrefvar} and \code{refvar} generically represent variables that contain the paired \dQuote{nonreference} and \dQuote{reference} age estimates, respectively. See details.}

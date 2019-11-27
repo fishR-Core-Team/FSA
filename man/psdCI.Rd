@@ -4,9 +4,16 @@
 \alias{psdCI}
 \title{Compute confidence intervals for PSD-X and PSD X-Y values.}
 \usage{
-psdCI(indvec, ptbl, n, method = c("binomial", "multinomial"),
-  bin.type = c("wilson", "exact", "asymptotic"), conf.level = 0.95,
-  label = NULL, digits = 1)
+psdCI(
+  indvec,
+  ptbl,
+  n,
+  method = c("binomial", "multinomial"),
+  bin.type = c("wilson", "exact", "asymptotic"),
+  conf.level = 0.95,
+  label = NULL,
+  digits = 1
+)
 }
 \arguments{
 \item{indvec}{A numeric vector of 0s and 1s that identify the linear combination of proportions from \code{ptbl} that the user is interested in. See details.}

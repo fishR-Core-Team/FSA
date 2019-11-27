@@ -4,12 +4,26 @@
 \alias{hist.formula}
 \title{Creates separate histograms by levels.}
 \usage{
-\method{hist}{formula}(formula, data = NULL, main = "",
-  right = FALSE, pre.main = "", xlab = NULL, ylab = "Frequency",
-  same.breaks = TRUE, breaks = "Sturges", w = NULL,
-  same.ylim = TRUE, ymax = NULL, col = "gray90",
-  nrow = round(sqrt(num)), ncol = ceiling(sqrt(num)), byrow = TRUE,
-  iaxs = TRUE, ...)
+\method{hist}{formula}(
+  formula,
+  data = NULL,
+  main = "",
+  right = FALSE,
+  pre.main = "",
+  xlab = NULL,
+  ylab = "Frequency",
+  same.breaks = TRUE,
+  breaks = "Sturges",
+  w = NULL,
+  same.ylim = TRUE,
+  ymax = NULL,
+  col = "gray90",
+  nrow = round(sqrt(num)),
+  ncol = ceiling(sqrt(num)),
+  byrow = TRUE,
+  iaxs = TRUE,
+  ...
+)
 }
 \arguments{
 \item{formula}{A formula. See details.}

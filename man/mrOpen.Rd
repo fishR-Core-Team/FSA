@@ -9,14 +9,24 @@
 \usage{
 jolly(...)
 
-mrOpen(mb.top, mb.bot = NULL, type = c("Jolly", "Manly"),
-  conf.level = 0.95, phi.full = TRUE)
+mrOpen(
+  mb.top,
+  mb.bot = NULL,
+  type = c("Jolly", "Manly"),
+  conf.level = 0.95,
+  phi.full = TRUE
+)
 
-\method{summary}{mrOpen}(object, parm = c("N", "phi", "B", "M"),
-  verbose = FALSE, ...)
+\method{summary}{mrOpen}(object, parm = c("N", "phi", "B", "M"), verbose = FALSE, ...)
 
-\method{confint}{mrOpen}(object, parm = c("N", "phi", "B"),
-  level = NULL, conf.level = NULL, verbose = FALSE, ...)
+\method{confint}{mrOpen}(
+  object,
+  parm = c("N", "phi", "B"),
+  level = NULL,
+  conf.level = NULL,
+  verbose = FALSE,
+  ...
+)
 }
 \arguments{
 \item{\dots}{Additional arguments for methods.}

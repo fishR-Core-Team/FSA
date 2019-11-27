@@ -4,15 +4,29 @@
 \alias{vbStarts}
 \title{Find reasonable starting values for a von Bertalanffy growth function.}
 \usage{
-vbStarts(formula, data = NULL, param = c("Typical", "typical",
-  "Traditional", "traditional", "BevertonHolt", "Original", "original",
-  "vonBertalanffy", "GQ", "GallucciQuinn", "Mooij", "Weisberg", "Ogle",
-  "Schnute", "Francis", "Somers", "Somers2", "Pauly"), type = param,
-  fixed = NULL, meth0 = c("yngAge", "poly"), methLinf = c("Walford",
-  "oldAge", "longFish"), num4Linf = 1, ages2use = NULL,
-  methEV = c("means", "poly"), valOgle = NULL, plot = FALSE,
-  col.mdl = "gray70", lwd.mdl = 3, lty.mdl = 1, cex.main = 0.9,
-  col.main = "red", dynamicPlot = FALSE, ...)
+vbStarts(
+  formula,
+  data = NULL,
+  param = c("Typical", "typical", "Traditional", "traditional", "BevertonHolt",
+    "Original", "original", "vonBertalanffy", "GQ", "GallucciQuinn", "Mooij", "Weisberg",
+    "Ogle", "Schnute", "Francis", "Somers", "Somers2", "Pauly"),
+  type = param,
+  fixed = NULL,
+  meth0 = c("yngAge", "poly"),
+  methLinf = c("Walford", "oldAge", "longFish"),
+  num4Linf = 1,
+  ages2use = NULL,
+  methEV = c("means", "poly"),
+  valOgle = NULL,
+  plot = FALSE,
+  col.mdl = "gray70",
+  lwd.mdl = 3,
+  lty.mdl = 1,
+  cex.main = 0.9,
+  col.main = "red",
+  dynamicPlot = FALSE,
+  ...
+)
 }
 \arguments{
 \item{formula}{A formula of the form \code{len~age}.}

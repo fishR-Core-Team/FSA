@@ -4,8 +4,13 @@
 \alias{alkMeanVar}
 \title{Mean Values-at-age from an age-length key}
 \usage{
-alkMeanVar(key, formula, data, len.n, method = c("BettoliMiranda",
-  "QuinnDeriso"))
+alkMeanVar(
+  key,
+  formula,
+  data,
+  len.n,
+  method = c("BettoliMiranda", "QuinnDeriso")
+)
 }
 \arguments{
 \item{key}{A numeric matrix that contains the age-length key. See details.}

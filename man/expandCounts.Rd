@@ -4,8 +4,17 @@
 \alias{expandCounts}
 \title{Repeat individual fish data (including lengths) from tallied counts.}
 \usage{
-expandCounts(data, cform, lform = NULL, removeCount = TRUE,
-  lprec = 0.1, new.name = "newlen", cwid = 0, verbose = TRUE, ...)
+expandCounts(
+  data,
+  cform,
+  lform = NULL,
+  removeCount = TRUE,
+  lprec = 0.1,
+  new.name = "newlen",
+  cwid = 0,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{data}{A data.frame that contains variables in \code{cform} and \code{lform}.}

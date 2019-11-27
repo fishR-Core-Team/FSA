@@ -6,11 +6,19 @@
 \alias{srFunShow}
 \title{Creates a function for a specific parameterization of a common stock-recruitment function .}
 \usage{
-srFuns(type = c("BevertonHolt", "Ricker", "Shepherd", "SailaLorda",
-  "independence"), param = 1, simple = FALSE, msg = FALSE)
+srFuns(
+  type = c("BevertonHolt", "Ricker", "Shepherd", "SailaLorda", "independence"),
+  param = 1,
+  simple = FALSE,
+  msg = FALSE
+)
 
-srFunShow(type = c("BevertonHolt", "Ricker", "Shepherd", "SailaLorda"),
-  param = 1, plot = FALSE, ...)
+srFunShow(
+  type = c("BevertonHolt", "Ricker", "Shepherd", "SailaLorda"),
+  param = 1,
+  plot = FALSE,
+  ...
+)
 }
 \arguments{
 \item{type}{A string that indicates the type of stock-recruitment function.}

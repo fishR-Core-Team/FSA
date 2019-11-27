@@ -4,9 +4,20 @@
 \alias{nlsTracePlot}
 \title{Adds model fits from nls iterations to active plot.}
 \usage{
-nlsTracePlot(object, fun, from = NULL, to = NULL, n = 199, lwd = 2,
-  pal = paletteChoices(), rev.col = FALSE, legend = "topright",
-  cex.leg = 0.9, box.lty.leg = 0, add = TRUE)
+nlsTracePlot(
+  object,
+  fun,
+  from = NULL,
+  to = NULL,
+  n = 199,
+  lwd = 2,
+  pal = paletteChoices(),
+  rev.col = FALSE,
+  legend = "topright",
+  cex.leg = 0.9,
+  box.lty.leg = 0,
+  add = TRUE
+)
 }
 \arguments{
 \item{object}{An object saved from \code{\link[stats]{nls}} or from \code{\link[utils]{capture.output}} using \code{\link{try}} with \code{\link[stats]{nls}}. See details.}

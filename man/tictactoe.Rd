@@ -4,9 +4,17 @@
 \alias{tictactoe}
 \title{Construct a base tic-tac-toe plot for presenting predator-prey PSD values.}
 \usage{
-tictactoe(predobj = c(30, 70), preyobj = c(30, 70),
-  predlab = "Predator PSD", preylab = "Prey PSD", obj.col = "black",
-  obj.trans = 0.2, bnd.col = "black", bnd.lwd = 1, bnd.lty = 2)
+tictactoe(
+  predobj = c(30, 70),
+  preyobj = c(30, 70),
+  predlab = "Predator PSD",
+  preylab = "Prey PSD",
+  obj.col = "black",
+  obj.trans = 0.2,
+  bnd.col = "black",
+  bnd.lwd = 1,
+  bnd.lty = 2
+)
 }
 \arguments{
 \item{predobj}{A vector of length 2 that contains the target objective range for the predator.}

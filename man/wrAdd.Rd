@@ -8,8 +8,7 @@
 \usage{
 wrAdd(wt, ...)
 
-\method{wrAdd}{default}(wt, len, spec, units = c("metric", "English"),
-  ...)
+\method{wrAdd}{default}(wt, len, spec, units = c("metric", "English"), ...)
 
 \method{wrAdd}{formula}(wt, data, units = c("metric", "English"), ...)
 }

@@ -4,8 +4,13 @@
 \alias{diags}
 \title{Extract diagonals from a matrix.}
 \usage{
-diags(x, which = 0, incl.labels = c("none", "row", "column"),
-  val.name = "value", label.name = "label")
+diags(
+  x,
+  which = 0,
+  incl.labels = c("none", "row", "column"),
+  val.name = "value",
+  label.name = "label"
+)
 }
 \arguments{
 \item{x}{A matrix with more than one row AND more than one column.}

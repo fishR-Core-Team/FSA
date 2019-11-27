@@ -4,8 +4,14 @@
 \alias{alkIndivAge}
 \title{Use an age-length key to assign age to individuals in the unaged sample.}
 \usage{
-alkIndivAge(key, formula, data, type = c("SR", "CR"), breaks = NULL,
-  seed = NULL)
+alkIndivAge(
+  key,
+  formula,
+  data,
+  type = c("SR", "CR"),
+  breaks = NULL,
+  seed = NULL
+)
 }
 \arguments{
 \item{key}{A numeric matrix that contains the age-length key. The format of this matrix is important. See details.}

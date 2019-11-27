@@ -4,8 +4,16 @@
 \alias{Schnute}
 \title{The four-parameter growth function from Schnute (1981).}
 \usage{
-Schnute(t, case = 1, t1 = NULL, t3 = NULL, L1 = NULL, L3 = NULL,
-  a = NULL, b = NULL)
+Schnute(
+  t,
+  case = 1,
+  t1 = NULL,
+  t3 = NULL,
+  L1 = NULL,
+  L3 = NULL,
+  a = NULL,
+  b = NULL
+)
 }
 \arguments{
 \item{t}{A numeric vector of ages over which to model growth.}

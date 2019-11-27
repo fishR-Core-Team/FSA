@@ -4,8 +4,14 @@
 \alias{lagratio}
 \title{Ratio of lagged observations.}
 \usage{
-lagratio(x, lag = 1L, recursion = 1L, differences = recursion,
-  direction = c("backward", "forward"), ...)
+lagratio(
+  x,
+  lag = 1L,
+  recursion = 1L,
+  differences = recursion,
+  direction = c("backward", "forward"),
+  ...
+)
 }
 \arguments{
 \item{x}{A numeric vector or matrix.}

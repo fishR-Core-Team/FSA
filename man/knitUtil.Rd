@@ -11,13 +11,29 @@ kCounts(value, capitalize = FALSE)
 
 kPvalue(value, digits = 4, include.p = TRUE, latex = TRUE)
 
-purl2(file, out.dir = NULL, newname = NULL, topnotes = NULL,
-  moreItems = NULL, blanks = c("extra", "all", "none"),
-  delHeader = NULL, timestamp = TRUE, ...)
+purl2(
+  file,
+  out.dir = NULL,
+  newname = NULL,
+  topnotes = NULL,
+  moreItems = NULL,
+  blanks = c("extra", "all", "none"),
+  delHeader = NULL,
+  timestamp = TRUE,
+  ...
+)
 
-reproInfo(out = c("r", "markdown", "latex"), rqrdPkgs = NULL,
-  elapsed = NULL, width = 0.95 * getOption("width"), addTOC = TRUE,
-  newpage = FALSE, links = NULL, closeGraphics = TRUE, ind = 1)
+reproInfo(
+  out = c("r", "markdown", "latex"),
+  rqrdPkgs = NULL,
+  elapsed = NULL,
+  width = 0.95 * getOption("width"),
+  addTOC = TRUE,
+  newpage = FALSE,
+  links = NULL,
+  closeGraphics = TRUE,
+  ind = 1
+)
 }
 \arguments{
 \item{value}{A single numeric count or p-value.}

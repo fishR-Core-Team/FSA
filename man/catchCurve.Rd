@@ -14,29 +14,52 @@
 \usage{
 catchCurve(x, ...)
 
-\method{catchCurve}{default}(x, catch, ages2use = age,
-  weighted = FALSE, negWeightReplace = 0, ...)
+\method{catchCurve}{default}(
+  x,
+  catch,
+  ages2use = age,
+  weighted = FALSE,
+  negWeightReplace = 0,
+  ...
+)
 
-\method{catchCurve}{formula}(x, data, ages2use = age, weighted = FALSE,
-  negWeightReplace = 0, ...)
+\method{catchCurve}{formula}(
+  x,
+  data,
+  ages2use = age,
+  weighted = FALSE,
+  negWeightReplace = 0,
+  ...
+)
 
-\method{summary}{catchCurve}(object, parm = c("both", "all", "Z", "A",
-  "lm"), ...)
+\method{summary}{catchCurve}(object, parm = c("both", "all", "Z", "A", "lm"), ...)
 
-\method{coef}{catchCurve}(object, parm = c("all", "both", "Z", "A",
-  "lm"), ...)
+\method{coef}{catchCurve}(object, parm = c("all", "both", "Z", "A", "lm"), ...)
 
 \method{anova}{catchCurve}(object, ...)
 
-\method{confint}{catchCurve}(object, parm = c("all", "both", "Z", "A",
-  "lm"), level = conf.level, conf.level = 0.95, ...)
+\method{confint}{catchCurve}(
+  object,
+  parm = c("all", "both", "Z", "A", "lm"),
+  level = conf.level,
+  conf.level = 0.95,
+  ...
+)
 
-\method{rSquared}{catchCurve}(object, digits = getOption("digits"),
-  percent = FALSE, ...)
+\method{rSquared}{catchCurve}(object, digits = getOption("digits"), percent = FALSE, ...)
 
-\method{plot}{catchCurve}(x, pos.est = "topright", cex.est = 0.95,
-  ylab = "log(Catch)", xlab = "Age", col.pt = "gray30",
-  col.mdl = "black", lwd = 2, lty = 1, ...)
+\method{plot}{catchCurve}(
+  x,
+  pos.est = "topright",
+  cex.est = 0.95,
+  ylab = "log(Catch)",
+  xlab = "Age",
+  col.pt = "gray30",
+  col.mdl = "black",
+  lwd = 2,
+  lty = 1,
+  ...
+)
 }
 \arguments{
 \item{x}{A numerical vector of assigned ages in the catch curve or a formula of the form \code{catch~age} when used in \code{catchCurve}. An object saved from \code{catchCurve} (i.e., of class \code{catchCurve}) when used in the methods.}

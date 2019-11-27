@@ -8,14 +8,33 @@
 \usage{
 lencat(x, ...)
 
-\method{lencat}{default}(x, w = 1, startcat = NULL, breaks = NULL,
-  right = FALSE, use.names = FALSE, as.fact = use.names,
-  droplevels = drop.levels, drop.levels = FALSE, ...)
+\method{lencat}{default}(
+  x,
+  w = 1,
+  startcat = NULL,
+  breaks = NULL,
+  right = FALSE,
+  use.names = FALSE,
+  as.fact = use.names,
+  droplevels = drop.levels,
+  drop.levels = FALSE,
+  ...
+)
 
-\method{lencat}{formula}(x, data, w = 1, startcat = NULL,
-  breaks = NULL, right = FALSE, use.names = FALSE,
-  as.fact = use.names, droplevels = drop.levels, drop.levels = FALSE,
-  vname = NULL, ...)
+\method{lencat}{formula}(
+  x,
+  data,
+  w = 1,
+  startcat = NULL,
+  breaks = NULL,
+  right = FALSE,
+  use.names = FALSE,
+  as.fact = use.names,
+  droplevels = drop.levels,
+  drop.levels = FALSE,
+  vname = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{A numeric vector that contains the length measurements or a formula of the form \code{~x} where \dQuote{x} generically represents a variable in \code{data} that contains length measurements. This formula can only contain one variable.}

@@ -6,17 +6,36 @@
 \alias{confint.removal}
 \title{Population estimates for k-, 3-, or 2-pass removal data.}
 \usage{
-removal(catch, method = c("CarleStrub", "Zippin", "Seber3", "Seber2",
-  "RobsonRegier2", "Moran", "Schnute", "Burnham"), alpha = 1, beta = 1,
-  CS.se = c("Zippin", "alternative"), conf.level = 0.95,
-  just.ests = FALSE, Tmult = 3, CIMicroFish = FALSE)
+removal(
+  catch,
+  method = c("CarleStrub", "Zippin", "Seber3", "Seber2", "RobsonRegier2", "Moran",
+    "Schnute", "Burnham"),
+  alpha = 1,
+  beta = 1,
+  CS.se = c("Zippin", "alternative"),
+  conf.level = 0.95,
+  just.ests = FALSE,
+  Tmult = 3,
+  CIMicroFish = FALSE
+)
 
-\method{summary}{removal}(object, parm = c("No", "p", "p1"),
-  digits = getOption("digits"), verbose = FALSE, ...)
+\method{summary}{removal}(
+  object,
+  parm = c("No", "p", "p1"),
+  digits = getOption("digits"),
+  verbose = FALSE,
+  ...
+)
 
-\method{confint}{removal}(object, parm = c("No", "p"),
-  level = conf.level, conf.level = NULL,
-  digits = getOption("digits"), verbose = FALSE, ...)
+\method{confint}{removal}(
+  object,
+  parm = c("No", "p"),
+  level = conf.level,
+  conf.level = NULL,
+  digits = getOption("digits"),
+  verbose = FALSE,
+  ...
+)
 }
 \arguments{
 \item{catch}{A numerical vector of catch at each pass.}

@@ -9,13 +9,23 @@
 \usage{
 dunnTest(x, ...)
 
-\method{dunnTest}{default}(x, g,
+\method{dunnTest}{default}(
+  x,
+  g,
   method = dunn.test::p.adjustment.methods[c(4, 2:3, 5:8, 1)],
-  two.sided = TRUE, altp = two.sided, ...)
+  two.sided = TRUE,
+  altp = two.sided,
+  ...
+)
 
-\method{dunnTest}{formula}(x, data = NULL,
+\method{dunnTest}{formula}(
+  x,
+  data = NULL,
   method = dunn.test::p.adjustment.methods[c(4, 2:3, 5:8, 1)],
-  two.sided = TRUE, altp = two.sided, ...)
+  two.sided = TRUE,
+  altp = two.sided,
+  ...
+)
 
 \method{print}{dunnTest}(x, dunn.test.results = FALSE, ...)
 }

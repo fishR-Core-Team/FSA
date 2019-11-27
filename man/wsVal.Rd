@@ -4,8 +4,12 @@
 \alias{wsVal}
 \title{Finds standard weight equation coefficients for a particular species.}
 \usage{
-wsVal(species = "List", units = c("metric", "English"), ref = 75,
-  simplify = FALSE)
+wsVal(
+  species = "List",
+  units = c("metric", "English"),
+  ref = 75,
+  simplify = FALSE
+)
 }
 \arguments{
 \item{species}{A string that contains the species name for which to find coefficients. See details.}
