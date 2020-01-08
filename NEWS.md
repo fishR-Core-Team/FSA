@@ -1,5 +1,6 @@
 # FSA 0.8.27 ongoing
 * Now using ROxygen2  7.0.1.
+* `repeatedRows2Keep()`: Modified. Now makes comparisons as if `NA`s are regular values.
 
 # FSA 0.8.26 22-Nov-19
 * Changed to depending on `R >=3.5.0`, because that is the latest version required by a package (i.e., `car`) that FSA imports or suggests. Used the "check_r_versions_of_package_dependencies" shiny app by "ateucher" (on Github) to help determine this.

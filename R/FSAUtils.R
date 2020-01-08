@@ -959,6 +959,14 @@ rSquared.lm <- function(object,digits=getOption("digits"),
 #' @export
 repeatedRows2Keep <- function(df,cols2use=NULL,cols2ignore=NULL,
                               keep=c("first","last")) {
+  ## Internal Function
+  ### from www.cookbook-r.com/Manipulating_data/Comparing_vectors_or_factors_with_NA/
+  iCompareNA <- function(v1,v2) {
+    same <- (v1 == v2) | (is.na(v1) & is.na(v2))
+    same[is.na(same)] <- FALSE
+    same
+  }
+  ## Main Function
   keep <- match.arg(keep)
   # make sure df is a data.frame (could be sent as a matrix)
   df <- as.data.frame(df)
@@ -973,7 +981,7 @@ repeatedRows2Keep <- function(df,cols2use=NULL,cols2ignore=NULL,
     if (keep=="first") { # returns first of the repeats
       # find rows where all are TRUE (consecutive rows repeat)
       # first row cannot be a repeat so put FALSE in its place
-      res <- df1==df2
+      res <- iCompareNA(df1,df2)
       if (is.matrix(res)) res <- apply(res,MARGIN=1,FUN=all)
       res <- c(FALSE,res)
     } else { # returns last of the repeats
@@ -982,7 +990,7 @@ repeatedRows2Keep <- function(df,cols2use=NULL,cols2ignore=NULL,
       df2a <- df2[nrow(df2):1,]
       # find rows where all are TRUE (consecutive row repeats), but reverse the
       # order to return; last row can't be a repeat so put FALSE in its place
-      res <- df2a==df1a
+      res <- iCompareNA(df2a,df1a)
       if (is.matrix(res)) res <- apply(res,MARGIN=1,FUN=all)
       res <- c(rev(res),FALSE)
     }
