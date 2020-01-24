@@ -1,5 +1,5 @@
 # FSA 0.8.27 ongoing
-* Now using ROxygen2  7.0.1.
+* Now using ROxygen2  7.0.2.
 * `repeatedRows2Keep()`: Modified. Now makes comparisons as if `NA`s are regular values.
 
 # FSA 0.8.26 22-Nov-19
