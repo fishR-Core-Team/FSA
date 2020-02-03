@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.26</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.27</span>
       </span>
     </div>
 
@@ -125,19 +125,38 @@
     <p>Computes estimates, with confidence intervals, of the population size and probability of capture from the number of fish removed in k-, 3-, or 2-passes in a closed population.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>removal</span>(<span class='no'>catch</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CarleStrub"</span>, <span class='st'>"Zippin"</span>, <span class='st'>"Seber3"</span>, <span class='st'>"Seber2"</span>,
-  <span class='st'>"RobsonRegier2"</span>, <span class='st'>"Moran"</span>, <span class='st'>"Schnute"</span>, <span class='st'>"Burnham"</span>), <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>CS.se</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Zippin"</span>, <span class='st'>"alternative"</span>), <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>just.ests</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>Tmult</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>CIMicroFish</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>removal</span>(
+  <span class='no'>catch</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CarleStrub"</span>, <span class='st'>"Zippin"</span>, <span class='st'>"Seber3"</span>, <span class='st'>"Seber2"</span>, <span class='st'>"RobsonRegier2"</span>, <span class='st'>"Moran"</span>,
+    <span class='st'>"Schnute"</span>, <span class='st'>"Burnham"</span>),
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>CS.se</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Zippin"</span>, <span class='st'>"alternative"</span>),
+  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>just.ests</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>Tmult</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>CIMicroFish</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
 <span class='co'># S3 method for removal</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"No"</span>, <span class='st'>"p"</span>, <span class='st'>"p1"</span>),
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(
+  <span class='no'>object</span>,
+  <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"No"</span>, <span class='st'>"p"</span>, <span class='st'>"p1"</span>),
+  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>),
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for removal</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"No"</span>, <span class='st'>"p"</span>),
-  <span class='kw'>level</span> <span class='kw'>=</span> <span class='no'>conf.level</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(
+  <span class='no'>object</span>,
+  <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"No"</span>, <span class='st'>"p"</span>),
+  <span class='kw'>level</span> <span class='kw'>=</span> <span class='no'>conf.level</span>,
+  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>),
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

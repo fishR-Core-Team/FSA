@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.26</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.27</span>
       </span>
     </div>
 
@@ -125,8 +125,13 @@
     <p>Computes the percentage of values in a vector less than or greater than (and equal to) a user-supplied value.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>perc</span>(<span class='no'>x</span>, <span class='no'>val</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"geq"</span>, <span class='st'>"gt"</span>, <span class='st'>"leq"</span>, <span class='st'>"lt"</span>), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>))</pre>
+    <pre class="usage"><span class='fu'>perc</span>(
+  <span class='no'>x</span>,
+  <span class='no'>val</span>,
+  <span class='kw'>dir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"geq"</span>, <span class='st'>"gt"</span>, <span class='st'>"leq"</span>, <span class='st'>"lt"</span>),
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

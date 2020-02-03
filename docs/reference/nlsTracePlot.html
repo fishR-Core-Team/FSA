@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.26</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.27</span>
       </span>
     </div>
 
@@ -125,9 +125,20 @@
     <p>Adds model fits from iterations of the <code><a href='https://rdrr.io/r/stats/nls.html'>nls</a></code> algorithm as returned when <code>trace=TRUE</code>. Useful for diagnosing model fitting problems or issues associated with starting values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>nlsTracePlot</span>(<span class='no'>object</span>, <span class='no'>fun</span>, <span class='kw'>from</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>199</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'><a href='chooseColors.html'>paletteChoices</a></span>(), <span class='kw'>rev.col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>legend</span> <span class='kw'>=</span> <span class='st'>"topright"</span>,
-  <span class='kw'>cex.leg</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>box.lty.leg</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>nlsTracePlot</span>(
+  <span class='no'>object</span>,
+  <span class='no'>fun</span>,
+  <span class='kw'>from</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>to</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>199</span>,
+  <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>pal</span> <span class='kw'>=</span> <span class='fu'><a href='chooseColors.html'>paletteChoices</a></span>(),
+  <span class='kw'>rev.col</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='st'>"topright"</span>,
+  <span class='kw'>cex.leg</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
+  <span class='kw'>box.lty.leg</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

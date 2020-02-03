@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.26</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.27</span>
       </span>
     </div>
 
@@ -125,12 +125,19 @@
     <p>Use to convert between simple versions of several capture history data.frame formats -- &#8220;individual&#8221;, &#8220;frequency&#8221;, &#8220;event&#8221;, &#8220;MARK&#8221;, and &#8220;RMark&#8221;. The primary use is to convert to the &#8220;individual&#8221; format for use in <code><a href='capHistSum.html'>capHistSum</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>capHistConvert</span>(<span class='no'>df</span>, <span class='kw'>cols2use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cols2ignore</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>in.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"frequency"</span>, <span class='st'>"event"</span>, <span class='st'>"individual"</span>, <span class='st'>"MARK"</span>, <span class='st'>"marked"</span>,
-  <span class='st'>"RMark"</span>), <span class='kw'>out.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"individual"</span>, <span class='st'>"event"</span>, <span class='st'>"frequency"</span>, <span class='st'>"MARK"</span>,
-  <span class='st'>"marked"</span>, <span class='st'>"RMark"</span>), <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>event.ord</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>freq</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>var.lbls</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>var.lbls.pre</span> <span class='kw'>=</span> <span class='st'>"event"</span>,
-  <span class='kw'>include.id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span>(<span class='no'>id</span>), <span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>))</pre>
+    <pre class="usage"><span class='fu'>capHistConvert</span>(
+  <span class='no'>df</span>,
+  <span class='kw'>cols2use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>cols2ignore</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>in.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"frequency"</span>, <span class='st'>"event"</span>, <span class='st'>"individual"</span>, <span class='st'>"MARK"</span>, <span class='st'>"marked"</span>, <span class='st'>"RMark"</span>),
+  <span class='kw'>out.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"individual"</span>, <span class='st'>"event"</span>, <span class='st'>"frequency"</span>, <span class='st'>"MARK"</span>, <span class='st'>"marked"</span>, <span class='st'>"RMark"</span>),
+  <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>event.ord</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>freq</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>var.lbls</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>var.lbls.pre</span> <span class='kw'>=</span> <span class='st'>"event"</span>,
+  <span class='kw'>include.id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span>(<span class='no'>id</span>), <span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.26</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.27</span>
       </span>
     </div>
 
@@ -128,14 +128,24 @@
     <pre class="usage"><span class='fu'>dunnTest</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>dunnTest</span>(<span class='no'>x</span>, <span class='no'>g</span>,
+<span class='fu'>dunnTest</span>(
+  <span class='no'>x</span>,
+  <span class='no'>g</span>,
   <span class='kw'>method</span> <span class='kw'>=</span> <span class='kw pkg'>dunn.test</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/dunn.test/man/dunn.test.html'>p.adjustment.methods</a></span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>2</span>:<span class='fl'>3</span>, <span class='fl'>5</span>:<span class='fl'>8</span>, <span class='fl'>1</span>)],
-  <span class='kw'>two.sided</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>altp</span> <span class='kw'>=</span> <span class='no'>two.sided</span>, <span class='no'>...</span>)
+  <span class='kw'>two.sided</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>altp</span> <span class='kw'>=</span> <span class='no'>two.sided</span>,
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>dunnTest</span>(<span class='no'>x</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='fu'>dunnTest</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>method</span> <span class='kw'>=</span> <span class='kw pkg'>dunn.test</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/dunn.test/man/dunn.test.html'>p.adjustment.methods</a></span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>2</span>:<span class='fl'>3</span>, <span class='fl'>5</span>:<span class='fl'>8</span>, <span class='fl'>1</span>)],
-  <span class='kw'>two.sided</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>altp</span> <span class='kw'>=</span> <span class='no'>two.sided</span>, <span class='no'>...</span>)
+  <span class='kw'>two.sided</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>altp</span> <span class='kw'>=</span> <span class='no'>two.sided</span>,
+  <span class='no'>...</span>
+)
 
 <span class='co'># S3 method for dunnTest</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='kw'>dunn.test.results</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>

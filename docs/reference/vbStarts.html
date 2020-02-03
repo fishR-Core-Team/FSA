@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.26</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.27</span>
       </span>
     </div>
 
@@ -125,15 +125,29 @@
     <p>Finds reasonable starting values for the parameters in a specific parameterization of the von Bertalanffy growth function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>vbStarts</span>(<span class='no'>formula</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Typical"</span>, <span class='st'>"typical"</span>,
-  <span class='st'>"Traditional"</span>, <span class='st'>"traditional"</span>, <span class='st'>"BevertonHolt"</span>, <span class='st'>"Original"</span>, <span class='st'>"original"</span>,
-  <span class='st'>"vonBertalanffy"</span>, <span class='st'>"GQ"</span>, <span class='st'>"GallucciQuinn"</span>, <span class='st'>"Mooij"</span>, <span class='st'>"Weisberg"</span>, <span class='st'>"Ogle"</span>,
-  <span class='st'>"Schnute"</span>, <span class='st'>"Francis"</span>, <span class='st'>"Somers"</span>, <span class='st'>"Somers2"</span>, <span class='st'>"Pauly"</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='no'>param</span>,
-  <span class='kw'>fixed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>meth0</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"yngAge"</span>, <span class='st'>"poly"</span>), <span class='kw'>methLinf</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Walford"</span>,
-  <span class='st'>"oldAge"</span>, <span class='st'>"longFish"</span>), <span class='kw'>num4Linf</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>ages2use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>methEV</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"means"</span>, <span class='st'>"poly"</span>), <span class='kw'>valOgle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>col.mdl</span> <span class='kw'>=</span> <span class='st'>"gray70"</span>, <span class='kw'>lwd.mdl</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>lty.mdl</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cex.main</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
-  <span class='kw'>col.main</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>dynamicPlot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>vbStarts</span>(
+  <span class='no'>formula</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Typical"</span>, <span class='st'>"typical"</span>, <span class='st'>"Traditional"</span>, <span class='st'>"traditional"</span>, <span class='st'>"BevertonHolt"</span>,
+    <span class='st'>"Original"</span>, <span class='st'>"original"</span>, <span class='st'>"vonBertalanffy"</span>, <span class='st'>"GQ"</span>, <span class='st'>"GallucciQuinn"</span>, <span class='st'>"Mooij"</span>, <span class='st'>"Weisberg"</span>,
+    <span class='st'>"Ogle"</span>, <span class='st'>"Schnute"</span>, <span class='st'>"Francis"</span>, <span class='st'>"Somers"</span>, <span class='st'>"Somers2"</span>, <span class='st'>"Pauly"</span>),
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='no'>param</span>,
+  <span class='kw'>fixed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>meth0</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"yngAge"</span>, <span class='st'>"poly"</span>),
+  <span class='kw'>methLinf</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Walford"</span>, <span class='st'>"oldAge"</span>, <span class='st'>"longFish"</span>),
+  <span class='kw'>num4Linf</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>ages2use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>methEV</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"means"</span>, <span class='st'>"poly"</span>),
+  <span class='kw'>valOgle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>col.mdl</span> <span class='kw'>=</span> <span class='st'>"gray70"</span>,
+  <span class='kw'>lwd.mdl</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>lty.mdl</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>cex.main</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
+  <span class='kw'>col.main</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
+  <span class='kw'>dynamicPlot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

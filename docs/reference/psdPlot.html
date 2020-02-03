@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.26</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.27</span>
       </span>
     </div>
 
@@ -125,12 +125,30 @@
     <p>Constructs a length-frequency histogram with Gabelhouse lengths highlighted.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>psdPlot</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='kw'>species</span> <span class='kw'>=</span> <span class='st'>"List"</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mm"</span>, <span class='st'>"cm"</span>, <span class='st'>"in"</span>),
-  <span class='kw'>startcat</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>justPSDQ</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Length"</span>, <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Number"</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,
-  <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>h</span>$<span class='no'>counts</span>)), <span class='kw'>substock.col</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>stock.col</span> <span class='kw'>=</span> <span class='st'>"gray90"</span>,
-  <span class='kw'>psd.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>psd.lty</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>psd.lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>show.abbrevs</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>psd.add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>psd.pos</span> <span class='kw'>=</span> <span class='st'>"topleft"</span>, <span class='kw'>psd.cex</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>psdPlot</span>(
+  <span class='no'>formula</span>,
+  <span class='no'>data</span>,
+  <span class='kw'>species</span> <span class='kw'>=</span> <span class='st'>"List"</span>,
+  <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mm"</span>, <span class='st'>"cm"</span>, <span class='st'>"in"</span>),
+  <span class='kw'>startcat</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>justPSDQ</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Length"</span>,
+  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Number"</span>,
+  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>h</span>$<span class='no'>counts</span>)),
+  <span class='kw'>substock.col</span> <span class='kw'>=</span> <span class='st'>"white"</span>,
+  <span class='kw'>stock.col</span> <span class='kw'>=</span> <span class='st'>"gray90"</span>,
+  <span class='kw'>psd.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>psd.lty</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>psd.lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>show.abbrevs</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>psd.add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>psd.pos</span> <span class='kw'>=</span> <span class='st'>"topleft"</span>,
+  <span class='kw'>psd.cex</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

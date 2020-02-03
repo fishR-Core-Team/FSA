@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.26</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.27</span>
       </span>
     </div>
 
@@ -125,8 +125,17 @@
     <p>Repeat individual fish data, including lengths, from tallied counts and, optionally, add a random digit to length measurements to simulate actual length of fish in the bin. This is useful as a precursor to summaries that require information, e.g., lengths, of individual fish (e.g., length frequency histograms, means lengths).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>expandCounts</span>(<span class='no'>data</span>, <span class='no'>cform</span>, <span class='kw'>lform</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>removeCount</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>lprec</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>new.name</span> <span class='kw'>=</span> <span class='st'>"newlen"</span>, <span class='kw'>cwid</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>expandCounts</span>(
+  <span class='no'>data</span>,
+  <span class='no'>cform</span>,
+  <span class='kw'>lform</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>removeCount</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>lprec</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+  <span class='kw'>new.name</span> <span class='kw'>=</span> <span class='st'>"newlen"</span>,
+  <span class='kw'>cwid</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.26</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.27</span>
       </span>
     </div>
 
@@ -125,14 +125,34 @@
     <p>Constructs a traditional (e.g., like that described in Campana <em>et al.</em> (1995)) age-bias plot to visualize potential differences in paired age estimates. Ages may be from, for example, two readers of the same structure, one reader at two times, two structures (e.g., scales, spines, otoliths), or one structure and known ages.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotAB</span>(<span class='no'>x</span>, <span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bias"</span>, <span class='st'>"Campana"</span>, <span class='st'>"numbers"</span>), <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='no'>x</span>$<span class='no'>ref.lab</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='no'>x</span>$<span class='no'>nref.lab</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>yaxt</span> <span class='kw'>=</span> <span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"yaxt"</span>), <span class='kw'>xaxt</span> <span class='kw'>=</span> <span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"xaxt"</span>),
-  <span class='kw'>col.agree</span> <span class='kw'>=</span> <span class='st'>"gray60"</span>, <span class='kw'>lwd.agree</span> <span class='kw'>=</span> <span class='no'>lwd</span>, <span class='kw'>lty.agree</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>sfrac</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>pch.mean</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>pch.mean.sig</span> <span class='kw'>=</span> <span class='fl'>21</span>, <span class='kw'>cex.mean</span> <span class='kw'>=</span> <span class='no'>lwd</span>,
-  <span class='kw'>col.CI</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>col.CIsig</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>lwd.CI</span> <span class='kw'>=</span> <span class='no'>lwd</span>,
-  <span class='kw'>sfrac.CI</span> <span class='kw'>=</span> <span class='no'>sfrac</span>, <span class='kw'>show.n</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nYpos</span> <span class='kw'>=</span> <span class='fl'>1.03</span>, <span class='kw'>cex.n</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
-  <span class='kw'>cex.numbers</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>col.numbers</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plotAB</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bias"</span>, <span class='st'>"Campana"</span>, <span class='st'>"numbers"</span>),
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='no'>x</span>$<span class='no'>ref.lab</span>,
+  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='no'>x</span>$<span class='no'>nref.lab</span>,
+  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>yaxt</span> <span class='kw'>=</span> <span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"yaxt"</span>),
+  <span class='kw'>xaxt</span> <span class='kw'>=</span> <span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"xaxt"</span>),
+  <span class='kw'>col.agree</span> <span class='kw'>=</span> <span class='st'>"gray60"</span>,
+  <span class='kw'>lwd.agree</span> <span class='kw'>=</span> <span class='no'>lwd</span>,
+  <span class='kw'>lty.agree</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>sfrac</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>pch.mean</span> <span class='kw'>=</span> <span class='fl'>19</span>,
+  <span class='kw'>pch.mean.sig</span> <span class='kw'>=</span> <span class='fl'>21</span>,
+  <span class='kw'>cex.mean</span> <span class='kw'>=</span> <span class='no'>lwd</span>,
+  <span class='kw'>col.CI</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>col.CIsig</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
+  <span class='kw'>lwd.CI</span> <span class='kw'>=</span> <span class='no'>lwd</span>,
+  <span class='kw'>sfrac.CI</span> <span class='kw'>=</span> <span class='no'>sfrac</span>,
+  <span class='kw'>show.n</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>nYpos</span> <span class='kw'>=</span> <span class='fl'>1.03</span>,
+  <span class='kw'>cex.n</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
+  <span class='kw'>cex.numbers</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
+  <span class='kw'>col.numbers</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

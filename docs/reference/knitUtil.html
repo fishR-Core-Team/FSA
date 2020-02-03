@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.26</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.27</span>
       </span>
     </div>
 
@@ -129,13 +129,29 @@
 
 <span class='fu'>kPvalue</span>(<span class='no'>value</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>include.p</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>latex</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>purl2</span>(<span class='no'>file</span>, <span class='kw'>out.dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>newname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>topnotes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>moreItems</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>blanks</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"extra"</span>, <span class='st'>"all"</span>, <span class='st'>"none"</span>),
-  <span class='kw'>delHeader</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>timestamp</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+<span class='fu'>purl2</span>(
+  <span class='no'>file</span>,
+  <span class='kw'>out.dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>newname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>topnotes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>moreItems</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>blanks</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"extra"</span>, <span class='st'>"all"</span>, <span class='st'>"none"</span>),
+  <span class='kw'>delHeader</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>timestamp</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)
 
-<span class='fu'>reproInfo</span>(<span class='kw'>out</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"r"</span>, <span class='st'>"markdown"</span>, <span class='st'>"latex"</span>), <span class='kw'>rqrdPkgs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>elapsed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.95</span> * <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"width"</span>), <span class='kw'>addTOC</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>newpage</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>links</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>closeGraphics</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ind</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+<span class='fu'>reproInfo</span>(
+  <span class='kw'>out</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"r"</span>, <span class='st'>"markdown"</span>, <span class='st'>"latex"</span>),
+  <span class='kw'>rqrdPkgs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>elapsed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.95</span> * <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"width"</span>),
+  <span class='kw'>addTOC</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>newpage</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>links</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>closeGraphics</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>ind</span> <span class='kw'>=</span> <span class='fl'>1</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
