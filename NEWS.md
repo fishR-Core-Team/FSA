@@ -1,4 +1,4 @@
-# FSA 0.8.27 ongoing
+# FSA 0.8.27 2-Feb-20
 * Now using ROxygen2  7.0.2.
 # Removed dependency on `gplots` package as it is now orphaned. Required adding `iRichColors()` internal function.
 * `lwCompPreds()`: Removed `\dots` from arguments as it was not in usage (per request from CRAN on 3-Feb-20).
