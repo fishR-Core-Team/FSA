@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.26</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.27</span>
       </span>
     </div>
 
@@ -125,8 +125,13 @@
     <p>Computes the mean value-at-age in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design. The mean values could be mean length-, weight-, or fecundity-at-age, for example. The methods of Bettoli and Miranda (2001) or Quinn and Deriso (1999) are used. A standard deviation is computed for the Bettoli and Miranda (2001) method and standard error for the Quinn and Deriso (1999) method. See the testing section notes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>alkMeanVar</span>(<span class='no'>key</span>, <span class='no'>formula</span>, <span class='no'>data</span>, <span class='no'>len.n</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"BettoliMiranda"</span>,
-  <span class='st'>"QuinnDeriso"</span>))</pre>
+    <pre class="usage"><span class='fu'>alkMeanVar</span>(
+  <span class='no'>key</span>,
+  <span class='no'>formula</span>,
+  <span class='no'>data</span>,
+  <span class='no'>len.n</span>,
+  <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"BettoliMiranda"</span>, <span class='st'>"QuinnDeriso"</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
