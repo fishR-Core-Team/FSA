@@ -64,8 +64,6 @@ lwCompPreds(
 \item{rows}{A single numeric that contains the number of rows to use on the graphic.}
 
 \item{cols}{A single numeric that contains the number of columns to use on the graphic.}
-
-\item{\dots}{Other arguments to pass through to the \code{plot} function.}
 }
 \value{
 None. However, a plot is produced.

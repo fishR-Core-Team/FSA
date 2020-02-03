@@ -14,6 +14,7 @@
 \alias{iLegendHelp}
 \alias{iListSpecies}
 \alias{iMakeColor}
+\alias{iRichColors}
 \alias{iPlotExists}
 \alias{is.wholenumber}
 \alias{iTypeoflm}

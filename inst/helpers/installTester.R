@@ -22,9 +22,6 @@ dunnTest(y~f,data=df)
 binCI(7,20)
 poiCI(12)
 
-## test of gplots functions
-chooseColors("rich",5)
-
 ## test of lmtest functions
 lrt(slrout,com=ivrout)
 
@@ -56,7 +53,6 @@ library(dplyr)
 library(car)
 library(dunn.test)
 library(epitools)
-library(gplots)
 library(lmtest)
 library(plotrix)
 library(sciplot)

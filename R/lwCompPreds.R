@@ -21,7 +21,6 @@
 #' @param yaxs A single string that indicates how the y-axis is formed. See \code{par} for more details.
 #' @param rows A single numeric that contains the number of rows to use on the graphic.
 #' @param cols A single numeric that contains the number of columns to use on the graphic.
-#' @param \dots Other arguments to pass through to the \code{plot} function.
 #'
 #' @return None. However, a plot is produced.
 #'

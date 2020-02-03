@@ -93,7 +93,7 @@ iCapFirst<- function(x,which=c("all","first")) {
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @seealso See \code{\link[gplots]{rich.colors}} in \pkg{gplots}, \code{\link{cm.colors}}, \code{\link{heat.colors}}, \code{\link{topo.colors}}, \code{\link{terrain.colors}}, \code{\link{rainbow}}, \code{\link{colorRampPalette}}, and \code{\link{colors}}.
+#' @seealso See \code{\link{cm.colors}}, \code{\link{heat.colors}}, \code{\link{topo.colors}}, \code{\link{terrain.colors}}, \code{\link{rainbow}}, \code{\link{colorRampPalette}}, and \code{\link{colors}}.
 #'
 #' @keywords manip
 #'
@@ -121,7 +121,7 @@ chooseColors <- function(pal=paletteChoices(),num,rev=FALSE,...) {
   grey.colors <- grDevices::colorRampPalette(c("grey20","grey80"))
   ## Get the colors according to the palette
   switch(pal,
-         rich={clrs <- gplots::rich.colors(num,...)},
+         rich={clrs <- iRichColors(num,...)},
          cm={clrs <- grDevices::cm.colors(num,...)},
          default={clrs <- seq_len(num)},
          gray=,grey={clrs <- grey.colors(num)},

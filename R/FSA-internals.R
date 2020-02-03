@@ -4,7 +4,7 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach iAddLoessLine iCheckALK iCheckStartcatW iCILabel iGetDecimals  iGetVarFromFormula iHndlCols2UseIgnore iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iPlotExists is.wholenumber iTypeoflm STOP WARN
+#' @aliases .onAttach iAddLoessLine iCheckALK iCheckStartcatW iCILabel iGetDecimals  iGetVarFromFormula iHndlCols2UseIgnore iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iRichColors iPlotExists is.wholenumber iTypeoflm STOP WARN
 
 
 ##################################################################
@@ -326,6 +326,27 @@ iMakeColor <- function(col,transp) {
   grDevices::rgb(colprts[1,1],colprts[2,1],colprts[3,1],transp)
 }
 
+
+iRichColors <- function (n,palette=c("temperature","blues"),alpha=1,rgb=FALSE) {
+  ## From gplots package that was orphaned
+  if (n <= 0) return(character(0))
+  palette <- match.arg(palette)
+  x <- seq(0,1,length=n)
+  if (palette=="temperature") {
+    r <- 1/(1+exp(20-35* x))
+    g <- pmin(pmax(0,-0.8+6*x-5*x^2),1)
+    b <- stats::dnorm(x,0.25,0.15)/max(stats::dnorm(x,0.25,0.15))
+  } else {
+    r <- 0.6*x+0.4*x^2
+    g <- 1.5*x-0.5*x^2
+    b <- 0.36+2.4*x-2*x^2
+    b[x>0.4] <- 1
+  }
+  rgb.m <- matrix(c(r,g,b),ncol=3,dimnames=list(NULL,c("red","green","blue")))
+  col <- mapply(rgb,r,g,b,alpha)
+  if (rgb) attr(col,"rgb") <- cbind(rgb.m,alpha)
+  return(col)
+}
 
 
 ################################################################################
