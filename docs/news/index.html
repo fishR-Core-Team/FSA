@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.27</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.27.9000</span>
       </span>
     </div>
 
@@ -119,17 +119,22 @@
       <small>Source: <a href='https://github.com/droglenc/FSA/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="fsa-0827-ongoing" class="section level1">
+<h1 class="page-header">
+<a href="#fsa-0827-ongoing" class="anchor"></a>FSA 0.8.27 ongoing<small> 2020-02-03 </small>
+</h1>
+</div>
     <div id="fsa-0827-2-feb-20" class="section level1">
 <h1 class="page-header">
-<a href="#fsa-0827-2-feb-20" class="anchor"></a>FSA 0.8.27 2-Feb-20<small> Unreleased </small>
+<a href="#fsa-0827-2-feb-20" class="anchor"></a>FSA 0.8.27 2-Feb-20<small> 2020-02-03 </small>
 </h1>
 <ul>
+<li>Now using ROxygen2 7.0.2.</li>
+<li>Removed dependency on <code>gplots</code> package as it is now orphaned. Required adding <code><a href="../reference/FSA-internals.html">iRichColors()</a></code> internal function.</li>
 <li>
-<p>Now using ROxygen2 7.0.2.</p>
-<h1 id="removed-dependency-on-gplots-package-as-it-is-now-orphaned-required-adding-irichcolors-internal-function" class="page-header">Removed dependency on <code>gplots</code><small> Unreleased </small> package as it is now orphaned. Required adding <code>iRichColors()</code> internal function.</h1>
-</li>
-<li><p><code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>: Removed <code>\dots</code> from arguments as it was not in usage (per request from CRAN on 3-Feb-20).</p></li>
-<li><p><code><a href="../reference/repeatedRows2Keep.html">repeatedRows2Keep()</a></code>: Modified. Now makes comparisons as if <code>NA</code>s are regular values.</p></li>
+<code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>: Removed <code>\dots</code> from arguments as it was not in usage (per request from CRAN on 3-Feb-20).</li>
+<li>
+<code><a href="../reference/repeatedRows2Keep.html">repeatedRows2Keep()</a></code>: Modified. Now makes comparisons as if <code>NA</code>s are regular values.</li>
 </ul>
 </div>
     <div id="fsa-0826-22-nov-19" class="section level1">
@@ -3313,6 +3318,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#fsa-0827-ongoing">0.8.27</a></li>
         <li><a href="#fsa-0827-2-feb-20">0.8.27</a></li>
         <li><a href="#fsa-0826-22-nov-19">0.8.26</a></li>
         <li><a href="#fsa-0825-24-jul-19">0.8.25</a></li>
