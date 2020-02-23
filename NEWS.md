@@ -1,4 +1,5 @@
 # FSA 0.8.27 ongoing
+* `fitPlot()`: Modified. Changed so that lines are plotted after the points in the IVR versions.
 
 # FSA 0.8.27 2-Feb-20
 * Now using ROxygen2  7.0.2.

@@ -245,12 +245,16 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   ### Plot the points
   # Creates plot schematic -- no points or lines                   # nocov start
   graphics::plot(y~x,col="white",xlab=xlab,ylab=ylab,main=main,...)
-  for (i in 1:num.f1) {
+  if (plot.pts) {
     # Plots points w/ different colors & points
+    for (i in 1:num.f1) graphics::points(x[f1==levels(f1)[i]],
+                                         y[f1==levels(f1)[i]],
+                                         col=col[i],pch=pch[i])
+  }
+  for (i in 1:num.f1) {
+  # Make the predictions at a bunch of values of x
     x.obs <- x[f1==levels(f1)[i]]
     y.obs <- y[f1==levels(f1)[i]] 
-    if (plot.pts) graphics::points(x.obs,y.obs,col=col[i],pch=pch[i])
-    # Make the predictions at a bunch of values of x
     xvals <- seq(min(x.obs),max(x.obs),length.out=200)
     newdf <- data.frame(xvals,as.factor(rep(levels(f1)[i],length(xvals))))
     names(newdf) <- names(object$mf)[c(object$ENumPos,object$EFactPos)]
@@ -304,12 +308,21 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   # Creates plot schematic -- no points or lines
   # nocov start
   graphics::plot(y~x,col="white",xlab=xlab,ylab=ylab,main=main,...)
+  if (plot.pts) {
+    for (i in 1:num.f1) {
+      for (j in 1:num.f2) {
+        # Plots points w/ different colors & points
+        x.obs <- x[f1==levels(f1)[i] & f2==levels(f2)[j]]
+        y.obs <- y[f1==levels(f1)[i] & f2==levels(f2)[j]] 
+        graphics::points(x.obs,y.obs,col=col[i],pch=pch[j])
+      }
+    }
+  }
   for (i in 1:num.f1) {
     for (j in 1:num.f2) {
       # Plots points w/ different colors & points
       x.obs <- x[f1==levels(f1)[i] & f2==levels(f2)[j]]
       y.obs <- y[f1==levels(f1)[i] & f2==levels(f2)[j]] 
-      if (plot.pts) graphics::points(x.obs,y.obs,col=col[i],pch=pch[j])
       # Make the predictions at a bunch of values of x
       xvals <- seq(min(x.obs),max(x.obs),length.out=200)
       newdf <- data.frame(xvals,
