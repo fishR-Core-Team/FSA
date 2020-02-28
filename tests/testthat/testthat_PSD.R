@@ -3,7 +3,7 @@ set.seed(56768)
 df <- data.frame(tl=round(c(rnorm(100,mean=125,sd=15),
                             rnorm(50,mean=200,sd=25),
                             rnorm(20,mean=300,sd=40)),0),
-                 species=rep("Yellow Perch",170))
+                 species=factor(rep("Yellow Perch",170)))
 
 set.seed(345234534)
 dbt <- data.frame(species=factor(rep(c("Bluefin Tuna"),30)),
@@ -20,6 +20,10 @@ df <- rbind(dbt,dbg,dlb)
 # read in external CSV file
 ftmp <- system.file("extdata", "PSDWR_testdata.csv", package="FSA")
 df2 <- read.csv(ftmp)
+df2$species <- factor(df2$species)
+df2$spec_code <- factor(df2$spec_code)
+df2$GCATN <- factor(df2$GCATN,levels=c("substock","stock","quality","preferred",
+                                       "memorable","trophy"))
 df2bg <- filterD(df2,species=="Bluegill")
 df2lmb <- filterD(df2,species=="Largemouth Bass")
 
@@ -456,7 +460,7 @@ test_that("Does psdCI results match Brenden et al. (2008) results",{
   brks <- psdVal("Yellow Perch")
   freq <- c(110,75,50,35,20,10)
   df3 <- data.frame(tl=rep(brks,freq)+sample(1:45,300,replace=TRUE),
-                    species=rep("Yellow Perch",300))
+                    species=factor(rep("Yellow Perch",300)))
   ## Get known PSD values
   psdXYs <- prop.table(freq[-1])*100
   psdXs <- rcumsum(psdXYs)[-1]

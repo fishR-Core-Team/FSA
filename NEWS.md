@@ -1,5 +1,7 @@
-# FSA 0.8.27 ongoing
+# FSA 0.8.28 ongoing
 * `fitPlot()`: Modified. Changed so that lines are plotted after the points in the IVR versions.
+* `ksTest()`: Modified. Changed documentation examples to handle R's new way of handling `stringsAsFactors=` (per request from CRAN on 27-Feb-20).
+* `psdAdd()`: Modified. Changed testing to handle R's new way of handling `stringsAsFactors=` (per request from CRAN on 27-Feb-20).
 
 # FSA 0.8.27 2-Feb-20
 * Now using ROxygen2  7.0.2.
