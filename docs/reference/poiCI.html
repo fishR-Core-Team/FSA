@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.28</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.29</span>
       </span>
     </div>
 
@@ -158,10 +158,8 @@
     <p>A #x2 matrix that contains the lower and upper confidence interval bounds as columns and, if <code>verbose=TRUE</code> <code>x</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Computes a CI for the Poisson counts using the <code>exact</code>, gamma distribution (<code>daly</code>`), Byar's (<code>byar</code>), or normal approximation (<code>asymptotic</code>) methods. This is largely a wrapper to <code>pois.exact</code>, <code>pois.daly</code>, <code>pois.byar</code>, and <code>pois.approx</code> functions documented in <code>pois.conf.int</code>in <span class="pkg">epitools</span>.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>See <code>pois.exact</code>, <code>pois.daly</code>, <code>pois.byar</code>, and <code>pois.approx</code> (documented in <code>pois.conf.int</code>) in <span class="pkg">epitools</span> for more description and references.</p></div>
+    <p>Computes a CI for the Poisson counts using the <code>exact</code>, gamma distribution (<code>daly</code>`), Byar's (<code>byar</code>), or normal approximation (<code>asymptotic</code>) methods.</p>
+<p>The <code>pois.daly</code> function gives essentially identical answers to the <code>pois.exact</code> function except when x=0. When x=0, for the upper confidence limit <code>pois.exact</code> returns 3.689 and <code>pois.daly</code> returns 2.996.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Demonstrates using all types at once</span>
@@ -194,12 +192,11 @@
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>
-    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a>, though this is largely based on <code>pois.exact</code>, <code>pois.daly</code>, <code>pois.byar</code>, and <code>pois.approx</code> from the old epitools package.</p>
   </div>
 </div>
 
