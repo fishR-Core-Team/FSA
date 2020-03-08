@@ -18,10 +18,6 @@ tmp <- filterD(df,y<10)
 ## test of dunn.test functions
 dunnTest(y~f,data=df)
 
-## test of epitools functions
-binCI(7,20)
-poiCI(12)
-
 ## test of lmtest functions
 lrt(slrout,com=ivrout)
 
@@ -52,7 +48,6 @@ library(plyr)
 library(dplyr)
 library(car)
 library(dunn.test)
-library(epitools)
 library(lmtest)
 library(plotrix)
 library(sciplot)

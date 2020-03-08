@@ -210,29 +210,47 @@ test_that("poiCI() output types",{
 
 ## Validate Results ----
 test_that("binCI() compared to epitools functions",{
-  res <- as.data.frame(binCI(7,10,verbose=TRUE))
-  resepi <- rbind(epitools::binom.exact(7,10),
-                  epitools::binom.wilson(7,10),
-                  epitools::binom.approx(7,10))[,-6]
+  res <- binCI(7,10,verbose=TRUE)
+  res[,4:5] <- round(res[,4:5],7)
+  ### These are hand-entered results from old epitools package
+  resepi <- matrix(c(7,10,0.7,0.3475471,0.9332605,
+                     7,10,0.7,0.3967781,0.8922087,
+                     7,10,0.7,0.4159742,0.9840258),nrow=3,byrow=TRUE)
   rownames(resepi) <- c("Exact","Wilson","Asymptotic")
+  colnames(resepi) <- c("x","n","proportion","lower","upper")
   expect_equivalent(res,resepi)
   
-  res <- as.data.frame(binCI(5:7,10,type="wilson",verbose=TRUE))
-  resepi <- epitools::binom.wilson(5:7,10)[,-6]
+  res <- binCI(5:7,10,type="wilson",verbose=TRUE)
+  res[,4:5] <- round(res[,4:5],7)
+  ### These are hand-entered results from old epitools package
+  resepi <- matrix(c(5,10,0.5,0.2365931,0.7634069,
+                     6,10,0.6,0.3126738,0.8318197,
+                     7,10,0.7,0.3967781,0.8922087),nrow=3,byrow=TRUE)
+  colnames(resepi) <- c("x","n","proportion","lower","upper")
   expect_equivalent(res,resepi)
 })
 
 test_that("poiCI() compared to epitools functions",{
-  res <- as.data.frame(poiCI(10,verbose=TRUE))
-  resepi <- rbind(epitools::pois.exact(10),
-                  epitools::pois.daly(10),
-                  epitools::pois.byar(10),
-                  epitools::pois.approx(10))[,-c(2,3,6)]
+  res <- poiCI(10,verbose=TRUE)
+  res[,2] <- round(res[,2],6)
+  res[,3] <- round(res[,3],5)
+  ### These are hand-entered results from old epitools package
+  resepi <- matrix(c(10,4.795389,18.39036,
+                     10,4.795389,18.39036,
+                     10,5.133753,17.74048,
+                     10,3.802050,16.19795),nrow=4,byrow=TRUE)
   rownames(resepi) <- c("Exact","Daly","Byar","Asymptotic")
+  colnames(resepi) <- c("x","lower","upper")
   expect_equivalent(res,resepi)
   
-  res <- as.data.frame(poiCI(5:7,type="exact",verbose=TRUE))
-  resepi <- epitools::pois.exact(5:7)[,-c(2,3,6)]
+  res <- poiCI(5:7,type="exact",verbose=TRUE)
+  res[,2] <- round(res[,2],6)
+  res[,3] <- round(res[,3],5)
+  ### These are hand-entered results from old epitools package
+  resepi <- matrix(c(5,1.623486,11.66832,
+                     6,2.201891,13.05948,
+                     7,2.814358,14.42268),nrow=3,byrow=TRUE)
+  colnames(resepi) <- c("x","lower","upper")
   expect_equivalent(res,resepi)
 })
 

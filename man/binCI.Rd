@@ -66,9 +66,9 @@ binCI(c(7,10),c(20,30),type="wilson",verbose=TRUE)
 Agresti, A. and B.A. Coull. 1998. Approximate is better than \dQuote{exact} for interval estimation of binomial proportions. American Statistician, 52:119-126.
 }
 \seealso{
-See \code{\link{binom.test}}; \code{binconf} in \pkg{Hmisc}; \code{binom.exact}, \code{binom.wilson}, and \code{binom.approx} documented in \code{\link[epitools]{binom.conf.int}} in \pkg{epitools}, and functions in \pkg{binom}.
+See \code{\link{binom.test}}; \code{binconf} in \pkg{Hmisc}; and functions in \pkg{binom}.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{derek@derekogle.com}, though this is largely based on \code{binom.exact}, \code{binom.wilson}, and \code{binom.approx} from the old epitools package.
 }
 \keyword{htest}

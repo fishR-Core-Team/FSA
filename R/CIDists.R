@@ -22,9 +22,9 @@
 #' 
 #' @return A #x2 matrix that contains the lower and upper confidence interval bounds as columns and, if \code{verbose=TRUE} \code{x}, \code{n}, and \code{x/n} .
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}, though this is largely based on \code{binom.exact}, \code{binom.wilson}, and \code{binom.approx} from the old epitools package.
 #'
-#' @seealso See \code{\link{binom.test}}; \code{binconf} in \pkg{Hmisc}; \code{binom.exact}, \code{binom.wilson}, and \code{binom.approx} documented in \code{\link[epitools]{binom.conf.int}} in \pkg{epitools}, and functions in \pkg{binom}.
+#' @seealso See \code{\link{binom.test}}; \code{binconf} in \pkg{Hmisc}; and functions in \pkg{binom}.
 #'
 #' @references Agresti, A. and B.A. Coull. 1998. Approximate is better than \dQuote{exact} for interval estimation of binomial proportions. American Statistician, 52:119-126.
 #'
@@ -51,6 +51,33 @@
 #' @export
 binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic"),
                   verbose=FALSE) {
+  ## Internal functions ... largely but not exactly from old epitools
+  iBinWilson <- function(x,n,conf.level) {
+    Z <- stats::qnorm(1-(1-conf.level)/2)
+    Z1 <- Z*sqrt(((x*(n-x))/n^3)+Z^2/(4*n^2))
+    lwr <- (n/(n+Z^2))*(x/n+Z^2/(2*n)-Z1)
+    upr <- (n/(n+Z^2))*(x/n+Z^2/(2*n)+Z1)
+    res <- cbind(x,n,x/n,lwr,upr)
+    colnames(res) <- c("x","n","proportion",iCILabel(conf.level))
+    res
+  }
+  iBinExact <- function(x,n,conf.level) {
+    tmp <- apply(cbind(x,n-x),MARGIN=1,FUN=stats::binom.test,
+                 conf.level=conf.level)
+    tmp <- t(sapply(tmp,"[[","conf.int"))
+    res <- cbind(x,n,x/n,tmp)
+    colnames(res) <- c("x","n","proportion",iCILabel(conf.level))
+    res
+  }
+  iBinAsymp <- function(x,n,conf.level) {
+    Z <- stats::qnorm(1-(1-conf.level)/2)
+    SE <- sqrt(x*(n-x)/(n^3))
+    res <- cbind(x,n,x/n,x/n-Z*SE,x/n+Z*SE)
+    colnames(res) <- c("x","n","proportion",iCILabel(conf.level))
+    res
+  }
+  
+  ## Checks
   type <- match.arg(type,several.ok=TRUE)
   if (!is.vector(x)) STOP("'x' must be a single or vector of whole numbers.")
   if (!is.vector(n)) STOP("'n' must be a single or vector of whole numbers.")
@@ -62,28 +89,28 @@ binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic"),
   if (any(n<0)) STOP("'n' must be non-negative.")
   if (any(x>n)) STOP("'x' must not be greater than 'n'.")
   if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1.")
-  ## Handle differently depending on number of xs given
+  
+  ## Process
+  ### Handle differently depending on number of xs given
   if (length(x)>1) {
     if (length(type)>1) {
       type <- type[1]
       WARN("Can't use multiple 'type's with multiple 'x's. Used only '",type,"'.")
     }
     switch(type,
-           exact = { res <- epitools::binom.exact(x,n,conf.level) },
-           wilson = { res <- epitools::binom.wilson(x,n,conf.level) },
-           asymptotic = { res <- epitools::binom.approx(x,n,conf.level) })
+           exact = { res <- iBinExact(x,n,conf.level) },
+           wilson = { res <- iBinWilson(x,n,conf.level) },
+           asymptotic = { res <- iBinAsymp(x,n,conf.level) })
   } else {
-    res <- rbind(epitools::binom.exact(x,n,conf.level),
-                 epitools::binom.wilson(x,n,conf.level),
-                 epitools::binom.approx(x,n,conf.level))
+    res <- rbind(iBinExact(x,n,conf.level),
+                 iBinWilson(x,n,conf.level),
+                 iBinAsymp(x,n,conf.level))
     rownames(res) <- c("Exact","Wilson","Asymptotic")
     # reduce to selected types
-    res <- res[rownames(res) %in% capFirst(type),]
+    res <- res[rownames(res) %in% capFirst(type),,drop=FALSE]
   }
-  # relabel CI columns, convert to matrix, drop unwanted columns
-  names(res)[which(names(res) %in% c("lower","upper"))] <- iCILabel(conf.level)
-  res <- as.matrix(res[,-6])
-  # return everything if verbose=TRUE, otherwise just CI
+  
+  ### return everything if verbose=TRUE, otherwise just CI
   if (!verbose) {
     res <- res[,4:5,drop=FALSE]
     # remove rownname if only one type selected and not verbose
@@ -100,7 +127,9 @@ binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic"),
 #'
 #' @description Computes a confidence interval for the Poisson counts.
 #'
-#' @details Computes a CI for the Poisson counts using the \code{exact}, gamma distribution (\code{daly}`), Byar's (\code{byar}), or normal approximation (\code{asymptotic}) methods. This is largely a wrapper to \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} functions documented in \code{\link[epitools]{pois.conf.int}}in \pkg{epitools}.
+#' @details Computes a CI for the Poisson counts using the \code{exact}, gamma distribution (\code{daly}`), Byar's (\code{byar}), or normal approximation (\code{asymptotic}) methods.
+#' 
+#' The \code{pois.daly} function gives essentially identical answers to the \code{pois.exact} function except when x=0. When x=0, for the upper confidence limit \code{pois.exact} returns 3.689 and \code{pois.daly} returns 2.996.
 #'
 #' @param x A single number or vector that represents the number of observed successes.
 #' @param conf.level A number that indicates the level of confidence to use for constructing confidence intervals (default is \code{0.95}).
@@ -109,9 +138,7 @@ binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic"),
 #'
 #' @return A #x2 matrix that contains the lower and upper confidence interval bounds as columns and, if \code{verbose=TRUE} \code{x}.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
-#'
-#' @seealso See \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} (documented in \code{\link[epitools]{pois.conf.int}}) in \pkg{epitools} for more description and references.
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}, though this is largely based on \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} from the old epitools package.
 #'
 #' @keywords htest
 #'
@@ -134,36 +161,87 @@ binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic"),
 #' @export
 poiCI <- function(x,conf.level=0.95,type=c("exact","daly","byar","asymptotic"),
                   verbose=FALSE) {
+  ## Internal Functions ... largely but not exactly from old epitools
+  iPoiExact <- function(x,conf.level) {
+    f1 <- function(x,ans,alpha=1-conf.level) stats::ppois(x,ans)-alpha/2
+    f2 <- function(x,ans,alpha=1-conf.level)
+      1-stats::ppois(x,ans)+stats::dpois(x,ans)-alpha/2
+    res <- matrix(NA,nrow=length(x),3)
+    for(i in 1:length(x)){
+      interval <- c(0,x[i]*5+4)
+      uci <- stats::uniroot(f1,interval=interval,x=x[i])$root
+      if(x[i]==0) lci <- 0
+      else lci <- stats::uniroot(f2,interval=interval,x=x[i])$root
+      res[i,] <- c(x[i],lci,uci) 
+    }
+    colnames(res) <- c("x",iCILabel(conf.level))
+    res
+  }
+  iPoiDaly <- function(x,conf.level) {
+    iDalyCI <- function(x,conf.level){
+      if(x!=0){
+        LL <- stats::qgamma((1-conf.level)/2,x)
+        UL <- stats::qgamma((1+conf.level)/2,x+1)
+      } else {
+        if(x==0){
+          LL <- 0
+          UL <- -log(1-conf.level)
+        }
+      }
+      cbind(x=x,lower=LL,upper=UL)
+    }
+    res <- t(apply(matrix(x,ncol=1),MARGIN=1,FUN=iDalyCI,conf.level=conf.level))
+    colnames(res) <- c("x",iCILabel(conf.level))
+    res    
+  }
+  iPoiByar <- function(x,conf.level) {
+    Z <- stats::qnorm(1-(1-conf.level)/2)
+    aprime <- x+0.5
+    Z1 <- (Z/3)*sqrt(1/aprime)
+    lwr <- (aprime*(1-1/(9*aprime)-Z1)^3)
+    upr <- (aprime*(1-1/(9*aprime)+Z1)^3)
+    res <- cbind(x,lwr,upr)
+    colnames(res) <- c("x",iCILabel(conf.level))
+    res    
+  }
+  iPoiAsymp <- function(x,conf.level) {
+    Z <- stats::qnorm(1-(1-conf.level)/2)
+    res <- cbind(x,x-Z*sqrt(x),x+Z*sqrt(x))
+    colnames(res) <- c("x",iCILabel(conf.level))
+    res    
+  }
+  
+  ## Checks
   type <- match.arg(type,several.ok=TRUE)
   if (!is.vector(x)) STOP("'x' must be a single or vector of whole numbers.")
   if (!is.numeric(x)) STOP("'x' must be a whole number.")
   if (!all(is.wholenumber(x))) STOP("'x' must be a whole number.")
   if (any(x<0)) STOP("'x' must be non-negative.")
   if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1.")
-  ## Handle differently depending on number of xs given
+  
+  ## Process
+  ### Handle differently depending on number of xs given
   if (length(x)>1) {
     if (length(type)>1) {
       type <- type[1]
       WARN("Can't use multiple 'type's with multiple 'x's. Used only '",type,"'.")
     }
     switch(type,
-           exact = { res <- epitools::pois.exact(x,1,conf.level) },
-           daly  = { res <- epitools::pois.daly(x,1,conf.level) },
-           byar  = { res <- epitools::pois.byar(x,1,conf.level) },
-           asymptotic = { res <- epitools::pois.approx(x,1,conf.level) })
+           exact = { res <- iPoiExact(x,conf.level) },
+           daly  = { res <- iPoiDaly(x,conf.level) },
+           byar  = { res <- iPoiByar(x,conf.level) },
+           asymptotic = { res <- iPoiAsymp(x,conf.level) })
   } else {
-    res <- rbind(epitools::pois.exact(x,1,conf.level),
-                 epitools::pois.daly(x,1,conf.level),
-                 epitools::pois.byar(x,1,conf.level),
-                 epitools::pois.approx(x,1,conf.level))
+    res <- rbind(iPoiExact(x,conf.level),
+                 iPoiDaly(x,conf.level),
+                 iPoiByar(x,conf.level),
+                 iPoiAsymp(x,conf.level))
     rownames(res) <- c("Exact","Daly","Byar","Asymptotic")
     # reduce to selected types
-    res <- res[rownames(res) %in% capFirst(type),]
+    res <- res[rownames(res) %in% capFirst(type),,drop=FALSE]
   }
-  # relabel CI columns, convert to matrix, drop unwanted columns
-  names(res)[which(names(res) %in% c("lower","upper"))] <- iCILabel(conf.level)
-  res <- as.matrix(res[,-c(2,3,6)])
-  # return everything if verbose=TRUE, otherwise just CI
+
+  ### return everything if verbose=TRUE, otherwise just CI
   if (!verbose) {
     res <- res[,2:3,drop=FALSE]
     # remove rownname if only one type selected and not verbose

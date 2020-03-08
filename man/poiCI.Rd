@@ -27,7 +27,9 @@ A #x2 matrix that contains the lower and upper confidence interval bounds as col
 Computes a confidence interval for the Poisson counts.
 }
 \details{
-Computes a CI for the Poisson counts using the \code{exact}, gamma distribution (\code{daly}`), Byar's (\code{byar}), or normal approximation (\code{asymptotic}) methods. This is largely a wrapper to \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} functions documented in \code{\link[epitools]{pois.conf.int}}in \pkg{epitools}.
+Computes a CI for the Poisson counts using the \code{exact}, gamma distribution (\code{daly}`), Byar's (\code{byar}), or normal approximation (\code{asymptotic}) methods.
+
+The \code{pois.daly} function gives essentially identical answers to the \code{pois.exact} function except when x=0. When x=0, for the upper confidence limit \code{pois.exact} returns 3.689 and \code{pois.daly} returns 2.996.
 }
 \examples{
 ## Demonstrates using all types at once
@@ -46,10 +48,7 @@ poiCI(c(7,10),type="exact")
 poiCI(c(7,10),type="exact",verbose=TRUE)
 
 }
-\seealso{
-See \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} (documented in \code{\link[epitools]{pois.conf.int}}) in \pkg{epitools} for more description and references.
-}
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{derek@derekogle.com}, though this is largely based on \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} from the old epitools package.
 }
 \keyword{htest}
