@@ -124,9 +124,12 @@
 <a href="#fsa-0-8-30-9-mar-20" class="anchor"></a>FSA 0.8.30 9-Mar-20<small> Unreleased </small>
 </h1>
 <ul>
+<li>Started using <code>rhub::check_for_cran()</code> for checking before sending to CRAN.</li>
 <li>Updated tests for <code>Summarize()</code> and <code>ksTest()</code> that used <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code>. This should have been done with v0.8.28.</li>
 <li>Fixed errors for tests in <code>ksTest()</code> that were identified using R-hub.</li>
 <li>Removed all links to documentation in non-dependent or non-suggested packages. This removes a note from R-hub.</li>
+<li>
+<code>fishR()</code>: Modified. Changed base URL to <code>https:</code> (from <code>http:</code>). Added <code>open=</code>, primarily to allow not opening a browser during testing.</li>
 </ul>
 </div>
     <div id="fsa-0-8-29-8-mar-20" class="section level1">
