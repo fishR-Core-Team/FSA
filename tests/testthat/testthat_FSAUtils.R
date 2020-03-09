@@ -425,13 +425,20 @@ test_that("Subset() results",{
 })  
 
 test_that("fishR() return values",{
-  expect_equal(fishR(),"http://derekogle.com/fishR")
-  expect_equal(fishR("IFAR"),"http://derekogle.com/IFAR")
-  expect_equal(fishR("general"),"http://derekogle.com/fishR/examples")
-  expect_equal(fishR("AIFFD"),"http://derekogle.com/aiffd2007")
-  expect_equal(fishR("posts"),"http://derekogle.com/fishR/blog")
-  expect_equal(fishR("books"),"http://derekogle.com/fishR/examples")
-  expect_equal(fishR("news"),"http://derekogle.com/fishR/blog")
+  expect_equal(fishR(open=FALSE),
+               "https://derekogle.com/fishR")
+  expect_equal(fishR("IFAR",open=FALSE),
+               "https://derekogle.com/IFAR")
+  expect_equal(fishR("general",open=FALSE),
+               "https://derekogle.com/fishR/examples")
+  expect_equal(fishR("AIFFD",open=FALSE),
+               "https://derekogle.com/aiffd2007")
+  expect_equal(fishR("posts",open=FALSE),
+               "https://derekogle.com/fishR/blog")
+  expect_equal(fishR("books",open=FALSE),
+               "https://derekogle.com/fishR/examples")
+  expect_equal(fishR("news",open=FALSE),
+               "https://derekogle.com/fishR/blog")
 })
 
 test_that("geomean() / geosd() results",{

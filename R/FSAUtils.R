@@ -315,9 +315,10 @@ fact2num <- function(object) {
 
 #' @title Opens web pages associated with the fishR website.
 #'
-#' @description Opens web pages associated with the \href{http://derekogle.com/fishR/}{fishR website} in a browser. The user can open the main page or choose a specific page to open.
+#' @description Opens web pages associated with the \href{https://derekogle.com/fishR/}{fishR website} in a browser. The user can open the main page or choose a specific page to open.
 #'
 #' @param where A string that indicates a particular page on the fishR website to open.
+#' @param open A logical that indicates whether the webpage should be opened in the default browser. Defaults to \code{TRUE}; \code{FALSE} is used for unit testing.
 #' 
 #' @return None, but a webpage will be opened in the default browser.
 #' 
@@ -338,9 +339,10 @@ fact2num <- function(object) {
 #' 
 #' @export
 fishR <- function(where=c("home","IFAR","general","books",
-                          "AIFFD","posts","news")) {
+                          "AIFFD","posts","news"),
+                  open=TRUE) {
   where <- match.arg(where)
-  tmp <- "http://derekogle.com/"
+  tmp <- "https://derekogle.com/"
   switch(where,
          home=   { tmp <- paste0(tmp,"fishR") },
          IFAR=   { tmp <- paste0(tmp,"IFAR") },
@@ -349,7 +351,7 @@ fishR <- function(where=c("home","IFAR","general","books",
          AIFFD=  { tmp <- paste0(tmp,"aiffd2007") },
          posts=,news=  { tmp <- paste0(tmp,"fishR/blog") }
   )
-  utils::browseURL(tmp)
+  if (open) utils::browseURL(tmp)
   invisible(tmp)
 }
 

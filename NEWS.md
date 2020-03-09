@@ -1,7 +1,9 @@
 # FSA 0.8.30 9-Mar-20
+* Started using `rhub::check_for_cran()` for checking before sending to CRAN.
 * Updated tests for `Summarize()` and `ksTest()` that used `data.frame()`. This should have been done with v0.8.28.
 * Fixed errors for tests in `ksTest()` that were identified using R-hub.
 * Removed all links to documentation in non-dependent or non-suggested packages. This removes a note from R-hub.
+* `fishR()`: Modified. Changed base URL to `https:` (from `http:`). Added `open=`, primarily to allow not opening a browser during testing.
 
 # FSA 0.8.29 8-Mar-20
 * Removed dependency on `epitools` package as it may soon be orphaned. See changes to `binCI()` and `poiCI()` outlined below.
