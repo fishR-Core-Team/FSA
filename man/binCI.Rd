@@ -40,9 +40,6 @@ This function will compute confidence interval for three possible methods chosen
 
 Note that Agresti and Coull (2000) suggest that the Wilson interval is the preferred method and is, thus, the default \code{type}.
 }
-\note{
-This is primarily a wrapper function for \code{binom.exact}, \code{binom.wilson}, and \code{binom.approx} (documented in \code{\link[epitools]{binom.conf.int}}) from the \pkg{epitools} package.
-}
 \examples{
 ## All types at once
 binCI(7,20)

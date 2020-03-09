@@ -36,7 +36,7 @@ validn(junk6)
  
 }
 \seealso{
-See \code{\link[plotrix]{valid.n}} in \pkg{plotrix} and \code{\link[gdata]{nobs}} in \pkg{gdata} for similar functionality. See \code{\link{is.na}} for finding the missing values.
+See \code{\link[plotrix]{valid.n}} in \pkg{plotrix} and \code{nobs} in \pkg{gdata} for similar functionality. See \code{\link{is.na}} for finding the missing values.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

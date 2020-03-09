@@ -93,7 +93,7 @@ ch \tab freq \cr
 1100 \tab 2; \cr
 }
 
-The \code{\link[RMark:ABeginnersGuide]{RMark}} and \pkg{marked} are packages used to replace some of the functionality of MARK or to interact with MARK. The \dQuote{RMark} or \dQuote{marked} format requires the capture histories as one string (must be a character string and called \sQuote{ch}), as in the \dQuote{MARK} format, but without the semicolon. The data.frame may be augmented with an identifier for individual fish OR with a frequency variable. If augmented with a unique fish identification variable then the same data from above looks like:
+The \code{RMark} and \pkg{marked} are packages used to replace some of the functionality of MARK or to interact with MARK. The \dQuote{RMark} or \dQuote{marked} format requires the capture histories as one string (must be a character string and called \sQuote{ch}), as in the \dQuote{MARK} format, but without the semicolon. The data.frame may be augmented with an identifier for individual fish OR with a frequency variable. If augmented with a unique fish identification variable then the same data from above looks like:
 
 \tabular{cc}{
 fish \tab ch \cr
@@ -117,7 +117,7 @@ ch \tab freq \cr
 Each of the formats can be used to convert from (i.e., in \code{in.type=}) or to convert to (i.e., in \code{out.type=}) with the exception that only the individual fish identifier version can be converted to when \code{out.type="RMark"}.
 }
 \note{
-The formats as used here are simple in the sense that one is only allowed to have the individual fish identifier or the frequency variable in addition to the capture history information. More complex analyses may use a number of covariates. For these more complex analyses, one should work directly with the \pkg{Rcapture}, \code{\link[RMark:ABeginnersGuide]{RMark}}, or \pkg{marked} packages.
+The formats as used here are simple in the sense that one is only allowed to have the individual fish identifier or the frequency variable in addition to the capture history information. More complex analyses may use a number of covariates. For these more complex analyses, one should work directly with the \pkg{Rcapture}, \code{RMark}, or \pkg{marked} packages.
 
 This function also assumes that all unmarked captured fish are marked and returned to the population (i.e., no losses at the time of marking are allowed).
 }
@@ -303,7 +303,7 @@ capHistConvert(df1,id="fish",in.type="event")
 Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
-See \code{\link{capHistSum}} to summarize \dQuote{individual} capture histories into a format usable in \code{\link{mrClosed}} and \code{\link{mrOpen}}. Also see \pkg{Rcapture}, \code{\link[RMark:ABeginnersGuide]{RMark}}, or \pkg{marked} packages for handling more complex analyses.
+See \code{\link{capHistSum}} to summarize \dQuote{individual} capture histories into a format usable in \code{\link{mrClosed}} and \code{\link{mrOpen}}. Also see \pkg{Rcapture}, \code{RMark}, or \pkg{marked} packages for handling more complex analyses.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

@@ -12,8 +12,6 @@
 #'
 #' Note that Agresti and Coull (2000) suggest that the Wilson interval is the preferred method and is, thus, the default \code{type}.
 #'
-#' @note This is primarily a wrapper function for \code{binom.exact}, \code{binom.wilson}, and \code{binom.approx} (documented in \code{\link[epitools]{binom.conf.int}}) from the \pkg{epitools} package.
-#'
 #' @param x A single or vector of numbers that contains the number of observed successes.
 #' @param n A single or vector of numbers that contains the sample size.
 #' @param conf.level A single number that indicates the level of confidence (default is \code{0.95}).

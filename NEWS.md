@@ -1,3 +1,8 @@
+# FSA 0.8.30 9-Mar-20
+* Updated tests for `Summarize()` and `ksTest()` that used `data.frame()`. This should have been done with v0.8.28.
+* Fixed errors for tests in `ksTest()` that were identified using R-hub.
+* Removed all links to documentation in non-dependent or non-suggested packages. This removes a note from R-hub.
+
 # FSA 0.8.29 8-Mar-20
 * Removed dependency on `epitools` package as it may soon be orphaned. See changes to `binCI()` and `poiCI()` outlined below.
 * `binCI()`: Modified. Added internal functions that are based on (but not identical to) functions in the `epitools` package which will possibly be deprecated soon (per note from CRAN on 7-Mar-20).

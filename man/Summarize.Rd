@@ -110,7 +110,7 @@ lapply(as.list(d[,1:3]),Summarize,digits=4)
 
 }
 \seealso{
-See \code{\link[base]{summary}} for related one dimensional functionality. See \code{\link[base]{tapply}}, \code{summaryBy} in \pkg{doBy}, \code{\link[psych]{describe}} in \pkg{psych}, \code{\link[prettyR]{describe}} in \pkg{prettyR}, and \code{basicStats} in \pkg{fBasics} for similar \dQuote{by} functionality.
+See \code{\link[base]{summary}} for related one dimensional functionality. See \code{\link[base]{tapply}}, \code{summaryBy} in \pkg{doBy}, \code{\link[psych]{describe}} in \pkg{psych}, \code{describe} in \pkg{prettyR}, and \code{basicStats} in \pkg{fBasics} for similar \dQuote{by} functionality.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

@@ -51,7 +51,7 @@ head(SMBassWB)
 
 }
 \seealso{
-Used in \code{\link{capHistSum}} and \code{\link{mrClosed}} examples. Also see \code{\link[alr4]{wblake}} from \pkg{alr4} for the same dataset with only the \code{agecap}, \code{lencap}, and \code{radcap} variables.
+Used in \code{\link{capHistSum}} and \code{\link{mrClosed}} examples. Also see \code{wblake} from \pkg{alr4} for the same dataset with only the \code{agecap}, \code{lencap}, and \code{radcap} variables.
 }
 \concept{Back-Calculation}
 \concept{Growth}

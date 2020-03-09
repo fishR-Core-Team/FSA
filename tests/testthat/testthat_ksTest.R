@@ -31,7 +31,8 @@ test_that("Does ksTest() match ks.test()",{
   exp_nms <- c("statistic","p.value","alternative","method","data.name")
   x <- rnorm(50)
   y <- runif(30)
-  df <- data.frame(dat=c(x,y),grp=rep(c("X","Y"),c(50,30)))
+  df <- data.frame(dat=c(x,y),grp=factor(rep(c("X","Y"),c(50,30))),
+                   stringsAsFactors=FALSE)
   
   ## one-sample (from ks.test) still works
   tmp <- ksTest(x+2,"pgamma",3,2)
@@ -57,7 +58,8 @@ test_that("Does ksTest() match ks.test()",{
 test_that("Does ksTest() match ks.test()",{
   x <- rnorm(50)
   y <- runif(30)
-  df <- data.frame(dat=c(x,y),grp=rep(c("X","Y"),c(50,30)))
+  df <- data.frame(dat=c(x,y),grp=factor(rep(c("X","Y"),c(50,30))),
+                   stringsAsFactors=FALSE)
   
   ## one-sample (from ks.test) still works
   tmp1 <- ksTest(x+2, "pgamma", 3, 2)

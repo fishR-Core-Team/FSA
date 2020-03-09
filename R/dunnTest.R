@@ -14,11 +14,11 @@
 #' 
 #' The \code{pairw.kw} function from the \pkg{asbio} package performs the Dunn test with the Bonferroni correction. The \code{pairw.kw} also provides a confidence interval for the difference in mean ranks between pairs of groups. The p-value results from \code{DunnTest} match the results from \code{pairw.kw}.
 #' 
-#' The \code{\link[PMCMR]{posthoc.kruskal.nemenyi.test}} function from the \pkg{PMCMR} package uses the \dQuote{Nemenyi} (1963) method of multiple comparisons.
+#' The \code{posthoc.kruskal.nemenyi.test} function from the \pkg{PMCMR} package uses the \dQuote{Nemenyi} (1963) method of multiple comparisons.
 #' 
-#' The \code{\link[pgirmess]{kruskalmc}} function from the \pkg{pgirmess} package uses the method described by Siegel and Castellan (1988).
+#' The \code{kruskalmc} function from the \pkg{pgirmess} package uses the method described by Siegel and Castellan (1988).
 #' 
-#' It is not clear which method the \code{\link[agricolae]{kruskal}} function from the \pkg{agricolae} package uses. It does not seem to output p-values but it does allow for a wide variety of methods to control the experimentwise error rate. 
+#' It is not clear which method \code{kruskal} from the \pkg{agricolae} package uses. It does not seem to output p-values but it does allow for a wide variety of methods to control the experimentwise error rate. 
 #'
 #' @aliases dunnTest dunnTest.default dunnTest.formula
 #' 
@@ -39,7 +39,7 @@
 #'   \item P.adj: Adjusted p-values for each comparison.
 #' }
 #'
-#' @seealso See \code{\link{kruskal.test}}, \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test}, \code{\link[PMCMR]{posthoc.kruskal.nemenyi.test}} in \pkg{PMCMR}, \code{\link[pgirmess]{kruskalmc}} in \pkg{pgirmess}, and \code{\link[agricolae]{kruskal}} in \pkg{agricolae}.
+#' @seealso See \code{kruskal.test}, \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test}, \code{posthoc.kruskal.nemenyi.test} in \pkg{PMCMR}, \code{kruskalmc} in \pkg{pgirmess}, and \code{kruskal} in \pkg{agricolae}.
 #' 
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}, but this is largely a wrapper (see details) for \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test} written by Alexis Dinno.
 #'

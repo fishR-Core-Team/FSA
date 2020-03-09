@@ -112,10 +112,11 @@ test_that("Summarize() results, single quantitative variable",{
 
 test_that("Summarize() results, quantitative variable by single factor",{
   ## no NAs or zeros
-  exp <- data.frame(f1=c("A","B","C"),n=rep(3,3),nvalid=rep(3,3),
+  exp <- data.frame(f1=factor(c("A","B","C")),n=rep(3,3),nvalid=rep(3,3),
                     mean=c(12,15,18),sd=rep(1,3),min=c(11,14,17),
                     Q1=c(11,14,17)+0.5,median=c(12,15,18),Q3=c(12,15,18)+0.5,
-                    max=c(13,16,19),percZero=rep(0,3))
+                    max=c(13,16,19),percZero=rep(0,3),
+                    stringsAsFactors=FALSE)
   tmp <- Summarize(q2~f1,data=d1)
   expect_is(tmp,"data.frame")
   expect_equal(tmp,exp[,-c(3,11)])
@@ -127,10 +128,11 @@ test_that("Summarize() results, quantitative variable by single factor",{
   expect_equal(tmp,exp)            # drop nvalid & percZero from expectations
   
   ## no NAs, but zeros
-  exp <- data.frame(f1=c("A","B","C"),n=rep(3,3),nvalid=rep(3,3),
+  exp <- data.frame(f1=factor(c("A","B","C")),n=rep(3,3),nvalid=rep(3,3),
                     mean=c(1,4,7),sd=rep(1,3),min=c(0,3,6),
                     Q1=c(0,3,6)+0.5,median=c(1,4,7),Q3=c(1,4,7)+0.5,
-                    max=c(2,5,8),percZero=c(1,0,0)/3*100)
+                    max=c(2,5,8),percZero=c(1,0,0)/3*100,
+                    stringsAsFactors=FALSE)
   tmp <- Summarize(q1~f1,data=d1)
   expect_is(tmp,"data.frame")
   expect_equal(tmp,exp[,-c(3)])    # drop nvalid from expectations
@@ -142,11 +144,12 @@ test_that("Summarize() results, quantitative variable by single factor",{
   expect_equal(tmp,exp)
   
   ## NAs and zeros
-  exp <- data.frame(f1=c("A","B","C"),n=rep(3,3),nvalid=c(2,3,3),
+  exp <- data.frame(f1=factor(c("A","B","C")),n=rep(3,3),nvalid=c(2,3,3),
                     mean=c(0.5,3,6),sd=round(c(sqrt(2)/2,1,1),
                                              getOption("digits")),min=c(0,2,5),
                     Q1=c(0.25,2.5,5.5),median=c(0.5,3,6),Q3=c(0.75,3.5,6.5),
-                    max=c(1,4,7),percZero=c(50,0,0))
+                    max=c(1,4,7),percZero=c(50,0,0),
+                    stringsAsFactors=FALSE)
   tmp <- Summarize(q4~f1,data=d1)
   expect_is(tmp,"data.frame")
   expect_equal(tmp,exp)
@@ -175,10 +178,12 @@ test_that("Summarize() results, quantitative variable by single character",{
 })
 
 test_that("Summarize() results, quantitative variable by two factors",{
-  exp <- data.frame(f2=rep(c("a","b","c"),3),f1=rep(c("A","B","C"),each=3),
+  exp <- data.frame(f2=factor(rep(c("a","b","c"),3)),
+                    f1=factor(rep(c("A","B","C"),each=3)),
                     n=rep(1,9),nvalid=rep(1,9),mean=11:19,
                     sd=as.numeric(rep(NA,9)),min=11:19,Q1=11:19,median=11:19,
-                    Q3=11:19,max=11:19,percZero=rep(0,9))
+                    Q3=11:19,max=11:19,percZero=rep(0,9),
+                    stringsAsFactors=FALSE)
   tmp <- Summarize(q2~f2+f1,data=d1)
   expect_is(tmp,"data.frame")
   expect_equal(tmp,exp[,-c(4,12)])  # drop nvalid & percZero from expectations
@@ -191,10 +196,11 @@ test_that("Summarize() results, quantitative variable by two factors",{
 })
 
 test_that("Summarize() results using exclude=",{
-  exp <- data.frame(f1=c("B","C"),n=c(3,3),nvalid=c(3,3),
+  exp <- data.frame(f1=factor(c("B","C")),n=c(3,3),nvalid=c(3,3),
                     mean=c(3,6),sd=c(1,1),min=c(2,5),
                     Q1=c(2.5,5.5),median=c(3,6),Q3=c(3.5,6.5),
-                    max=c(4,7),percZero=rep(0,2))
+                    max=c(4,7),percZero=rep(0,2),
+                    stringsAsFactors=FALSE)
   tmp <- Summarize(q4~f1,data=d1,exclude="A")
   expect_is(tmp,"data.frame")
   expect_equal(tmp,exp[,-c(3,11)])  # drop nvalid & percZero from expectations
