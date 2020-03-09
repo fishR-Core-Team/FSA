@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.29</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30</span>
       </span>
     </div>
 
@@ -238,7 +238,7 @@
 </table>
 
 
-<p>The <code><a href='https://rdrr.io/pkg/RMark/man/ABeginnersGuide.html'>RMark</a></code> and <span class="pkg">marked</span> are packages used to replace some of the functionality of MARK or to interact with MARK. The &#8220;RMark&#8221; or &#8220;marked&#8221; format requires the capture histories as one string (must be a character string and called &#8216;ch&#8217;), as in the &#8220;MARK&#8221; format, but without the semicolon. The data.frame may be augmented with an identifier for individual fish OR with a frequency variable. If augmented with a unique fish identification variable then the same data from above looks like:</p>
+<p>The <code>RMark</code> and <span class="pkg">marked</span> are packages used to replace some of the functionality of MARK or to interact with MARK. The &#8220;RMark&#8221; or &#8220;marked&#8221; format requires the capture histories as one string (must be a character string and called &#8216;ch&#8217;), as in the &#8220;MARK&#8221; format, but without the semicolon. The data.frame may be augmented with an identifier for individual fish OR with a frequency variable. If augmented with a unique fish identification variable then the same data from above looks like:</p>
 <table class='table'>
 <tr><td>fish</td><td>ch</td></tr>
 <tr><td>17</td><td>1100</td></tr>
@@ -262,7 +262,7 @@
 <p>Each of the formats can be used to convert from (i.e., in <code>in.type=</code>) or to convert to (i.e., in <code>out.type=</code>) with the exception that only the individual fish identifier version can be converted to when <code>out.type="RMark"</code>.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>The formats as used here are simple in the sense that one is only allowed to have the individual fish identifier or the frequency variable in addition to the capture history information. More complex analyses may use a number of covariates. For these more complex analyses, one should work directly with the <span class="pkg">Rcapture</span>, <code><a href='https://rdrr.io/pkg/RMark/man/ABeginnersGuide.html'>RMark</a></code>, or <span class="pkg">marked</span> packages.</p>
+    <p>The formats as used here are simple in the sense that one is only allowed to have the individual fish identifier or the frequency variable in addition to the capture history information. More complex analyses may use a number of covariates. For these more complex analyses, one should work directly with the <span class="pkg">Rcapture</span>, <code>RMark</code>, or <span class="pkg">marked</span> packages.</p>
 <p>This function also assumes that all unmarked captured fish are marked and returned to the population (i.e., no losses at the time of marking are allowed).</p>
     <h2 class="hasAnchor" id="warning"><a class="anchor" href="#warning"></a>Warning</h2>
 
@@ -275,7 +275,7 @@
     <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='capHistSum.html'>capHistSum</a></code> to summarize &#8220;individual&#8221; capture histories into a format usable in <code><a href='mrClosed.html'>mrClosed</a></code> and <code><a href='mrOpen.html'>mrOpen</a></code>. Also see <span class="pkg">Rcapture</span>, <code><a href='https://rdrr.io/pkg/RMark/man/ABeginnersGuide.html'>RMark</a></code>, or <span class="pkg">marked</span> packages for handling more complex analyses.</p></div>
+    <div class='dont-index'><p>See <code><a href='capHistSum.html'>capHistSum</a></code> to summarize &#8220;individual&#8221; capture histories into a format usable in <code><a href='mrClosed.html'>mrClosed</a></code> and <code><a href='mrOpen.html'>mrOpen</a></code>. Also see <span class="pkg">Rcapture</span>, <code>RMark</code>, or <span class="pkg">marked</span> packages for handling more complex analyses.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## A small example of 'event' format</span>

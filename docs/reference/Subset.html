@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.29</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30</span>
       </span>
     </div>
 
@@ -167,15 +167,15 @@
     <p>A data frame with the subsetted rows and selected variables.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Newbie students using R expect that when a factor variable is subsetted with <code><a href='https://rdrr.io/r/base/subset.html'>subset</a></code> or filtered with <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code> that any original levels that are no longer used after the subsetting or filtering will be ignored. This, however, is not the case and often results in tables with empty cells and figures with empty bars. One remedy is to use <code><a href='https://rdrr.io/pkg/gdata/man/drop.levels.html'>drop.levels</a></code> from <span class="pkg">gdata</span> immediately following the <code><a href='https://rdrr.io/r/base/subset.html'>subset</a></code> or <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code> call. This generally becomes a repetitive sequence for most newbie students; thus, <code>Subset</code> and <code>filterD</code> incorporate these two functions into one function.</p>
-<p><code>Subset</code> is a wrapper to <code><a href='https://rdrr.io/r/base/subset.html'>subset</a></code> with a catch for non-data.frames and a specific call to <code><a href='https://rdrr.io/pkg/gdata/man/drop.levels.html'>drop.levels</a></code> just before the data.frame is returned. I also added an argument to allow resetting the row names. <code>filterD</code> is a wrapper for <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code> from <span class="pkg">dplyr</span> followed by <code><a href='https://rdrr.io/pkg/gdata/man/drop.levels.html'>drop.levels</a></code> just before the data.frame is returned. Otherwise, there is no new code here.</p>
+    <p>Newbie students using R expect that when a factor variable is subsetted with <code><a href='https://rdrr.io/r/base/subset.html'>subset</a></code> or filtered with <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code> that any original levels that are no longer used after the subsetting or filtering will be ignored. This, however, is not the case and often results in tables with empty cells and figures with empty bars. One remedy is to use <code>drop.levels</code> from <span class="pkg">gdata</span> immediately following the <code><a href='https://rdrr.io/r/base/subset.html'>subset</a></code> or <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code> call. This generally becomes a repetitive sequence for most newbie students; thus, <code>Subset</code> and <code>filterD</code> incorporate these two functions into one function.</p>
+<p><code>Subset</code> is a wrapper to <code><a href='https://rdrr.io/r/base/subset.html'>subset</a></code> with a catch for non-data.frames and a specific call to <code>drop.levels</code> just before the data.frame is returned. I also added an argument to allow resetting the row names. <code>filterD</code> is a wrapper for <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code> from <span class="pkg">dplyr</span> followed by <code>drop.levels</code> just before the data.frame is returned. Otherwise, there is no new code here.</p>
 <p>These functions are used only for data frames.</p>
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
     <p>Basic Data Manipulations.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code>subset</code> and <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code> from <span class="pkg">dplyr</span> for similar functionality. See <code><a href='https://rdrr.io/pkg/gdata/man/drop.levels.html'>drop.levels</a></code> in <span class="pkg">gdata</span> and <code><a href='https://rdrr.io/r/base/droplevels.html'>droplevels</a></code> for related functionality.</p></div>
+    <div class='dont-index'><p>See <code>subset</code> and <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code> from <span class="pkg">dplyr</span> for similar functionality. See <code>drop.levels</code> in <span class="pkg">gdata</span> and <code>droplevels</code> for related functionality.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## The problem -- note use of unused level in the final table.</span>

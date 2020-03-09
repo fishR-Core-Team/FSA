@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.29</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30</span>
       </span>
     </div>
 
@@ -206,15 +206,15 @@
 <p>There are a number of functions in other packages that do similar analyses.</p>
 <p>The results from <code>DunnTest</code> match the results (in a different format) from the <code><a href='https://rdrr.io/pkg/dunn.test/man/dunn.test.html'>dunn.test</a></code> function from <span class="pkg">dunn.test</span>.</p>
 <p>The <code>pairw.kw</code> function from the <span class="pkg">asbio</span> package performs the Dunn test with the Bonferroni correction. The <code>pairw.kw</code> also provides a confidence interval for the difference in mean ranks between pairs of groups. The p-value results from <code>DunnTest</code> match the results from <code>pairw.kw</code>.</p>
-<p>The <code><a href='https://rdrr.io/pkg/PMCMR/man/posthoc.kruskal.nemenyi.test.html'>posthoc.kruskal.nemenyi.test</a></code> function from the <span class="pkg">PMCMR</span> package uses the &#8220;Nemenyi&#8221; (1963) method of multiple comparisons.</p>
-<p>The <code><a href='https://rdrr.io/pkg/pgirmess/man/kruskalmc.html'>kruskalmc</a></code> function from the <span class="pkg">pgirmess</span> package uses the method described by Siegel and Castellan (1988).</p>
-<p>It is not clear which method the <code><a href='https://rdrr.io/pkg/agricolae/man/kruskal.html'>kruskal</a></code> function from the <span class="pkg">agricolae</span> package uses. It does not seem to output p-values but it does allow for a wide variety of methods to control the experimentwise error rate.</p>
+<p>The <code>posthoc.kruskal.nemenyi.test</code> function from the <span class="pkg">PMCMR</span> package uses the &#8220;Nemenyi&#8221; (1963) method of multiple comparisons.</p>
+<p>The <code>kruskalmc</code> function from the <span class="pkg">pgirmess</span> package uses the method described by Siegel and Castellan (1988).</p>
+<p>It is not clear which method <code>kruskal</code> from the <span class="pkg">agricolae</span> package uses. It does not seem to output p-values but it does allow for a wide variety of methods to control the experimentwise error rate.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Dunn, O.J. 1964. Multiple comparisons using rank sums. Technometrics 6:241-252.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='https://rdrr.io/r/stats/kruskal.test.html'>kruskal.test</a></code>, <code><a href='https://rdrr.io/pkg/dunn.test/man/dunn.test.html'>dunn.test</a></code> in <span class="pkg">dunn.test</span>, <code><a href='https://rdrr.io/pkg/PMCMR/man/posthoc.kruskal.nemenyi.test.html'>posthoc.kruskal.nemenyi.test</a></code> in <span class="pkg">PMCMR</span>, <code><a href='https://rdrr.io/pkg/pgirmess/man/kruskalmc.html'>kruskalmc</a></code> in <span class="pkg">pgirmess</span>, and <code><a href='https://rdrr.io/pkg/agricolae/man/kruskal.html'>kruskal</a></code> in <span class="pkg">agricolae</span>.</p></div>
+    <div class='dont-index'><p>See <code>kruskal.test</code>, <code><a href='https://rdrr.io/pkg/dunn.test/man/dunn.test.html'>dunn.test</a></code> in <span class="pkg">dunn.test</span>, <code>posthoc.kruskal.nemenyi.test</code> in <span class="pkg">PMCMR</span>, <code>kruskalmc</code> in <span class="pkg">pgirmess</span>, and <code>kruskal</code> in <span class="pkg">agricolae</span>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## pH in four ponds data from Zar (2010)</span>

@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.29</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30</span>
       </span>
     </div>
 
@@ -119,6 +119,19 @@
       <small>Source: <a href='https://github.com/droglenc/FSA/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="fsa-0830-9-mar-20" class="section level1">
+<h1 class="page-header">
+<a href="#fsa-0830-9-mar-20" class="anchor"></a>FSA 0.8.30 9-Mar-20<small> Unreleased </small>
+</h1>
+<ul>
+<li>Started using <code><a href="https://r-hub.github.io/rhub/reference/check_for_cran.html">rhub::check_for_cran()</a></code> for checking before sending to CRAN.</li>
+<li>Updated tests for <code><a href="../reference/Summarize.html">Summarize()</a></code> and <code><a href="../reference/ksTest.html">ksTest()</a></code> that used <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code>. This should have been done with v0.8.28.</li>
+<li>Fixed errors for tests in <code><a href="../reference/ksTest.html">ksTest()</a></code> that were identified using R-hub.</li>
+<li>Removed all links to documentation in non-dependent or non-suggested packages. This removes a note from R-hub.</li>
+<li>
+<code><a href="../reference/fishR.html">fishR()</a></code>: Modified. Changed base URL to <code>https:</code> (from <code>http:</code>). Added <code>open=</code>, primarily to allow not opening a browser during testing.</li>
+</ul>
+</div>
     <div id="fsa-0829-8-mar-20" class="section level1">
 <h1 class="page-header">
 <a href="#fsa-0829-8-mar-20" class="anchor"></a>FSA 0.8.29 8-Mar-20<small> Unreleased </small>
@@ -486,7 +499,7 @@
 <a href="#fsa-0812-12-mar-17" class="anchor"></a>FSA 0.8.12 12-Mar-17<small> 2017-03-12 </small>
 </h1>
 <ul>
-<li>Lots of spelling corrections after running <code><a href="https://rdrr.io/pkg/devtools/man/spell_check.html">devtools::spell_check()</a></code>.</li>
+<li>Lots of spelling corrections after running <code><a href="https://devtools.r-lib.org//reference/spell_check.html">devtools::spell_check()</a></code>.</li>
 <li>Cleaned up some issues in the testing files that were caused by a new version of <code>fishmethods</code> and changes to R v3.4.0.</li>
 <li>
 <code><a href="../reference/metaM.html">metaM()</a></code>: Modified. Changed <code>T=</code> to <code>Temp=</code> to reduce potential for conflicts with <code>TRUE</code> abbreviation.</li>
@@ -3338,6 +3351,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#fsa-0830-9-mar-20">0.8.30</a></li>
         <li><a href="#fsa-0829-8-mar-20">0.8.29</a></li>
         <li><a href="#fsa-0828-28-feb-20">0.8.28</a></li>
         <li><a href="#fsa-0827-2-feb-20">0.8.27</a></li>
