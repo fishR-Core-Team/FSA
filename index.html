@@ -90,8 +90,8 @@
 <p>The <a href="https://cloud.r-project.org/package=FSA">most recent stable version (on CRAN)</a> of <strong>FSA</strong> may be installed with</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"FSA"</span>)</a></code></pre></div>
 <p>The most recent development version (on GitHub) may be installed with</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">'devtools'</span>)) <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'devtools'</span>); <span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">'devtools'</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">'droglenc/FSA'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">'remotes'</span>)) <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'remotes'</span>); <span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">'remotes'</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">'droglenc/FSA'</span>)</a></code></pre></div>
 <p>You may need to have R Tools installed on your system to install the development version from GitHub. See the instructions for (<a href="https://cran.r-project.org/bin/windows/Rtools/">R Tools for Windows</a> or <a href="https://cran.r-project.org/bin/macosx/tools/">R Tools for Mac OS X</a>).</p>
 </div>
 <div id="questions-comments-problems" class="section level3">
@@ -103,13 +103,6 @@
 **FSA** uses **TCL/TK** for some interactive plots.  Some Mac users report problems with using **TCL/TK**.  I do not have access to a Mac to test these problems, some students have reported success installing the **TCL/TK** universal build [located here](http://cran.r-project.org/bin/macosx/tools/) (or [direct link to the file](http://cran.r-project.org/bin/macosx/tools/tcltk-8.5.5-x11.dmg)).  You may have to reinstall **FSA** after installing this file.
 
 You should be able to use the vast majority of the functionality in **FSA** even if the problems with **TCL/TK** cannot be rectified.
-
-
-## Alternative Installation 
-The installation instructions above may not work if **devtools** will not install properly.  In these instances, the following code (run in R/RStudio) may properly install **FSA**.
-```r
-source("http://www.rforge.net/FSA/InstallFSA.R")
-```
 --->
 </div>
 </div>
