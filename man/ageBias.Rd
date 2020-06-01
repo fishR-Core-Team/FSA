@@ -18,8 +18,8 @@ ageBias(
 
 \method{summary}{ageBias}(
   object,
-  what = c("table", "symmetry", "Bowker", "EvansHoenig", "McNemar", "bias", "diff.bias",
-    "n"),
+  what = c("table", "symmetry", "Bowker", "EvansHoenig", "McNemar", "bias",
+    "diff.bias", "n"),
   flip.table = FALSE,
   zero.print = "-",
   digits = 3,

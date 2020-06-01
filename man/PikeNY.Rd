@@ -4,13 +4,15 @@
 \name{PikeNY}
 \alias{PikeNY}
 \title{Summarized multiple mark-recapture data for all Northern Pike from Buckhorn Marsh, NY.}
-\format{A data frame with 21 observations on the following 4 variables:
+\format{
+A data frame with 21 observations on the following 4 variables:
  \describe{
    \item{date}{Capture date}
    \item{n}{Total fish captured in each sample}
    \item{m}{Marked fish captured in each sample}
    \item{R}{Marked fish returned to the population}
- }}
+ }
+}
 \source{
 New York Power Authority. 2004. Use of Buckhorn Marsh and Grand Island tributaries by Northern Pike for spawning and as a nursery. Technical report, New York Power Authority, January 2004. Niagara Power Project (FERC No. 2216).
 }

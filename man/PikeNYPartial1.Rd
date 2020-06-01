@@ -4,14 +4,16 @@
 \name{PikeNYPartial1}
 \alias{PikeNYPartial1}
 \title{Capture histories (4 samples), in capture history format, of a subset of Northern Pike from Buckhorn Marsh, NY.}
-\format{A data frame with 57 observations on the following 4 variables.
+\format{
+A data frame with 57 observations on the following 4 variables.
  \describe{
    \item{id}{A unique identification numbers}
    \item{first}{Indicator variable for the first sample (1=captured)} 
    \item{second}{Indicator variable for the second sample (1=captured)} 
    \item{third}{Indicator variable for the third sample (1=captured)} 
    \item{fourth}{Indicator variable for the fourth sample (1=captured)}
- }}
+ }
+}
 \source{
 Summary values taken from Table C-1 of New York Power Authority. 2004. Use of Buckhorn Marsh and Grand Island tributaries by Northern Pike for spawning and as a nursery. Technical report, New York Power Authority, January 2004. Niagara Power Project (FERC No. 2216).
 }

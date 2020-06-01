@@ -4,11 +4,13 @@
 \name{BrookTroutTH}
 \alias{BrookTroutTH}
 \title{Catch-at-age for Tobin Harbor, Isle Royale Brook Trout.}
-\format{A data frame with 7 observations on the following 2 variables.
+\format{
+A data frame with 7 observations on the following 2 variables.
  \describe{
    \item{age}{A numeric vector of assigned ages}
    \item{catch}{A numeric vector of number of Brook Trout caught}
- }}
+ }
+}
 \source{
 Quinlan, H.R. 1999. Biological Characteristics of Coaster Brook Trout at Isle Royale National Park, Michigan, 1996-98. U.S. Fish and Wildlife Service Ashland Fishery Resources Office report. November 1999. [Was (is?) from http://www.fws.gov/midwest/ashland/brook/biochar/biolchar.html.]
 }

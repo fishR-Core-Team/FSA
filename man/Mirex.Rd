@@ -4,13 +4,15 @@
 \name{Mirex}
 \alias{Mirex}
 \title{Mirex concentration, weight, capture year, and species of Lake Ontario salmon.}
-\format{A data frame with 122 observations on the following 4 variables.
+\format{
+A data frame with 122 observations on the following 4 variables.
  \describe{ 
    \item{year}{a numeric vector of capture years}
    \item{weight}{a numeric vector of salmon weights (kg)}
    \item{mirex}{a numeric vector of mirex concentration in the salmon tissue (mg/kg)}
    \item{species}{a factor with levels \code{chinook} and \code{coho}}
- }}
+ }
+}
 \source{
 From (actual data) Makarewicz, J.C., E.Damaske, T.W. Lewis, and M. Merner. 2003. Trend analysis reveals a recent reduction in mirex concentrations in Coho (\emph{Oncorhynchus kisutch}) and Chinook (\emph{O. tshawytscha}) Salmon from Lake Ontario. Environmental Science and Technology, 37:1521-1527.
 }

@@ -4,7 +4,8 @@
 \name{PSDlit}
 \alias{PSDlit}
 \title{Gabelhouse five-cell length categories for various species.}
-\format{A data frame of 58 observations on the following 11 variables:
+\format{
+A data frame of 58 observations on the following 11 variables:
  \describe{
    \item{species}{Species name.}
    \item{stock.in}{Stock length in inches.}
@@ -17,7 +18,8 @@
    \item{preferred.cm}{Preferred length in cm.}
    \item{memorable.cm}{Memorable length in cm.}
    \item{trophy.cm}{Trophy length in cm.}
- }}
+ }
+}
 \source{
 Original summary table from Dr. Michael Hansen, University of Wisconsin-Stevens Point. Additional species have been added by the package author from the literature.
 }

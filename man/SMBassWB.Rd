@@ -4,7 +4,8 @@
 \name{SMBassWB}
 \alias{SMBassWB}
 \title{Growth increment data for West Bearskin Lake, MN, Smallmouth Bass.}
-\format{A data frame of 445 observations on the following 20 variables:
+\format{
+A data frame of 445 observations on the following 20 variables:
  \describe{
    \item{species}{Species of the fish (\code{SMB} for each fish in this file)}
    \item{lake}{Lake fish was captured in (\code{WB} for each fish in this file)}
@@ -26,7 +27,8 @@
    \item{anu11}{Magnified scale radius (mm) to the 11th annulus}
    \item{anu12}{Magnified scale radius (mm) to the 12th annulus}
    \item{radcap}{Total scale radius at time of capture}
- }}
+ }
+}
 \source{
 Data from the linear growth modeling software distributed in support of Weisberg, S. 1993. Using hard-part increment data to estimate age and environmental effects. Canadian Journal of Fisheries and Aquatic Sciences 50:1229-1237.
 }

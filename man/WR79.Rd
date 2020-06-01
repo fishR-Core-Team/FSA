@@ -4,12 +4,14 @@
 \name{WR79}
 \alias{WR79}
 \title{Ages and lengths for a hypothetical sample from Westerheim and Ricker (1979).}
-\format{A data frame of 2369 observations on the following 3 variables:
+\format{
+A data frame of 2369 observations on the following 3 variables:
  \describe{
    \item{ID}{Unique fish identifiers}
    \item{len}{Length of an individual fish}
    \item{age}{Age of an individual fish}
- }}
+ }
+}
 \source{
 Simulated from Table 2A in Westerheim, S.J. and W.E. Ricker. 1979. Bias in using age-length key to estimate age-frequency distributions. Journal of the Fisheries Research Board of Canada. 35:184-189.
 }

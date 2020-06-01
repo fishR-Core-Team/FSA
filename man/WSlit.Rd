@@ -4,7 +4,8 @@
 \name{WSlit}
 \alias{WSlit}
 \title{All known standard weight equations.}
-\format{A data frame with observations on the following 13 variables:
+\format{
+A data frame with observations on the following 13 variables:
  \describe{
    \item{species}{Species name.}
    \item{units}{Units of measurements. \code{Metric} uses lengths in mm and weight in grams. \code{English} uses lengths in inches and weight in pounds.}
@@ -19,7 +20,8 @@
    \item{quad}{The quadratic coefficient in the quadratic equations.}
    \item{source}{Source of the equation. These match the sources given in Neumann et al. 2012.}
    \item{comment}{Comments about use of equation.}
- }}
+ }
+}
 \source{
 Most of these equations can be found in Neumann, R.M., C.S. Guy, and D.W. Willis. 2012. Length, Weight, and Associated Indices. Chapter 14 in Zale, A.V., D.L. Parrish, and T.M. Sutton, editors. Fisheries Techniques. American Fisheries Society, Bethesda, MD.
 
