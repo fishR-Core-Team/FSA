@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -45,7 +49,6 @@
 <meta property="og:title" content="Use an age-length key to assign age to individuals in the unaged sample. — alkIndivAge" />
 <meta property="og:description" content="Use either the semi- or completely-random methods from Isermann and Knight (2005) to assign ages to individual fish in the unaged sample according to the information in an age-length key supplied by the user." />
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -63,7 +66,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -203,7 +206,7 @@
 #&gt; 7  7  42  NA   40
 #&gt; 8  8  42  NA   40</div><div class='input'><span class='co'># create age-length key</span>
 <span class='no'>raw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR1.age</span>)
-( <span class='no'>WR1.key</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/prop.table.html'>prop.table</a></span>(<span class='no'>raw</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>1</span>) )</div><div class='output co'>#&gt;      age
+( <span class='no'>WR1.key</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span>(<span class='no'>raw</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>1</span>) )</div><div class='output co'>#&gt;      age
 #&gt; LCat           4          5          6          7          8          9
 #&gt;   35  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
 #&gt;   40  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
@@ -264,7 +267,7 @@
 ( <span class='no'>af</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR1.comb</span>) )</div><div class='output co'>#&gt; age
 #&gt;   4   5   6   7   8   9  10  11 
 #&gt; 987 395 272 447 146  78  38   6 </div><div class='input'><span class='co'># proportional age distribution</span>
-( <span class='no'>ap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/prop.table.html'>prop.table</a></span>(<span class='no'>af</span>) )</div><div class='output co'>#&gt; age
+( <span class='no'>ap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span>(<span class='no'>af</span>) )</div><div class='output co'>#&gt; age
 #&gt;           4           5           6           7           8           9 
 #&gt; 0.416631490 0.166737020 0.114816378 0.188687210 0.061629379 0.032925285 
 #&gt;          10          11 
@@ -280,7 +283,7 @@
 <span class='no'>WR2.age</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>WR2.age</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>5</span>)
 <span class='co'># create age-length key</span>
 <span class='no'>raw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR2.age</span>)
-( <span class='no'>WR2.key</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/prop.table.html'>prop.table</a></span>(<span class='no'>raw</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>1</span>) )</div><div class='output co'>#&gt;      age
+( <span class='no'>WR2.key</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span>(<span class='no'>raw</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>1</span>) )</div><div class='output co'>#&gt;      age
 #&gt; LCat           4          5          6          7          8          9
 #&gt;   35  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
 #&gt;   40  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
@@ -352,7 +355,7 @@
 #&gt; 4  4  37  NA   35
 #&gt; 7  7  42  NA   40
 #&gt; 8  8  42  NA   40</div><div class='input'><span class='no'>raw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR3.age</span>)
-( <span class='no'>WR3.key</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/prop.table.html'>prop.table</a></span>(<span class='no'>raw</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>1</span>) )</div><div class='output co'>#&gt;      age
+( <span class='no'>WR3.key</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span>(<span class='no'>raw</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>1</span>) )</div><div class='output co'>#&gt;      age
 #&gt; LCat           4          5          6          7          8          9
 #&gt;   35  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
 #&gt;   40  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
@@ -405,21 +408,10 @@
 #&gt; 8  11   5 112.60 1.14 111 112    113 113.00 114</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#testing">Testing</a></li>
-      <li><a href="#ifar-chapter">IFAR Chapter</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a>. This is largely an R version of the SAS code provided by Isermann and Knight (2005).</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -430,7 +422,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -44,7 +48,6 @@
 
 <meta property="og:title" content="Changelog" />
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -62,7 +65,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -115,17 +118,17 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/droglenc/FSA/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
     <div id="fsa-0-8-31-ongoing" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.31">
 <a href="#fsa-0-8-31-ongoing" class="anchor"></a>FSA 0.8.31 ongoing<small> Unreleased </small>
 </h1>
 </div>
     <div id="fsa-0-8-30-9-mar-20" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.30">
 <a href="#fsa-0-8-30-9-mar-20" class="anchor"></a>FSA 0.8.30 9-Mar-20<small> 2020-03-09 </small>
 </h1>
 <ul>
@@ -138,7 +141,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-29-8-mar-20" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.29">
 <a href="#fsa-0-8-29-8-mar-20" class="anchor"></a>FSA 0.8.29 8-Mar-20<small> Unreleased </small>
 </h1>
 <ul>
@@ -150,7 +153,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-28-28-feb-20" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.28">
 <a href="#fsa-0-8-28-28-feb-20" class="anchor"></a>FSA 0.8.28 28-Feb-20<small> Unreleased </small>
 </h1>
 <ul>
@@ -163,7 +166,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-27-2-feb-20" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.27">
 <a href="#fsa-0-8-27-2-feb-20" class="anchor"></a>FSA 0.8.27 2-Feb-20<small> 2020-02-03 </small>
 </h1>
 <ul>
@@ -176,7 +179,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-26-22-nov-19" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.26">
 <a href="#fsa-0-8-26-22-nov-19" class="anchor"></a>FSA 0.8.26 22-Nov-19<small> 2019-11-22 </small>
 </h1>
 <ul>
@@ -193,7 +196,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-25-24-jul-19" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.25">
 <a href="#fsa-0-8-25-24-jul-19" class="anchor"></a>FSA 0.8.25 24-Jul-19<small> 2019-07-24 </small>
 </h1>
 <ul>
@@ -208,7 +211,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-24-17-may-19" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.24">
 <a href="#fsa-0-8-24-17-may-19" class="anchor"></a>FSA 0.8.24 17-May-19<small> 2019-05-21 </small>
 </h1>
 <ul>
@@ -216,7 +219,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-23-1-may-19" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.23">
 <a href="#fsa-0-8-23-1-may-19" class="anchor"></a>FSA 0.8.23 1-May-19<small> 2019-05-02 </small>
 </h1>
 <ul>
@@ -235,7 +238,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-22-22-nov-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.22">
 <a href="#fsa-0-8-22-22-nov-18" class="anchor"></a>FSA 0.8.22 22-Nov-18<small> 2018-11-22 </small>
 </h1>
 <ul>
@@ -244,7 +247,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-21-2-nov-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.21">
 <a href="#fsa-0-8-21-2-nov-18" class="anchor"></a>FSA 0.8.21 2-Nov-18<small> 2018-11-03 </small>
 </h1>
 <ul>
@@ -296,7 +299,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-20-18-may-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.20">
 <a href="#fsa-0-8-20-18-may-18" class="anchor"></a>FSA 0.8.20 18-May-18<small> 2018-05-18 </small>
 </h1>
 <ul>
@@ -316,7 +319,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-19-8-apr-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.19">
 <a href="#fsa-0-8-19-8-apr-18" class="anchor"></a>FSA 0.8.19 8-Apr-18<small> 2018-04-08 </small>
 </h1>
 <ul>
@@ -373,7 +376,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-18-31-mar-18" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.18">
 <a href="#fsa-0-8-18-31-mar-18" class="anchor"></a>FSA 0.8.18 31-Mar-18<small> Unreleased </small>
 </h1>
 <ul>
@@ -406,7 +409,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-17-29-oct-17" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.17">
 <a href="#fsa-0-8-17-29-oct-17" class="anchor"></a>FSA 0.8.17 29-Oct-17<small> 2017-10-29 </small>
 </h1>
 <ul>
@@ -417,7 +420,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-16-7-sep-17" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.16">
 <a href="#fsa-0-8-16-7-sep-17" class="anchor"></a>FSA 0.8.16 7-Sep-17<small> 2017-09-07 </small>
 </h1>
 <ul>
@@ -427,7 +430,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-15-6-sep-17" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.15">
 <a href="#fsa-0-8-15-6-sep-17" class="anchor"></a>FSA 0.8.15 6-Sep-17<small> Unreleased </small>
 </h1>
 <ul>
@@ -441,13 +444,13 @@
 </ul>
 </div>
     <div id="fsa-0-8-14-27-jul-17" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.14">
 <a href="#fsa-0-8-14-27-jul-17" class="anchor"></a>FSA 0.8.14 27-Jul-17<small> 2017-07-27 </small>
 </h1>
 <ul>
 <li>Moved <code>dunn.test</code> and <code>lmtest</code> to <code>imports</code> to help with portability for workshops.</li>
 <li>
-<code>ageBias()</code>: Modified. Fixed bug in <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> so that the tick marks on the marginal histograms match the tick marks on the main plot. Changed the default <code>hist.panel.size=</code> in <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> so that it more reliably prints the values on the axes of the marginal histograms.</li>
+<code>ageBias()</code>: Modified. Fixed bug in <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> so that the tick marks on the marginal histograms match the tick marks on the main plot. Changed the default <code>hist.panel.size=</code> in <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> so that it more reliably prints the values on the axes of the marginal histograms.</li>
 <li>
 <code>removal()</code>: Modified. Added “warnings” for when all catches are zeroes (an object is still returned with all <code>NA</code>s). Thanks to Daniel Hanks for pointing out this issue.</li>
 <li>
@@ -455,7 +458,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-13-29-apr-17" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.13">
 <a href="#fsa-0-8-13-29-apr-17" class="anchor"></a>FSA 0.8.13 29-Apr-17<small> 2017-04-29 </small>
 </h1>
 <ul>
@@ -500,7 +503,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-12-12-mar-17" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.12">
 <a href="#fsa-0-8-12-12-mar-17" class="anchor"></a>FSA 0.8.12 12-Mar-17<small> 2017-03-12 </small>
 </h1>
 <ul>
@@ -517,7 +520,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-11-13-dec-16" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.11">
 <a href="#fsa-0-8-11-13-dec-16" class="anchor"></a>FSA 0.8.11 13-Dec-16<small> 2016-12-13 </small>
 </h1>
 <ul>
@@ -601,7 +604,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-10-24-sep-16" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.10">
 <a href="#fsa-0-8-10-24-sep-16" class="anchor"></a>FSA 0.8.10 24-Sep-16<small> 2016-09-24 </small>
 </h1>
 <ul>
@@ -636,7 +639,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-9-23-aug-16" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.9">
 <a href="#fsa-0-8-9-23-aug-16" class="anchor"></a>FSA 0.8.9 23-Aug-16<small> 2016-08-23 </small>
 </h1>
 <ul>
@@ -653,7 +656,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-8-18-jul-16" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.8">
 <a href="#fsa-0-8-8-18-jul-16" class="anchor"></a>FSA 0.8.8 18-Jul-16<small> 2016-07-18 </small>
 </h1>
 <ul>
@@ -666,7 +669,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-7-8-may-16" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.7">
 <a href="#fsa-0-8-7-8-may-16" class="anchor"></a>FSA 0.8.7 8-May-16<small> 2016-05-08 </small>
 </h1>
 <ul>
@@ -723,7 +726,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-6-25-mar-16" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.6">
 <a href="#fsa-0-8-6-25-mar-16" class="anchor"></a>FSA 0.8.6 25-Mar-16<small> 2016-03-25 </small>
 </h1>
 <ul>
@@ -754,7 +757,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-5-14-feb-16" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.5">
 <a href="#fsa-0-8-5-14-feb-16" class="anchor"></a>FSA 0.8.5 14-Feb-16<small> 2016-02-14 </small>
 </h1>
 <ul>
@@ -776,7 +779,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-4-21-dec-15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.4">
 <a href="#fsa-0-8-4-21-dec-15" class="anchor"></a>FSA 0.8.4 21-Dec-15<small> 2015-12-21 </small>
 </h1>
 <ul>
@@ -795,7 +798,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-3-23-oct-15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.3">
 <a href="#fsa-0-8-3-23-oct-15" class="anchor"></a>FSA 0.8.3 23-Oct-15<small> 2015-10-23 </small>
 </h1>
 <ul>
@@ -803,7 +806,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-2-22-oct-15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.2">
 <a href="#fsa-0-8-2-22-oct-15" class="anchor"></a>FSA 0.8.2 22-Oct-15<small> Unreleased </small>
 </h1>
 <ul>
@@ -822,7 +825,7 @@
 </ul>
 </div>
     <div id="fsa-0-8-1-10-oct-15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.1">
 <a href="#fsa-0-8-1-10-oct-15" class="anchor"></a>FSA 0.8.1 10-Oct-15<small> 2015-10-10 </small>
 </h1>
 <ul>
@@ -837,7 +840,7 @@
 <hr>
 </div>
     <div id="fsa-0-8-0-8-oct-15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.0">
 <a href="#fsa-0-8-0-8-oct-15" class="anchor"></a>FSA 0.8.0 8-Oct-15<small> 2015-10-08 </small>
 </h1>
 <ul>
@@ -923,7 +926,7 @@
 </ul>
 </div>
     <div id="fsa-0-7-11-oct15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.7.11">
 <a href="#fsa-0-7-11-oct15" class="anchor"></a>FSA 0.7.11 Oct15<small> Unreleased </small>
 </h1>
 <ul>
@@ -931,7 +934,7 @@
 </ul>
 </div>
     <div id="fsa-0-7-10-oct15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.7.10">
 <a href="#fsa-0-7-10-oct15" class="anchor"></a>FSA 0.7.10 Oct15<small> Unreleased </small>
 </h1>
 <ul>
@@ -942,7 +945,7 @@
 </ul>
 </div>
     <div id="fsa-0-7-9-sep15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.7.9">
 <a href="#fsa-0-7-9-sep15" class="anchor"></a>FSA 0.7.9 Sep15<small> Unreleased </small>
 </h1>
 <ul>
@@ -953,7 +956,7 @@
 </ul>
 </div>
     <div id="fsa-0-7-8-sep15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.7.8">
 <a href="#fsa-0-7-8-sep15" class="anchor"></a>FSA 0.7.8 Sep15<small> Unreleased </small>
 </h1>
 <ul>
@@ -968,7 +971,7 @@
 </ul>
 </div>
     <div id="fsa-0-7-7-aug15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.7.7">
 <a href="#fsa-0-7-7-aug15" class="anchor"></a>FSA 0.7.7 Aug15<small> Unreleased </small>
 </h1>
 <ul>
@@ -985,7 +988,7 @@
 </ul>
 </div>
     <div id="fsa-0-7-6-aug15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.7.6">
 <a href="#fsa-0-7-6-aug15" class="anchor"></a>FSA 0.7.6 Aug15<small> Unreleased </small>
 </h1>
 <ul>
@@ -996,7 +999,7 @@
 </ul>
 </div>
     <div id="fsa-0-7-5-aug15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.7.5">
 <a href="#fsa-0-7-5-aug15" class="anchor"></a>FSA 0.7.5 Aug15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1011,7 +1014,7 @@
 </ul>
 </div>
     <div id="fsa-0-7-4-aug15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.7.4">
 <a href="#fsa-0-7-4-aug15" class="anchor"></a>FSA 0.7.4 Aug15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1041,7 +1044,7 @@
 </ul>
 </div>
     <div id="fsa-0-7-3-aug15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.7.3">
 <a href="#fsa-0-7-3-aug15" class="anchor"></a>FSA 0.7.3 Aug15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1051,7 +1054,7 @@
 </ul>
 </div>
     <div id="fsa-0-7-2-jul15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.7.2">
 <a href="#fsa-0-7-2-jul15" class="anchor"></a>FSA 0.7.2 Jul15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1070,7 +1073,7 @@
 </ul>
 </div>
     <div id="fsa-0-7-1-jul15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.7.1">
 <a href="#fsa-0-7-1-jul15" class="anchor"></a>FSA 0.7.1 Jul15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1129,7 +1132,7 @@
 </ul>
 </div>
     <div id="fsa-0-7-0-jul15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.7.0">
 <a href="#fsa-0-7-0-jul15" class="anchor"></a>FSA 0.7.0 Jul15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1144,7 +1147,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-25-jul15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.25">
 <a href="#fsa-0-6-25-jul15" class="anchor"></a>FSA 0.6.25 Jul15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1181,7 +1184,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-24-jun15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.24">
 <a href="#fsa-0-6-24-jun15" class="anchor"></a>FSA 0.6.24 Jun15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1194,7 +1197,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-23-jun15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.23">
 <a href="#fsa-0-6-23-jun15" class="anchor"></a>FSA 0.6.23 Jun15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1207,7 +1210,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-22-jun15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.22">
 <a href="#fsa-0-6-22-jun15" class="anchor"></a>FSA 0.6.22 Jun15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1226,7 +1229,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-21-jun15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.21">
 <a href="#fsa-0-6-21-jun15" class="anchor"></a>FSA 0.6.21 Jun15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1241,7 +1244,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-20-jun15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.20">
 <a href="#fsa-0-6-20-jun15" class="anchor"></a>FSA 0.6.20 Jun15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1275,7 +1278,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-19-jun15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.19">
 <a href="#fsa-0-6-19-jun15" class="anchor"></a>FSA 0.6.19 Jun15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1286,7 +1289,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-18-jun15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.18">
 <a href="#fsa-0-6-18-jun15" class="anchor"></a>FSA 0.6.18 Jun15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1324,7 +1327,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-17-jun15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.17">
 <a href="#fsa-0-6-17-jun15" class="anchor"></a>FSA 0.6.17 Jun15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1341,7 +1344,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-16-jun15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.16">
 <a href="#fsa-0-6-16-jun15" class="anchor"></a>FSA 0.6.16 Jun15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1358,7 +1361,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-15-jun15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.15">
 <a href="#fsa-0-6-15-jun15" class="anchor"></a>FSA 0.6.15 Jun15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1371,7 +1374,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-14-may15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.14">
 <a href="#fsa-0-6-14-may15" class="anchor"></a>FSA 0.6.14 May15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1415,7 +1418,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-13-may15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.13">
 <a href="#fsa-0-6-13-may15" class="anchor"></a>FSA 0.6.13 May15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1427,7 +1430,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-12-may15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.12">
 <a href="#fsa-0-6-12-may15" class="anchor"></a>FSA 0.6.12 May15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1446,7 +1449,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-11-apr15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.11">
 <a href="#fsa-0-6-11-apr15" class="anchor"></a>FSA 0.6.11 Apr15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1477,7 +1480,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-10-apr15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.10">
 <a href="#fsa-0-6-10-apr15" class="anchor"></a>FSA 0.6.10 Apr15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1489,7 +1492,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-5-apr15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.5">
 <a href="#fsa-0-6-5-apr15" class="anchor"></a>FSA 0.6.5 Apr15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1505,7 +1508,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-4-apr15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.4">
 <a href="#fsa-0-6-4-apr15" class="anchor"></a>FSA 0.6.4 Apr15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1515,7 +1518,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-3-apr15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.3">
 <a href="#fsa-0-6-3-apr15" class="anchor"></a>FSA 0.6.3 Apr15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1525,7 +1528,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-2-mar15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.2">
 <a href="#fsa-0-6-2-mar15" class="anchor"></a>FSA 0.6.2 Mar15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1539,7 +1542,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-1-mar15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.1">
 <a href="#fsa-0-6-1-mar15" class="anchor"></a>FSA 0.6.1 Mar15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1554,7 +1557,7 @@
 </ul>
 </div>
     <div id="fsa-0-6-0-mar15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.0">
 <a href="#fsa-0-6-0-mar15" class="anchor"></a>FSA 0.6.0 Mar15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1569,7 +1572,7 @@
 </ul>
 </div>
     <div id="fsa-0-5-3-mar15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5.3">
 <a href="#fsa-0-5-3-mar15" class="anchor"></a>FSA 0.5.3 Mar15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1588,7 +1591,7 @@
 </ul>
 </div>
     <div id="fsa-0-5-2-mar15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5.2">
 <a href="#fsa-0-5-2-mar15" class="anchor"></a>FSA 0.5.2 Mar15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1597,7 +1600,7 @@
 </ul>
 </div>
     <div id="fsa-0-5-1-mar15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5.1">
 <a href="#fsa-0-5-1-mar15" class="anchor"></a>FSA 0.5.1 Mar15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1608,7 +1611,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-51-mar15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.51">
 <a href="#fsa-0-4-51-mar15" class="anchor"></a>FSA 0.4.51 Mar15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1617,7 +1620,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-50-mar15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.50">
 <a href="#fsa-0-4-50-mar15" class="anchor"></a>FSA 0.4.50 Mar15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1632,7 +1635,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-49-mar15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.49">
 <a href="#fsa-0-4-49-mar15" class="anchor"></a>FSA 0.4.49 Mar15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1641,7 +1644,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-48-mar15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.48">
 <a href="#fsa-0-4-48-mar15" class="anchor"></a>FSA 0.4.48 Mar15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1650,7 +1653,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-47-feb15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.47">
 <a href="#fsa-0-4-47-feb15" class="anchor"></a>FSA 0.4.47 Feb15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1659,7 +1662,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-46-feb15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.46">
 <a href="#fsa-0-4-46-feb15" class="anchor"></a>FSA 0.4.46 Feb15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1670,7 +1673,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-45-feb15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.45">
 <a href="#fsa-0-4-45-feb15" class="anchor"></a>FSA 0.4.45 Feb15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1683,7 +1686,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-44-feb15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.44">
 <a href="#fsa-0-4-44-feb15" class="anchor"></a>FSA 0.4.44 Feb15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1694,9 +1697,9 @@
 <li>
 <code>capHistSum()</code>: Modified. Changed to return <code><a href="https://rdrr.io/r/graphics/par.html">par()</a></code> options to what they were before the function was called.</li>
 <li>
-<code>catchCurve()</code>: Modified. Changed <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> to default to slighly lighter colored dots and a black line.</li>
+<code>catchCurve()</code>: Modified. Changed <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> to default to slighly lighter colored dots and a black line.</li>
 <li>
-<code>chapmanRobson()</code>: Modified. Changed <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> to default to slighly lighter colored dots. Changed to return <code><a href="https://rdrr.io/r/graphics/par.html">par()</a></code> options to what they were before the function was called.</li>
+<code>chapmanRobson()</code>: Modified. Changed <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> to default to slighly lighter colored dots. Changed to return <code><a href="https://rdrr.io/r/graphics/par.html">par()</a></code> options to what they were before the function was called.</li>
 <li>
 <code>growthModelSim()</code>: Modified. Changed to return <code><a href="https://rdrr.io/r/graphics/par.html">par()</a></code> options to what they were before the function was called.</li>
 <li>
@@ -1710,7 +1713,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-43-feb15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.43">
 <a href="#fsa-0-4-43-feb15" class="anchor"></a>FSA 0.4.43 Feb15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1721,7 +1724,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-42-feb15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.42">
 <a href="#fsa-0-4-42-feb15" class="anchor"></a>FSA 0.4.42 Feb15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1730,14 +1733,14 @@
 </ul>
 </div>
     <div id="fsa-0-4-41-jan15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.41">
 <a href="#fsa-0-4-41-jan15" class="anchor"></a>FSA 0.4.41 Jan15<small> Unreleased </small>
 </h1>
 <ul>
 <li>
-<code>catchCurve()</code>: Modified. Removed the use of larger points in the <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code>.</li>
+<code>catchCurve()</code>: Modified. Removed the use of larger points in the <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code>.</li>
 <li>
-<code>chapmanRobson()</code>: Modified. Removed the use of larger points in the <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code>.</li>
+<code>chapmanRobson()</code>: Modified. Removed the use of larger points in the <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code>.</li>
 <li>
 <code>metaM()</code>: Modified. Deleted <code>group=</code> (and created <code>method="ZhangMegreyD"</code> and <code>method="ZhangMegreyP"</code>). Added geometric mean regresson methods for Hoenig. Changed default for <code>justM=</code> to <code>TRUE</code>. Fixed several minor bugs from the original implementation. Added some checks for reasonableness of some arguments. Created tests for several methods to see if the results matched those from Kenchington (2014). Added code to compute with several methods at once.</li>
 <li>
@@ -1745,7 +1748,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-40-jan15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.40">
 <a href="#fsa-0-4-40-jan15" class="anchor"></a>FSA 0.4.40 Jan15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1754,7 +1757,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-39-jan15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.39">
 <a href="#fsa-0-4-39-jan15" class="anchor"></a>FSA 0.4.39 Jan15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1765,7 +1768,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-38-jan15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.38">
 <a href="#fsa-0-4-38-jan15" class="anchor"></a>FSA 0.4.38 Jan15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1776,7 +1779,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-37-jan15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.37">
 <a href="#fsa-0-4-37-jan15" class="anchor"></a>FSA 0.4.37 Jan15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1791,7 +1794,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-36-jan15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.36">
 <a href="#fsa-0-4-36-jan15" class="anchor"></a>FSA 0.4.36 Jan15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1810,7 +1813,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-35-jan15" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.35">
 <a href="#fsa-0-4-35-jan15" class="anchor"></a>FSA 0.4.35 Jan15<small> Unreleased </small>
 </h1>
 <ul>
@@ -1819,7 +1822,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-34-dec14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.34">
 <a href="#fsa-0-4-34-dec14" class="anchor"></a>FSA 0.4.34 Dec14<small> Unreleased </small>
 </h1>
 <ul>
@@ -1828,7 +1831,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-33-dec14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.33">
 <a href="#fsa-0-4-33-dec14" class="anchor"></a>FSA 0.4.33 Dec14<small> Unreleased </small>
 </h1>
 <ul>
@@ -1847,7 +1850,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-32-nov14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.32">
 <a href="#fsa-0-4-32-nov14" class="anchor"></a>FSA 0.4.32 Nov14<small> Unreleased </small>
 </h1>
 <ul>
@@ -1864,7 +1867,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-31-nov14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.31">
 <a href="#fsa-0-4-31-nov14" class="anchor"></a>FSA 0.4.31 Nov14<small> Unreleased </small>
 </h1>
 <ul>
@@ -1886,7 +1889,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-30-oct14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.30">
 <a href="#fsa-0-4-30-oct14" class="anchor"></a>FSA 0.4.30 Oct14<small> Unreleased </small>
 </h1>
 <ul>
@@ -1902,7 +1905,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-29-oct14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.29">
 <a href="#fsa-0-4-29-oct14" class="anchor"></a>FSA 0.4.29 Oct14<small> Unreleased </small>
 </h1>
 <ul>
@@ -1923,7 +1926,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-28-sep14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.28">
 <a href="#fsa-0-4-28-sep14" class="anchor"></a>FSA 0.4.28 Sep14<small> Unreleased </small>
 </h1>
 <ul>
@@ -1940,7 +1943,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-27-sep14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.27">
 <a href="#fsa-0-4-27-sep14" class="anchor"></a>FSA 0.4.27 Sep14<small> Unreleased </small>
 </h1>
 <ul>
@@ -1961,7 +1964,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-26-sep14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.26">
 <a href="#fsa-0-4-26-sep14" class="anchor"></a>FSA 0.4.26 Sep14<small> Unreleased </small>
 </h1>
 <ul>
@@ -1989,7 +1992,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-25-sep14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.25">
 <a href="#fsa-0-4-25-sep14" class="anchor"></a>FSA 0.4.25 Sep14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2008,7 +2011,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-24-aug14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.24">
 <a href="#fsa-0-4-24-aug14" class="anchor"></a>FSA 0.4.24 Aug14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2037,16 +2040,16 @@
 </ul>
 </div>
     <div id="fsa-0-4-23-aug14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.23">
 <a href="#fsa-0-4-23-aug14" class="anchor"></a>FSA 0.4.23 Aug14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
-<code>removal()</code>: Modified. Completely modified the code so that the examples with <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> would also provide confidence intervals. Also changed the code to reflect that $\sum_{i=1}^{k-1}T_{i}$ from Schnute (1983) is the same as $X$ from Carle and Strub (1978), the $\sum_{i=1}^{k-1}T_{i}-C_{1}$ in Schnute (1983) is the same as $X-(k-1)C_{1}$, and $q$ in Schnute (1983) is $p$ in most other resources. These changes allowed some efficiencies and connected the theory behind the methods more firmly. Removed the check for character data. Kept the check for whether catch was a vector or not but if catch is a one row or one column matrix or data.frame then it will be converted to a vector to continue. The latter change allows one to extract one row from a data.frame to send to <code>removal()</code> without having to use <code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code>. Modified and added examples of the use of <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>.</li>
+<code>removal()</code>: Modified. Completely modified the code so that the examples with <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> would also provide confidence intervals. Also changed the code to reflect that <span class="math inline">$\sum_{i=1}^{k-1}T_{i}$</span> from Schnute (1983) is the same as <span class="math inline"><em>X</em></span> from Carle and Strub (1978), the <span class="math inline">$\sum_{i=1}^{k-1}T_{i}-C_{1}$</span> in Schnute (1983) is the same as <span class="math inline"><em>X</em> − (<em>k</em> − 1)<em>C</em><sub>1</sub></span>, and <span class="math inline"><em>q</em></span> in Schnute (1983) is <span class="math inline"><em>p</em></span> in most other resources. These changes allowed some efficiencies and connected the theory behind the methods more firmly. Removed the check for character data. Kept the check for whether catch was a vector or not but if catch is a one row or one column matrix or data.frame then it will be converted to a vector to continue. The latter change allows one to extract one row from a data.frame to send to <code>removal()</code> without having to use <code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code>. Modified and added examples of the use of <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code>.</li>
 </ul>
 </div>
     <div id="fsa-0-4-22-aug14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.22">
 <a href="#fsa-0-4-22-aug14" class="anchor"></a>FSA 0.4.22 Aug14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2059,7 +2062,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-21-jul14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.21">
 <a href="#fsa-0-4-21-jul14" class="anchor"></a>FSA 0.4.21 Jul14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2076,7 +2079,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-20-jul14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.20">
 <a href="#fsa-0-4-20-jul14" class="anchor"></a>FSA 0.4.20 Jul14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2085,7 +2088,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-19-jul14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.19">
 <a href="#fsa-0-4-19-jul14" class="anchor"></a>FSA 0.4.19 Jul14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2105,7 +2108,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-18-jul14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.18">
 <a href="#fsa-0-4-18-jul14" class="anchor"></a>FSA 0.4.18 Jul14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2132,7 +2135,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-17-jul14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.17">
 <a href="#fsa-0-4-17-jul14" class="anchor"></a>FSA 0.4.17 Jul14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2157,7 +2160,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-16-jul14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.16">
 <a href="#fsa-0-4-16-jul14" class="anchor"></a>FSA 0.4.16 Jul14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2182,7 +2185,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-15-jun14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.15">
 <a href="#fsa-0-4-15-jun14" class="anchor"></a>FSA 0.4.15 Jun14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2293,7 +2296,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-14-jun14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.14">
 <a href="#fsa-0-4-14-jun14" class="anchor"></a>FSA 0.4.14 Jun14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2318,7 +2321,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-13-jun14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.13">
 <a href="#fsa-0-4-13-jun14" class="anchor"></a>FSA 0.4.13 Jun14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2348,7 +2351,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-12-may14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.12">
 <a href="#fsa-0-4-12-may14" class="anchor"></a>FSA 0.4.12 May14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2387,7 +2390,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-11-may14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.11">
 <a href="#fsa-0-4-11-may14" class="anchor"></a>FSA 0.4.11 May14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2409,7 +2412,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-10-may14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.10">
 <a href="#fsa-0-4-10-may14" class="anchor"></a>FSA 0.4.10 May14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2438,7 +2441,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-9-may14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.9">
 <a href="#fsa-0-4-9-may14" class="anchor"></a>FSA 0.4.9 May14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2472,12 +2475,12 @@
 </ul>
 </div>
     <div id="fsa-0-4-8-may14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.8">
 <a href="#fsa-0-4-8-may14" class="anchor"></a>FSA 0.4.8 May14<small> Unreleased </small>
 </h1>
 <ul>
 <li>
-<code>ageBias()</code>: Modified. Added the ability to use multiple <code>what=</code> arguments with <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>. Added <code>what="n"</code> to get the sample size on the age-agreement table. Added <code>nYpos=</code> to <code><a href="https://rdrr.io/r/graphics/plot.html">plot()</a></code> to allow control of the position of the sample size values on the plot. Changed the order of the printing of results when <code>what="symmetry"</code> is used in <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>. The order more closely follows the “level of complexity” of the tests. Added unit test examples to the help file.</li>
+<code>ageBias()</code>: Modified. Added the ability to use multiple <code>what=</code> arguments with <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>. Added <code>what="n"</code> to get the sample size on the age-agreement table. Added <code>nYpos=</code> to <code><a href="https://rdrr.io/r/base/plot.html">plot()</a></code> to allow control of the position of the sample size values on the plot. Changed the order of the printing of results when <code>what="symmetry"</code> is used in <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>. The order more closely follows the “level of complexity” of the tests. Added unit test examples to the help file.</li>
 <li>
 <code>agePrecision()</code>: Modified. Added the ability to use multiple <code>what=</code> arguments with <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>.</li>
 <li>
@@ -2485,7 +2488,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-7-apr14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.7">
 <a href="#fsa-0-4-7-apr14" class="anchor"></a>FSA 0.4.7 Apr14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2515,7 +2518,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-6-apr14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.6">
 <a href="#fsa-0-4-6-apr14" class="anchor"></a>FSA 0.4.6 Apr14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2534,7 +2537,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-5-apr14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.5">
 <a href="#fsa-0-4-5-apr14" class="anchor"></a>FSA 0.4.5 Apr14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2570,7 +2573,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-4-apr14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.4">
 <a href="#fsa-0-4-4-apr14" class="anchor"></a>FSA 0.4.4 Apr14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2583,7 +2586,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-3-mar14" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.3">
 <a href="#fsa-0-4-3-mar14" class="anchor"></a>FSA 0.4.3 Mar14<small> Unreleased </small>
 </h1>
 <ul>
@@ -2669,7 +2672,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-2-dec13" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.2">
 <a href="#fsa-0-4-2-dec13" class="anchor"></a>FSA 0.4.2 Dec13<small> Unreleased </small>
 </h1>
 <ul>
@@ -2722,7 +2725,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-1-oct13" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.1">
 <a href="#fsa-0-4-1-oct13" class="anchor"></a>FSA 0.4.1 Oct13<small> Unreleased </small>
 </h1>
 <ul>
@@ -2760,7 +2763,7 @@
 </ul>
 </div>
     <div id="fsa-0-4-0-jun13" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.0">
 <a href="#fsa-0-4-0-jun13" class="anchor"></a>FSA 0.4.0 Jun13<small> Unreleased </small>
 </h1>
 <ul>
@@ -2865,7 +2868,7 @@
 </ul>
 </div>
     <div id="fsa-0-3-4-jan13" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.4">
 <a href="#fsa-0-3-4-jan13" class="anchor"></a>FSA 0.3.4 Jan13<small> Unreleased </small>
 </h1>
 <ul>
@@ -2888,7 +2891,7 @@
 </ul>
 </div>
     <div id="fsa-0-3-3-21dec12" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.3">
 <a href="#fsa-0-3-3-21dec12" class="anchor"></a>FSA 0.3.3 21Dec12<small> Unreleased </small>
 </h1>
 <ul>
@@ -2930,7 +2933,7 @@
 </ul>
 </div>
     <div id="fsa-0-3-2-1dec12" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.2">
 <a href="#fsa-0-3-2-1dec12" class="anchor"></a>FSA 0.3.2 1Dec12<small> Unreleased </small>
 </h1>
 <ul>
@@ -2956,7 +2959,7 @@
 </ul>
 </div>
     <div id="fsa-0-3-1-25nov12" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.1">
 <a href="#fsa-0-3-1-25nov12" class="anchor"></a>FSA 0.3.1 25Nov12<small> Unreleased </small>
 </h1>
 <ul>
@@ -3007,7 +3010,7 @@
 </ul>
 </div>
     <div id="fsa-0-3-0-8-nov-12" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3-0">
 <a href="#fsa-0-3-0-8-nov-12" class="anchor"></a>FSA 0.3-0 8-Nov-12<small> Unreleased </small>
 </h1>
 <ul>
@@ -3039,7 +3042,7 @@
 </ul>
 </div>
     <div id="fsa-0-2-8-21jun12" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2-8">
 <a href="#fsa-0-2-8-21jun12" class="anchor"></a>FSA 0.2-8 21Jun12<small> Unreleased </small>
 </h1>
 <ul>
@@ -3053,7 +3056,7 @@
 </ul>
 </div>
     <div id="fsa-0-2-7-2mar12" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2-7">
 <a href="#fsa-0-2-7-2mar12" class="anchor"></a>FSA 0.2-7 2Mar12<small> Unreleased </small>
 </h1>
 <ul>
@@ -3070,7 +3073,7 @@
 </ul>
 </div>
     <div id="fsa-0-2-6-1oct11" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2-6">
 <a href="#fsa-0-2-6-1oct11" class="anchor"></a>FSA 0.2-6 1Oct11<small> Unreleased </small>
 </h1>
 <ul>
@@ -3087,7 +3090,7 @@
 </ul>
 </div>
     <div id="fsa-0-2-5-19aug11" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2-5">
 <a href="#fsa-0-2-5-19aug11" class="anchor"></a>FSA 0.2-5 19Aug11<small> Unreleased </small>
 </h1>
 <ul>
@@ -3110,7 +3113,7 @@
 </ul>
 </div>
     <div id="fsa-0-2-4-15jun11" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2-4">
 <a href="#fsa-0-2-4-15jun11" class="anchor"></a>FSA 0.2-4 15Jun11<small> Unreleased </small>
 </h1>
 <ul>
@@ -3119,7 +3122,7 @@
 </ul>
 </div>
     <div id="fsa-0-2-3-18apr11" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2-3">
 <a href="#fsa-0-2-3-18apr11" class="anchor"></a>FSA 0.2-3 18Apr11<small> Unreleased </small>
 </h1>
 <ul>
@@ -3137,7 +3140,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </ul>
 </div>
     <div id="fsa-0-2-2-3mar11" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2-2">
 <a href="#fsa-0-2-2-3mar11" class="anchor"></a>FSA 0.2-2 3Mar11<small> Unreleased </small>
 </h1>
 <ul>
@@ -3149,7 +3152,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </ul>
 </div>
     <div id="fsa-0-2-1-31-jan-11" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2-1">
 <a href="#fsa-0-2-1-31-jan-11" class="anchor"></a>FSA 0.2-1 31-Jan-11<small> Unreleased </small>
 </h1>
 <ul>
@@ -3161,7 +3164,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </ul>
 </div>
     <div id="fsa-0-2-0-23-sep-10" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2-0">
 <a href="#fsa-0-2-0-23-sep-10" class="anchor"></a>FSA 0.2-0 23-Sep-10<small> Unreleased </small>
 </h1>
 <ul>
@@ -3175,7 +3178,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </ul>
 </div>
     <div id="fsa-0-1-6-23-aug-10" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1-6">
 <a href="#fsa-0-1-6-23-aug-10" class="anchor"></a>FSA 0.1-6 23-Aug-10<small> Unreleased </small>
 </h1>
 <ul>
@@ -3220,7 +3223,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </ul>
 </div>
     <div id="fsa-0-1-5-20aug10" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1-5">
 <a href="#fsa-0-1-5-20aug10" class="anchor"></a>FSA 0.1-5 20Aug10<small> Unreleased </small>
 </h1>
 <ul>
@@ -3246,7 +3249,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </ul>
 </div>
     <div id="fsa-0-1-4-6jun10" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1-4">
 <a href="#fsa-0-1-4-6jun10" class="anchor"></a>FSA 0.1-4 6Jun10<small> Unreleased </small>
 </h1>
 <ul>
@@ -3254,7 +3257,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </ul>
 </div>
     <div id="fsa-0-1-2-17dec09" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1-2">
 <a href="#fsa-0-1-2-17dec09" class="anchor"></a>FSA 0.1-2 17Dec09<small> Unreleased </small>
 </h1>
 <ul>
@@ -3273,7 +3276,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </ul>
 </div>
     <div id="fsa-0-1-1-15apr09" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1-1">
 <a href="#fsa-0-1-1-15apr09" class="anchor"></a>FSA 0.1-1 15Apr09<small> Unreleased </small>
 </h1>
 <ul>
@@ -3285,14 +3288,14 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <li>g.convert(): fixed major error in how the function converted increments to radii.</li>
 <li>growrad.plot(): added. Exported in namespace.</li>
 <li>mr.closed(): modified by changing library(Rcapture) to require(Rcapture) in help page.</li>
-<li>plot.EMPQ(): modified by changing object$prob to x$prob.</li>
+<li>plot.EMPQ(): modified by changing object<span class="math inline"><em>p</em><em>r</em><em>o</em><em>b</em><em>t</em><em>o</em><em>x</em></span>prob.</li>
 <li>emp.rd: fixed an incorrect use of Summary() (changed to summary()).</li>
 <li>validateWs(): converted sign.slope variable in the Willis method to a factor to deal with situations where all results were positive or negative.</li>
 <li><p>wlgm.rd: fixed the summarization example (cast() did not work with Summarize().</p></li>
 </ul>
 </div>
     <div id="fsa-0-0-14-20dec08" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0-14">
 <a href="#fsa-0-0-14-20dec08" class="anchor"></a>FSA 0.0-14 20Dec08<small> Unreleased </small>
 </h1>
 <ul>
@@ -3301,7 +3304,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </ul>
 </div>
     <div id="fsa-0-0-13-6dec08" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0-13">
 <a href="#fsa-0-0-13-6dec08" class="anchor"></a>FSA 0.0-13 6Dec08<small> Unreleased </small>
 </h1>
 <ul>
@@ -3322,7 +3325,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </ul>
 </div>
     <div id="fsa-0-0-12-15jul08" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0-12">
 <a href="#fsa-0-0-12-15jul08" class="anchor"></a>FSA 0.0-12 15Jul08<small> Unreleased </small>
 </h1>
 <ul>
@@ -3336,7 +3339,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </ul>
 </div>
     <div id="fsa-0-0-11-15may08" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0-11">
 <a href="#fsa-0-0-11-15may08" class="anchor"></a>FSA 0.0-11 15May08<small> Unreleased </small>
 </h1>
 <ul>
@@ -3353,7 +3356,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </ul>
 </div>
     <div id="fsa-0-0-10-1may08" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0-10">
 <a href="#fsa-0-0-10-1may08" class="anchor"></a>FSA 0.0-10 1May08<small> Unreleased </small>
 </h1>
 <ul>
@@ -3367,7 +3370,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </ul>
 </div>
     <div id="fsa-0-0-9-unknown" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0-9">
 <a href="#fsa-0-0-9-unknown" class="anchor"></a>FSA 0.0-9 unknown<small> Unreleased </small>
 </h1>
 <ul>
@@ -3384,7 +3387,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </ul>
 </div>
     <div id="fsa-0-0-8-unknown" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0-8">
 <a href="#fsa-0-0-8-unknown" class="anchor"></a>FSA 0.0-8 unknown<small> Unreleased </small>
 </h1>
 <ul>
@@ -3407,7 +3410,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </ul>
 </div>
     <div id="fsa-0-0-7-unknown" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0-7">
 <a href="#fsa-0-0-7-unknown" class="anchor"></a>FSA 0.0-7 unknown<small> Unreleased </small>
 </h1>
 <ul>
@@ -3433,7 +3436,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </ul>
 </div>
     <div id="fsa-0-0-6-unknown" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.0-6">
 <a href="#fsa-0-0-6-unknown" class="anchor"></a>FSA 0.0-6 unknown<small> Unreleased </small>
 </h1>
 <ul>
@@ -3459,161 +3462,10 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#fsa-0-8-31-ongoing">0.8.31</a></li>
-        <li><a href="#fsa-0-8-30-9-mar-20">0.8.30</a></li>
-        <li><a href="#fsa-0-8-29-8-mar-20">0.8.29</a></li>
-        <li><a href="#fsa-0-8-28-28-feb-20">0.8.28</a></li>
-        <li><a href="#fsa-0-8-27-2-feb-20">0.8.27</a></li>
-        <li><a href="#fsa-0-8-26-22-nov-19">0.8.26</a></li>
-        <li><a href="#fsa-0-8-25-24-jul-19">0.8.25</a></li>
-        <li><a href="#fsa-0-8-24-17-may-19">0.8.24</a></li>
-        <li><a href="#fsa-0-8-23-1-may-19">0.8.23</a></li>
-        <li><a href="#fsa-0-8-22-22-nov-18">0.8.22</a></li>
-        <li><a href="#fsa-0-8-21-2-nov-18">0.8.21</a></li>
-        <li><a href="#fsa-0-8-20-18-may-18">0.8.20</a></li>
-        <li><a href="#fsa-0-8-19-8-apr-18">0.8.19</a></li>
-        <li><a href="#fsa-0-8-18-31-mar-18">0.8.18</a></li>
-        <li><a href="#fsa-0-8-17-29-oct-17">0.8.17</a></li>
-        <li><a href="#fsa-0-8-16-7-sep-17">0.8.16</a></li>
-        <li><a href="#fsa-0-8-15-6-sep-17">0.8.15</a></li>
-        <li><a href="#fsa-0-8-14-27-jul-17">0.8.14</a></li>
-        <li><a href="#fsa-0-8-13-29-apr-17">0.8.13</a></li>
-        <li><a href="#fsa-0-8-12-12-mar-17">0.8.12</a></li>
-        <li><a href="#fsa-0-8-11-13-dec-16">0.8.11</a></li>
-        <li><a href="#fsa-0-8-10-24-sep-16">0.8.10</a></li>
-        <li><a href="#fsa-0-8-9-23-aug-16">0.8.9</a></li>
-        <li><a href="#fsa-0-8-8-18-jul-16">0.8.8</a></li>
-        <li><a href="#fsa-0-8-7-8-may-16">0.8.7</a></li>
-        <li><a href="#fsa-0-8-6-25-mar-16">0.8.6</a></li>
-        <li><a href="#fsa-0-8-5-14-feb-16">0.8.5</a></li>
-        <li><a href="#fsa-0-8-4-21-dec-15">0.8.4</a></li>
-        <li><a href="#fsa-0-8-3-23-oct-15">0.8.3</a></li>
-        <li><a href="#fsa-0-8-2-22-oct-15">0.8.2</a></li>
-        <li><a href="#fsa-0-8-1-10-oct-15">0.8.1</a></li>
-        <li><a href="#fsa-0-8-0-8-oct-15">0.8.0</a></li>
-        <li><a href="#fsa-0-7-11-oct15">0.7.11</a></li>
-        <li><a href="#fsa-0-7-10-oct15">0.7.10</a></li>
-        <li><a href="#fsa-0-7-9-sep15">0.7.9</a></li>
-        <li><a href="#fsa-0-7-8-sep15">0.7.8</a></li>
-        <li><a href="#fsa-0-7-7-aug15">0.7.7</a></li>
-        <li><a href="#fsa-0-7-6-aug15">0.7.6</a></li>
-        <li><a href="#fsa-0-7-5-aug15">0.7.5</a></li>
-        <li><a href="#fsa-0-7-4-aug15">0.7.4</a></li>
-        <li><a href="#fsa-0-7-3-aug15">0.7.3</a></li>
-        <li><a href="#fsa-0-7-2-jul15">0.7.2</a></li>
-        <li><a href="#fsa-0-7-1-jul15">0.7.1</a></li>
-        <li><a href="#fsa-0-7-0-jul15">0.7.0</a></li>
-        <li><a href="#fsa-0-6-25-jul15">0.6.25</a></li>
-        <li><a href="#fsa-0-6-24-jun15">0.6.24</a></li>
-        <li><a href="#fsa-0-6-23-jun15">0.6.23</a></li>
-        <li><a href="#fsa-0-6-22-jun15">0.6.22</a></li>
-        <li><a href="#fsa-0-6-21-jun15">0.6.21</a></li>
-        <li><a href="#fsa-0-6-20-jun15">0.6.20</a></li>
-        <li><a href="#fsa-0-6-19-jun15">0.6.19</a></li>
-        <li><a href="#fsa-0-6-18-jun15">0.6.18</a></li>
-        <li><a href="#fsa-0-6-17-jun15">0.6.17</a></li>
-        <li><a href="#fsa-0-6-16-jun15">0.6.16</a></li>
-        <li><a href="#fsa-0-6-15-jun15">0.6.15</a></li>
-        <li><a href="#fsa-0-6-14-may15">0.6.14</a></li>
-        <li><a href="#fsa-0-6-13-may15">0.6.13</a></li>
-        <li><a href="#fsa-0-6-12-may15">0.6.12</a></li>
-        <li><a href="#fsa-0-6-11-apr15">0.6.11</a></li>
-        <li><a href="#fsa-0-6-10-apr15">0.6.10</a></li>
-        <li><a href="#fsa-0-6-5-apr15">0.6.5</a></li>
-        <li><a href="#fsa-0-6-4-apr15">0.6.4</a></li>
-        <li><a href="#fsa-0-6-3-apr15">0.6.3</a></li>
-        <li><a href="#fsa-0-6-2-mar15">0.6.2</a></li>
-        <li><a href="#fsa-0-6-1-mar15">0.6.1</a></li>
-        <li><a href="#fsa-0-6-0-mar15">0.6.0</a></li>
-        <li><a href="#fsa-0-5-3-mar15">0.5.3</a></li>
-        <li><a href="#fsa-0-5-2-mar15">0.5.2</a></li>
-        <li><a href="#fsa-0-5-1-mar15">0.5.1</a></li>
-        <li><a href="#fsa-0-4-51-mar15">0.4.51</a></li>
-        <li><a href="#fsa-0-4-50-mar15">0.4.50</a></li>
-        <li><a href="#fsa-0-4-49-mar15">0.4.49</a></li>
-        <li><a href="#fsa-0-4-48-mar15">0.4.48</a></li>
-        <li><a href="#fsa-0-4-47-feb15">0.4.47</a></li>
-        <li><a href="#fsa-0-4-46-feb15">0.4.46</a></li>
-        <li><a href="#fsa-0-4-45-feb15">0.4.45</a></li>
-        <li><a href="#fsa-0-4-44-feb15">0.4.44</a></li>
-        <li><a href="#fsa-0-4-43-feb15">0.4.43</a></li>
-        <li><a href="#fsa-0-4-42-feb15">0.4.42</a></li>
-        <li><a href="#fsa-0-4-41-jan15">0.4.41</a></li>
-        <li><a href="#fsa-0-4-40-jan15">0.4.40</a></li>
-        <li><a href="#fsa-0-4-39-jan15">0.4.39</a></li>
-        <li><a href="#fsa-0-4-38-jan15">0.4.38</a></li>
-        <li><a href="#fsa-0-4-37-jan15">0.4.37</a></li>
-        <li><a href="#fsa-0-4-36-jan15">0.4.36</a></li>
-        <li><a href="#fsa-0-4-35-jan15">0.4.35</a></li>
-        <li><a href="#fsa-0-4-34-dec14">0.4.34</a></li>
-        <li><a href="#fsa-0-4-33-dec14">0.4.33</a></li>
-        <li><a href="#fsa-0-4-32-nov14">0.4.32</a></li>
-        <li><a href="#fsa-0-4-31-nov14">0.4.31</a></li>
-        <li><a href="#fsa-0-4-30-oct14">0.4.30</a></li>
-        <li><a href="#fsa-0-4-29-oct14">0.4.29</a></li>
-        <li><a href="#fsa-0-4-28-sep14">0.4.28</a></li>
-        <li><a href="#fsa-0-4-27-sep14">0.4.27</a></li>
-        <li><a href="#fsa-0-4-26-sep14">0.4.26</a></li>
-        <li><a href="#fsa-0-4-25-sep14">0.4.25</a></li>
-        <li><a href="#fsa-0-4-24-aug14">0.4.24</a></li>
-        <li><a href="#fsa-0-4-23-aug14">0.4.23</a></li>
-        <li><a href="#fsa-0-4-22-aug14">0.4.22</a></li>
-        <li><a href="#fsa-0-4-21-jul14">0.4.21</a></li>
-        <li><a href="#fsa-0-4-20-jul14">0.4.20</a></li>
-        <li><a href="#fsa-0-4-19-jul14">0.4.19</a></li>
-        <li><a href="#fsa-0-4-18-jul14">0.4.18</a></li>
-        <li><a href="#fsa-0-4-17-jul14">0.4.17</a></li>
-        <li><a href="#fsa-0-4-16-jul14">0.4.16</a></li>
-        <li><a href="#fsa-0-4-15-jun14">0.4.15</a></li>
-        <li><a href="#fsa-0-4-14-jun14">0.4.14</a></li>
-        <li><a href="#fsa-0-4-13-jun14">0.4.13</a></li>
-        <li><a href="#fsa-0-4-12-may14">0.4.12</a></li>
-        <li><a href="#fsa-0-4-11-may14">0.4.11</a></li>
-        <li><a href="#fsa-0-4-10-may14">0.4.10</a></li>
-        <li><a href="#fsa-0-4-9-may14">0.4.9</a></li>
-        <li><a href="#fsa-0-4-8-may14">0.4.8</a></li>
-        <li><a href="#fsa-0-4-7-apr14">0.4.7</a></li>
-        <li><a href="#fsa-0-4-6-apr14">0.4.6</a></li>
-        <li><a href="#fsa-0-4-5-apr14">0.4.5</a></li>
-        <li><a href="#fsa-0-4-4-apr14">0.4.4</a></li>
-        <li><a href="#fsa-0-4-3-mar14">0.4.3</a></li>
-        <li><a href="#fsa-0-4-2-dec13">0.4.2</a></li>
-        <li><a href="#fsa-0-4-1-oct13">0.4.1</a></li>
-        <li><a href="#fsa-0-4-0-jun13">0.4.0</a></li>
-        <li><a href="#fsa-0-3-4-jan13">0.3.4</a></li>
-        <li><a href="#fsa-0-3-3-21dec12">0.3.3</a></li>
-        <li><a href="#fsa-0-3-2-1dec12">0.3.2</a></li>
-        <li><a href="#fsa-0-3-1-25nov12">0.3.1</a></li>
-        <li><a href="#fsa-0-3-0-8-nov-12">0.3-0</a></li>
-        <li><a href="#fsa-0-2-8-21jun12">0.2-8</a></li>
-        <li><a href="#fsa-0-2-7-2mar12">0.2-7</a></li>
-        <li><a href="#fsa-0-2-6-1oct11">0.2-6</a></li>
-        <li><a href="#fsa-0-2-5-19aug11">0.2-5</a></li>
-        <li><a href="#fsa-0-2-4-15jun11">0.2-4</a></li>
-        <li><a href="#fsa-0-2-3-18apr11">0.2-3</a></li>
-        <li><a href="#fsa-0-2-2-3mar11">0.2-2</a></li>
-        <li><a href="#fsa-0-2-1-31-jan-11">0.2-1</a></li>
-        <li><a href="#fsa-0-2-0-23-sep-10">0.2-0</a></li>
-        <li><a href="#fsa-0-1-6-23-aug-10">0.1-6</a></li>
-        <li><a href="#fsa-0-1-5-20aug10">0.1-5</a></li>
-        <li><a href="#fsa-0-1-4-6jun10">0.1-4</a></li>
-        <li><a href="#fsa-0-1-2-17dec09">0.1-2</a></li>
-        <li><a href="#fsa-0-1-1-15apr09">0.1-1</a></li>
-        <li><a href="#fsa-0-0-14-20dec08">0.0-14</a></li>
-        <li><a href="#fsa-0-0-13-6dec08">0.0-13</a></li>
-        <li><a href="#fsa-0-0-12-15jul08">0.0-12</a></li>
-        <li><a href="#fsa-0-0-11-15may08">0.0-11</a></li>
-        <li><a href="#fsa-0-0-10-1may08">0.0-10</a></li>
-        <li><a href="#fsa-0-0-9-unknown">0.0-9</a></li>
-        <li><a href="#fsa-0-0-8-unknown">0.0-8</a></li>
-        <li><a href="#fsa-0-0-7-unknown">0.0-7</a></li>
-        <li><a href="#fsa-0-0-6-unknown">0.0-6</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
@@ -3625,7 +3477,7 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
