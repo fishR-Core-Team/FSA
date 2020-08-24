@@ -35,8 +35,8 @@
 #'   }
 #'   \item Richards
 #'   \itemize{
-#'     \item Within FSA, Linf is the mean asymptotic length, ti is the age at the inflection point, k is related to growth (slope at the inflection point), b is related to the vertical position of the inflection point, and L0 is the mean length at age-0.
-#'     \item The parameterizations (1-6) correspond to functions/equations 1, 4, 5, 6, 7, and 8, respectively, in Tjorve and Tjorve (2010). Note that their A, S, k, d, and B are Linf, a, k, b, and L0, respectively, here (in FSA).
+#'     \item Within FSA, Linf is the mean asymptotic length, ti is the age at the inflection point, k controls the slope at the inflection point (maximum relative growth rate), b is dimensionless but related to the vertical position (i.e., size) of the inflection point, a is dimensionless but related to the horizontal position (i.e., age) of the inflection point, and L0 is the mean length at age-0.
+#'     \item The parameterizations (1-6) correspond to functions/equations 1, 4, 5, 6, 7, and 8, respectively, in Tjorve and Tjorve (2010). Note that their A, S, k, d, and B are Linf, a, k, b, and L0, respectively, here (in FSA). THeir (Tjorve and Tjorve 2010) K does not appear here.
 #'   }
 #'   \item logistic
 #'   \itemize{
@@ -884,50 +884,50 @@ RichardsFuns <- function(param=1,simple=FALSE,msg=FALSE) {
              message("You have chosen the '",param,"' parameterization.",
                      "  E[L|t] = Linf*(1-a*exp(-k*t))^b\n\n",
                      "  where Linf = asymptotic mean length\n",
-                     "           k = a constant that controls the slope at the inflection point\n",
-                     "           a = a dimensionless shape parameter\n",
-                     "           b = a constant that controls the y- value of the inflection point\n\n")
+                     "           k = controls the slope at the inflection point\n",
+                     "           a = a dimensionless parameter that controls the x- value of the inflection point\n",
+                     "           b = a dimensionless parameter that controls the y- value of the inflection point\n\n")
            },
            Richards2= {
              message("You have chosen the '",param,"' parameterization.",
                      "  Linf*(1-(1/b)*exp(-k*(t-ti)))^b\n\n",
                      "  where Linf = asymptotic mean length\n",
-                     "           k = a constant that controls the slope at the inflection point\n",
+                     "           k = controls the slope at the inflection point\n",
                      "          ti = time/age at the inflection point\n",
-                     "           b = a constant that controls the y- value of the inflection point\n\n")
+                     "           b = a dimensionless parameter that controls the y- value of the inflection point\n\n")
            },
            Richards3= {
              message("You have chosen the '",param,"' parameterization.",
                      "  Linf/((1+b*exp(-k*(t-ti)))^(1/b))\n\n",
                      "  where Linf = asymptotic mean length\n",
-                     "           k = a constant that controls the slope at the inflection point\n",
+                     "           k = controls the slope at the inflection point\n",
                      "          ti = time/age at the inflection point\n",
-                     "           b = a constant that controls the y- value of the inflection point\n\n")
+                     "           b = a dimensionless parameter that controls the y- value of the inflection point\n\n")
            },
            Richards4= {
              message("You have chosen the '",param,"' parameterization.",
                      "  Linf*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))\n\n",
                      "  where Linf = asymptotic mean length\n",
-                     "           k = a constant that controls the slope at the inflection point\n",
+                     "           k = controls the slope at the inflection point\n",
                      "          ti = time/age at the inflection point\n",
-                     "           b = a constant that controls the y- value of the inflection point\n\n")
+                     "           b = a dimensionless parameter that controls the y- value of the inflection point\n\n")
            },
            Richards5= {
              message("You have chosen the '",param,"' parameterization.",
                      "  Linf*(1+(((L0/Linf)^(1-b))-1)*exp(-k*t))^(1/(1-b))\n\n",
                      "  where Linf = asymptotic mean length\n",
-                     "           k = a constant that controls the slope at the inflection point\n",
+                     "           k = controls the slope at the inflection point\n",
                      "          L0 = mean length at t=0\n",
-                     "           b = a constant that controls the y- value of the inflection point\n\n")
+                     "           b = a dimensionless parameter that controls the y- value of the inflection point\n\n")
            },
            Richards6= {
              message("You have chosen the '",param,"' parameterization.",
                      "  Lninf+(Linf-Lninf)*(1+(b-1)*exp(-k*(t-ti)))^(1/(1-b))\n\n",
                      "  where Linf = upper asymptotic mean length\n",
-                     "           k = a constant that controls the slope at the inflection point\n",
+                     "           k = controls the slope at the inflection point\n",
                      "       Lninf = lower asymptotic mean length\n",
                      "          ti = time/age at the inflection point\n",
-                     "           b = a constant that controls the y- value of the inflection point\n\n")
+                     "           b = a dimensionless parameter that controls the y- value of the inflection point\n\n")
            }
     )
   }

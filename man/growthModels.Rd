@@ -86,8 +86,8 @@ Take note of the following for parameterizations (i.e., \code{param}) of each gr
   }
   \item Richards
   \itemize{
-    \item Within FSA, Linf is the mean asymptotic length, ti is the age at the inflection point, k is related to growth (slope at the inflection point), b is related to the vertical position of the inflection point, and L0 is the mean length at age-0.
-    \item The parameterizations (1-6) correspond to functions/equations 1, 4, 5, 6, 7, and 8, respectively, in Tjorve and Tjorve (2010). Note that their A, S, k, d, and B are Linf, a, k, b, and L0, respectively, here (in FSA).
+    \item Within FSA, Linf is the mean asymptotic length, ti is the age at the inflection point, k controls the slope at the inflection point (maximum relative growth rate), b is dimensionless but related to the vertical position (i.e., size) of the inflection point, a is dimensionless but related to the horizontal position (i.e., age) of the inflection point, and L0 is the mean length at age-0.
+    \item The parameterizations (1-6) correspond to functions/equations 1, 4, 5, 6, 7, and 8, respectively, in Tjorve and Tjorve (2010). Note that their A, S, k, d, and B are Linf, a, k, b, and L0, respectively, here (in FSA). THeir (Tjorve and Tjorve 2010) K does not appear here.
   }
   \item logistic
   \itemize{

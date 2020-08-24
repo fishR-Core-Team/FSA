@@ -1,4 +1,6 @@
 # FSA 0.8.31 ongoing
+* Now using roxygen v7.1.1.
+* Cleaned up the documentation of parameters for `RichardsFuns()` (documentation did not change when parameter letters were changed for the Age and Growth book).
 
 # FSA 0.8.30 9-Mar-20
 * Started using `rhub::check_for_cran()` for checking before sending to CRAN.
