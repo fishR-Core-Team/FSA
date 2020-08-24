@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -45,7 +49,6 @@
 <meta property="og:title" content="Creates a function for a specific parameterization of a common stock-recruitment function . — stockRecruitment" />
 <meta property="og:description" content="Creates a function for a specific parameterization of a &amp;#8220;Beverton-Holt&amp;#8221;, &amp;#8220;Ricker&amp;#8221;,  &amp;#8220;Shepherd&amp;#8221;, or &amp;#8220;Saila-Lorda&amp;#8221; stock-recruitment function. Use srFunShow() to see the equations of each function." />
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -63,7 +66,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -197,65 +200,43 @@
 #&gt; <span class='message'>  E[R|S] = a*S*exp(-b*S)</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>  where a = the density-independent slope near S=0.</span>
-#&gt; <span class='message'>        b = density-dependent parameter.</span></div><div class='output co'>#&gt; function (S, a, b = NULL) 
-#&gt; {
-#&gt;     if (length(a) &gt; 1) {
-#&gt;         b &lt;- a[[2]]
-#&gt;         a &lt;- a[[1]]
-#&gt;     }
-#&gt;     a * S * exp(-b * S)
-#&gt; }
-#&gt; &lt;bytecode: 0x0000000017620198&gt;
-#&gt; &lt;environment: 0x00000000167cfbc0&gt;</div><div class='input'>
+#&gt; <span class='message'>        b = density-dependent parameter.</span></div><div class='output co'>#&gt; function(S,a,b=NULL) {
+#&gt;     if (length(a)&gt;1) { b &lt;- a[[2]]; a &lt;- a[[1]] }
+#&gt;     a*S*exp(-b*S)
+#&gt;   }
+#&gt; &lt;bytecode: 0x000000001af5be00&gt;
+#&gt; &lt;environment: 0x0000000009c626f0&gt;</div><div class='input'>
 <span class='co'># create some dummy stock data</span>
 <span class='no'>stock</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0.01</span>,<span class='fl'>1000</span>,<span class='kw'>length.out</span><span class='kw'>=</span><span class='fl'>199</span>)
 
 <span class='co'># Beverton-Holt #1 parameterization</span>
-( <span class='no'>bh1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>() )</div><div class='output co'>#&gt; function (S, a, b = NULL) 
-#&gt; {
-#&gt;     if (length(a) &gt; 1) {
-#&gt;         b &lt;- a[[2]]
-#&gt;         a &lt;- a[[1]]
-#&gt;     }
-#&gt;     a * S/(1 + b * S)
-#&gt; }
-#&gt; &lt;bytecode: 0x000000001685b220&gt;
-#&gt; &lt;environment: 0x00000000164fe568&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>bh1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.01</span>)~<span class='no'>stock</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Recruits"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Spawners"</span>,<span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>50</span>))</div><div class='input'>
+( <span class='no'>bh1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>() )</div><div class='output co'>#&gt; function(S,a,b=NULL) {
+#&gt;     if (length(a)&gt;1) { b &lt;- a[[2]]; a &lt;- a[[1]] }
+#&gt;     a*S/(1+b*S)
+#&gt;   }
+#&gt; &lt;bytecode: 0x000000001c91f1b8&gt;
+#&gt; &lt;environment: 0x00000000083d0e68&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>bh1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.01</span>)~<span class='no'>stock</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Recruits"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Spawners"</span>,<span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>50</span>))</div><div class='input'>
 <span class='co'># Ricker #1 parameterization</span>
-( <span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"Ricker"</span>) )</div><div class='output co'>#&gt; function (S, a, b = NULL) 
-#&gt; {
-#&gt;     if (length(a) &gt; 1) {
-#&gt;         b &lt;- a[[2]]
-#&gt;         a &lt;- a[[1]]
-#&gt;     }
-#&gt;     a * S * exp(-b * S)
-#&gt; }
-#&gt; &lt;bytecode: 0x0000000017620198&gt;
-#&gt; &lt;environment: 0x00000000161cf770&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='fu'>r1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>)</div><div class='input'>
+( <span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"Ricker"</span>) )</div><div class='output co'>#&gt; function(S,a,b=NULL) {
+#&gt;     if (length(a)&gt;1) { b &lt;- a[[2]]; a &lt;- a[[1]] }
+#&gt;     a*S*exp(-b*S)
+#&gt;   }
+#&gt; &lt;bytecode: 0x000000001af5be00&gt;
+#&gt; &lt;environment: 0x00000000190bd138&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='fu'>r1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>)</div><div class='input'>
 <span class='co'># Shephered parameterization</span>
-( <span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"Shepherd"</span>) )</div><div class='output co'>#&gt; function (S, a, b = NULL, c = NULL) 
-#&gt; {
-#&gt;     if (length(a) &gt; 1) {
-#&gt;         c &lt;- a[[3]]
-#&gt;         b &lt;- a[[2]]
-#&gt;         a &lt;- a[[1]]
-#&gt;     }
-#&gt;     a * S/(1 + (b * S)^c)
-#&gt; }
-#&gt; &lt;bytecode: 0x00000000165a8200&gt;
-#&gt; &lt;environment: 0x000000000c327678&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='fu'>s1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>2.5</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>)</div><div class='input'>
+( <span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"Shepherd"</span>) )</div><div class='output co'>#&gt; function(S,a,b=NULL,c=NULL) {
+#&gt;     if (length(a)&gt;1) { c &lt;- a[[3]]; b &lt;- a[[2]]; a &lt;- a[[1]] }
+#&gt;     a*S/(1+(b*S)^c)
+#&gt;   }
+#&gt; &lt;bytecode: 0x000000001bd7a348&gt;
+#&gt; &lt;environment: 0x000000001aa062b8&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='fu'>s1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>2.5</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"blue"</span>)</div><div class='input'>
 <span class='co'># Saila-Lorda parameterization</span>
-( <span class='no'>sl1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"SailaLorda"</span>) )</div><div class='output co'>#&gt; function (S, a, b = NULL, c = NULL) 
-#&gt; {
-#&gt;     if (length(a) &gt; 1) {
-#&gt;         c &lt;- a[[3]]
-#&gt;         b &lt;- a[[2]]
-#&gt;         a &lt;- a[[1]]
-#&gt;     }
-#&gt;     a * (S^c) * exp(-b * S)
-#&gt; }
-#&gt; &lt;bytecode: 0x0000000018a530c8&gt;
-#&gt; &lt;environment: 0x000000000c0fb518&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='fu'>sl1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>1.05</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"salmon"</span>)</div><div class='img'><img src='stockRecruitment-1.png' alt='' width='700' height='433' /></div><div class='input'>
+( <span class='no'>sl1</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"SailaLorda"</span>) )</div><div class='output co'>#&gt; function(S,a,b=NULL,c=NULL) {
+#&gt;     if (length(a)&gt;1) { c &lt;- a[[3]]; b &lt;- a[[2]]; a &lt;- a[[1]] }
+#&gt;     a*(S^c)*exp(-b*S)
+#&gt;   }
+#&gt; &lt;bytecode: 0x000000001bbc01d0&gt;
+#&gt; &lt;environment: 0x000000001a947da0&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='fu'>sl1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>1.05</span>)~<span class='no'>stock</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"salmon"</span>)</div><div class='img'><img src='stockRecruitment-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Examples of fitting stock-recruitment functions</span>
 <span class='co'># Fitting the Beverton-Holt #1 parameterization with multiplicative errors</span>
 <span class='no'>bh1s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='srStarts.html'>srStarts</a></span>(<span class='no'>recruits</span>~<span class='no'>stock</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>CodNorwegian</span>)
@@ -276,7 +257,7 @@
 #&gt; 
 #&gt; Number of iterations to convergence: 6 
 #&gt; Achieved convergence tolerance: 7.103e-06
-#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>recruits</span>~<span class='no'>stock</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>CodNorwegian</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>200</span>))</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/curve.html'>curve</a></span>(<span class='fu'>bh1</span>(<span class='no'>x</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>fit1</span>)[<span class='fl'>1</span>],<span class='kw'>b</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>fit1</span>)[<span class='fl'>2</span>]),<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>to</span><span class='kw'>=</span><span class='fl'>200</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='input'>
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>recruits</span>~<span class='no'>stock</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>CodNorwegian</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>200</span>))</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/curve.html'>curve</a></span>(<span class='fu'>bh1</span>(<span class='no'>x</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>fit1</span>)[<span class='fl'>1</span>],<span class='kw'>b</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>fit1</span>)[<span class='fl'>2</span>]),<span class='kw'>from</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>to</span><span class='kw'>=</span><span class='fl'>200</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='input'>
 <span class='co'># Fitting the Ricker #3 parameterization with multiplicative errors</span>
 <span class='no'>r3</span> <span class='kw'>&lt;-</span> <span class='fu'>srFuns</span>(<span class='st'>"Ricker"</span>,<span class='kw'>param</span><span class='kw'>=</span><span class='fl'>3</span>)
 <span class='no'>r3s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='srStarts.html'>srStarts</a></span>(<span class='no'>recruits</span>~<span class='no'>stock</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>CodNorwegian</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Ricker"</span>,<span class='kw'>param</span><span class='kw'>=</span><span class='fl'>3</span>)
@@ -307,25 +288,16 @@
 <span class='fu'>srFunShow</span>()</div><div class='output co'>#&gt; expression(R == frac(aS, 1 + bS))</div><div class='input'><span class='fu'>srFunShow</span>(<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; expression(R == frac(aS, 1 + bS))</div><div class='input'><span class='fu'>srFunShow</span>(<span class='st'>"BevertonHolt"</span>,<span class='fl'>1</span>,<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='stockRecruitment-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; expression(R == frac(aS, 1 + bS))</div><div class='input'>
 <span class='co'># Get and save the expression</span>
 ( <span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>srFunShow</span>(<span class='st'>"BevertonHolt"</span>,<span class='fl'>1</span>) )</div><div class='output co'>#&gt; expression(R == frac(aS, 1 + bS))</div><div class='input'><span class='co'># Use expression as title on a plot</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fu'>bh1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.01</span>)~<span class='no'>stock</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>,<span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>50</span>),
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>bh1</span>(<span class='no'>stock</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.01</span>)~<span class='no'>stock</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>,<span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>50</span>),
      <span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Recruits"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Spawners"</span>,<span class='kw'>main</span><span class='kw'>=</span><span class='no'>tmp</span>)</div><div class='input'><span class='co'># Put expression in the main plot</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='fl'>800</span>,<span class='fl'>10</span>,<span class='no'>tmp</span>)</div><div class='img'><img src='stockRecruitment-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Put multiple expressions on a plot</span>
 <span class='no'>op</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mar</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.1</span>,<span class='fl'>0.1</span>,<span class='fl'>0.1</span>,<span class='fl'>0.1</span>))
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='fl'>0</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"n"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>""</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>""</span>,<span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>1</span>),<span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>3</span>),<span class='kw'>xaxt</span><span class='kw'>=</span><span class='st'>"n"</span>,<span class='kw'>yaxt</span><span class='kw'>=</span><span class='st'>"n"</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='fl'>0</span>,<span class='fl'>2.5</span>,<span class='st'>"Beverton-Holt #1:"</span>,<span class='kw'>pos</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='fl'>0.5</span>,<span class='fl'>2.5</span>,<span class='fu'>srFunShow</span>(<span class='st'>"BevertonHolt"</span>,<span class='fl'>1</span>))</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='fl'>0</span>,<span class='fl'>1.5</span>,<span class='st'>"Ricker #2:"</span>,<span class='kw'>pos</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='fl'>0.5</span>,<span class='fl'>1.5</span>,<span class='fu'>srFunShow</span>(<span class='st'>"Ricker"</span>,<span class='fl'>2</span>))</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='fl'>0</span>,<span class='fl'>0.5</span>,<span class='st'>"Shepherd:"</span>,<span class='kw'>pos</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='fl'>0.5</span>,<span class='fl'>0.5</span>,<span class='fu'>srFunShow</span>(<span class='st'>"Shepherd"</span>))</div><div class='img'><img src='stockRecruitment-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='no'>op</span>)</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fl'>0</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"n"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>""</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>""</span>,<span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>1</span>),<span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>3</span>),<span class='kw'>xaxt</span><span class='kw'>=</span><span class='st'>"n"</span>,<span class='kw'>yaxt</span><span class='kw'>=</span><span class='st'>"n"</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='fl'>0</span>,<span class='fl'>2.5</span>,<span class='st'>"Beverton-Holt #1:"</span>,<span class='kw'>pos</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='fl'>0.5</span>,<span class='fl'>2.5</span>,<span class='fu'>srFunShow</span>(<span class='st'>"BevertonHolt"</span>,<span class='fl'>1</span>))</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='fl'>0</span>,<span class='fl'>1.5</span>,<span class='st'>"Ricker #2:"</span>,<span class='kw'>pos</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='fl'>0.5</span>,<span class='fl'>1.5</span>,<span class='fu'>srFunShow</span>(<span class='st'>"Ricker"</span>,<span class='fl'>2</span>))</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='fl'>0</span>,<span class='fl'>0.5</span>,<span class='st'>"Shepherd:"</span>,<span class='kw'>pos</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span>(<span class='fl'>0.5</span>,<span class='fl'>0.5</span>,<span class='fu'>srFunShow</span>(<span class='st'>"Shepherd"</span>))</div><div class='img'><img src='stockRecruitment-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='no'>op</span>)</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#ifar-chapter">IFAR Chapter</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a>, thanks to Gabor Grothendieck for a hint about using <code><a href='https://rdrr.io/r/base/get.html'>get()</a></code>.</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -336,7 +308,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

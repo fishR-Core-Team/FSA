@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -45,7 +49,6 @@
 <meta property="og:title" content="Plots to visualize age-length keys. — alkPlot" />
 <meta property="og:description" content="Various plots to visualize the proportion of fish of certain ages within length intervals in an age-length key." />
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -63,7 +66,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -237,7 +240,7 @@
 <span class='no'>WR.age</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>WR79</span>, !<span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span>(<span class='no'>age</span>))
 <span class='no'>WR.age</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span>(<span class='no'>WR.age</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>5</span>)
 <span class='no'>raw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR.age</span>)
-( <span class='no'>WR.key</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/prop.table.html'>prop.table</a></span>(<span class='no'>raw</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>1</span>) )</div><div class='output co'>#&gt;      age
+( <span class='no'>WR.key</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span>(<span class='no'>raw</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>1</span>) )</div><div class='output co'>#&gt;      age
 #&gt; LCat           4          5          6          7          8          9
 #&gt;   35  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
 #&gt;   40  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
@@ -279,20 +282,10 @@
 <span class='fu'>alkPlot</span>(<span class='no'>WR.key</span>,<span class='st'>"barplot"</span>)</div><div class='img'><img src='alkPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span>(<span class='no'>WR.key</span>,<span class='st'>"barplot"</span>,<span class='kw'>pal</span><span class='kw'>=</span><span class='st'>"gray"</span>)</div><div class='img'><img src='alkPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span>(<span class='no'>WR.key</span>,<span class='st'>"barplot"</span>,<span class='kw'>showLegend</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='alkPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span>(<span class='no'>WR.key</span>,<span class='st'>"area"</span>)</div><div class='img'><img src='alkPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span>(<span class='no'>WR.key</span>,<span class='st'>"area"</span>,<span class='kw'>showLegend</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='alkPlot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span>(<span class='no'>WR.key</span>,<span class='st'>"area"</span>,<span class='kw'>pal</span><span class='kw'>=</span><span class='st'>"gray"</span>)</div><div class='img'><img src='alkPlot-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span>(<span class='no'>WR.key</span>,<span class='st'>"lines"</span>)</div><div class='img'><img src='alkPlot-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span>(<span class='no'>WR.key</span>,<span class='st'>"lines"</span>,<span class='kw'>pal</span><span class='kw'>=</span><span class='st'>"gray"</span>)</div><div class='img'><img src='alkPlot-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span>(<span class='no'>WR.key</span>,<span class='st'>"lines"</span>,<span class='kw'>showLegend</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='alkPlot-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span>(<span class='no'>WR.key</span>,<span class='st'>"splines"</span>)</div><div class='img'><img src='alkPlot-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span>(<span class='no'>WR.key</span>,<span class='st'>"splines"</span>,<span class='kw'>span</span><span class='kw'>=</span><span class='fl'>0.2</span>)</div><div class='img'><img src='alkPlot-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span>(<span class='no'>WR.key</span>,<span class='st'>"splines"</span>,<span class='kw'>pal</span><span class='kw'>=</span><span class='st'>"gray"</span>,<span class='kw'>showLegend</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='alkPlot-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span>(<span class='no'>WR.key</span>,<span class='st'>"bubble"</span>)</div><div class='img'><img src='alkPlot-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span>(<span class='no'>WR.key</span>,<span class='st'>"bubble"</span>,<span class='kw'>grid</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='img'><img src='alkPlot-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span>(<span class='no'>WR.key</span>,<span class='st'>"bubble"</span>,<span class='kw'>grid</span><span class='kw'>=</span><span class='st'>"blue"</span>)</div><div class='img'><img src='alkPlot-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span>(<span class='no'>WR.key</span>,<span class='st'>"bubble"</span>,<span class='kw'>grid</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/grDevices/rgb.html'>rgb</a></span>(<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0.2</span>),<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/grDevices/rgb.html'>rgb</a></span>(<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0.5</span>))</div><div class='img'><img src='alkPlot-16.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#ifar-chapter">IFAR Chapter</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -303,7 +296,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

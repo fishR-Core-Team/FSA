@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/spacelab/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -45,7 +49,6 @@
 <meta property="og:title" content="Creates a one- or two-way table of summary statistics. — sumTable" />
 <meta property="og:description" content="Creates a one- or two-way table of summary statistics for a quantitative variable." />
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -63,7 +66,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -173,55 +176,47 @@
                 <span class='kw'>g2</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>LETTERS</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='fl'>1000</span>, <span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>TRUE</span>),
                 <span class='kw'>dat</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1000</span>))
 
-<span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>length</span>)       <span class='co'># get sample size</span></div><div class='output co'>#&gt;    A  B  C
+<span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>length</span>)       <span class='co'># get sample size</span></div><div class='output co'>#&gt; <span class='warning'>Warning: First RHS variable was converted to a factor.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Second RHS variable was converted to a factor.</span></div><div class='output co'>#&gt;    A  B  C
 #&gt; a 67 68 75
 #&gt; b 60 65 66
 #&gt; c 55 78 75
 #&gt; d 72 67 54
-#&gt; e 62 75 61</div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>validn</span>)       <span class='co'># get sample size (better way)</span></div><div class='output co'>#&gt;    A  B  C
+#&gt; e 62 75 61</div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>validn</span>)       <span class='co'># get sample size (better way)</span></div><div class='output co'>#&gt; <span class='warning'>Warning: First RHS variable was converted to a factor.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Second RHS variable was converted to a factor.</span></div><div class='output co'>#&gt;    A  B  C
 #&gt; a 67 68 75
 #&gt; b 60 65 66
 #&gt; c 55 78 75
 #&gt; d 72 67 54
-#&gt; e 62 75 61</div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>mean</span>)         <span class='co'># get mean</span></div><div class='output co'>#&gt;            A          B          C
+#&gt; e 62 75 61</div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>mean</span>)         <span class='co'># get mean</span></div><div class='output co'>#&gt; <span class='warning'>Warning: First RHS variable was converted to a factor.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Second RHS variable was converted to a factor.</span></div><div class='output co'>#&gt;            A          B          C
 #&gt; a  0.0357763 -0.0781936 -0.1657168
 #&gt; b  0.0686392  0.0490816 -0.0135043
 #&gt; c -0.1097829 -0.0486164 -0.0429865
 #&gt; d  0.0027510  0.0227142  0.0080689
-#&gt; e  0.0404221 -0.0496906  0.1481047</div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>sd</span>)           <span class='co'># get sd</span></div><div class='output co'>#&gt;           A         B         C
+#&gt; e  0.0404221 -0.0496906  0.1481047</div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>sd</span>)           <span class='co'># get sd</span></div><div class='output co'>#&gt; <span class='warning'>Warning: First RHS variable was converted to a factor.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Second RHS variable was converted to a factor.</span></div><div class='output co'>#&gt;           A         B         C
 #&gt; a 0.9758894 0.9684629 0.9222737
 #&gt; b 1.0105781 1.0553478 1.1011553
 #&gt; c 0.9325123 0.8604071 0.9594141
 #&gt; d 1.0962841 1.0765499 1.1485383
-#&gt; e 1.0095996 1.0989148 0.9989456</div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>sd</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>1</span>)  <span class='co'># show digits= argument</span></div><div class='output co'>#&gt;     A   B   C
+#&gt; e 1.0095996 1.0989148 0.9989456</div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>*<span class='no'>g2</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>sd</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>1</span>)  <span class='co'># show digits= argument</span></div><div class='output co'>#&gt; <span class='warning'>Warning: First RHS variable was converted to a factor.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Second RHS variable was converted to a factor.</span></div><div class='output co'>#&gt;     A   B   C
 #&gt; a 1.0 1.0 0.9
 #&gt; b 1.0 1.1 1.1
 #&gt; c 0.9 0.9 1.0
 #&gt; d 1.1 1.1 1.1
 #&gt; e 1.0 1.1 1.0</div><div class='input'>
 <span class='co'>## Also demonstrate use in the 1-way example -- but see Summarize()</span>
-<span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>validn</span>)</div><div class='output co'>#&gt;   a   b   c   d   e 
-#&gt; 210 191 208 193 198 </div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>mean</span>)</div><div class='output co'>#&gt;          a          b          c          d          e 
+<span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>validn</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: RHS variable was converted to a factor.</span></div><div class='output co'>#&gt;   a   b   c   d   e 
+#&gt; 210 191 208 193 198 </div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>mean</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: RHS variable was converted to a factor.</span></div><div class='output co'>#&gt;          a          b          c          d          e 
 #&gt; -0.0730901  0.0335988 -0.0627602  0.0111691  0.0394634 </div><div class='input'>
 <span class='co'>## Example with a missing value (compare to above)</span>
 <span class='no'>d</span>$<span class='no'>dat</span>[<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
-<span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>validn</span>)  <span class='co'># note use of validn</span></div><div class='output co'>#&gt;   a   b   c   d   e 
-#&gt; 210 191 207 193 198 </div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>mean</span>,<span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;          a          b          c          d          e 
+<span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>validn</span>)  <span class='co'># note use of validn</span></div><div class='output co'>#&gt; <span class='warning'>Warning: RHS variable was converted to a factor.</span></div><div class='output co'>#&gt;   a   b   c   d   e 
+#&gt; 210 191 207 193 198 </div><div class='input'><span class='fu'>sumTable</span>(<span class='no'>dat</span>~<span class='no'>g1</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>mean</span>,<span class='kw'>na.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: RHS variable was converted to a factor.</span></div><div class='output co'>#&gt;          a          b          c          d          e 
 #&gt; -0.0730901  0.0335988 -0.0667610  0.0111691  0.0394634 </div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -232,7 +227,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
