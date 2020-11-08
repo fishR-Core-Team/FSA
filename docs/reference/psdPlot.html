@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
       </span>
     </div>
 
@@ -128,30 +128,30 @@
     <p>Constructs a length-frequency histogram with Gabelhouse lengths highlighted.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>psdPlot</span>(
-  <span class='no'>formula</span>,
-  <span class='no'>data</span>,
-  <span class='kw'>species</span> <span class='kw'>=</span> <span class='st'>"List"</span>,
-  <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mm"</span>, <span class='st'>"cm"</span>, <span class='st'>"in"</span>),
-  <span class='kw'>startcat</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>w</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>justPSDQ</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Length"</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Number"</span>,
-  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>h</span>$<span class='no'>counts</span>)),
-  <span class='kw'>substock.col</span> <span class='kw'>=</span> <span class='st'>"white"</span>,
-  <span class='kw'>stock.col</span> <span class='kw'>=</span> <span class='st'>"gray90"</span>,
-  <span class='kw'>psd.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>psd.lty</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>psd.lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>show.abbrevs</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>psd.add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>psd.pos</span> <span class='kw'>=</span> <span class='st'>"topleft"</span>,
-  <span class='kw'>psd.cex</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>psdPlot</span><span class='op'>(</span>
+  <span class='va'>formula</span>,
+  <span class='va'>data</span>,
+  species <span class='op'>=</span> <span class='st'>"List"</span>,
+  units <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mm"</span>, <span class='st'>"cm"</span>, <span class='st'>"in"</span><span class='op'>)</span>,
+  startcat <span class='op'>=</span> <span class='fl'>0</span>,
+  w <span class='op'>=</span> <span class='fl'>1</span>,
+  justPSDQ <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  main <span class='op'>=</span> <span class='st'>""</span>,
+  xlab <span class='op'>=</span> <span class='st'>"Length"</span>,
+  ylab <span class='op'>=</span> <span class='st'>"Number"</span>,
+  xlim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>h</span><span class='op'>$</span><span class='va'>counts</span><span class='op'>)</span><span class='op'>)</span>,
+  substock.col <span class='op'>=</span> <span class='st'>"white"</span>,
+  stock.col <span class='op'>=</span> <span class='st'>"gray90"</span>,
+  psd.col <span class='op'>=</span> <span class='st'>"black"</span>,
+  psd.lty <span class='op'>=</span> <span class='fl'>2</span>,
+  psd.lwd <span class='op'>=</span> <span class='fl'>1</span>,
+  show.abbrevs <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  psd.add <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  psd.pos <span class='op'>=</span> <span class='st'>"topleft"</span>,
+  psd.cex <span class='op'>=</span> <span class='fl'>0.75</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -258,48 +258,62 @@
     <p>6-Size Structure.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
 <p>Guy, C.S., R.M. Neumann, and D.W. Willis. 2006. New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS). Fisheries 31:86-87. [Was (is?) from http://pubstorage.sdstate.edu/wfs/415-F.pdf.]</p>
 <p>Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson. 2006. Proportional size distribution (PSD): A further refinement of population size structure index terminology. Fisheries 32:348. [Was (is?) from http://pubstorage.sdstate.edu/wfs/450-F.pdf.]</p>
 <p>Willis, D.W., B.R. Murphy, and C.S. Guy. 1993. Stock density indices: development, use, and limitations. Reviews in Fisheries Science 1:203-222. [Was (is?) from http://web1.cnre.vt.edu/murphybr/web/Readings/Willis%20et%20al.pdf.]</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code><a href='psdVal.html'>psdVal</a></code>, <code><a href='psdCalc.html'>psdCalc</a></code>, <code><a href='psdAdd.html'>psdAdd</a></code>, <code><a href='PSDlit.html'>PSDlit</a></code>, <code><a href='lencat.html'>lencat</a></code>, <code><a href='tictactoe.html'>tictactoe</a></code>, <code><a href='lencat.html'>lencat</a></code>, and <code><a href='rcumsum.html'>rcumsum</a></code> for related functionality.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Random length data</span>
 <span class='co'># suppose this is yellow perch to the nearest mm</span>
-<span class='no'>mm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>,<span class='kw'>mean</span><span class='kw'>=</span><span class='fl'>125</span>,<span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>15</span>),<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>,<span class='kw'>mean</span><span class='kw'>=</span><span class='fl'>200</span>,<span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>25</span>),
-        <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>,<span class='kw'>mean</span><span class='kw'>=</span><span class='fl'>300</span>,<span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>40</span>))
+<span class='va'>mm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>,mean<span class='op'>=</span><span class='fl'>125</span>,sd<span class='op'>=</span><span class='fl'>15</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>50</span>,mean<span class='op'>=</span><span class='fl'>200</span>,sd<span class='op'>=</span><span class='fl'>25</span><span class='op'>)</span>,
+        <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>20</span>,mean<span class='op'>=</span><span class='fl'>300</span>,sd<span class='op'>=</span><span class='fl'>40</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># same data to the nearest 0.1 cm</span>
-<span class='no'>cm</span> <span class='kw'>&lt;-</span> <span class='no'>mm</span>/<span class='fl'>10</span>
+<span class='va'>cm</span> <span class='op'>&lt;-</span> <span class='va'>mm</span><span class='op'>/</span><span class='fl'>10</span>
 <span class='co'># same data to the nearest 0.1 in</span>
-<span class='no'>inch</span> <span class='kw'>&lt;-</span> <span class='no'>mm</span>/<span class='fl'>25.4</span>
+<span class='va'>inch</span> <span class='op'>&lt;-</span> <span class='va'>mm</span><span class='op'>/</span><span class='fl'>25.4</span>
 <span class='co'># put together as data.frame</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>mm</span>,<span class='no'>cm</span>,<span class='no'>inch</span>)
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>mm</span>,<span class='va'>cm</span>,<span class='va'>inch</span><span class='op'>)</span>
 
 <span class='co'>## Example graphics</span>
-<span class='no'>op</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mar</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>1</span>),<span class='kw'>mgp</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.7</span>,<span class='fl'>0.5</span>,<span class='fl'>0</span>))
+<span class='va'>op</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mar<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>1</span><span class='op'>)</span>,mgp<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.7</span>,<span class='fl'>0.5</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># mm data using 10-mm increments</span>
-<span class='fu'>psdPlot</span>(~<span class='no'>mm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>10</span>)</div><div class='img'><img src='psdPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># cm data using 1-cm increments</span>
-<span class='fu'>psdPlot</span>(~<span class='no'>cm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>units</span><span class='kw'>=</span><span class='st'>"cm"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='img'><img src='psdPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># inch data using 1-in increments</span>
-<span class='fu'>psdPlot</span>(~<span class='no'>inch</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>units</span><span class='kw'>=</span><span class='st'>"in"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='img'><img src='psdPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># same as first with some color changes</span>
-<span class='fu'>psdPlot</span>(~<span class='no'>mm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>substock.col</span><span class='kw'>=</span><span class='st'>"gray90"</span>,
-        <span class='kw'>stock.col</span><span class='kw'>=</span><span class='st'>"gray30"</span>)</div><div class='img'><img src='psdPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># ... but without the PSD values</span>
-<span class='fu'>psdPlot</span>(~<span class='no'>mm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>psd.add</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='img'><img src='psdPlot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># ... demonstrate use of xlim</span>
-<span class='fu'>psdPlot</span>(~<span class='no'>mm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>,<span class='fl'>300</span>))</div><div class='img'><img src='psdPlot-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>psdPlot</span><span class='op'>(</span><span class='op'>~</span><span class='va'>mm</span>,data<span class='op'>=</span><span class='va'>df</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,w<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
+</div><div class='img'><img src='psdPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># cm data using 1-cm increments</span>
+<span class='fu'>psdPlot</span><span class='op'>(</span><span class='op'>~</span><span class='va'>cm</span>,data<span class='op'>=</span><span class='va'>df</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,units<span class='op'>=</span><span class='st'>"cm"</span>,w<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='img'><img src='psdPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># inch data using 1-in increments</span>
+<span class='fu'>psdPlot</span><span class='op'>(</span><span class='op'>~</span><span class='va'>inch</span>,data<span class='op'>=</span><span class='va'>df</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,units<span class='op'>=</span><span class='st'>"in"</span>,w<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='img'><img src='psdPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># same as first with some color changes</span>
+<span class='fu'>psdPlot</span><span class='op'>(</span><span class='op'>~</span><span class='va'>mm</span>,data<span class='op'>=</span><span class='va'>df</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,w<span class='op'>=</span><span class='fl'>10</span>,substock.col<span class='op'>=</span><span class='st'>"gray90"</span>,
+        stock.col<span class='op'>=</span><span class='st'>"gray30"</span><span class='op'>)</span>
+</div><div class='img'><img src='psdPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># ... but without the PSD values</span>
+<span class='fu'>psdPlot</span><span class='op'>(</span><span class='op'>~</span><span class='va'>mm</span>,data<span class='op'>=</span><span class='va'>df</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,w<span class='op'>=</span><span class='fl'>10</span>,psd.add<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='psdPlot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># ... demonstrate use of xlim</span>
+<span class='fu'>psdPlot</span><span class='op'>(</span><span class='op'>~</span><span class='va'>mm</span>,data<span class='op'>=</span><span class='va'>df</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,w<span class='op'>=</span><span class='fl'>10</span>,xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>,<span class='fl'>300</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='psdPlot-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## different subsets of fish</span>
 <span class='co'># ... without any sub-stock fish</span>
-<span class='no'>brks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='psdVal.html'>psdVal</a></span>(<span class='st'>"Yellow Perch"</span>)
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Subset.html'>filterD</a></span>(<span class='no'>df</span>,<span class='no'>mm</span><span class='kw'>&gt;</span><span class='no'>brks</span>[<span class='st'>"stock"</span>])
-<span class='fu'>psdPlot</span>(~<span class='no'>mm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>tmp</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>10</span>)</div><div class='img'><img src='psdPlot-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># ... without any sub-stock or stock fish</span>
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Subset.html'>filterD</a></span>(<span class='no'>df</span>,<span class='no'>mm</span><span class='kw'>&gt;</span><span class='no'>brks</span>[<span class='st'>"quality"</span>])
-<span class='fu'>psdPlot</span>(~<span class='no'>mm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>tmp</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>10</span>)</div><div class='img'><img src='psdPlot-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># ... with only sub-stock, stock, and quality fish ... only PSD-Q</span>
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Subset.html'>filterD</a></span>(<span class='no'>df</span>,<span class='no'>mm</span><span class='kw'>&lt;</span><span class='no'>brks</span>[<span class='st'>"preferred"</span>])
-<span class='fu'>psdPlot</span>(~<span class='no'>mm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>tmp</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>10</span>)</div><div class='img'><img src='psdPlot-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># ... with only sub-stock fish (don't run ... setup to give an error)</span>
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='Subset.html'>filterD</a></span>(<span class='no'>df</span>,<span class='no'>mm</span><span class='kw'>&lt;</span><span class='no'>brks</span>[<span class='st'>"stock"</span>])
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>)  <span class='fu'>psdPlot</span>(~<span class='no'>mm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>tmp</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>10</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='no'>op</span>)</div></pre>
+<span class='va'>brks</span> <span class='op'>&lt;-</span> <span class='fu'><a href='psdVal.html'>psdVal</a></span><span class='op'>(</span><span class='st'>"Yellow Perch"</span><span class='op'>)</span>
+<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Subset.html'>filterD</a></span><span class='op'>(</span><span class='va'>df</span>,<span class='va'>mm</span><span class='op'>&gt;</span><span class='va'>brks</span><span class='op'>[</span><span class='st'>"stock"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='fu'>psdPlot</span><span class='op'>(</span><span class='op'>~</span><span class='va'>mm</span>,data<span class='op'>=</span><span class='va'>tmp</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,w<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
+</div><div class='img'><img src='psdPlot-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># ... without any sub-stock or stock fish</span>
+<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Subset.html'>filterD</a></span><span class='op'>(</span><span class='va'>df</span>,<span class='va'>mm</span><span class='op'>&gt;</span><span class='va'>brks</span><span class='op'>[</span><span class='st'>"quality"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='fu'>psdPlot</span><span class='op'>(</span><span class='op'>~</span><span class='va'>mm</span>,data<span class='op'>=</span><span class='va'>tmp</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,w<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
+</div><div class='img'><img src='psdPlot-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># ... with only sub-stock, stock, and quality fish ... only PSD-Q</span>
+<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Subset.html'>filterD</a></span><span class='op'>(</span><span class='va'>df</span>,<span class='va'>mm</span><span class='op'>&lt;</span><span class='va'>brks</span><span class='op'>[</span><span class='st'>"preferred"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='fu'>psdPlot</span><span class='op'>(</span><span class='op'>~</span><span class='va'>mm</span>,data<span class='op'>=</span><span class='va'>tmp</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,w<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
+</div><div class='img'><img src='psdPlot-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># ... with only sub-stock fish (don't run ... setup to give an error)</span>
+<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Subset.html'>filterD</a></span><span class='op'>(</span><span class='va'>df</span>,<span class='va'>mm</span><span class='op'>&lt;</span><span class='va'>brks</span><span class='op'>[</span><span class='st'>"stock"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span>  <span class='fu'>psdPlot</span><span class='op'>(</span><span class='op'>~</span><span class='va'>mm</span>,data<span class='op'>=</span><span class='va'>tmp</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,w<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span> 
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='va'>op</span><span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -315,7 +329,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

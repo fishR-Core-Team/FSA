@@ -67,6 +67,6 @@ diags(mat3,which=-4,incl.labels="col")
 
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}, but relied heavily on \url{http://stackoverflow.com/a/27935808/1123933}.
+Derek H. Ogle, \email{derek@derekogle.com}, but relied heavily on \url{https://stackoverflow.com/a/27935808/1123933/}.
 }
 \keyword{manip}

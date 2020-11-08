@@ -13,7 +13,7 @@
 #' @param key A numeric matrix that contains the age-length key. The format of this matrix is important. See details.
 #' @param formula A formula of the form \code{age~length} where \code{age} generically represents the variable that will contain the estimated ages once the key is applied (i.e., should currently contain no values) and \code{length} generically represents the variable that contains the known length measurements. If only \code{~length} is used, then a new variable called \dQuote{age} will be created in the resulting data frame.
 #' @param data A data.frame that minimally contains the length measurements and possibly contains a variable that will receive the age assignments as given in \code{formula}.
-#' @param type A string that indicates whether to use the semi-random (\code{type="SR"}, default) or completely-random (\code{type="CR"}) methods for assigning ages to individual fish. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for more details.
+#' @param type A string that indicates whether to use the semi-random (\code{type="SR"}, default) or completely-random (\code{type="CR"}) methods for assigning ages to individual fish. See the \href{http://derekogle.com/IFAR/}{IFAR chapter} for more details.
 #' @param breaks A numeric vector of lower values that define the length intervals. See details.
 #' @param seed A single numeric that is given to \code{set.seed} to set the random seed. This allows repeatability of results.
 #' 
@@ -27,7 +27,7 @@
 #'
 #' @seealso  See \code{\link{alkAgeDist}} and \code{\link{alkMeanVar}} for alternative methods to derived age distributions and mean (and SD) values for each age. See \code{\link{alkPlot}} for methods to visualize age-length keys.
 #'
-#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Isermann, D.A. and C.T. Knight. 2005. A computer program for age-length keys incorporating age assignment to individual fish. North American Journal of Fisheries Management, 25:1153-1160. [Was (is?) from http://www.tandfonline.com/doi/abs/10.1577/M04-130.1.]
 #'

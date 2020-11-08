@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
       </span>
     </div>
 
@@ -128,13 +128,13 @@
     <p>Extract diagonals from a matrix.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>diags</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>which</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>incl.labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"row"</span>, <span class='st'>"column"</span>),
-  <span class='kw'>val.name</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
-  <span class='kw'>label.name</span> <span class='kw'>=</span> <span class='st'>"label"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>diags</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  which <span class='op'>=</span> <span class='fl'>0</span>,
+  incl.labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"none"</span>, <span class='st'>"row"</span>, <span class='st'>"column"</span><span class='op'>)</span>,
+  val.name <span class='op'>=</span> <span class='st'>"value"</span>,
+  label.name <span class='op'>=</span> <span class='st'>"label"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,83 +164,106 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A data.frame with one variable that contains the values from the chosen diagonal of <code>x</code> and, optionally, a second variable that contains the chosen labels for those values.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a>, but relied heavily on <a href='https://stackoverflow.com/a/27935808/1123933/'>https://stackoverflow.com/a/27935808/1123933/</a>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Square numeric matrix</span>
-<span class='no'>mat1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span>:<span class='fl'>16</span>,<span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>4</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>mat1</span>) <span class='kw'>&lt;-</span> <span class='no'>LETTERS</span>[<span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>mat1</span>)]
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>mat1</span>) <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>mat1</span>)
-<span class='no'>mat1</span></div><div class='output co'>#&gt;   A B  C  D
+<span class='va'>mat1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>16</span>,nrow<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>mat1</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>mat1</span><span class='op'>)</span><span class='op'>]</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>mat1</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>mat1</span><span class='op'>)</span>
+<span class='va'>mat1</span>
+</div><div class='output co'>#&gt;   A B  C  D
 #&gt; 1 1 5  9 13
 #&gt; 2 2 6 10 14
 #&gt; 3 3 7 11 15
-#&gt; 4 4 8 12 16</div><div class='input'><span class='fu'>diags</span>(<span class='no'>mat1</span>,<span class='kw'>which</span><span class='kw'>=</span><span class='kw'>NULL</span>)</div><div class='output co'>#&gt; Indices matrix corresponding to 'x'.
+#&gt; 4 4 8 12 16</div><div class='input'><span class='fu'>diags</span><span class='op'>(</span><span class='va'>mat1</span>,which<span class='op'>=</span><span class='cn'>NULL</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Indices matrix corresponding to 'x'.
 #&gt;   A  B  C  D
 #&gt; 1 0 -1 -2 -3
 #&gt; 2 1  0 -1 -2
 #&gt; 3 2  1  0 -1
 #&gt; 4 3  2  1  0
-#&gt; </div><div class='input'><span class='fu'>diags</span>(<span class='no'>mat1</span>)</div><div class='output co'>#&gt;   value
+#&gt; </div><div class='input'><span class='fu'>diags</span><span class='op'>(</span><span class='va'>mat1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   value
 #&gt; 1     1
 #&gt; 2     6
 #&gt; 3    11
-#&gt; 4    16</div><div class='input'><span class='fu'>diags</span>(<span class='no'>mat1</span>,<span class='kw'>which</span><span class='kw'>=</span>-<span class='fl'>1</span>)</div><div class='output co'>#&gt;   value
+#&gt; 4    16</div><div class='input'><span class='fu'>diags</span><span class='op'>(</span><span class='va'>mat1</span>,which<span class='op'>=</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   value
 #&gt; 1     5
 #&gt; 2    10
-#&gt; 3    15</div><div class='input'><span class='fu'>diags</span>(<span class='no'>mat1</span>,<span class='kw'>which</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt;   value
+#&gt; 3    15</div><div class='input'><span class='fu'>diags</span><span class='op'>(</span><span class='va'>mat1</span>,which<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   value
 #&gt; 1     3
-#&gt; 2     8</div><div class='input'><span class='fu'>diags</span>(<span class='no'>mat1</span>,<span class='kw'>incl.labels</span><span class='kw'>=</span><span class='st'>"row"</span>)</div><div class='output co'>#&gt;   label value
+#&gt; 2     8</div><div class='input'><span class='fu'>diags</span><span class='op'>(</span><span class='va'>mat1</span>,incl.labels<span class='op'>=</span><span class='st'>"row"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   label value
 #&gt; 1     1     1
 #&gt; 2     2     6
 #&gt; 3     3    11
-#&gt; 4     4    16</div><div class='input'><span class='fu'>diags</span>(<span class='no'>mat1</span>,<span class='kw'>which</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>incl.labels</span><span class='kw'>=</span><span class='st'>"row"</span>)</div><div class='output co'>#&gt;   label value
+#&gt; 4     4    16</div><div class='input'><span class='fu'>diags</span><span class='op'>(</span><span class='va'>mat1</span>,which<span class='op'>=</span><span class='fl'>2</span>,incl.labels<span class='op'>=</span><span class='st'>"row"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   label value
 #&gt; 1     3     3
-#&gt; 2     4     8</div><div class='input'><span class='fu'>diags</span>(<span class='no'>mat1</span>,<span class='kw'>which</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>incl.labels</span><span class='kw'>=</span><span class='st'>"col"</span>)</div><div class='output co'>#&gt;   label value
+#&gt; 2     4     8</div><div class='input'><span class='fu'>diags</span><span class='op'>(</span><span class='va'>mat1</span>,which<span class='op'>=</span><span class='fl'>2</span>,incl.labels<span class='op'>=</span><span class='st'>"col"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   label value
 #&gt; 1     A     3
-#&gt; 2     B     8</div><div class='input'>( <span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>diags</span>(<span class='no'>mat1</span>,<span class='kw'>which</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>incl.labels</span><span class='kw'>=</span><span class='st'>"row"</span>,<span class='kw'>val.name</span><span class='kw'>=</span><span class='st'>"Freq"</span>,<span class='kw'>label.name</span><span class='kw'>=</span><span class='st'>"age"</span>) )</div><div class='output co'>#&gt;   age Freq
+#&gt; 2     B     8</div><div class='input'><span class='op'>(</span> <span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'>diags</span><span class='op'>(</span><span class='va'>mat1</span>,which<span class='op'>=</span><span class='fl'>2</span>,incl.labels<span class='op'>=</span><span class='st'>"row"</span>,val.name<span class='op'>=</span><span class='st'>"Freq"</span>,label.name<span class='op'>=</span><span class='st'>"age"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   age Freq
 #&gt; 1   3    3
-#&gt; 2   4    8</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>tmp</span>)</div><div class='output co'>#&gt; 'data.frame':	2 obs. of  2 variables:
+#&gt; 2   4    8</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>tmp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 'data.frame':	2 obs. of  2 variables:
 #&gt;  $ age : num  3 4
 #&gt;  $ Freq: int  3 8</div><div class='input'>
 <span class='co'>## Rectangular numeric matrix</span>
-<span class='no'>mat2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span>:<span class='fl'>20</span>,<span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>4</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>mat2</span>) <span class='kw'>&lt;-</span> <span class='no'>LETTERS</span>[<span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>mat2</span>)]
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>mat2</span>) <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>mat2</span>)
-<span class='no'>mat2</span></div><div class='output co'>#&gt;   A B  C  D  E
+<span class='va'>mat2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>,nrow<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>mat2</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>mat2</span><span class='op'>)</span><span class='op'>]</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>mat2</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>mat2</span><span class='op'>)</span>
+<span class='va'>mat2</span>
+</div><div class='output co'>#&gt;   A B  C  D  E
 #&gt; 1 1 5  9 13 17
 #&gt; 2 2 6 10 14 18
 #&gt; 3 3 7 11 15 19
-#&gt; 4 4 8 12 16 20</div><div class='input'><span class='fu'>diags</span>(<span class='no'>mat2</span>,<span class='kw'>which</span><span class='kw'>=</span><span class='kw'>NULL</span>)</div><div class='output co'>#&gt; Indices matrix corresponding to 'x'.
+#&gt; 4 4 8 12 16 20</div><div class='input'><span class='fu'>diags</span><span class='op'>(</span><span class='va'>mat2</span>,which<span class='op'>=</span><span class='cn'>NULL</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Indices matrix corresponding to 'x'.
 #&gt;   A  B  C  D  E
 #&gt; 1 0 -1 -2 -3 -4
 #&gt; 2 1  0 -1 -2 -3
 #&gt; 3 2  1  0 -1 -2
 #&gt; 4 3  2  1  0 -1
-#&gt; </div><div class='input'><span class='fu'>diags</span>(<span class='no'>mat2</span>,<span class='kw'>which</span><span class='kw'>=</span>-<span class='fl'>1</span>,<span class='kw'>incl.labels</span><span class='kw'>=</span><span class='st'>"row"</span>)</div><div class='output co'>#&gt;   label value
+#&gt; </div><div class='input'><span class='fu'>diags</span><span class='op'>(</span><span class='va'>mat2</span>,which<span class='op'>=</span><span class='op'>-</span><span class='fl'>1</span>,incl.labels<span class='op'>=</span><span class='st'>"row"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   label value
 #&gt; 1     1     5
 #&gt; 2     2    10
 #&gt; 3     3    15
-#&gt; 4     4    20</div><div class='input'><span class='fu'>diags</span>(<span class='no'>mat2</span>,<span class='kw'>which</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>incl.labels</span><span class='kw'>=</span><span class='st'>"row"</span>)</div><div class='output co'>#&gt;   label value
+#&gt; 4     4    20</div><div class='input'><span class='fu'>diags</span><span class='op'>(</span><span class='va'>mat2</span>,which<span class='op'>=</span><span class='fl'>2</span>,incl.labels<span class='op'>=</span><span class='st'>"row"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   label value
 #&gt; 1     3     3
-#&gt; 2     4     8</div><div class='input'><span class='fu'>diags</span>(<span class='no'>mat2</span>,<span class='kw'>which</span><span class='kw'>=</span>-<span class='fl'>4</span>,<span class='kw'>incl.labels</span><span class='kw'>=</span><span class='st'>"col"</span>)</div><div class='output co'>#&gt;   label value
+#&gt; 2     4     8</div><div class='input'><span class='fu'>diags</span><span class='op'>(</span><span class='va'>mat2</span>,which<span class='op'>=</span><span class='op'>-</span><span class='fl'>4</span>,incl.labels<span class='op'>=</span><span class='st'>"col"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   label value
 #&gt; 1     E    17</div><div class='input'>
 <span class='co'>## Rectangular character matrix</span>
-<span class='no'>mat3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='no'>LETTERS</span>[<span class='fl'>1</span>:<span class='fl'>24</span>],<span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>3</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>mat3</span>) <span class='kw'>&lt;-</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>mat3</span>)]
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>mat3</span>) <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>mat3</span>)
-<span class='no'>mat3</span></div><div class='output co'>#&gt;   a   b   c   d   e   f   g   h  
+<span class='va'>mat3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>24</span><span class='op'>]</span>,nrow<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>mat3</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>mat3</span><span class='op'>)</span><span class='op'>]</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>mat3</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>mat3</span><span class='op'>)</span>
+<span class='va'>mat3</span>
+</div><div class='output co'>#&gt;   a   b   c   d   e   f   g   h  
 #&gt; 1 "A" "D" "G" "J" "M" "P" "S" "V"
 #&gt; 2 "B" "E" "H" "K" "N" "Q" "T" "W"
-#&gt; 3 "C" "F" "I" "L" "O" "R" "U" "X"</div><div class='input'><span class='fu'>diags</span>(<span class='no'>mat3</span>,<span class='kw'>which</span><span class='kw'>=</span><span class='kw'>NULL</span>)</div><div class='output co'>#&gt; Indices matrix corresponding to 'x'.
+#&gt; 3 "C" "F" "I" "L" "O" "R" "U" "X"</div><div class='input'><span class='fu'>diags</span><span class='op'>(</span><span class='va'>mat3</span>,which<span class='op'>=</span><span class='cn'>NULL</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Indices matrix corresponding to 'x'.
 #&gt;   a  b  c  d  e  f  g  h
 #&gt; 1 0 -1 -2 -3 -4 -5 -6 -7
 #&gt; 2 1  0 -1 -2 -3 -4 -5 -6
 #&gt; 3 2  1  0 -1 -2 -3 -4 -5
-#&gt; </div><div class='input'><span class='fu'>diags</span>(<span class='no'>mat3</span>,<span class='kw'>which</span><span class='kw'>=</span>-<span class='fl'>1</span>,<span class='kw'>incl.labels</span><span class='kw'>=</span><span class='st'>"row"</span>)</div><div class='output co'>#&gt;   label value
+#&gt; </div><div class='input'><span class='fu'>diags</span><span class='op'>(</span><span class='va'>mat3</span>,which<span class='op'>=</span><span class='op'>-</span><span class='fl'>1</span>,incl.labels<span class='op'>=</span><span class='st'>"row"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   label value
 #&gt; 1     1     D
 #&gt; 2     2     H
-#&gt; 3     3     L</div><div class='input'><span class='fu'>diags</span>(<span class='no'>mat3</span>,<span class='kw'>which</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>incl.labels</span><span class='kw'>=</span><span class='st'>"row"</span>)</div><div class='output co'>#&gt;   label value
-#&gt; 1     3     C</div><div class='input'><span class='fu'>diags</span>(<span class='no'>mat3</span>,<span class='kw'>which</span><span class='kw'>=</span>-<span class='fl'>4</span>,<span class='kw'>incl.labels</span><span class='kw'>=</span><span class='st'>"col"</span>)</div><div class='output co'>#&gt;   label value
+#&gt; 3     3     L</div><div class='input'><span class='fu'>diags</span><span class='op'>(</span><span class='va'>mat3</span>,which<span class='op'>=</span><span class='fl'>2</span>,incl.labels<span class='op'>=</span><span class='st'>"row"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   label value
+#&gt; 1     3     C</div><div class='input'><span class='fu'>diags</span><span class='op'>(</span><span class='va'>mat3</span>,which<span class='op'>=</span><span class='op'>-</span><span class='fl'>4</span>,incl.labels<span class='op'>=</span><span class='st'>"col"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   label value
 #&gt; 1     e     M
 #&gt; 2     f     Q
 #&gt; 3     g     U</div><div class='input'>
@@ -260,7 +283,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

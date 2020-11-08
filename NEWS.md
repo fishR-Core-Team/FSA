@@ -1,6 +1,9 @@
-# FSA 0.8.31 ongoing
+# FSA 0.8.31 7-Nov20
 * Now using roxygen v7.1.1.
+* Added `tibble` to suggests (see comment about `headtail()` below).
 * Cleaned up the documentation of parameters for `RichardsFuns()` (documentation did not change when parameter letters were changed for the Age and Growth book).
+* Changed example in `headtail()` to use `as_tibble()` from `tibble` package rather than `tbl_df()` from `dplyr` package. Required adding `tibble` to suggests.
+* `nlsTracePlot()`: Modified. Created a conditional catch depending on the version of R as the results of `nls(*,trace=TRUE)` are changing in v4.1.0 (per e-mail from Martin Maechler on 2-Nov-20).
 
 # FSA 0.8.30 9-Mar-20
 * Started using `rhub::check_for_cran()` for checking before sending to CRAN.
@@ -1033,7 +1036,7 @@
 # FSA 0.4.11 May14
 
 * Removed Roxygen directives in DESCRIPTION (with changes to roxygen2 4.0.1).
-* Changed `@S3method` and `@method` to `@export` in the following files according to changes in ROxygen2 as [described here](http://stackoverflow.com/questions/7198758/roxygen2-how-to-properly-document-s3-methods/7199577#7199577), among several other places: `ageBias`, `agePrecision`, `bootCase`, `catchCurve`, `chapmanRobson`, `confint.nlsboot`, `depletion`, `dietOverlap`, `fitPlot`, `hist.formula`, `htest.nlsBoot`, `ks2d1`, `ks2d1p`, `ks2d2`, `ks2d2p`, `ksTest`, `lencat`, `mrClosed`, `mrOpen`, `plotBinResp`, `predict.nlsBoot`, `removal`, `residPlot`, `srStarts`, `Subset`, `Summarize`, `sumTable`, `vbStarts`, and `walfordChapmanPlot`.
+* Changed `@S3method` and `@method` to `@export` in the following files according to changes in ROxygen2 as [described here](https://stackoverflow.com/questions/7198758/roxygen2-how-to-properly-document-s3-methods/7199577/), among several other places: `ageBias`, `agePrecision`, `bootCase`, `catchCurve`, `chapmanRobson`, `confint.nlsboot`, `depletion`, `dietOverlap`, `fitPlot`, `hist.formula`, `htest.nlsBoot`, `ks2d1`, `ks2d1p`, `ks2d2`, `ks2d2p`, `ksTest`, `lencat`, `mrClosed`, `mrOpen`, `plotBinResp`, `predict.nlsBoot`, `removal`, `residPlot`, `srStarts`, `Subset`, `Summarize`, `sumTable`, `vbStarts`, and `walfordChapmanPlot`.
 
 * `addZeroCatch()`: Modified.  Added a catch for the situation where no zeros need to be added to the data.frame.  Cleaned-up the help file, modified the examples, and added another example.  Thanks to Ben Neely for bringing this bug (handling where zeros are not needed) to my attention.
 * `capHistSum()`: Modified.  Cleaned up the code (no changes in functionality).

@@ -264,7 +264,7 @@ confint(mr7)
 
 }
 \references{
-Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
 Krebs, C.J. 1989. Ecological Methodology. Addison-Welsey Educational Publishing.
 

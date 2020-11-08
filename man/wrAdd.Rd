@@ -68,7 +68,7 @@ bg$Wr4 <- wrAdd(wt~tl+species,data=bg)
 
 }
 \references{
-Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
 See \code{\link{wsVal}}, \code{\link{WSlit}}, and \code{\link{psdAdd}} for related functionality. See \code{\link{mapvalues}} for help in changing species names to match those in \code{\link{WSlit}}.

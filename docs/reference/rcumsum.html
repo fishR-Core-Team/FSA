@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
       </span>
     </div>
 
@@ -128,9 +128,9 @@
     <p>Computes the prior-to (i.e., the cumulative sum prior to but not including the current value) or the reverse (i.e., the number that large or larger) cumulative sum of a vector. Also works for 1-dimensional tables, matrices, and data.frames, though it is best used with vectors.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rcumsum</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>rcumsum</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>pcumsum</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>pcumsum</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,13 +150,17 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></code>.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Simple example</span>
-<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='kw'>vals</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>10</span>,
-      <span class='kw'>cum</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>),
-      <span class='kw'>pcum</span><span class='kw'>=</span><span class='fu'>pcumsum</span>(<span class='fl'>1</span>:<span class='fl'>10</span>),
-      <span class='kw'>rcum</span><span class='kw'>=</span><span class='fu'>rcumsum</span>(<span class='fl'>1</span>:<span class='fl'>10</span>))</div><div class='output co'>#&gt;       vals cum pcum rcum
+<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span>vals<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>,
+      cum<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>,
+      pcum<span class='op'>=</span><span class='fu'>pcumsum</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>,
+      rcum<span class='op'>=</span><span class='fu'>rcumsum</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       vals cum pcum rcum
 #&gt;  [1,]    1   1    0   55
 #&gt;  [2,]    2   3    1   54
 #&gt;  [3,]    3   6    3   52
@@ -168,43 +172,54 @@
 #&gt;  [9,]    9  45   36   19
 #&gt; [10,]   10  55   45   10</div><div class='input'>
 <span class='co'>## Example with NA</span>
-<span class='no'>vals</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>NA</span>,<span class='fl'>3</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='no'>vals</span>,
-      <span class='kw'>cum</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span>(<span class='no'>vals</span>),
-      <span class='kw'>pcum</span><span class='kw'>=</span><span class='fu'>pcumsum</span>(<span class='no'>vals</span>),
-      <span class='kw'>rcum</span><span class='kw'>=</span><span class='fu'>rcumsum</span>(<span class='no'>vals</span>))</div><div class='output co'>#&gt;      vals cum pcum rcum
+<span class='va'>vals</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='cn'>NA</span>,<span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>vals</span>,
+      cum<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>vals</span><span class='op'>)</span>,
+      pcum<span class='op'>=</span><span class='fu'>pcumsum</span><span class='op'>(</span><span class='va'>vals</span><span class='op'>)</span>,
+      rcum<span class='op'>=</span><span class='fu'>rcumsum</span><span class='op'>(</span><span class='va'>vals</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      vals cum pcum rcum
 #&gt; [1,]    1   1    0   NA
 #&gt; [2,]    2   3    1   NA
 #&gt; [3,]   NA  NA   NA   NA
 #&gt; [4,]    3  NA   NA    3</div><div class='input'>
 <span class='co'>## Example with NA</span>
-<span class='no'>vals</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>NA</span>,<span class='fl'>3</span>,<span class='fl'>NA</span>,<span class='fl'>4</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='no'>vals</span>,
-      <span class='kw'>cum</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span>(<span class='no'>vals</span>),
-      <span class='kw'>pcum</span><span class='kw'>=</span><span class='fu'>pcumsum</span>(<span class='no'>vals</span>),
-      <span class='kw'>rcum</span><span class='kw'>=</span><span class='fu'>rcumsum</span>(<span class='no'>vals</span>))</div><div class='output co'>#&gt;      vals cum pcum rcum
+<span class='va'>vals</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='cn'>NA</span>,<span class='fl'>3</span>,<span class='cn'>NA</span>,<span class='fl'>4</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>vals</span>,
+      cum<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>vals</span><span class='op'>)</span>,
+      pcum<span class='op'>=</span><span class='fu'>pcumsum</span><span class='op'>(</span><span class='va'>vals</span><span class='op'>)</span>,
+      rcum<span class='op'>=</span><span class='fu'>rcumsum</span><span class='op'>(</span><span class='va'>vals</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      vals cum pcum rcum
 #&gt; [1,]    1   1    0   NA
 #&gt; [2,]    2   3    1   NA
 #&gt; [3,]   NA  NA   NA   NA
 #&gt; [4,]    3  NA   NA   NA
 #&gt; [5,]   NA  NA   NA   NA
-#&gt; [6,]    4  NA   NA    4</div><div class='input'>
+#&gt; [6,]    4  NA   NA    4</div><div class='input'>      
 <span class='co'>## Example with a matrix</span>
-<span class='no'>mat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>),<span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>1</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span>(<span class='no'>mat</span>)</div><div class='output co'>#&gt; [1]  1  3  6 10 15</div><div class='input'><span class='fu'>pcumsum</span>(<span class='no'>mat</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5]
-#&gt; [1,]    0    1    3    6   10</div><div class='input'><span class='fu'>rcumsum</span>(<span class='no'>mat</span>)</div><div class='output co'>#&gt; [1] 15 14 12  9  5</div><div class='input'>
+<span class='va'>mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span><span class='op'>)</span>,nrow<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>mat</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  1  3  6 10 15</div><div class='input'><span class='fu'>pcumsum</span><span class='op'>(</span><span class='va'>mat</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5]
+#&gt; [1,]    0    1    3    6   10</div><div class='input'><span class='fu'>rcumsum</span><span class='op'>(</span><span class='va'>mat</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 15 14 12  9  5</div><div class='input'>
 <span class='co'>## Example with a table (must be 1-d)</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>,<span class='fl'>100</span>,<span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-<span class='no'>tbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>df</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span>(<span class='no'>tbl</span>)</div><div class='output co'>#&gt;   1   2   3   4   5   6   7   8   9  10 
-#&gt;  12  23  34  43  51  59  65  78  87 100 </div><div class='input'><span class='fu'>pcumsum</span>(<span class='no'>tbl</span>)</div><div class='output co'>#&gt; df
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>,<span class='fl'>100</span>,replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>tbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>tbl</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   1   2   3   4   5   6   7   8   9  10 
+#&gt;  12  23  34  43  51  59  65  78  87 100 </div><div class='input'><span class='fu'>pcumsum</span><span class='op'>(</span><span class='va'>tbl</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; df
 #&gt;  1  2  3  4  5  6  7  8  9 10 
-#&gt;  0 12 23 34 43 51 59 65 78 87 </div><div class='input'><span class='fu'>rcumsum</span>(<span class='no'>tbl</span>)</div><div class='output co'>#&gt;   1   2   3   4   5   6   7   8   9  10 
+#&gt;  0 12 23 34 43 51 59 65 78 87 </div><div class='input'><span class='fu'>rcumsum</span><span class='op'>(</span><span class='va'>tbl</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   1   2   3   4   5   6   7   8   9  10 
 #&gt; 100  88  77  66  57  49  41  35  22  13 </div><div class='input'>
 <span class='co'>## Example with a data.frame (must be 1-d)</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>,<span class='fl'>100</span>,<span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-<span class='no'>tbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>df</span>))[,-<span class='fl'>1</span>]
-<span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span>(<span class='no'>tbl</span>)</div><div class='output co'>#&gt;  [1]   4  17  26  38  47  54  73  82  93 100</div><div class='input'><span class='fu'>pcumsum</span>(<span class='no'>tbl</span>)</div><div class='output co'>#&gt;  [1]  0  4 17 26 38 47 54 73 82 93</div><div class='input'><span class='fu'>rcumsum</span>(<span class='no'>tbl</span>)</div><div class='output co'>#&gt;  [1] 100  96  83  74  62  53  46  27  18   7</div></pre>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>,<span class='fl'>100</span>,replace<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>tbl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>
+<span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>tbl</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1]   4  17  26  38  47  54  73  82  93 100</div><div class='input'><span class='fu'>pcumsum</span><span class='op'>(</span><span class='va'>tbl</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1]  0  4 17 26 38 47 54 73 82 93</div><div class='input'><span class='fu'>rcumsum</span><span class='op'>(</span><span class='va'>tbl</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] 100  96  83  74  62  53  46  27  18   7</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -220,7 +235,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

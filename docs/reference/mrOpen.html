@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
       </span>
     </div>
 
@@ -128,28 +128,28 @@
     <p>This function takes the two parts of a Method B table and uses the Jolly-Seber method to estimate the population size at each possible sample period and the apparent survival rate and number of additional individuals added to the population between possible sample periods. This method assumes that the population is open.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>jolly</span>(<span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>jolly</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>mrOpen</span>(
-  <span class='no'>mb.top</span>,
-  <span class='kw'>mb.bot</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Jolly"</span>, <span class='st'>"Manly"</span>),
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>phi.full</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)
-
-<span class='co'># S3 method for mrOpen</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"N"</span>, <span class='st'>"phi"</span>, <span class='st'>"B"</span>, <span class='st'>"M"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'>mrOpen</span><span class='op'>(</span>
+  <span class='va'>mb.top</span>,
+  mb.bot <span class='op'>=</span> <span class='cn'>NULL</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Jolly"</span>, <span class='st'>"Manly"</span><span class='op'>)</span>,
+  conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  phi.full <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for mrOpen</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(
-  <span class='no'>object</span>,
-  <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"N"</span>, <span class='st'>"phi"</span>, <span class='st'>"B"</span>),
-  <span class='kw'>level</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, parm <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"N"</span>, <span class='st'>"phi"</span>, <span class='st'>"B"</span>, <span class='st'>"M"</span><span class='op'>)</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for mrOpen</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parm <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"N"</span>, <span class='st'>"phi"</span>, <span class='st'>"B"</span><span class='op'>)</span>,
+  level <span class='op'>=</span> <span class='cn'>NULL</span>,
+  conf.level <span class='op'>=</span> <span class='cn'>NULL</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -225,7 +225,7 @@
     <p>9-Abundance from Capture-Recapture Data and 11-Mortality.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
 <p>Jolly, G.M. 1965. Explicit estimates from capture-recapture data with both death and immigration -- stochastic model. Biometrika, 52:225-247.</p>
 <p>Krebs, C.J. 1989. Ecological Methodology. Harper &amp; Row Publishers, New York.</p>
 <p>Leslie, P.H. and D. Chitty. 1951. The estimation of population parameters from data obtained by means of the capture-recapture method. I. The maximum likelihood equations for estimating the death-rate. Biometrika, 38:269-292.</p>
@@ -236,12 +236,16 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='capHistSum.html'>capHistSum</a></code>, <code><a href='mrClosed.html'>mrClosed</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## First example -- capture histories summarized with capHistSum()</span>
-<span class='no'>ch1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='capHistSum.html'>capHistSum</a></span>(<span class='no'>CutthroatAL</span>,<span class='kw'>cols2use</span><span class='kw'>=</span>-<span class='fl'>1</span>)  <span class='co'># ignore first column of fish ID</span>
-<span class='no'>ex1</span> <span class='kw'>&lt;-</span> <span class='fu'>mrOpen</span>(<span class='no'>ch1</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ex1</span>)</div><div class='output co'>#&gt;         M M.se     N  N.se   phi phi.se     B  B.se
+<span class='va'>ch1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='capHistSum.html'>capHistSum</a></span><span class='op'>(</span><span class='va'>CutthroatAL</span>,cols2use<span class='op'>=</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>  <span class='co'># ignore first column of fish ID</span>
+<span class='va'>ex1</span> <span class='op'>&lt;-</span> <span class='fu'>mrOpen</span><span class='op'>(</span><span class='va'>ch1</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ex1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         M M.se     N  N.se   phi phi.se     B  B.se
 #&gt; i=1    NA   NA    NA    NA 0.411  0.088    NA    NA
 #&gt; i=2  36.6  6.4 561.1 117.9 0.349  0.045 198.6  48.2
 #&gt; i=3 127.8 13.4 394.2  44.2 0.370  0.071 526.3 119.7
@@ -250,7 +254,8 @@
 #&gt; i=6 117.6  7.3 436.1  30.3 0.451  0.069 357.2  61.2
 #&gt; i=7 175.1 24.6 553.7  84.3 0.268  0.072 106.9  36.2
 #&gt; i=8 100.2 24.7 255.3  65.4    NA     NA    NA    NA
-#&gt; i=9    NA   NA    NA    NA    NA     NA    NA    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ex1</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Observables:
+#&gt; i=9    NA   NA    NA    NA    NA     NA    NA    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ex1</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Observables:
 #&gt;      m   n   R   r  z
 #&gt; i=1  0  89  89  26 NA
 #&gt; i=2 22 352 352  96  4
@@ -271,7 +276,8 @@
 #&gt; i=6 117.6  7.3 436.1  30.3 0.451  0.069 357.2  61.2
 #&gt; i=7 175.1 24.6 553.7  84.3 0.268  0.072 106.9  36.2
 #&gt; i=8 100.2 24.7 255.3  65.4    NA     NA    NA    NA
-#&gt; i=9    NA   NA    NA    NA    NA     NA    NA    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ex1</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"N"</span>)</div><div class='output co'>#&gt;         N  N.se
+#&gt; i=9    NA   NA    NA    NA    NA     NA    NA    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ex1</span>,parm<span class='op'>=</span><span class='st'>"N"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         N  N.se
 #&gt; i=1    NA    NA
 #&gt; i=2 561.1 117.9
 #&gt; i=3 394.2  44.2
@@ -280,7 +286,8 @@
 #&gt; i=6 436.1  30.3
 #&gt; i=7 553.7  84.3
 #&gt; i=8 255.3  65.4
-#&gt; i=9    NA    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ex1</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"N"</span>,<span class='st'>"phi"</span>))</div><div class='output co'>#&gt;         N  N.se   phi phi.se
+#&gt; i=9    NA    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ex1</span>,parm<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"N"</span>,<span class='st'>"phi"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         N  N.se   phi phi.se
 #&gt; i=1    NA    NA 0.411  0.088
 #&gt; i=2 561.1 117.9 0.349  0.045
 #&gt; i=3 394.2  44.2 0.370  0.071
@@ -289,7 +296,8 @@
 #&gt; i=6 436.1  30.3 0.451  0.069
 #&gt; i=7 553.7  84.3 0.268  0.072
 #&gt; i=8 255.3  65.4    NA     NA
-#&gt; i=9    NA    NA    NA     NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>ex1</span>)</div><div class='output co'>#&gt;     N.lci N.uci phi.lci phi.uci B.lci B.uci
+#&gt; i=9    NA    NA    NA     NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>ex1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     N.lci N.uci phi.lci phi.uci B.lci B.uci
 #&gt; i=1    NA    NA   0.237   0.584    NA    NA
 #&gt; i=2 330.0 792.1   0.261   0.436 104.0 293.1
 #&gt; i=3 307.6 480.8   0.231   0.509 291.7 760.8
@@ -298,7 +306,8 @@
 #&gt; i=6 376.7 495.5   0.316   0.585 237.2 477.3
 #&gt; i=7 388.4 719.1   0.127   0.409  36.0 177.8
 #&gt; i=8 127.2 383.4      NA      NA    NA    NA
-#&gt; i=9    NA    NA      NA      NA    NA    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>ex1</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"N"</span>)</div><div class='output co'>#&gt;     N.lci N.uci
+#&gt; i=9    NA    NA      NA      NA    NA    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>ex1</span>,parm<span class='op'>=</span><span class='st'>"N"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     N.lci N.uci
 #&gt; i=1    NA    NA
 #&gt; i=2 330.0 792.1
 #&gt; i=3 307.6 480.8
@@ -307,7 +316,8 @@
 #&gt; i=6 376.7 495.5
 #&gt; i=7 388.4 719.1
 #&gt; i=8 127.2 383.4
-#&gt; i=9    NA    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>ex1</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"N"</span>,<span class='st'>"phi"</span>))</div><div class='output co'>#&gt;     N.lci N.uci phi.lci phi.uci
+#&gt; i=9    NA    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>ex1</span>,parm<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"N"</span>,<span class='st'>"phi"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     N.lci N.uci phi.lci phi.uci
 #&gt; i=1    NA    NA   0.237   0.584
 #&gt; i=2 330.0 792.1   0.261   0.436
 #&gt; i=3 307.6 480.8   0.231   0.509
@@ -316,7 +326,8 @@
 #&gt; i=6 376.7 495.5   0.316   0.585
 #&gt; i=7 388.4 719.1   0.127   0.409
 #&gt; i=8 127.2 383.4      NA      NA
-#&gt; i=9    NA    NA      NA      NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>ex1</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The Jolly method was used to construct confidence intervals.</span></div><div class='output co'>#&gt;     N.lci N.uci phi.lci phi.uci B.lci B.uci
+#&gt; i=9    NA    NA      NA      NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>ex1</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>The Jolly method was used to construct confidence intervals.</span></div><div class='output co'>#&gt;     N.lci N.uci phi.lci phi.uci B.lci B.uci
 #&gt; i=1    NA    NA   0.237   0.584    NA    NA
 #&gt; i=2 330.0 792.1   0.261   0.436 104.0 293.1
 #&gt; i=3 307.6 480.8   0.231   0.509 291.7 760.8
@@ -327,29 +338,30 @@
 #&gt; i=8 127.2 383.4      NA      NA    NA    NA
 #&gt; i=9    NA    NA      NA      NA    NA    NA</div><div class='input'>
 <span class='co'>## Second example - Jolly's data -- summarized data entered "by hand"</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>NA</span>,<span class='fl'>13</span>)
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>NA</span>,<span class='fl'>12</span>))
-<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>34</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>NA</span>,<span class='fl'>11</span>))
-<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>18</span>,<span class='fl'>33</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>NA</span>,<span class='fl'>10</span>))
-<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>8</span>,<span class='fl'>13</span>,<span class='fl'>30</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>NA</span>,<span class='fl'>9</span>))
-<span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>8</span>,<span class='fl'>20</span>,<span class='fl'>43</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>NA</span>,<span class='fl'>8</span>))
-<span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>6</span>,<span class='fl'>5</span>,<span class='fl'>10</span>,<span class='fl'>34</span>,<span class='fl'>56</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>NA</span>,<span class='fl'>7</span>))
-<span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>4</span>,<span class='fl'>0</span>,<span class='fl'>3</span>,<span class='fl'>14</span>,<span class='fl'>19</span>,<span class='fl'>46</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>NA</span>,<span class='fl'>6</span>))
-<span class='no'>s9</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>11</span>,<span class='fl'>12</span>,<span class='fl'>28</span>,<span class='fl'>51</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>NA</span>,<span class='fl'>5</span>))
-<span class='no'>s10</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>17</span>,<span class='fl'>22</span>,<span class='fl'>34</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>NA</span>,<span class='fl'>4</span>))
-<span class='no'>s11</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>4</span>,<span class='fl'>8</span>,<span class='fl'>12</span>,<span class='fl'>16</span>,<span class='fl'>30</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>NA</span>,<span class='fl'>3</span>))
-<span class='no'>s12</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>7</span>,<span class='fl'>4</span>,<span class='fl'>11</span>,<span class='fl'>16</span>,<span class='fl'>26</span>,<span class='fl'>NA</span>,<span class='fl'>NA</span>)
-<span class='no'>s13</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>10</span>,<span class='fl'>9</span>,<span class='fl'>12</span>,<span class='fl'>18</span>,<span class='fl'>35</span>,<span class='fl'>NA</span>)
-<span class='no'>jolly.top</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='no'>s1</span>,<span class='no'>s2</span>,<span class='no'>s3</span>,<span class='no'>s4</span>,<span class='no'>s5</span>,<span class='no'>s6</span>,<span class='no'>s7</span>,<span class='no'>s8</span>,<span class='no'>s9</span>,<span class='no'>s10</span>,<span class='no'>s11</span>,<span class='no'>s12</span>,<span class='no'>s13</span>)
+<span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA</span>,<span class='fl'>13</span><span class='op'>)</span>
+<span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA</span>,<span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>34</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA</span>,<span class='fl'>11</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>,<span class='fl'>18</span>,<span class='fl'>33</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA</span>,<span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>8</span>,<span class='fl'>13</span>,<span class='fl'>30</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA</span>,<span class='fl'>9</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>s6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>8</span>,<span class='fl'>20</span>,<span class='fl'>43</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA</span>,<span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>s7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>6</span>,<span class='fl'>5</span>,<span class='fl'>10</span>,<span class='fl'>34</span>,<span class='fl'>56</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA</span>,<span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>s8</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>4</span>,<span class='fl'>0</span>,<span class='fl'>3</span>,<span class='fl'>14</span>,<span class='fl'>19</span>,<span class='fl'>46</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA</span>,<span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>s9</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>11</span>,<span class='fl'>12</span>,<span class='fl'>28</span>,<span class='fl'>51</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>s10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>5</span>,<span class='fl'>17</span>,<span class='fl'>22</span>,<span class='fl'>34</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA</span>,<span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>s11</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>4</span>,<span class='fl'>8</span>,<span class='fl'>12</span>,<span class='fl'>16</span>,<span class='fl'>30</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='cn'>NA</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>s12</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>7</span>,<span class='fl'>4</span>,<span class='fl'>11</span>,<span class='fl'>16</span>,<span class='fl'>26</span>,<span class='cn'>NA</span>,<span class='cn'>NA</span><span class='op'>)</span>
+<span class='va'>s13</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>10</span>,<span class='fl'>9</span>,<span class='fl'>12</span>,<span class='fl'>18</span>,<span class='fl'>35</span>,<span class='cn'>NA</span><span class='op'>)</span>
+<span class='va'>jolly.top</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>s1</span>,<span class='va'>s2</span>,<span class='va'>s3</span>,<span class='va'>s4</span>,<span class='va'>s5</span>,<span class='va'>s6</span>,<span class='va'>s7</span>,<span class='va'>s8</span>,<span class='va'>s9</span>,<span class='va'>s10</span>,<span class='va'>s11</span>,<span class='va'>s12</span>,<span class='va'>s13</span><span class='op'>)</span>
 
-<span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>54</span>,<span class='fl'>146</span>,<span class='fl'>169</span>,<span class='fl'>209</span>,<span class='fl'>220</span>,<span class='fl'>209</span>,<span class='fl'>250</span>,<span class='fl'>176</span>,<span class='fl'>172</span>,<span class='fl'>127</span>,<span class='fl'>123</span>,<span class='fl'>120</span>,<span class='fl'>142</span>)
-<span class='no'>R</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>54</span>,<span class='fl'>143</span>,<span class='fl'>164</span>,<span class='fl'>202</span>,<span class='fl'>214</span>,<span class='fl'>207</span>,<span class='fl'>243</span>,<span class='fl'>175</span>,<span class='fl'>169</span>,<span class='fl'>126</span>,<span class='fl'>120</span>,<span class='fl'>120</span>,<span class='fl'>0</span>)
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>10</span>,<span class='fl'>37</span>,<span class='fl'>56</span>,<span class='fl'>53</span>,<span class='fl'>77</span>,<span class='fl'>112</span>,<span class='fl'>86</span>,<span class='fl'>110</span>,<span class='fl'>84</span>,<span class='fl'>77</span>,<span class='fl'>72</span>,<span class='fl'>95</span>)
-<span class='no'>u</span> <span class='kw'>&lt;-</span> <span class='no'>n</span>-<span class='no'>m</span>
-<span class='no'>jolly.bot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='no'>m</span>,<span class='no'>u</span>,<span class='no'>n</span>,<span class='no'>R</span>)
+<span class='va'>n</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>54</span>,<span class='fl'>146</span>,<span class='fl'>169</span>,<span class='fl'>209</span>,<span class='fl'>220</span>,<span class='fl'>209</span>,<span class='fl'>250</span>,<span class='fl'>176</span>,<span class='fl'>172</span>,<span class='fl'>127</span>,<span class='fl'>123</span>,<span class='fl'>120</span>,<span class='fl'>142</span><span class='op'>)</span>
+<span class='va'>R</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>54</span>,<span class='fl'>143</span>,<span class='fl'>164</span>,<span class='fl'>202</span>,<span class='fl'>214</span>,<span class='fl'>207</span>,<span class='fl'>243</span>,<span class='fl'>175</span>,<span class='fl'>169</span>,<span class='fl'>126</span>,<span class='fl'>120</span>,<span class='fl'>120</span>,<span class='fl'>0</span><span class='op'>)</span>
+<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>10</span>,<span class='fl'>37</span>,<span class='fl'>56</span>,<span class='fl'>53</span>,<span class='fl'>77</span>,<span class='fl'>112</span>,<span class='fl'>86</span>,<span class='fl'>110</span>,<span class='fl'>84</span>,<span class='fl'>77</span>,<span class='fl'>72</span>,<span class='fl'>95</span><span class='op'>)</span>
+<span class='va'>u</span> <span class='op'>&lt;-</span> <span class='va'>n</span><span class='op'>-</span><span class='va'>m</span>
+<span class='va'>jolly.bot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>m</span>,<span class='va'>u</span>,<span class='va'>n</span>,<span class='va'>R</span><span class='op'>)</span>
 
-<span class='no'>ex2</span> <span class='kw'>&lt;-</span> <span class='fu'>mrOpen</span>(<span class='no'>jolly.top</span>,<span class='no'>jolly.bot</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ex2</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Observables:
+<span class='va'>ex2</span> <span class='op'>&lt;-</span> <span class='fu'>mrOpen</span><span class='op'>(</span><span class='va'>jolly.top</span>,<span class='va'>jolly.bot</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ex2</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Observables:
 #&gt;      m   n   R   r   z
 #&gt; 1    0  54  54  24  NA
 #&gt; 2   10 146 143  80  14
@@ -378,7 +390,8 @@
 #&gt; 10 314.3 27.6 473.3  48.8 0.880  0.121  82.8  39.1
 #&gt; 11 313.6 34.9 498.6  63.0 0.767  0.128  73.3  39.0
 #&gt; 12 273.7 36.2 453.6  66.6    NA     NA    NA    NA
-#&gt; 13    NA   NA    NA    NA    NA     NA    NA    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>ex2</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The Jolly method was used to construct confidence intervals.</span></div><div class='output co'>#&gt;    N.lci  N.uci phi.lci phi.uci  B.lci B.uci
+#&gt; 13    NA   NA    NA    NA    NA     NA    NA    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>ex2</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>The Jolly method was used to construct confidence intervals.</span></div><div class='output co'>#&gt;    N.lci  N.uci phi.lci phi.uci  B.lci B.uci
 #&gt; 1     NA     NA   0.430   0.862     NA    NA
 #&gt; 2  205.0  727.5   0.793   1.226  -31.4 612.5
 #&gt; 3  512.0 1004.3   0.654   1.074   30.0 556.0
@@ -392,8 +405,9 @@
 #&gt; 11 375.1  622.0   0.516   1.019   -3.2 149.8
 #&gt; 12 323.1  584.1      NA      NA     NA    NA
 #&gt; 13    NA     NA      NA      NA     NA    NA</div><div class='input'>
-<span class='no'>ex3</span> <span class='kw'>&lt;-</span> <span class='fu'>mrOpen</span>(<span class='no'>jolly.top</span>,<span class='no'>jolly.bot</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Manly"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ex3</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; Observables:
+<span class='va'>ex3</span> <span class='op'>&lt;-</span> <span class='fu'>mrOpen</span><span class='op'>(</span><span class='va'>jolly.top</span>,<span class='va'>jolly.bot</span>,type<span class='op'>=</span><span class='st'>"Manly"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ex3</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Observables:
 #&gt;      m   n   R   r   z
 #&gt; 1    0  54  54  24  NA
 #&gt; 2   10 146 143  80  14
@@ -422,7 +436,8 @@
 #&gt; 10 314.3 473.3 0.880  82.8
 #&gt; 11 313.6 498.6 0.767  73.3
 #&gt; 12 273.7 453.6    NA    NA
-#&gt; 13    NA    NA    NA    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>ex3</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Manly did not provide a method for constructing confidence intervals for B.</span></div><div class='output co'>#&gt; <span class='message'>The Manly method was used to construct confidence intervals.</span></div><div class='output co'>#&gt;    N.lci  N.uci phi.lci phi.uci
+#&gt; 13    NA    NA    NA    NA</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>ex3</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Manly did not provide a method for constructing confidence intervals for B.</span></div><div class='output co'>#&gt; <span class='message'>The Manly method was used to construct confidence intervals.</span></div><div class='output co'>#&gt;    N.lci  N.uci phi.lci phi.uci
 #&gt; 1     NA     NA   0.389   0.783
 #&gt; 2  301.3  979.4   0.705   1.100
 #&gt; 3  564.0 1210.0   0.627   1.028
@@ -437,7 +452,9 @@
 #&gt; 12 342.0  712.0      NA      NA
 #&gt; 13    NA     NA      NA      NA</div><div class='input'>
 <span class='co'>## demonstrate use of jolly()</span>
-<span class='no'>ex3a</span> <span class='kw'>&lt;-</span> <span class='fu'>jolly</span>(<span class='no'>jolly.top</span>,<span class='no'>jolly.bot</span>)</div></pre>
+<span class='va'>ex3a</span> <span class='op'>&lt;-</span> <span class='fu'>jolly</span><span class='op'>(</span><span class='va'>jolly.top</span>,<span class='va'>jolly.bot</span><span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -453,7 +470,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

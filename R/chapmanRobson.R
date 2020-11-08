@@ -46,7 +46,7 @@
 #'
 #' @seealso See \code{\link[fishmethods]{agesurv}} in \pkg{fishmethods} for similar functionality. See \code{\link{catchCurve}} and \code{\link[fishmethods]{agesurvcl}} in \pkg{fishmethods} for alternative methods. See \code{\link{metaM}} for empirical methods to estimate natural mortality.
 #' 
-#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Chapman, D.G. and D.S. Robson. 1960. The analysis of a catch curve. Biometrics. 16:354-368.
 #'

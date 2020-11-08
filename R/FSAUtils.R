@@ -186,7 +186,7 @@ col2rgbt <- function(col,transp=1) {
 #'
 #' @return A data.frame with one variable that contains the values from the chosen diagonal of \code{x} and, optionally, a second variable that contains the chosen labels for those values.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}, but relied heavily on \url{http://stackoverflow.com/a/27935808/1123933}.
+#' @author Derek H. Ogle, \email{derek@@derekogle.com}, but relied heavily on \url{https://stackoverflow.com/a/27935808/1123933/}.
 #'
 #' @keywords manip
 #'
@@ -235,7 +235,7 @@ diags <- function(x,which=0,incl.labels=c("none","row","column"),
   if (nrow(x)==1 | ncol(x)==1)
     STOP("'x' must have more than 1 row and more than 1 column.")
   ## find indices of diagonals for the matrix
-  ## idea from http://stackoverflow.com/a/27935808/1123933
+  ## idea from https://stackoverflow.com/a/27935808/1123933/
   ind <- row(x)-col(x)
   if (is.null(which)) { # nocov start
     ## Simply show the matrix of indices
@@ -421,14 +421,14 @@ FSANews <- function () {
 #' headtail(miris,addrownums=FALSE)
 #' headtail(miris,10,which=2:4)
 #'
-#' ## Make a tbl_df type from dplyr ... note how headtail()
+#' ## Make a tbl_df type from tibble ... note how headtail()
 #' ## is not limited by the tbl_df restriction on number of
 #' ## rows to show (but head() is).
-#' if (require(dplyr)) {
-#'   iris2 <- tbl_df(iris)
+#' if (require(tibble)) {
+#'   iris2 <- as_tibble(iris)
 #'   class(iris2)
 #'   headtail(iris2,n=15)
-#'   head(iris2,n=30)
+#'   head(iris2,n=15)
 #' }
 #' @export
 headtail <- function(x,n=3L,which=NULL,addrownums=TRUE,...) {

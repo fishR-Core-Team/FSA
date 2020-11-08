@@ -27,7 +27,7 @@
 #'
 #' @seealso See \code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}} for related functionality.
 #'
-#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Brenden, T.O., T. Wagner, and B.R. Murphy. 2008. Novel tools for analyzing proportional size distribution index data. North American Journal of Fisheries Management 28:1233-1242. [Was (is?) from http://qfc.fw.msu.edu/Publications/Publication\%20List/2008/Novel\%20Tools\%20for\%20Analyzing\%20Proportional\%20Size\%20Distribution_Brenden.pdf.]
 #'
@@ -148,7 +148,7 @@ iPSDCImultinom <- function(indvec,ptbl,n,conf.level) {
                            ") <20, CI coverage may be lower than ",
                            100*conf.level,"%.")
   ## create covariance matrix ... from hints at
-  ##    http://stackoverflow.com/questions/19960605/r-multinomial-distribution-variance
+  ##    https://stackoverflow.com/questions/19960605/r-multinomial-distribution-variance/
   cov <- -outer(ptbl,ptbl)
   diag(cov) <- ptbl*(1-ptbl)
   ## get psd val asked for (drop gets rid of matrix result)

@@ -77,12 +77,24 @@ nlsTracePlot <- function(object,fun,from=NULL,to=NULL,n=199,
   if (n<2) STOP("'n' must be greater than 2.")
   ## Determine if need to capture trace (if object is object from nls())
   if (inherits(object,"nls")) {
-    object <- utils::capture.output( try(tmp <- stats::update(object,.~.,trace=TRUE),silent=TRUE) )
+    object <- utils::capture.output( try(tmp <- stats::update(object,.~.,
+                                                              trace=TRUE),
+                                         silent=TRUE) )
   }
   ## parse trace into a data.frame
-  trcDF <- unlist(strsplit(unlist(strsplit(object,":"))," "))
-  trcDF <- as.numeric(trcDF[trcDF!=""])
-  trcDF <- matrix(trcDF,nrow=length(object),byrow=TRUE)
+  ## The output of nls() when trace=TRUE changed with R version 4.1 ... thus
+  ## we need to handle pre-4.1 different from 4.1+
+  newTraceVersion <- getRversion() >= "4.1"
+  if (newTraceVersion) {
+    trcDF <- sub(".*par = ","",object)
+    trcDF <- substring(trcDF,2,nchar(trcDF)-1)
+    trcDF <- unlist(strsplit(trcDF," "))
+  } else {
+    trcDF <- sub(".*:  ","",object)
+    trcDF <- unlist(strsplit(trcDF," "))
+    trcDF <- trcDF[trcDF!=""]
+  }
+  trcDF <- matrix(as.numeric(trcDF),nrow=length(object),byrow=TRUE)
   ## plot each iteration onto existing plot
   if (add) {
     ## process legend
@@ -94,7 +106,7 @@ nlsTracePlot <- function(object,fun,from=NULL,to=NULL,n=199,
     if (is.null(to)) to <- graphics::par("usr")[2L]
     xs <- seq(from,to,length.out=n)
     for (i in 1:niter) {
-      ys <- do.call(fun,list(xs,trcDF[i,-1]))
+      ys <- do.call(fun,list(xs,trcDF[i,]))
       graphics::lines(xs,ys,lwd=lwd,col=clrs[i])
     }
     ## add legend if asked for

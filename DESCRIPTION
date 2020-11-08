@@ -1,6 +1,6 @@
 Package: FSA
-Version: 0.8.30.9000
-Date: 2020-5-27
+Version: 0.8.31
+Date: 2020-11-7
 Title: Simple Fisheries Stock Assessment Methods
 Description: A variety of simple fish stock assessment methods.
     Detailed vignettes are available on the fishR website <http://derekogle.com/fishR/>.
@@ -42,7 +42,8 @@ Suggests:
     pkgdown,
     psych,
     Rcapture,
+    rmarkdown,
     testthat,
-    rmarkdown
+    tibble
 Encoding: UTF-8
 RoxygenNote: 7.1.1

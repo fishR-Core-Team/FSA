@@ -23,7 +23,7 @@ test_that("nlsTracePlot() test output",{
   tmp <- nlsTracePlot(fit1,vb1,add=FALSE)
   expect_is(tmp,"matrix")
   expect_equal(mode(tmp),"numeric")
-  expect_equal(ncol(tmp),4)
+  expect_equal(ncol(tmp),3)
   # unsuccessful fit
   if (require(FSAdata)) {
     data(BSkateGB,package="FSAdata")
@@ -37,7 +37,7 @@ test_that("nlsTracePlot() test output",{
     tmp <- nlsTracePlot(trc,bh1,add=FALSE)
     expect_is(tmp,"matrix")
     expect_equal(mode(tmp),"numeric")
-    expect_equal(ncol(tmp),3)
+    expect_equal(ncol(tmp),2)
   }
 })
 

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
       </span>
     </div>
 
@@ -128,73 +128,73 @@
     <p>Estimates of the initial population size, along with associated confidence intervals, are constructed from single or multiple census mark-recapture data using a variety of methods. For single census data, the initial population size (N) is estimated from the number of marked animals from a first sample (M), number of captured animals in a second sample (n), and the number of recaptured marked animals in the second sample (m) using either the &#8216;naive&#8217; Petersen method or Chapman, Ricker, or Bailey modifications of the Petersen method. Single census data can also be separated by group (e.g., size class) to estimate the initial population size by class and for the overall population size. For multiple census data, the initial population size is estimated from the number of captured animals (n), number of recaptured marked animals (m), the number of marked animals that are marked and returned to the population (R), or the number of extant marked animals prior to the sample (M) on each of several samples using either the Schnabel (1938) or Schumacher-Eschmeyer (1943) method.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mrClosed</span>(
-  <span class='kw'>M</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>m</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>R</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Petersen"</span>, <span class='st'>"Chapman"</span>, <span class='st'>"Ricker"</span>, <span class='st'>"Bailey"</span>, <span class='st'>"Schnabel"</span>,
-    <span class='st'>"SchumacherEschmeyer"</span>),
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>chapman.mod</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>mrClosed</span><span class='op'>(</span>
+  M <span class='op'>=</span> <span class='cn'>NULL</span>,
+  n <span class='op'>=</span> <span class='cn'>NULL</span>,
+  m <span class='op'>=</span> <span class='cn'>NULL</span>,
+  R <span class='op'>=</span> <span class='cn'>NULL</span>,
+  method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Petersen"</span>, <span class='st'>"Chapman"</span>, <span class='st'>"Ricker"</span>, <span class='st'>"Bailey"</span>, <span class='st'>"Schnabel"</span>,
+    <span class='st'>"SchumacherEschmeyer"</span><span class='op'>)</span>,
+  labels <span class='op'>=</span> <span class='cn'>NULL</span>,
+  chapman.mod <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for mrClosed1</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(
-  <span class='no'>object</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>incl.SE</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>incl.all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  digits <span class='op'>=</span> <span class='fl'>0</span>,
+  incl.SE <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  incl.all <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for mrClosed1</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(
-  <span class='no'>object</span>,
-  <span class='kw'>parm</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>level</span> <span class='kw'>=</span> <span class='no'>conf.level</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"suggested"</span>, <span class='st'>"binomial"</span>, <span class='st'>"hypergeometric"</span>, <span class='st'>"normal"</span>, <span class='st'>"Poisson"</span>),
-  <span class='kw'>bin.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"wilson"</span>, <span class='st'>"exact"</span>, <span class='st'>"asymptotic"</span>),
-  <span class='kw'>poi.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"exact"</span>, <span class='st'>"daly"</span>, <span class='st'>"byar"</span>, <span class='st'>"asymptotic"</span>),
-  <span class='kw'>incl.all</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parm <span class='op'>=</span> <span class='cn'>NULL</span>,
+  level <span class='op'>=</span> <span class='va'>conf.level</span>,
+  conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  digits <span class='op'>=</span> <span class='fl'>0</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"suggested"</span>, <span class='st'>"binomial"</span>, <span class='st'>"hypergeometric"</span>, <span class='st'>"normal"</span>, <span class='st'>"Poisson"</span><span class='op'>)</span>,
+  bin.type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"wilson"</span>, <span class='st'>"exact"</span>, <span class='st'>"asymptotic"</span><span class='op'>)</span>,
+  poi.type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"exact"</span>, <span class='st'>"daly"</span>, <span class='st'>"byar"</span>, <span class='st'>"asymptotic"</span><span class='op'>)</span>,
+  incl.all <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for mrClosed2</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, digits <span class='op'>=</span> <span class='fl'>0</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for mrClosed2</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(
-  <span class='no'>object</span>,
-  <span class='kw'>parm</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>level</span> <span class='kw'>=</span> <span class='no'>conf.level</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"suggested"</span>, <span class='st'>"normal"</span>, <span class='st'>"Poisson"</span>),
-  <span class='kw'>poi.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"exact"</span>, <span class='st'>"daly"</span>, <span class='st'>"byar"</span>, <span class='st'>"asymptotic"</span>),
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parm <span class='op'>=</span> <span class='cn'>NULL</span>,
+  level <span class='op'>=</span> <span class='va'>conf.level</span>,
+  conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  digits <span class='op'>=</span> <span class='fl'>0</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"suggested"</span>, <span class='st'>"normal"</span>, <span class='st'>"Poisson"</span><span class='op'>)</span>,
+  poi.type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"exact"</span>, <span class='st'>"daly"</span>, <span class='st'>"byar"</span>, <span class='st'>"asymptotic"</span><span class='op'>)</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for mrClosed2</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(
-  <span class='no'>x</span>,
-  <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>,
-  <span class='kw'>col.pt</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Marked in Population"</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Prop. Recaptures in Sample"</span>,
-  <span class='kw'>loess</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>lty.loess</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>lwd.loess</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>col.loess</span> <span class='kw'>=</span> <span class='st'>"gray20"</span>,
-  <span class='kw'>trans.loess</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  pch <span class='op'>=</span> <span class='fl'>19</span>,
+  col.pt <span class='op'>=</span> <span class='st'>"black"</span>,
+  xlab <span class='op'>=</span> <span class='st'>"Marked in Population"</span>,
+  ylab <span class='op'>=</span> <span class='st'>"Prop. Recaptures in Sample"</span>,
+  loess <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  lty.loess <span class='op'>=</span> <span class='fl'>2</span>,
+  lwd.loess <span class='op'>=</span> <span class='fl'>1</span>,
+  col.loess <span class='op'>=</span> <span class='st'>"gray20"</span>,
+  trans.loess <span class='op'>=</span> <span class='fl'>10</span>,
+  span <span class='op'>=</span> <span class='fl'>0.9</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -371,7 +371,7 @@
     <p>9-Abundance from Capture-Recapture Data.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
 <p>Krebs, C.J. 1989. Ecological Methodology. Addison-Welsey Educational Publishing.</p>
 <p>Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada. [Was (is?) from http://www.dfo-mpo.gc.ca/Library/1485.pdf.]</p>
 <p>Seber, G.A.F. 2002. The Estimation of Animal Abundance and Related Parameters. Edward Arnold, second edition.</p>
@@ -379,82 +379,104 @@
 <p>Schumacher, F.X. and R.W. Eschmeyer. 1943. The estimation of fish populations in lakes and ponds. Journal of the Tennessee Academy of Sciences, 18:228-249.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='capHistSum.html'>capHistSum</a></code> for generating input data from capture histories. See <code><a href='poiCI.html'>poiCI</a></code>, <code><a href='binCI.html'>binCI</a></code>, and <code><a href='hyperCI.html'>hyperCI</a></code> for specifics on functions used in confidence interval construction. See <code><a href='mrOpen.html'>mrOpen</a></code> for handling mark-recapture data in an open population. See <code><a href='https://rdrr.io/pkg/FSAdata/man/SunfishIN.html'>SunfishIN</a></code> in <span class="pkg">FSAdata</span> for an example to test matching of results with Ricker (1975)'  See <code><a href='https://rdrr.io/pkg/fishmethods/man/mrN.single.html'>mrN.single</a></code> and <code><a href='https://rdrr.io/pkg/fishmethods/man/schnabel.html'>schnabel</a></code> in <span class="pkg">fishmethods</span> for similar functionality.</p></div>
+    <div class='dont-index'><p>See <code><a href='capHistSum.html'>capHistSum</a></code> for generating input data from capture histories. See <code><a href='poiCI.html'>poiCI</a></code>, <code><a href='binCI.html'>binCI</a></code>, and <code><a href='hyperCI.html'>hyperCI</a></code> for specifics on functions used in confidence interval construction. See <code><a href='jolly.html'>mrOpen</a></code> for handling mark-recapture data in an open population. See <code><a href='https://rdrr.io/pkg/FSAdata/man/SunfishIN.html'>SunfishIN</a></code> in <span class="pkg">FSAdata</span> for an example to test matching of results with Ricker (1975)'  See <code><a href='https://rdrr.io/pkg/fishmethods/man/mrN.single.html'>mrN.single</a></code> and <code><a href='https://rdrr.io/pkg/fishmethods/man/schnabel.html'>schnabel</a></code> in <span class="pkg">fishmethods</span> for similar functionality.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>### Single census with no sub-groups</span>
 <span class='co'>## Petersen estimate -- the default</span>
-<span class='no'>mr1</span> <span class='kw'>&lt;-</span> <span class='fu'>mrClosed</span>(<span class='fl'>346</span>,<span class='fl'>184</span>,<span class='fl'>49</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mr1</span>)</div><div class='output co'>#&gt;         N
-#&gt; [1,] 1299</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mr1</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Used the 'naive' Petersen method with M=346, n=184, and m=49.</span></div><div class='output co'>#&gt;         N
-#&gt; [1,] 1299</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mr1</span>,<span class='kw'>incl.SE</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;         N  SE
-#&gt; [1,] 1299 159</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mr1</span>,<span class='kw'>incl.SE</span><span class='kw'>=</span><span class='fl'>TRUE</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='output co'>#&gt;           N     SE
-#&gt; [1,] 1299.3 158.99</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>mr1</span>)</div><div class='output co'>#&gt;      95% LCI 95% UCI
-#&gt; [1,]    1034    1666</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>mr1</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt;      95% LCI 95% UCI
-#&gt; [1,]    1034    1666</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>mr1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"hypergeometric"</span>)</div><div class='output co'>#&gt;      95% LCI 95% UCI
+<span class='va'>mr1</span> <span class='op'>&lt;-</span> <span class='fu'>mrClosed</span><span class='op'>(</span><span class='fl'>346</span>,<span class='fl'>184</span>,<span class='fl'>49</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mr1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         N
+#&gt; [1,] 1299</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mr1</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Used the 'naive' Petersen method with M=346, n=184, and m=49.</span></div><div class='output co'>#&gt;         N
+#&gt; [1,] 1299</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mr1</span>,incl.SE<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         N  SE
+#&gt; [1,] 1299 159</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mr1</span>,incl.SE<span class='op'>=</span><span class='cn'>TRUE</span>,digits<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;           N     SE
+#&gt; [1,] 1299.3 158.99</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>mr1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      95% LCI 95% UCI
+#&gt; [1,]    1034    1666</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>mr1</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt;      95% LCI 95% UCI
+#&gt; [1,]    1034    1666</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>mr1</span>,type<span class='op'>=</span><span class='st'>"hypergeometric"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      95% LCI 95% UCI
 #&gt; [1,]    1049    1670</div><div class='input'>
 <span class='co'>## Chapman modification of the Petersen estimate</span>
-<span class='no'>mr2</span> <span class='kw'>&lt;-</span> <span class='fu'>mrClosed</span>(<span class='fl'>346</span>,<span class='fl'>184</span>,<span class='fl'>49</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"Chapman"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mr2</span>,<span class='kw'>incl.SE</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;         N    SE
-#&gt; [1,] 1283 142.1</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mr2</span>,<span class='kw'>incl.SE</span><span class='kw'>=</span><span class='fl'>TRUE</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Used Chapman's modification of the Petersen method with M=346, n=184, and m=49.</span></div><div class='output co'>#&gt;         N    SE
+<span class='va'>mr2</span> <span class='op'>&lt;-</span> <span class='fu'>mrClosed</span><span class='op'>(</span><span class='fl'>346</span>,<span class='fl'>184</span>,<span class='fl'>49</span>,method<span class='op'>=</span><span class='st'>"Chapman"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mr2</span>,incl.SE<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         N    SE
+#&gt; [1,] 1283 142.1</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mr2</span>,incl.SE<span class='op'>=</span><span class='cn'>TRUE</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Used Chapman's modification of the Petersen method with M=346, n=184, and m=49.</span></div><div class='output co'>#&gt;         N    SE
 #&gt; [1,] 1283 142.1</div><div class='input'>
 <span class='co'>### Single census, using capHistSum() results</span>
 <span class='co'>## data in capture history format</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>BluegillJL</span>)</div><div class='output co'>#&gt; 'data.frame':	277 obs. of  2 variables:
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>BluegillJL</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 'data.frame':	277 obs. of  2 variables:
 #&gt;  $ first : int  1 0 1 0 1 1 1 1 1 1 ...
-#&gt;  $ second: int  0 1 0 1 0 0 0 0 0 0 ...</div><div class='input'><span class='no'>ch1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='capHistSum.html'>capHistSum</a></span>(<span class='no'>BluegillJL</span>)
-<span class='no'>mr3</span> <span class='kw'>&lt;-</span> <span class='fu'>mrClosed</span>(<span class='no'>ch1</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mr3</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Used the 'naive' Petersen method with M=196, n=90, and m=9.</span></div><div class='output co'>#&gt;         N
-#&gt; [1,] 1960</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>mr3</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The Poisson (exact method) distribution was used.</span></div><div class='output co'>#&gt;      95% LCI 95% UCI
+#&gt;  $ second: int  0 1 0 1 0 0 0 0 0 0 ...</div><div class='input'><span class='va'>ch1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='capHistSum.html'>capHistSum</a></span><span class='op'>(</span><span class='va'>BluegillJL</span><span class='op'>)</span>
+<span class='va'>mr3</span> <span class='op'>&lt;-</span> <span class='fu'>mrClosed</span><span class='op'>(</span><span class='va'>ch1</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mr3</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Used the 'naive' Petersen method with M=196, n=90, and m=9.</span></div><div class='output co'>#&gt;         N
+#&gt; [1,] 1960</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>mr3</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>The Poisson (exact method) distribution was used.</span></div><div class='output co'>#&gt;      95% LCI 95% UCI
 #&gt; [1,]    1032    4286</div><div class='input'>
 <span class='co'>### Single census with sub-groups</span>
-<span class='no'>marked</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>93</span>,<span class='fl'>35</span>,<span class='fl'>72</span>,<span class='fl'>16</span>,<span class='fl'>46</span>,<span class='fl'>20</span>)
-<span class='no'>captured</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>103</span>,<span class='fl'>30</span>,<span class='fl'>73</span>,<span class='fl'>17</span>,<span class='fl'>39</span>,<span class='fl'>18</span>)
-<span class='no'>recaps</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>,<span class='fl'>23</span>,<span class='fl'>52</span>,<span class='fl'>15</span>,<span class='fl'>35</span>,<span class='fl'>16</span>)
-<span class='no'>lbls</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"YOY"</span>,<span class='st'>"Juvenile"</span>,<span class='st'>"Stock"</span>,<span class='st'>"Quality"</span>,<span class='st'>"Preferred"</span>,<span class='st'>"Memorable"</span>)
-<span class='no'>mr4</span> <span class='kw'>&lt;-</span> <span class='fu'>mrClosed</span>(<span class='no'>marked</span>,<span class='no'>captured</span>,<span class='no'>recaps</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"Ricker"</span>,<span class='kw'>labels</span><span class='kw'>=</span><span class='no'>lbls</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mr4</span>)</div><div class='output co'>#&gt;             N
+<span class='va'>marked</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>93</span>,<span class='fl'>35</span>,<span class='fl'>72</span>,<span class='fl'>16</span>,<span class='fl'>46</span>,<span class='fl'>20</span><span class='op'>)</span>
+<span class='va'>captured</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>103</span>,<span class='fl'>30</span>,<span class='fl'>73</span>,<span class='fl'>17</span>,<span class='fl'>39</span>,<span class='fl'>18</span><span class='op'>)</span>
+<span class='va'>recaps</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>,<span class='fl'>23</span>,<span class='fl'>52</span>,<span class='fl'>15</span>,<span class='fl'>35</span>,<span class='fl'>16</span><span class='op'>)</span>
+<span class='va'>lbls</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"YOY"</span>,<span class='st'>"Juvenile"</span>,<span class='st'>"Stock"</span>,<span class='st'>"Quality"</span>,<span class='st'>"Preferred"</span>,<span class='st'>"Memorable"</span><span class='op'>)</span>
+<span class='va'>mr4</span> <span class='op'>&lt;-</span> <span class='fu'>mrClosed</span><span class='op'>(</span><span class='va'>marked</span>,<span class='va'>captured</span>,<span class='va'>recaps</span>,method<span class='op'>=</span><span class='st'>"Ricker"</span>,labels<span class='op'>=</span><span class='va'>lbls</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mr4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;             N
 #&gt; YOY       466
 #&gt; Juvenile   46
 #&gt; Stock     102
 #&gt; Quality    19
 #&gt; Preferred  52
 #&gt; Memorable  23
-#&gt; All       708</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mr4</span>,<span class='kw'>incl.SE</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;             N   SE
+#&gt; All       708</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mr4</span>,incl.SE<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;             N   SE
 #&gt; YOY       466 88.7
 #&gt; Juvenile   46  4.4
 #&gt; Stock     102  7.4
 #&gt; Quality    19  1.5
 #&gt; Preferred  52  2.7
 #&gt; Memorable  23  1.8
-#&gt; All       708 89.2</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mr4</span>,<span class='kw'>incl.SE</span><span class='kw'>=</span><span class='fl'>TRUE</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Used Ricker's modification of the Petersen method with observed inputs (by group) of:</span></div><div class='output co'>#&gt; <span class='message'>  YOY: M=93, n=103, and m=20</span></div><div class='output co'>#&gt; <span class='message'>  Juvenile: M=35, n=30, and m=23</span></div><div class='output co'>#&gt; <span class='message'>  Stock: M=72, n=73, and m=52</span></div><div class='output co'>#&gt; <span class='message'>  Quality: M=16, n=17, and m=15</span></div><div class='output co'>#&gt; <span class='message'>  Preferred: M=46, n=39, and m=35</span></div><div class='output co'>#&gt; <span class='message'>  Memorable: M=20, n=18, and m=16</span></div><div class='output co'>#&gt;             N   SE
+#&gt; All       708 89.2</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mr4</span>,incl.SE<span class='op'>=</span><span class='cn'>TRUE</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Used Ricker's modification of the Petersen method with observed inputs (by group) of:</span></div><div class='output co'>#&gt; <span class='message'>  YOY: M=93, n=103, and m=20</span></div><div class='output co'>#&gt; <span class='message'>  Juvenile: M=35, n=30, and m=23</span></div><div class='output co'>#&gt; <span class='message'>  Stock: M=72, n=73, and m=52</span></div><div class='output co'>#&gt; <span class='message'>  Quality: M=16, n=17, and m=15</span></div><div class='output co'>#&gt; <span class='message'>  Preferred: M=46, n=39, and m=35</span></div><div class='output co'>#&gt; <span class='message'>  Memorable: M=20, n=18, and m=16</span></div><div class='output co'>#&gt;             N   SE
 #&gt; YOY       466 88.7
 #&gt; Juvenile   46  4.4
 #&gt; Stock     102  7.4
 #&gt; Quality    19  1.5
 #&gt; Preferred  52  2.7
 #&gt; Memorable  23  1.8
-#&gt; All       708 89.2</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mr4</span>,<span class='kw'>incl.SE</span><span class='kw'>=</span><span class='fl'>TRUE</span>,<span class='kw'>incl.all</span><span class='kw'>=</span><span class='fl'>FALSE</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Used Ricker's modification of the Petersen method with observed inputs (by group) of:</span></div><div class='output co'>#&gt; <span class='message'>  YOY: M=93, n=103, and m=20</span></div><div class='output co'>#&gt; <span class='message'>  Juvenile: M=35, n=30, and m=23</span></div><div class='output co'>#&gt; <span class='message'>  Stock: M=72, n=73, and m=52</span></div><div class='output co'>#&gt; <span class='message'>  Quality: M=16, n=17, and m=15</span></div><div class='output co'>#&gt; <span class='message'>  Preferred: M=46, n=39, and m=35</span></div><div class='output co'>#&gt; <span class='message'>  Memorable: M=20, n=18, and m=16</span></div><div class='output co'>#&gt;             N   SE
+#&gt; All       708 89.2</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mr4</span>,incl.SE<span class='op'>=</span><span class='cn'>TRUE</span>,incl.all<span class='op'>=</span><span class='cn'>FALSE</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Used Ricker's modification of the Petersen method with observed inputs (by group) of:</span></div><div class='output co'>#&gt; <span class='message'>  YOY: M=93, n=103, and m=20</span></div><div class='output co'>#&gt; <span class='message'>  Juvenile: M=35, n=30, and m=23</span></div><div class='output co'>#&gt; <span class='message'>  Stock: M=72, n=73, and m=52</span></div><div class='output co'>#&gt; <span class='message'>  Quality: M=16, n=17, and m=15</span></div><div class='output co'>#&gt; <span class='message'>  Preferred: M=46, n=39, and m=35</span></div><div class='output co'>#&gt; <span class='message'>  Memorable: M=20, n=18, and m=16</span></div><div class='output co'>#&gt;             N   SE
 #&gt; YOY       466 88.7
 #&gt; Juvenile   46  4.4
 #&gt; Stock     102  7.4
 #&gt; Quality    19  1.5
 #&gt; Preferred  52  2.7
-#&gt; Memorable  23  1.8</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>mr4</span>)</div><div class='output co'>#&gt;           95% LCI 95% UCI
+#&gt; Memorable  23  1.8</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>mr4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;           95% LCI 95% UCI
 #&gt; YOY           325     691
 #&gt; Juvenile       41      60
 #&gt; Stock          91     121
 #&gt; Quality        18      25
 #&gt; Preferred      49      61
 #&gt; Memorable      22      31
-#&gt; All           533     883</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>mr4</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>YOY - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Juvenile - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Stock - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Quality - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Preferred - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Memorable - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>All - The normal distribution was used.</span></div><div class='output co'>#&gt;           95% LCI 95% UCI
+#&gt; All           533     883</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>mr4</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>YOY - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Juvenile - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Stock - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Quality - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Preferred - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Memorable - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>All - The normal distribution was used.</span></div><div class='output co'>#&gt;           95% LCI 95% UCI
 #&gt; YOY           325     691
 #&gt; Juvenile       41      60
 #&gt; Stock          91     121
 #&gt; Quality        18      25
 #&gt; Preferred      49      61
 #&gt; Memorable      22      31
-#&gt; All           533     883</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>mr4</span>,<span class='kw'>incl.all</span><span class='kw'>=</span><span class='fl'>FALSE</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>YOY - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Juvenile - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Stock - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Quality - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Preferred - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Memorable - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt;           95% LCI 95% UCI
+#&gt; All           533     883</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>mr4</span>,incl.all<span class='op'>=</span><span class='cn'>FALSE</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>YOY - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Juvenile - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Stock - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Quality - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Preferred - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt; <span class='message'>Memorable - The binomial (wilson method) distribution was used.</span></div><div class='output co'>#&gt;           95% LCI 95% UCI
 #&gt; YOY           325     691
 #&gt; Juvenile       41      60
 #&gt; Stock          91     121
@@ -463,25 +485,36 @@
 #&gt; Memorable      22      31</div><div class='input'>
 <span class='co'>### Multiple Census</span>
 <span class='co'>## Data in summarized form ... Schnabel method</span>
-<span class='no'>mr5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>PikeNY</span>,<span class='fu'>mrClosed</span>(<span class='kw'>n</span><span class='kw'>=</span><span class='no'>n</span>,<span class='kw'>m</span><span class='kw'>=</span><span class='no'>m</span>,<span class='kw'>R</span><span class='kw'>=</span><span class='no'>R</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"Schnabel"</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>mr5</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>mr5</span>,<span class='kw'>loess</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='mrClosed-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mr5</span>)</div><div class='output co'>#&gt;       N
-#&gt; [1,] 87</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mr5</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Used the Schnabel method with Chapman modification.</span></div><div class='output co'>#&gt;       N
-#&gt; [1,] 87</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>mr5</span>)</div><div class='output co'>#&gt;      95% LCI 95% UCI
-#&gt; [1,]      71     113</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>mr5</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The normal distribution was used.</span></div><div class='output co'>#&gt;      95% LCI 95% UCI
+<span class='va'>mr5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>PikeNY</span>,<span class='fu'>mrClosed</span><span class='op'>(</span>n<span class='op'>=</span><span class='va'>n</span>,m<span class='op'>=</span><span class='va'>m</span>,R<span class='op'>=</span><span class='va'>R</span>,method<span class='op'>=</span><span class='st'>"Schnabel"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>mr5</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>mr5</span>,loess<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='mrClosed-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mr5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       N
+#&gt; [1,] 87</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mr5</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Used the Schnabel method with Chapman modification.</span></div><div class='output co'>#&gt;       N
+#&gt; [1,] 87</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>mr5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      95% LCI 95% UCI
+#&gt; [1,]      71     113</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>mr5</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>The normal distribution was used.</span></div><div class='output co'>#&gt;      95% LCI 95% UCI
 #&gt; [1,]      71     113</div><div class='input'>
 <span class='co'>## Schumacher-Eschmeyer method</span>
-<span class='no'>mr6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>PikeNY</span>,<span class='fu'>mrClosed</span>(<span class='kw'>n</span><span class='kw'>=</span><span class='no'>n</span>,<span class='kw'>m</span><span class='kw'>=</span><span class='no'>m</span>,<span class='kw'>R</span><span class='kw'>=</span><span class='no'>R</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"Schumacher"</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mr6</span>)</div><div class='output co'>#&gt;       N
-#&gt; [1,] 85</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>mr6</span>)</div><div class='output co'>#&gt;      95% LCI 95% UCI
+<span class='va'>mr6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>PikeNY</span>,<span class='fu'>mrClosed</span><span class='op'>(</span>n<span class='op'>=</span><span class='va'>n</span>,m<span class='op'>=</span><span class='va'>m</span>,R<span class='op'>=</span><span class='va'>R</span>,method<span class='op'>=</span><span class='st'>"Schumacher"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mr6</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       N
+#&gt; [1,] 85</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>mr6</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      95% LCI 95% UCI
 #&gt; [1,]      76      96</div><div class='input'>
 <span class='co'>### Capture history data summarized by capHistSum()</span>
 <span class='co'># ignore first column of ID numbers</span>
-<span class='no'>ch2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='capHistSum.html'>capHistSum</a></span>(<span class='no'>PikeNYPartial1</span>,<span class='kw'>cols2ignore</span><span class='kw'>=</span><span class='st'>"id"</span>)
+<span class='va'>ch2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='capHistSum.html'>capHistSum</a></span><span class='op'>(</span><span class='va'>PikeNYPartial1</span>,cols2ignore<span class='op'>=</span><span class='st'>"id"</span><span class='op'>)</span>
 
 <span class='co'>## Schnabel method</span>
-<span class='no'>mr7</span> <span class='kw'>&lt;-</span> <span class='fu'>mrClosed</span>(<span class='no'>ch2</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"Schnabel"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>mr7</span>)</div><div class='img'><img src='mrClosed-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mr7</span>)</div><div class='output co'>#&gt;        N
-#&gt; [1,] 128</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>mr7</span>)</div><div class='output co'>#&gt;      95% LCI 95% UCI
+<span class='va'>mr7</span> <span class='op'>&lt;-</span> <span class='fu'>mrClosed</span><span class='op'>(</span><span class='va'>ch2</span>,method<span class='op'>=</span><span class='st'>"Schnabel"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>mr7</span><span class='op'>)</span>
+</div><div class='img'><img src='mrClosed-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mr7</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        N
+#&gt; [1,] 128</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>mr7</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      95% LCI 95% UCI
 #&gt; [1,]      75     238</div><div class='input'>
 </div></pre>
   </div>
@@ -499,7 +532,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

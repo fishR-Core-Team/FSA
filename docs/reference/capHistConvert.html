@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
       </span>
     </div>
 
@@ -128,19 +128,19 @@
     <p>Use to convert between simple versions of several capture history data.frame formats -- &#8220;individual&#8221;, &#8220;frequency&#8221;, &#8220;event&#8221;, &#8220;MARK&#8221;, and &#8220;RMark&#8221;. The primary use is to convert to the &#8220;individual&#8221; format for use in <code><a href='capHistSum.html'>capHistSum</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>capHistConvert</span>(
-  <span class='no'>df</span>,
-  <span class='kw'>cols2use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>cols2ignore</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>in.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"frequency"</span>, <span class='st'>"event"</span>, <span class='st'>"individual"</span>, <span class='st'>"MARK"</span>, <span class='st'>"marked"</span>, <span class='st'>"RMark"</span>),
-  <span class='kw'>out.type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"individual"</span>, <span class='st'>"event"</span>, <span class='st'>"frequency"</span>, <span class='st'>"MARK"</span>, <span class='st'>"marked"</span>, <span class='st'>"RMark"</span>),
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>event.ord</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>freq</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>var.lbls</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>var.lbls.pre</span> <span class='kw'>=</span> <span class='st'>"event"</span>,
-  <span class='kw'>include.id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span>(<span class='no'>id</span>), <span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>)
-)</pre>
+    <pre class="usage"><span class='fu'>capHistConvert</span><span class='op'>(</span>
+  <span class='va'>df</span>,
+  cols2use <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cols2ignore <span class='op'>=</span> <span class='cn'>NULL</span>,
+  in.type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"frequency"</span>, <span class='st'>"event"</span>, <span class='st'>"individual"</span>, <span class='st'>"MARK"</span>, <span class='st'>"marked"</span>, <span class='st'>"RMark"</span><span class='op'>)</span>,
+  out.type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"individual"</span>, <span class='st'>"event"</span>, <span class='st'>"frequency"</span>, <span class='st'>"MARK"</span>, <span class='st'>"marked"</span>, <span class='st'>"RMark"</span><span class='op'>)</span>,
+  id <span class='op'>=</span> <span class='cn'>NULL</span>,
+  event.ord <span class='op'>=</span> <span class='cn'>NULL</span>,
+  freq <span class='op'>=</span> <span class='cn'>NULL</span>,
+  var.lbls <span class='op'>=</span> <span class='cn'>NULL</span>,
+  var.lbls.pre <span class='op'>=</span> <span class='st'>"event"</span>,
+  include.id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span><span class='op'>(</span><span class='va'>id</span><span class='op'>)</span>, <span class='cn'>FALSE</span>, <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -275,14 +275,18 @@
     <p>9-Abundance from Capture-Recapture Data.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='capHistSum.html'>capHistSum</a></code> to summarize &#8220;individual&#8221; capture histories into a format usable in <code><a href='mrClosed.html'>mrClosed</a></code> and <code><a href='mrOpen.html'>mrOpen</a></code>. Also see <span class="pkg">Rcapture</span>, <code>RMark</code>, or <span class="pkg">marked</span> packages for handling more complex analyses.</p></div>
+    <div class='dont-index'><p>See <code><a href='capHistSum.html'>capHistSum</a></code> to summarize &#8220;individual&#8221; capture histories into a format usable in <code><a href='mrClosed.html'>mrClosed</a></code> and <code><a href='jolly.html'>mrOpen</a></code>. Also see <span class="pkg">Rcapture</span>, <code>RMark</code>, or <span class="pkg">marked</span> packages for handling more complex analyses.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## A small example of 'event' format</span>
-( <span class='no'>ex1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>fish</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>17</span>,<span class='fl'>18</span>,<span class='fl'>21</span>,<span class='fl'>17</span>,<span class='fl'>21</span>,<span class='fl'>18</span>,<span class='fl'>19</span>,<span class='fl'>20</span>),<span class='kw'>yr</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1987</span>,<span class='fl'>1987</span>,<span class='fl'>1987</span>,<span class='fl'>1988</span>,<span class='fl'>1988</span>,<span class='fl'>1989</span>,<span class='fl'>1989</span>,<span class='fl'>1990</span>)) )</div><div class='output co'>#&gt;   fish   yr
+<span class='op'>(</span> <span class='va'>ex1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>fish<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>17</span>,<span class='fl'>18</span>,<span class='fl'>21</span>,<span class='fl'>17</span>,<span class='fl'>21</span>,<span class='fl'>18</span>,<span class='fl'>19</span>,<span class='fl'>20</span><span class='op'>)</span>,yr<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1987</span>,<span class='fl'>1987</span>,<span class='fl'>1987</span>,<span class='fl'>1988</span>,<span class='fl'>1988</span>,<span class='fl'>1989</span>,<span class='fl'>1989</span>,<span class='fl'>1990</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish   yr
 #&gt; 1   17 1987
 #&gt; 2   18 1987
 #&gt; 3   21 1987
@@ -291,23 +295,27 @@
 #&gt; 6   18 1989
 #&gt; 7   19 1989
 #&gt; 8   20 1990</div><div class='input'><span class='co'># convert to 'individual' format</span>
-( <span class='no'>ex1.E2I</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"event"</span>) )</div><div class='output co'>#&gt;   fish 1987 1988 1989 1990
+<span class='op'>(</span> <span class='va'>ex1.E2I</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"event"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish 1987 1988 1989 1990
 #&gt; 1   17    1    1    0    0
 #&gt; 2   18    1    0    1    0
 #&gt; 3   19    0    0    1    0
 #&gt; 4   20    0    0    0    1
 #&gt; 5   21    1    1    0    0</div><div class='input'><span class='co'># convert to 'frequency' format</span>
-( <span class='no'>ex1.E2F</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"event"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>) )</div><div class='output co'>#&gt;   1987 1988 1989 1990 freq
+<span class='op'>(</span> <span class='va'>ex1.E2F</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"event"</span>,out.type<span class='op'>=</span><span class='st'>"frequency"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   1987 1988 1989 1990 freq
 #&gt; 1    0    0    0    1    1
 #&gt; 2    0    0    1    0    1
 #&gt; 3    1    0    1    0    1
 #&gt; 4    1    1    0    0    2</div><div class='input'><span class='co'># convert to 'MARK' format</span>
-( <span class='no'>ex1.E2M</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"event"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"MARK"</span>) )</div><div class='output co'>#&gt;     ch freq
+<span class='op'>(</span> <span class='va'>ex1.E2M</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"event"</span>,out.type<span class='op'>=</span><span class='st'>"MARK"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;     ch freq
 #&gt; 1 0001   1;
 #&gt; 2 0010   1;
 #&gt; 3 1010   1;
 #&gt; 4 1100   2;</div><div class='input'><span class='co'># convert to 'RMark' format</span>
-( <span class='no'>ex1.E2R</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"event"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>) )</div><div class='output co'>#&gt;   fish   ch
+<span class='op'>(</span> <span class='va'>ex1.E2R</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"event"</span>,out.type<span class='op'>=</span><span class='st'>"RMark"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish   ch
 #&gt; 1   17 1100
 #&gt; 2   18 1010
 #&gt; 3   19 0010
@@ -315,23 +323,27 @@
 #&gt; 5   21 1100</div><div class='input'>
 <span class='co'>## convert converted 'individual' format ...</span>
 <span class='co'># to 'frequency' format (must ignore "id")</span>
-( <span class='no'>ex1.I2F</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2I</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"individual"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>) )</div><div class='output co'>#&gt;   1987 1988 1989 1990 freq
+<span class='op'>(</span> <span class='va'>ex1.I2F</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2I</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"individual"</span>,out.type<span class='op'>=</span><span class='st'>"frequency"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   1987 1988 1989 1990 freq
 #&gt; 1    0    0    0    1    1
 #&gt; 2    0    0    1    0    1
 #&gt; 3    1    0    1    0    1
 #&gt; 4    1    1    0    0    2</div><div class='input'><span class='co'># to 'MARK' format</span>
-( <span class='no'>ex1.I2M</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2I</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"individual"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"MARK"</span>) )</div><div class='output co'>#&gt;     ch freq
+<span class='op'>(</span> <span class='va'>ex1.I2M</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2I</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"individual"</span>,out.type<span class='op'>=</span><span class='st'>"MARK"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;     ch freq
 #&gt; 1 0001   1;
 #&gt; 2 0010   1;
 #&gt; 3 1010   1;
 #&gt; 4 1100   2;</div><div class='input'><span class='co'># to 'RMark' format</span>
-( <span class='no'>ex1.I2R</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2I</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"individual"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>) )</div><div class='output co'>#&gt;   fish   ch
+<span class='op'>(</span> <span class='va'>ex1.I2R</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2I</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"individual"</span>,out.type<span class='op'>=</span><span class='st'>"RMark"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish   ch
 #&gt; 1   17 1100
 #&gt; 2   18 1010
 #&gt; 3   19 0010
 #&gt; 4   20 0001
 #&gt; 5   21 1100</div><div class='input'><span class='co'># to 'event' format</span>
-( <span class='no'>ex1.I2E</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2I</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"individual"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"event"</span>) )</div><div class='output co'>#&gt;   fish event
+<span class='op'>(</span> <span class='va'>ex1.I2E</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2I</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"individual"</span>,out.type<span class='op'>=</span><span class='st'>"event"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish event
 #&gt; 1   17  1987
 #&gt; 2   18  1987
 #&gt; 3   21  1987
@@ -342,38 +354,44 @@
 #&gt; 8   20  1990</div><div class='input'>
 <span class='co'>#' ## convert converted 'frequency' format ...</span>
 <span class='co'># to 'individual' format</span>
-( <span class='no'>ex1.F2I</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2F</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>) )</div><div class='output co'>#&gt;   1987 1988 1989 1990
+<span class='op'>(</span> <span class='va'>ex1.F2I</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2F</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,in.type<span class='op'>=</span><span class='st'>"frequency"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   1987 1988 1989 1990
 #&gt; 1    0    0    0    1
 #&gt; 2    0    0    1    0
 #&gt; 3    1    0    1    0
 #&gt; 4    1    1    0    0
-#&gt; 5    1    1    0    0</div><div class='input'>( <span class='no'>ex1.F2Ia</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2F</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>,<span class='kw'>include.id</span><span class='kw'>=</span><span class='fl'>TRUE</span>) )</div><div class='output co'>#&gt;   id 1987 1988 1989 1990
+#&gt; 5    1    1    0    0</div><div class='input'><span class='op'>(</span> <span class='va'>ex1.F2Ia</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2F</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,in.type<span class='op'>=</span><span class='st'>"frequency"</span>,include.id<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   id 1987 1988 1989 1990
 #&gt; 1  1    0    0    0    1
 #&gt; 2  2    0    0    1    0
 #&gt; 3  3    1    0    1    0
 #&gt; 4  4    1    1    0    0
 #&gt; 5  5    1    1    0    0</div><div class='input'><span class='co'># to 'Mark' format</span>
-( <span class='no'>ex1.F2M</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2F</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>,
-                            <span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"MARK"</span>) )</div><div class='output co'>#&gt;     ch freq
+<span class='op'>(</span> <span class='va'>ex1.F2M</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2F</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,in.type<span class='op'>=</span><span class='st'>"frequency"</span>,
+                            out.type<span class='op'>=</span><span class='st'>"MARK"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;     ch freq
 #&gt; 1 0001   1;
 #&gt; 2 0010   1;
 #&gt; 3 1010   1;
 #&gt; 4 1100   2;</div><div class='input'><span class='co'># to 'RMark' format</span>
-( <span class='no'>ex1.F2R</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2F</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>,
-                            <span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>) )</div><div class='output co'>#&gt;     ch
+<span class='op'>(</span> <span class='va'>ex1.F2R</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2F</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,in.type<span class='op'>=</span><span class='st'>"frequency"</span>,
+                            out.type<span class='op'>=</span><span class='st'>"RMark"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;     ch
 #&gt; 1 0001
 #&gt; 2 0010
 #&gt; 3 1010
 #&gt; 4 1100
-#&gt; 5 1100</div><div class='input'>( <span class='no'>ex1.F2Ra</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2F</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>,
-                             <span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>,<span class='kw'>include.id</span><span class='kw'>=</span><span class='fl'>TRUE</span>) )</div><div class='output co'>#&gt;   id   ch
+#&gt; 5 1100</div><div class='input'><span class='op'>(</span> <span class='va'>ex1.F2Ra</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2F</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,in.type<span class='op'>=</span><span class='st'>"frequency"</span>,
+                             out.type<span class='op'>=</span><span class='st'>"RMark"</span>,include.id<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   id   ch
 #&gt; 1  1 0001
 #&gt; 2  2 0010
 #&gt; 3  3 1010
 #&gt; 4  4 1100
 #&gt; 5  5 1100</div><div class='input'><span class='co'># to 'event' format</span>
-( <span class='no'>ex1.F2E</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2F</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>,
-                            <span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"event"</span>) )</div><div class='output co'>#&gt;   id event
+<span class='op'>(</span> <span class='va'>ex1.F2E</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2F</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,in.type<span class='op'>=</span><span class='st'>"frequency"</span>,
+                            out.type<span class='op'>=</span><span class='st'>"event"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   id event
 #&gt; 1  3  1987
 #&gt; 2  4  1987
 #&gt; 3  5  1987
@@ -384,34 +402,40 @@
 #&gt; 8  1  1990</div><div class='input'>
 <span class='co'>## convert converted 'MARK' format ...</span>
 <span class='co'># to 'individual' format</span>
-( <span class='no'>ex1.M2I</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2M</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"MARK"</span>) )</div><div class='output co'>#&gt;   event1 event2 event3 event4
+<span class='op'>(</span> <span class='va'>ex1.M2I</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2M</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,in.type<span class='op'>=</span><span class='st'>"MARK"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   event1 event2 event3 event4
 #&gt; 1      0      0      0      1
 #&gt; 2      0      0      1      0
 #&gt; 3      1      0      1      0
 #&gt; 4      1      1      0      0
-#&gt; 5      1      1      0      0</div><div class='input'>( <span class='no'>ex1.M2Ia</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2M</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"MARK"</span>,<span class='kw'>include.id</span><span class='kw'>=</span><span class='fl'>TRUE</span>) )</div><div class='output co'>#&gt;   id event1 event2 event3 event4
+#&gt; 5      1      1      0      0</div><div class='input'><span class='op'>(</span> <span class='va'>ex1.M2Ia</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2M</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,in.type<span class='op'>=</span><span class='st'>"MARK"</span>,include.id<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   id event1 event2 event3 event4
 #&gt; 1  1      0      0      0      1
 #&gt; 2  2      0      0      1      0
 #&gt; 3  3      1      0      1      0
 #&gt; 4  4      1      1      0      0
 #&gt; 5  5      1      1      0      0</div><div class='input'><span class='co'># to 'frequency' format</span>
-( <span class='no'>ex1.M2F</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2M</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"MARK"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>) )</div><div class='output co'>#&gt;   event1 event2 event3 event4 freq
+<span class='op'>(</span> <span class='va'>ex1.M2F</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2M</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,in.type<span class='op'>=</span><span class='st'>"MARK"</span>,out.type<span class='op'>=</span><span class='st'>"frequency"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   event1 event2 event3 event4 freq
 #&gt; 1      0      0      0      1    1
 #&gt; 2      0      0      1      0    1
 #&gt; 3      1      0      1      0    1
 #&gt; 4      1      1      0      0    2</div><div class='input'><span class='co'># to 'RMark' format</span>
-( <span class='no'>ex1.M2R</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2M</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"MARK"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>) )</div><div class='output co'>#&gt;     ch
+<span class='op'>(</span> <span class='va'>ex1.M2R</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2M</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,in.type<span class='op'>=</span><span class='st'>"MARK"</span>,out.type<span class='op'>=</span><span class='st'>"RMark"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;     ch
 #&gt; 1 0001
 #&gt; 2 0010
 #&gt; 3 1010
 #&gt; 4 1100
-#&gt; 5 1100</div><div class='input'>( <span class='no'>ex1.M2Ra</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2M</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"MARK"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>,<span class='kw'>include.id</span><span class='kw'>=</span><span class='fl'>TRUE</span>) )</div><div class='output co'>#&gt;   id   ch
+#&gt; 5 1100</div><div class='input'><span class='op'>(</span> <span class='va'>ex1.M2Ra</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2M</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,in.type<span class='op'>=</span><span class='st'>"MARK"</span>,out.type<span class='op'>=</span><span class='st'>"RMark"</span>,include.id<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   id   ch
 #&gt; 1  1 0001
 #&gt; 2  2 0010
 #&gt; 3  3 1010
 #&gt; 4  4 1100
 #&gt; 5  5 1100</div><div class='input'><span class='co'># to 'event' format</span>
-( <span class='no'>ex1.M2E</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2M</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"MARK"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"event"</span>) )</div><div class='output co'>#&gt;   id  event
+<span class='op'>(</span> <span class='va'>ex1.M2E</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2M</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,in.type<span class='op'>=</span><span class='st'>"MARK"</span>,out.type<span class='op'>=</span><span class='st'>"event"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   id  event
 #&gt; 1  3 event1
 #&gt; 2  4 event1
 #&gt; 3  5 event1
@@ -419,26 +443,30 @@
 #&gt; 5  5 event2
 #&gt; 6  2 event3
 #&gt; 7  3 event3
-#&gt; 8  1 event4</div><div class='input'>
+#&gt; 8  1 event4</div><div class='input'> 
 <span class='co'>## convert converted 'RMark' format ...</span>
 <span class='co'># to 'individual' format</span>
-( <span class='no'>ex1.R2I</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2R</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>) )</div><div class='output co'>#&gt;   fish event1 event2 event3 event4
+<span class='op'>(</span> <span class='va'>ex1.R2I</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2R</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"RMark"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish event1 event2 event3 event4
 #&gt; 1   17      1      1      0      0
 #&gt; 2   18      1      0      1      0
 #&gt; 3   19      0      0      1      0
 #&gt; 4   20      0      0      0      1
 #&gt; 5   21      1      1      0      0</div><div class='input'><span class='co'># to 'frequency' format</span>
-( <span class='no'>ex1.R2F</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2R</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>) )</div><div class='output co'>#&gt;   event1 event2 event3 event4 freq
+<span class='op'>(</span> <span class='va'>ex1.R2F</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2R</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"RMark"</span>,out.type<span class='op'>=</span><span class='st'>"frequency"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   event1 event2 event3 event4 freq
 #&gt; 1      0      0      0      1    1
 #&gt; 2      0      0      1      0    1
 #&gt; 3      1      0      1      0    1
 #&gt; 4      1      1      0      0    2</div><div class='input'><span class='co'># to 'MARK' format</span>
-( <span class='no'>ex1.R2M</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2R</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"MARK"</span>) )</div><div class='output co'>#&gt;     ch freq
+<span class='op'>(</span> <span class='va'>ex1.R2M</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2R</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"RMark"</span>,out.type<span class='op'>=</span><span class='st'>"MARK"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;     ch freq
 #&gt; 1 0001   1;
 #&gt; 2 0010   1;
 #&gt; 3 1010   1;
 #&gt; 4 1100   2;</div><div class='input'><span class='co'># to 'event' format</span>
-( <span class='no'>ex1.R2E</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2R</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"event"</span>) )</div><div class='output co'>#&gt;   fish  event
+<span class='op'>(</span> <span class='va'>ex1.R2E</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2R</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"RMark"</span>,out.type<span class='op'>=</span><span class='st'>"event"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish  event
 #&gt; 1   17 event1
 #&gt; 2   18 event1
 #&gt; 3   21 event1
@@ -448,35 +476,41 @@
 #&gt; 7   19 event3
 #&gt; 8   20 event4</div><div class='input'>
 <span class='co'>## Remove semi-colon from MARK format to make a RMark 'frequency' format</span>
-<span class='no'>ex1.E2R1</span> <span class='kw'>&lt;-</span> <span class='no'>ex1.E2M</span>
-<span class='no'>ex1.E2R1</span>$<span class='no'>freq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span>(<span class='st'>";"</span>,<span class='st'>""</span>,<span class='no'>ex1.E2R1</span>$<span class='no'>freq</span>))
-<span class='no'>ex1.E2R1</span></div><div class='output co'>#&gt;     ch freq
+<span class='va'>ex1.E2R1</span> <span class='op'>&lt;-</span> <span class='va'>ex1.E2M</span>
+<span class='va'>ex1.E2R1</span><span class='op'>$</span><span class='va'>freq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>";"</span>,<span class='st'>""</span>,<span class='va'>ex1.E2R1</span><span class='op'>$</span><span class='va'>freq</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>ex1.E2R1</span>
+</div><div class='output co'>#&gt;     ch freq
 #&gt; 1 0001    1
 #&gt; 2 0010    1
 #&gt; 3 1010    1
 #&gt; 4 1100    2</div><div class='input'><span class='co'># convert this to 'individual' format</span>
-( <span class='no'>ex1.R2I1</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2R1</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>) )</div><div class='output co'>#&gt;   event1 event2 event3 event4
+<span class='op'>(</span> <span class='va'>ex1.R2I1</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2R1</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,in.type<span class='op'>=</span><span class='st'>"RMark"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   event1 event2 event3 event4
 #&gt; 1      0      0      0      1
 #&gt; 2      0      0      1      0
 #&gt; 3      1      0      1      0
 #&gt; 4      1      1      0      0
-#&gt; 5      1      1      0      0</div><div class='input'>( <span class='no'>ex1.R2I1a</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2R1</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>,<span class='kw'>include.id</span><span class='kw'>=</span><span class='fl'>TRUE</span>) )</div><div class='output co'>#&gt;   id event1 event2 event3 event4
+#&gt; 5      1      1      0      0</div><div class='input'><span class='op'>(</span> <span class='va'>ex1.R2I1a</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2R1</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,in.type<span class='op'>=</span><span class='st'>"RMark"</span>,include.id<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   id event1 event2 event3 event4
 #&gt; 1  1      0      0      0      1
 #&gt; 2  2      0      0      1      0
 #&gt; 3  3      1      0      1      0
 #&gt; 4  4      1      1      0      0
 #&gt; 5  5      1      1      0      0</div><div class='input'><span class='co'># convert this to 'frequency' format</span>
-( <span class='no'>ex1.R2F1</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2R1</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>) )</div><div class='output co'>#&gt;   event1 event2 event3 event4 freq
+<span class='op'>(</span> <span class='va'>ex1.R2F1</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2R1</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,in.type<span class='op'>=</span><span class='st'>"RMark"</span>,out.type<span class='op'>=</span><span class='st'>"frequency"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   event1 event2 event3 event4 freq
 #&gt; 1      0      0      0      1    1
 #&gt; 2      0      0      1      0    1
 #&gt; 3      1      0      1      0    1
 #&gt; 4      1      1      0      0    2</div><div class='input'><span class='co'># convert this to 'MARK' format</span>
-( <span class='no'>ex1.R2M1</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2R1</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"MARK"</span>) )</div><div class='output co'>#&gt;     ch freq
+<span class='op'>(</span> <span class='va'>ex1.R2M1</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2R1</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,in.type<span class='op'>=</span><span class='st'>"RMark"</span>,out.type<span class='op'>=</span><span class='st'>"MARK"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;     ch freq
 #&gt; 1 0001   1;
 #&gt; 2 0010   1;
 #&gt; 3 1010   1;
 #&gt; 4 1100   2;</div><div class='input'><span class='co'># convert this to 'event' format</span>
-( <span class='no'>ex1.R2E1</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex1.E2R1</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"event"</span>) )</div><div class='output co'>#&gt;   id  event
+<span class='op'>(</span> <span class='va'>ex1.R2E1</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex1.E2R1</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,in.type<span class='op'>=</span><span class='st'>"RMark"</span>,out.type<span class='op'>=</span><span class='st'>"event"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   id  event
 #&gt; 1  3 event1
 #&gt; 2  4 event1
 #&gt; 3  5 event1
@@ -488,8 +522,9 @@
 
 <span class='co'>########################################################################</span>
 <span class='co'>## A small example using character ids</span>
-( <span class='no'>ex2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>fish</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"id17"</span>,<span class='st'>"id18"</span>,<span class='st'>"id21"</span>,<span class='st'>"id17"</span>,<span class='st'>"id21"</span>,<span class='st'>"id18"</span>,<span class='st'>"id19"</span>,<span class='st'>"id20"</span>),
-                    <span class='kw'>yr</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1987</span>,<span class='fl'>1987</span>,<span class='fl'>1987</span>,<span class='fl'>1988</span>,<span class='fl'>1988</span>,<span class='fl'>1989</span>,<span class='fl'>1989</span>,<span class='fl'>1990</span>)) )</div><div class='output co'>#&gt;   fish   yr
+<span class='op'>(</span> <span class='va'>ex2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>fish<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"id17"</span>,<span class='st'>"id18"</span>,<span class='st'>"id21"</span>,<span class='st'>"id17"</span>,<span class='st'>"id21"</span>,<span class='st'>"id18"</span>,<span class='st'>"id19"</span>,<span class='st'>"id20"</span><span class='op'>)</span>,
+                    yr<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1987</span>,<span class='fl'>1987</span>,<span class='fl'>1987</span>,<span class='fl'>1988</span>,<span class='fl'>1988</span>,<span class='fl'>1989</span>,<span class='fl'>1989</span>,<span class='fl'>1990</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish   yr
 #&gt; 1 id17 1987
 #&gt; 2 id18 1987
 #&gt; 3 id21 1987
@@ -498,23 +533,27 @@
 #&gt; 6 id18 1989
 #&gt; 7 id19 1989
 #&gt; 8 id20 1990</div><div class='input'><span class='co'># convert to 'individual' format</span>
-( <span class='no'>ex2.E2I</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex2</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"event"</span>) )</div><div class='output co'>#&gt;   fish 1987 1988 1989 1990
+<span class='op'>(</span> <span class='va'>ex2.E2I</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex2</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"event"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish 1987 1988 1989 1990
 #&gt; 1 id17    1    1    0    0
 #&gt; 2 id18    1    0    1    0
 #&gt; 3 id19    0    0    1    0
 #&gt; 4 id20    0    0    0    1
 #&gt; 5 id21    1    1    0    0</div><div class='input'><span class='co'># convert to 'frequency' format</span>
-( <span class='no'>ex2.E2F</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex2</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"event"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>) )</div><div class='output co'>#&gt;   1987 1988 1989 1990 freq
+<span class='op'>(</span> <span class='va'>ex2.E2F</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex2</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"event"</span>,out.type<span class='op'>=</span><span class='st'>"frequency"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   1987 1988 1989 1990 freq
 #&gt; 1    0    0    0    1    1
 #&gt; 2    0    0    1    0    1
 #&gt; 3    1    0    1    0    1
 #&gt; 4    1    1    0    0    2</div><div class='input'><span class='co'># convert to 'MARK' format</span>
-( <span class='no'>ex2.E2M</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex2</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"event"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"MARK"</span>) )</div><div class='output co'>#&gt;     ch freq
+<span class='op'>(</span> <span class='va'>ex2.E2M</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex2</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"event"</span>,out.type<span class='op'>=</span><span class='st'>"MARK"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;     ch freq
 #&gt; 1 0001   1;
 #&gt; 2 0010   1;
 #&gt; 3 1010   1;
 #&gt; 4 1100   2;</div><div class='input'><span class='co'># convert to 'RMark' format</span>
-( <span class='no'>ex2.E2R</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex2</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"event"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>) )</div><div class='output co'>#&gt;   fish   ch
+<span class='op'>(</span> <span class='va'>ex2.E2R</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex2</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"event"</span>,out.type<span class='op'>=</span><span class='st'>"RMark"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish   ch
 #&gt; 1 id17 1100
 #&gt; 2 id18 1010
 #&gt; 3 id19 0010
@@ -522,23 +561,27 @@
 #&gt; 5 id21 1100</div><div class='input'>
 <span class='co'>## convert converted 'individual' format ...</span>
 <span class='co'># to 'frequency' format</span>
-( <span class='no'>ex2.I2F</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex2.E2I</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"individual"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>) )</div><div class='output co'>#&gt;   1987 1988 1989 1990 freq
+<span class='op'>(</span> <span class='va'>ex2.I2F</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex2.E2I</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"individual"</span>,out.type<span class='op'>=</span><span class='st'>"frequency"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   1987 1988 1989 1990 freq
 #&gt; 1    0    0    0    1    1
 #&gt; 2    0    0    1    0    1
 #&gt; 3    1    0    1    0    1
 #&gt; 4    1    1    0    0    2</div><div class='input'><span class='co'># to 'MARK' format</span>
-( <span class='no'>ex2.I2M</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex2.E2I</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"individual"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"MARK"</span>) )</div><div class='output co'>#&gt;     ch freq
+<span class='op'>(</span> <span class='va'>ex2.I2M</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex2.E2I</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"individual"</span>,out.type<span class='op'>=</span><span class='st'>"MARK"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;     ch freq
 #&gt; 1 0001   1;
 #&gt; 2 0010   1;
 #&gt; 3 1010   1;
 #&gt; 4 1100   2;</div><div class='input'><span class='co'># to 'RMark' format</span>
-( <span class='no'>ex2.I2R</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex2.E2I</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"individual"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>) )</div><div class='output co'>#&gt;   fish   ch
+<span class='op'>(</span> <span class='va'>ex2.I2R</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex2.E2I</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"individual"</span>,out.type<span class='op'>=</span><span class='st'>"RMark"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish   ch
 #&gt; 1 id17 1100
 #&gt; 2 id18 1010
 #&gt; 3 id19 0010
 #&gt; 4 id20 0001
 #&gt; 5 id21 1100</div><div class='input'><span class='co'># to 'event' format</span>
-( <span class='no'>ex2.I2E</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex2.E2I</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"individual"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"event"</span>) )</div><div class='output co'>#&gt;   fish event
+<span class='op'>(</span> <span class='va'>ex2.I2E</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex2.E2I</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"individual"</span>,out.type<span class='op'>=</span><span class='st'>"event"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish event
 #&gt; 1 id17  1987
 #&gt; 2 id18  1987
 #&gt; 3 id21  1987
@@ -548,20 +591,23 @@
 #&gt; 7 id19  1989
 #&gt; 8 id20  1990</div><div class='input'>
 <span class='co'>## demo use of var.lbls</span>
-( <span class='no'>ex2.E2Ia</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex2</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"event"</span>,<span class='kw'>var.lbls.pre</span><span class='kw'>=</span><span class='st'>"Sample"</span>) )</div><div class='output co'>#&gt;   fish 1987 1988 1989 1990
+<span class='op'>(</span> <span class='va'>ex2.E2Ia</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex2</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"event"</span>,var.lbls.pre<span class='op'>=</span><span class='st'>"Sample"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish 1987 1988 1989 1990
 #&gt; 1 id17    1    1    0    0
 #&gt; 2 id18    1    0    1    0
 #&gt; 3 id19    0    0    1    0
 #&gt; 4 id20    0    0    0    1
-#&gt; 5 id21    1    1    0    0</div><div class='input'>( <span class='no'>ex2.E2Ib</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex2</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"event"</span>,
-              <span class='kw'>var.lbls</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"first"</span>,<span class='st'>"second"</span>,<span class='st'>"third"</span>,<span class='st'>"fourth"</span>)) )</div><div class='output co'>#&gt;   fish first second third fourth
+#&gt; 5 id21    1    1    0    0</div><div class='input'><span class='op'>(</span> <span class='va'>ex2.E2Ib</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex2</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"event"</span>,
+              var.lbls<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"first"</span>,<span class='st'>"second"</span>,<span class='st'>"third"</span>,<span class='st'>"fourth"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish first second third fourth
 #&gt; 1 id17     1      1     0      0
 #&gt; 2 id18     1      0     1      0
 #&gt; 3 id19     0      0     1      0
 #&gt; 4 id20     0      0     0      1
 #&gt; 5 id21     1      1     0      0</div><div class='input'>
 <span class='co'>## demo use of event.ord</span>
-( <span class='no'>ex2.I2Ea</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex2.E2Ib</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"individual"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"event"</span>) )</div><div class='output co'>#&gt;   fish  event
+<span class='op'>(</span> <span class='va'>ex2.I2Ea</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex2.E2Ib</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"individual"</span>,out.type<span class='op'>=</span><span class='st'>"event"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish  event
 #&gt; 1 id17  first
 #&gt; 2 id18  first
 #&gt; 3 id21  first
@@ -569,69 +615,72 @@
 #&gt; 5 id21 second
 #&gt; 6 id18  third
 #&gt; 7 id19  third
-#&gt; 8 id20 fourth</div><div class='input'>( <span class='no'>ex2.E2Ibad</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex2.I2Ea</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"event"</span>) )</div><div class='output co'>#&gt;   fish first fourth second third
+#&gt; 8 id20 fourth</div><div class='input'><span class='op'>(</span> <span class='va'>ex2.E2Ibad</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex2.I2Ea</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"event"</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish first fourth second third
 #&gt; 1 id17     1      0      1     0
 #&gt; 2 id18     1      0      0     1
 #&gt; 3 id19     0      0      0     1
 #&gt; 4 id20     0      1      0     0
-#&gt; 5 id21     1      0      1     0</div><div class='input'>( <span class='no'>ex2.E2Igood</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>ex2.I2Ea</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"event"</span>,
-                 <span class='kw'>event.ord</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"first"</span>,<span class='st'>"second"</span>,<span class='st'>"third"</span>,<span class='st'>"fourth"</span>)) )</div><div class='output co'>#&gt;   fish first second third fourth
+#&gt; 5 id21     1      0      1     0</div><div class='input'><span class='op'>(</span> <span class='va'>ex2.E2Igood</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>ex2.I2Ea</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"event"</span>,
+                 event.ord<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"first"</span>,<span class='st'>"second"</span>,<span class='st'>"third"</span>,<span class='st'>"fourth"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish first second third fourth
 #&gt; 1 id17     1      1     0      0
 #&gt; 2 id18     1      0     1      0
 #&gt; 3 id19     0      0     1      0
 #&gt; 4 id20     0      0     0      1
 #&gt; 5 id21     1      1     0      0</div><div class='input'>
 <span class='co'>## ONLY RUN IN INTERACTIVE MODE</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
 
 <span class='co'>########################################################################</span>
 <span class='co'>## A larger example of 'frequency' format (data from Rcapture package)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>bunting</span>,<span class='kw'>package</span><span class='kw'>=</span><span class='st'>"Rcapture"</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>bunting</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>bunting</span>,package<span class='op'>=</span><span class='st'>"Rcapture"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>bunting</span><span class='op'>)</span>
 <span class='co'># convert to 'individual' format</span>
-<span class='no'>bun.F2I</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>bunting</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>bun.F2I</span>)
+<span class='va'>bun.F2I</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>bunting</span>,in.type<span class='op'>=</span><span class='st'>"frequency"</span>,freq<span class='op'>=</span><span class='st'>"freq"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>bun.F2I</span><span class='op'>)</span>
 <span class='co'># convert to 'MARK' format</span>
-<span class='no'>bun.F2M</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>bunting</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"id"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>,<span class='kw'>freq</span><span class='kw'>=</span><span class='st'>"freq"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"MARK"</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>bun.F2M</span>)
+<span class='va'>bun.F2M</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>bunting</span>,id<span class='op'>=</span><span class='st'>"id"</span>,in.type<span class='op'>=</span><span class='st'>"frequency"</span>,freq<span class='op'>=</span><span class='st'>"freq"</span>,out.type<span class='op'>=</span><span class='st'>"MARK"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>bun.F2M</span><span class='op'>)</span>
 <span class='co'># convert converted 'individual' back to 'MARK' format</span>
-<span class='no'>bun.I2M</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>bun.F2I</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"id"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"individual"</span>,<span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"MARK"</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>bun.I2M</span>)
+<span class='va'>bun.I2M</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>bun.F2I</span>,id<span class='op'>=</span><span class='st'>"id"</span>,in.type<span class='op'>=</span><span class='st'>"individual"</span>,out.type<span class='op'>=</span><span class='st'>"MARK"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>bun.I2M</span><span class='op'>)</span>
 <span class='co'># convert converted 'individual' back to 'frequency' format</span>
-<span class='no'>bun.I2F</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>bun.F2I</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"id"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"individual"</span>,
-           <span class='kw'>out.type</span><span class='kw'>=</span><span class='st'>"frequency"</span>,<span class='kw'>var.lbls.pre</span><span class='kw'>=</span><span class='st'>"Sample"</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>bun.I2F</span>)
+<span class='va'>bun.I2F</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>bun.F2I</span>,id<span class='op'>=</span><span class='st'>"id"</span>,in.type<span class='op'>=</span><span class='st'>"individual"</span>,
+           out.type<span class='op'>=</span><span class='st'>"frequency"</span>,var.lbls.pre<span class='op'>=</span><span class='st'>"Sample"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>bun.I2F</span><span class='op'>)</span>
 
 
 <span class='co'>########################################################################</span>
 <span class='co'>## A larger example of 'marked' or 'RMark' format, but with a covariate</span>
 <span class='co'>##   and when the covariate is removed there is no frequency or individual</span>
 <span class='co'>##   fish identifier.</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>dipper</span>,<span class='kw'>package</span><span class='kw'>=</span><span class='st'>"marked"</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>dipper</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>dipper</span>,package<span class='op'>=</span><span class='st'>"marked"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>dipper</span><span class='op'>)</span>
 <span class='co'># isolate males and females</span>
-<span class='no'>dipperF</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>dipper</span>,<span class='no'>sex</span><span class='kw'>==</span><span class='st'>"Female"</span>)
-<span class='no'>dipperM</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>dipper</span>,<span class='no'>sex</span><span class='kw'>==</span><span class='st'>"Male"</span>)
+<span class='va'>dipperF</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>dipper</span>,<span class='va'>sex</span><span class='op'>==</span><span class='st'>"Female"</span><span class='op'>)</span>
+<span class='va'>dipperM</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>dipper</span>,<span class='va'>sex</span><span class='op'>==</span><span class='st'>"Male"</span><span class='op'>)</span>
 <span class='co'># convert females to 'individual' format</span>
-<span class='no'>dipF.R2I</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>dipperF</span>,<span class='kw'>cols2ignore</span><span class='kw'>=</span><span class='st'>"sex"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>dipF.R2I</span>)
+<span class='va'>dipF.R2I</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>dipperF</span>,cols2ignore<span class='op'>=</span><span class='st'>"sex"</span>,in.type<span class='op'>=</span><span class='st'>"RMark"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>dipF.R2I</span><span class='op'>)</span>
 <span class='co'># convert males to 'individual' format</span>
-<span class='no'>dipM.R2I</span> <span class='kw'>&lt;-</span> <span class='fu'>capHistConvert</span>(<span class='no'>dipperM</span>,<span class='kw'>cols2ignore</span><span class='kw'>=</span><span class='st'>"sex"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"RMark"</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>dipM.R2I</span>)
+<span class='va'>dipM.R2I</span> <span class='op'>&lt;-</span> <span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>dipperM</span>,cols2ignore<span class='op'>=</span><span class='st'>"sex"</span>,in.type<span class='op'>=</span><span class='st'>"RMark"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>dipM.R2I</span><span class='op'>)</span>
 <span class='co'># add sex variable to each data.frame and then combine</span>
-<span class='no'>dipF.R2I</span>$<span class='no'>sex</span> <span class='kw'>&lt;-</span> <span class='st'>"Female"</span>
-<span class='no'>dipM.R2I</span>$<span class='no'>sex</span> <span class='kw'>&lt;-</span> <span class='st'>"Male"</span>
-<span class='no'>dip.R2I</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='no'>dipF.R2I</span>,<span class='no'>dipM.R2I</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>dip.R2I</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span>(<span class='no'>dip.R2I</span>)
+<span class='va'>dipF.R2I</span><span class='op'>$</span><span class='va'>sex</span> <span class='op'>&lt;-</span> <span class='st'>"Female"</span>
+<span class='va'>dipM.R2I</span><span class='op'>$</span><span class='va'>sex</span> <span class='op'>&lt;-</span> <span class='st'>"Male"</span>
+<span class='va'>dip.R2I</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>dipF.R2I</span>,<span class='va'>dipM.R2I</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>dip.R2I</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='va'>dip.R2I</span><span class='op'>)</span>
 
-} <span class='co'># end interactive</span>
+<span class='op'>}</span> <span class='co'># end interactive</span>
 
 
 <span class='co'>## An example of problem with unused levels</span>
 <span class='co'>## Create a set of test data with several groups</span>
-( <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>fish</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"id17"</span>,<span class='st'>"id18"</span>,<span class='st'>"id21"</span>,<span class='st'>"id17"</span>,<span class='st'>"id21"</span>,<span class='st'>"id18"</span>,<span class='st'>"id19"</span>,<span class='st'>"id20"</span>,<span class='st'>"id17"</span>),
-                   <span class='kw'>group</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"B1"</span>,<span class='st'>"B1"</span>,<span class='st'>"B1"</span>,<span class='st'>"B2"</span>,<span class='st'>"B2"</span>,<span class='st'>"B3"</span>,<span class='st'>"B4"</span>,<span class='st'>"C1"</span>,<span class='st'>"C1"</span>)) )</div><div class='output co'>#&gt;   fish group
+<span class='op'>(</span> <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>fish<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"id17"</span>,<span class='st'>"id18"</span>,<span class='st'>"id21"</span>,<span class='st'>"id17"</span>,<span class='st'>"id21"</span>,<span class='st'>"id18"</span>,<span class='st'>"id19"</span>,<span class='st'>"id20"</span>,<span class='st'>"id17"</span><span class='op'>)</span>,
+                   group<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"B1"</span>,<span class='st'>"B1"</span>,<span class='st'>"B1"</span>,<span class='st'>"B2"</span>,<span class='st'>"B2"</span>,<span class='st'>"B3"</span>,<span class='st'>"B4"</span>,<span class='st'>"C1"</span>,<span class='st'>"C1"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish group
 #&gt; 1 id17    B1
 #&gt; 2 id18    B1
 #&gt; 3 id21    B1
@@ -641,7 +690,8 @@
 #&gt; 7 id19    B4
 #&gt; 8 id20    C1
 #&gt; 9 id17    C1</div><div class='input'><span class='co'>#  Let's assume the user wants to subset the data from the "B" group</span>
-( <span class='no'>df1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>df</span>,<span class='no'>group</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"B1"</span>,<span class='st'>"B2"</span>,<span class='st'>"B3"</span>,<span class='st'>"B4"</span>)) )</div><div class='output co'>#&gt;   fish group
+<span class='op'>(</span> <span class='va'>df1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>df</span>,<span class='va'>group</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"B1"</span>,<span class='st'>"B2"</span>,<span class='st'>"B3"</span>,<span class='st'>"B4"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish group
 #&gt; 1 id17    B1
 #&gt; 2 id18    B1
 #&gt; 3 id21    B1
@@ -650,13 +700,15 @@
 #&gt; 6 id18    B3
 #&gt; 7 id19    B4</div><div class='input'><span class='co'>#  Looks like capHistConvert() is still using the unused factor</span>
 <span class='co'>#  level from group C</span>
-<span class='fu'>capHistConvert</span>(<span class='no'>df1</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"event"</span>)</div><div class='output co'>#&gt;   fish B1 B2 B3 B4
+<span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>df1</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"event"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish B1 B2 B3 B4
 #&gt; 1 id17  1  1  0  0
 #&gt; 2 id18  1  0  1  0
 #&gt; 3 id19  0  0  0  1
 #&gt; 4 id21  1  1  0  0</div><div class='input'><span class='co'># use droplevels() to remove the unused groups and no problem</span>
-<span class='no'>df1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/droplevels.html'>droplevels</a></span>(<span class='no'>df1</span>)
-<span class='fu'>capHistConvert</span>(<span class='no'>df1</span>,<span class='kw'>id</span><span class='kw'>=</span><span class='st'>"fish"</span>,<span class='kw'>in.type</span><span class='kw'>=</span><span class='st'>"event"</span>)</div><div class='output co'>#&gt;   fish B1 B2 B3 B4
+<span class='va'>df1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/droplevels.html'>droplevels</a></span><span class='op'>(</span><span class='va'>df1</span><span class='op'>)</span>
+<span class='fu'>capHistConvert</span><span class='op'>(</span><span class='va'>df1</span>,id<span class='op'>=</span><span class='st'>"fish"</span>,in.type<span class='op'>=</span><span class='st'>"event"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   fish B1 B2 B3 B4
 #&gt; 1 id17  1  1  0  0
 #&gt; 2 id18  1  0  1  0
 #&gt; 3 id19  0  0  0  1
@@ -677,7 +729,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

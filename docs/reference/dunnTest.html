@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
       </span>
     </div>
 
@@ -128,30 +128,30 @@
     <p>Performs Dunn's (1964) test of multiple comparisons following a significant Kruskal-Wallis test, possibly with a correction to control the experimentwise error rate. This is largely a wrapper for the <code><a href='https://rdrr.io/pkg/dunn.test/man/dunn.test.html'>dunn.test</a></code> function in <span class="pkg">dunn.test</span>. Please see and cite that package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dunnTest</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>dunnTest</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>dunnTest</span>(
-  <span class='no'>x</span>,
-  <span class='no'>g</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='kw pkg'>dunn.test</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/dunn.test/man/dunn.test.html'>p.adjustment.methods</a></span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>2</span>:<span class='fl'>3</span>, <span class='fl'>5</span>:<span class='fl'>8</span>, <span class='fl'>1</span>)],
-  <span class='kw'>two.sided</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>altp</span> <span class='kw'>=</span> <span class='no'>two.sided</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'>dunnTest</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>g</span>,
+  method <span class='op'>=</span> <span class='fu'>dunn.test</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/dunn.test/man/dunn.test.html'>p.adjustment.methods</a></span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>5</span><span class='op'>:</span><span class='fl'>8</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>]</span>,
+  two.sided <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  altp <span class='op'>=</span> <span class='va'>two.sided</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>dunnTest</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='kw pkg'>dunn.test</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/dunn.test/man/dunn.test.html'>p.adjustment.methods</a></span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>2</span>:<span class='fl'>3</span>, <span class='fl'>5</span>:<span class='fl'>8</span>, <span class='fl'>1</span>)],
-  <span class='kw'>two.sided</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>altp</span> <span class='kw'>=</span> <span class='no'>two.sided</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'>dunnTest</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  method <span class='op'>=</span> <span class='fu'>dunn.test</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/dunn.test/man/dunn.test.html'>p.adjustment.methods</a></span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>5</span><span class='op'>:</span><span class='fl'>8</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>]</span>,
+  two.sided <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  altp <span class='op'>=</span> <span class='va'>two.sided</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for dunnTest</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='kw'>dunn.test.results</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, dunn.test.results <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -218,18 +218,22 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code>kruskal.test</code>, <code><a href='https://rdrr.io/pkg/dunn.test/man/dunn.test.html'>dunn.test</a></code> in <span class="pkg">dunn.test</span>, <code>posthoc.kruskal.nemenyi.test</code> in <span class="pkg">PMCMR</span>, <code>kruskalmc</code> in <span class="pkg">pgirmess</span>, and <code>kruskal</code> in <span class="pkg">agricolae</span>.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a>, but this is largely a wrapper (see details) for <code><a href='https://rdrr.io/pkg/dunn.test/man/dunn.test.html'>dunn.test</a></code> in <span class="pkg">dunn.test</span> written by Alexis Dinno.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## pH in four ponds data from Zar (2010)</span>
-<span class='no'>ponds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>pond</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>:<span class='fl'>4</span>,<span class='kw'>each</span><span class='kw'>=</span><span class='fl'>8</span>)),
-                    <span class='kw'>pH</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7.68</span>,<span class='fl'>7.69</span>,<span class='fl'>7.70</span>,<span class='fl'>7.70</span>,<span class='fl'>7.72</span>,<span class='fl'>7.73</span>,<span class='fl'>7.73</span>,<span class='fl'>7.76</span>,
+<span class='va'>ponds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>pond<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>,each<span class='op'>=</span><span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span>,
+                    pH<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7.68</span>,<span class='fl'>7.69</span>,<span class='fl'>7.70</span>,<span class='fl'>7.70</span>,<span class='fl'>7.72</span>,<span class='fl'>7.73</span>,<span class='fl'>7.73</span>,<span class='fl'>7.76</span>,
                          <span class='fl'>7.71</span>,<span class='fl'>7.73</span>,<span class='fl'>7.74</span>,<span class='fl'>7.74</span>,<span class='fl'>7.78</span>,<span class='fl'>7.78</span>,<span class='fl'>7.80</span>,<span class='fl'>7.81</span>,
-                         <span class='fl'>7.74</span>,<span class='fl'>7.75</span>,<span class='fl'>7.77</span>,<span class='fl'>7.78</span>,<span class='fl'>7.80</span>,<span class='fl'>7.81</span>,<span class='fl'>7.84</span>,<span class='fl'>NA</span>,
-                         <span class='fl'>7.71</span>,<span class='fl'>7.71</span>,<span class='fl'>7.74</span>,<span class='fl'>7.79</span>,<span class='fl'>7.81</span>,<span class='fl'>7.85</span>,<span class='fl'>7.87</span>,<span class='fl'>7.91</span>))
-<span class='no'>ponds2</span> <span class='kw'>&lt;-</span> <span class='no'>ponds</span>[<span class='fu'><a href='https://rdrr.io/r/stats/complete.cases.html'>complete.cases</a></span>(<span class='no'>ponds</span>),]
+                         <span class='fl'>7.74</span>,<span class='fl'>7.75</span>,<span class='fl'>7.77</span>,<span class='fl'>7.78</span>,<span class='fl'>7.80</span>,<span class='fl'>7.81</span>,<span class='fl'>7.84</span>,<span class='cn'>NA</span>,
+                         <span class='fl'>7.71</span>,<span class='fl'>7.71</span>,<span class='fl'>7.74</span>,<span class='fl'>7.79</span>,<span class='fl'>7.81</span>,<span class='fl'>7.85</span>,<span class='fl'>7.87</span>,<span class='fl'>7.91</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>ponds2</span> <span class='op'>&lt;-</span> <span class='va'>ponds</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/stats/complete.cases.html'>complete.cases</a></span><span class='op'>(</span><span class='va'>ponds</span><span class='op'>)</span>,<span class='op'>]</span>
 
 <span class='co'># non-formula usage (default "holm" method)</span>
-<span class='fu'>dunnTest</span>(<span class='no'>ponds2</span>$<span class='no'>pH</span>,<span class='no'>ponds2</span>$<span class='no'>pond</span>)</div><div class='output co'>#&gt; <span class='message'>Dunn (1964) Kruskal-Wallis multiple comparison</span></div><div class='output co'>#&gt; <span class='message'>  p-values adjusted with the Holm method.</span></div><div class='output co'>#&gt;   Comparison           Z     P.unadj      P.adj
+<span class='fu'>dunnTest</span><span class='op'>(</span><span class='va'>ponds2</span><span class='op'>$</span><span class='va'>pH</span>,<span class='va'>ponds2</span><span class='op'>$</span><span class='va'>pond</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Dunn (1964) Kruskal-Wallis multiple comparison</span></div><div class='output co'>#&gt; <span class='message'>  p-values adjusted with the Holm method.</span></div><div class='output co'>#&gt;   Comparison           Z     P.unadj      P.adj
 #&gt; 1      1 - 2 -2.13700630 0.032597479 0.13038992
 #&gt; 2      1 - 3 -2.94934889 0.003184443 0.01592221
 #&gt; 3      2 - 3 -0.88480467 0.376261991 1.00000000
@@ -237,7 +241,8 @@
 #&gt; 5      2 - 4 -0.85480252 0.392660483 0.78532097
 #&gt; 6      3 - 4  0.05898698 0.952962480 0.95296248</div><div class='input'>
 <span class='co'># formula usage (default "holm" method)</span>
-<span class='fu'>dunnTest</span>(<span class='no'>pH</span>~<span class='no'>pond</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ponds2</span>)</div><div class='output co'>#&gt; <span class='message'>Dunn (1964) Kruskal-Wallis multiple comparison</span></div><div class='output co'>#&gt; <span class='message'>  p-values adjusted with the Holm method.</span></div><div class='output co'>#&gt;   Comparison           Z     P.unadj      P.adj
+<span class='fu'>dunnTest</span><span class='op'>(</span><span class='va'>pH</span><span class='op'>~</span><span class='va'>pond</span>,data<span class='op'>=</span><span class='va'>ponds2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Dunn (1964) Kruskal-Wallis multiple comparison</span></div><div class='output co'>#&gt; <span class='message'>  p-values adjusted with the Holm method.</span></div><div class='output co'>#&gt;   Comparison           Z     P.unadj      P.adj
 #&gt; 1      1 - 2 -2.13700630 0.032597479 0.13038992
 #&gt; 2      1 - 3 -2.94934889 0.003184443 0.01592221
 #&gt; 3      2 - 3 -0.88480467 0.376261991 1.00000000
@@ -245,19 +250,22 @@
 #&gt; 5      2 - 4 -0.85480252 0.392660483 0.78532097
 #&gt; 6      3 - 4  0.05898698 0.952962480 0.95296248</div><div class='input'>
 <span class='co'># other methods</span>
-<span class='fu'>dunnTest</span>(<span class='no'>pH</span>~<span class='no'>pond</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ponds2</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"bonferroni"</span>)</div><div class='output co'>#&gt; <span class='message'>Dunn (1964) Kruskal-Wallis multiple comparison</span></div><div class='output co'>#&gt; <span class='message'>  p-values adjusted with the Bonferroni method.</span></div><div class='output co'>#&gt;   Comparison           Z     P.unadj      P.adj
+<span class='fu'>dunnTest</span><span class='op'>(</span><span class='va'>pH</span><span class='op'>~</span><span class='va'>pond</span>,data<span class='op'>=</span><span class='va'>ponds2</span>,method<span class='op'>=</span><span class='st'>"bonferroni"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Dunn (1964) Kruskal-Wallis multiple comparison</span></div><div class='output co'>#&gt; <span class='message'>  p-values adjusted with the Bonferroni method.</span></div><div class='output co'>#&gt;   Comparison           Z     P.unadj      P.adj
 #&gt; 1      1 - 2 -2.13700630 0.032597479 0.19558488
 #&gt; 2      1 - 3 -2.94934889 0.003184443 0.01910666
 #&gt; 3      2 - 3 -0.88480467 0.376261991 1.00000000
 #&gt; 4      1 - 4 -2.99180882 0.002773299 0.01663979
 #&gt; 5      2 - 4 -0.85480252 0.392660483 1.00000000
-#&gt; 6      3 - 4  0.05898698 0.952962480 1.00000000</div><div class='input'><span class='fu'>dunnTest</span>(<span class='no'>pH</span>~<span class='no'>pond</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ponds2</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"bh"</span>)</div><div class='output co'>#&gt; <span class='message'>Dunn (1964) Kruskal-Wallis multiple comparison</span></div><div class='output co'>#&gt; <span class='message'>  p-values adjusted with the Benjamini-Hochberg method.</span></div><div class='output co'>#&gt;   Comparison           Z     P.unadj       P.adj
+#&gt; 6      3 - 4  0.05898698 0.952962480 1.00000000</div><div class='input'><span class='fu'>dunnTest</span><span class='op'>(</span><span class='va'>pH</span><span class='op'>~</span><span class='va'>pond</span>,data<span class='op'>=</span><span class='va'>ponds2</span>,method<span class='op'>=</span><span class='st'>"bh"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Dunn (1964) Kruskal-Wallis multiple comparison</span></div><div class='output co'>#&gt; <span class='message'>  p-values adjusted with the Benjamini-Hochberg method.</span></div><div class='output co'>#&gt;   Comparison           Z     P.unadj       P.adj
 #&gt; 1      1 - 2 -2.13700630 0.032597479 0.065194958
 #&gt; 2      1 - 3 -2.94934889 0.003184443 0.009553328
 #&gt; 3      2 - 3 -0.88480467 0.376261991 0.564392987
 #&gt; 4      1 - 4 -2.99180882 0.002773299 0.016639793
 #&gt; 5      2 - 4 -0.85480252 0.392660483 0.471192580
-#&gt; 6      3 - 4  0.05898698 0.952962480 0.952962480</div><div class='input'><span class='fu'>dunnTest</span>(<span class='no'>pH</span>~<span class='no'>pond</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ponds2</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"none"</span>)</div><div class='output co'>#&gt; <span class='message'>Dunn (1964) Kruskal-Wallis multiple comparison</span></div><div class='output co'>#&gt; <span class='message'>  with no adjustment for p-values.</span></div><div class='output co'>#&gt;   Comparison           Z     P.unadj       P.adj
+#&gt; 6      3 - 4  0.05898698 0.952962480 0.952962480</div><div class='input'><span class='fu'>dunnTest</span><span class='op'>(</span><span class='va'>pH</span><span class='op'>~</span><span class='va'>pond</span>,data<span class='op'>=</span><span class='va'>ponds2</span>,method<span class='op'>=</span><span class='st'>"none"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Dunn (1964) Kruskal-Wallis multiple comparison</span></div><div class='output co'>#&gt; <span class='message'>  with no adjustment for p-values.</span></div><div class='output co'>#&gt;   Comparison           Z     P.unadj       P.adj
 #&gt; 1      1 - 2 -2.13700630 0.032597479 0.032597479
 #&gt; 2      1 - 3 -2.94934889 0.003184443 0.003184443
 #&gt; 3      2 - 3 -0.88480467 0.376261991 0.376261991
@@ -265,7 +273,8 @@
 #&gt; 5      2 - 4 -0.85480252 0.392660483 0.392660483
 #&gt; 6      3 - 4  0.05898698 0.952962480 0.952962480</div><div class='input'>
 <span class='co'># one-sided</span>
-<span class='fu'>dunnTest</span>(<span class='no'>pH</span>~<span class='no'>pond</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ponds2</span>,<span class='kw'>two.sided</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>Dunn (1964) Kruskal-Wallis multiple comparison</span></div><div class='output co'>#&gt; <span class='message'>  p-values adjusted with the Holm method.</span></div><div class='output co'>#&gt;   Comparison           Z     P.unadj       P.adj
+<span class='fu'>dunnTest</span><span class='op'>(</span><span class='va'>pH</span><span class='op'>~</span><span class='va'>pond</span>,data<span class='op'>=</span><span class='va'>ponds2</span>,two.sided<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Dunn (1964) Kruskal-Wallis multiple comparison</span></div><div class='output co'>#&gt; <span class='message'>  p-values adjusted with the Holm method.</span></div><div class='output co'>#&gt;   Comparison           Z     P.unadj       P.adj
 #&gt; 1      1 - 2 -2.13700630 0.016298740 0.065194958
 #&gt; 2      1 - 3 -2.94934889 0.001592221 0.007961106
 #&gt; 3      2 - 3 -0.88480467 0.188130996 0.564392987
@@ -273,7 +282,8 @@
 #&gt; 5      2 - 4 -0.85480252 0.196330241 0.392660483
 #&gt; 6      3 - 4  0.05898698 0.476481240 0.476481240</div><div class='input'>
 <span class='co'># warning message if incomplete cases were removed</span>
-<span class='fu'>dunnTest</span>(<span class='no'>pH</span>~<span class='no'>pond</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ponds</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some rows deleted from 'x' and 'g' because missing data.</span></div><div class='output co'>#&gt; <span class='message'>Dunn (1964) Kruskal-Wallis multiple comparison</span></div><div class='output co'>#&gt; <span class='message'>  p-values adjusted with the Holm method.</span></div><div class='output co'>#&gt;   Comparison           Z     P.unadj      P.adj
+<span class='fu'>dunnTest</span><span class='op'>(</span><span class='va'>pH</span><span class='op'>~</span><span class='va'>pond</span>,data<span class='op'>=</span><span class='va'>ponds</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some rows deleted from 'x' and 'g' because missing data.</span></div><div class='output co'>#&gt; <span class='message'>Dunn (1964) Kruskal-Wallis multiple comparison</span></div><div class='output co'>#&gt; <span class='message'>  p-values adjusted with the Holm method.</span></div><div class='output co'>#&gt;   Comparison           Z     P.unadj      P.adj
 #&gt; 1      1 - 2 -2.13700630 0.032597479 0.13038992
 #&gt; 2      1 - 3 -2.94934889 0.003184443 0.01592221
 #&gt; 3      2 - 3 -0.88480467 0.376261991 1.00000000
@@ -281,8 +291,9 @@
 #&gt; 5      2 - 4 -0.85480252 0.392660483 0.78532097
 #&gt; 6      3 - 4  0.05898698 0.952962480 0.95296248</div><div class='input'>
 <span class='co'># print dunn.test results</span>
-<span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'>dunnTest</span>(<span class='no'>pH</span>~<span class='no'>pond</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ponds2</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>tmp</span>,<span class='kw'>dunn.test.results</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;   Kruskal-Wallis rank sum test 
+<span class='va'>tmp</span> <span class='op'>&lt;-</span> <span class='fu'>dunnTest</span><span class='op'>(</span><span class='va'>pH</span><span class='op'>~</span><span class='va'>pond</span>,data<span class='op'>=</span><span class='va'>ponds2</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>tmp</span>,dunn.test.results<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   Kruskal-Wallis rank sum test 
 #&gt;   
 #&gt;  data: x and g 
 #&gt;  Kruskal-Wallis chi-squared = 11.9435, df = 3, p-value = 0.01 
@@ -320,7 +331,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

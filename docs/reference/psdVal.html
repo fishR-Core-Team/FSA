@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
       </span>
     </div>
 
@@ -128,13 +128,13 @@
     <p>Returns a vector with the five Gabelhouse lengths for a chosen species.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>psdVal</span>(
-  <span class='kw'>species</span> <span class='kw'>=</span> <span class='st'>"List"</span>,
-  <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mm"</span>, <span class='st'>"cm"</span>, <span class='st'>"in"</span>),
-  <span class='kw'>incl.zero</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>addLens</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>addNames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>psdVal</span><span class='op'>(</span>
+  species <span class='op'>=</span> <span class='st'>"List"</span>,
+  units <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mm"</span>, <span class='st'>"cm"</span>, <span class='st'>"in"</span><span class='op'>)</span>,
+  incl.zero <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  addLens <span class='op'>=</span> <span class='cn'>NULL</span>,
+  addNames <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -174,17 +174,21 @@
     <p>6-Size Structure.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
 <p>Guy, C.S., R.M. Neumann, and D.W. Willis. 2006. New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS). Fisheries 31:86-87. [Was (is?) from http://pubstorage.sdstate.edu/wfs/415-F.pdf.]</p>
 <p>Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson. 2006. Proportional size distribution (PSD): A further refinement of population size structure index terminology. Fisheries 32:348. [Was (is?) from http://pubstorage.sdstate.edu/wfs/450-F.pdf.]</p>
 <p>Willis, D.W., B.R. Murphy, and C.S. Guy. 1993. Stock density indices: development, use, and limitations. Reviews in Fisheries Science 1:203-222. [Was (is?) from http://web1.cnre.vt.edu/murphybr/web/Readings/Willis%20et%20al.pdf.]</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code><a href='psdCalc.html'>psdCalc</a></code>, <code><a href='psdPlot.html'>psdPlot</a></code>, <code><a href='psdAdd.html'>psdAdd</a></code>, <code><a href='PSDlit.html'>PSDlit</a></code>, <code><a href='tictactoe.html'>tictactoe</a></code>, <code><a href='lencat.html'>lencat</a></code>, and <code><a href='rcumsum.html'>rcumsum</a></code> for related functionality.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># List all of the species</span>
-<span class='fu'>psdVal</span>()</div><div class='output co'>#&gt; <span class='message'></span>
+<span class='fu'>psdVal</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Species name must be one of following. Be careful of spelling and capitalization.</span></div><div class='output co'>#&gt;  [1] "Arctic Grayling"             "Bighead Carp"               
 #&gt;  [3] "Bigmouth Buffalo"            "Black Bullhead"             
 #&gt;  [5] "Black Carp"                  "Black Crappie"              
@@ -217,20 +221,32 @@
 #&gt; [59] "White Perch"                 "White Sucker"               
 #&gt; [61] "Yellow Bass"                 "Yellow Bullhead"            
 #&gt; [63] "Yellow Perch"               </div><div class='input'><span class='co'># Demonstrate typical usages</span>
-<span class='fu'>psdVal</span>(<span class='st'>"Yellow perch"</span>)</div><div class='output co'>#&gt;  substock     stock   quality preferred memorable    trophy 
-#&gt;         0       130       200       250       300       380 </div><div class='input'><span class='fu'>psdVal</span>(<span class='st'>"Walleye"</span>,<span class='kw'>units</span><span class='kw'>=</span><span class='st'>"cm"</span>)</div><div class='output co'>#&gt;  substock     stock   quality preferred memorable    trophy 
-#&gt;         0        25        38        51        63        76 </div><div class='input'><span class='fu'>psdVal</span>(<span class='st'>"Bluegill"</span>,<span class='kw'>units</span><span class='kw'>=</span><span class='st'>"in"</span>)</div><div class='output co'>#&gt;  substock     stock   quality preferred memorable    trophy 
-#&gt;         0         3         6         8        10        12 </div><div class='input'><span class='fu'>psdVal</span>(<span class='st'>"Bluegill"</span>,<span class='kw'>units</span><span class='kw'>=</span><span class='st'>"in"</span>,<span class='kw'>incl.zero</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;     stock   quality preferred memorable    trophy 
-#&gt;         3         6         8        10        12 </div><div class='input'><span class='fu'>psdVal</span>(<span class='st'>"Bluegill"</span>)</div><div class='output co'>#&gt;  substock     stock   quality preferred memorable    trophy 
+<span class='fu'>psdVal</span><span class='op'>(</span><span class='st'>"Yellow perch"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  substock     stock   quality preferred memorable    trophy 
+#&gt;         0       130       200       250       300       380 </div><div class='input'><span class='fu'>psdVal</span><span class='op'>(</span><span class='st'>"Walleye"</span>,units<span class='op'>=</span><span class='st'>"cm"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  substock     stock   quality preferred memorable    trophy 
+#&gt;         0        25        38        51        63        76 </div><div class='input'><span class='fu'>psdVal</span><span class='op'>(</span><span class='st'>"Bluegill"</span>,units<span class='op'>=</span><span class='st'>"in"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  substock     stock   quality preferred memorable    trophy 
+#&gt;         0         3         6         8        10        12 </div><div class='input'><span class='fu'>psdVal</span><span class='op'>(</span><span class='st'>"Bluegill"</span>,units<span class='op'>=</span><span class='st'>"in"</span>,incl.zero<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     stock   quality preferred memorable    trophy 
+#&gt;         3         6         8        10        12 </div><div class='input'><span class='fu'>psdVal</span><span class='op'>(</span><span class='st'>"Bluegill"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  substock     stock   quality preferred memorable    trophy 
 #&gt;         0        80       150       200       250       300 </div><div class='input'><span class='co'># Demonstrate that it will work with mis-capitalization</span>
-<span class='fu'>psdVal</span>(<span class='st'>"bluegill"</span>)</div><div class='output co'>#&gt;  substock     stock   quality preferred memorable    trophy 
-#&gt;         0        80       150       200       250       300 </div><div class='input'><span class='fu'>psdVal</span>(<span class='st'>"Yellow Perch"</span>)</div><div class='output co'>#&gt;  substock     stock   quality preferred memorable    trophy 
+<span class='fu'>psdVal</span><span class='op'>(</span><span class='st'>"bluegill"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  substock     stock   quality preferred memorable    trophy 
+#&gt;         0        80       150       200       250       300 </div><div class='input'><span class='fu'>psdVal</span><span class='op'>(</span><span class='st'>"Yellow Perch"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  substock     stock   quality preferred memorable    trophy 
 #&gt;         0       130       200       250       300       380 </div><div class='input'><span class='co'># Demonstrate adding in user-defined categories</span>
-<span class='fu'>psdVal</span>(<span class='st'>"Bluegill"</span>,<span class='kw'>units</span><span class='kw'>=</span><span class='st'>"in"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fl'>7</span>)</div><div class='output co'>#&gt;  substock     stock   quality         7 preferred memorable    trophy 
-#&gt;         0         3         6         7         8        10        12 </div><div class='input'><span class='fu'>psdVal</span>(<span class='st'>"Bluegill"</span>,<span class='kw'>units</span><span class='kw'>=</span><span class='st'>"in"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fl'>7</span>,<span class='kw'>addNames</span><span class='kw'>=</span><span class='st'>"MinLen"</span>)</div><div class='output co'>#&gt;  substock     stock   quality    MinLen preferred memorable    trophy 
-#&gt;         0         3         6         7         8        10        12 </div><div class='input'><span class='fu'>psdVal</span>(<span class='st'>"Bluegill"</span>,<span class='kw'>units</span><span class='kw'>=</span><span class='st'>"in"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7</span>,<span class='fl'>9</span>),<span class='kw'>addNames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MinSlot"</span>,<span class='st'>"MaxSlot"</span>))</div><div class='output co'>#&gt;  substock     stock   quality   MinSlot preferred   MaxSlot memorable    trophy 
-#&gt;         0         3         6         7         8         9        10        12 </div><div class='input'><span class='fu'>psdVal</span>(<span class='st'>"Bluegill"</span>,<span class='kw'>units</span><span class='kw'>=</span><span class='st'>"in"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MinLen"</span><span class='kw'>=</span><span class='fl'>7</span>))</div><div class='output co'>#&gt;  substock     stock   quality    MinLen preferred memorable    trophy 
-#&gt;         0         3         6         7         8        10        12 </div><div class='input'><span class='fu'>psdVal</span>(<span class='st'>"Bluegill"</span>,<span class='kw'>units</span><span class='kw'>=</span><span class='st'>"in"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MinSlot"</span><span class='kw'>=</span><span class='fl'>7</span>,<span class='st'>"MaxSlot"</span><span class='kw'>=</span><span class='fl'>9</span>))</div><div class='output co'>#&gt;  substock     stock   quality   MinSlot preferred   MaxSlot memorable    trophy 
+<span class='fu'>psdVal</span><span class='op'>(</span><span class='st'>"Bluegill"</span>,units<span class='op'>=</span><span class='st'>"in"</span>,addLens<span class='op'>=</span><span class='fl'>7</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  substock     stock   quality         7 preferred memorable    trophy 
+#&gt;         0         3         6         7         8        10        12 </div><div class='input'><span class='fu'>psdVal</span><span class='op'>(</span><span class='st'>"Bluegill"</span>,units<span class='op'>=</span><span class='st'>"in"</span>,addLens<span class='op'>=</span><span class='fl'>7</span>,addNames<span class='op'>=</span><span class='st'>"MinLen"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  substock     stock   quality    MinLen preferred memorable    trophy 
+#&gt;         0         3         6         7         8        10        12 </div><div class='input'><span class='fu'>psdVal</span><span class='op'>(</span><span class='st'>"Bluegill"</span>,units<span class='op'>=</span><span class='st'>"in"</span>,addLens<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7</span>,<span class='fl'>9</span><span class='op'>)</span>,addNames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"MinSlot"</span>,<span class='st'>"MaxSlot"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  substock     stock   quality   MinSlot preferred   MaxSlot memorable    trophy 
+#&gt;         0         3         6         7         8         9        10        12 </div><div class='input'><span class='fu'>psdVal</span><span class='op'>(</span><span class='st'>"Bluegill"</span>,units<span class='op'>=</span><span class='st'>"in"</span>,addLens<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"MinLen"</span><span class='op'>=</span><span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  substock     stock   quality    MinLen preferred memorable    trophy 
+#&gt;         0         3         6         7         8        10        12 </div><div class='input'><span class='fu'>psdVal</span><span class='op'>(</span><span class='st'>"Bluegill"</span>,units<span class='op'>=</span><span class='st'>"in"</span>,addLens<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"MinSlot"</span><span class='op'>=</span><span class='fl'>7</span>,<span class='st'>"MaxSlot"</span><span class='op'>=</span><span class='fl'>9</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  substock     stock   quality   MinSlot preferred   MaxSlot memorable    trophy 
 #&gt;         0         3         6         7         8         9        10        12 </div><div class='input'>
 </div></pre>
   </div>
@@ -248,7 +264,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

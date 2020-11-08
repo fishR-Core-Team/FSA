@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
       </span>
     </div>
 
@@ -128,16 +128,16 @@
     <p>Tests for significant differences among all pairs of slopes in a dummy variable regression where the dummy variables all stem from one factor.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>compSlopes</span>(
-  <span class='no'>mdl</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/r/stats/p.adjust.html'>p.adjust.methods</a></span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>order.slopes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>)
-)
+    <pre class="usage"><span class='fu'>compSlopes</span><span class='op'>(</span>
+  <span class='va'>mdl</span>,
+  method <span class='op'>=</span> <span class='fu'>stats</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/r/stats/p.adjust.html'>p.adjust.methods</a></span>,
+  conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  order.slopes <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  digits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"digits"</span><span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for compSlopes</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,12 +204,16 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='compIntercepts.html'>compIntercepts</a></code> in <span class="pkg">FSA</span>.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>Mirex</span>$<span class='no'>year</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>Mirex</span>$<span class='no'>year</span>)
+    <pre class="examples"><div class='input'><span class='va'>Mirex</span><span class='op'>$</span><span class='va'>year</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>Mirex</span><span class='op'>$</span><span class='va'>year</span><span class='op'>)</span>
 <span class='co'># fit a dummy variable regression, see that slopes differ</span>
-<span class='no'>lm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>weight</span>*<span class='no'>year</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex</span>)
-<span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>(<span class='no'>lm1</span>)</div><div class='output co'>#&gt; Analysis of Variance Table
+<span class='va'>lm1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>weight</span><span class='op'>*</span><span class='va'>year</span>,data<span class='op'>=</span><span class='va'>Mirex</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span><span class='op'>(</span><span class='va'>lm1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Analysis of Variance Table
 #&gt; 
 #&gt; Response: mirex
 #&gt;              Df  Sum Sq  Mean Sq F value    Pr(&gt;F)    
@@ -219,7 +223,8 @@
 #&gt; Residuals   110 0.40740 0.003704                      
 #&gt; ---
 #&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</div><div class='input'><span class='co'># compare all pairs of slopes using default Holm control</span>
-<span class='fu'>compSlopes</span>(<span class='no'>lm1</span>)</div><div class='output co'>#&gt; <span class='message'>Multiple Slope Comparisons (using the 'holm' adjustment)</span></div><div class='output co'>#&gt;    comparison     diff  95% LCI  95% UCI p.unadj   p.adj
+<span class='fu'>compSlopes</span><span class='op'>(</span><span class='va'>lm1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Multiple Slope Comparisons (using the 'holm' adjustment)</span></div><div class='output co'>#&gt;    comparison     diff  95% LCI  95% UCI p.unadj   p.adj
 #&gt; 1   1982-1977 -0.00202 -0.01678  0.01273 0.78627 1.00000
 #&gt; 2   1986-1977 -0.00331 -0.01670  0.01008 0.62556 1.00000
 #&gt; 3   1992-1977 -0.00233 -0.01676  0.01211 0.75010 1.00000
@@ -242,7 +247,8 @@
 #&gt; 4  1992 0.02653  0.01705 0.03602  0.0000 0.0000
 #&gt; 2  1982 0.02684  0.01688 0.03680  0.0000 0.0000
 #&gt; 1  1977 0.02886  0.01798 0.03974  0.0000 0.0000</div><div class='input'><span class='co'># compare all pairs of slopes using the false discovery rate control</span>
-<span class='fu'>compSlopes</span>(<span class='no'>lm1</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"fdr"</span>)</div><div class='output co'>#&gt; <span class='message'>Multiple Slope Comparisons (using the 'fdr' adjustment)</span></div><div class='output co'>#&gt;    comparison     diff  95% LCI  95% UCI p.unadj   p.adj
+<span class='fu'>compSlopes</span><span class='op'>(</span><span class='va'>lm1</span>,method<span class='op'>=</span><span class='st'>"fdr"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Multiple Slope Comparisons (using the 'fdr' adjustment)</span></div><div class='output co'>#&gt;    comparison     diff  95% LCI  95% UCI p.unadj   p.adj
 #&gt; 1   1982-1977 -0.00202 -0.01678  0.01273 0.78627 0.93698
 #&gt; 2   1986-1977 -0.00331 -0.01670  0.01008 0.62556 0.93698
 #&gt; 3   1992-1977 -0.00233 -0.01676  0.01211 0.75010 0.93698
@@ -265,7 +271,8 @@
 #&gt; 4  1992 0.02653  0.01705 0.03602  0.0000 0.00000
 #&gt; 2  1982 0.02684  0.01688 0.03680  0.0000 0.00000
 #&gt; 1  1977 0.02886  0.01798 0.03974  0.0000 0.00000</div><div class='input'><span class='co'># visualize the results</span>
-<span class='fu'><a href='fitPlot.html'>fitPlot</a></span>(<span class='no'>lm1</span>)</div><div class='img'><img src='compSlopes-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='fitPlot.html'>fitPlot</a></span><span class='op'>(</span><span class='va'>lm1</span><span class='op'>)</span>
+</div><div class='img'><img src='compSlopes-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -282,7 +289,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

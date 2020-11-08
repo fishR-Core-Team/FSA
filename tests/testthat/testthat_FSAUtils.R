@@ -31,8 +31,8 @@ test_that("fact2num() messages",{
 })
 
 test_that("filterD() messages",{
-  expect_error(filterD(0:5))
-  expect_error(filterD(matrix(0:5,ncol=2)))
+  expect_error(filterD(0:5),"no applicable method")
+  expect_error(filterD(matrix(0:5,ncol=2)),"no applicable method")
   expect_warning(filterD(iris,Species=="DEREK"),"resultant data.frame")
 })  
 
@@ -501,8 +501,8 @@ test_that("headtail() return values",{
   expect_true(is.null(rownames(tmp)))
   
   ## check how it handles tbl_df object
-  if (require(dplyr)) {
-    iris2 <- dplyr::tbl_df(iris)
+  if (require(tibble)) {
+    iris2 <- tibble::as_tibble(iris)
     tmp <- FSA::headtail(iris2,n=15)
     expect_is(tmp,"data.frame")
   }
@@ -543,8 +543,8 @@ test_that("peek() return values",{
   expect_true(is.null(rownames(tmp)))
   
   ## check how it handles tbl_df object
-  if (require(dplyr)) {
-    iris2 <- dplyr::tbl_df(iris)
+  if (require(tibble)) {
+    iris2 <- tibble::as_tibble(iris)
     tmp <- FSA::peek(iris2,n=15)
     expect_is(tmp,"data.frame")
   }

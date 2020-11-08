@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
       </span>
     </div>
 
@@ -128,18 +128,18 @@
     <p>Computes overall measures of precision for multiple age estimates made on the same individuals. Ages may be from two or more readers of the same structure, one reader at two or more times, or two or more structures (e.g., scales, spines, otoliths). Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), AAD (Average Absolute Deviation), and ASD (Average Standard Devation), and various percentage difference values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>agePrecision</span>(<span class='no'>formula</span>, <span class='no'>data</span>)
+    <pre class="usage"><span class='fu'>agePrecision</span><span class='op'>(</span><span class='va'>formula</span>, <span class='va'>data</span><span class='op'>)</span>
 
 <span class='co'># S3 method for agePrec</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(
-  <span class='no'>object</span>,
-  <span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"precision"</span>, <span class='st'>"difference"</span>, <span class='st'>"absolute difference"</span>, <span class='st'>"details"</span>),
-  <span class='kw'>percent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>trunc.diff</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>4</span>,
-  <span class='kw'>show.prec2</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  what <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"precision"</span>, <span class='st'>"difference"</span>, <span class='st'>"absolute difference"</span>, <span class='st'>"details"</span><span class='op'>)</span>,
+  percent <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  trunc.diff <span class='op'>=</span> <span class='cn'>NULL</span>,
+  digits <span class='op'>=</span> <span class='fl'>4</span>,
+  show.prec2 <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -209,10 +209,10 @@
 <li><p>R Number of age estimates given in <code>formula</code>.</p></li>
 <li><p>PercAgree The percentage of fish for which all age estimates perfectly agree.</p></li>
 <li><p>ASD The average (across all fish) standard deviation of ages within a fish.</p></li>
-<li><p>ACV The average (across all fish) coefficient of variation of ages within a fish using the <b>mean</b> as the divisor. See the <a href='http://derekogle.com/IFAR'>IFAR chapter</a> for calculation details.</p></li>
+<li><p>ACV The average (across all fish) coefficient of variation of ages within a fish using the <b>mean</b> as the divisor. See the <a href='http://derekogle.com/IFAR/'>IFAR chapter</a> for calculation details.</p></li>
 <li><p>ACV2 The average (across all fish) coefficient of variation of ages within a fish using the <b>median</b> as the divisor. This will only be shown if R&gt;2 or <code>show.prec2=TRUE</code>.</p></li>
 <li><p>AAD The average (across all fish) absolute deviation of ages within a fish.</p></li>
-<li><p>APE The average (across all fish) percent error of ages within a fish using the <b>mean</b> as the divisor. See the <a href='http://derekogle.com/IFAR'>IFAR chapter</a> for calculation details.</p></li>
+<li><p>APE The average (across all fish) percent error of ages within a fish using the <b>mean</b> as the divisor. See the <a href='http://derekogle.com/IFAR/'>IFAR chapter</a> for calculation details.</p></li>
 <li><p>APE2 The average (across all fish) percent error of ages within a fish using the <b>median</b> as the divisor. This will only be shown if R&gt;2 or <code>show.prec2=TRUE</code>.</p></li>
 <li><p>AD The average (across all fish) index of precision (D).</p></li>
 </ul>
@@ -230,7 +230,7 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
     <p>4-Age Comparisons.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
 <p>Beamish, R.J. and D.A. Fournier. 1981. A method for comparing the precision of a set of age determinations. Canadian Journal of Fisheries and Aquatic Sciences 38:982-983. [Was (is?) available from http://www.pac.dfo-mpo.gc.ca/science/people-gens/beamish/PDF_files/compareagecjfas1981.pdf.]</p>
 <p>Campana, S.E. 1982. Accuracy, precision and quality control in age determination, including a review of the use and abuse of age validation methods. Journal of Fish Biology 59:197-242. [Was (is?) available from http://www.denix.osd.mil/nr/crid/Coral_Reef_Iniative_Database/References_for_Reef_Assessment_files/Campana,%202001.pdf.]</p>
 <p>Campana, S.E., M.C. Annand, and J.I. McMillan. 1995. Graphical and statistical methods for determining the consistency of age determinations. Transactions of the American Fisheries Society 124:131-138. [Was (is?) available from http://www.bio.gc.ca/otoliths/documents/Campana%20et%20al%201995%20TAFS.pdf.]</p>
@@ -239,11 +239,15 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code><a href='ageBias.html'>ageBias</a></code> for computation of the full age agreement table, along with tests and plots of age bias.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Example with just two age estimates</span>
-<span class='no'>ap1</span> <span class='kw'>&lt;-</span> <span class='fu'>agePrecision</span>(~<span class='no'>otolithC</span>+<span class='no'>scaleC</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WhitefishLC</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ap1</span>)</div><div class='output co'>#&gt; Precision summary statistics
+<span class='va'>ap1</span> <span class='op'>&lt;-</span> <span class='fu'>agePrecision</span><span class='op'>(</span><span class='op'>~</span><span class='va'>otolithC</span><span class='op'>+</span><span class='va'>scaleC</span>,data<span class='op'>=</span><span class='va'>WhitefishLC</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ap1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Precision summary statistics
 #&gt;    n validn R PercAgree   ASD   ACV   AAD   APE
 #&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93
 #&gt; 
@@ -565,17 +569,24 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
 #&gt; 148 39.394
 #&gt; 149  3.226
 #&gt; 150 25.000
-#&gt; 151 36.842</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"precision"</span>)</div><div class='output co'>#&gt;    n validn R PercAgree   ASD   ACV   AAD   APE
-#&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>)</div><div class='output co'>#&gt;      -3      -2      -1       0       1       2       3       4       5       6 
+#&gt; 151 36.842</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ap1</span>,what<span class='op'>=</span><span class='st'>"precision"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    n validn R PercAgree   ASD   ACV   AAD   APE
+#&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ap1</span>,what<span class='op'>=</span><span class='st'>"difference"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      -3      -2      -1       0       1       2       3       4       5       6 
 #&gt;  2.6490  0.6623 10.5960 19.8675 19.8675 15.8940 11.2583  5.9603  3.3113  5.2980 
 #&gt;       7       8       9      10      11      12      13 
-#&gt;  1.9868  1.3245  0.0000  0.0000  0.6623  0.0000  0.6623 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>,<span class='kw'>percent</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; -3 -2 -1  0  1  2  3  4  5  6  7  8  9 10 11 12 13 
-#&gt;  4  1 16 30 30 24 17  9  5  8  3  2  0  0  1  0  1 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>)</div><div class='output co'>#&gt;       0       1       2       3       4       5       6       7       8       9 
+#&gt;  1.9868  1.3245  0.0000  0.0000  0.6623  0.0000  0.6623 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ap1</span>,what<span class='op'>=</span><span class='st'>"difference"</span>,percent<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; -3 -2 -1  0  1  2  3  4  5  6  7  8  9 10 11 12 13 
+#&gt;  4  1 16 30 30 24 17  9  5  8  3  2  0  0  1  0  1 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ap1</span>,what<span class='op'>=</span><span class='st'>"absolute"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       0       1       2       3       4       5       6       7       8       9 
 #&gt; 19.8675 30.4636 16.5563 13.9073  5.9603  3.3113  5.2980  1.9868  1.3245  0.0000 
 #&gt;      10      11      12      13 
-#&gt;  0.0000  0.6623  0.0000  0.6623 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>,<span class='kw'>percent</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  0  1  2  3  4  5  6  7  8  9 10 11 12 13 
-#&gt; 30 46 25 21  9  5  8  3  2  0  0  1  0  1 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>,<span class='kw'>trunc.diff</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='output co'>#&gt;     0     1     2     3    4+ 
-#&gt; 19.87 30.46 16.56 13.91 19.21 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"precision"</span>,<span class='st'>"difference"</span>))</div><div class='output co'>#&gt; Precision summary statistics
+#&gt;  0.0000  0.6623  0.0000  0.6623 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ap1</span>,what<span class='op'>=</span><span class='st'>"absolute"</span>,percent<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  0  1  2  3  4  5  6  7  8  9 10 11 12 13 
+#&gt; 30 46 25 21  9  5  8  3  2  0  0  1  0  1 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ap1</span>,what<span class='op'>=</span><span class='st'>"absolute"</span>,trunc.diff<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     0     1     2     3    4+ 
+#&gt; 19.87 30.46 16.56 13.91 19.21 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ap1</span>,what<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"precision"</span>,<span class='st'>"difference"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Precision summary statistics
 #&gt;    n validn R PercAgree   ASD   ACV   AAD   APE
 #&gt;  151    151 2     19.87 1.541 21.11 1.089 14.93
 #&gt; 
@@ -584,7 +595,8 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
 #&gt;      -3      -2      -1       0       1       2       3       4       5       6 
 #&gt;  2.6490  0.6623 10.5960 19.8675 19.8675 15.8940 11.2583  5.9603  3.3113  5.2980 
 #&gt;       7       8       9      10      11      12      13 
-#&gt;  1.9868  1.3245  0.0000  0.0000  0.6623  0.0000  0.6623 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ap1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"detail"</span>)</div><div class='output co'>#&gt;     otolithC scaleC mean median mode     SD     CV    CV2  AD     PE    PE2
+#&gt;  1.9868  1.3245  0.0000  0.0000  0.6623  0.0000  0.6623 </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ap1</span>,what<span class='op'>=</span><span class='st'>"detail"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     otolithC scaleC mean median mode     SD     CV    CV2  AD     PE    PE2
 #&gt; 1          3      3  3.0    3.0    3 0.0000  0.000  0.000 0.0  0.000  0.000
 #&gt; 2          3      4  3.5    3.5   NA 0.7071 20.203 20.203 0.5 14.286 14.286
 #&gt; 3          3      6  4.5    4.5   NA 2.1213 47.140 47.140 1.5 33.333 33.333
@@ -888,14 +900,20 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
 #&gt; 149  3.226
 #&gt; 150 25.000
 #&gt; 151 36.842</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span>(<span class='no'>ap1</span>$<span class='no'>rawdiff</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Frequency"</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Otolith - Scale Age"</span>)</div><div class='img'><img src='agePrecision-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>AD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>),
-     <span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Absolute Deviation Age"</span>)</div><div class='img'><img src='agePrecision-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>SD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>),
-     <span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Standard deviation Age"</span>)</div><div class='img'><img src='agePrecision-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>SD</span>~<span class='no'>AD</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>),
-     <span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Absolute Deviation Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Standard deviation Age"</span>)</div><div class='img'><img src='agePrecision-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>CV</span>~<span class='no'>PE</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap1</span>$<span class='no'>detail</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>),
-     <span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Percent Error Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Coefficient of Variation Age"</span>)</div><div class='img'><img src='agePrecision-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/barplot.html'>barplot</a></span><span class='op'>(</span><span class='va'>ap1</span><span class='op'>$</span><span class='va'>rawdiff</span>,ylab<span class='op'>=</span><span class='st'>"Frequency"</span>,xlab<span class='op'>=</span><span class='st'>"Otolith - Scale Age"</span><span class='op'>)</span>
+</div><div class='img'><img src='agePrecision-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>AD</span><span class='op'>~</span><span class='va'>mean</span>,data<span class='op'>=</span><span class='va'>ap1</span><span class='op'>$</span><span class='va'>detail</span>,pch<span class='op'>=</span><span class='fl'>19</span>,col<span class='op'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span><span class='op'>(</span><span class='st'>"black"</span>,<span class='fl'>1</span><span class='op'>/</span><span class='fl'>5</span><span class='op'>)</span>,
+     xlab<span class='op'>=</span><span class='st'>"Mean Age"</span>,ylab<span class='op'>=</span><span class='st'>"Absolute Deviation Age"</span><span class='op'>)</span>
+</div><div class='img'><img src='agePrecision-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>SD</span><span class='op'>~</span><span class='va'>mean</span>,data<span class='op'>=</span><span class='va'>ap1</span><span class='op'>$</span><span class='va'>detail</span>,pch<span class='op'>=</span><span class='fl'>19</span>,col<span class='op'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span><span class='op'>(</span><span class='st'>"black"</span>,<span class='fl'>1</span><span class='op'>/</span><span class='fl'>5</span><span class='op'>)</span>,
+     xlab<span class='op'>=</span><span class='st'>"Mean Age"</span>,ylab<span class='op'>=</span><span class='st'>"Standard deviation Age"</span><span class='op'>)</span>
+</div><div class='img'><img src='agePrecision-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>SD</span><span class='op'>~</span><span class='va'>AD</span>,data<span class='op'>=</span><span class='va'>ap1</span><span class='op'>$</span><span class='va'>detail</span>,pch<span class='op'>=</span><span class='fl'>19</span>,col<span class='op'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span><span class='op'>(</span><span class='st'>"black"</span>,<span class='fl'>1</span><span class='op'>/</span><span class='fl'>5</span><span class='op'>)</span>,
+     xlab<span class='op'>=</span><span class='st'>"Absolute Deviation Age"</span>,ylab<span class='op'>=</span><span class='st'>"Standard deviation Age"</span><span class='op'>)</span>
+</div><div class='img'><img src='agePrecision-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>CV</span><span class='op'>~</span><span class='va'>PE</span>,data<span class='op'>=</span><span class='va'>ap1</span><span class='op'>$</span><span class='va'>detail</span>,pch<span class='op'>=</span><span class='fl'>19</span>,col<span class='op'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span><span class='op'>(</span><span class='st'>"black"</span>,<span class='fl'>1</span><span class='op'>/</span><span class='fl'>5</span><span class='op'>)</span>,
+     xlab<span class='op'>=</span><span class='st'>"Percent Error Age"</span>,ylab<span class='op'>=</span><span class='st'>"Coefficient of Variation Age"</span><span class='op'>)</span>
+</div><div class='img'><img src='agePrecision-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Example with three age estimates</span>
-<span class='no'>ap2</span> <span class='kw'>&lt;-</span> <span class='fu'>agePrecision</span>(~<span class='no'>otolithC</span>+<span class='no'>finrayC</span>+<span class='no'>scaleC</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WhitefishLC</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ap2</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt; Precision summary statistics
+<span class='va'>ap2</span> <span class='op'>&lt;-</span> <span class='fu'>agePrecision</span><span class='op'>(</span><span class='op'>~</span><span class='va'>otolithC</span><span class='op'>+</span><span class='va'>finrayC</span><span class='op'>+</span><span class='va'>scaleC</span>,data<span class='op'>=</span><span class='va'>WhitefishLC</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ap2</span>,digits<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Precision summary statistics
 #&gt;    n validn R PercAgree  ASD  ACV ACV2 AAD  APE APE2   AD
 #&gt;  151    151 3      12.6 1.49 21.8 27.5 1.1 16.2 14.8 12.6
 #&gt; 
@@ -1229,8 +1247,10 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
 #&gt; 148 46.67 32.21
 #&gt; 149  4.44  3.85
 #&gt; 150 20.00 16.38
-#&gt; 151 29.17 23.13</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"precision"</span>)</div><div class='output co'>#&gt;    n validn R PercAgree   ASD   ACV  ACV2   AAD   APE  APE2    AD
-#&gt;  151    151 3     12.58 1.487 21.77 27.52 1.104 16.19 14.76 12.57</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"difference"</span>)</div><div class='output co'>#&gt;                         -4      -3      -2      -1       0       1       2
+#&gt; 151 29.17 23.13</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ap2</span>,what<span class='op'>=</span><span class='st'>"precision"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    n validn R PercAgree   ASD   ACV  ACV2   AAD   APE  APE2    AD
+#&gt;  151    151 3     12.58 1.487 21.77 27.52 1.104 16.19 14.76 12.57</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ap2</span>,what<span class='op'>=</span><span class='st'>"difference"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                         -4      -3      -2      -1       0       1       2
 #&gt; otolithC - finrayC  0.0000  0.0000  1.3245  3.3113 24.5033 17.8808 16.5563
 #&gt; otolithC - scaleC   0.0000  2.6490  0.6623 10.5960 19.8675 19.8675 15.8940
 #&gt; finrayC - scaleC    3.3113  4.6358 12.5828 19.8675 40.3974 14.5695  2.6490
@@ -1241,10 +1261,12 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
 #&gt;                         10      11      12      13      14
 #&gt; otolithC - finrayC  0.0000  0.6623  0.0000  0.0000  0.6623
 #&gt; otolithC - scaleC   0.0000  0.6623  0.0000  0.6623  0.0000
-#&gt; finrayC - scaleC    0.0000  0.0000  0.0000  0.0000  0.0000</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"absolute"</span>,<span class='kw'>percent</span><span class='kw'>=</span><span class='fl'>FALSE</span>,<span class='kw'>trunc.diff</span><span class='kw'>=</span><span class='fl'>4</span>)</div><div class='output co'>#&gt;                      0  1  2  3 4+
+#&gt; finrayC - scaleC    0.0000  0.0000  0.0000  0.0000  0.0000</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ap2</span>,what<span class='op'>=</span><span class='st'>"absolute"</span>,percent<span class='op'>=</span><span class='cn'>FALSE</span>,trunc.diff<span class='op'>=</span><span class='fl'>4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                      0  1  2  3 4+
 #&gt; otolithC v. finrayC 37 32 27 18 37
 #&gt; otolithC v. scaleC  30 46 25 21 29
-#&gt; finrayC v. scaleC   61 52 23  8  7</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ap2</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"detail"</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='output co'>#&gt;     otolithC finrayC scaleC  mean median mode    SD    CV    CV2    AD    PE
+#&gt; finrayC v. scaleC   61 52 23  8  7</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ap2</span>,what<span class='op'>=</span><span class='st'>"detail"</span>,digits<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     otolithC finrayC scaleC  mean median mode    SD    CV    CV2    AD    PE
 #&gt; 1          3       3      3  3.00      3    3 0.000  0.00   0.00 0.000  0.00
 #&gt; 2          3       3      4  3.33      3    3 0.577 17.32  23.57 0.444 13.33
 #&gt; 3          3       3      6  4.00      3    3 1.732 43.30  70.71 1.333 33.33
@@ -1548,12 +1570,17 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
 #&gt; 149  4.44  3.85
 #&gt; 150 20.00 16.38
 #&gt; 151 29.17 23.13</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>AD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>),
-     <span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Absolute Deviation Age"</span>)</div><div class='img'><img src='agePrecision-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>SD</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>),
-     <span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Standard Deviation Age"</span>)</div><div class='img'><img src='agePrecision-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>SD</span>~<span class='no'>AD</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>),
-     <span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Absolute Deviation Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Standard Deviation Age"</span>)</div><div class='img'><img src='agePrecision-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>CV</span>~<span class='no'>PE</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>),
-     <span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Percent Error Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Coefficient of Variation Age"</span>)</div><div class='img'><img src='agePrecision-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>median</span>~<span class='no'>mean</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>ap2</span>$<span class='no'>detail</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span>(<span class='st'>"black"</span>,<span class='fl'>1</span>/<span class='fl'>5</span>),
-     <span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Mean Age"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Median Age"</span>)</div><div class='img'><img src='agePrecision-10.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>AD</span><span class='op'>~</span><span class='va'>mean</span>,data<span class='op'>=</span><span class='va'>ap2</span><span class='op'>$</span><span class='va'>detail</span>,pch<span class='op'>=</span><span class='fl'>19</span>,col<span class='op'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span><span class='op'>(</span><span class='st'>"black"</span>,<span class='fl'>1</span><span class='op'>/</span><span class='fl'>5</span><span class='op'>)</span>,
+     xlab<span class='op'>=</span><span class='st'>"Mean Age"</span>,ylab<span class='op'>=</span><span class='st'>"Absolute Deviation Age"</span><span class='op'>)</span>
+</div><div class='img'><img src='agePrecision-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>SD</span><span class='op'>~</span><span class='va'>mean</span>,data<span class='op'>=</span><span class='va'>ap2</span><span class='op'>$</span><span class='va'>detail</span>,pch<span class='op'>=</span><span class='fl'>19</span>,col<span class='op'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span><span class='op'>(</span><span class='st'>"black"</span>,<span class='fl'>1</span><span class='op'>/</span><span class='fl'>5</span><span class='op'>)</span>,
+     xlab<span class='op'>=</span><span class='st'>"Mean Age"</span>,ylab<span class='op'>=</span><span class='st'>"Standard Deviation Age"</span><span class='op'>)</span>
+</div><div class='img'><img src='agePrecision-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>SD</span><span class='op'>~</span><span class='va'>AD</span>,data<span class='op'>=</span><span class='va'>ap2</span><span class='op'>$</span><span class='va'>detail</span>,pch<span class='op'>=</span><span class='fl'>19</span>,col<span class='op'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span><span class='op'>(</span><span class='st'>"black"</span>,<span class='fl'>1</span><span class='op'>/</span><span class='fl'>5</span><span class='op'>)</span>,
+     xlab<span class='op'>=</span><span class='st'>"Absolute Deviation Age"</span>,ylab<span class='op'>=</span><span class='st'>"Standard Deviation Age"</span><span class='op'>)</span>
+</div><div class='img'><img src='agePrecision-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>CV</span><span class='op'>~</span><span class='va'>PE</span>,data<span class='op'>=</span><span class='va'>ap2</span><span class='op'>$</span><span class='va'>detail</span>,pch<span class='op'>=</span><span class='fl'>19</span>,col<span class='op'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span><span class='op'>(</span><span class='st'>"black"</span>,<span class='fl'>1</span><span class='op'>/</span><span class='fl'>5</span><span class='op'>)</span>,
+     xlab<span class='op'>=</span><span class='st'>"Percent Error Age"</span>,ylab<span class='op'>=</span><span class='st'>"Coefficient of Variation Age"</span><span class='op'>)</span>
+</div><div class='img'><img src='agePrecision-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>median</span><span class='op'>~</span><span class='va'>mean</span>,data<span class='op'>=</span><span class='va'>ap2</span><span class='op'>$</span><span class='va'>detail</span>,pch<span class='op'>=</span><span class='fl'>19</span>,col<span class='op'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span><span class='op'>(</span><span class='st'>"black"</span>,<span class='fl'>1</span><span class='op'>/</span><span class='fl'>5</span><span class='op'>)</span>,
+     xlab<span class='op'>=</span><span class='st'>"Mean Age"</span>,ylab<span class='op'>=</span><span class='st'>"Median Age"</span><span class='op'>)</span>
+</div><div class='img'><img src='agePrecision-10.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -1570,7 +1597,7 @@ If <code>what="difference"</code> is used in <code>summary</code>, then a table 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

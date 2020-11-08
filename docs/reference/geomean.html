@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
       </span>
     </div>
 
@@ -128,9 +128,9 @@
     <p>Calculates the geometric mean or standard deviation of a vector of numeric values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geomean</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>zneg.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>geomean</span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>, zneg.rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>geosd</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>zneg.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>geosd</span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>, zneg.rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,22 +161,26 @@
     <p>This function is largely an implementation of the code suggested by Russell Senior on R-help in November, 1999.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='https://rdrr.io/pkg/psych/man/geometric.mean.html'>geometric.mean</a></code> in <span class="pkg">psych</span> and <code><a href='https://rdrr.io/pkg/DescTools/man/Gmean.html'>Gmean</a></code> for geometric mean calculators. See <code>Gsd</code> (documented with <code><a href='https://rdrr.io/pkg/DescTools/man/Gmean.html'>Gmean</a></code>) from <span class="pkg">DescTools</span> for geometric standard deviation calculators.</p></div>
+    <div class='dont-index'><p>See <code><a href='https://rdrr.io/pkg/psych/man/geometric.mean.html'>geometric.mean</a></code> in <span class="pkg">psych</span> and <code><a href='https://andrisignorell.github.io/DescTools/reference/Gmean.html'>Gmean</a></code> for geometric mean calculators. See <code>Gsd</code> (documented with <code><a href='https://andrisignorell.github.io/DescTools/reference/Gmean.html'>Gmean</a></code>) from <span class="pkg">DescTools</span> for geometric standard deviation calculators.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## generate random lognormal data</span>
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span>(<span class='fl'>500</span>,<span class='kw'>meanlog</span><span class='kw'>=</span><span class='fl'>0</span>,<span class='kw'>sdlog</span><span class='kw'>=</span><span class='fl'>1</span>)
+<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>500</span>,meanlog<span class='op'>=</span><span class='fl'>0</span>,sdlog<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
 <span class='co'># d has a mean on log scale of 0; thus, gm should be exp(0)~=1</span>
 <span class='co'># d has a sd on log scale of 1; thus, gsd should be exp(1)~=2.7</span>
-<span class='fu'>geomean</span>(<span class='no'>d</span>)</div><div class='output co'>#&gt; [1] 0.934946</div><div class='input'><span class='fu'>geosd</span>(<span class='no'>d</span>)</div><div class='output co'>#&gt; [1] 2.663484</div><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>geomean</span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.934946</div><div class='input'><span class='fu'>geosd</span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 2.663484</div><div class='input'>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>## Demonstrate handling of zeros and negative values</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(-<span class='fl'>1</span>,<span class='fl'>5</span>)
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>,<span class='fl'>5</span><span class='op'>)</span>
 <span class='co'># this will given an error</span>
-<span class='fu'>geomean</span>(<span class='no'>x</span>)
+<span class='fu'>geomean</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 <span class='co'># this will only give a warning, but might not be what you want</span>
-<span class='fu'>geomean</span>(<span class='no'>x</span>,<span class='kw'>zneg.rm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-}</div></pre>
+<span class='fu'>geomean</span><span class='op'>(</span><span class='va'>x</span>,zneg.rm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -192,7 +196,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

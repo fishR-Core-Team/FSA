@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
       </span>
     </div>
 
@@ -128,7 +128,7 @@
     <p>Converts &#8220;numeric&#8221; factor levels to numeric values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fact2num</span>(<span class='no'>object</span>)</pre>
+    <pre class="usage"><span class='fu'>fact2num</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,19 +142,26 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A numeric vector.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>junk</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>7</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>10</span>))
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>junk</span>)</div><div class='output co'>#&gt;  Factor w/ 6 levels "1","2","3","4",..: 1 5 2 4 3 6</div><div class='input'><span class='no'>junk2</span> <span class='kw'>&lt;-</span> <span class='fu'>fact2num</span>(<span class='no'>junk</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>junk2</span>)</div><div class='output co'>#&gt;  num [1:6] 1 7 2 4 3 10</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='va'>junk</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>7</span>,<span class='fl'>2</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>junk</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  Factor w/ 6 levels "1","2","3","4",..: 1 5 2 4 3 6</div><div class='input'><span class='va'>junk2</span> <span class='op'>&lt;-</span> <span class='fu'>fact2num</span><span class='op'>(</span><span class='va'>junk</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>junk2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  num [1:6] 1 7 2 4 3 10</div><div class='input'>
 <span class='co'>## ONLY RUN IN INTERACTIVE MODE</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
 
-<span class='no'>bad</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span>))
+<span class='va'>bad</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>,<span class='st'>"B"</span>,<span class='st'>"C"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># This will result in an error -- levels are not 'numeric'</span>
-<span class='no'>bad2</span> <span class='kw'>&lt;-</span> <span class='fu'>fact2num</span>(<span class='no'>bad</span>)
+<span class='va'>bad2</span> <span class='op'>&lt;-</span> <span class='fu'>fact2num</span><span class='op'>(</span><span class='va'>bad</span><span class='op'>)</span>
 
-}  <span class='co'>## END IF INTERACTIVE MODE</span></div></pre>
+<span class='op'>}</span>  <span class='co'>## END IF INTERACTIVE MODE</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -170,7 +177,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

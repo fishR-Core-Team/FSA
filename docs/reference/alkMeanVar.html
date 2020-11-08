@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
       </span>
     </div>
 
@@ -128,13 +128,13 @@
     <p>Computes the mean value-at-age in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design. The mean values could be mean length-, weight-, or fecundity-at-age, for example. The methods of Bettoli and Miranda (2001) or Quinn and Deriso (1999) are used. A standard deviation is computed for the Bettoli and Miranda (2001) method and standard error for the Quinn and Deriso (1999) method. See the testing section notes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>alkMeanVar</span>(
-  <span class='no'>key</span>,
-  <span class='no'>formula</span>,
-  <span class='no'>data</span>,
-  <span class='no'>len.n</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"BettoliMiranda"</span>, <span class='st'>"QuinnDeriso"</span>)
-)</pre>
+    <pre class="usage"><span class='fu'>alkMeanVar</span><span class='op'>(</span>
+  <span class='va'>key</span>,
+  <span class='va'>formula</span>,
+  <span class='va'>data</span>,
+  <span class='va'>len.n</span>,
+  method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"BettoliMiranda"</span>, <span class='st'>"QuinnDeriso"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -182,25 +182,29 @@
     <p>5-Age-Length Key.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
 <p>Bettoli, P. W. and Miranda, L. E. 2001. A cautionary note about estimating mean length at age with subsampled data. North American Journal of Fisheries Management, 21:425-428.</p> 
 <p>Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code><a href='alkIndivAge.html'>alkIndivAge</a></code> and related functions for a completely different methodology. See <code><a href='alkAgeDist.html'>alkAgeDist</a></code> for a related method of determining the proportion of fish at each age. See the <span class="pkg">ALKr</span> package.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Example -- Even breaks for length categories</span>
-<span class='no'>WR1</span> <span class='kw'>&lt;-</span> <span class='no'>WR79</span>
+<span class='va'>WR1</span> <span class='op'>&lt;-</span> <span class='va'>WR79</span>
 <span class='co'># add length intervals (width=5)</span>
-<span class='no'>WR1</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span>(<span class='no'>WR1</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>5</span>)
+<span class='va'>WR1</span><span class='op'>$</span><span class='va'>LCat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span><span class='op'>(</span><span class='va'>WR1</span><span class='op'>$</span><span class='va'>len</span>,w<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span>
 <span class='co'># get number of fish in each length interval in the entire sample</span>
-<span class='no'>len.n</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>LCat</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR1</span>)
+<span class='va'>len.n</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>LCat</span>,data<span class='op'>=</span><span class='va'>WR1</span><span class='op'>)</span>
 <span class='co'># isolate aged sample</span>
-<span class='no'>WR1.age</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>WR1</span>, !<span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span>(<span class='no'>age</span>))
+<span class='va'>WR1.age</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>WR1</span>, <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># create age-length key</span>
-<span class='no'>raw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR1.age</span>)
-( <span class='no'>WR1.key</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span>(<span class='no'>raw</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>1</span>) )</div><div class='output co'>#&gt;      age
+<span class='va'>raw</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>LCat</span><span class='op'>+</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>WR1.age</span><span class='op'>)</span>
+<span class='op'>(</span> <span class='va'>WR1.key</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span><span class='op'>(</span><span class='va'>raw</span>, margin<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;      age
 #&gt; LCat           4          5          6          7          8          9
 #&gt;   35  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
 #&gt;   40  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
@@ -240,7 +244,8 @@
 #&gt;   115 1.00000000 0.00000000</div><div class='input'>
 <span class='co'>## use age-length key to estimate mean length-at-age of all fish</span>
 <span class='co'># Bettoli-Miranda method</span>
-<span class='fu'>alkMeanVar</span>(<span class='no'>WR1.key</span>,<span class='no'>len</span>~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='no'>WR1.age</span>,<span class='no'>len.n</span>)</div><div class='output co'>#&gt;   age      mean       sd
+<span class='fu'>alkMeanVar</span><span class='op'>(</span><span class='va'>WR1.key</span>,<span class='va'>len</span><span class='op'>~</span><span class='va'>LCat</span><span class='op'>+</span><span class='va'>age</span>,<span class='va'>WR1.age</span>,<span class='va'>len.n</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   age      mean       sd
 #&gt; 1   4  51.95492 5.050430
 #&gt; 2   5  72.01342 5.519135
 #&gt; 3   6  86.59311 4.714664
@@ -250,7 +255,8 @@
 #&gt; 7  10 104.86056 7.497515
 #&gt; 8  11 113.00000 0.000000</div><div class='input'>
 <span class='co'># Quinn-Deriso method</span>
-<span class='fu'>alkMeanVar</span>(<span class='no'>WR1.key</span>,<span class='no'>len</span>~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='no'>WR1.age</span>,<span class='no'>len.n</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"QuinnDeriso"</span>)</div><div class='output co'>#&gt; <span class='message'>The 'se' values should not be trusted!</span></div><div class='output co'>#&gt;   age      mean        se
+<span class='fu'>alkMeanVar</span><span class='op'>(</span><span class='va'>WR1.key</span>,<span class='va'>len</span><span class='op'>~</span><span class='va'>LCat</span><span class='op'>+</span><span class='va'>age</span>,<span class='va'>WR1.age</span>,<span class='va'>len.n</span>,method<span class='op'>=</span><span class='st'>"QuinnDeriso"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>The 'se' values should not be trusted!</span></div><div class='output co'>#&gt;   age      mean        se
 #&gt; 1   4  51.95492 0.3031374
 #&gt; 2   5  72.01342 0.5018225
 #&gt; 3   6  86.59311 0.5977608
@@ -275,7 +281,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

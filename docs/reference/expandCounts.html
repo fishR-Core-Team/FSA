@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
       </span>
     </div>
 
@@ -128,17 +128,17 @@
     <p>Repeat individual fish data, including lengths, from tallied counts and, optionally, add a random digit to length measurements to simulate actual length of fish in the bin. This is useful as a precursor to summaries that require information, e.g., lengths, of individual fish (e.g., length frequency histograms, means lengths).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>expandCounts</span>(
-  <span class='no'>data</span>,
-  <span class='no'>cform</span>,
-  <span class='kw'>lform</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>removeCount</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>lprec</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-  <span class='kw'>new.name</span> <span class='kw'>=</span> <span class='st'>"newlen"</span>,
-  <span class='kw'>cwid</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>expandCounts</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>cform</span>,
+  lform <span class='op'>=</span> <span class='cn'>NULL</span>,
+  removeCount <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  lprec <span class='op'>=</span> <span class='fl'>0.1</span>,
+  new.name <span class='op'>=</span> <span class='st'>"newlen"</span>,
+  cwid <span class='op'>=</span> <span class='fl'>0</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -192,19 +192,24 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code><a href='expandLenFreq.html'>expandLenFreq</a></code> for expanding length frequencies where individual fish measurements were made on individual fish in a subsample and the remaining fish were simply counted.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># all need expansion</span>
-( <span class='no'>d1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span>),
-                   <span class='kw'>lwr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>,<span class='fl'>15.5</span>,<span class='fl'>16</span>,<span class='fl'>16</span>,<span class='fl'>17</span>,<span class='fl'>17</span>),
-                   <span class='kw'>upr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15.5</span>,<span class='fl'>16</span>,<span class='fl'>16.5</span>,<span class='fl'>16.5</span>,<span class='fl'>17.5</span>,<span class='fl'>17.5</span>),
-                   <span class='kw'>freq</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>)) )</div><div class='output co'>#&gt;      name lwr.bin upr.bin freq
+<span class='op'>(</span> <span class='va'>d1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>name<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span><span class='op'>)</span>,
+                   lwr.bin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span>,<span class='fl'>15.5</span>,<span class='fl'>16</span>,<span class='fl'>16</span>,<span class='fl'>17</span>,<span class='fl'>17</span><span class='op'>)</span>,
+                   upr.bin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15.5</span>,<span class='fl'>16</span>,<span class='fl'>16.5</span>,<span class='fl'>16.5</span>,<span class='fl'>17.5</span>,<span class='fl'>17.5</span><span class='op'>)</span>,
+                   freq<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;      name lwr.bin upr.bin freq
 #&gt; 1 Johnson    15.0    15.5    6
 #&gt; 2 Johnson    15.5    16.0    4
 #&gt; 3   Jones    16.0    16.5    2
 #&gt; 4   Frank    16.0    16.5    3
 #&gt; 5   Frank    17.0    17.5    1
-#&gt; 6     Max    17.0    17.5    1</div><div class='input'><span class='fu'>expandCounts</span>(<span class='no'>d1</span>,~<span class='no'>freq</span>)</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
+#&gt; 6     Max    17.0    17.5    1</div><div class='input'><span class='fu'>expandCounts</span><span class='op'>(</span><span class='va'>d1</span>,<span class='op'>~</span><span class='va'>freq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
 #&gt; <span class='message'>  2 rows had an individual measurement.</span>
 #&gt; <span class='message'>  4 rows with multiple measurements were expanded to 15 rows of individual measurements.</span></div><div class='output co'>#&gt;       name lwr.bin upr.bin
 #&gt; 1    Frank    17.0    17.5
@@ -223,7 +228,8 @@
 #&gt; 14   Jones    16.0    16.5
 #&gt; 15   Frank    16.0    16.5
 #&gt; 16   Frank    16.0    16.5
-#&gt; 17   Frank    16.0    16.5</div><div class='input'><span class='fu'>expandCounts</span>(<span class='no'>d1</span>,~<span class='no'>freq</span>,~<span class='no'>lwr.bin</span>+<span class='no'>upr.bin</span>)</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
+#&gt; 17   Frank    16.0    16.5</div><div class='input'><span class='fu'>expandCounts</span><span class='op'>(</span><span class='va'>d1</span>,<span class='op'>~</span><span class='va'>freq</span>,<span class='op'>~</span><span class='va'>lwr.bin</span><span class='op'>+</span><span class='va'>upr.bin</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
 #&gt; <span class='message'>  2 rows had an individual measurement.</span>
 #&gt; <span class='message'>  4 rows with multiple measurements were expanded to 15 rows of individual measurements.</span></div><div class='output co'>#&gt;       name lwr.bin upr.bin newlen         lennote
 #&gt; 1    Frank    17.0    17.5   17.2 Expanded length
@@ -244,16 +250,18 @@
 #&gt; 16   Frank    16.0    16.5   16.5 Expanded length
 #&gt; 17   Frank    16.0    16.5   16.2 Expanded length</div><div class='input'>
 <span class='co'># some need expansion</span>
-( <span class='no'>d2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span>),
-                   <span class='kw'>lwr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>,<span class='fl'>15.5</span>,<span class='fl'>16</span>,<span class='fl'>16</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>),
-                   <span class='kw'>upr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15.5</span>,<span class='fl'>16</span>,<span class='fl'>16.5</span>,<span class='fl'>16.5</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>),
-                   <span class='kw'>freq</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>)) )</div><div class='output co'>#&gt;      name lwr.bin upr.bin freq
+<span class='op'>(</span> <span class='va'>d2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>name<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span><span class='op'>)</span>,
+                   lwr.bin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span>,<span class='fl'>15.5</span>,<span class='fl'>16</span>,<span class='fl'>16</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span><span class='op'>)</span>,
+                   upr.bin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15.5</span>,<span class='fl'>16</span>,<span class='fl'>16.5</span>,<span class='fl'>16.5</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span><span class='op'>)</span>,
+                   freq<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;      name lwr.bin upr.bin freq
 #&gt; 1 Johnson    15.0    15.5    6
 #&gt; 2 Johnson    15.5    16.0    4
 #&gt; 3   Jones    16.0    16.5    2
 #&gt; 4   Frank    16.0    16.5    3
 #&gt; 5   Frank    17.1    17.1    1
-#&gt; 6     Max    17.3    17.3    1</div><div class='input'><span class='fu'>expandCounts</span>(<span class='no'>d2</span>,~<span class='no'>freq</span>)</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
+#&gt; 6     Max    17.3    17.3    1</div><div class='input'><span class='fu'>expandCounts</span><span class='op'>(</span><span class='va'>d2</span>,<span class='op'>~</span><span class='va'>freq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
 #&gt; <span class='message'>  2 rows had an individual measurement.</span>
 #&gt; <span class='message'>  4 rows with multiple measurements were expanded to 15 rows of individual measurements.</span></div><div class='output co'>#&gt;       name lwr.bin upr.bin
 #&gt; 1    Frank    17.1    17.1
@@ -272,7 +280,8 @@
 #&gt; 14   Jones    16.0    16.5
 #&gt; 15   Frank    16.0    16.5
 #&gt; 16   Frank    16.0    16.5
-#&gt; 17   Frank    16.0    16.5</div><div class='input'><span class='fu'>expandCounts</span>(<span class='no'>d2</span>,~<span class='no'>freq</span>,~<span class='no'>lwr.bin</span>+<span class='no'>upr.bin</span>)</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
+#&gt; 17   Frank    16.0    16.5</div><div class='input'><span class='fu'>expandCounts</span><span class='op'>(</span><span class='va'>d2</span>,<span class='op'>~</span><span class='va'>freq</span>,<span class='op'>~</span><span class='va'>lwr.bin</span><span class='op'>+</span><span class='va'>upr.bin</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
 #&gt; <span class='message'>  2 rows had an individual measurement.</span>
 #&gt; <span class='message'>  4 rows with multiple measurements were expanded to 15 rows of individual measurements.</span></div><div class='output co'>#&gt;       name lwr.bin upr.bin newlen         lennote
 #&gt; 1    Frank    17.1    17.1   17.1 Observed length
@@ -293,16 +302,18 @@
 #&gt; 16   Frank    16.0    16.5   16.4 Expanded length
 #&gt; 17   Frank    16.0    16.5   16.5 Expanded length</div><div class='input'>
 <span class='co'># none need expansion</span>
-( <span class='no'>d3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span>),
-                   <span class='kw'>lwr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>,<span class='fl'>15.5</span>,<span class='fl'>16</span>,<span class='fl'>16</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>),
-                   <span class='kw'>upr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>,<span class='fl'>15.5</span>,<span class='fl'>16</span>,<span class='fl'>16</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>),
-                   <span class='kw'>freq</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>)) )</div><div class='output co'>#&gt;      name lwr.bin upr.bin freq
+<span class='op'>(</span> <span class='va'>d3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>name<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span><span class='op'>)</span>,
+                   lwr.bin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span>,<span class='fl'>15.5</span>,<span class='fl'>16</span>,<span class='fl'>16</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span><span class='op'>)</span>,
+                   upr.bin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span>,<span class='fl'>15.5</span>,<span class='fl'>16</span>,<span class='fl'>16</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span><span class='op'>)</span>,
+                   freq<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;      name lwr.bin upr.bin freq
 #&gt; 1 Johnson    15.0    15.0    6
 #&gt; 2 Johnson    15.5    15.5    4
 #&gt; 3   Jones    16.0    16.0    2
 #&gt; 4   Frank    16.0    16.0    3
 #&gt; 5   Frank    17.1    17.1    1
-#&gt; 6     Max    17.3    17.3    1</div><div class='input'><span class='fu'>expandCounts</span>(<span class='no'>d3</span>,~<span class='no'>freq</span>)</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
+#&gt; 6     Max    17.3    17.3    1</div><div class='input'><span class='fu'>expandCounts</span><span class='op'>(</span><span class='va'>d3</span>,<span class='op'>~</span><span class='va'>freq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
 #&gt; <span class='message'>  2 rows had an individual measurement.</span>
 #&gt; <span class='message'>  4 rows with multiple measurements were expanded to 15 rows of individual measurements.</span></div><div class='output co'>#&gt;       name lwr.bin upr.bin
 #&gt; 1    Frank    17.1    17.1
@@ -321,7 +332,8 @@
 #&gt; 14   Jones    16.0    16.0
 #&gt; 15   Frank    16.0    16.0
 #&gt; 16   Frank    16.0    16.0
-#&gt; 17   Frank    16.0    16.0</div><div class='input'><span class='fu'>expandCounts</span>(<span class='no'>d3</span>,~<span class='no'>freq</span>,~<span class='no'>lwr.bin</span>+<span class='no'>upr.bin</span>)</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
+#&gt; 17   Frank    16.0    16.0</div><div class='input'><span class='fu'>expandCounts</span><span class='op'>(</span><span class='va'>d3</span>,<span class='op'>~</span><span class='va'>freq</span>,<span class='op'>~</span><span class='va'>lwr.bin</span><span class='op'>+</span><span class='va'>upr.bin</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
 #&gt; <span class='message'>  2 rows had an individual measurement.</span>
 #&gt; <span class='message'>  4 rows with multiple measurements were expanded to 15 rows of individual measurements.</span></div><div class='output co'>#&gt;       name lwr.bin upr.bin newlen         lennote
 #&gt; 1    Frank    17.1    17.1   17.1 Observed length
@@ -342,16 +354,18 @@
 #&gt; 16   Frank    16.0    16.0   16.0 Observed length
 #&gt; 17   Frank    16.0    16.0   16.0 Observed length</div><div class='input'>
 <span class='co'># some need expansion, but different bin widths</span>
-( <span class='no'>d4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span>),
-                   <span class='kw'>lwr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>,  <span class='fl'>15</span>,  <span class='fl'>16</span>,  <span class='fl'>16</span>,  <span class='fl'>17.1</span>,<span class='fl'>17.3</span>),
-                   <span class='kw'>upr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15.5</span>,<span class='fl'>15.9</span>,<span class='fl'>16.5</span>,<span class='fl'>16.9</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>),
-                   <span class='kw'>freq</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>)) )</div><div class='output co'>#&gt;      name lwr.bin upr.bin freq
+<span class='op'>(</span> <span class='va'>d4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>name<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span><span class='op'>)</span>,
+                   lwr.bin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span>,  <span class='fl'>15</span>,  <span class='fl'>16</span>,  <span class='fl'>16</span>,  <span class='fl'>17.1</span>,<span class='fl'>17.3</span><span class='op'>)</span>,
+                   upr.bin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15.5</span>,<span class='fl'>15.9</span>,<span class='fl'>16.5</span>,<span class='fl'>16.9</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span><span class='op'>)</span>,
+                   freq<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;      name lwr.bin upr.bin freq
 #&gt; 1 Johnson    15.0    15.5    6
 #&gt; 2 Johnson    15.0    15.9    4
 #&gt; 3   Jones    16.0    16.5    2
 #&gt; 4   Frank    16.0    16.9    3
 #&gt; 5   Frank    17.1    17.1    1
-#&gt; 6     Max    17.3    17.3    1</div><div class='input'><span class='fu'>expandCounts</span>(<span class='no'>d4</span>,~<span class='no'>freq</span>)</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
+#&gt; 6     Max    17.3    17.3    1</div><div class='input'><span class='fu'>expandCounts</span><span class='op'>(</span><span class='va'>d4</span>,<span class='op'>~</span><span class='va'>freq</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
 #&gt; <span class='message'>  2 rows had an individual measurement.</span>
 #&gt; <span class='message'>  4 rows with multiple measurements were expanded to 15 rows of individual measurements.</span></div><div class='output co'>#&gt;       name lwr.bin upr.bin
 #&gt; 1    Frank    17.1    17.1
@@ -370,7 +384,8 @@
 #&gt; 14   Jones    16.0    16.5
 #&gt; 15   Frank    16.0    16.9
 #&gt; 16   Frank    16.0    16.9
-#&gt; 17   Frank    16.0    16.9</div><div class='input'><span class='fu'>expandCounts</span>(<span class='no'>d4</span>,~<span class='no'>freq</span>,~<span class='no'>lwr.bin</span>+<span class='no'>upr.bin</span>)</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
+#&gt; 17   Frank    16.0    16.9</div><div class='input'><span class='fu'>expandCounts</span><span class='op'>(</span><span class='va'>d4</span>,<span class='op'>~</span><span class='va'>freq</span>,<span class='op'>~</span><span class='va'>lwr.bin</span><span class='op'>+</span><span class='va'>upr.bin</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
 #&gt; <span class='message'>  2 rows had an individual measurement.</span>
 #&gt; <span class='message'>  4 rows with multiple measurements were expanded to 15 rows of individual measurements.</span></div><div class='output co'>#&gt;       name lwr.bin upr.bin newlen         lennote
 #&gt; 1    Frank    17.1    17.1   17.1 Observed length
@@ -391,10 +406,11 @@
 #&gt; 16   Frank    16.0    16.9   16.4 Expanded length
 #&gt; 17   Frank    16.0    16.9   16.4 Expanded length</div><div class='input'>
 <span class='co'># some need expansion but include zeros and NAs for counts</span>
-( <span class='no'>d2a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span>,<span class='st'>"Max"</span>,<span class='st'>"Max"</span>,<span class='st'>"Max"</span>),
-                    <span class='kw'>lwr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>,  <span class='fl'>15.5</span>,<span class='fl'>16</span>  ,<span class='fl'>16</span>  ,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>,<span class='fl'>NA</span>,<span class='fl'>NA</span>,<span class='fl'>NA</span>),
-                    <span class='kw'>upr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15.5</span>,<span class='fl'>16</span>  ,<span class='fl'>16.5</span>,<span class='fl'>16.5</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>,<span class='fl'>NA</span>,<span class='fl'>NA</span>,<span class='fl'>NA</span>),
-                    <span class='kw'>freq</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>NA</span>,<span class='fl'>0</span>,<span class='fl'>NA</span>)) )</div><div class='output co'>#&gt;      name lwr.bin upr.bin freq
+<span class='op'>(</span> <span class='va'>d2a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>name<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span>,<span class='st'>"Max"</span>,<span class='st'>"Max"</span>,<span class='st'>"Max"</span><span class='op'>)</span>,
+                    lwr.bin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span>,  <span class='fl'>15.5</span>,<span class='fl'>16</span>  ,<span class='fl'>16</span>  ,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>,<span class='cn'>NA</span>,<span class='cn'>NA</span>,<span class='cn'>NA</span><span class='op'>)</span>,
+                    upr.bin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15.5</span>,<span class='fl'>16</span>  ,<span class='fl'>16.5</span>,<span class='fl'>16.5</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>,<span class='cn'>NA</span>,<span class='cn'>NA</span>,<span class='cn'>NA</span><span class='op'>)</span>,
+                    freq<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='cn'>NA</span>,<span class='fl'>0</span>,<span class='cn'>NA</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;      name lwr.bin upr.bin freq
 #&gt; 1 Johnson    15.0    15.5    6
 #&gt; 2 Johnson    15.5    16.0    4
 #&gt; 3   Jones    16.0    16.5    2
@@ -403,7 +419,8 @@
 #&gt; 6     Max    17.3    17.3    1
 #&gt; 7     Max      NA      NA   NA
 #&gt; 8     Max      NA      NA    0
-#&gt; 9     Max      NA      NA   NA</div><div class='input'><span class='fu'>expandCounts</span>(<span class='no'>d2a</span>,~<span class='no'>freq</span>,~<span class='no'>lwr.bin</span>+<span class='no'>upr.bin</span>)</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
+#&gt; 9     Max      NA      NA   NA</div><div class='input'><span class='fu'>expandCounts</span><span class='op'>(</span><span class='va'>d2a</span>,<span class='op'>~</span><span class='va'>freq</span>,<span class='op'>~</span><span class='va'>lwr.bin</span><span class='op'>+</span><span class='va'>upr.bin</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
 #&gt; <span class='message'>  Rows 7, 8, 9 had zero or no counts in freq.</span>
 #&gt; <span class='message'>  2 rows had an individual measurement.</span>
 #&gt; <span class='message'>  4 rows with multiple measurements were expanded to 15 rows of individual measurements.</span></div><div class='output co'>#&gt;       name lwr.bin upr.bin newlen         lennote
@@ -426,18 +443,20 @@
 #&gt; 17   Jones    16.0    16.5   16.5 Expanded length
 #&gt; 18   Frank    16.0    16.5   16.0 Expanded length
 #&gt; 19   Frank    16.0    16.5   16.0 Expanded length
-#&gt; 20   Frank    16.0    16.5   16.4 Expanded length</div><div class='input'>
+#&gt; 20   Frank    16.0    16.5   16.4 Expanded length</div><div class='input'> 
 <span class='co'># some need expansion but include NAs for upper values</span>
-( <span class='no'>d2b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span>),
-                    <span class='kw'>lwr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>,  <span class='fl'>15.5</span>,<span class='fl'>16</span>  ,<span class='fl'>16</span>  ,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>),
-                    <span class='kw'>upr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>  ,<span class='fl'>NA</span>  ,<span class='fl'>16.5</span>,<span class='fl'>16.5</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>),
-                    <span class='kw'>freq</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>)) )</div><div class='output co'>#&gt;      name lwr.bin upr.bin freq
+<span class='op'>(</span> <span class='va'>d2b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>name<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span><span class='op'>)</span>,
+                    lwr.bin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span>,  <span class='fl'>15.5</span>,<span class='fl'>16</span>  ,<span class='fl'>16</span>  ,<span class='fl'>17.1</span>,<span class='fl'>17.3</span><span class='op'>)</span>,
+                    upr.bin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>  ,<span class='cn'>NA</span>  ,<span class='fl'>16.5</span>,<span class='fl'>16.5</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span><span class='op'>)</span>,
+                    freq<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;      name lwr.bin upr.bin freq
 #&gt; 1 Johnson    15.0      NA    6
 #&gt; 2 Johnson    15.5      NA    4
 #&gt; 3   Jones    16.0    16.5    2
 #&gt; 4   Frank    16.0    16.5    3
 #&gt; 5   Frank    17.1    17.1    1
-#&gt; 6     Max    17.3    17.3    1</div><div class='input'><span class='fu'>expandCounts</span>(<span class='no'>d2b</span>,~<span class='no'>freq</span>,~<span class='no'>lwr.bin</span>+<span class='no'>upr.bin</span>)</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
+#&gt; 6     Max    17.3    17.3    1</div><div class='input'><span class='fu'>expandCounts</span><span class='op'>(</span><span class='va'>d2b</span>,<span class='op'>~</span><span class='va'>freq</span>,<span class='op'>~</span><span class='va'>lwr.bin</span><span class='op'>+</span><span class='va'>upr.bin</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
 #&gt; <span class='message'>  2 rows had an individual measurement.</span>
 #&gt; <span class='message'>  4 rows with multiple measurements were expanded to 15 rows of individual measurements.</span></div><div class='output co'>#&gt;       name lwr.bin upr.bin newlen         lennote
 #&gt; 1    Frank    17.1    17.1   17.1 Observed length
@@ -456,18 +475,20 @@
 #&gt; 14   Jones    16.0    16.5   16.1 Expanded length
 #&gt; 15   Frank    16.0    16.5   16.1 Expanded length
 #&gt; 16   Frank    16.0    16.5   16.3 Expanded length
-#&gt; 17   Frank    16.0    16.5   16.1 Expanded length</div><div class='input'>
+#&gt; 17   Frank    16.0    16.5   16.1 Expanded length</div><div class='input'> 
 <span class='co'># some need expansion but include NAs for upper values</span>
-( <span class='no'>d2c</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>name</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span>),
-                    <span class='kw'>lwr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>,<span class='fl'>NA</span>,  <span class='fl'>16</span>  ,<span class='fl'>16</span>  ,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>),
-                    <span class='kw'>upr.bin</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>,<span class='fl'>15.5</span>,<span class='fl'>16.5</span>,<span class='fl'>16.5</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span>),
-                    <span class='kw'>freq</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span>)) )</div><div class='output co'>#&gt;      name lwr.bin upr.bin freq
+<span class='op'>(</span> <span class='va'>d2c</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>name<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Johnson"</span>,<span class='st'>"Johnson"</span>,<span class='st'>"Jones"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Frank"</span>,<span class='st'>"Max"</span><span class='op'>)</span>,
+                    lwr.bin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>,<span class='cn'>NA</span>,  <span class='fl'>16</span>  ,<span class='fl'>16</span>  ,<span class='fl'>17.1</span>,<span class='fl'>17.3</span><span class='op'>)</span>,
+                    upr.bin<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span>,<span class='fl'>15.5</span>,<span class='fl'>16.5</span>,<span class='fl'>16.5</span>,<span class='fl'>17.1</span>,<span class='fl'>17.3</span><span class='op'>)</span>,
+                    freq<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6</span>,<span class='fl'>4</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;      name lwr.bin upr.bin freq
 #&gt; 1 Johnson      NA    15.0    6
 #&gt; 2 Johnson      NA    15.5    4
 #&gt; 3   Jones    16.0    16.5    2
 #&gt; 4   Frank    16.0    16.5    3
 #&gt; 5   Frank    17.1    17.1    1
-#&gt; 6     Max    17.3    17.3    1</div><div class='input'><span class='fu'>expandCounts</span>(<span class='no'>d2c</span>,~<span class='no'>freq</span>,~<span class='no'>lwr.bin</span>+<span class='no'>upr.bin</span>)</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
+#&gt; 6     Max    17.3    17.3    1</div><div class='input'><span class='fu'>expandCounts</span><span class='op'>(</span><span class='va'>d2c</span>,<span class='op'>~</span><span class='va'>freq</span>,<span class='op'>~</span><span class='va'>lwr.bin</span><span class='op'>+</span><span class='va'>upr.bin</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Results messages from expandCounts():</span>
 #&gt; <span class='message'>  2 rows had an individual measurement.</span>
 #&gt; <span class='message'>  4 rows with multiple measurements were expanded to 15 rows of individual measurements.</span></div><div class='output co'>#&gt;       name lwr.bin upr.bin newlen         lennote
 #&gt; 1    Frank    17.1    17.1   17.1 Observed length
@@ -487,27 +508,29 @@
 #&gt; 15   Frank    16.0    16.5   16.2 Expanded length
 #&gt; 16   Frank    16.0    16.5   16.5 Expanded length
 #&gt; 17   Frank    16.0    16.5   16.5 Expanded length</div><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>##!!##!!## Change path to where example file is and then run to demo</span>
 
 <span class='co'>## Read in datafile (note periods in names)</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='st'>"c:/aaawork/consulting/R_WiDNR/Statewide/Surveysummaries2010.csv"</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>df</span>)
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"c:/aaawork/consulting/R_WiDNR/Statewide/Surveysummaries2010.csv"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span> 
 <span class='co'>## narrow variables for simplicity</span>
-<span class='no'>df1</span> <span class='kw'>&lt;-</span> <span class='no'>df</span>[,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"County"</span>,<span class='st'>"Waterbody.Name"</span>,<span class='st'>"Survey.Year"</span>,<span class='st'>"Gear"</span>,<span class='st'>"Species"</span>,
+<span class='va'>df1</span> <span class='op'>&lt;-</span> <span class='va'>df</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"County"</span>,<span class='st'>"Waterbody.Name"</span>,<span class='st'>"Survey.Year"</span>,<span class='st'>"Gear"</span>,<span class='st'>"Species"</span>,
              <span class='st'>"Number.of.Fish"</span>,<span class='st'>"Length.or.Lower.Length.IN"</span>,<span class='st'>"Length.Upper.IN"</span>,
-             <span class='st'>"Weight.Pounds"</span>,<span class='st'>"Gender"</span>)]
+             <span class='st'>"Weight.Pounds"</span>,<span class='st'>"Gender"</span><span class='op'>)</span><span class='op'>]</span>
 <span class='co'>## Sum the count to see how many fish there should be after expansion</span>
-<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>df1</span>$<span class='no'>Number.of.Fish</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>df1</span><span class='op'>$</span><span class='va'>Number.of.Fish</span><span class='op'>)</span>
 
 <span class='co'>## Simple expansion</span>
-<span class='no'>df2</span> <span class='kw'>&lt;-</span> <span class='fu'>expandCounts</span>(<span class='no'>df1</span>,~<span class='no'>Number.of.Fish</span>)
+<span class='va'>df2</span> <span class='op'>&lt;-</span> <span class='fu'>expandCounts</span><span class='op'>(</span><span class='va'>df1</span>,<span class='op'>~</span><span class='va'>Number.of.Fish</span><span class='op'>)</span>
 
 <span class='co'>## Same expansion but include random component to lengths (thus new variable)</span>
 <span class='co'>##   also note default lprec=0.1</span>
-<span class='no'>df3</span> <span class='kw'>&lt;-</span> <span class='fu'>expandCounts</span>(<span class='no'>df1</span>,~<span class='no'>Number.of.Fish</span>,~<span class='no'>Length.or.Lower.Length.IN</span>+<span class='no'>Length.Upper.IN</span>)
+<span class='va'>df3</span> <span class='op'>&lt;-</span> <span class='fu'>expandCounts</span><span class='op'>(</span><span class='va'>df1</span>,<span class='op'>~</span><span class='va'>Number.of.Fish</span>,<span class='op'>~</span><span class='va'>Length.or.Lower.Length.IN</span><span class='op'>+</span><span class='va'>Length.Upper.IN</span><span class='op'>)</span>
 
-}</div></pre>
+<span class='op'>}</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -523,7 +546,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

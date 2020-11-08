@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
       </span>
     </div>
 
@@ -128,7 +128,7 @@
     <p>Computes the proportions-at-age (with standard errors) in a larger sample based on an age-length-key created from a subsample of ages through a two-stage random sampling design. Follows the methods in Quinn and Deriso (1999).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>alkAgeDist</span>(<span class='no'>key</span>, <span class='no'>lenA.n</span>, <span class='no'>len.n</span>)</pre>
+    <pre class="usage"><span class='fu'>alkAgeDist</span><span class='op'>(</span><span class='va'>key</span>, <span class='va'>lenA.n</span>, <span class='va'>len.n</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,27 +168,31 @@
     <p>5-Age-Length Key.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
 <p>Lai, H.-L. 1987. Optimum allocation for estimating age composition using age-length key. Fishery Bulletin, 85:179-185.</p>
 <p>Lai, H.-L. 1993. Optimum sampling design for using the age-length key to estimate age composition of a fish population. Fishery Bulletin, 92:382-388.</p>
 <p>Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code><a href='alkIndivAge.html'>alkIndivAge</a></code> and related functions for a completely different methodology. See <code><a href='https://rdrr.io/pkg/fishmethods/man/alkprop.html'>alkprop</a></code> from <span class="pkg">fishmethods</span> for the exact same methodology but with a different format for the inputs.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Example -- Even breaks for length categories</span>
-<span class='no'>WR1</span> <span class='kw'>&lt;-</span> <span class='no'>WR79</span>
+<span class='va'>WR1</span> <span class='op'>&lt;-</span> <span class='va'>WR79</span>
 <span class='co'># add length intervals (width=5)</span>
-<span class='no'>WR1</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span>(<span class='no'>WR1</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>5</span>)
+<span class='va'>WR1</span><span class='op'>$</span><span class='va'>LCat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span><span class='op'>(</span><span class='va'>WR1</span><span class='op'>$</span><span class='va'>len</span>,w<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span>
 <span class='co'># get number of fish in each length interval in the entire sample</span>
-<span class='no'>len.n</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>LCat</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR1</span>)
+<span class='va'>len.n</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>LCat</span>,data<span class='op'>=</span><span class='va'>WR1</span><span class='op'>)</span>
 <span class='co'># isolate aged sample and get number in each length interval</span>
-<span class='no'>WR1.age</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>WR1</span>, !<span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span>(<span class='no'>age</span>))
-<span class='no'>lenA.n</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>LCat</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR1.age</span>)
+<span class='va'>WR1.age</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>WR1</span>, <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>lenA.n</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>LCat</span>,data<span class='op'>=</span><span class='va'>WR1.age</span><span class='op'>)</span>
 <span class='co'># create age-length key</span>
-<span class='no'>raw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR1.age</span>)
-( <span class='no'>WR1.key</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span>(<span class='no'>raw</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>1</span>) )</div><div class='output co'>#&gt;      age
+<span class='va'>raw</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>LCat</span><span class='op'>+</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>WR1.age</span><span class='op'>)</span>
+<span class='op'>(</span> <span class='va'>WR1.key</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span><span class='op'>(</span><span class='va'>raw</span>, margin<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;      age
 #&gt; LCat           4          5          6          7          8          9
 #&gt;   35  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
 #&gt;   40  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
@@ -227,7 +231,8 @@
 #&gt;   110 0.20000000 0.20000000
 #&gt;   115 1.00000000 0.00000000</div><div class='input'>
 <span class='co'># use age-length key to estimate age distribution of all fish</span>
-<span class='fu'>alkAgeDist</span>(<span class='no'>WR1.key</span>,<span class='no'>lenA.n</span>,<span class='no'>len.n</span>)</div><div class='output co'>#&gt;   age        prop          se
+<span class='fu'>alkAgeDist</span><span class='op'>(</span><span class='va'>WR1.key</span>,<span class='va'>lenA.n</span>,<span class='va'>len.n</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   age        prop          se
 #&gt; 1   4 0.416378219 0.013206893
 #&gt; 2   5 0.167201351 0.013907259
 #&gt; 3   6 0.113882857 0.014938965
@@ -252,7 +257,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

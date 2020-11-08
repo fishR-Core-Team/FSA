@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
       </span>
     </div>
 
@@ -128,38 +128,38 @@
     <p>Computes estimates, with confidence intervals, of the population size and probability of capture from the number of fish removed in k-, 3-, or 2-passes in a closed population.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>removal</span>(
-  <span class='no'>catch</span>,
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"CarleStrub"</span>, <span class='st'>"Zippin"</span>, <span class='st'>"Seber3"</span>, <span class='st'>"Seber2"</span>, <span class='st'>"RobsonRegier2"</span>, <span class='st'>"Moran"</span>,
-    <span class='st'>"Schnute"</span>, <span class='st'>"Burnham"</span>),
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>CS.se</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Zippin"</span>, <span class='st'>"alternative"</span>),
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>just.ests</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>Tmult</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>CIMicroFish</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+    <pre class="usage"><span class='fu'>removal</span><span class='op'>(</span>
+  <span class='va'>catch</span>,
+  method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"CarleStrub"</span>, <span class='st'>"Zippin"</span>, <span class='st'>"Seber3"</span>, <span class='st'>"Seber2"</span>, <span class='st'>"RobsonRegier2"</span>, <span class='st'>"Moran"</span>,
+    <span class='st'>"Schnute"</span>, <span class='st'>"Burnham"</span><span class='op'>)</span>,
+  alpha <span class='op'>=</span> <span class='fl'>1</span>,
+  beta <span class='op'>=</span> <span class='fl'>1</span>,
+  CS.se <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Zippin"</span>, <span class='st'>"alternative"</span><span class='op'>)</span>,
+  conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  just.ests <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  Tmult <span class='op'>=</span> <span class='fl'>3</span>,
+  CIMicroFish <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for removal</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(
-  <span class='no'>object</span>,
-  <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"No"</span>, <span class='st'>"p"</span>, <span class='st'>"p1"</span>),
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>),
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parm <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"No"</span>, <span class='st'>"p"</span>, <span class='st'>"p1"</span><span class='op'>)</span>,
+  digits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"digits"</span><span class='op'>)</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for removal</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(
-  <span class='no'>object</span>,
-  <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"No"</span>, <span class='st'>"p"</span>),
-  <span class='kw'>level</span> <span class='kw'>=</span> <span class='no'>conf.level</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"digits"</span>),
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parm <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"No"</span>, <span class='st'>"p"</span><span class='op'>)</span>,
+  level <span class='op'>=</span> <span class='va'>conf.level</span>,
+  conf.level <span class='op'>=</span> <span class='cn'>NULL</span>,
+  digits <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"digits"</span><span class='op'>)</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -270,7 +270,7 @@
     <p>10-Abundance from Depletion Data.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
 <p>Carle, F.L. and M.R. Strub. 1978. A new method for estimating population size from removal data. Biometrics, 34:621-630.</p>
 <p>Cowx, I.G. 1983. Review of the methods for estimating fish population size from survey removal data. Fisheries Management, 14:67-82.</p>
 <p>Moran, P.A.P. 1951. A mathematical theory of animal trapping. Biometrika 38:307-311.</p>
@@ -283,72 +283,99 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code><a href='depletion.html'>depletion</a></code> for related functionality.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
+<p>A. Powell Wheeler, <a href='mailto:powell.wheeler@gmail.com'>powell.wheeler@gmail.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## First example -- 3 passes</span>
-<span class='no'>ct3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>77</span>,<span class='fl'>50</span>,<span class='fl'>37</span>)
+<span class='va'>ct3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>77</span>,<span class='fl'>50</span>,<span class='fl'>37</span><span class='op'>)</span>
 
 <span class='co'># Carle Strub (default) method</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>removal</span>(<span class='no'>ct3</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt;       Estimate Std. Error
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>removal</span><span class='op'>(</span><span class='va'>ct3</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       Estimate Std. Error
 #&gt; No 233.0000000 31.3578504
-#&gt; p    0.3313131  0.0666816</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>p1</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The Carle &amp; Strub (1978) K-Pass Removal Method was used.</span></div><div class='output co'>#&gt;       Estimate Std. Error
+#&gt; p    0.3313131  0.0666816</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>p1</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>The Carle &amp; Strub (1978) K-Pass Removal Method was used.</span></div><div class='output co'>#&gt;       Estimate Std. Error
 #&gt; No 233.0000000 31.3578504
-#&gt; p    0.3313131  0.0666816</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>p1</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"No"</span>)</div><div class='output co'>#&gt;    Estimate Std. Error
-#&gt; No      233   31.35785</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>p1</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"p"</span>)</div><div class='output co'>#&gt;    Estimate Std. Error
-#&gt; p 0.3313131  0.0666816</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt;        95% LCI     95% UCI
+#&gt; p    0.3313131  0.0666816</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>p1</span>,parm<span class='op'>=</span><span class='st'>"No"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    Estimate Std. Error
+#&gt; No      233   31.35785</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>p1</span>,parm<span class='op'>=</span><span class='st'>"p"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    Estimate Std. Error
+#&gt; p 0.3313131  0.0666816</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        95% LCI     95% UCI
 #&gt; No 171.5397426 294.4602574
-#&gt; p    0.2006195   0.4620067</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>p1</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"No"</span>)</div><div class='output co'>#&gt;     95% LCI  95% UCI
-#&gt; No 171.5397 294.4603</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>p1</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"p"</span>)</div><div class='output co'>#&gt;     95% LCI   95% UCI
+#&gt; p    0.2006195   0.4620067</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>p1</span>,parm<span class='op'>=</span><span class='st'>"No"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     95% LCI  95% UCI
+#&gt; No 171.5397 294.4603</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>p1</span>,parm<span class='op'>=</span><span class='st'>"p"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     95% LCI   95% UCI
 #&gt; p 0.2006195 0.4620067</div><div class='input'>
 <span class='co'># Moran method</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'>removal</span>(<span class='no'>ct3</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"Moran"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>p2</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The Moran (1951) K-Pass Removal Method was used (SEs not computed).</span></div><div class='output co'>#&gt;       Estimate
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'>removal</span><span class='op'>(</span><span class='va'>ct3</span>,method<span class='op'>=</span><span class='st'>"Moran"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>p2</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>The Moran (1951) K-Pass Removal Method was used (SEs not computed).</span></div><div class='output co'>#&gt;       Estimate
 #&gt; No 237.5965440
-#&gt; p    0.3223336</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>p2</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;    95% LCI 95% UCI
+#&gt; p    0.3223336</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>p2</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    95% LCI 95% UCI
 #&gt; No   194.7   370.9</div><div class='input'><span class='co'>#'</span>
 <span class='co'># Schnute method</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'>removal</span>(<span class='no'>ct3</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"Schnute"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>p3</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The Schnute (1983) K-Pass Removal Method w/ Non-constant Initial Catchability was used (SEs not computed).</span></div><div class='output co'>#&gt;       Estimate
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'>removal</span><span class='op'>(</span><span class='va'>ct3</span>,method<span class='op'>=</span><span class='st'>"Schnute"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>p3</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>The Schnute (1983) K-Pass Removal Method w/ Non-constant Initial Catchability was used (SEs not computed).</span></div><div class='output co'>#&gt;       Estimate
 #&gt; No 245.0955550
 #&gt; p    0.3039927
-#&gt; p1   0.3141632</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>p3</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>An upper confidence value for 'No' cannot be determined.</span></div><div class='output co'>#&gt;    95% LCI 95% UCI
+#&gt; p1   0.3141632</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>p3</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>An upper confidence value for 'No' cannot be determined.</span></div><div class='output co'>#&gt;    95% LCI 95% UCI
 #&gt; No   183.9     Inf</div><div class='input'>
 <span class='co'># Burnham method</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'>removal</span>(<span class='no'>ct3</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"Burnham"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt;       Estimate Std. Error
+<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='fu'>removal</span><span class='op'>(</span><span class='va'>ct3</span>,method<span class='op'>=</span><span class='st'>"Burnham"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       Estimate Std. Error
 #&gt; No 238.0000000 33.8404319
-#&gt; p    0.3215686  0.0673948</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>p4</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The Burnham K-Pass Removal Method (Van Deventer and Platts 1983) was used.</span></div><div class='output co'>#&gt;       Estimate Std. Error
+#&gt; p    0.3215686  0.0673948</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>p4</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>The Burnham K-Pass Removal Method (Van Deventer and Platts 1983) was used.</span></div><div class='output co'>#&gt;       Estimate Std. Error
 #&gt; No 238.0000000 33.8404319
-#&gt; p    0.3215686  0.0673948</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>p4</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"No"</span>)</div><div class='output co'>#&gt;    Estimate Std. Error
-#&gt; No      238   33.84043</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>p4</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"p"</span>)</div><div class='output co'>#&gt;    Estimate Std. Error
-#&gt; p 0.3215686  0.0673948</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt;        95% LCI     95% UCI
+#&gt; p    0.3215686  0.0673948</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>p4</span>,parm<span class='op'>=</span><span class='st'>"No"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    Estimate Std. Error
+#&gt; No      238   33.84043</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>p4</span>,parm<span class='op'>=</span><span class='st'>"p"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    Estimate Std. Error
+#&gt; p 0.3215686  0.0673948</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        95% LCI     95% UCI
 #&gt; No 171.3335366 304.6664634
-#&gt; p    0.1887992   0.4543381</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>p4</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"No"</span>)</div><div class='output co'>#&gt;     95% LCI  95% UCI
-#&gt; No 171.3335 304.6665</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>p4</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"p"</span>)</div><div class='output co'>#&gt;     95% LCI   95% UCI
+#&gt; p    0.1887992   0.4543381</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>p4</span>,parm<span class='op'>=</span><span class='st'>"No"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     95% LCI  95% UCI
+#&gt; No 171.3335 304.6665</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>p4</span>,parm<span class='op'>=</span><span class='st'>"p"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     95% LCI   95% UCI
 #&gt; p 0.1887992 0.4543381</div><div class='input'><span class='co'>## Second example -- 2 passes</span>
-<span class='no'>ct2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>77</span>,<span class='fl'>37</span>)
+<span class='va'>ct2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>77</span>,<span class='fl'>37</span><span class='op'>)</span>
 
 <span class='co'># Seber method</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'>removal</span>(<span class='no'>ct2</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"Seber2"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>p4</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>The Seber (2002) 2-Pass Removal Method was used.</span></div><div class='output co'>#&gt;       Estimate Std. Error
+<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='fu'>removal</span><span class='op'>(</span><span class='va'>ct2</span>,method<span class='op'>=</span><span class='st'>"Seber2"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>p4</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>The Seber (2002) 2-Pass Removal Method was used.</span></div><div class='output co'>#&gt;       Estimate Std. Error
 #&gt; No 148.2250000 19.0118725
-#&gt; p    0.5194805  0.0961208</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt;        95% LCI     95% UCI
+#&gt; p    0.5194805  0.0961208</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        95% LCI     95% UCI
 #&gt; No 110.9624147 185.4875853
 #&gt; p    0.3310873   0.7078737</div><div class='input'>
 
 <span class='co'>### Test if catchability differs between first sample and the other samples</span>
 <span class='co'># chi-square test statistic from  negative log-likelihoods</span>
 <span class='co'>#   from Moran and Schnute fits (from above)</span>
-<span class='no'>chi2.val</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>*(<span class='no'>p2</span>$<span class='no'>min.nlogLH</span>-<span class='no'>p3</span>$<span class='no'>min.nlogLH</span>)
+<span class='va'>chi2.val</span> <span class='op'>&lt;-</span> <span class='fl'>2</span><span class='op'>*</span><span class='op'>(</span><span class='va'>p2</span><span class='op'>$</span><span class='va'>min.nlogLH</span><span class='op'>-</span><span class='va'>p3</span><span class='op'>$</span><span class='va'>min.nlogLH</span><span class='op'>)</span>
 <span class='co'># p-value ... no significant difference</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/Chisquare.html'>pchisq</a></span>(<span class='no'>chi2.val</span>,<span class='kw'>df</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>lower.tail</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] 0.8882765</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/stats/Chisquare.html'>pchisq</a></span><span class='op'>(</span><span class='va'>chi2.val</span>,df<span class='op'>=</span><span class='fl'>1</span>,lower.tail<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.8882765</div><div class='input'>
 <span class='co'># Another LRT example ... sample 1 from Schnute (1983)</span>
-<span class='no'>ct4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>45</span>,<span class='fl'>11</span>,<span class='fl'>18</span>,<span class='fl'>8</span>)
-<span class='no'>p2a</span> <span class='kw'>&lt;-</span> <span class='fu'>removal</span>(<span class='no'>ct4</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"Moran"</span>)
-<span class='no'>p3a</span> <span class='kw'>&lt;-</span> <span class='fu'>removal</span>(<span class='no'>ct4</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"Schnute"</span>)
-<span class='no'>chi2.val</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>*(<span class='no'>p2a</span>$<span class='no'>min.nlogLH</span>-<span class='no'>p3a</span>$<span class='no'>min.nlogLH</span>)  <span class='co'># 4.74 in Schnute(1983)</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/Chisquare.html'>pchisq</a></span>(<span class='no'>chi2.val</span>,<span class='kw'>df</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>lower.tail</span><span class='kw'>=</span><span class='fl'>FALSE</span>)         <span class='co'># significant difference (catchability differs)</span></div><div class='output co'>#&gt; [1] 0.02955309</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>p3a</span>)</div><div class='output co'>#&gt;       Estimate
+<span class='va'>ct4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>45</span>,<span class='fl'>11</span>,<span class='fl'>18</span>,<span class='fl'>8</span><span class='op'>)</span>
+<span class='va'>p2a</span> <span class='op'>&lt;-</span> <span class='fu'>removal</span><span class='op'>(</span><span class='va'>ct4</span>,method<span class='op'>=</span><span class='st'>"Moran"</span><span class='op'>)</span>
+<span class='va'>p3a</span> <span class='op'>&lt;-</span> <span class='fu'>removal</span><span class='op'>(</span><span class='va'>ct4</span>,method<span class='op'>=</span><span class='st'>"Schnute"</span><span class='op'>)</span>
+<span class='va'>chi2.val</span> <span class='op'>&lt;-</span> <span class='fl'>2</span><span class='op'>*</span><span class='op'>(</span><span class='va'>p2a</span><span class='op'>$</span><span class='va'>min.nlogLH</span><span class='op'>-</span><span class='va'>p3a</span><span class='op'>$</span><span class='va'>min.nlogLH</span><span class='op'>)</span>  <span class='co'># 4.74 in Schnute(1983)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/Chisquare.html'>pchisq</a></span><span class='op'>(</span><span class='va'>chi2.val</span>,df<span class='op'>=</span><span class='fl'>1</span>,lower.tail<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>         <span class='co'># significant difference (catchability differs)</span>
+</div><div class='output co'>#&gt; [1] 0.02955309</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>p3a</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       Estimate
 #&gt; No 123.5879686
 #&gt; p    0.1890032
 #&gt; p1   0.3641131</div><div class='input'>
@@ -356,15 +383,16 @@
 <span class='co'>### Using lapply() to use removal() on many different groups</span>
 <span class='co'>###   with the removals in a single variable ("long format")</span>
 <span class='co'>## create a dummy data frame</span>
-<span class='no'>lake</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Ash Tree"</span>,<span class='st'>"Bark"</span>,<span class='st'>"Clay"</span>),<span class='kw'>each</span><span class='kw'>=</span><span class='fl'>5</span>))
-<span class='no'>year</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"2010"</span>,<span class='st'>"2011"</span>,<span class='st'>"2010"</span>,<span class='st'>"2011"</span>,<span class='st'>"2010"</span>,<span class='st'>"2011"</span>),<span class='kw'>times</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span>)))
-<span class='no'>pass</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>))
-<span class='no'>catch</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>57</span>,<span class='fl'>34</span>,<span class='fl'>65</span>,<span class='fl'>34</span>,<span class='fl'>12</span>,<span class='fl'>54</span>,<span class='fl'>26</span>,<span class='fl'>9</span>,<span class='fl'>54</span>,<span class='fl'>27</span>,<span class='fl'>67</span>,<span class='fl'>34</span>,<span class='fl'>68</span>,<span class='fl'>35</span>,<span class='fl'>12</span>)
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>lake</span>,<span class='no'>year</span>,<span class='no'>pass</span>,<span class='no'>catch</span>)
+<span class='va'>lake</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Ash Tree"</span>,<span class='st'>"Bark"</span>,<span class='st'>"Clay"</span><span class='op'>)</span>,each<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>year</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"2010"</span>,<span class='st'>"2011"</span>,<span class='st'>"2010"</span>,<span class='st'>"2011"</span>,<span class='st'>"2010"</span>,<span class='st'>"2011"</span><span class='op'>)</span>,times<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>pass</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>catch</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>57</span>,<span class='fl'>34</span>,<span class='fl'>65</span>,<span class='fl'>34</span>,<span class='fl'>12</span>,<span class='fl'>54</span>,<span class='fl'>26</span>,<span class='fl'>9</span>,<span class='fl'>54</span>,<span class='fl'>27</span>,<span class='fl'>67</span>,<span class='fl'>34</span>,<span class='fl'>68</span>,<span class='fl'>35</span>,<span class='fl'>12</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>lake</span>,<span class='va'>year</span>,<span class='va'>pass</span>,<span class='va'>catch</span><span class='op'>)</span>
 
 <span class='co'>## create a variable that indicates each different group</span>
-<span class='no'>d</span>$<span class='no'>group</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>d</span>,<span class='fu'><a href='https://rdrr.io/r/base/interaction.html'>interaction</a></span>(<span class='no'>lake</span>,<span class='no'>year</span>))
-<span class='no'>d</span></div><div class='output co'>#&gt;        lake year pass catch         group
+<span class='va'>d</span><span class='op'>$</span><span class='va'>group</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span><span class='va'>d</span>,<span class='fu'><a href='https://rdrr.io/r/base/interaction.html'>interaction</a></span><span class='op'>(</span><span class='va'>lake</span>,<span class='va'>year</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>d</span>
+</div><div class='output co'>#&gt;        lake year pass catch         group
 #&gt; 1  Ash Tree 2010    1    57 Ash Tree.2010
 #&gt; 2  Ash Tree 2010    2    34 Ash Tree.2010
 #&gt; 3  Ash Tree 2011    1    65 Ash Tree.2011
@@ -380,18 +408,19 @@
 #&gt; 13     Clay 2011    1    68     Clay.2011
 #&gt; 14     Clay 2011    2    35     Clay.2011
 #&gt; 15     Clay 2011    3    12     Clay.2011</div><div class='input'><span class='co'>## split the catch by the different groups (creates a list of catch vectors)</span>
-<span class='no'>ds</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span>(<span class='no'>d</span>$<span class='no'>catch</span>,<span class='no'>d</span>$<span class='no'>group</span>)
+<span class='va'>ds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/split.html'>split</a></span><span class='op'>(</span><span class='va'>d</span><span class='op'>$</span><span class='va'>catch</span>,<span class='va'>d</span><span class='op'>$</span><span class='va'>group</span><span class='op'>)</span>
 <span class='co'>## apply removal() to each catch vector (i.e., different group)</span>
-<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>ds</span>,<span class='no'>removal</span>,<span class='kw'>just.ests</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>res</span>,<span class='kw'>check.names</span><span class='kw'>=</span><span class='fl'>FALSE</span>)))
+<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>ds</span>,<span class='va'>removal</span>,just.ests<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>res</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>res</span>,check.names<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'>## get rownames from above and split into separate columns</span>
-<span class='no'>nms</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>res</span>),<span class='st'>"\\."</span>)))
-<span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span>(<span class='no'>nms</span>,<span class='st'>"dimnames"</span>) <span class='kw'>&lt;-</span> <span class='kw'>NULL</span>
-<span class='no'>fnl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>nms</span>,<span class='no'>res</span>)
+<span class='va'>nms</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/strsplit.html'>strsplit</a></span><span class='op'>(</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/rownames.html'>rownames</a></span><span class='op'>(</span><span class='va'>res</span><span class='op'>)</span>,<span class='st'>"\\."</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>nms</span>,<span class='st'>"dimnames"</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>NULL</span>
+<span class='va'>fnl</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>nms</span>,<span class='va'>res</span><span class='op'>)</span>
 <span class='co'>## put names together with values</span>
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>fnl</span>) <span class='kw'>&lt;-</span> <span class='kw'>NULL</span>
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>fnl</span>)[<span class='fl'>1</span>:<span class='fl'>2</span>] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Lake"</span>,<span class='st'>"Year"</span>)
-<span class='no'>fnl</span></div><div class='output co'>#&gt;       Lake Year  No     No.se    No.LCI   No.UCI         p       p.se     p.LCI
+<span class='fu'><a href='https://tibble.tidyverse.org/reference/rownames.html'>rownames</a></span><span class='op'>(</span><span class='va'>fnl</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>NULL</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>fnl</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Lake"</span>,<span class='st'>"Year"</span><span class='op'>)</span>
+<span class='va'>fnl</span>
+</div><div class='output co'>#&gt;       Lake Year  No     No.se    No.LCI   No.UCI         p       p.se     p.LCI
 #&gt; 1 Ash Tree 2010 130 26.108558  78.82817 181.1718 0.4482759 0.12120594 0.2107166
 #&gt; 2     Bark 2010  95  4.247687  86.67469 103.3253 0.5894040 0.06418406 0.4636055
 #&gt; 3     Clay 2010 130 17.446161  95.80615 164.1938 0.5233161 0.10171976 0.3239490
@@ -410,14 +439,16 @@
 <span class='co'>###   with the removals in several variables ("wide format")</span>
 <span class='co'>## create a dummy data frame (just reshaped from above as</span>
 <span class='co'>## an example; -5 to ignore the group variable from above)</span>
-<span class='no'>d1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/reshape.html'>reshape</a></span>(<span class='no'>d</span>[,-<span class='fl'>5</span>],<span class='kw'>timevar</span><span class='kw'>=</span><span class='st'>"pass"</span>,<span class='kw'>idvar</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lake"</span>,<span class='st'>"year"</span>),<span class='kw'>direction</span><span class='kw'>=</span><span class='st'>"wide"</span>)
+<span class='va'>d1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/reshape.html'>reshape</a></span><span class='op'>(</span><span class='va'>d</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>5</span><span class='op'>]</span>,timevar<span class='op'>=</span><span class='st'>"pass"</span>,idvar<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lake"</span>,<span class='st'>"year"</span><span class='op'>)</span>,direction<span class='op'>=</span><span class='st'>"wide"</span><span class='op'>)</span>
 <span class='co'>## apply restore() to each row of only the catch data</span>
-<span class='no'>res1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span>(<span class='no'>d1</span>[,<span class='fl'>3</span>:<span class='fl'>5</span>],<span class='kw'>MARGIN</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>FUN</span><span class='kw'>=</span><span class='no'>removal</span>,<span class='kw'>method</span><span class='kw'>=</span><span class='st'>"CarleStrub"</span>,<span class='kw'>just.ests</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: 'NA's removed from 'catch' to continue.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'NA's removed from 'catch' to continue.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'NA's removed from 'catch' to continue.</span></div><div class='input'><span class='no'>res1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>res1</span>,<span class='kw'>check.names</span><span class='kw'>=</span><span class='fl'>FALSE</span>)))
+<span class='va'>res1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>d1</span><span class='op'>[</span>,<span class='fl'>3</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span>,MARGIN<span class='op'>=</span><span class='fl'>1</span>,FUN<span class='op'>=</span><span class='va'>removal</span>,method<span class='op'>=</span><span class='st'>"CarleStrub"</span>,just.ests<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'NA's removed from 'catch' to continue.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'NA's removed from 'catch' to continue.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: 'NA's removed from 'catch' to continue.</span></div><div class='input'><span class='va'>res1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>res1</span>,check.names<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'>## add the grouping information to the results</span>
-<span class='no'>fnl1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>d1</span>[,<span class='fl'>1</span>:<span class='fl'>2</span>],<span class='no'>res1</span>)
+<span class='va'>fnl1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>d1</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>,<span class='va'>res1</span><span class='op'>)</span>
 <span class='co'>## put names together with values</span>
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>fnl1</span>) <span class='kw'>&lt;-</span> <span class='kw'>NULL</span>
-<span class='no'>fnl1</span></div><div class='output co'>#&gt;       lake year  No     No.se    No.LCI   No.UCI         p       p.se     p.LCI
+<span class='fu'><a href='https://tibble.tidyverse.org/reference/rownames.html'>rownames</a></span><span class='op'>(</span><span class='va'>fnl1</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='cn'>NULL</span>
+<span class='va'>fnl1</span>
+</div><div class='output co'>#&gt;       lake year  No     No.se    No.LCI   No.UCI         p       p.se     p.LCI
 #&gt; 1 Ash Tree 2010 130 26.108558  78.82817 181.1718 0.4482759 0.12120594 0.2107166
 #&gt; 2 Ash Tree 2011 121  5.771511 109.68805 132.3120 0.5577889 0.06016508 0.4398676
 #&gt; 3     Bark 2010  95  4.247687  86.67469 103.3253 0.5894040 0.06418406 0.4636055
@@ -447,7 +478,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

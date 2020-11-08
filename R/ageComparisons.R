@@ -19,10 +19,10 @@
 #'   \item R Number of age estimates given in \code{formula}.
 #'   \item PercAgree The percentage of fish for which all age estimates perfectly agree.
 #'   \item ASD The average (across all fish) standard deviation of ages within a fish.
-#'   \item ACV The average (across all fish) coefficient of variation of ages within a fish using the \bold{mean} as the divisor. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
+#'   \item ACV The average (across all fish) coefficient of variation of ages within a fish using the \bold{mean} as the divisor. See the \href{http://derekogle.com/IFAR/}{IFAR chapter} for calculation details.
 #'   \item ACV2 The average (across all fish) coefficient of variation of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2 or \code{show.prec2=TRUE}.
 #'   \item AAD The average (across all fish) absolute deviation of ages within a fish.
-#'   \item APE The average (across all fish) percent error of ages within a fish using the \bold{mean} as the divisor. See the \href{http://derekogle.com/IFAR}{IFAR chapter} for calculation details.
+#'   \item APE The average (across all fish) percent error of ages within a fish using the \bold{mean} as the divisor. See the \href{http://derekogle.com/IFAR/}{IFAR chapter} for calculation details.
 #'   \item APE2 The average (across all fish) percent error of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2 or \code{show.prec2=TRUE}.
 #'   \item AD The average (across all fish) index of precision (D).
 #' }
@@ -63,7 +63,7 @@
 #'
 #' @seealso See \code{\link{ageBias}} for computation of the full age agreement table, along with tests and plots of age bias.
 #' 
-#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Beamish, R.J. and D.A. Fournier. 1981. A method for comparing the precision of a set of age determinations. Canadian Journal of Fisheries and Aquatic Sciences 38:982-983. [Was (is?) available from http://www.pac.dfo-mpo.gc.ca/science/people-gens/beamish/PDF_files/compareagecjfas1981.pdf.]
 #'
@@ -420,7 +420,7 @@ summary.agePrec <- function(object,what=c("precision","difference",
 #'
 #' @section IFAR Chapter: 4-Age Comparisons. \bold{Note that \code{plot} has changed since IFAR was published. Some of the original functionality is in \code{\link{plotAB}}.}
 #'
-#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Campana, S.E., M.C. Annand, and J.I. McMillan. 1995. Graphical and statistical methods for determining the consistency of age determinations. Transactions of the American Fisheries Society 124:131-138. [Was (is?) available from http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf.]
 #'
