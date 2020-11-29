@@ -176,9 +176,15 @@ hist.formula <- function(formula,data=NULL,main="",right=FALSE,
     }
     # Handle ylims
     if (is.null(ymax)) {
-      for (i in seq_len(num)) {  # find highest count on all histograms
-        ymax[i] <- max(graphics::hist(DF.split[[i]],right=right,plot=FALSE,
-                                      warn.unused=FALSE,breaks=breaks,...)$counts)
+      for (i in seq_len(num)) {  # find highest count/density on all histograms
+        tmph <- graphics::hist(DF.split[[i]],right=right,plot=FALSE,
+                               warn.unused=FALSE,breaks=breaks,...)
+        # prep for user using freq=FALSE ... fixes #62
+        tmp <- list(...)
+        if ("freq" %in% names(tmp)) {
+          if (tmp$freq) ymax[i] <- max(tmph$counts)
+          else ymax[i] <- max(tmph$density)
+        } else ymax[i] <- max(tmph$counts)
       }
       if (same.ylim) { ymax <- rep(max(ymax),length(ymax)) }
     } else {

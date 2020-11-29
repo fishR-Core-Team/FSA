@@ -1,5 +1,5 @@
 # FSA 0.8.32 Ongoing
-
+* `hist.formula()`: Fixed bug with y-axes when `freq=FALSE` is used (fixes [#62](https://github.com/droglenc/FSA/issues/62); thanks to @carlostorrescubila).
 
 # FSA 0.8.31 7-Nov20
 * Now using roxygen v7.1.1.
