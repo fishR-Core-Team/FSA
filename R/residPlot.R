@@ -49,93 +49,61 @@
 #' @keywords hplot models
 #'
 #' @examples
-#' # create year factor variable & reduce number of years for visual simplicity
+#' # create year factor variable
 #' Mirex$fyear <- factor(Mirex$year)
-#' Mirex2 <- filterD(Mirex,fyear %in% c(1977,1992))
+#' Mirex$cyear <- as.character(Mirex$year)
+#' Mirex$cspecies <- as.character(Mirex$species)
 #' 
-#' ## Indicator variable regression with two factors
-#' lm1 <- lm(mirex~weight*fyear*species,data=Mirex2)
-#' # defaults
-#' residPlot(lm1)
-#' # remove the histogram
-#' residPlot(lm1,inclHist=FALSE)
-#' # add the loess line
-#' residPlot(lm1,loess=TRUE,inclHist=FALSE)
-#' # modify colors used
-#' residPlot(lm1,col="rainbow",inclHist=FALSE)
-#' # use only one point type -- notice that all points are of same type
-#' residPlot(lm1,pch=16,inclHist=FALSE)
-#' # use only one point and one color (might as well not use legend also)
-#' residPlot(lm1,pch=16,col="black",legend=FALSE,inclHist=FALSE)
-#' # can accomplish same thing just by removing the legend
-#' residPlot(lm1,legend=FALSE,inclHist=FALSE)
-#' # modify the reference line
-#' residPlot(lm1,col.ref="blue",lwd.ref=5,inclHist=FALSE)
-#' # include model in the title
-#' residPlot(lm1,main="MODEL")
-#' # use Studentized residuals
-#' residPlot(lm1,resid.type="studentized",inclHist=FALSE)
-#' # use Standardized residuals
-#' residPlot(lm1,resid.type="standardized",inclHist=FALSE)
-#'
-#' ## Indicator variable regression with same two factors but in different order
-#' ##   (notice use of colors and symbols)
-#' lm1a <- lm(mirex~weight*species*fyear,data=Mirex2)
-#' residPlot(lm1a)
-#'
-#' ## Indicator variable regression with only one factor
-#' lm2 <- lm(mirex~weight*fyear,data=Mirex)
-#' residPlot(lm2)
-#' residPlot(lm2,inclHist=FALSE)
-#' residPlot(lm2,inclHist=FALSE,pch=19)
-#' residPlot(lm2,inclHist=FALSE,pch=19,col="black")
-#' residPlot(lm2,inclHist=FALSE,legend=FALSE)
-#' residPlot(lm2,inclHist=FALSE,pch=2,col="red",legend=FALSE)
-#'
-#' ## Indicator variable regression (assuming same slope)
-#' lm3 <- lm(mirex~weight+fyear,data=Mirex)
-#' residPlot(lm3)
-#'
-#' ## Simple linear regression
-#' lm4 <- lm(mirex~weight,data=Mirex)
-#' residPlot(lm4)
-#'
 #' ## One-way ANOVA
-#' lm5 <- lm(mirex~fyear,data=Mirex)
-#' # default (uses boxplots)
-#' residPlot(lm5)
-#' # use points rather than boxplot
-#' residPlot(lm5,bp=FALSE)
+#' aov1 <- lm(mirex~fyear,data=Mirex)
+#' residPlot(aov1)
 #'
 #' ## Two-Way ANOVA
-#' lm6 <- lm(mirex~species*fyear,data=Mirex)
-#' # default (uses boxplots)
-#' residPlot(lm6)
-#' # No boxplots
-#' residPlot(lm6,bp=FALSE)
-#'
-#' ## Examples showing outlier detection
-#' x <- c(runif(100))
-#' y <- c(7,runif(99))
-#' lma <- lm(y~x)
-#' residPlot(lma)
-#' # with studentized residuals
-#' residPlot(lma,resid.type="studentized")
-#' # multiple outliers
-#' y <- c(7,runif(98),-5)
-#' lmb <- lm(y~x)
-#' residPlot(lmb)
-#' # check that NAs are handled properly ... label should be 100
-#' y <- c(NA,NA,runif(97),7)
-#' lmc <- lm(y~x)
-#' residPlot(lmc)
+#' aov2 <- lm(mirex~species*fyear,data=Mirex)
+#' residPlot(aov2)
 #' 
-#' ## Nonlinear regression
-#' # from first example in nls()
+#' ## Simple linear regression
+#' slr1 <- lm(mirex~weight,data=Mirex)
+#' residPlot(slr1)
+#' residPlot(slr1,loess=TRUE,main="MODEL")
+#' 
+#' ## Indicator variable regression with only one factor
+#' ivr1 <- lm(mirex~weight*fyear,data=Mirex)
+#' residPlot(ivr1)
+#' residPlot(ivr1,inclHist=FALSE,pch=19)
+#' residPlot(ivr1,inclHist=FALSE,pch=19,col="black")
+#' residPlot(ivr1,legend=FALSE,loess=TRUE)
+#'
+#' ## Indicator variable regression (assuming same slope)
+#' ivr2 <- lm(mirex~weight+fyear,data=Mirex)
+#' residPlot(ivr2,legend=FALSE,loess=TRUE)
+#' 
+#' ## Indicator variable regression with two factors
+#' ##    Reduce number of years for visual simplicity
+#' Mirex2 <- filterD(Mirex,fyear %in% c(1977,1992))
+#' 
+#' ivr3 <- lm(mirex~weight*fyear*species,data=Mirex2)
+#' residPlot(ivr3)
+#' residPlot(ivr3,loess=TRUE,legend=FALSE)
+#'
+#' ## IVR w/ factors in different order (notice use of colors and symbols)
+#' ivr4 <- lm(mirex~weight*species*fyear,data=Mirex2)
+#' residPlot(ivr4)
+#'
+#'
+#' ## Nonlinear regression ... from first example in nls()
 #' DNase1 <- subset(DNase,Run==1)
 #' fm1DNase1 <- nls(density~SSlogis(log(conc),Asym,xmid,scal),DNase1)
 #' residPlot(fm1DNase1)
 #' residPlot(fm1DNase1,resid.type="standardized")
+#'
+#'
+#' ## Examples showing outlier detection
+#' x <- c(runif(100))
+#' y <- c(7,runif(98),-5)
+#' lma <- lm(y~x)
+#' residPlot(lma)
+#' residPlot(lma,resid.type="studentized")
 #' 
 #' @rdname residPlot
 #' @export
@@ -226,16 +194,17 @@ iResidPlotIVR1 <- function(object,legend,cex.leg,box.lty.leg,
     iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
                        loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
     # Plots points w/ different colors & points
-    for (i in seq_along(levels(f1))) {
-      fv.obs <- fv[unclass(f1)==i]
-      r.obs <- r[unclass(f1)==i]
+    levs.f1 <- unique(f1)
+    for (i in seq_along(levs.f1)) {
+      fv.obs <- fv[f1==levs.f1[i]]
+      r.obs <- r[f1==levs.f1[i]]
       graphics::points(fv.obs,r.obs,col=col[i],pch=pch[i])
     }     # end for i
     ## add outlier test if asked for
     if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
     ### Prepare and place the legend
     if (leg$do.legend) {
-      graphics::legend(x=leg$x,y=leg$y,legend=levels(f1),col=col,pch=pch,
+      graphics::legend(x=leg$x,y=leg$y,legend=levs.f1,col=col,pch=pch,
                        cex=cex.leg,box.lty=box.lty.leg)
       graphics::box()
     }
@@ -268,22 +237,26 @@ iResidPlotIVR2 <- function(object,legend,cex.leg,box.lty.leg,
     f1 <- object$mf[,object$EFactPos[1]]
     f2 <- object$mf[,object$EFactPos[2]]
     # find number of levels of each factor
-    num.f1 <- length(levels(f1))
-    num.f2 <- length(levels(f2))
+    levs.f1 <- unique(f1)
+    num.f1 <- length(levs.f1)
+    levs.f2 <- unique(f2)
+    num.f2 <- length(levs.f2)
     # Handle colors, pchs, ltys -- one for each level of f1 factor unless only one color is given
     col <- iFitPlotClrs2(f1,col,"rich")
     pch <- iFitPlotPchs2(f2,pch)
     ### Plot the points
     # Makes room for legend
-    ifelse(leg$do.legend,xlim <- c(min(fv),max(fv)+0.3*(max(fv)-min(fv))), xlim <- range(fv)) 
+    ifelse(leg$do.legend,
+           xlim <- c(min(fv),max(fv)+0.3*(max(fv)-min(fv))),
+           xlim <- range(fv)) 
     # Creates plot schematic -- no points or lines
     iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
                        loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
-    for (i in seq_along(levels(f1))) {
-      for (j in seq_along(levels(f2))) {
+    for (i in seq_along(levs.f1)) {
+      for (j in seq_along(levs.f2)) {
         # Plots points w/ different colors & points
-        fv.obs <- fv[unclass(f1)==i & unclass(f2)==j]
-        r.obs <- r[unclass(f1)==i & unclass(f2)==j]
+        fv.obs <- fv[f1==levs.f1[i] & f2==levs.f2[j]]
+        r.obs <- r[f1==levs.f1[i] & f2==levs.f2[j]]
         graphics::points(fv.obs,r.obs,col=col[i],pch=pch[j])
       }   # end for j
     }     # end for i
@@ -293,7 +266,9 @@ iResidPlotIVR2 <- function(object,legend,cex.leg,box.lty.leg,
     if (leg$do.legend) {
       lcol <- rep(col,each=num.f2)
       lpch <- rep(pch,times=num.f1)
-      levs <- levels(f1:f2)
+      levs <- expand.grid(levs.f1,levs.f2,stringsAsFactors=FALSE,
+                          KEEP.OUT.ATTRS=FALSE)
+      levs <- paste(levs[,1],levs[,2],sep =":")
       graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,pch=lpch,
                        cex=cex.leg,box.lty=box.lty.leg)
       graphics::box()

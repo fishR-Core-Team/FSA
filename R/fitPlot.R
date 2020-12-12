@@ -63,82 +63,58 @@
 #' @examples
 #' # create year as a factor variable
 #' Mirex$fyear <- factor(Mirex$year)
-#' # reduce number of years for visual simplicity
+#' # reduce number of years for visual simplicity for iVRs
 #' Mirex2 <- filterD(Mirex,fyear %in% c(1977,1992))
-#'
-#' ## Indicator variable regression with two factors
-#' lm1 <- lm(mirex~weight*fyear*species,data=Mirex2)
-#' fitPlot(lm1)
-#' fitPlot(lm1,ylim=c(0,0.8),legend="topleft")
 #' 
-#' ## Indicator variable regression with two factors (but different orders)
-#' lm1r <- lm(mirex~fyear*weight*species,data=Mirex2)
-#' fitPlot(lm1r)
-#' lm1r2 <- lm(mirex~fyear*species*weight,data=Mirex2)
-#' fitPlot(lm1r2)
-#' lm1r3 <- lm(mirex~species*fyear*weight,data=Mirex2)
-#' fitPlot(lm1r3)
-#' 
-#' ## Indicator variable regression with one factor (also showing confidence bands)
-#' lm2 <- lm(mirex~weight*fyear,data=Mirex2)
-#' fitPlot(lm2,legend="topleft")
-#' fitPlot(lm2,legend="topleft",interval="confidence")
-#' fitPlot(lm2,legend="topleft",col="rich",pch=18,lty=1)
-#' 
-#' ## Indicator variable regression with one factor (as first variable)
-#' lm2r <- lm(mirex~fyear*weight,data=Mirex2)
-#' fitPlot(lm2r,legend="topleft",interval="both")
-#' 
-#' ## Indicator variable regression with one factor (assuming parallel lines)
-#' lm3 <- lm(mirex~weight+fyear,data=Mirex2)
-#' fitPlot(lm3,legend="topleft")
-#' fitPlot(lm3,legend="topleft",col="default")
-#'
-#' ## Simple linear regression (showing color change and confidence and prediction bands)
-#' lm4 <- lm(mirex~weight,data=Mirex)
-#' fitPlot(lm4,pch=8,col.pt="red")
-#' fitPlot(lm4,col.mdl="blue")
-#' fitPlot(lm4,interval="both")
-#'
 #' ## One-way ANOVA
-#' lm5 <- lm(mirex~fyear,data=Mirex)
-#' fitPlot(lm5)
-#' fitPlot(lm5,col="red")
-#' fitPlot(lm5,col.ci="red")
+#' aov1 <- lm(mirex~fyear,data=Mirex)
+#' fitPlot(aov1)
 #'
 #' ## Two-way ANOVA
-#' lm6 <- lm(mirex~fyear*species,data=Mirex)
+#' aov2 <- lm(mirex~fyear*species,data=Mirex)
 #' # interaction plots and a color change
-#' fitPlot(lm6,legend="bottomleft")
-#' fitPlot(lm6,change.order=TRUE)
-#' fitPlot(lm6,col="jet")
+#' fitPlot(aov2,legend="bottomleft")
+#' fitPlot(aov2,change.order=TRUE)
 #' # main effects plots
-#' fitPlot(lm6,which="species")
-#' fitPlot(lm6,which="fyear")
+#' fitPlot(aov2,which="species")
+#' fitPlot(aov2,which="fyear")
 #'
+#' ## Simple linear regression (showing color change and confidence and prediction bands)
+#' slr1 <- lm(mirex~weight,data=Mirex)
+#' fitPlot(slr1)
+#' fitPlot(slr1,interval="both")
+#'
+#' ## Indicator variable regression with one factor (also showing confidence bands)
+#' ivr1 <- lm(mirex~weight*fyear,data=Mirex2)
+#' fitPlot(ivr1,legend="topleft")
+#' fitPlot(ivr1,legend="topleft",interval="confidence")
+#' 
+#' ## Indicator variable regression with one factor (assuming parallel lines)
+#' ivr2 <- lm(mirex~weight+species,data=Mirex2)
+#' fitPlot(ivr2,legend="topleft")
+#'
+#' ## Indicator variable regression with two factors
+#' ivr3 <- lm(mirex~weight*fyear*species,data=Mirex2)
+#' fitPlot(ivr3,ylim=c(0,0.8),legend="topleft")
+#' 
 #' ## Polynomial regression
-#' lm7 <- lm(mirex~weight+I(weight^2),data=Mirex)
-#' fitPlot(lm7,interval="both")
+#' poly1 <- lm(mirex~weight+I(weight^2),data=Mirex)
+#' fitPlot(poly1,interval="both")
 #'
 #' ## Non-linear model example
 #' lr.sv <- list(B1=6,B2=7.2,B3=-1.5)
 #' nl1 <- nls(cells~B1/(1+exp(B2+B3*days)),start=lr.sv,data=Ecoli)
 #' fitPlot(nl1,Ecoli,cex.main=0.7,lwd=2)
-#' fitPlot(nl1,Ecoli,xlab="Day",ylab="Cellsx10^6/ml",plot.pts=FALSE)
 #'
 #' ## Logistic regression example
 #' ## NASA space shuttle o-ring failures -- from graphics package
-#' fail <- factor(c(2,2,2,2,1,1,1,1,1,1,2,1,2,1,1,1,1,2,1,1,1,1,1),
-#' levels = 1:2, labels = c("no","yes"))
-#' temperature <- c(53,57,58,63,66,67,67,67,68,69,70,70,70,70,72,73,75,75,76,76,78,79,81)
-#' d <- data.frame(fail,temperature)
+#' d <- data.frame(fail=factor(c(2,2,2,2,1,1,1,1,1,1,2,1,2,1,1,1,1,2,1,1,1,1,1),
+#'                             levels = 1:2, labels = c("no","yes")),
+#'                 temperature <- c(53,57,58,63,66,67,67,67,68,69,70,70,70,70,
+#'                                  72,73,75,75,76,76,78,79,81))
 #' glm1 <- glm(fail~temperature,data=d,family="binomial")
 #' fitPlot(glm1)
-#' fitPlot(glm1,breaks=seq(52,82,2))
 #' fitPlot(glm1,yaxis1.ticks=c(0,1),yaxis1.lbls=c(0,1))
-#' # changing the size of the y-axis labels
-#' par(cex.axis=1.5,cex.lab=1.5)
-#' fitPlot(glm1)
 #'
 #' @rdname fitPlot
 #' @export
@@ -234,8 +210,10 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   # extract the factor variable(s) from the 2nd position
   f1 <- object$mf[,object$EFactPos[1]]
   # find number of levels of each factor
-  num.f1 <- length(levels(f1))
-  # Handle colors, pchs, ltys -- one for each level of f1 factor unless only one color is given
+  levs.f1 <- unique(f1)
+  num.f1 <- length(levs.f1)
+  # Handle colors, pchs, ltys -- one for each level of f1 factor unless
+  # only one color is given
   col <- iFitPlotClrs2(f1,col,"rich")
   pch <- iFitPlotPchs2(f1,pch)
   lty <- iFitPlotLtys2(f1,lty)
@@ -247,16 +225,16 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   graphics::plot(y~x,col="white",xlab=xlab,ylab=ylab,main=main,...)
   if (plot.pts) {
     # Plots points w/ different colors & points
-    for (i in 1:num.f1) graphics::points(x[f1==levels(f1)[i]],
-                                         y[f1==levels(f1)[i]],
+    for (i in 1:num.f1) graphics::points(x[f1==levs.f1[i]],
+                                         y[f1==levs.f1[i]],
                                          col=col[i],pch=pch[i])
   }
   for (i in 1:num.f1) {
   # Make the predictions at a bunch of values of x
-    x.obs <- x[f1==levels(f1)[i]]
-    y.obs <- y[f1==levels(f1)[i]] 
+    x.obs <- x[f1==levs.f1[i]]
+    y.obs <- y[f1==levs.f1[i]] 
     xvals <- seq(min(x.obs),max(x.obs),length.out=200)
-    newdf <- data.frame(xvals,as.factor(rep(levels(f1)[i],length(xvals))))
+    newdf <- data.frame(xvals,as.factor(rep(levs.f1[i],length(xvals))))
     names(newdf) <- names(object$mf)[c(object$ENumPos,object$EFactPos)]
     predC <- stats::predict(object$mdl,newdf,interval="confidence")
     # Plot just the line if no intervals called for
@@ -276,10 +254,9 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   # Prepare list of col,pch,lty for legend
   leg <- iLegendHelp(legend)
   if (leg$do.legend) {
-    levs <- levels(f1)
-    if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=levs,col=col,
+    if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=levs.f1,col=col,
                                    pch=pch,lty=lty,cex=cex.leg,box.lty=box.lty.leg)
-    else graphics::legend(x=leg$x,y=leg$y,legend=levs,col=col,lty=lty,
+    else graphics::legend(x=leg$x,y=leg$y,legend=levs.f1,col=col,lty=lty,
                           cex=cex.leg,box.lty=box.lty.leg)
     graphics::box()
   }  # nocov end
@@ -298,8 +275,10 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   f1 <- object$mf[,object$EFactPos[1]]
   f2 <- object$mf[,object$EFactPos[2]]
   # find number of levels of each factor
-  num.f1 <- length(levels(f1))
-  num.f2 <- length(levels(f2))
+  levs.f1 <- unique(f1)
+  levs.f2 <- unique(f2)
+  num.f1 <- length(levs.f1)
+  num.f2 <- length(levs.f2)
   # Handle cols, pchs, lty1 -- one for each level of f1 factor unless only one color is given
   col <- iFitPlotClrs2(f1,col,"rich")
   pch <- iFitPlotPchs2(f2,pch)
@@ -312,8 +291,8 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
     for (i in 1:num.f1) {
       for (j in 1:num.f2) {
         # Plots points w/ different colors & points
-        x.obs <- x[f1==levels(f1)[i] & f2==levels(f2)[j]]
-        y.obs <- y[f1==levels(f1)[i] & f2==levels(f2)[j]] 
+        x.obs <- x[f1==levs.f1[i] & f2==levs.f2[j]]
+        y.obs <- y[f1==levs.f1[i] & f2==levs.f2[j]] 
         graphics::points(x.obs,y.obs,col=col[i],pch=pch[j])
       }
     }
@@ -321,13 +300,13 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   for (i in 1:num.f1) {
     for (j in 1:num.f2) {
       # Plots points w/ different colors & points
-      x.obs <- x[f1==levels(f1)[i] & f2==levels(f2)[j]]
-      y.obs <- y[f1==levels(f1)[i] & f2==levels(f2)[j]] 
+      x.obs <- x[f1==levs.f1[i] & f2==levs.f2[j]]
+      y.obs <- y[f1==levs.f1[i] & f2==levs.f2[j]] 
       # Make the predictions at a bunch of values of x
       xvals <- seq(min(x.obs),max(x.obs),length.out=200)
       newdf <- data.frame(xvals,
-                          as.factor(rep(levels(f1)[i],length(xvals))),
-                          as.factor(rep(levels(f2)[j],length(xvals))))
+                          as.factor(rep(levs.f1[i],length(xvals))),
+                          as.factor(rep(levs.f2[j],length(xvals))))
       names(newdf) <- names(object$mf)[c(object$ENumPos,object$EFactPos)]
       pred <- stats::predict(object$mdl,newdf,interval="confidence")
       # Plot just the line if no intervals called for
@@ -351,7 +330,9 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
     lcol <- rep(col,each=num.f2)
     lpch <- rep(pch,times=num.f1)
     llty <- rep(lty,times=num.f1)
-    levs <- levels(f1:f2)
+    levs <- expand.grid(levs.f1,levs.f2,stringsAsFactors=FALSE,
+                        KEEP.OUT.ATTRS=FALSE)
+    levs <- paste(levs[,1],levs[,2],sep =":")
     if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,
                                    pch=lpch,lty=llty,cex=cex.leg,box.lty=box.lty.leg)
     else graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,
@@ -557,7 +538,7 @@ iCIfp1 <- function(x,conf.level) {
 iCIfp <- function(conf.level) function(x) iCIfp1(x,conf.level)
 
 iFitPlotClrs2 <- function(var,col,defpal) {
-  num.grps <- length(levels(var))
+  num.grps <- length(unique(var))
   if (num.grps==0) num.grps <- 1   # a hack for when which= is used in two-way ANOVA
   if (length(col)==1) {
     if (col %in% paletteChoices()) col <- chooseColors(col,num.grps)
@@ -570,7 +551,7 @@ iFitPlotClrs2 <- function(var,col,defpal) {
 }
 
 iFitPlotPchs2 <- function(var,pch) {
-  num.grps <- length(levels(var))
+  num.grps <- length(unique(var))
   if (length(pch)>1 & num.grps <= length(pch)) pch <- pch[1:num.grps]
   else if (length(pch)==1 & num.grps>1) pch <- rep(pch,num.grps)
   else if (length(pch)<num.grps) {
@@ -581,7 +562,7 @@ iFitPlotPchs2 <- function(var,pch) {
 }
 
 iFitPlotLtys2 <- function(var,lty) {
-  num.grps <- length(levels(var))
+  num.grps <- length(unique(var))
   if (length(lty)>1 & num.grps <= length(lty)) lty <- lty[1:num.grps]
   else if (length(lty)==1& num.grps>1) lty <- rep(lty,num.grps)
   else if (length(lty)<num.grps) {

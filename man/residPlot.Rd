@@ -196,93 +196,61 @@ If the user chooses to add a legend without identifying coordinates for the uppe
 This function is meant to allow newbie students the ability to easily construct residual plots for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions. The plots can be constructed by submitting a saved linear model to this function which allows students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.
 }
 \examples{
-# create year factor variable & reduce number of years for visual simplicity
+# create year factor variable
 Mirex$fyear <- factor(Mirex$year)
-Mirex2 <- filterD(Mirex,fyear \%in\% c(1977,1992))
-
-## Indicator variable regression with two factors
-lm1 <- lm(mirex~weight*fyear*species,data=Mirex2)
-# defaults
-residPlot(lm1)
-# remove the histogram
-residPlot(lm1,inclHist=FALSE)
-# add the loess line
-residPlot(lm1,loess=TRUE,inclHist=FALSE)
-# modify colors used
-residPlot(lm1,col="rainbow",inclHist=FALSE)
-# use only one point type -- notice that all points are of same type
-residPlot(lm1,pch=16,inclHist=FALSE)
-# use only one point and one color (might as well not use legend also)
-residPlot(lm1,pch=16,col="black",legend=FALSE,inclHist=FALSE)
-# can accomplish same thing just by removing the legend
-residPlot(lm1,legend=FALSE,inclHist=FALSE)
-# modify the reference line
-residPlot(lm1,col.ref="blue",lwd.ref=5,inclHist=FALSE)
-# include model in the title
-residPlot(lm1,main="MODEL")
-# use Studentized residuals
-residPlot(lm1,resid.type="studentized",inclHist=FALSE)
-# use Standardized residuals
-residPlot(lm1,resid.type="standardized",inclHist=FALSE)
-
-## Indicator variable regression with same two factors but in different order
-##   (notice use of colors and symbols)
-lm1a <- lm(mirex~weight*species*fyear,data=Mirex2)
-residPlot(lm1a)
-
-## Indicator variable regression with only one factor
-lm2 <- lm(mirex~weight*fyear,data=Mirex)
-residPlot(lm2)
-residPlot(lm2,inclHist=FALSE)
-residPlot(lm2,inclHist=FALSE,pch=19)
-residPlot(lm2,inclHist=FALSE,pch=19,col="black")
-residPlot(lm2,inclHist=FALSE,legend=FALSE)
-residPlot(lm2,inclHist=FALSE,pch=2,col="red",legend=FALSE)
-
-## Indicator variable regression (assuming same slope)
-lm3 <- lm(mirex~weight+fyear,data=Mirex)
-residPlot(lm3)
-
-## Simple linear regression
-lm4 <- lm(mirex~weight,data=Mirex)
-residPlot(lm4)
+Mirex$cyear <- as.character(Mirex$year)
+Mirex$cspecies <- as.character(Mirex$species)
 
 ## One-way ANOVA
-lm5 <- lm(mirex~fyear,data=Mirex)
-# default (uses boxplots)
-residPlot(lm5)
-# use points rather than boxplot
-residPlot(lm5,bp=FALSE)
+aov1 <- lm(mirex~fyear,data=Mirex)
+residPlot(aov1)
 
 ## Two-Way ANOVA
-lm6 <- lm(mirex~species*fyear,data=Mirex)
-# default (uses boxplots)
-residPlot(lm6)
-# No boxplots
-residPlot(lm6,bp=FALSE)
+aov2 <- lm(mirex~species*fyear,data=Mirex)
+residPlot(aov2)
 
-## Examples showing outlier detection
-x <- c(runif(100))
-y <- c(7,runif(99))
-lma <- lm(y~x)
-residPlot(lma)
-# with studentized residuals
-residPlot(lma,resid.type="studentized")
-# multiple outliers
-y <- c(7,runif(98),-5)
-lmb <- lm(y~x)
-residPlot(lmb)
-# check that NAs are handled properly ... label should be 100
-y <- c(NA,NA,runif(97),7)
-lmc <- lm(y~x)
-residPlot(lmc)
+## Simple linear regression
+slr1 <- lm(mirex~weight,data=Mirex)
+residPlot(slr1)
+residPlot(slr1,loess=TRUE,main="MODEL")
 
-## Nonlinear regression
-# from first example in nls()
+## Indicator variable regression with only one factor
+ivr1 <- lm(mirex~weight*fyear,data=Mirex)
+residPlot(ivr1)
+residPlot(ivr1,inclHist=FALSE,pch=19)
+residPlot(ivr1,inclHist=FALSE,pch=19,col="black")
+residPlot(ivr1,legend=FALSE,loess=TRUE)
+
+## Indicator variable regression (assuming same slope)
+ivr2 <- lm(mirex~weight+fyear,data=Mirex)
+residPlot(ivr2,legend=FALSE,loess=TRUE)
+
+## Indicator variable regression with two factors
+##    Reduce number of years for visual simplicity
+Mirex2 <- filterD(Mirex,fyear \%in\% c(1977,1992))
+
+ivr3 <- lm(mirex~weight*fyear*species,data=Mirex2)
+residPlot(ivr3)
+residPlot(ivr3,loess=TRUE,legend=FALSE)
+
+## IVR w/ factors in different order (notice use of colors and symbols)
+ivr4 <- lm(mirex~weight*species*fyear,data=Mirex2)
+residPlot(ivr4)
+
+
+## Nonlinear regression ... from first example in nls()
 DNase1 <- subset(DNase,Run==1)
 fm1DNase1 <- nls(density~SSlogis(log(conc),Asym,xmid,scal),DNase1)
 residPlot(fm1DNase1)
 residPlot(fm1DNase1,resid.type="standardized")
+
+
+## Examples showing outlier detection
+x <- c(runif(100))
+y <- c(7,runif(98),-5)
+lma <- lm(y~x)
+residPlot(lma)
+residPlot(lma,resid.type="studentized")
 
 }
 \seealso{

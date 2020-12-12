@@ -5,6 +5,9 @@
 ## Raw data files
 ^data-raw$
 
+## Tests of plotting functions
+^tests/plottests/
+
 ## Miscellaneous webpage and package files
 README.md
 LICENSE
