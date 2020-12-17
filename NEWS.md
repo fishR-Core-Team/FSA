@@ -1,7 +1,7 @@
 # FSA 0.8.32 Ongoing
 * Removed Travis-CI and appveyor.
 * No longer using coveralls for coverage statistics. Changed to codecov.io.
-* Added GitHub Action for CI/CD (used `usethis::use_github_action_check_full()`).
+* Added GitHub Action for CI/CD (used `usethis::use_github_action_check_standard()`).
 * Added GitHub Action for pkgdown (used `usethis::use_github_action("pkgdown")`).
 * Added GitHub Action for code coverage with codecov.io.
 * Moved a bunch of  plotting examples in the documentation to `tests\plottests\` to speed up testing. The `tests\plottests\` was added to `.Rbuildignore` .
