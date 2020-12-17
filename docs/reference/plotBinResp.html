@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -244,39 +244,24 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## NASA space shuttle o-ring failures -- from graphics package</span>
-<span class='va'>fail</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>,
-levels <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"no"</span>,<span class='st'>"yes"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>temperature</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>53</span>,<span class='fl'>57</span>,<span class='fl'>58</span>,<span class='fl'>63</span>,<span class='fl'>66</span>,<span class='fl'>67</span>,<span class='fl'>67</span>,<span class='fl'>67</span>,<span class='fl'>68</span>,<span class='fl'>69</span>,<span class='fl'>70</span>,<span class='fl'>70</span>,<span class='fl'>70</span>,<span class='fl'>70</span>,<span class='fl'>72</span>,<span class='fl'>73</span>,<span class='fl'>75</span>,<span class='fl'>75</span>,<span class='fl'>76</span>,<span class='fl'>76</span>,<span class='fl'>78</span>,<span class='fl'>79</span>,<span class='fl'>81</span><span class='op'>)</span>
-<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>temperature</span>,<span class='va'>fail</span>,fail2<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>fail</span>,levels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"yes"</span>,<span class='st'>"no"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>temperature<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>53</span>,<span class='fl'>57</span>,<span class='fl'>58</span>,<span class='fl'>63</span>,<span class='fl'>66</span>,<span class='fl'>67</span>,<span class='fl'>67</span>,<span class='fl'>67</span>,<span class='fl'>68</span>,<span class='fl'>69</span>,<span class='fl'>70</span>,<span class='fl'>70</span>,<span class='fl'>70</span>,<span class='fl'>70</span>,
+                              <span class='fl'>72</span>,<span class='fl'>73</span>,<span class='fl'>75</span>,<span class='fl'>75</span>,<span class='fl'>76</span>,<span class='fl'>76</span>,<span class='fl'>78</span>,<span class='fl'>79</span>,<span class='fl'>81</span><span class='op'>)</span>,
+                fail<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>,
+                            levels<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>,labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"no"</span>,<span class='st'>"yes"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Default plot (using formula notation)</span>
 <span class='fu'>plotBinResp</span><span class='op'>(</span><span class='va'>fail</span><span class='op'>~</span><span class='va'>temperature</span>,data<span class='op'>=</span><span class='va'>d</span><span class='op'>)</span>
-</div><div class='img'><img src='plotBinResp-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotBinResp</span><span class='op'>(</span><span class='va'>fail2</span><span class='op'>~</span><span class='va'>temperature</span>,data<span class='op'>=</span><span class='va'>d</span><span class='op'>)</span>
-</div><div class='img'><img src='plotBinResp-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Controlling where proportions are computed with a sequence in breaks</span>
+</div><div class='img'><img src='plotBinResp-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>## Controlling where proportions are computed</span>
 <span class='fu'>plotBinResp</span><span class='op'>(</span><span class='va'>fail</span><span class='op'>~</span><span class='va'>temperature</span>,data<span class='op'>=</span><span class='va'>d</span>,breaks<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>50</span>,<span class='fl'>85</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='plotBinResp-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotBinResp</span><span class='op'>(</span><span class='va'>fail</span><span class='op'>~</span><span class='va'>temperature</span>,data<span class='op'>=</span><span class='va'>d</span>,breaks<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
 </div><div class='img'><img src='plotBinResp-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Controlling where proportions are computed with an integer in breaks</span>
-<span class='fu'>plotBinResp</span><span class='op'>(</span><span class='va'>fail</span><span class='op'>~</span><span class='va'>temperature</span>,data<span class='op'>=</span><span class='va'>d</span>,breaks<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
-</div><div class='img'><img src='plotBinResp-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Controlling where proportions are computed at each value of x</span>
-<span class='fu'>plotBinResp</span><span class='op'>(</span><span class='va'>fail</span><span class='op'>~</span><span class='va'>temperature</span>,data<span class='op'>=</span><span class='va'>d</span>,breaks<span class='op'>=</span><span class='cn'>NULL</span><span class='op'>)</span>
-</div><div class='img'><img src='plotBinResp-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Don't plot points, just plot proportions</span>
 <span class='fu'>plotBinResp</span><span class='op'>(</span><span class='va'>fail</span><span class='op'>~</span><span class='va'>temperature</span>,data<span class='op'>=</span><span class='va'>d</span>,plot.pts<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='plotBinResp-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Don't plot proportions, just plot points</span>
-<span class='fu'>plotBinResp</span><span class='op'>(</span><span class='va'>fail</span><span class='op'>~</span><span class='va'>temperature</span>,data<span class='op'>=</span><span class='va'>d</span>,plot.p<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='plotBinResp-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Change points colors, and eliminate transparency</span>
-<span class='fu'>plotBinResp</span><span class='op'>(</span><span class='va'>fail</span><span class='op'>~</span><span class='va'>temperature</span>,data<span class='op'>=</span><span class='va'>d</span>,col.pt<span class='op'>=</span><span class='st'>"red"</span>,transparency<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='img'><img src='plotBinResp-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Remove the right y-axis</span>
-<span class='fu'>plotBinResp</span><span class='op'>(</span><span class='va'>fail</span><span class='op'>~</span><span class='va'>temperature</span>,data<span class='op'>=</span><span class='va'>d</span>,yaxis2.show<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='plotBinResp-9.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='img'><img src='plotBinResp-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Change left y-axis ticks</span>
 <span class='fu'>plotBinResp</span><span class='op'>(</span><span class='va'>fail</span><span class='op'>~</span><span class='va'>temperature</span>,data<span class='op'>=</span><span class='va'>d</span>,yaxis1.ticks<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>,yaxis1.lbls<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='plotBinResp-10.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='img'><img src='plotBinResp-5.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -240,66 +240,41 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Make an example age-length key</span>
-<span class='va'>WR.age</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>WR79</span>, <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>WR.age</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Subset.html'>filterD</a></span><span class='op'>(</span><span class='va'>WR79</span>, <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>WR.age</span><span class='op'>$</span><span class='va'>LCat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span><span class='op'>(</span><span class='va'>WR.age</span><span class='op'>$</span><span class='va'>len</span>,w<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span>
 <span class='va'>raw</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>LCat</span><span class='op'>+</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>WR.age</span><span class='op'>)</span>
-<span class='op'>(</span> <span class='va'>WR.key</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span><span class='op'>(</span><span class='va'>raw</span>, margin<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>)</span>
+<span class='va'>WR.key</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span><span class='op'>(</span><span class='va'>raw</span>, margin<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='fl'>3</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;      age
-#&gt; LCat           4          5          6          7          8          9
-#&gt;   35  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
-#&gt;   40  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
-#&gt;   45  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
-#&gt;   50  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
-#&gt;   55  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
-#&gt;   60  0.60000000 0.40000000 0.00000000 0.00000000 0.00000000 0.00000000
-#&gt;   65  0.00000000 1.00000000 0.00000000 0.00000000 0.00000000 0.00000000
-#&gt;   70  0.00000000 1.00000000 0.00000000 0.00000000 0.00000000 0.00000000
-#&gt;   75  0.00000000 0.88888889 0.11111111 0.00000000 0.00000000 0.00000000
-#&gt;   80  0.00000000 0.25000000 0.75000000 0.00000000 0.00000000 0.00000000
-#&gt;   85  0.00000000 0.00000000 0.90909091 0.09090909 0.00000000 0.00000000
-#&gt;   90  0.00000000 0.00000000 0.26315789 0.63157895 0.10526316 0.00000000
-#&gt;   95  0.00000000 0.00000000 0.05882353 0.70588235 0.17647059 0.00000000
-#&gt;   100 0.00000000 0.00000000 0.00000000 0.55555556 0.16666667 0.27777778
-#&gt;   105 0.00000000 0.00000000 0.00000000 0.28571429 0.42857143 0.14285714
-#&gt;   110 0.00000000 0.00000000 0.00000000 0.20000000 0.20000000 0.20000000
-#&gt;   115 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
-#&gt;      age
-#&gt; LCat          10         11
-#&gt;   35  0.00000000 0.00000000
-#&gt;   40  0.00000000 0.00000000
-#&gt;   45  0.00000000 0.00000000
-#&gt;   50  0.00000000 0.00000000
-#&gt;   55  0.00000000 0.00000000
-#&gt;   60  0.00000000 0.00000000
-#&gt;   65  0.00000000 0.00000000
-#&gt;   70  0.00000000 0.00000000
-#&gt;   75  0.00000000 0.00000000
-#&gt;   80  0.00000000 0.00000000
-#&gt;   85  0.00000000 0.00000000
-#&gt;   90  0.00000000 0.00000000
-#&gt;   95  0.05882353 0.00000000
-#&gt;   100 0.00000000 0.00000000
-#&gt;   105 0.14285714 0.00000000
-#&gt;   110 0.20000000 0.20000000
-#&gt;   115 1.00000000 0.00000000</div><div class='input'>
+#&gt; LCat      4     5     6     7     8     9    10    11
+#&gt;   35  1.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000
+#&gt;   40  1.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000
+#&gt;   45  1.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000
+#&gt;   50  1.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000
+#&gt;   55  1.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000
+#&gt;   60  0.600 0.400 0.000 0.000 0.000 0.000 0.000 0.000
+#&gt;   65  0.000 1.000 0.000 0.000 0.000 0.000 0.000 0.000
+#&gt;   70  0.000 1.000 0.000 0.000 0.000 0.000 0.000 0.000
+#&gt;   75  0.000 0.889 0.111 0.000 0.000 0.000 0.000 0.000
+#&gt;   80  0.000 0.250 0.750 0.000 0.000 0.000 0.000 0.000
+#&gt;   85  0.000 0.000 0.909 0.091 0.000 0.000 0.000 0.000
+#&gt;   90  0.000 0.000 0.263 0.632 0.105 0.000 0.000 0.000
+#&gt;   95  0.000 0.000 0.059 0.706 0.176 0.000 0.059 0.000
+#&gt;   100 0.000 0.000 0.000 0.556 0.167 0.278 0.000 0.000
+#&gt;   105 0.000 0.000 0.000 0.286 0.429 0.143 0.143 0.000
+#&gt;   110 0.000 0.000 0.000 0.200 0.200 0.200 0.200 0.200
+#&gt;   115 0.000 0.000 0.000 0.000 0.000 0.000 1.000 0.000</div><div class='input'>
 <span class='co'>## Various visualizations of the age-length key</span>
 <span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"barplot"</span><span class='op'>)</span>
 </div><div class='img'><img src='alkPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"barplot"</span>,pal<span class='op'>=</span><span class='st'>"gray"</span><span class='op'>)</span>
 </div><div class='img'><img src='alkPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"barplot"</span>,showLegend<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='img'><img src='alkPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"area"</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"area"</span>,showLegend<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"area"</span>,pal<span class='op'>=</span><span class='st'>"gray"</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"lines"</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"lines"</span>,pal<span class='op'>=</span><span class='st'>"gray"</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"lines"</span>,showLegend<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"splines"</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"splines"</span>,span<span class='op'>=</span><span class='fl'>0.2</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"splines"</span>,pal<span class='op'>=</span><span class='st'>"gray"</span>,showLegend<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"bubble"</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"bubble"</span>,grid<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"bubble"</span>,grid<span class='op'>=</span><span class='st'>"blue"</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"bubble"</span>,grid<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/grDevices/rgb.html'>rgb</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0.2</span><span class='op'>)</span>,col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/grDevices/rgb.html'>rgb</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-16.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='img'><img src='alkPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"lines"</span><span class='op'>)</span>
+</div><div class='img'><img src='alkPlot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"splines"</span><span class='op'>)</span>
+</div><div class='img'><img src='alkPlot-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"splines"</span>,span<span class='op'>=</span><span class='fl'>0.2</span><span class='op'>)</span>
+</div><div class='img'><img src='alkPlot-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"bubble"</span><span class='op'>)</span>
+</div><div class='img'><img src='alkPlot-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"bubble"</span>,col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/grDevices/rgb.html'>rgb</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='alkPlot-9.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

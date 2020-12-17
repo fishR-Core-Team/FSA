@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -95,13 +95,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -122,9 +122,27 @@
       <small>Source: <a href='https://github.com/droglenc/FSA/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="fsa-0832-ongoing" class="section level1">
+<h1 class="page-header" data-toc-text="0.8.32">
+<a href="#fsa-0832-ongoing" class="anchor"></a>FSA 0.8.32 Ongoing<small> Unreleased </small>
+</h1>
+<ul>
+<li>Removed Travis-CI and appveyor.</li>
+<li>Added GitHub Actions for CI/CD (used <code><a href="https://usethis.r-lib.org/reference/use_github_action.html">usethis::use_github_action_check_full()</a></code>).</li>
+<li>Moved a bunch of plotting examples in the documentation to <code>tests\plottests\</code> to speed up testing. The <code>tests\plottests\</code> was added to <code>.Rbuildignore</code> .</li>
+<li>
+<code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Fixed bug with y-axes when <code>freq=FALSE</code> is used (fixes <a href="https://github.com/droglenc/FSA/issues/62"><a href='https://github.com/droglenc/FSA/issues/62'>#62</a></a>; thanks to <a href='https://github.com/carlostorrescubila'>@carlostorrescubila</a>).</li>
+<li>
+<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Fixed bugs with handling models that used character rather than factor variables.</li>
+<li>
+<code><a href="../reference/psdPlot.html">psdPlot()</a></code>: Modified. Fixed bug with box around the plot when <code>add.psd=FALSE</code>. Added 5% expansion to top of y-axis so that bars did not run into the box.</li>
+<li>
+<code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Fixed bugs with handling models that used character rather than factor variables.</li>
+</ul>
+</div>
     <div id="fsa-0831-7-nov20" class="section level1">
 <h1 class="page-header" data-toc-text="0.8.31">
-<a href="#fsa-0831-7-nov20" class="anchor"></a>FSA 0.8.31 7-Nov20<small> Unreleased </small>
+<a href="#fsa-0831-7-nov20" class="anchor"></a>FSA 0.8.31 7-Nov20<small> 2020-11-08 </small>
 </h1>
 <ul>
 <li>Now using roxygen v7.1.1.</li>
