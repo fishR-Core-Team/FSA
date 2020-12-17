@@ -5,7 +5,6 @@
 * Added GitHub Action for pkgdown (used `usethis::use_github_action("pkgdown")`).
 * Added GitHub Action for code coverage with codecov.io.
 * Moved a bunch of  plotting examples in the documentation to `tests\plottests\` to speed up testing. The `tests\plottests\` was added to `.Rbuildignore` .
-* `bootCase()`: Added `\dontrun` to the examples because of automatic check issues.
 * `hist.formula()`: Modified. Fixed bug with y-axes when `freq=FALSE` is used (fixes [#62](https://github.com/droglenc/FSA/issues/62); thanks to @carlostorrescubila).
 * `fitPlot()`: Modified. Fixed bugs with handling models that used character rather than factor variables.
 * `psdPlot()`: Modified. Fixed bug with box around the plot when `add.psd=FALSE`. Added 5% expansion to top of y-axis so that bars did not run into the box.
