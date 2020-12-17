@@ -2,7 +2,7 @@
 [![DOI](https://zenodo.org/badge/18348400.svg)](https://zenodo.org/badge/latestdoi/18348400)
 [![CRAN Version](http://www.r-pkg.org/badges/version/FSA)](http://www.r-pkg.org/pkg/FSA)
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
-
+[![R-CMD-check](https://github.com/droglenc/FSA/workflows/R-CMD-check/badge.svg)](https://github.com/droglenc/FSA/actions)
 [![Coverage Status](https://img.shields.io/coveralls/droglenc/FSA.svg)](https://coveralls.io/r/droglenc/FSA?branch=master)
 [![CRAN RStudio mirror downloads rate](http://cranlogs.r-pkg.org/badges/FSA)
 ![CRAN RSTudio mirror downloads total](http://cranlogs.r-pkg.org/badges/grand-total/FSA)](http://www.r-pkg.org/pkg/FSA)

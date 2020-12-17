@@ -21,3 +21,4 @@ cran-comments.md
 ## Logo
 inst/sticker/
 man/figures/logo.png
+^\.github$
