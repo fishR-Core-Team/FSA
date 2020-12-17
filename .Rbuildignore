@@ -11,11 +11,8 @@
 ## Miscellaneous webpage and package files
 README.md
 LICENSE
-.travis.yml
-^\.travis\.yml$
 cran-comments.md
 ^cran-comments
-^appveyor\.yml$
 ^_pkgdown\.yml
 ^vignettes
 ^docs
