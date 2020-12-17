@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame of 2369 observations on the following 3 variables:</p><dl'>
+    <p>A data frame of 2369 observations on the following 3 variables:</p><dl>
    <dt>ID</dt><dd><p>Unique fish identifiers</p></dd>
    <dt>len</dt><dd><p>Length of an individual fish</p></dd>
    <dt>age</dt><dd><p>Age of an individual fish</p></dd>
@@ -155,10 +155,12 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>WR79</span>)</div><div class='output co'>#&gt; 'data.frame':	2369 obs. of  3 variables:
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>WR79</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 'data.frame':	2369 obs. of  3 variables:
 #&gt;  $ ID : int  1 2 3 4 5 6 7 8 9 10 ...
 #&gt;  $ len: int  37 37 39 37 37 35 42 42 42 44 ...
-#&gt;  $ age: int  NA NA NA NA 4 4 NA NA NA NA ...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>WR79</span>)</div><div class='output co'>#&gt;   ID len age
+#&gt;  $ age: int  NA NA NA NA 4 4 NA NA NA NA ...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>WR79</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   ID len age
 #&gt; 1  1  37  NA
 #&gt; 2  2  37  NA
 #&gt; 3  3  39  NA
@@ -166,14 +168,16 @@
 #&gt; 5  5  37   4
 #&gt; 6  6  35   4</div><div class='input'>
 <span class='co'>## Extract the aged sample</span>
-<span class='no'>WR79.aged</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>WR79</span>,!<span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span>(<span class='no'>age</span>))
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>WR79.aged</span>)</div><div class='output co'>#&gt; 'data.frame':	203 obs. of  3 variables:
+<span class='va'>WR79.aged</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>WR79</span>,<span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>WR79.aged</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 'data.frame':	203 obs. of  3 variables:
 #&gt;  $ ID : int  5 6 21 32 40 57 59 70 94 117 ...
 #&gt;  $ len: int  37 35 42 43 40 41 44 46 45 47 ...
 #&gt;  $ age: int  4 4 4 4 4 4 4 4 4 4 ...</div><div class='input'>
 <span class='co'>## Extract the length sample</span>
-<span class='no'>WR79.length</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>WR79</span>,<span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span>(<span class='no'>age</span>))
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>WR79.length</span>)</div><div class='output co'>#&gt; 'data.frame':	2166 obs. of  3 variables:
+<span class='va'>WR79.length</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>WR79</span>,<span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>WR79.length</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 'data.frame':	2166 obs. of  3 variables:
 #&gt;  $ ID : int  1 2 3 4 7 8 9 10 11 12 ...
 #&gt;  $ len: int  37 37 39 37 42 42 42 44 44 43 ...
 #&gt;  $ age: int  NA NA NA NA NA NA NA NA NA NA ...</div><div class='input'>
@@ -193,7 +197,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

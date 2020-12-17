@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame of 403 observations on the following 2 variables:</p><dl'>
+    <p>A data frame of 403 observations on the following 2 variables:</p><dl>
    <dt>tl</dt><dd><p>Measured total lengths (in inches)</p></dd>
    <dt>age</dt><dd><p>Ages assigned from examination of otoliths</p></dd>
  
@@ -155,18 +155,21 @@
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Used in <code>vbFuns</code>, <code>vbStarts</code>, and <code>nlsTracePlot</code> examples. Also see <code><a href='https://rdrr.io/pkg/FSAdata/man/SpotVA2.html'>SpotVA2</a></code> in <span class="pkg">FSAdata</span> for related data.</p></div>
+    <div class='dont-index'><p>Used in <code><a href='growthModels.html'>vbFuns</a></code>, <code><a href='vbStarts.html'>vbStarts</a></code>, and <code><a href='nlsTracePlot.html'>nlsTracePlot</a></code> examples. Also see <code><a href='https://rdrr.io/pkg/FSAdata/man/SpotVA2.html'>SpotVA2</a></code> in <span class="pkg">FSAdata</span> for related data.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>SpotVA1</span>)</div><div class='output co'>#&gt; 'data.frame':	403 obs. of  2 variables:
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>SpotVA1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 'data.frame':	403 obs. of  2 variables:
 #&gt;  $ tl : num  6.5 6.3 7.4 7.1 7.7 7.1 7.9 7.3 7.5 7.3 ...
-#&gt;  $ age: int  0 0 0 0 0 0 0 0 0 0 ...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>SpotVA1</span>)</div><div class='output co'>#&gt;    tl age
+#&gt;  $ age: int  0 0 0 0 0 0 0 0 0 0 ...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>SpotVA1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    tl age
 #&gt; 1 6.5   0
 #&gt; 2 6.3   0
 #&gt; 3 7.4   0
 #&gt; 4 7.1   0
 #&gt; 5 7.7   0
-#&gt; 6 7.1   0</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>)</div><div class='img'><img src='SpotVA1-1.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt; 6 7.1   0</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span><span class='op'>)</span>
+</div><div class='img'><img src='SpotVA1-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -183,7 +186,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

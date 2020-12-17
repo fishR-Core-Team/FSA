@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -128,21 +128,21 @@
     <p>Convenience function for calculating (traditional) PSD-X and (incremental) PSD X-Y values for all Gabelhouse lengths and increments thereof.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>psdCalc</span>(
-  <span class='no'>formula</span>,
-  <span class='no'>data</span>,
-  <span class='no'>species</span>,
-  <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mm"</span>, <span class='st'>"cm"</span>, <span class='st'>"in"</span>),
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"multinomial"</span>, <span class='st'>"binomial"</span>),
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>addLens</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>addNames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>justAdds</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"traditional"</span>, <span class='st'>"incremental"</span>, <span class='st'>"none"</span>),
-  <span class='kw'>drop0Est</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>showIntermediate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>0</span>
-)</pre>
+    <pre class="usage"><span class='fu'>psdCalc</span><span class='op'>(</span>
+  <span class='va'>formula</span>,
+  <span class='va'>data</span>,
+  <span class='va'>species</span>,
+  units <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mm"</span>, <span class='st'>"cm"</span>, <span class='st'>"in"</span><span class='op'>)</span>,
+  method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"multinomial"</span>, <span class='st'>"binomial"</span><span class='op'>)</span>,
+  conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  addLens <span class='op'>=</span> <span class='cn'>NULL</span>,
+  addNames <span class='op'>=</span> <span class='cn'>NULL</span>,
+  justAdds <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  what <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"all"</span>, <span class='st'>"traditional"</span>, <span class='st'>"incremental"</span>, <span class='st'>"none"</span><span class='op'>)</span>,
+  drop0Est <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  showIntermediate <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  digits <span class='op'>=</span> <span class='fl'>0</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,7 +157,7 @@
     </tr>
     <tr>
       <th>species</th>
-      <td><p>A string that contains the species name for which Gabelhouse lengths existSee <code>psdVal</code> for details.</p></td>
+      <td><p>A string that contains the species name for which Gabelhouse lengths existSee <code><a href='psdVal.html'>psdVal</a></code> for details.</p></td>
     </tr>
     <tr>
       <th>units</th>
@@ -165,7 +165,7 @@
     </tr>
     <tr>
       <th>method</th>
-      <td><p>A character that identifies the confidence interval method to useSee details in <code>psdCI</code>.</p></td>
+      <td><p>A character that identifies the confidence interval method to useSee details in <code><a href='psdCI.html'>psdCI</a></code>.</p></td>
     </tr>
     <tr>
       <th>conf.level</th>
@@ -173,11 +173,11 @@
     </tr>
     <tr>
       <th>addLens</th>
-      <td><p>A numeric vector that contains minimum lengths for additional categoriesSee <code>psdVal</code> for details.</p></td>
+      <td><p>A numeric vector that contains minimum lengths for additional categoriesSee <code><a href='psdVal.html'>psdVal</a></code> for details.</p></td>
     </tr>
     <tr>
       <th>addNames</th>
-      <td><p>A string vector that contains names for the additional lengths added with <code>addLens</code>See <code>psdVal</code> for details.</p></td>
+      <td><p>A string vector that contains names for the additional lengths added with <code>addLens</code>See <code><a href='psdVal.html'>psdVal</a></code> for details.</p></td>
     </tr>
     <tr>
       <th>justAdds</th>
@@ -207,7 +207,7 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Computes the (traditional) PSD-X and (incremental) PSD X-Y values, with associated confidence intervals, for each Gabelhouse lengthAll PSD-X and PSD X-Y values are printed if <code>what="all"</code> (DEFAULT), only PSD-X values are printed if <code>what="traditional"</code>, only PSD X-Y values are printed if <code>what="incremental"</code>, and nothing is printed (but the matrix is still returned) if <code>what="none"</code>.</p>
-<p>Confidence intervals can be computed with either the multinomial (Default) or binomial distribution as set in <code>method</code>See details in <code>psdCI</code> for more information.</p>
+<p>Confidence intervals can be computed with either the multinomial (Default) or binomial distribution as set in <code>method</code>See details in <code><a href='psdCI.html'>psdCI</a></code> for more information.</p>
     <h2 class="hasAnchor" id="testing"><a class="anchor" href="#testing"></a>Testing</h2>
 
     <p>Point estimate calculations match those constructed "by hand."</p>
@@ -216,23 +216,27 @@
     <p>6-Size Structure.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H2016<a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
 <p>Guy, C.S., R.M. Neumann, and D.W. Willis2006New terminology for proportional stock density (PSD) and relative stock density (RSD): proportional size structure (PSS)Fisheries 31:86-87  [Was (is?) from http://pubstorage.sdstate.edu/wfs/415-F.pdf.]</p>
 <p>Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson2006Proportional size distribution (PSD): A further refinement of population size structure index terminologyFisheries 32:348[Was (is?) from http://pubstorage.sdstate.edu/wfs/450-F.pdf.]</p>
 <p>Neumann, R. M. and Allen, M. S2007Size structure. In Guy, C. S. and Brown, M. L., editors, Analysis and Interpretation of Freshwater Fisheries Data, Chapter 9, pages 375-421. American Fisheries Society, Bethesda, MD.</p>
 <p>Willis, D.W., B.R. Murphy, and C.S. Guy1993Stock density indices: development, use, and limitationsReviews in Fisheries Science 1:203-222[Was (is?) from http://web1.cnre.vt.edu/murphybr/web/Readings/Willis%20et%20al.pdf.]</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code>psdVal</code>, <code>psdPlot</code>, <code>psdAdd</code>, <code>PSDlit</code>, <code>tictactoe</code>, <code>lencat</code>, and <code>rcumsum</code> for related functionality.</p></div>
+    <div class='dont-index'><p>See <code><a href='psdVal.html'>psdVal</a></code>, <code><a href='psdPlot.html'>psdPlot</a></code>, <code><a href='psdAdd.html'>psdAdd</a></code>, <code><a href='PSDlit.html'>PSDlit</a></code>, <code><a href='tictactoe.html'>tictactoe</a></code>, <code><a href='lencat.html'>lencat</a></code>, and <code><a href='rcumsum.html'>rcumsum</a></code> for related functionality.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Random length data</span>
 <span class='co'># suppose this is yellow perch to the nearest mm</span>
-<span class='no'>yepdf</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>yepmm</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>,<span class='kw'>mean</span><span class='kw'>=</span><span class='fl'>125</span>,<span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>15</span>),
-                      <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>50</span>,<span class='kw'>mean</span><span class='kw'>=</span><span class='fl'>200</span>,<span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>25</span>),
-                      <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>,<span class='kw'>mean</span><span class='kw'>=</span><span class='fl'>300</span>,<span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>40</span>)),<span class='fl'>0</span>),
-                    <span class='kw'>species</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"Yellow Perch"</span>,<span class='fl'>170</span>))
-<span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+<span class='va'>yepdf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>yepmm<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>,mean<span class='op'>=</span><span class='fl'>125</span>,sd<span class='op'>=</span><span class='fl'>15</span><span class='op'>)</span>,
+                      <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>50</span>,mean<span class='op'>=</span><span class='fl'>200</span>,sd<span class='op'>=</span><span class='fl'>25</span><span class='op'>)</span>,
+                      <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>20</span>,mean<span class='op'>=</span><span class='fl'>300</span>,sd<span class='op'>=</span><span class='fl'>40</span><span class='op'>)</span><span class='op'>)</span>,<span class='fl'>0</span><span class='op'>)</span>,
+                    species<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"Yellow Perch"</span>,<span class='fl'>170</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,digits<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='output co'>#&gt;         Estimate 95% LCI 95% UCI
 #&gt; PSD-Q       37.1    22.6    51.7
 #&gt; PSD-P       19.0     7.2    30.9
@@ -241,7 +245,8 @@
 #&gt; PSD S-Q     62.9    48.3    77.4
 #&gt; PSD Q-P     18.1     6.5    29.7
 #&gt; PSD P-M     11.4     1.9    21.0
-#&gt; PSD M-T      6.7     0.0    14.2</div><div class='input'><span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>drop0Est</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+#&gt; PSD M-T      6.7     0.0    14.2</div><div class='input'><span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,digits<span class='op'>=</span><span class='fl'>1</span>,drop0Est<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='output co'>#&gt;         Estimate 95% LCI 95% UCI
 #&gt; PSD-Q       37.1    22.6    51.7
 #&gt; PSD-P       19.0     7.2    30.9
@@ -252,7 +257,8 @@
 #&gt; PSD P-M     11.4     1.9    21.0
 #&gt; PSD M-T      6.7     0.0    14.2</div><div class='input'>
 <span class='co'>## add a length</span>
-<span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fl'>150</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+<span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,addLens<span class='op'>=</span><span class='fl'>150</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='output co'>#&gt;           Estimate 95% LCI 95% UCI
 #&gt; PSD-150         70      56      85
 #&gt; PSD-Q           37      21      53
@@ -265,7 +271,8 @@
 #&gt; PSD P-M         11       1      22
 #&gt; PSD M-T          7       0      15</div><div class='input'>
 <span class='co'>## add lengths with names</span>
-<span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fl'>150</span>,<span class='kw'>addNames</span><span class='kw'>=</span><span class='st'>"minLen"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+<span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,addLens<span class='op'>=</span><span class='fl'>150</span>,addNames<span class='op'>=</span><span class='st'>"minLen"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='output co'>#&gt;              Estimate 95% LCI 95% UCI
 #&gt; PSD-minLen         70      56      85
 #&gt; PSD-Q              37      21      53
@@ -276,7 +283,8 @@
 #&gt; PSD minLen-Q       33      18      49
 #&gt; PSD Q-P            18       6      31
 #&gt; PSD P-M            11       1      22
-#&gt; PSD M-T             7       0      15</div><div class='input'><span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"minLen"</span><span class='kw'>=</span><span class='fl'>150</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+#&gt; PSD M-T             7       0      15</div><div class='input'><span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,addLens<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"minLen"</span><span class='op'>=</span><span class='fl'>150</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='output co'>#&gt;              Estimate 95% LCI 95% UCI
 #&gt; PSD-minLen         70      56      85
 #&gt; PSD-Q              37      21      53
@@ -287,7 +295,8 @@
 #&gt; PSD minLen-Q       33      18      49
 #&gt; PSD Q-P            18       6      31
 #&gt; PSD P-M            11       1      22
-#&gt; PSD M-T             7       0      15</div><div class='input'><span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>150</span>,<span class='fl'>275</span>),<span class='kw'>addNames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"minSlot"</span>,<span class='st'>"maxSlot"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+#&gt; PSD M-T             7       0      15</div><div class='input'><span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,addLens<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>150</span>,<span class='fl'>275</span><span class='op'>)</span>,addNames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"minSlot"</span>,<span class='st'>"maxSlot"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='output co'>#&gt;               Estimate 95% LCI 95% UCI
 #&gt; PSD-minSlot         70      55      86
 #&gt; PSD-Q               37      20      54
@@ -300,7 +309,8 @@
 #&gt; PSD Q-P             18       5      31
 #&gt; PSD P-maxSlot        4       0      10
 #&gt; PSD maxSlot-M        8       0      17
-#&gt; PSD M-T              7       0      15</div><div class='input'><span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"minLen"</span><span class='kw'>=</span><span class='fl'>150</span>,<span class='st'>"maxslot"</span><span class='kw'>=</span><span class='fl'>275</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+#&gt; PSD M-T              7       0      15</div><div class='input'><span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,addLens<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"minLen"</span><span class='op'>=</span><span class='fl'>150</span>,<span class='st'>"maxslot"</span><span class='op'>=</span><span class='fl'>275</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='output co'>#&gt;               Estimate 95% LCI 95% UCI
 #&gt; PSD-minLen          70      55      86
 #&gt; PSD-Q               37      20      54
@@ -315,43 +325,51 @@
 #&gt; PSD maxslot-M        8       0      17
 #&gt; PSD M-T              7       0      15</div><div class='input'>
 <span class='co'>## add lengths with names, return just those values that use those lengths</span>
-<span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"minLen"</span><span class='kw'>=</span><span class='fl'>150</span>),<span class='kw'>justAdds</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+<span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,addLens<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"minLen"</span><span class='op'>=</span><span class='fl'>150</span><span class='op'>)</span>,justAdds<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='output co'>#&gt;              Estimate 95% LCI 95% UCI
 #&gt; PSD-minLen         70      56      85
 #&gt; PSD S-minLen       30      15      44
-#&gt; PSD minLen-Q       33      18      49</div><div class='input'><span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"minLen"</span><span class='kw'>=</span><span class='fl'>150</span>),<span class='kw'>justAdds</span><span class='kw'>=</span><span class='fl'>TRUE</span>,
-        <span class='kw'>what</span><span class='kw'>=</span><span class='st'>"traditional"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+#&gt; PSD minLen-Q       33      18      49</div><div class='input'><span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,addLens<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"minLen"</span><span class='op'>=</span><span class='fl'>150</span><span class='op'>)</span>,justAdds<span class='op'>=</span><span class='cn'>TRUE</span>,
+        what<span class='op'>=</span><span class='st'>"traditional"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='output co'>#&gt; Estimate  95% LCI  95% UCI 
-#&gt;       70       56       85 </div><div class='input'><span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>150</span>,<span class='fl'>275</span>),
-        <span class='kw'>addNames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"minSlot"</span>,<span class='st'>"maxSlot"</span>),<span class='kw'>justAdds</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+#&gt;       70       56       85 </div><div class='input'><span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,addLens<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>150</span>,<span class='fl'>275</span><span class='op'>)</span>,
+        addNames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"minSlot"</span>,<span class='st'>"maxSlot"</span><span class='op'>)</span>,justAdds<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='output co'>#&gt;               Estimate 95% LCI 95% UCI
 #&gt; PSD-minSlot         70      55      86
 #&gt; PSD-maxSlot         15       3      28
 #&gt; PSD S-minSlot       30      14      45
 #&gt; PSD minSlot-Q       33      17      50
 #&gt; PSD P-maxSlot        4       0      10
-#&gt; PSD maxSlot-M        8       0      17</div><div class='input'><span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>150</span>,<span class='fl'>275</span>),
-        <span class='kw'>addNames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"minSlot"</span>,<span class='st'>"maxSlot"</span>),<span class='kw'>justAdds</span><span class='kw'>=</span><span class='fl'>TRUE</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"traditional"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+#&gt; PSD maxSlot-M        8       0      17</div><div class='input'><span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,addLens<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>150</span>,<span class='fl'>275</span><span class='op'>)</span>,
+        addNames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"minSlot"</span>,<span class='st'>"maxSlot"</span><span class='op'>)</span>,justAdds<span class='op'>=</span><span class='cn'>TRUE</span>,what<span class='op'>=</span><span class='st'>"traditional"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='output co'>#&gt;             Estimate 95% LCI 95% UCI
 #&gt; PSD-minSlot       70      55      86
 #&gt; PSD-maxSlot       15       3      28</div><div class='input'>
 <span class='co'>## different output types</span>
-<span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fl'>150</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"traditional"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+<span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,addLens<span class='op'>=</span><span class='fl'>150</span>,what<span class='op'>=</span><span class='st'>"traditional"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='output co'>#&gt;         Estimate 95% LCI 95% UCI
 #&gt; PSD-150       70      56      85
 #&gt; PSD-Q         37      21      53
 #&gt; PSD-P         19       6      32
 #&gt; PSD-M          8       0      16
-#&gt; PSD-T          1       0       4</div><div class='input'><span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fl'>150</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"incremental"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+#&gt; PSD-T          1       0       4</div><div class='input'><span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,addLens<span class='op'>=</span><span class='fl'>150</span>,what<span class='op'>=</span><span class='st'>"incremental"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='output co'>#&gt;           Estimate 95% LCI 95% UCI
 #&gt; PSD S-150       30      15      44
 #&gt; PSD 150-Q       33      18      49
 #&gt; PSD Q-P         18       6      31
 #&gt; PSD P-M         11       1      22
-#&gt; PSD M-T          7       0      15</div><div class='input'><span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>addLens</span><span class='kw'>=</span><span class='fl'>150</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"none"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+#&gt; PSD M-T          7       0      15</div><div class='input'><span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,addLens<span class='op'>=</span><span class='fl'>150</span>,what<span class='op'>=</span><span class='st'>"none"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='input'>
 <span class='co'>## Show intermediate values</span>
-<span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>showInterm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+<span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,showInterm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='output co'>#&gt;         num stock Estimate 95% LCI 95% UCI
 #&gt; PSD-Q    39   105       37      23      52
 #&gt; PSD-P    20   105       19       7      31
@@ -360,19 +378,22 @@
 #&gt; PSD S-Q  66   105       63      48      77
 #&gt; PSD Q-P  19   105       18       7      30
 #&gt; PSD P-M  12   105       11       2      21
-#&gt; PSD M-T   7   105        7       0      14</div><div class='input'><span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"traditional"</span>,<span class='kw'>showInterm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+#&gt; PSD M-T   7   105        7       0      14</div><div class='input'><span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,what<span class='op'>=</span><span class='st'>"traditional"</span>,showInterm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='output co'>#&gt;       num stock Estimate 95% LCI 95% UCI
 #&gt; PSD-Q  39   105       37      23      52
 #&gt; PSD-P  20   105       19       7      31
 #&gt; PSD-M   8   105        8       0      16
-#&gt; PSD-T   1   105        1       0       4</div><div class='input'><span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"incremental"</span>,<span class='kw'>showInterm</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+#&gt; PSD-T   1   105        1       0       4</div><div class='input'><span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,what<span class='op'>=</span><span class='st'>"incremental"</span>,showInterm<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='output co'>#&gt;         num stock Estimate 95% LCI 95% UCI
 #&gt; PSD S-Q  66   105       63      48      77
 #&gt; PSD Q-P  19   105       18       7      30
 #&gt; PSD P-M  12   105       11       2      21
 #&gt; PSD M-T   7   105        7       0      14</div><div class='input'>
 <span class='co'>## Control the digits</span>
-<span class='fu'>psdCalc</span>(~<span class='no'>yepmm</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>yepdf</span>,<span class='kw'>species</span><span class='kw'>=</span><span class='st'>"Yellow perch"</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
+<span class='fu'>psdCalc</span><span class='op'>(</span><span class='op'>~</span><span class='va'>yepmm</span>,data<span class='op'>=</span><span class='va'>yepdf</span>,species<span class='op'>=</span><span class='st'>"Yellow perch"</span>,digits<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some category sample size &lt;20, some CI coverage may be</span>
 #&gt; <span class='warning'> lower than 95%.</span></div><div class='output co'>#&gt;         Estimate 95% LCI 95% UCI
 #&gt; PSD-Q       37.1    22.6    51.7
 #&gt; PSD-P       19.0     7.2    30.9
@@ -398,7 +419,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

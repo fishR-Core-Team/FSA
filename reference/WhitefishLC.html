@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame with 151 observations on the following 11 variables:</p><dl'>
+    <p>A data frame with 151 observations on the following 11 variables:</p><dl>
    <dt>fishID</dt><dd><p>A unique fish identification number</p></dd>
    <dt>tl</dt><dd><p>Total length (in mm)</p></dd>
    <dt>scale1</dt><dd><p>Assessed age from scales by first reader</p></dd>
@@ -164,10 +164,11 @@
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Used in <code>ageBias</code> and <code>agePrecision</code> examples.</p></div>
+    <div class='dont-index'><p>Used in <code><a href='ageBias.html'>ageBias</a></code> and <code><a href='agePrecision.html'>agePrecision</a></code> examples.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>WhitefishLC</span>)</div><div class='output co'>#&gt; 'data.frame':	151 obs. of  11 variables:
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>WhitefishLC</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 'data.frame':	151 obs. of  11 variables:
 #&gt;  $ fishID  : int  1 2 3 4 5 6 7 8 9 10 ...
 #&gt;  $ tl      : int  345 334 348 300 330 316 508 475 340 173 ...
 #&gt;  $ scale1  : int  3 4 7 4 3 4 6 4 3 1 ...
@@ -178,7 +179,8 @@
 #&gt;  $ finrayC : int  3 3 3 3 4 3 6 9 3 1 ...
 #&gt;  $ otolith1: int  3 3 3 3 3 6 9 11 3 1 ...
 #&gt;  $ otolith2: int  3 3 3 3 3 5 10 12 4 1 ...
-#&gt;  $ otolithC: int  3 3 3 3 3 6 10 11 4 1 ...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>WhitefishLC</span>)</div><div class='output co'>#&gt;   fishID  tl scale1 scale2 scaleC finray1 finray2 finrayC otolith1 otolith2
+#&gt;  $ otolithC: int  3 3 3 3 3 6 10 11 4 1 ...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>WhitefishLC</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   fishID  tl scale1 scale2 scaleC finray1 finray2 finrayC otolith1 otolith2
 #&gt; 1      1 345      3      3      3       3       3       3        3        3
 #&gt; 2      2 334      4      3      4       3       3       3        3        3
 #&gt; 3      3 348      7      5      6       3       3       3        3        3
@@ -208,7 +210,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

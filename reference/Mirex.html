@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame with 122 observations on the following 4 variables.</p><dl'>
+    <p>A data frame with 122 observations on the following 4 variables.</p><dl>
    <dt>year</dt><dd><p>a numeric vector of capture years</p></dd>
    <dt>weight</dt><dd><p>a numeric vector of salmon weights (kg)</p></dd>
    <dt>mirex</dt><dd><p>a numeric vector of mirex concentration in the salmon tissue (mg/kg)</p></dd>
@@ -157,12 +157,13 @@
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Used in <code>fitPlot</code>, <code>residPlot</code>, <code>compSlopes</code>, <code>compIntercepts</code>, <code>hoCoef</code>, and <code>rSquared</code> examples.</p></div>
+    <div class='dont-index'><p>Used in <code><a href='fitPlot.html'>fitPlot</a></code>, <code><a href='residPlot.html'>residPlot</a></code>, <code><a href='compSlopes.html'>compSlopes</a></code>, <code><a href='compIntercepts.html'>compIntercepts</a></code>, <code><a href='hoCoef.html'>hoCoef</a></code>, and <code><a href='rSquared.html'>rSquared</a></code> examples.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>Mirex</span>$<span class='no'>year</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>Mirex</span>$<span class='no'>year</span>)
-<span class='no'>lm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>weight</span>*<span class='no'>year</span>*<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex</span>)
-<span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span>(<span class='no'>lm1</span>)</div><div class='output co'>#&gt; Analysis of Variance Table
+    <pre class="examples"><div class='input'><span class='va'>Mirex</span><span class='op'>$</span><span class='va'>year</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>Mirex</span><span class='op'>$</span><span class='va'>year</span><span class='op'>)</span>
+<span class='va'>lm1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>weight</span><span class='op'>*</span><span class='va'>year</span><span class='op'>*</span><span class='va'>species</span>,data<span class='op'>=</span><span class='va'>Mirex</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/anova.html'>anova</a></span><span class='op'>(</span><span class='va'>lm1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Analysis of Variance Table
 #&gt; 
 #&gt; Response: mirex
 #&gt;                     Df  Sum Sq  Mean Sq F value    Pr(&gt;F)    
@@ -192,7 +193,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

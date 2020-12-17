@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -129,33 +129,33 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for nlsBoot</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(
-  <span class='no'>object</span>,
-  <span class='kw'>parm</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>level</span> <span class='kw'>=</span> <span class='no'>conf.level</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>err.col</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>err.lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>rows</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parm <span class='op'>=</span> <span class='cn'>NULL</span>,
+  level <span class='op'>=</span> <span class='va'>conf.level</span>,
+  conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  plot <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  err.col <span class='op'>=</span> <span class='st'>"black"</span>,
+  err.lwd <span class='op'>=</span> <span class='fl'>2</span>,
+  rows <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cols <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for nlsBoot</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>object</span>, <span class='no'>FUN</span>, <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>FUN</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, digits <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>htest</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>htest</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for nlsBoot</span>
-<span class='fu'>htest</span>(
-  <span class='no'>object</span>,
-  <span class='kw'>parm</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>bo</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>alt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"two.sided"</span>, <span class='st'>"less"</span>, <span class='st'>"greater"</span>),
-  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'>htest</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parm <span class='op'>=</span> <span class='cn'>NULL</span>,
+  bo <span class='op'>=</span> <span class='fl'>0</span>,
+  alt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"two.sided"</span>, <span class='st'>"less"</span>, <span class='st'>"greater"</span><span class='op'>)</span>,
+  plot <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,28 +231,32 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/car/man/Boot.html'>Boot</a></code> and related methods in <span class="pkg">car</span> and <code>summary.<a href='https://rdrr.io/pkg/nlstools/man/nlsBoot.html'>nlsBoot</a></code> in <span class="pkg">nlstools</span>.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>fnx</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>days</span>,<span class='no'>B1</span>,<span class='no'>B2</span>,<span class='no'>B3</span>) {
-  <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>B1</span>) <span class='kw'>&gt;</span> <span class='fl'>1</span>) {
-    <span class='no'>B2</span> <span class='kw'>&lt;-</span> <span class='no'>B1</span>[<span class='fl'>2</span>]
-    <span class='no'>B3</span> <span class='kw'>&lt;-</span> <span class='no'>B1</span>[<span class='fl'>3</span>]
-    <span class='no'>B1</span> <span class='kw'>&lt;-</span> <span class='no'>B1</span>[<span class='fl'>1</span>]
-  }
-  <span class='no'>B1</span>/(<span class='fl'>1</span>+<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='no'>B2</span>+<span class='no'>B3</span>*<span class='no'>days</span>))
-}
-<span class='no'>nl1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/nls.html'>nls</a></span>(<span class='no'>cells</span>~<span class='fu'>fnx</span>(<span class='no'>days</span>,<span class='no'>B1</span>,<span class='no'>B2</span>,<span class='no'>B3</span>),<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Ecoli</span>,
-           <span class='kw'>start</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>B1</span><span class='kw'>=</span><span class='fl'>6</span>,<span class='kw'>B2</span><span class='kw'>=</span><span class='fl'>7.2</span>,<span class='kw'>B3</span><span class='kw'>=</span>-<span class='fl'>1.45</span>))
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>nlstools</span>)) {
-  <span class='no'>nl1.bootn</span> <span class='kw'>&lt;-</span>  <span class='kw pkg'>nlstools</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/nlstools/man/nlsBoot.html'>nlsBoot</a></span>(<span class='no'>nl1</span>,<span class='kw'>niter</span><span class='kw'>=</span><span class='fl'>99</span>) <span class='co'># too few to be useful</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>nl1.bootn</span>,<span class='st'>"B1"</span>)
-  <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>nl1.bootn</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>))
-  <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>nl1.bootn</span>,<span class='kw'>conf.level</span><span class='kw'>=</span><span class='fl'>0.90</span>)
-  <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>nl1.bootn</span>,<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
-  <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>nl1.bootn</span>,<span class='no'>fnx</span>,<span class='kw'>days</span><span class='kw'>=</span><span class='fl'>3</span>)
-  <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>nl1.bootn</span>,<span class='no'>fnx</span>,<span class='kw'>days</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>3</span>)
-  <span class='fu'>htest</span>(<span class='no'>nl1.bootn</span>,<span class='fl'>1</span>,<span class='kw'>bo</span><span class='kw'>=</span><span class='fl'>6</span>,<span class='kw'>alt</span><span class='kw'>=</span><span class='st'>"less"</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: nlstools</span></div><div class='output co'>#&gt; <span class='message'></span>
+    <pre class="examples"><div class='input'><span class='va'>fnx</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>days</span>,<span class='va'>B1</span>,<span class='va'>B2</span>,<span class='va'>B3</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>B1</span><span class='op'>)</span> <span class='op'>&gt;</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='va'>B2</span> <span class='op'>&lt;-</span> <span class='va'>B1</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>
+    <span class='va'>B3</span> <span class='op'>&lt;-</span> <span class='va'>B1</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span>
+    <span class='va'>B1</span> <span class='op'>&lt;-</span> <span class='va'>B1</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
+  <span class='op'>}</span>
+  <span class='va'>B1</span><span class='op'>/</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>B2</span><span class='op'>+</span><span class='va'>B3</span><span class='op'>*</span><span class='va'>days</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='va'>nl1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/nls.html'>nls</a></span><span class='op'>(</span><span class='va'>cells</span><span class='op'>~</span><span class='fu'>fnx</span><span class='op'>(</span><span class='va'>days</span>,<span class='va'>B1</span>,<span class='va'>B2</span>,<span class='va'>B3</span><span class='op'>)</span>,data<span class='op'>=</span><span class='va'>Ecoli</span>,
+           start<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>B1<span class='op'>=</span><span class='fl'>6</span>,B2<span class='op'>=</span><span class='fl'>7.2</span>,B3<span class='op'>=</span><span class='op'>-</span><span class='fl'>1.45</span><span class='op'>)</span><span class='op'>)</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'>nlstools</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>nl1.bootn</span> <span class='op'>&lt;-</span>  <span class='fu'>nlstools</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/nlstools/man/nlsBoot.html'>nlsBoot</a></span><span class='op'>(</span><span class='va'>nl1</span>,niter<span class='op'>=</span><span class='fl'>99</span><span class='op'>)</span> <span class='co'># too few to be useful</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>nl1.bootn</span>,<span class='st'>"B1"</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>nl1.bootn</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>nl1.bootn</span>,conf.level<span class='op'>=</span><span class='fl'>0.90</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>nl1.bootn</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>nl1.bootn</span>,<span class='va'>fnx</span>,days<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>nl1.bootn</span>,<span class='va'>fnx</span>,days<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>
+  <span class='fu'>htest</span><span class='op'>(</span><span class='va'>nl1.bootn</span>,<span class='fl'>1</span>,bo<span class='op'>=</span><span class='fl'>6</span>,alt<span class='op'>=</span><span class='st'>"less"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: nlstools</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>'nlstools' has been loaded.</span></div><div class='output co'>#&gt; <span class='message'>IMPORTANT NOTICE: Most nonlinear regression models and data set examples</span></div><div class='output co'>#&gt; <span class='message'>related to predictive microbiolgy have been moved to the package 'nlsMicrobio'</span></div><div class='output co'>#&gt; <span class='error'>Error in nlstools::nlsBoot(nl1, niter = 99): Procedure aborted: the fit only converged in 1 % during bootstrapping</span></div><div class='input'>
 </div></pre>
   </div>
@@ -270,7 +274,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

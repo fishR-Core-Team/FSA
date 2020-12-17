@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame of 445 observations on the following 20 variables:</p><dl'>
+    <p>A data frame of 445 observations on the following 20 variables:</p><dl>
    <dt>species</dt><dd><p>Species of the fish (<code>SMB</code> for each fish in this file)</p></dd>
    <dt>lake</dt><dd><p>Lake fish was captured in (<code>WB</code> for each fish in this file)</p></dd>
    <dt>gear</dt><dd><p>Gear used to capture the fish (<code>T</code>=Trapnet and <code>E</code>=Electrofishing)</p></dd>
@@ -174,10 +174,11 @@
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Used in <code>capHistSum</code> and <code>mrClosed</code> examples. Also see <code>wblake</code> from <span class="pkg">alr4</span> for the same dataset with only the <code>agecap</code>, <code>lencap</code>, and <code>radcap</code> variables.</p></div>
+    <div class='dont-index'><p>Used in <code><a href='capHistSum.html'>capHistSum</a></code> and <code><a href='mrClosed.html'>mrClosed</a></code> examples. Also see <code>wblake</code> from <span class="pkg">alr4</span> for the same dataset with only the <code>agecap</code>, <code>lencap</code>, and <code>radcap</code> variables.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>SMBassWB</span>)</div><div class='output co'>#&gt; 'data.frame':	445 obs. of  20 variables:
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>SMBassWB</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 'data.frame':	445 obs. of  20 variables:
 #&gt;  $ species: Factor w/ 1 level "SMB": 1 1 1 1 1 1 1 1 1 1 ...
 #&gt;  $ lake   : Factor w/ 1 level "WB": 1 1 1 1 1 1 1 1 1 1 ...
 #&gt;  $ gear   : Factor w/ 2 levels "E","T": 1 1 1 1 1 1 1 1 1 1 ...
@@ -197,7 +198,8 @@
 #&gt;  $ anu10  : num  NA NA NA NA NA NA NA NA NA NA ...
 #&gt;  $ anu11  : num  NA NA NA NA NA NA NA NA NA NA ...
 #&gt;  $ anu12  : num  NA NA NA NA NA NA NA NA NA NA ...
-#&gt;  $ radcap : num  1.91 1.88 1.1 1.33 1.59 ...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>SMBassWB</span>)</div><div class='output co'>#&gt;   species lake gear yearcap fish agecap lencap    anu1 anu2 anu3 anu4 anu5 anu6
+#&gt;  $ radcap : num  1.91 1.88 1.1 1.33 1.59 ...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>SMBassWB</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   species lake gear yearcap fish agecap lencap    anu1 anu2 anu3 anu4 anu5 anu6
 #&gt; 1     SMB   WB    E    1988    5      1     71 1.90606   NA   NA   NA   NA   NA
 #&gt; 2     SMB   WB    E    1988    3      1     64 1.87707   NA   NA   NA   NA   NA
 #&gt; 3     SMB   WB    E    1988    2      1     57 1.09227   NA   NA   NA   NA   NA
@@ -227,7 +229,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -129,26 +129,26 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for formula</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(
-  <span class='no'>formula</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>right</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>pre.main</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Frequency"</span>,
-  <span class='kw'>same.breaks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='st'>"Sturges"</span>,
-  <span class='kw'>w</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>same.ylim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"gray90"</span>,
-  <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='no'>num</span>)),
-  <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>ceiling</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='no'>num</span>)),
-  <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>iaxs</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span>
+  <span class='va'>formula</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  main <span class='op'>=</span> <span class='st'>""</span>,
+  right <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  pre.main <span class='op'>=</span> <span class='st'>""</span>,
+  xlab <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ylab <span class='op'>=</span> <span class='st'>"Frequency"</span>,
+  same.breaks <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  breaks <span class='op'>=</span> <span class='st'>"Sturges"</span>,
+  w <span class='op'>=</span> <span class='cn'>NULL</span>,
+  same.ylim <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  ymax <span class='op'>=</span> <span class='cn'>NULL</span>,
+  col <span class='op'>=</span> <span class='st'>"gray90"</span>,
+  nrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>num</span><span class='op'>)</span><span class='op'>)</span>,
+  ncol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>ceiling</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='va'>num</span><span class='op'>)</span><span class='op'>)</span>,
+  byrow <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  iaxs <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,7 +191,7 @@
     </tr>
     <tr>
       <th>w</th>
-      <td><p>A single numeric that indicates the width of the bins to use. The bins will start at &#8220;rounded&#8221; values depending on the value of <code>w</code>. See <code>lencat</code> for more details.</p></td>
+      <td><p>A single numeric that indicates the width of the bins to use. The bins will start at &#8220;rounded&#8221; values depending on the value of <code>w</code>. See <code><a href='lencat.html'>lencat</a></code> for more details.</p></td>
     </tr>
     <tr>
       <th>same.ylim</th>
@@ -246,46 +246,33 @@
     <p>3-Plotting Fundamentals.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See base <code><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></code> for related functionality and <code><a href='https://rdrr.io/pkg/plotrix/man/multhist.html'>multhist</a></code> in <span class="pkg">plotrix</span> for similar functionality.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a>, but this implementation is largely a modification of the code provided by Marc Schwartz on the R-help mailing list on 1Jun07.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Using the defaults</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>Sepal.Length</span>~<span class='no'>Species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>)</div><div class='img'><img src='hist.formula-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='va'>Sepal.Length</span><span class='op'>~</span><span class='va'>Species</span>,data<span class='op'>=</span><span class='va'>iris</span><span class='op'>)</span>
+</div><div class='img'><img src='hist.formula-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Add x-labels and use a pre-fix on the main labels</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>Sepal.Length</span>~<span class='no'>Species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Sepal Length (cm)"</span>,
-     <span class='kw'>pre.main</span><span class='kw'>=</span><span class='st'>"Species=="</span>)</div><div class='img'><img src='hist.formula-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='va'>Sepal.Length</span><span class='op'>~</span><span class='va'>Species</span>,data<span class='op'>=</span><span class='va'>iris</span>,xlab<span class='op'>=</span><span class='st'>"Sepal Length (cm)"</span>,
+     pre.main<span class='op'>=</span><span class='st'>"Species=="</span><span class='op'>)</span>
+</div><div class='img'><img src='hist.formula-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Use different breaks and different y-axis limits for each graph</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>Sepal.Length</span>~<span class='no'>Species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Sepal Length (cm)"</span>,
-     <span class='kw'>same.breaks</span><span class='kw'>=</span><span class='fl'>FALSE</span>,<span class='kw'>same.ylim</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='img'><img src='hist.formula-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Use same but user-controlled breaks for each graph</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>Sepal.Length</span>~<span class='no'>Species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Sepal Length (cm)"</span>,
-     <span class='kw'>breaks</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>4</span>,<span class='fl'>8</span>,<span class='fl'>1</span>))</div><div class='img'><img src='hist.formula-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Use same but user-controlled maximum value for y-axis</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>Sepal.Length</span>~<span class='no'>Species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Sepal Length (cm)"</span>,<span class='kw'>ymax</span><span class='kw'>=</span><span class='fl'>30</span>)</div><div class='img'><img src='hist.formula-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Control the organization of the 'grid' of histograms</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>Sepal.Length</span>~<span class='no'>Species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Sepal Length (cm)"</span>,<span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>ncol</span><span class='kw'>=</span><span class='fl'>3</span>)</div><div class='img'><img src='hist.formula-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Use right=FALSE &amp; freq=FALSE to demon sending an argument used by base hist()</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>Sepal.Length</span>~<span class='no'>Species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Sepal Length (cm)"</span>,<span class='kw'>right</span><span class='kw'>=</span><span class='fl'>FALSE</span>,
-     <span class='kw'>freq</span><span class='kw'>=</span><span class='fl'>FALSE</span>,<span class='kw'>ymax</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='img'><img src='hist.formula-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Add a junk variable to the iris data set to show two factors on RHS</span>
-<span class='no'>iris</span>$<span class='no'>junk</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>,<span class='st'>"B"</span>),<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>iris</span>),<span class='kw'>replace</span><span class='kw'>=</span><span class='fl'>TRUE</span>))
-<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>Sepal.Length</span>~<span class='no'>Species</span>*<span class='no'>junk</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Sepal Length (cm)"</span>)</div><div class='img'><img src='hist.formula-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='va'>Sepal.Length</span><span class='op'>~</span><span class='va'>Species</span>,data<span class='op'>=</span><span class='va'>iris</span>,xlab<span class='op'>=</span><span class='st'>"Sepal Length (cm)"</span>,
+     same.breaks<span class='op'>=</span><span class='cn'>FALSE</span>,same.ylim<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='hist.formula-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Single histogram without grouping using formula notation</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(~<span class='no'>Sepal.Length</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Sepal Length (cm)"</span>)</div><div class='img'><img src='hist.formula-9.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Single histogram with "axis correction" turned off (compare to previous)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(~<span class='no'>Sepal.Length</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Sepal Length (cm)"</span>,<span class='kw'>iaxs</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='img'><img src='hist.formula-10.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Single histogram with "axis correction", testing xlim and ylim</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(~<span class='no'>Sepal.Length</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Sepal Length (cm)"</span>,
-     <span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3.8</span>,<span class='fl'>8.2</span>),<span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>35</span>))</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(~<span class='no'>Sepal.Length</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Sepal Length (cm)"</span>,
-     <span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3.8</span>,<span class='fl'>8.2</span>),<span class='kw'>ymax</span><span class='kw'>=</span><span class='fl'>35</span>)</div><div class='img'><img src='hist.formula-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>Sepal.Length</span>,data<span class='op'>=</span><span class='va'>iris</span>,xlab<span class='op'>=</span><span class='st'>"Sepal Length (cm)"</span><span class='op'>)</span>
+</div><div class='img'><img src='hist.formula-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Using the bin width argument</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(~<span class='no'>Sepal.Length</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Sepal Length (cm)"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='img'><img src='hist.formula-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(~<span class='no'>Sepal.Length</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Sepal Length (cm)"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>0.25</span>)</div><div class='img'><img src='hist.formula-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>Sepal.Length</span>~<span class='no'>Species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Sepal Length (cm)"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='img'><img src='hist.formula-14.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(<span class='no'>Sepal.Length</span>~<span class='no'>Species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Sepal Length (cm)"</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>0.25</span>)</div><div class='img'><img src='hist.formula-15.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Using a vector (and not a data.frame)</span>
-<span class='no'>vec</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>100</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(~<span class='no'>vec</span>)</div><div class='img'><img src='hist.formula-16.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>Sepal.Length</span>,data<span class='op'>=</span><span class='va'>iris</span>,xlab<span class='op'>=</span><span class='st'>"Sepal Length (cm)"</span>,w<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='img'><img src='hist.formula-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='va'>Sepal.Length</span><span class='op'>~</span><span class='va'>Species</span>,data<span class='op'>=</span><span class='va'>iris</span>,xlab<span class='op'>=</span><span class='st'>"Sepal Length (cm)"</span>,w<span class='op'>=</span><span class='fl'>0.25</span><span class='op'>)</span>
+</div><div class='img'><img src='hist.formula-6.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -302,7 +289,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

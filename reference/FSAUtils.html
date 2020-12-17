@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -128,7 +128,7 @@
     <p>Capitalizes the first letter of first or all words in a string.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>capFirst</span>(<span class='no'>x</span>, <span class='kw'>which</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"first"</span>))</pre>
+    <pre class="usage"><span class='fu'>capFirst</span><span class='op'>(</span><span class='va'>x</span>, which <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"all"</span>, <span class='st'>"first"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,19 +146,33 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A single string with the first letter of the first or all words capitalized.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Capitalize first letter of all words (the default)</span>
-<span class='fu'>capFirst</span>(<span class='st'>"Derek Ogle"</span>)</div><div class='output co'>#&gt; [1] "Derek Ogle"</div><div class='input'><span class='fu'>capFirst</span>(<span class='st'>"derek ogle"</span>)</div><div class='output co'>#&gt; [1] "Derek Ogle"</div><div class='input'><span class='fu'>capFirst</span>(<span class='st'>"derek"</span>)</div><div class='output co'>#&gt; [1] "Derek"</div><div class='input'>
+<span class='fu'>capFirst</span><span class='op'>(</span><span class='st'>"Derek Ogle"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Derek Ogle"</div><div class='input'><span class='fu'>capFirst</span><span class='op'>(</span><span class='st'>"derek ogle"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Derek Ogle"</div><div class='input'><span class='fu'>capFirst</span><span class='op'>(</span><span class='st'>"derek"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Derek"</div><div class='input'>
 <span class='co'>## Capitalize first letter of only the first words</span>
-<span class='fu'>capFirst</span>(<span class='st'>"Derek Ogle"</span>,<span class='kw'>which</span><span class='kw'>=</span><span class='st'>"first"</span>)</div><div class='output co'>#&gt; [1] "Derek ogle"</div><div class='input'><span class='fu'>capFirst</span>(<span class='st'>"derek ogle"</span>,<span class='kw'>which</span><span class='kw'>=</span><span class='st'>"first"</span>)</div><div class='output co'>#&gt; [1] "Derek ogle"</div><div class='input'><span class='fu'>capFirst</span>(<span class='st'>"derek"</span>,<span class='kw'>which</span><span class='kw'>=</span><span class='st'>"first"</span>)</div><div class='output co'>#&gt; [1] "Derek"</div><div class='input'><span class='co'>## apply to all elements in a vector</span>
-<span class='no'>vec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Derek Ogle"</span>,<span class='st'>"derek ogle"</span>,<span class='st'>"Derek ogle"</span>,<span class='st'>"derek Ogle"</span>,<span class='st'>"DEREK OGLE"</span>)
-<span class='fu'>capFirst</span>(<span class='no'>vec</span>)</div><div class='output co'>#&gt; [1] "Derek Ogle" "Derek Ogle" "Derek Ogle" "Derek Ogle" "Derek Ogle"</div><div class='input'><span class='fu'>capFirst</span>(<span class='no'>vec</span>,<span class='kw'>which</span><span class='kw'>=</span><span class='st'>"first"</span>)</div><div class='output co'>#&gt; [1] "Derek ogle" "Derek ogle" "Derek ogle" "Derek ogle" "Derek ogle"</div><div class='input'>
+<span class='fu'>capFirst</span><span class='op'>(</span><span class='st'>"Derek Ogle"</span>,which<span class='op'>=</span><span class='st'>"first"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Derek ogle"</div><div class='input'><span class='fu'>capFirst</span><span class='op'>(</span><span class='st'>"derek ogle"</span>,which<span class='op'>=</span><span class='st'>"first"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Derek ogle"</div><div class='input'><span class='fu'>capFirst</span><span class='op'>(</span><span class='st'>"derek"</span>,which<span class='op'>=</span><span class='st'>"first"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Derek"</div><div class='input'><span class='co'>## apply to all elements in a vector</span>
+<span class='va'>vec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Derek Ogle"</span>,<span class='st'>"derek ogle"</span>,<span class='st'>"Derek ogle"</span>,<span class='st'>"derek Ogle"</span>,<span class='st'>"DEREK OGLE"</span><span class='op'>)</span>
+<span class='fu'>capFirst</span><span class='op'>(</span><span class='va'>vec</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Derek Ogle" "Derek Ogle" "Derek Ogle" "Derek Ogle" "Derek Ogle"</div><div class='input'><span class='fu'>capFirst</span><span class='op'>(</span><span class='va'>vec</span>,which<span class='op'>=</span><span class='st'>"first"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Derek ogle" "Derek ogle" "Derek ogle" "Derek ogle" "Derek ogle"</div><div class='input'>
 <span class='co'>## check class types</span>
-<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>vec</span>)</div><div class='output co'>#&gt; [1] "character"</div><div class='input'><span class='no'>vec1</span> <span class='kw'>&lt;-</span> <span class='fu'>capFirst</span>(<span class='no'>vec</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>vec1</span>)</div><div class='output co'>#&gt; [1] "character"</div><div class='input'><span class='no'>fvec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>vec</span>)
-<span class='no'>fvec1</span> <span class='kw'>&lt;-</span> <span class='fu'>capFirst</span>(<span class='no'>fvec</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>fvec1</span>)</div><div class='output co'>#&gt; [1] "factor"</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>vec</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "character"</div><div class='input'><span class='va'>vec1</span> <span class='op'>&lt;-</span> <span class='fu'>capFirst</span><span class='op'>(</span><span class='va'>vec</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>vec1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "character"</div><div class='input'><span class='va'>fvec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>vec</span><span class='op'>)</span>
+<span class='va'>fvec1</span> <span class='op'>&lt;-</span> <span class='fu'>capFirst</span><span class='op'>(</span><span class='va'>fvec</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>fvec1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "factor"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -175,7 +189,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

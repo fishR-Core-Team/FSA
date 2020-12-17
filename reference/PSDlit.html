@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame of 58 observations on the following 11 variables:</p><dl'>
+    <p>A data frame of 58 observations on the following 11 variables:</p><dl>
    <dt>species</dt><dd><p>Species name.</p></dd>
    <dt>stock.in</dt><dd><p>Stock length in inches.</p></dd>
    <dt>quality.in</dt><dd><p>Quality length in inches.</p></dd>
@@ -166,13 +166,14 @@
     <p>6-Size Structure.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code>psdVal</code>, <code>psdCalc</code>, <code>psdPlot</code>, <code>psdAdd</code>, and <code>tictactoe</code> for related functionality.</p></div>
+    <div class='dont-index'><p>See <code><a href='psdVal.html'>psdVal</a></code>, <code><a href='psdCalc.html'>psdCalc</a></code>, <code><a href='psdPlot.html'>psdPlot</a></code>, <code><a href='psdAdd.html'>psdAdd</a></code>, and <code><a href='tictactoe.html'>tictactoe</a></code> for related functionality.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>PSDlit</span>)</div><div class='output co'>#&gt; 'data.frame':	63 obs. of  11 variables:
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>PSDlit</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 'data.frame':	63 obs. of  11 variables:
 #&gt;  $ species     : Factor w/ 63 levels "Arctic Grayling",..: 1 2 3 4 5 6 7 8 10 11 ...
 #&gt;  $ stock.in    : num  8 11.8 11 6 15.8 ...
 #&gt;  $ quality.in  : num  12 21.2 18 9 28.2 ...
@@ -183,7 +184,8 @@
 #&gt;  $ quality.cm  : int  30 54 46 23 72 20 51 15 33 20 ...
 #&gt;  $ preferred.cm: int  40 68 61 30 90 25 76 20 NA NA ...
 #&gt;  $ memorable.cm: int  50 89 76 39 118 30 89 25 NA NA ...
-#&gt;  $ trophy.cm   : num  55 111 94 46 148 38 114 30 NA NA ...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>PSDlit</span>)</div><div class='output co'>#&gt;            species stock.in quality.in preferred.in memorable.in trophy.in
+#&gt;  $ trophy.cm   : num  55 111 94 46 148 38 114 30 NA NA ...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>PSDlit</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;            species stock.in quality.in preferred.in memorable.in trophy.in
 #&gt; 1  Arctic Grayling     8.00      12.00        16.00         20.0     22.00
 #&gt; 2     Bighead Carp    11.75      21.25        26.75         35.0     43.75
 #&gt; 3 Bigmouth Buffalo    11.00      18.00        24.00         30.0     37.00
@@ -213,7 +215,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

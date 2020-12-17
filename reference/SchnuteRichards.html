@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -128,7 +128,7 @@
     <p>The five-parameter growth function from Schnute and Richards (1990). Note that this function is slightly modified (a &#8216;+&#8217; was changed to a &#8216;-&#8217; so that the &#8216;a&#8217; parameter will be positive) from the original in Schnute and Richards (1990)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>SchnuteRichards</span>(<span class='no'>t</span>, <span class='kw'>Linf</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>a</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>c</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>SchnuteRichards</span><span class='op'>(</span><span class='va'>t</span>, Linf <span class='op'>=</span> <span class='cn'>NULL</span>, k <span class='op'>=</span> <span class='cn'>NULL</span>, a <span class='op'>=</span> <span class='cn'>NULL</span>, b <span class='op'>=</span> <span class='cn'>NULL</span>, c <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,11 +170,15 @@
     <p>Schnute, J.T. and L.J. Richards. 1990. A unified approach to the analysis of fish growth, maturity, and survivorship data. Canadian Journal of Fisheries and Aquatic Sciences. 47:24-40.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code>vbFuns</code>, <code>GompertzFuns</code>, <code>RichardsFuns</code>, <code>logisticFuns</code>, and <code>Schnute</code> for similar functionality for other models.</p></div>
+    <div class='dont-index'><p>See <code><a href='growthModels.html'>vbFuns</a></code>, <code><a href='growthModels.html'>GompertzFuns</a></code>, <code><a href='growthModels.html'>RichardsFuns</a></code>, <code><a href='growthModels.html'>logisticFuns</a></code>, and <code><a href='Schnute.html'>Schnute</a></code> for similar functionality for other models.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## See the formulae</span>
-<span class='fu'>growthFunShow</span>(<span class='st'>"SchnuteRichards"</span>,<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='SchnuteRichards-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; expression(E(L[t]) == L[infinity] * ~bgroup("(", 1 - a * e^{
+<span class='fu'><a href='growthModels.html'>growthFunShow</a></span><span class='op'>(</span><span class='st'>"SchnuteRichards"</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='SchnuteRichards-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; expression(E(L[t]) == L[infinity] * ~bgroup("(", 1 - a * e^{
 #&gt;     -kt^{
 #&gt;         c
 #&gt;     }
@@ -182,9 +186,10 @@
 #&gt;     frac(1, b)
 #&gt; })</div><div class='input'>
 <span class='co'>## Simple examples</span>
-<span class='no'>ages</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>15</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>SchnuteRichards</span>(<span class='no'>ages</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>100</span>,<span class='kw'>k</span><span class='kw'>=</span><span class='fl'>0.03</span>,<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>0.01</span>,<span class='kw'>b</span><span class='kw'>=</span><span class='fl'>0.005</span>,<span class='kw'>c</span><span class='kw'>=</span><span class='fl'>2</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s1</span>~<span class='no'>ages</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"l"</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='img'><img src='SchnuteRichards-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>ages</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>15</span>
+<span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'>SchnuteRichards</span><span class='op'>(</span><span class='va'>ages</span>,Linf<span class='op'>=</span><span class='fl'>100</span>,k<span class='op'>=</span><span class='fl'>0.03</span>,a<span class='op'>=</span><span class='fl'>0.01</span>,b<span class='op'>=</span><span class='fl'>0.005</span>,c<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span><span class='op'>~</span><span class='va'>ages</span>,type<span class='op'>=</span><span class='st'>"l"</span>,lwd<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='img'><img src='SchnuteRichards-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -201,7 +206,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

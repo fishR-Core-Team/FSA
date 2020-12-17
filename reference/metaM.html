@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -128,24 +128,24 @@
     <p>Several methods can be used to estimated natural mortality (M) from other types of data, including parameters from the von Bertalanffy growth equation, maximum age, and temperature. These relationships have been developed from meta-analyses of a large number of populations. Several of these methods are implemented in this function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Mmethods</span>(<span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"tmax"</span>, <span class='st'>"K"</span>, <span class='st'>"Hoenig"</span>, <span class='st'>"Pauly"</span>))
+    <pre class="usage"><span class='fu'>Mmethods</span><span class='op'>(</span>what <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"all"</span>, <span class='st'>"tmax"</span>, <span class='st'>"K"</span>, <span class='st'>"Hoenig"</span>, <span class='st'>"Pauly"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>metaM</span>(
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'>Mmethods</span>(),
-  <span class='kw'>justM</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>tmax</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>K</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>Linf</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>t0</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>b</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>L</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>Temp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>t50</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>Winf</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)
+<span class='fu'>metaM</span><span class='op'>(</span>
+  method <span class='op'>=</span> <span class='fu'>Mmethods</span><span class='op'>(</span><span class='op'>)</span>,
+  justM <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  tmax <span class='op'>=</span> <span class='cn'>NULL</span>,
+  K <span class='op'>=</span> <span class='cn'>NULL</span>,
+  Linf <span class='op'>=</span> <span class='cn'>NULL</span>,
+  t0 <span class='op'>=</span> <span class='cn'>NULL</span>,
+  b <span class='op'>=</span> <span class='cn'>NULL</span>,
+  L <span class='op'>=</span> <span class='cn'>NULL</span>,
+  Temp <span class='op'>=</span> <span class='cn'>NULL</span>,
+  t50 <span class='op'>=</span> <span class='cn'>NULL</span>,
+  Winf <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for metaM</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, digits <span class='op'>=</span> <span class='fl'>4</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -255,7 +255,7 @@
     <p>11-Mortality.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
 <p>Alverson, D.L. and M.J. Carney. 1975. A graphic review of the growth and decay of population cohorts. Journal du Conseil International pour l'Exploration de la Mer. 36:133-143.</p>
 <p>Charnov, E.L., H. Gislason, and J.G. Pope. 2013. Evolutionary assembly rules for fish life histories. Fish and Fisheries. 14:213-224.</p>
 <p>Gislason, H., N. Daan, J.C. Rice, and J.G. Pope. 2010. Size, growth, temperature and the natural mortality of marine fish. Fish and Fisheries 11:149-158.</p>
@@ -271,32 +271,49 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code><a href='https://rdrr.io/pkg/fishmethods/man/M.empirical.html'>M.empirical</a></code> in <span class="pkg">fishmethods</span> for similar functionality.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## List names for available methods</span>
-<span class='fu'>Mmethods</span>()</div><div class='output co'>#&gt;  [1] "HoenigNLS"      "HoenigO"        "HoenigOF"       "HoenigOM"      
+<span class='fu'>Mmethods</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "HoenigNLS"      "HoenigO"        "HoenigOF"       "HoenigOM"      
 #&gt;  [5] "HoenigOC"       "HoenigO2"       "HoenigO2F"      "HoenigO2M"     
 #&gt;  [9] "HoenigO2C"      "HoenigLM"       "HewittHoenig"   "tmax1"         
 #&gt; [13] "PaulyLNoT"      "PaulyL"         "PaulyW"         "K1"            
 #&gt; [17] "K2"             "JensenK1"       "JensenK2"       "Gislason"      
 #&gt; [21] "AlversonCarney" "Charnov"        "ZhangMegreyD"   "ZhangMegreyP"  
-#&gt; [25] "RikhterEfanov1" "RikhterEfanov2"</div><div class='input'><span class='fu'>Mmethods</span>(<span class='st'>"tmax"</span>)</div><div class='output co'>#&gt;  [1] "tmax1"        "HoenigNLS"    "HoenigO"      "HoenigOF"     "HoenigOM"    
+#&gt; [25] "RikhterEfanov1" "RikhterEfanov2"</div><div class='input'><span class='fu'>Mmethods</span><span class='op'>(</span><span class='st'>"tmax"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "tmax1"        "HoenigNLS"    "HoenigO"      "HoenigOF"     "HoenigOM"    
 #&gt;  [6] "HoenigOC"     "HoenigO2"     "HoenigO2F"    "HoenigO2M"    "HoenigO2C"   
 #&gt; [11] "HoenigLM"     "HewittHoenig"</div><div class='input'>
 <span class='co'>## Simple Examples</span>
-<span class='fu'>metaM</span>(<span class='st'>"tmax"</span>,<span class='kw'>tmax</span><span class='kw'>=</span><span class='fl'>20</span>)</div><div class='output co'>#&gt; [1] 0.25545</div><div class='input'><span class='fu'>metaM</span>(<span class='st'>"tmax"</span>,<span class='kw'>tmax</span><span class='kw'>=</span><span class='fl'>20</span>,<span class='kw'>justM</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>M=0.2554 as estimated with Then et al. (2015) tmax equation</span></div><div class='output co'>#&gt; <span class='message'>  with givens: tmax=20</span></div><div class='input'><span class='fu'>metaM</span>(<span class='st'>"HoenigNLS"</span>,<span class='kw'>tmax</span><span class='kw'>=</span><span class='fl'>20</span>)</div><div class='output co'>#&gt; [1] 0.3150387</div><div class='input'><span class='fu'>metaM</span>(<span class='st'>"HoenigNLS"</span>,<span class='kw'>tmax</span><span class='kw'>=</span><span class='fl'>20</span>,<span class='kw'>justM</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>M=0.315 as estimated with Then et al. (2015) Hoenig (NLS) equation</span></div><div class='output co'>#&gt; <span class='message'>  with givens: tmax=20</span></div><div class='input'>
+<span class='fu'>metaM</span><span class='op'>(</span><span class='st'>"tmax"</span>,tmax<span class='op'>=</span><span class='fl'>20</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.25545</div><div class='input'><span class='fu'>metaM</span><span class='op'>(</span><span class='st'>"tmax"</span>,tmax<span class='op'>=</span><span class='fl'>20</span>,justM<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>M=0.2554 as estimated with Then et al. (2015) tmax equation</span></div><div class='output co'>#&gt; <span class='message'>  with givens: tmax=20</span></div><div class='input'><span class='fu'>metaM</span><span class='op'>(</span><span class='st'>"HoenigNLS"</span>,tmax<span class='op'>=</span><span class='fl'>20</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.3150387</div><div class='input'><span class='fu'>metaM</span><span class='op'>(</span><span class='st'>"HoenigNLS"</span>,tmax<span class='op'>=</span><span class='fl'>20</span>,justM<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>M=0.315 as estimated with Then et al. (2015) Hoenig (NLS) equation</span></div><div class='output co'>#&gt; <span class='message'>  with givens: tmax=20</span></div><div class='input'> 
 <span class='co'>## Example Patagonian Sprat ... from Table 2 in Cerna et al. (2014)</span>
 <span class='co'>## http://www.scielo.cl/pdf/lajar/v42n3/art15.pdf</span>
-<span class='no'>Temp</span> <span class='kw'>&lt;-</span> <span class='fl'>11</span>
-<span class='no'>Linf</span> <span class='kw'>&lt;-</span> <span class='fl'>17.71</span>
-<span class='no'>K</span> <span class='kw'>&lt;-</span> <span class='fl'>0.78</span>
-<span class='no'>t0</span> <span class='kw'>&lt;-</span> -<span class='fl'>0.46</span>
-<span class='no'>tmax</span> <span class='kw'>&lt;-</span> <span class='no'>t0</span>+<span class='fl'>3</span>/<span class='no'>K</span>
-<span class='no'>t50</span> <span class='kw'>&lt;-</span> <span class='no'>t0</span>-(<span class='fl'>1</span>/<span class='no'>K</span>)*<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>1</span>-<span class='fl'>13.5</span>/<span class='no'>Linf</span>)
-<span class='fu'>metaM</span>(<span class='st'>"RikhterEfanov1"</span>,<span class='kw'>t50</span><span class='kw'>=</span><span class='no'>t50</span>)</div><div class='output co'>#&gt; [1] 1.050009</div><div class='input'><span class='fu'>metaM</span>(<span class='st'>"PaulyL"</span>,<span class='kw'>K</span><span class='kw'>=</span><span class='no'>K</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='no'>Linf</span>,<span class='kw'>Temp</span><span class='kw'>=</span><span class='no'>Temp</span>)</div><div class='output co'>#&gt; [1] 1.14058</div><div class='input'><span class='fu'>metaM</span>(<span class='st'>"PaulyL"</span>,<span class='kw'>K</span><span class='kw'>=</span><span class='no'>K</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='no'>Linf</span>,<span class='kw'>Temp</span><span class='kw'>=</span><span class='no'>Temp</span>,<span class='kw'>justM</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>M=1.1406 as estimated with Pauly (1980) length equation</span></div><div class='output co'>#&gt; <span class='message'>  with givens: K=0.78, Linf=17.71, Temp=11</span></div><div class='input'><span class='fu'>metaM</span>(<span class='st'>"HoenigNLS"</span>,<span class='kw'>tmax</span><span class='kw'>=</span><span class='no'>tmax</span>)</div><div class='output co'>#&gt; [1] 1.602862</div><div class='input'><span class='fu'>metaM</span>(<span class='st'>"HoenigO"</span>,<span class='kw'>tmax</span><span class='kw'>=</span><span class='no'>tmax</span>)</div><div class='output co'>#&gt; [1] 1.274125</div><div class='input'><span class='fu'>metaM</span>(<span class='st'>"HewittHoenig"</span>,<span class='kw'>tmax</span><span class='kw'>=</span><span class='no'>tmax</span>)</div><div class='output co'>#&gt; [1] 1.246252</div><div class='input'><span class='fu'>metaM</span>(<span class='st'>"AlversonCarney"</span>,<span class='kw'>K</span><span class='kw'>=</span><span class='no'>K</span>,<span class='kw'>tmax</span><span class='kw'>=</span><span class='no'>tmax</span>)</div><div class='output co'>#&gt; [1] 1.35398</div><div class='input'>
+<span class='va'>Temp</span> <span class='op'>&lt;-</span> <span class='fl'>11</span>
+<span class='va'>Linf</span> <span class='op'>&lt;-</span> <span class='fl'>17.71</span>
+<span class='va'>K</span> <span class='op'>&lt;-</span> <span class='fl'>0.78</span>
+<span class='va'>t0</span> <span class='op'>&lt;-</span> <span class='op'>-</span><span class='fl'>0.46</span>
+<span class='va'>tmax</span> <span class='op'>&lt;-</span> <span class='va'>t0</span><span class='op'>+</span><span class='fl'>3</span><span class='op'>/</span><span class='va'>K</span>
+<span class='va'>t50</span> <span class='op'>&lt;-</span> <span class='va'>t0</span><span class='op'>-</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='va'>K</span><span class='op'>)</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>-</span><span class='fl'>13.5</span><span class='op'>/</span><span class='va'>Linf</span><span class='op'>)</span>
+<span class='fu'>metaM</span><span class='op'>(</span><span class='st'>"RikhterEfanov1"</span>,t50<span class='op'>=</span><span class='va'>t50</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.050009</div><div class='input'><span class='fu'>metaM</span><span class='op'>(</span><span class='st'>"PaulyL"</span>,K<span class='op'>=</span><span class='va'>K</span>,Linf<span class='op'>=</span><span class='va'>Linf</span>,Temp<span class='op'>=</span><span class='va'>Temp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.14058</div><div class='input'><span class='fu'>metaM</span><span class='op'>(</span><span class='st'>"PaulyL"</span>,K<span class='op'>=</span><span class='va'>K</span>,Linf<span class='op'>=</span><span class='va'>Linf</span>,Temp<span class='op'>=</span><span class='va'>Temp</span>,justM<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>M=1.1406 as estimated with Pauly (1980) length equation</span></div><div class='output co'>#&gt; <span class='message'>  with givens: K=0.78, Linf=17.71, Temp=11</span></div><div class='input'><span class='fu'>metaM</span><span class='op'>(</span><span class='st'>"HoenigNLS"</span>,tmax<span class='op'>=</span><span class='va'>tmax</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.602862</div><div class='input'><span class='fu'>metaM</span><span class='op'>(</span><span class='st'>"HoenigO"</span>,tmax<span class='op'>=</span><span class='va'>tmax</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.274125</div><div class='input'><span class='fu'>metaM</span><span class='op'>(</span><span class='st'>"HewittHoenig"</span>,tmax<span class='op'>=</span><span class='va'>tmax</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.246252</div><div class='input'><span class='fu'>metaM</span><span class='op'>(</span><span class='st'>"AlversonCarney"</span>,K<span class='op'>=</span><span class='va'>K</span>,tmax<span class='op'>=</span><span class='va'>tmax</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.35398</div><div class='input'>
 <span class='co'>## Example of multiple calculations</span>
-<span class='fu'>metaM</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"RikhterEfanov1"</span>,<span class='st'>"PaulyL"</span>,<span class='st'>"HoenigO"</span>,<span class='st'>"HewittHoenig"</span>,<span class='st'>"AlversonCarney"</span>),
-     <span class='kw'>K</span><span class='kw'>=</span><span class='no'>K</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='no'>Linf</span>,<span class='kw'>Temp</span><span class='kw'>=</span><span class='no'>Temp</span>,<span class='kw'>tmax</span><span class='kw'>=</span><span class='no'>tmax</span>,<span class='kw'>t50</span><span class='kw'>=</span><span class='no'>t50</span>)</div><div class='output co'>#&gt;           method        M
+<span class='fu'>metaM</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"RikhterEfanov1"</span>,<span class='st'>"PaulyL"</span>,<span class='st'>"HoenigO"</span>,<span class='st'>"HewittHoenig"</span>,<span class='st'>"AlversonCarney"</span><span class='op'>)</span>,
+     K<span class='op'>=</span><span class='va'>K</span>,Linf<span class='op'>=</span><span class='va'>Linf</span>,Temp<span class='op'>=</span><span class='va'>Temp</span>,tmax<span class='op'>=</span><span class='va'>tmax</span>,t50<span class='op'>=</span><span class='va'>t50</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;           method        M
 #&gt; 1 RikhterEfanov1 1.050009
 #&gt; 2         PaulyL 1.140580
 #&gt; 3        HoenigO 1.274125
@@ -304,7 +321,8 @@
 #&gt; 5 AlversonCarney 1.353980</div><div class='input'>
 <span class='co'>## Example of multiple methods using Mmethods</span>
 <span class='co'># select some methods</span>
-<span class='fu'>metaM</span>(<span class='fu'>Mmethods</span>()[-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>,<span class='fl'>20</span>,<span class='fl'>22</span>:<span class='fl'>24</span>,<span class='fl'>26</span>)],<span class='kw'>K</span><span class='kw'>=</span><span class='no'>K</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='no'>Linf</span>,<span class='kw'>Temp</span><span class='kw'>=</span><span class='no'>Temp</span>,<span class='kw'>tmax</span><span class='kw'>=</span><span class='no'>tmax</span>,<span class='kw'>t50</span><span class='kw'>=</span><span class='no'>t50</span>)</div><div class='output co'>#&gt;            method         M
+<span class='fu'>metaM</span><span class='op'>(</span><span class='fu'>Mmethods</span><span class='op'>(</span><span class='op'>)</span><span class='op'>[</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>15</span>,<span class='fl'>20</span>,<span class='fl'>22</span><span class='op'>:</span><span class='fl'>24</span>,<span class='fl'>26</span><span class='op'>)</span><span class='op'>]</span>,K<span class='op'>=</span><span class='va'>K</span>,Linf<span class='op'>=</span><span class='va'>Linf</span>,Temp<span class='op'>=</span><span class='va'>Temp</span>,tmax<span class='op'>=</span><span class='va'>tmax</span>,t50<span class='op'>=</span><span class='va'>t50</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;            method         M
 #&gt; 1       HoenigNLS 1.6028619
 #&gt; 2         HoenigO 1.2741252
 #&gt; 3        HoenigOF 1.2562214
@@ -325,7 +343,8 @@
 #&gt; 18       JensenK2 1.3566000
 #&gt; 19 AlversonCarney 1.3539801
 #&gt; 20 RikhterEfanov1 1.0500095</div><div class='input'><span class='co'># select just the Hoenig methods</span>
-<span class='fu'>metaM</span>(<span class='fu'>Mmethods</span>(<span class='st'>"Hoenig"</span>),<span class='kw'>K</span><span class='kw'>=</span><span class='no'>K</span>,<span class='kw'>Linf</span><span class='kw'>=</span><span class='no'>Linf</span>,<span class='kw'>Temp</span><span class='kw'>=</span><span class='no'>Temp</span>,<span class='kw'>tmax</span><span class='kw'>=</span><span class='no'>tmax</span>,<span class='kw'>t50</span><span class='kw'>=</span><span class='no'>t50</span>)</div><div class='output co'>#&gt;          method         M
+<span class='fu'>metaM</span><span class='op'>(</span><span class='fu'>Mmethods</span><span class='op'>(</span><span class='st'>"Hoenig"</span><span class='op'>)</span>,K<span class='op'>=</span><span class='va'>K</span>,Linf<span class='op'>=</span><span class='va'>Linf</span>,Temp<span class='op'>=</span><span class='va'>Temp</span>,tmax<span class='op'>=</span><span class='va'>tmax</span>,t50<span class='op'>=</span><span class='va'>t50</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          method         M
 #&gt; 1     HoenigNLS 1.6028619
 #&gt; 2       HoenigO 1.2741252
 #&gt; 3      HoenigOF 1.2562214
@@ -353,7 +372,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

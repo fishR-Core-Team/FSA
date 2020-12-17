@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -128,16 +128,16 @@
     <p>Creates a vector of lengths for the individuals not measured based on the lengths measured in a subsample of individuals.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>expandLenFreq</span>(
-  <span class='no'>x</span>,
-  <span class='no'>w</span>,
-  <span class='no'>additional</span>,
-  <span class='kw'>startcat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>total</span> <span class='kw'>=</span> <span class='no'>additional</span> + <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x</span>),
-  <span class='kw'>decimals</span> <span class='kw'>=</span> <span class='no'>decs</span>$<span class='no'>wdec</span>,
-  <span class='kw'>show.summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>expandLenFreq</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>w</span>,
+  <span class='va'>additional</span>,
+  startcat <span class='op'>=</span> <span class='cn'>NULL</span>,
+  total <span class='op'>=</span> <span class='va'>additional</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>,
+  decimals <span class='op'>=</span> <span class='va'>decs</span><span class='op'>$</span><span class='va'>wdec</span>,
+  show.summary <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -172,7 +172,7 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Optional arguments to be passed to <code>lencat</code>.</p></td>
+      <td><p>Optional arguments to be passed to <code><a href='lencat.html'>lencat</a></code>.</p></td>
     </tr>
     </table>
 
@@ -186,17 +186,21 @@
 <p>The resulting length assignments are rounded to the number of decimals shown in <code>decimal</code>. If <code>decimals</code> is not set by the user then it will default to the same number of decimals shown in the <code>w</code> value. Care is taken to make sure that the rounded result will not pass out of the given length category (i.e., will not be allowed to round up to the next length category). Generally speaking, one will want to use more decimals then is shown in <code>w</code>. For example, one may want to create length categories with a width of 1 inch (i.e., <code>w=1</code>) but have the results recorded as if measured to within 0.1 inch (i.e., <code>decimals=1</code>).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code>expandCounts</code> for expanding more than just lengths or expanding lengths when there is a known number in each length bin. See <code>lencat</code> for creating length bins.</p></div>
+    <div class='dont-index'><p>See <code><a href='expandCounts.html'>expandCounts</a></code> for expanding more than just lengths or expanding lengths when there is a known number in each length bin. See <code><a href='lencat.html'>lencat</a></code> for creating length bins.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Set the random seed for reproducibility</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>15343437</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>15343437</span><span class='op'>)</span>
 
 <span class='co'>## First example</span>
 <span class='co'># random lengths measured to nearest 0.1 unit -- values in a vector</span>
-<span class='no'>len1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>50</span>,<span class='fl'>0.1</span>,<span class='fl'>9.9</span>),<span class='fl'>1</span>)
+<span class='va'>len1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>50</span>,<span class='fl'>0.1</span>,<span class='fl'>9.9</span><span class='op'>)</span>,<span class='fl'>1</span><span class='op'>)</span>
 <span class='co'># assignment of integer lengths to 110 non-measured individuals</span>
-<span class='no'>new.len1a</span> <span class='kw'>&lt;-</span> <span class='fu'>expandLenFreq</span>(<span class='no'>len1</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>total</span><span class='kw'>=</span><span class='fl'>160</span>)</div><div class='output co'>#&gt; Length Frequency Expansion using:
+<span class='va'>new.len1a</span> <span class='op'>&lt;-</span> <span class='fu'>expandLenFreq</span><span class='op'>(</span><span class='va'>len1</span>,w<span class='op'>=</span><span class='fl'>1</span>,total<span class='op'>=</span><span class='fl'>160</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Length Frequency Expansion using:
 #&gt;  Measured length frequency of 50 individuals:
 #&gt;    0    1    2    3    4    5    6    7    8    9 
 #&gt; 0.08 0.06 0.04 0.08 0.14 0.10 0.14 0.04 0.16 0.16 
@@ -207,10 +211,12 @@
 #&gt; Random allocations of 5 individuals
 #&gt;  With final length frequency table of:
 #&gt;  0  1  2  3  4  5  6  7  8  9 
-#&gt;  8  6  4  8 17 11 15  4 20 17 </div><div class='input'><span class='no'>new.len1a</span></div><div class='output co'>#&gt;   [1] 0 0 0 0 0 0 0 0 1 1 1 1 1 1 2 2 2 2 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4
+#&gt;  8  6  4  8 17 11 15  4 20 17 </div><div class='input'><span class='va'>new.len1a</span>
+</div><div class='output co'>#&gt;   [1] 0 0 0 0 0 0 0 0 1 1 1 1 1 1 2 2 2 2 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4
 #&gt;  [38] 4 4 4 4 4 4 5 5 5 5 5 5 5 5 5 5 5 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 7 7 7 7 8
 #&gt;  [75] 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 8 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9</div><div class='input'><span class='co'># assignment of lengths to 0.1 to 110 non-measured individuals</span>
-<span class='no'>new.len1b</span> <span class='kw'>&lt;-</span> <span class='fu'>expandLenFreq</span>(<span class='no'>len1</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>total</span><span class='kw'>=</span><span class='fl'>160</span>,<span class='kw'>decimals</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='output co'>#&gt; Length Frequency Expansion using:
+<span class='va'>new.len1b</span> <span class='op'>&lt;-</span> <span class='fu'>expandLenFreq</span><span class='op'>(</span><span class='va'>len1</span>,w<span class='op'>=</span><span class='fl'>1</span>,total<span class='op'>=</span><span class='fl'>160</span>,decimals<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Length Frequency Expansion using:
 #&gt;  Measured length frequency of 50 individuals:
 #&gt;    0    1    2    3    4    5    6    7    8    9 
 #&gt; 0.08 0.06 0.04 0.08 0.14 0.10 0.14 0.04 0.16 0.16 
@@ -221,7 +227,8 @@
 #&gt; Random allocations of 5 individuals
 #&gt;  With final length frequency table of:
 #&gt;  0  1  2  3  4  5  6  7  8  9 
-#&gt;  8  6  5  8 16 11 16  4 19 17 </div><div class='input'><span class='no'>new.len1b</span></div><div class='output co'>#&gt;   [1] 0.1 0.1 0.2 0.3 0.3 0.3 0.5 0.9 1.3 1.4 1.5 1.5 1.6 1.6 2.1 2.1 2.3 2.6
+#&gt;  8  6  5  8 16 11 16  4 19 17 </div><div class='input'><span class='va'>new.len1b</span>
+</div><div class='output co'>#&gt;   [1] 0.1 0.1 0.2 0.3 0.3 0.3 0.5 0.9 1.3 1.4 1.5 1.5 1.6 1.6 2.1 2.1 2.3 2.6
 #&gt;  [19] 2.8 3.0 3.1 3.3 3.5 3.5 3.7 3.8 3.9 4.0 4.1 4.2 4.3 4.3 4.4 4.4 4.5 4.6
 #&gt;  [37] 4.7 4.8 4.8 4.8 4.8 4.8 4.9 5.0 5.1 5.3 5.4 5.6 5.6 5.8 5.8 5.8 5.8 5.9
 #&gt;  [55] 6.0 6.1 6.2 6.4 6.5 6.6 6.6 6.6 6.6 6.6 6.7 6.8 6.8 6.8 6.9 6.9 7.4 7.5
@@ -230,9 +237,10 @@
 #&gt; [109] 9.8 9.8</div><div class='input'>
 <span class='co'>## Second example -- if values are in a data.frame</span>
 <span class='co'># random lengths measured to nearest 0.1 unit</span>
-<span class='no'>len2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>len</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>50</span>,<span class='fl'>10</span>,<span class='fl'>117</span>),<span class='fl'>1</span>))
+<span class='va'>len2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>len<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>50</span>,<span class='fl'>10</span>,<span class='fl'>117</span><span class='op'>)</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># assignment of lengths to 0.1 for 140 non-measured indivs</span>
-<span class='no'>new.len2a</span> <span class='kw'>&lt;-</span> <span class='fu'>expandLenFreq</span>(<span class='no'>len2</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>10</span>,<span class='kw'>total</span><span class='kw'>=</span><span class='fl'>190</span>,<span class='kw'>decimals</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='output co'>#&gt; Length Frequency Expansion using:
+<span class='va'>new.len2a</span> <span class='op'>&lt;-</span> <span class='fu'>expandLenFreq</span><span class='op'>(</span><span class='va'>len2</span><span class='op'>$</span><span class='va'>len</span>,w<span class='op'>=</span><span class='fl'>10</span>,total<span class='op'>=</span><span class='fl'>190</span>,decimals<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Length Frequency Expansion using:
 #&gt;  Measured length frequency of 50 individuals:
 #&gt;   10   20   30   40   50   60   70   80   90  100  110 
 #&gt; 0.06 0.06 0.06 0.14 0.04 0.10 0.12 0.14 0.12 0.04 0.12 
@@ -243,7 +251,8 @@
 #&gt; Random allocations of 6 individuals
 #&gt;  With final length frequency table of:
 #&gt;  10  20  30  40  50  60  70  80  90 100 110 
-#&gt;   8   8   8  20   6  15  18  20  16   5  16 </div><div class='input'><span class='no'>new.len2a</span></div><div class='output co'>#&gt;   [1]  10.1  10.7  12.2  15.9  16.2  16.3  17.8  18.2  24.2  25.0  25.4  25.6
+#&gt;   8   8   8  20   6  15  18  20  16   5  16 </div><div class='input'><span class='va'>new.len2a</span>
+</div><div class='output co'>#&gt;   [1]  10.1  10.7  12.2  15.9  16.2  16.3  17.8  18.2  24.2  25.0  25.4  25.6
 #&gt;  [13]  27.0  27.5  29.1  29.9  31.2  31.9  31.9  32.9  33.5  36.0  38.0  38.6
 #&gt;  [25]  41.0  41.8  42.5  42.7  42.7  42.8  43.1  43.3  43.4  44.0  44.2  44.2
 #&gt;  [37]  44.9  45.1  47.3  47.5  49.1  49.1  49.6  49.6  51.9  52.1  55.4  56.6
@@ -257,9 +266,10 @@
 #&gt; [133] 114.1 114.5 115.2 116.8 117.1 118.6 119.3 119.7</div><div class='input'>
 <span class='co'>## Third example</span>
 <span class='co'># hypothetically measured lengths</span>
-<span class='no'>len</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>6.7</span>,<span class='fl'>6.9</span>,<span class='fl'>7.3</span>,<span class='fl'>7.4</span>,<span class='fl'>7.5</span>,<span class='fl'>8.2</span>,<span class='fl'>8.7</span>,<span class='fl'>8.9</span>)
+<span class='va'>len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>6.7</span>,<span class='fl'>6.9</span>,<span class='fl'>7.3</span>,<span class='fl'>7.4</span>,<span class='fl'>7.5</span>,<span class='fl'>8.2</span>,<span class='fl'>8.7</span>,<span class='fl'>8.9</span><span class='op'>)</span>
 <span class='co'># find lengths for unmeasured fish assuming a total of 30</span>
-<span class='no'>newlen1</span> <span class='kw'>&lt;-</span> <span class='fu'>expandLenFreq</span>(<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>total</span><span class='kw'>=</span><span class='fl'>30</span>,<span class='kw'>decimals</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='output co'>#&gt; Length Frequency Expansion using:
+<span class='va'>newlen1</span> <span class='op'>&lt;-</span> <span class='fu'>expandLenFreq</span><span class='op'>(</span><span class='va'>len</span>,w<span class='op'>=</span><span class='fl'>0.5</span>,total<span class='op'>=</span><span class='fl'>30</span>,decimals<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Length Frequency Expansion using:
 #&gt;  Measured length frequency of 8 individuals:
 #&gt;   6.5     7   7.5     8   8.5 
 #&gt; 0.250 0.250 0.125 0.125 0.250 
@@ -270,9 +280,11 @@
 #&gt; Random allocations of 3 individuals
 #&gt;  With final length frequency table of:
 #&gt; 6.5   7 7.5   8 8.5 
-#&gt;   6   5   2   4   5 </div><div class='input'><span class='no'>newlen1</span></div><div class='output co'>#&gt;  [1] 6.6 6.7 6.7 6.7 6.8 6.9 7.1 7.1 7.2 7.3 7.3 7.5 7.7 8.0 8.2 8.3 8.3 8.5 8.6
+#&gt;   6   5   2   4   5 </div><div class='input'><span class='va'>newlen1</span>
+</div><div class='output co'>#&gt;  [1] 6.6 6.7 6.7 6.7 6.8 6.9 7.1 7.1 7.2 7.3 7.3 7.5 7.7 8.0 8.2 8.3 8.3 8.5 8.6
 #&gt; [20] 8.7 8.8 8.8</div><div class='input'><span class='co'># set a starting length category</span>
-<span class='no'>newlen2</span> <span class='kw'>&lt;-</span> <span class='fu'>expandLenFreq</span>(<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>0.5</span>,<span class='kw'>startcat</span><span class='kw'>=</span><span class='fl'>6.2</span>,<span class='kw'>total</span><span class='kw'>=</span><span class='fl'>30</span>,<span class='kw'>decimals</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='output co'>#&gt; Length Frequency Expansion using:
+<span class='va'>newlen2</span> <span class='op'>&lt;-</span> <span class='fu'>expandLenFreq</span><span class='op'>(</span><span class='va'>len</span>,w<span class='op'>=</span><span class='fl'>0.5</span>,startcat<span class='op'>=</span><span class='fl'>6.2</span>,total<span class='op'>=</span><span class='fl'>30</span>,decimals<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Length Frequency Expansion using:
 #&gt;  Measured length frequency of 8 individuals:
 #&gt;   6.7   7.2   8.2   8.7 
 #&gt; 0.250 0.375 0.125 0.250 
@@ -283,7 +295,8 @@
 #&gt; Random allocations of 2 individuals
 #&gt;  With final length frequency table of:
 #&gt; 6.7 7.2 8.2 8.7 
-#&gt;   6   9   2   5 </div><div class='input'><span class='no'>newlen2</span></div><div class='output co'>#&gt;  [1] 6.7 6.7 6.9 6.9 6.9 6.9 7.2 7.3 7.3 7.3 7.4 7.4 7.4 7.6 7.6 8.4 8.5 8.7 8.8
+#&gt;   6   9   2   5 </div><div class='input'><span class='va'>newlen2</span>
+</div><div class='output co'>#&gt;  [1] 6.7 6.7 6.9 6.9 6.9 6.9 7.2 7.3 7.3 7.3 7.4 7.4 7.4 7.6 7.6 8.4 8.5 8.7 8.8
 #&gt; [20] 9.0 9.0 9.1</div><div class='input'>
 </div></pre>
   </div>
@@ -301,7 +314,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -128,12 +128,12 @@
     <p>Computes a confidence interval for the Poisson counts.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>poiCI</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"exact"</span>, <span class='st'>"daly"</span>, <span class='st'>"byar"</span>, <span class='st'>"asymptotic"</span>),
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>poiCI</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"exact"</span>, <span class='st'>"daly"</span>, <span class='st'>"byar"</span>, <span class='st'>"asymptotic"</span><span class='op'>)</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -163,28 +163,40 @@
 
     <p>Computes a CI for the Poisson counts using the <code>exact</code>, gamma distribution (<code>daly</code>`), Byar's (<code>byar</code>), or normal approximation (<code>asymptotic</code>) methods.</p>
 <p>The <code>pois.daly</code> function gives essentially identical answers to the <code>pois.exact</code> function except when x=0. When x=0, for the upper confidence limit <code>pois.exact</code> returns 3.689 and <code>pois.daly</code> returns 2.996.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a>, though this is largely based on <code>pois.exact</code>, <code>pois.daly</code>, <code>pois.byar</code>, and <code>pois.approx</code> from the old epitools package.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Demonstrates using all types at once</span>
-<span class='fu'>poiCI</span>(<span class='fl'>12</span>)</div><div class='output co'>#&gt;             95% LCI  95% UCI
+<span class='fu'>poiCI</span><span class='op'>(</span><span class='fl'>12</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;             95% LCI  95% UCI
 #&gt; Exact      6.200603 20.96156
 #&gt; Daly       6.200575 20.96159
 #&gt; Byar       6.552977 20.32447
 #&gt; Asymptotic 5.210486 18.78951</div><div class='input'>
 <span class='co'>## Selecting types</span>
-<span class='fu'>poiCI</span>(<span class='fl'>12</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"daly"</span>)</div><div class='output co'>#&gt;   95% LCI  95% UCI
-#&gt;  6.200575 20.96159</div><div class='input'><span class='fu'>poiCI</span>(<span class='fl'>12</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"byar"</span>)</div><div class='output co'>#&gt;   95% LCI  95% UCI
-#&gt;  6.552977 20.32447</div><div class='input'><span class='fu'>poiCI</span>(<span class='fl'>12</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"asymptotic"</span>)</div><div class='output co'>#&gt;   95% LCI  95% UCI
-#&gt;  5.210486 18.78951</div><div class='input'><span class='fu'>poiCI</span>(<span class='fl'>12</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"asymptotic"</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;             x  95% LCI  95% UCI
-#&gt; Asymptotic 12 5.210486 18.78951</div><div class='input'><span class='fu'>poiCI</span>(<span class='fl'>12</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"exact"</span>,<span class='st'>"daly"</span>))</div><div class='output co'>#&gt;        95% LCI  95% UCI
+<span class='fu'>poiCI</span><span class='op'>(</span><span class='fl'>12</span>,type<span class='op'>=</span><span class='st'>"daly"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   95% LCI  95% UCI
+#&gt;  6.200575 20.96159</div><div class='input'><span class='fu'>poiCI</span><span class='op'>(</span><span class='fl'>12</span>,type<span class='op'>=</span><span class='st'>"byar"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   95% LCI  95% UCI
+#&gt;  6.552977 20.32447</div><div class='input'><span class='fu'>poiCI</span><span class='op'>(</span><span class='fl'>12</span>,type<span class='op'>=</span><span class='st'>"asymptotic"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   95% LCI  95% UCI
+#&gt;  5.210486 18.78951</div><div class='input'><span class='fu'>poiCI</span><span class='op'>(</span><span class='fl'>12</span>,type<span class='op'>=</span><span class='st'>"asymptotic"</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;             x  95% LCI  95% UCI
+#&gt; Asymptotic 12 5.210486 18.78951</div><div class='input'><span class='fu'>poiCI</span><span class='op'>(</span><span class='fl'>12</span>,type<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"exact"</span>,<span class='st'>"daly"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        95% LCI  95% UCI
 #&gt; Exact 6.200603 20.96156
-#&gt; Daly  6.200575 20.96159</div><div class='input'><span class='fu'>poiCI</span>(<span class='fl'>12</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"exact"</span>,<span class='st'>"daly"</span>),<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;        x  95% LCI  95% UCI
+#&gt; Daly  6.200575 20.96159</div><div class='input'><span class='fu'>poiCI</span><span class='op'>(</span><span class='fl'>12</span>,type<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"exact"</span>,<span class='st'>"daly"</span><span class='op'>)</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;        x  95% LCI  95% UCI
 #&gt; Exact 12 6.200603 20.96156
 #&gt; Daly  12 6.200575 20.96159</div><div class='input'>
 <span class='co'>## Demonstrates use with multiple inputs</span>
-<span class='fu'>poiCI</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7</span>,<span class='fl'>10</span>),<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"exact"</span>)</div><div class='output co'>#&gt;   95% LCI  95% UCI
+<span class='fu'>poiCI</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7</span>,<span class='fl'>10</span><span class='op'>)</span>,type<span class='op'>=</span><span class='st'>"exact"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   95% LCI  95% UCI
 #&gt;  2.814358 14.42268
-#&gt;  4.795389 18.39036</div><div class='input'><span class='fu'>poiCI</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7</span>,<span class='fl'>10</span>),<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"exact"</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;       x  95% LCI  95% UCI
+#&gt;  4.795389 18.39036</div><div class='input'><span class='fu'>poiCI</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7</span>,<span class='fl'>10</span><span class='op'>)</span>,type<span class='op'>=</span><span class='st'>"exact"</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       x  95% LCI  95% UCI
 #&gt; [1,]  7 2.814358 14.42268
 #&gt; [2,] 10 4.795389 18.39036</div><div class='input'>
 </div></pre>
@@ -203,7 +215,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

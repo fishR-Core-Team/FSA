@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -128,124 +128,124 @@
     <p>A generic function for constructing a fitted model plot for an <code>lm</code>, <code>glm</code>, or <code>nls</code> object. Supported objects are linear models from simple linear regression (SLR), indicator variable regression (IVR), one-way ANOVA, or two-way ANOVA models; general linear models that are logistic regressions with a binary response; and non-linear regression with a single numerical response variable, at least one continuous explanatory variable and up to two group-factor explanatory variables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fitPlot</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for lm</span>
-<span class='fu'>fitPlot</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for SLR</span>
-<span class='fu'>fitPlot</span>(
-  <span class='no'>object</span>,
-  <span class='kw'>plot.pts</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>16</span>,
-  <span class='kw'>col.pt</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>col.mdl</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
-  <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"none"</span>, <span class='st'>"confidence"</span>, <span class='st'>"prediction"</span>, <span class='st'>"both"</span>),
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>lty.ci</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>lty.pi</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>Enames</span>[<span class='fl'>1</span>],
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>Rname</span>,
-  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'>fitPlot</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  plot.pts <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  pch <span class='op'>=</span> <span class='fl'>16</span>,
+  col.pt <span class='op'>=</span> <span class='st'>"black"</span>,
+  col.mdl <span class='op'>=</span> <span class='st'>"red"</span>,
+  lwd <span class='op'>=</span> <span class='fl'>3</span>,
+  lty <span class='op'>=</span> <span class='fl'>1</span>,
+  interval <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"none"</span>, <span class='st'>"confidence"</span>, <span class='st'>"prediction"</span>, <span class='st'>"both"</span><span class='op'>)</span>,
+  conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  lty.ci <span class='op'>=</span> <span class='fl'>2</span>,
+  lty.pi <span class='op'>=</span> <span class='fl'>3</span>,
+  xlab <span class='op'>=</span> <span class='va'>object</span><span class='op'>$</span><span class='va'>Enames</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>,
+  ylab <span class='op'>=</span> <span class='va'>object</span><span class='op'>$</span><span class='va'>Rname</span>,
+  main <span class='op'>=</span> <span class='st'>""</span>,
+  ylim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for IVR</span>
-<span class='fu'>fitPlot</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for POLY</span>
-<span class='fu'>fitPlot</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for ONEWAY</span>
-<span class='fu'>fitPlot</span>(
-  <span class='no'>object</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>Enames</span>[<span class='fl'>1</span>],
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>Rname</span>,
-  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"b"</span>,
-  <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>16</span>,
-  <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>ci.fun</span> <span class='kw'>=</span> <span class='fu'>iCIfp</span>(<span class='no'>conf.level</span>),
-  <span class='kw'>col.ci</span> <span class='kw'>=</span> <span class='no'>col</span>,
-  <span class='kw'>lty.ci</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'>fitPlot</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  xlab <span class='op'>=</span> <span class='va'>object</span><span class='op'>$</span><span class='va'>Enames</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>,
+  ylab <span class='op'>=</span> <span class='va'>object</span><span class='op'>$</span><span class='va'>Rname</span>,
+  main <span class='op'>=</span> <span class='st'>""</span>,
+  type <span class='op'>=</span> <span class='st'>"b"</span>,
+  pch <span class='op'>=</span> <span class='fl'>16</span>,
+  lty <span class='op'>=</span> <span class='fl'>1</span>,
+  col <span class='op'>=</span> <span class='st'>"black"</span>,
+  interval <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  ci.fun <span class='op'>=</span> <span class='fu'>iCIfp</span><span class='op'>(</span><span class='va'>conf.level</span><span class='op'>)</span>,
+  col.ci <span class='op'>=</span> <span class='va'>col</span>,
+  lty.ci <span class='op'>=</span> <span class='fl'>1</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for TWOWAY</span>
-<span class='fu'>fitPlot</span>(
-  <span class='no'>object</span>,
-  <span class='no'>which</span>,
-  <span class='kw'>change.order</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>Enames</span>[<span class='no'>ord</span>[<span class='fl'>1</span>]],
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='no'>object</span>$<span class='no'>Rname</span>,
-  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"b"</span>,
-  <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>16</span>, <span class='fl'>21</span>, <span class='fl'>15</span>, <span class='fl'>22</span>, <span class='fl'>17</span>, <span class='fl'>24</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>:<span class='fl'>14</span>)),
-  <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>6</span>, <span class='fl'>1</span>:<span class='fl'>6</span>, <span class='fl'>1</span>:<span class='fl'>6</span>),
-  <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>interval</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>ci.fun</span> <span class='kw'>=</span> <span class='fu'>iCIfp</span>(<span class='no'>conf.level</span>),
-  <span class='kw'>lty.ci</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='st'>"topright"</span>,
-  <span class='kw'>cex.leg</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>box.lty.leg</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'>fitPlot</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  <span class='va'>which</span>,
+  change.order <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  xlab <span class='op'>=</span> <span class='va'>object</span><span class='op'>$</span><span class='va'>Enames</span><span class='op'>[</span><span class='va'>ord</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>,
+  ylab <span class='op'>=</span> <span class='va'>object</span><span class='op'>$</span><span class='va'>Rname</span>,
+  main <span class='op'>=</span> <span class='st'>""</span>,
+  type <span class='op'>=</span> <span class='st'>"b"</span>,
+  pch <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>16</span>, <span class='fl'>21</span>, <span class='fl'>15</span>, <span class='fl'>22</span>, <span class='fl'>17</span>, <span class='fl'>24</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>14</span><span class='op'>)</span><span class='op'>)</span>,
+  lty <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>)</span>,
+  col <span class='op'>=</span> <span class='st'>"default"</span>,
+  interval <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  ci.fun <span class='op'>=</span> <span class='fu'>iCIfp</span><span class='op'>(</span><span class='va'>conf.level</span><span class='op'>)</span>,
+  lty.ci <span class='op'>=</span> <span class='fl'>1</span>,
+  legend <span class='op'>=</span> <span class='st'>"topright"</span>,
+  cex.leg <span class='op'>=</span> <span class='fl'>1</span>,
+  box.lty.leg <span class='op'>=</span> <span class='fl'>0</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for nls</span>
-<span class='fu'>fitPlot</span>(
-  <span class='no'>object</span>,
-  <span class='no'>d</span>,
-  <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>19</span>, <span class='fl'>1</span>),
-  <span class='kw'>col.pt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"black"</span>, <span class='st'>"red"</span>),
-  <span class='kw'>col.mdl</span> <span class='kw'>=</span> <span class='no'>col.pt</span>,
-  <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>plot.pts</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>jittered</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>legend.lbls</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Group 1"</span>, <span class='st'>"Group 2"</span>),
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>mdl</span>$<span class='no'>model</span>)[<span class='fl'>1</span>],
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>mdl</span>$<span class='no'>model</span>)[<span class='no'>xpos</span>],
-  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'>fitPlot</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  <span class='va'>d</span>,
+  pch <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>19</span>, <span class='fl'>1</span><span class='op'>)</span>,
+  col.pt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"black"</span>, <span class='st'>"red"</span><span class='op'>)</span>,
+  col.mdl <span class='op'>=</span> <span class='va'>col.pt</span>,
+  lwd <span class='op'>=</span> <span class='fl'>2</span>,
+  lty <span class='op'>=</span> <span class='fl'>1</span>,
+  plot.pts <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  jittered <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  ylim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  legend <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  legend.lbls <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Group 1"</span>, <span class='st'>"Group 2"</span><span class='op'>)</span>,
+  ylab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>mdl</span><span class='op'>$</span><span class='va'>model</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>,
+  xlab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>mdl</span><span class='op'>$</span><span class='va'>model</span><span class='op'>)</span><span class='op'>[</span><span class='va'>xpos</span><span class='op'>]</span>,
+  main <span class='op'>=</span> <span class='st'>""</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for glm</span>
-<span class='fu'>fitPlot</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+<span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for logreg</span>
-<span class='fu'>fitPlot</span>(
-  <span class='no'>object</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>object</span>$<span class='no'>model</span>)[<span class='fl'>2</span>],
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>object</span>$<span class='no'>model</span>)[<span class='fl'>1</span>],
-  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>plot.pts</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>col.pt</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>transparency</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>plot.p</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fl'>25</span>,
-  <span class='kw'>p.col</span> <span class='kw'>=</span> <span class='st'>"blue"</span>,
-  <span class='kw'>p.pch</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>p.cex</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>yaxis1.ticks</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.1</span>),
-  <span class='kw'>yaxis1.lbls</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>),
-  <span class='kw'>yaxis2.show</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>col.mdl</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
-  <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>lty</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>mdl.vals</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span>(<span class='no'>x</span>),
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'>fitPlot</span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  xlab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>$</span><span class='va'>model</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>,
+  ylab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>$</span><span class='va'>model</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>,
+  main <span class='op'>=</span> <span class='st'>""</span>,
+  plot.pts <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  col.pt <span class='op'>=</span> <span class='st'>"black"</span>,
+  transparency <span class='op'>=</span> <span class='cn'>NULL</span>,
+  plot.p <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  breaks <span class='op'>=</span> <span class='fl'>25</span>,
+  p.col <span class='op'>=</span> <span class='st'>"blue"</span>,
+  p.pch <span class='op'>=</span> <span class='fl'>3</span>,
+  p.cex <span class='op'>=</span> <span class='fl'>1</span>,
+  yaxis1.ticks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.1</span><span class='op'>)</span>,
+  yaxis1.lbls <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span><span class='op'>)</span>,
+  yaxis2.show <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  col.mdl <span class='op'>=</span> <span class='st'>"red"</span>,
+  lwd <span class='op'>=</span> <span class='fl'>2</span>,
+  lty <span class='op'>=</span> <span class='fl'>1</span>,
+  mdl.vals <span class='op'>=</span> <span class='fl'>50</span>,
+  xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -421,59 +421,67 @@
     <p>This function is meant to allow newbie students the ability to visualize the most common linear models found in an introductory or intermediate level undergraduate statistics course without getting &#8220;bogged-down&#8221; in the gritty details of a wide variety of functions. This generic function and it's S3 functions allow the student to visualize the means plot of a one-way anova, the main effects and interaction plots of a two-way ANOVA, the fit of a simple linear regression, the fits of many lines in an indicator variable regression, and the fit of a non-linear model with a simple and mostly common set of arguments -- generally, all that is required is a fitted linear model of the type mentioned here as the first argument. This function thus allows newbie students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner. THIS IS NOT A RESEARCH GRADE FUNCTION and the user should learn how to use the functions that this function is based on, build plots from &#8220;scratch&#8221;, or use more sophisticated plotting packages (e.g., <span class="pkg">ggplot2</span> or <span class="pkg">lattice</span>).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></code>, <code><a href='https://rdrr.io/pkg/car/man/regLine.html'>regLine</a></code> in <span class="pkg">car</span>, <code><a href='https://rdrr.io/pkg/psych/man/error.bars.html'>error.bars</a></code> in <span class="pkg">psych</span>, <code>interaction.plot</code>, and <code><a href='https://rdrr.io/pkg/sciplot/man/lineplot.CI.html'>lineplot.CI</a></code> in <span class="pkg">sciplot</span> for similar functionality. See <code>residPlot</code> for related functionality.</p></div>
+    <div class='dont-index'><p>See <code><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></code>, <code><a href='https://rdrr.io/pkg/car/man/regLine.html'>regLine</a></code> in <span class="pkg">car</span>, <code><a href='https://rdrr.io/pkg/psych/man/error.bars.html'>error.bars</a></code> in <span class="pkg">psych</span>, <code>interaction.plot</code>, and <code><a href='https://rdrr.io/pkg/sciplot/man/lineplot.CI.html'>lineplot.CI</a></code> in <span class="pkg">sciplot</span> for similar functionality. See <code><a href='residPlot.html'>residPlot</a></code> for related functionality.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create year as a factor variable</span>
-<span class='no'>Mirex</span>$<span class='no'>fyear</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>Mirex</span>$<span class='no'>year</span>)
-<span class='co'># reduce number of years for visual simplicity</span>
-<span class='no'>Mirex2</span> <span class='kw'>&lt;-</span> <span class='fu'>filterD</span>(<span class='no'>Mirex</span>,<span class='no'>fyear</span> <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1977</span>,<span class='fl'>1992</span>))
+<span class='va'>Mirex</span><span class='op'>$</span><span class='va'>fyear</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>Mirex</span><span class='op'>$</span><span class='va'>year</span><span class='op'>)</span>
+<span class='co'># reduce number of years for visual simplicity for iVRs</span>
+<span class='va'>Mirex2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Subset.html'>filterD</a></span><span class='op'>(</span><span class='va'>Mirex</span>,<span class='va'>fyear</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1977</span>,<span class='fl'>1992</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'>## Indicator variable regression with two factors</span>
-<span class='no'>lm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>weight</span>*<span class='no'>fyear</span>*<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex2</span>)
-<span class='fu'>fitPlot</span>(<span class='no'>lm1</span>)</div><div class='img'><img src='fitPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span>(<span class='no'>lm1</span>,<span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>0.8</span>),<span class='kw'>legend</span><span class='kw'>=</span><span class='st'>"topleft"</span>)</div><div class='img'><img src='fitPlot-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Indicator variable regression with two factors (but different orders)</span>
-<span class='no'>lm1r</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>fyear</span>*<span class='no'>weight</span>*<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex2</span>)
-<span class='fu'>fitPlot</span>(<span class='no'>lm1r</span>)</div><div class='img'><img src='fitPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>lm1r2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>fyear</span>*<span class='no'>species</span>*<span class='no'>weight</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex2</span>)
-<span class='fu'>fitPlot</span>(<span class='no'>lm1r2</span>)</div><div class='img'><img src='fitPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>lm1r3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>species</span>*<span class='no'>fyear</span>*<span class='no'>weight</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex2</span>)
-<span class='fu'>fitPlot</span>(<span class='no'>lm1r3</span>)</div><div class='img'><img src='fitPlot-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Indicator variable regression with one factor (also showing confidence bands)</span>
-<span class='no'>lm2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>weight</span>*<span class='no'>fyear</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex2</span>)
-<span class='fu'>fitPlot</span>(<span class='no'>lm2</span>,<span class='kw'>legend</span><span class='kw'>=</span><span class='st'>"topleft"</span>)</div><div class='img'><img src='fitPlot-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span>(<span class='no'>lm2</span>,<span class='kw'>legend</span><span class='kw'>=</span><span class='st'>"topleft"</span>,<span class='kw'>interval</span><span class='kw'>=</span><span class='st'>"confidence"</span>)</div><div class='img'><img src='fitPlot-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span>(<span class='no'>lm2</span>,<span class='kw'>legend</span><span class='kw'>=</span><span class='st'>"topleft"</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"rich"</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>18</span>,<span class='kw'>lty</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Your choices for 'col', 'pch', and 'lty' will make it difficult to see groups.</span></div><div class='img'><img src='fitPlot-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Indicator variable regression with one factor (as first variable)</span>
-<span class='no'>lm2r</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>fyear</span>*<span class='no'>weight</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex2</span>)
-<span class='fu'>fitPlot</span>(<span class='no'>lm2r</span>,<span class='kw'>legend</span><span class='kw'>=</span><span class='st'>"topleft"</span>,<span class='kw'>interval</span><span class='kw'>=</span><span class='st'>"both"</span>)</div><div class='img'><img src='fitPlot-9.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Indicator variable regression with one factor (assuming parallel lines)</span>
-<span class='no'>lm3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>weight</span>+<span class='no'>fyear</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex2</span>)
-<span class='fu'>fitPlot</span>(<span class='no'>lm3</span>,<span class='kw'>legend</span><span class='kw'>=</span><span class='st'>"topleft"</span>)</div><div class='img'><img src='fitPlot-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span>(<span class='no'>lm3</span>,<span class='kw'>legend</span><span class='kw'>=</span><span class='st'>"topleft"</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"default"</span>)</div><div class='img'><img src='fitPlot-11.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Simple linear regression (showing color change and confidence and prediction bands)</span>
-<span class='no'>lm4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>weight</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex</span>)
-<span class='fu'>fitPlot</span>(<span class='no'>lm4</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>8</span>,<span class='kw'>col.pt</span><span class='kw'>=</span><span class='st'>"red"</span>)</div><div class='img'><img src='fitPlot-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span>(<span class='no'>lm4</span>,<span class='kw'>col.mdl</span><span class='kw'>=</span><span class='st'>"blue"</span>)</div><div class='img'><img src='fitPlot-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span>(<span class='no'>lm4</span>,<span class='kw'>interval</span><span class='kw'>=</span><span class='st'>"both"</span>)</div><div class='img'><img src='fitPlot-14.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## One-way ANOVA</span>
-<span class='no'>lm5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>fyear</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex</span>)
-<span class='fu'>fitPlot</span>(<span class='no'>lm5</span>)</div><div class='img'><img src='fitPlot-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span>(<span class='no'>lm5</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"red"</span>)</div><div class='img'><img src='fitPlot-16.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span>(<span class='no'>lm5</span>,<span class='kw'>col.ci</span><span class='kw'>=</span><span class='st'>"red"</span>)</div><div class='img'><img src='fitPlot-17.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>aov1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>fyear</span>,data<span class='op'>=</span><span class='va'>Mirex</span><span class='op'>)</span>
+<span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>aov1</span><span class='op'>)</span>
+</div><div class='img'><img src='fitPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Two-way ANOVA</span>
-<span class='no'>lm6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>fyear</span>*<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex</span>)
+<span class='va'>aov2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>fyear</span><span class='op'>*</span><span class='va'>species</span>,data<span class='op'>=</span><span class='va'>Mirex</span><span class='op'>)</span>
 <span class='co'># interaction plots and a color change</span>
-<span class='fu'>fitPlot</span>(<span class='no'>lm6</span>,<span class='kw'>legend</span><span class='kw'>=</span><span class='st'>"bottomleft"</span>)</div><div class='img'><img src='fitPlot-18.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span>(<span class='no'>lm6</span>,<span class='kw'>change.order</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='fitPlot-19.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span>(<span class='no'>lm6</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"jet"</span>)</div><div class='img'><img src='fitPlot-20.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># main effects plots</span>
-<span class='fu'>fitPlot</span>(<span class='no'>lm6</span>,<span class='kw'>which</span><span class='kw'>=</span><span class='st'>"species"</span>)</div><div class='img'><img src='fitPlot-21.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span>(<span class='no'>lm6</span>,<span class='kw'>which</span><span class='kw'>=</span><span class='st'>"fyear"</span>)</div><div class='img'><img src='fitPlot-22.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>aov2</span>,legend<span class='op'>=</span><span class='st'>"bottomleft"</span><span class='op'>)</span>
+</div><div class='img'><img src='fitPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>aov2</span>,change.order<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='fitPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># main effects plots</span>
+<span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>aov2</span>,which<span class='op'>=</span><span class='st'>"species"</span><span class='op'>)</span>
+</div><div class='img'><img src='fitPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>aov2</span>,which<span class='op'>=</span><span class='st'>"fyear"</span><span class='op'>)</span>
+</div><div class='img'><img src='fitPlot-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>## Simple linear regression (showing color change and confidence and prediction bands)</span>
+<span class='va'>slr1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>weight</span>,data<span class='op'>=</span><span class='va'>Mirex</span><span class='op'>)</span>
+<span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>slr1</span><span class='op'>)</span>
+</div><div class='img'><img src='fitPlot-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>slr1</span>,interval<span class='op'>=</span><span class='st'>"both"</span><span class='op'>)</span>
+</div><div class='img'><img src='fitPlot-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>## Indicator variable regression with one factor (also showing confidence bands)</span>
+<span class='va'>ivr1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>weight</span><span class='op'>*</span><span class='va'>fyear</span>,data<span class='op'>=</span><span class='va'>Mirex2</span><span class='op'>)</span>
+<span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>ivr1</span>,legend<span class='op'>=</span><span class='st'>"topleft"</span><span class='op'>)</span>
+</div><div class='img'><img src='fitPlot-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>ivr1</span>,legend<span class='op'>=</span><span class='st'>"topleft"</span>,interval<span class='op'>=</span><span class='st'>"confidence"</span><span class='op'>)</span>
+</div><div class='img'><img src='fitPlot-9.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>## Indicator variable regression with one factor (assuming parallel lines)</span>
+<span class='va'>ivr2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>weight</span><span class='op'>+</span><span class='va'>species</span>,data<span class='op'>=</span><span class='va'>Mirex2</span><span class='op'>)</span>
+<span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>ivr2</span>,legend<span class='op'>=</span><span class='st'>"topleft"</span><span class='op'>)</span>
+</div><div class='img'><img src='fitPlot-10.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>## Indicator variable regression with two factors</span>
+<span class='va'>ivr3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>weight</span><span class='op'>*</span><span class='va'>fyear</span><span class='op'>*</span><span class='va'>species</span>,data<span class='op'>=</span><span class='va'>Mirex2</span><span class='op'>)</span>
+<span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>ivr3</span>,ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0.8</span><span class='op'>)</span>,legend<span class='op'>=</span><span class='st'>"topleft"</span><span class='op'>)</span>
+</div><div class='img'><img src='fitPlot-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Polynomial regression</span>
-<span class='no'>lm7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>mirex</span>~<span class='no'>weight</span>+<span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span>(<span class='no'>weight</span>^<span class='fl'>2</span>),<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Mirex</span>)
-<span class='fu'>fitPlot</span>(<span class='no'>lm7</span>,<span class='kw'>interval</span><span class='kw'>=</span><span class='st'>"both"</span>)</div><div class='img'><img src='fitPlot-23.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>poly1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>weight</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='va'>weight</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>,data<span class='op'>=</span><span class='va'>Mirex</span><span class='op'>)</span>
+<span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>poly1</span>,interval<span class='op'>=</span><span class='st'>"both"</span><span class='op'>)</span>
+</div><div class='img'><img src='fitPlot-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Non-linear model example</span>
-<span class='no'>lr.sv</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>B1</span><span class='kw'>=</span><span class='fl'>6</span>,<span class='kw'>B2</span><span class='kw'>=</span><span class='fl'>7.2</span>,<span class='kw'>B3</span><span class='kw'>=</span>-<span class='fl'>1.5</span>)
-<span class='no'>nl1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/nls.html'>nls</a></span>(<span class='no'>cells</span>~<span class='no'>B1</span>/(<span class='fl'>1</span>+<span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='no'>B2</span>+<span class='no'>B3</span>*<span class='no'>days</span>)),<span class='kw'>start</span><span class='kw'>=</span><span class='no'>lr.sv</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>Ecoli</span>)
-<span class='fu'>fitPlot</span>(<span class='no'>nl1</span>,<span class='no'>Ecoli</span>,<span class='kw'>cex.main</span><span class='kw'>=</span><span class='fl'>0.7</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='error'>Error in nls(formula = cells ~ B1/(1 + exp(B2 + B3 * days)), data = Ecoli,     start = lr.sv, algorithm = "default", control = list(maxiter = 50,         tol = 1e-05, minFactor = 0.0009765625, printEval = FALSE,         warnOnly = FALSE), trace = FALSE, model = TRUE): object 'lr.sv' not found</span></div><div class='input'><span class='fu'>fitPlot</span>(<span class='no'>nl1</span>,<span class='no'>Ecoli</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='st'>"Day"</span>,<span class='kw'>ylab</span><span class='kw'>=</span><span class='st'>"Cellsx10^6/ml"</span>,<span class='kw'>plot.pts</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in nls(formula = cells ~ B1/(1 + exp(B2 + B3 * days)), data = Ecoli,     start = lr.sv, algorithm = "default", control = list(maxiter = 50,         tol = 1e-05, minFactor = 0.0009765625, printEval = FALSE,         warnOnly = FALSE), trace = FALSE, model = TRUE): object 'lr.sv' not found</span></div><div class='input'>
+<span class='va'>lr.sv</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>B1<span class='op'>=</span><span class='fl'>6</span>,B2<span class='op'>=</span><span class='fl'>7.2</span>,B3<span class='op'>=</span><span class='op'>-</span><span class='fl'>1.5</span><span class='op'>)</span>
+<span class='va'>nl1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/nls.html'>nls</a></span><span class='op'>(</span><span class='va'>cells</span><span class='op'>~</span><span class='va'>B1</span><span class='op'>/</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>B2</span><span class='op'>+</span><span class='va'>B3</span><span class='op'>*</span><span class='va'>days</span><span class='op'>)</span><span class='op'>)</span>,start<span class='op'>=</span><span class='va'>lr.sv</span>,data<span class='op'>=</span><span class='va'>Ecoli</span><span class='op'>)</span>
+<span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>nl1</span>,<span class='va'>Ecoli</span>,cex.main<span class='op'>=</span><span class='fl'>0.7</span>,lwd<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in nls(formula = cells ~ B1/(1 + exp(B2 + B3 * days)), data = Ecoli,     start = lr.sv, algorithm = "default", control = list(maxiter = 50,         tol = 1e-05, minFactor = 0.0009765625, printEval = FALSE,         warnOnly = FALSE), trace = FALSE, model = TRUE): object 'lr.sv' not found</span></div><div class='input'>
 <span class='co'>## Logistic regression example</span>
 <span class='co'>## NASA space shuttle o-ring failures -- from graphics package</span>
-<span class='no'>fail</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>),
-<span class='kw'>levels</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"no"</span>,<span class='st'>"yes"</span>))
-<span class='no'>temperature</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>53</span>,<span class='fl'>57</span>,<span class='fl'>58</span>,<span class='fl'>63</span>,<span class='fl'>66</span>,<span class='fl'>67</span>,<span class='fl'>67</span>,<span class='fl'>67</span>,<span class='fl'>68</span>,<span class='fl'>69</span>,<span class='fl'>70</span>,<span class='fl'>70</span>,<span class='fl'>70</span>,<span class='fl'>70</span>,<span class='fl'>72</span>,<span class='fl'>73</span>,<span class='fl'>75</span>,<span class='fl'>75</span>,<span class='fl'>76</span>,<span class='fl'>76</span>,<span class='fl'>78</span>,<span class='fl'>79</span>,<span class='fl'>81</span>)
-<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>fail</span>,<span class='no'>temperature</span>)
-<span class='no'>glm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span>(<span class='no'>fail</span>~<span class='no'>temperature</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>d</span>,<span class='kw'>family</span><span class='kw'>=</span><span class='st'>"binomial"</span>)
-<span class='fu'>fitPlot</span>(<span class='no'>glm1</span>)</div><div class='img'><img src='fitPlot-24.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span>(<span class='no'>glm1</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>52</span>,<span class='fl'>82</span>,<span class='fl'>2</span>))</div><div class='img'><img src='fitPlot-25.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span>(<span class='no'>glm1</span>,<span class='kw'>yaxis1.ticks</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>1</span>),<span class='kw'>yaxis1.lbls</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>1</span>))</div><div class='img'><img src='fitPlot-26.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># changing the size of the y-axis labels</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>cex.axis</span><span class='kw'>=</span><span class='fl'>1.5</span>,<span class='kw'>cex.lab</span><span class='kw'>=</span><span class='fl'>1.5</span>)
-<span class='fu'>fitPlot</span>(<span class='no'>glm1</span>)</div><div class='img'><img src='fitPlot-27.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>fail<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>,
+                            levels <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"no"</span>,<span class='st'>"yes"</span><span class='op'>)</span><span class='op'>)</span>,
+                <span class='va'>temperature</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>53</span>,<span class='fl'>57</span>,<span class='fl'>58</span>,<span class='fl'>63</span>,<span class='fl'>66</span>,<span class='fl'>67</span>,<span class='fl'>67</span>,<span class='fl'>67</span>,<span class='fl'>68</span>,<span class='fl'>69</span>,<span class='fl'>70</span>,<span class='fl'>70</span>,<span class='fl'>70</span>,<span class='fl'>70</span>,
+                                 <span class='fl'>72</span>,<span class='fl'>73</span>,<span class='fl'>75</span>,<span class='fl'>75</span>,<span class='fl'>76</span>,<span class='fl'>76</span>,<span class='fl'>78</span>,<span class='fl'>79</span>,<span class='fl'>81</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>glm1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>fail</span><span class='op'>~</span><span class='va'>temperature</span>,data<span class='op'>=</span><span class='va'>d</span>,family<span class='op'>=</span><span class='st'>"binomial"</span><span class='op'>)</span>
+<span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>glm1</span><span class='op'>)</span>
+</div><div class='img'><img src='fitPlot-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>glm1</span>,yaxis1.ticks<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>,yaxis1.lbls<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='fitPlot-14.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -490,7 +498,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

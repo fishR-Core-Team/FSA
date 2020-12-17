@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -128,7 +128,7 @@
     <p>Constructs the correction-factor used when back-transforming log-transformed values according to Sprugel (1983). Sprugel's main formula -- exp((syx^2)/2) -- is used when syx is estimated for natural log transformed data. A correction for any base is obtained by multiplying the syx term by log_e(base) to give exp(((log_e(base)*syx)^2)/2). This more general formula is implemented here (if, of course, the base is exp(1) then the general formula reduces to the original specific formula).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>logbtcf</span>(<span class='no'>obj</span>, <span class='kw'>base</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='fl'>1</span>))</pre>
+    <pre class="usage"><span class='fu'>logbtcf</span><span class='op'>(</span><span class='va'>obj</span>, base <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,29 +149,40 @@
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Sprugel, D.G. 1983. Correcting for bias in log-transformed allometric equations. Ecology 64:209-210.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># toy data</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>y</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span>(<span class='fl'>10</span>),<span class='kw'>x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span>(<span class='fl'>10</span>))
-<span class='no'>df</span>$<span class='no'>logey</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>df</span>$<span class='no'>y</span>)
-<span class='no'>df</span>$<span class='no'>log10y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='no'>df</span>$<span class='no'>y</span>)
-<span class='no'>df</span>$<span class='no'>logex</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='no'>df</span>$<span class='no'>x</span>)
-<span class='no'>df</span>$<span class='no'>log10x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='no'>df</span>$<span class='no'>x</span>)
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>y<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>,x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>df</span><span class='op'>$</span><span class='va'>logey</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>y</span><span class='op'>)</span>
+<span class='va'>df</span><span class='op'>$</span><span class='va'>log10y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>y</span><span class='op'>)</span>
+<span class='va'>df</span><span class='op'>$</span><span class='va'>logex</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>x</span><span class='op'>)</span>
+<span class='va'>df</span><span class='op'>$</span><span class='va'>log10x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>x</span><span class='op'>)</span>
 
 <span class='co'># model and predictions on loge scale</span>
-<span class='no'>lme</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>logey</span>~<span class='no'>logex</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
-( <span class='no'>ploge</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>lme</span>,<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>logex</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span>(<span class='fl'>10</span>))) )</div><div class='output co'>#&gt;        1 
-#&gt; 1.691612 </div><div class='input'>( <span class='no'>pe</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>(<span class='no'>ploge</span>) )</div><div class='output co'>#&gt;        1 
-#&gt; 5.428224 </div><div class='input'>( <span class='no'>cfe</span> <span class='kw'>&lt;-</span> <span class='fu'>logbtcf</span>(<span class='no'>lme</span>) )</div><div class='output co'>#&gt; [1] 1.381993</div><div class='input'>( <span class='no'>cpe</span> <span class='kw'>&lt;-</span> <span class='no'>cfe</span>*<span class='no'>pe</span> )</div><div class='output co'>#&gt;        1 
+<span class='va'>lme</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>logey</span><span class='op'>~</span><span class='va'>logex</span>,data<span class='op'>=</span><span class='va'>df</span><span class='op'>)</span>
+<span class='op'>(</span> <span class='va'>ploge</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>lme</span>,<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>logex<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;        1 
+#&gt; 1.691612 </div><div class='input'><span class='op'>(</span> <span class='va'>pe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>ploge</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;        1 
+#&gt; 5.428224 </div><div class='input'><span class='op'>(</span> <span class='va'>cfe</span> <span class='op'>&lt;-</span> <span class='fu'>logbtcf</span><span class='op'>(</span><span class='va'>lme</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.381993</div><div class='input'><span class='op'>(</span> <span class='va'>cpe</span> <span class='op'>&lt;-</span> <span class='va'>cfe</span><span class='op'>*</span><span class='va'>pe</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;        1 
 #&gt; 7.501769 </div><div class='input'>
 <span class='co'># model and predictions on log10 scale</span>
-<span class='no'>lm10</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span>(<span class='no'>log10y</span>~<span class='no'>log10x</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
-<span class='no'>plog10</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span>(<span class='no'>lm10</span>,<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>log10x</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span>(<span class='fl'>10</span>)))
-<span class='no'>p10</span> <span class='kw'>&lt;-</span> <span class='fl'>10</span>^(<span class='no'>plog10</span>)
-( <span class='no'>cf10</span> <span class='kw'>&lt;-</span> <span class='fu'>logbtcf</span>(<span class='no'>lm10</span>,<span class='fl'>10</span>) )</div><div class='output co'>#&gt; [1] 1.381993</div><div class='input'>( <span class='no'>cp10</span> <span class='kw'>&lt;-</span> <span class='no'>cf10</span>*<span class='no'>p10</span> )</div><div class='output co'>#&gt;        1 
+<span class='va'>lm10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>log10y</span><span class='op'>~</span><span class='va'>log10x</span>,data<span class='op'>=</span><span class='va'>df</span><span class='op'>)</span>
+<span class='va'>plog10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>lm10</span>,<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>log10x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log10</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p10</span> <span class='op'>&lt;-</span> <span class='fl'>10</span><span class='op'>^</span><span class='op'>(</span><span class='va'>plog10</span><span class='op'>)</span>
+<span class='op'>(</span> <span class='va'>cf10</span> <span class='op'>&lt;-</span> <span class='fu'>logbtcf</span><span class='op'>(</span><span class='va'>lm10</span>,<span class='fl'>10</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.381993</div><div class='input'><span class='op'>(</span> <span class='va'>cp10</span> <span class='op'>&lt;-</span> <span class='va'>cf10</span><span class='op'>*</span><span class='va'>p10</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;        1 
 #&gt; 7.501769 </div><div class='input'>
 <span class='co'># cfe and cf10, cpe and cp10 should be equal</span>
-<span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span>(<span class='no'>cfe</span>,<span class='no'>cf10</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span>(<span class='no'>cpe</span>,<span class='no'>cp10</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>cfe</span>,<span class='va'>cf10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='va'>cpe</span>,<span class='va'>cp10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -188,7 +199,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

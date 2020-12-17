@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -128,29 +128,29 @@
     <p>Finds reasonable starting values for the parameters in a specific parameterization of the von Bertalanffy growth function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>vbStarts</span>(
-  <span class='no'>formula</span>,
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Typical"</span>, <span class='st'>"typical"</span>, <span class='st'>"Traditional"</span>, <span class='st'>"traditional"</span>, <span class='st'>"BevertonHolt"</span>,
+    <pre class="usage"><span class='fu'>vbStarts</span><span class='op'>(</span>
+  <span class='va'>formula</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  param <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Typical"</span>, <span class='st'>"typical"</span>, <span class='st'>"Traditional"</span>, <span class='st'>"traditional"</span>, <span class='st'>"BevertonHolt"</span>,
     <span class='st'>"Original"</span>, <span class='st'>"original"</span>, <span class='st'>"vonBertalanffy"</span>, <span class='st'>"GQ"</span>, <span class='st'>"GallucciQuinn"</span>, <span class='st'>"Mooij"</span>, <span class='st'>"Weisberg"</span>,
-    <span class='st'>"Ogle"</span>, <span class='st'>"Schnute"</span>, <span class='st'>"Francis"</span>, <span class='st'>"Somers"</span>, <span class='st'>"Somers2"</span>, <span class='st'>"Pauly"</span>),
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='no'>param</span>,
-  <span class='kw'>fixed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>meth0</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"yngAge"</span>, <span class='st'>"poly"</span>),
-  <span class='kw'>methLinf</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Walford"</span>, <span class='st'>"oldAge"</span>, <span class='st'>"longFish"</span>),
-  <span class='kw'>num4Linf</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>ages2use</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>methEV</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"means"</span>, <span class='st'>"poly"</span>),
-  <span class='kw'>valOgle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>col.mdl</span> <span class='kw'>=</span> <span class='st'>"gray70"</span>,
-  <span class='kw'>lwd.mdl</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>lty.mdl</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>cex.main</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
-  <span class='kw'>col.main</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
-  <span class='kw'>dynamicPlot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <span class='st'>"Ogle"</span>, <span class='st'>"Schnute"</span>, <span class='st'>"Francis"</span>, <span class='st'>"Somers"</span>, <span class='st'>"Somers2"</span>, <span class='st'>"Pauly"</span><span class='op'>)</span>,
+  type <span class='op'>=</span> <span class='va'>param</span>,
+  fixed <span class='op'>=</span> <span class='cn'>NULL</span>,
+  meth0 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"yngAge"</span>, <span class='st'>"poly"</span><span class='op'>)</span>,
+  methLinf <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Walford"</span>, <span class='st'>"oldAge"</span>, <span class='st'>"longFish"</span><span class='op'>)</span>,
+  num4Linf <span class='op'>=</span> <span class='fl'>1</span>,
+  ages2use <span class='op'>=</span> <span class='cn'>NULL</span>,
+  methEV <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"means"</span>, <span class='st'>"poly"</span><span class='op'>)</span>,
+  valOgle <span class='op'>=</span> <span class='cn'>NULL</span>,
+  plot <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  col.mdl <span class='op'>=</span> <span class='st'>"gray70"</span>,
+  lwd.mdl <span class='op'>=</span> <span class='fl'>3</span>,
+  lty.mdl <span class='op'>=</span> <span class='fl'>1</span>,
+  cex.main <span class='op'>=</span> <span class='fl'>0.9</span>,
+  col.main <span class='op'>=</span> <span class='st'>"red"</span>,
+  dynamicPlot <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,7 +231,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list that contains reasonable starting values. Note that the parameters will be listed in the same order and with the same names as listed in <code>vbFuns</code>.</p>
+    <p>A list that contains reasonable starting values. Note that the parameters will be listed in the same order and with the same names as listed in <code><a href='growthModels.html'>vbFuns</a></code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function attempts to find reasonable starting values for a variety of parameterizations of the von Bertalanffy growth function. There is no guarantee that these starting values are the &#8216;best&#8217; starting values. One should use them with caution and should perform sensitivity analyses to determine the impact of different starting values on the final model results.</p>
@@ -248,15 +248,19 @@
     <p>12-Individual Growth.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
-<p>See references in <code>vbFuns</code>.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+<p>See references in <code><a href='growthModels.html'>vbFuns</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code>growthFunShow</code> to display the equations for the parameterizations used in <span class="pkg">FSA</span> and <code>vbFuns</code> for functions that represent the von Bertalanffy parameterizations. See <code>nlsTracePlot</code> for help troubleshooting nonlinear models that don't converge.</p></div>
+    <div class='dont-index'><p>See <code><a href='growthModels.html'>growthFunShow</a></code> to display the equations for the parameterizations used in <span class="pkg">FSA</span> and <code><a href='growthModels.html'>vbFuns</a></code> for functions that represent the von Bertalanffy parameterizations. See <code><a href='nlsTracePlot.html'>nlsTracePlot</a></code> for help troubleshooting nonlinear models that don't converge.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Simple examples of each parameterization</span>
-<span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>)</div><div class='output co'>#&gt; $Linf
+<span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $K
@@ -264,7 +268,8 @@
 #&gt; 
 #&gt; $t0
 #&gt; [1] -2.124367
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Original"</span>)</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Original"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $K
@@ -272,7 +277,8 @@
 #&gt; 
 #&gt; $L0
 #&gt; [1] 7.732
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"GQ"</span>)</div><div class='output co'>#&gt; $omega
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"GQ"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $omega
 #&gt; [1] 5.459258
 #&gt; 
 #&gt; $K
@@ -280,7 +286,8 @@
 #&gt; 
 #&gt; $t0
 #&gt; [1] -2.124367
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Mooij"</span>)</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Mooij"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $L0
@@ -288,7 +295,8 @@
 #&gt; 
 #&gt; $omega
 #&gt; [1] 5.459258
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Weisberg"</span>)</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Weisberg"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $t50
@@ -296,7 +304,8 @@
 #&gt; 
 #&gt; $t0
 #&gt; [1] -2.124367
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Francis"</span>,<span class='kw'>ages2use</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>5</span>))</div><div class='output co'>#&gt; $L1
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Francis"</span>,ages2use<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $L1
 #&gt; [1] 7.732
 #&gt; 
 #&gt; $L2
@@ -304,7 +313,8 @@
 #&gt; 
 #&gt; $L3
 #&gt; [1] 12.4
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Schnute"</span>,<span class='kw'>ages2use</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>5</span>))</div><div class='output co'>#&gt; $L1
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Schnute"</span>,ages2use<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $L1
 #&gt; [1] 7.732
 #&gt; 
 #&gt; $L3
@@ -312,7 +322,8 @@
 #&gt; 
 #&gt; $K
 #&gt; [1] 0.4114688
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Somers"</span>)</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Somers"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $K
@@ -326,7 +337,8 @@
 #&gt; 
 #&gt; $ts
 #&gt; [1] 0.3
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Somers2"</span>)</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Somers2"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $K
@@ -340,7 +352,8 @@
 #&gt; 
 #&gt; $WP
 #&gt; [1] 0.8
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Pauly"</span>)</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Pauly"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $Kpr
@@ -354,7 +367,8 @@
 #&gt; 
 #&gt; $NGT
 #&gt; [1] 0.3
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Ogle"</span>,<span class='kw'>valOgle</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>tr</span><span class='kw'>=</span><span class='fl'>0</span>))</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Ogle"</span>,valOgle<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>tr<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $K
@@ -362,7 +376,8 @@
 #&gt; 
 #&gt; $Lr
 #&gt; [1] 7.274961
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Ogle"</span>,<span class='kw'>valOgle</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>Lr</span><span class='kw'>=</span><span class='fl'>8</span>))</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Ogle"</span>,valOgle<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>Lr<span class='op'>=</span><span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $K
@@ -372,7 +387,8 @@
 #&gt; [1] 0.7521688
 #&gt; </div><div class='input'>
 <span class='co'>## Using a different method to find Linf</span>
-<span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>methLinf</span><span class='kw'>=</span><span class='st'>"oldAge"</span>)</div><div class='output co'>#&gt; $Linf
+<span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,methLinf<span class='op'>=</span><span class='st'>"oldAge"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 12.4
 #&gt; 
 #&gt; $K
@@ -380,7 +396,8 @@
 #&gt; 
 #&gt; $t0
 #&gt; [1] -2.374338
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>methLinf</span><span class='kw'>=</span><span class='st'>"oldAge"</span>,<span class='kw'>num4Linf</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,methLinf<span class='op'>=</span><span class='st'>"oldAge"</span>,num4Linf<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 12.40625
 #&gt; 
 #&gt; $K
@@ -388,7 +405,8 @@
 #&gt; 
 #&gt; $t0
 #&gt; [1] -2.37231
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>methLinf</span><span class='kw'>=</span><span class='st'>"longFish"</span>)</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,methLinf<span class='op'>=</span><span class='st'>"longFish"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.9
 #&gt; 
 #&gt; $K
@@ -396,7 +414,8 @@
 #&gt; 
 #&gt; $t0
 #&gt; [1] -1.974668
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>methLinf</span><span class='kw'>=</span><span class='st'>"longFish"</span>,<span class='kw'>num4Linf</span><span class='kw'>=</span><span class='fl'>10</span>)</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,methLinf<span class='op'>=</span><span class='st'>"longFish"</span>,num4Linf<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.64
 #&gt; 
 #&gt; $K
@@ -404,7 +423,8 @@
 #&gt; 
 #&gt; $t0
 #&gt; [1] -2.033445
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Original"</span>,<span class='kw'>methLinf</span><span class='kw'>=</span><span class='st'>"oldAge"</span>)</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Original"</span>,methLinf<span class='op'>=</span><span class='st'>"oldAge"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 12.4
 #&gt; 
 #&gt; $K
@@ -412,7 +432,8 @@
 #&gt; 
 #&gt; $L0
 #&gt; [1] 7.732
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Original"</span>,<span class='kw'>methLinf</span><span class='kw'>=</span><span class='st'>"oldAge"</span>,<span class='kw'>num4Linf</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Original"</span>,methLinf<span class='op'>=</span><span class='st'>"oldAge"</span>,num4Linf<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 12.40625
 #&gt; 
 #&gt; $K
@@ -420,7 +441,8 @@
 #&gt; 
 #&gt; $L0
 #&gt; [1] 7.732
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Original"</span>,<span class='kw'>methLinf</span><span class='kw'>=</span><span class='st'>"longFish"</span>)</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Original"</span>,methLinf<span class='op'>=</span><span class='st'>"longFish"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.9
 #&gt; 
 #&gt; $K
@@ -428,7 +450,8 @@
 #&gt; 
 #&gt; $L0
 #&gt; [1] 7.732
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Original"</span>,<span class='kw'>methLinf</span><span class='kw'>=</span><span class='st'>"longFish"</span>,<span class='kw'>num4Linf</span><span class='kw'>=</span><span class='fl'>10</span>)</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Original"</span>,methLinf<span class='op'>=</span><span class='st'>"longFish"</span>,num4Linf<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.64
 #&gt; 
 #&gt; $K
@@ -436,7 +459,8 @@
 #&gt; 
 #&gt; $L0
 #&gt; [1] 7.732
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Ogle"</span>,<span class='kw'>valOgle</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>tr</span><span class='kw'>=</span><span class='fl'>0</span>),<span class='kw'>methLinf</span><span class='kw'>=</span><span class='st'>"oldAge"</span>,<span class='kw'>num4Linf</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Ogle"</span>,valOgle<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>tr<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>,methLinf<span class='op'>=</span><span class='st'>"oldAge"</span>,num4Linf<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 12.40625
 #&gt; 
 #&gt; $K
@@ -444,7 +468,8 @@
 #&gt; 
 #&gt; $Lr
 #&gt; [1] 7.274961
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Ogle"</span>,<span class='kw'>valOgle</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>Lr</span><span class='kw'>=</span><span class='fl'>8</span>),<span class='kw'>methLinf</span><span class='kw'>=</span><span class='st'>"longFish"</span>,<span class='kw'>num4Linf</span><span class='kw'>=</span><span class='fl'>10</span>)</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Ogle"</span>,valOgle<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>Lr<span class='op'>=</span><span class='fl'>8</span><span class='op'>)</span>,methLinf<span class='op'>=</span><span class='st'>"longFish"</span>,num4Linf<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.64
 #&gt; 
 #&gt; $K
@@ -454,7 +479,8 @@
 #&gt; [1] 0.7521688
 #&gt; </div><div class='input'>
 <span class='co'>## Using a different method to find t0 and L0</span>
-<span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>meth0</span><span class='kw'>=</span><span class='st'>"yngAge"</span>)</div><div class='output co'>#&gt; $Linf
+<span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,meth0<span class='op'>=</span><span class='st'>"yngAge"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $K
@@ -462,7 +488,8 @@
 #&gt; 
 #&gt; $t0
 #&gt; [1] -2.124367
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"original"</span>,<span class='kw'>meth0</span><span class='kw'>=</span><span class='st'>"yngAge"</span>)</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"original"</span>,meth0<span class='op'>=</span><span class='st'>"yngAge"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $K
@@ -472,7 +499,8 @@
 #&gt; [1] 7.732
 #&gt; </div><div class='input'>
 <span class='co'>## Using a different method to find the L1, L2, and L3</span>
-<span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Francis"</span>,<span class='kw'>ages2use</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>5</span>),<span class='kw'>methEV</span><span class='kw'>=</span><span class='st'>"means"</span>)</div><div class='output co'>#&gt; $L1
+<span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Francis"</span>,ages2use<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>5</span><span class='op'>)</span>,methEV<span class='op'>=</span><span class='st'>"means"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $L1
 #&gt; [1] 7.732
 #&gt; 
 #&gt; $L2
@@ -480,7 +508,8 @@
 #&gt; 
 #&gt; $L3
 #&gt; [1] 12.4
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Schnute"</span>,<span class='kw'>ages2use</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>5</span>),<span class='kw'>methEV</span><span class='kw'>=</span><span class='st'>"means"</span>)</div><div class='output co'>#&gt; $L1
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Schnute"</span>,ages2use<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>5</span><span class='op'>)</span>,methEV<span class='op'>=</span><span class='st'>"means"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $L1
 #&gt; [1] 7.732
 #&gt; 
 #&gt; $L3
@@ -490,7 +519,8 @@
 #&gt; [1] 0.4114688
 #&gt; </div><div class='input'>
 <span class='co'>## Examples with a Plot</span>
-<span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='vbStarts-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
+<span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='vbStarts-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $K
@@ -498,7 +528,8 @@
 #&gt; 
 #&gt; $t0
 #&gt; [1] -2.124367
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"original"</span>,<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='vbStarts-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"original"</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='vbStarts-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $K
@@ -506,7 +537,8 @@
 #&gt; 
 #&gt; $L0
 #&gt; [1] 7.732
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"GQ"</span>,<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='vbStarts-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $omega
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"GQ"</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='vbStarts-3.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $omega
 #&gt; [1] 5.459258
 #&gt; 
 #&gt; $K
@@ -514,7 +546,8 @@
 #&gt; 
 #&gt; $t0
 #&gt; [1] -2.124367
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Mooij"</span>,<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='vbStarts-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Mooij"</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='vbStarts-4.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $L0
@@ -522,7 +555,8 @@
 #&gt; 
 #&gt; $omega
 #&gt; [1] 5.459258
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Weisberg"</span>,<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='vbStarts-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Weisberg"</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='vbStarts-5.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $t50
@@ -530,7 +564,8 @@
 #&gt; 
 #&gt; $t0
 #&gt; [1] -2.124367
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Francis"</span>,<span class='kw'>ages2use</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>5</span>),<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='vbStarts-6.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $L1
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Francis"</span>,ages2use<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>5</span><span class='op'>)</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='vbStarts-6.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $L1
 #&gt; [1] 7.732
 #&gt; 
 #&gt; $L2
@@ -538,7 +573,8 @@
 #&gt; 
 #&gt; $L3
 #&gt; [1] 12.4
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Schnute"</span>,<span class='kw'>ages2use</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>5</span>),<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='vbStarts-7.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $L1
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Schnute"</span>,ages2use<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>5</span><span class='op'>)</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='vbStarts-7.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $L1
 #&gt; [1] 7.732
 #&gt; 
 #&gt; $L3
@@ -546,7 +582,8 @@
 #&gt; 
 #&gt; $K
 #&gt; [1] 0.4114688
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Somers"</span>,<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='vbStarts-8.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Somers"</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='vbStarts-8.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $K
@@ -560,7 +597,8 @@
 #&gt; 
 #&gt; $ts
 #&gt; [1] 0.3
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Somers2"</span>,<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='vbStarts-9.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Somers2"</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='vbStarts-9.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $K
@@ -574,7 +612,8 @@
 #&gt; 
 #&gt; $WP
 #&gt; [1] 0.8
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Pauly"</span>,<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='vbStarts-10.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Pauly"</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='vbStarts-10.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $Kpr
@@ -588,7 +627,8 @@
 #&gt; 
 #&gt; $NGT
 #&gt; [1] 0.3
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Ogle"</span>,<span class='kw'>valOgle</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>tr</span><span class='kw'>=</span><span class='fl'>0</span>),<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='vbStarts-11.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Ogle"</span>,valOgle<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>tr<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='vbStarts-11.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $K
@@ -596,7 +636,8 @@
 #&gt; 
 #&gt; $Lr
 #&gt; [1] 7.274961
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Ogle"</span>,<span class='kw'>valOgle</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>Lr</span><span class='kw'>=</span><span class='fl'>8</span>),<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='vbStarts-12.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Ogle"</span>,valOgle<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>Lr<span class='op'>=</span><span class='fl'>8</span><span class='op'>)</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='vbStarts-12.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $K
@@ -606,7 +647,8 @@
 #&gt; [1] 0.7521688
 #&gt; </div><div class='input'>
 <span class='co'>## Examples where some parameters are fixed by the user</span>
-<span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>fixed</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>15</span>))</div><div class='output co'>#&gt; $Linf
+<span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,fixed<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>Linf<span class='op'>=</span><span class='fl'>15</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 15
 #&gt; 
 #&gt; $K
@@ -614,7 +656,8 @@
 #&gt; 
 #&gt; $t0
 #&gt; [1] -1.760933
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>fixed</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>15</span>,<span class='kw'>K</span><span class='kw'>=</span><span class='fl'>0.3</span>))</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,fixed<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>Linf<span class='op'>=</span><span class='fl'>15</span>,K<span class='op'>=</span><span class='fl'>0.3</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 15
 #&gt; 
 #&gt; $K
@@ -622,7 +665,8 @@
 #&gt; 
 #&gt; $t0
 #&gt; [1] -2.41523
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>fixed</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>15</span>,<span class='kw'>K</span><span class='kw'>=</span><span class='fl'>0.3</span>,<span class='kw'>t0</span><span class='kw'>=</span>-<span class='fl'>1</span>))</div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,fixed<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>Linf<span class='op'>=</span><span class='fl'>15</span>,K<span class='op'>=</span><span class='fl'>0.3</span>,t0<span class='op'>=</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $Linf
 #&gt; [1] 15
 #&gt; 
 #&gt; $K
@@ -630,7 +674,8 @@
 #&gt; 
 #&gt; $t0
 #&gt; [1] -1
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>fixed</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>Linf</span><span class='kw'>=</span><span class='fl'>15</span>,<span class='kw'>K</span><span class='kw'>=</span><span class='fl'>0.3</span>,<span class='kw'>t0</span><span class='kw'>=</span>-<span class='fl'>1</span>),<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='vbStarts-13.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,fixed<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>Linf<span class='op'>=</span><span class='fl'>15</span>,K<span class='op'>=</span><span class='fl'>0.3</span>,t0<span class='op'>=</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='vbStarts-13.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
 #&gt; [1] 15
 #&gt; 
 #&gt; $K
@@ -638,7 +683,8 @@
 #&gt; 
 #&gt; $t0
 #&gt; [1] -1
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Pauly"</span>,<span class='kw'>fixed</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>t0</span><span class='kw'>=</span>-<span class='fl'>1.5</span>),<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='vbStarts-14.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Pauly"</span>,fixed<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>t0<span class='op'>=</span><span class='op'>-</span><span class='fl'>1.5</span><span class='op'>)</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='vbStarts-14.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $Kpr
@@ -652,7 +698,8 @@
 #&gt; 
 #&gt; $NGT
 #&gt; [1] 0.3
-#&gt; </div><div class='input'><span class='fu'>vbStarts</span>(<span class='no'>tl</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>SpotVA1</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>"Ogle"</span>,<span class='kw'>valOgle</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>tr</span><span class='kw'>=</span><span class='fl'>2</span>),<span class='kw'>fixed</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>Lr</span><span class='kw'>=</span><span class='fl'>10</span>),<span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='img'><img src='vbStarts-15.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
+#&gt; </div><div class='input'><span class='fu'>vbStarts</span><span class='op'>(</span><span class='va'>tl</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>SpotVA1</span>,type<span class='op'>=</span><span class='st'>"Ogle"</span>,valOgle<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>tr<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>,fixed<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>Lr<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='vbStarts-15.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $Linf
 #&gt; [1] 13.26773
 #&gt; 
 #&gt; $K
@@ -661,7 +708,7 @@
 #&gt; $Lr
 #&gt; [1] 10
 #&gt; </div><div class='input'>
-## See examples in vbFuns() for use of vbStarts() when fitting Von B models
+<span class='co'>## See examples in vbFuns() for use of vbStarts() when fitting Von B models</span>
 
 </div></pre>
   </div>
@@ -679,7 +726,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -128,16 +128,16 @@
     <p>Creates a histogram from values in a frequency table. Primarily used with already summarized length frequency data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>histFromSum</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>histFromSum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>histFromSum</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+<span class='fu'>histFromSum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for table</span>
-<span class='fu'>histFromSum</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>histFromSum</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>histFromSum</span>(<span class='no'>x</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>histFromSum</span><span class='op'>(</span><span class='va'>x</span>, data <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -168,27 +168,33 @@
     <p>Creates a histogram fro values in a frequency table. The frequency table may be constructed from <code><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></code>, <code><a href='https://rdrr.io/r/base/table.html'>table</a></code>, or be in the form of a matrix or a data.frame (as if read in from an external data file).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></code> and <code>hist.formula</code> for related functionality.</p></div>
+    <div class='dont-index'><p>See <code><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></code> and <code><a href='hist.formula.html'>hist.formula</a></code> for related functionality.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Make some dummy data with a length category variable</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>634434789</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>tl</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>20</span>)))
-<span class='no'>df</span>$<span class='no'>lcat10</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>df</span>$<span class='no'>tl</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>10</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>634434789</span><span class='op'>)</span>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>tl<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>,<span class='fl'>100</span>,<span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>df</span><span class='op'>$</span><span class='va'>lcat10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>tl</span>,w<span class='op'>=</span><span class='fl'>10</span><span class='op'>)</span>
 
 <span class='co'>## Summarize as tables</span>
-( <span class='no'>tbl1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>lcat10</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>) )</div><div class='output co'>#&gt; lcat10
+<span class='op'>(</span> <span class='va'>tbl1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>lcat10</span>,data<span class='op'>=</span><span class='va'>df</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt; lcat10
 #&gt;  20  50  60  70  80  90 100 110 120 130 140 150 
-#&gt;   1   1   5   7  10  24  19  19   7   3   3   1 </div><div class='input'>( <span class='no'>tbl2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>df</span>$<span class='no'>lcat10</span>) )</div><div class='output co'>#&gt; 
+#&gt;   1   1   5   7  10  24  19  19   7   3   3   1 </div><div class='input'><span class='op'>(</span> <span class='va'>tbl2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>lcat10</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt;  20  50  60  70  80  90 100 110 120 130 140 150 
 #&gt;   1   1   5   7  10  24  19  19   7   3   3   1 </div><div class='input'>
 <span class='co'>## Turn the tables into a data.frame for testing (convert</span>
 <span class='co'>## the categories variables to numeric with fact2num())</span>
-<span class='no'>df2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>tbl1</span>)
-<span class='no'>df2</span>$<span class='no'>lcat10</span> <span class='kw'>&lt;-</span> <span class='fu'>fact2num</span>(<span class='no'>df2</span>$<span class='no'>lcat10</span>)
+<span class='va'>df2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>tbl1</span><span class='op'>)</span>
+<span class='va'>df2</span><span class='op'>$</span><span class='va'>lcat10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='fact2num.html'>fact2num</a></span><span class='op'>(</span><span class='va'>df2</span><span class='op'>$</span><span class='va'>lcat10</span><span class='op'>)</span>
 
 <span class='co'>## Turn the table into a matrix for testing</span>
-( <span class='no'>mat1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='kw'>lcat10</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>tbl1</span>)),<span class='kw'>freq</span><span class='kw'>=</span><span class='no'>tbl1</span>) )</div><div class='output co'>#&gt;     lcat10 freq
+<span class='op'>(</span> <span class='va'>mat1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span>lcat10<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/rownames.html'>rownames</a></span><span class='op'>(</span><span class='va'>tbl1</span><span class='op'>)</span><span class='op'>)</span>,freq<span class='op'>=</span><span class='va'>tbl1</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;     lcat10 freq
 #&gt; 20      20    1
 #&gt; 50      50    1
 #&gt; 60      60    5
@@ -202,17 +208,23 @@
 #&gt; 140    140    3
 #&gt; 150    150    1</div><div class='input'>
 <span class='co'>## Histogram of the raw data ... set breaks and x-axis label</span>
-<span class='no'>brks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>20</span>,<span class='fl'>160</span>,<span class='fl'>10</span>)
-<span class='no'>xlbl</span> <span class='kw'>&lt;-</span> <span class='st'>"Total Length (mm)"</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span>(~<span class='no'>tl</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='no'>brks</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='no'>xlbl</span>)</div><div class='img'><img src='histFromSum-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>brks</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>20</span>,<span class='fl'>160</span>,<span class='fl'>10</span><span class='op'>)</span>
+<span class='va'>xlbl</span> <span class='op'>&lt;-</span> <span class='st'>"Total Length (mm)"</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>tl</span>,data<span class='op'>=</span><span class='va'>df</span>,breaks<span class='op'>=</span><span class='va'>brks</span>,xlab<span class='op'>=</span><span class='va'>xlbl</span><span class='op'>)</span>
+</div><div class='img'><img src='histFromSum-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Use this function with various inputs ... changed colors</span>
 <span class='co'>## on each plot so that it was obvious that a new plot was made.</span>
 <span class='co'># table from xtabs()</span>
-<span class='fu'>histFromSum</span>(<span class='no'>tbl1</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='no'>brks</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='no'>xlbl</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"gray75"</span>)</div><div class='img'><img src='histFromSum-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># table from table()</span>
-<span class='fu'>histFromSum</span>(<span class='no'>tbl2</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='no'>brks</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='no'>xlbl</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"gray70"</span>)</div><div class='img'><img src='histFromSum-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># vectors from data.frame</span>
-<span class='fu'>histFromSum</span>(<span class='no'>df2</span>$<span class='no'>lcat10</span>,<span class='no'>df2</span>$<span class='no'>Freq</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='no'>brks</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='no'>xlbl</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"gray65"</span>)</div><div class='img'><img src='histFromSum-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># vectors from matrix</span>
-<span class='fu'>histFromSum</span>(<span class='no'>mat1</span>[,<span class='st'>"lcat10"</span>],<span class='no'>mat1</span>[,<span class='st'>"freq"</span>],<span class='kw'>breaks</span><span class='kw'>=</span><span class='no'>brks</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='no'>xlbl</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"gray60"</span>)</div><div class='img'><img src='histFromSum-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># formula from a data.frame</span>
-<span class='fu'>histFromSum</span>(<span class='no'>Freq</span>~<span class='no'>lcat10</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df2</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='no'>brks</span>,<span class='kw'>xlab</span><span class='kw'>=</span><span class='no'>xlbl</span>,<span class='kw'>col</span><span class='kw'>=</span><span class='st'>"gray55"</span>)</div><div class='img'><img src='histFromSum-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>histFromSum</span><span class='op'>(</span><span class='va'>tbl1</span>,breaks<span class='op'>=</span><span class='va'>brks</span>,xlab<span class='op'>=</span><span class='va'>xlbl</span>,col<span class='op'>=</span><span class='st'>"gray75"</span><span class='op'>)</span>
+</div><div class='img'><img src='histFromSum-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># table from table()</span>
+<span class='fu'>histFromSum</span><span class='op'>(</span><span class='va'>tbl2</span>,breaks<span class='op'>=</span><span class='va'>brks</span>,xlab<span class='op'>=</span><span class='va'>xlbl</span>,col<span class='op'>=</span><span class='st'>"gray70"</span><span class='op'>)</span>
+</div><div class='img'><img src='histFromSum-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># vectors from data.frame</span>
+<span class='fu'>histFromSum</span><span class='op'>(</span><span class='va'>df2</span><span class='op'>$</span><span class='va'>lcat10</span>,<span class='va'>df2</span><span class='op'>$</span><span class='va'>Freq</span>,breaks<span class='op'>=</span><span class='va'>brks</span>,xlab<span class='op'>=</span><span class='va'>xlbl</span>,col<span class='op'>=</span><span class='st'>"gray65"</span><span class='op'>)</span>
+</div><div class='img'><img src='histFromSum-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># vectors from matrix</span>
+<span class='fu'>histFromSum</span><span class='op'>(</span><span class='va'>mat1</span><span class='op'>[</span>,<span class='st'>"lcat10"</span><span class='op'>]</span>,<span class='va'>mat1</span><span class='op'>[</span>,<span class='st'>"freq"</span><span class='op'>]</span>,breaks<span class='op'>=</span><span class='va'>brks</span>,xlab<span class='op'>=</span><span class='va'>xlbl</span>,col<span class='op'>=</span><span class='st'>"gray60"</span><span class='op'>)</span>
+</div><div class='img'><img src='histFromSum-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># formula from a data.frame</span>
+<span class='fu'>histFromSum</span><span class='op'>(</span><span class='va'>Freq</span><span class='op'>~</span><span class='va'>lcat10</span>,data<span class='op'>=</span><span class='va'>df2</span>,breaks<span class='op'>=</span><span class='va'>brks</span>,xlab<span class='op'>=</span><span class='va'>xlbl</span>,col<span class='op'>=</span><span class='st'>"gray55"</span><span class='op'>)</span>
+</div><div class='img'><img src='histFromSum-6.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -229,7 +241,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

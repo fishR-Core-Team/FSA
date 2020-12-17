@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -128,13 +128,13 @@
     <p>This computes a vector that contains the relative weight specific to each species for all individuals in an entire data frame.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>wrAdd</span>(<span class='no'>wt</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>wrAdd</span><span class='op'>(</span><span class='va'>wt</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>wrAdd</span>(<span class='no'>wt</span>, <span class='no'>len</span>, <span class='no'>spec</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"metric"</span>, <span class='st'>"English"</span>), <span class='no'>...</span>)
+<span class='fu'>wrAdd</span><span class='op'>(</span><span class='va'>wt</span>, <span class='va'>len</span>, <span class='va'>spec</span>, units <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"metric"</span>, <span class='st'>"English"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>wrAdd</span>(<span class='no'>wt</span>, <span class='no'>data</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"metric"</span>, <span class='st'>"English"</span>), <span class='no'>...</span>)</pre>
+<span class='fu'>wrAdd</span><span class='op'>(</span><span class='va'>wt</span>, <span class='va'>data</span>, units <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"metric"</span>, <span class='st'>"English"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,42 +170,47 @@
     <p>Returns A numeric vector that contains the computed relative weights, in the same order as in <code>data=</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This computes a vector that contains the relative weight specific to each species for all individuals in an entire data frame. The vector can be appended to an existing data.frame to create a variable that contains the relative weights for each individual. The relative weight value will be <code>NA</code> for each individual for which a standard weight equation does not exist in <code>WSlit</code>, a standard weight equation for the units given in <code>units=</code> does not exist in <code>WSlit</code>, a standard weight equation for the 75th percentile does not exist in <code>WSlit</code>, or if the individual is shorter or longer than the lengths for which the standard weight equation should be applied. Either the linear or quadratic equation has been listed as preferred for each species, so only that equation will be used. The use of the 75th percentile is by far the most common and, because this function is designed for use on entire data frames, it will be the only percentile allowed. Thus, to use equations for other percentiles, one will have to use &#8220;manual&#8221; methods. See <code>WSlit</code> and <code>wsVal</code> for more details about types of equations, percentiles, finding which species have published standard weight equations, etc. See the examples for one method for changing species names to something that this function will recognize.</p>
+    <p>This computes a vector that contains the relative weight specific to each species for all individuals in an entire data frame. The vector can be appended to an existing data.frame to create a variable that contains the relative weights for each individual. The relative weight value will be <code>NA</code> for each individual for which a standard weight equation does not exist in <code><a href='WSlit.html'>WSlit</a></code>, a standard weight equation for the units given in <code>units=</code> does not exist in <code><a href='WSlit.html'>WSlit</a></code>, a standard weight equation for the 75th percentile does not exist in <code><a href='WSlit.html'>WSlit</a></code>, or if the individual is shorter or longer than the lengths for which the standard weight equation should be applied. Either the linear or quadratic equation has been listed as preferred for each species, so only that equation will be used. The use of the 75th percentile is by far the most common and, because this function is designed for use on entire data frames, it will be the only percentile allowed. Thus, to use equations for other percentiles, one will have to use &#8220;manual&#8221; methods. See <code><a href='WSlit.html'>WSlit</a></code> and <code><a href='wsVal.html'>wsVal</a></code> for more details about types of equations, percentiles, finding which species have published standard weight equations, etc. See the examples for one method for changing species names to something that this function will recognize.</p>
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
     <p>8-Condition.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code>wsVal</code>, <code>WSlit</code>, and <code>psdAdd</code> for related functionality. See <code>mapvalues</code> for help in changing species names to match those in <code>WSlit</code>.</p></div>
+    <div class='dont-index'><p>See <code><a href='wsVal.html'>wsVal</a></code>, <code><a href='WSlit.html'>WSlit</a></code>, and <code><a href='psdAdd.html'>psdAdd</a></code> for related functionality. See <code><a href='mapvalues.html'>mapvalues</a></code> for help in changing species names to match those in <code><a href='WSlit.html'>WSlit</a></code>.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Create random data for three species</span>
 <span class='co'># just to control the randomization</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>345234534</span>)
-<span class='no'>dbt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>species</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bluefin Tuna"</span>),<span class='fl'>30</span>)),<span class='kw'>tl</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>,<span class='fl'>1900</span>,<span class='fl'>300</span>),<span class='fl'>0</span>))
-<span class='no'>dbt</span>$<span class='no'>wt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fl'>4.5e-05</span>*<span class='no'>dbt</span>$<span class='no'>tl</span>^<span class='fl'>2.8</span>+<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>,<span class='fl'>0</span>,<span class='fl'>6000</span>),<span class='fl'>1</span>)
-<span class='no'>dbg</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>species</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Bluegill"</span>),<span class='fl'>30</span>)),<span class='kw'>tl</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>,<span class='fl'>130</span>,<span class='fl'>50</span>),<span class='fl'>0</span>))
-<span class='no'>dbg</span>$<span class='no'>wt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fl'>4.23e-06</span>*<span class='no'>dbg</span>$<span class='no'>tl</span>^<span class='fl'>3.316</span>+<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>,<span class='fl'>0</span>,<span class='fl'>10</span>),<span class='fl'>1</span>)
-<span class='no'>dlb</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>species</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Largemouth Bass"</span>),<span class='fl'>30</span>)),<span class='kw'>tl</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>,<span class='fl'>350</span>,<span class='fl'>60</span>),<span class='fl'>0</span>))
-<span class='no'>dlb</span>$<span class='no'>wt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fl'>2.96e-06</span>*<span class='no'>dlb</span>$<span class='no'>tl</span>^<span class='fl'>3.273</span>+<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>,<span class='fl'>0</span>,<span class='fl'>60</span>),<span class='fl'>1</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='no'>dbt</span>,<span class='no'>dbg</span>,<span class='no'>dlb</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='no'>df</span>)</div><div class='output co'>#&gt; 'data.frame':	90 obs. of  3 variables:
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>345234534</span><span class='op'>)</span>
+<span class='va'>dbt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>species<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Bluefin Tuna"</span><span class='op'>)</span>,<span class='fl'>30</span><span class='op'>)</span><span class='op'>)</span>,tl<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>30</span>,<span class='fl'>1900</span>,<span class='fl'>300</span><span class='op'>)</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>dbt</span><span class='op'>$</span><span class='va'>wt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fl'>4.5e-05</span><span class='op'>*</span><span class='va'>dbt</span><span class='op'>$</span><span class='va'>tl</span><span class='op'>^</span><span class='fl'>2.8</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>30</span>,<span class='fl'>0</span>,<span class='fl'>6000</span><span class='op'>)</span>,<span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>dbg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>species<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Bluegill"</span><span class='op'>)</span>,<span class='fl'>30</span><span class='op'>)</span><span class='op'>)</span>,tl<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>30</span>,<span class='fl'>130</span>,<span class='fl'>50</span><span class='op'>)</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>dbg</span><span class='op'>$</span><span class='va'>wt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fl'>4.23e-06</span><span class='op'>*</span><span class='va'>dbg</span><span class='op'>$</span><span class='va'>tl</span><span class='op'>^</span><span class='fl'>3.316</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>30</span>,<span class='fl'>0</span>,<span class='fl'>10</span><span class='op'>)</span>,<span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>dlb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>species<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Largemouth Bass"</span><span class='op'>)</span>,<span class='fl'>30</span><span class='op'>)</span><span class='op'>)</span>,tl<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>30</span>,<span class='fl'>350</span>,<span class='fl'>60</span><span class='op'>)</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>dlb</span><span class='op'>$</span><span class='va'>wt</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fl'>2.96e-06</span><span class='op'>*</span><span class='va'>dlb</span><span class='op'>$</span><span class='va'>tl</span><span class='op'>^</span><span class='fl'>3.273</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>30</span>,<span class='fl'>0</span>,<span class='fl'>60</span><span class='op'>)</span>,<span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>dbt</span>,<span class='va'>dbg</span>,<span class='va'>dlb</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 'data.frame':	90 obs. of  3 variables:
 #&gt;  $ species: Factor w/ 3 levels "Bluefin Tuna",..: 1 1 1 1 1 1 1 1 1 1 ...
 #&gt;  $ tl     : num  1371 1558 2031 2226 2124 ...
 #&gt;  $ wt     : num  19231 38147 90530 104718 88761 ...</div><div class='input'>
-<span class='no'>df</span>$<span class='no'>Wr1</span> <span class='kw'>&lt;-</span> <span class='fu'>wrAdd</span>(<span class='no'>wt</span>~<span class='no'>tl</span>+<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>df</span>)
+<span class='va'>df</span><span class='op'>$</span><span class='va'>Wr1</span> <span class='op'>&lt;-</span> <span class='fu'>wrAdd</span><span class='op'>(</span><span class='va'>wt</span><span class='op'>~</span><span class='va'>tl</span><span class='op'>+</span><span class='va'>species</span>,data<span class='op'>=</span><span class='va'>df</span><span class='op'>)</span>
 <span class='co'>## same but with non-formula interface</span>
-<span class='no'>df</span>$<span class='no'>Wr2</span> <span class='kw'>&lt;-</span> <span class='fu'>wrAdd</span>(<span class='no'>df</span>$<span class='no'>wt</span>,<span class='no'>df</span>$<span class='no'>tl</span>,<span class='no'>df</span>$<span class='no'>species</span>)
+<span class='va'>df</span><span class='op'>$</span><span class='va'>Wr2</span> <span class='op'>&lt;-</span> <span class='fu'>wrAdd</span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>wt</span>,<span class='va'>df</span><span class='op'>$</span><span class='va'>tl</span>,<span class='va'>df</span><span class='op'>$</span><span class='va'>species</span><span class='op'>)</span>
 
 <span class='co'>## Same as above but using dplyr</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>dplyr</span>)) {
-  <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='no'>df</span>,<span class='kw'>Wr3a</span><span class='kw'>=</span><span class='fu'>wrAdd</span>(<span class='no'>wt</span>,<span class='no'>tl</span>,<span class='no'>species</span>))
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>df</span>,Wr3a<span class='op'>=</span><span class='fu'>wrAdd</span><span class='op'>(</span><span class='va'>wt</span>,<span class='va'>tl</span>,<span class='va'>species</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
 
-<span class='no'>df</span></div><div class='output co'>#&gt;            species   tl       wt       Wr1       Wr2      Wr3a
+<span class='va'>df</span>
+</div><div class='output co'>#&gt;            species   tl       wt       Wr1       Wr2      Wr3a
 #&gt; 1     Bluefin Tuna 1371  19231.0        NA        NA        NA
 #&gt; 2     Bluefin Tuna 1558  38146.9        NA        NA        NA
 #&gt; 3     Bluefin Tuna 2031  90530.4        NA        NA        NA
@@ -295,10 +300,12 @@
 #&gt; 87 Largemouth Bass  260    182.4  76.70383  76.70383  76.70383
 #&gt; 88 Largemouth Bass  441   1288.2  96.10274  96.10274  96.10274
 #&gt; 89 Largemouth Bass  266    265.7 103.69408 103.69408 103.69408
-#&gt; 90 Largemouth Bass  371    612.6  80.46670  80.46670  80.46670</div><div class='input'>
+#&gt; 90 Largemouth Bass  371    612.6  80.46670  80.46670  80.46670</div><div class='input'> 
 <span class='co'>## Example with only one species in the data.frame</span>
-<span class='no'>bg</span> <span class='kw'>&lt;-</span> <span class='fu'>filterD</span>(<span class='no'>df</span>,<span class='no'>species</span><span class='kw'>==</span><span class='st'>"Bluegill"</span>)
-<span class='no'>bg</span>$<span class='no'>Wr4</span> <span class='kw'>&lt;-</span> <span class='fu'>wrAdd</span>(<span class='no'>wt</span>~<span class='no'>tl</span>+<span class='no'>species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>bg</span>)</div></pre>
+<span class='va'>bg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Subset.html'>filterD</a></span><span class='op'>(</span><span class='va'>df</span>,<span class='va'>species</span><span class='op'>==</span><span class='st'>"Bluegill"</span><span class='op'>)</span>
+<span class='va'>bg</span><span class='op'>$</span><span class='va'>Wr4</span> <span class='op'>&lt;-</span> <span class='fu'>wrAdd</span><span class='op'>(</span><span class='va'>wt</span><span class='op'>~</span><span class='va'>tl</span><span class='op'>+</span><span class='va'>species</span>,data<span class='op'>=</span><span class='va'>bg</span><span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -314,7 +321,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

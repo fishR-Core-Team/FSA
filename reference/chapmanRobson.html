@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -128,52 +128,52 @@
     <p>Computes the Chapman-Robson estimates of annual survival rate (S) and instantaneous mortality rate (Z) from catch-at-age data on the descending limb of a catch-curve. Method functions extract estimates with associated standard errors and confidence intervals. A plot method highlights the descending-limb, shows the linear model on the descending limb, and, optionally, prints the estimated Z and A.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>chapmanRobson</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>chapmanRobson</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>chapmanRobson</span>(
-  <span class='no'>x</span>,
-  <span class='no'>catch</span>,
-  <span class='kw'>ages2use</span> <span class='kw'>=</span> <span class='no'>age</span>,
-  <span class='kw'>zmethod</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Smithetal"</span>, <span class='st'>"Hoenigetal"</span>, <span class='st'>"original"</span>),
-  <span class='no'>...</span>
-)
+<span class='fu'>chapmanRobson</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>catch</span>,
+  ages2use <span class='op'>=</span> <span class='va'>age</span>,
+  zmethod <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Smithetal"</span>, <span class='st'>"Hoenigetal"</span>, <span class='st'>"original"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for formula</span>
-<span class='fu'>chapmanRobson</span>(
-  <span class='no'>x</span>,
-  <span class='no'>data</span>,
-  <span class='kw'>ages2use</span> <span class='kw'>=</span> <span class='no'>age</span>,
-  <span class='kw'>zmethod</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Smithetal"</span>, <span class='st'>"Hoenigetal"</span>, <span class='st'>"original"</span>),
-  <span class='no'>...</span>
-)
+<span class='fu'>chapmanRobson</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>data</span>,
+  ages2use <span class='op'>=</span> <span class='va'>age</span>,
+  zmethod <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Smithetal"</span>, <span class='st'>"Hoenigetal"</span>, <span class='st'>"original"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for chapmanRobson</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"Z"</span>, <span class='st'>"S"</span>), <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>object</span>, parm <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"Z"</span>, <span class='st'>"S"</span><span class='op'>)</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for chapmanRobson</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>object</span>, <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"Z"</span>, <span class='st'>"S"</span>), <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='va'>object</span>, parm <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"Z"</span>, <span class='st'>"S"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for chapmanRobson</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(
-  <span class='no'>object</span>,
-  <span class='kw'>parm</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"S"</span>, <span class='st'>"Z"</span>),
-  <span class='kw'>level</span> <span class='kw'>=</span> <span class='no'>conf.level</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  parm <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"all"</span>, <span class='st'>"both"</span>, <span class='st'>"S"</span>, <span class='st'>"Z"</span><span class='op'>)</span>,
+  level <span class='op'>=</span> <span class='va'>conf.level</span>,
+  conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for chapmanRobson</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(
-  <span class='no'>x</span>,
-  <span class='kw'>pos.est</span> <span class='kw'>=</span> <span class='st'>"topright"</span>,
-  <span class='kw'>cex.est</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='st'>"Catch"</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"Age"</span>,
-  <span class='kw'>col.pt</span> <span class='kw'>=</span> <span class='st'>"gray30"</span>,
-  <span class='kw'>axis.age</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"both"</span>, <span class='st'>"age"</span>, <span class='st'>"recoded age"</span>),
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  pos.est <span class='op'>=</span> <span class='st'>"topright"</span>,
+  cex.est <span class='op'>=</span> <span class='fl'>0.95</span>,
+  ylab <span class='op'>=</span> <span class='st'>"Catch"</span>,
+  xlab <span class='op'>=</span> <span class='st'>"Age"</span>,
+  col.pt <span class='op'>=</span> <span class='st'>"gray30"</span>,
+  axis.age <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"both"</span>, <span class='st'>"age"</span>, <span class='st'>"recoded age"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -274,7 +274,7 @@
     <p>11-Mortality.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
 <p>Chapman, D.G. and D.S. Robson. 1960. The analysis of a catch curve. Biometrics. 16:354-368.</p>
 <p>Hoenig, J.M. and W.D. Lawing, and N.A. Hoenig. 1983. Using mean age, mean length and median length data to estimate the total mortality rate. International Council for the Exploration of the Sea, CM 1983/D:23, Copenhagen.</p>
 <p>Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada. [Was (is?) from http://www.dfo-mpo.gc.ca/Library/1485.pdf.]</p>
@@ -282,32 +282,49 @@
 <p>Smith, M.W., A.Y. Then, C. Wor, G. Ralph, K.H. Pollock, and J.M. Hoenig. 2012. Recommendations for catch-curve analysis. North American Journal of Fisheries Management. 32:956-967.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='https://rdrr.io/pkg/fishmethods/man/agesurv.html'>agesurv</a></code> in <span class="pkg">fishmethods</span> for similar functionality. See <code>catchCurve</code> and <code><a href='https://rdrr.io/pkg/fishmethods/man/agesurvcl.html'>agesurvcl</a></code> in <span class="pkg">fishmethods</span> for alternative methods. See <code>metaM</code> for empirical methods to estimate natural mortality.</p></div>
+    <div class='dont-index'><p>See <code><a href='https://rdrr.io/pkg/fishmethods/man/agesurv.html'>agesurv</a></code> in <span class="pkg">fishmethods</span> for similar functionality. See <code><a href='catchCurve.html'>catchCurve</a></code> and <code><a href='https://rdrr.io/pkg/fishmethods/man/agesurvcl.html'>agesurvcl</a></code> in <span class="pkg">fishmethods</span> for alternative methods. See <code><a href='Mmethods.html'>metaM</a></code> for empirical methods to estimate natural mortality.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>catch</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>BrookTroutTH</span>,<span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>)</div><div class='img'><img src='chapmanRobson-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>catch</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>BrookTroutTH</span>,pch<span class='op'>=</span><span class='fl'>19</span><span class='op'>)</span>
+</div><div class='img'><img src='chapmanRobson-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## demonstration of formula notation</span>
-<span class='no'>cr1</span> <span class='kw'>&lt;-</span> <span class='fu'>chapmanRobson</span>(<span class='no'>catch</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>BrookTroutTH</span>,<span class='kw'>ages2use</span><span class='kw'>=</span><span class='fl'>2</span>:<span class='fl'>6</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>cr1</span>)</div><div class='output co'>#&gt;     Estimate Std. Error
+<span class='va'>cr1</span> <span class='op'>&lt;-</span> <span class='fu'>chapmanRobson</span><span class='op'>(</span><span class='va'>catch</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>BrookTroutTH</span>,ages2use<span class='op'>=</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>cr1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     Estimate Std. Error
 #&gt; S 49.4600432  2.3260749
-#&gt; Z  0.7018264  0.1153428</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>cr1</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>Intermediate statistics: n=235; T=229</span></div><div class='output co'>#&gt;     Estimate Std. Error
+#&gt; Z  0.7018264  0.1153428</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>cr1</span>,verbose<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Intermediate statistics: n=235; T=229</span></div><div class='output co'>#&gt;     Estimate Std. Error
 #&gt; S 49.4600432  2.3260749
-#&gt; Z  0.7018264  0.1153428</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='kw'>Est</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>cr1</span>),<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>cr1</span>))</div><div class='output co'>#&gt;          Est    95% LCI    95% UCI
+#&gt; Z  0.7018264  0.1153428</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span>Est<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='va'>cr1</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>cr1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          Est    95% LCI    95% UCI
 #&gt; S 49.4600432 44.9010202 54.0190662
-#&gt; Z  0.7018264  0.4757586  0.9278941</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>cr1</span>)</div><div class='img'><img src='chapmanRobson-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>cr1</span>,<span class='kw'>axis.age</span><span class='kw'>=</span><span class='st'>"age"</span>)</div><div class='img'><img src='chapmanRobson-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>cr1</span>,<span class='kw'>axis.age</span><span class='kw'>=</span><span class='st'>"recoded age"</span>)</div><div class='img'><img src='chapmanRobson-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>cr1</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"Z"</span>)</div><div class='output co'>#&gt;    Estimate Std. Error
-#&gt; Z 0.7018264  0.1153428</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='kw'>Est</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>cr1</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"Z"</span>),<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span>(<span class='no'>cr1</span>,<span class='kw'>parm</span><span class='kw'>=</span><span class='st'>"Z"</span>))</div><div class='output co'>#&gt;         Est   95% LCI   95% UCI
+#&gt; Z  0.7018264  0.4757586  0.9278941</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>cr1</span><span class='op'>)</span>
+</div><div class='img'><img src='chapmanRobson-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>cr1</span>,axis.age<span class='op'>=</span><span class='st'>"age"</span><span class='op'>)</span>
+</div><div class='img'><img src='chapmanRobson-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>cr1</span>,axis.age<span class='op'>=</span><span class='st'>"recoded age"</span><span class='op'>)</span>
+</div><div class='img'><img src='chapmanRobson-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>cr1</span>,parm<span class='op'>=</span><span class='st'>"Z"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    Estimate Std. Error
+#&gt; Z 0.7018264  0.1153428</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span>Est<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='va'>cr1</span>,parm<span class='op'>=</span><span class='st'>"Z"</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>cr1</span>,parm<span class='op'>=</span><span class='st'>"Z"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         Est   95% LCI   95% UCI
 #&gt; Z 0.7018264 0.4757586 0.9278941</div><div class='input'>
 <span class='co'>## demonstration of excluding ages2use</span>
-<span class='no'>cr2</span> <span class='kw'>&lt;-</span> <span class='fu'>chapmanRobson</span>(<span class='no'>catch</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>BrookTroutTH</span>,<span class='kw'>ages2use</span><span class='kw'>=</span>-<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,<span class='fl'>1</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>cr2</span>)</div><div class='output co'>#&gt;     Estimate Std. Error
+<span class='va'>cr2</span> <span class='op'>&lt;-</span> <span class='fu'>chapmanRobson</span><span class='op'>(</span><span class='va'>catch</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>BrookTroutTH</span>,ages2use<span class='op'>=</span><span class='op'>-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>cr2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     Estimate Std. Error
 #&gt; S 49.4600432  2.3260749
-#&gt; Z  0.7018264  0.1153428</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>cr2</span>)</div><div class='img'><img src='chapmanRobson-5.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt; Z  0.7018264  0.1153428</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>cr2</span><span class='op'>)</span>
+</div><div class='img'><img src='chapmanRobson-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## demonstration of ability to work with missing age classes</span>
-<span class='no'>age</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(  <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>7</span>, <span class='fl'>9</span>,<span class='fl'>12</span>)
-<span class='no'>ct</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>100</span>,<span class='fl'>92</span>,<span class='fl'>83</span>,<span class='fl'>71</span>,<span class='fl'>56</span>,<span class='fl'>35</span>, <span class='fl'>1</span>)
-<span class='no'>cr3</span> <span class='kw'>&lt;-</span> <span class='fu'>chapmanRobson</span>(<span class='no'>age</span>,<span class='no'>ct</span>,<span class='fl'>4</span>:<span class='fl'>12</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some 'ages2use' not in observed ages.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>cr3</span>)</div><div class='output co'>#&gt;     Estimate Std. Error
+<span class='va'>age</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>  <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>7</span>, <span class='fl'>9</span>,<span class='fl'>12</span><span class='op'>)</span>
+<span class='va'>ct</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span>,<span class='fl'>92</span>,<span class='fl'>83</span>,<span class='fl'>71</span>,<span class='fl'>56</span>,<span class='fl'>35</span>, <span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>cr3</span> <span class='op'>&lt;-</span> <span class='fu'>chapmanRobson</span><span class='op'>(</span><span class='va'>age</span>,<span class='va'>ct</span>,<span class='fl'>4</span><span class='op'>:</span><span class='fl'>12</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Some 'ages2use' not in observed ages.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>cr3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;     Estimate Std. Error
 #&gt; S 63.2683658  1.8679976
-#&gt; Z  0.4569234  0.1465991</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>cr3</span>)</div><div class='img'><img src='chapmanRobson-6.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt; Z  0.4569234  0.1465991</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>cr3</span><span class='op'>)</span>
+</div><div class='img'><img src='chapmanRobson-6.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -324,7 +341,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

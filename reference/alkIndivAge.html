@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -128,14 +128,14 @@
     <p>Use either the semi- or completely-random methods from Isermann and Knight (2005) to assign ages to individual fish in the unaged sample according to the information in an age-length key supplied by the user.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>alkIndivAge</span>(
-  <span class='no'>key</span>,
-  <span class='no'>formula</span>,
-  <span class='no'>data</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SR"</span>, <span class='st'>"CR"</span>),
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>alkIndivAge</span><span class='op'>(</span>
+  <span class='va'>key</span>,
+  <span class='va'>formula</span>,
+  <span class='va'>data</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"SR"</span>, <span class='st'>"CR"</span><span class='op'>)</span>,
+  breaks <span class='op'>=</span> <span class='cn'>NULL</span>,
+  seed <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -154,7 +154,7 @@
     </tr>
     <tr>
       <th>type</th>
-      <td><p>A string that indicates whether to use the semi-random (<code>type="SR"</code>, default) or completely-random (<code>type="CR"</code>) methods for assigning ages to individual fish. See the <a href='http://derekogle.com/IFAR'>IFAR chapter</a> for more details.</p></td>
+      <td><p>A string that indicates whether to use the semi-random (<code>type="SR"</code>, default) or completely-random (<code>type="CR"</code>) methods for assigning ages to individual fish. See the <a href='http://derekogle.com/IFAR/'>IFAR chapter</a> for more details.</p></td>
     </tr>
     <tr>
       <th>breaks</th>
@@ -177,36 +177,41 @@
 <p>Assigned ages will be stored in the column identified on the left-hand-side of <code>formula</code> (if the formula has both a left- and right-hand-side). If this variable is missing in <code>formula</code>, then the new column will be labeled with <code>age</code>.</p>
     <h2 class="hasAnchor" id="testing"><a class="anchor" href="#testing"></a>Testing</h2>
 
-    <p>The <code>type="SR"</code> method worked perfectly on a small example. The <code>type="SR"</code> method provides results that reasonably approximate the results from <code>alkAgeDist</code> and <code>alkMeanVar</code>, which suggests that the age assessments are reasonable.</p>
+    <p>The <code>type="SR"</code> method worked perfectly on a small example. The <code>type="SR"</code> method provides results that reasonably approximate the results from <code><a href='alkAgeDist.html'>alkAgeDist</a></code> and <code><a href='alkMeanVar.html'>alkMeanVar</a></code>, which suggests that the age assessments are reasonable.</p>
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
     <p>5-Age-Length Key.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
+    <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
 <p>Isermann, D.A. and C.T. Knight. 2005. A computer program for age-length keys incorporating age assignment to individual fish. North American Journal of Fisheries Management, 25:1153-1160. [Was (is?) from http://www.tandfonline.com/doi/abs/10.1577/M04-130.1.]</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code>alkAgeDist</code> and <code>alkMeanVar</code> for alternative methods to derived age distributions and mean (and SD) values for each age. See <code>alkPlot</code> for methods to visualize age-length keys.</p></div>
+    <div class='dont-index'><p>See <code><a href='alkAgeDist.html'>alkAgeDist</a></code> and <code><a href='alkMeanVar.html'>alkMeanVar</a></code> for alternative methods to derived age distributions and mean (and SD) values for each age. See <code><a href='alkPlot.html'>alkPlot</a></code> for methods to visualize age-length keys.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a>. This is largely an R version of the SAS code provided by Isermann and Knight (2005).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## First Example -- Even breaks for length categories</span>
-<span class='no'>WR1</span> <span class='kw'>&lt;-</span> <span class='no'>WR79</span>
+<span class='va'>WR1</span> <span class='op'>&lt;-</span> <span class='va'>WR79</span>
 <span class='co'># add length categories (width=5)</span>
-<span class='no'>WR1</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>WR1</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>5</span>)
+<span class='va'>WR1</span><span class='op'>$</span><span class='va'>LCat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span><span class='op'>(</span><span class='va'>WR1</span><span class='op'>$</span><span class='va'>len</span>,w<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span>
 <span class='co'># isolate aged and unaged samples</span>
-<span class='no'>WR1.age</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>WR1</span>, !<span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span>(<span class='no'>age</span>))
-<span class='no'>WR1.len</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>WR1</span>, <span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span>(<span class='no'>age</span>))
+<span class='va'>WR1.age</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>WR1</span>, <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>WR1.len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>WR1</span>, <span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># note no ages in unaged sample</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>WR1.len</span>)</div><div class='output co'>#&gt;   ID len age LCat
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>WR1.len</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   ID len age LCat
 #&gt; 1  1  37  NA   35
 #&gt; 2  2  37  NA   35
 #&gt; 3  3  39  NA   35
 #&gt; 4  4  37  NA   35
 #&gt; 7  7  42  NA   40
 #&gt; 8  8  42  NA   40</div><div class='input'><span class='co'># create age-length key</span>
-<span class='no'>raw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR1.age</span>)
-( <span class='no'>WR1.key</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span>(<span class='no'>raw</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>1</span>) )</div><div class='output co'>#&gt;      age
+<span class='va'>raw</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>LCat</span><span class='op'>+</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>WR1.age</span><span class='op'>)</span>
+<span class='op'>(</span> <span class='va'>WR1.key</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span><span class='op'>(</span><span class='va'>raw</span>, margin<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;      age
 #&gt; LCat           4          5          6          7          8          9
 #&gt;   35  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
 #&gt;   40  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
@@ -244,18 +249,20 @@
 #&gt;   105 0.14285714 0.00000000
 #&gt;   110 0.20000000 0.20000000
 #&gt;   115 1.00000000 0.00000000</div><div class='input'><span class='co'># apply the age-length key</span>
-<span class='no'>WR1.len</span> <span class='kw'>&lt;-</span> <span class='fu'>alkIndivAge</span>(<span class='no'>WR1.key</span>,<span class='no'>age</span>~<span class='no'>len</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR1.len</span>)
+<span class='va'>WR1.len</span> <span class='op'>&lt;-</span> <span class='fu'>alkIndivAge</span><span class='op'>(</span><span class='va'>WR1.key</span>,<span class='va'>age</span><span class='op'>~</span><span class='va'>len</span>,data<span class='op'>=</span><span class='va'>WR1.len</span><span class='op'>)</span>
 <span class='co'># now there are ages</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>WR1.len</span>)</div><div class='output co'>#&gt;   ID len age LCat
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>WR1.len</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   ID len age LCat
 #&gt; 1  1  37   4   35
 #&gt; 2  2  37   4   35
 #&gt; 3  3  39   4   35
 #&gt; 4  4  37   4   35
 #&gt; 7  7  42   4   40
 #&gt; 8  8  42   4   40</div><div class='input'><span class='co'># combine orig age &amp; new ages</span>
-<span class='no'>WR1.comb</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='no'>WR1.age</span>, <span class='no'>WR1.len</span>)
+<span class='va'>WR1.comb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>WR1.age</span>, <span class='va'>WR1.len</span><span class='op'>)</span>
 <span class='co'># mean length-at-age</span>
-<span class='fu'>Summarize</span>(<span class='no'>len</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR1.comb</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt;   age   n   mean   sd min     Q1 median     Q3 max
+<span class='fu'><a href='Summarize.html'>Summarize</a></span><span class='op'>(</span><span class='va'>len</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>WR1.comb</span>,digits<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   age   n   mean   sd min     Q1 median     Q3 max
 #&gt; 1   4 987  51.86 5.13  35  48.00   52.0  56.00  64
 #&gt; 2   5 395  71.78 5.26  60  68.00   72.0  76.00  84
 #&gt; 3   6 272  86.79 4.76  75  83.00   87.0  89.00  99
@@ -264,26 +271,29 @@
 #&gt; 6   9  78 103.83 3.15 100 102.00  103.0 105.50 113
 #&gt; 7  10  38 105.03 7.30  95  97.25  106.0 109.75 119
 #&gt; 8  11   6 112.17 0.98 111 111.25  112.5 113.00 113</div><div class='input'><span class='co'># age frequency distribution</span>
-( <span class='no'>af</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR1.comb</span>) )</div><div class='output co'>#&gt; age
+<span class='op'>(</span> <span class='va'>af</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>WR1.comb</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt; age
 #&gt;   4   5   6   7   8   9  10  11 
 #&gt; 987 395 272 447 146  78  38   6 </div><div class='input'><span class='co'># proportional age distribution</span>
-( <span class='no'>ap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span>(<span class='no'>af</span>) )</div><div class='output co'>#&gt; age
+<span class='op'>(</span> <span class='va'>ap</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span><span class='op'>(</span><span class='va'>af</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt; age
 #&gt;           4           5           6           7           8           9 
 #&gt; 0.416631490 0.166737020 0.114816378 0.188687210 0.061629379 0.032925285 
 #&gt;          10          11 
 #&gt; 0.016040523 0.002532714 </div><div class='input'>
 <span class='co'>## Second Example -- length sample does not have an age variable</span>
-<span class='no'>WR2</span> <span class='kw'>&lt;-</span> <span class='no'>WR79</span>
+<span class='va'>WR2</span> <span class='op'>&lt;-</span> <span class='va'>WR79</span>
 <span class='co'># isolate age and unaged samples</span>
-<span class='no'>WR2.age</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>WR2</span>, !<span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span>(<span class='no'>age</span>))
-<span class='no'>WR2.len</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>WR2</span>, <span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span>(<span class='no'>age</span>))
+<span class='va'>WR2.age</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>WR2</span>, <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>WR2.len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>WR2</span>, <span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># remove age variable (for demo only)</span>
-<span class='no'>WR2.len</span> <span class='kw'>&lt;-</span> <span class='no'>WR2.len</span>[,-<span class='fl'>3</span>]
+<span class='va'>WR2.len</span> <span class='op'>&lt;-</span> <span class='va'>WR2.len</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>3</span><span class='op'>]</span>
 <span class='co'># add length categories to aged sample</span>
-<span class='no'>WR2.age</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>WR2.age</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>5</span>)
+<span class='va'>WR2.age</span><span class='op'>$</span><span class='va'>LCat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span><span class='op'>(</span><span class='va'>WR2.age</span><span class='op'>$</span><span class='va'>len</span>,w<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span>
 <span class='co'># create age-length key</span>
-<span class='no'>raw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR2.age</span>)
-( <span class='no'>WR2.key</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span>(<span class='no'>raw</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>1</span>) )</div><div class='output co'>#&gt;      age
+<span class='va'>raw</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>LCat</span><span class='op'>+</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>WR2.age</span><span class='op'>)</span>
+<span class='op'>(</span> <span class='va'>WR2.key</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span><span class='op'>(</span><span class='va'>raw</span>, margin<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;      age
 #&gt; LCat           4          5          6          7          8          9
 #&gt;   35  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
 #&gt;   40  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
@@ -321,18 +331,20 @@
 #&gt;   105 0.14285714 0.00000000
 #&gt;   110 0.20000000 0.20000000
 #&gt;   115 1.00000000 0.00000000</div><div class='input'><span class='co'># apply the age-length key</span>
-<span class='no'>WR2.len</span> <span class='kw'>&lt;-</span> <span class='fu'>alkIndivAge</span>(<span class='no'>WR2.key</span>,~<span class='no'>len</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR2.len</span>)
+<span class='va'>WR2.len</span> <span class='op'>&lt;-</span> <span class='fu'>alkIndivAge</span><span class='op'>(</span><span class='va'>WR2.key</span>,<span class='op'>~</span><span class='va'>len</span>,data<span class='op'>=</span><span class='va'>WR2.len</span><span class='op'>)</span>
 <span class='co'># add length cat to length sample</span>
-<span class='no'>WR2.len</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>WR2.len</span>$<span class='no'>len</span>,<span class='kw'>w</span><span class='kw'>=</span><span class='fl'>5</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>WR2.len</span>)</div><div class='output co'>#&gt;   ID len age LCat
+<span class='va'>WR2.len</span><span class='op'>$</span><span class='va'>LCat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span><span class='op'>(</span><span class='va'>WR2.len</span><span class='op'>$</span><span class='va'>len</span>,w<span class='op'>=</span><span class='fl'>5</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>WR2.len</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   ID len age LCat
 #&gt; 1  1  37   4   35
 #&gt; 2  2  37   4   35
 #&gt; 3  3  39   4   35
 #&gt; 4  4  37   4   35
 #&gt; 7  7  42   4   40
 #&gt; 8  8  42   4   40</div><div class='input'><span class='co'># combine orig age &amp; new ages</span>
-<span class='no'>WR2.comb</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='no'>WR2.age</span>, <span class='no'>WR2.len</span>)
-<span class='fu'>Summarize</span>(<span class='no'>len</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR2.comb</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt;   age   n   mean   sd min  Q1 median     Q3 max
+<span class='va'>WR2.comb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>WR2.age</span>, <span class='va'>WR2.len</span><span class='op'>)</span>
+<span class='fu'><a href='Summarize.html'>Summarize</a></span><span class='op'>(</span><span class='va'>len</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>WR2.comb</span>,digits<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   age   n   mean   sd min  Q1 median     Q3 max
 #&gt; 1   4 986  51.85 5.12  35  48   52.0  56.00  64
 #&gt; 2   5 397  71.79 5.33  60  68   72.0  76.00  84
 #&gt; 3   6 269  86.74 4.70  75  83   87.0  89.00  99
@@ -342,20 +354,22 @@
 #&gt; 7  10  39 105.13 6.81  96  98  106.0 109.00 119
 #&gt; 8  11   6 112.50 0.55 112 112  112.5 113.00 113</div><div class='input'>
 <span class='co'>## Third Example -- Uneven breaks for length categories</span>
-<span class='no'>WR3</span> <span class='kw'>&lt;-</span> <span class='no'>WR79</span>
+<span class='va'>WR3</span> <span class='op'>&lt;-</span> <span class='va'>WR79</span>
 <span class='co'># set up uneven breaks</span>
-<span class='no'>brks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>35</span>,<span class='fl'>100</span>,<span class='fl'>5</span>),<span class='fl'>110</span>,<span class='fl'>130</span>)
-<span class='no'>WR3</span>$<span class='no'>LCat</span> <span class='kw'>&lt;-</span> <span class='fu'>lencat</span>(<span class='no'>WR3</span>$<span class='no'>len</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='no'>brks</span>)
-<span class='no'>WR3.age</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>WR3</span>, !<span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span>(<span class='no'>age</span>))
-<span class='no'>WR3.len</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>WR3</span>, <span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span>(<span class='no'>age</span>))
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>WR3.len</span>)</div><div class='output co'>#&gt;   ID len age LCat
+<span class='va'>brks</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>35</span>,<span class='fl'>100</span>,<span class='fl'>5</span><span class='op'>)</span>,<span class='fl'>110</span>,<span class='fl'>130</span><span class='op'>)</span>
+<span class='va'>WR3</span><span class='op'>$</span><span class='va'>LCat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='lencat.html'>lencat</a></span><span class='op'>(</span><span class='va'>WR3</span><span class='op'>$</span><span class='va'>len</span>,breaks<span class='op'>=</span><span class='va'>brks</span><span class='op'>)</span>
+<span class='va'>WR3.age</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>WR3</span>, <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>WR3.len</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>WR3</span>, <span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>age</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>WR3.len</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   ID len age LCat
 #&gt; 1  1  37  NA   35
 #&gt; 2  2  37  NA   35
 #&gt; 3  3  39  NA   35
 #&gt; 4  4  37  NA   35
 #&gt; 7  7  42  NA   40
-#&gt; 8  8  42  NA   40</div><div class='input'><span class='no'>raw</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>LCat</span>+<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR3.age</span>)
-( <span class='no'>WR3.key</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span>(<span class='no'>raw</span>, <span class='kw'>margin</span><span class='kw'>=</span><span class='fl'>1</span>) )</div><div class='output co'>#&gt;      age
+#&gt; 8  8  42  NA   40</div><div class='input'><span class='va'>raw</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>LCat</span><span class='op'>+</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>WR3.age</span><span class='op'>)</span>
+<span class='op'>(</span> <span class='va'>WR3.key</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/proportions.html'>prop.table</a></span><span class='op'>(</span><span class='va'>raw</span>, margin<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'>)</span>
+</div><div class='output co'>#&gt;      age
 #&gt; LCat           4          5          6          7          8          9
 #&gt;   35  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
 #&gt;   40  1.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
@@ -388,16 +402,19 @@
 #&gt;   90  0.00000000 0.00000000
 #&gt;   95  0.05882353 0.00000000
 #&gt;   100 0.04000000 0.00000000
-#&gt;   110 0.42857143 0.14285714</div><div class='input'><span class='no'>WR3.len</span> <span class='kw'>&lt;-</span> <span class='fu'>alkIndivAge</span>(<span class='no'>WR3.key</span>,<span class='no'>age</span>~<span class='no'>len</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR3.len</span>,<span class='kw'>breaks</span><span class='kw'>=</span><span class='no'>brks</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: The maximum observed length in the length sample (117) is greater</span>
+#&gt;   110 0.42857143 0.14285714</div><div class='input'><span class='va'>WR3.len</span> <span class='op'>&lt;-</span> <span class='fu'>alkIndivAge</span><span class='op'>(</span><span class='va'>WR3.key</span>,<span class='va'>age</span><span class='op'>~</span><span class='va'>len</span>,data<span class='op'>=</span><span class='va'>WR3.len</span>,breaks<span class='op'>=</span><span class='va'>brks</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: The maximum observed length in the length sample (117) is greater</span>
 #&gt; <span class='warning'> than the largest length category in the age-length key (110).</span>
-#&gt; <span class='warning'> The last length category will be treated as all-inclusive.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>WR3.len</span>)</div><div class='output co'>#&gt;   ID len age LCat
+#&gt; <span class='warning'> The last length category will be treated as all-inclusive.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>WR3.len</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   ID len age LCat
 #&gt; 1  1  37   4   35
 #&gt; 2  2  37   4   35
 #&gt; 3  3  39   4   35
 #&gt; 4  4  37   4   35
 #&gt; 7  7  42   4   40
-#&gt; 8  8  42   4   40</div><div class='input'><span class='no'>WR3.comb</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span>(<span class='no'>WR3.age</span>, <span class='no'>WR3.len</span>)
-<span class='fu'>Summarize</span>(<span class='no'>len</span>~<span class='no'>age</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WR3.comb</span>,<span class='kw'>digits</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt;   age   n   mean   sd min  Q1 median     Q3 max
+#&gt; 8  8  42   4   40</div><div class='input'><span class='va'>WR3.comb</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>WR3.age</span>, <span class='va'>WR3.len</span><span class='op'>)</span>
+<span class='fu'><a href='Summarize.html'>Summarize</a></span><span class='op'>(</span><span class='va'>len</span><span class='op'>~</span><span class='va'>age</span>,data<span class='op'>=</span><span class='va'>WR3.comb</span>,digits<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   age   n   mean   sd min  Q1 median     Q3 max
 #&gt; 1   4 987  51.87 5.15  35  48     52  56.00  64
 #&gt; 2   5 395  71.78 5.35  60  68     72  76.00  84
 #&gt; 3   6 270  86.71 4.79  75  83     87  89.00  99
@@ -422,7 +439,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

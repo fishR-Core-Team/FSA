@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -128,34 +128,34 @@
     <p>Constructs a traditional (e.g., like that described in Campana <em>et al.</em> (1995)) age-bias plot to visualize potential differences in paired age estimates. Ages may be from, for example, two readers of the same structure, one reader at two times, two structures (e.g., scales, spines, otoliths), or one structure and known ages.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotAB</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>what</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bias"</span>, <span class='st'>"Campana"</span>, <span class='st'>"numbers"</span>),
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='no'>x</span>$<span class='no'>ref.lab</span>,
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='no'>x</span>$<span class='no'>nref.lab</span>,
-  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>yaxt</span> <span class='kw'>=</span> <span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"yaxt"</span>),
-  <span class='kw'>xaxt</span> <span class='kw'>=</span> <span class='kw pkg'>graphics</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"xaxt"</span>),
-  <span class='kw'>col.agree</span> <span class='kw'>=</span> <span class='st'>"gray60"</span>,
-  <span class='kw'>lwd.agree</span> <span class='kw'>=</span> <span class='no'>lwd</span>,
-  <span class='kw'>lty.agree</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>sfrac</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>pch.mean</span> <span class='kw'>=</span> <span class='fl'>19</span>,
-  <span class='kw'>pch.mean.sig</span> <span class='kw'>=</span> <span class='fl'>21</span>,
-  <span class='kw'>cex.mean</span> <span class='kw'>=</span> <span class='no'>lwd</span>,
-  <span class='kw'>col.CI</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>col.CIsig</span> <span class='kw'>=</span> <span class='st'>"red"</span>,
-  <span class='kw'>lwd.CI</span> <span class='kw'>=</span> <span class='no'>lwd</span>,
-  <span class='kw'>sfrac.CI</span> <span class='kw'>=</span> <span class='no'>sfrac</span>,
-  <span class='kw'>show.n</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>nYpos</span> <span class='kw'>=</span> <span class='fl'>1.03</span>,
-  <span class='kw'>cex.n</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
-  <span class='kw'>cex.numbers</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
-  <span class='kw'>col.numbers</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>plotAB</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  what <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bias"</span>, <span class='st'>"Campana"</span>, <span class='st'>"numbers"</span><span class='op'>)</span>,
+  xlab <span class='op'>=</span> <span class='va'>x</span><span class='op'>$</span><span class='va'>ref.lab</span>,
+  ylab <span class='op'>=</span> <span class='va'>x</span><span class='op'>$</span><span class='va'>nref.lab</span>,
+  xlim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ylim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  yaxt <span class='op'>=</span> <span class='fu'>graphics</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"yaxt"</span><span class='op'>)</span>,
+  xaxt <span class='op'>=</span> <span class='fu'>graphics</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"xaxt"</span><span class='op'>)</span>,
+  col.agree <span class='op'>=</span> <span class='st'>"gray60"</span>,
+  lwd.agree <span class='op'>=</span> <span class='va'>lwd</span>,
+  lty.agree <span class='op'>=</span> <span class='fl'>2</span>,
+  lwd <span class='op'>=</span> <span class='fl'>1</span>,
+  sfrac <span class='op'>=</span> <span class='fl'>0</span>,
+  pch.mean <span class='op'>=</span> <span class='fl'>19</span>,
+  pch.mean.sig <span class='op'>=</span> <span class='fl'>21</span>,
+  cex.mean <span class='op'>=</span> <span class='va'>lwd</span>,
+  col.CI <span class='op'>=</span> <span class='st'>"black"</span>,
+  col.CIsig <span class='op'>=</span> <span class='st'>"red"</span>,
+  lwd.CI <span class='op'>=</span> <span class='va'>lwd</span>,
+  sfrac.CI <span class='op'>=</span> <span class='va'>sfrac</span>,
+  show.n <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  nYpos <span class='op'>=</span> <span class='fl'>1.03</span>,
+  cex.n <span class='op'>=</span> <span class='fl'>0.75</span>,
+  cex.numbers <span class='op'>=</span> <span class='fl'>0.75</span>,
+  col.numbers <span class='op'>=</span> <span class='st'>"black"</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -259,7 +259,7 @@
     <p>Nothing, but see details for a description of the plot that is produced.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Two types of plots for visualizing differences between sets of two age estimates may be created. The reference ages are plotted on the x-axis and the nonreference ages are on the y-axis. The 1:1 (45 degree) agreement line is shown for comparative purposes. The default plot (using <code>what="bias"</code>) was inspired by the age bias plot introduced by Campana <em>et al.</em> (1995). The default settings for this age bias plot show the mean and confidence interval for the nonreference ages at each of the reference ages. The level of confidence is controlled by <code>sig.level=</code> given in the original <code>ageBias</code> call (i.e., confidence level is 100*(1-<code>sig.level</code>)). Confidence intervals are only shown if the sample size is greater than the value in <code>min.n.CI=</code> (also from the original call to <code>ageBias</code>). Confidence intervals plotted in red with an open dot (by default; these can be changed with <code>col.CIsig</code> and <code>pch.mean.sig</code>, respectively) do not contain the reference age (see discussion of t-tests in <code>ageBias</code>). Sample sizes at each reference age are shown if <code>show.n=TRUE</code>. The position of the sample sizes is controlled with <code>nYpos=</code>, whereas their size is controlled with <code>cex.n</code>. Arguments may be used to nearly replicate the age bias plot as introduced by Campana <em>et al.</em> (1995) as shown in the examples.</p>
+    <p>Two types of plots for visualizing differences between sets of two age estimates may be created. The reference ages are plotted on the x-axis and the nonreference ages are on the y-axis. The 1:1 (45 degree) agreement line is shown for comparative purposes. The default plot (using <code>what="bias"</code>) was inspired by the age bias plot introduced by Campana <em>et al.</em> (1995). The default settings for this age bias plot show the mean and confidence interval for the nonreference ages at each of the reference ages. The level of confidence is controlled by <code>sig.level=</code> given in the original <code><a href='ageBias.html'>ageBias</a></code> call (i.e., confidence level is 100*(1-<code>sig.level</code>)). Confidence intervals are only shown if the sample size is greater than the value in <code>min.n.CI=</code> (also from the original call to <code><a href='ageBias.html'>ageBias</a></code>). Confidence intervals plotted in red with an open dot (by default; these can be changed with <code>col.CIsig</code> and <code>pch.mean.sig</code>, respectively) do not contain the reference age (see discussion of t-tests in <code><a href='ageBias.html'>ageBias</a></code>). Sample sizes at each reference age are shown if <code>show.n=TRUE</code>. The position of the sample sizes is controlled with <code>nYpos=</code>, whereas their size is controlled with <code>cex.n</code>. Arguments may be used to nearly replicate the age bias plot as introduced by Campana <em>et al.</em> (1995) as shown in the examples.</p>
 <p>The frequency of observations at each unique (x,y) coordinate are shown by using <code>what="numbers"</code> in <code>plotAB</code>. The size of the numbers is controlled with <code>cex.numbers</code>.</p>
     <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
 
@@ -269,21 +269,28 @@
     <p>Campana, S.E., M.C. Annand, and J.I. McMillan. 1995. Graphical and statistical methods for determining the consistency of age determinations. Transactions of the American Fisheries Society 124:131-138. [Was (is?) available from http://www.bio.gc.ca/otoliths/documents/Campana%20et%20al%201995%20TAFS.pdf.]</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code>ageBias</code> and its plot method for what I consider a better age-bias plot; <code>agePrecision</code> for measures of precision between pairs of age estimates; and <code><a href='https://rdrr.io/pkg/fishmethods/man/compare2.html'>compare2</a></code> in <span class="pkg">fishmethods</span> for similar functionality.</p></div>
+    <div class='dont-index'><p>See <code><a href='ageBias.html'>ageBias</a></code> and its plot method for what I consider a better age-bias plot; <code><a href='agePrecision.html'>agePrecision</a></code> for measures of precision between pairs of age estimates; and <code><a href='https://rdrr.io/pkg/fishmethods/man/compare2.html'>compare2</a></code> in <span class="pkg">fishmethods</span> for similar functionality.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Must create ageBias object first</span>
-<span class='no'>ab1</span> <span class='kw'>&lt;-</span> <span class='fu'>ageBias</span>(<span class='no'>scaleC</span>~<span class='no'>otolithC</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>WhitefishLC</span>,
-               <span class='kw'>ref.lab</span><span class='kw'>=</span><span class='st'>"Otolith Age"</span>,<span class='kw'>nref.lab</span><span class='kw'>=</span><span class='st'>"Scale Age"</span>)
-
+<span class='va'>ab1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ageBias.html'>ageBias</a></span><span class='op'>(</span><span class='va'>scaleC</span><span class='op'>~</span><span class='va'>otolithC</span>,data<span class='op'>=</span><span class='va'>WhitefishLC</span>,
+               ref.lab<span class='op'>=</span><span class='st'>"Otolith Age"</span>,nref.lab<span class='op'>=</span><span class='st'>"Scale Age"</span><span class='op'>)</span>
+               
 <span class='co'># Default plot</span>
-<span class='fu'>plotAB</span>(<span class='no'>ab1</span>)</div><div class='img'><img src='plotAB-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotAB</span><span class='op'>(</span><span class='va'>ab1</span><span class='op'>)</span>
+</div><div class='img'><img src='plotAB-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Very close to Campana et al. (2001)</span>
-<span class='fu'>plotAB</span>(<span class='no'>ab1</span>,<span class='kw'>pch.mean.sig</span><span class='kw'>=</span><span class='fl'>19</span>,<span class='kw'>col.CIsig</span><span class='kw'>=</span><span class='st'>"black"</span>,<span class='kw'>sfrac</span><span class='kw'>=</span><span class='fl'>0.01</span>,
-       <span class='kw'>ylim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>1</span>,<span class='fl'>23</span>),<span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>1</span>,<span class='fl'>23</span>))</div><div class='img'><img src='plotAB-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Show sample sizes (different position and size than default)</span>
-<span class='fu'>plotAB</span>(<span class='no'>ab1</span>,<span class='kw'>show.n</span><span class='kw'>=</span><span class='fl'>TRUE</span>,<span class='kw'>nYpos</span><span class='kw'>=</span><span class='fl'>0.02</span>,<span class='kw'>cex.n</span><span class='kw'>=</span><span class='fl'>0.5</span>)</div><div class='img'><img src='plotAB-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotAB</span><span class='op'>(</span><span class='va'>ab1</span>,pch.mean.sig<span class='op'>=</span><span class='fl'>19</span>,col.CIsig<span class='op'>=</span><span class='st'>"black"</span>,sfrac<span class='op'>=</span><span class='fl'>0.01</span>,
+       ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>,<span class='fl'>23</span><span class='op'>)</span>,xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>,<span class='fl'>23</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='plotAB-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Show sample sizes (different position and size than default)</span>
+<span class='fu'>plotAB</span><span class='op'>(</span><span class='va'>ab1</span>,show.n<span class='op'>=</span><span class='cn'>TRUE</span>,nYpos<span class='op'>=</span><span class='fl'>0.02</span>,cex.n<span class='op'>=</span><span class='fl'>0.5</span><span class='op'>)</span>
+</div><div class='img'><img src='plotAB-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Traditional numbers plot</span>
-<span class='fu'>plotAB</span>(<span class='no'>ab1</span>,<span class='kw'>what</span><span class='kw'>=</span><span class='st'>"numbers"</span>)</div><div class='img'><img src='plotAB-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotAB</span><span class='op'>(</span><span class='va'>ab1</span>,what<span class='op'>=</span><span class='st'>"numbers"</span><span class='op'>)</span> 
+</div><div class='img'><img src='plotAB-4.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -300,7 +307,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

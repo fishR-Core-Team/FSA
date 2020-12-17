@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.30.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.31.9000</span>
       </span>
     </div>
 
@@ -96,13 +96,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-2x"></span>
+    <span class="fas fa-home fa-2x"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/droglenc/FSA">
-    <span class="fa fa-github fa-2x"></span>
+    <span class="fas fa-github fa-2x"></span>
      
   </a>
 </li>
@@ -128,9 +128,9 @@
     <p>Subsets/filters a data frame and drops the unused levels.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>Subset</span>(<span class='no'>x</span>, <span class='no'>subset</span>, <span class='no'>select</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>resetRownames</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>Subset</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>subset</span>, <span class='va'>select</span>, drop <span class='op'>=</span> <span class='cn'>FALSE</span>, resetRownames <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>filterD</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>except</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>filterD</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, except <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,7 +149,7 @@
     </tr>
     <tr>
       <th>drop</th>
-      <td><p>passed on to <code>[</code> indexing operator.</p></td>
+      <td><p>passed on to <code><a href='https://rdrr.io/r/base/Extract.html'>[</a></code> indexing operator.</p></td>
     </tr>
     <tr>
       <th>resetRownames</th>
@@ -179,21 +179,31 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code>subset</code> and <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code> from <span class="pkg">dplyr</span> for similar functionality. See <code>drop.levels</code> in <span class="pkg">gdata</span> and <code>droplevels</code> for related functionality.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## The problem -- note use of unused level in the final table.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='no'>iris</span>$<span class='no'>Species</span>)</div><div class='output co'>#&gt; [1] "setosa"     "versicolor" "virginica" </div><div class='input'><span class='no'>iris.set1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>iris</span>,<span class='no'>Species</span><span class='kw'>==</span><span class='st'>"setosa"</span> <span class='kw'>|</span> <span class='no'>Species</span><span class='kw'>==</span><span class='st'>"versicolor"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='no'>iris.set1</span>$<span class='no'>Species</span>)</div><div class='output co'>#&gt; [1] "setosa"     "versicolor" "virginica" </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>Species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris</span>)</div><div class='output co'>#&gt; Species
+<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>$</span><span class='va'>Species</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "setosa"     "versicolor" "virginica" </div><div class='input'><span class='va'>iris.set1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>iris</span>,<span class='va'>Species</span><span class='op'>==</span><span class='st'>"setosa"</span> <span class='op'>|</span> <span class='va'>Species</span><span class='op'>==</span><span class='st'>"versicolor"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>iris.set1</span><span class='op'>$</span><span class='va'>Species</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "setosa"     "versicolor" "virginica" </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>Species</span>,data<span class='op'>=</span><span class='va'>iris</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Species
 #&gt;     setosa versicolor  virginica 
 #&gt;         50         50         50 </div><div class='input'>
 <span class='co'>## A simpler fix using Subset</span>
-<span class='no'>iris.set2</span> <span class='kw'>&lt;-</span> <span class='fu'>Subset</span>(<span class='no'>iris</span>,<span class='no'>Species</span><span class='kw'>==</span><span class='st'>"setosa"</span> <span class='kw'>|</span> <span class='no'>Species</span><span class='kw'>==</span><span class='st'>"versicolor"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='no'>iris.set2</span>$<span class='no'>Species</span>)</div><div class='output co'>#&gt; [1] "setosa"     "versicolor"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>Species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris.set2</span>)</div><div class='output co'>#&gt; Species
+<span class='va'>iris.set2</span> <span class='op'>&lt;-</span> <span class='fu'>Subset</span><span class='op'>(</span><span class='va'>iris</span>,<span class='va'>Species</span><span class='op'>==</span><span class='st'>"setosa"</span> <span class='op'>|</span> <span class='va'>Species</span><span class='op'>==</span><span class='st'>"versicolor"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>iris.set2</span><span class='op'>$</span><span class='va'>Species</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "setosa"     "versicolor"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>Species</span>,data<span class='op'>=</span><span class='va'>iris.set2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Species
 #&gt;     setosa versicolor 
 #&gt;         50         50 </div><div class='input'>
 <span class='co'>## A simpler fix using filterD</span>
-<span class='no'>iris.set3</span> <span class='kw'>&lt;-</span> <span class='fu'>filterD</span>(<span class='no'>iris</span>,<span class='no'>Species</span><span class='kw'>==</span><span class='st'>"setosa"</span> <span class='kw'>|</span> <span class='no'>Species</span><span class='kw'>==</span><span class='st'>"versicolor"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span>(<span class='no'>iris.set3</span>$<span class='no'>Species</span>)</div><div class='output co'>#&gt; [1] "setosa"     "versicolor"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span>(~<span class='no'>Species</span>,<span class='kw'>data</span><span class='kw'>=</span><span class='no'>iris.set3</span>)</div><div class='output co'>#&gt; Species
+<span class='va'>iris.set3</span> <span class='op'>&lt;-</span> <span class='fu'>filterD</span><span class='op'>(</span><span class='va'>iris</span>,<span class='va'>Species</span><span class='op'>==</span><span class='st'>"setosa"</span> <span class='op'>|</span> <span class='va'>Species</span><span class='op'>==</span><span class='st'>"versicolor"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>iris.set3</span><span class='op'>$</span><span class='va'>Species</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "setosa"     "versicolor"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>Species</span>,data<span class='op'>=</span><span class='va'>iris.set3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Species
 #&gt;     setosa versicolor 
 #&gt;         50         50 </div><div class='input'>
 </div></pre>
@@ -212,7 +222,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
