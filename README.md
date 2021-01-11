@@ -10,7 +10,7 @@
 
 ## FSA (Fisheries Stock Assessment)  <img src="man/figures/logo.png" align="right" height="200" hspace="15" />
 
-The **FSA** package provides R functions to conduct typical introductory fisheries analyses. Example analyses that use **FSA** can be found in the [Introductory Fisheries Analyses with R book](http://derekogle.com/IFAR/) and on [the *Examples* page](http://derekogle.com/fishR/examples/) of the [fishR website](http://derekogle.com/fishR/). You can browse documentation for functions in **FSA** under the *References* tab and recent changes under the *News* tab at the top of this page. Please [cite **FSA**](http://derekogle.com/FSA/authors.html) if you use it in a publication (and [send me a note](mailto:derek@derekogle.com)).
+The **FSA** package provides R functions to conduct typical introductory fisheries analyses. Example analyses that use **FSA** can be found in the [Introductory Fisheries Analyses with R book](http://derekogle.com/IFAR/) (*see note below*) and on [the *Examples* page](http://derekogle.com/fishR/examples/) of the [fishR website](http://derekogle.com/fishR/). You can browse documentation for functions in **FSA** under the *References* tab and recent changes under the *News* tab at the top of this page. Please [cite **FSA**](http://derekogle.com/FSA/authors.html) if you use it in a publication (and [send me a note](mailto:derek@derekogle.com)).
 
 ### Installation
 The [most recent stable version (on CRAN)](https://cloud.r-project.org/package=FSA) of **FSA** may be installed with
@@ -29,13 +29,13 @@ remotes::install_github('droglenc/FSA')
 You may need to have R Tools installed on your system to install the development version from GitHub. See the instructions for ([R Tools for Windows](https://cran.r-project.org/bin/windows/Rtools/) or [R Tools for Mac OS X](https://cran.r-project.org/bin/macosx/tools/)).
 
 
-### Questions / Comments / Problems
+### Questions / Comments / Problems or Contributions
 Report questions, comments, or bug reports on the [issues page](https://github.com/droglenc/FSA/issues).
 
+We are always looking for others to contribute to **FSA**. Please feel free to make a pull request via GitHub or to contact the maintainers.
 
-<!---
-## Note About Using Macs
-**FSA** uses **TCL/TK** for some interactive plots.  Some Mac users report problems with using **TCL/TK**.  I do not have access to a Mac to test these problems, some students have reported success installing the **TCL/TK** universal build [located here](http://cran.r-project.org/bin/macosx/tools/) (or [direct link to the file](http://cran.r-project.org/bin/macosx/tools/tcltk-8.5.5-x11.dmg)).  You may have to reinstall **FSA** after installing this file.
+Please adhere to the [Code of Conduct](http://derekogle.com/FSA/CODE_OF_CONDUCT.html).
 
-You should be able to use the vast majority of the functionality in **FSA** even if the problems with **TCL/TK** cannot be rectified.
---->
+
+### Note about **FSA** and *Introduction to Fisheries Analysis with R* book
+Versions of **FSA** beginning with v0.9.0 may no longer work as shown in the IFAR book. Many functions have not changed from when the book was published, but some have. Thus, you will need to install an **FSA** version before v0.9.0 to be assured that functions work as described in the IFAR book.
