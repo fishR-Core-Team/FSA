@@ -118,7 +118,7 @@ fnx <- function(days,B1,B2,B3) {
 }
 nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,
            start=list(B1=6,B2=7.2,B3=-1.45))
-\dontrun{
+           
   # bootCase is provided only for backward compatability. Consider using
   # Boot from the car package instead.
   nl1.bootc <- bootCase(nl1,coef,B=99)  # B=99 too few to be useful
@@ -132,7 +132,6 @@ nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,
   hist(nl1.bootc)
   plot(nl1.bootc)
   cor(nl1.bootc)
-}
 
 }
 \references{
