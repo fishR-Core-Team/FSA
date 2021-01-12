@@ -11,6 +11,7 @@
 ## Miscellaneous webpage and package files
 README.md
 LICENSE
+CODE_OF_CONDUCT.md
 cran-comments.md
 ^cran-comments
 ^_pkgdown\.yml
