@@ -170,6 +170,11 @@ test_that("psdAdd() messages",{
   ## bad addSpec/addLens combination
   expect_warning(psdAdd(tl~species,df,addSpec="Derek",verbose=FALSE),
                  "is not NULL")
+
+  ## Bad species
+  tmp <- df[df$species=="Bluefin Tuna",]
+  expect_message(psdAdd(tl~species,data=tmp),
+                 "No known Gabelhouse")
   
   ## One species had all missing lengths
   tmp <- df
@@ -417,6 +422,42 @@ test_that("psdAdd() results",{
 test_that("Does psdAdd() create correct Gabelhouse categories?",{
   suppressMessages(df2$gcatn <- psdAdd(tl~species,data=df2))
   expect_equivalent(df2$gcatn,df2$GCATN)
+})
+
+test_that("Does psdAdd() properly handle NA in species?",{
+  ## Makes sure NAs are in proper position and by extension correct number
+  # Just NAs for species only one other species
+  testdf <- data.frame(TL=c(400,90,250,130,50),
+                       Spp=c("White Crappie",NA,"White Crappie",
+                             "White Crappie","White Crappie"))
+  suppressMessages(gcat <- psdAdd(TL~Spp,data=testdf,drop.levels=TRUE))
+  expect_equivalent(which(is.na(testdf$TL) | is.na(testdf$Spp)),
+                  which(is.na(gcat)))
+  
+  # Just NAs for species only multiple other species
+  testdf <- data.frame(TL=c(400,90,250,130,50),
+                       Spp=c("White Crappie",NA,"White Crappie",
+                             "White Crappie","Black Crappie"))
+  suppressMessages(gcat <- psdAdd(TL~Spp,data=testdf,drop.levels=TRUE))
+  expect_equivalent(which(is.na(testdf$TL) | is.na(testdf$Spp)),
+                    which(is.na(gcat)))
+
+  # Just NAs for species, but with a species w/o Gabelhous lengths
+  testdf <- data.frame(TL=c(400,90,250,NA,50),
+                       Spp=c("White Crappie",NA,"badSpp",
+                             "White Crappie","Black Crappie"))
+  suppressMessages(gcat <- psdAdd(TL~Spp,data=testdf,drop.levels=TRUE))
+  expect_equivalent(which(is.na(testdf$TL) | is.na(testdf$Spp) | testdf$Spp=="badSpp"),
+                    which(is.na(gcat)))
+  
+  # NAs for length and species
+  testdf <- data.frame(TL=c(400,90,250,NA,50),
+                       Spp=c("White Crappie",NA,"White Crappie",
+                             "White Crappie","Black Crappie"))
+  suppressMessages(gcat <- psdAdd(TL~Spp,data=testdf,drop.levels=TRUE))
+  expect_equivalent(which(is.na(testdf$TL) | is.na(testdf$Spp)),
+                    which(is.na(gcat)))
+
 })
 
 test_that("Does psdCalc() compute correct PSD values?",{

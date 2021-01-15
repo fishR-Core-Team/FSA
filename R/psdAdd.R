@@ -12,7 +12,7 @@
 #' @param verbose A logical that indicates whether detailed messages about species without Gabelhouse lengths or with no recorded values should be printed or not.
 #' @param \dots Not used.
 #'
-#' @details This computes a vector that contains the Gabelhouse lengths specific to each species for all individuals in an entire data frame. The vector can be appended to an existing data.frame to create a variable that contains the Gabelhouse lengths for each individual. The Gabelhouse length value will be \code{NA} for each individual for which a Gabelhouse length definitions do not exist in \code{\link{PSDlit}}. Species names in the data.frame must be the same as those used in \code{\link{PSDlit}}. See the examples for one method for changing species names to something that this function will recognize.
+#' @details This computes a vector that contains the Gabelhouse lengths specific to each species for all individuals in an entire data frame. The vector can be appended to an existing data.frame to create a variable that contains the Gabelhouse lengths for each individual. The Gabelhouse length value will be \code{NA} for each individual for which Gabelhouse length definitions do not exist in \code{\link{PSDlit}}. Species names in the data.frame must be the same as those used in \code{\link{PSDlit}}. See the examples for one method for changing species names to something that this function will recognize.
 #' 
 #' Individuals shorter than \dQuote{stock} length will be listed as \code{substock} if \code{use.names=TRUE} or \code{0} if \code{use.names=FALSE}.
 #' 
@@ -101,40 +101,54 @@ psdAdd.default <- function(len,species,units=c("mm","cm","in"),use.names=TRUE,
     use.names <- FALSE
   }
   ## Prepare the PSD literature values data frame
-  # get is used to eliminate problem with rcmd check
-  PSDlit <- get(utils::data("PSDlit", envir = environment()), envir = environment())
-
-  ## Create data.frame with length, species, rownumbers, and PSD values (blank)
-  data <- data.frame(len,species,rownums=seq_along(len),PSD=rep(NA,length(len)))
-  ## initiate a blank new data frame with same columns as old data frame
-  ndata <- data[-c(seq_len(nrow(data))),]  
-  ## get list of species
+  # get() is used to eliminate problem with rcmd check
+  PSDlit <- get(utils::data("PSDlit",envir=environment()),envir=environment())
+  ##  Find species that have known Gabelhouse lengths
+  # get list of species in data
   specs <- levels(factor(species))
-  
-  ## cycle through each species where PSD values are known
-  for (i in seq_along(specs)) {
-    ## isolate the current species
-    tmpdf <- data[data[,2]==specs[i],]
-    ## compute PSD
-    if (specs[i] %in% levels(PSDlit$species)) {
-      ## put in additional lengths if they are provided
-      if (specs[i] %in% addSpec) tmpAddLens <- addLens[which(addSpec==specs[i])]
-        else tmpAddLens <- NULL
-      # get the Gabelhouse length categories
-      glhse <- psdVal(specs[i],units=units,addLens=tmpAddLens)
-      # computes the Gabelhouse length categories and adds to the data frame
-      if (all(is.na(tmpdf[,1]))) {
-        if (verbose) message("All values in 'len' were missing for ",specs[i])
-        tmpdf$PSD <- tmpdf[,1]
-      } else tmpdf$PSD <- lencat(tmpdf[,1],breaks=glhse,use.names=use.names,as.fact=FALSE)
-    } else if (verbose) message("No known Gabelhouse (PSD) lengths for ",specs[i])
+  GLHSspecs <- specs[specs %in% levels(PSDlit$species)]
+  ## Create data.frames with species that are NA and w/o Gabelhouse lengths and
+  ## one with Gabelhouse lengths. The loop below will then start with a 
+  ## the non-Gabelhouse species and sequentially add the Gabelhouse fish 
+  # Create data.frame with length, species, rownumbers, and PSD values (blank)
+  # - rownumbers is needed to get back the original order
+  # - PSD will eventually have the Gabelhouse length categories
+  data <- data.frame(len,species,rownums=seq_along(len),PSD=rep(NA,length(len)))
+  # data.frame where species is NA and doesn't have Gabelhousee length
+  ndata <- data[is.na(data$species) | !data$species %in% GLHSspecs,]
+  if (verbose & nrow(ndata)>0)
+    message("No known Gabelhouse (PSD) lengths for: ",unique(ndata$species))
+  # data.frame where species have Gabelhouse lengths ... make sure no NAs
+  data <- data[data$species %in% GLHSspecs,]
+  data <- data[!is.na(data$species),]
+
+  ## Cycle through each species where PSD values are known, add PSD categories
+  ## and append to data.frame that contained species w/o Gabelhouse lengths
+  for (i in seq_along(GLHSspecs)) {
+    # isolate a data.frame with the current species
+    tmpdf <- data[data$species==GLHSspecs[i],]
+    # add Gabelhouse lengths ... put in additional lengths if they are provided
+    if (GLHSspecs[i] %in% addSpec)
+      tmpAddLens <- addLens[which(addSpec==GLHSspecs[i])]
+    else tmpAddLens <- NULL
+    # get the Gabelhouse length categories
+    glhse <- psdVal(GLHSspecs[i],units=units,addLens=tmpAddLens)
+    # computes the Gabelhouse length categories and adds to the data frame
+    if (all(is.na(tmpdf$len))) {
+      if (verbose) message("All values in 'len' were missing for ",GLHSspecs[i])
+      tmpdf$PSD <- tmpdf$len
+    } else tmpdf$PSD <- lencat(tmpdf$len,breaks=glhse,
+                               use.names=use.names,as.fact=FALSE)
     # bind current species to the new data frame being created
     ndata <- rbind(ndata,tmpdf)
   }
   ## reorder the data.frame to match original rows
   ndata <- ndata[order(ndata$rownums),]
   ## factor the PSD variable if using category names
-  if (use.names) ndata$PSD <- factor(ndata$PSD,levels=c("substock","stock","quality","preferred","memorable","trophy"))
+  if (use.names) 
+    ndata$PSD <- factor(ndata$PSD,
+                        levels=c("substock","stock","quality",
+                                 "preferred","memorable","trophy"))
   ## return just the vector of PSD values
   ndata$PSD
 }
