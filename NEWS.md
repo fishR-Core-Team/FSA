@@ -1,4 +1,4 @@
-# FSA 0.8.32 Ongoing
+# FSA 0.8.32 15-Jan-21
 * Removed Travis-CI and appveyor.
 * No longer using coveralls for coverage statistics. Changed to codecov.io.
 * Added GitHub Action for CI/CD (used `usethis::use_github_action_check_standard()`).
