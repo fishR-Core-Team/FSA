@@ -1,5 +1,5 @@
 # FSA 0.9.0 ongoing
-
+* Added Jason Doll as an `AUThor`.
 
 # FSA 0.8.32 15-Jan-21
 * Removed Travis-CI and appveyor.
