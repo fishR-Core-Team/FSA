@@ -66,8 +66,8 @@ ex1.R2M <- capHistConvert(ex1.E2R,in.type="RMark",
 ## Test Messages ----
 test_that("capHistSum() messages",{
   expect_error(capHistSum(d,cols2use=1,cols2ignore=4),"Cannot use both")
-  expect_error(suppressWarnings(capHistSum(d,cols2ignore=1:5),
-                                "undefined columns selected"))
+  expect_error(suppressWarnings(capHistSum(d,cols2ignore=1:5)),
+                                "undefined columns selected")
 })  
 
 test_that("capHistConvert() messages",{
