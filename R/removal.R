@@ -206,23 +206,35 @@ removal <- function(catch,
   # some initial checks
   method <- match.arg(method)
   if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
+  if (Tmult<1) STOP("'Tmult' should be greater than 1.")
   if (!is.vector(catch)) {
     # if a one row or column matrix then convert to a vector
-    if (is.matrix(catch) & (nrow(catch)==1 | ncol(catch)==1)) {
-      catch <- as.numeric(catch)
+    if (is.matrix(catch) & nrow(catch)==1) {
+      catch <- catch[1,]
+    } else if (is.matrix(catch) & ncol(catch)==1) {
+      catch <- catch[,1]
     } else if (is.data.frame(catch) & ncol(catch)==1) {
-      catch <- as.numeric(catch[,1])
+      catch <- catch[,1]
     } else {
       # otherwise send an error
       STOP("'catch' must be a vector.")
     }
   }
+  #Check if catch vector is not numeric
+  if (!is.numeric(catch)){
+    stop("'catch' must be a vector of numeric values.")
+  }
+  #Check is.whole
+  if (!all(is.wholenumber(catch),na.rm=TRUE)) WARN("'catch' contains non-whole numbers.")
+  
+  # Checking for and removing (if necessary) missing values
   if (any(is.na(catch))) {
     WARN("'NA's removed from 'catch' to continue.")
     catch <- catch[!is.na(catch)]
   }
+
   if (length(catch)<2) STOP("Cannot perform calculations with one catch value.")
-  if (Tmult<1) STOP("'Tmult' should be greater than 1.")
+
   # intermediate calculations
   # Different methods
   switch(method,

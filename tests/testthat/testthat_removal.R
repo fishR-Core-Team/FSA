@@ -18,6 +18,11 @@ test_that("removal() messages",{
                "must be a vector")
   expect_error(removal(data.frame(c(346,184),c(49,12))),
                "must be a vector")
+  ## Check characters in catch=
+  expect_error(removal(c(346,184,"derek")),
+               "must be a vector of numeric values")
+  expect_error(removal(c("jason","powell","derek")),
+               "must be a vector of numeric values")
   ## only one catch
   expect_error(removal(346),"with one catch value")
   ## Try using Moran or Schnute method with not three catches
@@ -84,6 +89,11 @@ test_that("removal() messages",{
                "must be between 0 and 1")
   expect_error(removal(c(346,184,49),conf.level=1),
                "must be between 0 and 1")
+  ## Check whole number,
+  expect_warning(removal(c(346,184,49.1)),
+                 "'catch' contains non-whole numbers.")
+  expect_warning(removal(c(346.1,184.1,49.1)),
+                 "'catch' contains non-whole numbers.")
   
   ## Bad data leads to failure of Zippin (from Carle-Strub (1978) example 2)
   expect_warning(removal(c(5,7,8),method="Zippin"),
