@@ -18,6 +18,11 @@ test_that("removal() messages",{
                "must be a vector")
   expect_error(removal(data.frame(c(346,184),c(49,12))),
                "must be a vector")
+  ## Check characters in catch=
+  expect_error(removal(c(346,184,"derek")),
+               "must be a vector of numeric values")
+  expect_error(removal(c("jason","powell","derek")),
+               "must be a vector of numeric values")
   ## only one catch
   expect_error(removal(346),"with one catch value")
   ## Try using Moran or Schnute method with not three catches

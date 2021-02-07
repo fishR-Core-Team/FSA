@@ -1,5 +1,6 @@
 # FSA 0.9.0 ongoing
 * Added Jason Doll as an `AUThor`.
+* `removal()`: Modified. Added check and then warning if non-whole numbers are in `catch=` (addresses [#60](https://github.com/droglenc/FSA/issues/60)). Also modified checks of data integrity to be more robust (e.g., if a character vector is sent).
 
 # FSA 0.8.32 15-Jan-21
 * Removed Travis-CI and appveyor.

@@ -224,13 +224,15 @@ removal <- function(catch,
   if (!is.numeric(catch)){
     stop("'catch' must be a vector of numeric values.")
   }
+  #Check is.whole
+  if (!all(is.wholenumber(catch),na.rm=TRUE)) WARN("'catch' contains non-whole numbers.")
+  
+  # Checking for and removing (if necessary) missing values
   if (any(is.na(catch))) {
     WARN("'NA's removed from 'catch' to continue.")
     catch <- catch[!is.na(catch)]
   }
-  #Check is.whole
-  if (!all(is.wholenumber(catch))) WARN("'catch' contains non-whole numbers.")
-  
+
   if (length(catch)<2) STOP("Cannot perform calculations with one catch value.")
 
   # intermediate calculations
