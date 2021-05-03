@@ -75,6 +75,7 @@ test_that("wsVal() results",{
   ## Do Ruffe results match
   ruf1 <- wsVal("Ruffe")
   ruf2 <- WSlit[WSlit$species=="Ruffe" & WSlit$units=="metric" & WSlit$ref=="75",]
+  ruf2 <- ruf2[-which(names(ruf2) %in% c("comment"))]
   expect_equivalent(ruf1,ruf2)
   ruf1 <- wsVal("Ruffe",simplify=TRUE)
   ruf2 <- WSlit[WSlit$species=="Ruffe" & WSlit$units=="metric" & WSlit$ref=="75",]

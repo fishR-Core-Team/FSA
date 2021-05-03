@@ -11,6 +11,10 @@ library(tools)
 setwd("C:/aaaWork/Programs/GitHub/FSA/data-raw")
 raw <- list.files(pattern="*.csv")
 
+## You may only want to use a few files ... use this (e.g.) to do that
+#raw
+#raw <- raw[c(10,16)]
+
 #### Convert to .rdata files ####
 ## Cycle through each file to make it an RDA file
 for (f in raw) {
