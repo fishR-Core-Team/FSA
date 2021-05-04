@@ -57,7 +57,7 @@ wsVal <- function(species="List",units=c("metric","English"),ref=75,simplify=FAL
     if (WSvec$comment=="none") WSvec <- WSvec[,-which(names(WSvec)=="comment")]
     ## If function is linear (as opposed to quadratic) then drop the quad variable
     if (WSvec$type=="linear") WSvec <- WSvec[,-which(names(WSvec)=="quad")]
-    ## Change "min.len" and "max.len" variable names to ".TL" or ."FL" as appropriate
+    ## Change "min.len" and "max.len" variables to ".TL" or ."FL" as appropriate
     tmp <- paste(c("min","max"),WSvec$measure,sep=".")
     names(WSvec)[which(names(WSvec) %in% c("min.len","max.len"))] <- tmp
     ## Remove max.len if it is NA

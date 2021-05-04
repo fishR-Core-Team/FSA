@@ -30,7 +30,7 @@ Bridgelip Sucker,metric,linear,75,TL,EmP,130,460,-5.09721,3.04947,NA,Richter (20
 Brook Chub,metric,quadratic,75,TL,EmP,90,210,-7.75,5.75,-0.66,Giannetto et al. (2012),none
 Brook Trout,English,linear,75,TL,RLP,4.75,NA,-3.483,3.103,NA,Hyatt and Hubert (2001a),none
 Brook Trout,metric,linear,75,TL,RLP,120,NA,-5.186,3.103,NA,Hyatt and Hubert (2001a),none
-Brook Trout (Appalachia),metric,quadratic,75,TL,EmP,80,226,-3.364,1.378,0.397,Harris et al. (2021),RLP and EmP (linear) models had length-related bias (thus not recommended)
+Brook Trout (appalachia),metric,quadratic,75,TL,EmP,80,226,-3.364,1.378,0.397,Harris et al. (2021),RLP and EmP (linear) models had length-related bias (thus not recommended)
 Brown Bullhead,English,linear,75,TL,RLP,5,NA,-3.371,3.105,NA,Bister et al. (2000),none
 Brown Bullhead,metric,linear,75,TL,RLP,130,NA,-5.076,3.105,NA,Bister et al. (2000),none
 Brown Trout (lentic),English,linear,75,TL,RLP,5.5,NA,-3.592,3.194,NA,Hyatt and Hubert (2001b),none
@@ -162,15 +162,15 @@ Smallmouth Buffalo,metric,linear,75,TL,RLP,200,NA,-5.298,3.208,NA,Bister et al. 
 South European Roach,metric,quadratic,75,TL,EmP,60,200,-4.043,1.919,0.315,Giannetto et al. (2016),
 Spotted Bass,English,linear,75,TL,RLP,4,NA,-3.533,3.215,NA,Wiens et al. (1996),none
 Spotted Bass,metric,linear,75,TL,RLP,100,NA,-5.392,3.215,NA,Wiens et al. (1996),none
-Spotted Bass (Alabama subspecies),metric,linear,75,TL,RLP,100,NA,-5.598,3.2904,NA,Dicenzo et al. (1995),min.len not made clear (assumed same as Spotted Bass); same as Alabama Bass
+Spotted Bass (alabama subspecies),metric,linear,75,TL,RLP,100,NA,-5.598,3.2904,NA,Dicenzo et al. (1995),min.len not made clear (assumed same as Spotted Bass); same as Alabama Bass
 Spotted Gar,English,linear,75,TL,RLP,10,NA,-4.388,3.431,NA,Bister et al. (2000),none
 Spotted Gar,metric,linear,75,TL,RLP,250,NA,-6.551,3.431,NA,Bister et al. (2000),none
 Striped Bass,English,linear,75,TL,RLP,6,NA,-3.358,3.007,NA,Brown and Murphy (1991b),none
 Striped Bass,metric,linear,75,TL,RLP,150,NA,-4.924,3.007,NA,Brown and Murphy (1991b),none
-Striped Bass (Hybrid),English,linear,75,TL,RLP,4.5,NA,-3.448,3.139,NA,Brown and Murphy (1991b),same as Palmetto Bass and Striped Bass x White Bass
-Striped Bass (Hybrid),metric,linear,75,TL,RLP,115,NA,-5.201,3.139,NA,Brown and Murphy (1991b),same as Palmetto Bass and Striped Bass x White Bass
-Striped Bass x White Bass,English,linear,75,TL,RLP,4.5,NA,-3.448,3.139,NA,Brown and Murphy (1991b),same as Palmetto Bass and Striped Bass (Hybrid)
-Striped Bass x White Bass,metric,linear,75,TL,RLP,115,NA,-5.201,3.139,NA,Brown and Murphy (1991b),same as Palmetto Bass and Striped Bass (Hybrid)
+Striped Bass (hybrid),English,linear,75,TL,RLP,4.5,NA,-3.448,3.139,NA,Brown and Murphy (1991b),same as Palmetto Bass and Striped Bass x White Bass
+Striped Bass (hybrid),metric,linear,75,TL,RLP,115,NA,-5.201,3.139,NA,Brown and Murphy (1991b),same as Palmetto Bass and Striped Bass x White Bass
+Striped Bass X White Bass,English,linear,75,TL,RLP,4.5,NA,-3.448,3.139,NA,Brown and Murphy (1991b),same as Palmetto Bass and Striped Bass (Hybrid)
+Striped Bass X White Bass,metric,linear,75,TL,RLP,115,NA,-5.201,3.139,NA,Brown and Murphy (1991b),same as Palmetto Bass and Striped Bass (Hybrid)
 Suwannee Bass,metric,quadratic,75,TL,EmP,110,NA,-0.106,-1.363,0.995,Bonvechio et al. (2010),none
 Tiger Muskellunge,English,linear,75,TL,RLP,9.5,NA,-4.095,3.337,NA,Rogers and Koupal (1997),none
 Tiger Muskellunge,metric,linear,75,TL,RLP,240,NA,-6.126,3.337,NA,Rogers and Koupal (1997),none
