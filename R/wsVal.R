@@ -40,11 +40,11 @@
 #'
 #' @export
 wsVal <- function(species="List",units=c("metric","English"),ref=75,simplify=FALSE) {
-  type <- measure <- method <- NULL   # attempting to avoid bindings warning in RCMD CHECK
+  type <- measure <- method <- NULL   # avoiding bindings warning in RCMD CHECK
   units <- match.arg(units)
   # load WSlit data frame into this functions environment
-  # the data/get combination are used to avoide the "no global binding" note at CHECK
-  WSlit <- get(utils::data("WSlit", envir = environment()), envir = environment())
+  # data/get combination are used to avoid the "no global binding" note at CHECK
+  WSlit <- get(utils::data("WSlit",envir=environment()),envir=environment())
   # isolate only those data for which those units and ref exist
   df <- droplevels(WSlit[WSlit$units==units & WSlit$ref==ref,])
   # check to make sure that that species exists for that subset
@@ -72,7 +72,7 @@ iwsLitCheck <- function(data,species) {
   OK <- FALSE
   if (length(species)>1) STOP("'species' must contain only one name.")
   if (species=="List") iListSpecies(data)
-  else if (!any(levels(data$species)==species)) {
+  else if (!any(unique(data$species)==species)) {
     STOP("A Ws equation may not exist given your choices of species, units, and ref.\n  Please look carefully inside the data(WSlit) data frame.\n\n")
   }
     else OK <- TRUE

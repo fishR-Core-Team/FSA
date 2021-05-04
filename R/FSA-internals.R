@@ -308,7 +308,8 @@ iLegendHelp <- function(legend) {
 
 iListSpecies <- function(d) {
   message("\nSpecies name must be one of following. Be careful of spelling and capitalization.")
-  print(levels(d$species))
+  tmp <- unique(d$species)
+  print(tmp[order(tmp)])
   return(invisible())
 } # end internal function    
 

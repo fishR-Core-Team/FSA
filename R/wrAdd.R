@@ -27,11 +27,14 @@
 #' ## Create random data for three species
 #' # just to control the randomization
 #' set.seed(345234534)
-#' dbt <- data.frame(species=factor(rep(c("Bluefin Tuna"),30)),tl=round(rnorm(30,1900,300),0))
+#' dbt <- data.frame(species=factor(rep(c("Bluefin Tuna"),30)),
+#'                   tl=round(rnorm(30,1900,300),0))
 #' dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
-#' dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),tl=round(rnorm(30,130,50),0))
+#' dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),
+#'                   tl=round(rnorm(30,130,50),0))
 #' dbg$wt <- round(4.23e-06*dbg$tl^3.316+rnorm(30,0,10),1)
-#' dlb <- data.frame(species=factor(rep(c("Largemouth Bass"),30)),tl=round(rnorm(30,350,60),0))
+#' dlb <- data.frame(species=factor(rep(c("Largemouth Bass"),30)),
+#'                   tl=round(rnorm(30,350,60),0))
 #' dlb$wt <- round(2.96e-06*dlb$tl^3.273+rnorm(30,0,60),1)
 #' df <- rbind(dbt,dbg,dlb)
 #' str(df)
@@ -65,28 +68,29 @@ wrAdd.default <- function(wt,len,spec,units=c("metric","English"),...) {
   units <- match.arg(units)
   if (!is.numeric(wt)) STOP("'wt' must be numeric.")
   if (!is.numeric(len)) STOP("'len' must be numeric.")
-  if (!inherits(spec,c("character","factor"))) STOP("'spec' must be character or factor.")
+  if (!inherits(spec,c("character","factor")))
+    STOP("'spec' must be character or factor.")
   
   ## Prepare the Ws literature values data frame
   # get is used to eliminate problem with rcmd check
-  WSlit <- get(utils::data("WSlit", envir = environment()), envir = environment())
+  WSlit <- get(utils::data("WSlit",envir=environment()),envir=environment())
   # isolate only those data for which those units and ref=75 exist
   WSlit <- droplevels(WSlit[WSlit$units==units & WSlit$ref==75,])
   
-  ## Create data.frame with length, weight, species, rownumbers, and Wr values (blank)
+  ## Create df with length, weight, species, rownumbers, and Wr values (blank)
   data <- data.frame(len,wt,spec,rownums=seq_along(len),
                      Wr=rep(NA,length(len)))
   ## initiate a blank new data frame with same columns as old data frame
   ndata <- data[-c(seq_len(nrow(data))),]  
   ## get list of species
-  specs <- levels(factor(spec))
+  specs <- unique(spec)
   
   ## cycle through each species where WS equations are known
   for (i in seq_along(specs)) {
     ## isolate the current species
     tmp <- data[data[,3]==specs[i],]
     ## compute Wr
-    if (specs[i] %in% levels(WSlit$species)) {
+    if (specs[i] %in% unique(WSlit$species)) {
       # standard weight exists for this species
       wseqn <- WSlit[WSlit$species==specs[i],]
       # predict log Ws

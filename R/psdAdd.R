@@ -40,11 +40,14 @@
 #' ## Create random data for three species
 #' # only for repeatability
 #' set.seed(345234534)
-#' dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),tl=round(rnorm(30,130,50),0))
+#' dbg <- data.frame(species=factor(rep(c("Bluegill"),30)),
+#'                   tl=round(rnorm(30,130,50),0))
 #' dbg$wt <- round(4.23e-06*dbg$tl^3.316+rnorm(30,0,10),1)
-#' dlb <- data.frame(species=factor(rep(c("Largemouth Bass"),30)),tl=round(rnorm(30,350,60),0))
+#' dlb <- data.frame(species=factor(rep(c("Largemouth Bass"),30)),
+#'                   tl=round(rnorm(30,350,60),0))
 #' dlb$wt <- round(2.96e-06*dlb$tl^3.273+rnorm(30,0,60),1)
-#' dbt <- data.frame(species=factor(rep(c("Bluefin Tuna"),30)),tl=round(rnorm(30,1900,300),0))
+#' dbt <- data.frame(species=factor(rep(c("Bluefin Tuna"),30)),
+#'                   tl=round(rnorm(30,1900,300),0))
 #' dbt$wt <- round(4.5e-05*dbt$tl^2.8+rnorm(30,0,6000),1)
 #' df <- rbind(dbg,dlb,dbt)
 #' str(df)
@@ -62,7 +65,7 @@
 #' # Add additional length and name for Bluegill
 #' df$PSD3 <- psdAdd(tl~species,data=df,addSpec="Bluegill",addLens=175)
 #' head(df)
-#' # Add additional lengths and names for Bluegill and Largemouth Bass from a data.frame
+#' # Add add'l lengths and names for Bluegill and Largemouth Bass from a data.frame
 #' addls <- data.frame(species=c("Bluegill","Largemouth Bass","Largemouth Bass"),
 #'                     lens=c(175,254,356))
 #' df$psd4 <- psdAdd(tl~species,data=df,addSpec=addls$species,addLens=addls$lens)
@@ -105,8 +108,8 @@ psdAdd.default <- function(len,species,units=c("mm","cm","in"),use.names=TRUE,
   PSDlit <- get(utils::data("PSDlit",envir=environment()),envir=environment())
   ##  Find species that have known Gabelhouse lengths
   # get list of species in data
-  specs <- levels(factor(species))
-  GLHSspecs <- specs[specs %in% levels(PSDlit$species)]
+  specs <- unique(species)
+  GLHSspecs <- specs[specs %in% unique(PSDlit$species)]
   ## Create data.frames with species that are NA and w/o Gabelhouse lengths and
   ## one with Gabelhouse lengths. The loop below will then start with a 
   ## the non-Gabelhouse species and sequentially add the Gabelhouse fish 

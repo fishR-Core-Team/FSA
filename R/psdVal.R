@@ -56,8 +56,8 @@ psdVal <- function(species="List",units=c("mm","cm","in"),incl.zero=TRUE,
                    addLens=NULL,addNames=NULL) {
   units <- match.arg(units)
   # load RSDlit data frame into this function's environment
-  # the data/get combination are used to avoid the "no global binding" note at CHECK
-  PSDlit <- get(utils::data("PSDlit", envir = environment()), envir = environment())
+  # data/get combination are used to avoid the "no global binding" note at CHECK
+  PSDlit <- get(utils::data("PSDlit",envir=environment()),envir=environment())
   # continue if species name is correct
   if (iPSDLitCheck(PSDlit,species <- capFirst(species))) {
     # identify columns based on units
@@ -99,7 +99,7 @@ iPSDLitCheck <- function(data,species) {
   OK <- FALSE
   if (length(species)!=1) STOP("'species' can have only one name.")
   else if (species=="List") iListSpecies(data)
-       else if (!any(levels(data$species)==species))
+       else if (!any(unique(data$species)==species))
          STOP("The Gabelhouse lengths do not exist for ",species,
               ".\n  Type psdVal() for a list of available species.\n\n")
             else OK <- TRUE
