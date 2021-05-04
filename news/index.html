@@ -129,7 +129,26 @@
 <ul>
 <li>Added Jason Doll as an <code>AUThor</code>.</li>
 <li>
+<code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> in <code>iPSDlitCheck()</code> to <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>PSDlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>).</li>
+<li>
+<code>PSDlit</code>: Modified. Added length categories for Shoal Bass. Added Striped Bass (Hybrid) and Striped Bass x White Bass; though these are the same as the existing Palmetto Bass.</li>
+<li>
+<code><a href="../reference/psdVal.html">psdVal()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> in <code>iPSDlitCheck()</code> and <code><a href="../reference/.onAttach.html">iListSpecies()</a></code> to <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>PSDlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>).</li>
+<li>
 <code><a href="../reference/removal.html">removal()</a></code>: Modified. Added check and then warning if non-whole numbers are in <code>catch=</code> (addresses <a href="https://github.com/droglenc/FSA/issues/60"><a href='https://github.com/droglenc/FSA/issues/60'>#60</a></a>). Also modified checks of data integrity to be more robust (e.g., if a character vector is sent).</li>
+<li>
+<code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> in <code>iwsLitCheck()</code> to <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>WSlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>).</li>
+<li>
+<code>WSlit</code>: Modified. Addresses <a href="https://github.com/droglenc/FSA/issues/68"><a href='https://github.com/droglenc/FSA/issues/68'>#68</a></a>.
+<ul>
+<li>Corrected capitalization of “Cavedano Chub”, “European Chub”, “Lake Herring” (metric), and “Pursak Chub”.</li>
+<li>Removed “not in Neumann et al. (2012)” notes.</li>
+<li>Added African Sharptooth Catfish, Ankara Nase, Bighead and Silver Carp, Brook Trout (Appalachia), Fourbarbel Scraper, Horse Barbel, Nile Tilapia, Nipple-Lipped Scraper, Shoal Bass, South European Roach, Spotted Bass (Alabama subspecies) (AKA Alabama Bass).</li>
+<li>Added Striped Bass (Hybrid) and Striped Bass x White Bass; though these are the same as the existing Palmetto Bass.</li>
+</ul>
+</li>
+<li>
+<code><a href="../reference/wsVal.html">wsVal()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> in <code>iwsLitCheck()</code> to <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>WSlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>).</li>
 </ul>
 </div>
     <div id="fsa-0832-15-jan-21" class="section level1">
@@ -1301,8 +1320,7 @@
 <li>
 <code>schnute()</code>: Deleted.</li>
 <li>
-<code>schnuteModels()</code>: Deleteed.<br>
-</li>
+<code>schnuteModels()</code>: Deleteed.</li>
 <li>
 <code><a href="../reference/Schnute.html">Schnute()</a></code>: Added. Replaced <code>schnute()</code>. Fixed bugs with the way <code>t1=</code> and <code>t3=</code> are handled.</li>
 <li>
@@ -1571,8 +1589,7 @@
 <li>
 <code><a href="../reference/capHistConvert.html">capHistConvert()</a></code>: Modified. Streamlined code around creating <code>var.lbls</code>. Made <code>event</code> the default value for <code>var.lbls.pre=</code>. Added some checks to <code>var.lbls.pre=</code> if it starts with a number or has too many values. Added <code>cols2use=</code> and modified use of <code>cols2ignore=</code> via <code>iHndlCols2use()</code>.</li>
 <li>
-<code><a href="../reference/capHistSum.html">capHistSum()</a></code>: Modified.<br>
-</li>
+<code><a href="../reference/capHistSum.html">capHistSum()</a></code>: Modified.</li>
 <li>
 <code>iHndlCol2use()</code>: Added. Added this internal function to handle <code>cols2use=</code> and <code>cols2ignore=</code> in <code><a href="../reference/capHistConvert.html">capHistConvert()</a></code> and <code><a href="../reference/capHistSum.html">capHistSum()</a></code>.</li>
 </ul>
@@ -2021,8 +2038,7 @@
 <li>
 <code>recodeSpecies()</code>: Modified. Made changes to reflect new <code><a href="../reference/FSAUtils.html">capFirst()</a></code> functionality.</li>
 <li>
-<code><a href="../reference/tictactoe.html">tictactoe()</a></code>: Modfied.<br>
-</li>
+<code><a href="../reference/tictactoe.html">tictactoe()</a></code>: Modfied.</li>
 <li>
 <code>tictactoeAdd()</code>: Removed. Directed user to use <code><a href="https://rdrr.io/pkg/plotrix/man/plotCI.html">plotCI()</a></code> from <code>plotrix</code> instead.</li>
 </ul>
@@ -2361,29 +2377,18 @@
 <a href="#fsa-0413-jun14" class="anchor"></a>FSA 0.4.13 Jun14<small> Unreleased </small>
 </h1>
 <ul>
-<li>added testthat files for error checking of <code>chapmanPlot()</code>, <code><a href="../reference/growthModels.html">vbFuns()</a></code>, <code><a href="../reference/vbStarts.html">vbStarts()</a></code>, and <code>walfordPlot()</code>. Added a testthat file for checking that the von Bertalanffy fitting using <code><a href="../reference/growthModels.html">vbFuns()</a></code> and <code><a href="../reference/vbStarts.html">vbStarts()</a></code> matches other sources.</li>
-<li>
-<code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. Deprecated <code>col.lab=</code> and <code>row.lab=</code> and replaced with <code>ref.lab=</code> and <code>nref.lab=</code>. Moved all functions that were internal to main functions to being internal to the package. In the process, I changed the names of the internal functions slightly, made explicit the argument passing, and added internal descriptions of the internal files. Changed several if else strings in the plot method to a <code><a href="https://rdrr.io/r/base/switch.html">switch()</a></code>.</li>
-<li>
-<code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Changed some messages so they were not as wide.</li>
-<li>
-<code>chapmanPlot()</code>: Modified. Removed S3 functions so that <code><a href="../reference/vbStarts.html">vbStarts()</a></code> has to use a formula. Added some checking related to the formula.</li>
-<li>
-<code><a href="../reference/growthModels.html">growthModels()</a></code>: Modified. Created an internal function that eliminates repetitiveness between this and <code>vbModels()</code>. Changed the <code>GompX</code> types to <code>GompertzX</code>.</li>
-<li>
-<code>growthModelSim()</code>: Modified. Removed S3 functions so that <code>growthModelSim()</code> has to use a formula. Added some checking related to the formula. Changed the order of the arguments so that <code>formula=</code> and <code>data=</code> come before <code>type=</code>. This allows a similar interface with <code><a href="../reference/vbStarts.html">vbStarts()</a></code>. Included a hack that still allows the user to enter a type as the first argument (and thus not have to type <code>type=</code> if any parameterization besides the <code>vbTypical</code> is being used). Corrected spelling of Gallucci for Gallucci and Quinn model.</li>
-<li>
-<code>hndlFormula()</code>: Modified. Fixed bug with expected number of response variables value in return list.</li>
-<li>
-<code>SpotVA1</code>: Modified. Updated reference.</li>
-<li>
-<code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified. Changed <code>schnute</code> parameterization to use L3 instead of L2 and t3 instead of t2.</li>
-<li>
-<code>vbModels()</code>: Modified. Created an internal function that eliminates repetitiveness between this and <code><a href="../reference/growthModels.html">growthModels()</a></code>.</li>
-<li>
-<code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Removed S3 functions so that <code><a href="../reference/vbStarts.html">vbStarts()</a></code> has to use a formula. Added some checking related to the formula. Changed <code>tFrancis=</code> to <code>ages2use=</code>. Changed the Schnute method to use the ages in <code>ages2use=</code> rather than being hard-wired to use the minimum and maximum observed age. Both the Schnute and Francis methods will use the minimum and maximum observed ages if <code>ages2use=NULL</code>. Added a catch for if <code>ages2use=</code> are in descending order (should be in ascending order). Changed <code>Schnute</code> parameterization to use L3 instead of L2.</li>
-<li>
-<code>walfordPlot()</code>: Modified. Removed S3 functions so that <code><a href="../reference/vbStarts.html">vbStarts()</a></code> has to use a formula. Added some checking related to the formula.</li>
+<li><p>added testthat files for error checking of <code>chapmanPlot()</code>, <code><a href="../reference/growthModels.html">vbFuns()</a></code>, <code><a href="../reference/vbStarts.html">vbStarts()</a></code>, and <code>walfordPlot()</code>. Added a testthat file for checking that the von Bertalanffy fitting using <code><a href="../reference/growthModels.html">vbFuns()</a></code> and <code><a href="../reference/vbStarts.html">vbStarts()</a></code> matches other sources.</p></li>
+<li><p><code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. Deprecated <code>col.lab=</code> and <code>row.lab=</code> and replaced with <code>ref.lab=</code> and <code>nref.lab=</code>. Moved all functions that were internal to main functions to being internal to the package. In the process, I changed the names of the internal functions slightly, made explicit the argument passing, and added internal descriptions of the internal files. Changed several if else strings in the plot method to a <code><a href="https://rdrr.io/r/base/switch.html">switch()</a></code>.</p></li>
+<li><p><code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Changed some messages so they were not as wide.</p></li>
+<li><p><code>chapmanPlot()</code>: Modified. Removed S3 functions so that <code><a href="../reference/vbStarts.html">vbStarts()</a></code> has to use a formula. Added some checking related to the formula.</p></li>
+<li><p><code><a href="../reference/growthModels.html">growthModels()</a></code>: Modified. Created an internal function that eliminates repetitiveness between this and <code>vbModels()</code>. Changed the <code>GompX</code> types to <code>GompertzX</code>.</p></li>
+<li><p><code>growthModelSim()</code>: Modified. Removed S3 functions so that <code>growthModelSim()</code> has to use a formula. Added some checking related to the formula. Changed the order of the arguments so that <code>formula=</code> and <code>data=</code> come before <code>type=</code>. This allows a similar interface with <code><a href="../reference/vbStarts.html">vbStarts()</a></code>. Included a hack that still allows the user to enter a type as the first argument (and thus not have to type <code>type=</code> if any parameterization besides the <code>vbTypical</code> is being used). Corrected spelling of Gallucci for Gallucci and Quinn model.</p></li>
+<li><p><code>hndlFormula()</code>: Modified. Fixed bug with expected number of response variables value in return list.</p></li>
+<li><p><code>SpotVA1</code>: Modified. Updated reference.</p></li>
+<li><p><code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified. Changed <code>schnute</code> parameterization to use L3 instead of L2 and t3 instead of t2.</p></li>
+<li><p><code>vbModels()</code>: Modified. Created an internal function that eliminates repetitiveness between this and <code><a href="../reference/growthModels.html">growthModels()</a></code>.</p></li>
+<li><p><code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Removed S3 functions so that <code><a href="../reference/vbStarts.html">vbStarts()</a></code> has to use a formula. Added some checking related to the formula. Changed <code>tFrancis=</code> to <code>ages2use=</code>. Changed the Schnute method to use the ages in <code>ages2use=</code> rather than being hard-wired to use the minimum and maximum observed age. Both the Schnute and Francis methods will use the minimum and maximum observed ages if <code>ages2use=NULL</code>. Added a catch for if <code>ages2use=</code> are in descending order (should be in ascending order). Changed <code>Schnute</code> parameterization to use L3 instead of L2.</p></li>
+<li><p><code>walfordPlot()</code>: Modified. Removed S3 functions so that <code><a href="../reference/vbStarts.html">vbStarts()</a></code> has to use a formula. Added some checking related to the formula.</p></li>
 </ul>
 </div>
     <div id="fsa-0412-may14" class="section level1">
@@ -2391,38 +2396,23 @@
 <a href="#fsa-0412-may14" class="anchor"></a>FSA 0.4.12 May14<small> Unreleased </small>
 </h1>
 <ul>
-<li>added Suggests for <code>testthat</code>, <code>fishmethods</code>, <code>FSAdata</code> for testing and <code>popbio</code> for an example that was made “interactive” from “dont run”(see below).</li>
-<li>added testthat files for <code><a href="../reference/ageBias.html">ageBias()</a></code> and <code><a href="../reference/agePrecision.html">agePrecision()</a></code>.</li>
-<li>
-<code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. Removed unit testings from examples and put in the testing file.</li>
-<li>
-<code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Removed deprecated <code>what="agreement"</code>.</li>
-<li>
-<code><a href="../reference/confint.nlsBoot.html">confint.nlsBoot()</a></code>: Modified. Changed example from “dont run” to “interactive.”</li>
-<li>
-<code><a href="../reference/fact2num.html">fact2num()</a></code>: Modified. Changed example from “dont run” to “interactive.”</li>
-<li>
-<code><a href="../reference/fishR.html">fishR()</a></code>: Modified. Removed <code>news</code> and added <code>posts</code> to the <code>where=</code> argument. Cleaned up the Rd file. Changed example from “dont run” to “interactive.”</li>
-<li>
-<code><a href="../reference/FSA.html">FSA()</a></code>: Modified. Cleaned up the Rd file.</li>
-<li>
-<code><a href="../reference/fsaNews.html">FSANews()</a></code>, <code><a href="../reference/fsaNews.html">fsaNews()</a></code>: Modified. Cleaned up and fixed the Usage section in the Rd file. Changed example from “dont run” to “interactive.”</li>
-<li>
-<code>growthRadPlot()</code>: Modified. Changed example from “dont run” to “interactive.”</li>
-<li>
-<code><a href="../reference/confint.nlsBoot.html">htest.nlsBoot()</a></code>: Modified. Changed example from “dont run” to “interactive.”</li>
-<li>
-<code><a href="../reference/lagratio.html">lagratio()</a></code>: Modified. Changed example from “dont run” to “interactive.”</li>
-<li>
-<code><a href="../reference/lencat.html">lencat()</a></code>: Modified. Changed Rd file for deletion of <code>view()</code>.</li>
-<li>
-<code>popSizesPlot()</code>: Modified. Changed example from “dont run” to “interactive.”</li>
-<li>
-<code>TroutDietSL</code>: Modified. Changed Rd file for deletion of <code>view()</code>.</li>
-<li>
-<code>view()</code>: Deleted. Moved to NCStats package.</li>
-<li>
-<code>wrDataPrep()</code>: Modified. Changed Rd file for deletion of <code>view()</code>.</li>
+<li><p>added Suggests for <code>testthat</code>, <code>fishmethods</code>, <code>FSAdata</code> for testing and <code>popbio</code> for an example that was made “interactive” from “dont run”(see below).</p></li>
+<li><p>added testthat files for <code><a href="../reference/ageBias.html">ageBias()</a></code> and <code><a href="../reference/agePrecision.html">agePrecision()</a></code>.</p></li>
+<li><p><code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. Removed unit testings from examples and put in the testing file.</p></li>
+<li><p><code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Removed deprecated <code>what="agreement"</code>.</p></li>
+<li><p><code><a href="../reference/confint.nlsBoot.html">confint.nlsBoot()</a></code>: Modified. Changed example from “dont run” to “interactive.”</p></li>
+<li><p><code><a href="../reference/fact2num.html">fact2num()</a></code>: Modified. Changed example from “dont run” to “interactive.”</p></li>
+<li><p><code><a href="../reference/fishR.html">fishR()</a></code>: Modified. Removed <code>news</code> and added <code>posts</code> to the <code>where=</code> argument. Cleaned up the Rd file. Changed example from “dont run” to “interactive.”</p></li>
+<li><p><code><a href="../reference/FSA.html">FSA()</a></code>: Modified. Cleaned up the Rd file.</p></li>
+<li><p><code><a href="../reference/fsaNews.html">FSANews()</a></code>, <code><a href="../reference/fsaNews.html">fsaNews()</a></code>: Modified. Cleaned up and fixed the Usage section in the Rd file. Changed example from “dont run” to “interactive.”</p></li>
+<li><p><code>growthRadPlot()</code>: Modified. Changed example from “dont run” to “interactive.”</p></li>
+<li><p><code><a href="../reference/confint.nlsBoot.html">htest.nlsBoot()</a></code>: Modified. Changed example from “dont run” to “interactive.”</p></li>
+<li><p><code><a href="../reference/lagratio.html">lagratio()</a></code>: Modified. Changed example from “dont run” to “interactive.”</p></li>
+<li><p><code><a href="../reference/lencat.html">lencat()</a></code>: Modified. Changed Rd file for deletion of <code>view()</code>.</p></li>
+<li><p><code>popSizesPlot()</code>: Modified. Changed example from “dont run” to “interactive.”</p></li>
+<li><p><code>TroutDietSL</code>: Modified. Changed Rd file for deletion of <code>view()</code>.</p></li>
+<li><p><code>view()</code>: Deleted. Moved to NCStats package.</p></li>
+<li><p><code>wrDataPrep()</code>: Modified. Changed Rd file for deletion of <code>view()</code>.</p></li>
 </ul>
 </div>
     <div id="fsa-0411-may14" class="section level1">
@@ -2446,28 +2436,18 @@
 <a href="#fsa-0410-may14" class="anchor"></a>FSA 0.4.10 May14<small> Unreleased </small>
 </h1>
 <ul>
-<li>Added Roxygen directives to DESCRIPTION.</li>
-<li>Updated to Roxygen2 4.0.0 which modified several help files.</li>
-<li>
-<code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. Cleaned-up the help file.</li>
-<li>
-<code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Cleaned-up the help file.</li>
-<li>
-<code>ageKey()</code>: Modified. Cleaned-up the help file and modified the example.</li>
-<li>
-<code>ageKeyPlot()</code>: Modified. Added more description and cleaned-up the help file.</li>
-<li>
-<code>ageKeyPrep()</code>: Modified. Added more description and cleaned-up the help file.</li>
-<li>
-<code>lenFreqExpand()</code>: Modified. Corrected <code>total=</code> to use <code><a href="https://rdrr.io/r/base/length.html">length(x)</a></code> rather than <code><a href="https://rdrr.io/r/base/nrow.html">nrow(df)</a></code>, which was left over from a previous change. Cleaned-up the help file.</li>
-<li>
-<code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Increased the readability of the code (added comments, used <code><a href="https://rdrr.io/r/base/with.html">with()</a></code> for some long calculations, added spacing). Added specific citations to equations in the help file. Changed the degrees-of-freedom in the confidence interval calculation for the Schnabel methods from number of samples minus 2 to number of samples minus 1 (following Krebs).</li>
-<li>
-<code><a href="../reference/poiCI.html">poiCI()</a></code>: Modified. Cleaned-up the help file.</li>
-<li>
-<code>psdDataPrep()</code>: Modified. Fixed error around <code>use.catnames=</code>.</li>
-<li>
-<code>swvCounts()</code>: Modified. Fixed error in output.</li>
+<li><p>Added Roxygen directives to DESCRIPTION.</p></li>
+<li><p>Updated to Roxygen2 4.0.0 which modified several help files.</p></li>
+<li><p><code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. Cleaned-up the help file.</p></li>
+<li><p><code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Cleaned-up the help file.</p></li>
+<li><p><code>ageKey()</code>: Modified. Cleaned-up the help file and modified the example.</p></li>
+<li><p><code>ageKeyPlot()</code>: Modified. Added more description and cleaned-up the help file.</p></li>
+<li><p><code>ageKeyPrep()</code>: Modified. Added more description and cleaned-up the help file.</p></li>
+<li><p><code>lenFreqExpand()</code>: Modified. Corrected <code>total=</code> to use <code><a href="https://rdrr.io/r/base/length.html">length(x)</a></code> rather than <code><a href="https://rdrr.io/r/base/nrow.html">nrow(df)</a></code>, which was left over from a previous change. Cleaned-up the help file.</p></li>
+<li><p><code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Increased the readability of the code (added comments, used <code><a href="https://rdrr.io/r/base/with.html">with()</a></code> for some long calculations, added spacing). Added specific citations to equations in the help file. Changed the degrees-of-freedom in the confidence interval calculation for the Schnabel methods from number of samples minus 2 to number of samples minus 1 (following Krebs).</p></li>
+<li><p><code><a href="../reference/poiCI.html">poiCI()</a></code>: Modified. Cleaned-up the help file.</p></li>
+<li><p><code>psdDataPrep()</code>: Modified. Fixed error around <code>use.catnames=</code>.</p></li>
+<li><p><code>swvCounts()</code>: Modified. Fixed error in output.</p></li>
 </ul>
 </div>
     <div id="fsa-049-may14" class="section level1">
@@ -2475,33 +2455,20 @@
 <a href="#fsa-049-may14" class="anchor"></a>FSA 0.4.9 May14<small> Unreleased </small>
 </h1>
 <ul>
-<li>Removed nlme dependencies (with removal of <code>vbDataGen()</code>).</li>
-<li>
-<code>ageComp()</code>: Deleted. Fully deprecated. Use <code><a href="../reference/ageBias.html">ageBias()</a></code> and <code><a href="../reference/agePrecision.html">agePrecision()</a></code> instead.</li>
-<li>
-<code>cohortSim()</code>: Deleted. Moved to FSAsim package.</li>
-<li>
-<code><a href="../reference/depletion.html">depletion()</a></code>: Modified. Remove link to <code>leslieSim()</code>.</li>
-<li>
-<code>lengthWeightSim()</code>: Deleted. Moved to FSAsim package.</li>
-<li>
-<code>leslieSim()</code>: Deleted. Moved to FSAsim package.</li>
-<li>
-<code>lwModelSim()</code>: Deleted. Moved to FSAsim package.</li>
-<li>
-<code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Remove link to <code>mrClosed1Sim()</code>.</li>
-<li>
-<code>mrClosed1Sim()</code>: Deleted. Moved to FSAsim package.</li>
-<li>
-<code>srCobWeb()</code>: Deleted. Moved to FSAsim package.</li>
-<li>
-<code>vbComp()</code>: Deleted. Moved to FSAsim package.</li>
-<li>
-<code>vbDataGen()</code>: Deleted. Moved to FSAsim package.</li>
-<li>
-<code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified. Remove link to <code>vbComp()</code>.</li>
-<li>
-<code>VBGMlit()</code>: Deleted. Moved to FSAsim package.</li>
+<li><p>Removed nlme dependencies (with removal of <code>vbDataGen()</code>).</p></li>
+<li><p><code>ageComp()</code>: Deleted. Fully deprecated. Use <code><a href="../reference/ageBias.html">ageBias()</a></code> and <code><a href="../reference/agePrecision.html">agePrecision()</a></code> instead.</p></li>
+<li><p><code>cohortSim()</code>: Deleted. Moved to FSAsim package.</p></li>
+<li><p><code><a href="../reference/depletion.html">depletion()</a></code>: Modified. Remove link to <code>leslieSim()</code>.</p></li>
+<li><p><code>lengthWeightSim()</code>: Deleted. Moved to FSAsim package.</p></li>
+<li><p><code>leslieSim()</code>: Deleted. Moved to FSAsim package.</p></li>
+<li><p><code>lwModelSim()</code>: Deleted. Moved to FSAsim package.</p></li>
+<li><p><code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Remove link to <code>mrClosed1Sim()</code>.</p></li>
+<li><p><code>mrClosed1Sim()</code>: Deleted. Moved to FSAsim package.</p></li>
+<li><p><code>srCobWeb()</code>: Deleted. Moved to FSAsim package.</p></li>
+<li><p><code>vbComp()</code>: Deleted. Moved to FSAsim package.</p></li>
+<li><p><code>vbDataGen()</code>: Deleted. Moved to FSAsim package.</p></li>
+<li><p><code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified. Remove link to <code>vbComp()</code>.</p></li>
+<li><p><code>VBGMlit()</code>: Deleted. Moved to FSAsim package.</p></li>
 </ul>
 </div>
     <div id="fsa-048-may14" class="section level1">
@@ -2542,18 +2509,14 @@
 <a href="#fsa-046-apr14" class="anchor"></a>FSA 0.4.6 Apr14<small> Unreleased </small>
 </h1>
 <ul>
-<li>Changed to compiling under R 3.1.0</li>
-<li>Imported <code><a href="https://rdrr.io/pkg/plotrix/man/stackpoly.html">stackpoly()</a></code> from plotrix for use in <code>ageKeyPlot()</code>.</li>
-<li>Added concepts (that largely match those in the FSAdata pacakge) to most of the data files.</li>
-<li>Made some grammatical changes and added author sections to Rd files.</li>
-<li>
-<code>ageKeyPlot()</code>: Added.</li>
-<li>
-<code>dietOverlap()</code>: Modified. Changed examples in help file to reflect changes to <code><a href="../reference/lencat.html">lencat()</a></code>.</li>
-<li>
-<code><a href="../reference/lencat.html">lencat()</a></code>: Modified. Added generic functions. <code><a href="../reference/lencat.html">lencat.default()</a></code> accepts a vector as its first argument and returns a single vector. <code><a href="../reference/lencat.html">lencat.formula()</a></code> accepts a formula as its first argument and the <code>data=</code> argument. The <code><a href="../reference/lencat.html">lencat.formula()</a></code> is the same as the old <code><a href="../reference/lencat.html">lencat()</a></code> and <code><a href="../reference/lencat.html">lencat.default()</a></code> provides new functionality. Additionally, the default for <code>startcat=</code> is now <code>NULL</code> and a value for <code>startcat=</code> is found automatically (though a value can still be supplied by the user). The <code>use.catnames=</code> was changed to <code>use.names=</code>. Other changes were made to simplify the code.</li>
-<li>
-<code>lenFreqExpand()</code>: Modified. Removed the <code>df=</code> and <code>cl=</code> arguments and replaced with <code>x=</code>, which is simply a vector of length measurements. Changed to <code>startcat=NULL</code> so that that the starting category value can be determined automatically (or can still be set by the user).</li>
+<li><p>Changed to compiling under R 3.1.0</p></li>
+<li><p>Imported <code><a href="https://rdrr.io/pkg/plotrix/man/stackpoly.html">stackpoly()</a></code> from plotrix for use in <code>ageKeyPlot()</code>.</p></li>
+<li><p>Added concepts (that largely match those in the FSAdata pacakge) to most of the data files.</p></li>
+<li><p>Made some grammatical changes and added author sections to Rd files.</p></li>
+<li><p><code>ageKeyPlot()</code>: Added.</p></li>
+<li><p><code>dietOverlap()</code>: Modified. Changed examples in help file to reflect changes to <code><a href="../reference/lencat.html">lencat()</a></code>.</p></li>
+<li><p><code><a href="../reference/lencat.html">lencat()</a></code>: Modified. Added generic functions. <code><a href="../reference/lencat.html">lencat.default()</a></code> accepts a vector as its first argument and returns a single vector. <code><a href="../reference/lencat.html">lencat.formula()</a></code> accepts a formula as its first argument and the <code>data=</code> argument. The <code><a href="../reference/lencat.html">lencat.formula()</a></code> is the same as the old <code><a href="../reference/lencat.html">lencat()</a></code> and <code><a href="../reference/lencat.html">lencat.default()</a></code> provides new functionality. Additionally, the default for <code>startcat=</code> is now <code>NULL</code> and a value for <code>startcat=</code> is found automatically (though a value can still be supplied by the user). The <code>use.catnames=</code> was changed to <code>use.names=</code>. Other changes were made to simplify the code.</p></li>
+<li><p><code>lenFreqExpand()</code>: Modified. Removed the <code>df=</code> and <code>cl=</code> arguments and replaced with <code>x=</code>, which is simply a vector of length measurements. Changed to <code>startcat=NULL</code> so that that the starting category value can be determined automatically (or can still be set by the user).</p></li>
 </ul>
 </div>
     <div id="fsa-045-apr14" class="section level1">
@@ -2561,35 +2524,22 @@
 <a href="#fsa-045-apr14" class="anchor"></a>FSA 0.4.5 Apr14<small> Unreleased </small>
 </h1>
 <ul>
-<li>Converted to using github as a repository.</li>
-<li>Changed NEWS to NEWS.md</li>
-<li>Added ImportFrom for relax package (see below).</li>
-<li>
-<code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. Added a plot that shows the number of observations at each combined age. Changed the coding slightly around Bowker’s test (added an internal function) and implemented Evans and Hoenig’s and McNemar’s test. These changes resulting in adding a “table” choice to <code>what=</code> that will print just the age-agreement table. When <code>what="symmetry"</code> is chosen all three ob Bowker’s, McNemar’s, and Evans-Hoenig results will be output as a table. The age-agreement table is no longer printed when <code>what="symmetry"</code>. In addition, <code>what="Bowkers"</code>, <code>what="EvansHoenig"</code>, and <code>what="McNemars"</code> can be used to see the Bowker’s, Evans and Hoenig, and McNemars test results, respectfully. Added a <code>cont.corr=</code> argument for use with McNemars test.</li>
-<li>
-<code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Added the ability to show raw (vs. absolute value) differences between structures. This resulted in the removal of <code>what="agreement"</code> (though it is deprecated, with a message, for now) and the addition of <code>what="difference"</code> and <code>what="absolute difference"</code>.</li>
-<li>
-<code><a href="../reference/fishR.html">fishR()</a></code>: Modified. Changed to point to the github NEWS.md when <code>where="news"</code>.</li>
-<li>
-<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Changed the logistic regression code to handle the changes to <code><a href="../reference/plotBinResp.html">plotBinResp()</a></code> (see below). In addition, a temporary fix was added so that the size of the y-axis labels could be modified with an external call to <code><a href="https://rdrr.io/r/graphics/par.html">par()</a></code>. This was a fix for Glen Sutton but will ultimately need to be handled more elegantly.</li>
-<li>
-<code><a href="../reference/fsaNews.html">fsaNews()</a></code>: Modified. Changed to point to the github NEWS.md.</li>
-<li>
-<code>catchCurveSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</li>
-<li>
-<code>cohortSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</li>
-<li>
-<code>growthModelSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</li>
-<li>
-<code>lengthWeightSim()</code>: Added back (was <code>lwModelSim()</code>) from FSATeach (required adding ImportFrom for relax package).</li>
-<li>
-<code>leslieSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</li>
-<li>
-<code>mrClosed1Sim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</li>
-<li>
-<code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>: Modified. Added <code>yaxis1.ticks=</code> and <code>yaxis1.lbls=</code> arguments so that the user can control the tick-mark locations and labels for the left y-axis (the defaults are to show ticks every 0.1 units but only label 0, 0.5, and 1). Added <code>yaxis2.show=</code> argument to allow the user to “turn-off” the right y-axis (defaults to being on) which is labeled with the level labels.</li>
-<li>
-<code>srSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</li>
+<li><p>Converted to using github as a repository.</p></li>
+<li><p>Changed NEWS to NEWS.md</p></li>
+<li><p>Added ImportFrom for relax package (see below).</p></li>
+<li><p><code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. Added a plot that shows the number of observations at each combined age. Changed the coding slightly around Bowker’s test (added an internal function) and implemented Evans and Hoenig’s and McNemar’s test. These changes resulting in adding a “table” choice to <code>what=</code> that will print just the age-agreement table. When <code>what="symmetry"</code> is chosen all three ob Bowker’s, McNemar’s, and Evans-Hoenig results will be output as a table. The age-agreement table is no longer printed when <code>what="symmetry"</code>. In addition, <code>what="Bowkers"</code>, <code>what="EvansHoenig"</code>, and <code>what="McNemars"</code> can be used to see the Bowker’s, Evans and Hoenig, and McNemars test results, respectfully. Added a <code>cont.corr=</code> argument for use with McNemars test.</p></li>
+<li><p><code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Added the ability to show raw (vs. absolute value) differences between structures. This resulted in the removal of <code>what="agreement"</code> (though it is deprecated, with a message, for now) and the addition of <code>what="difference"</code> and <code>what="absolute difference"</code>.</p></li>
+<li><p><code><a href="../reference/fishR.html">fishR()</a></code>: Modified. Changed to point to the github NEWS.md when <code>where="news"</code>.</p></li>
+<li><p><code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Changed the logistic regression code to handle the changes to <code><a href="../reference/plotBinResp.html">plotBinResp()</a></code> (see below). In addition, a temporary fix was added so that the size of the y-axis labels could be modified with an external call to <code><a href="https://rdrr.io/r/graphics/par.html">par()</a></code>. This was a fix for Glen Sutton but will ultimately need to be handled more elegantly.</p></li>
+<li><p><code><a href="../reference/fsaNews.html">fsaNews()</a></code>: Modified. Changed to point to the github NEWS.md.</p></li>
+<li><p><code>catchCurveSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</p></li>
+<li><p><code>cohortSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</p></li>
+<li><p><code>growthModelSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</p></li>
+<li><p><code>lengthWeightSim()</code>: Added back (was <code>lwModelSim()</code>) from FSATeach (required adding ImportFrom for relax package).</p></li>
+<li><p><code>leslieSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</p></li>
+<li><p><code>mrClosed1Sim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</p></li>
+<li><p><code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>: Modified. Added <code>yaxis1.ticks=</code> and <code>yaxis1.lbls=</code> arguments so that the user can control the tick-mark locations and labels for the left y-axis (the defaults are to show ticks every 0.1 units but only label 0, 0.5, and 1). Added <code>yaxis2.show=</code> argument to allow the user to “turn-off” the right y-axis (defaults to being on) which is labeled with the level labels.</p></li>
+<li><p><code>srSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</p></li>
 </ul>
 </div>
     <div id="fsa-044-apr14" class="section level1">
@@ -2615,8 +2565,7 @@
 <li>
 <code>ageComp()</code>: Modified. Split into <code><a href="../reference/ageBias.html">ageBias()</a></code> and <code><a href="../reference/agePrecision.html">agePrecision()</a></code>. Added a warning that this function is deprecated and will be removed in the future.</li>
 <li>
-<code>ageKey()</code>: Modified. Fixed a bug that occurred when a data frame that already contained an LCat variable was provided.<br>
-</li>
+<code>ageKey()</code>: Modified. Fixed a bug that occurred when a data frame that already contained an LCat variable was provided.</li>
 <li>
 <code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Added. Extracted age precision related material from <code>ageComp()</code>. Modified the code to allow for calculations across more than two structures. Code was streamlined dramatically from what was in <code>ageComp()</code>. Added an example using WhitefishLC as it allows for demonstrating more than two age assignments.</li>
 <li>
@@ -2811,21 +2760,21 @@
 </h1>
 <ul>
 <li><p>added special “fishR Vignette” sections with links to several help files.</p></li>
-<li><p>binCI(): Modified so that result is a matrix rather than sometimes (when only one set of CIs were computed) being a vector.</p></li>
-<li><p>catchCurve(): Modified by minorly adjusting how confint() produced CIs. Also, disallowed using parm= when the user asks for CIs for the linear model. This allowed using match.arg() as a check for appropriate parm= values. Modified the examples in the help file slightly and added an example of using the weighted regression method.</p></li>
-<li><p>plot.catchCurve(): Modified so that log(catch) values less than 0 will be plotted.</p></li>
-<li><p>chapmanRobson(): Modified by minorly adjusting how confint() produced CIs.</p></li>
-<li><p>depletion(): Modified by minorly adjusting how confint() produced CIs and added a cat()ted output to the summary() method describing whether the Leslie or DeLury method was used.</p></li>
-<li><p>growthModelSim(): Modified. Streamlined the code (removed some “junk” and unneeded redundancies). Also corrected the error where the fourth parameter in the vbSchnute and Schnute were not observed to be connected to sliders. Also changed a few default slider values. Also set the minimum age (t.min) to 0 and cannot be over-ridden (was previously controlled by a slider). Thus, removed the minimum age slider. Also moved the maximum age slider to the bottom of the sliders. Changed the calls for the Gompertz models to use the full name (i.e., Gompertz1 instead of Gomp1). Changed model= to type= to be more consistent with other similar functions.</p></li>
-<li><p>hyperCI(): Modified so that the result is a matrix rather than a vector.</p></li>
-<li><p>leslieSim(): Modified by adding hscale=1.5 to resampling version.</p></li>
-<li><p>mrClosed(): Modified to handle the changes in hyperCI() and binCI(). Also modified messages in summary() and confint() (to streamline).</p></li>
-<li><p>predict.nlsBoot(): Added.</p></li>
-<li><p>removal(): Modified by minorly adjusting how confint() produced CIs and removed a cat()ted line from the summary() method. Also, modified the “catches” for the 2- and 3-pass specific methods to disallow using anything but a vector with either 2 or 3 samples.</p></li>
-<li><p>srCobWeb(): Added.</p></li>
-<li><p>srSim(): Modified. Streamlined the code (lots of “junk” code that did not do anything and some unneeded redundancies) were removed. Modified the default values and the axis labels so as to produce generally more interesting simulations. Modified the graphic to show the peak recruitment level and, if a Ricker model, the stock size where the peak recruitment occurs. Changed a long series of if-else for the different parametrizations to a switch(). Changed model= to type= to be consistent with other srXXX functions.</p></li>
-<li><p>vbFuns(): Modified slightly the messages if msg=TRUE. Added a message for the Wang2 model and corrected an error for the Somers2 model.</p></li>
-<li><p>view(): Modified to remove the ability to print to a window (use method built into RStudio instead). Also generalized to use for both a matrix or a data.frame (eliminates some warning messages).</p></li>
+<li><p><code><a href="../reference/binCI.html">binCI()</a></code>: Modified so that result is a matrix rather than sometimes (when only one set of CIs were computed) being a vector.</p></li>
+<li><p><code><a href="../reference/catchCurve.html">catchCurve()</a></code>: Modified by minorly adjusting how <code><a href="https://rdrr.io/r/stats/confint.html">confint()</a></code> produced CIs. Also, disallowed using <code>parm=</code> when the user asks for CIs for the linear model. This allowed using <code><a href="https://rdrr.io/r/base/match.arg.html">match.arg()</a></code> as a check for appropriate <code>parm=</code> values. Modified the examples in the help file slightly and added an example of using the weighted regression method.</p></li>
+<li><p><code><a href="../reference/catchCurve.html">plot.catchCurve()</a></code>: Modified so that log(catch) values less than 0 will be plotted.</p></li>
+<li><p><code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified by minorly adjusting how <code><a href="https://rdrr.io/r/stats/confint.html">confint()</a></code> produced CIs.</p></li>
+<li><p><code><a href="../reference/depletion.html">depletion()</a></code>: Modified by minorly adjusting how <code><a href="https://rdrr.io/r/stats/confint.html">confint()</a></code> produced CIs and added a <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code>ted output to the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> method describing whether the Leslie or DeLury method was used.</p></li>
+<li><p><code>growthModelSim()</code>: Modified. Streamlined the code (removed some “junk” and unneeded redundancies). Also corrected the error where the fourth parameter in the vbSchnute and Schnute were not observed to be connected to sliders. Also changed a few default slider values. Also set the minimum age (<code>t.min</code>) to 0 and cannot be over-ridden (was previously controlled by a slider). Thus, removed the minimum age slider. Also moved the maximum age slider to the bottom of the sliders. Changed the calls for the Gompertz models to use the full name (i.e., <code>Gompertz1</code> instead of <code>Gomp1</code>). Changed model= to type= to be more consistent with other similar functions.</p></li>
+<li><p><code><a href="../reference/hyperCI.html">hyperCI()</a></code>: Modified so that the result is a matrix rather than a vector.</p></li>
+<li><p><code>leslieSim()</code>: Modified by adding <code>hscale=1.5</code> to resampling version.</p></li>
+<li><p><code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified to handle the changes in <code><a href="../reference/hyperCI.html">hyperCI()</a></code> and <code><a href="../reference/binCI.html">binCI()</a></code>. Also modified messages in <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> and <code><a href="https://rdrr.io/r/stats/confint.html">confint()</a></code> (to streamline).</p></li>
+<li><p><code><a href="../reference/confint.nlsBoot.html">predict.nlsBoot()</a></code>: Added.</p></li>
+<li><p><code><a href="../reference/removal.html">removal()</a></code>: Modified by minorly adjusting how <code><a href="https://rdrr.io/r/stats/confint.html">confint()</a></code> produced CIs and removed a <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code>ted line from the summary() method. Also, modified the “catches” for the 2- and 3-pass specific methods to disallow using anything but a vector with either 2 or 3 samples.</p></li>
+<li><p><code>srCobWeb()</code>: Added.</p></li>
+<li><p><code>srSim()</code>: Modified. Streamlined the code (lots of “junk” code that did not do anything and some unneeded redundancies) were removed. Modified the default values and the axis labels so as to produce generally more interesting simulations. Modified the graphic to show the peak recruitment level and, if a Ricker model, the stock size where the peak recruitment occurs. Changed a long series of if-else for the different parametrizations to a <code><a href="https://rdrr.io/r/base/switch.html">switch()</a></code>. Changed <code>model=</code> to <code>type=</code> to be consistent with other srXXX functions.</p></li>
+<li><p><code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified slightly the messages if <code>msg=TRUE</code>. Added a message for the Wang2 model and corrected an error for the Somers2 model.</p></li>
+<li><p><code>view()</code>: Modified to remove the ability to print to a window (use method built into RStudio instead). Also generalized to use for both a matrix or a data.frame (eliminates some warning messages).</p></li>
 </ul>
 </div>
     <div id="fsa-033-21dec12" class="section level1">
@@ -2833,41 +2782,41 @@
 <a href="#fsa-033-21dec12" class="anchor"></a>FSA 0.3.3 21Dec12<small> Unreleased </small>
 </h1>
 <ul>
-<li><p>Added ImportFrom for slider() and gslider() from the relax package. Deleted the ImportFrom for slider() from the TeachingDemos package. These functions were the same but it was being deprecated from TeachingDemos.</p></li>
-<li><p>General: added call.=FALSE to several stop()s and warning()s.</p></li>
-<li><p>General: replaced paste() inside of several cat()s.</p></li>
-<li><p>ageKey(): Modified to use match.arg() with type=.</p></li>
-<li><p>binCI(): Modified to use ciLabel() (see below).</p></li>
-<li><p>catchCurveSim(): Modified in a variety of ways. First, moved the ability to control the recruitment age and the steadiness of the Z and N* changes to function arguments rather than slider controls. Second, streamlined the internal functions. Third, converted to using gslider() instead of slider(). Fourth, made minor cosmetic changes to the plot. Fifth, I edited the help file somewhat.</p></li>
-<li><p>checkStartcatW(): Added this internal function.</p></li>
-<li><p>ciLabel(): Added this internal function.</p></li>
-<li><p>cohortSim(): Modified in a variety of ways. First, streamlined the internal functions so that the plot can be created individually. Second, converted to using gslider() instead of slider().</p></li>
-<li><p>confint.bootCase(): Modified to use ciLabel().</p></li>
-<li><p>confint.catchCurve(): Modified to use ciLabel().</p></li>
-<li><p>confint.chapmanRobson(): Modified to use ciLabel().</p></li>
-<li><p>confint.depletion(): Modified to use ciLabel().</p></li>
-<li><p>confint.mrClosed(): Modified to use ciLabel().</p></li>
-<li><p>confint.nlsBoot(): Modified to use ciLabel().</p></li>
-<li><p>confint.removal(): Modified to use ciLabel().</p></li>
-<li><p>dietOverlap(): Added.</p></li>
-<li><p>fsa.news(), FSA.news(): Deleted, renamed to fsaNews() and FSANews().</p></li>
-<li><p>fsaNews(), FSANews(): Renamed versions of fsa.news() and FSA.news().</p></li>
-<li><p>FSAsims(): Deleted. Rarely used and not supported in non-windows and RStudio.</p></li>
-<li><p>growthModelSim(): Modified in a variety of ways. First, streamlined the internal functions so that the plot can be created individually. Second, converted to using gslider() instead of slider().</p></li>
-<li><p>hyperCI(): Modified to use ciLabel().</p></li>
-<li><p>lencat(): Modified by using the new checkStartcatW() internal function.</p></li>
-<li><p>lenFreqExpand(): Modified by adding show.summary= argument and using the new checkStartcatW() internal function.</p></li>
-<li><p>leslieSim(): Modified in a variety of ways. First, combined the code from leslieSim2() into this function. This required deleting the use.rand= argument and adding a type= argument. In addition, the leslieRandRun() internal function was moved to this R document (from FSA-internals). Second, the functions were all streamlined with new internal functions. Third, converted to using gslider() instead of slider(). Fourth, made minor cosmetic changes to each plot (including adding a small legend to the old leslieSim2()).</p></li>
-<li><p>leslieSim2(): Deleted. See leslieSim().</p></li>
-<li><p>lwModelSim(): Modified in a variety of ways. First, streamlined the internal functions so that the plot can be created individually (will ultimately allow use of the manipulate package). Second, converted to using gslider() instead of slider().</p></li>
-<li><p>mrClosed(): Modified by removing numdigs= argument.</p></li>
-<li><p>mrClosed1Sim(): Modified in a variety of ways. First, streamlined the internal functions so that the plot can be created individually. Second, converted to using gslider() instead of slider().</p></li>
-<li><p>poiCI(): Modified to use ciLabel().</p></li>
-<li><p>rlp(): Modified by replacing decimals= argument with digits= argument.</p></li>
-<li><p>srSim(): Modified in a variety of ways. First, streamlined the internal functions so that the plot can be created individually. Second, converted to using gslider() instead of slider(). Third, removed the S3methods.</p></li>
-<li><p>Summarize() Modified by removing numdigs= argument.</p></li>
-<li><p>TroutDietSL: Added for use with dietOverlap().</p></li>
-<li><p>vbStarts(): Modified by including a catch for negative starting values of K or starting values of Linf that are 50% smallr or larger than the observed maximum length in the data set.</p></li>
+<li><p>Added ImportFrom for <code>slider()</code> and <code>gslider()</code> from the relax package. Deleted the ImportFrom for <code>slider()</code> from the <code>TeachingDemos</code> package. These functions were the same but it was being deprecated from <code>TeachingDemos</code>.</p></li>
+<li><p>General: added <code>call.=FALSE</code> to several <code><a href="https://rdrr.io/r/base/stop.html">stop()</a></code>s and <code><a href="https://rdrr.io/r/base/warning.html">warning()</a></code>s.</p></li>
+<li><p>General: replaced <code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code> inside of several <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code>s.</p></li>
+<li><p><code>ageKey()</code>: Modified to use <code><a href="https://rdrr.io/r/base/match.arg.html">match.arg()</a></code> with type=.</p></li>
+<li><p><code><a href="../reference/binCI.html">binCI()</a></code>: Modified to use <code>ciLabel()</code> (see below).</p></li>
+<li><p><code>catchCurveSim()</code>: Modified in a variety of ways. First, moved the ability to control the recruitment age and the steadiness of the Z and N* <code>changes to function arguments rather than slider controls. Second, streamlined the internal functions. Third, converted to using</code>gslider()<code>instead of</code>slider()`. Fourth, made minor cosmetic changes to the plot. Fifth, I edited the help file somewhat.</p></li>
+<li><p><code>checkStartcatW()</code>: Added this internal function.</p></li>
+<li><p><code>ciLabel()</code>: Added this internal function.</p></li>
+<li><p><code>cohortSim()</code>: Modified in a variety of ways. First, streamlined the internal functions so that the plot can be created individually. Second, converted to using <code>gslider()</code> instead of <code>slider()</code>.</p></li>
+<li><p><code><a href="../reference/bootstrap.html">confint.bootCase()</a></code>: Modified to use <code>ciLabel()</code>.</p></li>
+<li><p><code><a href="../reference/catchCurve.html">confint.catchCurve()</a></code>: Modified to use <code>ciLabel()</code>.</p></li>
+<li><p><code><a href="../reference/chapmanRobson.html">confint.chapmanRobson()</a></code>: Modified to use <code>ciLabel()</code>.</p></li>
+<li><p><code><a href="../reference/depletion.html">confint.depletion()</a></code>: Modified to use <code>ciLabel()</code>.</p></li>
+<li><p><code>confint.mrClosed()</code>: Modified to use <code>ciLabel()</code>.</p></li>
+<li><p><code><a href="../reference/confint.nlsBoot.html">confint.nlsBoot()</a></code>: Modified to use <code>ciLabel()</code>.</p></li>
+<li><p><code><a href="../reference/removal.html">confint.removal()</a></code>: Modified to use <code>ciLabel()</code>.</p></li>
+<li><p><code>dietOverlap()</code>: Added.</p></li>
+<li><p><code>fsa.news(), FSA.news()</code>: Deleted, renamed to <code><a href="../reference/fsaNews.html">fsaNews()</a></code> and <code><a href="../reference/fsaNews.html">FSANews()</a></code>.</p></li>
+<li><p><code>fsaNews(), FSANews()</code>: Renamed versions of <code>fsa.news()</code> and <code>FSA.news()</code>.</p></li>
+<li><p><code>FSAsims()</code>: Deleted. Rarely used and not supported in non-windows and RStudio.</p></li>
+<li><p><code>growthModelSim()</code>: Modified in a variety of ways. First, streamlined the internal functions so that the plot can be created individually. Second, converted to using <code>gslider()</code> instead of <code>slider()</code>.</p></li>
+<li><p><code><a href="../reference/hyperCI.html">hyperCI()</a></code>: Modified to use <code>ciLabel()</code>.</p></li>
+<li><p><code><a href="../reference/lencat.html">lencat()</a></code>: Modified by using the new <code>checkStartcatW()</code> internal function.</p></li>
+<li><p><code>lenFreqExpand()</code>: Modified by adding show.summary= argument and using the new <code>checkStartcatW()</code> internal function.</p></li>
+<li><p><code>leslieSim()</code>: Modified in a variety of ways. First, combined the code from <code>leslieSim2()</code> into this function. This required deleting the use.rand= argument and adding a <code>type=</code> argument. In addition, the <code>leslieRandRun()</code> internal function was moved to this R document (from FSA-internals). Second, the functions were all streamlined with new internal functions. Third, converted to using <code>gslider()</code> instead of <code>slider()</code>. Fourth, made minor cosmetic changes to each plot (including adding a small legend to the old <code>leslieSim2())</code>.</p></li>
+<li><p><code>leslieSim2()</code>: Deleted. See <code>leslieSim()</code>.</p></li>
+<li><p><code>lwModelSim()</code>: Modified in a variety of ways. First, streamlined the internal functions so that the plot can be created individually (will ultimately allow use of the manipulate package). Second, converted to using <code>gslider()</code> instead of <code>slider()</code>.</p></li>
+<li><p><code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified by removing <code>numdigs=</code> argument.</p></li>
+<li><p><code>mrClosed1Sim()</code>: Modified in a variety of ways. First, streamlined the internal functions so that the plot can be created individually. Second, converted to using <code>gslider()</code> instead of <code>slider()</code>.</p></li>
+<li><p><code><a href="../reference/poiCI.html">poiCI()</a></code>: Modified to use <code>ciLabel()</code>.</p></li>
+<li><p><code>rlp()</code>: Modified by replacing <code>decimals=</code> argument with digits= argument.</p></li>
+<li><p><code>srSim()</code>: Modified in a variety of ways. First, streamlined the internal functions so that the plot can be created individually. Second, converted to using <code>gslider()</code> instead of <code>slider()</code>. Third, removed the S3methods.</p></li>
+<li><p><code><a href="../reference/Summarize.html">Summarize()</a></code>: Modified by removing <code>numdigs</code> argument.</p></li>
+<li><p><code>TroutDietSL</code>: Added for use with <code>dietOverlap()</code>.</p></li>
+<li><p><code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified by including a catch for negative starting values of K or starting values of Linf that are 50% smaller or larger than the observed maximum length in the data set.</p></li>
 </ul>
 </div>
     <div id="fsa-032-1dec12" class="section level1">
@@ -2880,19 +2829,19 @@
 <li><p>Moved gdata to an ImportsFrom from Suggests. Needed for nobs() in ci.fp1() which is used in fitPlot.ONEWAY and drop.levels() used in the example in RuffeWs.</p></li>
 <li><p>Deleted dependency on FSAdata.</p></li>
 <li><p>Added the following data files from FSAdata: BluegillJL, BluegillLM, BrookTroutTH, CodNorwegian, CutthroatAL, Ecoli, KS2D_NR, LMBassWs, Mirex, PikeNY, PikeNYPartial1, RSDlit, RuffeWs, SMBassLS, SMBassWB, SpotVA1, StripedBass1, VBGMlit, WalleyeGerowLW, WR79, WSlit. This allowed removing the depending on FSAdata.</p></li>
-<li><p>.onLoad(): modified slightly with a suggestion from Simon Urbanek to eliminate a warning on RCMD Check (that showed up on rforge.net, but not locally).</p></li>
-<li><p>addMargins(): added from NCStats.</p></li>
-<li><p>addSigLetters(): added from NCStats. Modified to allow the use of a result from sigLetters() in lets=.</p></li>
-<li><p>bootCase methods: added from NCStats. Needed to import bootCase from car.</p></li>
-<li><p>hist.formula(): added from NCStats.</p></li>
-<li><p>lencat(): made some warning messages more concise.</p></li>
-<li><p>lsmean(): deleted. Functionality is replaced by lsmeans() in the lsmeans package.</p></li>
-<li><p>psdVal(), rsdCalc(), rsdVal(), rsdPlot(): added code to eliminate “global bindings” note when performing RCMD Check. Solutions came from Adrian Alexa’s response to this question: <a href="https://groups.google.com/forum/?fromgroups=#!topic/cambridge-r-user-group/c7vf8o3QwDo" class="uri">https://groups.google.com/forum/?fromgroups=#!topic/cambridge-r-user-group/c7vf8o3QwDo</a></p></li>
-<li><p>sigLetters(): added. Hopefully this will eventually be replaced by changed to cld() in the multcomp package.</p></li>
-<li><p>Summarize(): made some warning messages more concise.</p></li>
-<li><p>swvCounts(), swvPvalue(), swvANOVA(), swvGLHT(), swvREG(), swvHtest(), swvCode(), swvFinish(): added from miscOgle.</p></li>
-<li><p>view(): added from NCStats.</p></li>
-<li><p>wsVal(), wrAdd(): added code to eliminate “global bindings” note when performing RCMD Check. Solutions came from Adrian Alexa’s response to this question: <a href="https://groups.google.com/forum/?fromgroups=#!topic/cambridge-r-user-group/c7vf8o3QwDo" class="uri">https://groups.google.com/forum/?fromgroups=#!topic/cambridge-r-user-group/c7vf8o3QwDo</a></p></li>
+<li><p><code><a href="https://rdrr.io/r/base/ns-hooks.html">.onLoad()</a></code>: modified slightly with a suggestion from Simon Urbanek to eliminate a warning on RCMD Check (that showed up on rforge.net, but not locally).</p></li>
+<li><p><code>addMargins()</code>: added from NCStats.</p></li>
+<li><p><code>addSigLetters()</code>: added from NCStats. Modified to allow the use of a result from sigLetters() in lets=.</p></li>
+<li><p>`bootCase methods: added from NCStats. Needed to import bootCase from car.</p></li>
+<li><p><code><a href="../reference/hist.formula.html">hist.formula()</a></code>: added from NCStats.</p></li>
+<li><p><code><a href="../reference/lencat.html">lencat()</a></code>: made some warning messages more concise.</p></li>
+<li><p><code>lsmean()</code>: deleted. Functionality is replaced by lsmeans() in the lsmeans package.</p></li>
+<li><p><code>psdVal(), rsdCalc(), rsdVal(), rsdPlot()</code>: added code to eliminate “global bindings” note when performing RCMD Check. Solutions came from Adrian Alexa’s response to this question: <a href="https://groups.google.com/forum/?fromgroups=#!topic/cambridge-r-user-group/c7vf8o3QwDo" class="uri">https://groups.google.com/forum/?fromgroups=#!topic/cambridge-r-user-group/c7vf8o3QwDo</a></p></li>
+<li><p><code>sigLetters()</code>: added. Hopefully this will eventually be replaced by changed to cld() in the multcomp package.</p></li>
+<li><p><code><a href="../reference/Summarize.html">Summarize()</a></code>: made some warning messages more concise.</p></li>
+<li><p><code>swvCounts(), swvPvalue(), swvANOVA(), swvGLHT(), swvREG(), swvHtest(), swvCode(), swvFinish()</code>: added from miscOgle.</p></li>
+<li><p><code>view()</code>: added from NCStats.</p></li>
+<li><p><code>wsVal(), wrAdd()</code>: added code to eliminate “global bindings” note when performing RCMD Check. Solutions came from Adrian Alexa’s response to this question: <a href="https://groups.google.com/forum/?fromgroups=#!topic/cambridge-r-user-group/c7vf8o3QwDo" class="uri">https://groups.google.com/forum/?fromgroups=#!topic/cambridge-r-user-group/c7vf8o3QwDo</a></p></li>
 </ul>
 </div>
     <div id="fsa-031-25nov12" class="section level1">
@@ -2914,36 +2863,36 @@
 <li><p>Moved plotrix from depends to importsFrom for color.scale(), plotCI(), and thigmophobe().</p></li>
 <li><p>Moved quantreg from depends to importsFrom for rq() (used in emp()).</p></li>
 <li><p>Attempted to move reshape to importsFrom but had problems with missing is.formula() from plyr.</p></li>
-<li><p>ageComp(): modified class name to “ageComp” from “AgeComp”.</p></li>
-<li><p>capFirst(): added.</p></li>
-<li><p>catchCurve(): modified class name to “catchCurve” from “CC”.</p></li>
-<li><p>chapmanRobson(): modified class name to “chapmanRobson” from “CR”.</p></li>
-<li><p>coefPlot(): deleted (Weisberg’s LGM is now out-dated).</p></li>
-<li><p>depletion(): modifed class name to “depletion” from “Depletion”.</p></li>
-<li><p>discharge(): modified class name to “discharge” from “StrmDschrg”.</p></li>
-<li><p>emp(): modified class names to “empXX” from “EMPxx”.</p></li>
-<li><p>fitPlot(): added from NCStats.</p></li>
-<li><p>FroeseWs(): modified class name to “FroeseWs” from “FROESE”.</p></li>
-<li><p>histStack(): added.</p></li>
-<li><p>hoCoef(): added from NCStats.</p></li>
-<li><p>ks2d(): modified class name to “ks2d” from “ks2d”.</p></li>
-<li><p>ks2dp(): modified class name to “ks2dp” from “ks2dp”.</p></li>
-<li><p>legendHelp(): added (internal) from NCStats.</p></li>
-<li><p>mrClosed(): modified by moving the two internal functions – mrc1() and mrc2() – to inside mrClosed, moving the two internal functions – ci.mrc1() and ci.mrc2() – to inside confint.mrClosed(), removed the “MRC1” and “MRC2” classes, changed the “MRC” class name to “mrClosed”, and added a catch to plot.mrClosed() to stop if the user tries to plot with single-census data.</p></li>
-<li><p>mrOpen(): modified class name to “mrOpen” from “MRO”.</p></li>
-<li><p>plotBinResp(): added from NCStats.</p></li>
-<li><p>plotH(): minor modifications to the Rd file.</p></li>
-<li><p>pos2adj(): modified the labels for the positions by including full names for all directions, eliminating the single letters for the four main directions, but also leaving the four “off” directions as abbreviations.</p></li>
-<li><p>psdVal(), rsdVal(), rsdCalc(), rsdPlot(): modified to use capFirst so that the user does not need to focus on capitalization of the species name.</p></li>
-<li><p>removal(): modified class name to “removal” from “Removal”.</p></li>
-<li><p>residPlot(): added from NCStats.</p></li>
-<li><p>rlp(): modified class name to “rlp” from “RLP”.</p></li>
-<li><p>Summarize(): added from NCStats.</p></li>
-<li><p>typeoflm(): added from NCStats.</p></li>
-<li><p>wetPerim(): modified class name to “wetPerim” from “WetPerim”.</p></li>
-<li><p>wlgm(): deleted (Weisberg’s LGM is now out-dated).</p></li>
-<li><p>wsValidate(): modified the classnames to “willis” from “WILLIS” and “empq” from “EMPQ”. Also made minor modification because of class name change in FroeseWs()</p></li>
-<li><p>ycPlot(): deleted (Weisberg’s LGM is now out-dated).</p></li>
+<li><p><code>ageComp()</code>: modified class name to “ageComp” from “AgeComp”.</p></li>
+<li><p><code><a href="../reference/FSAUtils.html">capFirst()</a></code>: added.</p></li>
+<li><p><code><a href="../reference/catchCurve.html">catchCurve()</a></code>: modified class name to “catchCurve” from “CC”.</p></li>
+<li><p><code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: modified class name to “chapmanRobson” from “CR”.</p></li>
+<li><p><code>coefPlot()</code>: deleted (Weisberg’s LGM is now out-dated).</p></li>
+<li><p><code><a href="../reference/depletion.html">depletion()</a></code>: modifed class name to “depletion” from “Depletion”.</p></li>
+<li><p><code>discharge()</code>: modified class name to “discharge” from “StrmDschrg”.</p></li>
+<li><p><code>emp()</code>: modified class names to “empXX” from “EMPxx”.</p></li>
+<li><p><code><a href="../reference/fitPlot.html">fitPlot()</a></code>: added from NCStats.</p></li>
+<li><p><code>FroeseWs()</code>: modified class name to “FroeseWs” from “FROESE”.</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/plotrix/man/histStack.html">histStack()</a></code>: added.</p></li>
+<li><p><code><a href="../reference/hoCoef.html">hoCoef()</a></code>: added from NCStats.</p></li>
+<li><p><code>ks2d()</code>: modified class name to “ks2d” from “ks2d”.</p></li>
+<li><p><code>ks2dp()</code>: modified class name to “ks2dp” from “ks2dp”.</p></li>
+<li><p><code>legendHelp()</code>: added (internal) from NCStats.</p></li>
+<li><p><code><a href="../reference/mrClosed.html">mrClosed()</a></code>: modified by moving the two internal functions – mrc1() and mrc2() – to inside mrClosed, moving the two internal functions – ci.mrc1() and ci.mrc2() – to inside confint.mrClosed(), removed the “MRC1” and “MRC2” classes, changed the “MRC” class name to “mrClosed”, and added a catch to plot.mrClosed() to stop if the user tries to plot with single-census data.</p></li>
+<li><p><code><a href="../reference/jolly.html">mrOpen()</a></code>: modified class name to “mrOpen” from “MRO”.</p></li>
+<li><p><code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>: added from NCStats.</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/plotrix/man/plotH.html">plotH()</a></code>: minor modifications to the Rd file.</p></li>
+<li><p><code>pos2adj()</code>: modified the labels for the positions by including full names for all directions, eliminating the single letters for the four main directions, but also leaving the four “off” directions as abbreviations.</p></li>
+<li><p><code>psdVal(), rsdVal(), rsdCalc(), rsdPlot()</code>: modified to use capFirst so that the user does not need to focus on capitalization of the species name.</p></li>
+<li><p><code><a href="../reference/removal.html">removal()</a></code>: modified class name to “removal” from “Removal”.</p></li>
+<li><p><code><a href="../reference/residPlot.html">residPlot()</a></code>: added from NCStats.</p></li>
+<li><p><code>rlp()</code>: modified class name to “rlp” from “RLP”.</p></li>
+<li><p><code><a href="../reference/Summarize.html">Summarize()</a></code>: added from NCStats.</p></li>
+<li><p><code>typeoflm()</code>: added from NCStats.</p></li>
+<li><p><code>wetPerim()</code>: modified class name to “wetPerim” from “WetPerim”.</p></li>
+<li><p><code>wlgm()</code>: deleted (Weisberg’s LGM is now out-dated).</p></li>
+<li><p><code>wsValidate()</code>: modified the classnames to “willis” from “WILLIS” and “empq” from “EMPQ”. Also made minor modification because of class name change in FroeseWs()</p></li>
+<li><p><code>ycPlot()</code>: deleted (Weisberg’s LGM is now out-dated).</p></li>
 </ul>
 </div>
     <div id="fsa-03-0-8-nov-12" class="section level1">
@@ -2955,27 +2904,27 @@
 <li><p>Deleted an importFrom for gtools, created an internal odd() instead.</p></li>
 <li><p>Added an importFrom for gplots, to get rich.colors() for chooseColors().</p></li>
 <li><p>Added an importFrom and removed an import for NCStats.</p></li>
-<li><p>ageComp(): modified to use internal odd(), rather than odd() imported from gtools.</p></li>
-<li><p>binCI(): moved from NCStats.</p></li>
-<li><p>chooseColors(): copied from NCStats (i.e., same function still in NCStats).</p></li>
-<li><p>confint.nlsBoot(): moved from NCStats.</p></li>
-<li><p>fact2num(): moved from NCStats.</p></li>
-<li><p>htest(): copied from NCStats (i.e., same function still in NCStats).</p></li>
-<li><p>htest.nlsBOot(): moved from NCStats.</p></li>
-<li><p>hyperCI(): moved from NCStats.</p></li>
-<li><p>ks2d(): moved from NCStats.</p></li>
-<li><p>ks2dp(): moved from NCStats.</p></li>
-<li><p>ksTest(): moved from NCStats.</p></li>
-<li><p>lagratio(): moved from NCStats.</p></li>
-<li><p>lsmean(), and related internals: moved from NCStats.</p></li>
-<li><p>mrClosed(): modified so as not to depend on ci.t() from NCStats.</p></li>
-<li><p>plotH(): moved from NCStats.</p></li>
-<li><p>poiCI(): moved from NCStats.</p></li>
-<li><p>popSizesPlot(): moved from NCStats.</p></li>
-<li><p>pos2adj(): moved from NCStats.</p></li>
-<li><p>rcumsum(): moved from NCStats.</p></li>
-<li><p>rsdPlot(): modified to handle situations where substock fish are not present in the data. Thanks to Max Wolter for pointing out this issue.</p></li>
-<li><p>Subset(): copied from NCStats (i.e., same function still in NCStats).</p></li>
+<li><p><code>ageComp()</code>: modified to use internal odd(), rather than odd() imported from gtools.</p></li>
+<li><p><code><a href="../reference/binCI.html">binCI()</a></code>: moved from NCStats.</p></li>
+<li><p><code><a href="../reference/chooseColors.html">chooseColors()</a></code>: copied from NCStats (i.e., same function still in NCStats).</p></li>
+<li><p><code><a href="../reference/confint.nlsBoot.html">confint.nlsBoot()</a></code>: moved from NCStats.</p></li>
+<li><p><code><a href="../reference/fact2num.html">fact2num()</a></code>: moved from NCStats.</p></li>
+<li><p><code><a href="../reference/confint.nlsBoot.html">htest()</a></code>: copied from NCStats (i.e., same function still in NCStats).</p></li>
+<li><p><code>htest.nlsBOot()</code>: moved from NCStats.</p></li>
+<li><p><code><a href="../reference/hyperCI.html">hyperCI()</a></code>: moved from NCStats.</p></li>
+<li><p><code>ks2d()</code>: moved from NCStats.</p></li>
+<li><p><code>ks2dp()</code>: moved from NCStats.</p></li>
+<li><p><code><a href="../reference/ksTest.html">ksTest()</a></code>: moved from NCStats.</p></li>
+<li><p><code><a href="../reference/lagratio.html">lagratio()</a></code>: moved from NCStats.</p></li>
+<li><p>`lsmean(), and related internals: moved from NCStats.</p></li>
+<li><p><code><a href="../reference/mrClosed.html">mrClosed()</a></code>: modified so as not to depend on ci.t() from NCStats.</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/plotrix/man/plotH.html">plotH()</a></code>: moved from NCStats.</p></li>
+<li><p><code><a href="../reference/poiCI.html">poiCI()</a></code>: moved from NCStats.</p></li>
+<li><p><code>popSizesPlot()</code>: moved from NCStats.</p></li>
+<li><p><code>pos2adj()</code>: moved from NCStats.</p></li>
+<li><p><code><a href="../reference/rcumsum.html">rcumsum()</a></code>: moved from NCStats.</p></li>
+<li><p><code>rsdPlot()</code>: modified to handle situations where substock fish are not present in the data. Thanks to Max Wolter for pointing out this issue.</p></li>
+<li><p><code><a href="../reference/Subset.html">Subset()</a></code>: copied from NCStats (i.e., same function still in NCStats).</p></li>
 </ul>
 </div>
     <div id="fsa-02-8-21jun12" class="section level1">
@@ -2986,10 +2935,10 @@
 <li><p>Switched to compiling under R version 2.14.1 (64-bit).</p></li>
 <li><p>Changed license specification from “GPL version 2 or newer” to “GPL (&gt;= 2)” to avoid warning on check.</p></li>
 <li><p>Added a suggestion for gdata to fix warning with capHistConver.rd (see below).</p></li>
-<li><p>capHistConvert.rd: Modified the examples to not use “gdata::combine” by adding a “require(gdata)” in the examples and suggesting gdata in the description file.</p></li>
-<li><p>fishR(): Added.</p></li>
-<li><p>simAgeBias(): changed width to widths in layout() to avoid warning on check.</p></li>
-<li><p>simLenSelectM(): changed width to widths in layout() to avoid warning on check.</p></li>
+<li><p>`capHistConvert.rd: Modified the examples to not use “gdata::combine” by adding a “require(gdata)” in the examples and suggesting gdata in the description file.</p></li>
+<li><p><code><a href="../reference/fishR.html">fishR()</a></code>: Added.</p></li>
+<li><p><code>simAgeBias()</code>: changed width to widths in layout() to avoid warning on check.</p></li>
+<li><p><code>simLenSelectM()</code>: changed width to widths in layout() to avoid warning on check.</p></li>
 </ul>
 </div>
     <div id="fsa-02-7-2mar12" class="section level1">
@@ -2997,16 +2946,26 @@
 <a href="#fsa-02-7-2mar12" class="anchor"></a>FSA 0.2-7 2Mar12<small> Unreleased </small>
 </h1>
 <ul>
-<li>.onLoad(): Modified. Moved the startup message into packageStartupMessage() in hopes of eliminating the warning when checking the package.</li>
-<li>catchCurveSim(): Modified. Changed max.age= to 15 (from 10). Slightly changed the labels related to ‘Z Steady’ and ‘N* Steady’.</li>
-<li>chapmanRobson(): Modified. Corrected a bug for when the ages2use= argument contains ages that are not found in the data. Thanks to Eric Berglund for finding this bug.</li>
-<li>psdVal(): Modified. As described for rsdVal().</li>
-<li>rsdCalc(): Added.</li>
-<li>rsdPlot(): Modified. Modified to reflect changes in rsdVal().</li>
-<li>rsdVal(): Modified. Removed the metric= and mm= arguments in favor of a new argument, units=, where the user chooses the units as a string. This streamlines, for example, the selection of mm. The modifications also resulted in mm being the default. Also, removed the appended units names from the names attribute – i.e., “stock” rather than “stock.mm” or “stock.in”.</li>
-<li>wrAdd(): Added.</li>
-<li>wrVal(): Modified. As described for wsVal().</li>
-<li>wsVal(): Modified. Removed the justcoef= argument. Added the ab= and comment= arguments. Also, removed the appended units names from the names attribute – i.e., “int” rather than “int.E” or “int.mm”.</li>
+<li>
+<code><a href="https://rdrr.io/r/base/ns-hooks.html">.onLoad()</a></code>: Modified. Moved the startup message into packageStartupMessage() in hopes of eliminating the warning when checking the package.</li>
+<li>
+<code>catchCurveSim()</code>: Modified. Changed max.age= to 15 (from 10). Slightly changed the labels related to ‘Z Steady’ and ‘N* `Steady’.</li>
+<li>
+<code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Corrected a bug for when the ages2use= argument contains ages that are not found in the data. Thanks to Eric Berglund for finding this bug.</li>
+<li>
+<code><a href="../reference/psdVal.html">psdVal()</a></code>: Modified. As described for rsdVal().</li>
+<li>
+<code>rsdCalc()</code>: Added.</li>
+<li>
+<code>rsdPlot()</code>: Modified. Modified to reflect changes in rsdVal().</li>
+<li>
+<code>rsdVal()</code>: Modified. Removed the metric= and mm= arguments in favor of a new argument, units=, where the user chooses the units as a string. This streamlines, for example, the selection of mm. The modifications also resulted in mm being the default. Also, removed the appended units names from the names attribute – i.e., “stock” rather than “stock.mm” or “stock.in”.</li>
+<li>
+<code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Added.</li>
+<li>
+<code>wrVal()</code>: Modified. As described for wsVal().</li>
+<li>
+<code><a href="../reference/wsVal.html">wsVal()</a></code>: Modified. Removed the justcoef= argument. Added the ab= and comment= arguments. Also, removed the appended units names from the names attribute – i.e., “int” rather than “int.E” or “int.mm”.</li>
 </ul>
 </div>
     <div id="fsa-02-6-1oct11" class="section level1">
@@ -3017,13 +2976,13 @@
 <li><p>Switched to compiling under R version 2.13.1 (32-bit).</p></li>
 <li><p>Removed importFroms that were required for updateFSA().</p></li>
 <li><p>Removed splines package from imports list (not needed).</p></li>
-<li><p>capHistConvert(): Modified. Modifications to handle changes to capHistSum().</p></li>
-<li><p>capHistSum(): Modified. Changed the returned list structure. First, caphist.sum is now caphist. Second, if only two samples are given, then only caphist and sum, where sum is a data frame of the required summaries for the Petersen method, are returned. If more than two samples are given, then caphist, sum, methodB.top, and methodB.bot are returned. Note that there is n* longer an item labeled as schnabel.sum returned.</p></li>
-<li><p>mrClosed(): Modified. Modifications to handle the changes to capHistSum(). Also modified so that if only two samples were summarized in a CapHist object and that object is supplied as the first argument to mrClosed() then the Petersen method will find the data it needs from the CapHist object.</p></li>
-<li><p>rsdPlot(): Modified. Modified calls to min() and max() to include na.rm=TRUE. This fixes bug related to vectors with missing values.</p></li>
-<li><p>updateFSA(): Removed.</p></li>
-<li><p>vbFuns(): Modified. Added ‘Somers2’ option to type= argument.</p></li>
-<li><p>vbStarts(): Modified. Added ‘Somers2’ option to type= argument.</p></li>
+<li><p><code><a href="../reference/capHistConvert.html">capHistConvert()</a></code>: Modified. Modifications to handle changes to capHistSum().</p></li>
+<li><p><code><a href="../reference/capHistSum.html">capHistSum()</a></code>: Modified. Changed the returned list structure. First, caphist.sum is now caphist. Second, if only two samples are given, then only caphist and sum, where sum is a data frame of the required summaries for the Petersen method, are returned. If more than two samples are given, then caphist, sum, methodB.top, and methodB.bot are returned. Note that there is n* `longer an item labeled as schnabel.sum returned.</p></li>
+<li><p><code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Modifications to handle the changes to capHistSum(). Also modified so that if only two samples were summarized in a CapHist object and that object is supplied as the first argument to mrClosed() then the Petersen method will find the data it needs from the CapHist object.</p></li>
+<li><p><code>rsdPlot()</code>: Modified. Modified calls to min() and max() to include na.rm=TRUE. This fixes bug related to vectors with missing values.</p></li>
+<li><p><code>updateFSA()</code>: Removed.</p></li>
+<li><p><code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified. Added ‘Somers2’ option to type= argument.</p></li>
+<li><p><code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Added ‘Somers2’ option to type= argument.</p></li>
 </ul>
 </div>
     <div id="fsa-02-5-19aug11" class="section level1">
@@ -3032,21 +2991,21 @@
 </h1>
 <ul>
 <li><p>Modified description file to show my e-mail address.</p></li>
-<li><p>Added cnvrt.coords() as an ImportFrom TeachingDemos. Needed for simAgeBias() and simLenSelectM().</p></li>
-<li><p>ageKey(): Modified. Length categories in the length sample, if none are provided in len.breaks=, are constructed from the length categories present in the age-length key rather than guessing at a starting value and width and creating evenly spaced categories. This should fix the bug that occurred when an age-length key was originally created with even length categories but the key is so sparse that the length categories with actual data are uneven. Also, changed the error catching so that the routine is stopped if a length in the length sample is smaller than the smallest length category in the age length key but will only elicit a warning if the largest length is greater than the largest length category in the age-length key.</p></li>
-<li><p>chapmanRobson(): Modified. Changed to have a .default and .formula method.</p></li>
-<li><p>chapmanRobson.default(): Added.</p></li>
-<li><p>chapmanRobson.formula(): Added.</p></li>
-<li><p>FSAsims(): Modified. Corrected calls to growthModelSim() for von Bertalanffy models.</p></li>
-<li><p>growthModelSim(): Modified. Changed from modeling “size” to modeling “length” (or “weight” for just “vbTypicalW” and “vbOriginalW”). Changes required adding two new model options – “vbTypicalW” and “vbOriginalW” – for modeling weights and leaving all of the original model options as models for length. The plots represent the different characteristics (length or weight) modeled as d* the slider bar options. Added a max.wt= argument for use when modeling weights. Removed “vbBevertonHolt” as a model option because it is covered by “vbTypical” and was not actually implemented. Changed order of models so that “vbTypical” rather than “vbOriginal” is the default model used. Made slight cosmetic changes to slider bar options (e.g., “to” became “t_0”). Made changes and some corrections to the .Rd file.</p></li>
-<li><p>rsdPlot(): Added. Still needs more thorough proofing.</p></li>
-<li><p>simAgeBias(): Added.</p></li>
-<li><p>simAges(): Added.</p></li>
-<li><p>simApplyAgeBias(): Added.</p></li>
-<li><p>simLenFromAge(): Added.</p></li>
-<li><p>simLenSelectM(): Added.</p></li>
-<li><p>simLenSelectP(): Added.</p></li>
-<li><p>vbComp(): Modified. Streamlined the code. Changed the t= argument to ages= to remove any possible confusion with t(). Removed the option to model over ages provided in the (previous) t= argument. Instead the ages= argument can be used to represent the maximum age to model to. The ages= argument can be a vector such that each simulation can have a different set of ages over which the model is evaluated. This allows for more realistinc modeling.</p></li>
+<li><p>Added <code>cnvrt.coords()</code> as an ImportFrom TeachingDemos. Needed for <code>simAgeBias()</code> and <code>simLenSelectM()</code>.</p></li>
+<li><p><code>ageKey()</code>: Modified. Length categories in the length sample, if none are provided in len.breaks=, are constructed from the length categories present in the age-length key rather than guessing at a starting value and width and creating evenly spaced categories. This should fix the bug that occurred when an age-length key was originally created with even length categories but the key is so sparse that the length categories with actual data are uneven. Also, changed the error catching so that the routine is stopped if a length in the length sample is smaller than the smallest length category in the age length key but will only elicit a warning if the largest length is greater than the largest length category in the age-length key.</p></li>
+<li><p><code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Changed to have a .default and .formula method.</p></li>
+<li><p><code><a href="../reference/chapmanRobson.html">chapmanRobson.default()</a></code>: Added.</p></li>
+<li><p><code><a href="../reference/chapmanRobson.html">chapmanRobson.formula()</a></code>: Added.</p></li>
+<li><p><code>FSAsims()</code>: Modified. Corrected calls to growthModelSim() for von Bertalanffy models.</p></li>
+<li><p><code>growthModelSim()</code>: Modified. Changed from modeling “size” to modeling “length” (or “weight” for just “vbTypicalW” and “vbOriginalW”). Changes required adding two new model options – “vbTypicalW” and “vbOriginalW” – for modeling weights and leaving all of the original model options as models for length. Added a max.wt= argument for use when modeling weights. Removed “vbBevertonHolt” as a model option because it is covered by “vbTypical” and was not actually implemented. Changed order of models so that “vbTypical” rather than “vbOriginal” is the default model used. Made slight cosmetic changes to slider bar options (e.g., “to” became “t_0”). Made changes and some corrections to the .Rd file.</p></li>
+<li><p><code>rsdPlot()</code>: Added. Still needs more thorough proofing.</p></li>
+<li><p><code>simAgeBias()</code>: Added.</p></li>
+<li><p><code>simAges()</code>: Added.</p></li>
+<li><p><code>simApplyAgeBias()</code>: Added.</p></li>
+<li><p><code>simLenFromAge()</code>: Added.</p></li>
+<li><p><code>simLenSelectM()</code>: Added.</p></li>
+<li><p><code>simLenSelectP()</code>: Added.</p></li>
+<li><p><code>vbComp()</code>: Modified. Streamlined the code. Changed the t= argument to ages= to remove any possible confusion with t(). Removed the option to model over ages provided in the (previous) t= argument. Instead the ages= argument can be used to represent the maximum age to model to. The ages= argument can be a vector such that each simulation can have a different set of ages over which the model is evaluated. This allows for more realistinc modeling.</p></li>
 </ul>
 </div>
     <div id="fsa-02-4-15jun11" class="section level1">
@@ -3055,7 +3014,7 @@
 </h1>
 <ul>
 <li><p>Switched to compiling under R version 2.13.0.</p></li>
-<li><p>vbFuns(): Modified. Modified Wang’s formulas to be for length increments. Added a length increments version to Faben’s method (“Fabens2”).</p></li>
+<li><p><code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified. Modified Wang’s formulas to be for length increments. Added a length increments version to Faben’s method (“Fabens2”).</p></li>
 </ul>
 </div>
     <div id="fsa-02-3-18apr11" class="section level1">
@@ -3065,15 +3024,14 @@
 <ul>
 <li><p>Updated citation file.</p></li>
 <li><p>Added importFrom for tools and utils packages.</p></li>
-<li><p>ageKey(): Modified. Added a len.breaks= argument so that an age-length key with variable widths for the length categories can be used. Added an example to the Rd file to illustrate the use.</p></li>
-<li><p>confint.MRC(): Modified. Replaced numdigs= argument with digits= argument. Retained numdigs= for backwards compatability.</p></li>
-<li><p>lwPredsComp.Rd: Modified. Replaced use of lgrep() with grepl() because of change in NCStats.</p></li>
-<li><p>removal(): Modified. Changed order of items printed in the returned list.<br>
-In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of intermediate values (k, T, and X) is also included in the returned list. The first change is cosmetic, the second change was made to help with some troubleshooting. Added an argument to allow choosing the method of contructing SE for the CarleStrub method. Created an internal function for computing the Zippin SE method to allow easier use with the other methods. The help file was changed to make note of the non-estimable SE when No=T in the CarleStrub method under certain circumstances. These changes result in a different SE being reported if the CarleStrub method is used and CS.se=“Zippin” (the default) is used. The “old” results can be obtained by using CS.se=“Alternative”. I have yet to find a solid references for this SE.</p></li>
-<li><p>summary.MRC(): Modified. Replaced numdigs= argument with digits= argument. Retained numdigs= for backwards compatability.</p></li>
-<li><p>tictactoeAdd(): Modified. Added capability of labeling points.</p></li>
-<li><p>updateFSA(): Added. Had to add an importFrom from the tools package.</p></li>
-<li><p>vbFuns(): Modified. Added Wang and Wang2 functions.</p></li>
+<li><p><code>ageKey()</code>: Modified. Added a len.breaks= argument so that an age-length key with variable widths for the length categories can be used. Added an example to the Rd file to illustrate the use.</p></li>
+<li><p><code>confint.MRC()</code>: Modified. Replaced numdigs= argument with digits= argument. Retained numdigs= for backwards compatability.</p></li>
+<li><p>`lwPredsComp.Rd: Modified. Replaced use of lgrep() with grepl() because of change in NCStats.</p></li>
+<li><p><code><a href="../reference/removal.html">removal()</a></code>: Modified. Changed order of items printed in the returned list. In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of intermediate values (k, T, and X) is also included in the returned list. The first change is cosmetic, the second change was made to help with some troubleshooting. Added an argument to allow choosing the method of contructing SE for the CarleStrub method. Created an internal function for computing the Zippin SE method to allow easier use with the other methods. The help file was changed to make note of the non-estimable SE when No=T in the CarleStrub method under certain circumstances. These changes result in a different SE being reported if the CarleStrub method is used and CS.se=“Zippin” (the default) is used. The “old” results can be obtained by using CS.se=“Alternative”. I have yet to find a solid references for this SE.</p></li>
+<li><p><code>summary.MRC()</code>: Modified. Replaced numdigs= argument with digits= argument. Retained numdigs= for backwards compatability.</p></li>
+<li><p><code>tictactoeAdd()</code>: Modified. Added capability of labeling points.</p></li>
+<li><p><code>updateFSA()</code>: Added. Had to add an importFrom from the tools package.</p></li>
+<li><p><code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified. Added Wang and Wang2 functions.</p></li>
 </ul>
 </div>
     <div id="fsa-02-2-3mar11" class="section level1">
@@ -3083,9 +3041,9 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <ul>
 <li><p>moved to compling under 2.12.1 (32-bit)</p></li>
 <li><p>changed dependency to &gt;2.11.1</p></li>
-<li><p>ageComp(): modified dramatically. Primarily added the ability to test for bias by comparing the mean of the y-structure to the value of the x-structure with t-tests adjusted for multiple comparisons. Modified the code to allow this to happen more efficiently and to output results in the plot() and summary() methods. Also modified the plot() method so that the default is to just show the confidence intervals rather than showing the CIs and the range of the data (use show.rng=TRUE to see the old plot). Also changed the CI colors so that significant differences are shown in red (default) and non-significant differences are shown in blue (default) (set both col.err= and col.err.sig= to the same color to get the old plot).</p></li>
-<li><p>lencat(): modified so that vname=NULL is the default. This will default to using “LCat” as the variable name (as in the previous version). However, modified the way the vname is appended to the new data frame so that if vname already exists in the data frame a new name will be used (vname plus some number).</p></li>
-<li><p>removal(): added just.ests= argument and changed the ests part of the returned value to be a vector rather than a matrix. Both changes allowed for better use of lapply() for computing the removal estimates on more than one group. Changed from an error to a warning for situations where the method could not compute population estimates (i.e., because the population was not depleted). In addition, NAs are returned in situations where population estimates can not be made. An example of computing the removal estimate for more than one group was added to the .rd file. Thanks to Jon Bolland for asking the question that motivated these changes.</p></li>
+<li><p><code>ageComp()</code>: modified dramatically. Primarily added the ability to test for bias by comparing the mean of the y-structure to the value of the x-structure with t-tests adjusted for multiple comparisons. Modified the code to allow this to happen more efficiently and to output results in the plot() and summary() methods. Also modified the plot() method so that the default is to just show the confidence intervals rather than showing the CIs and the range of the data (use show.rng=TRUE to see the old plot). Also changed the CI colors so that significant differences are shown in red (default) and non-significant differences are shown in blue (default) (set both col.err= and col.err.sig= to the same color to get the old plot).</p></li>
+<li><p><code><a href="../reference/lencat.html">lencat()</a></code>: modified so that vname=NULL is the default. This will default to using “LCat” as the variable name (as in the previous version). However, modified the way the vname is appended to the new data frame so that if vname already exists in the data frame a new name will be used (vname plus some number).</p></li>
+<li><p><code><a href="../reference/removal.html">removal()</a></code>: added just.ests= argument and changed the ests part of the returned value to be a vector rather than a matrix. Both changes allowed for better use of lapply() for computing the removal estimates on more than one group. Changed from an error to a warning for situations where the method could not compute population estimates (i.e., because the population was not depleted). In addition, NAs are returned in situations where population estimates can not be made. An example of computing the removal estimate for more than one group was added to the .rd file. Thanks to Jon Bolland for asking the question that motivated these changes.</p></li>
 </ul>
 </div>
     <div id="fsa-02-1-31-jan-11" class="section level1">
@@ -3093,11 +3051,16 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <a href="#fsa-02-1-31-jan-11" class="anchor"></a>FSA 0.2-1 31-Jan-11<small> Unreleased </small>
 </h1>
 <ul>
-<li>catchCurve(): Modified by adding a formula method. This required moving the original code into a default method and changing the age= argument to x=.</li>
-<li>lenFreqExpand(): Modified by adding the additional= argument (which required modifying the total= argument and adding an error check for the situation where the total fish to assign lengths is not greater than the number of fish in the measured subsample).</li>
-<li>.onLoad(): modified. Changed to include version number of loaded version.</li>
-<li>vbFuns(): Modified by adding simple= argument. Added a ‘Somers’ seasonal growth oscillations model and ‘Fabens’ model for tag-recapture data. Also added, but did not check, a ‘Laslett’ ‘double von Bertalanffy’ model.</li>
-<li>vbStarts(): Modified by setting a catch to return a single root for st0 or sL0 if the polynomial root found a double root. Thanks to Giacom* Tavecchia for identifying this error. Added a ‘Somers’ seasonal growth oscillations model.</li>
+<li>
+<code><a href="../reference/catchCurve.html">catchCurve()</a></code>: Modified by adding a formula method. This required moving the original code into a default method and changing the age= argument to x=.</li>
+<li>
+<code>lenFreqExpand()</code>: Modified by adding the additional= argument (which required modifying the total= argument and adding an error check for the situation where the total fish to assign lengths is not greater than the number of fish in the measured subsample).</li>
+<li>
+<code><a href="https://rdrr.io/r/base/ns-hooks.html">.onLoad()</a></code>: modified. Changed to include version number of loaded version.</li>
+<li>
+<code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified by adding simple= argument. Added a ‘Somers’ seasonal growth oscillations model and ‘Fabens’ model for tag-recapture data. Also added, but did not check, a ‘Laslett’ ‘double von Bertalanffy’ model.</li>
+<li>
+<code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified by setting a catch to return a single root for st0 or sL0 if the polynomial root found a double root. Thanks to Giacom* `Tavecchia for identifying this error. Added a ‘Somers’ seasonal growth oscillations model.</li>
 </ul>
 </div>
     <div id="fsa-02-0-23-sep-10" class="section level1">
@@ -3105,13 +3068,20 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <a href="#fsa-02-0-23-sep-10" class="anchor"></a>FSA 0.2-0 23-Sep-10<small> Unreleased </small>
 </h1>
 <ul>
-<li>bcFuns(): Added. Still needs to be thoroughly proofed.</li>
-<li>FSAsims(): Modified to reflect srSim() change described below.</li>
-<li>listSpecies(): Moved internal function out of being within RSDval() and WSval() and then added an argument for the data frame containing the species names. The hope was that this would correct the “n* visible binding” warnings when performing RCMD check but it did not.</li>
-<li>srModels(): Renamed from stockRecruitModels() to be more consistent with the rest of the stock-recruitment functions.</li>
-<li>srSim(): Renamed from stockRecruitSim() to be more consistent with the rest of the stock-recruitment functions.</li>
-<li>vbDataGen(): Modified use of minAge argument – will now always back-calculate to age-1 but minAge denotes the minimum age-at-capture that will be modeled. Deleted use of cfAge variable in code.</li>
-<li>vbModels(): Added.</li>
+<li>
+<code>bcFuns()</code>: Added. Still needs to be thoroughly proofed.</li>
+<li>
+<code>FSAsims()</code>: Modified to reflect srSim() change described below.</li>
+<li>
+<code>listSpecies()</code>: Moved internal function out of being within RSDval() and WSval() and then added an argument for the data frame containing the species names. The hope was that this would correct the “n* `visible binding” warnings when performing RCMD check but it did not.</li>
+<li>
+<code>srModels()</code>: Renamed from stockRecruitModels() to be more consistent with the rest of the stock-recruitment functions.</li>
+<li>
+<code>srSim()</code>: Renamed from stockRecruitSim() to be more consistent with the rest of the stock-recruitment functions.</li>
+<li>
+<code>vbDataGen()</code>: Modified use of minAge argument – will now always back-calculate to age-1 but minAge denotes the minimum age-at-capture that will be modeled. Deleted use of cfAge variable in code.</li>
+<li>
+<code>vbModels()</code>: Added.</li>
 </ul>
 </div>
     <div id="fsa-01-6-23-aug-10" class="section level1">
@@ -3119,44 +3089,81 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <a href="#fsa-01-6-23-aug-10" class="anchor"></a>FSA 0.1-6 23-Aug-10<small> Unreleased </small>
 </h1>
 <ul>
-<li><p>completed changing naming convention to “camel” type – e.g., stockRecruitModels() rather than stock.recruit.models().</p></li>
-<li><p>ageComp(): renamed from age.comp().</p></li>
-<li><p>ageKey(): renamed from age.key().</p></li>
-<li><p>capHistConvert(): renamed from caphist.convert().</p></li>
-<li><p>capHistSum(): renames from caphist.sum().</p></li>
-<li><p>catchCurve(): renamed from catch.curve().</p></li>
-<li><p>catchCurveSim(): renamed from cc.sim().</p></li>
-<li><p>chapmanRobson(): renamed from chapman.robson().</p></li>
-<li><p>coefPlot(): renamed from coefplot().</p></li>
-<li><p>cohortSim(): renamed from cohort.sim().</p></li>
-<li><p>emp(): modified for name changes in NCStats.</p></li>
-<li><p>FroeseWs(): modified for name changes in NCStats.</p></li>
-<li><p>FSASims(): modified by updating to new names of simulation functions.</p></li>
-<li><p>gConvert(): renamed from g.convert().</p></li>
-<li><p>gReshape(): renamed from g.reshape().</p></li>
-<li><p>growthRadPlot(): renamed from growrad.plot().</p></li>
-<li><p>lenFreqExpand(): renamed from len.freq.expand().</p></li>
-<li><p>leslieRandRun(): renamed from leslie.rand.run(). This is an internal function.</p></li>
-<li><p>leslieSim(): renamed from leslie.sim().</p></li>
-<li><p>leslieSim2(): renamed from leslie.sim2().</p></li>
-<li><p>limnoProfilePlot(): renamed from limnoprofile.plot().</p></li>
-<li><p>lwModelSim(): renamed from lwmodel.sim().</p></li>
-<li><p>lwPredsComp(): renamed from comp.lwpreds().</p></li>
-<li><p>mrClosed(): renamed from mr.closed(). Modified for name changes in NCStats.</p></li>
-<li><p>mrClosed1Sim(): renamed from mr.closed1.sim().</p></li>
-<li><p>mrOpen(): renamed from mr.open().</p></li>
-<li><p>psdVal(): renamed from PSDval().</p></li>
-<li><p>rcumsum(): deleted. Moved to NCStats package.</p></li>
-<li><p>rpl(): modified for name changes in NCStats.</p></li>
-<li><p>rsdVal(): renamed from RSDval().</p></li>
-<li><p>tictactoeAdd(): renamed from tictactoe.add(). Modified for name changes in NCStats.</p></li>
-<li><p>vbComp(): renamed from vb.comp().</p></li>
-<li><p>wetPerim(): renamed from wetperim().</p></li>
-<li><p>wlgm(): modified for name changes in NCStats.</p></li>
-<li><p>wrVal(): renamed from WRval().</p></li>
-<li><p>wsVal(): renamed from WSval().</p></li>
-<li><p>wsValidate(): renamed from validateWs(). Also modified for name changes in NCStats.</p></li>
-<li><p>ycPlot(): renamed from ycplot().</p></li>
+<li>completed changing naming convention to “camel” type – e.g., <code>stockRecruitModels()</code> rather than <code>stock.recruit.models()</code>.</li>
+<li>
+<code>ageComp()</code>: renamed from age.comp().</li>
+<li>
+<code>ageKey()</code>: renamed from age.key().</li>
+<li>
+<code><a href="../reference/capHistConvert.html">capHistConvert()</a></code>: renamed from caphist.convert().</li>
+<li>
+<code><a href="../reference/capHistSum.html">capHistSum()</a></code>: renames from caphist.sum().</li>
+<li>
+<code><a href="../reference/catchCurve.html">catchCurve()</a></code>: renamed from catch.curve().</li>
+<li>
+<code>catchCurveSim()</code>: renamed from cc.sim().</li>
+<li>
+<code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: renamed from chapman.robson().</li>
+<li>
+<code>coefPlot()</code>: renamed from coefplot().</li>
+<li>
+<code>cohortSim()</code>: renamed from cohort.sim().</li>
+<li>
+<code>emp()</code>: modified for name changes in NCStats.</li>
+<li>
+<code>FroeseWs()</code>: modified for name changes in NCStats.</li>
+<li>
+<code>FSASims()</code>: modified by updating to new names of simulation functions.</li>
+<li>
+<code>gConvert()</code>: renamed from g.convert().</li>
+<li>
+<code>gReshape()</code>: renamed from g.reshape().</li>
+<li>
+<code>growthRadPlot()</code>: renamed from growrad.plot().</li>
+<li>
+<code>lenFreqExpand()</code>: renamed from len.freq.expand().</li>
+<li>
+<code>leslieRandRun()</code>: renamed from leslie.rand.run(). This is an internal function.</li>
+<li>
+<code>leslieSim()</code>: renamed from leslie.sim().</li>
+<li>
+<code>leslieSim2()</code>: renamed from leslie.sim2().</li>
+<li>
+<code>limnoProfilePlot()</code>: renamed from limnoprofile.plot().</li>
+<li>
+<code>lwModelSim()</code>: renamed from lwmodel.sim().</li>
+<li>
+<code>lwPredsComp()</code>: renamed from comp.lwpreds().</li>
+<li>
+<code><a href="../reference/mrClosed.html">mrClosed()</a></code>: renamed from mr.closed(). Modified for name changes in NCStats.</li>
+<li>
+<code>mrClosed1Sim()</code>: renamed from mr.closed1.sim().</li>
+<li>
+<code><a href="../reference/jolly.html">mrOpen()</a></code>: renamed from mr.open().</li>
+<li>
+<code><a href="../reference/psdVal.html">psdVal()</a></code>: renamed from PSDval().</li>
+<li>
+<code><a href="../reference/rcumsum.html">rcumsum()</a></code>: deleted. Moved to NCStats package.</li>
+<li>
+<code>rpl()</code>: modified for name changes in NCStats.</li>
+<li>
+<code>rsdVal()</code>: renamed from RSDval().</li>
+<li>
+<code>tictactoeAdd()</code>: renamed from tictactoe.add(). Modified for name changes in NCStats.</li>
+<li>
+<code>vbComp()</code>: renamed from vb.comp().</li>
+<li>
+<code>wetPerim()</code>: renamed from wetperim().</li>
+<li>
+<code>wlgm()</code>: modified for name changes in NCStats.</li>
+<li>
+<code>wrVal()</code>: renamed from WRval().</li>
+<li>
+<code><a href="../reference/wsVal.html">wsVal()</a></code>: renamed from WSval().</li>
+<li>
+<code>wsValidate()</code>: renamed from validateWs(). Also modified for name changes in NCStats.</li>
+<li>
+<code>ycPlot()</code>: renamed from ycplot().</li>
 </ul>
 </div>
     <div id="fsa-01-5-20aug10" class="section level1">
@@ -3165,24 +3172,24 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </h1>
 <ul>
 <li><p>moved to compiling under 2.11.1.</p></li>
-<li><p>started changing my naming convention to “camel” type – e.g., stockRecruitModels() rather than stock.recruit.models(). In this version, I am only changing the functions that I am working on. I will change the rest in the next version.</p></li>
-<li><p>added an importFrom for nlme as groupedData() was needed for vbDataGen().</p></li>
-<li><p>age.key(): Modified the way that the length categories in the age-length key is determined. Previously I just used the rownames found in the key, but this allows lengths with a row of all NA or zeros to be considered as a length found in the age length key. Now the row sums are found and the sums with NaN or 0 are removed. In addition, I added a warning message if the row sums d* not sum to 1.</p></li>
-<li><p>caphist.convert(): Modified such that an “RMark” type can be output. 0 chapmanPlot(): Added.</p></li>
-<li><p>growmodel.sim(): Deleted. Changed to growthModelSim(). See below. 0 growthModelSim(): Added. Initially a renaming of growmodel.sim(). However, the model names were changed to be more consistent with other functions and a method for the Mooij et al. paramaterization was added.</p></li>
-<li><p>growthModels(): Added.</p></li>
-<li><p>srFuns(): Added.</p></li>
-<li><p>srStarts(): Added.</p></li>
-<li><p>stock.recruit(): Deleted, along with all related generics.</p></li>
-<li><p>stock.recruit.sim(): Deleted. Changed to stockRecruitSim(). See below.</p></li>
-<li><p>stockRecruitModels(): Added.</p></li>
-<li><p>stockRecruitSim(): Initially a renaming of stock.recruit.sim. However, added a “formula” method which required adding generic and default methods. Changed the order of the S and R arguments. Re-ordered, modified, and added models in accordance with the vignette. Updated the Rd file to reflect these changes and made a very slight modification to the examples and added an example to illustrate the use of the formula. Found decent default values for simulations.</p></li>
-<li><p>stockRecruitSim.default(): Added. See above.</p></li>
-<li><p>stockRecruitSim.formula(): Added. See above.</p></li>
-<li><p>vbDataGen(): Added.</p></li>
-<li><p>vbFuns(): Added.</p></li>
-<li><p>vbStarts(): Added.</p></li>
-<li><p>walfordPlot(): Added.</p></li>
+<li><p>started changing my naming convention to “camel” type – e.g., <code>stockRecruitModels()</code> rather than <code>stock.recruit.models()</code>. In this version, I am only changing the functions that I am working on. I will change the rest in the next version.</p></li>
+<li><p>added an importFrom for <code>nlme</code> as <code><a href="https://rdrr.io/pkg/nlme/man/groupedData.html">groupedData()</a></code> was needed for <code>vbDataGen()</code>.</p></li>
+<li><p><code>age.key()</code>: Modified the way that the length categories in the age-length key is determined. Previously I just used the rownames found in the key, but this allows lengths with a row of all NA or zeros to be considered as a length found in the age length key. Now the row sums are found and the sums with NaN or 0 are removed. In addition, I added a warning message if the row sums d* `not sum to 1.</p></li>
+<li><p><code>caphist.convert()</code>: Modified such that an “RMark” type can be output. 0 chapmanPlot()`: Added.</p></li>
+<li><p><code>growmodel.sim()</code>: Deleted. Changed to growthModelSim(). See below. 0 growthModelSim()`: Added. Initially a renaming of growmodel.sim(). However, the model names were changed to be more consistent with other functions and a method for the Mooij et al. paramaterization was added.</p></li>
+<li><p><code><a href="../reference/growthModels.html">growthModels()</a></code>: Added.</p></li>
+<li><p><code><a href="../reference/stockRecruitment.html">srFuns()</a></code>: Added.</p></li>
+<li><p><code><a href="../reference/srStarts.html">srStarts()</a></code>: Added.</p></li>
+<li><p><code>stock.recruit()</code>: Deleted, along with all related generics.</p></li>
+<li><p><code>stock.recruit.sim()</code>: Deleted. Changed to stockRecruitSim(). See below.</p></li>
+<li><p><code>stockRecruitModels()</code>: Added.</p></li>
+<li><p><code>stockRecruitSim()</code>: Initially a renaming of stock.recruit.sim. However, added a “formula” method which required adding generic and default methods. Changed the order of the S and R arguments. Re-ordered, modified, and added models in accordance with the vignette. Updated the Rd file to reflect these changes and made a very slight modification to the examples and added an example to illustrate the use of the formula. Found decent default values for simulations.</p></li>
+<li><p><code>stockRecruitSim.default()</code>: Added. See above.</p></li>
+<li><p><code>stockRecruitSim.formula()</code>: Added. See above.</p></li>
+<li><p><code>vbDataGen()</code>: Added.</p></li>
+<li><p><code><a href="../reference/growthModels.html">vbFuns()</a></code>: Added.</p></li>
+<li><p><code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Added.</p></li>
+<li><p><code>walfordPlot()</code>: Added.</p></li>
 </ul>
 </div>
     <div id="fsa-01-4-6jun10" class="section level1">
@@ -3190,7 +3197,8 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <a href="#fsa-01-4-6jun10" class="anchor"></a>FSA 0.1-4 6Jun10<small> Unreleased </small>
 </h1>
 <ul>
-<li>growmodel.sim(): added an option to fit the “original” von Bertalanffy function. also added more “mis-spelling” options to the other model names.</li>
+<li>
+<code>growmodel.sim()</code>: added an option to fit the “original” von Bertalanffy function. Also added more “mis-spelling” options to the other model names.</li>
 </ul>
 </div>
     <div id="fsa-01-2-17dec09" class="section level1">
@@ -3199,17 +3207,17 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </h1>
 <ul>
 <li><p>moved to compiling under 2.10.1.</p></li>
-<li><p>FSA-package(): updated.</p></li>
-<li><p>added a dependency to tcltk so that simulators would work properly upon load of FSA.</p></li>
-<li><p>age.comp(): added xlim= and ylim= arguments so user can control x- and y-axis limits if desired. Changed code so that better choices for axis limits are selected automatically if xlim and ylim are both NULL. Changed code so that the “extra” vertical space added when show.n=TRUE AND ylim is NLL is 10 percent of the y-axis range rather than just an extra one unit. Allowed function to work better with xaxt=“n” and yaxt=“n” in case the user wants to create their own axes. Removed a par() setting within the plotting function. Thanks to David A. Hewitt for pointing out the deficiences with the axis labeling.</p></li>
-<li><p>age.key(): corrected how the age column is labeled if the column did not already exist in the data frame. Was also indirectly modified with lencat() modification. Also modified to stop and warn the user if the length sample has fish whose lengths are not present in the length-age key (previously there was a warning, but then ultimately there was an error).</p></li>
-<li><p>catch.curve(): added a use.weights= argument to allow using weights in the catch curve regression as proposed by Maceina and Bettoli (1998).</p></li>
-<li><p>chapman.robson(): changed S result from a proportion to a percentage (i.e., * 100).</p></li>
-<li><p>comp.lwpreds(): added center.value= argument to allow centering in the regressions. Added an example to the .rd file.</p></li>
-<li><p>fsa.news(): added to show user the NEWS file.</p></li>
-<li><p>growmodel.sim(): added the ability to use a formula and data= argument. Made the model argument not have a default value. Corrected an error when both x and y were NULL. Corrected errors in the Rd file. Thanks to Jacek Szlakowski for pointing out these problems.</p></li>
-<li><p>lencat(): modified so that an “extra” last length category (with no fish in it) was not included when as.fact=TRUE and drop.levels=FALSE is used. This should correct the “problem” of an extra all-NA row in the age-length keys.</p></li>
-<li><p>tictactoe.add(): added to the namespace export list. Changed order of items listed in the ci.type= argument to match that of bin.ci() from NCStats.</p></li>
+<li><p>`added a dependency to tcltk so that simulators would work properly upon load of FSA.</p></li>
+<li><p><code>age.comp()</code>: added xlim= and ylim= arguments so user can control x- and y-axis limits if desired. Changed code so that better choices for axis limits are selected automatically if xlim and ylim are both NULL. Changed code so that the “extra” vertical space added when show.n=TRUE AND ylim is NLL is 10 percent of the y-axis range rather than just an extra one unit. Allowed function to work better with xaxt=“n” and yaxt=“n” in case the user wants to create their own axes. Removed a par() setting within the plotting function. Thanks to David A. Hewitt for pointing out the deficiences with the axis labeling.</p></li>
+<li><p><code>age.key()</code>: corrected how the age column is labeled if the column did not already exist in the data frame. Was also indirectly modified with lencat() modification. Also modified to stop and warn the user if the length sample has fish whose lengths are not present in the length-age key (previously there was a warning, but then ultimately there was an error).</p></li>
+<li><p><code>catch.curve()</code>: added a use.weights= argument to allow using weights in the catch curve regression as proposed by Maceina and Bettoli (1998).</p></li>
+<li><p><code>chapman.robson()</code>: changed S result from a proportion to a percentage (i.e., * `100).</p></li>
+<li><p><code>comp.lwpreds()</code>: added center.value= argument to allow centering in the regressions. Added an example to the .rd file.</p></li>
+<li><p><code>fsa.news()</code>: added to show user the NEWS file.</p></li>
+<li><p><code>FSA-package()</code>: updated.</p></li>
+<li><p><code>growmodel.sim()</code>: added the ability to use a formula and data= argument. Made the model argument not have a default value. Corrected an error when both x and y were NULL. Corrected errors in the Rd file. Thanks to Jacek Szlakowski for pointing out these problems.</p></li>
+<li><p><code><a href="../reference/lencat.html">lencat()</a></code>: modified so that an “extra” last length category (with no fish in it) was not included when as.fact=TRUE and drop.levels=FALSE is used. This should correct the “problem” of an extra all-NA row in the age-length keys.</p></li>
+<li><p><code>tictactoe.add()</code>: added to the namespace export list. Changed order of items listed in the ci.type= argument to match that of bin.ci() from NCStats.</p></li>
 </ul>
 </div>
     <div id="fsa-01-1-15apr09" class="section level1">
@@ -3217,18 +3225,26 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <a href="#fsa-01-1-15apr09" class="anchor"></a>FSA 0.1-1 15Apr09<small> Unreleased </small>
 </h1>
 <ul>
-<li><p>added a namespace</p></li>
-<li><p>removed dependencies and changed to imports … left plotrix and quantreg as dependencies (they d* not have a namespaces). left reshape as a dependency because of it’s dependency on plyr.</p></li>
-<li><p>.FirstLib(): removed (changed to .onLoad() because of namespace).</p></li>
-<li><p>age.comp(): modified by removing reference to “valid.n” (which is no longer used because of changes to Summarize() in NCStats). Modified to only attempt to compute SE if n&gt;1 and st. dev &gt; 0.</p></li>
-<li><p>comp.lwpreds(): added. Exported in namespace.</p></li>
-<li><p>g.convert(): fixed major error in how the function converted increments to radii.</p></li>
-<li><p>growrad.plot(): added. Exported in namespace.</p></li>
-<li><p>mr.closed(): modified by changing library(Rcapture) to require(Rcapture) in help page.</p></li>
-<li><p>plot.EMPQ(): modified by changing object<span class="math inline"><em>p</em><em>r</em><em>o</em><em>b</em><em>t</em><em>o</em><em>x</em></span>prob.</p></li>
-<li><p>emp.rd: fixed an incorrect use of Summary() (changed to summary()).</p></li>
-<li><p>validateWs(): converted sign.slope variable in the Willis method to a factor to deal with situations where all results were positive or negative.</p></li>
-<li><p>wlgm.rd: fixed the summarization example (cast() did not work with Summarize().</p></li>
+<li>added a namespace</li>
+<li>removed dependencies and changed to imports … left plotrix and quantreg as dependencies (they do not have a namespaces). left reshape as a dependency because of it’s dependency on plyr.</li>
+<li>
+<code>.FirstLib()</code>: removed (changed to .onLoad() because of namespace).</li>
+<li>
+<code>age.comp()</code>: modified by removing reference to “valid.n” (which is no longer used because of changes to Summarize() in NCStats). Modified to only attempt to compute SE if n&gt;1 and st. dev &gt; 0.</li>
+<li>
+<code>comp.lwpreds()</code>: added. Exported in namespace.</li>
+<li>
+<code>g.convert()</code>: fixed major error in how the function converted increments to radii.</li>
+<li>
+<code>growrad.plot()</code>: added. Exported in namespace.</li>
+<li>
+<code>mr.closed()</code>: modified by changing library(Rcapture) to require(Rcapture) in help page.</li>
+<li>
+<code>plot.EMPQ()</code>: modified by changing object<span class="math inline"><em>p</em><em>r</em><em>o</em><em>b</em><em>t</em><em>o</em><em>x</em></span>prob.</li>
+<li>`emp.rd: fixed an incorrect use of Summary() (changed to summary()).</li>
+<li>
+<code>validateWs()</code>: converted sign.slope variable in the Willis method to a factor to deal with situations where all results were positive or negative.</li>
+<li>`wlgm.rd: fixed the summarization example (cast() did not work with Summarize().</li>
 </ul>
 </div>
     <div id="fsa-00-14-20dec08" class="section level1">
@@ -3236,8 +3252,10 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <a href="#fsa-00-14-20dec08" class="anchor"></a>FSA 0.0-14 20Dec08<small> Unreleased </small>
 </h1>
 <ul>
-<li>age.comp(): streamlined code (put bias and difference plots in same function, used grconvertY for show.n, used plotCI for range intervals, caught and corrected CI problems when n=1 or SD=0). N* functionality difference, just improved code.</li>
-<li>growmodel.sim(): modified by determining some of the slider values from the data when x= and y= arguments are not null. This makes the graph more useful for determining starting values in nls() modeling.</li>
+<li>
+<code>age.comp()</code>: streamlined code (put bias and difference plots in same function, used grconvertY for show.n, used plotCI for range intervals, caught and corrected CI problems when n=1 or SD=0). N* `functionality difference, just improved code.</li>
+<li>
+<code>growmodel.sim()</code>: modified by determining some of the slider values from the data when x= and y= arguments are not null. This makes the graph more useful for determining starting values in nls() modeling.</li>
 </ul>
 </div>
     <div id="fsa-00-13-6dec08" class="section level1">
@@ -3245,20 +3263,20 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <a href="#fsa-00-13-6dec08" class="anchor"></a>FSA 0.0-13 6Dec08<small> Unreleased </small>
 </h1>
 <ul>
-<li><p>added a dependency to quantreg (for rq() in emp()).</p></li>
+<li><p>added a dependency to quantreg (for <code>rq()</code> in <code>emp()</code>).</p></li>
 <li><p>added CITATION file.</p></li>
-<li><p>age.comp(): modified the plot() function by adding a ‘difference’ method to the what= argument. This allows creation of an “age-difference” plot as used in Muir et al. (2008).</p></li>
-<li><p>caphist.convert(): modified by adding an event.ord= argument to allow the user to identify the order of the event names when converting from a capture-by-event type. This is particulary useful if the event names are things like ‘first’, ‘second’, ‘third’, ‘fourth’ because R orders these alphabetically which adversely effects the correctness of the capture histories.</p></li>
-<li><p>compute.Ws(): moved this internal function out of validateWs() to be a stand-alone internal function. This allows usage with animation routines.</p></li>
-<li><p>discharge(), summary.StrmDschrg(), plot.StrmDschrg(): added.</p></li>
-<li><p>emp(): added probs= argument result to return list. Corrected ylab in plotting methods. Added a predict method. Added a method= argument that allows choice of using linear regression or quantile regression to find the Ws equation. Modified objects in the return list (added rawdata component) and added the back-transformed Wq value in regdata (for comparison with Gerow’s Excel tool). Changed code for finding summarized dataframes inside the function by using cast() from the reshape package – this resulted in a 3x reduction in system.time().</p></li>
-<li><p>mr.closed(): modified by correcting error in the multiple census methods if M, n, and m (but not R) were supplied. Also corrected an error in the examples.</p></li>
-<li><p>rlp(): added probs= argument result to return list. Corrected ylab in plotting methods. Added a predict method.</p></li>
-<li><p>PSDval(),RSDval(): added a check for missing species name so that the user can just type PSDval() to get the list of possible species names. Also added a check to see if RSDlit was already loaded.</p></li>
-<li><p>validateWs(): added probs= argument result to return list. Corrected ylab in plotting methods. Added a predict method. Modified EmpQ() internal function to use predict() methods for emp and rlp objects. Streamlined some of the code by including a compute.Ws() internal function and using the update() function. Changed code for finding summarized dataframes inside the function by using cast() from the reshape package – this resulted in a 1.5x reduction in system.time().</p></li>
-<li><p>wetperim(),summary.WetPerim(),plot.WetPerim(): added.</p></li>
-<li><p>wlgm(): major changes included moving some internal functions outside of wlgm(), adding the ability to use the data= argument, and adding the ability to fit weighted regressions on the summary statistics. Other minor changes were also made. Updated the .Rd file.</p></li>
-<li><p>WSval(),WRval(): added a check for missing species name so that the user can just type WSval() to get the list of possible species names. Also added a check to see if WSlit was already loaded.</p></li>
+<li><p><code>age.comp()</code>: modified the plot() function by adding a ‘difference’ method to the what= argument. This allows creation of an “age-difference” plot as used in Muir et al. (2008).</p></li>
+<li><p><code>caphist.convert()</code>: modified by adding an event.ord= argument to allow the user to identify the order of the event names when converting from a capture-by-event type. This is particulary useful if the event names are things like ‘first’, ‘second’, ‘third’, ‘fourth’ because R orders these alphabetically which adversely effects the correctness of the capture histories.</p></li>
+<li><p><code>compute.Ws()</code>: moved this internal function out of validateWs() to be a stand-alone internal function. This allows usage with animation routines.</p></li>
+<li><p><code>discharge(), summary.StrmDschrg(), plot.StrmDschrg()</code>: added.</p></li>
+<li><p><code>emp()</code>: added probs= argument result to return list. Corrected ylab in plotting methods. Added a predict method. Added a method= argument that allows choice of using linear regression or quantile regression to find the Ws equation. Modified objects in the return list (added rawdata component) and added the back-transformed Wq value in regdata (for comparison with Gerow’s Excel tool). Changed code for finding summarized dataframes inside the function by using cast() from the reshape package – this resulted in a 3x reduction in system.time().</p></li>
+<li><p><code>mr.closed()</code>: modified by correcting error in the multiple census methods if M, n, and m (but not R) were supplied. Also corrected an error in the examples.</p></li>
+<li><p><code>rlp()</code>: added probs= argument result to return list. Corrected ylab in plotting methods. Added a predict method.</p></li>
+<li><p><code>PSDval(),RSDval()</code>: added a check for missing species name so that the user can just type PSDval() to get the list of possible species names. Also added a check to see if RSDlit was already loaded.</p></li>
+<li><p><code>validateWs()</code>: added probs= argument result to return list. Corrected ylab in plotting methods. Added a predict method. Modified EmpQ() internal function to use predict() methods for emp and rlp objects. Streamlined some of the code by including a compute.Ws() internal function and using the update() function. Changed code for finding summarized dataframes inside the function by using cast() from the reshape package – this resulted in a 1.5x reduction in system.time().</p></li>
+<li><p><code>wetperim(),summary.WetPerim(),plot.WetPerim()</code>: added.</p></li>
+<li><p><code>wlgm()</code>: major changes included moving some internal functions outside of wlgm(), adding the ability to use the data= argument, and adding the ability to fit weighted regressions on the summary statistics. Other minor changes were also made. Updated the .Rd file.</p></li>
+<li><p><code>WSval(),WRval()</code>: added a check for missing species name so that the user can just type WSval() to get the list of possible species names. Also added a check to see if WSlit was already loaded.</p></li>
 </ul>
 </div>
     <div id="fsa-00-12-15jul08" class="section level1">
@@ -3266,13 +3284,20 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <a href="#fsa-00-12-15jul08" class="anchor"></a>FSA 0.0-12 15Jul08<small> Unreleased </small>
 </h1>
 <ul>
-<li>.First.lib: Added</li>
-<li>add.zerocatch(): added this function to add zeros to catch records where a species of fish was not caught.</li>
-<li>limnoprofile.plot(): added this function to simplify constructing plots of depth versus limnological measure with the depth decreasing from top to bottom.</li>
-<li>rlp(): changed default qtype= to 8 (from 7). Added a probs= argument to allow other than 75th percentile calculations.</li>
-<li>emp(): updated the help page. Added a logical for if p.n.low does not exist when using cutoff.tail. Renamed items in the output list. Added a table of number of individuals per length category to output list. Added a probs= argument to allow other than 75th percentile calculations. Added its own generics – rather than relying on the rlp() generics.</li>
-<li>FroeseWs(): added this function, and its generics, to perform the standard weight equation calculation as proposed by Froese (2006).</li>
-<li>validateWs(): added this function, and its generics, to perform the Willis and EmpQ methods for assessing length bias in the standard weight equations. Added a probs= argument to allow other than 75th percentile calculations. Added a mean= argument to allow use of means rather than quantiles. Modified to accept an object of class FROESE.</li>
+<li>
+<code>.First.lib</code>: Added</li>
+<li>
+<code>add.zerocatch()</code>: added this function to add zeros to catch records where a species of fish was not caught.</li>
+<li>
+<code>limnoprofile.plot()</code>: added this function to simplify constructing plots of depth versus limnological measure with the depth decreasing from top to bottom.</li>
+<li>
+<code>rlp()</code>: changed default qtype= to 8 (from 7). Added a probs= argument to allow other than 75th percentile calculations.</li>
+<li>
+<code>emp()</code>: updated the help page. Added a logical for if p.n.low does not exist when using cutoff.tail. Renamed items in the output list. Added a table of number of individuals per length category to output list. Added a probs= argument to allow other than 75th percentile calculations. Added its own generics – rather than relying on the rlp() generics.</li>
+<li>
+<code>FroeseWs()</code>: added this function, and its generics, to perform the standard weight equation calculation as proposed by Froese (2006).</li>
+<li>
+<code>validateWs()</code>: added this function, and its generics, to perform the Willis and EmpQ methods for assessing length bias in the standard weight equations. Added a probs= argument to allow other than 75th percentile calculations. Added a mean= argument to allow use of means rather than quantiles. Modified to accept an object of class FROESE.</li>
 </ul>
 </div>
     <div id="fsa-00-11-15may08" class="section level1">
@@ -3282,13 +3307,13 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <ul>
 <li><p>Moved to RForge.net.</p></li>
 <li><p>changed to R2.7.0.</p></li>
-<li><p>added a dependency to Rcapture (for the example in caphist.convert).</p></li>
-<li><p>anova.RLP(): added this function to produce the anova table for the standard weight equation.</p></li>
-<li><p>caphist.convert(): added this function convert between various capture history formats (FSA,event,MARK,Rcapture).</p></li>
-<li><p>emp(): added this function, and its generics, to perform Gerow’s EmP method for obtaining a standard weight equation.</p></li>
-<li><p>fit.plot.RLP(): added this function.</p></li>
-<li><p>plot.RLP(): modified so that color palette with a gradient rather than only a solid color can be used for the populations. In addition, added order.pop= argument that will order the populations from smallest to largest predicted with in the first length interval. When used with the color gradients this will make it easier to see which populations cross over other populations.<br></p></li>
-<li><p>rlp(): modified function so that the user can choose to use any-mm length intervals rather than having 10-mm hardwired. Modified output in list somewhat to more closely match the output of emp().</p></li>
+<li><p>added a dependency to <code>Rcapture</code> (for the example in <code>caphist.convert()</code>).</p></li>
+<li><p><code>anova.RLP()</code>: added this function to produce the anova table for the standard weight equation.</p></li>
+<li><p><code>caphist.convert()</code>: added this function convert between various capture history formats (FSA,event,MARK,Rcapture).</p></li>
+<li><p><code>emp()</code>: added this function, and its generics, to perform Gerow’s EmP method for obtaining a standard weight equation.</p></li>
+<li><p><code>fit.plot.RLP()</code>: added this function.</p></li>
+<li><p><code>plot.RLP()</code>: modified so that color palette with a gradient rather than only a solid color can be used for the populations. In addition, added order.pop= argument that will order the populations from smallest to largest predicted with in the first length interval. When used with the color gradients this will make it easier to see which populations cross over other populations.<br></p></li>
+<li><p><code>rlp()</code>: modified function so that the user can choose to use any-mm length intervals rather than having 10-mm hardwired. Modified output in list somewhat to more closely match the output of emp().</p></li>
 </ul>
 </div>
     <div id="fsa-00-10-1may08" class="section level1">
@@ -3296,13 +3321,20 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <a href="#fsa-00-10-1may08" class="anchor"></a>FSA 0.0-10 1May08<small> Unreleased </small>
 </h1>
 <ul>
-<li>lencat(): Modified by adding an as.fact= argument that allows the user to decide if the resulting variable should be returned as a factor variable or not. The default is set to return as a factor variable. This allows tables of the new variable to include zeros for levels of the new variable that contain no individuals. This makes some RSD/PSD (and likely age-length key) calculations simpler. Also added a drop.levels= argument to allow the user to drop unused levels if so desired.</li>
-<li>mr.closed(): This function is a combination of the old mr.closed1() and mr.closed2(). It also allows the user to compute single census estimates with multiple sub-groups in the data (i.e., length- or age-classes). The function also allows the user to compute an overall population esitmate of multiple sub-groups are present and an overall SE if the incl.SE=TRUE is used. It also corrects the SE computations implemented in version 0.0-9. This change caused the construction of our internal functions – mrc1, mrc2, ci.mrc1, and ci.mrc2.</li>
-<li>mr.closed1(): removed this function. Use mr.closed() instead.</li>
-<li>mr.closed2(): removed this function. Use mr.closed() instead.</li>
-<li>PSDval(): Added mm= argument so that metric result can be returned in mm. Also added incl.zero= argument that will include a zer* value in the first position in the vector; this is useful for when creating PSD/RSD values.</li>
-<li>rcumsum(): Added this function (from NCStats).</li>
-<li>RSDval(): See PSDval description.</li>
+<li>
+<code><a href="../reference/lencat.html">lencat()</a></code>: Modified by adding an as.fact= argument that allows the user to decide if the resulting variable should be returned as a factor variable or not. The default is set to return as a factor variable. This allows tables of the new variable to include zeros for levels of the new variable that contain no individuals. This makes some RSD/PSD (and likely age-length key) calculations simpler. Also added a drop.levels= argument to allow the user to drop unused levels if so desired.</li>
+<li>
+<code>mr.closed()</code>: This function is a combination of the old mr.closed1() and mr.closed2(). It also allows the user to compute single census estimates with multiple sub-groups in the data (i.e., length- or age-classes). The function also allows the user to compute an overall population esitmate of multiple sub-groups are present and an overall SE if the incl.SE=TRUE is used. It also corrects the SE computations implemented in version 0.0-9. This change caused the construction of our internal functions – mrc1, mrc2, ci.mrc1, and ci.mrc2.</li>
+<li>
+<code>mr.closed1()</code>: removed this function. Use mr.closed() instead.</li>
+<li>
+<code>mr.closed2()</code>: removed this function. Use mr.closed() instead.</li>
+<li>
+<code>PSDval()</code>: Added mm= argument so that metric result can be returned in mm. Also added incl.zero= argument that will include a zer* `value in the first position in the vector; this is useful for when creating PSD/RSD values.</li>
+<li>
+<code><a href="../reference/rcumsum.html">rcumsum()</a></code>: Added this function (from NCStats).</li>
+<li>
+<code>RSDval()</code>: See PSDval description.</li>
 </ul>
 </div>
     <div id="fsa-00-9-unknown" class="section level1">
@@ -3310,16 +3342,26 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <a href="#fsa-00-9-unknown" class="anchor"></a>FSA 0.0-9 unknown<small> Unreleased </small>
 </h1>
 <ul>
-<li>age.comp(): Corrected SE calculation used to construct the CIs. Changed the CI plotting routine to use plotCI in plotrix package – this puts lines rather than points on the ends of the CIs. Added a check for computing SDs and CIs for when n=1 or when all measurements are the same. This reduces (eliminates?) the number of warnings that are given.</li>
-<li>catch.curve(): added na.rm=TRUE arguments to min() and max() in plot.CC(). Changed type= argument so that “params” is the default rather than “lm”. This makes it more consistent with other simulation programs.</li>
-<li>cc.sim(): Put in catch for situations where the CV for No and Z were equal to zero. Originally, the program attempted to computed a random number from a normal distribution with a standard deviation of zero. This corrected the problem of n* lines appearing unless the CVs were greater than zero.</li>
-<li>ch.convert(): STARTED A FUNCTION to CONVERT B/W CAPTURE HISTORY FORMATS. N* RD FILE YET.</li>
-<li>depletion(): Moved type= argument to third position. Will more easily allow type=“Leslie” as a default (i.e., can just enter catch and effort vector.</li>
-<li>FSAsims(): Added a “mark-recap” menu section. Added a chapman 1-sample M-R item to the menu.</li>
-<li>leslie.sim(): corrected the conditionals on p.surv and r.prop so that it asks if any not the first value is less than 1. This corrects the problem of R returning a large number of warnings.</li>
-<li>leslie.sim2(): corrected the call to depletion() so that the type of model (“Leslie”) was the third rather than the first argument. This was caused by a change in the usage of depletion in previous version changes.</li>
-<li>mr.closed1(): Modified output list to include an estimate of the variance as described in Ricker(1975).</li>
-<li>summary.MRC1(): Modified output so that (1) the given information is a little easier to read, (2) the population estimate is returned in a matrix, (3) the SE from Ricker(1975) can be included in the outputm, and (4) a label can be placed on row for the matrix output. The purpose of these changes was to allow the SE to be computed and to allow future functions to more flexibly use the output.</li>
+<li>
+<code>age.comp()</code>: Corrected SE calculation used to construct the CIs. Changed the CI plotting routine to use plotCI in plotrix package – this puts lines rather than points on the ends of the CIs. Added a check for computing SDs and CIs for when n=1 or when all measurements are the same. This reduces (eliminates?) the number of warnings that are given.</li>
+<li>
+<code>catch.curve()</code>: added na.rm=TRUE arguments to min() and max() in plot.CC(). Changed type= argument so that “params” is the default rather than “lm”. This makes it more consistent with other simulation programs.</li>
+<li>
+<code>cc.sim()</code>: Put in catch for situations where the CV for No and Z were equal to zero. Originally, the program attempted to computed a random number from a normal distribution with a standard deviation of zero. This corrected the problem of n* `lines appearing unless the CVs were greater than zero.</li>
+<li>
+<code>ch.convert()</code>: STARTED A FUNCTION to CONVERT B/W CAPTURE HISTORY FORMATS. N* `RD FILE YET.</li>
+<li>
+<code><a href="../reference/depletion.html">depletion()</a></code>: Moved type= argument to third position. Will more easily allow type=“Leslie” as a default (i.e., can just enter catch and effort vector.</li>
+<li>
+<code>FSAsims()</code>: Added a “mark-recap” menu section. Added a chapman 1-sample M-R item to the menu.</li>
+<li>
+<code>leslie.sim()</code>: corrected the conditionals on p.surv and r.prop so that it asks if any not the first value is less than 1. This corrects the problem of R returning a large number of warnings.</li>
+<li>
+<code>leslie.sim2()</code>: corrected the call to depletion() so that the type of model (“Leslie”) was the third rather than the first argument. This was caused by a change in the usage of depletion in previous version changes.</li>
+<li>
+<code>mr.closed1()</code>: Modified output list to include an estimate of the variance as described in Ricker(1975).</li>
+<li>
+<code>summary.MRC1()</code>: Modified output so that (1) the given information is a little easier to read, (2) the population estimate is returned in a matrix, (3) the SE from Ricker(1975) can be included in the outputm, and (4) a label can be placed on row for the matrix output. The purpose of these changes was to allow the SE to be computed and to allow future functions to more flexibly use the output.</li>
 </ul>
 </div>
     <div id="fsa-00-8-unknown" class="section level1">
@@ -3328,20 +3370,20 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 </h1>
 <ul>
 <li><p>changed some \items to \tabular in RD files. Changed most hard-wired quotes to \sQuote or \dQuote in RD files. Changed some text-based equations to more latex-based equations in \eqn or \deqn markups. This fixed the Latex compilation problems that I was having when using RCMD check.</p></li>
-<li><p>age.comp(): Removed single-letter values from the what= argument. Will rely on partial matching.</p></li>
-<li><p>age.key(): Changed default name for new column with ages from “Age” to “age”. Added example.<br></p></li>
-<li><p>coefplot.WLGM(): Changed to use plotCI() from the plotrix package. This removed the for loop that I had programmed. This also added the sfrac= and gap= arguments. Updated the RD.</p></li>
-<li><p>depletion(): Removed single-letter and lower-case values from the type= argument. Will rely on partial matching.</p></li>
-<li><p>lencat(): Changed d argument to df.</p></li>
-<li><p>lenfreq.expand(): Changed d argument to df.</p></li>
-<li><p>mr.open(): Added match.arg functionality to the ci.type and phi.type arguments.</p></li>
-<li><p>plot.RLP(): Added “object &lt;- x” to allow x to be used inside the curve() function without confusion.</p></li>
-<li><p>removal(): Removed abbreviated values from the type= argument. Will rely on partial matching.</p></li>
-<li><p>rlp(): Added examples from Murphy et al. (1990)</p></li>
-<li><p>stock.recruit(): Removed abbreviated values from the type= argument – will rely on partial matching. Changed sumtype argument to what.</p></li>
-<li><p>stock.recruit.sim(): Changed model argument to type and added param argument (to make compatible with stock.recruit). Moved R and S arguments to beginning of argument string (more compatible with stock.recruit). STILL NEED to ADD SECOND RICKER MODEL.</p></li>
-<li><p>vb.comp(): Changed d argument to df.</p></li>
-<li><p>wlgm.RD(): Added example code. Added some details.</p></li>
+<li><p><code>age.comp()</code>: Removed single-letter values from the what= argument. Will rely on partial matching.</p></li>
+<li><p><code>age.key()</code>: Changed default name for new column with ages from “Age” to “age”. Added example.</p></li>
+<li><p><code>coefplot.WLGM()</code>: Changed to use plotCI() from the plotrix package. This removed the for loop that I had programmed. This also added the sfrac= and gap= arguments. Updated the RD.</p></li>
+<li><p><code><a href="../reference/depletion.html">depletion()</a></code>: Removed single-letter and lower-case values from the type= argument. Will rely on partial matching.</p></li>
+<li><p><code><a href="../reference/lencat.html">lencat()</a></code>: Changed d argument to df.</p></li>
+<li><p><code>lenfreq.expand()</code>: Changed d argument to df.</p></li>
+<li><p><code>mr.open()</code>: Added match.arg functionality to the ci.type and phi.type arguments.</p></li>
+<li><p><code>plot.RLP()</code>: Added “object &lt;- x” to allow x to be used inside the curve() function without confusion.</p></li>
+<li><p><code><a href="../reference/removal.html">removal()</a></code>: Removed abbreviated values from the type= argument. Will rely on partial matching.</p></li>
+<li><p><code>rlp()</code>: Added examples from Murphy et al. (1990)</p></li>
+<li><p><code>stock.recruit()</code>: Removed abbreviated values from the type= argument – will rely on partial matching. Changed sumtype argument to what.</p></li>
+<li><p><code>stock.recruit.sim()</code>: Changed model argument to type and added param argument (to make compatible with stock.recruit). Moved R and S arguments to beginning of argument string (more compatible with stock.recruit). STILL NEED to ADD SECOND RICKER MODEL.</p></li>
+<li><p><code>vb.comp()</code>: Changed d argument to df.</p></li>
+<li><p><code>wlgm.RD()</code>: Added example code. Added some details.</p></li>
 </ul>
 </div>
     <div id="fsa-00-7-unknown" class="section level1">
@@ -3351,23 +3393,23 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <ul>
 <li><p>changed to compiling under R 2.6.1.</p></li>
 <li><p>added FSA.R file that loads the required librarys.</p></li>
-<li><p>now depends on MASS package because of the creation of the boxcox.WLGM() function and on the plotrix package for elements of ycplot().</p></li>
-<li><p>add.radcap(): Created this function to add the radius-at-capture to a one-fish-per-line data frame of increments.</p></li>
-<li><p>age.comp(): Added a match.arg() call for the what argument.</p></li>
-<li><p>age.key(): Corrected =T or =F to =TRUE or =FALSE.</p></li>
-<li><p>cc.sim(): Corrected the use of z.param with correct use of Z.param.</p></li>
-<li><p>coefplot(): A new generic function for plotting coefficients from a Weisberg Linear Growth Model analysis.</p></li>
-<li><p>g.convert(): Changed arguments from data and measure.var to df and in.var. Included match.arg() for the type argument. Moved type argument as it now has a default. Added the in.pre argument that allows the user to identify all input variables by a common prefix rather than having to list them out in in.var. Added the out.pre argument that allows the user to control the prefix for the newly created variables in the output data frame. Updated help file.</p></li>
-<li><p>g.reshape(): Changed arguments from data and prefix to df and in.pre. Deleted the measure.var argument. Moved new in.pre argument forward and na.rm argument backward in the argument list. Used in.pre to identify the measure.var variables to send to the melt function. If id.var is left blank (and in.pre is not) then id.var is the remaining variables not identified by in.pre. The val.name argument was set equal to in.pre as the default.</p></li>
-<li><p>leslie.sim(): Corrected call to old leslie() function with a correct call to depletion() function with type=“Leslie”.</p></li>
-<li><p>leslie.sim2(): Corrected two calls to old leslie() function with correct calls to depletion() function with type=“Leslie”.</p></li>
-<li><p>leslie.rand.run(): Moved R Documentation alias to FSA-internal.RD.</p></li>
-<li><p>mr.closed2(): Forced the function to use the lowess() function in the stats rather than the gplots package (which is loaded from NCStats). Also changed the loess.f argument to f and added the iter argument for sending to lowess().</p></li>
-<li><p>confint.MRO(): Put in a logical catch when printing the confidence intervals because if ci.type=“Manly” then CIs for B are not computed.</p></li>
-<li><p>summary.MRO(): Put in a logical catch when printing the estimates because if ci.type=“Manly” then SEs are not computed.</p></li>
-<li><p>plot.RLP(): Corrected =T or =F to =TRUE or =FALSE.</p></li>
-<li><p>wlgm(): Created a method with a number of generics (alias, anova, boxcox, coef, coefplot, confint, ycplot) for performing the Weisberg Linear Growth Model.</p></li>
-<li><p>ycplot(): A new generic function for creating a year-class plot for the Weisberg Linear Growth Model analysis.</p></li>
+<li><p>now depends on <code>MASS</code> package because of the creation of the <code>boxcox.WLGM()</code> function and on the <code>plotrix</code> package for elements of <code>ycplot()</code>.</p></li>
+<li><p><code>add.radcap()</code>: Created this function to add the radius-at-capture to a one-fish-per-line data frame of increments.</p></li>
+<li><p><code>age.comp()</code>: Added a <code><a href="https://rdrr.io/r/base/match.arg.html">match.arg()</a></code> call for the what argument.</p></li>
+<li><p><code>age.key()</code>: Corrected <code>=T</code> or <code>=F</code> to <code>=TRUE</code> or <code>=FALSE</code>.</p></li>
+<li><p><code>cc.sim()</code>: Corrected the use of <code>z.param</code> with correct use of <code>Z.param</code>.</p></li>
+<li><p><code>coefplot()</code>: A new generic function for plotting coefficients from a Weisberg Linear Growth Model analysis.</p></li>
+<li><p><code>g.convert()</code>: Changed arguments from data and measure.var to df and in.var. Included <code><a href="https://rdrr.io/r/base/match.arg.html">match.arg()</a></code> for the type argument. Moved type argument as it now has a default. Added the in.pre argument that allows the user to identify all input variables by a common prefix rather than having to list them out in in.var. Added the out.pre argument that allows the user to control the prefix for the newly created variables in the output data frame. Updated help file.</p></li>
+<li><p><code>g.reshape()</code>: Changed arguments from data and prefix to df and in.pre. Deleted the measure.var argument. Moved new in.pre argument forward and na.rm argument backward in the argument list. Used in.pre to identify the measure.var variables to send to the melt function. If id.var is left blank (and in.pre is not) then id.var is the remaining variables not identified by in.pre. The val.name argument was set equal to in.pre as the default.</p></li>
+<li><p><code>leslie.sim()</code>: Corrected call to old <code>leslie()</code> function with a correct call to <code><a href="../reference/depletion.html">depletion()</a></code> function with <code>type="Leslie"</code>.</p></li>
+<li><p><code>leslie.sim2()</code>: Corrected two calls to old <code>leslie()</code> function with correct calls to <code><a href="../reference/depletion.html">depletion()</a></code> function with <code>type="Leslie"</code>.</p></li>
+<li><p><code>leslie.rand.run()</code>: Moved R Documentation alias to FSA-internal.RD.</p></li>
+<li><p><code>mr.closed2()</code>: Forced the function to use the <code><a href="https://rdrr.io/r/stats/lowess.html">lowess()</a></code> function in the stats rather than the gplots package (which is loaded from <code>NCStats</code>). Also changed the <code>loess.f</code> argument to f and added the iter argument for sending to <code><a href="https://rdrr.io/r/stats/lowess.html">lowess()</a></code>.</p></li>
+<li><p><code>confint.MRO()</code>: Put in a logical catch when printing the confidence intervals because if <code>ci.type="Manly"</code> then CIs for B are not computed.</p></li>
+<li><p><code>summary.MRO()</code>: Put in a logical catch when printing the estimates because if <code>ci.type="Manly"</code> then SEs are not computed.</p></li>
+<li><p><code>plot.RLP()</code>: Corrected <code>=T</code> or <code>=F</code> to <code>=TRUE</code> or <code>=FALSE</code>.</p></li>
+<li><p><code>wlgm()</code>: Created a method with a number of generics (alias, anova, boxcox, coef, coefplot, confint, ycplot) for performing the Weisberg Linear Growth Model.</p></li>
+<li><p><code>ycplot()</code>: A new generic function for creating a year-class plot for the Weisberg Linear Growth Model analysis.</p></li>
 </ul>
 </div>
     <div id="fsa-00-6-unknown" class="section level1">
@@ -3375,24 +3417,42 @@ In addition, if the type is one of Zippin, CarleStrub, or Seber3 then a set of i
 <a href="#fsa-00-6-unknown" class="anchor"></a>FSA 0.0-6 unknown<small> Unreleased </small>
 </h1>
 <ul>
-<li>agebias.plot(): deleted and replaced with agecomp and plot.AgeComp functions.</li>
-<li>agesunflower.plot(): deleted and replaced with agecomp and plot.AgeComp functions.</li>
-<li>agecomp(): a new function that, along with its extractor functions, combines all of the functionality of the old age.tests, age.symmetry, agebias.plot, and agesunflower.plot. Allows for a more seamless comparison of ageing reads.</li>
-<li>plot.AgeComp(): an extractor function for objects saved from the agecomp function. This replaces the old agebias.plot and agesunflower.plot functions.</li>
-<li>summary.Agecomp(): an extractor function for objects saved from the agecomp function. This replaces the old age.tests and age.symmetry functions.</li>
-<li>age.symmetry(): deleted and replaced with agecomp and summary.AgeComp functions.</li>
-<li>age.tests(): deleted and replaced with agecomp and summary.AgeComp functions.</li>
-<li>cc.sim(): modified graphic to (1) include assumption violation labels on top of the graph and (2) label y-axis with “log(Catch)” rather than “ln(Catch)”.</li>
-<li>delury(): deleted and replaced with depletion function. See notes for depletion function.</li>
-<li>depletion(): created a new function that performs the Leslie or Delury method as determined by a user-defined argument to type. This function replaces the old leslie and delury functions. All extractor functions for the class “LeslieDelury” have now been changed to class “Depletion”.</li>
-<li>plot.Depletion(): correct xlab so that it defaults to “Cumulative Effort” for the Delury method.</li>
-<li>leslie(): deleted and replaced with depletion function. See notes for depletion function.</li>
-<li>leslie.sim(): modified graphic to include assumption violation labels on top of the graph.</li>
-<li>mr.open(): modified est.N() internal function so that N is set equal to n if N&lt;n. In other words, if the sample size at time i is larger than the estimated population size at time i then the estimated population size is set equal to the observed sample size. This corrects the problem of the N.se calculation attempting to take the square root of a negative number causing the mr.open() function to shut down.</li>
-<li>pass.removal(): changed name to removal.</li>
-<li>removal(): new name for old pass.removal function.</li>
-<li>rlp(): new name for old (upper-case) RLP.</li>
-<li>RLP(): changed name to (lower-case) rlp.</li>
+<li>
+<code>agebias.plot()</code>: deleted and replaced with agecomp and plot.AgeComp functions.</li>
+<li>
+<code>agesunflower.plot()</code>: deleted and replaced with agecomp and plot.AgeComp functions.</li>
+<li>
+<code>agecomp()</code>: a new function that, along with its extractor functions, combines all of the functionality of the old <code>age.tests()</code>, <code>age.symmetry()</code>, <code>agebias.plot()</code>, and <code>agesunflower.plot()</code>. Allows for a more seamless comparison of ageing reads.</li>
+<li>
+<code>plot.AgeComp()</code>: an extractor function for objects saved from the <code>agecomp()</code> function. This replaces the old <code>agebias.plot()</code> and <code>agesunflower.plot()</code> functions.</li>
+<li>
+<code>summary.Agecomp()</code>: an extractor function for objects saved from the <code>agecomp()</code> function. This replaces the old <code>age.tests()</code> and <code>age.symmetry()</code> functions.</li>
+<li>
+<code>age.symmetry()</code>: deleted and replaced with <code>agecomp()</code> and <code>summary.AgeComp()</code> functions.</li>
+<li>
+<code>age.tests()</code>: deleted and replaced with <code>agecomp()</code> and <code>summary.AgeComp()</code> functions.</li>
+<li>
+<code>cc.sim()</code>: modified graphic to (1) include assumption violation labels on top of the graph and (2) label y-axis with “log(Catch)” rather than “ln(Catch)”.</li>
+<li>
+<code>delury()</code>: deleted and replaced with <code><a href="../reference/depletion.html">depletion()</a></code> function. See notes for <code><a href="../reference/depletion.html">depletion()</a></code> function.</li>
+<li>
+<code><a href="../reference/depletion.html">depletion()</a></code>: created a new function that performs the Leslie or Delury method as determined by a user-defined argument to type. This function replaces the old <code>leslie()</code> and <code>delury()</code> functions. All extractor functions for the class “LeslieDelury” have now been changed to class “Depletion”.</li>
+<li>
+<code>plot.Depletion()</code>: correct xlab so that it defaults to “Cumulative Effort” for the Delury method.</li>
+<li>
+<code>leslie()</code>: deleted and replaced with depletion function. See notes for depletion function.</li>
+<li>
+<code>leslie.sim()</code>: modified graphic to include assumption violation labels on top of the graph.</li>
+<li>
+<code>mr.open()</code>: modified <code>est.N()</code> internal function so that N is set equal to n if N&lt;n. In other words, if the sample size at time i is larger than the estimated population size at time i then the estimated population size is set equal to the observed sample size. This corrects the problem of the <code>N.se</code> calculation attempting to take the square root of a negative number causing the <code>mr.open()</code> function to shut down.</li>
+<li>
+<code>pass.removal()</code>: changed name to removal.</li>
+<li>
+<code><a href="../reference/removal.html">removal()</a></code>: new name for old pass.removal function.</li>
+<li>
+<code>rlp()</code>: new name for old (upper-case) RLP.</li>
+<li>
+<code>RLP()</code>: changed name to (lower-case) rlp.</li>
 </ul>
 </div>
   </div>
