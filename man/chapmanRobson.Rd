@@ -44,8 +44,10 @@ chapmanRobson(x, ...)
   x,
   pos.est = "topright",
   cex.est = 0.95,
+  round.est = c(3, 1),
   ylab = "Catch",
   xlab = "Age",
+  ylim = NULL,
   col.pt = "gray30",
   axis.age = c("both", "age", "recoded age"),
   ...
@@ -78,9 +80,13 @@ chapmanRobson(x, ...)
 
 \item{cex.est}{A single numeric character expansion value for the estimated mortality rates on the plot.}
 
+\item{round.est}{A numeric that indicates the number of decimal place to which Z (first value) and S (second value) should be rounded. If only one value then it will be used for both Z and S.}
+
 \item{ylab}{A label for the y-axis (\code{"Catch"} is the default).}
 
 \item{xlab}{A label for the x-axis (\code{"Age"} is the default).}
+
+\item{ylim}{A numeric for the limits of the y-axis. If \code{NULL} then will default to 0 or the lowest catch and a maximum of the maximum catch. If a single value then it will be the maximum of the y-axis. If two values then these will the minimum and maximum values of the y-axis.}
 
 \item{col.pt}{A string that indicates the color of the plotted points.}
 

@@ -15,8 +15,10 @@
 #' @param verbose A logical that indicates whether the method should return just the estimate (\code{FALSE}; default) or a more verbose statement.
 #' @param pos.est A string to identify where to place the estimated mortality rates on the plot. Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot. Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements. Set \code{pos.est} to \code{NULL} to remove the estimated mortality rates from the plot.
 #' @param cex.est A single numeric character expansion value for the estimated mortality rates on the plot.
+#' @param round.est A numeric that indicates the number of decimal place to which Z (first value) and S (second value) should be rounded. If only one value then it will be used for both Z and S.
 #' @param ylab A label for the y-axis (\code{"Catch"} is the default).
 #' @param xlab A label for the x-axis (\code{"Age"} is the default).
+#' @param ylim A numeric for the limits of the y-axis. If \code{NULL} then will default to 0 or the lowest catch and a maximum of the maximum catch. If a single value then it will be the maximum of the y-axis. If two values then these will the minimum and maximum values of the y-axis.
 #' @param col.pt A string that indicates the color of the plotted points.
 #' @param axis.age A string that indicates the type of x-axis to display. The \code{age} will display only the original ages, \code{recoded age} will display only the recoded ages, and \code{both} (DEFAULT) displays the original ages on the main axis and the recoded ages on the secondary axis.
 #' @param parm A numeric or string (of parameter names) vector that specifies which parameters are to be given confidence intervals  If missing, all parameters are considered.
@@ -96,7 +98,9 @@ chapmanRobson <- function (x,...) {
 
 #' @rdname chapmanRobson
 #' @export
-chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Smithetal","Hoenigetal","original"),...) {
+chapmanRobson.default <- function(x,catch,ages2use=age,
+                                  zmethod=c("Smithetal","Hoenigetal","original"),
+                                  ...) {
   ## Put x into age variable for rest of function
   age <- x
   
@@ -155,20 +159,27 @@ chapmanRobson.default <- function(x,catch,ages2use=age,zmethod=c("Smithetal","Ho
   mres <- cbind(c(100*S.est,Z.est),c(100*S.SE,Z.SE))
   rownames(mres) <- c("S","Z")
   colnames(mres) <- c("Estimate","Std. Error")
-  cr <- list(age=age,catch=catch,age.e=age.e,catch.e=catch.e,age.r=age.r,n=n,T=T,est=mres)
+  cr <- list(age=age,catch=catch,age.e=age.e,catch.e=catch.e,
+             age.r=age.r,n=n,T=T,est=mres)
   class(cr) <- "chapmanRobson"
   cr
 }
 
 #' @rdname chapmanRobson
 #' @export
-chapmanRobson.formula <- function(x,data,ages2use=age,zmethod=c("Smithetal","Hoenigetal","original"),...) {
+chapmanRobson.formula <- function(x,data,ages2use=age,
+                                  zmethod=c("Smithetal","Hoenigetal","original"),
+                                  ...) {
   ## Handle the formula and perform some checks
   tmp <- iHndlFormula(x,data,expNumR=1,expNumE=1)
-  if (!tmp$metExpNumR) STOP("'chapmanRobson' must have only one LHS variable.")
-  if (!tmp$Rclass %in% c("numeric","integer")) STOP("LHS variable must be numeric.")
-  if (!tmp$metExpNumE) STOP("'chapmanRobson' must have only one RHS variable.")
-  if (!tmp$Eclass %in% c("numeric","integer")) STOP("RHS variable must be numeric.")
+  if (!tmp$metExpNumR)
+    STOP("'chapmanRobson' must have only one LHS variable.")
+  if (!tmp$Rclass %in% c("numeric","integer"))
+    STOP("LHS variable must be numeric.")
+  if (!tmp$metExpNumE)
+    STOP("'chapmanRobson' must have only one RHS variable.")
+  if (!tmp$Eclass %in% c("numeric","integer"))
+    STOP("RHS variable must be numeric.")
   ## Get variables from model frame
   age <- tmp$mf[,tmp$Enames]
   catch <- tmp$mf[,tmp$Rname]
@@ -178,10 +189,12 @@ chapmanRobson.formula <- function(x,data,ages2use=age,zmethod=c("Smithetal","Hoe
 
 #' @rdname chapmanRobson
 #' @export
-summary.chapmanRobson <- function(object,parm=c("all","both","Z","S"),verbose=FALSE,...) {
+summary.chapmanRobson <- function(object,parm=c("all","both","Z","S"),
+                                  verbose=FALSE,...) {
   parm <- match.arg(parm)
   if (verbose) message("Intermediate statistics: ","n=",object$n,"; T=",object$T)
-  if (!parm %in% c("all","both")) object$est[which(rownames(object$est)==parm),,drop=FALSE]
+  if (!parm %in% c("all","both"))
+    object$est[which(rownames(object$est)==parm),,drop=FALSE]
   else object$est
 }
 
@@ -201,7 +214,8 @@ coef.chapmanRobson <- function(object,parm=c("all","both","Z","S"),...) {
 confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),
                                   level=conf.level,conf.level=0.95,...) {
   parm <- match.arg(parm)
-  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
+  if (conf.level<=0 | conf.level>=1)
+    STOP("'conf.level' must be between 0 and 1")
   z <- c(-1,1)*stats::qnorm((1-(1-conf.level)/2))
   res <- rbind(S=object$est["S","Estimate"]+z*object$est["S","Std. Error"],
                Z=object$est["Z","Estimate"]+z*object$est["Z","Std. Error"])
@@ -213,8 +227,9 @@ confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),
 
 #' @rdname chapmanRobson
 #' @export
-plot.chapmanRobson <- function(x,pos.est="topright",cex.est=0.95,
-                               ylab="Catch",xlab="Age",col.pt="gray30",
+plot.chapmanRobson <- function(x,pos.est="topright",cex.est=0.95,round.est=c(3,1),
+                               ylab="Catch",xlab="Age",ylim=NULL,
+                               col.pt="gray30",
                                axis.age=c("both","age","recoded age"),...) {
   # nocov start
   # Get axis type
@@ -225,10 +240,17 @@ plot.chapmanRobson <- function(x,pos.est="topright",cex.est=0.95,
     npar$mar[1] <- 2.25*npar$mar[1]
     withr::local_par(list(mar=npar$mar))
   }
-  # Find range for y-axis
-  yrng <- c(min(0,min(x$catch,na.rm=TRUE)),max(x$catch,na.rm=TRUE))
+  # Handle ylim ... if null then set at range of log catch (or min at 0)
+  #   if only one value then treat that value as the maximum for y-axis
+  #   if more than two values then send error
+  if (is.null(ylim)) ylim <- c(min(0,min(x$catch,na.rm=TRUE)),
+                               max(x$catch,na.rm=TRUE))
+  else if (length(ylim)==1) ylim <- c(min(0,min(x$catch,na.rm=TRUE)),ylim)
+  else if (length(ylim)>2)
+    STOP("'ylim' may not have more than two values.")
   # Plot raw data
-  graphics::plot(x$catch~x$age,col=col.pt,xlab="",ylab=ylab,ylim=yrng,xaxt="n",...)
+  graphics::plot(x$catch~x$age,col=col.pt,
+                 xlab="",ylab=ylab,ylim=ylim,xaxt="n",...)
   # Highlight descending limb portion
   graphics::points(x$age.e,x$catch.e,col=col.pt,pch=19)
   # Handle age-axis
@@ -246,9 +268,13 @@ plot.chapmanRobson <- function(x,pos.est="topright",cex.est=0.95,
   }
   # Put mortality values on plot
   if (!is.null(pos.est)) {
-    Z <- x$est["Z","Estimate"]
-    S <- x$est["S","Estimate"]
-    graphics::legend(pos.est,legend=paste0("Z=",round(Z,3),"\nS=",round(S,1),"%"),
+    # Check round.est values first
+    if (length(round.est)==1) round.est <- rep(round.est,2)
+    else if (length(round.est)>2)
+      WARN("'round.est' has more than two values; only first two were used.")
+    Z <- round(x$est["Z","Estimate"],round.est[1])
+    S <- round(x$est["S","Estimate"],round.est[2])
+    graphics::legend(pos.est,legend=paste0("Z=",Z,"\nS=",S,"%"),
                      bty="n",cex=cex.est)
   }
 } # nocov end
