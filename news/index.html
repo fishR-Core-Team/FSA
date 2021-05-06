@@ -129,6 +129,10 @@
 <ul>
 <li>Added Jason Doll as an <code>AUThor</code>.</li>
 <li>
+<code>catchCurve</code>: Modified. Removed hard-coding of <code>ylim=</code> for <code><a href="../reference/catchCurve.html">plot.catchCurve()</a></code> (this addresses <a href="https://github.com/droglenc/FSA/issues/70"><a href='https://github.com/droglenc/FSA/issues/70'>#70</a></a> … Thanks to Brendan Runde). Added <code>round.est=</code> so that the user can control the decimals on mortality estimate values.</li>
+<li>
+<code>chapmanRobson</code>: Modified. Removed hard-coding of <code>ylim=</code> for <code><a href="../reference/chapmanRobson.html">plot.chapmanRobson()</a></code>. Added <code>round.est=</code> so that the user can control the decimals on mortality and survival estimate values.</li>
+<li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> in <code>iPSDlitCheck()</code> to <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>PSDlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>).</li>
 <li>
 <code>PSDlit</code>: Modified. Added length categories for Shoal Bass. Added Striped Bass (Hybrid) and Striped Bass x White Bass; though these are the same as the existing Palmetto Bass.</li>
