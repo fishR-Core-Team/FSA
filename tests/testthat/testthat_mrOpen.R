@@ -1,16 +1,15 @@
 ## Data and results for tests ----
 # Setup some matrices
 good.top <- matrix(c(
-  NA,15, 1, 0, 0,
-  NA,NA,13, 3, 0,
-  NA,NA,NA,10, 5,
-  NA,NA,NA,NA, 9,
-  NA,NA,NA,NA,NA),nrow=5,byrow=TRUE)
+  NA,3, 2, 1,
+  NA,NA,2, 2,
+  NA,NA,NA,2,
+  NA,NA,NA,NA),nrow=4,byrow=TRUE)
 good.bot <- matrix(c(
-  15,14,13, 5,
-  10, 9, 8,11,
-  25,23,21,16,
-  25,23,21,16),nrow=4,byrow=TRUE,
+   0, 3, 4, 4,
+  27,15,10, 5,
+  27,18,14, 9,
+  17,18,14, 0),nrow=4,byrow=TRUE,
   dimnames=list(c("m","u","n","R")))
 
 ## CutthroatAL Example
@@ -132,6 +131,22 @@ BJ <- c(NA,263.2,291.8,406.4,96.9,107.0,135.7,-13.8,49.0,84.1,74.5,NA,NA)
 jollyres <- mrOpen(jolly.top,jolly.bot)
 
 
+## A top and bottom that creates infinity SEs
+inf.top <- matrix(c(NA,NA,NA,NA,
+                    1,NA,NA,NA,
+                    0,5,NA,NA,
+                    1,1,0,NA),nrow=4)
+
+inf.bot <- matrix(c(0,3,3,3,
+                    1,4,5,5,
+                    5,0,5,5,
+                    2,1,3,3),nrow=4)
+rownames(inf.bot)<-c("m","u","n","R")
+
+inf.top2 <- good.top
+inf.bot2 <- good.bot
+inf.bot2["R",1] <- 0
+
 ## Test Messages ----
 test_that("mrOpen() messages",{
   ## a top but not a bottom, but with capHistSum
@@ -184,7 +199,12 @@ test_that("mrOpen() messages",{
   bad.bot["m",1] <- NA
   expect_error(mrOpen(good.top,bad.bot),
                "All values in 'mb.bot' must be non-NA")
-  
+
+  ## a message that will result in infinity SEs
+  expect_warning(mrOpen(inf.top,inf.bot),
+                 "Some SE for M and thus N will be infinity")
+
+    
   ## Confint
   expect_error(mrOpen(capHistSum(CutthroatAL,cols2use=-1),conf.level=0),
                "must be between 0 and 1")

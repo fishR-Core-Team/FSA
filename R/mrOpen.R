@@ -139,7 +139,7 @@ mrOpen <- function(mb.top,mb.bot=NULL,type=c("Jolly","Manly"),
   df <- data.frame(t(mb.bot))
   df <- df[,-which(names(df)=="u")]
   # Append r info
-  df$r <- iCalcr(mb.top,k)
+  df$r <- iCalcr(mb.top)
   # Append z info
   df$z <- iCalcz(mb.top,k)
   # Estimate M and append
@@ -239,10 +239,10 @@ iCheckMBtop <- function(mb.top) {
 ################################################################################
 ## INTERNAL -- function to calculate r (future catches of fish released in i)
 ################################################################################
-iCalcr <- function(mb.top,k) {
-  tmp <- apply(mb.top,1,sum,na.rm=TRUE)
+iCalcr <- function(mb.top) {
+  tmp <- rowSums(mb.top,na.rm=TRUE)
   # make last value NA
-  tmp[k] <- NA
+  tmp[length(tmp)] <- NA
   # return vector
   tmp
 }
@@ -266,10 +266,14 @@ iCalcz <- function(mb.top,k) {
 ## INTERNAL -- function to estimate M
 ################################################################################
 iEstM <- function(df) {
-  # Estimate marked fish (eqn 4.6 in Pollock et al. (1990), eqn 5.22 in Seber (2002))
+  # Estimate marked (eqn 4.6 in Pollock et al. (1990), eqn 5.22 in Seber (2002))
   df$M <- df$m+(df$R+1)*df$z/(df$r+1)
   # Standard error of marked fish (eqn 4.11 in Pollock et al. (1990))
-  df$M.se <- sqrt((df$M-df$m)*(df$M-df$m+df$R)*((1/df$r)-1/df$R))
+  if (any(df$r==0,na.rm=TRUE))
+    WARN("Some SE for M and thus N will be infinity because some r=0; i.e., future recaptures for some times are 0.")
+  if (any(df$R[-length(df$R)]==0,na.rm=TRUE))
+    WARN("Some SE for M and thus N will be infinity because some R=0 (not including the last); i.e., some times have no returned marked fish.")
+  suppressWarnings(df$M.se <- sqrt((df$M-df$m)*(df$M-df$m+df$R)*((1/df$r)-1/df$R)))
   df
 }
 
@@ -286,8 +290,9 @@ iEstN <- function(df,type,conf.level) {
   }
   switch(type,
          Jolly={
-           # SE of N (eqn 4.11 in Pollock et al. (1990))
-           df$N.se <- sqrt(df$N*(df$N-df$n)*((df$M-df$m+df$R)/df$M*((1/df$r)-(1/df$R))+((df$N-df$M)/(df$N*df$m))))
+           # SE of N (eqn 4.12 in Pollock et al. (1990))
+           # warnings about infinities in the SE were already issued re: M
+           suppressWarnings(df$N.se <- sqrt(df$N*(df$N-df$n)*((df$M-df$m+df$R)/df$M*((1/df$r)-(1/df$R))+((df$N-df$M)/(df$N*df$m)))))
            # Normal theory CI
            zstar <- stats::qnorm(1-(1-conf.level)/2)
            df$N.lci <- df$N-zstar*df$N.se
