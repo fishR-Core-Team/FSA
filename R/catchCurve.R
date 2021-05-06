@@ -15,8 +15,10 @@
 #' @param negWeightReplace A single non-negative numeric that will replace negative weights (defaults to 0). Only used when \code{weighted=TRUE}. See details.
 #' @param pos.est A string to identify where to place the estimated mortality rates on the plot. Can be set to one of \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, \code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"} or \code{"center"} for positioning the estimated mortality rates on the plot. Typically \code{"bottomleft"} (DEFAULT) and \code{"topright"} will be \dQuote{out-of-the-way} placements. Set \code{pos.est} to \code{NULL} to remove the estimated mortality rates from the plot.
 #' @param cex.est A single numeric character expansion value for the estimated mortality rates on the plot.
+#' @param round.est A numeric that indicates the number of decimal place to which Z (first value) and A (second value) should be rounded. If only one value then it will be used for both Z and A.
 #' @param ylab A label for the y-axis (\code{"log(Catch)"} is the default).
 #' @param xlab A label for the x-axis (\code{"Age"} is the default).
+#' @param ylim A numeric for the limits of the y-axis. If \code{NULL} then will default to a minimum of 0 or the lowest negative log catch and a maximum of the maximum log catch. If a single value then it will be the maximum of the y-axis. If two values then these will the minimum and maximum values of the y-axis.
 #' @param col.pt A string that indicates the color of the plotted points.
 #' @param col.mdl A string that indicates the color of the fitted line.
 #' @param lwd A numeric that indicates the line width of the fitted line.
@@ -113,13 +115,18 @@ catchCurve.default <- function(x,catch,ages2use=age,
   age <- x
   
   ## Some Checks
-  if (!is.numeric(x)) STOP("'x' must be numeric.")
-  if (!is.numeric(catch)) STOP("'catch' must be numeric.")
-  if (length(age)!=length(catch)) STOP("'age' and 'catch' are different lengths.")
+  if (!is.numeric(x))
+    STOP("'x' must be numeric.")
+  if (!is.numeric(catch))
+    STOP("'catch' must be numeric.")
+  if (length(age)!=length(catch))
+    STOP("'age' and 'catch' are different lengths.")
   # Check to make sure enough ages and catches exist
-  if (length(age)<2) STOP("Fewer than 2 data points.")
+  if (length(age)<2)
+    STOP("Fewer than 2 data points.")
   # Make sure negWeightReplace is non-negative
-  if (negWeightReplace<0) STOP("'negWeightReplace' must be non-negative.")
+  if (negWeightReplace<0)
+    STOP("'negWeightReplace' must be non-negative.")
 
   ## Isolate the ages and catches to be used  
   # Find rows to use according to ages to use
@@ -128,7 +135,8 @@ catchCurve.default <- function(x,catch,ages2use=age,
   age.e <- age[rows2use]
   catch.e <- catch[rows2use]
   # Check to make sure enough ages and catches exist
-  if (length(age.e)<2) STOP("Fewer than 2 data points after applying 'ages2use'.")
+  if (length(age.e)<2)
+    STOP("Fewer than 2 data points after applying 'ages2use'.")
   
   ## Fit the model to descending limb
   log.catch.e <- log(catch.e)
@@ -162,10 +170,14 @@ catchCurve.formula <- function(x,data,ages2use=age,
                                weighted=FALSE,negWeightReplace=0,...) {
   ## Handle the formula and perform some checks
   tmp <- iHndlFormula(x,data,expNumR=1,expNumE=1)
-  if (!tmp$metExpNumR) STOP("'catchCurve' must have only one LHS variable.")
-  if (!tmp$Rclass %in% c("numeric","integer")) STOP("LHS variable must be numeric.")
-  if (!tmp$metExpNumE) STOP("'catchCurve' must have only one RHS variable.")
-  if (!tmp$Eclass %in% c("numeric","integer")) STOP("RHS variable must be numeric.")
+  if (!tmp$metExpNumR)
+    STOP("'catchCurve' must have only one LHS variable.")
+  if (!tmp$Rclass %in% c("numeric","integer"))
+    STOP("LHS variable must be numeric.")
+  if (!tmp$metExpNumE)
+    STOP("'catchCurve' must have only one RHS variable.")
+  if (!tmp$Eclass %in% c("numeric","integer"))
+    STOP("RHS variable must be numeric.")
   ## Get variables from model frame
   age <- tmp$mf[,tmp$Enames]
   catch <- tmp$mf[,tmp$Rname]
@@ -216,7 +228,8 @@ anova.catchCurve <- function(object,...) {
 confint.catchCurve <- function(object,parm=c("all","both","Z","A","lm"),
                                level=conf.level,conf.level=0.95,...) {
   parm <- match.arg(parm)
-  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
+  if (conf.level<=0 | conf.level>=1)
+    STOP("'conf.level' must be between 0 and 1")
   ci <- stats::confint(object$lm,conf.level=level,...)
   if (parm=="lm") res <- ci
   else {
@@ -236,23 +249,36 @@ rSquared.catchCurve <- function(object,digits=getOption("digits"),
 
 #' @rdname catchCurve
 #' @export
-plot.catchCurve <- function(x,pos.est="topright",cex.est=0.95,
-                            ylab="log(Catch)",xlab="Age",
+plot.catchCurve <- function(x,pos.est="topright",cex.est=0.95,round.est=c(3,1),
+                            ylab="log(Catch)",xlab="Age",ylim=NULL,
                             col.pt="gray30",col.mdl="black",lwd=2,lty=1,...) {
 # nocov start
-  # Find the range of the y-axis
-  yrng <- c(min(0,min(log(x$catch),na.rm=TRUE)),max(log(x$catch),na.rm=TRUE))
+  # Handle ylim ... if null then set at range of log catch (or min at 0)
+  #   if only one value then treat that value as the maximum for y-axis
+  #   if more than two values then send error
+  if (is.null(ylim)) ylim <- c(min(0,min(log(x$catch),na.rm=TRUE)),
+                               max(log(x$catch),na.rm=TRUE))
+  else if (length(ylim)==1) ylim <- c(min(0,min(log(x$catch),na.rm=TRUE)),
+                                      ylim)
+  else if (length(ylim)>2) STOP("'ylim' may not have more than two values.")
   # Plot raw data
-  graphics::plot(log(x$catch)~x$age,col=col.pt,xlab=xlab,ylab=ylab,ylim=yrng,...)
+  graphics::plot(log(x$catch)~x$age,
+                 col=col.pt,xlab=xlab,ylab=ylab,ylim=ylim,...)
   # Highlight descending limb portion
-  graphics::points(x$age.e,x$log.catch.e,col=col.pt,pch=19)
+  graphics::points(x$age.e,x$log.catch.e,
+                   col=col.pt,pch=19)
   # Put model on descending limb
-  graphics::lines(x$age.e,stats::predict(x$lm,data.frame(x$age.e)),lwd=lwd,lty=lty,col=col.mdl)
+  graphics::lines(x$age.e,stats::predict(x$lm,data.frame(x$age.e)),
+                  lwd=lwd,lty=lty,col=col.mdl)
   # Put mortality values on the plot
   if (!is.null(pos.est)) {
-    Z <- -stats::coef(x$lm)[2]
-    A <- 100*(1-exp(-Z))
-    graphics::legend(pos.est,legend=paste0("Z=",round(Z,3),"\nA=",round(A,1),"%"),
+    # Check round.est values first
+    if (length(round.est)==1) round.est <- rep(round.est,2)
+    else if (length(round.est)>2)
+      WARN("'round.est' has more than two values; only first two were used.")
+    Z <- round(-stats::coef(x$lm)[2],round.est[1])
+    A <- round(100*(1-exp(-Z)),round.est[2])
+    graphics::legend(pos.est,legend=paste0("Z=",Z,"\nA=",A,"%"),
                      bty="n",cex=cex.est)
   }
 } # nocov end
@@ -270,7 +296,8 @@ plot.catchCurve <- function(x,pos.est="topright",cex.est=0.95,
 #=============================================================
 iCheck_ages2use <- function(ages2use,ages) {
   ## Can't have both positive and negative ages
-  if (any(ages2use<0) & any(ages2use>0)) STOP("'ages2use' must be all positive or negative.")
+  if (any(ages2use<0) & any(ages2use>0))
+    STOP("'ages2use' must be all positive or negative.")
   ## If all negative then those are ages not to use
   ##   create a vector of ages to use
   if (all(ages2use<=0)) {

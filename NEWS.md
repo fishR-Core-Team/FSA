@@ -1,5 +1,7 @@
 # FSA 0.9.0 ongoing
 * Added Jason Doll as an `AUThor`.
+* `catchCurve`: Modified. Removed hard-coding of `ylim=` for `plot.catchCurve()` (this addresses [#70](https://github.com/droglenc/FSA/issues/70) ... Thanks to Brendan Runde). Added `round.est=` so that the user can control the decimals on mortality estimate values.
+* `chapmanRobson`: Modified. Removed hard-coding of `ylim=` for `plot.chapmanRobson()`. Added `round.est=` so that the user can control the decimals on mortality and survival estimate values.
 * `psdAdd()`: Modified. Changed a `levels()` in `iPSDlitCheck()` to `unique()` because `species` is no longer a factor due to updating `PSDlit` (i.e., rdata file changed with new `read.csv()`).
 * `PSDlit`: Modified. Added length categories for Shoal Bass. Added Striped Bass (Hybrid) and Striped Bass x White Bass; though these are the same as the existing Palmetto Bass.
 * `psdVal()`: Modified. Changed a `levels()` in `iPSDlitCheck()` and `iListSpecies()` to `unique()` because `species` is no longer a factor due to updating `PSDlit` (i.e., rdata file changed with new `read.csv()`).

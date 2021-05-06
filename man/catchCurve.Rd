@@ -52,8 +52,10 @@ catchCurve(x, ...)
   x,
   pos.est = "topright",
   cex.est = 0.95,
+  round.est = c(3, 1),
   ylab = "log(Catch)",
   xlab = "Age",
+  ylim = NULL,
   col.pt = "gray30",
   col.mdl = "black",
   lwd = 2,
@@ -92,9 +94,13 @@ catchCurve(x, ...)
 
 \item{cex.est}{A single numeric character expansion value for the estimated mortality rates on the plot.}
 
+\item{round.est}{A numeric that indicates the number of decimal place to which Z (first value) and A (second value) should be rounded. If only one value then it will be used for both Z and A.}
+
 \item{ylab}{A label for the y-axis (\code{"log(Catch)"} is the default).}
 
 \item{xlab}{A label for the x-axis (\code{"Age"} is the default).}
+
+\item{ylim}{A numeric for the limits of the y-axis. If \code{NULL} then will default to a minimum of 0 or the lowest negative log catch and a maximum of the maximum log catch. If a single value then it will be the maximum of the y-axis. If two values then these will the minimum and maximum values of the y-axis.}
 
 \item{col.pt}{A string that indicates the color of the plotted points.}
 

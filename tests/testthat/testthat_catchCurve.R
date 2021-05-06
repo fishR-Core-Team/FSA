@@ -1,5 +1,6 @@
 ## Data for testing ----
-BrookTroutTH$fact <- as.factor(sample(c("A","B"),nrow(BrookTroutTH),replace=TRUE))
+BrookTroutTH$fact <- as.factor(sample(c("A","B"),
+                                      nrow(BrookTroutTH),replace=TRUE))
 d <- BrookTroutTH
 
 cc <- catchCurve(catch~age,data=d,ages2use=2:6)
@@ -57,6 +58,9 @@ test_that("catchCurve() messages",{
   # bad args in summary
   expect_error(summary(cc,parm="derek"),
                "should be one of")
+  # bad args in plot
+  expect_error(plot(cc,ylim=c(1,3,7)),
+               "may not have more than two")
   
   # How does catchCurve() handle negative weights
   d <- data.frame(catch=c(10,5,3,1,1,1),age=1:6)
@@ -122,6 +126,9 @@ test_that("chapmanRobson errors and warnings",{
                "must be between 0 and 1")
   expect_error(confint(cr,conf.level=1),
                "must be between 0 and 1")
+  # bad args in confint
+  expect_error(plot(cr,ylim=c(3,7,10)),
+               "may not have more than two")
 })
 
 
