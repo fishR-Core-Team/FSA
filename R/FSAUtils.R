@@ -1040,28 +1040,23 @@ se <- function (x,na.rm=TRUE) {
   sqrt(stats::var(x)/length(x))
 }
 
-
-#' @name Subset
+#' @name filterD
 #' 
 #' @title Subsets/filters a data frame and drops the unused levels.
 #'
 #' @description Subsets/filters a data frame and drops the unused levels.
 #'
-#' @details Newbie students using R expect that when a factor variable is subsetted with \code{\link{subset}} or filtered with \code{\link[dplyr]{filter}} that any original levels that are no longer used after the subsetting or filtering will be ignored. This, however, is not the case and often results in tables with empty cells and figures with empty bars. One remedy is to use \code{drop.levels} from \pkg{gdata} immediately following the \code{\link{subset}} or \code{\link[dplyr]{filter}} call. This generally becomes a repetitive sequence for most newbie students; thus, \code{Subset} and \code{filterD} incorporate these two functions into one function.
+#' @details Newbie students using R expect that when a factor variable is filtered with \code{\link[dplyr]{filter}} that any original levels that are no longer used after the filtering will be ignored. This, however, is not the case and often results in tables with empty cells and figures with empty bars. One remedy is to use \code{\link[base]{droplevels}} immediately following \code{\link[dplyr]{filter}}. This generally becomes a repetitive sequence for most newbie students; thus, \code{filterD} incorporate these two functions into one function.
 #' 
-#' \code{Subset} is a wrapper to \code{\link{subset}} with a catch for non-data.frames and a specific call to \code{drop.levels} just before the data.frame is returned. I also added an argument to allow resetting the row names. \code{filterD} is a wrapper for \code{\link[dplyr]{filter}} from \pkg{dplyr} followed by \code{drop.levels} just before the data.frame is returned. Otherwise, there is no new code here.
+#' \code{filterD} is a wrapper for \code{\link[dplyr]{filter}} from \pkg{dplyr} followed by \code{\link[base]{droplevels}} just before the data.frame is returned. Otherwise, there is no new code here.
 #' 
-#' These functions are used only for data frames.
+#' This function is only used for data frames.
 #' 
 #' @param x A data frame.
-#' @param subset A logical expression that indicates elements or rows to keep: missing values are taken as false.
-#' @param select An expression, that indicates columns to select from a data frame.
-#' @param drop passed on to \code{[} indexing operator.
-#' @param resetRownames A logical that indicates if the rownames should be reset after the subsetting (\code{TRUE}; default). Resetting rownames will simply number the rows from 1 to the number of rows in the result.
 #' @param except Indices of columns from which NOT to drop levels.
-#' @param \dots further arguments to be passed to or from other methods.
+#' @param \dots further arguments to be passed to \code{\link[dplyr]{filter}}.
 #'
-#' @return A data frame with the subsetted rows and selected variables.
+#' @return A data frame with the filtered rows.
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #' 
@@ -1078,46 +1073,14 @@ se <- function (x,na.rm=TRUE) {
 #' levels(iris.set1$Species)
 #' xtabs(~Species,data=iris)
 #'
-#' ## A simpler fix using Subset
-#' iris.set2 <- Subset(iris,Species=="setosa" | Species=="versicolor")
-#' levels(iris.set2$Species)
-#' xtabs(~Species,data=iris.set2)
-#' 
-#' ## A simpler fix using filterD
+#' ## A fix using filterD
 #' iris.set3 <- filterD(iris,Species=="setosa" | Species=="versicolor")
 #' levels(iris.set3$Species)
 #' xtabs(~Species,data=iris.set3)
 #'
 NULL
 
-#' @rdname Subset
-#' @export
-Subset <- function(x,subset,select,drop=FALSE,resetRownames=TRUE,...) {
-  if (!is.data.frame(x)) 
-    STOP("Subset should only be used with data frames. ",
-         "See ?subset for other structures.")
-  if (missing(subset)) r <- TRUE
-  else {
-    e <- substitute(subset)
-    r <- eval(e, x, parent.frame())
-    if (!is.logical(r))
-      STOP("'subset' must evaluate to logical.")
-    r <- r & !is.na(r)
-  }
-  if (missing(select)) vars <- TRUE
-  else {
-    nl <- as.list(seq_len(ncol(x)))
-    names(nl) <- names(x)
-    vars <- eval(substitute(select),nl,parent.frame())
-  }
-  res <- droplevels(x[r,vars,drop=drop])
-  if (resetRownames) rownames(res) <- NULL
-  if (nrow(res)==0)
-    WARN("The resultant data.frame has 0 rows. Try str() on the result.\n")
-  res
-}
-
-#' @rdname Subset
+#' @rdname filterD
 #' @export
 filterD <- function(x,...,except=NULL) {
   res <- dplyr::filter(x,...)

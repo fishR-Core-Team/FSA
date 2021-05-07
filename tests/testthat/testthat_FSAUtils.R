@@ -36,12 +36,6 @@ test_that("filterD() messages",{
   expect_warning(filterD(iris,Species=="DEREK"),"resultant data.frame")
 })  
 
-test_that("Subset() messages",{
-  expect_error(Subset(0:5),"with data.frames")
-  expect_error(Subset(matrix(0:5,ncol=2)),"with data.frames")
-  expect_warning(Subset(iris,Species=="DEREK"),"resultant data.frame")
-})  
-
 test_that("fishR() messages",{
   expect_error(fishR("Derek"),"should be one of")
 })
@@ -394,34 +388,6 @@ test_that("filterD() results",{
   tmp <- filterD(iris,Species1 %in% grp,except="Species")
   expect_equal(levels(tmp$Species1),rev(grp))
   expect_equal(levels(tmp$Species),c("setosa","versicolor","virginica"))
-})  
-
-test_that("Subset() results",{
-  # limit to two groups
-  grp <- c("setosa","versicolor")
-  tmp <- Subset(iris,Species %in% grp)
-  expect_equal(levels(tmp$Species),grp)
-  expect_equal(nrow(tmp),100)
-  # limit to one group
-  grp <- c("versicolor")
-  tmp <- Subset(iris,Species %in% grp)
-  expect_equal(levels(tmp$Species),grp)
-  expect_equal(nrow(tmp),50)
-  # does Subset still work if columns are selected
-  tmp <- Subset(iris,Species %in% grp,select=4:5)
-  expect_equal(levels(tmp$Species),grp)
-  expect_equal(nrow(tmp),50)
-  expect_equal(ncol(tmp),2)
-  # does Subset still work if rows are not renumbered
-  tmp <- Subset(iris,Species %in% grp,resetRownames=FALSE)
-  expect_equal(levels(tmp$Species),grp)
-  expect_equal(nrow(tmp),50)
-  expect_equal(rownames(tmp),as.character(51:100))
-  # make sure that levels are not reordered
-  iris$Species1 <- factor(iris$Species,levels=c("virginica","versicolor","setosa"))
-  grp <- c("setosa","versicolor")
-  tmp <- Subset(iris,Species1 %in% grp)
-  expect_equal(levels(tmp$Species1),rev(grp))
 })  
 
 test_that("fishR() return values",{
