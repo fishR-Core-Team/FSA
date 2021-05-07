@@ -179,7 +179,7 @@
     <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='wsVal.html'>wsVal</a></code>, <code><a href='WSlit.html'>WSlit</a></code>, and <code><a href='psdAdd.html'>psdAdd</a></code> for related functionality. See <code><a href='mapvalues.html'>mapvalues</a></code> for help in changing species names to match those in <code><a href='WSlit.html'>WSlit</a></code>.</p></div>
+    <div class='dont-index'><p>See <code><a href='wsVal.html'>wsVal</a></code>, <code><a href='WSlit.html'>WSlit</a></code>, and <code><a href='psdAdd.html'>psdAdd</a></code> for related functionality. See <code><a href='https://rdrr.io/pkg/plyr/man/mapvalues.html'>mapvalues</a></code> for help in changing species names to match those in <code><a href='WSlit.html'>WSlit</a></code>.</p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
@@ -305,7 +305,7 @@
 #&gt; 89 Largemouth Bass  266    265.7 103.69408 103.69408 103.69408
 #&gt; 90 Largemouth Bass  371    612.6  80.46670  80.46670  80.46670</div><div class='input'> 
 <span class='co'>## Example with only one species in the data.frame</span>
-<span class='va'>bg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='Subset.html'>filterD</a></span><span class='op'>(</span><span class='va'>df</span>,<span class='va'>species</span><span class='op'>==</span><span class='st'>"Bluegill"</span><span class='op'>)</span>
+<span class='va'>bg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='filterD.html'>filterD</a></span><span class='op'>(</span><span class='va'>df</span>,<span class='va'>species</span><span class='op'>==</span><span class='st'>"Bluegill"</span><span class='op'>)</span>
 <span class='va'>bg</span><span class='op'>$</span><span class='va'>Wr4</span> <span class='op'>&lt;-</span> <span class='fu'>wrAdd</span><span class='op'>(</span><span class='va'>wt</span><span class='op'>~</span><span class='va'>tl</span><span class='op'>+</span><span class='va'>species</span>,data<span class='op'>=</span><span class='va'>bg</span><span class='op'>)</span>
 
 </div></pre>

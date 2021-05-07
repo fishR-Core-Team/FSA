@@ -5,6 +5,9 @@ url: http://derekogle.com/FSA
 authors:
   Derek H. Ogle:
     href: http://derekogle.com
+  Jason Doll
+  Powell Wheeler
+  Alexis Dinno
     
 template:
   params:
@@ -115,13 +118,11 @@ reference:
       - capFirst
       - chooseColors
       - col2rgbt
-      - diags
       - fact2num
       - filterD
       - headtail
       - is.even
       - lagratio
-      - mapvalues
       - perc
       - peek
       - repeatedRows2Keep
