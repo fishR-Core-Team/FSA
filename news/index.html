@@ -128,12 +128,15 @@
 </h1>
 <ul>
 <li>Added Jason Doll as an <code>AUThor</code>.</li>
+<li>Moved <code>plyr</code> from Imports to Suggests.</li>
 <li>
 <code><a href="../reference/catchCurve.html">catchCurve()</a></code>: Modified. Removed hard-coding of <code>ylim=</code> for <code><a href="../reference/catchCurve.html">plot.catchCurve()</a></code> (this addresses <a href="https://github.com/droglenc/FSA/issues/70"><a href='https://github.com/droglenc/FSA/issues/70'>#70</a></a> … Thanks to Brendan Runde). Added <code>round.est=</code> so that the user can control the decimals on mortality estimate values.</li>
 <li>
 <code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Removed hard-coding of <code>ylim=</code> for <code><a href="../reference/chapmanRobson.html">plot.chapmanRobson()</a></code>. Added <code>round.est=</code> so that the user can control the decimals on mortality and survival estimate values.</li>
 <li>
-<code>diags()</code>: Removed (moved to <code>FSAmisc</code>).</li>
+<code>diags()</code>: Removed (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
+<li>
+<code>mapvalues()</code>: Removed. Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
 <code><a href="../reference/jolly.html">mrOpen()</a></code>: Modified. Added a warning for when r==0, which causes the SE of M and thus N to be <code>Infinity</code> (this addresses <a href="https://github.com/droglenc/FSA/issues/69"><a href='https://github.com/droglenc/FSA/issues/69'>#69</a></a>). Added a similar warning for when R==0 (but not the last time period). Added tests for the warning messages. Changed one use of <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> to <code><a href="https://rdrr.io/r/base/colSums.html">rowSums()</a></code> for ease of reading.</li>
 <li>
@@ -145,7 +148,7 @@
 <li>
 <code><a href="../reference/removal.html">removal()</a></code>: Modified. Added check and then warning if non-whole numbers are in <code>catch=</code> (addresses <a href="https://github.com/droglenc/FSA/issues/60"><a href='https://github.com/droglenc/FSA/issues/60'>#60</a></a>). Also modified checks of data integrity to be more robust (e.g., if a character vector is sent).</li>
 <li>
-<code>Subset()</code>: Removed.</li>
+<code>Subset()</code>: Removed. Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
 <code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> in <code>iwsLitCheck()</code> to <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>WSlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>).</li>
 <li>
@@ -1045,7 +1048,7 @@
 <li>
 <code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Added <code>trunc.diff=</code>. If <code>what=</code> has only one item, then results will now be invisibly returned so that results can be saved to an object.</li>
 <li>
-<code><a href="../reference/mapvalues.html">mapvalues()</a></code>: Modified. Corrected to export properly.</li>
+<code>mapvalues()</code>: Modified. Corrected to export properly.</li>
 <li>
 <code><a href="../reference/removal.html">removal()</a></code>: Modified. Minor edits to labels if <code>verbose=TRUE</code>. Added some more tests.</li>
 <li>
@@ -1094,7 +1097,7 @@
 <li>
 <code><a href="../reference/extraTests.html">lrt()</a></code>: Modified. Check for<code>lmtest</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>lmtest</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
-<code><a href="../reference/mapvalues.html">mapvalues()</a></code>: Modified. Changed so that it is a direct <code>importFrom</code> and <code>export</code> without creating a help file in <code>FSA.</code>
+<code>mapvalues()</code>: Modified. Changed so that it is a direct <code>importFrom</code> and <code>export</code> without creating a help file in <code>FSA.</code>
 </li>
 <li>
 <code><a href="../reference/kCounts.html">purl2()</a></code>: Modified. Check for<code>knitr</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>knitr</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
@@ -1444,7 +1447,7 @@
 <ul>
 <li>Added travis-ci integration.</li>
 <li>Added coveralls integration.</li>
-<li>Added <code>importFrom</code> for <code><a href="../reference/mapvalues.html">mapvalues()</a></code> from <code>plyr</code>.</li>
+<li>Added <code>importFrom</code> for <code>mapvalues()</code> from <code>plyr</code>.</li>
 <li>
 <code>changesPos()</code>: Modified. Added some checks with error messages. Added suite of tests.</li>
 <li>
@@ -1464,7 +1467,7 @@
 <li>
 <code><a href="../reference/lagratio.html">lagratio()</a></code>: Modified. Corrected incorrect explanation of <code>differences=</code> in help file. Added <code>recursion=</code> and <code>direction=</code>. Added suite of tests.</li>
 <li>
-<code><a href="../reference/mapvalues.html">mapvalues()</a></code>: Deleted. Deleted the function from <code>FSA</code> but imported it from <code>plyr</code> and then exported it from <code>FSA</code> so that it would be available to fisheries users without having to load <code>plyr</code>.</li>
+<code>mapvalues()</code>: Deleted. Deleted the function from <code>FSA</code> but imported it from <code>plyr</code> and then exported it from <code>FSA</code> so that it would be available to fisheries users without having to load <code>plyr</code>.</li>
 <li>
 <code><a href="../reference/oddeven.html">oddeven()</a></code>: Modified. Added some checks with error messages. Added suite of tests.</li>
 <li>
@@ -1940,7 +1943,7 @@
 <li>
 <code><a href="../reference/lencat.html">lencat()</a></code> Modified. Added <code>droplevels=</code> and kept <code>drop.levels=</code> as I could not consistently remember what the name of the argument was – i.e., the user can use either one, but <code>droplevels=</code> is preferred.</li>
 <li>
-<code><a href="../reference/mapvalues.html">mapvalues()</a></code>: Added. This is the exact same function from the <code>plyr</code> package. Included here to minimize conflicts between functions in <code>dplyr</code> and <code>plyr</code> that have the same name (i.e., don’t have to install <code>plyr</code> just for <code><a href="../reference/mapvalues.html">mapvalues()</a></code> when also using <code>dplyr</code>).</li>
+<code>mapvalues()</code>: Added. This is the exact same function from the <code>plyr</code> package. Included here to minimize conflicts between functions in <code>dplyr</code> and <code>plyr</code> that have the same name (i.e., don’t have to install <code>plyr</code> just for <code>mapvalues()</code> when also using <code>dplyr</code>).</li>
 <li>
 <code><a href="../reference/perc.html">perc()</a></code>: Added.</li>
 <li>
@@ -1956,7 +1959,7 @@
 <a href="#fsa-0430-oct14" class="anchor"></a>FSA 0.4.30 Oct14<small> Unreleased </small>
 </h1>
 <ul>
-<li>Added a suggests for <code>plyr</code>, for examples using <code><a href="../reference/mapvalues.html">mapvalues()</a></code>.</li>
+<li>Added a suggests for <code>plyr</code>, for examples using <code>mapvalues()</code>.</li>
 <li>
 <code><a href="../reference/lencat.html">lencat()</a></code>: Modified. Changed <code>as.fact=</code> to default to same as <code>use.names=</code>. This will result in the same behavior as before. However, it also allows the user to set <code>use.names=TRUE</code> and <code>as.fact=FALSE</code> to return a character vector (that is not a factor).</li>
 <li>
@@ -1964,7 +1967,7 @@
 <li>
 <code>PSDlit</code>: Modified. Changed “Walleye x Sauger” to “Saugeye” and “White Bass x Striped Bass” to “Palmetto Bass”. Updated the Palmetto Bass values based on Dumont and Neely (2011), but kept old values as “Palmetto Bass (original)”. Deleted redundant entries for some species.</li>
 <li>
-<code>recodeF()</code>: Deleted. Functionality is in <code><a href="../reference/mapvalues.html">mapvalues()</a></code> from <code>plyr</code>. Ease come easy go (i.e., added in last version).</li>
+<code>recodeF()</code>: Deleted. Functionality is in <code>mapvalues()</code> from <code>plyr</code>. Ease come easy go (i.e., added in last version).</li>
 </ul>
 </div>
     <div id="fsa-0429-oct14" class="section level1">

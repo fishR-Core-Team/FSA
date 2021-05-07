@@ -22,6 +22,9 @@
     <loc>http://derekogle.com/FSA/reference/Ecoli.html</loc>
   </url>
   <url>
+    <loc>http://derekogle.com/FSA/reference/FSA-defunct.html</loc>
+  </url>
+  <url>
     <loc>http://derekogle.com/FSA/reference/FSA-internals.html</loc>
   </url>
   <url>
@@ -188,9 +191,6 @@
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/lwCompPreds.html</loc>
-  </url>
-  <url>
-    <loc>http://derekogle.com/FSA/reference/mapvalues.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/metaM.html</loc>
