@@ -36,9 +36,6 @@ data(ChinookArg)
 lm1 <- lm(w~tl*loc,data=ChinookArg)
 lwCompPreds(lm1,xlab="Location")
 
-## Test of plyr functions
-mapvalues(df$f,from=c("A","B","C"),to=c("a","b","c"))
-  
 ## Test of sciplot functions
 fitPlot(aov1)
 

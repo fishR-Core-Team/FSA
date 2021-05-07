@@ -24,7 +24,7 @@
 #'
 #' @section IFAR Chapter: 6-Size Structure.
 #' 
-#' @seealso \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{PSDlit}}, and \code{\link{wrAdd}} for related functions. See \code{\link{mapvalues}} for help in changing species names to match those in \code{\link{PSDlit}}.
+#' @seealso \code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{PSDlit}}, and \code{\link{wrAdd}} for related functions. See \code{\link[plyr]{mapvalues}} for help in changing species names to match those in \code{\link{PSDlit}}.
 #' 
 #' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 

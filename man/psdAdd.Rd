@@ -122,7 +122,7 @@ Guy, C.S., R.M. Neumann, D.W. Willis, and R.O. Anderson. 2006. Proportional size
 Willis, D.W., B.R. Murphy, and C.S. Guy. 1993. Stock density indices: development, use, and limitations. Reviews in Fisheries Science 1:203-222. [Was (is?) from http://web1.cnre.vt.edu/murphybr/web/Readings/Willis\%20et\%20al.pdf.]
 }
 \seealso{
-\code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{PSDlit}}, and \code{\link{wrAdd}} for related functions. See \code{\link{mapvalues}} for help in changing species names to match those in \code{\link{PSDlit}}.
+\code{\link{psdVal}}, \code{\link{psdCalc}}, \code{\link{psdPlot}}, \code{\link{PSDlit}}, and \code{\link{wrAdd}} for related functions. See \code{\link[plyr]{mapvalues}} for help in changing species names to match those in \code{\link{PSDlit}}.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}
