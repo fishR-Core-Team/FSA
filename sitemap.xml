@@ -58,9 +58,6 @@
     <loc>http://derekogle.com/FSA/reference/SpotVA1.html</loc>
   </url>
   <url>
-    <loc>http://derekogle.com/FSA/reference/Subset.html</loc>
-  </url>
-  <url>
     <loc>http://derekogle.com/FSA/reference/Summarize.html</loc>
   </url>
   <url>
@@ -127,9 +124,6 @@
     <loc>http://derekogle.com/FSA/reference/depletion.html</loc>
   </url>
   <url>
-    <loc>http://derekogle.com/FSA/reference/diags.html</loc>
-  </url>
-  <url>
     <loc>http://derekogle.com/FSA/reference/dunnTest.html</loc>
   </url>
   <url>
@@ -143,6 +137,9 @@
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/fact2num.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/reference/filterD.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/fishR.html</loc>

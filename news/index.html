@@ -133,6 +133,8 @@
 <li>
 <code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Removed hard-coding of <code>ylim=</code> for <code><a href="../reference/chapmanRobson.html">plot.chapmanRobson()</a></code>. Added <code>round.est=</code> so that the user can control the decimals on mortality and survival estimate values.</li>
 <li>
+<code>diags()</code>: Removed (moved to <code>FSAmisc</code>).</li>
+<li>
 <code><a href="../reference/jolly.html">mrOpen()</a></code>: Modified. Added a warning for when r==0, which causes the SE of M and thus N to be <code>Infinity</code> (this addresses <a href="https://github.com/droglenc/FSA/issues/69"><a href='https://github.com/droglenc/FSA/issues/69'>#69</a></a>). Added a similar warning for when R==0 (but not the last time period). Added tests for the warning messages. Changed one use of <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> to <code><a href="https://rdrr.io/r/base/colSums.html">rowSums()</a></code> for ease of reading.</li>
 <li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> in <code>iPSDlitCheck()</code> to <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>PSDlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>).</li>
@@ -142,6 +144,8 @@
 <code><a href="../reference/psdVal.html">psdVal()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> in <code>iPSDlitCheck()</code> and <code><a href="../reference/.onAttach.html">iListSpecies()</a></code> to <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>PSDlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>).</li>
 <li>
 <code><a href="../reference/removal.html">removal()</a></code>: Modified. Added check and then warning if non-whole numbers are in <code>catch=</code> (addresses <a href="https://github.com/droglenc/FSA/issues/60"><a href='https://github.com/droglenc/FSA/issues/60'>#60</a></a>). Also modified checks of data integrity to be more robust (e.g., if a character vector is sent).</li>
+<li>
+<code>Subset()</code>: Removed.</li>
 <li>
 <code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> in <code>iwsLitCheck()</code> to <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>WSlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>).</li>
 <li>
@@ -291,7 +295,7 @@
 </h1>
 <ul>
 <li>Reorganized <code>testthat</code> folder as suggested in <code>testthat</code> release notes.</li>
-<li>Removed all uses of <code><a href="../reference/Subset.html">Subset()</a></code> (replaced with <code><a href="../reference/Subset.html">filterD()</a></code>).</li>
+<li>Removed all uses of <code>Subset()</code> (replaced with <code><a href="../reference/filterD.html">filterD()</a></code>).</li>
 <li>
 <code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Fixed bug related to y-axis limits not extending to contain the data, confidence bands, or prediction bands (in <code>fitPlot.slr()</code>). This addresses <a href="https://github.com/droglenc/NCStats/issues/3"><a href='https://github.com/droglenc/FSA/issues/3'>#3</a></a> listed for <code>NCStats</code>).</li>
 <li>
@@ -713,7 +717,7 @@
 <li>
 <code>ageComparison()</code>: Modified. Removed an internal call to <code><a href="../reference/fact2num.html">fact2num()</a></code> because of changes to <code><a href="../reference/Summarize.html">Summarize()</a></code> below. Should not impact user experience.</li>
 <li>
-<code><a href="../reference/diags.html">diags()</a></code>: Added.</li>
+<code>diags()</code>: Added.</li>
 <li>
 <code>gompertzFuns()</code>: Modified. Fixed some spacing around the message when <code>msg=TRUE</code>.</li>
 <li>
@@ -742,7 +746,7 @@
 <ul>
 <li>Compiled under R v3.3.0.</li>
 <li>Removed <code>relax</code> from <code>Suggests</code>. See <code><a href="../reference/srStarts.html">srStarts()</a></code> and <code><a href="../reference/vbStarts.html">vbStarts()</a></code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/17"><a href='https://github.com/droglenc/FSA/issues/17'>#17</a></a>.</li>
-<li>Removed <code>gdata</code> from <code>Imports</code>. See <code><a href="../reference/Subset.html">filterD()</a></code> and <code><a href="../reference/Subset.html">Subset()</a></code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/5"><a href='https://github.com/droglenc/FSA/issues/5'>#5</a></a>.</li>
+<li>Removed <code>gdata</code> from <code>Imports</code>. See <code><a href="../reference/filterD.html">filterD()</a></code> and <code>Subset()</code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/5"><a href='https://github.com/droglenc/FSA/issues/5'>#5</a></a>.</li>
 <li>Added no coverage blocks to <code>ageKeyPlot()</code>, <code><a href="../reference/capHistSum.html">capHistSum()</a></code>, <code><a href="../reference/hist.formula.html">hist.formula()</a></code>, <code><a href="../reference/histFromSum.html">histFromSum()</a></code>, <code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>, <code>plot.agebias()</code>, <code>plot.CatchCurve()</code>, <code>plot.ChapmanRobson()</code>, <code>plot.Depletion()</code>, <code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>, <code><a href="../reference/compSlopes.html">print.compSlopes()</a></code>, <code><a href="../reference/compIntercepts.html">print.compIntercepts()</a></code>, <code><a href="../reference/Mmethods.html">print.metaM()</a></code>, <code><a href="../reference/psdPlot.html">psdPlot()</a></code>,<code><a href="../reference/residPlot.html">residPlot()</a></code>, <code>srModels()</code>, <code><a href="../reference/srStarts.html">srStarts()</a></code>, and <code><a href="../reference/vbStarts.html">vbStarts()</a></code>.</li>
 <li>
 <code>ageKey()</code>: Removed. Deprecated since 0.4.24. Use <code><a href="../reference/alkIndivAge.html">alkIndivAge()</a></code>.</li>
@@ -753,7 +757,7 @@
 <li>
 <code><a href="../reference/capHistSum.html">capHistSum()</a></code>: Added tests.</li>
 <li>
-<code><a href="../reference/Subset.html">filterD()</a></code>: Modified. Changed to use <code><a href="https://rdrr.io/r/base/droplevels.html">droplevels()</a></code> from <code>base</code> rather than <code>drop.levels()</code> from <code>gdata</code>. Added <code>except=</code>.</li>
+<code><a href="../reference/filterD.html">filterD()</a></code>: Modified. Changed to use <code><a href="https://rdrr.io/r/base/droplevels.html">droplevels()</a></code> from <code>base</code> rather than <code>drop.levels()</code> from <code>gdata</code>. Added <code>except=</code>.</li>
 <li>
 <code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Changed the way colors, plotting characters, and line types were handled for most of the models. Should make their use more flexible. Fixed errors that occurred in IVR models when the factor variable preceded the covariate in the model (fixes <a href="https://github.com/droglenc/FSA/issues/18"><a href='https://github.com/droglenc/FSA/issues/18'>#18</a></a>). Started to add tests for error and warning messages.</li>
 <li>
@@ -783,7 +787,7 @@
 <li>
 <code><a href="../reference/srStarts.html">srStarts()</a></code>: Modified. Removed <code>dynamicPlot=TRUE</code> option. Moved it to <code>FSAsim</code> package. Modified plot when <code>plot=TRUE</code> by adding “STARTING VALUES” to title and moving starting values to within the plot. Added <code>cex.main=</code> and <code>col.main=</code>.</li>
 <li>
-<code><a href="../reference/Subset.html">Subset()</a></code>: MOdified. Changed to use <code><a href="https://rdrr.io/r/base/droplevels.html">droplevels()</a></code> from <code>base</code> rather than <code>drop.levels()</code> from <code>gdata</code>.</li>
+<code>Subset()</code>: MOdified. Changed to use <code><a href="https://rdrr.io/r/base/droplevels.html">droplevels()</a></code> from <code>base</code> rather than <code>drop.levels()</code> from <code>gdata</code>.</li>
 <li>
 <code><a href="../reference/growthModels.html">vbFuns()</a></code>: Modified. Changed <code>type=</code> to <code>param=</code>.</li>
 <li>
@@ -845,7 +849,7 @@
 </h1>
 <ul>
 <li>Now using Roxygen2 v5.0.1.</li>
-<li>Removed some <code>requireNamespaces()</code> from some functions and moved those packages from <code>Suggests</code> to <code>Imports</code> so that those functions would work better with other packages. The only <code>requireNamespaces()</code> that remain are related to functions that require the <code>relax</code> package (so tcltk is not installed until needed) and <code>knitr</code>, <code>dunn.test</code>, and <code>lmtest</code> as these are unlikely to be used by other packages and will keep the packages that are loaded with <code>FSA</code> to a minimum. Packages moved from <code>Suggests</code> to <code>Depends</code> are <code>Hmisc</code> (for use in <code>binCI</code>), <code>gdata</code> (for use in <code><a href="../reference/Subset.html">filterD()</a></code> and <code><a href="../reference/Subset.html">Subset()</a></code>), <code>dplyr</code> (for use in <code><a href="../reference/Subset.html">filterD()</a></code>), <code>sciplot</code> (for use in <code><a href="../reference/fitPlot.html">fitPlot()</a></code>), <code>car</code> (for use in <code><a href="../reference/residPlot.html">residPlot()</a></code>), and <code>gplots</code> (for use with colors).</li>
+<li>Removed some <code>requireNamespaces()</code> from some functions and moved those packages from <code>Suggests</code> to <code>Imports</code> so that those functions would work better with other packages. The only <code>requireNamespaces()</code> that remain are related to functions that require the <code>relax</code> package (so tcltk is not installed until needed) and <code>knitr</code>, <code>dunn.test</code>, and <code>lmtest</code> as these are unlikely to be used by other packages and will keep the packages that are loaded with <code>FSA</code> to a minimum. Packages moved from <code>Suggests</code> to <code>Depends</code> are <code>Hmisc</code> (for use in <code>binCI</code>), <code>gdata</code> (for use in <code><a href="../reference/filterD.html">filterD()</a></code> and <code>Subset()</code>), <code>dplyr</code> (for use in <code><a href="../reference/filterD.html">filterD()</a></code>), <code>sciplot</code> (for use in <code><a href="../reference/fitPlot.html">fitPlot()</a></code>), <code>car</code> (for use in <code><a href="../reference/residPlot.html">residPlot()</a></code>), and <code>gplots</code> (for use with colors).</li>
 <li>
 <code><a href="../reference/addZeroCatch.html">addZeroCatch()</a></code>: Modified tests (to reduce warnings that were not part of tests).</li>
 <li>
@@ -1084,7 +1088,7 @@
 <li>
 <code><a href="../reference/chooseColors.html">chooseColors()</a></code>: Modified. Check for<code>gplots</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>gplots</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
-<code><a href="../reference/Subset.html">filterD()</a></code>: Modified. Check for <code>dplyr</code> and <code>gdata</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>dplyr</code> and <code>gdata</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
+<code><a href="../reference/filterD.html">filterD()</a></code>: Modified. Check for <code>dplyr</code> and <code>gdata</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>dplyr</code> and <code>gdata</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
 <code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Check for<code>sciplot</code> with <code>requireNamespaces()</code> before adding intervals tot he plot. This allowed moving <code>sciplot</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
@@ -1099,7 +1103,7 @@
 <li>
 <code><a href="../reference/srStarts.html">srStarts()</a></code>: Modified. Check for<code>relax</code> with <code>requireNamespaces()</code> before constructing the dynamic plot. This allowed moving <code>relax</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
-<code><a href="../reference/Subset.html">Subset()</a></code>: Modified. Check for<code>gdata</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>gdata</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
+<code>Subset()</code>: Modified. Check for<code>gdata</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>gdata</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
 <code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Check for<code>relax</code> with <code>requireNamespaces()</code> before constructing the dynamic plot. This allowed moving <code>relax</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 </ul>
@@ -1265,7 +1269,7 @@
 <li>
 <code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. Fixed bugs related to axes on numbers plot and sunflower plot.</li>
 <li>
-<code><a href="../reference/Subset.html">filterD()</a></code>: Modified. Added <code>reorder=FALSE</code> to <code>drop.levels()</code> so that the order of levels is not changed when levels are dropped.</li>
+<code><a href="../reference/filterD.html">filterD()</a></code>: Modified. Added <code>reorder=FALSE</code> to <code>drop.levels()</code> so that the order of levels is not changed when levels are dropped.</li>
 <li>
 <code><a href="../reference/residPlot.html">residPlot.nlme()</a></code>: Added.</li>
 </ul>
@@ -1452,7 +1456,7 @@
 <li>
 <code><a href="../reference/fact2num.html">fact2num()</a></code>: Modified. Added some checks with error messages. Added suite of tests.</li>
 <li>
-<code><a href="../reference/Subset.html">filterD()</a></code>: Modified. Changed to using <code>drop.levels</code> from <code>gdata</code> rather than <code>droplevels</code>. Added a warning if the resultant data.frame has zero rows (same as in <code>Subset</code>). Added some checks with error messages. Added suite of tests.</li>
+<code><a href="../reference/filterD.html">filterD()</a></code>: Modified. Changed to using <code>drop.levels</code> from <code>gdata</code> rather than <code>droplevels</code>. Added a warning if the resultant data.frame has zero rows (same as in <code>Subset</code>). Added some checks with error messages. Added suite of tests.</li>
 <li>
 <code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Replaced the use of <code><a href="https://rdrr.io/r/stats/nobs.html">nobs()</a></code> from <code>gdata</code> in the internal function <code>iCIfp1()</code> with <code><a href="../reference/validn.html">validn()</a></code>. This removed one dependency on <code>gdata</code>.</li>
 <li>
@@ -1472,7 +1476,7 @@
 <li>
 <code><a href="../reference/se.html">se()</a></code>: Modified. Added some checks with error messages. Added suite of tests.</li>
 <li>
-<code><a href="../reference/Subset.html">Subset()</a></code>: Modified. Added some checks with error messages. Added suite of tests.</li>
+<code>Subset()</code>: Modified. Added some checks with error messages. Added suite of tests.</li>
 <li>
 <code><a href="../reference/validn.html">validn()</a></code>: Modified. Added some checks with error messages. Added suite of tests.</li>
 </ul>
@@ -1788,7 +1792,7 @@
 </h1>
 <ul>
 <li>
-<code><a href="../reference/Subset.html">filterD()</a></code>: Added.</li>
+<code><a href="../reference/filterD.html">filterD()</a></code>: Added.</li>
 </ul>
 </div>
     <div id="fsa-0441-jan15" class="section level1">
@@ -2629,7 +2633,7 @@
 <li>
 <code>StripedBass1</code>: Deleted. Moved to FSAdata as no longer needed because some examples were changed to use <code>WhitefishLC</code>.</li>
 <li>
-<code><a href="../reference/Subset.html">Subset()</a></code>: Modified. Added a <code>resetRownames=</code> argument.</li>
+<code>Subset()</code>: Modified. Added a <code>resetRownames=</code> argument.</li>
 <li>
 <code>swvCode()</code>: Modified. Added an <code>out.dir=</code> argument.</li>
 <li>
@@ -2930,7 +2934,7 @@
 <li><p><code>pos2adj()</code>: moved from NCStats.</p></li>
 <li><p><code><a href="../reference/rcumsum.html">rcumsum()</a></code>: moved from NCStats.</p></li>
 <li><p><code>rsdPlot()</code>: modified to handle situations where substock fish are not present in the data. Thanks to Max Wolter for pointing out this issue.</p></li>
-<li><p><code><a href="../reference/Subset.html">Subset()</a></code>: copied from NCStats (i.e., same function still in NCStats).</p></li>
+<li><p><code>Subset()</code>: copied from NCStats (i.e., same function still in NCStats).</p></li>
 </ul>
 </div>
     <div id="fsa-02-8-21jun12" class="section level1">
