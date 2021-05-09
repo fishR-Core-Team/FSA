@@ -21,9 +21,8 @@
 #' @param leg.cex A numeric character expansion value for labels on the legend when \code{showLegend=TRUE}.
 #' @param lwd A numeric that indicates the line width when \code{type="lines"} or \code{type="splines"}.
 #' @param span A numeric that indicates the span value to use in \code{loess} when \code{type="splines"}.
-#' @param pal A string that indicates the palette to generate colors for the bars, areas, lines, or spline lines. The name of a palette must be one of \dQuote{rich}, \dQuote{cm}, \dQuote{default}, \dQuote{grey}, \dQuote{gray}, \dQuote{heat}, \dQuote{jet}, \dQuote{rainbow}, \dQuote{topo}, or \dQuote{terrain}. See \code{\link{chooseColors}}.
+#' @param col A vector of colors for the bars, areas, lines, or spline lines of different ages; defaults to a "viridis" palette in \code{\link[grDevices]{hcl.colors}} . A single string that indicates the color of the bubbles when \code{type="bubble"}.
 #' @param grid A logical that indicates whether a grid should be placed under the bubbles when \code{type="bubble"} or a character or appropriate vector that identifies a color for the grid. See examples.
-#' @param col A string that indicates the color of the bubbles when \code{type="bubble"}.
 #' @param buf A single numeric that indicates the relative width of the bubbles when \code{type="bubble"}. A value of 0.5 means that two full-width bubbles would touch each other either in the x- or y-direction (i.e., this would represent half of the minimum of the physical distance between values one-unit apart on the x- and y-axes). Set this to a value less than 0.5 so that the bubbles will not touch (the default is 0.45).
 #' @param add A logical that indicates whether the data should be added to an already existing plot. May be useful for visually comparing age-length keys. Only implemented when \code{type="bubble"}.
 #' @param \dots Additional arguments to pass to \code{plot} or \code{barplot}.
@@ -34,7 +33,7 @@
 #' 
 #' @section IFAR Chapter: 5-Age-Length Key.
 #' 
-#' @seealso See \code{\link{alkIndivAge}} for using an age-length key to assign ages to individual fish.
+#' @seealso See \code{\link{alkIndivAge}} for using an age-length key to assign ages to individual fish. See \code{\link[grDevices]{hcl.colors}} for a simple way to choose other colors.
 #' 
 #' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
@@ -50,14 +49,15 @@
 #'
 #' ## Various visualizations of the age-length key
 #' alkPlot(WR.key,"barplot")
-#' alkPlot(WR.key,"barplot",pal="gray")
+#' alkPlot(WR.key,"barplot",col=hcl.colors(8,palette="Cork"))
+#' alkPlot(WR.key,"barplot",col=hcl.colors(8,palette="Earth"))
 #' alkPlot(WR.key,"barplot",showLegend=TRUE)
 #' alkPlot(WR.key,"area")
 #' alkPlot(WR.key,"lines")
 #' alkPlot(WR.key,"splines")
 #' alkPlot(WR.key,"splines",span=0.2)
 #' alkPlot(WR.key,"bubble")
-#' alkPlot(WR.key,"bubble",col=rgb(0,0,0,0.5))
+#' alkPlot(WR.key,"bubble",col=col2rgbt("black",0.5))
 #'
 #' @export alkPlot
 #' @rdname alkPlot
@@ -66,34 +66,31 @@ alkPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
                     xlim=NULL,ylim=NULL,
                     showLegend=FALSE,lbl.cex=1.25,leg.cex=1,
                     lwd=2,span=0.25,
-                    pal = paletteChoices(),
-                    grid=TRUE,col="gray80",buf=0.45,add=FALSE,
+                    grid=TRUE,col=NULL,buf=0.45,add=FALSE,
                     ...) {
   ## Some checks
   type <- match.arg(type)
-  pal <- match.arg(pal)
   key <- iCheckALK(key)
   ## construct the plots (all internal functions) # nocov start
   withr::local_par(list(mar=c(3.25,3.25,0.7,0.7),mgp=c(1.7,0.5,0),tcl=-0.2))
   switch(type,
-         area=    { iALKPlotArea(key,xlab,ylab,xlim,ylim,showLegend,leg.cex,pal) },
+         area=    { iALKPlotArea(key,xlab,ylab,xlim,ylim,showLegend,leg.cex,col) },
          barplot= { iALKPlotBar(key,xlab,ylab,xlim,ylim,lbl.cex,showLegend,
-                                leg.cex,pal,...) },
+                                leg.cex,col,...) },
          bubble=  { iALKPlotBubble(key,xlab,ylab,xlim,ylim,grid,buf,col,add,...) },
-         lines=   { iALKPlotLines(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,pal,
+         lines=   { iALKPlotLines(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,col,
                                   showLegend,leg.cex,...) },
          splines= { iALKPlotSplines(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,
-                                    pal,showLegend,leg.cex,...) }
+                                    col,showLegend,leg.cex,...) }
   )
   ## return to original graphing parameters
   graphics::layout(1) # nocov end
 }
 
 
-##############################################################
-## INTERNAL -- Identify the ages and lengths in the key
-##   and the number of each
-##############################################################
+################################################################################
+## INTERNAL -- Identify the ages and lengths in the key and the number of each
+################################################################################
 iFindAgesAndLens <- function(key) {
   ages <- as.numeric(colnames(key))
   num.ages <- length(ages)  
@@ -102,9 +99,25 @@ iFindAgesAndLens <- function(key) {
   list(num.ages=num.ages,ages=ages,num.lens=num.lens,lens=lens)
 }
 
-##############################################################
+################################################################################
+## Internal function to check colors
+################################################################################
+iALKCheckColors <- function(col,n) {
+  if (is.null(col)) col <- grDevices::hcl.colors(n)
+  else if (length(col) < n)
+    WARN("Number of colors (",length(col),
+         ") is less than number of ages (",n,
+         "); colors will be recycled")
+  else if (length(col) > n)
+    WARN("Number of colors (",length(col),
+         ") is more than number of ages (",n,
+         "); some colors will not be used")
+  col
+}
+
+################################################################################
 ## INTERNAL -- Add a legend
-##############################################################
+################################################################################
 iAddLegend <- function(alsum,leg.cex,col){ # nocov start
   graphics::layout(matrix(c(1,2),nrow=2),heights=c(1,14))
   tmp <- graphics::par("mar")
@@ -115,16 +128,16 @@ iAddLegend <- function(alsum,leg.cex,col){ # nocov start
                  col=c("white","black"),cex=leg.cex) 
 }  # nocov end
 
-##############################################################
+################################################################################
 ## INTERNAL -- Add age labels to lines in line and spline plots
-##############################################################
+################################################################################
 iLinesAddLabelsToLines <- function(maxvals,lbl.cex) { # nocov start
   graphics::text(maxvals[,1],maxvals[,2],maxvals[,3],cex=lbl.cex)
 } # nocov end
 
-##############################################################
+################################################################################
 ## INTERNAL -- Add age labels to lines in line and spline plots
-##############################################################
+################################################################################
 iAdjKey4xlim <- function(key,xlim) {
   if (!is.null(xlim)) {
     # make sure values are in ascending order
@@ -139,10 +152,10 @@ iAdjKey4xlim <- function(key,xlim) {
   key
 }
 
-##############################################################
+################################################################################
 ## Internal function to make the area plot
-##############################################################
-iALKPlotArea <- function(key,xlab,ylab,xlim,ylim,showLegend,leg.cex,pal) { # nocov start
+################################################################################
+iALKPlotArea <- function(key,xlab,ylab,xlim,ylim,showLegend,leg.cex,col) { # nocov start
   if (any(is.na(rowSums(key)))) {
     tmp <- which(is.na(rowSums(key)))
     key[tmp,] <- 0
@@ -150,7 +163,7 @@ iALKPlotArea <- function(key,xlab,ylab,xlim,ylim,showLegend,leg.cex,pal) { # noc
   # adjust key for xlim values
   key <- iAdjKey4xlim(key,xlim)
   alsum <- iFindAgesAndLens(key)
-  col <- chooseColors(pal,alsum$num.ages)
+  col <- iALKCheckColors(col,alsum$num.ages)
   if (showLegend) iAddLegend(alsum,leg.cex,col)
   # convert NULL y-axis limits to NA for use with stackpoly
   if (is.null(ylim)) ylim <- NA
@@ -159,12 +172,12 @@ iALKPlotArea <- function(key,xlab,ylab,xlim,ylim,showLegend,leg.cex,pal) { # noc
   graphics::axis(1,1:alsum$num.lens,alsum$lens)
 }   # nocov end
 
-##############################################################
+################################################################################
 ## Internal function to make the bar plot
-##############################################################
-## ===========================================================
+################################################################################
+## =============================================================================
 ## INTERNAL -- Add age labels inside of bars on barplot
-## ===========================================================
+## =============================================================================
 iBarplotAddLabelsToBars <- function(key,alsum,lbl.cex,col,...) { # nocov start
   # Make colors for the age labels inside the bars (dark on light, light on dark)
   age.clr <- rep("black",alsum$num.ages)
@@ -173,33 +186,36 @@ iBarplotAddLabelsToBars <- function(key,alsum,lbl.cex,col,...) { # nocov start
   for (i in 1:alsum$num.lens) {
     if (!all(is.na(key[i,]))) { # don't put labels if length is all NA
       j <- 1
-      if(key[i,j]>0) graphics::text(i-0.5,key[i,j]/2,alsum$ages[j],col=age.clr[j],cex=lbl.cex)
+      if(key[i,j]>0) graphics::text(i-0.5,key[i,j]/2,alsum$ages[j],
+                                    col=age.clr[j],cex=lbl.cex)
       prv <- key[i,j]
       while(prv<1 & j<alsum$num.ages) {
         j <- j+1
-        if(key[i,j]>0) graphics::text(i-0.5,prv+key[i,j]/2,alsum$ages[j],col=age.clr[j],cex=lbl.cex)
+        if(key[i,j]>0) graphics::text(i-0.5,prv+key[i,j]/2,alsum$ages[j],
+                                      col=age.clr[j],cex=lbl.cex)
         prv <- prv+key[i,j]
       }
     }
   }
 } # nocov end
 
-iALKPlotBar <- function(key,xlab,ylab,xlim,ylim,lbl.cex,showLegend,leg.cex,pal,...) { # nocov start
+iALKPlotBar <- function(key,xlab,ylab,xlim,ylim,lbl.cex,showLegend,leg.cex,col,...) { # nocov start
   # adjust key for xlim values
   key <- iAdjKey4xlim(key,xlim)
   alsum <- iFindAgesAndLens(key)
-  col <- chooseColors(pal,alsum$num.ages)
+  col <- iALKCheckColors(col,alsum$num.ages)
   if (showLegend) iAddLegend(alsum,leg.cex,col)
   graphics::barplot(t(key),space=0,col=col,xlab=xlab,ylab=ylab,ylim=ylim,...)
   if (!showLegend) iBarplotAddLabelsToBars(key,alsum,lbl.cex,col)
 } # nocov end
 
-##############################################################
+################################################################################
 ## Internal function to make the lines plot
-##############################################################
-iALKPlotLines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,pal,showLegend,leg.cex,...) { # nocov start
+################################################################################
+iALKPlotLines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,col,
+                          showLegend,leg.cex,...) { # nocov start
   alsum <- iFindAgesAndLens(key)
-  col <- chooseColors(pal,alsum$num.ages)
+  col <- iALKCheckColors(col,alsum$num.ages)
   if (showLegend) iAddLegend(alsum,leg.cex,col)
   if (is.null(xlim)) xlim <- range(alsum$lens)
   if (is.null(ylim)) ylim <- c(0,1)
@@ -213,12 +229,13 @@ iALKPlotLines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,pal,showLegend,leg
   if (!showLegend) iLinesAddLabelsToLines(maxvals,lbl.cex)  
 } # nocov end
 
-##############################################################
+################################################################################
 ## Internal function to make the splines plot
-##############################################################
-iALKPlotSplines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,pal,showLegend,leg.cex,...) { # nocov start
+################################################################################
+iALKPlotSplines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,col,
+                            showLegend,leg.cex,...) { # nocov start
   alsum <- iFindAgesAndLens(key)
-  col <- chooseColors(pal,alsum$num.ages)
+  col <- iALKCheckColors(col,alsum$num.ages)
   if (showLegend) iAddLegend(alsum,leg.cex,col)
   if (is.null(xlim)) xlim <- range(alsum$lens)
   if (is.null(ylim)) ylim <- c(0,1)
@@ -237,12 +254,12 @@ iALKPlotSplines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,pal,showLeg
   if (!showLegend) iLinesAddLabelsToLines(maxvals,lbl.cex)
 } # nocov end
 
-##############################################################
+################################################################################
 ## Internal function to create the bubble plot
-##############################################################
-## ===========================================================
+################################################################################
+## =============================================================================
 ## convert the key to a data.frame for the bubble plot
-## ===========================================================
+## =============================================================================
 iBubbleUnmatKey <- function(key,alsum) {
   tmpK <- data.frame(len=rep(alsum$lens,times=alsum$num.ages),
                      age=rep(alsum$ages,each=alsum$num.lens),
@@ -250,20 +267,21 @@ iBubbleUnmatKey <- function(key,alsum) {
   tmpK[tmpK$prop>0,]
 }
 
-## ===========================================================
+## =============================================================================
 ## find inches argument (scale of radius for bubbles)
-## ===========================================================
+## =============================================================================
 iBubbleFindIn <- function(alsum,buf) {
   # find "inches" between concurrent values on the X,Y user scales
   tmpX <- graphics::grconvertX(alsum$lens[1:2],"user","inches")
   tmpY <- graphics::grconvertY(alsum$ages[1:2],"user","inches")
-  # find minimum diff in X,Y inches per 1 concurrent set of values of user scale * the buffer
+  # find minimum diff in X,Y inches per 1 concurrent set of values
+  # of user scale * the buffer
   min(diff(tmpX),diff(tmpY))*buf
 }
 
-## ===========================================================
-## INTERNAL -- add bubles to an existing plot
-## ===========================================================
+## =============================================================================
+## INTERNAL -- add bubbles to an existing plot
+## =============================================================================
 iBubblesAdd <- function(key,alsum,buf,col) { # nocov start
   tmp <- iBubbleUnmatKey(key,alsum)
   with(tmp,symbols(len,age,circles=sqrt(tmp$prop),inches=iBubbleFindIn(alsum,buf),
@@ -271,11 +289,12 @@ iBubblesAdd <- function(key,alsum,buf,col) { # nocov start
 } # nocov end
 
 iALKPlotBubble <- function(key,xlab,ylab,xlim,ylim,grid,buf,col,add,...) { # nocov start
-  # if grid is a logical and is TRUE then give default color, if FALSE then set to NULL
+  # if grid is logical and TRUE then default color, if FALSE then NULL
   if (is.logical(grid)) {
     if (grid) grid <- "gray80"
     else grid <- NULL
-  } 
+  }
+  if (is.null(col)) col <- "gray60"
   alsum <- iFindAgesAndLens(key)
   if (!add) {
     # not adding to an existing bubble plot, so make the base plot

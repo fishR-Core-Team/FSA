@@ -57,7 +57,8 @@ test_that("iCheckALK() messages",{
 test_that("alkPlot() messages",{
   ## Bad argument choices
   expect_error(alkPlot(alk,type="derek"),"should be one of")
-  expect_error(alkPlot(alk,pal="derek"),"should be one of")
+  expect_warning(alkPlot(alk,col=gray.colors(3)),"colors will be recycled")
+  expect_warning(alkPlot(alk,col=gray.colors(8)),"colors will not be used")
   ## one row is all zeros
   tmp <- alk
   tmp[2,] <- 0

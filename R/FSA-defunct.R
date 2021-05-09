@@ -4,6 +4,10 @@
 #' @keywords internal
 NULL
 
+chooseColors <- function(...) {
+  .Defunct(msg="'chooseColors' has been removed; use one of many other available resources to choose appropriate colors.")
+}
+
 diags <- function(...) {
   .Defunct(msg="'diags' has been removed (to 'FSAmisc' on GitHub).")
 }
