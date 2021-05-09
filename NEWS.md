@@ -8,6 +8,7 @@
 * `fitPlot()`: Modified. Removed use of `chooseColors()` (see above).
 * `diags()`: Removed (moved to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
 * `hoCoef()`: Removed (moved to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
+* `iRichColors()`: Removed (as part of removing `chooseColors()`).
 * `mapvalues()`: Removed. Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
 * `mrOpen()`: Modified. Added a warning for when r==0, which causes the SE of M and thus N to be `Infinity` (this addresses [#69](https://github.com/droglenc/FSA/issues/69)). Added a similar warning for when R==0 (but not the last time period). Added tests for the warning messages. Changed one use of `apply()` to `rowSums()` for ease of reading.
 * `paletteChoices`: Removed. This was an exported vector that should have been internal.

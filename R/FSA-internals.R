@@ -11,7 +11,8 @@
 ## Sends a start-up message to the console when the package is loaded.
 ##################################################################
 .onAttach <- function(lib,pkg,...) {
-  vers <- read.dcf(system.file("DESCRIPTION",package=pkg,lib.loc=lib),fields="Version")
+  vers <- read.dcf(system.file("DESCRIPTION",package=pkg,lib.loc=lib),
+                   fields="Version")
   msg <- paste0("## FSA v",vers,". See citation('FSA') if used in publication.\n")
   msg <- paste0(msg,"## Run fishR() for related website and fishR('IFAR') for related book.")    
   packageStartupMessage(msg)
@@ -27,12 +28,13 @@ iAddLoessLine <- function(r,fv,lty.loess,lwd.loess,col.loess,
           c(pred$fit-pred$se.fit*stats::qt(0.975,pred$df),
             rev(pred$fit+pred$se.fit*stats::qt(0.975,pred$df))),
           col=col2rgbt(col.loess,trans.loess),border=NA,xpd=FALSE)
-  graphics::lines(pred$fit~xseq,lwd=lwd.loess,lty=lty.loess,col=col.loess,xpd=FALSE)
+  graphics::lines(pred$fit~xseq,lwd=lwd.loess,lty=lty.loess,col=col.loess,
+                  xpd=FALSE)
 }  # end iAddLoessLine internal function
 
 
 iCheckALK <- function(key,only1=FALSE,remove0rows=FALSE) {
-  #### only1=TRUE ... only check if rows sum to 1, otherwise also check if they sum to 0
+  #### only1=TRUE ... only check if rows sum to 1, otherwise also check if sum to 0
   #### remove0rows=TRUE ... remove the rows that sum to 0.
   
   ## Check that row names and column names can be considered as numeric
@@ -55,7 +57,8 @@ iCheckALK <- function(key,only1=FALSE,remove0rows=FALSE) {
          "these rows were removed from the table.")
     key <- key[!is.na(key.rowSum) & key.rowSum!=0,]
   }
-  ## Check if rows sum to 1 (allow for some minimal rounding error and does not consider zeroes )
+  ## Check if rows sum to 1 (allows for some minimal rounding error and
+  ##   does not consider zeroes )
   if (any(key.rowSum>0.01 & (key.rowSum<0.99 | key.rowSum>1.01)))
     WARN("Key contained a row that does not sum to 1.")
   ## Check if rows sum to 0 (allow for some minimal rounding error)
@@ -95,8 +98,8 @@ iCheckStartcatW <- function(startcat,w,d) {
 }
 
 
-iCILabel <- function(conf.level,digits=1) paste(paste0(round(100*conf.level,digits),"%"),
-                                                c("LCI","UCI"))
+iCILabel <- function(conf.level,digits=1)
+  paste(paste0(round(100*conf.level,digits),"%"),c("LCI","UCI"))
 
 
 
@@ -166,7 +169,8 @@ iHndlCols2UseIgnore <- function(df,cols2use=NULL,cols2ignore=NULL) {
 
   ## if both cols2use and cols2ignore are NULL, return the original df
   if (is.null(cols2use) & is.null(cols2ignore)) ind <- seq_len(ncol(df))
-  else if (!is.null(cols2use) & !is.null(cols2ignore)) STOP("Cannot use both 'cols2use' and 'cols2ignore'.")
+  else if (!is.null(cols2use) & !is.null(cols2ignore))
+    STOP("Cannot use both 'cols2use' and 'cols2ignore'.")
   else if (!is.null(cols2use)) ind <- iHndlCols2Use(df,cols2use)
   else ind <- iHndlCols2Ignore(df,cols2ignore)
   ## Return data.frame of only columns asked for
@@ -197,7 +201,8 @@ iHndlFormula <- function(formula,data,expNumR=NULL,
                                            seq_len(nchar(fcLHS)))),
              LHSgt1 <- TRUE, LHSgt1 <- FALSE)
       # STOP if there is more than one variable on LHS
-      if (LHSgt1) STOP("Function does not work with more than one variable on the LHS.")
+      if (LHSgt1)
+        STOP("Function does not work with more than one variable on the LHS.")
       else {
         # There is a LHS and it has only one variable.
         Rpos <- Rnum <- 1
@@ -327,27 +332,6 @@ iMakeColor <- function(col,transp) {
   grDevices::rgb(colprts[1,1],colprts[2,1],colprts[3,1],transp)
 }
 
-
-iRichColors <- function (n,palette=c("temperature","blues"),alpha=1,rgb=FALSE) {
-  ## From gplots package that was orphaned
-  if (n <= 0) return(character(0))
-  palette <- match.arg(palette)
-  x <- seq(0,1,length=n)
-  if (palette=="temperature") {
-    r <- 1/(1+exp(20-35* x))
-    g <- pmin(pmax(0,-0.8+6*x-5*x^2),1)
-    b <- stats::dnorm(x,0.25,0.15)/max(stats::dnorm(x,0.25,0.15))
-  } else {
-    r <- 0.6*x+0.4*x^2
-    g <- 1.5*x-0.5*x^2
-    b <- 0.36+2.4*x-2*x^2
-    b[x>0.4] <- 1
-  }
-  rgb.m <- matrix(c(r,g,b),ncol=3,dimnames=list(NULL,c("red","green","blue")))
-  col <- mapply(rgb,r,g,b,alpha)
-  if (rgb) attr(col,"rgb") <- cbind(rgb.m,alpha)
-  return(col)
-}
 
 
 ################################################################################
