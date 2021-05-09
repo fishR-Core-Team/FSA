@@ -244,6 +244,26 @@ test_that("iListSpecies() messages",{
 })
 
 
+test_that("iCheckMultColor messages and results",{
+  expect_error(FSA:::iCheckMultColor("Derek",2),
+               "is not a valid color")
+  expect_error(FSA:::iCheckMultColor(c("blue","Derek"),2),
+               "is not a valid color")
+  expect_warning(FSA:::iCheckMultColor("blue",2),
+                 "colors will be recycled")
+  expect_warning(FSA:::iCheckMultColor(c("blue","red"),3),
+                 "colors will be recycled")
+  expect_warning(FSA:::iCheckMultColor(c("blue","red"),1),
+                 "colors will not be used")
+  expect_warning(FSA:::iCheckMultColor(c("blue","red","orange"),2),
+                 "colors will not be used")
+  expect_equal(FSA:::iCheckMultColor("black",1),"black")
+  expect_equal(FSA:::iCheckMultColor(c("black","blue"),2),c("black","blue"))
+  expect_equal(FSA:::iCheckMultColor("Dark 2",1),"#C87A8A")
+  expect_equal(FSA:::iCheckMultColor("Dark 2",2),c("#C87A8A","#00A396"))
+})
+
+
 test_that("iMakeColor() messages and results",{
   expect_error(FSA:::iMakeColor("black",-1),"must be greater than 0")
   expect_error(FSA:::iMakeColor("black",0),"must be greater than 0")

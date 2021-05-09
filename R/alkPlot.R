@@ -21,7 +21,7 @@
 #' @param leg.cex A numeric character expansion value for labels on the legend when \code{showLegend=TRUE}.
 #' @param lwd A numeric that indicates the line width when \code{type="lines"} or \code{type="splines"}.
 #' @param span A numeric that indicates the span value to use in \code{loess} when \code{type="splines"}.
-#' @param col A vector of colors for the bars, areas, lines, or spline lines of different ages; defaults to a "viridis" palette in \code{\link[grDevices]{hcl.colors}} . A single string that indicates the color of the bubbles when \code{type="bubble"}.
+#' @param col A single character string that is a palette from \code{\link[grDevices]{hcl.pals}} or a vector of character strings containing colors for the bars, areas, lines, or spline lines of different ages; defaults to the "viridis" palette in \code{\link[grDevices]{hcl.colors}}. A single string that indicates the color of the bubbles when \code{type="bubble"}.
 #' @param grid A logical that indicates whether a grid should be placed under the bubbles when \code{type="bubble"} or a character or appropriate vector that identifies a color for the grid. See examples.
 #' @param buf A single numeric that indicates the relative width of the bubbles when \code{type="bubble"}. A value of 0.5 means that two full-width bubbles would touch each other either in the x- or y-direction (i.e., this would represent half of the minimum of the physical distance between values one-unit apart on the x- and y-axes). Set this to a value less than 0.5 so that the bubbles will not touch (the default is 0.45).
 #' @param add A logical that indicates whether the data should be added to an already existing plot. May be useful for visually comparing age-length keys. Only implemented when \code{type="bubble"}.
@@ -49,8 +49,8 @@
 #'
 #' ## Various visualizations of the age-length key
 #' alkPlot(WR.key,"barplot")
-#' alkPlot(WR.key,"barplot",col=hcl.colors(8,palette="Cork"))
-#' alkPlot(WR.key,"barplot",col=hcl.colors(8,palette="Earth"))
+#' alkPlot(WR.key,"barplot",col="Cork")
+#' alkPlot(WR.key,"barplot",col=heat.colors(8))
 #' alkPlot(WR.key,"barplot",showLegend=TRUE)
 #' alkPlot(WR.key,"area")
 #' alkPlot(WR.key,"lines")
@@ -97,22 +97,6 @@ iFindAgesAndLens <- function(key) {
   lens <- as.numeric(rownames(key))
   num.lens <- length(lens)
   list(num.ages=num.ages,ages=ages,num.lens=num.lens,lens=lens)
-}
-
-################################################################################
-## Internal function to check colors
-################################################################################
-iALKCheckColors <- function(col,n) {
-  if (is.null(col)) col <- grDevices::hcl.colors(n)
-  else if (length(col) < n)
-    WARN("Number of colors (",length(col),
-         ") is less than number of ages (",n,
-         "); colors will be recycled")
-  else if (length(col) > n)
-    WARN("Number of colors (",length(col),
-         ") is more than number of ages (",n,
-         "); some colors will not be used")
-  col
 }
 
 ################################################################################
@@ -163,7 +147,7 @@ iALKPlotArea <- function(key,xlab,ylab,xlim,ylim,showLegend,leg.cex,col) { # noc
   # adjust key for xlim values
   key <- iAdjKey4xlim(key,xlim)
   alsum <- iFindAgesAndLens(key)
-  col <- iALKCheckColors(col,alsum$num.ages)
+  col <- iCheckMultColor(col,alsum$num.ages)
   if (showLegend) iAddLegend(alsum,leg.cex,col)
   # convert NULL y-axis limits to NA for use with stackpoly
   if (is.null(ylim)) ylim <- NA
@@ -203,7 +187,7 @@ iALKPlotBar <- function(key,xlab,ylab,xlim,ylim,lbl.cex,showLegend,leg.cex,col,.
   # adjust key for xlim values
   key <- iAdjKey4xlim(key,xlim)
   alsum <- iFindAgesAndLens(key)
-  col <- iALKCheckColors(col,alsum$num.ages)
+  col <- iCheckMultColor(col,alsum$num.ages)
   if (showLegend) iAddLegend(alsum,leg.cex,col)
   graphics::barplot(t(key),space=0,col=col,xlab=xlab,ylab=ylab,ylim=ylim,...)
   if (!showLegend) iBarplotAddLabelsToBars(key,alsum,lbl.cex,col)
@@ -215,7 +199,7 @@ iALKPlotBar <- function(key,xlab,ylab,xlim,ylim,lbl.cex,showLegend,leg.cex,col,.
 iALKPlotLines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,col,
                           showLegend,leg.cex,...) { # nocov start
   alsum <- iFindAgesAndLens(key)
-  col <- iALKCheckColors(col,alsum$num.ages)
+  col <- iCheckMultColor(col,alsum$num.ages)
   if (showLegend) iAddLegend(alsum,leg.cex,col)
   if (is.null(xlim)) xlim <- range(alsum$lens)
   if (is.null(ylim)) ylim <- c(0,1)
@@ -235,7 +219,7 @@ iALKPlotLines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,col,
 iALKPlotSplines <- function(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,col,
                             showLegend,leg.cex,...) { # nocov start
   alsum <- iFindAgesAndLens(key)
-  col <- iALKCheckColors(col,alsum$num.ages)
+  col <- iCheckMultColor(col,alsum$num.ages)
   if (showLegend) iAddLegend(alsum,leg.cex,col)
   if (is.null(xlim)) xlim <- range(alsum$lens)
   if (is.null(ylim)) ylim <- c(0,1)

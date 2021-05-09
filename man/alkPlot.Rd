@@ -44,7 +44,7 @@ alkPlot(
 
 \item{grid}{A logical that indicates whether a grid should be placed under the bubbles when \code{type="bubble"} or a character or appropriate vector that identifies a color for the grid. See examples.}
 
-\item{col}{A vector of colors for the bars, areas, lines, or spline lines of different ages; defaults to a "viridis" palette in \code{\link[grDevices]{hcl.colors}} . A single string that indicates the color of the bubbles when \code{type="bubble"}.}
+\item{col}{A single character string that is a palette from \code{\link[grDevices]{hcl.pals}} or a vector of character strings containing colors for the bars, areas, lines, or spline lines of different ages; defaults to the "viridis" palette in \code{\link[grDevices]{hcl.colors}}. A single string that indicates the color of the bubbles when \code{type="bubble"}.}
 
 \item{buf}{A single numeric that indicates the relative width of the bubbles when \code{type="bubble"}. A value of 0.5 means that two full-width bubbles would touch each other either in the x- or y-direction (i.e., this would represent half of the minimum of the physical distance between values one-unit apart on the x- and y-axes). Set this to a value less than 0.5 so that the bubbles will not touch (the default is 0.45).}
 
@@ -83,8 +83,8 @@ round(WR.key,3)
 
 ## Various visualizations of the age-length key
 alkPlot(WR.key,"barplot")
-alkPlot(WR.key,"barplot",col=hcl.colors(8,palette="Cork"))
-alkPlot(WR.key,"barplot",col=hcl.colors(8,palette="Earth"))
+alkPlot(WR.key,"barplot",col="Cork")
+alkPlot(WR.key,"barplot",col=heat.colors(8))
 alkPlot(WR.key,"barplot",showLegend=TRUE)
 alkPlot(WR.key,"area")
 alkPlot(WR.key,"lines")
@@ -98,7 +98,7 @@ alkPlot(WR.key,"bubble",col=col2rgbt("black",0.5))
 Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 }
 \seealso{
-See \code{\link{alkIndivAge}} for using an age-length key to assign ages to individual fish.
+See \code{\link{alkIndivAge}} for using an age-length key to assign ages to individual fish. See \code{\link[grDevices]{hcl.colors}} for a simple way to choose other colors.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

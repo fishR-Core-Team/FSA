@@ -17,7 +17,7 @@
 #' @param from,to The range over which the function will be plotted. Defaults to range of the x-axis of the active plot.
 #' @param n The number of value at which to evaluate the function for plotting (i.e., the number of values from \code{from} to \code{to}). Larger values make smoother lines.
 #' @param lwd A numeric used to indicate the line width of the fitted line.
-#' @param pal A character that is the name of a palette. Must be one of \dQuote{rich}, \dQuote{cm}, \dQuote{default}, \dQuote{grey}, \dQuote{gray}, \dQuote{heat}, \dQuote{jet}, \dQuote{rainbow}, \dQuote{topo}, or \dQuote{terrain}, which are given in \code{paletteChoices}.
+#' @param col A single character string that is a palette from \code{\link[grDevices]{hcl.pals}} or a vector of character strings containing colors for the fitted lines at each trace.
 #' @param rev.col A logical that indicates that the order of colors for plotting the lines should be reversed.
 #' @param legend Controls use and placement of the legend. See details.
 #' @param cex.leg A single numeric value that represents the character expansion value for the legend. Ignored if \code{legend=FALSE}.
@@ -66,14 +66,13 @@
 #' 
 #' @export
 nlsTracePlot <- function(object,fun,from=NULL,to=NULL,n=199,
-                         lwd=2,pal=paletteChoices(),rev.col=FALSE,
+                         lwd=2,col=NULL,rev.col=FALSE,
                          legend="topright",cex.leg=0.9,box.lty.leg=0,
                          add=TRUE) {
   ## Checks
   if (!inherits(object,c("nls","character")))
     STOP("'object' must be from 'nls()' or from 'capture.output()'.")
   fun <- match.fun(fun)
-  pal <- match.arg(pal)
   if (n<2) STOP("'n' must be greater than 2.")
   ## Determine if need to capture trace (if object is object from nls())
   if (inherits(object,"nls")) {
@@ -101,19 +100,20 @@ nlsTracePlot <- function(object,fun,from=NULL,to=NULL,n=199,
     leg <- iLegendHelp(legend)
     if (!iPlotExists()) STOP("An active plot does not exist.")
     niter <- nrow(trcDF)
-    clrs <- chooseColors(pal,niter,rev.col)
+    col <- iCheckMultColor(col,niter)
+    if (rev.col) col <- rev(col)
     if (is.null(from)) from <- graphics::par("usr")[1L] # nocov start
     if (is.null(to)) to <- graphics::par("usr")[2L]
     xs <- seq(from,to,length.out=n)
     for (i in 1:niter) {
       ys <- do.call(fun,list(xs,trcDF[i,]))
-      graphics::lines(xs,ys,lwd=lwd,col=clrs[i])
+      graphics::lines(xs,ys,lwd=lwd,col=col[i])
     }
     ## add legend if asked for
     if (leg$do.legend) {
       lbls <- c("start",paste0("end (",niter,")"))
       graphics::legend(x=leg$x,y=leg$y,legend=lbls,
-                       col=clrs[c(1,niter)],lwd=lwd,
+                       col=col[c(1,niter)],lwd=lwd,
                        bty="n",cex=cex.leg,box.lty=box.lty.leg)
     } # nocov end
   }

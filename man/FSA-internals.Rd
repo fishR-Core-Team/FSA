@@ -4,6 +4,7 @@
 \alias{.onAttach}
 \alias{iAddLoessLine}
 \alias{iCheckALK}
+\alias{iCheckMultColor}
 \alias{iCheckStartcatW}
 \alias{iCILabel}
 \alias{iGetDecimals}
@@ -14,7 +15,6 @@
 \alias{iLegendHelp}
 \alias{iListSpecies}
 \alias{iMakeColor}
-\alias{iRichColors}
 \alias{iPlotExists}
 \alias{is.wholenumber}
 \alias{iTypeoflm}
