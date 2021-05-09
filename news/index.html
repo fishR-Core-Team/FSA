@@ -136,6 +136,8 @@
 <li>
 <code>diags()</code>: Removed (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
+<code>hoCoef()</code>: Removed (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
+<li>
 <code>mapvalues()</code>: Removed. Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
 <code><a href="../reference/jolly.html">mrOpen()</a></code>: Modified. Added a warning for when r==0, which causes the SE of M and thus N to be <code>Infinity</code> (this addresses <a href="https://github.com/droglenc/FSA/issues/69"><a href='https://github.com/droglenc/FSA/issues/69'>#69</a></a>). Added a similar warning for when R==0 (but not the last time period). Added tests for the warning messages. Changed one use of <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> to <code><a href="https://rdrr.io/r/base/colSums.html">rowSums()</a></code> for ease of reading.</li>
@@ -1422,7 +1424,7 @@
 <li>
 <code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Added ability to modify y-axis limits for the nonlinear regression model. Thanks to Gabriela N. for asking for this.</li>
 <li>
-<code><a href="../reference/hoCoef.html">hoCoef()</a></code>: Modified. Changed <code>lmobj=</code> to <code>object=</code>, added degrees-of-freedom to the output matrix, streamlined the code, added some checks, and added some tests.</li>
+<code>hoCoef()</code>: Modified. Changed <code>lmobj=</code> to <code>object=</code>, added degrees-of-freedom to the output matrix, streamlined the code, added some checks, and added some tests.</li>
 <li>
 <code><a href="../reference/extraTests.html">lrt()</a></code>: Modified. Added <code>sim_names=</code> and <code>com_name=</code> so that simple descriptive names could be given to the model and printed in the heading of the output. Added checks for whether the complex model appears more complex or not. Added tests for warning and error messages.</li>
 </ul>
@@ -2887,7 +2889,7 @@
 <li><p><code><a href="../reference/fitPlot.html">fitPlot()</a></code>: added from NCStats.</p></li>
 <li><p><code>FroeseWs()</code>: modified class name to “FroeseWs” from “FROESE”.</p></li>
 <li><p><code><a href="https://rdrr.io/pkg/plotrix/man/histStack.html">histStack()</a></code>: added.</p></li>
-<li><p><code><a href="../reference/hoCoef.html">hoCoef()</a></code>: added from NCStats.</p></li>
+<li><p><code>hoCoef()</code>: added from NCStats.</p></li>
 <li><p><code>ks2d()</code>: modified class name to “ks2d” from “ks2d”.</p></li>
 <li><p><code>ks2dp()</code>: modified class name to “ks2dp” from “ks2dp”.</p></li>
 <li><p><code>legendHelp()</code>: added (internal) from NCStats.</p></li>
