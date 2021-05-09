@@ -8,6 +8,10 @@ diags <- function(...) {
   .Defunct(msg="'diags' has been removed (to 'FSAmisc' on GitHub).")
 }
 
+diags <- function(...) {
+  .Defunct(msg="'hoCoef' has been removed (to 'FSAmisc' on GitHub).")
+}
+
 mapvalues <- function(...) {
   .Defunct(msg="'FSA::mapvalues' has been removed; use 'plyr::mapvalues' instead for the same functionality.")
 }
