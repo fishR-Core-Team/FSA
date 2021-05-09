@@ -53,16 +53,16 @@ test_that("fitPlot() errors and warnings",{
   ## Bad colors, points, or line types for one-way IVR
   tmp <- lm(y1~x1*z1,data=df)
   expect_warning(fitPlot(tmp,col=c("orange","green")),
-                 "Fewer colors sent then levels")
-  expect_warning(fitPlot(tmp,col="rich",pch=17:18),
+                 "changed to default colors")
+  expect_warning(fitPlot(tmp,col="Dark 2",pch=17:18),
                  "Fewer pchs sent then levels")
-  expect_warning(fitPlot(tmp,col="rich",lty=1:2),
+  expect_warning(fitPlot(tmp,col="Dark 2",lty=1:2),
                  "Fewer ltys sent then levels")
   expect_warning(fitPlot(tmp,col="black",lty=1),
                  "difficult to see groups")
   expect_warning(fitPlot(tmp,col="black",pch=1),
                  "difficult to see groups")
-  expect_warning(fitPlot(tmp,col="rich",pch=1,lty=1),
+  expect_warning(fitPlot(tmp,col="Dark 2",pch=1,lty=1),
                  "difficult to see groups")
   expect_warning(fitPlot(tmp,col="black",lty=1,pch=1),
                  "difficult to see groups")
@@ -73,10 +73,10 @@ test_that("fitPlot() errors and warnings",{
   ## Bad colors, points, or line types for two-way IVR
   tmp <- lm(y1~x1*z1*z3,data=df)
   expect_warning(fitPlot(tmp,col=c("orange","green")),
-                 "Fewer colors sent then levels")
-  expect_warning(fitPlot(tmp,col="rich",pch=17:18),
+                 "changed to default colors")
+  expect_warning(fitPlot(tmp,col="Dark 2",pch=17:18),
                  "Fewer pchs sent then levels")
-  expect_warning(fitPlot(tmp,col="rich",lty=1:2),
+  expect_warning(fitPlot(tmp,col="Dark 2",lty=1:2),
                  "Fewer ltys sent then levels")
   
   #### ONE-WAY ANOVA
@@ -93,10 +93,10 @@ test_that("fitPlot() errors and warnings",{
   tmp <- lm(y1~z3*z1,data=df)
   ## bad colors
   expect_warning(fitPlot(tmp,col=c("orange","green")),
-                 "Fewer colors sent then levels")
-  expect_warning(fitPlot(tmp,col="rich",pch=17:18),
+                 "changed to default colors")
+  expect_warning(fitPlot(tmp,col="Dark 2",pch=17:18),
                  "Fewer pchs sent then levels")
-  expect_warning(fitPlot(tmp,col="rich",lty=1:2),
+  expect_warning(fitPlot(tmp,col="Dark 2",lty=1:2),
                  "Fewer ltys sent then levels")
   
   #### Non-logistic regression GLM
@@ -123,14 +123,14 @@ test_that("residPlot() errors and warnings",{
   ## Bad colors, points, or line types for one-way IVR
   tmp <- lm(y1~x1*z1,data=df)
   expect_warning(residPlot(tmp,col=c("orange","green")),
-                 "Fewer colors sent then levels")
-  expect_warning(residPlot(tmp,col="rich",pch=17:18),
+                 "changed to default colors")
+  expect_warning(residPlot(tmp,col="Dark 2",pch=17:18),
                  "Fewer pchs sent then levels")
   ## Bad colors, points, or line types for two-way IVR
   tmp <- lm(y1~x1*z1*z3,data=df)
   expect_warning(residPlot(tmp,col=c("orange","green")),
-                 "Fewer colors sent then levels")
-  expect_warning(residPlot(tmp,col="rich",pch=17:18),
+                 "changed to default colors")
+  expect_warning(residPlot(tmp,col="Dark 2",pch=17:18),
                  "Fewer pchs sent then levels")
   
   ## Wrong residual types for nls and nlme

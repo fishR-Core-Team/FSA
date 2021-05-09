@@ -1,10 +1,11 @@
 # FSA 0.9.0 ongoing
 * Added Jason Doll as an `AUThor`.
 * Moved `plyr` from Imports to Suggests.
-* `alkPlot()`: Modified. Removed used of `chooseColors()` and `paletteChoices()` (see below).
+* `alkPlot()`: Modified. Removed use of `chooseColors()` (see below).
 * `catchCurve()`: Modified. Removed hard-coding of `ylim=` for `plot.catchCurve()` (this addresses [#70](https://github.com/droglenc/FSA/issues/70) ... Thanks to Brendan Runde). Added `round.est=` so that the user can control the decimals on mortality estimate values.
 * `chapmanRobson()`: Modified. Removed hard-coding of `ylim=` for `plot.chapmanRobson()`. Added `round.est=` so that the user can control the decimals on mortality and survival estimate values.
 * `chooseColors()`: Removed. This was an exported function that should have been internal. Regardless, where it was used has been removed and the user is now allowed to provide their own vector of colors (but defaults to the "viridis" palette in `hcl.colors()`).
+* `fitPlot()`: Modified. Removed use of `chooseColors()` (see above).
 * `diags()`: Removed (moved to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
 * `hoCoef()`: Removed (moved to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
 * `mapvalues()`: Removed. Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
@@ -14,6 +15,7 @@
 * `PSDlit`: Modified. Added length categories for Shoal Bass. Added Striped Bass (Hybrid) and Striped Bass x White Bass; though these are the same as the existing Palmetto Bass.
 * `psdVal()`: Modified. Changed a `levels()` in `iPSDlitCheck()` and `iListSpecies()` to `unique()` because `species` is no longer a factor due to updating `PSDlit` (i.e., rdata file changed with new `read.csv()`).
 * `removal()`: Modified. Added check and then warning if non-whole numbers are in `catch=` (addresses [#60](https://github.com/droglenc/FSA/issues/60)). Also modified checks of data integrity to be more robust (e.g., if a character vector is sent).
+* `residPlot()`: Modified. Removed use of `chooseColors()` (see above).
 * `Subset()`: Removed. Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
 * `wrAdd()`: Modified. Changed a `levels()` in `iwsLitCheck()` to `unique()` because `species` is no longer a factor due to updating `WSlit` (i.e., rdata file changed with new `read.csv()`).
 * `WSlit`: Modified. Addresses [#68](https://github.com/droglenc/FSA/issues/68).

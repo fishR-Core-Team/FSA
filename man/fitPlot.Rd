@@ -67,7 +67,7 @@ fitPlot(object, ...)
   type = "b",
   pch = c(16, 21, 15, 22, 17, 24, c(3:14)),
   lty = c(1:6, 1:6, 1:6),
-  col = "default",
+  col = "Dark 2",
   interval = TRUE,
   conf.level = 0.95,
   ci.fun = iCIfp(conf.level),
@@ -158,7 +158,7 @@ fitPlot(object, ...)
 
 \item{type}{The type of graphic to construct in a one-way and two-way ANOVA. If \code{"b"} then points are plotted and lines are used to connect points (DEFAULT). If \code{"p"} then only points are used and if \code{"l"} then only lines are drawn.}
 
-\item{col}{A vector of color names or numbers or the name of a palette (see details) that indicates what color of points and lines to use for the levels of the first factor in an IVR or the second factor in a two-way ANOVA.}
+\item{col}{A vector of color names or the name of a palette (from \code{\link[grDevices]{hcl.pals}}) that indicates what color of points and lines to use for the levels of the first factor in an IVR or the second factor in a two-way ANOVA.}
 
 \item{ci.fun}{A function used to put error bars on the one-way or two-way ANOVA graphs. The default is to use the internal \code{iCIfp} function which will place t-distribution based confidence intervals on the graph. The user can provide alternative functions that may plot other types of \sQuote{error bars}. See examples in \code{\link[sciplot]{lineplot.CI}} function of \pkg{sciplot} package.}
 
@@ -237,7 +237,7 @@ fitPlot(aov2,change.order=TRUE)
 fitPlot(aov2,which="species")
 fitPlot(aov2,which="fyear")
 
-## Simple linear regression (showing color change and confidence and prediction bands)
+## Simple linear regression (show color change and confidence/prediction bands)
 slr1 <- lm(mirex~weight,data=Mirex)
 fitPlot(slr1)
 fitPlot(slr1,interval="both")
@@ -246,6 +246,7 @@ fitPlot(slr1,interval="both")
 ivr1 <- lm(mirex~weight*fyear,data=Mirex2)
 fitPlot(ivr1,legend="topleft")
 fitPlot(ivr1,legend="topleft",interval="confidence")
+fitPlot(ivr1,legend="topleft",interval="confidence",col="Dark 2")
 
 ## Indicator variable regression with one factor (assuming parallel lines)
 ivr2 <- lm(mirex~weight+species,data=Mirex2)
@@ -254,6 +255,7 @@ fitPlot(ivr2,legend="topleft")
 ## Indicator variable regression with two factors
 ivr3 <- lm(mirex~weight*fyear*species,data=Mirex2)
 fitPlot(ivr3,ylim=c(0,0.8),legend="topleft")
+fitPlot(ivr3,ylim=c(0,0.8),legend="topleft",col="Spectral")
 
 ## Polynomial regression
 poly1 <- lm(mirex~weight+I(weight^2),data=Mirex)
