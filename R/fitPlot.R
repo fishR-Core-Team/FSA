@@ -17,7 +17,7 @@
 #' @param conf.level A decimal numeric that indicates the level of confidence to use for confidence and prediction intervals.
 #' @param plot.pts A logical that indicates (\code{TRUE} (default)) whether the points are plotted along with the fitted lines. Set to \code{FALSE} to plot just the fitted lines.
 #' @param pch A numeric or vector of numerics that indicates what plotting character codes should be used. In SLR this is the single value to be used for all points. In IVR a vector is used to identify the characters for the levels of the second factor.
-#' @param col A vector of color names or numbers or the name of a palette (see details) that indicates what color of points and lines to use for the levels of the first factor in an IVR or the second factor in a two-way ANOVA.
+#' @param col A vector of color names or the name of a palette (from \code{\link[grDevices]{hcl.pals}}) that indicates what color of points and lines to use for the levels of the first factor in an IVR or the second factor in a two-way ANOVA.
 #' @param col.pt A string used to indicate the color of the plotted points. Used only for SLR and logistic regression objects.
 #' @param col.mdl A string used to indicate the color of the fitted line. Used only for SLR and logistic regression objects.
 #' @param lwd A numeric used to indicate the line width of the fitted line. 
@@ -79,7 +79,7 @@
 #' fitPlot(aov2,which="species")
 #' fitPlot(aov2,which="fyear")
 #'
-#' ## Simple linear regression (showing color change and confidence and prediction bands)
+#' ## Simple linear regression (show color change and confidence/prediction bands)
 #' slr1 <- lm(mirex~weight,data=Mirex)
 #' fitPlot(slr1)
 #' fitPlot(slr1,interval="both")
@@ -88,6 +88,7 @@
 #' ivr1 <- lm(mirex~weight*fyear,data=Mirex2)
 #' fitPlot(ivr1,legend="topleft")
 #' fitPlot(ivr1,legend="topleft",interval="confidence")
+#' fitPlot(ivr1,legend="topleft",interval="confidence",col="Dark 2")
 #' 
 #' ## Indicator variable regression with one factor (assuming parallel lines)
 #' ivr2 <- lm(mirex~weight+species,data=Mirex2)
@@ -96,6 +97,7 @@
 #' ## Indicator variable regression with two factors
 #' ivr3 <- lm(mirex~weight*fyear*species,data=Mirex2)
 #' fitPlot(ivr3,ylim=c(0,0.8),legend="topleft")
+#' fitPlot(ivr3,ylim=c(0,0.8),legend="topleft",col="Spectral")
 #' 
 #' ## Polynomial regression
 #' poly1 <- lm(mirex~weight+I(weight^2),data=Mirex)
@@ -126,8 +128,10 @@ fitPlot <- function (object, ...) {
 #' @export
 fitPlot.lm <- function(object, ...) {
   object <- iTypeoflm(object)
-  if (object$Rnum>1) STOP("'fitPlot()' does not work with more than 1 LHS variable.")
-  if (object$type=="MLR") STOP("Multiple linear regression objects are not supported by fitPlot.")
+  if (object$Rnum>1)
+    STOP("'fitPlot()' does not work with more than 1 LHS variable.")
+  if (object$type=="MLR")
+    STOP("Multiple linear regression objects are not supported by fitPlot.")
   fitPlot(object,...)
 }
 
@@ -190,8 +194,10 @@ fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
 #' @export
 fitPlot.IVR <- function(object,...) {
   ## Do some checks
-  if (object$ENumNum>1) STOP("'fitPlot()' cannot handle >1 covariate in an IVR.")
-  if (object$EFactNum>2) STOP("'fitPlot()' cannot handle >2 factors in an IVR.")
+  if (object$ENumNum>1)
+    STOP("'fitPlot()' cannot handle >1 covariate in an IVR.")
+  if (object$EFactNum>2)
+    STOP("'fitPlot()' cannot handle >2 factors in an IVR.")
   ## Decide if a one-way or two-way IVR
   if (object$EFactNum==1) iFitPlotIVR1(object,...)
     else iFitPlotIVR2(object,...)
@@ -199,8 +205,10 @@ fitPlot.IVR <- function(object,...) {
 
 iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
                          col="black",lty=rep(1:6,6),lwd=3,
-                         interval=c("none","confidence","prediction","both"),conf.level=0.95,
-                         xlab=names(object$mf[object$ENumPos]),ylab=object$Rname,main="",
+                         interval=c("none","confidence","prediction","both"),
+                         conf.level=0.95,
+                         xlab=names(object$mf[object$ENumPos]),
+                         ylab=object$Rname,main="",
                          legend="topright",cex.leg=1,box.lty.leg=0,...) {
   ## Some checks
   interval <- match.arg(interval)
@@ -214,12 +222,14 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   num.f1 <- length(levs.f1)
   # Handle colors, pchs, ltys -- one for each level of f1 factor unless
   # only one color is given
-  col <- iFitPlotClrs2(f1,col,"rich")
+  col <- iFitPlotClrs2(f1,col)
   pch <- iFitPlotPchs2(f1,pch)
   lty <- iFitPlotLtys2(f1,lty)
   ## Check if groups will be able to be seen
-    if (sum(c(length(unique(pch))==1,length(unique(lty))==1,length(unique(col))==1))>1)
-    WARN("Your choices for 'col', 'pch', and 'lty' will make it difficult to see groups.")
+    if (sum(c(length(unique(pch))==1,
+              length(unique(lty))==1,
+              length(unique(col))==1))>1)
+      WARN("Your choices for 'col', 'pch', and 'lty' will make it difficult to see groups.")
   ### Plot the points
   # Creates plot schematic -- no points or lines                   # nocov start
   graphics::plot(y~x,col="white",xlab=xlab,ylab=ylab,main=main,...)
@@ -263,9 +273,11 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
 }
 
 iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
-                         col="rich",lty=rep(1:6,6),lwd=3,
-                         interval=c("none","confidence","prediction","both"),conf.level=0.95,
-                         xlab=names(object$mf[object$ENumPos]),ylab=object$Rname,main="",
+                         col="Dark 2",lty=rep(1:6,6),lwd=3,
+                         interval=c("none","confidence","prediction","both"),
+                         conf.level=0.95,
+                         xlab=names(object$mf[object$ENumPos]),
+                         ylab=object$Rname,main="",
                          legend="topright",cex.leg=1,box.lty.leg=0,...) {
   interval <- match.arg(interval)
   # extract y and x quantitative variables
@@ -279,8 +291,9 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   levs.f2 <- unique(f2)
   num.f1 <- length(levs.f1)
   num.f2 <- length(levs.f2)
-  # Handle cols, pchs, lty1 -- one for each level of f1 factor unless only one color is given
-  col <- iFitPlotClrs2(f1,col,"rich")
+  # Handle cols, pchs, lty1 -- one for each level of f1 factor unless
+  # only one color is given
+  col <- iFitPlotClrs2(f1,col)
   pch <- iFitPlotPchs2(f2,pch)
   lty <- iFitPlotLtys2(f2,lty)
   ### Plot the points
@@ -333,8 +346,9 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
     levs <- expand.grid(levs.f1,levs.f2,stringsAsFactors=FALSE,
                         KEEP.OUT.ATTRS=FALSE)
     levs <- paste(levs[,1],levs[,2],sep =":")
-    if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,
-                                   pch=lpch,lty=llty,cex=cex.leg,box.lty=box.lty.leg)
+    if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=levs,
+                                   col=lcol,pch=lpch,lty=llty,
+                                   cex=cex.leg,box.lty=box.lty.leg)
     else graphics::legend(x=leg$x,y=leg$y,legend=levs,col=lcol,
                           lty=llty,cex=cex.leg,box.lty=box.lty.leg)
     graphics::box()
@@ -381,11 +395,14 @@ fitPlot.ONEWAY <- function (object,
 #' @rdname fitPlot
 #' @export
 fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
-                            xlab=object$Enames[ord[1]],ylab=object$Rname,main="",
-                            type="b",pch=c(16,21,15,22,17,24,c(3:14)),lty=c(1:6,1:6,1:6),col="default",
-                            interval=TRUE,conf.level=0.95,ci.fun=iCIfp(conf.level),lty.ci=1,
-                            legend="topright",cex.leg=1,box.lty.leg=0,
-                            ...) {
+                           xlab=object$Enames[ord[1]],ylab=object$Rname,
+                           main="",type="b",
+                           pch=c(16,21,15,22,17,24,c(3:14)),lty=c(1:6,1:6,1:6),
+                           col="Dark 2",
+                           interval=TRUE,conf.level=0.95,
+                           ci.fun=iCIfp(conf.level),lty.ci=1,
+                           legend="topright",cex.leg=1,box.lty.leg=0,
+                           ...) {
   # extract y variables
   y <- object$mf[,object$Rname]
   # find the factor variables
@@ -399,21 +416,24 @@ fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
     # one of the factors was chosen, pick just that variable
     ord <- match(which,object$Enames)
     x.factor <- object$mf[,object$Enames[ord[1]]]
-    # must handle "other" factor differently depending on if an interval is constructed
+    # handle "other" factor differently depending on if interval is constructed
     if(interval) group <- NULL
     else group <- rep(1,length(y))
-    ngrps <- 1    
+    ngrps <- 1
+    if (col=="Dark 2") col <- "black"
   }
-  col <- iFitPlotClrs2(group,col,"default")
+  col <- iFitPlotClrs2(group,col)
   pch <- iFitPlotPchs2(group,pch)
   lty <- iFitPlotLtys2(group,lty)
   if (interval) {
-    sciplot::lineplot.CI(x.factor,y,group,main=main,xlab=xlab,ylab=ylab,
-                         type=type,pch=pch[1:ngrps],lty=lty[1:ngrps],col=col[1:ngrps],
+    sciplot::lineplot.CI(x.factor,y,group,
+                         main=main,xlab=xlab,ylab=ylab,type=type,
+                         pch=pch[1:ngrps],lty=lty[1:ngrps],col=col[1:ngrps],
                          legend=FALSE,ci.fun=ci.fun,err.lty=lty.ci,...)
-  } else stats::interaction.plot(x.factor,group,y,main=main,xlab=xlab,ylab=ylab,
-                        type=type,pch=pch[1:ngrps],lty=lty[1:ngrps],col=col[1:ngrps],
-                        legend=FALSE,...) 
+  } else stats::interaction.plot(x.factor,group,y,
+                                 main=main,xlab=xlab,ylab=ylab,type=type,
+                                 pch=pch[1:ngrps],lty=lty[1:ngrps],
+                                 col=col[1:ngrps],legend=FALSE,...) 
   if(ngrps>1) {
     leg <- iLegendHelp(legend)
     graphics::legend(leg$x,leg$y,legend=levels(group),pch=pch[1:ngrps],
@@ -425,7 +445,8 @@ fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
 
 #' @rdname fitPlot
 #' @export
-fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col.pt,
+fitPlot.nls <- function(object,d,
+                        pch=c(19,1),col.pt=c("black","red"),col.mdl=col.pt,
                         lwd=2,lty=1,plot.pts=TRUE,jittered=FALSE,ylim=NULL,
                         legend=FALSE,legend.lbls=c("Group 1","Group 2"),
                         ylab=names(mdl$model)[1],xlab=names(mdl$model)[xpos],
@@ -436,7 +457,7 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
   ##   models (e.g., Francis VBGF) the mdel might contain "other" data)
   numvars <- length(attr(stats::terms(mdl$model),"term.labels"))
   if (missing(d)) { d <- mdl$data }
-    else if (!is.data.frame(d)) d <- as.data.frame(d)  # make sure data is a data.frame
+    else if (!is.data.frame(d)) d <- as.data.frame(d) # make sure is data.frame
   ## find y variable from model
   y <- mdl$model[[1]]
   if (numvars==2) {
@@ -458,7 +479,7 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
   }
   # find x variable from model
   x <- mdl$model[[xpos]]
-  # create a vector of x values for making predictions -- large number to make smooth
+  # create a vector of x values for making predictions -- many to make smooth
   fitx <- data.frame(seq(min(x),max(x),length.out=max(100,length(x))))
   
   if (numvars==2) {
@@ -493,8 +514,10 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
     graphics::lines(fitsg2$x,fitsg2$y,lwd=lwd[2],lty=lty[2],col=col.mdl[2])
     leg <- iLegendHelp(legend)
     if (leg$do.legend) {
-      if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=legend.lbls,col=col.pt,pch=pch,lty=lty)
-        else graphics::legend(x=leg$x,y=leg$y,legend=legend.lbls,col=col.mdl,lty=lty)
+      if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=legend.lbls,
+                                     col=col.pt,pch=pch,lty=lty)
+        else graphics::legend(x=leg$x,y=leg$y,legend=legend.lbls,
+                              col=col.mdl,lty=lty)
     }
   }
 }  # nocov end
@@ -502,17 +525,22 @@ fitPlot.nls <- function(object,d,pch=c(19,1),col.pt=c("black","red"),col.mdl=col
 #' @rdname fitPlot
 #' @export
 fitPlot.glm <- function(object, ...) {
-  if (object$family$family=="binomial" & object$family$link=="logit") fitPlot.logreg(object,...)
-    else STOP("Currently only logistic regression GLM models are supported by fitPlot.")
+  if (object$family$family=="binomial" & object$family$link=="logit")
+    fitPlot.logreg(object,...)
+  else
+    STOP("Currently only logistic regression GLM models are supported by fitPlot.")
 }
 
 #' @rdname fitPlot
 #' @export
-fitPlot.logreg <- function(object,xlab=names(object$model)[2],ylab=names(object$model)[1],main="",
-    plot.pts=TRUE,col.pt="black",transparency=NULL,
-    plot.p=TRUE,breaks=25,p.col="blue",p.pch=3,p.cex=1,
-    yaxis1.ticks=seq(0,1,0.1),yaxis1.lbls=c(0,0.5,1),yaxis2.show=TRUE,
-    col.mdl="red",lwd=2,lty=1,mdl.vals=50,xlim=range(x),...) { # nocov start
+fitPlot.logreg <- function(object,
+                           xlab=names(object$model)[2],ylab=names(object$model)[1],
+                           main="",plot.pts=TRUE,col.pt="black",transparency=NULL,
+                           plot.p=TRUE,breaks=25,p.col="blue",p.pch=3,p.cex=1,
+                           yaxis1.ticks=seq(0,1,0.1),yaxis1.lbls=c(0,0.5,1),
+                           yaxis2.show=TRUE,
+                           col.mdl="red",lwd=2,lty=1,mdl.vals=50,xlim=range(x),
+                           ...) { # nocov start
   ## Get data to plot
   yc <- object$model[,1]
   x <- object$model[,2]
@@ -520,16 +548,19 @@ fitPlot.logreg <- function(object,xlab=names(object$model)[2],ylab=names(object$
   nd <- data.frame(seq(min(xlim),max(xlim),length.out=mdl.vals))
   names(nd) <- names(object$model)[2]
   ## Make the plot
-  plotBinResp(x,yc,xlab,ylab,plot.pts,col.pt,transparency,plot.p,breaks,p.col,p.pch,p.cex,
-              yaxis1.ticks=yaxis1.ticks,yaxis1.lbls=yaxis1.lbls,yaxis2.show=yaxis2.show,
+  plotBinResp(x,yc,xlab,ylab,plot.pts,col.pt,transparency,
+              plot.p,breaks,p.col,p.pch,p.cex,
+              yaxis1.ticks=yaxis1.ticks,yaxis1.lbls=yaxis1.lbls,
+              yaxis2.show=yaxis2.show,
               main=main,xlim=xlim,...)
-  graphics::lines(nd[,1],stats::predict(object,nd,type="response"),col=col.mdl,lwd=lwd,lty=lty)
+  graphics::lines(nd[,1],stats::predict(object,nd,type="response"),
+                  col=col.mdl,lwd=lwd,lty=lty)
 } # nocov end
 
 
-##################################################################
+################################################################################
 ### internal functions used in fitPlot
-##################################################################
+################################################################################
 iCIfp1 <- function(x,conf.level) {
   t <- stats::qt((1-conf.level)/2,validn(x)-1)
   c(mean(x)-t*se(x),mean(x)+t*se(x))
@@ -539,13 +570,15 @@ iCIfp <- function(conf.level) function(x) iCIfp1(x,conf.level)
 
 iFitPlotClrs2 <- function(var,col,defpal) {
   num.grps <- length(unique(var))
-  if (num.grps==0) num.grps <- 1   # a hack for when which= is used in two-way ANOVA
+  if (num.grps==0) num.grps <- 1   # a hack for which= in two-way ANOVA
   if (length(col)==1) {
-    if (col %in% paletteChoices()) col <- chooseColors(col,num.grps)
+    if (col %in% grDevices::hcl.pals())
+      col <- grDevices::hcl.colors(num.grps,palette=col)
     else col <- rep(col,num.grps)
   } else if (length(col)<num.grps) {
-    WARN("Fewer colors sent then levels. Changed to default colors.")
-    col <- chooseColors(defpal,num.grps)
+    WARN("Fewer colors sent (",length(col),
+         ") then levels (",num.grps,"; changed to default colors.")
+    col <- grDevices::hcl.colors(num.grps,pal="Dark 2")
   } else col <- col[1:num.grps]
   col
 }

@@ -11,7 +11,7 @@ nlsTracePlot(
   to = NULL,
   n = 199,
   lwd = 2,
-  pal = paletteChoices(),
+  col = NULL,
   rev.col = FALSE,
   legend = "topright",
   cex.leg = 0.9,
@@ -30,7 +30,7 @@ nlsTracePlot(
 
 \item{lwd}{A numeric used to indicate the line width of the fitted line.}
 
-\item{pal}{A character that is the name of a palette. Must be one of \dQuote{rich}, \dQuote{cm}, \dQuote{default}, \dQuote{grey}, \dQuote{gray}, \dQuote{heat}, \dQuote{jet}, \dQuote{rainbow}, \dQuote{topo}, or \dQuote{terrain}, which are given in \code{paletteChoices}.}
+\item{col}{A single character string that is a palette from \code{\link[grDevices]{hcl.pals}} or a vector of character strings containing colors for the fitted lines at each trace.}
 
 \item{rev.col}{A logical that indicates that the order of colors for plotting the lines should be reversed.}
 

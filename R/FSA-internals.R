@@ -4,14 +4,13 @@
 #'
 #' @rdname FSA-internals
 #' @keywords internal
-#' @aliases .onAttach iAddLoessLine iCheckALK iCheckStartcatW iCILabel iGetDecimals  iGetVarFromFormula iHndlCols2UseIgnore iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iRichColors iPlotExists is.wholenumber iTypeoflm STOP WARN
+#' @aliases .onAttach iAddLoessLine iCheckALK iCheckMultColor iCheckStartcatW iCILabel iGetDecimals  iGetVarFromFormula iHndlCols2UseIgnore iHndlFormula iHndlMultWhat iLegendHelp iListSpecies iMakeColor iPlotExists is.wholenumber iTypeoflm STOP WARN
 
 
-##################################################################
-## Sends a start-up message to the console when the package is loaded.
-##################################################################
+# Sends a start-up message to the console when the package is loaded.
 .onAttach <- function(lib,pkg,...) {
-  vers <- read.dcf(system.file("DESCRIPTION",package=pkg,lib.loc=lib),fields="Version")
+  vers <- read.dcf(system.file("DESCRIPTION",package=pkg,lib.loc=lib),
+                   fields="Version")
   msg <- paste0("## FSA v",vers,". See citation('FSA') if used in publication.\n")
   msg <- paste0(msg,"## Run fishR() for related website and fishR('IFAR') for related book.")    
   packageStartupMessage(msg)
@@ -27,12 +26,13 @@ iAddLoessLine <- function(r,fv,lty.loess,lwd.loess,col.loess,
           c(pred$fit-pred$se.fit*stats::qt(0.975,pred$df),
             rev(pred$fit+pred$se.fit*stats::qt(0.975,pred$df))),
           col=col2rgbt(col.loess,trans.loess),border=NA,xpd=FALSE)
-  graphics::lines(pred$fit~xseq,lwd=lwd.loess,lty=lty.loess,col=col.loess,xpd=FALSE)
+  graphics::lines(pred$fit~xseq,lwd=lwd.loess,lty=lty.loess,col=col.loess,
+                  xpd=FALSE)
 }  # end iAddLoessLine internal function
 
 
 iCheckALK <- function(key,only1=FALSE,remove0rows=FALSE) {
-  #### only1=TRUE ... only check if rows sum to 1, otherwise also check if they sum to 0
+  #### only1=TRUE ... only check if rows sum to 1, otherwise also check if sum to 0
   #### remove0rows=TRUE ... remove the rows that sum to 0.
   
   ## Check that row names and column names can be considered as numeric
@@ -55,7 +55,8 @@ iCheckALK <- function(key,only1=FALSE,remove0rows=FALSE) {
          "these rows were removed from the table.")
     key <- key[!is.na(key.rowSum) & key.rowSum!=0,]
   }
-  ## Check if rows sum to 1 (allow for some minimal rounding error and does not consider zeroes )
+  ## Check if rows sum to 1 (allows for some minimal rounding error and
+  ##   does not consider zeroes )
   if (any(key.rowSum>0.01 & (key.rowSum<0.99 | key.rowSum>1.01)))
     WARN("Key contained a row that does not sum to 1.")
   ## Check if rows sum to 0 (allow for some minimal rounding error)
@@ -95,16 +96,49 @@ iCheckStartcatW <- function(startcat,w,d) {
 }
 
 
-iCILabel <- function(conf.level,digits=1) paste(paste0(round(100*conf.level,digits),"%"),
-                                                c("LCI","UCI"))
+# Creates a vector of default multiple colors if col==NULL. If col is in 
+# hcl.pals() then it will create default colors based on that palette,
+# Otherwise checks if the provided vector of colors is the same length as n.
+iCheckMultColor <- function(col,num) {
+  # Function to check if all items are valid colors. This is largely from ...
+  #   https://stackoverflow.com/questions/13289009/check-if-character-string-is-a-valid-color-representation/13290832#13290832
+  iAreColors <- function(x) {
+    out <- sapply(x,function(x) {
+      tryCatch(is.matrix(grDevices::col2rgb(x)),error=function(e) FALSE)
+    })
+    if(any(is.na(names(out)))) out[is.na(names(out))] <-  FALSE
+    out
+  }
+  
+  ## Main function
+  if (is.null(col)) col <- grDevices::hcl.colors(num)
+  if (length(col)==1) {
+    if (col %in% grDevices::hcl.pals())
+      col <- grDevices::hcl.colors(num,palette=col)
+  }
+  colcheck <- iAreColors(col)
+  if (any(!colcheck))
+    STOP("Your col='",col[!colcheck],
+         "' is not a valid color or palette in 'hcl.pals()'.")
+  if (length(col) < num)
+    WARN("Number of colors (",length(col),
+         ") is less than number of ages (",num,
+         "); colors will be recycled")
+  else if (length(col) > num)
+    WARN("Number of colors (",length(col),
+         ") is more than number of ages (",num,
+         "); some colors will not be used")
+  col
+}
+
+
+iCILabel <- function(conf.level,digits=1)
+  paste(paste0(round(100*conf.level,digits),"%"),c("LCI","UCI"))
 
 
 
-################################################################################
-## Returns number of decimal places in a number
-## 
-## Completely from Peter Savicky in http://r.789695.n4.nabble.com/number-of-decimal-places-in-a-number-td4635697.html
-################################################################################
+# Returns number of decimal places in a number
+# Completely from Peter Savicky in http://r.789695.n4.nabble.com/number-of-decimal-places-in-a-number-td4635697.html
 iGetDecimals <- function(x) {
   if (!is.numeric(x)) STOP("'x' must be numeric.")
   if (length(x)>1) STOP("'x' must be a single value.")
@@ -166,7 +200,8 @@ iHndlCols2UseIgnore <- function(df,cols2use=NULL,cols2ignore=NULL) {
 
   ## if both cols2use and cols2ignore are NULL, return the original df
   if (is.null(cols2use) & is.null(cols2ignore)) ind <- seq_len(ncol(df))
-  else if (!is.null(cols2use) & !is.null(cols2ignore)) STOP("Cannot use both 'cols2use' and 'cols2ignore'.")
+  else if (!is.null(cols2use) & !is.null(cols2ignore))
+    STOP("Cannot use both 'cols2use' and 'cols2ignore'.")
   else if (!is.null(cols2use)) ind <- iHndlCols2Use(df,cols2use)
   else ind <- iHndlCols2Ignore(df,cols2ignore)
   ## Return data.frame of only columns asked for
@@ -197,7 +232,8 @@ iHndlFormula <- function(formula,data,expNumR=NULL,
                                            seq_len(nchar(fcLHS)))),
              LHSgt1 <- TRUE, LHSgt1 <- FALSE)
       # STOP if there is more than one variable on LHS
-      if (LHSgt1) STOP("Function does not work with more than one variable on the LHS.")
+      if (LHSgt1)
+        STOP("Function does not work with more than one variable on the LHS.")
       else {
         # There is a LHS and it has only one variable.
         Rpos <- Rnum <- 1
@@ -265,14 +301,11 @@ iHndlFormula <- function(formula,data,expNumR=NULL,
 }
 
 
+# Internal functions used to handle multiple what= arguments. If more than one
+# item then print a line return and return the what vector without item in it.
+# This allows an easy way to put space between multiple items without an extra
+# space after the last one.
 iHndlMultWhat <- function(what,item,type=c("message","cat")) {
-  ##################################################################
-  ## Internal functions used to handle multiple what= arguments
-  ## If more than one item then print a line return and return
-  ##   the what vector without item in it. This allows an easy way
-  ##   to put space between multiple items without an extra space
-  ##   after the last one.
-  ##################################################################
   type <- match.arg(type)
   if (length(what)>1) {
     if (type=="message") message("\n")
@@ -327,32 +360,7 @@ iMakeColor <- function(col,transp) {
   grDevices::rgb(colprts[1,1],colprts[2,1],colprts[3,1],transp)
 }
 
-
-iRichColors <- function (n,palette=c("temperature","blues"),alpha=1,rgb=FALSE) {
-  ## From gplots package that was orphaned
-  if (n <= 0) return(character(0))
-  palette <- match.arg(palette)
-  x <- seq(0,1,length=n)
-  if (palette=="temperature") {
-    r <- 1/(1+exp(20-35* x))
-    g <- pmin(pmax(0,-0.8+6*x-5*x^2),1)
-    b <- stats::dnorm(x,0.25,0.15)/max(stats::dnorm(x,0.25,0.15))
-  } else {
-    r <- 0.6*x+0.4*x^2
-    g <- 1.5*x-0.5*x^2
-    b <- 0.36+2.4*x-2*x^2
-    b[x>0.4] <- 1
-  }
-  rgb.m <- matrix(c(r,g,b),ncol=3,dimnames=list(NULL,c("red","green","blue")))
-  col <- mapply(rgb,r,g,b,alpha)
-  if (rgb) attr(col,"rgb") <- cbind(rgb.m,alpha)
-  return(col)
-}
-
-
-################################################################################
 # Checks if a plot exists ... i.e., was there a plot.new
-################################################################################
 iPlotExists <- function() {
   # set options so that warnings are errors
   withr::local_options(list(warn=2))
@@ -366,9 +374,7 @@ iPlotExists <- function() {
 }
 
 
-################################################################################
 # Checks if a value is a whole number
-################################################################################
 is.wholenumber <- function(x,tol=.Machine$double.eps^0.5) {
   abs(x - round(x)) < tol 
 }
@@ -377,9 +383,12 @@ is.wholenumber <- function(x,tol=.Machine$double.eps^0.5) {
 iTypeoflm <- function(mdl) {
   if (any(class(mdl)!="lm")) STOP("'iTypeoflm' only works with objects from 'lm()'.")
   tmp <- iHndlFormula(stats::formula(mdl),stats::model.frame(mdl))
-  if (tmp$Enum==0) STOP("Object must have one response and at least one explanatory variable")
-  if (!tmp$Rclass %in% c("numeric","integer")) STOP("Response variable must be numeric")
-  if (any(tmp$Eclass=="character")) WARN("An explanatory variable is a 'character' class. If behavior is different\n than you expected you may want to change this to a 'factor' class.")
+  if (tmp$Enum==0)
+    STOP("Object must have one response and at least one explanatory variable")
+  if (!tmp$Rclass %in% c("numeric","integer"))
+    STOP("Response variable must be numeric")
+  if (any(tmp$Eclass=="character"))
+    WARN("An explanatory variable is a 'character' class. If behavior is different\n than you expected you may want to change this to a 'factor' class.")
   if (tmp$Etype=="factor") { #ANOVA
     if (tmp$EFactNum>2) STOP("Function only works for one- or two-way ANOVA.")
     if (tmp$EFactNum==2) lmtype <- "TWOWAY"
@@ -395,9 +404,7 @@ iTypeoflm <- function(mdl) {
   tmp
 }
 
-################################################################################
 # same as stop() and warning() but with call.=FALSE as default
-################################################################################
 STOP <- function(...,call.=FALSE,domain=NULL) stop(...,call.=call.,domain=domain)
 WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
   warning(...,call.=call.,immediate.=immediate.,noBreaks.=noBreaks.,domain=domain)

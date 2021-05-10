@@ -1,16 +1,23 @@
 # FSA 0.9.0 ongoing
 * Added Jason Doll as an `AUThor`.
 * Moved `plyr` from Imports to Suggests.
+* `alkPlot()`: Modified. Removed use of `chooseColors()` (see below).
 * `catchCurve()`: Modified. Removed hard-coding of `ylim=` for `plot.catchCurve()` (this addresses [#70](https://github.com/droglenc/FSA/issues/70) ... Thanks to Brendan Runde). Added `round.est=` so that the user can control the decimals on mortality estimate values.
 * `chapmanRobson()`: Modified. Removed hard-coding of `ylim=` for `plot.chapmanRobson()`. Added `round.est=` so that the user can control the decimals on mortality and survival estimate values.
+* `chooseColors()`: Removed. This was an exported function that should have been internal. Regardless, where it was used has been removed and the user is now allowed to provide their own vector of colors. See `iCheckMultColors()`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
+* `fitPlot()`: Modified. Removed use of `chooseColors()` (see above).
 * `diags()`: Removed (moved to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
 * `hoCoef()`: Removed (moved to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
+* `iCheckMultColors()`: Added (internal). Part of removing `chooseColors()` and `paletteChoices()`.
+* `iRichColors()`: Removed (as part of removing `chooseColors()`).
 * `mapvalues()`: Removed. Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
 * `mrOpen()`: Modified. Added a warning for when r==0, which causes the SE of M and thus N to be `Infinity` (this addresses [#69](https://github.com/droglenc/FSA/issues/69)). Added a similar warning for when R==0 (but not the last time period). Added tests for the warning messages. Changed one use of `apply()` to `rowSums()` for ease of reading.
+* `paletteChoices()`: Removed. See `chooseColors()` above. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
 * `psdAdd()`: Modified. Changed a `levels()` in `iPSDlitCheck()` to `unique()` because `species` is no longer a factor due to updating `PSDlit` (i.e., rdata file changed with new `read.csv()`).
 * `PSDlit`: Modified. Added length categories for Shoal Bass. Added Striped Bass (Hybrid) and Striped Bass x White Bass; though these are the same as the existing Palmetto Bass.
 * `psdVal()`: Modified. Changed a `levels()` in `iPSDlitCheck()` and `iListSpecies()` to `unique()` because `species` is no longer a factor due to updating `PSDlit` (i.e., rdata file changed with new `read.csv()`).
 * `removal()`: Modified. Added check and then warning if non-whole numbers are in `catch=` (addresses [#60](https://github.com/droglenc/FSA/issues/60)). Also modified checks of data integrity to be more robust (e.g., if a character vector is sent).
+* `residPlot()`: Modified. Removed use of `chooseColors()` (see above).
 * `Subset()`: Removed. Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
 * `wrAdd()`: Modified. Changed a `levels()` in `iwsLitCheck()` to `unique()` because `species` is no longer a factor due to updating `WSlit` (i.e., rdata file changed with new `read.csv()`).
 * `WSlit`: Modified. Addresses [#68](https://github.com/droglenc/FSA/issues/68).

@@ -1,10 +1,4 @@
 ## Test Messages ----
-test_that("chooseColors() messages",{
-  ## check error messages
-  expect_error(chooseColors("Derek"),"should be one of")
-  expect_error(chooseColors(num=0),"positive")
-})
-
 test_that("col2rgbt() messages",{
   expect_error(col2rgbt("black",-1),"must be greater than 0")
   expect_error(col2rgbt("black",0),"must be greater than 0")
@@ -169,55 +163,6 @@ test_that("capFirst() returned classes",{
   fvec1 <- capFirst(fvec)
   expect_equivalent(class(fvec),class(fvec1))
   expect_equivalent(class(fvec1),"factor")
-})
-
-test_that("chooseColors() return values",{
-  ## check return values
-  n <- 10
-  tmp <- chooseColors(num=n)
-  expect_equal(length(tmp),n)
-  expect_is(tmp,"character")
-  tmp2 <- chooseColors(num=n,rev=TRUE)
-  expect_equal(length(tmp2),n)
-  expect_is(tmp2,"character")
-  expect_equal(tmp2,rev(tmp))
-  n <- 20
-  tmp <- chooseColors("gray",num=n)
-  expect_equal(length(tmp),n)
-  expect_is(tmp,"character")
-  tmp2 <- chooseColors("gray",num=n,rev=TRUE)
-  expect_equal(length(tmp2),n)
-  expect_is(tmp2,"character")
-  expect_equal(tmp2,rev(tmp))
-  ## check each
-  n <- 10
-  tmp <- chooseColors("gray",num=n)
-  expect_equal(length(tmp),n)
-  expect_is(tmp,"character")
-  tmp <- chooseColors("rich",num=n)
-  expect_equal(length(tmp),n)
-  expect_is(tmp,"character")
-  tmp <- chooseColors("cm",num=n)
-  expect_equal(length(tmp),n)
-  expect_is(tmp,"character")
-  tmp <- chooseColors("heat",num=n)
-  expect_equal(length(tmp),n)
-  expect_is(tmp,"character")
-  tmp <- chooseColors("jet",num=n)
-  expect_equal(length(tmp),n)
-  expect_is(tmp,"character")
-  tmp <- chooseColors("rainbow",num=n)
-  expect_equal(length(tmp),n)
-  expect_is(tmp,"character")
-  tmp <- chooseColors("topo",num=n)
-  expect_equal(length(tmp),n)
-  expect_is(tmp,"character")
-  tmp <- chooseColors("terrain",num=n)
-  expect_equal(length(tmp),n)
-  expect_is(tmp,"character")
-  tmp <- chooseColors("default",num=n)
-  expect_equal(length(tmp),n)
-  expect_is(tmp,"integer")
 })
 
 test_that("col2rgbt() results",{

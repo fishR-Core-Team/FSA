@@ -78,69 +78,6 @@ iCapFirst<- function(x,which=c("all","first")) {
 }
 
 
-#' @name chooseColors
-#' 
-#' @title Create a list of colors from among a variety of color palettes.
-#'
-#' @description Create a list of colors from among a variety of color palettes.
-#'
-#' @param pal A character that is the name of a palette. Must be one of \dQuote{rich}, \dQuote{cm}, \dQuote{default}, \dQuote{grey}, \dQuote{gray}, \dQuote{heat}, \dQuote{jet}, \dQuote{rainbow}, \dQuote{topo}, or \dQuote{terrain}, which are given in \code{paletteChoices}.
-#' @param num The number of colors to be returned.
-#' @param rev A logical that indicates if the default order of colors should be reversed (\code{=TRUE}) or not (\code{=FALSE}).
-#' @param \dots Other arguments to the various palette functions.
-#'
-#' @return A vector of colors of length \code{num}.
-#'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
-#'
-#' @seealso See \code{\link{cm.colors}}, \code{\link{heat.colors}}, \code{\link{topo.colors}}, \code{\link{terrain.colors}}, \code{\link{rainbow}}, \code{\link{colorRampPalette}}, and \code{\link{colors}}.
-#'
-#' @keywords manip
-#'
-#' @examples
-#' n <- 20
-#' # Color Wheels
-#' pie(rep(1,n), col=chooseColors("rich",n))
-#' pie(rep(1,n), col=chooseColors("rainbow",n))
-#' pie(rep(1,n), col=chooseColors("topo",n))
-#' pie(rep(1,n), col=chooseColors("gray",n))
-#' pie(rep(1,n), col=chooseColors("jet",n))
-#' # colors reversed order
-#' pie(rep(1,n), col=chooseColors("jet",n,rev=TRUE))
-#'
-#' @rdname chooseColors
-#' @export
-chooseColors <- function(pal=paletteChoices(),num,rev=FALSE,...) {
-  ## Some checks
-  pal <- match.arg(pal)
-  if (!num>0) STOP("'num' must be positive.")
-  ## Generate jet and grey colors
-  jet.colors <- grDevices::colorRampPalette(c("#00007F","blue","#007FFF",
-                                              "cyan","#7FFF7F","yellow",
-                                              "#FF7F00", "red", "#7F0000"))
-  grey.colors <- grDevices::colorRampPalette(c("grey20","grey80"))
-  ## Get the colors according to the palette
-  switch(pal,
-         rich={clrs <- iRichColors(num,...)},
-         cm={clrs <- grDevices::cm.colors(num,...)},
-         default={clrs <- seq_len(num)},
-         gray=,grey={clrs <- grey.colors(num)},
-         heat={clrs <- grDevices::heat.colors(num,...)},
-         jet={clrs <- jet.colors(num)},
-         rainbow={clrs <- grDevices::rainbow(num,...)},
-         topo={clrs <- grDevices::topo.colors(num,...)},
-         terrain={clrs <- grDevices::terrain.colors(num,...)}
-  )
-  if (rev) clrs <- rev(clrs)
-  clrs
-}
-
-#' @rdname chooseColors
-#' @export
-paletteChoices <- function() c("rich","cm","default","grey","gray","heat",
-                               "jet","rainbow","topo","terrain")
-
-
 #' @title Converts an R color to RGB (red/green/blue) including a transparency (alpha channel).
 #'
 #' @description Converts an R color to RGB (red/green/blue) including a transparency (alpha channel). Similar to \code{\link[grDevices]{col2rgb}} except that a transparency (alpha channel) can be included.

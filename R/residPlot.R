@@ -161,7 +161,7 @@ residPlot.IVR <- function(object,legend="topright",cex.leg=1,box.lty.leg=0,...) 
 
 iResidPlotIVR1 <- function(object,legend,cex.leg,box.lty.leg,
                            xlab="Fitted Values",ylab="Residuals",main="",
-                           pch=c(16,21,15,22,17,24,c(3:14)),col="rich",
+                           pch=c(16,21,15,22,17,24,c(3:14)),col="Dark 2",
                            lty.ref=3,lwd.ref=1,col.ref="black",
                            resid.type=c("raw","standardized","studentized"),
                            outlier.test=TRUE,alpha=0.05,
@@ -177,14 +177,14 @@ iResidPlotIVR1 <- function(object,legend,cex.leg,box.lty.leg,
   if (!leg$do.legend) {
     iMakeBaseResidPlot(r,fv,xlab,ylab,main,lty.ref,lwd.ref,col.ref,
                        loess,lty.loess,lwd.loess,col.loess,trans.loess,...)
-    graphics::points(r~fv,pch=pch[1],col=iFitPlotClrs2(1,col,"rich"))
+    graphics::points(r~fv,pch=pch[1],col=ifelse(col=="Dark 2","black",col))
     if (outlier.test) iAddOutlierTestResults(object,fv,r,alpha)
   } else {      
     # extract the factor variable from the 2nd position
     f1 <- object$mf[,object$EFactPos[1]]
     # Handle colors, pchs, ltys -- one for each level of f1 factor unless only
     #   one color is given
-    col <- iFitPlotClrs2(f1,col,"rich")
+    col <- iFitPlotClrs2(f1,col)
     pch <- iFitPlotPchs2(f1,pch)
     ### Plot the points
     # Makes room for legend
@@ -215,7 +215,7 @@ iResidPlotIVR1 <- function(object,legend,cex.leg,box.lty.leg,
 
 iResidPlotIVR2 <- function(object,legend,cex.leg,box.lty.leg,
                            xlab="Fitted Values",ylab="Residuals",main="",
-                           pch=c(16,21,15,22,17,24,c(3:14)),col="rich",
+                           pch=c(16,21,15,22,17,24,c(3:14)),col="Dark 2",
                            lty.ref=3,lwd.ref=1,col.ref="black",
                            resid.type=c("raw","standardized","studentized"),
                            outlier.test=TRUE,alpha=0.05,
@@ -241,8 +241,9 @@ iResidPlotIVR2 <- function(object,legend,cex.leg,box.lty.leg,
     num.f1 <- length(levs.f1)
     levs.f2 <- unique(f2)
     num.f2 <- length(levs.f2)
-    # Handle colors, pchs, ltys -- one for each level of f1 factor unless only one color is given
-    col <- iFitPlotClrs2(f1,col,"rich")
+    # Handle colors, pchs, ltys -- one for each level of f1 factor unless
+    # only one color is given
+    col <- iFitPlotClrs2(f1,col)
     pch <- iFitPlotPchs2(f2,pch)
     ### Plot the points
     # Makes room for legend

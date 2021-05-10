@@ -52,8 +52,8 @@ fitPlot(ivr1,legend="topleft")
 fitPlot(ivr1c,legend="topleft")
 fitPlot(ivr1,legend="topleft",interval="confidence")
 fitPlot(ivr1c,legend="topleft",interval="confidence")
-fitPlot(ivr1,legend="topleft",col="rich",pch=18,lty=1)
-fitPlot(ivr1c,legend="topleft",col="rich",pch=18,lty=1)
+fitPlot(ivr1,legend="topleft",col="Dark 2",pch=18,lty=1)
+fitPlot(ivr1c,legend="topleft",col="Dark 2",pch=18,lty=1)
 
 ## Indicator variable regression with one factor (as first variable)
 ivr2 <- lm(mirex~fyear*weight,data=Mirex)
@@ -66,8 +66,8 @@ ivr3 <- lm(mirex~weight+fyear,data=Mirex)
 ivr3c <- lm(mirex~weight+cyear,data=Mirex)
 fitPlot(ivr3,legend="topleft")
 fitPlot(ivr3c,legend="topleft")
-fitPlot(ivr3,legend="topleft",col="default")
-fitPlot(ivr3c,legend="topleft",col="default")
+fitPlot(ivr3,legend="topleft",col="Dark 2")
+fitPlot(ivr3c,legend="topleft",col="Dark 2")
 
 
 # reduce number of years for visual simplicity
