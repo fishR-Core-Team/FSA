@@ -140,9 +140,8 @@
   leg.cex <span class='op'>=</span> <span class='fl'>1</span>,
   lwd <span class='op'>=</span> <span class='fl'>2</span>,
   span <span class='op'>=</span> <span class='fl'>0.25</span>,
-  pal <span class='op'>=</span> <span class='fu'><a href='chooseColors.html'>paletteChoices</a></span><span class='op'>(</span><span class='op'>)</span>,
   grid <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  col <span class='op'>=</span> <span class='st'>"gray80"</span>,
+  col <span class='op'>=</span> <span class='cn'>NULL</span>,
   buf <span class='op'>=</span> <span class='fl'>0.45</span>,
   add <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
@@ -188,16 +187,12 @@
       <td><p>A numeric that indicates the span value to use in <code>loess</code> when <code>type="splines"</code>.</p></td>
     </tr>
     <tr>
-      <th>pal</th>
-      <td><p>A string that indicates the palette to generate colors for the bars, areas, lines, or spline lines. The name of a palette must be one of &#8220;rich&#8221;, &#8220;cm&#8221;, &#8220;default&#8221;, &#8220;grey&#8221;, &#8220;gray&#8221;, &#8220;heat&#8221;, &#8220;jet&#8221;, &#8220;rainbow&#8221;, &#8220;topo&#8221;, or &#8220;terrain&#8221;. See <code><a href='chooseColors.html'>chooseColors</a></code>.</p></td>
-    </tr>
-    <tr>
       <th>grid</th>
       <td><p>A logical that indicates whether a grid should be placed under the bubbles when <code>type="bubble"</code> or a character or appropriate vector that identifies a color for the grid. See examples.</p></td>
     </tr>
     <tr>
       <th>col</th>
-      <td><p>A string that indicates the color of the bubbles when <code>type="bubble"</code>.</p></td>
+      <td><p>A single character string that is a palette from <code><a href='https://rdrr.io/r/grDevices/palettes.html'>hcl.pals</a></code> or a vector of character strings containing colors for the bars, areas, lines, or spline lines of different ages; defaults to the "viridis" palette in <code><a href='https://rdrr.io/r/grDevices/palettes.html'>hcl.colors</a></code>. A single string that indicates the color of the bubbles when <code>type="bubble"</code>.</p></td>
     </tr>
     <tr>
       <th>buf</th>
@@ -233,7 +228,7 @@
     <p>Ogle, D.H. 2016. <a href='http://derekogle.com/IFAR/'>Introductory Fisheries Analyses with R</a>. Chapman &amp; Hall/CRC, Boca Raton, FL.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='alkIndivAge.html'>alkIndivAge</a></code> for using an age-length key to assign ages to individual fish.</p></div>
+    <div class='dont-index'><p>See <code><a href='alkIndivAge.html'>alkIndivAge</a></code> for using an age-length key to assign ages to individual fish. See <code><a href='https://rdrr.io/r/grDevices/palettes.html'>hcl.colors</a></code> for a simple way to choose other colors.</p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
@@ -266,15 +261,16 @@
 #&gt;   115 0.000 0.000 0.000 0.000 0.000 0.000 1.000 0.000</div><div class='input'>
 <span class='co'>## Various visualizations of the age-length key</span>
 <span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"barplot"</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"barplot"</span>,pal<span class='op'>=</span><span class='st'>"gray"</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"barplot"</span>,showLegend<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"area"</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"lines"</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"splines"</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"splines"</span>,span<span class='op'>=</span><span class='fl'>0.2</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"bubble"</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"bubble"</span>,col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/grDevices/rgb.html'>rgb</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0</span>,<span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='alkPlot-9.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='img'><img src='alkPlot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"barplot"</span>,col<span class='op'>=</span><span class='st'>"Cork"</span><span class='op'>)</span>
+</div><div class='img'><img src='alkPlot-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"barplot"</span>,col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>heat.colors</a></span><span class='op'>(</span><span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='alkPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"barplot"</span>,showLegend<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='alkPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"area"</span><span class='op'>)</span>
+</div><div class='img'><img src='alkPlot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"lines"</span><span class='op'>)</span>
+</div><div class='img'><img src='alkPlot-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"splines"</span><span class='op'>)</span>
+</div><div class='img'><img src='alkPlot-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"splines"</span>,span<span class='op'>=</span><span class='fl'>0.2</span><span class='op'>)</span>
+</div><div class='img'><img src='alkPlot-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"bubble"</span><span class='op'>)</span>
+</div><div class='img'><img src='alkPlot-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>alkPlot</span><span class='op'>(</span><span class='va'>WR.key</span>,<span class='st'>"bubble"</span>,col<span class='op'>=</span><span class='fu'><a href='col2rgbt.html'>col2rgbt</a></span><span class='op'>(</span><span class='st'>"black"</span>,<span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='alkPlot-10.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

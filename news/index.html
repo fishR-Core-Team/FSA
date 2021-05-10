@@ -130,17 +130,29 @@
 <li>Added Jason Doll as an <code>AUThor</code>.</li>
 <li>Moved <code>plyr</code> from Imports to Suggests.</li>
 <li>
+<code><a href="../reference/alkPlot.html">alkPlot()</a></code>: Modified. Removed use of <code>chooseColors()</code> (see below).</li>
+<li>
 <code><a href="../reference/catchCurve.html">catchCurve()</a></code>: Modified. Removed hard-coding of <code>ylim=</code> for <code><a href="../reference/catchCurve.html">plot.catchCurve()</a></code> (this addresses <a href="https://github.com/droglenc/FSA/issues/70"><a href='https://github.com/droglenc/FSA/issues/70'>#70</a></a> … Thanks to Brendan Runde). Added <code>round.est=</code> so that the user can control the decimals on mortality estimate values.</li>
 <li>
 <code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Removed hard-coding of <code>ylim=</code> for <code><a href="../reference/chapmanRobson.html">plot.chapmanRobson()</a></code>. Added <code>round.est=</code> so that the user can control the decimals on mortality and survival estimate values.</li>
+<li>
+<code>chooseColors()</code>: Removed. This was an exported function that should have been internal. Regardless, where it was used has been removed and the user is now allowed to provide their own vector of colors. See <code>iCheckMultColors()</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
+<li>
+<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Removed use of <code>chooseColors()</code> (see above).</li>
 <li>
 <code>diags()</code>: Removed (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
 <code>hoCoef()</code>: Removed (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
+<code>iCheckMultColors()</code>: Added (internal). Part of removing <code>chooseColors()</code> and <code>paletteChoices()</code>.</li>
+<li>
+<code>iRichColors()</code>: Removed (as part of removing <code>chooseColors()</code>).</li>
+<li>
 <code>mapvalues()</code>: Removed. Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
 <code><a href="../reference/jolly.html">mrOpen()</a></code>: Modified. Added a warning for when r==0, which causes the SE of M and thus N to be <code>Infinity</code> (this addresses <a href="https://github.com/droglenc/FSA/issues/69"><a href='https://github.com/droglenc/FSA/issues/69'>#69</a></a>). Added a similar warning for when R==0 (but not the last time period). Added tests for the warning messages. Changed one use of <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> to <code><a href="https://rdrr.io/r/base/colSums.html">rowSums()</a></code> for ease of reading.</li>
+<li>
+<code>paletteChoices()</code>: Removed. See <code>chooseColors()</code> above. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> in <code>iPSDlitCheck()</code> to <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>PSDlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>).</li>
 <li>
@@ -149,6 +161,8 @@
 <code><a href="../reference/psdVal.html">psdVal()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> in <code>iPSDlitCheck()</code> and <code><a href="../reference/.onAttach.html">iListSpecies()</a></code> to <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>PSDlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>).</li>
 <li>
 <code><a href="../reference/removal.html">removal()</a></code>: Modified. Added check and then warning if non-whole numbers are in <code>catch=</code> (addresses <a href="https://github.com/droglenc/FSA/issues/60"><a href='https://github.com/droglenc/FSA/issues/60'>#60</a></a>). Also modified checks of data integrity to be more robust (e.g., if a character vector is sent).</li>
+<li>
+<code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Removed use of <code>chooseColors()</code> (see above).</li>
 <li>
 <code>Subset()</code>: Removed. Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
@@ -247,7 +261,7 @@
 </h1>
 <ul>
 <li>Now using ROxygen2 7.0.2.</li>
-<li>Removed dependency on <code>gplots</code> package as it is now orphaned. Required adding <code><a href="../reference/.onAttach.html">iRichColors()</a></code> internal function.</li>
+<li>Removed dependency on <code>gplots</code> package as it is now orphaned. Required adding <code>iRichColors()</code> internal function.</li>
 <li>
 <code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>: Removed <code>\dots</code> from arguments as it was not in usage (per request from CRAN on 3-Feb-20).</li>
 <li>
@@ -414,7 +428,7 @@
 <li>
 <code><a href="../reference/capHistSum.html">capHistSum()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36"><a href='https://github.com/droglenc/FSA/issues/36'>#36</a></a>).</li>
 <li>
-<code><a href="../reference/chooseColors.html">chooseColors()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36"><a href='https://github.com/droglenc/FSA/issues/36'>#36</a></a>).</li>
+<code>chooseColors()</code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36"><a href='https://github.com/droglenc/FSA/issues/36'>#36</a></a>).</li>
 <li>
 <code><a href="../reference/compSlopes.html">compSlopes()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36"><a href='https://github.com/droglenc/FSA/issues/36'>#36</a></a>).</li>
 <li>
@@ -620,7 +634,7 @@
 <li>
 <code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Made sure that <code><a href="https://rdrr.io/r/stats/coef.html">coef()</a></code> method returned a vector (addresses <a href="https://github.com/droglenc/FSA/issues/19"><a href='https://github.com/droglenc/FSA/issues/19'>#19</a></a>). Modified <code><a href="https://rdrr.io/r/stats/confint.html">confint()</a></code> code for efficiency, made sure matrix is always returned.</li>
 <li>
-<code><a href="../reference/chooseColors.html">chooseColors()</a></code>: Modified. Added <code>rev=</code> for returning reverse ordered (from default) colors.</li>
+<code>chooseColors()</code>: Modified. Added <code>rev=</code> for returning reverse ordered (from default) colors.</li>
 <li>
 <code><a href="../reference/depletion.html">depletion()</a></code>: Modified. Changed <code><a href="https://rdrr.io/r/stats/coef.html">coef()</a></code> method so that it returned a named vector (addresses <a href="https://github.com/droglenc/FSA/issues/19"><a href='https://github.com/droglenc/FSA/issues/19'>#19</a></a>). Modified <code><a href="https://rdrr.io/r/stats/confint.html">confint()</a></code> code for efficiency, made sure matrix is always returned. Removed <code>type=</code> to match other functions (incorporated that functionality into <code>parm=</code>). Removed <code>digits=</code> to match other functions.</li>
 <li>
@@ -1091,7 +1105,7 @@
 <li>
 <code><a href="../reference/binCI.html">binCI()</a></code>: Modified. Check for<code>Hmisc</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>Hmisc</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
-<code><a href="../reference/chooseColors.html">chooseColors()</a></code>: Modified. Check for<code>gplots</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>gplots</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
+<code>chooseColors()</code>: Modified. Check for<code>gplots</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>gplots</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
 <code><a href="../reference/filterD.html">filterD()</a></code>: Modified. Check for <code>dplyr</code> and <code>gdata</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>dplyr</code> and <code>gdata</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
@@ -1453,7 +1467,7 @@
 <li>
 <code>changesPos()</code>: Modified. Added some checks with error messages. Added suite of tests.</li>
 <li>
-<code><a href="../reference/chooseColors.html">chooseColors()</a></code>: Modified. Added some checks with error messages. Added suite of tests.</li>
+<code>chooseColors()</code>: Modified. Added some checks with error messages. Added suite of tests.</li>
 <li>
 <code><a href="../reference/confint.nlsBoot.html">confint.nlsBoot()</a></code>:Modified. Fixed bug if maximum number in <code>parm=</code> was greater than the number of parameters in the model.</li>
 <li>
@@ -2921,7 +2935,7 @@
 <li><p>Added an importFrom and removed an import for NCStats.</p></li>
 <li><p><code>ageComp()</code>: modified to use internal odd(), rather than odd() imported from gtools.</p></li>
 <li><p><code><a href="../reference/binCI.html">binCI()</a></code>: moved from NCStats.</p></li>
-<li><p><code><a href="../reference/chooseColors.html">chooseColors()</a></code>: copied from NCStats (i.e., same function still in NCStats).</p></li>
+<li><p><code>chooseColors()</code>: copied from NCStats (i.e., same function still in NCStats).</p></li>
 <li><p><code><a href="../reference/confint.nlsBoot.html">confint.nlsBoot()</a></code>: moved from NCStats.</p></li>
 <li><p><code><a href="../reference/fact2num.html">fact2num()</a></code>: moved from NCStats.</p></li>
 <li><p><code><a href="../reference/confint.nlsBoot.html">htest()</a></code>: copied from NCStats (i.e., same function still in NCStats).</p></li>

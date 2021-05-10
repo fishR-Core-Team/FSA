@@ -188,7 +188,7 @@
   type <span class='op'>=</span> <span class='st'>"b"</span>,
   pch <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>16</span>, <span class='fl'>21</span>, <span class='fl'>15</span>, <span class='fl'>22</span>, <span class='fl'>17</span>, <span class='fl'>24</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>14</span><span class='op'>)</span><span class='op'>)</span>,
   lty <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>)</span>,
-  col <span class='op'>=</span> <span class='st'>"default"</span>,
+  col <span class='op'>=</span> <span class='st'>"Dark 2"</span>,
   interval <span class='op'>=</span> <span class='cn'>TRUE</span>,
   conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
   ci.fun <span class='op'>=</span> <span class='fu'>iCIfp</span><span class='op'>(</span><span class='va'>conf.level</span><span class='op'>)</span>,
@@ -320,7 +320,7 @@
     </tr>
     <tr>
       <th>col</th>
-      <td><p>A vector of color names or numbers or the name of a palette (see details) that indicates what color of points and lines to use for the levels of the first factor in an IVR or the second factor in a two-way ANOVA.</p></td>
+      <td><p>A vector of color names or the name of a palette (from <code><a href='https://rdrr.io/r/grDevices/palettes.html'>hcl.pals</a></code>) that indicates what color of points and lines to use for the levels of the first factor in an IVR or the second factor in a two-way ANOVA.</p></td>
     </tr>
     <tr>
       <th>ci.fun</th>
@@ -445,7 +445,7 @@
 <span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>aov2</span>,which<span class='op'>=</span><span class='st'>"species"</span><span class='op'>)</span>
 </div><div class='img'><img src='fitPlot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>aov2</span>,which<span class='op'>=</span><span class='st'>"fyear"</span><span class='op'>)</span>
 </div><div class='img'><img src='fitPlot-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'>## Simple linear regression (showing color change and confidence and prediction bands)</span>
+<span class='co'>## Simple linear regression (show color change and confidence/prediction bands)</span>
 <span class='va'>slr1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>weight</span>,data<span class='op'>=</span><span class='va'>Mirex</span><span class='op'>)</span>
 <span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>slr1</span><span class='op'>)</span>
 </div><div class='img'><img src='fitPlot-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>slr1</span>,interval<span class='op'>=</span><span class='st'>"both"</span><span class='op'>)</span>
@@ -454,19 +454,21 @@
 <span class='va'>ivr1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>weight</span><span class='op'>*</span><span class='va'>fyear</span>,data<span class='op'>=</span><span class='va'>Mirex2</span><span class='op'>)</span>
 <span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>ivr1</span>,legend<span class='op'>=</span><span class='st'>"topleft"</span><span class='op'>)</span>
 </div><div class='img'><img src='fitPlot-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>ivr1</span>,legend<span class='op'>=</span><span class='st'>"topleft"</span>,interval<span class='op'>=</span><span class='st'>"confidence"</span><span class='op'>)</span>
-</div><div class='img'><img src='fitPlot-9.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='img'><img src='fitPlot-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>ivr1</span>,legend<span class='op'>=</span><span class='st'>"topleft"</span>,interval<span class='op'>=</span><span class='st'>"confidence"</span>,col<span class='op'>=</span><span class='st'>"Dark 2"</span><span class='op'>)</span>
+</div><div class='img'><img src='fitPlot-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Indicator variable regression with one factor (assuming parallel lines)</span>
 <span class='va'>ivr2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>weight</span><span class='op'>+</span><span class='va'>species</span>,data<span class='op'>=</span><span class='va'>Mirex2</span><span class='op'>)</span>
 <span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>ivr2</span>,legend<span class='op'>=</span><span class='st'>"topleft"</span><span class='op'>)</span>
-</div><div class='img'><img src='fitPlot-10.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='img'><img src='fitPlot-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Indicator variable regression with two factors</span>
 <span class='va'>ivr3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>weight</span><span class='op'>*</span><span class='va'>fyear</span><span class='op'>*</span><span class='va'>species</span>,data<span class='op'>=</span><span class='va'>Mirex2</span><span class='op'>)</span>
 <span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>ivr3</span>,ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0.8</span><span class='op'>)</span>,legend<span class='op'>=</span><span class='st'>"topleft"</span><span class='op'>)</span>
-</div><div class='img'><img src='fitPlot-11.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='img'><img src='fitPlot-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>ivr3</span>,ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>0.8</span><span class='op'>)</span>,legend<span class='op'>=</span><span class='st'>"topleft"</span>,col<span class='op'>=</span><span class='st'>"Spectral"</span><span class='op'>)</span>
+</div><div class='img'><img src='fitPlot-13.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Polynomial regression</span>
 <span class='va'>poly1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>weight</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span><span class='op'>(</span><span class='va'>weight</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>,data<span class='op'>=</span><span class='va'>Mirex</span><span class='op'>)</span>
 <span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>poly1</span>,interval<span class='op'>=</span><span class='st'>"both"</span><span class='op'>)</span>
-</div><div class='img'><img src='fitPlot-12.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='img'><img src='fitPlot-14.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Non-linear model example</span>
 <span class='va'>lr.sv</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>B1<span class='op'>=</span><span class='fl'>6</span>,B2<span class='op'>=</span><span class='fl'>7.2</span>,B3<span class='op'>=</span><span class='op'>-</span><span class='fl'>1.5</span><span class='op'>)</span>
 <span class='va'>nl1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/nls.html'>nls</a></span><span class='op'>(</span><span class='va'>cells</span><span class='op'>~</span><span class='va'>B1</span><span class='op'>/</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>B2</span><span class='op'>+</span><span class='va'>B3</span><span class='op'>*</span><span class='va'>days</span><span class='op'>)</span><span class='op'>)</span>,start<span class='op'>=</span><span class='va'>lr.sv</span>,data<span class='op'>=</span><span class='va'>Ecoli</span><span class='op'>)</span>
@@ -480,8 +482,8 @@
                                  <span class='fl'>72</span>,<span class='fl'>73</span>,<span class='fl'>75</span>,<span class='fl'>75</span>,<span class='fl'>76</span>,<span class='fl'>76</span>,<span class='fl'>78</span>,<span class='fl'>79</span>,<span class='fl'>81</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>glm1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/glm.html'>glm</a></span><span class='op'>(</span><span class='va'>fail</span><span class='op'>~</span><span class='va'>temperature</span>,data<span class='op'>=</span><span class='va'>d</span>,family<span class='op'>=</span><span class='st'>"binomial"</span><span class='op'>)</span>
 <span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>glm1</span><span class='op'>)</span>
-</div><div class='img'><img src='fitPlot-13.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>glm1</span>,yaxis1.ticks<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>,yaxis1.lbls<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='img'><img src='fitPlot-14.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='img'><img src='fitPlot-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fitPlot</span><span class='op'>(</span><span class='va'>glm1</span>,yaxis1.ticks<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>,yaxis1.lbls<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='fitPlot-16.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
