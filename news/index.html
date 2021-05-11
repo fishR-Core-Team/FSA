@@ -138,6 +138,10 @@
 <li>
 <code>chooseColors()</code>: Removed. This was an exported function that should have been internal. Regardless, where it was used has been removed and the user is now allowed to provide their own vector of colors. See <code>iCheckMultColors()</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
+<code>compIntercepts()</code>: Removed (to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
+<li>
+<code>compSlopes()</code>: Removed (to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
+<li>
 <code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Removed use of <code>chooseColors()</code> (see above).</li>
 <li>
 <code>diags()</code>: Removed (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
@@ -430,9 +434,9 @@
 <li>
 <code>chooseColors()</code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36"><a href='https://github.com/droglenc/FSA/issues/36'>#36</a></a>).</li>
 <li>
-<code><a href="../reference/compSlopes.html">compSlopes()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36"><a href='https://github.com/droglenc/FSA/issues/36'>#36</a></a>).</li>
+<code>compSlopes()</code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36"><a href='https://github.com/droglenc/FSA/issues/36'>#36</a></a>).</li>
 <li>
-<code><a href="../reference/compIntercepts.html">compIntercepts()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36"><a href='https://github.com/droglenc/FSA/issues/36'>#36</a></a>).</li>
+<code>compIntercepts()</code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36"><a href='https://github.com/droglenc/FSA/issues/36'>#36</a></a>).</li>
 <li>
 <code><a href="../reference/extraTests.html">extraSS()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html">seq_along()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36"><a href='https://github.com/droglenc/FSA/issues/36'>#36</a></a>).</li>
 <li>
@@ -557,7 +561,7 @@
 <li>
 <code><a href="../reference/FSAUtils.html">capFirst()</a></code>: Modified. Changed some <code>if()</code>s with <code><a href="https://rdrr.io/r/base/class.html">class()</a></code>es to <code><a href="https://rdrr.io/r/base/class.html">inherits()</a></code>.</li>
 <li>
-<code><a href="../reference/compIntercepts.html">compIntercepts()</a></code>: Modified. Replaced two <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> calls with <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code>.</li>
+<code>compIntercepts()</code>: Modified. Replaced two <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> calls with <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code>.</li>
 <li>
 <code><a href="../reference/fact2num.html">fact2num()</a></code>: Modified. Changed some <code>if()</code>s with <code><a href="https://rdrr.io/r/base/class.html">class()</a></code>es to <code><a href="https://rdrr.io/r/base/class.html">inherits()</a></code>.</li>
 <li>
@@ -766,7 +770,7 @@
 <li>Compiled under R v3.3.0.</li>
 <li>Removed <code>relax</code> from <code>Suggests</code>. See <code><a href="../reference/srStarts.html">srStarts()</a></code> and <code><a href="../reference/vbStarts.html">vbStarts()</a></code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/17"><a href='https://github.com/droglenc/FSA/issues/17'>#17</a></a>.</li>
 <li>Removed <code>gdata</code> from <code>Imports</code>. See <code><a href="../reference/filterD.html">filterD()</a></code> and <code>Subset()</code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/5"><a href='https://github.com/droglenc/FSA/issues/5'>#5</a></a>.</li>
-<li>Added no coverage blocks to <code>ageKeyPlot()</code>, <code><a href="../reference/capHistSum.html">capHistSum()</a></code>, <code><a href="../reference/hist.formula.html">hist.formula()</a></code>, <code><a href="../reference/histFromSum.html">histFromSum()</a></code>, <code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>, <code>plot.agebias()</code>, <code>plot.CatchCurve()</code>, <code>plot.ChapmanRobson()</code>, <code>plot.Depletion()</code>, <code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>, <code><a href="../reference/compSlopes.html">print.compSlopes()</a></code>, <code><a href="../reference/compIntercepts.html">print.compIntercepts()</a></code>, <code><a href="../reference/Mmethods.html">print.metaM()</a></code>, <code><a href="../reference/psdPlot.html">psdPlot()</a></code>,<code><a href="../reference/residPlot.html">residPlot()</a></code>, <code>srModels()</code>, <code><a href="../reference/srStarts.html">srStarts()</a></code>, and <code><a href="../reference/vbStarts.html">vbStarts()</a></code>.</li>
+<li>Added no coverage blocks to <code>ageKeyPlot()</code>, <code><a href="../reference/capHistSum.html">capHistSum()</a></code>, <code><a href="../reference/hist.formula.html">hist.formula()</a></code>, <code><a href="../reference/histFromSum.html">histFromSum()</a></code>, <code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>, <code>plot.agebias()</code>, <code>plot.CatchCurve()</code>, <code>plot.ChapmanRobson()</code>, <code>plot.Depletion()</code>, <code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>, <code>print.compSlopes()</code>, <code>print.compIntercepts()</code>, <code><a href="../reference/Mmethods.html">print.metaM()</a></code>, <code><a href="../reference/psdPlot.html">psdPlot()</a></code>,<code><a href="../reference/residPlot.html">residPlot()</a></code>, <code>srModels()</code>, <code><a href="../reference/srStarts.html">srStarts()</a></code>, and <code><a href="../reference/vbStarts.html">vbStarts()</a></code>.</li>
 <li>
 <code>ageKey()</code>: Removed. Deprecated since 0.4.24. Use <code><a href="../reference/alkIndivAge.html">alkIndivAge()</a></code>.</li>
 <li>
@@ -917,9 +921,9 @@
 <li>
 <code><a href="../reference/col2rgbt.html">col2rgbt()</a></code>: Added.</li>
 <li>
-<code><a href="../reference/compIntercepts.html">compIntercepts()</a></code>: Added.</li>
+<code>compIntercepts()</code>: Added.</li>
 <li>
-<code><a href="../reference/compSlopes.html">compSlopes()</a></code>: Added.</li>
+<code>compSlopes()</code>: Added.</li>
 </ul>
 <hr>
 </div>
