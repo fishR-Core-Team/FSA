@@ -135,7 +135,7 @@
   to <span class='op'>=</span> <span class='cn'>NULL</span>,
   n <span class='op'>=</span> <span class='fl'>199</span>,
   lwd <span class='op'>=</span> <span class='fl'>2</span>,
-  pal <span class='op'>=</span> <span class='fu'><a href='chooseColors.html'>paletteChoices</a></span><span class='op'>(</span><span class='op'>)</span>,
+  col <span class='op'>=</span> <span class='cn'>NULL</span>,
   rev.col <span class='op'>=</span> <span class='cn'>FALSE</span>,
   legend <span class='op'>=</span> <span class='st'>"topright"</span>,
   cex.leg <span class='op'>=</span> <span class='fl'>0.9</span>,
@@ -167,8 +167,8 @@
       <td><p>A numeric used to indicate the line width of the fitted line.</p></td>
     </tr>
     <tr>
-      <th>pal</th>
-      <td><p>A character that is the name of a palette. Must be one of &#8220;rich&#8221;, &#8220;cm&#8221;, &#8220;default&#8221;, &#8220;grey&#8221;, &#8220;gray&#8221;, &#8220;heat&#8221;, &#8220;jet&#8221;, &#8220;rainbow&#8221;, &#8220;topo&#8221;, or &#8220;terrain&#8221;, which are given in <code>paletteChoices</code>.</p></td>
+      <th>col</th>
+      <td><p>A single character string that is a palette from <code><a href='https://rdrr.io/r/grDevices/palettes.html'>hcl.pals</a></code> or a vector of character strings containing colors for the fitted lines at each trace.</p></td>
     </tr>
     <tr>
       <th>rev.col</th>

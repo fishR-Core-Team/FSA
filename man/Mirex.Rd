@@ -37,7 +37,7 @@ anova(lm1)
 
 }
 \seealso{
-Used in \code{\link{fitPlot}}, \code{\link{residPlot}}, \code{\link{compSlopes}}, \code{\link{compIntercepts}}, and \code{\link{rSquared}} examples.
+Used in \code{\link{fitPlot}}, \code{\link{residPlot}}, and \code{\link{rSquared}} examples.
 }
 \concept{Linear Models}
 \concept{Other}

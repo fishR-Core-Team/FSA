@@ -8,11 +8,19 @@ chooseColors <- function(...) {
   .Defunct(msg="'chooseColors' has been removed; use one of many other available resources to choose appropriate colors.")
 }
 
+compIntercepts <- function(...) {
+  .Defunct(msg="'compIntercepts' has been removed; use 'emmeans' from the 'emmeans' package as described in the fishR blog post of 12-May-2021.")
+}
+
+compSlopes <- function(...) {
+  .Defunct(msg="'compSlopes' has been removed; use 'emtrends' from the 'emmeans' package as described in the fishR blog post of 11-May-2021.")
+}
+
 diags <- function(...) {
   .Defunct(msg="'diags' has been removed (to 'FSAmisc' on GitHub).")
 }
 
-diags <- function(...) {
+hoCoef <- function(...) {
   .Defunct(msg="'hoCoef' has been removed (to 'FSAmisc' on GitHub).")
 }
 

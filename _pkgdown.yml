@@ -91,15 +91,12 @@ reference:
       - hyperCI
       - poiCI
       - bootstrap
-      - compIntercepts
-      - compSlopes
       - dunnTest
       - extraSS
       - fitPlot
       - geomean
       - hist.formula
       - histFromSum
-      - hoCoef
       - htest
       - ksTest
       - logbtcf
@@ -116,7 +113,6 @@ reference:
     desc: Miscellaneous utilities.
     contents:
       - capFirst
-      - chooseColors
       - col2rgbt
       - fact2num
       - filterD
