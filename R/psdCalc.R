@@ -143,6 +143,8 @@ psdCalc <- function(formula,data,species,units=c("mm","cm","in"),
 iPrepData4PSD <- function(formula,data,stock.len,units) {
   ## check if the data.frame has data
   if (nrow(data)==0) STOP("'data' does not contain any rows.")
+  ## remove "tibble" if it was (tibbles cause problems below)
+  if (inherits(data,"tbl_df")) data <- as.data.frame(data)
   ## get name of length variable from the formula
   cl <- iGetVarFromFormula(formula,data,expNumVars=1)
   if (!is.numeric(data[,cl])) STOP("Variable in 'formula' must be numeric.")

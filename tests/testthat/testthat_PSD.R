@@ -467,6 +467,12 @@ test_that("Does psdCalc() compute correct PSD values?",{
   expect_equivalent(lmbres[,"Estimate"],c(60,30,10,40,30,20,10))
 })
 
+test_that("Does psdCalc() work with a tibble?",{
+  tmp <- tibble::as_tibble(df2bg)
+  suppressWarnings(bgres <- psdCalc(~tl,data=df2bg,species="Bluegill"))
+  suppressWarnings(bgres2 <- psdCalc(~tl,data=tmp,species="Bluegill"))
+  expect_equivalent(bgres,bgres2)
+})
 
 ## Validate Results ----
 test_that("Does psdCI results match Brenden et al. (2008) results",{
