@@ -144,6 +144,7 @@
    <dt>preferred.cm</dt><dd><p>Preferred length in cm.</p></dd>
    <dt>memorable.cm</dt><dd><p>Memorable length in cm.</p></dd>
    <dt>trophy.cm</dt><dd><p>Trophy length in cm.</p></dd>
+   <dt>source</dt><dd><p>Literature source for the length entries.</p></dd>
  
 </dl>
 
@@ -173,7 +174,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>PSDlit</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; 'data.frame':	66 obs. of  11 variables:
+</div><div class='output co'>#&gt; 'data.frame':	67 obs. of  12 variables:
 #&gt;  $ species     : chr  "Arctic Grayling" "Bighead Carp" "Bigmouth Buffalo" "Black Bullhead" ...
 #&gt;  $ stock.in    : num  8 11.8 11 6 15.8 ...
 #&gt;  $ quality.in  : num  12 21.2 18 9 28.2 ...
@@ -184,7 +185,8 @@
 #&gt;  $ quality.cm  : int  30 54 46 23 72 20 51 15 33 20 ...
 #&gt;  $ preferred.cm: int  40 68 61 30 90 25 76 20 NA NA ...
 #&gt;  $ memorable.cm: int  50 89 76 39 118 30 89 25 NA NA ...
-#&gt;  $ trophy.cm   : num  55 111 94 46 148 38 114 30 NA NA ...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>PSDlit</span><span class='op'>)</span>
+#&gt;  $ trophy.cm   : num  55 111 94 46 148 38 114 30 NA NA ...
+#&gt;  $ source      : chr  "Hyatt (2000)" "Phelps and Willis (2013)" "Bister et al. (2000)" "Gabelhouse (1984a)" ...</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>PSDlit</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            species stock.in quality.in preferred.in memorable.in trophy.in
 #&gt; 1  Arctic Grayling     8.00      12.00        16.00         20.0     22.00
 #&gt; 2     Bighead Carp    11.75      21.25        26.75         35.0     43.75
@@ -198,7 +200,14 @@
 #&gt; 3       28         46           61           76        94
 #&gt; 4       15         23           30           39        46
 #&gt; 5       40         72           90          118       148
-#&gt; 6       13         20           25           30        38</div><div class='input'>
+#&gt; 6       13         20           25           30        38
+#&gt;                     source
+#&gt; 1             Hyatt (2000)
+#&gt; 2 Phelps and Willis (2013)
+#&gt; 3     Bister et al. (2000)
+#&gt; 4       Gabelhouse (1984a)
+#&gt; 5 Phelps and Willis (2013)
+#&gt; 6       Gabelhouse (1984a)</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

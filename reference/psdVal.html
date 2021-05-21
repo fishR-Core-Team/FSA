@@ -133,7 +133,8 @@
   units <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mm"</span>, <span class='st'>"cm"</span>, <span class='st'>"in"</span><span class='op'>)</span>,
   incl.zero <span class='op'>=</span> <span class='cn'>TRUE</span>,
   addLens <span class='op'>=</span> <span class='cn'>NULL</span>,
-  addNames <span class='op'>=</span> <span class='cn'>NULL</span>
+  addNames <span class='op'>=</span> <span class='cn'>NULL</span>,
+  showJustSource <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -158,6 +159,10 @@
     <tr>
       <th>addNames</th>
       <td><p>A string vector that contains names for the additional length categories added with <code>addLens</code>. See details.</p></td>
+    </tr>
+    <tr>
+      <th>showJustSource</th>
+      <td><p>A logical that indicates whether just the literature source information should be returned (<code>TRUE</code>) or not. If <code>TRUE</code> this will NOT return any of the Gabelhouse length information.</p></td>
     </tr>
     </table>
 
@@ -206,22 +211,23 @@
 #&gt; [29] "Lake Trout"                  "Largemouth Bass"            
 #&gt; [31] "Longnose Gar"                "Muskellunge"                
 #&gt; [33] "Northern Pike"               "Paddlefish"                 
-#&gt; [35] "Palmetto Bass"               "Palmetto Bass (original)"   
-#&gt; [37] "Pumpkinseed"                 "Rainbow Trout"              
-#&gt; [39] "Redear Sunfish"              "River Carpsucker"           
-#&gt; [41] "Rock Bass"                   "Ruffe"                      
-#&gt; [43] "Sauger"                      "Saugeye"                    
-#&gt; [45] "Shoal Bass"                  "Shorthead Redhorse"         
-#&gt; [47] "Silver Carp"                 "Smallmouth Bass"            
-#&gt; [49] "Smallmouth Buffalo "         "Splake"                     
-#&gt; [51] "Spotted Bass"                "Spotted Gar"                
-#&gt; [53] "Striped Bass (hybrid)"       "Striped Bass (landlocked)"  
-#&gt; [55] "Striped Bass X White Bass"   "Suwannee Bass"              
-#&gt; [57] "Walleye"                     "Warmouth"                   
-#&gt; [59] "White Bass"                  "White Catfish"              
-#&gt; [61] "White Crappie"               "White Perch"                
-#&gt; [63] "White Sucker"                "Yellow Bass"                
-#&gt; [65] "Yellow Bullhead"             "Yellow Perch"               </div><div class='input'><span class='co'># Demonstrate typical usages</span>
+#&gt; [35] "Pallid Sturgeon"             "Palmetto Bass"              
+#&gt; [37] "Palmetto Bass (original)"    "Pumpkinseed"                
+#&gt; [39] "Rainbow Trout"               "Redear Sunfish"             
+#&gt; [41] "River Carpsucker"            "Rock Bass"                  
+#&gt; [43] "Ruffe"                       "Sauger"                     
+#&gt; [45] "Saugeye"                     "Shoal Bass"                 
+#&gt; [47] "Shorthead Redhorse"          "Silver Carp"                
+#&gt; [49] "Smallmouth Bass"             "Smallmouth Buffalo "        
+#&gt; [51] "Splake"                      "Spotted Bass"               
+#&gt; [53] "Spotted Gar"                 "Striped Bass (hybrid)"      
+#&gt; [55] "Striped Bass (landlocked)"   "Striped Bass X White Bass"  
+#&gt; [57] "Suwannee Bass"               "Walleye"                    
+#&gt; [59] "Warmouth"                    "White Bass"                 
+#&gt; [61] "White Catfish"               "White Crappie"              
+#&gt; [63] "White Perch"                 "White Sucker"               
+#&gt; [65] "Yellow Bass"                 "Yellow Bullhead"            
+#&gt; [67] "Yellow Perch"               </div><div class='input'><span class='co'># Demonstrate typical usages</span>
 <span class='fu'>psdVal</span><span class='op'>(</span><span class='st'>"Yellow perch"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  substock     stock   quality preferred memorable    trophy 
 #&gt;         0       130       200       250       300       380 </div><div class='input'><span class='fu'>psdVal</span><span class='op'>(</span><span class='st'>"Walleye"</span>,units<span class='op'>=</span><span class='st'>"cm"</span><span class='op'>)</span>
@@ -248,7 +254,9 @@
 </div><div class='output co'>#&gt;  substock     stock   quality    MinLen preferred memorable    trophy 
 #&gt;         0         3         6         7         8        10        12 </div><div class='input'><span class='fu'>psdVal</span><span class='op'>(</span><span class='st'>"Bluegill"</span>,units<span class='op'>=</span><span class='st'>"in"</span>,addLens<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"MinSlot"</span><span class='op'>=</span><span class='fl'>7</span>,<span class='st'>"MaxSlot"</span><span class='op'>=</span><span class='fl'>9</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  substock     stock   quality   MinSlot preferred   MaxSlot memorable    trophy 
-#&gt;         0         3         6         7         8         9        10        12 </div><div class='input'>
+#&gt;         0         3         6         7         8         9        10        12 </div><div class='input'><span class='fu'>psdVal</span><span class='op'>(</span><span class='st'>"Bluegill"</span>,showJustSource<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    species             source
+#&gt; 8 Bluegill Gabelhouse (1984a)</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
