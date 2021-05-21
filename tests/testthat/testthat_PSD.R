@@ -252,6 +252,10 @@ test_that("psdVal() returns",{
   expect_equivalent(tmp,c(0,130,200,250,300,380))
   expect_equal(names(tmp),c("substock","stock","quality","preferred",
                             "memorable","trophy"))
+  tmp <- psdVal("yellow Perch",showJustSource=TRUE)
+  expect_is(tmp,"data.frame")
+  expect_equivalent(ncol(tmp),2)
+  expect_equivalent(nrow(tmp),1)
 })
 
 test_that("psdCI() returns",{

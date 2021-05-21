@@ -18,6 +18,7 @@ A data frame of 58 observations on the following 11 variables:
    \item{preferred.cm}{Preferred length in cm.}
    \item{memorable.cm}{Memorable length in cm.}
    \item{trophy.cm}{Trophy length in cm.}
+   \item{source}{Literature source for the length entries.}
  }
 }
 \source{

@@ -9,7 +9,8 @@ psdVal(
   units = c("mm", "cm", "in"),
   incl.zero = TRUE,
   addLens = NULL,
-  addNames = NULL
+  addNames = NULL,
+  showJustSource = FALSE
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ psdVal(
 \item{addLens}{A numeric vector that contains minimum length definitions for additional categories. See details.}
 
 \item{addNames}{A string vector that contains names for the additional length categories added with \code{addLens}. See details.}
+
+\item{showJustSource}{A logical that indicates whether just the literature source information should be returned (\code{TRUE}) or not. If \code{TRUE} this will NOT return any of the Gabelhouse length information.}
 }
 \value{
 A vector of minimum values for length categories for the chosen species.
@@ -58,6 +61,7 @@ psdVal("Bluegill",units="in",addLens=7,addNames="MinLen")
 psdVal("Bluegill",units="in",addLens=c(7,9),addNames=c("MinSlot","MaxSlot"))
 psdVal("Bluegill",units="in",addLens=c("MinLen"=7))
 psdVal("Bluegill",units="in",addLens=c("MinSlot"=7,"MaxSlot"=9))
+psdVal("Bluegill",showJustSource=TRUE)
 
 }
 \references{

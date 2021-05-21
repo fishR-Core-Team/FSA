@@ -19,6 +19,7 @@
 #'    \item{preferred.cm}{Preferred length in cm.}
 #'    \item{memorable.cm}{Memorable length in cm.}
 #'    \item{trophy.cm}{Trophy length in cm.}
+#'    \item{source}{Literature source for the length entries.}
 #'  }
 #'
 #' @section Topic(s):

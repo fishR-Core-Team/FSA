@@ -7,6 +7,7 @@
 #' @param incl.zero A logical that indicates if a zero is included in the first position of the returned vector (DEFAULT) or not. This position will be named \dQuote{substock}. See details.
 #' @param addLens A numeric vector that contains minimum length definitions for additional categories. See details.
 #' @param addNames A string vector that contains names for the additional length categories added with \code{addLens}. See details.
+#' @param showJustSource A logical that indicates whether just the literature source information should be returned (\code{TRUE}) or not. If \code{TRUE} this will NOT return any of the Gabelhouse length information.
 #'
 #' @details Finds the Gabelhouse lengths from \code{data(PSDlit)} for the species given in \code{species}. The species name must be spelled exactly (within capitalization differences) as it appears in \code{data(PSDlit)}. Type \code{psdVal()} to see the list of species and how they are spelled.
 #'
@@ -50,45 +51,50 @@
 #' psdVal("Bluegill",units="in",addLens=c(7,9),addNames=c("MinSlot","MaxSlot"))
 #' psdVal("Bluegill",units="in",addLens=c("MinLen"=7))
 #' psdVal("Bluegill",units="in",addLens=c("MinSlot"=7,"MaxSlot"=9))
+#' psdVal("Bluegill",showJustSource=TRUE)
 #'
 #' @export psdVal
 psdVal <- function(species="List",units=c("mm","cm","in"),incl.zero=TRUE,
-                   addLens=NULL,addNames=NULL) {
+                   addLens=NULL,addNames=NULL,showJustSource=FALSE) {
   units <- match.arg(units)
   # load RSDlit data frame into this function's environment
   # data/get combination are used to avoid the "no global binding" note at CHECK
   PSDlit <- get(utils::data("PSDlit",envir=environment()),envir=environment())
   # continue if species name is correct
   if (iPSDLitCheck(PSDlit,species <- capFirst(species))) {
-    # identify columns based on units
-    ifelse(units=="in",cols <- 2:6,cols <- 7:11)
-    # get the length categories
-    PSDvec <- as.matrix(PSDlit[PSDlit$species==species,cols])[1,]
-    # convert to mm if necessary
-    if (units=="mm") PSDvec <- PSDvec*10
-    names(PSDvec) <- c("stock","quality","preferred","memorable","trophy")
-    # add a zero category if asked to
-    if (incl.zero) {
-      PSDvec <- c(0,PSDvec)
-      names(PSDvec)[1] <- "substock"
-    }
-    # add additional lengths if asked to
-    if (!is.null(addLens)) {
-      # add names to the addLens vector
-      addLens <- iHndlAddNames(addLens,addNames)
-      # handle duplicated values
-      tmp <- which(PSDvec %in% addLens)
-      if (length(tmp>0)) {
-        WARN("At least one Gabelhouse length that was in 'addLens' has been removed.")
-        PSDvec <- PSDvec[-tmp]
+    if (showJustSource) {
+      PSDlit[PSDlit$species==species,c(1,12)]
+    } else {
+      # identify columns based on units
+      ifelse(units=="in",cols <- 2:6,cols <- 7:11)
+      # get the length categories
+      PSDvec <- as.matrix(PSDlit[PSDlit$species==species,cols])[1,]
+      # convert to mm if necessary
+      if (units=="mm") PSDvec <- PSDvec*10
+      names(PSDvec) <- c("stock","quality","preferred","memorable","trophy")
+      # add a zero category if asked to
+      if (incl.zero) {
+        PSDvec <- c(0,PSDvec)
+        names(PSDvec)[1] <- "substock"
       }
-      # append the new lens to the Gabelhouse lengths
-      PSDvec <- c(PSDvec,addLens)
-      # re-order so the new values are within the Gabelhouse lengths
-      PSDvec <- PSDvec[order(PSDvec)]
-    }        
-    PSDvec
-  }    
+      # add additional lengths if asked to
+      if (!is.null(addLens)) {
+        # add names to the addLens vector
+        addLens <- iHndlAddNames(addLens,addNames)
+        # handle duplicated values
+        tmp <- which(PSDvec %in% addLens)
+        if (length(tmp>0)) {
+          WARN("At least one Gabelhouse length that was in 'addLens' has been removed.")
+          PSDvec <- PSDvec[-tmp]
+        }
+        # append the new lens to the Gabelhouse lengths
+        PSDvec <- c(PSDvec,addLens)
+        # re-order so the new values are within the Gabelhouse lengths
+        PSDvec <- PSDvec[order(PSDvec)]
+      }        
+      PSDvec
+    }
+  }
 }
 
 
