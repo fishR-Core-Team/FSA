@@ -66,6 +66,8 @@ test_that("bootCase() methods messages",{
                "must be between 0 and 1")
   expect_error(confint(bootCase1,conf.level=1),
                "must be between 0 and 1")
+  expect_error(confint(bootCase1,conf.level="R"),
+               "must be numeric")
   # testing htest()
   expect_error(htest(bootCase1,"derek"),
                "does not exist in")
@@ -88,6 +90,8 @@ test_that("bootCase() methods messages",{
                "must be between 0 and 1")
   expect_error(predict(bootCase1,fnx,days=2,conf.level=1),
                "must be between 0 and 1")
+  expect_error(predict(bootCase1,fnx,days=2,conf.level="R"),
+               "must be numeric")
   expect_error(predict(bootCase1,fnx,days=2,digits=0),
                "must be positive")
 })

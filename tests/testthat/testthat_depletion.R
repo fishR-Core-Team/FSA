@@ -145,6 +145,8 @@ test_that("depletion() messages",{
                "must be between 0 and 1")
   expect_error(confint(ex1,conf.level=1),
                "must be between 0 and 1")
+  expect_error(confint(ex1,conf.level="R"),
+               "must be numeric")
 })
 
 

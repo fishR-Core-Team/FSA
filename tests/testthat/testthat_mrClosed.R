@@ -47,6 +47,8 @@ test_that("mrClosed() Single Census messages",{
                "must be between 0 and 1")
   expect_error(confint(mr1,conf.level=1),
                "must be between 0 and 1")
+  expect_error(confint(mr1,conf.level="R"),
+               "must be numeric")
   expect_error(confint(mr1,type="derek"),
                "should be one of")
   expect_error(confint(mr1,type="binomial",bin.type="derek"),
@@ -102,6 +104,8 @@ test_that("mrClosed Multiple Census errors and warnings",{
                "must be between 0 and 1")
   expect_error(confint(mr1,conf.level=1),
                "must be between 0 and 1")
+  expect_error(confint(mr1,conf.level="R"),
+               "must be numeric")
   expect_warning(confint(mr1,type="Poisson"),
                  "changed to")
   expect_warning(confint(mr1,parm="N"),
