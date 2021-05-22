@@ -86,7 +86,9 @@ binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic"),
   if (any(x<0)) STOP("'x' must be non-negative.")
   if (any(n<0)) STOP("'n' must be non-negative.")
   if (any(x>n)) STOP("'x' must not be greater than 'n'.")
-  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1.")
+
+  ## Check on conf.level
+  iCheckConfLevel(conf.level) 
   
   ## Process
   ### Handle differently depending on number of xs given
@@ -215,7 +217,9 @@ poiCI <- function(x,conf.level=0.95,type=c("exact","daly","byar","asymptotic"),
   if (!is.numeric(x)) STOP("'x' must be a whole number.")
   if (!all(is.wholenumber(x))) STOP("'x' must be a whole number.")
   if (any(x<0)) STOP("'x' must be non-negative.")
-  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1.")
+
+  ## Check on conf.level
+  iCheckConfLevel(conf.level) 
   
   ## Process
   ### Handle differently depending on number of xs given
@@ -283,7 +287,10 @@ hyperCI <- function(M,n,m,conf.level=0.95) {
   if (any(c(M,n,m)<1)) STOP("'M', 'n', and 'm' must all be non-negative.")
   if (m>n) STOP("'m' must be less than 'n'.")
   if (m>M) STOP("'m' must be less than 'M'.")
-  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1.")
+
+  ## Check on conf.level
+  iCheckConfLevel(conf.level) 
+  
   N.low <- (n+(M-m))
   while (stats::qhyper((1-conf.level)/2,n,N.low-n,M) > m) { N.low <- N.low + 1 }
   N.hi <- (n*M)/m

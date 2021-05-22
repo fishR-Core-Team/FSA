@@ -75,6 +75,10 @@ psdCI <- function(indvec,ptbl,n,method=c("binomial","multinomial"),
   bin.type <- match.arg(bin.type)
   ptbl <- iCheckPtbl(ptbl)
   indvec <- iCheckIndvec(indvec,ptbl)
+  
+  ## Check on conf.level
+  iCheckConfLevel(conf.level)
+
   ## process through internal functions
   switch(method,
          multinomial= { res <- iPSDCImultinom(indvec,ptbl,n,conf.level) },

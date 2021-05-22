@@ -89,6 +89,8 @@ test_that("removal() messages",{
                "must be between 0 and 1")
   expect_error(removal(c(346,184,49),conf.level=1),
                "must be between 0 and 1")
+  expect_error(removal(c(346,184,49),conf.level="R"),
+               "must be numeric")
   ## Check whole number,
   expect_warning(removal(c(346,184,49.1)),
                  "'catch' contains non-whole numbers.")

@@ -205,7 +205,8 @@ removal <- function(catch,
                     conf.level=0.95,just.ests=FALSE,Tmult=3,CIMicroFish=FALSE) {
   # some initial checks
   method <- match.arg(method)
-  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
+  ## Check on conf.level
+  iCheckConfLevel(conf.level) 
   if (Tmult<1) STOP("'Tmult' should be greater than 1.")
   if (!is.vector(catch)) {
     # if a one row or column matrix then convert to a vector

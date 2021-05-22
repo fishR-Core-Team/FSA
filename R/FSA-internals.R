@@ -409,3 +409,11 @@ STOP <- function(...,call.=FALSE,domain=NULL) stop(...,call.=call.,domain=domain
 WARN <- function(...,call.=FALSE,immediate.=FALSE,noBreaks.=FALSE,domain=NULL) {
   warning(...,call.=call.,immediate.=immediate.,noBreaks.=noBreaks.,domain=domain)
 }
+
+
+#Checks if specified confidence interval is numeric.
+iCheckConfLevel <- function(conf.level) {
+  if (!is.numeric(conf.level)) STOP("'conf.level' must be numeric.")
+  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
+}
+  

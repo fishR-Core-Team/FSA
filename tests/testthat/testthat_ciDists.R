@@ -17,6 +17,7 @@ test_that("binCI() messages",{
   expect_error(binCI(6,10,type="derek"),"should be one of")
   expect_error(binCI(6,10,conf.level=0),"must be between 0 and 1")
   expect_error(binCI(6,10,conf.level=1),"must be between 0 and 1")
+  expect_error(binCI(6,10,conf.level="R"),"must be numeric")
   expect_warning(binCI(6:9,10),"Can't use multiple 'type's with multiple 'x's")
   expect_error(binCI(data.frame(d=6:9),10),"'x' must be a single or vector")
   expect_error(binCI(2,data.frame(d=6:9)),"'n' must be a single or vector")
@@ -40,6 +41,7 @@ test_that("hyperCI() messages",{
   expect_error(hyperCI(c(15,15),c(10,10),c(5,5)),"be a single value")
   expect_error(hyperCI(15,10,5,conf.level=0),"must be between 0 and 1")
   expect_error(hyperCI(15,10,5,conf.level=1),"must be between 0 and 1")
+  expect_error(hyperCI(15,10,5,conf.level="R"),"must be numeric")
 })
 
 test_that("poiCI() messages",{
@@ -50,6 +52,7 @@ test_that("poiCI() messages",{
   expect_error(poiCI(1.1),"must be a whole number")
   expect_error(poiCI(6,conf.level=0),"must be between 0 and 1")
   expect_error(poiCI(6,conf.level=1),"must be between 0 and 1")
+  expect_error(poiCI(6,conf.level="R"),"must be numeric")
   expect_warning(poiCI(6:9),"Can't use multiple 'type's with multiple 'x's")
   expect_error(poiCI(data.frame(d=6:9)),"'x' must be a single or vector")
 })
