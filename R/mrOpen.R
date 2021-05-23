@@ -124,6 +124,7 @@ jolly <- function(...) { mrOpen(...) }
 mrOpen <- function(mb.top,mb.bot=NULL,type=c("Jolly","Manly"),
                    conf.level=0.95,phi.full=TRUE) {
   type <- match.arg(type)
+  
   ## Check on conf.level
   iCheckConfLevel(conf.level) 
   

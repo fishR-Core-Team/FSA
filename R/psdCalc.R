@@ -92,8 +92,10 @@ psdCalc <- function(formula,data,species,units=c("mm","cm","in"),
   method <- match.arg(method)
   what <- match.arg(what)
   units <- match.arg(units)
+  
   ## Check on conf.level
   iCheckConfLevel(conf.level) 
+  
   ## make sure species is not missing
   if (missing(species)) STOP("Must include a species name in 'species'.")
   ## find psd lengths for this species

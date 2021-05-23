@@ -215,7 +215,8 @@ confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),
                                   level=conf.level,conf.level=0.95,...) {
   parm <- match.arg(parm)
   
-  iCheckConfLevel(conf.level)  #Check confidence level
+  ## Check on conf.level
+  iCheckConfLevel(conf.level) 
   
   z <- c(-1,1)*stats::qnorm((1-(1-conf.level)/2))
   res <- rbind(S=object$est["S","Estimate"]+z*object$est["S","Std. Error"],

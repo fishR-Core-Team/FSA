@@ -274,6 +274,7 @@ iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
         STOP("Name in 'parm' does not exist in 'object'.")
     }
   }
+  
   ## Check on conf.level
   iCheckConfLevel(conf.level) 
   
@@ -308,8 +309,10 @@ iPredictBoot <- function(object,FUN,MARGIN,conf.level,digits,...) {
   ## Some checks
   if (!inherits(FUN,"function"))
     STOP("'FUN' is not a function.")
+  
   ## Check on conf.level
   iCheckConfLevel(conf.level) 
+  
   ## Get items in the dots
   tmp <- list(...)
   ## Prep the results matrix

@@ -236,8 +236,10 @@ coef.depletion <- function(object,parm=c("all","both","No","q","lm"),...) {
 confint.depletion <- function(object,parm=c("all","both","No","q","lm"),
                               level=conf.level,conf.level=0.95,...) {
   parm <- match.arg(parm)
+  
   ## Check on conf.level
   iCheckConfLevel(conf.level) 
+  
   if (parm=="lm") res <- stats::confint(object$lm,level=conf.level)
   else {
     t <- stats::qt(1-(1-conf.level)/2,summary(object$lm)$df[2])

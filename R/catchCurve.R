@@ -228,7 +228,8 @@ anova.catchCurve <- function(object,...) {
 confint.catchCurve <- function(object,parm=c("all","both","Z","A","lm"),
                                level=conf.level,conf.level=0.95,...) {
   parm <- match.arg(parm)
-  iCheckConfLevel(conf.level)  #Check confidence level
+  ## Check on conf.level
+  iCheckConfLevel(conf.level) 
   ci <- stats::confint(object$lm,conf.level=level,...)
   if (parm=="lm") res <- ci
   else {
