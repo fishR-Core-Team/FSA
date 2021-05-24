@@ -144,6 +144,10 @@ fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
                         xlab=object$Enames[1],ylab=object$Rname,main="",
                         ylim=NULL,...) {
   ## Some tests
+  
+  ## Check on conf.level
+  iCheckConfLevel(conf.level) 
+  
   interval <- match.arg(interval)
   if (length(col.pt)>1) {
     WARN("Only first color used for points in this SLR.")
@@ -211,6 +215,10 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
                          ylab=object$Rname,main="",
                          legend="topright",cex.leg=1,box.lty.leg=0,...) {
   ## Some checks
+  
+  ## Check on conf.level
+  iCheckConfLevel(conf.level) 
+  
   interval <- match.arg(interval)
   # extract y and x quantitative variables
   y <- object$mf[,object$Rname]
@@ -279,6 +287,10 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
                          xlab=names(object$mf[object$ENumPos]),
                          ylab=object$Rname,main="",
                          legend="topright",cex.leg=1,box.lty.leg=0,...) {
+  
+  ## Check on conf.level
+  iCheckConfLevel(conf.level) 
+  
   interval <- match.arg(interval)
   # extract y and x quantitative variables
   y <- object$mf[,object$Rname]
@@ -370,6 +382,10 @@ fitPlot.ONEWAY <- function (object,
                             interval=TRUE,conf.level=0.95,ci.fun=iCIfp(conf.level),
                             col.ci=col,lty.ci=1,
                             ...) {
+  
+  ## Check on conf.level
+  iCheckConfLevel(conf.level) 
+  
   if (length(col)>1) {
     WARN("Only first color used.")
     col <- col[1]
@@ -403,6 +419,10 @@ fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
                            ci.fun=iCIfp(conf.level),lty.ci=1,
                            legend="topright",cex.leg=1,box.lty.leg=0,
                            ...) {
+  
+  ## Check on conf.level
+  iCheckConfLevel(conf.level) 
+  
   # extract y variables
   y <- object$mf[,object$Rname]
   # find the factor variables

@@ -210,6 +210,8 @@ test_that("mrOpen() messages",{
                "must be between 0 and 1")
   expect_error(mrOpen(capHistSum(CutthroatAL,cols2use=-1),conf.level=1),
                "must be between 0 and 1")
+  expect_error(mrOpen(capHistSum(CutthroatAL,cols2use=-1),conf.level="R"),
+               "must be numeric")
   expect_warning(confint(cutt,conf.level=0.95),
                  "It cannot be changed here")
   expect_warning(confint(cutt2,conf.level=0.95),

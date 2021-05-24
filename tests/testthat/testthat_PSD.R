@@ -83,6 +83,18 @@ test_that("psdCI() messages",{
   n <- 300
   expect_warning(psdCI(c(1,0,0,0),ipsd,n),
                  "not a table of proportions")
+  
+  # bad args in conf.level
+  ipsd <- c(0.130,0.491,0.253,0.123)
+  n <- 445
+  expect_error(psdCI(c(0,0,1,1),ipsd,n=n,conf.level=0),
+               "must be between 0 and 1")
+  expect_error(psdCI(c(0,0,1,1),ipsd,n=n,conf.level=1),
+               "must be between 0 and 1")
+  expect_error(psdCI(c(0,0,1,1),ipsd,n=n,conf.level="R"),
+               "must be numeric")
+  
+  
 })
 
 test_that("psdCalc() messages",{
@@ -113,6 +125,14 @@ test_that("psdCalc() messages",{
   expect_error(psdCalc(~tl+species,data=df,species="Yellow perch"),
                "Function only works with formulas with 1 variable")
   expect_error(psdCalc(~species,data=df,species="Yellow perch"),
+               "must be numeric")
+  
+  # testing confidence intervals
+  expect_error(psdCalc(~tl,data=tmp,species="Yellow perch",conf.level=0),
+               "must be between 0 and 1")
+  expect_error(psdCalc(~tl,data=tmp,species="Yellow perch",conf.level=1),
+               "must be between 0 and 1")
+  expect_error(psdCalc(~tl,data=tmp,species="Yellow perch",conf.level="R"),
                "must be numeric")
 })
 

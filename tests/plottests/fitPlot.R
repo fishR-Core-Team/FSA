@@ -4,7 +4,7 @@ Mirex$cyear <- as.character(Mirex$year)
 Mirex$cspecies <- as.character(Mirex$species)
 
 
-## One-way ANOVA
+# One-way ANOVA####
 aov1 <- lm(mirex~fyear,data=Mirex)
 aov1c <- lm(mirex~cyear,data=Mirex)
 aov2 <- lm(mirex~species,data=Mirex)
@@ -16,8 +16,12 @@ fitPlot(aov1,col.ci="red")
 fitPlot(aov2)
 fitPlot(aov2c)
 
+#Should return CI errors
+fitPlot(aov1,conf.level=1)
+fitPlot(aov1,conf.level=0)
+fitPlot(aov1,conf.level="A")
 
-## Two-way ANOVA
+## Two-way ANOVA####
 aov3 <- lm(mirex~species*fyear,data=Mirex)
 aov3c <- lm(mirex~species*cyear,data=Mirex)
 aov3cc <- lm(mirex~cspecies*cyear,data=Mirex)
@@ -35,8 +39,13 @@ fitPlot(aov3c,which="species")
 fitPlot(aov3,which="fyear")
 fitPlot(aov3c,which="fyear")
 
+#Should return CI errors
+fitPlot(aov3,conf.level=1)
+fitPlot(aov3,conf.level=0)
+fitPlot(aov3,conf.level="A")
 
-## Simple linear regression (showing color change and confidence and prediction bands)
+
+## Simple linear regression (showing color change and confidence and prediction bands)####
 slr1 <- lm(mirex~weight,data=Mirex)
 fitPlot(slr1,pch=8,col.pt="red")
 fitPlot(slr1,col.mdl="blue")
@@ -44,8 +53,14 @@ fitPlot(slr1,interval="confidence")
 fitPlot(slr1,interval="prediction")
 fitPlot(slr1,interval="both")
 
+#Should return CI errors
+fitPlot(slr1,conf.level=1)
+fitPlot(slr1,conf.level=0)
+fitPlot(slr1,conf.level="A")
 
-## Indicator variable regression with one factor (also showing confidence bands)
+
+
+## Indicator variable regression with one factor (also showing confidence bands)####
 ivr1 <- lm(mirex~weight*fyear,data=Mirex)
 ivr1c <- lm(mirex~weight*cyear,data=Mirex)
 fitPlot(ivr1,legend="topleft")
@@ -54,6 +69,11 @@ fitPlot(ivr1,legend="topleft",interval="confidence")
 fitPlot(ivr1c,legend="topleft",interval="confidence")
 fitPlot(ivr1,legend="topleft",col="Dark 2",pch=18,lty=1)
 fitPlot(ivr1c,legend="topleft",col="Dark 2",pch=18,lty=1)
+
+#Should return CI errors
+fitPlot(ivr1,conf.level=1)
+fitPlot(ivr1,conf.level=0)
+fitPlot(ivr1,conf.level="A")
 
 ## Indicator variable regression with one factor (as first variable)
 ivr2 <- lm(mirex~fyear*weight,data=Mirex)
@@ -95,19 +115,24 @@ ivr7 <- lm(mirex~species*fyear*weight,data=Mirex2)
 fitPlot(ivr7)
 
 
-## Polynomial regression
+## Polynomial regression####
 poly1 <- lm(mirex~weight+I(weight^2),data=Mirex)
 fitPlot(poly1,interval="both")
 
+#Should return CI errors
+fitPlot(poly1,conf.level=1)
+fitPlot(poly1,conf.level=0)
+fitPlot(poly1,conf.level="A")
 
-## Non-linear model example
+
+## Non-linear model example####
 lr.sv <- list(B1=6,B2=7.2,B3=-1.5)
 nl1 <- nls(cells~B1/(1+exp(B2+B3*days)),start=lr.sv,data=Ecoli)
 fitPlot(nl1,Ecoli,cex.main=0.7,lwd=2)
 fitPlot(nl1,Ecoli,xlab="Day",ylab="Cellsx10^6/ml",plot.pts=FALSE)
 
 
-## Logistic regression example
+## Logistic regression example####
 ## NASA space shuttle o-ring failures -- from graphics package
 fail <- factor(c(2,2,2,2,1,1,1,1,1,1,2,1,2,1,1,1,1,2,1,1,1,1,1),
 levels = 1:2, labels = c("no","yes"))

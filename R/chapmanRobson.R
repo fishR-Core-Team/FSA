@@ -214,8 +214,10 @@ coef.chapmanRobson <- function(object,parm=c("all","both","Z","S"),...) {
 confint.chapmanRobson <- function(object,parm=c("all","both","S","Z"),
                                   level=conf.level,conf.level=0.95,...) {
   parm <- match.arg(parm)
-  if (conf.level<=0 | conf.level>=1)
-    STOP("'conf.level' must be between 0 and 1")
+  
+  ## Check on conf.level
+  iCheckConfLevel(conf.level) 
+  
   z <- c(-1,1)*stats::qnorm((1-(1-conf.level)/2))
   res <- rbind(S=object$est["S","Estimate"]+z*object$est["S","Std. Error"],
                Z=object$est["Z","Estimate"]+z*object$est["Z","Std. Error"])

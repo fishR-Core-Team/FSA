@@ -274,10 +274,10 @@ iCIBoot <- function(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...) {
         STOP("Name in 'parm' does not exist in 'object'.")
     }
   }
+  
   ## Check on conf.level
-  if (conf.level<=0 | conf.level>=1)
-    STOP("'conf.level' must be between 0 and 1")
-  ## Reduce object to have only the parm columns in it
+  iCheckConfLevel(conf.level) 
+  
   object <- object[,parm,drop=FALSE]
   ## Compute CIs for each column, but handle differently if vector or matrix
   res <- t(apply(object,2,cl))
@@ -309,8 +309,10 @@ iPredictBoot <- function(object,FUN,MARGIN,conf.level,digits,...) {
   ## Some checks
   if (!inherits(FUN,"function"))
     STOP("'FUN' is not a function.")
-  if (conf.level<=0 | conf.level>=1)
-    STOP("'conf.level' must be between 0 and 1")
+  
+  ## Check on conf.level
+  iCheckConfLevel(conf.level) 
+  
   ## Get items in the dots
   tmp <- list(...)
   ## Prep the results matrix

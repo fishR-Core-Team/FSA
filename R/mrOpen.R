@@ -124,8 +124,10 @@ jolly <- function(...) { mrOpen(...) }
 mrOpen <- function(mb.top,mb.bot=NULL,type=c("Jolly","Manly"),
                    conf.level=0.95,phi.full=TRUE) {
   type <- match.arg(type)
-  if (conf.level<=0 | conf.level>=1)
-    STOP("'conf.level' must be between 0 and 1")
+  
+  ## Check on conf.level
+  iCheckConfLevel(conf.level) 
+  
   if (is.CapHist(mb.top)) {
     mb.bot <- mb.top$methodB.bot
     mb.top <- mb.top$methodB.top

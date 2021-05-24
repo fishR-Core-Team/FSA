@@ -326,7 +326,10 @@ confint.mrClosed1 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
   bin.type <- match.arg(bin.type)
   poi.type <- match.arg(poi.type)
   parm <- iCI.CheckParm(parm)
-  if (conf.level<=0 | conf.level>=1) STOP("'conf.level' must be between 0 and 1")
+  
+  ## Check on conf.level
+  iCheckConfLevel(conf.level) 
+  
   # Construct the CIs, loop is for handling multiple groups
   ci <- NULL
   for (i in seq_along(object$N)) {
@@ -537,8 +540,10 @@ confint.mrClosed2 <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
   ## This is needed so that only one poisson type is used
   poi.type <- match.arg(poi.type)
   parm <- iCI.CheckParm(parm)
-  if (conf.level<=0 | conf.level>=1)
-    STOP("'conf.level' must be between 0 and 1")
+  
+  ## Check on conf.level
+  iCheckConfLevel(conf.level) 
+  
   # Construct the confidence intervals
   switch(object$method,
          Schnabel= {

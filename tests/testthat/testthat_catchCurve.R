@@ -55,6 +55,8 @@ test_that("catchCurve() messages",{
                "must be between 0 and 1")
   expect_error(confint(cc,conf.level=1),
                "must be between 0 and 1")
+  expect_error(confint(cc,conf.level="R"),
+               "must be numeric")
   # bad args in summary
   expect_error(summary(cc,parm="derek"),
                "should be one of")
@@ -126,6 +128,8 @@ test_that("chapmanRobson errors and warnings",{
                "must be between 0 and 1")
   expect_error(confint(cr,conf.level=1),
                "must be between 0 and 1")
+  expect_error(confint(cr,conf.level="R"),
+               "must be numeric")
   # bad args in confint
   expect_error(plot(cr,ylim=c(3,7,10)),
                "may not have more than two")
