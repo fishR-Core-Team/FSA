@@ -138,19 +138,19 @@
 <li>
 <code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Removed hard-coding of <code>ylim=</code> for <code><a href="../reference/chapmanRobson.html">plot.chapmanRobson()</a></code>. Added <code>round.est=</code> so that the user can control the decimals on mortality and survival estimate values. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
 <li>
-<code>chooseColors()</code>: Removed. This was an exported function that should have been internal. Regardless, where it was used has been removed and the user is now allowed to provide their own vector of colors. See <code>iCheckMultColors()</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
+<code>chooseColors()</code>: REMOVED. This was an exported function that should have been internal. Regardless, where it was used has been removed and the user is now allowed to provide their own vector of colors. See <code>iCheckMultColors()</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
-<code>compIntercepts()</code>: Removed (to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
+<code>compIntercepts()</code>: REMOVED (to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
-<code>compSlopes()</code>: Removed (to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
+<code>compSlopes()</code>: REMOVED (to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
 <code><a href="../reference/depletion.html">depletion()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Removed use of <code>chooseColors()</code> (see above).</li>
+<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: DEPRECATED (partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>). Priot to that removed use of <code>chooseColors()</code> (see above).</li>
 <li>
-<code>diags()</code>: Removed (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
+<code>diags()</code>: REMOVED (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
-<code>hoCoef()</code>: Removed (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
+<code>hoCoef()</code>: REMOVED (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
 <code><a href="../reference/hyperCI.html">hyperCI()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
 <li>
@@ -158,15 +158,15 @@
 <li>
 <code>iCheckMultColors()</code>: Added (internal). Part of removing <code>chooseColors()</code> and <code>paletteChoices()</code>.</li>
 <li>
-<code>iRichColors()</code>: Removed (as part of removing <code>chooseColors()</code>).</li>
+<code>iRichColors()</code>: REMOVED (as part of removing <code>chooseColors()</code>).</li>
 <li>
-<code>mapvalues()</code>: Removed. Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
+<code>mapvalues()</code>: REMOVED. Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
 <code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
 <li>
 <code><a href="../reference/jolly.html">mrOpen()</a></code>: Modified. Added a warning for when r==0, which causes the SE of M and thus N to be <code>Infinity</code> (this addresses <a href="https://github.com/droglenc/FSA/issues/69"><a href='https://github.com/droglenc/FSA/issues/69'>#69</a></a>). Added a similar warning for when R==0 (but not the last time period). Added tests for the warning messages. Changed one use of <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> to <code><a href="https://rdrr.io/r/base/colSums.html">rowSums()</a></code> for ease of reading. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
 <li>
-<code>paletteChoices()</code>: Removed. See <code>chooseColors()</code> above. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
+<code>paletteChoices()</code>: REMOVED. See <code>chooseColors()</code> above. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
 <code><a href="../reference/poiCI.html">poiCI()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
 <li>
@@ -184,7 +184,7 @@
 <li>
 <code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Removed use of <code>chooseColors()</code> (see above).</li>
 <li>
-<code>Subset()</code>: Removed. Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
+<code>Subset()</code>: REMOVED. Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
 <code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> in <code>iwsLitCheck()</code> to <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>WSlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>).</li>
 <li>
