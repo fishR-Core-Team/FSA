@@ -93,7 +93,6 @@ reference:
       - bootstrap
       - dunnTest
       - extraSS
-      - fitPlot
       - geomean
       - hist.formula
       - histFromSum

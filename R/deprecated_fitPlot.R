@@ -1,4 +1,4 @@
-#' @title Fitted model plot for an lm, glm, or nls object.
+#' @title DEPRECATED -- Fitted model plot for an lm, glm, or nls object.
 #'
 #' @description A generic function for constructing a fitted model plot for an \code{lm}, \code{glm}, or \code{nls} object. Supported objects are linear models from simple linear regression (SLR), indicator variable regression (IVR), one-way ANOVA, or two-way ANOVA models; general linear models that are logistic regressions with a binary response; and non-linear regression with a single numerical response variable, at least one continuous explanatory variable and up to two group-factor explanatory variables.
 #'
@@ -118,13 +118,15 @@
 #' fitPlot(glm1)
 #' fitPlot(glm1,yaxis1.ticks=c(0,1),yaxis1.lbls=c(0,1))
 #'
-#' @rdname fitPlot
+#' @rdname fitPlot-deprecated
 #' @export
 fitPlot <- function (object, ...) {
+  if ("lm" %in% class(object)) ## This is a hack so no double deprecation warning
+    .Deprecated(msg="'fitPlot' is deprecated and will soon be removed from 'FSA'; see fishR post from 25-May-2021 for alternative methods.")
   UseMethod("fitPlot") 
 }
 
-#' @rdname fitPlot
+#' @rdname fitPlot-deprecated
 #' @export
 fitPlot.lm <- function(object, ...) {
   object <- iTypeoflm(object)
@@ -135,7 +137,7 @@ fitPlot.lm <- function(object, ...) {
   fitPlot(object,...)
 }
 
-#' @rdname fitPlot
+#' @rdname fitPlot-deprecated
 #' @export
 fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
                         col.mdl="red",lwd=3,lty=1,
@@ -194,7 +196,7 @@ fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
 }
 
 
-#' @rdname fitPlot
+#' @rdname fitPlot-deprecated
 #' @export
 fitPlot.IVR <- function(object,...) {
   ## Do some checks
@@ -204,7 +206,7 @@ fitPlot.IVR <- function(object,...) {
     STOP("'fitPlot()' cannot handle >2 factors in an IVR.")
   ## Decide if a one-way or two-way IVR
   if (object$EFactNum==1) iFitPlotIVR1(object,...)
-    else iFitPlotIVR2(object,...)
+  else iFitPlotIVR2(object,...)
 }
 
 iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
@@ -234,10 +236,10 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   pch <- iFitPlotPchs2(f1,pch)
   lty <- iFitPlotLtys2(f1,lty)
   ## Check if groups will be able to be seen
-    if (sum(c(length(unique(pch))==1,
-              length(unique(lty))==1,
-              length(unique(col))==1))>1)
-      WARN("Your choices for 'col', 'pch', and 'lty' will make it difficult to see groups.")
+  if (sum(c(length(unique(pch))==1,
+            length(unique(lty))==1,
+            length(unique(col))==1))>1)
+    WARN("Your choices for 'col', 'pch', and 'lty' will make it difficult to see groups.")
   ### Plot the points
   # Creates plot schematic -- no points or lines                   # nocov start
   graphics::plot(y~x,col="white",xlab=xlab,ylab=ylab,main=main,...)
@@ -248,7 +250,7 @@ iFitPlotIVR1 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
                                          col=col[i],pch=pch[i])
   }
   for (i in 1:num.f1) {
-  # Make the predictions at a bunch of values of x
+    # Make the predictions at a bunch of values of x
     x.obs <- x[f1==levs.f1[i]]
     y.obs <- y[f1==levs.f1[i]] 
     xvals <- seq(min(x.obs),max(x.obs),length.out=200)
@@ -367,14 +369,14 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   }  # nocov end
 }
 
-#' @rdname fitPlot
+#' @rdname fitPlot-deprecated
 #' @export
 fitPlot.POLY <- function(object,...) {
   fitPlot.SLR(object,...)
 }
 
 
-#' @rdname fitPlot
+#' @rdname fitPlot-deprecated
 #' @export
 fitPlot.ONEWAY <- function (object,
                             xlab=object$Enames[1],ylab=object$Rname,main="",
@@ -408,7 +410,7 @@ fitPlot.ONEWAY <- function (object,
 } # nocov end
 
 
-#' @rdname fitPlot
+#' @rdname fitPlot-deprecated
 #' @export
 fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
                            xlab=object$Enames[ord[1]],ylab=object$Rname,
@@ -463,7 +465,7 @@ fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
 }
 
 
-#' @rdname fitPlot
+#' @rdname fitPlot-deprecated
 #' @export
 fitPlot.nls <- function(object,d,
                         pch=c(19,1),col.pt=c("black","red"),col.mdl=col.pt,
@@ -477,7 +479,7 @@ fitPlot.nls <- function(object,d,
   ##   models (e.g., Francis VBGF) the mdel might contain "other" data)
   numvars <- length(attr(stats::terms(mdl$model),"term.labels"))
   if (missing(d)) { d <- mdl$data }
-    else if (!is.data.frame(d)) d <- as.data.frame(d) # make sure is data.frame
+  else if (!is.data.frame(d)) d <- as.data.frame(d) # make sure is data.frame
   ## find y variable from model
   y <- mdl$model[[1]]
   if (numvars==2) {
@@ -513,7 +515,7 @@ fitPlot.nls <- function(object,d,
     if (jittered) x <- jitter(x)    
     if (plot.pts) graphics::plot(x,y,pch=pch[1],col=col.pt[1],ylim=ylim,
                                  xlab=xlab,ylab=ylab,main=main,...)
-      else graphics::plot(x,y,type="n",ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
+    else graphics::plot(x,y,type="n",ylim=ylim,xlab=xlab,ylab=ylab,main=main,...)
     graphics::lines(fits$x,fits$y,lwd=lwd[1],lty=lty[1],col=col.mdl[1])
   } else {
     explg1 <- data.frame(x=fitx,g1=rep(1,length(fitx)),g2=rep(0,length(fitx)))
@@ -536,13 +538,13 @@ fitPlot.nls <- function(object,d,
     if (leg$do.legend) {
       if (plot.pts) graphics::legend(x=leg$x,y=leg$y,legend=legend.lbls,
                                      col=col.pt,pch=pch,lty=lty)
-        else graphics::legend(x=leg$x,y=leg$y,legend=legend.lbls,
-                              col=col.mdl,lty=lty)
+      else graphics::legend(x=leg$x,y=leg$y,legend=legend.lbls,
+                            col=col.mdl,lty=lty)
     }
   }
 }  # nocov end
 
-#' @rdname fitPlot
+#' @rdname fitPlot-deprecated
 #' @export
 fitPlot.glm <- function(object, ...) {
   if (object$family$family=="binomial" & object$family$link=="logit")
@@ -551,7 +553,7 @@ fitPlot.glm <- function(object, ...) {
     STOP("Currently only logistic regression GLM models are supported by fitPlot.")
 }
 
-#' @rdname fitPlot
+#' @rdname fitPlot-deprecated
 #' @export
 fitPlot.logreg <- function(object,
                            xlab=names(object$model)[2],ylab=names(object$model)[1],
