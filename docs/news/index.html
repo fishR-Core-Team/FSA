@@ -132,9 +132,11 @@
 <li>
 <code><a href="../reference/alkPlot.html">alkPlot()</a></code>: Modified. Removed use of <code>chooseColors()</code> (see below).</li>
 <li>
-<code><a href="../reference/catchCurve.html">catchCurve()</a></code>: Modified. Removed hard-coding of <code>ylim=</code> for <code><a href="../reference/catchCurve.html">plot.catchCurve()</a></code> (this addresses <a href="https://github.com/droglenc/FSA/issues/70"><a href='https://github.com/droglenc/FSA/issues/70'>#70</a></a> … Thanks to Brendan Runde). Added <code>round.est=</code> so that the user can control the decimals on mortality estimate values.</li>
+<code><a href="../reference/binCI.html">binCI()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
 <li>
-<code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Removed hard-coding of <code>ylim=</code> for <code><a href="../reference/chapmanRobson.html">plot.chapmanRobson()</a></code>. Added <code>round.est=</code> so that the user can control the decimals on mortality and survival estimate values.</li>
+<code><a href="../reference/catchCurve.html">catchCurve()</a></code>: Modified. Removed hard-coding of <code>ylim=</code> for <code><a href="../reference/catchCurve.html">plot.catchCurve()</a></code> (this addresses <a href="https://github.com/droglenc/FSA/issues/70"><a href='https://github.com/droglenc/FSA/issues/70'>#70</a></a> … Thanks to Brendan Runde). Added <code>round.est=</code> so that the user can control the decimals on mortality estimate values. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
+<li>
+<code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Removed hard-coding of <code>ylim=</code> for <code><a href="../reference/chapmanRobson.html">plot.chapmanRobson()</a></code>. Added <code>round.est=</code> so that the user can control the decimals on mortality and survival estimate values. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
 <li>
 <code>chooseColors()</code>: Removed. This was an exported function that should have been internal. Regardless, where it was used has been removed and the user is now allowed to provide their own vector of colors. See <code>iCheckMultColors()</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
@@ -142,11 +144,17 @@
 <li>
 <code>compSlopes()</code>: Removed (to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
+<code><a href="../reference/depletion.html">depletion()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
+<li>
 <code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Removed use of <code>chooseColors()</code> (see above).</li>
 <li>
 <code>diags()</code>: Removed (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
 <code>hoCoef()</code>: Removed (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
+<li>
+<code><a href="../reference/hyperCI.html">hyperCI()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
+<li>
+<code>iCheckConfLevel()</code>: Added (internal to address <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
 <li>
 <code>iCheckMultColors()</code>: Added (internal). Part of removing <code>chooseColors()</code> and <code>paletteChoices()</code>.</li>
 <li>
@@ -154,17 +162,25 @@
 <li>
 <code>mapvalues()</code>: Removed. Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
-<code><a href="../reference/jolly.html">mrOpen()</a></code>: Modified. Added a warning for when r==0, which causes the SE of M and thus N to be <code>Infinity</code> (this addresses <a href="https://github.com/droglenc/FSA/issues/69"><a href='https://github.com/droglenc/FSA/issues/69'>#69</a></a>). Added a similar warning for when R==0 (but not the last time period). Added tests for the warning messages. Changed one use of <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> to <code><a href="https://rdrr.io/r/base/colSums.html">rowSums()</a></code> for ease of reading.</li>
+<code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
+<li>
+<code><a href="../reference/jolly.html">mrOpen()</a></code>: Modified. Added a warning for when r==0, which causes the SE of M and thus N to be <code>Infinity</code> (this addresses <a href="https://github.com/droglenc/FSA/issues/69"><a href='https://github.com/droglenc/FSA/issues/69'>#69</a></a>). Added a similar warning for when R==0 (but not the last time period). Added tests for the warning messages. Changed one use of <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> to <code><a href="https://rdrr.io/r/base/colSums.html">rowSums()</a></code> for ease of reading. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
 <li>
 <code>paletteChoices()</code>: Removed. See <code>chooseColors()</code> above. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
+<code><a href="../reference/poiCI.html">poiCI()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
+<li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> in <code>iPSDlitCheck()</code> to <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>PSDlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>).</li>
 <li>
-<code>PSDlit</code>: Modified. Added length categories for Shoal Bass. Added Striped Bass (Hybrid) and Striped Bass x White Bass; though these are the same as the existing Palmetto Bass.</li>
+<code><a href="../reference/psdCalc.html">psdCalc()</a></code>: Modified. Added a catch for when “tibble”s are sent in <code>data=</code> (addresses <a href="https://github.com/droglenc/FSA/issues/75"><a href='https://github.com/droglenc/FSA/issues/75'>#75</a></a>). Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
 <li>
-<code><a href="../reference/psdVal.html">psdVal()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> in <code>iPSDlitCheck()</code> and <code><a href="../reference/.onAttach.html">iListSpecies()</a></code> to <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>PSDlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>).</li>
+<code><a href="../reference/psdCI.html">psdCI()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
 <li>
-<code><a href="../reference/removal.html">removal()</a></code>: Modified. Added check and then warning if non-whole numbers are in <code>catch=</code> (addresses <a href="https://github.com/droglenc/FSA/issues/60"><a href='https://github.com/droglenc/FSA/issues/60'>#60</a></a>). Also modified checks of data integrity to be more robust (e.g., if a character vector is sent).</li>
+<code>PSDlit</code>: Modified. Added length categories for Shoal Bass and Pallid Sturgeon. Added Striped Bass (Hybrid) and Striped Bass x White Bass; though these are the same as the existing Palmetto Bass. Added “source”s for each entry.</li>
+<li>
+<code><a href="../reference/psdVal.html">psdVal()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> in <code>iPSDlitCheck()</code> and <code><a href="../reference/.onAttach.html">iListSpecies()</a></code> to <code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>PSDlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>). Added a <code>showJustSource=</code> argument that will show the source info (if <code>TRUE</code>) or not (if <code>FALSE</code>; default), which partially addresses <a href="https://github.com/droglenc/FSA/issues/76"><a href='https://github.com/droglenc/FSA/issues/76'>#76</a></a>.</li>
+<li>
+<code><a href="../reference/removal.html">removal()</a></code>: Modified. Added check and then warning if non-whole numbers are in <code>catch=</code> (addresses <a href="https://github.com/droglenc/FSA/issues/60"><a href='https://github.com/droglenc/FSA/issues/60'>#60</a></a>). Also modified checks of data integrity to be more robust (e.g., if a character vector is sent). Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
 <li>
 <code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Removed use of <code>chooseColors()</code> (see above).</li>
 <li>
