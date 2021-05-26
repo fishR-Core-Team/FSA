@@ -64,7 +64,7 @@
 #' # create year as a factor variable
 #' Mirex$fyear <- factor(Mirex$year)
 #' # reduce number of years for visual simplicity for iVRs
-#' Mirex2 <- filterD(Mirex,fyear %in% c(1977,1992))
+#' Mirex2 <- droplevels(subset(Mirex,fyear %in% c(1977,1992)))
 #' 
 #' ## One-way ANOVA
 #' aov1 <- lm(mirex~fyear,data=Mirex)

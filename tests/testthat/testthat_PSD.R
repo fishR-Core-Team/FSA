@@ -24,8 +24,8 @@ df2$species <- factor(df2$species)
 df2$spec_code <- factor(df2$spec_code)
 df2$GCATN <- factor(df2$GCATN,levels=c("substock","stock","quality","preferred",
                                        "memorable","trophy"))
-df2bg <- filterD(df2,species=="Bluegill")
-df2lmb <- filterD(df2,species=="Largemouth Bass")
+df2bg <- droplevels(subset(df2,species=="Bluegill"))
+df2lmb <- droplevels(subset(df2,species=="Largemouth Bass"))
 
 
 ## Test Messages ----
@@ -403,7 +403,7 @@ test_that("psdCalc() returns",{
                                "PSD 225-245","PSD 245-P"))
   expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
   ## All values, but df only has values greater than stock values
-  df1 <- filterD(df,tl>=130)
+  df1 <- droplevels(subset(df,tl>=130))
   tmp <- suppressWarnings(psdCalc(~tl,data=df1,species="Yellow perch"))
   expect_is(tmp,"matrix")
   expect_equal(mode(tmp),"numeric")
@@ -413,7 +413,7 @@ test_that("psdCalc() returns",{
                                "PSD Q-P","PSD P-M","PSD M-T"))
   expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
   ## All values, but df only has values greater than quality values
-  df1 <- filterD(df,tl>=200)
+  df1 <- droplevels(subset(df,tl>=200))
   tmp <- suppressWarnings(psdCalc(~tl,data=df1,species="Yellow perch"))
   expect_is(tmp,"matrix")
   expect_equal(mode(tmp),"numeric")
@@ -423,7 +423,7 @@ test_that("psdCalc() returns",{
                                "PSD Q-P","PSD P-M","PSD M-T"))
   expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
   ## All values, but df only has values greater than memorable value
-  df1 <- filterD(df,tl>=300)
+  df1 <- droplevels(subset(df,tl>=300))
   tmp <- suppressWarnings(psdCalc(~tl,data=df1,species="Yellow perch"))
   expect_is(tmp,"matrix")
   expect_equal(mode(tmp),"numeric")
@@ -553,7 +553,7 @@ test_that("Does psdCI results match Brenden et al. (2008) results",{
   expect_equivalent(diffs,rep(0,length(diffs)))
   
   ## Do things still work if all sub-stock fish are removed
-  tmp <- filterD(df3,tl>=brks["stock"])
+  tmp <- droplevels(subset(df3,tl>=brks["stock"]))
   suppressWarnings(
     resXY <- psdCalc(~tl,data=tmp,species="Yellow Perch",what="incremental",
                      digits=getOption("digits")))
@@ -573,7 +573,7 @@ test_that("Does psdCI results match Brenden et al. (2008) results",{
   psdXs <- rcumsum(psdXYs)[-1]
   psdXYs <- psdXYs[-length(psdXYs)]
   
-  tmp <- filterD(df3,tl>=brks["quality"])
+  tmp <- droplevels(subset(df3,tl>=brks["quality"]))
   suppressWarnings(
     resXY <- psdCalc(~tl,data=tmp,species="Yellow Perch",what="incremental",
                      digits=getOption("digits")))
@@ -592,7 +592,7 @@ test_that("Does psdCI results match Brenden et al. (2008) results",{
   psdXYs <- prop.table(freq[-c(1,length(freq))])*100
   psdXs <- rcumsum(psdXYs)[-1]
   
-  tmp <- filterD(df3,tl<brks["trophy"])
+  tmp <- droplevels(subset(df3,tl<brks["trophy"]))
   suppressWarnings(
     resXY <- psdCalc(~tl,data=tmp,species="Yellow Perch",what="incremental",
                      digits=getOption("digits")))
@@ -611,17 +611,18 @@ test_that("Does psdCI results match Brenden et al. (2008) results",{
 test_that("Does manual calculation after psdAdd() equal psdCalc() results?",{
   ## get psdCalc results for LMB and BG .. ultimately compare to psdDataPrep results
   suppressWarnings(
-    psdBG <- psdCalc(~tl,data=filterD(df,species=="Bluegill"),
+    psdBG <- psdCalc(~tl,data=droplevels(subset(df,species=="Bluegill")),
                      species="Bluegill",digits=getOption("digits")))
   suppressWarnings(
-    psdLMB <- psdCalc(~tl,data=filterD(df,species=="Largemouth Bass"),
+    psdLMB <- psdCalc(~tl,
+                      data=droplevels(subset(df,species=="Largemouth Bass")),
                       species="Largemouth Bass",digits=getOption("digits")))
   
   ## apply psdAdd
   suppressMessages(df$PSDcat <- psdAdd(tl~species,df))
   # remove substock and other fish
-  tmp <- filterD(df,species %in% c("Bluegill","Largemouth Bass"))
-  tmp <- filterD(tmp,PSDcat!="substock")
+  tmp <- droplevels(subset(df,species %in% c("Bluegill","Largemouth Bass")))
+  tmp <- droplevels(subset(tmp,PSDcat!="substock"))
   res <- prop.table(xtabs(~species+PSDcat,data=tmp),margin=1)*100
   ## do PSD X-Y results match for two species
   ## Are values the same

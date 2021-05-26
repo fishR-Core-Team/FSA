@@ -80,7 +80,7 @@
 #' 
 #' ## Indicator variable regression with two factors
 #' ##    Reduce number of years for visual simplicity
-#' Mirex2 <- filterD(Mirex,fyear %in% c(1977,1992))
+#' Mirex2 <- droplevels(subset(Mirex,fyear %in% c(1977,1992)))
 #' 
 #' ivr3 <- lm(mirex~weight*fyear*species,data=Mirex2)
 #' residPlot(ivr3)

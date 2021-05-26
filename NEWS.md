@@ -9,7 +9,8 @@
 * `compIntercepts()`: REMOVED (to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
 * `compSlopes()`: REMOVED (to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
 * `depletion()`: Modified. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/droglenc/FSA/issues/66)).
-* `fitPlot()`: DEPRECATED (partially addresses [#65](https://github.com/droglenc/FSA/issues/65)). Priot to that removed use of `chooseColors()` (see above).
+* `filterD()`: DEPRECATED (partially addresses [#65](https://github.com/droglenc/FSA/issues/65)).
+* `fitPlot()`: DEPRECATED (partially addresses [#65](https://github.com/droglenc/FSA/issues/65)). Prior to that removed use of `chooseColors()` (see above).
 * `diags()`: REMOVED (moved to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
 * `hoCoef()`: REMOVED (moved to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
 * `hyperCI()`: Modified. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/droglenc/FSA/issues/66)).

@@ -33,7 +33,7 @@ In situations where no fish were captured in some events, the \code{df} may cont
 One should test the results of this function by creating a frequency table of the \code{eventvar} or \code{specvar}. In either case, the table should contain the same value in each cell of the table. See the examples.
 }
 \note{
-An error will be returned if either \code{specvar} or \code{eventvar} are factors with any \code{NA} levels. This usually arises if the data.frame was subsetted/filtered prior to using \code{addZeroCatch}. See \code{\link{filterD}} or \code{\link[base]{droplevels}} for descriptions of how to drop unused levels.
+An error will be returned if either \code{specvar} or \code{eventvar} are factors with any \code{NA} levels. This usually arises if the data.frame was subsetted/filtered prior to using \code{addZeroCatch}. See \code{\link[base]{droplevels}} for descriptions of how to drop unused levels.
 }
 \section{IFAR Chapter}{
  2-Basic Data Manipulations

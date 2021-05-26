@@ -743,8 +743,8 @@ rSquared.lm <- function(object,digits=getOption("digits"),
 #' keepLast <- repeatedRows2Keep(test1,cols2use=3:4,keep="last")
 #' data.frame(test1,keepFirst,keepLast)
 #' 
-#' filterD(test1,keepFirst)  # should be all "First" or "Both" (7 items)
-#' filterD(test1,keepLast)   # should be all "Last" or "Both" (7 items)
+#' droplevels(subset(test1,keepFirst))  # should be all "First" or "Both" (7 items)
+#' droplevels(subset(test1,keepLast))   # should be all "Last" or "Both" (7 items)
 #' 
 #' @export
 repeatedRows2Keep <- function(df,cols2use=NULL,cols2ignore=NULL,
@@ -828,12 +828,12 @@ se <- function (x,na.rm=TRUE) {
   sqrt(stats::var(x)/length(x))
 }
 
-#' @name filterD
+#' @name filterD-deprecated
 #' 
-#' @title Subsets/filters a data frame and drops the unused levels.
-#'
+#' @title DEPRECATED - Subsets/filters a data frame and drops the unused levels.
+#' 
 #' @description Subsets/filters a data frame and drops the unused levels.
-#'
+#' 
 #' @details Newbie students using R expect that when a factor variable is filtered with \code{\link[dplyr]{filter}} that any original levels that are no longer used after the filtering will be ignored. This, however, is not the case and often results in tables with empty cells and figures with empty bars. One remedy is to use \code{\link[base]{droplevels}} immediately following \code{\link[dplyr]{filter}}. This generally becomes a repetitive sequence for most newbie students; thus, \code{filterD} incorporate these two functions into one function.
 #' 
 #' \code{filterD} is a wrapper for \code{\link[dplyr]{filter}} from \pkg{dplyr} followed by \code{\link[base]{droplevels}} just before the data.frame is returned. Otherwise, there is no new code here.
@@ -859,18 +859,17 @@ se <- function (x,na.rm=TRUE) {
 #' levels(iris$Species)
 #' iris.set1 <- subset(iris,Species=="setosa" | Species=="versicolor")
 #' levels(iris.set1$Species)
-#' xtabs(~Species,data=iris)
+#' xtabs(~Species,data=iris.set1)
 #'
 #' ## A fix using filterD
 #' iris.set3 <- filterD(iris,Species=="setosa" | Species=="versicolor")
 #' levels(iris.set3$Species)
 #' xtabs(~Species,data=iris.set3)
-#'
-NULL
-
-#' @rdname filterD
+#' 
+#' @rdname filterD-deprecated
 #' @export
 filterD <- function(x,...,except=NULL) {
+  .Deprecated(msg="'filter' is deprecated and will soon be removed from 'FSA'; please use 'droplevels' after 'subset' or 'dplyr::filter' for the same result (see fishR post from 26-May-2021).")
   res <- dplyr::filter(x,...)
   res <- droplevels(res,except)
   if (nrow(res)==0)

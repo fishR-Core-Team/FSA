@@ -114,7 +114,6 @@ reference:
       - capFirst
       - col2rgbt
       - fact2num
-      - filterD
       - headtail
       - is.even
       - lagratio

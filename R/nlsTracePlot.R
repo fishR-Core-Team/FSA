@@ -48,7 +48,7 @@
 #' \dontrun{
 #' if (require(FSAdata)) {
 #'   data(BSkateGB,package="FSAdata")
-#'   wtr <- filterD(BSkateGB,season=="winter")
+#'   wtr <- droplevels(subset(BSkateGB,season=="winter"))
 #'   bh1 <- srFuns()
 #'   trc <- capture.output(try(
 #'   fitSR1 <- nls(recruits~bh1(spawners,a,b),wtr,

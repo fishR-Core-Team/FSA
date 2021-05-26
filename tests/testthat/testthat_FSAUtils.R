@@ -12,12 +12,6 @@ test_that("fact2num() messages",{
   expect_error(fact2num(factor(c("A","B","C"))),"aborted")
 })
 
-test_that("filterD() messages",{
-  expect_error(filterD(0:5),"no applicable method")
-  expect_error(filterD(matrix(0:5,ncol=2)),"no applicable method")
-  expect_warning(filterD(iris,Species=="DEREK"),"resultant data.frame")
-})  
-
 test_that("fishR() messages",{
   expect_error(fishR("Derek"),"should be one of")
 })
@@ -180,28 +174,6 @@ test_that("fact2num() results",{
   expect_is(tmp,"numeric")
   expect_true(is.vector(tmp))
 })
-
-test_that("filterD() results",{
-  # limit to two groups
-  grp <- c("setosa","versicolor")
-  tmp <- filterD(iris,Species %in% grp)
-  expect_equal(levels(tmp$Species),grp)
-  expect_equal(nrow(tmp),100)
-  # limit to one group
-  grp <- c("versicolor")
-  tmp <- filterD(iris,Species %in% grp)
-  expect_equal(levels(tmp$Species),grp)
-  expect_equal(nrow(tmp),50)
-  # make sure that levels are not reordered
-  iris$Species1 <- factor(iris$Species,levels=c("virginica","versicolor","setosa"))
-  grp <- c("setosa","versicolor")
-  tmp <- filterD(iris,Species1 %in% grp)
-  expect_equal(levels(tmp$Species1),rev(grp))
-  # check usage of except
-  tmp <- filterD(iris,Species1 %in% grp,except="Species")
-  expect_equal(levels(tmp$Species1),rev(grp))
-  expect_equal(levels(tmp$Species),c("setosa","versicolor","virginica"))
-})  
 
 test_that("fishR() return values",{
   expect_equal(fishR(open=FALSE),
@@ -447,10 +419,10 @@ test_that("repeatedRows2Keep() return values",{
   keepLast <- repeatedRows2Keep(test1,cols2use=3:4,keep="last")
   expect_is(keepFirst,"logical")
   expect_is(keepLast,"logical")
-  tmp <- filterD(test1,keepFirst)
+  tmp <- droplevels(subset(test1,keepFirst))
   expect_equal(tmp$ID,c(1,3:7,10))
   expect_true(all(tmp$KEEP %in% c("First","Both")))
-  tmp <- filterD(test1,keepLast)
+  tmp <- droplevels(subset(test1,keepLast))
   expect_equal(tmp$ID,c(2:6,9,10))
   expect_true(all(tmp$KEEP %in% c("Last","Both")))
   
@@ -462,10 +434,10 @@ test_that("repeatedRows2Keep() return values",{
                       stringsAsFactors=FALSE)
   keepFirst <- repeatedRows2Keep(test2,cols2ignore=1:2)
   keepLast <- repeatedRows2Keep(test2,cols2use=3:4,keep="last")
-  tmp <- filterD(test2,keepFirst)
+  tmp <- droplevels(subset(test2,keepFirst))
   expect_equal(tmp$ID,c(1:7))
   expect_true(all(tmp$KEEP %in% c("First","Both")))
-  tmp <- filterD(test2,keepLast)
+  tmp <- droplevels(subset(test2,keepLast))
   expect_equal(tmp$ID,c(1:6,10))
   expect_true(all(tmp$KEEP %in% c("Last","Both")))
   
@@ -477,20 +449,20 @@ test_that("repeatedRows2Keep() return values",{
                       stringsAsFactors=FALSE)
   keepFirst <- repeatedRows2Keep(test3,cols2ignore=1:2)
   keepLast <- repeatedRows2Keep(test3,cols2use=3:4,keep="last")
-  tmp <- filterD(test3,keepFirst)
+  tmp <- droplevels(subset(test3,keepFirst))
   expect_equal(tmp$ID,c(1,4,7))
   expect_true(all(tmp$KEEP %in% c("First","Both")))
-  tmp <- filterD(test3,keepLast)
+  tmp <- droplevels(subset(test3,keepLast))
   expect_equal(tmp$ID,c(3,6,10))
   expect_true(all(tmp$KEEP %in% c("Last","Both")))
   
   ## Use just one column
   keepFirst <- repeatedRows2Keep(test3,cols2ignore=1:3)
   keepLast <- repeatedRows2Keep(test3,cols2use=3:4,keep="last")
-  tmp <- filterD(test3,keepFirst)
+  tmp <- droplevels(subset(test3,keepFirst))
   expect_equal(tmp$ID,c(1,4,7))
   expect_true(all(tmp$KEEP %in% c("First","Both")))
-  tmp <- filterD(test3,keepLast)
+  tmp <- droplevels(subset(test3,keepLast))
   expect_equal(tmp$ID,c(3,6,10))
   expect_true(all(tmp$KEEP %in% c("Last","Both")))
   
@@ -500,10 +472,10 @@ test_that("repeatedRows2Keep() return values",{
                       stringsAsFactors=FALSE)
   keepFirst <- repeatedRows2Keep(test4,cols2ignore=1:2)
   keepLast <- repeatedRows2Keep(test4,cols2use=3:4,keep="last")
-  tmp <- filterD(test4,keepFirst)
+  tmp <- droplevels(subset(test4,keepFirst))
   expect_equal(tmp$ID,1:10)
   expect_true(all(tmp$KEEP %in% c("First","Both")))
-  tmp <- filterD(test4,keepLast)
+  tmp <- droplevels(subset(test4,keepLast))
   expect_equal(tmp$ID,1:10)
   expect_true(all(tmp$KEEP %in% c("Last","Both")))
   
@@ -517,10 +489,10 @@ test_that("repeatedRows2Keep() return values",{
   test5$V2 <- factor(test5$V2)
   keepFirst <- repeatedRows2Keep(test5,cols2ignore=1:2)
   keepLast <- repeatedRows2Keep(test5,cols2use=3:4,keep="last")
-  tmp <- filterD(test5,keepFirst)
+  tmp <- droplevels(subset(test5,keepFirst))
   expect_equal(tmp$ID,c(1:7))
   expect_true(all(tmp$KEEP %in% c("First","Both")))
-  tmp <- filterD(test5,keepLast)
+  tmp <- droplevels(subset(test5,keepLast))
   expect_equal(tmp$ID,c(1:6,10))
   expect_true(all(tmp$KEEP %in% c("Last","Both")))
 })

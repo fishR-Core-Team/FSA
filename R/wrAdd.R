@@ -51,7 +51,7 @@
 #' df
 #'  
 #' ## Example with only one species in the data.frame
-#' bg <- filterD(df,species=="Bluegill")
+#' bg <- droplevels(subset(df,species=="Bluegill"))
 #' bg$Wr4 <- wrAdd(wt~tl+species,data=bg)
 #' 
 #' @export
