@@ -36,7 +36,7 @@ This function is only used for data frames.
 levels(iris$Species)
 iris.set1 <- subset(iris,Species=="setosa" | Species=="versicolor")
 levels(iris.set1$Species)
-xtabs(~Species,data=iris)
+xtabs(~Species,data=iris.set1)
 
 ## A fix using filterD
 iris.set3 <- filterD(iris,Species=="setosa" | Species=="versicolor")
