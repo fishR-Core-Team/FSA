@@ -75,7 +75,7 @@ Note that all plots are \dQuote{vertically conditional} -- i.e., each represents
 
 \examples{
 ## Make an example age-length key
-WR.age <- filterD(WR79, !is.na(age))
+WR.age <- droplevels(subset(WR79, !is.na(age)))
 WR.age$LCat <- lencat(WR.age$len,w=5)
 raw <- xtabs(~LCat+age,data=WR.age)
 WR.key <- prop.table(raw, margin=1)

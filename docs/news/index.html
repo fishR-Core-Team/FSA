@@ -146,7 +146,9 @@
 <li>
 <code><a href="../reference/depletion.html">depletion()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66"><a href='https://github.com/droglenc/FSA/issues/66'>#66</a></a>).</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: DEPRECATED (partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>). Priot to that removed use of <code>chooseColors()</code> (see above).</li>
+<code><a href="../reference/filterD-deprecated.html">filterD()</a></code>: DEPRECATED (partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>).</li>
+<li>
+<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: DEPRECATED (partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>). Prior to that removed use of <code>chooseColors()</code> (see above).</li>
 <li>
 <code>diags()</code>: REMOVED (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.</li>
 <li>
@@ -334,7 +336,7 @@
 </h1>
 <ul>
 <li>Reorganized <code>testthat</code> folder as suggested in <code>testthat</code> release notes.</li>
-<li>Removed all uses of <code>Subset()</code> (replaced with <code><a href="../reference/filterD.html">filterD()</a></code>).</li>
+<li>Removed all uses of <code>Subset()</code> (replaced with <code><a href="../reference/filterD-deprecated.html">filterD()</a></code>).</li>
 <li>
 <code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Fixed bug related to y-axis limits not extending to contain the data, confidence bands, or prediction bands (in <code>fitPlot.slr()</code>). This addresses <a href="https://github.com/droglenc/NCStats/issues/3"><a href='https://github.com/droglenc/FSA/issues/3'>#3</a></a> listed for <code>NCStats</code>).</li>
 <li>
@@ -785,7 +787,7 @@
 <ul>
 <li>Compiled under R v3.3.0.</li>
 <li>Removed <code>relax</code> from <code>Suggests</code>. See <code><a href="../reference/srStarts.html">srStarts()</a></code> and <code><a href="../reference/vbStarts.html">vbStarts()</a></code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/17"><a href='https://github.com/droglenc/FSA/issues/17'>#17</a></a>.</li>
-<li>Removed <code>gdata</code> from <code>Imports</code>. See <code><a href="../reference/filterD.html">filterD()</a></code> and <code>Subset()</code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/5"><a href='https://github.com/droglenc/FSA/issues/5'>#5</a></a>.</li>
+<li>Removed <code>gdata</code> from <code>Imports</code>. See <code><a href="../reference/filterD-deprecated.html">filterD()</a></code> and <code>Subset()</code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/5"><a href='https://github.com/droglenc/FSA/issues/5'>#5</a></a>.</li>
 <li>Added no coverage blocks to <code>ageKeyPlot()</code>, <code><a href="../reference/capHistSum.html">capHistSum()</a></code>, <code><a href="../reference/hist.formula.html">hist.formula()</a></code>, <code><a href="../reference/histFromSum.html">histFromSum()</a></code>, <code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>, <code>plot.agebias()</code>, <code>plot.CatchCurve()</code>, <code>plot.ChapmanRobson()</code>, <code>plot.Depletion()</code>, <code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>, <code>print.compSlopes()</code>, <code>print.compIntercepts()</code>, <code><a href="../reference/Mmethods.html">print.metaM()</a></code>, <code><a href="../reference/psdPlot.html">psdPlot()</a></code>,<code><a href="../reference/residPlot.html">residPlot()</a></code>, <code>srModels()</code>, <code><a href="../reference/srStarts.html">srStarts()</a></code>, and <code><a href="../reference/vbStarts.html">vbStarts()</a></code>.</li>
 <li>
 <code>ageKey()</code>: Removed. Deprecated since 0.4.24. Use <code><a href="../reference/alkIndivAge.html">alkIndivAge()</a></code>.</li>
@@ -796,7 +798,7 @@
 <li>
 <code><a href="../reference/capHistSum.html">capHistSum()</a></code>: Added tests.</li>
 <li>
-<code><a href="../reference/filterD.html">filterD()</a></code>: Modified. Changed to use <code><a href="https://rdrr.io/r/base/droplevels.html">droplevels()</a></code> from <code>base</code> rather than <code>drop.levels()</code> from <code>gdata</code>. Added <code>except=</code>.</li>
+<code><a href="../reference/filterD-deprecated.html">filterD()</a></code>: Modified. Changed to use <code><a href="https://rdrr.io/r/base/droplevels.html">droplevels()</a></code> from <code>base</code> rather than <code>drop.levels()</code> from <code>gdata</code>. Added <code>except=</code>.</li>
 <li>
 <code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Changed the way colors, plotting characters, and line types were handled for most of the models. Should make their use more flexible. Fixed errors that occurred in IVR models when the factor variable preceded the covariate in the model (fixes <a href="https://github.com/droglenc/FSA/issues/18"><a href='https://github.com/droglenc/FSA/issues/18'>#18</a></a>). Started to add tests for error and warning messages.</li>
 <li>
@@ -888,7 +890,7 @@
 </h1>
 <ul>
 <li>Now using Roxygen2 v5.0.1.</li>
-<li>Removed some <code>requireNamespaces()</code> from some functions and moved those packages from <code>Suggests</code> to <code>Imports</code> so that those functions would work better with other packages. The only <code>requireNamespaces()</code> that remain are related to functions that require the <code>relax</code> package (so tcltk is not installed until needed) and <code>knitr</code>, <code>dunn.test</code>, and <code>lmtest</code> as these are unlikely to be used by other packages and will keep the packages that are loaded with <code>FSA</code> to a minimum. Packages moved from <code>Suggests</code> to <code>Depends</code> are <code>Hmisc</code> (for use in <code>binCI</code>), <code>gdata</code> (for use in <code><a href="../reference/filterD.html">filterD()</a></code> and <code>Subset()</code>), <code>dplyr</code> (for use in <code><a href="../reference/filterD.html">filterD()</a></code>), <code>sciplot</code> (for use in <code><a href="../reference/fitPlot.html">fitPlot()</a></code>), <code>car</code> (for use in <code><a href="../reference/residPlot.html">residPlot()</a></code>), and <code>gplots</code> (for use with colors).</li>
+<li>Removed some <code>requireNamespaces()</code> from some functions and moved those packages from <code>Suggests</code> to <code>Imports</code> so that those functions would work better with other packages. The only <code>requireNamespaces()</code> that remain are related to functions that require the <code>relax</code> package (so tcltk is not installed until needed) and <code>knitr</code>, <code>dunn.test</code>, and <code>lmtest</code> as these are unlikely to be used by other packages and will keep the packages that are loaded with <code>FSA</code> to a minimum. Packages moved from <code>Suggests</code> to <code>Depends</code> are <code>Hmisc</code> (for use in <code>binCI</code>), <code>gdata</code> (for use in <code><a href="../reference/filterD-deprecated.html">filterD()</a></code> and <code>Subset()</code>), <code>dplyr</code> (for use in <code><a href="../reference/filterD-deprecated.html">filterD()</a></code>), <code>sciplot</code> (for use in <code><a href="../reference/fitPlot.html">fitPlot()</a></code>), <code>car</code> (for use in <code><a href="../reference/residPlot.html">residPlot()</a></code>), and <code>gplots</code> (for use with colors).</li>
 <li>
 <code><a href="../reference/addZeroCatch.html">addZeroCatch()</a></code>: Modified tests (to reduce warnings that were not part of tests).</li>
 <li>
@@ -1127,7 +1129,7 @@
 <li>
 <code>chooseColors()</code>: Modified. Check for<code>gplots</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>gplots</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
-<code><a href="../reference/filterD.html">filterD()</a></code>: Modified. Check for <code>dplyr</code> and <code>gdata</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>dplyr</code> and <code>gdata</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
+<code><a href="../reference/filterD-deprecated.html">filterD()</a></code>: Modified. Check for <code>dplyr</code> and <code>gdata</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>dplyr</code> and <code>gdata</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
 <code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Check for<code>sciplot</code> with <code>requireNamespaces()</code> before adding intervals tot he plot. This allowed moving <code>sciplot</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
@@ -1308,7 +1310,7 @@
 <li>
 <code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. Fixed bugs related to axes on numbers plot and sunflower plot.</li>
 <li>
-<code><a href="../reference/filterD.html">filterD()</a></code>: Modified. Added <code>reorder=FALSE</code> to <code>drop.levels()</code> so that the order of levels is not changed when levels are dropped.</li>
+<code><a href="../reference/filterD-deprecated.html">filterD()</a></code>: Modified. Added <code>reorder=FALSE</code> to <code>drop.levels()</code> so that the order of levels is not changed when levels are dropped.</li>
 <li>
 <code><a href="../reference/residPlot.html">residPlot.nlme()</a></code>: Added.</li>
 </ul>
@@ -1495,7 +1497,7 @@
 <li>
 <code><a href="../reference/fact2num.html">fact2num()</a></code>: Modified. Added some checks with error messages. Added suite of tests.</li>
 <li>
-<code><a href="../reference/filterD.html">filterD()</a></code>: Modified. Changed to using <code>drop.levels</code> from <code>gdata</code> rather than <code>droplevels</code>. Added a warning if the resultant data.frame has zero rows (same as in <code>Subset</code>). Added some checks with error messages. Added suite of tests.</li>
+<code><a href="../reference/filterD-deprecated.html">filterD()</a></code>: Modified. Changed to using <code>drop.levels</code> from <code>gdata</code> rather than <code>droplevels</code>. Added a warning if the resultant data.frame has zero rows (same as in <code>Subset</code>). Added some checks with error messages. Added suite of tests.</li>
 <li>
 <code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Replaced the use of <code><a href="https://rdrr.io/r/stats/nobs.html">nobs()</a></code> from <code>gdata</code> in the internal function <code>iCIfp1()</code> with <code><a href="../reference/validn.html">validn()</a></code>. This removed one dependency on <code>gdata</code>.</li>
 <li>
@@ -1831,7 +1833,7 @@
 </h1>
 <ul>
 <li>
-<code><a href="../reference/filterD.html">filterD()</a></code>: Added.</li>
+<code><a href="../reference/filterD-deprecated.html">filterD()</a></code>: Added.</li>
 </ul>
 </div>
     <div id="fsa-0441-jan15" class="section level1">

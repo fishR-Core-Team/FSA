@@ -122,7 +122,7 @@ iAddPSDLeg <- function(formula,data,cl,brks,species,units,psd.pos,psd.cex) { # n
   psds <- psds[psds[,"Estimate"]>0,,drop=FALSE]
   # get two sample sizes
   n <- nrow(data)
-  n.stock <- nrow(filterD(data,data[,cl]>brks["stock"]))
+  n.stock <- nrow(droplevels(subset(data,data[,cl]>brks["stock"])))
   # put it all together
   psdleg <- paste(c("n","n[stock]",rownames(psds)),"=",
                   formatC(c(n,n.stock,psds[,"Estimate"]),

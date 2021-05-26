@@ -202,7 +202,7 @@ test_that("expandCounts() type and value of results",{
   expect_equal(names(tmp),c(names(good8)[-4],"newlen","lennote"))
   expect_equal(nrow(tmp),sum(good8$freq)+2) # adjusted for NAs
   exp <- tapply(good8$freq,good8$name,FUN=sum)
-  obs <- xtabs(~name,data=filterD(tmp,!is.na(lwr.bin)))
+  obs <- xtabs(~name,data=droplevels(subset(tmp,!is.na(lwr.bin))))
   expect_equivalent(sum(obs),sum(exp))
   expect_equivalent(as.vector(obs),as.vector(exp))
 
@@ -211,7 +211,7 @@ test_that("expandCounts() type and value of results",{
   expect_equal(names(tmp),c(names(good9)[-4],"newlen","lennote"))
   expect_equal(nrow(tmp),sum(good9$freq,na.rm=TRUE)+2) # adjusted for NAs
   exp <- tapply(good9$freq,good9$name,FUN=sum,na.rm=TRUE)
-  obs <- xtabs(~name,data=filterD(tmp,!is.na(lwr.bin)))
+  obs <- xtabs(~name,data=droplevels(subset(tmp,!is.na(lwr.bin))))
   expect_equivalent(sum(obs),sum(exp))
   expect_equivalent(as.vector(obs),as.vector(exp))
   
@@ -220,7 +220,7 @@ test_that("expandCounts() type and value of results",{
   expect_equal(names(tmp),c(names(good10)[-4],"newlen","lennote"))
   expect_equal(nrow(tmp),sum(good10$freq,na.rm=TRUE))
   exp <- tapply(good10$freq,good10$name,FUN=sum,na.rm=TRUE)
-  obs <- xtabs(~name,data=filterD(tmp,!is.na(lwr.bin)))
+  obs <- xtabs(~name,data=droplevels(subset(tmp,!is.na(lwr.bin))))
   expect_equivalent(sum(obs),sum(exp))
   expect_equivalent(as.vector(obs),as.vector(exp))
   

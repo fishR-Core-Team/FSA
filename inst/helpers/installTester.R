@@ -12,9 +12,6 @@ residPlot(slrout)
 residPlot(ivrout,legend="topleft")
 residPlot(aov1)
 
-## test of dplyr functions
-tmp <- filterD(df,y<10)
-
 ## test of dunn.test functions
 dunnTest(y~f,data=df)
 

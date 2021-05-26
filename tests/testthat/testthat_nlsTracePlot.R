@@ -27,7 +27,7 @@ test_that("nlsTracePlot() test output",{
   # unsuccessful fit
   if (require(FSAdata)) {
     data(BSkateGB,package="FSAdata")
-    wtr <- filterD(BSkateGB,season=="winter")
+    wtr <- droplevels(subset(BSkateGB,season=="winter"))
     bh1 <- srFuns()
     trc <- capture.output(try(
       expect_error(fit2 <- nls(recruits~bh1(spawners,a,b),wtr,

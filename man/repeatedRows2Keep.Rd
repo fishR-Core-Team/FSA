@@ -36,8 +36,8 @@ keepFirst <- repeatedRows2Keep(test1,cols2ignore=1:2)
 keepLast <- repeatedRows2Keep(test1,cols2use=3:4,keep="last")
 data.frame(test1,keepFirst,keepLast)
 
-filterD(test1,keepFirst)  # should be all "First" or "Both" (7 items)
-filterD(test1,keepLast)   # should be all "Last" or "Both" (7 items)
+droplevels(subset(test1,keepFirst))  # should be all "First" or "Both" (7 items)
+droplevels(subset(test1,keepLast))   # should be all "Last" or "Both" (7 items)
 
 }
 \author{

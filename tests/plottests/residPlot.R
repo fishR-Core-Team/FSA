@@ -6,7 +6,7 @@ Mirex$cyear <- as.character(Mirex$year)
 Mirex$cspecies <- as.character(Mirex$species)
 
 # reduce number of years for visual simplicity in IVRs
-Mirex2 <- filterD(Mirex,fyear %in% c(1977,1992))
+Mirex2 <- droplevels(subset(Mirex,fyear %in% c(1977,1992)))
 
 
 
