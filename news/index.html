@@ -219,6 +219,8 @@
 <li>
 <code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Fixed bugs with handling models that used character rather than factor variables.</li>
 <li>
+<code>plotBinResp()</code>: REMOVED. Removed as a user-facing function, but made as an internal function for continued use in <code><a href="../reference/fitPlot.html">fitPlot()</a></code> while <code><a href="../reference/fitPlot.html">fitPlot()</a></code> is deprecated.</li>
+<li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Fixed bug relate to species that were <code>NA</code> (fixes <a href="https://github.com/droglenc/FSA/issues/64"><a href='https://github.com/droglenc/FSA/issues/64'>#64</a></a>; thanks to Dan Shoup). Added more tests and fixed some typos in the documentation.</li>
 <li>
 <code><a href="../reference/psdPlot.html">psdPlot()</a></code>: Modified. Fixed bug with box around the plot when <code>add.psd=FALSE</code>. Added 5% expansion to top of y-axis so that bars did not run into the box.</li>
@@ -605,7 +607,7 @@
 <li>
 <code><a href="../reference/plotAB.html">plotAB()</a></code>: Added. See description above for <code><a href="../reference/ageBias.html">ageBias()</a></code>.</li>
 <li>
-<code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>: Modified. Changed how default transparency level is calculated and set the maximum transparency to 50 (changed from 500). Fixed bug in how the width of the proportions windows were calculated by default. These changes will affect <code><a href="../reference/fitPlot.html">fitPlot()</a></code> for logistic regression models.</li>
+<code>plotBinResp()</code>: Modified. Changed how default transparency level is calculated and set the maximum transparency to 50 (changed from 500). Fixed bug in how the width of the proportions windows were calculated by default. These changes will affect <code><a href="../reference/fitPlot.html">fitPlot()</a></code> for logistic regression models.</li>
 <li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed some <code>if()</code>s with <code><a href="https://rdrr.io/r/base/class.html">class()</a></code>es to <code><a href="https://rdrr.io/r/base/class.html">inherits()</a></code>.</li>
 <li>
@@ -694,7 +696,7 @@
 <li>
 <code><a href="../reference/nlsTracePlot.html">nlsTracePlot()</a></code>: Added.</li>
 <li>
-<code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>: Modified. Changed used of <code><a href="../reference/.onAttach.html">iMakeColor()</a></code> to <code><a href="../reference/col2rgbt.html">col2rgbt()</a></code>.</li>
+<code>plotBinResp()</code>: Modified. Changed used of <code><a href="../reference/.onAttach.html">iMakeColor()</a></code> to <code><a href="../reference/col2rgbt.html">col2rgbt()</a></code>.</li>
 <li>
 <code><a href="../reference/poiCI.html">poiCI()</a></code>: Modified. Completely rebuilt to use the functions from <code>epitools</code>. Now only accepts whole numbers for <code>x</code>.</li>
 <li>
@@ -788,7 +790,7 @@
 <li>Compiled under R v3.3.0.</li>
 <li>Removed <code>relax</code> from <code>Suggests</code>. See <code><a href="../reference/srStarts.html">srStarts()</a></code> and <code><a href="../reference/vbStarts.html">vbStarts()</a></code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/17"><a href='https://github.com/droglenc/FSA/issues/17'>#17</a></a>.</li>
 <li>Removed <code>gdata</code> from <code>Imports</code>. See <code><a href="../reference/filterD-deprecated.html">filterD()</a></code> and <code>Subset()</code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/5"><a href='https://github.com/droglenc/FSA/issues/5'>#5</a></a>.</li>
-<li>Added no coverage blocks to <code>ageKeyPlot()</code>, <code><a href="../reference/capHistSum.html">capHistSum()</a></code>, <code><a href="../reference/hist.formula.html">hist.formula()</a></code>, <code><a href="../reference/histFromSum.html">histFromSum()</a></code>, <code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>, <code>plot.agebias()</code>, <code>plot.CatchCurve()</code>, <code>plot.ChapmanRobson()</code>, <code>plot.Depletion()</code>, <code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>, <code>print.compSlopes()</code>, <code>print.compIntercepts()</code>, <code><a href="../reference/Mmethods.html">print.metaM()</a></code>, <code><a href="../reference/psdPlot.html">psdPlot()</a></code>,<code><a href="../reference/residPlot.html">residPlot()</a></code>, <code>srModels()</code>, <code><a href="../reference/srStarts.html">srStarts()</a></code>, and <code><a href="../reference/vbStarts.html">vbStarts()</a></code>.</li>
+<li>Added no coverage blocks to <code>ageKeyPlot()</code>, <code><a href="../reference/capHistSum.html">capHistSum()</a></code>, <code><a href="../reference/hist.formula.html">hist.formula()</a></code>, <code><a href="../reference/histFromSum.html">histFromSum()</a></code>, <code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>, <code>plot.agebias()</code>, <code>plot.CatchCurve()</code>, <code>plot.ChapmanRobson()</code>, <code>plot.Depletion()</code>, <code>plotBinResp()</code>, <code>print.compSlopes()</code>, <code>print.compIntercepts()</code>, <code><a href="../reference/Mmethods.html">print.metaM()</a></code>, <code><a href="../reference/psdPlot.html">psdPlot()</a></code>,<code><a href="../reference/residPlot.html">residPlot()</a></code>, <code>srModels()</code>, <code><a href="../reference/srStarts.html">srStarts()</a></code>, and <code><a href="../reference/vbStarts.html">vbStarts()</a></code>.</li>
 <li>
 <code>ageKey()</code>: Removed. Deprecated since 0.4.24. Use <code><a href="../reference/alkIndivAge.html">alkIndivAge()</a></code>.</li>
 <li>
@@ -1657,7 +1659,7 @@
 <li>
 <code><a href="../reference/expandCounts.html">expandCounts()</a></code>: Modified. Changed so that ``message()’’s are printed at the end instead of along the way. This reduces confusion of what appear to be messages of success followed by an error. Thanks to Dan Oele bringing this confusion to my attention.</li>
 <li>
-<code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>: Modified. Changed the way the breaks were calculated (uses <code><a href="../reference/lencat.html">lencat()</a></code> now).</li>
+<code>plotBinResp()</code>: Modified. Changed the way the breaks were calculated (uses <code><a href="../reference/lencat.html">lencat()</a></code> now).</li>
 </ul>
 </div>
     <div id="fsa-060-mar15" class="section level1">
@@ -2234,7 +2236,7 @@
 <li>
 <code>plot.AgeBias()</code>. Modified. Fixed bug that produced a warning if all of the bias t-tests were either significant or not significant. Changed <code>col.err=</code> to <code>col.CI=</code>, <code>lwd.err=</code> to <code>lwd.CI=</code>, <code>col.err.sig=</code> to <code>col.CIsig=</code>, <code>col.ref=</code> to <code>col.agree=</code>, <code>lwd.ref=</code> to <code>lwd.agree=</code>, <code>lty.ref=</code> to <code>lty.agree=</code>, <code>show.rng=</code> to <code>show.range=</code>, <code>col.rng=</code> to <code>col.range=</code>, <code>lwd.rng=</code> to <code>lwd.range=</code>. Removed <code>col.lab=</code> and <code>row.lab=</code> which were deprecated several minor versions ago. Changed default values for <code>lwd.rng=</code> and <code>lwd.CI=</code> from 2 to 1. Added a <code>cex.numbers=</code> argument for controlling the size of the numbers in the “numbers plot” (defaults to 0.9).</li>
 <li>
-<code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>: Modified. Changed <code>trans.pt=</code> to <code>transparency=</code>.</li>
+<code>plotBinResp()</code>: Modified. Changed <code>trans.pt=</code> to <code>transparency=</code>.</li>
 </ul>
 </div>
     <div id="fsa-0417-jul14" class="section level1">
@@ -2581,7 +2583,7 @@
 <li><p><code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. Added a plot that shows the number of observations at each combined age. Changed the coding slightly around Bowker’s test (added an internal function) and implemented Evans and Hoenig’s and McNemar’s test. These changes resulting in adding a “table” choice to <code>what=</code> that will print just the age-agreement table. When <code>what="symmetry"</code> is chosen all three ob Bowker’s, McNemar’s, and Evans-Hoenig results will be output as a table. The age-agreement table is no longer printed when <code>what="symmetry"</code>. In addition, <code>what="Bowkers"</code>, <code>what="EvansHoenig"</code>, and <code>what="McNemars"</code> can be used to see the Bowker’s, Evans and Hoenig, and McNemars test results, respectfully. Added a <code>cont.corr=</code> argument for use with McNemars test.</p></li>
 <li><p><code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Added the ability to show raw (vs. absolute value) differences between structures. This resulted in the removal of <code>what="agreement"</code> (though it is deprecated, with a message, for now) and the addition of <code>what="difference"</code> and <code>what="absolute difference"</code>.</p></li>
 <li><p><code><a href="../reference/fishR.html">fishR()</a></code>: Modified. Changed to point to the github NEWS.md when <code>where="news"</code>.</p></li>
-<li><p><code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Changed the logistic regression code to handle the changes to <code><a href="../reference/plotBinResp.html">plotBinResp()</a></code> (see below). In addition, a temporary fix was added so that the size of the y-axis labels could be modified with an external call to <code><a href="https://rdrr.io/r/graphics/par.html">par()</a></code>. This was a fix for Glen Sutton but will ultimately need to be handled more elegantly.</p></li>
+<li><p><code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Changed the logistic regression code to handle the changes to <code>plotBinResp()</code> (see below). In addition, a temporary fix was added so that the size of the y-axis labels could be modified with an external call to <code><a href="https://rdrr.io/r/graphics/par.html">par()</a></code>. This was a fix for Glen Sutton but will ultimately need to be handled more elegantly.</p></li>
 <li><p><code><a href="../reference/fsaNews.html">fsaNews()</a></code>: Modified. Changed to point to the github NEWS.md.</p></li>
 <li><p><code>catchCurveSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</p></li>
 <li><p><code>cohortSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</p></li>
@@ -2589,7 +2591,7 @@
 <li><p><code>lengthWeightSim()</code>: Added back (was <code>lwModelSim()</code>) from FSATeach (required adding ImportFrom for relax package).</p></li>
 <li><p><code>leslieSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</p></li>
 <li><p><code>mrClosed1Sim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</p></li>
-<li><p><code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>: Modified. Added <code>yaxis1.ticks=</code> and <code>yaxis1.lbls=</code> arguments so that the user can control the tick-mark locations and labels for the left y-axis (the defaults are to show ticks every 0.1 units but only label 0, 0.5, and 1). Added <code>yaxis2.show=</code> argument to allow the user to “turn-off” the right y-axis (defaults to being on) which is labeled with the level labels.</p></li>
+<li><p><code>plotBinResp()</code>: Modified. Added <code>yaxis1.ticks=</code> and <code>yaxis1.lbls=</code> arguments so that the user can control the tick-mark locations and labels for the left y-axis (the defaults are to show ticks every 0.1 units but only label 0, 0.5, and 1). Added <code>yaxis2.show=</code> argument to allow the user to “turn-off” the right y-axis (defaults to being on) which is labeled with the level labels.</p></li>
 <li><p><code>srSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</p></li>
 </ul>
 </div>
@@ -2775,7 +2777,7 @@
 <li><p><code>lenFreqExpand()</code>: Modified to deal with <code><a href="../reference/lencat.html">lencat()</a></code> change.</p></li>
 <li><p><code>limnoProfilePlot()</code>: Deleted, moved to NCStats (to reduce overhead here).</p></li>
 <li><p><code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Removed use of %nin%.</p></li>
-<li><p><code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>: Modified by moving <code>makeColor()</code> internal function to FSA-internals so that it can also be used by <code><a href="../reference/tictactoe.html">tictactoe()</a></code>.</p></li>
+<li><p><code>plotBinResp()</code>: Modified by moving <code>makeColor()</code> internal function to FSA-internals so that it can also be used by <code><a href="../reference/tictactoe.html">tictactoe()</a></code>.</p></li>
 <li><p><code><a href="../reference/bootstrap.html">predict.bootCase()</a></code>: Added.</p></li>
 <li><p><code>PSSLit</code>: added from RSDLit. Added from Ogle and Winfield (2009) for ruffe, Bonvechio et al. (2010) for Suwannee bass, and from Phelps and Willis (2013) for several “carp” species.</p></li>
 <li><p><code>PSSLitCheck()</code>: Added this internal file. Modified <code>pssVal()</code>, <code>pssCalc()</code>, and <code>pssPlot()</code> accordingly.</p></li>
@@ -2931,7 +2933,7 @@
 <li><p><code>legendHelp()</code>: added (internal) from NCStats.</p></li>
 <li><p><code><a href="../reference/mrClosed.html">mrClosed()</a></code>: modified by moving the two internal functions – mrc1() and mrc2() – to inside mrClosed, moving the two internal functions – ci.mrc1() and ci.mrc2() – to inside confint.mrClosed(), removed the “MRC1” and “MRC2” classes, changed the “MRC” class name to “mrClosed”, and added a catch to plot.mrClosed() to stop if the user tries to plot with single-census data.</p></li>
 <li><p><code><a href="../reference/jolly.html">mrOpen()</a></code>: modified class name to “mrOpen” from “MRO”.</p></li>
-<li><p><code><a href="../reference/plotBinResp.html">plotBinResp()</a></code>: added from NCStats.</p></li>
+<li><p><code>plotBinResp()</code>: added from NCStats.</p></li>
 <li><p><code><a href="https://rdrr.io/pkg/plotrix/man/plotH.html">plotH()</a></code>: minor modifications to the Rd file.</p></li>
 <li><p><code>pos2adj()</code>: modified the labels for the positions by including full names for all directions, eliminating the single letters for the four main directions, but also leaving the four “off” directions as abbreviations.</p></li>
 <li><p><code>psdVal(), rsdVal(), rsdCalc(), rsdPlot()</code>: modified to use capFirst so that the user does not need to focus on capitalization of the species name.</p></li>
