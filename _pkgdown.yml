@@ -102,7 +102,6 @@ reference:
       - lrt
       - nlsTracePlot
       - pcumsum
-      - plotBinResp
       - residPlot
       - rSquared
       - se

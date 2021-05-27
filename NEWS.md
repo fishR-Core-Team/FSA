@@ -48,6 +48,7 @@
 * Moved a bunch of  plotting examples in the documentation to `tests\plottests\` to speed up testing. The `tests\plottests\` was added to `.Rbuildignore` .
 * `hist.formula()`: Modified. Fixed bug with y-axes when `freq=FALSE` is used (fixes [#62](https://github.com/droglenc/FSA/issues/62); thanks to @carlostorrescubila).
 * `fitPlot()`: Modified. Fixed bugs with handling models that used character rather than factor variables.
+* `plotBinResp()`: REMOVED. Removed as a user-facing function, but made as an internal function for continued use in `fitPlot()` while `fitPlot()` is deprecated.
 * `psdAdd()`: Modified. Fixed bug relate to species that were `NA` (fixes [#64](https://github.com/droglenc/FSA/issues/64); thanks to Dan Shoup). Added more tests and fixed some typos in the documentation.
 * `psdPlot()`: Modified. Fixed bug with box around the plot when `add.psd=FALSE`. Added 5% expansion to top of y-axis so that bars did not run into the box.
 * `residPlot()`: Modified. Fixed bugs with handling models that used character rather than factor variables.

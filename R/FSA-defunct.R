@@ -28,6 +28,10 @@ mapvalues <- function(...) {
   .Defunct(msg="'FSA::mapvalues' has been removed; use 'plyr::mapvalues' instead for the same functionality.")
 }
 
+plotBinResp <- function(...) {
+  .Defunct(msg="'plotBinResp' has been removed; use 'ggplot2' as described in the fishR blog post of 25-May-2021.")
+}
+
 Subset <- function(...) {
   .Defunct(msg="'Subset' has been removed; use 'subset' or 'dplyr::filter' followed by 'droplevels' for the same functionality.")
 }
