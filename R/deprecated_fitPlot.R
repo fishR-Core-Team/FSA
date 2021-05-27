@@ -570,11 +570,11 @@ fitPlot.logreg <- function(object,
   nd <- data.frame(seq(min(xlim),max(xlim),length.out=mdl.vals))
   names(nd) <- names(object$model)[2]
   ## Make the plot
-  plotBinResp(x,yc,xlab,ylab,plot.pts,col.pt,transparency,
-              plot.p,breaks,p.col,p.pch,p.cex,
-              yaxis1.ticks=yaxis1.ticks,yaxis1.lbls=yaxis1.lbls,
-              yaxis2.show=yaxis2.show,
-              main=main,xlim=xlim,...)
+  iPlotBinResp(x,yc,xlab,ylab,plot.pts,col.pt,transparency,
+               plot.p,breaks,p.col,p.pch,p.cex,
+               yaxis1.ticks=yaxis1.ticks,yaxis1.lbls=yaxis1.lbls,
+               yaxis2.show=yaxis2.show,
+               main=main,xlim=xlim,...)
   graphics::lines(nd[,1],stats::predict(object,nd,type="response"),
                   col=col.mdl,lwd=lwd,lty=lty)
 } # nocov end
@@ -626,3 +626,49 @@ iFitPlotLtys2 <- function(var,lty) {
   }
   lty
 }
+
+iPlotBinResp <- function(x,y,
+                         xlab=paste(deparse(substitute(x))),
+                         ylab=paste(deparse(substitute(y))),
+                         plot.pts=TRUE,col.pt="black",transparency=NULL,
+                         plot.p=TRUE,breaks=25,p.col="blue",p.pch=3,p.cex=1.25,
+                         yaxis1.ticks=seq(0,1,0.1),yaxis1.lbls=c(0,0.5,1),
+                         yaxis2.show=TRUE,...) { # nocov start
+  # convert factor to 0s and 1s
+  if (is.factor(y)) yn <- as.numeric(y)-1
+  else yn <- y
+  # will cause points not to be visible
+  if (!plot.pts) col.pt <- "white"
+  # make transparency value equal to max number of points that overlap
+  if (is.null(transparency)) transparency <- max(stats::xtabs(~yn+x))
+  # adjust for maximum allowable transparency
+  if (transparency>50) transparency <- 50
+  # plot raw data points
+  graphics::plot(yn~x,pch=16,col=col2rgbt(col.pt,1/transparency),
+                 yaxt="n",xlab=xlab,ylab=ylab,...)
+  # puts on ticks
+  graphics::axis(2,yaxis1.ticks,FALSE,cex.axis=graphics::par()$cex.axis)
+  # only label a few
+  graphics::axis(2,yaxis1.lbls,cex.axis=graphics::par()$cex.axis)
+  if (yaxis2.show) graphics::axis(4,c(0,1),levels(y))
+  # plot proportions points
+  if (plot.p) {
+    if (is.null(breaks)) {
+      # if no p intervals defined on call then find ps for each value of x
+      p.i <- tapply(yn,x,mean)  
+      xs <- as.numeric(names(p.i)) 
+    } else {
+      if (length(breaks)==1) {
+        # handle if just a number of breaks is given
+        x.i <- lencat(x,startcat=min(x),w=(max(x)-min(x))/breaks)
+      } else {
+        # handle if actual breaks are given
+        x.i <- lencat(x,breaks=breaks)
+      }
+      p.i <- tapply(yn,x.i,mean)
+      xs <- as.numeric(names(p.i))
+      xs <- xs + min(diff(xs))/2
+    }
+    graphics::points(p.i~xs,pch=p.pch,col=p.col,cex=p.cex)
+  }
+} # nocov end
