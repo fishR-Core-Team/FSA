@@ -4,6 +4,10 @@
 #' @keywords internal
 NULL
 
+bootCase <- function(...) {
+  .Defunct(msg="'bootCase' has been removed; use 'car::Boot' with 'match='case'' (the default) for the same functionality.")
+}
+
 chooseColors <- function(...) {
   .Defunct(msg="'chooseColors' has been removed; use one of many other available resources to choose appropriate colors.")
 }
