@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Associated S3 methods for nlsBoot from nlstools. — nlsBoot • FSA</title>
+<title>Associated S3 methods for bootstrap results from car::Boot. — bootstrap • FSA</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Associated S3 methods for nlsBoot from nlstools. — nlsBoot" />
-<meta property="og:description" content="Provides S3 methods to construct non-parametric bootstrap confidence intervals and hypothesis tests for parameter values and predicted values of the response variable for a nlsBoot object from the nlstools package." />
+<meta property="og:title" content="Associated S3 methods for bootstrap results from car::Boot. — bootstrap" />
+<meta property="og:description" content="S3 methods are provided to construct non-parametric bootstrap confidence intervals, predictions with non-parametric confidence intervals, hypothesis tests, and plots of the parameter estimates for objects returned from Boot from car." />
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 
 
@@ -119,21 +119,22 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Associated S3 methods for nlsBoot from nlstools.</h1>
+    <h1>Associated S3 methods for bootstrap results from car::Boot.</h1>
     <small class="dont-index">Source: <a href='https://github.com/droglenc/FSA/blob/master/R/bootstrap.R'><code>R/bootstrap.R</code></a></small>
-    <div class="hidden name"><code>nlsBoot.Rd</code></div>
+    <div class="hidden name"><code>boot.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Provides S3 methods to construct non-parametric bootstrap confidence intervals and hypothesis tests for parameter values and predicted values of the response variable for a <code><a href='https://rdrr.io/pkg/nlstools/man/nlsBoot.html'>nlsBoot</a></code> object from the <span class="pkg">nlstools</span> package.</p>
+    <p>S3 methods are provided to construct non-parametric bootstrap confidence intervals, predictions with non-parametric confidence intervals, hypothesis tests, and plots of the parameter estimates for objects returned from <code><a href='https://rdrr.io/pkg/car/man/Boot.html'>Boot</a></code> from <span class="pkg">car</span>.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for nlsBoot</span>
+    <pre class="usage"><span class='co'># S3 method for boot</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span>
   <span class='va'>object</span>,
   parm <span class='op'>=</span> <span class='cn'>NULL</span>,
   level <span class='op'>=</span> <span class='va'>conf.level</span>,
   conf.level <span class='op'>=</span> <span class='fl'>0.95</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bca"</span>, <span class='st'>"norm"</span>, <span class='st'>"basic"</span>, <span class='st'>"perc"</span><span class='op'>)</span>,
   plot <span class='op'>=</span> <span class='cn'>FALSE</span>,
   err.col <span class='op'>=</span> <span class='st'>"black"</span>,
   err.lwd <span class='op'>=</span> <span class='fl'>2</span>,
@@ -142,18 +143,26 @@
   <span class='va'>...</span>
 <span class='op'>)</span>
 
-<span class='co'># S3 method for nlsBoot</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>FUN</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, digits <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>htest</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for nlsBoot</span>
-<span class='fu'>htest</span><span class='op'>(</span>
+<span class='co'># S3 method for boot</span>
+<span class='fu'><a href='nlsBoot.html'>htest</a></span><span class='op'>(</span>
   <span class='va'>object</span>,
   parm <span class='op'>=</span> <span class='cn'>NULL</span>,
   bo <span class='op'>=</span> <span class='fl'>0</span>,
   alt <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"two.sided"</span>, <span class='st'>"less"</span>, <span class='st'>"greater"</span><span class='op'>)</span>,
   plot <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for boot</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>FUN</span>, conf.level <span class='op'>=</span> <span class='fl'>0.95</span>, digits <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for boot</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  same.ylim <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  ymax <span class='op'>=</span> <span class='cn'>NULL</span>,
+  rows <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>$</span><span class='va'>t</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
+  cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>ceiling</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>$</span><span class='va'>t</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -161,24 +170,28 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object</th>
-      <td><p>An object saved from <code>nlsBoot()</code>.</p></td>
+      <th>object, x</th>
+      <td><p>An object of class <code>boot</code> from <code><a href='https://rdrr.io/pkg/car/man/Boot.html'>Boot</a></code>.</p></td>
     </tr>
     <tr>
       <th>parm</th>
-      <td><p>An integer that indicates which parameter to compute the confidence interval or hypothesis test for. The confidence interval Will be computed for all parameters if <code>NULL</code>.</p></td>
+      <td><p>A number or string that indicates which column of <code>object</code> contains the parameter estimates to use for the confidence interval or hypothesis test.</p></td>
     </tr>
     <tr>
       <th>level</th>
-      <td><p>Same as <code>conf.level</code>. Used for compatibility with the main <code>confint</code>.</p></td>
+      <td><p>Same as <code>conf.level</code>.</p></td>
     </tr>
     <tr>
       <th>conf.level</th>
       <td><p>A level of confidence as a proportion.</p></td>
     </tr>
     <tr>
+      <th>type</th>
+      <td><p>Confidence interval type; types implemented are the "percentile" method, which uses the function quantile to return the appropriate quantiles for the confidence limit specified, the default bca which uses the bias-corrected and accelerated method presented by Efron and Tibshirani (1993, Chapter 14). For the other types, see the documentation for <code><a href='https://rdrr.io/pkg/boot/man/boot.html'>boot</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>plot</th>
-      <td><p>A logical that indicates whether a plot should be constructed. If <code>confint</code>, then a histogram of the <code>parm</code> parameters from the bootstrap samples with error bars that illustrate the bootstrapped confidence intervals will be constructed. If codehtest, then a histogram of the <code>parm</code> parameters with a vertical lines illustrating the <code>bo</code>value will be constructed.</p></td>
+      <td><p>A logical that indicates whether a plot should be constructed. If <code>confint</code> then a histogram of the <code>parm</code> parameters from the bootstrap samples with error bars that illustrate the bootstrapped confidence intervals will be constructed. If codehtest then a histogram of the <code>parm</code> parameters with a vertical line illustrating the <code>bo</code> value will be constructed.</p></td>
     </tr>
     <tr>
       <th>err.col</th>
@@ -190,15 +203,23 @@
     </tr>
     <tr>
       <th>rows</th>
-      <td><p>A numeric that contains the number of rows to use on the graphic.</p></td>
+      <td><p>A single numeric that contains the number of rows to use on the graphic.</p></td>
     </tr>
     <tr>
       <th>cols</th>
-      <td><p>A numeric that contains the number of columns to use on the graphic.</p></td>
+      <td><p>A single numeric that contains the number of columns to use on the graphic.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments to functions.</p></td>
+      <td><p>Additional items to send to functions. See details.</p></td>
+    </tr>
+    <tr>
+      <th>bo</th>
+      <td><p>The null hypothesized parameter value.</p></td>
+    </tr>
+    <tr>
+      <th>alt</th>
+      <td><p>A string that indicates the &#8220;direction&#8221; of the alternative hypothesis. See details.</p></td>
     </tr>
     <tr>
       <th>FUN</th>
@@ -209,28 +230,37 @@
       <td><p>A single numeric that indicates the number of digits for the result.</p></td>
     </tr>
     <tr>
-      <th>bo</th>
-      <td><p>The null hypothesized parameter value.</p></td>
+      <th>same.ylim</th>
+      <td><p>A logical that indicates whether the same limits for the y-axis should be used on each histogram. Defaults to <code>TRUE</code>. Ignored if <code>ylmts</code> is non-null.</p></td>
     </tr>
     <tr>
-      <th>alt</th>
-      <td><p>A string that identifies the &#8220;direction&#8221; of the alternative hypothesis. See details.</p></td>
+      <th>ymax</th>
+      <td><p>A single value that sets the maximum y-axis limit for each histogram or a vector of length equal to the number of groups that sets the maximum y-axis limit for each histogram separately.</p></td>
+    </tr>
+    <tr>
+      <th>col</th>
+      <td><p>A named color for the histogram bars.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>confint</code> returns a matrix with as many rows as columns (i.e., parameter estimates) in the <code>object$coefboot</code> data frame and two columns of the quantiles that correspond to the approximate confidence interval.</p>
-<p><code>htest</code> returns a matrix with two columns. The first column contains the hypothesized value sent to this function and the second column is the corresponding p-value.</p>
+    <p>If <code>object</code> is a matrix, then <code>confint</code> returns a matrix with as many rows as columns (i.e., parameter estimates) in <code>object</code> and two columns of the quantiles that correspond to the approximate confidence interval. If <code>object</code> is a vector, then <code>confint</code> returns a vector with the two quantiles that correspond to the approximate confidence interval.</p>
+<p><code>htest</code> returns a two-column matrix with the first column containing the hypothesized value sent to this function and the second column containing the corresponding p-value.</p>
+<p><code>hist</code> constructs histograms of the bootstrapped parameter estimates.</p>
+<p><code>plot</code> constructs scatterplots of all pairs of bootstrapped parameter estimates.</p>
 <p><code>predict</code> returns a matrix with one row and three columns, with the first column holding the predicted value (i.e., the median prediction) and the last two columns holding the approximate confidence interval.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>confint</code> finds the two quantiles that have the proportion (1-<code>conf.level</code>)/2 of the bootstrapped parameter estimates below and above. This is an approximate 100<code>conf.level</code>% confidence interval.</p>
+    <p><code>confint</code> is largely a wrapper for <code><a href='https://rdrr.io/pkg/car/man/S.html'>Confint</a></code> from <span class="pkg">car</span> (see its manual page).</p>
+<p><code>predict</code> applies a user-supplied function to each row of <code>object</code> and then finds the median and the two quantiles that have the proportion (1-<code>conf.level</code>)/2 of the bootstrapped predictions below and above. The median is returned as the predicted value and the quantiles are returned as an approximate 100<code>conf.level</code>% confidence interval for that prediction. Values for the independent variable in <code>FUN</code> must be a named argument sent in the ... argument (see examples). Note that if other arguments are needed in <code>FUN</code> besides values for the independent variable, then these are included in the ... argument AFTER the values for the independent variable.</p>
 <p>In <code>htest</code> the &#8220;direction&#8221; of the alternative hypothesis is identified by a string in the <code>alt=</code> argument. The strings may be <code>"less"</code> for a &#8220;less than&#8221; alternative, <code>"greater"</code> for a &#8220;greater than&#8221; alternative, or <code>"two.sided"</code> for a &#8220;not equals&#8221; alternative (the DEFAULT). In the one-tailed alternatives the p-value is the proportion of bootstrapped parameter estimates in <code>object$coefboot</code> that are extreme of the null hypothesized parameter value in <code>bo</code>. In the two-tailed alternative the p-value is twice the smallest of the proportion of bootstrapped parameter estimates above or below the null hypothesized parameter value in <code>bo</code>.</p>
-<p>In <code>predict</code>, a user-supplied function is applied to each row of the <code>coefBoot</code> object in a <code>nlsBoot</code> object and then finds the median and the two quantiles that have the proportion (1-<code>conf.level</code>)/2 of the bootstrapped predictions below and above. The median is returned as the predicted value and the quantiles are returned as an approximate 100<code>conf.level</code>% confidence interval for that prediction.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>S. Weisberg (2005). <em>Applied Linear Regression</em>, third edition. New York: Wiley, Chapters 4 and 11.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/car/man/Boot.html'>Boot</a></code> and related methods in <span class="pkg">car</span> and <code>summary.<a href='https://rdrr.io/pkg/nlstools/man/nlsBoot.html'>nlsBoot</a></code> in <span class="pkg">nlstools</span>.</p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/car/man/Boot.html'>Boot</a></code> in <span class="pkg">car</span>.</p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
@@ -246,18 +276,26 @@
 <span class='op'>}</span>
 <span class='va'>nl1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/nls.html'>nls</a></span><span class='op'>(</span><span class='va'>cells</span><span class='op'>~</span><span class='fu'>fnx</span><span class='op'>(</span><span class='va'>days</span>,<span class='va'>B1</span>,<span class='va'>B2</span>,<span class='va'>B3</span><span class='op'>)</span>,data<span class='op'>=</span><span class='va'>Ecoli</span>,
            start<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>B1<span class='op'>=</span><span class='fl'>6</span>,B2<span class='op'>=</span><span class='fl'>7.2</span>,B3<span class='op'>=</span><span class='op'>-</span><span class='fl'>1.45</span><span class='op'>)</span><span class='op'>)</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'>nlstools</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='va'>nl1.bootn</span> <span class='op'>&lt;-</span>  <span class='fu'>nlstools</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/nlstools/man/nlsBoot.html'>nlsBoot</a></span><span class='op'>(</span><span class='va'>nl1</span>,niter<span class='op'>=</span><span class='fl'>99</span><span class='op'>)</span> <span class='co'># too few to be useful</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>nl1.bootn</span>,<span class='st'>"B1"</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>nl1.bootn</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>nl1.bootn</span>,conf.level<span class='op'>=</span><span class='fl'>0.90</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>nl1.bootn</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>nl1.bootn</span>,<span class='va'>fnx</span>,days<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
-  <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>nl1.bootn</span>,<span class='va'>fnx</span>,days<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>
-  <span class='fu'>htest</span><span class='op'>(</span><span class='va'>nl1.bootn</span>,<span class='fl'>1</span>,bo<span class='op'>=</span><span class='fl'>6</span>,alt<span class='op'>=</span><span class='st'>"less"</span><span class='op'>)</span>
+
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://r-forge.r-project.org/projects/car/'>car</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='va'>nl1.bootc</span> <span class='op'>&lt;-</span> <span class='fu'>car</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/car/man/Boot.html'>Boot</a></span><span class='op'>(</span><span class='va'>nl1</span>,f<span class='op'>=</span><span class='va'>coef</span>,R<span class='op'>=</span><span class='fl'>99</span><span class='op'>)</span>  <span class='co'># R=99 too few to be useful</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>nl1.bootc</span>,<span class='st'>"B1"</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>nl1.bootc</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>nl1.bootc</span>,conf.level<span class='op'>=</span><span class='fl'>0.90</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>nl1.bootc</span>,<span class='st'>"B1"</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+  <span class='fu'><a href='nlsBoot.html'>htest</a></span><span class='op'>(</span><span class='va'>nl1.bootc</span>,<span class='fl'>1</span>,bo<span class='op'>=</span><span class='fl'>6</span>,alt<span class='op'>=</span><span class='st'>"less"</span><span class='op'>)</span>
+  <span class='fu'><a href='nlsBoot.html'>htest</a></span><span class='op'>(</span><span class='va'>nl1.bootc</span>,<span class='fl'>1</span>,bo<span class='op'>=</span><span class='fl'>6</span>,alt<span class='op'>=</span><span class='st'>"less"</span>,plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>nl1.bootc</span>,<span class='va'>fnx</span>,days<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>nl1.bootc</span>,<span class='va'>fnx</span>,days<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='va'>nl1.bootc</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>Loading required package: nlstools</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>'nlstools' has been loaded.</span></div><div class='output co'>#&gt; <span class='message'>IMPORTANT NOTICE: Most nonlinear regression models and data set examples</span></div><div class='output co'>#&gt; <span class='message'>related to predictive microbiolgy have been moved to the package 'nlsMicrobio'</span></div><div class='output co'>#&gt; <span class='error'>Error in nlstools::nlsBoot(nl1, niter = 99): Procedure aborted: the fit only converged in 1 % during bootstrapping</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: car</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: carData</span></div><div class='output co'>#&gt; <span class='message'>Registered S3 methods overwritten by 'car':</span>
+#&gt; <span class='message'>  method       from</span>
+#&gt; <span class='message'>  hist.boot    FSA </span>
+#&gt; <span class='message'>  confint.boot FSA </span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘car’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:FSA’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    bootCase</span></div><div class='output co'>#&gt; <span class='message'>Loading required namespace: boot</span></div><div class='output co'>#&gt; <span class='error'>Error in fnx(days, B1, B2, B3): could not find function "fnx"</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
