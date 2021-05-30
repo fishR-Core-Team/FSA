@@ -2,8 +2,38 @@
 % Please edit documentation in R/FSA-defunct.R
 \name{FSA-defunct}
 \alias{FSA-defunct}
+\alias{bootCase}
+\alias{chooseColors}
+\alias{compIntercepts}
+\alias{compSlopes}
+\alias{diags}
+\alias{hoCoef}
+\alias{mapvalues}
+\alias{plotBinResp}
+\alias{Subset}
 \title{Defunct functions.}
+\usage{
+bootCase(...)
+
+chooseColors(...)
+
+compIntercepts(...)
+
+compSlopes(...)
+
+diags(...)
+
+hoCoef(...)
+
+mapvalues(...)
+
+plotBinResp(...)
+
+Subset(...)
+}
+\arguments{
+\item{\dots}{Additional arguments to pass through.}
+}
 \description{
 These functions were once part of FSA but have now been removed.
 }
-\keyword{internal}

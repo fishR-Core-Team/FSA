@@ -1,20 +1,19 @@
 #' @name bootstrap
 #' 
-#' @title Case bootstrapping and associated S3 methods.
+#' @title Associated S3 methods for bootstrap results from car::Boot.
 #'
-#' @description The \code{bootCase} function was added to \pkg{FSA} to maintain backward compatability (because \code{bootCase} was removed from \pkg{car}), mostly for users of the Introductory Fisheries Analyses with R book. \code{bootCase} is largerly a wrapper to \code{\link[car]{Boot}} from \pkg{car} with \code{method="case"}. It is suggested that \code{\link[car]{Boot}} from \pkg{car} be used instead. S3 methods are also provided to construct non-parametric bootstrap confidence intervals, predictions with non-parametric confidence intervals, hypothesis tests, and plots of the parameter estimates for \code{bootCase} objects.
+#' @description S3 methods are provided to construct non-parametric bootstrap confidence intervals, predictions with non-parametric confidence intervals, hypothesis tests, and plots of the parameter estimates for objects returned from \code{\link[car]{Boot}} from \pkg{car}.
 #'
-#' @details \code{confint} finds the two quantiles that have the (1-\code{conf.level})/2 proportion of bootstrapped parameter estimates below and above. This is an approximate 100\code{conf.level}\% confidence interval.
+#' @details \code{confint} is largely a wrapper for \code{\link[car]{Confint}} from \pkg{car} (see its manual page).
 #' 
 #' \code{predict} applies a user-supplied function to each row of \code{object} and then finds the median and the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped predictions below and above. The median is returned as the predicted value and the quantiles are returned as an approximate 100\code{conf.level}\% confidence interval for that prediction. Values for the independent variable in \code{FUN} must be a named argument sent in the \dots argument (see examples). Note that if other arguments are needed in \code{FUN} besides values for the independent variable, then these are included in the \dots argument AFTER the values for the independent variable.
 #'
 #' In \code{htest} the \dQuote{direction} of the alternative hypothesis is identified by a string in the \code{alt=} argument. The strings may be \code{"less"} for a \dQuote{less than} alternative, \code{"greater"} for a \dQuote{greater than} alternative, or \code{"two.sided"} for a \dQuote{not equals} alternative (the DEFAULT). In the one-tailed alternatives the p-value is the proportion of bootstrapped parameter estimates in \code{object$coefboot} that are extreme of the null hypothesized parameter value in \code{bo}. In the two-tailed alternative the p-value is twice the smallest of the proportion of bootstrapped parameter estimates above or below the null hypothesized parameter value in \code{bo}.
 #'
-#' @aliases bootCase confint.bootCase htest.bootCase hist.bootCase plot.bootCase predict.bootCase
+#' @aliases boot confint.boot htest.boot hist.boot plot.boot predict.boot
 #'
-#' @param object,x A regression object of type \code{lm}, \code{glm} or class \code{nls} for \code{bootCase} or a \code{bootCase} object for the S3 methods.
-#' @param f. A function that will be applied to the updated regression object to compute the statistics of interest. The default is \code{coef}, to return to regression coefficient estimates.
-#' @param B,R Number of bootstrap samples.
+#' @param object,x An object of class \code{boot} from \code{\link[car]{Boot}}.
+#' @param type Confidence interval type; types implemented are the "percentile" method, which uses the function quantile to return the appropriate quantiles for the confidence limit specified, the default bca which uses the bias-corrected and accelerated method presented by Efron and Tibshirani (1993, Chapter 14). For the other types, see the documentation for \code{\link[boot]{boot}}.
 #' @param parm A number or string that indicates which column of \code{object} contains the parameter estimates to use for the confidence interval or hypothesis test.
 #' @param conf.level A level of confidence as a proportion.
 #' @param level Same as \code{conf.level}.
@@ -61,95 +60,98 @@
 #' }
 #' nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,
 #'            start=list(B1=6,B2=7.2,B3=-1.45))
-#'            
-#'   # bootCase is provided only for backward compatability. Consider using
-#'   # Boot from the car package instead.
-#'   nl1.bootc <- bootCase(nl1,coef,B=99)  # B=99 too few to be useful
+#' 
+#' if (require(car)) {
+#'   nl1.bootc <- car::Boot(nl1,f=coef,R=99)  # R=99 too few to be useful
 #'   confint(nl1.bootc,"B1")
 #'   confint(nl1.bootc,c(2,3))
 #'   confint(nl1.bootc,conf.level=0.90)
-#'   confint(nl1.bootc,plot=TRUE)
+#'   confint(nl1.bootc,"B1",plot=TRUE)
+#'   htest(nl1.bootc,1,bo=6,alt="less")
+#'   htest(nl1.bootc,1,bo=6,alt="less",plot=TRUE)
 #'   predict(nl1.bootc,fnx,days=1:3)
 #'   predict(nl1.bootc,fnx,days=3)
-#'   htest(nl1.bootc,1,bo=6,alt="less")
 #'   hist(nl1.bootc)
-#'   plot(nl1.bootc)
-#'   cor(nl1.bootc)
+#' }
 #' 
-#' @rdname bootCase
+#' @rdname boot
 #' @export
-bootCase <- function(object,f.=stats::coef,B=R,R=999) {
-  # Tell user to use Boot instead
-  message("'bootCase' is provided here only for backward compatibility.\n",
-          "Consider using 'Boot' from the 'car' package instead.")
-  # Use Boot, making sure the case method is used
-  tmp <- car::Boot(object,f=f.,R=B,method="case")
-  # Return matrix of results (like bootCase used to) and remove NAs
-  tmp <- tmp$t[stats::complete.cases(tmp$t),]
-  # Set the class to bootCase
-  class(tmp) <- "bootCase"
-  tmp
+confint.boot <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
+                         type=c("bca","norm","basic","perc"),
+                         plot=FALSE,err.col="black",err.lwd=2,
+                         rows=NULL,cols=NULL,...) {
+  type <- match.arg(type)
+  iCheckConfLevel(conf.level)
+  if (is.null(parm)) parm <- colnames(object$t)
+  else {
+    if (is.numeric(parm)) {
+      # check numeric parm
+      if (any(parm<0) & any(parm>0))
+        STOP("Numbers in 'parm' cannot be both positive and negative.")
+      if (max(abs(parm))>ncol(object$t))
+        STOP("Number in 'parm' exceeds number of columns.")
+    } else {
+      # check named parm
+      if (!all(parm %in% colnames(object$t)))
+        STOP("Name in 'parm' does not exist in 'object'.")
+    }
+  }
+  res <- car::Confint(object,parm=parm,level=conf.level,type=type)
+  colnames(res)[2:3] <- iCILabel(conf.level)
+  if (plot) {
+    tmp <- object$t
+    np <- ncol(tmp)
+    if (is.null(rows)) rows <- round(sqrt(np))
+    if (is.null(cols)) cols <- ceiling(sqrt(np))
+    withr::local_par(list(mfrow=c(rows,cols)))
+    for (i in seq_len(np)) {
+      h <- hist.formula(~tmp[,i],xlab=colnames(tmp)[i],...)
+      plotrix::plotCI(res[i,1],y=0.95*max(h$counts),
+                      li=res[i,2],ui=res[i,3],err="x",
+                      pch=19,col=err.col,lwd=err.lwd,add=TRUE)
+    }
+  }
+  res
 }
 
-#' @rdname bootCase
+#' @rdname boot
 #' @export
-confint.bootCase <- function(object,parm=NULL,
-                             level=conf.level,conf.level=0.95,
-                             plot=FALSE,err.col="black",err.lwd=2,
-                             rows=NULL,cols=NULL,...) {
-  iCIBoot(object,parm,conf.level,plot,err.col,err.lwd,rows,cols,...)
+htest.boot <- function(object,parm=NULL,bo=0,
+                       alt=c("two.sided","less","greater"),
+                       plot=FALSE,...) {
+  iHTestBoot(object$t,parm=parm,bo=bo,alt=alt,plot=plot)
 }
 
-#' @rdname bootCase
+#' @rdname boot
 #' @export
-predict.bootCase <- function(object,FUN,conf.level=0.95,digits=NULL,...) {
-  iPredictBoot(object,FUN=FUN,MARGIN=1,conf.level=conf.level,
+predict.boot <- function(object,FUN,conf.level=0.95,digits=NULL,...) {
+  iPredictBoot(object$t,FUN=FUN,MARGIN=1,conf.level=conf.level,
                digits=digits,...)
 }
 
-#' @rdname bootCase
+#' @rdname boot
 #' @export
-htest.bootCase <- function(object,parm=NULL,bo=0,
-                           alt=c("two.sided","less","greater"),
-                           plot=FALSE,...) {
-  iHTestBoot(object,parm=parm,bo=bo,alt=alt,plot=plot)
-}
-
-#' @rdname bootCase
-#' @export
-hist.bootCase <- function(x,same.ylim=TRUE,ymax=NULL,
-                          rows=round(sqrt(ncol(x))),
-                          cols=ceiling(sqrt(ncol(x))),...){ # nocov start
+hist.boot <- function(x,same.ylim=TRUE,ymax=NULL,
+                      rows=round(sqrt(ncol(x$t))),
+                      cols=ceiling(sqrt(ncol(x$t))),...){ # nocov start
   ## Set graphing parameters
   withr::local_par(list(mfrow=c(rows,cols)))
 	## If not given ymax, then find highest count on all histograms
   if (is.null(ymax)) {
-    for (i in seq_len(ncol(x)))
-      ymax[i] <- max(hist.formula(~x[,i],plot=FALSE,warn.unused=FALSE,...)$counts)
+    for (i in seq_len(ncol(x$t)))
+      ymax[i] <- max(hist.formula(~x$t[,i],plot=FALSE,
+                                  warn.unused=FALSE,...)$counts)
   }
   if (same.ylim) ymax <- rep(max(ymax),length(ymax))
 	## Make the plots
-	for(i in seq_len(ncol(x)))
-	  hist.formula(~x[,i],xlab=colnames(x)[i],ylim=c(0,ymax[i]),...)
+	for(i in seq_len(ncol(x$t)))
+	  hist.formula(~x$t[,i],xlab=colnames(x$t)[i],ylim=c(0,ymax[i]),...)
 } # nocov end
 
-#' @rdname bootCase
-#' @export
-plot.bootCase <- function(x,...){ #nocov start
-	np <- ncol(x)
-	lay <- lower.tri(matrix(0,(np-1),(np-1)), TRUE)
-	lay[which(lay, TRUE)] <- seq_len(choose(np,2))
-	graphics::layout(lay)
-	for(i in seq_len((np-1)))
-		for(j in (i+1):np)
-		  graphics::plot(x[,i],x[,j],xlab=colnames(x)[i],
-		                 ylab=colnames(x)[j],pch=20)
-} #nocov end
 
 
-
-
-
+#' @name nlsBoot
+#' 
 #' @title Associated S3 methods for nlsBoot from nlstools.
 #'
 #' @description Provides S3 methods to construct non-parametric bootstrap confidence intervals and hypothesis tests for parameter values and predicted values of the response variable for a \code{\link[nlstools]{nlsBoot}} object from the \pkg{nlstools} package.
@@ -328,7 +330,8 @@ iPredictBoot <- function(object,FUN,MARGIN,conf.level,digits,...) {
     tmpres <- do.call(apply,args)
     # get median, LCI, and UCI and put in results matrix (with dots variable value)
     res[i,] <- c(tmp1[[1]],stats::quantile(tmpres,c(0.5,0.5-conf.level/2,
-                                                    0.5+conf.level/2)))
+                                                    0.5+conf.level/2),
+                                           na.rm=TRUE))
   }
   ## Potentially round the median and CI results
   if (!is.null(digits)) {

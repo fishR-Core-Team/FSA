@@ -3,6 +3,8 @@
 * Moved `plyr` from Imports to Suggests.
 * `alkPlot()`: Modified. Removed use of `chooseColors()` (see below).
 * `binCI()`: Modified.  Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/droglenc/FSA/issues/66)).
+* `bootCase()`: REMOVED. Users can use `car::Boot()`, which partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
+  * `plot.boot()`: REMOVED. Conflicted with `boot::plot.boot()` which caused an error with CRAN. Same functionality is available with `pairs(<boot object>$t)`.
 * `catchCurve()`: Modified. Removed hard-coding of `ylim=` for `plot.catchCurve()` (this addresses [#70](https://github.com/droglenc/FSA/issues/70) ... Thanks to Brendan Runde). Added `round.est=` so that the user can control the decimals on mortality estimate values. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/droglenc/FSA/issues/66)).
 * `chapmanRobson()`: Modified. Removed hard-coding of `ylim=` for `plot.chapmanRobson()`. Added `round.est=` so that the user can control the decimals on mortality and survival estimate values. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/droglenc/FSA/issues/66)).
 * `chooseColors()`: REMOVED. This was an exported function that should have been internal. Regardless, where it was used has been removed and the user is now allowed to provide their own vector of colors. See `iCheckMultColors()`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).

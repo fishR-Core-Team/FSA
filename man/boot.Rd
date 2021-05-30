@@ -2,21 +2,20 @@
 % Please edit documentation in R/bootstrap.R
 \name{bootstrap}
 \alias{bootstrap}
-\alias{bootCase}
-\alias{confint.bootCase}
-\alias{htest.bootCase}
-\alias{hist.bootCase}
-\alias{plot.bootCase}
-\alias{predict.bootCase}
-\title{Case bootstrapping and associated S3 methods.}
+\alias{confint.boot}
+\alias{boot}
+\alias{htest.boot}
+\alias{hist.boot}
+\alias{plot.boot}
+\alias{predict.boot}
+\title{Associated S3 methods for bootstrap results from car::Boot.}
 \usage{
-bootCase(object, f. = stats::coef, B = R, R = 999)
-
-\method{confint}{bootCase}(
+\method{confint}{boot}(
   object,
   parm = NULL,
   level = conf.level,
   conf.level = 0.95,
+  type = c("bca", "norm", "basic", "perc"),
   plot = FALSE,
   err.col = "black",
   err.lwd = 2,
@@ -25,9 +24,7 @@ bootCase(object, f. = stats::coef, B = R, R = 999)
   ...
 )
 
-\method{predict}{bootCase}(object, FUN, conf.level = 0.95, digits = NULL, ...)
-
-\method{htest}{bootCase}(
+\method{htest}{boot}(
   object,
   parm = NULL,
   bo = 0,
@@ -36,29 +33,27 @@ bootCase(object, f. = stats::coef, B = R, R = 999)
   ...
 )
 
-\method{hist}{bootCase}(
+\method{predict}{boot}(object, FUN, conf.level = 0.95, digits = NULL, ...)
+
+\method{hist}{boot}(
   x,
   same.ylim = TRUE,
   ymax = NULL,
-  rows = round(sqrt(ncol(x))),
-  cols = ceiling(sqrt(ncol(x))),
+  rows = round(sqrt(ncol(x$t))),
+  cols = ceiling(sqrt(ncol(x$t))),
   ...
 )
-
-\method{plot}{bootCase}(x, ...)
 }
 \arguments{
-\item{object, x}{A regression object of type \code{lm}, \code{glm} or class \code{nls} for \code{bootCase} or a \code{bootCase} object for the S3 methods.}
-
-\item{f.}{A function that will be applied to the updated regression object to compute the statistics of interest. The default is \code{coef}, to return to regression coefficient estimates.}
-
-\item{B, R}{Number of bootstrap samples.}
+\item{object, x}{An object of class \code{boot} from \code{\link[car]{Boot}}.}
 
 \item{parm}{A number or string that indicates which column of \code{object} contains the parameter estimates to use for the confidence interval or hypothesis test.}
 
 \item{level}{Same as \code{conf.level}.}
 
 \item{conf.level}{A level of confidence as a proportion.}
+
+\item{type}{Confidence interval type; types implemented are the "percentile" method, which uses the function quantile to return the appropriate quantiles for the confidence limit specified, the default bca which uses the bias-corrected and accelerated method presented by Efron and Tibshirani (1993, Chapter 14). For the other types, see the documentation for \code{\link[boot]{boot}}.}
 
 \item{plot}{A logical that indicates whether a plot should be constructed. If \code{confint} then a histogram of the \code{parm} parameters from the bootstrap samples with error bars that illustrate the bootstrapped confidence intervals will be constructed. If code{htest} then a histogram of the \code{parm} parameters with a vertical line illustrating the \code{bo} value will be constructed.}
 
@@ -72,13 +67,13 @@ bootCase(object, f. = stats::coef, B = R, R = 999)
 
 \item{\dots}{Additional items to send to functions. See details.}
 
-\item{FUN}{The function to be applied for the prediction. See the examples.}
-
-\item{digits}{A single numeric that indicates the number of digits for the result.}
-
 \item{bo}{The null hypothesized parameter value.}
 
 \item{alt}{A string that indicates the \dQuote{direction} of the alternative hypothesis. See details.}
+
+\item{FUN}{The function to be applied for the prediction. See the examples.}
+
+\item{digits}{A single numeric that indicates the number of digits for the result.}
 
 \item{same.ylim}{A logical that indicates whether the same limits for the y-axis should be used on each histogram. Defaults to \code{TRUE}. Ignored if \code{ylmts} is non-null.}
 
@@ -98,10 +93,10 @@ If \code{object} is a matrix, then \code{confint} returns a matrix with as many 
 \code{predict} returns a matrix with one row and three columns, with the first column holding the predicted value (i.e., the median prediction) and the last two columns holding the approximate confidence interval.
 }
 \description{
-The \code{bootCase} function was added to \pkg{FSA} to maintain backward compatability (because \code{bootCase} was removed from \pkg{car}), mostly for users of the Introductory Fisheries Analyses with R book. \code{bootCase} is largerly a wrapper to \code{\link[car]{Boot}} from \pkg{car} with \code{method="case"}. It is suggested that \code{\link[car]{Boot}} from \pkg{car} be used instead. S3 methods are also provided to construct non-parametric bootstrap confidence intervals, predictions with non-parametric confidence intervals, hypothesis tests, and plots of the parameter estimates for \code{bootCase} objects.
+S3 methods are provided to construct non-parametric bootstrap confidence intervals, predictions with non-parametric confidence intervals, hypothesis tests, and plots of the parameter estimates for objects returned from \code{\link[car]{Boot}} from \pkg{car}.
 }
 \details{
-\code{confint} finds the two quantiles that have the (1-\code{conf.level})/2 proportion of bootstrapped parameter estimates below and above. This is an approximate 100\code{conf.level}\% confidence interval.
+\code{confint} is largely a wrapper for \code{\link[car]{Confint}} from \pkg{car} (see its manual page).
 
 \code{predict} applies a user-supplied function to each row of \code{object} and then finds the median and the two quantiles that have the proportion (1-\code{conf.level})/2 of the bootstrapped predictions below and above. The median is returned as the predicted value and the quantiles are returned as an approximate 100\code{conf.level}\% confidence interval for that prediction. Values for the independent variable in \code{FUN} must be a named argument sent in the \dots argument (see examples). Note that if other arguments are needed in \code{FUN} besides values for the independent variable, then these are included in the \dots argument AFTER the values for the independent variable.
 
@@ -118,20 +113,19 @@ fnx <- function(days,B1,B2,B3) {
 }
 nl1 <- nls(cells~fnx(days,B1,B2,B3),data=Ecoli,
            start=list(B1=6,B2=7.2,B3=-1.45))
-           
-  # bootCase is provided only for backward compatability. Consider using
-  # Boot from the car package instead.
-  nl1.bootc <- bootCase(nl1,coef,B=99)  # B=99 too few to be useful
+
+if (require(car)) {
+  nl1.bootc <- car::Boot(nl1,f=coef,R=99)  # R=99 too few to be useful
   confint(nl1.bootc,"B1")
   confint(nl1.bootc,c(2,3))
   confint(nl1.bootc,conf.level=0.90)
-  confint(nl1.bootc,plot=TRUE)
+  confint(nl1.bootc,"B1",plot=TRUE)
+  htest(nl1.bootc,1,bo=6,alt="less")
+  htest(nl1.bootc,1,bo=6,alt="less",plot=TRUE)
   predict(nl1.bootc,fnx,days=1:3)
   predict(nl1.bootc,fnx,days=3)
-  htest(nl1.bootc,1,bo=6,alt="less")
   hist(nl1.bootc)
-  plot(nl1.bootc)
-  cor(nl1.bootc)
+}
 
 }
 \references{
