@@ -43,8 +43,6 @@
   cols = ceiling(sqrt(ncol(x$t))),
   ...
 )
-
-\method{plot}{boot}(x, ...)
 }
 \arguments{
 \item{object, x}{An object of class \code{boot} from \code{\link[car]{Boot}}.}
@@ -127,8 +125,6 @@ if (require(car)) {
   predict(nl1.bootc,fnx,days=1:3)
   predict(nl1.bootc,fnx,days=3)
   hist(nl1.bootc)
-  plot(nl1.bootc)
-  cor(nl1.bootc$t,use="pairwise.complete.obs")
 }
 
 }

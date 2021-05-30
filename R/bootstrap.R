@@ -72,8 +72,6 @@
 #'   predict(nl1.bootc,fnx,days=1:3)
 #'   predict(nl1.bootc,fnx,days=3)
 #'   hist(nl1.bootc)
-#'   plot(nl1.bootc)
-#'   cor(nl1.bootc$t,use="pairwise.complete.obs")
 #' }
 #' 
 #' @rdname boot
@@ -149,21 +147,6 @@ hist.boot <- function(x,same.ylim=TRUE,ymax=NULL,
 	for(i in seq_len(ncol(x$t)))
 	  hist.formula(~x$t[,i],xlab=colnames(x$t)[i],ylim=c(0,ymax[i]),...)
 } # nocov end
-
-
-#' @rdname boot
-#' @export
-plot.boot <- function(x,...){ #nocov start
-	np <- ncol(x$t)
-	lay <- lower.tri(matrix(0,(np-1),(np-1)), TRUE)
-	lay[which(lay, TRUE)] <- seq_len(choose(np,2))
-	graphics::layout(lay)
-	for(i in seq_len((np-1)))
-		for(j in (i+1):np)
-		  graphics::plot(x$t[,i],x$t[,j],xlab=colnames(x$t)[i],
-		                 ylab=colnames(x$t)[j],pch=20)
-} #nocov end
-
 
 
 
