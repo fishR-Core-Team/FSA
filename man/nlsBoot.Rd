@@ -3,12 +3,9 @@
 \name{nlsBoot}
 \alias{nlsBoot}
 \alias{confint.nlsBoot}
-\alias{confint.nlsboot}
-\alias{htest.nlsboot}
-\alias{predict.nlsbooot}
+\alias{htest.nlsBoot}
 \alias{predict.nlsBoot}
 \alias{htest}
-\alias{htest.nlsBoot}
 \title{Associated S3 methods for nlsBoot from nlstools.}
 \usage{
 \method{confint}{nlsBoot}(

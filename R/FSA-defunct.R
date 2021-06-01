@@ -1,4 +1,4 @@
-#' @title Defunct functions.
+#' @title DEFUNCT functions.
 #' @description These functions were once part of FSA but have now been removed.
 #' @param \dots Additional arguments to pass through.
 #' @name FSA-defunct

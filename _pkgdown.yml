@@ -90,7 +90,7 @@ reference:
       - binCI
       - hyperCI
       - poiCI
-      - bootstrap
+      - boot
       - dunnTest
       - extraSS
       - geomean
@@ -100,6 +100,7 @@ reference:
       - ksTest
       - logbtcf
       - lrt
+      - nlsBoot
       - nlsTracePlot
       - pcumsum
       - rSquared

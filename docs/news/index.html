@@ -137,7 +137,7 @@
 <code><a href="../reference/FSA-defunct.html">bootCase()</a></code>: REMOVED. Users can use <code><a href="https://rdrr.io/pkg/car/man/Boot.html">car::Boot()</a></code>, which partially addresses <a href="https://github.com/droglenc/FSA/issues/65"><a href='https://github.com/droglenc/FSA/issues/65'>#65</a></a>.
 <ul>
 <li>
-<code><a href="../reference/bootstrap.html">plot.boot()</a></code>: REMOVED. Conflicted with <code><a href="https://rdrr.io/pkg/boot/man/plot.boot.html">boot::plot.boot()</a></code> which caused an error with CRAN. Same functionality is available with <code>pairs(&lt;boot object&gt;$t)</code>.</li>
+<code><a href="../reference/confint.boot.html">plot.boot()</a></code>: REMOVED. Conflicted with <code><a href="https://rdrr.io/pkg/boot/man/plot.boot.html">boot::plot.boot()</a></code> which caused an error with CRAN. Same functionality is available with <code>pairs(&lt;boot object&gt;$t)</code>.</li>
 </ul>
 </li>
 <li>
@@ -307,7 +307,7 @@
 <li>Changed to depending on <code>R &gt;=3.5.0</code>, because that is the latest version required by a package (i.e., <code>car</code>) that FSA imports or suggests. Used the “check_r_versions_of_package_dependencies” shiny app by “ateucher” (on Github) to help determine this.</li>
 <li>Removed <code>asbio</code> package from suggests as it hung up Travis-CI build (because of the need for the TCLTK package).</li>
 <li>
-<code><a href="../reference/FSAUtils.html">capFirst()</a></code>: Modified. Fixed bug related to an <code>NA</code> item.</li>
+<code><a href="../reference/capFirst.html">capFirst()</a></code>: Modified. Fixed bug related to an <code>NA</code> item.</li>
 <li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed <code>spec=</code> to <code>species=</code> to be consistent with <code><a href="../reference/psdCalc.html">psdCalc()</a></code> and <code><a href="../reference/psdPlot.html">psdPlot()</a></code>.</li>
 <li>
@@ -471,7 +471,7 @@
 <li>
 <code><a href="../reference/hist.formula.html">hist.formula()</a></code> methods: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36"><a href='https://github.com/droglenc/FSA/issues/36'>#36</a></a>).</li>
 <li>
-<code><a href="../reference/bootstrap.html">htest.boot()</a></code>: Removed (added last version) until I can test more.</li>
+<code><a href="../reference/confint.boot.html">htest.boot()</a></code>: Removed (added last version) until I can test more.</li>
 <li>
 <code><a href="../reference/.onAttach.html">iHndlFormula()</a></code>: Modified. Now categorizes a character variable as a factor variable. This addresses <a href="https://github.com/droglenc/FSA/issues/35"><a href='https://github.com/droglenc/FSA/issues/35'>#35</a></a>) for <code><a href="../reference/hist.formula.html">hist.formula()</a></code> and <code><a href="../reference/Summarize.html">Summarize()</a></code>.</li>
 <li>
@@ -483,9 +483,9 @@
 <li>
 <code><a href="../reference/nlsBoot.html">nlsBoot()</a></code> methods: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36"><a href='https://github.com/droglenc/FSA/issues/36'>#36</a></a>).</li>
 <li>
-<code><a href="../reference/bootstrap.html">plot.boot()</a></code>: Removed (added last version) until I can test more.</li>
+<code><a href="../reference/confint.boot.html">plot.boot()</a></code>: Removed (added last version) until I can test more.</li>
 <li>
-<code><a href="../reference/bootstrap.html">predict.boot()</a></code>: Removed (added last version) until I can test more.</li>
+<code><a href="../reference/confint.boot.html">predict.boot()</a></code>: Removed (added last version) until I can test more.</li>
 <li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed three <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html">seq_len()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html">seq_along()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36"><a href='https://github.com/droglenc/FSA/issues/36'>#36</a></a>).</li>
 <li>
@@ -514,11 +514,11 @@
 <li>
 <code>hTest.boot()</code>: Added.</li>
 <li>
-<code><a href="../reference/bootstrap.html">plot.boot()</a></code>: Added.</li>
+<code><a href="../reference/confint.boot.html">plot.boot()</a></code>: Added.</li>
 <li>
 <code><a href="../reference/plotAB.html">plotAB()</a></code>: Modified. Added <code>col.numbers=</code> to allow users to modify the color of the numbers when <code>what="numbers"</code> is used (addresses <a href="https://github.com/droglenc/FSA/issues/34"><a href='https://github.com/droglenc/FSA/issues/34'>#34</a></a>).</li>
 <li>
-<code><a href="../reference/bootstrap.html">predict.boot()</a></code>: Added.</li>
+<code><a href="../reference/confint.boot.html">predict.boot()</a></code>: Added.</li>
 <li>
 <code><a href="../reference/psdPlot.html">psdPlot()</a></code>: Modified. Minor changes to documentation and look of the function code.</li>
 <li>
@@ -586,7 +586,7 @@
 <li>
 <code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. A complete rebuild of <code>plot</code>. Major changes are to add <code><a href="../reference/plotAB.html">plotAB()</a></code> which is primarily used to make the “legacy” age bias plots of Campana, removal of the “sunflower” plot option, new sets of defaults for many of the arguments that reflect my preferences for visualizing age comparisons (which includes defaulting to plotting differences in ages), addition of the ability to add marginal histograms (<code>xHist=</code>, <code>yHist=</code>, <code>col.hist=</code>, and <code>hist.panel.size=</code>), better handling of axis ticks and labels (primarily to show ticks at integers and make sure 0 is included for differences), and allowing the ability to add “summary layers” to the main plot (see <code>allowAdd=</code>). Many examples were added. Some functionality from previous versions will be broken.</li>
 <li>
-<code><a href="../reference/FSAUtils.html">capFirst()</a></code>: Modified. Changed some <code>if()</code>s with <code><a href="https://rdrr.io/r/base/class.html">class()</a></code>es to <code><a href="https://rdrr.io/r/base/class.html">inherits()</a></code>.</li>
+<code><a href="../reference/capFirst.html">capFirst()</a></code>: Modified. Changed some <code>if()</code>s with <code><a href="https://rdrr.io/r/base/class.html">class()</a></code>es to <code><a href="https://rdrr.io/r/base/class.html">inherits()</a></code>.</li>
 <li>
 <code><a href="../reference/FSA-defunct.html">compIntercepts()</a></code>: Modified. Replaced two <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> calls with <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code>.</li>
 <li>
@@ -831,9 +831,9 @@
 <li>
 <code><a href="../reference/growthModels.html">growthFunShow()</a></code>: Added.</li>
 <li>
-<code><a href="../reference/stockRecruitment.html">srFunShow()</a></code>: Added.</li>
+<code><a href="../reference/srFuns.html">srFunShow()</a></code>: Added.</li>
 <li>
-<code>srModels()</code>: Removed. Replaced with <code><a href="../reference/stockRecruitment.html">srFunShow()</a></code>.</li>
+<code>srModels()</code>: Removed. Replaced with <code><a href="../reference/srFuns.html">srFunShow()</a></code>.</li>
 <li>
 <code><a href="../reference/srStarts.html">srStarts()</a></code>: Modified. Removed <code>dynamicPlot=TRUE</code> option. Moved it to <code>FSAsim</code> package. Modified plot when <code>plot=TRUE</code> by adding “STARTING VALUES” to title and moving starting values to within the plot. Added <code>cex.main=</code> and <code>col.main=</code>.</li>
 <li>
@@ -1437,7 +1437,7 @@
 <li>
 <code><a href="../reference/removal.html">removal()</a></code>: Modified. Changed all <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code> to <code><a href="https://rdrr.io/r/base/message.html">message()</a></code>s.</li>
 <li>
-<code><a href="../reference/stockRecruitment.html">srFuns()</a></code>: Modified. Changed all <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code> to <code><a href="https://rdrr.io/r/base/message.html">message()</a></code>s. Created some tests.</li>
+<code><a href="../reference/srFuns.html">srFuns()</a></code>: Modified. Changed all <code><a href="https://rdrr.io/r/base/cat.html">cat()</a></code> to <code><a href="https://rdrr.io/r/base/message.html">message()</a></code>s. Created some tests.</li>
 </ul>
 </div>
     <div id="fsa-0617-jun15" class="section level1">
@@ -1516,7 +1516,7 @@
 <li>
 <code><a href="../reference/FSA-defunct.html">mapvalues()</a></code>: Deleted. Deleted the function from <code>FSA</code> but imported it from <code>plyr</code> and then exported it from <code>FSA</code> so that it would be available to fisheries users without having to load <code>plyr</code>.</li>
 <li>
-<code><a href="../reference/oddeven.html">oddeven()</a></code>: Modified. Added some checks with error messages. Added suite of tests.</li>
+<code>oddeven()</code>: Modified. Added some checks with error messages. Added suite of tests.</li>
 <li>
 <code><a href="../reference/perc.html">perc()</a></code>: Modified. Added ability to use “and equals” or not to the items in <code>dir=</code> (i.e., there are now four items in <code>dir=</code>). Fixed a bug related to using <code>na.rm=FALSE</code> and a “less than” situation. Added some checks with error messages. Added suite of tests.</li>
 <li>
@@ -1677,7 +1677,7 @@
 <li>updated DESCRIPTION file (following this – <a href="http://r-pkgs.had.co.nz/description.html" class="uri">http://r-pkgs.had.co.nz/description.html</a>
 </li>
 <li>
-<code><a href="../reference/stockRecruitment.html">srFuns()</a></code>: Modified. Changed function returned when <code>simplify=FALSE</code> so that if the parameters are named that the name is dropped. Thus, when the function is used, the returned result will not be annoyingly named as the first parameter. Added functionality for the “density-independence” model.</li>
+<code><a href="../reference/srFuns.html">srFuns()</a></code>: Modified. Changed function returned when <code>simplify=FALSE</code> so that if the parameters are named that the name is dropped. Thus, when the function is used, the returned result will not be annoyingly named as the first parameter. Added functionality for the “density-independence” model.</li>
 <li>
 <code><a href="../reference/srStarts.html">srStarts()</a></code>: Modified. Added functionality for the “density-independence” model.</li>
 <li>
@@ -1692,7 +1692,7 @@
 <li>
 <code>growthModelSim()</code>: Deleted. The simulation functionality was moved to the <code>FSAsim</code> package. The functionality related to finding starting values for the von Bertalanffy modesl was moved to <code><a href="../reference/vbStarts.html">vbStarts()</a></code>.</li>
 <li>
-<code><a href="../reference/stockRecruitment.html">srFuns()</a></code>: Modified. A complete rebuild to make similar to <code><a href="../reference/growthModels.html">vbFuns()</a></code>. Added <code>simple=</code>. Added <code>type='Shepherd'</code> for the Shepherd (1982) three parameter model and <code>type='SailaLorda'</code> for the “Saila-Lorda” three parameter model from Iles (1994). Added tests for error messages.</li>
+<code><a href="../reference/srFuns.html">srFuns()</a></code>: Modified. A complete rebuild to make similar to <code><a href="../reference/growthModels.html">vbFuns()</a></code>. Added <code>simple=</code>. Added <code>type='Shepherd'</code> for the Shepherd (1982) three parameter model and <code>type='SailaLorda'</code> for the “Saila-Lorda” three parameter model from Iles (1994). Added tests for error messages.</li>
 <li>
 <code>srModels()</code>: Modified. A complete rebuild to make similar to <code><a href="../reference/growthModels.html">growthModels()</a></code>. Added “Shepherd” and “Saila-Lorda” models.</li>
 <li>
@@ -1738,7 +1738,7 @@
 </h1>
 <ul>
 <li>
-<code><a href="../reference/FSAUtils.html">capFirst()</a></code>: Modified. Added a check to make sure the inputted object was either a character or factor class. Added code to return the object as the same class of the original object.</li>
+<code><a href="../reference/capFirst.html">capFirst()</a></code>: Modified. Added a check to make sure the inputted object was either a character or factor class. Added code to return the object as the same class of the original object.</li>
 <li>
 <code><a href="../reference/lencat.html">lencat()</a></code>: Modified. Added a catch for bad choices of arguments. Added a catch to send a warning if the vector contains all <code>NA</code> values (this happens when <code><a href="../reference/lencat.html">lencat()</a></code> is used within a loop or as part of <code><a href="../reference/psdAdd.html">psdAdd()</a></code>). Added tests for error and warning messages. Changed how the formula was handled in the formula method.</li>
 <li>
@@ -2025,13 +2025,13 @@
 <li>Added a suggests for <code>dplyr</code>.</li>
 <li>Added an external file in inst/extdata for testing PSD and Wr calculations.</li>
 <li>
-<code><a href="../reference/FSAUtils.html">capFirst()</a></code>: Modified. Changed <code>words=</code> to <code>which=</code>.</li>
+<code><a href="../reference/capFirst.html">capFirst()</a></code>: Modified. Changed <code>words=</code> to <code>which=</code>.</li>
 <li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Added a default and a formula version to allow efficiency with <code>dplyr</code>. Added examples. Updated tests.</li>
 <li>
 <code>recodeF()</code>: Added.</li>
 <li>
-<code>recodeSpecies()</code>: Deleted. Functionality replaced by <code>recodeF()</code> in combination with <code><a href="../reference/FSAUtils.html">capFirst()</a></code>.</li>
+<code>recodeSpecies()</code>: Deleted. Functionality replaced by <code>recodeF()</code> in combination with <code><a href="../reference/capFirst.html">capFirst()</a></code>.</li>
 <li>
 <code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Added a default and a formula version to allow efficiency with <code>dplyr</code>. Added examples. Updated tests.</li>
 <li>
@@ -2082,7 +2082,7 @@
 </h1>
 <ul>
 <li>
-<code><a href="../reference/FSAUtils.html">capFirst()</a></code> Modified. Added an option to handle a vector of strings rather than just a single string.</li>
+<code><a href="../reference/capFirst.html">capFirst()</a></code> Modified. Added an option to handle a vector of strings rather than just a single string.</li>
 <li>
 <code><a href="../reference/lencat.html">lencat()</a></code>: Modified. Fixed bug with category names when <code>use.names=TRUE</code>. Moved all internal functions outside of <code><a href="../reference/lencat.html">lencat()</a></code> environment (and renamed them). Cleaned up code.</li>
 <li>
@@ -2096,7 +2096,7 @@
 <li>
 <code><a href="../reference/psdPlot.html">psdPlot()</a></code>: Modified. Completely redone (fixed several bugs and overall sloppy code). Added <code>psd.add=</code>. Changed <code>legend.pos=</code> and <code>legend.cex=</code> to <code>psd.pos=</code> and <code>psd.cex=</code>.</li>
 <li>
-<code>recodeSpecies()</code>: Modified. Made changes to reflect new <code><a href="../reference/FSAUtils.html">capFirst()</a></code> functionality.</li>
+<code>recodeSpecies()</code>: Modified. Made changes to reflect new <code><a href="../reference/capFirst.html">capFirst()</a></code> functionality.</li>
 <li>
 <code><a href="../reference/tictactoe.html">tictactoe()</a></code>: Modfied.</li>
 <li>
@@ -2365,9 +2365,9 @@
 <li>
 <code>iPSDLitCheck()</code>: Added. Was <code>psdLitCheck()</code>.</li>
 <li>
-<code><a href="../reference/oddeven.html">is.even()</a></code>: Added.</li>
+<code><a href="../reference/is.odd.html">is.even()</a></code>: Added.</li>
 <li>
-<code><a href="../reference/oddeven.html">is.odd()</a></code>: Added. Was <code>odd()</code>.</li>
+<code><a href="../reference/is.odd.html">is.odd()</a></code>: Added. Was <code>odd()</code>.</li>
 <li>
 <code><a href="../reference/.onAttach.html">iTypeoflm()</a></code>: Added. Was <code>typeoflm()</code>.</li>
 <li>
@@ -2384,7 +2384,7 @@
 <li>
 <code>makeItemsToRemove()</code>: Deleted. Moved functionality to <code>iMakeItemsToRemove()</code> and moved code to <code>swvUtils</code> file.</li>
 <li>
-<code>odd()</code>: Deleted. Moved functionality to <code><a href="../reference/oddeven.html">is.odd()</a></code>.</li>
+<code>odd()</code>: Deleted. Moved functionality to <code><a href="../reference/is.odd.html">is.odd()</a></code>.</li>
 <li>
 <code><a href="../reference/nlsBoot.html">predict.nlsBoot()</a></code>: Added an <code><a href="https://rdrr.io/r/base/interactive.html">interactive()</a></code> to the <code>nlstools</code> example in the help file.</li>
 <li>
@@ -2629,7 +2629,7 @@
 <li>
 <code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Added. Extracted age precision related material from <code>ageComp()</code>. Modified the code to allow for calculations across more than two structures. Code was streamlined dramatically from what was in <code>ageComp()</code>. Added an example using WhitefishLC as it allows for demonstrating more than two age assignments.</li>
 <li>
-<code><a href="../reference/FSAUtils.html">capFirst()</a></code>: Modified. Added functionality, controlled by the new words= parameter, to allow all words, rather than just the first word, to be capitalized.</li>
+<code><a href="../reference/capFirst.html">capFirst()</a></code>: Modified. Added functionality, controlled by the new words= parameter, to allow all words, rather than just the first word, to be capitalized.</li>
 <li>
 <code><a href="../reference/capHistConvert.html">capHistConvert()</a></code>: Modified the help file by commenting out the example that depends on the RCapture package. This is needed for the RForge site for the time being.</li>
 <li>
@@ -2677,7 +2677,7 @@
 <li>
 <code>rsdVal()</code>: Deleted.</li>
 <li>
-<code>recodeSpecies()</code>: Modified. Changed <code>capFirst=</code> to <code>doCapFirst=</code> to minimize confusion with <code><a href="../reference/FSAUtils.html">capFirst()</a></code>. Change <code>doCapFirst=</code> to a character that behaves like <code>words=</code> in <code><a href="../reference/FSAUtils.html">capFirst()</a></code>, rather than as a logical.</li>
+<code>recodeSpecies()</code>: Modified. Changed <code>capFirst=</code> to <code>doCapFirst=</code> to minimize confusion with <code><a href="../reference/capFirst.html">capFirst()</a></code>. Change <code>doCapFirst=</code> to a character that behaves like <code>words=</code> in <code><a href="../reference/capFirst.html">capFirst()</a></code>, rather than as a logical.</li>
 <li>
 <code>SpotVA1</code>: Modified. Removed link to source documents because it caused a problem when making the PDF manual.</li>
 <li>
@@ -2772,7 +2772,7 @@
 <li><p><code>ageComp()</code>: Modified some of the code to adjust for name changes in <code><a href="../reference/Summarize.html">Summarize()</a></code>. Modified to use a formula notation.</p></li>
 <li><p><code>ageKey()</code>: Modified to using a formula notation. This removed the <code>dl=</code>, <code>cl=</code>, and <code>ca=</code> arguments. Made minor adjustments to the help pages (in addition to changes related to the argument modifications).</p></li>
 <li><p><code>bcFuns()</code>: Removed use of %nin%.</p></li>
-<li><p><code><a href="../reference/FSAUtils.html">capFirst()</a></code>: Modified so that ONLY the first letter is capitalized (previous version would de-capitalize the first letter in the second word but leave the rest of the letters capitalized).</p></li>
+<li><p><code><a href="../reference/capFirst.html">capFirst()</a></code>: Modified so that ONLY the first letter is capitalized (previous version would de-capitalize the first letter in the second word but leave the rest of the letters capitalized).</p></li>
 <li><p><code><a href="../reference/capHistSum.html">capHistSum()</a></code>: Modified to correct an error that occurred when computing the Method B table when a capture history occurred only once or not at all.</p></li>
 <li><p><code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified by adding the Hoenig et al. (1983) bias correction formula for the estimate of Z as the default option.</p></li>
 <li><p><code><a href="../reference/nlsBoot.html">confint.nlsBoot()</a></code>: Removed use of %nin%.</p></li>
@@ -2805,7 +2805,7 @@
 <li><p><code>tictactoeAdd()</code>: Modified by changing PSD labels to PSS.</p></li>
 <li><p><code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Removed use of %nin%.</p></li>
 <li><p><code>wetPerim()</code>: Deleted, moved to NCStats (to reduce overhead here).</p></li>
-<li><p><code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Major modifications to account for changes to <code>WSlit</code>. Added the <code><a href="../reference/FSAUtils.html">capFirst()</a></code> check for species name. Changed <code>subNA=</code> to <code>remove.submin=</code> to make consistent with <code>wrDataPrep()</code>.</p></li>
+<li><p><code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Major modifications to account for changes to <code>WSlit</code>. Added the <code><a href="../reference/capFirst.html">capFirst()</a></code> check for species name. Changed <code>subNA=</code> to <code>remove.submin=</code> to make consistent with <code>wrDataPrep()</code>.</p></li>
 <li><p><code>wrDataPrep()</code>: Added.</p></li>
 <li><p><code>wrVal()</code>: Deleted.</p></li>
 <li><p><code>WSlit</code>: Modified. Completely rebuilt so that quadratic equation using EmP could be incorporated into the database. Also added equations for several new species.</p></li>
@@ -2924,7 +2924,7 @@
 <li><p>Moved quantreg from depends to importsFrom for rq() (used in emp()).</p></li>
 <li><p>Attempted to move reshape to importsFrom but had problems with missing is.formula() from plyr.</p></li>
 <li><p><code>ageComp()</code>: modified class name to “ageComp” from “AgeComp”.</p></li>
-<li><p><code><a href="../reference/FSAUtils.html">capFirst()</a></code>: added.</p></li>
+<li><p><code><a href="../reference/capFirst.html">capFirst()</a></code>: added.</p></li>
 <li><p><code><a href="../reference/catchCurve.html">catchCurve()</a></code>: modified class name to “catchCurve” from “CC”.</p></li>
 <li><p><code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: modified class name to “chapmanRobson” from “CR”.</p></li>
 <li><p><code>coefPlot()</code>: deleted (Weisberg’s LGM is now out-dated).</p></li>
@@ -3238,7 +3238,7 @@
 <li><p><code>caphist.convert()</code>: Modified such that an “RMark” type can be output. 0 chapmanPlot()`: Added.</p></li>
 <li><p><code>growmodel.sim()</code>: Deleted. Changed to growthModelSim(). See below. 0 growthModelSim()`: Added. Initially a renaming of growmodel.sim(). However, the model names were changed to be more consistent with other functions and a method for the Mooij et al. paramaterization was added.</p></li>
 <li><p><code><a href="../reference/growthModels.html">growthModels()</a></code>: Added.</p></li>
-<li><p><code><a href="../reference/stockRecruitment.html">srFuns()</a></code>: Added.</p></li>
+<li><p><code><a href="../reference/srFuns.html">srFuns()</a></code>: Added.</p></li>
 <li><p><code><a href="../reference/srStarts.html">srStarts()</a></code>: Added.</p></li>
 <li><p><code>stock.recruit()</code>: Deleted, along with all related generics.</p></li>
 <li><p><code>stock.recruit.sim()</code>: Deleted. Changed to stockRecruitSim(). See below.</p></li>

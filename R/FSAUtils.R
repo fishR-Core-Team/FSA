@@ -1,5 +1,3 @@
-#' @name FSAUtils
-#' 
 #' @title Capitalizes the first letter of first or all words in a string.
 #' 
 #' @description Capitalizes the first letter of first or all words in a string.
@@ -196,7 +194,8 @@ fishR <- function(where=c("home","IFAR","general","books",
   invisible(tmp)
 }
 
-
+#' @name fsaNews
+#' 
 #' @title Read news and changes for the 'FSA' package.
 #'
 #' @description Opens up the \href{https://github.com/droglenc/FSA/blob/master/NEWS.md}{News.md GitHub file} for the \sQuote{FSA} package in an external browser.
@@ -404,7 +403,7 @@ logbtcf <- function(obj,base=exp(1)) {
 }
 
 
-#' @name oddeven
+#' @name is.odd
 #' 
 #' @title Determine if a number is odd or even.
 #' 
@@ -418,6 +417,8 @@ logbtcf <- function(obj,base=exp(1)) {
 #' 
 #' @keywords manip
 #' 
+#' @aliases is.odd is.even
+#' 
 #' @examples
 #' ## Individual values
 #' is.odd(1)
@@ -430,11 +431,11 @@ logbtcf <- function(obj,base=exp(1)) {
 #' data.frame(d,odd=is.odd(d),even=is.even(d))
 NULL
 
-#' @rdname oddeven
+#' @rdname is.odd
 #' @export
 is.odd <- function (x) iOddEven(x,1)
 
-#' @rdname oddeven
+#' @rdname is.odd
 #' @export
 is.even <- function(x) iOddEven(x,0)
 
@@ -866,7 +867,7 @@ se <- function (x,na.rm=TRUE) {
 #' levels(iris.set3$Species)
 #' xtabs(~Species,data=iris.set3)
 #' 
-#' @rdname filterD-deprecated
+#' @rdname filterD
 #' @export
 filterD <- function(x,...,except=NULL) {
   .Deprecated(msg="'filter' is deprecated and will soon be removed from 'FSA'; please use 'droplevels' after 'subset' or 'dplyr::filter' for the same result (see fishR post from 26-May-2021).")

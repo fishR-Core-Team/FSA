@@ -1,5 +1,3 @@
-#' @name bootstrap
-#' 
 #' @title Associated S3 methods for bootstrap results from car::Boot.
 #'
 #' @description S3 methods are provided to construct non-parametric bootstrap confidence intervals, predictions with non-parametric confidence intervals, hypothesis tests, and plots of the parameter estimates for objects returned from \code{\link[car]{Boot}} from \pkg{car}.
@@ -188,7 +186,7 @@ hist.boot <- function(x,same.ylim=TRUE,ymax=NULL,
 #'
 #' @seealso \code{\link[car]{Boot}} and related methods in \pkg{car} and \code{summary.\link[nlstools]{nlsBoot}} in \pkg{nlstools}.
 #'
-#' @aliases confint.nlsboot htest.nlsboot predict.nlsbooot
+#' @aliases confint.nlsBoot htest.nlsBoot predict.nlsBoot
 #'
 #' @keywords htest
 #'

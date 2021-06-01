@@ -1,4 +1,4 @@
-#' @name stockRecruitment
+#' @name srFuns
 #' 
 #' @title Creates a function for a specific parameterization of a common stock-recruitment function .
 #'
@@ -36,6 +36,8 @@
 #' Shepherd, J. 1982. A versatile new stock-recruitment relationship for fisheries and construction of sustainable yield curves. Journal du Conseil International pour l'Exploration de la Mar 40:67-75. 
 #' 
 #' @keywords manip
+#' 
+#' @aliases srFuns srFunShow
 #' 
 #' @examples
 #' ## See the formulae
@@ -105,7 +107,7 @@
 
 NULL
 
-#' @rdname stockRecruitment
+#' @rdname srFuns
 #' @export
 srFuns <- function(type=c("BevertonHolt","Ricker","Shepherd",
                           "SailaLorda","independence"),
@@ -239,7 +241,7 @@ srFuns <- function(type=c("BevertonHolt","Ricker","Shepherd",
   get(type)
 }
 
-#' @rdname stockRecruitment
+#' @rdname srFuns
 #' @export
 srFunShow <- function(type=c("BevertonHolt","Ricker","Shepherd","SailaLorda"),
                       param=1,plot=FALSE,...) {

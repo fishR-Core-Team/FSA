@@ -11,7 +11,7 @@
 \alias{mapvalues}
 \alias{plotBinResp}
 \alias{Subset}
-\title{Defunct functions.}
+\title{DEFUNCT functions.}
 \usage{
 bootCase(...)
 
