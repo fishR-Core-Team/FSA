@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DEPRECATED - Subsets/filters a data frame and drops the unused levels. — filterD-deprecated • FSA</title>
+<title>Determine if a number is odd or even. — is.odd • FSA</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="DEPRECATED - Subsets/filters a data frame and drops the unused levels. — filterD-deprecated" />
-<meta property="og:description" content="Subsets/filters a data frame and drops the unused levels." />
+<meta property="og:title" content="Determine if a number is odd or even. — is.odd" />
+<meta property="og:description" content="Determine if a number is odd or even." />
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 
 
@@ -119,69 +119,54 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>DEPRECATED - Subsets/filters a data frame and drops the unused levels.</h1>
+    <h1>Determine if a number is odd or even.</h1>
     <small class="dont-index">Source: <a href='https://github.com/droglenc/FSA/blob/master/R/FSAUtils.R'><code>R/FSAUtils.R</code></a></small>
-    <div class="hidden name"><code>filterD.Rd</code></div>
+    <div class="hidden name"><code>is.odd.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Subsets/filters a data frame and drops the unused levels.</p>
+    <p>Determine if a number is odd or even.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>filterD</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, except <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>is.odd</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>is.even</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A data frame.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>further arguments to be passed to <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>except</th>
-      <td><p>Indices of columns from which NOT to drop levels.</p></td>
+      <td><p>A numeric vector.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with the filtered rows.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Newbie students using R expect that when a factor variable is filtered with <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code> that any original levels that are no longer used after the filtering will be ignored. This, however, is not the case and often results in tables with empty cells and figures with empty bars. One remedy is to use <code><a href='https://rdrr.io/r/base/droplevels.html'>droplevels</a></code> immediately following <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code>. This generally becomes a repetitive sequence for most newbie students; thus, <code>filterD</code> incorporate these two functions into one function.</p>
-<p><code>filterD</code> is a wrapper for <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code> from <span class="pkg">dplyr</span> followed by <code><a href='https://rdrr.io/r/base/droplevels.html'>droplevels</a></code> just before the data.frame is returned. Otherwise, there is no new code here.</p>
-<p>This function is only used for data frames.</p>
-    <h2 class="hasAnchor" id="ifar-chapter"><a class="anchor" href="#ifar-chapter"></a>IFAR Chapter</h2>
-
-    <p>Basic Data Manipulations.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>See <code>subset</code> and <code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code> from <span class="pkg">dplyr</span> for similar functionality. See <code>drop.levels</code> in <span class="pkg">gdata</span> and <code>droplevels</code> for related functionality.</p></div>
+    <p>A logical vector of the same length as x.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## The problem -- note use of unused level in the final table.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>iris</span><span class='op'>$</span><span class='va'>Species</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "setosa"     "versicolor" "virginica" </div><div class='input'><span class='va'>iris.set1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>iris</span>,<span class='va'>Species</span><span class='op'>==</span><span class='st'>"setosa"</span> <span class='op'>|</span> <span class='va'>Species</span><span class='op'>==</span><span class='st'>"versicolor"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>iris.set1</span><span class='op'>$</span><span class='va'>Species</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "setosa"     "versicolor" "virginica" </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>Species</span>,data<span class='op'>=</span><span class='va'>iris.set1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Species
-#&gt;     setosa versicolor  virginica 
-#&gt;         50         50          0 </div><div class='input'>
-<span class='co'>## A fix using filterD</span>
-<span class='va'>iris.set3</span> <span class='op'>&lt;-</span> <span class='fu'>filterD</span><span class='op'>(</span><span class='va'>iris</span>,<span class='va'>Species</span><span class='op'>==</span><span class='st'>"setosa"</span> <span class='op'>|</span> <span class='va'>Species</span><span class='op'>==</span><span class='st'>"versicolor"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: 'filter' is deprecated and will soon be removed from 'FSA'; please use 'droplevels' after 'subset' or 'dplyr::filter' for the same result (see fishR post from 26-May-2021).</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>iris.set3</span><span class='op'>$</span><span class='va'>Species</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "setosa"     "versicolor"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/xtabs.html'>xtabs</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>Species</span>,data<span class='op'>=</span><span class='va'>iris.set3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Species
-#&gt;     setosa versicolor 
-#&gt;         50         50 </div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='co'>## Individual values</span>
+<span class='fu'>is.odd</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>is.odd</span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.even</span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>is.even</span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='co'>## Vector of values</span>
+<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>8</span>
+<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>d</span>,odd<span class='op'>=</span><span class='fu'>is.odd</span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span>,even<span class='op'>=</span><span class='fu'>is.even</span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   d   odd  even
+#&gt; 1 1  TRUE FALSE
+#&gt; 2 2 FALSE  TRUE
+#&gt; 3 3  TRUE FALSE
+#&gt; 4 4 FALSE  TRUE
+#&gt; 5 5  TRUE FALSE
+#&gt; 6 6 FALSE  TRUE
+#&gt; 7 7  TRUE FALSE
+#&gt; 8 8 FALSE  TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
