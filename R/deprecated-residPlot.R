@@ -1,4 +1,4 @@
-#' @title Construct a residual plot from lm or nls objects.
+#' @title DEPRECATED -- Construct a residual plot from lm or nls objects.
 #'
 #' @description Constructs a residual plot for \code{lm} or \code{nls} objects. Different symbols for different groups can be added to the plot if an indicator variable regression is used.
 #'
@@ -108,6 +108,8 @@
 #' @rdname residPlot
 #' @export
 residPlot <- function (object,...) {
+  if ("lm" %in% class(object)) ## This is a hack so no double deprecation warning
+    .Deprecated(msg="'residPlot' is deprecated and will soon be removed from 'FSA'; see fishR post from 1-Jun-2021 for alternative methods.")
   UseMethod("residPlot") 
 }
 

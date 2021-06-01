@@ -30,7 +30,7 @@
 * `PSDlit`: Modified. Added length categories for Shoal Bass and Pallid Sturgeon. Added Striped Bass (Hybrid) and Striped Bass x White Bass; though these are the same as the existing Palmetto Bass. Added "source"s for each entry.
 * `psdVal()`: Modified. Changed a `levels()` in `iPSDlitCheck()` and `iListSpecies()` to `unique()` because `species` is no longer a factor due to updating `PSDlit` (i.e., rdata file changed with new `read.csv()`). Added a `showJustSource=` argument that will show the source info (if `TRUE`) or not (if `FALSE`; default), which partially addresses [#76](https://github.com/droglenc/FSA/issues/76).
 * `removal()`: Modified. Added check and then warning if non-whole numbers are in `catch=` (addresses [#60](https://github.com/droglenc/FSA/issues/60)). Also modified checks of data integrity to be more robust (e.g., if a character vector is sent). Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/droglenc/FSA/issues/66)).
-* `residPlot()`: Modified. Removed use of `chooseColors()` (see above).
+* `residPlot()`: DEPRECATED (partially addresses [#65](https://github.com/droglenc/FSA/issues/65)). Prior to that removed use of `chooseColors()` (see above).
 * `Subset()`: REMOVED. Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
 * `wrAdd()`: Modified. Changed a `levels()` in `iwsLitCheck()` to `unique()` because `species` is no longer a factor due to updating `WSlit` (i.e., rdata file changed with new `read.csv()`).
 * `WSlit`: Modified. Addresses [#68](https://github.com/droglenc/FSA/issues/68).
