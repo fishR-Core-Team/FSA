@@ -221,7 +221,7 @@ test_that("iHndlMultWhat() messages and results",{
 })
 
 
-test_that("iLegendHel() messages and results",{
+test_that("iLegendHelp() messages and results",{
   expect_error(iLegendHelp("Derek"),"Must use proper keyword")
   tmp <- FSA:::iLegendHelp("topright")
   expect_true(tmp$do.legend)

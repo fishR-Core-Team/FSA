@@ -1,4 +1,4 @@
-#' @title Construct a residual plot from lm or nls objects.
+#' @title DEPRECATED -- Construct a residual plot from lm or nls objects.
 #'
 #' @description Constructs a residual plot for \code{lm} or \code{nls} objects. Different symbols for different groups can be added to the plot if an indicator variable regression is used.
 #'
@@ -44,7 +44,7 @@
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @seealso See \code{\link[car]{residualPlots}} in \pkg{car} and \code{\link[nlstools]{nlsResiduals}} in \pkg{nlstools}) for similar functionality and \code{\link{fitPlot}} and \code{\link[car]{outlierTest}} in \pkg{car} for related methods.
+#' @seealso See \code{\link[car]{residualPlots}} in \pkg{car} and \code{\link[nlstools]{nlsResiduals}} in \pkg{nlstools}) for similar functionality. See \code{\link[car]{outlierTest}} in \pkg{car} for related methods.
 #'
 #' @keywords hplot models
 #'
@@ -108,6 +108,8 @@
 #' @rdname residPlot
 #' @export
 residPlot <- function (object,...) {
+  if ("lm" %in% class(object)) ## This is a hack so no double deprecation warning
+    .Deprecated(msg="'residPlot' is deprecated and will soon be removed from 'FSA'; see fishR post from 1-Jun-2021 for alternative methods.")
   UseMethod("residPlot") 
 }
 

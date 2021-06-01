@@ -36,9 +36,6 @@ lm1 <- lm(mirex~weight*year*species,data=Mirex)
 anova(lm1)
 
 }
-\seealso{
-Used in \code{\link{fitPlot}}, \code{\link{residPlot}}, and \code{\link{rSquared}} examples.
-}
 \concept{Linear Models}
 \concept{Other}
 \keyword{datasets}
