@@ -27,8 +27,6 @@
 #'
 #' @source From (actual data) Makarewicz, J.C., E.Damaske, T.W. Lewis, and M. Merner. 2003. Trend analysis reveals a recent reduction in mirex concentrations in Coho (\emph{Oncorhynchus kisutch}) and Chinook (\emph{O. tshawytscha}) Salmon from Lake Ontario. Environmental Science and Technology, 37:1521-1527.
 #'
-#' @seealso Used in \code{\link{fitPlot}}, \code{\link{residPlot}}, and \code{\link{rSquared}} examples.
-#' 
 #' @keywords datasets
 #'
 #' @examples
