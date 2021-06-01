@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Construct a residual plot from lm or nls objects. — residPlot • FSA</title>
+<title>DEPRECATED -- Construct a residual plot from lm or nls objects. — residPlot • FSA</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Construct a residual plot from lm or nls objects. — residPlot" />
+<meta property="og:title" content="DEPRECATED -- Construct a residual plot from lm or nls objects. — residPlot" />
 <meta property="og:description" content="Constructs a residual plot for lm or nls objects. Different symbols for different groups can be added to the plot if an indicator variable regression is used." />
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png" />
 
@@ -119,8 +119,8 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Construct a residual plot from lm or nls objects.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/droglenc/FSA/blob/master/R/residPlot.R'><code>R/residPlot.R</code></a></small>
+    <h1>DEPRECATED -- Construct a residual plot from lm or nls objects.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/droglenc/FSA/blob/master/R/deprecated-residPlot.R'><code>R/deprecated-residPlot.R</code></a></small>
     <div class="hidden name"><code>residPlot.Rd</code></div>
     </div>
 
@@ -364,7 +364,7 @@
     <p>This function is meant to allow newbie students the ability to easily construct residual plots for one-way ANOVA, two-way ANOVA, simple linear regression, and indicator variable regressions. The plots can be constructed by submitting a saved linear model to this function which allows students to interact with and visualize moderately complex linear models in a fairly easy and efficient manner.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>See <code><a href='https://rdrr.io/pkg/car/man/residualPlots.html'>residualPlots</a></code> in <span class="pkg">car</span> and <code><a href='https://rdrr.io/pkg/nlstools/man/nlsResiduals.html'>nlsResiduals</a></code> in <span class="pkg">nlstools</span>) for similar functionality and <code><a href='fitPlot.html'>fitPlot</a></code> and <code><a href='https://rdrr.io/pkg/car/man/outlierTest.html'>outlierTest</a></code> in <span class="pkg">car</span> for related methods.</p></div>
+    <div class='dont-index'><p>See <code><a href='https://rdrr.io/pkg/car/man/residualPlots.html'>residualPlots</a></code> in <span class="pkg">car</span> and <code><a href='https://rdrr.io/pkg/nlstools/man/nlsResiduals.html'>nlsResiduals</a></code> in <span class="pkg">nlstools</span>) for similar functionality. See <code><a href='https://rdrr.io/pkg/car/man/outlierTest.html'>outlierTest</a></code> in <span class="pkg">car</span> for related methods.</p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Derek H. Ogle, <a href='mailto:derek@derekogle.com'>derek@derekogle.com</a></p>
@@ -378,39 +378,39 @@
 <span class='co'>## One-way ANOVA</span>
 <span class='va'>aov1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>fyear</span>,data<span class='op'>=</span><span class='va'>Mirex</span><span class='op'>)</span>
 <span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>aov1</span><span class='op'>)</span>
-</div><div class='img'><img src='residPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'residPlot' is deprecated and will soon be removed from 'FSA'; see fishR post from 1-Jun-2021 for alternative methods.</span></div><div class='img'><img src='residPlot-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Two-Way ANOVA</span>
 <span class='va'>aov2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>species</span><span class='op'>*</span><span class='va'>fyear</span>,data<span class='op'>=</span><span class='va'>Mirex</span><span class='op'>)</span>
 <span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>aov2</span><span class='op'>)</span>
-</div><div class='img'><img src='residPlot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'residPlot' is deprecated and will soon be removed from 'FSA'; see fishR post from 1-Jun-2021 for alternative methods.</span></div><div class='img'><img src='residPlot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Simple linear regression</span>
 <span class='va'>slr1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>weight</span>,data<span class='op'>=</span><span class='va'>Mirex</span><span class='op'>)</span>
 <span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>slr1</span><span class='op'>)</span>
-</div><div class='img'><img src='residPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>slr1</span>,loess<span class='op'>=</span><span class='cn'>TRUE</span>,main<span class='op'>=</span><span class='st'>"MODEL"</span><span class='op'>)</span>
-</div><div class='img'><img src='residPlot-4.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'residPlot' is deprecated and will soon be removed from 'FSA'; see fishR post from 1-Jun-2021 for alternative methods.</span></div><div class='img'><img src='residPlot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>slr1</span>,loess<span class='op'>=</span><span class='cn'>TRUE</span>,main<span class='op'>=</span><span class='st'>"MODEL"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'residPlot' is deprecated and will soon be removed from 'FSA'; see fishR post from 1-Jun-2021 for alternative methods.</span></div><div class='img'><img src='residPlot-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Indicator variable regression with only one factor</span>
 <span class='va'>ivr1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>weight</span><span class='op'>*</span><span class='va'>fyear</span>,data<span class='op'>=</span><span class='va'>Mirex</span><span class='op'>)</span>
 <span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>ivr1</span><span class='op'>)</span>
-</div><div class='img'><img src='residPlot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>ivr1</span>,inclHist<span class='op'>=</span><span class='cn'>FALSE</span>,pch<span class='op'>=</span><span class='fl'>19</span><span class='op'>)</span>
-</div><div class='img'><img src='residPlot-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>ivr1</span>,inclHist<span class='op'>=</span><span class='cn'>FALSE</span>,pch<span class='op'>=</span><span class='fl'>19</span>,col<span class='op'>=</span><span class='st'>"black"</span><span class='op'>)</span>
-</div><div class='img'><img src='residPlot-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>ivr1</span>,legend<span class='op'>=</span><span class='cn'>FALSE</span>,loess<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='residPlot-8.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'residPlot' is deprecated and will soon be removed from 'FSA'; see fishR post from 1-Jun-2021 for alternative methods.</span></div><div class='img'><img src='residPlot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>ivr1</span>,inclHist<span class='op'>=</span><span class='cn'>FALSE</span>,pch<span class='op'>=</span><span class='fl'>19</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'residPlot' is deprecated and will soon be removed from 'FSA'; see fishR post from 1-Jun-2021 for alternative methods.</span></div><div class='img'><img src='residPlot-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>ivr1</span>,inclHist<span class='op'>=</span><span class='cn'>FALSE</span>,pch<span class='op'>=</span><span class='fl'>19</span>,col<span class='op'>=</span><span class='st'>"black"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'residPlot' is deprecated and will soon be removed from 'FSA'; see fishR post from 1-Jun-2021 for alternative methods.</span></div><div class='img'><img src='residPlot-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>ivr1</span>,legend<span class='op'>=</span><span class='cn'>FALSE</span>,loess<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'residPlot' is deprecated and will soon be removed from 'FSA'; see fishR post from 1-Jun-2021 for alternative methods.</span></div><div class='img'><img src='residPlot-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Indicator variable regression (assuming same slope)</span>
 <span class='va'>ivr2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>weight</span><span class='op'>+</span><span class='va'>fyear</span>,data<span class='op'>=</span><span class='va'>Mirex</span><span class='op'>)</span>
 <span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>ivr2</span>,legend<span class='op'>=</span><span class='cn'>FALSE</span>,loess<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='residPlot-9.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'residPlot' is deprecated and will soon be removed from 'FSA'; see fishR post from 1-Jun-2021 for alternative methods.</span></div><div class='img'><img src='residPlot-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Indicator variable regression with two factors</span>
 <span class='co'>##    Reduce number of years for visual simplicity</span>
 <span class='va'>Mirex2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/droplevels.html'>droplevels</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>Mirex</span>,<span class='va'>fyear</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1977</span>,<span class='fl'>1992</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='va'>ivr3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>weight</span><span class='op'>*</span><span class='va'>fyear</span><span class='op'>*</span><span class='va'>species</span>,data<span class='op'>=</span><span class='va'>Mirex2</span><span class='op'>)</span>
 <span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>ivr3</span><span class='op'>)</span>
-</div><div class='img'><img src='residPlot-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>ivr3</span>,loess<span class='op'>=</span><span class='cn'>TRUE</span>,legend<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='residPlot-11.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'residPlot' is deprecated and will soon be removed from 'FSA'; see fishR post from 1-Jun-2021 for alternative methods.</span></div><div class='img'><img src='residPlot-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>ivr3</span>,loess<span class='op'>=</span><span class='cn'>TRUE</span>,legend<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'residPlot' is deprecated and will soon be removed from 'FSA'; see fishR post from 1-Jun-2021 for alternative methods.</span></div><div class='img'><img src='residPlot-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## IVR w/ factors in different order (notice use of colors and symbols)</span>
 <span class='va'>ivr4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>mirex</span><span class='op'>~</span><span class='va'>weight</span><span class='op'>*</span><span class='va'>species</span><span class='op'>*</span><span class='va'>fyear</span>,data<span class='op'>=</span><span class='va'>Mirex2</span><span class='op'>)</span>
 <span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>ivr4</span><span class='op'>)</span>
-</div><div class='img'><img src='residPlot-12.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'residPlot' is deprecated and will soon be removed from 'FSA'; see fishR post from 1-Jun-2021 for alternative methods.</span></div><div class='img'><img src='residPlot-12.png' alt='' width='700' height='433' /></div><div class='input'>
 
 <span class='co'>## Nonlinear regression ... from first example in nls()</span>
 <span class='va'>DNase1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>DNase</span>,<span class='va'>Run</span><span class='op'>==</span><span class='fl'>1</span><span class='op'>)</span>
@@ -424,8 +424,8 @@
 <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>7</span>,<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>98</span><span class='op'>)</span>,<span class='op'>-</span><span class='fl'>5</span><span class='op'>)</span>
 <span class='va'>lma</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>~</span><span class='va'>x</span><span class='op'>)</span>
 <span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>lma</span><span class='op'>)</span>
-</div><div class='img'><img src='residPlot-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>lma</span>,resid.type<span class='op'>=</span><span class='st'>"studentized"</span><span class='op'>)</span>
-</div><div class='img'><img src='residPlot-16.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'residPlot' is deprecated and will soon be removed from 'FSA'; see fishR post from 1-Jun-2021 for alternative methods.</span></div><div class='img'><img src='residPlot-15.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>residPlot</span><span class='op'>(</span><span class='va'>lma</span>,resid.type<span class='op'>=</span><span class='st'>"studentized"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: 'residPlot' is deprecated and will soon be removed from 'FSA'; see fishR post from 1-Jun-2021 for alternative methods.</span></div><div class='img'><img src='residPlot-16.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
