@@ -118,7 +118,7 @@
 #' fitPlot(glm1)
 #' fitPlot(glm1,yaxis1.ticks=c(0,1),yaxis1.lbls=c(0,1))
 #'
-#' @rdname fitPlot-deprecated
+#' @rdname fitPlot
 #' @export
 fitPlot <- function (object, ...) {
   if ("lm" %in% class(object)) ## This is a hack so no double deprecation warning
@@ -126,7 +126,7 @@ fitPlot <- function (object, ...) {
   UseMethod("fitPlot") 
 }
 
-#' @rdname fitPlot-deprecated
+#' @rdname fitPlot
 #' @export
 fitPlot.lm <- function(object, ...) {
   object <- iTypeoflm(object)
@@ -137,7 +137,7 @@ fitPlot.lm <- function(object, ...) {
   fitPlot(object,...)
 }
 
-#' @rdname fitPlot-deprecated
+#' @rdname fitPlot
 #' @export
 fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
                         col.mdl="red",lwd=3,lty=1,
@@ -196,7 +196,7 @@ fitPlot.SLR <- function(object,plot.pts=TRUE,pch=16,col.pt="black",
 }
 
 
-#' @rdname fitPlot-deprecated
+#' @rdname fitPlot
 #' @export
 fitPlot.IVR <- function(object,...) {
   ## Do some checks
@@ -369,14 +369,14 @@ iFitPlotIVR2 <- function(object,plot.pts=TRUE,pch=c(16,21,15,22,17,24,c(3:14)),
   }  # nocov end
 }
 
-#' @rdname fitPlot-deprecated
+#' @rdname fitPlot
 #' @export
 fitPlot.POLY <- function(object,...) {
   fitPlot.SLR(object,...)
 }
 
 
-#' @rdname fitPlot-deprecated
+#' @rdname fitPlot
 #' @export
 fitPlot.ONEWAY <- function (object,
                             xlab=object$Enames[1],ylab=object$Rname,main="",
@@ -410,7 +410,7 @@ fitPlot.ONEWAY <- function (object,
 } # nocov end
 
 
-#' @rdname fitPlot-deprecated
+#' @rdname fitPlot
 #' @export
 fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
                            xlab=object$Enames[ord[1]],ylab=object$Rname,
@@ -465,7 +465,7 @@ fitPlot.TWOWAY <- function(object,which,change.order=FALSE,
 }
 
 
-#' @rdname fitPlot-deprecated
+#' @rdname fitPlot
 #' @export
 fitPlot.nls <- function(object,d,
                         pch=c(19,1),col.pt=c("black","red"),col.mdl=col.pt,
@@ -544,7 +544,7 @@ fitPlot.nls <- function(object,d,
   }
 }  # nocov end
 
-#' @rdname fitPlot-deprecated
+#' @rdname fitPlot
 #' @export
 fitPlot.glm <- function(object, ...) {
   if (object$family$family=="binomial" & object$family$link=="logit")
@@ -553,7 +553,7 @@ fitPlot.glm <- function(object, ...) {
     STOP("Currently only logistic regression GLM models are supported by fitPlot.")
 }
 
-#' @rdname fitPlot-deprecated
+#' @rdname fitPlot
 #' @export
 fitPlot.logreg <- function(object,
                            xlab=names(object$model)[2],ylab=names(object$model)[1],

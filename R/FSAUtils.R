@@ -194,7 +194,8 @@ fishR <- function(where=c("home","IFAR","general","books",
   invisible(tmp)
 }
 
-
+#' @name fsaNews
+#' 
 #' @title Read news and changes for the 'FSA' package.
 #'
 #' @description Opens up the \href{https://github.com/droglenc/FSA/blob/master/NEWS.md}{News.md GitHub file} for the \sQuote{FSA} package in an external browser.

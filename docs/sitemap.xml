@@ -37,6 +37,9 @@
     <loc>http://derekogle.com/FSA/reference/BrookTroutTH.html</loc>
   </url>
   <url>
+    <loc>http://derekogle.com/FSA/reference/capFirst.html</loc>
+  </url>
+  <url>
     <loc>http://derekogle.com/FSA/reference/capHistConvert.html</loc>
   </url>
   <url>
@@ -82,13 +85,13 @@
     <loc>http://derekogle.com/FSA/reference/fact2num.html</loc>
   </url>
   <url>
-    <loc>http://derekogle.com/FSA/reference/filterD-deprecated.html</loc>
+    <loc>http://derekogle.com/FSA/reference/filterD.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/fishR.html</loc>
   </url>
   <url>
-    <loc>http://derekogle.com/FSA/reference/fitPlot-deprecated.html</loc>
+    <loc>http://derekogle.com/FSA/reference/fitPlot.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/FSA-defunct.html</loc>
@@ -101,9 +104,6 @@
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/fsaNews.html</loc>
-  </url>
-  <url>
-    <loc>http://derekogle.com/FSA/reference/FSAUtils.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/geomean.html</loc>
@@ -122,6 +122,9 @@
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/hyperCI.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/reference/is.odd.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/knitUtil.html</loc>
@@ -158,9 +161,6 @@
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/nlsTracePlot.html</loc>
-  </url>
-  <url>
-    <loc>http://derekogle.com/FSA/reference/oddeven.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/peek.html</loc>
@@ -232,10 +232,10 @@
     <loc>http://derekogle.com/FSA/reference/SpotVA1.html</loc>
   </url>
   <url>
-    <loc>http://derekogle.com/FSA/reference/srStarts.html</loc>
+    <loc>http://derekogle.com/FSA/reference/srFuns.html</loc>
   </url>
   <url>
-    <loc>http://derekogle.com/FSA/reference/stockRecruitment.html</loc>
+    <loc>http://derekogle.com/FSA/reference/srStarts.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/Summarize.html</loc>
