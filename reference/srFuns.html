@@ -212,8 +212,8 @@
 #&gt;     }
 #&gt;     a * S * exp(-b * S)
 #&gt; }
-#&gt; &lt;bytecode: 0x7fcb0f996c20&gt;
-#&gt; &lt;environment: 0x7fcb12c76428&gt;</div><div class='input'>
+#&gt; &lt;bytecode: 0x7fe45b7c4b90&gt;
+#&gt; &lt;environment: 0x7fe45f4a13d0&gt;</div><div class='input'>
 <span class='co'># create some dummy stock data</span>
 <span class='va'>stock</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.01</span>,<span class='fl'>1000</span>,length.out<span class='op'>=</span><span class='fl'>199</span><span class='op'>)</span>
 
@@ -227,8 +227,8 @@
 #&gt;     }
 #&gt;     a * S/(1 + b * S)
 #&gt; }
-#&gt; &lt;bytecode: 0x7fcb0f99ae88&gt;
-#&gt; &lt;environment: 0x7fcb13b4ce90&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>bh1</span><span class='op'>(</span><span class='va'>stock</span>,a<span class='op'>=</span><span class='fl'>0.5</span>,b<span class='op'>=</span><span class='fl'>0.01</span><span class='op'>)</span><span class='op'>~</span><span class='va'>stock</span>,type<span class='op'>=</span><span class='st'>"l"</span>,lwd<span class='op'>=</span><span class='fl'>2</span>,ylab<span class='op'>=</span><span class='st'>"Recruits"</span>,xlab<span class='op'>=</span><span class='st'>"Spawners"</span>,ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>50</span><span class='op'>)</span><span class='op'>)</span>
+#&gt; &lt;bytecode: 0x7fe45b219d28&gt;
+#&gt; &lt;environment: 0x7fe45f587600&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>bh1</span><span class='op'>(</span><span class='va'>stock</span>,a<span class='op'>=</span><span class='fl'>0.5</span>,b<span class='op'>=</span><span class='fl'>0.01</span><span class='op'>)</span><span class='op'>~</span><span class='va'>stock</span>,type<span class='op'>=</span><span class='st'>"l"</span>,lwd<span class='op'>=</span><span class='fl'>2</span>,ylab<span class='op'>=</span><span class='st'>"Recruits"</span>,xlab<span class='op'>=</span><span class='st'>"Spawners"</span>,ylim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>50</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='input'>
 <span class='co'># Ricker #1 parameterization</span>
 <span class='op'>(</span> <span class='va'>r1</span> <span class='op'>&lt;-</span> <span class='fu'>srFuns</span><span class='op'>(</span><span class='st'>"Ricker"</span><span class='op'>)</span> <span class='op'>)</span>
@@ -240,8 +240,8 @@
 #&gt;     }
 #&gt;     a * S * exp(-b * S)
 #&gt; }
-#&gt; &lt;bytecode: 0x7fcb0f996c20&gt;
-#&gt; &lt;environment: 0x7fcb1064d748&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fu'>r1</span><span class='op'>(</span><span class='va'>stock</span>,a<span class='op'>=</span><span class='fl'>0.5</span>,b<span class='op'>=</span><span class='fl'>0.005</span><span class='op'>)</span><span class='op'>~</span><span class='va'>stock</span>,lwd<span class='op'>=</span><span class='fl'>2</span>,col<span class='op'>=</span><span class='st'>"red"</span><span class='op'>)</span>
+#&gt; &lt;bytecode: 0x7fe45b7c4b90&gt;
+#&gt; &lt;environment: 0x7fe45f6bea30&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fu'>r1</span><span class='op'>(</span><span class='va'>stock</span>,a<span class='op'>=</span><span class='fl'>0.5</span>,b<span class='op'>=</span><span class='fl'>0.005</span><span class='op'>)</span><span class='op'>~</span><span class='va'>stock</span>,lwd<span class='op'>=</span><span class='fl'>2</span>,col<span class='op'>=</span><span class='st'>"red"</span><span class='op'>)</span>
 </div><div class='input'>
 <span class='co'># Shephered parameterization</span>
 <span class='op'>(</span> <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'>srFuns</span><span class='op'>(</span><span class='st'>"Shepherd"</span><span class='op'>)</span> <span class='op'>)</span>
@@ -254,8 +254,8 @@
 #&gt;     }
 #&gt;     a * S/(1 + (b * S)^c)
 #&gt; }
-#&gt; &lt;bytecode: 0x7fcb0f995ac8&gt;
-#&gt; &lt;environment: 0x7fcb10603668&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fu'>s1</span><span class='op'>(</span><span class='va'>stock</span>,a<span class='op'>=</span><span class='fl'>0.5</span>,b<span class='op'>=</span><span class='fl'>0.005</span>,c<span class='op'>=</span><span class='fl'>2.5</span><span class='op'>)</span><span class='op'>~</span><span class='va'>stock</span>,lwd<span class='op'>=</span><span class='fl'>2</span>,col<span class='op'>=</span><span class='st'>"blue"</span><span class='op'>)</span>
+#&gt; &lt;bytecode: 0x7fe45b7c9338&gt;
+#&gt; &lt;environment: 0x7fe45f76e800&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fu'>s1</span><span class='op'>(</span><span class='va'>stock</span>,a<span class='op'>=</span><span class='fl'>0.5</span>,b<span class='op'>=</span><span class='fl'>0.005</span>,c<span class='op'>=</span><span class='fl'>2.5</span><span class='op'>)</span><span class='op'>~</span><span class='va'>stock</span>,lwd<span class='op'>=</span><span class='fl'>2</span>,col<span class='op'>=</span><span class='st'>"blue"</span><span class='op'>)</span>
 </div><div class='input'>
 <span class='co'># Saila-Lorda parameterization</span>
 <span class='op'>(</span> <span class='va'>sl1</span> <span class='op'>&lt;-</span> <span class='fu'>srFuns</span><span class='op'>(</span><span class='st'>"SailaLorda"</span><span class='op'>)</span> <span class='op'>)</span>
@@ -268,8 +268,8 @@
 #&gt;     }
 #&gt;     a * (S^c) * exp(-b * S)
 #&gt; }
-#&gt; &lt;bytecode: 0x7fcb0f98c8a0&gt;
-#&gt; &lt;environment: 0x7fcb104541c8&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fu'>sl1</span><span class='op'>(</span><span class='va'>stock</span>,a<span class='op'>=</span><span class='fl'>0.5</span>,b<span class='op'>=</span><span class='fl'>0.005</span>,c<span class='op'>=</span><span class='fl'>1.05</span><span class='op'>)</span><span class='op'>~</span><span class='va'>stock</span>,lwd<span class='op'>=</span><span class='fl'>2</span>,col<span class='op'>=</span><span class='st'>"salmon"</span><span class='op'>)</span>
+#&gt; &lt;bytecode: 0x7fe45b7cb958&gt;
+#&gt; &lt;environment: 0x7fe45ee8ef68&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fu'>sl1</span><span class='op'>(</span><span class='va'>stock</span>,a<span class='op'>=</span><span class='fl'>0.5</span>,b<span class='op'>=</span><span class='fl'>0.005</span>,c<span class='op'>=</span><span class='fl'>1.05</span><span class='op'>)</span><span class='op'>~</span><span class='va'>stock</span>,lwd<span class='op'>=</span><span class='fl'>2</span>,col<span class='op'>=</span><span class='st'>"salmon"</span><span class='op'>)</span>
 </div><div class='img'><img src='srFuns-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Examples of fitting stock-recruitment functions</span>
 <span class='co'># Fitting the Beverton-Holt #1 parameterization with multiplicative errors</span>
