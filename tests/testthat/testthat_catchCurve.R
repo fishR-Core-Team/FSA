@@ -334,7 +334,7 @@ test_that("chapmanRobson() output types",{
   expect_equal(colnames(crA),c("95% LCI","95% UCI"))
 })
 
-test_that("catchCurve() and ChaptmanRobson() handle NA values properly.",{
+test_that("catchCurve() and ChapmanRobson() handle NA values properly.",{
   ## matches for catchCurve
   df <- data.frame(age=1:10,n=c(90,164,162,110,55,41,20,14,7,5))
   cc1 <- catchCurve(n~age,data=df,ages2use=3:10)
@@ -421,22 +421,22 @@ test_that("catchCurve() and chapmanRobson() match results from fishmethods packa
     cr2 <- chapmanRobson(Freq~age,data=df,zmethod="Smithetal")
     scr2 <- summary(cr2)    
     # catchCurve results match
-    expect_equal(round(scc1["Z","Estimate"],2),
-                 fm$Estimate[fm$Method=="Linear Regression" & fm$Parameter=="Z"])
+    expect_equal(round(scc1["Z","Estimate"],3),
+                 round(fm$Estimate[fm$Method=="Linear Regression" & fm$Parameter=="Z"]),3)
     expect_equal(round(scc1["Z","Std. Error"],3),
-                 fm$SE[fm$Method=="Linear Regression" & fm$Parameter=="Z"])
+                 round(fm$SE[fm$Method=="Linear Regression" & fm$Parameter=="Z"]),3)
     # chapmanRobson results match
-    expect_equal(round(scr1["Z","Estimate"],2),
-                 fm$Estimate[fm$Method=="Chapman-Robson" & fm$Parameter=="Z"])
+    expect_equal(round(scr1["Z","Estimate"],3),
+                 round(fm$Estimate[fm$Method=="Chapman-Robson" & fm$Parameter=="Z"]),3)
     expect_equal(round(scr1["Z","Std. Error"],3),
-                 fm$SE[fm$Method=="Chapman-Robson" & fm$Parameter=="Z"])
+                 round(fm$SE[fm$Method=="Chapman-Robson" & fm$Parameter=="Z"]),3)
     # chapmanRobson (with Smith et al. (2012) bias corrections)
-    #   results match for the point estimaes but not the SE
+    #   results match for the point estimates but not the SE
     #   fishmethods appears to use eqn 5 from smith et al. for
     #   the uncorrected SE of Z, whereas FSA uses eqn 2
-    expect_equal(round(scr2["Z","Estimate"],2),
-                 fm$Estimate[fm$Method=="Chapman-Robson CB" & fm$Parameter=="Z"])
-    #expect_equal(round(scr2["Z","Std. Error"],3),fm$SE[fm$Method=="Chapman-Robson CB" & fm$Parameter=="Z"])
+    expect_equal(round(scr2["Z","Estimate"],3),
+                 round(fm$Estimate[fm$Method=="Chapman-Robson CB" & fm$Parameter=="Z"]),3)
+    #expect_equal(round(scr2["Z","Std. Error"],3),round(fm$SE[fm$Method=="Chapman-Robson CB" & fm$Parameter=="Z"]),3)
   }  
 })
 
