@@ -6,3 +6,4 @@
 ## Testing Environments
 * My Windows machine.
 * Win Builder -- old-release, release, and development.
+* GitHub Action (R-CMD-check.yaml)
