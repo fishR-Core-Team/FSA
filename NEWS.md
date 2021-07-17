@@ -1,3 +1,5 @@
+# FSA 0.9.2 ongoing
+
 # FSA 0.9.1 17-Jul-21
 * Corrected testing issue for `catchCurve()` and `chapmanRobson()` as directed by CRAN on 17-Jul-21. Issue likely caused by changes to `fishmethods` package.
 
