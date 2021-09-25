@@ -43,8 +43,7 @@ wsVal <- function(species="List",units=c("metric","English"),ref=75,simplify=FAL
   type <- measure <- method <- NULL   # avoiding bindings warning in RCMD CHECK
   units <- match.arg(units)
   # load WSlit data frame into this functions environment
-  # data/get combination are used to avoid the "no global binding" note at CHECK
-  WSlit <- get(utils::data("WSlit",envir=environment()),envir=environment())
+  WSlit <- FSA::WSlit
   # isolate only those data for which those units and ref exist
   df <- droplevels(WSlit[WSlit$units==units & WSlit$ref==ref,])
   # check to make sure that that species exists for that subset

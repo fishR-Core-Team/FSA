@@ -104,8 +104,7 @@ psdAdd.default <- function(len,species,units=c("mm","cm","in"),use.names=TRUE,
     use.names <- FALSE
   }
   ## Prepare the PSD literature values data frame
-  # get() is used to eliminate problem with rcmd check
-  PSDlit <- get(utils::data("PSDlit",envir=environment()),envir=environment())
+  PSDlit <- FSA::PSDlit
   ##  Find species that have known Gabelhouse lengths
   # get list of species in data
   specs <- unique(species)

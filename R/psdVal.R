@@ -58,8 +58,7 @@ psdVal <- function(species="List",units=c("mm","cm","in"),incl.zero=TRUE,
                    addLens=NULL,addNames=NULL,showJustSource=FALSE) {
   units <- match.arg(units)
   # load RSDlit data frame into this function's environment
-  # data/get combination are used to avoid the "no global binding" note at CHECK
-  PSDlit <- get(utils::data("PSDlit",envir=environment()),envir=environment())
+  PSDlit <- FSA::PSDlit
   # continue if species name is correct
   if (iPSDLitCheck(PSDlit,species <- capFirst(species))) {
     if (showJustSource) {

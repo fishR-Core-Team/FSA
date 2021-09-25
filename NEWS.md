@@ -1,4 +1,8 @@
 # FSA 0.9.2 ongoing
+* `psdAdd()`: Modified. Changed the way `PSDlit` was loaded into the function environment so that `FSA::psdAdd()` will work. Addresses [#85](https://github.com/droglenc/FSA/issues/85).
+* `psdVal()`: Modified. Changed the way `PSDlit` was loaded into the function environment so that `FSA::psdVal()` will work. Addresses [#85](https://github.com/droglenc/FSA/issues/85).
+* `wrAdd()`: Modified. Changed the way `WSlit` was loaded into the function environment so that `FSA::wrAdd()` will work. Addresses [#85](https://github.com/droglenc/FSA/issues/85).
+* `wsVal()`: Modified. Changed the way `WSlit` was loaded into the function environment so that `FSA::wsVal()` will work. Addresses [#85](https://github.com/droglenc/FSA/issues/85).
 
 # FSA 0.9.1 17-Jul-21
 * Corrected testing issue for `catchCurve()` and `chapmanRobson()` as directed by CRAN on 17-Jul-21. Issue likely caused by changes to `fishmethods` package.

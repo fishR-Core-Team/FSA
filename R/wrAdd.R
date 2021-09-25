@@ -72,8 +72,8 @@ wrAdd.default <- function(wt,len,spec,units=c("metric","English"),...) {
     STOP("'spec' must be character or factor.")
   
   ## Prepare the Ws literature values data frame
-  # get is used to eliminate problem with rcmd check
-  WSlit <- get(utils::data("WSlit",envir=environment()),envir=environment())
+  # load WSlit data frame into this functions environment
+  WSlit <- FSA::WSlit
   # isolate only those data for which those units and ref=75 exist
   WSlit <- droplevels(WSlit[WSlit$units==units & WSlit$ref==75,])
   
