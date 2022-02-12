@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://derekogle.com/FSA/404.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/authors.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
     <loc>http://derekogle.com/FSA/index.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/news/index.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/addZeroCatch.html</loc>
@@ -13,13 +28,13 @@
     <loc>http://derekogle.com/FSA/reference/agePrecision.html</loc>
   </url>
   <url>
-    <loc>http://derekogle.com/FSA/reference/alkAgeDist.html</loc>
+    <loc>http://derekogle.com/FSA/reference/ALKAgeDist.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/alkIndivAge.html</loc>
   </url>
   <url>
-    <loc>http://derekogle.com/FSA/reference/alkMeanVar.html</loc>
+    <loc>http://derekogle.com/FSA/reference/ALKMeanVar.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/alkPlot.html</loc>
@@ -32,6 +47,9 @@
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/boot.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/reference/bootCase.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/BrookTroutTH.html</loc>
@@ -55,16 +73,28 @@
     <loc>http://derekogle.com/FSA/reference/ChinookArg.html</loc>
   </url>
   <url>
+    <loc>http://derekogle.com/FSA/reference/chooseColors.html</loc>
+  </url>
+  <url>
     <loc>http://derekogle.com/FSA/reference/CodNorwegian.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/col2rgbt.html</loc>
   </url>
   <url>
+    <loc>http://derekogle.com/FSA/reference/compIntercepts.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/reference/compSlopes.html</loc>
+  </url>
+  <url>
     <loc>http://derekogle.com/FSA/reference/CutthroatAL.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/depletion.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/reference/diags.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/dunnTest.html</loc>
@@ -85,10 +115,16 @@
     <loc>http://derekogle.com/FSA/reference/fact2num.html</loc>
   </url>
   <url>
+    <loc>http://derekogle.com/FSA/reference/filterD-deprecated.html</loc>
+  </url>
+  <url>
     <loc>http://derekogle.com/FSA/reference/filterD.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/fishR.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/reference/fitPlot-deprecated.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/fitPlot.html</loc>
@@ -106,6 +142,9 @@
     <loc>http://derekogle.com/FSA/reference/fsaNews.html</loc>
   </url>
   <url>
+    <loc>http://derekogle.com/FSA/reference/FSAUtils.html</loc>
+  </url>
+  <url>
     <loc>http://derekogle.com/FSA/reference/geomean.html</loc>
   </url>
   <url>
@@ -121,7 +160,13 @@
     <loc>http://derekogle.com/FSA/reference/histFromSum.html</loc>
   </url>
   <url>
+    <loc>http://derekogle.com/FSA/reference/hoCoef.html</loc>
+  </url>
+  <url>
     <loc>http://derekogle.com/FSA/reference/hyperCI.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/reference/index.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/is.odd.html</loc>
@@ -145,6 +190,9 @@
     <loc>http://derekogle.com/FSA/reference/lwCompPreds.html</loc>
   </url>
   <url>
+    <loc>http://derekogle.com/FSA/reference/mapvalues.html</loc>
+  </url>
+  <url>
     <loc>http://derekogle.com/FSA/reference/metaM.html</loc>
   </url>
   <url>
@@ -163,6 +211,9 @@
     <loc>http://derekogle.com/FSA/reference/nlsTracePlot.html</loc>
   </url>
   <url>
+    <loc>http://derekogle.com/FSA/reference/oddeven.html</loc>
+  </url>
+  <url>
     <loc>http://derekogle.com/FSA/reference/peek.html</loc>
   </url>
   <url>
@@ -176,6 +227,9 @@
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/plotAB.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/reference/plotBinResp.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/poiCI.html</loc>
@@ -236,6 +290,12 @@
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/srStarts.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/reference/stockRecruitment.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/reference/Subset.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/Summarize.html</loc>

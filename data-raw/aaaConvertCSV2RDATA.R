@@ -5,23 +5,18 @@
 ##  aaaConvertTab2CSV.R if there is.
 ################################################################################
 
-library(tools)
-
-## Get all .csv files in the data-raw directory
-setwd("C:/aaaWork/Programs/GitHub/FSA/data-raw")
-raw <- list.files(pattern="*.csv")
-
-## You may only want to use a few files ... use this (e.g.) to do that
-#raw
+## Get all .csv files in the data-raw directory (assumes wd is project directory)
+raw <- list.files(path="./data-raw",pattern="*.csv")
+## If you only want to use a few files then do this (e.g.)
 #raw <- raw[c(10,16)]
+raw
 
-#### Convert to .rdata files ####
-## Cycle through each file to make it an RDA file
+#### Convert all in raw to .rdata files
 for (f in raw) {
-  print(f)
-  ## Read file
-  nm <- file_path_sans_ext(f)
-  assign(nm,read.csv(f))
-  ## Save as an .rdata file
-  save(list=nm,file=paste0("../data/",nm,".rdata"))
+  oldf <- paste0("data-raw/",f)
+  nm <- tools::file_path_sans_ext(f)
+  newf <- paste0("data/",nm,".rdata")
+  cat(oldf,"---->",newf,"\n")
+  assign(nm,read.csv(oldf))    ## Read file
+  save(list=nm,file=newf)      ## Save as an .rdata file
 }

@@ -174,6 +174,8 @@ Striped Bass X White Bass,metric,linear,75,TL,RLP,115,NA,-5.201,3.139,NA,Brown a
 Suwannee Bass,metric,quadratic,75,TL,EmP,110,NA,-0.106,-1.363,0.995,Bonvechio et al. (2010),none
 Tiger Muskellunge,English,linear,75,TL,RLP,9.5,NA,-4.095,3.337,NA,Rogers and Koupal (1997),none
 Tiger Muskellunge,metric,linear,75,TL,RLP,240,NA,-6.126,3.337,NA,Rogers and Koupal (1997),none
+Utah Chub,metric,linear,75,TL,EmP,90,410,-4.938,3.031,NA,Black et al. (2021),none
+Utah Chub,English,linear,75,TL,EmP,4,16,-3.335,3.031,NA,Black et al. (2021),none
 Walleye,English,linear,75,TL,RLP,6,NA,-3.642,3.18,NA,Murphy et al. (1990),none
 Walleye,metric,linear,75,TL,RLP,150,NA,-5.453,3.18,NA,Murphy et al. (1990),none
 Walleye (30-149 mm),English,linear,75,TL,RLP,1.25,NA,-3.431,2.869,NA,Flammang et al. (1999),none
