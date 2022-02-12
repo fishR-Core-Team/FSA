@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://derekogle.com/FSA/404.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/authors.html</loc>
+  </url>
+  <url>
     <loc>http://derekogle.com/FSA/index.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/news/index.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/BluegillJL.html</loc>
@@ -133,16 +148,7 @@
     <loc>http://derekogle.com/FSA/reference/fact2num.html</loc>
   </url>
   <url>
-    <loc>http://derekogle.com/FSA/reference/filterD.html</loc>
-  </url>
-  <url>
     <loc>http://derekogle.com/FSA/reference/fishR.html</loc>
-  </url>
-  <url>
-    <loc>http://derekogle.com/FSA/reference/fitPlot.html</loc>
-  </url>
-  <url>
-    <loc>http://derekogle.com/FSA/reference/fsaNews.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/geomean.html</loc>
@@ -161,6 +167,9 @@
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/hyperCI.html</loc>
+  </url>
+  <url>
+    <loc>http://derekogle.com/FSA/reference/index.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/is.odd.html</loc>
@@ -236,9 +245,6 @@
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/repeatedRows2Keep.html</loc>
-  </url>
-  <url>
-    <loc>http://derekogle.com/FSA/reference/residPlot.html</loc>
   </url>
   <url>
     <loc>http://derekogle.com/FSA/reference/se.html</loc>
