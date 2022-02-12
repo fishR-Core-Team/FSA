@@ -108,68 +108,68 @@
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>First RHS variable was converted to a factor.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Second RHS variable was converted to a factor.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    A  B  C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a 68 79 63</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> b 56 71 61</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> c 66 79 70</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> d 61 60 63</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> e 64 75 64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 73 70 60</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 59 68 63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 61 83 75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d 75 57 50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> e 57 79 70</span>
 <span class="r-in"><span class="fu">sumTable</span><span class="op">(</span><span class="va">dat</span><span class="op">~</span><span class="va">g1</span><span class="op">*</span><span class="va">g2</span>,data<span class="op">=</span><span class="va">d</span>,FUN<span class="op">=</span><span class="va">validn</span><span class="op">)</span>       <span class="co"># get sample size (better way)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>First RHS variable was converted to a factor.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Second RHS variable was converted to a factor.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    A  B  C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a 68 79 63</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> b 56 71 61</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> c 66 79 70</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> d 61 60 63</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> e 64 75 64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 73 70 60</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 59 68 63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 61 83 75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d 75 57 50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> e 57 79 70</span>
 <span class="r-in"><span class="fu">sumTable</span><span class="op">(</span><span class="va">dat</span><span class="op">~</span><span class="va">g1</span><span class="op">*</span><span class="va">g2</span>,data<span class="op">=</span><span class="va">d</span>,FUN<span class="op">=</span><span class="va">mean</span><span class="op">)</span>         <span class="co"># get mean</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>First RHS variable was converted to a factor.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Second RHS variable was converted to a factor.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            A          B          C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a -0.0885148  0.0657586 -0.0356672</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> b -0.0766953  0.1568720 -0.1561091</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> c -0.0871040  0.1005442 -0.0972573</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> d  0.0843766 -0.1238508 -0.0564840</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> e  0.0954764  0.0481848  0.1928952</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a -0.0742281  0.0071300  0.1220617</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b -0.0890093 -0.2673082 -0.1332384</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c  0.2214661  0.0308539 -0.0028557</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d -0.0024910 -0.1756349 -0.0269173</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> e -0.1744024  0.0166841 -0.0942160</span>
 <span class="r-in"><span class="fu">sumTable</span><span class="op">(</span><span class="va">dat</span><span class="op">~</span><span class="va">g1</span><span class="op">*</span><span class="va">g2</span>,data<span class="op">=</span><span class="va">d</span>,FUN<span class="op">=</span><span class="va">sd</span><span class="op">)</span>           <span class="co"># get sd</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>First RHS variable was converted to a factor.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Second RHS variable was converted to a factor.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           A         B         C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a 1.0617189 0.9996849 1.0658512</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> b 0.9441258 1.0622785 1.1090741</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> c 0.9952757 0.9970966 1.0607878</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> d 0.9340014 0.9199569 0.9267066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> e 0.9082108 1.1721435 0.8699569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 0.8540582 0.9696002 1.0705232</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 1.0772834 1.0319364 0.9669174</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 1.0477833 1.0044162 1.0192641</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d 0.9593495 1.0464473 0.9969988</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> e 1.0720302 0.9515544 1.0513543</span>
 <span class="r-in"><span class="fu">sumTable</span><span class="op">(</span><span class="va">dat</span><span class="op">~</span><span class="va">g1</span><span class="op">*</span><span class="va">g2</span>,data<span class="op">=</span><span class="va">d</span>,FUN<span class="op">=</span><span class="va">sd</span>,digits<span class="op">=</span><span class="fl">1</span><span class="op">)</span>  <span class="co"># show digits= argument</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>First RHS variable was converted to a factor.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Second RHS variable was converted to a factor.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     A   B   C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a 1.1 1.0 1.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> b 0.9 1.1 1.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> c 1.0 1.0 1.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> d 0.9 0.9 0.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> e 0.9 1.2 0.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     A B   C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 0.9 1 1.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 1.1 1 1.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 1.0 1 1.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d 1.0 1 1.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> e 1.1 1 1.1</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Also demonstrate use in the 1-way example -- but see Summarize()</span></span>
 <span class="r-in"><span class="fu">sumTable</span><span class="op">(</span><span class="va">dat</span><span class="op">~</span><span class="va">g1</span>,data<span class="op">=</span><span class="va">d</span>,FUN<span class="op">=</span><span class="va">validn</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>RHS variable was converted to a factor.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   a   b   c   d   e </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 210 188 215 184 203 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 203 190 219 182 206 </span>
 <span class="r-in"><span class="fu">sumTable</span><span class="op">(</span><span class="va">dat</span><span class="op">~</span><span class="va">g1</span>,data<span class="op">=</span><span class="va">d</span>,FUN<span class="op">=</span><span class="va">mean</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>RHS variable was converted to a factor.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          a          b          c          d          e </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.0146243 -0.0142536 -0.0214599 -0.0317531  0.1087175 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.0118431 -0.1674870  0.0724024 -0.0634279 -0.0738739 </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Example with a missing value (compare to above)</span></span>
 <span class="r-in"><span class="va">d</span><span class="op">$</span><span class="va">dat</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
 <span class="r-in"><span class="fu">sumTable</span><span class="op">(</span><span class="va">dat</span><span class="op">~</span><span class="va">g1</span>,data<span class="op">=</span><span class="va">d</span>,FUN<span class="op">=</span><span class="va">validn</span><span class="op">)</span>  <span class="co"># note use of validn</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>RHS variable was converted to a factor.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   a   b   c   d   e </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 210 188 215 183 203 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 203 190 219 181 206 </span>
 <span class="r-in"><span class="fu">sumTable</span><span class="op">(</span><span class="va">dat</span><span class="op">~</span><span class="va">g1</span>,data<span class="op">=</span><span class="va">d</span>,FUN<span class="op">=</span><span class="va">mean</span>,na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>RHS variable was converted to a factor.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          a          b          c          d          e </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.0146243 -0.0142536 -0.0214599 -0.0359018  0.1087175 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.0118431 -0.1674870  0.0724024 -0.0663266 -0.0738739 </span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

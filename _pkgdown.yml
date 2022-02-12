@@ -110,11 +110,14 @@ reference:
   - title: Utilities (Other)
     desc: Miscellaneous utilities.
     contents:
+      - FSA
       - capFirst
       - col2rgbt
       - fact2num
+      - fishR
       - headtail
       - is.even
+      - kCounts
       - lagratio
       - perc
       - peek
@@ -139,6 +142,10 @@ reference:
       - WhitefishLC
       - WR79
       - WSlit
+  - title: Defunct
+    desc: Defunct functions.
+    contents:
+      - FSA-defunct
 
 navbar:
   type: inverse

@@ -57,11 +57,19 @@
 <h2 class="page-header" data-toc-text="0.9.2" id="fsa-092-12-feb-21">FSA 0.9.2 12-Feb-21<a class="anchor" aria-label="anchor" href="#fsa-092-12-feb-21"></a></h2>
 <ul><li>Last version maintained by Derek Ogle. Transfering to fishR Core Team for next version.</li>
 <li>
+<code><a href="../reference/FSA-defunct.html">filterD()</a></code>: <strong>REMOVED</strong> (to <code>FSAmisc</code>).</li>
+<li>
+<code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: <strong>REMOVED</strong> (to <code>FSAmisc</code>).</li>
+<li>
+<code><a href="../reference/FSA-defunct.html">fsaNews()</a></code> and <code>FSANews()</code>: <strong>Removed</strong>.</li>
+<li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed the way <code>PSDlit</code> was loaded into the function environment so that <code><a href="../reference/psdAdd.html">FSA::psdAdd()</a></code> will work. Addresses <a href="https://github.com/droglenc/FSA/issues/85" class="external-link">#85</a>.</li>
 <li>
 <code>PSDLit</code>: Modified. Added info for Utah Chub (from <a href="https://webpages.uidaho.edu/quistlab/publications/NAJFM_2021_Black_et_al_UTC_Ws_length_categories.pdf" class="external-link">here</a>; address <a href="https://github.com/droglenc/FSA/issues/84" class="external-link">#84</a>).</li>
 <li>
 <code><a href="../reference/psdVal.html">psdVal()</a></code>: Modified. Changed the way <code>PSDlit</code> was loaded into the function environment so that <code><a href="../reference/psdVal.html">FSA::psdVal()</a></code> will work. Addresses <a href="https://github.com/droglenc/FSA/issues/85" class="external-link">#85</a>.</li>
+<li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: <strong>REMOVED</strong> (to <code>FSAmisc</code>).</li>
 <li>
 <code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Changed the way <code>WSlit</code> was loaded into the function environment so that <code><a href="../reference/wrAdd.html">FSA::wrAdd()</a></code> will work. Addresses <a href="https://github.com/droglenc/FSA/issues/85" class="external-link">#85</a>.</li>
 <li>
@@ -100,9 +108,9 @@
 <li>
 <code><a href="../reference/depletion.html">depletion()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66" class="external-link">#66</a>).</li>
 <li>
-<code><a href="../reference/filterD.html">filterD()</a></code>: <strong>DEPRECATED</strong> (partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>).</li>
+<code><a href="../reference/FSA-defunct.html">filterD()</a></code>: <strong>DEPRECATED</strong> (partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>).</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: <strong>DEPRECATED</strong> (partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>). Prior to that removed use of <code><a href="../reference/FSA-defunct.html">chooseColors()</a></code> (see above).</li>
+<code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: <strong>DEPRECATED</strong> (partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>). Prior to that removed use of <code><a href="../reference/FSA-defunct.html">chooseColors()</a></code> (see above).</li>
 <li>
 <code><a href="../reference/FSA-defunct.html">diags()</a></code>: <strong>REMOVED</strong> (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>.</li>
 <li>
@@ -138,7 +146,7 @@
 <li>
 <code><a href="../reference/removal.html">removal()</a></code>: Modified. Added check and then warning if non-whole numbers are in <code>catch=</code> (addresses <a href="https://github.com/droglenc/FSA/issues/60" class="external-link">#60</a>). Also modified checks of data integrity to be more robust (e.g., if a character vector is sent). Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66" class="external-link">#66</a>).</li>
 <li>
-<code><a href="../reference/residPlot.html">residPlot()</a></code>: <strong>DEPRECATED</strong> (partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>). Prior to that removed use of <code><a href="../reference/FSA-defunct.html">chooseColors()</a></code> (see above).</li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: <strong>DEPRECATED</strong> (partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>). Prior to that removed use of <code><a href="../reference/FSA-defunct.html">chooseColors()</a></code> (see above).</li>
 <li>
 <code><a href="../reference/FSA-defunct.html">Subset()</a></code>: <strong>REMOVED</strong>. Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>.</li>
 <li>
@@ -165,15 +173,15 @@
 <li>
 <code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Fixed bug with y-axes when <code>freq=FALSE</code> is used (fixes <a href="https://github.com/droglenc/FSA/issues/62" class="external-link">#62</a>; thanks to <a href="https://github.com/carlostorrescubila" class="external-link">@carlostorrescubila</a>).</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Fixed bugs with handling models that used character rather than factor variables.</li>
+<code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: Modified. Fixed bugs with handling models that used character rather than factor variables.</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">plotBinResp()</a></code>: REMOVED. Removed as a user-facing function, but made as an internal function for continued use in <code><a href="../reference/fitPlot.html">fitPlot()</a></code> while <code><a href="../reference/fitPlot.html">fitPlot()</a></code> is deprecated.</li>
+<code><a href="../reference/FSA-defunct.html">plotBinResp()</a></code>: REMOVED. Removed as a user-facing function, but made as an internal function for continued use in <code><a href="../reference/FSA-defunct.html">fitPlot()</a></code> while <code><a href="../reference/FSA-defunct.html">fitPlot()</a></code> is deprecated.</li>
 <li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Fixed bug relate to species that were <code>NA</code> (fixes <a href="https://github.com/droglenc/FSA/issues/64" class="external-link">#64</a>; thanks to Dan Shoup). Added more tests and fixed some typos in the documentation.</li>
 <li>
 <code><a href="../reference/psdPlot.html">psdPlot()</a></code>: Modified. Fixed bug with box around the plot when <code>add.psd=FALSE</code>. Added 5% expansion to top of y-axis so that bars did not run into the box.</li>
 <li>
-<code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Fixed bugs with handling models that used character rather than factor variables.</li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Fixed bugs with handling models that used character rather than factor variables.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.31" id="fsa-0831-7-nov20">FSA 0.8.31 7-Nov20<small>2020-11-08</small><a class="anchor" aria-label="anchor" href="#fsa-0831-7-nov20"></a></h2>
@@ -204,7 +212,7 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.28" id="fsa-0828-28-feb-20">FSA 0.8.28 28-Feb-20<a class="anchor" aria-label="anchor" href="#fsa-0828-28-feb-20"></a></h2>
 <ul><li>
-<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Changed so that lines are plotted after the points in the IVR versions.</li>
+<code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: Modified. Changed so that lines are plotted after the points in the IVR versions.</li>
 <li>
 <code><a href="../reference/ksTest.html">ksTest()</a></code>: Modified. Changed documentation examples to handle R’s new way of handling <code>stringsAsFactors=</code> (per request from CRAN on 27-Feb-20).</li>
 <li>
@@ -250,9 +258,9 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.23" id="fsa-0823-1-may-19">FSA 0.8.23 1-May-19<small>2019-05-02</small><a class="anchor" aria-label="anchor" href="#fsa-0823-1-may-19"></a></h2>
 <ul><li>Reorganized <code>testthat</code> folder as suggested in <code>testthat</code> release notes.</li>
-<li>Removed all uses of <code><a href="../reference/FSA-defunct.html">Subset()</a></code> (replaced with <code><a href="../reference/filterD.html">filterD()</a></code>).</li>
+<li>Removed all uses of <code><a href="../reference/FSA-defunct.html">Subset()</a></code> (replaced with <code><a href="../reference/FSA-defunct.html">filterD()</a></code>).</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Fixed bug related to y-axis limits not extending to contain the data, confidence bands, or prediction bands (in <code>fitPlot.slr()</code>). This addresses <a href="https://github.com/droglenc/NCStats/issues/3" class="external-link">#3</a> listed for <code>NCStats</code>).</li>
+<code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: Modified. Fixed bug related to y-axis limits not extending to contain the data, confidence bands, or prediction bands (in <code>fitPlot.slr()</code>). This addresses <a href="https://github.com/droglenc/NCStats/issues/3" class="external-link">#3</a> listed for <code>NCStats</code>).</li>
 <li>
 <code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Fixed bug related to subsequent calls after a call that used <code>iaxs=FALSE</code>. This addresses <a href="https://github.com/droglenc/FSA/issues/46" class="external-link">#46</a>.</li>
 <li>
@@ -309,7 +317,7 @@
 <li>
 <code><a href="../reference/removal.html">removal()</a></code>: Modified. Added <code>method="Burhnam"</code> via the <a href="https://github.com/droglenc/FSA/pull/51" class="external-link">#51</a> from Powell Wheeler.</li>
 <li>
-<code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/38" class="external-link">#38</a>).</li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/38" class="external-link">#38</a>).</li>
 <li>
 <code>SMBassWB</code>: Modified. Fixed minor data entry error in row 383.</li>
 <li>
@@ -378,7 +386,7 @@
 <li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed three <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Changed three <code>1:length()</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Changed three <code>1:length()</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
 <code><a href="../reference/Summarize.html">Summarize()</a></code>: Modified. Changed one <code>1:length()</code> structure to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
@@ -430,7 +438,7 @@
 <h2 class="page-header" data-toc-text="0.8.15" id="fsa-0815-6-sep-17">FSA 0.8.15 6-Sep-17<a class="anchor" aria-label="anchor" href="#fsa-0815-6-sep-17"></a></h2>
 <ul><li>Added a script to the <code>helpers</code> directory that will test that all required packages are installed.</li>
 <li>
-<code>iAddOutlierTestResults()</code>: Modified. Fixed bug related to point labels in <code><a href="../reference/residPlot.html">residPlot()</a></code> when the data.frame for the original model had <code>NA</code> values.</li>
+<code>iAddOutlierTestResults()</code>: Modified. Fixed bug related to point labels in <code><a href="../reference/FSA-defunct.html">residPlot()</a></code> when the data.frame for the original model had <code>NA</code> values.</li>
 <li>
 <code><a href="../reference/removal.html">removal()</a></code>: Modified document by merging pull request <a href="https://github.com/droglenc/FSA/pull/33" class="external-link">#33</a>.</li>
 <li>
@@ -479,11 +487,11 @@
 <li>
 <code><a href="../reference/plotAB.html">plotAB()</a></code>: Added. See description above for <code><a href="../reference/ageBias.html">ageBias()</a></code>.</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">plotBinResp()</a></code>: Modified. Changed how default transparency level is calculated and set the maximum transparency to 50 (changed from 500). Fixed bug in how the width of the proportions windows were calculated by default. These changes will affect <code><a href="../reference/fitPlot.html">fitPlot()</a></code> for logistic regression models.</li>
+<code><a href="../reference/FSA-defunct.html">plotBinResp()</a></code>: Modified. Changed how default transparency level is calculated and set the maximum transparency to 50 (changed from 500). Fixed bug in how the width of the proportions windows were calculated by default. These changes will affect <code><a href="../reference/FSA-defunct.html">fitPlot()</a></code> for logistic regression models.</li>
 <li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed some <code>if()</code>s with <code><a href="https://rdrr.io/r/base/class.html" class="external-link">class()</a></code>es to <code><a href="https://rdrr.io/r/base/class.html" class="external-link">inherits()</a></code>.</li>
 <li>
-<code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Changed default for <code>loess=</code> from <code>TRUE</code> to <code>FALSE</code>. Changed some <code>if()</code>s with <code><a href="https://rdrr.io/r/base/class.html" class="external-link">class()</a></code>es to <code><a href="https://rdrr.io/r/base/class.html" class="external-link">inherits()</a></code>.</li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Changed default for <code>loess=</code> from <code>TRUE</code> to <code>FALSE</code>. Changed some <code>if()</code>s with <code><a href="https://rdrr.io/r/base/class.html" class="external-link">class()</a></code>es to <code><a href="https://rdrr.io/r/base/class.html" class="external-link">inherits()</a></code>.</li>
 <li>
 <code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Changed some <code>if()</code>s with <code><a href="https://rdrr.io/r/base/class.html" class="external-link">class()</a></code>es to <code><a href="https://rdrr.io/r/base/class.html" class="external-link">inherits()</a></code>.</li>
 </ul></div>
@@ -528,7 +536,7 @@
 <li>
 <code><a href="../reference/expandLenFreq.html">expandLenFreq()</a></code>: Modified. Changed all <code><a href="https://rdrr.io/r/base/message.html" class="external-link">message()</a></code>s to <code><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat()</a></code>s. Removed “names” from printed items for a cleaner look.</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Added <code>cex.leg=</code> and <code>box.lty.leg=</code> to IVR plots.</li>
+<code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: Modified. Added <code>cex.leg=</code> and <code>box.lty.leg=</code> to IVR plots.</li>
 <li>
 <code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Fixed a bug with adding the horizontal line at 0 when the user uses <code>plot=FALSE</code>, which occurs with <code>hist.bootCase()</code>.</li>
 <li>
@@ -572,7 +580,7 @@
 <li>
 <code><a href="../reference/removal.html">removal()</a></code>: Modified. Added a check and a returned error if <code>method="Schnute"</code> and the last of three catches is zero (addresses <a href="https://github.com/droglenc/FSA/issues/26" class="external-link">#26</a>) Fixed bug related to sending catches in a one column data.frame. Fixed bug related to selecting only one <code>parm=</code> in <code><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint()</a></code>. Added tests.</li>
 <li>
-<code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Added <code>cex.leg=</code> and <code>box.lty.leg=</code> to IVR plots. Removed extra spaces in main title if <code>main="MODEL"</code>. Added some tests.</li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Added <code>cex.leg=</code> and <code>box.lty.leg=</code> to IVR plots. Removed extra spaces in main title if <code>main="MODEL"</code>. Added some tests.</li>
 <li>
 <code><a href="../reference/tictactoe.html">tictactoe()</a></code>: Modified. Changed used of <code><a href="../reference/FSA-internals.html">iMakeColor()</a></code> to <code><a href="../reference/col2rgbt.html">col2rgbt()</a></code>.</li>
 <li>
@@ -637,8 +645,8 @@
 <h2 class="page-header" data-toc-text="0.8.7" id="fsa-087-8-may-16">FSA 0.8.7 8-May-16<small>2016-05-08</small><a class="anchor" aria-label="anchor" href="#fsa-087-8-may-16"></a></h2>
 <ul><li>Compiled under R v3.3.0.</li>
 <li>Removed <code>relax</code> from <code>Suggests</code>. See <code><a href="../reference/srStarts.html">srStarts()</a></code> and <code><a href="../reference/vbStarts.html">vbStarts()</a></code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/17" class="external-link">#17</a>.</li>
-<li>Removed <code>gdata</code> from <code>Imports</code>. See <code><a href="../reference/filterD.html">filterD()</a></code> and <code><a href="../reference/FSA-defunct.html">Subset()</a></code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/5" class="external-link">#5</a>.</li>
-<li>Added no coverage blocks to <code>ageKeyPlot()</code>, <code><a href="../reference/capHistSum.html">capHistSum()</a></code>, <code><a href="../reference/hist.formula.html">hist.formula()</a></code>, <code><a href="../reference/histFromSum.html">histFromSum()</a></code>, <code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>, <code>plot.agebias()</code>, <code>plot.CatchCurve()</code>, <code>plot.ChapmanRobson()</code>, <code>plot.Depletion()</code>, <code><a href="../reference/FSA-defunct.html">plotBinResp()</a></code>, <code>print.compSlopes()</code>, <code>print.compIntercepts()</code>, <code><a href="../reference/metaM.html">print.metaM()</a></code>, <code><a href="../reference/psdPlot.html">psdPlot()</a></code>,<code><a href="../reference/residPlot.html">residPlot()</a></code>, <code>srModels()</code>, <code><a href="../reference/srStarts.html">srStarts()</a></code>, and <code><a href="../reference/vbStarts.html">vbStarts()</a></code>.</li>
+<li>Removed <code>gdata</code> from <code>Imports</code>. See <code><a href="../reference/FSA-defunct.html">filterD()</a></code> and <code><a href="../reference/FSA-defunct.html">Subset()</a></code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/5" class="external-link">#5</a>.</li>
+<li>Added no coverage blocks to <code>ageKeyPlot()</code>, <code><a href="../reference/capHistSum.html">capHistSum()</a></code>, <code><a href="../reference/hist.formula.html">hist.formula()</a></code>, <code><a href="../reference/histFromSum.html">histFromSum()</a></code>, <code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>, <code>plot.agebias()</code>, <code>plot.CatchCurve()</code>, <code>plot.ChapmanRobson()</code>, <code>plot.Depletion()</code>, <code><a href="../reference/FSA-defunct.html">plotBinResp()</a></code>, <code>print.compSlopes()</code>, <code>print.compIntercepts()</code>, <code><a href="../reference/metaM.html">print.metaM()</a></code>, <code><a href="../reference/psdPlot.html">psdPlot()</a></code>,<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>, <code>srModels()</code>, <code><a href="../reference/srStarts.html">srStarts()</a></code>, and <code><a href="../reference/vbStarts.html">vbStarts()</a></code>.</li>
 <li>
 <code>ageKey()</code>: Removed. Deprecated since 0.4.24. Use <code><a href="../reference/alkIndivAge.html">alkIndivAge()</a></code>.</li>
 <li>
@@ -648,9 +656,9 @@
 <li>
 <code><a href="../reference/capHistSum.html">capHistSum()</a></code>: Added tests.</li>
 <li>
-<code><a href="../reference/filterD.html">filterD()</a></code>: Modified. Changed to use <code><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels()</a></code> from <code>base</code> rather than <code>drop.levels()</code> from <code>gdata</code>. Added <code>except=</code>.</li>
+<code><a href="../reference/FSA-defunct.html">filterD()</a></code>: Modified. Changed to use <code><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels()</a></code> from <code>base</code> rather than <code>drop.levels()</code> from <code>gdata</code>. Added <code>except=</code>.</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Changed the way colors, plotting characters, and line types were handled for most of the models. Should make their use more flexible. Fixed errors that occurred in IVR models when the factor variable preceded the covariate in the model (fixes <a href="https://github.com/droglenc/FSA/issues/18" class="external-link">#18</a>). Started to add tests for error and warning messages.</li>
+<code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: Modified. Changed the way colors, plotting characters, and line types were handled for most of the models. Should make their use more flexible. Fixed errors that occurred in IVR models when the factor variable preceded the covariate in the model (fixes <a href="https://github.com/droglenc/FSA/issues/18" class="external-link">#18</a>). Started to add tests for error and warning messages.</li>
 <li>
 <code><a href="../reference/growthModels.html">GompertzFuns()</a></code>: Modified. Changed <code>type=</code> to <code>param=</code>.</li>
 <li>
@@ -664,7 +672,7 @@
 <li>
 <code>LogisticModels()</code>: Removed. Replaced with <code><a href="../reference/growthModels.html">growthFunShow()</a></code>.</li>
 <li>
-<code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Changed the way colors, plotting characters, and line types were handled for most of the models. Should make their use more flexible. Now matches coding in <code><a href="../reference/fitPlot.html">fitPlot()</a></code>. Fixed bug with main titling, but now asks user to decide if they want the model call or not. Started to add tests for error and warning messages.</li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Changed the way colors, plotting characters, and line types were handled for most of the models. Should make their use more flexible. Now matches coding in <code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>. Fixed bug with main titling, but now asks user to decide if they want the model call or not. Started to add tests for error and warning messages.</li>
 <li>
 <code><a href="../reference/growthModels.html">RichardsFuns()</a></code>: Modified. Changed <code>type=</code> to <code>param=</code>.</li>
 <li>
@@ -728,7 +736,7 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.4" id="fsa-084-21-dec-15">FSA 0.8.4 21-Dec-15<small>2015-12-21</small><a class="anchor" aria-label="anchor" href="#fsa-084-21-dec-15"></a></h2>
 <ul><li>Now using Roxygen2 v5.0.1.</li>
-<li>Removed some <code>requireNamespaces()</code> from some functions and moved those packages from <code>Suggests</code> to <code>Imports</code> so that those functions would work better with other packages. The only <code>requireNamespaces()</code> that remain are related to functions that require the <code>relax</code> package (so tcltk is not installed until needed) and <code>knitr</code>, <code>dunn.test</code>, and <code>lmtest</code> as these are unlikely to be used by other packages and will keep the packages that are loaded with <code>FSA</code> to a minimum. Packages moved from <code>Suggests</code> to <code>Depends</code> are <code>Hmisc</code> (for use in <code>binCI</code>), <code>gdata</code> (for use in <code><a href="../reference/filterD.html">filterD()</a></code> and <code><a href="../reference/FSA-defunct.html">Subset()</a></code>), <code>dplyr</code> (for use in <code><a href="../reference/filterD.html">filterD()</a></code>), <code>sciplot</code> (for use in <code><a href="../reference/fitPlot.html">fitPlot()</a></code>), <code>car</code> (for use in <code><a href="../reference/residPlot.html">residPlot()</a></code>), and <code>gplots</code> (for use with colors).</li>
+<li>Removed some <code>requireNamespaces()</code> from some functions and moved those packages from <code>Suggests</code> to <code>Imports</code> so that those functions would work better with other packages. The only <code>requireNamespaces()</code> that remain are related to functions that require the <code>relax</code> package (so tcltk is not installed until needed) and <code>knitr</code>, <code>dunn.test</code>, and <code>lmtest</code> as these are unlikely to be used by other packages and will keep the packages that are loaded with <code>FSA</code> to a minimum. Packages moved from <code>Suggests</code> to <code>Depends</code> are <code>Hmisc</code> (for use in <code>binCI</code>), <code>gdata</code> (for use in <code><a href="../reference/FSA-defunct.html">filterD()</a></code> and <code><a href="../reference/FSA-defunct.html">Subset()</a></code>), <code>dplyr</code> (for use in <code><a href="../reference/FSA-defunct.html">filterD()</a></code>), <code>sciplot</code> (for use in <code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>), <code>car</code> (for use in <code><a href="../reference/FSA-defunct.html">residPlot()</a></code>), and <code>gplots</code> (for use with colors).</li>
 <li>
 <code><a href="../reference/addZeroCatch.html">addZeroCatch()</a></code>: Modified tests (to reduce warnings that were not part of tests).</li>
 <li>
@@ -787,7 +795,7 @@
 <li>
 <code><a href="../reference/fishR.html">fishR()</a></code>: Modified. Changed <code><a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">browseURL()</a></code> to <code><a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">utils::browseURL()</a></code>.</li>
 <li>
-<code><a href="../reference/fsaNews.html">fsaNews()</a></code>: Modified. Changed <code><a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">browseURL()</a></code> to <code><a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">utils::browseURL()</a></code>.</li>
+<code><a href="../reference/FSA-defunct.html">fsaNews()</a></code>: Modified. Changed <code><a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">browseURL()</a></code> to <code><a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">utils::browseURL()</a></code>.</li>
 <li>
 <code><a href="../reference/headtail.html">headtail()</a></code>: Modified. Changed <code><a href="https://rdrr.io/r/utils/head.html" class="external-link">head()</a></code> to <code><a href="https://rdrr.io/r/utils/head.html" class="external-link">utils::head()</a></code> and <code><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail()</a></code> to <code><a href="https://rdrr.io/r/utils/head.html" class="external-link">utils::tail()</a></code>.</li>
 <li>
@@ -918,9 +926,9 @@
 <li>
 <code><a href="../reference/FSA-defunct.html">chooseColors()</a></code>: Modified. Check for<code>gplots</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>gplots</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
-<code><a href="../reference/filterD.html">filterD()</a></code>: Modified. Check for <code>dplyr</code> and <code>gdata</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>dplyr</code> and <code>gdata</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
+<code><a href="../reference/FSA-defunct.html">filterD()</a></code>: Modified. Check for <code>dplyr</code> and <code>gdata</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>dplyr</code> and <code>gdata</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Check for<code>sciplot</code> with <code>requireNamespaces()</code> before adding intervals tot he plot. This allowed moving <code>sciplot</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
+<code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: Modified. Check for<code>sciplot</code> with <code>requireNamespaces()</code> before adding intervals tot he plot. This allowed moving <code>sciplot</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
 <code><a href="../reference/extraTests.html">lrt()</a></code>: Modified. Check for<code>lmtest</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>lmtest</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
@@ -929,7 +937,7 @@
 <li>
 <code><a href="../reference/knitUtil.html">purl2()</a></code>: Modified. Check for<code>knitr</code> with <code>requireNamespaces()</code> before processing body of function. This allowed moving <code>knitr</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
-<code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Check for<code>car</code> with <code>requireNamespaces()</code> before highlighting outliers on the plot. This allowed moving <code>sciplot</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Check for<code>car</code> with <code>requireNamespaces()</code> before highlighting outliers on the plot. This allowed moving <code>sciplot</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
 <code><a href="../reference/srStarts.html">srStarts()</a></code>: Modified. Check for<code>relax</code> with <code>requireNamespaces()</code> before constructing the dynamic plot. This allowed moving <code>relax</code> into <code>Suggests</code> declarations rather than <code>Imports</code>.</li>
 <li>
@@ -1071,9 +1079,9 @@
 <ul><li>
 <code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. Fixed bugs related to axes on numbers plot and sunflower plot.</li>
 <li>
-<code><a href="../reference/filterD.html">filterD()</a></code>: Modified. Added <code>reorder=FALSE</code> to <code>drop.levels()</code> so that the order of levels is not changed when levels are dropped.</li>
+<code><a href="../reference/FSA-defunct.html">filterD()</a></code>: Modified. Added <code>reorder=FALSE</code> to <code>drop.levels()</code> so that the order of levels is not changed when levels are dropped.</li>
 <li>
-<code><a href="../reference/residPlot.html">residPlot.nlme()</a></code>: Added.</li>
+<code>residPlot.nlme()</code>: Added.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.22" id="fsa-0622-jun15">FSA 0.6.22 Jun15<a class="anchor" aria-label="anchor" href="#fsa-0622-jun15"></a></h2>
@@ -1191,7 +1199,7 @@
 <li>
 <code><a href="../reference/fishR.html">fishR()</a></code>: Modfiied. Fixed bug with <code>where="news"</code>. Added tests.</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Added ability to modify y-axis limits for the nonlinear regression model. Thanks to Gabriela N. for asking for this.</li>
+<code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: Modified. Added ability to modify y-axis limits for the nonlinear regression model. Thanks to Gabriela N. for asking for this.</li>
 <li>
 <code><a href="../reference/FSA-defunct.html">hoCoef()</a></code>: Modified. Changed <code>lmobj=</code> to <code>object=</code>, added degrees-of-freedom to the output matrix, streamlined the code, added some checks, and added some tests.</li>
 <li>
@@ -1222,9 +1230,9 @@
 <li>
 <code><a href="../reference/fact2num.html">fact2num()</a></code>: Modified. Added some checks with error messages. Added suite of tests.</li>
 <li>
-<code><a href="../reference/filterD.html">filterD()</a></code>: Modified. Changed to using <code>drop.levels</code> from <code>gdata</code> rather than <code>droplevels</code>. Added a warning if the resultant data.frame has zero rows (same as in <code>Subset</code>). Added some checks with error messages. Added suite of tests.</li>
+<code><a href="../reference/FSA-defunct.html">filterD()</a></code>: Modified. Changed to using <code>drop.levels</code> from <code>gdata</code> rather than <code>droplevels</code>. Added a warning if the resultant data.frame has zero rows (same as in <code>Subset</code>). Added some checks with error messages. Added suite of tests.</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Replaced the use of <code><a href="https://rdrr.io/r/stats/nobs.html" class="external-link">nobs()</a></code> from <code>gdata</code> in the internal function <code>iCIfp1()</code> with <code><a href="../reference/validn.html">validn()</a></code>. This removed one dependency on <code>gdata</code>.</li>
+<code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: Modified. Replaced the use of <code><a href="https://rdrr.io/r/stats/nobs.html" class="external-link">nobs()</a></code> from <code>gdata</code> in the internal function <code>iCIfp1()</code> with <code><a href="../reference/validn.html">validn()</a></code>. This removed one dependency on <code>gdata</code>.</li>
 <li>
 <code><a href="../reference/headtail.html">headtail()</a></code>: Modified. Internally remove <code>tbl_df</code> class (from <code>dplyr</code>) if it exists. Added some checks with error messages. Added suite of tests.</li>
 <li>
@@ -1252,7 +1260,7 @@
 <li>
 <code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. Corrected bugs with <code>show.pts=TRUE</code> and “sunflower plot” that came from changes made in version 0.5.1.</li>
 <li>
-<code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Deleted <code>student=</code>. Added <code>resid.type=</code> which allows used of standardized (internally studentized) and (externally) studentized residuals for linear models (along with raw residuals). Added code following <code><a href="https://rdrr.io/pkg/nlstools/man/nlsResiduals.html" class="external-link">nlsResiduals()</a></code> from <code>nlstools</code> for standardized residuals for nonlinear models.</li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Deleted <code>student=</code>. Added <code>resid.type=</code> which allows used of standardized (internally studentized) and (externally) studentized residuals for linear models (along with raw residuals). Added code following <code><a href="https://rdrr.io/pkg/nlstools/man/nlsResiduals.html" class="external-link">nlsResiduals()</a></code> from <code>nlstools</code> for standardized residuals for nonlinear models.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.12" id="fsa-0612-may15">FSA 0.6.12 May15<a class="anchor" aria-label="anchor" href="#fsa-0612-may15"></a></h2>
@@ -1431,7 +1439,7 @@
 <li>
 <code><a href="../reference/mrOpen.html">mrOpen()</a></code>: Modified. Removed pretty printing for <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> and <code><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint()</a></code> methods. These got in the way of being able to <code><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind()</a></code> the results together for a succinct display.</li>
 <li>
-<code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Changed use of <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par()</a></code> to eliminate modifications to the gridding of plots after the function is complete.</li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Changed use of <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par()</a></code> to eliminate modifications to the gridding of plots after the function is complete.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.44" id="fsa-0444-feb15">FSA 0.4.44 Feb15<a class="anchor" aria-label="anchor" href="#fsa-0444-feb15"></a></h2>
@@ -1466,7 +1474,7 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.42" id="fsa-0442-feb15">FSA 0.4.42 Feb15<a class="anchor" aria-label="anchor" href="#fsa-0442-feb15"></a></h2>
 <ul><li>
-<code><a href="../reference/filterD.html">filterD()</a></code>: Added.</li>
+<code><a href="../reference/FSA-defunct.html">filterD()</a></code>: Added.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.41" id="fsa-0441-jan15">FSA 0.4.41 Jan15<a class="anchor" aria-label="anchor" href="#fsa-0441-jan15"></a></h2>
@@ -1520,7 +1528,7 @@
 <li>
 <code><a href="../reference/psdVal.html">psdVal()</a></code>: Modified. Added ability to use a named vector in <code>addLens=</code> and then not use <code>addNames=</code>. The original functionality is still there. Added a check that one of the Gabelhouse lengths is not also one of the <code>addLens=</code> values. Deleted the <code>addLens=</code> value if it was (the user might have sent a name with this value and will want that name to appear in the results).</li>
 <li>
-<code><a href="../reference/residPlot.html">residPlot()</a></code>: Modiifed. Added <code>xpd=TRUE</code> to the loess line routine so that the curve and polygon would stay within the plotting region.</li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modiifed. Added <code>xpd=TRUE</code> to the loess line routine so that the curve and polygon would stay within the plotting region.</li>
 <li>
 <code><a href="../reference/tictactoe.html">tictactoe()</a></code>: Modified. Add the ability to handle differences between when <code>xaxs="r"</code> and <code>yaxs="r"</code> are used and when <code>xaxs="i"</code> and <code>yaxs="i"</code> are used.</li>
 </ul></div>
@@ -1765,7 +1773,7 @@
 <li>
 <code>CutthroatAL</code>: Modified. Updated from a new source to include many more years of samples.</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Changed <code>trans.pt=</code> to <code>transparency=</code>.</li>
+<code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: Modified. Changed <code>trans.pt=</code> to <code>transparency=</code>.</li>
 <li>
 <code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Completely re-built the internal file structure. Changed <code>incl.inputs=</code> to <code>verbose=</code>. Added the ability to construct a CI for the overall PE when multiple groups are used in a Petersen family method (thus, added a <code>incl.all=</code> to <code><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint()</a></code>). Changed default for <code>incl.all=</code> from <code>FALSE</code> to <code>TRUE</code>. Modified the messages when <code>verbose=TRUE</code>.</li>
 <li>
@@ -1799,19 +1807,19 @@
 <ul><li>
 <code>BluegillLM</code>: Modified. Added a seealso.</li>
 <li>
-<code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Changed the loess-related methods to use <code><a href="https://rdrr.io/r/stats/loess.html" class="external-link">loess()</a></code>, to put an approximate confident band with the line, the line and band are “under” the points, the line is lighter. Put the horizontal reference line at zero under the points. Made <code>loess=TRUE</code> the default.</li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Changed the loess-related methods to use <code><a href="https://rdrr.io/r/stats/loess.html" class="external-link">loess()</a></code>, to put an approximate confident band with the line, the line and band are “under” the points, the line is lighter. Put the horizontal reference line at zero under the points. Made <code>loess=TRUE</code> the default.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iAddLoessLine()</a></code>: Modified. See <code><a href="../reference/residPlot.html">residPlot()</a></code>.</li>
+<code><a href="../reference/FSA-internals.html">iAddLoessLine()</a></code>: Modified. See <code><a href="../reference/FSA-defunct.html">residPlot()</a></code>.</li>
 <li>
 <code><a href="../reference/FSA-internals.html">iHndlFormula()</a></code>: Modified. COrrected the positioning of the explanatory variables when the model has a response variable.</li>
 <li>
-<code>iMakeBaseResidPlot()</code>: Added as an internal function to <code><a href="../reference/residPlot.html">residPlot()</a></code> to simplify some coding.</li>
+<code>iMakeBaseResidPlot()</code>: Added as an internal function to <code><a href="../reference/FSA-defunct.html">residPlot()</a></code> to simplify some coding.</li>
 <li>
 <code><a href="../reference/FSA-internals.html">iMakeColor()</a></code>: Modified. More intelligently handles values that are greater than 1 (converts them to decimals by inverting.)</li>
 <li>
 <code>lwPredsComp()</code>: Modified. Changed <code>mdl=</code> to <code>object=</code>. Added use of internal <code><a href="../reference/FSA-internals.html">iHndlFormula()</a></code> and moved two internal functions outside the main function. Changed default for intervals from <code>both</code> to <code>confidence</code> and changed so that if only the confidence or prediction intervals are plotted they will be black with <code>lwd=</code> width (if both are plotted the CI is now black and the PI is now blue). Added a <code>show.preds</code> argument. Changed <code>connect.means=</code> to <code>connect.preds=</code>. Changed default <code>lwd=</code> value and how it is used for CIs, PIs, and the connection lines. Added <code>col.connect=</code> argument. Removed <code>mar</code> and <code>mgp</code> from <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par()</a></code> call (left <code>mfrow</code>). Added more examples. Added tests for error messages.</li>
 <li>
-<code><a href="../reference/residPlot.html">residPlot()</a></code>: Modified. Added <code>inclHist=</code> argument. Corrected a bug around the use of <code><a href="https://rdrr.io/pkg/plotrix/man/thigmophobe.html" class="external-link">thigmophobe()</a></code> in <code>iAddOutlierTest()</code>. Changed default for <code>student=</code> to <code>FALSE</code>. Modified and added more examples.</li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Added <code>inclHist=</code> argument. Corrected a bug around the use of <code><a href="https://rdrr.io/pkg/plotrix/man/thigmophobe.html" class="external-link">thigmophobe()</a></code> in <code>iAddOutlierTest()</code>. Changed default for <code>student=</code> to <code>FALSE</code>. Modified and added more examples.</li>
 <li>
 <code>SMBassWB</code>: Modified. Added a seealso.</li>
 </ul></div>
@@ -1819,17 +1827,17 @@
 <h2 class="page-header" data-toc-text="0.4.15" id="fsa-0415-jun14">FSA 0.4.15 Jun14<a class="anchor" aria-label="anchor" href="#fsa-0415-jun14"></a></h2>
 <ul><li>lots of roxygen2 Rd cleaning.</li>
 <li>
-<code>addLoessLine()</code>: Deleted. Moved functionality to <code><a href="../reference/FSA-internals.html">iAddLoessLine()</a></code> and moved code to <code><a href="../reference/residPlot.html">residPlot()</a></code> file..</li>
+<code>addLoessLine()</code>: Deleted. Moved functionality to <code><a href="../reference/FSA-internals.html">iAddLoessLine()</a></code> and moved code to <code><a href="../reference/FSA-defunct.html">residPlot()</a></code> file..</li>
 <li>
-<code>addOutlierTestResults()</code>: Deleted. Moved functionality to <code>iAddOutlierTestResults()</code> and moved code to <code><a href="../reference/residPlot.html">residPlot()</a></code> file.</li>
+<code>addOutlierTestResults()</code>: Deleted. Moved functionality to <code>iAddOutlierTestResults()</code> and moved code to <code><a href="../reference/FSA-defunct.html">residPlot()</a></code> file.</li>
 <li>
 <code><a href="../reference/capHistConvert.html">capHistConvert()</a></code>: Added an <code><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive()</a></code> to the <code>Rcapture</code> example in the help file.</li>
 <li>
 <code>checkStartcatW()</code>: Deleted. Moved functionality to <code><a href="../reference/FSA-internals.html">iCheckStartcatW()</a></code>.</li>
 <li>
-<code>ci.fp()</code>: Deleted. Moved functionality to <code>iCIfp()</code> and moved code to <code><a href="../reference/fitPlot.html">fitPlot()</a></code> file.</li>
+<code>ci.fp()</code>: Deleted. Moved functionality to <code>iCIfp()</code> and moved code to <code><a href="../reference/FSA-defunct.html">fitPlot()</a></code> file.</li>
 <li>
-<code>ci.fp.1()</code>: Deleted. Moved functionality to <code>iCIfp1()</code> and moved code to <code><a href="../reference/fitPlot.html">fitPlot()</a></code> file.</li>
+<code>ci.fp.1()</code>: Deleted. Moved functionality to <code>iCIfp1()</code> and moved code to <code><a href="../reference/FSA-defunct.html">fitPlot()</a></code> file.</li>
 <li>
 <code>ciLabel()</code>: Deleted. Moved functionality to <code><a href="../reference/FSA-internals.html">iCILabel()</a></code>.</li>
 <li>
@@ -1837,7 +1845,7 @@
 <li>
 <code>getFilePrefix()</code>: Deleted. Moved functionality to <code>iGetFilePrefix()</code> and moved code to <code>swvUtils</code> file.</li>
 <li>
-<code>getMainTitle()</code>: Deleted. Moved functionality to <code>iGetMainTitle()</code> and moved code to <code><a href="../reference/residPlot.html">residPlot()</a></code> file.</li>
+<code>getMainTitle()</code>: Deleted. Moved functionality to <code>iGetMainTitle()</code> and moved code to <code><a href="../reference/FSA-defunct.html">residPlot()</a></code> file.</li>
 <li>
 <code>getVarFromFormula()</code>: Deleted. Moved functionality to <code><a href="../reference/FSA-internals.html">iGetVarFromFormula()</a></code>.</li>
 <li>
@@ -1968,7 +1976,7 @@
 <li><p><code><a href="../reference/fact2num.html">fact2num()</a></code>: Modified. Changed example from “dont run” to “interactive.”</p></li>
 <li><p><code><a href="../reference/fishR.html">fishR()</a></code>: Modified. Removed <code>news</code> and added <code>posts</code> to the <code>where=</code> argument. Cleaned up the Rd file. Changed example from “dont run” to “interactive.”</p></li>
 <li><p><code><a href="../reference/FSA.html">FSA()</a></code>: Modified. Cleaned up the Rd file.</p></li>
-<li><p><code><a href="../reference/fsaNews.html">FSANews()</a></code>, <code><a href="../reference/fsaNews.html">fsaNews()</a></code>: Modified. Cleaned up and fixed the Usage section in the Rd file. Changed example from “dont run” to “interactive.”</p></li>
+<li><p><code>FSANews()</code>, <code><a href="../reference/FSA-defunct.html">fsaNews()</a></code>: Modified. Cleaned up and fixed the Usage section in the Rd file. Changed example from “dont run” to “interactive.”</p></li>
 <li><p><code>growthRadPlot()</code>: Modified. Changed example from “dont run” to “interactive.”</p></li>
 <li><p><code><a href="../reference/nlsBoot.html">htest.nlsBoot()</a></code>: Modified. Changed example from “dont run” to “interactive.”</p></li>
 <li><p><code><a href="../reference/lagratio.html">lagratio()</a></code>: Modified. Changed example from “dont run” to “interactive.”</p></li>
@@ -2066,8 +2074,8 @@
 <li><p><code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. Added a plot that shows the number of observations at each combined age. Changed the coding slightly around Bowker’s test (added an internal function) and implemented Evans and Hoenig’s and McNemar’s test. These changes resulting in adding a “table” choice to <code>what=</code> that will print just the age-agreement table. When <code>what="symmetry"</code> is chosen all three ob Bowker’s, McNemar’s, and Evans-Hoenig results will be output as a table. The age-agreement table is no longer printed when <code>what="symmetry"</code>. In addition, <code>what="Bowkers"</code>, <code>what="EvansHoenig"</code>, and <code>what="McNemars"</code> can be used to see the Bowker’s, Evans and Hoenig, and McNemars test results, respectfully. Added a <code>cont.corr=</code> argument for use with McNemars test.</p></li>
 <li><p><code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Added the ability to show raw (vs. absolute value) differences between structures. This resulted in the removal of <code>what="agreement"</code> (though it is deprecated, with a message, for now) and the addition of <code>what="difference"</code> and <code>what="absolute difference"</code>.</p></li>
 <li><p><code><a href="../reference/fishR.html">fishR()</a></code>: Modified. Changed to point to the github NEWS.md when <code>where="news"</code>.</p></li>
-<li><p><code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified. Changed the logistic regression code to handle the changes to <code><a href="../reference/FSA-defunct.html">plotBinResp()</a></code> (see below). In addition, a temporary fix was added so that the size of the y-axis labels could be modified with an external call to <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par()</a></code>. This was a fix for Glen Sutton but will ultimately need to be handled more elegantly.</p></li>
-<li><p><code><a href="../reference/fsaNews.html">fsaNews()</a></code>: Modified. Changed to point to the github NEWS.md.</p></li>
+<li><p><code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: Modified. Changed the logistic regression code to handle the changes to <code><a href="../reference/FSA-defunct.html">plotBinResp()</a></code> (see below). In addition, a temporary fix was added so that the size of the y-axis labels could be modified with an external call to <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par()</a></code>. This was a fix for Glen Sutton but will ultimately need to be handled more elegantly.</p></li>
+<li><p><code><a href="../reference/FSA-defunct.html">fsaNews()</a></code>: Modified. Changed to point to the github NEWS.md.</p></li>
 <li><p><code>catchCurveSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</p></li>
 <li><p><code>cohortSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</p></li>
 <li><p><code>growthModelSim()</code>: Added back from FSATeach (required adding ImportFrom for relax package).</p></li>
@@ -2101,19 +2109,19 @@
 <li>
 <code><a href="../reference/capHistConvert.html">capHistConvert()</a></code>: Modified the help file by commenting out the example that depends on the RCapture package. This is needed for the RForge site for the time being.</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot()</a></code>: Modified Rd. Added two polynomial regression examples.</li>
+<code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: Modified Rd. Added two polynomial regression examples.</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot.IVR()</a></code>: Modified. Changed to use new <code>typeoflm()</code>, changed <code>interval=</code> argument, removed automatic main title, removed a bunch of unneeded code.</li>
+<code>fitPlot.IVR()</code>: Modified. Changed to use new <code>typeoflm()</code>, changed <code>interval=</code> argument, removed automatic main title, removed a bunch of unneeded code.</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot.logreg()</a></code>: Modified. Removed automatic main title.</li>
+<code>fitPlot.logreg()</code>: Modified. Removed automatic main title.</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot.nls()</a></code>: Modified. Removed automatic main title.</li>
+<code>fitPlot.nls()</code>: Modified. Removed automatic main title.</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot.ONEWAY()</a></code>: Modified. Changed to use new <code>typeoflm()</code>, removed automatic main title, removed one line of unneeded code.</li>
+<code>fitPlot.ONEWAY()</code>: Modified. Changed to use new <code>typeoflm()</code>, removed automatic main title, removed one line of unneeded code.</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot.SLR()</a></code>: Modified. Changed to use new <code>typeoflm()</code>, changed <code>interval=</code> argument, removed automatic main title.</li>
+<code>fitPlot.SLR()</code>: Modified. Changed to use new <code>typeoflm()</code>, changed <code>interval=</code> argument, removed automatic main title.</li>
 <li>
-<code><a href="../reference/fitPlot.html">fitPlot.TWOWAY()</a></code>: Modified. Changed to use new <code>typeoflm()</code> and removed automatic main title</li>
+<code>fitPlot.TWOWAY()</code>: Modified. Changed to use new <code>typeoflm()</code> and removed automatic main title</li>
 <li>
 <code>gReshape()</code>: Modified. Added a <code>drop=</code> argument so that the user can drop some variables before reshaping. Also, added <code>new.row.names=1:100000</code> to the <code><a href="https://rdrr.io/r/stats/reshape.html" class="external-link">reshape()</a></code> call to work-around issues with duplicate row names (which were particularly problematic if any of the <code>id.vars=</code> had missing values.)</li>
 <li>
@@ -2307,7 +2315,7 @@
 <li><p><code><a href="../reference/nlsBoot.html">confint.nlsBoot()</a></code>: Modified to use <code>ciLabel()</code>.</p></li>
 <li><p><code><a href="../reference/removal.html">confint.removal()</a></code>: Modified to use <code>ciLabel()</code>.</p></li>
 <li><p><code>dietOverlap()</code>: Added.</p></li>
-<li><p><code>fsa.news(), FSA.news()</code>: Deleted, renamed to <code><a href="../reference/fsaNews.html">fsaNews()</a></code> and <code><a href="../reference/fsaNews.html">FSANews()</a></code>.</p></li>
+<li><p><code>fsa.news(), FSA.news()</code>: Deleted, renamed to <code><a href="../reference/FSA-defunct.html">fsaNews()</a></code> and <code>FSANews()</code>.</p></li>
 <li><p><code>fsaNews(), FSANews()</code>: Renamed versions of <code>fsa.news()</code> and <code>FSA.news()</code>.</p></li>
 <li><p><code>FSAsims()</code>: Deleted. Rarely used and not supported in non-windows and RStudio.</p></li>
 <li><p><code>growthModelSim()</code>: Modified in a variety of ways. First, streamlined the internal functions so that the plot can be created individually. Second, converted to using <code>gslider()</code> instead of <code>slider()</code>.</p></li>
@@ -2371,7 +2379,7 @@
 <li><p><code><a href="../reference/depletion.html">depletion()</a></code>: modifed class name to “depletion” from “Depletion”.</p></li>
 <li><p><code>discharge()</code>: modified class name to “discharge” from “StrmDschrg”.</p></li>
 <li><p><code>emp()</code>: modified class names to “empXX” from “EMPxx”.</p></li>
-<li><p><code><a href="../reference/fitPlot.html">fitPlot()</a></code>: added from NCStats.</p></li>
+<li><p><code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: added from NCStats.</p></li>
 <li><p><code>FroeseWs()</code>: modified class name to “FroeseWs” from “FROESE”.</p></li>
 <li><p><code><a href="https://rdrr.io/pkg/plotrix/man/histStack.html" class="external-link">histStack()</a></code>: added.</p></li>
 <li><p><code><a href="../reference/FSA-defunct.html">hoCoef()</a></code>: added from NCStats.</p></li>
@@ -2385,7 +2393,7 @@
 <li><p><code>pos2adj()</code>: modified the labels for the positions by including full names for all directions, eliminating the single letters for the four main directions, but also leaving the four “off” directions as abbreviations.</p></li>
 <li><p><code>psdVal(), rsdVal(), rsdCalc(), rsdPlot()</code>: modified to use capFirst so that the user does not need to focus on capitalization of the species name.</p></li>
 <li><p><code><a href="../reference/removal.html">removal()</a></code>: modified class name to “removal” from “Removal”.</p></li>
-<li><p><code><a href="../reference/residPlot.html">residPlot()</a></code>: added from NCStats.</p></li>
+<li><p><code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: added from NCStats.</p></li>
 <li><p><code>rlp()</code>: modified class name to “rlp” from “RLP”.</p></li>
 <li><p><code><a href="../reference/Summarize.html">Summarize()</a></code>: added from NCStats.</p></li>
 <li><p><code>typeoflm()</code>: added from NCStats.</p></li>

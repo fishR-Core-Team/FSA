@@ -7,9 +7,13 @@
 \alias{compIntercepts}
 \alias{compSlopes}
 \alias{diags}
+\alias{filterD}
+\alias{fitPlot}
+\alias{fsaNews}
 \alias{hoCoef}
 \alias{mapvalues}
 \alias{plotBinResp}
+\alias{residPlot}
 \alias{Subset}
 \title{DEFUNCT functions.}
 \usage{
@@ -23,11 +27,19 @@ compSlopes(...)
 
 diags(...)
 
+filterD(...)
+
+fitPlot(...)
+
+fsaNews(...)
+
 hoCoef(...)
 
 mapvalues(...)
 
 plotBinResp(...)
+
+residPlot(...)
 
 Subset(...)
 }

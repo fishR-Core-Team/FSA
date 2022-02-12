@@ -1,8 +1,12 @@
 # FSA 0.9.2 12-Feb-21
 * Last version maintained by Derek Ogle. Transfering to fishR Core Team for next version.
+* `filterD()`: **REMOVED** (to `FSAmisc`).
+* `fitPlot()`: **REMOVED** (to `FSAmisc`).
+* `fsaNews()` and `FSANews()`: **Removed**.
 * `psdAdd()`: Modified. Changed the way `PSDlit` was loaded into the function environment so that `FSA::psdAdd()` will work. Addresses [#85](https://github.com/droglenc/FSA/issues/85).
 * `PSDLit`: Modified. Added info for Utah Chub (from [here](https://webpages.uidaho.edu/quistlab/publications/NAJFM_2021_Black_et_al_UTC_Ws_length_categories.pdf); address [#84](https://github.com/droglenc/FSA/issues/84)).
 * `psdVal()`: Modified. Changed the way `PSDlit` was loaded into the function environment so that `FSA::psdVal()` will work. Addresses [#85](https://github.com/droglenc/FSA/issues/85).
+* `residPlot()`: **REMOVED** (to `FSAmisc`).
 * `wrAdd()`: Modified. Changed the way `WSlit` was loaded into the function environment so that `FSA::wrAdd()` will work. Addresses [#85](https://github.com/droglenc/FSA/issues/85).
 * `WSLit`: Modified. Added info for Utah Chub (from [here](https://webpages.uidaho.edu/quistlab/publications/NAJFM_2021_Black_et_al_UTC_Ws_length_categories.pdf); address [#84](https://github.com/droglenc/FSA/issues/84)).
 * `wsVal()`: Modified. Changed the way `WSlit` was loaded into the function environment so that `FSA::wsVal()` will work. Addresses [#85](https://github.com/droglenc/FSA/issues/85).

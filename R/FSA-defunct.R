@@ -35,6 +35,24 @@ diags <- function(...) {
 
 #' @rdname FSA-defunct
 #' @export
+filterD <- function(...) {
+  .Defunct(msg="'filter' has been removed (to 'FSAmisc' on GitHub); please use 'droplevels' after 'subset' or 'dplyr::filter' for the same result (see fishR post from 26-May-2021).")
+}
+
+#' @rdname FSA-defunct
+#' @export
+fitPlot <- function(...) {
+  .Defunct(msg="'fitPlot' has been removed (to 'FSAmisc' on GitHub).")
+}
+
+#' @rdname FSA-defunct
+#' @export
+fsaNews <- FSANews <- function(...) {
+  .Defunct(msg="'fsaNews' and 'FSANews' have been removed (to 'FSAmisc' on GitHub).")
+}
+
+#' @rdname FSA-defunct
+#' @export
 hoCoef <- function(...) {
   .Defunct(msg="'hoCoef' has been removed (to 'FSAmisc' on GitHub).")
 }
@@ -49,6 +67,12 @@ mapvalues <- function(...) {
 #' @export
 plotBinResp <- function(...) {
   .Defunct(msg="'plotBinResp' has been removed; use 'ggplot2' as described in the fishR blog post of 25-May-2021.")
+}
+
+#' @rdname FSA-defunct
+#' @export
+residPlot <- function(...) {
+  .Defunct(msg="'residPlot' has been removed (to 'FSAmisc' on GitHub).")
 }
 
 #' @rdname FSA-defunct
