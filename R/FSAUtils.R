@@ -770,7 +770,7 @@ repeatedRows2Keep <- function(df,cols2use=NULL,cols2ignore=NULL,
 #'
 #' @author Derek H. Ogle, \email{derek@@derekogle.com}
 #'
-#' @seealso See \code{\link[sciplot]{se}} in \pkg{sciplot} for similar functionality.
+#' @seealso See \code{se} in \pkg{sciplot} for similar functionality.
 #'
 #' @keywords manip
 #'

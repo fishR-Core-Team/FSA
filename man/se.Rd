@@ -33,7 +33,7 @@ se(x2)
 
 }
 \seealso{
-See \code{\link[sciplot]{se}} in \pkg{sciplot} for similar functionality.
+See \code{se} in \pkg{sciplot} for similar functionality.
 }
 \author{
 Derek H. Ogle, \email{derek@derekogle.com}

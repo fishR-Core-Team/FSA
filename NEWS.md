@@ -1,15 +1,21 @@
+# FSA 0.9.3 15-Feb-21
+* Moved `dplyr` from `imports` to `suggests` (needed because functions were removed in last version; however it is still used in some examples; partially addresses [#87](https://github.com/fishR-Core-Team/FSA/issues/87)).
+* Removed `sciplot` from `imports` (because functions were removed in last version; partially addresses [#87](https://github.com/fishR-Core-Team/FSA/issues/87)).
+* Updated tests for `ksTest()` to handle issues on the CRAN M1 build machine (per e-mail from Prof. Ripley on 15-Feb-22; partially addresses [#87](https://github.com/fishR-Core-Team/FSA/issues/87)).
+* Updated all links to the `droglenc` github that were related to `FSA` or `FSAdata` to be to the `fishR-Core-Team` github.
+
 # FSA 0.9.2 12-Feb-21
-* Last version maintained by Derek Ogle. Transfering to fishR Core Team for next version.
+* Last version maintained by Derek Ogle. Transferring to fishR Core Team for next version.
 * `filterD()`: **REMOVED** (to `FSAmisc`).
 * `fitPlot()`: **REMOVED** (to `FSAmisc`).
 * `fsaNews()` and `FSANews()`: **Removed**.
-* `psdAdd()`: Modified. Changed the way `PSDlit` was loaded into the function environment so that `FSA::psdAdd()` will work. Addresses [#85](https://github.com/droglenc/FSA/issues/85).
-* `PSDLit`: Modified. Added info for Utah Chub (from [here](https://webpages.uidaho.edu/quistlab/publications/NAJFM_2021_Black_et_al_UTC_Ws_length_categories.pdf); address [#84](https://github.com/droglenc/FSA/issues/84)).
-* `psdVal()`: Modified. Changed the way `PSDlit` was loaded into the function environment so that `FSA::psdVal()` will work. Addresses [#85](https://github.com/droglenc/FSA/issues/85).
+* `psdAdd()`: Modified. Changed the way `PSDlit` was loaded into the function environment so that `FSA::psdAdd()` will work. Addresses [#85](https://github.com/fishR-Core-Team/FSA/issues/85).
+* `PSDLit`: Modified. Added info for Utah Chub (from [here](https://webpages.uidaho.edu/quistlab/publications/NAJFM_2021_Black_et_al_UTC_Ws_length_categories.pdf); address [#84](https://github.com/fishR-Core-Team/FSA/issues/84)).
+* `psdVal()`: Modified. Changed the way `PSDlit` was loaded into the function environment so that `FSA::psdVal()` will work. Addresses [#85](https://github.com/fishR-Core-Team/FSA/issues/85).
 * `residPlot()`: **REMOVED** (to `FSAmisc`).
-* `wrAdd()`: Modified. Changed the way `WSlit` was loaded into the function environment so that `FSA::wrAdd()` will work. Addresses [#85](https://github.com/droglenc/FSA/issues/85).
-* `WSLit`: Modified. Added info for Utah Chub (from [here](https://webpages.uidaho.edu/quistlab/publications/NAJFM_2021_Black_et_al_UTC_Ws_length_categories.pdf); address [#84](https://github.com/droglenc/FSA/issues/84)).
-* `wsVal()`: Modified. Changed the way `WSlit` was loaded into the function environment so that `FSA::wsVal()` will work. Addresses [#85](https://github.com/droglenc/FSA/issues/85).
+* `wrAdd()`: Modified. Changed the way `WSlit` was loaded into the function environment so that `FSA::wrAdd()` will work. Addresses [#85](https://github.com/fishR-Core-Team/FSA/issues/85).
+* `WSLit`: Modified. Added info for Utah Chub (from [here](https://webpages.uidaho.edu/quistlab/publications/NAJFM_2021_Black_et_al_UTC_Ws_length_categories.pdf); address [#84](https://github.com/fishR-Core-Team/FSA/issues/84)).
+* `wsVal()`: Modified. Changed the way `WSlit` was loaded into the function environment so that `FSA::wsVal()` will work. Addresses [#85](https://github.com/fishR-Core-Team/FSA/issues/85).
 
 # FSA 0.9.1 17-Jul-21
 * Corrected testing issue for `catchCurve()` and `chapmanRobson()` as directed by CRAN on 17-Jul-21. Issue likely caused by changes to `fishmethods` package.
@@ -19,38 +25,38 @@
 * Added Jason Doll as an `AUThor`.
 * Moved `plyr` from Imports to Suggests.
 * `alkPlot()`: Modified. Removed use of `chooseColors()` (see below).
-* `binCI()`: Modified.  Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/droglenc/FSA/issues/66)).
-* `bootCase()`: **REMOVED**. Users can use `car::Boot()`, which partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
+* `binCI()`: Modified.  Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/fishR-Core-Team/FSA/issues/66)).
+* `bootCase()`: **REMOVED**. Users can use `car::Boot()`, which partially addresses [#65](https://github.com/fishR-Core-Team/FSA/issues/65).
   * `plot.boot()`: **REMOVED**. Conflicted with `boot::plot.boot()` which caused an error with CRAN. Same functionality is available with `pairs(<boot object>$t)`.
-* `catchCurve()`: Modified. Removed hard-coding of `ylim=` for `plot.catchCurve()` (this addresses [#70](https://github.com/droglenc/FSA/issues/70) ... Thanks to Brendan Runde). Added `round.est=` so that the user can control the decimals on mortality estimate values. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/droglenc/FSA/issues/66)).
-* `chapmanRobson()`: Modified. Removed hard-coding of `ylim=` for `plot.chapmanRobson()`. Added `round.est=` so that the user can control the decimals on mortality and survival estimate values. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/droglenc/FSA/issues/66)).
-* `chooseColors()`: **REMOVED**. This was an exported function that should have been internal. Regardless, where it was used has been removed and the user is now allowed to provide their own vector of colors. See `iCheckMultColors()`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
-* `compIntercepts()`: **REMOVED** (to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
-* `compSlopes()`: **REMOVED** (to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
-* `depletion()`: Modified. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/droglenc/FSA/issues/66)).
-* `filterD()`: **DEPRECATED** (partially addresses [#65](https://github.com/droglenc/FSA/issues/65)).
-* `fitPlot()`: **DEPRECATED** (partially addresses [#65](https://github.com/droglenc/FSA/issues/65)). Prior to that removed use of `chooseColors()` (see above).
-* `diags()`: **REMOVED** (moved to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
-* `hoCoef()`: **REMOVED** (moved to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
-* `hyperCI()`: Modified. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/droglenc/FSA/issues/66)).
-* `iCheckConfLevel()`: Added (internal to address [#66](https://github.com/droglenc/FSA/issues/66)).
+* `catchCurve()`: Modified. Removed hard-coding of `ylim=` for `plot.catchCurve()` (this addresses [#70](https://github.com/fishR-Core-Team/FSA/issues/70) ... Thanks to Brendan Runde). Added `round.est=` so that the user can control the decimals on mortality estimate values. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/fishR-Core-Team/FSA/issues/66)).
+* `chapmanRobson()`: Modified. Removed hard-coding of `ylim=` for `plot.chapmanRobson()`. Added `round.est=` so that the user can control the decimals on mortality and survival estimate values. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/fishR-Core-Team/FSA/issues/66)).
+* `chooseColors()`: **REMOVED**. This was an exported function that should have been internal. Regardless, where it was used has been removed and the user is now allowed to provide their own vector of colors. See `iCheckMultColors()`. Partially addresses [#65](https://github.com/fishR-Core-Team/FSA/issues/65).
+* `compIntercepts()`: **REMOVED** (to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/fishR-Core-Team/FSA/issues/65).
+* `compSlopes()`: **REMOVED** (to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/fishR-Core-Team/FSA/issues/65).
+* `depletion()`: Modified. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/fishR-Core-Team/FSA/issues/66)).
+* `filterD()`: **DEPRECATED** (partially addresses [#65](https://github.com/fishR-Core-Team/FSA/issues/65)).
+* `fitPlot()`: **DEPRECATED** (partially addresses [#65](https://github.com/fishR-Core-Team/FSA/issues/65)). Prior to that removed use of `chooseColors()` (see above).
+* `diags()`: **REMOVED** (moved to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/fishR-Core-Team/FSA/issues/65).
+* `hoCoef()`: **REMOVED** (moved to `FSAmisc`). Added to `FSA-defunct`. Partially addresses [#65](https://github.com/fishR-Core-Team/FSA/issues/65).
+* `hyperCI()`: Modified. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/fishR-Core-Team/FSA/issues/66)).
+* `iCheckConfLevel()`: Added (internal to address [#66](https://github.com/fishR-Core-Team/FSA/issues/66)).
 * `iCheckMultColors()`: Added (internal). Part of removing `chooseColors()` and `paletteChoices()`.
 * `iRichColors()`: **REMOVED** (as part of removing `chooseColors()`).
-* `mapvalues()`: **REMOVED**. Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
-* `mrClosed()`: Modified. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/droglenc/FSA/issues/66)).
-* `mrOpen()`: Modified. Added a warning for when r==0, which causes the SE of M and thus N to be `Infinity` (this addresses [#69](https://github.com/droglenc/FSA/issues/69)). Added a similar warning for when R==0 (but not the last time period). Added tests for the warning messages. Changed one use of `apply()` to `rowSums()` for ease of reading. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/droglenc/FSA/issues/66)).
-* `paletteChoices()`: **REMOVED**. See `chooseColors()` above. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
-* `poiCI()`: Modified. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/droglenc/FSA/issues/66)).
+* `mapvalues()`: **REMOVED**. Added to `FSA-defunct`. Partially addresses [#65](https://github.com/fishR-Core-Team/FSA/issues/65).
+* `mrClosed()`: Modified. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/fishR-Core-Team/FSA/issues/66)).
+* `mrOpen()`: Modified. Added a warning for when r==0, which causes the SE of M and thus N to be `Infinity` (this addresses [#69](https://github.com/fishR-Core-Team/FSA/issues/69)). Added a similar warning for when R==0 (but not the last time period). Added tests for the warning messages. Changed one use of `apply()` to `rowSums()` for ease of reading. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/fishR-Core-Team/FSA/issues/66)).
+* `paletteChoices()`: **REMOVED**. See `chooseColors()` above. Partially addresses [#65](https://github.com/fishR-Core-Team/FSA/issues/65).
+* `poiCI()`: Modified. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/fishR-Core-Team/FSA/issues/66)).
 * `psdAdd()`: Modified. Changed a `levels()` in `iPSDlitCheck()` to `unique()` because `species` is no longer a factor due to updating `PSDlit` (i.e., rdata file changed with new `read.csv()`).
-* `psdCalc()`: Modified. Added a catch for when "tibble"s are sent in `data=` (addresses [#75](https://github.com/droglenc/FSA/issues/75)). Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/droglenc/FSA/issues/66)).
-* `psdCI()`: Modified. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/droglenc/FSA/issues/66)).
+* `psdCalc()`: Modified. Added a catch for when "tibble"s are sent in `data=` (addresses [#75](https://github.com/fishR-Core-Team/FSA/issues/75)). Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/fishR-Core-Team/FSA/issues/66)).
+* `psdCI()`: Modified. Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/fishR-Core-Team/FSA/issues/66)).
 * `PSDlit`: Modified. Added length categories for Shoal Bass and Pallid Sturgeon. Added Striped Bass (Hybrid) and Striped Bass x White Bass; though these are the same as the existing Palmetto Bass. Added "source"s for each entry.
-* `psdVal()`: Modified. Changed a `levels()` in `iPSDlitCheck()` and `iListSpecies()` to `unique()` because `species` is no longer a factor due to updating `PSDlit` (i.e., rdata file changed with new `read.csv()`). Added a `showJustSource=` argument that will show the source info (if `TRUE`) or not (if `FALSE`; default), which partially addresses [#76](https://github.com/droglenc/FSA/issues/76).
-* `removal()`: Modified. Added check and then warning if non-whole numbers are in `catch=` (addresses [#60](https://github.com/droglenc/FSA/issues/60)). Also modified checks of data integrity to be more robust (e.g., if a character vector is sent). Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/droglenc/FSA/issues/66)).
-* `residPlot()`: **DEPRECATED** (partially addresses [#65](https://github.com/droglenc/FSA/issues/65)). Prior to that removed use of `chooseColors()` (see above).
-* `Subset()`: **REMOVED**. Added to `FSA-defunct`. Partially addresses [#65](https://github.com/droglenc/FSA/issues/65).
+* `psdVal()`: Modified. Changed a `levels()` in `iPSDlitCheck()` and `iListSpecies()` to `unique()` because `species` is no longer a factor due to updating `PSDlit` (i.e., rdata file changed with new `read.csv()`). Added a `showJustSource=` argument that will show the source info (if `TRUE`) or not (if `FALSE`; default), which partially addresses [#76](https://github.com/fishR-Core-Team/FSA/issues/76).
+* `removal()`: Modified. Added check and then warning if non-whole numbers are in `catch=` (addresses [#60](https://github.com/fishR-Core-Team/FSA/issues/60)). Also modified checks of data integrity to be more robust (e.g., if a character vector is sent). Changed to use `iCheckConfLevel()` (which addresses [#66](https://github.com/fishR-Core-Team/FSA/issues/66)).
+* `residPlot()`: **DEPRECATED** (partially addresses [#65](https://github.com/fishR-Core-Team/FSA/issues/65)). Prior to that removed use of `chooseColors()` (see above).
+* `Subset()`: **REMOVED**. Added to `FSA-defunct`. Partially addresses [#65](https://github.com/fishR-Core-Team/FSA/issues/65).
 * `wrAdd()`: Modified. Changed a `levels()` in `iwsLitCheck()` to `unique()` because `species` is no longer a factor due to updating `WSlit` (i.e., rdata file changed with new `read.csv()`).
-* `WSlit`: Modified. Addresses [#68](https://github.com/droglenc/FSA/issues/68).
+* `WSlit`: Modified. Addresses [#68](https://github.com/fishR-Core-Team/FSA/issues/68).
     * Corrected capitalization of "Cavedano Chub", "European Chub", "Lake Herring" (metric), and "Pursak Chub".
     * Removed "not in Neumann et al. (2012)" notes.
     * Added African Sharptooth Catfish, Ankara Nase, Bighead and Silver Carp, Brook Trout (Appalachia), Fourbarbel Scraper, Horse Barbel, Nile Tilapia, Nipple-Lipped Scraper, Shoal Bass, South European Roach, Spotted Bass (Alabama subspecies) (AKA Alabama Bass).
@@ -65,10 +71,10 @@
 * Added GitHub Action for code coverage with codecov.io.
 * Added a code of conduct for contributors.
 * Moved a bunch of  plotting examples in the documentation to `tests\plottests\` to speed up testing. The `tests\plottests\` was added to `.Rbuildignore` .
-* `hist.formula()`: Modified. Fixed bug with y-axes when `freq=FALSE` is used (fixes [#62](https://github.com/droglenc/FSA/issues/62); thanks to @carlostorrescubila).
+* `hist.formula()`: Modified. Fixed bug with y-axes when `freq=FALSE` is used (fixes [#62](https://github.com/fishR-Core-Team/FSA/issues/62); thanks to @carlostorrescubila).
 * `fitPlot()`: Modified. Fixed bugs with handling models that used character rather than factor variables.
 * `plotBinResp()`: REMOVED. Removed as a user-facing function, but made as an internal function for continued use in `fitPlot()` while `fitPlot()` is deprecated.
-* `psdAdd()`: Modified. Fixed bug relate to species that were `NA` (fixes [#64](https://github.com/droglenc/FSA/issues/64); thanks to Dan Shoup). Added more tests and fixed some typos in the documentation.
+* `psdAdd()`: Modified. Fixed bug relate to species that were `NA` (fixes [#64](https://github.com/fishR-Core-Team/FSA/issues/64); thanks to Dan Shoup). Added more tests and fixed some typos in the documentation.
 * `psdPlot()`: Modified. Fixed bug with box around the plot when `add.psd=FALSE`. Added 5% expansion to top of y-axis so that bars did not run into the box.
 * `residPlot()`: Modified. Fixed bugs with handling models that used character rather than factor variables.
 
@@ -123,10 +129,10 @@
 * Reorganized `testthat` folder as suggested in `testthat` release notes.
 * Removed all uses of `Subset()` (replaced with `filterD()`).
 * `fitPlot()`: Modified. Fixed bug related to y-axis limits not extending to contain the data, confidence bands, or prediction bands (in `fitPlot.slr()`). This addresses [#3](https://github.com/droglenc/NCStats/issues/3) listed for `NCStats`).
-* `hist.formula()`: Modified. Fixed bug related to subsequent calls after a call that used `iaxs=FALSE`. This addresses [#46](https://github.com/droglenc/FSA/issues/46).
+* `hist.formula()`: Modified. Fixed bug related to subsequent calls after a call that used `iaxs=FALSE`. This addresses [#46](https://github.com/fishR-Core-Team/FSA/issues/46).
 * `iLegendHelp()`: Modified. Added a catch if a proper keyword is not supplied.
 * `nlsTracePlot()`: Modified. Moved error catching for improper keyword for legend placement forward.
-* `SchnuteRichards()`: Added. This addresses [#54](https://github.com/droglenc/FSA/issues/54).
+* `SchnuteRichards()`: Added. This addresses [#54](https://github.com/fishR-Core-Team/FSA/issues/54).
 
 # FSA 0.8.22 22-Nov-18
 * Corrected CITATION file.
@@ -141,24 +147,24 @@
 * Added Alexis Dinno as an author for their providing the base functionality of `dunnTest()`. Should have done this long ago.
 * Removed all `data()` in examples that referred to data from this package. Included the `package=` argument in `data()` that loaded from other packages.
 * Added `seealso`, with links to which functions use the data for examples, to docmentation for all data.frames.
-* Removed `\dontrun()`s from the `bootCase` related examples now that `car` package is updated. This addresses [#45](https://github.com/droglenc/FSA/issues/45).
+* Removed `\dontrun()`s from the `bootCase` related examples now that `car` package is updated. This addresses [#45](https://github.com/fishR-Core-Team/FSA/issues/45).
 * `addZeroCatch()`: Modified. Added a catch that turns a "tibble" into a regular data.frame (which obviates some errors that occur with tibbles). Minor changes to documentation and comments in the code.
-* `agePrecision()`: Modified. Added intermediate and summary calculations for median and modal age; average absolute deviation and standard deviation; APE and CV with the median rather than the mean as the divisor; and index of precision (D). Added `show.prec2=`. Updated tests and examples. Other minor modifications to the function code. Addresses [#41](https://github.com/droglenc/FSA/issues/41) and [#49](https://github.com/droglenc/FSA/issues/49).
+* `agePrecision()`: Modified. Added intermediate and summary calculations for median and modal age; average absolute deviation and standard deviation; APE and CV with the median rather than the mean as the divisor; and index of precision (D). Added `show.prec2=`. Updated tests and examples. Other minor modifications to the function code. Addresses [#41](https://github.com/fishR-Core-Team/FSA/issues/41) and [#49](https://github.com/fishR-Core-Team/FSA/issues/49).
 * `alkIndivAge()`: Modified. Replaced an `options(warn=-1)` with `suppressWarnings()`.
-* `alkPlot()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)). Replaced an `options(warn=-1)` with `suppressWarnings()`.
+* `alkPlot()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/fishR-Core-Team/FSA/issues/38)). Replaced an `options(warn=-1)` with `suppressWarnings()`.
 * `alkSummaries()`: Modified. Replaced an `options(warn=-1)` with `suppressWarnings()`.
-* Bootstrapping functions: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
-* `capHistSum()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
-* `chapmanRobson()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
+* Bootstrapping functions: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/fishR-Core-Team/FSA/issues/38)).
+* `capHistSum()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/fishR-Core-Team/FSA/issues/38)).
+* `chapmanRobson()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/fishR-Core-Team/FSA/issues/38)).
 * `fishR()`: Modified. Changed examples in documentation to not be run (so as not to open an external webpage).
 * `FSAnews()`: Modified. Changed examples in documentation to not be run (so as not to open an external webpage).
-* Growth models: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
-* `hist.formula()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
-* `lwCompPreds()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
+* Growth models: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/fishR-Core-Team/FSA/issues/38)).
+* `hist.formula()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/fishR-Core-Team/FSA/issues/38)).
+* `lwCompPreds()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/fishR-Core-Team/FSA/issues/38)).
 * `plotAB()`: Modified. Now in its own documentation file (rather than with `ageBias()`).
-* `psdCalc()`: Modified. Better handled the situation where the user asks for summaries with some fish greater than stock size but no fish greater than quality size (addresses [#50](https://github.com/droglenc/FSA/issues/50); thanks to Timothy Spier for the bug report).
-* `removal()`: Modified. Added `method="Burhnam"` via the [#51](https://github.com/droglenc/FSA/pull/51) from Powell Wheeler.
-* `residPlot()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/droglenc/FSA/issues/38)).
+* `psdCalc()`: Modified. Better handled the situation where the user asks for summaries with some fish greater than stock size but no fish greater than quality size (addresses [#50](https://github.com/fishR-Core-Team/FSA/issues/50); thanks to Timothy Spier for the bug report).
+* `removal()`: Modified. Added `method="Burhnam"` via the [#51](https://github.com/fishR-Core-Team/FSA/pull/51) from Powell Wheeler.
+* `residPlot()`: Modified. Changed to using `withr::local_par()` (partially addresses [#38](https://github.com/fishR-Core-Team/FSA/issues/38)).
 * `SMBassWB`: Modified. Fixed minor data entry error in row 383.
 * `vbFuns()`: Modified. Added `Francis3` to the list of models.
 
@@ -174,31 +180,31 @@
 * `SMBassWB`: Modified. Fixed minor data entry error in row 404. Changed link in documentation from `alr3` to `alr4` package.
 
 # FSA 0.8.19 8-Apr-18
-* `addZeroCatch()`: Modified. Changed two `1:nrow()` structures to `seq_len(nrow())` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `ageBias()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `agePrecision()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `bcFuns()`: Modified. Changed three `1:length()` structures to `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `bootCase()` methods: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `capHistConvert()`: Modified. Changed all `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `capHistSum()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `chooseColors()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `compSlopes()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `compIntercepts()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `extraSS()`: Modified. Changed all `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `headtail()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `hist.formula()` methods: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `addZeroCatch()`: Modified. Changed two `1:nrow()` structures to `seq_len(nrow())` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `ageBias()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `agePrecision()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `bcFuns()`: Modified. Changed three `1:length()` structures to `seq_along()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `bootCase()` methods: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `capHistConvert()`: Modified. Changed all `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `capHistSum()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `chooseColors()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `compSlopes()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `compIntercepts()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `extraSS()`: Modified. Changed all `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `headtail()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `hist.formula()` methods: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
 * `htest.boot()`: Removed (added last version) until I can test more.
-* `iHndlFormula()`: Modified. Now categorizes a character variable as a factor variable. This addresses [#35](https://github.com/droglenc/FSA/issues/35)) for `hist.formula()` and `Summarize()`.
-* `lrt()`: Modified. Changed all `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `lwCompPreds()`: Modified. Changed all `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `mrClosed()`: Modified. Changed two `1:length()` structures to `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `nlsBoot()` methods: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `iHndlFormula()`: Modified. Now categorizes a character variable as a factor variable. This addresses [#35](https://github.com/fishR-Core-Team/FSA/issues/35)) for `hist.formula()` and `Summarize()`.
+* `lrt()`: Modified. Changed all `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `lwCompPreds()`: Modified. Changed all `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `mrClosed()`: Modified. Changed two `1:length()` structures to `seq_along()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `nlsBoot()` methods: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
 * `plot.boot()`: Removed (added last version) until I can test more.
 * `predict.boot()`: Removed (added last version) until I can test more.
-* `psdAdd()`: Modified. Changed three `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `residPlot()`: Modified. Changed three `1:length()` structures to `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `Summarize()`: Modified. Changed one `1:length()` structure to `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
-* `wrAdd()`: Modified. Changed three `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/droglenc/FSA/issues/36)).
+* `psdAdd()`: Modified. Changed three `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `residPlot()`: Modified. Changed three `1:length()` structures to `seq_along()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `Summarize()`: Modified. Changed one `1:length()` structure to `seq_along()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
+* `wrAdd()`: Modified. Changed three `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
 
 # FSA 0.8.18 31-Mar-18
 * Changed to depending on `R >=3.2.0`, because that is the latest version required by a package (i.e., `car`) that FSA imports or suggests. Used the "check_r_versions_of_package_dependencies" shiny app by "ateucher" (on Github) to help determine this.
@@ -209,7 +215,7 @@
 * `expandCounts()`: Modified. Minor changes to documentation.
 * `hTest.boot()`: Added.
 * `plot.boot()`: Added.
-* `plotAB()`: Modified. Added `col.numbers=` to allow users to modify the color of the numbers when `what="numbers"` is used (addresses [#34](https://github.com/droglenc/FSA/issues/34)).
+* `plotAB()`: Modified. Added `col.numbers=` to allow users to modify the color of the numbers when `what="numbers"` is used (addresses [#34](https://github.com/fishR-Core-Team/FSA/issues/34)).
 * `predict.boot()`: Added.
 * `psdPlot()`: Modified. Minor changes to documentation and look of the function code.
 * `rSquared()`: Added from `NCStats`, but including a generic method so that it can be used for other models (e.g., `catchCurve()`).
@@ -227,8 +233,8 @@
 # FSA 0.8.15 6-Sep-17
 * Added a script to the `helpers` directory that will test that all required packages are installed.
 * `iAddOutlierTestResults()`: Modified. Fixed bug related to point labels in `residPlot()` when the data.frame for the original model had `NA` values.
-* `removal()`: Modified document by merging pull request [#33](https://github.com/droglenc/FSA/pull/33).
-* `srStarts()`: Modified. Added `fixed=`. Added some catches for poor starting values. Added relevant tests. Addresses [#30](https://github.com/droglenc/FSA/issues/30).
+* `removal()`: Modified document by merging pull request [#33](https://github.com/fishR-Core-Team/FSA/pull/33).
+* `srStarts()`: Modified. Added `fixed=`. Added some catches for poor starting values. Added relevant tests. Addresses [#30](https://github.com/fishR-Core-Team/FSA/issues/30).
 
 # FSA 0.8.14 27-Jul-17
 * Moved `dunn.test` and `lmtest` to `imports` to help with portability for workshops.
@@ -276,10 +282,10 @@
 * `ageBias()`: Modified. Changed all `message()`s in `summary()` to `cat()`s.
 * `agePrecision()`: Modified. Changed all `message()`s in `summary()` to `cat()`s.
 * `binCI()`: Modified. Changed from using `binconf()` in `Hmisc` to `binom.exact()`, `binom.wilson()`, and `binom.approx()` from `epitools` (this removes dependency on `Hmisc` which was causing problems). Allowed multiple `type`s to be chosen. Now only accepts whole numbers for `x` and `n`. Added `verbose=` so that the result can include all of the information returned from the `epitools` functions. Added a catch for bad `conf.level`s. Added some more tests.
-* `catchCurve()`: Modified. Made sure that `coef()` method returned a vector (addresses [#19](https://github.com/droglenc/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned.
-* `chapmanRobson()`: Modified. Made sure that `coef()` method returned a vector (addresses [#19](https://github.com/droglenc/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned.
+* `catchCurve()`: Modified. Made sure that `coef()` method returned a vector (addresses [#19](https://github.com/fishR-Core-Team/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned.
+* `chapmanRobson()`: Modified. Made sure that `coef()` method returned a vector (addresses [#19](https://github.com/fishR-Core-Team/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned.
 * `chooseColors()`: Modified. Added `rev=` for returning reverse ordered (from default) colors.
-* `depletion()`: Modified. Changed `coef()` method so that it returned a named vector (addresses [#19](https://github.com/droglenc/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned. Removed `type=` to match other functions (incorporated that functionality into `parm=`). Removed `digits=` to match other functions.
+* `depletion()`: Modified. Changed `coef()` method so that it returned a named vector (addresses [#19](https://github.com/fishR-Core-Team/FSA/issues/19)). Modified `confint()` code for efficiency, made sure matrix is always returned. Removed `type=` to match other functions (incorporated that functionality into `parm=`). Removed `digits=` to match other functions.
 * `expandLenFreq()`: Modified. Changed all `message()`s to `cat()`s. Removed "names" from printed items for a cleaner look.
 * `fitPlot()`: Modified. Added `cex.leg=` and `box.lty.leg=` to IVR plots.
 * `hist.formula()`: Modified. Fixed a bug with adding the horizontal line at 0 when the user uses `plot=FALSE`, which occurs with `hist.bootCase()`.
@@ -287,14 +293,14 @@
 * `iAddLoessLine()`: Modified. Changed used of `iMakeColor()` to `col2rgbt()`.
 * `iGetDecimals()`: Modified. Added warning for situations where `x` will be presented in exponential notation. Also returned a decimal of zero in this situation. Helps with a bug in `hist.formula()`.
 * `iHndlCols2use()`: Deleted. Changed to `iHndlCols2UseIgnore()`.
-* `iHndlCols2UseIgnore()`: Added. Previously was `iHndlCols2use()`. Completely reworked to catch more problems including having both positive and negative indices (fixes [#24](https://github.com/droglenc/FSA/issues/24)) and choosing variable names that don't exist (fixes [#25](https://github.com/droglenc/FSA/issues/25)).
-* `iHndlFormula()`: Modified. Added code to deal with a formula that is a single "variable" sent in an array. Addresses [#21](https://github.com/droglenc/FSA/issues/21) for the simple situation of single "variable."
+* `iHndlCols2UseIgnore()`: Added. Previously was `iHndlCols2use()`. Completely reworked to catch more problems including having both positive and negative indices (fixes [#24](https://github.com/fishR-Core-Team/FSA/issues/24)) and choosing variable names that don't exist (fixes [#25](https://github.com/fishR-Core-Team/FSA/issues/25)).
+* `iHndlFormula()`: Modified. Added code to deal with a formula that is a single "variable" sent in an array. Addresses [#21](https://github.com/fishR-Core-Team/FSA/issues/21) for the simple situation of single "variable."
 * `iHndlMultWhat()`: Modified. Added `type=` to allow use with `message()` or `cat()`.
 * `iPlotExists()`: Added. Helps with bug fix in `hist.formula()`.
 * `is.wholenumber()`: Added. Needed for changes to `binCI()`, `hyperCI()`, and `poiCI()`.
 * `kCounts()`: Modified. Fixed bug with `capitalize=` and `zero`. Streamlined code. Added tests.
 * `metaM()`: Modified. Fixed bug with the way messages were output when multiple `methods` were provided and `justM=FALSE`. Added more tests.
-* `mrClosed()`: Modified. Added `poi.type=` to handle new choices for Poisson confidence interals. Added some checks for non-vector uses of `M=` and `R=` (partially addresses [#22](https://github.com/droglenc/FSA/issues/22)). Fixed bug in how inputs for subgroups were output from `summary()` when `verbose=TRUE`.
+* `mrClosed()`: Modified. Added `poi.type=` to handle new choices for Poisson confidence interals. Added some checks for non-vector uses of `M=` and `R=` (partially addresses [#22](https://github.com/fishR-Core-Team/FSA/issues/22)). Fixed bug in how inputs for subgroups were output from `summary()` when `verbose=TRUE`.
 * `mrOpen()`: Modified. Changed all `message()`s in `summary()` to `cat()`s. Fixed bug where returned value from `summary()` was not a data.frame if only one parameter was selected.
 * `nlsTracePlot()`: Added.
 * `plotBinResp()`: Modified. Changed used of `iMakeColor()` to `col2rgbt()`.
@@ -302,7 +308,7 @@
 * `predict.bootCase()`: Modified. Modified so that situations where other than values of the dependent variable are in the dots argument (as would occur if making predictions for the Francis parameterization of the VBGF).
 * `predict.nlsBoot()`: Modified. See note for `predict.bootCase()`.
 * `psdCalc()`: Modified. Fixed bug in output if more than two additional lengths were supplied.
-* `removal()`: Modified. Added a check and a returned error if `method="Schnute"` and the last of three catches is zero (addresses [#26](https://github.com/droglenc/FSA/issues/26)) Fixed bug related to sending catches in a one column data.frame. Fixed bug related to selecting only one `parm=` in `confint()`. Added tests.
+* `removal()`: Modified. Added a check and a returned error if `method="Schnute"` and the last of three catches is zero (addresses [#26](https://github.com/fishR-Core-Team/FSA/issues/26)) Fixed bug related to sending catches in a one column data.frame. Fixed bug related to selecting only one `parm=` in `confint()`. Added tests.
 * `residPlot()`: Modified. Added `cex.leg=` and `box.lty.leg=` to IVR plots. Removed extra spaces in main title if `main="MODEL"`. Added some tests.
 * `tictactoe()`: Modified. Changed used of `iMakeColor()` to `col2rgbt()`.
 * `vbFuns()`: Modified. Added `Ogle` to list of parameterizations. Changed order of `L0` and `K` parameters in returned function when `param="Original"`.
@@ -311,7 +317,7 @@
 # FSA 0.8.10 24-Sep-16
 * `alkIndivAge()`: Modified. Added `na.rm=TRUE` to the checks on the minimum and maximum length data.
 * `catchCurve()`: Modified. Removed `type=` and blended that functionality into `parm=` for methods. Made `parm=` consistent across methods.
-* `chapmanRobson()`: Modified. Added `axis.age=` argument that allows the user to choose which type of x-axis is displayed (see examples; this addresses [#20](https://github.com/droglenc/FSA/issues/20))  Also modified code that adds the axes so that they should "look better" in more instances. Added `na.rm=TRUE` to y-range calculation for the plot method. Added a `coef()` method. Added a `parm=` argument to the `confint()` and `summary()` methods. Added tests.
+* `chapmanRobson()`: Modified. Added `axis.age=` argument that allows the user to choose which type of x-axis is displayed (see examples; this addresses [#20](https://github.com/fishR-Core-Team/FSA/issues/20))  Also modified code that adds the axes so that they should "look better" in more instances. Added `na.rm=TRUE` to y-range calculation for the plot method. Added a `coef()` method. Added a `parm=` argument to the `confint()` and `summary()` methods. Added tests.
 * `confint.nlsBoot()`,`confint.bootCase()`. Modified. Result is now a matrix even if only one parameter is chosen (previously it was an unnamed vector). The `parm=` now properly handles negative values. Streamlined plotting results. Added tests.
 * `depletion()`: Modified. Checked for bad `conf.level=` in `confint()` method.
 * `GompertzFuns()`: Modified. Fixed bug related to selecting `QuinnDeriso3`.
@@ -338,15 +344,15 @@
 
 # FSA 0.8.7 8-May-16
 * Compiled under R v3.3.0.
-* Removed `relax` from `Suggests`. See `srStarts()` and `vbStarts()` notes below. This addresses [#17](https://github.com/droglenc/FSA/issues/17).
-* Removed `gdata` from `Imports`. See `filterD()` and `Subset()` notes below. This addresses [#5](https://github.com/droglenc/FSA/issues/5).
+* Removed `relax` from `Suggests`. See `srStarts()` and `vbStarts()` notes below. This addresses [#17](https://github.com/fishR-Core-Team/FSA/issues/17).
+* Removed `gdata` from `Imports`. See `filterD()` and `Subset()` notes below. This addresses [#5](https://github.com/fishR-Core-Team/FSA/issues/5).
 * Added no coverage blocks to `ageKeyPlot()`, `capHistSum()`, `hist.formula()`, `histFromSum()`, `lwCompPreds()`, `plot.agebias()`, `plot.CatchCurve()`, `plot.ChapmanRobson()`, `plot.Depletion()`, `plotBinResp()`, `print.compSlopes()`, `print.compIntercepts()`, `print.metaM()`, `psdPlot()`,`residPlot()`, `srModels()`, `srStarts()`, and `vbStarts()`.
 * `ageKey()`: Removed. Deprecated since 0.4.24. Use `alkIndivAge()`.
 * `ageKeyPlot()`: Removed. Deprecated since 0.4.24. Use `alkPlot()`.
 * `bcFuns()`: Modified. Changed `msg=` to `verbose=`.
 * `capHistSum()`: Added tests.
 * `filterD()`: Modified. Changed to use `droplevels()` from `base` rather than `drop.levels()` from `gdata`. Added `except=`.
-* `fitPlot()`: Modified. Changed the way colors, plotting characters, and line types were handled for most of the models. Should make their use more flexible. Fixed errors that occurred in IVR models when the factor variable preceded the covariate in the model (fixes [#18](https://github.com/droglenc/FSA/issues/18)). Started to add tests for error and warning messages.
+* `fitPlot()`: Modified. Changed the way colors, plotting characters, and line types were handled for most of the models. Should make their use more flexible. Fixed errors that occurred in IVR models when the factor variable preceded the covariate in the model (fixes [#18](https://github.com/fishR-Core-Team/FSA/issues/18)). Started to add tests for error and warning messages.
 * `GompertzFuns()`: Modified. Changed `type=` to `param=`.
 * `GompertzModels()`: Removed. Replaced with `growthFunShow()`.
 * `iGetDecimals()`: Modified. Fixed a bug that occured when an integer was provided.
@@ -368,15 +374,15 @@
 # FSA 0.8.6 25-Mar-16
 * Fixed problems with tests, and made the tests more explicit, related to PSD and Wr functions. Suppressed some warnings related to `sumTable()` in ALK related tests and `Summarize()` in age comparisons tests. Prompted by forthcoming changes to `testthat`.
 * Removed `News.md` from `.Rbuildignore` (apparently now supported by CRAN).
-* `alkPlot()`: Modified. Changed so that `xlim=` and `ylim=` would work when `type="area"` and `type="bar"`. This fixes [#10](https://github.com/droglenc/FSA/issues/10) (Thanks to Joseph Feldhaus).
-* `hist.formula()`: Modified. Added the `breaks=` argument (mostly a pass-through) and the `w=` argument that allows the user to just set the width of the bins without having to set each `break` value. This should complete [#15](https://github.com/droglenc/FSA/issues/15).
+* `alkPlot()`: Modified. Changed so that `xlim=` and `ylim=` would work when `type="area"` and `type="bar"`. This fixes [#10](https://github.com/fishR-Core-Team/FSA/issues/10) (Thanks to Joseph Feldhaus).
+* `hist.formula()`: Modified. Added the `breaks=` argument (mostly a pass-through) and the `w=` argument that allows the user to just set the width of the bins without having to set each `break` value. This should complete [#15](https://github.com/fishR-Core-Team/FSA/issues/15).
 * `iCheckStartCatW()`: Modified. Now use `iGetDecimals()` to extract the number of decimals in `startcat` and `w`.
 * `iCheckStartcat()`: Added.
 * `iCheckW()`: Added.
 * `iGetDecimals()`: Added.
 * `lencat()`: Modified. Changed order of `startcat=` and `breaks=`. Slight modifications to documentation.
 * `psdAdd()`: Modified. Minor changes to documentation.
-* `psdPlot()`: Modified. Fixed bug related to PSD values being printed when only PSD-Q existed (needed to add `drop0Est=FALSE` to the `psdCalc()` call; this fixes [#13](https://github.com/droglenc/FSA/issues/13)). Made the histogram bars flush with the x-axis rather than hovering above it (added `yaxis="i"` to `hist()`; this fixes [#12](https://github.com/droglenc/FSA/issues/12)). Minor changes to documentation.
+* `psdPlot()`: Modified. Fixed bug related to PSD values being printed when only PSD-Q existed (needed to add `drop0Est=FALSE` to the `psdCalc()` call; this fixes [#13](https://github.com/fishR-Core-Team/FSA/issues/13)). Made the histogram bars flush with the x-axis rather than hovering above it (added `yaxis="i"` to `hist()`; this fixes [#12](https://github.com/fishR-Core-Team/FSA/issues/12)). Minor changes to documentation.
 * `psdVal()`: Modified. Minor changes to documentation.
 * `purl2()`: Modified. Added `delHeader=` argument and functionality.
 
@@ -386,10 +392,10 @@
 * Updated all references to Ogle (2016) in documentation.
 
 * `ageBias()`: Modified. Minor corrections to the documentation.
-* `agePrecision()`: Modified. Fixed bug related to computations of percent agreement when `NA` values were present. There was an inconsistency between when `what="precision"` and `what="difference"` was used in `summary()`. The bug fix now properly divides by the "valid sample size" for `what="precision"`. This fixes [#9](https://github.com/droglenc/FSA/issues/9) (Thanks to Joseph Feldhaus). Now returns `validn`. Modifications to the documentation.
-* `histFromSum()`: Added. Addresses [#4](https://github.com/droglenc/FSA/issues/4).
+* `agePrecision()`: Modified. Fixed bug related to computations of percent agreement when `NA` values were present. There was an inconsistency between when `what="precision"` and `what="difference"` was used in `summary()`. The bug fix now properly divides by the "valid sample size" for `what="precision"`. This fixes [#9](https://github.com/fishR-Core-Team/FSA/issues/9) (Thanks to Joseph Feldhaus). Now returns `validn`. Modifications to the documentation.
+* `histFromSum()`: Added. Addresses [#4](https://github.com/fishR-Core-Team/FSA/issues/4).
 * `metaM()`: Modified. Changed order of methods in `methods=`. Minor corrections and additions to documentation.
-* `mrClosed()`: Modified. Now sends warning if an `NA` appears in the first position of `m`, the first position of `M`, or the last position of `R` and converts these to 0 so that the procedure can continue. Each of these positions is ignored in the calculations. This fixes [#8](https://github.com/droglenc/FSA/issues/8) (Thanks to Joe Mrnak).
+* `mrClosed()`: Modified. Now sends warning if an `NA` appears in the first position of `m`, the first position of `M`, or the last position of `R` and converts these to 0 so that the procedure can continue. Each of these positions is ignored in the calculations. This fixes [#8](https://github.com/fishR-Core-Team/FSA/issues/8) (Thanks to Joe Mrnak).
 * `reproInfo()`: Modified. Made changes to `iGetAllDependencis()` based on forthcoming changes to `package.dependencies()` (as notified by CRAN).
 * `vbStarts()`: Modified. Fixed bug when `dynamicPlot=TRUE` was used.
 

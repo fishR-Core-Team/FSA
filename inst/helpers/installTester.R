@@ -31,9 +31,7 @@ lwCompPreds(lm1,xlab="Location")
 
 ## Make sure all dependent and imported packages would load
 library(plyr)
-library(dplyr)
 library(car)
 library(dunn.test)
 library(lmtest)
 library(plotrix)
-library(sciplot)

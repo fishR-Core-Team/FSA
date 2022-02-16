@@ -28,29 +28,31 @@ test_that("ksTest() messages",{
 
 ## Test Output Types ----
 test_that("Does ksTest() match ks.test()",{
-  exp_nms <- c("statistic","p.value","alternative","method","data.name")
   x <- rnorm(50)
   y <- runif(30)
   df <- data.frame(dat=c(x,y),grp=factor(rep(c("X","Y"),c(50,30))),
                    stringsAsFactors=FALSE)
   
   ## one-sample (from ks.test) still works
-  tmp <- ksTest(x+2,"pgamma",3,2)
-  expect_is(tmp,"htest")
-  expect_equal(mode(tmp),"list")
-  expect_equal(names(tmp),exp_nms)
-  
-  ## first two-sample example in ?ks.test
-  tmp <- ksTest(x,y)
-  expect_is(tmp,"htest")
-  expect_equal(mode(tmp),"list")
-  expect_equal(names(tmp),exp_nms)
-  # using formula notation
-  tmp1 <- ksTest(dat~grp,data=df)
+  tmp1 <- ksTest(x+2,"pgamma",3,2)
+  tmp1o <- ks.test(x+2,"pgamma",3,2)
   expect_is(tmp1,"htest")
   expect_equal(mode(tmp1),"list")
-  expect_equal(names(tmp1),exp_nms)
-  expect_identical(tmp,tmp1)
+  expect_equal(names(tmp1),names(tmp1o))
+  
+  ## first two-sample example in ?ks.test
+  tmp1 <- ksTest(x,y)
+  tmp1o <- ks.test(x,y)
+  expect_is(tmp1,"htest")
+  expect_equal(mode(tmp1),"list")
+  expect_equal(names(tmp1),names(tmp1o))
+  
+  # using formula notation
+  tmp1f <- ksTest(dat~grp,data=df)
+  expect_is(tmp1f,"htest")
+  expect_equal(mode(tmp1f),"list")
+  expect_equal(names(tmp1f),names(tmp1o))
+  expect_identical(tmp1,tmp1f)
 })
 
 
@@ -63,15 +65,15 @@ test_that("Does ksTest() match ks.test()",{
   
   ## one-sample (from ks.test) still works
   tmp1 <- ksTest(x+2, "pgamma", 3, 2)
-  tmp2 <- ks.test(x+2, "pgamma", 3, 2)
-  expect_equal(tmp1$statistic,tmp2$statistic)
-  expect_equal(tmp1$p.value,tmp2$p.value)
+  tmp1o <- ks.test(x+2, "pgamma", 3, 2)
+  expect_equal(tmp1$statistic,tmp1o$statistic)
+  expect_equal(tmp1$p.value,tmp1o$p.value)
   
   ## first two-sample example in ?ks.test
   tmp1 <- ksTest(x,y)
-  tmp2 <- ks.test(x,y)
-  tmp3 <- ksTest(dat~grp,data=df)
-  expect_equal(tmp1,tmp2)
-  expect_equal(tmp3,tmp2)
+  tmp1o <- ks.test(x,y)
+  tmp1f <- ksTest(dat~grp,data=df)
+  expect_equal(tmp1,tmp1o)
+  expect_equal(tmp1f,tmp1o)
 })
 

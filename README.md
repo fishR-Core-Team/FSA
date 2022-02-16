@@ -2,8 +2,8 @@
 [![DOI](https://zenodo.org/badge/18348400.svg)](https://zenodo.org/badge/latestdoi/18348400)
 [![CRAN Version](http://www.r-pkg.org/badges/version/FSA)](http://www.r-pkg.org/pkg/FSA)
 [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
-[![R-CMD-check](https://github.com/droglenc/FSA/workflows/R-CMD-check/badge.svg)](https://github.com/droglenc/FSA/actions)
-[![Codecov test coverage](https://codecov.io/gh/droglenc/FSA/branch/master/graph/badge.svg)](https://codecov.io/gh/droglenc/FSA?branch=master)
+[![R-CMD-check](https://github.com/fishR-Core-Team/FSA/workflows/R-CMD-check/badge.svg)](https://github.com/fishR-Core-Team/FSA/actions)
+[![Codecov test coverage](https://codecov.io/gh/fishR-Core-Team/FSA/branch/master/graph/badge.svg)](https://codecov.io/gh/droglenc/FSA?branch=master)
 [![CRAN RStudio mirror downloads rate](http://cranlogs.r-pkg.org/badges/FSA)
 ![CRAN RSTudio mirror downloads total](http://cranlogs.r-pkg.org/badges/grand-total/FSA)](http://www.r-pkg.org/pkg/FSA)
 [![Rdoc](http://www.rdocumentation.org/badges/version/FSA)](http://www.rdocumentation.org/packages/FSA)
@@ -23,14 +23,14 @@ The most recent development version (on GitHub) may be installed with
 
 ```r
 if (!require('remotes')) install.packages('remotes'); require('remotes')
-remotes::install_github('droglenc/FSA')
+remotes::install_github('fishR-Core-Team/FSA')
 ```
 
 You may need to have R Tools installed on your system to install the development version from GitHub. See the instructions for ([R Tools for Windows](https://cran.r-project.org/bin/windows/Rtools/) or [R Tools for Mac OS X](https://cran.r-project.org/bin/macosx/tools/)).
 
 
 ### Questions / Comments / Problems or Contributions
-Report questions, comments, or bug reports on the [issues page](https://github.com/droglenc/FSA/issues).
+Report questions, comments, or bug reports on the [issues page](https://github.com/fishR-Core-Team/FSA/issues).
 
 We are always looking for others to contribute to **FSA**. Please feel free to make a pull request via GitHub or to contact the maintainers.
 
