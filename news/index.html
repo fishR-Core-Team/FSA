@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
       </span>
     </div>
 
@@ -50,12 +50,19 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href="https://github.com/droglenc/FSA/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="0.9.3" id="fsa-093-15-feb-21">FSA 0.9.3 15-Feb-21<a class="anchor" aria-label="anchor" href="#fsa-093-15-feb-21"></a></h2>
+<ul><li>Moved <code>dplyr</code> from <code>imports</code> to <code>suggests</code> (needed because functions were removed in last version; however it is still used in some examples; partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/87" class="external-link">#87</a>).</li>
+<li>Removed <code>sciplot</code> from <code>imports</code> (because functions were removed in last version; partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/87" class="external-link">#87</a>).</li>
+<li>Updated tests for <code><a href="../reference/ksTest.html">ksTest()</a></code> to handle issues on the CRAN M1 build machine (per e-mail from Prof. Ripley on 15-Feb-22; partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/87" class="external-link">#87</a>).</li>
+<li>Updated all links to the <code>droglenc</code> github that were related to <code>FSA</code> or <code>FSAdata</code> to be to the <code>fishR-Core-Team</code> github.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="0.9.2" id="fsa-092-12-feb-21">FSA 0.9.2 12-Feb-21<small>2022-02-12</small><a class="anchor" aria-label="anchor" href="#fsa-092-12-feb-21"></a></h2>
-<ul><li>Last version maintained by Derek Ogle. Transfering to fishR Core Team for next version.</li>
+<ul><li>Last version maintained by Derek Ogle. Transferring to fishR Core Team for next version.</li>
 <li>
 <code><a href="../reference/FSA-defunct.html">filterD()</a></code>: <strong>REMOVED</strong> (to <code>FSAmisc</code>).</li>
 <li>
@@ -63,19 +70,19 @@
 <li>
 <code><a href="../reference/FSA-defunct.html">fsaNews()</a></code> and <code>FSANews()</code>: <strong>Removed</strong>.</li>
 <li>
-<code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed the way <code>PSDlit</code> was loaded into the function environment so that <code><a href="../reference/psdAdd.html">FSA::psdAdd()</a></code> will work. Addresses <a href="https://github.com/droglenc/FSA/issues/85" class="external-link">#85</a>.</li>
+<code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed the way <code>PSDlit</code> was loaded into the function environment so that <code><a href="../reference/psdAdd.html">FSA::psdAdd()</a></code> will work. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/85" class="external-link">#85</a>.</li>
 <li>
-<code>PSDLit</code>: Modified. Added info for Utah Chub (from <a href="https://webpages.uidaho.edu/quistlab/publications/NAJFM_2021_Black_et_al_UTC_Ws_length_categories.pdf" class="external-link">here</a>; address <a href="https://github.com/droglenc/FSA/issues/84" class="external-link">#84</a>).</li>
+<code>PSDLit</code>: Modified. Added info for Utah Chub (from <a href="https://webpages.uidaho.edu/quistlab/publications/NAJFM_2021_Black_et_al_UTC_Ws_length_categories.pdf" class="external-link">here</a>; address <a href="https://github.com/fishR-Core-Team/FSA/issues/84" class="external-link">#84</a>).</li>
 <li>
-<code><a href="../reference/psdVal.html">psdVal()</a></code>: Modified. Changed the way <code>PSDlit</code> was loaded into the function environment so that <code><a href="../reference/psdVal.html">FSA::psdVal()</a></code> will work. Addresses <a href="https://github.com/droglenc/FSA/issues/85" class="external-link">#85</a>.</li>
+<code><a href="../reference/psdVal.html">psdVal()</a></code>: Modified. Changed the way <code>PSDlit</code> was loaded into the function environment so that <code><a href="../reference/psdVal.html">FSA::psdVal()</a></code> will work. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/85" class="external-link">#85</a>.</li>
 <li>
 <code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: <strong>REMOVED</strong> (to <code>FSAmisc</code>).</li>
 <li>
-<code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Changed the way <code>WSlit</code> was loaded into the function environment so that <code><a href="../reference/wrAdd.html">FSA::wrAdd()</a></code> will work. Addresses <a href="https://github.com/droglenc/FSA/issues/85" class="external-link">#85</a>.</li>
+<code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Changed the way <code>WSlit</code> was loaded into the function environment so that <code><a href="../reference/wrAdd.html">FSA::wrAdd()</a></code> will work. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/85" class="external-link">#85</a>.</li>
 <li>
-<code>WSLit</code>: Modified. Added info for Utah Chub (from <a href="https://webpages.uidaho.edu/quistlab/publications/NAJFM_2021_Black_et_al_UTC_Ws_length_categories.pdf" class="external-link">here</a>; address <a href="https://github.com/droglenc/FSA/issues/84" class="external-link">#84</a>).</li>
+<code>WSLit</code>: Modified. Added info for Utah Chub (from <a href="https://webpages.uidaho.edu/quistlab/publications/NAJFM_2021_Black_et_al_UTC_Ws_length_categories.pdf" class="external-link">here</a>; address <a href="https://github.com/fishR-Core-Team/FSA/issues/84" class="external-link">#84</a>).</li>
 <li>
-<code><a href="../reference/wsVal.html">wsVal()</a></code>: Modified. Changed the way <code>WSlit</code> was loaded into the function environment so that <code><a href="../reference/wsVal.html">FSA::wsVal()</a></code> will work. Addresses <a href="https://github.com/droglenc/FSA/issues/85" class="external-link">#85</a>.</li>
+<code><a href="../reference/wsVal.html">wsVal()</a></code>: Modified. Changed the way <code>WSlit</code> was loaded into the function environment so that <code><a href="../reference/wsVal.html">FSA::wsVal()</a></code> will work. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/85" class="external-link">#85</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.9.1" id="fsa-091-17-jul-21">FSA 0.9.1 17-Jul-21<small>2021-07-17</small><a class="anchor" aria-label="anchor" href="#fsa-091-17-jul-21"></a></h2>
@@ -89,70 +96,70 @@
 <li>
 <code><a href="../reference/alkPlot.html">alkPlot()</a></code>: Modified. Removed use of <code><a href="../reference/FSA-defunct.html">chooseColors()</a></code> (see below).</li>
 <li>
-<code><a href="../reference/binCI.html">binCI()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66" class="external-link">#66</a>).</li>
+<code><a href="../reference/binCI.html">binCI()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/66" class="external-link">#66</a>).</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">bootCase()</a></code>: <strong>REMOVED</strong>. Users can use <code><a href="https://rdrr.io/pkg/car/man/Boot.html" class="external-link">car::Boot()</a></code>, which partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>.
+<code><a href="../reference/FSA-defunct.html">bootCase()</a></code>: <strong>REMOVED</strong>. Users can use <code><a href="https://rdrr.io/pkg/car/man/Boot.html" class="external-link">car::Boot()</a></code>, which partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/65" class="external-link">#65</a>.
 <ul><li>
 <code><a href="../reference/boot.html">plot.boot()</a></code>: <strong>REMOVED</strong>. Conflicted with <code><a href="https://rdrr.io/pkg/boot/man/plot.boot.html" class="external-link">boot::plot.boot()</a></code> which caused an error with CRAN. Same functionality is available with <code>pairs(&lt;boot object&gt;$t)</code>.</li>
 </ul></li>
 <li>
-<code><a href="../reference/catchCurve.html">catchCurve()</a></code>: Modified. Removed hard-coding of <code>ylim=</code> for <code><a href="../reference/catchCurve.html">plot.catchCurve()</a></code> (this addresses <a href="https://github.com/droglenc/FSA/issues/70" class="external-link">#70</a> … Thanks to Brendan Runde). Added <code>round.est=</code> so that the user can control the decimals on mortality estimate values. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66" class="external-link">#66</a>).</li>
+<code><a href="../reference/catchCurve.html">catchCurve()</a></code>: Modified. Removed hard-coding of <code>ylim=</code> for <code><a href="../reference/catchCurve.html">plot.catchCurve()</a></code> (this addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/70" class="external-link">#70</a> … Thanks to Brendan Runde). Added <code>round.est=</code> so that the user can control the decimals on mortality estimate values. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/66" class="external-link">#66</a>).</li>
 <li>
-<code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Removed hard-coding of <code>ylim=</code> for <code><a href="../reference/chapmanRobson.html">plot.chapmanRobson()</a></code>. Added <code>round.est=</code> so that the user can control the decimals on mortality and survival estimate values. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66" class="external-link">#66</a>).</li>
+<code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Removed hard-coding of <code>ylim=</code> for <code><a href="../reference/chapmanRobson.html">plot.chapmanRobson()</a></code>. Added <code>round.est=</code> so that the user can control the decimals on mortality and survival estimate values. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/66" class="external-link">#66</a>).</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">chooseColors()</a></code>: <strong>REMOVED</strong>. This was an exported function that should have been internal. Regardless, where it was used has been removed and the user is now allowed to provide their own vector of colors. See <code>iCheckMultColors()</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>.</li>
+<code><a href="../reference/FSA-defunct.html">chooseColors()</a></code>: <strong>REMOVED</strong>. This was an exported function that should have been internal. Regardless, where it was used has been removed and the user is now allowed to provide their own vector of colors. See <code>iCheckMultColors()</code>. Partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/65" class="external-link">#65</a>.</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">compIntercepts()</a></code>: <strong>REMOVED</strong> (to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>.</li>
+<code><a href="../reference/FSA-defunct.html">compIntercepts()</a></code>: <strong>REMOVED</strong> (to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/65" class="external-link">#65</a>.</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">compSlopes()</a></code>: <strong>REMOVED</strong> (to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>.</li>
+<code><a href="../reference/FSA-defunct.html">compSlopes()</a></code>: <strong>REMOVED</strong> (to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/65" class="external-link">#65</a>.</li>
 <li>
-<code><a href="../reference/depletion.html">depletion()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66" class="external-link">#66</a>).</li>
+<code><a href="../reference/depletion.html">depletion()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/66" class="external-link">#66</a>).</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">filterD()</a></code>: <strong>DEPRECATED</strong> (partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>).</li>
+<code><a href="../reference/FSA-defunct.html">filterD()</a></code>: <strong>DEPRECATED</strong> (partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/65" class="external-link">#65</a>).</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: <strong>DEPRECATED</strong> (partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>). Prior to that removed use of <code><a href="../reference/FSA-defunct.html">chooseColors()</a></code> (see above).</li>
+<code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: <strong>DEPRECATED</strong> (partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/65" class="external-link">#65</a>). Prior to that removed use of <code><a href="../reference/FSA-defunct.html">chooseColors()</a></code> (see above).</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">diags()</a></code>: <strong>REMOVED</strong> (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>.</li>
+<code><a href="../reference/FSA-defunct.html">diags()</a></code>: <strong>REMOVED</strong> (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/65" class="external-link">#65</a>.</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">hoCoef()</a></code>: <strong>REMOVED</strong> (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>.</li>
+<code><a href="../reference/FSA-defunct.html">hoCoef()</a></code>: <strong>REMOVED</strong> (moved to <code>FSAmisc</code>). Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/65" class="external-link">#65</a>.</li>
 <li>
-<code><a href="../reference/hyperCI.html">hyperCI()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66" class="external-link">#66</a>).</li>
+<code><a href="../reference/hyperCI.html">hyperCI()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/66" class="external-link">#66</a>).</li>
 <li>
-<code>iCheckConfLevel()</code>: Added (internal to address <a href="https://github.com/droglenc/FSA/issues/66" class="external-link">#66</a>).</li>
+<code>iCheckConfLevel()</code>: Added (internal to address <a href="https://github.com/fishR-Core-Team/FSA/issues/66" class="external-link">#66</a>).</li>
 <li>
 <code>iCheckMultColors()</code>: Added (internal). Part of removing <code><a href="../reference/FSA-defunct.html">chooseColors()</a></code> and <code>paletteChoices()</code>.</li>
 <li>
 <code>iRichColors()</code>: <strong>REMOVED</strong> (as part of removing <code><a href="../reference/FSA-defunct.html">chooseColors()</a></code>).</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">mapvalues()</a></code>: <strong>REMOVED</strong>. Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>.</li>
+<code><a href="../reference/FSA-defunct.html">mapvalues()</a></code>: <strong>REMOVED</strong>. Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/65" class="external-link">#65</a>.</li>
 <li>
-<code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66" class="external-link">#66</a>).</li>
+<code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/66" class="external-link">#66</a>).</li>
 <li>
-<code><a href="../reference/mrOpen.html">mrOpen()</a></code>: Modified. Added a warning for when r==0, which causes the SE of M and thus N to be <code>Infinity</code> (this addresses <a href="https://github.com/droglenc/FSA/issues/69" class="external-link">#69</a>). Added a similar warning for when R==0 (but not the last time period). Added tests for the warning messages. Changed one use of <code><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply()</a></code> to <code><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums()</a></code> for ease of reading. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66" class="external-link">#66</a>).</li>
+<code><a href="../reference/mrOpen.html">mrOpen()</a></code>: Modified. Added a warning for when r==0, which causes the SE of M and thus N to be <code>Infinity</code> (this addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/69" class="external-link">#69</a>). Added a similar warning for when R==0 (but not the last time period). Added tests for the warning messages. Changed one use of <code><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply()</a></code> to <code><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums()</a></code> for ease of reading. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/66" class="external-link">#66</a>).</li>
 <li>
-<code>paletteChoices()</code>: <strong>REMOVED</strong>. See <code><a href="../reference/FSA-defunct.html">chooseColors()</a></code> above. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>.</li>
+<code>paletteChoices()</code>: <strong>REMOVED</strong>. See <code><a href="../reference/FSA-defunct.html">chooseColors()</a></code> above. Partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/65" class="external-link">#65</a>.</li>
 <li>
-<code><a href="../reference/poiCI.html">poiCI()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66" class="external-link">#66</a>).</li>
+<code><a href="../reference/poiCI.html">poiCI()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/66" class="external-link">#66</a>).</li>
 <li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels()</a></code> in <code>iPSDlitCheck()</code> to <code><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>PSDlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv()</a></code>).</li>
 <li>
-<code><a href="../reference/psdCalc.html">psdCalc()</a></code>: Modified. Added a catch for when “tibble”s are sent in <code>data=</code> (addresses <a href="https://github.com/droglenc/FSA/issues/75" class="external-link">#75</a>). Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66" class="external-link">#66</a>).</li>
+<code><a href="../reference/psdCalc.html">psdCalc()</a></code>: Modified. Added a catch for when “tibble”s are sent in <code>data=</code> (addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/75" class="external-link">#75</a>). Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/66" class="external-link">#66</a>).</li>
 <li>
-<code><a href="../reference/psdCI.html">psdCI()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66" class="external-link">#66</a>).</li>
+<code><a href="../reference/psdCI.html">psdCI()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/66" class="external-link">#66</a>).</li>
 <li>
 <code>PSDlit</code>: Modified. Added length categories for Shoal Bass and Pallid Sturgeon. Added Striped Bass (Hybrid) and Striped Bass x White Bass; though these are the same as the existing Palmetto Bass. Added “source”s for each entry.</li>
 <li>
-<code><a href="../reference/psdVal.html">psdVal()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels()</a></code> in <code>iPSDlitCheck()</code> and <code><a href="../reference/FSA-internals.html">iListSpecies()</a></code> to <code><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>PSDlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv()</a></code>). Added a <code>showJustSource=</code> argument that will show the source info (if <code>TRUE</code>) or not (if <code>FALSE</code>; default), which partially addresses <a href="https://github.com/droglenc/FSA/issues/76" class="external-link">#76</a>.</li>
+<code><a href="../reference/psdVal.html">psdVal()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels()</a></code> in <code>iPSDlitCheck()</code> and <code><a href="../reference/FSA-internals.html">iListSpecies()</a></code> to <code><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>PSDlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv()</a></code>). Added a <code>showJustSource=</code> argument that will show the source info (if <code>TRUE</code>) or not (if <code>FALSE</code>; default), which partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/76" class="external-link">#76</a>.</li>
 <li>
-<code><a href="../reference/removal.html">removal()</a></code>: Modified. Added check and then warning if non-whole numbers are in <code>catch=</code> (addresses <a href="https://github.com/droglenc/FSA/issues/60" class="external-link">#60</a>). Also modified checks of data integrity to be more robust (e.g., if a character vector is sent). Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/droglenc/FSA/issues/66" class="external-link">#66</a>).</li>
+<code><a href="../reference/removal.html">removal()</a></code>: Modified. Added check and then warning if non-whole numbers are in <code>catch=</code> (addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/60" class="external-link">#60</a>). Also modified checks of data integrity to be more robust (e.g., if a character vector is sent). Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/66" class="external-link">#66</a>).</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: <strong>DEPRECATED</strong> (partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>). Prior to that removed use of <code><a href="../reference/FSA-defunct.html">chooseColors()</a></code> (see above).</li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: <strong>DEPRECATED</strong> (partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/65" class="external-link">#65</a>). Prior to that removed use of <code><a href="../reference/FSA-defunct.html">chooseColors()</a></code> (see above).</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">Subset()</a></code>: <strong>REMOVED</strong>. Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/droglenc/FSA/issues/65" class="external-link">#65</a>.</li>
+<code><a href="../reference/FSA-defunct.html">Subset()</a></code>: <strong>REMOVED</strong>. Added to <code>FSA-defunct</code>. Partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/65" class="external-link">#65</a>.</li>
 <li>
 <code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels()</a></code> in <code>iwsLitCheck()</code> to <code><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>WSlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv()</a></code>).</li>
 <li>
-<code>WSlit</code>: Modified. Addresses <a href="https://github.com/droglenc/FSA/issues/68" class="external-link">#68</a>.
+<code>WSlit</code>: Modified. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/68" class="external-link">#68</a>.
 <ul><li>Corrected capitalization of “Cavedano Chub”, “European Chub”, “Lake Herring” (metric), and “Pursak Chub”.</li>
 <li>Removed “not in Neumann et al. (2012)” notes.</li>
 <li>Added African Sharptooth Catfish, Ankara Nase, Bighead and Silver Carp, Brook Trout (Appalachia), Fourbarbel Scraper, Horse Barbel, Nile Tilapia, Nipple-Lipped Scraper, Shoal Bass, South European Roach, Spotted Bass (Alabama subspecies) (AKA Alabama Bass).</li>
@@ -171,13 +178,13 @@
 <li>Added a code of conduct for contributors.</li>
 <li>Moved a bunch of plotting examples in the documentation to <code>tests\plottests\</code> to speed up testing. The <code>tests\plottests\</code> was added to <code>.Rbuildignore</code> .</li>
 <li>
-<code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Fixed bug with y-axes when <code>freq=FALSE</code> is used (fixes <a href="https://github.com/droglenc/FSA/issues/62" class="external-link">#62</a>; thanks to <a href="https://github.com/carlostorrescubila" class="external-link">@carlostorrescubila</a>).</li>
+<code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Fixed bug with y-axes when <code>freq=FALSE</code> is used (fixes <a href="https://github.com/fishR-Core-Team/FSA/issues/62" class="external-link">#62</a>; thanks to <a href="https://github.com/carlostorrescubila" class="external-link">@carlostorrescubila</a>).</li>
 <li>
 <code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: Modified. Fixed bugs with handling models that used character rather than factor variables.</li>
 <li>
 <code><a href="../reference/FSA-defunct.html">plotBinResp()</a></code>: REMOVED. Removed as a user-facing function, but made as an internal function for continued use in <code><a href="../reference/FSA-defunct.html">fitPlot()</a></code> while <code><a href="../reference/FSA-defunct.html">fitPlot()</a></code> is deprecated.</li>
 <li>
-<code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Fixed bug relate to species that were <code>NA</code> (fixes <a href="https://github.com/droglenc/FSA/issues/64" class="external-link">#64</a>; thanks to Dan Shoup). Added more tests and fixed some typos in the documentation.</li>
+<code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Fixed bug relate to species that were <code>NA</code> (fixes <a href="https://github.com/fishR-Core-Team/FSA/issues/64" class="external-link">#64</a>; thanks to Dan Shoup). Added more tests and fixed some typos in the documentation.</li>
 <li>
 <code><a href="../reference/psdPlot.html">psdPlot()</a></code>: Modified. Fixed bug with box around the plot when <code>add.psd=FALSE</code>. Added 5% expansion to top of y-axis so that bars did not run into the box.</li>
 <li>
@@ -262,13 +269,13 @@
 <li>
 <code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: Modified. Fixed bug related to y-axis limits not extending to contain the data, confidence bands, or prediction bands (in <code>fitPlot.slr()</code>). This addresses <a href="https://github.com/droglenc/NCStats/issues/3" class="external-link">#3</a> listed for <code>NCStats</code>).</li>
 <li>
-<code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Fixed bug related to subsequent calls after a call that used <code>iaxs=FALSE</code>. This addresses <a href="https://github.com/droglenc/FSA/issues/46" class="external-link">#46</a>.</li>
+<code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Fixed bug related to subsequent calls after a call that used <code>iaxs=FALSE</code>. This addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/46" class="external-link">#46</a>.</li>
 <li>
 <code><a href="../reference/FSA-internals.html">iLegendHelp()</a></code>: Modified. Added a catch if a proper keyword is not supplied.</li>
 <li>
 <code><a href="../reference/nlsTracePlot.html">nlsTracePlot()</a></code>: Modified. Moved error catching for improper keyword for legend placement forward.</li>
 <li>
-<code><a href="../reference/SchnuteRichards.html">SchnuteRichards()</a></code>: Added. This addresses <a href="https://github.com/droglenc/FSA/issues/54" class="external-link">#54</a>.</li>
+<code><a href="../reference/SchnuteRichards.html">SchnuteRichards()</a></code>: Added. This addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/54" class="external-link">#54</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.22" id="fsa-0822-22-nov-18">FSA 0.8.22 22-Nov-18<small>2018-11-22</small><a class="anchor" aria-label="anchor" href="#fsa-0822-22-nov-18"></a></h2>
@@ -285,39 +292,39 @@
 <li>Added Alexis Dinno as an author for their providing the base functionality of <code><a href="../reference/dunnTest.html">dunnTest()</a></code>. Should have done this long ago.</li>
 <li>Removed all <code><a href="https://rdrr.io/r/utils/data.html" class="external-link">data()</a></code> in examples that referred to data from this package. Included the <code>package=</code> argument in <code><a href="https://rdrr.io/r/utils/data.html" class="external-link">data()</a></code> that loaded from other packages.</li>
 <li>Added <code>seealso</code>, with links to which functions use the data for examples, to docmentation for all data.frames.</li>
-<li>Removed <code>\dontrun()</code>s from the <code>bootCase</code> related examples now that <code>car</code> package is updated. This addresses <a href="https://github.com/droglenc/FSA/issues/45" class="external-link">#45</a>.</li>
+<li>Removed <code>\dontrun()</code>s from the <code>bootCase</code> related examples now that <code>car</code> package is updated. This addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/45" class="external-link">#45</a>.</li>
 <li>
 <code><a href="../reference/addZeroCatch.html">addZeroCatch()</a></code>: Modified. Added a catch that turns a “tibble” into a regular data.frame (which obviates some errors that occur with tibbles). Minor changes to documentation and comments in the code.</li>
 <li>
-<code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Added intermediate and summary calculations for median and modal age; average absolute deviation and standard deviation; APE and CV with the median rather than the mean as the divisor; and index of precision (D). Added <code>show.prec2=</code>. Updated tests and examples. Other minor modifications to the function code. Addresses <a href="https://github.com/droglenc/FSA/issues/41" class="external-link">#41</a> and <a href="https://github.com/droglenc/FSA/issues/49" class="external-link">#49</a>.</li>
+<code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Added intermediate and summary calculations for median and modal age; average absolute deviation and standard deviation; APE and CV with the median rather than the mean as the divisor; and index of precision (D). Added <code>show.prec2=</code>. Updated tests and examples. Other minor modifications to the function code. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/41" class="external-link">#41</a> and <a href="https://github.com/fishR-Core-Team/FSA/issues/49" class="external-link">#49</a>.</li>
 <li>
 <code><a href="../reference/alkIndivAge.html">alkIndivAge()</a></code>: Modified. Replaced an <code>options(warn=-1)</code> with <code><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings()</a></code>.</li>
 <li>
-<code><a href="../reference/alkPlot.html">alkPlot()</a></code>: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/38" class="external-link">#38</a>). Replaced an <code>options(warn=-1)</code> with <code><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings()</a></code>.</li>
+<code><a href="../reference/alkPlot.html">alkPlot()</a></code>: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/38" class="external-link">#38</a>). Replaced an <code>options(warn=-1)</code> with <code><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings()</a></code>.</li>
 <li>
 <code>alkSummaries()</code>: Modified. Replaced an <code>options(warn=-1)</code> with <code><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings()</a></code>.</li>
-<li>Bootstrapping functions: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/38" class="external-link">#38</a>).</li>
+<li>Bootstrapping functions: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/38" class="external-link">#38</a>).</li>
 <li>
-<code><a href="../reference/capHistSum.html">capHistSum()</a></code>: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/38" class="external-link">#38</a>).</li>
+<code><a href="../reference/capHistSum.html">capHistSum()</a></code>: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/38" class="external-link">#38</a>).</li>
 <li>
-<code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/38" class="external-link">#38</a>).</li>
+<code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/38" class="external-link">#38</a>).</li>
 <li>
 <code><a href="../reference/fishR.html">fishR()</a></code>: Modified. Changed examples in documentation to not be run (so as not to open an external webpage).</li>
 <li>
 <code>FSAnews()</code>: Modified. Changed examples in documentation to not be run (so as not to open an external webpage).</li>
-<li>Growth models: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/38" class="external-link">#38</a>).</li>
+<li>Growth models: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/38" class="external-link">#38</a>).</li>
 <li>
-<code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/38" class="external-link">#38</a>).</li>
+<code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/38" class="external-link">#38</a>).</li>
 <li>
-<code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/38" class="external-link">#38</a>).</li>
+<code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/38" class="external-link">#38</a>).</li>
 <li>
 <code><a href="../reference/plotAB.html">plotAB()</a></code>: Modified. Now in its own documentation file (rather than with <code><a href="../reference/ageBias.html">ageBias()</a></code>).</li>
 <li>
-<code><a href="../reference/psdCalc.html">psdCalc()</a></code>: Modified. Better handled the situation where the user asks for summaries with some fish greater than stock size but no fish greater than quality size (addresses <a href="https://github.com/droglenc/FSA/issues/50" class="external-link">#50</a>; thanks to Timothy Spier for the bug report).</li>
+<code><a href="../reference/psdCalc.html">psdCalc()</a></code>: Modified. Better handled the situation where the user asks for summaries with some fish greater than stock size but no fish greater than quality size (addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/50" class="external-link">#50</a>; thanks to Timothy Spier for the bug report).</li>
 <li>
-<code><a href="../reference/removal.html">removal()</a></code>: Modified. Added <code>method="Burhnam"</code> via the <a href="https://github.com/droglenc/FSA/pull/51" class="external-link">#51</a> from Powell Wheeler.</li>
+<code><a href="../reference/removal.html">removal()</a></code>: Modified. Added <code>method="Burhnam"</code> via the <a href="https://github.com/fishR-Core-Team/FSA/pull/51" class="external-link">#51</a> from Powell Wheeler.</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/38" class="external-link">#38</a>).</li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Changed to using <code><a href="https://withr.r-lib.org/reference/with_par.html" class="external-link">withr::local_par()</a></code> (partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/38" class="external-link">#38</a>).</li>
 <li>
 <code>SMBassWB</code>: Modified. Fixed minor data entry error in row 383.</li>
 <li>
@@ -342,55 +349,55 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.19" id="fsa-0819-8-apr-18">FSA 0.8.19 8-Apr-18<small>2018-04-08</small><a class="anchor" aria-label="anchor" href="#fsa-0819-8-apr-18"></a></h2>
 <ul><li>
-<code><a href="../reference/addZeroCatch.html">addZeroCatch()</a></code>: Modified. Changed two <code>1:nrow()</code> structures to <code>seq_len(nrow())</code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/addZeroCatch.html">addZeroCatch()</a></code>: Modified. Changed two <code>1:nrow()</code> structures to <code>seq_len(nrow())</code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code>bcFuns()</code>: Modified. Changed three <code>1:length()</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code>bcFuns()</code>: Modified. Changed three <code>1:length()</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">bootCase()</a></code> methods: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/FSA-defunct.html">bootCase()</a></code> methods: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/capHistConvert.html">capHistConvert()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/capHistConvert.html">capHistConvert()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/capHistSum.html">capHistSum()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/capHistSum.html">capHistSum()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">chooseColors()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/FSA-defunct.html">chooseColors()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">compSlopes()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/FSA-defunct.html">compSlopes()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">compIntercepts()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/FSA-defunct.html">compIntercepts()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/extraTests.html">extraSS()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/extraTests.html">extraSS()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/headtail.html">headtail()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/headtail.html">headtail()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/hist.formula.html">hist.formula()</a></code> methods: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/hist.formula.html">hist.formula()</a></code> methods: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
 <code><a href="../reference/boot.html">htest.boot()</a></code>: Removed (added last version) until I can test more.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iHndlFormula()</a></code>: Modified. Now categorizes a character variable as a factor variable. This addresses <a href="https://github.com/droglenc/FSA/issues/35" class="external-link">#35</a>) for <code><a href="../reference/hist.formula.html">hist.formula()</a></code> and <code><a href="../reference/Summarize.html">Summarize()</a></code>.</li>
+<code><a href="../reference/FSA-internals.html">iHndlFormula()</a></code>: Modified. Now categorizes a character variable as a factor variable. This addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/35" class="external-link">#35</a>) for <code><a href="../reference/hist.formula.html">hist.formula()</a></code> and <code><a href="../reference/Summarize.html">Summarize()</a></code>.</li>
 <li>
-<code><a href="../reference/extraTests.html">lrt()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/extraTests.html">lrt()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Changed two <code>1:length()</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Changed two <code>1:length()</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/nlsBoot.html">nlsBoot()</a></code> methods: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/nlsBoot.html">nlsBoot()</a></code> methods: Modified. Changed all <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
 <code><a href="../reference/boot.html">plot.boot()</a></code>: Removed (added last version) until I can test more.</li>
 <li>
 <code><a href="../reference/boot.html">predict.boot()</a></code>: Removed (added last version) until I can test more.</li>
 <li>
-<code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed three <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Changed three <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Changed three <code>1:length()</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Changed three <code>1:length()</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/Summarize.html">Summarize()</a></code>: Modified. Changed one <code>1:length()</code> structure to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/Summarize.html">Summarize()</a></code>: Modified. Changed one <code>1:length()</code> structure to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 <li>
-<code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Changed three <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/droglenc/FSA/issues/36" class="external-link">#36</a>).</li>
+<code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Changed three <code>1:</code> structures to <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len()</a></code> or <code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along()</a></code> (partially addressing <a href="https://github.com/fishR-Core-Team/FSA/issues/36" class="external-link">#36</a>).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.18" id="fsa-0818-31-mar-18">FSA 0.8.18 31-Mar-18<a class="anchor" aria-label="anchor" href="#fsa-0818-31-mar-18"></a></h2>
@@ -409,7 +416,7 @@
 <li>
 <code><a href="../reference/boot.html">plot.boot()</a></code>: Added.</li>
 <li>
-<code><a href="../reference/plotAB.html">plotAB()</a></code>: Modified. Added <code>col.numbers=</code> to allow users to modify the color of the numbers when <code>what="numbers"</code> is used (addresses <a href="https://github.com/droglenc/FSA/issues/34" class="external-link">#34</a>).</li>
+<code><a href="../reference/plotAB.html">plotAB()</a></code>: Modified. Added <code>col.numbers=</code> to allow users to modify the color of the numbers when <code>what="numbers"</code> is used (addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/34" class="external-link">#34</a>).</li>
 <li>
 <code><a href="../reference/boot.html">predict.boot()</a></code>: Added.</li>
 <li>
@@ -440,9 +447,9 @@
 <li>
 <code>iAddOutlierTestResults()</code>: Modified. Fixed bug related to point labels in <code><a href="../reference/FSA-defunct.html">residPlot()</a></code> when the data.frame for the original model had <code>NA</code> values.</li>
 <li>
-<code><a href="../reference/removal.html">removal()</a></code>: Modified document by merging pull request <a href="https://github.com/droglenc/FSA/pull/33" class="external-link">#33</a>.</li>
+<code><a href="../reference/removal.html">removal()</a></code>: Modified document by merging pull request <a href="https://github.com/fishR-Core-Team/FSA/pull/33" class="external-link">#33</a>.</li>
 <li>
-<code><a href="../reference/srStarts.html">srStarts()</a></code>: Modified. Added <code>fixed=</code>. Added some catches for poor starting values. Added relevant tests. Addresses <a href="https://github.com/droglenc/FSA/issues/30" class="external-link">#30</a>.</li>
+<code><a href="../reference/srStarts.html">srStarts()</a></code>: Modified. Added <code>fixed=</code>. Added some catches for poor starting values. Added relevant tests. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/30" class="external-link">#30</a>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.14" id="fsa-0814-27-jul-17">FSA 0.8.14 27-Jul-17<small>2017-07-27</small><a class="anchor" aria-label="anchor" href="#fsa-0814-27-jul-17"></a></h2>
@@ -526,13 +533,13 @@
 <li>
 <code><a href="../reference/binCI.html">binCI()</a></code>: Modified. Changed from using <code>binconf()</code> in <code>Hmisc</code> to <code>binom.exact()</code>, <code>binom.wilson()</code>, and <code>binom.approx()</code> from <code>epitools</code> (this removes dependency on <code>Hmisc</code> which was causing problems). Allowed multiple <code>type</code>s to be chosen. Now only accepts whole numbers for <code>x</code> and <code>n</code>. Added <code>verbose=</code> so that the result can include all of the information returned from the <code>epitools</code> functions. Added a catch for bad <code>conf.level</code>s. Added some more tests.</li>
 <li>
-<code><a href="../reference/catchCurve.html">catchCurve()</a></code>: Modified. Made sure that <code><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef()</a></code> method returned a vector (addresses <a href="https://github.com/droglenc/FSA/issues/19" class="external-link">#19</a>). Modified <code><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint()</a></code> code for efficiency, made sure matrix is always returned.</li>
+<code><a href="../reference/catchCurve.html">catchCurve()</a></code>: Modified. Made sure that <code><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef()</a></code> method returned a vector (addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/19" class="external-link">#19</a>). Modified <code><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint()</a></code> code for efficiency, made sure matrix is always returned.</li>
 <li>
-<code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Made sure that <code><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef()</a></code> method returned a vector (addresses <a href="https://github.com/droglenc/FSA/issues/19" class="external-link">#19</a>). Modified <code><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint()</a></code> code for efficiency, made sure matrix is always returned.</li>
+<code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Made sure that <code><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef()</a></code> method returned a vector (addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/19" class="external-link">#19</a>). Modified <code><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint()</a></code> code for efficiency, made sure matrix is always returned.</li>
 <li>
 <code><a href="../reference/FSA-defunct.html">chooseColors()</a></code>: Modified. Added <code>rev=</code> for returning reverse ordered (from default) colors.</li>
 <li>
-<code><a href="../reference/depletion.html">depletion()</a></code>: Modified. Changed <code><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef()</a></code> method so that it returned a named vector (addresses <a href="https://github.com/droglenc/FSA/issues/19" class="external-link">#19</a>). Modified <code><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint()</a></code> code for efficiency, made sure matrix is always returned. Removed <code>type=</code> to match other functions (incorporated that functionality into <code>parm=</code>). Removed <code>digits=</code> to match other functions.</li>
+<code><a href="../reference/depletion.html">depletion()</a></code>: Modified. Changed <code><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef()</a></code> method so that it returned a named vector (addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/19" class="external-link">#19</a>). Modified <code><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint()</a></code> code for efficiency, made sure matrix is always returned. Removed <code>type=</code> to match other functions (incorporated that functionality into <code>parm=</code>). Removed <code>digits=</code> to match other functions.</li>
 <li>
 <code><a href="../reference/expandLenFreq.html">expandLenFreq()</a></code>: Modified. Changed all <code><a href="https://rdrr.io/r/base/message.html" class="external-link">message()</a></code>s to <code><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat()</a></code>s. Removed “names” from printed items for a cleaner look.</li>
 <li>
@@ -548,9 +555,9 @@
 <li>
 <code>iHndlCols2use()</code>: Deleted. Changed to <code><a href="../reference/FSA-internals.html">iHndlCols2UseIgnore()</a></code>.</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iHndlCols2UseIgnore()</a></code>: Added. Previously was <code>iHndlCols2use()</code>. Completely reworked to catch more problems including having both positive and negative indices (fixes <a href="https://github.com/droglenc/FSA/issues/24" class="external-link">#24</a>) and choosing variable names that don’t exist (fixes <a href="https://github.com/droglenc/FSA/issues/25" class="external-link">#25</a>).</li>
+<code><a href="../reference/FSA-internals.html">iHndlCols2UseIgnore()</a></code>: Added. Previously was <code>iHndlCols2use()</code>. Completely reworked to catch more problems including having both positive and negative indices (fixes <a href="https://github.com/fishR-Core-Team/FSA/issues/24" class="external-link">#24</a>) and choosing variable names that don’t exist (fixes <a href="https://github.com/fishR-Core-Team/FSA/issues/25" class="external-link">#25</a>).</li>
 <li>
-<code><a href="../reference/FSA-internals.html">iHndlFormula()</a></code>: Modified. Added code to deal with a formula that is a single “variable” sent in an array. Addresses <a href="https://github.com/droglenc/FSA/issues/21" class="external-link">#21</a> for the simple situation of single “variable.”</li>
+<code><a href="../reference/FSA-internals.html">iHndlFormula()</a></code>: Modified. Added code to deal with a formula that is a single “variable” sent in an array. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/21" class="external-link">#21</a> for the simple situation of single “variable.”</li>
 <li>
 <code><a href="../reference/FSA-internals.html">iHndlMultWhat()</a></code>: Modified. Added <code>type=</code> to allow use with <code><a href="https://rdrr.io/r/base/message.html" class="external-link">message()</a></code> or <code><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat()</a></code>.</li>
 <li>
@@ -562,7 +569,7 @@
 <li>
 <code><a href="../reference/metaM.html">metaM()</a></code>: Modified. Fixed bug with the way messages were output when multiple <code>methods</code> were provided and <code>justM=FALSE</code>. Added more tests.</li>
 <li>
-<code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Added <code>poi.type=</code> to handle new choices for Poisson confidence interals. Added some checks for non-vector uses of <code>M=</code> and <code>R=</code> (partially addresses <a href="https://github.com/droglenc/FSA/issues/22" class="external-link">#22</a>). Fixed bug in how inputs for subgroups were output from <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> when <code>verbose=TRUE</code>.</li>
+<code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Added <code>poi.type=</code> to handle new choices for Poisson confidence interals. Added some checks for non-vector uses of <code>M=</code> and <code>R=</code> (partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/22" class="external-link">#22</a>). Fixed bug in how inputs for subgroups were output from <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> when <code>verbose=TRUE</code>.</li>
 <li>
 <code><a href="../reference/mrOpen.html">mrOpen()</a></code>: Modified. Changed all <code><a href="https://rdrr.io/r/base/message.html" class="external-link">message()</a></code>s in <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> to <code><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat()</a></code>s. Fixed bug where returned value from <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> was not a data.frame if only one parameter was selected.</li>
 <li>
@@ -578,7 +585,7 @@
 <li>
 <code><a href="../reference/psdCalc.html">psdCalc()</a></code>: Modified. Fixed bug in output if more than two additional lengths were supplied.</li>
 <li>
-<code><a href="../reference/removal.html">removal()</a></code>: Modified. Added a check and a returned error if <code>method="Schnute"</code> and the last of three catches is zero (addresses <a href="https://github.com/droglenc/FSA/issues/26" class="external-link">#26</a>) Fixed bug related to sending catches in a one column data.frame. Fixed bug related to selecting only one <code>parm=</code> in <code><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint()</a></code>. Added tests.</li>
+<code><a href="../reference/removal.html">removal()</a></code>: Modified. Added a check and a returned error if <code>method="Schnute"</code> and the last of three catches is zero (addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/26" class="external-link">#26</a>) Fixed bug related to sending catches in a one column data.frame. Fixed bug related to selecting only one <code>parm=</code> in <code><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint()</a></code>. Added tests.</li>
 <li>
 <code><a href="../reference/FSA-defunct.html">residPlot()</a></code>: Modified. Added <code>cex.leg=</code> and <code>box.lty.leg=</code> to IVR plots. Removed extra spaces in main title if <code>main="MODEL"</code>. Added some tests.</li>
 <li>
@@ -595,7 +602,7 @@
 <li>
 <code><a href="../reference/catchCurve.html">catchCurve()</a></code>: Modified. Removed <code>type=</code> and blended that functionality into <code>parm=</code> for methods. Made <code>parm=</code> consistent across methods.</li>
 <li>
-<code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Added <code>axis.age=</code> argument that allows the user to choose which type of x-axis is displayed (see examples; this addresses <a href="https://github.com/droglenc/FSA/issues/20" class="external-link">#20</a>) Also modified code that adds the axes so that they should “look better” in more instances. Added <code>na.rm=TRUE</code> to y-range calculation for the plot method. Added a <code><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef()</a></code> method. Added a <code>parm=</code> argument to the <code><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint()</a></code> and <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> methods. Added tests.</li>
+<code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code>: Modified. Added <code>axis.age=</code> argument that allows the user to choose which type of x-axis is displayed (see examples; this addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/20" class="external-link">#20</a>) Also modified code that adds the axes so that they should “look better” in more instances. Added <code>na.rm=TRUE</code> to y-range calculation for the plot method. Added a <code><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef()</a></code> method. Added a <code>parm=</code> argument to the <code><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint()</a></code> and <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> methods. Added tests.</li>
 <li>
 <code><a href="../reference/nlsBoot.html">confint.nlsBoot()</a></code>,<code>confint.bootCase()</code>. Modified. Result is now a matrix even if only one parameter is chosen (previously it was an unnamed vector). The <code>parm=</code> now properly handles negative values. Streamlined plotting results. Added tests.</li>
 <li>
@@ -644,8 +651,8 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.7" id="fsa-087-8-may-16">FSA 0.8.7 8-May-16<small>2016-05-08</small><a class="anchor" aria-label="anchor" href="#fsa-087-8-may-16"></a></h2>
 <ul><li>Compiled under R v3.3.0.</li>
-<li>Removed <code>relax</code> from <code>Suggests</code>. See <code><a href="../reference/srStarts.html">srStarts()</a></code> and <code><a href="../reference/vbStarts.html">vbStarts()</a></code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/17" class="external-link">#17</a>.</li>
-<li>Removed <code>gdata</code> from <code>Imports</code>. See <code><a href="../reference/FSA-defunct.html">filterD()</a></code> and <code><a href="../reference/FSA-defunct.html">Subset()</a></code> notes below. This addresses <a href="https://github.com/droglenc/FSA/issues/5" class="external-link">#5</a>.</li>
+<li>Removed <code>relax</code> from <code>Suggests</code>. See <code><a href="../reference/srStarts.html">srStarts()</a></code> and <code><a href="../reference/vbStarts.html">vbStarts()</a></code> notes below. This addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/17" class="external-link">#17</a>.</li>
+<li>Removed <code>gdata</code> from <code>Imports</code>. See <code><a href="../reference/FSA-defunct.html">filterD()</a></code> and <code><a href="../reference/FSA-defunct.html">Subset()</a></code> notes below. This addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/5" class="external-link">#5</a>.</li>
 <li>Added no coverage blocks to <code>ageKeyPlot()</code>, <code><a href="../reference/capHistSum.html">capHistSum()</a></code>, <code><a href="../reference/hist.formula.html">hist.formula()</a></code>, <code><a href="../reference/histFromSum.html">histFromSum()</a></code>, <code><a href="../reference/lwCompPreds.html">lwCompPreds()</a></code>, <code>plot.agebias()</code>, <code>plot.CatchCurve()</code>, <code>plot.ChapmanRobson()</code>, <code>plot.Depletion()</code>, <code><a href="../reference/FSA-defunct.html">plotBinResp()</a></code>, <code>print.compSlopes()</code>, <code>print.compIntercepts()</code>, <code><a href="../reference/metaM.html">print.metaM()</a></code>, <code><a href="../reference/psdPlot.html">psdPlot()</a></code>,<code><a href="../reference/FSA-defunct.html">residPlot()</a></code>, <code>srModels()</code>, <code><a href="../reference/srStarts.html">srStarts()</a></code>, and <code><a href="../reference/vbStarts.html">vbStarts()</a></code>.</li>
 <li>
 <code>ageKey()</code>: Removed. Deprecated since 0.4.24. Use <code><a href="../reference/alkIndivAge.html">alkIndivAge()</a></code>.</li>
@@ -658,7 +665,7 @@
 <li>
 <code><a href="../reference/FSA-defunct.html">filterD()</a></code>: Modified. Changed to use <code><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels()</a></code> from <code>base</code> rather than <code>drop.levels()</code> from <code>gdata</code>. Added <code>except=</code>.</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: Modified. Changed the way colors, plotting characters, and line types were handled for most of the models. Should make their use more flexible. Fixed errors that occurred in IVR models when the factor variable preceded the covariate in the model (fixes <a href="https://github.com/droglenc/FSA/issues/18" class="external-link">#18</a>). Started to add tests for error and warning messages.</li>
+<code><a href="../reference/FSA-defunct.html">fitPlot()</a></code>: Modified. Changed the way colors, plotting characters, and line types were handled for most of the models. Should make their use more flexible. Fixed errors that occurred in IVR models when the factor variable preceded the covariate in the model (fixes <a href="https://github.com/fishR-Core-Team/FSA/issues/18" class="external-link">#18</a>). Started to add tests for error and warning messages.</li>
 <li>
 <code><a href="../reference/growthModels.html">GompertzFuns()</a></code>: Modified. Changed <code>type=</code> to <code>param=</code>.</li>
 <li>
@@ -699,9 +706,9 @@
 <ul><li>Fixed problems with tests, and made the tests more explicit, related to PSD and Wr functions. Suppressed some warnings related to <code><a href="../reference/sumTable.html">sumTable()</a></code> in ALK related tests and <code><a href="../reference/Summarize.html">Summarize()</a></code> in age comparisons tests. Prompted by forthcoming changes to <code>testthat</code>.</li>
 <li>Removed <code>News.md</code> from <code>.Rbuildignore</code> (apparently now supported by CRAN).</li>
 <li>
-<code><a href="../reference/alkPlot.html">alkPlot()</a></code>: Modified. Changed so that <code>xlim=</code> and <code>ylim=</code> would work when <code>type="area"</code> and <code>type="bar"</code>. This fixes <a href="https://github.com/droglenc/FSA/issues/10" class="external-link">#10</a> (Thanks to Joseph Feldhaus).</li>
+<code><a href="../reference/alkPlot.html">alkPlot()</a></code>: Modified. Changed so that <code>xlim=</code> and <code>ylim=</code> would work when <code>type="area"</code> and <code>type="bar"</code>. This fixes <a href="https://github.com/fishR-Core-Team/FSA/issues/10" class="external-link">#10</a> (Thanks to Joseph Feldhaus).</li>
 <li>
-<code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Added the <code>breaks=</code> argument (mostly a pass-through) and the <code>w=</code> argument that allows the user to just set the width of the bins without having to set each <code><a href="https://rdrr.io/r/base/Control.html" class="external-link">break</a></code> value. This should complete <a href="https://github.com/droglenc/FSA/issues/15" class="external-link">#15</a>.</li>
+<code><a href="../reference/hist.formula.html">hist.formula()</a></code>: Modified. Added the <code>breaks=</code> argument (mostly a pass-through) and the <code>w=</code> argument that allows the user to just set the width of the bins without having to set each <code><a href="https://rdrr.io/r/base/Control.html" class="external-link">break</a></code> value. This should complete <a href="https://github.com/fishR-Core-Team/FSA/issues/15" class="external-link">#15</a>.</li>
 <li>
 <code>iCheckStartCatW()</code>: Modified. Now use <code><a href="../reference/FSA-internals.html">iGetDecimals()</a></code> to extract the number of decimals in <code>startcat</code> and <code>w</code>.</li>
 <li>
@@ -715,7 +722,7 @@
 <li>
 <code><a href="../reference/psdAdd.html">psdAdd()</a></code>: Modified. Minor changes to documentation.</li>
 <li>
-<code><a href="../reference/psdPlot.html">psdPlot()</a></code>: Modified. Fixed bug related to PSD values being printed when only PSD-Q existed (needed to add <code>drop0Est=FALSE</code> to the <code><a href="../reference/psdCalc.html">psdCalc()</a></code> call; this fixes <a href="https://github.com/droglenc/FSA/issues/13" class="external-link">#13</a>). Made the histogram bars flush with the x-axis rather than hovering above it (added <code>yaxis="i"</code> to <code><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist()</a></code>; this fixes <a href="https://github.com/droglenc/FSA/issues/12" class="external-link">#12</a>). Minor changes to documentation.</li>
+<code><a href="../reference/psdPlot.html">psdPlot()</a></code>: Modified. Fixed bug related to PSD values being printed when only PSD-Q existed (needed to add <code>drop0Est=FALSE</code> to the <code><a href="../reference/psdCalc.html">psdCalc()</a></code> call; this fixes <a href="https://github.com/fishR-Core-Team/FSA/issues/13" class="external-link">#13</a>). Made the histogram bars flush with the x-axis rather than hovering above it (added <code>yaxis="i"</code> to <code><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist()</a></code>; this fixes <a href="https://github.com/fishR-Core-Team/FSA/issues/12" class="external-link">#12</a>). Minor changes to documentation.</li>
 <li>
 <code><a href="../reference/psdVal.html">psdVal()</a></code>: Modified. Minor changes to documentation.</li>
 <li>
@@ -726,10 +733,10 @@
 <ul><li><p>Added URL for fishR webpage in DESCRIPTION per CRAN request. Removed it from the URL field in DESCRIPTION.</p></li>
 <li><p>Updated all references to Ogle (2016) in documentation.</p></li>
 <li><p><code><a href="../reference/ageBias.html">ageBias()</a></code>: Modified. Minor corrections to the documentation.</p></li>
-<li><p><code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Fixed bug related to computations of percent agreement when <code>NA</code> values were present. There was an inconsistency between when <code>what="precision"</code> and <code>what="difference"</code> was used in <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code>. The bug fix now properly divides by the “valid sample size” for <code>what="precision"</code>. This fixes <a href="https://github.com/droglenc/FSA/issues/9" class="external-link">#9</a> (Thanks to Joseph Feldhaus). Now returns <code>validn</code>. Modifications to the documentation.</p></li>
-<li><p><code><a href="../reference/histFromSum.html">histFromSum()</a></code>: Added. Addresses <a href="https://github.com/droglenc/FSA/issues/4" class="external-link">#4</a>.</p></li>
+<li><p><code><a href="../reference/agePrecision.html">agePrecision()</a></code>: Modified. Fixed bug related to computations of percent agreement when <code>NA</code> values were present. There was an inconsistency between when <code>what="precision"</code> and <code>what="difference"</code> was used in <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code>. The bug fix now properly divides by the “valid sample size” for <code>what="precision"</code>. This fixes <a href="https://github.com/fishR-Core-Team/FSA/issues/9" class="external-link">#9</a> (Thanks to Joseph Feldhaus). Now returns <code>validn</code>. Modifications to the documentation.</p></li>
+<li><p><code><a href="../reference/histFromSum.html">histFromSum()</a></code>: Added. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/4" class="external-link">#4</a>.</p></li>
 <li><p><code><a href="../reference/metaM.html">metaM()</a></code>: Modified. Changed order of methods in <code>methods=</code>. Minor corrections and additions to documentation.</p></li>
-<li><p><code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Now sends warning if an <code>NA</code> appears in the first position of <code>m</code>, the first position of <code>M</code>, or the last position of <code>R</code> and converts these to 0 so that the procedure can continue. Each of these positions is ignored in the calculations. This fixes <a href="https://github.com/droglenc/FSA/issues/8" class="external-link">#8</a> (Thanks to Joe Mrnak).</p></li>
+<li><p><code><a href="../reference/mrClosed.html">mrClosed()</a></code>: Modified. Now sends warning if an <code>NA</code> appears in the first position of <code>m</code>, the first position of <code>M</code>, or the last position of <code>R</code> and converts these to 0 so that the procedure can continue. Each of these positions is ignored in the calculations. This fixes <a href="https://github.com/fishR-Core-Team/FSA/issues/8" class="external-link">#8</a> (Thanks to Joe Mrnak).</p></li>
 <li><p><code><a href="../reference/knitUtil.html">reproInfo()</a></code>: Modified. Made changes to <code>iGetAllDependencis()</code> based on forthcoming changes to <code>package.dependencies()</code> (as notified by CRAN).</p></li>
 <li><p><code><a href="../reference/vbStarts.html">vbStarts()</a></code>: Modified. Fixed bug when <code>dynamicPlot=TRUE</code> was used.</p></li>
 </ul></div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
       </span>
     </div>
 
@@ -50,7 +50,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Summary statistics for a numeric variable.</h1>
-    <small class="dont-index">Source: <a href="https://github.com/droglenc/FSA/blob/HEAD/R/Summarize.R" class="external-link"><code>R/Summarize.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/fishR-Core-Team/FSA/blob/HEAD/R/Summarize.R" class="external-link"><code>R/Summarize.R</code></a></small>
     <div class="hidden name"><code>Summarize.Rd</code></div>
     </div>
 
@@ -140,104 +140,104 @@
 <span class="r-in"><span class="co"># typical output of summary() for a numeric variable</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.0000  0.2676  0.5788  0.5263  0.7948  0.9757       3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.0000  0.2768  0.5396  0.5164  0.7264  0.9965       3 </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># this function           </span></span>
 <span class="r-in"><span class="fu">Summarize</span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">y</span>,digits<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        n   nvalid     mean       sd      min       Q1   median       Q3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  102.000   99.000    0.526    0.293    0.000    0.268    0.579    0.795 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  102.000   99.000    0.516    0.283    0.000    0.277    0.540    0.726 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      max percZero </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    0.976    2.020 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    0.996    2.020 </span>
 <span class="r-in"><span class="fu">Summarize</span><span class="op">(</span><span class="op">~</span><span class="va">y</span>,data<span class="op">=</span><span class="va">d</span>,digits<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        n   nvalid     mean       sd      min       Q1   median       Q3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  102.000   99.000    0.526    0.293    0.000    0.268    0.579    0.795 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  102.000   99.000    0.516    0.283    0.000    0.277    0.540    0.726 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      max percZero </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    0.976    2.020 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    0.996    2.020 </span>
 <span class="r-in"><span class="fu">Summarize</span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="fl">1</span>,data<span class="op">=</span><span class="va">d</span>,digits<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        n   nvalid     mean       sd      min       Q1   median       Q3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  102.000   99.000    0.526    0.293    0.000    0.268    0.579    0.795 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  102.000   99.000    0.516    0.283    0.000    0.277    0.540    0.726 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      max percZero </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    0.976    2.020 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    0.996    2.020 </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># note that nvalid is not shown if there are no NAs and</span></span>
 <span class="r-in"><span class="co">#   percZero is not shown if there are no zeros</span></span>
 <span class="r-in"><span class="fu">Summarize</span><span class="op">(</span><span class="op">~</span><span class="va">w</span>,data<span class="op">=</span><span class="va">d</span>,digits<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       n    mean      sd     min      Q1  median      Q3     max </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 102.000   8.039   0.832   7.000   7.000   8.000   9.000   9.000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102.000   8.078   0.875   7.000   7.000   8.000   9.000   9.000 </span>
 <span class="r-in"><span class="fu">Summarize</span><span class="op">(</span><span class="op">~</span><span class="va">v</span>,data<span class="op">=</span><span class="va">d</span>,digits<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        n     mean       sd      min       Q1   median       Q3      max </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  102.000    1.118    0.800    0.000    0.000    1.000    2.000    2.000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  102.000    1.078    0.805    0.000    0.000    1.000    2.000    2.000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> percZero </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   26.471 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   28.431 </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># note that the nvalid and percZero results can be forced to be shown</span></span>
 <span class="r-in"><span class="fu">Summarize</span><span class="op">(</span><span class="op">~</span><span class="va">w</span>,data<span class="op">=</span><span class="va">d</span>,digits<span class="op">=</span><span class="fl">3</span>,nvalid<span class="op">=</span><span class="st">"always"</span>,percZero<span class="op">=</span><span class="st">"always"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        n   nvalid     mean       sd      min       Q1   median       Q3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  102.000  102.000    8.039    0.832    7.000    7.000    8.000    9.000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  102.000  102.000    8.078    0.875    7.000    7.000    8.000    9.000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      max percZero </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    9.000    0.000 </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Numeric vector by levels of a factor variable</span></span>
 <span class="r-in"><span class="fu">Summarize</span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">g1</span>,data<span class="op">=</span><span class="va">d</span>,digits<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   g1  n nvalid  mean    sd   min    Q1 median    Q3   max percZero</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  A 24     24 0.518 0.279 0.052 0.287  0.543 0.716 0.928    0.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  B 32     30 0.533 0.296 0.000 0.255  0.590 0.840 0.883    3.333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  C 23     22 0.515 0.347 0.000 0.240  0.565 0.828 0.976    4.545</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  A 25     25 0.491 0.277 0.000 0.284  0.461 0.702 0.915    4.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  B 31     29 0.575 0.289 0.000 0.324  0.596 0.788 0.996    3.448</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  C 24     23 0.499 0.312 0.068 0.240  0.354 0.793 0.991    0.000</span>
 <span class="r-in"><span class="fu">Summarize</span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">g2</span>,data<span class="op">=</span><span class="va">d</span>,digits<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        g2  n nvalid  mean    sd   min    Q1 median    Q3   max percZero</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 UNKNOWN 29     28 0.599 0.246 0.000 0.500  0.593 0.824 0.928    3.571</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  female 38     36 0.456 0.304 0.000 0.194  0.415 0.686 0.972    2.778</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    male 35     35 0.540 0.308 0.011 0.258  0.596 0.804 0.976    0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 UNKNOWN 29     29 0.619 0.261 0.000 0.499  0.682 0.833 0.996    3.448</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  female 37     35 0.419 0.294 0.000 0.159  0.346 0.648 0.991    2.857</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    male 36     35 0.529 0.262 0.085 0.311  0.515 0.731 0.983    0.000</span>
 <span class="r-in"><span class="fu">Summarize</span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">g2</span>,data<span class="op">=</span><span class="va">d</span>,digits<span class="op">=</span><span class="fl">3</span>,exclude<span class="op">=</span><span class="st">"UNKNOWN"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       g2  n nvalid  mean    sd   min    Q1 median    Q3   max percZero</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 female 38     36 0.456 0.304 0.000 0.194  0.415 0.686 0.972    2.778</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   male 35     35 0.540 0.308 0.011 0.258  0.596 0.804 0.976    0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 female 37     35 0.419 0.294 0.000 0.159  0.346 0.648 0.991    2.857</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   male 36     35 0.529 0.262 0.085 0.311  0.515 0.731 0.983    0.000</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Numeric vector by levels of two factor variables</span></span>
 <span class="r-in"><span class="fu">Summarize</span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">g1</span><span class="op">+</span><span class="va">g2</span>,data<span class="op">=</span><span class="va">d</span>,digits<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   g1      g2  n nvalid  mean    sd   min    Q1 median    Q3   max percZero</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  A UNKNOWN 11     11 0.590 0.257 0.133 0.460  0.586 0.825 0.928    0.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  B UNKNOWN 10      9 0.498 0.277 0.000 0.434  0.559 0.624 0.877   11.111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  C UNKNOWN  5      5 0.730 0.152 0.565 0.579  0.761 0.850 0.895    0.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  A  female  8      8 0.477 0.325 0.052 0.269  0.385 0.734 0.928    0.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  B  female 12     11 0.548 0.301 0.144 0.262  0.633 0.839 0.881    0.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  C  female  9      8 0.435 0.403 0.000 0.042  0.408 0.726 0.972   12.500</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  A    male  5      5 0.426 0.261 0.056 0.247  0.579 0.596 0.651    0.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  B    male 10     10 0.547 0.334 0.011 0.255  0.622 0.851 0.883    0.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  C    male  9      9 0.467 0.352 0.027 0.232  0.428 0.660 0.976    0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  A UNKNOWN 11     11 0.553 0.293 0.000 0.476  0.667 0.700 0.915    9.091</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  B UNKNOWN  9      9 0.699 0.211 0.318 0.567  0.714 0.861 0.996    0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  C UNKNOWN  6      6 0.628 0.318 0.193 0.374  0.783 0.864 0.880    0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  A  female  4      4 0.290 0.141 0.108 0.226  0.306 0.370 0.441    0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  B  female 13     12 0.471 0.326 0.000 0.260  0.510 0.737 0.955    8.333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  C  female  9      8 0.336 0.316 0.068 0.149  0.214 0.361 0.991    0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  A    male 10     10 0.503 0.281 0.196 0.291  0.390 0.756 0.891    0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  B    male  9      8 0.592 0.275 0.261 0.380  0.553 0.771 0.979    0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  C    male  9      9 0.557 0.270 0.226 0.308  0.599 0.755 0.983    0.000</span>
 <span class="r-in"><span class="fu">Summarize</span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">g1</span><span class="op">+</span><span class="va">g2</span>,data<span class="op">=</span><span class="va">d</span>,digits<span class="op">=</span><span class="fl">3</span>,exclude<span class="op">=</span><span class="st">"UNKNOWN"</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   g1     g2  n nvalid  mean    sd   min    Q1 median    Q3   max percZero</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  A female  8      8 0.477 0.325 0.052 0.269  0.385 0.734 0.928      0.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  B female 12     11 0.548 0.301 0.144 0.262  0.633 0.839 0.881      0.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  C female  9      8 0.435 0.403 0.000 0.042  0.408 0.726 0.972     12.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  A   male  5      5 0.426 0.261 0.056 0.247  0.579 0.596 0.651      0.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  B   male 10     10 0.547 0.334 0.011 0.255  0.622 0.851 0.883      0.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  C   male  9      9 0.467 0.352 0.027 0.232  0.428 0.660 0.976      0.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  A female  4      4 0.290 0.141 0.108 0.226  0.306 0.370 0.441    0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  B female 13     12 0.471 0.326 0.000 0.260  0.510 0.737 0.955    8.333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  C female  9      8 0.336 0.316 0.068 0.149  0.214 0.361 0.991    0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  A   male 10     10 0.503 0.281 0.196 0.291  0.390 0.756 0.891    0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  B   male  9      8 0.592 0.275 0.261 0.380  0.553 0.771 0.979    0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  C   male  9      9 0.557 0.270 0.226 0.308  0.599 0.755 0.983    0.000</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## What happens if RHS of formula is not a factor</span></span>
 <span class="r-in"><span class="fu">Summarize</span><span class="op">(</span><span class="va">y</span><span class="op">~</span><span class="va">w</span>,data<span class="op">=</span><span class="va">d</span>,digits<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   w  n nvalid  mean    sd   min    Q1 median    Q3   max percZero</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 7 33     31 0.533 0.272 0.037 0.307  0.599 0.741 0.969    0.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 8 32     31 0.536 0.311 0.000 0.264  0.579 0.843 0.972    3.226</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 9 37     37 0.512 0.302 0.000 0.266  0.559 0.756 0.976    2.703</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 7 35     35 0.457 0.303 0.000 0.195  0.400 0.714 0.991    2.857</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 8 24     24 0.523 0.273 0.085 0.266  0.586 0.731 0.915    0.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 9 43     40 0.564 0.267 0.000 0.359  0.583 0.742 0.996    2.500</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Summarizing multiple variables in a data.frame (must reduce to numerics)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">d</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>,<span class="va">Summarize</span>,digits<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        n   nvalid     mean       sd      min       Q1   median       Q3 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 102.0000  99.0000   0.5263   0.2931   0.0000   0.2676   0.5788   0.7948 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102.0000  99.0000   0.5164   0.2828   0.0000   0.2768   0.5396   0.7264 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      max percZero </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.9757   2.0202 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.9965   2.0202 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $w</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        n     mean       sd      min       Q1   median       Q3      max </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 102.0000   8.0392   0.8316   7.0000   7.0000   8.0000   9.0000   9.0000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102.0000   8.0784   0.8753   7.0000   7.0000   8.0000   9.0000   9.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $v</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        n     mean       sd      min       Q1   median       Q3      max </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 102.0000   1.1176   0.7997   0.0000   0.0000   1.0000   2.0000   2.0000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 102.0000   1.0784   0.8045   0.0000   0.0000   1.0000   2.0000   2.0000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> percZero </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  26.4706 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  28.4314 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
 </code></pre></div>
