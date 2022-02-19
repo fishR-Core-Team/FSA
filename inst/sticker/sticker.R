@@ -24,8 +24,8 @@ p <- function() {
 hexSticker::sticker(package="FSA",
                     p_x=1.0,p_y=1.55,p_color="#e9371c",p_size=20,
                     subplot=expression(p()),
-                    s_x=0.75,s_y=0.67,s_width=1.6,s_height=1.6,
+                    s_x=0.98,s_y=0.9,s_width=1.2,s_height=1.2,
                     h_color="#00579E",h_size=1,h_fill="snow",
-                    url="derekogle.com/FSA",
-                    u_color="#00579E",u_size=8,
+                    url="fishr-core-team.github.io/FSA/",
+                    u_color="#00579E",u_size=5,
                     filename="man/figures/logo.png")
