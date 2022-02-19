@@ -1,5 +1,6 @@
 # FSA 0.9.3.9000 ongoing
-
+* Updated sticker.
+* Changed pkgdown.yaml action to only run on a release (rather than a push). Thus, the webpage will only be updated at new releases rather than each push.
 
 # FSA 0.9.3 15-Feb-21
 * Moved `dplyr` from `imports` to `suggests` (needed because functions were removed in last version; however it is still used in some examples; partially addresses [#87](https://github.com/fishR-Core-Team/FSA/issues/87)).

@@ -18,8 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Simple Fisheries Stock Assessment Methods">
-<meta property="og:description" content="A variety of simple fish stock assessment methods.
-    Detailed vignettes are available on the fishR website &lt;http://derekogle.com/fishR/&gt;.">
+<meta property="og:description" content="A variety of simple fish stock assessment methods.">
 <meta property="og:image" content="http://derekogle.com/FSA/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -41,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3.9000</span>
       </span>
     </div>
 
@@ -84,14 +83,14 @@
 <div class="section level2">
 <h2 id="fsa-fisheries-stock-assessment-">FSA (Fisheries Stock Assessment) <img src="reference/figures/logo.png" align="right" height="200" hspace="15"><a class="anchor" aria-label="anchor" href="#fsa-fisheries-stock-assessment-"></a>
 </h2>
-<p>The <strong>FSA</strong> package provides R functions to conduct typical introductory fisheries analyses. Example analyses that use <strong>FSA</strong> can be found in the <a href="http://derekogle.com/IFAR/" class="external-link">Introductory Fisheries Analyses with R book</a> (<em>see note below</em>) and on <a href="http://derekogle.com/fishR/examples/" class="external-link">the <em>Examples</em> page</a> of the <a href="http://derekogle.com/fishR/" class="external-link">fishR website</a>. You can browse documentation for functions in <strong>FSA</strong> under the <em>References</em> tab and recent changes under the <em>News</em> tab at the top of this page. Please <a href="http://derekogle.com/FSA/authors.html">cite <strong>FSA</strong></a> if you use it in a publication (and <a href="mailto:derek@derekogle.com">send me a note</a>).</p>
+<p>The <strong>FSA</strong> package provides R functions to conduct typical introductory fisheries analyses. Example analyses that use <strong>FSA</strong> can be found in the <a href="http://derekogle.com/IFAR/" class="external-link">Introductory Fisheries Analyses with R book</a> (<em>see note below</em>) and on <a href="http://derekogle.com/fishR/examples/" class="external-link">the <em>Examples</em> page</a> of the <a href="http://derekogle.com/fishR/" class="external-link">fishR website</a>. You can browse documentation for functions in <strong>FSA</strong> under the <em>References</em> tab and recent changes under the <em>News</em> tab at <a href="https://fishr-core-team.github.io/FSA/" class="external-link">this page</a>. Please <a href="https://fishr-core-team.github.io/FSA//authors.html" class="external-link">cite <strong>FSA</strong></a> if you use <strong>FSA</strong> in a publication.</p>
 <div class="section level3">
 <h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h3>
 <p>The <a href="https://cloud.r-project.org/package=FSA" class="external-link">most recent stable version (on CRAN)</a> of <strong>FSA</strong> may be installed with</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"FSA"</span><span class="op">)</span></code></pre></div>
-<p>The most recent development version (on GitHub) may be installed with</p>
+<p>The most recent development version may be installed from GitHub with</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">'remotes'</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'remotes'</span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">'remotes'</a></span><span class="op">)</span>
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'fishR-Core-Team/FSA'</span><span class="op">)</span></code></pre></div>
@@ -102,7 +101,7 @@
 </h3>
 <p>Report questions, comments, or bug reports on the <a href="https://github.com/fishR-Core-Team/FSA/issues" class="external-link">issues page</a>.</p>
 <p>We are always looking for others to contribute to <strong>FSA</strong>. Please feel free to make a pull request via GitHub or to contact the maintainers.</p>
-<p>Please adhere to the <a href="http://derekogle.com/FSA/CODE_OF_CONDUCT.html">Code of Conduct</a>.</p>
+<p>Please adhere to the <a href="https://fishr-core-team.github.io/FSA//CODE_OF_CONDUCT.html" class="external-link">Code of Conduct</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="note-about-fsa-and-introduction-to-fisheries-analysis-with-r-book">Note about <strong>FSA</strong> and <em>Introduction to Fisheries Analysis with R</em> book<a class="anchor" aria-label="anchor" href="#note-about-fsa-and-introduction-to-fisheries-analysis-with-r-book"></a>
@@ -163,7 +162,7 @@
 <li><a href="http://www.r-pkg.org/pkg/FSA" class="external-link"><img src="http://www.r-pkg.org/badges/version/FSA" alt="CRAN Version"></a></li>
 <li><a href="http://www.gnu.org/licenses/gpl-2.0.html" class="external-link"><img src="http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat" alt="License"></a></li>
 <li><a href="https://github.com/fishR-Core-Team/FSA/actions" class="external-link"><img src="https://github.com/fishR-Core-Team/FSA/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/droglenc/FSA?branch=master" class="external-link"><img src="https://codecov.io/gh/fishR-Core-Team/FSA/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://codecov.io/gh/fishR-Core-Team/FSA?branch=master" class="external-link"><img src="https://codecov.io/gh/fishR-Core-Team/FSA/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="http://www.r-pkg.org/pkg/FSA" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/FSA" alt="CRAN RStudio mirror downloads rate"><img src="http://cranlogs.r-pkg.org/badges/grand-total/FSA" alt="CRAN RSTudio mirror downloads total"></a></li>
 <li><a href="http://www.rdocumentation.org/packages/FSA" class="external-link"><img src="http://www.rdocumentation.org/badges/version/FSA" alt="Rdoc"></a></li>
 </ul>
