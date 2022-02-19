@@ -34,7 +34,7 @@ Report questions, comments, or bug reports on the [issues page](https://github.c
 
 We are always looking for others to contribute to **FSA**. Please feel free to make a pull request via GitHub or to contact the maintainers.
 
-Please adhere to the [Code of Conduct](https://fishr-core-team.github.io/FSA//CODE_OF_CONDUCT.html).
+Please adhere to the [Code of Conduct](https://fishr-core-team.github.io/FSA/CODE_OF_CONDUCT.html).
 
 
 ### Note about **FSA** and *Introduction to Fisheries Analysis with R* book
