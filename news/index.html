@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">FSA</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3.9000</span>
       </span>
     </div>
 
@@ -54,7 +54,13 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.9.3" id="fsa-093-15-feb-21">FSA 0.9.3 15-Feb-21<a class="anchor" aria-label="anchor" href="#fsa-093-15-feb-21"></a></h2>
+<h2 class="page-header" data-toc-text="0.9.3.9000" id="fsa-0939000-ongoing">FSA 0.9.3.9000 ongoing<a class="anchor" aria-label="anchor" href="#fsa-0939000-ongoing"></a></h2>
+<ul><li>Updated sticker.</li>
+<li>Updated <code>pkgdownk.yaml</code> GitHub action to <a href="https://github.com/r-lib/actions/tree/v2-branch/examples#build-pkgdown-site" class="external-link">v2</a>. Changed action to only run on a release (rather than a push) but it can be <a href="https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow" class="external-link">run manually</a> as well.</li>
+<li>Updated <code>R-CMD-check.yaml</code> GitHub action to <a href="https://github.com/r-lib/actions/tree/v2-branch/examples#standard-ci-workflow" class="external-link">v2</a>. Note that I had to add the <a href="https://github.com/r-lib/actions#common-questions" class="external-link">extra code for dealing with graphics on the Mac version</a>.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.9.3" id="fsa-093-15-feb-21">FSA 0.9.3 15-Feb-21<small>2022-02-18</small><a class="anchor" aria-label="anchor" href="#fsa-093-15-feb-21"></a></h2>
 <ul><li>Moved <code>dplyr</code> from <code>imports</code> to <code>suggests</code> (needed because functions were removed in last version; however it is still used in some examples; partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/87" class="external-link">#87</a>).</li>
 <li>Removed <code>sciplot</code> from <code>imports</code> (because functions were removed in last version; partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/87" class="external-link">#87</a>).</li>
 <li>Updated tests for <code><a href="../reference/ksTest.html">ksTest()</a></code> to handle issues on the CRAN M1 build machine (per e-mail from Prof. Ripley on 15-Feb-22; partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/87" class="external-link">#87</a>).</li>
@@ -1720,7 +1726,7 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.23" id="fsa-0423-aug14">FSA 0.4.23 Aug14<a class="anchor" aria-label="anchor" href="#fsa-0423-aug14"></a></h2>
 <ul><li>
-<code><a href="../reference/removal.html">removal()</a></code>: Modified. Completely modified the code so that the examples with <code><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code> would also provide confidence intervals. Also changed the code to reflect that <span class="math inline">$\sum_{i=1}^{k-1}T_{i}$</span> from Schnute (1983) is the same as <span class="math inline"><em>X</em></span> from Carle and Strub (1978), the <span class="math inline">$\sum_{i=1}^{k-1}T_{i}-C_{1}$</span> in Schnute (1983) is the same as <span class="math inline"><em>X</em> − (<em>k</em> − 1)<em>C</em><sub>1</sub></span>, and <span class="math inline"><em>q</em></span> in Schnute (1983) is <span class="math inline"><em>p</em></span> in most other resources. These changes allowed some efficiencies and connected the theory behind the methods more firmly. Removed the check for character data. Kept the check for whether catch was a vector or not but if catch is a one row or one column matrix or data.frame then it will be converted to a vector to continue. The latter change allows one to extract one row from a data.frame to send to <code><a href="../reference/removal.html">removal()</a></code> without having to use <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric()</a></code>. Modified and added examples of the use of <code><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code>.</li>
+<code><a href="../reference/removal.html">removal()</a></code>: Modified. Completely modified the code so that the examples with <code><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code> would also provide confidence intervals. Also changed the code to reflect that <span class="math inline">$\sum_{i=1}^{k-1}T_{i}$</span> from Schnute (1983) is the same as <span class="math inline"><em>X</em></span> from Carle and Strub (1978), the <span class="math inline">$\sum_{i=1}^{k-1}T_{i}-C_{1}$</span> in Schnute (1983) is the same as <span class="math inline"><em>X</em> − (<em>k</em>−1)<em>C</em><sub>1</sub></span>, and <span class="math inline"><em>q</em></span> in Schnute (1983) is <span class="math inline"><em>p</em></span> in most other resources. These changes allowed some efficiencies and connected the theory behind the methods more firmly. Removed the check for character data. Kept the check for whether catch was a vector or not but if catch is a one row or one column matrix or data.frame then it will be converted to a vector to continue. The latter change allows one to extract one row from a data.frame to send to <code><a href="../reference/removal.html">removal()</a></code> without having to use <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric()</a></code>. Modified and added examples of the use of <code><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.22" id="fsa-0422-aug14">FSA 0.4.22 Aug14<a class="anchor" aria-label="anchor" href="#fsa-0422-aug14"></a></h2>
