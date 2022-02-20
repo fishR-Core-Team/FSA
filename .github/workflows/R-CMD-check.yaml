@@ -30,6 +30,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
+      - if: runner.os == 'macOS'
+        run: brew install --cask xquartz
 
       - uses: r-lib/actions/setup-pandoc@v2
 
