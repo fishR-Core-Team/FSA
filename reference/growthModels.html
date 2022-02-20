@@ -190,8 +190,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf * (1 - exp(-K * (t - t0)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x565306930e08&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x565306e4bd10&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d4a216e898&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d4a2dedea0&gt;</span>
 <span class="r-in"><span class="va">ages</span> <span class="op">&lt;-</span> <span class="fl">0</span><span class="op">:</span><span class="fl">20</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">vb1</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">20</span>,K<span class="op">=</span><span class="fl">0.3</span>,t0<span class="op">=</span><span class="op">-</span><span class="fl">0.2</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="growthModels-1.png" alt="" width="700" height="433"></span>
@@ -211,8 +211,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span>     L1 + (L3 - L1) * ((1 - r^(2 * ((t - t1)/(t3 - t1))))/(1 - </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         r^2))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5653064ca468&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x56530626f7b8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d4a166e0e8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d4a2479200&gt;</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">vb2</span><span class="op">(</span><span class="va">ages</span>,L1<span class="op">=</span><span class="fl">10</span>,L2<span class="op">=</span><span class="fl">19</span>,L3<span class="op">=</span><span class="fl">20</span>,t1<span class="op">=</span><span class="fl">2</span>,t3<span class="op">=</span><span class="fl">18</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="growthModels-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="op">(</span> <span class="va">vb2c</span> <span class="op">&lt;-</span> <span class="fu">vbFuns</span><span class="op">(</span><span class="st">"Francis"</span>,simple<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">)</span>   <span class="co"># compare to vb2</span></span>
@@ -222,8 +222,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span>     L1 + (L3 - L1) * ((1 - r^(2 * ((t - t1)/(t3 - t1))))/(1 - </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         r^2))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5653064cc548&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x565307200438&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d4a16701c8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d4a1b7a9f0&gt;</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Simple Examples -- Gompertz</span></span>
 <span class="r-in"><span class="op">(</span> <span class="va">gomp1</span> <span class="op">&lt;-</span> <span class="fu">GompertzFuns</span><span class="op">(</span><span class="op">)</span> <span class="op">)</span></span>
@@ -236,8 +236,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf * exp(-exp(-gi * (t - ti)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x565305e4c090&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x565306158010&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d49b855058&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d49b8d0658&gt;</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">gomp1</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,gi<span class="op">=</span><span class="fl">0.5</span>,ti<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="growthModels-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="op">(</span> <span class="va">gomp2</span> <span class="op">&lt;-</span> <span class="fu">GompertzFuns</span><span class="op">(</span><span class="st">"Ricker2"</span><span class="op">)</span> <span class="op">)</span></span>
@@ -250,8 +250,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     L0 * exp(a * (1 - exp(-gi * t)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x565305e4adf8&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x565305de9ff8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d4a2269fe8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d4a0dad278&gt;</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">gomp2</span><span class="op">(</span><span class="va">ages</span>,L0<span class="op">=</span><span class="fl">2</span>,a<span class="op">=</span><span class="fl">6</span>,gi<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="growthModels-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="op">(</span> <span class="va">gomp2c</span> <span class="op">&lt;-</span> <span class="fu">GompertzFuns</span><span class="op">(</span><span class="st">"Ricker2"</span>,simple<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">)</span>   <span class="co"># compare to gomp2</span></span>
@@ -259,8 +259,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     L0 * exp(a * (1 - exp(-gi * t)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x565305e4df40&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5653006f2dc8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d4a0feac28&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d49bb6fa00&gt;</span>
 <span class="r-in"><span class="op">(</span> <span class="va">gompT</span> <span class="op">&lt;-</span> <span class="fu">GompertzFuns</span><span class="op">(</span><span class="st">"Troynikov1"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (Lm, dt, Linf, gi = NULL) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
@@ -270,8 +270,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf * ((Lm/Linf)^exp(-gi * dt)) - Lm</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x565306152d08&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5653005b23c0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d4a1446508&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d49bae9ee8&gt;</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Simple Examples -- Richards</span></span>
 <span class="r-in"><span class="op">(</span> <span class="va">rich1</span> <span class="op">&lt;-</span> <span class="fu">RichardsFuns</span><span class="op">(</span><span class="op">)</span> <span class="op">)</span></span>
@@ -285,8 +285,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf * (1 - a * exp(-k * t))^b</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5653005213e0&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x565300503c30&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d49ba65aa0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d49ba50cd8&gt;</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">rich1</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,k<span class="op">=</span><span class="fl">0.5</span>,a<span class="op">=</span><span class="fl">1</span>,b<span class="op">=</span><span class="fl">6</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="growthModels-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="op">(</span> <span class="va">rich2</span> <span class="op">&lt;-</span> <span class="fu">RichardsFuns</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">)</span></span>
@@ -300,8 +300,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf * (1 - (1/b) * exp(-k * (t - ti)))^b</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5653005100c8&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5653002fbb78&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d49ba63330&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d49b830040&gt;</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">rich2</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,k<span class="op">=</span><span class="fl">0.5</span>,ti<span class="op">=</span><span class="fl">3</span>,b<span class="op">=</span><span class="fl">6</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="growthModels-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="op">(</span> <span class="va">rich3</span> <span class="op">&lt;-</span> <span class="fu">RichardsFuns</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op">)</span></span>
@@ -315,8 +315,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf/((1 + b * exp(-k * (t - ti)))^(1/b))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x56530050e058&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x56530015e260&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d49ba5d368&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d49b638590&gt;</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">rich3</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,k<span class="op">=</span><span class="fl">0.5</span>,ti<span class="op">=</span><span class="fl">3</span>,b<span class="op">=</span><span class="fl">0.15</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="growthModels-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="op">(</span> <span class="va">rich4</span> <span class="op">&lt;-</span> <span class="fu">RichardsFuns</span><span class="op">(</span><span class="fl">4</span><span class="op">)</span> <span class="op">)</span></span>
@@ -330,8 +330,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf * (1 + (b - 1) * exp(-k * (t - ti)))^(1/(1 - b))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x56530050c020&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652fff76a08&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d49ba5b1a8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d49b493560&gt;</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">rich4</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,k<span class="op">=</span><span class="fl">0.5</span>,ti<span class="op">=</span><span class="fl">3</span>,b<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fu">rich4</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,k<span class="op">=</span><span class="fl">0.5</span>,ti<span class="op">=</span><span class="fl">3</span>,b<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span>,col<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="growthModels-8.png" alt="" width="700" height="433"></span>
@@ -347,8 +347,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf * (1 + (((L0/Linf)^(1 - b)) - 1) * exp(-k * t))^(1/(1 - </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         b))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x56530050a528&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652ffc45b08&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d49ba59288&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d49b196b40&gt;</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">rich5</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,k<span class="op">=</span><span class="fl">0.5</span>,L0<span class="op">=</span><span class="fl">50</span>,b<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="growthModels-9.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="op">(</span> <span class="va">rich6</span> <span class="op">&lt;-</span> <span class="fu">RichardsFuns</span><span class="op">(</span><span class="fl">6</span><span class="op">)</span> <span class="op">)</span></span>
@@ -364,8 +364,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Lninf + (Linf - Lninf) * (1 + (b - 1) * exp(-k * (t - ti)))^(1/(1 - </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         b))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x565300508c28&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652ffa83178&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d49ba57cd0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d49ae8e698&gt;</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">rich6</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,k<span class="op">=</span><span class="fl">0.5</span>,ti<span class="op">=</span><span class="fl">3</span>,Lninf<span class="op">=</span><span class="fl">50</span>,b<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="growthModels-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="op">(</span> <span class="va">rich2c</span> <span class="op">&lt;-</span> <span class="fu">RichardsFuns</span><span class="op">(</span><span class="fl">2</span>,simple<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">)</span> <span class="co"># compare to rich2</span></span>
@@ -373,8 +373,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf * (1 - (1/b) * exp(-k * (t - ti)))^b</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x56530050d6b8&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652ff7b0e30&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d49ba5c8e8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d49acf4780&gt;</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Simple Examples -- Logistic</span></span>
 <span class="r-in"><span class="op">(</span> <span class="va">log1</span> <span class="op">&lt;-</span> <span class="fu">logisticFuns</span><span class="op">(</span><span class="op">)</span> <span class="op">)</span></span>
@@ -387,8 +387,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf/(1 + exp(-gninf * (t - ti)))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652ff737ed0&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652ff72f760&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d49ac84808&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d49ac7f2c0&gt;</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">log1</span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,gninf<span class="op">=</span><span class="fl">0.5</span>,ti<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="growthModels-11.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="op">(</span> <span class="va">log2</span> <span class="op">&lt;-</span> <span class="fu">logisticFuns</span><span class="op">(</span><span class="st">"CJ2"</span><span class="op">)</span> <span class="op">)</span></span>
@@ -401,8 +401,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf/(1 + a * exp(-gninf * t))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652ff732960&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652ff5c08c8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d49ac82028&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d49aa65a50&gt;</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="va">ages</span>,Linf<span class="op">=</span><span class="fl">800</span>,gninf<span class="op">=</span><span class="fl">0.5</span>,a<span class="op">=</span><span class="fl">10</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="growthModels-12.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="op">(</span> <span class="va">log2c</span> <span class="op">&lt;-</span> <span class="fu">logisticFuns</span><span class="op">(</span><span class="st">"CJ2"</span>,simple<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">)</span> <span class="co"># compare to log2</span></span>
@@ -410,8 +410,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Linf/(1 + a * exp(-gninf * t))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652ff733798&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652ff2c7898&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d49ac82df0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d49a7d8508&gt;</span>
 <span class="r-in"><span class="op">(</span> <span class="va">log3</span> <span class="op">&lt;-</span> <span class="fu">logisticFuns</span><span class="op">(</span><span class="st">"Karkach"</span><span class="op">)</span> <span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (t, Linf, L0 = NULL, gninf = NULL) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
@@ -422,8 +422,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     L0 * Linf/(L0 + (Linf - L0) * exp(-gninf * t))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652ff733db8&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652ff25e4c8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d49ac833d8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d49a758df0&gt;</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">log3</span><span class="op">(</span><span class="va">ages</span>,L0<span class="op">=</span><span class="fl">10</span>,Linf<span class="op">=</span><span class="fl">800</span>,gninf<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span><span class="op">~</span><span class="va">ages</span>,type<span class="op">=</span><span class="st">"b"</span>,pch<span class="op">=</span><span class="fl">19</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="growthModels-13.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="op">(</span> <span class="va">log4</span> <span class="op">&lt;-</span> <span class="fu">logisticFuns</span><span class="op">(</span><span class="st">"Haddon"</span><span class="op">)</span> <span class="op">)</span></span>
@@ -436,8 +436,8 @@ An expression of the equation for each growth function may be created with <code
 <span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     dLmax/(1 + exp(log(19) * ((Lm - L50)/(L95 - L50))))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x5652ff7318e8&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5652ff0ae078&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55d49ac81138&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55d49a3b2d48&gt;</span>
 <span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">###########################################################</span></span>
