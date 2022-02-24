@@ -11,7 +11,7 @@ Authors@R: c(
     person("Alexis", "Dinno", email="alexis.dinno@pdx.edu", role="aut",
            comment="Provided base functionality of dunnTest()")
     )
-URL: https://github.com/fishR-Core-Team/FSA
+URL: https://fishr-core-team.github.io/FSA/
 BugReports: https://github.com/fishR-Core-Team/FSA/issues
 License: GPL (>= 2)
 LazyData: true
