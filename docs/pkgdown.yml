@@ -2,8 +2,8 @@ pandoc: 2.14.0.3
 pkgdown: 2.0.2
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-02-19T18:05Z
+last_built: 2022-02-27T02:15Z
 urls:
-  reference: http://derekogle.com/FSA/reference
-  article: http://derekogle.com/FSA/articles
+  reference: https://fishr-core-team.github.io/FSA/reference
+  article: https://fishr-core-team.github.io/FSA/articles
 
