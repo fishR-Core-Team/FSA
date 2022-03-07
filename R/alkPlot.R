@@ -83,6 +83,7 @@ alkPlot <- function(key,type=c("barplot","area","lines","splines","bubble"),
          splines= { iALKPlotSplines(key,lwd,xlab,ylab,xlim,ylim,lbl.cex,span,
                                     col,showLegend,leg.cex,...) }
   )
+  
   ## return to original graphing parameters
   graphics::layout(1) # nocov end
 }
