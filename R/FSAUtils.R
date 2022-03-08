@@ -483,7 +483,7 @@ perc <- function(x,val,dir=c("geq","gt","leq","lt"),na.rm=TRUE,
 
 #' @title Peek into (show a subset of) a data frame or matrix.
 #'
-#' @description Shows the first, last, and approximately evenly spaced rows from a data frame or matrix.
+#' @description Shows the first, last, and uniformly spaced rows from a data frame or matrix.
 #'
 #' @param x A data frame or matrix.
 #' @param n A single numeric that indicates the number of rows to display.
@@ -538,7 +538,7 @@ peek <- function(x,n=20L,which=NULL,addrownums=TRUE) {
   ## If asked for is greater than size then just return x
   if (n>=N) tmp <- x
   else {
-    rows <- c(1,round((1:(n-2))*(N/(n-1)),0),N)
+    rows <- round((1:n)*((nrow(x)-1)/(n-1))-(((nrow(x)-1)/(n-1))-1))
     tmp <- x[rows,]
     if (addrownums) {
       if (is.null(rownames(tmp))) rownames(tmp) <- rows

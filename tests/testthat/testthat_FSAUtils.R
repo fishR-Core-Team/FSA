@@ -282,6 +282,32 @@ test_that("peek() return values",{
   expect_equal(names(tmp),names(iris)[cols])
   expect_is(tmp,"data.frame")
   
+  ## check for perfectly uniformally-spaced rows against known values
+  nameFun <- function (N = 25) paste(replicate(N, sample(letters, 1)), collapse = "")
+  df9Row <- data.frame(A = 1:9, randLetters = replicate(9, nameFun(100)))
+  df19Row <- data.frame(A = 1:19, randLetters = replicate(19, nameFun(100)))
+  df1000Row <- data.frame(A = 1:1000, randLetters = replicate(1000, nameFun(100)))
+  
+  expect_equal(nrow(peek(df9Row, 5)), 5)
+  expect_equal(ncol(peek(df9Row, 5)), 2)
+  expect_equal(rownames(peek(df9Row, 5)), c("1", "3", "5", "7", "9"))
+  expect_false(any(duplicated(peek(df9Row, 5)$randLetters)))
+  
+  expect_equal(nrow(peek(df19Row, 4)), 4)
+  expect_equal(ncol(peek(df19Row, 4)), 2)
+  expect_equal(rownames(peek(df19Row, 4)), c("1", "7", "13", "19"))
+  expect_false(any(duplicated(peek(df19Row, 4)$randLetters)))
+  
+  expect_equal(nrow(peek(df19Row, 7)), 7)
+  expect_equal(ncol(peek(df19Row, 7)), 2)
+  expect_equal(rownames(peek(df19Row, 7)), c("1", "4", "7", "10", "13", "16", "19"))
+  expect_false(any(duplicated(peek(df19Row, 7)$randLetters)))
+  
+  expect_equal(nrow(peek(df19Row, 10)), 10)
+  expect_equal(ncol(peek(df19Row, 10)), 2)
+  expect_equal(rownames(peek(df19Row, 10)), c("1", "3", "5", "7", "9", "11", "13", "15", "17", "19"))
+  expect_false(any(duplicated(peek(df19Row, 10)$randLetters)))
+  
   ## check for matrix
   miris <- as.matrix(iris[,seq_len(4)])
   tmp <- FSA::peek(miris)
