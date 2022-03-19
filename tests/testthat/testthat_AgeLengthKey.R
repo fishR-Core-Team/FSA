@@ -98,6 +98,10 @@ test_that("alkIndivAge() messages",{
                  "will be treated as all-inclusive")
   expect_error(alkIndivAge(WR1.key[-c(1:5),],age~len,data=WR1.len),
                "minimum observed length in the length")
+  ## Length sample has some NAs
+  WR1.len.problem <- rbind(WR1.len,c(ID=999,len=NA,age=NA,LCat=NA))
+  expect_error(alkIndivAge(WR1.key,age~len,data=WR1.len.problem),
+               "Length variable contains 'NA's")
 })
 
 test_that("alkMeanVar() errors and warnings",{

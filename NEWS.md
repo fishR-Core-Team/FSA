@@ -2,6 +2,7 @@
 * Updated sticker.
 * Updated `pkgdown.yaml` GitHub action to [v2](https://github.com/r-lib/actions/tree/v2-branch/examples#build-pkgdown-site). Changed action to only run on a release (rather than a push) but it can be [run manually](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow) as well.
 * Updated `R-CMD-check.yaml` GitHub action to [v2](https://github.com/r-lib/actions/tree/v2-branch/examples#standard-ci-workflow). Note that I had to add the [extra code for dealing with graphics on the Mac version](https://github.com/r-lib/actions#common-questions).
+* `alkIndivAge()`: Modified. Added a catch for `NA`s in the length sample. Also added a test. This addresses [#88](https://github.com/fishR-Core-Team/FSA/issues/88)).
 
 # FSA 0.9.3 15-Feb-21
 * Moved `dplyr` from `imports` to `suggests` (needed because functions were removed in last version; however it is still used in some examples; partially addresses [#87](https://github.com/fishR-Core-Team/FSA/issues/87)).
