@@ -58,7 +58,7 @@ The main function returns a list with the following items:
 The \code{summary} returns the result if \code{what=} contains only one item, otherwise it returns nothing. See details for what is printed.
 }
 \description{
-Computes overall measures of precision for multiple age estimates made on the same individuals. Ages may be from two or more readers of the same structure, one reader at two or more times, or two or more structures (e.g., scales, spines, otoliths). Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), AAD (Average Absolute Deviation), and ASD (Average Standard Devation), and various percentage difference values.
+Computes overall measures of precision for multiple age estimates made on the same individuals. Ages may be from two or more readers of the same structure, one reader at two or more times, or two or more structures (e.g., scales, spines, otoliths). Measures of precision include ACV (Average Coefficient of Variation), APE (Average Percent Error), AAD (Average Absolute Deviation), and ASD (Average Standard Deviation), and various percentage difference values.
 }
 \details{
 If \code{what="precision"} in \code{summary} then a summary table that contains the following items will be printed:

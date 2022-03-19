@@ -108,7 +108,7 @@ alkIndivAge <- function(key,formula,data,type=c("SR","CR"),
   # handle differently depending on how many variables were in the formula
   if (tmp$vnum==1) {
     if (!tmp$vclass %in% c("numeric","integer"))
-      STOP("RHS ariable must be numeric.")
+      STOP("RHS variable must be numeric.")
     ca <- "age"
     cl <- tmp$vname
   } else if (tmp$vnum==2) {
@@ -121,6 +121,9 @@ alkIndivAge <- function(key,formula,data,type=c("SR","CR"),
     cl <- tmp$Enames
     ca <- tmp$Rname
   } else STOP("'formula' must have only one variable on LHS and RHS.")
+  #Check for NA's
+  if (any(is.na(data[,cl]))) 
+    STOP("Length variable contains 'NA's;\n  Please remove these fish from the length sample before using 'alkIndivAge()'.")
   ## Set the random seed if asked to do so
   if (!is.null(seed)) set.seed(seed)
   ## Begin process
