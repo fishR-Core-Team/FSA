@@ -65,6 +65,7 @@ wsVal <- function(species="List",units=c("metric","English"),ref=75,simplify=FAL
     if (simplify) WSvec <- WSvec[,which(names(WSvec) %in% c("species",tmp,"int","slope","quad"))]
     WSvec
   }
+  
 }
 
 iwsLitCheck <- function(data,species) {

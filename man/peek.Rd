@@ -19,7 +19,7 @@ peek(x, n = 20L, which = NULL, addrownums = TRUE)
 A matrix or data.frame with n rows.
 }
 \description{
-Shows the first, last, and approximately evenly spaced rows from a data frame or matrix.
+Shows the first, last, and uniformly spaced rows from a data frame or matrix.
 }
 \note{
 If \code{n} is larger than the number of rows in \code{x} then all of \code{x} is displayed.
