@@ -74,7 +74,8 @@
 #' 
 #' @rdname boot
 #' @export
-confint.boot <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
+confint.boot <- function(object,parm=NULL,
+                         level=conf.level,conf.level=0.95,
                          type=c("bca","norm","basic","perc"),
                          plot=FALSE,err.col="black",err.lwd=2,
                          rows=NULL,cols=NULL,...) {
@@ -95,7 +96,7 @@ confint.boot <- function(object,parm=NULL,level=conf.level,conf.level=0.95,
     }
   }
   res <- car::Confint(object,parm=parm,level=conf.level,type=type)
-  colnames(res)[2:3] <- iCILabel(conf.level)
+  colnames(res)[grep("%",colnames(res))] <- iCILabel(conf.level)
   if (plot) {
     tmp <- object$t
     np <- ncol(tmp)
