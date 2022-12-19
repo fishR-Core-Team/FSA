@@ -57,6 +57,6 @@ lagratio(10:1,2,2,direction="forward")
 \code{diff}
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{manip}

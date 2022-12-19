@@ -37,11 +37,11 @@
 #'
 #' @return A graphic is produced and nothing is returned unless \code{formula} results in only one histogram. In that case, an object of class \code{"histogram"} is returned, which is described in \code{\link[graphics]{hist}}.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}, but this implementation is largely a modification of the code provided by Marc Schwartz on the R-help mailing list on 1Jun07.
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}, but this implementation is largely a modification of the code provided by Marc Schwartz on the R-help mailing list on 1Jun07.
 #'
 #' @section IFAR Chapter: 3-Plotting Fundamentals.
 #'
-#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #'
 #' @seealso See base \code{\link[graphics]{hist}} for related functionality and \code{\link[plotrix]{multhist}} in \pkg{plotrix} for similar functionality.
 #'

@@ -14,7 +14,7 @@ A data frame with 122 observations on the following 4 variables.
  }
 }
 \source{
-From (actual data) Makarewicz, J.C., E.Damaske, T.W. Lewis, and M. Merner. 2003. Trend analysis reveals a recent reduction in mirex concentrations in Coho (\emph{Oncorhynchus kisutch}) and Chinook (\emph{O. tshawytscha}) Salmon from Lake Ontario. Environmental Science and Technology, 37:1521-1527.
+From (actual data) Makarewicz, J.C., E.Damaske, T.W. Lewis, and M. Merner. 2003. Trend analysis reveals a recent reduction in mirex concentrations in Coho (\emph{Oncorhynchus kisutch}) and Chinook (\emph{O. tshawytscha}) Salmon from Lake Ontario. Environmental Science and Technology, 37:1521-1527. \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/Mirex.csv}{CSV file}
 }
 \description{
 Mirex concentration, weight, capture year, and species of Lake Ontario Coho and Chinook salmon.

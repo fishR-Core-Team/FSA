@@ -58,6 +58,6 @@ sumTable(dat~g1,data=d,FUN=mean,na.rm=TRUE)
 See \code{\link[base]{tapply}} for a more general implementation. See \code{\link{Summarize}} for a similar computation when only one factor variable is given.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{hplot}

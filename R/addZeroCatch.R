@@ -19,13 +19,13 @@
 #' @param na.rm A logical that indicates if rows where \code{specvar} that are \code{NA} should be removed after adding the zeros. See details.
 #' @return A data.frame with the same structure as \code{df} but with rows of zero observation data appended.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @section IFAR Chapter: 2-Basic Data Manipulations
 #' 
 #' @seealso \code{complete} in \pkg{tidyr} package.
 #'
-#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' @keywords manip
 #'

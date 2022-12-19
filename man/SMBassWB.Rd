@@ -30,7 +30,7 @@ A data frame of 445 observations on the following 20 variables:
  }
 }
 \source{
-Data from the linear growth modeling software distributed in support of Weisberg, S. 1993. Using hard-part increment data to estimate age and environmental effects. Canadian Journal of Fisheries and Aquatic Sciences 50:1229-1237.
+Data from the linear growth modeling software distributed in support of Weisberg, S. 1993. Using hard-part increment data to estimate age and environmental effects. Canadian Journal of Fisheries and Aquatic Sciences 50:1229-1237. \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/SMBassWB.csv}{CSV file}
 }
 \description{
 Growth data from Smallmouth Bass (\emph{Micropterus dolomieu}) captured in West Bearskin Lake, MN. Five samples were collected over three years (1988-1990) with two gears (fall -- trapnets, spring -- electrofishing).

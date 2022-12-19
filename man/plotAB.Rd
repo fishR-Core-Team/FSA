@@ -120,7 +120,7 @@ Campana, S.E., M.C. Annand, and J.I. McMillan. 1995. Graphical and statistical m
 See \code{\link{ageBias}} and its plot method for what I consider a better age-bias plot; \code{\link{agePrecision}} for measures of precision between pairs of age estimates; and \code{\link[fishmethods]{compare2}} in \pkg{fishmethods} for similar functionality.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{htest}
 \keyword{manip}

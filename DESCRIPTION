@@ -4,11 +4,15 @@ Date: 2022-2-15
 Title: Simple Fisheries Stock Assessment Methods
 Description: A variety of simple fish stock assessment methods.
 Authors@R: c(
-    person("Derek", "Ogle", email="derek@derekogle.com", role=c("aut","cre"),
+    person("Derek", "Ogle", email="DerekOgle51@gmail.com",
+           role=c("aut","cre"),
            comment=c(ORCID="0000-0002-0370-9299")),
-    person("Jason", "Doll", email="jason.doll@fmarion.edu", role=c("aut")),
-    person("Powell", "Wheeler", email="powell.wheeler@gmail.com", role="aut"),
-    person("Alexis", "Dinno", email="alexis.dinno@pdx.edu", role="aut",
+    person("Jason", "Doll", email="jason.doll@fmarion.edu",
+           role=c("aut")),
+    person("Powell", "Wheeler", email="powell.wheeler@gmail.com",
+           role="aut"),
+    person("Alexis", "Dinno", email="alexis.dinno@pdx.edu",
+           role="aut",
            comment="Provided base functionality of dunnTest()")
     )
 URL: https://fishr-core-team.github.io/FSA/
@@ -46,4 +50,4 @@ Suggests:
     tibble,
     covr
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.2

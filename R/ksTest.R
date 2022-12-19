@@ -15,7 +15,7 @@
 #'
 #' @return See \code{\link[stats]{ks.test}}.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @seealso \code{\link[stats]{ks.test}}.
 #'

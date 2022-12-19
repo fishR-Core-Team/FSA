@@ -44,7 +44,7 @@
 #' @concept Weisberg LGM
 #' @concept Back-Calculation
 #'
-#' @source Data from the linear growth modeling software distributed in support of Weisberg, S. 1993. Using hard-part increment data to estimate age and environmental effects. Canadian Journal of Fisheries and Aquatic Sciences 50:1229-1237.
+#' @source Data from the linear growth modeling software distributed in support of Weisberg, S. 1993. Using hard-part increment data to estimate age and environmental effects. Canadian Journal of Fisheries and Aquatic Sciences 50:1229-1237. \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/SMBassWB.csv}{CSV file}
 #'
 #' @seealso Used in \code{\link{capHistSum}} and \code{\link{mrClosed}} examples. Also see \code{wblake} from \pkg{alr4} for the same dataset with only the \code{agecap}, \code{lencap}, and \code{radcap} variables.
 #' @keywords datasets

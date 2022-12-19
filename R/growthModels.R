@@ -44,13 +44,13 @@
 #'   }
 #' }
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}, thanks to Gabor Grothendieck for a hint about using \code{get()}.
 #'
 #' @section IFAR Chapter: 12-Individual Growth.
 #'
 #' @seealso See \code{\link{Schnute}} for an implementation of the Schnute (1981) model.
 #'
-#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Campana, S.E. and C.M. Jones. 1992. Analysis of otolith microstructure data. Pages 73-100 In D.K. Stevenson and S.E. Campana, editors. Otolith microstructure examination and analysis. Canadian Special Publication of Fisheries and Aquatic Sciences 117. [Was (is?) from http://www.dfo-mpo.gc.ca/Library/141734.pdf.]
 #' 
@@ -1034,7 +1034,7 @@ logisticFuns <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1",
 #' 
 #' @return \code{Schnute} returns a predicted size given the case of the function and the provided parameter values.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @section IFAR Chapter: None specifically, but 12-Individual Growth is related.
 #'
@@ -1112,7 +1112,7 @@ Schnute <- function(t,case=1,t1=NULL,t3=NULL,L1=NULL,L3=NULL,a=NULL,b=NULL) {
 #' 
 #' @return \code{SchnuteRichards} returns a predicted size given the provided parameter values.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @section IFAR Chapter: None specifically, but 12-Individual Growth is related.
 #'

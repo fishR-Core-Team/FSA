@@ -20,7 +20,7 @@ A data frame with 1684 observations on the following 10 variables.
  }
 }
 \source{
-From Appendix A.3 of Harding, R.D., C.L. Hoover, and R.P. Marshall. 2010. Abundance of Cutthroat Trout in Auke Lake, Southeast Alaska, in 2005 and 2006. Alaska Department of Fish and Game Fisheries Data Series No. 10-82. [Was (is?) from http://www.sf.adfg.state.ak.us/FedAidPDFs/FDS10-82.pdf.]
+From Appendix A.3 of Harding, R.D., C.L. Hoover, and R.P. Marshall. 2010. Abundance of Cutthroat Trout in Auke Lake, Southeast Alaska, in 2005 and 2006. Alaska Department of Fish and Game Fisheries Data Series No. 10-82. [Was (is?) from http://www.sf.adfg.state.ak.us/FedAidPDFs/FDS10-82.pdf.] \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/CutthroatAL.csv}{CSV file}
 }
 \description{
 Individual capture histories of Cutthroat Trout (\emph{Oncorhynchus clarki}) in Auke Lake, Alaska, from samples taken in 1998-2006.

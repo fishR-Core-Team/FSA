@@ -12,7 +12,7 @@ A data frame with 8 observations on the following 2 variables:
  }
 }
 \source{
-McKendrick, A.G. and M. Kesava Pai. 1911. The Rate of Multiplication of Micro-Organisms: a Mathematical Study. Proceedings of the Royal Society of Edinburgh. 31:649-655.
+McKendrick, A.G. and M. Kesava Pai. 1911. The Rate of Multiplication of Micro-Organisms: a Mathematical Study. Proceedings of the Royal Society of Edinburgh. 31:649-655. \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/Ecoli.csv}{CSV file}
 }
 \description{
 The number of \emph{Escherichia coli} cells versus time.

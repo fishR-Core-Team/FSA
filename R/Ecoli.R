@@ -21,7 +21,7 @@
 #' @concept Nonlinear Model
 #' @concept Other
 #' 
-#' @source McKendrick, A.G. and M. Kesava Pai. 1911. The Rate of Multiplication of Micro-Organisms: a Mathematical Study. Proceedings of the Royal Society of Edinburgh. 31:649-655.
+#' @source McKendrick, A.G. and M. Kesava Pai. 1911. The Rate of Multiplication of Micro-Organisms: a Mathematical Study. Proceedings of the Royal Society of Edinburgh. 31:649-655. \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/Ecoli.csv}{CSV file}
 #' 
 #' @keywords datasets
 NULL

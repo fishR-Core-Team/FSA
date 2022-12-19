@@ -22,7 +22,7 @@
 #'
 #' @concept Age-Length Key
 #'
-#' @source Simulated from Table 2A in Westerheim, S.J. and W.E. Ricker. 1979. Bias in using age-length key to estimate age-frequency distributions. Journal of the Fisheries Research Board of Canada. 35:184-189.
+#' @source Simulated from Table 2A in Westerheim, S.J. and W.E. Ricker. 1979. Bias in using age-length key to estimate age-frequency distributions. Journal of the Fisheries Research Board of Canada. 35:184-189. \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/WR79.csv}{CSV file}
 #'
 #' @keywords datasets
 #'

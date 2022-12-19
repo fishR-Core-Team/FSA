@@ -13,7 +13,7 @@ A data frame with 10 observations on the following 3 variables:
  }
 }
 \source{
-From Omand, D.N. 1951. A study of populations of fish based on catch-effort statistics. Journal of Wildlife Management, 15:88-98.
+From Omand, D.N. 1951. A study of populations of fish based on catch-effort statistics. Journal of Wildlife Management, 15:88-98. \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/SMBassLS.csv}{CSV file}
 }
 \description{
 Catch-effort data for Smallmouth Bass (\emph{Micropterus dolomieu}) in Little Silver Lake, Ont.

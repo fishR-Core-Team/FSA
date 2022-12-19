@@ -49,6 +49,6 @@ poiCI(c(7,10),type="exact",verbose=TRUE)
 
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}, though this is largely based on \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} from the old epitools package.
+Derek H. Ogle, \email{DerekOgle51@gmail.com}, though this is largely based on \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} from the old epitools package.
 }
 \keyword{htest}
