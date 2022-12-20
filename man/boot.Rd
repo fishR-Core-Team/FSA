@@ -134,6 +134,6 @@ S. Weisberg (2005). \emph{Applied Linear Regression}, third edition. New York: W
 \code{\link[car]{Boot}} in \pkg{car}.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{htest}

@@ -71,7 +71,7 @@ alkMeanVar(WR1.key,len~LCat+age,WR1.age,len.n,method="QuinnDeriso")
 
 }
 \references{
-Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
 Bettoli, P. W. and Miranda, L. E. 2001. A cautionary note about estimating mean length at age with subsampled data. North American Journal of Fisheries Management, 21:425-428.
  
@@ -81,6 +81,6 @@ Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford Universi
 See \code{\link{alkIndivAge}} and related functions for a completely different methodology. See \code{\link{alkAgeDist}} for a related method of determining the proportion of fish at each age. See the \pkg{ALKr} package.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{manip}

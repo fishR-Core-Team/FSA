@@ -18,8 +18,8 @@ ageBias(
 
 \method{summary}{ageBias}(
   object,
-  what = c("table", "symmetry", "Bowker", "EvansHoenig", "McNemar", "bias",
-    "diff.bias", "n"),
+  what = c("table", "symmetry", "Bowker", "EvansHoenig", "McNemar", "bias", "diff.bias",
+    "n"),
   flip.table = FALSE,
   zero.print = "-",
   digits = 3,
@@ -325,7 +325,7 @@ par(op)
 
 }
 \references{
-Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
 Campana, S.E., M.C. Annand, and J.I. McMillan. 1995. Graphical and statistical methods for determining the consistency of age determinations. Transactions of the American Fisheries Society 124:131-138. [Was (is?) available from http://www.bio.gc.ca/otoliths/documents/Campana\%20et\%20al\%201995\%20TAFS.pdf.]
 
@@ -341,7 +341,7 @@ Muir, A.M., M.P. Ebener, J.X. He, and J.E. Johnson. 2008. A comparison of the sc
 See \code{\link{agePrecision}} for measures of precision between pairs of age estimates. See \code{\link[fishmethods]{compare2}} in \pkg{fishmethods} for similar functionality. See \code{\link{plotAB}} for a more traditional age-bias plot.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{htest}
 \keyword{manip}

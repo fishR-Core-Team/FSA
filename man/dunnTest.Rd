@@ -116,5 +116,5 @@ Dunn, O.J. 1964. Multiple comparisons using rank sums. Technometrics 6:241-252.
 See \code{kruskal.test}, \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test}, \code{posthoc.kruskal.nemenyi.test} in \pkg{PMCMR}, \code{kruskalmc} in \pkg{pgirmess}, and \code{kruskal} in \pkg{agricolae}.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}, but this is largely a wrapper (see details) for \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test} written by Alexis Dinno.
+Derek H. Ogle, \email{DerekOgle51@gmail.com}, but this is largely a wrapper (see details) for \code{\link[dunn.test]{dunn.test}} in \pkg{dunn.test} written by Alexis Dinno.
 }

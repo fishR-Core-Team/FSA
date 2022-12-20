@@ -30,7 +30,7 @@
 #' @concept DeLury
 #' @concept Catchability
 #'
-#' @source From Omand, D.N. 1951. A study of populations of fish based on catch-effort statistics. Journal of Wildlife Management, 15:88-98.
+#' @source From Omand, D.N. 1951. A study of populations of fish based on catch-effort statistics. Journal of Wildlife Management, 15:88-98. \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/SMBassLS.csv}{CSV file}
 #'
 #' @seealso Used in \code{\link{depletion}} examples.
 #' 

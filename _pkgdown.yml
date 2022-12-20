@@ -10,8 +10,8 @@ authors:
   Alexis Dinno:
     
 template:
-  params:
-    bootswatch: spacelab
+  bootstrap: 5
+  bootswatch: flatly
   
 development:
   mode: release
@@ -148,14 +148,13 @@ reference:
       - FSA-defunct
 
 navbar:
-  type: inverse
   left:
     - text: Reference
       href: reference/index.html
-    - text: News
-      href: news/index.html
   right:
-    - icon: fa-home fa-2x
+    - icon: fa-newspaper
+      href: news/index.html
+    - icon: fa-home fa
       href: index.html
-    - icon: fa-github fa-2x
+    - icon: fa-github fa
       href: https://github.com/fishR-Core-Team/FSA

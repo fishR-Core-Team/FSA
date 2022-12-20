@@ -68,10 +68,10 @@ If \code{what="precision"} in \code{summary} then a summary table that contains 
   \item R Number of age estimates given in \code{formula}.
   \item PercAgree The percentage of fish for which all age estimates perfectly agree.
   \item ASD The average (across all fish) standard deviation of ages within a fish.
-  \item ACV The average (across all fish) coefficient of variation of ages within a fish using the \bold{mean} as the divisor. See the \href{http://derekogle.com/IFAR/}{IFAR chapter} for calculation details.
+  \item ACV The average (across all fish) coefficient of variation of ages within a fish using the \bold{mean} as the divisor. See the \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{IFAR chapter} for calculation details.
   \item ACV2 The average (across all fish) coefficient of variation of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2 or \code{show.prec2=TRUE}.
   \item AAD The average (across all fish) absolute deviation of ages within a fish.
-  \item APE The average (across all fish) percent error of ages within a fish using the \bold{mean} as the divisor. See the \href{http://derekogle.com/IFAR/}{IFAR chapter} for calculation details.
+  \item APE The average (across all fish) percent error of ages within a fish using the \bold{mean} as the divisor. See the \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{IFAR chapter} for calculation details.
   \item APE2 The average (across all fish) percent error of ages within a fish using the \bold{median} as the divisor. This will only be shown if R>2 or \code{show.prec2=TRUE}.
   \item AD The average (across all fish) index of precision (D).
 }
@@ -137,7 +137,7 @@ plot(median~mean,data=ap2$detail,pch=19,col=col2rgbt("black",1/5),
 
 }
 \references{
-Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
 Beamish, R.J. and D.A. Fournier. 1981. A method for comparing the precision of a set of age determinations. Canadian Journal of Fisheries and Aquatic Sciences 38:982-983. [Was (is?) available from http://www.pac.dfo-mpo.gc.ca/science/people-gens/beamish/PDF_files/compareagecjfas1981.pdf.]
 
@@ -153,7 +153,7 @@ McBride, R.S. 2015. Diagnosis of paired age agreement: A simulation approach of 
 See \code{\link{ageBias}} for computation of the full age agreement table, along with tests and plots of age bias.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{htest}
 \keyword{manip}

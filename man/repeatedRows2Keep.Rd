@@ -41,6 +41,6 @@ droplevels(subset(test1,keepLast))   # should be all "Last" or "Both" (7 items)
 
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{manip}

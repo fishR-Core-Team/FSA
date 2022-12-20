@@ -27,7 +27,7 @@
 #'    \item \code{Pr(>F)}, \code{Pr(>Chisq)} The corresponding p-value.
 #'  }
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @keywords htest
 #'

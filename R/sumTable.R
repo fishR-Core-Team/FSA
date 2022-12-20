@@ -16,7 +16,7 @@
 #'
 #' @return A one-way array of values if only one factor variable is supplied on the right-hand-side of \code{formula}. A two-way matrix of values if two factor variables are supplied on the right-hand-side of \code{formula}. These are the same classes of objects returned by \code{\link[base]{tapply}}.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @seealso See \code{\link[base]{tapply}} for a more general implementation. See \code{\link{Summarize}} for a similar computation when only one factor variable is given.
 #'

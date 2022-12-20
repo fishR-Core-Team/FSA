@@ -81,6 +81,6 @@ newlen2
 See \code{\link{expandCounts}} for expanding more than just lengths or expanding lengths when there is a known number in each length bin. See \code{\link{lencat}} for creating length bins.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{manip}

@@ -39,6 +39,6 @@ validn(junk6)
 See \code{\link[plotrix]{valid.n}} in \pkg{plotrix} and \code{nobs} in \pkg{gdata} for similar functionality. See \code{\link{is.na}} for finding the missing values.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{manip}

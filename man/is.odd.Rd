@@ -30,6 +30,6 @@ d <- 1:8
 data.frame(d,odd=is.odd(d),even=is.even(d))
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{manip}

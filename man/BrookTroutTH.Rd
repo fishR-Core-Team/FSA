@@ -12,7 +12,7 @@ A data frame with 7 observations on the following 2 variables.
  }
 }
 \source{
-Quinlan, H.R. 1999. Biological Characteristics of Coaster Brook Trout at Isle Royale National Park, Michigan, 1996-98. U.S. Fish and Wildlife Service Ashland Fishery Resources Office report. November 1999. [Was (is?) from http://www.fws.gov/midwest/ashland/brook/biochar/biolchar.html.]
+Quinlan, H.R. 1999. Biological Characteristics of Coaster Brook Trout at Isle Royale National Park, Michigan, 1996-98. U.S. Fish and Wildlife Service Ashland Fishery Resources Office report. November 1999. \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/BrookTroutTH.csv}{CSV file}
 }
 \description{
 Catch-at-age in fyke nets from 1996-1998 for \dQuote{Coaster} Brook Trout (\emph{Salvelinus fontinalis}) in Tobin Harbor, Isle Royale, Lake Superior.

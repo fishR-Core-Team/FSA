@@ -20,7 +20,7 @@
 #' 
 #' @return A #x2 matrix that contains the lower and upper confidence interval bounds as columns and, if \code{verbose=TRUE} \code{x}, \code{n}, and \code{x/n} .
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}, though this is largely based on \code{binom.exact}, \code{binom.wilson}, and \code{binom.approx} from the old epitools package.
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}, though this is largely based on \code{binom.exact}, \code{binom.wilson}, and \code{binom.approx} from the old epitools package.
 #'
 #' @seealso See \code{\link{binom.test}}; \code{binconf} in \pkg{Hmisc}; and functions in \pkg{binom}.
 #'
@@ -138,7 +138,7 @@ binCI <- function(x,n,conf.level=0.95,type=c("wilson","exact","asymptotic"),
 #'
 #' @return A #x2 matrix that contains the lower and upper confidence interval bounds as columns and, if \code{verbose=TRUE} \code{x}.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}, though this is largely based on \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} from the old epitools package.
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}, though this is largely based on \code{pois.exact}, \code{pois.daly}, \code{pois.byar}, and \code{pois.approx} from the old epitools package.
 #'
 #' @keywords htest
 #'
@@ -270,7 +270,7 @@ poiCI <- function(x,conf.level=0.95,type=c("exact","daly","byar","asymptotic"),
 #'
 #' @return A 1x2 matrix that contains the lower and upper confidence interval bounds.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @keywords htest
 #'

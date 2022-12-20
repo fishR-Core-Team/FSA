@@ -15,7 +15,7 @@ A data frame with 57 observations on the following 4 variables.
  }
 }
 \source{
-Summary values taken from Table C-1 of New York Power Authority. 2004. Use of Buckhorn Marsh and Grand Island tributaries by Northern Pike for spawning and as a nursery. Technical report, New York Power Authority, January 2004. Niagara Power Project (FERC No. 2216).
+Summary values taken from Table C-1 of New York Power Authority. 2004. Use of Buckhorn Marsh and Grand Island tributaries by Northern Pike for spawning and as a nursery. Technical report, New York Power Authority, January 2004. Niagara Power Project (FERC No. 2216). \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/PikeNYPartial1.csv}{CSV file}
 }
 \description{
 Each line consists of the capture history over four samples of Northern Pike (\emph{Esox lucius}) in Buckhorn Marsh. This file contains the capture histories for only those pike captured from April 1-4.

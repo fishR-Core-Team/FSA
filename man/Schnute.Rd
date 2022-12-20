@@ -69,6 +69,6 @@ Schnute, J. 1981. A versatile growth model with statistical stable parameters. C
 See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{RichardsFuns}}, \code{\link{logisticFuns}}, and \code{\link{SchnuteRichards}} for similar functionality for other models.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{manip}

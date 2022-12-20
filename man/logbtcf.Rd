@@ -48,6 +48,6 @@ all.equal(cpe,cp10)
 Sprugel, D.G. 1983. Correcting for bias in log-transformed allometric equations. Ecology 64:209-210.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{manip}

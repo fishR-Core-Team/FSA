@@ -122,6 +122,6 @@ kPvalue(0.000012345,include.p=FALSE,latex=FALSE)
 See \code{\link{formatC}} for functionality similar to \code{kPvalue}. See \code{purl} and \code{\link[knitr]{knit}} in \pkg{knitr} for functionality similar to \code{purl2}.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{manip}

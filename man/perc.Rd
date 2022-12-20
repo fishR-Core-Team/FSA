@@ -50,6 +50,6 @@ perc(tmp,5,"lt",na.rm=FALSE)
 
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{misc}

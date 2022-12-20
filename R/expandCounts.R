@@ -20,7 +20,7 @@
 #' 
 #' @return A data.frame of the same structure as \code{data} except that the variable in \code{cform} may be deleted and the variable in \code{new.name} may be added. The returned data.frame will have more rows than \code{data} because of the potential addition of new individuals expanded from the counts in \code{cform}.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #' 
 #' @seealso See \code{\link{expandLenFreq}} for expanding length frequencies where individual fish measurements were made on individual fish in a subsample and the remaining fish were simply counted.
 #' 
