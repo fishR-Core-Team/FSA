@@ -13,6 +13,7 @@
 
 * `alkIndivAge()`: Modified. Added a catch for `NA`s in the length sample. Also added a test. This addresses [#88](https://github.com/fishR-Core-Team/FSA/issues/88).
 * `confint.boot()`: Modified. Changed hard-coding of columns that contained the confidence interval values to find those columns by `grep()`ing for the `%` sign. This fixes an issue related to `car::Confint()` returning the `coef()` results for functions that have a `coef()` method but not for those that do not. Also updated tests to use results from `car::Boot()` rather than the old `car::bootCase()`.
+* `wSlit`: Modified documentation. Described the `RLP` and `EmP` acronyms and provided references for them. This addresses [#95](https://github.com/fishR-Core-Team/FSA/issues/95)).
 
 # FSA 0.9.3
 * Moved `dplyr` from `imports` to `suggests` (needed because functions were removed in last version; however it is still used in some examples; partially addresses [#87](https://github.com/fishR-Core-Team/FSA/issues/87)).

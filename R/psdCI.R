@@ -2,7 +2,7 @@
 #'
 #' @description Compute confidence intervals for (traditional) PSD-X and (incremental) PSD X-Y values as requested by the user.
 #'
-#' @details Computes confidence intervals for (traditional) PSD-X and (incremental) PSD X-Y values. Two methods can be used as chosen with \code{method=}. If \code{method="binomial"} then the binomial distribution (via \code{binCI()}) is used. If \code{method="multinomial"} then the multinomial method described by Brenden et al. (2008) is used. This function is defined to compute one confidence interval so \code{method="binomial"} is the default. See examples and \code{\link{psdCalc}} for computing several simultaneous confidence intervals.
+#' @details Computes confidence intervals for (traditional) PSD-X and (incremental) PSD X-Y values. Two methods can be used as chosen with \code{method=}. If \code{method="binomial"} then the binomial distribution (via \code{binCI()}) is used. If \code{method="multinomial"} then the multinomial method described by Brenden \emph{et al.} (2008) is used. This function is defined to compute one confidence interval so \code{method="binomial"} is the default. See examples and \code{\link{psdCalc}} for computing several simultaneous confidence intervals.
 #' 
 #' A table of proportions within each length category is given in \code{ptbl}. If \code{ptbl} has any values greater than 1 then it is assumed that a table of percentages was supplied and the entire table will be divided by 100 to continue. The proportions must sum to 1 (with some allowance for rounding).
 #' 
@@ -19,7 +19,7 @@
 #'
 #' @return A matrix with columns that contain the computed PSD-X or PSD X-Y value and the associated confidence interval. The confidence interval values were set to zero or 100 if the computed value was negative or greater than 100, respectively.
 #' 
-#' @section Testing: The multinomial results match the results given in Brendent et al. (2008).
+#' @section Testing: The multinomial results match the results given in Brenden \emph{et al.} (2008).
 #'
 #' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
