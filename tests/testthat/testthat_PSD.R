@@ -98,6 +98,9 @@ test_that("psdCI() messages",{
 })
 
 test_that("psdCalc() messages",{
+  ## species name does not exist in PSDlit
+  expect_error(psdCalc(~tl,data=tmp,species="Slimy Sculpin"),
+               "Gabelhouse lengths do not exist for Slimy Sculpin")
   ## get Gabelhouse lengths for Yellow Perch
   ghl <- psdVal("Yellow perch")
   ## restrict data.frame to no fish
@@ -111,11 +114,7 @@ test_that("psdCalc() messages",{
   ## restrict data.frame to no >=quality fish
   tmp <- subset(df,tl<ghl["quality"])
   expect_warning(psdCalc(~tl,data=tmp,species="Yellow perch"),
-                 "No 'quality' or larger fish in sample")
-  
-  ## no species name given
-  expect_error(psdCalc(~tl,data=tmp),
-               "Must include a species name in")
+                 "No fish in larger than 'stock' categories")
   
   ## bad formulae
   expect_error(psdCalc(tl,data=df,species="Yellow perch"),
@@ -134,6 +133,30 @@ test_that("psdCalc() messages",{
                "must be between 0 and 1")
   expect_error(psdCalc(~tl,data=tmp,species="Yellow perch",conf.level="R"),
                "must be numeric")
+
+  # Testing when species name not given
+  ## no species name given or addLens given
+  expect_error(psdCalc(~tl,data=tmp),
+               "Must include name in 'species' or lengths in 'addLens'")
+  ## addLens must have at least two values
+  expect_error(psdCalc(~tl,data=tmp,addLens=c("stock"=100)),
+               "'addLens' must contain at least two length categories")
+  ## addLens must have at least a stock and quality length
+  expect_error(psdCalc(~tl,data=tmp,addLens=c("preferred"=100,"quality"=200)),
+               "First category name must be 'stock'")
+  expect_error(psdCalc(~tl,data=tmp,addLens=c("Stock"=100,"quality"=200)),
+               "First category name must be 'stock'")
+  expect_error(psdCalc(~tl,data=tmp,addLens=c(100,200),addNames=c("Stock","quality")),
+               "First category name must be 'stock'")
+  ## No names given
+  expect_error(psdCalc(~tl,data=tmp,addLens=c(100,200,250)),
+               "Category names must be defined in 'addLens' or given in 'addNames'")
+  ## lengths of addLens and addNames do not match
+  expect_error(psdCalc(~tl,data=tmp,addLens=c(100,200),addNames=c("name1")),
+               "'addLens' and 'addNames' are different lengths")
+  expect_error(psdCalc(~tl,data=tmp,addLens=c(100,200),
+                       addNames=c("name1","name2","name3")),
+               "'addLens' and 'addNames' are different lengths")
 })
 
 test_that("psdPlot() messages",{
@@ -431,9 +454,39 @@ test_that("psdCalc() returns",{
   expect_equal(ncol(tmp),3)
   expect_equal(rownames(tmp),c("PSD-Q","PSD-P","PSD-M","PSD-T","PSD M-T"))
   expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
+  
+  ## Pretend like no species is given
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,
+                                  addLens=c("stock"=130,"quality"=200,"preferred"=250,
+                                            "memorable"=300,"trophy"=380)))
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),8)
+  expect_equal(ncol(tmp),3)
+  expect_equal(rownames(tmp),c("PSD-Q","PSD-P","PSD-M","PSD-T","PSD S-Q",
+                               "PSD Q-P","PSD P-M","PSD M-T"))
+  expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
+  
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,
+                                  addLens=c("stock"=130,"name1"=200,"name2"=250)))
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),4)
+  expect_equal(ncol(tmp),3)
+  expect_equal(rownames(tmp),c("PSD-name1","PSD-name2","PSD S-name1","PSD name1-name2"))
+  expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
+
+  tmp <- suppressWarnings(psdCalc(~tl,data=df,
+                                  addLens=c("stock"=130,"name1"=200)))
+  expect_is(tmp,"matrix")
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(nrow(tmp),2)
+  expect_equal(ncol(tmp),3)
+  expect_equal(rownames(tmp),c("PSD-name1","PSD S-name1"))
+  expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
 })
 
-test_that("psdAdd() results",{
+test_that("psdAdd() returns",{
   tmp <- df
   tmp$PSD <- suppressMessages(psdAdd(tl~species,data=tmp))
   expect_equal(ncol(tmp),4)
@@ -443,6 +496,8 @@ test_that("psdAdd() results",{
   expect_true(is.numeric(tmp$PSD))
 })
 
+
+## Validate Results ----
 test_that("Does psdAdd() create correct Gabelhouse categories?",{
   suppressMessages(df2$gcatn <- psdAdd(tl~species,data=df2))
   expect_equivalent(df2$gcatn,df2$GCATN)
@@ -489,6 +544,13 @@ test_that("Does psdCalc() compute correct PSD values?",{
   expect_equivalent(bgres[,"Estimate"],c(80,60,40,20,20,20,20,20))
   suppressWarnings(lmbres <- psdCalc(~tl,data=df2lmb,species="Largemouth Bass"))
   expect_equivalent(lmbres[,"Estimate"],c(60,30,10,40,30,20,10))
+  ## pretend like no species is given (but using bluegill results)
+  suppressWarnings(bgres <- psdCalc(~tl,data=df2bg,
+                                    addLens=c("stock"=80,"quality"=150,
+                                              "preferred"=200,"memorable"=250,
+                                              "trophy"=300)))
+  expect_equivalent(bgres[,"Estimate"],c(80,60,40,20,20,20,20,20))
+  
 })
 
 test_that("Does psdCalc() work with a tibble?",{
@@ -498,7 +560,6 @@ test_that("Does psdCalc() work with a tibble?",{
   expect_equivalent(bgres,bgres2)
 })
 
-## Validate Results ----
 test_that("Does psdCI results match Brenden et al. (2008) results",{
   ## proportions table from Brenden et al. (2008)
   ipsd <- c(0.130,0.491,0.253,0.123)
@@ -631,11 +692,3 @@ test_that("Does manual calculation after psdAdd() equal psdCalc() results?",{
   diffs <- round(res["Largemouth Bass",1:3]-psdLMB[3:5,"Estimate"],7)
   expect_equivalent(diffs,rep(0,length(diffs)))
 })
-
-test_that("Does psdCalc() compute correct PSD values?",{
-  suppressWarnings(bgres <- psdCalc(~tl,data=df2bg,species="Bluegill"))
-  expect_equivalent(bgres[,"Estimate"],c(80,60,40,20,20,20,20,20))
-  suppressWarnings(lmbres <- psdCalc(~tl,data=df2lmb,species="Largemouth Bass"))
-  expect_equivalent(lmbres[,"Estimate"],c(60,30,10,40,30,20,10))
-})
-

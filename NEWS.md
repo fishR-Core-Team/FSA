@@ -13,7 +13,8 @@
 
 * `alkIndivAge()`: Modified. Added a catch for `NA`s in the length sample. Also added a test. This addresses [#88](https://github.com/fishR-Core-Team/FSA/issues/88).
 * `confint.boot()`: Modified. Changed hard-coding of columns that contained the confidence interval values to find those columns by `grep()`ing for the `%` sign. This fixes an issue related to `car::Confint()` returning the `coef()` results for functions that have a `coef()` method but not for those that do not. Also updated tests to use results from `car::Boot()` rather than the old `car::bootCase()`.
-* `PSDlit`: Added info for Redbreast Sunfish and Spotted Sunfish from Bonvecchio *et al.* (2023). This addresses [#100](https://github.com/fishR-Core-Team/FSA/issues/100)).
+* `PSDcalc`: Modified. Changed code to allow for missing `species=` as long as `addLens=` is used. This allows the user to provide length categories for a species for which Gabelhouse lengths are not defined. Several new tests were added and some were modified to handle the changing message re: a missing `species=`. The documentation was modified accordingly. This (finally) addresses [#58](https://github.com/fishR-Core-Team/FSA/issues/58).
+* `PSDlit`: Modified. Added info for Redbreast Sunfish and Spotted Sunfish from Bonvecchio *et al.* (2023). This addresses [#100](https://github.com/fishR-Core-Team/FSA/issues/100)).
 * `wSlit`: Modified documentation. Described the `RLP` and `EmP` acronyms and provided references for them. This addresses [#95](https://github.com/fishR-Core-Team/FSA/issues/95)). Added info for Redbreast Sunfish and Spotted Sunfish from Bonvecchio *et al.* (2023). This addresses [#100](https://github.com/fishR-Core-Team/FSA/issues/100)).
 
 # FSA 0.9.3
