@@ -1,4 +1,4 @@
-# FSA 0.9.3.9000
+# FSA 0.9.4
 * Changes related to moving to fishR-Core-Team
   * Updated sticker.
   * Changed DHO e-mail address (in DESCRIPTION and in all author fields of the documentation). Partially address [#86](https://github.com/fishR-Core-Team/FSA/issues/86).
@@ -10,6 +10,7 @@
   * Added links to CSV files for all data sets. This addresses [#96](https://github.com/fishR-Core-Team/FSA/issues/96).
   * Changed theme in `_pkgdown.yml` to match that of `FSAdata` and more closely match `fishR`.
   * Removed most recent dates from NEWS file as `pkgdown` picks up the CRAN release date to add.
+  * Updated `CITATION` (to match that required for next version of R).
 
 * `alkIndivAge()`: Modified. Added a catch for `NA`s in the length sample. Also added a test. This addresses [#88](https://github.com/fishR-Core-Team/FSA/issues/88).
 * `confint.boot()`: Modified. Changed hard-coding of columns that contained the confidence interval values to find those columns by `grep()`ing for the `%` sign. This fixes an issue related to `car::Confint()` returning the `coef()` results for functions that have a `coef()` method but not for those that do not. Also updated tests to use results from `car::Boot()` rather than the old `car::bootCase()`.
@@ -161,7 +162,7 @@
 * Updated tests for changes in the `fishmethods` package (`vblrt()` replaced with `growthlrt()` and `T=` replaced with `TC=` in `M.empirical()`) per CRAN request.
 
 # FSA 0.8.21
-* Added a webpage. Setup Travis-CI to handle updates ([See this](https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis)).
+* Added a webpage. Setup Travis-CI to handle updates.
 * Added a hex sticker logo.
 * Added `withr` to Imports (see usages below).
 * Added `Encoding: UTF-8` to DESCRIPTION.
