@@ -51,7 +51,7 @@ if (require(dplyr)) {
 \code{headtail}
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 
 A. Powell Wheeler, \email{powell.wheeler@gmail.com}
 }

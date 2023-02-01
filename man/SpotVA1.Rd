@@ -12,7 +12,7 @@ A data frame of 403 observations on the following 2 variables:
  }
 }
 \source{
-Extracted from Table 1 in Chapter 8 (Spot) of the VMRC Final Report on Finfish Ageing, 2002 by the Center for Quantitative Fisheries Ecology at Old Dominion University.
+Extracted from Table 1 in Chapter 8 (Spot) of the VMRC Final Report on Finfish Ageing, 2002 by the Center for Quantitative Fisheries Ecology at Old Dominion University. \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/SpotVA1.csv}{CSV file}
 }
 \description{
 Ages (from otoliths) and lengths of Virginia Spot (\emph{Leiostomus xanthurus}).

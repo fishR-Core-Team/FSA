@@ -127,6 +127,8 @@ Rainbow Trout (lotic),English,linear,75,TL,RLP,4.75,NA,-3.432,3.024,NA,Simpkins 
 Rainbow Trout (lotic),metric,linear,75,TL,RLP,120,NA,-5.023,3.024,NA,Simpkins and Hubert (1996),none
 Razorback Sucker,English,linear,75,TL,RLP,4.25,NA,-3.35,2.985,NA,Didenko et al. (2004),none
 Razorback Sucker,metric,linear,75,TL,RLP,110,NA,-4.886,2.985,NA,Didenko et al. (2004),none
+Redbreast Sunfish,English,linear,75,TL,EmP,3,11.75,-3.2727,3.1215,NA,Bonvechio et al. (2023),also used RLP and EmP-quadratic but did not recommend
+Redbreast Sunfish,metric,linear,75,TL,EmP,80,300,-5.0018,3.1218,NA,Bonvechio et al. (2023),also used RLP and EmP-quadratic but did not recommend
 Redear Sunfish,English,linear,75,TL,RLP,2.75,NA,-3.263,3.119,NA,Pope et al. (1995),none
 Redear Sunfish,metric,linear,75,TL,RLP,70,NA,-4.968,3.119,NA,Pope et al. (1995),none
 Riffle Dace,metric,quadratic,75,TL,EmP,60,NA,-3.706,1.685,0.349,Giannetto et al. (2011),only from Tiber River basin (Italy)
@@ -148,8 +150,8 @@ Sauger,English,linear,75,TL,RLP,2.75,NA,-3.671,3.187,NA,Anderson and Neumann (19
 Sauger,metric,linear,75,TL,RLP,70,NA,-5.492,3.187,NA,Anderson and Neumann (1996),none
 Saugeye,English,linear,75,TL,RLP,6.75,NA,-3.76,3.266,NA,Flammang et al. (1993),none
 Saugeye,metric,linear,75,TL,RLP,170,NA,-5.692,3.266,NA,Flammang et al. (1993),none
-Shoal Bass,metric,quadratic,75,TL,EmP,120,NA,-3.052,1.225,0.415,Bonvechio et al. (2019),also used RLP but did not recommend
 Shoal Bass,English,quadratic,75,TL,EmP,4.75,NA,-3.169,2.391,0.415,Bonvechio et al. (2019),also used RLP but did not recommend
+Shoal Bass,metric,quadratic,75,TL,EmP,120,NA,-3.052,1.225,0.415,Bonvechio et al. (2019),also used RLP but did not recommend
 Shorthead Redhorse,English,linear,75,TL,RLP,4,NA,-3.337,2.962,NA,Bister et al. (2000),none
 Shorthead Redhorse,metric,linear,75,TL,RLP,100,NA,-4.841,2.962,NA,Bister et al. (2000),none
 Shovelnose Sturgeon,English,linear,75,FL,RLP,4.75,NA,-4.266,3.33,NA,Quist et al. (1998),fork length
@@ -165,6 +167,8 @@ Spotted Bass,metric,linear,75,TL,RLP,100,NA,-5.392,3.215,NA,Wiens et al. (1996),
 Spotted Bass (alabama subspecies),metric,linear,75,TL,RLP,100,NA,-5.598,3.2904,NA,Dicenzo et al. (1995),min.len not made clear (assumed same as Spotted Bass); same as Alabama Bass
 Spotted Gar,English,linear,75,TL,RLP,10,NA,-4.388,3.431,NA,Bister et al. (2000),none
 Spotted Gar,metric,linear,75,TL,RLP,250,NA,-6.551,3.431,NA,Bister et al. (2000),none
+Spotted Sunfish,English,linear,75,TL,EmP,2.75,8,-3.3468,3.3343,NA,Bonvechio et al. (2023),also used RLP and EmP-quadratic but did not recommend
+Spotted Sunfish,metric,linear,75,TL,EmP,70,200,-5.3739,3.3343,NA,Bonvechio et al. (2023),also used RLP and EmP-quadratic but did not recommend
 Striped Bass,English,linear,75,TL,RLP,6,NA,-3.358,3.007,NA,Brown and Murphy (1991b),none
 Striped Bass,metric,linear,75,TL,RLP,150,NA,-4.924,3.007,NA,Brown and Murphy (1991b),none
 Striped Bass (hybrid),English,linear,75,TL,RLP,4.5,NA,-3.448,3.139,NA,Brown and Murphy (1991b),same as Palmetto Bass and Striped Bass x White Bass
@@ -174,8 +178,8 @@ Striped Bass X White Bass,metric,linear,75,TL,RLP,115,NA,-5.201,3.139,NA,Brown a
 Suwannee Bass,metric,quadratic,75,TL,EmP,110,NA,-0.106,-1.363,0.995,Bonvechio et al. (2010),none
 Tiger Muskellunge,English,linear,75,TL,RLP,9.5,NA,-4.095,3.337,NA,Rogers and Koupal (1997),none
 Tiger Muskellunge,metric,linear,75,TL,RLP,240,NA,-6.126,3.337,NA,Rogers and Koupal (1997),none
-Utah Chub,metric,linear,75,TL,EmP,90,410,-4.938,3.031,NA,Black et al. (2021),none
 Utah Chub,English,linear,75,TL,EmP,4,16,-3.335,3.031,NA,Black et al. (2021),none
+Utah Chub,metric,linear,75,TL,EmP,90,410,-4.938,3.031,NA,Black et al. (2021),none
 Walleye,English,linear,75,TL,RLP,6,NA,-3.642,3.18,NA,Murphy et al. (1990),none
 Walleye,metric,linear,75,TL,RLP,150,NA,-5.453,3.18,NA,Murphy et al. (1990),none
 Walleye (30-149 mm),English,linear,75,TL,RLP,1.25,NA,-3.431,2.869,NA,Flammang et al. (1999),none

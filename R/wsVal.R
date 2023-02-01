@@ -19,13 +19,13 @@
 #'
 #' If no arguments are given to this function, a species name is mis-spelled, or if a standard weight equation does not exist (in \code{\link{WSlit}}) for a particular species, then a warning will be issued and a list of species names will be printed.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @seealso See \code{\link{wrAdd}} and \code{\link{WSlit}} for related functionality.
 #'
 #' @section IFAR Chapter: 8-Condition.
 #'
-#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' @keywords manip
 #'
@@ -42,39 +42,41 @@
 wsVal <- function(species="List",units=c("metric","English"),ref=75,simplify=FALSE) {
   type <- measure <- method <- NULL   # avoiding bindings warning in RCMD CHECK
   units <- match.arg(units)
-  # load WSlit data frame into this functions environment
+  ## load WSlit data frame into this functions environment
   WSlit <- FSA::WSlit
-  # isolate only those data for which those units and ref exist
-  df <- droplevels(WSlit[WSlit$units==units & WSlit$ref==ref,])
-  # check to make sure that that species exists for that subset
-  OK <- iwsLitCheck(df,species <- capFirst(species))
-  # continue if species name is correct
-  if (OK) {
-    ## get the appropriate row from the data.frame
-    WSvec <- df[df$species==species,]
-    ## If comments says "none" then drop the comment variable
-    if (WSvec$comment=="none") WSvec <- WSvec[,-which(names(WSvec)=="comment")]
-    ## If function is linear (as opposed to quadratic) then drop the quad variable
-    if (WSvec$type=="linear") WSvec <- WSvec[,-which(names(WSvec)=="quad")]
-    ## Change "min.len" and "max.len" variables to ".TL" or ."FL" as appropriate
-    tmp <- paste(c("min","max"),WSvec$measure,sep=".")
-    names(WSvec)[which(names(WSvec) %in% c("min.len","max.len"))] <- tmp
-    ## Remove max.len if it is NA
-    if (is.na(WSvec[,tmp[2]])) WSvec <- WSvec[,-which(names(WSvec)==tmp[2])]
-    ## If told to simplify then only get sertain values
-    if (simplify) WSvec <- WSvec[,which(names(WSvec) %in% c("species",tmp,"int","slope","quad"))]
-    WSvec
-  }
-}
-
-iwsLitCheck <- function(data,species) {
-  OK <- FALSE
+  ## Make checks on species (if species exists then reduce dataframe to that species)
   if (length(species)>1) STOP("'species' must contain only one name.")
-  if (species=="List") iListSpecies(data)
-  else if (!any(unique(data$species)==species)) {
-    STOP("A Ws equation may not exist given your choices of species, units, and ref.\n  Please look carefully inside the data(WSlit) data frame.\n\n")
+  if (species=="List") iListSpecies(WSlit)
+  else {
+    if (!any(unique(WSlit$species)==species)) {
+      STOP("There is no Ws equation in 'WSlit' for ",species,
+           ".\n  Type 'wsVal()' to see a list of available species.\n\n")
+    } else df <- droplevels(WSlit[WSlit$species==species,])
+    ## Make checks on units (if OK reduce data frame to those units)
+    if (!any(unique(df$units)==units)) {
+      print(df)
+      STOP("There is no Ws equation in ",units," units for ",species,
+           ".\n  Please see relevant portion of `WSlit` above.\n\n")
+    } else df <- droplevels(df[df$units==units,])
+    ## Make checks on ref (if OK reduce data frame to that ref)
+    if (!any(unique(df$ref)==ref)) {
+      print(df)
+      STOP("There is no Ws equation with ref of ",ref," for ",species,
+           ".\n  Please see relevant portion of `WSlit` above.\n\n")
+    } else df <- droplevels(df[df$ref==ref,])
+    ## Should be a single row data frame if it gets to this point
+    ## If comments says "none" then drop the comment variable
+    if (df$comment=="none") df <- df[,-which(names(df)=="comment")]
+    ## If function is linear (as opposed to quadratic) then drop the quad variable
+    if (df$type=="linear") df <- df[,-which(names(df)=="quad")]
+    ## Change "min.len" and "max.len" variables to ".TL" or ."FL" as appropriate
+    tmp <- paste(c("min","max"),df$measure,sep=".")
+    names(df)[which(names(df) %in% c("min.len","max.len"))] <- tmp
+    ## Remove max.len if it is NA
+    if (is.na(df[,tmp[2]])) df <- df[,-which(names(df)==tmp[2])]
+    ## If told to simplify then only get certain values
+    if (simplify)
+      df <- df[,which(names(df) %in% c("species",tmp,"int","slope","quad"))]
+    df
   }
-    else OK <- TRUE
-  OK
 }
-

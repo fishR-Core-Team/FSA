@@ -58,7 +58,7 @@ alkAgeDist(WR1.key,lenA.n,len.n)
 
 }
 \references{
-Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
 Lai, H.-L. 1987. Optimum allocation for estimating age composition using age-length key. Fishery Bulletin, 85:179-185.
 
@@ -70,6 +70,6 @@ Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford Universi
 See \code{\link{alkIndivAge}} and related functions for a completely different methodology. See \code{\link[fishmethods]{alkprop}} from \pkg{fishmethods} for the exact same methodology but with a different format for the inputs.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{manip}

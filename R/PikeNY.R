@@ -30,7 +30,7 @@
 #' @concept Capture-Recapture
 #' @concept Schnabel
 #'
-#' @source New York Power Authority. 2004. Use of Buckhorn Marsh and Grand Island tributaries by Northern Pike for spawning and as a nursery. Technical report, New York Power Authority, January 2004. Niagara Power Project (FERC No. 2216).
+#' @source New York Power Authority. 2004. Use of Buckhorn Marsh and Grand Island tributaries by Northern Pike for spawning and as a nursery. Technical report, New York Power Authority, January 2004. Niagara Power Project (FERC No. 2216). \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/PikeNY.csv}{CSV file}
 #'
 #' @seealso Used in \code{\link{mrClosed}} examples. Also see \code{\link{PikeNYPartial1}}.
 #' 

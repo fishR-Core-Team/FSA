@@ -96,6 +96,6 @@ if (require(FSAdata)) {
 
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{plot}

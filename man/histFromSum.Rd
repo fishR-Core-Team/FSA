@@ -74,6 +74,6 @@ histFromSum(Freq~lcat10,data=df2,breaks=brks,xlab=xlbl,col="gray55")
 See \code{\link[graphics]{hist}} and \code{\link{hist.formula}} for related functionality.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{hplot}

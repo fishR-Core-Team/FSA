@@ -21,13 +21,13 @@
 #' 
 #' @section Testing: The results from this function perfectly match the results in Table 8.4 (left) of Quinn and Deriso (1999) using \code{\link[FSAdata]{SnapperHG2}} from \pkg{FSAdata}. The results also perfectly match the results from using \code{\link[fishmethods]{alkprop}} in \pkg{fishmethods}.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #' 
 #' @section IFAR Chapter: 5-Age-Length Key.
 #'
 #' @seealso  See \code{\link{alkIndivAge}} and related functions for a completely different methodology. See \code{\link[fishmethods]{alkprop}} from \pkg{fishmethods} for the exact same methodology but with a different format for the inputs.
 #'
-#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Lai, H.-L. 1987. Optimum allocation for estimating age composition using age-length key. Fishery Bulletin, 85:179-185.
 #' 
@@ -121,13 +121,13 @@ iALKAgeProp <- function(p_jgi,l_i,n_i,N) {
 #'
 #' @section Testing: The results of these functions have not yet been rigorously tested. The Bettoli and Miranda (2001) results appear, at least, approximately correct when compared to the results from \code{\link{alkIndivAge}}. The Quinn and Deriso (1999) results appear at least approximately correct for the mean values, but do not appear to be correct for the SE values. Thus, a note is returned with the Quinn and Deriso (1999) results that the SE should not be trusted.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #' 
 #' @section IFAR Chapter: 5-Age-Length Key.
 #'
 #' @seealso  See \code{\link{alkIndivAge}} and related functions for a completely different methodology. See \code{\link{alkAgeDist}} for a related method of determining the proportion of fish at each age. See the \pkg{ALKr} package.
 #'
-#' @references Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+#' @references Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
 #' Bettoli, P. W. and Miranda, L. E. 2001. A cautionary note about estimating mean length at age with subsampled data. North American Journal of Fisheries Management, 21:425-428.
 #'  

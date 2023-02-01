@@ -46,6 +46,6 @@ Schnute, J.T. and L.J. Richards. 1990. A unified approach to the analysis of fis
 See \code{\link{vbFuns}}, \code{\link{GompertzFuns}}, \code{\link{RichardsFuns}}, \code{\link{logisticFuns}}, and \code{\link{Schnute}} for similar functionality for other models.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{manip}

@@ -27,7 +27,7 @@
 #'
 #' @return A named vector or data frame (when a quantitative variable is separated by one or two factor variables) of summary statistics for numeric data.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @seealso See \code{\link[base]{summary}} for related one dimensional functionality. See \code{\link[base]{tapply}}, \code{summaryBy} in \pkg{doBy}, \code{\link[psych]{describe}} in \pkg{psych}, \code{describe} in \pkg{prettyR}, and \code{basicStats} in \pkg{fBasics} for similar \dQuote{by} functionality.
 #'

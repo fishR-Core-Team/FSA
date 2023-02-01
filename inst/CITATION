@@ -1,16 +1,2 @@
-citHeader("To cite package 'FSA' in publications use:")
-
-year <- sub("-.*", "", meta$Date)
-note <- sprintf("R package version %s", meta$Version)
-citEntry(entry="Manual",
-         title = "FSA: Fisheries Stock Analysis",
-         author = personList(as.person("Derek H. Ogle"),
-                             as.person("Jason C. Doll"),
-                             as.person("Powell Wheeler"),
-                             as.person("Alexis Dinno")),
-         year = year,
-         note = note,
-         url = meta$URL,
-         textVersion = paste0("Ogle, D.H., J.C. Doll, P. Wheeler, and A. Dinno. ",
-         year,". FSA: Fisheries Stock Analysis. ",note,", ",meta$URL,".")
-)
+## R package reference generated from DESCRIPTION metadata
+citation(auto = meta)

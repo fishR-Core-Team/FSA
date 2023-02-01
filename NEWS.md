@@ -1,11 +1,24 @@
-# FSA 0.9.3.9000 ongoing
-* Updated sticker.
-* Updated `pkgdown.yaml` GitHub action to [v2](https://github.com/r-lib/actions/tree/v2-branch/examples#build-pkgdown-site). Changed action to only run on a release (rather than a push) but it can be [run manually](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow) as well.
-* Updated `R-CMD-check.yaml` GitHub action to [v2](https://github.com/r-lib/actions/tree/v2-branch/examples#standard-ci-workflow). Note that I had to add the [extra code for dealing with graphics on the Mac version](https://github.com/r-lib/actions#common-questions).
-* `alkIndivAge()`: Modified. Added a catch for `NA`s in the length sample. Also added a test. This addresses [#88](https://github.com/fishR-Core-Team/FSA/issues/88)).
-* `confint.boot()`: Modified. Changed hard-coding of columns that contained the confidence interval values to find those columns by `grep()`ing for the `%` sign. This fixes an issue related to `car::Confint()` returning the `coef()` results for functions that have a `coef()` method but not for those that do not. Also updated tests to use results from `car::Boot()` rather than the old `car::bootCase()`.
+# FSA 0.9.4
+* Changes related to moving to fishR-Core-Team
+  * Updated sticker.
+  * Changed DHO e-mail address (in DESCRIPTION and in all author fields of the documentation). Partially address [#86](https://github.com/fishR-Core-Team/FSA/issues/86).
+  * Updated `pkgdown.yaml` GitHub action to [v2](https://github.com/r-lib/actions/tree/v2-branch/examples#build-pkgdown-site). Changed action to only run on a release (rather than a push) but it can be [run manually](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow) as well.
+  * Updated `R-CMD-check.yaml` GitHub action to [v2](https://github.com/r-lib/actions/tree/v2-branch/examples#standard-ci-workflow). Note that I had to add the [extra code for dealing with graphics on the Mac version](https://github.com/r-lib/actions#common-questions).
+* Changes related to new fishR webpage
+  * Updated links in `fishR()`, `FSA()`, and `README.md`. Partially address [#86](https://github.com/fishR-Core-Team/FSA/issues/86).
+  * Updated all links to Introductory Fisheries Analyses with R book.
+  * Added links to CSV files for all data sets. This addresses [#96](https://github.com/fishR-Core-Team/FSA/issues/96).
+  * Changed theme in `_pkgdown.yml` to match that of `FSAdata` and more closely match `fishR`.
+  * Removed most recent dates from NEWS file as `pkgdown` picks up the CRAN release date to add.
+  * Updated `CITATION` (to match that required for next version of R).
 
-# FSA 0.9.3 15-Feb-21
+* `alkIndivAge()`: Modified. Added a catch for `NA`s in the length sample. Also added a test. This addresses [#88](https://github.com/fishR-Core-Team/FSA/issues/88).
+* `confint.boot()`: Modified. Changed hard-coding of columns that contained the confidence interval values to find those columns by `grep()`ing for the `%` sign. This fixes an issue related to `car::Confint()` returning the `coef()` results for functions that have a `coef()` method but not for those that do not. Also updated tests to use results from `car::Boot()` rather than the old `car::bootCase()`.
+* `PSDcalc`: Modified. Changed code to allow for missing `species=` as long as `addLens=` is used. This allows the user to provide length categories for a species for which Gabelhouse lengths are not defined. Several new tests were added and some were modified to handle the changing message re: a missing `species=`. The documentation was modified accordingly. This (finally) addresses [#58](https://github.com/fishR-Core-Team/FSA/issues/58).
+* `PSDlit`: Modified. Added info for Redbreast Sunfish and Spotted Sunfish from Bonvecchio *et al.* (2023). This addresses [#100](https://github.com/fishR-Core-Team/FSA/issues/100)).
+* `wSlit`: Modified documentation. Described the `RLP` and `EmP` acronyms and provided references for them. This addresses [#95](https://github.com/fishR-Core-Team/FSA/issues/95)). Added info for Redbreast Sunfish and Spotted Sunfish from Bonvecchio *et al.* (2023). This addresses [#100](https://github.com/fishR-Core-Team/FSA/issues/100)).
+
+# FSA 0.9.3
 * Moved `dplyr` from `imports` to `suggests` (needed because functions were removed in last version; however it is still used in some examples; partially addresses [#87](https://github.com/fishR-Core-Team/FSA/issues/87)).
 * Removed `sciplot` from `imports` (because functions were removed in last version; partially addresses [#87](https://github.com/fishR-Core-Team/FSA/issues/87)).
 * Updated tests for `ksTest()` to handle issues on the CRAN M1 build machine (per e-mail from Prof. Ripley on 15-Feb-22; partially addresses [#87](https://github.com/fishR-Core-Team/FSA/issues/87)).
@@ -24,10 +37,10 @@
 * `WSLit`: Modified. Added info for Utah Chub (from [here](https://webpages.uidaho.edu/quistlab/publications/NAJFM_2021_Black_et_al_UTC_Ws_length_categories.pdf); address [#84](https://github.com/fishR-Core-Team/FSA/issues/84)).
 * `wsVal()`: Modified. Changed the way `WSlit` was loaded into the function environment so that `FSA::wsVal()` will work. Addresses [#85](https://github.com/fishR-Core-Team/FSA/issues/85).
 
-# FSA 0.9.1 17-Jul-21
+# FSA 0.9.1
 * Corrected testing issue for `catchCurve()` and `chapmanRobson()` as directed by CRAN on 17-Jul-21. Issue likely caused by changes to `fishmethods` package.
 
-# FSA 0.9.0 8-Jun-21
+# FSA 0.9.0
 * Make note of the several **removed** (now defunct) and **deprecated** (soon to be defunct) functions listed below.
 * Added Jason Doll as an `AUThor`.
 * Moved `plyr` from Imports to Suggests.
@@ -70,7 +83,7 @@
     * Added Striped Bass (Hybrid) and Striped Bass x White Bass; though these are the same as the existing Palmetto Bass.
 * `wsVal()`: Modified. Changed a `levels()` in `iwsLitCheck()` to `unique()` because `species` is no longer a factor due to updating `WSlit` (i.e., rdata file changed with new `read.csv()`).
 
-# FSA 0.8.32 15-Jan-21
+# FSA 0.8.32
 * Removed Travis-CI and appveyor.
 * No longer using coveralls for coverage statistics. Changed to codecov.io.
 * Added GitHub Action for CI/CD (used `usethis::use_github_action_check_standard()`).
@@ -85,37 +98,40 @@
 * `psdPlot()`: Modified. Fixed bug with box around the plot when `add.psd=FALSE`. Added 5% expansion to top of y-axis so that bars did not run into the box.
 * `residPlot()`: Modified. Fixed bugs with handling models that used character rather than factor variables.
 
-# FSA 0.8.31 7-Nov20
+# FSA 0.8.31
 * Now using roxygen v7.1.1.
 * Added `tibble` to suggests (see comment about `headtail()` below).
 * Cleaned up the documentation of parameters for `RichardsFuns()` (documentation did not change when parameter letters were changed for the Age and Growth book).
 * Changed example in `headtail()` to use `as_tibble()` from `tibble` package rather than `tbl_df()` from `dplyr` package. Required adding `tibble` to suggests.
 * `nlsTracePlot()`: Modified. Created a conditional catch depending on the version of R as the results of `nls(*,trace=TRUE)` are changing in v4.1.0 (per e-mail from Martin Maechler on 2-Nov-20).
 
-# FSA 0.8.30 9-Mar-20
+# FSA 0.8.30
+* **Date:** 9-Mar-20
 * Started using `rhub::check_for_cran()` for checking before sending to CRAN.
 * Updated tests for `Summarize()` and `ksTest()` that used `data.frame()`. This should have been done with v0.8.28.
 * Fixed errors for tests in `ksTest()` that were identified using R-hub.
 * Removed all links to documentation in non-dependent or non-suggested packages. This removes a note from R-hub.
 * `fishR()`: Modified. Changed base URL to `https:` (from `http:`). Added `open=`, primarily to allow not opening a browser during testing.
 
-# FSA 0.8.29 8-Mar-20
+# FSA 0.8.29
+* **Date:** 8-Mar-20
 * Removed dependency on `epitools` package as it may soon be orphaned. See changes to `binCI()` and `poiCI()` outlined below.
 * `binCI()`: Modified. Added internal functions that are based on (but not identical to) functions in the `epitools` package which will possibly be deprecated soon (per note from CRAN on 7-Mar-20).
 * `poiCI()`: Modified. Added internal functions that are based on (but not identical to) functions in the `epitools` package which will possibly be deprecated soon (per note from CRAN on 7-Mar-20).
 
-# FSA 0.8.28 28-Feb-20
+# FSA 0.8.28
+* **Date:** 28-Feb-20
 * `fitPlot()`: Modified. Changed so that lines are plotted after the points in the IVR versions.
 * `ksTest()`: Modified. Changed documentation examples to handle R's new way of handling `stringsAsFactors=` (per request from CRAN on 27-Feb-20).
 * `psdAdd()`: Modified. Changed testing to handle R's new way of handling `stringsAsFactors=` (per request from CRAN on 27-Feb-20).
 
-# FSA 0.8.27 2-Feb-20
+# FSA 0.8.27
 * Now using ROxygen2 7.0.2.
 * Removed dependency on `gplots` package as it is now orphaned. Required adding `iRichColors()` internal function.
 * `lwCompPreds()`: Removed `\dots` from arguments as it was not in usage (per request from CRAN on 3-Feb-20).
 * `repeatedRows2Keep()`: Modified. Now makes comparisons as if `NA`s are regular values.
 
-# FSA 0.8.26 22-Nov-19
+# FSA 0.8.26
 * Changed to depending on `R >=3.5.0`, because that is the latest version required by a package (i.e., `car`) that FSA imports or suggests. Used the "check_r_versions_of_package_dependencies" shiny app by "ateucher" (on Github) to help determine this.
 * Removed `asbio` package from suggests as it hung up Travis-CI build (because of the need for the TCLTK package).
 * `capFirst()`: Modified. Fixed bug related to an `NA` item.
@@ -141,12 +157,12 @@
 * `nlsTracePlot()`: Modified. Moved error catching for improper keyword for legend placement forward.
 * `SchnuteRichards()`: Added. This addresses [#54](https://github.com/fishR-Core-Team/FSA/issues/54).
 
-# FSA 0.8.22 22-Nov-18
+# FSA 0.8.22
 * Corrected CITATION file.
 * Updated tests for changes in the `fishmethods` package (`vblrt()` replaced with `growthlrt()` and `T=` replaced with `TC=` in `M.empirical()`) per CRAN request.
 
-# FSA 0.8.21 2-Nov-18
-* Added a webpage. Setup Travis-CI to handle updates ([See this](https://www.datacamp.com/community/tutorials/cd-package-docs-pkgdown-travis)).
+# FSA 0.8.21
+* Added a webpage. Setup Travis-CI to handle updates.
 * Added a hex sticker logo.
 * Added `withr` to Imports (see usages below).
 * Added `Encoding: UTF-8` to DESCRIPTION.
@@ -175,8 +191,7 @@
 * `SMBassWB`: Modified. Fixed minor data entry error in row 383.
 * `vbFuns()`: Modified. Added `Francis3` to the list of models.
 
-
-# FSA 0.8.20 18-May-18
+# FSA 0.8.20
 * Added `asbio`, `DescTools`, `nlme`, and `psych` packages to Suggests because they are used in tests (and as will soon be required by CRAN ... per an e-mail from CRAN on 17-May-18).
 * Fixed a bunch of bad links to other packages in the documentation.
 * Removed the "Date" field from the Description file.
@@ -186,7 +201,7 @@
 * `mrClosed()`: Modified. Fixed a bug that was related to `poiCI()` returning results from all four types. Now `mrClosed()` will use only one type. Thanks to Timothy Spiers for pointing out this bug.
 * `SMBassWB`: Modified. Fixed minor data entry error in row 404. Changed link in documentation from `alr3` to `alr4` package.
 
-# FSA 0.8.19 8-Apr-18
+# FSA 0.8.19
 * `addZeroCatch()`: Modified. Changed two `1:nrow()` structures to `seq_len(nrow())` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
 * `ageBias()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
 * `agePrecision()`: Modified. Changed all `1:` structures to `seq_len()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
@@ -213,7 +228,8 @@
 * `Summarize()`: Modified. Changed one `1:length()` structure to `seq_along()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
 * `wrAdd()`: Modified. Changed three `1:` structures to `seq_len()` or `seq_along()` (partially addressing [#36](https://github.com/fishR-Core-Team/FSA/issues/36)).
 
-# FSA 0.8.18 31-Mar-18
+# FSA 0.8.18
+* **Date:** 31-Mar-18
 * Changed to depending on `R >=3.2.0`, because that is the latest version required by a package (i.e., `car`) that FSA imports or suggests. Used the "check_r_versions_of_package_dependencies" shiny app by "ateucher" (on Github) to help determine this.
 * Using latest `testthat` package.
 * `bootCase()`: Added. This was added because `bootCase()` will soon be removed from the `car` package. It was added so that the code in the Introductory Fisheries Analyses with R book will still work. It is largely a wrapper to `Boot()` in `car` with `method="case"`. The documentation was updated somewhat.
@@ -229,27 +245,28 @@
 * `vbFuns()`: Modified. Switched `Fabens` and `Fabens2` parameterizations to better match `Wang` (i.e., increment model first). Added `Francis2` parameterization for tag-recapture data.
 * `vbStarts()`: Modified. Fixed some spacing issues with the warnings when starting values for Linf was poorly estimated. Added an argument to `ivbStarts.LinfK()` to suppress checking the value of Linf. This argument reduces the change of double-printing the warning message when there are bad estimates of starting values for Linf and K.
 
-# FSA 0.8.17 29-Oct-17
+# FSA 0.8.17
 * `dunnTest()`: Modified. Adjusted code to handle the addition of `altp=` to and modified output from `dunn.test()` in `dunn.test`. Added additional tests and corrected some issues in the documentation.
 * `GompertzFuns()`: Modified. Fixed error in message (i.e., `msg=TRUE`) for `param="Ricker2"`.
 
-# FSA 0.8.16 7-Sep-17
+# FSA 0.8.16
 * Need to resubmit v0.8.15 to CRAN, so bumped the version.
 * `growthFunShow()`: Modified. Fixed error in expression for `type="Logistic"` and `param="CampanaJones1"`.
 
-# FSA 0.8.15 6-Sep-17
+# FSA 0.8.15
+* **Date:** 6-Sep-17
 * Added a script to the `helpers` directory that will test that all required packages are installed.
 * `iAddOutlierTestResults()`: Modified. Fixed bug related to point labels in `residPlot()` when the data.frame for the original model had `NA` values.
 * `removal()`: Modified document by merging pull request [#33](https://github.com/fishR-Core-Team/FSA/pull/33).
 * `srStarts()`: Modified. Added `fixed=`. Added some catches for poor starting values. Added relevant tests. Addresses [#30](https://github.com/fishR-Core-Team/FSA/issues/30).
 
-# FSA 0.8.14 27-Jul-17
+# FSA 0.8.14
 * Moved `dunn.test` and `lmtest` to `imports` to help with portability for workshops.
 * `ageBias()`: Modified. Fixed bug in `plot()` so that the tick marks on the marginal histograms match the tick marks on the main plot. Changed the default `hist.panel.size=` in `plot()` so that it more reliably prints the values on the axes of the marginal histograms.
 * `removal()`: Modified. Added "warnings" for when all catches are zeroes (an object is still returned with all `NA`s). Thanks to Daniel Hanks for pointing out this issue.
 * `Summarize()`: Modified. Fixed bug when `percZero!="always"` and there are no valid values such that the calculated percent of zeroes is `NA`.
 
-# FSA 0.8.13 29-Apr-17
+# FSA 0.8.13
 * `ageBias()`: Modified. A complete rebuild of `plot`. Major changes are to add `plotAB()` which is primarily used to make the "legacy" age bias plots of Campana, removal of the "sunflower" plot option, new sets of defaults for many of the arguments that reflect my preferences for visualizing age comparisons (which includes defaulting to plotting differences in ages), addition of the ability to add marginal histograms (`xHist=`, `yHist=`, `col.hist=`, and `hist.panel.size=`), better handling of axis ticks and labels (primarily to show ticks at integers and make sure 0 is included for differences), and allowing the ability to add "summary layers" to the main plot (see `allowAdd=`). Many examples were added. Some functionality from previous versions will be broken.
 * `capFirst()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 * `compIntercepts()`: Modified. Replaced two `dim()` calls with `nrow()`.
@@ -270,7 +287,7 @@
 * `residPlot()`: Modified. Changed default for `loess=` from `TRUE` to `FALSE`. Changed some `if()`s with `class()`es to `inherits()`.
 * `wrAdd()`: Modified. Changed some `if()`s with `class()`es to `inherits()`.
 
-# FSA 0.8.12 12-Mar-17
+# FSA 0.8.12
 * Lots of spelling corrections after running `devtools::spell_check()`.
 * Cleaned up some issues in the testing files that were caused by a new version of `fishmethods` and changes to R v3.4.0.
 * `metaM()`: Modified. Changed `T=` to `Temp=` to reduce potential for conflicts with `TRUE` abbreviation.
@@ -278,7 +295,7 @@
 * `srStarts()`: Modified. Corrected mis-spelling in directive to `FSAsim` package.
 * `vbStarts()`: Modified. Added a catch that Linf cannot be automatically estimated with fewer than three ages. Corrected mis-spelling in directive to `FSAsim` package.
 
-# FSA 0.8.11 13-Dec-16
+# FSA 0.8.11
 * Changed all `stop()`s to `STOP()`s and all `warning()`s to `WARN()`. This modified nearly all functions.
 * Changed all `paste()`s that used `sep=""` to `paste0()`s.
 * Removed several `sep=""`s from `message()`s.
@@ -321,7 +338,7 @@
 * `vbFuns()`: Modified. Added `Ogle` to list of parameterizations. Changed order of `L0` and `K` parameters in returned function when `param="Original"`.
 * `vbStarts()`: Modified. Added the `methLinf=` argument that allows the user to choose if Linf is estimated from a Walford plot (`methLinf="Walford"`; the default and old functionality), as the mean of fish in a certain number of old ages (`methLinf="oldAge"`), or as the mean of a certain number of the longest fish (`methLinf="longFish"`). The number of ages or long fish is given in `num4Linf=`. Added methods for `type="Ogle"`.
 
-# FSA 0.8.10 24-Sep-16
+# FSA 0.8.10
 * `alkIndivAge()`: Modified. Added `na.rm=TRUE` to the checks on the minimum and maximum length data.
 * `catchCurve()`: Modified. Removed `type=` and blended that functionality into `parm=` for methods. Made `parm=` consistent across methods.
 * `chapmanRobson()`: Modified. Added `axis.age=` argument that allows the user to choose which type of x-axis is displayed (see examples; this addresses [#20](https://github.com/fishR-Core-Team/FSA/issues/20))  Also modified code that adds the axes so that they should "look better" in more instances. Added `na.rm=TRUE` to y-range calculation for the plot method. Added a `coef()` method. Added a `parm=` argument to the `confint()` and `summary()` methods. Added tests.
@@ -337,19 +354,19 @@
 * `Summarize()`: Modified. Added `nvalid=` and `percZero` to only print the nvalid and percZero result if they are "interesting" (i.e., different than n or zero, respectively) by default (may be manually over-ridden). Modified tests.
 * `vbStarts()`: Modified. Added `na.rm=TRUE` to checking of Linf values.
 
-# FSA 0.8.9 23-Aug-16
+# FSA 0.8.9
 * `ageComparison()`: Modified. Removed an internal call to `fact2num()` because of changes to `Summarize()` below. Should not impact user experience.
 * `diags()`: Added.
 * `gompertzFuns()`: Modified. Fixed some spacing around the message when `msg=TRUE`.
 * `logisticFuns()`: Modified. Fixed some spacing around the message when `msg=TRUE`.
 * `Summarize()`: Modified. Removed all uses where the main variable was a factor (this functionality was largely unneeded and unused, was inelegant and difficult to maintain). Removed pass-through to `summary`. Removed warnings about the RHS variables being converted to factors. Columns for "levels" of the RHS variables are now returned in their original model (i.e., if the variable was numeric in the original data.frame it is now numeric in the data.frame returned from this function) -- this should reduce need for using `fact2num()` when using the results of this function for variables that were originally numeric. Added more examples and tests for the numeric data.
 
-# FSA 0.8.8 18-Jul-16
+# FSA 0.8.8
 * `growthFunShow()`: Modified. Added Pauly et al. (1992) seasonal cessation function. Added `case=` for use with Schnute model.
 * `vbFuns()`: Modified. Added Pauly et al. (1992) seasonal cessation function. Slightly modified messages for "Typical" and "Original" parameterizations.
 * `vbStarts()`: Modified. Added `fixed=` so that the user can define some of the starting values. Added Pauly et al. (1992) seasonal cessation function. Added tests for `fixed=`.
 
-# FSA 0.8.7 8-May-16
+# FSA 0.8.7
 * Compiled under R v3.3.0.
 * Removed `relax` from `Suggests`. See `srStarts()` and `vbStarts()` notes below. This addresses [#17](https://github.com/fishR-Core-Team/FSA/issues/17).
 * Removed `gdata` from `Imports`. See `filterD()` and `Subset()` notes below. This addresses [#5](https://github.com/fishR-Core-Team/FSA/issues/5).
@@ -378,7 +395,7 @@
 * `vbModels()`: Removed. Replaced with `growthFunShow()`.
 * `vbStarts()`: Modified. Removed `dynamicPlot=TRUE` option. Moved it to `FSAsim` package. Added `param=` to match other `vbXXX()` (works as does `type=`). Modified plot when `plot=TRUE` by adding "STARTING VALUES" to title and moving starting values to within the plot. Added and `col.main=`. Made warnings and error tests more explicit.
 
-# FSA 0.8.6 25-Mar-16
+# FSA 0.8.6
 * Fixed problems with tests, and made the tests more explicit, related to PSD and Wr functions. Suppressed some warnings related to `sumTable()` in ALK related tests and `Summarize()` in age comparisons tests. Prompted by forthcoming changes to `testthat`.
 * Removed `News.md` from `.Rbuildignore` (apparently now supported by CRAN).
 * `alkPlot()`: Modified. Changed so that `xlim=` and `ylim=` would work when `type="area"` and `type="bar"`. This fixes [#10](https://github.com/fishR-Core-Team/FSA/issues/10) (Thanks to Joseph Feldhaus).
@@ -393,8 +410,7 @@
 * `psdVal()`: Modified. Minor changes to documentation.
 * `purl2()`: Modified. Added `delHeader=` argument and functionality.
 
-
-# FSA 0.8.5 14-Feb-16
+# FSA 0.8.5
 * Added URL for fishR webpage in DESCRIPTION per CRAN request. Removed it from the URL field in DESCRIPTION.
 * Updated all references to Ogle (2016) in documentation.
 
@@ -406,8 +422,7 @@
 * `reproInfo()`: Modified. Made changes to `iGetAllDependencis()` based on forthcoming changes to `package.dependencies()` (as notified by CRAN).
 * `vbStarts()`: Modified. Fixed bug when `dynamicPlot=TRUE` was used.
 
-
-# FSA 0.8.4 21-Dec-15
+# FSA 0.8.4
 * Now using Roxygen2 v5.0.1.
 * Removed some `requireNamespaces()` from some functions and moved those packages from `Suggests` to `Imports` so that those functions would work better with other packages. The only `requireNamespaces()` that remain are related to functions that require the `relax` package (so tcltk is not installed until needed) and `knitr`, `dunn.test`, and `lmtest` as these are unlikely to be used by other packages and will keep the packages that are loaded with `FSA` to a minimum. Packages moved from `Suggests` to `Depends` are `Hmisc` (for use in `binCI`), `gdata` (for use in `filterD()` and `Subset()`), `dplyr` (for use in `filterD()`), `sciplot` (for use in `fitPlot()`), `car` (for use in `residPlot()`), and `gplots` (for use with colors).
 * `addZeroCatch()`: Modified tests (to reduce warnings that were not part of tests).
@@ -417,10 +432,11 @@
 * `sumTable()`: Modified tests (but with `dimnames()`).
 
 
-# FSA 0.8.3 23-Oct-15
+# FSA 0.8.3
 * Removed vignetteBuilder from DESCRIPTION (remnant from a vignette I built and then removed) at request of CRAN.
 
-# FSA 0.8.2 22-Oct-15
+# FSA 0.8.2
+* **Date:** 22-Oct-15
 * Converted all files in `data-raw` to CSV files.
 * Removed all `\href{}{}` and `\url{}` codes to websites that I don't control. The addresses are now "naked" such that the user will need to copy-and-paste them into a browser to view the web page rather than clicking on a hyper link. Hopefully this will eliminate problems with R CMD CHECK.
 * `ChinookArg`: Updated help documentation.
@@ -429,16 +445,14 @@
 * `PikeNYPartial1`: Updated help documentation.
 * `SpotVA1`: Updated help documentation.
 
-# FSA 0.8.1 10-Oct-15
-* **Submitted to CRAN.**
+# FSA 0.8.1
 * `col2rgbt()`: Added.
 * `compIntercepts()`: Added.
 * `compSlopes()`: Added.
 
 ----
 
-# FSA 0.8.0 8-Oct-15
-* **Submitted to CRAN** (*had an error in the tests for Sparc-Solaris*).
+# FSA 0.8.0 8
 * Added suggests for `dunn.test` for use in `dunnTest()` (see below).
 * `agePrecision()`:  Modified. Changed `combn()` to `utils::combn()` and `sd()` to `utils::sd()` (within an `apply()`).
 * `catchCurve()`:  Modified. Changed `na.exclude()` to `stats::na.exclude()`.
@@ -480,42 +494,50 @@
 * `test_PSD`: Modified. Altered tests that had used `==` to use `expect_equivalent()` which uses `all.equal()` with `check.attributes=FALSE`.
 
 
-# FSA 0.7.11 Oct15
+# FSA 0.7.11
+* **Date:** Oct15
 * Converted all `.txt` files to `.Rda` files. Original `.txt` files are in the `data-raw` directory which was added to `.Rbuildignore`.
 
-# FSA 0.7.10 Oct15
+# FSA 0.7.10
+* **Date:** Oct15
 * `purl2()`: Added `newname=` to allow the output file to have a name other than the same as the intput file.
 * `reproInfo()`: Added `markdown` to the `out=` types.
 
-# FSA 0.7.9 Sep15
+# FSA 0.7.9
+* **Date:** Sep15
 * Updated `README.md` and `DESCRIPTION` for new websites.
 * Changed all references to the WordPress site to the new website. Removed links to specific IFAR chapters. Changed my e-mail address. Created link in references to IFAR book page.
 * `fishR()`: Modified. Updated for the new websites.
 
-# FSA 0.7.8 Sep15
+# FSA 0.7.8
+* **Date:** Sep15
 * `ageComparison()`: Modified. Changed `what="McNemars"` and `what="Bowkers"` to `what="McNemar"` and `what="Bowker"`. Fixed bug if all ages are `NA`.
 * `catchCurve()`: Modified. Fixed bug related to `NA` values in the catch vector.
 * `chapmanRobson()`: Modified. Fixed bug related to `NA` values in the catch vector.
 * `validn()`: Modified. Fixed bug related to when a 1-dimensional numeric vector was not recognized as a vector.
 
-# FSA 0.7.7 Aug15
+# FSA 0.7.7
+* **Date:** Aug15
 * `ageBias()`: Modified. Changed default for `pch.mean=` to 95 (from 175). If `what=` has only one item, then results will now be invisibly returned so that results can be saved to an object.
 * `agePrecision()`: Modified. Added `trunc.diff=`. If `what=` has only one item, then results will now be invisibly returned so that results can be saved to an object.
 * `mapvalues()`: Modified. Corrected to export properly.
 * `removal()`: Modified. Minor edits to labels if `verbose=TRUE`. Added some more tests.
 * `vbStarts()`: Modified. Made `yngAge` the default for `meth0=`. Fixed bug that occured when `meth0='yngAge'` and sample sizes at all ages were 1.
 
-# FSA 0.7.6 Aug15
+# FSA 0.7.6
+* **Date:** Aug15
 * `Summarize()`: Modified. Converted to using `iHndlFormula()`. Changed output for quantitative data (`validn` is always returned, `NAs` is never returned). Changed output for two-way factor data (not returned as a character from `formatC()`). Removed `...` from code in several places as it was buggy and not used. Added more checks and modified check messages. Fixed bug from when a 1-d matrix of characters was sent. Added tests.
 * `sumTable()`: Modified. Converted to using `iHndlFormula()`. Added tests.
 
-# FSA 0.7.5 Aug15
+# FSA 0.7.5
+* **Date:** Aug15
 * `addRadCap()`: Modified. Streamlined code. Changed default `in.pre=` to `NULL` (from `inc`). Added some tests for returned data.
 * `BluegillLM`: Removed. Moved to `FSAdata`.
 * `gConvert()`: Modified. Streamlined code. Changed `type=` to `out.type=`. Changed default `in.pre=` and `in.var=` to `NULL` (from missing). Changed code to handle changes in `in.pre=` and `in.var=`. Added some tests for returned data.
 * `gReshape()`: Removed. Moved to `FSAmisc`.
 
-# FSA 0.7.4 Aug15
+# FSA 0.7.4
+* **Date:** Aug15
 * `binCI()`: Modified. Check for`Hmisc` with `requireNamespaces()` before processing body of function. This allowed moving `Hmisc` into `Suggests` declarations rather than `Imports`.
 * `chooseColors()`: Modified. Check for`gplots` with `requireNamespaces()` before processing body of function. This allowed moving `gplots` into `Suggests` declarations rather than `Imports`.
 * `filterD()`: Modified. Check for `dplyr` and `gdata` with `requireNamespaces()` before processing body of function. This allowed moving `dplyr` and `gdata` into `Suggests` declarations rather than `Imports`.
@@ -529,11 +551,13 @@
 * `vbStarts()`: Modified. Check for`relax` with `requireNamespaces()` before constructing the dynamic plot. This allowed moving `relax` into `Suggests` declarations rather than `Imports`.
 
 
-# FSA 0.7.3 Aug15
+# FSA 0.7.3
+* **Date:** Aug15
 * Removed all `importFrom()` directives and went to hard-wiring to packages with `::`. Added `imports()` directives for `stats`, `graphics`, `tools`, and `grDevices`. Removed `imports()` directive for `multcomp()`.
 * `vbStarts()`: Modified. Changed default methos for `methEV=`. Changed order of starting values for `type="Mooij"` in order to match that from `vbFuns()`. This also fixed a bug when `dynamicPlot=TRUE` was used with `type="Mooij"`. Added tests to determine if parameter order is the same between `vbStarts()` and `vbFuns()` for all parameterizations.
 
-# FSA 0.7.2 Jul15
+# FSA 0.7.2
+* **Date:** Jul15
 * `ageBias()`: Modified. Corrected bug with labeling of x-axis on age-bias plot when `ref.lab=` and `nref.lab=` were not given by the user. Changed default for `nYpos=` from `1.1` to `1.03`. Added `cex.n=` to allow control of the size of the sample size labels.
 * `agePrecision()`: Modified. Changed `what="detail"` to `what="details"`. Note that `what="detail"` still works.
 * `dunnTest()`: Modified. Added a note to the help file about the use of complete cases. Suggested from Paule Bodson-Clermont.
@@ -541,7 +565,8 @@
 * `vbModels()`: Modified. Changed order of `Original` and `Typical` (`Typical` is now shown first). Fixed in error in how the equation for the `Weisberg` parameterization was displayed.
 * `vbStarts()`: Modified. Added `cex.main=` as an argument and defaulted to `0.75`. Added `raw=TRUE` to `poly()` which is used when `meth0="poly"`. Added `Original` and `Typical` to the `type=` options. This allows both a capitalized and uncapitalized version for these two parameterizations.
 
-# FSA 0.7.1 Jul15
+# FSA 0.7.1
+* **Date:** Jul15
 * `ageBias()`: Modified. Moved into a single file with `agePrecision()`. Cleaned-up help file. No change in behavior.
 * `agePrecision()`: Modified. Moved into a single file with `ageBias()`. Cleaned-up help file. No change in behavior.
 * `alkAgeDist()`: Modified. Moved into a single file with `alkMeanVar()`. Cleaned-up help file. Added some error/warning tests. No change in behavior.
@@ -569,7 +594,8 @@
 * `vbFuns()`:  Moved into `growthModels` file. Did not change behavior.
 * `vbModels()`: Modified. Changed `type=` to `family=` to avoid confusion in the help file with `type=` in `vbFuns()`. Moved into `growthModels` file.
 
-# FSA 0.7.0 Jul15
+# FSA 0.7.0
+* **Date:** Jul15
 * Fixed description to be in title case.
 * Fixed reference to fishR page in description file.
 * Fixed several URL references, deleted others that have changed and are no longer available.
@@ -577,7 +603,8 @@
 * `hist.formula()`: Modified. Rebuilt to use `iHndlFormula()`. Modified how `xlab=` is used (result is the same). Added some tests.
 * `ksTest()`: Modified. Rebuilt to use `iHndlFormula()`. Added some tests for messages and to make sure results matched `ks.test()`.
 
-# FSA 0.6.25 Jul15
+# FSA 0.6.25
+* **Date:** Jul15
 * `alkPrep()`: Deleted. Moved to `FSAmisc` package (on GitHub).
 * `changesPos()`: Deleted. Moved to `FSAmisc` package (on GitHub).
 * `chapmanPlot()`: Deleted. Moved to `FSAmisc` package (on GitHub).
@@ -594,17 +621,20 @@
 * `TroutDietSL`: Deleted. Moved to `FSAmisc` package (on GitHub).
 * `walfordPlot()`: Deleted. Moved to `FSAmisc` package (on GitHub).
 
-# FSA 0.6.24 Jun15
+# FSA 0.6.24
+* **Date:** Jun15
 * `alkIndivAge()`: Modified. Switched to using `iHndlFormula()` at the beginning. Added more checks and tests.
 * `expandLenFreq()`: Modified. Added more checks. Added some tests.
 * `wsVal()`: Modified. Added more tests.
 
-# FSA 0.6.23 Jun15
+# FSA 0.6.23
+* **Date:** Jun15
 * `ageBias()`: Modified. Fixed bugs related to axes on numbers plot and sunflower plot.
 * `filterD()`: Modified. Added `reorder=FALSE` to `drop.levels()` so that the order of levels is not changed when levels are dropped.
 * `residPlot.nlme()`: Added.
 
-# FSA 0.6.22 Jun15
+# FSA 0.6.22
+* **Date:** Jun15
 * `extraSS()`: Modified. Added `sim.name=` to allow for a common typing mistake.
 * `logbtcf()`: Modified. Slight change to handle a check of `lm` class.
 * `lrt()`: Modified. Added `sim.name=` to allow for a common typing mistake.
@@ -612,13 +642,15 @@
 * `rcumsum()`: Modified. Modified to handle `table`, `matrix`, and `data.frame` classes as long as they are 1-dimensional.
 * `srStarts()`: Modified. Corrected some bugs related to checks. Added more tests.
 
-# FSA 0.6.21 Jun15
+# FSA 0.6.21
+* **Date:** Jun15
 * `addRadCap()`: Modified. Modified so that `in.pre=` string must be at the start of the variable names. Added a check for when the `in.pre=` string does not exist at the start of any variable names. Added a check for whether all `in.var=` variables exist. Added some simple tests (need more).
 * `bcFuns()`: Modified. Removed `type=`; `BCM=` can now be either numeric or a string. Allowed string to be in any case (will be converted to the required all upper-case). Corrected some errors for when `msg=TRUE`. Added some simple tests.
 * `gConvert()`: Modified. Modified so that `in.pre=` string must be at the start of the variable names. Added a check for when the `in.pre=` string does not exist at the start of any variable names. Added some simple tests (need more).
 * `gReshape()`: Modified. Modified so that `in.pre=` string must be at the start of the variable names. Added a check for when the `in.pre=` string does not exist at the start of any variable names. Added some simple tests (need more).
 
-# FSA 0.6.20 Jun15
+# FSA 0.6.20
+* **Date:** Jun15
 * `gompFuns()`: Deleted.
 * `gompModels()`: Deleted.
 * `GompertzFuns()`: Added. Replaced `gompFuns()`. Added `type="Troynikov1"` and  `type="Troynikov1"`.
@@ -633,11 +665,13 @@
 * `vbFuns()`: Modified. Added `type="Polacheck"` which is equivalent to `type="Laslett"`. Added a new reference in the help file.
 * `vbModels()`: Modified. Added `cex=` and `type=`.
 
-# FSA 0.6.19 Jun15
+# FSA 0.6.19
+* **Date:** Jun15
 * `RichardsFuns()`: Added.
 * `RichardsModels()`: Added.
 
-# FSA 0.6.18 Jun15
+# FSA 0.6.18
+* **Date:** Jun15
 * Changed nearly all "messages" using `cat()` to using `message()` so that they can be suppressed with `suppressMessage()` or `message=FALSE` in knitr. See  "One comment on messages" at http://yihui.name/knitr/demo/output/. Specific functions modified are listed below.
 * `ageBias()`: Modified. Changed all `cat()` to `message()`s. Changed so that messages (result headers) are only printed if `what=` contains more than one item.
 * `agePrecision()`: Modified. Changed all `cat()` to `message()`s. Changed so that messages (result headers) are only printed if `what=` contains more than one item.
@@ -655,26 +689,30 @@
 * `removal()`: Modified. Changed all `cat()` to `message()`s.
 * `srFuns()`: Modified. Changed all `cat()` to `message()`s. Created some tests.
 
-# FSA 0.6.17 Jun15
+# FSA 0.6.17
+* **Date:** Jun15
 * `extraSS()`: Modified. Added more message tests and some calculational tests (compared to `anova()` results).
 * `gompFuns()`: Modified. Changed all `cat()`s to `message()`s and slightly modified the messages. Fixed minor bugs in some created functions. Created some tests.
 * `logisticFuns()`: Modified. Changed all `cat()`s to `message()`s and slightly modified the messages. Fixed minor bugs in some created functions. Created some tests.
 * `lrt()`: Modified. Added more message tests and some calculational tests (compared to `lrtest()` from `lmtest` package results).
 * `vbFuns()`: Modified. Changed all `cat()`s to `message()`s and slightly modified the messages. Fixed minor bugs in some created functions. Created some tests.
 
-# FSA 0.6.16 Jun15
+# FSA 0.6.16
+* **Date:** Jun15
 * `extraSS()`: Modified. Added `sim_names=` and `com_name=` so that simple descriptive names could be given to the model and printed in the heading of the output. Added checks for whether the complex model appears more complex or not. Added tests for warning and error messages.
 * `fishR()`: Modfiied. Fixed bug with `where="news"`. Added tests.
 * `fitPlot()`: Modified. Added ability to modify y-axis limits for the nonlinear regression model. Thanks to Gabriela N. for asking for this.
 * `hoCoef()`: Modified. Changed `lmobj=` to `object=`, added degrees-of-freedom to the output matrix, streamlined the code, added some checks, and added some tests.
 * `lrt()`: Modified. Added `sim_names=` and `com_name=` so that simple descriptive names could be given to the model and printed in the heading of the output. Added checks for whether the complex model appears more complex or not. Added tests for warning and error messages.
 
-# FSA 0.6.15 Jun15
+# FSA 0.6.15
+* **Date:** Jun15
 * `addZeroCatch()`: Modified. Deleted extraneous `print()` statement.
 * `lencat()`: Modified. Major re-write to make it easier to trouble-shoot. Fixed bug related to empty category on end when `as.fact=TRUE` and `use.names=TRUE`. Added more tests.
 * `psdCalc()`: Modified. Removed extra open-ended category (e.g., PSD-T-) for PSD intervals.
 
-# FSA 0.6.14 May15
+# FSA 0.6.14
+* **Date:** May15
 * Added travis-ci integration.
 * Added coveralls integration.
 * Added `importFrom` for `mapvalues()` from `plyr`.
@@ -696,12 +734,14 @@
 * `Subset()`: Modified. Added some checks with error messages. Added suite of tests.
 * `validn()`: Modified. Added some checks with error messages. Added suite of tests.
 
-# FSA 0.6.13 May15
+# FSA 0.6.13
+* **Date:** May15
 * Some miscellaneous reorganizations of files.
 * `ageBias()`: Modified. Corrected bugs with `show.pts=TRUE` and "sunflower plot" that came from changes made in version 0.5.1.
 * `residPlot()`: Modified. Deleted `student=`. Added `resid.type=` which allows used of standardized (internally studentized) and (externally) studentized residuals for linear models (along with raw residuals). Added code following `nlsResiduals()` from `nlstools` for standardized residuals for nonlinear models.
 
-# FSA 0.6.12 May15
+# FSA 0.6.12
+* **Date:** May15
 * `gompFuns()`: Added.
 * `gompModels()`: Added.
 * `logisticFuns()`: Added.
@@ -709,7 +749,8 @@
 * `reproInfo()`: Modified. Added the `out=` argument to allow the output to be straight R or LaTeX. Removed the `listFiles=` argument. Changed the output to be more succinct. Streamlined the code.
 * `vbFuns()`: Modified. Fixed a bug with the Laslett model.
 
-# FSA 0.6.11 Apr15
+# FSA 0.6.11
+* **Date:** Apr15
 * `kCounts()`: Added. Was `swvCounts()`.
 * `kPvalue()`: Added. Was `swvPvalue()`.
 * `purl2()`: Added. Was `swvCode()`. Added `timestamp=` argument for adding a timestamp to the created script.
@@ -723,45 +764,53 @@
 * `swvPvalue()`: Deleted. Changed to `kPvalue()`.
 * `swvREG()`: Deleted. Moved to `NCStats`.
 
-# FSA 0.6.10 Apr15
+# FSA 0.6.10
+* **Date:** Apr15
 * Compiling under R 3.2.0.
 * Added some cross-reference links to help files.
 * Remove fishR vignette section and added IFAR Chapter section to help files.
 * `fishR()`: Modified. Added `IFAR` as an option. Updated code to be more simple.
 
-# FSA 0.6.5 Apr15
+# FSA 0.6.5
+* **Date:** Apr15
 * Last version for submission of first draft of Introductory Fisheries Analyses with R.
 * `capHistConvert()`: Modified. Added a warning section and an example of problems that can occur if the data are in event format but the event variable contains unused levels as may occur following subsetting. Thanks to Joseph Feldhaus for pointing out this problem.
 * `extraSS()`: Modified. Changed algorithm to determine if the models were of the same class or not. The modification allows a model to have multiple classes.
 * `iHndlCols2Use` (Intrnal Function): Modified. Fixed bug with how the columns were selected. Added a suite of tests for this function. This will fix bugs in `capHistConvert()` and `capHistSum()`. Thanks to Joseph Feldhaus for pointing out this egregious error.
 * `lrt()`: Modified. Changed algorithm to determine if the models were of the same class or not. The modification allows a model to have multiple classes.
 
-# FSA 0.6.4 Apr15
+# FSA 0.6.4
+* **Date:** Apr15
 * Changed to using `LazyData: true`.
 * `se()`: Added. Removed `importFrom` of `se()` from `sciplot`.
 
-# FSA 0.6.3 Apr15
+# FSA 0.6.3
+* **Date:** Apr15
 * Some modifications to tests.
 * `plot.capHist()`: Modified. Changed default plot look which can now be controlled with `pch=`, `cex.pch=`, and `lwd=`. Modified the two y-axis scales to use `plotmath` characters.
 
-# FSA 0.6.2 Mar15
+# FSA 0.6.2
+* **Date:** Mar15
 * `capHistConvert()`: Modified. Streamlined code around creating `var.lbls`. Made `event` the default value for `var.lbls.pre=`. Added some checks to `var.lbls.pre=` if it starts with a number or has too many values. Added `cols2use=` and modified use of `cols2ignore=` via `iHndlCols2use()`.
 * `capHistSum()`: Modified. 
 * `iHndlCol2use()`: Added. Added this internal function to handle `cols2use=` and `cols2ignore=` in `capHistConvert()` and `capHistSum()`. 
 
-# FSA 0.6.1 Mar15
+# FSA 0.6.1
+* **Date:** Mar15
 * `catchCurve()`: Modified. Changed how `ages2use=` was handled so that negative values can be used to exclude some ages. Will also now send an error if a mix of positive and negative ages are sent in `ages2use=`. Better handled the situation where `ages2use=` had more ages than the `age` variable. Checked for non-positive weights if `weighted=TRUE` and returned a warning and changed the non-positive weights to the minimum of the positive weights.
 * `chapmanRobson()`: Modified. Changed how `ages2use=` was handled so that negative values can be used to exclude some ages. Will also now send an error if a mix of positive and negative ages are sent in `ages2use=`. Better handled the situation where `ages2use=` had more ages than the `age` variable.
 * `expandCounts()`: Modified. Changed so that ``message()''s are printed at the end instead of along the way. This reduces confusion of what appear to be messages of success followed by an error. Thanks to Dan Oele bringing this confusion to my attention.
 * `plotBinResp()`: Modified. Changed the way the breaks were calculated (uses `lencat()` now).
 
-# FSA 0.6.0 Mar15
+# FSA 0.6.0
+* **Date:** Mar15
 * updated DESCRIPTION file (following this -- http://r-pkgs.had.co.nz/description.html
 * `srFuns()`: Modified. Changed function returned when `simplify=FALSE` so that if the parameters are named that the name is dropped. Thus, when the function is used, the returned result will not be annoyingly named as the first parameter. Added functionality for the "density-independence" model.
 * `srStarts()`: Modified. Added functionality for the "density-independence" model.
 * `vbFuns()`: Modified. Changed function returned when `simplify=FALSE` so that if the parameters are named that the name is dropped. Thus, when the function is used, the returned result will not be annoyingly named as the first parameter.
 
-# FSA 0.5.3 Mar15
+# FSA 0.5.3
+* **Date:** Mar15
 * `growthModelSim()`: Deleted. The simulation functionality was moved to the `FSAsim` package. The functionality related to finding starting values for the von Bertalanffy modesl was moved to `vbStarts()`.
 * `srFuns()`: Modified. A complete rebuild to make similar to `vbFuns()`. Added `simple=`. Added `type='Shepherd'` for the Shepherd (1982) three parameter model and `type='SailaLorda'` for the "Saila-Lorda" three parameter model from Iles (1994). Added tests for error messages.
 * `srModels()`: Modified. A complete rebuild to make similar to `growthModels()`. Added "Shepherd" and "Saila-Lorda" models.
@@ -769,41 +818,51 @@
 * `srStarts()`: Modified. A complete rebuild to streamline. Removed default method (i.e., a formula must be used now). Added "Shepherd" and "Saila-Lorda" models. Modified plotting routine, including adding `col.mdl=`, `lwd.mdl=`, and `lty.mdl=`. Moved the dynamic modeling aspects of `srSim()` into this function and is called with the new argument `dynamicPlot=TRUE`. Also added `minmax.ratio=` and `delta.prop=` for use with the dynamic plots.
 * `vbStarts()`: Modified. A complete rebuild to streamline and fix some bugs that had not been found. Modified plotting routine, including adding `col.mdl=`, `lwd.mdl=`, and `lty.mdl=`. Also added all of the von Bertalanffy parameterizations in `growthModelSim()` into this function and is called with the new argument `dynamicPlot=TRUE`. Added dynamics plots for the "Francis" and "Schnute" parameterizations.
 
-# FSA 0.5.2 Mar15
+# FSA 0.5.2
+* **Date:** Mar15
 * `psdPlot()`: Modified. Fixed bug related to `NA`s in `max.brks` variable.
 
-# FSA 0.5.1 Mar15
+# FSA 0.5.1
+* **Date:** Mar15
 * `ageBias()`: Modified. Reversed the order of the formula ... it is now `nrefvar~refvar`. This more closely matches other R functions where the tilde may be interpreted as the word "by". In other words, the formula now reads as "nonreference variable by reference variable" (i.e., Y by X). Thanks for Richard McBride for the suggestion. Modified the age-bias plot extensively ... added `sfrac=` and defaulted to 0 to remove ends of the confidence intervals, added `cex.mean=` to control the size of the symbol for the mean point, added `lwd=` that will controland set all of the `lwd` defaults to 1.
 * `agePrecision()`: Modified. Changed all "CV" results to "ACV".
 
-# FSA 0.4.51 Mar15
+# FSA 0.4.51
+* **Date:** Mar15
 * `catchCurve()`: Modified. Updated the help file regarding `zmethod="Smithetal"`.
 
-# FSA 0.4.50 Mar15
+# FSA 0.4.50
+* **Date:** Mar15
 * `capFirst()`: Modified. Added a check to make sure the inputted object was either a character or factor class. Added code to return the object as the same class of the original object.
 * `lencat()`: Modified. Added a catch for bad choices of arguments. Added a catch to send a warning if the vector contains all `NA` values (this happens when `lencat()` is used within a loop or as part of `psdAdd()`). Added tests for error and warning messages. Changed how the formula was handled in the formula method.
 * `psdAdd()`: Modified. Fixed a bug with names when using labels. Added `verbose=`. Added catches and sent messages if `verbose=TRUE` for when no Gabelhouse lengths are know for a species and if the lengths for a species are all missing (see note for `lencat()` above).
 * `PSDlit`: Modified. Fixed the trophy length for White Bass (from 15 to 18). This solved a bug related to non-unique breaks.
 
-# FSA 0.4.49 Mar15
+# FSA 0.4.49
+* **Date:** Mar15
 * `expandCounts()`: Modified. Made message regarding rows with zero counts more useful. Added missing counts to the catch of zero counts. Made changes to handle more "odd" data entries (see "details" in the help file). Made some tests. Added some tests.
 
-# FSA 0.4.48 Mar15
+# FSA 0.4.48
+* **Date:** Mar15
 * `psdCalc()`: Modified. Corrected "bug" with `units=`. Also modified warning message when no "stock" fish were present in the data.frame to further note what `units=` were used (i.e., this problem is likely to happen if the data is inches but the user uses the default `units='mm'`). Thanks to S. Mather for inspring this fix.
 
-# FSA 0.4.47 Feb15
+# FSA 0.4.47
+* **Date:** Feb15
 * `dunnTest()`: Modified. Corrected "bug" in the order that the groups are subtracted (i.e., they were flipped).
 
-# FSA 0.4.46 Feb15
+# FSA 0.4.46
+* **Date:** Feb15
 * `catchCurve()`: Modified. Changed default for `pos.est=` to `topright`. Added `cex.pos=` (and set default to slightly smaller value).
 * `chapmanRobson()`: Modified. Changed default for `pos.est=` to `topright`. Added `cex.pos=` (and set default to slightly smaller value).
 
-# FSA 0.4.45 Feb15
+# FSA 0.4.45
+* **Date:** Feb15
 * `hist.formula()`: Modified. Changed use of `par()` to eliminate modifications to the gridding of plots after the function is complete. Also removed the setting of `mar=` and `mgp=` in `par()`.
 * `mrOpen()`: Modified. Removed pretty printing for `summary()` and `confint()` methods. These got in the way of being able to `cbind()` the results together for a succinct display.
 * `residPlot()`: Modified. Changed use of `par()` to eliminate modifications to the gridding of plots after the function is complete.
 
-# FSA 0.4.44 Feb15
+# FSA 0.4.44
+* **Date:** Feb15
 * `.onAttach()`: Modified. Centered the message and adjusted for different lengths of version numbers.
 * `alkPlot()`: Modified. Fixed bug when using `add=TRUE` with `type="bubble"`.
 * `capHistSum()`: Modified. Changed to return `par()` options to what they were before the function was called.
@@ -815,37 +874,45 @@
 * `lwCompPreds()`: Modified. Changed `quant.lens=` to `qlens=`. Changed default `qlens=` to have the 5th and 95th percentiles rather than the minimum and maximum values. Added `qpens.dec=` so that the user could control the number of decimals for the lengths derived from `qlens=`.
 * `srSim()`: Modified. Changed to return `par()` options to what they were before the function was called.
 
-# FSA 0.4.43 Feb15
+# FSA 0.4.43
+* **Date:** Feb15
 * `mrOpen()`: Modified. Changed `summary()` and `confint()` methods to allow single, multiple, or all choices of parameters to return results for. Also added code to print the results more prettily.
 * `swvCode()`: Modified. Fixed bug related to `blanks='extra'`.
 
-# FSA 0.4.42 Feb15
+# FSA 0.4.42
+* **Date:** Feb15
 * `filterD()`: Added.
 
-# FSA 0.4.41 Jan15
+# FSA 0.4.41
+* **Date:** Jan15
 * `catchCurve()`: Modified. Removed the use of larger points in the `plot()`.
 * `chapmanRobson()`: Modified. Removed the use of larger points in the `plot()`.
 * `metaM()`: Modified. Deleted `group=` (and created `method="ZhangMegreyD"` and `method="ZhangMegreyP"`).   Added geometric mean regresson methods for Hoenig. Changed default for `justM=` to `TRUE`. Fixed several minor bugs from the original implementation. Added some checks for reasonableness of some arguments. Created tests for several methods to see if the results matched those from Kenchington (2014). Added code to compute with several methods at once.
 * `Mmethods()`: Added. Added as a function and removed as a vector.
 
-# FSA 0.4.40 Jan15
+# FSA 0.4.40
+* **Date:** Jan15
 * `lencat()`: Modified. Fixed a bug that occurred if `breaks=` were given but the vector contained `NA`s. Thanks to Ben Neely for pointing this out.
 
-# FSA 0.4.39 Jan15
+# FSA 0.4.39
+* **Date:** Jan15
 * `catchCurve()`: Modified. Changed `use.weights=` to `weighted=`. Added some checks for the formula in the formula version and for the variables in the default version. Add unit tests for warnings and errors and tow tests for values.
 * `chapmanRobson()`: Modified. Added the `method="Smithetal"` methodology for estimating the SE of Z (and made it the default). Added some checks for the formula in the formula version and for the variables in the default version. Added `verbose=` to `summary()`. Add unit tests for warnings and errors and two tests for values.
 
-# FSA 0.4.38 Jan15
+# FSA 0.4.38
+* **Date:** Jan15
 * `alkPlot()`: Modified. Changed behavior for adding a legend to alleviate a bug.
 * `metaM()`: Added.
 
-# FSA 0.4.37 Jan15
+# FSA 0.4.37
+* **Date:** Jan15
 * `confint.nlsBoot()`: Modified. Changed default for `err.col=` to `black` from `red`. Fixed example due to changes in `nlsBoot` package.
 * `extraSS()`: Modified. Added a catch to make sure all models are of the same type. Added a catch to note that the function does not work with other that `lm()` or `nls()` models. Fixed a bug related to the labels for results from `anova()` being different depending on whether `lm()` or `nls()` models were given. Added some examples.
 * `hist.formula()`: Modified. Fixed bug (originated in last version) that nothing was returned when only one histogram was constructed.
 * `lrt()`: Modified. Changed call to `lrtest()` to a call to `lrtest.default()`. Added a catch to make sure all models are of the same type. Note that degrees-of-freedom from `lrtest()` are not error df; thus, modified to report error df to match `extraSS()`. Added some examples.
 
-# FSA 0.4.36 Jan15
+# FSA 0.4.36
+* **Date:** Jan15
 * `hist.formula()`: Modifiied. Added `iaxs=`, which when set to the default value of `TRUE` will use `xaxs="i"` and `yaxs="i"` to remove the "floating" x-axis produced by `hist()` in base R.
 * `lwCompPreds()`: Modified. Added the `yaxs=` argument.
 * `psdCalc()`: Modified. Added `showIntermediate=` to allow showing intermediate values in the calculation of the PSD indices. Added `justAdds=` to allow the user to return just those results that pertain to the values in `addLens=`. Added ability to use a named vector in `addLens=` and then not use `addNames=`. Changed `digits=1` to `digits=0`. Thanks to Ben Neely for the suggestions.
@@ -853,13 +920,16 @@
 * `residPlot()`: Modiifed. Added `xpd=TRUE` to the loess line routine so that the curve and polygon would stay within the plotting region.
 * `tictactoe()`: Modified. Add the ability to handle differences between when `xaxs="r"` and `yaxs="r"` are used and when `xaxs="i"` and `yaxs="i"` are used.
 
-# FSA 0.4.35 Jan15
+# FSA 0.4.35
+* **Date:** Jan15
 * `dunnTest()`: Added.
 
-# FSA 0.4.34 Dec14
+# FSA 0.4.34
+* **Date:** Dec14
 * `addZeroCatch()`: Modified. Removed `idvar=`, forced the `eventvar=` and `speciesvar=` variables in the returned data.frame to be numeric if they were numeric in the original data.frame, allowed `speciesvar=` to have more than one variable, and added `na.rm=`. Multiple values for `specvar=` will allow the user to add zeros based on a combination of variables (e.g., species and size category). The `na.rm=` argument allows the user to remove "missing" species, which are common if some sampling events did not capture any fish.
 
-# FSA 0.4.33 Dec14
+# FSA 0.4.33
+* **Date:** Dec14
 * `growthModelSim()`: Modified. Changed all "K0" objects to "t50".
 * `headtail()`: Added.
 * `logbtcf()`: Added.
@@ -867,14 +937,16 @@
 * `vbFuns()`: Modified. Changed all "K0" objects to "t50".
 * `vbStarts()`: Modified. Changed all "K0" objects to "t50".
 
-# FSA 0.4.32 Nov14
+# FSA 0.4.32
+* **Date:** Nov14
 * `expandcounts()`: Added (from `fishWiDNR` package).
 * `expandLenFreq()`: Added. Same as `lenFreqExpand()` but thought that this name fits better with `expandCounts()`.
 * `pcumsum()`: Added.
 * `rcumsum()`: Modified. Completely new code (much simpler).
 * `validn()`:  Added.
 
-# FSA 0.4.31 Nov14
+# FSA 0.4.31
+* **Date:** Nov14
 * Removed the suggests for `plyr`.
 * `addZeroCatch()`: Modified. Slight modifications to help file. Fixed bug related to error checking the number of variables. Added some tests.
 * `lencat()` Modified. Added `droplevels=` and kept `drop.levels=` as I could not consistently remember what the name of the argument was -- i.e., the user can use either one, but `droplevels=` is preferred.
@@ -885,14 +957,16 @@
 * `swvCode()`: Modified. Removed ability to Stangle the code and thus removed `method=`. Modified code to allow usage of .Rmd files in addition to .Rnw files.
 
 
-# FSA 0.4.30 Oct14
+# FSA 0.4.30
+* **Date:** Oct14
 * Added a suggests for `plyr`, for examples using `mapvalues()`.
 * `lencat()`: Modified. Changed `as.fact=` to default to same as `use.names=`. This will result in the same behavior as before. However, it also allows the user to set `use.names=TRUE` and `as.fact=FALSE` to return a character vector (that is not a factor).
 * `psdAdd()`: Modified. Added `addSpec=` and `addLens=` so that the user can have non-Gabelhouse lengths for individual species.
 * `PSDlit`: Modified. Changed "Walleye x Sauger" to "Saugeye" and "White Bass x Striped Bass" to "Palmetto Bass". Updated the Palmetto Bass values based on Dumont and Neely (2011), but kept old values as "Palmetto Bass (original)". Deleted redundant entries for some species.
 * `recodeF()`: Deleted. Functionality is in `mapvalues()` from `plyr`. Ease come easy go (i.e., added in last version).
 
-# FSA 0.4.29 Oct14
+# FSA 0.4.29
+* **Date:** Oct14
 * Added a suggests for `dplyr`.
 * Added an external file in inst/extdata for testing PSD and Wr calculations.
 * `capFirst()`: Modified. Changed `words=` to `which=`.
@@ -902,14 +976,16 @@
 * `wrAdd()`: Modified. Added a default and a formula version to allow efficiency with `dplyr`. Added examples. Updated tests.
 * `WSlit`: Modified. Added results for Sardine.
 
-# FSA 0.4.28 Sep14
+# FSA 0.4.28
+* **Date:** Sep14
 * `psdAdd()`: Added.
 * `psdDataPrep()`: Deleted. Functionality replaced by `psdAdd()`.
 * `recodeSpecies()`: Modified. Completely re-written but with the same basic functionality. This new version returns a vector that can then be appended to an existing data.frame rather than the old function that returned a whole data.frame. This function should allow ease of use with `mutate()` from `dplyr`. Added more catches for bad `formuala=`s. Added some tests.
 * `wrAdd()`: Modified. Completely re-written with completely new functionality. This new version returns a vector that can then be appended to an existing data.frame rather than the old function that returned a whole data.frame. This function should allow ease of use with `mutate()` from `dplyr`. Added more catches for bad `formuala=`s. Added some tests.
 * `wrDataPrep()`: Deleted. Functionality replaced by new `wrAdd()`.
 
-# FSA 0.4.27 Sep14
+# FSA 0.4.27
+* **Date:** Sep14
 * `hist.formula()`: Modified. Slight modifications to warning messages.
 * `Summarize()`: Modified. Slight modification to warning messages.
 * `tictactoe()`: Modified. Changed `predbal=` to `predobj=`, `preybal=` to `predbal=`, `xlab=` to `predlab=`, `ylab=` to `preylab=`, `bal.col=` to `obj.col=`, and `bal.trans=` to `obj.trans=`.
@@ -918,7 +994,8 @@
 * `wsLit`: Modified. Changed order of variables, changed hybrid species names to match that of Neumann et al. (2012), update comments to related to Neumman et al. (2012) rather than Blackwell et al. (2012), and added information for the Riffle Dace.
 * `wsVal()`: Modified. Changed the names of the `min.len` and `max.len` variables to be either `min.TL` and `max.TL` or `min.FL` and `max.TL` as appropriate. Suppressed the return of `max.len` and `quad` if they did not exist and suppressed return of `comment` if it was `none`. Added a catch if more than one species was given in `species=`. Created some tests.
 
-# FSA 0.4.26 Sep14
+# FSA 0.4.26
+* **Date:** Sep14
 * `capFirst()` Modified. Added an option to handle a vector of strings rather than just a single string.
 * `lencat()`: Modified. Fixed bug with category names when `use.names=TRUE`. Moved all internal functions outside of `lencat()` environment (and renamed them). Cleaned up code.
 * `psdCI()`: Modified. Added more catches for calls with mistakes. Create some internal functions to modularize the computations.  Added tests.
@@ -930,7 +1007,8 @@
 * `tictactoe()`: Modfied. 
 * `tictactoeAdd()`: Removed. Directed user to use `plotCI()` from `plotrix` instead.
 
-# FSA 0.4.25 Sep14
+# FSA 0.4.25
+* **Date:** Sep14
 * `mrClosed()`: Modified. Better handled a given value of `R=`.
 * `psdCalc()` Modified. Fixed a bug that appeared when no "zero" fish were present in the data. Moved all internal functions outside of `psdCalc()` environment (and renamed them).
 * `psdCI()`: Added.
@@ -938,7 +1016,8 @@
 * `swvCode()`: Modified. Fixed bug when attempting to use this function from outside of the directory where the .Rnw file exists. Added functionality to add a "note" to the first line(s) of the output file. Added code to remove the first line of the output file if it was going to be blank.
 * `swvFinish()`: Modified. Updated code because `iGetFilePrefix()` was deleted.
 
-# FSA 0.4.24 Aug14
+# FSA 0.4.24
+* **Date:** Aug14
 * `ageKey()`: Deprecated. See `alkIndAge()`.
 * `ageKeyPlot()`: Deprecated. See `alkPlot()`.
 * `ageKeyPrep()`: Deprecated. See `alkPrep()`.
@@ -952,25 +1031,30 @@
 * `Summarize()`: Modified. Moved all internal functions outside of `Summarize()` environment (and renamed them).
 
 
-# FSA 0.4.23 Aug14
+# FSA 0.4.23
+* **Date:** Aug14
 * `removal()`: Modified. Completely modified the code so that the examples with `apply()` and `lapply()` would also provide confidence intervals. Also changed the code to reflect that $\sum_{i=1}^{k-1}T_{i}$ from Schnute (1983) is the same as $X$ from Carle and Strub (1978), the $\sum_{i=1}^{k-1}T_{i}-C_{1}$ in Schnute (1983) is the same as $X-(k-1)C_{1}$, and $q$ in Schnute (1983) is $p$ in most other resources. These changes allowed some efficiencies and connected the theory behind the methods more firmly. Removed the check for character data. Kept the check for whether catch was a vector or not but if catch is a one row or one column matrix or data.frame then it will be converted to a vector to continue. The latter change allows one to extract one row from a data.frame to send to `removal()` without having to use `as.numeric()`. Modified and added examples of the use of `apply()` and `lapply()`.
 
-# FSA 0.4.22 Aug14
+# FSA 0.4.22
+* **Date:** Aug14
 * `ageKey()`: Modified. Changed to using `all.equal()` to check if the ALK has rows that don't sum to 1. This was an attempt to minimize the number of "false negatives" caused by [R FAQ 7.31](https://cran.r-project.org/doc/FAQ/R-FAQ.html#Why-doesn_0027t-R-think-these-numbers-are-equal_003f). Changed the check of whether the longest fish in the length sample is greater than the longest length bin in the ALK to whether the longest fish in the length sample is greater than the longest length bin in ALK PLUS the minimum width of length categories. This last change is an attempt to minimize the number of warnings that occur when the longest fish in the length sample would be in the last length category ALK but because the length categories are labelled by their minimum length it looks like it is not. The minimum width is used to still allow unevent length categories and, thus, this check may still produce some "false negatives."
 * `ageKeyPlot()`: Modified. Removed `bubble.ylab=`. Modified `ylab=` to handle what `bubble.ylab=` used to handle.
 * `removal()`: Modified. Added options to perform Moran (1951) and Schnute (1983) removal methods. Added examples of the new functionality. Updated the tests for the new functionality.
 
-# FSA 0.4.21 Jul14
+# FSA 0.4.21
+* **Date:** Jul14
 * `depletion()`: Modified. Changed `type=` to `method=` and added `DeLury` as an option to `method=` (and left `Delury`).  Changed `ricker.mod=` to `Ricker.mod=`. Added some checking for bad arguments. Created internal functions specific to the Leslie and DeLury methods (for isolation). Modified some clunky code. Added references to specific sections in Seber (2002) for SE equations. Updated examples. Added tests and error checking.
 * `coef.depletion()`: Modified. Added `digits=`.
 * `confint.depletion()`: Modified. Added `digits=`. Modified the `parm=` list to be more efficient.
 * `plot.depletion()`: Modified. Removed internal `par()` settings.
 * `summary.depletion()`: Modified. Added `verbose=` and `digits=`.
 
-# FSA 0.4.20 Jul14
+# FSA 0.4.20
+* **Date:** Jul14
 * `removal()`: Modified. Made `"CarleStrub"` the default method. Changed `type=` to `method=`. Changed internal `meth` object to `lbl`. Moved all internal functions outside of `mrOpen()` environment and added other internal functions to isolate all intermediate calculations. Added a `verbose=` and `parm=` to `summary()`. Streamlined clunky code in `confint()` including removing the `all` and `both` options from `parm=`. Added more checks for abd inputs, notes in the code as to sources for the fomulae, and tests.
 
-# FSA 0.4.19 Jul14
+# FSA 0.4.19
+* **Date:** Jul14
 * Modified some tests to check whether the suggested package was installed.
 * `capHistSum()`: Modified. Changed column and row labels for `$methodB.top` and column labels for `$methodB.bot`. Added a m-array object for when more than two sampling events are present. Added calculations for the number of fish first seen on event i (ui), the number of fish last seen on event i (vi), and the number of fish seen i times (fi) to `$sum`.
 * `jolly()`: Added. Same as `mrOpen()`, added only for convenience.
@@ -979,7 +1063,8 @@
 * `plot.CapHistSum()`:  Added.
 * `plot.mrClosed()`:  Modified. Changed axis labels as the expressions did not print with some fonts and devices.
 
-# FSA 0.4.18 Jul14
+# FSA 0.4.18
+* **Date:** Jul14
 * Moved to compiling under R 3.1.1.
 * Added a Suggests for `marked` for the example in `capHistConvert()`.
 * `ageBias()`: Modified. Changed default value of `min.n.CI=` from 5 to 3. Added an `na.rm=TRUE` to the `min()` and `max()` that produced the age ranges for the age agreement table.
@@ -992,7 +1077,8 @@
 * `plot.AgeBias()`. Modified. Fixed bug that produced a warning if all of the bias t-tests were either significant or not significant. Changed `col.err=` to `col.CI=`, `lwd.err=` to `lwd.CI=`, `col.err.sig=` to `col.CIsig=`, `col.ref=` to `col.agree=`, `lwd.ref=` to `lwd.agree=`, `lty.ref=` to `lty.agree=`, `show.rng=` to `show.range=`, `col.rng=` to `col.range=`, `lwd.rng=` to `lwd.range=`. Removed `col.lab=` and `row.lab=` which were deprecated several minor versions ago. Changed default values for `lwd.rng=` and `lwd.CI=` from 2 to 1. Added a `cex.numbers=` argument for controlling the size of the numbers in the "numbers plot" (defaults to 0.9).
 * `plotBinResp()`:  Modified. Changed `trans.pt=` to `transparency=`.
 
-# FSA 0.4.17 Jul14
+# FSA 0.4.17
+* **Date:** Jul14
 * `confint.mrClosed()`: Modified. Moved all internal functions outside of `confint.mrClosed()` environment (see `iCI.MRCMultiple()` and `iCI.MRCSingle()`). Changed `ci.type=` to just `type=`. Streamlined binomial method for single census. Used `iMRCSingleSE()` to get SE for when `type="normal"` for Chapman, Bailey, and Ricker methods.
 * `extraSS()`: Modified. Slight change to row labels in output table.
 * `iMRCMultiple()`:  Added. Was `mrc2()` internal function inside of `mrClosed()` environment.
@@ -1003,7 +1089,8 @@
 * `plot.mrClosed()`: Modified. Removed setting of `par()`. Changed from using `lowess()` to using `loess()` and set better default values. Added descriptive text to help file.
 * `summary.mrClosed()`: Modified. Moved SE calculations into an internal function (see `iMRCSingleSE()`).
 
-# FSA 0.4.16 Jul14
+# FSA 0.4.16
+* **Date:** Jul14
 * `BluegillLM`: Modified. Added a seealso.
 * `residPlot()`: Modified. Changed the loess-related methods to use `loess()`, to put an approximate confident band with the line, the line and band are "under" the points, the line is lighter. Put the horizontal reference line at zero under the points. Made `loess=TRUE` the default.
 * `iAddLoessLine()`: Modified. See `residPlot()`.
@@ -1015,7 +1102,8 @@
 * `SMBassWB`: Modified. Added a seealso.
 
 
-# FSA 0.4.15 Jun14
+# FSA 0.4.15
+* **Date:** Jun14
 * lots of roxygen2 Rd cleaning.
 * `addLoessLine()`: Deleted. Moved functionality to `iAddLoessLine()` and moved code to `residPlot()` file..
 * `addOutlierTestResults()`: Deleted. Moved functionality to `iAddOutlierTestResults()` and moved code to `residPlot()` file.
@@ -1069,8 +1157,8 @@
 * `typeoflm()`: Deleted. Moved functionality to `iTypeoflm()`.
 * `wsLitCheck()`: Deleted. Moved functionality to `iwsLitCheck()` and moved code to `wsVals()` file.
 
-# FSA 0.4.14 Jun14
-
+# FSA 0.4.14
+* **Date:** Jun14
 * added tests (in `test_VonB2b.R`) to assure that group comparisons of von Bertalanffy parameters equal those in Kimura (1980) and `vblrt()` in `fishmethods`.
 * added importsFrom for `lmtest` for `lrt()`. Also used in testing (`test_VonB2b.R`).
 * `confint.nlsBoot()`: Modified. Modified the plotting to use `hist.formula()`, removed `par(mar=)` definitions, and added `err.col=` and `lwd.col=` to control the color and line width of the confidence interval line on the plot.
@@ -1082,7 +1170,8 @@
 * `vbModels()`: Modified. Added Weisberg parameterization. Changed `vbGallucciQuinn` to `vbGQ`.
 * `vbStarts()`: Modified. Added Weisberg parameterization. Added `vbGQ` abbreviation (synonymous with `vbGallucciQuinn`). Added an internal function for checking whther the starting values for K and Linf made sense.
 
-# FSA 0.4.13 Jun14
+# FSA 0.4.13
+* **Date:** Jun14
 * added testthat files for error checking of `chapmanPlot()`, `vbFuns()`, `vbStarts()`, and `walfordPlot()`. Added a testthat file for checking that the von Bertalanffy fitting using `vbFuns()` and `vbStarts()` matches other sources.
 
 * `ageBias()`: Modified. Deprecated `col.lab=` and `row.lab=` and replaced with `ref.lab=` and `nref.lab=`. Moved all functions that were internal to main functions to being internal to the package. In the process, I changed the names of the internal functions slightly, made explicit the argument passing, and added internal descriptions of the internal files. Changed several if else strings in the plot method to a `switch()`.
@@ -1097,7 +1186,8 @@
 * `vbStarts()`: Modified. Removed S3 functions so that `vbStarts()` has to use a formula. Added some checking related to the formula. Changed `tFrancis=` to `ages2use=`. Changed the Schnute method to use the ages in `ages2use=` rather than being hard-wired to use the minimum and maximum observed age. Both the Schnute and Francis methods will use the minimum and maximum observed ages if `ages2use=NULL`. Added a catch for if `ages2use=` are in descending order (should be in ascending order). Changed `Schnute` parameterization to use L3 instead of L2.
 * `walfordPlot()`: Modified. Removed S3 functions so that `vbStarts()` has to use a formula. Added some checking related to the formula. 
 
-# FSA 0.4.12 May14
+# FSA 0.4.12
+* **Date:** May14
 * added Suggests for `testthat`, `fishmethods`, `FSAdata` for testing and `popbio` for an example that was made "interactive" from "dont run"(see below).
 * added testthat files for `ageBias()` and `agePrecision()`.
 
@@ -1117,7 +1207,8 @@
 * `view()`: Deleted. Moved to NCStats package.
 * `wrDataPrep()`: Modified. Changed Rd file for deletion of `view()`.
 
-# FSA 0.4.11 May14
+# FSA 0.4.11
+* **Date:** May14
 * Removed Roxygen directives in DESCRIPTION (with changes to roxygen2 4.0.1).
 * Changed `@S3method` and `@method` to `@export` in the following files according to changes in ROxygen2 as [described here](https://stackoverflow.com/questions/7198758/roxygen2-how-to-properly-document-s3-methods/7199577/), among several other places: `ageBias`, `agePrecision`, `bootCase`, `catchCurve`, `chapmanRobson`, `confint.nlsboot`, `depletion`, `dietOverlap`, `fitPlot`, `hist.formula`, `htest.nlsBoot`, `ks2d1`, `ks2d1p`, `ks2d2`, `ks2d2p`, `ksTest`, `lencat`, `mrClosed`, `mrOpen`, `plotBinResp`, `predict.nlsBoot`, `removal`, `residPlot`, `srStarts`, `Subset`, `Summarize`, `sumTable`, `vbStarts`, and `walfordChapmanPlot`.
 
@@ -1129,7 +1220,8 @@
 * `lwPredsComp()`: Modified. Streamlined the code (no changes to functionality).
 * `mrOpen()`: Modified. Streamlined the code (no changes to functionality). Removed all explicity partial matching options in `switch()`es as these were already caught with previous `match.arg()`s.
 
-# FSA 0.4.10 May14
+# FSA 0.4.10
+* **Date:** May14
 * Added Roxygen directives to DESCRIPTION.
 * Updated to Roxygen2 4.0.0 which modified several help files.
 
@@ -1144,7 +1236,8 @@
 * `psdDataPrep()`: Modified. Fixed error around `use.catnames=`.
 * `swvCounts()`: Modified. Fixed error in output.
 
-# FSA 0.4.9 May14
+# FSA 0.4.9
+* **Date:** May14
 * Removed nlme dependencies (with removal of `vbDataGen()`).
 
 * `ageComp()`: Deleted. Fully deprecated. Use `ageBias()` and `agePrecision()` instead.
@@ -1161,12 +1254,14 @@
 * `vbFuns()`: Modified. Remove link to `vbComp()`.
 * `VBGMlit()`: Deleted. Moved to FSAsim package.
 
-# FSA 0.4.8 May14
+# FSA 0.4.8
+* **Date:** May14
 * `ageBias()`: Modified. Added the ability to use multiple `what=` arguments with `c()`. Added `what="n"` to get the sample size on the age-agreement table. Added `nYpos=` to `plot()` to allow control of the position of the sample size values on the plot. Changed the order of the printing of results when `what="symmetry"` is used in `summary()`. The order more closely follows the "level of complexity" of the tests. Added unit test examples to the help file.
 * `agePrecision()`: Modified. Added the ability to use multiple `what=` arguments with `c()`.
 * `hndlMultWhat()`: Added. An internal file to help `ageBias()` and `agePrecision` handle multiple `what=` arguments.
 
-# FSA 0.4.7 Apr14
+# FSA 0.4.7
+* **Date:** Apr14
 * Removed all of the functions related to constructing and validating standard weight equations. These are now in the [FSAWs package](https://github.com/droglenc/FSAWs). This is the start of an effort to streamline the FSA package.
 * Removed importFrom quantreg (only used for standard weight methods).
 
@@ -1182,7 +1277,8 @@
 * `wsValidate()`: Removed.
 * `WalleyeGerowLW`: Removed.
 
-# FSA 0.4.6 Apr14
+# FSA 0.4.6
+* **Date:** Apr14
 * Changed to compiling under R 3.1.0
 * Imported `stackpoly()` from plotrix for use in `ageKeyPlot()`.
 * Added concepts (that largely match those in the FSAdata pacakge) to most of the data files.
@@ -1193,7 +1289,8 @@
 * `lencat()`: Modified. Added generic functions. `lencat.default()` accepts a vector as its first argument and returns a single vector. `lencat.formula()` accepts a formula as its first argument and the `data=` argument. The `lencat.formula()` is the same as the old `lencat()` and `lencat.default()` provides new functionality. Additionally, the default for `startcat=` is now `NULL` and a value for `startcat=` is found automatically (though a value can still be supplied by the user). The `use.catnames=` was changed to `use.names=`. Other changes were made to simplify the code.
 * `lenFreqExpand()`: Modified. Removed the `df=` and `cl=` arguments and replaced with `x=`, which is simply a vector of length measurements. Changed to `startcat=NULL` so that that the starting category value can be determined automatically (or can still be set by the user).
 
-# FSA 0.4.5 Apr14 
+# FSA 0.4.5
+* **Date:** Apr14 
 * Converted to using github as a repository.
 * Changed NEWS to NEWS.md
 * Added ImportFrom for relax package (see below).
@@ -1212,12 +1309,14 @@
 * `plotBinResp()`: Modified. Added `yaxis1.ticks=` and `yaxis1.lbls=` arguments so that the user can control the tick-mark locations and labels for the left y-axis (the defaults are to show ticks every 0.1 units but only label 0, 0.5, and 1). Added `yaxis2.show=` argument to allow the user to "turn-off" the right y-axis (defaults to being on) which is labeled with the level labels.
 * `srSim()`: Added back from FSATeach (required adding ImportFrom for relax package).
 
-# FSA 0.4.4 Apr14
+# FSA 0.4.4
+* **Date:** Apr14
 * `ageKeyPrep()`: Added.
 * `agePrecision()`: Modified. Fixed the bug where the APE and CV were over-estimated in situations where the multiple ages agreed at an age=0 (thanks to Richard McBride for pointing out this error).
 * `wsLit`: Modified. Added Pursak chub information from Sulun et al. (2014).
 
-# FSA 0.4.3 Mar14
+# FSA 0.4.3
+* **Date:** Mar14
 * `ageBias()`: Added. Extracted the age-bias related material from `ageComp()`. Modified the code to remove unneeded code. From `ageComp()`, remove the  `what=` argument related to differences and added a `difference=` argument. Also changed `what="bias.diff"` to `what="diff.bias"` to allow for a quicker partial matching (i.e. separate more from `what="bias"`). Major modifications to how the axis limits are created if none are provided. Modified where the sample size is shown on the age-bias plot. Added the `min.n.CI=` argument. Added an example using `WhitefishLC` to be consistent with `agePrecision()`.
 * `ageComp()`: Modified. Split into `ageBias()` and `agePrecision()`. Added a warning that this function is deprecated and will be removed in the future.
 * `ageKey()`: Modified. Fixed a bug that occurred when a data frame that already contained an LCat variable was provided. 
@@ -1258,7 +1357,8 @@
 * `WhitefishLC`: Added (from FSAdata).
 * `wsLit`: Modified. Changed all species names to have both words capitalized so as to follow the latest AFS guidelines.
 
-# FSA 0.4.2 Dec13
+# FSA 0.4.2
+* **Date:** Dec13
 * Changed to compiling under R 3.0.2.
 * Removed dependency on reshape package (see changes for `emp()`, `gReshape()`, and `ssValidate()` below) and the relax, tcltk, and TeachingDemos packages (see changes for `catchCurveSim()`, `cohortSim()`, `growthModelSim()`, `leslieSim()`, `lwModelSim()`, `mrClosed1Sim()`, `simAgeBias()`, `simAges()`, `simLenFromAge()`, `simLenSelect()`, and `srSim()` below).
 
@@ -1286,7 +1386,8 @@
 * `vbStarts()`:  Modified. Changed tFrancis argument to use only two ages. Changed the default for `meth.EV=` to "poly". Removed jittering and added a transparency to the plot. Removed the box around the legend and moved the legend to the "bottomright."  Fixed a typo in the plot heading.
 * `wsValidate()`: Modified. Replaced use of `cast()` with `aggregate()`.
 
-# FSA 0.4.1 Oct13
+# FSA 0.4.1
+* **Date:** Oct13
 * Changed R dependency to >3.0.0 (because gplots package has that dependency).
 * Added importFrom for `cast()`, `is.formula()`, and `melt()` in reshape package.
 
@@ -1306,7 +1407,8 @@
 * `plotH()`: Deleted, moved to plotrix package.
 * `quad_dens()`: Added to FSAinternals (from `ks2d()`).
 
-# FSA 0.4.0 Jun13
+# FSA 0.4.0
+* **Date:** Jun13
 * Corrected all pointers to fishR vignettes (because of new webpage).
 * Removed importFrom color.scale from plotrix because of changes to `discharge()` and `wetPerim()`.
 * removed importFrom &#37;nin&#37; from Hmisc. See multiple changes because of this below.
@@ -1360,7 +1462,8 @@
 * `wsVal()`: Modified. A major modification to account for the major changes to `WSLit`.
 * `wsValidate()`: Removed use of &#37;nin&#37;.
 
-# FSA 0.3.4 Jan13
+# FSA 0.3.4
+* **Date:** Jan13
 * added special "fishR Vignette" sections with links to several help files.
 
 * `binCI()`: Modified so that result is a matrix rather than sometimes (when only
@@ -1380,7 +1483,8 @@ one set of CIs were computed) being a vector.
 * `vbFuns()`: Modified slightly the messages if `msg=TRUE`. Added a message for the Wang2 model and corrected an error for the Somers2 model.
 * `view()`: Modified to remove the ability to print to a window (use method built into RStudio instead). Also generalized to use for both a matrix or a data.frame (eliminates some warning messages).
 
-# FSA 0.3.3 21Dec12
+# FSA 0.3.3
+* **Date:** 21Dec12
 * Added ImportFrom for `slider()` and `gslider()` from the relax package. Deleted the ImportFrom for `slider()` from the `TeachingDemos` package. These functions were the same but it was being deprecated from `TeachingDemos`.
 * General: added `call.=FALSE` to several `stop()`s and `warning()`s.
 * General: replaced `paste()` inside of several `cat()`s.
@@ -1418,7 +1522,8 @@ one set of CIs were computed) being a vector.
 * `TroutDietSL`: Added for use with `dietOverlap()`.
 * `vbStarts()`: Modified by including a catch for negative starting values of K or starting values of Linf that are 50% smaller or larger than the observed maximum length in the data set.
 
-# FSA 0.3.2 1Dec12
+# FSA 0.3.2
+* **Date:** 1Dec12
 * Changed R dependency to >2.14.0.
 * Added a ImportsFrom for knitr (purl() in swvCode() added below).
 * Moved gdata to an ImportsFrom from Suggests. Needed for nobs() in ci.fp1() which is used in fitPlot.ONEWAY and drop.levels() used in the example in RuffeWs.
@@ -1439,7 +1544,8 @@ one set of CIs were computed) being a vector.
 * `view()`: added from NCStats.
 * `wsVal(), wrAdd()`: added code to eliminate "global bindings" note when performing RCMD Check. Solutions came from Adrian Alexa's response to this question: https://groups.google.com/forum/?fromgroups=#!topic/cambridge-r-user-group/c7vf8o3QwDo
 
-# FSA 0.3.1 25Nov12
+# FSA 0.3.1
+* **Date:** 25Nov12
 * Switched to using the Project mode in RStudio.
 * Switched to using semantic versioning for the version number (which means that the hyphen before the last number has been replaced by a period).
 * Switched to using roxygen to construct help files.
@@ -1486,7 +1592,8 @@ one set of CIs were computed) being a vector.
 * `wsValidate()`: modified the classnames to "willis" from "WILLIS" and "empq" from "EMPQ". Also made minor modification because of class name change in FroeseWs()
 * `ycPlot()`: deleted (Weisberg's LGM is now out-dated).
 
-# FSA 0.3-0 8-Nov-12
+# FSA 0.3-0
+* **Date:** 8-Nov-12
 * Moved several functions from NCStats that are used quite often for fisheries analyses. Ultimately, I want to remove the dependency to NCStats.
 * Deleted an importFrom for gtools, created an internal odd() instead.
 * Added an importFrom for gplots, to get rich.colors() for chooseColors().
@@ -1514,7 +1621,8 @@ one set of CIs were computed) being a vector.
 * `rsdPlot()`: modified to handle situations where substock fish are not present in the data. Thanks to Max Wolter for pointing out this issue.
 * `Subset()`: copied from NCStats (i.e., same function still in NCStats).
 
-# FSA 0.2-8 21Jun12
+# FSA 0.2-8
+* **Date:** 21Jun12
 * Switched to compiling under R version 2.14.1 (64-bit).
 * Changed license specification from "GPL version 2 or newer" to "GPL (>= 2)" to avoid warning on check.
 * Added a suggestion for gdata to fix warning with capHistConver.rd (see below).
@@ -1524,7 +1632,8 @@ one set of CIs were computed) being a vector.
 * `simAgeBias()`: changed width to widths in layout() to avoid warning on check.
 * `simLenSelectM()`: changed width to widths in layout() to avoid warning on check.
 
-# FSA 0.2-7 2Mar12
+# FSA 0.2-7
+* **Date:** 2Mar12
 * `.onLoad()`: Modified. Moved the startup message into packageStartupMessage() in hopes of eliminating the warning when checking the package.
 * `catchCurveSim()`: Modified. Changed max.age= to 15 (from 10). Slightly changed the labels related to 'Z Steady' and 'N* `Steady'.
 * `chapmanRobson()`: Modified. Corrected a bug for when the ages2use= argument contains ages that are not found in the data. Thanks to Eric Berglund for finding this bug.
@@ -1536,7 +1645,8 @@ one set of CIs were computed) being a vector.
 * `wrVal()`: Modified. As described for wsVal().
 * `wsVal()`: Modified. Removed the justcoef= argument. Added the ab= and comment= arguments. Also, removed the appended units names from the names attribute -- i.e., "int" rather than "int.E" or "int.mm".
 
-# FSA 0.2-6 1Oct11
+# FSA 0.2-6
+* **Date:** 1Oct11
 * Switched to compiling under R version 2.13.1 (32-bit).
 * Removed importFroms that were required for updateFSA().
 * Removed splines package from imports list (not needed).
@@ -1549,7 +1659,8 @@ one set of CIs were computed) being a vector.
 * `vbFuns()`: Modified. Added 'Somers2' option to type= argument.
 * `vbStarts()`: Modified. Added 'Somers2' option to type= argument.
 
-# FSA 0.2-5 19Aug11
+# FSA 0.2-5
+* **Date:** 19Aug11
 * Modified description file to show my e-mail address.
 * Added `cnvrt.coords()` as an ImportFrom TeachingDemos. Needed for `simAgeBias()` and `simLenSelectM()`.
 
@@ -1568,12 +1679,14 @@ one set of CIs were computed) being a vector.
 * `simLenSelectP()`: Added.
 * `vbComp()`: Modified. Streamlined the code. Changed the t= argument to ages= to remove any possible confusion with t(). Removed the option to model over ages provided in the (previous) t= argument. Instead the ages= argument can be used to represent the maximum age to model to. The ages= argument can be a vector such that each simulation can have a different set of ages over which the model is evaluated. This allows for more realistinc modeling.
 
-# FSA 0.2-4 15Jun11
+# FSA 0.2-4
+* **Date:** 15Jun11
 * Switched to compiling under R version 2.13.0.
 
 * `vbFuns()`: Modified. Modified Wang's formulas to be for length increments. Added a length increments version to Faben's method ("Fabens2").
 
-# FSA 0.2-3 18Apr11
+# FSA 0.2-3
+* **Date:** 18Apr11
 * Updated citation file.
 * Added importFrom for tools and utils packages.
 
@@ -1586,7 +1699,8 @@ one set of CIs were computed) being a vector.
 * `updateFSA()`: Added. Had to add an importFrom from the tools package.
 * `vbFuns()`: Modified. Added Wang and Wang2 functions.
 
-# FSA 0.2-2 3Mar11
+# FSA 0.2-2
+* **Date:** 3Mar11
 * moved to compling under 2.12.1 (32-bit)
 * changed dependency to >2.11.1
 
@@ -1594,14 +1708,16 @@ one set of CIs were computed) being a vector.
 * `lencat()`: modified so that vname=NULL is the default. This will default to  using "LCat" as the variable name (as in the previous version). However, modified the way the vname is appended to the new data frame so that if vname already exists in the data frame a new name will be used (vname plus some number).
 * `removal()`: added just.ests= argument and changed the ests part of the returned value to be a vector rather than a matrix. Both changes allowed for better use of lapply() for computing the removal estimates on more than one group. Changed from an error to a warning for situations where the method could not compute population estimates (i.e., because the population was not depleted). In addition, NAs are returned in situations where population estimates can not be made. An example of computing the removal estimate for more than one group was added to the .rd file. Thanks to Jon Bolland for asking the question that motivated these changes.
 
-# FSA 0.2-1 31-Jan-11
+# FSA 0.2-1
+* **Date:** 31-Jan-11
 * `catchCurve()`: Modified by adding a formula method. This required moving the original code into a default method and changing the age= argument to x=.
 * `lenFreqExpand()`: Modified by adding the additional= argument (which required modifying the total= argument and adding an error check for the situation where the total fish to assign lengths is not greater than the number of  fish in the measured subsample).
 * `.onLoad()`: modified. Changed to include version number of loaded version.
 * `vbFuns()`: Modified by adding simple= argument. Added a 'Somers' seasonal growth oscillations model and 'Fabens' model for tag-recapture data. Also added, but did not check, a 'Laslett' 'double von Bertalanffy' model.
 * `vbStarts()`: Modified by setting a catch to return a single root for st0 or sL0 if the polynomial root found a double root. Thanks to Giacom* `Tavecchia for identifying this error. Added a 'Somers' seasonal growth oscillations model.  
 
-# FSA 0.2-0 23-Sep-10
+# FSA 0.2-0
+* **Date:** 23-Sep-10
 * `bcFuns()`: Added. Still needs to be thoroughly proofed.
 * `FSAsims()`: Modified to reflect srSim() change described below.
 * `listSpecies()`: Moved internal function out of being within RSDval() and WSval() and then added an argument for the data frame containing the species names. The hope was that this would correct the "n* `visible binding" warnings when performing RCMD check but it did not.
@@ -1610,7 +1726,8 @@ one set of CIs were computed) being a vector.
 * `vbDataGen()`: Modified use of minAge argument -- will now always back-calculate to age-1 but minAge denotes the minimum age-at-capture that will be modeled. Deleted use of cfAge variable in code.
 * `vbModels()`: Added.
 
-# FSA 0.1-6 23-Aug-10
+# FSA 0.1-6
+* **Date:** 23-Aug-10
 * completed changing naming convention to "camel" type -- e.g., `stockRecruitModels()` rather than `stock.recruit.models()`. 
 * `ageComp()`: renamed from age.comp().
 * `ageKey()`: renamed from age.key().
@@ -1650,7 +1767,8 @@ one set of CIs were computed) being a vector.
 * `wsValidate()`: renamed from validateWs(). Also modified for name changes in NCStats.
 * `ycPlot()`: renamed from ycplot().
 
-# FSA 0.1-5 20Aug10
+# FSA 0.1-5
+* **Date:** 20Aug10
 * moved to compiling under 2.11.1.
 * started changing my naming convention to "camel" type -- e.g., `stockRecruitModels()` rather than `stock.recruit.models()`. In this version, I am only changing the functions that I am working on. I will change the rest in the next version.
 * added an importFrom for `nlme` as `groupedData()` was needed for `vbDataGen()`.
@@ -1674,10 +1792,12 @@ one set of CIs were computed) being a vector.
 * `vbStarts()`: Added.
 * `walfordPlot()`: Added.
 
-# FSA 0.1-4 6Jun10
+# FSA 0.1-4
+* **Date:** 6Jun10
 * `growmodel.sim()`: added an option to fit the "original" von Bertalanffy function. Also added more "mis-spelling" options to the other model names.  
 
-# FSA 0.1-2 17Dec09
+# FSA 0.1-2
+* **Date:** 17Dec09
 * moved to compiling under 2.10.1.
 * `added a dependency to tcltk so that simulators would work properly upon load of FSA.
 
@@ -1692,7 +1812,8 @@ one set of CIs were computed) being a vector.
 * `lencat()`: modified so that an "extra" last length category (with no fish in it) was not included when as.fact=TRUE and drop.levels=FALSE is used. This should correct the "problem" of an extra all-NA row in the age-length keys.
 * `tictactoe.add()`: added to the namespace export list. Changed order of items listed in the ci.type= argument to match that of bin.ci() from NCStats.
 
-# FSA 0.1-1 15Apr09
+# FSA 0.1-1
+* **Date:** 15Apr09
 * added a namespace
 * removed dependencies and changed to imports ... left plotrix and quantreg as dependencies (they do not have a namespaces). left reshape as a dependency because of it's dependency on plyr. 
 * `.FirstLib()`: removed (changed to .onLoad() because of namespace).
@@ -1706,11 +1827,13 @@ one set of CIs were computed) being a vector.
 * `validateWs()`: converted sign.slope variable in the Willis method to a factor to deal with situations where all results were positive or negative.
 * `wlgm.rd: fixed the summarization example (cast() did not work with Summarize().
 
-# FSA 0.0-14 20Dec08
+# FSA 0.0-14
+* **Date:** 20Dec08
 * `age.comp()`: streamlined code (put bias and difference plots in same function, used grconvertY for show.n, used plotCI for range intervals, caught and corrected CI problems when n=1 or SD=0). N* `functionality difference, just improved code.
 * `growmodel.sim()`: modified by determining some of the slider values from the data when x= and y= arguments are not null. This makes the graph more useful for determining starting values in nls() modeling.
 
-# FSA 0.0-13 6Dec08
+# FSA 0.0-13
+* **Date:** 6Dec08
 * added a dependency to quantreg (for `rq()` in `emp()`).
 * added CITATION file.
 
@@ -1727,7 +1850,8 @@ one set of CIs were computed) being a vector.
 * `wlgm()`: major changes included moving some internal functions outside of wlgm(), adding the ability to use the data= argument, and adding the ability to fit weighted regressions on the summary statistics. Other  minor changes were also made. Updated the .Rd file.
 * `WSval(),WRval()`: added a check for missing species name so that the user can just type WSval() to get the list of possible species names. Also added a check to see if WSlit was already loaded.
 
-# FSA 0.0-12  15Jul08
+# FSA 0.0-12
+* **Date:** 15Jul08
 * `.First.lib`: Added
 * `add.zerocatch()`: added this function to add zeros to catch records where a species of fish was not caught.
 * `limnoprofile.plot()`: added this function to simplify constructing plots of depth versus limnological measure with the depth decreasing from top to bottom.
@@ -1736,7 +1860,8 @@ one set of CIs were computed) being a vector.
 * `FroeseWs()`: added this function, and its generics, to perform the standard weight equation calculation as proposed by Froese (2006).
 * `validateWs()`: added this function, and its generics, to perform the Willis and EmpQ methods for assessing length bias in the standard weight equations. Added a probs= argument to allow other than 75th percentile calculations. Added a mean= argument to allow use of means rather than quantiles. Modified to accept an object of class FROESE.
 
-# FSA 0.0-11  15May08
+# FSA 0.0-11
+* **Date:** 15May08
 * Moved to RForge.net.
 * changed to R2.7.0.
 * added a dependency to `Rcapture` (for the example in `caphist.convert()`).
@@ -1748,7 +1873,8 @@ one set of CIs were computed) being a vector.
 * `plot.RLP()`: modified so that color palette with a gradient rather than only a solid color can be used for the populations. In addition, added order.pop= argument that will order the populations from smallest to largest predicted with in the first length interval. When used with the color gradients this will  make it easier to see which populations cross over other populations.           
 * `rlp()`: modified function so that the user can choose to use any-mm length intervals rather than having 10-mm hardwired. Modified output in list somewhat to more closely match the output of emp().
 
-# FSA 0.0-10  1May08
+# FSA 0.0-10
+* **Date:** 1May08
 * `lencat()`: Modified by adding an as.fact= argument that allows the user to decide if the resulting variable should be returned as a factor variable or not. The default is set to return as a factor variable. This allows tables of the new variable to include zeros for levels of the new variable that contain no individuals. This makes some RSD/PSD (and likely age-length key) calculations simpler. Also added a drop.levels= argument to allow the user to drop unused levels if so desired.
 * `mr.closed()`:  This function is a combination of the old mr.closed1() and mr.closed2(). It also allows the user to compute single census estimates with multiple sub-groups in the data (i.e., length- or age-classes). The function also allows the user to compute an overall population esitmate of multiple sub-groups are present and an overall SE if the incl.SE=TRUE is used. It also corrects the SE computations implemented in version 0.0-9. This change caused the construction of our internal functions -- mrc1, mrc2, ci.mrc1, and ci.mrc2.
 * `mr.closed1()`: removed this function. Use mr.closed() instead.
@@ -1757,7 +1883,8 @@ one set of CIs were computed) being a vector.
 * `rcumsum()`: Added this function (from NCStats).
 * `RSDval()`: See PSDval description.
 
-# FSA 0.0-9 unknown
+# FSA 0.0-9
+* **Date:** unknown
 * `age.comp()`: Corrected SE calculation used to construct the CIs. Changed the CI plotting routine to use plotCI in plotrix package -- this puts lines rather than points on the ends of the CIs. Added a check for computing SDs and CIs for when n=1 or when all measurements are the same. This reduces (eliminates?) the number of warnings that are given.
 * `catch.curve()`: added na.rm=TRUE arguments to min() and max() in plot.CC(). Changed type= argument so that "params" is the default rather than "lm". This makes it more consistent with other simulation programs.
 * `cc.sim()`: Put in catch for situations where the CV for No and Z were equal to zero. Originally, the program attempted to computed a random number from a normal distribution with a standard deviation of zero. This corrected the problem of n* `lines appearing unless the CVs were greater than zero.
@@ -1769,7 +1896,8 @@ one set of CIs were computed) being a vector.
 * `mr.closed1()`: Modified output list to include an estimate of the variance as described in Ricker(1975).
 * `summary.MRC1()`: Modified output so that (1) the given information is a little easier to read, (2) the population estimate is returned in a matrix, (3) the SE from Ricker(1975) can be included in the outputm, and (4) a label can be placed on row for the matrix output. The purpose of these changes was to allow the SE to be computed and to allow future functions to more flexibly use the output.
 
-# FSA 0.0-8 unknown
+# FSA 0.0-8
+* **Date:** unknown
 * changed some \items to \tabular in RD files. Changed most hard-wired quotes to \sQuote or \dQuote in RD files. Changed some text-based equations to more latex-based equations in \eqn or \deqn markups. This fixed the Latex compilation problems that I was having when using RCMD check.
 
 * `age.comp()`: Removed single-letter values from the what= argument. Will rely on partial matching.
@@ -1787,7 +1915,8 @@ one set of CIs were computed) being a vector.
 * `vb.comp()`: Changed d argument to df.
 * `wlgm.RD()`: Added example code. Added some details.
 
-# FSA 0.0-7 unknown
+# FSA 0.0-7
+* **Date:** unknown
 * changed to compiling under R 2.6.1.
 * added FSA.R file that loads the required librarys.
 * now depends on `MASS` package because of the creation of the `boxcox.WLGM()` function and on the `plotrix` package for elements of `ycplot()`.
@@ -1809,7 +1938,8 @@ one set of CIs were computed) being a vector.
 * `wlgm()`: Created a method with a number of generics (alias, anova, boxcox, coef, coefplot, confint, ycplot) for performing the Weisberg Linear Growth Model.
 * `ycplot()`: A new generic function for creating a year-class plot for the Weisberg Linear Growth Model analysis.
 
-# FSA 0.0-6 unknown
+# FSA 0.0-6
+* **Date:** unknown
 * `agebias.plot()`: deleted and replaced with agecomp and plot.AgeComp functions.
 * `agesunflower.plot()`: deleted and replaced with agecomp and plot.AgeComp functions.
 * `agecomp()`: a new function that, along with its extractor functions, combines all of the functionality of the old `age.tests()`, `age.symmetry()`, `agebias.plot()`, and `agesunflower.plot()`. Allows for a more seamless comparison of ageing reads.

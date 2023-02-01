@@ -7,7 +7,7 @@
 #'
 #' @return A single string with the first letter of the first or all words capitalized.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @keywords manip
 #'
@@ -85,7 +85,7 @@ iCapFirst<- function(x,which=c("all","first")) {
 #' 
 #' @return A vector of hexadecimal strings of the form "#rrggbbaa" as would be returned by \code{\link[grDevices]{rgb}}.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @seealso See \code{\link[grDevices]{col2rgb}} for similar functionality.
 #'
@@ -117,7 +117,7 @@ col2rgbt <- function(col,transp=1) {
 #'
 #' @return A numeric vector.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #' 
 #' @keywords manip
 #' 
@@ -154,14 +154,14 @@ fact2num <- function(object) {
 
 #' @title Opens web pages associated with the fishR website.
 #'
-#' @description Opens web pages associated with the \href{https://derekogle.com/fishR/}{fishR website} in a browser. The user can open the main page or choose a specific page to open.
+#' @description Opens web pages associated with the \href{https://fishr-core-team.github.io/fishR/}{fishR website} in a browser. The user can open the main page or choose a specific page to open.
 #'
 #' @param where A string that indicates a particular page on the fishR website to open.
 #' @param open A logical that indicates whether the webpage should be opened in the default browser. Defaults to \code{TRUE}; \code{FALSE} is used for unit testing.
 #' 
 #' @return None, but a webpage will be opened in the default browser.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #' 
 #' @keywords misc
 #' 
@@ -169,26 +169,28 @@ fact2num <- function(object) {
 #' \dontrun{
 #' ## Opens an external webpage ... only run interactively
 #' fishR()            # home page
-#' fishR("IFAR")      # Introduction to Fisheries Analysis with R page
-#' fishR("general")   # examples page
-#' fishR("books")     # examples page
-#' fishR("AIFFD")     # Analysis & Interpretation of Freshw. Fisher. Data page
 #' fishR("posts")     # blog posts (some examples) page
+#' fishR("books")     # examples page
+#' fishR("IFAR")      # Introduction to Fisheries Analysis with R page
+#' fishR("AIFFD")     # Analysis & Interpretation of Freshw. Fisher. Data page
+#' fishR("packages")  # list of r-related fishereis packages
+#' fishR("data")      # list of fisheries data sets
 #' }
 #' 
 #' @export
-fishR <- function(where=c("home","IFAR","general","books",
-                          "AIFFD","posts","news"),
+fishR <- function(where=c("home","posts","books","IFAR","AIFFD",
+                          "packages","data"),
                   open=TRUE) {
   where <- match.arg(where)
-  tmp <- "https://derekogle.com/"
+  tmp <- "https://fishr-core-team.github.io/fishR/"
   switch(where,
-         home=   { tmp <- paste0(tmp,"fishR") },
-         IFAR=   { tmp <- paste0(tmp,"IFAR") },
-         general={ tmp <- paste0(tmp,"fishR/examples") },
-         books=  { tmp <- paste0(tmp,"fishR/examples") },
-         AIFFD=  { tmp <- paste0(tmp,"aiffd2007") },
-         posts=,news=  { tmp <- paste0(tmp,"fishR/blog") }
+         home=     { tmp <- paste0(tmp,"") },
+         posts=    { tmp <- paste0(tmp,"blog/") },
+         books=    { tmp <- paste0(tmp,"pages/books.html") },
+         IFAR=     { tmp <- paste0(tmp,"pages/books.html#introductory-fisheries-analyses-with-r") },
+         AIFFD=    { tmp <- paste0(tmp,"pages/books.html#analysis-and-interpretation-of-freshwater-fisheries-data-i") },
+         packages= { tmp <- paste0(tmp,"pages/packages.html") },
+         data=     { tmp <- paste0(tmp,"pages/data_fishR_alpha.html")}
   )
   if (open) utils::browseURL(tmp)
   invisible(tmp)
@@ -206,7 +208,7 @@ fishR <- function(where=c("home","IFAR","general","books",
 #'
 #' @return A matrix or data.frame with 2*n rows.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @note If \code{n} is larger than the number of rows in \code{x} then all of \code{x} is displayed.
 #'
@@ -277,7 +279,7 @@ headtail <- function(x,n=3L,which=NULL,addrownums=TRUE,...) {
 #'
 #' @return A vector or matrix of lagged ratios.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @seealso \code{diff}
 #'
@@ -330,7 +332,7 @@ lagratio <- function(x,lag=1L,recursion=1L,differences=recursion,
 #'
 #' @return A numeric value that is the correction factor according to Sprugel (1983).
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @references Sprugel, D.G. 1983. Correcting for bias in log-transformed allometric equations. Ecology 64:209-210.
 #'
@@ -380,7 +382,7 @@ logbtcf <- function(obj,base=exp(1)) {
 #' 
 #' @return A logical vector of the same length as x.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #' 
 #' @keywords manip
 #' 
@@ -429,7 +431,7 @@ iOddEven <- function(x,checkval) {
 #'
 #' @return A single numeric that is the percentage of values in \code{x} that meet the criterion in \code{dir} relative to \code{val}.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @keywords misc
 #'
@@ -492,7 +494,7 @@ perc <- function(x,val,dir=c("geq","gt","leq","lt"),na.rm=TRUE,
 #'
 #' @return A matrix or data.frame with n rows.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @author A. Powell Wheeler, \email{powell.wheeler@@gmail.com}
 #'
@@ -561,7 +563,7 @@ peek <- function(x,n=20L,which=NULL,addrownums=TRUE) {
 #'
 #' @return A numeric vector that contains the prior-to or reverse cumulative sums.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @seealso \code{\link{cumsum}}.
 #'
@@ -697,7 +699,7 @@ rSquared.lm <- function(object,digits=getOption("digits"),
 #' 
 #' @return A single logical that indicates which rows of \code{df} to keep such that no consecutive rows (for the columns used) will be repeated.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @keywords manip
 #'
@@ -768,7 +770,7 @@ repeatedRows2Keep <- function(df,cols2use=NULL,cols2ignore=NULL,
 #' 
 #' @return A single numeric that is the standard error of the mean of \code{x}.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @seealso See \code{se} in \pkg{sciplot} for similar functionality.
 #'
@@ -807,7 +809,7 @@ se <- function (x,na.rm=TRUE) {
 #' 
 #' @seealso See \code{\link[plotrix]{valid.n}} in \pkg{plotrix} and \code{nobs} in \pkg{gdata} for similar functionality. See \code{\link{is.na}} for finding the missing values.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @section IFAR Chapter: 2-Basic Data Manipulations.
 #' 

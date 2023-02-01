@@ -13,7 +13,7 @@ A data frame of 2369 observations on the following 3 variables:
  }
 }
 \source{
-Simulated from Table 2A in Westerheim, S.J. and W.E. Ricker. 1979. Bias in using age-length key to estimate age-frequency distributions. Journal of the Fisheries Research Board of Canada. 35:184-189.
+Simulated from Table 2A in Westerheim, S.J. and W.E. Ricker. 1979. Bias in using age-length key to estimate age-frequency distributions. Journal of the Fisheries Research Board of Canada. 35:184-189. \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/WR79.csv}{CSV file}
 }
 \description{
 Ages and lengths for a hypothetical sample in Westerheim and Ricker (1979).

@@ -107,6 +107,6 @@ if (require(nlstools)) {
 \code{\link[car]{Boot}} and related methods in \pkg{car} and \code{summary.\link[nlstools]{nlsBoot}} in \pkg{nlstools}.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{htest}

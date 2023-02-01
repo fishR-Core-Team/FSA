@@ -12,7 +12,7 @@ A data frame with 277 observations on the following 2 variables.
  }
 }
 \source{
-From example 8.1 in Schneider, J.C. 1998. Lake fish population estimates by mark-and-recapture methods. Chapter 8 in Schneider, J.C. (ed.) 2000. Manual of fisheries survey methods II: with periodic updates. Michigan Department of Natural Resources, Fisheries Special Report 25, Ann Arbor. [Was (is?) from http://www.michigandnr.com/publications/pdfs/IFR/manual/SMII\%20Chapter08.pdf.]
+From example 8.1 in Schneider, J.C. 1998. Lake fish population estimates by mark-and-recapture methods. Chapter 8 in Schneider, J.C. (ed.) 2000. Manual of fisheries survey methods II: with periodic updates. Michigan Department of Natural Resources, Fisheries Special Report 25, Ann Arbor. [Was (is?) from http://www.michigandnr.com/publications/pdfs/IFR/manual/SMII\%20Chapter08.pdf.] \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/BluegillJL.csv}{CSV file}
 }
 \description{
 Each line consists of the capture history over two samples of Bluegill (\emph{Lepomis macrochirus}) in Jewett Lake (MI). This file contains the capture histories for only Bluegill larger than 6-in.

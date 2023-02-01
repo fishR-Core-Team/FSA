@@ -36,6 +36,6 @@ se(x2)
 See \code{se} in \pkg{sciplot} for similar functionality.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{manip}

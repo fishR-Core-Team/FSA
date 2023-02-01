@@ -5,7 +5,7 @@
 \title{Opens web pages associated with the fishR website.}
 \usage{
 fishR(
-  where = c("home", "IFAR", "general", "books", "AIFFD", "posts", "news"),
+  where = c("home", "posts", "books", "IFAR", "AIFFD", "packages", "data"),
   open = TRUE
 )
 }
@@ -18,21 +18,22 @@ fishR(
 None, but a webpage will be opened in the default browser.
 }
 \description{
-Opens web pages associated with the \href{https://derekogle.com/fishR/}{fishR website} in a browser. The user can open the main page or choose a specific page to open.
+Opens web pages associated with the \href{https://fishr-core-team.github.io/fishR/}{fishR website} in a browser. The user can open the main page or choose a specific page to open.
 }
 \examples{
 \dontrun{
 ## Opens an external webpage ... only run interactively
 fishR()            # home page
-fishR("IFAR")      # Introduction to Fisheries Analysis with R page
-fishR("general")   # examples page
-fishR("books")     # examples page
-fishR("AIFFD")     # Analysis & Interpretation of Freshw. Fisher. Data page
 fishR("posts")     # blog posts (some examples) page
+fishR("books")     # examples page
+fishR("IFAR")      # Introduction to Fisheries Analysis with R page
+fishR("AIFFD")     # Analysis & Interpretation of Freshw. Fisher. Data page
+fishR("packages")  # list of r-related fishereis packages
+fishR("data")      # list of fisheries data sets
 }
 
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{misc}

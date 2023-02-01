@@ -102,6 +102,6 @@ lrt(fit.0,fit.1,com=fit.2)
 
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{htest}

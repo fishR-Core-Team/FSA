@@ -226,7 +226,7 @@ fnl1
 
 }
 \references{
-Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
 Carle, F.L. and M.R. Strub. 1978. A new method for estimating population size from removal data. Biometrics, 34:621-630.
 
@@ -250,7 +250,7 @@ Van Deventer, J.S., and W.S. Platts. 1983. Sampling and estimating fish populati
 See \code{\link{depletion}} for related functionality.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 
 A. Powell Wheeler, \email{powell.wheeler@gmail.com}
 }

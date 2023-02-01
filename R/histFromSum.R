@@ -11,7 +11,7 @@
 #'
 #' @return None, but a graphic is created.
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @seealso See \code{\link[graphics]{hist}} and \code{\link{hist.formula}} for related functionality.
 #'

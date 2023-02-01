@@ -13,7 +13,7 @@ A data frame with 112 observations on the following 3 variables:
  }
 }
 \source{
-From Figure 4 in Soto, D., I. Arismendi, C. Di Prinzio, and F. Jara. 2007. Establishment of Chinook Salmon (\emph{Oncorhynchus tshawytscha}) in Pacific basins of southern South America and its potential ecosystem implications. Revista Chilena d Historia Natural, 80:81-98. [Was (is?) from http://www.scielo.cl/pdf/rchnat/v80n1/art07.pdf.]
+From Figure 4 in Soto, D., I. Arismendi, C. Di Prinzio, and F. Jara. 2007. Establishment of Chinook Salmon (\emph{Oncorhynchus tshawytscha}) in Pacific basins of southern South America and its potential ecosystem implications. Revista Chilena d Historia Natural, 80:81-98. [Was (is?) from http://www.scielo.cl/pdf/rchnat/v80n1/art07.pdf.] \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/ChinookArg.csv}{CSV file}
 }
 \description{
 Lengths and weights for Chinook Salmon from three locations in Argentina.

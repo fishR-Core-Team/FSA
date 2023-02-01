@@ -26,7 +26,7 @@
 #' 
 #' @return A matrix with the residual sum-of-squares in the first column and parameter estimates in the remaining columns for each iteration (rows) of \code{\link[stats]{nls}} as provided when \code{trace=TRUE}.
 #' 
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @keywords plot
 #'

@@ -39,14 +39,14 @@ A matrix with columns that contain the computed PSD-X or PSD X-Y value and the a
 Compute confidence intervals for (traditional) PSD-X and (incremental) PSD X-Y values as requested by the user.
 }
 \details{
-Computes confidence intervals for (traditional) PSD-X and (incremental) PSD X-Y values. Two methods can be used as chosen with \code{method=}. If \code{method="binomial"} then the binomial distribution (via \code{binCI()}) is used. If \code{method="multinomial"} then the multinomial method described by Brenden et al. (2008) is used. This function is defined to compute one confidence interval so \code{method="binomial"} is the default. See examples and \code{\link{psdCalc}} for computing several simultaneous confidence intervals.
+Computes confidence intervals for (traditional) PSD-X and (incremental) PSD X-Y values. Two methods can be used as chosen with \code{method=}. If \code{method="binomial"} then the binomial distribution (via \code{binCI()}) is used. If \code{method="multinomial"} then the multinomial method described by Brenden \emph{et al.} (2008) is used. This function is defined to compute one confidence interval so \code{method="binomial"} is the default. See examples and \code{\link{psdCalc}} for computing several simultaneous confidence intervals.
 
 A table of proportions within each length category is given in \code{ptbl}. If \code{ptbl} has any values greater than 1 then it is assumed that a table of percentages was supplied and the entire table will be divided by 100 to continue. The proportions must sum to 1 (with some allowance for rounding).
 
 A vector of length equal to the length of \code{ptbl} is given in \code{indvec} which contains zeros and ones to identify the linear combination of values in \code{ptbl} to use to construct the confidence intervals. For example, if \code{ptbl} has four proportions then \code{indvec=c(1,0,0,0)} would be used to construct a confidence interval for the population proportion in the first category. Alternatively, \code{indvec=c(0,0,1,1)} would be used to construct a confidence interval for the population proportion in the last two categories. This vector must not contain all zeros or all ones.
 }
 \section{Testing}{
- The multinomial results match the results given in Brendent et al. (2008).
+ The multinomial results match the results given in Brenden \emph{et al.} (2008).
 }
 
 \section{IFAR Chapter}{
@@ -88,7 +88,7 @@ bcis
 
 }
 \references{
-Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
 Brenden, T.O., T. Wagner, and B.R. Murphy. 2008. Novel tools for analyzing proportional size distribution index data. North American Journal of Fisheries Management 28:1233-1242. [Was (is?) from http://qfc.fw.msu.edu/Publications/Publication\%20List/2008/Novel\%20Tools\%20for\%20Analyzing\%20Proportional\%20Size\%20Distribution_Brenden.pdf.]
 }
@@ -96,6 +96,6 @@ Brenden, T.O., T. Wagner, and B.R. Murphy. 2008. Novel tools for analyzing propo
 See \code{\link{psdVal}}, \code{\link{psdPlot}}, \code{\link{psdAdd}}, \code{\link{PSDlit}}, \code{\link{tictactoe}}, \code{\link{lencat}}, and \code{\link{rcumsum}} for related functionality.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{hplot}

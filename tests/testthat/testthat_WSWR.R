@@ -2,7 +2,7 @@
 test_that("wsVal() messages",{
   ## bad species name
   expect_error(wsVal("Derek"),
-               "A Ws equation may not exist given your choices")
+               "There is no Ws equation in 'WSlit' for Derek")
   ## too many species name
   expect_error(wsVal(c("Bluegill","Yellow Perch")),
                "must contain only one name")
@@ -12,10 +12,10 @@ test_that("wsVal() messages",{
                "should be one of")
   # don't exist for the species
   expect_error(wsVal("Ruffe",units="English"),
-               "A Ws equation may not exist given your choices")
+               "There is no Ws equation in English units")
   ## reference value does not exist
   expect_error(wsVal("Bluegill",ref=50),
-               "A Ws equation may not exist given your choices")
+               "There is no Ws equation with ref of 50 for Bluegill")
 })
 
 test_that("wrAdd() messages",{

@@ -180,7 +180,7 @@ plot(cc5)
 
 }
 \references{
-Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
 Maceina, M.J., and P.W. Bettoli. 1998. Variation in Largemouth Bass recruitment in four mainstream impoundments on the Tennessee River. North American Journal of Fisheries Management 18:998-1003.
 
@@ -190,7 +190,7 @@ Ricker, W.E. 1975. Computation and interpretation of biological statistics of fi
 See \code{\link[fishmethods]{agesurv}} in \pkg{fishmethods} for similar functionality. See \code{\link{chapmanRobson}} and \code{\link[fishmethods]{agesurvcl}} in \pkg{fishmethods} for alternative methods to estimate mortality rates. See \code{\link{metaM}} for empirical methods to estimate natural mortality.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{hplot}
 \keyword{htest}

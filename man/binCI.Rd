@@ -66,6 +66,6 @@ Agresti, A. and B.A. Coull. 1998. Approximate is better than \dQuote{exact} for 
 See \code{\link{binom.test}}; \code{binconf} in \pkg{Hmisc}; and functions in \pkg{binom}.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}, though this is largely based on \code{binom.exact}, \code{binom.wilson}, and \code{binom.approx} from the old epitools package.
+Derek H. Ogle, \email{DerekOgle51@gmail.com}, though this is largely based on \code{binom.exact}, \code{binom.wilson}, and \code{binom.approx} from the old epitools package.
 }
 \keyword{htest}

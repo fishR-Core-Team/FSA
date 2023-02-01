@@ -31,6 +31,6 @@ col2rgbt(clrs,trans)
 See \code{\link[grDevices]{col2rgb}} for similar functionality.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{manip}

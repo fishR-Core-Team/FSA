@@ -111,12 +111,12 @@ Computes the Chapman-Robson estimates of annual survival rate (S) and instantane
 \details{
 The default is to use all ages in the age vector. This is only appropriate if the age and catch vectors contain only the ages and catches on the descending limb of the catch curve. Use \code{ages2use} to isolate only the catch and ages on the descending limb.
 
-The Chapman-Robson method provides an estimate of the annual survival rate, with the annual mortality rate (A) determined by 1-S. The instantaneous mortality rate is often computed as -log(S). However, Hoenig et al. (1983) showed that this produced a biased (over)estimate of Z and provided a correction. The correction is applied by setting \code{zmethod="Hoenigetal"}. Smith et al. (2012) showed that the Hoenig et al. method should be corrected for a variance inflation factor. This correction is applied by setting \code{zmethod="Smithetal"} (which is the default behavior). Choose \code{zmethod="original"} to use the original estimates for Z and it's SE as provided by Chapman and Robson.
+The Chapman-Robson method provides an estimate of the annual survival rate, with the annual mortality rate (A) determined by 1-S. The instantaneous mortality rate is often computed as -log(S). However, Hoenig \emph{et al.} (1983) showed that this produced a biased (over)estimate of Z and provided a correction. The correction is applied by setting \code{zmethod="Hoenigetal"}. Smith \emph{et al.} (2012) showed that the Hoenig \emph{et al.} method should be corrected for a variance inflation factor. This correction is applied by setting \code{zmethod="Smithetal"} (which is the default behavior). Choose \code{zmethod="original"} to use the original estimates for Z and it's SE as provided by Chapman and Robson.
 }
 \section{Testing}{
  Tested the results of chapmanRobson against the results in Miranda and Bettoli (2007). The point estimates of S matched perfectly but the SE of S did not because Miranda and Bettoli used a rounded estimate of S in the calculation of the SE of S but chapmanRobson does not.
 
-Tested the results against the results from \code{agesurv} in \pkg{fishmethods} using the \code{rockbass} data.frame in \pkg{fishmethods}. Results for Z and the SE of Z matched perfectly for non-bias-corrected results. The estimate of Z, but not the SE of Z, matched for the bias-corrected (following Smith et al. (2012)) results. \pkg{FSA} uses equation 2 from Smith et al. (2012) whereas \pkg{fishmethods} appears to use equation 5 from the same source to estimate the SE of Z.
+Tested the results against the results from \code{agesurv} in \pkg{fishmethods} using the \code{rockbass} data.frame in \pkg{fishmethods}. Results for Z and the SE of Z matched perfectly for non-bias-corrected results. The estimate of Z, but not the SE of Z, matched for the bias-corrected (following Smith \emph{et al.} (2012)) results. \pkg{FSA} uses equation 2 from Smith \emph{et al.} (2012) whereas \pkg{fishmethods} appears to use equation 5 from the same source to estimate the SE of Z.
 }
 
 \section{IFAR Chapter}{
@@ -151,7 +151,7 @@ plot(cr3)
 
 }
 \references{
-Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
 Chapman, D.G. and D.S. Robson. 1960. The analysis of a catch curve. Biometrics. 16:354-368.
 
@@ -167,7 +167,7 @@ Smith, M.W., A.Y. Then, C. Wor, G. Ralph, K.H. Pollock, and J.M. Hoenig. 2012. R
 See \code{\link[fishmethods]{agesurv}} in \pkg{fishmethods} for similar functionality. See \code{\link{catchCurve}} and \code{\link[fishmethods]{agesurvcl}} in \pkg{fishmethods} for alternative methods. See \code{\link{metaM}} for empirical methods to estimate natural mortality.
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{htest}
 \keyword{manip}

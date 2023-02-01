@@ -68,18 +68,18 @@ If \code{mb.top} contains an object from the \code{\link{capHistSum}} function t
 
 If \code{mb.top} is a matrix then it must be square, must have non-negative and no NA values in the upper triangle, and all NA values on the lower triangle and diagonal. If \code{mb.bot} is a matrix then it must have four rows named \code{m}, \code{u}, \code{n}, and \code{R} (see \code{\link{capHistSum}} for definitions), all values must be non-NA, and the first value of \code{m} must be 0. The last value of \code{R} can either be 0 or some positive number (it is ultimately ignored in all calculations).
 
-All parameter estimates are performed using equations 4.6-4.9 from Pollock et al (1990) and from page 204 in Seber 2002. If \code{type="Jolly"} then all standard errors (square root of the variances) are from equations 4.11, 4.12, and 4.14 in Pollock et al. (1990) (these are different than those in Seber (2002) ... see Pollock et al.'s note on page 21). If \code{type="Jolly"} and \code{phi.full=TRUE} then the full variance for the phi parameter is given as in eqn 4.18 in Pollock et al. (1990), otherwise eqn 4.13 from Pollock et al. (1990) is used. When \code{type="Jolly"} the confidence interval are produced using normal theory (i.e., estimate +/- z*SE). If \code{type="Manly"} then the confidence intervals for N and phi (none will be produced for B) are constructed using the methods of Manly (1984) and as described in 2.24-2.33 of Krebs (1989). No standard errors are returned when \code{type="Manly"}.
+All parameter estimates are performed using equations 4.6-4.9 from Pollock \emph{et al.} (1990) and from page 204 in Seber 2002. If \code{type="Jolly"} then all standard errors (square root of the variances) are from equations 4.11, 4.12, and 4.14 in Pollock \emph{et al.} (1990) (these are different than those in Seber (2002) ... see Pollock \emph{et al.}'s note on page 21). If \code{type="Jolly"} and \code{phi.full=TRUE} then the full variance for the phi parameter is given as in eqn 4.18 in Pollock \emph{et al.} (1990), otherwise eqn 4.13 from Pollock \emph{et al.} (1990) is used. When \code{type="Jolly"} the confidence interval are produced using normal theory (i.e., estimate +/- z*SE). If \code{type="Manly"} then the confidence intervals for N and phi (none will be produced for B) are constructed using the methods of Manly (1984) and as described in 2.24-2.33 of Krebs (1989). No standard errors are returned when \code{type="Manly"}.
 
 The \code{summary} function returns estimates of M, N, phi, B, and their associated standard errors and, if \code{verbose=TRUE} the intermediate calculations of \dQuote{observables} from the data -- n, m, R, r, and z.
 
 The level of confidence is not set in the \code{confint} function, in contrast to most \code{confint} functions. Rather the confidence level is set in the main \code{mrOpen} function.
 }
 \section{Testing}{
-  The formulas have been triple-checked against formulas in Pollock et al. (1990), Manly (1984), and Seber (2002).
+  The formulas have been triple-checked against formulas in Pollock \emph{et al.} (1990), Manly (1984), and Seber (2002).
 
 The results for the \code{\link{CutthroatAL}} data file (as analyzed in the example) was compared to results from the JOLLY program available at http://www.mbr-pwrc.usgs.gov/software/jolly.html. The r and z values matched, all M and N estimates match at one decimal place, all phi are within 0.001, and all B are within 0.7. The SE match for M except for two estimates that are within 0.1, match for N except for one estimate that is within 0.1, are within 0.001 for phi, and are within 1.3 for B (except for for the first estimate which is dramatically off).
 
-The results of \code{mrOpen} related to Table 4.4 of Pollock et al. (1990) match (to one decimal place) except for three estimates that are within 0.1\% for N, match (to two decimal places) for phi except for where Pollock set phi>1 to phi=1, match for B except for Pollock set B<0 to B=0. The SE match (to two decimal places) for N except for N15 (which is within 0.5, <5\%), match (to three decimal places) for phi except for phi15 (which is within 0.001, <0.5\%), match (to two decimal places) for B except for B17 and B20 which are within 0.2 (<0.2\%)
+The results of \code{mrOpen} related to Table 4.4 of Pollock \emph{et al.} (1990) match (to one decimal place) except for three estimates that are within 0.1\% for N, match (to two decimal places) for phi except for where Pollock set phi>1 to phi=1, match for B except for Pollock set B<0 to B=0. The SE match (to two decimal places) for N except for N15 (which is within 0.5, <5\%), match (to three decimal places) for phi except for phi15 (which is within 0.001, <0.5\%), match (to two decimal places) for B except for B17 and B20 which are within 0.2 (<0.2\%)
 
 All point estimates of M, N, phi, and B and the SE of phi match the results in Table 2.3 of Krebs (1989) (within minimal rounding error for a very small number of results). The SE of N results are not close to those of Krebs (1989) (who does not provide a formula for SE so the discrepancy cannot be explored). The SE of B results match those of Krebs (1989) for 5 of the 8 values and are within 5\% for 2 of the other 3 values (the last estimate is off by 27\%).
 
@@ -138,7 +138,7 @@ ex3a <- jolly(jolly.top,jolly.bot)
 
 }
 \references{
-Ogle, D.H. 2016. \href{http://derekogle.com/IFAR/}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
+Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 
 Jolly, G.M. 1965. Explicit estimates from capture-recapture data with both death and immigration -- stochastic model. Biometrika, 52:225-247.
 
@@ -158,6 +158,6 @@ Seber, G.A.F. 2002. The Estimation of Animal Abundance. Edward Arnold, second ed
 \code{\link{capHistSum}}, \code{\link{mrClosed}}
 }
 \author{
-Derek H. Ogle, \email{derek@derekogle.com}
+Derek H. Ogle, \email{DerekOgle51@gmail.com}
 }
 \keyword{manip}

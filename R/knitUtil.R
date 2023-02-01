@@ -44,7 +44,7 @@
 #'    \item \code{reproInfo} returns Markdown, LaTeX, or R code that prints \dQuote{reproducibility information} at the bottom of the knitted document.
 #'  }
 #'
-#' @author Derek H. Ogle, \email{derek@@derekogle.com}
+#' @author Derek H. Ogle, \email{DerekOgle51@gmail.com}
 #'
 #' @seealso See \code{\link{formatC}} for functionality similar to \code{kPvalue}. See \code{purl} and \code{\link[knitr]{knit}} in \pkg{knitr} for functionality similar to \code{purl2}.
 #'

@@ -13,7 +13,7 @@ A data frame of 24 observations on the following 3 variables:
  }
 }
 \source{
-From Garrod, D.J. 1967. Population dynamics of the Arcto-Norwegian Cod. Journal of the Fisheries Research Board of Canada, 24:145-190.
+From Garrod, D.J. 1967. Population dynamics of the Arcto-Norwegian Cod. Journal of the Fisheries Research Board of Canada, 24:145-190. \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/CodNorwegian.csv}{CSV file}
 }
 \description{
 Norwegian cod (\emph{Gadus morhua}) stock and recruitment by year, 1937-1960.

@@ -177,19 +177,19 @@ test_that("fact2num() results",{
 
 test_that("fishR() return values",{
   expect_equal(fishR(open=FALSE),
-               "https://derekogle.com/fishR")
-  expect_equal(fishR("IFAR",open=FALSE),
-               "https://derekogle.com/IFAR")
-  expect_equal(fishR("general",open=FALSE),
-               "https://derekogle.com/fishR/examples")
-  expect_equal(fishR("AIFFD",open=FALSE),
-               "https://derekogle.com/aiffd2007")
+               "https://fishr-core-team.github.io/fishR/")
   expect_equal(fishR("posts",open=FALSE),
-               "https://derekogle.com/fishR/blog")
+               "https://fishr-core-team.github.io/fishR/blog/")
   expect_equal(fishR("books",open=FALSE),
-               "https://derekogle.com/fishR/examples")
-  expect_equal(fishR("news",open=FALSE),
-               "https://derekogle.com/fishR/blog")
+               "https://fishr-core-team.github.io/fishR/pages/books.html")
+  expect_equal(fishR("IFAR",open=FALSE),
+               "https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r")
+  expect_equal(fishR("AIFFD",open=FALSE),
+               "https://fishr-core-team.github.io/fishR/pages/books.html#analysis-and-interpretation-of-freshwater-fisheries-data-i")
+  expect_equal(fishR("packages",open=FALSE),
+               "https://fishr-core-team.github.io/fishR/pages/packages.html")
+  expect_equal(fishR("data",open=FALSE),
+               "https://fishr-core-team.github.io/fishR/pages/data_fishR_alpha.html")
 })
 
 test_that("geomean() / geosd() results",{

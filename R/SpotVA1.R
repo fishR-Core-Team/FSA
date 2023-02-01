@@ -25,7 +25,7 @@
 #'
 #' @seealso Used in \code{\link{vbFuns}}, \code{\link{vbStarts}}, and \code{\link{nlsTracePlot}} examples. Also see \code{\link[FSAdata]{SpotVA2}} in \pkg{FSAdata} for related data.
 #'
-#' @source Extracted from Table 1 in Chapter 8 (Spot) of the VMRC Final Report on Finfish Ageing, 2002 by the Center for Quantitative Fisheries Ecology at Old Dominion University.
+#' @source Extracted from Table 1 in Chapter 8 (Spot) of the VMRC Final Report on Finfish Ageing, 2002 by the Center for Quantitative Fisheries Ecology at Old Dominion University. \href{https://raw.githubusercontent.com/fishR-Core-Team/FSA/master/data-raw/SpotVA1.csv}{CSV file}
 #'
 #' @keywords datasets
 #'
