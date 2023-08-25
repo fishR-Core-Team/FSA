@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">FSA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,15 +54,16 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.9.4" id="fsa-094">FSA 0.9.4<a class="anchor" aria-label="anchor" href="#fsa-094"></a></h2>
-<ul><li>Changes related to moving to fishR-Core-Team
-<ul><li>Updated sticker.</li>
+<h2 class="pkg-version" data-toc-text="0.9.5" id="fsa-095">FSA 0.9.5<a class="anchor" aria-label="anchor" href="#fsa-095"></a></h2>
+<ul><li>Fixed FSA-package problem using the “automatic approach” (i.e., adding a "_PACKAGE" line to FSA.R) suggested in an e-mail from Kurt Hornik on 19-Aug-2023.</li></ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.9.4" id="fsa-094">FSA 0.9.4<a class="anchor" aria-label="anchor" href="#fsa-094"></a></h2><p class="text-muted">CRAN release: 2023-02-01</p>
+<ul><li>Changes related to moving to fishR-Core-Team<ul><li>Updated sticker.</li>
 <li>Changed DHO e-mail address (in DESCRIPTION and in all author fields of the documentation). Partially address <a href="https://github.com/fishR-Core-Team/FSA/issues/86" class="external-link">#86</a>.</li>
 <li>Updated <code>pkgdown.yaml</code> GitHub action to <a href="https://github.com/r-lib/actions/tree/v2-branch/examples#build-pkgdown-site" class="external-link">v2</a>. Changed action to only run on a release (rather than a push) but it can be <a href="https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow" class="external-link">run manually</a> as well.</li>
 <li>Updated <code>R-CMD-check.yaml</code> GitHub action to <a href="https://github.com/r-lib/actions/tree/v2-branch/examples#standard-ci-workflow" class="external-link">v2</a>. Note that I had to add the <a href="https://github.com/r-lib/actions#common-questions" class="external-link">extra code for dealing with graphics on the Mac version</a>.</li>
 </ul></li>
-<li>Changes related to new fishR webpage
-<ul><li>Updated links in <code><a href="../reference/fishR.html">fishR()</a></code>, <code><a href="../reference/FSA.html">FSA()</a></code>, and <code>README.md</code>. Partially address <a href="https://github.com/fishR-Core-Team/FSA/issues/86" class="external-link">#86</a>.</li>
+<li>Changes related to new fishR webpage<ul><li>Updated links in <code><a href="../reference/fishR.html">fishR()</a></code>, <code><a href="../reference/FSA.html">FSA()</a></code>, and <code>README.md</code>. Partially address <a href="https://github.com/fishR-Core-Team/FSA/issues/86" class="external-link">#86</a>.</li>
 <li>Updated all links to Introductory Fisheries Analyses with R book.</li>
 <li>Added links to CSV files for all data sets. This addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/96" class="external-link">#96</a>.</li>
 <li>Changed theme in <code>_pkgdown.yml</code> to match that of <code>FSAdata</code> and more closely match <code>fishR</code>.</li>
@@ -113,8 +114,7 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.1" id="fsa-091">FSA 0.9.1<a class="anchor" aria-label="anchor" href="#fsa-091"></a></h2><p class="text-muted">CRAN release: 2021-07-17</p>
-<ul><li>Corrected testing issue for <code><a href="../reference/catchCurve.html">catchCurve()</a></code> and <code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code> as directed by CRAN on 17-Jul-21. Issue likely caused by changes to <code>fishmethods</code> package.</li>
-</ul></div>
+<ul><li>Corrected testing issue for <code><a href="../reference/catchCurve.html">catchCurve()</a></code> and <code><a href="../reference/chapmanRobson.html">chapmanRobson()</a></code> as directed by CRAN on 17-Jul-21. Issue likely caused by changes to <code>fishmethods</code> package.</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.9.0" id="fsa-090">FSA 0.9.0<a class="anchor" aria-label="anchor" href="#fsa-090"></a></h2><p class="text-muted">CRAN release: 2021-06-09</p>
 <ul><li>Make note of the several <strong>removed</strong> (now defunct) and <strong>deprecated</strong> (soon to be defunct) functions listed below.</li>
@@ -125,10 +125,8 @@
 <li>
 <code><a href="../reference/binCI.html">binCI()</a></code>: Modified. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/66" class="external-link">#66</a>).</li>
 <li>
-<code><a href="../reference/FSA-defunct.html">bootCase()</a></code>: <strong>REMOVED</strong>. Users can use <code><a href="https://rdrr.io/pkg/car/man/Boot.html" class="external-link">car::Boot()</a></code>, which partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/65" class="external-link">#65</a>.
-<ul><li>
-<code><a href="../reference/boot.html">plot.boot()</a></code>: <strong>REMOVED</strong>. Conflicted with <code><a href="https://rdrr.io/pkg/boot/man/plot.boot.html" class="external-link">boot::plot.boot()</a></code> which caused an error with CRAN. Same functionality is available with <code>pairs(&lt;boot object&gt;$t)</code>.</li>
-</ul></li>
+<code><a href="../reference/FSA-defunct.html">bootCase()</a></code>: <strong>REMOVED</strong>. Users can use <code><a href="https://rdrr.io/pkg/car/man/Boot.html" class="external-link">car::Boot()</a></code>, which partially addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/65" class="external-link">#65</a>.<ul><li>
+<code><a href="../reference/boot.html">plot.boot()</a></code>: <strong>REMOVED</strong>. Conflicted with <code><a href="https://rdrr.io/pkg/boot/man/plot.boot.html" class="external-link">boot::plot.boot()</a></code> which caused an error with CRAN. Same functionality is available with <code>pairs(&lt;boot object&gt;$t)</code>.</li></ul></li>
 <li>
 <code><a href="../reference/catchCurve.html">catchCurve()</a></code>: Modified. Removed hard-coding of <code>ylim=</code> for <code><a href="../reference/catchCurve.html">plot.catchCurve()</a></code> (this addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/70" class="external-link">#70</a> … Thanks to Brendan Runde). Added <code>round.est=</code> so that the user can control the decimals on mortality estimate values. Changed to use <code>iCheckConfLevel()</code> (which addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/66" class="external-link">#66</a>).</li>
 <li>
@@ -186,8 +184,7 @@
 <li>
 <code><a href="../reference/wrAdd.html">wrAdd()</a></code>: Modified. Changed a <code><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels()</a></code> in <code>iwsLitCheck()</code> to <code><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique()</a></code> because <code>species</code> is no longer a factor due to updating <code>WSlit</code> (i.e., rdata file changed with new <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv()</a></code>).</li>
 <li>
-<code>WSlit</code>: Modified. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/68" class="external-link">#68</a>.
-<ul><li>Corrected capitalization of “Cavedano Chub”, “European Chub”, “Lake Herring” (metric), and “Pursak Chub”.</li>
+<code>WSlit</code>: Modified. Addresses <a href="https://github.com/fishR-Core-Team/FSA/issues/68" class="external-link">#68</a>.<ul><li>Corrected capitalization of “Cavedano Chub”, “European Chub”, “Lake Herring” (metric), and “Pursak Chub”.</li>
 <li>Removed “not in Neumann et al. (2012)” notes.</li>
 <li>Added African Sharptooth Catfish, Ankara Nase, Bighead and Silver Carp, Brook Trout (Appalachia), Fourbarbel Scraper, Horse Barbel, Nile Tilapia, Nipple-Lipped Scraper, Shoal Bass, South European Roach, Spotted Bass (Alabama subspecies) (AKA Alabama Bass).</li>
 <li>Added Striped Bass (Hybrid) and Striped Bass x White Bass; though these are the same as the existing Palmetto Bass.</li>
@@ -199,7 +196,7 @@
 <h2 class="pkg-version" data-toc-text="0.8.32" id="fsa-0832">FSA 0.8.32<a class="anchor" aria-label="anchor" href="#fsa-0832"></a></h2><p class="text-muted">CRAN release: 2021-01-15</p>
 <ul><li>Removed Travis-CI and appveyor.</li>
 <li>No longer using coveralls for coverage statistics. Changed to codecov.io.</li>
-<li>Added GitHub Action for CI/CD (used <code><a href="https://usethis.r-lib.org/reference/github_actions.html" class="external-link">usethis::use_github_action_check_standard()</a></code>).</li>
+<li>Added GitHub Action for CI/CD (used <code><a href="https://usethis.r-lib.org/reference/use_github_actions.html" class="external-link">usethis::use_github_action_check_standard()</a></code>).</li>
 <li>Added GitHub Action for pkgdown (used <code>usethis::use_github_action("pkgdown")</code>).</li>
 <li>Added GitHub Action for code coverage with codecov.io.</li>
 <li>Added a code of conduct for contributors.</li>
@@ -293,8 +290,7 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.24" id="fsa-0824-17-may-19">FSA 0.8.24 17-May-19<a class="anchor" aria-label="anchor" href="#fsa-0824-17-may-19"></a></h2><p class="text-muted">CRAN release: 2019-05-21</p>
-<ul><li>Corrected misuses of <code>\concept</code> in Rd files per CRAN request.</li>
-</ul></div>
+<ul><li>Corrected misuses of <code>\concept</code> in Rd files per CRAN request.</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.23" id="fsa-0823-1-may-19">FSA 0.8.23 1-May-19<a class="anchor" aria-label="anchor" href="#fsa-0823-1-may-19"></a></h2><p class="text-muted">CRAN release: 2019-05-02</p>
 <ul><li>Reorganized <code>testthat</code> folder as suggested in <code>testthat</code> release notes.</li>
@@ -794,8 +790,7 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.3" id="fsa-083">FSA 0.8.3<a class="anchor" aria-label="anchor" href="#fsa-083"></a></h2><p class="text-muted">CRAN release: 2015-10-23</p>
-<ul><li>Removed vignetteBuilder from DESCRIPTION (remnant from a vignette I built and then removed) at request of CRAN.</li>
-</ul></div>
+<ul><li>Removed vignetteBuilder from DESCRIPTION (remnant from a vignette I built and then removed) at request of CRAN.</li></ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.2" id="fsa-082">FSA 0.8.2<a class="anchor" aria-label="anchor" href="#fsa-082"></a></h2>
 <ul><li>
@@ -1888,7 +1883,7 @@
 <ul><li>
 <strong>Date:</strong> Aug14</li>
 <li>
-<code><a href="../reference/removal.html">removal()</a></code>: Modified. Completely modified the code so that the examples with <code><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code> would also provide confidence intervals. Also changed the code to reflect that <span class="math inline">$\sum_{i=1}^{k-1}T_{i}$</span> from Schnute (1983) is the same as <span class="math inline"><em>X</em></span> from Carle and Strub (1978), the <span class="math inline">$\sum_{i=1}^{k-1}T_{i}-C_{1}$</span> in Schnute (1983) is the same as <span class="math inline"><em>X</em> − (<em>k</em>−1)<em>C</em><sub>1</sub></span>, and <span class="math inline"><em>q</em></span> in Schnute (1983) is <span class="math inline"><em>p</em></span> in most other resources. These changes allowed some efficiencies and connected the theory behind the methods more firmly. Removed the check for character data. Kept the check for whether catch was a vector or not but if catch is a one row or one column matrix or data.frame then it will be converted to a vector to continue. The latter change allows one to extract one row from a data.frame to send to <code><a href="../reference/removal.html">removal()</a></code> without having to use <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric()</a></code>. Modified and added examples of the use of <code><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code>.</li>
+<code><a href="../reference/removal.html">removal()</a></code>: Modified. Completely modified the code so that the examples with <code><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code> would also provide confidence intervals. Also changed the code to reflect that <span class="math inline">$\sum_{i=1}^{k-1}T_{i}$</span> from Schnute (1983) is the same as <span class="math inline"><em>X</em></span> from Carle and Strub (1978), the <span class="math inline">$\sum_{i=1}^{k-1}T_{i}-C_{1}$</span> in Schnute (1983) is the same as <span class="math inline"><em>X</em> − (<em>k</em> − 1)<em>C</em><sub>1</sub></span>, and <span class="math inline"><em>q</em></span> in Schnute (1983) is <span class="math inline"><em>p</em></span> in most other resources. These changes allowed some efficiencies and connected the theory behind the methods more firmly. Removed the check for character data. Kept the check for whether catch was a vector or not but if catch is a one row or one column matrix or data.frame then it will be converted to a vector to continue. The latter change allows one to extract one row from a data.frame to send to <code><a href="../reference/removal.html">removal()</a></code> without having to use <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric()</a></code>. Modified and added examples of the use of <code><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply()</a></code> and <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4.22" id="fsa-0422">FSA 0.4.22<a class="anchor" aria-label="anchor" href="#fsa-0422"></a></h2>
