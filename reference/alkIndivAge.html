@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">FSA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -205,27 +205,27 @@
 <span class="r-in"><span><span class="va">WR1.comb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">WR1.age</span>, <span class="va">WR1.len</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># mean length-at-age</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="Summarize.html">Summarize</a></span><span class="op">(</span><span class="va">len</span><span class="op">~</span><span class="va">age</span>,data<span class="op">=</span><span class="va">WR1.comb</span>,digits<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   age   n   mean   sd min  Q1 median  Q3 max</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   4 987  51.85 5.12  35  48     52  56  64</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   5 395  71.78 5.25  60  68     72  76  84</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   6 270  86.73 4.66  75  83     87  89  98</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   7 450  97.58 5.21  86  93     97 102 113</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   8 145 101.14 5.74  90  97    101 107 114</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   9  77 103.77 3.23 100 102    103 105 113</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  10  39 105.13 7.16  95  98    106 110 119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  11   6 111.83 1.33 110 111    112 113 113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   age   n   mean   sd min     Q1 median     Q3 max</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   4 987  51.86 5.15  35  48.00   52.0  56.00  64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   5 396  71.79 5.35  60  68.00   72.0  76.00  84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   6 270  86.77 4.70  75  83.00   87.0  89.00  98</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   7 447  97.53 5.12  85  93.00   97.0 102.00 113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   8 145 101.06 5.87  90  96.00  101.0 107.00 113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   9  78 103.86 3.19 100 102.00  103.0 104.75 113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  10  40 105.53 7.10  95  98.00  107.0 109.75 119</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  11   6 112.00 1.26 110 111.25  112.5 113.00 113</span>
 <span class="r-in"><span><span class="co"># age frequency distribution</span></span></span>
 <span class="r-in"><span><span class="op">(</span> <span class="va">af</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/xtabs.html" class="external-link">xtabs</a></span><span class="op">(</span><span class="op">~</span><span class="va">age</span>,data<span class="op">=</span><span class="va">WR1.comb</span><span class="op">)</span> <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> age</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   4   5   6   7   8   9  10  11 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 987 395 270 450 145  77  39   6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 987 396 270 447 145  78  40   6 </span>
 <span class="r-in"><span><span class="co"># proportional age distribution</span></span></span>
 <span class="r-in"><span><span class="op">(</span> <span class="va">ap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proportions.html" class="external-link">prop.table</a></span><span class="op">(</span><span class="va">af</span><span class="op">)</span> <span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> age</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           4           5           6           7           8           9 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.416631490 0.166737020 0.113972140 0.189953567 0.061207260 0.032503166 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.416631490 0.167159139 0.113972140 0.188687210 0.061207260 0.032925285 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          10          11 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.016462642 0.002532714 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.016884762 0.002532714 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Second Example -- length sample does not have an age variable</span></span></span>
 <span class="r-in"><span><span class="va">WR2</span> <span class="op">&lt;-</span> <span class="va">WR79</span></span></span>
@@ -292,15 +292,15 @@
 <span class="r-in"><span><span class="co"># combine orig age &amp; new ages</span></span></span>
 <span class="r-in"><span><span class="va">WR2.comb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">WR2.age</span>, <span class="va">WR2.len</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="Summarize.html">Summarize</a></span><span class="op">(</span><span class="va">len</span><span class="op">~</span><span class="va">age</span>,data<span class="op">=</span><span class="va">WR2.comb</span>,digits<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   age   n   mean   sd min    Q1 median    Q3 max</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   4 987  51.85 5.12  35  48.0     52  56.0  64</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   5 396  71.81 5.26  60  68.0     72  76.0  84</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   6 269  86.74 4.71  75  83.0     87  89.0  98</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   7 449  97.55 5.17  86  93.0     97 101.0 113</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   8 146 101.32 5.79  90  97.0    102 107.0 114</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   9  77 103.61 3.11 100 101.0    103 105.0 112</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  10  39 105.08 7.21  95  97.0    106 109.5 119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  11   6 112.17 1.33 110 111.5    113 113.0 113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   age   n   mean   sd min     Q1 median     Q3 max</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   4 986  51.85 5.14  35  48.00   52.0  56.00  64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   5 396  71.71 5.32  60  68.00   72.0  76.00  84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   6 270  86.79 4.67  75  83.00   87.0  89.00  99</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   7 450  97.52 5.21  85  93.00   97.0 101.00 113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   8 145 101.18 5.86  90  97.00  102.0 107.00 113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   9  78 103.96 3.29 100 102.00  103.0 106.75 113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  10  38 105.05 6.97  96  98.00  106.0 109.50 119</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  11   6 111.50 1.38 110 110.25  111.5 112.75 113</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Third Example -- Uneven breaks for length categories</span></span></span>
 <span class="r-in"><span><span class="va">WR3</span> <span class="op">&lt;-</span> <span class="va">WR79</span></span></span>
@@ -367,15 +367,15 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8  8  42   4   40</span>
 <span class="r-in"><span><span class="va">WR3.comb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">WR3.age</span>, <span class="va">WR3.len</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="Summarize.html">Summarize</a></span><span class="op">(</span><span class="va">len</span><span class="op">~</span><span class="va">age</span>,data<span class="op">=</span><span class="va">WR3.comb</span>,digits<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   age   n   mean   sd min  Q1 median     Q3 max</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   4 987  51.86 5.14  35  48     52  56.00  64</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   5 395  71.76 5.30  60  68     72  76.00  84</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   6 270  86.66 4.65  75  83     87  89.00  99</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   7 451  97.78 5.22  86  93     97 102.00 113</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   8 142 100.51 5.61  90  96    101 104.00 113</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   9  78 104.17 3.25 100 102    103 106.75 117</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  10  41 104.90 7.45  95  97    105 112.00 119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  11   5 112.00 1.00 111 111    112 113.00 113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   age   n   mean   sd min     Q1 median  Q3 max</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   4 987  51.86 5.14  35  48.00   52.0  56  64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   5 395  71.75 5.26  60  68.00   72.0  76  84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   6 269  86.77 4.67  75  83.00   87.0  89  99</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   7 453  97.72 5.41  85  93.00   97.0 102 114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   8 139 100.42 5.31  90  97.00  101.0 104 113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   9  78 104.12 3.21 100 102.00  103.0 107 113</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  10  44 105.18 7.38  95  97.00  105.0 112 119</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  11   4 112.25 0.96 111 111.75  112.5 113 113</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
