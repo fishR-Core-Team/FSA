@@ -3,6 +3,7 @@
 \docType{package}
 \name{FSA}
 \alias{FSA}
+\alias{FSA-package}
 \title{Fisheries stock assessment methods and data.}
 \description{
 Functions to support basic fisheries stock assessment methods.
@@ -22,3 +23,23 @@ Packages with related functionality by the same author are
 \references{
 Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://fishr-core-team.github.io/FSA/}
+  \item Report bugs at \url{https://github.com/fishR-Core-Team/FSA/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Derek H. Ogle \email{DerekOgle51@gmail.com} (\href{https://orcid.org/0000-0002-0370-9299}{ORCID})
+
+Authors:
+\itemize{
+  \item Jason C. Doll \email{jason.doll@fmarion.edu}
+  \item A. Powell Wheeler \email{powell.wheeler@gmail.com}
+  \item Alexis Dinno \email{alexis.dinno@pdx.edu} (Provided base functionality of dunnTest())
+}
+
+}
+\keyword{internal}

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">FSA</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.9.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -382,10 +382,28 @@ This function may be used for species for which Gabelhouse length categories are
 <span class="r-in"><span><span class="co">## Working with a species not in PSDlit ... same data, but don't give species</span></span></span>
 <span class="r-in"><span><span class="fu">psdCalc</span><span class="op">(</span><span class="op">~</span><span class="va">yepmm</span>,data<span class="op">=</span><span class="va">yepdf</span>,addLens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"stock"</span><span class="op">=</span><span class="fl">130</span>,<span class="st">"quality"</span><span class="op">=</span><span class="fl">200</span>,<span class="st">"preferred"</span><span class="op">=</span><span class="fl">250</span>,</span></span>
 <span class="r-in"><span>                                    <span class="st">"memorable"</span><span class="op">=</span><span class="fl">300</span>,<span class="st">"trophy"</span><span class="op">=</span><span class="fl">380</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Must include a species name in 'species'.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Some category sample size &lt;20, some CI coverage may be</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>  lower than 95%.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Estimate 95% LCI 95% UCI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PSD-Q         37      23      52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PSD-P         19       7      31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PSD-M          8       0      16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PSD-T          1       0       4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PSD S-Q       63      48      77</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PSD Q-P       18       7      30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PSD P-M       11       2      21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PSD M-T        7       0      14</span>
 <span class="r-in"><span><span class="fu">psdCalc</span><span class="op">(</span><span class="op">~</span><span class="va">yepmm</span>,data<span class="op">=</span><span class="va">yepdf</span>,addLens<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"stock"</span><span class="op">=</span><span class="fl">130</span>,<span class="st">"quality"</span><span class="op">=</span><span class="fl">200</span>,</span></span>
 <span class="r-in"><span>                                    <span class="st">"preferred"</span><span class="op">=</span><span class="fl">250</span>,<span class="st">"name1"</span><span class="op">=</span><span class="fl">220</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Must include a species name in 'species'.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Some category sample size &lt;20, some CI coverage may be</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>  lower than 95%.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             Estimate 95% LCI 95% UCI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PSD-Q             37      24      50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PSD-name1         28      15      40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PSD-P             19       8      30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PSD S-Q           63      50      76</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PSD Q-name1       10       2      18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PSD name1-P        9       1      16</span>
 <span class="r-in"><span>                                    </span></span>
 </code></pre></div>
     </div>
