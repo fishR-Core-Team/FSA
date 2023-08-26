@@ -1,3 +1,5 @@
+# FSA 0.9.5.9000
+
 # FSA 0.9.5
 * Fixed FSA-package \alias problem using the "automatic approach" (i.e., adding a "_PACKAGE" line to FSA.R) suggested in an e-mail from Kurt Hornik on 19-Aug-2023.
 
