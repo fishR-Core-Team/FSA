@@ -26,7 +26,7 @@
 #'   \itemize{
 #'     \item The \sQuote{Ricker2} and \sQuote{QuinnDeriso1} are synonymous, as are \sQuote{Ricker3} and \sQuote{QuinnDeriso2}.
 #'     \item The parameterizations and parameters for the Gompertz function are varied and confusing in the literature. I have attempted to use a uniform set of parameters in these functions, but that makes a direct comparison to the literature difficult. Common sources for Gompertz models are listed in the references below. I make some comments here to aid comparisons to the literature.
-#'     \item Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, ti is the age at the inflection point, gi is the instantaneous growth rate at the inflection point, t* is a dimensionless parameter related to time/age, and a is a dimensionless parameter related to growth.
+#'     \item Within FSA, L0 is the mean length at age 0, Linf is the mean asymptotic length, ti is the age at the inflection point, gi is the instantaneous growth rate at the inflection point, t0 is a dimensionless parameter related to time/age, and a is a dimensionless parameter related to growth.
 #'     \item In the Quinn and Deriso (1999) functions (the \sQuote{QuinnDerisoX} functions), the a parameter here is equal to lambda/K there and the gi parameter here is equal to the K parameter there. Also note that their Y is L here.
 #'     \item In the Ricker (1979)[p. 705] functions (the \sQuote{RickerX} functions), the a parameter here is equal to k there and the gi parameter here is equal to the g parameter there. Also note that their w is L here. In the Ricker (1979) functions as presented in Campana and Jones (1992), the a parameter here is equal to k parameter there and the gi parameter here is equal to the G parameter there. Also note that their X is L here.
 #'     \item The function in Ricker (1975)[p. 232] is the same as \sQuote{Ricker2} where the a parameter here is qual to G there and the gi parameter here is equal to the g parameter there. Also note that their w is L here.
@@ -36,7 +36,7 @@
 #'   \item Richards
 #'   \itemize{
 #'     \item Within FSA, Linf is the mean asymptotic length, ti is the age at the inflection point, k controls the slope at the inflection point (maximum relative growth rate), b is dimensionless but related to the vertical position (i.e., size) of the inflection point, a is dimensionless but related to the horizontal position (i.e., age) of the inflection point, and L0 is the mean length at age-0.
-#'     \item The parameterizations (1-6) correspond to functions/equations 1, 4, 5, 6, 7, and 8, respectively, in Tjorve and Tjorve (2010). Note that their A, S, k, d, and B are Linf, a, k, b, and L0, respectively, here (in FSA). THeir (Tjorve and Tjorve 2010) K does not appear here.
+#'     \item The parameterizations (1-6) correspond to functions/equations 1, 4, 5, 6, 7, and 8, respectively, in Tjorve and Tjorve (2010). Note that their A, S, k, d, and B are Linf, a, k, b, and L0, respectively, here (in FSA). Their (Tjorve and Tjorve 2010) K does not appear here.
 #'   }
 #'   \item logistic
 #'   \itemize{
@@ -52,7 +52,7 @@
 #'
 #' @references Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#introductory-fisheries-analyses-with-r}{Introductory Fisheries Analyses with R}. Chapman & Hall/CRC, Boca Raton, FL.
 #' 
-#' Campana, S.E. and C.M. Jones. 1992. Analysis of otolith microstructure data. Pages 73-100 In D.K. Stevenson and S.E. Campana, editors. Otolith microstructure examination and analysis. Canadian Special Publication of Fisheries and Aquatic Sciences 117. [Was (is?) from http://www.dfo-mpo.gc.ca/Library/141734.pdf.]
+#' Campana, S.E. and C.M. Jones. 1992. Analysis of otolith microstructure data. Pages 73-100 In D.K. Stevenson and S.E. Campana, editors. Otolith microstructure examination and analysis. Canadian Special Publication of Fisheries and Aquatic Sciences 117. [Was (is?) from https://waves-vagues.dfo-mpo.gc.ca/library-bibliotheque/141734.pdf.]
 #' 
 #' Fabens, A. 1965. Properties and fitting of the von Bertalanffy growth curve. Growth 29:265-289.
 #'
@@ -60,45 +60,45 @@
 #'
 #' Gallucci, V.F. and T.J. Quinn II. 1979. Reparameterizing, fitting, and testing a simple growth model. Transactions of the American Fisheries Society, 108:14-25.
 #'
-#' Garcia-Berthou, E., G. Carmona-Catot, R. Merciai, and D.H. Ogle. A technical note on seasonal growth models. Reviews in Fish Biology and Fisheries 22:635-640. [Was (is?) from https://www.researchgate.net/publication/257658359_A_technical_note_on_seasonal_growth_models.]
+#' Garcia-Berthou, E., G. Carmona-Catot, R. Merciai, and D.H. Ogle. A technical note on seasonal growth models. Reviews in Fish Biology and Fisheries 22:635-640.
 #' 
-#' Gompertz, B. 1825. On the nature of the function expressive of the law of human mortality, and on a new method of determining the value of life contingencies. Philosophical Transactions of the Royal Society of London. 115:513-583.
+#' Gompertz, B. 1825. On the nature of the function expressive of the law of human mortality, and on a new mode of determining the value of life contingencies. Philosophical Transactions of the Royal Society of London. 115:513-583.
 #' 
-#' Haddon, M., C. Mundy, and D. Tarbath. 2008. Using an inverse-logistic model to describe growth increments of Blacklip Abalone (\emph{Haliotis rubra}) in Tasmania. Fishery Bulletin 106:58-71. [Was (is?) from http://aquaticcommons.org/8857/1/haddon_Fish_Bull_2008.pdf.]
+#' Haddon, M., C. Mundy, and D. Tarbath. 2008. Using an inverse-logistic model to describe growth increments of blacklip abalone (\emph{Haliotis rubra}) in Tasmania. Fishery Bulletin 106:58-71. [Was (is?) from https://spo.nmfs.noaa.gov/sites/default/files/pdf-content/2008/1061/haddon.pdf.]
 #'
-#' Karkach, A. S. 2006. Trajectories and models of individual growth. Demographic Research 15:347-400. [Was (is?) from http://www.demographic-research.org/volumes/vol15/12/15-12.pdf.]
+#' Karkach, A. S. 2006. Trajectories and models of individual growth. Demographic Research 15:347-400. [Was (is?) from https://www.demographic-research.org/volumes/vol15/12/15-12.pdf.]
 #' 
 #' Katsanevakis, S. and C.D. Maravelias. 2008. Modeling fish growth: multi-model inference as a better alternative to a priori using von Bertalanffy equation. Fish and Fisheries 9:178-187.
 #'
-#' Mooij, W.M., J.M. Van Rooij, and S. Wijnhoven. 1999. Analysis and comparison of fish growth from small samples of length-at-age data: Detection of sexual dimorphism in Eurasian Perch as an example. Transactions of the American Fisheries Society 128:483-490.
+#' Mooij, W.M., J.M. Van Rooij, and S. Wijnhoven. 1999. Analysis and comparison of fish growth from small samples of length-at-age data: Detection of sexual dimorphism in Eurasian perch as an example. Transactions of the American Fisheries Society 128:483-490.
 #'
-#' Polacheck, T., J.P. Eveson, and G.M. Laslett. 2004. Increase in growth rates of southern Bluefin Tuna (\emph{Thunnus maccoyii}) over four decades: 1960 to 2000. Canadian Journal of Fisheries and Aquatic Sciences, 61:307-322.
+#' Polacheck, T., J.P. Eveson, and G.M. Laslett. 2004. Increase in growth rates of southern bluefin tuna (\emph{Thunnus maccoyii}) over four decades: 1960 to 2000. Canadian Journal of Fisheries and Aquatic Sciences, 61:307-322.
 #' 
 #' Quinn, T. J. and R. B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York, New York. 542 pages.
 #' 
-#' Quist, M.C., M.A. Pegg, and D.R. DeVries. 2012. Age and Growth. Chapter 15 in A.V. Zale, D.L Parrish, and T.M. Sutton, Editors  Fisheries Techniques, Third Edition. American Fisheries Society, Bethesda, MD.
+#' Quist, M.C., M.A. Pegg, and D.R. DeVries. 2012. Age and growth. Chapter 15 in A.V. Zale, D.L Parrish, and T.M. Sutton, editors. Fisheries Techniques, Third Edition. American Fisheries Society, Bethesda, MD.
 #' 
 #' Richards, F. J. 1959. A flexible growth function for empirical use. Journal of Experimental Biology 10:290-300.
 #' 
-#' Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada. [Was (is?) from http://www.dfo-mpo.gc.ca/Library/1485.pdf.]
+#' Ricker, W.E. 1975. Computation and interpretation of biological statistics of fish populations. Technical Report Bulletin 191, Bulletin of the Fisheries Research Board of Canada. [Was (is?) from https://publications.gc.ca/collections/collection_2015/mpo-dfo/Fs94-191-eng.pdf.]
 #' 
-#' Ricker, W.E. 1979. Growth rates and models. Pages 677-743 In W.S. Hoar, D.J. Randall, and J.R. Brett, editors. Fish Physiology, Vol. 8: Bioenergetics and Growth. Academic Press, NY, NY. [Was (is?) from https://books.google.com/books?id=CB1qu2VbKwQC&pg=PA705&lpg=PA705&dq=Gompertz+fish&source=bl&ots=y34lhFP4IU&sig=EM_DGEQMPGIn_DlgTcGIi_wbItE&hl=en&sa=X&ei=QmM4VZK6EpDAgwTt24CABw&ved=0CE8Q6AEwBw#v=onepage&q=Gompertz\%20fish&f=false.]
+#' Ricker, W.E. 1979. Growth rates and models. Pages 677-743 In W.S. Hoar, D.J. Randall, and J.R. Brett, editors. Fish Physiology, Vol. 8: Bioenergetics and Growth. Academic Press, New York, NY. [Was (is?) from https://books.google.com/books?id=CB1qu2VbKwQC&pg=PA705&lpg=PA705&dq=Gompertz+fish&source=bl&ots=y34lhFP4IU&sig=EM_DGEQMPGIn_DlgTcGIi_wbItE&hl=en&sa=X&ei=QmM4VZK6EpDAgwTt24CABw&ved=0CE8Q6AEwBw#v=onepage&q=Gompertz\%20fish&f=false.]
 #'
 #' Schnute, J. 1981. A versatile growth model with statistically stable parameters. Canadian Journal of Fisheries and Aquatic Sciences, 38:1128-1140.
 #'
-#' Somers, I. F. 1988. On a seasonally oscillating growth function. Fishbyte 6(1):8-11. [Was (is?) from http://www.worldfishcenter.org/Naga/na_2914.pdf.]
+#' Somers, I. F. 1988. On a seasonally oscillating growth function. Fishbyte 6(1):8-11. [Was (is?) from https://www.fishbase.us/manual/English/fishbaseSeasonal_Growth.htm.]
 #' 
 #' Tjorve, E. and K. M. C. Tjorve. 2010. A unified approach to the Richards-model family for use in growth analyses: Why we need only two model forms. Journal of Theoretical Biology 267:417-425. [Was (is?) from https://www.researchgate.net/profile/Even_Tjorve/publication/46218377_A_unified_approach_to_the_Richards-model_family_for_use_in_growth_analyses_why_we_need_only_two_model_forms/links/54ba83b80cf29e0cb04bd24e.pdf.]
 #' 
 #' Troynikov, V. S., R. W. Day, and A. M. Leorke. Estimation of seasonal growth parameters using a stochastic Gompertz model for tagging data. Journal of Shellfish Research 17:833-838. [Was (is?) from https://www.researchgate.net/profile/Robert_Day2/publication/249340562_Estimation_of_seasonal_growth_parameters_using_a_stochastic_gompertz_model_for_tagging_data/links/54200fa30cf203f155c2a08a.pdf.]
 #' 
-#' Vaughan, D. S. and T. E. Helser. 1990. Status of the Red Drum stock of the Atlantic coast: Stock assessment report for 1989. NOAA Technical Memorandum NMFS-SEFC-263, 117 p. [Was (is?) from http://docs.lib.noaa.gov/noaa_documents/NMFS/SEFSC/TM_NMFS_SEFSC/NMFS_SEFSC_TM_263.pdf.]
+#' Vaughan, D. S. and T. E. Helser. 1990. Status of the Red Drum stock of the Atlantic coast: Stock assessment report for 1989. NOAA Technical Memorandum NMFS-SEFC-263, 117 p. [Was (is?) from https://repository.library.noaa.gov/view/noaa/5927/noaa_5927_DS1.pdf.]
 #'
 #' Wang, Y.-G. 1998. An improved Fabens method for estimation of growth parameters in the von Bertalanffy model with individual asymptotes. Canadian Journal of Fisheries and Aquatic Sciences 55:397-400.
 #'
 #' Weisberg, S., G.R. Spangler, and L. S. Richmond. 2010. Mixed effects models for fish growth. Canadian Journal of Fisheries And Aquatic Sciences 67:269-277.
 #' 
-#' Winsor, C.P. 1932. The Gompertz curve as a growth curve. Proceedings of the National Academy of Sciences. 18:1-8. [Was (is?) from http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1076153/pdf/pnas01729-0009.pdf.]
+#' Winsor, C.P. 1932. The Gompertz curve as a growth curve. Proceedings of the National Academy of Sciences. 18:1-8. [Was (is?) from https://pmc.ncbi.nlm.nih.gov/articles/PMC1076153/pdf/pnas01729-0009.pdf.]
 #'
 #' @keywords manip hplot
 #'
@@ -292,82 +292,82 @@ NULL
 #' @rdname growthModels
 #' @export
 vbFuns <- function(param=c("Typical","typical","Traditional","traditional","BevertonHolt",
-                          "Original","original","vonBertalanffy",
-                          "GQ","GallucciQuinn","Mooij","Weisberg","Ogle",
-                          "Schnute","Francis","Laslett","Polacheck",
-                          "Somers","Somers2","Pauly",
-                          "Fabens","Fabens2","Wang","Wang2","Wang3",
-                          "Francis2","Francis3"),
+                           "Original","original","vonBertalanffy",
+                           "GQ","GallucciQuinn","Mooij","Weisberg","Ogle",
+                           "Schnute","Francis","Laslett","Polacheck",
+                           "Somers","Somers2","Pauly",
+                           "Fabens","Fabens2","Wang","Wang2","Wang3",
+                           "Francis2","Francis3"),
                    simple=FALSE,msg=FALSE) {
   Ogle <- function(t,Linf,K=NULL,tr=NULL,Lr=NULL) {
     if (length(Linf)==4) {
-    Lr <- Linf[[4]]
-    tr <- Linf[[3]]
-    K <- Linf[[2]]
-    Linf <- Linf[[1]] }
+      Lr <- Linf[[4]]
+      tr <- Linf[[3]]
+      K <- Linf[[2]]
+      Linf <- Linf[[1]] }
     Lr+(Linf-Lr)*(1-exp(-K*(t-tr)))
   }
   SOgle <- function(t,Linf,K,tr,Lr) {
     Lr+(Linf-Lr)*(1-exp(-K*(t-tr)))
   }
   Typical <- typical <- Traditional <- traditional <- BevertonHolt <- function(t,Linf,K=NULL,t0=NULL) {
-  if (length(Linf)==3) { K <- Linf[[2]]
-                         t0 <- Linf[[3]]
-                         Linf <- Linf[[1]] }
-  Linf*(1-exp(-K*(t-t0)))
+    if (length(Linf)==3) { K <- Linf[[2]]
+    t0 <- Linf[[3]]
+    Linf <- Linf[[1]] }
+    Linf*(1-exp(-K*(t-t0)))
   }
   STypical <- Stypical <- STraditional <- Straditional <- SBevertonHolt <- function(t,Linf,K,t0) {
     Linf*(1-exp(-K*(t-t0)))
   }
   Original <- original <- vonBertalanffy <- function(t,Linf,K=NULL,L0=NULL) {
-  if (length(Linf)==3) { K <- Linf[[2]]
-                         L0 <- Linf[[3]]
-                         Linf <- Linf[[1]] }
-  Linf-(Linf-L0)*exp(-K*t)
+    if (length(Linf)==3) { K <- Linf[[2]]
+    L0 <- Linf[[3]]
+    Linf <- Linf[[1]] }
+    Linf-(Linf-L0)*exp(-K*t)
   }
   SOriginal <- Soriginal <- SvonBertalanffy <- function(t,Linf,K,L0) {
     Linf-(Linf-L0)*exp(-K*t)
   }
   GQ <- GallucciQuinn <- function(t,omega,K=NULL,t0=NULL) {
-  if (length(omega)==3) { K <- omega[[2]]
-                          t0 <- omega[[3]]
-                          omega <- omega[[1]] }
-  (omega/K)*(1-exp(-K*(t-t0)))
+    if (length(omega)==3) { K <- omega[[2]]
+    t0 <- omega[[3]]
+    omega <- omega[[1]] }
+    (omega/K)*(1-exp(-K*(t-t0)))
   }
   SGQ <- SGallucciQuinn <- function(t,omega,K,t0) {
     (omega/K)*(1-exp(-K*(t-t0)))
   }
   Mooij <- function(t,Linf,L0=NULL,omega=NULL) {
-  if (length(Linf)==3) { L0 <- Linf[[2]]
-                         omega <- Linf[[3]]
-                         Linf <- Linf[[1]] }
-  Linf-(Linf-L0)*exp(-(omega/Linf)*t)
+    if (length(Linf)==3) { L0 <- Linf[[2]]
+    omega <- Linf[[3]]
+    Linf <- Linf[[1]] }
+    Linf-(Linf-L0)*exp(-(omega/Linf)*t)
   }
   SMooij <- function(t,Linf,L0,omega) {
     Linf-(Linf-L0)*exp(-(omega/Linf)*t)
   }
   Weisberg <- function(t,Linf,t50=NULL,t0=NULL) {
-  if (length(Linf)==3) { t50 <- Linf[[2]]
-                         t0 <- Linf[[3]]
-                         Linf <- Linf[[1]] }
-  Linf*(1-exp(-(log(2)/(t50-t0))*(t-t0)))
+    if (length(Linf)==3) { t50 <- Linf[[2]]
+    t0 <- Linf[[3]]
+    Linf <- Linf[[1]] }
+    Linf*(1-exp(-(log(2)/(t50-t0))*(t-t0)))
   }
   SWeisberg <- function(t,Linf,t50,t0) {
     Linf*(1-exp(-(log(2)/(t50-t0))*(t-t0)))
   } 
   Schnute <- function(t,L1,L3=NULL,K=NULL,t1,t3=NULL) {
-  if (length(L1)==3) { L3 <- L1[[2]]; K <- L1[[3]]; L1 <- L1[[1]] }
-  if (length(t1)==2) { t3 <- t1[[2]]; t1 <- t1[[1]] }
-  L1+(L3-L1)*((1-exp(-K*(t-t1)))/(1-exp(-K*(t3-t1))))
+    if (length(L1)==3) { L3 <- L1[[2]]; K <- L1[[3]]; L1 <- L1[[1]] }
+    if (length(t1)==2) { t3 <- t1[[2]]; t1 <- t1[[1]] }
+    L1+(L3-L1)*((1-exp(-K*(t-t1)))/(1-exp(-K*(t3-t1))))
   }
   SSchnute <- function(t,L1,L3,K,t1,t3) {
     L1+(L3-L1)*((1-exp(-K*(t-t1)))/(1-exp(-K*(t3-t1))))
   }
   Francis <- function(t,L1,L2=NULL,L3=NULL,t1,t3=NULL) {
-  if (length(L1)==3) { L2 <- L1[[2]]; L3 <- L1[[3]]; L1 <- L1[[1]] }
-  if (length(t1)==2) { t3 <- t1[[2]]; t1 <- t1[[1]] }
-  r <- (L3-L2)/(L2-L1)
-  L1+(L3-L1)*((1-r^(2*((t-t1)/(t3-t1))))/(1-r^2))
+    if (length(L1)==3) { L2 <- L1[[2]]; L3 <- L1[[3]]; L1 <- L1[[1]] }
+    if (length(t1)==2) { t3 <- t1[[2]]; t1 <- t1[[1]] }
+    r <- (L3-L2)/(L2-L1)
+    L1+(L3-L1)*((1-r^(2*((t-t1)/(t3-t1))))/(1-r^2))
   }
   SFrancis <- function(t,L1,L2,L3,t1,t3) {
     r <- (L3-L2)/(L2-L1)
@@ -383,23 +383,23 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
     Linf*(1-exp(-K2*(t-t0))*((1+exp(-b*(t-t0-a)))/(1+exp(a*b)))^(-(K2-K1)/b))
   }
   Somers <- function(t,Linf,K,t0,C,ts) {
-  if (length(Linf)==5) { K <- Linf[[2]]; t0 <- Linf[[3]]
-                         C <- Linf[[4]]; ts <- Linf[[5]]
-                         Linf <- Linf[[1]] }
-  St <- (C*K)/(2*pi)*sin(2*pi*(t-ts))
-  Sto <- (C*K)/(2*pi)*sin(2*pi*(t0-ts))
-  Linf*(1-exp(-K*(t-t0)-St+Sto))
+    if (length(Linf)==5) { K <- Linf[[2]]; t0 <- Linf[[3]]
+    C <- Linf[[4]]; ts <- Linf[[5]]
+    Linf <- Linf[[1]] }
+    St <- (C*K)/(2*pi)*sin(2*pi*(t-ts))
+    Sto <- (C*K)/(2*pi)*sin(2*pi*(t0-ts))
+    Linf*(1-exp(-K*(t-t0)-St+Sto))
   }
   SSomers <- function(t,Linf,K,t0,C,ts) {
     Linf*(1-exp(-K*(t-t0)-(C*K)/(2*pi)*sin(2*pi*(t-ts))+(C*K)/(2*pi)*sin(2*pi*(t0-ts))))
   }
   Somers2 <- function(t,Linf,K,t0,C,WP) {
-  if (length(Linf)==5) { K <- Linf[[2]]; t0 <- Linf[[3]]
-                         C <- Linf[[4]]; WP <- Linf[[5]]
-                         Linf <- Linf[[1]] }
-  Rt <- (C*K)/(2*pi)*sin(2*pi*(t-WP+0.5))
-  Rto <- (C*K)/(2*pi)*sin(2*pi*(t0-WP+0.5))
-  Linf*(1-exp(-K*(t-t0)-Rt+Rto))
+    if (length(Linf)==5) { K <- Linf[[2]]; t0 <- Linf[[3]]
+    C <- Linf[[4]]; WP <- Linf[[5]]
+    Linf <- Linf[[1]] }
+    Rt <- (C*K)/(2*pi)*sin(2*pi*(t-WP+0.5))
+    Rto <- (C*K)/(2*pi)*sin(2*pi*(t0-WP+0.5))
+    Linf*(1-exp(-K*(t-t0)-Rt+Rto))
   }
   SSomers2 <- function(t,Linf,K,t0,C,WP) {
     Linf*(1-exp(-K*(t-t0)-(C*K)/(2*pi)*sin(2*pi*(t-WP+0.5))+(C*K)/(2*pi)*sin(2*pi*(t0-WP+0.5))))
@@ -437,7 +437,7 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
   }
   Wang <- function(Lm,dt,Linf,K=NULL,b=NULL) {
     if (length(Linf)==3) { b <- Linf[[3]]; K <- Linf[[2]]
-                           Linf <- Linf[[1]] }
+    Linf <- Linf[[1]] }
     (Linf+b*(Lm-mean(Lm))-Lm)*(1-exp(-K*dt))
   }
   SWang <- function(Lm,dt,Linf,K,b) {
@@ -481,192 +481,192 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
   param <- match.arg(param)
   if (msg) {
     switch(param,
-      Ogle= {
-        message("You have chosen the 'Ogle-Isermann' parameterization.\n\n",
-                "  E[L|t] = (Linf-Lr)*(1-exp(-K*(t-tr)))\n\n",
-                "  where Linf = asymptotic mean length\n",
-                "           K = exponential rate of approach to Linf\n",
-                "          tr = mean age at Lr\n",
-                "          Lr = mean length at tr\n\n",
-                "NOTE: either tr or Lr must be set by the user.\n\n")
-      },
-      Typical=,typical=,Traditional=,traditional=,BevertonHolt= {
-        message("You have chosen the 'Typical', 'Traditional', or 'BevertonHolt' parameterization.\n\n",
-                "  E[L|t] = Linf*(1-exp(-K*(t-t0)))\n\n",
-                "  where Linf = asymptotic mean length\n",
-                "           K = exponential rate of approach to Linf\n",
-                "          t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
-      },
-      Original=,original=,vonBertalanffy={
-        message("You have chosen the 'Original' or 'vonBertalanffy` parameterization.\n\n",
-                "  E[L|t] = Linf-(Linf-L0)*exp(-K*t)\n\n",
-                "  where Linf = asymptotic mean length\n",
-                "          L0 = the mean length at age-0 (i.e., hatching or birth)\n",
-                "           K = exponential rate of approach to Linf\n\n")
-      },
-      Francis={
-        message("You have chosen the 'Francis' parameterization.\n\n",
-                "  E[L|t] = L1+(L3-L1)*[(1-r^(2*[(t-t1)/(t3-t1)]))/(1-r^2)]\n\n",
-                "  where r = [(L3-L2)/(L2-L1)] and\n\n",
-                "       L1 = the mean length at the first (small) reference age\n",
-                "       L2 = the mean length at the intermediate reference age\n",
-                "       L3 = the mean length at the third (large) reference age\n\n",
-                "You must also give values (i.e., they are NOT model parameters) for\n",
-                "       t1 = the first (usually a younger) reference age\n",
-                "       t3 = the third (usually an older) reference age\n\n")
-      },
-      GQ=,GallucciQuinn={
-        message("You have chosen the 'GQ' or 'GallucciQuinn' parameterization.\n\n",
-                "  E[L|t] = [omega/K]*(1-exp(-K*(t-t0)))\n\n",
-                "  where omega = growth rate near t0\n",
-                "            K = exponential rate of approach to Linf\n",
-                "           t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
-      },
-      Mooij={
-        message("You have chosen the 'Mooij' parameterization.\n\n",
-                "  E[L|t] = Linf-(Linf-L0)*exp(-(omega/Linf)*t)\n\n",
-                "  where Linf = asymptotic mean length\n",
-                "          L0 = the mean length at age-0 (i.e., hatching or birth)\n",
-                "       omega = growth rate near L0\n\n")
-      },
-      Weisberg= {
-        message("You have chosen the 'Weisberg' parameterization.\n\n",
-                "  E[L|t] = Linf*(1-exp(-(log(2)/(t50-t0))*(t-t0)))\n\n",
-                "  where Linf = asymptotic mean length\n",
-                "         t50 = age when half of Linf is reached\n",
-                "          t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
-      },
-      Schnute={
-        message("You have chosen the 'Schnute' parameterization.\n\n",
-                "  E[L|t] = L1+(L2-L1)*[(1-exp(-K*(t-t1)))/(1-exp(-K*(t2-t1)))]\n\n",
-                "  where L1 = the mean length at the youngest age in the sample\n",
-                "        L2 = the mean length at the oldest age in the sample\n",
-                "         K = exponential rate of approach to Linf\n\n",
-                "  You must also give values (i.e., they are NOT model parameters) for\n",
-                "        t1 = the youngest age in the sample\n",
-                "        t2 = the oldest age in the sample\n\n")
-      },
-      Laslett=,Polacheck={
-        message("You have chosen the 'Laslett/Polacheck' 'double' parameterization.\n\n",
-                "  E[L|t] = Linf*[1-exp(-K2*(t-to))((1+exp(-b(t-t0-a)))/(1+exp(ab)))^(-(K2-K1)/b)]\n\n",
-                "  where Linf = asymptotic mean length\n",
-                "          t0 = the theoretical age when length = 0 (a modeling artifact)\n",
-                "          K1 = the first (younger ages) exponential rate of approach to Linf\n",
-                "          K2 = the second (older ages) exponential rate of approach to Linf\n",
-                "           b = governs the rate of transition from K1 to K2\n",
-                "           a = the central age of the transition from K1 to K2\n\n")
-      },
-      Somers={
-        message("You have chosen the 'Somers Seasonal' parameterization.\n\n",
-                "  E[L|t] = Linf*(1-exp(-K*(t-to)-St+St0))\n\n",
-                "  where St = (CK/2*pi)*sin(2*pi*(t-ts)) and\n",
-                "       St0 = (CK/2*pi)*sin(2*pi*(t0-ts)) and\n\n",
-                "  and Linf = asymptotic mean length\n",
-                "         K = exponential rate of approach to Linf\n",
-                "        t0 = the theoretical age when length = 0 (a modeling artifact)\n",
-                "         C = proportional growth depression at 'winter peak'\n",
-                "        ts = time from t=0 until the first growth oscillation begins.\n\n")
-      },
-      Somers2={
-        message("You have chosen the modified 'Somers2 Seasonal' parameterization.\n\n",
-                "  E[L|t] = Linf*(1-exp(-K*(t-to)-Rt+Rt0))\n\n",
-                "  where Rt = (CK/2*pi)*sin(2*pi*(t-WP+0.5)) and\n",
-                "       Rt0 = (CK/2*pi)*sin(2*pi*(t0-WP+0.5)) and\n\n",
-                "  and Linf = asymptotic mean length\n",
-                "         K = exponential rate of approach to Linf\n",
-                "        t0 = the theoretical age when length = 0 (a modeling artifact)\n",
-                "         C = proportional growth depression at 'winter peak'\n",
-                "        WP = the 'winter peak' (point of slowest growth).\n\n")
-      },
-      Pauly={
-        message("You have chosen the 'Pauly Seasonal Cessation' parameterization.\n\n",
-                "  E[L|t] = Linf*(1-exp(-K'*(t'-to)-Vt'+Vt0))\n\n",
-                "  where Vt' = (K'(1-NGT)/2*pi)*sin(2*pi*(t'-ts)/(1-NGT)) and\n",
-                "        Vt0 = (K'(1-NGT)/2*pi)*sin(2*pi*(t0-ts)/(1-NGT)) and\n\n",
-                "  and Linf = asymptotic mean length\n",
-                "        K' = exponential rate of approach to Linf during growth period\n",
-                "        t0 = the theoretical age when length = 0 (a modeling artifact)\n",
-                "        ts = time from t=0 until the first growth oscillation begins\n",
-                "       NGT = length of no-growth period.\n\n")
-      },
-      Fabens={
-        message("You have chosen the 'Fabens' parameterization for tag-return data.\n\n",
-                "  E[dL|Lm,dt] = (Linf-Lm)*(1-exp(-K*dt))\n\n",
-                "  where Linf = asymptotic mean length\n",
-                "           K = exponential rate of approach to Linf\n\n",
-                "  and the data are dL = change in length (from mark to recapture)\n",
-                "                   Lm = length at time of marking\n",
-                "                   dt = time between marking and recapture.\n\n")
-      },
-      Fabens2={
-        message("You have chosen the 'Fabens2' parameterization for tag-return data.\n\n",
-                "  E[Lr|Lm,dt] = Lm + (Linf-Lm)*(1-exp(-K*dt))\n\n",
-                "  where Linf = asymptotic mean length\n",
-                "           K = exponential rate of approach to Linf\n\n",
-                "  and the data are Lr = length at time of recapture\n",
-                "                   Lm = length at time of marking\n",
-                "                   dt = time between marking and recapture.\n\n")
-      },
-      Wang={
-        message("You have chosen the 'Wang' parameterization for tag-return data.\n\n",
-                "  E[dL|Lm,dt] = (Linf+b(Lm-E(Lm))-Lm)*(1-exp(-K*dt))\n\n",
-                "  where Linf = asymptotic mean length\n",
-                "           K = exponential rate of approach to Linf\n",
-                "           b = parameter\n\n",
-                "  and the data are dL = change in length (from mark to recapture)\n",
-                "                   Lm = length at time of marking\n",
-                "                   dt = time between marking and recapture.\n\n",
-                "  and with E(Lm) = expectation (i.e., mean) of Lm.\n\n")
-      },
-      Wang2={
-        message("You have chosen the 'Wang2' parameterization for tag-return data.\n\n",
-                "  E[dL|Lm,dt] = (a+bLm)*(1-exp(-K*dt))\n\n",
-                "  where K = exponential rate of approach to Linf\n",
-                "     a, b = parameters\n\n",
-                "  and the data are dL = change in length (from mark to recapture)\n",
-                "                   Lm = length at time of marking\n",
-                "                   dt = time between marking and recapture.\n\n")
-      },
-      Wang3={
-        message("You have chosen the 'Wang3' parameterization for tag-return data.\n\n",
-                "  E[Lr|Lm,dt] = Lm+(a+bLm)*(1-exp(-K*dt))\n\n",
-                "  where K = exponential rate of approach to Linf\n",
-                "     a, b = parameters\n\n",
-                "  and the data are Lr = length at time of recapture\n",
-                "                   Lm = length at time of marking\n",
-                "                   dt = time between marking and recapture.\n\n")
-      },
-      Francis2={
-        message("You have chosen the 'Francis2' parameterization for tag-return data.\n\n",
-                "  E[dL|Lm,dt] = ((L2g1-L1g2)/(g1-g2)-Lm)*(1-(1+(g1-g2)/(L1-L2))^dt)\n\n",
-                "  where g1 = mean growth rate at the first (small) reference length L1\n",
-                "        g2 = mean growth rate at the second (large) reference length L2\n\n",
-                "You must also give values (i.e., they are NOT model parameters) for\n",
-                "       L1 = the first (usually a shorter) reference length\n",
-                "       L2 = the second (usually a longer) reference length\n",
-                "The data are dL = change in length (from mark to recapture)\n",
-                "             Lm = length at time of marking\n",
-                "             dt = time between marking and recapture.\n\n")
-      },
-      Francis3={
-        message("You have chosen the 'Francis3' parameterization for tag-return data\n",
-                "  with a seasonal component.\n\n",
-                "  E[dL|Lm,t1,t2] = ((L2g1-L1g2)/(g1-g2)-Lm)*(1-(1+(g1-g2)/(L1-L2))^((t2-t1)+S2-S1))\n\n",
-                "  where S1 = u*sin(2*pi*(t1-w))/(2*pi) and\n",
-                "        S2 = u*sin(2*pi*(t2-w))/(2*pi) and\n\n",
-                "  where g1 = mean growth rate at the first (small) reference length L1\n",
-                "        g2 = mean growth rate at the second (large) reference length L2\n",
-                "        w  = time of year when the growth rate is maximum\n",
-                "        u  = describes the extent of seasonality.\n\n",
-                "You must also give values (i.e., they are NOT model parameters) for\n",
-                "       L1 = the first (usually a shorter) reference length\n",
-                "       L2 = the second (usually a longer) reference length\n",
-                "The data are dL = change in length (from mark to recapture)\n",
-                "                   Lm = length at time of marking\n",
-                "                   t1 = time at marking\n",
-                "                   t2 = time at recapture.\n\n")
-      }
-      
+           Ogle= {
+             message("You have chosen the 'Ogle-Isermann' parameterization.\n\n",
+                     "  E[L|t] = (Linf-Lr)*(1-exp(-K*(t-tr)))\n\n",
+                     "  where Linf = asymptotic mean length\n",
+                     "           K = exponential rate of approach to Linf\n",
+                     "          tr = mean age at Lr\n",
+                     "          Lr = mean length at tr\n\n",
+                     "NOTE: either tr or Lr must be set by the user.\n\n")
+           },
+           Typical=,typical=,Traditional=,traditional=,BevertonHolt= {
+             message("You have chosen the 'Typical', 'Traditional', or 'BevertonHolt' parameterization.\n\n",
+                     "  E[L|t] = Linf*(1-exp(-K*(t-t0)))\n\n",
+                     "  where Linf = asymptotic mean length\n",
+                     "           K = exponential rate of approach to Linf\n",
+                     "          t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
+           },
+           Original=,original=,vonBertalanffy={
+             message("You have chosen the 'Original' or 'vonBertalanffy` parameterization.\n\n",
+                     "  E[L|t] = Linf-(Linf-L0)*exp(-K*t)\n\n",
+                     "  where Linf = asymptotic mean length\n",
+                     "          L0 = the mean length at age-0 (i.e., hatching or birth)\n",
+                     "           K = exponential rate of approach to Linf\n\n")
+           },
+           Francis={
+             message("You have chosen the 'Francis' parameterization.\n\n",
+                     "  E[L|t] = L1+(L3-L1)*[(1-r^(2*[(t-t1)/(t3-t1)]))/(1-r^2)]\n\n",
+                     "  where r = [(L3-L2)/(L2-L1)] and\n\n",
+                     "       L1 = the mean length at the first (small) reference age\n",
+                     "       L2 = the mean length at the intermediate reference age\n",
+                     "       L3 = the mean length at the third (large) reference age\n\n",
+                     "You must also give values (i.e., they are NOT model parameters) for\n",
+                     "       t1 = the first (usually a younger) reference age\n",
+                     "       t3 = the third (usually an older) reference age\n\n")
+           },
+           GQ=,GallucciQuinn={
+             message("You have chosen the 'GQ' or 'GallucciQuinn' parameterization.\n\n",
+                     "  E[L|t] = [omega/K]*(1-exp(-K*(t-t0)))\n\n",
+                     "  where omega = growth rate near t0\n",
+                     "            K = exponential rate of approach to Linf\n",
+                     "           t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
+           },
+           Mooij={
+             message("You have chosen the 'Mooij' parameterization.\n\n",
+                     "  E[L|t] = Linf-(Linf-L0)*exp(-(omega/Linf)*t)\n\n",
+                     "  where Linf = asymptotic mean length\n",
+                     "          L0 = the mean length at age-0 (i.e., hatching or birth)\n",
+                     "       omega = growth rate near L0\n\n")
+           },
+           Weisberg= {
+             message("You have chosen the 'Weisberg' parameterization.\n\n",
+                     "  E[L|t] = Linf*(1-exp(-(log(2)/(t50-t0))*(t-t0)))\n\n",
+                     "  where Linf = asymptotic mean length\n",
+                     "         t50 = age when half of Linf is reached\n",
+                     "          t0 = the theoretical age when length = 0 (a modeling artifact)\n\n")
+           },
+           Schnute={
+             message("You have chosen the 'Schnute' parameterization.\n\n",
+                     "  E[L|t] = L1+(L2-L1)*[(1-exp(-K*(t-t1)))/(1-exp(-K*(t2-t1)))]\n\n",
+                     "  where L1 = the mean length at the youngest age in the sample\n",
+                     "        L2 = the mean length at the oldest age in the sample\n",
+                     "         K = exponential rate of approach to Linf\n\n",
+                     "  You must also give values (i.e., they are NOT model parameters) for\n",
+                     "        t1 = the youngest age in the sample\n",
+                     "        t2 = the oldest age in the sample\n\n")
+           },
+           Laslett=,Polacheck={
+             message("You have chosen the 'Laslett/Polacheck' 'double' parameterization.\n\n",
+                     "  E[L|t] = Linf*[1-exp(-K2*(t-to))((1+exp(-b(t-t0-a)))/(1+exp(ab)))^(-(K2-K1)/b)]\n\n",
+                     "  where Linf = asymptotic mean length\n",
+                     "          t0 = the theoretical age when length = 0 (a modeling artifact)\n",
+                     "          K1 = the first (younger ages) exponential rate of approach to Linf\n",
+                     "          K2 = the second (older ages) exponential rate of approach to Linf\n",
+                     "           b = governs the rate of transition from K1 to K2\n",
+                     "           a = the central age of the transition from K1 to K2\n\n")
+           },
+           Somers={
+             message("You have chosen the 'Somers Seasonal' parameterization.\n\n",
+                     "  E[L|t] = Linf*(1-exp(-K*(t-to)-St+St0))\n\n",
+                     "  where St = (CK/2*pi)*sin(2*pi*(t-ts)) and\n",
+                     "       St0 = (CK/2*pi)*sin(2*pi*(t0-ts)) and\n\n",
+                     "  and Linf = asymptotic mean length\n",
+                     "         K = exponential rate of approach to Linf\n",
+                     "        t0 = the theoretical age when length = 0 (a modeling artifact)\n",
+                     "         C = proportional growth depression at 'winter peak'\n",
+                     "        ts = time from t=0 until the first growth oscillation begins.\n\n")
+           },
+           Somers2={
+             message("You have chosen the modified 'Somers2 Seasonal' parameterization.\n\n",
+                     "  E[L|t] = Linf*(1-exp(-K*(t-to)-Rt+Rt0))\n\n",
+                     "  where Rt = (CK/2*pi)*sin(2*pi*(t-WP+0.5)) and\n",
+                     "       Rt0 = (CK/2*pi)*sin(2*pi*(t0-WP+0.5)) and\n\n",
+                     "  and Linf = asymptotic mean length\n",
+                     "         K = exponential rate of approach to Linf\n",
+                     "        t0 = the theoretical age when length = 0 (a modeling artifact)\n",
+                     "         C = proportional growth depression at 'winter peak'\n",
+                     "        WP = the 'winter peak' (point of slowest growth).\n\n")
+           },
+           Pauly={
+             message("You have chosen the 'Pauly Seasonal Cessation' parameterization.\n\n",
+                     "  E[L|t] = Linf*(1-exp(-K'*(t'-to)-Vt'+Vt0))\n\n",
+                     "  where Vt' = (K'(1-NGT)/2*pi)*sin(2*pi*(t'-ts)/(1-NGT)) and\n",
+                     "        Vt0 = (K'(1-NGT)/2*pi)*sin(2*pi*(t0-ts)/(1-NGT)) and\n\n",
+                     "  and Linf = asymptotic mean length\n",
+                     "        K' = exponential rate of approach to Linf during growth period\n",
+                     "        t0 = the theoretical age when length = 0 (a modeling artifact)\n",
+                     "        ts = time from t=0 until the first growth oscillation begins\n",
+                     "       NGT = length of no-growth period.\n\n")
+           },
+           Fabens={
+             message("You have chosen the 'Fabens' parameterization for tag-return data.\n\n",
+                     "  E[dL|Lm,dt] = (Linf-Lm)*(1-exp(-K*dt))\n\n",
+                     "  where Linf = asymptotic mean length\n",
+                     "           K = exponential rate of approach to Linf\n\n",
+                     "  and the data are dL = change in length (from mark to recapture)\n",
+                     "                   Lm = length at time of marking\n",
+                     "                   dt = time between marking and recapture.\n\n")
+           },
+           Fabens2={
+             message("You have chosen the 'Fabens2' parameterization for tag-return data.\n\n",
+                     "  E[Lr|Lm,dt] = Lm + (Linf-Lm)*(1-exp(-K*dt))\n\n",
+                     "  where Linf = asymptotic mean length\n",
+                     "           K = exponential rate of approach to Linf\n\n",
+                     "  and the data are Lr = length at time of recapture\n",
+                     "                   Lm = length at time of marking\n",
+                     "                   dt = time between marking and recapture.\n\n")
+           },
+           Wang={
+             message("You have chosen the 'Wang' parameterization for tag-return data.\n\n",
+                     "  E[dL|Lm,dt] = (Linf+b(Lm-E(Lm))-Lm)*(1-exp(-K*dt))\n\n",
+                     "  where Linf = asymptotic mean length\n",
+                     "           K = exponential rate of approach to Linf\n",
+                     "           b = parameter\n\n",
+                     "  and the data are dL = change in length (from mark to recapture)\n",
+                     "                   Lm = length at time of marking\n",
+                     "                   dt = time between marking and recapture.\n\n",
+                     "  and with E(Lm) = expectation (i.e., mean) of Lm.\n\n")
+           },
+           Wang2={
+             message("You have chosen the 'Wang2' parameterization for tag-return data.\n\n",
+                     "  E[dL|Lm,dt] = (a+bLm)*(1-exp(-K*dt))\n\n",
+                     "  where K = exponential rate of approach to Linf\n",
+                     "     a, b = parameters\n\n",
+                     "  and the data are dL = change in length (from mark to recapture)\n",
+                     "                   Lm = length at time of marking\n",
+                     "                   dt = time between marking and recapture.\n\n")
+           },
+           Wang3={
+             message("You have chosen the 'Wang3' parameterization for tag-return data.\n\n",
+                     "  E[Lr|Lm,dt] = Lm+(a+bLm)*(1-exp(-K*dt))\n\n",
+                     "  where K = exponential rate of approach to Linf\n",
+                     "     a, b = parameters\n\n",
+                     "  and the data are Lr = length at time of recapture\n",
+                     "                   Lm = length at time of marking\n",
+                     "                   dt = time between marking and recapture.\n\n")
+           },
+           Francis2={
+             message("You have chosen the 'Francis2' parameterization for tag-return data.\n\n",
+                     "  E[dL|Lm,dt] = ((L2g1-L1g2)/(g1-g2)-Lm)*(1-(1+(g1-g2)/(L1-L2))^dt)\n\n",
+                     "  where g1 = mean growth rate at the first (small) reference length L1\n",
+                     "        g2 = mean growth rate at the second (large) reference length L2\n\n",
+                     "You must also give values (i.e., they are NOT model parameters) for\n",
+                     "       L1 = the first (usually a shorter) reference length\n",
+                     "       L2 = the second (usually a longer) reference length\n",
+                     "The data are dL = change in length (from mark to recapture)\n",
+                     "             Lm = length at time of marking\n",
+                     "             dt = time between marking and recapture.\n\n")
+           },
+           Francis3={
+             message("You have chosen the 'Francis3' parameterization for tag-return data\n",
+                     "  with a seasonal component.\n\n",
+                     "  E[dL|Lm,t1,t2] = ((L2g1-L1g2)/(g1-g2)-Lm)*(1-(1+(g1-g2)/(L1-L2))^((t2-t1)+S2-S1))\n\n",
+                     "  where S1 = u*sin(2*pi*(t1-w))/(2*pi) and\n",
+                     "        S2 = u*sin(2*pi*(t2-w))/(2*pi) and\n\n",
+                     "  where g1 = mean growth rate at the first (small) reference length L1\n",
+                     "        g2 = mean growth rate at the second (large) reference length L2\n",
+                     "        w  = time of year when the growth rate is maximum\n",
+                     "        u  = describes the extent of seasonality.\n\n",
+                     "You must also give values (i.e., they are NOT model parameters) for\n",
+                     "       L1 = the first (usually a shorter) reference length\n",
+                     "       L2 = the second (usually a longer) reference length\n",
+                     "The data are dL = change in length (from mark to recapture)\n",
+                     "                   Lm = length at time of marking\n",
+                     "                   t1 = time at marking\n",
+                     "                   t2 = time at recapture.\n\n")
+           }
+           
     )
   }
   if (simple) param <- paste0("S",param)
@@ -678,10 +678,10 @@ vbFuns <- function(param=c("Typical","typical","Traditional","traditional","Beve
 #' @rdname growthModels
 #' @export
 GompertzFuns <- function(param=c("Ricker1","Ricker2","Ricker3",
-                                "QuinnDeriso1","QuinnDeriso2","QuinnDeriso3",
-                                "QD1","QD2","QD3",
-                                "Original","original",
-                                "Troynikov1","Troynikov2"),
+                                 "QuinnDeriso1","QuinnDeriso2","QuinnDeriso3",
+                                 "QD1","QD2","QD3",
+                                 "Original","original",
+                                 "Troynikov1","Troynikov2"),
                          simple=FALSE,msg=FALSE) {
   Original <- original <- function(t,Linf,a=NULL,gi=NULL) {
     if (length(Linf)==3) { a <- Linf[[2]]
@@ -1171,102 +1171,102 @@ growthFunShow <- function(type=c("vonBertalanffy","Gompertz","Richards",
 ## Internal functions for growth model expressions
 ################################################################################
 iSGF_VB <- function(param=c("Original","original","vonBertalanffy",
-                           "Typical","typical","Traditional","traditional","BevertonHolt",
-                           "GallucciQuinn","GQ","Mooij","Weisberg","Ogle",
-                           "Schnute","Francis","Laslett","Polacheck",
-                           "Somers","Somers2","Pauly",
-                           "Fabens","Fabens2","Wang","Wang2","Wang3")) {
+                            "Typical","typical","Traditional","traditional","BevertonHolt",
+                            "GallucciQuinn","GQ","Mooij","Weisberg","Ogle",
+                            "Schnute","Francis","Laslett","Polacheck",
+                            "Somers","Somers2","Pauly",
+                            "Fabens","Fabens2","Wang","Wang2","Wang3")) {
   if(!is.character(param)) STOP("'param' must be a character string.")
   param <- match.arg(param)
   switch(param,
-    Ogle= {
-      expr <- expression(E(L[t])==L[infinity]~-~(L[infinity]-L[r])*~e^{-K(t~-~t[r])})
-    },
-    Typical=,typical=,Traditional=,traditional=,BevertonHolt= {
-      expr <- expression(E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])},")"))
-    },
-    Original=,original=,vonBertalanffy= {
-      expr <- expression(E(L[t])==L[infinity]~-~(L[infinity]-L[0])*~e^{-Kt})
-    },
-    GallucciQuinn=,GQ= {
-      expr <- expression(E(L[t])==frac(omega,K)*~bgroup("(",1-e^{-K*(t~-~t[0])},")"))
-    },
-    Mooij= {
-      expr <- expression(E(L[t])==L[infinity]~-~(L[infinity]-L[0])*~e^{-frac(omega,L[infinity])*~t})
-    },
-    Weisberg= {
-      expr <- expression(E(L[t])==L[infinity]*bgroup("(",1-e^{-frac(log(2),(t[50]~-~t[0]))*(t~-~t[0])},")"))
-    },
-    Schnute= {
-      expr <- expression(E(L[t])==L[1]+(L[3]-L[1])*~frac(1-e^{-K*(~t~-~t[1])},1-e^{-K*(~t[3]~-~t[1])}))
-    },
-    Francis= {
-      expr <- expression(atop(E(L[t])==L[1]+(L[3]-L[1])*~frac(1-r^{2*frac(t-t[1],t[3]-t[1])},1-r^{2}),
-                              plain("where" )~r==frac(L[3]-L[2],L[2]-L[1])))
-    },
-    Laslett= {
-      expr <- expression(plain("Not Yet Implemented"))
-    },
-    Polacheck= {
-      expr <- expression(plain("Not Yet Implemented"))
-    },
-    Somers= {
-      expr <- expression(atop(E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])-S(t)+S(t[0])},")"),
-                              plain("where" )~S(t)==bgroup("(",frac(C*K,2*~pi),")")*~sin(2*pi*(t-t[s]))))
-    },
-    Somers2= {
-      expr <- expression(atop(E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])-R(t)+R(t[0])},")"),
-                              plain("where" )~R(t)==bgroup("(",frac(C*K,2*~pi),")")*~sin(2*pi*(t-WP+0.5))))
-    },
-    Pauly= {
-      expr <- expression(atop(E(L[t])==L[infinity]*bgroup("(",1-e^{-Kpr*(tpr~-~t[0])-V(tpr)+V(t[0])},")"),
-                              plain("where" )~V(t)==bgroup("(",frac(Kpr(1-NGT),2*~pi),")")*~sin(frac(2*pi,1-NGT)*(t-t[s]))))
-    },
-    Fabens= {
-      expr <- expression(E(L[r]-L[m])==(L[infinity]-L[m])*bgroup("(",1-e^{-K*Delta*t},")"))
-    },
-    Fabens2= {
-      expr <- expression(E(L[r])==L[m]+(L[infinity]-L[m])*bgroup("(",1-e^{-K*Delta*t},")"))
-    },
-    Wang= {
-      expr <- expression(E(L[r]-L[m])==(L[infinity]+beta*(L[t]-L[t])-L[m])*bgroup("(",1-e^{-K*Delta*t},")"))
-    },
-    Wang2= {
-      expr <- expression(E(L[r]-L[m])==(alpha+beta*L[t])*bgroup("(",1-e^{-K*Delta*t},")"))
-    },
-    Wang3= {
-      expr <- expression(E(L[r])==L[m]+(alpha+beta*L[t])*bgroup("(",1-e^{-K*Delta*t},")"))
-    })
+         Ogle= {
+           expr <- expression(E(L[t])==L[infinity]~-~(L[infinity]-L[r])*~e^{-K(t~-~t[r])})
+         },
+         Typical=,typical=,Traditional=,traditional=,BevertonHolt= {
+           expr <- expression(E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])},")"))
+         },
+         Original=,original=,vonBertalanffy= {
+           expr <- expression(E(L[t])==L[infinity]~-~(L[infinity]-L[0])*~e^{-Kt})
+         },
+         GallucciQuinn=,GQ= {
+           expr <- expression(E(L[t])==frac(omega,K)*~bgroup("(",1-e^{-K*(t~-~t[0])},")"))
+         },
+         Mooij= {
+           expr <- expression(E(L[t])==L[infinity]~-~(L[infinity]-L[0])*~e^{-frac(omega,L[infinity])*~t})
+         },
+         Weisberg= {
+           expr <- expression(E(L[t])==L[infinity]*bgroup("(",1-e^{-frac(log(2),(t[50]~-~t[0]))*(t~-~t[0])},")"))
+         },
+         Schnute= {
+           expr <- expression(E(L[t])==L[1]+(L[3]-L[1])*~frac(1-e^{-K*(~t~-~t[1])},1-e^{-K*(~t[3]~-~t[1])}))
+         },
+         Francis= {
+           expr <- expression(atop(E(L[t])==L[1]+(L[3]-L[1])*~frac(1-r^{2*frac(t-t[1],t[3]-t[1])},1-r^{2}),
+                                   plain("where" )~r==frac(L[3]-L[2],L[2]-L[1])))
+         },
+         Laslett= {
+           expr <- expression(plain("Not Yet Implemented"))
+         },
+         Polacheck= {
+           expr <- expression(plain("Not Yet Implemented"))
+         },
+         Somers= {
+           expr <- expression(atop(E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])-S(t)+S(t[0])},")"),
+                                   plain("where" )~S(t)==bgroup("(",frac(C*K,2*~pi),")")*~sin(2*pi*(t-t[s]))))
+         },
+         Somers2= {
+           expr <- expression(atop(E(L[t])==L[infinity]*bgroup("(",1-e^{-K*(t~-~t[0])-R(t)+R(t[0])},")"),
+                                   plain("where" )~R(t)==bgroup("(",frac(C*K,2*~pi),")")*~sin(2*pi*(t-WP+0.5))))
+         },
+         Pauly= {
+           expr <- expression(atop(E(L[t])==L[infinity]*bgroup("(",1-e^{-Kpr*(tpr~-~t[0])-V(tpr)+V(t[0])},")"),
+                                   plain("where" )~V(t)==bgroup("(",frac(Kpr(1-NGT),2*~pi),")")*~sin(frac(2*pi,1-NGT)*(t-t[s]))))
+         },
+         Fabens= {
+           expr <- expression(E(L[r]-L[m])==(L[infinity]-L[m])*bgroup("(",1-e^{-K*Delta*t},")"))
+         },
+         Fabens2= {
+           expr <- expression(E(L[r])==L[m]+(L[infinity]-L[m])*bgroup("(",1-e^{-K*Delta*t},")"))
+         },
+         Wang= {
+           expr <- expression(E(L[r]-L[m])==(L[infinity]+beta*(L[t]-L[t])-L[m])*bgroup("(",1-e^{-K*Delta*t},")"))
+         },
+         Wang2= {
+           expr <- expression(E(L[r]-L[m])==(alpha+beta*L[t])*bgroup("(",1-e^{-K*Delta*t},")"))
+         },
+         Wang3= {
+           expr <- expression(E(L[r])==L[m]+(alpha+beta*L[t])*bgroup("(",1-e^{-K*Delta*t},")"))
+         })
   expr
 }
 
 iSGF_GOMP <- function(param=c("Original","original","Ricker1","Ricker2","Ricker3",
-                             "QuinnDeriso1","QuinnDeriso2","QuinnDeriso3","QD1","QD2","QD3",
-                             "Troynikov1","Troynikov2")) {
+                              "QuinnDeriso1","QuinnDeriso2","QuinnDeriso3","QD1","QD2","QD3",
+                              "Troynikov1","Troynikov2")) {
   if(!is.character(param)) STOP("'param' must be a character string.")
   param <- match.arg(param)
   switch(param,
-    Original=,original= {
-      expr <- expression(E(L[t])==L[infinity]*~e^{-e^{a-g[i]*t}})
-    },
-    Ricker1= {
-      expr <- expression(E(L[t])==L[infinity]*~e^{-e^{-g[i]*(t-t[i])}})
-    },
-    Ricker2=,QuinnDeriso1=,QD1= {
-      expr <- expression(E(L[t])==L[0]*~e^{a*bgroup("(",1-e^{-g[i]*t},")")})
-    },
-    Ricker3=,QuinnDeriso2=,QD2= {
-      expr <- expression(E(L[t])==L[infinity]*~e^{-a*~e^{-g[i]*t}})
-    },
-    QuinnDeriso3=,QD3= {
-      expr <- expression(E(L[t])==L[infinity]*~e^{-~frac(1,g[i])*~e^{-g[i]*~(~t~-~t^{plain("*")})}})
-    },
-    Troynikov1= {
-      expr <- expression(E(L[r]-L[m])==L[infinity]*~bgroup("(",frac(L[m],L[infinity]),")")^{e^{-g[i]*Delta*t}}-L[m])
-    },
-    Troynikov2= {
-      expr <- expression(E(L[r])==L[infinity]*~bgroup("(",frac(L[m],L[infinity]),")")^{e^{-g[i]*Delta*t}})
-    })
+         Original=,original= {
+           expr <- expression(E(L[t])==L[infinity]*~e^{-e^{a-g[i]*t}})
+         },
+         Ricker1= {
+           expr <- expression(E(L[t])==L[infinity]*~e^{-e^{-g[i]*(t-t[i])}})
+         },
+         Ricker2=,QuinnDeriso1=,QD1= {
+           expr <- expression(E(L[t])==L[0]*~e^{a*bgroup("(",1-e^{-g[i]*t},")")})
+         },
+         Ricker3=,QuinnDeriso2=,QD2= {
+           expr <- expression(E(L[t])==L[infinity]*~e^{-a*~e^{-g[i]*t}})
+         },
+         QuinnDeriso3=,QD3= {
+           expr <- expression(E(L[t])==L[infinity]*~e^{-~frac(1,g[i])*~e^{-g[i]*~(~t~-~t^{plain("*")})}})
+         },
+         Troynikov1= {
+           expr <- expression(E(L[r]-L[m])==L[infinity]*~bgroup("(",frac(L[m],L[infinity]),")")^{e^{-g[i]*Delta*t}}-L[m])
+         },
+         Troynikov2= {
+           expr <- expression(E(L[r])==L[infinity]*~bgroup("(",frac(L[m],L[infinity]),")")^{e^{-g[i]*Delta*t}})
+         })
   expr
 }
 
@@ -1293,18 +1293,18 @@ iSGF_LOGISTIC <- function(param=c("CJ1","CJ2","Karkach","Haddon","CampanaJones1"
   if(!is.character(param)) STOP("'param' must be a character string.")
   param <- match.arg(param)
   switch(param,
-    CJ1=,CampanaJones1= {
-      expr <- expression(E(L[t])==frac(L[infinity],1+e^{-g[-infinity]*(t-t[i])}))
-    },
-    CJ2=,CampanaJones2= {
-      expr <- expression(E(L[t])==frac(L[infinity],1+~ae^{-g[-infinity]*t}))
-    },
-    Karkach= {
-      expr <- expression(E(L[t])==frac(L[0]*L[infinity],L[0]+(L[infinity]-L[0])*e^{-g[-infinity]*t}))
-    },
-    Haddon= {
-      expr <- expression(E(L[r]-L[m])==frac(Delta*L[max],1+e^{log(19)*frac(L[m]~-~L[50],L[95]~-~L[50])}))
-    })
+         CJ1=,CampanaJones1= {
+           expr <- expression(E(L[t])==frac(L[infinity],1+e^{-g[-infinity]*(t-t[i])}))
+         },
+         CJ2=,CampanaJones2= {
+           expr <- expression(E(L[t])==frac(L[infinity],1+~ae^{-g[-infinity]*t}))
+         },
+         Karkach= {
+           expr <- expression(E(L[t])==frac(L[0]*L[infinity],L[0]+(L[infinity]-L[0])*e^{-g[-infinity]*t}))
+         },
+         Haddon= {
+           expr <- expression(E(L[r]-L[m])==frac(Delta*L[max],1+e^{log(19)*frac(L[m]~-~L[50],L[95]~-~L[50])}))
+         })
   expr
 }
 
