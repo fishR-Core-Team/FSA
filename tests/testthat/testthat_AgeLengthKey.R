@@ -274,32 +274,30 @@ test_that("Assigned ages are correct (within rounding) with semi-random alkIndiv
 })
 
 test_that("alkAgeDist() reproduces results from Table 8.4 (left) of Quinn and Deriso (1999)",{
-  if (require(fishmethods,quietly=TRUE)) {
-    ## Q&D (1999) data are alkdata and alkprop reproduces Table 8.4 results
-    data(alkdata,package="fishmethods")
-    tmp1 <- alkprop(alkdata)$results
-  }
-  if (require(FSAdata,quietly=TRUE)) {
-    ## Same data in SnapperHG2 in a different format
-    ## create ALK and intermediate results
-    data(SnapperHG2,package="FSAdata")
-    len.n <- xtabs(~len,data=SnapperHG2)
-    sn.age <- subset(SnapperHG2,!is.na(age))
-    agekey <- prop.table(xtabs(~len+age,data=sn.age),1)
-    lenA.n <- xtabs(~len,data=sn.age)
-    ## get ALKAgeDist results
-    tmp2 <- alkAgeDist(agekey,lenA.n,len.n)
-    
-    ## Find difference in results
-    diff <- as.matrix(tmp2[,-1]-tmp1[,-3])
-    expect_equal(diff,matrix(0,nrow=nrow(diff),ncol=ncol(diff)),ignore_attr=TRUE)
-    
-    ## enter Q&D results as a guard against fishmethods changing
-    props <- c(0.0003,0.0213,0.1624,0.0926,0.1533,0.1461,0.1260,
-               0.0133,0.0277,0.0763,0.0298,0.0332,0.0162,0.1017)
-    ses <- c(0.0003,0.0056,0.0157,0.0158,0.0185,0.0182,0.0150,
-             0.0050,0.0074,0.0083,0.0047,0.0050,0.0031,0.0063)
-    diff <- as.matrix(round(tmp2[,-1],4)-cbind(props,ses))
-    expect_equal(diff,matrix(0,nrow=nrow(diff),ncol=ncol(diff)),ignore_attr=TRUE)
-  }
+  ## Q&D (1999) data are alkdata and alkprop reproduces Table 8.4 results
+  data(alkdata,package="fishmethods")
+  tmp1 <- fishmethods::alkprop(alkdata)$results
+  
+  ## Same data in SnapperHG2 in a different format
+  ## create ALK and intermediate results
+  data(SnapperHG2,package="FSAdata")
+  len.n <- xtabs(~len,data=SnapperHG2)
+  sn.age <- subset(SnapperHG2,!is.na(age))
+  agekey <- prop.table(xtabs(~len+age,data=sn.age),1)
+  lenA.n <- xtabs(~len,data=sn.age)
+  ## get ALKAgeDist results
+  tmp2 <- alkAgeDist(agekey,lenA.n,len.n)
+  
+  ## Find difference in results
+  diff <- as.matrix(tmp2[,-1]-tmp1[,-3])
+  expect_equal(diff,matrix(0,nrow=nrow(diff),ncol=ncol(diff)),ignore_attr=TRUE)
+  
+  ## enter Q&D results as a guard against fishmethods changing
+  props <- c(0.0003,0.0213,0.1624,0.0926,0.1533,0.1461,0.1260,
+             0.0133,0.0277,0.0763,0.0298,0.0332,0.0162,0.1017)
+  ses <- c(0.0003,0.0056,0.0157,0.0158,0.0185,0.0182,0.0150,
+           0.0050,0.0074,0.0083,0.0047,0.0050,0.0031,0.0063)
+  diff <- as.matrix(round(tmp2[,-1],4)-cbind(props,ses))
+  expect_equal(diff,matrix(0,nrow=nrow(diff),ncol=ncol(diff)),ignore_attr=TRUE)
+  
 })

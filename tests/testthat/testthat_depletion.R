@@ -1,54 +1,50 @@
 ## Results for validation tests below ----
 # fishmethods's Darter data
-if (require(fishmethods,quietly=TRUE)) {
-  data(darter,package="fishmethods")
-  # fishmethod Leslie
-  deplet(catch=darter$catch,effort=darter$effort,method="l")
-  cf1fm <- l.out$results[,1:2]
-  ci1fm <- l.out$results[,3:4]
-  # FSA Leslie
-  ex1 <- with(darter,depletion(darter$catch,darter$effort))
-  cf1 <- summary(ex1)
-  ci1 <- confint(ex1)
-  
-  # fishmethod DeLury
-  deplet(catch=darter$catch,effort=darter$effort,method="d")
-  cf2fm <- d.out$results[,1:2]
-  ci2fm <- d.out$results[,3:4]
-  # FSA Leslie
-  ex2 <- with(darter,depletion(darter$catch,darter$effort,
-                               method="DeLury",Ricker.mod=TRUE))
-  cf2 <- summary(ex2)
-  ci2 <- confint(ex2) 
-}
+data(darter,package="fishmethods")
+# fishmethod Leslie
+fishmethods::deplet(catch=darter$catch,effort=darter$effort,method="l")
+cf1fm <- l.out$results[,1:2]
+ci1fm <- l.out$results[,3:4]
+# FSA Leslie
+ex1 <- with(darter,depletion(darter$catch,darter$effort))
+cf1 <- summary(ex1)
+ci1 <- confint(ex1)
+
+# fishmethod DeLury
+fishmethods::deplet(catch=darter$catch,effort=darter$effort,method="d")
+cf2fm <- d.out$results[,1:2]
+ci2fm <- d.out$results[,3:4]
+# FSA Leslie
+ex2 <- with(darter,depletion(darter$catch,darter$effort,
+                             method="DeLury",Ricker.mod=TRUE))
+cf2 <- summary(ex2)
+ci2 <- confint(ex2) 
 
 # DeLury's Lobster Data
-if (require(FSAdata,quietly=TRUE)) {
-  data(LobsterPEI,package="FSAdata")
-  df <- subset(LobsterPEI,day>16)
-  # fishmethod Leslie
-  deplet(catch=df$catch,effort=df$effort,method="l")
-  cf3fm <- l.out$results[,1:2]
-  ci3fm <- l.out$results[,3:4]
-  # FSA Leslie
-  ex3 <- with(df,depletion(catch,effort))
-  cf3 <- summary(ex3)
-  ci3 <- confint(ex3)
-  
-  # fishmethod Leslie
-  deplet(catch=df$catch,effort=df$effort,method="d")
-  cf4fm <- d.out$results[,1:2]
-  ci4fm <- d.out$results[,3:4]
-  # FSA DeLury
-  ex4 <- with(df,depletion(catch,effort,method="DeLury",Ricker.mod=TRUE))
-  cf4 <- summary(ex4)
-  ci4 <- confint(ex4)
-}
+data(LobsterPEI,package="FSAdata")
+df <- subset(LobsterPEI,day>16)
+# fishmethod Leslie
+fishmethods::deplet(catch=df$catch,effort=df$effort,method="l")
+cf3fm <- l.out$results[,1:2]
+ci3fm <- l.out$results[,3:4]
+# FSA Leslie
+ex3 <- with(df,depletion(catch,effort))
+cf3 <- summary(ex3)
+ci3 <- confint(ex3)
+
+# fishmethod Leslie
+fishmethods::deplet(catch=df$catch,effort=df$effort,method="d")
+cf4fm <- d.out$results[,1:2]
+ci4fm <- d.out$results[,3:4]
+# FSA DeLury
+ex4 <- with(df,depletion(catch,effort,method="DeLury",Ricker.mod=TRUE))
+cf4 <- summary(ex4)
+ci4 <- confint(ex4)
 
 # Fischler's Blue Crab data
 data(BlueCrab,package="FSAdata")
 # fishmethod Leslie
-deplet(catch=BlueCrab$catch,effort=BlueCrab$effort,method="l")
+fishmethods::deplet(catch=BlueCrab$catch,effort=BlueCrab$effort,method="l")
 cf5fm <- l.out$results[,1:2]
 ci5fm <- l.out$results[,3:4]
 # FSA Leslie
@@ -57,7 +53,7 @@ cf5 <- summary(ex5)
 ci5 <- confint(ex5)
 
 # fishmethod DeLury
-deplet(catch=BlueCrab$catch,effort=BlueCrab$effort,method="d")
+fishmethods::deplet(catch=BlueCrab$catch,effort=BlueCrab$effort,method="d")
 cf6fm <- d.out$results[,1:2]
 ci6fm <- d.out$results[,3:4]
 # FSA DeLury
@@ -68,7 +64,7 @@ ci6 <- confint(ex6)
 
 # Omand's SMB data
 # fishmethod Leslie
-deplet(catch=SMBassLS$catch,effort=SMBassLS$effort,method="l")
+fishmethods::deplet(catch=SMBassLS$catch,effort=SMBassLS$effort,method="l")
 cf7fm <- l.out$results[,1:2]
 ci7fm <- l.out$results[,3:4]
 # FSA Leslie
@@ -81,7 +77,7 @@ cf7r <- summary(ex7r)
 ci7r <- confint(ex7r)
 
 # fishmethod DeLury
-deplet(catch=SMBassLS$catch,effort=SMBassLS$effort,method="d")
+fishmethods::deplet(catch=SMBassLS$catch,effort=SMBassLS$effort,method="d")
 cf8fm <- d.out$results[,1:2]
 ci8fm <- d.out$results[,3:4]
 # FSA DeLury

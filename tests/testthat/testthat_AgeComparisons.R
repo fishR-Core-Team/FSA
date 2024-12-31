@@ -148,33 +148,31 @@ test_that("ageBias() symmetry tests match results in Evans and Hoenig (2008)",{
 })
 
 test_that("test ageBias() against compare2() with AlewifeLH data",{
-  if (require(FSAdata,quietly=TRUE) & require(fishmethods,quietly=TRUE)) {
-    data(AlewifeLH,package="FSAdata")
-    ab2 <- compare2(AlewifeLH,barplot=FALSE)
-    ## no continuity correction
-    suppressWarnings(ab1 <- ageBias(scales~otoliths,data=AlewifeLH,
-                                    ref.lab="Otolith Age",nref.lab="Scale Age"))
-    junk <- capture.output( ab1sum <- summary(ab1) )
-    expect_equal(ab1sum[ab1sum$symTest=="McNemar","chi.sq"], ab2$McNemar$Chisq)
-    expect_equal(ab1sum[ab1sum$symTest=="McNemar","p"], ab2$McNemar$pvalue)
-    expect_equal(ab1sum[ab1sum$symTest=="EvansHoenig","chi.sq"],
-                 ab2$Evans_Hoenig$Chisq)
-    expect_equal(ab1sum[ab1sum$symTest=="EvansHoenig","p"],
-                 ab2$Evans_Hoenig$pvalue)
-    expect_equal(ab1sum[ab1sum$symTest=="EvansHoenig","df"],
-                 ab2$Evans_Hoenig$df)
-    ## Yates continuity correction
-    junk <- capture.output( ab1sum2 <- summary(ab1,what="McNemar",
-                                               cont.corr="Yates") )
-    expect_equal(ab1sum2[1,"chi.sq"], ab2$McNemar_continuity_correction$Chisq)
-    expect_equal(ab1sum2[1,"p"], ab2$McNemar_continuity_correction$pvalue)
-    ## Edwards continuity correction
-    ab3 <- compare2(AlewifeLH,correct="Edwards",barplot=FALSE)
-    junk <- capture.output( ab1sum3 <- summary(ab1,what="McNemar",
-                                               cont.corr="Edwards") )
-    expect_equal(ab1sum3[1,"chi.sq"], ab3$McNemar_continuity_correction$Chisq)
-    expect_equal(ab1sum3[1,"p"], ab3$McNemar_continuity_correction$pvalue)
-  }
+  data(AlewifeLH,package="FSAdata")
+  ab2 <- fishmethods::compare2(AlewifeLH,barplot=FALSE)
+  ## no continuity correction
+  suppressWarnings(ab1 <- ageBias(scales~otoliths,data=AlewifeLH,
+                                  ref.lab="Otolith Age",nref.lab="Scale Age"))
+  junk <- capture.output( ab1sum <- summary(ab1) )
+  expect_equal(ab1sum[ab1sum$symTest=="McNemar","chi.sq"], ab2$McNemar$Chisq)
+  expect_equal(ab1sum[ab1sum$symTest=="McNemar","p"], ab2$McNemar$pvalue)
+  expect_equal(ab1sum[ab1sum$symTest=="EvansHoenig","chi.sq"],
+               ab2$Evans_Hoenig$Chisq)
+  expect_equal(ab1sum[ab1sum$symTest=="EvansHoenig","p"],
+               ab2$Evans_Hoenig$pvalue)
+  expect_equal(ab1sum[ab1sum$symTest=="EvansHoenig","df"],
+               ab2$Evans_Hoenig$df)
+  ## Yates continuity correction
+  junk <- capture.output( ab1sum2 <- summary(ab1,what="McNemar",
+                                             cont.corr="Yates") )
+  expect_equal(ab1sum2[1,"chi.sq"], ab2$McNemar_continuity_correction$Chisq)
+  expect_equal(ab1sum2[1,"p"], ab2$McNemar_continuity_correction$pvalue)
+  ## Edwards continuity correction
+  ab3 <- fishmethods::compare2(AlewifeLH,correct="Edwards",barplot=FALSE)
+  junk <- capture.output( ab1sum3 <- summary(ab1,what="McNemar",
+                                             cont.corr="Edwards") )
+  expect_equal(ab1sum3[1,"chi.sq"], ab3$McNemar_continuity_correction$Chisq)
+  expect_equal(ab1sum3[1,"p"], ab3$McNemar_continuity_correction$pvalue)
 })
 
 test_that("ageBias() compared to http://www.nefsc.noaa.gov/fbp/age-prec/ calculations for AlewifeLH data",{
@@ -285,4 +283,3 @@ test_that("agePrecision() differences for simple data with NA values",{
   ap135 <- agePrecision(~age1+age3+age5,data=tmp)
   expect_equal(round(ap135$PercAgree,4),50.0000)
 })
-

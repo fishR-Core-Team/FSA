@@ -2,8 +2,8 @@
 % Please edit documentation in R/FSA.R
 \docType{package}
 \name{FSA}
-\alias{FSA}
 \alias{FSA-package}
+\alias{FSA}
 \title{Fisheries stock assessment methods and data.}
 \description{
 Functions to support basic fisheries stock assessment methods.

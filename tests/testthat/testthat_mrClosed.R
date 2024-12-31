@@ -476,25 +476,23 @@ test_that("mrClosed match the Chapman results from Table 3.7 and 3.8 in Seber (2
 })
 
 test_that("mrClosed match the Chapman results from mrN.single() from fishmethods",{
-  if (require(fishmethods,quietly=TRUE)) {
-    tmp1 <- mrN.single(M=948,C=421,R=167)
-    
-    tmp <- mrClosed(M=948,n=421,m=167,method="Chapman")
-    stmp <- summary(tmp,incl.SE=TRUE)
-    expect_equal(stmp[[1,"N"]], round(tmp1$N[1],0))
-    expect_equal(stmp[[1,"SE"]], round(tmp1$SE[1],1))
-    
-    ctmp <- confint(tmp,type="hypergeometric")
-    ## The CIs do not equal (<1%) ... fish methods uses qhyper
-    ##   whereas FSA uses hyperCI
-    #expect_equal(ctmp[[1,"95% LCI"]], round(tmp1$LCI[1],0))
-    #expect_equal(ctmp[[1,"95% UCI"]], round(tmp1$UCI[1],0))
-  }
+  tmp1 <- fishmethods::mrN.single(M=948,C=421,R=167)
+  
+  tmp <- mrClosed(M=948,n=421,m=167,method="Chapman")
+  stmp <- summary(tmp,incl.SE=TRUE)
+  expect_equal(stmp[[1,"N"]], round(tmp1$N[1],0))
+  expect_equal(stmp[[1,"SE"]], round(tmp1$SE[1],1))
+  
+  ctmp <- confint(tmp,type="hypergeometric")
+  ## The CIs do not equal (<1%) ... fish methods uses qhyper
+  ##   whereas FSA uses hyperCI
+  #expect_equal(ctmp[[1,"95% LCI"]], round(tmp1$LCI[1],0))
+  #expect_equal(ctmp[[1,"95% UCI"]], round(tmp1$UCI[1],0))
 })
 
 
 test_that("mrClosed match the Bailey results from mrN.single() from fishmethods",{
-  tmp1 <- mrN.single(M=948,C=421,R=167)
+  tmp1 <- fishmethods::mrN.single(M=948,C=421,R=167)
   
   tmp <- mrClosed(M=948,n=421,m=167,method="Bailey")
   stmp <- summary(tmp,incl.SE=TRUE)
@@ -509,28 +507,26 @@ test_that("mrClosed match the Bailey results from mrN.single() from fishmethods"
 
 
 test_that("mrClosed match the Schnabel Results from p. 32 Krebs (1989)",{
-  if (require(FSAdata,quietly=TRUE)) {
-    data(SunfishIN,package="FSAdata")
-    
-    tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,
-                                   method="Schnabel",chapman.mod=FALSE))
-    stmp <- summary(tmp)
-    expect_equal(stmp[[1,"N"]], 448)
-    ## See if intermediate calculations match Krebs
-    expect_equal(tmp$N, 447.5)
-    expect_equal(tmp$sum.m, 24)                # sum R in Krebs
-    expect_equal(tmp$sum.nM, 10740)            # sum CM in Krebs
-    expect_equal(tmp$sum.nM2, 970296)          # sum CM^2 in Krebs
-    expect_equal(tmp$sum.mM, 2294)             # sum RM in Krebs
-    expect_equal(round(tmp$sum.m2dn,3), 7.745) # sum R^2/C in Krebs
-    ctmp <- confint(tmp,type="Poisson")
-    ## The CIs do not equal ... Krebs uses table, FSA uses poiCI (see below)
-    #expect_equal(ctmp[[1,"95% LCI"]], 310)
-    #expect_equal(ctmp[[1,"95% UCI"]], 720)
-    ptmp <- poiCI(tmp$sum.m)
-    #expect_equal(ptmp[[1,"95% LCI"]], 14.921)
-    #expect_equal(ptmp[[1,"95% UCI"]], 34.665)
-  }
+  data(SunfishIN,package="FSAdata")
+  
+  tmp <- with(SunfishIN,mrClosed(n=caught,m=recaps,R=retmarks,
+                                 method="Schnabel",chapman.mod=FALSE))
+  stmp <- summary(tmp)
+  expect_equal(stmp[[1,"N"]], 448)
+  ## See if intermediate calculations match Krebs
+  expect_equal(tmp$N, 447.5)
+  expect_equal(tmp$sum.m, 24)                # sum R in Krebs
+  expect_equal(tmp$sum.nM, 10740)            # sum CM in Krebs
+  expect_equal(tmp$sum.nM2, 970296)          # sum CM^2 in Krebs
+  expect_equal(tmp$sum.mM, 2294)             # sum RM in Krebs
+  expect_equal(round(tmp$sum.m2dn,3), 7.745) # sum R^2/C in Krebs
+  ctmp <- confint(tmp,type="Poisson")
+  ## The CIs do not equal ... Krebs uses table, FSA uses poiCI (see below)
+  #expect_equal(ctmp[[1,"95% LCI"]], 310)
+  #expect_equal(ctmp[[1,"95% UCI"]], 720)
+  ptmp <- poiCI(tmp$sum.m)
+  #expect_equal(ptmp[[1,"95% LCI"]], 14.921)
+  #expect_equal(ptmp[[1,"95% UCI"]], 34.665)
 })
 
 

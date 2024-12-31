@@ -19,14 +19,9 @@ nls.0 <- nls(y~rep(c,length(df$y)),data=df,start=list(c=10))
 nls.1 <- nls(y~a*x+c,data=df,start=list(a=1,c=1))
 nls.2 <- nls(y~b*x2+a*x+c,data=df,start=list(a=-1,b=0.3,c=10))
 
-if (suppressMessages(require(nlme,quietly=TRUE))) {
-  gls.0 <- gls(y~1,data=df,method="ML")
-  gls.1 <- gls(y~x,data=df,method="ML")
-  gls.2 <- gls(y~x+x2,data=df,method="ML")  
-}
-
-suppressMessages(library(lmtest))
-
+gls.0 <- nlme::gls(y~1,data=df,method="ML")
+gls.1 <- nlme::gls(y~x,data=df,method="ML")
+gls.2 <- nlme::gls(y~x+x2,data=df,method="ML")  
 
 ## Test Messages ----
 test_that("extraSS() and lrt() messages",{
@@ -147,31 +142,30 @@ test_that("extraSS() computations",{
 })
 
 test_that("lrt() computations",{
-  require(lmtest,quietly=TRUE)
   ## Two model lm comparisons
   tmp1 <- lrt(lm.0,com=lm.1)
-  tmp2 <- lrtest(lm.0,lm.1)
+  tmp2 <- lmtest::lrtest(lm.0,lm.1)
   expect_equal(tmp1[1,"Chisq"],tmp2[2,"Chisq"])
   expect_equal(tmp1[1,"Df"],tmp2[2,"Df"])
   expect_equal(tmp1[1,"logLikO"],tmp2[1,"LogLik"])
   expect_equal(tmp1[1,"logLikA"],tmp2[2,"LogLik"])
   ## Three model lm comparisons (only can compare to last)
   tmp1 <- lrt(lm.0,lm.1,com=lm.2)
-  tmp2 <- lrtest(lm.0,lm.1,lm.2)
+  tmp2 <- lmtest::lrtest(lm.0,lm.1,lm.2)
   expect_equal(tmp1[2,"Chisq"],tmp2[3,"Chisq"])
   expect_equal(tmp1[2,"Df"],tmp2[3,"Df"])
   expect_equal(tmp1[2,"logLikO"],tmp2[2,"LogLik"])
   expect_equal(tmp1[2,"logLikA"],tmp2[3,"LogLik"])
   ## Two model nls comparisons
   tmp1 <- lrt(nls.0,com=nls.1)
-  tmp2 <- lrtest(nls.0,nls.1)
+  tmp2 <- lmtest::lrtest(nls.0,nls.1)
   expect_equal(tmp1[1,"Chisq"],tmp2[2,"Chisq"])
   expect_equal(tmp1[1,"Df"],tmp2[2,"Df"])
   expect_equal(tmp1[1,"logLikO"],tmp2[1,"LogLik"])
   expect_equal(tmp1[1,"logLikA"],tmp2[2,"LogLik"])
   ## Three model nls comparisons (only can compare to last)
   tmp1 <- lrt(nls.0,nls.1,com=nls.2)
-  tmp2 <- lrtest(nls.0,nls.1,nls.2)
+  tmp2 <- lmtest::lrtest(nls.0,nls.1,nls.2)
   expect_equal(tmp1[2,"Chisq"],tmp2[3,"Chisq"])
   expect_equal(tmp1[2,"Df"],tmp2[3,"Df"])
   expect_equal(tmp1[2,"logLikO"],tmp2[2,"LogLik"])

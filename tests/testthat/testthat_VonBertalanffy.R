@@ -3,99 +3,96 @@
 ## Test Messages ----
 test_that("vbStarts() messages",{
   ## Get some data for the following attempts
-  if (require(fishmethods,quietly=TRUE)) {
-    data(Kimura,package="fishmethods")
-    ## Asked for a dynamicPlot, which now does not exist
-    expect_warning(vbStarts(length~age,data=Kimura,dynamicPlot=TRUE),
-                   "functionality has been moved to")
-    ## wrong types
-    expect_error(vbStarts(length~age,data=Kimura,param="Derek"),
-                 "should be one of")
-    expect_error(vbStarts(length~age,data=Kimura,type="Derek"),
-                 "should be one of")
-    expect_error(vbStarts(length~age,data=Kimura,param="Francis",methEV="Derek"),
-                 "should be one of")
-    expect_error(vbStarts(length~age,data=Kimura,param="Schnute",methEV="Derek"),
-                 "should be one of")
-    expect_error(vbStarts(length~age,data=Kimura,param="typical",meth0="Derek"),
-                 "should be one of")
-    expect_error(vbStarts(length~age,data=Kimura,param="original",meth0="Derek"),
-                 "should be one of")
-    expect_error(vbStarts(length~age,data=Kimura,methLinf="Derek"),
-                 "should be one of")
-    expect_error(vbStarts(length~age,data=Kimura,methLinf="oldAge",num4Linf=-1),
-                 "must be at least 1")
-    expect_error(vbStarts(length~age,data=Kimura,methLinf="longFish",num4Linf=-1),
-                 "must be at least 1")
-    expect_error(vbStarts(length~age,data=Kimura,methLinf="oldAge",num4Linf=30),
-                 "less than the number of observed ages")
-    expect_error(vbStarts(length~age,data=Kimura,methLinf="longFish",num4Linf=500),
-                 "less than the number of recorded lengths")
-    ## Two variables on LHS
-    expect_error(vbStarts(length+age~age,data=Kimura,param="typical"),
-                 "more than one variable on the LHS")
-    ## Two variables on RHS
-    expect_error(vbStarts(length~age+sex,data=Kimura,param="typical"),
-                 "must have only one RHS variable")
-    ## LHS is a factor
-    expect_error(vbStarts(sex~age,data=Kimura,param="typical"),
-                 "LHS variable must be numeric")
-    ## RHS is a factor
-    expect_error(vbStarts(length~sex,data=Kimura,param="typical"),
-                 "RHS variable must be numeric")
-    ## not two ages2use given
-    expect_error(vbStarts(length~age,data=Kimura,param="Francis",ages2use=2),
-                 "have only two ages")
-    expect_error(vbStarts(length~age,data=Kimura,param="Francis",
-                          ages2use=c(2,5,10)),
-                 "have only two ages")
-    expect_error(vbStarts(length~age,data=Kimura,param="Schnute",ages2use=2),
-                 "have only two ages")
-    expect_error(vbStarts(length~age,data=Kimura,param="Schnute",
-                          ages2use=c(2,5,10)),
-                 "have only two ages")
-    ## ages2use in wrong order
-    expect_warning(vbStarts(length~age,data=Kimura,param="Francis",
-                            ages2use=c(10,2)),
-                   "order reversed to continue")
-    expect_warning(vbStarts(length~age,data=Kimura,param="Schnute",
-                            ages2use=c(10,2)),
-                   "order reversed to continue")
-    ## problems with fixed argument
-    expect_error(vbStarts(length~age,data=Kimura,fixed=c(Linf=3)),
-                 "must be a list")
-    expect_error(vbStarts(length~age,data=Kimura,fixed=list(Linf=3,7)),
-                 "must be named")
-    ## problems with valOgle argument
-    expect_error(vbStarts(length~age,data=Kimura,param="Ogle"),
-                 "must contain a value for 'Lr' or 'tr'")
-    expect_error(vbStarts(length~age,data=Kimura,param="Ogle",valOgle=3),
-                 "must be a named vector")
-    expect_error(vbStarts(length~age,data=Kimura,param="Ogle",valOgle="3"),
-                 "must be numeric")
-    expect_error(vbStarts(length~age,data=Kimura,param="Ogle",valOgle=c(3,4)),
-                 "must contain only one value")
-    expect_error(vbStarts(length~age,data=Kimura,param="Ogle",valOgle=c(a=3)),
-                 "must be 'Lr' or 'tr'")
-    expect_warning(vbStarts(length~age,data=Kimura,param="Ogle",valOgle=c(tr=0)),
-                   "less than minimum observed age")
-    expect_warning(vbStarts(length~age,data=Kimura,param="Ogle",valOgle=c(Lr=0)),
-                   "less than minimum observed length")
-    ## too few ages to estimate Linf
-    expect_error(vbStarts(length~age,data=subset(Kimura,age<3)),
-                 "cannot be automatically determined")
-  }
-  if (require(FSAdata,quietly=TRUE)) {
-    data(SpottedSucker1,package="FSAdata")
-    ## gives warning about a poor estimate for K and Linf
-    sv <- list(Linf=max(SpottedSucker1$tl),K=0.3,t0=0)
-    vbStarts(tl~age,data=SpottedSucker1,param="typical") %>%
-      expect_warning("Starting value for Linf is very different from the observed") %>%
-      expect_warning("The suggested starting value for K is negative")
-    ## too few ages to estimate Linf
-    expect_error(vbStarts(tl~age,data=subset(SpottedSucker1,age<5)),
-                 "cannot be automatically determined")
-  }
+  data(Kimura,package="fishmethods")
+  ## Asked for a dynamicPlot, which now does not exist
+  expect_warning(vbStarts(length~age,data=Kimura,dynamicPlot=TRUE),
+                 "functionality has been moved to")
+  ## wrong types
+  expect_error(vbStarts(length~age,data=Kimura,param="Derek"),
+               "should be one of")
+  expect_error(vbStarts(length~age,data=Kimura,type="Derek"),
+               "should be one of")
+  expect_error(vbStarts(length~age,data=Kimura,param="Francis",methEV="Derek"),
+               "should be one of")
+  expect_error(vbStarts(length~age,data=Kimura,param="Schnute",methEV="Derek"),
+               "should be one of")
+  expect_error(vbStarts(length~age,data=Kimura,param="typical",meth0="Derek"),
+               "should be one of")
+  expect_error(vbStarts(length~age,data=Kimura,param="original",meth0="Derek"),
+               "should be one of")
+  expect_error(vbStarts(length~age,data=Kimura,methLinf="Derek"),
+               "should be one of")
+  expect_error(vbStarts(length~age,data=Kimura,methLinf="oldAge",num4Linf=-1),
+               "must be at least 1")
+  expect_error(vbStarts(length~age,data=Kimura,methLinf="longFish",num4Linf=-1),
+               "must be at least 1")
+  expect_error(vbStarts(length~age,data=Kimura,methLinf="oldAge",num4Linf=30),
+               "less than the number of observed ages")
+  expect_error(vbStarts(length~age,data=Kimura,methLinf="longFish",num4Linf=500),
+               "less than the number of recorded lengths")
+  ## Two variables on LHS
+  expect_error(vbStarts(length+age~age,data=Kimura,param="typical"),
+               "more than one variable on the LHS")
+  ## Two variables on RHS
+  expect_error(vbStarts(length~age+sex,data=Kimura,param="typical"),
+               "must have only one RHS variable")
+  ## LHS is a factor
+  expect_error(vbStarts(sex~age,data=Kimura,param="typical"),
+               "LHS variable must be numeric")
+  ## RHS is a factor
+  expect_error(vbStarts(length~sex,data=Kimura,param="typical"),
+               "RHS variable must be numeric")
+  ## not two ages2use given
+  expect_error(vbStarts(length~age,data=Kimura,param="Francis",ages2use=2),
+               "have only two ages")
+  expect_error(vbStarts(length~age,data=Kimura,param="Francis",
+                        ages2use=c(2,5,10)),
+               "have only two ages")
+  expect_error(vbStarts(length~age,data=Kimura,param="Schnute",ages2use=2),
+               "have only two ages")
+  expect_error(vbStarts(length~age,data=Kimura,param="Schnute",
+                        ages2use=c(2,5,10)),
+               "have only two ages")
+  ## ages2use in wrong order
+  expect_warning(vbStarts(length~age,data=Kimura,param="Francis",
+                          ages2use=c(10,2)),
+                 "order reversed to continue")
+  expect_warning(vbStarts(length~age,data=Kimura,param="Schnute",
+                          ages2use=c(10,2)),
+                 "order reversed to continue")
+  ## problems with fixed argument
+  expect_error(vbStarts(length~age,data=Kimura,fixed=c(Linf=3)),
+               "must be a list")
+  expect_error(vbStarts(length~age,data=Kimura,fixed=list(Linf=3,7)),
+               "must be named")
+  ## problems with valOgle argument
+  expect_error(vbStarts(length~age,data=Kimura,param="Ogle"),
+               "must contain a value for 'Lr' or 'tr'")
+  expect_error(vbStarts(length~age,data=Kimura,param="Ogle",valOgle=3),
+               "must be a named vector")
+  expect_error(vbStarts(length~age,data=Kimura,param="Ogle",valOgle="3"),
+               "must be numeric")
+  expect_error(vbStarts(length~age,data=Kimura,param="Ogle",valOgle=c(3,4)),
+               "must contain only one value")
+  expect_error(vbStarts(length~age,data=Kimura,param="Ogle",valOgle=c(a=3)),
+               "must be 'Lr' or 'tr'")
+  expect_warning(vbStarts(length~age,data=Kimura,param="Ogle",valOgle=c(tr=0)),
+                 "less than minimum observed age")
+  expect_warning(vbStarts(length~age,data=Kimura,param="Ogle",valOgle=c(Lr=0)),
+                 "less than minimum observed length")
+  ## too few ages to estimate Linf
+  expect_error(vbStarts(length~age,data=subset(Kimura,age<3)),
+               "cannot be automatically determined")
+  
+  data(SpottedSucker1,package="FSAdata")
+  ## gives warning about a poor estimate for K and Linf
+  sv <- list(Linf=max(SpottedSucker1$tl),K=0.3,t0=0)
+  vbStarts(tl~age,data=SpottedSucker1,param="typical") %>%
+    expect_warning("Starting value for Linf is very different from the observed") %>%
+    expect_warning("The suggested starting value for K is negative")
+  ## too few ages to estimate Linf
+  expect_error(vbStarts(tl~age,data=subset(SpottedSucker1,age<5)),
+               "cannot be automatically determined")
 })
 
 
@@ -314,80 +311,78 @@ test_that("vbFuns() and vbStarts() fit to AIFFD book (Box 5.4) results (SAS).",{
 
 
 test_that("vbFuns() and vbStarts() fit to Kimura separated by sex match fishmethods (and Kimura) results.",{
-  if (require(lmtest,quietly=TRUE)) {
-    data(Kimura,package="fishmethods")
-    
-    ### get fishmethods results (straight from example)
-    fm1 <- growthlrt(len=Kimura$length,age=Kimura$age,group=Kimura$sex,
-                     error=2,select=1)
-    fm1$results
-    
-    ### fit with my methods
-    ## Is this the same as fishmethods results for Ho vs H4
-    # Common model
-    vbCom <- length~Linf*(1-exp(-K*(age-t0)))
-    svCom <- vbStarts(length~age,data=Kimura)
-    fitCom <- nls(vbCom,data=Kimura,start=svCom)
-    # General model
-    vbGen <- length~Linf[sex]*(1-exp(-K[sex]*(age-t0[sex])))
-    svGen <- lapply(svCom,rep,2)
-    fitGen <- nls(vbGen,data=Kimura,start=svGen)
-    # LRT
-    lr04 <- lrtest(fitCom,fitGen)
-    expect_equal(lr04$Df[2],fm1$results$df[fm1$results$tests=="Ho vs H4"])
-    expect_equal(round(lr04$Chisq[2],2),
-                 round(fm1$results$chisq[fm1$results$tests=="Ho vs H4"],2))
-    expect_equal(round(lr04$'Pr(>Chisq)'[2],3),
-                 round(fm1$results$p[fm1$results$tests=="Ho vs H4"],3))
-    ## Is this the same as fishmethods results for Ho vs H3
-    vb2LK <- length~Linf[sex]*(1-exp(-K[sex]*(age-t0)))
-    sv2LK <- mapply(rep,svCom,c(2,2,1))
-    fit2LK <- nls(vb2LK,data=Kimura,start=sv2LK)
-    lr03 <- lrtest(fit2LK,fitGen)
-    expect_equal(lr03$Df[2],fm1$results$df[fm1$results$tests=="Ho vs H3"])
-    expect_equal(round(lr03$Chisq[2],2),
-                 round(fm1$results$chisq[fm1$results$tests=="Ho vs H3"],2))
-    # only to two decimals in p-value (likely just rounding error)
-    expect_equal(round(lr03$'Pr(>Chisq)'[2],2),
-                 round(fm1$results$p[fm1$results$tests=="Ho vs H3"],2))
-    
-    ## Is this the same as fishmethods results for Ho vs H2
-    vb2Lt <- length~Linf[sex]*(1-exp(-K*(age-t0[sex])))
-    sv2Lt <- mapply(rep,svCom,c(2,1,2))
-    fit2Lt <- nls(vb2Lt,data=Kimura,start=sv2Lt)
-    lr02 <- lrtest(fit2Lt,fitGen)
-    expect_equal(lr02$Df[2],fm1$results$df[fm1$results$tests=="Ho vs H2"])
-    expect_equal(round(lr02$Chisq[2],2),
-                 round(fm1$results$chisq[fm1$results$tests=="Ho vs H2"],2))
-    expect_equal(round(lr02$'Pr(>Chisq)'[2],3),
-                 round(fm1$results$p[fm1$results$tests=="Ho vs H2"],3))
-    
-    ## Is this the same as fishmethods results for Ho vs H1
-    vb2Kt <- length~Linf*(1-exp(-K[sex]*(age-t0[sex])))
-    sv2Kt <- mapply(rep,svCom,c(1,2,2))
-    fit2Kt <- nls(vb2Kt,data=Kimura,start=sv2Kt)
-    lr01 <- lrtest(fit2Kt,fitGen)
-    expect_equal(lr01$Df[2],fm1$results$df[fm1$results$tests=="Ho vs H1"])
-    expect_equal(round(lr01$Chisq[2],2),
-                 round(fm1$results$chisq[fm1$results$tests=="Ho vs H1"],2))
-    expect_equal(round(lr01$'Pr(>Chisq)'[2],3),
-                 round(fm1$results$p[fm1$results$tests=="Ho vs H1"],3))
-    
-    ## Do parameter estimates match those in Kimura (Table 3)
-    # general model
-    expect_equal(round(coef(fitGen)[1:2],2),c(61.23,55.98),ignore_attr=TRUE)
-    expect_equal(round(coef(fitGen)[3:6],3),c(0.296,0.386,-0.057,0.171),ignore_attr=TRUE)
-    # Linf equal model (H3)
-    expect_equal(round(coef(fit2Kt)[1],2),c(59.40),ignore_attr=TRUE)
-    expect_equal(round(coef(fit2Kt)[2:5],3),c(0.337,0.297,0.087,-0.111),ignore_attr=TRUE)
-    # K equal model (H2) Linf slightly off in 2nd decimal for 2nd value
-    expect_equal(round(coef(fit2Lt)[1:2],1),c(60.1,57.4),ignore_attr=TRUE)
-    expect_equal(round(coef(fit2Lt)[3:5],3),c(0.330,0.095,-0.021),ignore_attr=TRUE)
-    # t0 equal model (H1)
-    expect_equal(round(coef(fit2LK)[1:2],2),c(60.77,56.45),ignore_attr=TRUE)
-    expect_equal(round(coef(fit2LK)[3:5],3),c(0.313,0.361,0.057),ignore_attr=TRUE)
-    # common model (H4)
-    expect_equal(round(coef(fitCom),2),c(59.29,0.32,0.01),ignore_attr=TRUE)
-  }
+  data(Kimura,package="fishmethods")
+  
+  ### get fishmethods results (straight from example)
+  fm1 <- fishmethods::growthlrt(len=Kimura$length,age=Kimura$age,group=Kimura$sex,
+                                error=2,select=1)
+  fm1$results
+  
+  ### fit with my methods
+  ## Is this the same as fishmethods results for Ho vs H4
+  # Common model
+  vbCom <- length~Linf*(1-exp(-K*(age-t0)))
+  svCom <- vbStarts(length~age,data=Kimura)
+  fitCom <- nls(vbCom,data=Kimura,start=svCom)
+  # General model
+  vbGen <- length~Linf[sex]*(1-exp(-K[sex]*(age-t0[sex])))
+  svGen <- lapply(svCom,rep,2)
+  fitGen <- nls(vbGen,data=Kimura,start=svGen)
+  # LRT
+  lr04 <- lmtest::lrtest(fitCom,fitGen)
+  expect_equal(lr04$Df[2],fm1$results$df[fm1$results$tests=="Ho vs H4"])
+  expect_equal(round(lr04$Chisq[2],2),
+               round(fm1$results$chisq[fm1$results$tests=="Ho vs H4"],2))
+  expect_equal(round(lr04$'Pr(>Chisq)'[2],3),
+               round(fm1$results$p[fm1$results$tests=="Ho vs H4"],3))
+  ## Is this the same as fishmethods results for Ho vs H3
+  vb2LK <- length~Linf[sex]*(1-exp(-K[sex]*(age-t0)))
+  sv2LK <- mapply(rep,svCom,c(2,2,1))
+  fit2LK <- nls(vb2LK,data=Kimura,start=sv2LK)
+  lr03 <- lmtest::lrtest(fit2LK,fitGen)
+  expect_equal(lr03$Df[2],fm1$results$df[fm1$results$tests=="Ho vs H3"])
+  expect_equal(round(lr03$Chisq[2],2),
+               round(fm1$results$chisq[fm1$results$tests=="Ho vs H3"],2))
+  # only to two decimals in p-value (likely just rounding error)
+  expect_equal(round(lr03$'Pr(>Chisq)'[2],2),
+               round(fm1$results$p[fm1$results$tests=="Ho vs H3"],2))
+  
+  ## Is this the same as fishmethods results for Ho vs H2
+  vb2Lt <- length~Linf[sex]*(1-exp(-K*(age-t0[sex])))
+  sv2Lt <- mapply(rep,svCom,c(2,1,2))
+  fit2Lt <- nls(vb2Lt,data=Kimura,start=sv2Lt)
+  lr02 <- lmtest::lrtest(fit2Lt,fitGen)
+  expect_equal(lr02$Df[2],fm1$results$df[fm1$results$tests=="Ho vs H2"])
+  expect_equal(round(lr02$Chisq[2],2),
+               round(fm1$results$chisq[fm1$results$tests=="Ho vs H2"],2))
+  expect_equal(round(lr02$'Pr(>Chisq)'[2],3),
+               round(fm1$results$p[fm1$results$tests=="Ho vs H2"],3))
+  
+  ## Is this the same as fishmethods results for Ho vs H1
+  vb2Kt <- length~Linf*(1-exp(-K[sex]*(age-t0[sex])))
+  sv2Kt <- mapply(rep,svCom,c(1,2,2))
+  fit2Kt <- nls(vb2Kt,data=Kimura,start=sv2Kt)
+  lr01 <- lmtest::lrtest(fit2Kt,fitGen)
+  expect_equal(lr01$Df[2],fm1$results$df[fm1$results$tests=="Ho vs H1"])
+  expect_equal(round(lr01$Chisq[2],2),
+               round(fm1$results$chisq[fm1$results$tests=="Ho vs H1"],2))
+  expect_equal(round(lr01$'Pr(>Chisq)'[2],3),
+               round(fm1$results$p[fm1$results$tests=="Ho vs H1"],3))
+  
+  ## Do parameter estimates match those in Kimura (Table 3)
+  # general model
+  expect_equal(round(coef(fitGen)[1:2],2),c(61.23,55.98),ignore_attr=TRUE)
+  expect_equal(round(coef(fitGen)[3:6],3),c(0.296,0.386,-0.057,0.171),ignore_attr=TRUE)
+  # Linf equal model (H3)
+  expect_equal(round(coef(fit2Kt)[1],2),c(59.40),ignore_attr=TRUE)
+  expect_equal(round(coef(fit2Kt)[2:5],3),c(0.337,0.297,0.087,-0.111),ignore_attr=TRUE)
+  # K equal model (H2) Linf slightly off in 2nd decimal for 2nd value
+  expect_equal(round(coef(fit2Lt)[1:2],1),c(60.1,57.4),ignore_attr=TRUE)
+  expect_equal(round(coef(fit2Lt)[3:5],3),c(0.330,0.095,-0.021),ignore_attr=TRUE)
+  # t0 equal model (H1)
+  expect_equal(round(coef(fit2LK)[1:2],2),c(60.77,56.45),ignore_attr=TRUE)
+  expect_equal(round(coef(fit2LK)[3:5],3),c(0.313,0.361,0.057),ignore_attr=TRUE)
+  # common model (H4)
+  expect_equal(round(coef(fitCom),2),c(59.29,0.32,0.01),ignore_attr=TRUE)
 })
 

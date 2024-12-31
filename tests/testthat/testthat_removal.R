@@ -297,18 +297,16 @@ test_that("removal with 'CarleStrub' matches Cowx (1983) page 77",{
 })
 
 test_that("removal with 'CarleStrub' match results from Jones & Stockwell (1995)",{
-  if (require(FSAdata,quietly=TRUE)) {
-    data(JonesStockwell,package="FSAdata")
-    # isolate captures and Carle-Strub estimates ... for non-rejected estimates
-    JS.caps <- JonesStockwell[!JonesStockwell$rejected,4:6]
-    JS.cs <- JonesStockwell[!JonesStockwell$rejected,7]
-    # compute Carle-Strub estimates for all data in JS.caps
-    tmp <- apply(JS.caps,1,removal,just.ests=TRUE)["No",]
-    # Make a comparison matrix
-    compJS <- round(cbind(tmp,JS.cs,tmp-JS.cs,(tmp-JS.cs)/JS.cs*100),1)
-    # all values are within 3
-    expect_true(all(abs(compJS[,3])<=3,na.rm=TRUE))
-  }
+  data(JonesStockwell,package="FSAdata")
+  # isolate captures and Carle-Strub estimates ... for non-rejected estimates
+  JS.caps <- JonesStockwell[!JonesStockwell$rejected,4:6]
+  JS.cs <- JonesStockwell[!JonesStockwell$rejected,7]
+  # compute Carle-Strub estimates for all data in JS.caps
+  tmp <- apply(JS.caps,1,removal,just.ests=TRUE)["No",]
+  # Make a comparison matrix
+  compJS <- round(cbind(tmp,JS.cs,tmp-JS.cs,(tmp-JS.cs)/JS.cs*100),1)
+  # all values are within 3
+  expect_true(all(abs(compJS[,3])<=3,na.rm=TRUE))
 })
 
 test_that("removal with 'Seber3' matches Cowx (1983) page 75",{

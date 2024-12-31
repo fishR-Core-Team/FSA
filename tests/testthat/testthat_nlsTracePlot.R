@@ -25,20 +25,18 @@ test_that("nlsTracePlot() test output",{
   expect_equal(mode(tmp),"numeric")
   expect_equal(ncol(tmp),3)
   # unsuccessful fit
-  if (require(FSAdata,quietly=TRUE)) {
-    data(BSkateGB,package="FSAdata")
-    wtr <- droplevels(subset(BSkateGB,season=="winter"))
-    bh1 <- srFuns()
-    trc <- capture.output(try(
-      expect_error(fit2 <- nls(recruits~bh1(spawners,a,b),wtr,
-                               start=srStarts(recruits~spawners,data=wtr),
-                               trace=TRUE))
-    ))
-    tmp <- nlsTracePlot(trc,bh1,add=FALSE)
-    expect_equal(class(tmp),c("matrix","array"))
-    expect_equal(mode(tmp),"numeric")
-    expect_equal(ncol(tmp),2)
-  }
+  data(BSkateGB,package="FSAdata")
+  wtr <- droplevels(subset(BSkateGB,season=="winter"))
+  bh1 <- srFuns()
+  trc <- capture.output(try(
+    expect_error(fit2 <- nls(recruits~bh1(spawners,a,b),wtr,
+                             start=srStarts(recruits~spawners,data=wtr),
+                             trace=TRUE))
+  ))
+  tmp <- nlsTracePlot(trc,bh1,add=FALSE)
+  expect_equal(class(tmp),c("matrix","array"))
+  expect_equal(mode(tmp),"numeric")
+  expect_equal(ncol(tmp),2)
 })
 
 
