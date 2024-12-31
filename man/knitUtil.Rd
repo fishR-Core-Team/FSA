@@ -72,11 +72,11 @@ reproInfo(
 
 \item{width}{A numeric that indicates the width to use for wrapping the reproducibility information when \code{out="r"}.}
 
-\item{addTOC}{A logical that indicates whether or not a table of contents entry for the reproducibility section should be added to the LaTeX output. Used only if \R{out="latex"}}
+\item{addTOC}{A logical that indicates whether or not a table of contents entry for the reproducibility section should be added to the LaTeX output. Used only if \code{out="latex"}}
 
-\item{newpage}{A logical that indicates whether or not the reproducibility information should begin on a new page. Used only if \R{out="latex"}}
+\item{newpage}{A logical that indicates whether or not the reproducibility information should begin on a new page. Used only if \code{out="latex"}}
 
-\item{links}{A named character vector that will add a links bullet to the reproducibility information. The names will be shown and the values are the links. Used only if \R{out="markdown}.}
+\item{links}{A named character vector that will add a links bullet to the reproducibility information. The names will be shown and the values are the links. Used only if \code{out="markdown"}.}
 
 \item{closeGraphics}{A logical that indicates whether the graphics device should be closed or not.}
 

@@ -43,7 +43,7 @@ htest(object, ...)
 
 \item{conf.level}{A level of confidence as a proportion.}
 
-\item{plot}{A logical that indicates whether a plot should be constructed. If \code{confint}, then a histogram of the \code{parm} parameters from the bootstrap samples with error bars that illustrate the bootstrapped confidence intervals will be constructed. If code{htest}, then a histogram of the \code{parm} parameters with a vertical lines illustrating the \code{bo}value will be constructed.}
+\item{plot}{A logical that indicates whether a plot should be constructed. If \code{confint}, then a histogram of the \code{parm} parameters from the bootstrap samples with error bars that illustrate the bootstrapped confidence intervals will be constructed. If \code{htest}, then a histogram of the \code{parm} parameters with a vertical lines illustrating the \code{bo}value will be constructed.}
 
 \item{err.col}{A single numeric or character that identifies the color for the error bars on the plot.}
 

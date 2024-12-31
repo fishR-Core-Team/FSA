@@ -15,7 +15,7 @@
 #' @param parm A number or string that indicates which column of \code{object} contains the parameter estimates to use for the confidence interval or hypothesis test.
 #' @param conf.level A level of confidence as a proportion.
 #' @param level Same as \code{conf.level}.
-#' @param plot A logical that indicates whether a plot should be constructed. If \code{confint} then a histogram of the \code{parm} parameters from the bootstrap samples with error bars that illustrate the bootstrapped confidence intervals will be constructed. If code{htest} then a histogram of the \code{parm} parameters with a vertical line illustrating the \code{bo} value will be constructed.
+#' @param plot A logical that indicates whether a plot should be constructed. If \code{confint} then a histogram of the \code{parm} parameters from the bootstrap samples with error bars that illustrate the bootstrapped confidence intervals will be constructed. If \code{htest} then a histogram of the \code{parm} parameters with a vertical line illustrating the \code{bo} value will be constructed.
 #' @param err.col A single numeric or character that identifies the color for the error bars on the plot.
 #' @param err.lwd A single numeric that identifies the line width for the error bars on the plot.
 #' @param rows A single numeric that contains the number of rows to use on the graphic.
@@ -165,7 +165,7 @@ hist.boot <- function(x,same.ylim=TRUE,ymax=NULL,
 #' @param parm An integer that indicates which parameter to compute the confidence interval or hypothesis test for. The confidence interval Will be computed for all parameters if \code{NULL}.
 #' @param conf.level A level of confidence as a proportion. 
 #' @param level Same as \code{conf.level}. Used for compatibility with the main \code{confint}.
-#' @param plot A logical that indicates whether a plot should be constructed. If \code{confint}, then a histogram of the \code{parm} parameters from the bootstrap samples with error bars that illustrate the bootstrapped confidence intervals will be constructed. If code{htest}, then a histogram of the \code{parm} parameters with a vertical lines illustrating the \code{bo}value will be constructed.
+#' @param plot A logical that indicates whether a plot should be constructed. If \code{confint}, then a histogram of the \code{parm} parameters from the bootstrap samples with error bars that illustrate the bootstrapped confidence intervals will be constructed. If \code{htest}, then a histogram of the \code{parm} parameters with a vertical lines illustrating the \code{bo}value will be constructed.
 #' @param err.col A single numeric or character that identifies the color for the error bars on the plot.
 #' @param err.lwd A single numeric that identifies the line width for the error bars on the plot.
 #' @param rows A numeric that contains the number of rows to use on the graphic.

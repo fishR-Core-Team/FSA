@@ -7,6 +7,7 @@
   * Had to correct many tests where I expected just `matrix` but the class was `c("matrix","array")`.
   * Had to handle multiple warnings for some tests (see [this article](https://testthat.r-lib.org/articles/third-edition.html#warnings)).
   * Moved all `require()` in individual files to `testthat.R`. This removed many `require()` that were not needed.
+* Fixed four minor errors in documentation from legacy uses of `\R{}` rather than `\code{}`.
 
 * `GompertzFuns()`: Accepted pull request related to [#112](https://github.com/fishR-Core-Team/FSA/issues/112) that fixed several typos and dead links in the documentation ... thanks Arni. Corrected the erroneous reference to t* (should have been t0) in the documentation for the Gompertz function (fixes [#113](https://github.com/fishR-Core-Team/FSA/issues/113) ... thanks again to Arni).
 
