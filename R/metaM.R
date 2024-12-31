@@ -25,8 +25,7 @@
 #'    \item \code{method="RikhterEfanov2"}: The \dQuote{Rikhter and Efanov (1976) equation (#1)} as given in the first column of page 541 of Kenchington (2014). Requires \code{t50}, \code{K}, \code{t0}, and \code{b}.
 #'  } 
 #'
-#' @param what A string that indicates what grouping of methods to return. Defaults to returning all methods.
-#' @param method A string that indicates which method or equation to use. See details.
+#' @param method A string that indicates what grouping of methods to return (defaults to all methods) in \code{Mmethods()} or which methods or equations to use in \code{metaM()}. See details.
 #' @param justM A logical that indicates whether just the estimate of M (\code{TRUE}; Default) or a more descriptive list should be returned.
 #' @param tmax The maximum age for the population of fish.
 #' @param K The Brody growth coefficient from the fit of the von Bertalanffy growth function.
@@ -130,8 +129,8 @@
 #'  
 #' @rdname metaM
 #' @export
-Mmethods <- function(what=c("all","tmax","K","Hoenig","Pauly")) {
-  what <- match.arg(what)
+Mmethods <- function(method=c("all","tmax","K","Hoenig","Pauly")) {
+  method <- match.arg(method)
   all_meth <- c("HoenigNLS","HoenigO","HoenigOF","HoenigOM","HoenigOC",
                 "HoenigO2","HoenigO2F","HoenigO2M","HoenigO2C",
                 "HoenigLM","HewittHoenig","tmax1",
@@ -142,7 +141,7 @@ Mmethods <- function(what=c("all","tmax","K","Hoenig","Pauly")) {
                 "RikhterEfanov1","RikhterEfanov2")
   H_meth <- all_meth[grep("Hoenig",all_meth)]
   P_meth <- 
-  switch(what,
+  switch(method,
          all    = { meths <- all_meth },
          tmax   = { meths <- c("tmax1",H_meth)},
          K      = { meths <- c("K1","K2","JensenK1","JensenK2")},

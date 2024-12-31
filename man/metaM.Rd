@@ -6,7 +6,7 @@
 \alias{print.metaM}
 \title{Estimate natural mortality from a variety of empirical methods.}
 \usage{
-Mmethods(what = c("all", "tmax", "K", "Hoenig", "Pauly"))
+Mmethods(method = c("all", "tmax", "K", "Hoenig", "Pauly"))
 
 metaM(
   method = Mmethods(),
@@ -25,9 +25,7 @@ metaM(
 \method{print}{metaM}(x, digits = 4, ...)
 }
 \arguments{
-\item{what}{A string that indicates what grouping of methods to return. Defaults to returning all methods.}
-
-\item{method}{A string that indicates which method or equation to use. See details.}
+\item{method}{A string that indicates what grouping of methods to return (defaults to all methods) in \code{Mmethods()} or which methods or equations to use in \code{metaM()}. See details.}
 
 \item{justM}{A logical that indicates whether just the estimate of M (\code{TRUE}; Default) or a more descriptive list should be returned.}
 

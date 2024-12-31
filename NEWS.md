@@ -10,6 +10,7 @@
 * Fixed four minor errors in documentation from legacy uses of `\R{}` rather than `\code{}`.
 
 * `GompertzFuns()`: Accepted pull request related to [#112](https://github.com/fishR-Core-Team/FSA/issues/112) that fixed several typos and dead links in the documentation ... thanks Arni. Corrected the erroneous reference to t* (should have been t0) in the documentation for the Gompertz function (fixes [#113](https://github.com/fishR-Core-Team/FSA/issues/113) ... thanks again to Arni).
+* `Mmethods()`: Changed `what=` to `method=` for simplicity with `metaM()`.
 
 # FSA 0.9.5
 * Fixed FSA-package \alias problem using the "automatic approach" (i.e., adding a "_PACKAGE" line to FSA.R) suggested in an e-mail from Kurt Hornik on 19-Aug-2023.
