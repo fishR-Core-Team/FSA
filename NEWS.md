@@ -10,7 +10,15 @@
 * Fixed four minor errors in documentation from legacy uses of `\R{}` rather than `\code{}`.
 
 * `GompertzFuns()`: Accepted pull request related to [#112](https://github.com/fishR-Core-Team/FSA/issues/112) that fixed several typos and dead links in the documentation ... thanks Arni. Corrected the erroneous reference to t* (should have been t0) in the documentation for the Gompertz function (fixes [#113](https://github.com/fishR-Core-Team/FSA/issues/113) ... thanks again to Arni).
-* `Mmethods()`: Changed `what=` to `method=` for simplicity with `metaM()`.
+* `metaM()`: Modified to address [#114](https://github.com/fishR-Core-Team/FSA/issues/114).
+  * Returns data.frame rather than list.
+  * Added conditional mortality rate (cm) to returned data.frame (for use with `rFAMS`).
+  * Removed `justM=` and its functionality (not needed with data.frame returned).
+  * Added `verbose=` to allow user to limit some of what is returned in data.frame.
+  * Removed `print.metaM()` method.
+  * Added Quinn and Deriso (1999), Peterson and Wroblewski (1984), and Chan and Watanabe (1989) methods from FAMS manual. These are probably only useful for comparison to FAMS results.
+  * Added an example for computing an average M or cm from multiple model results.
+* `Mmethods()`: Modified. Changed `what=` to `method=` for simplicity with `metaM()`.
 
 # FSA 0.9.5
 * Fixed FSA-package \alias problem using the "automatic approach" (i.e., adding a "_PACKAGE" line to FSA.R) suggested in an e-mail from Kurt Hornik on 19-Aug-2023.

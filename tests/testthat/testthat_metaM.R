@@ -60,69 +60,65 @@ test_that("metaM() output",{
   ## Individual methods with justM
   for (i in meths) {
     expect_equal(class(metaM(i,tmax=3,Linf=12.93,Winf=20.79,K=0.23,t0=-1.23,
-                             b=3.22,t50=0.83,T=17,L=3)),"numeric")
-  }
-  
-  ## Individual methods without justM
-  for (i in meths) {
-    suppressMessages(
-      tmp <- metaM(i,justM=FALSE,tmax=3,Linf=12.93,Winf=20.79,K=0.23,t0=-1.23,
-                 b=3.22,t50=0.83,T=17,L=3)
-    )
-    expect_equal(class(tmp),"metaM")
-    expect_equal(mode(tmp),"list")
-    expect_equal(tmp[["method"]],i)
-    expect_message(print(tmp))
+                             b=3.22,t50=0.83,T=17,L=3,PS=0.01)),"data.frame")
   }
   
   ## Multiple selected methods
   tmp <- metaM(meths[1:2],tmax=3,Linf=12.93,Winf=20.79,K=0.23,t0=-1.23,
-               b=3.22,t50=0.83,T=17,L=3)
+               b=3.22,t50=0.83,T=17,L=3,PS=0.01)
   expect_equal(class(tmp),"data.frame")
   expect_equal(nrow(tmp),2)
-  expect_equal(names(tmp),c("method","M"))
+  expect_equal(names(tmp),c("M","cm","method","name","givens"))
   expect_equal(tmp$method,meths[1:2])
-  expect_equal(ncol(tmp),2)
+  expect_equal(ncol(tmp),5)
   
-  tmp <- metaM(meths,tmax=3,Linf=12.93,Winf=20.79,
-               K=0.23,t0=-1.23,b=3.22,t50=0.83,T=17,L=3)
+  tmp <- metaM(meths,tmax=3,Linf=12.93,Winf=20.79,K=0.23,t0=-1.23,
+               b=3.22,t50=0.83,T=17,L=3,PS=0.01)
   expect_equal(class(tmp),"data.frame")
   expect_equal(nrow(tmp),length(meths))
-  expect_equal(names(tmp),c("method","M"))
+  expect_equal(names(tmp),c("M","cm","method","name","givens"))
   expect_equal(tmp$method,meths)
-  expect_equal(ncol(tmp),2)
+  expect_equal(ncol(tmp),5)
   
-  expect_message(tmp <- metaM(meths,justM=FALSE,tmax=3,Linf=12.93,Winf=20.79,
-                              K=0.23,t0=-1.23,b=3.22,t50=0.83,T=17,L=3))
-  
-  tmp <- metaM(Mmethods("tmax"),tmax=3,Linf=12.93,Winf=20.79,
-               K=0.23,t0=-1.23,b=3.22,t50=0.83,T=17,L=3)
+  tmp <- metaM(Mmethods("tmax"),tmax=3,Linf=12.93,Winf=20.79,K=0.23,t0=-1.23,
+               b=3.22,t50=0.83,T=17,L=3,PS=0.01)
   expect_equal(class(tmp),"data.frame")
   expect_equal(nrow(tmp),length(Mmethods("tmax")))
-  expect_equal(names(tmp),c("method","M"))
+  expect_equal(names(tmp),c("M","cm","method","name","givens"))
   expect_equal(tmp$method,Mmethods("tmax"))
-  expect_equal(ncol(tmp),2)
-  tmp <- metaM(Mmethods("K"),tmax=3,Linf=12.93,Winf=20.79,
-               K=0.23,t0=-1.23,b=3.22,t50=0.83,T=17,L=3)
+  expect_equal(ncol(tmp),5)
+  
+  tmp <- metaM(Mmethods("K"),tmax=3,Linf=12.93,Winf=20.79,K=0.23,t0=-1.23,
+               b=3.22,t50=0.83,T=17,L=3,PS=0.01)
   expect_equal(class(tmp),"data.frame")
   expect_equal(nrow(tmp),length(Mmethods("K")))
-  expect_equal(names(tmp),c("method","M"))
+  expect_equal(names(tmp),c("M","cm","method","name","givens"))
   expect_equal(tmp$method,Mmethods("K"))
-  expect_equal(ncol(tmp),2)
-  tmp <- metaM(Mmethods("Pauly"),tmax=3,Linf=12.93,Winf=20.79,
-               K=0.23,t0=-1.23,b=3.22,t50=0.83,T=17,L=3)
+  expect_equal(ncol(tmp),5)
+  
+  tmp <- metaM(Mmethods("Pauly"),tmax=3,Linf=12.93,Winf=20.79,K=0.23,t0=-1.23,
+               b=3.22,t50=0.83,T=17,L=3,PS=0.01)
   expect_equal(class(tmp),"data.frame")
   expect_equal(nrow(tmp),length(Mmethods("Pauly")))
-  expect_equal(names(tmp),c("method","M"))
+  expect_equal(names(tmp),c("M","cm","method","name","givens"))
   expect_equal(tmp$method,Mmethods("Pauly"))
-  expect_equal(ncol(tmp),2)
-  tmp <- metaM(Mmethods("Hoenig"),tmax=3,Linf=12.93,Winf=20.79,
-               K=0.23,t0=-1.23,b=3.22,t50=0.83,T=17,L=3)
+  expect_equal(ncol(tmp),5)
+  
+  tmp <- metaM(Mmethods("Hoenig"),tmax=3,Linf=12.93,Winf=20.79,K=0.23,t0=-1.23,
+               b=3.22,t50=0.83,T=17,L=3,PS=0.01)
   expect_equal(class(tmp),"data.frame")
   expect_equal(nrow(tmp),length(Mmethods("Hoenig")))
-  expect_equal(names(tmp),c("method","M"))
+  expect_equal(names(tmp),c("M","cm","method","name","givens"))
   expect_equal(tmp$method,Mmethods("Hoenig"))
-  expect_equal(ncol(tmp),2)
+  expect_equal(ncol(tmp),5)
+  
+  tmp <- metaM(Mmethods("FAMS"),tmax=3,Linf=12.93,Winf=20.79,K=0.23,t0=-1.23,
+               b=3.22,t50=0.83,T=17,L=3,PS=0.01)
+  expect_equal(class(tmp),"data.frame")
+  expect_equal(nrow(tmp),length(Mmethods("FAMS")))
+  expect_equal(names(tmp),c("M","cm","method","name","givens"))
+  expect_equal(tmp$method,Mmethods("FAMS"))
+  expect_equal(ncol(tmp),5)
 })
 
 
@@ -168,5 +164,4 @@ test_that("metaM() matches M.empirical() from fishmethods for Rio Formosa Seahor
                                    Bl=10,tmax=5.5,method=c(1:4,9))
   tmp <- data.frame(tmp,tmp2)
   expect_equal(round(tmp$M,3),tmp$M.1)
-  
 })
