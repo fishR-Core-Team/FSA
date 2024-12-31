@@ -85,7 +85,7 @@ One of several methods is chosen with \code{method}. The available methods can b
    \item \code{method="RikhterEfanov1"}: The \dQuote{Rikhter and Efanov (1976) equation (#2)} as given in the second column of page 541 of Kenchington (2014) and in Table 6.4 of Miranda and Bettoli (2007). Requires only \code{t50}.
    \item \code{method="RikhterEfanov2"}: The \dQuote{Rikhter and Efanov (1976) equation (#1)} as given in the first column of page 541 of Kenchington (2014). Requires \code{t50}, \code{K}, \code{t0}, and \code{b}.
    \item \code{method="QuinnDeriso"}: The \dQuote{Quinn & Derison (1999)} equation as given in the FAMS manual as equation 4:18. Requires \code{PS} and \code{tmax}. Included only for use with \code{rFAMS} package.
-   \item \code{method="ChanWatanabe"}: The \dQuote{Chan & Watanabe (1989)} equation as given in the FAMS manual as equation 4:24. As suggested in FAMS manual used \code{tmax} for final time and 1 as initial time. Requires \code{tmax}, \code{K}, and \code{t0}. Included only for use with \code{rFAMS} package.
+   \item \code{method="ChenWatanabe"}: The \dQuote{Chen & Watanabe (1989)} equation as given in the FAMS manual as equation 4:24. As suggested in FAMS manual used \code{tmax} for final time and 1 as initial time. Requires \code{tmax}, \code{K}, and \code{t0}. Included only for use with \code{rFAMS} package.
    \item \code{method="PetersonWroblewski"}: The \dQuote{Peterson & Wroblewski (1984)} equation as given in the FAMS manual as equation 4:22. As suggested in FAMS manual used \code{Winf} for weight. Requires \code{Winf}. Included only for use with \code{rFAMS} package.
  } 
 
@@ -149,6 +149,8 @@ Ogle, D.H. 2016. \href{https://fishr-core-team.github.io/fishR/pages/books.html#
 
 Alverson, D.L. and M.J. Carney. 1975. A graphic review of the growth and decay of population cohorts. Journal du Conseil International pour l'Exploration de la Mer. 36:133-143.
 
+Chen, S. and S. Watanabe. 1989. Age dependence of natural mortality coefficient in fish population dynamics. Nippon Suisan Gakkaishi 55:205-208.
+
 Charnov, E.L., H. Gislason, and J.G. Pope. 2013. Evolutionary assembly rules for fish life histories. Fish and Fisheries. 14:213-224.
 
 Gislason, H., N. Daan, J.C. Rice, and J.G. Pope. 2010. Size, growth, temperature and the natural mortality of marine fish. Fish and Fisheries 11:149-158.
@@ -165,7 +167,13 @@ Kenchington, T.J. 2014. Natural mortality estimators for information-limited fis
 
 Pauly, D. 1980. On the interrelationships between natural mortality, growth parameters, and mean environmental temperature in 175 fish stocks. Journal du Conseil International pour l'Exploration de la Mer. 39:175-192. [Was (is?) from http://innri.unuftp.is/pauly/On\%20the\%20interrelationships\%20betwe.pdf.]
 
+Peterson, I. and J.S. Wroblewski. 1984. Mortality rate of fishes in the pelagic ecosystem. Canadian Journal of Fisheries and Aquatic Sciences. 41:1117-1120.
+
+Quinn III, T.J. and R.B. Deriso. 1999. Quantitative Fish Dynamics. Oxford University Press, New York.
+
 Rikhter, V.A., and V.N. Efanov. 1976. On one of the approaches for estimating natural mortality in fish populations (in Russian). ICNAF Research Document 76/IV/8, 12pp. 
+
+Slipke, J.W. and M.J. Maceina. 2013. Fisheries Analysis and Modeling Simulator (FAMS 1.64). American Fisheries Society.
 
 Then, A.Y., J.M. Hoenig, N.G. Hall, and D.A. Hewitt. 2015. Evaluating the predictive performance of empirical estimators of natural mortality rate using information on over 200 fish species. ICES Journal of Marine Science. 72:82-92.
 
