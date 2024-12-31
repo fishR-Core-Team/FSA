@@ -75,26 +75,26 @@ test_that("agePrecision() summary() output titles",{
 
 test_that("agePrecision() types and specifics",{
   ap1 <- agePrecision(~otolithC+scaleC,data=WhitefishLC)
-  expect_is(ap1,"agePrec")
+  expect_equal(class(ap1),"agePrec")
   expect_equal(names(ap1),c("detail","rawdiff","absdiff","ASD","ACV","ACV2",
                             "AAD","APE","APE2","AD","PercAgree","R","n","validn"))
-  expect_is(ap1$detail,"data.frame")
+  expect_equal(class(ap1$detail),"data.frame")
   expect_equal(names(ap1$detail),
                c("otolithC","scaleC","mean","median","mode",
                  "SD","CV","CV2","AD","PE","PE2","D"))
-  expect_is(ap1$rawdiff,"table")
-  expect_is(ap1$absdiff,"table")
+  expect_equal(class(ap1$rawdiff),"table")
+  expect_equal(class(ap1$absdiff),"table")
   
   ap2 <- agePrecision(~otolithC+finrayC+scaleC,data=WhitefishLC)
-  expect_is(ap2,"agePrec")
+  expect_equal(class(ap2),"agePrec")
   expect_equal(names(ap2),c("detail","rawdiff","absdiff","ASD","ACV","ACV2",
                             "AAD","APE","APE2","AD","PercAgree","R","n","validn"))
-  expect_is(ap2$detail,"data.frame")
+  expect_equal(class(ap2$detail),"data.frame")
   expect_equal(names(ap2$detail),
                c("otolithC","finrayC","scaleC","mean","median","mode",
                  "SD","CV","CV2","AD","PE","PE2","D"))
-  expect_is(ap2$rawdiff,"table")
-  expect_is(ap2$absdiff,"table")
+  expect_equal(class(ap2$rawdiff),"table")
+  expect_equal(class(ap2$absdiff),"table")
 })
 
 ## Validate Results ----
@@ -148,7 +148,7 @@ test_that("ageBias() symmetry tests match results in Evans and Hoenig (2008)",{
 })
 
 test_that("test ageBias() against compare2() with AlewifeLH data",{
-  if (require(FSAdata) & require(fishmethods)) {
+  if (require(FSAdata,quietly=TRUE) & require(fishmethods,quietly=TRUE)) {
     data(AlewifeLH,package="FSAdata")
     ab2 <- compare2(AlewifeLH,barplot=FALSE)
     ## no continuity correction
@@ -178,15 +178,13 @@ test_that("test ageBias() against compare2() with AlewifeLH data",{
 })
 
 test_that("ageBias() compared to http://www.nefsc.noaa.gov/fbp/age-prec/ calculations for AlewifeLH data",{
-  if (require(FSAdata)) {
-    data(AlewifeLH,package="FSAdata")
-    suppressWarnings(ab1 <- ageBias(scales~otoliths,data=AlewifeLH,
-                                    ref.lab="Otolith Age",nref.lab="Scale Age"))
-    expect_equal(ab1$bias$n, c(2,18,20,13,18,10,8,7,5,1,2))
-    ## the fbp result is actually 4.62 for age-6
-    expect_equal(round(ab1$bias$mean,2), c(0.00,1.11,2.20,2.85,3.78,4.20,
-                                           4.62,5.00,4.80,6.00,6.00))
-  }
+  data(AlewifeLH,package="FSAdata")
+  suppressWarnings(ab1 <- ageBias(scales~otoliths,data=AlewifeLH,
+                                  ref.lab="Otolith Age",nref.lab="Scale Age"))
+  expect_equal(ab1$bias$n, c(2,18,20,13,18,10,8,7,5,1,2))
+  ## the fbp result is actually 4.62 for age-6
+  expect_equal(round(ab1$bias$mean,2), c(0.00,1.11,2.20,2.85,3.78,4.20,
+                                         4.62,5.00,4.80,6.00,6.00))
 })
 
 test_that("agePrecision() gives correct precision values -- First Example",{
@@ -225,18 +223,16 @@ test_that("agePrecision() gives correct precision values -- Second Example",{
   junk <- capture.output( sum2 <- summary(ap2,what="absolute",trunc.diff=4) )
   expect_equal(dim(sum2),5)
   expect_equal(sum1[1:4],sum2[1:4])
-  expect_equivalent(sum(sum1[5:15]),sum2[5])
+  expect_equal(sum(sum1[5:15]),sum2[5],ignore_attr=TRUE)
 })
 
 test_that("agePrecision() compared to http://www.nefsc.noaa.gov/fbp/age-prec/ calculations for AlewifeLH data",{
-  if (require(FSAdata)) {
-    data(AlewifeLH,package="FSAdata")
-    ap3 <- agePrecision(~otoliths+scales,data=AlewifeLH)
-    expect_equal(ap3$n, 104)
-    expect_equal(ap3$R, 2)
-    expect_equal(round(ap3$ACV,2), 12.54)
-    expect_equal(round(ap3$PercAgree,1), 58.7)
-  }
+  data(AlewifeLH,package="FSAdata")
+  ap3 <- agePrecision(~otoliths+scales,data=AlewifeLH)
+  expect_equal(ap3$n, 104)
+  expect_equal(ap3$R, 2)
+  expect_equal(round(ap3$ACV,2), 12.54)
+  expect_equal(round(ap3$PercAgree,1), 58.7)
 })
 
 test_that("agePrecision() differences for simple data",{

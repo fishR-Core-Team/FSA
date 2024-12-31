@@ -21,11 +21,11 @@ test_that("nlsTracePlot() test messages",{
 test_that("nlsTracePlot() test output",{
   # successful fit
   tmp <- nlsTracePlot(fit1,vb1,add=FALSE)
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(ncol(tmp),3)
   # unsuccessful fit
-  if (require(FSAdata)) {
+  if (require(FSAdata,quietly=TRUE)) {
     data(BSkateGB,package="FSAdata")
     wtr <- droplevels(subset(BSkateGB,season=="winter"))
     bh1 <- srFuns()
@@ -35,7 +35,7 @@ test_that("nlsTracePlot() test output",{
                                trace=TRUE))
     ))
     tmp <- nlsTracePlot(trc,bh1,add=FALSE)
-    expect_is(tmp,"matrix")
+    expect_equal(class(tmp),c("matrix","array"))
     expect_equal(mode(tmp),"numeric")
     expect_equal(ncol(tmp),2)
   }

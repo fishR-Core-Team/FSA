@@ -91,123 +91,123 @@ test_that("iHndlCols2Use() messages and results",{
   ## use one column by number
   ind <- 1
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=ind)
-  expect_equivalent(tmp,df1[,ind,drop=FALSE])
-  expect_equivalent(names(tmp),nms[ind])
+  expect_equal(tmp,df1[,ind,drop=FALSE])
+  expect_equal(names(tmp),nms[ind])
   ## use one column by name
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use="net")
-  expect_equivalent(tmp,df1[,ind,drop=FALSE])
-  expect_equivalent(names(tmp),nms[ind])
+  expect_equal(tmp,df1[,ind,drop=FALSE])
+  expect_equal(names(tmp),nms[ind])
   ## use two contiguous columns by number
   ind <- 1:2
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=ind)
-  expect_equivalent(tmp,df1[,ind])
-  expect_equivalent(names(tmp),nms[ind])
+  expect_equal(tmp,df1[,ind])
+  expect_equal(names(tmp),nms[ind])
   ## use two contiguous columns by name
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=c("net","eff"))
-  expect_equivalent(tmp,df1[,ind])
-  expect_equivalent(names(tmp),nms[ind])
+  expect_equal(tmp,df1[,ind])
+  expect_equal(names(tmp),nms[ind])
   ## use two non-contiguous columns by number
   ind <- c(1,3)
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=ind)
-  expect_equivalent(tmp,df1[,ind])
-  expect_equivalent(names(tmp),nms[ind])
+  expect_equal(tmp,df1[,ind])
+  expect_equal(names(tmp),nms[ind])
   ## use two non-contiguous columns by name
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=c("net","species"))
-  expect_equivalent(tmp,df1[,ind])
-  expect_equivalent(names(tmp),nms[ind])
+  expect_equal(tmp,df1[,ind])
+  expect_equal(names(tmp),nms[ind])
   ## use three columns by number
   ind <- c(1,3,4)
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=ind)
-  expect_equivalent(tmp,df1[,ind])
-  expect_equivalent(names(tmp),nms[ind])
+  expect_equal(tmp,df1[,ind])
+  expect_equal(names(tmp),nms[ind])
   ## use three columns by name
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=c("net","species","catch"))
-  expect_equivalent(tmp,df1[,ind])
-  expect_equivalent(names(tmp),nms[ind])
+  expect_equal(tmp,df1[,ind])
+  expect_equal(names(tmp),nms[ind])
   ## use four columns by number
   ind <- 1:4
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=ind)
-  expect_equivalent(tmp,df1[,ind])
-  expect_equivalent(names(tmp),nms[ind])
+  expect_equal(tmp,df1[,ind])
+  expect_equal(names(tmp),nms[ind])
   ## use four columns by name
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2use=c("net","eff","species","catch"))
-  expect_equivalent(tmp,df1[,ind])
-  expect_equivalent(names(tmp),nms[ind])
+  expect_equal(tmp,df1[,ind])
+  expect_equal(names(tmp),nms[ind])
 
   #### Check results using cols2isnore
   ## ignore one column by number
   ind <- 1
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind)
-  expect_equivalent(tmp,df1[,-ind,drop=FALSE])
-  expect_equivalent(names(tmp),nms[-ind])
+  expect_equal(tmp,df1[,-ind,drop=FALSE])
+  expect_equal(names(tmp),nms[-ind])
   ## ignore one column by name
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore="net")
-  expect_equivalent(tmp,df1[,-ind,drop=FALSE])
-  expect_equivalent(names(tmp),nms[-ind])
+  expect_equal(tmp,df1[,-ind,drop=FALSE])
+  expect_equal(names(tmp),nms[-ind])
   ## ignore two contiguous columns by number
   ind <- 1:2
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind)
-  expect_equivalent(tmp,df1[,-ind])
-  expect_equivalent(names(tmp),nms[-ind])
+  expect_equal(tmp,df1[,-ind])
+  expect_equal(names(tmp),nms[-ind])
   ## ignore two contiguous columns by name
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=c("net","eff"))
-  expect_equivalent(tmp,df1[,-ind])
-  expect_equivalent(names(tmp),nms[-ind])
+  expect_equal(tmp,df1[,-ind])
+  expect_equal(names(tmp),nms[-ind])
   ## ignore two non-contiguous columns by number
   ind <- c(1,3)
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind)
-  expect_equivalent(tmp,df1[,-ind])
-  expect_equivalent(names(tmp),nms[-ind])
+  expect_equal(tmp,df1[,-ind])
+  expect_equal(names(tmp),nms[-ind])
   ## ignore two non-contiguous columns by name
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=c("net","species"))
-  expect_equivalent(tmp,df1[,-ind])
-  expect_equivalent(names(tmp),nms[-ind])
+  expect_equal(tmp,df1[,-ind])
+  expect_equal(names(tmp),nms[-ind])
   ## ignore three columns by number
   ind <- c(1,3,4)
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind)
-  expect_equivalent(tmp,df1[,-ind,drop=FALSE])
-  expect_equivalent(names(tmp),nms[-ind])
+  expect_equal(tmp,df1[,-ind,drop=FALSE])
+  expect_equal(names(tmp),nms[-ind])
   ## ignore three columns by name
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=c("net","species","catch"))
-  expect_equivalent(tmp,df1[,-ind,drop=FALSE])
-  expect_equivalent(names(tmp),nms[-ind])
+  expect_equal(tmp,df1[,-ind,drop=FALSE])
+  expect_equal(names(tmp),nms[-ind])
   ## ignore four columns by number
   ind <- 1:4
   tmp <- suppressWarnings(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind))
-  expect_equivalent(tmp,df1[,-ind,drop=FALSE])
-  expect_equivalent(names(tmp),nms[-ind])
+  expect_equal(tmp,df1[,-ind,drop=FALSE])
+  expect_equal(names(tmp),nms[-ind])
   ## ignore four columns by name
   tmp <- suppressWarnings(
     FSA:::iHndlCols2UseIgnore(df1,cols2ignore=c("net","eff","species","catch")))
-  expect_equivalent(tmp,df1[,-ind,drop=FALSE])
-  expect_equivalent(names(tmp),nms[-ind])
+  expect_equal(tmp,df1[,-ind,drop=FALSE])
+  expect_equal(names(tmp),nms[-ind])
   
   #### Check results with cols2ignore using negative indices
   ## ignore one column by number
   ind <- -1
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind)
-  expect_equivalent(tmp,df1[,ind,drop=FALSE])
-  expect_equivalent(names(tmp),nms[ind])
+  expect_equal(tmp,df1[,ind,drop=FALSE])
+  expect_equal(names(tmp),nms[ind])
   ## ignore two contiguous columns by number
   ind <- -c(1:2)
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind)
-  expect_equivalent(tmp,df1[,ind])
-  expect_equivalent(names(tmp),nms[ind])
+  expect_equal(tmp,df1[,ind])
+  expect_equal(names(tmp),nms[ind])
   ## ignore two non-contiguous columns by number
   ind <- -c(1,3)
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind)
-  expect_equivalent(tmp,df1[,ind])
-  expect_equivalent(names(tmp),nms[ind])
+  expect_equal(tmp,df1[,ind])
+  expect_equal(names(tmp),nms[ind])
   ## ignore three columns by number
   ind <- -c(1,3,4)
   tmp <- FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind)
-  expect_equivalent(tmp,df1[,ind,drop=FALSE])
-  expect_equivalent(names(tmp),nms[ind])
+  expect_equal(tmp,df1[,ind,drop=FALSE])
+  expect_equal(names(tmp),nms[ind])
   ## ignore three columns by number
   ind <- -c(1:4)
   tmp <- suppressWarnings(FSA:::iHndlCols2UseIgnore(df1,cols2ignore=ind))
-  expect_equivalent(tmp,df1[,ind,drop=FALSE])
-  expect_equivalent(names(tmp),nms[ind])
+  expect_equal(tmp,df1[,ind,drop=FALSE])
+  expect_equal(names(tmp),nms[ind])
 })
 
 
@@ -222,7 +222,7 @@ test_that("iHndlMultWhat() messages and results",{
 
 
 test_that("iLegendHelp() messages and results",{
-  expect_error(iLegendHelp("Derek"),"Must use proper keyword")
+  expect_error(FSA:::iLegendHelp("Derek"),"Must use proper keyword")
   tmp <- FSA:::iLegendHelp("topright")
   expect_true(tmp$do.legend)
   expect_equal(tmp$x,"topright")
@@ -280,21 +280,21 @@ test_that("iTypeoflm() messages and results",{
   Mirex$year <- factor(Mirex$year)
   ## Check return types
   tmp <- lm(mirex~weight*year*species,data=Mirex)
-  expect_is(FSA:::iTypeoflm(tmp),c("IVR","list"))
+  expect_equal(class(FSA:::iTypeoflm(tmp)),c("IVR","list"))
   tmp <- lm(mirex~weight*year,data=Mirex)
-  expect_is(FSA:::iTypeoflm(tmp),c("IVR","list"))
+  expect_equal(class(FSA:::iTypeoflm(tmp)),c("IVR","list"))
   tmp <- lm(mirex~weight+year,data=Mirex)
-  expect_is(FSA:::iTypeoflm(tmp),c("IVR","list"))
+  expect_equal(class(FSA:::iTypeoflm(tmp)),c("IVR","list"))
   tmp <- lm(mirex~weight,data=Mirex)
-  expect_is(FSA:::iTypeoflm(tmp),c("SLR","list"))
+  expect_equal(class(FSA:::iTypeoflm(tmp)),c("SLR","list"))
   tmp <- lm(mirex~year,data=Mirex)
-  expect_is(FSA:::iTypeoflm(tmp),c("ONEWAY","list"))
+  expect_equal(class(FSA:::iTypeoflm(tmp)),c("ONEWAY","list"))
   tmp <- lm(mirex~year*species,data=Mirex)
-  expect_is(FSA:::iTypeoflm(tmp),c("TWOWAY","list"))
+  expect_equal(class(FSA:::iTypeoflm(tmp)),c("TWOWAY","list"))
   tmp  <- lm(mirex~weight+I(weight^2),data=Mirex)
-  expect_is(FSA:::iTypeoflm(tmp),c("POLY","list"))
+  expect_equal(class(FSA:::iTypeoflm(tmp)),c("POLY","list"))
   tmp <- lm(mirex~weight+rnorm(nrow(Mirex)+rnorm(nrow(Mirex))),data=Mirex)
-  expect_is(FSA:::iTypeoflm(tmp),c("MLR","list"))
+  expect_equal(class(FSA:::iTypeoflm(tmp)),c("MLR","list"))
   ## Check some errors
   glm1 <- glm(year~weight,data=Mirex,family="binomial")
   expect_error(FSA:::iTypeoflm(glm1),"only works with")

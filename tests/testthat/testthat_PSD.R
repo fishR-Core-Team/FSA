@@ -113,8 +113,9 @@ test_that("psdCalc() messages",{
                "no stock-length fish in the sample")
   ## restrict data.frame to no >=quality fish
   tmp <- subset(df,tl<ghl["quality"])
-  expect_warning(psdCalc(~tl,data=tmp,species="Yellow perch"),
-                 "No fish in larger than 'stock' categories")
+  psdCalc(~tl,data=tmp,species="Yellow perch") %>%
+    expect_warning("No fish in larger than 'stock' categories") %>%
+    suppressWarnings()
   
   ## bad formulae
   expect_error(psdCalc(tl,data=df,species="Yellow perch"),
@@ -268,37 +269,37 @@ test_that("tictactoe() errors and warnings",{
 test_that("psdVal() returns",{
   ## check values for yellow perch
   tmp <- psdVal("Yellow Perch",incl.zero=FALSE)
-  expect_equivalent(tmp,c(130,200,250,300,380))
+  expect_equal(tmp,c(130,200,250,300,380),ignore_attr=TRUE)
   expect_equal(names(tmp),c("stock","quality","preferred","memorable","trophy"))
   tmp <- psdVal("Yellow Perch",incl.zero=FALSE,units="in")
-  expect_equivalent(tmp,c(5,8,10,12,15))
+  expect_equal(tmp,c(5,8,10,12,15),ignore_attr=TRUE)
   expect_equal(names(tmp),c("stock","quality","preferred","memorable","trophy"))
   tmp <- psdVal("Yellow Perch",units="in")
-  expect_equivalent(tmp,c(0,5,8,10,12,15))
+  expect_equal(tmp,c(0,5,8,10,12,15),ignore_attr=TRUE)
   expect_equal(names(tmp),c("substock","stock","quality","preferred",
                             "memorable","trophy" ))
   tmp <- psdVal("Yellow Perch",units="in",addLens=c(7,9))
-  expect_equivalent(tmp,c(0,5,7,8,9,10,12,15))
+  expect_equal(tmp,c(0,5,7,8,9,10,12,15),ignore_attr=TRUE)
   expect_equal(names(tmp),c("substock","stock","7","quality","9",
                             "preferred","memorable","trophy" ))
   tmp <- psdVal("Yellow Perch",units="in",addLens=c(7,9),
                 addNames=c("minSlot","maxSlot"))
-  expect_equivalent(tmp,c(0,5,7,8,9,10,12,15))
+  expect_equal(tmp,c(0,5,7,8,9,10,12,15),ignore_attr=TRUE)
   expect_equal(names(tmp),c("substock","stock","minSlot","quality","maxSlot",
                             "preferred","memorable","trophy"))
   tmp <- psdVal("Yellow Perch",units="in",addLens=c(minSlot=7,maxSlot=9),
                 addNames=c("minSlot","maxSlot"))
-  expect_equivalent(tmp,c(0,5,7,8,9,10,12,15))
+  expect_equal(tmp,c(0,5,7,8,9,10,12,15),ignore_attr=TRUE)
   expect_equal(names(tmp),c("substock","stock","minSlot","quality","maxSlot",
                             "preferred","memorable","trophy"))
   tmp <- psdVal("yellow perch")
-  expect_equivalent(tmp,c(0,130,200,250,300,380))
+  expect_equal(tmp,c(0,130,200,250,300,380),ignore_attr=TRUE)
   expect_equal(names(tmp),c("substock","stock","quality","preferred",
                             "memorable","trophy"))
   tmp <- psdVal("yellow Perch",showJustSource=TRUE)
-  expect_is(tmp,"data.frame")
-  expect_equivalent(ncol(tmp),2)
-  expect_equivalent(nrow(tmp),1)
+  expect_equal(class(tmp),"data.frame")
+  expect_equal(ncol(tmp),2)
+  expect_equal(nrow(tmp),1)
 })
 
 test_that("psdCI() returns",{
@@ -306,13 +307,13 @@ test_that("psdCI() returns",{
   ipsd <- c(130,491,253,123)/n
   ## single binomial
   tmp <- psdCI(c(0,0,1,1),ipsd,n=n)
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),3)
   expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
   tmp <- psdCI(c(1,0,0,0),ipsd,n=n,label="PSD S-Q")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),3)
@@ -320,13 +321,13 @@ test_that("psdCI() returns",{
   expect_equal(rownames(tmp),"PSD S-Q")
   ## single multinomial
   tmp <- psdCI(c(0,0,1,1),ipsd,n=n,method="multinomial")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),3)
   expect_equal(colnames(tmp),c("Estimate","95% LCI","95% UCI"))
   tmp <- psdCI(c(1,0,0,0),ipsd,n=n,method="multinomial",label="PSD S-Q")
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),1)
   expect_equal(ncol(tmp),3)
@@ -346,17 +347,17 @@ test_that("psdCI() returns",{
   ipsd <- c(1,0,0,0)
   n <- 455
   tmp <- psdCI(c(1,1,0,0),ipsd,n=n)
-  expect_equivalent(tmp,matrix(c(100,NA,NA),nrow=1))
+  expect_equal(tmp,matrix(c(100,NA,NA),nrow=1),ignore_attr=TRUE)
   ipsd <- c(0,0,0,1)
   n <- 455
   tmp <- psdCI(c(1,1,0,0),ipsd,n=n)
-  expect_equivalent(tmp,matrix(c(0,NA,NA),nrow=1))
+  expect_equal(tmp,matrix(c(0,NA,NA),nrow=1),ignore_attr=TRUE)
 })  
 
 test_that("psdCalc() returns",{
   ## All values
   tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch"))
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),8)
   expect_equal(ncol(tmp),3)
@@ -366,7 +367,7 @@ test_that("psdCalc() returns",{
   ## Traditional values
   tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",
                                   what="traditional"))
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),4)
   expect_equal(ncol(tmp),3)
@@ -376,7 +377,7 @@ test_that("psdCalc() returns",{
   ## Incremental values
   tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",
                                   what="incremental"))
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),4)
   expect_equal(ncol(tmp),3)
@@ -385,7 +386,7 @@ test_that("psdCalc() returns",{
   ## All values, but don't drop 0s
   tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",
                                   drop0Est=FALSE))
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),8)
   expect_equal(ncol(tmp),3)
@@ -395,7 +396,7 @@ test_that("psdCalc() returns",{
   ## All values, with some additional lengths
   tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",
                                   addLens=225,addNames="Derek"))
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),10)
   expect_equal(ncol(tmp),3)
@@ -406,7 +407,7 @@ test_that("psdCalc() returns",{
   ## All values, with some additional lengths but no names
   tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",
                                   addLens=c(225,245),drop0Est=FALSE))
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),12)
   expect_equal(ncol(tmp),3)
@@ -418,7 +419,7 @@ test_that("psdCalc() returns",{
   tmp <- suppressWarnings(psdCalc(~tl,data=df,species="Yellow perch",
                                   addLens=c(225,245),drop0Est=FALSE,
                                   justAdds=TRUE))
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),5)
   expect_equal(ncol(tmp),3)
@@ -428,7 +429,7 @@ test_that("psdCalc() returns",{
   ## All values, but df only has values greater than stock values
   df1 <- droplevels(subset(df,tl>=130))
   tmp <- suppressWarnings(psdCalc(~tl,data=df1,species="Yellow perch"))
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),8)
   expect_equal(ncol(tmp),3)
@@ -438,7 +439,7 @@ test_that("psdCalc() returns",{
   ## All values, but df only has values greater than quality values
   df1 <- droplevels(subset(df,tl>=200))
   tmp <- suppressWarnings(psdCalc(~tl,data=df1,species="Yellow perch"))
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),7)
   expect_equal(ncol(tmp),3)
@@ -448,7 +449,7 @@ test_that("psdCalc() returns",{
   ## All values, but df only has values greater than memorable value
   df1 <- droplevels(subset(df,tl>=300))
   tmp <- suppressWarnings(psdCalc(~tl,data=df1,species="Yellow perch"))
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),5)
   expect_equal(ncol(tmp),3)
@@ -459,7 +460,7 @@ test_that("psdCalc() returns",{
   tmp <- suppressWarnings(psdCalc(~tl,data=df,
                                   addLens=c("stock"=130,"quality"=200,"preferred"=250,
                                             "memorable"=300,"trophy"=380)))
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),8)
   expect_equal(ncol(tmp),3)
@@ -469,7 +470,7 @@ test_that("psdCalc() returns",{
   
   tmp <- suppressWarnings(psdCalc(~tl,data=df,
                                   addLens=c("stock"=130,"name1"=200,"name2"=250)))
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),4)
   expect_equal(ncol(tmp),3)
@@ -478,7 +479,7 @@ test_that("psdCalc() returns",{
 
   tmp <- suppressWarnings(psdCalc(~tl,data=df,
                                   addLens=c("stock"=130,"name1"=200)))
-  expect_is(tmp,"matrix")
+  expect_equal(class(tmp),c("matrix","array"))
   expect_equal(mode(tmp),"numeric")
   expect_equal(nrow(tmp),2)
   expect_equal(ncol(tmp),3)
@@ -500,7 +501,7 @@ test_that("psdAdd() returns",{
 ## Validate Results ----
 test_that("Does psdAdd() create correct Gabelhouse categories?",{
   suppressMessages(df2$gcatn <- psdAdd(tl~species,data=df2))
-  expect_equivalent(df2$gcatn,df2$GCATN)
+  expect_equal(df2$gcatn,df2$GCATN)
 })
 
 test_that("Does psdAdd() properly handle NA in species?",{
@@ -510,7 +511,7 @@ test_that("Does psdAdd() properly handle NA in species?",{
                        Spp=c("White Crappie",NA,"White Crappie",
                              "White Crappie","White Crappie"))
   suppressMessages(gcat <- psdAdd(TL~Spp,data=testdf,drop.levels=TRUE))
-  expect_equivalent(which(is.na(testdf$TL) | is.na(testdf$Spp)),
+  expect_equal(which(is.na(testdf$TL) | is.na(testdf$Spp)),
                   which(is.na(gcat)))
   
   # Just NAs for species only multiple other species
@@ -518,7 +519,7 @@ test_that("Does psdAdd() properly handle NA in species?",{
                        Spp=c("White Crappie",NA,"White Crappie",
                              "White Crappie","Black Crappie"))
   suppressMessages(gcat <- psdAdd(TL~Spp,data=testdf,drop.levels=TRUE))
-  expect_equivalent(which(is.na(testdf$TL) | is.na(testdf$Spp)),
+  expect_equal(which(is.na(testdf$TL) | is.na(testdf$Spp)),
                     which(is.na(gcat)))
 
   # Just NAs for species, but with a species w/o Gabelhous lengths
@@ -526,7 +527,7 @@ test_that("Does psdAdd() properly handle NA in species?",{
                        Spp=c("White Crappie",NA,"badSpp",
                              "White Crappie","Black Crappie"))
   suppressMessages(gcat <- psdAdd(TL~Spp,data=testdf,drop.levels=TRUE))
-  expect_equivalent(which(is.na(testdf$TL) | is.na(testdf$Spp) | testdf$Spp=="badSpp"),
+  expect_equal(which(is.na(testdf$TL) | is.na(testdf$Spp) | testdf$Spp=="badSpp"),
                     which(is.na(gcat)))
   
   # NAs for length and species
@@ -534,30 +535,29 @@ test_that("Does psdAdd() properly handle NA in species?",{
                        Spp=c("White Crappie",NA,"White Crappie",
                              "White Crappie","Black Crappie"))
   suppressMessages(gcat <- psdAdd(TL~Spp,data=testdf,drop.levels=TRUE))
-  expect_equivalent(which(is.na(testdf$TL) | is.na(testdf$Spp)),
+  expect_equal(which(is.na(testdf$TL) | is.na(testdf$Spp)),
                     which(is.na(gcat)))
 
 })
 
 test_that("Does psdCalc() compute correct PSD values?",{
   suppressWarnings(bgres <- psdCalc(~tl,data=df2bg,species="Bluegill"))
-  expect_equivalent(bgres[,"Estimate"],c(80,60,40,20,20,20,20,20))
+  expect_equal(bgres[,"Estimate"],c(80,60,40,20,20,20,20,20),ignore_attr=TRUE)
   suppressWarnings(lmbres <- psdCalc(~tl,data=df2lmb,species="Largemouth Bass"))
-  expect_equivalent(lmbres[,"Estimate"],c(60,30,10,40,30,20,10))
+  expect_equal(lmbres[,"Estimate"],c(60,30,10,40,30,20,10),ignore_attr=TRUE)
   ## pretend like no species is given (but using bluegill results)
   suppressWarnings(bgres <- psdCalc(~tl,data=df2bg,
                                     addLens=c("stock"=80,"quality"=150,
                                               "preferred"=200,"memorable"=250,
                                               "trophy"=300)))
-  expect_equivalent(bgres[,"Estimate"],c(80,60,40,20,20,20,20,20))
-  
+  expect_equal(bgres[,"Estimate"],c(80,60,40,20,20,20,20,20),ignore_attr=TRUE)
 })
 
 test_that("Does psdCalc() work with a tibble?",{
   tmp <- tibble::as_tibble(df2bg)
   suppressWarnings(bgres <- psdCalc(~tl,data=df2bg,species="Bluegill"))
   suppressWarnings(bgres2 <- psdCalc(~tl,data=tmp,species="Bluegill"))
-  expect_equivalent(bgres,bgres2)
+  expect_equal(bgres,bgres2)
 })
 
 test_that("Does psdCI results match Brenden et al. (2008) results",{
@@ -609,9 +609,9 @@ test_that("Does psdCI results match Brenden et al. (2008) results",{
   expect_equal(nrow(resX),4)
   ## Are values the same
   diffs <- round(resXY[,"Estimate"]-psdXYs,7)
-  expect_equivalent(diffs,rep(0,length(diffs)))
+  expect_equal(diffs,rep(0,length(diffs)),ignore_attr=TRUE)
   diffs <- round(resX[,"Estimate"]-psdXs,7)
-  expect_equivalent(diffs,rep(0,length(diffs)))
+  expect_equal(diffs,rep(0,length(diffs)),ignore_attr=TRUE)
   
   ## Do things still work if all sub-stock fish are removed
   tmp <- droplevels(subset(df3,tl>=brks["stock"]))
@@ -625,9 +625,9 @@ test_that("Does psdCI results match Brenden et al. (2008) results",{
   expect_equal(nrow(resX),4)
   ## Are values the same
   diffs <- round(resXY[,"Estimate"]-psdXYs,7)
-  expect_equivalent(diffs,rep(0,length(diffs)))
+  expect_equal(diffs,rep(0,length(diffs)),ignore_attr=TRUE)
   diffs <- round(resX[,"Estimate"]-psdXs,7)
-  expect_equivalent(diffs,rep(0,length(diffs)))
+  expect_equal(diffs,rep(0,length(diffs)),ignore_attr=TRUE)
   
   ## Do things still work if all sub-stock and stock fish are removed  
   psdXYs <- prop.table(freq[-c(1:2)])*100
@@ -645,9 +645,9 @@ test_that("Does psdCI results match Brenden et al. (2008) results",{
   expect_equal(nrow(resX),4)   # all should be there
   ## Are values the same
   diffs <- round(resXY[,"Estimate"]-psdXYs,7)
-  expect_equivalent(diffs,rep(0,length(diffs)))
+  expect_equal(diffs,rep(0,length(diffs)),ignore_attr=TRUE)
   diffs <- round(resX[-1,"Estimate"]-psdXs,7)
-  expect_equivalent(diffs,rep(0,length(diffs)))
+  expect_equal(diffs,rep(0,length(diffs)),ignore_attr=TRUE)
   
   ## Do things still work if all trophy fish are removed  
   psdXYs <- prop.table(freq[-c(1,length(freq))])*100
@@ -664,9 +664,9 @@ test_that("Does psdCI results match Brenden et al. (2008) results",{
   expect_equal(nrow(resX),3)   # no T row
   ## Are values the same
   diffs <- round(resXY[,"Estimate"]-psdXYs,7)
-  expect_equivalent(diffs,rep(0,length(diffs)))
+  expect_equal(diffs,rep(0,length(diffs)),ignore_attr=TRUE)
   diffs <- round(resX[,"Estimate"]-psdXs,7)
-  expect_equivalent(diffs,rep(0,length(diffs)))
+  expect_equal(diffs,rep(0,length(diffs)),ignore_attr=TRUE)
 })
 
 test_that("Does manual calculation after psdAdd() equal psdCalc() results?",{
@@ -688,7 +688,7 @@ test_that("Does manual calculation after psdAdd() equal psdCalc() results?",{
   ## do PSD X-Y results match for two species
   ## Are values the same
   diffs <- round(res["Bluegill",1:3]-psdBG[3:5,"Estimate"],7)
-  expect_equivalent(diffs,rep(0,length(diffs)))
+  expect_equal(diffs,rep(0,length(diffs)),ignore_attr=TRUE)
   diffs <- round(res["Largemouth Bass",1:3]-psdLMB[3:5,"Estimate"],7)
-  expect_equivalent(diffs,rep(0,length(diffs)))
+  expect_equal(diffs,rep(0,length(diffs)),ignore_attr=TRUE)
 })

@@ -157,45 +157,45 @@ test_that("removal() return types",{
   # summary() results
   tmp <- removal(c(38,26,12))
   tmp2 <- summary(tmp)
-  expect_is(tmp2,"matrix")
+  expect_equal(class(tmp2),c("matrix","array"))
   expect_equal(nrow(tmp2),2)
   expect_equal(ncol(tmp2),2)
   expect_equal(rownames(tmp2),c("No","p"))
   expect_equal(colnames(tmp2),c("Estimate","Std. Error"))
   tmp2 <- summary(tmp,parm="p")
-  expect_is(tmp2,"matrix")
+  expect_equal(class(tmp2),c("matrix","array"))
   expect_equal(nrow(tmp2),1)
   expect_equal(ncol(tmp2),2)
   expect_equal(rownames(tmp2),c("p"))
   expect_equal(colnames(tmp2),c("Estimate","Std. Error"))
   tmp2 <- summary(tmp,parm="No")
-  expect_is(tmp2,"matrix")
+  expect_equal(class(tmp2),c("matrix","array"))
   expect_equal(nrow(tmp2),1)
   expect_equal(ncol(tmp2),2)
   expect_equal(rownames(tmp2),c("No"))
   expect_equal(colnames(tmp2),c("Estimate","Std. Error"))
   tmp <- removal(c(38,26,12),method="Schnute")
   tmp2 <- summary(tmp)
-  expect_is(tmp2,"matrix")
+  expect_equal(class(tmp2),c("matrix","array"))
   expect_equal(nrow(tmp2),3)
   expect_equal(ncol(tmp2),1)
   expect_equal(rownames(tmp2),c("No","p","p1"))
   expect_equal(colnames(tmp2),c("Estimate"))
   tmp2 <- summary(tmp,parm="p1")
-  expect_is(tmp2,"matrix")
+  expect_equal(class(tmp2),c("matrix","array"))
   expect_equal(nrow(tmp2),1)
   expect_equal(ncol(tmp2),1)
   expect_equal(rownames(tmp2),c("p1"))
   expect_equal(colnames(tmp2),c("Estimate"))
   tmp2 <- summary(tmp,parm=c("p","No"))
-  expect_is(tmp2,"matrix")
+  expect_equal(class(tmp2),c("matrix","array"))
   expect_equal(nrow(tmp2),2)
   expect_equal(ncol(tmp2),1)
   expect_equal(rownames(tmp2),c("No","p"))
   expect_equal(colnames(tmp2),c("Estimate"))
   tmp <- removal(c(38,26),method="Seber2")
   tmp2 <- summary(tmp)
-  expect_is(tmp2,"matrix")
+  expect_equal(class(tmp2),c("matrix","array"))
   expect_equal(nrow(tmp2),2)
   expect_equal(ncol(tmp2),2)
   expect_equal(rownames(tmp2),c("No","p"))
@@ -204,51 +204,51 @@ test_that("removal() return types",{
   # confint() results
   tmp <- removal(c(38,26,12))
   tmp2 <- confint(tmp)
-  expect_is(tmp2,"matrix")
+  expect_equal(class(tmp2),c("matrix","array"))
   expect_equal(nrow(tmp2),2)
   expect_equal(ncol(tmp2),2)
   expect_equal(rownames(tmp2),c("No","p"))
   expect_equal(colnames(tmp2),c("95% LCI","95% UCI"))
   tmp2 <- confint(tmp,parm="p")
-  expect_is(tmp2,"matrix")
+  expect_equal(class(tmp2),c("matrix","array"))
   expect_equal(nrow(tmp2),1)
   expect_equal(ncol(tmp2),2)
   expect_equal(rownames(tmp2),c("p"))
   expect_equal(colnames(tmp2),c("95% LCI","95% UCI"))
   tmp2 <- confint(tmp,parm="No")
-  expect_is(tmp2,"matrix")
+  expect_equal(class(tmp2),c("matrix","array"))
   expect_equal(nrow(tmp2),1)
   expect_equal(ncol(tmp2),2)
   expect_equal(rownames(tmp2),c("No"))
   expect_equal(colnames(tmp2),c("95% LCI","95% UCI"))
   tmp <- removal(c(38,26,12),method="Schnute")
   tmp2 <- confint(tmp)
-  expect_is(tmp2,"matrix")
+  expect_equal(class(tmp2),c("matrix","array"))
   expect_equal(nrow(tmp2),1)
   expect_equal(ncol(tmp2),2)
   expect_equal(rownames(tmp2),c("No"))
   expect_equal(colnames(tmp2),c("95% LCI","95% UCI"))
   tmp2 <- confint(tmp,parm="No")
-  expect_is(tmp2,"matrix")
+  expect_equal(class(tmp2),c("matrix","array"))
   expect_equal(nrow(tmp2),1)
   expect_equal(ncol(tmp2),2)
   expect_equal(rownames(tmp2),c("No"))
   expect_equal(colnames(tmp2),c("95% LCI","95% UCI"))
   tmp <- removal(c(38,26),method="Seber2")
   tmp2 <- confint(tmp)
-  expect_is(tmp2,"matrix")
+  expect_equal(class(tmp2),c("matrix","array"))
   expect_equal(nrow(tmp2),2)
   expect_equal(ncol(tmp2),2)
   expect_equal(rownames(tmp2),c("No","p"))
   expect_equal(colnames(tmp2),c("95% LCI","95% UCI"))
   tmp2 <- confint(tmp,parm="p")
-  expect_is(tmp2,"matrix")
+  expect_equal(class(tmp2),c("matrix","array"))
   expect_equal(nrow(tmp2),1)
   expect_equal(ncol(tmp2),2)
   expect_equal(rownames(tmp2),c("p"))
   expect_equal(colnames(tmp2),c("95% LCI","95% UCI"))
   tmp2 <- confint(tmp,parm="No")
-  expect_is(tmp2,"matrix")
+  expect_equal(class(tmp2),c("matrix","array"))
   expect_equal(nrow(tmp2),1)
   expect_equal(ncol(tmp2),2)
   expect_equal(rownames(tmp2),c("No"))
@@ -297,7 +297,7 @@ test_that("removal with 'CarleStrub' matches Cowx (1983) page 77",{
 })
 
 test_that("removal with 'CarleStrub' match results from Jones & Stockwell (1995)",{
-  if (require(FSAdata)) {
+  if (require(FSAdata,quietly=TRUE)) {
     data(JonesStockwell,package="FSAdata")
     # isolate captures and Carle-Strub estimates ... for non-rejected estimates
     JS.caps <- JonesStockwell[!JonesStockwell$rejected,4:6]
@@ -339,65 +339,60 @@ test_that("removal with 'RobsonRegier2' matches Cowx (1983) page 75",{
 
 
 test_that("removal with 'Moran' matches Schnute (1983)",{
-  if (require(FSAdata)) {
-    data(BrookTroutNEWP1,package="FSAdata")
-    Ns <- ps <- LHs <- NLCI <- NUCI <- numeric(nrow(BrookTroutNEWP1))
-    for (i in seq_len(nrow(BrookTroutNEWP1))) {
-      tmp <- removal(as.numeric(BrookTroutNEWP1[i,c("first","second",
-                                                    "third","fourth")]),
-                     method="Moran")
-      Ns[i] <- round(tmp$est[["No"]],1)
-      ps[i] <- round(tmp$est[["p"]],2)
-      LHs[i] <- round(tmp$min.nlogLH,2)
-      tmp <- confint(tmp)
-      NLCI[i] <- tmp[1]
-      NUCI[i] <- tmp[2]
-    }
-    ## check point estimates
-    tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),Ns,ps,LHs,
-                 BrookTroutNEWP1[,c("Moran.N","Moran.p","Moran.LH")])
-    ## perfect matches
-    expect_equal(tmp[,"Ns"],BrookTroutNEWP1$Moran.N[])
-    expect_equal(tmp[,"ps"],BrookTroutNEWP1$Moran.p[])
-    expect_equal(tmp[,"LHs"],BrookTroutNEWP1$Moran.LH[])
-    ## Check CIs (off by no more than 0.1 in a small handful of the UCIs)
-    tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),NLCI,NUCI,
-                 BrookTroutNEWP1[,c("Moran.NLCI","Moran.NUCI")])
-    expect_true(all(abs(tmp[,2:3]-tmp[,4:5])<=0.1001))
+  data(BrookTroutNEWP1,package="FSAdata")
+  Ns <- ps <- LHs <- NLCI <- NUCI <- numeric(nrow(BrookTroutNEWP1))
+  for (i in seq_len(nrow(BrookTroutNEWP1))) {
+    tmp <- removal(as.numeric(BrookTroutNEWP1[i,c("first","second",
+                                                  "third","fourth")]),
+                   method="Moran")
+    Ns[i] <- round(tmp$est[["No"]],1)
+    ps[i] <- round(tmp$est[["p"]],2)
+    LHs[i] <- round(tmp$min.nlogLH,2)
+    tmp <- confint(tmp)
+    NLCI[i] <- tmp[1]
+    NUCI[i] <- tmp[2]
   }
+  ## check point estimates
+  tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),Ns,ps,LHs,
+               BrookTroutNEWP1[,c("Moran.N","Moran.p","Moran.LH")])
+  ## perfect matches
+  expect_equal(tmp[,"Ns"],BrookTroutNEWP1$Moran.N[])
+  expect_equal(tmp[,"ps"],BrookTroutNEWP1$Moran.p[])
+  expect_equal(tmp[,"LHs"],BrookTroutNEWP1$Moran.LH[])
+  ## Check CIs (off by no more than 0.1 in a small handful of the UCIs)
+  tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),NLCI,NUCI,
+               BrookTroutNEWP1[,c("Moran.NLCI","Moran.NUCI")])
+  expect_true(all(abs(tmp[,2:3]-tmp[,4:5])<=0.1001))
 })
 
 test_that("removal with 'Schnute' matches Schnute (1983)",{
-  if (require(FSAdata)) {
-    data(BrookTroutNEWP1,package="FSAdata")
-    Ns <- p1s <- ps <- LHs <- NLCI <- NUCI <- numeric(nrow(BrookTroutNEWP1))
-    for (i in seq_len(nrow(BrookTroutNEWP1))) {
-      tmp <- removal(as.numeric(BrookTroutNEWP1[i,c("first","second",
-                                                    "third","fourth")]),
-                     method="Schnute")
-      Ns[i] <- round(tmp$est[["No"]],1)
-      p1s[i] <- round(tmp$est[["p1"]],2)
-      ps[i] <- round(tmp$est[["p"]],2)
-      LHs[i] <- round(tmp$min.nlogLH,2)
-      tmp <- confint(tmp)
-      NLCI[i] <- tmp[1]
-      NUCI[i] <- tmp[2]
-    }
-    ## check point estimates
-    tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),Ns,p1s,ps,LHs,
-                 BrookTroutNEWP1[,c("Schnute.N","Schnute.p1",
-                                    "Schnute.p","Schnute.LH")])
-    ## perfect matches except sample 5 N is off by 0.1
-    expect_equal(tmp[-5,"Ns"],BrookTroutNEWP1$Schnute.N[-5])
-    expect_equal(tmp[,"p1s"],BrookTroutNEWP1$Schnute.p1[])
-    expect_equal(tmp[,"ps"],BrookTroutNEWP1$Schnute.p[])
-    expect_equal(tmp[,"LHs"],BrookTroutNEWP1$Schnute.LH[])
-    ## Check CIs (off by no more than 0.1)
-    tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),NLCI,NUCI,
-                 BrookTroutNEWP1[,c("Schnute.NLCI","Schnute.NUCI")])
-    expect_true(all(abs(tmp[,2:3]-tmp[,4:5])<=0.1001,na.rm=TRUE))
+  data(BrookTroutNEWP1,package="FSAdata")
+  Ns <- p1s <- ps <- LHs <- NLCI <- NUCI <- numeric(nrow(BrookTroutNEWP1))
+  for (i in seq_len(nrow(BrookTroutNEWP1))) {
+    tmp <- removal(as.numeric(BrookTroutNEWP1[i,c("first","second",
+                                                  "third","fourth")]),
+                   method="Schnute")
+    Ns[i] <- round(tmp$est[["No"]],1)
+    p1s[i] <- round(tmp$est[["p1"]],2)
+    ps[i] <- round(tmp$est[["p"]],2)
+    LHs[i] <- round(tmp$min.nlogLH,2)
+    tmp <- confint(tmp)
+    NLCI[i] <- tmp[1]
+    NUCI[i] <- tmp[2]
   }
-  
+  ## check point estimates
+  tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),Ns,p1s,ps,LHs,
+               BrookTroutNEWP1[,c("Schnute.N","Schnute.p1",
+                                  "Schnute.p","Schnute.LH")])
+  ## perfect matches except sample 5 N is off by 0.1
+  expect_equal(tmp[-5,"Ns"],BrookTroutNEWP1$Schnute.N[-5])
+  expect_equal(tmp[,"p1s"],BrookTroutNEWP1$Schnute.p1[])
+  expect_equal(tmp[,"ps"],BrookTroutNEWP1$Schnute.p[])
+  expect_equal(tmp[,"LHs"],BrookTroutNEWP1$Schnute.LH[])
+  ## Check CIs (off by no more than 0.1)
+  tmp <- cbind(sample=seq_len(nrow(BrookTroutNEWP1)),NLCI,NUCI,
+               BrookTroutNEWP1[,c("Schnute.NLCI","Schnute.NUCI")])
+  expect_true(all(abs(tmp[,2:3]-tmp[,4:5])<=0.1001,na.rm=TRUE))
 })
 test_that("removal with 'Burnham' match results from (Van Deventer 1989) page 13",{
   tmp <- removal(c(124,61,35,14),method="Burnham",CIMicroFish=TRUE)
