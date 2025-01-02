@@ -12,6 +12,7 @@
 * `depletion()`: Modified to address [#111](https://github.com/fishR-Core-Team/FSA/issues/111).
   * Added formula notation such that `depletion()` wash changed to a method call and `depletion.default()` and `depletion.formula()` were added. Tests for the formula were included.
   * Added `as.df=` to `coef.depletion()`, `confint.depletion()`, and `summary.depletion()` so that the result is returned as a data.frame when set to `TRUE` (default is `FALSE` to maintain backward compatability).
+  * Added `incl.est=` to `confint.depletion()` to make it easier to get away from the clunky `cbind("Est"=coef(),confint())` code.
 * `GompertzFuns()`: Accepted pull request related to [#112](https://github.com/fishR-Core-Team/FSA/issues/112) that fixed several typos and dead links in the documentation ... thanks Arni. Corrected the erroneous reference to t* (should have been t0) in the documentation for the Gompertz function (fixes [#113](https://github.com/fishR-Core-Team/FSA/issues/113) ... thanks again to Arni).
 * `metaM()`: Modified to address [#114](https://github.com/fishR-Core-Team/FSA/issues/114).
   * Returns data.frame rather than list.

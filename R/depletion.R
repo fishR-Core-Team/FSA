@@ -16,6 +16,7 @@
 #' @param object An object saved from the \code{removal} call (i.e., of class \code{depletion}).
 #' @param x An object saved from the \code{depletion} call (i.e., of class \code{depletion}).
 #' @param as.df A logical that indicates whether the results of \code{coef}, \code{confint}, or \code{summary} should be returned as a data.frame. Ignored in \code{summary} if \code{parm="lm"}.
+#' @param incl.est A logical that indicated whether the parameter point estimate should be included in the results from \code{confint}. Defaults to \code{FALSE}.
 #' @param verbose A logical that indicates whether a reminder of the method used should be printed with the summary results.
 #' @param parm A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considered.
 #' @param conf.level A single number that represents the level of confidence to use for constructing confidence intervals.
@@ -75,63 +76,45 @@
 #' summary(l1,parm="No")
 #' rSquared(l1)
 #' rSquared(l1,digits=1,percent=TRUE)
-#' cbind(Est=coef(l1),confint(l1))
-#' cbind(Est=coef(l1,parm="No"),confint(l1,parm="No"))
-#' cbind(Est=coef(l1,parm="q"),confint(l1,parm="q"))
-#' summary(l1,parm="lm")
+#' coef(l1)
+#' confint(l1)
+#' confint(l1,incl.est=TRUE)
+#' confint(l1,incl.est=TRUE,parm="No")
+#' confint(l1,incl.est=TRUE,parm="q")
+#' confint(l1,incl.est=TRUE,parm="lm")
 #' plot(l1)
 #' 
 #' # with Ricker modification
 #' l2 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Leslie",Ricker.mod=TRUE)
 #' summary(l2)
-#' cbind(Est=coef(l2),confint(l1))
+#' confint(l1,incl.est=TRUE)
 #' plot(l2)
 #'
-#' ## DeLury model examples
-#' # no Ricker modification
+#' ## DeLury model examples with no Ricker modification
 #' d1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="DeLury")
 #' summary(d1)
-#' summary(d1,parm="q")
-#' summary(d1,verbose=TRUE)
 #' rSquared(d1)
-#' cbind(Est=coef(d1),confint(d1))
-#' summary(d1,parm="lm")
+#' confint(d1,incl.est=TRUE)
 #' plot(d1)
-#' 
-#' # with Ricker modification
-#' d2 <- depletion(SMBassLS$catch,SMBassLS$effort,method="DeLury",Ricker.mod=TRUE)
-#' summary(d2)
-#' cbind(Est=coef(d2),confint(d2))
-#' cbind(Est=coef(d2,parm="q"),confint(d2,parm="q"))
-#' plot(d2)
 #'
-#' # with formula notation
+#' # Leslie model using formula notation
 #' l3 <- depletion(catch~effort,data=SMBassLS)
 #' summary(l3)
 #' 
-#' # summarizing by group (requires dplyr package)
-#' # Dummy example data (grp="A" is SMBassLS example ... just FYI)
+#' # Leslie model by group (requires dplyr package)
+#' # Dummy example data (lake=="A" is SMBassLS example ... just FYI)
 #' tmpdf <- data.frame(ct=c(131,69,99,78,56,76,49,42,63,47,
 #'                          117,75,87,67,58,67,42),
 #'                     ft=c(7,7,7,7,7,7,7,7,7,7,
 #'                          5,7,5,5,4,6,5),
-#'                    grp=as.factor(c("A","A","A","A","A","A","A","A","A","A",
-#'                                    "B","B","B","B","B","B","B")))
+#'                     lake=as.factor(c(rep("A",10),rep("B",7))))
 #'                                    
 #' if (require(dplyr)) {
-#'   res1 <- tmpdf %>%
-#'     dplyr::group_by(grp) %>%
-#'       dplyr::group_modify(~summary(depletion(ct~ft,data=.x),as.df=TRUE)) %>%
+#'   res <- tmpdf %>%
+#'     dplyr::group_by(lake) %>%
+#'       dplyr::group_modify(~confint(depletion(ct~ft,data=.x),
+#'                                    incl.est=TRUE,as.df=TRUE)) %>%
 #'       as.data.frame() # removes tibble and grouping structure
-#'   res1
-#' 
-#'   res2 <- tmpdf %>%
-#'     dplyr::group_by(grp) %>%
-#'       dplyr::group_modify(~confint(depletion(ct~ft,data=.x),as.df=TRUE)) %>%
-#'       as.data.frame() # removes tibble and grouping structure
-#'   res2
-#' 
-#'   res <- dplyr::left_join(res1,res2,by="grp")
 #'   res
 #' }
 #' 
@@ -314,44 +297,54 @@ coef.depletion <- function(object,parm=c("all","both","No","q","lm"),as.df=FALSE
 #' @rdname depletion
 #' @export
 confint.depletion <- function(object,parm=c("all","both","No","q","lm"),
-                              level=conf.level,conf.level=0.95,as.df=FALSE,...) {
+                              level=conf.level,conf.level=0.95,
+                              incl.est=FALSE,as.df=FALSE,...) {
   parm <- match.arg(parm)
-  
   ## Check on conf.level
   iCheckConfLevel(conf.level) 
   
   if (parm=="lm") {
-    res <- stats::confint(object$lm,level=conf.level)
-    colnames(res) <- iCILabel(conf.level)
-    if (as.df) {
-      res <- data.frame(Intercept_LCI=res[["(Intercept)","95% LCI"]],
-                        Intercept_UCI=res[["(Intercept)","95% UCI"]],
-                        K_LCI=res[["K","95% LCI"]],
-                        K_UCI=res[["K","95% UCI"]])
+    ## make matrix of all possible results
+    resm <- cbind(stats::coef(object,parm="lm"),
+                  stats::confint(object$lm,level=conf.level))
+    colnames(resm) <- c("Est",iCILabel(conf.level))
+    ## make data.frame of all possible results
+    resd <- data.frame(cbind(t(resm[1,]),t(resm[2,])))
+    names(resd) <- c("(Intercept)","(Intercept)_LCI","(Intercept)_UCI",
+                     "K","K_LCI","K_UCI")
+    ## remove estimates if not asked for
+    if (!incl.est) {
+      resm <- resm[,-which(colnames(resm)=="Est"),drop=FALSE]
+      resd <- resd[!names(resd) %in% c("(Intercept)","K")]
     }
+    ## Return the appropriate matrix or data.frame
+    if (as.df) resd
+    else resm
   } else {
     t <- stats::qt(1-(1-conf.level)/2,summary(object$lm)$df[2])
     tmp <- summary(object)
-    res <- cbind(tmp[,"Estimate"]-t*tmp[,"Std. Err."],
-                 tmp[,"Estimate"]+t*tmp[,"Std. Err."])
-    colnames(res) <- iCILabel(conf.level)
-    if (parm %in% c("all","both")) {
-      if (as.df) {
-        res <- data.frame(No_LCI=res[["No","95% LCI"]],
-                          No_UCI=res[["No","95% UCI"]],
-                          q_LCI=res[["q","95% LCI"]],
-                          q_UCI=res[["q","95% UCI"]])
-      }
-    } else {
-      res <- res[parm,,drop=FALSE]
-      if (as.df) {
-        res <- data.frame(LCI=res[[parm,"95% LCI"]],
-                          UCI=res[[parm,"95% UCI"]])
-        names(res) <- paste(parm,names(res),sep="_")
-      }
+    ## make matrix of all possible results
+    resm <- cbind(coef.depletion(object),
+                  tmp[,"Estimate"]-t*tmp[,"Std. Err."],
+                  tmp[,"Estimate"]+t*tmp[,"Std. Err."])
+    colnames(resm) <- c("Est",iCILabel(conf.level))
+    ## make data.frame of all possible results
+    resd <- data.frame(cbind(t(resm[1,]),t(resm[2,])))
+    names(resd) <- c("No","No_LCI","No_UCI","q","q_LCI","q_UCI")
+    ## remove estimates if not asked for
+    if (!incl.est) {
+      resm <- resm[,-which(colnames(resm)=="Est"),drop=FALSE]
+      resd <- resd[!names(resd) %in% c("No","q")]
     }
+    ## remove unasked for parameters
+    if (!parm %in% c("all","both")) {
+      resm <- resm[parm,,drop=FALSE]
+      resd <- resd[grepl(parm,names(resd))]
+    }
+    ## Return the appropriate matrix or data.frame
+    if (as.df) resd
+      else resm
   }
-  res
 }
 
 #' @rdname depletion

@@ -45,6 +45,7 @@ depletion(catch, ...)
   parm = c("all", "both", "No", "q", "lm"),
   level = conf.level,
   conf.level = 0.95,
+  incl.est = FALSE,
   as.df = FALSE,
   ...
 )
@@ -91,6 +92,8 @@ depletion(catch, ...)
 \item{level}{Same as \code{conf.level} but used for compatibility with generic \code{confint} function.}
 
 \item{conf.level}{A single number that represents the level of confidence to use for constructing confidence intervals.}
+
+\item{incl.est}{A logical that indicated whether the parameter point estimate should be included in the results from \code{confint}. Defaults to \code{FALSE}.}
 
 \item{digits}{The number of digits to round the \code{rSquared} result to.}
 
@@ -159,63 +162,45 @@ summary(l1,verbose=TRUE)
 summary(l1,parm="No")
 rSquared(l1)
 rSquared(l1,digits=1,percent=TRUE)
-cbind(Est=coef(l1),confint(l1))
-cbind(Est=coef(l1,parm="No"),confint(l1,parm="No"))
-cbind(Est=coef(l1,parm="q"),confint(l1,parm="q"))
-summary(l1,parm="lm")
+coef(l1)
+confint(l1)
+confint(l1,incl.est=TRUE)
+confint(l1,incl.est=TRUE,parm="No")
+confint(l1,incl.est=TRUE,parm="q")
+confint(l1,incl.est=TRUE,parm="lm")
 plot(l1)
 
 # with Ricker modification
 l2 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Leslie",Ricker.mod=TRUE)
 summary(l2)
-cbind(Est=coef(l2),confint(l1))
+confint(l1,incl.est=TRUE)
 plot(l2)
 
-## DeLury model examples
-# no Ricker modification
+## DeLury model examples with no Ricker modification
 d1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="DeLury")
 summary(d1)
-summary(d1,parm="q")
-summary(d1,verbose=TRUE)
 rSquared(d1)
-cbind(Est=coef(d1),confint(d1))
-summary(d1,parm="lm")
+confint(d1,incl.est=TRUE)
 plot(d1)
 
-# with Ricker modification
-d2 <- depletion(SMBassLS$catch,SMBassLS$effort,method="DeLury",Ricker.mod=TRUE)
-summary(d2)
-cbind(Est=coef(d2),confint(d2))
-cbind(Est=coef(d2,parm="q"),confint(d2,parm="q"))
-plot(d2)
-
-# with formula notation
+# Leslie model using formula notation
 l3 <- depletion(catch~effort,data=SMBassLS)
 summary(l3)
 
-# summarizing by group (requires dplyr package)
-# Dummy example data (grp="A" is SMBassLS example ... just FYI)
+# Leslie model by group (requires dplyr package)
+# Dummy example data (lake=="A" is SMBassLS example ... just FYI)
 tmpdf <- data.frame(ct=c(131,69,99,78,56,76,49,42,63,47,
                          117,75,87,67,58,67,42),
                     ft=c(7,7,7,7,7,7,7,7,7,7,
                          5,7,5,5,4,6,5),
-                   grp=as.factor(c("A","A","A","A","A","A","A","A","A","A",
-                                   "B","B","B","B","B","B","B")))
+                    lake=as.factor(c(rep("A",10),rep("B",7))))
                                    
 if (require(dplyr)) {
-  res1 <- tmpdf \%>\%
-    dplyr::group_by(grp) \%>\%
-      dplyr::group_modify(~summary(depletion(ct~ft,data=.x),as.df=TRUE)) \%>\%
+  res <- tmpdf \%>\%
+    dplyr::group_by(lake) \%>\%
+      dplyr::group_modify(~confint(depletion(ct~ft,data=.x),
+                                   incl.est=TRUE,as.df=TRUE)) \%>\%
       as.data.frame() # removes tibble and grouping structure
-  res1
-
-  res2 <- tmpdf \%>\%
-    dplyr::group_by(grp) \%>\%
-      dplyr::group_modify(~confint(depletion(ct~ft,data=.x),as.df=TRUE)) \%>\%
-      as.data.frame() # removes tibble and grouping structure
-  res2
-
-  res <- dplyr::left_join(res1,res2,by="grp")
   res
 }
 
