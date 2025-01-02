@@ -255,22 +255,19 @@ summary.depletion <- function(object,parm=c("all","both","No","q","lm"),
   if(parm=="lm") {
     res <- summary(object$lm,...)
   } else {
-    res <- object$est
-    if (parm %in% c("all","both")) {
-      if (as.df) {
-        res <- data.frame(No_Est=res[["No","Estimate"]],
-                          No_SE=res[["No","Std. Err."]],
-                          q_Est=res[["q","Estimate"]],
-                          q_SE=res[["q","Std. Err."]])
-      }
-    } else {
-      res <- res[parm,,drop=FALSE]
-      if (as.df) {
-        res <- data.frame(Est=res[[parm,"Estimate"]],
-                          SE=res[[parm,"Std. Err."]])
-        names(res) <- paste(parm,names(res),sep="_")
-      }
+    # matrix of all possible results
+    resm <- object$est
+    # data.frame of all possible results
+    resd <- data.frame(cbind(t(resm[1,]),t(resm[2,])))
+    names(resd) <- c("No","No_SE","q","q_SE")
+    # remove parameters not asked for
+    if (!parm %in% c("all","both")) {
+      resm <- resm[parm,,drop=FALSE]
+      resd <- resd[grepl(parm,names(resd))]
     }
+    # prepare to return data.frame if asked for, otherwise matrix
+    if (as.df) res <- resd
+      else res <- resm
   }
   res
 }
@@ -280,18 +277,24 @@ summary.depletion <- function(object,parm=c("all","both","No","q","lm"),
 coef.depletion <- function(object,parm=c("all","both","No","q","lm"),as.df=FALSE,...) {
   parm <- match.arg(parm)
   if(parm=="lm") {
-    tmp <- stats::coef(object$lm,...)
-    if(as.df) tmp <- data.frame(Intercept=tmp[["(Intercept)"]],K=tmp[["K"]])
+    res <- stats::coef(object$lm,...)
+    if(as.df) res <- data.frame(Intercept=res[["(Intercept)"]],K=res[["K"]])
   } else {
-    tmp <- object$est[,"Estimate"]
-    if(parm %in% c("all","both")) {
-      if (as.df) tmp <- data.frame(No=tmp[["No"]],q=tmp[["q"]])
-    } else {
-      tmp <- tmp[parm]
-      if (as.df) tmp <- data.frame(No=tmp[[parm]])
+    # matrix of all possible results
+    resm <- object$est[,"Estimate"]
+    # data.frame of all possible results
+    resd <- data.frame(cbind(t(resm[1]),t(resm[2])))
+    names(resd) <- c("No","q")
+    # remove parameters not asked for
+    if (!parm %in% c("all","both")) {
+      resm <- resm[parm,drop=FALSE]
+      resd <- resd[grepl(parm,names(resd))]
     }
+    # prepare to return data.frame if asked for, otherwise matrix
+    if (as.df) res <- resd
+      else res <- resm
   }
-  tmp
+  res
 }
 
 #' @rdname depletion
@@ -319,7 +322,7 @@ confint.depletion <- function(object,parm=c("all","both","No","q","lm"),
     }
     ## Return the appropriate matrix or data.frame
     if (as.df) resd
-    else resm
+      else resm
   } else {
     t <- stats::qt(1-(1-conf.level)/2,summary(object$lm)$df[2])
     tmp <- summary(object)
