@@ -30,15 +30,22 @@ depletion(catch, ...)
   ...
 )
 
-\method{summary}{depletion}(object, parm = c("all", "both", "No", "q", "lm"), verbose = FALSE, ...)
+\method{summary}{depletion}(
+  object,
+  parm = c("all", "both", "No", "q", "lm"),
+  verbose = FALSE,
+  as.df = FALSE,
+  ...
+)
 
-\method{coef}{depletion}(object, parm = c("all", "both", "No", "q", "lm"), ...)
+\method{coef}{depletion}(object, parm = c("all", "both", "No", "q", "lm"), as.df = FALSE, ...)
 
 \method{confint}{depletion}(
   object,
   parm = c("all", "both", "No", "q", "lm"),
   level = conf.level,
   conf.level = 0.95,
+  as.df = FALSE,
   ...
 )
 
@@ -78,6 +85,8 @@ depletion(catch, ...)
 \item{parm}{A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considered.}
 
 \item{verbose}{A logical that indicates whether a reminder of the method used should be printed with the summary results.}
+
+\item{as.df}{A logical that indicates whether the results of \code{coef}, \code{confint}, or \code{summary} should be returned as a data.frame. Ignored in \code{summary} if \code{parm="lm"}.}
 
 \item{level}{Same as \code{conf.level} but used for compatibility with generic \code{confint} function.}
 
@@ -183,6 +192,32 @@ plot(d2)
 # with formula notation
 l3 <- depletion(catch~effort,data=SMBassLS)
 summary(l3)
+
+# summarizing by group (requires dplyr package)
+# Dummy example data (grp="A" is SMBassLS example ... just FYI)
+tmpdf <- data.frame(ct=c(131,69,99,78,56,76,49,42,63,47,
+                         117,75,87,67,58,67,42),
+                    ft=c(7,7,7,7,7,7,7,7,7,7,
+                         5,7,5,5,4,6,5),
+                   grp=as.factor(c("A","A","A","A","A","A","A","A","A","A",
+                                   "B","B","B","B","B","B","B")))
+                                   
+if (require(dplyr)) {
+  res1 <- tmpdf \%>\%
+    dplyr::group_by(grp) \%>\%
+      dplyr::group_modify(~summary(depletion(ct~ft,data=.x),as.df=TRUE)) \%>\%
+      as.data.frame() # removes tibble and grouping structure
+  res1
+
+  res2 <- tmpdf \%>\%
+    dplyr::group_by(grp) \%>\%
+      dplyr::group_modify(~confint(depletion(ct~ft,data=.x),as.df=TRUE)) \%>\%
+      as.data.frame() # removes tibble and grouping structure
+  res2
+
+  res <- dplyr::left_join(res1,res2,by="grp")
+  res
+}
 
 }
 \references{

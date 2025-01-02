@@ -15,6 +15,7 @@
 #' @param Ricker.mod A single logical that indicates whether to use the modification proposed by Ricker (=TRUE) or not (=FALSE, default).
 #' @param object An object saved from the \code{removal} call (i.e., of class \code{depletion}).
 #' @param x An object saved from the \code{depletion} call (i.e., of class \code{depletion}).
+#' @param as.df A logical that indicates whether the results of \code{coef}, \code{confint}, or \code{summary} should be returned as a data.frame. Ignored in \code{summary} if \code{parm="lm"}.
 #' @param verbose A logical that indicates whether a reminder of the method used should be printed with the summary results.
 #' @param parm A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considered.
 #' @param conf.level A single number that represents the level of confidence to use for constructing confidence intervals.
@@ -107,6 +108,32 @@
 #' # with formula notation
 #' l3 <- depletion(catch~effort,data=SMBassLS)
 #' summary(l3)
+#' 
+#' # summarizing by group (requires dplyr package)
+#' # Dummy example data (grp="A" is SMBassLS example ... just FYI)
+#' tmpdf <- data.frame(ct=c(131,69,99,78,56,76,49,42,63,47,
+#'                          117,75,87,67,58,67,42),
+#'                     ft=c(7,7,7,7,7,7,7,7,7,7,
+#'                          5,7,5,5,4,6,5),
+#'                    grp=as.factor(c("A","A","A","A","A","A","A","A","A","A",
+#'                                    "B","B","B","B","B","B","B")))
+#'                                    
+#' if (require(dplyr)) {
+#'   res1 <- tmpdf %>%
+#'     dplyr::group_by(grp) %>%
+#'       dplyr::group_modify(~summary(depletion(ct~ft,data=.x),as.df=TRUE)) %>%
+#'       as.data.frame() # removes tibble and grouping structure
+#'   res1
+#' 
+#'   res2 <- tmpdf %>%
+#'     dplyr::group_by(grp) %>%
+#'       dplyr::group_modify(~confint(depletion(ct~ft,data=.x),as.df=TRUE)) %>%
+#'       as.data.frame() # removes tibble and grouping structure
+#'   res2
+#' 
+#'   res <- dplyr::left_join(res1,res2,by="grp")
+#'   res
+#' }
 #' 
 #' @rdname depletion
 #' @export
@@ -238,27 +265,48 @@ iCheckRegSig <- function(tmp) {
 
 #' @rdname depletion
 #' @export
-summary.depletion <- function(object,parm=c("all","both","No","q","lm"),verbose=FALSE,...) {
+summary.depletion <- function(object,parm=c("all","both","No","q","lm"),
+                              verbose=FALSE,as.df=FALSE,...) {
   if (verbose) message("The ",object$method," method was used.")
   parm <- match.arg(parm)
   if(parm=="lm") {
-    tmp <- summary(object$lm,...)
+    res <- summary(object$lm,...)
   } else {
-    tmp <- object$est
-    if (!parm %in% c("all","both")) tmp <- tmp[parm,,drop=FALSE]
+    res <- object$est
+    if (parm %in% c("all","both")) {
+      if (as.df) {
+        res <- data.frame(No_Est=res[["No","Estimate"]],
+                          No_SE=res[["No","Std. Err."]],
+                          q_Est=res[["q","Estimate"]],
+                          q_SE=res[["q","Std. Err."]])
+      }
+    } else {
+      res <- res[parm,,drop=FALSE]
+      if (as.df) {
+        res <- data.frame(Est=res[[parm,"Estimate"]],
+                          SE=res[[parm,"Std. Err."]])
+        names(res) <- paste(parm,names(res),sep="_")
+      }
+    }
   }
-  tmp
+  res
 }
 
 #' @rdname depletion
 #' @export
-coef.depletion <- function(object,parm=c("all","both","No","q","lm"),...) {
+coef.depletion <- function(object,parm=c("all","both","No","q","lm"),as.df=FALSE,...) {
   parm <- match.arg(parm)
   if(parm=="lm") {
     tmp <- stats::coef(object$lm,...)
+    if(as.df) tmp <- data.frame(Intercept=tmp[["(Intercept)"]],K=tmp[["K"]])
   } else {
     tmp <- object$est[,"Estimate"]
-    if (!parm %in% c("all","both")) tmp <- tmp[parm]
+    if(parm %in% c("all","both")) {
+      if (as.df) tmp <- data.frame(No=tmp[["No"]],q=tmp[["q"]])
+    } else {
+      tmp <- tmp[parm]
+      if (as.df) tmp <- data.frame(No=tmp[[parm]])
+    }
   }
   tmp
 }
@@ -266,21 +314,43 @@ coef.depletion <- function(object,parm=c("all","both","No","q","lm"),...) {
 #' @rdname depletion
 #' @export
 confint.depletion <- function(object,parm=c("all","both","No","q","lm"),
-                              level=conf.level,conf.level=0.95,...) {
+                              level=conf.level,conf.level=0.95,as.df=FALSE,...) {
   parm <- match.arg(parm)
   
   ## Check on conf.level
   iCheckConfLevel(conf.level) 
   
-  if (parm=="lm") res <- stats::confint(object$lm,level=conf.level)
-  else {
+  if (parm=="lm") {
+    res <- stats::confint(object$lm,level=conf.level)
+    colnames(res) <- iCILabel(conf.level)
+    if (as.df) {
+      res <- data.frame(Intercept_LCI=res[["(Intercept)","95% LCI"]],
+                        Intercept_UCI=res[["(Intercept)","95% UCI"]],
+                        K_LCI=res[["K","95% LCI"]],
+                        K_UCI=res[["K","95% UCI"]])
+    }
+  } else {
     t <- stats::qt(1-(1-conf.level)/2,summary(object$lm)$df[2])
     tmp <- summary(object)
     res <- cbind(tmp[,"Estimate"]-t*tmp[,"Std. Err."],
                  tmp[,"Estimate"]+t*tmp[,"Std. Err."])
-    if (!parm %in% c("all","both")) res <- res[parm,,drop=FALSE]
+    colnames(res) <- iCILabel(conf.level)
+    if (parm %in% c("all","both")) {
+      if (as.df) {
+        res <- data.frame(No_LCI=res[["No","95% LCI"]],
+                          No_UCI=res[["No","95% UCI"]],
+                          q_LCI=res[["q","95% LCI"]],
+                          q_UCI=res[["q","95% UCI"]])
+      }
+    } else {
+      res <- res[parm,,drop=FALSE]
+      if (as.df) {
+        res <- data.frame(LCI=res[[parm,"95% LCI"]],
+                          UCI=res[[parm,"95% UCI"]])
+        names(res) <- paste(parm,names(res),sep="_")
+      }
+    }
   }
-  colnames(res) <- iCILabel(conf.level)
   res
 }
 
