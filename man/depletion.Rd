@@ -7,14 +7,27 @@
 \alias{coef.depletion}
 \alias{anova.depletion}
 \alias{confint.depletion}
+\alias{depletion.formula}
+\alias{depletion.default}
 \alias{rSquared.depletion}
 \title{Computes the Leslie or DeLury population estimate from catch and effort data.}
 \usage{
-depletion(
+depletion(catch, ...)
+
+\method{depletion}{formula}(
+  catch,
+  data,
+  method = c("Leslie", "DeLury", "Delury"),
+  Ricker.mod = FALSE,
+  ...
+)
+
+\method{depletion}{default}(
   catch,
   effort,
   method = c("Leslie", "DeLury", "Delury"),
-  Ricker.mod = FALSE
+  Ricker.mod = FALSE,
+  ...
 )
 
 \method{summary}{depletion}(object, parm = c("all", "both", "No", "q", "lm"), verbose = FALSE, ...)
@@ -48,21 +61,23 @@ depletion(
 )
 }
 \arguments{
-\item{catch}{A numeric vector of catches of fish at each time.}
+\item{catch}{A numeric vector of catches of fish at each time, or a formula of the form \code{catch~effort}.}
 
-\item{effort}{A numeric vector of efforts expended at each time.}
+\item{\dots}{Additional arguments for methods.}
+
+\item{data}{A data.frame from which the variables in the \code{catch} formula can be found. Not used if \code{catch} is not a formula.}
 
 \item{method}{A single string that indicates which depletion method to use}
 
 \item{Ricker.mod}{A single logical that indicates whether to use the modification proposed by Ricker (=TRUE) or not (=FALSE, default).}
+
+\item{effort}{A numeric vector of efforts expended at each time.}
 
 \item{object}{An object saved from the \code{removal} call (i.e., of class \code{depletion}).}
 
 \item{parm}{A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considered.}
 
 \item{verbose}{A logical that indicates whether a reminder of the method used should be printed with the summary results.}
-
-\item{\dots}{Additional arguments for methods.}
 
 \item{level}{Same as \code{conf.level} but used for compatibility with generic \code{confint} function.}
 
@@ -164,6 +179,10 @@ summary(d2)
 cbind(Est=coef(d2),confint(d2))
 cbind(Est=coef(d2,parm="q"),confint(d2,parm="q"))
 plot(d2)
+
+# with formula notation
+l3 <- depletion(catch~effort,data=SMBassLS)
+summary(l3)
 
 }
 \references{

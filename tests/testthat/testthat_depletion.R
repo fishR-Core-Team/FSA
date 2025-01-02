@@ -88,6 +88,11 @@ ci8 <- confint(ex8)
 
 ## Test Messages ----
 test_that("depletion() messages",{
+  ## bad formulae
+  expect_error(depletion(catch~effort+day,data=SMBassLS),
+               "only one RHS variable")
+  expect_error(depletion(catch+day~effort,data=SMBassLS),
+               "more than one variable on the LHS")
   ## wrong type
   expect_error(depletion(c(346,184,49),rep(7,3),method="Derek"),
                "should be one of")
@@ -107,7 +112,7 @@ test_that("depletion() messages",{
   ## too few catches
   expect_error(depletion(c(346,184),rep(7,2)),
                "Must have at least 3 values")
-  ## negative catchs or non-non-negative efforts
+  ## negative catches or non-non-negative efforts
   expect_error(depletion(c(346,184,-49),rep(7,3)),
                "must be non-negative")
   expect_error(depletion(c(346,184,49),c(7,3,-1)),
@@ -146,7 +151,11 @@ test_that("depletion() messages",{
 
 ## Test Output Types ----
 test_that("depletion() output types",{
+  # formula matches vector method
+  l1f <- depletion(catch~effort,data=SMBassLS,method="Leslie")
   l1 <- depletion(SMBassLS$catch,SMBassLS$effort,method="Leslie")
+  expect_equal(l1f,l1)
+  # Just check vector method after this
   expect_equal(class(l1),"depletion")
   # coef()s
   l1A <- coef(l1)

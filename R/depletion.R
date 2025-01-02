@@ -8,7 +8,8 @@
 #'
 #' Standard errors for the catchability and population size estimates are computed from formulas on page 298 (for Leslie) and 303 (for DeLury) from Seber (2002). Confidence intervals are computed using standard large-sample normal distribution theory with the regression error df.
 #' 
-#' @param catch A numeric vector of catches of fish at each time.
+#' @param catch A numeric vector of catches of fish at each time, or a formula of the form \code{catch~effort}.
+#' @param data A data.frame from which the variables in the \code{catch} formula can be found. Not used if \code{catch} is not a formula.
 #' @param effort A numeric vector of efforts expended at each time.
 #' @param method A single string that indicates which depletion method to use
 #' @param Ricker.mod A single logical that indicates whether to use the modification proposed by Ricker (=TRUE) or not (=FALSE, default).
@@ -103,10 +104,41 @@
 #' cbind(Est=coef(d2,parm="q"),confint(d2,parm="q"))
 #' plot(d2)
 #'
+#' # with formula notation
+#' l3 <- depletion(catch~effort,data=SMBassLS)
+#' summary(l3)
+#' 
 #' @rdname depletion
 #' @export
-depletion <- function(catch,effort,method=c("Leslie","DeLury","Delury"),
-                      Ricker.mod=FALSE) {
+depletion <- function(catch,...) {
+  UseMethod("depletion") 
+}
+
+#' @rdname depletion
+#' @export
+depletion.formula <- function(catch,data,method=c("Leslie","DeLury","Delury"),
+                              Ricker.mod=FALSE,...) {
+  ## Handle the formula and perform some checks
+  tmp <- iHndlFormula(catch,data,expNumR=1,expNumE=1)
+  if (!tmp$metExpNumR)
+    STOP("'depletion' must have only one LHS variable.")
+  if (!tmp$Rclass %in% c("numeric","integer"))
+    STOP("LHS variable (catch) must be numeric.")
+  if (!tmp$metExpNumE)
+    STOP("'depletion' must have only one RHS variable.")
+  if (!tmp$Eclass %in% c("numeric","integer"))
+    STOP("RHS variable (effort) must be numeric.")
+  ## Get variables from model frame
+  catch <- tmp$mf[,tmp$Rname]
+  effort <- tmp$mf[,tmp$Enames]
+  ## Call the default function
+  depletion.default(catch,effort,method=method,Ricker.mod=Ricker.mod)
+}
+
+#' @rdname depletion
+#' @export
+depletion.default <- function(catch,effort,method=c("Leslie","DeLury","Delury"),
+                              Ricker.mod=FALSE,...) {
   # check method, change bad spelling of DeLury if necessary
   method <- match.arg(method)
   if (method=="Delury") method <- "DeLury"
