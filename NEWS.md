@@ -25,6 +25,9 @@
   * Added Quinn and Deriso (1999), Peterson and Wroblewski (1984), and Chan and Watanabe (1989) methods from FAMS manual. These are probably only useful for comparison to FAMS results.
   * Added an example for computing an average M or cm from multiple model results.
 * `Mmethods()`: Modified. Changed `what=` to `method=` for simplicity with `metaM()`.
+* `removal()`: Modified.
+  * Deprecated `just.ests=`. Functionality will be largely replaced with `incl.ests=` in `confint()`. Replaced split-apply example with a new one that performs similarly without `just.ests=` and is more in-line with examples in `depletion` *et al.*
+  
 
 # FSA 0.9.5
 * Fixed FSA-package \alias problem using the "automatic approach" (i.e., adding a "_PACKAGE" line to FSA.R) suggested in an e-mail from Kurt Hornik on 19-Aug-2023.

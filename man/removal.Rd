@@ -14,9 +14,9 @@ removal(
   beta = 1,
   CS.se = c("Zippin", "alternative"),
   conf.level = 0.95,
-  just.ests = FALSE,
   Tmult = 3,
-  CIMicroFish = FALSE
+  CIMicroFish = FALSE,
+  just.ests = FALSE
 )
 
 \method{summary}{removal}(
@@ -50,11 +50,11 @@ removal(
 
 \item{conf.level}{A single number representing the level of confidence to use for constructing confidence intervals. This is sent in the main \code{removal} function rather than \code{confint}.}
 
-\item{just.ests}{A logical that indicates whether just the estimates (\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.}
-
 \item{Tmult}{A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute methods. Large values are much slower to compute, but values that are too low may result in missing the best estimate. A warning is issued if too low of a value is suspected.}
 
 \item{CIMicroFish}{A logical that indicates whether the t value used to calculate confidence intervals when \code{method="Burnham"} should be rounded to two or three decimals and whether the confidence intervals for No should be rounded to whole numbers as done in MicroFish 3.0. The default (\code{=FALSE}) is to NOT round the t values or No confidence interval. This option is provided only so that results will exactly match MicroFish results (see testing).}
+
+\item{just.ests}{Deprecated as of v0.9.6. This was primarily used when using \code{removal} with a split-and-apply approach to estimate N for multiple groups. See examples and use of \code{incl.ests=} in \code{confint} for similar functionality.}
 
 \item{object}{An object saved from \code{removal()}.}
 
@@ -69,7 +69,7 @@ removal(
 \item{level}{Not used, but here for compatibility with generic \code{confint} function.}
 }
 \value{
-A vector that contains the estimates and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with at least the following items:
+A list with at least the following items:
  \itemize{
    \item catch The original vector of observed catches.
    \item method The method used (provided by the user).
@@ -179,50 +179,8 @@ ct4 <- c(45,11,18,8)
 p2a <- removal(ct4,method="Moran")
 p3a <- removal(ct4,method="Schnute")
 chi2.val <- 2*(p2a$min.nlogLH-p3a$min.nlogLH)  # 4.74 in Schnute(1983)
-pchisq(chi2.val,df=1,lower.tail=FALSE)         # significant difference (catchability differs)
+pchisq(chi2.val,df=1,lower.tail=FALSE)         # sig diff (catchability differs)
 summary(p3a)
-
-
-### Using lapply() to use removal() on many different groups
-###   with the removals in a single variable ("long format")
-## create a dummy data frame
-lake <- factor(rep(c("Ash Tree","Bark","Clay"),each=5))
-year <- factor(rep(c("2010","2011","2010","2011","2010","2011"),times=c(2,3,3,2,2,3)))
-pass <- factor(c(1,2,1,2,3,1,2,3,1,2,1,2,1,2,3))
-catch <- c(57,34,65,34,12,54,26,9,54,27,67,34,68,35,12)
-d <- data.frame(lake,year,pass,catch)
-
-## create a variable that indicates each different group
-d$group <- with(d,interaction(lake,year))
-d
-## split the catch by the different groups (creates a list of catch vectors)
-ds <- split(d$catch,d$group)
-## apply removal() to each catch vector (i.e., different group)
-res <- lapply(ds,removal,just.ests=TRUE)
-res <- data.frame(t(data.frame(res,check.names=FALSE)))
-## get rownames from above and split into separate columns
-nms <- t(data.frame(strsplit(rownames(res),"\\\\.")))
-attr(nms,"dimnames") <- NULL
-fnl <- data.frame(nms,res)
-## put names together with values
-rownames(fnl) <- NULL
-colnames(fnl)[1:2] <- c("Lake","Year")
-fnl
-
-
-### Using apply() to use removal() on many different groups
-###   with the removals in several variables ("wide format")
-## create a dummy data frame (just reshaped from above as
-## an example; -5 to ignore the group variable from above)
-d1 <- reshape(d[,-5],timevar="pass",idvar=c("lake","year"),direction="wide")
-## apply restore() to each row of only the catch data
-res1 <- apply(d1[,3:5],MARGIN=1,FUN=removal,method="CarleStrub",just.ests=TRUE)
-res1 <- data.frame(t(data.frame(res1,check.names=FALSE)))
-## add the grouping information to the results
-fnl1 <- data.frame(d1[,1:2],res1)
-## put names together with values
-rownames(fnl1) <- NULL
-fnl1
 
 }
 \references{

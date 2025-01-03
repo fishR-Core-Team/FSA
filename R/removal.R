@@ -29,14 +29,14 @@
 #' @param parm A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considered.
 #' @param level Not used, but here for compatibility with generic \code{confint} function.
 #' @param conf.level A single number representing the level of confidence to use for constructing confidence intervals. This is sent in the main \code{removal} function rather than \code{confint}.
-#' @param just.ests A logical that indicates whether just the estimates (\code{=TRUE}) or the return list (\code{=FALSE}; default; see below) is returned.
 #' @param verbose A logical that indicates whether descriptive labels should be printed from \code{summary} and if certain warnings are shown with \code{confint}.
 #' @param digits A single numeric that controls the number of decimals in the output from \code{summary} and \code{confint}.
 #' @param Tmult A single numeric that will be multiplied by the total catch in all samples to set the upper value for the range of population sizes when minimizing the log-likelihood and creating confidence intervals for the Moran and Schnute methods. Large values are much slower to compute, but values that are too low may result in missing the best estimate. A warning is issued if too low of a value is suspected.
 #' @param CIMicroFish A logical that indicates whether the t value used to calculate confidence intervals when \code{method="Burnham"} should be rounded to two or three decimals and whether the confidence intervals for No should be rounded to whole numbers as done in MicroFish 3.0. The default (\code{=FALSE}) is to NOT round the t values or No confidence interval. This option is provided only so that results will exactly match MicroFish results (see testing).
+#' @param just.ests Deprecated as of v0.9.6. This was primarily used when using \code{removal} with a split-and-apply approach to estimate N for multiple groups. See examples and use of \code{incl.ests=} in \code{confint} for similar functionality.
 #' @param \dots Additional arguments for methods.
 #'
-#' @return A vector that contains the estimates and standard errors for No and p if \code{just.ests=TRUE} or (default) a list with at least the following items:
+#' @return A list with at least the following items:
 #'  \itemize{
 #'    \item catch The original vector of observed catches.
 #'    \item method The method used (provided by the user).
@@ -151,50 +151,8 @@
 #' p2a <- removal(ct4,method="Moran")
 #' p3a <- removal(ct4,method="Schnute")
 #' chi2.val <- 2*(p2a$min.nlogLH-p3a$min.nlogLH)  # 4.74 in Schnute(1983)
-#' pchisq(chi2.val,df=1,lower.tail=FALSE)         # significant difference (catchability differs)
+#' pchisq(chi2.val,df=1,lower.tail=FALSE)         # sig diff (catchability differs)
 #' summary(p3a)
-#'
-#'
-#' ### Using lapply() to use removal() on many different groups
-#' ###   with the removals in a single variable ("long format")
-#' ## create a dummy data frame
-#' lake <- factor(rep(c("Ash Tree","Bark","Clay"),each=5))
-#' year <- factor(rep(c("2010","2011","2010","2011","2010","2011"),times=c(2,3,3,2,2,3)))
-#' pass <- factor(c(1,2,1,2,3,1,2,3,1,2,1,2,1,2,3))
-#' catch <- c(57,34,65,34,12,54,26,9,54,27,67,34,68,35,12)
-#' d <- data.frame(lake,year,pass,catch)
-#'
-#' ## create a variable that indicates each different group
-#' d$group <- with(d,interaction(lake,year))
-#' d
-#' ## split the catch by the different groups (creates a list of catch vectors)
-#' ds <- split(d$catch,d$group)
-#' ## apply removal() to each catch vector (i.e., different group)
-#' res <- lapply(ds,removal,just.ests=TRUE)
-#' res <- data.frame(t(data.frame(res,check.names=FALSE)))
-#' ## get rownames from above and split into separate columns
-#' nms <- t(data.frame(strsplit(rownames(res),"\\.")))
-#' attr(nms,"dimnames") <- NULL
-#' fnl <- data.frame(nms,res)
-#' ## put names together with values
-#' rownames(fnl) <- NULL
-#' colnames(fnl)[1:2] <- c("Lake","Year")
-#' fnl
-#'
-#'
-#' ### Using apply() to use removal() on many different groups
-#' ###   with the removals in several variables ("wide format")
-#' ## create a dummy data frame (just reshaped from above as
-#' ## an example; -5 to ignore the group variable from above)
-#' d1 <- reshape(d[,-5],timevar="pass",idvar=c("lake","year"),direction="wide")
-#' ## apply restore() to each row of only the catch data
-#' res1 <- apply(d1[,3:5],MARGIN=1,FUN=removal,method="CarleStrub",just.ests=TRUE)
-#' res1 <- data.frame(t(data.frame(res1,check.names=FALSE)))
-#' ## add the grouping information to the results
-#' fnl1 <- data.frame(d1[,1:2],res1)
-#' ## put names together with values
-#' rownames(fnl1) <- NULL
-#' fnl1
 #'
 #' @rdname removal
 #' @export
@@ -202,9 +160,13 @@ removal <- function(catch,
                     method=c("CarleStrub","Zippin","Seber3","Seber2",
                              "RobsonRegier2","Moran","Schnute","Burnham"),
                     alpha=1,beta=1,CS.se=c("Zippin","alternative"),
-                    conf.level=0.95,just.ests=FALSE,Tmult=3,CIMicroFish=FALSE) {
+                    conf.level=0.95,Tmult=3,CIMicroFish=FALSE,just.ests=FALSE) {
   # some initial checks
   method <- match.arg(method)
+  if (just.ests) 
+    message("'just.ests=' is deprecated as of v0.9.6. 'just.ests=' was used\n",
+            "  primarily with split-and-apply for multiple groups. See 'incl.ests='\n",
+            "  in 'confint()' and examples for  same functionality in >v0.9.6.")
   
   ## Check on conf.level
   iCheckConfLevel(conf.level) 
@@ -250,12 +212,9 @@ removal <- function(catch,
     Schnute=       { tmp <- iSchnute(catch,conf.level,Tmult) },
     Burnham=       { tmp <- iBurnham(catch,conf.level,Tmult,CIMicroFish) }
   )
-  if (just.ests) { tmp <- tmp$est }
-  else {
-    tmp <- c(tmp,method=method,conf.level=conf.level)
-    class(tmp) <- "removal"
-  }
-  # return object
+  # Prepare object list to return
+  tmp <- c(tmp,method=method,conf.level=conf.level)
+  class(tmp) <- "removal"
   tmp
 }
 
@@ -717,7 +676,8 @@ iBurnham <- function(catch,conf.level,Tmult,CIMicroFish){
 
 #' @rdname removal
 #' @export
-summary.removal <- function(object,parm=c("No","p","p1"),digits=getOption("digits"),verbose=FALSE,...) {
+summary.removal <- function(object,parm=c("No","p","p1"),
+                            digits=getOption("digits"),verbose=FALSE,...) {
   parm <- match.arg(parm,several.ok=TRUE)
   # send warning if chose 'p1' parameter but not Schnute method
   #   but don't warn if all parameters are chosen
@@ -729,7 +689,8 @@ summary.removal <- function(object,parm=c("No","p","p1"),digits=getOption("digit
     parm <- parm[-which(parm=="p1")]
   }
   if (verbose) {
-    if (object$method %in% c("Moran","Schnute")) message("The ",object$lbl," was used (SEs not computed).")
+    if (object$method %in% c("Moran","Schnute"))
+      message("The ",object$lbl," was used (SEs not computed).")
     else message("The ",object$lbl," was used.")
   }
   if (object$method %in% c("Zippin","CarleStrub","Seber3","Seber2","RobsonRegier2","Burnham")) {
@@ -754,7 +715,8 @@ summary.removal <- function(object,parm=c("No","p","p1"),digits=getOption("digit
 confint.removal <- function(object,parm=c("No","p"),
                             level=conf.level,conf.level=NULL,
                             digits=getOption("digits"),verbose=FALSE,...) {
-  if (!is.null(level)) WARN("The confidence level is not set here, it is set with 'conf.level=' in 'removal()'.")
+  if (!is.null(level))
+    WARN("The confidence level is not set here, it is set with 'conf.level=' in 'removal()'.")
   parm <- match.arg(parm,several.ok=TRUE)
   if (object$method %in% c("Zippin","CarleStrub","Seber3","Seber2","RobsonRegier2","Burnham")) {
     res <- matrix(object$est[c("No.LCI","No.UCI","p.LCI","p.UCI")],nrow=2,byrow=TRUE)
@@ -763,9 +725,11 @@ confint.removal <- function(object,parm=c("No","p"),
   } else {
     ## Handle some messaging
     if (object$method %in% c("Moran","Schnute")) {
-      # warn about no CIs for p with Moran and Schnute but only if p is the only parm chosen
+      # warn about no CIs for p with Moran and Schnute but only if p is only parm chosen
       if ("p" %in% parm) {
-        if (length(parm)==1) STOP("Confidence intervals for 'p' cannot be computed with ",object$method," method.")
+        if (length(parm)==1)
+          STOP("Confidence intervals for 'p' cannot be computed with ",
+               object$method," method.")
         parm <- "No"
       }
       # print messages about CI fails if they exist
