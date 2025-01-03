@@ -10,6 +10,7 @@
 * Fixed four minor errors in documentation from legacy uses of `\R{}` rather than `\code{}`.
 
 * `catchCurve()`: Added `as.df=` to extractor functions and `incl.est=` to `confint.catchCurve()` to match functionality added to `depletion()`.
+* `chapmanRobson()`: Added `as.df=` to extractor functions and `incl.est=` to `confint.chapmanRobson()` to match functionality added to `depletion()`.
 * `depletion()`: Modified to address [#111](https://github.com/fishR-Core-Team/FSA/issues/111).
   * Added formula notation such that `depletion()` wash changed to a method call and `depletion.default()` and `depletion.formula()` were added. Tests for the formula were included.
   * Added `as.df=` to `coef.depletion()`, `confint.depletion()`, and `summary.depletion()` so that the result is returned as a data.frame when set to `TRUE` (default is `FALSE` to maintain backward compatability).
