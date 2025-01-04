@@ -4,9 +4,28 @@
 \alias{removal}
 \alias{summary.removal}
 \alias{confint.removal}
+\alias{removal.formula}
+\alias{removal.default}
+\alias{coef.removal}
 \title{Population estimates for k-, 3-, or 2-pass removal data.}
 \usage{
-removal(
+removal(catch, ...)
+
+\method{removal}{formula}(
+  catch,
+  data,
+  method = c("CarleStrub", "Zippin", "Seber3", "Seber2", "RobsonRegier2", "Moran",
+    "Schnute", "Burnham"),
+  alpha = 1,
+  beta = 1,
+  CS.se = c("Zippin", "alternative"),
+  conf.level = 0.95,
+  Tmult = 3,
+  CIMicroFish = FALSE,
+  ...
+)
+
+\method{removal}{default}(
   catch,
   method = c("CarleStrub", "Zippin", "Seber3", "Seber2", "RobsonRegier2", "Moran",
     "Schnute", "Burnham"),
@@ -16,29 +35,39 @@ removal(
   conf.level = 0.95,
   Tmult = 3,
   CIMicroFish = FALSE,
-  just.ests = FALSE
-)
-
-\method{summary}{removal}(
-  object,
-  parm = c("No", "p", "p1"),
-  digits = getOption("digits"),
-  verbose = FALSE,
+  just.ests = FALSE,
   ...
 )
 
+\method{coef}{removal}(object, parm = c("all", "No", "p", "p1"), as.df = FALSE, ...)
+
 \method{confint}{removal}(
   object,
-  parm = c("No", "p"),
+  parm = c("all", "No", "p", "p1"),
   level = conf.level,
   conf.level = NULL,
   digits = getOption("digits"),
   verbose = FALSE,
+  incl.est = FALSE,
+  as.df = FALSE,
+  ...
+)
+
+\method{summary}{removal}(
+  object,
+  parm = c("all", "No", "p", "p1"),
+  digits = getOption("digits"),
+  verbose = FALSE,
+  as.df = FALSE,
   ...
 )
 }
 \arguments{
-\item{catch}{A numerical vector of catch at each pass.}
+\item{catch}{A numerical vector of catch at each pass, or a formula of the form \code{~catch}.}
+
+\item{\dots}{Additional arguments for methods.}
+
+\item{data}{A data.frame from which the variables in the \code{catch} formula can be found. Not used if \code{catch} is not a formula.}
 
 \item{method}{A single string that identifies the removal method to use. See details.}
 
@@ -60,13 +89,15 @@ removal(
 
 \item{parm}{A specification of which parameters are to be given confidence intervals, either a vector of numbers or a vector of names. If missing, all parameters are considered.}
 
+\item{as.df}{A logical that indicates whether the results of \code{coef}, \code{confint}, or \code{summary} should be returned as a data.frame. Defaults to \code{FALSE}.}
+
+\item{level}{Not used, but here for compatibility with generic \code{confint} function.}
+
 \item{digits}{A single numeric that controls the number of decimals in the output from \code{summary} and \code{confint}.}
 
 \item{verbose}{A logical that indicates whether descriptive labels should be printed from \code{summary} and if certain warnings are shown with \code{confint}.}
 
-\item{\dots}{Additional arguments for methods.}
-
-\item{level}{Not used, but here for compatibility with generic \code{confint} function.}
+\item{incl.est}{A logical that indicated whether the parameter point estimate should be included in the results from \code{confint}. Defaults to \code{FALSE}.}
 }
 \value{
 A list with at least the following items:
@@ -166,6 +197,11 @@ p4 <- removal(ct2,method="Seber2")
 summary(p4,verbose=TRUE)
 confint(p4)
 
+## Use formula with a data.frame
+d <- data.frame(ct=ct3)
+p1a <- removal(~ct,data=d)
+summary(p1a,verbose=TRUE)
+confint(p1a,incl.est=TRUE)
 
 ### Test if catchability differs between first sample and the other samples
 # chi-square test statistic from  negative log-likelihoods
@@ -181,6 +217,52 @@ p3a <- removal(ct4,method="Schnute")
 chi2.val <- 2*(p2a$min.nlogLH-p3a$min.nlogLH)  # 4.74 in Schnute(1983)
 pchisq(chi2.val,df=1,lower.tail=FALSE)         # sig diff (catchability differs)
 summary(p3a)
+
+# Demonstrate multiple groups ... data in long format
+## create a dummy data frame
+d <- data.frame(lake=factor(rep(c("Ash Tree","Bark","Clay"),each=5)),
+                year=factor(rep(c("2010","2011","2010","2011","2010","2011"),
+                                times=c(2,3,3,2,2,3))),
+                pass=factor(c(1,2,1,2,3,1,2,3,1,2,1,2,1,2,3)),
+                catch=c(57,34,65,34,12,54,26,9,54,27,67,34,68,35,12))
+d
+
+## note use of confint with incl.est= and as.df=
+if (require(dplyr) & require(tidyr)) {
+  res <- d \%>\%
+    dplyr::group_by(interaction(lake,year)) \%>\%
+    dplyr::group_modify(~confint(removal(~catch,data=.x),
+                                 incl.est=TRUE,as.df=TRUE)) \%>\%
+    tidyr::separate_wider_delim(1,names=c("lake","year"),delim=".") \%>\%
+    as.data.frame() # removes tibble and grouping structure
+  res
+}
+
+# Demonstrate multiple groups ... data in wide format
+## create a dummy data frame ... same data as previous ... note that this is
+##   not an efficient way to enter data, used here just for simple example
+d2w <- rbind(data.frame(lake="Ash Tree",year=2011,pass1=65,pass2=34,pass3=12),
+             data.frame(lake="Bark",year=2010,pass1=54,pass2=26,pass3=9),
+             data.frame(lake="Bark",year=2011,pass1=54,pass2=27,pass3=NA),
+             data.frame(lake="Clay",year=2010,pass1=67,pass2=34,pass3=NA),
+             data.frame(lake="Clay",year=2011,pass1=68,pass2=35,pass3=12))
+d2w
+
+## convert to long format first
+d2l <- tidyr::pivot_longer(d2w,cols=c("pass1","pass2","pass3"),
+                           names_to="pass",values_to="catch")
+d2l
+
+## then same process as previous example
+if (require(dplyr)) {
+  res2 <- d2l \%>\%
+    dplyr::group_by(interaction(lake,year)) \%>\%
+    dplyr::group_modify(~confint(removal(~catch,data=.x),
+                                 incl.est=TRUE,as.df=TRUE)) \%>\%
+    tidyr::separate_wider_delim(1,names=c("lake","year"),delim=".") \%>\%
+    as.data.frame() # removes tibble and grouping structure
+  res2
+}
 
 }
 \references{

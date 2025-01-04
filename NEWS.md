@@ -1,6 +1,6 @@
 # FSA 0.9.5.9000
 * Updated testing to use `testthat` v3.0.0.
-  * Changes to `DESCRIPTION`.
+  * Changes to `DESCRIPTION` including adding `tidyr` in Suggests (for example in `removal()`).
   * Replaced MANY `expect_is()` with `expect_equal(class())` idioms.
   * Replaced many `expect_equivalent()` with `expect_equal()` as `expect_equivalent()` was not needed to begin with.
   * Replaced many `expect_equivalent()` with `expect_equal(,ignore_attr=TRUE)` as `expect_equivalent()` was deprecated.
@@ -26,8 +26,10 @@
   * Added an example for computing an average M or cm from multiple model results.
 * `Mmethods()`: Modified. Changed `what=` to `method=` for simplicity with `metaM()`.
 * `removal()`: Modified.
+  * Added a formula version to better match `depletion()`.
   * Deprecated `just.ests=`. Functionality will be largely replaced with `incl.ests=` in `confint()`. Replaced split-apply example with a new one that performs similarly without `just.ests=` and is more in-line with examples in `depletion` *et al.*
-  
+  * Added `coef()` extractor function.
+  * Modified `confint()` and `summary()` extractor functions to better match `depletion()`.
 
 # FSA 0.9.5
 * Fixed FSA-package \alias problem using the "automatic approach" (i.e., adding a "_PACKAGE" line to FSA.R) suggested in an e-mail from Kurt Hornik on 19-Aug-2023.
