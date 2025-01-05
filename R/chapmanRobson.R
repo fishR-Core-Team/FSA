@@ -95,6 +95,38 @@
 #' summary(cr3)
 #' plot(cr3)
 #'
+#' ## Demonstration of computation for multiple groups
+#' ##   only ages on the descending limb for each group are in the data.frame
+#' # Get example data
+#' data(FHCatfish,package="FSAdata")
+#' FHCatfish
+#' 
+#' # Note use of incl.est=TRUE and as.df=TRUE
+#' if (require(dplyr)) {
+#'   res <- FHCatfish %>%
+#'     dplyr::group_by(river) %>%
+#'     dplyr::group_modify(~confint(chapmanRobson(abundance~age,data=.x),
+#'                                  incl.est=TRUE,as.df=TRUE)) %>%
+#'     as.data.frame() # removes tibble and grouping structure
+#'   res
+#' }
+#' 
+#' ## Demonstration of computation for multiple groups
+#' ##   ages not on descending limb are in the data.frame, but use same
+#' ##     ages.use= for each group
+#' # Get example data
+#' data(WalleyeKS,package="FSAdata")
+#' 
+#' # Note use of incl.est=TRUE and as.df=TRUE
+#' if (require(dplyr)) {
+#'   res <- WalleyeKS %>%
+#'     dplyr::group_by(reservoir) %>%
+#'     dplyr::group_modify(~confint(chapmanRobson(catch~age,data=.x,ages2use=2:10),
+#'                                  incl.est=TRUE,as.df=TRUE)) %>%
+#'     as.data.frame() # removes tibble and grouping structure
+#'   res
+#' }
+#'
 #' @rdname chapmanRobson
 #' @export
 chapmanRobson <- function (x,...) {

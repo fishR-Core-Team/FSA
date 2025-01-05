@@ -136,7 +136,7 @@
 #'     as.data.frame() # removes tibble and grouping structure
 #'   res
 #' }
-
+#' 
 #' @rdname catchCurve
 #' @export
 catchCurve <- function (x,...) {
